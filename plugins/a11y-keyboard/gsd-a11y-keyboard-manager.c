@@ -57,6 +57,8 @@ struct GsdA11yKeyboardManagerPrivate
         gboolean          stickykeys_shortcut_val;
         gboolean          slowkeys_shortcut_val;
 
+        XkbDescRec       *desc;
+
         GSettings        *settings;
 
         NotifyNotification *notification;
@@ -698,6 +700,9 @@ start_a11y_keyboard_idle_cb (GsdA11yKeyboardManager *manager)
 
         set_devicepresence_handler (manager);
 
+        /* Get the original configuration from the server */
+        manager->priv->desc = get_xkb_desc_rec (manager);
+
         event_mask = XkbControlsNotifyMask;
         event_mask |= XkbAccessXNotifyMask; /* make default when AXN_AXKWarning works */
 
@@ -740,6 +745,26 @@ gsd_a11y_keyboard_manager_stop (GsdA11yKeyboardManager *manager)
         GsdA11yKeyboardManagerPrivate *p = manager->priv;
 
         g_debug ("Stopping a11y_keyboard manager");
+
+        if (p->desc != NULL) {
+                XkbDescRec *desc;
+
+                desc = get_xkb_desc_rec (manager);
+                if (desc != NULL) {
+                        if (p->desc->ctrls->enabled_ctrls != desc->ctrls->enabled_ctrls) {
+                                gdk_error_trap_push ();
+                                XkbSetControls (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                                                DEFAULT_XKB_SET_CONTROLS_MASK,
+                                                p->desc);
+
+                                XSync (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), FALSE);
+                                gdk_error_trap_pop_ignored ();
+                        }
+                        XkbFreeKeyboard (desc, XkbAllComponentsMask, True);
+                }
+                XkbFreeKeyboard (p->desc, XkbAllComponentsMask, True);
+                p->desc = NULL;
+        }
 
         if (p->start_idle_id != 0) {
                 g_source_remove (p->start_idle_id);
