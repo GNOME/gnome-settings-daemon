@@ -33,3 +33,7 @@
 
 /* The amount of time we'll undim if the machine is idle when plugged in */
 #define POWER_UP_TIME_ON_AC                             10 /* seconds */
+
+/* Default brightness values for the mock backlight used in the test suite */
+#define GSD_MOCK_DEFAULT_BRIGHTNESS                     50
+#define GSD_MOCK_MAX_BRIGHTNESS                        100

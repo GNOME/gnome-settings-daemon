@@ -35,6 +35,7 @@
 #include <libgnome-desktop/gnome-rr.h>
 
 #include "gpm-common.h"
+#include "gsd-power-constants.h"
 #include "gsd-power-manager.h"
 #include "gsd-backlight-linux.h"
 
@@ -1179,28 +1180,62 @@ out:
         return output;
 }
 
-static gboolean
-backlight_helper_disabled (void)
+#ifdef GSD_MOCK
+static void
+backlight_set_mock_value (gint value)
 {
-        const char *disable_backlight;
+	const char *filename;
+	char *contents;
 
-        disable_backlight = g_getenv ("GSD_DISABLE_BACKLIGHT_HELPER");
-        if (disable_backlight) {
-                int disabled;
-                disabled = atoi (disable_backlight);
-                if (disabled > 0)
-                        return TRUE;
-        }
-        return FALSE;
+	g_debug ("Settings mock brightness: %d", value);
+
+	filename = "GSD_MOCK_brightness";
+	contents = g_strdup_printf ("%d", value);
+	g_file_set_contents (filename, contents, -1, NULL);
+	g_free (contents);
 }
+
+static gint64
+backlight_get_mock_value (const char *argument)
+{
+	const char *filename;
+	char *contents;
+	gint64 ret;
+
+	if (g_str_equal (argument, "get-max-brightness")) {
+		g_debug ("Returning max mock brightness: %d", GSD_MOCK_MAX_BRIGHTNESS);
+		return GSD_MOCK_MAX_BRIGHTNESS;
+	}
+
+	if (g_str_equal (argument, "get-brightness")) {
+		filename = "GSD_MOCK_brightness";
+		ret = GSD_MOCK_DEFAULT_BRIGHTNESS;
+	} else {
+		g_assert_not_reached ();
+	}
+
+	if (g_file_get_contents (filename, &contents, NULL, NULL)) {
+		ret = g_ascii_strtoll (contents, NULL, 0);
+		g_free (contents);
+		g_debug ("Returning mock brightness: %"G_GINT64_FORMAT, ret);
+	} else {
+		ret = GSD_MOCK_DEFAULT_BRIGHTNESS;
+		backlight_set_mock_value (GSD_MOCK_DEFAULT_BRIGHTNESS);
+		g_debug ("Returning default mock brightness: %"G_GINT64_FORMAT, ret);
+	}
+
+	return ret;
+}
+#endif /* GSD_MOCK */
 
 gboolean
 backlight_available (GnomeRRScreen *rr_screen)
 {
         char *path;
 
-        if (backlight_helper_disabled ())
-                return FALSE;
+#ifdef GSD_MOCK
+	return TRUE;
+#endif
         if (get_primary_output (rr_screen) != NULL)
                 return TRUE;
         path = gsd_backlight_helper_get_best_backlight ();
@@ -1229,6 +1264,10 @@ backlight_helper_get_value (const gchar *argument, GError **error)
         gchar *command = NULL;
         gchar *endptr = NULL;
 
+#ifdef GSD_MOCK
+        return backlight_get_mock_value (argument);
+#endif
+
 #ifndef __linux__
         /* non-Linux platforms won't have /sys/class/backlight */
         g_set_error_literal (error,
@@ -1237,8 +1276,6 @@ backlight_helper_get_value (const gchar *argument, GError **error)
                              "The sysfs backlight helper is only for Linux");
         goto out;
 #endif
-        if (backlight_helper_disabled ())
-                goto out;
 
         /* get the data */
         command = g_strdup_printf (LIBEXECDIR "/gsd-backlight-helper --%s",
@@ -1319,6 +1356,11 @@ backlight_helper_set_value (const gchar *argument,
         gint exit_status = 0;
         gchar *command = NULL;
 
+#ifdef GSD_MOCK
+	backlight_set_mock_value (value);
+	return TRUE;
+#endif
+
 #ifndef __linux__
         /* non-Linux platforms won't have /sys/class/backlight */
         g_set_error_literal (error,
@@ -1327,8 +1369,6 @@ backlight_helper_set_value (const gchar *argument,
                              "The sysfs backlight helper is only for Linux");
         goto out;
 #endif
-        if (backlight_helper_disabled ())
-                goto out;
 
         /* get the data */
         command = g_strdup_printf ("pkexec " LIBEXECDIR "/gsd-backlight-helper --%s %i",
