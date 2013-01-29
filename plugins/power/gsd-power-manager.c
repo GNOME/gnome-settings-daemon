@@ -86,6 +86,12 @@
 /* Keep this in sync with gnome-shell */
 #define SCREENSAVER_FADE_TIME                           10 /* seconds */
 
+/* Time between notifying the user about a critical action and executing it.
+ * This can be changed with the GSD_ACTION_DELAY constant. */
+#ifndef GSD_ACTION_DELAY
+#define GSD_ACTION_DELAY 20
+#endif /* !GSD_ACTION_DELAY */
+
 static const gchar introspection_xml[] =
 "<node>"
 "  <interface name='org.gnome.SettingsDaemon.Power'>"
@@ -240,10 +246,6 @@ static void      idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
 G_DEFINE_TYPE (GsdPowerManager, gsd_power_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
-
-/* Time between notifying the user about a critical action and executing it.
- * This can be changed with the $GSD_ACTION_DELAY environment variable. */
-static guint critical_action_delay = 20;
 
 GQuark
 gsd_power_manager_error_quark (void)
@@ -1684,7 +1686,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
                 }
 
                 /* wait 20 seconds for user-panic */
-                timer_id = g_timeout_add_seconds (critical_action_delay,
+                timer_id = g_timeout_add_seconds (GSD_ACTION_DELAY,
                                                   (GSourceFunc) manager_critical_action_do_cb,
                                                   manager);
                 g_source_set_name_by_id (timer_id, "[GsdPowerManager] battery critical-action");
@@ -1715,7 +1717,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
                 }
 
                 /* wait 20 seconds for user-panic */
-                timer_id = g_timeout_add_seconds (critical_action_delay,
+                timer_id = g_timeout_add_seconds (GSD_ACTION_DELAY,
                                                   (GSourceFunc) manager_critical_ups_action_do_cb,
                                                   manager);
                 g_source_set_name_by_id (timer_id, "[GsdPowerManager] ups critical-action");
@@ -2818,21 +2820,10 @@ static void
 gsd_power_manager_class_init (GsdPowerManagerClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
-        const char* env_action_delay;
 
         object_class->finalize = gsd_power_manager_finalize;
 
         g_type_class_add_private (klass, sizeof (GsdPowerManagerPrivate));
-
-        env_action_delay = g_getenv ("GSD_ACTION_DELAY");
-        if (env_action_delay != NULL) {
-                critical_action_delay = atoi (env_action_delay);
-                /* use the default for invalid values */
-                if (critical_action_delay < 0) {
-                        g_warning ("Invalid value '%s' of $GSD_ACTION_DELAY, ignoring", env_action_delay);
-                        critical_action_delay = 20;
-                }
-        }
 }
 
 static void
