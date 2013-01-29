@@ -3285,14 +3285,14 @@ on_randr_event (GnomeRRScreen *screen, gpointer user_data)
         setup_inhibit_lid_switch_timer (manager);
 }
 
-#ifdef MOCK_EXTERNAL_MONITOR
+#ifdef GSD_MOCK
 static gboolean
 received_sigusr2 (GsdPowerManager *manager)
 {
         on_randr_event (NULL, manager);
         return TRUE;
 }
-#endif /* MOCK_EXTERNAL_MONITOR */
+#endif /* GSD_MOCK */
 
 static void
 handle_suspend_actions (GsdPowerManager *manager)
@@ -3485,9 +3485,9 @@ gsd_power_manager_start (GsdPowerManager *manager,
         g_signal_connect (manager->priv->rr_screen, "changed", G_CALLBACK (on_randr_event), manager);
         on_randr_event (manager->priv->rr_screen, manager);
 
-#ifdef MOCK_EXTERNAL_MONITOR
+#ifdef GSD_MOCK
         g_unix_signal_add (SIGUSR2, (GSourceFunc) received_sigusr2, manager);
-#endif /* MOCK_EXTERNAL_MONITOR */
+#endif /* GSD_MOCK */
 
         /* check whether a backlight is available */
         manager->priv->backlight_available = backlight_available (manager->priv->rr_screen);

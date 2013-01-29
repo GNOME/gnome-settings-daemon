@@ -76,7 +76,7 @@ gsd_test_power_SOURCES =				\
 	test-power.c
 
 gsd_test_power_CFLAGS = $(libpower_la_CFLAGS)
-gsd_test_power_CPPFLAGS = $(libpower_la_CPPFLAGS) -DMOCK_EXTERNAL_MONITOR=1
+gsd_test_power_CPPFLAGS = $(libpower_la_CPPFLAGS) -DGSD_MOCK=1
 gsd_test_power_LDADD =					\
 	-lm						\
 	$(top_builddir)/plugins/common/libcommon.la	\
