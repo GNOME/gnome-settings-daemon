@@ -3578,6 +3578,7 @@ gsd_power_manager_init (GsdPowerManager *manager)
         manager->priv = GSD_POWER_MANAGER_GET_PRIVATE (manager);
         manager->priv->inhibit_lid_switch_fd = -1;
         manager->priv->inhibit_suspend_fd = -1;
+        manager->priv->pre_dpms_brightness = -1;
         manager->priv->screensaver_cancellable = g_cancellable_new ();
         manager->priv->bus_cancellable = g_cancellable_new ();
 }
