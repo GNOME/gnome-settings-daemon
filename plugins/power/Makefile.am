@@ -62,7 +62,7 @@ gsd_backlight_helper_SOURCES =				\
 	gsd-backlight-linux.h				\
 	gsd-backlight-helper.c
 
-libexec_PROGRAMS = gsd-test-power
+noinst_PROGRAMS = gsd-test-power
 gsd_test_power_SOURCES =				\
 	gpm-common.c					\
 	gpm-common.h					\
@@ -90,8 +90,7 @@ EXTRA_DIST = 						\
 	$(NULL)
 
 if HAVE_GUDEV
-libexec_PROGRAMS +=					\
-	gsd-backlight-helper
+libexec_PROGRAMS = gsd-backlight-helper
 
 gsd_backlight_helper_LDFLAGS =				\
 	$(BACKLIGHT_HELPER_LIBS)			\
@@ -131,7 +130,7 @@ gsdpowerconstants.py: gsd-power-constants-update.pl gsd-power-constants.h
 gsdpowerenums.py: gsd-power-enums-update gsd-power-enums.h gsd-power-enums.c
 	$(AM_V_GEN) $(builddir)/gsd-power-enums-update > $@
 
-noinst_PROGRAMS = gsd-power-enums-update
+noinst_PROGRAMS += gsd-power-enums-update
 gsd_power_enums_update_SOURCES =		\
 	gsd-power-enums-update.c		\
 	gsd-power-enums.h			\
