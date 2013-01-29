@@ -142,6 +142,11 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         except OSError:
             pass
 
+        try:
+            os.unlink('GSD_MOCK_brightness')
+        except OSError:
+            pass
+
         # we check this at the end so that the other cleanup always happens
         self.assertTrue(daemon_running or self.daemon_death_expected, 'daemon died during the test')
 
@@ -158,6 +163,12 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
     def get_status(self):
         return self.obj_session_presence_props.Get('org.gnome.SessionManager.Presence', 'status')
+
+    def get_brightness(self):
+        f = open('GSD_MOCK_brightness', 'r')
+        ret = f.read()
+        f.close()
+        return int(ret)
 
     def set_has_external_monitor(self, external):
         f = open('GSD_MOCK_EXTERNAL_MONITOR', 'w')
@@ -326,11 +337,14 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # blank is supposed to happen straight away
         self.check_blank(2)
+        # check that the brightness is at the minimum
+        self.assertTrue(self.get_brightness() == 0, 'incorrect blank brightness')
 
         # wiggle the mouse now and check for unblank; this is expected to pop up
         # the locked screen saver
         self.reset_idle_timer()
         self.check_unblank(2)
+        self.assertTrue(self.get_brightness() == gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS , 'incorrect unblanked brightness')
 
         # Check for no blank before the normal blank timeout
         self.check_no_blank(gsdpowerconstants.SCREENSAVER_TIMEOUT_BLANK - 4)
@@ -338,6 +352,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # and check for blank after the blank timeout
         self.check_blank(10)
+        self.assertTrue(self.get_brightness() == 0, 'incorrect blank brightness')
 
         # Drop inhibitor
         self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
@@ -500,12 +515,15 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.settings_session['idle-delay'] = idle_delay
         self.settings_gsd_power['sleep-inactive-battery-timeout'] = idle_delay + 1
         self.settings_gsd_power['sleep-inactive-battery-type'] = 'suspend'
+        # This is an absolute percentage, and our brightness is 0..100
+        dim_level = self.settings_gsd_power['idle-brightness'];
 
         # Check that we're not idle
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
 
         # Wait and check we're not idle, but dimmed
         self.check_dim(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY)
+        self.assertTrue(self.get_brightness() == dim_level, 'incorrect dim brightness')
 
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
 
