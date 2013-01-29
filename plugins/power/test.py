@@ -527,6 +527,24 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
 
+        # Bring down the screensaver
+        self.obj_screensaver.SetActive(True)
+        self.assertTrue(self.obj_screensaver.GetActive(), 'screensaver not turned on')
+
+        # Check that we blank
+        self.check_blank(2)
+
+        # Go to sleep
+        self.obj_logind.EmitSignal('', 'PrepareForSleep', 'b', [True], dbus_interface='org.freedesktop.DBus.Mock')
+        time.sleep(1)
+
+        # Wake up
+        self.obj_logind.EmitSignal('', 'PrepareForSleep', 'b', [False], dbus_interface='org.freedesktop.DBus.Mock')
+        time.sleep(1)
+
+        # And check that we have the pre-dim brightness
+        self.assertTrue(self.get_brightness() == gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS , 'incorrect unblanked brightness')
+
     def test_no_suspend_lid_close(self):
         '''Check that we don't suspend on lid close with an external monitor'''
 
