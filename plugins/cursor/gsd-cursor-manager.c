@@ -56,6 +56,7 @@ struct GsdCursorManagerPrivate
         guint changed_id;
         gboolean cursor_shown;
         GHashTable *monitors;
+        GSettings *osk_settings;
 };
 
 static void     gsd_cursor_manager_class_init  (GsdCursorManagerClass *klass);
@@ -121,6 +122,8 @@ set_cursor_visibility (GsdCursorManager *manager,
                 g_warning ("An error occurred trying to %s the cursor",
                            visible ? "show" : "hide");
         }
+
+        g_settings_set_boolean (manager->priv->osk_settings, "screen-keyboard-enabled", !visible);
 
         manager->priv->cursor_shown = visible;
 }
@@ -336,6 +339,7 @@ gsd_cursor_manager_init (GsdCursorManager *manager)
                                                          g_direct_equal,
                                                          NULL,
                                                          g_object_unref);
+        manager->priv->osk_settings = g_settings_new ("org.gnome.desktop.a11y.applications");
 }
 
 static void
@@ -349,6 +353,7 @@ gsd_cursor_manager_finalize (GObject *object)
         cursor_manager = GSD_CURSOR_MANAGER (object);
 
         g_clear_pointer (&cursor_manager->priv->monitors, g_hash_table_destroy);
+        g_clear_object (&cursor_manager->priv->osk_settings);
 
         G_OBJECT_CLASS (gsd_cursor_manager_parent_class)->finalize (object);
 }
