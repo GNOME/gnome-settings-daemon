@@ -2781,8 +2781,14 @@ set_temporary_unidle_on_ac (GsdPowerManager *manager,
                         idle_set_mode (manager, manager->priv->previous_idle_mode);
                 }
         } else {
-                manager->priv->previous_idle_mode = manager->priv->current_idle_mode;
-                idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
+                /* Don't overwrite the previous idle mode when an unidle is
+                 * already on-going */
+                if (manager->priv->temporary_unidle_on_ac_id != 0) {
+                        g_source_remove (manager->priv->temporary_unidle_on_ac_id);
+                } else {
+                        manager->priv->previous_idle_mode = manager->priv->current_idle_mode;
+                        idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
+                }
                 manager->priv->temporary_unidle_on_ac_id = g_timeout_add_seconds (POWER_UP_TIME_ON_AC,
                                                                                   (GSourceFunc) temporary_unidle_done_cb,
                                                                                   manager);
@@ -2797,7 +2803,8 @@ up_client_on_battery_cb (UpClient *client,
         idle_configure (manager);
 
         if (manager->priv->current_idle_mode == GSD_POWER_IDLE_MODE_BLANK ||
-            manager->priv->current_idle_mode == GSD_POWER_IDLE_MODE_DIM)
+            manager->priv->current_idle_mode == GSD_POWER_IDLE_MODE_DIM ||
+            manager->priv->temporary_unidle_on_ac_id != 0)
                 set_temporary_unidle_on_ac (manager, TRUE);
 }
 
