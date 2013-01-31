@@ -2688,7 +2688,7 @@ idle_configure (GsdPowerManager *manager)
                           &manager->priv->idle_logout_warning_id);
 
         if (timeout_sleep != 0) {
-		g_debug ("setting up sleep callback %is", timeout_sleep);
+                g_debug ("setting up sleep callback %is", timeout_sleep);
 
                 manager->priv->idle_sleep_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
                                                                              timeout_sleep * 1000,
