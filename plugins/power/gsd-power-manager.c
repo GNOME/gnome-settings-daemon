@@ -2295,8 +2295,7 @@ up_client_changed_cb (UpClient *client, GsdPowerManager *manager)
         manager->priv->lid_is_closed = tmp;
         g_debug ("up changed: lid is now %s", tmp ? "closed" : "open");
 
-        /* fake a keypress */
-        if (tmp)
+        if (manager->priv->lid_is_closed)
                 do_lid_closed_action (manager);
         else
                 do_lid_open_action (manager);
@@ -2801,6 +2800,9 @@ up_client_on_battery_cb (UpClient *client,
                          GsdPowerManager *manager)
 {
         idle_configure (manager);
+
+        if (manager->priv->lid_is_closed)
+                return;
 
         if (manager->priv->current_idle_mode == GSD_POWER_IDLE_MODE_BLANK ||
             manager->priv->current_idle_mode == GSD_POWER_IDLE_MODE_DIM ||
