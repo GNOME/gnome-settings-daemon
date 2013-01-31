@@ -1672,7 +1672,7 @@ reset_idletime (void)
         }
 
         gdk_error_trap_push ();
-        /* send a left shift key; first press, then release */
+        /* send a left or right alt key; first press, then release */
         XTestFakeKeyEvent (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), first_keycode ? keycode1 : keycode2, True, 0);
         XTestFakeKeyEvent (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), first_keycode ? keycode1 : keycode2, False, 0);
         first_keycode = !first_keycode;
