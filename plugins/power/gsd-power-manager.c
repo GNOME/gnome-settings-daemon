@@ -3071,6 +3071,9 @@ show_sleep_warning (GsdPowerManager *manager)
         notify_notification_set_app_name (manager->priv->notification_sleep_warning, _("Power"));
 
         notify_notification_show (manager->priv->notification_sleep_warning, NULL);
+
+        if (manager->priv->sleep_action_type == GSD_POWER_ACTION_LOGOUT)
+                set_temporary_unidle_on_ac (manager, TRUE);
 }
 
 static void
