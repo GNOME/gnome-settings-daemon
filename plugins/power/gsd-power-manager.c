@@ -183,7 +183,8 @@ struct GsdPowerManagerPrivate
         GnomeRRScreen           *rr_screen;
         NotifyNotification      *notification_ups_discharging;
         NotifyNotification      *notification_low;
-        NotifyNotification      *notification_logout_warning;
+        NotifyNotification      *notification_sleep_warning;
+        GsdPowerActionType       sleep_action_type;
         gboolean                 battery_is_low; /* laptop battery low, or UPS discharging */
 
         /* Brightness */
@@ -214,7 +215,7 @@ struct GsdPowerManagerPrivate
         GnomeIdleMonitor        *idle_monitor;
         guint                    idle_dim_id;
         guint                    idle_blank_id;
-        guint                    idle_logout_warning_id;
+        guint                    idle_sleep_warning_id;
         guint                    idle_sleep_id;
         GsdPowerIdleMode         current_idle_mode;
 
@@ -2324,8 +2325,8 @@ idle_watch_id_to_string (GsdPowerManager *manager, guint id)
                 return "blank";
         if (id == manager->priv->idle_sleep_id)
                 return "sleep";
-        if (id == manager->priv->idle_logout_warning_id)
-                return "logout-warning";
+        if (id == manager->priv->idle_sleep_warning_id)
+                return "sleep-warning";
         return NULL;
 }
 
@@ -2644,8 +2645,8 @@ idle_configure (GsdPowerManager *manager)
                 clear_idle_watch (manager->priv->idle_monitor,
                                   &manager->priv->idle_dim_id);
                 clear_idle_watch (manager->priv->idle_monitor,
-                                  &manager->priv->idle_logout_warning_id);
-                notify_close_if_showing (manager->priv->notification_logout_warning);
+                                  &manager->priv->idle_sleep_warning_id);
+                notify_close_if_showing (manager->priv->notification_sleep_warning);
                 return;
         }
 
@@ -2685,7 +2686,7 @@ idle_configure (GsdPowerManager *manager)
         clear_idle_watch (manager->priv->idle_monitor,
                           &manager->priv->idle_sleep_id);
         clear_idle_watch (manager->priv->idle_monitor,
-                          &manager->priv->idle_logout_warning_id);
+                          &manager->priv->idle_sleep_warning_id);
 
         if (timeout_sleep != 0) {
                 g_debug ("setting up sleep callback %is", timeout_sleep);
@@ -2693,23 +2694,26 @@ idle_configure (GsdPowerManager *manager)
                 manager->priv->idle_sleep_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
                                                                              timeout_sleep * 1000,
                                                                              NULL, NULL, NULL);
-                if (action_type == GSD_POWER_ACTION_LOGOUT) {
-                        guint timeout_logout_warning;
+                if (action_type == GSD_POWER_ACTION_LOGOUT ||
+                    action_type == GSD_POWER_ACTION_SUSPEND ||
+                    action_type == GSD_POWER_ACTION_HIBERNATE) {
+                        guint timeout_sleep_warning;
 
-                        timeout_logout_warning = timeout_sleep * IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER;
-                        if (timeout_logout_warning < MINIMUM_IDLE_DIM_DELAY)
-                                timeout_logout_warning = 0;
+                        manager->priv->sleep_action_type = action_type;
+                        timeout_sleep_warning = timeout_sleep * IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER;
+                        if (timeout_sleep_warning < MINIMUM_IDLE_DIM_DELAY)
+                                timeout_sleep_warning = 0;
 
-                        g_debug ("setting up logout warning callback %is", timeout_logout_warning);
+                        g_debug ("setting up sleep warning callback %is", timeout_sleep_warning);
 
-                        manager->priv->idle_logout_warning_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
-                                                                                              timeout_logout_warning * 1000,
+                        manager->priv->idle_sleep_warning_id = gnome_idle_monitor_add_watch (manager->priv->idle_monitor,
+                                                                                              timeout_sleep_warning * 1000,
                                                                                               NULL, NULL, NULL);
                 }
         }
 
-        if (manager->priv->idle_logout_warning_id == 0)
-                notify_close_if_showing (manager->priv->notification_logout_warning);
+        if (manager->priv->idle_sleep_warning_id == 0)
+                notify_close_if_showing (manager->priv->notification_sleep_warning);
 
         /* set up dim callback for when the screen lock is not active,
          * but only if we actually want to dim. */
@@ -3035,22 +3039,38 @@ out:
 }
 
 static void
-show_logout_warning (GsdPowerManager *manager)
+show_sleep_warning (GsdPowerManager *manager)
 {
         /* close any existing notification of this class */
-        notify_close_if_showing (manager->priv->notification_logout_warning);
+        notify_close_if_showing (manager->priv->notification_sleep_warning);
 
         /* create a new notification */
-        create_notification (_("Automatic logout"), _("You will soon log out because of inactivity."),
-                             NULL,
-                             &manager->priv->notification_logout_warning);
-        notify_notification_set_timeout (manager->priv->notification_logout_warning,
+        switch (manager->priv->sleep_action_type) {
+        case GSD_POWER_ACTION_LOGOUT:
+                create_notification (_("Automatic logout"), _("You will soon log out because of inactivity."),
+                                     NULL,
+                                     &manager->priv->notification_sleep_warning);
+                break;
+        case GSD_POWER_ACTION_SUSPEND:
+                create_notification (_("Automatic suspend"), _("Computer will suspend very soon because of inactivity."),
+                                     NULL,
+                                     &manager->priv->notification_sleep_warning);
+                break;
+        case GSD_POWER_ACTION_HIBERNATE:
+                create_notification (_("Automatic hibernation"), _("Computer will suspend very soon because of inactivity."),
+                                     NULL,
+                                     &manager->priv->notification_sleep_warning);
+        default:
+                g_assert_not_reached ();
+                break;
+        }
+        notify_notification_set_timeout (manager->priv->notification_sleep_warning,
                                          NOTIFY_EXPIRES_NEVER);
-        notify_notification_set_urgency (manager->priv->notification_logout_warning,
+        notify_notification_set_urgency (manager->priv->notification_sleep_warning,
                                          NOTIFY_URGENCY_CRITICAL);
-        notify_notification_set_app_name (manager->priv->notification_logout_warning, _("Power"));
+        notify_notification_set_app_name (manager->priv->notification_sleep_warning, _("Power"));
 
-        notify_notification_show (manager->priv->notification_logout_warning, NULL);
+        notify_notification_show (manager->priv->notification_sleep_warning, NULL);
 }
 
 static void
@@ -3072,8 +3092,8 @@ idle_triggered_idle_cb (GnomeIdleMonitor *monitor,
                 idle_set_mode (manager, GSD_POWER_IDLE_MODE_BLANK);
         } else if (watch_id == manager->priv->idle_sleep_id) {
                 idle_set_mode (manager, GSD_POWER_IDLE_MODE_SLEEP);
-        } else if (watch_id == manager->priv->idle_logout_warning_id) {
-                show_logout_warning (manager);
+        } else if (watch_id == manager->priv->idle_sleep_warning_id) {
+                show_sleep_warning (manager);
         }
 }
 
