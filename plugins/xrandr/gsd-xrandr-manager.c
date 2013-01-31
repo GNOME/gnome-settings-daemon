@@ -337,15 +337,15 @@ print_output (GnomeRROutputInfo *info)
 {
         int x, y, width, height;
 
-        g_debug ("  Output: %s attached to %s\n", gnome_rr_output_info_get_display_name (info), gnome_rr_output_info_get_name (info));
-        g_debug ("     status: %s\n", gnome_rr_output_info_is_active (info) ? "on" : "off");
+        g_debug ("  Output: %s attached to %s", gnome_rr_output_info_get_display_name (info), gnome_rr_output_info_get_name (info));
+        g_debug ("     status: %s", gnome_rr_output_info_is_active (info) ? "on" : "off");
 
         gnome_rr_output_info_get_geometry (info, &x, &y, &width, &height);
-        g_debug ("     width: %d\n", width);
-        g_debug ("     height: %d\n", height);
-        g_debug ("     rate: %d\n", gnome_rr_output_info_get_refresh_rate (info));
-        g_debug ("     primary: %s\n", gnome_rr_output_info_get_primary (info) ? "true" : "false");
-        g_debug ("     position: %d %d\n", x, y);
+        g_debug ("     width: %d", width);
+        g_debug ("     height: %d", height);
+        g_debug ("     rate: %d", gnome_rr_output_info_get_refresh_rate (info));
+        g_debug ("     primary: %s", gnome_rr_output_info_get_primary (info) ? "true" : "false");
+        g_debug ("     position: %d %d", x, y);
 }
 
 static void
@@ -354,13 +354,13 @@ print_configuration (GnomeRRConfig *config, const char *header)
         int i;
         GnomeRROutputInfo **outputs;
 
-        g_debug ("=== %s Configuration ===\n", header);
+        g_debug ("=== %s Configuration ===", header);
         if (!config) {
-                g_debug ("  none\n");
+                g_debug ("  none");
                 return;
         }
 
-        g_debug ("  Clone: %s\n", gnome_rr_config_get_clone (config) ? "true" : "false");
+        g_debug ("  Clone: %s", gnome_rr_config_get_clone (config) ? "true" : "false");
 
         outputs = gnome_rr_config_get_outputs (config);
         for (i = 0; outputs[i] != NULL; ++i)
@@ -1728,7 +1728,7 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
 {
         GnomeRRConfig *config;
 
-        g_debug ("xrandr auto-configure\n");
+        g_debug ("xrandr auto-configure");
         config = make_default_setup (manager);
         if (config) {
                 apply_configuration (manager, config, timestamp, TRUE, FALSE);
