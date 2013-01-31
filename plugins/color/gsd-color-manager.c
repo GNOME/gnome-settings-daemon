@@ -2117,7 +2117,7 @@ gcm_session_active_changed_cb (GDBusProxy      *session,
          * and we want to avoid reprobing the devices for that.
          */
         if (is_active && !priv->session_is_active) {
-                g_warning ("Done switch to new account, reload devices");
+                g_debug ("Done switch to new account, reload devices");
                 cd_client_get_devices (manager->priv->client, NULL,
                                        gcm_session_get_devices_cb,
                                        manager);
