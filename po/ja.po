@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-01-25 15:43+0000\n"
-"PO-Revision-Date: 2011-09-25 13:10+0900\n"
-"Last-Translator: OKANO Takayoshi <kano@na.rim.or.jp>\n"
+"POT-Creation-Date: 2013-01-29 13:57+0000\n"
+"PO-Revision-Date: 2012-09-26 20:37+0900\n"
+"Last-Translator: Nishio Futoshi <fut_nis@d3.dion.ne.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -45,7 +45,7 @@ msgstr "タイピング中にタッチパッドを無効にする"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
 msgid "Set this to TRUE if you have problems with accidentally hitting the touchpad while typing."
-msgstr "タイプ中に誤ってタッチ・パッドを押してしまう問題があるのであれば、TRUE に設定してください。"
+msgstr "タイプ中に誤ってタッチパッドに触れてしまう問題があるのであれば、TRUE に設定してください。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
 msgid "Enable horizontal scrolling"
@@ -69,7 +69,7 @@ msgstr "タッチパッドでのマウス・クリックを有効にする"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
 msgid "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
-msgstr "この値を TRUE にすると、タッチ・パッドをタップすることで、マウス・クリックと同じ動作できるようにします。"
+msgstr "この値を TRUE にすると、タッチパッドをタップすることで、マウスクリックと同じ動作になるようにします。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
 msgid "Enable touchpad"
@@ -77,7 +77,7 @@ msgstr "タッチパッドを有効にする"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
 msgid "Set this to TRUE to enable all touchpads."
-msgstr "この値を TRUE にすると、すべてのタッチ・パッドを有効にします。"
+msgstr "この値を TRUE にすると、すべてのタッチパッドを有効にします。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
 msgid "Highlights the current location of the pointer when the Control key is pressed and released."
@@ -97,7 +97,7 @@ msgstr "ドラッグのしきい値"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
 msgid "Distance before a drag is started."
-msgstr "ドラッグが開始されるまでの距離。"
+msgstr "ドラッグが開始されるまでの距離です。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
 msgid "Middle button emulation"
@@ -181,63 +181,63 @@ msgstr "gnome-settings-daemon の起動時のキューで、このプラグイ�
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
-msgstr ""
+msgstr "Wacom スタイラスの絶対座標モード"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
 msgid "Enable this to set the tablet to absolute mode."
-msgstr ""
+msgstr "タブレットを絶対座標モードに設定することを可能にします。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
 msgid "Wacom tablet area"
-msgstr ""
+msgstr "Wacom タブレットの範囲"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
-msgstr ""
+msgstr "以下の x1, y1 を、ツールで利用可能な領域 x2, y2 に設定します。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
 msgid "Wacom tablet aspect ratio"
-msgstr ""
+msgstr "Wacom タブレットのアスペクト比"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
 msgid "Enable this to restrict the Wacom tablet area to match the aspect ratio of the output."
-msgstr ""
+msgstr "Wacom タブレットの領域を出力のアスペクト比に一致させます。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
 msgid "Wacom tablet rotation"
-msgstr ""
+msgstr "Wacom タブレットの回転"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
 msgid "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and 'ccw' for 90 degree counterclockwise."
-msgstr ""
+msgstr "これを、'none'、90度時計回りの 'cw'、180度の 'half'、そして、90度反時計回りの 'ccw' に設定します。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
 msgid "Wacom touch feature"
-msgstr ""
+msgstr "Wacom のタッチ機能"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
 msgid "Enable this to move the cursor when the user touches the tablet."
-msgstr ""
+msgstr "ユーザーがタブレットにタッチしたときにカーソルが動くようにします。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
 msgid "Wacom tablet PC feature"
-msgstr ""
+msgstr "Wacom タブレット PC の機能"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
 msgid "Enable this to only report stylus events when the tip is pressed."
-msgstr ""
+msgstr "チップが押されたときにスタイラスイベントだけが送られるようにします。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
 msgid "Wacom display mapping"
-msgstr ""
+msgstr "Wacom ディスプレイ・マッピング"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
 msgid "EDID information of monitor to map tablet to. Must be in the format [vendor, product, serial]. [\"\",\"\",\"\"] disables mapping."
-msgstr ""
+msgstr "モニターとタブレットのマップで EDID 情報を使用します。書式は、[vendor, product, serial] です。[\"\",\"\",\"\"] にするとマッピングできません。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
 msgid "Wacom stylus pressure curve"
-msgstr ""
+msgstr "Wacom のスタイラスの圧力曲線"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
 msgid "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
@@ -245,7 +245,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
 msgid "Wacom stylus button mapping"
-msgstr ""
+msgstr "Wacom スタイラスボタンのマッピング"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
 msgid "Set this to the logical button mapping."
@@ -257,31 +257,31 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
 msgid "Set this to the pressure value at which a stylus click event is generated."
-msgstr ""
+msgstr "これをスタイラスがクリックイベントを生成するしきい値にします。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
 msgid "Wacom eraser pressure curve"
-msgstr ""
+msgstr "Wacom の消しゴムツールの圧力曲線"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
 msgid "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
-msgstr ""
+msgstr "以下の x1, y1 を、消しゴムツールの圧力曲線の x2, y2 に設定します。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
 msgid "Wacom eraser button mapping"
-msgstr ""
+msgstr "Wacom の消しゴムボタンのマッピング"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
 msgid "Wacom eraser pressure threshold"
-msgstr ""
+msgstr "Wacom 消しゴムツールの圧力しきい値"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
 msgid "Set this to the pressure value at which an eraser click event is generated."
-msgstr ""
+msgstr "これを消しゴムツールがクリックイベントを生成するしきい値にします。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
 msgid "Wacom button action type"
-msgstr ""
+msgstr "Wacom ボタンアクションの型"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
 msgid "The type of action triggered by the button being pressed."
@@ -389,11 +389,11 @@ msgstr "電卓を起動するキーバインディングです。"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
 msgid "Launch email client"
-msgstr "E-メール・クライアントを起動する"
+msgstr "E-メールクライアントを起動する"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
 msgid "Binding to launch the email client."
-msgstr "E-メール・クライアントを起動するキーバインディングです。"
+msgstr "E-メールクライアントを起動するキーバインディングです。"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Eject"
@@ -405,27 +405,27 @@ msgstr "光学ディスクを取り出すキーバインディングです。"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Launch help browser"
-msgstr "ヘルプ・ブラウザーを起動する"
+msgstr "ヘルプブラウザーを起動する"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the help browser."
-msgstr "ヘルプ・ブラウザーを起動するキーバインディングです。"
+msgstr "ヘルプブラウザーを起動するキーバインディングです。"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Home folder"
-msgstr "ホーム・フォルダーを開く"
+msgstr "ホームフォルダーを開く"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to open the Home folder."
-msgstr "ホーム・フォルダーを開くキーバインディングです。"
+msgstr "ホームフォルダーを開くキーバインディングです。"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Launch media player"
-msgstr "メディア・プレイヤーを起動する"
+msgstr "メディアプレーヤーを起動する"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to launch the media player."
-msgstr "メディア・プレイヤーを起動するキーバインディングです。"
+msgstr "メディアプレーヤーを起動するキーバインディングです。"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Next track"
@@ -513,149 +513,135 @@ msgstr "音量を上げる"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Binding to raise the system volume."
-msgstr "システムの音量を高くするキーバインディングです。"
+msgstr "システムの音量を大きくするキーバインディングです。"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Take a screenshot"
-msgstr ""
+msgstr "スクリーンショットを撮る"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
-#, fuzzy
-#| msgid "Binding to lock the screen."
 msgid "Binding to take a screenshot."
-msgstr "画面をロックするキーバインディングです。"
+msgstr "スクリーンショットを撮るキーバインディングです。"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
 msgid "Take a screenshot of a window"
-msgstr ""
+msgstr "ウィンドウのスクリーンショットを撮る"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
-#, fuzzy
 msgid "Binding to take a screenshot of a window."
-msgstr "スクリーン・リーダの切り替えに使用するキーバインディングです。"
+msgstr "ウィンドウのスクリーンショットを撮るキーバインディングです。"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Take a screenshot of an area"
-msgstr ""
+msgstr "選択領域のスクリーンショットを撮る"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
-#, fuzzy
 msgid "Binding to take a screenshot of an area."
-msgstr "スクリーン・リーダの切り替えに使用するキーバインディングです。"
+msgstr "選択領域のスクリーンショットを撮るキーバインディングです。"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 msgid "Copy a screenshot to clipboard"
-msgstr ""
+msgstr "スクリーンショットをクリップボードにコピーする"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
-#, fuzzy
 msgid "Binding to copy a screenshot to clipboard."
-msgstr "オンスクリーン・キーボードの切り替えに使用するキーバインディングです。"
+msgstr "スクリーンショットをクリップボードにコピーするキーバインディングです。"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
 msgid "Copy a screenshot of a window to clipboard"
-msgstr ""
+msgstr "ウィンドウのスクリーンショットをクリップボードにコピーする"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Binding to copy a screenshot of a window to clipboard."
-msgstr ""
+msgstr "ウィンドウのスクリーンショットをクリップボードにコピーするキーバインディングです。"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Copy a screenshot of an area to clipboard"
-msgstr ""
+msgstr "選択領域のスクリーンショットをクリップボードにコピーする"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
 msgid "Binding to copy a screenshot of an area to clipboard."
-msgstr ""
+msgstr "選択領域のスクリーンショットをクリップボードにコピーするキーバインディングです。"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Launch web browser"
-msgstr "ウェブ・ブラウザーを起動する"
+msgstr "ウェブブラウザーを起動する"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Binding to launch the web browser."
-msgstr "ウェブ・ブラウザーを起動するキーバインディングです。"
+msgstr "ウェブブラウザーを起動するキーバインディングです。"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Toggle magnifier"
-msgstr "拡大鏡を起動または停止する"
+msgstr "拡大鏡のオン/オフ切り替え"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
-#, fuzzy
 msgid "Binding to show the screen magnifier"
-msgstr "拡大鏡の切り替えに使用するキーバインディングです。"
+msgstr "拡大鏡のオン/オフを切り替えるキーバインディングです"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Toggle screen reader"
-msgstr "スクリーン・リーダの切り替え"
+msgstr "スクリーンリーダーのオン/オフ切り替え"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
-#, fuzzy
 msgid "Binding to start the screen reader"
-msgstr "スクリーン・リーダの切り替えに使用するキーバインディングです。"
+msgstr "スクリーンリーダーのオン/オフを切り替えるキーバインディングです"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
 msgid "Toggle on-screen keyboard"
-msgstr "オンスクリーン・キーボードを起動または停止する"
+msgstr "オンスクリーンキーボードのオン/オフ切り替え"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
-#, fuzzy
 msgid "Binding to show the on-screen keyboard"
-msgstr "オンスクリーン・キーボードの切り替えに使用するキーバインディングです。"
+msgstr "オンスクリーンキーボードのオン/オフを切り替えるキーバインディングです"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
 msgid "Increase text size"
-msgstr ""
+msgstr "文字サイズの拡大"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
-#, fuzzy
 msgid "Binding to increase the text size"
-msgstr "システムの音量を高くするキーバインディングです。"
+msgstr "文字サイズを拡大するキーバインディングです"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
 msgid "Decrease text size"
-msgstr ""
+msgstr "文字サイズの縮小"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
-#, fuzzy
 msgid "Binding to decrease the text size"
-msgstr "システムの音量を高くするキーバインディングです。"
+msgstr "文字サイズを縮小するキーバインディングです"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
-#, fuzzy
 msgid "Toggle contrast"
-msgstr "スクリーン・リーダの切り替え"
+msgstr "コントラストの切り替え"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
-#, fuzzy
 msgid "Binding to toggle the interface contrast"
-msgstr "E-メール・クライアントを起動するキーバインディングです。"
+msgstr "インターフェースのコントラストを切り替えるキーバインディングです"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
 msgid "Magnifier zoom in"
-msgstr ""
+msgstr "拡大鏡ズームイン"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
-#, fuzzy
 msgid "Binding for the magnifier to zoom in"
-msgstr "拡大鏡の切り替えに使用するキーバインディングです。"
+msgstr "拡大鏡をズームインするキーバインディングです。"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
 msgid "Magnifier zoom out"
-msgstr ""
+msgstr "拡大鏡ズームアウト"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
-#, fuzzy
 msgid "Binding for the magnifier to zoom out"
-msgstr "拡大鏡の切り替えに使用するキーバインディングです。"
+msgstr "拡大鏡をズームアウトするキーバインディングです"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
 msgid "Name"
-msgstr ""
+msgstr "名前"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
 msgid "Name of the custom binding"
-msgstr ""
+msgstr "独自のキーバインディングの名前です"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
 #, fuzzy
@@ -664,17 +650,16 @@ msgid "Binding"
 msgstr "キーバインディング"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
-#, fuzzy
 msgid "Binding for the custom binding"
-msgstr "拡大鏡の切り替えに使用するキーバインディングです。"
+msgstr "独自のキーバインディングのためのキーバインディングです"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
 msgid "Command"
-msgstr ""
+msgstr "コマンド"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
 msgid "Command to run when the binding is invoked"
-msgstr ""
+msgstr "キーバインディングの呼び出し時に実行するコマンドです"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
 msgid "Percentage considered low"
@@ -940,7 +925,7 @@ msgstr "[SHIFT] キーを8秒間押下しました。これはスロー・キー
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:475
 #: ../plugins/mouse/gsd-mouse-manager.c:920
 msgid "Universal Access"
-msgstr "ユニバーサル・アクセス"
+msgstr "ユニバーサルアクセス"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:413
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:481
@@ -963,16 +948,12 @@ msgid "Leave Off"
 msgstr ""
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:460
-#, fuzzy
-#| msgid "Sticky Keys Alert"
 msgid "Sticky Keys Turned On"
-msgstr "固定キーの警告"
+msgstr "固定キーをオンにする"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:461
-#, fuzzy
-#| msgid "Sticky Keys Alert"
 msgid "Sticky Keys Turned Off"
-msgstr "固定キーの警告"
+msgstr "固定キーをオフにする"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:463
 msgid "You just pressed the Shift key 5 times in a row.  This is the shortcut for the Sticky Keys feature, which affects the way your keyboard works."
@@ -983,14 +964,12 @@ msgid "You just pressed two keys at once, or pressed the Shift key 5 times in a 
 msgstr "同時に2つのキーを押下したか、あるいは [SHIFT] キーを連続して 5回押下しました。これは固定キー機能を無効にし、キーボード操作に影響を与えるものです。"
 
 #: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
-#, fuzzy
 msgid "Accessibility settings"
-msgstr "アクセシビリティ"
+msgstr "アクセシビリティの設定"
 
 #: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
-#, fuzzy
 msgid "Accessibility settings plugin"
-msgstr "アクセシビリティ・キーボードのプラグイン"
+msgstr "アクセシビリティの設定プラグイン"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -1014,10 +993,8 @@ msgid "Color"
 msgstr ""
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:2
-#, fuzzy
-#| msgid "Clipboard plugin"
 msgid "Color plugin"
-msgstr "クリップボードのプラグイン"
+msgstr "カラープラグイン"
 
 #: ../plugins/color/gsd-color-manager.c:1669
 msgid "Recalibrate now"
@@ -1043,10 +1020,8 @@ msgstr ""
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2057
 #: ../plugins/color/gsd-color-manager.c:2073
-#, fuzzy
-#| msgid "GNOME Settings Daemon"
 msgid "GNOME Settings Daemon Color Plugin"
-msgstr "GNOME 設定デーモン"
+msgstr "GNOME 設定デーモンのカラープラグイン"
 
 #. TRANSLATORS: this is a sound description
 #: ../plugins/color/gsd-color-manager.c:2059
@@ -1336,8 +1311,6 @@ msgstr "マウスのアクセシビリティに関する機能を有効にする
 #. TRANSLATORS: wireless mice with internal batteries
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:603
-#, fuzzy
-#| msgid "Mouse"
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "マウス"
@@ -1354,7 +1327,7 @@ msgstr ""
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
-msgstr[0] ""
+msgstr[0] "%i 分"
 
 #: ../plugins/power/gpm-common.c:84
 #, c-format
@@ -1404,7 +1377,7 @@ msgstr ""
 #: ../plugins/power/gpm-common.c:371 ../plugins/power/gpm-common.c:388
 #, c-format
 msgid "%s %s until charged"
-msgstr ""
+msgstr "充電完了まで %s %s"
 
 #. TRANSLATORS: the device is charging, and we have a time to full and empty.
 #. * The parameter is a time string, e.g. "7 hours 6 minutes"
@@ -1454,7 +1427,7 @@ msgstr ""
 #. TRANSLATORS: manufacturer
 #: ../plugins/power/gpm-common.c:491
 msgid "Vendor:"
-msgstr ""
+msgstr "ベンダー:"
 
 #. TRANSLATORS: how the battery is made, e.g. Lithium Ion
 #: ../plugins/power/gpm-common.c:496
@@ -1526,7 +1499,7 @@ msgstr ""
 #: ../plugins/power/gpm-common.c:587
 msgid "AC adapter"
 msgid_plural "AC adapters"
-msgstr[0] ""
+msgstr[0] "AC アダプター"
 
 #. TRANSLATORS: laptop primary battery
 #: ../plugins/power/gpm-common.c:591
@@ -1538,45 +1511,43 @@ msgstr[0] ""
 #: ../plugins/power/gpm-common.c:595
 msgid "UPS"
 msgid_plural "UPSs"
-msgstr[0] ""
+msgstr[0] "UPS"
 
 #. TRANSLATORS: a monitor is a device to measure voltage and current
 #: ../plugins/power/gpm-common.c:599
 msgid "Monitor"
 msgid_plural "Monitors"
-msgstr[0] ""
+msgstr[0] "モニター"
 
 #. TRANSLATORS: portable device
 #: ../plugins/power/gpm-common.c:611
 msgid "PDA"
 msgid_plural "PDAs"
-msgstr[0] ""
+msgstr[0] "PDA"
 
 #. TRANSLATORS: cell phone (mobile...)
 #: ../plugins/power/gpm-common.c:615
 msgid "Cell phone"
 msgid_plural "Cell phones"
-msgstr[0] ""
+msgstr[0] "携帯電話"
 
 #. TRANSLATORS: media player, mp3 etc
 #: ../plugins/power/gpm-common.c:620
-#, fuzzy
-#| msgid "Launch media player"
 msgid "Media player"
 msgid_plural "Media players"
-msgstr[0] "メディア・プレイヤーを起動する"
+msgstr[0] "メディアプレーヤー"
 
 #. TRANSLATORS: tablet device
 #: ../plugins/power/gpm-common.c:624
 msgid "Tablet"
 msgid_plural "Tablets"
-msgstr[0] ""
+msgstr[0] "タブレット"
 
 #. TRANSLATORS: tablet device
 #: ../plugins/power/gpm-common.c:628
 msgid "Computer"
 msgid_plural "Computers"
-msgstr[0] ""
+msgstr[0] "コンピューター"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:692
@@ -1845,7 +1816,7 @@ msgstr ""
 
 #: ../plugins/power/gsd-power-manager.c:997
 msgid "For more information visit the battery recall website."
-msgstr ""
+msgstr "詳細については、バッテリーのリコールに関するウェブサイトを参照してください。"
 
 #. TRANSLATORS: button text, visit the manufacturers recall website
 #: ../plugins/power/gsd-power-manager.c:1008
@@ -2139,12 +2110,12 @@ msgstr ""
 #. TRANSLATORS: this is the sound description
 #: ../plugins/power/gsd-power-manager.c:2285
 msgid "Lid has been opened"
-msgstr ""
+msgstr "ふたが開けられました"
 
 #. TRANSLATORS: this is the sound description
 #: ../plugins/power/gsd-power-manager.c:2323
 msgid "Lid has been closed"
-msgstr ""
+msgstr "ふたが閉じられました"
 
 #. create a new notification
 #: ../plugins/power/gsd-power-manager.c:3066
@@ -2446,7 +2417,7 @@ msgstr "スマートカードのイベントを待機中に想定外のエラー
 #. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
 #: ../plugins/updates/gsd-updates-firmware.c:250
 msgid "You will need to restart this computer before the hardware will work correctly."
-msgstr ""
+msgstr "ハードウェアを正しく動作させるには、コンピューターを再起動する必要があります。"
 
 #. TRANSLATORS: title of libnotify bubble
 #: ../plugins/updates/gsd-updates-firmware.c:253
@@ -2578,36 +2549,36 @@ msgstr ""
 #: ../plugins/updates/gsd-updates-manager.c:516
 msgid "Update"
 msgid_plural "Updates"
-msgstr[0] ""
+msgstr[0] "更新"
 
 #. TRANSLATORS: message when there are security updates
 #: ../plugins/updates/gsd-updates-manager.c:457
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
-msgstr[0] ""
+msgstr[0] "重要なソフトウェアの更新が利用可能です"
 
 #. TRANSLATORS: button: open the update viewer to install updates
 #: ../plugins/updates/gsd-updates-manager.c:477
 #: ../plugins/updates/gsd-updates-manager.c:539
 msgid "Install updates"
-msgstr ""
+msgstr "更新のインストール"
 
 #. TRANSLATORS: message when there are non-security updates
 #: ../plugins/updates/gsd-updates-manager.c:519
 msgid "A software update is available."
 msgid_plural "Software updates are available."
-msgstr[0] ""
+msgstr[0] "ソフトウェアの更新が利用可能です。"
 
 #. TRANSLATORS: the updates mechanism
 #: ../plugins/updates/gsd-updates-manager.c:575
 msgid "Updates"
-msgstr ""
+msgstr "更新"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
 #: ../plugins/updates/gsd-updates-manager.c:579
 msgid "Unable to access software updates"
-msgstr ""
+msgstr "ソフトウェアの更新にアクセスできません"
 
 #. TRANSLATORS: try again, this time launching the update viewer
 #: ../plugins/updates/gsd-updates-manager.c:582
@@ -2649,12 +2620,12 @@ msgstr ""
 #. TRANSLATORS: button: review the offline update changes
 #: ../plugins/updates/gsd-updates-manager.c:1233
 msgid "Show details"
-msgstr ""
+msgstr "詳細の表示"
 
 #. TRANSLATORS: button: clear notification
 #: ../plugins/updates/gsd-updates-manager.c:1237
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #. If no mode is available, we use "left-ring-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1076
