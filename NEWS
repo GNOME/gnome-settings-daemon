@@ -1,4 +1,49 @@
 =============
+Version 3.7.5
+=============
+
+A11Y Keyboard:
+- Disable everything on exit if no settings changed
+- Remove GTK+ fallback dialogues
+
+Color:
+- Set the correct metadata on the auto-created EDID profile
+- Switching to a new account shouldn't warn
+
+Daemon:
+- Also apply LC_PAPER
+
+Media Keys:
+- Use D-Bus API to lock the screen
+- Use F20 for the temporary mic mute key
+
+Power:
+- Add way to disable the backlight helper
+- Avoid dead-locking with gnome-shell on startup
+- Avoid possible crash when shutting down quickly or at startup
+- Drop explicit screen locking on suspend
+- Fix incorrect backlight level on restore
+- Handle dim idle the same way as other idles
+- Lots of test additions
+- Wake up the display when unplugging the AC too
+
+Remote DIsplay:
+- Detect SPICE sessions as well
+- Monitor Vino's Connected status
+
+Screenshot:
+- Save to GtkRecentManager on success
+- Lots of test additions.
+
+Updates:
+- Allow the shell time to initialize before checking for offline update failures
+
+Wacom:
+- Use regular fullscreen window for OSD
+
+And updated translations
+
+=============
 Version 3.7.4
 =============
 
