@@ -12,13 +12,14 @@
 # Antón Méixome <meixome@mancomun.org>, 2009.
 # Fran Diéguez <frandieguez@gnome.org>,2009, 2010, 2011, 2012.
 # Leandro Regueiro <leandro.regueiro@gmail.com>, 2012.
-# Fran Dieguez <frandieguez@gnome.org>, 2012.
+# Fran Dieguez <frandieguez@gnome.org>, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-09 11:10+0200\n"
-"PO-Revision-Date: 2012-10-09 11:13+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"settings-daemon&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2013-01-28 20:46+0000\n"
+"PO-Revision-Date: 2013-02-06 18:09+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: gnome-l10n-gl@gnome.org\n"
 "Language: gl\n"
@@ -154,12 +155,11 @@ msgid ""
 "means that the device will not be handled further by gnome-settings-daemon."
 msgstr ""
 "Orde a executar cando se engade ou retira un dispositivo. O valor de saída 1 "
-"significa que o dispositivo non se xestionará máis por gnome-settings-"
-"daemon."
+"significa que o dispositivo non se xestionará máis por gnome-settings-daemon."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
@@ -174,7 +174,7 @@ msgstr "Activación de este engadido"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
@@ -189,7 +189,7 @@ msgstr "Indica se gnome-settings-daemon activará este complemento ou non"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
@@ -204,7 +204,7 @@ msgstr "Prioridade de uso para este engadido"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
@@ -400,6 +400,20 @@ msgid ""
 msgstr ""
 "Este é o número de días tralos que o perfil de cor de impresora non se "
 "considera válido."
+
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
+msgid "List of plugins that are allowed to be loaded"
+msgstr "Lista de engadidos que se permite cargar"
+
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
+msgid ""
+"A list of strings representing the plugins that are allowed to be loaded "
+"(default: 'all'). The plugins still need to be marked as active to get "
+"loaded. This is only evaluated on startup."
+msgstr ""
+"Unha lista de cadeas que representan os engadidos que se permite cargar (por "
+"omisión:'all'). Aínda así os engadidos deben marcarse como activos para que "
+"se carguen. Isto só se avalía no inicio."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
 msgid "Mount paths to ignore"
@@ -729,42 +743,26 @@ msgid "Binding for the magnifier to zoom out"
 msgstr "Combinación para que o magnificador reduza"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
-msgid "Switch input source"
-msgstr "Cambiar a orixe de entrada"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
-msgid "Binding to select the next input source"
-msgstr "Combinación para seleccionar a seguinte orixe de entrada."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
-msgid "Switch input source backward"
-msgstr "Cambiar cara atrás a orixe de entrada."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
-msgid "Binding to select the previous input source"
-msgstr "Combinación para seleccionar a anterior orixe de entrada."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
 msgid "Name"
 msgstr "Nome"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
 msgid "Name of the custom binding"
 msgstr "Nome da vinculación personalizada"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:77
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
 msgid "Binding"
 msgstr "Combinacións"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:78
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
 msgid "Binding for the custom binding"
 msgstr "Combinación para a combinación personalizada"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:79
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
 msgid "Command"
 msgstr "Orde"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:80
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
 msgid "Command to run when the binding is invoked"
 msgstr "Orde a executar cando ao invocar a combinación"
 
@@ -1054,15 +1052,22 @@ msgid "Whether to turn off specific monitors after boot"
 msgstr "Indica se apagar determinados monitores despois de iniciar o equipo"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
+#| msgid ""
+#| "'clone' will display the same thing on all monitors, 'dock' will switch "
+#| "off the internal monitor, 'do-nothing' will use the default Xorg "
+#| "behaviour (extend the desktop in recent versions)"
 msgid ""
 "'clone' will display the same thing on all monitors, 'dock' will switch off "
 "the internal monitor, 'do-nothing' will use the default Xorg behaviour "
-"(extend the desktop in recent versions)"
+"(extend the desktop in recent versions). The default, 'follow-lid', will "
+"choose between 'do-nothing' and 'dock' depending on whether the lid is "
+"(respectively) open or closed."
 msgstr ""
 "«clone» (clonar) mostrará o mesmo en todos os monitores, «dock» (anclar) "
 "apagará o monitor interno, «do-nothing» (non facer nada) usará o "
 "comportamento predeterminado de Xorg (en versións recentes extenderá o "
-"escritorio)"
+"escritorio). O predefinido, escollerase segundo «do-nothing» e «dock» "
+"dependendo se a tapa do portátil está aberta ou non."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
 msgid "Antialiasing"
@@ -1134,11 +1139,15 @@ msgstr ""
 "Unha lista de cadeas que representan os módulos de GTK+ que se cargarán, "
 "xeralmente ademais dos condicionais e os desactivados á forza."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../gnome-settings-daemon/main.c:52
 msgid "Enable debugging code"
 msgstr "Activar o código de depuración"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../gnome-settings-daemon/main.c:53
+msgid "Replace existing daemon"
+msgstr "Substituír o «daemon» existente"
+
+#: ../gnome-settings-daemon/main.c:54
 msgid "Exit after a time (for debugging)"
 msgstr "Saír despois de tempo (para depurar)"
 
@@ -1150,23 +1159,15 @@ msgstr "Accesibilidade do teclado"
 msgid "Accessibility keyboard plugin"
 msgstr "Engadido de accesibilidade do teclado"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:383
-#, c-format
-msgid "There was an error displaying help: %s"
-msgstr "Produciuse un erro ao mostrar a axuda: %s"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:507
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:570
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
 msgid "Slow Keys Turned On"
 msgstr "Teclas lentas activadas"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:571
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:401
 msgid "Slow Keys Turned Off"
 msgstr "Teclas lentas desactivadas"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:509
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:572
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:402
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -1175,64 +1176,41 @@ msgstr ""
 "de teclado para a opción Teclas lentas que afecta á forma en que funciona o "
 "seu teclado."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:663
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:412
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:480
 #: ../plugins/mouse/gsd-mouse-manager.c:920
 msgid "Universal Access"
 msgstr "Acceso universal"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:534
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:418
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:486
 msgid "Turn Off"
 msgstr "Desactivar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:534
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:418
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:486
 msgid "Turn On"
 msgstr "Activar"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:424
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:492
 msgid "Leave On"
 msgstr "Deixar activado"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:424
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:492
 msgid "Leave Off"
 msgstr "Deixar desactivado"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:593
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:731
-msgid "_Turn Off"
-msgstr "_Desactivar"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:593
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:731
-msgid "_Turn On"
-msgstr "_Activar"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:734
-msgid "_Leave On"
-msgstr "_Deixar activado"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:734
-msgid "_Leave Off"
-msgstr "_Deixar desactivado"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:639
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:465
 msgid "Sticky Keys Turned On"
 msgstr "Teclas persistentes activadas"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:640
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:706
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:466
 msgid "Sticky Keys Turned Off"
 msgstr "Teclas persistentes desactivadas"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:642
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:708
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:468
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -1241,8 +1219,7 @@ msgstr ""
 "para a opción Teclas persistentes que afecta á forma en que funciona o seu "
 "teclado."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:644
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:710
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:470
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -1252,44 +1229,6 @@ msgstr ""
 "veces seguidas.  Isto desactivará a opción Teclas persistentes que afecta á "
 "forma en que funciona o seu teclado."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:412
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:1
-msgid "Universal Access Preferences"
-msgstr "Preferencias de acceso universal"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:2
-msgid "Use on-screen _keyboard"
-msgstr "Usar o tecla_do en pantalla"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:3
-msgid "Use screen _reader"
-msgstr "Usar o _lector de pantalla"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
-msgid "Use screen _magnifier"
-msgstr "Usar a l_upa da pantalla"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:5
-msgid "Enhance _contrast in colors"
-msgstr "Mellorar o _contraste nas cores"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:6
-msgid "Make _text larger and easier to read"
-msgstr "Aumentar o tamaño do _texto para facilitar a lectura"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:7
-msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
-msgstr ""
-"_Premer os atallos de teclado unha tecla de cada vez (teclas persistentes)"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:8
-msgid "_Ignore duplicate keypresses (Bounce Keys)"
-msgstr "_Ignorar a pulsación duplicada de teclas (teclas de rebote)"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:9
-msgid "Press and _hold keys to accept them (Slow Keys)"
-msgstr "Premer e _manter as teclas para aceptalas (Teclas lentas)"
-
 #: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "Configuración de accesibilidade"
@@ -1297,135 +1236,6 @@ msgstr "Configuración de accesibilidade"
 #: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "Engadido de configuración de accesibilidade"
-
-#: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:1
-msgid "Mount Helper"
-msgstr "Axudante de montado"
-
-#: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:2
-msgid "Automount and autorun plugged devices"
-msgstr "Montar e executar automaticamente dispositivos conectados"
-
-#: ../plugins/automount/gsd-automount-manager.c:151
-#, c-format
-msgid "Unable to mount %s"
-msgstr "Non foi posíbel montar %s"
-
-#: ../plugins/automount/gsd-automount-manager.c:264
-#, c-format
-msgid "Unable to open a folder for %s"
-msgstr "Non foi posíbel abrir un cartafol para %s"
-
-#: ../plugins/automount/gsd-autorun.c:340
-msgid "Ask what to do"
-msgstr "Preguntarme que facer"
-
-#: ../plugins/automount/gsd-autorun.c:346
-msgid "Do Nothing"
-msgstr "Non facer nada"
-
-#: ../plugins/automount/gsd-autorun.c:352
-msgid "Open Folder"
-msgstr "Abrir cartafol"
-
-#: ../plugins/automount/gsd-autorun.c:495
-#, c-format
-msgid "Unable to eject %p"
-msgstr "Non foi posíbel extraer %p"
-
-#: ../plugins/automount/gsd-autorun.c:497
-#, c-format
-msgid "Unable to unmount %p"
-msgstr "Non foi posíbel desmontar %p"
-
-#: ../plugins/automount/gsd-autorun.c:702
-msgid "You have just inserted an Audio CD."
-msgstr "Acaba de inserir un CD de son."
-
-#: ../plugins/automount/gsd-autorun.c:704
-msgid "You have just inserted an Audio DVD."
-msgstr "Acaba de inserir un DVD de son."
-
-#: ../plugins/automount/gsd-autorun.c:706
-msgid "You have just inserted a Video DVD."
-msgstr "Acaba de inserir un DVD de vídeo."
-
-#: ../plugins/automount/gsd-autorun.c:708
-msgid "You have just inserted a Video CD."
-msgstr "Acaba de inserir un CD de vídeo."
-
-#: ../plugins/automount/gsd-autorun.c:710
-msgid "You have just inserted a Super Video CD."
-msgstr "Acaba de inserir un Super Video CD."
-
-#: ../plugins/automount/gsd-autorun.c:712
-msgid "You have just inserted a blank CD."
-msgstr "Acaba de inserir un CD en branco."
-
-#: ../plugins/automount/gsd-autorun.c:714
-msgid "You have just inserted a blank DVD."
-msgstr "Acaba de inserir un DVD en branco."
-
-#: ../plugins/automount/gsd-autorun.c:716
-msgid "You have just inserted a blank Blu-Ray disc."
-msgstr "Acaba de inserir un disco Blu-Ray en branco."
-
-#: ../plugins/automount/gsd-autorun.c:718
-msgid "You have just inserted a blank HD DVD."
-msgstr "Acaba de inserir un HD DVD en branco."
-
-#: ../plugins/automount/gsd-autorun.c:720
-msgid "You have just inserted a Photo CD."
-msgstr "Acaba de inserir un Photo CD."
-
-#: ../plugins/automount/gsd-autorun.c:722
-msgid "You have just inserted a Picture CD."
-msgstr "Acaba de inserir un Picture CD."
-
-#: ../plugins/automount/gsd-autorun.c:724
-msgid "You have just inserted a medium with digital photos."
-msgstr "Acaba de inserir un soporte con fotos dixitais."
-
-#: ../plugins/automount/gsd-autorun.c:726
-msgid "You have just inserted a digital audio player."
-msgstr "Acaba de inserir un reprodutor multimedia."
-
-#: ../plugins/automount/gsd-autorun.c:728
-msgid ""
-"You have just inserted a medium with software intended to be automatically "
-"started."
-msgstr ""
-"Acaba de inserir un soporte con software que tenta iniciarse automaticamente."
-
-#. fallback to generic greeting
-#: ../plugins/automount/gsd-autorun.c:731
-msgid "You have just inserted a medium."
-msgstr "Acaba de inserir un soporte."
-
-#: ../plugins/automount/gsd-autorun.c:733
-msgid "Choose what application to launch."
-msgstr "Seleccionar que aplicativo iniciar."
-
-#: ../plugins/automount/gsd-autorun.c:742
-#, c-format
-msgid ""
-"Select how to open \"%s\" and whether to perform this action in the future "
-"for other media of type \"%s\"."
-msgstr ""
-"Selecciona como hai que abrir «%s» e indica se se debe realizar esta acción "
-"nun futuro para outro soporte de tipo «%s»."
-
-#: ../plugins/automount/gsd-autorun.c:769
-msgid "_Always perform this action"
-msgstr "Levar _sempre a cabo esta acción"
-
-#: ../plugins/automount/gsd-autorun.c:785
-msgid "_Eject"
-msgstr "_Expulsar"
-
-#: ../plugins/automount/gsd-autorun.c:790
-msgid "_Unmount"
-msgstr "_Desmontar"
 
 #: ../plugins/background/background.gnome-settings-plugin.in.h:1
 msgid "Background"
@@ -1444,7 +1254,7 @@ msgid "Clipboard plugin"
 msgstr "Engadido de portapapeis"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:1
-#: ../plugins/color/gsd-color-manager.c:1801
+#: ../plugins/color/gsd-color-manager.c:1664
 msgid "Color"
 msgstr "Cor"
 
@@ -1452,40 +1262,40 @@ msgstr "Cor"
 msgid "Color plugin"
 msgstr "Engadido de cor"
 
-#: ../plugins/color/gsd-color-manager.c:1806
+#: ../plugins/color/gsd-color-manager.c:1669
 msgid "Recalibrate now"
 msgstr "Recalibrar agora"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1849
+#: ../plugins/color/gsd-color-manager.c:1712
 msgid "Recalibration required"
 msgstr "É preciso recalibrar"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1861
+#: ../plugins/color/gsd-color-manager.c:1724
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "A pantalla «%s» deberíase recalibrar pronto."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1870
+#: ../plugins/color/gsd-color-manager.c:1733
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "A impresora «%s» deberíase recalibrar pronto."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:2194
-#: ../plugins/color/gsd-color-manager.c:2210
+#: ../plugins/color/gsd-color-manager.c:2057
+#: ../plugins/color/gsd-color-manager.c:2073
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "Complemento de cor do administrador de preferencias de GNOME"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2196
+#: ../plugins/color/gsd-color-manager.c:2059
 msgid "Color calibration device added"
 msgstr "Dispositivo de calibración de cor engadido"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2212
+#: ../plugins/color/gsd-color-manager.c:2075
 msgid "Color calibration device removed"
 msgstr "Retirouse o dispositivo de calibración de cor"
 
@@ -1497,12 +1307,12 @@ msgstr "Simulación"
 msgid "Dummy plugin"
 msgstr "Engadido de simulación"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:334
+#: ../plugins/housekeeping/gsd-disk-space.c:578
 #, c-format
 msgid "Low Disk Space on \"%s\""
 msgstr "Espazo en disco baixo en «%s»"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:336
+#: ../plugins/housekeeping/gsd-disk-space.c:580
 #, c-format
 msgid ""
 "The volume \"%s\" has only %s disk space remaining.  You may free up some "
@@ -1511,19 +1321,19 @@ msgstr ""
 "O volume «%s» ten só %s de espazo en disco dispoñíbel. Pode liberar espazo "
 "baleirando o lixo."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:340
+#: ../plugins/housekeeping/gsd-disk-space.c:584
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:81
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
 msgstr "O volume «%s» só lle queda %s espazo de disco."
 
 #. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-disk-space.c:345
+#: ../plugins/housekeeping/gsd-disk-space.c:589
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:205
 msgid "Low Disk Space"
 msgstr "Espazo en disco baixo"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:347
+#: ../plugins/housekeeping/gsd-disk-space.c:591
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1532,26 +1342,26 @@ msgstr ""
 "Este computador ten só %s de espazo en disco dispoñíbel. Pode liberar espazo "
 "baleirando o lixo."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:350
+#: ../plugins/housekeeping/gsd-disk-space.c:594
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:84
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "Este computador só lle queda %s espazo de disco."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:365
+#: ../plugins/housekeeping/gsd-disk-space.c:609
 msgid "Disk space"
 msgstr "Espazo no disco"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:372
+#: ../plugins/housekeeping/gsd-disk-space.c:616
 msgid "Examine"
 msgstr "Examinar"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:380
+#: ../plugins/housekeeping/gsd-disk-space.c:624
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:437
 msgid "Empty Trash"
 msgstr "Baleirar papeleira"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:387
+#: ../plugins/housekeeping/gsd-disk-space.c:631
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:452
 msgid "Ignore"
 msgstr "Ignorar"
@@ -1605,7 +1415,7 @@ msgstr "Examinar…"
 
 #. TRANSLATORS: wireless keyboard with internal battery
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
-#: ../plugins/power/gpm-common.c:585
+#: ../plugins/power/gpm-common.c:610
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "Teclado"
@@ -1615,15 +1425,32 @@ msgstr[1] "Teclados"
 msgid "Keyboard plugin"
 msgstr "Engadido do teclado"
 
+#: ../plugins/media-keys/gsd-screenshot-utils.c:84
+#| msgid "Binding to take a screenshot."
+msgid "Unable to capture a screenshot"
+msgstr "Non foi posíbel facer unha captura de pantalla"
+
+#: ../plugins/media-keys/gsd-screenshot-utils.c:115
+#: ../plugins/media-keys/gsd-screenshot-utils.c:155
+msgid "Screenshot taken"
+msgstr "Captura de pantalla feita"
+
+#. translators: this is the name of the file that gets made up
+#. * with the screenshot
+#: ../plugins/media-keys/gsd-screenshot-utils.c:304
+#, c-format
+msgid "Screenshot from %s"
+msgstr "Captura de pantalla de %s"
+
 #. translators:
 #. * The device has been disabled
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1087
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1830
 msgid "Disabled"
 msgstr "Desactivada"
 
 #. translators:
 #. * The number of sound outputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1094
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1837
 #, c-format
 msgid "%u Output"
 msgid_plural "%u Outputs"
@@ -1632,16 +1459,126 @@ msgstr[1] "%u Saídas"
 
 #. translators:
 #. * The number of sound inputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1104
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1847
 #, c-format
 msgid "%u Input"
 msgid_plural "%u Inputs"
 msgstr[0] "%u Entrada"
 msgstr[1] "%u Entradas"
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1402
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:2371
 msgid "System Sounds"
 msgstr "Sons do sistema"
+
+#: ../plugins/media-keys/shortcuts-list.h:93
+msgid "Touchpad toggle"
+msgstr "Trocador da área táctil"
+
+#: ../plugins/media-keys/shortcuts-list.h:94
+msgid "Touchpad On"
+msgstr "Área táctil activada"
+
+#: ../plugins/media-keys/shortcuts-list.h:95
+#| msgid "Turn Off"
+msgid "Touchpad Off"
+msgstr "Área táctil desactivada"
+
+#: ../plugins/media-keys/shortcuts-list.h:99
+msgid "Microphone Mute"
+msgstr "Enmudecer micrófono"
+
+#: ../plugins/media-keys/shortcuts-list.h:100
+#| msgid "Volume mute"
+msgid "Quiet Volume Mute"
+msgstr ""
+
+#: ../plugins/media-keys/shortcuts-list.h:101
+#| msgid "Volume down"
+msgid "Quiet Volume Down"
+msgstr ""
+
+#: ../plugins/media-keys/shortcuts-list.h:102
+#| msgid "Volume up"
+msgid "Quiet Volume Up"
+msgstr ""
+
+#: ../plugins/media-keys/shortcuts-list.h:111
+#| msgid "Lock screen"
+msgid "Lock Screen"
+msgstr "Bloquear pantalla"
+
+#: ../plugins/media-keys/shortcuts-list.h:125
+msgid "Rewind"
+msgstr "Anterior"
+
+#: ../plugins/media-keys/shortcuts-list.h:126
+msgid "Forward"
+msgstr "Seguinte"
+
+#: ../plugins/media-keys/shortcuts-list.h:127
+msgid "Repeat"
+msgstr "Repetir"
+
+#: ../plugins/media-keys/shortcuts-list.h:128
+msgid "Random Play"
+msgstr "Reprodución aleatoria"
+
+#. Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.)
+#: ../plugins/media-keys/shortcuts-list.h:129
+#: ../plugins/media-keys/shortcuts-list.h:131
+msgid "Video Out"
+msgstr "Vídeo desactivado"
+
+#. Key code of the XF86RotateWindows key (present on some tablets)
+#: ../plugins/media-keys/shortcuts-list.h:133
+msgid "Rotate Screen"
+msgstr "Rotar pantalla"
+
+#: ../plugins/media-keys/shortcuts-list.h:142
+#| msgid "Power"
+msgid "Power Off"
+msgstr "Apagar"
+
+#. the kernel / Xorg names really are like this...
+#: ../plugins/media-keys/shortcuts-list.h:144
+msgid "Sleep"
+msgstr "Durmir"
+
+#: ../plugins/media-keys/shortcuts-list.h:145
+msgid "Suspend"
+msgstr "Suspender"
+
+#: ../plugins/media-keys/shortcuts-list.h:146
+msgid "Hibernate"
+msgstr "Hibernar"
+
+#: ../plugins/media-keys/shortcuts-list.h:147
+msgid "Brightness Up"
+msgstr "Aumentar brillo"
+
+#: ../plugins/media-keys/shortcuts-list.h:148
+msgid "Brightness Down"
+msgstr "Reducir brillo"
+
+#: ../plugins/media-keys/shortcuts-list.h:149
+#| msgid "Keyboard is empty"
+msgid "Keyboard Brightness Up"
+msgstr "Aumentar brillo do teclado"
+
+#: ../plugins/media-keys/shortcuts-list.h:150
+#| msgid "Keyboard battery low"
+msgid "Keyboard Brightness Down"
+msgstr "Reducir brillo do teclado"
+
+#: ../plugins/media-keys/shortcuts-list.h:151
+#| msgid "Keyboard is charged"
+msgid "Keyboard Brightness Toggle"
+msgstr "Trocador do brillo do teclado"
+
+#: ../plugins/media-keys/shortcuts-list.h:152
+#| msgid "Battery is low"
+msgid "Battery Status"
+msgstr "Estado da batería"
 
 #: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
 msgid "Media keys"
@@ -1663,7 +1600,7 @@ msgstr ""
 
 #. TRANSLATORS: wireless mice with internal batteries
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
-#: ../plugins/power/gpm-common.c:581
+#: ../plugins/power/gpm-common.c:606
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "Rato"
@@ -1673,18 +1610,18 @@ msgstr[1] "Ratos"
 msgid "Mouse plugin"
 msgstr "Engadido do rato"
 
-#: ../plugins/power/gpm-common.c:47
+#: ../plugins/power/gpm-common.c:72
 msgid "Unknown time"
 msgstr "Tempo descoñecido"
 
-#: ../plugins/power/gpm-common.c:52
+#: ../plugins/power/gpm-common.c:77
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i minuto"
 msgstr[1] "%i minutos"
 
-#: ../plugins/power/gpm-common.c:62
+#: ../plugins/power/gpm-common.c:87
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1693,18 +1630,18 @@ msgstr[1] "%i horas"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: ../plugins/power/gpm-common.c:68
+#: ../plugins/power/gpm-common.c:93
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: ../plugins/power/gpm-common.c:69
+#: ../plugins/power/gpm-common.c:94
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "hora"
 msgstr[1] "horas"
 
-#: ../plugins/power/gpm-common.c:70
+#: ../plugins/power/gpm-common.c:95
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minuto"
@@ -1712,7 +1649,7 @@ msgstr[1] "minutos"
 
 #. TRANSLATORS: The laptop battery is charged, and we know a time.
 #. * The parameter is the time, e.g. 7 hours 6 minutes
-#: ../plugins/power/gpm-common.c:317
+#: ../plugins/power/gpm-common.c:342
 #, c-format
 msgid "provides %s laptop runtime"
 msgstr "fornece %s de uso do portátil"
@@ -1720,7 +1657,7 @@ msgstr "fornece %s de uso do portátil"
 #. TRANSLATORS: the device is discharging, and we have a time remaining
 #. * The first parameter is the device type, e.g. "Laptop battery" and
 #. * the second is the time, e.g. 7 hours 6 minutes
-#: ../plugins/power/gpm-common.c:328
+#: ../plugins/power/gpm-common.c:353
 #, c-format
 msgid "%s %s remaining"
 msgstr "%s quedan %s"
@@ -1731,20 +1668,20 @@ msgstr "%s quedan %s"
 #. TRANSLATORS: device is charging, and we have a time to full and a percentage.
 #. * The first parameter is the device type, e.g. "Laptop battery" and
 #. * the second is the time, e.g. "7 hours 6 minutes"
-#: ../plugins/power/gpm-common.c:349 ../plugins/power/gpm-common.c:366
+#: ../plugins/power/gpm-common.c:374 ../plugins/power/gpm-common.c:391
 #, c-format
 msgid "%s %s until charged"
 msgstr "%s: %s até a súa carga"
 
 #. TRANSLATORS: the device is charging, and we have a time to full and empty.
 #. * The parameter is a time string, e.g. "7 hours 6 minutes"
-#: ../plugins/power/gpm-common.c:356
+#: ../plugins/power/gpm-common.c:381
 #, c-format
 msgid "provides %s battery runtime"
 msgstr "fornece %s de uso de batería"
 
 #. TRANSLATORS: the type of data, e.g. Laptop battery
-#: ../plugins/power/gpm-common.c:447
+#: ../plugins/power/gpm-common.c:472
 msgid "Product:"
 msgstr "Produto:"
 
@@ -1752,416 +1689,423 @@ msgstr "Produto:"
 #. TRANSLATORS: device is charged
 #. TRANSLATORS: device is charging
 #. TRANSLATORS: device is discharging
-#: ../plugins/power/gpm-common.c:451 ../plugins/power/gpm-common.c:454
-#: ../plugins/power/gpm-common.c:457 ../plugins/power/gpm-common.c:460
+#: ../plugins/power/gpm-common.c:476 ../plugins/power/gpm-common.c:479
+#: ../plugins/power/gpm-common.c:482 ../plugins/power/gpm-common.c:485
 msgid "Status:"
 msgstr "Estado:"
 
-#: ../plugins/power/gpm-common.c:451
+#: ../plugins/power/gpm-common.c:476
 msgid "Missing"
 msgstr "Ausente"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:454 ../plugins/power/gpm-common.c:723
+#: ../plugins/power/gpm-common.c:479 ../plugins/power/gpm-common.c:748
 msgid "Charged"
 msgstr "Cargada"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:457 ../plugins/power/gpm-common.c:711
+#: ../plugins/power/gpm-common.c:482 ../plugins/power/gpm-common.c:736
 msgid "Charging"
 msgstr "Cargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:460 ../plugins/power/gpm-common.c:715
+#: ../plugins/power/gpm-common.c:485 ../plugins/power/gpm-common.c:740
 msgid "Discharging"
 msgstr "Descargando"
 
 #. TRANSLATORS: percentage
-#: ../plugins/power/gpm-common.c:465
+#: ../plugins/power/gpm-common.c:490
 msgid "Percentage charge:"
 msgstr "Porcentaxe de carga:"
 
 #. TRANSLATORS: manufacturer
-#: ../plugins/power/gpm-common.c:469
+#: ../plugins/power/gpm-common.c:494
 msgid "Vendor:"
 msgstr "Fabricante:"
 
 #. TRANSLATORS: how the battery is made, e.g. Lithium Ion
-#: ../plugins/power/gpm-common.c:474
+#: ../plugins/power/gpm-common.c:499
 msgid "Technology:"
 msgstr "Tecnoloxía:"
 
 #. TRANSLATORS: serial number of the battery
-#: ../plugins/power/gpm-common.c:478
+#: ../plugins/power/gpm-common.c:503
 msgid "Serial number:"
 msgstr "Número de serie:"
 
 #. TRANSLATORS: model number of the battery
-#: ../plugins/power/gpm-common.c:482
+#: ../plugins/power/gpm-common.c:507
 msgid "Model:"
 msgstr "Modelo:"
 
 #. TRANSLATORS: time to fully charged
-#: ../plugins/power/gpm-common.c:487
+#: ../plugins/power/gpm-common.c:512
 msgid "Charge time:"
 msgstr "Tempo de carga:"
 
 #. TRANSLATORS: time to empty
-#: ../plugins/power/gpm-common.c:493
+#: ../plugins/power/gpm-common.c:518
 msgid "Discharge time:"
 msgstr "Tempo de descarga:"
 
 #. TRANSLATORS: Excellent, Good, Fair and Poor are all related to battery Capacity
-#: ../plugins/power/gpm-common.c:500
+#: ../plugins/power/gpm-common.c:525
 msgid "Excellent"
 msgstr "Excelente"
 
-#: ../plugins/power/gpm-common.c:502
+#: ../plugins/power/gpm-common.c:527
 msgid "Good"
 msgstr "Bo"
 
-#: ../plugins/power/gpm-common.c:504
+#: ../plugins/power/gpm-common.c:529
 msgid "Fair"
 msgstr "Normal"
 
-#: ../plugins/power/gpm-common.c:506
+#: ../plugins/power/gpm-common.c:531
 msgid "Poor"
 msgstr "Malo"
 
-#: ../plugins/power/gpm-common.c:510
+#: ../plugins/power/gpm-common.c:535
 msgid "Capacity:"
 msgstr "Capacidade:"
 
-#: ../plugins/power/gpm-common.c:516 ../plugins/power/gpm-common.c:541
+#: ../plugins/power/gpm-common.c:541 ../plugins/power/gpm-common.c:566
 msgid "Current charge:"
 msgstr "Carga actual:"
 
-#: ../plugins/power/gpm-common.c:522
+#: ../plugins/power/gpm-common.c:547
 msgid "Last full charge:"
 msgstr "Última carga completa:"
 
-#: ../plugins/power/gpm-common.c:528 ../plugins/power/gpm-common.c:546
+#: ../plugins/power/gpm-common.c:553 ../plugins/power/gpm-common.c:571
 msgid "Design charge:"
 msgstr "Carga de deseño:"
 
-#: ../plugins/power/gpm-common.c:533
+#: ../plugins/power/gpm-common.c:558
 msgid "Charge rate:"
 msgstr "Taxa de carga:"
 
 #. TRANSLATORS: system power cord
-#: ../plugins/power/gpm-common.c:565
+#: ../plugins/power/gpm-common.c:590
 msgid "AC adapter"
 msgid_plural "AC adapters"
 msgstr[0] "Adaptador de corrente"
 msgstr[1] "Adaptadores de corrente"
 
 #. TRANSLATORS: laptop primary battery
-#: ../plugins/power/gpm-common.c:569
+#: ../plugins/power/gpm-common.c:594
 msgid "Laptop battery"
 msgid_plural "Laptop batteries"
 msgstr[0] "Batería de portátil"
 msgstr[1] "Baterías de portátil"
 
 #. TRANSLATORS: battery-backed AC power source
-#: ../plugins/power/gpm-common.c:573
+#: ../plugins/power/gpm-common.c:598
 msgid "UPS"
 msgid_plural "UPSs"
 msgstr[0] "SAI"
 msgstr[1] "SAIs"
 
 #. TRANSLATORS: a monitor is a device to measure voltage and current
-#: ../plugins/power/gpm-common.c:577
+#: ../plugins/power/gpm-common.c:602
 msgid "Monitor"
 msgid_plural "Monitors"
 msgstr[0] "Monitor"
 msgstr[1] "Monitores"
 
 #. TRANSLATORS: portable device
-#: ../plugins/power/gpm-common.c:589
+#: ../plugins/power/gpm-common.c:614
 msgid "PDA"
 msgid_plural "PDAs"
 msgstr[0] "PDA"
 msgstr[1] "PDAs"
 
 #. TRANSLATORS: cell phone (mobile...)
-#: ../plugins/power/gpm-common.c:593
+#: ../plugins/power/gpm-common.c:618
 msgid "Cell phone"
 msgid_plural "Cell phones"
 msgstr[0] "Teléfono móbil"
 msgstr[1] "Teléfonos móbiles"
 
 #. TRANSLATORS: media player, mp3 etc
-#: ../plugins/power/gpm-common.c:598
+#: ../plugins/power/gpm-common.c:623
 msgid "Media player"
 msgid_plural "Media players"
 msgstr[0] "Reprodutor multimedia"
 msgstr[1] "Reprodutores multimedia"
 
 #. TRANSLATORS: tablet device
-#: ../plugins/power/gpm-common.c:602
+#: ../plugins/power/gpm-common.c:627
 msgid "Tablet"
 msgid_plural "Tablets"
 msgstr[0] "Tableta"
 msgstr[1] "Tabletas"
 
 #. TRANSLATORS: tablet device
-#: ../plugins/power/gpm-common.c:606
+#: ../plugins/power/gpm-common.c:631
 msgid "Computer"
 msgid_plural "Computers"
 msgstr[0] "Computador"
 msgstr[1] "Computadores"
 
 #. TRANSLATORS: battery technology
-#: ../plugins/power/gpm-common.c:670
+#: ../plugins/power/gpm-common.c:695
 msgid "Lithium Ion"
 msgstr "Ion litio"
 
 #. TRANSLATORS: battery technology
-#: ../plugins/power/gpm-common.c:674
+#: ../plugins/power/gpm-common.c:699
 msgid "Lithium Polymer"
 msgstr "Polímetro de litio"
 
 #. TRANSLATORS: battery technology
-#: ../plugins/power/gpm-common.c:678
+#: ../plugins/power/gpm-common.c:703
 msgid "Lithium Iron Phosphate"
 msgstr "Fosfato de litio de ferro"
 
 #. TRANSLATORS: battery technology
-#: ../plugins/power/gpm-common.c:682
+#: ../plugins/power/gpm-common.c:707
 msgid "Lead acid"
 msgstr "Chumbo e ácido"
 
 #. TRANSLATORS: battery technology
-#: ../plugins/power/gpm-common.c:686
+#: ../plugins/power/gpm-common.c:711
 msgid "Nickel Cadmium"
 msgstr "Níquel cadmio"
 
 #. TRANSLATORS: battery technology
-#: ../plugins/power/gpm-common.c:690
+#: ../plugins/power/gpm-common.c:715
 msgid "Nickel metal hydride"
 msgstr "Híbrido de níquel metal"
 
 #. TRANSLATORS: battery technology
-#: ../plugins/power/gpm-common.c:694
+#: ../plugins/power/gpm-common.c:719
 msgid "Unknown technology"
 msgstr "Tecnoloxía descoñecida"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:719
+#: ../plugins/power/gpm-common.c:744
 msgid "Empty"
 msgstr "Baleira"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:727
+#: ../plugins/power/gpm-common.c:752
 msgid "Waiting to charge"
 msgstr "Agardando para cargar"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:731
+#: ../plugins/power/gpm-common.c:756
 msgid "Waiting to discharge"
 msgstr "Agardando para descargar"
 
 #. TRANSLATORS: device not present
-#: ../plugins/power/gpm-common.c:759
+#: ../plugins/power/gpm-common.c:784
 msgid "Laptop battery not present"
 msgstr "Falta a batería do portátil"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:763
+#: ../plugins/power/gpm-common.c:788
 msgid "Laptop battery is charging"
 msgstr "Batería do portátil cargándose"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:767
+#: ../plugins/power/gpm-common.c:792
 msgid "Laptop battery is discharging"
 msgstr "Batería do portátil descargándose"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:771
+#: ../plugins/power/gpm-common.c:796
 msgid "Laptop battery is empty"
 msgstr "Batería do portátil baixa"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:775
+#: ../plugins/power/gpm-common.c:800
 msgid "Laptop battery is charged"
 msgstr "Batería do portátil cargada"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:779
+#: ../plugins/power/gpm-common.c:804
 msgid "Laptop battery is waiting to charge"
 msgstr "Batería do portátil criticamente baixa"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:783
+#: ../plugins/power/gpm-common.c:808
 msgid "Laptop battery is waiting to discharge"
 msgstr "Batería do portátil agardando para descargarse"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:792
+#: ../plugins/power/gpm-common.c:817
 msgid "UPS is charging"
 msgstr "SAI cargándose"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:796
+#: ../plugins/power/gpm-common.c:821
 msgid "UPS is discharging"
 msgstr "SAI descargándose"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:800
+#: ../plugins/power/gpm-common.c:825
 msgid "UPS is empty"
 msgstr "SAI baleiro"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:804
+#: ../plugins/power/gpm-common.c:829
 msgid "UPS is charged"
 msgstr "SAI cargado"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:813
+#: ../plugins/power/gpm-common.c:838
 msgid "Mouse is charging"
 msgstr "O rato estase cargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:817
+#: ../plugins/power/gpm-common.c:842
 msgid "Mouse is discharging"
 msgstr "O rato estase descargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:821
+#: ../plugins/power/gpm-common.c:846
 msgid "Mouse is empty"
 msgstr "Batería do rato baleira"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:825
+#: ../plugins/power/gpm-common.c:850
 msgid "Mouse is charged"
 msgstr "Batería do rato cargada"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:834
+#: ../plugins/power/gpm-common.c:859
 msgid "Keyboard is charging"
 msgstr "O teclado estase cargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:838
+#: ../plugins/power/gpm-common.c:863
 msgid "Keyboard is discharging"
 msgstr "Batería do teclado descargando"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:842
+#: ../plugins/power/gpm-common.c:867
 msgid "Keyboard is empty"
 msgstr "Batería do teclado baleira"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:846
+#: ../plugins/power/gpm-common.c:871
 msgid "Keyboard is charged"
 msgstr "Batería do teclado cargándose"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:855
+#: ../plugins/power/gpm-common.c:880
 msgid "PDA is charging"
 msgstr "PDA cargándose"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:859
+#: ../plugins/power/gpm-common.c:884
 msgid "PDA is discharging"
 msgstr "SAI descargándose"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:863
+#: ../plugins/power/gpm-common.c:888
 msgid "PDA is empty"
 msgstr "Batería do PDA baleira"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:867
+#: ../plugins/power/gpm-common.c:892
 msgid "PDA is charged"
 msgstr "PDA cargado"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:876
+#: ../plugins/power/gpm-common.c:901
 msgid "Cell phone is charging"
 msgstr "Teléfono móbil cargándose"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:880
+#: ../plugins/power/gpm-common.c:905
 msgid "Cell phone is discharging"
 msgstr "Teléfono móbil descargándose"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:884
+#: ../plugins/power/gpm-common.c:909
 msgid "Cell phone is empty"
 msgstr "Batería do teléfono móbil baleira"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:888
+#: ../plugins/power/gpm-common.c:913
 msgid "Cell phone is charged"
 msgstr "Teléfono móbil cargado"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:898
+#: ../plugins/power/gpm-common.c:923
 msgid "Media player is charging"
 msgstr "Reprodutor multimedia cargándose"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:902
+#: ../plugins/power/gpm-common.c:927
 msgid "Media player is discharging"
 msgstr "Reprodutor multimedia descargándose"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:906
+#: ../plugins/power/gpm-common.c:931
 msgid "Media player is empty"
 msgstr "Batería do reprodutor multimedia baleira"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:910
+#: ../plugins/power/gpm-common.c:935
 msgid "Media player is charged"
 msgstr "Reprodutor multimedia cargado"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:919
+#: ../plugins/power/gpm-common.c:944
 msgid "Tablet is charging"
 msgstr "Tableta cargándose"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:923
+#: ../plugins/power/gpm-common.c:948
 msgid "Tablet is discharging"
 msgstr "Tableta descargándose"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:927
+#: ../plugins/power/gpm-common.c:952
 msgid "Tablet is empty"
 msgstr "Batería da tableta baleira"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:931
+#: ../plugins/power/gpm-common.c:956
 msgid "Tablet is charged"
 msgstr "Tableta cargada"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:940
+#: ../plugins/power/gpm-common.c:965
 msgid "Computer is charging"
 msgstr "Computador cargándose"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:944
+#: ../plugins/power/gpm-common.c:969
 msgid "Computer is discharging"
 msgstr "Computador descargándose"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:948
+#: ../plugins/power/gpm-common.c:973
 msgid "Computer is empty"
 msgstr "Batería do computador baleira"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:952
+#: ../plugins/power/gpm-common.c:977
 msgid "Computer is charged"
 msgstr "Computador cargado"
 
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gpm-common.c:1692
+#: ../plugins/power/gsd-power-manager.c:1621
+#: ../plugins/power/gsd-power-manager.c:1751
+msgid "Battery is critically low"
+msgstr "Batería moi baixa"
+
 #. TRANSLATORS: the battery may be recalled by its vendor
-#: ../plugins/power/gsd-power-manager.c:997
+#: ../plugins/power/gsd-power-manager.c:922
 msgid "Battery may be recalled"
 msgstr "A batería podería estar reclamada"
 
-#: ../plugins/power/gsd-power-manager.c:1000
+#: ../plugins/power/gsd-power-manager.c:925
 #, c-format
 msgid ""
 "A battery in your computer may have been recalled by %s and you may be at "
@@ -2170,207 +2114,208 @@ msgstr ""
 "A batería do seu equipo quizais fora reclamada por %s e vostede pode estar "
 "en risco."
 
-#: ../plugins/power/gsd-power-manager.c:1003
+#: ../plugins/power/gsd-power-manager.c:928
 msgid "For more information visit the battery recall website."
 msgstr "Para obter máis información visite o sitio de reclamación de baterías"
 
 #. TRANSLATORS: button text, visit the manufacturers recall website
-#: ../plugins/power/gsd-power-manager.c:1014
+#: ../plugins/power/gsd-power-manager.c:939
 msgid "Visit recall website"
 msgstr "Visitar sitio web de reclamacións"
 
 #. TRANSLATORS: button text, do not show this bubble again
-#: ../plugins/power/gsd-power-manager.c:1018
+#: ../plugins/power/gsd-power-manager.c:943
 msgid "Do not show me this again"
 msgstr "Non mostrar isto máis"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:1251
+#: ../plugins/power/gsd-power-manager.c:1196
 msgid "UPS Discharging"
 msgstr "SAI descargándose"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1256
+#: ../plugins/power/gsd-power-manager.c:1201
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "%s de enerxía do SAI restante"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:1277
-#: ../plugins/power/gsd-power-manager.c:1459
-#: ../plugins/power/gsd-power-manager.c:1641
-#: ../plugins/power/gsd-power-manager.c:1788
+#: ../plugins/power/gsd-power-manager.c:1222
+#: ../plugins/power/gsd-power-manager.c:1431
+#: ../plugins/power/gsd-power-manager.c:1604
+#: ../plugins/power/gsd-power-manager.c:1742
+#: ../plugins/power/gsd-power-manager.c:3046
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Enerxía"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:1369
+#: ../plugins/power/gsd-power-manager.c:1341
 msgid "Battery low"
 msgstr "Batería baixa"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1372
+#: ../plugins/power/gsd-power-manager.c:1344
 msgid "Laptop battery low"
 msgstr "Batería do portátil baixa"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1379
+#: ../plugins/power/gsd-power-manager.c:1351
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "Quédalle aproximadamente %s (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:1384
+#: ../plugins/power/gsd-power-manager.c:1358
 msgid "UPS low"
 msgstr "SAI baixo"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1390
+#: ../plugins/power/gsd-power-manager.c:1364
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "Quédanlle aproximadamente %s de enerxía no SAI (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:1395
-#: ../plugins/power/gsd-power-manager.c:1562
+#: ../plugins/power/gsd-power-manager.c:1369
+#: ../plugins/power/gsd-power-manager.c:1528
 msgid "Mouse battery low"
 msgstr "Batería do rato baixa"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1398
+#: ../plugins/power/gsd-power-manager.c:1372
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "O rato sen fíos estase quedando sen enerxía (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:1402
-#: ../plugins/power/gsd-power-manager.c:1570
+#: ../plugins/power/gsd-power-manager.c:1376
+#: ../plugins/power/gsd-power-manager.c:1536
 msgid "Keyboard battery low"
 msgstr "Batería do teclado baixa"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1405
+#: ../plugins/power/gsd-power-manager.c:1379
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "O teclado sen fíos estase quedando sen enerxía (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:1409
-#: ../plugins/power/gsd-power-manager.c:1579
+#: ../plugins/power/gsd-power-manager.c:1383
+#: ../plugins/power/gsd-power-manager.c:1545
 msgid "PDA battery low"
 msgstr "Batería da PDA baixa"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1412
+#: ../plugins/power/gsd-power-manager.c:1386
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "A PDA estase quedando sen enerxía (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1416
-#: ../plugins/power/gsd-power-manager.c:1589
-#: ../plugins/power/gsd-power-manager.c:1600
+#: ../plugins/power/gsd-power-manager.c:1390
+#: ../plugins/power/gsd-power-manager.c:1555
+#: ../plugins/power/gsd-power-manager.c:1564
 msgid "Cell phone battery low"
 msgstr "Batería do teléfono baixa"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1419
+#: ../plugins/power/gsd-power-manager.c:1393
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "O teléfono móbil estase quedando sen enerxía (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:1424
+#: ../plugins/power/gsd-power-manager.c:1397
 msgid "Media player battery low"
 msgstr "A batería do reprodutor multimedia está baixa"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1427
+#: ../plugins/power/gsd-power-manager.c:1400
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "O reprodutor multimedia estase quedando sen enerxía (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1431
-#: ../plugins/power/gsd-power-manager.c:1609
+#: ../plugins/power/gsd-power-manager.c:1404
+#: ../plugins/power/gsd-power-manager.c:1573
 msgid "Tablet battery low"
 msgstr "Batería da tableta baixa"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1434
+#: ../plugins/power/gsd-power-manager.c:1407
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "A tableta estase quedando sen enerxía (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1438
-#: ../plugins/power/gsd-power-manager.c:1618
+#: ../plugins/power/gsd-power-manager.c:1411
+#: ../plugins/power/gsd-power-manager.c:1582
 msgid "Attached computer battery low"
 msgstr "Batería do computador conectado baixa"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1441
+#: ../plugins/power/gsd-power-manager.c:1414
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "O equipo conectado estase quedando sen carga (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1476
+#: ../plugins/power/gsd-power-manager.c:1441
 msgid "Battery is low"
 msgstr "A batería está baixa"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1518
+#: ../plugins/power/gsd-power-manager.c:1482
 msgid "Battery critically low"
 msgstr "Batería criticamente baixa"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1521
-#: ../plugins/power/gsd-power-manager.c:1706
+#: ../plugins/power/gsd-power-manager.c:1485
+#: ../plugins/power/gsd-power-manager.c:1656
 msgid "Laptop battery critically low"
 msgstr "A batería do portátil está baixísima"
 
 #. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
-#: ../plugins/power/gsd-power-manager.c:1530
+#: ../plugins/power/gsd-power-manager.c:1494
 msgid "Plug in your AC adapter to avoid losing data."
 msgstr "Enchufe o seu adaptador de corrente para evitar perder datos."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1534
+#: ../plugins/power/gsd-power-manager.c:1498
 #, c-format
 msgid "Computer will suspend very soon unless it is plugged in."
 msgstr "O computador pasará a suspensión moi pronto a menos que o conecte."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1538
+#: ../plugins/power/gsd-power-manager.c:1502
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr ""
 "Este computador pasará a hibernar moi pronto a menos que estea conectado."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1542
+#: ../plugins/power/gsd-power-manager.c:1506
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "Este computador apagarase en moi pronto a menos que o conecte."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1550
-#: ../plugins/power/gsd-power-manager.c:1742
+#: ../plugins/power/gsd-power-manager.c:1516
+#: ../plugins/power/gsd-power-manager.c:1694
 msgid "UPS critically low"
 msgstr "SAI excesivamente baixo"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1556
+#: ../plugins/power/gsd-power-manager.c:1522
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -2380,7 +2325,7 @@ msgstr ""
 "adaptador de corrente para evitar a perda de datos."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1565
+#: ../plugins/power/gsd-power-manager.c:1531
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -2390,7 +2335,7 @@ msgstr ""
 "de funcionar cedo se non se carga."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1573
+#: ../plugins/power/gsd-power-manager.c:1539
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -2400,7 +2345,7 @@ msgstr ""
 "deixará de funcionar cedo se non se carga."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1582
+#: ../plugins/power/gsd-power-manager.c:1548
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -2410,7 +2355,7 @@ msgstr ""
 "deixará de funcionar se non se carga."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1592
+#: ../plugins/power/gsd-power-manager.c:1558
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -2420,7 +2365,7 @@ msgstr ""
 "deixará de funcionar se non se carga."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1603
+#: ../plugins/power/gsd-power-manager.c:1567
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -2430,7 +2375,7 @@ msgstr ""
 "pronto deixará de funcionar se non se carga."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1612
+#: ../plugins/power/gsd-power-manager.c:1576
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -2440,7 +2385,7 @@ msgstr ""
 "funcionar cedo se non se carga."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1621
+#: ../plugins/power/gsd-power-manager.c:1585
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -2449,15 +2394,8 @@ msgstr ""
 "O computador conectado está quedando sen enerxía (%.0f%%). Este dispositivo "
 "pronto deixará de funcionar se non se carga."
 
-#. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1659
-#: ../plugins/power/gsd-power-manager.c:1669
-#: ../plugins/power/gsd-power-manager.c:1803
-msgid "Battery is critically low"
-msgstr "Batería moi baixa"
-
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1714
+#: ../plugins/power/gsd-power-manager.c:1664
 msgid ""
 "The battery is below the critical level and this computer will <b>power-off</"
 "b> when the battery becomes completely empty."
@@ -2466,7 +2404,7 @@ msgstr ""
 "b> cando esta se baleire completamente."
 
 #. TRANSLATORS: computer will suspend
-#: ../plugins/power/gsd-power-manager.c:1720
+#: ../plugins/power/gsd-power-manager.c:1670
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "suspend.\n"
@@ -2479,7 +2417,7 @@ msgstr ""
 "unha pequena cantidade de enerxía."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1727
+#: ../plugins/power/gsd-power-manager.c:1677
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -2488,14 +2426,14 @@ msgstr ""
 "de entrar en estado de hibernación."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1732
+#: ../plugins/power/gsd-power-manager.c:1682
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
 msgstr "A batería está por debaixo dun nivel crítico e o computador apagarase."
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1750
+#: ../plugins/power/gsd-power-manager.c:1702
 msgid ""
 "UPS is below the critical level and this computer will <b>power-off</b> when "
 "the UPS becomes completely empty."
@@ -2504,7 +2442,7 @@ msgstr ""
 "cando o SAI estea completamente baleiro."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1756
+#: ../plugins/power/gsd-power-manager.c:1708
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
@@ -2512,27 +2450,30 @@ msgstr ""
 "hibernar."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1761
+#: ../plugins/power/gsd-power-manager.c:1713
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "O SAI está por debaixo dun nivel crítico e este computador está a piques de "
 "apagarase."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2149
+#: ../plugins/power/gsd-power-manager.c:2211
 msgid "Lid has been opened"
 msgstr "Abriuse a tapa"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2305
+#: ../plugins/power/gsd-power-manager.c:2249
 msgid "Lid has been closed"
 msgstr "Pechouse a tapa"
 
-#. TRANSLATORS: this is the title of the power manager status icon
-#. * that is only shown in fallback mode
-#: ../plugins/power/gsd-power-manager.c:3668
-msgid "Power Manager"
-msgstr "Xestor de enerxía"
+#. create a new notification
+#: ../plugins/power/gsd-power-manager.c:3039
+msgid "Automatic logout"
+msgstr "Pechar a sesión automaticamente"
+
+#: ../plugins/power/gsd-power-manager.c:3039
+msgid "You will soon log out because of inactivity."
+msgstr "Pecharase a sesión moi pronto debido á inactividade."
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
@@ -2579,203 +2520,203 @@ msgstr "Non existe un controlador para esta impresora."
 
 #: ../plugins/print-notifications/gsd-printer.c:1032
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:233
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:658
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:747
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:790
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:672
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:762
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:805
 msgid "Printers"
 msgstr "Impresoras"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:309
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:323
 msgid "Toner low"
 msgstr "Nivel de tóner baixo"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:311
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
 msgid "Toner empty"
 msgstr "Tóner baleiro"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:313
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
 msgid "Not connected?"
 msgstr "Non está conectada?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:315
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:329
 msgid "Cover open"
 msgstr "Tapa aberta"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:317
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
 msgid "Printer configuration error"
 msgstr "Erro de configuración da impresora"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:319
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:333
 msgid "Door open"
 msgstr "Porta aberta"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:321
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:335
 msgid "Marker supply low"
 msgstr "Cartucho con pouca tinta"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:323
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:337
 msgid "Out of a marker supply"
 msgstr "Cartucho esgotado"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:339
 msgid "Paper low"
 msgstr "Nivel de papel baixo"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:341
 msgid "Out of paper"
 msgstr "Papel esgotado"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:329
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:343
 msgid "Printer off-line"
 msgstr "Impresora desconectada"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:733
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:345
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:748
 msgid "Printer error"
 msgstr "Erro na impresora"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:335
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:349
 #, c-format
 msgid "Printer '%s' is low on toner."
 msgstr "Á impresora «%s» quédalle pouco tóner."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:337
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:351
 #, c-format
 msgid "Printer '%s' has no toner left."
 msgstr "Á impresora «%s» non lle queda tóner."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:339
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:353
 #, c-format
 msgid "Printer '%s' may not be connected."
 msgstr "Pode que a impresora «%s» non estea conectada."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:341
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:355
 #, c-format
 msgid "The cover is open on printer '%s'."
 msgstr "A tapa da impresora «%s» está aberta."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:343
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:357
 #, c-format
 msgid "There is a missing print filter for printer '%s'."
 msgstr "Non foi posíbel atopar un filtro para impresora «%s»."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:346
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:360
 #, c-format
 msgid "The door is open on printer '%s'."
 msgstr "A porta da impresora «%s» está aberta."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:348
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
 #, c-format
 msgid "Printer '%s' is low on a marker supply."
 msgstr "A impresora «%s» ten pouca tinta nos cartuchos."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:364
 #, c-format
 msgid "Printer '%s' is out of a marker supply."
 msgstr "A impresora «%s» non ten tinta nos cartuchos."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:352
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
 #, c-format
 msgid "Printer '%s' is low on paper."
 msgstr "A impresora «%s» ten pouco papel."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:368
 #, c-format
 msgid "Printer '%s' is out of paper."
 msgstr "A impresora «%s» non ten papel."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:356
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:370
 #, c-format
 msgid "Printer '%s' is currently off-line."
 msgstr "A impresora «%s» está actualmente desconectada."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:372
 #, c-format
 msgid "There is a problem on printer '%s'."
 msgstr "Hai un problema coa impresora «%s»."
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:435
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:449
 msgid "Printer added"
 msgstr "Impresora engadida"
 
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:443
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:457
 msgid "Printer removed"
 msgstr "Impresora retirada"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:460
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:474
 msgid "Printing stopped"
 msgstr "Impresión detida"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:462
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:468
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:474
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:480
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:492
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:512
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:476
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:482
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:488
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:494
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:506
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:526
 #, c-format
 msgid "\"%s\" on %s"
 msgstr "«%s» en %s"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:466
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:480
 msgid "Printing canceled"
 msgstr "Impresión cancelada"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:472
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:486
 msgid "Printing aborted"
 msgstr "Impresión interrompida"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:478
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:492
 msgid "Printing completed"
 msgstr "Impresión completa"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:490
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:510
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:504
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:524
 msgid "Printing"
 msgstr "Imprimindo"
 
 #. Translators: This is a title of a report notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:727
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:742
 msgid "Printer report"
 msgstr "Informa da impresora"
 
 #. Translators: This is a title of a warning notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:730
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:745
 msgid "Printer warning"
 msgstr "Aviso da impresora"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:740
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:755
 #, c-format
 msgid "Printer '%s': '%s'."
 msgstr "Impresora «%s»: «%s»."
@@ -2829,25 +2770,25 @@ msgstr "Deberá reiniciar o equipo para que o hardware funcione correctamente."
 
 #. TRANSLATORS: title of libnotify bubble
 #: ../plugins/updates/gsd-updates-firmware.c:253
-#: ../plugins/updates/gsd-updates-firmware.c:280
-#: ../plugins/updates/gsd-updates-firmware.c:307
+#: ../plugins/updates/gsd-updates-firmware.c:281
+#: ../plugins/updates/gsd-updates-firmware.c:309
 msgid "Additional software was installed"
 msgstr "Instalouse software adicional"
 
-#: ../plugins/updates/gsd-updates-firmware.c:254
-#: ../plugins/updates/gsd-updates-firmware.c:281
-#: ../plugins/updates/gsd-updates-firmware.c:308
-#: ../plugins/updates/gsd-updates-firmware.c:599
-#: ../plugins/updates/gsd-updates-manager.c:346
-#: ../plugins/updates/gsd-updates-manager.c:473
+#: ../plugins/updates/gsd-updates-firmware.c:255
+#: ../plugins/updates/gsd-updates-firmware.c:283
+#: ../plugins/updates/gsd-updates-firmware.c:311
+#: ../plugins/updates/gsd-updates-firmware.c:603
+#: ../plugins/updates/gsd-updates-manager.c:344
+#: ../plugins/updates/gsd-updates-manager.c:472
 #: ../plugins/updates/gsd-updates-manager.c:534
-#: ../plugins/updates/gsd-updates-manager.c:587
-#: ../plugins/updates/gsd-updates-manager.c:1292
+#: ../plugins/updates/gsd-updates-manager.c:588
+#: ../plugins/updates/gsd-updates-manager.c:1221
 msgid "Software Updates"
 msgstr "Actualizacións de software"
 
 #. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:277
+#: ../plugins/updates/gsd-updates-firmware.c:278
 msgid ""
 "You will need to remove and then reinsert the hardware before it will work "
 "correctly."
@@ -2855,12 +2796,12 @@ msgstr ""
 "Deberá retirar e volver a inserir o hardware para que funcione correctamente."
 
 #. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:304
+#: ../plugins/updates/gsd-updates-firmware.c:306
 msgid "Your hardware has been set up and is now ready to use."
 msgstr "O seu hardware foi configurado e está listo para o seu uso."
 
 #. TRANSLATORS: we need another package to keep udev quiet
-#: ../plugins/updates/gsd-updates-firmware.c:584
+#: ../plugins/updates/gsd-updates-firmware.c:587
 msgid ""
 "Additional firmware is required to make hardware in this computer function "
 "correctly."
@@ -2869,120 +2810,120 @@ msgstr ""
 "correctamente."
 
 #. TRANSLATORS: title of libnotify bubble
-#: ../plugins/updates/gsd-updates-firmware.c:598
+#: ../plugins/updates/gsd-updates-firmware.c:601
 msgid "Additional firmware required"
 msgstr "Necesítase firmware adicional"
 
 #. TRANSLATORS: button label
-#: ../plugins/updates/gsd-updates-firmware.c:604
+#: ../plugins/updates/gsd-updates-firmware.c:608
 msgid "Install firmware"
 msgstr "Instalar firmware"
 
 #. TRANSLATORS: we should ignore this device and not ask anymore
-#: ../plugins/updates/gsd-updates-firmware.c:607
+#: ../plugins/updates/gsd-updates-firmware.c:611
 msgid "Ignore devices"
 msgstr "Ignorar dispositivos"
 
 #. TRANSLATORS: this is when the offline update failed
-#: ../plugins/updates/gsd-updates-manager.c:124
+#: ../plugins/updates/gsd-updates-manager.c:121
 msgid "Failed To Update"
 msgstr "Produciuse un erro ao actualizar"
 
 #. TRANSLATORS: the transaction could not be completed
 #. * as a previous transaction was unfinished
-#: ../plugins/updates/gsd-updates-manager.c:130
+#: ../plugins/updates/gsd-updates-manager.c:127
 msgid "A previous update was unfinished."
 msgstr "Hai unha actualización anterior sen rematar."
 
 #. TRANSLATORS: the package manager needed to download
 #. * something with no network available
-#: ../plugins/updates/gsd-updates-manager.c:140
+#: ../plugins/updates/gsd-updates-manager.c:137
 msgid "Network access was required but not available."
 msgstr "Requírese acceso á rede pero non está dispoñíbel"
 
 #. TRANSLATORS: if the package is not signed correctly
 #. *
-#: ../plugins/updates/gsd-updates-manager.c:149
+#: ../plugins/updates/gsd-updates-manager.c:146
 msgid "An update was not signed in the correct way."
 msgstr "Hai unha actualización sen asinar correctamente."
 
 #. TRANSLATORS: the transaction failed in a way the user
 #. * probably cannot comprehend. Package management systems
 #. * really are teh suck.
-#: ../plugins/updates/gsd-updates-manager.c:159
+#: ../plugins/updates/gsd-updates-manager.c:156
 msgid "The update could not be completed."
 msgstr "Non foi posíbel completar a actualización."
 
 #. TRANSLATORS: the user aborted the update manually
-#: ../plugins/updates/gsd-updates-manager.c:164
+#: ../plugins/updates/gsd-updates-manager.c:161
 msgid "The update was cancelled."
 msgstr "Actualización cancelada."
 
 #. TRANSLATORS: the user must have updated manually after
 #. * the updates were prepared
-#: ../plugins/updates/gsd-updates-manager.c:170
+#: ../plugins/updates/gsd-updates-manager.c:167
 msgid "An offline update was requested but no packages required updating."
 msgstr ""
 "Solicitouse unha actualización fóra de liña pero non se precisa ningunha "
 "actualización de paquetes."
 
 #. TRANSLATORS: we ran out of disk space
-#: ../plugins/updates/gsd-updates-manager.c:174
+#: ../plugins/updates/gsd-updates-manager.c:171
 msgid "No space was left on the drive."
 msgstr "Non hai espazo libre dabondo na unidade."
 
 #. TRANSLATORS: the update process failed in a general
 #. * way, usually this message will come from source distros
 #. * like gentoo
-#: ../plugins/updates/gsd-updates-manager.c:182
+#: ../plugins/updates/gsd-updates-manager.c:179
 msgid "An update failed to install correctly."
 msgstr "Produciuse un erro ao instalar unha actualización."
 
 #. TRANSLATORS: We didn't handle the error type
-#: ../plugins/updates/gsd-updates-manager.c:187
+#: ../plugins/updates/gsd-updates-manager.c:184
 msgid "The offline update failed in an unexpected way."
 msgstr "A actualización de software fallou dunha forma non agardada."
 
 #. TRANSLATORS: these are geeky messages from the
 #. * package manager no mortal is supposed to understand,
 #. * but google might know what they mean
-#: ../plugins/updates/gsd-updates-manager.c:196
+#: ../plugins/updates/gsd-updates-manager.c:193
 msgid "Detailed errors from the package manager follow:"
 msgstr "Lista detallada dos erros do xestor de paquetes:"
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:342
+#: ../plugins/updates/gsd-updates-manager.c:339
 msgid "Distribution upgrades available"
 msgstr "Existen anovacións para a distribución"
 
 #. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:351
+#: ../plugins/updates/gsd-updates-manager.c:349
 msgid "More information"
 msgstr "Máis información"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:456
-#: ../plugins/updates/gsd-updates-manager.c:517
+#: ../plugins/updates/gsd-updates-manager.c:454
+#: ../plugins/updates/gsd-updates-manager.c:516
 msgid "Update"
 msgid_plural "Updates"
 msgstr[0] "Actualización"
 msgstr[1] "Actualizacións"
 
 #. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:459
+#: ../plugins/updates/gsd-updates-manager.c:457
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
 msgstr[0] "Existe unha actualización de software importante dispoñíbel"
 msgstr[1] "Existen actualizacións de software importantes dispoñíbeis"
 
 #. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:478
+#: ../plugins/updates/gsd-updates-manager.c:477
 #: ../plugins/updates/gsd-updates-manager.c:539
 msgid "Install updates"
 msgstr "Instalar actualizacións"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:520
+#: ../plugins/updates/gsd-updates-manager.c:519
 msgid "A software update is available."
 msgid_plural "Software updates are available."
 msgstr[0] "Existe unha actualización de software dispoñíbel"
@@ -3005,19 +2946,19 @@ msgid "Try again"
 msgstr "Tentar de novo"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:960
+#: ../plugins/updates/gsd-updates-manager.c:958
 msgid "A transaction that cannot be interrupted is running"
 msgstr "Estase executando unha transacción que non é posíbel interromper"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1253
+#: ../plugins/updates/gsd-updates-manager.c:1178
 msgid "Software Update Installed"
 msgid_plural "Software Updates Installed"
 msgstr[0] "Actualización de software instalada"
 msgstr[1] "Actualizacións de software instaladas"
 
 #. TRANSLATORS: message when we've done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1258
+#: ../plugins/updates/gsd-updates-manager.c:1183
 msgid "An important OS update has been installed."
 msgid_plural "Important OS updates have been installed."
 msgstr[0] "Instalouse unha actualización importante do sistema operativo."
@@ -3025,96 +2966,149 @@ msgstr[1] ""
 "Instaláronse varias actualizacións importantes do sistema operativo."
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1281
+#: ../plugins/updates/gsd-updates-manager.c:1209
 msgid "Software Updates Failed"
 msgstr "Produciuse un erro ao actualizar o software"
 
 #. TRANSLATORS: message when we've not done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1284
+#: ../plugins/updates/gsd-updates-manager.c:1212
 msgid "An important OS update failed to be installed."
 msgstr ""
 "Produciuse un erro ao instalar unha actualización importante do sistema "
 "operativo."
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1299
+#: ../plugins/updates/gsd-updates-manager.c:1228
 msgid "Review"
 msgstr "Revisar"
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1304
+#: ../plugins/updates/gsd-updates-manager.c:1233
 msgid "Show details"
 msgstr "Mostrar detalles"
 
 #. TRANSLATORS: button: clear notification
-#: ../plugins/updates/gsd-updates-manager.c:1308
+#: ../plugins/updates/gsd-updates-manager.c:1237
 msgid "OK"
 msgstr "Aceptar"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1012
+#. If no mode is available, we use "left-ring-mode-1" for backward compat
+#: ../plugins/wacom/gsd-wacom-device.c:1076
+#| msgid "Left Ring Mode #%d"
+msgid "Left Ring"
+msgstr "Anel esquerdo"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1086
 #, c-format
 msgid "Left Ring Mode #%d"
 msgstr "Modo de anel esquerdo nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1021
+#. If no mode is available, we use "right-ring-mode-1" for backward compat
+#: ../plugins/wacom/gsd-wacom-device.c:1105
+#| msgid "Right Ring Mode #%d"
+msgid "Right Ring"
+msgstr "Anel dereito"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1115
 #, c-format
 msgid "Right Ring Mode #%d"
 msgstr "Modo de anel dereito nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1051
+#. If no mode is available, we use "left-strip-mode-1" for backward compat
+#: ../plugins/wacom/gsd-wacom-device.c:1156
+#| msgid "Left Touchstrip Mode #%d"
+msgid "Left Touchstrip"
+msgstr "Banda táctil esquerda"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1166
 #, c-format
 msgid "Left Touchstrip Mode #%d"
 msgstr "Modo da banda táctil esquerda nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1060
+#. If no mode is available, we use "right-strip-mode-1" for backward compat
+#: ../plugins/wacom/gsd-wacom-device.c:1185
+#| msgid "Right Touchstrip Mode #%d"
+msgid "Right Touchstrip"
+msgstr "Banda táctil dereita"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1195
 #, c-format
 msgid "Right Touchstrip Mode #%d"
 msgstr "Modo da banda táctil dereita nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1077
+#: ../plugins/wacom/gsd-wacom-device.c:1220
 #, c-format
 msgid "Left Touchring Mode Switch"
 msgstr "Modo de cambio do anel táctil esquerdo"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1079
+#: ../plugins/wacom/gsd-wacom-device.c:1222
 #, c-format
 msgid "Right Touchring Mode Switch"
 msgstr "Modo de cambio do anel táctil dereito"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1082
+#: ../plugins/wacom/gsd-wacom-device.c:1225
 #, c-format
 msgid "Left Touchstrip Mode Switch"
 msgstr "Modo de cambio da banda táctil esquerda"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1084
+#: ../plugins/wacom/gsd-wacom-device.c:1227
 #, c-format
 msgid "Right Touchstrip Mode Switch"
 msgstr "Modo de cambio da banda táctil dereita"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1089
+#: ../plugins/wacom/gsd-wacom-device.c:1232
 #, c-format
 msgid "Mode Switch #%d"
 msgstr "Modo conmutador #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1161
+#: ../plugins/wacom/gsd-wacom-device.c:1336
 #, c-format
 msgid "Left Button #%d"
 msgstr "Botón esquerdo nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1164
+#: ../plugins/wacom/gsd-wacom-device.c:1339
 #, c-format
 msgid "Right Button #%d"
 msgstr "Botón dereito nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1167
+#: ../plugins/wacom/gsd-wacom-device.c:1342
 #, c-format
 msgid "Top Button #%d"
 msgstr "Botón superior nº %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1170
+#: ../plugins/wacom/gsd-wacom-device.c:1345
 #, c-format
 msgid "Bottom Button #%d"
 msgstr "Botón inferior nº %d"
+
+#: ../plugins/wacom/gsd-wacom-osd-window.c:922
+#: ../plugins/wacom/gsd-wacom-osd-window.c:942
+#: ../plugins/wacom/gsd-wacom-osd-window.c:953
+msgctxt "Action type"
+msgid "None"
+msgstr "Ningunha"
+
+#: ../plugins/wacom/gsd-wacom-osd-window.c:927
+#, c-format
+msgctxt "Action type"
+msgid "Send Keystroke %s"
+msgstr "Enviar pulsación de tecla %s"
+
+#: ../plugins/wacom/gsd-wacom-osd-window.c:945
+msgctxt "Action type"
+msgid "Show On-Screen Help"
+msgstr "Mostrar axuda en pantalla"
+
+#: ../plugins/wacom/gsd-wacom-osd-window.c:948
+#| msgid "Switch input source"
+msgctxt "Action type"
+msgid "Switch Monitor"
+msgstr "Cambiar monitor"
+
+#: ../plugins/wacom/gsd-wacom-osd-window.c:986
+#, c-format
+msgid "Mode %d: %s"
+msgstr "Modo %d: %s"
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
@@ -3130,21 +3124,21 @@ msgstr ""
 "Requírese autenticación para modificar a iluminación do LED dunha tableta "
 "Wacom"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:508
+#: ../plugins/xrandr/gsd-xrandr-manager.c:509
 msgid "Could not switch the monitor configuration"
 msgstr "Non foi posíbel cambiar a configuración da pantalla"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:532
+#: ../plugins/xrandr/gsd-xrandr-manager.c:533
 msgid "Could not restore the display's configuration"
 msgstr "Non foi posíbel restaurar a configuración de pantalla"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:557
+#: ../plugins/xrandr/gsd-xrandr-manager.c:558
 msgid "Could not restore the display's configuration from a backup"
 msgstr ""
 "Non foi posíbel restaurar a configuración de pantalla desde a copia de "
 "seguranza"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:578
+#: ../plugins/xrandr/gsd-xrandr-manager.c:579
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -3152,32 +3146,32 @@ msgid_plural ""
 msgstr[0] "Restabelecerase a configuración de pantalla anterior en %d segundo"
 msgstr[1] "Restabelecerase a configuración de pantalla anterior en %d segundos"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:627
+#: ../plugins/xrandr/gsd-xrandr-manager.c:628
 msgid "Does the display look OK?"
 msgstr "Vese correctamente a pantalla?"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:634
+#: ../plugins/xrandr/gsd-xrandr-manager.c:635
 msgid "_Restore Previous Configuration"
 msgstr "_Restabelecer a configuración anterior"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:635
+#: ../plugins/xrandr/gsd-xrandr-manager.c:636
 msgid "_Keep This Configuration"
 msgstr "_Manter esta configuración"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:716
+#: ../plugins/xrandr/gsd-xrandr-manager.c:717
 msgid "The selected configuration for displays could not be applied"
 msgstr "Non é posíbel aplicar a configuración seleccionada para as pantallas"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1374
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1384
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Non foi posíbel actualizar a información de pantalla: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1378
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1388
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Tentando cambiar a configuración da pantalla de todas formas."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1848
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1891
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Non foi posíbel aplicarlle a configuración almacenada aos monitores"
 
@@ -3196,6 +3190,156 @@ msgstr "Configuracións de X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Xestionar as configuracións de X"
+
+#~ msgid "Binding to select the next input source"
+#~ msgstr "Combinación para seleccionar a seguinte orixe de entrada."
+
+#~ msgid "Switch input source backward"
+#~ msgstr "Cambiar cara atrás a orixe de entrada."
+
+#~ msgid "Binding to select the previous input source"
+#~ msgstr "Combinación para seleccionar a anterior orixe de entrada."
+
+#~ msgid "There was an error displaying help: %s"
+#~ msgstr "Produciuse un erro ao mostrar a axuda: %s"
+
+#~ msgid "_Turn Off"
+#~ msgstr "_Desactivar"
+
+#~ msgid "_Turn On"
+#~ msgstr "_Activar"
+
+#~ msgid "_Leave On"
+#~ msgstr "_Deixar activado"
+
+#~ msgid "_Leave Off"
+#~ msgstr "_Deixar desactivado"
+
+#~ msgid "Universal Access Preferences"
+#~ msgstr "Preferencias de acceso universal"
+
+#~ msgid "Use on-screen _keyboard"
+#~ msgstr "Usar o tecla_do en pantalla"
+
+#~ msgid "Use screen _reader"
+#~ msgstr "Usar o _lector de pantalla"
+
+#~ msgid "Use screen _magnifier"
+#~ msgstr "Usar a l_upa da pantalla"
+
+#~ msgid "Enhance _contrast in colors"
+#~ msgstr "Mellorar o _contraste nas cores"
+
+#~ msgid "Make _text larger and easier to read"
+#~ msgstr "Aumentar o tamaño do _texto para facilitar a lectura"
+
+#~ msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
+#~ msgstr ""
+#~ "_Premer os atallos de teclado unha tecla de cada vez (teclas persistentes)"
+
+#~ msgid "_Ignore duplicate keypresses (Bounce Keys)"
+#~ msgstr "_Ignorar a pulsación duplicada de teclas (teclas de rebote)"
+
+#~ msgid "Press and _hold keys to accept them (Slow Keys)"
+#~ msgstr "Premer e _manter as teclas para aceptalas (Teclas lentas)"
+
+#~ msgid "Mount Helper"
+#~ msgstr "Axudante de montado"
+
+#~ msgid "Automount and autorun plugged devices"
+#~ msgstr "Montar e executar automaticamente dispositivos conectados"
+
+#~ msgid "Unable to mount %s"
+#~ msgstr "Non foi posíbel montar %s"
+
+#~ msgid "Unable to open a folder for %s"
+#~ msgstr "Non foi posíbel abrir un cartafol para %s"
+
+#~ msgid "Ask what to do"
+#~ msgstr "Preguntarme que facer"
+
+#~ msgid "Do Nothing"
+#~ msgstr "Non facer nada"
+
+#~ msgid "Open Folder"
+#~ msgstr "Abrir cartafol"
+
+#~ msgid "Unable to eject %p"
+#~ msgstr "Non foi posíbel extraer %p"
+
+#~ msgid "Unable to unmount %p"
+#~ msgstr "Non foi posíbel desmontar %p"
+
+#~ msgid "You have just inserted an Audio CD."
+#~ msgstr "Acaba de inserir un CD de son."
+
+#~ msgid "You have just inserted an Audio DVD."
+#~ msgstr "Acaba de inserir un DVD de son."
+
+#~ msgid "You have just inserted a Video DVD."
+#~ msgstr "Acaba de inserir un DVD de vídeo."
+
+#~ msgid "You have just inserted a Video CD."
+#~ msgstr "Acaba de inserir un CD de vídeo."
+
+#~ msgid "You have just inserted a Super Video CD."
+#~ msgstr "Acaba de inserir un Super Video CD."
+
+#~ msgid "You have just inserted a blank CD."
+#~ msgstr "Acaba de inserir un CD en branco."
+
+#~ msgid "You have just inserted a blank DVD."
+#~ msgstr "Acaba de inserir un DVD en branco."
+
+#~ msgid "You have just inserted a blank Blu-Ray disc."
+#~ msgstr "Acaba de inserir un disco Blu-Ray en branco."
+
+#~ msgid "You have just inserted a blank HD DVD."
+#~ msgstr "Acaba de inserir un HD DVD en branco."
+
+#~ msgid "You have just inserted a Photo CD."
+#~ msgstr "Acaba de inserir un Photo CD."
+
+#~ msgid "You have just inserted a Picture CD."
+#~ msgstr "Acaba de inserir un Picture CD."
+
+#~ msgid "You have just inserted a medium with digital photos."
+#~ msgstr "Acaba de inserir un soporte con fotos dixitais."
+
+#~ msgid "You have just inserted a digital audio player."
+#~ msgstr "Acaba de inserir un reprodutor multimedia."
+
+#~ msgid ""
+#~ "You have just inserted a medium with software intended to be "
+#~ "automatically started."
+#~ msgstr ""
+#~ "Acaba de inserir un soporte con software que tenta iniciarse "
+#~ "automaticamente."
+
+#~ msgid "You have just inserted a medium."
+#~ msgstr "Acaba de inserir un soporte."
+
+#~ msgid "Choose what application to launch."
+#~ msgstr "Seleccionar que aplicativo iniciar."
+
+#~ msgid ""
+#~ "Select how to open \"%s\" and whether to perform this action in the "
+#~ "future for other media of type \"%s\"."
+#~ msgstr ""
+#~ "Selecciona como hai que abrir «%s» e indica se se debe realizar esta "
+#~ "acción nun futuro para outro soporte de tipo «%s»."
+
+#~ msgid "_Always perform this action"
+#~ msgstr "Levar _sempre a cabo esta acción"
+
+#~ msgid "_Eject"
+#~ msgstr "_Expulsar"
+
+#~ msgid "_Unmount"
+#~ msgstr "_Desmontar"
+
+#~ msgid "Power Manager"
+#~ msgstr "Xestor de enerxía"
 
 #~ msgid "Command to be run when a device is added or removed."
 #~ msgstr "Orde a executar cando se engade ou retira un dispositivo."
