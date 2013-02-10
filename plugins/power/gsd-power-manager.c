@@ -3232,7 +3232,7 @@ inhibit_suspend_done (GObject      *source,
 }
 
 /* We take a delay inhibitor here, which causes logind to send a
- * PrepareToSleep signal, which gives us a chance to lock the screen
+ * PrepareForSleep signal, which gives us a chance to lock the screen
  * and do some other preparations.
  */
 static void
