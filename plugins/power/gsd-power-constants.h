@@ -19,7 +19,7 @@
  */
 
 /* The blank delay when the screensaver is active */
-#define SCREENSAVER_TIMEOUT_BLANK                       20 /* seconds */
+#define SCREENSAVER_TIMEOUT_BLANK                       15 /* seconds */
 
 /* The dim delay when dimming on idle is requested but idle-delay
  * is set to "Never" */
@@ -32,7 +32,7 @@
 #define MINIMUM_IDLE_DIM_DELAY                          10 /* seconds */
 
 /* The amount of time we'll undim if the machine is idle when plugged in */
-#define POWER_UP_TIME_ON_AC                             10 /* seconds */
+#define POWER_UP_TIME_ON_AC                             15 /* seconds */
 
 /* Default brightness values for the mock backlight used in the test suite */
 #define GSD_MOCK_DEFAULT_BRIGHTNESS                     50
