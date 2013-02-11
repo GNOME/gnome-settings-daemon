@@ -242,6 +242,27 @@ set_locale (GDBusProxy *proxy)
         g_object_unref (locale_settings);
 }
 
+/* Keep synchronised with set_locale() above */
+static void
+set_locale_env (void)
+{
+        GSettings *locale_settings;
+        gchar *region;
+
+        /* Set locale environment */
+        locale_settings = g_settings_new ("org.gnome.system.locale");
+        region = g_settings_get_string (locale_settings, "region");
+        if (region[0]) {
+                g_setenv ("LC_TIME", region, TRUE);
+                g_setenv ("LC_NUMERIC", region, TRUE);
+                g_setenv ("LC_MONETARY", region, TRUE);
+                g_setenv ("LC_MEASUREMENT", region, TRUE);
+                g_setenv ("LC_PAPER", region, TRUE);
+        }
+        g_free (region);
+        g_object_unref (locale_settings);
+}
+
 static void
 register_with_gnome_session (GDBusProxy *proxy)
 {
@@ -467,6 +488,8 @@ main (int argc, char *argv[])
         gnome_settings_profile_end ("opening gtk display");
 
         g_log_set_default_handler (gsd_log_default_handler, NULL);
+
+        set_locale_env ();
 
         notify_init ("gnome-settings-daemon");
 
