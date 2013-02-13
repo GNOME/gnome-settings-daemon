@@ -3111,7 +3111,7 @@ idle_became_active_cb (GnomeIdleMonitor *monitor,
         set_temporary_unidle_on_ac (manager, FALSE);
 
         /* close any existing notification about idleness */
-        notify_close_if_showing (manager->priv->notification_logout_warning);
+        notify_close_if_showing (manager->priv->notification_sleep_warning);
 
         idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
 }
