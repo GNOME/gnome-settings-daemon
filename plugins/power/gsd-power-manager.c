@@ -27,6 +27,7 @@
 #include <string.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
+#define UPOWER_ENABLE_DEPRECATED 1
 #include <libupower-glib/upower.h>
 #include <libnotify/notify.h>
 #include <canberra-gtk.h>
