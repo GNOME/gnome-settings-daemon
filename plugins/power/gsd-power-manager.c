@@ -184,6 +184,7 @@ struct GsdPowerManagerPrivate
         NotifyNotification      *notification_ups_discharging;
         NotifyNotification      *notification_low;
         NotifyNotification      *notification_sleep_warning;
+        NotifyNotification      *notification_logout_warning;
         GsdPowerActionType       sleep_action_type;
         gboolean                 battery_is_low; /* laptop battery low, or UPS discharging */
 
