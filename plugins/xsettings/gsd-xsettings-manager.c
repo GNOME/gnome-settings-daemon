@@ -366,7 +366,8 @@ static TranslationEntry translations [] = {
         { "org.gnome.desktop.sound", "event-sounds",               "Net/EnableEventSounds" ,        translate_bool_int },
         { "org.gnome.desktop.sound", "input-feedback-sounds",      "Net/EnableInputFeedbackSounds", translate_bool_int },
 
-        { "org.gnome.desktop.privacy", "recent-files-max-age",      "Gtk/RecentFilesMaxAge", translate_int_int }
+        { "org.gnome.desktop.privacy", "recent-files-max-age",      "Gtk/RecentFilesMaxAge", translate_int_int },
+        { "org.gnome.desktop.privacy", "remember-recent-files",    "Gtk/RecentFilesEnabled", translate_bool_int }
 };
 
 static gboolean
