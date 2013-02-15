@@ -50,6 +50,11 @@ static int        term_signal_pipe_fds[2];
 static guint      name_id      = 0;
 static GnomeSettingsManager *manager = NULL;
 
+#ifdef HAVE_IBUS
+static gboolean is_program_in_path (const char *binary);
+static gboolean keyboard_plugin_is_enabled (void);
+#endif /* HAVE_IBUS */
+
 static GOptionEntry entries[] = {
         {"debug", 0, 0, G_OPTION_ARG_NONE, &debug, N_("Enable debugging code"), NULL },
         { "timed-exit", 0, 0, G_OPTION_ARG_NONE, &do_timed_exit, N_("Exit after a time (for debugging)"), NULL },
@@ -241,12 +246,14 @@ set_locale_env (void)
         g_free (region);
         g_object_unref (locale_settings);
 
+#ifdef HAVE_IBUS
         /* Set IBus legacy environment */
         if (is_program_in_path ("ibus-daemon") &&
             keyboard_plugin_is_enabled ()) {
-                g_setenv ("QT_IM_MODULE", "ibus");
-                g_setenv ("XMODIFIERS", "@im=ibus");
+                g_setenv ("QT_IM_MODULE", "ibus", TRUE);
+                g_setenv ("XMODIFIERS", "@im=ibus", TRUE);
         }
+#endif
 }
 
 static void
