@@ -143,6 +143,15 @@ vino_vanished_cb (GDBusConnection         *connection,
 	g_clear_object (&manager->priv->vino_proxy);
 }
 
+static gboolean
+gsd_display_has_extension (const gchar *ext)
+{
+	int op, event, error;
+
+	return XQueryExtension (gdk_x11_get_default_display (),
+				ext, &op, &event, &error);
+}
+
 gboolean
 gsd_remote_display_manager_start (GsdRemoteDisplayManager *manager,
 				  GError               **error)
@@ -158,6 +167,15 @@ gsd_remote_display_manager_start (GsdRemoteDisplayManager *manager,
 	 * This doesn't change at run-time, so it's to the point */
 	if (g_file_test ("/dev/virtio-ports/com.redhat.spice.0", G_FILE_TEST_EXISTS)) {
 		g_debug ("Disabling animations because SPICE is in use");
+		g_settings_set_boolean (manager->priv->desktop_settings,
+					"enable-animations",
+					FALSE);
+		goto out;
+	}
+
+	/* Xvnc exposes an extension named VNC-EXTENSION */
+	if (gsd_display_has_extension ("VNC-EXTENSION")) {
+		g_debug ("Disabling animations because VNC-EXTENSION was detected");
 		g_settings_set_boolean (manager->priv->desktop_settings,
 					"enable-animations",
 					FALSE);
