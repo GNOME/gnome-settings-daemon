@@ -3157,11 +3157,16 @@ engine_session_properties_changed_cb (GDBusProxy      *session,
 
         v = g_variant_lookup_value (changed, "SessionIsActive", G_VARIANT_TYPE_BOOLEAN);
         if (v) {
-                g_variant_unref (v);
-                g_debug ("Received session is active change");
+                gboolean active;
+
+                active = g_variant_get_boolean (v);
+                g_debug ("Received session is active change: now %s", active ? "active" : "inactive");
                 /* when doing the fast-user-switch into a new account,
                  * ensure the new account is undimmed and with the backlight on */
-                idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
+                if (active)
+                        idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
+                g_variant_unref (v);
+
         }
 
         v = g_variant_lookup_value (changed, "InhibitedActions", G_VARIANT_TYPE_UINT32);
