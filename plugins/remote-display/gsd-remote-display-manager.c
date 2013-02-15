@@ -141,6 +141,11 @@ vino_vanished_cb (GDBusConnection         *connection,
 		g_clear_object (&manager->priv->cancellable);
 	}
 	g_clear_object (&manager->priv->vino_proxy);
+
+	/* And reset for us to have animations */
+	g_settings_set_boolean (manager->priv->desktop_settings,
+				"enable-animations",
+				TRUE);
 }
 
 static gboolean
