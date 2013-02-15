@@ -242,7 +242,8 @@ set_locale (GDBusProxy *proxy)
         g_object_unref (locale_settings);
 }
 
-/* Keep synchronised with set_locale() above */
+/* Keep synchronised with set_locale() and
+ * set_legacy_ibus_env_vars() above */
 static void
 set_locale_env (void)
 {
@@ -261,6 +262,13 @@ set_locale_env (void)
         }
         g_free (region);
         g_object_unref (locale_settings);
+
+        /* Set IBus legacy environment */
+        if (is_program_in_path ("ibus-daemon") &&
+            keyboard_plugin_is_enabled ()) {
+                g_setenv ("QT_IM_MODULE", "ibus");
+                g_setenv ("XMODIFIERS", "@im=ibus");
+        }
 }
 
 static void
