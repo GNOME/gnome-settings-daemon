@@ -242,53 +242,6 @@ set_locale (GDBusProxy *proxy)
         g_object_unref (locale_settings);
 }
 
-/* Keep synchronised with set_locale() and
- * set_legacy_ibus_env_vars() above */
-static void
-set_locale_env (void)
-{
-        GSettings *locale_settings;
-        gchar *region;
-
-        /* Set locale environment */
-        locale_settings = g_settings_new ("org.gnome.system.locale");
-        region = g_settings_get_string (locale_settings, "region");
-        if (region[0]) {
-                g_setenv ("LC_TIME", region, TRUE);
-                g_setenv ("LC_NUMERIC", region, TRUE);
-                g_setenv ("LC_MONETARY", region, TRUE);
-                g_setenv ("LC_MEASUREMENT", region, TRUE);
-                g_setenv ("LC_PAPER", region, TRUE);
-        }
-        g_free (region);
-        g_object_unref (locale_settings);
-
-        /* Set IBus legacy environment */
-        if (is_program_in_path ("ibus-daemon") &&
-            keyboard_plugin_is_enabled ()) {
-                g_setenv ("QT_IM_MODULE", "ibus");
-                g_setenv ("XMODIFIERS", "@im=ibus");
-        }
-}
-
-static void
-register_with_gnome_session (GDBusProxy *proxy)
-{
-        const char *startup_id;
-
-        g_signal_connect (G_OBJECT (proxy), "g-signal",
-                          G_CALLBACK (on_session_over), NULL);
-        startup_id = g_getenv ("DESKTOP_AUTOSTART_ID");
-        g_dbus_proxy_call (proxy,
-                           "RegisterClient",
-                           g_variant_new ("(ss)", "gnome-settings-daemon", startup_id ? startup_id : ""),
-                           G_DBUS_CALL_FLAGS_NONE,
-                           -1,
-                           NULL,
-                           (GAsyncReadyCallback) on_client_registered,
-                           manager);
-}
-
 #ifdef HAVE_IBUS
 static gboolean
 is_program_in_path (const char *binary)
@@ -325,6 +278,55 @@ set_legacy_ibus_env_vars (GDBusProxy *proxy)
         }
 }
 #endif
+
+/* Keep synchronised with set_locale() and
+ * set_legacy_ibus_env_vars() above */
+static void
+set_locale_env (void)
+{
+        GSettings *locale_settings;
+        gchar *region;
+
+        /* Set locale environment */
+        locale_settings = g_settings_new ("org.gnome.system.locale");
+        region = g_settings_get_string (locale_settings, "region");
+        if (region[0]) {
+                g_setenv ("LC_TIME", region, TRUE);
+                g_setenv ("LC_NUMERIC", region, TRUE);
+                g_setenv ("LC_MONETARY", region, TRUE);
+                g_setenv ("LC_MEASUREMENT", region, TRUE);
+                g_setenv ("LC_PAPER", region, TRUE);
+        }
+        g_free (region);
+        g_object_unref (locale_settings);
+
+#ifdef HAVE_IBUS
+        /* Set IBus legacy environment */
+        if (is_program_in_path ("ibus-daemon") &&
+            keyboard_plugin_is_enabled ()) {
+                g_setenv ("QT_IM_MODULE", "ibus", TRUE);
+                g_setenv ("XMODIFIERS", "@im=ibus", TRUE);
+        }
+#endif
+}
+
+static void
+register_with_gnome_session (GDBusProxy *proxy)
+{
+        const char *startup_id;
+
+        g_signal_connect (G_OBJECT (proxy), "g-signal",
+                          G_CALLBACK (on_session_over), NULL);
+        startup_id = g_getenv ("DESKTOP_AUTOSTART_ID");
+        g_dbus_proxy_call (proxy,
+                           "RegisterClient",
+                           g_variant_new ("(ss)", "gnome-settings-daemon", startup_id ? startup_id : ""),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1,
+                           NULL,
+                           (GAsyncReadyCallback) on_client_registered,
+                           manager);
+}
 
 static gboolean
 on_term_signal_pipe_closed (GIOChannel *source,
