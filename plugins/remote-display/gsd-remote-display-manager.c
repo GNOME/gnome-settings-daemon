@@ -33,6 +33,7 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gdk/gdk.h>
+#include <gdk/gdkx.h>
 
 #include "gnome-settings-session.h"
 #include "gnome-settings-profile.h"
@@ -153,7 +154,7 @@ gsd_display_has_extension (const gchar *ext)
 {
 	int op, event, error;
 
-	return XQueryExtension (gdk_x11_get_default_display (),
+	return XQueryExtension (gdk_x11_get_default_xdisplay (),
 				ext, &op, &event, &error);
 }
 
