@@ -651,18 +651,21 @@ remove_banned (GsdUpdatesFirmware *firmware, GPtrArray *array)
         banned = g_strsplit (banned_str, ",", 0);
 
         /* remove any banned pattern matches */
-        for (i=0; i<array->len; i++) {
+        i = 0;
+        while (i < array->len) {
+                ret = FALSE;
                 req = g_ptr_array_index (array, i);
                 for (j=0; banned[j] != NULL; j++) {
                         ret = g_pattern_match_simple (banned[j], req->filename);
                         if (ret) {
                                 g_debug ("match %s for %s, removing",
                                          banned[j], req->filename);
-                                request_free (req);
                                 g_ptr_array_remove_index_fast (array, i);
                                 break;
                         }
                 }
+                if (!ret)
+                        i++;
         }
 out:
         g_free (banned_str);
@@ -696,7 +699,9 @@ remove_ignored (GsdUpdatesFirmware *firmware, GPtrArray *array)
         ignored = g_strsplit (ignored_str, ",", 0);
 
         /* remove any ignored pattern matches */
-        for (i=0; i<array->len; i++) {
+        i = 0;
+        while (i < array->len) {
+                ret = FALSE;
                 req = g_ptr_array_index (array, i);
                 if (req->id == NULL)
                         continue;
@@ -704,11 +709,12 @@ remove_ignored (GsdUpdatesFirmware *firmware, GPtrArray *array)
                         ret = g_pattern_match_simple (ignored[j], req->id);
                         if (ret) {
                                 g_debug ("match %s for %s, removing", ignored[j], req->id);
-                                request_free (req);
                                 g_ptr_array_remove_index_fast (array, i);
                                 break;
                         }
                 }
+                if (!ret)
+                        i++;
         }
 out:
         g_free (ignored_str);
