@@ -1,3 +1,48 @@
+==============
+Version 3.7.90
+==============
+
+- Set locale and IBus envvars on startup for our children
+- Remove background plugin, as background handling is now
+  done in gnome-shell
+
+A11y settings:
+- Import GIO instead of GTK+/GDK
+- Do enable toolkit accessibility, even if we don't need it,
+  for the benefit of third-party/legacy toolkits and apps
+
+Media keys:
+- Add other bindings to the whitelist
+
+Cursor:
+- Enable the on-screen keyboard when touch is used
+
+Keyboard:
+- Adapt to gnome-xkb-info API change
+
+Power:
+- Make blanking timeouts match
+- Show notifications when about to suspend from idle
+- Wake up the display when about to logout
+- Adapt to new GnomeIdleMonitor API
+- Don't change the brightness on inactive sessions
+
+Remote Display:
+- Disable animations on Xvnc as well
+- Re-enable animations if Vino is gone
+
+Sound:
+- Avoid polling non-existent directories
+
+Updates:
+- Fix crasher when firmware updates is disabled
+
+XSettings:
+- propagate the remember-recent-files GSetting to XSettings
+
+Wacom:
+- Bump req for GDK_FULLSCREEN_ON_ALL_MONITORS
+
 ===============
 Version 3.7.5.1
 ===============
