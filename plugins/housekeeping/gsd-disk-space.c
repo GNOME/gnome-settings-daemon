@@ -953,18 +953,7 @@ gsd_ldsm_get_config (void)
         gchar **settings_list;
 
         free_percent_notify = g_settings_get_double (settings, SETTINGS_FREE_PC_NOTIFY_KEY);
-        if (free_percent_notify >= 1 || free_percent_notify < 0) {
-                g_warning ("Invalid configuration of free_percent_notify: %f\n" \
-                           "Using sensible default", free_percent_notify);
-                free_percent_notify = 0.05;
-        }
-
         free_percent_notify_again = g_settings_get_double (settings, SETTINGS_FREE_PC_NOTIFY_AGAIN_KEY);
-        if (free_percent_notify_again >= 1 || free_percent_notify_again < 0) {
-                g_warning ("Invalid configuration of free_percent_notify_again: %f\n" \
-                           "Using sensible default\n", free_percent_notify_again);
-                free_percent_notify_again = 0.01;
-        }
 
         free_size_gb_no_notify = g_settings_get_int (settings, SETTINGS_FREE_SIZE_NO_NOTIFY);
         min_notify_period = g_settings_get_int (settings, SETTINGS_MIN_NOTIFY_PERIOD);
