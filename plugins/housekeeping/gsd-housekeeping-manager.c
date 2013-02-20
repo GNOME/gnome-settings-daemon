@@ -375,6 +375,9 @@ gsd_housekeeping_manager_start (GsdHousekeepingManager *manager,
         g_debug ("Starting housekeeping manager");
         gnome_settings_profile_start (NULL);
 
+        /* Create ~/.local/ as early as possible */
+        g_mkdir_with_parents(g_get_user_data_dir (), 0700);
+
         gsd_ldsm_setup (FALSE);
 
         manager->priv->settings = g_settings_new (THUMB_PREFIX);
