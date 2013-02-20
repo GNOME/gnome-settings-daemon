@@ -960,8 +960,7 @@ gsd_ldsm_get_config (void)
 
         if (ignore_paths != NULL) {
                 g_slist_foreach (ignore_paths, (GFunc) g_free, NULL);
-                g_slist_free (ignore_paths);
-                ignore_paths = NULL;
+                g_clear_pointer (&ignore_paths, g_slist_free);
         }
 
         settings_list = g_settings_get_strv (settings, SETTINGS_IGNORE_PATHS);
