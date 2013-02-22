@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-01-25 15:43+0000\n"
-"PO-Revision-Date: 2013-02-10 23:49+0000\n"
+"POT-Creation-Date: 2013-02-19 07:46+0000\n"
+"PO-Revision-Date: 2013-02-22 03:02+0000\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
 "Language: pa\n"
@@ -150,6 +150,9 @@ msgid ""
 "Command to be run when a device is added or removed. An exit value of 1 "
 "means that the device will not be handled further by gnome-settings-daemon."
 msgstr ""
+"ਜਦੋਂ ਜੰਤਰ ਜੋੜਿਆ ਜਾਂ ਹਟਾਇਆ ਜਾਵੇ ਤਾਂ ਚਲਾਉਣ ਵਾਲੀ ਕਮਾਂਡ। 1 ਬੰਦ ਕਰਨ ਮੁੱਲ ਦਾ ਭਾਵ ਹੈ "
+"ਕਿ "
+"ਜੰਤਰ ਨੂੰ gnome-settings-daemon ਰਾਹੀਂ ਕੰਟਰੋਲ ਨਹੀਂ ਕੀਤਾ ਜਾਵੇਗਾ।"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
@@ -347,10 +350,9 @@ msgid ""
 msgstr "ਜਦੋਂ ਕਸਟਮ ਕਾਰਵਾਈਆਂ ਲਈ ਬਟਨ ਦੱਬਿਆ ਗਿਆ ਤਾਂ ਕੀਬੋਰਡ ਸ਼ਾਰਟਕੱਟ ਬਣਾਇਆ ਗਿਆ।"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
-#, fuzzy
 #| msgid "Key combinations for an elevator custom action"
 msgid "Key combinations for a touchring or touchstrip custom action"
-msgstr "ਇਲੇਵੇਟਰ ਕਸਟਮ ਕਾਰਵਾਈ ਲਈ ਸਵਿੱਚ (ਕੀ) ਜੋੜ"
+msgstr "ਟੱਚਰਿੰਗ ਜਾਂ ਟੱਚ-ਪੱਟੀ ਕਸਟਮ ਕਾਰਵਾਈ ਲਈ ਸਵਿੱਚ (ਕੀ) ਜੋੜ"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
 msgid ""
@@ -386,10 +388,9 @@ msgstr ""
 "ਜਾਵੇਗਾ।"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
-#, fuzzy
 #| msgid "If notifications are allowed to be shown"
 msgid "List of plugins that are allowed to be loaded"
-msgstr "ਕੀ ਨੋਟੀਫਿਕੇਸ਼ਨ ਵੇਖਾਉਣ ਦੀ ਮਨਜ਼ੂਰੀ ਹੈ"
+msgstr "ਪਲੱਗਇਨ ਦੀ ਸੂਚੀ, ਜੋ ਕਿ ਲੋਡ ਕਰਨ ਲਈ ਮਨਜ਼ੂਰ ਹਨ"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
 msgid ""
@@ -397,6 +398,9 @@ msgid ""
 "(default: 'all'). The plugins still need to be marked as active to get "
 "loaded. This is only evaluated on startup."
 msgstr ""
+"ਪਲੱਗਇਨਾਂ ਨੂੰ ਦਰਸਾਉਣ ਵਾਲੀਆਂ ਲਾਈਨਾਂ ਦੀ ਸੂਚੀ ਹੈ, ਜੋ ਕਿ ਲੋਡ ਕਰਨ ਲਈ ਮਨਜ਼ੂਰ ਹਨ "
+"(ਮੂਲ: 'all')। ਲੋਡ ਕਰਨ ਲਈ ਪਲੱਗਇਨ ਨੂੰ ਹਾਲੇ ਵੀ ਨਿਸ਼ਾਨਬੱਧ ਕਰਨਾ ਪਵੇਗਾ। ਇਹ ਕੇਵਲ "
+"ਸ਼ੁਰੂ ਸਮੇਂ ਹੀ ਵੇਖਿਆ ਜਾਂਦਾ ਹੈ।"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
 msgid "Mount paths to ignore"
@@ -1028,7 +1032,6 @@ msgid "Whether to turn off specific monitors after boot"
 msgstr "ਕੀ ਬੂਟ ਕਰਨ ਦੇ ਬਾਅਦ ਖਾਸ ਮਾਨੀਟਰ ਨੂੰ ਬੰਦ ਕਰਨਾ ਹੈ"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
-#, fuzzy
 #| msgid ""
 #| "'clone' will display the same thing on all monitors, 'dock' will switch "
 #| "off the internal monitor, 'do-nothing' will use the default Xorg "
@@ -1044,7 +1047,9 @@ msgstr ""
 "ਅੰਦਰੂਨੀ "
 "ਮਾਨੀਟਰਦ ਬੰਦ ਹੋਵੇਗਾ, 'do-nothing' ਨਾਲ ਡਿਫਾਲਟ Xorg ਰਵੱਈਆ ਵਰਤਿਆ ਜਾਵੇਗਾ (ਤਾਜ਼ਾ "
 "ਵਰਜਨਾਂ "
-"ਵਿੱਚ ਫੈਲਿਆ ਹੋਇਆ ਡੈਸਕਟਾਪ ਹੋਵੇਗਾ)"
+"ਵਿੱਚ ਫੈਲਿਆ ਹੋਇਆ ਡੈਸਕਟਾਪ ਹੋਵੇਗਾ)। ਮੂਲ  'follow-lid', ਨੂੰ 'do-nothing' ਅਤੇ "
+"'dock'  ਵਿੱਚੋਂ "
+"ਚੁਣਿਆ ਜਾਵੇਗਾ, ਜੋ ਕਿ lid ਖੋਲ੍ਹਣ ਜਾਂ ਬੰਦ ਕਰਨ ਉੱਤੇ ਨਿਰਭਰ ਹੈ।"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
 msgid "Antialiasing"
@@ -1141,15 +1146,15 @@ msgstr "ਅਸੈੱਸਬਿਲਟੀ ਕੀਬੋਰਡ"
 msgid "Accessibility keyboard plugin"
 msgstr "ਅਸੈੱਸਬਿਲਟੀ ਕੀਬੋਰਡ ਪਲੱਗਇਨ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:395
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
 msgid "Slow Keys Turned On"
 msgstr "ਹੌਲੀ ਸਵਿੱਚ ਚਾਲੂ ਹੋਈਆਂ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:396
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:401
 msgid "Slow Keys Turned Off"
 msgstr "ਹੌਲੀ ਸਵਿੱਚ ਬੰਦ ਹੋਈਆਂ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:397
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:402
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -1158,41 +1163,41 @@ msgstr ""
 "ਸ਼ਾਰਟਕੱਟ ਹੈ, ਜੋ "
 "ਕਿ ਤੁਹਾਡੇ ਕੀ-ਬੋਰਡ ਦੇ ਕੰਮ ਕਰਨ ਦੇ ਢੰਗ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰੇਗਾ।"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:407
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:475
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:412
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:480
 #: ../plugins/mouse/gsd-mouse-manager.c:920
 msgid "Universal Access"
 msgstr "ਯੂਨੀਵਰਸਲ ਅਸੈੱਸ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:413
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:481
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:418
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:486
 msgid "Turn Off"
 msgstr "ਬੰਦ ਕਰੋ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:413
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:481
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:418
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:486
 msgid "Turn On"
 msgstr "ਚਾਲੂ ਕਰੋ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:419
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:487
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:424
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:492
 msgid "Leave On"
 msgstr "ਚਾਲੂ ਛੱਡੋ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:419
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:487
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:424
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:492
 msgid "Leave Off"
 msgstr "ਬੰਦ ਛੱਡੋ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:460
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:465
 msgid "Sticky Keys Turned On"
 msgstr "ਸਟਿੱਕੀ ਸਵਿੱਚ ਚਾਲ ਹੋਈਆਂ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:461
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:466
 msgid "Sticky Keys Turned Off"
 msgstr "ਸਟਿੱਕੀ ਸਵਿੱਚ ਬੰਦ ਹੋਈਆਂ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:463
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:468
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -1201,7 +1206,7 @@ msgstr ""
 "ਸ਼ਾਰਟਕੱਟ ਹੈ, "
 "ਜੋ ਕਿ ਤੁਹਾਡੇ ਕੀ-ਬੋਰਡ ਦੇ ਕੰਮ ਕਰਨ ਦੇ ਢੰਗ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰੇਗਾ।"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:465
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:470
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -1219,14 +1224,6 @@ msgstr "ਅਸੈੱਸਬਿਲਟੀ ਸੈਟਿੰਗ"
 #: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "ਅਸੈੱਸਬਿਲਟੀ ਸੈਟਿੰਗ ਪਲੱਗਇਨ"
-
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
-msgid "Background"
-msgstr "ਬੈਕਗਰਾਊਂਡ"
-
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
-msgid "Background plugin"
-msgstr "ਬੈਕਗਰਾਊਂਡ ਪਲੱਗਇਨ"
 
 #: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
 msgid "Clipboard"
@@ -1401,7 +1398,7 @@ msgstr "ਜਾਂਚ ਕਰੋ…"
 
 #. TRANSLATORS: wireless keyboard with internal battery
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
-#: ../plugins/power/gpm-common.c:607
+#: ../plugins/power/gpm-common.c:611
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "ਕੀ-ਬੋਰਡ"
@@ -1412,13 +1409,11 @@ msgid "Keyboard plugin"
 msgstr "ਕੀ-ਬੋਰਡ ਪਲੱਗਇਨ"
 
 #: ../plugins/media-keys/gsd-screenshot-utils.c:84
-#| msgid "Binding to take a screenshot."
 msgid "Unable to capture a screenshot"
 msgstr "ਸਕਰੀਨਸ਼ਾਟ ਕੈਪਚਰ ਕਰਨ ਲਈ ਅਸਮਰੱਥ"
 
 #: ../plugins/media-keys/gsd-screenshot-utils.c:115
 #: ../plugins/media-keys/gsd-screenshot-utils.c:155
-#| msgid "Screensaver"
 msgid "Screenshot taken"
 msgstr "ਸਕਰੀਨਸ਼ਾਟ ਲਿਆ"
 
@@ -1462,12 +1457,10 @@ msgid "Touchpad toggle"
 msgstr "ਟੱਬਪੈਡ ਬਦਲੋ"
 
 #: ../plugins/media-keys/shortcuts-list.h:94
-#| msgid "Toggle touchpad"
 msgid "Touchpad On"
 msgstr "ਟੱਚਪੈਡ ਚਾਲੂ"
 
 #: ../plugins/media-keys/shortcuts-list.h:95
-#| msgid "Turn Off"
 msgid "Touchpad Off"
 msgstr "ਟੱਚਪੈਡ ਬੰਦ"
 
@@ -1476,25 +1469,21 @@ msgid "Microphone Mute"
 msgstr "ਮਾਈਕਰੋਫੋਨ ਚੁੱਪ"
 
 #: ../plugins/media-keys/shortcuts-list.h:100
-#, fuzzy
 #| msgid "Volume mute"
 msgid "Quiet Volume Mute"
-msgstr "ਆਵਾਜ਼ ਚੁੱਪ"
+msgstr "ਆਵਾਜ਼ ਚੁੱਪ "
 
 #: ../plugins/media-keys/shortcuts-list.h:101
-#, fuzzy
 #| msgid "Volume down"
 msgid "Quiet Volume Down"
 msgstr "ਆਵਾਜ਼ ਘਟਾਓ"
 
 #: ../plugins/media-keys/shortcuts-list.h:102
-#, fuzzy
 #| msgid "Volume up"
 msgid "Quiet Volume Up"
 msgstr "ਆਵਾਜ਼ ਵਧਾਓ"
 
 #: ../plugins/media-keys/shortcuts-list.h:111
-#| msgid "Lock screen"
 msgid "Lock Screen"
 msgstr "ਸਕਰੀਨ ਲਾਕ ਕਰੋ"
 
@@ -1522,12 +1511,10 @@ msgstr "ਵਿਡੀਓ ਆਉਟ"
 
 #. Key code of the XF86RotateWindows key (present on some tablets)
 #: ../plugins/media-keys/shortcuts-list.h:133
-#| msgid "Start screensaver"
 msgid "Rotate Screen"
 msgstr "ਸਕਰੀਨ ਘੁੰਮਾਓ"
 
 #: ../plugins/media-keys/shortcuts-list.h:142
-#| msgid "Power"
 msgid "Power Off"
 msgstr "ਬੰਦ ਕਰੋ"
 
@@ -1553,22 +1540,18 @@ msgid "Brightness Down"
 msgstr "ਚਮਕ ਘਟਾਓ"
 
 #: ../plugins/media-keys/shortcuts-list.h:149
-#| msgid "Keyboard is empty"
 msgid "Keyboard Brightness Up"
 msgstr "ਕੀਬੋਰਡ ਚਮਕ ਵਧਾਓ"
 
 #: ../plugins/media-keys/shortcuts-list.h:150
-#| msgid "Keyboard battery low"
 msgid "Keyboard Brightness Down"
 msgstr "ਕੀਬੋਰਡ ਚਮਕ ਘਟਾਓ"
 
 #: ../plugins/media-keys/shortcuts-list.h:151
-#| msgid "Keyboard is charged"
 msgid "Keyboard Brightness Toggle"
 msgstr "ਕੀਬੋਰਡ ਚਮਕ ਬਦਲੋ"
 
 #: ../plugins/media-keys/shortcuts-list.h:152
-#| msgid "Battery is low"
 msgid "Battery Status"
 msgstr " ਬੈਟਰੀ ਸਥਿਤੀ"
 
@@ -1591,7 +1574,7 @@ msgstr "ਮਾਊਂਸ ਸੁਲੱਭਤਾ ਲਈ ਤੁਹਾਡੇ ਸਿ�
 
 #. TRANSLATORS: wireless mice with internal batteries
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
-#: ../plugins/power/gpm-common.c:603
+#: ../plugins/power/gpm-common.c:607
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "ਮਾਊਸ"
@@ -1601,18 +1584,18 @@ msgstr[1] "ਮਾਊਸ"
 msgid "Mouse plugin"
 msgstr "ਮਾਊਂਸ ਪਲੱਗਇਨ"
 
-#: ../plugins/power/gpm-common.c:69
+#: ../plugins/power/gpm-common.c:73
 msgid "Unknown time"
 msgstr "ਅਣਜਾਣ ਸਮਾਂ"
 
-#: ../plugins/power/gpm-common.c:74
+#: ../plugins/power/gpm-common.c:78
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i ਮਿੰਟ"
 msgstr[1] "%i ਮਿੰਟ"
 
-#: ../plugins/power/gpm-common.c:84
+#: ../plugins/power/gpm-common.c:88
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1621,18 +1604,18 @@ msgstr[1] "%i ਘੰਟੇ"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: ../plugins/power/gpm-common.c:90
+#: ../plugins/power/gpm-common.c:94
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: ../plugins/power/gpm-common.c:91
+#: ../plugins/power/gpm-common.c:95
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "ਘੰਟਾ"
 msgstr[1] "ਘੰਟੇ"
 
-#: ../plugins/power/gpm-common.c:92
+#: ../plugins/power/gpm-common.c:96
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "ਮਿੰਟ"
@@ -1640,7 +1623,7 @@ msgstr[1] "ਮਿੰਟ"
 
 #. TRANSLATORS: The laptop battery is charged, and we know a time.
 #. * The parameter is the time, e.g. 7 hours 6 minutes
-#: ../plugins/power/gpm-common.c:339
+#: ../plugins/power/gpm-common.c:343
 #, c-format
 msgid "provides %s laptop runtime"
 msgstr "%s ਲੈਪਟਾਪ ਰਨ-ਟਾਈਮ ਦਿੰਦੀ ਹੈ"
@@ -1648,7 +1631,7 @@ msgstr "%s ਲੈਪਟਾਪ ਰਨ-ਟਾਈਮ ਦਿੰਦੀ ਹੈ"
 #. TRANSLATORS: the device is discharging, and we have a time remaining
 #. * The first parameter is the device type, e.g. "Laptop battery" and
 #. * the second is the time, e.g. 7 hours 6 minutes
-#: ../plugins/power/gpm-common.c:350
+#: ../plugins/power/gpm-common.c:354
 #, c-format
 msgid "%s %s remaining"
 msgstr "%s %s ਬਾਕੀ ਹੈ"
@@ -1659,20 +1642,20 @@ msgstr "%s %s ਬਾਕੀ ਹੈ"
 #. TRANSLATORS: device is charging, and we have a time to full and a percentage.
 #. * The first parameter is the device type, e.g. "Laptop battery" and
 #. * the second is the time, e.g. "7 hours 6 minutes"
-#: ../plugins/power/gpm-common.c:371 ../plugins/power/gpm-common.c:388
+#: ../plugins/power/gpm-common.c:375 ../plugins/power/gpm-common.c:392
 #, c-format
 msgid "%s %s until charged"
 msgstr "%s ਚਾਰਜ ਹੋਣ ਲਈ %s ਬਾਕੀ"
 
 #. TRANSLATORS: the device is charging, and we have a time to full and empty.
 #. * The parameter is a time string, e.g. "7 hours 6 minutes"
-#: ../plugins/power/gpm-common.c:378
+#: ../plugins/power/gpm-common.c:382
 #, c-format
 msgid "provides %s battery runtime"
 msgstr "%s ਬੈਟਰੀ ਰਨ-ਟਾਈਮ ਦਿੰਦੀ ਹੈ"
 
 #. TRANSLATORS: the type of data, e.g. Laptop battery
-#: ../plugins/power/gpm-common.c:469
+#: ../plugins/power/gpm-common.c:473
 msgid "Product:"
 msgstr "ਪਰੋਡੱਕਟ:"
 
@@ -1680,416 +1663,423 @@ msgstr "ਪਰੋਡੱਕਟ:"
 #. TRANSLATORS: device is charged
 #. TRANSLATORS: device is charging
 #. TRANSLATORS: device is discharging
-#: ../plugins/power/gpm-common.c:473 ../plugins/power/gpm-common.c:476
-#: ../plugins/power/gpm-common.c:479 ../plugins/power/gpm-common.c:482
+#: ../plugins/power/gpm-common.c:477 ../plugins/power/gpm-common.c:480
+#: ../plugins/power/gpm-common.c:483 ../plugins/power/gpm-common.c:486
 msgid "Status:"
 msgstr "ਹਾਲਤ:"
 
-#: ../plugins/power/gpm-common.c:473
+#: ../plugins/power/gpm-common.c:477
 msgid "Missing"
 msgstr "ਗੁੰਮ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:476 ../plugins/power/gpm-common.c:745
+#: ../plugins/power/gpm-common.c:480 ../plugins/power/gpm-common.c:749
 msgid "Charged"
 msgstr "ਚਾਰਜ ਹੋਈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:479 ../plugins/power/gpm-common.c:733
+#: ../plugins/power/gpm-common.c:483 ../plugins/power/gpm-common.c:737
 msgid "Charging"
 msgstr "ਚਾਰਜ ਹੋ ਰਹੀ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:482 ../plugins/power/gpm-common.c:737
+#: ../plugins/power/gpm-common.c:486 ../plugins/power/gpm-common.c:741
 msgid "Discharging"
 msgstr "ਡਿਸ-ਚਾਰਜ ਹੋ ਰਹੀ ਹੈ"
 
 #. TRANSLATORS: percentage
-#: ../plugins/power/gpm-common.c:487
+#: ../plugins/power/gpm-common.c:491
 msgid "Percentage charge:"
 msgstr "ਫ਼ੀ-ਸਦੀ ਚਾਰਜ:"
 
 #. TRANSLATORS: manufacturer
-#: ../plugins/power/gpm-common.c:491
+#: ../plugins/power/gpm-common.c:495
 msgid "Vendor:"
 msgstr "ਵੇਂਡਰ:"
 
 #. TRANSLATORS: how the battery is made, e.g. Lithium Ion
-#: ../plugins/power/gpm-common.c:496
+#: ../plugins/power/gpm-common.c:500
 msgid "Technology:"
 msgstr "ਤਕਨਾਲੋਜੀ:"
 
 #. TRANSLATORS: serial number of the battery
-#: ../plugins/power/gpm-common.c:500
+#: ../plugins/power/gpm-common.c:504
 msgid "Serial number:"
 msgstr "ਸੀਰੀਅਲ ਨੰਬਰ:"
 
 #. TRANSLATORS: model number of the battery
-#: ../plugins/power/gpm-common.c:504
+#: ../plugins/power/gpm-common.c:508
 msgid "Model:"
 msgstr "ਮਾਡਲ:"
 
 #. TRANSLATORS: time to fully charged
-#: ../plugins/power/gpm-common.c:509
+#: ../plugins/power/gpm-common.c:513
 msgid "Charge time:"
 msgstr "ਚਾਰਜ ਸਮਾਂ:"
 
 #. TRANSLATORS: time to empty
-#: ../plugins/power/gpm-common.c:515
+#: ../plugins/power/gpm-common.c:519
 msgid "Discharge time:"
 msgstr "ਡਿਸਚਾਰਜ ਸਮਾਂ:"
 
 #. TRANSLATORS: Excellent, Good, Fair and Poor are all related to battery Capacity
-#: ../plugins/power/gpm-common.c:522
+#: ../plugins/power/gpm-common.c:526
 msgid "Excellent"
 msgstr "ਬਹੁਤ ਵਧੀਆ"
 
-#: ../plugins/power/gpm-common.c:524
+#: ../plugins/power/gpm-common.c:528
 msgid "Good"
 msgstr "ਚੰਗੀ"
 
-#: ../plugins/power/gpm-common.c:526
+#: ../plugins/power/gpm-common.c:530
 msgid "Fair"
 msgstr "ਠੀਕ-ਠਾਕ"
 
-#: ../plugins/power/gpm-common.c:528
+#: ../plugins/power/gpm-common.c:532
 msgid "Poor"
 msgstr "ਮਾੜੀ"
 
-#: ../plugins/power/gpm-common.c:532
+#: ../plugins/power/gpm-common.c:536
 msgid "Capacity:"
 msgstr "ਕੰਪੈਸਟੀ:"
 
-#: ../plugins/power/gpm-common.c:538 ../plugins/power/gpm-common.c:563
+#: ../plugins/power/gpm-common.c:542 ../plugins/power/gpm-common.c:567
 msgid "Current charge:"
 msgstr "ਮੌਜੂਦਾ ਚਾਰਜ:"
 
-#: ../plugins/power/gpm-common.c:544
+#: ../plugins/power/gpm-common.c:548
 msgid "Last full charge:"
 msgstr "ਆਖਰੀ ਪੂਰਾ ਚਾਰਜ:"
 
-#: ../plugins/power/gpm-common.c:550 ../plugins/power/gpm-common.c:568
+#: ../plugins/power/gpm-common.c:554 ../plugins/power/gpm-common.c:572
 msgid "Design charge:"
 msgstr "ਡਿਜ਼ਾਇਨ ਚਾਰਜ:"
 
-#: ../plugins/power/gpm-common.c:555
+#: ../plugins/power/gpm-common.c:559
 msgid "Charge rate:"
 msgstr "ਚਾਰਜ ਰੇਟ:"
 
 #. TRANSLATORS: system power cord
-#: ../plugins/power/gpm-common.c:587
+#: ../plugins/power/gpm-common.c:591
 msgid "AC adapter"
 msgid_plural "AC adapters"
 msgstr[0] "AC ਐਡਪਟਰ"
 msgstr[1] "AC ਐਡਪਟਰ"
 
 #. TRANSLATORS: laptop primary battery
-#: ../plugins/power/gpm-common.c:591
+#: ../plugins/power/gpm-common.c:595
 msgid "Laptop battery"
 msgid_plural "Laptop batteries"
 msgstr[0] "ਲੈਪਟਾਪ ਬੈਟਰੀ"
 msgstr[1] "ਲੈਪਟਾਪ ਬੈਟਰੀਆਂ"
 
 #. TRANSLATORS: battery-backed AC power source
-#: ../plugins/power/gpm-common.c:595
+#: ../plugins/power/gpm-common.c:599
 msgid "UPS"
 msgid_plural "UPSs"
 msgstr[0] "UPS"
 msgstr[1] "UPS"
 
 #. TRANSLATORS: a monitor is a device to measure voltage and current
-#: ../plugins/power/gpm-common.c:599
+#: ../plugins/power/gpm-common.c:603
 msgid "Monitor"
 msgid_plural "Monitors"
 msgstr[0] "ਮਾਨੀਟਰ"
 msgstr[1] "ਮਾਨੀਟਰ"
 
 #. TRANSLATORS: portable device
-#: ../plugins/power/gpm-common.c:611
+#: ../plugins/power/gpm-common.c:615
 msgid "PDA"
 msgid_plural "PDAs"
 msgstr[0] "PDA"
 msgstr[1] "PDAs"
 
 #. TRANSLATORS: cell phone (mobile...)
-#: ../plugins/power/gpm-common.c:615
+#: ../plugins/power/gpm-common.c:619
 msgid "Cell phone"
 msgid_plural "Cell phones"
 msgstr[0] "ਸੈੱਲ ਫੋਨ"
 msgstr[1] "ਸੈੱਲ ਫੋਨ"
 
 #. TRANSLATORS: media player, mp3 etc
-#: ../plugins/power/gpm-common.c:620
+#: ../plugins/power/gpm-common.c:624
 msgid "Media player"
 msgid_plural "Media players"
 msgstr[0] "ਮੀਡਿਆ ਪਲੇਅਰ"
 msgstr[1] "ਮੀਡਿਆ ਪਲੇਅਰ"
 
 #. TRANSLATORS: tablet device
-#: ../plugins/power/gpm-common.c:624
+#: ../plugins/power/gpm-common.c:628
 msgid "Tablet"
 msgid_plural "Tablets"
 msgstr[0] "ਟੇਬਲੇਟ"
 msgstr[1] "ਟੇਬਲੇਟ"
 
 #. TRANSLATORS: tablet device
-#: ../plugins/power/gpm-common.c:628
+#: ../plugins/power/gpm-common.c:632
 msgid "Computer"
 msgid_plural "Computers"
 msgstr[0] "ਕੰਪਿਊਟਰ"
 msgstr[1] "ਕੰਪਿਊਟਰ"
 
 #. TRANSLATORS: battery technology
-#: ../plugins/power/gpm-common.c:692
+#: ../plugins/power/gpm-common.c:696
 msgid "Lithium Ion"
 msgstr "ਲੀਥੀਅਮ ਆਈਨ"
 
 #. TRANSLATORS: battery technology
-#: ../plugins/power/gpm-common.c:696
+#: ../plugins/power/gpm-common.c:700
 msgid "Lithium Polymer"
 msgstr "ਲੀਥੀਅਮ ਪੋਲੀਮਰ"
 
 #. TRANSLATORS: battery technology
-#: ../plugins/power/gpm-common.c:700
+#: ../plugins/power/gpm-common.c:704
 msgid "Lithium Iron Phosphate"
 msgstr "ਲੀਥੀਅਮ ਆਈਰਨ ਫਾਸਫੇਟ"
 
 #. TRANSLATORS: battery technology
-#: ../plugins/power/gpm-common.c:704
+#: ../plugins/power/gpm-common.c:708
 msgid "Lead acid"
 msgstr "ਲੈੱਡ ਐਸਿਡ"
 
 #. TRANSLATORS: battery technology
-#: ../plugins/power/gpm-common.c:708
+#: ../plugins/power/gpm-common.c:712
 msgid "Nickel Cadmium"
 msgstr "ਨਿੱਕਲ ਕੇਡਮੀਅਮ"
 
 #. TRANSLATORS: battery technology
-#: ../plugins/power/gpm-common.c:712
+#: ../plugins/power/gpm-common.c:716
 msgid "Nickel metal hydride"
 msgstr "ਨਿੱਕਲ ਮੈਟਲ ਹਾਡਰਾਇਡ"
 
 #. TRANSLATORS: battery technology
-#: ../plugins/power/gpm-common.c:716
+#: ../plugins/power/gpm-common.c:720
 msgid "Unknown technology"
 msgstr "ਅਣਜਾਣ ਤਕਨਾਲੋਜੀ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:741
+#: ../plugins/power/gpm-common.c:745
 msgid "Empty"
 msgstr "ਖਾਲੀ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:749
+#: ../plugins/power/gpm-common.c:753
 msgid "Waiting to charge"
 msgstr "ਚਾਰਜ ਹੋਣ ਲਈ ਉਡੀਕ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:753
+#: ../plugins/power/gpm-common.c:757
 msgid "Waiting to discharge"
 msgstr "ਡਿਸ-ਚਾਰਜ ਹੋਣ ਲਈ ਉਡੀਕ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ"
 
 #. TRANSLATORS: device not present
-#: ../plugins/power/gpm-common.c:781
+#: ../plugins/power/gpm-common.c:785
 msgid "Laptop battery not present"
 msgstr "ਲੈਪਟਾਪ ਬੈਟਰੀ ਮੌਜੂਦ ਨਹੀਂ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:785
+#: ../plugins/power/gpm-common.c:789
 msgid "Laptop battery is charging"
 msgstr "ਲੈਪਟਾਪ ਬੈਟਰੀ ਚਾਰਜ ਹੋ ਰਹੀ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:789
+#: ../plugins/power/gpm-common.c:793
 msgid "Laptop battery is discharging"
 msgstr "ਲੈਪਟਾਪ ਬੈਟਰੀ ਡਿਸਚਾਰਜ ਹੋ ਰਹੀ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:793
+#: ../plugins/power/gpm-common.c:797
 msgid "Laptop battery is empty"
 msgstr "ਲੈਪਟਾਪ ਬੈਟਰੀ ਖਾਲੀ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:797
+#: ../plugins/power/gpm-common.c:801
 msgid "Laptop battery is charged"
 msgstr "ਲੈਪਟਾਪ ਬੈਟਰੀ ਚਾਰਜ ਹੋਈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:801
+#: ../plugins/power/gpm-common.c:805
 msgid "Laptop battery is waiting to charge"
 msgstr "ਲੈਪਟਾਪ ਬੈਟਰੀ ਦੀ ਚਾਰਜ ਹੋਣ ਦੀ ਉਡੀਕ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:805
+#: ../plugins/power/gpm-common.c:809
 msgid "Laptop battery is waiting to discharge"
 msgstr "ਲੈਪਟਾਪ ਬੈਟਰੀ ਦੀ ਡਿਸ-ਚਾਰਜ ਹੋਣ ਉਡੀਕ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:814
+#: ../plugins/power/gpm-common.c:818
 msgid "UPS is charging"
 msgstr "UPS ਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:818
+#: ../plugins/power/gpm-common.c:822
 msgid "UPS is discharging"
 msgstr "UPS ਡਿਸਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:822
+#: ../plugins/power/gpm-common.c:826
 msgid "UPS is empty"
 msgstr "UPS ਖਾਲੀ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:826
+#: ../plugins/power/gpm-common.c:830
 msgid "UPS is charged"
 msgstr "UPS ਚਾਰਜ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:835
+#: ../plugins/power/gpm-common.c:839
 msgid "Mouse is charging"
 msgstr "ਮਾਊਸ ਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:839
+#: ../plugins/power/gpm-common.c:843
 msgid "Mouse is discharging"
 msgstr "ਮਾਊਸ ਡਿਸ-ਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:843
+#: ../plugins/power/gpm-common.c:847
 msgid "Mouse is empty"
 msgstr "ਮਾਊਸ ਖਾਲੀ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:847
+#: ../plugins/power/gpm-common.c:851
 msgid "Mouse is charged"
 msgstr "ਮਾਊਸ ਚਾਰਜ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:856
+#: ../plugins/power/gpm-common.c:860
 msgid "Keyboard is charging"
 msgstr "ਕੀਬੋਰਡ ਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:860
+#: ../plugins/power/gpm-common.c:864
 msgid "Keyboard is discharging"
 msgstr "ਕੀਬੋਰਡ ਡਿਸ-ਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:864
+#: ../plugins/power/gpm-common.c:868
 msgid "Keyboard is empty"
 msgstr "ਕੀਬੋਰਡ ਖਾਲੀ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:868
+#: ../plugins/power/gpm-common.c:872
 msgid "Keyboard is charged"
 msgstr "ਕੀਬੋਰਡ ਚਾਰਜ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:877
+#: ../plugins/power/gpm-common.c:881
 msgid "PDA is charging"
 msgstr "PDA ਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:881
+#: ../plugins/power/gpm-common.c:885
 msgid "PDA is discharging"
 msgstr "PDA ਡਿਸਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:885
+#: ../plugins/power/gpm-common.c:889
 msgid "PDA is empty"
 msgstr "PDA ਖਾਲੀ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:889
+#: ../plugins/power/gpm-common.c:893
 msgid "PDA is charged"
 msgstr "PDA ਚਾਰਜ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:898
+#: ../plugins/power/gpm-common.c:902
 msgid "Cell phone is charging"
 msgstr "ਸੈੱਲ ਫੋਨ ਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:902
+#: ../plugins/power/gpm-common.c:906
 msgid "Cell phone is discharging"
 msgstr "ਸੈੱਲ ਫੋਨ ਡਿਸ-ਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:906
+#: ../plugins/power/gpm-common.c:910
 msgid "Cell phone is empty"
 msgstr "ਸੈੱਲ ਫੋਨ ਖਾਲੀ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:910
+#: ../plugins/power/gpm-common.c:914
 msgid "Cell phone is charged"
 msgstr "ਸੈੱਲ ਫੋਨ ਚਾਰਜ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:920
+#: ../plugins/power/gpm-common.c:924
 msgid "Media player is charging"
 msgstr "ਮੀਡਿਆ ਪਲੇਅਰ ਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:924
+#: ../plugins/power/gpm-common.c:928
 msgid "Media player is discharging"
 msgstr "ਮੀਡਿਆ ਪਲੇਅਰ ਡਿਸ-ਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:928
+#: ../plugins/power/gpm-common.c:932
 msgid "Media player is empty"
 msgstr "ਮੀਡਿਆ ਪਲੇਅਰ ਖਾਲੀ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:932
+#: ../plugins/power/gpm-common.c:936
 msgid "Media player is charged"
 msgstr "ਮੀਡਿਆ ਪਲੇਅਰ ਚਾਰਜ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:941
+#: ../plugins/power/gpm-common.c:945
 msgid "Tablet is charging"
 msgstr "ਟੇਬਲਿਟ ਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:945
+#: ../plugins/power/gpm-common.c:949
 msgid "Tablet is discharging"
 msgstr "ਟੇਬਲਿਟ ਡਿਸ-ਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:949
+#: ../plugins/power/gpm-common.c:953
 msgid "Tablet is empty"
 msgstr "ਟੇਬਲਿਟ ਖਾਲੀ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:953
+#: ../plugins/power/gpm-common.c:957
 msgid "Tablet is charged"
 msgstr "ਟੇਬਲਿਟ ਚਾਰਜ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:962
+#: ../plugins/power/gpm-common.c:966
 msgid "Computer is charging"
 msgstr "ਕੰਪਿਊਟਰ ਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:966
+#: ../plugins/power/gpm-common.c:970
 msgid "Computer is discharging"
 msgstr "ਕੰਪਿਊਟਰ ਡਿਸ-ਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:970
+#: ../plugins/power/gpm-common.c:974
 msgid "Computer is empty"
 msgstr "ਕੰਪਿਊਟਰ ਖਾਲੀ ਹੈ"
 
 #. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:974
+#: ../plugins/power/gpm-common.c:978
 msgid "Computer is charged"
 msgstr "ਕੰਪਿਊਟਰ ਚਾਰਜ ਹੈ"
 
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gpm-common.c:1732
+#: ../plugins/power/gsd-power-manager.c:1628
+#: ../plugins/power/gsd-power-manager.c:1758
+msgid "Battery is critically low"
+msgstr "ਬੈਟਰੀ ਨਾਜ਼ੁਕ ਰੂਪ ਵਿੱਚ ਘੱਟ ਹੈ"
+
 #. TRANSLATORS: the battery may be recalled by its vendor
-#: ../plugins/power/gsd-power-manager.c:991
+#: ../plugins/power/gsd-power-manager.c:929
 msgid "Battery may be recalled"
 msgstr "ਬੈਟਰੀ ਵਾਪਸ ਲਈ ਗਈ ਹੋ ਸਕਦੀ ਹੈ"
 
-#: ../plugins/power/gsd-power-manager.c:994
+#: ../plugins/power/gsd-power-manager.c:932
 #, c-format
 msgid ""
 "A battery in your computer may have been recalled by %s and you may be at "
@@ -2098,207 +2088,207 @@ msgstr ""
 "ਤੁਹਾਡੇ ਕੰਪਿਊਟਰ ਦੀ ਬੈਟਰੀ ਨੂੰ %s ਵਲੋਂ ਵਾਪਿਸ ਲੈ ਲਿਆ ਗਿਆ ਹੈ ਅਤੇ ਤੁਹਾਨੂੰ ਖਤਰਾ ਹੋ "
 "ਸਕਦਾ ਹੈ।"
 
-#: ../plugins/power/gsd-power-manager.c:997
+#: ../plugins/power/gsd-power-manager.c:935
 msgid "For more information visit the battery recall website."
 msgstr "ਹੋਰ ਜਾਣਕਾਰੀ ਲਈ ਬੈਟਰੀ ਰੀ-ਕਾਲ ਵੈੱਬਸਾਈਟ ਨੂੰ ਵੇਖੋ।"
 
 #. TRANSLATORS: button text, visit the manufacturers recall website
-#: ../plugins/power/gsd-power-manager.c:1008
+#: ../plugins/power/gsd-power-manager.c:946
 msgid "Visit recall website"
 msgstr "ਰੀ-ਕਾਲ ਵੈੱਬਸਾਇਟ ਵੇਖੋ"
 
 #. TRANSLATORS: button text, do not show this bubble again
-#: ../plugins/power/gsd-power-manager.c:1012
+#: ../plugins/power/gsd-power-manager.c:950
 msgid "Do not show me this again"
 msgstr "ਇਹ ਮੈਨੂੰ ਮੁੜ ਨਾ ਵੇਖਾਓ"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:1265
+#: ../plugins/power/gsd-power-manager.c:1203
 msgid "UPS Discharging"
 msgstr "UPS ਡਿਸਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1270
+#: ../plugins/power/gsd-power-manager.c:1208
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "UPS ਦੀ %s ਬੈਕਅੱਪ ਊਰਜਾ ਬਾਕੀ"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:1291
-#: ../plugins/power/gsd-power-manager.c:1501
-#: ../plugins/power/gsd-power-manager.c:1674
-#: ../plugins/power/gsd-power-manager.c:1816
-#: ../plugins/power/gsd-power-manager.c:3073
+#: ../plugins/power/gsd-power-manager.c:1229
+#: ../plugins/power/gsd-power-manager.c:1438
+#: ../plugins/power/gsd-power-manager.c:1611
+#: ../plugins/power/gsd-power-manager.c:1749
+#: ../plugins/power/gsd-power-manager.c:3084
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "ਪਾਵਰ"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:1411
+#: ../plugins/power/gsd-power-manager.c:1348
 msgid "Battery low"
 msgstr "ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1414
+#: ../plugins/power/gsd-power-manager.c:1351
 msgid "Laptop battery low"
 msgstr "ਲੈਪਟਾਪ ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1421
+#: ../plugins/power/gsd-power-manager.c:1358
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "ਲਗਭਗ %s ਬਾਕੀ ਰਹਿ ਗਈ ਹੈ (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:1428
+#: ../plugins/power/gsd-power-manager.c:1365
 msgid "UPS low"
 msgstr "UPS ਘੱਟ"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1434
+#: ../plugins/power/gsd-power-manager.c:1371
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "UPS ਬੈਕਅੱਪ ਪਾਵਰ ਵਿੱਚੋਂ ਲਗਭਗ %s ਬਾਕੀ ਰਹਿ ਗਈ ਹੈ (%.0f%%)।"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:1439
-#: ../plugins/power/gsd-power-manager.c:1598
+#: ../plugins/power/gsd-power-manager.c:1376
+#: ../plugins/power/gsd-power-manager.c:1535
 msgid "Mouse battery low"
 msgstr "ਮਾਊਸ ਬੈਟਰੀ ਘੱਟ"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1442
+#: ../plugins/power/gsd-power-manager.c:1379
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "ਬੇਤਾਰ ਮਾਊਸ ਦੀ ਪਾਵਰ (%.0f%%) ਘੱਟ ਹੋ ਗਈ ਹੈ।"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:1446
-#: ../plugins/power/gsd-power-manager.c:1606
+#: ../plugins/power/gsd-power-manager.c:1383
+#: ../plugins/power/gsd-power-manager.c:1543
 msgid "Keyboard battery low"
 msgstr "ਕੀਬੋਰਡ ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1449
+#: ../plugins/power/gsd-power-manager.c:1386
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "ਬੇਤਾਰ ਕੀ-ਬੋਰਡ ਵਿੱਚ ਪਾਵਰ ਘੱਟ ਹੈ (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:1453
-#: ../plugins/power/gsd-power-manager.c:1615
+#: ../plugins/power/gsd-power-manager.c:1390
+#: ../plugins/power/gsd-power-manager.c:1552
 msgid "PDA battery low"
 msgstr "PDA ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1456
+#: ../plugins/power/gsd-power-manager.c:1393
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "PDA ਜੰਤਰ ਦੀ ਪਾਵਰ (%.0f%%) ਘੱਟ ਹੋ ਗਈ ਹੈ।"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1460
-#: ../plugins/power/gsd-power-manager.c:1625
-#: ../plugins/power/gsd-power-manager.c:1634
+#: ../plugins/power/gsd-power-manager.c:1397
+#: ../plugins/power/gsd-power-manager.c:1562
+#: ../plugins/power/gsd-power-manager.c:1571
 msgid "Cell phone battery low"
 msgstr "ਸੈੱਲ ਫੋਨ ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1463
+#: ../plugins/power/gsd-power-manager.c:1400
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "ਸੈੱਲ ਫੋਨ ਦੀ ਪਾਵਰ (%.0f%%) ਘੱਟ ਹੋ ਗਈ ਹੈ।"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:1467
+#: ../plugins/power/gsd-power-manager.c:1404
 msgid "Media player battery low"
 msgstr "ਮੀਡਿਆ ਪਲੇਅਰ ਦੀ ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1470
+#: ../plugins/power/gsd-power-manager.c:1407
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "ਮੀਡਿਆ ਪਲੇਅਰ ਦੀ ਪਾਵਰ (%.1f%%) ਘੱਟ ਹੋ ਗਈ ਹੈ"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1474
-#: ../plugins/power/gsd-power-manager.c:1643
+#: ../plugins/power/gsd-power-manager.c:1411
+#: ../plugins/power/gsd-power-manager.c:1580
 msgid "Tablet battery low"
 msgstr "ਟੈਬਲੇਟ ਦੀ ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1477
+#: ../plugins/power/gsd-power-manager.c:1414
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "ਟੈਬਲੇਟ ਦੀ ਪਾਵਰ (%.0f%%) ਘੱਟ ਹੋ ਗਈ ਹੈ।"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1481
-#: ../plugins/power/gsd-power-manager.c:1652
+#: ../plugins/power/gsd-power-manager.c:1418
+#: ../plugins/power/gsd-power-manager.c:1589
 msgid "Attached computer battery low"
 msgstr "ਜੁੜੇ ਕੰਪਿਊਟਰ ਦੀ ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1484
+#: ../plugins/power/gsd-power-manager.c:1421
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "ਜੁੜੇ ਕੰਪਿਊਟਰ ਦੀ ਪਾਵਰ (%.0f%%) ਘੱਟ ਹੋ ਗਈ ਹੈ"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1511
+#: ../plugins/power/gsd-power-manager.c:1448
 msgid "Battery is low"
 msgstr "ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1552
+#: ../plugins/power/gsd-power-manager.c:1489
 msgid "Battery critically low"
 msgstr "ਬੈਟਰੀ ਨਾਜ਼ੁਕ ਰੂਪ ਵਿੱਚ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1555
-#: ../plugins/power/gsd-power-manager.c:1730
+#: ../plugins/power/gsd-power-manager.c:1492
+#: ../plugins/power/gsd-power-manager.c:1663
 msgid "Laptop battery critically low"
 msgstr "ਲੈਪਟਾਪ ਬੈਟਰੀ ਨਾਜ਼ੁਕ ਰੂਪ ਵਿੱਚ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
-#: ../plugins/power/gsd-power-manager.c:1564
+#: ../plugins/power/gsd-power-manager.c:1501
 msgid "Plug in your AC adapter to avoid losing data."
 msgstr "ਡਾਟਾ ਖਰਾਬ ਹੋਣ ਤੋਂ ਬੱਚਣ ਲਈ ਆਪਣਾ AC ਐਡਪਟਰ ਲਾਓ ਜੀ।"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1568
+#: ../plugins/power/gsd-power-manager.c:1505
 #, c-format
 msgid "Computer will suspend very soon unless it is plugged in."
 msgstr "ਕੰਪਿਊਟਰ ਬਹੁਤ ਛੇਤੀ ਹੀ ਸਸਪੈਂਡ ਹੋ ਜਾਵੇਗਾ, ਜੇ ਪਲੱਗ ਨਾ ਲਾਇਆ।"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1572
+#: ../plugins/power/gsd-power-manager.c:1509
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr "ਕੰਪਿਊਟਰ ਛੇਤੀ ਹੀ ਹਾਈਬਰਨੇਟ ਹੋ ਜਾਵੇਗਾ, ਜੇ ਪਲੱਗਇਨ ਨਾ ਲਾਇਆ।"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1576
+#: ../plugins/power/gsd-power-manager.c:1513
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "ਕੰਪਿਊਟਰ ਛੇਤੀ ਹੀ ਬੰਦ ਹੋ ਜਾਵੇਗਾ, ਜੇ ਪਲੱਗ ਨਾ ਲਾਇਆ।"
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1586
-#: ../plugins/power/gsd-power-manager.c:1768
+#: ../plugins/power/gsd-power-manager.c:1523
+#: ../plugins/power/gsd-power-manager.c:1701
 msgid "UPS critically low"
 msgstr "UPS ਨਾਜ਼ੁਕ ਰੂਪ ਵਿੱਚ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1592
+#: ../plugins/power/gsd-power-manager.c:1529
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -2309,7 +2299,7 @@ msgstr ""
 "AC ਬਿਜਲੀ ਪਾਵਰ ਦਿਓ।"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1601
+#: ../plugins/power/gsd-power-manager.c:1538
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -2320,7 +2310,7 @@ msgstr ""
 "ਛੇਤੀ ਹੀ ਕੰਮ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ।"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1609
+#: ../plugins/power/gsd-power-manager.c:1546
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -2331,7 +2321,7 @@ msgstr ""
 "ਤਾਂ ਛੇਤੀ ਹੀ ਕੰਮ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ।"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1618
+#: ../plugins/power/gsd-power-manager.c:1555
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -2342,7 +2332,7 @@ msgstr ""
 "ਹੀ ਕੰਮ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ।"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1628
+#: ../plugins/power/gsd-power-manager.c:1565
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -2353,7 +2343,7 @@ msgstr ""
 "ਨਾ ਕੀਤਾ ਗਿਆ ਹੈ, ਤਾਂ ਛੇਤੀ ਹੀ ਕੰਮ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ।"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1637
+#: ../plugins/power/gsd-power-manager.c:1574
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -2364,7 +2354,7 @@ msgstr ""
 "ਤਾਂ ਛੇਤੀ ਹੀ ਕੰਮ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ।"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1646
+#: ../plugins/power/gsd-power-manager.c:1583
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -2375,7 +2365,7 @@ msgstr ""
 "ਹੀ ਕੰਮ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ।"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1655
+#: ../plugins/power/gsd-power-manager.c:1592
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -2385,15 +2375,8 @@ msgstr ""
 "ਗਿਆ ਹੈ "
 "ਤਾਂ ਛੇਤੀ ਹੀ ਕੰਮ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ।"
 
-#. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1685
-#: ../plugins/power/gsd-power-manager.c:1695
-#: ../plugins/power/gsd-power-manager.c:1825
-msgid "Battery is critically low"
-msgstr "ਬੈਟਰੀ ਨਾਜ਼ੁਕ ਰੂਪ ਵਿੱਚ ਘੱਟ ਹੈ"
-
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1738
+#: ../plugins/power/gsd-power-manager.c:1671
 msgid ""
 "The battery is below the critical level and this computer will <b>power-off</"
 "b> when the battery becomes completely empty."
@@ -2403,7 +2386,7 @@ msgstr ""
 "<b>ਬੰਦ</b> ਹੋ ਜਾਵੇਗਾ।"
 
 #. TRANSLATORS: computer will suspend
-#: ../plugins/power/gsd-power-manager.c:1744
+#: ../plugins/power/gsd-power-manager.c:1677
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "suspend.\n"
@@ -2416,7 +2399,7 @@ msgstr ""
 "ਲੋੜ ਰਹਿੰਦੀ ਹੈ।"
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1751
+#: ../plugins/power/gsd-power-manager.c:1684
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -2425,7 +2408,7 @@ msgstr ""
 "ਹੋਣ ਵਾਲਾ ਹੀ ਹੈ।"
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1756
+#: ../plugins/power/gsd-power-manager.c:1689
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -2434,7 +2417,7 @@ msgstr ""
 "ਵਾਲਾ ਹੀ ਹੈ।"
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1776
+#: ../plugins/power/gsd-power-manager.c:1709
 msgid ""
 "UPS is below the critical level and this computer will <b>power-off</b> when "
 "the UPS becomes completely empty."
@@ -2444,7 +2427,7 @@ msgstr ""
 "<b>ਬੰਦ</b> ਹੋ ਜਾਵੇਗਾ।"
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1782
+#: ../plugins/power/gsd-power-manager.c:1715
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
@@ -2452,31 +2435,44 @@ msgstr ""
 "ਹੋਣ ਵਾਲਾ ਹੀ ਹੈ।"
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1787
+#: ../plugins/power/gsd-power-manager.c:1720
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "UPS ਹੁਣ ਨਾਜ਼ੁਕ ਪੱਧਰ ਤੋਂ ਵੀ ਹੇਠਾਂ ਚੱਲੀ ਗਈ ਹੈ ਅਤੇ ਇਹ ਕੰਪਿਊਟਰ ਹੁਣ ਬੱਸ ਬੰਦ ਹੋਣ "
 "ਵਾਲਾ ਹੀ ਹੈ।"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2285
+#: ../plugins/power/gsd-power-manager.c:2223
 msgid "Lid has been opened"
 msgstr "Lid ਖੋਲ੍ਹਿਆ ਜਾ ਚੁੱਕਾ ਹੈ"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2323
+#: ../plugins/power/gsd-power-manager.c:2261
 msgid "Lid has been closed"
 msgstr "Lid ਬੰਦ ਕੀਤਾ ਜਾ ਚੁੱਕਾ ਹੈ"
 
-#. create a new notification
-#: ../plugins/power/gsd-power-manager.c:3066
-#| msgid "Automount"
+#: ../plugins/power/gsd-power-manager.c:3063
 msgid "Automatic logout"
 msgstr "ਆਪਣੇ-ਆਪ ਲਾਗਆਉਟ"
 
-#: ../plugins/power/gsd-power-manager.c:3066
+#: ../plugins/power/gsd-power-manager.c:3063
 msgid "You will soon log out because of inactivity."
 msgstr "ਨਾ-ਸਰਗਰਮੀ ਦੇ ਵਜ੍ਹਾ ਕਰਕੇ ਤੁਸੀਂ ਛੇਤੀ ਹੀ ਲਾਗਆਉਟ ਹੋ ਜਾਵੋਗੇ।"
+
+#: ../plugins/power/gsd-power-manager.c:3068
+#| msgid "Automatic logout"
+msgid "Automatic suspend"
+msgstr "ਆਪਣੇ-ਆਪ ਸਸਪੈਂਡ"
+
+#: ../plugins/power/gsd-power-manager.c:3068
+#: ../plugins/power/gsd-power-manager.c:3073
+#| msgid "You will soon log out because of inactivity."
+msgid "Computer will suspend very soon because of inactivity."
+msgstr "ਨਾ-ਸਰਗਰਮੀ ਦੇ ਵਜ੍ਹਾ ਕਰਕੇ ਕੰਪਿਊਟਰ ਛੇਤੀ ਹੀ ਸਸਪੈਂਡ ਹੋ ਜਾਵੇਗਾ।"
+
+#: ../plugins/power/gsd-power-manager.c:3073
+msgid "Automatic hibernation"
+msgstr "ਆਪਣੇ-ਆਪ ਹਾਈਬਰਨੇਸ਼ਨ"
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
@@ -2988,7 +2984,6 @@ msgstr "ਠੀਕ ਹੈ"
 
 #. If no mode is available, we use "left-ring-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1076
-#| msgid "Left Ring Mode #%d"
 msgid "Left Ring"
 msgstr "ਖੱਬੀ ਰਿੰਗ"
 
@@ -2999,7 +2994,6 @@ msgstr "ਖੱਬਾ ਰਿੰਗ ਉਂਗਲ ਮੋਡ #%d"
 
 #. If no mode is available, we use "right-ring-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1105
-#| msgid "Right Ring Mode #%d"
 msgid "Right Ring"
 msgstr "ਸੱਜੀ ਰਿੰਗ"
 
@@ -3010,7 +3004,6 @@ msgstr "ਸੱਜੀ ਰਿੰਗ ਉਂਗਲ ਮੋਡ #%d"
 
 #. If no mode is available, we use "left-strip-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1156
-#| msgid "Left Touchstrip Mode #%d"
 msgid "Left Touchstrip"
 msgstr "ਖੱਬਾ ਟੱਚਸਟਰਿਪ"
 
@@ -3021,7 +3014,6 @@ msgstr "ਖੱਬਾ ਟੱਚਸਟਰਿਪ ਮੋਡ #%d"
 
 #. If no mode is available, we use "right-strip-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1185
-#| msgid "Right Touchstrip Mode #%d"
 msgid "Right Touchstrip"
 msgstr "ਸੱਜਾ ਟੱਚਸਟਰਿਪ"
 
@@ -3075,31 +3067,30 @@ msgstr "ਟਾਪ ਬਟਨ #%d"
 msgid "Bottom Button #%d"
 msgstr "ਤਲ ਬਟਨ #%d"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:950
-#: ../plugins/wacom/gsd-wacom-osd-window.c:970
-#: ../plugins/wacom/gsd-wacom-osd-window.c:981
+#: ../plugins/wacom/gsd-wacom-osd-window.c:922
+#: ../plugins/wacom/gsd-wacom-osd-window.c:942
+#: ../plugins/wacom/gsd-wacom-osd-window.c:953
 msgctxt "Action type"
 msgid "None"
 msgstr "ਕੋਈ ਨਹੀਂ"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:955
+#: ../plugins/wacom/gsd-wacom-osd-window.c:927
 #, c-format
 msgctxt "Action type"
 msgid "Send Keystroke %s"
 msgstr "ਕੀ-ਸਟਰੋਕ %s ਭੇਜੋ"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:973
+#: ../plugins/wacom/gsd-wacom-osd-window.c:945
 msgctxt "Action type"
 msgid "Show On-Screen Help"
 msgstr "ਆਨ-ਸਕਰੀਨ ਮੱਦਦ ਵੇਖਾਓ"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:976
-#| msgid "Switch input source"
+#: ../plugins/wacom/gsd-wacom-osd-window.c:948
 msgctxt "Action type"
 msgid "Switch Monitor"
 msgstr "ਮਾਨੀਟਰ ਬਦਲੋ"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1014
+#: ../plugins/wacom/gsd-wacom-osd-window.c:986
 #, c-format
 msgid "Mode %d: %s"
 msgstr "ਮੋਡ %d: %s"
@@ -3180,6 +3171,12 @@ msgstr "X ਸੈਟਿੰਗ"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "X ਸੈਟਿੰਗ ਪਰਬੰਧ"
+
+#~ msgid "Background"
+#~ msgstr "ਬੈਕਗਰਾਊਂਡ"
+
+#~ msgid "Background plugin"
+#~ msgstr "ਬੈਕਗਰਾਊਂਡ ਪਲੱਗਇਨ"
 
 #~ msgid "Command to be run when a device is added or removed."
 #~ msgstr "ਜਦੋਂ ਜੰਤਰ ਜੋੜਿਆ ਜਾਂ ਹਟਾਇਆ ਜਾਵੇ ਤਾਂ ਚਲਾਉਣ ਵਾਲੀ ਕਮਾਂਡ।"
