@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center.HEAD.he\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-02 14:15+0200\n"
-"PO-Revision-Date: 2013-02-02 14:17+0200\n"
+"POT-Creation-Date: 2013-02-22 09:38+0200\n"
+"PO-Revision-Date: 2013-02-22 09:39+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <kde-il@yahoogroups.com>\n"
 "Language: he\n"
@@ -956,19 +956,12 @@ msgstr "הגדרות נגישות"
 msgid "Accessibility settings plugin"
 msgstr "תוסף הגדרות נגישות"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
-msgid "Background"
-msgstr "רקע"
-
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
-msgid "Background plugin"
-msgstr "תוסף רקע"
-
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#. Priority=100
+#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
 msgid "Clipboard"
 msgstr "לוח"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:3
 msgid "Clipboard plugin"
 msgstr "תוסף לוח"
 
@@ -1131,7 +1124,7 @@ msgstr "המסך צולם"
 #: ../plugins/media-keys/gsd-screenshot-utils.c:304
 #, c-format
 msgid "Screenshot from %s"
-msgstr ""
+msgstr "צילום מסך מ־%s"
 
 #: ../plugins/media-keys/shortcuts-list.h:93
 msgid "Touchpad toggle"
@@ -1233,11 +1226,12 @@ msgstr "החלפת מצב תאורת המקלדת"
 msgid "Battery Status"
 msgstr "מצב הסוללה"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#. Priority=100
+#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
 msgid "Media keys"
 msgstr "מקשי מדיה"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:3
 msgid "Media keys plugin"
 msgstr "תוסף מקשי מדיה"
 
@@ -1754,275 +1748,275 @@ msgstr "המחשב טעון"
 
 #. TRANSLATORS: this is the sound description
 #: ../plugins/power/gpm-common.c:1732
-#: ../plugins/power/gsd-power-manager.c:1623
-#: ../plugins/power/gsd-power-manager.c:1753
+#: ../plugins/power/gsd-power-manager.c:1628
+#: ../plugins/power/gsd-power-manager.c:1758
 msgid "Battery is critically low"
 msgstr "הסוללה חלשה באופן מהותי"
 
 #. TRANSLATORS: the battery may be recalled by its vendor
-#: ../plugins/power/gsd-power-manager.c:924
+#: ../plugins/power/gsd-power-manager.c:929
 msgid "Battery may be recalled"
 msgstr "יתכן שישנה בקשת החזרה לסוללה"
 
-#: ../plugins/power/gsd-power-manager.c:927
+#: ../plugins/power/gsd-power-manager.c:932
 #, c-format
 msgid "A battery in your computer may have been recalled by %s and you may be at risk."
 msgstr "הסוללה שבמחשב שלך נדרשה להחזרה על ידי %s ויתכן שהיא מסכנת אותך."
 
-#: ../plugins/power/gsd-power-manager.c:930
+#: ../plugins/power/gsd-power-manager.c:935
 msgid "For more information visit the battery recall website."
 msgstr "למידע נוסף יש לבקר באתר ההחזרות של הסוללה."
 
 #. TRANSLATORS: button text, visit the manufacturers recall website
-#: ../plugins/power/gsd-power-manager.c:941
+#: ../plugins/power/gsd-power-manager.c:946
 msgid "Visit recall website"
 msgstr "נא לבקר באתר ההחזרות"
 
 #. TRANSLATORS: button text, do not show this bubble again
-#: ../plugins/power/gsd-power-manager.c:945
+#: ../plugins/power/gsd-power-manager.c:950
 msgid "Do not show me this again"
 msgstr "לא להציג הודעה זו שוב"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:1198
+#: ../plugins/power/gsd-power-manager.c:1203
 msgid "UPS Discharging"
 msgstr "האל־פסק נפרק"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1203
+#: ../plugins/power/gsd-power-manager.c:1208
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "נותרו %s מעצמת הגיבוי של האל־פסק"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:1224
-#: ../plugins/power/gsd-power-manager.c:1433
-#: ../plugins/power/gsd-power-manager.c:1606
-#: ../plugins/power/gsd-power-manager.c:1744
-#: ../plugins/power/gsd-power-manager.c:3051
+#: ../plugins/power/gsd-power-manager.c:1229
+#: ../plugins/power/gsd-power-manager.c:1438
+#: ../plugins/power/gsd-power-manager.c:1611
+#: ../plugins/power/gsd-power-manager.c:1749
+#: ../plugins/power/gsd-power-manager.c:3084
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "צריכת חשמל"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:1343
+#: ../plugins/power/gsd-power-manager.c:1348
 msgid "Battery low"
 msgstr "הסוללה חלשה"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1346
+#: ../plugins/power/gsd-power-manager.c:1351
 msgid "Laptop battery low"
 msgstr "סוללת המחשב הנייד חלשה"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1353
+#: ../plugins/power/gsd-power-manager.c:1358
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "נותרו בערך %s‏ (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:1360
+#: ../plugins/power/gsd-power-manager.c:1365
 msgid "UPS low"
 msgstr "האל־פסק חלש"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1366
+#: ../plugins/power/gsd-power-manager.c:1371
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "נותרו בערך %s של עצמת גיבוי באל־פסק (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:1371
-#: ../plugins/power/gsd-power-manager.c:1530
+#: ../plugins/power/gsd-power-manager.c:1376
+#: ../plugins/power/gsd-power-manager.c:1535
 msgid "Mouse battery low"
 msgstr "סוללת העכבר חלשה מאוד"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1374
+#: ../plugins/power/gsd-power-manager.c:1379
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "סוללת העכבר האלחוטי חלשה (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:1378
-#: ../plugins/power/gsd-power-manager.c:1538
+#: ../plugins/power/gsd-power-manager.c:1383
+#: ../plugins/power/gsd-power-manager.c:1543
 msgid "Keyboard battery low"
 msgstr "סוללת המקלדת חלשה"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1381
+#: ../plugins/power/gsd-power-manager.c:1386
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "סוללת המקלדת האלחוטית חלשה (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:1385
-#: ../plugins/power/gsd-power-manager.c:1547
+#: ../plugins/power/gsd-power-manager.c:1390
+#: ../plugins/power/gsd-power-manager.c:1552
 msgid "PDA battery low"
 msgstr "סוללת מחשב כף היד חלשה"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1388
+#: ../plugins/power/gsd-power-manager.c:1393
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "סוללת מחשב כף היד חלשה (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1392
-#: ../plugins/power/gsd-power-manager.c:1557
-#: ../plugins/power/gsd-power-manager.c:1566
+#: ../plugins/power/gsd-power-manager.c:1397
+#: ../plugins/power/gsd-power-manager.c:1562
+#: ../plugins/power/gsd-power-manager.c:1571
 msgid "Cell phone battery low"
 msgstr "סוללת המכשיר הסלולרי חלשה"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1395
+#: ../plugins/power/gsd-power-manager.c:1400
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "סוללת המכשיר הסלולרי חלשה (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:1399
+#: ../plugins/power/gsd-power-manager.c:1404
 msgid "Media player battery low"
 msgstr "סוללת נגן המדיה חלשה"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1402
+#: ../plugins/power/gsd-power-manager.c:1407
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "סוללת נגן המדיה חלשה (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1406
-#: ../plugins/power/gsd-power-manager.c:1575
+#: ../plugins/power/gsd-power-manager.c:1411
+#: ../plugins/power/gsd-power-manager.c:1580
 msgid "Tablet battery low"
 msgstr "סוללת מחשב הלוח חלשה"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1409
+#: ../plugins/power/gsd-power-manager.c:1414
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "סוללת מחשב הלוח חלשה (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1413
-#: ../plugins/power/gsd-power-manager.c:1584
+#: ../plugins/power/gsd-power-manager.c:1418
+#: ../plugins/power/gsd-power-manager.c:1589
 msgid "Attached computer battery low"
 msgstr "עצמת סוללת המחשב המחובר חלשה"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1416
+#: ../plugins/power/gsd-power-manager.c:1421
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "עצמת סוללת המחשב המחובר חלשה (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1443
+#: ../plugins/power/gsd-power-manager.c:1448
 msgid "Battery is low"
 msgstr "הסוללה חלשה"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1484
+#: ../plugins/power/gsd-power-manager.c:1489
 msgid "Battery critically low"
 msgstr "הסוללה חלשה באופן מהותי"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1487
-#: ../plugins/power/gsd-power-manager.c:1658
+#: ../plugins/power/gsd-power-manager.c:1492
+#: ../plugins/power/gsd-power-manager.c:1663
 msgid "Laptop battery critically low"
 msgstr "סוללת המחשב הנייד חלשה באופן מהותי"
 
 #. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
-#: ../plugins/power/gsd-power-manager.c:1496
+#: ../plugins/power/gsd-power-manager.c:1501
 msgid "Plug in your AC adapter to avoid losing data."
 msgstr "יש לחבר את המתאם לרשת החשמל כדי להימנע מאיבוד נתונים."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1500
+#: ../plugins/power/gsd-power-manager.c:1505
 #, c-format
 msgid "Computer will suspend very soon unless it is plugged in."
 msgstr "המחשב יושהה ממש בקרוב אם לא יחובר לחשמל."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1504
+#: ../plugins/power/gsd-power-manager.c:1509
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr "המחשב ייכנס לתרדמת ממש בקרוב אם לא יחובר לחשמל."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1508
+#: ../plugins/power/gsd-power-manager.c:1513
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "המחשב ייכבה ממש בקרוב אם לא יחובר לחשמל."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1518
-#: ../plugins/power/gsd-power-manager.c:1696
+#: ../plugins/power/gsd-power-manager.c:1523
+#: ../plugins/power/gsd-power-manager.c:1701
 msgid "UPS critically low"
 msgstr "האל־פסק חלש באופן מהותי"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1524
+#: ../plugins/power/gsd-power-manager.c:1529
 #, c-format
 msgid "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your computer to avoid losing data."
 msgstr "נותרו בערך%s של עצמת גיבוי באל־פסק (%.0f%%). יש להתחבר שוב לחשמל כדי להימנע מאבדן נתונים."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1533
+#: ../plugins/power/gsd-power-manager.c:1538
 #, c-format
 msgid "Wireless mouse is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "עצמת העכבר האלחוטי חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1541
+#: ../plugins/power/gsd-power-manager.c:1546
 #, c-format
 msgid "Wireless keyboard is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "עצמת המקלדת האלחוטית חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1550
+#: ../plugins/power/gsd-power-manager.c:1555
 #, c-format
 msgid "PDA is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "עצמת מחשב כף היד חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1560
+#: ../plugins/power/gsd-power-manager.c:1565
 #, c-format
 msgid "Cell phone is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "עצמת הטלפון הנייד חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1569
+#: ../plugins/power/gsd-power-manager.c:1574
 #, c-format
 msgid "Media player is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "עצמת נגן המדיה חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1578
+#: ../plugins/power/gsd-power-manager.c:1583
 #, c-format
 msgid "Tablet is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "עצמת מחשב הלוח חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1587
+#: ../plugins/power/gsd-power-manager.c:1592
 #, c-format
 msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgstr "עצמת המחשב המחובר חלשה (%.0f%%). ההתקן יכבה בקרוב אם לא יוטען."
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1666
+#: ../plugins/power/gsd-power-manager.c:1671
 msgid "The battery is below the critical level and this computer will <b>power-off</b> when the battery becomes completely empty."
 msgstr "עצמת הסוללה נמצאת מתחת לרמה הקריטית ומחשב זה <b>יכבה</b> כאשר הסוללה תתרוקן לחלוטין."
 
 #. TRANSLATORS: computer will suspend
-#: ../plugins/power/gsd-power-manager.c:1672
+#: ../plugins/power/gsd-power-manager.c:1677
 msgid ""
 "The battery is below the critical level and this computer is about to suspend.\n"
 "<b>NOTE:</b> A small amount of power is required to keep your computer in a suspended state."
@@ -2031,48 +2025,60 @@ msgstr ""
 "<b>לתשומת לבך:</b> כדי להשאיר את המחשב במצב השהיה ייעשה שימוש בכמות קטנה מעצמת הסוללה."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1679
+#: ../plugins/power/gsd-power-manager.c:1684
 msgid "The battery is below the critical level and this computer is about to hibernate."
 msgstr "עצמת הסוללה נמצאת מתחת לרמה הקריטית ומחשב זה עומד להיכנס למצב תרדמת."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1684
+#: ../plugins/power/gsd-power-manager.c:1689
 msgid "The battery is below the critical level and this computer is about to shutdown."
 msgstr "עצמת הסוללה נמצאת מתחת לרמה הקריטית ומחשב זה עומד לכבות."
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1704
+#: ../plugins/power/gsd-power-manager.c:1709
 msgid "UPS is below the critical level and this computer will <b>power-off</b> when the UPS becomes completely empty."
 msgstr "עצמת האל־פסק נמצאת מתחת לרמה הקריטית ומחשב זה <b>יכבה</b> כאשר האל־פסק יתרוקן לחלוטין."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1710
+#: ../plugins/power/gsd-power-manager.c:1715
 msgid "UPS is below the critical level and this computer is about to hibernate."
 msgstr "עצמת האל־פסק היא מתחת לרמה המהותית ומחשב זה עומד לעבור למצב תרדמת."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1715
+#: ../plugins/power/gsd-power-manager.c:1720
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr "עצמת האל־פסק היא מתחת לרמה המהותית ומחשב זה עומד לכבות."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2218
+#: ../plugins/power/gsd-power-manager.c:2223
 msgid "Lid has been opened"
 msgstr "מכסה המחשב נפתח"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2256
+#: ../plugins/power/gsd-power-manager.c:2261
 msgid "Lid has been closed"
 msgstr "מכסה המחשב נסגר"
 
-#. create a new notification
-#: ../plugins/power/gsd-power-manager.c:3044
+#: ../plugins/power/gsd-power-manager.c:3063
 msgid "Automatic logout"
 msgstr "יציאה אוטומטית"
 
-#: ../plugins/power/gsd-power-manager.c:3044
+#: ../plugins/power/gsd-power-manager.c:3063
 msgid "You will soon log out because of inactivity."
 msgstr "בקרוב ההפעלה שלך תיסגר עקב חוסר פעילות."
+
+#: ../plugins/power/gsd-power-manager.c:3068
+msgid "Automatic suspend"
+msgstr "השהיה אוטומטית"
+
+#: ../plugins/power/gsd-power-manager.c:3068
+#: ../plugins/power/gsd-power-manager.c:3073
+msgid "Computer will suspend very soon because of inactivity."
+msgstr "המחשב יושהה אוטומטית בקרוב מאוד עקב חוסר פעילות."
+
+#: ../plugins/power/gsd-power-manager.c:3073
+msgid "Automatic hibernation"
+msgstr "תרדמת אוטומטית"
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
@@ -2319,11 +2325,12 @@ msgstr "אזהרת מדפסת"
 msgid "Printer '%s': '%s'."
 msgstr "מדפסת '%s':‏ '%s'."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#. Priority=100
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
 msgid "Print-notifications"
 msgstr "התרעות ההדפסה"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:3
 msgid "Print-notifications plugin"
 msgstr "תוסף התרעות ההדפסה"
 
@@ -2761,6 +2768,12 @@ msgstr "הגדרות X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "ניהול הגדרות X"
+
+#~ msgid "Background"
+#~ msgstr "רקע"
+
+#~ msgid "Background plugin"
+#~ msgstr "תוסף רקע"
 
 #~ msgid "There was an error displaying help: %s"
 #~ msgstr "ארעה שגיאה בהצגת העזרה: %s"
