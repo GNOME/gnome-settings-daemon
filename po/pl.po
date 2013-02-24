@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-17 18:24+0100\n"
-"PO-Revision-Date: 2013-02-17 18:25+0100\n"
+"POT-Creation-Date: 2013-02-24 19:41+0100\n"
+"PO-Revision-Date: 2013-02-24 19:42+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -1231,19 +1231,12 @@ msgstr "Ustawienia dostępności"
 msgid "Accessibility settings plugin"
 msgstr "Wtyczka ustawień dostępności"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
-msgid "Background"
-msgstr "Tło"
-
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
-msgid "Background plugin"
-msgstr "Wtyczka tła"
-
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#. Priority=100
+#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
 msgid "Clipboard"
 msgstr "Schowek"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:3
 msgid "Clipboard plugin"
 msgstr "Wtyczka schowka"
 
@@ -1292,6 +1285,15 @@ msgstr "Dodano urządzenie do kalibracji kolorów"
 #: ../plugins/color/gsd-color-manager.c:2075
 msgid "Color calibration device removed"
 msgstr "Usunięto urządzenie do kalibracji kolorów"
+
+#. Priority=100
+#: ../plugins/cursor/cursor.gnome-settings-plugin.in.h:2
+msgid "Cursor"
+msgstr "Kursor"
+
+#: ../plugins/cursor/cursor.gnome-settings-plugin.in.h:3
+msgid "Show/hide cursor on tablet devices"
+msgstr "Wyświetla/ukrywa kursor na urządzeniach typu tablet"
 
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
@@ -1402,7 +1404,19 @@ msgstr ""
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:445
 msgid "Examine…"
-msgstr "Sprawdzanie…"
+msgstr "Sprawdź…"
+
+#: ../plugins/housekeeping/housekeeping.gnome-settings-plugin.in.h:1
+msgid "Housekeeping"
+msgstr "Utrzymywanie porządku"
+
+#: ../plugins/housekeeping/housekeeping.gnome-settings-plugin.in.h:2
+msgid ""
+"Automatically prunes thumbnail caches and other transient files, and warns "
+"about low disk space"
+msgstr ""
+"Automatycznie czyści pamięć podręczną miniatur i inne pliki tymczasowe oraz "
+"ostrzega o małej ilości miejsca na dysku"
 
 #. TRANSLATORS: wireless keyboard with internal battery
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
@@ -1462,6 +1476,15 @@ msgstr[2] "%u wejść"
 #: ../plugins/media-keys/gvc/gvc-mixer-control.c:2371
 msgid "System Sounds"
 msgstr "Dźwięki systemowe"
+
+#. Priority=100
+#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+msgid "Media keys"
+msgstr "Klawisze multimedialne"
+
+#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:3
+msgid "Media keys plugin"
+msgstr "Wtyczka klawiszy multimedialnych"
 
 #: ../plugins/media-keys/shortcuts-list.h:93
 msgid "Touchpad toggle"
@@ -1563,14 +1586,6 @@ msgstr "Przełączenie jasności klawiatury"
 msgid "Battery Status"
 msgstr "Stan akumulatora"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
-msgid "Media keys"
-msgstr "Klawisze multimedialne"
-
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
-msgid "Media keys plugin"
-msgstr "Wtyczka klawiszy multimedialnych"
-
 #: ../plugins/mouse/gsd-mouse-manager.c:916
 msgid "Could not enable mouse accessibility features"
 msgstr "Nie można włączyć funkcji dostępności myszy"
@@ -1592,6 +1607,15 @@ msgstr[2] "Myszy"
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Wtyczka myszy"
+
+#. Priority=100
+#: ../plugins/orientation/orientation.gnome-settings-plugin.in.h:2
+msgid "Orientation"
+msgstr "Orientacja"
+
+#: ../plugins/orientation/orientation.gnome-settings-plugin.in.h:3
+msgid "Orientation plugin"
+msgstr "Wtyczka orientacji"
 
 #: ../plugins/power/gpm-common.c:73
 msgid "Unknown time"
@@ -2419,8 +2443,8 @@ msgid ""
 msgstr ""
 "Naładowanie akumulatora jest poniżej poziomu krytycznego i komputer zostanie "
 "przełączony w tryb uśpienia.\n"
-"<b>UWAGA:</b> niewielka ilość prądu jest potrzebna do działania "
-"komputera w trybie uśpienia."
+"<b>UWAGA:</b> niewielka ilość prądu jest potrzebna do działania komputera w "
+"trybie uśpienia."
 
 #. TRANSLATORS: computer will hibernate
 #: ../plugins/power/gsd-power-manager.c:1684
@@ -2740,13 +2764,32 @@ msgstr "Ostrzeżenie drukarki"
 msgid "Printer '%s': '%s'."
 msgstr "Drukarka \"%s\": \"%s\"."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#. Priority=100
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
 msgid "Print-notifications"
 msgstr "Powiadomienia o drukowaniu"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:3
 msgid "Print-notifications plugin"
 msgstr "Wtyczka powiadomień o drukowaniu"
+
+#: ../plugins/remote-display/remote-display.gnome-settings-plugin.in.h:1
+msgid "Remote Display"
+msgstr "Zdalny ekran"
+
+#: ../plugins/remote-display/remote-display.gnome-settings-plugin.in.h:2
+msgid "Disable animations on remote displays"
+msgstr "Wyłącza animacje na zdalnych ekranach"
+
+#: ../plugins/screensaver-proxy/screensaver-proxy.gnome-settings-plugin.in.h:1
+msgid "Screensaver Proxy"
+msgstr "Pośrednik wygaszacza ekranu"
+
+#: ../plugins/screensaver-proxy/screensaver-proxy.gnome-settings-plugin.in.h:2
+msgid "Proxy FreeDesktop screensaver inhibition to gnome-session"
+msgstr ""
+"Pośredniczy wstrzymywanie wygaszacza ekranu freedesktop.org do usługi "
+"gnome-session"
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:529
 msgid "received error or hang up from event source"
@@ -2777,6 +2820,22 @@ msgstr "nie można obserwować przychodzących zdarzeń dla kart - %s"
 msgid "encountered unexpected error while waiting for smartcard events"
 msgstr ""
 "wystąpił nieoczekiwany błąd podczas oczekiwania na zdarzenia kart smartcard"
+
+#: ../plugins/smartcard/smartcard.gnome-settings-plugin.in.h:1
+msgid "Smartcard"
+msgstr "Smartcard"
+
+#: ../plugins/smartcard/smartcard.gnome-settings-plugin.in.h:2
+msgid "Smartcard plugin"
+msgstr "Wtyczka kart smartcard"
+
+#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
+msgid "Sound"
+msgstr "Dźwięk"
+
+#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
+msgid "Sound Sample Cache plugin"
+msgstr "Wtyczka pamięci podręcznej próbek dźwięku"
 
 #. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
 #: ../plugins/updates/gsd-updates-firmware.c:250
@@ -2950,6 +3009,7 @@ msgstr[2] "Dostępne są aktualizacje oprogramowania."
 
 #. TRANSLATORS: the updates mechanism
 #: ../plugins/updates/gsd-updates-manager.c:575
+#: ../plugins/updates/updates.gnome-settings-plugin.in.h:1
 msgid "Updates"
 msgstr "Aktualizacje"
 
@@ -3010,6 +3070,10 @@ msgstr "Wyświetl szczegóły"
 #: ../plugins/updates/gsd-updates-manager.c:1237
 msgid "OK"
 msgstr "OK"
+
+#: ../plugins/updates/updates.gnome-settings-plugin.in.h:2
+msgid "Updates plugin"
+msgstr "Wtyczka aktualizacji"
 
 #. If no mode is available, we use "left-ring-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1076
@@ -3138,6 +3202,14 @@ msgstr ""
 "Wymagane jest uwierzytelnienie, aby zmodyfikować diodę LED tabletu firmy "
 "Wacom"
 
+#: ../plugins/wacom/wacom.gnome-settings-plugin.in.h:1
+msgid "Wacom"
+msgstr "Wacom"
+
+#: ../plugins/wacom/wacom.gnome-settings-plugin.in.h:2
+msgid "Wacom plugin"
+msgstr "Wtyczka tabletów firmy Wacom"
+
 #: ../plugins/xrandr/gsd-xrandr-manager.c:509
 msgid "Could not switch the monitor configuration"
 msgstr "Nie można przełączyć konfiguracji monitora"
@@ -3202,4 +3274,4 @@ msgstr "Ustawienia X"
 
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
-msgstr "Zarządzanie ustawieniami X"
+msgstr "Zarządza ustawieniami X"
