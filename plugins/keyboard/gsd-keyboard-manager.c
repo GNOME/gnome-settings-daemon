@@ -99,6 +99,7 @@ struct GsdKeyboardManagerPrivate
         GSettings *input_sources_settings;
         GSettings *interface_settings;
         GnomeXkbInfo *xkb_info;
+        GDBusProxy *localed;
 #ifdef HAVE_IBUS
         IBusBus   *ibus;
         GHashTable *ibus_engines;
@@ -1293,45 +1294,54 @@ set_devicepresence_handler (GsdKeyboardManager *manager)
 }
 
 static void
-create_sources_from_current_xkb_config (GSettings *settings)
+get_sources_from_xkb_config (GsdKeyboardManager *manager)
 {
+        GsdKeyboardManagerPrivate *priv = manager->priv;
         GVariantBuilder builder;
-        XkbRF_VarDefsRec *xkb_var_defs;
-        gchar *tmp;
+        GVariant *v;
+        gint i, n;
         gchar **layouts = NULL;
         gchar **variants = NULL;
-        guint i, n;
 
-        gnome_xkb_info_get_var_defs (&tmp, &xkb_var_defs);
-        g_free (tmp);
-
-        if (xkb_var_defs->layout)
-                layouts = g_strsplit (xkb_var_defs->layout, ",", 0);
-        if (xkb_var_defs->variant)
-                variants = g_strsplit (xkb_var_defs->variant, ",", 0);
-
-        gnome_xkb_info_free_var_defs (xkb_var_defs);
+        v = g_dbus_proxy_get_cached_property (priv->localed, "X11Layout");
+        if (v) {
+                const gchar *s = g_variant_get_string (v, NULL);
+                if (*s)
+                        layouts = g_strsplit (s, ",", -1);
+                g_variant_unref (v);
+        }
 
         if (!layouts)
-                goto out;
+                return;
+
+        v = g_dbus_proxy_get_cached_property (priv->localed, "X11Variant");
+        if (v) {
+                const gchar *s = g_variant_get_string (v, NULL);
+                if (*s)
+                        variants = g_strsplit (s, ",", -1);
+                g_variant_unref (v);
+        }
 
         if (variants && variants[0])
                 n = MIN (g_strv_length (layouts), g_strv_length (variants));
         else
                 n = g_strv_length (layouts);
 
-        g_variant_builder_init (&builder, G_VARIANT_TYPE ("a(ss)"));
-        for (i = 0; i < n && layouts[i][0]; ++i) {
-                if (variants && variants[i] && variants[i][0])
-                        tmp = g_strdup_printf ("%s+%s", layouts[i], variants[i]);
-                else
-                        tmp = g_strdup (layouts[i]);
+        init_builder_with_sources (&builder, priv->input_sources_settings);
 
-                g_variant_builder_add (&builder, "(ss)", INPUT_SOURCE_TYPE_XKB, tmp);
-                g_free (tmp);
+        for (i = 0; i < n && layouts[i][0]; ++i) {
+                gchar *id;
+
+                if (variants && variants[i] && variants[i][0])
+                        id = g_strdup_printf ("%s+%s", layouts[i], variants[i]);
+                else
+                        id = g_strdup (layouts[i]);
+
+                g_variant_builder_add (&builder, "(ss)", INPUT_SOURCE_TYPE_XKB, id);
+                g_free (id);
         }
-        g_settings_set_value (settings, KEY_INPUT_SOURCES, g_variant_builder_end (&builder));
-out:
+        g_settings_set_value (priv->input_sources_settings, KEY_INPUT_SOURCES, g_variant_builder_end (&builder));
+
         g_strfreev (layouts);
         g_strfreev (variants);
 }
@@ -1456,7 +1466,7 @@ out:
 }
 
 static void
-maybe_create_input_sources (GsdKeyboardManager *manager)
+maybe_create_initial_settings (GsdKeyboardManager *manager)
 {
         GSettings *settings;
         GVariant *sources;
@@ -1464,7 +1474,11 @@ maybe_create_input_sources (GsdKeyboardManager *manager)
         settings = manager->priv->input_sources_settings;
 
         if (g_getenv ("RUNNING_UNDER_GDM")) {
-                create_sources_from_current_xkb_config (settings);
+                GVariantBuilder builder;
+                /* clean the settings and get them from the "system" */
+                g_variant_builder_init (&builder, G_VARIANT_TYPE ("a(ss)"));
+                g_settings_set_value (settings, KEY_INPUT_SOURCES, g_variant_builder_end (&builder));
+                get_sources_from_xkb_config (manager);
                 return;
         }
 
@@ -1473,12 +1487,33 @@ maybe_create_input_sources (GsdKeyboardManager *manager)
         /* if we still don't have anything do some educated guesses */
         sources = g_settings_get_value (settings, KEY_INPUT_SOURCES);
         if (g_variant_n_children (sources) < 1) {
-                create_sources_from_current_xkb_config (settings);
+                get_sources_from_xkb_config (manager);
 #ifdef HAVE_IBUS
                 add_ibus_sources_from_locale (settings);
 #endif
         }
         g_variant_unref (sources);
+}
+
+static void
+localed_proxy_ready (GObject      *source,
+                     GAsyncResult *res,
+                     gpointer      data)
+{
+        GsdKeyboardManager *manager = data;
+        GError *error = NULL;
+
+        manager->priv->localed = g_dbus_proxy_new_finish (res, &error);
+
+        if (!manager->priv->localed) {
+                g_warning ("Failed to contact localed: %s", error->message);
+                g_error_free (error);
+                goto out;
+        }
+
+        maybe_create_initial_settings (manager);
+out:
+        apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
 }
 
 static gboolean
@@ -1498,9 +1533,16 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
         manager->priv->interface_settings = g_settings_new (GNOME_DESKTOP_INTERFACE_DIR);
         manager->priv->xkb_info = gnome_xkb_info_new ();
 
-        maybe_create_input_sources (manager);
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+                                  G_DBUS_PROXY_FLAGS_NONE,
+                                  NULL,
+                                  "org.freedesktop.locale1",
+                                  "/org/freedesktop/locale1",
+                                  "org.freedesktop.locale1",
+                                  NULL,
+                                  localed_proxy_ready,
+                                  manager);
 
-        apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
         /* apply current settings before we install the callback */
         g_debug ("Started the keyboard plugin, applying all settings");
         apply_all_settings (manager);
@@ -1549,6 +1591,7 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
         g_clear_object (&p->input_sources_settings);
         g_clear_object (&p->interface_settings);
         g_clear_object (&p->xkb_info);
+        g_clear_object (&p->localed);
 
 #ifdef HAVE_IBUS
         clear_ibus (manager);
