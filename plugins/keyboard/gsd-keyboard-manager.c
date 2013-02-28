@@ -1347,6 +1347,29 @@ get_sources_from_xkb_config (GsdKeyboardManager *manager)
 }
 
 static void
+get_options_from_xkb_config (GsdKeyboardManager *manager)
+{
+        GsdKeyboardManagerPrivate *priv = manager->priv;
+        GVariant *v;
+        gchar **options = NULL;
+
+        v = g_dbus_proxy_get_cached_property (priv->localed, "X11Options");
+        if (v) {
+                const gchar *s = g_variant_get_string (v, NULL);
+                if (*s)
+                        options = g_strsplit (s, ",", -1);
+                g_variant_unref (v);
+        }
+
+        if (!options)
+                return;
+
+        g_settings_set_strv (priv->input_sources_settings, KEY_KEYBOARD_OPTIONS, (const gchar * const*) options);
+
+        g_strfreev (options);
+}
+
+static void
 convert_libgnomekbd_options (GSettings *settings)
 {
         GPtrArray *opt_array;
@@ -1470,6 +1493,7 @@ maybe_create_initial_settings (GsdKeyboardManager *manager)
 {
         GSettings *settings;
         GVariant *sources;
+        gchar **options;
 
         settings = manager->priv->input_sources_settings;
 
@@ -1479,6 +1503,9 @@ maybe_create_initial_settings (GsdKeyboardManager *manager)
                 g_variant_builder_init (&builder, G_VARIANT_TYPE ("a(ss)"));
                 g_settings_set_value (settings, KEY_INPUT_SOURCES, g_variant_builder_end (&builder));
                 get_sources_from_xkb_config (manager);
+
+                g_settings_set_strv (settings, KEY_KEYBOARD_OPTIONS, NULL);
+                get_options_from_xkb_config (manager);
                 return;
         }
 
@@ -1493,6 +1520,11 @@ maybe_create_initial_settings (GsdKeyboardManager *manager)
 #endif
         }
         g_variant_unref (sources);
+
+        options = g_settings_get_strv (settings, KEY_KEYBOARD_OPTIONS);
+        if (g_strv_length (options) < 1)
+                get_options_from_xkb_config (manager);
+        g_strfreev (options);
 }
 
 static void
