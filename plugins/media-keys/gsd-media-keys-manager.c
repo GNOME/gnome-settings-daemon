@@ -1971,9 +1971,12 @@ do_battery_action (GsdMediaKeysManager *manager)
 
 static void
 do_custom_action (GsdMediaKeysManager *manager,
+                  guint                deviceid,
                   MediaKey            *key,
                   gint64               timestamp)
 {
+        g_debug ("Launching custom action for key (on device id %d)", deviceid);
+
 	execute (manager, key->custom_command, FALSE);
 }
 
@@ -2164,7 +2167,7 @@ on_accelerator_activated (ShellKeyGrabber     *grabber,
                         continue;
 
                 if (key->key_type == CUSTOM_KEY)
-                        do_custom_action (manager, key, GDK_CURRENT_TIME);
+                        do_custom_action (manager, deviceid, key, GDK_CURRENT_TIME);
                 else
                         do_action (manager, deviceid, key->key_type, GDK_CURRENT_TIME);
                 return;
