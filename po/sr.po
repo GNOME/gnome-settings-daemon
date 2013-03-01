@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: gnome-control-center\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-02-13 15:36+0000\n"
-"PO-Revision-Date: 2013-02-17 10:05+0200\n"
+"POT-Creation-Date: 2013-02-24 18:40+0000\n"
+"PO-Revision-Date: 2013-03-01 09:38+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -1219,19 +1219,12 @@ msgstr "Подешавања приступачности"
 msgid "Accessibility settings plugin"
 msgstr "Додатак подешавања приступачности"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
-msgid "Background"
-msgstr "Позадина"
-
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
-msgid "Background plugin"
-msgstr "Додатак за позадину"
-
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#. Priority=100
+#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
 msgid "Clipboard"
 msgstr "Списак исечака"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:3
 msgid "Clipboard plugin"
 msgstr "Додатак за списак исечака"
 
@@ -1280,6 +1273,15 @@ msgstr "Уређај подешавања боје је додат"
 #: ../plugins/color/gsd-color-manager.c:2075
 msgid "Color calibration device removed"
 msgstr "Уређај подешавања боје је уклоњен"
+
+#. Priority=100
+#: ../plugins/cursor/cursor.gnome-settings-plugin.in.h:2
+msgid "Cursor"
+msgstr "Курсор"
+
+#: ../plugins/cursor/cursor.gnome-settings-plugin.in.h:3
+msgid "Show/hide cursor on tablet devices"
+msgstr "Приказује/скрива курсор на табличним уређајима"
 
 # Мало шале није на одмет?
 # ~Милош
@@ -1394,6 +1396,18 @@ msgstr ""
 msgid "Examine…"
 msgstr "Испитај…"
 
+#: ../plugins/housekeeping/housekeeping.gnome-settings-plugin.in.h:1
+msgid "Housekeeping"
+msgstr "Редарство"
+
+#: ../plugins/housekeeping/housekeeping.gnome-settings-plugin.in.h:2
+msgid ""
+"Automatically prunes thumbnail caches and other transient files, and warns "
+"about low disk space"
+msgstr ""
+"Самостално умањује оставе минијатура и осталих прелазних датотека, и "
+"упозорава о недостатку простора на диску"
+
 #. TRANSLATORS: wireless keyboard with internal battery
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:611
@@ -1455,6 +1469,15 @@ msgstr[3] "Један улаз"
 #: ../plugins/media-keys/gvc/gvc-mixer-control.c:2371
 msgid "System Sounds"
 msgstr "Системски звуци"
+
+#. Priority=100
+#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+msgid "Media keys"
+msgstr "Мултимедијални тастери"
+
+#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:3
+msgid "Media keys plugin"
+msgstr "Додатак за мултимедијалне тастере"
 
 #: ../plugins/media-keys/shortcuts-list.h:93
 msgid "Touchpad toggle"
@@ -1556,14 +1579,6 @@ msgstr "Окидач осветљаја тастатуре"
 msgid "Battery Status"
 msgstr "Стање батерије"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
-msgid "Media keys"
-msgstr "Мултимедијални тастери"
-
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
-msgid "Media keys plugin"
-msgstr "Додатак за мултимедијалне тастере"
-
 #: ../plugins/mouse/gsd-mouse-manager.c:916
 msgid "Could not enable mouse accessibility features"
 msgstr "Не могу да укључим приступачност миша"
@@ -1588,6 +1603,17 @@ msgstr[3] "Миш"
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Додатак миша"
+
+#. Priority=100
+#: ../plugins/orientation/orientation.gnome-settings-plugin.in.h:2
+#| msgid "Print-notifications"
+msgid "Orientation"
+msgstr "Усмерење"
+
+#: ../plugins/orientation/orientation.gnome-settings-plugin.in.h:3
+#| msgid "Print-notifications plugin"
+msgid "Orientation plugin"
+msgstr "Прикључак усмерења"
 
 #: ../plugins/power/gpm-common.c:73
 msgid "Unknown time"
@@ -2100,17 +2126,17 @@ msgstr "Рачунар је напуњен"
 
 #. TRANSLATORS: this is the sound description
 #: ../plugins/power/gpm-common.c:1732
-#: ../plugins/power/gsd-power-manager.c:1624
-#: ../plugins/power/gsd-power-manager.c:1754
+#: ../plugins/power/gsd-power-manager.c:1628
+#: ../plugins/power/gsd-power-manager.c:1758
 msgid "Battery is critically low"
 msgstr "Батерија је критично празна"
 
 #. TRANSLATORS: the battery may be recalled by its vendor
-#: ../plugins/power/gsd-power-manager.c:925
+#: ../plugins/power/gsd-power-manager.c:929
 msgid "Battery may be recalled"
 msgstr "Батерија је можда опозвана"
 
-#: ../plugins/power/gsd-power-manager.c:928
+#: ../plugins/power/gsd-power-manager.c:932
 #, c-format
 msgid ""
 "A battery in your computer may have been recalled by %s and you may be at "
@@ -2119,196 +2145,196 @@ msgstr ""
 "Можда је %s повукао из оптицаја батерију на вашем рачунару и због тога "
 "можете имати неприлика."
 
-#: ../plugins/power/gsd-power-manager.c:931
+#: ../plugins/power/gsd-power-manager.c:935
 msgid "For more information visit the battery recall website."
 msgstr "За више информација посетите веб сајт опозива батерије."
 
 #. TRANSLATORS: button text, visit the manufacturers recall website
-#: ../plugins/power/gsd-power-manager.c:942
+#: ../plugins/power/gsd-power-manager.c:946
 msgid "Visit recall website"
 msgstr "Посетите веб страну опозива"
 
 #. TRANSLATORS: button text, do not show this bubble again
-#: ../plugins/power/gsd-power-manager.c:946
+#: ../plugins/power/gsd-power-manager.c:950
 msgid "Do not show me this again"
 msgstr "Не приказуј ми више ово"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:1199
+#: ../plugins/power/gsd-power-manager.c:1203
 msgid "UPS Discharging"
 msgstr "Пражњење резервног напајања"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1204
+#: ../plugins/power/gsd-power-manager.c:1208
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "Преостало је још %s резервног напајања"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:1225
-#: ../plugins/power/gsd-power-manager.c:1434
-#: ../plugins/power/gsd-power-manager.c:1607
-#: ../plugins/power/gsd-power-manager.c:1745
-#: ../plugins/power/gsd-power-manager.c:3071
+#: ../plugins/power/gsd-power-manager.c:1229
+#: ../plugins/power/gsd-power-manager.c:1438
+#: ../plugins/power/gsd-power-manager.c:1611
+#: ../plugins/power/gsd-power-manager.c:1749
+#: ../plugins/power/gsd-power-manager.c:3084
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Напајање"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:1344
+#: ../plugins/power/gsd-power-manager.c:1348
 msgid "Battery low"
 msgstr "Батерија је скоро празна"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1347
+#: ../plugins/power/gsd-power-manager.c:1351
 msgid "Laptop battery low"
 msgstr "Батерија преносног рачунара је скоро празна"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1354
+#: ../plugins/power/gsd-power-manager.c:1358
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "Преостаје вам приближно још %s (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:1361
+#: ../plugins/power/gsd-power-manager.c:1365
 msgid "UPS low"
 msgstr "Резервно напајање је скоро празно"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1367
+#: ../plugins/power/gsd-power-manager.c:1371
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "Преостаје вам приближно још %s капацитета резервног напајања (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:1372
-#: ../plugins/power/gsd-power-manager.c:1531
+#: ../plugins/power/gsd-power-manager.c:1376
+#: ../plugins/power/gsd-power-manager.c:1535
 msgid "Mouse battery low"
 msgstr "Батерија миша је скоро празна"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1375
+#: ../plugins/power/gsd-power-manager.c:1379
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "Бежичном мишу су ослабиле батерије (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:1379
-#: ../plugins/power/gsd-power-manager.c:1539
+#: ../plugins/power/gsd-power-manager.c:1383
+#: ../plugins/power/gsd-power-manager.c:1543
 msgid "Keyboard battery low"
 msgstr "Батерија тастатуре је скоро празна"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1382
+#: ../plugins/power/gsd-power-manager.c:1386
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "Бежичној тастатури су ослабиле батерије (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:1386
-#: ../plugins/power/gsd-power-manager.c:1548
+#: ../plugins/power/gsd-power-manager.c:1390
+#: ../plugins/power/gsd-power-manager.c:1552
 msgid "PDA battery low"
 msgstr "Батерија ПДА уређаја је скоро празна"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1389
+#: ../plugins/power/gsd-power-manager.c:1393
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "ПДА уређају су ослабиле батерије (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1393
-#: ../plugins/power/gsd-power-manager.c:1558
-#: ../plugins/power/gsd-power-manager.c:1567
+#: ../plugins/power/gsd-power-manager.c:1397
+#: ../plugins/power/gsd-power-manager.c:1562
+#: ../plugins/power/gsd-power-manager.c:1571
 msgid "Cell phone battery low"
 msgstr "Батерија мобилног телефона је скоро празна"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1396
+#: ../plugins/power/gsd-power-manager.c:1400
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "Мобилном телефону су ослабиле батерије (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:1400
+#: ../plugins/power/gsd-power-manager.c:1404
 msgid "Media player battery low"
 msgstr "Батерија медијског уређаја је скоро празна"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1403
+#: ../plugins/power/gsd-power-manager.c:1407
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "Медијском уређају су ослабиле батерије (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1407
-#: ../plugins/power/gsd-power-manager.c:1576
+#: ../plugins/power/gsd-power-manager.c:1411
+#: ../plugins/power/gsd-power-manager.c:1580
 msgid "Tablet battery low"
 msgstr "Батерија таблице је скоро празна"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1410
+#: ../plugins/power/gsd-power-manager.c:1414
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "Таблици су ослабиле батерије (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1414
-#: ../plugins/power/gsd-power-manager.c:1585
+#: ../plugins/power/gsd-power-manager.c:1418
+#: ../plugins/power/gsd-power-manager.c:1589
 msgid "Attached computer battery low"
 msgstr "Батерија прикљученог рачунара је скоро празна"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1417
+#: ../plugins/power/gsd-power-manager.c:1421
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "Прикљученом рачунару је ослабила батерија (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1444
+#: ../plugins/power/gsd-power-manager.c:1448
 msgid "Battery is low"
 msgstr "Батерија је скоро празна"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1485
+#: ../plugins/power/gsd-power-manager.c:1489
 msgid "Battery critically low"
 msgstr "Батерија је критично празна"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1488
-#: ../plugins/power/gsd-power-manager.c:1659
+#: ../plugins/power/gsd-power-manager.c:1492
+#: ../plugins/power/gsd-power-manager.c:1663
 msgid "Laptop battery critically low"
 msgstr "Батерија преносног рачунара је скоро празна"
 
 #. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
-#: ../plugins/power/gsd-power-manager.c:1497
+#: ../plugins/power/gsd-power-manager.c:1501
 msgid "Plug in your AC adapter to avoid losing data."
 msgstr "Прикључите мрежно напајање да избегнете губитак података."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1501
+#: ../plugins/power/gsd-power-manager.c:1505
 #, c-format
 msgid "Computer will suspend very soon unless it is plugged in."
 msgstr ""
 "Рачунар ће убрзо обуставити рад уколико га не прикључите на мрежно напајање."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1505
+#: ../plugins/power/gsd-power-manager.c:1509
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr ""
 "Рачунар ће се убрзо замрзнути уколико га не прикључите на мрежно напајање."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1509
+#: ../plugins/power/gsd-power-manager.c:1513
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr ""
@@ -2316,13 +2342,13 @@ msgstr ""
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1519
-#: ../plugins/power/gsd-power-manager.c:1697
+#: ../plugins/power/gsd-power-manager.c:1523
+#: ../plugins/power/gsd-power-manager.c:1701
 msgid "UPS critically low"
 msgstr "Резервно напајање је критично празно"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1525
+#: ../plugins/power/gsd-power-manager.c:1529
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -2332,7 +2358,7 @@ msgstr ""
 "Укључите рачунар на мрежно напајање да избегнете губитак података."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1534
+#: ../plugins/power/gsd-power-manager.c:1538
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -2342,7 +2368,7 @@ msgstr ""
 "ради ако му не допуните батерије."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1542
+#: ../plugins/power/gsd-power-manager.c:1546
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -2352,7 +2378,7 @@ msgstr ""
 "престати да ради ако јој не допуните батерије."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1551
+#: ../plugins/power/gsd-power-manager.c:1555
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -2362,7 +2388,7 @@ msgstr ""
 "ради ако му не допуните батерије."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1561
+#: ../plugins/power/gsd-power-manager.c:1565
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -2372,7 +2398,7 @@ msgstr ""
 "да ради ако му не допуните батерије."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1570
+#: ../plugins/power/gsd-power-manager.c:1574
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -2382,7 +2408,7 @@ msgstr ""
 "да ради ако му не допуните батерије."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1579
+#: ../plugins/power/gsd-power-manager.c:1583
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -2392,7 +2418,7 @@ msgstr ""
 "ако јој не допуните батерије."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1588
+#: ../plugins/power/gsd-power-manager.c:1592
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -2402,7 +2428,7 @@ msgstr ""
 "угасити ако не допуните батерије."
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1667
+#: ../plugins/power/gsd-power-manager.c:1671
 msgid ""
 "The battery is below the critical level and this computer will <b>power-off</"
 "b> when the battery becomes completely empty."
@@ -2411,7 +2437,7 @@ msgstr ""
 "се батерија у потпуности испразни."
 
 #. TRANSLATORS: computer will suspend
-#: ../plugins/power/gsd-power-manager.c:1673
+#: ../plugins/power/gsd-power-manager.c:1677
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "suspend.\n"
@@ -2424,7 +2450,7 @@ msgstr ""
 "стању обуставе."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1680
+#: ../plugins/power/gsd-power-manager.c:1684
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -2432,14 +2458,14 @@ msgstr ""
 "Стање батерије је испод критичног нивоа и зато ће рачунар бити замрзнут."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1685
+#: ../plugins/power/gsd-power-manager.c:1689
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
 msgstr "Стање батерије је испод критичног нивоа и зато ће рачунар бити угашен."
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1705
+#: ../plugins/power/gsd-power-manager.c:1709
 msgid ""
 "UPS is below the critical level and this computer will <b>power-off</b> when "
 "the UPS becomes completely empty."
@@ -2448,7 +2474,7 @@ msgstr ""
 "<b>угашен</b> када се резервно напајање потпуно испразни."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1711
+#: ../plugins/power/gsd-power-manager.c:1715
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
@@ -2456,41 +2482,40 @@ msgstr ""
 "замрзнут."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1716
+#: ../plugins/power/gsd-power-manager.c:1720
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "Стање резервног напајања је испод критичног нивоа и зато ће рачунар бити "
 "угашен."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2219
+#: ../plugins/power/gsd-power-manager.c:2223
 msgid "Lid has been opened"
 msgstr "Поклопац је подигнут"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2257
+#: ../plugins/power/gsd-power-manager.c:2261
 msgid "Lid has been closed"
 msgstr "Поклопац је спуштен"
 
-#: ../plugins/power/gsd-power-manager.c:3050
+#: ../plugins/power/gsd-power-manager.c:3063
 msgid "Automatic logout"
 msgstr "Самостално одјављивање"
 
-#: ../plugins/power/gsd-power-manager.c:3050
+#: ../plugins/power/gsd-power-manager.c:3063
 msgid "You will soon log out because of inactivity."
 msgstr "Ускоро ћете бити одјављени због нерада."
 
-#: ../plugins/power/gsd-power-manager.c:3055
+#: ../plugins/power/gsd-power-manager.c:3068
 msgid "Automatic suspend"
 msgstr "Самостално обустављање"
 
-#: ../plugins/power/gsd-power-manager.c:3055
-#: ../plugins/power/gsd-power-manager.c:3060
-#| msgid "Computer will suspend very soon unless it is plugged in."
+#: ../plugins/power/gsd-power-manager.c:3068
+#: ../plugins/power/gsd-power-manager.c:3073
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Рачунар ће убрзо обуставити рад због нерада."
 
-#: ../plugins/power/gsd-power-manager.c:3060
+#: ../plugins/power/gsd-power-manager.c:3073
 msgid "Automatic hibernation"
 msgstr "Самостално замрзавање"
 
@@ -2748,13 +2773,31 @@ msgstr "Упозорење штампача"
 msgid "Printer '%s': '%s'."
 msgstr "Штампач „%s“: „%s“."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#. Priority=100
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
 msgid "Print-notifications"
 msgstr "Обавештења о штампању"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:3
 msgid "Print-notifications plugin"
 msgstr "Додатак обавештења о штампању"
+
+#: ../plugins/remote-display/remote-display.gnome-settings-plugin.in.h:1
+msgid "Remote Display"
+msgstr "Удаљени екран"
+
+#: ../plugins/remote-display/remote-display.gnome-settings-plugin.in.h:2
+msgid "Disable animations on remote displays"
+msgstr "Искључује анимације на удаљеним екранима"
+
+#: ../plugins/screensaver-proxy/screensaver-proxy.gnome-settings-plugin.in.h:1
+msgid "Screensaver Proxy"
+msgstr "Посредник чувара екрана"
+
+#: ../plugins/screensaver-proxy/screensaver-proxy.gnome-settings-plugin.in.h:2
+msgid "Proxy FreeDesktop screensaver inhibition to gnome-session"
+msgstr ""
+"Спречавање посредника чувара екрана слободне радне површи за гномову сесију"
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:529
 msgid "received error or hang up from event source"
@@ -2784,6 +2827,23 @@ msgstr "не могу да надгледам надолазеће догађа�
 #, c-format
 msgid "encountered unexpected error while waiting for smartcard events"
 msgstr "неочекивана грешка при чекању на прикључивање паметне картице"
+
+#: ../plugins/smartcard/smartcard.gnome-settings-plugin.in.h:1
+msgid "Smartcard"
+msgstr "Паметна картица"
+
+#: ../plugins/smartcard/smartcard.gnome-settings-plugin.in.h:2
+#| msgid "Background plugin"
+msgid "Smartcard plugin"
+msgstr "Прикључак паметне картице"
+
+#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
+msgid "Sound"
+msgstr "Звук"
+
+#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
+msgid "Sound Sample Cache plugin"
+msgstr "Прикључак оставе узорка звука"
 
 #. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
 #: ../plugins/updates/gsd-updates-firmware.c:250
@@ -2962,6 +3022,7 @@ msgstr[3] "Доступно је ажурирање софтвера."
 
 #. TRANSLATORS: the updates mechanism
 #: ../plugins/updates/gsd-updates-manager.c:575
+#: ../plugins/updates/updates.gnome-settings-plugin.in.h:1
 msgid "Updates"
 msgstr "Ажурирања"
 
@@ -3023,6 +3084,11 @@ msgstr "Прикажи детаље"
 #: ../plugins/updates/gsd-updates-manager.c:1237
 msgid "OK"
 msgstr "У реду"
+
+#: ../plugins/updates/updates.gnome-settings-plugin.in.h:2
+#| msgid "Media keys plugin"
+msgid "Updates plugin"
+msgstr "Догради прикључак"
 
 #. If no mode is available, we use "left-ring-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1076
@@ -3149,6 +3215,15 @@ msgstr "Измени ЛЕД осветљења за Ваком таблицу"
 msgid "Authentication is required to modify the lit LED for a Wacom tablet"
 msgstr ""
 "Потребно је потврђивање идентитета за промену ЛЕД осветљења Ваком таблице"
+
+#: ../plugins/wacom/wacom.gnome-settings-plugin.in.h:1
+msgid "Wacom"
+msgstr "Ваком"
+
+#: ../plugins/wacom/wacom.gnome-settings-plugin.in.h:2
+#| msgid "Background plugin"
+msgid "Wacom plugin"
+msgstr "Прикључак за Ваком"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:509
 msgid "Could not switch the monitor configuration"
