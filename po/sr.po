@@ -1,18 +1,19 @@
-# Serbian translation of gnome-control-center
-# Courtesy of Prevod.org team (http://prevod.org/) -- 2003 — 2012.
-# This file is distributed under the same license as the gnome-control-center package.
-# Maintainer: Вељко М. Станојевић <veljko@vms.homelinux.net>
-# Reviewed on 2005-03-03 by: Данило Шеган <danilo@gnome.org>
-# Translated on 2006-03-11 by: Слободан Д. Средојевић <slobo@akrep.be>
+# Serbian translation of zenity
+# Courtesy of Prevod.org team (http://prevod.org/) -- 2003—2012.
+# This file is distributed under the same license as the zenity package.
+# Maintainer: Александар Урошевић <urke@users.sourceforge.net>
+# Reviewed on 2004-02-14 by: Александар Урошевић <urke@users.sourceforge.net>
+# Reviewed on 2005-03-02 by: Александар Урошевић <urke@users.sourceforge.net>
+# Reviewed on 2005-09-04 by: Слободан Д. Средојевић <slobo@akrep.be>
 # Милош Поповић <gpopac@gmail.com>, 2010.
 # Мирослав Николић <miroslavnikolic@rocketmail.com>, 2011, 2012, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-control-center\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-02-24 18:40+0000\n"
-"PO-Revision-Date: 2013-03-01 09:38+0200\n"
+"Project-Id-Version: zenity\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=zenity"
+"&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2013-02-25 23:13+0000\n"
+"PO-Revision-Date: 2013-03-01 09:46+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -23,3271 +24,790 @@ msgstr ""
 "n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Project-Style: gnome\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
-msgstr "Услужни програм за подешавања Гнома"
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
-msgid "Smartcard removal action"
-msgstr "Радња уклањања паметне картице"
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+#: ../src/about.c:64
 msgid ""
-"Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
-"action will get performed when the smartcard used for log in is removed."
-msgstr ""
-"Поставите на „none“ (ништа), „lock-screen“ (закључај екран) или „force-"
-"logout“ (приморај одјављивање). Радња ће бити извршена када паметна картица "
-"коришћена за пријављивање буде уклоњена."
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
-msgid "Disable touchpad while typing"
-msgstr "Искључивање додирне табле приликом куцања"
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
-msgid ""
-"Set this to TRUE if you have problems with accidentally hitting the touchpad "
-"while typing."
-msgstr ""
-"Поставите на ТАЧНО уколико имате проблема са случајним дотицањем додирне "
-"табле приликом куцања."
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
-msgid "Enable horizontal scrolling"
-msgstr "Укључивање хоризонталног клизања"
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU Lesser General Public License as published by the "
+"Free Software Foundation; either version 2 of the License, or (at your "
+"option) any later version.\n"
+msgstr "Овај програм је слободан софтвер; можете га расподељивати и/или мењати под "
+"условима Гнуове мање опште јавне лиценце како је објављује Задужбина "
+"слободног софтвера; било верзије 2 те лиценце, или (према вашем мишљењу) "
+"било које новије верзије.\n"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+#: ../src/about.c:68
 msgid ""
-"Set this to TRUE to allow horizontal scrolling by the same method selected "
-"with the scroll_method key."
-msgstr ""
-"Поставите на ТАЧНО да дозволите хоризонтално клизање на исти начин као што "
-"је изабрано кључем „scroll_method“."
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
-msgid "Select the touchpad scroll method"
-msgstr "Бирање режима клизања по додирној табли"
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License "
+"for more details.\n"
+msgstr "Овај програм се расподељује у нади да ће бити од користи, али БЕЗ ИКАКВИХ "
+"ГАРАНЦИЈА; чак и без примењене гаранције ТРЖИШНЕ ВРЕДНОСТИ или "
+"ПРИЛАГОЂЕНОСТИ ОДРЕЂЕНОЈ НАМЕНИ.  Погледајте Гнуову мању општу јавну лиценцу "
+"за више детаља.\n"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
-msgid ""
-"Select the touchpad scroll method. Supported values are: \"disabled\", "
-"\"edge-scrolling\", \"two-finger-scrolling\"."
-msgstr ""
-"Изаберите режим клизања по додирној табли. Дозвољене вредности су: "
-"„disabled“ (искључено клизање), „edge-scrolling“ (клизање ивицом додирне "
-"табле) и „two-finger-scrolling“ (клизање са два прста)."
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
-msgid "Enable mouse clicks with touchpad"
-msgstr "Укључивање клика на додирној табли"
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+#: ../src/about.c:72
 msgid ""
-"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+"You should have received a copy of the GNU Lesser General Public License "
+"along with this program; if not, write to the Free Software Foundation, "
+"Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 msgstr ""
-"Поставите на ТАЧНО да бисте били у могућности да извршавате кликове миша на "
-"додирној табли."
+"Требали сте да примите примерак Гнуове мање опште јавне лиценце уз овај "
+"програм; ако нисте, пишите Задужбини слободног софтвера на адресу: „Free "
+"Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA "
+"02110-1301, USA“."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
-msgid "Enable touchpad"
-msgstr "Укључивање додирне табле"
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
-msgid "Set this to TRUE to enable all touchpads."
-msgstr "Поставите на ТАЧНО да укључите све додирне табле."
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
-msgid ""
-"Highlights the current location of the pointer when the Control key is "
-"pressed and released."
+#: ../src/about.c:265
+msgid "translator-credits"
 msgstr ""
-"Истиче тренутну локацију показивача када се притисне и пусти тастер Контрол."
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
-msgid "Double click time"
-msgstr "Време дуплог клика"
+"Александар Урошевић <urke@users.sourceforge.net>\n"
+"Данило Шеган <danilo@gnome.org>\n"
+"Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
+"\n"
+"http://prevod.org — превод на српски језик."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
-msgid "Length of a double click in milliseconds."
-msgstr "Трајање дуплог клика у милисекундама."
+#: ../src/about.c:277
+msgid "Display dialog boxes from shell scripts"
+msgstr "Приказује прозорче из скрипти љуске"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
-msgid "Drag threshold"
-msgstr "Праг превлачења"
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
-msgid "Distance before a drag is started."
-msgstr "Растојање пре почетка превлачења."
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
-msgid "Middle button emulation"
-msgstr "Емулација средњег дугмета"
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
-msgid ""
-"Enables middle mouse button emulation through simultaneous left and right "
-"button click."
+#: ../src/main.c:105
+#, c-format
+msgid "You must specify a dialog type. See 'zenity --help' for details\n"
 msgstr ""
-"Омогућава емулацију средњег тастера миша кроз истовремени клик левог и "
-"десног тастера."
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
-msgid "Whether the tablet's orientation is locked, or rotated automatically."
-msgstr "Да ли је усмерење таблице закључано, или самостално окренуто."
+"Морате одредити врсту прозорчета. За детаље погледајте „zenity --help‟\n"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
-msgid "Device hotplug custom command"
-msgstr "Произвољна наредба за вруће прикључивање уређаја"
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
+#: ../src/notification.c:121
+#, c-format
 msgid ""
-"Command to be run when a device is added or removed. An exit value of 1 "
-"means that the device will not be handled further by gnome-settings-daemon."
+"Invalid value for a boolean typed hint.\n"
+"Supported values are 'true' or 'false'.\n"
 msgstr ""
-"Наредба која ће бити покренута када је додат или уклоњен уређај. Излазна "
-"вредност 1 значи да уређајем неће руковати услужник гномових подешавања."
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
-msgid "Activation of this plugin"
-msgstr "Активирање овог прикључка"
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr ""
-"Да ли ће овај додатак бити активиран позадинским програмом подешавања Гнома "
-"или не"
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
-msgid "Priority to use for this plugin"
-msgstr "Приоритет који ће бити коришћен за овај прикључак"
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:6
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr ""
-"Приоритет који ће бити коришћен за овај додатак у реду за покретање у "
-"позадинском програму подешавања Гнома"
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
-msgid "Wacom stylus absolute mode"
-msgstr "Апсолутни режим Ваком оловке"
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
-msgid "Enable this to set the tablet to absolute mode."
-msgstr "Омогућите ово да подесите таблицу за апсолутни режим."
+"Неисправна вредност за упут уписан логиком.\n"
+"Подржане вредности су „true“ или „false“.\n"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
-msgid "Wacom tablet area"
-msgstr "Област Ваком таблице"
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
-msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
-msgstr "Поставите ово на x1, y1 и x2, y2 области коју користе алати."
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
-msgid "Wacom tablet aspect ratio"
-msgstr "Однос размере Ваком таблице"
+#. (iibiiay)
+#: ../src/notification.c:137
+#, c-format
+msgid "Unsupported hint. Skipping.\n"
+msgstr "Неисправан упут. Прескачем.\n"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
-msgid ""
-"Enable this to restrict the Wacom tablet area to match the aspect ratio of "
-"the output."
-msgstr ""
-"Укључите ово да скупите област Ваком таблице да одговара односу размере "
-"излаза."
+#. unknown hints
+#: ../src/notification.c:150
+#, c-format
+msgid "Unknown hint name. Skipping.\n"
+msgstr "Непознат назив упута. Прескачем.\n"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
-msgid "Wacom tablet rotation"
-msgstr "Ротација Ваком таблице"
+#: ../src/notification.c:209
+#, c-format
+msgid "Could not parse command from stdin\n"
+msgstr "Не могу да обрадим наредбу са стандардног улаза\n"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
-msgid ""
-"Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
-"'ccw' for 90 degree counterclockwise."
-msgstr ""
-"Поставите ово на „none“, „cw“ — за 90 степени у смеру казаљке на сату, "
-"„half“ — за 180 степени и „ccw“ — за 90 степени супротно смеру казаљке на "
-"сату."
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
-msgid "Wacom touch feature"
-msgstr "Функција Ваком додира"
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
-msgid "Enable this to move the cursor when the user touches the tablet."
-msgstr "Омогућите ово за померање курсора када корисник додирује таблицу."
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
-msgid "Wacom tablet PC feature"
-msgstr "Функција рачунара Ваком таблице"
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
-msgid "Enable this to only report stylus events when the tip is pressed."
-msgstr ""
-"Омогућите ово за извештај о догађају оловке само када је притиснут врх."
+#: ../src/notification.c:241
+#, c-format
+msgid "Could not parse message from stdin\n"
+msgstr "Не могу да обрадим поруку са стандардног улаза\n"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
-msgid "Wacom display mapping"
-msgstr "Мапирање Ваком приказа"
+#: ../src/notification.c:323
+msgid "Zenity notification"
+msgstr "Обавештење Зенита"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
-msgid ""
-"EDID information of monitor to map tablet to. Must be in the format [vendor, "
-"product, serial]. [\"\",\"\",\"\"] disables mapping."
-msgstr ""
-"ЕДИД податак монитора у који ће бити мапирана таблица. Мора бити облика "
-"[vendor, product, serial]. [\"\",\"\",\"\"] искључује мапирање."
+#: ../src/password.c:64
+msgid "Type your password"
+msgstr "Упишите вашу лозинку"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
-msgid "Wacom stylus pressure curve"
-msgstr "Крива притиска Ваком оловке"
+#: ../src/password.c:99
+msgid "Username:"
+msgstr "Корисничко име:"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
-msgid ""
-"Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
-msgstr ""
-"Поставите ово на x1, y1 и x2, y2 криве притиска која се примењује на оловку."
+#: ../src/password.c:115
+msgid "Password:"
+msgstr "Лозинка:"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
-msgid "Wacom stylus button mapping"
-msgstr "Мапирање дугмета Ваком оловке"
+#: ../src/scale.c:57
+#, c-format
+msgid "Maximum value must be greater than minimum value.\n"
+msgstr "Највећа вредност мора бити већа од најмање вредности.\n"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
-msgid "Set this to the logical button mapping."
-msgstr "Поставите ово за мапирање логичког дугмета."
+#: ../src/scale.c:64
+#, c-format
+msgid "Value out of range.\n"
+msgstr "Вредност је изван опсега.\n"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
-msgid "Wacom stylus pressure threshold"
-msgstr "Праг притиска Ваком оловке"
+#: ../src/tree.c:365
+#, c-format
+msgid "No column titles specified for List dialog.\n"
+msgstr "Није одређен наслов колоне за прозорче списка.\n"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
-msgid ""
-"Set this to the pressure value at which a stylus click event is generated."
-msgstr ""
-"Поставите ово на вредност притиска при којој ће бити генерисан догађај клика "
-"оловке."
+#: ../src/tree.c:371
+#, c-format
+msgid "You should use only one List dialog type.\n"
+msgstr "Треба да користите само једну врсту прозорчета списка.\n"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
-msgid "Wacom eraser pressure curve"
-msgstr "Крива притиска Ваком брисача"
+#: ../src/zenity.ui.h:1
+msgid "Calendar selection"
+msgstr "Избор календара"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
-msgid ""
-"Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
-msgstr ""
-"Поставите ово на x1, y1 и x2, y2 криве притиска која се примењује на брисач."
+#: ../src/zenity.ui.h:2
+msgid "Select a date from below."
+msgstr "Изаберите датум."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
-msgid "Wacom eraser button mapping"
-msgstr "Мапирање дугмета Ваком брисача"
+#: ../src/zenity.ui.h:3
+msgid "C_alendar:"
+msgstr "К_алендар:"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
-msgid "Wacom eraser pressure threshold"
-msgstr "Праг притиска Ваком брисача"
+#: ../src/zenity.ui.h:4
+msgid "Add a new entry"
+msgstr "Додајте нови унос"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
-msgid ""
-"Set this to the pressure value at which an eraser click event is generated."
-msgstr ""
-"Поставите ово на вредност притиска при којој ће бити генерисан догађај клика "
-"брисача."
+#: ../src/zenity.ui.h:5
+msgid "_Enter new text:"
+msgstr "_Унесите нови текст:"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
-msgid "Wacom button action type"
-msgstr "Врста радње дугмета Вакома"
+#: ../src/zenity.ui.h:6
+msgid "Error"
+msgstr "Грешка"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
-msgid "The type of action triggered by the button being pressed."
-msgstr "Врста радње коју ће извршавати дугме које је притиснуто."
+#: ../src/zenity.ui.h:7
+msgid "An error has occurred."
+msgstr "Дошло је до грешке."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
-msgid "Key combination for the custom action"
-msgstr "Комбинација тастера за произвољну радњу"
+#: ../src/zenity.ui.h:8
+msgid "Forms dialog"
+msgstr "Прозорче образаца"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
-msgid ""
-"The keyboard shortcut generated when the button is pressed for custom "
-"actions."
-msgstr ""
-"Пречица тастатуре која ће бити проузрокована када је притиснуто дугме за "
-"произвољне радње."
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
-msgid "Key combinations for a touchring or touchstrip custom action"
-msgstr ""
-"Комбинације кључева за произвољну радњу додирног прстена или додирне траке"
+#: ../src/zenity.ui.h:9
+msgid "Information"
+msgstr "Информације"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
-msgid ""
-"The keyboard shortcuts generated when a touchring or touchstrip is used for "
-"custom actions (up followed by down)."
-msgstr ""
-"Пречице тастатуре које ће бити проузроковане када се користи додирни прстен "
-"или додирна трака за произвољне радње (горе за којим следи доле)."
+#: ../src/zenity.ui.h:10
+msgid "All updates are complete."
+msgstr "Сва ажурирања су одрађена."
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
-msgid "The duration a display profile is valid"
-msgstr "Трајање профила екрана је исправно"
+#: ../src/zenity.ui.h:11
+msgid "Progress"
+msgstr "Напредак"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
-msgid ""
-"This is the number of days after which the display color profile is "
-"considered invalid."
-msgstr "Ово је број дана након којег се профил боје екрана сматра неисправним."
-
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
-msgid "The duration a printer profile is valid"
-msgstr "Трајање профила штампача је исправно"
-
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
-msgid ""
-"This is the number of days after which the printer color profile is "
-"considered invalid."
-msgstr ""
-"Ово је број дана након којег се профил боје штампача сматра неисправним."
+#: ../src/zenity.ui.h:12
+msgid "Running..."
+msgstr "Покрећем..."
 
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
-msgid "List of plugins that are allowed to be loaded"
-msgstr "Списак прикључака који могу бити учитани"
+#: ../src/zenity.ui.h:13
+msgid "Question"
+msgstr "Упитник"
 
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
-msgid ""
-"A list of strings representing the plugins that are allowed to be loaded "
-"(default: 'all'). The plugins still need to be marked as active to get "
-"loaded. This is only evaluated on startup."
-msgstr ""
-"Списак ниски које представљају прикључке којима је допуштено да буду учитани "
-"(основно: „all“ — сви). Прикључци још увек морају бити означени као радни да "
-"би били учитани. Ово се само процењује на почетку."
-
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
-msgid "Mount paths to ignore"
-msgstr "Путање за монтирање које треба занемарити"
-
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
-msgid "Specify a list of mount paths to ignore when they run low on space."
-msgstr ""
-"Изаберите списак монтираних путања које треба занемарити ако им преостане "
-"мало слободног простора."
+#: ../src/zenity.ui.h:14
+msgid "Are you sure you want to proceed?"
+msgstr "Да ли сте сигурни да желите да наставите?"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
-msgid "Free percentage notify threshold"
-msgstr "Праг обавештења о проценту слободног простора"
+#: ../src/zenity.ui.h:15
+msgid "Adjust the scale value"
+msgstr "Подесите вредности скале"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
-msgid ""
-"Percentage free space threshold for initial warning of low disk space. If "
-"the percentage free space drops below this, a warning will be shown."
-msgstr ""
-"Праг процената слободног простора при коме се исписују почетна упозорења о "
-"мало слободног простора на диску. Уколико проценат слободног простора падне "
-"испод ове вредности, упозорење ће бити приказано."
-
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
-msgid "Subsequent free space percentage notify threshold"
-msgstr "Праг накнадног обавештења о проценту слободног простора"
-
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
-msgid ""
-"Specify the percentage that the free disk space should reduce by before "
-"issuing a subsequent warning."
-msgstr ""
-"Одредите за колико процената треба слободан простор да се умањи пре "
-"објављивања накнадног упозорења."
+#: ../src/zenity.ui.h:16
+msgid "Text View"
+msgstr "Текстуални приказ"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
-msgid "Free space notify threshold"
-msgstr "Праг обавештења о слободном простору"
+#: ../src/zenity.ui.h:17
+msgid "Select items from the list"
+msgstr "Изаберите ставке са списка"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
-msgid ""
-"Specify an amount in GB. If the amount of free space is more than this, no "
-"warning will be shown."
-msgstr ""
-"Одредите величину у гигабајтима. Упозорења се неће приказивати уколико је "
-"слободан простор већи од ове вредности."
+#: ../src/zenity.ui.h:18
+msgid "Select items from the list below."
+msgstr "Изаберите ставке са доњег списка."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
-msgid "Minimum notify period for repeated warnings"
-msgstr "Најмањи период обавештавања за понављана упозорења"
+#: ../src/zenity.ui.h:19
+msgid "Warning"
+msgstr "Упозорење"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
-msgid ""
-"Specify a time in minutes. Subsequent warnings for a volume will not appear "
-"more often than this period."
-msgstr ""
-"Одредите време у минутима. Накнадна упозорења за волумен се неће појављивати "
-"пре овог периода."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
-msgid "Custom keybindings"
-msgstr "Произвољне пречице"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
-msgid "List of custom keybindings"
-msgstr "Списак произвољних пречица"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
-msgid "Launch calculator"
-msgstr "Покретање калкулатора"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
-msgid "Binding to launch the calculator."
-msgstr "Пречица за покретање калкулатора."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
-msgid "Launch email client"
-msgstr "Покретање програм за ел. пошту"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
-msgid "Binding to launch the email client."
-msgstr "Пречица за покретање програма за е-пошту."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
-msgid "Eject"
-msgstr "Избацивање медијума"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
-msgid "Binding to eject an optical disc."
-msgstr "Пречица за избацивање оптичког диска."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
-msgid "Launch help browser"
-msgstr "Покретање прегледача помоћи"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
-msgid "Binding to launch the help browser."
-msgstr "Пречица за покретање прегледача помоћи."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
-msgid "Home folder"
-msgstr "Отварање личне фасцикле"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
-msgid "Binding to open the Home folder."
-msgstr "Пречица за отварање личне фасцикле."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
-msgid "Launch media player"
-msgstr "Покретање програма за звук и филмове"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
-msgid "Binding to launch the media player."
-msgstr "Пречица за покретање програма за звук и видео."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
-msgid "Next track"
-msgstr "Пуштање наредне нумере"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
-msgid "Binding to skip to next track."
-msgstr "Пречица за прелазак на наредну нумеру."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
-msgid "Pause playback"
-msgstr "Паузирање нумере"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
-msgid "Binding to pause playback."
-msgstr "Пречица за паузирање музике/филма."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
-msgid "Play (or play/pause)"
-msgstr "Пуштање (или пуштање/паузирање)"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
-msgid "Binding to start playback (or toggle play/pause)."
-msgstr "Пречица за пуштање музике/филма (или пуштање/паузу)."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
-msgid "Log out"
-msgstr "Одјављивање са система"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
-msgid "Binding to log out."
-msgstr "Пречица за одјављивање са система."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
-msgid "Previous track"
-msgstr "Пуштање претходне нумере"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
-msgid "Binding to skip to previous track."
-msgstr "Пречица за прелазак на претходну нумеру."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
-msgid "Lock screen"
-msgstr "Закључавање екрана"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
-msgid "Binding to lock the screen."
-msgstr "Пречица за закључавање екрана."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
-msgid "Search"
-msgstr "Претрага"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
-msgid "Binding to launch the search tool."
-msgstr "Пречица за покретање програма за претрагу."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
-msgid "Stop playback"
-msgstr "Заустављање репродукције"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
-msgid "Binding to stop playback."
-msgstr "Пречица за заустављање музике/филма."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
-msgid "Volume down"
-msgstr "Утишавање звука"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
-msgid "Binding to lower the system volume."
-msgstr "Пречица за утишавање звука система."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
-msgid "Volume mute"
-msgstr "Искључивање звука"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
-msgid "Binding to mute the system volume."
-msgstr "Пречица за искључивање звука система."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
-msgid "Volume up"
-msgstr "Појачавање звука"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
-msgid "Binding to raise the system volume."
-msgstr "Пречица за појачавање звука система."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
-msgid "Take a screenshot"
-msgstr "Прави снимак екрана"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
-msgid "Binding to take a screenshot."
-msgstr "Пречица за снимање екрана."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
-msgid "Take a screenshot of a window"
-msgstr "Прави снимак прозора"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
-msgid "Binding to take a screenshot of a window."
-msgstr "Пречица за снимање прозора."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
-msgid "Take a screenshot of an area"
-msgstr "Прави снимак области"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
-msgid "Binding to take a screenshot of an area."
-msgstr "Пречица за снимање области."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
-msgid "Copy a screenshot to clipboard"
-msgstr "Умножава снимак у бележницу"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
-msgid "Binding to copy a screenshot to clipboard."
-msgstr "Пречица за умножавање снимка у бележницу."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
-msgid "Copy a screenshot of a window to clipboard"
-msgstr "Умножава снимак прозора у бележницу"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
-msgid "Binding to copy a screenshot of a window to clipboard."
-msgstr "Пречица за умножавање снимка прозора у бележницу."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
-msgid "Copy a screenshot of an area to clipboard"
-msgstr "Умножава снимак области у бележницу"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
-msgid "Binding to copy a screenshot of an area to clipboard."
-msgstr "Пречица за умножавање снимка области у бележницу."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
-msgid "Launch web browser"
-msgstr "Покретање Интернет прегледника"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
-msgid "Binding to launch the web browser."
-msgstr "Пречица за покретање интернет претраживача."
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
-msgid "Toggle magnifier"
-msgstr "Укључивање лупе"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
-msgid "Binding to show the screen magnifier"
-msgstr "Пречица за приказивање лупе"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
-msgid "Toggle screen reader"
-msgstr "Укључивање читача екрана"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
-msgid "Binding to start the screen reader"
-msgstr "Пречица за укључивање читача екрана"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
-msgid "Toggle on-screen keyboard"
-msgstr "Укључивање тастатуре на екрану"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
-msgid "Binding to show the on-screen keyboard"
-msgstr "Пречица за приказивање тастатуре на екрану"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
-msgid "Increase text size"
-msgstr "Увећавање величине текста"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
-msgid "Binding to increase the text size"
-msgstr "Пречица за увећавање величине текста"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
-msgid "Decrease text size"
-msgstr "Смањивање величине текста"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
-msgid "Binding to decrease the text size"
-msgstr "Пречица за смањивање величине текста"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
-msgid "Toggle contrast"
-msgstr "Укључивање контраста"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
-msgid "Binding to toggle the interface contrast"
-msgstr "Пречица за укључивање контраста сучеља"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
-msgid "Magnifier zoom in"
-msgstr "Увећавање лупе"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
-msgid "Binding for the magnifier to zoom in"
-msgstr "Пречица за укључивање лупе"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
-msgid "Magnifier zoom out"
-msgstr "Умањивање лупе"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
-msgid "Binding for the magnifier to zoom out"
-msgstr "Пречица за искључивање лупе"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
-msgid "Name"
-msgstr "Назив"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
-msgid "Name of the custom binding"
-msgstr "Назив произвољног увезивања"
-
-# раније је било „савети“, али можда је боље „хинтови“
-#
-# Ух, ух, ово се односи на дотеривање фонтова него на савете
-# ~Милош
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
-msgid "Binding"
-msgstr "Увезивање"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
-msgid "Binding for the custom binding"
-msgstr "Пречица произвољног увезивања"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
-msgid "Command"
-msgstr "Наредба"
-
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
-msgid "Command to run when the binding is invoked"
-msgstr "Наредба која ће бити покренута приликом позивања пречице"
-
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
-msgid "Percentage considered low"
-msgstr "Проценат који се сматра ниским"
-
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
-msgid ""
-"The percentage of the battery when it is considered low. Only valid when use-"
-"time-for-policy is false."
-msgstr ""
-"Проценат напуњености батерије након кога се она сматра скоро празном. Ова "
-"вредност се користи само ако је искључено „use-time-for-policy“ (правило-"
-"користи-време-за)."
-
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
-msgid "Percentage considered critical"
-msgstr "Проценат који се сматра критичним"
-
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
-msgid ""
-"The percentage of the battery when it is considered critical. Only valid "
-"when use-time-for-policy is false."
-msgstr ""
-"Проценат напуњености батерије након чега се сматра критичним. Ова вредност "
-"се користи само ако је искључено „use-time-for-policy“ (правило-користи-"
-"време-за)."
-
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
-msgid "Percentage action is taken"
-msgstr "Радња везана за проценат напуњености је спроведена"
-
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
-msgid ""
-"The percentage of the battery when the critical action is performed. Only "
-"valid when use-time-for-policy is false."
-msgstr ""
-"Проценат напуњености батерије након кога се извршава радња критичног стања. "
-"Ова вредност се користи само ако је искључено „use-time-for-policy“ (правило-"
-"користи-време-за)."
-
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
-msgid "The time remaining when low"
-msgstr "Преостало време након кога је батерија скоро празна"
-
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
-msgid ""
-"The time remaining in seconds of the battery when it is considered low. Only "
-"valid when use-time-for-policy is true."
-msgstr ""
-"Преостало трајање батерије у секундама након кога се она сматра скоро "
-"празном. Ова вредност се користи само ако је укључено „use-time-for-"
-"policy“ (правило-користи-време-за)."
-
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
-msgid "The time remaining when critical"
-msgstr "Преостало време након кога је батерија критично празна"
-
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
-msgid ""
-"The time remaining in seconds of the battery when it is considered critical. "
-"Only valid when use-time-for-policy is true."
-msgstr ""
-"Преостало трајање батерије у секундама након кога се она сматра критично "
-"празном. Ова вредност се користи само ако је укључено „use-time-for-"
-"policy“ (правило-користи-време-за)."
-
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:15
-msgid "The time remaining when action is taken"
-msgstr "Преостало време након кога се предузима радња"
-
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:16
-msgid ""
-"The time remaining in seconds of the battery when critical action is taken. "
-"Only valid when use-time-for-policy is true."
-msgstr ""
-"Преостало трајање батерије у секундама након кога се извршава радња "
-"критичног стања. Ова вредност се користи само ако је укључено „use-time-for-"
-"policy“ (правило-користи-време-за)."
-
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:17
-msgid "Whether to use time-based notifications"
-msgstr "Да ли да приказује обавештења на основу протеклог времена"
-
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:18
-msgid ""
-"If time based notifications should be used. If set to false, then the "
-"percentage change is used instead, which may fix a broken ACPI BIOS."
-msgstr ""
-"Да ли ће користити обавештења на основу протеклог времена. Ако је постављено "
-"на нетачно (false), тада се прати промена процената, што понекад поправља "
-"нетачан АЦПИ/БИОС одзив."
-
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:19
-msgid "If we should show the recalled battery warning for a broken battery"
-msgstr ""
-"Да ли ће бити приказано упозорење опозване батерије за оштећену батерију"
+#: ../src/option.c:158
+msgid "Set the dialog title"
+msgstr "Поставља наслов прозорчета"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:20
-msgid ""
-"If we should show the recalled battery warning for a broken battery. Set "
-"this to false only if you know your battery is okay."
-msgstr ""
-"Да ли ће бити приказано упозорење опозване батерије за оштећену батерију. "
-"Поставите ово на нетачно (false) само ако знате да је ваша батерија исправна."
+#: ../src/option.c:159
+msgid "TITLE"
+msgstr "НАСЛОВ"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
-msgid "Use mobile broadband connections"
-msgstr "Коришћење мобилне широкопојасне везе"
+#: ../src/option.c:167
+msgid "Set the window icon"
+msgstr "Одређује иконицу прозора"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
-msgid ""
-"Use mobile broadband connections such as GSM and CDMA to check for updates."
-msgstr ""
-"Биће коришћене мобилне широкопојасне везе као што су ГСМ и ЦДМА за проверу "
-"ажурирања."
+#: ../src/option.c:168
+msgid "ICONPATH"
+msgstr "ПУТАЊА ДО ИКОНИЦЕ"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
-msgid "Automatically download updates in the background without confirmation"
-msgstr "Самостално преузимање ажурирања у позадини, без потврђивања"
+#: ../src/option.c:176
+msgid "Set the width"
+msgstr "Поставља ширину"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
-msgid ""
-"Automatically download updates in the background without confirmation. "
-"Updates will be auto-downloaded when using wired network connnections, and "
-"mobile broadband if 'connection-use-mobile' is enabled."
-msgstr ""
-"Ажурирања ће бити самостално преузимана у позадини, без потврђивања. "
-"Ажурирања ће бити самостално преузета приликом коришћења жичаних мрежних "
-"веза, и мобилних широкопојасних ако је укључено „connection-use-"
-"mobile“ (веза-користи-мобилну)."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
-msgid "How often to check for updates"
-msgstr "Учестаност проверавања за ажурирањима"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
-msgid ""
-"How often to check for updates. Value is in seconds. This is a maximum "
-"amount of time that can pass between a security update being published, and "
-"the update being automatically installed or the user notified."
-msgstr ""
-"Колико често ће бити вршена провера за ажурирањима. Вредност је у секундама. "
-"Ово је највећи временски период који може да прође од објављивања "
-"сигурносних ажурирања и од њиховог аутоматског инсталирања или од "
-"обавештавања корисника."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
-msgid "How often to notify the user that non-critical updates are available"
-msgstr "Учестаност обавештавања корисника о доступним некритичним ажурирањима"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
-msgid ""
-"How often to tell the user there are non-critical updates. Value is in "
-"seconds. Security update notifications are always shown after the check for "
-"updates, but non-critical notifications should be shown a lot less "
-"frequently."
-msgstr ""
-"Колико често ће корисник бити обавештаван о доступним некритичним "
-"ажурирањима. Вредност је у секундама. Обавештења о сигурносним ажурирањима "
-"се приказују увек након провере за ажурирањима, али некритична обавештења би "
-"требала бити приказивана не тако често."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
-msgid "The last time we told the user about non-critical notifications"
-msgstr "Када је последњи пут речено кориснику о некритичним обавештењима"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
-msgid ""
-"The last time we notified the user about non-critical updates. Value is in "
-"seconds since the epoch, or zero for never."
-msgstr ""
-"Када је последњи пут корисник био обавештен о некритичним ажурирањима. "
-"Вредност је у секундама у овом раздобљу или нула за никад."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
-msgid "How often to check for distribution upgrades"
-msgstr "Учестаност проверавања за надоградњама дистрибуције"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
-msgid "How often to check for distribution upgrades. Value is in seconds."
-msgstr ""
-"Колико често ће бити вршена провера за надоградњама дистрибуције. Вредност "
-"је у секундама."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
-msgid "How often to refresh the package cache"
-msgstr "Учестаност освежавања оставе пакета"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
-msgid "How often to refresh the package cache. Value is in seconds."
-msgstr ""
-"Колико често ће бити освежавана остава пакета. Вредност је у секундама."
+#: ../src/option.c:177
+msgid "WIDTH"
+msgstr "ШИРИНА"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
-msgid "Check for updates when running on battery power"
-msgstr "Проверавање за ажурирањима приликом напајања са батерије"
+#: ../src/option.c:185
+msgid "Set the height"
+msgstr "Поставља висину"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
-msgid "Check for updates when running on battery power."
-msgstr "Провераваће за ажурирањима приликом напајања са батерије."
+#: ../src/option.c:186
+msgid "HEIGHT"
+msgstr "ВИСИНА"
+
+#: ../src/option.c:194
+msgid "Set dialog timeout in seconds"
+msgstr "Поставља временски рок прозорчета у секундама"
+
+# Где, шта, где, ко???
+#. Timeout for closing the dialog
+#: ../src/option.c:196
+msgid "TIMEOUT"
+msgstr "ВРЕМЕНСКИ РОК"
+
+#: ../src/option.c:204
+msgid "Sets the label of the Ok button"
+msgstr "Поставља натпис дугмета „У реду“"
+
+#: ../src/option.c:205 ../src/option.c:214 ../src/option.c:247
+#: ../src/option.c:307 ../src/option.c:316 ../src/option.c:350
+#: ../src/option.c:400 ../src/option.c:529 ../src/option.c:645
+#: ../src/option.c:663 ../src/option.c:689 ../src/option.c:761
+#: ../src/option.c:829 ../src/option.c:838 ../src/option.c:882
+#: ../src/option.c:932 ../src/option.c:1083
+msgid "TEXT"
+msgstr "ТЕКСТ"
+
+#: ../src/option.c:213
+msgid "Sets the label of the Cancel button"
+msgstr "Поставља наптис дугмета „Откажи“"
+
+#: ../src/option.c:222
+msgid "Set the modal hint"
+msgstr "Поставља условљени савет"
+
+#: ../src/option.c:237
+msgid "Display calendar dialog"
+msgstr "Приказује прозорче календара"
+
+#: ../src/option.c:246 ../src/option.c:306 ../src/option.c:349
+#: ../src/option.c:399 ../src/option.c:528 ../src/option.c:688
+#: ../src/option.c:760 ../src/option.c:881 ../src/option.c:931
+#: ../src/option.c:1082
+msgid "Set the dialog text"
+msgstr "Поставља текст прозорчета"
+
+#: ../src/option.c:255
+msgid "Set the calendar day"
+msgstr "Поставља дан у календару"
+
+#: ../src/option.c:256
+msgid "DAY"
+msgstr "ДАН"
+
+#: ../src/option.c:264
+msgid "Set the calendar month"
+msgstr "Поставља месец у календару"
+
+#: ../src/option.c:265
+msgid "MONTH"
+msgstr "МЕСЕЦ"
+
+#: ../src/option.c:273
+msgid "Set the calendar year"
+msgstr "Поставља годину у календару"
+
+#: ../src/option.c:274
+msgid "YEAR"
+msgstr "ГОДИНА"
+
+#: ../src/option.c:282 ../src/option.c:1100
+msgid "Set the format for the returned date"
+msgstr "Поставља формат повратног датума"
+
+#: ../src/option.c:283 ../src/option.c:1101
+msgid "PATTERN"
+msgstr "ОБРАЗАЦ"
+
+#: ../src/option.c:297
+msgid "Display text entry dialog"
+msgstr "Приказује прозорче за унос текста"
+
+#: ../src/option.c:315
+msgid "Set the entry text"
+msgstr "Поставља текст за унос"
+
+#: ../src/option.c:324
+msgid "Hide the entry text"
+msgstr "Скрива текст за унос"
+
+#: ../src/option.c:340
+msgid "Display error dialog"
+msgstr "Приказује прозорче за грешке"
+
+#: ../src/option.c:358 ../src/option.c:408 ../src/option.c:769
+#: ../src/option.c:890
+msgid "Set the dialog icon"
+msgstr "Поставља иконицу прозорчета"
+
+#: ../src/option.c:359 ../src/option.c:409 ../src/option.c:770
+#: ../src/option.c:891
+msgid "ICON-NAME"
+msgstr "НАЗИВ ИКОНИЦЕ"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
-msgid "Notify the user when distribution upgrades are available"
-msgstr "Обавештава корисника о доступним надоградњама дистрибуције"
+#: ../src/option.c:367 ../src/option.c:417 ../src/option.c:778
+#: ../src/option.c:899
+msgid "Do not enable text wrapping"
+msgstr "Не укључује прелом текста"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
-msgid "Notify the user when distribution upgrades are available."
-msgstr "Корисник ће бити обавештен о доступним надоградњама дистрибуције."
+#: ../src/option.c:376 ../src/option.c:426 ../src/option.c:787
+#: ../src/option.c:908
+msgid "Do not enable pango markup"
+msgstr "Не укључује панго означавање"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
-msgid "Ask the user if additional firmware should be installed"
-msgstr "Питаће корисника да ли додатни фирмвер треба бити инсталиран"
+#: ../src/option.c:390
+msgid "Display info dialog"
+msgstr "Приказује прозорче информација"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
-msgid ""
-"Ask the user if additional firmware should be installed if it is available."
-msgstr ""
-"Питаће корисника да ли додатни фирмвер треба бити инсталиран ако је доступан."
+#: ../src/option.c:440
+msgid "Display file selection dialog"
+msgstr "Приказује прозорче за избор датотеке"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
-msgid "Firmware files that should not be searched for"
-msgstr "Датотеке угњежденог програма које не треба тражити"
+#: ../src/option.c:449
+msgid "Set the filename"
+msgstr "Поставља назив датотеке"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
-msgid ""
-"Firmware files that should not be searched for, separated by commas. These "
-"can include '*' and '?' characters."
-msgstr ""
-"Фирмвер датотеке за којима неће бити извршавана претрага, раздвојене "
-"зарезима. Ово може да обухвата „*“ и „?“ знаке."
+#: ../src/option.c:450 ../src/option.c:811
+msgid "FILENAME"
+msgstr "НАЗИВ ДАТОТЕКЕ"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
-msgid "Devices that should be ignored"
-msgstr "Уређаји који требају бити занемарени"
+#: ../src/option.c:458
+msgid "Allow multiple files to be selected"
+msgstr "Дозвољава избор више датотека"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
-msgid ""
-"Devices that should be ignored, separated by commas. These can include '*' "
-"and '?' characters."
-msgstr ""
-"Уређаји који требају бити занемарени, раздвојени зарезима. Ово може да "
-"обухвата „*“ и „?“ знаке."
+#: ../src/option.c:467
+msgid "Activate directory-only selection"
+msgstr "Покреће избор само директоријума"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
-msgid "The filenames on removable media that designate it a software source."
-msgstr "Називи датотека на измењивим медијима која одређују извор софтвера."
+#: ../src/option.c:476
+msgid "Activate save mode"
+msgstr "Покреће режим за чување"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
-msgid ""
-"When removable media is inserted, it is checked to see if it contains any "
-"important filenames in the root directory. If the filename matches, then an "
-"updates check is performed. This allows post-install disks to be used to "
-"update running systems."
-msgstr ""
-"Након убацивања измењивог медија, исти бива проверен да не садржи важна "
-"имена датотека у кореном директоријуму. Ако се имена датотека подударају, "
-"онда ће бити извршена провера за ажурирањима. Ово омогућава да пост-"
-"инсталациони дискови буду коришћени за ажурирање покренутих система."
-
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
-msgid "File for default configuration for RandR"
-msgstr "Датотека за подразумевана РандР подешавања"
-
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
-msgid ""
-"The XRandR plugin will look for a default configuration in the file "
-"specified by this key. This is similar to the ~/.config/monitors.xml that "
-"normally gets stored in users' home directories. If a user does not have "
-"such a file, or has one that does not match the user's setup of monitors, "
-"then the file specified by this key will be used instead."
-msgstr ""
-"ХРандР додатак ће тражити подразумевана подешавања у датотеци из овог кључа. "
-"Ово је слично као „~/.config/monitors.xml“ која се обично чува у личном "
-"директоријуму корисника. Датотека из овог кључа се користи уколико нема "
-"такве датотеке, или се она не поклапа са подешавањима екрана."
-
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
-msgid "Whether to turn off specific monitors after boot"
-msgstr "Да ли ће искључити одређене мониторе након покретања система"
-
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
-msgid ""
-"'clone' will display the same thing on all monitors, 'dock' will switch off "
-"the internal monitor, 'do-nothing' will use the default Xorg behaviour "
-"(extend the desktop in recent versions). The default, 'follow-lid', will "
-"choose between 'do-nothing' and 'dock' depending on whether the lid is "
-"(respectively) open or closed."
-msgstr ""
-"„clone“ ће приказивати исте ствари на свим мониторима, „dock“ ће искључити "
-"унутрашњи монитор, „do-nothing“ ће користити основно понашање Икс-орг-а "
-"(прошириће радну површ у новијим верзијама). Основно, „follow-lid“ ће "
-"изабрати између „do-nothing“ и „dock“ у зависности од тога да ли је либ "
-"отворен или затворен."
-
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
-msgid "Antialiasing"
-msgstr "Умекшавање ивица"
-
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
-msgid ""
-"The type of antialiasing to use when rendering fonts. Possible values are: "
-"\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
-"antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
-msgstr ""
-"Врста умекшавања ивица приликом исцртавања словних ликова. Дозвољене "
-"вредности су: „none“ — за искључивање умекшавања, „grayscale„ — за "
-"стандардно умекшавање у сивим тоновима и „rgba„ — за дотеривање испод "
-"пиксела (само за ЛЦД екране)."
-
-# раније је било „савети“, али можда је боље „хинтови“
-#
-# Ух, ух, ово се односи на дотеривање фонтова него на савете
-# ~Милош
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
-msgid "Hinting"
-msgstr "Дотеривање"
-
-# формама писма = писаним формама???
-# ~Милош
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
-msgid ""
-"The type of hinting to use when rendering fonts. Possible values are: \"none"
-"\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
-"\" for maximum hinting (may cause distortion of letter forms)."
-msgstr ""
-"Врста дотеривања приликом исцртавања словних ликова. Могуће вредности су: "
-"„none“ — за искључивање дотеривања, „slight“ — за основно дотеривање, "
-"„medium“ — за средњи ниво дотеривања и „full“ — за највеће дотеривање (може "
-"да изазове изобличења у облицима слова)."
-
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
-msgid "RGBA order"
-msgstr "Редослед РГБА"
-
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
-msgid ""
-"The order of subpixel elements on an LCD screen; only used when antialiasing "
-"is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
-"common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red "
-"on bottom."
-msgstr ""
-"Редослед елемената за дотеривање испод пиксела на ЛЦД екрану. Користи се "
-"само када је умекшавање ивица постављено на „rgba“. Могуће вредности су: "
-"„rgb“ — за црвену слева (најкоришћеније), „bgr“ — за зелену слева, „vrgb“ — "
-"за црвену одозго и „vbgr“ — за црвену одоздо."
-
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
-msgid "List of explicitly disabled GTK+ modules"
-msgstr "Списак изричито онемогућених ГТК+ модула"
-
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
-msgid ""
-"A list of strings representing the GTK+ modules that will not be loaded, "
-"even if enabled by default in their configuration."
-msgstr ""
-"Списак ниски које представљају ГТК+ модуле који неће бити учитани, чак и ако "
-"су по основи омогућени у њиховим подешавањима."
+#: ../src/option.c:485 ../src/option.c:573 ../src/option.c:1091
+msgid "Set output separator character"
+msgstr "Поставља знак за раздвајање на излазу"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
-msgid "List of explicitly enabled GTK+ modules"
-msgstr "Списак изричито омогућених ГТК+ модула"
+#: ../src/option.c:486 ../src/option.c:574 ../src/option.c:1092
+msgid "SEPARATOR"
+msgstr "РАЗДВОЈНИК"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
-msgid ""
-"A list of strings representing the GTK+ modules that will be loaded, usually "
-"in addition to conditional and forcibly disabled ones."
-msgstr ""
-"Списак ниски које представљају ГТК+ модуле који ће бити учитани, обично као "
-"додатак онима који су условно и насилно онемогућени."
+#: ../src/option.c:494
+msgid "Confirm file selection if filename already exists"
+msgstr "Потврђује избор датотеке ако иста већ постоји"
+
+#: ../src/option.c:503
+msgid "Sets a filename filter"
+msgstr "Поставља филтер назива датотека"
+
+#. Help for file-filter argument (name and patterns for file selection)
+#: ../src/option.c:505
+msgid "NAME | PATTERN1 PATTERN2 ..."
+msgstr "НАЗИВ | ШАБЛОН1 ШАБЛОН2 ..."
+
+#: ../src/option.c:519
+msgid "Display list dialog"
+msgstr "Приказује прозорче са списком"
+
+#: ../src/option.c:537
+msgid "Set the column header"
+msgstr "Поставља заглавље колоне"
+
+#: ../src/option.c:538
+msgid "COLUMN"
+msgstr "КОЛОНА"
+
+#: ../src/option.c:546
+msgid "Use check boxes for first column"
+msgstr "Користи кућице за штиклирање за прву колону"
+
+#: ../src/option.c:555
+msgid "Use radio buttons for first column"
+msgstr "Користи једноизборник за прву колону"
+
+#: ../src/option.c:564
+msgid "Use an image for first column"
+msgstr "Користи слику за прву колону"
+
+#: ../src/option.c:582
+msgid "Allow multiple rows to be selected"
+msgstr "Дозвољава истовремени избор више редова"
+
+#: ../src/option.c:591 ../src/option.c:819
+msgid "Allow changes to text"
+msgstr "Дозвољава промене текста"
+
+#: ../src/option.c:600
+msgid ""
+"Print a specific column (Default is 1. 'ALL' can be used to print all "
+"columns)"
+msgstr ""
+"Исписује одређену колону (Подразумева се 1. За испис свих колона можете "
+"користити „ALL“)"
+
+#. Column index number to print out on a list dialog
+#: ../src/option.c:602 ../src/option.c:611
+msgid "NUMBER"
+msgstr "БРОЈ"
+
+#: ../src/option.c:610
+msgid "Hide a specific column"
+msgstr "Скрива одређену колону"
+
+#: ../src/option.c:619
+msgid "Hides the column headers"
+msgstr "Скрива заглавље колоне"
+
+#: ../src/option.c:635
+msgid "Display notification"
+msgstr "Приказује обавештење"
+
+#: ../src/option.c:644
+msgid "Set the notification text"
+msgstr "Поставља текст обавештења"
+
+#: ../src/option.c:653
+msgid "Listen for commands on stdin"
+msgstr "Прати наредбе на стандардном улазу"
+
+#: ../src/option.c:662
+#| msgid "Set the notification text"
+msgid "Set the notification hints"
+msgstr "Поставља упуте обавештења"
+
+#: ../src/option.c:679
+msgid "Display progress indication dialog"
+msgstr "Приказује прозорче указивача напретка"
+
+#: ../src/option.c:697
+msgid "Set initial percentage"
+msgstr "Поставља почетни проценат"
+
+#: ../src/option.c:698
+msgid "PERCENTAGE"
+msgstr "ПРОЦЕНАТ"
+
+#: ../src/option.c:706
+msgid "Pulsate progress bar"
+msgstr "Пулсирајући указивач напретка"
+
+#: ../src/option.c:716
+#, no-c-format
+msgid "Dismiss the dialog when 100% has been reached"
+msgstr "Одбацује прозорче када се стигне до 100%"
+
+# bug: it's not "cancel button" but "Cancel button" or even '"Cancel" button
+#: ../src/option.c:726
+#, no-c-format
+msgid "Kill parent process if Cancel button is pressed"
+msgstr "Убија надпроцес када се притисне дугме „Откажи“"
+
+#: ../src/option.c:736
+#, no-c-format
+msgid "Hide Cancel button"
+msgstr "Скрива дугме „Откажи“"
+
+#: ../src/option.c:751
+msgid "Display question dialog"
+msgstr "Приказује прозорче за упит"
+
+#: ../src/option.c:801
+msgid "Display text information dialog"
+msgstr "Приказује прозорче за текстуалне информације"
+
+#: ../src/option.c:810
+msgid "Open file"
+msgstr "Отвара датотеку"
+
+#: ../src/option.c:828
+msgid "Set the text font"
+msgstr "Поставља текст за унос"
+
+#: ../src/option.c:837
+msgid "Enable an I read and agree checkbox"
+msgstr "Укључује једно „Прочитао сам и слажем се“ прозорче за избор"
+
+#: ../src/option.c:847
+msgid "Enable html support"
+msgstr "Укључује хтмл подршку"
+
+#: ../src/option.c:856
+msgid "Sets an url instead of a file. Only works if you use --html option"
+msgstr ""
+"Подешава адресу уместо датотеке. Ради само ако користите опцију „--html“"
+
+#: ../src/option.c:857
+msgid "URL"
+msgstr "АДРЕСА"
+
+#: ../src/option.c:872
+msgid "Display warning dialog"
+msgstr "Приказује прозорче упозорења"
+
+#: ../src/option.c:922
+msgid "Display scale dialog"
+msgstr "Приказује прозорче размере"
+
+#: ../src/option.c:940
+msgid "Set initial value"
+msgstr "Поставља почетну вредност"
+
+#: ../src/option.c:941 ../src/option.c:950 ../src/option.c:959
+#: ../src/option.c:968 ../src/option.c:1149
+msgid "VALUE"
+msgstr "ВРЕДНОСТ"
+
+#: ../src/option.c:949
+msgid "Set minimum value"
+msgstr "Поставља најмању могућу вредност"
+
+#: ../src/option.c:958
+msgid "Set maximum value"
+msgstr "Поставља највећу могућу вредност"
+
+#: ../src/option.c:967
+msgid "Set step size"
+msgstr "Поставља вредност корака"
+
+#: ../src/option.c:976
+msgid "Print partial values"
+msgstr "Штампа делимичне вредности"
+
+#: ../src/option.c:985
+msgid "Hide value"
+msgstr "Скрива вредност"
+
+#: ../src/option.c:1000
+msgid "Display forms dialog"
+msgstr "Приказује прозорче образаца"
+
+#: ../src/option.c:1009
+msgid "Add a new Entry in forms dialog"
+msgstr "Додаје нову ставку у прозорче обрасца"
+
+#: ../src/option.c:1010 ../src/option.c:1019
+msgid "Field name"
+msgstr "НАЗИВ ПОЉА"
+
+#: ../src/option.c:1018
+msgid "Add a new Password Entry in forms dialog"
+msgstr "Додаје нову ставку лозинке у прозорче обрасца"
+
+#: ../src/option.c:1027
+msgid "Add a new Calendar in forms dialog"
+msgstr "Додаје нови календар у прозорче обрасца"
+
+#: ../src/option.c:1028
+msgid "Calendar field name"
+msgstr "НАЗИВ ПОЉА КАЛЕНДАРА"
+
+#: ../src/option.c:1036
+msgid "Add a new List in forms dialog"
+msgstr "Додаје нови списак у прозорче обрасца"
+
+#: ../src/option.c:1037
+msgid "List field and header name"
+msgstr "Наводи назив поља и заглавља"
+
+#: ../src/option.c:1045
+msgid "List of values for List"
+msgstr "Списак вредности за списак"
+
+#: ../src/option.c:1046 ../src/option.c:1055
+msgid "List of values separated by |"
+msgstr "Списак вредности раздвојен |"
+
+#: ../src/option.c:1054
+msgid "List of values for columns"
+msgstr "Списак вредности за колоне"
+
+#: ../src/option.c:1073
+msgid "Show the columns header"
+msgstr "Приказује заглавље колона"
+
+#: ../src/option.c:1115
+msgid "Display password dialog"
+msgstr "Приказује прозорче за лозинку"
+
+#: ../src/option.c:1124
+msgid "Display the username option"
+msgstr "Приказује прозорче за корисничко име"
+
+#: ../src/option.c:1139
+msgid "Display color selection dialog"
+msgstr "Приказује прозорче за избор боје"
+
+#: ../src/option.c:1148
+msgid "Set the color"
+msgstr "Поставља боју"
+
+#: ../src/option.c:1157
+msgid "Show the palette"
+msgstr "Приказује палету"
+
+#: ../src/option.c:1172
+msgid "About zenity"
+msgstr "О Зениту"
+
+#: ../src/option.c:1181
+msgid "Print version"
+msgstr "Исписује издање програма"
+
+#: ../src/option.c:2075
+msgid "General options"
+msgstr "Опште опције"
+
+#: ../src/option.c:2076
+msgid "Show general options"
+msgstr "Приказује опште опције"
+
+#: ../src/option.c:2086
+msgid "Calendar options"
+msgstr "Опције календара"
+
+#: ../src/option.c:2087
+msgid "Show calendar options"
+msgstr "Приказује опције календара"
+
+#: ../src/option.c:2097
+msgid "Text entry options"
+msgstr "Опције уноса текста"
+
+#: ../src/option.c:2098
+msgid "Show text entry options"
+msgstr "Приказује опције уноса текста"
+
+#: ../src/option.c:2108
+msgid "Error options"
+msgstr "Опције грешке"
+
+#: ../src/option.c:2109
+msgid "Show error options"
+msgstr "Приказује опције грешке"
+
+#: ../src/option.c:2119
+msgid "Info options"
+msgstr "Опције информација"
+
+#: ../src/option.c:2120
+msgid "Show info options"
+msgstr "Приказује опције информација"
 
-#: ../gnome-settings-daemon/main.c:52
-msgid "Enable debugging code"
-msgstr "Укључује код за тражење грешака"
+#: ../src/option.c:2130
+msgid "File selection options"
+msgstr "Опције избора датотеке"
 
-#: ../gnome-settings-daemon/main.c:53
-msgid "Replace existing daemon"
-msgstr "Замењује постојећег услужника"
+#: ../src/option.c:2131
+msgid "Show file selection options"
+msgstr "Приказује опције избора датотеке"
 
-#: ../gnome-settings-daemon/main.c:54
-msgid "Exit after a time (for debugging)"
-msgstr "Излази након времена (због уклањања грешака)"
+#: ../src/option.c:2141
+msgid "List options"
+msgstr "Опције списка"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
-msgid "Accessibility Keyboard"
-msgstr "Приступачност тастатуре"
+#: ../src/option.c:2142
+msgid "Show list options"
+msgstr "Приказује опције списка"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
-msgid "Accessibility keyboard plugin"
-msgstr "Додатак за приступачност тастатуре"
+#: ../src/option.c:2153
+msgid "Notification icon options"
+msgstr "Опције иконице обавештења"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
-msgid "Slow Keys Turned On"
-msgstr "Укључени спори тастери"
+#: ../src/option.c:2154
+msgid "Show notification icon options"
+msgstr "Приказује опције иконице обавештења"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:401
-msgid "Slow Keys Turned Off"
-msgstr "Искључени спори тастери"
+#: ../src/option.c:2165
+msgid "Progress options"
+msgstr "Опције напретка"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:402
-msgid ""
-"You just held down the Shift key for 8 seconds.  This is the shortcut for "
-"the Slow Keys feature, which affects the way your keyboard works."
-msgstr ""
-"Управо сте држали тастер Шифт притиснут 8 секунди.  Ово је пречица за "
-"могућност спорих тастера, која утиче на то како ради ваша тастатура."
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:412
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:480
-#: ../plugins/mouse/gsd-mouse-manager.c:920
-msgid "Universal Access"
-msgstr "Универзални приступ"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:418
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:486
-msgid "Turn Off"
-msgstr "Искључи"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:418
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:486
-msgid "Turn On"
-msgstr "Укључи"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:424
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:492
-msgid "Leave On"
-msgstr "Остави укљ."
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:424
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:492
-msgid "Leave Off"
-msgstr "Остави искљ."
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:465
-msgid "Sticky Keys Turned On"
-msgstr "Укључени лепљиви тастери"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:466
-msgid "Sticky Keys Turned Off"
-msgstr "Искључени лепљиви тастери"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:468
-msgid ""
-"You just pressed the Shift key 5 times in a row.  This is the shortcut for "
-"the Sticky Keys feature, which affects the way your keyboard works."
-msgstr ""
-"Управо сте притиснули тастер Шифт пет пута заредом.  Ово је пречица за "
-"могућност лепљивих тастера, која утиче на начин рада ваше тастатуре."
+#: ../src/option.c:2166
+msgid "Show progress options"
+msgstr "Приказује опције напретка"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:470
-msgid ""
-"You just pressed two keys at once, or pressed the Shift key 5 times in a "
-"row.  This turns off the Sticky Keys feature, which affects the way your "
-"keyboard works."
-msgstr ""
-"Управо сте притиснули два тастера истовремено, или сте притиснули Шифт 5 "
-"пута заредом.  Ово искључује могућност лепљивих тастера, што утиче на то "
-"како ваша тастатура ради."
-
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
-msgid "Accessibility settings"
-msgstr "Подешавања приступачности"
-
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
-msgid "Accessibility settings plugin"
-msgstr "Додатак подешавања приступачности"
-
-#. Priority=100
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
-msgid "Clipboard"
-msgstr "Списак исечака"
-
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:3
-msgid "Clipboard plugin"
-msgstr "Додатак за списак исечака"
-
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
-#: ../plugins/color/gsd-color-manager.c:1664
-msgid "Color"
-msgstr "Боја"
-
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
-msgid "Color plugin"
-msgstr "Додатак боје"
-
-#: ../plugins/color/gsd-color-manager.c:1669
-msgid "Recalibrate now"
-msgstr "Поново подеси сада"
-
-#. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1712
-msgid "Recalibration required"
-msgstr "Потребно је поновно подешавање"
-
-#. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1724
-#, c-format
-msgid "The display '%s' should be recalibrated soon."
-msgstr "Екран „%s“ треба бити ускоро поново подешен."
-
-#. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1733
-#, c-format
-msgid "The printer '%s' should be recalibrated soon."
-msgstr "Штампач „%s“ треба бити ускоро поново подешен."
-
-#. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:2057
-#: ../plugins/color/gsd-color-manager.c:2073
-msgid "GNOME Settings Daemon Color Plugin"
-msgstr "Додатак боје услужног програма подешавања Гнома"
-
-#. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2059
-msgid "Color calibration device added"
-msgstr "Уређај подешавања боје је додат"
-
-#. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2075
-msgid "Color calibration device removed"
-msgstr "Уређај подешавања боје је уклоњен"
-
-#. Priority=100
-#: ../plugins/cursor/cursor.gnome-settings-plugin.in.h:2
-msgid "Cursor"
-msgstr "Курсор"
-
-#: ../plugins/cursor/cursor.gnome-settings-plugin.in.h:3
-msgid "Show/hide cursor on tablet devices"
-msgstr "Приказује/скрива курсор на табличним уређајима"
-
-# Мало шале није на одмет?
-# ~Милош
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
-msgid "Dummy"
-msgstr "Лажњак"
-
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
-msgid "Dummy plugin"
-msgstr "Додатак за лажњака"
-
-#: ../plugins/housekeeping/gsd-disk-space.c:578
-#, c-format
-msgid "Low Disk Space on \"%s\""
-msgstr "Мало простора на диску „%s“"
+#: ../src/option.c:2176
+msgid "Question options"
+msgstr "Опције упита"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:580
-#, c-format
-msgid ""
-"The volume \"%s\" has only %s disk space remaining.  You may free up some "
-"space by emptying the trash."
-msgstr ""
-"Волумен „%s“ има само %s преосталог простора на диску.  Можете да ослободите "
-"нешто простора пражњењем корпе."
-
-#: ../plugins/housekeeping/gsd-disk-space.c:584
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:81
-#, c-format
-msgid "The volume \"%s\" has only %s disk space remaining."
-msgstr "Диск „%s“ има само %s преосталог простора."
-
-#. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-disk-space.c:589
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:205
-msgid "Low Disk Space"
-msgstr "Мало простора на диску"
-
-#: ../plugins/housekeeping/gsd-disk-space.c:591
-#, c-format
-msgid ""
-"This computer has only %s disk space remaining.  You may free up some space "
-"by emptying the trash."
-msgstr ""
-"Овај рачунар има само %s преосталог простора на диску.  Можете да ослободите "
-"нешто простора пражњењем корпе."
-
-#: ../plugins/housekeeping/gsd-disk-space.c:594
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:84
-#, c-format
-msgid "This computer has only %s disk space remaining."
-msgstr "Овај рачунар има само %s преосталог простора."
-
-#: ../plugins/housekeeping/gsd-disk-space.c:609
-msgid "Disk space"
-msgstr "Простор на диску"
-
-#: ../plugins/housekeeping/gsd-disk-space.c:616
-msgid "Examine"
-msgstr "Испитај"
-
-#: ../plugins/housekeeping/gsd-disk-space.c:624
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:437
-msgid "Empty Trash"
-msgstr "Испразни корпу"
-
-#: ../plugins/housekeeping/gsd-disk-space.c:631
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:452
-msgid "Ignore"
-msgstr "Занемари"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
-msgid "Don't show any warnings again for this file system"
-msgstr "Немој опет приказати упозорења за овај систем датотека"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:68
-msgid "Don't show any warnings again"
-msgstr "Немој опет приказати никаква упозорења"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:100
-msgid ""
-"You can free up disk space by emptying the Trash, removing unused programs "
-"or files, or moving files to another disk or partition."
-msgstr ""
-"Можете ослободити простор на диску пражњењем корпе, уклањањем некоришћених "
-"програма или датотека или премештањем датотека на други диск или партицију."
+#: ../src/option.c:2177
+msgid "Show question options"
+msgstr "Приказује опције упита"
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:103
-msgid ""
-"You can free up disk space by removing unused programs or files, or by "
-"moving files to another disk or partition."
-msgstr ""
-"Можете ослободити простор на диску уклањањем некоришћених програма или "
-"датотека или премештањем датотека на други диск или партицију."
+#: ../src/option.c:2187
+msgid "Warning options"
+msgstr "Опције упозорења"
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:108
-msgid ""
-"You can free up disk space by emptying the Trash, removing unused programs "
-"or files, or moving files to an external disk."
-msgstr ""
-"Можете ослободити простор на диску пражњењем корпе, уклањањем некоришћених "
-"програма или датотека или премештањем датотека на спољни диск."
+#: ../src/option.c:2188
+msgid "Show warning options"
+msgstr "Приказује опције упозорења"
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:111
-msgid ""
-"You can free up disk space by removing unused programs or files, or by "
-"moving files to an external disk."
-msgstr ""
-"Можете ослободити простор на диску уклањањем некоришћених програма или "
-"датотека или премештањем датотека на спољни диск."
+#: ../src/option.c:2198
+msgid "Scale options"
+msgstr "Опције размере"
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:445
-msgid "Examine…"
-msgstr "Испитај…"
+#: ../src/option.c:2199
+msgid "Show scale options"
+msgstr "Приказује опције размере"
 
-#: ../plugins/housekeeping/housekeeping.gnome-settings-plugin.in.h:1
-msgid "Housekeeping"
-msgstr "Редарство"
+#: ../src/option.c:2209
+msgid "Text information options"
+msgstr "Опције текстуалног обавештења"
 
-#: ../plugins/housekeeping/housekeeping.gnome-settings-plugin.in.h:2
-msgid ""
-"Automatically prunes thumbnail caches and other transient files, and warns "
-"about low disk space"
-msgstr ""
-"Самостално умањује оставе минијатура и осталих прелазних датотека, и "
-"упозорава о недостатку простора на диску"
-
-#. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
-#: ../plugins/power/gpm-common.c:611
-msgid "Keyboard"
-msgid_plural "Keyboards"
-msgstr[0] "Тастатура"
-msgstr[1] "Тастатуре"
-msgstr[2] "Тастатуре"
-msgstr[3] "Тастатура"
-
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
-msgid "Keyboard plugin"
-msgstr "Прикључак за тастатуру"
-
-#: ../plugins/media-keys/gsd-screenshot-utils.c:84
-msgid "Unable to capture a screenshot"
-msgstr "Нисам могао да направим снимак екрана"
-
-#: ../plugins/media-keys/gsd-screenshot-utils.c:115
-#: ../plugins/media-keys/gsd-screenshot-utils.c:155
-msgid "Screenshot taken"
-msgstr "Снимак екрана је урађен"
-
-#. translators: this is the name of the file that gets made up
-#. * with the screenshot
-#: ../plugins/media-keys/gsd-screenshot-utils.c:304
-#, c-format
-msgid "Screenshot from %s"
-msgstr "Снимак екрана из „%s“"
-
-#. translators:
-#. * The device has been disabled
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1830
-msgid "Disabled"
-msgstr "Искључен"
-
-#. translators:
-#. * The number of sound outputs on a particular device
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1837
-#, c-format
-msgid "%u Output"
-msgid_plural "%u Outputs"
-msgstr[0] "%u излаз"
-msgstr[1] "%u излаза"
-msgstr[2] "%u излаза"
-msgstr[3] "Један излаз"
-
-#. translators:
-#. * The number of sound inputs on a particular device
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1847
-#, c-format
-msgid "%u Input"
-msgid_plural "%u Inputs"
-msgstr[0] "%u улаз"
-msgstr[1] "%u улаза"
-msgstr[2] "%u улаза"
-msgstr[3] "Један улаз"
-
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:2371
-msgid "System Sounds"
-msgstr "Системски звуци"
-
-#. Priority=100
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
-msgid "Media keys"
-msgstr "Мултимедијални тастери"
-
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:3
-msgid "Media keys plugin"
-msgstr "Додатак за мултимедијалне тастере"
-
-#: ../plugins/media-keys/shortcuts-list.h:93
-msgid "Touchpad toggle"
-msgstr "Окидач додирне табле"
-
-#: ../plugins/media-keys/shortcuts-list.h:94
-msgid "Touchpad On"
-msgstr "Додирна табла укључена"
-
-#: ../plugins/media-keys/shortcuts-list.h:95
-msgid "Touchpad Off"
-msgstr "Додирна табла искључена"
-
-#: ../plugins/media-keys/shortcuts-list.h:99
-msgid "Microphone Mute"
-msgstr "Утишавање микрофона"
-
-#: ../plugins/media-keys/shortcuts-list.h:100
-msgid "Quiet Volume Mute"
-msgstr "Тихо искључивање звука"
-
-#: ../plugins/media-keys/shortcuts-list.h:101
-msgid "Quiet Volume Down"
-msgstr "Тихо утишавање звука"
-
-#: ../plugins/media-keys/shortcuts-list.h:102
-msgid "Quiet Volume Up"
-msgstr "Тихо појачавање звука"
-
-#: ../plugins/media-keys/shortcuts-list.h:111
-msgid "Lock Screen"
-msgstr "Закључавање екрана"
-
-#: ../plugins/media-keys/shortcuts-list.h:125
-msgid "Rewind"
-msgstr "Уназад"
-
-#: ../plugins/media-keys/shortcuts-list.h:126
-msgid "Forward"
-msgstr "Унапред"
-
-#: ../plugins/media-keys/shortcuts-list.h:127
-msgid "Repeat"
-msgstr "Понови"
-
-#: ../plugins/media-keys/shortcuts-list.h:128
-msgid "Random Play"
-msgstr "Насумично пуштање"
-
-#. Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.)
-#: ../plugins/media-keys/shortcuts-list.h:129
-#: ../plugins/media-keys/shortcuts-list.h:131
-msgid "Video Out"
-msgstr "Видео излаз"
-
-#. Key code of the XF86RotateWindows key (present on some tablets)
-#: ../plugins/media-keys/shortcuts-list.h:133
-msgid "Rotate Screen"
-msgstr "Заокрени екран"
-
-#: ../plugins/media-keys/shortcuts-list.h:142
-msgid "Power Off"
-msgstr "Искључи"
-
-#. the kernel / Xorg names really are like this...
-#: ../plugins/media-keys/shortcuts-list.h:144
-msgid "Sleep"
-msgstr "Спавај"
-
-#: ../plugins/media-keys/shortcuts-list.h:145
-msgid "Suspend"
-msgstr "Обустави"
-
-#: ../plugins/media-keys/shortcuts-list.h:146
-msgid "Hibernate"
-msgstr "Замрзни"
-
-#: ../plugins/media-keys/shortcuts-list.h:147
-msgid "Brightness Up"
-msgstr "Повећај осветљеност"
-
-#: ../plugins/media-keys/shortcuts-list.h:148
-msgid "Brightness Down"
-msgstr "Смањи осветљеност"
-
-#: ../plugins/media-keys/shortcuts-list.h:149
-msgid "Keyboard Brightness Up"
-msgstr "Повећај осветљај тастатуре"
-
-#: ../plugins/media-keys/shortcuts-list.h:150
-msgid "Keyboard Brightness Down"
-msgstr "Смањи осветљај тастатуре"
-
-#: ../plugins/media-keys/shortcuts-list.h:151
-msgid "Keyboard Brightness Toggle"
-msgstr "Окидач осветљаја тастатуре"
-
-#: ../plugins/media-keys/shortcuts-list.h:152
-msgid "Battery Status"
-msgstr "Стање батерије"
-
-#: ../plugins/mouse/gsd-mouse-manager.c:916
-msgid "Could not enable mouse accessibility features"
-msgstr "Не могу да укључим приступачност миша"
-
-#: ../plugins/mouse/gsd-mouse-manager.c:918
-msgid ""
-"Mouse accessibility requires Mousetweaks to be installed on your system."
-msgstr ""
-"За приступачност миша морате да инсталирате програм Дотеривања миша "
-"(Mousetweaks)."
-
-#. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
-#: ../plugins/power/gpm-common.c:607
-msgid "Mouse"
-msgid_plural "Mice"
-msgstr[0] "Миш"
-msgstr[1] "Миша"
-msgstr[2] "Мишева"
-msgstr[3] "Миш"
-
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
-msgid "Mouse plugin"
-msgstr "Додатак миша"
-
-#. Priority=100
-#: ../plugins/orientation/orientation.gnome-settings-plugin.in.h:2
-#| msgid "Print-notifications"
-msgid "Orientation"
-msgstr "Усмерење"
-
-#: ../plugins/orientation/orientation.gnome-settings-plugin.in.h:3
-#| msgid "Print-notifications plugin"
-msgid "Orientation plugin"
-msgstr "Прикључак усмерења"
-
-#: ../plugins/power/gpm-common.c:73
-msgid "Unknown time"
-msgstr "Непознато време"
-
-#: ../plugins/power/gpm-common.c:78
-#, c-format
-msgid "%i minute"
-msgid_plural "%i minutes"
-msgstr[0] "%i минут"
-msgstr[1] "%i минута"
-msgstr[2] "%i минута"
-msgstr[3] "Један минут"
-
-#: ../plugins/power/gpm-common.c:88
-#, c-format
-msgid "%i hour"
-msgid_plural "%i hours"
-msgstr[0] "%i сат"
-msgstr[1] "%i сата"
-msgstr[2] "%i сати"
-msgstr[3] "Један сат"
-
-#. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
-#. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: ../plugins/power/gpm-common.c:94
-#, c-format
-msgid "%i %s %i %s"
-msgstr "%i %s %i %s"
-
-#: ../plugins/power/gpm-common.c:95
-msgid "hour"
-msgid_plural "hours"
-msgstr[0] "сат"
-msgstr[1] "сата"
-msgstr[2] "сати"
-msgstr[3] "сат"
-
-#: ../plugins/power/gpm-common.c:96
-msgid "minute"
-msgid_plural "minutes"
-msgstr[0] "минут"
-msgstr[1] "минута"
-msgstr[2] "минута"
-msgstr[3] "минут"
-
-#. TRANSLATORS: The laptop battery is charged, and we know a time.
-#. * The parameter is the time, e.g. 7 hours 6 minutes
-#: ../plugins/power/gpm-common.c:343
-#, c-format
-msgid "provides %s laptop runtime"
-msgstr "обезбеђује %s рада рачунара"
-
-#. TRANSLATORS: the device is discharging, and we have a time remaining
-#. * The first parameter is the device type, e.g. "Laptop battery" and
-#. * the second is the time, e.g. 7 hours 6 minutes
-#: ../plugins/power/gpm-common.c:354
-#, c-format
-msgid "%s %s remaining"
-msgstr "Преостало време рада %s: %s"
-
-#. TRANSLATORS: device is charging, and we have a time to full and a percentage
-#. * The first parameter is the device type, e.g. "Laptop battery" and
-#. * the second is the time, e.g. "7 hours 6 minutes"
-#. TRANSLATORS: device is charging, and we have a time to full and a percentage.
-#. * The first parameter is the device type, e.g. "Laptop battery" and
-#. * the second is the time, e.g. "7 hours 6 minutes"
-#: ../plugins/power/gpm-common.c:375 ../plugins/power/gpm-common.c:392
-#, c-format
-msgid "%s %s until charged"
-msgstr "Време пуњења %s: %s"
-
-#. TRANSLATORS: the device is charging, and we have a time to full and empty.
-#. * The parameter is a time string, e.g. "7 hours 6 minutes"
-#: ../plugins/power/gpm-common.c:382
-#, c-format
-msgid "provides %s battery runtime"
-msgstr "обезбеђује %s рада батерије"
-
-#. TRANSLATORS: the type of data, e.g. Laptop battery
-#: ../plugins/power/gpm-common.c:473
-msgid "Product:"
-msgstr "Производ:"
-
-#. TRANSLATORS: device is missing
-#. TRANSLATORS: device is charged
-#. TRANSLATORS: device is charging
-#. TRANSLATORS: device is discharging
-#: ../plugins/power/gpm-common.c:477 ../plugins/power/gpm-common.c:480
-#: ../plugins/power/gpm-common.c:483 ../plugins/power/gpm-common.c:486
-msgid "Status:"
-msgstr "Стање:"
-
-#: ../plugins/power/gpm-common.c:477
-msgid "Missing"
-msgstr "Недостаје"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:480 ../plugins/power/gpm-common.c:749
-msgid "Charged"
-msgstr "Напуњена"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:483 ../plugins/power/gpm-common.c:737
-msgid "Charging"
-msgstr "Пуни се"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:486 ../plugins/power/gpm-common.c:741
-msgid "Discharging"
-msgstr "Празни се"
-
-#. TRANSLATORS: percentage
-#: ../plugins/power/gpm-common.c:491
-msgid "Percentage charge:"
-msgstr "Проценат напуњености:"
-
-#. TRANSLATORS: manufacturer
-#: ../plugins/power/gpm-common.c:495
-msgid "Vendor:"
-msgstr "Продавац:"
-
-#. TRANSLATORS: how the battery is made, e.g. Lithium Ion
-#: ../plugins/power/gpm-common.c:500
-msgid "Technology:"
-msgstr "Технологија:"
-
-#. TRANSLATORS: serial number of the battery
-#: ../plugins/power/gpm-common.c:504
-msgid "Serial number:"
-msgstr "Серијски број:"
-
-#. TRANSLATORS: model number of the battery
-#: ../plugins/power/gpm-common.c:508
-msgid "Model:"
-msgstr "Модел:"
-
-#. TRANSLATORS: time to fully charged
-#: ../plugins/power/gpm-common.c:513
-msgid "Charge time:"
-msgstr "Време пуњења:"
-
-#. TRANSLATORS: time to empty
-#: ../plugins/power/gpm-common.c:519
-msgid "Discharge time:"
-msgstr "Време пражњења:"
-
-#. TRANSLATORS: Excellent, Good, Fair and Poor are all related to battery Capacity
-#: ../plugins/power/gpm-common.c:526
-msgid "Excellent"
-msgstr "Одлична"
-
-#: ../plugins/power/gpm-common.c:528
-msgid "Good"
-msgstr "Добра"
-
-#: ../plugins/power/gpm-common.c:530
-msgid "Fair"
-msgstr "Солидна"
-
-#: ../plugins/power/gpm-common.c:532
-msgid "Poor"
-msgstr "Оскудна"
-
-#: ../plugins/power/gpm-common.c:536
-msgid "Capacity:"
-msgstr "Капацитет:"
-
-#: ../plugins/power/gpm-common.c:542 ../plugins/power/gpm-common.c:567
-msgid "Current charge:"
-msgstr "Тренутна напуњеност:"
-
-#: ../plugins/power/gpm-common.c:548
-msgid "Last full charge:"
-msgstr "Последња потпуна напуњеност:"
-
-#: ../plugins/power/gpm-common.c:554 ../plugins/power/gpm-common.c:572
-msgid "Design charge:"
-msgstr "Фабричка напуњеност:"
-
-#: ../plugins/power/gpm-common.c:559
-msgid "Charge rate:"
-msgstr "Стопа пуњења:"
-
-#. TRANSLATORS: system power cord
-#: ../plugins/power/gpm-common.c:591
-msgid "AC adapter"
-msgid_plural "AC adapters"
-msgstr[0] "Напајање из електричне мреже"
-msgstr[1] "Напајања из електричне мреже"
-msgstr[2] "Напајања из електричне мреже"
-msgstr[3] "Напајање из електричне мреже"
-
-#. TRANSLATORS: laptop primary battery
-#: ../plugins/power/gpm-common.c:595
-msgid "Laptop battery"
-msgid_plural "Laptop batteries"
-msgstr[0] "Батерија рачунара"
-msgstr[1] "Батерије рачунара"
-msgstr[2] "Батерије рачунара"
-msgstr[3] "Батерија рачунара"
-
-#. TRANSLATORS: battery-backed AC power source
-#: ../plugins/power/gpm-common.c:599
-msgid "UPS"
-msgid_plural "UPSs"
-msgstr[0] "Резервно напајање"
-msgstr[1] "Резервна напајања"
-msgstr[2] "Резервна напајања"
-msgstr[3] "Резервно напајање"
-
-#. TRANSLATORS: a monitor is a device to measure voltage and current
-#: ../plugins/power/gpm-common.c:603
-msgid "Monitor"
-msgid_plural "Monitors"
-msgstr[0] "Монитор"
-msgstr[1] "Монитори"
-msgstr[2] "Монитори"
-msgstr[3] "Монитор"
-
-#. TRANSLATORS: portable device
-#: ../plugins/power/gpm-common.c:615
-msgid "PDA"
-msgid_plural "PDAs"
-msgstr[0] "ПДА"
-msgstr[1] "ПДА"
-msgstr[2] "ПДА"
-msgstr[3] "ПДА"
-
-#. TRANSLATORS: cell phone (mobile...)
-#: ../plugins/power/gpm-common.c:619
-msgid "Cell phone"
-msgid_plural "Cell phones"
-msgstr[0] "Мобилни телефон"
-msgstr[1] "Мобилни телефони"
-msgstr[2] "Мобилни телефони"
-msgstr[3] "Мобилни телефон"
-
-#. TRANSLATORS: media player, mp3 etc
-#: ../plugins/power/gpm-common.c:624
-msgid "Media player"
-msgid_plural "Media players"
-msgstr[0] "Медијски уређај"
-msgstr[1] "Медијски уређаји"
-msgstr[2] "Медијски уређаји"
-msgstr[3] "Медијски уређај"
-
-#. TRANSLATORS: tablet device
-#: ../plugins/power/gpm-common.c:628
-msgid "Tablet"
-msgid_plural "Tablets"
-msgstr[0] "Таблица"
-msgstr[1] "Таблице"
-msgstr[2] "Таблице"
-msgstr[3] "Таблица"
-
-#. TRANSLATORS: tablet device
-#: ../plugins/power/gpm-common.c:632
-msgid "Computer"
-msgid_plural "Computers"
-msgstr[0] "Рачунар"
-msgstr[1] "Рачунари"
-msgstr[2] "Рачунари"
-msgstr[3] "Рачунар"
-
-#. TRANSLATORS: battery technology
-#: ../plugins/power/gpm-common.c:696
-msgid "Lithium Ion"
-msgstr "Литијум јонска"
-
-#. TRANSLATORS: battery technology
-#: ../plugins/power/gpm-common.c:700
-msgid "Lithium Polymer"
-msgstr "Литијум полимерна"
-
-#. TRANSLATORS: battery technology
-#: ../plugins/power/gpm-common.c:704
-msgid "Lithium Iron Phosphate"
-msgstr "Литијум феро-фосфатна"
-
-#. TRANSLATORS: battery technology
-#: ../plugins/power/gpm-common.c:708
-msgid "Lead acid"
-msgstr "Оловни акумулатор"
-
-#. TRANSLATORS: battery technology
-#: ../plugins/power/gpm-common.c:712
-msgid "Nickel Cadmium"
-msgstr "Никал кадмијумска"
-
-#. TRANSLATORS: battery technology
-#: ../plugins/power/gpm-common.c:716
-msgid "Nickel metal hydride"
-msgstr "Никал метал-хидридна"
-
-#. TRANSLATORS: battery technology
-#: ../plugins/power/gpm-common.c:720
-msgid "Unknown technology"
-msgstr "Непозната технологија"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:745
-msgid "Empty"
-msgstr "Празна"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:753
-msgid "Waiting to charge"
-msgstr "Чекам да се напуни"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:757
-msgid "Waiting to discharge"
-msgstr "Чекам да се испразни"
-
-#. TRANSLATORS: device not present
-#: ../plugins/power/gpm-common.c:785
-msgid "Laptop battery not present"
-msgstr "Батерија преносног рачунара није присутна"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:789
-msgid "Laptop battery is charging"
-msgstr "Батерија преносног рачунара се пуни"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:793
-msgid "Laptop battery is discharging"
-msgstr "Батерија преносног рачунара се празни"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:797
-msgid "Laptop battery is empty"
-msgstr "Батерија преносног рачунара је празна"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:801
-msgid "Laptop battery is charged"
-msgstr "Батерија преносног рачунара је напуњена"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:805
-msgid "Laptop battery is waiting to charge"
-msgstr "Батерија преносног рачунара чека да се напуни"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:809
-msgid "Laptop battery is waiting to discharge"
-msgstr "Батерија преносног рачунара чека да се испразни"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:818
-msgid "UPS is charging"
-msgstr "Резервно напајање се пуни"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:822
-msgid "UPS is discharging"
-msgstr "Резервно напајање се празни"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:826
-msgid "UPS is empty"
-msgstr "Резервно напајање је празно"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:830
-msgid "UPS is charged"
-msgstr "Резервно напајање је напуњено"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:839
-msgid "Mouse is charging"
-msgstr "Миш се пуни"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:843
-msgid "Mouse is discharging"
-msgstr "Миш се празни"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:847
-msgid "Mouse is empty"
-msgstr "Миш је празан"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:851
-msgid "Mouse is charged"
-msgstr "Миш је напуњен"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:860
-msgid "Keyboard is charging"
-msgstr "Тастатура се пуни"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:864
-msgid "Keyboard is discharging"
-msgstr "Тастатура се празни"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:868
-msgid "Keyboard is empty"
-msgstr "Тастатура је празна"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:872
-msgid "Keyboard is charged"
-msgstr "Тастатура је напуњена"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:881
-msgid "PDA is charging"
-msgstr "ПДА се пуни"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:885
-msgid "PDA is discharging"
-msgstr "ПДА се празни"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:889
-msgid "PDA is empty"
-msgstr "ПДА је празан"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:893
-msgid "PDA is charged"
-msgstr "ПДА је напуњен"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:902
-msgid "Cell phone is charging"
-msgstr "Мобилни телефон се пуни"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:906
-msgid "Cell phone is discharging"
-msgstr "Мобилни телефон се празни"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:910
-msgid "Cell phone is empty"
-msgstr "Мобилни телефон је празан"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:914
-msgid "Cell phone is charged"
-msgstr "Мобилни телефон је напуњен"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:924
-msgid "Media player is charging"
-msgstr "Медијски уређај се пуни"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:928
-msgid "Media player is discharging"
-msgstr "Медијски уређај се празни"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:932
-msgid "Media player is empty"
-msgstr "Медијски уређај је празан"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:936
-msgid "Media player is charged"
-msgstr "Медијски уређај је напуњен"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:945
-msgid "Tablet is charging"
-msgstr "Таблица се пуни"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:949
-msgid "Tablet is discharging"
-msgstr "Таблица се празни"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:953
-msgid "Tablet is empty"
-msgstr "Таблица је празна"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:957
-msgid "Tablet is charged"
-msgstr "Таблица је напуњена"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:966
-msgid "Computer is charging"
-msgstr "Рачунар се пуни"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:970
-msgid "Computer is discharging"
-msgstr "Рачунар се празни"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:974
-msgid "Computer is empty"
-msgstr "Рачунар је празан"
-
-#. TRANSLATORS: battery state
-#: ../plugins/power/gpm-common.c:978
-msgid "Computer is charged"
-msgstr "Рачунар је напуњен"
-
-#. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:1732
-#: ../plugins/power/gsd-power-manager.c:1628
-#: ../plugins/power/gsd-power-manager.c:1758
-msgid "Battery is critically low"
-msgstr "Батерија је критично празна"
-
-#. TRANSLATORS: the battery may be recalled by its vendor
-#: ../plugins/power/gsd-power-manager.c:929
-msgid "Battery may be recalled"
-msgstr "Батерија је можда опозвана"
-
-#: ../plugins/power/gsd-power-manager.c:932
-#, c-format
-msgid ""
-"A battery in your computer may have been recalled by %s and you may be at "
-"risk."
-msgstr ""
-"Можда је %s повукао из оптицаја батерију на вашем рачунару и због тога "
-"можете имати неприлика."
-
-#: ../plugins/power/gsd-power-manager.c:935
-msgid "For more information visit the battery recall website."
-msgstr "За више информација посетите веб сајт опозива батерије."
-
-#. TRANSLATORS: button text, visit the manufacturers recall website
-#: ../plugins/power/gsd-power-manager.c:946
-msgid "Visit recall website"
-msgstr "Посетите веб страну опозива"
-
-#. TRANSLATORS: button text, do not show this bubble again
-#: ../plugins/power/gsd-power-manager.c:950
-msgid "Do not show me this again"
-msgstr "Не приказуј ми више ово"
-
-#. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:1203
-msgid "UPS Discharging"
-msgstr "Пражњење резервног напајања"
-
-#. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1208
-#, c-format
-msgid "%s of UPS backup power remaining"
-msgstr "Преостало је још %s резервног напајања"
-
-#. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:1229
-#: ../plugins/power/gsd-power-manager.c:1438
-#: ../plugins/power/gsd-power-manager.c:1611
-#: ../plugins/power/gsd-power-manager.c:1749
-#: ../plugins/power/gsd-power-manager.c:3084
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
-msgid "Power"
-msgstr "Напајање"
-
-#. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:1348
-msgid "Battery low"
-msgstr "Батерија је скоро празна"
-
-#. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1351
-msgid "Laptop battery low"
-msgstr "Батерија преносног рачунара је скоро празна"
-
-#. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1358
-#, c-format
-msgid "Approximately %s remaining (%.0f%%)"
-msgstr "Преостаје вам приближно још %s (%.0f%%)"
-
-#. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:1365
-msgid "UPS low"
-msgstr "Резервно напајање је скоро празно"
-
-#. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1371
-#, c-format
-msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
-msgstr "Преостаје вам приближно још %s капацитета резервног напајања (%.0f%%)"
-
-#. TRANSLATORS: mouse is getting a little low
-#. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:1376
-#: ../plugins/power/gsd-power-manager.c:1535
-msgid "Mouse battery low"
-msgstr "Батерија миша је скоро празна"
-
-#. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1379
-#, c-format
-msgid "Wireless mouse is low in power (%.0f%%)"
-msgstr "Бежичном мишу су ослабиле батерије (%.0f%%)"
-
-#. TRANSLATORS: keyboard is getting a little low
-#. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:1383
-#: ../plugins/power/gsd-power-manager.c:1543
-msgid "Keyboard battery low"
-msgstr "Батерија тастатуре је скоро празна"
-
-#. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1386
-#, c-format
-msgid "Wireless keyboard is low in power (%.0f%%)"
-msgstr "Бежичној тастатури су ослабиле батерије (%.0f%%)"
-
-#. TRANSLATORS: PDA is getting a little low
-#. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:1390
-#: ../plugins/power/gsd-power-manager.c:1552
-msgid "PDA battery low"
-msgstr "Батерија ПДА уређаја је скоро празна"
-
-#. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1393
-#, c-format
-msgid "PDA is low in power (%.0f%%)"
-msgstr "ПДА уређају су ослабиле батерије (%.0f%%)"
-
-#. TRANSLATORS: cell phone (mobile) is getting a little low
-#. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1397
-#: ../plugins/power/gsd-power-manager.c:1562
-#: ../plugins/power/gsd-power-manager.c:1571
-msgid "Cell phone battery low"
-msgstr "Батерија мобилног телефона је скоро празна"
-
-#. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1400
-#, c-format
-msgid "Cell phone is low in power (%.0f%%)"
-msgstr "Мобилном телефону су ослабиле батерије (%.0f%%)"
-
-#. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:1404
-msgid "Media player battery low"
-msgstr "Батерија медијског уређаја је скоро празна"
-
-#. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1407
-#, c-format
-msgid "Media player is low in power (%.0f%%)"
-msgstr "Медијском уређају су ослабиле батерије (%.0f%%)"
-
-#. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
-#. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1411
-#: ../plugins/power/gsd-power-manager.c:1580
-msgid "Tablet battery low"
-msgstr "Батерија таблице је скоро празна"
-
-#. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1414
-#, c-format
-msgid "Tablet is low in power (%.0f%%)"
-msgstr "Таблици су ослабиле батерије (%.0f%%)"
-
-#. TRANSLATORS: computer, e.g. ipad is getting a little low
-#. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1418
-#: ../plugins/power/gsd-power-manager.c:1589
-msgid "Attached computer battery low"
-msgstr "Батерија прикљученог рачунара је скоро празна"
-
-#. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1421
-#, c-format
-msgid "Attached computer is low in power (%.0f%%)"
-msgstr "Прикљученом рачунару је ослабила батерија (%.0f%%)"
-
-#. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1448
-msgid "Battery is low"
-msgstr "Батерија је скоро празна"
-
-#. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1489
-msgid "Battery critically low"
-msgstr "Батерија је критично празна"
-
-#. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
-#. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1492
-#: ../plugins/power/gsd-power-manager.c:1663
-msgid "Laptop battery critically low"
-msgstr "Батерија преносног рачунара је скоро празна"
-
-#. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
-#: ../plugins/power/gsd-power-manager.c:1501
-msgid "Plug in your AC adapter to avoid losing data."
-msgstr "Прикључите мрежно напајање да избегнете губитак података."
-
-#. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1505
-#, c-format
-msgid "Computer will suspend very soon unless it is plugged in."
-msgstr ""
-"Рачунар ће убрзо обуставити рад уколико га не прикључите на мрежно напајање."
+#: ../src/option.c:2210
+msgid "Show text information options"
+msgstr "Приказује опције текстуалног обавештења"
 
-#. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1509
-#, c-format
-msgid "Computer will hibernate very soon unless it is plugged in."
-msgstr ""
-"Рачунар ће се убрзо замрзнути уколико га не прикључите на мрежно напајање."
+#: ../src/option.c:2220
+msgid "Color selection options"
+msgstr "Опције избора боје"
 
-#. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1513
-#, c-format
-msgid "Computer will shutdown very soon unless it is plugged in."
-msgstr ""
-"Рачунар ће се убрзо угасити уколико га не прикључите на мрежно напајање."
-
-#. TRANSLATORS: the UPS is very low
-#. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1523
-#: ../plugins/power/gsd-power-manager.c:1701
-msgid "UPS critically low"
-msgstr "Резервно напајање је критично празно"
-
-#. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1529
-#, c-format
-msgid ""
-"Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
-"computer to avoid losing data."
-msgstr ""
-"Преостаје вам приближно још %s капацитета резервног напајања (%.0f%%). "
-"Укључите рачунар на мрежно напајање да избегнете губитак података."
-
-#. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1538
-#, c-format
-msgid ""
-"Wireless mouse is very low in power (%.0f%%). This device will soon stop "
-"functioning if not charged."
-msgstr ""
-"Бежичном мишу су критично ослабиле батерије (%.0f%%). Ускоро ће престати да "
-"ради ако му не допуните батерије."
-
-#. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1546
-#, c-format
-msgid ""
-"Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
-"functioning if not charged."
-msgstr ""
-"Бежичној тастатури су критично ослабиле батерије (%.0f%%). Ускоро ће "
-"престати да ради ако јој не допуните батерије."
-
-#. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1555
-#, c-format
-msgid ""
-"PDA is very low in power (%.0f%%). This device will soon stop functioning if "
-"not charged."
-msgstr ""
-"ПДА уређају су критично ослабиле батерије (%.0f%%). Ускоро ће престати да "
-"ради ако му не допуните батерије."
-
-#. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1565
-#, c-format
-msgid ""
-"Cell phone is very low in power (%.0f%%). This device will soon stop "
-"functioning if not charged."
-msgstr ""
-"Мобилном телефону су критично ослабиле батерије (%.0f%%). Ускоро ће престати "
-"да ради ако му не допуните батерије."
-
-#. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1574
-#, c-format
-msgid ""
-"Media player is very low in power (%.0f%%). This device will soon stop "
-"functioning if not charged."
-msgstr ""
-"Медијском уређају су критично ослабиле батерије (%.0f%%). Ускоро ће престати "
-"да ради ако му не допуните батерије."
-
-#. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1583
-#, c-format
-msgid ""
-"Tablet is very low in power (%.0f%%). This device will soon stop functioning "
-"if not charged."
-msgstr ""
-"Таблици су критично ослабиле батерије (%.0f%%). Ускоро ће престати да ради "
-"ако јој не допуните батерије."
-
-#. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1592
-#, c-format
-msgid ""
-"Attached computer is very low in power (%.0f%%). The device will soon "
-"shutdown if not charged."
-msgstr ""
-"Прикљученом рачунару је остало врло мало напајања (%.0f%%). Ускоро ће се "
-"угасити ако не допуните батерије."
-
-#. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1671
-msgid ""
-"The battery is below the critical level and this computer will <b>power-off</"
-"b> when the battery becomes completely empty."
-msgstr ""
-"Стање батерије је испод критичног нивоа и рачунар ће бити <b>угашен</b> када "
-"се батерија у потпуности испразни."
-
-#. TRANSLATORS: computer will suspend
-#: ../plugins/power/gsd-power-manager.c:1677
-msgid ""
-"The battery is below the critical level and this computer is about to "
-"suspend.\n"
-"<b>NOTE:</b> A small amount of power is required to keep your computer in a "
-"suspended state."
-msgstr ""
-"Стање батерије је испод критичног нивоа и рачунар се припрема да обустави "
-"рад.\n"
-"<b>НАПОМЕНА:</b> Потребна је мала количина енергије за одржавање рачунара у "
-"стању обуставе."
-
-#. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1684
-msgid ""
-"The battery is below the critical level and this computer is about to "
-"hibernate."
-msgstr ""
-"Стање батерије је испод критичног нивоа и зато ће рачунар бити замрзнут."
+#: ../src/option.c:2221
+msgid "Show color selection options"
+msgstr "Приказује опције избора боје"
 
-#. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1689
-msgid ""
-"The battery is below the critical level and this computer is about to "
-"shutdown."
-msgstr "Стање батерије је испод критичног нивоа и зато ће рачунар бити угашен."
-
-#. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1709
-msgid ""
-"UPS is below the critical level and this computer will <b>power-off</b> when "
-"the UPS becomes completely empty."
-msgstr ""
-"Стање резервног напајања је испод критичног нивоа и рачунар ће бити "
-"<b>угашен</b> када се резервно напајање потпуно испразни."
-
-#. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1715
-msgid ""
-"UPS is below the critical level and this computer is about to hibernate."
-msgstr ""
-"Стање резервног напајања је испод критичног нивоа и зато ће рачунар бити "
-"замрзнут."
-
-#. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1720
-msgid "UPS is below the critical level and this computer is about to shutdown."
-msgstr ""
-"Стање резервног напајања је испод критичног нивоа и зато ће рачунар бити "
-"угашен."
-
-#. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2223
-msgid "Lid has been opened"
-msgstr "Поклопац је подигнут"
-
-#. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2261
-msgid "Lid has been closed"
-msgstr "Поклопац је спуштен"
-
-#: ../plugins/power/gsd-power-manager.c:3063
-msgid "Automatic logout"
-msgstr "Самостално одјављивање"
-
-#: ../plugins/power/gsd-power-manager.c:3063
-msgid "You will soon log out because of inactivity."
-msgstr "Ускоро ћете бити одјављени због нерада."
-
-#: ../plugins/power/gsd-power-manager.c:3068
-msgid "Automatic suspend"
-msgstr "Самостално обустављање"
-
-#: ../plugins/power/gsd-power-manager.c:3068
-#: ../plugins/power/gsd-power-manager.c:3073
-msgid "Computer will suspend very soon because of inactivity."
-msgstr "Рачунар ће убрзо обуставити рад због нерада."
-
-#: ../plugins/power/gsd-power-manager.c:3073
-msgid "Automatic hibernation"
-msgstr "Самостално замрзавање"
-
-#. SECURITY:
-#. - A normal active user on the local machine does not need permission
-#. to change the backlight brightness.
-#.
-#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:5
-msgid "Modify the laptop brightness"
-msgstr "Измените осветљење преносног рачунара"
-
-#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:6
-msgid "Authentication is required to modify the laptop brightness"
-msgstr ""
-"Потребно је потврђивање идентитета за промену осветљења преносног рачунара"
-
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
-msgid "Power plugin"
-msgstr "Додатак напајања"
-
-#. Translators: We are configuring new printer
-#: ../plugins/print-notifications/gsd-printer.c:891
-msgid "Configuring new printer"
-msgstr "Подешавам нов штампач"
-
-#. Translators: Just wait
-#: ../plugins/print-notifications/gsd-printer.c:893
-msgid "Please wait..."
-msgstr "Молим сачекајте..."
-
-#. Translators: We have no driver installed for this printer
-#: ../plugins/print-notifications/gsd-printer.c:920
-msgid "Missing printer driver"
-msgstr "Недостаје управљачки програм штампача"
-
-#. Translators: We have no driver installed for the device
-#: ../plugins/print-notifications/gsd-printer.c:929
-#, c-format
-msgid "No printer driver for %s."
-msgstr "Нема управљачког програма за „%s“."
-
-#. Translators: We have no driver installed for this printer
-#: ../plugins/print-notifications/gsd-printer.c:934
-msgid "No driver for this printer."
-msgstr "Нема управљачког програма за овај штампач."
-
-#: ../plugins/print-notifications/gsd-printer.c:1032
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:233
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:672
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:762
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:805
-msgid "Printers"
-msgstr "Штампачи"
-
-#. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:323
-msgid "Toner low"
-msgstr "Тонер је скоро празан"
-
-#. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
-msgid "Toner empty"
-msgstr "Нема више тонера"
-
-#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
-msgid "Not connected?"
-msgstr "Није повезан?"
-
-#. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:329
-msgid "Cover open"
-msgstr "Отворен је поклопац"
-
-#. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
-msgid "Printer configuration error"
-msgstr "Грешка у подешавању штампача"
-
-#. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:333
-msgid "Door open"
-msgstr "Отворена су вратанца"
-
-#. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:335
-msgid "Marker supply low"
-msgstr "Понестаје мастила"
-
-#. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:337
-msgid "Out of a marker supply"
-msgstr "Нема више мастила"
-
-#. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:339
-msgid "Paper low"
-msgstr "Понестаје папира"
-
-#. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:341
-msgid "Out of paper"
-msgstr "Нема више папира"
-
-#. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:343
-msgid "Printer off-line"
-msgstr "Штампач је ван мреже"
-
-#. Translators: The printer has detected an error (same as in system-config-printer)
-#. Translators: This is a title of an error notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:345
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:748
-msgid "Printer error"
-msgstr "Грешка штампача"
-
-#. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:349
-#, c-format
-msgid "Printer '%s' is low on toner."
-msgstr "Тонер је скоро празан у штампачу „%s“."
-
-#. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:351
-#, c-format
-msgid "Printer '%s' has no toner left."
-msgstr "Нема више тонера у штампачу „%s“."
-
-#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:353
-#, c-format
-msgid "Printer '%s' may not be connected."
-msgstr "Штампач „%s“ можда није повезан."
-
-#. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:355
-#, c-format
-msgid "The cover is open on printer '%s'."
-msgstr "Отворен је поклопац на штампачу „%s“."
-
-#. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:357
-#, c-format
-msgid "There is a missing print filter for printer '%s'."
-msgstr "Недостаје филтер штампе за штампач „%s“."
-
-#. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:360
-#, c-format
-msgid "The door is open on printer '%s'."
-msgstr "Вратанца су отворена на штампачу „%s“."
-
-#. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
-#, c-format
-msgid "Printer '%s' is low on a marker supply."
-msgstr "Преостало је мало мастила у штампачу „%s“."
-
-#. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:364
-#, c-format
-msgid "Printer '%s' is out of a marker supply."
-msgstr "Нема више мастила у штампачу „%s“."
-
-#. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
-#, c-format
-msgid "Printer '%s' is low on paper."
-msgstr "Преостало је мало папира у штампачу „%s“."
-
-#. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:368
-#, c-format
-msgid "Printer '%s' is out of paper."
-msgstr "Нема више папира у штампачу „%s“."
-
-#. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:370
-#, c-format
-msgid "Printer '%s' is currently off-line."
-msgstr "Штампач „%s“ је тренутно ван мреже."
-
-#. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:372
-#, c-format
-msgid "There is a problem on printer '%s'."
-msgstr "Дошло је до проблема на штампачу „%s“."
-
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:449
-msgid "Printer added"
-msgstr "Штампач је додат"
-
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:457
-msgid "Printer removed"
-msgstr "Штампач је уклоњен"
-
-#. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:474
-msgid "Printing stopped"
-msgstr "Штампање је заустављено"
-
-#. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:476
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:482
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:488
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:494
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:506
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:526
-#, c-format
-msgid "\"%s\" on %s"
-msgstr "Посао „%s“ на штампачу „%s“"
-
-#. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:480
-msgid "Printing canceled"
-msgstr "Штампање је отказано"
-
-#. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:486
-msgid "Printing aborted"
-msgstr "Штампање је прекинуто"
-
-#. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:492
-msgid "Printing completed"
-msgstr "Штампање је завршено"
-
-# раније је било „савети“, али можда је боље „хинтови“
-#
-# Ух, ух, ово се односи на дотеривање фонтова него на савете
-# ~Милош
-#. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:504
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:524
-msgid "Printing"
-msgstr "Штампам"
-
-#. Translators: This is a title of a report notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:742
-msgid "Printer report"
-msgstr "Извештај штампача"
-
-# раније је било „савети“, али можда је боље „хинтови“
-#
-# Ух, ух, ово се односи на дотеривање фонтова него на савете
-# ~Милош
-#. Translators: This is a title of a warning notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:745
-msgid "Printer warning"
-msgstr "Упозорење штампача"
-
-#. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:755
-#, c-format
-msgid "Printer '%s': '%s'."
-msgstr "Штампач „%s“: „%s“."
-
-#. Priority=100
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
-msgid "Print-notifications"
-msgstr "Обавештења о штампању"
-
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:3
-msgid "Print-notifications plugin"
-msgstr "Додатак обавештења о штампању"
-
-#: ../plugins/remote-display/remote-display.gnome-settings-plugin.in.h:1
-msgid "Remote Display"
-msgstr "Удаљени екран"
-
-#: ../plugins/remote-display/remote-display.gnome-settings-plugin.in.h:2
-msgid "Disable animations on remote displays"
-msgstr "Искључује анимације на удаљеним екранима"
-
-#: ../plugins/screensaver-proxy/screensaver-proxy.gnome-settings-plugin.in.h:1
-msgid "Screensaver Proxy"
-msgstr "Посредник чувара екрана"
-
-#: ../plugins/screensaver-proxy/screensaver-proxy.gnome-settings-plugin.in.h:2
-msgid "Proxy FreeDesktop screensaver inhibition to gnome-session"
-msgstr ""
-"Спречавање посредника чувара екрана слободне радне површи за гномову сесију"
+#: ../src/option.c:2231
+msgid "Password dialog options"
+msgstr "Опције прозорчета за лозинку"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:529
-msgid "received error or hang up from event source"
-msgstr "примио сам грешку или прекид са извором догађаја"
+#: ../src/option.c:2232
+msgid "Show password dialog options"
+msgstr "Приказује опције прозорчета за избор лозинке"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:663
-#, c-format
-msgid "NSS security system could not be initialized"
-msgstr "Не могу да покренем НСС сигурносни систем"
+#: ../src/option.c:2242
+msgid "Forms dialog options"
+msgstr "Опције прозорчета образаца"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:791
-#, c-format
-msgid "no suitable smartcard driver could be found"
-msgstr "не постоји одговарајући управљачки програм за паметне картице"
+#: ../src/option.c:2243
+msgid "Show forms dialog options"
+msgstr "Приказује опције прозорчета образаца"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:805
-#, c-format
-msgid "smartcard driver '%s' could not be loaded"
-msgstr "не могу да учитам управљачки програм „%s“ за паметне картице"
+#: ../src/option.c:2253
+msgid "Miscellaneous options"
+msgstr "Остале опције"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:877
-#, c-format
-msgid "could not watch for incoming card events - %s"
-msgstr "не могу да надгледам надолазеће догађаје картице — %s"
+#: ../src/option.c:2254
+msgid "Show miscellaneous options"
+msgstr "Приказује остале опције"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:1275
+#: ../src/option.c:2279
 #, c-format
-msgid "encountered unexpected error while waiting for smartcard events"
-msgstr "неочекивана грешка при чекању на прикључивање паметне картице"
-
-#: ../plugins/smartcard/smartcard.gnome-settings-plugin.in.h:1
-msgid "Smartcard"
-msgstr "Паметна картица"
-
-#: ../plugins/smartcard/smartcard.gnome-settings-plugin.in.h:2
-#| msgid "Background plugin"
-msgid "Smartcard plugin"
-msgstr "Прикључак паметне картице"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
-msgid "Sound"
-msgstr "Звук"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
-msgid "Sound Sample Cache plugin"
-msgstr "Прикључак оставе узорка звука"
-
-#. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:250
 msgid ""
-"You will need to restart this computer before the hardware will work "
-"correctly."
+"This option is not available. Please see --help for all possible usages.\n"
 msgstr ""
-"Мораћете поново да покренете овај рачунар да би физичке компоненте радиле "
-"исправно."
-
-#. TRANSLATORS: title of libnotify bubble
-#: ../plugins/updates/gsd-updates-firmware.c:253
-#: ../plugins/updates/gsd-updates-firmware.c:281
-#: ../plugins/updates/gsd-updates-firmware.c:309
-msgid "Additional software was installed"
-msgstr "Додатни софтвер је инсталиран"
-
-#: ../plugins/updates/gsd-updates-firmware.c:255
-#: ../plugins/updates/gsd-updates-firmware.c:283
-#: ../plugins/updates/gsd-updates-firmware.c:311
-#: ../plugins/updates/gsd-updates-firmware.c:603
-#: ../plugins/updates/gsd-updates-manager.c:344
-#: ../plugins/updates/gsd-updates-manager.c:472
-#: ../plugins/updates/gsd-updates-manager.c:534
-#: ../plugins/updates/gsd-updates-manager.c:588
-#: ../plugins/updates/gsd-updates-manager.c:1221
-msgid "Software Updates"
-msgstr "Ажурирања софтвера"
-
-#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:278
-msgid ""
-"You will need to remove and then reinsert the hardware before it will work "
-"correctly."
-msgstr ""
-"Мораћете да уклоните, а затим да поново убаците физичку компоненту да би "
-"могла да ради исправно."
-
-#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:306
-msgid "Your hardware has been set up and is now ready to use."
-msgstr "Ваша физичка компонента је подешена и сада је спремна за употребу."
-
-#. TRANSLATORS: we need another package to keep udev quiet
-#: ../plugins/updates/gsd-updates-firmware.c:587
-msgid ""
-"Additional firmware is required to make hardware in this computer function "
-"correctly."
-msgstr ""
-"Потребан је додатни фирмвер да би уређај радио исправно на овом рачунару."
-
-#. TRANSLATORS: title of libnotify bubble
-#: ../plugins/updates/gsd-updates-firmware.c:601
-msgid "Additional firmware required"
-msgstr "Потребан је додатни фирмвер"
-
-#. TRANSLATORS: button label
-#: ../plugins/updates/gsd-updates-firmware.c:608
-msgid "Install firmware"
-msgstr "Инсталирај фирмвер"
-
-#. TRANSLATORS: we should ignore this device and not ask anymore
-#: ../plugins/updates/gsd-updates-firmware.c:611
-msgid "Ignore devices"
-msgstr "Занемари уређаје"
-
-#. TRANSLATORS: this is when the offline update failed
-#: ../plugins/updates/gsd-updates-manager.c:121
-msgid "Failed To Update"
-msgstr "Нисам успео да ажурирам"
-
-#. TRANSLATORS: the transaction could not be completed
-#. * as a previous transaction was unfinished
-#: ../plugins/updates/gsd-updates-manager.c:127
-msgid "A previous update was unfinished."
-msgstr "Претходно ажурирање је остало недовршено."
-
-#. TRANSLATORS: the package manager needed to download
-#. * something with no network available
-#: ../plugins/updates/gsd-updates-manager.c:137
-msgid "Network access was required but not available."
-msgstr "Био је потребан приступ мрежи али је недоступна."
-
-#. TRANSLATORS: if the package is not signed correctly
-#. *
-#: ../plugins/updates/gsd-updates-manager.c:146
-msgid "An update was not signed in the correct way."
-msgstr "Једно ажурирање није означено на прави начин."
-
-#. TRANSLATORS: the transaction failed in a way the user
-#. * probably cannot comprehend. Package management systems
-#. * really are teh suck.
-#: ../plugins/updates/gsd-updates-manager.c:156
-msgid "The update could not be completed."
-msgstr "Ажурирање не може бити довршено."
-
-#. TRANSLATORS: the user aborted the update manually
-#: ../plugins/updates/gsd-updates-manager.c:161
-msgid "The update was cancelled."
-msgstr "Ажурирање је отказано."
-
-#. TRANSLATORS: the user must have updated manually after
-#. * the updates were prepared
-#: ../plugins/updates/gsd-updates-manager.c:167
-msgid "An offline update was requested but no packages required updating."
-msgstr ""
-"Затражено је ажурирање ван мреже али ниједан пакет није затражио ажурирање."
-
-#. TRANSLATORS: we ran out of disk space
-#: ../plugins/updates/gsd-updates-manager.c:171
-msgid "No space was left on the drive."
-msgstr "Нема више простора на диску."
-
-#. TRANSLATORS: the update process failed in a general
-#. * way, usually this message will come from source distros
-#. * like gentoo
-#: ../plugins/updates/gsd-updates-manager.c:179
-msgid "An update failed to install correctly."
-msgstr "Једно ажурирање није успело да се исправно инсталира."
-
-#. TRANSLATORS: We didn't handle the error type
-#: ../plugins/updates/gsd-updates-manager.c:184
-msgid "The offline update failed in an unexpected way."
-msgstr "Ажурирање ван мреже није успело на очекивани начин."
-
-#. TRANSLATORS: these are geeky messages from the
-#. * package manager no mortal is supposed to understand,
-#. * but google might know what they mean
-#: ../plugins/updates/gsd-updates-manager.c:193
-msgid "Detailed errors from the package manager follow:"
-msgstr "Опширније грешке управника пакета следе:"
-
-#. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:339
-msgid "Distribution upgrades available"
-msgstr "Доступна је надоградња дистрибуције"
-
-#. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:349
-msgid "More information"
-msgstr "Више података"
-
-#. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:454
-#: ../plugins/updates/gsd-updates-manager.c:516
-msgid "Update"
-msgid_plural "Updates"
-msgstr[0] "Ажурирање"
-msgstr[1] "Ажурирања"
-msgstr[2] "Ажурирања"
-msgstr[3] "Ажурирање"
-
-#. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:457
-msgid "An important software update is available"
-msgid_plural "Important software updates are available"
-msgstr[0] "Доступно је важно ажурирање софтвера"
-msgstr[1] "Доступна су важна ажурирања софтвера"
-msgstr[2] "Доступна су важна ажурирања софтвера"
-msgstr[3] "Доступно је важно ажурирање софтвера"
-
-#. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:477
-#: ../plugins/updates/gsd-updates-manager.c:539
-msgid "Install updates"
-msgstr "Инсталирај ажурирања"
-
-#. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:519
-msgid "A software update is available."
-msgid_plural "Software updates are available."
-msgstr[0] "Доступно је ажурирање софтвера."
-msgstr[1] "Доступна су ажурирања софтвера."
-msgstr[2] "Доступна су ажурирања софтвера."
-msgstr[3] "Доступно је ажурирање софтвера."
-
-#. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:575
-#: ../plugins/updates/updates.gnome-settings-plugin.in.h:1
-msgid "Updates"
-msgstr "Ажурирања"
-
-#. TRANSLATORS: we failed to get the updates multiple times,
-#. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:579
-msgid "Unable to access software updates"
-msgstr "Не могу да приступим ажурирањима софтвера"
-
-#. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:582
-msgid "Try again"
-msgstr "Покушај поново"
-
-#. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:958
-msgid "A transaction that cannot be interrupted is running"
-msgstr "У току је пренос који не може бити прекинут"
-
-#. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1178
-msgid "Software Update Installed"
-msgid_plural "Software Updates Installed"
-msgstr[0] "Ажурирање софтвера је инсталирано"
-msgstr[1] "Ажурирања софтвера су инсталирана"
-msgstr[2] "Ажурирања софтвера су инсталирана"
-msgstr[3] "Ажурирања софтвера"
-
-#. TRANSLATORS: message when we've done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1183
-msgid "An important OS update has been installed."
-msgid_plural "Important OS updates have been installed."
-msgstr[0] "Инсталирано је важно ажурирање софтвера."
-msgstr[1] "Инсталирана су важна ажурирања софтвера."
-msgstr[2] "Инсталирана су важна ажурирања софтвера."
-msgstr[3] "Доступно је важно ажурирање софтвера."
-
-#. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1209
-msgid "Software Updates Failed"
-msgstr "Ажурирање софтвера није успело"
-
-#. TRANSLATORS: message when we've not done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1212
-msgid "An important OS update failed to be installed."
-msgstr "Није успело инсталирање важног ажурирања система."
-
-#. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1228
-msgid "Review"
-msgstr "Преглед"
-
-#. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1233
-msgid "Show details"
-msgstr "Прикажи детаље"
-
-#. TRANSLATORS: button: clear notification
-#: ../plugins/updates/gsd-updates-manager.c:1237
-msgid "OK"
-msgstr "У реду"
-
-#: ../plugins/updates/updates.gnome-settings-plugin.in.h:2
-#| msgid "Media keys plugin"
-msgid "Updates plugin"
-msgstr "Догради прикључак"
-
-#. If no mode is available, we use "left-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1076
-msgid "Left Ring"
-msgstr "Леви прстен"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1086
-#, c-format
-msgid "Left Ring Mode #%d"
-msgstr "Режим левог прстена #%d"
-
-#. If no mode is available, we use "right-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1105
-msgid "Right Ring"
-msgstr "Десни прстен"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1115
-#, c-format
-msgid "Right Ring Mode #%d"
-msgstr "Режим десног прстена #%d"
-
-#. If no mode is available, we use "left-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1156
-msgid "Left Touchstrip"
-msgstr "Лева додирна трака"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1166
-#, c-format
-msgid "Left Touchstrip Mode #%d"
-msgstr "Режим леве додирне траке #%d"
-
-#. If no mode is available, we use "right-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1185
-msgid "Right Touchstrip"
-msgstr "Десна додирна трака"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1195
-#, c-format
-msgid "Right Touchstrip Mode #%d"
-msgstr "Режим десне додирне траке #%d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1220
-#, c-format
-msgid "Left Touchring Mode Switch"
-msgstr "Режим прекидача левог додирног прстена"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1222
-#, c-format
-msgid "Right Touchring Mode Switch"
-msgstr "Режим прекидача десног додирног прстена"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1225
-#, c-format
-msgid "Left Touchstrip Mode Switch"
-msgstr "Режим прекидача леве додирне траке"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1227
-#, c-format
-msgid "Right Touchstrip Mode Switch"
-msgstr "Режим прекидача десне додирне траке"
+"Ова опција није доступна. Молим погледајте „--help“ за све опције "
+"коришћења.\n"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1232
+#: ../src/option.c:2283
 #, c-format
-msgid "Mode Switch #%d"
-msgstr "Режим прекидача #%d"
+msgid "--%s is not supported for this dialog\n"
+msgstr "Опција „--%s“ није подржана за ово прозорче\n"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1336
-#, c-format
-msgid "Left Button #%d"
-msgstr "Лево дугме #%d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1339
-#, c-format
-msgid "Right Button #%d"
-msgstr "Десно дугме #%d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1342
-#, c-format
-msgid "Top Button #%d"
-msgstr "Горње дугме #%d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1345
-#, c-format
-msgid "Bottom Button #%d"
-msgstr "Доње дугме #%d"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:922
-#: ../plugins/wacom/gsd-wacom-osd-window.c:942
-#: ../plugins/wacom/gsd-wacom-osd-window.c:953
-msgctxt "Action type"
-msgid "None"
-msgstr "Ништа"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:927
-#, c-format
-msgctxt "Action type"
-msgid "Send Keystroke %s"
-msgstr "Пошаљи откуцај тастера %s"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:945
-msgctxt "Action type"
-msgid "Show On-Screen Help"
-msgstr "Прикажи помоћ на екрану"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:948
-msgctxt "Action type"
-msgid "Switch Monitor"
-msgstr "Промени монитор"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:986
-#, c-format
-msgid "Mode %d: %s"
-msgstr "Режим %d: %s"
-
-#. SECURITY:
-#. - A normal active user on the local machine does not need permission
-#. to change the LED setting for a Wacom tablet
-#.
-#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:5
-msgid "Modify the lit LED for a Wacom tablet"
-msgstr "Измени ЛЕД осветљења за Ваком таблицу"
-
-#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:6
-msgid "Authentication is required to modify the lit LED for a Wacom tablet"
-msgstr ""
-"Потребно је потврђивање идентитета за промену ЛЕД осветљења Ваком таблице"
-
-#: ../plugins/wacom/wacom.gnome-settings-plugin.in.h:1
-msgid "Wacom"
-msgstr "Ваком"
-
-#: ../plugins/wacom/wacom.gnome-settings-plugin.in.h:2
-#| msgid "Background plugin"
-msgid "Wacom plugin"
-msgstr "Прикључак за Ваком"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:509
-msgid "Could not switch the monitor configuration"
-msgstr "Не могу да учитам подешавања монитора"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:533
-msgid "Could not restore the display's configuration"
-msgstr "Не могу да вратим подешавања екрана"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:558
-msgid "Could not restore the display's configuration from a backup"
-msgstr "Не могу да вратим подешавања екрана из резервних подешавања"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:579
-#, c-format
-msgid "The display will be reset to its previous configuration in %d second"
-msgid_plural ""
-"The display will be reset to its previous configuration in %d seconds"
-msgstr[0] "Подешавања екрана ће бити враћена на претходна за %d секунду"
-msgstr[1] "Подешавања екрана ће бити враћена на претходна за %d секунде"
-msgstr[2] "Подешавања екрана ће бити враћена на претходна за %d секунди"
-msgstr[3] "Подешавања екрана ће бити враћена на претходна за једну секунду"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:628
-msgid "Does the display look OK?"
-msgstr "Да ли екран изгледа како треба?"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:635
-msgid "_Restore Previous Configuration"
-msgstr "_Врати претходна подешавања"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:636
-msgid "_Keep This Configuration"
-msgstr "_Задржи ова подешавања"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:717
-msgid "The selected configuration for displays could not be applied"
-msgstr "Не могу да применим изабрана подешавања екрана"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1384
+#: ../src/option.c:2287
 #, c-format
-msgid "Could not refresh the screen information: %s"
-msgstr "Не могу да освежим податке о екрану: %s"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1388
-msgid "Trying to switch the monitor configuration anyway."
-msgstr "Покушавам да ипак учитам подешавања монитора."
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1891
-msgid "Could not apply the stored configuration for monitors"
-msgstr "Не могу да применим сачувана подешавања екрана"
-
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
-msgid "XRandR"
-msgstr "ХРандР"
-
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
-msgid "Set up screen size and rotation settings"
-msgstr "Подешавање величине и ротације екрана"
-
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
-msgid "X Settings"
-msgstr "Подешавања Икса"
-
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
-msgid "Manage X Settings"
-msgstr "Уреди подешавања Икса"
+msgid "Two or more dialog options specified\n"
+msgstr "Прослеђене су две или више опција прозорчета\n"
