@@ -26,7 +26,7 @@ shell-key-grabber.h: Makefile.am org.gnome.ShellKeyGrabber.xml
 	gdbus-codegen --interface-prefix org.gnome.		\
 	              --generate-c-code shell-key-grabber	\
 	              --c-namespace Shell			\
-	              org.gnome.ShellKeyGrabber.xml
+	              $(srcdir)/org.gnome.ShellKeyGrabber.xml
 
 libmedia_keys_la_SOURCES = 		\
 	gsd-media-keys-plugin.c		\
