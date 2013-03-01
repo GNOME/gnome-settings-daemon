@@ -42,17 +42,11 @@ void	        grab_key_unsafe	(Key     *key,
 				 GsdKeygrabFlags flags,
 			         GSList  *screens);
 
-void            ungrab_key_unsafe (Key     *key,
-                                   GSList  *screens);
-
 gboolean        match_xi2_key   (Key           *key,
                                  XIDeviceEvent *event);
 
 gboolean        key_uses_keycode (const Key *key,
                                   guint keycode);
-
-Key *           parse_key        (const char    *str);
-void            free_key         (Key           *key);
 
 void            grab_button      (int      deviceid,
                                   gboolean grab,
