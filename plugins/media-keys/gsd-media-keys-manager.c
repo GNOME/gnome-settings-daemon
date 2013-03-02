@@ -374,14 +374,14 @@ get_key_string (GsdMediaKeysManager *manager,
 }
 
 static void
-ensure_grab_cancellable (GsdMediaKeysManager *manager)
+ensure_cancellable (GCancellable **cancellable)
 {
-        if (manager->priv->grab_cancellable == NULL) {
-                manager->priv->grab_cancellable = g_cancellable_new ();
-                g_object_add_weak_pointer (G_OBJECT (manager->priv->grab_cancellable),
-                                           (gpointer *)&manager->priv->grab_cancellable);
+        if (*cancellable == NULL) {
+                *cancellable = g_cancellable_new ();
+                g_object_add_weak_pointer (G_OBJECT (*cancellable),
+                                           (gpointer *)cancellable);
         } else {
-                g_object_ref (manager->priv->grab_cancellable);
+                g_object_ref (*cancellable);
         }
 }
 
@@ -486,7 +486,7 @@ grab_media_keys (GsdMediaKeysManager *manager)
                 g_free (tmp);
         }
 
-	ensure_grab_cancellable (manager);
+	ensure_cancellable (&manager->priv->grab_cancellable);
 	shell_key_grabber_call_grab_accelerators (manager->priv->key_grabber,
 	                                          g_variant_builder_end (&builder),
 	                                          manager->priv->grab_cancellable,
@@ -524,7 +524,7 @@ grab_media_key (MediaKey            *key,
 	data->manager = manager;
 	data->key = key;
 
-	ensure_grab_cancellable (manager);
+	ensure_cancellable (&manager->priv->grab_cancellable);
 	shell_key_grabber_call_grab_accelerator (manager->priv->key_grabber,
 	                                         tmp, key->modes,
 	                                         manager->priv->grab_cancellable,
@@ -552,7 +552,7 @@ ungrab_media_key (MediaKey            *key,
 	if (key->accel_id == 0)
 		return;
 
-	ensure_grab_cancellable (manager);
+	ensure_cancellable (&manager->priv->grab_cancellable);
 	shell_key_grabber_call_ungrab_accelerator (manager->priv->key_grabber,
 	                                           key->accel_id,
 	                                           manager->priv->grab_cancellable,
@@ -2343,7 +2343,7 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 
         manager->priv->screen = gdk_display_get_screen (gdk_display_get_default (), 0);
 
-        ensure_grab_cancellable (manager);
+        ensure_cancellable (&manager->priv->grab_cancellable);
         shell_key_grabber_proxy_new_for_bus (G_BUS_TYPE_SESSION,
                                              G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START,
                                              SHELL_DBUS_NAME,
