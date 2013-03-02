@@ -176,7 +176,6 @@ struct GsdMediaKeysManagerPrivate
         gint             inhibit_keys_fd;
 
         GdkScreen       *screen;
-        int              opcode;
 
         GList           *media_players;
 
@@ -2327,11 +2326,6 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
         const char * const subsystems[] = { "input", "usb", "sound", NULL };
 
         gnome_settings_profile_start (NULL);
-
-        if (supports_xinput2_devices (&manager->priv->opcode) == FALSE) {
-                g_debug ("No Xinput2 support, disabling plugin");
-                return TRUE;
-        }
 
 #ifdef HAVE_GUDEV
         manager->priv->streams = g_hash_table_new (g_direct_hash, g_direct_equal);
