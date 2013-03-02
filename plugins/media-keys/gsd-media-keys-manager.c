@@ -53,7 +53,6 @@
 
 #include "shortcuts-list.h"
 #include "shell-key-grabber.h"
-#include "gsd-osd-window.h"
 #include "gsd-screenshot-utils.h"
 #include "gsd-input-helper.h"
 #include "gsd-enums.h"
@@ -150,7 +149,6 @@ struct GsdMediaKeysManagerPrivate
         GUdevClient     *udev_client;
 #endif /* HAVE_GUDEV */
 
-        GtkWidget       *dialog;
         GSettings       *settings;
         GHashTable      *custom_settings;
 
@@ -176,8 +174,6 @@ struct GsdMediaKeysManagerPrivate
         /* systemd stuff */
         GDBusProxy      *logind_proxy;
         gint             inhibit_keys_fd;
-
-        GdkScreen       *screen;
 
         GList           *media_players;
 
@@ -341,20 +337,6 @@ execute (GsdMediaKeysManager *manager,
                 g_error_free (error);
         }
         g_free (exec);
-}
-
-static void
-dialog_init (GsdMediaKeysManager *manager)
-{
-        if (manager->priv->dialog != NULL
-            && !gsd_osd_window_is_valid (GSD_OSD_WINDOW (manager->priv->dialog))) {
-                gtk_widget_destroy (manager->priv->dialog);
-                manager->priv->dialog = NULL;
-        }
-
-        if (manager->priv->dialog == NULL) {
-                manager->priv->dialog = gsd_osd_window_new ();
-        }
 }
 
 static char *
@@ -815,47 +797,6 @@ init_kbd (GsdMediaKeysManager *manager)
         grab_media_keys (manager);
 
         gnome_settings_profile_end (NULL);
-}
-
-static void
-dialog_show (GsdMediaKeysManager *manager)
-{
-        int            orig_w;
-        int            orig_h;
-        int            screen_w;
-        int            screen_h;
-        int            x;
-        int            y;
-        GdkRectangle   geometry;
-        int            monitor;
-
-        gtk_window_set_screen (GTK_WINDOW (manager->priv->dialog),
-                               manager->priv->screen);
-
-        /*
-         * get the window size
-         * if the window hasn't been mapped, it doesn't necessarily
-         * know its true size, yet, so we need to jump through hoops
-         */
-        gtk_window_get_default_size (GTK_WINDOW (manager->priv->dialog), &orig_w, &orig_h);
-
-        monitor = gdk_screen_get_primary_monitor (manager->priv->screen);
-
-        gdk_screen_get_monitor_geometry (manager->priv->screen,
-                                         monitor,
-                                         &geometry);
-
-        screen_w = geometry.width;
-        screen_h = geometry.height;
-
-        x = ((screen_w - orig_w) / 2) + geometry.x;
-        y = geometry.y + (screen_h / 2) + (screen_h / 2 - orig_h) / 2;
-
-        gtk_window_move (GTK_WINDOW (manager->priv->dialog), x, y);
-
-        gtk_widget_show (manager->priv->dialog);
-
-        gdk_display_sync (gdk_screen_get_display (manager->priv->screen));
 }
 
 static void
@@ -2347,8 +2288,6 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 	}
 	manager->priv->icon_theme = g_settings_get_string (manager->priv->interface_settings, "icon-theme");
 
-        manager->priv->screen = gdk_display_get_screen (gdk_display_get_default (), 0);
-
         ensure_cancellable (&manager->priv->grab_cancellable);
         shell_key_grabber_proxy_new_for_bus (G_BUS_TYPE_SESSION,
                                              G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START,
@@ -2460,7 +2399,6 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         g_clear_object (&priv->sink);
         g_clear_object (&priv->source);
         g_clear_object (&priv->volume);
-        g_clear_object (&priv->dialog);
 
         if (priv->media_players != NULL) {
                 g_list_free_full (priv->media_players, (GDestroyNotify) free_media_player);

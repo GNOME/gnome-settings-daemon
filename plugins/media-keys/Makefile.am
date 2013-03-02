@@ -32,9 +32,6 @@ libmedia_keys_la_SOURCES = 		\
 	gsd-media-keys-plugin.c		\
 	gsd-media-keys-manager.h	\
 	gsd-media-keys-manager.c	\
-	gsd-osd-window.c		\
-	gsd-osd-window.h		\
-	gsd-osd-window-private.h	\
 	gsd-screenshot-utils.h		\
 	gsd-screenshot-utils.c		\
 	shortcuts-list.h		\
@@ -74,44 +71,11 @@ plugin_in_files = 		\
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
-noinst_PROGRAMS = test-media-window
-
-test_media_window_SOURCES =			\
-	gsd-osd-window.c			\
-	gsd-osd-window.h			\
-	gsd-osd-window-private.h		\
-	test-media-window.c			\
-	$(NULL)
-
-test_media_window_CPPFLAGS = \
-	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
-	-I$(top_srcdir)/plugins/common				\
-	-I$(top_srcdir)/plugins/media-keys/gvc			\
-	-DDATADIR=\""$(datadir)"\"				\
-	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
-	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
-	$(AM_CPPFLAGS)
-
-test_media_window_CFLAGS = \
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(AM_CFLAGS)
-
-test_media_window_LDADD = \
-	$(top_builddir)/plugins/common/libcommon.la			\
-	$(SETTINGS_DAEMON_LIBS)			\
-	$(SETTINGS_PLUGIN_LIBS)			\
-	-lm
-
 libexec_PROGRAMS = gsd-test-media-keys
 
 gsd_test_media_keys_SOURCES =			\
 	gsd-media-keys-manager.c		\
 	gsd-media-keys-manager.h		\
-	gsd-osd-window.c			\
-	gsd-osd-window.h			\
-	gsd-osd-window-private.h		\
 	gsd-screenshot-utils.h			\
 	gsd-screenshot-utils.c			\
 	test-media-keys.c			\
@@ -147,7 +111,6 @@ gsd_test_media_keys_LDADD = \
 EXTRA_DIST = 				\
 	gsd-marshal.list		\
 	README.media-keys-API		\
-	test-media-window-clutter.c	\
 	org.gnome.ShellKeyGrabber.xml	\
 	$(plugin_in_files)
 
