@@ -167,8 +167,10 @@ struct GsdMediaKeysManagerPrivate
         GDBusProxy      *power_screen_proxy;
         GDBusProxy      *power_keyboard_proxy;
 
-        /* shell grabber */
+        /* Shell stuff */
+        GDBusProxy      *osd_proxy;
         ShellKeyGrabber *key_grabber;
+        GCancellable    *osd_cancellable;
         GCancellable    *grab_cancellable;
 
         /* systemd stuff */
@@ -383,6 +385,49 @@ ensure_cancellable (GCancellable **cancellable)
         } else {
                 g_object_ref (*cancellable);
         }
+}
+
+static void
+show_osd_complete (GObject      *source,
+                   GAsyncResult *result,
+                   gpointer      data)
+{
+        GsdMediaKeysManager *manager = data;
+        g_object_unref (manager->priv->osd_cancellable);
+}
+
+static void
+show_osd (GsdMediaKeysManager *manager,
+          const char          *icon,
+          const char          *label,
+          int                  level)
+{
+        GVariantBuilder builder;
+
+        if (manager->priv->osd_proxy == NULL)
+                return;
+
+        g_variant_builder_init (&builder, G_VARIANT_TYPE_TUPLE);
+        g_variant_builder_open (&builder, G_VARIANT_TYPE_VARDICT);
+        if (icon)
+                g_variant_builder_add (&builder, "{sv}",
+                                       "icon", g_variant_new_string (icon));
+        if (label)
+                g_variant_builder_add (&builder, "{sv}",
+                                       "label", g_variant_new_string (label));
+        if (level >= 0)
+                g_variant_builder_add (&builder, "{sv}",
+                                       "level", g_variant_new_int32 (level));
+        g_variant_builder_close (&builder);
+
+        ensure_cancellable (&manager->priv->osd_cancellable);
+        g_dbus_proxy_call (manager->priv->osd_proxy,
+                           "ShowOSD",
+                           g_variant_builder_end (&builder),
+                           G_DBUS_CALL_FLAGS_NO_AUTO_START,
+                           -1,
+                           manager->priv->osd_cancellable,
+                           show_osd_complete, manager);
 }
 
 static const char *
@@ -934,14 +979,8 @@ do_eject_action (GsdMediaKeysManager *manager)
                 }
         }
 
-        /* Show the dialogue */
-        dialog_init (manager);
-        gsd_osd_window_set_volume_label (GSD_OSD_WINDOW (manager->priv->dialog),
-                                         NULL);
-        gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (manager->priv->dialog),
-                                          "media-eject-symbolic",
-                                          FALSE);
-        dialog_show (manager);
+        /* Show OSD */
+        show_osd (manager, "media-eject-symbolic", NULL, -1);
 
         /* Clean up the drive selection and exit if no suitable
          * drives are found */
@@ -1004,13 +1043,8 @@ do_execute_desktop_or_desktop (GsdMediaKeysManager *manager,
 static void
 do_touchpad_osd_action (GsdMediaKeysManager *manager, gboolean state)
 {
-        dialog_init (manager);
-        gsd_osd_window_set_volume_label (GSD_OSD_WINDOW (manager->priv->dialog),
-                                         NULL);
-        gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (manager->priv->dialog),
-                                          state ? "input-touchpad-symbolic" : "touchpad-disabled-symbolic",
-                                          FALSE);
-        dialog_show (manager);
+        show_osd (manager, state ? "input-touchpad-symbolic"
+                                 : "touchpad-disabled-symbolic", NULL, -1);
 }
 
 static void
@@ -1062,7 +1096,7 @@ update_dialog (GsdMediaKeysManager *manager,
 {
         GvcMixerUIDevice *device;
         const GvcMixerStreamPort *port;
-        GsdOsdWindowAction action;
+        const char *icon;
 
         if (!muted) {
                 vol = (int) (100 * (double) vol / PA_VOLUME_NORM);
@@ -1071,22 +1105,16 @@ update_dialog (GsdMediaKeysManager *manager,
                 vol = 0.0;
         }
 
-        action = GVC_IS_MIXER_SINK (stream) ? GSD_OSD_WINDOW_ACTION_VOLUME : GSD_OSD_WINDOW_ACTION_MIC_VOLUME;
-
-        dialog_init (manager);
-        gsd_osd_window_set_volume_muted (GSD_OSD_WINDOW (manager->priv->dialog), muted);
-        gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (manager->priv->dialog), vol);
-        gsd_osd_window_set_action (GSD_OSD_WINDOW (manager->priv->dialog), action);
-
+        icon = get_icon_name_for_volume (!GVC_IS_MIXER_SINK (stream), muted, vol);
         port = gvc_mixer_stream_get_port (stream);
         if (g_strcmp0 (gvc_mixer_stream_get_form_factor (stream), "internal") != 0 ||
             g_strcmp0 (port->port, "analog-output-speaker") != 0) {
                 device = gvc_mixer_control_lookup_device_from_stream (manager->priv->volume, stream);
-                gsd_osd_window_set_volume_label (GSD_OSD_WINDOW (manager->priv->dialog),
-                                                 gvc_mixer_ui_device_get_description (device));
+                show_osd (manager, icon,
+                          gvc_mixer_ui_device_get_description (device), vol);
+        } else {
+                show_osd (manager, icon, NULL, vol);
         }
-
-        dialog_show (manager);
 
         if (quiet == FALSE && sound_changed != FALSE && muted == FALSE) {
                 ca_context_change_device (manager->priv->ca,
@@ -1543,13 +1571,7 @@ gsd_media_player_key_pressed (GsdMediaKeysManager *manager,
 
         if (!have_listeners) {
                 /* Popup a dialog with an (/) icon */
-                dialog_init (manager);
-                gsd_osd_window_set_volume_label (GSD_OSD_WINDOW (manager->priv->dialog),
-                                                 NULL);
-                gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (manager->priv->dialog),
-                                                  "action-unavailable-symbolic",
-                                                  FALSE);
-                dialog_show (manager);
+                show_osd (manager, "action-unavailable-symbolic", NULL, -1);
                 return TRUE;
         }
 
@@ -1872,15 +1894,7 @@ update_screen_cb (GObject             *source_object,
 
         /* update the dialog with the new value */
         g_variant_get (new_percentage, "(u)", &percentage);
-        dialog_init (manager);
-        gsd_osd_window_set_volume_label (GSD_OSD_WINDOW (manager->priv->dialog),
-                                         NULL);
-        gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (manager->priv->dialog),
-                                          "display-brightness-symbolic",
-                                          TRUE);
-        gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (manager->priv->dialog),
-                                                percentage);
-        dialog_show (manager);
+        show_osd (manager, "display-brightness-symbolic", NULL, percentage);
         g_variant_unref (new_percentage);
 }
 
@@ -1926,15 +1940,7 @@ update_keyboard_cb (GObject             *source_object,
 
         /* update the dialog with the new value */
         g_variant_get (new_percentage, "(u)", &percentage);
-        dialog_init (manager);
-        gsd_osd_window_set_volume_label (GSD_OSD_WINDOW (manager->priv->dialog),
-                                         NULL);
-        gsd_osd_window_set_action_custom (GSD_OSD_WINDOW (manager->priv->dialog),
-                                          "keyboard-brightness-symbolic",
-                                          TRUE);
-        gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (manager->priv->dialog),
-                                                percentage);
-        dialog_show (manager);
+        show_osd (manager, "keyboard-brightness-symbolic", NULL, percentage);
         g_variant_unref (new_percentage);
 }
 
@@ -1979,8 +1985,7 @@ static void
 do_battery_action (GsdMediaKeysManager *manager)
 {
         GVariant *icon_var, *percentage;
-        GIcon *icon;
-        gboolean show_percentage = FALSE;
+        char *label = NULL;
 
         if (manager->priv->power_proxy == NULL)
                 return;
@@ -1988,23 +1993,12 @@ do_battery_action (GsdMediaKeysManager *manager)
         icon_var = g_dbus_proxy_get_cached_property (manager->priv->power_proxy, "Icon");
         percentage = g_dbus_proxy_get_cached_property (manager->priv->power_proxy, "Percentage");
 
-        dialog_init (manager);
-        if (g_variant_get_double (percentage) >= 0.0) {
-                char *str;
+        if (g_variant_get_double (percentage) >= 0.0)
+                label = g_strdup_printf ("%d %%", (int) g_variant_get_double (percentage));
 
-                show_percentage = TRUE;
-                str = g_strdup_printf ("%d %%", (int) g_variant_get_double (percentage));
-                gsd_osd_window_set_volume_level (GSD_OSD_WINDOW (manager->priv->dialog),
-                                                 g_variant_get_double (percentage));
-                gsd_osd_window_set_volume_label (GSD_OSD_WINDOW (manager->priv->dialog),
-                                                 str);
-                g_free (str);
-        }
-        icon = g_icon_new_for_string (g_variant_get_string (icon_var, NULL), NULL);
-        gsd_osd_window_set_action_custom_gicon (GSD_OSD_WINDOW (manager->priv->dialog),
-                                                icon,
-                                                show_percentage);
-        dialog_show (manager);
+        show_osd (manager, g_variant_get_string (icon_var, NULL),
+                  label, g_variant_get_double (percentage));
+        g_free (label);
 }
 
 static void
@@ -2269,6 +2263,18 @@ initialize_volume_handler (GsdMediaKeysManager *manager)
 }
 
 static void
+on_osd_proxy_ready (GObject      *source,
+                    GAsyncResult *result,
+                    gpointer      data)
+{
+        GsdMediaKeysManager *manager = data;
+
+        manager->priv->osd_proxy =
+                g_dbus_proxy_new_for_bus_finish (result, NULL);
+        g_object_unref (manager->priv->osd_cancellable);
+}
+
+static void
 on_key_grabber_ready (GObject      *source,
                       GAsyncResult *result,
                       gpointer      data)
@@ -2350,6 +2356,15 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
                                              SHELL_DBUS_PATH,
                                              manager->priv->grab_cancellable,
                                              on_key_grabber_ready, manager);
+
+        ensure_cancellable (&manager->priv->osd_cancellable);
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
+                                  G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START, NULL,
+                                  SHELL_DBUS_NAME,
+                                  SHELL_DBUS_PATH,
+                                  SHELL_DBUS_NAME,
+                                  manager->priv->osd_cancellable,
+                                  on_osd_proxy_ready, manager);
 
         gnome_settings_profile_end (NULL);
 
@@ -2435,6 +2450,11 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         if (priv->grab_cancellable != NULL) {
                 g_cancellable_cancel (priv->grab_cancellable);
                 g_clear_object (&priv->grab_cancellable);
+        }
+
+        if (priv->osd_cancellable != NULL) {
+                g_cancellable_cancel (priv->osd_cancellable);
+                g_clear_object (&priv->osd_cancellable);
         }
 
         g_clear_object (&priv->sink);
