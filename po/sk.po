@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-03-01 16:11+0000\n"
-"PO-Revision-Date: 2013-02-26 20:17+0100\n"
+"POT-Creation-Date: 2013-03-02 12:56+0000\n"
+"PO-Revision-Date: 2013-03-02 17:36+0100\n"
 "Last-Translator: Pavol Klačanský <pavol@klacansky.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -1486,11 +1486,11 @@ msgstr "Odobrané zariadenie pre kalibráciu farieb"
 #. Priority=100
 #: ../plugins/cursor/cursor.gnome-settings-plugin.in.h:2
 msgid "Cursor"
-msgstr ""
+msgstr "Kurzor"
 
 #: ../plugins/cursor/cursor.gnome-settings-plugin.in.h:3
 msgid "Show/hide cursor on tablet devices"
-msgstr ""
+msgstr "Zobrazí/skryje kurzor na tabletoch"
 
 # plugin name
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
@@ -1625,13 +1625,15 @@ msgstr "Preskúmať…"
 
 #: ../plugins/housekeeping/housekeeping.gnome-settings-plugin.in.h:1
 msgid "Housekeeping"
-msgstr ""
+msgstr "Údržba"
 
 #: ../plugins/housekeeping/housekeeping.gnome-settings-plugin.in.h:2
 msgid ""
 "Automatically prunes thumbnail caches and other transient files, and warns "
 "about low disk space"
 msgstr ""
+"Automaticky premaže vyrovnávaciu pamäť miniatúr a ostatné prechodné súbory. "
+"Taktiež upozorňuje na nedostatok miesta na disku"
 
 # BUG: https://bugzilla.gnome.org/show_bug.cgi?id=669732
 #. TRANSLATORS: wireless keyboard with internal battery
@@ -1770,9 +1772,11 @@ msgid "Power Off"
 msgstr "Vypnúť"
 
 # PM: ak zoberiem do úvahy sleep = standby a podla rtcwake -m to má menšiu váhu tak by som to možno preložil ako zadriemať
+# PK: ja by som to nesilil len za tu cenu rozneho prekladu
+# MČ: pokiaľ sa to nemá šancu objaviť blizko seba, tak by som to nechal tak, ale pokiaľ áno, radšej by som to rozlíšil, lebo niekto môže byť zmätený, že má dve rovnaké akcie zobrazené naraz. A keď vypne slovenčinu, tak zrazu nie.
+# https://bugzilla.gnome.org/show_bug.cgi?id=694986
 #. the kernel / Xorg names really are like this...
 #: ../plugins/media-keys/shortcuts-list.h:150
-#, fuzzy
 msgid "Sleep"
 msgstr "Uspať"
 
@@ -1838,17 +1842,13 @@ msgstr "Zásuvný modul myš"
 # plugin name
 #. Priority=100
 #: ../plugins/orientation/orientation.gnome-settings-plugin.in.h:2
-#, fuzzy
-#| msgid "Print-notifications"
 msgid "Orientation"
-msgstr "Oznámenia tlače"
+msgstr "Orientácia"
 
 # plugin desc
 #: ../plugins/orientation/orientation.gnome-settings-plugin.in.h:3
-#, fuzzy
-#| msgid "Print-notifications plugin"
 msgid "Orientation plugin"
-msgstr "Modul Oznámenia tlače"
+msgstr "Zásuvný modul pre orientáciu"
 
 #: ../plugins/power/gpm-common.c:73
 msgid "Unknown time"
@@ -2736,21 +2736,17 @@ msgid "You will soon log out because of inactivity."
 msgstr "Budete čoskoro odhlásený z dôvodu neaktivity."
 
 #: ../plugins/power/gsd-power-manager.c:3068
-#, fuzzy
-#| msgid "Automatic logout"
 msgid "Automatic suspend"
-msgstr "Automatické odhlásenie"
+msgstr "Automatické uspanie"
 
 #: ../plugins/power/gsd-power-manager.c:3068
 #: ../plugins/power/gsd-power-manager.c:3073
-#, fuzzy
-#| msgid "You will soon log out because of inactivity."
 msgid "Computer will suspend very soon because of inactivity."
-msgstr "Budete čoskoro odhlásený z dôvodu neaktivity."
+msgstr "Počítač bude čoskoro uspatý z dôvodu neaktivity."
 
 #: ../plugins/power/gsd-power-manager.c:3073
 msgid "Automatic hibernation"
-msgstr ""
+msgstr "Automatická hibernácia"
 
 # desc
 #. SECURITY:
@@ -3015,19 +3011,22 @@ msgstr "Modul Oznámenia tlače"
 
 #: ../plugins/remote-display/remote-display.gnome-settings-plugin.in.h:1
 msgid "Remote Display"
-msgstr ""
+msgstr "Vzdialený displej"
 
 #: ../plugins/remote-display/remote-display.gnome-settings-plugin.in.h:2
 msgid "Disable animations on remote displays"
-msgstr ""
+msgstr "Zakazuje animácie na vzdialených displejoch"
 
+# MČ: myslí sa tento prostredník _I_? Asi by som skôr použil „sprostredkovateľ“
 #: ../plugins/screensaver-proxy/screensaver-proxy.gnome-settings-plugin.in.h:1
 msgid "Screensaver Proxy"
-msgstr ""
+msgstr "Sprostredkovateľ pre šetrič obrazovky"
 
 #: ../plugins/screensaver-proxy/screensaver-proxy.gnome-settings-plugin.in.h:2
 msgid "Proxy FreeDesktop screensaver inhibition to gnome-session"
 msgstr ""
+"Sprostretkuje potlačenie šetriča obrazovky FreeDesktop do programu gnome-"
+"session"
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:529
 msgid "received error or hang up from event source"
@@ -3060,22 +3059,20 @@ msgstr "počas čakania na udalosti smart karty nastala neočakávaná chyba"
 
 #: ../plugins/smartcard/smartcard.gnome-settings-plugin.in.h:1
 msgid "Smartcard"
-msgstr ""
+msgstr "Smartcard"
 
 # plugin desc
 #: ../plugins/smartcard/smartcard.gnome-settings-plugin.in.h:2
-#, fuzzy
-#| msgid "Background plugin"
 msgid "Smartcard plugin"
-msgstr "Modul Pozadie"
+msgstr "Zásuvný modul pre Smartcard"
 
 #: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
 msgid "Sound"
-msgstr ""
+msgstr "Zvuk"
 
 #: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
 msgid "Sound Sample Cache plugin"
-msgstr ""
+msgstr "Zásuvný modul pre vyrovnávaciu pamäť zvukových vzoriek"
 
 #. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
 #: ../plugins/updates/gsd-updates-firmware.c:250
@@ -3323,10 +3320,8 @@ msgstr "Ok"
 
 # plugin desc
 #: ../plugins/updates/updates.gnome-settings-plugin.in.h:2
-#, fuzzy
-#| msgid "Media keys plugin"
 msgid "Updates plugin"
-msgstr "Zásuvný modul multimediálne klávesy"
+msgstr "Zásuvný modul pre aktualizácie"
 
 #. If no mode is available, we use "left-ring-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1076
@@ -3457,14 +3452,12 @@ msgstr "Na úpravu LED osvetlenia tabletu Wacom sa vyžaduje overenie totožnost
 
 #: ../plugins/wacom/wacom.gnome-settings-plugin.in.h:1
 msgid "Wacom"
-msgstr ""
+msgstr "Wacom"
 
 # plugin desc
 #: ../plugins/wacom/wacom.gnome-settings-plugin.in.h:2
-#, fuzzy
-#| msgid "Background plugin"
 msgid "Wacom plugin"
-msgstr "Modul Pozadie"
+msgstr "Zásuvný modul pre tablet Wacom"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:509
 msgid "Could not switch the monitor configuration"
