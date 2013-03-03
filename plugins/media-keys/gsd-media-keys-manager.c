@@ -385,10 +385,10 @@ ensure_grab_cancellable (GsdMediaKeysManager *manager)
         }
 }
 
-static GIcon *
-get_image_name_for_volume (gboolean is_mic,
-                           gboolean muted,
-                           int volume)
+static const char *
+get_icon_name_for_volume (gboolean is_mic,
+                          gboolean muted,
+                          int volume)
 {
         static const char *icon_names[] = {
                 "audio-volume-muted-symbolic",
@@ -419,9 +419,9 @@ get_image_name_for_volume (gboolean is_mic,
         }
 
 	if (is_mic)
-		return g_themed_icon_new_with_default_fallbacks (mic_icon_names[n]);
+		return mic_icon_names[n];
 	else
-		return g_themed_icon_new_with_default_fallbacks (icon_names[n]);
+		return icon_names[n];
 }
 
 static gboolean
