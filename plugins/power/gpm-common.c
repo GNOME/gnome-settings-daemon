@@ -1169,7 +1169,7 @@ get_primary_output (GnomeRRScreen *rr_screen)
 
         for (i = 0; outputs[i] != NULL; i++) {
                 if (gnome_rr_output_is_connected (outputs[i]) &&
-                    gnome_rr_output_is_laptop (outputs[i]) &&
+                    gnome_rr_output_is_builtin_display (outputs[i]) &&
                     gnome_rr_output_get_backlight_min (outputs[i]) >= 0 &&
                     gnome_rr_output_get_backlight_max (outputs[i]) > 0) {
                         output = outputs[i];
@@ -1717,7 +1717,7 @@ external_monitor_is_connected (GnomeRRScreen *screen)
         outputs = gnome_rr_screen_list_outputs (screen);
         for (i = 0; outputs[i] != NULL; i++) {
                 if (randr_output_is_on (outputs[i]) &&
-                    !gnome_rr_output_is_laptop (outputs[i]))
+                    !gnome_rr_output_is_builtin_display (outputs[i]))
                         return TRUE;
         }
 
