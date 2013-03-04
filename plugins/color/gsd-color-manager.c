@@ -813,7 +813,7 @@ gcm_session_use_output_profile_for_screen (GsdColorManager *manager,
                         connected = outputs[i];
                 if (gnome_rr_output_get_is_primary (outputs[i]))
                         has_primary = TRUE;
-                if (gnome_rr_output_is_laptop (outputs[i]))
+                if (gnome_rr_output_is_builtin_display (outputs[i]))
                         has_laptop = TRUE;
         }
 
@@ -823,7 +823,7 @@ gcm_session_use_output_profile_for_screen (GsdColorManager *manager,
 
         /* choosing the internal panel is probably sane */
         if (has_laptop)
-                return gnome_rr_output_is_laptop (output);
+                return gnome_rr_output_is_builtin_display (output);
 
         /* we have to choose one, so go for the first connected device */
         if (connected != NULL)
@@ -922,7 +922,7 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
          * calibration brightness then set this new brightness */
         brightness_profile = cd_profile_get_metadata_item (profile,
                                                            CD_PROFILE_METADATA_SCREEN_BRIGHTNESS);
-        if (gnome_rr_output_is_laptop (output) &&
+        if (gnome_rr_output_is_builtin_display (output) &&
             brightness_profile != NULL) {
                 /* the percentage is stored in the profile metadata as
                  * a string, not ideal, but it's all we have... */
@@ -1234,7 +1234,7 @@ gcm_session_add_x11_output (GsdColorManager *manager, GnomeRROutput *output)
         }
 
         /* prefer DMI data for the internal output */
-        ret = gnome_rr_output_is_laptop (output);
+        ret = gnome_rr_output_is_builtin_display (output);
         if (ret) {
                 model = gcm_dmi_get_name (priv->dmi);
                 vendor = gcm_dmi_get_vendor (priv->dmi);
@@ -1293,7 +1293,7 @@ gcm_session_add_x11_output (GsdColorManager *manager, GnomeRROutput *output)
 #if CD_CHECK_VERSION(0,1,27)
         /* set this so we can call the device a 'Laptop Screen' in the
          * control center main panel */
-        if (gnome_rr_output_is_laptop (output)) {
+        if (gnome_rr_output_is_builtin_display (output)) {
                 g_hash_table_insert (device_props,
                                      (gpointer) CD_DEVICE_PROPERTY_EMBEDDED,
                                      NULL);
