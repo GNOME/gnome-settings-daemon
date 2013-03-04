@@ -147,6 +147,7 @@ static struct {
         { MAGNIFIER_ZOOM_OUT_KEY, "magnifier-zoom-out", NULL, NULL, SHELL_KEYBINDING_MODE_ALL },
         { POWER_KEY, NULL, N_("Power Off"), "XF86PowerOff", GSD_KEYBINDING_MODE_LAUNCHER },
         /* the kernel / Xorg names really are like this... */
+        /* translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend */
         { SLEEP_KEY, NULL, N_("Sleep"), "XF86Suspend", SHELL_KEYBINDING_MODE_ALL },
         { SUSPEND_KEY, NULL, N_("Suspend"), "XF86Sleep", SHELL_KEYBINDING_MODE_ALL },
         { HIBERNATE_KEY, NULL, N_("Hibernate"), "XF86Hibernate", SHELL_KEYBINDING_MODE_ALL },
