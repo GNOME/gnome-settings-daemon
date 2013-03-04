@@ -374,7 +374,7 @@ is_laptop (GnomeRRScreen *screen, GnomeRROutputInfo *output)
 
         rr_output = gnome_rr_screen_get_output_by_name (screen, gnome_rr_output_info_get_name (output));
 
-        return gnome_rr_output_is_laptop (rr_output);
+        return gnome_rr_output_is_builtin_display (rr_output);
 }
 
 static GnomeRROutputInfo *
