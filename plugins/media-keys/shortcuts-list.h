@@ -18,8 +18,8 @@
  * USA.
  */
 
-#ifndef __ACME_H__
-#define __ACME_H__
+#ifndef __SHORTCUTS_LIST_H__
+#define __SHORTCUTS_LIST_H__
 
 #include "shell-keybinding-modes.h"
 
@@ -160,4 +160,4 @@ static struct {
 
 #undef SCREENSAVER_MODE
 
-#endif /* __ACME_H__ */
+#endif /* __SHORTCUTS_LIST_H__ */
