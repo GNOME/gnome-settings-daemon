@@ -284,6 +284,10 @@ get_distro_upgrades_finished_cb (GObject *object,
         /* get the results */
         results = pk_client_generic_finish (PK_CLIENT(client), res, &error);
         if (results == NULL) {
+                if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
+                        g_error_free (error);
+                        return;
+                }
                 if (error->domain != PK_CLIENT_ERROR ||
                     error->code != PK_CLIENT_ERROR_NOT_SUPPORTED) {
                         g_warning ("failed to get upgrades: %s",
@@ -394,10 +398,14 @@ refresh_cache_finished_cb (GObject *object, GAsyncResult *res, GsdUpdatesManager
         /* get the results */
         results = pk_client_generic_finish (PK_CLIENT(client), res, &error);
         if (results == NULL) {
+                if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
+                        g_error_free (error);
+                        return;
+                }
                 g_warning ("failed to refresh the cache: %s",
                            error->message);
                 g_error_free (error);
-                goto out;
+                return;
         }
 
         /* check error code */
@@ -406,9 +414,8 @@ refresh_cache_finished_cb (GObject *object, GAsyncResult *res, GsdUpdatesManager
                 g_warning ("failed to refresh the cache: %s, %s",
                            pk_error_enum_to_string (pk_error_get_code (error_code)),
                            pk_error_get_details (error_code));
-                goto out;
         }
-out:
+
         if (error_code != NULL)
                 g_object_unref (error_code);
         if (results != NULL)
@@ -643,11 +650,15 @@ package_download_finished_cb (GObject *object,
         /* get the results */
         results = pk_client_generic_finish (PK_CLIENT(client), res, &error);
         if (results == NULL) {
+                if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
+                        g_error_free (error);
+                        return;
+                }
                 g_warning ("failed to download: %s",
                            error->message);
                 g_error_free (error);
                 notify_failed_get_updates_maybe (manager);
-                goto out;
+                return;
         }
 
         /* check error code */
@@ -727,6 +738,10 @@ get_updates_finished_cb (GObject *object,
         /* get the results */
         results = pk_client_generic_finish (PK_CLIENT(client), res, &error);
         if (results == NULL) {
+                if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
+                        g_error_free (error);
+                        return;
+                }
                 g_warning ("failed to get updates: %s",
                            error->message);
                 g_error_free (error);
@@ -900,7 +915,8 @@ set_proxy_cb (GObject *object, GAsyncResult *res, gpointer user_data)
         /* get the result */
         ret = pk_control_set_proxy_finish (control, res, &error);
         if (!ret) {
-                g_warning ("failed to set proxies: %s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("failed to set proxies: %s", error->message);
                 g_error_free (error);
         }
 }
