@@ -69,7 +69,6 @@ struct GsdUpdatesManagerPrivate
 
 static void gsd_updates_manager_class_init (GsdUpdatesManagerClass *klass);
 static void gsd_updates_manager_init (GsdUpdatesManager *updates_manager);
-static void gsd_updates_manager_finalize (GObject *object);
 
 G_DEFINE_TYPE (GsdUpdatesManager, gsd_updates_manager, G_TYPE_OBJECT)
 
@@ -1429,7 +1428,6 @@ gsd_updates_manager_class_init (GsdUpdatesManagerClass *klass)
 
         object_class->constructor = gsd_updates_manager_constructor;
         object_class->dispose = gsd_updates_manager_dispose;
-        object_class->finalize = gsd_updates_manager_finalize;
 
         g_type_class_add_private (klass, sizeof (GsdUpdatesManagerPrivate));
 }
@@ -1438,21 +1436,6 @@ static void
 gsd_updates_manager_init (GsdUpdatesManager *manager)
 {
         manager->priv = GSD_UPDATES_MANAGER_GET_PRIVATE (manager);
-}
-
-static void
-gsd_updates_manager_finalize (GObject *object)
-{
-        GsdUpdatesManager *updates_manager;
-
-        g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_UPDATES_MANAGER (object));
-
-        updates_manager = GSD_UPDATES_MANAGER (object);
-
-        g_return_if_fail (updates_manager->priv);
-
-        G_OBJECT_CLASS (gsd_updates_manager_parent_class)->finalize (object);
 }
 
 GsdUpdatesManager *
