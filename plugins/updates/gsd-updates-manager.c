@@ -1477,7 +1477,10 @@ gsd_updates_manager_stop (GsdUpdatesManager *manager)
         g_clear_object (&manager->priv->firmware);
         g_clear_object (&manager->priv->proxy_session);
         g_clear_object (&manager->priv->volume_monitor);
-        g_clear_object (&manager->priv->cancellable);
+        if (manager->priv->cancellable) {
+                g_cancellable_cancel (manager->priv->cancellable);
+                g_clear_object (&manager->priv->cancellable);
+        }
         g_clear_pointer (&manager->priv->introspection, g_dbus_node_info_unref);
         if (manager->priv->update_viewer_watcher_id != 0) {
                 g_bus_unwatch_name (manager->priv->update_viewer_watcher_id);
