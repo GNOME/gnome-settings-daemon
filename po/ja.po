@@ -12,6 +12,7 @@
 # Jiro Matsuzawa <jmatsuzawa@src.gnome.org>, 2010.
 # Takayoshi OKANO <kano@na.rim.or.jp>, 2011.
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2011.
+# Nishio Futoshi <fut_nis@d3.dion.ne.jp>, 2012.
 #
 msgid ""
 msgstr ""
@@ -57,11 +58,11 @@ msgstr "この値を TRUE にすると、scroll_method キーで選択したの�
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
 msgid "Select the touchpad scroll method"
-msgstr "タッチ・パッドでのスクロールの方法の選択"
+msgstr "タッチパッドでのスクロールの方法の選択"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
 msgid "Select the touchpad scroll method. Supported values are: \"disabled\", \"edge-scrolling\", \"two-finger-scrolling\"."
-msgstr "タッチ・パッドでのスクロール方法を選択します。指定できる値は次のとおり。\"disabled\"、\"edge-scrolling\"、\"two-finger-scrolling\""
+msgstr "タッチパッドでのスクロール方法を選択します。指定できる値は次のとおりです。\"disabled\"、\"edge-scrolling\"、\"two-finger-scrolling\""
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
 msgid "Enable mouse clicks with touchpad"
@@ -89,7 +90,7 @@ msgstr "ダブルクリックの時間"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
 msgid "Length of a double click in milliseconds."
-msgstr "ダブルクリックの長さ(ミリ秒単位)。"
+msgstr "ダブルクリックの長さ(ミリ秒単位)です。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
 msgid "Drag threshold"
@@ -101,19 +102,19 @@ msgstr "ドラッグが開始されるまでの距離です。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
 msgid "Middle button emulation"
-msgstr ""
+msgstr "中ボタンのエミュレーション"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
 msgid "Enables middle mouse button emulation through simultaneous left and right button click."
-msgstr ""
+msgstr "マウスの中ボタンの左右ボタンの同時クリックによるエミュレーションを利用可能にします。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
 msgid "Whether the tablet's orientation is locked, or rotated automatically."
-msgstr ""
+msgstr "タブレットの方向を固定するか自動的に回転するかです。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
 msgid "Device hotplug custom command"
-msgstr ""
+msgstr "デバイスのホットプラグの独自コマンド"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
 msgid "Command to be run when a device is added or removed. An exit value of 1 means that the device will not be handled further by gnome-settings-daemon."
@@ -179,6 +180,7 @@ msgstr "このプラグインの優先度"
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
 msgstr "gnome-settings-daemon の起動時のキューで、このプラグインが使用される優先度"
 
+# stylus はそのままスタイラスとした。http://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%A9%E3%82%B9
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
 msgstr "Wacom スタイラスの絶対座標モード"
@@ -241,7 +243,7 @@ msgstr "Wacom のスタイラスの圧力曲線"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
 msgid "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
-msgstr ""
+msgstr "以下の x1, y1 を、スタイラスの圧力曲線の x2, y2 に設定します。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
 msgid "Wacom stylus button mapping"
@@ -249,11 +251,11 @@ msgstr "Wacom スタイラスボタンのマッピング"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
 msgid "Set this to the logical button mapping."
-msgstr ""
+msgstr "これをロジカルボタンのマッピングにします。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
 msgid "Wacom stylus pressure threshold"
-msgstr ""
+msgstr "Wacom スタイラスの圧力しきい値"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
 msgid "Set this to the pressure value at which a stylus click event is generated."
@@ -285,41 +287,42 @@ msgstr "Wacom ボタンアクションの型"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
 msgid "The type of action triggered by the button being pressed."
-msgstr ""
+msgstr "ボタンが押された時に実行されるアクションの型です。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
 msgid "Key combination for the custom action"
-msgstr ""
+msgstr "独自アクションのキーの組み合わせ"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
 msgid "The keyboard shortcut generated when the button is pressed for custom actions."
-msgstr ""
+msgstr "独自アクションのボタンが押されたときに生成されるキーボードショートカットです。"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
+#, fuzzy
+#| msgid "Key combinations for an elevator custom action"
 msgid "Key combinations for a touchring or touchstrip custom action"
-msgstr ""
+msgstr "上から下へ連続した独自アクションのキーの組み合わせ"
 
+# touchring を タッチホイール touchstrip を トラックパッド と訳出
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
 msgid "The keyboard shortcuts generated when a touchring or touchstrip is used for custom actions (up followed by down)."
-msgstr ""
+msgstr "タッチホイールやトラックパッドがカスタムアクションのために (上から順番に) 使用されるとき、生成されるキーボードショートカットです。"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
-#, fuzzy
-#| msgid "The selected configuration for displays could not be applied"
 msgid "The duration a display profile is valid"
-msgstr "選択したディスプレイの設定を適用できませんでした"
+msgstr "ディスプレイ・プロファイルの有効時間"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
 msgid "This is the number of days after which the display color profile is considered invalid."
-msgstr ""
+msgstr "ディスプレイ・カラープロファイルが実施されてから、無効とされるまでの日数です。"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
 msgid "The duration a printer profile is valid"
-msgstr ""
+msgstr "プリンター・プロファイルの有効時間"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
 msgid "This is the number of days after which the printer color profile is considered invalid."
-msgstr ""
+msgstr "プリンター・カラープロファイルが実施されてから、無効とされるまでの日数です。"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 msgid "List of plugins that are allowed to be loaded"
@@ -343,7 +346,7 @@ msgstr "空きパーセンテージ通知の閾値"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
 msgid "Percentage free space threshold for initial warning of low disk space. If the percentage free space drops below this, a warning will be shown."
-msgstr "ディスクの残り容量が少なくなった時に最初に警告する閾値となる残り容量のパーセンテージ。残り容量のパーセンテージがこの値を下まわれば、警告が表示されます。"
+msgstr "ディスクの残り容量が少なくなった時に最初に警告する閾値となる残り容量のパーセンテージです。残り容量のパーセンテージがこの値を下まわれば、警告が表示されます。"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 msgid "Subsequent free space percentage notify threshold"
@@ -351,7 +354,7 @@ msgstr "空き容量の連続通知のパーセンテージの閾値"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
 msgid "Specify the percentage that the free disk space should reduce by before issuing a subsequent warning."
-msgstr "空き容量の警告を連続して出す前に、何パーセント空き容量を減らさなくてはならないかを指定"
+msgstr "空き容量の警告を連続して出す前に、何パーセント空き容量を減らさなくてはならないかを指定します。"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
 msgid "Free space notify threshold"
@@ -370,14 +373,12 @@ msgid "Specify a time in minutes. Subsequent warnings for a volume will not appe
 msgstr "時間を分単位で指定します。この時間より短い間隔で容量の警告を表示することはありません。"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
-#, fuzzy
-#| msgid "Keybindings"
 msgid "Custom keybindings"
-msgstr "キーバインディング"
+msgstr "独自のキーバインディング"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
 msgid "List of custom keybindings"
-msgstr ""
+msgstr "独自のキーバインディングのリスト"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
 msgid "Launch calculator"
@@ -644,11 +645,10 @@ msgid "Name of the custom binding"
 msgstr "独自のキーバインディングの名前です"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
-#, fuzzy
-#| msgid "Keybindings"
 msgid "Binding"
 msgstr "キーバインディング"
 
+# カスタムキーバインディングをバインドすること？
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
 msgid "Binding for the custom binding"
 msgstr "独自のキーバインディングのためのキーバインディングです"
@@ -671,67 +671,67 @@ msgstr "バッテリー残量が低下していると認識するパーセンテ
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
 msgid "Percentage considered critical"
-msgstr ""
+msgstr "バッテリー残量が危険領域と認識するパーセンテージ"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
 msgid "The percentage of the battery when it is considered critical. Only valid when use-time-for-policy is false."
-msgstr ""
+msgstr "バッテリー残量が危険領域だと認識するパーセンテージです。use-time-for-policy が false のときだけ有効です。"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
 msgid "Percentage action is taken"
-msgstr ""
+msgstr "アクションを実施するパーセンテージ"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
 msgid "The percentage of the battery when the critical action is performed. Only valid when use-time-for-policy is false."
-msgstr ""
+msgstr "危険領域のアクションを実施するバッテリー残量のパーセンテージ。use-time-for-policy が false のときだけ有効です。"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
 msgid "The time remaining when low"
-msgstr ""
+msgstr "残量低下時の残り時間"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
 msgid "The time remaining in seconds of the battery when it is considered low. Only valid when use-time-for-policy is true."
-msgstr ""
+msgstr "残量低下時のバッテリーの残り秒数です。use-time-for-policy が true のときだけ有効です。"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
 msgid "The time remaining when critical"
-msgstr ""
+msgstr "残量が危険領域時の残り時間"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
 msgid "The time remaining in seconds of the battery when it is considered critical. Only valid when use-time-for-policy is true."
-msgstr ""
+msgstr "残量が危険領域時のバッテリーの残り秒数です。use-time-for-policy が true のときだけ有効です。"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:15
 msgid "The time remaining when action is taken"
-msgstr ""
+msgstr "アクション実施時のバッテリーの残り秒数"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:16
 msgid "The time remaining in seconds of the battery when critical action is taken. Only valid when use-time-for-policy is true."
-msgstr ""
+msgstr "危険領域時のアクション実施時のバッテリーの残り秒数です。use-time-for-policy が true のときだけ有効です。"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:17
 msgid "Whether to use time-based notifications"
-msgstr ""
+msgstr "時間基準の通知を使用するかどうか"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:18
 msgid "If time based notifications should be used. If set to false, then the percentage change is used instead, which may fix a broken ACPI BIOS."
-msgstr ""
+msgstr "時間基準の通知を使用するかどうかです。false に設定されている場合、パーセンテージの変化が代わりに使用され、壊れた ACPI BIOS を正してくれます。"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:19
 msgid "If we should show the recalled battery warning for a broken battery"
-msgstr ""
+msgstr "壊れたバッテリーに対して、リコールされたバッテリーだという警告を再び表示させるかどうか"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:20
 msgid "If we should show the recalled battery warning for a broken battery. Set this to false only if you know your battery is okay."
-msgstr ""
+msgstr "壊れたバッテリーに対して、リコールされたバッテリーだという警告を再び表示させるかどうかです。これを false に指定した場合、バッテリーが良好かどうかを知ることしかできません。"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
 msgid "Use mobile broadband connections"
-msgstr ""
+msgstr "モバイルブロードバンド接続を使用する"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
 msgid "Use mobile broadband connections such as GSM and CDMA to check for updates."
-msgstr ""
+msgstr "更新の確認に GSM や CDMA などのモバイルブロードバンド接続を使用します。"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
 msgid "Automatically download updates in the background without confirmation"
@@ -739,7 +739,7 @@ msgstr "バックグラウンドで自動的に更新をダウンロードする
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
 msgid "Automatically download updates in the background without confirmation. Updates will be auto-downloaded when using wired network connnections, and mobile broadband if 'connection-use-mobile' is enabled."
-msgstr ""
+msgstr "バックグラウンドで自動的に更新をダウンロードします。有線ネットワーク接続を使用しているとき、また 'connection-use-mobile' が有効でモバイルブロードバンドを使用しているときに、自動的に更新をダウンロードします。"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
 msgid "How often to check for updates"
@@ -747,23 +747,23 @@ msgstr "更新の確認頻度"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
 msgid "How often to check for updates. Value is in seconds. This is a maximum amount of time that can pass between a security update being published, and the update being automatically installed or the user notified."
-msgstr ""
+msgstr "更新の確認頻度です。値は秒単位です。この最大時間は、セキュリティ更新の間隔になり、更新は自動的にインストールされる、またはユーザーに通知されます。"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
 msgid "How often to notify the user that non-critical updates are available"
-msgstr ""
+msgstr "クリティカルでない更新をユーザーに通知する頻度"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
 msgid "How often to tell the user there are non-critical updates. Value is in seconds. Security update notifications are always shown after the check for updates, but non-critical notifications should be shown a lot less frequently."
-msgstr ""
+msgstr "クリティカルではない更新が利用可能である場合にユーザーに通知する頻度です。値は秒単位です。セキュリティの更新の通知は、更新の調査後に毎回表示され、クリティカルではない通知はそれより低頻度で表示されます。"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
 msgid "The last time we told the user about non-critical notifications"
-msgstr ""
+msgstr "ユーザーにクリティカルではない通知を最後に行った時間"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
 msgid "The last time we notified the user about non-critical updates. Value is in seconds since the epoch, or zero for never."
-msgstr ""
+msgstr "ユーザーにクリティカルではない更新の通知を最後に行った時間です。値は、エポックからの秒単位、または、通知されていない場合のゼロです。"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
 msgid "How often to check for distribution upgrades"
@@ -791,11 +791,11 @@ msgstr "バッテリー電源で動作しているときに更新を確認しま
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
 msgid "Notify the user when distribution upgrades are available"
-msgstr ""
+msgstr "ディストリビューションの更新が利用可能になったときにユーザーに通知する"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
 msgid "Notify the user when distribution upgrades are available."
-msgstr ""
+msgstr "ディストリビューションの更新が利用可能になったときにユーザーに通知します。"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
 msgid "Ask the user if additional firmware should be installed"
@@ -807,27 +807,27 @@ msgstr "追加のファームウェアが利用可能である場合、インス
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
 msgid "Firmware files that should not be searched for"
-msgstr ""
+msgstr "検索しないファームウェアファイル"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
 msgid "Firmware files that should not be searched for, separated by commas. These can include '*' and '?' characters."
-msgstr ""
+msgstr "検索しないファームウェアファイルです。カンマで区切ります。'*' と '?' 文字を含めることができます。"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
 msgid "Devices that should be ignored"
-msgstr ""
+msgstr "無視するデバイス"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
 msgid "Devices that should be ignored, separated by commas. These can include '*' and '?' characters."
-msgstr ""
+msgstr "カンマで分離された無視するデバイスです。 '*' と '?' 文字を含めてもかまいません。"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
 msgid "The filenames on removable media that designate it a software source."
-msgstr ""
+msgstr "ソフトウェアのソースとなるリムーバブルメディア上のファイル名です。"
 
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
 msgid "When removable media is inserted, it is checked to see if it contains any important filenames in the root directory. If the filename matches, then an updates check is performed. This allows post-install disks to be used to update running systems."
-msgstr ""
+msgstr "リムーバブルメディアが挿入された時、ルートディレクトリに重要なファイル名が含まれていないかどうか調査します。ファイル名が一致した場合、更新の調査が実行されます。これで、すでにインストールしたディスクで実行中のシステムを更新することが可能になります。"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
@@ -835,15 +835,17 @@ msgstr "RandR の初期設定ファイル"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
 msgid "The XRandR plugin will look for a default configuration in the file specified by this key. This is similar to the ~/.config/monitors.xml that normally gets stored in users' home directories. If a user does not have such a file, or has one that does not match the user's setup of monitors, then the file specified by this key will be used instead."
-msgstr "XRandR プラグインはこのキーで指定されたファイルをデフォルトの設定ファイルとして検索します。これはユーザーのふつう、ホームディレクトリに保存されている ~/.config/monitors.xml と同様のものです。もしそのようなファイルが無い場合、あるいはあったとしてもモニターの設定に合わない場合、このキーで指定されたファイルが代わりに使われます。"
+msgstr "XRandR プラグインはこのキーで指定されたファイルをデフォルトの設定ファイルとして検索します。これは通常、ユーザーのホームディレクトリに保存されている ~/.config/monitors.xml と同様のものです。もしそのようなファイルが無い場合、あるいはあったとしてもモニターの設定に合わない場合、このキーで指定されたファイルが代わりに使われます。"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 msgid "Whether to turn off specific monitors after boot"
-msgstr ""
+msgstr "ブート後に特殊なモニターをオフにするかどうか"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
+#, fuzzy
+#| msgid "'clone' will display the same thing on all monitors, 'dock' will switch off the internal monitor, 'do-nothing' will use the default Xorg behaviour (extend the desktop in recent versions)"
 msgid "'clone' will display the same thing on all monitors, 'dock' will switch off the internal monitor, 'do-nothing' will use the default Xorg behaviour (extend the desktop in recent versions). The default, 'follow-lid', will choose between 'do-nothing' and 'dock' depending on whether the lid is (respectively) open or closed."
-msgstr ""
+msgstr "'clone' はすべてのモニターで同じ表示を行い、 'dock' は内部モニターに切り替え、 'do-nothing' はデフォルトの Xorg の動作になります(最近のバージョンではデスクトップを拡張します)。"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
 msgid "Antialiasing"
@@ -871,19 +873,19 @@ msgstr "LCD 画面でサブピクセルの各要素の順番を指定します (
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
 msgid "List of explicitly disabled GTK+ modules"
-msgstr ""
+msgstr "明示的に利用不可能な GTK+ モジュールのリスト"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid "A list of strings representing the GTK+ modules that will not be loaded, even if enabled by default in their configuration."
-msgstr ""
+msgstr "ロードしない GTK+ モジュールを示す文字列のリストです。デフォルト設定では有効になっているものも指定できます。"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
 msgid "List of explicitly enabled GTK+ modules"
-msgstr ""
+msgstr "明示的に利用可能な GTK+ モジュールのリスト"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
 msgid "A list of strings representing the GTK+ modules that will be loaded, usually in addition to conditional and forcibly disabled ones."
-msgstr ""
+msgstr "ロードする GTK+ モジュールを示す文字列のリストです。デフォルト設定では無効になっているものも指定できます。"
 
 #: ../gnome-settings-daemon/main.c:52
 msgid "Enable debugging code"
@@ -936,12 +938,12 @@ msgstr "オンにする"
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:424
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:492
 msgid "Leave On"
-msgstr ""
+msgstr "オンのままにする"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:424
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:492
 msgid "Leave Off"
-msgstr ""
+msgstr "オフのままにする"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:465
 msgid "Sticky Keys Turned On"
@@ -967,26 +969,19 @@ msgstr "アクセシビリティの設定"
 msgid "Accessibility settings plugin"
 msgstr "アクセシビリティの設定プラグイン"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
-msgid "Background"
-msgstr "背景"
-
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
-msgid "Background plugin"
-msgstr "背景のプラグイン"
-
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#. Priority=100
+#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
 msgid "Clipboard"
 msgstr "クリップボード"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:3
 msgid "Clipboard plugin"
 msgstr "クリップボードのプラグイン"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1664
 msgid "Color"
-msgstr ""
+msgstr "色"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:2
 msgid "Color plugin"
@@ -994,24 +989,24 @@ msgstr "カラープラグイン"
 
 #: ../plugins/color/gsd-color-manager.c:1669
 msgid "Recalibrate now"
-msgstr ""
+msgstr "再キャリブレーションを行う"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
 #: ../plugins/color/gsd-color-manager.c:1712
 msgid "Recalibration required"
-msgstr ""
+msgstr "再キャリブレーションが要求されています"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
 #: ../plugins/color/gsd-color-manager.c:1724
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
-msgstr ""
+msgstr "ディスプレイ '%s' は、すぐに再キャリブレーションすべきです。"
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
 #: ../plugins/color/gsd-color-manager.c:1733
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
-msgstr ""
+msgstr "プリンター '%s' は、すぐに再キャリブレーションすべきです。"
 
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2057
@@ -1022,11 +1017,20 @@ msgstr "GNOME 設定デーモンのカラープラグイン"
 #. TRANSLATORS: this is a sound description
 #: ../plugins/color/gsd-color-manager.c:2059
 msgid "Color calibration device added"
-msgstr ""
+msgstr "カラーキャリブレーションデバイスが追加されました"
 
 #. TRANSLATORS: this is a sound description
 #: ../plugins/color/gsd-color-manager.c:2075
 msgid "Color calibration device removed"
+msgstr "カラーキャリブレーションデバイスが取り外されました"
+
+#. Priority=100
+#: ../plugins/cursor/cursor.gnome-settings-plugin.in.h:2
+msgid "Cursor"
+msgstr ""
+
+#: ../plugins/cursor/cursor.gnome-settings-plugin.in.h:3
+msgid "Show/hide cursor on tablet devices"
 msgstr ""
 
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
@@ -1038,14 +1042,14 @@ msgid "Dummy plugin"
 msgstr "ダミーのプラグイン"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:578
-#, fuzzy, c-format
+#, c-format
 msgid "Low Disk Space on \"%s\""
-msgstr "ディスクの空き容量が少ないです"
+msgstr "\"%s\" ディスクの空き容量が少なくなりました"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:580
-#, fuzzy, c-format
+#, c-format
 msgid "The volume \"%s\" has only %s disk space remaining.  You may free up some space by emptying the trash."
-msgstr "ボリューム \"%s\" にはディスクの残りが %s しかありません。"
+msgstr "ボリューム \"%s\" にはディスクの残りが %s しかありません。ゴミ箱を空にして容量を増やしましょう。"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:584
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:81
@@ -1060,9 +1064,9 @@ msgid "Low Disk Space"
 msgstr "ディスクの空き容量が少ないです"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:591
-#, fuzzy, c-format
+#, c-format
 msgid "This computer has only %s disk space remaining.  You may free up some space by emptying the trash."
-msgstr "このコンピューターにはディスクの残りが %s しかありません。"
+msgstr "このコンピューターにはディスクの残りが %s しかありません。ゴミ箱を空にして容量を増やしましょう。"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:594
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:84
@@ -1071,15 +1075,12 @@ msgid "This computer has only %s disk space remaining."
 msgstr "このコンピューターにはディスクの残りが %s しかありません。"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:609
-#, fuzzy
-#| msgid "Low Disk Space"
 msgid "Disk space"
-msgstr "ディスクの空き容量が少ないです"
+msgstr "ディスクの空き容量"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:616
-#, fuzzy
 msgid "Examine"
-msgstr "調査中…"
+msgstr "検査"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:624
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:437
@@ -1119,11 +1120,17 @@ msgstr "使っていないプログラムやファイルを削除したり、外
 msgid "Examine…"
 msgstr "調査中…"
 
+#: ../plugins/housekeeping/housekeeping.gnome-settings-plugin.in.h:1
+msgid "Housekeeping"
+msgstr ""
+
+#: ../plugins/housekeeping/housekeeping.gnome-settings-plugin.in.h:2
+msgid "Automatically prunes thumbnail caches and other transient files, and warns about low disk space"
+msgstr ""
+
 #. TRANSLATORS: wireless keyboard with internal battery
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:611
-#, fuzzy
-#| msgid "Keyboard"
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "キーボード"
@@ -1133,8 +1140,10 @@ msgid "Keyboard plugin"
 msgstr "キーボードのプラグイン"
 
 #: ../plugins/media-keys/gsd-screenshot-utils.c:84
+#, fuzzy
+#| msgid "Binding to take a screenshot."
 msgid "Unable to capture a screenshot"
-msgstr ""
+msgstr "スクリーンショットを撮るキーバインディングです。"
 
 #: ../plugins/media-keys/gsd-screenshot-utils.c:115
 #: ../plugins/media-keys/gsd-screenshot-utils.c:155
@@ -1174,127 +1183,137 @@ msgstr[0] "%u 入力"
 msgid "System Sounds"
 msgstr "システムの効果音"
 
-#: ../plugins/media-keys/shortcuts-list.h:93
+#. Priority=100
+#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+msgid "Media keys"
+msgstr "メディアキー"
+
+#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:3
+msgid "Media keys plugin"
+msgstr "メディアキーのプラグイン"
+
+#: ../plugins/media-keys/shortcuts-list.h:99
 msgid "Touchpad toggle"
 msgstr ""
 
-#: ../plugins/media-keys/shortcuts-list.h:94
+#: ../plugins/media-keys/shortcuts-list.h:100
 #, fuzzy
 #| msgid "Toggle touchpad"
 msgid "Touchpad On"
 msgstr "タッチパッドを切り替える"
 
-#: ../plugins/media-keys/shortcuts-list.h:95
+#: ../plugins/media-keys/shortcuts-list.h:101
+#, fuzzy
+#| msgid "Turn Off"
 msgid "Touchpad Off"
-msgstr ""
+msgstr "オフにする"
 
-#: ../plugins/media-keys/shortcuts-list.h:99
+#: ../plugins/media-keys/shortcuts-list.h:105
 msgid "Microphone Mute"
 msgstr ""
 
-#: ../plugins/media-keys/shortcuts-list.h:100
+#: ../plugins/media-keys/shortcuts-list.h:106
 #, fuzzy
 #| msgid "Volume mute"
 msgid "Quiet Volume Mute"
 msgstr "ミュートにする"
 
-#: ../plugins/media-keys/shortcuts-list.h:101
+#: ../plugins/media-keys/shortcuts-list.h:107
 #, fuzzy
 #| msgid "Volume down"
 msgid "Quiet Volume Down"
 msgstr "音量を下げる"
 
-#: ../plugins/media-keys/shortcuts-list.h:102
+#: ../plugins/media-keys/shortcuts-list.h:108
 #, fuzzy
 #| msgid "Volume up"
 msgid "Quiet Volume Up"
 msgstr "音量を上げる"
 
-#: ../plugins/media-keys/shortcuts-list.h:111
+#: ../plugins/media-keys/shortcuts-list.h:117
 #, fuzzy
 #| msgid "Lock screen"
 msgid "Lock Screen"
 msgstr "画面をロックする"
 
-#: ../plugins/media-keys/shortcuts-list.h:125
+#: ../plugins/media-keys/shortcuts-list.h:131
 msgid "Rewind"
 msgstr ""
 
-#: ../plugins/media-keys/shortcuts-list.h:126
+#: ../plugins/media-keys/shortcuts-list.h:132
 msgid "Forward"
 msgstr ""
 
-#: ../plugins/media-keys/shortcuts-list.h:127
+#: ../plugins/media-keys/shortcuts-list.h:133
 msgid "Repeat"
 msgstr ""
 
-#: ../plugins/media-keys/shortcuts-list.h:128
+#: ../plugins/media-keys/shortcuts-list.h:134
 msgid "Random Play"
 msgstr ""
 
 #. Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.)
-#: ../plugins/media-keys/shortcuts-list.h:129
-#: ../plugins/media-keys/shortcuts-list.h:131
+#: ../plugins/media-keys/shortcuts-list.h:135
+#: ../plugins/media-keys/shortcuts-list.h:137
 msgid "Video Out"
 msgstr ""
 
 #. Key code of the XF86RotateWindows key (present on some tablets)
-#: ../plugins/media-keys/shortcuts-list.h:133
+#: ../plugins/media-keys/shortcuts-list.h:139
 msgid "Rotate Screen"
 msgstr ""
 
-#: ../plugins/media-keys/shortcuts-list.h:142
+#: ../plugins/media-keys/shortcuts-list.h:148
+#, fuzzy
+#| msgid "Power"
 msgid "Power Off"
-msgstr ""
+msgstr "電力"
 
 #. the kernel / Xorg names really are like this...
-#: ../plugins/media-keys/shortcuts-list.h:144
+#. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
+#: ../plugins/media-keys/shortcuts-list.h:151
 msgid "Sleep"
 msgstr ""
 
-#: ../plugins/media-keys/shortcuts-list.h:145
+#: ../plugins/media-keys/shortcuts-list.h:152
 msgid "Suspend"
 msgstr ""
 
-#: ../plugins/media-keys/shortcuts-list.h:146
+#: ../plugins/media-keys/shortcuts-list.h:153
 msgid "Hibernate"
 msgstr ""
 
-#: ../plugins/media-keys/shortcuts-list.h:147
+#: ../plugins/media-keys/shortcuts-list.h:154
 msgid "Brightness Up"
 msgstr ""
 
-#: ../plugins/media-keys/shortcuts-list.h:148
+#: ../plugins/media-keys/shortcuts-list.h:155
 msgid "Brightness Down"
 msgstr ""
 
-#: ../plugins/media-keys/shortcuts-list.h:149
+#: ../plugins/media-keys/shortcuts-list.h:156
 #, fuzzy
-#| msgid "Keyboard"
+#| msgid "Keyboard is empty"
 msgid "Keyboard Brightness Up"
-msgstr "キーボード"
+msgstr "キーボードのバッテリーが空です"
 
-#: ../plugins/media-keys/shortcuts-list.h:150
-msgid "Keyboard Brightness Down"
-msgstr ""
-
-#: ../plugins/media-keys/shortcuts-list.h:151
+#: ../plugins/media-keys/shortcuts-list.h:157
 #, fuzzy
-#| msgid "Keyboard plugin"
+#| msgid "Keyboard battery low"
+msgid "Keyboard Brightness Down"
+msgstr "キーボードバッテリー低下"
+
+#: ../plugins/media-keys/shortcuts-list.h:158
+#, fuzzy
+#| msgid "Keyboard is charged"
 msgid "Keyboard Brightness Toggle"
-msgstr "キーボードのプラグイン"
+msgstr "キーボードの充電完了"
 
-#: ../plugins/media-keys/shortcuts-list.h:152
+#: ../plugins/media-keys/shortcuts-list.h:159
+#, fuzzy
+#| msgid "Battery is low"
 msgid "Battery Status"
-msgstr ""
-
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
-msgid "Media keys"
-msgstr "メディアキー"
-
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
-msgid "Media keys plugin"
-msgstr "メディアキーのプラグイン"
+msgstr "バッテリー低下"
 
 #: ../plugins/mouse/gsd-mouse-manager.c:916
 msgid "Could not enable mouse accessibility features"
@@ -1315,9 +1334,22 @@ msgstr[0] "マウス"
 msgid "Mouse plugin"
 msgstr "マウスのプラグイン"
 
+#. Priority=100
+#: ../plugins/orientation/orientation.gnome-settings-plugin.in.h:2
+#, fuzzy
+#| msgid "Print-notifications"
+msgid "Orientation"
+msgstr "印刷の通知"
+
+#: ../plugins/orientation/orientation.gnome-settings-plugin.in.h:3
+#, fuzzy
+#| msgid "Print-notifications plugin"
+msgid "Orientation plugin"
+msgstr "印刷の通知プラグイン"
+
 #: ../plugins/power/gpm-common.c:73
 msgid "Unknown time"
-msgstr ""
+msgstr "残り時間不明"
 
 #: ../plugins/power/gpm-common.c:78
 #, c-format
@@ -1361,7 +1393,7 @@ msgstr "あと %s ノート PC のバッテリーで動作できます"
 #: ../plugins/power/gpm-common.c:354
 #, c-format
 msgid "%s %s remaining"
-msgstr ""
+msgstr "残り %s %s"
 
 #. TRANSLATORS: device is charging, and we have a time to full and a percentage
 #. * The first parameter is the device type, e.g. "Laptop battery" and
@@ -1384,7 +1416,7 @@ msgstr "あと %s バッテリーで動作できます"
 #. TRANSLATORS: the type of data, e.g. Laptop battery
 #: ../plugins/power/gpm-common.c:473
 msgid "Product:"
-msgstr ""
+msgstr "プロダクト:"
 
 #. TRANSLATORS: device is missing
 #. TRANSLATORS: device is charged
@@ -1397,7 +1429,7 @@ msgstr "状態:"
 
 #: ../plugins/power/gpm-common.c:477
 msgid "Missing"
-msgstr ""
+msgstr "不明"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:480 ../plugins/power/gpm-common.c:749
@@ -1427,7 +1459,7 @@ msgstr "ベンダー:"
 #. TRANSLATORS: how the battery is made, e.g. Lithium Ion
 #: ../plugins/power/gpm-common.c:500
 msgid "Technology:"
-msgstr ""
+msgstr "テクノロジー:"
 
 #. TRANSLATORS: serial number of the battery
 #: ../plugins/power/gpm-common.c:504
@@ -1468,23 +1500,24 @@ msgstr "不可"
 
 #: ../plugins/power/gpm-common.c:536
 msgid "Capacity:"
-msgstr ""
+msgstr "容量:"
 
 #: ../plugins/power/gpm-common.c:542 ../plugins/power/gpm-common.c:567
 msgid "Current charge:"
-msgstr ""
+msgstr "現在の充電状態:"
 
 #: ../plugins/power/gpm-common.c:548
 msgid "Last full charge:"
-msgstr ""
+msgstr "最近の完全充電:"
 
+# 直訳すると、デザイン料？定格充電としておく。
 #: ../plugins/power/gpm-common.c:554 ../plugins/power/gpm-common.c:572
 msgid "Design charge:"
-msgstr ""
+msgstr "定格充電:"
 
 #: ../plugins/power/gpm-common.c:559
 msgid "Charge rate:"
-msgstr ""
+msgstr "充電率:"
 
 #. TRANSLATORS: system power cord
 #: ../plugins/power/gpm-common.c:591
@@ -1496,7 +1529,7 @@ msgstr[0] "AC アダプター"
 #: ../plugins/power/gpm-common.c:595
 msgid "Laptop battery"
 msgid_plural "Laptop batteries"
-msgstr[0] ""
+msgstr[0] "ノート PC のバッテリー"
 
 #. TRANSLATORS: battery-backed AC power source
 #: ../plugins/power/gpm-common.c:599
@@ -1543,44 +1576,42 @@ msgstr[0] "コンピューター"
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:696
 msgid "Lithium Ion"
-msgstr ""
+msgstr "リチウムイオン"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:700
 msgid "Lithium Polymer"
-msgstr ""
+msgstr "リチウムポリマー"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:704
 msgid "Lithium Iron Phosphate"
-msgstr ""
+msgstr "リン酸鉄リチウム"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:708
 msgid "Lead acid"
-msgstr ""
+msgstr "鉛蓄電池"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:712
 msgid "Nickel Cadmium"
-msgstr ""
+msgstr "ニッケルカドミウム"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:716
 msgid "Nickel metal hydride"
-msgstr ""
+msgstr "ニッケル水素電池"
 
 #. TRANSLATORS: battery technology
 #: ../plugins/power/gpm-common.c:720
 msgid "Unknown technology"
-msgstr ""
+msgstr "不明なテクノロジー"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:745
-#, fuzzy
-#| msgid "Empty Trash"
 msgid "Empty"
-msgstr "ゴミ箱を空にする"
+msgstr "空"
 
 #. TRANSLATORS: battery state
 #: ../plugins/power/gpm-common.c:753
@@ -1789,324 +1820,339 @@ msgstr "コンピューターの充電完了"
 
 #. TRANSLATORS: this is the sound description
 #: ../plugins/power/gpm-common.c:1732
-#: ../plugins/power/gsd-power-manager.c:1623
-#: ../plugins/power/gsd-power-manager.c:1753
+#: ../plugins/power/gsd-power-manager.c:1628
+#: ../plugins/power/gsd-power-manager.c:1758
 msgid "Battery is critically low"
 msgstr "バッテリーがひどく低下しています"
 
 #. TRANSLATORS: the battery may be recalled by its vendor
-#: ../plugins/power/gsd-power-manager.c:924
+#: ../plugins/power/gsd-power-manager.c:929
 msgid "Battery may be recalled"
-msgstr ""
+msgstr "バッテリーはリコール対象の可能性があります"
 
-#: ../plugins/power/gsd-power-manager.c:927
+# you may be at risk を 自己責任による変更物 と訳出したが、ここまで強い意味ではないかもしれない。
+#: ../plugins/power/gsd-power-manager.c:932
 #, c-format
 msgid "A battery in your computer may have been recalled by %s and you may be at risk."
-msgstr ""
+msgstr "お使いのバッテリーは、%s によりリコールされた可能性があり、危険を伴うおそれがあります。"
 
-#: ../plugins/power/gsd-power-manager.c:930
+#: ../plugins/power/gsd-power-manager.c:935
 msgid "For more information visit the battery recall website."
 msgstr "詳細については、バッテリーのリコールに関するウェブサイトを参照してください。"
 
 #. TRANSLATORS: button text, visit the manufacturers recall website
-#: ../plugins/power/gsd-power-manager.c:941
+#: ../plugins/power/gsd-power-manager.c:946
 msgid "Visit recall website"
 msgstr "リコールウェブサイトへ"
 
 #. TRANSLATORS: button text, do not show this bubble again
-#: ../plugins/power/gsd-power-manager.c:945
-#, fuzzy
-#| msgid "Don't show any warnings again"
+#: ../plugins/power/gsd-power-manager.c:950
 msgid "Do not show me this again"
-msgstr "警告を一切表示しない"
+msgstr "この警告を一切表示しない"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:1198
+#: ../plugins/power/gsd-power-manager.c:1203
 msgid "UPS Discharging"
-msgstr ""
+msgstr "UPS の充電中"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1203
+#: ../plugins/power/gsd-power-manager.c:1208
 #, c-format
 msgid "%s of UPS backup power remaining"
-msgstr ""
+msgstr "UPS のバックアップ電力の残り時間は %s です。"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:1224
-#: ../plugins/power/gsd-power-manager.c:1433
-#: ../plugins/power/gsd-power-manager.c:1606
-#: ../plugins/power/gsd-power-manager.c:1744
-#: ../plugins/power/gsd-power-manager.c:3051
+#: ../plugins/power/gsd-power-manager.c:1229
+#: ../plugins/power/gsd-power-manager.c:1438
+#: ../plugins/power/gsd-power-manager.c:1611
+#: ../plugins/power/gsd-power-manager.c:1749
+#: ../plugins/power/gsd-power-manager.c:3084
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
-msgstr ""
+msgstr "電力"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:1343
+#: ../plugins/power/gsd-power-manager.c:1348
 msgid "Battery low"
-msgstr ""
+msgstr "バッテリー低下"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1346
+#: ../plugins/power/gsd-power-manager.c:1351
 msgid "Laptop battery low"
-msgstr ""
+msgstr "ノート PC のバッテリー低下"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1353
+#: ../plugins/power/gsd-power-manager.c:1358
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "約 %s 残っています (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:1360
+#: ../plugins/power/gsd-power-manager.c:1365
 msgid "UPS low"
-msgstr ""
+msgstr "UPS バッテリー低下"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1366
+#: ../plugins/power/gsd-power-manager.c:1371
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "UPS バックアップ電力は約 %s 残っています (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:1371
-#: ../plugins/power/gsd-power-manager.c:1530
+#: ../plugins/power/gsd-power-manager.c:1376
+#: ../plugins/power/gsd-power-manager.c:1535
 msgid "Mouse battery low"
 msgstr "マウスのバッテリー低下"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1374
+#: ../plugins/power/gsd-power-manager.c:1379
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "ワイヤレスマウスのバッテリーが低下しています (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:1378
-#: ../plugins/power/gsd-power-manager.c:1538
+#: ../plugins/power/gsd-power-manager.c:1383
+#: ../plugins/power/gsd-power-manager.c:1543
 msgid "Keyboard battery low"
 msgstr "キーボードのバッテリー低下"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1381
+#: ../plugins/power/gsd-power-manager.c:1386
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "ワイヤレスキーボードのバッテリーが低下しています (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:1385
-#: ../plugins/power/gsd-power-manager.c:1547
+#: ../plugins/power/gsd-power-manager.c:1390
+#: ../plugins/power/gsd-power-manager.c:1552
 msgid "PDA battery low"
 msgstr "PDA のバッテリー低下"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1388
+#: ../plugins/power/gsd-power-manager.c:1393
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "PDA のバッテリーが低下しています (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1392
-#: ../plugins/power/gsd-power-manager.c:1557
-#: ../plugins/power/gsd-power-manager.c:1566
+#: ../plugins/power/gsd-power-manager.c:1397
+#: ../plugins/power/gsd-power-manager.c:1562
+#: ../plugins/power/gsd-power-manager.c:1571
 msgid "Cell phone battery low"
 msgstr "携帯電話のバッテリー低下"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1395
+#: ../plugins/power/gsd-power-manager.c:1400
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "携帯電話のバッテリーが低下しています (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:1399
+#: ../plugins/power/gsd-power-manager.c:1404
 msgid "Media player battery low"
 msgstr "メディアプレーヤーのバッテリー低下"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1402
+#: ../plugins/power/gsd-power-manager.c:1407
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "メディアプレーヤーのバッテリーが低下しています (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1406
-#: ../plugins/power/gsd-power-manager.c:1575
+#: ../plugins/power/gsd-power-manager.c:1411
+#: ../plugins/power/gsd-power-manager.c:1580
 msgid "Tablet battery low"
 msgstr "タブレットのバッテリー低下"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1409
+#: ../plugins/power/gsd-power-manager.c:1414
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "タブレットの電力が低下しています (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1413
-#: ../plugins/power/gsd-power-manager.c:1584
+#: ../plugins/power/gsd-power-manager.c:1418
+#: ../plugins/power/gsd-power-manager.c:1589
 msgid "Attached computer battery low"
 msgstr "接続されたコンピューターのバッテリー低下"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1416
+#: ../plugins/power/gsd-power-manager.c:1421
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "接続されたコンピューターのバッテリーが低下しています (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1443
+#: ../plugins/power/gsd-power-manager.c:1448
 msgid "Battery is low"
 msgstr "バッテリー低下"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1484
+#: ../plugins/power/gsd-power-manager.c:1489
 msgid "Battery critically low"
 msgstr "バッテリーがひどく低下"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1487
-#: ../plugins/power/gsd-power-manager.c:1658
+#: ../plugins/power/gsd-power-manager.c:1492
+#: ../plugins/power/gsd-power-manager.c:1663
 msgid "Laptop battery critically low"
 msgstr "ノート PC のバッテリーがひどく低下"
 
 #. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
-#: ../plugins/power/gsd-power-manager.c:1496
+#: ../plugins/power/gsd-power-manager.c:1501
 msgid "Plug in your AC adapter to avoid losing data."
 msgstr "データが失われないように AC アダプターを接続してください。"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1500
+#: ../plugins/power/gsd-power-manager.c:1505
 #, c-format
 msgid "Computer will suspend very soon unless it is plugged in."
 msgstr "アダプターを接続しない場合、コンピューターはまもなくサスペンドします。"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1504
+#: ../plugins/power/gsd-power-manager.c:1509
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr "アダプターを接続しない場合、コンピューターはまもなくハイバネートします。"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1508
+#: ../plugins/power/gsd-power-manager.c:1513
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "アダプターを接続しない場合、コンピューターはまもなくシャットダウンします。"
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1518
-#: ../plugins/power/gsd-power-manager.c:1696
+#: ../plugins/power/gsd-power-manager.c:1523
+#: ../plugins/power/gsd-power-manager.c:1701
 msgid "UPS critically low"
 msgstr "UPS の電源がひどく低下しています"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1524
+#: ../plugins/power/gsd-power-manager.c:1529
 #, c-format
 msgid "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your computer to avoid losing data."
 msgstr "UPS 電源の残り時間は約 %s です(%.0f%%)。データを失わないように、コンピューターの AC 電源を復帰してください。"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1533
+#: ../plugins/power/gsd-power-manager.c:1538
 #, c-format
 msgid "Wireless mouse is very low in power (%.0f%%). This device will soon stop functioning if not charged."
-msgstr ""
+msgstr "ワイヤレスマウスの電源が非常に低くなっています(%.0f%%)。このデバイスは、充電されないとまもなく機能を停止します。"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1541
+#: ../plugins/power/gsd-power-manager.c:1546
 #, c-format
 msgid "Wireless keyboard is very low in power (%.0f%%). This device will soon stop functioning if not charged."
-msgstr ""
+msgstr "ワイヤレスキーボードの電源が非常に低くなっています(%.0f%%)。このデバイスは、充電されないとまもなく機能を停止します。"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1550
+#: ../plugins/power/gsd-power-manager.c:1555
 #, c-format
 msgid "PDA is very low in power (%.0f%%). This device will soon stop functioning if not charged."
-msgstr ""
+msgstr "PDA の電源が非常に低くなっています(%.0f%%)。このデバイスは、充電されないとまもなく機能を停止します。"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1560
+#: ../plugins/power/gsd-power-manager.c:1565
 #, c-format
 msgid "Cell phone is very low in power (%.0f%%). This device will soon stop functioning if not charged."
-msgstr ""
+msgstr "携帯電話の電源が非常に低くなっています(%.0f%%)。このデバイスは、充電されないとまもなく機能を停止します。"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1569
+#: ../plugins/power/gsd-power-manager.c:1574
 #, c-format
 msgid "Media player is very low in power (%.0f%%). This device will soon stop functioning if not charged."
-msgstr ""
+msgstr "メディアプレーヤーの電源が非常に低下しています(%.0f%%)。このデバイスは、充電されないとまもなく機能を停止します。"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1578
+#: ../plugins/power/gsd-power-manager.c:1583
 #, c-format
 msgid "Tablet is very low in power (%.0f%%). This device will soon stop functioning if not charged."
-msgstr ""
+msgstr "タブレットの電源が非常に低くなっています(%.0f%%)。このデバイスは、充電されないとまもなく機能を停止します。"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1587
+#: ../plugins/power/gsd-power-manager.c:1592
 #, c-format
 msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
-msgstr ""
+msgstr "接続されたコンピューターの電源が非常に低くなっています(%.0f%%)。このデバイスは、充電されないとまもなく機能を停止します。"
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1666
+#: ../plugins/power/gsd-power-manager.c:1671
 msgid "The battery is below the critical level and this computer will <b>power-off</b> when the battery becomes completely empty."
-msgstr ""
+msgstr "バッテリーがクリティカルなレベルを下回っています。バッテリーが完全に空になると、このコンピューターは<b>電源オフ</b>します。"
 
 #. TRANSLATORS: computer will suspend
-#: ../plugins/power/gsd-power-manager.c:1672
+#: ../plugins/power/gsd-power-manager.c:1677
 msgid ""
 "The battery is below the critical level and this computer is about to suspend.\n"
 "<b>NOTE:</b> A small amount of power is required to keep your computer in a suspended state."
 msgstr ""
+"バッテリーがクリティカルなレベルを下回っています。このコンピューターはまもなくサスペンドします。\n"
+"<b>注意:</b> コンピューターのサスペンド状態を保つため、僅かな電力が必要です。"
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1679
+#: ../plugins/power/gsd-power-manager.c:1684
 msgid "The battery is below the critical level and this computer is about to hibernate."
-msgstr ""
+msgstr "バッテリーがクリティカルなレベルを下回っています。このコンピューターはまもなくハイバネートします。"
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1684
+#: ../plugins/power/gsd-power-manager.c:1689
 msgid "The battery is below the critical level and this computer is about to shutdown."
-msgstr ""
+msgstr "バッテリーがクリティカルなレベルを下回っています。このコンピューターはまもなくシャットダウンします。"
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1704
+#: ../plugins/power/gsd-power-manager.c:1709
 msgid "UPS is below the critical level and this computer will <b>power-off</b> when the UPS becomes completely empty."
-msgstr ""
+msgstr "UPS がクリティカルなレベルを下回っています。 完全に空になるとこのコンピューターは<b>電源オフ</b>します。"
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1710
+#: ../plugins/power/gsd-power-manager.c:1715
 msgid "UPS is below the critical level and this computer is about to hibernate."
-msgstr ""
+msgstr "UPS がクリティカルなレベルを下回っています。このコンピューターはまもなくハイバネートします。"
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1715
+#: ../plugins/power/gsd-power-manager.c:1720
 msgid "UPS is below the critical level and this computer is about to shutdown."
-msgstr ""
+msgstr "UPS がクリティカルなレベルを下回っています。このコンピューターはまもなくシャットダウンします。"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2218
+#: ../plugins/power/gsd-power-manager.c:2223
 msgid "Lid has been opened"
 msgstr "ふたが開けられました"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2256
+#: ../plugins/power/gsd-power-manager.c:2261
 msgid "Lid has been closed"
 msgstr "ふたが閉じられました"
 
-#. create a new notification
-#: ../plugins/power/gsd-power-manager.c:3044
+#: ../plugins/power/gsd-power-manager.c:3063
 msgid "Automatic logout"
 msgstr ""
 
-#: ../plugins/power/gsd-power-manager.c:3044
+#: ../plugins/power/gsd-power-manager.c:3063
 msgid "You will soon log out because of inactivity."
+msgstr ""
+
+#: ../plugins/power/gsd-power-manager.c:3068
+msgid "Automatic suspend"
+msgstr ""
+
+#: ../plugins/power/gsd-power-manager.c:3068
+#: ../plugins/power/gsd-power-manager.c:3073
+#, fuzzy
+#| msgid "Computer will suspend very soon unless it is plugged in."
+msgid "Computer will suspend very soon because of inactivity."
+msgstr "アダプターを接続しない場合、コンピューターはまもなくサスペンドします。"
+
+#: ../plugins/power/gsd-power-manager.c:3073
+msgid "Automatic hibernation"
 msgstr ""
 
 #. SECURITY:
@@ -2354,13 +2400,30 @@ msgstr "プリンターの警告"
 msgid "Printer '%s': '%s'."
 msgstr "プリンター '%s': '%s'"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#. Priority=100
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
 msgid "Print-notifications"
 msgstr "印刷の通知"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:3
 msgid "Print-notifications plugin"
 msgstr "印刷の通知プラグイン"
+
+#: ../plugins/remote-display/remote-display.gnome-settings-plugin.in.h:1
+msgid "Remote Display"
+msgstr ""
+
+#: ../plugins/remote-display/remote-display.gnome-settings-plugin.in.h:2
+msgid "Disable animations on remote displays"
+msgstr ""
+
+#: ../plugins/screensaver-proxy/screensaver-proxy.gnome-settings-plugin.in.h:1
+msgid "Screensaver Proxy"
+msgstr ""
+
+#: ../plugins/screensaver-proxy/screensaver-proxy.gnome-settings-plugin.in.h:2
+msgid "Proxy FreeDesktop screensaver inhibition to gnome-session"
+msgstr ""
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:529
 msgid "received error or hang up from event source"
@@ -2391,6 +2454,26 @@ msgstr "カードから受け取ったイベントを確認できませんでし
 msgid "encountered unexpected error while waiting for smartcard events"
 msgstr "スマートカードのイベントを待機中に想定外のエラーに遭遇しました"
 
+#: ../plugins/smartcard/smartcard.gnome-settings-plugin.in.h:1
+#, fuzzy
+#| msgid "smartcard driver"
+msgid "Smartcard"
+msgstr "スマートカードドライバー"
+
+#: ../plugins/smartcard/smartcard.gnome-settings-plugin.in.h:2
+#, fuzzy
+#| msgid "Background plugin"
+msgid "Smartcard plugin"
+msgstr "背景のプラグイン"
+
+#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
+msgid "Sound"
+msgstr ""
+
+#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
+msgid "Sound Sample Cache plugin"
+msgstr ""
+
 #. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
 #: ../plugins/updates/gsd-updates-firmware.c:250
 msgid "You will need to restart this computer before the hardware will work correctly."
@@ -2407,11 +2490,11 @@ msgstr "追加のソフトウェアがインストールされました"
 #: ../plugins/updates/gsd-updates-firmware.c:283
 #: ../plugins/updates/gsd-updates-firmware.c:311
 #: ../plugins/updates/gsd-updates-firmware.c:603
-#: ../plugins/updates/gsd-updates-manager.c:344
-#: ../plugins/updates/gsd-updates-manager.c:472
-#: ../plugins/updates/gsd-updates-manager.c:534
-#: ../plugins/updates/gsd-updates-manager.c:588
-#: ../plugins/updates/gsd-updates-manager.c:1221
+#: ../plugins/updates/gsd-updates-manager.c:347
+#: ../plugins/updates/gsd-updates-manager.c:478
+#: ../plugins/updates/gsd-updates-manager.c:540
+#: ../plugins/updates/gsd-updates-manager.c:594
+#: ../plugins/updates/gsd-updates-manager.c:1236
 msgid "Software Updates"
 msgstr "ソフトウェアの更新"
 
@@ -2428,266 +2511,280 @@ msgstr "ハードウェアの設定が完了し、使用可能になりました
 #. TRANSLATORS: we need another package to keep udev quiet
 #: ../plugins/updates/gsd-updates-firmware.c:587
 msgid "Additional firmware is required to make hardware in this computer function correctly."
-msgstr ""
+msgstr "このコンピューターのハードウェアの機能を正常にするため、追加のファームウェアが必要です。"
 
 #. TRANSLATORS: title of libnotify bubble
 #: ../plugins/updates/gsd-updates-firmware.c:601
 msgid "Additional firmware required"
-msgstr ""
+msgstr "追加のファームウェアの要求"
 
 #. TRANSLATORS: button label
 #: ../plugins/updates/gsd-updates-firmware.c:608
 msgid "Install firmware"
-msgstr ""
+msgstr "ファームウェアのインストール"
 
 #. TRANSLATORS: we should ignore this device and not ask anymore
 #: ../plugins/updates/gsd-updates-firmware.c:611
-#, fuzzy
 msgid "Ignore devices"
-msgstr "無視"
+msgstr "デバイスを無視"
 
 #. TRANSLATORS: this is when the offline update failed
-#: ../plugins/updates/gsd-updates-manager.c:121
+#: ../plugins/updates/gsd-updates-manager.c:120
 msgid "Failed To Update"
-msgstr ""
+msgstr "更新の失敗"
 
 #. TRANSLATORS: the transaction could not be completed
 #. * as a previous transaction was unfinished
-#: ../plugins/updates/gsd-updates-manager.c:127
+#: ../plugins/updates/gsd-updates-manager.c:126
 msgid "A previous update was unfinished."
-msgstr ""
+msgstr "前回の更新が完了していません。"
 
 #. TRANSLATORS: the package manager needed to download
 #. * something with no network available
-#: ../plugins/updates/gsd-updates-manager.c:137
+#: ../plugins/updates/gsd-updates-manager.c:136
 msgid "Network access was required but not available."
-msgstr ""
+msgstr "ネットワークアクセスが必要ですが、利用できません。"
 
 #. TRANSLATORS: if the package is not signed correctly
 #. *
-#: ../plugins/updates/gsd-updates-manager.c:146
+#: ../plugins/updates/gsd-updates-manager.c:145
 msgid "An update was not signed in the correct way."
-msgstr ""
+msgstr "更新は正しい方法で署名されていません。"
 
 #. TRANSLATORS: the transaction failed in a way the user
 #. * probably cannot comprehend. Package management systems
 #. * really are teh suck.
-#: ../plugins/updates/gsd-updates-manager.c:156
+#: ../plugins/updates/gsd-updates-manager.c:155
 msgid "The update could not be completed."
-msgstr ""
+msgstr "更新を完了できませんでした。"
 
 #. TRANSLATORS: the user aborted the update manually
-#: ../plugins/updates/gsd-updates-manager.c:161
+#: ../plugins/updates/gsd-updates-manager.c:160
 msgid "The update was cancelled."
-msgstr ""
+msgstr "更新がキャンセルされました。"
 
 #. TRANSLATORS: the user must have updated manually after
 #. * the updates were prepared
-#: ../plugins/updates/gsd-updates-manager.c:167
+#: ../plugins/updates/gsd-updates-manager.c:166
 msgid "An offline update was requested but no packages required updating."
-msgstr ""
+msgstr "オフラインの更新が要求されましたが、必要な更新パッケージはありません。"
 
 #. TRANSLATORS: we ran out of disk space
-#: ../plugins/updates/gsd-updates-manager.c:171
+#: ../plugins/updates/gsd-updates-manager.c:170
 msgid "No space was left on the drive."
-msgstr ""
+msgstr "ドライブに空き領域がありません。"
 
 #. TRANSLATORS: the update process failed in a general
 #. * way, usually this message will come from source distros
 #. * like gentoo
-#: ../plugins/updates/gsd-updates-manager.c:179
+#: ../plugins/updates/gsd-updates-manager.c:178
 msgid "An update failed to install correctly."
-msgstr ""
+msgstr "更新のインストールが正常に終わりませんでした。"
 
 #. TRANSLATORS: We didn't handle the error type
-#: ../plugins/updates/gsd-updates-manager.c:184
+#: ../plugins/updates/gsd-updates-manager.c:183
 msgid "The offline update failed in an unexpected way."
-msgstr ""
+msgstr "オフラインの更新で予期せぬエラーが発生しました。"
 
 #. TRANSLATORS: these are geeky messages from the
 #. * package manager no mortal is supposed to understand,
 #. * but google might know what they mean
-#: ../plugins/updates/gsd-updates-manager.c:193
+#: ../plugins/updates/gsd-updates-manager.c:192
 msgid "Detailed errors from the package manager follow:"
 msgstr "パッケージマネジャーからのエラーの詳細は次のとおり:"
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:339
+#: ../plugins/updates/gsd-updates-manager.c:342
 msgid "Distribution upgrades available"
-msgstr ""
+msgstr "ディストリビューションの更新が利用可能です。"
 
 #. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:349
+#: ../plugins/updates/gsd-updates-manager.c:352
 msgid "More information"
-msgstr ""
+msgstr "更新の追加情報"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:454
-#: ../plugins/updates/gsd-updates-manager.c:516
+#: ../plugins/updates/gsd-updates-manager.c:460
+#: ../plugins/updates/gsd-updates-manager.c:522
 msgid "Update"
 msgid_plural "Updates"
 msgstr[0] "更新"
 
 #. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:457
+#: ../plugins/updates/gsd-updates-manager.c:463
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
 msgstr[0] "重要なソフトウェアの更新が利用可能です"
 
 #. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:477
-#: ../plugins/updates/gsd-updates-manager.c:539
+#: ../plugins/updates/gsd-updates-manager.c:483
+#: ../plugins/updates/gsd-updates-manager.c:545
 msgid "Install updates"
 msgstr "更新のインストール"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:519
+#: ../plugins/updates/gsd-updates-manager.c:525
 msgid "A software update is available."
 msgid_plural "Software updates are available."
 msgstr[0] "ソフトウェアの更新が利用可能です。"
 
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:575
+#: ../plugins/updates/gsd-updates-manager.c:581
+#: ../plugins/updates/updates.gnome-settings-plugin.in.h:1
 msgid "Updates"
 msgstr "更新"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:579
+#: ../plugins/updates/gsd-updates-manager.c:585
 msgid "Unable to access software updates"
 msgstr "ソフトウェアの更新にアクセスできません"
 
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:582
+#: ../plugins/updates/gsd-updates-manager.c:588
 msgid "Try again"
 msgstr "再試行"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:958
+#: ../plugins/updates/gsd-updates-manager.c:973
 msgid "A transaction that cannot be interrupted is running"
-msgstr ""
+msgstr "実行時に中断できないトランザクションです"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1178
+#: ../plugins/updates/gsd-updates-manager.c:1193
 msgid "Software Update Installed"
 msgid_plural "Software Updates Installed"
-msgstr[0] ""
+msgstr[0] "更新されたソフトウェアがインストールされました"
 
 #. TRANSLATORS: message when we've done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1183
+#: ../plugins/updates/gsd-updates-manager.c:1198
 msgid "An important OS update has been installed."
 msgid_plural "Important OS updates have been installed."
-msgstr[0] ""
+msgstr[0] "重要な OS の更新がインストールされました。"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1209
+#: ../plugins/updates/gsd-updates-manager.c:1224
 msgid "Software Updates Failed"
-msgstr ""
+msgstr "ソフトウェアの更新に失敗しました"
 
 #. TRANSLATORS: message when we've not done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1212
+#: ../plugins/updates/gsd-updates-manager.c:1227
 msgid "An important OS update failed to be installed."
-msgstr ""
+msgstr "重要な OS 更新のインストールに失敗しました。"
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1228
+#: ../plugins/updates/gsd-updates-manager.c:1243
 msgid "Review"
-msgstr ""
+msgstr "確認"
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1233
+#: ../plugins/updates/gsd-updates-manager.c:1248
 msgid "Show details"
 msgstr "詳細の表示"
 
 #. TRANSLATORS: button: clear notification
-#: ../plugins/updates/gsd-updates-manager.c:1237
+#: ../plugins/updates/gsd-updates-manager.c:1252
 msgid "OK"
 msgstr "OK"
 
+#: ../plugins/updates/updates.gnome-settings-plugin.in.h:2
+#, fuzzy
+#| msgid "Media keys plugin"
+msgid "Updates plugin"
+msgstr "メディアキーのプラグイン"
+
 #. If no mode is available, we use "left-ring-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1076
+#, fuzzy
+#| msgid "Left Ring Mode #%d"
 msgid "Left Ring"
-msgstr ""
+msgstr "左タッチホイールのモード #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1086
 #, c-format
 msgid "Left Ring Mode #%d"
-msgstr ""
+msgstr "左タッチホイールのモード #%d"
 
 #. If no mode is available, we use "right-ring-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1105
+#, fuzzy
+#| msgid "Right Ring Mode #%d"
 msgid "Right Ring"
-msgstr ""
+msgstr "右タッチホイールのモード #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1115
 #, c-format
 msgid "Right Ring Mode #%d"
-msgstr ""
+msgstr "右タッチホイールのモード #%d"
 
 #. If no mode is available, we use "left-strip-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1156
+#, fuzzy
+#| msgid "Left Touchstrip Mode #%d"
 msgid "Left Touchstrip"
-msgstr ""
+msgstr "左トラックパッドのモード #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1166
 #, c-format
 msgid "Left Touchstrip Mode #%d"
-msgstr ""
+msgstr "左トラックパッドのモード #%d"
 
 #. If no mode is available, we use "right-strip-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1185
+#, fuzzy
+#| msgid "Right Touchstrip Mode #%d"
 msgid "Right Touchstrip"
-msgstr ""
+msgstr "右トラックパッドのモード #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1195
 #, c-format
 msgid "Right Touchstrip Mode #%d"
-msgstr ""
+msgstr "右トラックパッドのモード #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1220
 #, c-format
 msgid "Left Touchring Mode Switch"
-msgstr ""
+msgstr "左タッチホイールのモードスイッチ"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1222
 #, c-format
 msgid "Right Touchring Mode Switch"
-msgstr ""
+msgstr "右タッチホイールのモードスイッチ"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1225
 #, c-format
 msgid "Left Touchstrip Mode Switch"
-msgstr ""
+msgstr "左トラックパッドのモードスイッチ"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1227
 #, c-format
 msgid "Right Touchstrip Mode Switch"
-msgstr ""
+msgstr "右トラックパッドのモードスイッチ"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1232
 #, c-format
 msgid "Mode Switch #%d"
-msgstr ""
+msgstr "モードスイッチ #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1336
 #, c-format
 msgid "Left Button #%d"
-msgstr ""
+msgstr "左ボタン #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1339
 #, c-format
 msgid "Right Button #%d"
-msgstr ""
+msgstr "右ボタン #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1342
 #, c-format
 msgid "Top Button #%d"
-msgstr ""
+msgstr "上ボタン #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1345
 #, c-format
 msgid "Bottom Button #%d"
-msgstr ""
+msgstr "下ボタン #%d"
 
 #: ../plugins/wacom/gsd-wacom-osd-window.c:922
 #: ../plugins/wacom/gsd-wacom-osd-window.c:942
@@ -2708,9 +2805,11 @@ msgid "Show On-Screen Help"
 msgstr ""
 
 #: ../plugins/wacom/gsd-wacom-osd-window.c:948
+#, fuzzy
+#| msgid "Switch input source"
 msgctxt "Action type"
 msgid "Switch Monitor"
-msgstr ""
+msgstr "入力ソースの切り替え"
 
 #: ../plugins/wacom/gsd-wacom-osd-window.c:986
 #, c-format
@@ -2723,11 +2822,21 @@ msgstr ""
 #.
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:5
 msgid "Modify the lit LED for a Wacom tablet"
-msgstr ""
+msgstr "Wacom タブレットの LED 設定の変更"
 
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:6
 msgid "Authentication is required to modify the lit LED for a Wacom tablet"
+msgstr "Wacom タブレットの LED 設定の変更には認証が必要です。"
+
+#: ../plugins/wacom/wacom.gnome-settings-plugin.in.h:1
+msgid "Wacom"
 msgstr ""
+
+#: ../plugins/wacom/wacom.gnome-settings-plugin.in.h:2
+#, fuzzy
+#| msgid "Background plugin"
+msgid "Wacom plugin"
+msgstr "背景のプラグイン"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:509
 msgid "Could not switch the monitor configuration"
@@ -2792,14 +2901,158 @@ msgstr "X の設定"
 msgid "Manage X Settings"
 msgstr "X の設定を管理します"
 
+#~ msgid "Background"
+#~ msgstr "背景"
+
+#~ msgid "Command to be run when a device is added or removed."
+#~ msgstr "デバイスが追加または削除された時に実行するコマンドです。"
+
+#~ msgid "Binding to select the next input source"
+#~ msgstr "次の入力ソースに切り替えるキーバインディングです。"
+
+#~ msgid "Switch input source backward"
+#~ msgstr "前の入力ソースに切り替え"
+
+#~ msgid "Binding to select the previous input source"
+#~ msgstr "前の入力ソースに切り替えるキーバインディングです"
+
+#~ msgid "There was an error displaying help: %s"
+#~ msgstr "ヘルプを表示する際にエラーが発生しました: %s"
+
+#~ msgid "_Turn Off"
+#~ msgstr "オフにする(_T)"
+
+#~ msgid "_Turn On"
+#~ msgstr "オンにする(_T)"
+
+#~ msgid "_Leave On"
+#~ msgstr "オンのままにする(_L)"
+
+#~ msgid "_Leave Off"
+#~ msgstr "オフのままにする(_L)"
+
+#~ msgid "Universal Access Preferences"
+#~ msgstr "ユニバーサル・アクセスの設定"
+
+#~ msgid "Use on-screen _keyboard"
+#~ msgstr "オンスクリーン・キーボードを使う(_K)"
+
+#~ msgid "Use screen _reader"
+#~ msgstr "スクリーンリーダを使う(_R)"
+
+#~ msgid "Use screen _magnifier"
+#~ msgstr "スクリーンの拡大鏡を使う(_M)"
+
+#~ msgid "Enhance _contrast in colors"
+#~ msgstr "色のコントラストを強調する(_C)"
+
+#~ msgid "Make _text larger and easier to read"
+#~ msgstr "文字を大きく表示して読みやすくする(_T)"
+
+#~ msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
+#~ msgstr "固定キーを有効にする(_P)"
+
+#~ msgid "_Ignore duplicate keypresses (Bounce Keys)"
+#~ msgstr "キーを素早く押下したり押し続けた場合は無視する(_I)"
+
+#~ msgid "Press and _hold keys to accept them (Slow Keys)"
+#~ msgstr "キーを押下したままにしてスローキーを有効にできる(_H)"
+
+#~ msgid "Mount Helper"
+#~ msgstr "マウント補助"
+
+#~ msgid "Automount and autorun plugged devices"
+#~ msgstr "自動マウントと接続時に自動実行されるデバイス"
+
+#~ msgid "Unable to mount %s"
+#~ msgstr "%s をマウントできません"
+
+#~ msgid "Unable to open a folder for %s"
+#~ msgstr "%s フォルダを書き込みモードで開けません"
+
+#~ msgid "Ask what to do"
+#~ msgstr "どうするか確認"
+
+#~ msgid "Do Nothing"
+#~ msgstr "なにもしない"
+
+#~ msgid "Open Folder"
+#~ msgstr "フォルダーを開く"
+
+#~ msgid "Unable to eject %p"
+#~ msgstr "%p を取り出せません"
+
+#~ msgid "Unable to unmount %p"
+#~ msgstr "%p をアンマウントできません"
+
+#~ msgid "You have just inserted an Audio CD."
+#~ msgstr "オーディオ CD が挿入されました。"
+
+#~ msgid "You have just inserted an Audio DVD."
+#~ msgstr "オーディオ DVD が挿入されました。"
+
+#~ msgid "You have just inserted a Video DVD."
+#~ msgstr "ビデオ DVD が挿入されました。"
+
+#~ msgid "You have just inserted a Video CD."
+#~ msgstr "ビデオ CD が挿入されました。"
+
+#~ msgid "You have just inserted a Super Video CD."
+#~ msgstr "スーパービデオ CD が挿入されました。"
+
+#~ msgid "You have just inserted a blank CD."
+#~ msgstr "ブランク CD が挿入されました。"
+
+#~ msgid "You have just inserted a blank DVD."
+#~ msgstr "ブランク DVD が挿入されました。"
+
+#~ msgid "You have just inserted a blank Blu-Ray disc."
+#~ msgstr "ブランク ブルーレイディスクが挿入されました。"
+
+#~ msgid "You have just inserted a blank HD DVD."
+#~ msgstr "ブランク HD DVD が挿入されました。"
+
+#~ msgid "You have just inserted a Photo CD."
+#~ msgstr "フォト CD が挿入されました。"
+
+#~ msgid "You have just inserted a Picture CD."
+#~ msgstr "ピクチャー CD が挿入されました。"
+
+#~ msgid "You have just inserted a medium with digital photos."
+#~ msgstr "デジタルフォトのメディアが挿入されました。"
+
+#~ msgid "You have just inserted a digital audio player."
+#~ msgstr "デジタルオーディオプレーヤーが接続されました。"
+
+#~ msgid "You have just inserted a medium with software intended to be automatically started."
+#~ msgstr "自動実行のソフトウェアメディアが挿入されました。"
+
+#~ msgid "You have just inserted a medium."
+#~ msgstr "メディアが挿入されました。"
+
+#~ msgid "Choose what application to launch."
+#~ msgstr "使用するアプリケーションを選択してください。"
+
+#~ msgid "Select how to open \"%s\" and whether to perform this action in the future for other media of type \"%s\"."
+#~ msgstr "\"%s\" を開く方法を選択し、この動作を将来ほかのメディアタイプ \"%s\" でも実施するか選択してください。"
+
+#~ msgid "_Always perform this action"
+#~ msgstr "常にこの動作を実施する(_A)"
+
+#~ msgid "_Eject"
+#~ msgstr "取り出す(_E)"
+
+#~ msgid "_Unmount"
+#~ msgstr "アンマウント(_U)"
+
+#~ msgid "Power Manager"
+#~ msgstr "電源管理"
+
 #~ msgid "Allowed keys"
 #~ msgstr "利用可能なキーバインディング"
 
 #~ msgid "If non-empty, keybindings will be ignored unless their settings directory is in the list. This is useful for lockdown."
 #~ msgstr "空でない場合、設定ディレクトリがこのリストになければ、キーバインディングは無視されます。これは主にロックダウンで有用です。"
-
-#~ msgid "There was an error displaying help: %s"
-#~ msgstr "ヘルプを表示する際にエラーが発生しました: %s"
 
 #~ msgid "Do you want to activate Slow Keys?"
 #~ msgstr "スロー・キーを有効にしますか?"
@@ -2836,44 +3089,6 @@ msgstr "X の設定を管理します"
 
 #~ msgid "Do you want to deactivate Sticky Keys?"
 #~ msgstr "固定キーを無効にしますか?"
-
-#~ msgid "Universal Access Preferences"
-#~ msgstr "ユニバーサル・アクセスの設定"
-
-#~ msgid "Enhance _contrast in colors"
-#~ msgstr "色のコントラストを強調する(_C)"
-
-#~ msgid "Make _text larger and easier to read"
-#~ msgstr "文字を大きく表示して読みやすくする(_T)"
-
-#~ msgid "Press and _hold keys to accept them (Slow Keys)"
-#~ msgstr "キーを押下したままにしてスロー・キーを有効にできる(_H)"
-
-#~ msgid "Use on-screen _keyboard"
-#~ msgstr "オンスクリーン・キーボードを使う(_K)"
-
-#~ msgid "Use screen _magnifier"
-#~ msgstr "スクリーンの拡大鏡を使う(_M)"
-
-#~ msgid "Use screen _reader"
-#~ msgstr "スクリーン・リーダを使う(_R)"
-
-#~ msgid "_Ignore duplicate keypresses (Bounce Keys)"
-#~ msgstr "キーを素早く押下したり押し続けた場合は無視する(_I)"
-
-#~ msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
-#~ msgstr "固定キーを有効にする(_P)"
-
-#, fuzzy
-#~ msgid "Open Folder"
-#~ msgstr "ホーム・フォルダーを開く"
-
-#, fuzzy
-#~ msgid "Unable to eject %p"
-#~ msgstr "タッチパッドを有効にする"
-
-#~ msgid "_Eject"
-#~ msgstr "取り出す(_E)"
 
 #, fuzzy
 #~| msgid "Key binding (%s) is invalid"
@@ -2958,9 +3173,6 @@ msgstr "X の設定を管理します"
 
 #~ msgid "Module"
 #~ msgstr "モジュール"
-
-#~ msgid "smartcard driver"
-#~ msgstr "スマートカードドライバー"
 
 #, fuzzy
 #~ msgid "Change system time and date settings"
