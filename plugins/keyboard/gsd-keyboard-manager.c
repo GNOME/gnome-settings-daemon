@@ -123,7 +123,7 @@ static gboolean apply_input_sources_settings     (GSettings               *setti
                                                   gint                     n_keys,
                                                   GsdKeyboardManager      *manager);
 static void     set_gtk_im_module                (GsdKeyboardManager      *manager,
-                                                  const gchar             *new_module);
+                                                  GVariant                *sources);
 
 G_DEFINE_TYPE (GsdKeyboardManager, gsd_keyboard_manager, G_TYPE_OBJECT)
 
@@ -317,6 +317,43 @@ set_ibus_xkb_engine (GsdKeyboardManager *manager)
                 return;
 
         set_ibus_engine (manager, ibus_engine_desc_get_name (engine));
+}
+
+static gboolean
+need_ibus (GVariant *sources)
+{
+        GVariantIter iter;
+        const gchar *type;
+
+        g_variant_iter_init (&iter, sources);
+        while (g_variant_iter_next (&iter, "(&s&s)", &type, NULL))
+                if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS))
+                        return TRUE;
+
+        return FALSE;
+}
+
+
+static void
+set_gtk_im_module (GsdKeyboardManager *manager,
+                   GVariant           *sources)
+{
+        GsdKeyboardManagerPrivate *priv = manager->priv;
+        const gchar *new_module;
+        gchar *current_module;
+
+        if (!sources || need_ibus (sources))
+                new_module = GTK_IM_MODULE_IBUS;
+        else
+                new_module = GTK_IM_MODULE_SIMPLE;
+
+        current_module = g_settings_get_string (priv->interface_settings,
+                                                KEY_GTK_IM_MODULE);
+        if (!g_str_equal (current_module, new_module))
+                g_settings_set_string (priv->interface_settings,
+                                       KEY_GTK_IM_MODULE,
+                                       new_module);
+        g_free (current_module);
 }
 
 /* XXX: See upstream bug:
@@ -903,22 +940,6 @@ apply_xkb_settings (GsdKeyboardManager *manager,
         g_free (rules_file_path);
 }
 
-static void
-set_gtk_im_module (GsdKeyboardManager *manager,
-                   const gchar        *new_module)
-{
-        GsdKeyboardManagerPrivate *priv = manager->priv;
-        gchar *current_module;
-
-        current_module = g_settings_get_string (priv->interface_settings,
-                                                KEY_GTK_IM_MODULE);
-        if (!g_str_equal (current_module, new_module))
-                g_settings_set_string (priv->interface_settings,
-                                       KEY_GTK_IM_MODULE,
-                                       new_module);
-        g_free (current_module);
-}
-
 static gboolean
 apply_input_sources_settings (GSettings          *settings,
                               gpointer            keys,
@@ -966,8 +987,8 @@ apply_input_sources_settings (GSettings          *settings,
                         g_warning ("Couldn't find XKB input source '%s'", id);
                         goto exit;
                 }
-                set_gtk_im_module (manager, GTK_IM_MODULE_SIMPLE);
 #ifdef HAVE_IBUS
+                set_gtk_im_module (manager, sources);
                 set_ibus_xkb_engine (manager);
 #endif
         } else if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS)) {
@@ -993,7 +1014,9 @@ apply_input_sources_settings (GSettings          *settings,
                         goto exit;
                 }
 
-                set_gtk_im_module (manager, GTK_IM_MODULE_IBUS);
+                /* NULL here is a shortcut for "I already know I
+                   need the IBus module". */
+                set_gtk_im_module (manager, NULL);
                 set_ibus_engine (manager, id);
 #else
                 g_warning ("IBus input source type specified but IBus support was not compiled");
