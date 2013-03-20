@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-18 18:50+0100\n"
-"PO-Revision-Date: 2013-02-18 19:10+0100\n"
+"POT-Creation-Date: 2013-03-20 22:57+0100\n"
+"PO-Revision-Date: 2013-03-20 23:14+0100\n"
 "Last-Translator: Luca Ferretti <lferrett@gnome.org>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "Language: it\n"
@@ -152,7 +152,10 @@ msgstr "Comando personalizzato per hotplug dispositivi"
 msgid ""
 "Command to be run when a device is added or removed. An exit value of 1 "
 "means that the device will not be handled further by gnome-settings-daemon."
-msgstr "Comando da eseguire quando un dispositivo viene aggiunto o rimosso. Un valore d'uscita pari a 1 indica che il dispositivo non sarà ulteriormente gestito da gnome-settings-daemon."
+msgstr ""
+"Comando da eseguire quando un dispositivo viene aggiunto o rimosso. Un "
+"valore d'uscita pari a 1 indica che il dispositivo non sarà ulteriormente "
+"gestito da gnome-settings-daemon."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
@@ -368,7 +371,8 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
 msgid "Key combinations for a touchring or touchstrip custom action"
-msgstr "Combinazione di tasti per un'azione personalizzata touch-ring o touch-strip"
+msgstr ""
+"Combinazione di tasti per un'azione personalizzata touch-ring o touch-strip"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
 msgid ""
@@ -411,7 +415,10 @@ msgid ""
 "A list of strings representing the plugins that are allowed to be loaded "
 "(default: 'all'). The plugins still need to be marked as active to get "
 "loaded. This is only evaluated on startup."
-msgstr "Un elenco di stringhe che rappresentano i plugin che possono essere caricati (predefinit: \"all\"). I plugin devono comunque essere contrassegnati come attivi per essere caricati. Questo è valutato solo all'avvio."
+msgstr ""
+"Un elenco di stringhe che rappresentano i plugin che possono essere caricati "
+"(predefinit: \"all\"). I plugin devono comunque essere contrassegnati come "
+"attivi per essere caricati. Questo è valutato solo all'avvio."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
 msgid "Mount paths to ignore"
@@ -1052,7 +1059,12 @@ msgid ""
 "(extend the desktop in recent versions). The default, 'follow-lid', will "
 "choose between 'do-nothing' and 'dock' depending on whether the lid is "
 "(respectively) open or closed."
-msgstr "\"clone\" mostra lo stesso contenuto su tutti i monitor, \"dock\" spegne il monitor interno, \"do-nothing\" usa il comportamento predefinito di Xorg (estende il desktop nelle versioni recenti). Il valore predefinito, \"follow-lid\", applica \"do-nothing\" e \"dock\" a seconda che, rispettivamente, il coperchio sia aperto o chiuso."
+msgstr ""
+"\"clone\" mostra lo stesso contenuto su tutti i monitor, \"dock\" spegne il "
+"monitor interno, \"do-nothing\" usa il comportamento predefinito di Xorg "
+"(estende il desktop nelle versioni recenti). Il valore predefinito, \"follow-"
+"lid\", applica \"do-nothing\" e \"dock\" a seconda che, rispettivamente, il "
+"coperchio sia aperto o chiuso."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
 msgid "Antialiasing"
@@ -1221,11 +1233,12 @@ msgstr "Impostazioni di accessibilità"
 msgid "Accessibility settings plugin"
 msgstr "Plugin per le impostazioni di accesso universale"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#. Priority=100
+#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
 msgid "Clipboard"
 msgstr "Appunti"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:3
 msgid "Clipboard plugin"
 msgstr "Plugin per gli appunti"
 
@@ -1274,6 +1287,16 @@ msgstr "Dispositivo calibrazione colore aggiunto"
 #: ../plugins/color/gsd-color-manager.c:2075
 msgid "Color calibration device removed"
 msgstr "Dispositivo calibrazione colore rimosso"
+
+# o puntatore??
+#. Priority=100
+#: ../plugins/cursor/cursor.gnome-settings-plugin.in.h:2
+msgid "Cursor"
+msgstr "Cursore"
+
+#: ../plugins/cursor/cursor.gnome-settings-plugin.in.h:3
+msgid "Show/hide cursor on tablet devices"
+msgstr "Mostra/Nasconde il cursore sulle tavolette grafiche"
 
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
@@ -1387,6 +1410,16 @@ msgstr ""
 msgid "Examine…"
 msgstr "Esamina…"
 
+#: ../plugins/housekeeping/housekeeping.gnome-settings-plugin.in.h:1
+msgid "Housekeeping"
+msgstr "Pulizia"
+
+#: ../plugins/housekeeping/housekeeping.gnome-settings-plugin.in.h:2
+msgid ""
+"Automatically prunes thumbnail caches and other transient files, and warns "
+"about low disk space"
+msgstr "Pulisce automaticamente le cache delle miniature e di altri file transitori, avvisa nel caso di spazio disco ridotto"
+
 #. TRANSLATORS: wireless keyboard with internal battery
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:611
@@ -1443,120 +1476,117 @@ msgstr[1] "%u ingressi"
 msgid "System Sounds"
 msgstr "Suoni di sistema"
 
-#: ../plugins/media-keys/shortcuts-list.h:93
+#. Priority=100
+#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+msgid "Media keys"
+msgstr "Tasti multimediali"
+
+#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:3
+msgid "Media keys plugin"
+msgstr "Plugin per i tasti multimediali"
+
+#: ../plugins/media-keys/shortcuts-list.h:99
 msgid "Touchpad toggle"
 msgstr "Commuta touchpad"
 
-#: ../plugins/media-keys/shortcuts-list.h:94
+#: ../plugins/media-keys/shortcuts-list.h:100
 msgid "Touchpad On"
 msgstr "Attiva touchpad"
 
-#: ../plugins/media-keys/shortcuts-list.h:95
+#: ../plugins/media-keys/shortcuts-list.h:101
 msgid "Touchpad Off"
 msgstr "Disattiva touchpad"
 
-#: ../plugins/media-keys/shortcuts-list.h:99
+#: ../plugins/media-keys/shortcuts-list.h:105
 msgid "Microphone Mute"
-msgstr ""
+msgstr "Microfono escluso"
 
-#: ../plugins/media-keys/shortcuts-list.h:100
-#, fuzzy
+# da quanto capisco esegue le azioni muto/vol_up/vol_down senza 
+# are i suoni di feedback... 
+#: ../plugins/media-keys/shortcuts-list.h:106
 msgid "Quiet Volume Mute"
-msgstr "Escludi l'audio"
+msgstr "Commuta muto silezioso"
 
-#: ../plugins/media-keys/shortcuts-list.h:101
-#, fuzzy
+#: ../plugins/media-keys/shortcuts-list.h:107
 msgid "Quiet Volume Down"
-msgstr "Abbassa il volume"
+msgstr "Volume su silenzioso"
 
-#: ../plugins/media-keys/shortcuts-list.h:102
-#, fuzzy
+#: ../plugins/media-keys/shortcuts-list.h:108
 msgid "Quiet Volume Up"
-msgstr "Alza il volume"
+msgstr "Volume giù silenzioso"
 
-#: ../plugins/media-keys/shortcuts-list.h:111
+#: ../plugins/media-keys/shortcuts-list.h:117
 msgid "Lock Screen"
 msgstr "Blocca schermo"
 
-#: ../plugins/media-keys/shortcuts-list.h:125
+#: ../plugins/media-keys/shortcuts-list.h:131
 msgid "Rewind"
-msgstr ""
+msgstr "Indietro"
 
-#: ../plugins/media-keys/shortcuts-list.h:126
+#: ../plugins/media-keys/shortcuts-list.h:132
 msgid "Forward"
-msgstr ""
+msgstr "Avanti"
 
-#: ../plugins/media-keys/shortcuts-list.h:127
+#: ../plugins/media-keys/shortcuts-list.h:133
 msgid "Repeat"
-msgstr ""
+msgstr "Ripeti"
 
-#: ../plugins/media-keys/shortcuts-list.h:128
+#: ../plugins/media-keys/shortcuts-list.h:134
 msgid "Random Play"
-msgstr ""
+msgstr "Riproduzione casuale"
 
 #. Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.)
-#: ../plugins/media-keys/shortcuts-list.h:129
-#: ../plugins/media-keys/shortcuts-list.h:131
+#: ../plugins/media-keys/shortcuts-list.h:135
+#: ../plugins/media-keys/shortcuts-list.h:137
 msgid "Video Out"
 msgstr "Uscita video"
 
 #. Key code of the XF86RotateWindows key (present on some tablets)
-#: ../plugins/media-keys/shortcuts-list.h:133
+#: ../plugins/media-keys/shortcuts-list.h:139
 msgid "Rotate Screen"
 msgstr "Ruota schermo"
 
-#: ../plugins/media-keys/shortcuts-list.h:142
+#: ../plugins/media-keys/shortcuts-list.h:148
 msgid "Power Off"
 msgstr "Spegni"
 
 #. the kernel / Xorg names really are like this...
-#: ../plugins/media-keys/shortcuts-list.h:144
+#. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
+#: ../plugins/media-keys/shortcuts-list.h:151
 msgid "Sleep"
 msgstr "Sleep"
 
-#: ../plugins/media-keys/shortcuts-list.h:145
+#: ../plugins/media-keys/shortcuts-list.h:152
 msgid "Suspend"
 msgstr "Sospendi"
 
-#: ../plugins/media-keys/shortcuts-list.h:146
+#: ../plugins/media-keys/shortcuts-list.h:153
 msgid "Hibernate"
 msgstr "Iberna"
 
-#: ../plugins/media-keys/shortcuts-list.h:147
+#: ../plugins/media-keys/shortcuts-list.h:154
 msgid "Brightness Up"
 msgstr "Aumenta luminosità"
 
-#: ../plugins/media-keys/shortcuts-list.h:148
+#: ../plugins/media-keys/shortcuts-list.h:155
 msgid "Brightness Down"
 msgstr "Diminuisci luminosità"
 
-#: ../plugins/media-keys/shortcuts-list.h:149
-#, fuzzy
+#: ../plugins/media-keys/shortcuts-list.h:156
 msgid "Keyboard Brightness Up"
-msgstr "Tastiera completamente scarica"
+msgstr "Aumento lumonosità tastiera"
 
-#: ../plugins/media-keys/shortcuts-list.h:150
-#, fuzzy
+#: ../plugins/media-keys/shortcuts-list.h:157
 msgid "Keyboard Brightness Down"
-msgstr "Carica batteria tastiera bassa"
+msgstr "Diminiusci luminosità tastiera"
 
-#: ../plugins/media-keys/shortcuts-list.h:151
-#, fuzzy
+#: ../plugins/media-keys/shortcuts-list.h:158
 msgid "Keyboard Brightness Toggle"
-msgstr "Tastiera carica"
+msgstr "Commuta luminosità tastiera"
 
-#: ../plugins/media-keys/shortcuts-list.h:152
-#, fuzzy
+#: ../plugins/media-keys/shortcuts-list.h:159
 msgid "Battery Status"
-msgstr "La carica della batteria è bassa"
-
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
-msgid "Media keys"
-msgstr "Tasti multimediali"
-
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
-msgid "Media keys plugin"
-msgstr "Plugin per i tasti multimediali"
+msgstr "Stato batteria"
 
 #: ../plugins/mouse/gsd-mouse-manager.c:916
 msgid "Could not enable mouse accessibility features"
@@ -1583,6 +1613,15 @@ msgstr[1] "Mouse"
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Plugin per il mouse"
+
+#. Priority=100
+#: ../plugins/orientation/orientation.gnome-settings-plugin.in.h:2
+msgid "Orientation"
+msgstr "Orientazione"
+
+#: ../plugins/orientation/orientation.gnome-settings-plugin.in.h:3
+msgid "Orientation plugin"
+msgstr "Plugin per orientazione"
 
 #: ../plugins/power/gpm-common.c:73
 msgid "Unknown time"
@@ -2720,13 +2759,30 @@ msgstr "Avvertimento stampante"
 msgid "Printer '%s': '%s'."
 msgstr "Stampante «%s»: «%s»."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#. Priority=100
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
 msgid "Print-notifications"
 msgstr "Notifiche di stampa"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:3
 msgid "Print-notifications plugin"
 msgstr "Plugin notifiche di stampa"
+
+#: ../plugins/remote-display/remote-display.gnome-settings-plugin.in.h:1
+msgid "Remote Display"
+msgstr "Display remoto"
+
+#: ../plugins/remote-display/remote-display.gnome-settings-plugin.in.h:2
+msgid "Disable animations on remote displays"
+msgstr "Disabilitare le animazioni sui display remoti"
+
+#: ../plugins/screensaver-proxy/screensaver-proxy.gnome-settings-plugin.in.h:1
+msgid "Screensaver Proxy"
+msgstr "Proxy screensaver"
+
+#: ../plugins/screensaver-proxy/screensaver-proxy.gnome-settings-plugin.in.h:2
+msgid "Proxy FreeDesktop screensaver inhibition to gnome-session"
+msgstr "Esegue il \"proxy\" dell'inibizione screensaver di FreeDesktop a gnome-session"
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:529
 msgid "received error or hang up from event source"
@@ -2757,6 +2813,22 @@ msgstr "impossibile monitorare gli eventi smartcard - %s"
 msgid "encountered unexpected error while waiting for smartcard events"
 msgstr "riscontrato un errore inatteso durante l'attesa di eventi smartcard"
 
+#: ../plugins/smartcard/smartcard.gnome-settings-plugin.in.h:1
+msgid "Smartcard"
+msgstr "Smartcard"
+
+#: ../plugins/smartcard/smartcard.gnome-settings-plugin.in.h:2
+msgid "Smartcard plugin"
+msgstr "Plugin per smartcard"
+
+#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
+msgid "Sound"
+msgstr "Audio"
+
+#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
+msgid "Sound Sample Cache plugin"
+msgstr "Plugin per cache campioni audio"
+
 #. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
 #: ../plugins/updates/gsd-updates-firmware.c:250
 msgid ""
@@ -2777,11 +2849,11 @@ msgstr "È stato installato del software aggiuntivo"
 #: ../plugins/updates/gsd-updates-firmware.c:283
 #: ../plugins/updates/gsd-updates-firmware.c:311
 #: ../plugins/updates/gsd-updates-firmware.c:603
-#: ../plugins/updates/gsd-updates-manager.c:344
-#: ../plugins/updates/gsd-updates-manager.c:472
-#: ../plugins/updates/gsd-updates-manager.c:534
-#: ../plugins/updates/gsd-updates-manager.c:588
-#: ../plugins/updates/gsd-updates-manager.c:1221
+#: ../plugins/updates/gsd-updates-manager.c:347
+#: ../plugins/updates/gsd-updates-manager.c:478
+#: ../plugins/updates/gsd-updates-manager.c:540
+#: ../plugins/updates/gsd-updates-manager.c:594
+#: ../plugins/updates/gsd-updates-manager.c:1236
 msgid "Software Updates"
 msgstr "Aggiornamenti software"
 
@@ -2824,173 +2896,178 @@ msgid "Ignore devices"
 msgstr "Ignora dispositivi"
 
 #. TRANSLATORS: this is when the offline update failed
-#: ../plugins/updates/gsd-updates-manager.c:121
+#: ../plugins/updates/gsd-updates-manager.c:120
 msgid "Failed To Update"
 msgstr "Aggiornamento non riuscito"
 
 #. TRANSLATORS: the transaction could not be completed
 #. * as a previous transaction was unfinished
-#: ../plugins/updates/gsd-updates-manager.c:127
+#: ../plugins/updates/gsd-updates-manager.c:126
 msgid "A previous update was unfinished."
 msgstr "Un precedente aggiornamento è rimasto incompleto"
 
 #. TRANSLATORS: the package manager needed to download
 #. * something with no network available
-#: ../plugins/updates/gsd-updates-manager.c:137
+#: ../plugins/updates/gsd-updates-manager.c:136
 msgid "Network access was required but not available."
 msgstr "Era richiesto l'accesso alla rete, ma non era disponibile."
 
 #. TRANSLATORS: if the package is not signed correctly
 #. *
-#: ../plugins/updates/gsd-updates-manager.c:146
+#: ../plugins/updates/gsd-updates-manager.c:145
 msgid "An update was not signed in the correct way."
 msgstr "Un aggiornamento non era firmato in modo corretto."
 
 #. TRANSLATORS: the transaction failed in a way the user
 #. * probably cannot comprehend. Package management systems
 #. * really are teh suck.
-#: ../plugins/updates/gsd-updates-manager.c:156
+#: ../plugins/updates/gsd-updates-manager.c:155
 msgid "The update could not be completed."
 msgstr "Non è stato possibile completare l'aggiornamento."
 
 #. TRANSLATORS: the user aborted the update manually
-#: ../plugins/updates/gsd-updates-manager.c:161
+#: ../plugins/updates/gsd-updates-manager.c:160
 msgid "The update was cancelled."
 msgstr "L'aggiornamento è stato annullato."
 
 #. TRANSLATORS: the user must have updated manually after
 #. * the updates were prepared
-#: ../plugins/updates/gsd-updates-manager.c:167
+#: ../plugins/updates/gsd-updates-manager.c:166
 msgid "An offline update was requested but no packages required updating."
 msgstr ""
 "È stato richiesto un aggiornamento offline, ma non è necessario aggiornare "
 "alcun software."
 
 #. TRANSLATORS: we ran out of disk space
-#: ../plugins/updates/gsd-updates-manager.c:171
+#: ../plugins/updates/gsd-updates-manager.c:170
 msgid "No space was left on the drive."
 msgstr "Non c'era più spazio disponibile sull'unità."
 
 #. TRANSLATORS: the update process failed in a general
 #. * way, usually this message will come from source distros
 #. * like gentoo
-#: ../plugins/updates/gsd-updates-manager.c:179
+#: ../plugins/updates/gsd-updates-manager.c:178
 msgid "An update failed to install correctly."
 msgstr "L'installazione di un aggiornamento non è riuscita correttamente."
 
 #. TRANSLATORS: We didn't handle the error type
-#: ../plugins/updates/gsd-updates-manager.c:184
+#: ../plugins/updates/gsd-updates-manager.c:183
 msgid "The offline update failed in an unexpected way."
 msgstr "L'aggiornamento offline è terminato in modo inatteso."
 
 #. TRANSLATORS: these are geeky messages from the
 #. * package manager no mortal is supposed to understand,
 #. * but google might know what they mean
-#: ../plugins/updates/gsd-updates-manager.c:193
+#: ../plugins/updates/gsd-updates-manager.c:192
 msgid "Detailed errors from the package manager follow:"
 msgstr "Qui di seguito gli errori dettagliati del gestore di pacchetti:"
 
 # come da nota, avanzamento, non avanzamenti
 # (certo, la cosa su fedora potevano risparmiarsela...)
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:339
+#: ../plugins/updates/gsd-updates-manager.c:342
 msgid "Distribution upgrades available"
 msgstr "Disponibile avanzamento di versione"
 
 #. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:349
+#: ../plugins/updates/gsd-updates-manager.c:352
 msgid "More information"
 msgstr "Maggiori informazioni"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:454
-#: ../plugins/updates/gsd-updates-manager.c:516
+#: ../plugins/updates/gsd-updates-manager.c:460
+#: ../plugins/updates/gsd-updates-manager.c:522
 msgid "Update"
 msgid_plural "Updates"
 msgstr[0] "Aggiornamento"
 msgstr[1] "Aggiornamenti"
 
 #. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:457
+#: ../plugins/updates/gsd-updates-manager.c:463
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
 msgstr[0] "È disponibile un importante aggiornamento software"
 msgstr[1] "Sono disponibili importanti aggiornamenti software"
 
 #. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:477
-#: ../plugins/updates/gsd-updates-manager.c:539
+#: ../plugins/updates/gsd-updates-manager.c:483
+#: ../plugins/updates/gsd-updates-manager.c:545
 msgid "Install updates"
 msgstr "Installa aggiornamenti"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:519
+#: ../plugins/updates/gsd-updates-manager.c:525
 msgid "A software update is available."
 msgid_plural "Software updates are available."
 msgstr[0] "È disponibile un aggiornamento software"
 msgstr[1] "Sono disponibili aggiornamenti software"
 
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:575
+#: ../plugins/updates/gsd-updates-manager.c:581
+#: ../plugins/updates/updates.gnome-settings-plugin.in.h:1
 msgid "Updates"
 msgstr "Aggiornamenti"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:579
+#: ../plugins/updates/gsd-updates-manager.c:585
 msgid "Unable to access software updates"
 msgstr "Impossibile accedere agli aggiornamenti software"
 
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:582
+#: ../plugins/updates/gsd-updates-manager.c:588
 msgid "Try again"
 msgstr "Prova ancora"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:958
+#: ../plugins/updates/gsd-updates-manager.c:973
 msgid "A transaction that cannot be interrupted is running"
 msgstr "È in esecuzione una transazione che non può essere interrotta"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1178
+#: ../plugins/updates/gsd-updates-manager.c:1193
 msgid "Software Update Installed"
 msgid_plural "Software Updates Installed"
 msgstr[0] "Aggiornamento software installato"
 msgstr[1] "Aggiornamenti software installati"
 
 #. TRANSLATORS: message when we've done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1183
+#: ../plugins/updates/gsd-updates-manager.c:1198
 msgid "An important OS update has been installed."
 msgid_plural "Important OS updates have been installed."
 msgstr[0] "È disponibile un importante aggiornamento del sistema operativo."
 msgstr[1] "Sono disponibili importanti aggiornamenti del sistema operativo."
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1209
+#: ../plugins/updates/gsd-updates-manager.c:1224
 msgid "Software Updates Failed"
 msgstr "Aggiornamenti software non riusciti"
 
 #. TRANSLATORS: message when we've not done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1212
+#: ../plugins/updates/gsd-updates-manager.c:1227
 msgid "An important OS update failed to be installed."
 msgstr ""
 "L'installazione di un aggiornamento importante del sistema operativo non è "
 "riuscita."
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1228
+#: ../plugins/updates/gsd-updates-manager.c:1243
 msgid "Review"
 msgstr "Revisiona"
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1233
+#: ../plugins/updates/gsd-updates-manager.c:1248
 msgid "Show details"
 msgstr "Mostra i dettagli"
 
 #. TRANSLATORS: button: clear notification
-#: ../plugins/updates/gsd-updates-manager.c:1237
+#: ../plugins/updates/gsd-updates-manager.c:1252
 msgid "OK"
 msgstr "OK"
+
+#: ../plugins/updates/updates.gnome-settings-plugin.in.h:2
+msgid "Updates plugin"
+msgstr "Plugin per aggiornamenti"
 
 #. If no mode is available, we use "left-ring-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1076
@@ -3117,6 +3194,14 @@ msgstr "Modifica il LED acceso di una tavoletta Wacom"
 msgid "Authentication is required to modify the lit LED for a Wacom tablet"
 msgstr ""
 "È necessario autenticarsi per modificare il LED acceso di una tavoletta Wacom"
+
+#: ../plugins/wacom/wacom.gnome-settings-plugin.in.h:1
+msgid "Wacom"
+msgstr "Wacom"
+
+#: ../plugins/wacom/wacom.gnome-settings-plugin.in.h:2
+msgid "Wacom plugin"
+msgstr "Plugin per Wacom"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:509
 msgid "Could not switch the monitor configuration"
@@ -3344,9 +3429,6 @@ msgstr "Gestisce le impostazioni di X"
 
 #~ msgid "Background"
 #~ msgstr "Sfondo"
-
-#~ msgid "Background plugin"
-#~ msgstr "Plugin per lo sfondo"
 
 #~ msgid "Power Manager"
 #~ msgstr "Gestione alimentazione"
