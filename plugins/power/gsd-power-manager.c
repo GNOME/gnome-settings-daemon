@@ -2645,7 +2645,10 @@ idle_configure (GsdPowerManager *manager)
 
         /* are we inhibited from going idle */
         if (!is_session_active (manager) || is_idle_inhibited) {
-                g_debug ("inhibited or inactive, so using normal state");
+                if (is_idle_inhibited)
+                        g_debug ("inhibited, so using normal state");
+                else
+                        g_debug ("inactive, so using normal state");
                 idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
 
                 clear_idle_watch (manager->priv->idle_monitor,
