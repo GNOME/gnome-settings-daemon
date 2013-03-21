@@ -84,7 +84,11 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.plugin_log_write = open(os.path.join(self.workdir, 'plugin_power.log'), 'wb')
         # avoid painfully long delays of actions for tests
         env = os.environ.copy()
+        # Disable the use of the PolicyKit helper for brightness
         env['GSD_DISABLE_BACKLIGHT_HELPER'] = '1'
+        # Disable PulseAudio output from libcanberra
+        env['CANBERRA_DRIVER'] = 'null'
+
         self.daemon = subprocess.Popen(
             [os.path.join(builddir, 'gsd-test-power')],
             # comment out this line if you want to see the logs in real time
