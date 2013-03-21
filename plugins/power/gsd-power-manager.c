@@ -172,6 +172,7 @@ struct GsdPowerManagerPrivate
         gboolean                 screensaver_active;
 
         /* State */
+        gboolean                 lid_is_present;
         gboolean                 lid_is_closed;
         UpClient                *up_client;
         gchar                   *previous_summary;
@@ -2290,7 +2291,10 @@ up_client_changed_cb (UpClient *client, GsdPowerManager *manager)
             main_battery_or_ups_low_changed (manager, FALSE);
         }
 
-        /* same state */
+        if (!manager->priv->lid_is_present)
+                return;
+
+        /* same lid state */
         tmp = up_client_get_lid_is_closed (manager->priv->up_client);
         if (manager->priv->lid_is_closed == tmp)
                 return;
@@ -3406,11 +3410,19 @@ gsd_power_manager_start (GsdPowerManager *manager,
         g_debug ("Starting power manager");
         gnome_settings_profile_start (NULL);
 
+        /* Check whether we have a lid first */
+        manager->priv->up_client = up_client_new ();
+        manager->priv->lid_is_present = up_client_get_lid_is_present (manager->priv->up_client);
+        if (manager->priv->lid_is_present)
+                manager->priv->lid_is_closed = up_client_get_lid_is_closed (manager->priv->up_client);
+
         /* coldplug the list of screens */
-        manager->priv->rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
-        if (manager->priv->rr_screen == NULL) {
-                g_debug ("Couldn't detect any screens, disabling plugin");
-                return FALSE;
+        if (manager->priv->lid_is_present) {
+                manager->priv->rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
+                if (manager->priv->rr_screen == NULL) {
+                        g_debug ("Lid is present and couldn't detect any screens, disabling plugin");
+                        return FALSE;
+                }
         }
 
         /* Check for XTEST support */
@@ -3456,8 +3468,6 @@ gsd_power_manager_start (GsdPowerManager *manager,
         g_signal_connect (manager->priv->settings_session, "changed",
                           G_CALLBACK (engine_settings_key_changed_cb), manager);
         manager->priv->settings_xrandr = g_settings_new (GSD_XRANDR_SETTINGS_SCHEMA);
-        manager->priv->up_client = up_client_new ();
-        manager->priv->lid_is_closed = up_client_get_lid_is_closed (manager->priv->up_client);
         g_signal_connect (manager->priv->up_client, "device-added",
                           G_CALLBACK (engine_device_added_cb), manager);
         g_signal_connect (manager->priv->up_client, "device-removed",
@@ -3536,8 +3546,10 @@ gsd_power_manager_start (GsdPowerManager *manager,
         manager->priv->idle_monitor = gnome_idle_monitor_new ();
 
         /* set up the screens */
-        g_signal_connect (manager->priv->rr_screen, "changed", G_CALLBACK (on_randr_event), manager);
-        on_randr_event (manager->priv->rr_screen, manager);
+        if (manager->priv->rr_screen) {
+                g_signal_connect (manager->priv->rr_screen, "changed", G_CALLBACK (on_randr_event), manager);
+                on_randr_event (manager->priv->rr_screen, manager);
+        }
 
 #ifdef GSD_MOCK
         g_unix_signal_add (SIGUSR2, (GSourceFunc) received_sigusr2, manager);
