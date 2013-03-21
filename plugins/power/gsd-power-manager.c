@@ -84,9 +84,6 @@
 #define SYSTEMD_DBUS_PATH                       "/org/freedesktop/login1"
 #define SYSTEMD_DBUS_INTERFACE                  "org.freedesktop.login1.Manager"
 
-/* Keep this in sync with gnome-shell */
-#define SCREENSAVER_FADE_TIME                           10 /* seconds */
-
 /* Time between notifying the user about a critical action and executing it.
  * This can be changed with the GSD_ACTION_DELAY constant. */
 #ifndef GSD_ACTION_DELAY
