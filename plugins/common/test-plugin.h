@@ -26,6 +26,12 @@
 #endif /* !PLUGIN_NAME */
 
 static MANAGER *manager = NULL;
+static int timeout = -1;
+
+static GOptionEntry entries[] = {
+        { "exit-time", 0, 0, G_OPTION_ARG_INT, &timeout, "Exit after n seconds time", NULL },
+        {NULL}
+};
 
 static gboolean
 has_settings (void)
@@ -64,11 +70,14 @@ main (int argc, char **argv)
 	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 
         error = NULL;
-        if (! gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error)) {
+        if (! gtk_init_with_args (&argc, &argv, SCHEMA_NAME, entries, NULL, &error)) {
                 fprintf (stderr, "%s\n", error->message);
                 g_error_free (error);
                 exit (1);
         }
+
+	if (timeout > 0)
+		g_timeout_add_seconds (timeout, (GSourceFunc) gtk_main_quit, NULL);
 
 	if (has_settings () == FALSE) {
 		fprintf (stderr, "The schemas for plugin '%s' isn't available, check your installation.\n", SCHEMA_NAME);
