@@ -2875,30 +2875,35 @@ session_presence_proxy_ready_cb (GObject *source_object,
 }
 
 static void
+handle_screensaver_active (GsdPowerManager *manager,
+                           GVariant        *parameters)
+{
+        gboolean active;
+
+        g_variant_get (parameters, "(b)", &active);
+        g_debug ("Received screensaver ActiveChanged signal: %d (old: %d)", active, manager->priv->screensaver_active);
+        if (manager->priv->screensaver_active != active) {
+                manager->priv->screensaver_active = active;
+                idle_configure (manager);
+
+                /* Setup blank as soon as the screensaver comes on,
+                 * and its fade has finished.
+                 *
+                 * See also idle_configure() */
+                if (active)
+                        idle_set_mode (manager, GSD_POWER_IDLE_MODE_BLANK);
+        }
+}
+
+static void
 screensaver_signal_cb (GDBusProxy *proxy,
                        const gchar *sender_name,
                        const gchar *signal_name,
                        GVariant *parameters,
                        gpointer user_data)
 {
-        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
-        gboolean active;
-
-        if (g_strcmp0 (signal_name, "ActiveChanged") == 0) {
-                g_variant_get (parameters, "(b)", &active);
-                g_debug ("Received screensaver ActiveChanged signal: %d (old: %d)", active, manager->priv->screensaver_active);
-                if (manager->priv->screensaver_active != active) {
-                        manager->priv->screensaver_active = active;
-                        idle_configure (manager);
-
-                        /* Setup blank as soon as the screensaver comes on,
-                         * and its fade has finished.
-                         *
-                         * See also idle_configure() */
-                        if (active)
-                                idle_set_mode (manager, GSD_POWER_IDLE_MODE_BLANK);
-                }
-        }
+        if (g_strcmp0 (signal_name, "ActiveChanged") == 0)
+                handle_screensaver_active (GSD_POWER_MANAGER (user_data), parameters);
 }
 
 static void
@@ -2907,17 +2912,16 @@ get_active_cb (GDBusProxy *proxy,
                GsdPowerManager *manager)
 {
         GVariant *res;
-        gboolean active = FALSE;
         GError *error = NULL;
 
         res = g_dbus_proxy_call_finish (proxy, result, &error);
         if (!res) {
                 g_warning ("Failed to run GetActive() function on screensaver: %s", error->message);
                 g_error_free (error);
+                return;
         }
 
-        g_variant_get (res, "(b)", &active);
-        manager->priv->screensaver_active = active;
+        handle_screensaver_active (manager, res);
         g_variant_unref (res);
 }
 
