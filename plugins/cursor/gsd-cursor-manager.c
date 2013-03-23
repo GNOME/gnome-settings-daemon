@@ -66,7 +66,7 @@ G_DEFINE_TYPE (GsdCursorManager, gsd_cursor_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
-static void add_all_devices (GsdCursorManager *manager, GdkDevice *exception);
+static gboolean add_all_devices (GsdCursorManager *manager, GdkDevice *exception, GError **error);
 
 typedef void (*ForeachScreenFunc) (GdkDisplay *display, GdkScreen *screen, GsdCursorManager *manager, gpointer user_data);
 
@@ -144,29 +144,32 @@ monitor_became_active (GnomeIdleMonitor *monitor,
 
         /* Make sure that all the other devices are watched
          * (but not the one we just stopped monitoring */
-        add_all_devices (manager, device);
+        add_all_devices (manager, device, NULL);
 
         g_object_unref (device);
 }
 
-static void
-device_added_cb (GdkDeviceManager *device_manager,
-                 GdkDevice        *device,
-                 GsdCursorManager *manager)
+static gboolean
+add_device (GdkDeviceManager *device_manager,
+            GdkDevice        *device,
+            GsdCursorManager *manager,
+            GError          **error)
 {
         GnomeIdleMonitor *monitor;
 
         if (g_hash_table_lookup (manager->priv->monitors, device) != NULL)
-                return;
+                return TRUE;
         if (gdk_device_get_device_type (device) != GDK_DEVICE_TYPE_SLAVE)
-                return;
+                return TRUE;
         if (gdk_device_get_source (device) == GDK_SOURCE_KEYBOARD)
-                return;
+                return TRUE;
         if (strstr (gdk_device_get_name (device), "XTEST") != NULL)
-                return;
+                return TRUE;
 
         /* Create IdleMonitors for each pointer device */
         monitor = gnome_idle_monitor_new_for_device (device);
+        if (!monitor)
+                return FALSE;
         g_hash_table_insert (manager->priv->monitors,
                              device,
                              monitor);
@@ -174,6 +177,16 @@ device_added_cb (GdkDeviceManager *device_manager,
                                                   monitor_became_active,
                                                   manager,
                                                   NULL);
+
+        return TRUE;
+}
+
+static void
+device_added_cb (GdkDeviceManager *device_manager,
+                 GdkDevice        *device,
+                 GsdCursorManager *manager)
+{
+        add_device (device_manager, device, manager, NULL);
 }
 
 static void
@@ -233,12 +246,14 @@ supports_cursor_xfixes (void)
         return FALSE;
 }
 
-static void
+static gboolean
 add_all_devices (GsdCursorManager *manager,
-                 GdkDevice        *exception)
+                 GdkDevice        *exception,
+                 GError          **error)
 {
         GdkDeviceManager *device_manager;
         GList *devices, *l;
+        gboolean ret = TRUE;
 
         device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
         devices = gdk_device_manager_list_devices (device_manager, GDK_DEVICE_TYPE_SLAVE);
@@ -246,14 +261,19 @@ add_all_devices (GsdCursorManager *manager,
                 GdkDevice *device = l->data;
                 if (device == exception)
                         continue;
-                device_added_cb (device_manager, device, manager);
+                if (!add_device (device_manager, device, manager, error)) {
+                        ret = FALSE;
+                        break;
+                }
         }
         g_list_free (devices);
+
+        return ret;
 }
 
 gboolean
-gsd_cursor_manager_start (GsdCursorManager *manager,
-                          GError               **error)
+gsd_cursor_manager_start (GsdCursorManager  *manager,
+                          GError           **error)
 {
         GdkDeviceManager *device_manager;
 
@@ -270,10 +290,6 @@ gsd_cursor_manager_start (GsdCursorManager *manager,
                 return FALSE;
         }
 
-        /* Start by hiding the cursor, and then initialising the default
-         * root window cursor, as the window manager shouldn't do that. */
-        set_cursor_visibility (manager, FALSE);
-
         device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
         manager->priv->added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
                                                     G_CALLBACK (device_added_cb), manager);
@@ -282,7 +298,15 @@ gsd_cursor_manager_start (GsdCursorManager *manager,
         manager->priv->changed_id = g_signal_connect (G_OBJECT (device_manager), "device-changed",
                                                       G_CALLBACK (device_changed_cb), manager);
 
-        add_all_devices (manager, NULL);
+        if (!add_all_devices (manager, NULL, error)) {
+                g_debug ("Per-device idletime monitor not available, will not hide the cursor");
+                gnome_settings_profile_end (NULL);
+                return FALSE;
+        }
+
+        /* Start by hiding the cursor, and then initialising the default
+         * root window cursor, as the window manager shouldn't do that. */
+        set_cursor_visibility (manager, FALSE);
 
         gnome_settings_profile_end (NULL);
 
