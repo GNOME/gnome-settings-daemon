@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon gnome-3.8\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-02-17 21:23+0000\n"
-"PO-Revision-Date: 2013-02-26 09:03+0100\n"
+"POT-Creation-Date: 2013-03-15 11:04+0000\n"
+"PO-Revision-Date: 2013-03-24 23:15+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -1216,11 +1216,12 @@ msgstr "Nastavení zpřístupnění"
 msgid "Accessibility settings plugin"
 msgstr "Zásuvný modul nastavení zpřístupnění"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#. Priority=100
+#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
 msgid "Clipboard"
 msgstr "Schránka"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:3
 msgid "Clipboard plugin"
 msgstr "Zásuvný modul schránky"
 
@@ -1269,6 +1270,15 @@ msgstr "Zařízení pro kalibraci barev přidáno"
 #: ../plugins/color/gsd-color-manager.c:2075
 msgid "Color calibration device removed"
 msgstr "Zařízení pro kalibraci barev odebráno"
+
+#. Priority=100
+#: ../plugins/cursor/cursor.gnome-settings-plugin.in.h:2
+msgid "Cursor"
+msgstr "Kurzor"
+
+#: ../plugins/cursor/cursor.gnome-settings-plugin.in.h:3
+msgid "Show/hide cursor on tablet devices"
+msgstr "Zobrazit/skrýt kurzor na zařízeních typu tablet"
 
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
@@ -1381,6 +1391,18 @@ msgstr ""
 msgid "Examine…"
 msgstr "Prozkoumat…"
 
+#: ../plugins/housekeeping/housekeeping.gnome-settings-plugin.in.h:1
+msgid "Housekeeping"
+msgstr "Úklid"
+
+#: ../plugins/housekeeping/housekeeping.gnome-settings-plugin.in.h:2
+msgid ""
+"Automatically prunes thumbnail caches and other transient files, and warns "
+"about low disk space"
+msgstr ""
+"Automaticky omezí mezipaměti miniatur a dalších dočasných souborů a varuje o "
+"nedostatku místa na disku"
+
 #. TRANSLATORS: wireless keyboard with internal battery
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:611
@@ -1440,119 +1462,118 @@ msgstr[2] "%u vstupů"
 msgid "System Sounds"
 msgstr "Systémové zvuky"
 
-#: ../plugins/media-keys/shortcuts-list.h:93
+#. Priority=100
+#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+msgid "Media keys"
+msgstr "Multimediální klávesy"
+
+#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:3
+msgid "Media keys plugin"
+msgstr "Zásuvný modul multimediálních kláves"
+
+#: ../plugins/media-keys/shortcuts-list.h:99
 msgid "Touchpad toggle"
 msgstr "Přepnout touchpad"
 
-#: ../plugins/media-keys/shortcuts-list.h:94
+#: ../plugins/media-keys/shortcuts-list.h:100
 msgid "Touchpad On"
 msgstr "Zapnout touchpad"
 
-#: ../plugins/media-keys/shortcuts-list.h:95
+#: ../plugins/media-keys/shortcuts-list.h:101
 msgid "Touchpad Off"
 msgstr "Vypnout touchpad"
 
-#: ../plugins/media-keys/shortcuts-list.h:99
+#: ../plugins/media-keys/shortcuts-list.h:105
 msgid "Microphone Mute"
 msgstr "Ztlumit mikrofon"
 
-#: ../plugins/media-keys/shortcuts-list.h:100
-#, fuzzy
+#: ../plugins/media-keys/shortcuts-list.h:106
 #| msgid "Volume mute"
 msgid "Quiet Volume Mute"
-msgstr "Ztlumit zvuk"
+msgstr "Bez projevů ztlumit zvuk"
 
-#: ../plugins/media-keys/shortcuts-list.h:101
-#, fuzzy
+#: ../plugins/media-keys/shortcuts-list.h:107
 #| msgid "Volume down"
 msgid "Quiet Volume Down"
-msgstr "Snížit hlasitost"
+msgstr "Bez projevů snížit hlasitost"
 
-#: ../plugins/media-keys/shortcuts-list.h:102
-#, fuzzy
+#: ../plugins/media-keys/shortcuts-list.h:108
 #| msgid "Volume up"
 msgid "Quiet Volume Up"
-msgstr "Zvýšit hlasitost"
+msgstr "Bez projevů zvýšit hlasitost"
 
-#: ../plugins/media-keys/shortcuts-list.h:111
+#: ../plugins/media-keys/shortcuts-list.h:117
 msgid "Lock Screen"
 msgstr "Zamknout obrazovku"
 
-#: ../plugins/media-keys/shortcuts-list.h:125
+#: ../plugins/media-keys/shortcuts-list.h:131
 msgid "Rewind"
 msgstr "Posunout zpět"
 
-#: ../plugins/media-keys/shortcuts-list.h:126
+#: ../plugins/media-keys/shortcuts-list.h:132
 msgid "Forward"
 msgstr "Posunout vpřed"
 
-#: ../plugins/media-keys/shortcuts-list.h:127
+#: ../plugins/media-keys/shortcuts-list.h:133
 msgid "Repeat"
 msgstr "Opakovat"
 
-#: ../plugins/media-keys/shortcuts-list.h:128
+#: ../plugins/media-keys/shortcuts-list.h:134
 msgid "Random Play"
 msgstr "Náhodně přehrát"
 
 #. Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.)
-#: ../plugins/media-keys/shortcuts-list.h:129
-#: ../plugins/media-keys/shortcuts-list.h:131
+#: ../plugins/media-keys/shortcuts-list.h:135
+#: ../plugins/media-keys/shortcuts-list.h:137
 msgid "Video Out"
 msgstr "Obrazový výstup"
 
 #. Key code of the XF86RotateWindows key (present on some tablets)
-#: ../plugins/media-keys/shortcuts-list.h:133
+#: ../plugins/media-keys/shortcuts-list.h:139
 msgid "Rotate Screen"
 msgstr "Otočit obrazovku"
 
-#: ../plugins/media-keys/shortcuts-list.h:142
+#: ../plugins/media-keys/shortcuts-list.h:148
 msgid "Power Off"
 msgstr "Vypnout"
 
 #. the kernel / Xorg names really are like this...
-#: ../plugins/media-keys/shortcuts-list.h:144
+#. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
+#: ../plugins/media-keys/shortcuts-list.h:151
 msgid "Sleep"
 msgstr "Uspat"
 
-#: ../plugins/media-keys/shortcuts-list.h:145
+#: ../plugins/media-keys/shortcuts-list.h:152
 msgid "Suspend"
 msgstr "Uspat do paměti"
 
-#: ../plugins/media-keys/shortcuts-list.h:146
+#: ../plugins/media-keys/shortcuts-list.h:153
 msgid "Hibernate"
 msgstr "Uspat na disk"
 
-#: ../plugins/media-keys/shortcuts-list.h:147
+#: ../plugins/media-keys/shortcuts-list.h:154
 msgid "Brightness Up"
 msgstr "Zvýšit jas"
 
-#: ../plugins/media-keys/shortcuts-list.h:148
+#: ../plugins/media-keys/shortcuts-list.h:155
 msgid "Brightness Down"
 msgstr "Snížit jas"
 
-#: ../plugins/media-keys/shortcuts-list.h:149
+#: ../plugins/media-keys/shortcuts-list.h:156
 msgid "Keyboard Brightness Up"
 msgstr "Zapnout podsvícení klávesnice"
 
-#: ../plugins/media-keys/shortcuts-list.h:150
+#: ../plugins/media-keys/shortcuts-list.h:157
 msgid "Keyboard Brightness Down"
 msgstr "Vypnout podsvícení klávesnice"
 
-#: ../plugins/media-keys/shortcuts-list.h:151
+#: ../plugins/media-keys/shortcuts-list.h:158
 msgid "Keyboard Brightness Toggle"
 msgstr "Přepnout podsvícení klávesnice"
 
-#: ../plugins/media-keys/shortcuts-list.h:152
+#: ../plugins/media-keys/shortcuts-list.h:159
 msgid "Battery Status"
 msgstr "Stav baterie"
-
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
-msgid "Media keys"
-msgstr "Multimediální klávesy"
-
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
-msgid "Media keys plugin"
-msgstr "Zásuvný modul multimediálních kláves"
 
 #: ../plugins/mouse/gsd-mouse-manager.c:916
 msgid "Could not enable mouse accessibility features"
@@ -1577,6 +1598,15 @@ msgstr[2] "Myši"
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Zásuvný modul myši"
+
+#. Priority=100
+#: ../plugins/orientation/orientation.gnome-settings-plugin.in.h:2
+msgid "Orientation"
+msgstr "Natočení"
+
+#: ../plugins/orientation/orientation.gnome-settings-plugin.in.h:3
+msgid "Orientation plugin"
+msgstr "Zásuvný modul natočení"
 
 #: ../plugins/power/gpm-common.c:73
 msgid "Unknown time"
@@ -2714,13 +2744,30 @@ msgstr "Varování tiskárny"
 msgid "Printer '%s': '%s'."
 msgstr "Tiskárna „%s“: „%s“."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#. Priority=100
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
 msgid "Print-notifications"
 msgstr "Oznamování tisku"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:3
 msgid "Print-notifications plugin"
 msgstr "Zásuvný modul oznamování tisku"
+
+#: ../plugins/remote-display/remote-display.gnome-settings-plugin.in.h:1
+msgid "Remote Display"
+msgstr "Vzdálený displej"
+
+#: ../plugins/remote-display/remote-display.gnome-settings-plugin.in.h:2
+msgid "Disable animations on remote displays"
+msgstr "Zakáže animace na vzdálených displejích"
+
+#: ../plugins/screensaver-proxy/screensaver-proxy.gnome-settings-plugin.in.h:1
+msgid "Screensaver Proxy"
+msgstr "Zmocnění šetřiče obrazovky"
+
+#: ../plugins/screensaver-proxy/screensaver-proxy.gnome-settings-plugin.in.h:2
+msgid "Proxy FreeDesktop screensaver inhibition to gnome-session"
+msgstr "Zmocnit šetřič obrazovky FreeDesktop, aby blokoval sezení Gnome"
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:529
 msgid "received error or hang up from event source"
@@ -2751,6 +2798,22 @@ msgstr "nelze sledovat příchozí události karty – %s"
 msgid "encountered unexpected error while waiting for smartcard events"
 msgstr "při čekání na události čipové karty došlo k neočekávané chybě"
 
+#: ../plugins/smartcard/smartcard.gnome-settings-plugin.in.h:1
+msgid "Smartcard"
+msgstr "Čipová karta"
+
+#: ../plugins/smartcard/smartcard.gnome-settings-plugin.in.h:2
+msgid "Smartcard plugin"
+msgstr "Zásuvný modul pro čipové karty"
+
+#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
+msgid "Sound"
+msgstr "Zvuk"
+
+#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
+msgid "Sound Sample Cache plugin"
+msgstr "Zásuvný modul mezipaměti zvukových vzorků"
+
 #. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
 #: ../plugins/updates/gsd-updates-firmware.c:250
 msgid ""
@@ -2770,11 +2833,11 @@ msgstr "Byl nainstalován dodatečný software"
 #: ../plugins/updates/gsd-updates-firmware.c:283
 #: ../plugins/updates/gsd-updates-firmware.c:311
 #: ../plugins/updates/gsd-updates-firmware.c:603
-#: ../plugins/updates/gsd-updates-manager.c:344
-#: ../plugins/updates/gsd-updates-manager.c:472
-#: ../plugins/updates/gsd-updates-manager.c:534
-#: ../plugins/updates/gsd-updates-manager.c:588
-#: ../plugins/updates/gsd-updates-manager.c:1221
+#: ../plugins/updates/gsd-updates-manager.c:347
+#: ../plugins/updates/gsd-updates-manager.c:478
+#: ../plugins/updates/gsd-updates-manager.c:540
+#: ../plugins/updates/gsd-updates-manager.c:594
+#: ../plugins/updates/gsd-updates-manager.c:1236
 msgid "Software Updates"
 msgstr "Aktualizace softwaru"
 
@@ -2817,85 +2880,85 @@ msgid "Ignore devices"
 msgstr "Ignorovat zařízení"
 
 #. TRANSLATORS: this is when the offline update failed
-#: ../plugins/updates/gsd-updates-manager.c:121
+#: ../plugins/updates/gsd-updates-manager.c:120
 msgid "Failed To Update"
 msgstr "Selhala aktualizace"
 
 #. TRANSLATORS: the transaction could not be completed
 #. * as a previous transaction was unfinished
-#: ../plugins/updates/gsd-updates-manager.c:127
+#: ../plugins/updates/gsd-updates-manager.c:126
 msgid "A previous update was unfinished."
 msgstr "Předchozí aktualizace nebyla dokončena."
 
 #. TRANSLATORS: the package manager needed to download
 #. * something with no network available
-#: ../plugins/updates/gsd-updates-manager.c:137
+#: ../plugins/updates/gsd-updates-manager.c:136
 msgid "Network access was required but not available."
 msgstr "Je požadován přístup k síti, ale není k dispozici."
 
 #. TRANSLATORS: if the package is not signed correctly
 #. *
-#: ../plugins/updates/gsd-updates-manager.c:146
+#: ../plugins/updates/gsd-updates-manager.c:145
 msgid "An update was not signed in the correct way."
 msgstr "Některá aktualizace není správně podepsána."
 
 #. TRANSLATORS: the transaction failed in a way the user
 #. * probably cannot comprehend. Package management systems
 #. * really are teh suck.
-#: ../plugins/updates/gsd-updates-manager.c:156
+#: ../plugins/updates/gsd-updates-manager.c:155
 msgid "The update could not be completed."
 msgstr "Aktualizace nemohla být dokončena."
 
 #. TRANSLATORS: the user aborted the update manually
-#: ../plugins/updates/gsd-updates-manager.c:161
+#: ../plugins/updates/gsd-updates-manager.c:160
 msgid "The update was cancelled."
 msgstr "Aktualizace byla zrušena."
 
 #. TRANSLATORS: the user must have updated manually after
 #. * the updates were prepared
-#: ../plugins/updates/gsd-updates-manager.c:167
+#: ../plugins/updates/gsd-updates-manager.c:166
 msgid "An offline update was requested but no packages required updating."
 msgstr ""
 "Byla požadována aktualizace off-line, ale žádný z balíčků aktualizaci "
 "nevyžaduje."
 
 #. TRANSLATORS: we ran out of disk space
-#: ../plugins/updates/gsd-updates-manager.c:171
+#: ../plugins/updates/gsd-updates-manager.c:170
 msgid "No space was left on the drive."
 msgstr "Na disku nezbývá žádné volné místo."
 
 #. TRANSLATORS: the update process failed in a general
 #. * way, usually this message will come from source distros
 #. * like gentoo
-#: ../plugins/updates/gsd-updates-manager.c:179
+#: ../plugins/updates/gsd-updates-manager.c:178
 msgid "An update failed to install correctly."
 msgstr "Aktualizace se nenainstalovala správně."
 
 #. TRANSLATORS: We didn't handle the error type
-#: ../plugins/updates/gsd-updates-manager.c:184
+#: ../plugins/updates/gsd-updates-manager.c:183
 msgid "The offline update failed in an unexpected way."
 msgstr "Aktualizace off-line selhala neočekávaným způsobem."
 
 #. TRANSLATORS: these are geeky messages from the
 #. * package manager no mortal is supposed to understand,
 #. * but google might know what they mean
-#: ../plugins/updates/gsd-updates-manager.c:193
+#: ../plugins/updates/gsd-updates-manager.c:192
 msgid "Detailed errors from the package manager follow:"
 msgstr "Podrobné informace o chybě od správy balíčků jsou následující:"
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:339
+#: ../plugins/updates/gsd-updates-manager.c:342
 msgid "Distribution upgrades available"
 msgstr "Je dostupné povýšení distribuce"
 
 #. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:349
+#: ../plugins/updates/gsd-updates-manager.c:352
 msgid "More information"
 msgstr "Více informací"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:454
-#: ../plugins/updates/gsd-updates-manager.c:516
+#: ../plugins/updates/gsd-updates-manager.c:460
+#: ../plugins/updates/gsd-updates-manager.c:522
 msgid "Update"
 msgid_plural "Updates"
 msgstr[0] "Aktualizace"
@@ -2903,7 +2966,7 @@ msgstr[1] "Aktualizace"
 msgstr[2] "Aktualizace"
 
 #. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:457
+#: ../plugins/updates/gsd-updates-manager.c:463
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
 msgstr[0] "Je dostupná důležitá aktualizace softwaru"
@@ -2911,13 +2974,13 @@ msgstr[1] "Jsou dostupné důležité aktualizace softwaru"
 msgstr[2] "Jsou dostupné důležité aktualizace softwaru"
 
 #. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:477
-#: ../plugins/updates/gsd-updates-manager.c:539
+#: ../plugins/updates/gsd-updates-manager.c:483
+#: ../plugins/updates/gsd-updates-manager.c:545
 msgid "Install updates"
 msgstr "Instalovat aktualizace"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:519
+#: ../plugins/updates/gsd-updates-manager.c:525
 msgid "A software update is available."
 msgid_plural "Software updates are available."
 msgstr[0] "Je dostupná aktualizace softwaru"
@@ -2925,28 +2988,29 @@ msgstr[1] "Jsou dostupné aktualizace softwaru"
 msgstr[2] "Jsou dostupné aktualizace softwaru"
 
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:575
+#: ../plugins/updates/gsd-updates-manager.c:581
+#: ../plugins/updates/updates.gnome-settings-plugin.in.h:1
 msgid "Updates"
 msgstr "Aktualizace"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:579
+#: ../plugins/updates/gsd-updates-manager.c:585
 msgid "Unable to access software updates"
 msgstr "Nelze získat přístup k aktualizacím softwaru"
 
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:582
+#: ../plugins/updates/gsd-updates-manager.c:588
 msgid "Try again"
 msgstr "Zkusit znovu"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:958
+#: ../plugins/updates/gsd-updates-manager.c:973
 msgid "A transaction that cannot be interrupted is running"
 msgstr "Běží transakce, kterou nelze přerušit"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1178
+#: ../plugins/updates/gsd-updates-manager.c:1193
 msgid "Software Update Installed"
 msgid_plural "Software Updates Installed"
 msgstr[0] "Aktualizace softwaru nainstalována"
@@ -2954,7 +3018,7 @@ msgstr[1] "Aktualizace softwaru nainstalovány"
 msgstr[2] "Aktualizace softwaru nainstalovány"
 
 #. TRANSLATORS: message when we've done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1183
+#: ../plugins/updates/gsd-updates-manager.c:1198
 msgid "An important OS update has been installed."
 msgid_plural "Important OS updates have been installed."
 msgstr[0] "Byla nainstalována důležitá aktualizace OS"
@@ -2962,29 +3026,33 @@ msgstr[1] "Byly nainstalovány důležité aktualizace OS"
 msgstr[2] "Byly nainstalovány důležité aktualizace OS"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1209
+#: ../plugins/updates/gsd-updates-manager.c:1224
 msgid "Software Updates Failed"
 msgstr "Selhala aktualizace softwaru"
 
 #. TRANSLATORS: message when we've not done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1212
+#: ../plugins/updates/gsd-updates-manager.c:1227
 msgid "An important OS update failed to be installed."
 msgstr "Selhala instalace důležité aktualizace OS"
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1228
+#: ../plugins/updates/gsd-updates-manager.c:1243
 msgid "Review"
 msgstr "Vyhodnocení"
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1233
+#: ../plugins/updates/gsd-updates-manager.c:1248
 msgid "Show details"
 msgstr "Zobrazit podrobnosti"
 
 #. TRANSLATORS: button: clear notification
-#: ../plugins/updates/gsd-updates-manager.c:1237
+#: ../plugins/updates/gsd-updates-manager.c:1252
 msgid "OK"
 msgstr "Budiž"
+
+#: ../plugins/updates/updates.gnome-settings-plugin.in.h:2
+msgid "Updates plugin"
+msgstr "Zásuvný modul aktualizací"
 
 #. If no mode is available, we use "left-ring-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1076
@@ -3110,6 +3178,14 @@ msgstr "Změnit rozsvícení LED na tabletu Wacom"
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:6
 msgid "Authentication is required to modify the lit LED for a Wacom tablet"
 msgstr "Pro změnu rozsvícení LED na tabletu Wacom je vyžadována autentizace"
+
+#: ../plugins/wacom/wacom.gnome-settings-plugin.in.h:1
+msgid "Wacom"
+msgstr "Wacom"
+
+#: ../plugins/wacom/wacom.gnome-settings-plugin.in.h:2
+msgid "Wacom plugin"
+msgstr "Zásuvný modul tabletů Wacom"
 
 #: ../plugins/xrandr/gsd-xrandr-manager.c:509
 msgid "Could not switch the monitor configuration"
