@@ -308,29 +308,6 @@ translate_string_string (GnomeXSettingsManager *manager,
         }
 }
 
-static void
-translate_string_string_toolbar (GnomeXSettingsManager *manager,
-                                 TranslationEntry      *trans,
-                                 GVariant              *value)
-{
-        int         i;
-        const char *tmp;
-
-        /* This is kind of a workaround since GNOME expects the key value to be
-         * "both_horiz" and gtk+ wants the XSetting to be "both-horiz".
-         */
-        tmp = g_variant_get_string (value, NULL);
-        if (tmp && strcmp (tmp, "both_horiz") == 0) {
-                tmp = "both-horiz";
-        }
-
-        for (i = 0; manager->priv->managers [i]; i++) {
-                xsettings_manager_set_string (manager->priv->managers [i],
-                                              trans->xsetting_name,
-                                              tmp);
-        }
-}
-
 static TranslationEntry translations [] = {
         { "org.gnome.settings-daemon.peripherals.mouse", "double-click",   "Net/DoubleClickTime",  translate_int_int },
         { "org.gnome.settings-daemon.peripherals.mouse", "drag-threshold", "Net/DndDragThreshold", translate_int_int },
@@ -338,7 +315,7 @@ static TranslationEntry translations [] = {
         { "org.gnome.desktop.interface", "gtk-color-palette",      "Gtk/ColorPalette",        translate_string_string },
         { "org.gnome.desktop.interface", "font-name",              "Gtk/FontName",            translate_string_string },
         { "org.gnome.desktop.interface", "gtk-key-theme",          "Gtk/KeyThemeName",        translate_string_string },
-        { "org.gnome.desktop.interface", "toolbar-style",          "Gtk/ToolbarStyle",        translate_string_string_toolbar },
+        { "org.gnome.desktop.interface", "toolbar-style",          "Gtk/ToolbarStyle",        translate_string_string },
         { "org.gnome.desktop.interface", "toolbar-icons-size",     "Gtk/ToolbarIconSize",     translate_string_string },
         { "org.gnome.desktop.interface", "can-change-accels",      "Gtk/CanChangeAccels",     translate_bool_int },
         { "org.gnome.desktop.interface", "cursor-blink",           "Net/CursorBlink",         translate_bool_int },
