@@ -100,6 +100,7 @@ struct GsdKeyboardManagerPrivate
         GSettings *interface_settings;
         GnomeXkbInfo *xkb_info;
         GDBusProxy *localed;
+        GCancellable *cancellable;
 #ifdef HAVE_IBUS
         IBusBus   *ibus;
         GHashTable *ibus_engines;
@@ -1495,16 +1496,21 @@ localed_proxy_ready (GObject      *source,
                      gpointer      data)
 {
         GsdKeyboardManager *manager = data;
+        GDBusProxy *proxy;
         GError *error = NULL;
 
-        manager->priv->localed = g_dbus_proxy_new_finish (res, &error);
-
-        if (!manager->priv->localed) {
+        proxy = g_dbus_proxy_new_finish (res, &error);
+        if (!proxy) {
+                if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
+                        g_error_free (error);
+                        return;
+                }
                 g_warning ("Failed to contact localed: %s", error->message);
                 g_error_free (error);
                 goto out;
         }
 
+        manager->priv->localed = proxy;
         maybe_create_initial_settings (manager);
 out:
         apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
@@ -1527,13 +1533,15 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
         manager->priv->interface_settings = g_settings_new (GNOME_DESKTOP_INTERFACE_DIR);
         manager->priv->xkb_info = gnome_xkb_info_new ();
 
+        manager->priv->cancellable = g_cancellable_new ();
+
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
                                   G_DBUS_PROXY_FLAGS_NONE,
                                   NULL,
                                   "org.freedesktop.locale1",
                                   "/org/freedesktop/locale1",
                                   "org.freedesktop.locale1",
-                                  NULL,
+                                  manager->priv->cancellable,
                                   localed_proxy_ready,
                                   manager);
 
@@ -1580,6 +1588,9 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
         GsdKeyboardManagerPrivate *p = manager->priv;
 
         g_debug ("Stopping keyboard manager");
+
+        g_cancellable_cancel (p->cancellable);
+        g_clear_object (&p->cancellable);
 
         g_clear_object (&p->settings);
         g_clear_object (&p->input_sources_settings);
