@@ -123,6 +123,9 @@ struct GsdKeyboardManagerPrivate
         GDBusNodeInfo *dbus_introspection;
         guint dbus_own_name_id;
         guint dbus_register_object_id;
+
+        GDBusMethodInvocation *invocation;
+        guint pending_ops;
 };
 
 static void     gsd_keyboard_manager_class_init  (GsdKeyboardManagerClass *klass);
@@ -134,12 +137,17 @@ static gboolean apply_input_sources_settings     (GSettings               *setti
                                                   GsdKeyboardManager      *manager);
 static void     set_gtk_im_module                (GsdKeyboardManager      *manager,
                                                   GVariant                *sources);
+static void     maybe_return_from_set_input_source (GsdKeyboardManager    *manager);
+static void     increment_set_input_source_ops   (GsdKeyboardManager      *manager);
 
 G_DEFINE_TYPE (GsdKeyboardManager, gsd_keyboard_manager, G_TYPE_OBJECT)
 
 static const gchar introspection_xml[] =
         "<node>"
         "  <interface name='org.gnome.SettingsDaemon.Keyboard'>"
+        "    <method name='SetInputSource'>"
+        "      <arg type='u' name='idx' direction='in'/>"
+        "    </method>"
         "  </interface>"
         "</node>";
 
@@ -289,7 +297,10 @@ set_ibus_engine_finish (GObject            *object,
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         g_warning ("Couldn't set IBus engine: %s", error->message);
                 g_error_free (error);
+                return;
         }
+
+        maybe_return_from_set_input_source (manager);
 }
 
 static void
@@ -304,6 +315,8 @@ set_ibus_engine (GsdKeyboardManager *manager,
         g_cancellable_cancel (priv->ibus_cancellable);
         g_clear_object (&priv->ibus_cancellable);
         priv->ibus_cancellable = g_cancellable_new ();
+
+        increment_set_input_source_ops (manager);
 
         ibus_bus_set_global_engine_async (priv->ibus,
                                           engine_id,
@@ -1048,6 +1061,7 @@ apply_input_sources_settings (GSettings          *settings,
 
  exit:
         apply_xkb_settings (manager, layout, variant, options);
+        maybe_return_from_set_input_source (manager);
         g_variant_unref (sources);
         g_free (layout);
         g_free (variant);
@@ -1545,6 +1559,81 @@ out:
 }
 
 static void
+set_input_source_return (GDBusMethodInvocation *invocation)
+{
+        g_dbus_method_invocation_return_value (invocation, NULL);
+}
+
+static void
+maybe_return_from_set_input_source (GsdKeyboardManager *manager)
+{
+        GsdKeyboardManagerPrivate *priv = manager->priv;
+
+        if (!priv->invocation)
+                return;
+
+        if (priv->pending_ops > 0) {
+                priv->pending_ops -= 1;
+                return;
+        }
+
+        g_clear_pointer (&priv->invocation, set_input_source_return);
+}
+
+static void
+increment_set_input_source_ops (GsdKeyboardManager *manager)
+{
+        GsdKeyboardManagerPrivate *priv = manager->priv;
+
+        if (!priv->invocation)
+                return;
+
+        priv->pending_ops += 1;
+}
+
+static void
+set_input_source (GsdKeyboardManager *manager)
+{
+        GsdKeyboardManagerPrivate *priv = manager->priv;
+        guint idx;
+
+        g_variant_get (g_dbus_method_invocation_get_parameters (priv->invocation), "(u)", &idx);
+
+        if (idx == g_settings_get_uint (priv->input_sources_settings, KEY_CURRENT_INPUT_SOURCE)) {
+                maybe_return_from_set_input_source (manager);
+                return;
+        }
+
+        g_settings_set_uint (priv->input_sources_settings, KEY_CURRENT_INPUT_SOURCE, idx);
+}
+
+static void
+handle_dbus_method_call (GDBusConnection       *connection,
+                         const gchar           *sender,
+                         const gchar           *object_path,
+                         const gchar           *interface_name,
+                         const gchar           *method_name,
+                         GVariant              *parameters,
+                         GDBusMethodInvocation *invocation,
+                         GsdKeyboardManager    *manager)
+{
+        GsdKeyboardManagerPrivate *priv = manager->priv;
+
+        if (g_str_equal (method_name, "SetInputSource")) {
+                if (priv->invocation) {
+                        /* This can only happen if there's an
+                         * ibus_bus_set_global_engine_async() call
+                         * going on. */
+                        g_cancellable_cancel (priv->ibus_cancellable);
+                        g_clear_pointer (&priv->invocation, set_input_source_return);
+                        priv->pending_ops = 0;
+                }
+                priv->invocation = invocation;
+                set_input_source (manager);
+        }
+}
+
+static void
 on_bus_name_lost (GDBusConnection *connection,
                   const gchar     *name,
                   gpointer         data)
@@ -1561,7 +1650,7 @@ got_session_bus (GObject            *source,
         GDBusConnection *connection;
         GError *error = NULL;
         GDBusInterfaceVTable vtable = {
-                NULL,
+                (GDBusInterfaceMethodCallFunc) handle_dbus_method_call,
                 NULL,
                 NULL,
         };
@@ -1725,6 +1814,7 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
 
         set_input_sources_switcher (manager, FALSE);
 
+        g_clear_pointer (&p->invocation, set_input_source_return);
         g_clear_pointer (&p->dbus_introspection, g_dbus_node_info_unref);
         g_clear_object (&p->dbus_connection);
 }
