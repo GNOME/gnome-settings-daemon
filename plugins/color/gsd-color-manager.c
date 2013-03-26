@@ -245,35 +245,19 @@ gcm_session_async_helper_free (GcmSessionAsyncHelper *helper)
         g_free (helper);
 }
 
-static cmsBool
-_cmsWriteTagTextAscii (cmsHPROFILE lcms_profile,
-                       cmsTagSignature sig,
-                       const gchar *text)
-{
-        cmsBool ret;
-        cmsMLU *mlu = cmsMLUalloc (0, 1);
-        cmsMLUsetASCII (mlu, "en", "US", text);
-        ret = cmsWriteTag (lcms_profile, sig, mlu);
-        cmsMLUfree (mlu);
-        return ret;
-}
-
 static gboolean
-gcm_utils_mkdir_for_filename (const gchar *filename, GError **error)
+gcm_utils_mkdir_for_filename (GFile *file, GError **error)
 {
         gboolean ret = FALSE;
-        GFile *file;
         GFile *parent_dir = NULL;
 
         /* get parent directory */
-        file = g_file_new_for_path (filename);
         parent_dir = g_file_get_parent (file);
         if (parent_dir == NULL) {
-                g_set_error (error,
-                             GSD_COLOR_MANAGER_ERROR,
-                             GSD_COLOR_MANAGER_ERROR_FAILED,
-                             "could not get parent dir %s",
-                             filename);
+                g_set_error_literal (error,
+                                     GSD_COLOR_MANAGER_ERROR,
+                                     GSD_COLOR_MANAGER_ERROR_FAILED,
+                                     "could not get parent dir");
                 goto out;
         }
 
@@ -285,157 +269,53 @@ gcm_utils_mkdir_for_filename (const gchar *filename, GError **error)
         if (!ret)
                 goto out;
 out:
-        if (file != NULL)
-                g_object_unref (file);
         if (parent_dir != NULL)
                 g_object_unref (parent_dir);
         return ret;
 }
 
-#ifdef HAVE_NEW_LCMS
-static wchar_t *
-utf8_to_wchar_t (const char *src)
-{
-        size_t len;
-        size_t converted;
-        wchar_t *buf = NULL;
-
-        len = mbstowcs (NULL, src, 0);
-        if (len == (size_t) -1) {
-                g_warning ("Invalid UTF-8 in string %s", src);
-                goto out;
-        }
-        len += 1;
-        buf = g_malloc (sizeof (wchar_t) * len);
-        converted = mbstowcs (buf, src, len - 1);
-        g_assert (converted != -1);
-        buf[converted] = '\0';
-out:
-        return buf;
-}
-
-static cmsBool
-_cmsDictAddEntryAscii (cmsHANDLE dict,
-                       const gchar *key,
-                       const gchar *value)
-{
-        cmsBool ret = FALSE;
-        wchar_t *mb_key = NULL;
-        wchar_t *mb_value = NULL;
-
-        mb_key = utf8_to_wchar_t (key);
-        if (mb_key == NULL)
-                goto out;
-        mb_value = utf8_to_wchar_t (value);
-        if (mb_value == NULL)
-                goto out;
-        ret = cmsDictAddEntry (dict, mb_key, mb_value, NULL, NULL);
-out:
-        g_free (mb_key);
-        g_free (mb_value);
-        return ret;
-}
-#endif /* HAVE_NEW_LCMS */
-
 static gboolean
 gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
                                        CdDevice *device,
                                        GcmEdid *edid,
-                                       const gchar *filename,
+                                       GFile *file,
                                        GError **error)
 {
-        const CdColorYxy *tmp;
-        cmsCIExyYTRIPLE chroma;
-        cmsCIExyY white_point;
-        cmsHPROFILE lcms_profile = NULL;
-        cmsToneCurve *transfer_curve[3] = { NULL, NULL, NULL };
+        CdIcc *icc = NULL;
         const gchar *data;
         gboolean ret = FALSE;
-        gchar *str;
-        gfloat edid_gamma;
-        gfloat localgamma;
-#ifdef HAVE_NEW_LCMS
-        cmsHANDLE dict = NULL;
-#endif
         GsdColorManagerPrivate *priv = manager->priv;
 
         /* ensure the per-user directory exists */
-        ret = gcm_utils_mkdir_for_filename (filename, error);
+        ret = gcm_utils_mkdir_for_filename (file, error);
         if (!ret)
                 goto out;
 
-        /* copy color data from our structures */
-        tmp = gcm_edid_get_red (edid);
-        chroma.Red.x = tmp->x;
-        chroma.Red.y = tmp->y;
-        tmp = gcm_edid_get_green (edid);
-        chroma.Green.x = tmp->x;
-        chroma.Green.y = tmp->y;
-        tmp = gcm_edid_get_blue (edid);
-        chroma.Blue.x = tmp->x;
-        chroma.Blue.y = tmp->y;
-        tmp = gcm_edid_get_white (edid);
-        white_point.x = tmp->x;
-        white_point.y = tmp->y;
-        white_point.Y = 1.0;
-
-        /* estimate the transfer function for the gamma */
-        localgamma = gcm_edid_get_gamma (edid);
-        transfer_curve[0] = transfer_curve[1] = transfer_curve[2] = cmsBuildGamma (NULL, localgamma);
-
         /* create our generated profile */
-        lcms_profile = cmsCreateRGBProfile (&white_point, &chroma, transfer_curve);
-        if (lcms_profile == NULL) {
-                g_set_error (error,
-                             GSD_COLOR_MANAGER_ERROR,
-                             GSD_COLOR_MANAGER_ERROR_FAILED,
-                             "failed to create profile");
+        icc = cd_icc_new ();
+        ret = cd_icc_create_from_edid (icc,
+                                       gcm_edid_get_gamma (edid),
+                                       gcm_edid_get_red (edid),
+                                       gcm_edid_get_green (edid),
+                                       gcm_edid_get_blue (edid),
+                                       gcm_edid_get_white (edid),
+                                       error);
+        if (!ret)
                 goto out;
-        }
 
-        cmsSetColorSpace (lcms_profile, cmsSigRgbData);
-        cmsSetPCS (lcms_profile, cmsSigXYZData);
-        cmsSetHeaderRenderingIntent (lcms_profile, INTENT_PERCEPTUAL);
-        cmsSetDeviceClass (lcms_profile, cmsSigDisplayClass);
+        /* set copyright */
+        cd_icc_set_copyright (icc, NULL,
+                              /* deliberately not translated */
+                              "This profile is free of known copyright restrictions.");
 
-        /* copyright */
-        ret = _cmsWriteTagTextAscii (lcms_profile,
-                                     cmsSigCopyrightTag,
-                                     /* deliberately not translated */
-                                     "This profile is free of known copyright restrictions.");
-        if (!ret) {
-                g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
-                                     "failed to write copyright");
-                goto out;
-        }
-
-        /* set model */
+        /* set model and title */
         data = gcm_edid_get_monitor_name (edid);
         if (data == NULL)
                 data = gcm_dmi_get_name (priv->dmi);
         if (data == NULL)
                 data = "Unknown monitor";
-        ret = _cmsWriteTagTextAscii (lcms_profile,
-                                     cmsSigDeviceModelDescTag,
-                                     data);
-        if (!ret) {
-                g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
-                                     "failed to write model");
-                goto out;
-        }
-
-        /* write title */
-        ret = _cmsWriteTagTextAscii (lcms_profile,
-                                     cmsSigProfileDescriptionTag,
-                                     data);
-        if (!ret) {
-                g_set_error_literal (error, GSD_COLOR_MANAGER_ERROR, GSD_COLOR_MANAGER_ERROR_FAILED, "failed to write description");
-                goto out;
-        }
+        cd_icc_set_model (icc, NULL, data);
+        cd_icc_set_description (icc, NULL, data);
 
         /* get manufacturer */
         data = gcm_edid_get_vendor_name (edid);
@@ -443,113 +323,44 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
                 data = gcm_dmi_get_vendor (priv->dmi);
         if (data == NULL)
                 data = "Unknown vendor";
-        ret = _cmsWriteTagTextAscii (lcms_profile,
-                                     cmsSigDeviceMfgDescTag,
-                                     data);
-        if (!ret) {
-                g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
-                                     "failed to write manufacturer");
-                goto out;
-        }
-
-#ifdef HAVE_NEW_LCMS
-        /* just create a new dict */
-        dict = cmsDictAlloc (NULL);
+        cd_icc_set_manufacturer (icc, NULL, data);
 
         /* set the framework creator metadata */
-        _cmsDictAddEntryAscii (dict,
-                               CD_PROFILE_METADATA_CMF_PRODUCT,
-                               PACKAGE_NAME);
-        _cmsDictAddEntryAscii (dict,
-                               CD_PROFILE_METADATA_CMF_BINARY,
-                               PACKAGE_NAME);
-        _cmsDictAddEntryAscii (dict,
-                               CD_PROFILE_METADATA_CMF_VERSION,
-                               PACKAGE_VERSION);
-        _cmsDictAddEntryAscii (dict,
-                               CD_PROFILE_METADATA_MAPPING_DEVICE_ID,
-                               cd_device_get_id (device));
-
-        /* set the data source so we don't ever prompt the user to
-         * recalibrate (as the EDID data won't have changed) */
-        _cmsDictAddEntryAscii (dict,
-                               CD_PROFILE_METADATA_DATA_SOURCE,
-                               CD_PROFILE_METADATA_DATA_SOURCE_EDID);
+        cd_icc_add_metadata (icc,
+                             CD_PROFILE_METADATA_CMF_PRODUCT,
+                             PACKAGE_NAME);
+        cd_icc_add_metadata (icc,
+                             CD_PROFILE_METADATA_CMF_BINARY,
+                             PACKAGE_NAME);
+        cd_icc_add_metadata (icc,
+                             CD_PROFILE_METADATA_CMF_VERSION,
+                             PACKAGE_VERSION);
+        cd_icc_add_metadata (icc,
+                             CD_PROFILE_METADATA_MAPPING_DEVICE_ID,
+                             cd_device_get_id (device));
 
         /* set 'ICC meta Tag for Monitor Profiles' data */
-        _cmsDictAddEntryAscii (dict, "EDID_md5", gcm_edid_get_checksum (edid));
+        cd_icc_add_metadata (icc, "EDID_md5", gcm_edid_get_checksum (edid));
         data = gcm_edid_get_monitor_name (edid);
         if (data != NULL)
-                _cmsDictAddEntryAscii (dict, "EDID_model", data);
+                cd_icc_add_metadata (icc, "EDID_model", data);
         data = gcm_edid_get_serial_number (edid);
         if (data != NULL)
-                _cmsDictAddEntryAscii (dict, "EDID_serial", data);
+                cd_icc_add_metadata (icc, "EDID_serial", data);
         data = gcm_edid_get_pnp_id (edid);
         if (data != NULL)
-                _cmsDictAddEntryAscii (dict, "EDID_mnft", data);
+                cd_icc_add_metadata (icc, "EDID_mnft", data);
         data = gcm_edid_get_vendor_name (edid);
         if (data != NULL)
-                _cmsDictAddEntryAscii (dict, "EDID_manufacturer", data);
-        edid_gamma = gcm_edid_get_gamma (edid);
-        if (edid_gamma > 0.0 && edid_gamma < 10.0) {
-                str = g_strdup_printf ("%f", edid_gamma);
-                _cmsDictAddEntryAscii (dict, "EDID_gamma", str);
-                g_free (str);
-        }
+                cd_icc_add_metadata (icc, "EDID_manufacturer", data);
 
-        /* also add the primaries */
-        str = g_strdup_printf ("%f", chroma.Red.x);
-        _cmsDictAddEntryAscii (dict, "EDID_red_x", str);
-        g_free (str);
-        str = g_strdup_printf ("%f", chroma.Red.y);
-        _cmsDictAddEntryAscii (dict, "EDID_red_y", str);
-        g_free (str);
-        str = g_strdup_printf ("%f", chroma.Green.x);
-        _cmsDictAddEntryAscii (dict, "EDID_green_x", str);
-        g_free (str);
-        str = g_strdup_printf ("%f", chroma.Green.y);
-        _cmsDictAddEntryAscii (dict, "EDID_green_y", str);
-        g_free (str);
-        str = g_strdup_printf ("%f", chroma.Blue.x);
-        _cmsDictAddEntryAscii (dict, "EDID_blue_x", str);
-        g_free (str);
-        str = g_strdup_printf ("%f", chroma.Blue.y);
-        _cmsDictAddEntryAscii (dict, "EDID_blue_y", str);
-        g_free (str);
-
-        /* write new tag */
-        ret = cmsWriteTag (lcms_profile, cmsSigMetaTag, dict);
-        if (!ret) {
-                g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
-                                     "failed to write profile metadata");
+        /* save */
+        ret = cd_icc_save_file (icc, file, CD_ICC_SAVE_FLAGS_NONE, NULL, error);
+        if (!ret)
                 goto out;
-        }
-#endif /* HAVE_NEW_LCMS */
-
-        /* write profile id */
-        ret = cmsMD5computeID (lcms_profile);
-        if (!ret) {
-                g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
-                                     "failed to write profile id");
-                goto out;
-        }
-
-        /* save, TODO: get error */
-        cmsSaveProfileToFile (lcms_profile, filename);
-        ret = TRUE;
 out:
-#ifdef HAVE_NEW_LCMS
-        if (dict != NULL)
-                cmsDictFree (dict);
-#endif
-        if (*transfer_curve != NULL)
-                cmsFreeToneCurve (*transfer_curve);
+        if (icc != NULL)
+                g_object_unref (icc);
         return ret;
 }
 
@@ -561,24 +372,20 @@ gcm_session_generate_vcgt (CdProfile *profile, guint size)
         const cmsToneCurve **vcgt;
         cmsFloat32Number in;
         guint i;
-        const gchar *filename;
-        cmsHPROFILE lcms_profile = NULL;
+        cmsHPROFILE lcms_profile;
+        CdIcc *icc = NULL;
 
         /* invalid size */
         if (size == 0)
                 goto out;
 
-        /* not an actual profile */
-        filename = cd_profile_get_filename (profile);
-        if (filename == NULL)
-                goto out;
-
         /* open file */
-        lcms_profile = cmsOpenProfileFromFile (filename, "r");
-        if (lcms_profile == NULL)
+        icc = cd_profile_load_icc (profile, CD_ICC_LOAD_FLAGS_NONE, NULL, NULL);
+        if (icc == NULL)
                 goto out;
 
         /* get tone curves from profile */
+        lcms_profile = cd_icc_get_handle (icc);
         vcgt = cmsReadTag (lcms_profile, cmsSigVcgtTag);
         if (vcgt == NULL || vcgt[0] == NULL) {
                 g_debug ("profile does not have any VCGT data");
@@ -596,8 +403,8 @@ gcm_session_generate_vcgt (CdProfile *profile, guint size)
                 g_ptr_array_add (array, tmp);
         }
 out:
-        if (lcms_profile != NULL)
-                cmsCloseProfile (lcms_profile);
+        if (icc != NULL)
+                g_object_unref (icc);
         return array;
 }
 
@@ -977,45 +784,22 @@ out:
  * so that it gets mapped by the daemon.
  */
 static gboolean
-gcm_session_check_profile_device_md (const gchar *filename)
+gcm_session_check_profile_device_md (GFile *file)
 {
-        cmsHANDLE dict;
-        cmsHPROFILE lcms_profile;
-        const cmsDICTentry *entry;
-        gboolean ret = FALSE;
-        gchar ascii_name[1024];
-        gsize len;
+        CdIcc *icc;
+        gboolean ret;
 
-        /* parse the ICC file */
-        lcms_profile = cmsOpenProfileFromFile (filename, "r");
-        if (lcms_profile == NULL)
+        icc = cd_icc_new ();
+        ret = cd_icc_load_file (icc, file, CD_ICC_LOAD_FLAGS_NONE, NULL, NULL);
+        if (!ret)
                 goto out;
-
-        /* does profile have metadata? */
-        dict = cmsReadTag (lcms_profile, cmsSigMetaTag);
-        if (dict == NULL) {
-                g_debug ("auto-edid profile is old, and contains no metadata");
-                goto out;
+        ret = cd_icc_get_metadata_item (icc, CD_PROFILE_METADATA_MAPPING_DEVICE_ID) != NULL;
+        if (!ret) {
+                g_debug ("auto-edid profile is old, and contains no %s data",
+                         CD_PROFILE_METADATA_MAPPING_DEVICE_ID);
         }
-        for (entry = cmsDictGetEntryList (dict);
-             entry != NULL;
-             entry = cmsDictNextEntry (entry)) {
-                if (entry->Name == NULL)
-                        continue;
-                len = wcstombs (ascii_name, entry->Name, sizeof (ascii_name));
-                if (len == (gsize) -1)
-                        continue;
-                if (g_strcmp0 (ascii_name,
-                               CD_PROFILE_METADATA_MAPPING_DEVICE_ID) == 0) {
-                        ret = TRUE;
-                        goto out;
-                }
-        }
-        g_debug ("auto-edid profile is old, and contains no %s data",
-                 CD_PROFILE_METADATA_MAPPING_DEVICE_ID);
 out:
-        if (lcms_profile != NULL)
-                cmsCloseProfile (lcms_profile);
+        g_object_unref (icc);
         return ret;
 }
 
@@ -1032,6 +816,7 @@ gcm_session_device_assign_connect_cb (GObject *object,
         GcmEdid *edid = NULL;
         GnomeRROutput *output = NULL;
         GError *error = NULL;
+        GFile *file = NULL;
         const gchar *xrandr_id;
         GcmSessionAsyncHelper *helper;
         CdDevice *device = CD_DEVICE (object);
@@ -1087,7 +872,8 @@ gcm_session_device_assign_connect_cb (GObject *object,
                                                  "icc", autogen_filename, NULL);
 
                 /* check if auto-profile has up-to-date metadata */
-                if (gcm_session_check_profile_device_md (autogen_path)) {
+                file = g_file_new_for_path (autogen_path);
+                if (gcm_session_check_profile_device_md (file)) {
                         g_debug ("auto-profile edid %s exists with md", autogen_path);
                 } else {
                         g_debug ("auto-profile edid does not exist, creating as %s",
@@ -1095,7 +881,7 @@ gcm_session_device_assign_connect_cb (GObject *object,
                         ret = gcm_apply_create_icc_profile_for_edid (manager,
                                                                      device,
                                                                      edid,
-                                                                     autogen_path,
+                                                                     file,
                                                                      &error);
                         if (!ret) {
                                 g_warning ("failed to create profile from EDID data: %s",
@@ -1144,6 +930,8 @@ gcm_session_device_assign_connect_cb (GObject *object,
 out:
         g_free (autogen_filename);
         g_free (autogen_path);
+        if (file != NULL)
+                g_object_unref (file);
         if (edid != NULL)
                 g_object_unref (edid);
         if (profile != NULL)
@@ -1860,70 +1648,6 @@ gcm_session_device_added_notify_cb (CdClient *client,
                            manager);
 }
 
-static gchar *
-gcm_session_get_precooked_md5 (cmsHPROFILE lcms_profile)
-{
-        cmsUInt8Number profile_id[16];
-        gboolean md5_precooked = FALSE;
-        guint i;
-        gchar *md5 = NULL;
-
-        /* check to see if we have a pre-cooked MD5 */
-        cmsGetHeaderProfileID (lcms_profile, profile_id);
-        for (i = 0; i < 16; i++) {
-                if (profile_id[i] != 0) {
-                        md5_precooked = TRUE;
-                        break;
-                }
-        }
-        if (!md5_precooked)
-                goto out;
-
-        /* convert to a hex string */
-        md5 = g_new0 (gchar, 32 + 1);
-        for (i = 0; i < 16; i++)
-                g_snprintf (md5 + i*2, 3, "%02x", profile_id[i]);
-out:
-        return md5;
-}
-
-static gchar *
-gcm_session_get_md5_for_filename (const gchar *filename,
-                                  GError **error)
-{
-        gboolean ret;
-        gchar *checksum = NULL;
-        gchar *data = NULL;
-        gsize length;
-        cmsHPROFILE lcms_profile = NULL;
-
-        /* get the internal profile id, if it exists */
-        lcms_profile = cmsOpenProfileFromFile (filename, "r");
-        if (lcms_profile == NULL) {
-                g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
-                                     "failed to load: not an ICC profile");
-                goto out;
-        }
-        checksum = gcm_session_get_precooked_md5 (lcms_profile);
-        if (checksum != NULL)
-                goto out;
-
-        /* generate checksum */
-        ret = g_file_get_contents (filename, &data, &length, error);
-        if (!ret)
-                goto out;
-        checksum = g_compute_checksum_for_data (G_CHECKSUM_MD5,
-                                                (const guchar *) data,
-                                                length);
-out:
-        g_free (data);
-        if (lcms_profile != NULL)
-                cmsCloseProfile (lcms_profile);
-        return checksum;
-}
-
 static void
 gcm_session_create_profile_cb (GObject *object,
                                GAsyncResult *res,
@@ -1949,22 +1673,32 @@ gcm_session_profile_store_added_cb (GcmProfileStore *profile_store,
                                     const gchar *filename,
                                     GsdColorManager *manager)
 {
-        gchar *checksum = NULL;
+        CdIcc *icc;
+        const gchar *checksum;
+        gboolean ret;
         gchar *profile_id = NULL;
         GError *error = NULL;
+        GFile *file;
         GHashTable *profile_props = NULL;
         GsdColorManagerPrivate *priv = manager->priv;
 
         g_debug ("profile %s added", filename);
 
-        /* generate ID */
-        checksum = gcm_session_get_md5_for_filename (filename, &error);
-        if (checksum == NULL) {
-                g_debug ("failed to get profile checksum for %s: %s",
+        /* load file */
+        file = g_file_new_for_path (filename);
+        icc = cd_icc_new ();
+        ret = cd_icc_load_file (icc, file,
+                                CD_ICC_LOAD_FLAGS_FALLBACK_MD5,
+                                NULL, &error);
+        if (!ret) {
+                g_debug ("failed to load %s: %s",
                          filename, error->message);
                 g_error_free (error);
                 goto out;
         }
+
+        /* generate ID */
+        checksum = cd_icc_get_checksum (icc);
         profile_id = g_strdup_printf ("icc-%s", checksum);
         profile_props = g_hash_table_new_full (g_str_hash, g_str_equal,
                                                NULL, NULL);
@@ -1982,7 +1716,8 @@ gcm_session_profile_store_added_cb (GcmProfileStore *profile_store,
                                   gcm_session_create_profile_cb,
                                   manager);
 out:
-        g_free (checksum);
+        g_object_unref (icc);
+        g_object_unref (file);
         g_free (profile_id);
         if (profile_props != NULL)
                 g_hash_table_unref (profile_props);
