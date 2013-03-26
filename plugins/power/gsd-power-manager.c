@@ -2477,15 +2477,15 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                 return;
         }
 
-        manager->priv->current_idle_mode = mode;
-        g_debug ("Doing a state transition: %s", idle_mode_to_string (mode));
-
         /* don't do any power saving if we're a VM */
         if (manager->priv->is_virtual_machine) {
                 g_debug ("ignoring state transition to %s as virtual machine",
                          idle_mode_to_string (mode));
                 return;
         }
+
+        manager->priv->current_idle_mode = mode;
+        g_debug ("Doing a state transition: %s", idle_mode_to_string (mode));
 
         /* if we're moving to an idle mode, make sure
          * we add a watch to take us back to normal */
