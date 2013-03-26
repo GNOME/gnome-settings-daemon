@@ -369,8 +369,16 @@ if test x"$enable_cups" != x"no" ; then
       AC_MSG_ERROR([CUPS 1.4 or newer not found, but CUPS support requested])
    fi
 
+   # https://bugzilla.gnome.org/show_bug.cgi?id=696571
+   CUPS_CPPFLAGS=""
+   if test $CUPS_API_MAJOR -gt 1 -o \
+           $CUPS_API_MAJOR -eq 1 -a $CUPS_API_MINOR -ge 6 ; then
+      CUPS_CPPFLAGS=-D_PPD_DEPRECATED=""
+   fi
+
    CUPS_CFLAGS=`$CUPS_CONFIG --cflags | $SED -e 's/-O\w*//g' -e 's/-m\w*//g'`
    CUPS_LIBS=`$CUPS_CONFIG --libs`
+   AC_SUBST(CUPS_CPPFLAGS)
    AC_SUBST(CUPS_CFLAGS)
    AC_SUBST(CUPS_LIBS)
 fi
