@@ -12,7 +12,8 @@ libprint_notifications_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DLIBEXECDIR=\""$(libexecdir)"\" \
-	$(AM_CPPFLAGS)
+	$(AM_CPPFLAGS)			\
+	$(CUPS_CPPFLAGS)
 
 libprint_notifications_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
@@ -59,7 +60,8 @@ gsd_test_print_notifications_CPPFLAGS =				\
 	-I$(top_srcdir)/plugins/common				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
-	$(AM_CPPFLAGS)
+	$(AM_CPPFLAGS)						\
+	$(CUPS_CPPFLAGS)
 
 gsd_test_print_notifications_CFLAGS =	\
 	$(PLUGIN_CFLAGS)		\
