@@ -284,12 +284,14 @@ gsd_cursor_manager_start (GsdCursorManager  *manager,
         gnome_settings_profile_start (NULL);
 
         if (supports_cursor_xfixes () == FALSE) {
-                g_debug ("XFixes cursor extension not available, will not hide the cursor");
+                g_set_error (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
+                             "XFixes cursor extension not available");
                 return FALSE;
         }
 
         if (supports_xinput_devices () == FALSE) {
-                g_debug ("XInput support not available, will not hide the cursor");
+                g_set_error (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
+                             "XInput support not available");
                 return FALSE;
         }
 
