@@ -168,8 +168,11 @@ add_device (GdkDeviceManager *device_manager,
 
         /* Create IdleMonitors for each pointer device */
         monitor = gnome_idle_monitor_new_for_device (device);
-        if (!monitor)
+        if (!monitor) {
+                g_set_error (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
+                             "Per-device idletime monitor not available");
                 return FALSE;
+        }
         g_hash_table_insert (manager->priv->monitors,
                              device,
                              monitor);
