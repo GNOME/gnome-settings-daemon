@@ -25,6 +25,8 @@
 
 #include "gsd-backlight-linux.h"
 
+#include <stdlib.h>
+
 #ifdef HAVE_GUDEV
 #include <gudev/gudev.h>
 
