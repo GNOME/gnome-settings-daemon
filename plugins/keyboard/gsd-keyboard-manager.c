@@ -669,6 +669,11 @@ upload_xkb_description (const gchar          *rules_file_path,
         XkbDescRec *xkb_desc;
         gchar *rules_file;
 
+        /* The layout we want is always in the first XKB group index
+         * so we should enforce it to make sure we never end up with
+         * the wrong one. */
+        XkbLockGroup (display, XkbUseCoreKbd, 0);
+
         /* Upload it to the X server using the same method as setxkbmap */
         xkb_desc = XkbGetKeyboardByName (display,
                                          XkbUseCoreKbd,
