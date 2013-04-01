@@ -1345,13 +1345,8 @@ convert_libgnomekbd_options (GSettings *settings)
                 gchar **strv;
 
                 strv = g_strsplit (*o, "\t", 2);
-                if (strv[0] && strv[1]) {
-                        /* We don't want the group switcher because
-                         * it's incompatible with the way we use XKB
-                         * groups. */
-                        if (!g_str_has_prefix (strv[1], "grp:"))
-                                g_ptr_array_add (opt_array, g_strdup (strv[1]));
-                }
+                if (strv[0] && strv[1])
+                        g_ptr_array_add (opt_array, g_strdup (strv[1]));
                 g_strfreev (strv);
         }
         g_ptr_array_add (opt_array, NULL);
