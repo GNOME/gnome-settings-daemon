@@ -1809,6 +1809,7 @@ do_config_power_action (GsdMediaKeysManager *manager,
                 power_action_hibernate (manager);
                 break;
         case GSD_POWER_ACTION_BLANK:
+        case GSD_POWER_ACTION_LOGOUT:
         case GSD_POWER_ACTION_NOTHING:
                 /* these actions cannot be handled by media-keys and
                  * are not used in this context */
