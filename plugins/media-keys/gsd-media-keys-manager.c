@@ -266,6 +266,7 @@ get_keyring_env (GsdMediaKeysManager *manager)
 	}
 
 	envp = g_get_environ ();
+	envp = g_environ_unsetenv (envp, "DESKTOP_AUTOSTART_ID");
 
 	g_variant_get (variant, "(a{ss})", &iter);
 
