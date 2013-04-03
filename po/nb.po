@@ -6,10 +6,10 @@
 # Torstein Adolf Winterseth <kvikende@fsfe.org>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon 3.7.x\n"
+"Project-Id-Version: gnome-settings-daemon 3.8.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-04 14:49+0100\n"
-"PO-Revision-Date: 2013-03-04 14:55+0100\n"
+"POT-Creation-Date: 2013-04-03 13:27+0200\n"
+"PO-Revision-Date: 2013-04-03 13:30+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: \n"
@@ -305,7 +305,7 @@ msgstr "Type handling for knapp på Wacom tegnebrett"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
 msgid "The type of action triggered by the button being pressed."
-msgstr ""
+msgstr "Type handling som utføres når knappen trykkes ned."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
 msgid "Key combination for the custom action"
@@ -351,7 +351,7 @@ msgstr "Hvor lenge en skriverprofil er gyldig"
 msgid ""
 "This is the number of days after which the printer color profile is "
 "considered invalid."
-msgstr ""
+msgstr "Antall dager før fargeprofilen for skriveren anses som ugyldig."
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 msgid "List of plugins that are allowed to be loaded"
@@ -1279,7 +1279,9 @@ msgstr "Opprydding"
 msgid ""
 "Automatically prunes thumbnail caches and other transient files, and warns "
 "about low disk space"
-msgstr "Tømmer buffer for miniatyrer og andre midlertidige filer automatisk og varsler når det er lite tilgjengelig diskplass"
+msgstr ""
+"Tømmer buffer for miniatyrer og andre midlertidige filer automatisk og "
+"varsler når det er lite tilgjengelig diskplass"
 
 #. TRANSLATORS: wireless keyboard with internal battery
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
@@ -1410,39 +1412,40 @@ msgid "Power Off"
 msgstr "Slå av"
 
 #. the kernel / Xorg names really are like this...
-#: ../plugins/media-keys/shortcuts-list.h:150
+#. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
+#: ../plugins/media-keys/shortcuts-list.h:151
 msgid "Sleep"
 msgstr "Sov"
 
-#: ../plugins/media-keys/shortcuts-list.h:151
+#: ../plugins/media-keys/shortcuts-list.h:152
 msgid "Suspend"
 msgstr "Hvilemodus"
 
-#: ../plugins/media-keys/shortcuts-list.h:152
+#: ../plugins/media-keys/shortcuts-list.h:153
 msgid "Hibernate"
 msgstr "Dvalemodus"
 
-#: ../plugins/media-keys/shortcuts-list.h:153
+#: ../plugins/media-keys/shortcuts-list.h:154
 msgid "Brightness Up"
 msgstr "Lysstyrke opp"
 
-#: ../plugins/media-keys/shortcuts-list.h:154
+#: ../plugins/media-keys/shortcuts-list.h:155
 msgid "Brightness Down"
 msgstr "Lysstyrke ned"
 
-#: ../plugins/media-keys/shortcuts-list.h:155
+#: ../plugins/media-keys/shortcuts-list.h:156
 msgid "Keyboard Brightness Up"
 msgstr "Lysstyrke for tastatur opp"
 
-#: ../plugins/media-keys/shortcuts-list.h:156
+#: ../plugins/media-keys/shortcuts-list.h:157
 msgid "Keyboard Brightness Down"
 msgstr "Lysstyrke for tastatur ned"
 
-#: ../plugins/media-keys/shortcuts-list.h:157
+#: ../plugins/media-keys/shortcuts-list.h:158
 msgid "Keyboard Brightness Toggle"
 msgstr "Slå av/på lysstyrke for tastatur"
 
-#: ../plugins/media-keys/shortcuts-list.h:158
+#: ../plugins/media-keys/shortcuts-list.h:159
 msgid "Battery Status"
 msgstr "Batteristatus"
 
@@ -2011,7 +2014,7 @@ msgstr "%s UPS reservestrøm gjenstår"
 #: ../plugins/power/gsd-power-manager.c:1438
 #: ../plugins/power/gsd-power-manager.c:1611
 #: ../plugins/power/gsd-power-manager.c:1749
-#: ../plugins/power/gsd-power-manager.c:3084
+#: ../plugins/power/gsd-power-manager.c:3088
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Strøm"
@@ -2334,24 +2337,24 @@ msgstr "Lokket ble åpnet"
 msgid "Lid has been closed"
 msgstr "Lokket ble lukket"
 
-#: ../plugins/power/gsd-power-manager.c:3063
+#: ../plugins/power/gsd-power-manager.c:3067
 msgid "Automatic logout"
 msgstr "Automatisk utlogging"
 
-#: ../plugins/power/gsd-power-manager.c:3063
+#: ../plugins/power/gsd-power-manager.c:3067
 msgid "You will soon log out because of inactivity."
 msgstr "Du vil snart bli logget ut pga inaktivitet."
 
-#: ../plugins/power/gsd-power-manager.c:3068
+#: ../plugins/power/gsd-power-manager.c:3072
 msgid "Automatic suspend"
 msgstr "Automatisk hvilemodus"
 
-#: ../plugins/power/gsd-power-manager.c:3068
-#: ../plugins/power/gsd-power-manager.c:3073
+#: ../plugins/power/gsd-power-manager.c:3072
+#: ../plugins/power/gsd-power-manager.c:3077
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Datamaskinen vil gå i hvilemodus meget snart pga inaktivitet."
 
-#: ../plugins/power/gsd-power-manager.c:3073
+#: ../plugins/power/gsd-power-manager.c:3077
 msgid "Automatic hibernation"
 msgstr "Automatisk dvalemodus"
 
@@ -2623,7 +2626,7 @@ msgstr "Proxy for skjermsparer"
 
 #: ../plugins/screensaver-proxy/screensaver-proxy.gnome-settings-plugin.in.h:2
 msgid "Proxy FreeDesktop screensaver inhibition to gnome-session"
-msgstr ""
+msgstr "Bruk gnome-session som proxy for hinding av skjermsparer"
 
 #: ../plugins/smartcard/gsd-smartcard-manager.c:529
 msgid "received error or hang up from event source"
@@ -2689,11 +2692,11 @@ msgstr "Ekstra programvare ble installert"
 #: ../plugins/updates/gsd-updates-firmware.c:283
 #: ../plugins/updates/gsd-updates-firmware.c:311
 #: ../plugins/updates/gsd-updates-firmware.c:603
-#: ../plugins/updates/gsd-updates-manager.c:344
-#: ../plugins/updates/gsd-updates-manager.c:472
-#: ../plugins/updates/gsd-updates-manager.c:534
-#: ../plugins/updates/gsd-updates-manager.c:588
-#: ../plugins/updates/gsd-updates-manager.c:1221
+#: ../plugins/updates/gsd-updates-manager.c:347
+#: ../plugins/updates/gsd-updates-manager.c:478
+#: ../plugins/updates/gsd-updates-manager.c:540
+#: ../plugins/updates/gsd-updates-manager.c:594
+#: ../plugins/updates/gsd-updates-manager.c:1236
 msgid "Software Updates"
 msgstr "Programvareoppdateringer"
 
@@ -2734,167 +2737,167 @@ msgid "Ignore devices"
 msgstr "Overse enheter"
 
 #. TRANSLATORS: this is when the offline update failed
-#: ../plugins/updates/gsd-updates-manager.c:121
+#: ../plugins/updates/gsd-updates-manager.c:120
 msgid "Failed To Update"
 msgstr "Klarte ikke å oppdatere"
 
 #. TRANSLATORS: the transaction could not be completed
 #. * as a previous transaction was unfinished
-#: ../plugins/updates/gsd-updates-manager.c:127
+#: ../plugins/updates/gsd-updates-manager.c:126
 msgid "A previous update was unfinished."
 msgstr "En tidligere oppdatering var uferdig."
 
 #. TRANSLATORS: the package manager needed to download
 #. * something with no network available
-#: ../plugins/updates/gsd-updates-manager.c:137
+#: ../plugins/updates/gsd-updates-manager.c:136
 msgid "Network access was required but not available."
 msgstr "Nettverksaksess kreves men var ikke tilgjengelig."
 
 #. TRANSLATORS: if the package is not signed correctly
 #. *
-#: ../plugins/updates/gsd-updates-manager.c:146
+#: ../plugins/updates/gsd-updates-manager.c:145
 msgid "An update was not signed in the correct way."
 msgstr "En oppdatering var ikke korrekt signert."
 
 #. TRANSLATORS: the transaction failed in a way the user
 #. * probably cannot comprehend. Package management systems
 #. * really are teh suck.
-#: ../plugins/updates/gsd-updates-manager.c:156
+#: ../plugins/updates/gsd-updates-manager.c:155
 msgid "The update could not be completed."
 msgstr "Oppdateringen kunne ikke fullføres."
 
 #. TRANSLATORS: the user aborted the update manually
-#: ../plugins/updates/gsd-updates-manager.c:161
+#: ../plugins/updates/gsd-updates-manager.c:160
 msgid "The update was cancelled."
 msgstr "Oppdateringen ble avbrutt."
 
 #. TRANSLATORS: the user must have updated manually after
 #. * the updates were prepared
-#: ../plugins/updates/gsd-updates-manager.c:167
+#: ../plugins/updates/gsd-updates-manager.c:166
 msgid "An offline update was requested but no packages required updating."
 msgstr ""
 "En frakoblet oppdatering ble forespurt men ingen pakker krever oppdatering."
 
 #. TRANSLATORS: we ran out of disk space
-#: ../plugins/updates/gsd-updates-manager.c:171
+#: ../plugins/updates/gsd-updates-manager.c:170
 msgid "No space was left on the drive."
 msgstr "Ikke mer plass på stasjonen."
 
 #. TRANSLATORS: the update process failed in a general
 #. * way, usually this message will come from source distros
 #. * like gentoo
-#: ../plugins/updates/gsd-updates-manager.c:179
+#: ../plugins/updates/gsd-updates-manager.c:178
 msgid "An update failed to install correctly."
 msgstr "Installering av en oppdatering feilet."
 
 #. TRANSLATORS: We didn't handle the error type
-#: ../plugins/updates/gsd-updates-manager.c:184
+#: ../plugins/updates/gsd-updates-manager.c:183
 msgid "The offline update failed in an unexpected way."
 msgstr "Frakoblet oppdatering feilet på uventet vis."
 
 #. TRANSLATORS: these are geeky messages from the
 #. * package manager no mortal is supposed to understand,
 #. * but google might know what they mean
-#: ../plugins/updates/gsd-updates-manager.c:193
+#: ../plugins/updates/gsd-updates-manager.c:192
 msgid "Detailed errors from the package manager follow:"
 msgstr "Detaljert feilmelding fra pakkehåndtereren følger:"
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:339
+#: ../plugins/updates/gsd-updates-manager.c:342
 msgid "Distribution upgrades available"
 msgstr "Oppgradering for distribusjonen tilgjengelig"
 
 #. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:349
+#: ../plugins/updates/gsd-updates-manager.c:352
 msgid "More information"
 msgstr "Mer informasjon"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:454
-#: ../plugins/updates/gsd-updates-manager.c:516
+#: ../plugins/updates/gsd-updates-manager.c:460
+#: ../plugins/updates/gsd-updates-manager.c:522
 msgid "Update"
 msgid_plural "Updates"
 msgstr[0] "Oppdatering"
 msgstr[1] "Oppdateringer"
 
 #. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:457
+#: ../plugins/updates/gsd-updates-manager.c:463
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
 msgstr[0] "En viktig programvareoppdatering er tilgjengelig"
 msgstr[1] "Viktige programvareoppdateringer er tilgjengelige"
 
 #. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:477
-#: ../plugins/updates/gsd-updates-manager.c:539
+#: ../plugins/updates/gsd-updates-manager.c:483
+#: ../plugins/updates/gsd-updates-manager.c:545
 msgid "Install updates"
 msgstr "Installer oppdateringer"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:519
+#: ../plugins/updates/gsd-updates-manager.c:525
 msgid "A software update is available."
 msgid_plural "Software updates are available."
 msgstr[0] "En programvareoppdatering er tilgjengelig."
 msgstr[1] "Programvareoppdateringer er tilgjengelige."
 
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:575
+#: ../plugins/updates/gsd-updates-manager.c:581
 #: ../plugins/updates/updates.gnome-settings-plugin.in.h:1
 msgid "Updates"
 msgstr "Oppdateringer"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:579
+#: ../plugins/updates/gsd-updates-manager.c:585
 msgid "Unable to access software updates"
 msgstr "Kan ikke aksessere programvareoppdateringer"
 
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:582
+#: ../plugins/updates/gsd-updates-manager.c:588
 msgid "Try again"
 msgstr "Prøv igjen"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:958
+#: ../plugins/updates/gsd-updates-manager.c:973
 msgid "A transaction that cannot be interrupted is running"
 msgstr "En transaksjon som ikke kan avbytes kjører"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1178
+#: ../plugins/updates/gsd-updates-manager.c:1193
 msgid "Software Update Installed"
 msgid_plural "Software Updates Installed"
 msgstr[0] "Programvareoppdatering ble installert"
 msgstr[1] "Programvareoppdateringer ble installert"
 
 #. TRANSLATORS: message when we've done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1183
+#: ../plugins/updates/gsd-updates-manager.c:1198
 msgid "An important OS update has been installed."
 msgid_plural "Important OS updates have been installed."
 msgstr[0] "En viktig oppdatering for operativsystemet ble installert."
 msgstr[1] "Viktige oppdateringer for operativsystemet ble installert."
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1209
+#: ../plugins/updates/gsd-updates-manager.c:1224
 msgid "Software Updates Failed"
 msgstr "Programvareoppdateringer feilet"
 
 #. TRANSLATORS: message when we've not done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1212
+#: ../plugins/updates/gsd-updates-manager.c:1227
 msgid "An important OS update failed to be installed."
 msgstr "En viktig oppdatering for operativsystemet feilet ved installasjon."
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1228
+#: ../plugins/updates/gsd-updates-manager.c:1243
 msgid "Review"
 msgstr "Se gjennom"
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1233
+#: ../plugins/updates/gsd-updates-manager.c:1248
 msgid "Show details"
 msgstr "Vis detaljer"
 
 #. TRANSLATORS: button: clear notification
-#: ../plugins/updates/gsd-updates-manager.c:1237
+#: ../plugins/updates/gsd-updates-manager.c:1252
 msgid "OK"
 msgstr "OK"
 
