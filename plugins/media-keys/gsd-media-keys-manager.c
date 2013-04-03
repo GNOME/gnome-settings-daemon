@@ -1643,6 +1643,22 @@ do_video_rotate_action (GsdMediaKeysManager *manager,
 }
 
 static void
+do_video_rotate_lock_action (GsdMediaKeysManager *manager,
+                             gint64               timestamp)
+{
+        GSettings *settings;
+        gboolean locked;
+
+        settings = g_settings_new ("org.gnome.settings-daemon.peripherals.touchscreen");
+        locked = !g_settings_get_boolean (settings, "orientation-lock");
+        g_settings_set_boolean (settings, "orientation-lock", locked);
+        g_object_unref (settings);
+
+        show_osd (manager, locked ? "rotation-locked-symbolic"
+                                  : "rotation-allowed-symbolic", NULL, -1);
+}
+
+static void
 do_toggle_accessibility_key (const char *key)
 {
         GSettings *settings;
@@ -2042,6 +2058,9 @@ do_action (GsdMediaKeysManager *manager,
                 break;
         case ROTATE_VIDEO_KEY:
                 do_video_rotate_action (manager, timestamp);
+                break;
+        case ROTATE_VIDEO_LOCK_KEY:
+                do_video_rotate_lock_action (manager, timestamp);
                 break;
         case MAGNIFIER_KEY:
                 do_magnifier_action (manager);

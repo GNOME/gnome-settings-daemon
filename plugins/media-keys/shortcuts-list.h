@@ -63,6 +63,7 @@ typedef enum {
         RANDOM_KEY,
         VIDEO_OUT_KEY,
         ROTATE_VIDEO_KEY,
+        ROTATE_VIDEO_LOCK_KEY,
         MAGNIFIER_KEY,
         SCREENREADER_KEY,
         ON_SCREEN_KEYBOARD_KEY,
@@ -137,6 +138,7 @@ static struct {
         { VIDEO_OUT_KEY, NULL, N_("Video Out"), "XF86Display", SHELL_KEYBINDING_MODE_ALL },
         /* Key code of the XF86RotateWindows key (present on some tablets) */
         { ROTATE_VIDEO_KEY, NULL, N_("Rotate Screen"), "XF86RotateWindows", SHELL_KEYBINDING_MODE_NORMAL },
+        { ROTATE_VIDEO_LOCK_KEY, NULL, N_("Orientation Lock"), "<Super>o", SHELL_KEYBINDING_MODE_ALL },
         { MAGNIFIER_KEY, "magnifier", NULL, NULL, SHELL_KEYBINDING_MODE_ALL },
         { SCREENREADER_KEY, "screenreader", NULL, NULL, SHELL_KEYBINDING_MODE_ALL },
         { ON_SCREEN_KEYBOARD_KEY, "on-screen-keyboard", NULL, NULL, SHELL_KEYBINDING_MODE_ALL },
