@@ -596,6 +596,10 @@ gsettings_changed_cb (GSettings           *settings,
 {
         int      i;
 
+        /* Give up if we don't have proxy to the shell */
+        if (!manager->priv->key_grabber)
+                return;
+
 	/* handled in gsettings_custom_changed_cb() */
         if (g_str_equal (settings_key, "custom-keybindings"))
 		return;
@@ -764,8 +768,6 @@ init_kbd (GsdMediaKeysManager *manager)
         int i;
 
         gnome_settings_profile_start (NULL);
-
-        manager->priv->keys = g_ptr_array_new_with_free_func ((GDestroyNotify) media_key_free);
 
         /* Media keys
          * Add hard-coded shortcuts first so that they can't be preempted */
@@ -2250,6 +2252,9 @@ on_shell_vanished (GDBusConnection  *connection,
                    gpointer          user_data)
 {
         GsdMediaKeysManager *manager = user_data;
+
+        g_ptr_array_set_size (manager->priv->keys, 0);
+
         g_clear_object (&manager->priv->key_grabber);
         g_clear_object (&manager->priv->osd_proxy);
 }
@@ -2261,6 +2266,8 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 
         g_debug ("Starting media_keys manager");
         gnome_settings_profile_start (NULL);
+
+        manager->priv->keys = g_ptr_array_new_with_free_func ((GDestroyNotify) media_key_free);
 
         initialize_volume_handler (manager);
 
