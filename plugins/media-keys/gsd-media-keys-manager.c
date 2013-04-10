@@ -372,15 +372,6 @@ ensure_cancellable (GCancellable **cancellable)
 }
 
 static void
-show_osd_complete (GObject      *source,
-                   GAsyncResult *result,
-                   gpointer      data)
-{
-        GsdMediaKeysManager *manager = data;
-        g_object_unref (manager->priv->osd_cancellable);
-}
-
-static void
 show_osd (GsdMediaKeysManager *manager,
           const char          *icon,
           const char          *label,
@@ -404,14 +395,13 @@ show_osd (GsdMediaKeysManager *manager,
                                        "level", g_variant_new_int32 (level));
         g_variant_builder_close (&builder);
 
-        ensure_cancellable (&manager->priv->osd_cancellable);
         g_dbus_proxy_call (manager->priv->osd_proxy,
                            "ShowOSD",
                            g_variant_builder_end (&builder),
                            G_DBUS_CALL_FLAGS_NO_AUTO_START,
                            -1,
                            manager->priv->osd_cancellable,
-                           show_osd_complete, manager);
+                           NULL, NULL);
 }
 
 static const char *
@@ -473,9 +463,7 @@ grab_accelerators_complete (GObject      *object,
         GsdMediaKeysManager *manager = user_data;
 
         shell_key_grabber_call_grab_accelerators_finish (SHELL_KEY_GRABBER (object),
-                                                         &actions, result, &error); 
-
-        g_object_unref (manager->priv->grab_cancellable);
+                                                         &actions, result, &error);
 
         if (error) {
                 retry = (error->code == G_DBUS_ERROR_UNKNOWN_METHOD);
@@ -515,7 +503,6 @@ grab_media_keys (GsdMediaKeysManager *manager)
                 g_free (tmp);
         }
 
-	ensure_cancellable (&manager->priv->grab_cancellable);
 	shell_key_grabber_call_grab_accelerators (manager->priv->key_grabber,
 	                                          g_variant_builder_end (&builder),
 	                                          manager->priv->grab_cancellable,
@@ -532,9 +519,8 @@ grab_accelerator_complete (GObject      *object,
         MediaKey *key = data->key;
 
         shell_key_grabber_call_grab_accelerator_finish (SHELL_KEY_GRABBER (object),
-                                                        &key->accel_id, result, NULL); 
+                                                        &key->accel_id, result, NULL);
 
-        g_object_unref (data->manager->priv->grab_cancellable);
         g_slice_free (GrabData, data);
 }
 
@@ -553,7 +539,6 @@ grab_media_key (MediaKey            *key,
 	data->manager = manager;
 	data->key = key;
 
-	ensure_cancellable (&manager->priv->grab_cancellable);
 	shell_key_grabber_call_grab_accelerator (manager->priv->key_grabber,
 	                                         tmp, key->modes,
 	                                         manager->priv->grab_cancellable,
@@ -571,7 +556,6 @@ ungrab_accelerator_complete (GObject      *object,
 	GsdMediaKeysManager *manager = user_data;
 	shell_key_grabber_call_ungrab_accelerator_finish (SHELL_KEY_GRABBER (object),
 	                                                  NULL, result, NULL);
-	g_object_unref (manager->priv->grab_cancellable);
 }
 
 static void
@@ -581,7 +565,6 @@ ungrab_media_key (MediaKey            *key,
 	if (key->accel_id == 0)
 		return;
 
-	ensure_cancellable (&manager->priv->grab_cancellable);
 	shell_key_grabber_call_ungrab_accelerator (manager->priv->key_grabber,
 	                                           key->accel_id,
 	                                           manager->priv->grab_cancellable,
@@ -2198,7 +2181,6 @@ on_osd_proxy_ready (GObject      *source,
 
         manager->priv->osd_proxy =
                 g_dbus_proxy_new_for_bus_finish (result, NULL);
-        g_object_unref (manager->priv->osd_cancellable);
 }
 
 static void
@@ -2210,8 +2192,6 @@ on_key_grabber_ready (GObject      *source,
 
         manager->priv->key_grabber =
 		shell_key_grabber_proxy_new_for_bus_finish (result, NULL);
-
-        g_object_unref (manager->priv->grab_cancellable);
 
         if (!manager->priv->key_grabber)
                 return;
@@ -2229,15 +2209,14 @@ on_shell_appeared (GDBusConnection   *connection,
                    gpointer           user_data)
 {
         GsdMediaKeysManager *manager = user_data;
-        
+
         shell_key_grabber_proxy_new_for_bus (G_BUS_TYPE_SESSION,
                                              0,
                                              name_owner,
                                              SHELL_DBUS_PATH,
                                              manager->priv->grab_cancellable,
                                              on_key_grabber_ready, manager);
-        
-        ensure_cancellable (&manager->priv->osd_cancellable);
+
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
                                   0, NULL,
                                   name_owner,
@@ -2313,6 +2292,7 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 	manager->priv->icon_theme = g_settings_get_string (manager->priv->interface_settings, "icon-theme");
 
         ensure_cancellable (&manager->priv->grab_cancellable);
+        ensure_cancellable (&manager->priv->osd_cancellable);
 
         manager->priv->name_owner_id =
                 g_bus_watch_name (G_BUS_TYPE_SESSION,
