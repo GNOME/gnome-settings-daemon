@@ -1053,7 +1053,7 @@ update_dialog (GsdMediaKeysManager *manager,
         icon = get_icon_name_for_volume (!GVC_IS_MIXER_SINK (stream), muted, vol);
         port = gvc_mixer_stream_get_port (stream);
         if (g_strcmp0 (gvc_mixer_stream_get_form_factor (stream), "internal") != 0 ||
-            g_strcmp0 (port->port, "analog-output-speaker") != 0) {
+            (port != NULL && g_strcmp0 (port->port, "analog-output-speaker") != 0)) {
                 device = gvc_mixer_control_lookup_device_from_stream (manager->priv->volume, stream);
                 show_osd (manager, icon,
                           gvc_mixer_ui_device_get_description (device), vol);
