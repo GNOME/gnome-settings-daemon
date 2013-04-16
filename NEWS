@@ -1,4 +1,32 @@
 =============
+Version 3.8.1
+=============
+
+Power:
+- Don't change the active state when running in a VM
+- Fix compilation on non-Linux platforms
+
+Cursor:
+- Fix possible crashes on older versions of X.org
+
+Media-keys:
+- Fix race condition with gnome-shell on startup
+- Fix broken startup notifications
+- Fix possible crash when changing the volume
+- Fix crash when the shell vanishes and reappears
+
+Keyboard:
+- Cancel outstanding D-Bus operations when stopping
+- Enforce the XKB group when changing layouts
+- Make sure to add the XKB US layout in GDM on empty configurations
+
+Mouse:
+- Enable two-finger scrolling by default
+
+Printers:
+- Fix deprecation compile-time warnings
+
+=============
 Version 3.8.0
 =============
 
