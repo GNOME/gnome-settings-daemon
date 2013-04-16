@@ -1705,10 +1705,12 @@ external_monitor_is_connected (GnomeRRScreen *screen)
 			return FALSE;
 		}
 
-		g_warning ("Unhandled value for GSD_MOCK_EXTERNAL_MONITOR contents: %s", mock_external_monitor_contents);
+		g_error ("Unhandled value for GSD_MOCK_EXTERNAL_MONITOR contents: %s", mock_external_monitor_contents);
 		g_free (mock_external_monitor_contents);
 	}
 #endif /* GSD_MOCK */
+
+	g_assert (screen != NULL);
 
         /* see if we have more than one screen plugged in */
         outputs = gnome_rr_screen_list_outputs (screen);
