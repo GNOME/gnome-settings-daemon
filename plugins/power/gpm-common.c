@@ -1687,6 +1687,44 @@ randr_output_is_on (GnomeRROutput *output)
         return gnome_rr_crtc_get_current_mode (crtc) != NULL;
 }
 
+#ifdef GSD_MOCK
+static void
+mock_monitor_changed (GFileMonitor     *monitor,
+		      GFile            *file,
+		      GFile            *other_file,
+		      GFileMonitorEvent event_type,
+		      gpointer          user_data)
+{
+	GnomeRRScreen *screen = (GnomeRRScreen *) user_data;
+
+	g_debug ("Mock screen configuration changed");
+	g_signal_emit_by_name (G_OBJECT (screen), "changed");
+}
+
+static void
+screen_destroyed (gpointer  user_data,
+		  GObject  *where_the_object_was)
+{
+	g_object_unref (G_OBJECT (user_data));
+}
+#endif /* GSD_MOCK */
+
+void
+watch_external_monitor (GnomeRRScreen *screen)
+{
+#ifdef GSD_MOCK
+	GFile *file;
+	GFileMonitor *monitor;
+
+	file = g_file_new_for_commandline_arg ("GSD_MOCK_EXTERNAL_MONITOR");
+	monitor = g_file_monitor (file, G_FILE_MONITOR_NONE, NULL, NULL);
+	g_object_unref (file);
+	g_signal_connect (monitor, "changed",
+			  G_CALLBACK (mock_monitor_changed), screen);
+	g_object_weak_ref (G_OBJECT (screen), screen_destroyed, monitor);
+#endif /* GSD_MOCK */
+}
+
 gboolean
 external_monitor_is_connected (GnomeRRScreen *screen)
 {
@@ -1699,9 +1737,11 @@ external_monitor_is_connected (GnomeRRScreen *screen)
 	if (g_file_get_contents ("GSD_MOCK_EXTERNAL_MONITOR", &mock_external_monitor_contents, NULL, NULL)) {
 		if (mock_external_monitor_contents[0] == '1') {
 			g_free (mock_external_monitor_contents);
+			g_debug ("Mock external monitor is on");
 			return TRUE;
 		} else if (mock_external_monitor_contents[0] == '0') {
 			g_free (mock_external_monitor_contents);
+			g_debug ("Mock external monitor is off");
 			return FALSE;
 		}
 

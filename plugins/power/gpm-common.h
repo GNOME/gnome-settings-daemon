@@ -69,6 +69,7 @@ int              backlight_set_abs                      (GnomeRRScreen *rr_scree
                                                          GError **error);
 
 /* RandR helpers */
+void             watch_external_monitor                 (GnomeRRScreen *screen);
 gboolean         external_monitor_is_connected          (GnomeRRScreen *screen);
 
 /* Sound helpers */
