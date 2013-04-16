@@ -187,7 +187,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
     def check_for_logout(self, timeout):
         '''Check that logout is requested.
 
-        Fail after the tiven timeout.
+        Fail after the given timeout.
         '''
         # check that it request suspend
         while timeout > 0:
@@ -217,7 +217,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
     def check_for_suspend(self, timeout):
         '''Check that Suspend() or Hibernate() is requested.
 
-        Fail after the tiven timeout.
+        Fail after the given timeout.
         '''
         # check that it request suspend
         while timeout > 0:
