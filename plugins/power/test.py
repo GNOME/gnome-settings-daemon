@@ -342,13 +342,13 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # blank is supposed to happen straight away
         self.check_blank(2)
         # check that the brightness is at the minimum
-        self.assertTrue(self.get_brightness() == 0, 'incorrect blank brightness')
+        self.assertTrue(self.get_brightness() == 0, 'incorrect blank brightness (%d != 0)' % (self.get_brightness()))
 
         # wiggle the mouse now and check for unblank; this is expected to pop up
         # the locked screen saver
         self.reset_idle_timer()
         self.check_unblank(2)
-        self.assertTrue(self.get_brightness() == gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS , 'incorrect unblanked brightness')
+        self.assertTrue(self.get_brightness() == gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS , 'incorrect unblanked brightness (%d != %d)' % (self.get_brightness(), gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS))
 
         # Check for no blank before the normal blank timeout
         self.check_no_blank(gsdpowerconstants.SCREENSAVER_TIMEOUT_BLANK - 4)
@@ -356,7 +356,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # and check for blank after the blank timeout
         self.check_blank(10)
-        self.assertTrue(self.get_brightness() == 0, 'incorrect blank brightness')
+        self.assertTrue(self.get_brightness() == 0, 'incorrect blank brightness (%d != 0)' % (self.get_brightness()))
 
         # Drop inhibitor
         self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
@@ -527,7 +527,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # Wait and check we're not idle, but dimmed
         self.check_dim(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY)
-        self.assertTrue(self.get_brightness() == dim_level, 'incorrect dim brightness')
+        self.assertTrue(self.get_brightness() == dim_level, 'incorrect dim brightness (%d != %d)' % (self.get_brightness(), dim_level))
 
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
 
@@ -547,7 +547,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         time.sleep(1)
 
         # And check that we have the pre-dim brightness
-        self.assertTrue(self.get_brightness() == gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS , 'incorrect unblanked brightness')
+        self.assertTrue(self.get_brightness() == gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS , 'incorrect unblanked brightness (%d != %d)' % (self.get_brightness(), gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS))
 
     def test_no_suspend_lid_close(self):
         '''Check that we don't suspend on lid close with an external monitor'''
