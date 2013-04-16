@@ -1186,19 +1186,21 @@ backlight_set_mock_value (gint value)
 {
 	const char *filename;
 	char *contents;
+	GError *error = NULL;
 
-	g_debug ("Settings mock brightness: %d", value);
+	g_debug ("Setting mock brightness: %d", value);
 
 	filename = "GSD_MOCK_brightness";
 	contents = g_strdup_printf ("%d", value);
-	g_file_set_contents (filename, contents, -1, NULL);
+	if (!g_file_set_contents (filename, contents, -1, NULL))
+		g_warning ("Setting mock brightness failed: %s", error->message);
+	g_clear_error (&error);
 	g_free (contents);
 }
 
 static gint64
 backlight_get_mock_value (const char *argument)
 {
-	const char *filename;
 	char *contents;
 	gint64 ret;
 
@@ -1207,14 +1209,9 @@ backlight_get_mock_value (const char *argument)
 		return GSD_MOCK_MAX_BRIGHTNESS;
 	}
 
-	if (g_str_equal (argument, "get-brightness")) {
-		filename = "GSD_MOCK_brightness";
-		ret = GSD_MOCK_DEFAULT_BRIGHTNESS;
-	} else {
-		g_assert_not_reached ();
-	}
+	g_assert (g_str_equal (argument, "get-brightness"));
 
-	if (g_file_get_contents (filename, &contents, NULL, NULL)) {
+	if (g_file_get_contents ("GSD_MOCK_brightness", &contents, NULL, NULL)) {
 		ret = g_ascii_strtoll (contents, NULL, 0);
 		g_free (contents);
 		g_debug ("Returning mock brightness: %"G_GINT64_FORMAT, ret);
