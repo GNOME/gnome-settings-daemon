@@ -3421,12 +3421,10 @@ gsd_power_manager_start (GsdPowerManager *manager,
                 manager->priv->lid_is_closed = up_client_get_lid_is_closed (manager->priv->up_client);
 
         /* coldplug the list of screens */
-        if (manager->priv->lid_is_present) {
-                manager->priv->rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
-                if (manager->priv->rr_screen == NULL) {
-                        g_debug ("Lid is present and couldn't detect any screens, disabling plugin");
-                        return FALSE;
-                }
+        manager->priv->rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
+        if (manager->priv->rr_screen == NULL) {
+                g_debug ("Couldn't detect any screens, disabling plugin");
+                return FALSE;
         }
 
         /* Check for XTEST support */
@@ -3550,7 +3548,7 @@ gsd_power_manager_start (GsdPowerManager *manager,
         manager->priv->idle_monitor = gnome_idle_monitor_new ();
 
         /* set up the screens */
-        if (manager->priv->rr_screen) {
+        if (manager->priv->lid_is_present) {
                 g_signal_connect (manager->priv->rr_screen, "changed", G_CALLBACK (on_randr_event), manager);
                 watch_external_monitor (manager->priv->rr_screen);
                 on_randr_event (manager->priv->rr_screen, manager);
