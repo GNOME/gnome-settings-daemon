@@ -78,7 +78,6 @@
 #define GSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG           30 * 1000 /* ms */
 
 #define GSD_POWER_MANAGER_RECALL_DELAY                  30 /* seconds */
-#define GSD_POWER_MANAGER_LID_CLOSE_SAFETY_TIMEOUT      30 /* seconds */
 
 #define SYSTEMD_DBUS_NAME                       "org.freedesktop.login1"
 #define SYSTEMD_DBUS_PATH                       "/org/freedesktop/login1"
@@ -2195,9 +2194,9 @@ setup_inhibit_lid_switch_timer (GsdPowerManager *manager)
 
         g_debug ("setting up lid close safety timer");
 
-        manager->priv->inhibit_lid_switch_timer_id = g_timeout_add_seconds (GSD_POWER_MANAGER_LID_CLOSE_SAFETY_TIMEOUT,
-                                                                          (GSourceFunc) inhibit_lid_switch_timer_cb,
-                                                                          manager);
+        manager->priv->inhibit_lid_switch_timer_id = g_timeout_add_seconds (LID_CLOSE_SAFETY_TIMEOUT,
+                                                                            (GSourceFunc) inhibit_lid_switch_timer_cb,
+                                                                            manager);
         g_source_set_name_by_id (manager->priv->inhibit_lid_switch_timer_id, "[GsdPowerManager] lid close safety timer");
 }
 

@@ -575,7 +575,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # Unplug the external monitor
         self.set_has_external_monitor(False)
         # Wait for the safety timer + 3 seconds
-        time.sleep (30 + 3)
+        time.sleep (gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 3)
         # Check that we're uninhibited
         self.check_for_uninhibited()
 
