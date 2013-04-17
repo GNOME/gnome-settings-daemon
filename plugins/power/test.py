@@ -532,7 +532,10 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # Wait and check we're not idle, but dimmed
         self.check_dim(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY)
-        self.assertTrue(self.get_brightness() == dim_level, 'incorrect dim brightness (%d != %d)' % (self.get_brightness(), dim_level))
+        # Give time for the brightness to change
+        time.sleep(2)
+        level = self.get_brightness();
+        self.assertTrue(level == dim_level, 'incorrect dim brightness (%d != %d)' % (level, dim_level))
 
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
 
