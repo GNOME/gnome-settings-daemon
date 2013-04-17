@@ -2169,6 +2169,7 @@ suspend_on_lid_close (GsdPowerManager *manager)
 static gboolean
 inhibit_lid_switch_timer_cb (GsdPowerManager *manager)
 {
+	/* Just to make sure */
         if (suspend_on_lid_close (manager)) {
                 g_debug ("no external monitors for a while; uninhibiting lid close");
                 uninhibit_lid_switch (manager);
@@ -2177,7 +2178,7 @@ inhibit_lid_switch_timer_cb (GsdPowerManager *manager)
         }
 
         g_debug ("external monitor still there; trying again later");
-        return G_SOURCE_CONTINUE;
+        return G_SOURCE_REMOVE;
 }
 
 /* Sets up a timer to be triggered some seconds after closing the laptop lid
@@ -2201,12 +2202,20 @@ setup_inhibit_lid_switch_timer (GsdPowerManager *manager)
 }
 
 static void
+stop_inhibit_lid_switch_timer (GsdPowerManager *manager) {
+        if (manager->priv->inhibit_lid_switch_timer_id != 0) {
+                g_debug ("stopping lid close safety timer");
+                g_source_remove (manager->priv->inhibit_lid_switch_timer_id);
+                manager->priv->inhibit_lid_switch_timer_id = 0;
+        }
+}
+
+static void
 restart_inhibit_lid_switch_timer (GsdPowerManager *manager)
 {
         if (manager->priv->inhibit_lid_switch_timer_id != 0) {
+                stop_inhibit_lid_switch_timer (manager);
                 g_debug ("restarting lid close safety timer");
-                g_source_remove (manager->priv->inhibit_lid_switch_timer_id);
-                manager->priv->inhibit_lid_switch_timer_id = 0;
                 setup_inhibit_lid_switch_timer (manager);
         }
 }
@@ -2262,8 +2271,6 @@ do_lid_closed_action (GsdPowerManager *manager)
         /* refresh RANDR so we get an accurate view of what monitors are plugged in when the lid is closed */
         gnome_rr_screen_refresh (manager->priv->rr_screen, NULL); /* NULL-GError */
 
-        restart_inhibit_lid_switch_timer (manager);
-
         if (suspend_on_lid_close (manager)) {
                 gboolean is_inhibited;
 
@@ -2276,6 +2283,11 @@ do_lid_closed_action (GsdPowerManager *manager)
                          * but the lid is closed */
                         lock_screensaver (manager);
                 }
+
+                restart_inhibit_lid_switch_timer (manager);
+        } else {
+                stop_inhibit_lid_switch_timer (manager);
+                uninhibit_lid_switch (manager);
         }
 }
 
