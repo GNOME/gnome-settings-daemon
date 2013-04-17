@@ -197,7 +197,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             try:
                 log = self.session_log.read()
             except IOError:
-                break
+                continue
 
             if log and (b'GsmManager: requesting logout' in log):
                 break
@@ -227,7 +227,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             try:
                 log = self.logind.stdout.read()
             except IOError:
-                break
+                continue
 
             if log and (b' Suspend ' in log or b' Hibernate ' in log):
                 break
