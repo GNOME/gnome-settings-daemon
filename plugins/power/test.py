@@ -25,7 +25,7 @@ import gsdpowerenums
 import dbus
 
 from gi.repository import Gio
-
+from gi.repository import GLib
 
 class PowerPluginTest(gsdtestcase.GSDTestCase):
     '''Test the power plugin'''
@@ -169,20 +169,15 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         return self.obj_session_presence_props.Get('org.gnome.SessionManager.Presence', 'status')
 
     def get_brightness(self):
-        f = open('GSD_MOCK_brightness', 'r')
-        ret = f.read()
-        f.close()
+        (success, ret, length) = GLib.file_get_contents ('GSD_MOCK_brightness')
         return int(ret)
 
     def set_has_external_monitor(self, external):
-        f = open('GSD_MOCK_EXTERNAL_MONITOR', 'w')
         if external:
-            f.write('1')
+            val = '1'
         else:
-            f.write('0')
-        f.close ()
-
-        os.kill(self.daemon.pid, signal.SIGUSR2)
+            val = '0'
+        GLib.file_set_contents ('GSD_MOCK_EXTERNAL_MONITOR', val)
 
     def check_for_logout(self, timeout):
         '''Check that logout is requested.
@@ -387,7 +382,6 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.settings_session['idle-delay'] = 10
         self.reset_idle_timer()
         time.sleep(5)
-        os.kill(self.session.pid, signal.SIGUSR2)
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
         time.sleep(10)
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_IDLE)
@@ -396,7 +390,6 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.settings_session['idle-delay'] = 5
         self.reset_idle_timer()
         time.sleep(2)
-        os.kill(self.session.pid, signal.SIGUSR2)
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
         time.sleep(5)
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_IDLE)
