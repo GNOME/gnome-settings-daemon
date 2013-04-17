@@ -234,6 +234,18 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         else:
             self.fail('timed out waiting for logind Suspend() call')
 
+    def check_for_uninhibited(self):
+        '''Check that the lid inhibitor has been dropped.
+
+        Fail after the given timeout.
+        '''
+        # check that it requested uninhibition
+        log = self.plugin_log.read()
+
+        if 'uninhibiting lid close' in log:
+            return
+        self.fail('timed out waiting for lid uninhibition')
+
     def check_no_suspend(self, seconds):
         '''Check that no Suspend or Hibernate is requested in the given time'''
 
@@ -465,7 +477,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # Drop the inhibit and see whether we suspend
         self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
-        self.check_for_suspend(5)
+        # At this point logind should suspend for us
 
     def test_blank_on_lid_close(self):
         '''Check that we do blank on lid closing, if the machine will not suspend'''
@@ -484,7 +496,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # Drop the inhibit and see whether we suspend
         self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
-        self.check_for_suspend(5)
+        # At this point logind should suspend for us
 
     def test_unblank_on_lid_open(self):
         '''Check that we do unblank on lid opening, if the machine will not suspend'''
@@ -566,7 +578,10 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # Unplug the external monitor
         self.set_has_external_monitor(False)
-        self.check_for_suspend (10)
+        # Wait for the safety timer + 3 seconds
+        time.sleep (30 + 3)
+        # Check that we're uninhibited
+        self.check_for_uninhibited()
 
     def test_action_critical_battery(self):
         '''action on critical battery'''
