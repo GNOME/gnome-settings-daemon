@@ -305,10 +305,9 @@ AC_ARG_ENABLE(smartcard-support,
                no)  WANT_SMARTCARD_SUPPORT=no ;;
                *) AC_MSG_ERROR(bad value ${enableval} for --disable-smartcard-support) ;;
        esac],
-       [WANT_SMARTCARD_SUPPORT=no])
+       [WANT_SMARTCARD_SUPPORT=yes])
 
 if test x$WANT_SMARTCARD_SUPPORT = xyes ; then
-       AC_MSG_ERROR(Smartcard support is broken in this version)
        NSS_REQUIRED_VERSION=3.11.2
        PKG_CHECK_MODULES(NSS, nss >= $NSS_REQUIRED_VERSION,
              [have_smartcard_support=true
