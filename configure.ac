@@ -253,7 +253,8 @@ case $host_os in
       have_wacom=no
     else
       if test x$enable_gudev != xno; then
-        PKG_CHECK_MODULES(WACOM, [libwacom >= $LIBWACOM_REQUIRED_VERSION x11 xi xtst gudev-1.0 gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION xorg-wacom librsvg-2.0 >= $LIBRSVG_REQUIRED_VERSION])
+        PKG_CHECK_MODULES(WACOM, [libwacom >= $LIBWACOM_REQUIRED_VERSION x11 xi xtst gudev-1.0 gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION xorg-wacom librsvg-2.0 >= $LIBRSVG_REQUIRED_VERSION libnotify >= $LIBNOTIFY_REQUIRED_VERSION
+])
       else
         AC_MSG_ERROR([GUdev is necessary to compile Wacom support])
       fi
