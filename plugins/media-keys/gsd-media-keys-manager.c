@@ -553,7 +553,6 @@ ungrab_accelerator_complete (GObject      *object,
                              GAsyncResult *result,
                              gpointer      user_data)
 {
-	GsdMediaKeysManager *manager = user_data;
 	shell_key_grabber_call_ungrab_accelerator_finish (SHELL_KEY_GRABBER (object),
 	                                                  NULL, result, NULL);
 }
