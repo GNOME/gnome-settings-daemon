@@ -2658,7 +2658,6 @@ idle_configure (GsdPowerManager *manager)
 
         /* set up blank callback only when the screensaver is on,
          * as it's what will drive the blank */
-        on_battery = up_client_get_on_battery (manager->priv->up_client);
         timeout_blank = 0;
         if (manager->priv->screensaver_active) {
                 /* The tail is wagging the dog.
@@ -2681,6 +2680,7 @@ idle_configure (GsdPowerManager *manager)
 
         /* only do the sleep timeout when the session is idle
          * and we aren't inhibited from sleeping (or logging out, etc.) */
+        on_battery = up_client_get_on_battery (manager->priv->up_client);
         action_type = g_settings_get_enum (manager->priv->settings, on_battery ?
                                            "sleep-inactive-battery-type" : "sleep-inactive-ac-type");
         timeout_sleep = 0;
