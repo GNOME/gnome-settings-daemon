@@ -338,6 +338,40 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         log = self.plugin_log.read()
         self.assertFalse('TESTSUITE: Blanked screen' in log, 'unexpected blank request')
 
+    def test_screensaver(self):
+        self.settings_screensaver['lock-enabled'] = False
+
+        self.obj_screensaver.Lock()
+        # 0.3 second animation
+        time.sleep(1)
+        self.assertTrue(self.obj_screensaver.GetActive(), 'screensaver not turned on')
+
+        # blank is supposed to happen straight away
+        self.check_blank(2)
+
+        # wiggle the mouse now and check for unblank; this is expected to pop up
+        # the locked screen saver
+        self.reset_idle_timer()
+        self.check_unblank(2)
+
+        # Check for no blank before the normal blank timeout
+        self.check_no_blank(gsdpowerconstants.SCREENSAVER_TIMEOUT_BLANK - 4)
+        self.assertTrue(self.obj_screensaver.GetActive(), 'screensaver not turned on')
+
+        # and check for blank after the blank timeout
+        self.check_blank(10)
+
+        # and do it again
+
+        # wiggle
+        self.reset_idle_timer()
+        self.check_unblank(2)
+
+        # check no blank and then blank
+        self.check_no_blank(gsdpowerconstants.SCREENSAVER_TIMEOUT_BLANK - 4)
+        self.assertTrue(self.obj_screensaver.GetActive(), 'screensaver not turned on')
+        self.check_blank(10)
+
     def test_sleep_inactive_blank(self):
         '''screensaver/blank interaction'''
 
