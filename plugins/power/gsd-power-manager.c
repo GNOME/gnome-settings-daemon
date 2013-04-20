@@ -192,7 +192,6 @@ struct GsdPowerManagerPrivate
         /* Brightness */
         gboolean                 backlight_available;
         gint                     pre_dim_brightness; /* level, not percentage */
-        gint                     pre_dpms_brightness;
 
         /* Keyboard */
         GDBusProxy              *upower_kdb_proxy;
@@ -1996,11 +1995,6 @@ backlight_enable (GsdPowerManager *manager)
                 g_error_free (error);
         }
 
-        if (manager->priv->backlight_available &&
-            manager->priv->pre_dpms_brightness != -1) {
-                backlight_set_abs (manager->priv->rr_screen, manager->priv->pre_dpms_brightness, &error);
-                manager->priv->pre_dpms_brightness = -1;
-        }
         g_debug ("TESTSUITE: Unblanked screen");
 }
 
@@ -2009,21 +2003,6 @@ backlight_disable (GsdPowerManager *manager)
 {
         gboolean ret;
         GError *error = NULL;
-
-        /* Save the backlight, if DPMS isn't on yet, so we can capture it */
-#ifndef GSD_MOCK
-        GnomeRRDpmsMode mode;
-
-        if (manager->priv->backlight_available &&
-            gnome_rr_screen_get_dpms_mode (manager->priv->rr_screen, &mode, NULL) &&
-            mode == GNOME_RR_DPMS_ON) {
-                manager->priv->pre_dpms_brightness = backlight_get_abs (manager->priv->rr_screen, NULL);
-        }
-#else
-        manager->priv->pre_dpms_brightness = backlight_get_abs (manager->priv->rr_screen, NULL);
-#endif /* GSD_MOCK */
-        if (manager->priv->pre_dpms_brightness != -1)
-                backlight_set_abs (manager->priv->rr_screen, backlight_get_min (manager->priv->rr_screen), NULL);
 
         ret = gnome_rr_screen_set_dpms_mode (manager->priv->rr_screen,
                                              GNOME_RR_DPMS_OFF,
@@ -3641,7 +3620,6 @@ gsd_power_manager_init (GsdPowerManager *manager)
         manager->priv = GSD_POWER_MANAGER_GET_PRIVATE (manager);
         manager->priv->inhibit_lid_switch_fd = -1;
         manager->priv->inhibit_suspend_fd = -1;
-        manager->priv->pre_dpms_brightness = -1;
         manager->priv->screensaver_cancellable = g_cancellable_new ();
         manager->priv->bus_cancellable = g_cancellable_new ();
 }

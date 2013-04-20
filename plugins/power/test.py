@@ -337,8 +337,6 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # blank is supposed to happen straight away
         self.check_blank(2)
-        # check that the brightness is at the minimum
-        self.assertTrue(self.get_brightness() == 0, 'incorrect blank brightness')
 
         # wiggle the mouse now and check for unblank; this is expected to pop up
         # the locked screen saver
@@ -352,7 +350,6 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # and check for blank after the blank timeout
         self.check_blank(10)
-        self.assertTrue(self.get_brightness() == 0, 'incorrect blank brightness')
 
         # Drop inhibitor
         self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
