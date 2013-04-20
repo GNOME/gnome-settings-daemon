@@ -236,11 +236,9 @@ static GIcon    *engine_get_icon (GsdPowerManager *manager);
 static gchar    *engine_get_summary (GsdPowerManager *manager);
 static gdouble   engine_get_percentage (GsdPowerManager *manager);
 static void      do_power_action_type (GsdPowerManager *manager, GsdPowerActionType action_type);
-static void      do_lid_closed_action (GsdPowerManager *manager);
 static void      uninhibit_lid_switch (GsdPowerManager *manager);
 static void      main_battery_or_ups_low_changed (GsdPowerManager *manager, gboolean is_low);
 static gboolean  idle_is_session_inhibited (GsdPowerManager *manager, guint mask, gboolean *is_inhibited);
-static void      idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode);
 static void      idle_triggered_idle_cb (GnomeIdleMonitor *monitor, guint watch_id, gpointer user_data);
 static void      idle_became_active_cb (GnomeIdleMonitor *monitor, guint watch_id, gpointer user_data);
 
