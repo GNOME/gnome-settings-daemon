@@ -73,8 +73,6 @@
 #define KEY_BELL_DURATION  "bell-duration"
 #define KEY_BELL_MODE      "bell-mode"
 
-#define KEY_SWITCHER "input-sources-switcher"
-
 #define GNOME_DESKTOP_INTERFACE_DIR "org.gnome.desktop.interface"
 
 #define KEY_GTK_IM_MODULE    "gtk-im-module"
@@ -115,9 +113,6 @@ struct GsdKeyboardManagerPrivate
         GdkDeviceManager *device_manager;
         guint device_added_id;
         guint device_removed_id;
-
-        gboolean input_sources_switcher_spawned;
-        GPid input_sources_switcher_pid;
 
         GDBusConnection *dbus_connection;
         GDBusNodeInfo *dbus_introspection;
@@ -1178,47 +1173,6 @@ apply_all_settings (GsdKeyboardManager *manager)
 }
 
 static void
-set_input_sources_switcher (GsdKeyboardManager *manager,
-                            gboolean            state)
-{
-        if (state) {
-                GError *error = NULL;
-                char *args[2];
-
-                if (manager->priv->input_sources_switcher_spawned)
-                        set_input_sources_switcher (manager, FALSE);
-
-                args[0] = LIBEXECDIR "/gsd-input-sources-switcher";
-                args[1] = NULL;
-
-                g_spawn_async (NULL, args, NULL,
-                               0, NULL, NULL,
-                               &manager->priv->input_sources_switcher_pid, &error);
-
-                manager->priv->input_sources_switcher_spawned = (error == NULL);
-
-                if (error) {
-                        g_warning ("Couldn't spawn %s: %s", args[0], error->message);
-                        g_error_free (error);
-                }
-        } else if (manager->priv->input_sources_switcher_spawned) {
-                kill (manager->priv->input_sources_switcher_pid, SIGHUP);
-                g_spawn_close_pid (manager->priv->input_sources_switcher_pid);
-                manager->priv->input_sources_switcher_spawned = FALSE;
-        }
-}
-
-static gboolean
-enable_switcher (GsdKeyboardManager *manager)
-{
-        GsdInputSourcesSwitcher switcher;
-
-        switcher = g_settings_get_enum (manager->priv->settings, KEY_SWITCHER);
-
-        return switcher != GSD_INPUT_SOURCES_SWITCHER_OFF;
-}
-
-static void
 settings_changed (GSettings          *settings,
                   const char         *key,
                   GsdKeyboardManager *manager)
@@ -1240,8 +1194,6 @@ settings_changed (GSettings          *settings,
 		 g_strcmp0 (key, KEY_DELAY) == 0) {
 		g_debug ("Key repeat setting '%s' changed, applying key repeat settings", key);
 		apply_repeat (manager);
-        } else if (g_strcmp0 (key, KEY_SWITCHER) == 0) {
-                set_input_sources_switcher (manager, enable_switcher (manager));
 	} else {
 		g_warning ("Unhandled settings change, key '%s'", key);
 	}
@@ -1745,7 +1697,6 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
                           G_CALLBACK (apply_input_sources_settings), manager);
 
 	install_xkb_filter (manager);
-        set_input_sources_switcher (manager, enable_switcher (manager));
         register_manager_dbus (manager);
 
         gnome_settings_profile_end (NULL);
@@ -1811,8 +1762,6 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
         }
 
 	remove_xkb_filter (manager);
-
-        set_input_sources_switcher (manager, FALSE);
 
         g_clear_pointer (&p->invocation, set_input_source_return);
         g_clear_pointer (&p->dbus_introspection, g_dbus_node_info_unref);
