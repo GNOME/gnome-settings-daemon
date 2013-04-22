@@ -75,28 +75,6 @@ check-local: test-keyboard-ibus-utils
 	$(builddir)/test-keyboard-ibus-utils > /dev/null
 endif
 
-libexec_PROGRAMS += gsd-input-sources-switcher
-
-gsd_input_sources_switcher_SOURCES = 	\
-	gsd-input-sources-switcher.c	\
-	$(NULL)
-
-gsd_input_sources_switcher_CPPFLAGS =	\
-	-I$(top_srcdir)/data		\
-	-I$(top_srcdir)/plugins/common	\
-	$(AM_CPPFLAGS)			\
-	$(NULL)
-
-gsd_input_sources_switcher_CFLAGS =	\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(AM_CFLAGS)			\
-	$(NULL)
-
-gsd_input_sources_switcher_LDADD  = 	\
-	$(top_builddir)/plugins/common/libcommon.la	\
-	$(SETTINGS_PLUGIN_LIBS)		\
-	$(NULL)
-
 EXTRA_DIST = 			\
 	$(icons_DATA)		\
 	$(plugin_in_files)	\
