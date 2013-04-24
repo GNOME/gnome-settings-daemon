@@ -103,20 +103,13 @@ static const gchar introspection_xml[] =
 "    </method>"
 "  </interface>"
 "  <interface name='org.gnome.SettingsDaemon.Power.Screen'>"
+"    <property name='Brightness' type='i' access='readwrite'/>"
 "    <method name='StepUp'>"
-"      <arg type='u' name='new_percentage' direction='out'/>"
+"      <arg type='i' name='new_percentage' direction='out'/>"
 "    </method>"
 "    <method name='StepDown'>"
-"      <arg type='u' name='new_percentage' direction='out'/>"
+"      <arg type='i' name='new_percentage' direction='out'/>"
 "    </method>"
-"    <method name='GetPercentage'>"
-"      <arg type='u' name='percentage' direction='out'/>"
-"    </method>"
-"    <method name='SetPercentage'>"
-"      <arg type='u' name='percentage' direction='in'/>"
-"      <arg type='u' name='new_percentage' direction='out'/>"
-"    </method>"
-"    <signal name='Changed'/>"
 "  </interface>"
 "  <interface name='org.gnome.SettingsDaemon.Power.Keyboard'>"
 "    <method name='StepUp'>"
@@ -2222,25 +2215,24 @@ idle_watch_id_to_string (GsdPowerManager *manager, guint id)
 }
 
 static void
-backlight_emit_changed (GsdPowerManager *manager)
+backlight_emit_changed (GsdPowerManager *manager,
+                        gint32           value)
 {
-        gboolean ret;
-        GError *error = NULL;
+        GVariant *params;
 
         /* not yet connected to the bus */
         if (manager->priv->connection == NULL)
                 return;
-        ret = g_dbus_connection_emit_signal (manager->priv->connection,
-                                             NULL,
-                                             GSD_POWER_DBUS_PATH,
-                                             GSD_POWER_DBUS_INTERFACE_SCREEN,
-                                             "Changed",
-                                             NULL,
-                                             &error);
-        if (!ret) {
-                g_warning ("failed to emit Changed: %s", error->message);
-                g_error_free (error);
-        }
+
+        params = g_variant_new_parsed ("('" GSD_POWER_DBUS_INTERFACE_SCREEN "', [{'Brightness', %v}], @as [])",
+                                       g_variant_new_int32 (value));
+
+        g_dbus_connection_emit_signal (manager->priv->connection,
+                                       NULL,
+                                       GSD_POWER_DBUS_PATH,
+                                       "org.freedesktop.DBus.Properties",
+                                       "PropertiesChanged",
+                                       params, NULL);
 }
 
 static gboolean
@@ -3584,9 +3576,7 @@ handle_method_call_screen (GsdPowerManager *manager,
                            GVariant *parameters,
                            GDBusMethodInvocation *invocation)
 {
-        gboolean ret = FALSE;
         gint value = -1;
-        guint value_tmp;
         GError *error = NULL;
 
         if (!manager->priv->backlight_available) {
@@ -3597,29 +3587,14 @@ handle_method_call_screen (GsdPowerManager *manager,
                 goto out;
         }
 
-        if (g_strcmp0 (method_name, "GetPercentage") == 0) {
-                g_debug ("screen get percentage");
-                value = backlight_get_percentage (manager->priv->rr_screen, &error);
-
-        } else if (g_strcmp0 (method_name, "SetPercentage") == 0) {
-                g_debug ("screen set percentage");
-                g_variant_get (parameters, "(u)", &value_tmp);
-                ret = backlight_set_percentage (manager->priv->rr_screen, value_tmp, &error);
-                if (ret) {
-                        value = value_tmp;
-                        backlight_emit_changed (manager);
-                }
-
-        } else if (g_strcmp0 (method_name, "StepUp") == 0) {
+        if (g_strcmp0 (method_name, "StepUp") == 0) {
                 g_debug ("screen step up");
                 value = backlight_step_up (manager->priv->rr_screen, &error);
-                if (value != -1)
-                        backlight_emit_changed (manager);
+                backlight_emit_changed (manager, value);
         } else if (g_strcmp0 (method_name, "StepDown") == 0) {
                 g_debug ("screen step down");
                 value = backlight_step_down (manager->priv->rr_screen, &error);
-                if (value != -1)
-                        backlight_emit_changed (manager);
+                backlight_emit_changed (manager, value);
         } else {
                 g_assert_not_reached ();
         }
@@ -3791,6 +3766,21 @@ handle_get_property_main (GsdPowerManager *manager,
 }
 
 static GVariant *
+handle_get_property_screen (GsdPowerManager *manager,
+                            const gchar *property_name)
+{
+        GVariant *retval = NULL;
+
+        if (g_strcmp0 (property_name, "Brightness") == 0) {
+                guint32 value;
+                value = backlight_get_percentage (manager->priv->rr_screen, NULL);
+                retval = g_variant_new_int32 (value);
+        }
+
+        return retval;
+}
+
+static GVariant *
 handle_get_property (GDBusConnection *connection,
                      const gchar *sender,
                      const gchar *object_path,
@@ -3808,9 +3798,51 @@ handle_get_property (GDBusConnection *connection,
 
         if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE) == 0) {
                 return handle_get_property_main (manager, property_name);
+        } else if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
+                return handle_get_property_screen (manager, property_name);
         } else {
                 g_warning ("not recognised interface: %s", interface_name);
                 return NULL;
+        }
+}
+
+static gboolean
+handle_set_property_screen (GsdPowerManager *manager,
+                            const gchar *property_name,
+                            GVariant *value)
+{
+        if (g_strcmp0 (property_name, "Brightness") == 0) {
+                guint32 brightness_value;
+                g_variant_get (value, "i", &brightness_value);
+                return backlight_set_percentage (manager->priv->rr_screen,
+                                                 brightness_value, NULL);
+        }
+
+        return FALSE;
+}
+
+static gboolean
+handle_set_property (GDBusConnection *connection,
+                     const gchar *sender,
+                     const gchar *object_path,
+                     const gchar *interface_name,
+                     const gchar *property_name,
+                     GVariant *value,
+                     GError **error, gpointer user_data)
+{
+        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
+
+        /* Check session pointer as a proxy for whether the manager is in the
+           start or stop state */
+        if (manager->priv->session == NULL) {
+                return FALSE;
+        }
+
+        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
+                return handle_set_property_screen (manager, property_name, value);
+        } else {
+                g_warning ("not recognised interface: %s", interface_name);
+                return FALSE;
         }
 }
 
@@ -3818,7 +3850,7 @@ static const GDBusInterfaceVTable interface_vtable =
 {
         handle_method_call,
         handle_get_property,
-        NULL, /* SetProperty */
+        handle_set_property
 };
 
 static void

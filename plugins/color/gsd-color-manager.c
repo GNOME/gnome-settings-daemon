@@ -642,26 +642,6 @@ gcm_session_use_output_profile_for_screen (GsdColorManager *manager,
 #define GSD_DBUS_PATH_POWER		GSD_DBUS_PATH "/Power"
 
 static void
-gcm_session_set_output_percentage_cb (GObject *source_object,
-                                      GAsyncResult *res,
-                                      gpointer user_data)
-{
-        GDBusConnection *connection = G_DBUS_CONNECTION (source_object);
-        GError *error = NULL;
-        GVariant *retval;
-        retval = g_dbus_connection_call_finish (connection,
-                                                res,
-                                                &error);
-        if (retval == NULL) {
-                g_warning ("failed to set output brightness: %s",
-                           error->message);
-                g_error_free (error);
-                return;
-        }
-        g_variant_unref (retval);
-}
-
-static void
 gcm_session_set_output_percentage (guint percentage)
 {
         GDBusConnection *connection;
@@ -673,13 +653,14 @@ gcm_session_set_output_percentage (guint percentage)
         g_dbus_connection_call (connection,
                                 GSD_DBUS_NAME_POWER,
                                 GSD_DBUS_PATH_POWER,
-                                GSD_DBUS_INTERFACE_POWER_SCREEN,
-                                "SetPercentage",
-                                g_variant_new ("(u)", percentage),
+                                "org.freedesktop.DBus.Properties",
+                                "Set",
+                                g_variant_new_parsed ("('" GSD_DBUS_INTERFACE_POWER_SCREEN "',"
+                                                      "'Brightness', %v)",
+                                                      g_variant_new_int32 (percentage)),
                                 NULL,
                                 G_DBUS_CALL_FLAGS_NONE,
-                                -1, NULL,
-                                gcm_session_set_output_percentage_cb, NULL);
+                                -1, NULL, NULL, NULL);
         g_object_unref (connection);
 }
 
