@@ -682,10 +682,7 @@ gcm_session_device_set_gamma (GnomeRROutput *output,
         /* create a lookup table */
         size = gnome_rr_output_get_gamma_size (output);
         if (size == 0) {
-                g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
-                                     "gamma size is zero");
+                ret = TRUE;
                 goto out;
         }
         clut = gcm_session_generate_vcgt (profile, size);
@@ -723,11 +720,7 @@ gcm_session_device_reset_gamma (GnomeRROutput *output,
         clut = g_ptr_array_new_with_free_func (g_free);
         size = gnome_rr_output_get_gamma_size (output);
         if (size == 0) {
-                ret = FALSE;
-                g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
-                                     "gamma size is zero");
+                ret = TRUE;
                 goto out;
         }
         for (i = 0; i < size; i++) {
