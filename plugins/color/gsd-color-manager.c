@@ -340,19 +340,19 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
                              cd_device_get_id (device));
 
         /* set 'ICC meta Tag for Monitor Profiles' data */
-        cd_icc_add_metadata (icc, "EDID_md5", gcm_edid_get_checksum (edid));
+        cd_icc_add_metadata (icc, CD_PROFILE_METADATA_EDID_MD5, gcm_edid_get_checksum (edid));
         data = gcm_edid_get_monitor_name (edid);
         if (data != NULL)
-                cd_icc_add_metadata (icc, "EDID_model", data);
+                cd_icc_add_metadata (icc, CD_PROFILE_METADATA_EDID_MODEL, data);
         data = gcm_edid_get_serial_number (edid);
         if (data != NULL)
-                cd_icc_add_metadata (icc, "EDID_serial", data);
+                cd_icc_add_metadata (icc, CD_PROFILE_METADATA_EDID_SERIAL, data);
         data = gcm_edid_get_pnp_id (edid);
         if (data != NULL)
-                cd_icc_add_metadata (icc, "EDID_mnft", data);
+                cd_icc_add_metadata (icc, CD_PROFILE_METADATA_EDID_MNFT, data);
         data = gcm_edid_get_vendor_name (edid);
         if (data != NULL)
-                cd_icc_add_metadata (icc, "EDID_manufacturer", data);
+                cd_icc_add_metadata (icc, CD_PROFILE_METADATA_EDID_VENDOR, data);
 
         /* save */
         ret = cd_icc_save_file (icc, file, CD_ICC_SAVE_FLAGS_NONE, NULL, error);
