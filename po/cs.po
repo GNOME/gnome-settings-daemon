@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-03-15 11:04+0000\n"
-"PO-Revision-Date: 2013-03-24 23:15+0100\n"
+"POT-Creation-Date: 2013-04-26 16:14+0000\n"
+"PO-Revision-Date: 2013-04-27 00:48+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -1226,7 +1226,7 @@ msgid "Clipboard plugin"
 msgstr "Zásuvný modul schránky"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:1
-#: ../plugins/color/gsd-color-manager.c:1664
+#: ../plugins/color/gsd-color-manager.c:1454
 msgid "Color"
 msgstr "Barva"
 
@@ -1234,40 +1234,40 @@ msgstr "Barva"
 msgid "Color plugin"
 msgstr "Zásuvný modul barev"
 
-#: ../plugins/color/gsd-color-manager.c:1669
+#: ../plugins/color/gsd-color-manager.c:1459
 msgid "Recalibrate now"
 msgstr "Překalibrovat nyní"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1712
+#: ../plugins/color/gsd-color-manager.c:1502
 msgid "Recalibration required"
 msgstr "Vyžadováno překlalibrování"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1724
+#: ../plugins/color/gsd-color-manager.c:1514
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "Obrazovka „%s“ by měla být v dohledné době překalibrována."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1733
+#: ../plugins/color/gsd-color-manager.c:1523
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "Tiskárna „%s“ by měla být v dohledné době překalibrována."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:2057
-#: ../plugins/color/gsd-color-manager.c:2073
+#: ../plugins/color/gsd-color-manager.c:1794
+#: ../plugins/color/gsd-color-manager.c:1810
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "Zásuvný modul barev pro démona nastavení GNOME"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2059
+#: ../plugins/color/gsd-color-manager.c:1796
 msgid "Color calibration device added"
 msgstr "Zařízení pro kalibraci barev přidáno"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2075
+#: ../plugins/color/gsd-color-manager.c:1812
 msgid "Color calibration device removed"
 msgstr "Zařízení pro kalibraci barev odebráno"
 
@@ -1471,107 +1471,108 @@ msgstr "Multimediální klávesy"
 msgid "Media keys plugin"
 msgstr "Zásuvný modul multimediálních kláves"
 
-#: ../plugins/media-keys/shortcuts-list.h:99
+#: ../plugins/media-keys/shortcuts-list.h:100
 msgid "Touchpad toggle"
 msgstr "Přepnout touchpad"
 
-#: ../plugins/media-keys/shortcuts-list.h:100
+#: ../plugins/media-keys/shortcuts-list.h:101
 msgid "Touchpad On"
 msgstr "Zapnout touchpad"
 
-#: ../plugins/media-keys/shortcuts-list.h:101
+#: ../plugins/media-keys/shortcuts-list.h:102
 msgid "Touchpad Off"
 msgstr "Vypnout touchpad"
 
-#: ../plugins/media-keys/shortcuts-list.h:105
+#: ../plugins/media-keys/shortcuts-list.h:106
 msgid "Microphone Mute"
 msgstr "Ztlumit mikrofon"
 
-#: ../plugins/media-keys/shortcuts-list.h:106
-#| msgid "Volume mute"
+#: ../plugins/media-keys/shortcuts-list.h:107
 msgid "Quiet Volume Mute"
 msgstr "Bez projevů ztlumit zvuk"
 
-#: ../plugins/media-keys/shortcuts-list.h:107
-#| msgid "Volume down"
+#: ../plugins/media-keys/shortcuts-list.h:108
 msgid "Quiet Volume Down"
 msgstr "Bez projevů snížit hlasitost"
 
-#: ../plugins/media-keys/shortcuts-list.h:108
-#| msgid "Volume up"
+#: ../plugins/media-keys/shortcuts-list.h:109
 msgid "Quiet Volume Up"
 msgstr "Bez projevů zvýšit hlasitost"
 
-#: ../plugins/media-keys/shortcuts-list.h:117
+#: ../plugins/media-keys/shortcuts-list.h:118
 msgid "Lock Screen"
 msgstr "Zamknout obrazovku"
 
-#: ../plugins/media-keys/shortcuts-list.h:131
+#: ../plugins/media-keys/shortcuts-list.h:132
 msgid "Rewind"
 msgstr "Posunout zpět"
 
-#: ../plugins/media-keys/shortcuts-list.h:132
+#: ../plugins/media-keys/shortcuts-list.h:133
 msgid "Forward"
 msgstr "Posunout vpřed"
 
-#: ../plugins/media-keys/shortcuts-list.h:133
+#: ../plugins/media-keys/shortcuts-list.h:134
 msgid "Repeat"
 msgstr "Opakovat"
 
-#: ../plugins/media-keys/shortcuts-list.h:134
+#: ../plugins/media-keys/shortcuts-list.h:135
 msgid "Random Play"
 msgstr "Náhodně přehrát"
 
 #. Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.)
-#: ../plugins/media-keys/shortcuts-list.h:135
-#: ../plugins/media-keys/shortcuts-list.h:137
+#: ../plugins/media-keys/shortcuts-list.h:136
+#: ../plugins/media-keys/shortcuts-list.h:138
 msgid "Video Out"
 msgstr "Obrazový výstup"
 
 #. Key code of the XF86RotateWindows key (present on some tablets)
-#: ../plugins/media-keys/shortcuts-list.h:139
+#: ../plugins/media-keys/shortcuts-list.h:140
 msgid "Rotate Screen"
 msgstr "Otočit obrazovku"
 
-#: ../plugins/media-keys/shortcuts-list.h:148
+#: ../plugins/media-keys/shortcuts-list.h:141
+msgid "Orientation Lock"
+msgstr "Zámek otočení"
+
+#: ../plugins/media-keys/shortcuts-list.h:150
 msgid "Power Off"
 msgstr "Vypnout"
 
 #. the kernel / Xorg names really are like this...
 #. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
-#: ../plugins/media-keys/shortcuts-list.h:151
+#: ../plugins/media-keys/shortcuts-list.h:153
 msgid "Sleep"
 msgstr "Uspat"
 
-#: ../plugins/media-keys/shortcuts-list.h:152
+#: ../plugins/media-keys/shortcuts-list.h:154
 msgid "Suspend"
 msgstr "Uspat do paměti"
 
-#: ../plugins/media-keys/shortcuts-list.h:153
+#: ../plugins/media-keys/shortcuts-list.h:155
 msgid "Hibernate"
 msgstr "Uspat na disk"
 
-#: ../plugins/media-keys/shortcuts-list.h:154
+#: ../plugins/media-keys/shortcuts-list.h:156
 msgid "Brightness Up"
 msgstr "Zvýšit jas"
 
-#: ../plugins/media-keys/shortcuts-list.h:155
+#: ../plugins/media-keys/shortcuts-list.h:157
 msgid "Brightness Down"
 msgstr "Snížit jas"
 
-#: ../plugins/media-keys/shortcuts-list.h:156
+#: ../plugins/media-keys/shortcuts-list.h:158
 msgid "Keyboard Brightness Up"
 msgstr "Zapnout podsvícení klávesnice"
 
-#: ../plugins/media-keys/shortcuts-list.h:157
+#: ../plugins/media-keys/shortcuts-list.h:159
 msgid "Keyboard Brightness Down"
 msgstr "Vypnout podsvícení klávesnice"
 
-#: ../plugins/media-keys/shortcuts-list.h:158
+#: ../plugins/media-keys/shortcuts-list.h:160
 msgid "Keyboard Brightness Toggle"
 msgstr "Přepnout podsvícení klávesnice"
 
-#: ../plugins/media-keys/shortcuts-list.h:159
+#: ../plugins/media-keys/shortcuts-list.h:161
 msgid "Battery Status"
 msgstr "Stav baterie"
 
@@ -1602,11 +1603,11 @@ msgstr "Zásuvný modul myši"
 #. Priority=100
 #: ../plugins/orientation/orientation.gnome-settings-plugin.in.h:2
 msgid "Orientation"
-msgstr "Natočení"
+msgstr "Otočení"
 
 #: ../plugins/orientation/orientation.gnome-settings-plugin.in.h:3
 msgid "Orientation plugin"
-msgstr "Zásuvný modul natočení"
+msgstr "Zásuvný modul otočení"
 
 #: ../plugins/power/gpm-common.c:73
 msgid "Unknown time"
@@ -2105,18 +2106,18 @@ msgid "Computer is charged"
 msgstr "Počítač je nabitý"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:1732
-#: ../plugins/power/gsd-power-manager.c:1628
-#: ../plugins/power/gsd-power-manager.c:1758
+#: ../plugins/power/gpm-common.c:1771
+#: ../plugins/power/gsd-power-manager.c:1624
+#: ../plugins/power/gsd-power-manager.c:1754
 msgid "Battery is critically low"
 msgstr "Úroveň nabití baterie je kritická"
 
 #. TRANSLATORS: the battery may be recalled by its vendor
-#: ../plugins/power/gsd-power-manager.c:929
+#: ../plugins/power/gsd-power-manager.c:925
 msgid "Battery may be recalled"
 msgstr "Baterie může být stahována z trhu"
 
-#: ../plugins/power/gsd-power-manager.c:932
+#: ../plugins/power/gsd-power-manager.c:928
 #, c-format
 msgid ""
 "A battery in your computer may have been recalled by %s and you may be at "
@@ -2125,208 +2126,208 @@ msgstr ""
 "Baterie ve vašem počítači může být firmou %s stahována a vy můžete být "
 "vystaveni nebezpečí."
 
-#: ../plugins/power/gsd-power-manager.c:935
+#: ../plugins/power/gsd-power-manager.c:931
 msgid "For more information visit the battery recall website."
 msgstr ""
 "Více informací získáte na webových stránkách o stahování baterií z trhu."
 
 #. TRANSLATORS: button text, visit the manufacturers recall website
-#: ../plugins/power/gsd-power-manager.c:946
+#: ../plugins/power/gsd-power-manager.c:942
 msgid "Visit recall website"
 msgstr "Navštívit web stahování baterií z trhu"
 
 #. TRANSLATORS: button text, do not show this bubble again
-#: ../plugins/power/gsd-power-manager.c:950
+#: ../plugins/power/gsd-power-manager.c:946
 msgid "Do not show me this again"
 msgstr "Příště již nezobrazovat"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:1203
+#: ../plugins/power/gsd-power-manager.c:1199
 msgid "UPS Discharging"
 msgstr "Záložní zdroj se vybíjí"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1208
+#: ../plugins/power/gsd-power-manager.c:1204
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "Zbývá %s napájení ze záložního zdroje"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:1229
-#: ../plugins/power/gsd-power-manager.c:1438
-#: ../plugins/power/gsd-power-manager.c:1611
-#: ../plugins/power/gsd-power-manager.c:1749
-#: ../plugins/power/gsd-power-manager.c:3084
+#: ../plugins/power/gsd-power-manager.c:1225
+#: ../plugins/power/gsd-power-manager.c:1434
+#: ../plugins/power/gsd-power-manager.c:1607
+#: ../plugins/power/gsd-power-manager.c:1745
+#: ../plugins/power/gsd-power-manager.c:3082
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Napájení"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:1348
+#: ../plugins/power/gsd-power-manager.c:1344
 msgid "Battery low"
 msgstr "Baterie je téměř vybitá"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1351
+#: ../plugins/power/gsd-power-manager.c:1347
 msgid "Laptop battery low"
 msgstr "Baterie notebooku je téměř vybitá"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1358
+#: ../plugins/power/gsd-power-manager.c:1354
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "Přibližné zbývá %s (%.0f %%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:1365
+#: ../plugins/power/gsd-power-manager.c:1361
 msgid "UPS low"
 msgstr "Záložní zdroj je téměř vybitý"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1371
+#: ../plugins/power/gsd-power-manager.c:1367
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "Přibližně zbývá %s napájení ze záložního zdroje (%.0f %%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:1376
-#: ../plugins/power/gsd-power-manager.c:1535
+#: ../plugins/power/gsd-power-manager.c:1372
+#: ../plugins/power/gsd-power-manager.c:1531
 msgid "Mouse battery low"
 msgstr "Baterie myši je téměř vybitá"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1379
+#: ../plugins/power/gsd-power-manager.c:1375
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "Bezdrátová myš je téměř vybitá (%.0f %%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:1383
-#: ../plugins/power/gsd-power-manager.c:1543
+#: ../plugins/power/gsd-power-manager.c:1379
+#: ../plugins/power/gsd-power-manager.c:1539
 msgid "Keyboard battery low"
 msgstr "Baterie klávesnice je téměř vybitá"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1386
+#: ../plugins/power/gsd-power-manager.c:1382
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "Bezdrátová klávesnice je téměř vybitá (%.0f %%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:1390
-#: ../plugins/power/gsd-power-manager.c:1552
+#: ../plugins/power/gsd-power-manager.c:1386
+#: ../plugins/power/gsd-power-manager.c:1548
 msgid "PDA battery low"
 msgstr "Baterie PDA je téměř vybitá"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1393
+#: ../plugins/power/gsd-power-manager.c:1389
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "PDA je téměř vybité (%.0f %%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1397
-#: ../plugins/power/gsd-power-manager.c:1562
-#: ../plugins/power/gsd-power-manager.c:1571
+#: ../plugins/power/gsd-power-manager.c:1393
+#: ../plugins/power/gsd-power-manager.c:1558
+#: ../plugins/power/gsd-power-manager.c:1567
 msgid "Cell phone battery low"
 msgstr "Baterie mobilního telefonu je téměř vybitá"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1400
+#: ../plugins/power/gsd-power-manager.c:1396
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "Mobilní telefon je téměř vybitý (%.0f %%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:1404
+#: ../plugins/power/gsd-power-manager.c:1400
 msgid "Media player battery low"
 msgstr "Baterie přenosného přehrávače je téměř vybitá"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1407
+#: ../plugins/power/gsd-power-manager.c:1403
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "Přenosný přehrávač je téměř vybitý (%.0f %%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1411
-#: ../plugins/power/gsd-power-manager.c:1580
+#: ../plugins/power/gsd-power-manager.c:1407
+#: ../plugins/power/gsd-power-manager.c:1576
 msgid "Tablet battery low"
 msgstr "Baterie tabletu je téměř vybitá"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1414
+#: ../plugins/power/gsd-power-manager.c:1410
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "Tablet je téměř vybitý (%.0f %%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1418
-#: ../plugins/power/gsd-power-manager.c:1589
+#: ../plugins/power/gsd-power-manager.c:1414
+#: ../plugins/power/gsd-power-manager.c:1585
 msgid "Attached computer battery low"
 msgstr "Baterie připojeného počítače je téměř vybitá"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1421
+#: ../plugins/power/gsd-power-manager.c:1417
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "Připojený počítač je téměř vybitý (%.0f %%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1448
+#: ../plugins/power/gsd-power-manager.c:1444
 msgid "Battery is low"
 msgstr "Nízký stav baterie"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1489
+#: ../plugins/power/gsd-power-manager.c:1485
 msgid "Battery critically low"
 msgstr "Kriticky nízký stav baterie"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1492
-#: ../plugins/power/gsd-power-manager.c:1663
+#: ../plugins/power/gsd-power-manager.c:1488
+#: ../plugins/power/gsd-power-manager.c:1659
 msgid "Laptop battery critically low"
 msgstr "Kriticky nízký stav baterie notebooku"
 
 #. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
-#: ../plugins/power/gsd-power-manager.c:1501
+#: ../plugins/power/gsd-power-manager.c:1497
 msgid "Plug in your AC adapter to avoid losing data."
 msgstr "Připojte svůj napájecí adaptér, abyste předešli ztrátě dat."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1505
+#: ../plugins/power/gsd-power-manager.c:1501
 #, c-format
 msgid "Computer will suspend very soon unless it is plugged in."
 msgstr "Pokud počítač velmi brzy nepřipojíte k napájení, bude uspán do paměti."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1509
+#: ../plugins/power/gsd-power-manager.c:1505
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr "Pokud počítač velmi brzy nepřipojíte k napájení, bude uspán na disk."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1513
+#: ../plugins/power/gsd-power-manager.c:1509
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "Pokud počítač velmi brzy nepřipojíte k napájení, bude vypnut."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1523
-#: ../plugins/power/gsd-power-manager.c:1701
+#: ../plugins/power/gsd-power-manager.c:1519
+#: ../plugins/power/gsd-power-manager.c:1697
 msgid "UPS critically low"
 msgstr "Kriticky nízký stav záložního zdroje"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1529
+#: ../plugins/power/gsd-power-manager.c:1525
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -2336,7 +2337,7 @@ msgstr ""
 "z elektrické sítě, abyste předešli ztrátě dat."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1538
+#: ../plugins/power/gsd-power-manager.c:1534
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -2346,7 +2347,7 @@ msgstr ""
 "brzy pracovat."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1546
+#: ../plugins/power/gsd-power-manager.c:1542
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -2356,7 +2357,7 @@ msgstr ""
 "přestane brzy pracovat."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1555
+#: ../plugins/power/gsd-power-manager.c:1551
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -2366,7 +2367,7 @@ msgstr ""
 "pracovat."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1565
+#: ../plugins/power/gsd-power-manager.c:1561
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -2376,7 +2377,7 @@ msgstr ""
 "brzy pracovat."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1574
+#: ../plugins/power/gsd-power-manager.c:1570
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -2386,7 +2387,7 @@ msgstr ""
 "přestane brzy pracovat."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1583
+#: ../plugins/power/gsd-power-manager.c:1579
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -2396,7 +2397,7 @@ msgstr ""
 "pracovat."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1592
+#: ../plugins/power/gsd-power-manager.c:1588
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -2406,7 +2407,7 @@ msgstr ""
 "přestane brzy pracovat."
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1671
+#: ../plugins/power/gsd-power-manager.c:1667
 msgid ""
 "The battery is below the critical level and this computer will <b>power-off</"
 "b> when the battery becomes completely empty."
@@ -2415,7 +2416,7 @@ msgstr ""
 "<b>přerušeno napájení</b> počítače."
 
 #. TRANSLATORS: computer will suspend
-#: ../plugins/power/gsd-power-manager.c:1677
+#: ../plugins/power/gsd-power-manager.c:1673
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "suspend.\n"
@@ -2428,7 +2429,7 @@ msgstr ""
 "přísun malého množství energie."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1684
+#: ../plugins/power/gsd-power-manager.c:1680
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -2437,7 +2438,7 @@ msgstr ""
 "disk."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1689
+#: ../plugins/power/gsd-power-manager.c:1685
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -2445,7 +2446,7 @@ msgstr ""
 "Úroveň nabití baterie je pod kritickou úrovní a počítač bude vbrzku vypnut."
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1709
+#: ../plugins/power/gsd-power-manager.c:1705
 msgid ""
 "UPS is below the critical level and this computer will <b>power-off</b> when "
 "the UPS becomes completely empty."
@@ -2454,7 +2455,7 @@ msgstr ""
 "vybití bude <b>přerušeno napájení</b> počítače."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1715
+#: ../plugins/power/gsd-power-manager.c:1711
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
@@ -2462,40 +2463,40 @@ msgstr ""
 "uspán na disk."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1720
+#: ../plugins/power/gsd-power-manager.c:1716
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "Úroveň nabití záložního zdroje je pod kritickou úrovní a počítač bude vbrzku "
 "vypnut."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2223
+#: ../plugins/power/gsd-power-manager.c:2208
 msgid "Lid has been opened"
 msgstr "Víko bylo otevřeno"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2261
+#: ../plugins/power/gsd-power-manager.c:2246
 msgid "Lid has been closed"
 msgstr "Víko bylo zavřeno"
 
-#: ../plugins/power/gsd-power-manager.c:3063
+#: ../plugins/power/gsd-power-manager.c:3061
 msgid "Automatic logout"
 msgstr "Automatické odhlášení"
 
-#: ../plugins/power/gsd-power-manager.c:3063
+#: ../plugins/power/gsd-power-manager.c:3061
 msgid "You will soon log out because of inactivity."
 msgstr "Z důvodu neaktivity budete brzy odhlášeni."
 
-#: ../plugins/power/gsd-power-manager.c:3068
+#: ../plugins/power/gsd-power-manager.c:3066
 msgid "Automatic suspend"
 msgstr "Automatické uspání do paměti"
 
-#: ../plugins/power/gsd-power-manager.c:3068
-#: ../plugins/power/gsd-power-manager.c:3073
+#: ../plugins/power/gsd-power-manager.c:3066
+#: ../plugins/power/gsd-power-manager.c:3071
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Počítač bude z důvodu neaktivity velmi brzy uspán do paměti."
 
-#: ../plugins/power/gsd-power-manager.c:3073
+#: ../plugins/power/gsd-power-manager.c:3071
 msgid "Automatic hibernation"
 msgstr "Automatické uspání na disk"
 
