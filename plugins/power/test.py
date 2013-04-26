@@ -394,6 +394,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
     def test_idle_time_reset_on_resume(self):
         '''Check that the IDLETIME is reset when resuming'''
 
+        self.settings_screensaver['lock-enabled'] = False
+
         # Go idle
         self.settings_session['idle-delay'] = 5
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
@@ -468,6 +470,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # Drop the inhibit and see whether we suspend
         self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
         # At this point logind should suspend for us
+        self.settings_screensaver['lock-enabled'] = False
 
     def test_blank_on_lid_close(self):
         '''Check that we do blank on lid closing, if the machine will not suspend'''
