@@ -3124,7 +3124,8 @@ engine_settings_key_changed_cb (GSettings *settings,
                 return;
         }
         if (g_str_has_prefix (key, "sleep-inactive") ||
-            g_str_equal (key, "idle-delay")) {
+            g_str_equal (key, "idle-delay") ||
+            g_str_equal (key, "idle-dim")) {
                 idle_configure (manager);
                 return;
         }
