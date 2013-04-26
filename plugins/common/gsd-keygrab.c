@@ -361,13 +361,15 @@ match_xi2_key (Key *key, XIDeviceEvent *event)
                 && key_uses_keycode (key, keycode));
 }
 
-static void
-grab_button_real (int        deviceid,
-		  gboolean   grab,
-		  GdkWindow *root)
+void
+grab_button (int        deviceid,
+             gboolean   grab,
+             GdkScreen *screen)
 {
+	GdkWindow *root;
 	XIGrabModifiers mods;
 
+	root = gdk_screen_get_root_window (screen);
 	mods.modifiers = XIAnyModifier;
 
 	if (grab) {
@@ -400,20 +402,4 @@ grab_button_real (int        deviceid,
 		                GDK_WINDOW_XID (root),
 				1, &mods);
 	}
-}
-
-void
-grab_button (int      deviceid,
-	     gboolean grab,
-	     GSList  *screens)
-{
-        GSList *l;
-
-        for (l = screens; l; l = l->next) {
-                GdkScreen *screen = l->data;
-
-		grab_button_real (deviceid,
-				  grab,
-				  gdk_screen_get_root_window (screen));
-        }
 }

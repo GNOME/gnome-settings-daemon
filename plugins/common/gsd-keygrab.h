@@ -48,9 +48,9 @@ gboolean        match_xi2_key   (Key           *key,
 gboolean        key_uses_keycode (const Key *key,
                                   guint keycode);
 
-void            grab_button      (int      deviceid,
-                                  gboolean grab,
-                                  GSList  *screens);
+void            grab_button      (int        deviceid,
+                                  gboolean   grab,
+                                  GdkScreen *screen);
 
 G_END_DECLS
 

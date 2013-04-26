@@ -79,10 +79,10 @@ struct GsdWacomManagerPrivate
         guint device_added_id;
         guint device_removed_id;
         GHashTable *devices; /* key = GdkDevice, value = GsdWacomDevice */
-        GList *rr_screens;
+        GnomeRRScreen *rr_screen;
 
         /* button capture */
-        GSList *screens;
+        GdkScreen *screen;
         int      opcode;
 
         /* Help OSD window */
@@ -745,7 +745,7 @@ set_wacom_settings (GsdWacomManager *manager,
 
 		id = get_device_id (device);
 		reset_pad_buttons (device);
-		grab_button (id, TRUE, manager->priv->screens);
+		grab_button (id, TRUE, manager->priv->screen);
 		return;
 	}
 
@@ -1339,7 +1339,6 @@ static gboolean
 gsd_wacom_manager_idle_cb (GsdWacomManager *manager)
 {
 	GList *devices, *l;
-	GSList *ls;
 
         gnome_settings_profile_start (NULL);
 
@@ -1353,11 +1352,9 @@ gsd_wacom_manager_idle_cb (GsdWacomManager *manager)
         g_list_free (devices);
 
         /* Start filtering the button events */
-        for (ls = manager->priv->screens; ls != NULL; ls = ls->next) {
-                gdk_window_add_filter (gdk_screen_get_root_window (ls->data),
-                                       (GdkFilterFunc) filter_button_events,
-                                       manager);
-        }
+        gdk_window_add_filter (gdk_screen_get_root_window (manager->priv->screen),
+                               (GdkFilterFunc) filter_button_events,
+                               manager);
 
         gnome_settings_profile_end (NULL);
 
@@ -1408,39 +1405,33 @@ on_screen_changed_cb (GnomeRRScreen *rr_screen,
 }
 
 static void
-init_screens (GsdWacomManager *manager)
+init_screen (GsdWacomManager *manager)
 {
-        GdkDisplay *display;
-        int i;
+        GError *error = NULL;
+        GdkScreen *screen;
+        GnomeRRScreen *rr_screen;
 
-        display = gdk_display_get_default ();
-        for (i = 0; i < gdk_display_get_n_screens (display); i++) {
-                GError *error = NULL;
-                GdkScreen *screen;
-                GnomeRRScreen *rr_screen;
-
-                screen = gdk_display_get_screen (display, i);
-                if (screen == NULL) {
-                        continue;
-                }
-                manager->priv->screens = g_slist_append (manager->priv->screens, screen);
-
-		/*
-		 * We also keep a list of GnomeRRScreen to monitor changes such as rotation
-		 * which are not reported by Gdk's "monitors-changed" callback
-		 */
-		rr_screen = gnome_rr_screen_new (screen, &error);
-		if (rr_screen == NULL) {
-			g_warning ("Failed to create GnomeRRScreen: %s", error->message);
-			g_error_free (error);
-			continue;
-		}
-		manager->priv->rr_screens = g_list_prepend (manager->priv->rr_screens, rr_screen);
-		g_signal_connect (rr_screen,
-				  "changed",
-				  G_CALLBACK (on_screen_changed_cb),
-			          manager);
+        screen = gdk_screen_get_default ();
+        if (screen == NULL) {
+                return;
         }
+        manager->priv->screen = screen;
+
+        /*
+         * We keep GnomeRRScreen to monitor changes such as rotation
+         * which are not reported by Gdk's "monitors-changed" callback
+         */
+        rr_screen = gnome_rr_screen_new (screen, &error);
+        if (rr_screen == NULL) {
+                g_warning ("Failed to create GnomeRRScreen: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+        manager->priv->rr_screen = rr_screen;
+        g_signal_connect (rr_screen,
+                          "changed",
+                          G_CALLBACK (on_screen_changed_cb),
+                          manager);
 }
 
 gboolean
@@ -1459,7 +1450,7 @@ gsd_wacom_manager_start (GsdWacomManager *manager,
                 return TRUE;
         }
 
-        init_screens (manager);
+        init_screen (manager);
 
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) gsd_wacom_manager_idle_cb, manager);
 
@@ -1472,7 +1463,6 @@ void
 gsd_wacom_manager_stop (GsdWacomManager *manager)
 {
         GsdWacomManagerPrivate *p = manager->priv;
-        GSList *ls;
         GList *l;
 
         g_debug ("Stopping wacom manager");
@@ -1492,7 +1482,7 @@ gsd_wacom_manager_stop (GsdWacomManager *manager)
                                 int id;
 
                                 id = get_device_id (l->data);
-                                grab_button (id, FALSE, manager->priv->screens);
+                                grab_button (id, FALSE, manager->priv->screen);
                         }
                 }
                 g_list_free (devices);
@@ -1500,14 +1490,11 @@ gsd_wacom_manager_stop (GsdWacomManager *manager)
                 p->device_manager = NULL;
         }
 
-        for (ls = p->screens; ls != NULL; ls = ls->next) {
-                gdk_window_remove_filter (gdk_screen_get_root_window (ls->data),
-                                          (GdkFilterFunc) filter_button_events,
-                                          manager);
-        }
+        gdk_window_remove_filter (gdk_screen_get_root_window (p->screen),
+                                  (GdkFilterFunc) filter_button_events,
+                                  manager);
 
-	for (l = p->rr_screens; l != NULL; l = l->next)
-		g_signal_handlers_disconnect_by_func (l->data, on_screen_changed_cb, manager);
+        g_signal_handlers_disconnect_by_func (p->rr_screen, on_screen_changed_cb, manager);
 
         g_clear_pointer (&p->osd_window, gtk_widget_destroy);
 }
@@ -1529,14 +1516,9 @@ gsd_wacom_manager_finalize (GObject *object)
                 wacom_manager->priv->devices = NULL;
         }
 
-        if (wacom_manager->priv->screens != NULL) {
-                g_slist_free (wacom_manager->priv->screens);
-                wacom_manager->priv->screens = NULL;
-        }
-
-	if (wacom_manager->priv->rr_screens != NULL) {
-		g_list_free_full (wacom_manager->priv->rr_screens, g_object_unref);
-		wacom_manager->priv->rr_screens = NULL;
+	if (wacom_manager->priv->rr_screen != NULL) {
+		g_clear_object (&wacom_manager->priv->rr_screen);
+		wacom_manager->priv->rr_screen = NULL;
 	}
 
         if (wacom_manager->priv->start_idle_id != 0)
