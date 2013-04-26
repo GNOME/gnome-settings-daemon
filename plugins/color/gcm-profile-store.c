@@ -224,6 +224,13 @@ gcm_profile_store_file_monitor_changed_cb (GFileMonitor *monitor,
                 goto out;
         }
 
+        /* ignore temp files */
+        path = g_file_get_path (file);
+        if (g_strrstr (path, ".goutputstream") != NULL) {
+                g_debug ("ignoring gvfs temporary file");
+                goto out;
+        }
+
         /* only care about created objects */
         if (event_type == G_FILE_MONITOR_EVENT_CREATED) {
                 g_file_query_info_async (file,
