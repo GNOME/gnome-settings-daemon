@@ -1208,6 +1208,7 @@ gcm_session_create_device_cb (GObject *object,
 static void
 gcm_session_add_x11_output (GsdColorManager *manager, GnomeRROutput *output)
 {
+        const gchar *edid_checksum = NULL;
         const gchar *model = NULL;
         const gchar *serial = NULL;
         const gchar *vendor = NULL;
@@ -1235,6 +1236,7 @@ gcm_session_add_x11_output (GsdColorManager *manager, GnomeRROutput *output)
 
         /* use EDID data if we have it */
         if (edid != NULL) {
+                edid_checksum = gcm_edid_get_checksum (edid);
                 if (model == NULL)
                         model = gcm_edid_get_monitor_name (edid);
                 if (vendor == NULL)
@@ -1282,6 +1284,13 @@ gcm_session_add_x11_output (GsdColorManager *manager, GnomeRROutput *output)
                              gnome_rr_output_get_is_primary (output) ?
                              (gpointer) CD_DEVICE_METADATA_OUTPUT_PRIORITY_PRIMARY :
                              (gpointer) CD_DEVICE_METADATA_OUTPUT_PRIORITY_SECONDARY);
+#endif
+#if CD_CHECK_VERSION(0,1,34)
+        if (edid_checksum != NULL) {
+                g_hash_table_insert (device_props,
+                                     (gpointer) CD_DEVICE_METADATA_OUTPUT_EDID_MD5,
+                                     (gpointer) edid_checksum);
+        }
 #endif
 #if CD_CHECK_VERSION(0,1,27)
         /* set this so we can call the device a 'Laptop Screen' in the
