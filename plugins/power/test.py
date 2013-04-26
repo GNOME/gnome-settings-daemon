@@ -169,7 +169,10 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         return self.obj_session_presence_props.Get('org.gnome.SessionManager.Presence', 'status')
 
     def get_brightness(self):
-        (success, ret) = GLib.file_get_contents ('GSD_MOCK_brightness')
+        try:
+            (success, ret) = GLib.file_get_contents ('GSD_MOCK_brightness')
+        except:
+            return gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS
         return int(ret)
 
     def set_has_external_monitor(self, external):
