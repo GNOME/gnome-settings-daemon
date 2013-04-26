@@ -783,7 +783,7 @@ gcm_session_check_profile_device_md (GFile *file)
         gboolean ret;
 
         icc = cd_icc_new ();
-        ret = cd_icc_load_file (icc, file, CD_ICC_LOAD_FLAGS_NONE, NULL, NULL);
+        ret = cd_icc_load_file (icc, file, CD_ICC_LOAD_FLAGS_METADATA, NULL, NULL);
         if (!ret)
                 goto out;
         ret = cd_icc_get_metadata_item (icc, CD_PROFILE_METADATA_MAPPING_DEVICE_ID) != NULL;
