@@ -779,6 +779,7 @@ out:
 static gboolean
 gcm_session_check_profile_device_md (GFile *file)
 {
+        const gchar *key_we_need = CD_PROFILE_METADATA_EDID_MD5;
         CdIcc *icc;
         gboolean ret;
 
@@ -786,10 +787,10 @@ gcm_session_check_profile_device_md (GFile *file)
         ret = cd_icc_load_file (icc, file, CD_ICC_LOAD_FLAGS_METADATA, NULL, NULL);
         if (!ret)
                 goto out;
-        ret = cd_icc_get_metadata_item (icc, CD_PROFILE_METADATA_MAPPING_DEVICE_ID) != NULL;
+        ret = cd_icc_get_metadata_item (icc, key_we_need) != NULL;
         if (!ret) {
                 g_debug ("auto-edid profile is old, and contains no %s data",
-                         CD_PROFILE_METADATA_MAPPING_DEVICE_ID);
+                         key_we_need);
         }
 out:
         g_object_unref (icc);
