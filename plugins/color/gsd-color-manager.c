@@ -779,7 +779,7 @@ out:
 static gboolean
 gcm_session_check_profile_device_md (GFile *file)
 {
-        const gchar *key_we_need = CD_PROFILE_METADATA_EDID_MD5;
+        const gchar *key_we_need = CD_PROFILE_METADATA_MAPPING_DEVICE_ID;
         CdIcc *icc;
         gboolean ret;
 
