@@ -47,6 +47,8 @@
 
 #define ELEVATOR_TIMEOUT	250 /* ms */
 
+#define CURSOR_HIDE_TIMEOUT	2 /* seconds */
+
 static struct {
 	const gchar     *color_name;
 	const gchar     *color_value;
@@ -668,6 +670,7 @@ struct GsdWacomOSDWindowPrivate
 	GdkRectangle              tablet_area;
 	char                     *message;
 	GList                    *buttons;
+	guint                     cursor_timeout;
 };
 
 static void     gsd_wacom_osd_window_class_init  (GsdWacomOSDWindowClass *klass);
@@ -907,6 +910,8 @@ gsd_wacom_osd_window_draw (GtkWidget *widget,
 		                                   pango_context,
 		                                   cr);
 	}
+
+	GTK_WIDGET_CLASS (gsd_wacom_osd_window_parent_class)->draw (widget, cr);
 
 	return FALSE;
 }
@@ -1180,6 +1185,113 @@ gsd_wacom_osd_window_add_tablet_button (GsdWacomOSDWindow    *osd_window,
 	}
 }
 
+static gboolean
+call_device_configuration (GsdWacomDevice *device)
+{
+	gboolean success;
+	gchar *command;
+	const gchar *device_name;
+	GError *error = NULL;
+
+	device_name = gsd_wacom_device_get_name (device);
+	command = g_strdup_printf ("gnome-control-center wacom \"%s\"", device_name);
+	success = g_spawn_command_line_async (command, &error);
+	if (!success) {
+		g_warning ("Failure launching gnome-control-center: %s\n%s",
+			   error->message, command);
+		g_error_free (error);
+	}
+	g_free (command);
+
+	return success;
+}
+
+static void
+on_configure_button_clicked (GtkButton         *button,
+			     GsdWacomOSDWindow *window)
+{
+	if (call_device_configuration (window->priv->pad))
+		gtk_widget_destroy (GTK_WIDGET (window));
+}
+
+static GtkWidget *
+create_osd_configure_button (GsdWacomOSDWindow *window)
+{
+	GtkWidget *configure_button;
+	GtkStyleContext *style_context;
+
+	configure_button = gtk_button_new_with_label (_("Configure device"));
+	g_object_set (configure_button, "halign", GTK_ALIGN_CENTER, NULL);
+
+	style_context = gtk_widget_get_style_context (configure_button);
+	gtk_style_context_add_class (style_context, "osd");
+
+	return configure_button;
+}
+
+static void
+osd_window_set_cursor (GsdWacomOSDWindow *window, GdkCursorType cursor_type)
+{
+	GdkCursor *cursor;
+	GdkWindow *gdk_window;
+
+	gdk_window = gtk_widget_get_window (GTK_WIDGET (window));
+	cursor = gdk_cursor_new (cursor_type);
+	gdk_window_set_cursor (gdk_window, cursor);
+	g_object_unref (cursor);
+}
+
+static void
+show_cursor (GsdWacomOSDWindow *window)
+{
+	osd_window_set_cursor (window, GDK_LEFT_PTR);
+}
+
+static void
+hide_cursor (GsdWacomOSDWindow *window)
+{
+	osd_window_set_cursor (window, GDK_BLANK_CURSOR);
+}
+
+static gboolean
+cursor_timeout_source_func (gpointer data)
+{
+	GsdWacomOSDWindow *window = GSD_WACOM_OSD_WINDOW (data);
+	hide_cursor (window);
+	window->priv->cursor_timeout = 0;
+	return G_SOURCE_REMOVE;
+}
+
+static void
+cursor_timeout_stop (GsdWacomOSDWindow *window)
+{
+	if (window->priv->cursor_timeout != 0)
+		g_source_remove (window->priv->cursor_timeout);
+	window->priv->cursor_timeout = 0;
+}
+
+static gboolean
+gsd_wacom_osd_window_motion_notify_event (GtkWidget      *widget,
+					  GdkEventMotion *event)
+{
+	GsdWacomOSDWindow *window;
+	GdkInputSource     source;
+
+	window = GSD_WACOM_OSD_WINDOW (widget);
+
+	source = gdk_device_get_source (event->device);
+	if (source != GDK_SOURCE_MOUSE)
+		return FALSE;
+
+	show_cursor (window);
+	cursor_timeout_stop (window);
+	window->priv->cursor_timeout = g_timeout_add_seconds (CURSOR_HIDE_TIMEOUT,
+							      cursor_timeout_source_func,
+							      window);
+
+	return FALSE;
+}
+
 /*
  * Returns the rotation to apply a device to get a representation relative to
  * the current rotation of the output.
@@ -1246,7 +1358,6 @@ gsd_wacom_osd_window_realized (GtkWidget *widget,
 	GdkWindow         *gdk_window;
 	GdkRGBA            transparent;
 	GdkScreen         *screen;
-	GdkCursor         *cursor;
 	gint               monitor;
 	gboolean           status;
 
@@ -1263,9 +1374,7 @@ gsd_wacom_osd_window_realized (GtkWidget *widget,
 	transparent.alpha = BACK_OPACITY;
 	gdk_window_set_background_rgba (gdk_window, &transparent);
 
-	cursor = gdk_cursor_new (GDK_BLANK_CURSOR);
-	gdk_window_set_cursor (gdk_window, cursor);
-	g_object_unref (cursor);
+	hide_cursor (osd_window);
 
 	/* Determine the monitor for that device and set appropriate fullscreen mode*/
 	monitor = gsd_wacom_device_get_display_monitor (osd_window->priv->pad);
@@ -1474,6 +1583,7 @@ gsd_wacom_osd_window_new (GsdWacomDevice       *pad,
 	GsdWacomOSDWindow *osd_window;
 	GdkScreen         *screen;
 	GdkVisual         *visual;
+	GtkWidget         *configure_button, *box;
 
 	osd_window = GSD_WACOM_OSD_WINDOW (g_object_new (GSD_TYPE_WACOM_OSD_WINDOW,
 	                                                 "type",              GTK_WINDOW_TOPLEVEL,
@@ -1502,6 +1612,17 @@ gsd_wacom_osd_window_new (GsdWacomDevice       *pad,
 	                  G_CALLBACK (gsd_wacom_osd_window_mapped),
 	                  NULL);
 
+	configure_button = create_osd_configure_button (osd_window);
+
+	box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+	gtk_container_add (GTK_CONTAINER (osd_window), box);
+	gtk_box_pack_end (GTK_BOX (box), configure_button, FALSE, FALSE, 12);
+	gtk_widget_show_all(box);
+
+	g_signal_connect (configure_button, "clicked",
+			  G_CALLBACK (on_configure_button_clicked),
+			  osd_window);
+
 	return GTK_WIDGET (osd_window);
 }
 
@@ -1518,6 +1639,7 @@ gsd_wacom_osd_window_class_init (GsdWacomOSDWindowClass *klass)
 	gobject_class->get_property = gsd_wacom_osd_window_get_property;
 	gobject_class->finalize     = gsd_wacom_osd_window_finalize;
 	widget_class->draw          = gsd_wacom_osd_window_draw;
+	widget_class->motion_notify_event = gsd_wacom_osd_window_motion_notify_event;
 
 	g_object_class_install_property (gobject_class,
 	                                 PROP_OSD_WINDOW_MESSAGE,
@@ -1541,6 +1663,8 @@ static void
 gsd_wacom_osd_window_init (GsdWacomOSDWindow *osd_window)
 {
 	osd_window->priv = GSD_WACOM_OSD_WINDOW_GET_PRIVATE (osd_window);
+	osd_window->priv->cursor_timeout = 0;
+	gtk_widget_add_events (GTK_WIDGET (osd_window), GDK_POINTER_MOTION_MASK);
 }
 
 static void
@@ -1556,6 +1680,7 @@ gsd_wacom_osd_window_finalize (GObject *object)
 	g_return_if_fail (osd_window->priv != NULL);
 
 	priv = osd_window->priv;
+	cursor_timeout_stop (osd_window);
 	g_clear_object (&priv->handle);
 	g_clear_pointer (&priv->message, g_free);
 	if (priv->buttons) {
