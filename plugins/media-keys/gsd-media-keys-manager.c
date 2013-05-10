@@ -491,7 +491,7 @@ grab_media_keys (GsdMediaKeysManager *manager)
         GVariantBuilder builder;
         int i;
 
-        g_variant_builder_init (&builder, G_VARIANT_TYPE_ARRAY);
+        g_variant_builder_init (&builder, G_VARIANT_TYPE ("a(su)"));
 
         for (i = 0; i < manager->priv->keys->len; i++) {
                 MediaKey *key;
