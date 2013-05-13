@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon 3.8.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-03 13:27+0200\n"
-"PO-Revision-Date: 2013-04-03 13:30+0200\n"
+"POT-Creation-Date: 2013-05-13 10:25+0200\n"
+"PO-Revision-Date: 2013-05-13 10:27+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: \n"
@@ -209,11 +209,10 @@ msgid "Wacom tablet aspect ratio"
 msgstr "Høyde-/breddeforhold for Wacom tegnebrett"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
-#, fuzzy
 msgid ""
 "Enable this to restrict the Wacom tablet area to match the aspect ratio of "
 "the output."
-msgstr "Slå på dette for å sette tegnebrettet til absolutt modus."
+msgstr "Slå på dette for å begrense tegnebrettets område til høyde-/breddeforholdet for utdata."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
 msgid "Wacom tablet rotation"
@@ -231,7 +230,7 @@ msgstr "Wacom berøringsfunksjon"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
 msgid "Enable this to move the cursor when the user touches the tablet."
-msgstr ""
+msgstr "Slå på dette for å flytte markøren når bruker berører tegnebrettet."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
 msgid "Wacom tablet PC feature"
@@ -1106,7 +1105,7 @@ msgid "Clipboard plugin"
 msgstr "Tillegg for utklippstavle"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:1
-#: ../plugins/color/gsd-color-manager.c:1664
+#: ../plugins/color/gsd-color-manager.c:1666
 msgid "Color"
 msgstr "Farger"
 
@@ -1114,40 +1113,40 @@ msgstr "Farger"
 msgid "Color plugin"
 msgstr "Tillegg for farger"
 
-#: ../plugins/color/gsd-color-manager.c:1669
+#: ../plugins/color/gsd-color-manager.c:1671
 msgid "Recalibrate now"
 msgstr "Kalibrer på nytt nå"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1712
+#: ../plugins/color/gsd-color-manager.c:1714
 msgid "Recalibration required"
 msgstr "Ny kalibrering kreves"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1724
+#: ../plugins/color/gsd-color-manager.c:1726
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "Skjermen «%s» bør kalibreres på nytt snart."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1733
+#: ../plugins/color/gsd-color-manager.c:1735
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "Skriver «%s» bør kalibreres på nytt snart."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:2057
-#: ../plugins/color/gsd-color-manager.c:2073
+#: ../plugins/color/gsd-color-manager.c:2059
+#: ../plugins/color/gsd-color-manager.c:2075
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "Fargetillegg for GNOME konfigurasjonstjeneste"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2059
+#: ../plugins/color/gsd-color-manager.c:2061
 msgid "Color calibration device added"
 msgstr "Enhet for kalibrering av farger ble lagt til"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2075
+#: ../plugins/color/gsd-color-manager.c:2077
 msgid "Color calibration device removed"
 msgstr "Enhet for kalibrering av farger ble fjernet"
 
@@ -1965,17 +1964,17 @@ msgstr "Datamaskin er ladet"
 
 #. TRANSLATORS: this is the sound description
 #: ../plugins/power/gpm-common.c:1732
-#: ../plugins/power/gsd-power-manager.c:1628
-#: ../plugins/power/gsd-power-manager.c:1758
+#: ../plugins/power/gsd-power-manager.c:1627
+#: ../plugins/power/gsd-power-manager.c:1757
 msgid "Battery is critically low"
 msgstr "Batteri har kritisk lav kapasitet"
 
 #. TRANSLATORS: the battery may be recalled by its vendor
-#: ../plugins/power/gsd-power-manager.c:929
+#: ../plugins/power/gsd-power-manager.c:928
 msgid "Battery may be recalled"
 msgstr "Batteriet kan ha blitt tilbakekalt"
 
-#: ../plugins/power/gsd-power-manager.c:932
+#: ../plugins/power/gsd-power-manager.c:931
 #, c-format
 msgid ""
 "A battery in your computer may have been recalled by %s and you may be at "
@@ -1984,209 +1983,209 @@ msgstr ""
 "Et batteri i din datamaskin kan ha blitt tilbakekalt av %s og du kan være "
 "utsatt for risiko."
 
-#: ../plugins/power/gsd-power-manager.c:935
+#: ../plugins/power/gsd-power-manager.c:934
 msgid "For more information visit the battery recall website."
 msgstr "For med informasjon besøk nettsted for tilbakekalling av batterier."
 
 #. TRANSLATORS: button text, visit the manufacturers recall website
-#: ../plugins/power/gsd-power-manager.c:946
+#: ../plugins/power/gsd-power-manager.c:945
 msgid "Visit recall website"
 msgstr "Besøk nettsted for tilbakekalling"
 
 #. TRANSLATORS: button text, do not show this bubble again
-#: ../plugins/power/gsd-power-manager.c:950
+#: ../plugins/power/gsd-power-manager.c:949
 msgid "Do not show me this again"
 msgstr "Ikke vis dette igjen"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:1203
+#: ../plugins/power/gsd-power-manager.c:1202
 msgid "UPS Discharging"
 msgstr "UPS lades ut"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1208
+#: ../plugins/power/gsd-power-manager.c:1207
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "%s UPS reservestrøm gjenstår"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:1229
-#: ../plugins/power/gsd-power-manager.c:1438
-#: ../plugins/power/gsd-power-manager.c:1611
-#: ../plugins/power/gsd-power-manager.c:1749
-#: ../plugins/power/gsd-power-manager.c:3088
+#: ../plugins/power/gsd-power-manager.c:1228
+#: ../plugins/power/gsd-power-manager.c:1437
+#: ../plugins/power/gsd-power-manager.c:1610
+#: ../plugins/power/gsd-power-manager.c:1748
+#: ../plugins/power/gsd-power-manager.c:3067
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Strøm"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:1348
+#: ../plugins/power/gsd-power-manager.c:1347
 msgid "Battery low"
 msgstr "Batteri har lav kapasitet"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1351
+#: ../plugins/power/gsd-power-manager.c:1350
 msgid "Laptop battery low"
 msgstr "Batteri på bærbar har lite strøm"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1358
+#: ../plugins/power/gsd-power-manager.c:1357
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "Omtrent %s gjenstår (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:1365
+#: ../plugins/power/gsd-power-manager.c:1364
 msgid "UPS low"
 msgstr "UPS har lite strøm"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:1371
+#: ../plugins/power/gsd-power-manager.c:1370
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "Omtrent %s gjenværende reservestrøm på UPS (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:1376
-#: ../plugins/power/gsd-power-manager.c:1535
+#: ../plugins/power/gsd-power-manager.c:1375
+#: ../plugins/power/gsd-power-manager.c:1534
 msgid "Mouse battery low"
 msgstr "Mus har lite strøm"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1379
+#: ../plugins/power/gsd-power-manager.c:1378
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "Trådløs mus har lite strøm (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:1383
-#: ../plugins/power/gsd-power-manager.c:1543
+#: ../plugins/power/gsd-power-manager.c:1382
+#: ../plugins/power/gsd-power-manager.c:1542
 msgid "Keyboard battery low"
 msgstr "Batteri i tastatur har lav kapasitet"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1386
+#: ../plugins/power/gsd-power-manager.c:1385
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "Trådløst tastatur har lite strøm (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:1390
-#: ../plugins/power/gsd-power-manager.c:1552
+#: ../plugins/power/gsd-power-manager.c:1389
+#: ../plugins/power/gsd-power-manager.c:1551
 msgid "PDA battery low"
 msgstr "Batteri i PDA har lav kapasitet"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1393
+#: ../plugins/power/gsd-power-manager.c:1392
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "PDA har lite strøm (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1397
-#: ../plugins/power/gsd-power-manager.c:1562
-#: ../plugins/power/gsd-power-manager.c:1571
+#: ../plugins/power/gsd-power-manager.c:1396
+#: ../plugins/power/gsd-power-manager.c:1561
+#: ../plugins/power/gsd-power-manager.c:1570
 msgid "Cell phone battery low"
 msgstr "Batteri i mobiltelefon har lav kapasitet"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1400
+#: ../plugins/power/gsd-power-manager.c:1399
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "Mobiltelefon har lite strøm (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:1404
+#: ../plugins/power/gsd-power-manager.c:1403
 msgid "Media player battery low"
 msgstr "Batteri i mediespiller har lav kapasitet"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1407
+#: ../plugins/power/gsd-power-manager.c:1406
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "Mediespiller har lite strøm (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1411
-#: ../plugins/power/gsd-power-manager.c:1580
+#: ../plugins/power/gsd-power-manager.c:1410
+#: ../plugins/power/gsd-power-manager.c:1579
 msgid "Tablet battery low"
 msgstr "Batteri i nettbrett har lav kapasitet"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1414
+#: ../plugins/power/gsd-power-manager.c:1413
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "Nettbrett har lite strøm (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:1418
-#: ../plugins/power/gsd-power-manager.c:1589
+#: ../plugins/power/gsd-power-manager.c:1417
+#: ../plugins/power/gsd-power-manager.c:1588
 msgid "Attached computer battery low"
 msgstr "Batteri i tilkoblet datamaskin har lav kapasitet"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:1421
+#: ../plugins/power/gsd-power-manager.c:1420
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "Tilkoblet datamaskin har lite strøm (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1448
+#: ../plugins/power/gsd-power-manager.c:1447
 msgid "Battery is low"
 msgstr "Batteri har lav kapasitet"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:1489
+#: ../plugins/power/gsd-power-manager.c:1488
 msgid "Battery critically low"
 msgstr "Batteri har kritisk lav kapasitet"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1492
-#: ../plugins/power/gsd-power-manager.c:1663
+#: ../plugins/power/gsd-power-manager.c:1491
+#: ../plugins/power/gsd-power-manager.c:1662
 msgid "Laptop battery critically low"
 msgstr "Batteri på bærbar har kritisk lav kapasitet"
 
 #. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
-#: ../plugins/power/gsd-power-manager.c:1501
+#: ../plugins/power/gsd-power-manager.c:1500
 msgid "Plug in your AC adapter to avoid losing data."
 msgstr "Koble til strøm for å unngå å tape data."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1505
+#: ../plugins/power/gsd-power-manager.c:1504
 #, c-format
 msgid "Computer will suspend very soon unless it is plugged in."
 msgstr ""
 "Datamaskinen vil gå i hvilemodus meget snart med mindre den kobles til."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1509
+#: ../plugins/power/gsd-power-manager.c:1508
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr ""
 "Datamaskinen vil gå i dvalemodus meget snart med mindre den kobles til."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1513
+#: ../plugins/power/gsd-power-manager.c:1512
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "Datamaskinen vil slås av meget snart med mindre den kobles til."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:1523
-#: ../plugins/power/gsd-power-manager.c:1701
+#: ../plugins/power/gsd-power-manager.c:1522
+#: ../plugins/power/gsd-power-manager.c:1700
 msgid "UPS critically low"
 msgstr "UPS har kritisk lav batterikapasitet"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:1529
+#: ../plugins/power/gsd-power-manager.c:1528
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -2196,7 +2195,7 @@ msgstr ""
 "din datamaskin for å unngå å tape data."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1538
+#: ../plugins/power/gsd-power-manager.c:1537
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -2206,7 +2205,7 @@ msgstr ""
 "hvis den ikke lades."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1546
+#: ../plugins/power/gsd-power-manager.c:1545
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -2216,7 +2215,7 @@ msgstr ""
 "virke hvis den ikke lades."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1555
+#: ../plugins/power/gsd-power-manager.c:1554
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -2226,7 +2225,7 @@ msgstr ""
 "ikke lades."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1565
+#: ../plugins/power/gsd-power-manager.c:1564
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -2236,7 +2235,7 @@ msgstr ""
 "virke hvis den ikke lades."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1574
+#: ../plugins/power/gsd-power-manager.c:1573
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -2246,7 +2245,7 @@ msgstr ""
 "hvis den ikke lades."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1583
+#: ../plugins/power/gsd-power-manager.c:1582
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -2256,7 +2255,7 @@ msgstr ""
 "hvis den ikke lades."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:1592
+#: ../plugins/power/gsd-power-manager.c:1591
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -2266,7 +2265,7 @@ msgstr ""
 "å virke hvis den ikke lades."
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1671
+#: ../plugins/power/gsd-power-manager.c:1670
 msgid ""
 "The battery is below the critical level and this computer will <b>power-off</"
 "b> when the battery becomes completely empty."
@@ -2275,7 +2274,7 @@ msgstr ""
 "batteriet blir helt tomt."
 
 #. TRANSLATORS: computer will suspend
-#: ../plugins/power/gsd-power-manager.c:1677
+#: ../plugins/power/gsd-power-manager.c:1676
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "suspend.\n"
@@ -2287,7 +2286,7 @@ msgstr ""
 "<b>MERK:</b> Det kreves noe strøm for å holde datamaskinen i hvilemodus."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1684
+#: ../plugins/power/gsd-power-manager.c:1683
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -2296,7 +2295,7 @@ msgstr ""
 "dvalemodus."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1689
+#: ../plugins/power/gsd-power-manager.c:1688
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -2305,7 +2304,7 @@ msgstr ""
 "av."
 
 #. TRANSLATORS: computer will shutdown without saving data
-#: ../plugins/power/gsd-power-manager.c:1709
+#: ../plugins/power/gsd-power-manager.c:1708
 msgid ""
 "UPS is below the critical level and this computer will <b>power-off</b> when "
 "the UPS becomes completely empty."
@@ -2314,7 +2313,7 @@ msgstr ""
 "er helt tom."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:1715
+#: ../plugins/power/gsd-power-manager.c:1714
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
@@ -2322,39 +2321,39 @@ msgstr ""
 "dvalemodus."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:1720
+#: ../plugins/power/gsd-power-manager.c:1719
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "UPS er under kritisk nivå og denne datamaskinen er i ferd med å slås av."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2223
+#: ../plugins/power/gsd-power-manager.c:2202
 msgid "Lid has been opened"
 msgstr "Lokket ble åpnet"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2261
+#: ../plugins/power/gsd-power-manager.c:2240
 msgid "Lid has been closed"
 msgstr "Lokket ble lukket"
 
-#: ../plugins/power/gsd-power-manager.c:3067
+#: ../plugins/power/gsd-power-manager.c:3046
 msgid "Automatic logout"
 msgstr "Automatisk utlogging"
 
-#: ../plugins/power/gsd-power-manager.c:3067
+#: ../plugins/power/gsd-power-manager.c:3046
 msgid "You will soon log out because of inactivity."
 msgstr "Du vil snart bli logget ut pga inaktivitet."
 
-#: ../plugins/power/gsd-power-manager.c:3072
+#: ../plugins/power/gsd-power-manager.c:3051
 msgid "Automatic suspend"
 msgstr "Automatisk hvilemodus"
 
-#: ../plugins/power/gsd-power-manager.c:3072
-#: ../plugins/power/gsd-power-manager.c:3077
+#: ../plugins/power/gsd-power-manager.c:3051
+#: ../plugins/power/gsd-power-manager.c:3056
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Datamaskinen vil gå i hvilemodus meget snart pga inaktivitet."
 
-#: ../plugins/power/gsd-power-manager.c:3077
+#: ../plugins/power/gsd-power-manager.c:3056
 msgid "Automatic hibernation"
 msgstr "Automatisk dvalemodus"
 
