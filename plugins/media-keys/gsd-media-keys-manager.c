@@ -166,10 +166,10 @@ struct GsdMediaKeysManagerPrivate
         GDBusProxy      *power_keyboard_proxy;
 
         /* Shell stuff */
-        guint           name_owner_id;
-        GDBusProxy      *osd_proxy;
+        guint            name_owner_id;
+        GDBusProxy      *shell_proxy;
         ShellKeyGrabber *key_grabber;
-        GCancellable    *osd_cancellable;
+        GCancellable    *shell_cancellable;
         GCancellable    *grab_cancellable;
 
         /* systemd stuff */
@@ -379,7 +379,7 @@ show_osd (GsdMediaKeysManager *manager,
 {
         GVariantBuilder builder;
 
-        if (manager->priv->osd_proxy == NULL)
+        if (manager->priv->shell_proxy == NULL)
                 return;
 
         g_variant_builder_init (&builder, G_VARIANT_TYPE_TUPLE);
@@ -395,12 +395,12 @@ show_osd (GsdMediaKeysManager *manager,
                                        "level", g_variant_new_int32 (level));
         g_variant_builder_close (&builder);
 
-        g_dbus_proxy_call (manager->priv->osd_proxy,
+        g_dbus_proxy_call (manager->priv->shell_proxy,
                            "ShowOSD",
                            g_variant_builder_end (&builder),
                            G_DBUS_CALL_FLAGS_NO_AUTO_START,
                            -1,
-                           manager->priv->osd_cancellable,
+                           manager->priv->shell_cancellable,
                            NULL, NULL);
 }
 
@@ -2175,13 +2175,13 @@ initialize_volume_handler (GsdMediaKeysManager *manager)
 }
 
 static void
-on_osd_proxy_ready (GObject      *source,
-                    GAsyncResult *result,
-                    gpointer      data)
+on_shell_proxy_ready (GObject      *source,
+                      GAsyncResult *result,
+                      gpointer      data)
 {
         GsdMediaKeysManager *manager = data;
 
-        manager->priv->osd_proxy =
+        manager->priv->shell_proxy =
                 g_dbus_proxy_new_for_bus_finish (result, NULL);
 }
 
@@ -2224,8 +2224,8 @@ on_shell_appeared (GDBusConnection   *connection,
                                   name_owner,
                                   SHELL_DBUS_PATH,
                                   SHELL_DBUS_NAME,
-                                  manager->priv->osd_cancellable,
-                                  on_osd_proxy_ready, manager);
+                                  manager->priv->shell_cancellable,
+                                  on_shell_proxy_ready, manager);
 }
 
 static void
@@ -2238,7 +2238,7 @@ on_shell_vanished (GDBusConnection  *connection,
         g_ptr_array_set_size (manager->priv->keys, 0);
 
         g_clear_object (&manager->priv->key_grabber);
-        g_clear_object (&manager->priv->osd_proxy);
+        g_clear_object (&manager->priv->shell_proxy);
 }
 
 static gboolean
@@ -2294,7 +2294,7 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 	manager->priv->icon_theme = g_settings_get_string (manager->priv->interface_settings, "icon-theme");
 
         ensure_cancellable (&manager->priv->grab_cancellable);
-        ensure_cancellable (&manager->priv->osd_cancellable);
+        ensure_cancellable (&manager->priv->shell_cancellable);
 
         manager->priv->name_owner_id =
                 g_bus_watch_name (G_BUS_TYPE_SESSION,
@@ -2394,9 +2394,9 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 g_clear_object (&priv->grab_cancellable);
         }
 
-        if (priv->osd_cancellable != NULL) {
-                g_cancellable_cancel (priv->osd_cancellable);
-                g_clear_object (&priv->osd_cancellable);
+        if (priv->shell_cancellable != NULL) {
+                g_cancellable_cancel (priv->shell_cancellable);
+                g_clear_object (&priv->shell_cancellable);
         }
 
         g_clear_object (&priv->sink);
