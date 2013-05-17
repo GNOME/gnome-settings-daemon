@@ -948,6 +948,19 @@ do_home_key_action (GsdMediaKeysManager *manager,
 }
 
 static void
+do_search_action (GsdMediaKeysManager *manager,
+		  gint64               timestamp)
+{
+        g_dbus_proxy_call (manager->priv->shell_proxy,
+                           "FocusSearch",
+                           NULL,
+                           G_DBUS_CALL_FLAGS_NO_AUTO_START,
+                           -1,
+                           manager->priv->shell_cancellable,
+                           NULL, NULL);
+}
+
+static void
 do_execute_desktop_or_desktop (GsdMediaKeysManager *manager,
 			       const char          *desktop,
 			       const char          *alt_desktop,
@@ -1987,10 +2000,7 @@ do_action (GsdMediaKeysManager *manager,
                 do_home_key_action (manager, timestamp);
                 break;
         case SEARCH_KEY:
-                do_execute_desktop_or_desktop (manager,
-                                               "tracker-needle.desktop",
-                                               "gnome-search-tool.desktop",
-                                               timestamp);
+                do_search_action (manager, timestamp);
                 break;
         case EMAIL_KEY:
                 do_url_action (manager, "mailto", timestamp);
