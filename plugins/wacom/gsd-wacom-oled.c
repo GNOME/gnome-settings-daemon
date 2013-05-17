@@ -31,7 +31,8 @@
 #include "gsd-wacom-device.h"
 #include "gsd-wacom-oled.h"
 
-#define MAGIC_BASE64        "base64:"        /*Label starting with base64: is treated as already encoded*/
+#define MAGIC_BASE64		"base64:"		/*Label starting with base64: is treated as already encoded*/
+#define MAGIC_BASE64_LEN	strlen(MAGIC_BASE64)
 
 static void
 oled_scramble_icon (guchar* image)
@@ -252,7 +253,11 @@ set_oled (GsdWacomDevice	*device,
 	button_id_1 = g_strdup (button_id);
 	button_id_short = (int)button_id_1[6];
 	button_id_short = button_id_short - 'A' - 1;
-	buffer = oled_encode_image (label);
+
+	if (g_str_has_prefix (label, MAGIC_BASE64))
+		buffer = g_strdup (label + MAGIC_BASE64_LEN);
+	else
+		buffer = oled_encode_image (label);
 
 	path = gsd_wacom_device_get_path (device);
 
