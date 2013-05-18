@@ -32,6 +32,7 @@ G_BEGIN_DECLS
 #define MAX_1ST_LINE_LEN	10			/*Maximum number of characters in 1st line of OLED icon*/
 
 void set_oled (GsdWacomDevice *device, char *button_id, char *label);
+char *gsd_wacom_oled_gdkpixbuf_to_base64 (GdkPixbuf *pixbuf);
 
 G_END_DECLS
 

@@ -174,6 +174,47 @@ oled_render_text (char   *label,
 	cairo_surface_destroy (surface);
 }
 
+char *
+gsd_wacom_oled_gdkpixbuf_to_base64 (GdkPixbuf *pixbuf)
+{
+	int i, x, y, ch, rs;
+	guchar *pix, *p;
+	guchar *image;
+	guchar lo, hi;
+	char *base_string, *base64;
+
+	if (OLED_WIDTH != gdk_pixbuf_get_width (pixbuf))
+		return NULL;
+
+	if (OLED_HEIGHT != gdk_pixbuf_get_height (pixbuf))
+		return NULL;
+
+	ch = gdk_pixbuf_get_n_channels (pixbuf);
+	rs = gdk_pixbuf_get_rowstride (pixbuf);
+	pix = gdk_pixbuf_get_pixels (pixbuf);
+
+	image = g_malloc (MAX_IMAGE_SIZE);
+	i = 0;
+	for (y = 0; y < OLED_HEIGHT; y++) {
+		for (x = 0; x < (OLED_WIDTH / 2); x++) {
+			p = pix + y * rs + 2 * x * ch;
+			hi = 0xf0 & ((p[0] + p[1] + p[2])/ 3 * p[3] / 0xff);
+			p = pix + y * rs + ((2 * x) + 1) * ch;
+			lo = 0x0f & (((p[0] + p[1] + p[2])/ 3 * p[3] / 0xff) >> 4);
+			image[i] = hi | lo;
+			i++;
+		}
+	}
+
+	oled_scramble_icon (image);
+	base_string = g_base64_encode (image, MAX_IMAGE_SIZE);
+	base64 = g_strconcat (MAGIC_BASE64, base_string, NULL);
+	g_free (base_string);
+	g_free (image);
+
+	return base64;
+}
+
 static char *
 oled_encode_image (char *label)
 {
