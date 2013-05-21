@@ -8,4 +8,5 @@ EXTRA_DIST =			\
 	gsdtestcase.py		\
 	dummy.session		\
 	dummyapp.desktop	\
+	xorg-dummy.conf		\
 	$(NULL)
