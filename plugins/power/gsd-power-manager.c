@@ -1753,45 +1753,6 @@ engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *m
         engine_recalculate_state (manager);
 }
 
-static UpDevice *
-engine_get_primary_device (GsdPowerManager *manager)
-{
-        guint i;
-        UpDevice *device = NULL;
-        UpDevice *device_tmp;
-        UpDeviceKind kind;
-        UpDeviceState state;
-        gboolean is_present;
-
-        for (i=0; i<manager->priv->devices_array->len; i++) {
-                device_tmp = g_ptr_array_index (manager->priv->devices_array, i);
-
-                /* get device properties */
-                g_object_get (device_tmp,
-                              "kind", &kind,
-                              "state", &state,
-                              "is-present", &is_present,
-                              NULL);
-
-                /* not present */
-                if (!is_present)
-                        continue;
-
-                /* not discharging */
-                if (state != UP_DEVICE_STATE_DISCHARGING)
-                        continue;
-
-                /* not battery */
-                if (kind != UP_DEVICE_KIND_BATTERY)
-                        continue;
-
-                /* use composite device to cope with multiple batteries */
-                device = g_object_ref (manager->priv->device_composite);
-                break;
-        }
-        return device;
-}
-
 static void
 gnome_session_shutdown_cb (GObject *source_object,
                            GAsyncResult *res,
@@ -3727,30 +3688,18 @@ handle_method_call_main (GsdPowerManager *manager,
         GVariantBuilder *builder;
         GVariant *tuple = NULL;
         GVariant *value = NULL;
-        UpDevice *device;
 
         /* return object */
         if (g_strcmp0 (method_name, "GetPrimaryDevice") == 0) {
-
-                /* get the virtual device */
-                device = engine_get_primary_device (manager);
-                if (device == NULL) {
-                        g_dbus_method_invocation_return_dbus_error (invocation,
-                                                                    "org.gnome.SettingsDaemon.Power.Failed",
-                                                                    "There is no primary device.");
-                        return;
-                }
-
-                /* return the value */
-                value = device_to_variant_blob (device);
+                value = device_to_variant_blob (manager->priv->device_composite);
                 tuple = g_variant_new_tuple (&value, 1);
                 g_dbus_method_invocation_return_value (invocation, tuple);
-                g_object_unref (device);
                 return;
         }
 
         /* return array */
         if (g_strcmp0 (method_name, "GetDevices") == 0) {
+                UpDevice *device;
 
                 /* create builder */
                 builder = g_variant_builder_new (G_VARIANT_TYPE("a(susdut)"));
