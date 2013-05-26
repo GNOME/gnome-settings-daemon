@@ -1480,32 +1480,6 @@ maybe_create_initial_settings (GsdKeyboardManager *manager)
 }
 
 static void
-localed_proxy_ready (GObject      *source,
-                     GAsyncResult *res,
-                     gpointer      data)
-{
-        GsdKeyboardManager *manager = data;
-        GDBusProxy *proxy;
-        GError *error = NULL;
-
-        proxy = g_dbus_proxy_new_finish (res, &error);
-        if (!proxy) {
-                if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
-                        g_error_free (error);
-                        return;
-                }
-                g_warning ("Failed to contact localed: %s", error->message);
-                g_error_free (error);
-                goto out;
-        }
-
-        manager->priv->localed = proxy;
-        maybe_create_initial_settings (manager);
-out:
-        apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
-}
-
-static void
 set_input_source_return (GDBusMethodInvocation *invocation)
 {
         g_dbus_method_invocation_return_value (invocation, NULL);
@@ -1651,6 +1625,32 @@ register_manager_dbus (GsdKeyboardManager *manager)
                    manager->priv->cancellable,
                    (GAsyncReadyCallback) got_session_bus,
                    manager);
+}
+
+static void
+localed_proxy_ready (GObject      *source,
+                     GAsyncResult *res,
+                     gpointer      data)
+{
+        GsdKeyboardManager *manager = data;
+        GDBusProxy *proxy;
+        GError *error = NULL;
+
+        proxy = g_dbus_proxy_new_finish (res, &error);
+        if (!proxy) {
+                if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
+                        g_error_free (error);
+                        return;
+                }
+                g_warning ("Failed to contact localed: %s", error->message);
+                g_error_free (error);
+                goto out;
+        }
+
+        manager->priv->localed = proxy;
+        maybe_create_initial_settings (manager);
+out:
+        apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
 }
 
 static gboolean
