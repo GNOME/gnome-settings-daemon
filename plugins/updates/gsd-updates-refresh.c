@@ -551,6 +551,7 @@ gsd_updates_refresh_finalize (GObject *object)
                 g_source_remove (refresh->priv->periodic_id);
 
         g_signal_handlers_disconnect_by_data (refresh->priv->client, refresh);
+        g_signal_handlers_disconnect_by_data (refresh->priv->proxy_session, refresh);
 
         g_object_unref (refresh->priv->control);
         g_object_unref (refresh->priv->settings);
