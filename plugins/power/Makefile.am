@@ -149,9 +149,11 @@ check-local: $(top_builddir)/tests/shiftkey gsd-test-power test.py gsdpowerconst
 clean-local:
 	rm -f *~
 
-CLEANFILES = 						\
-	$(plugin_DATA)					\
-	org.gnome.settings-daemon.plugins.power.policy	\
-	org.gnome.settings-daemon.plugins.power.policy.in
+CLEANFILES = 							\
+	$(plugin_DATA)						\
+	org.gnome.settings-daemon.plugins.power.policy		\
+	org.gnome.settings-daemon.plugins.power.policy.in	\
+	$(GSD_POWER_ENUM_FILES)					\
+	gsdpowerenums.pyc gsdpowerenums.py
 
 @GSD_INTLTOOL_PLUGIN_RULE@
