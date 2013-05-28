@@ -1,3 +1,71 @@
+=============
+Version 3.9.2
+=============
+
+Plugins:
+- Fix priority handling
+- Update for gnome-desktop API change
+
+Media-keys:
+- Handle key grabbing and volume OSDs in gnome-shell
+- Remove unused multi-head support
+- Remove label for analog-output ports
+- Avoid leaking DESKTOP_AUTOSTART_ID to children
+- Fix possible crash when changing the volume
+- Add Rotation lock support
+- Change default 'Lock screen' keybinding to be Super+L
+- Show Shell's search when pressing the search button
+- Add support for XF86AudioMicMute key
+
+Keyboard:
+- Get layouts and variants from localed
+- Get XKB options from localed
+- Always try to activate the ibus daemon
+- Use the gtk+ ibus module if there's at least one ibus source
+- Make sure the XKB group in use is always what we want
+- Without settings or under GDM, make sure to add the US layout
+- Add SetInputSource DBus method
+- Remove the input source switcher helper
+- Convert the XKB group switch option from libgnomekbd
+- Stop adding locale based input sources from a hardcoded list
+
+Cursor:
+- Disable plugin if the X version is too old
+
+Color:
+- Simplify code by using new libcolord feature
+- Fix warning with some screens
+- Fix possible CPU burn loop
+
+Mouse:
+- Enable two-finger scrolling by default
+
+Power:
+- Handle the shell coming back with a different screensaver state
+- Don't change active state variable in VM
+- Don't look for screens if we don't have a lid
+- Don't poll for external monitors
+- Remove pre-dim brightness hack
+- Make "Screen when inactive" button in Settings work
+
+Housekeeping:
+- Use GSettings features to clamp options
+- Fix incorrect handling of ignore_paths
+
+Sound:
+- Fix creation of sound theme directories
+
+Updates:
+- Fix a number of possible crashers, especially on exit
+
+Wacom:
+- Warn when screen has changed and calibration is needed
+- Add OLED support for Intuos4 tablets
+- Warn when tablet is not supported in GNOME
+
+XSettings:
+- Drop toolbar-style workaround
+
 ==============
 Version 3.7.90
 ==============
