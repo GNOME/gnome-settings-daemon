@@ -79,6 +79,7 @@
 
 #define CALIBRATION_NOTIFICATION_TIMEOUT 15000
 #define SHOW_CALIBRATION_TIMEOUT          2000
+#define UNKNOWN_DEVICE_NOTIFICATION_TIMEOUT 15000
 
 struct GsdWacomManagerPrivate
 {
@@ -105,6 +106,9 @@ struct GsdWacomManagerPrivate
 static void     gsd_wacom_manager_class_init  (GsdWacomManagerClass *klass);
 static void     gsd_wacom_manager_init        (GsdWacomManager      *wacom_manager);
 static void     gsd_wacom_manager_finalize    (GObject              *object);
+
+static void     on_notification_closed (NotifyNotification *notification,
+                                        GsdWacomManager    *manager);
 
 G_DEFINE_TYPE (GsdWacomManager, gsd_wacom_manager, G_TYPE_OBJECT)
 
@@ -1000,6 +1004,24 @@ osd_window_update_viewable (GsdWacomManager      *manager,
 }
 
 static void
+notify_unknown_device (GsdWacomManager *manager, const gchar *device_name)
+{
+        gchar *msg_body;
+        NotifyNotification *notification;
+
+        msg_body = g_strdup_printf (_("The \"%s\" tablet may not work as expected."), device_name);
+        notification = notify_notification_new (_("Unknown Tablet Connected"), msg_body, NULL);
+        notify_notification_set_timeout (notification, UNKNOWN_DEVICE_NOTIFICATION_TIMEOUT);
+        notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
+        notify_notification_set_app_name (notification, _("Wacom Settings"));
+        notify_notification_show (notification, NULL);
+
+        g_signal_connect (notification, "closed", G_CALLBACK (on_notification_closed), manager);
+
+        g_free (msg_body);
+}
+
+static void
 device_added_cb (GdkDeviceManager *device_manager,
                  GdkDevice        *gdk_device,
                  GsdWacomManager  *manager)
@@ -1022,6 +1044,7 @@ device_added_cb (GdkDeviceManager *device_manager,
                         g_warning ("No definition for  '%s' found in the tablet database. Using a fallback one.",
                                    device_name);
                         g_hash_table_insert (warned_devices, g_strdup (device_name), NULL);
+                        notify_unknown_device (manager, device_name);
                 }
         }
 
@@ -1477,7 +1500,10 @@ static void
 on_notification_closed (NotifyNotification *notification,
                         GsdWacomManager    *manager)
 {
-        remove_notification (manager);
+        if (notification == manager->priv->calibration_notification)
+                remove_notification (manager);
+        else
+                g_object_unref (notification);
 }
 
 static void
