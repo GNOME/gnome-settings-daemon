@@ -88,6 +88,7 @@ struct GsdWacomManagerPrivate
         guint device_removed_id;
         GHashTable *devices; /* key = GdkDevice, value = GsdWacomDevice */
         GnomeRRScreen *rr_screen;
+        GHashTable *warned_devices;
 
         /* button capture */
         GdkScreen *screen;
@@ -1005,8 +1006,25 @@ device_added_cb (GdkDeviceManager *device_manager,
 {
 	GsdWacomDevice *device;
 	GSettings *settings;
+	const gchar *device_name;
 
 	device = gsd_wacom_device_new (gdk_device);
+	device_name = gsd_wacom_device_get_name (device);
+
+        if (gsd_wacom_device_is_fallback (device) &&
+            gsd_wacom_device_get_device_type (device) != WACOM_TYPE_TOUCH &&
+            device_name != NULL) {
+                GHashTable *warned_devices;
+
+                warned_devices = manager->priv->warned_devices;
+
+                if (!g_hash_table_contains (warned_devices, device_name)) {
+                        g_warning ("No definition for  '%s' found in the tablet database. Using a fallback one.",
+                                   device_name);
+                        g_hash_table_insert (warned_devices, g_strdup (device_name), NULL);
+                }
+        }
+
 	if (gsd_wacom_device_get_device_type (device) == WACOM_TYPE_INVALID) {
 		g_object_unref (device);
 		return;
@@ -1389,6 +1407,8 @@ gsd_wacom_manager_idle_cb (GsdWacomManager *manager)
 
         gnome_settings_profile_start (NULL);
 
+        manager->priv->warned_devices = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+
         manager->priv->devices = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_object_unref);
 
         set_devicepresence_handler (manager);
@@ -1723,6 +1743,11 @@ gsd_wacom_manager_finalize (GObject *object)
         wacom_manager = GSD_WACOM_MANAGER (object);
 
         g_return_if_fail (wacom_manager->priv != NULL);
+
+        if (wacom_manager->priv->warned_devices) {
+                g_hash_table_destroy (wacom_manager->priv->warned_devices);
+                wacom_manager->priv->warned_devices = NULL;
+        }
 
         if (wacom_manager->priv->devices) {
                 g_hash_table_destroy (wacom_manager->priv->devices);
