@@ -1595,6 +1595,7 @@ localed_proxy_ready (GObject      *source,
         maybe_create_initial_settings (manager);
 out:
         apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
+        register_manager_dbus (manager);
 }
 
 static gboolean
@@ -1636,7 +1637,6 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
                           G_CALLBACK (apply_input_sources_settings), manager);
 
 	install_xkb_filter (manager);
-        register_manager_dbus (manager);
 
         gnome_settings_profile_end (NULL);
 
