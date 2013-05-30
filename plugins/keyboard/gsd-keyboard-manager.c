@@ -1542,10 +1542,12 @@ handle_dbus_method_call (GDBusConnection       *connection,
 
         if (g_str_equal (method_name, "SetInputSource")) {
                 if (priv->invocation) {
+#ifdef HAVE_IBUS
                         /* This can only happen if there's an
                          * ibus_bus_set_global_engine_async() call
                          * going on. */
                         g_cancellable_cancel (priv->ibus_cancellable);
+#endif
                         g_clear_pointer (&priv->invocation, set_input_source_return);
                         priv->pending_ops = 0;
                 }
