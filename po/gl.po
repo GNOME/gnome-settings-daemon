@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-20 01:13+0200\n"
-"PO-Revision-Date: 2013-05-20 01:15+0200\n"
+"POT-Creation-Date: 2013-06-02 00:22+0200\n"
+"PO-Revision-Date: 2013-06-02 00:23+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: gnome-l10n-gl@gnome.org\n"
 "Language: gl\n"
@@ -387,11 +387,13 @@ msgstr ""
 "Os atallos de teclado xerados cando se usa un anel ou unha banda táctiles "
 "para accións personalizada (arriba seguido de abaixo)."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:38
+#. Translators: This is the OLED display on an Intuos4 tablet:
+#. http://eu.shop.wacom.eu/images/articles/d9abd9f2d4d88aa0649cda97a8077e2b_8.jpg
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:40
 msgid "Button label for OLED display."
 msgstr "Etiqueta do botón para as pantallas OLED."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:39
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:41
 msgid "Label will be rendered to OLED display belonging to the button"
 msgstr "Etiqueta que se renderizará nas pantallas OLED que pertenzan ao botón"
 
@@ -1261,7 +1263,7 @@ msgid "Clipboard plugin"
 msgstr "Engadido de portapapeis"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:1
-#: ../plugins/color/gsd-color-manager.c:1455
+#: ../plugins/color/gsd-color-manager.c:1447
 msgid "Color"
 msgstr "Cor"
 
@@ -1269,40 +1271,40 @@ msgstr "Cor"
 msgid "Color plugin"
 msgstr "Engadido de cor"
 
-#: ../plugins/color/gsd-color-manager.c:1460
+#: ../plugins/color/gsd-color-manager.c:1452
 msgid "Recalibrate now"
 msgstr "Recalibrar agora"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1503
+#: ../plugins/color/gsd-color-manager.c:1495
 msgid "Recalibration required"
 msgstr "É preciso recalibrar"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1515
+#: ../plugins/color/gsd-color-manager.c:1507
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "A pantalla «%s» deberíase recalibrar pronto."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1524
+#: ../plugins/color/gsd-color-manager.c:1516
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "A impresora «%s» deberíase recalibrar pronto."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:1795
-#: ../plugins/color/gsd-color-manager.c:1811
+#: ../plugins/color/gsd-color-manager.c:1787
+#: ../plugins/color/gsd-color-manager.c:1803
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "Complemento de cor do administrador de preferencias de GNOME"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:1797
+#: ../plugins/color/gsd-color-manager.c:1789
 msgid "Color calibration device added"
 msgstr "Dispositivo de calibración de cor engadido"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:1813
+#: ../plugins/color/gsd-color-manager.c:1805
 msgid "Color calibration device removed"
 msgstr "Retirouse o dispositivo de calibración de cor"
 
@@ -1519,95 +1521,96 @@ msgid "Touchpad Off"
 msgstr "Área táctil desactivada"
 
 #: ../plugins/media-keys/shortcuts-list.h:106
+#: ../plugins/media-keys/shortcuts-list.h:107
 msgid "Microphone Mute"
 msgstr "Enmudecer micrófono"
 
-#: ../plugins/media-keys/shortcuts-list.h:107
+#: ../plugins/media-keys/shortcuts-list.h:108
 msgid "Quiet Volume Mute"
 msgstr "Silenciar"
 
-#: ../plugins/media-keys/shortcuts-list.h:108
+#: ../plugins/media-keys/shortcuts-list.h:109
 msgid "Quiet Volume Down"
 msgstr "Baixar volume"
 
-#: ../plugins/media-keys/shortcuts-list.h:109
+#: ../plugins/media-keys/shortcuts-list.h:110
 msgid "Quiet Volume Up"
 msgstr "Baixar volume"
 
-#: ../plugins/media-keys/shortcuts-list.h:118
+#: ../plugins/media-keys/shortcuts-list.h:119
 msgid "Lock Screen"
 msgstr "Bloquear pantalla"
 
-#: ../plugins/media-keys/shortcuts-list.h:132
+#: ../plugins/media-keys/shortcuts-list.h:133
 msgid "Rewind"
 msgstr "Anterior"
 
-#: ../plugins/media-keys/shortcuts-list.h:133
+#: ../plugins/media-keys/shortcuts-list.h:134
 msgid "Forward"
 msgstr "Seguinte"
 
-#: ../plugins/media-keys/shortcuts-list.h:134
+#: ../plugins/media-keys/shortcuts-list.h:135
 msgid "Repeat"
 msgstr "Repetir"
 
-#: ../plugins/media-keys/shortcuts-list.h:135
+#: ../plugins/media-keys/shortcuts-list.h:136
 msgid "Random Play"
 msgstr "Reprodución aleatoria"
 
 #. Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.)
-#: ../plugins/media-keys/shortcuts-list.h:136
-#: ../plugins/media-keys/shortcuts-list.h:138
+#: ../plugins/media-keys/shortcuts-list.h:137
+#: ../plugins/media-keys/shortcuts-list.h:139
 msgid "Video Out"
 msgstr "Vídeo desactivado"
 
 #. Key code of the XF86RotateWindows key (present on some tablets)
-#: ../plugins/media-keys/shortcuts-list.h:140
+#: ../plugins/media-keys/shortcuts-list.h:141
 msgid "Rotate Screen"
 msgstr "Rotar pantalla"
 
-#: ../plugins/media-keys/shortcuts-list.h:141
+#: ../plugins/media-keys/shortcuts-list.h:142
 msgid "Orientation Lock"
 msgstr "Bloquear orientación"
 
-#: ../plugins/media-keys/shortcuts-list.h:150
+#: ../plugins/media-keys/shortcuts-list.h:151
 msgid "Power Off"
 msgstr "Apagar"
 
 #. the kernel / Xorg names really are like this...
 #. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
-#: ../plugins/media-keys/shortcuts-list.h:153
+#: ../plugins/media-keys/shortcuts-list.h:154
 msgid "Sleep"
 msgstr "Durmir"
 
-#: ../plugins/media-keys/shortcuts-list.h:154
+#: ../plugins/media-keys/shortcuts-list.h:155
 msgid "Suspend"
 msgstr "Suspender"
 
-#: ../plugins/media-keys/shortcuts-list.h:155
+#: ../plugins/media-keys/shortcuts-list.h:156
 msgid "Hibernate"
 msgstr "Hibernar"
 
-#: ../plugins/media-keys/shortcuts-list.h:156
+#: ../plugins/media-keys/shortcuts-list.h:157
 msgid "Brightness Up"
 msgstr "Aumentar brillo"
 
-#: ../plugins/media-keys/shortcuts-list.h:157
+#: ../plugins/media-keys/shortcuts-list.h:158
 msgid "Brightness Down"
 msgstr "Reducir brillo"
 
-#: ../plugins/media-keys/shortcuts-list.h:158
+#: ../plugins/media-keys/shortcuts-list.h:159
 msgid "Keyboard Brightness Up"
 msgstr "Aumentar brillo do teclado"
 
-#: ../plugins/media-keys/shortcuts-list.h:159
+#: ../plugins/media-keys/shortcuts-list.h:160
 msgid "Keyboard Brightness Down"
 msgstr "Reducir brillo do teclado"
 
-#: ../plugins/media-keys/shortcuts-list.h:160
+#: ../plugins/media-keys/shortcuts-list.h:161
 msgid "Keyboard Brightness Toggle"
 msgstr "Trocador do brillo do teclado"
 
-#: ../plugins/media-keys/shortcuts-list.h:161
+#: ../plugins/media-keys/shortcuts-list.h:162
 msgid "Battery Status"
 msgstr "Estado da batería"
 
@@ -3160,20 +3163,30 @@ msgstr "Botón superior nº %d"
 msgid "Bottom Button #%d"
 msgstr "Botón inferior nº %d"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1523
+#: ../plugins/wacom/gsd-wacom-manager.c:1012
+#, c-format
+msgid "The \"%s\" tablet may not work as expected."
+msgstr "A tableta «%s» podería non funcionar como se agarda. "
+
+#: ../plugins/wacom/gsd-wacom-manager.c:1013
+msgid "Unknown Tablet Connected"
+msgstr "Tableta conectada descoñecida"
+
+#: ../plugins/wacom/gsd-wacom-manager.c:1016
+#: ../plugins/wacom/gsd-wacom-manager.c:1576
+msgid "Wacom Settings"
+msgstr "Preferencias de Wacom"
+
+#: ../plugins/wacom/gsd-wacom-manager.c:1569
 #, c-format
 msgid "Tablet %s needs to be calibrated."
 msgstr "A tableta «%s» precisa calibrarse."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1525
+#: ../plugins/wacom/gsd-wacom-manager.c:1571
 msgid "Calibration needed"
 msgstr "Necesítase calibrar"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1530
-msgid "Wacom Settings"
-msgstr "Preferencias de Wacom"
-
-#: ../plugins/wacom/gsd-wacom-manager.c:1539
+#: ../plugins/wacom/gsd-wacom-manager.c:1585
 msgid "Calibrate"
 msgstr "Calibrar"
 
