@@ -1520,7 +1520,7 @@ on_notification_action (NotifyNotification *notification,
         device_name = gsd_wacom_device_get_name (manager->priv->calibration_device);
 
         if (g_strcmp0 (action, "run-calibration") == 0) {
-                command = g_strdup_printf ("gnome-control-center wacom \"%s\" run-calibration",
+                command = g_strdup_printf ("gnome-control-center wacom run-calibration \"%s\"",
                                            device_name);
                 success = g_spawn_command_line_async (command, &error);
                 if (!success) {
