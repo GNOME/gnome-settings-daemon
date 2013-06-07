@@ -151,6 +151,8 @@ clean-local:
 
 CLEANFILES = 						\
 	$(plugin_DATA)					\
+	$(GSD_POWER_ENUM_FILES)				\
+	gsdpowerenums.py				\
 	org.gnome.settings-daemon.plugins.power.policy	\
 	org.gnome.settings-daemon.plugins.power.policy.in
 
