@@ -1,0 +1,19 @@
+#! /bin/bash
+
+SETTING=$(gsettings get org.gnome.system.locale region)
+REGION=${SETTING//\,/}
+
+if [ -n "$REGION" ]; then
+  export LC_TIME=$REGION
+  export LC_NUMERIC=$REGION
+  export LC_MONETARY=$REGION
+  export LC_MEASUREMENT=$REGION
+  export LC_PAPER=$REGION
+fi
+
+if [ -x @prefix@/bin/ibus-daemon ]; then
+  export QT_IM_MODULE=ibus
+  export XMODIFIERS=@im=ibus
+fi
+
+exec @libexecdir@/gnome-settings-daemon
