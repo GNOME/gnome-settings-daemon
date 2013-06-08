@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-04-26 16:14+0000\n"
-"PO-Revision-Date: 2013-04-27 00:48+0200\n"
+"POT-Creation-Date: 2013-05-30 11:58+0000\n"
+"PO-Revision-Date: 2013-06-08 08:02+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -278,10 +278,20 @@ msgstr ""
 "Zapnutím povolíte zasílání událostí pera, jen když je zmáčknut jeho hrot."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+msgid "Wacom last calibrated resolution"
+msgstr "Výsledek poslední kalibrace tabletu Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+msgid ""
+"Holds the last calibrated resolution to help check if calibration is needed."
+msgstr ""
+"Uchovává výsledek poslední kalibrace, což pomůže když je kalibrace zapotřebí."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
 msgid "Wacom display mapping"
 msgstr "Mapování displeje Wacom"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
 msgid ""
 "EDID information of monitor to map tablet to. Must be in the format [vendor, "
 "product, serial]. [\"\",\"\",\"\"] disables mapping."
@@ -289,93 +299,103 @@ msgstr ""
 "Informace EDID o monitoru, na který se mapuje tablet. Musí být ve formátu "
 "[výrobce, výrobek, sériové_číslo]. [\"\",\"\",\"\"] mapování zakáže."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
 msgid "Wacom stylus pressure curve"
 msgstr "Přítlaková křivka pera Wacom"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
 msgstr ""
 "Nastavte na souřadnice x1, y1 a x2, y2 přítlakové křivky použité perem "
 "(stylus)."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
 msgid "Wacom stylus button mapping"
 msgstr "Mapování tlačítek pera Wacom"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
 msgid "Set this to the logical button mapping."
 msgstr "Nastavte na logické mapování tlačítek."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
 msgid "Wacom stylus pressure threshold"
 msgstr "Tlakový práh pera Wacom"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
 msgid ""
 "Set this to the pressure value at which a stylus click event is generated."
 msgstr ""
 "Nastavte na hodnotu přítlaku, při kterém je generována událost kliknutí "
 "perem (stylus)."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
 msgid "Wacom eraser pressure curve"
 msgstr "Přítlaková křivka gumy Wacom"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
 msgstr ""
 "Nastavte na souřadnice x1, y1 a x2, y2 přítlakové křivky použité gumou "
 "(eraser)."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
 msgid "Wacom eraser button mapping"
 msgstr "Mapování tlačítek gumy Wacom"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
 msgid "Wacom eraser pressure threshold"
 msgstr "Tlakový práh gumy Wacom"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
 msgid ""
 "Set this to the pressure value at which an eraser click event is generated."
 msgstr ""
 "Nastavte na hodnotu přítlaku, při kterém je generována událost kliknutí "
 "gumou (eraser)."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
 msgid "Wacom button action type"
 msgstr "Typ akce tlačítka Wacom"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
 msgid "The type of action triggered by the button being pressed."
 msgstr "Typ akce spuštěné při stisku tlačítka."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
 msgid "Key combination for the custom action"
 msgstr "Kombinace kláves pro vlastní akci"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
 msgid ""
 "The keyboard shortcut generated when the button is pressed for custom "
 "actions."
 msgstr "Klávesová zkratka vyvolaná stiskem tlačítka pro vlastní akce"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:36
 msgid "Key combinations for a touchring or touchstrip custom action"
 msgstr ""
 "Kombinace kláves pro vlastní akci pro dotykový prstenec (touchring) nebo "
 "dotykový pruh (touchstrip)"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
 msgid ""
 "The keyboard shortcuts generated when a touchring or touchstrip is used for "
 "custom actions (up followed by down)."
 msgstr ""
 "Klávesová zkratka generovaná, když je dotykový prstenec (touchring) nebo "
 "dotykový pruh (touchstrip) použit pro vlastní akce (nahoru a následně dolů)."
+
+#. Translators: This is the OLED display on an Intuos4 tablet:
+#. http://eu.shop.wacom.eu/images/articles/d9abd9f2d4d88aa0649cda97a8077e2b_8.jpg
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:40
+msgid "Button label for OLED display."
+msgstr "Popisek tlačítka pro displej OLED"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:41
+msgid "Label will be rendered to OLED display belonging to the button"
+msgstr "Popisek se vykreslí na displej OLED náležející tlačítku"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
 msgid "The duration a display profile is valid"
@@ -1226,7 +1246,7 @@ msgid "Clipboard plugin"
 msgstr "Zásuvný modul schránky"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:1
-#: ../plugins/color/gsd-color-manager.c:1454
+#: ../plugins/color/gsd-color-manager.c:1447
 msgid "Color"
 msgstr "Barva"
 
@@ -1234,40 +1254,40 @@ msgstr "Barva"
 msgid "Color plugin"
 msgstr "Zásuvný modul barev"
 
-#: ../plugins/color/gsd-color-manager.c:1459
+#: ../plugins/color/gsd-color-manager.c:1452
 msgid "Recalibrate now"
 msgstr "Překalibrovat nyní"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1502
+#: ../plugins/color/gsd-color-manager.c:1495
 msgid "Recalibration required"
 msgstr "Vyžadováno překlalibrování"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1514
+#: ../plugins/color/gsd-color-manager.c:1507
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "Obrazovka „%s“ by měla být v dohledné době překalibrována."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1523
+#: ../plugins/color/gsd-color-manager.c:1516
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "Tiskárna „%s“ by měla být v dohledné době překalibrována."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:1794
-#: ../plugins/color/gsd-color-manager.c:1810
+#: ../plugins/color/gsd-color-manager.c:1787
+#: ../plugins/color/gsd-color-manager.c:1803
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "Zásuvný modul barev pro démona nastavení GNOME"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:1796
+#: ../plugins/color/gsd-color-manager.c:1789
 msgid "Color calibration device added"
 msgstr "Zařízení pro kalibraci barev přidáno"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:1812
+#: ../plugins/color/gsd-color-manager.c:1805
 msgid "Color calibration device removed"
 msgstr "Zařízení pro kalibraci barev odebráno"
 
@@ -1484,95 +1504,96 @@ msgid "Touchpad Off"
 msgstr "Vypnout touchpad"
 
 #: ../plugins/media-keys/shortcuts-list.h:106
+#: ../plugins/media-keys/shortcuts-list.h:107
 msgid "Microphone Mute"
 msgstr "Ztlumit mikrofon"
 
-#: ../plugins/media-keys/shortcuts-list.h:107
+#: ../plugins/media-keys/shortcuts-list.h:108
 msgid "Quiet Volume Mute"
 msgstr "Bez projevů ztlumit zvuk"
 
-#: ../plugins/media-keys/shortcuts-list.h:108
+#: ../plugins/media-keys/shortcuts-list.h:109
 msgid "Quiet Volume Down"
 msgstr "Bez projevů snížit hlasitost"
 
-#: ../plugins/media-keys/shortcuts-list.h:109
+#: ../plugins/media-keys/shortcuts-list.h:110
 msgid "Quiet Volume Up"
 msgstr "Bez projevů zvýšit hlasitost"
 
-#: ../plugins/media-keys/shortcuts-list.h:118
+#: ../plugins/media-keys/shortcuts-list.h:119
 msgid "Lock Screen"
 msgstr "Zamknout obrazovku"
 
-#: ../plugins/media-keys/shortcuts-list.h:132
+#: ../plugins/media-keys/shortcuts-list.h:133
 msgid "Rewind"
 msgstr "Posunout zpět"
 
-#: ../plugins/media-keys/shortcuts-list.h:133
+#: ../plugins/media-keys/shortcuts-list.h:134
 msgid "Forward"
 msgstr "Posunout vpřed"
 
-#: ../plugins/media-keys/shortcuts-list.h:134
+#: ../plugins/media-keys/shortcuts-list.h:135
 msgid "Repeat"
 msgstr "Opakovat"
 
-#: ../plugins/media-keys/shortcuts-list.h:135
+#: ../plugins/media-keys/shortcuts-list.h:136
 msgid "Random Play"
 msgstr "Náhodně přehrát"
 
 #. Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.)
-#: ../plugins/media-keys/shortcuts-list.h:136
-#: ../plugins/media-keys/shortcuts-list.h:138
+#: ../plugins/media-keys/shortcuts-list.h:137
+#: ../plugins/media-keys/shortcuts-list.h:139
 msgid "Video Out"
 msgstr "Obrazový výstup"
 
 #. Key code of the XF86RotateWindows key (present on some tablets)
-#: ../plugins/media-keys/shortcuts-list.h:140
+#: ../plugins/media-keys/shortcuts-list.h:141
 msgid "Rotate Screen"
 msgstr "Otočit obrazovku"
 
-#: ../plugins/media-keys/shortcuts-list.h:141
+#: ../plugins/media-keys/shortcuts-list.h:142
 msgid "Orientation Lock"
 msgstr "Zámek otočení"
 
-#: ../plugins/media-keys/shortcuts-list.h:150
+#: ../plugins/media-keys/shortcuts-list.h:151
 msgid "Power Off"
 msgstr "Vypnout"
 
 #. the kernel / Xorg names really are like this...
 #. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
-#: ../plugins/media-keys/shortcuts-list.h:153
+#: ../plugins/media-keys/shortcuts-list.h:154
 msgid "Sleep"
 msgstr "Uspat"
 
-#: ../plugins/media-keys/shortcuts-list.h:154
+#: ../plugins/media-keys/shortcuts-list.h:155
 msgid "Suspend"
 msgstr "Uspat do paměti"
 
-#: ../plugins/media-keys/shortcuts-list.h:155
+#: ../plugins/media-keys/shortcuts-list.h:156
 msgid "Hibernate"
 msgstr "Uspat na disk"
 
-#: ../plugins/media-keys/shortcuts-list.h:156
+#: ../plugins/media-keys/shortcuts-list.h:157
 msgid "Brightness Up"
 msgstr "Zvýšit jas"
 
-#: ../plugins/media-keys/shortcuts-list.h:157
+#: ../plugins/media-keys/shortcuts-list.h:158
 msgid "Brightness Down"
 msgstr "Snížit jas"
 
-#: ../plugins/media-keys/shortcuts-list.h:158
+#: ../plugins/media-keys/shortcuts-list.h:159
 msgid "Keyboard Brightness Up"
 msgstr "Zapnout podsvícení klávesnice"
 
-#: ../plugins/media-keys/shortcuts-list.h:159
+#: ../plugins/media-keys/shortcuts-list.h:160
 msgid "Keyboard Brightness Down"
 msgstr "Vypnout podsvícení klávesnice"
 
-#: ../plugins/media-keys/shortcuts-list.h:160
+#: ../plugins/media-keys/shortcuts-list.h:161
 msgid "Keyboard Brightness Toggle"
 msgstr "Přepnout podsvícení klávesnice"
 
-#: ../plugins/media-keys/shortcuts-list.h:161
+#: ../plugins/media-keys/shortcuts-list.h:162
 msgid "Battery Status"
 msgstr "Stav baterie"
 
@@ -3056,89 +3077,116 @@ msgid "Updates plugin"
 msgstr "Zásuvný modul aktualizací"
 
 #. If no mode is available, we use "left-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1076
+#: ../plugins/wacom/gsd-wacom-device.c:1078
 msgid "Left Ring"
 msgstr "Levý dotykový prstenec č. %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1086
+#: ../plugins/wacom/gsd-wacom-device.c:1089
 #, c-format
 msgid "Left Ring Mode #%d"
 msgstr "Režim levého dotykového prstence č. %d"
 
 #. If no mode is available, we use "right-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1105
+#: ../plugins/wacom/gsd-wacom-device.c:1109
 msgid "Right Ring"
 msgstr "Pravý dotykový prstenec"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1115
+#: ../plugins/wacom/gsd-wacom-device.c:1120
 #, c-format
 msgid "Right Ring Mode #%d"
 msgstr "Režim pravého dotykového prstence č. %d"
 
 #. If no mode is available, we use "left-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1156
+#: ../plugins/wacom/gsd-wacom-device.c:1162
 msgid "Left Touchstrip"
 msgstr "Levý dotykový pruh č. %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1166
+#: ../plugins/wacom/gsd-wacom-device.c:1173
 #, c-format
 msgid "Left Touchstrip Mode #%d"
 msgstr "Režim levého dotykového pruhu č. %d"
 
 #. If no mode is available, we use "right-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1185
+#: ../plugins/wacom/gsd-wacom-device.c:1193
 msgid "Right Touchstrip"
 msgstr "Pravý dotykový pruh"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1195
+#: ../plugins/wacom/gsd-wacom-device.c:1204
 #, c-format
 msgid "Right Touchstrip Mode #%d"
 msgstr "Režim pravého dotykového pruhu č. %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1220
+#: ../plugins/wacom/gsd-wacom-device.c:1230
 #, c-format
 msgid "Left Touchring Mode Switch"
 msgstr "Přepínač režimů levého dotykového prstence"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1222
+#: ../plugins/wacom/gsd-wacom-device.c:1232
 #, c-format
 msgid "Right Touchring Mode Switch"
 msgstr "Přepínač režimů pravého dotykového prstence"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1225
+#: ../plugins/wacom/gsd-wacom-device.c:1235
 #, c-format
 msgid "Left Touchstrip Mode Switch"
 msgstr "Přepínač režimů levého dotykového pruhu"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1227
+#: ../plugins/wacom/gsd-wacom-device.c:1237
 #, c-format
 msgid "Right Touchstrip Mode Switch"
 msgstr "Přepínač režimů pravého dotykového pruhu"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1232
+#: ../plugins/wacom/gsd-wacom-device.c:1242
 #, c-format
 msgid "Mode Switch #%d"
 msgstr "Přepínač režimů č. %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1336
+#: ../plugins/wacom/gsd-wacom-device.c:1351
 #, c-format
 msgid "Left Button #%d"
 msgstr "Levé tlačítko č. %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1339
+#: ../plugins/wacom/gsd-wacom-device.c:1354
 #, c-format
 msgid "Right Button #%d"
 msgstr "Pravé tlačítko č. %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1342
+#: ../plugins/wacom/gsd-wacom-device.c:1357
 #, c-format
 msgid "Top Button #%d"
 msgstr "Horní tlačítko č. %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1345
+#: ../plugins/wacom/gsd-wacom-device.c:1360
 #, c-format
 msgid "Bottom Button #%d"
 msgstr "Dolní tlačítko č. %d"
+
+#: ../plugins/wacom/gsd-wacom-manager.c:1012
+#, c-format
+msgid "The \"%s\" tablet may not work as expected."
+msgstr "Tablet „%s“ nemusí pracovat podle očekávání."
+
+#: ../plugins/wacom/gsd-wacom-manager.c:1013
+msgid "Unknown Tablet Connected"
+msgstr "Připojen neznámý tablet"
+
+#: ../plugins/wacom/gsd-wacom-manager.c:1016
+#: ../plugins/wacom/gsd-wacom-manager.c:1576
+msgid "Wacom Settings"
+msgstr "Nastavení tabletu Wacom"
+
+#: ../plugins/wacom/gsd-wacom-manager.c:1569
+#, c-format
+msgid "Tablet %s needs to be calibrated."
+msgstr "Tablet %s by měl být zkalibrován."
+
+#: ../plugins/wacom/gsd-wacom-manager.c:1571
+msgid "Calibration needed"
+msgstr "Je zapotřebí kalibrace"
+
+#: ../plugins/wacom/gsd-wacom-manager.c:1585
+msgid "Calibrate"
+msgstr "Kalibrovat"
 
 #: ../plugins/wacom/gsd-wacom-osd-window.c:922
 #: ../plugins/wacom/gsd-wacom-osd-window.c:942
@@ -3179,6 +3227,18 @@ msgstr "Změnit rozsvícení LED na tabletu Wacom"
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:6
 msgid "Authentication is required to modify the lit LED for a Wacom tablet"
 msgstr "Pro změnu rozsvícení LED na tabletu Wacom je vyžadována autentizace"
+
+#. SECURITY:
+#. - A normal active user on the local machine does not need permission
+#. to change the OLED images for a Wacom tablet
+#.
+#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:11
+msgid "Modify the OLED image for a Wacom tablet"
+msgstr "Upravit obrázek OLED pro tablet Wacom"
+
+#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:12
+msgid "Authentication is required to modify the OLED image for a Wacom tablet"
+msgstr "Pro změnu obrázku OLED na tabletu Wacom je vyžadována autentizace"
 
 #: ../plugins/wacom/wacom.gnome-settings-plugin.in.h:1
 msgid "Wacom"
