@@ -230,7 +230,6 @@ enum {
 static void     gsd_power_manager_class_init  (GsdPowerManagerClass *klass);
 static void     gsd_power_manager_init        (GsdPowerManager      *power_manager);
 
-static UpDevice *engine_get_composite_device (GsdPowerManager *manager, UpDevice *original_device);
 static void      engine_update_composite_device (GsdPowerManager *manager, UpDevice *original_device);
 static GIcon    *engine_get_icon (GsdPowerManager *manager);
 static gchar    *engine_get_summary (GsdPowerManager *manager);
@@ -533,7 +532,7 @@ engine_get_percentage (GsdPowerManager *manager)
 
                 /* if battery then use composite device to cope with multiple batteries */
                 if (kind == UP_DEVICE_KIND_BATTERY)
-                        device = engine_get_composite_device (manager, device);
+                        device = manager->priv->device_composite;
 
                 if (is_present) {
                         /* Doing it here as it could be a composite device */
@@ -573,7 +572,7 @@ engine_get_icon_priv (GsdPowerManager *manager,
 
                 /* if battery then use composite device to cope with multiple batteries */
                 if (kind == UP_DEVICE_KIND_BATTERY)
-                        device = engine_get_composite_device (manager, device);
+                        device = manager->priv->device_composite;
 
                 warning_temp = GPOINTER_TO_INT(g_object_get_data (G_OBJECT(device),
                                                                   "engine-warning-old"));
@@ -702,44 +701,6 @@ engine_recalculate_state (GsdPowerManager *manager)
         /* only emit if the icon or summary has changed */
         if (icon_changed || state_changed)
                 engine_emit_changed (manager, icon_changed, state_changed);
-}
-
-static UpDevice *
-engine_get_composite_device (GsdPowerManager *manager,
-                             UpDevice *original_device)
-{
-        guint battery_devices = 0;
-        GPtrArray *array;
-        UpDevice *device;
-        UpDeviceKind kind;
-        UpDeviceKind original_kind;
-        guint i;
-
-        /* get the type of the original device */
-        g_object_get (original_device,
-                      "kind", &original_kind,
-                      NULL);
-
-        /* find out how many batteries in the system */
-        array = manager->priv->devices_array;
-        for (i=0;i<array->len;i++) {
-                device = g_ptr_array_index (array, i);
-                g_object_get (device,
-                              "kind", &kind,
-                              NULL);
-                if (kind == original_kind)
-                        battery_devices++;
-        }
-
-        /* just use the original device if only one primary battery */
-        if (battery_devices <= 1)
-                return original_device;
-
-        /* use the composite device */
-        device = manager->priv->device_composite;
-
-        /* return composite device or original device */
-        return device;
 }
 
 static void
@@ -1842,7 +1803,7 @@ engine_get_primary_device (GsdPowerManager *manager)
                         continue;
 
                 /* use composite device to cope with multiple batteries */
-                device = g_object_ref (engine_get_composite_device (manager, device_tmp));
+                device = g_object_ref (manager->priv->device_composite);
                 break;
         }
         return device;
