@@ -231,7 +231,7 @@ static void     gsd_power_manager_class_init  (GsdPowerManagerClass *klass);
 static void     gsd_power_manager_init        (GsdPowerManager      *power_manager);
 
 static UpDevice *engine_get_composite_device (GsdPowerManager *manager, UpDevice *original_device);
-static UpDevice *engine_update_composite_device (GsdPowerManager *manager, UpDevice *original_device);
+static void      engine_update_composite_device (GsdPowerManager *manager, UpDevice *original_device);
 static GIcon    *engine_get_icon (GsdPowerManager *manager);
 static gchar    *engine_get_summary (GsdPowerManager *manager);
 static gdouble   engine_get_percentage (GsdPowerManager *manager);
@@ -742,7 +742,7 @@ engine_get_composite_device (GsdPowerManager *manager,
         return device;
 }
 
-static UpDevice *
+static void
 engine_update_composite_device (GsdPowerManager *manager,
                                 UpDevice *original_device)
 {
@@ -753,7 +753,6 @@ engine_update_composite_device (GsdPowerManager *manager,
         gdouble energy_rate_total = 0.0;
         gint64 time_to_empty = 0;
         gint64 time_to_full = 0;
-        guint battery_devices = 0;
         gboolean is_charging = FALSE;
         gboolean is_discharging = FALSE;
         gboolean is_fully_charged = TRUE;
@@ -798,14 +797,6 @@ engine_update_composite_device (GsdPowerManager *manager,
                 energy_total += energy;
                 energy_full_total += energy_full;
                 energy_rate_total += energy_rate;
-                battery_devices++;
-        }
-
-        /* just use the original device if only one primary battery */
-        if (battery_devices == 1) {
-                g_debug ("using original device as only one primary battery");
-                device = original_device;
-                goto out;
         }
 
         /* use percentage weighted for each battery capacity */
@@ -830,11 +821,8 @@ engine_update_composite_device (GsdPowerManager *manager,
                         time_to_full = 3600 * ((energy_full_total - energy_total) / energy_rate_total);
         }
 
-        /* okay, we can use the composite device */
-        device = manager->priv->device_composite;
-
         g_debug ("printing composite device");
-        g_object_set (device,
+        g_object_set (manager->priv->device_composite,
                       "energy", energy_total,
                       "energy-full", energy_full_total,
                       "energy-rate", energy_rate_total,
@@ -847,9 +835,6 @@ engine_update_composite_device (GsdPowerManager *manager,
         /* force update of icon */
         if (engine_recalculate_state_icon (manager))
                 engine_emit_changed (manager, TRUE, FALSE);
-out:
-        /* return composite device or original device */
-        return device;
 }
 
 typedef struct {
@@ -995,7 +980,6 @@ engine_device_add (GsdPowerManager *manager, UpDevice *device)
         GsdPowerManagerWarning warning;
         UpDeviceState state;
         UpDeviceKind kind;
-        UpDevice *composite;
 
         /* assign warning */
         warning = engine_get_warning (manager, device);
@@ -1019,15 +1003,15 @@ engine_device_add (GsdPowerManager *manager, UpDevice *device)
 
         if (kind == UP_DEVICE_KIND_BATTERY) {
                 g_debug ("updating because we added a device");
-                composite = engine_update_composite_device (manager, device);
+                engine_update_composite_device (manager, device);
 
                 /* get the same values for the composite device */
-                warning = engine_get_warning (manager, composite);
-                g_object_set_data (G_OBJECT(composite),
+                warning = engine_get_warning (manager, manager->priv->device_composite);
+                g_object_set_data (G_OBJECT(manager->priv->device_composite),
                                    "engine-warning-old",
                                    GUINT_TO_POINTER(warning));
-                g_object_get (composite, "state", &state, NULL);
-                g_object_set_data (G_OBJECT(composite),
+                g_object_get (manager->priv->device_composite, "state", &state, NULL);
+                g_object_set_data (G_OBJECT(manager->priv->device_composite),
                                    "engine-state-old",
                                    GUINT_TO_POINTER(state));
         }
@@ -1775,7 +1759,8 @@ engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *m
         /* if battery then use composite device to cope with multiple batteries */
         if (kind == UP_DEVICE_KIND_BATTERY) {
                 g_debug ("updating because %s changed", up_device_get_object_path (device));
-                device = engine_update_composite_device (manager, device);
+                engine_update_composite_device (manager, device);
+                device = manager->priv->device_composite;
         }
 
         /* get device properties (may be composite) */
