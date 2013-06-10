@@ -230,7 +230,7 @@ enum {
 static void     gsd_power_manager_class_init  (GsdPowerManagerClass *klass);
 static void     gsd_power_manager_init        (GsdPowerManager      *power_manager);
 
-static void      engine_update_composite_device (GsdPowerManager *manager, UpDevice *original_device);
+static void      engine_update_composite_device (GsdPowerManager *manager);
 static GIcon    *engine_get_icon (GsdPowerManager *manager);
 static gchar    *engine_get_summary (GsdPowerManager *manager);
 static gdouble   engine_get_percentage (GsdPowerManager *manager);
@@ -704,8 +704,7 @@ engine_recalculate_state (GsdPowerManager *manager)
 }
 
 static void
-engine_update_composite_device (GsdPowerManager *manager,
-                                UpDevice *original_device)
+engine_update_composite_device (GsdPowerManager *manager)
 {
         guint i;
         gdouble percentage = 0.0;
@@ -720,12 +719,6 @@ engine_update_composite_device (GsdPowerManager *manager,
         GPtrArray *array;
         UpDevice *device;
         UpDeviceState state;
-        UpDeviceKind original_kind;
-
-        /* get the type of the original device */
-        g_object_get (original_device,
-                      "kind", &original_kind,
-                      NULL);
 
         /* update the composite device */
         array = manager->priv->devices_array;
@@ -743,7 +736,7 @@ engine_update_composite_device (GsdPowerManager *manager,
                               "energy-full", &energy_full,
                               "energy-rate", &energy_rate,
                               NULL);
-                if (kind != original_kind)
+                if (kind != UP_DEVICE_KIND_BATTERY)
                         continue;
 
                 /* one of these will be charging or discharging */
@@ -964,7 +957,7 @@ engine_device_add (GsdPowerManager *manager, UpDevice *device)
 
         if (kind == UP_DEVICE_KIND_BATTERY) {
                 g_debug ("updating because we added a device");
-                engine_update_composite_device (manager, device);
+                engine_update_composite_device (manager);
 
                 /* get the same values for the composite device */
                 warning = engine_get_warning (manager, manager->priv->device_composite);
@@ -1720,7 +1713,7 @@ engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *m
         /* if battery then use composite device to cope with multiple batteries */
         if (kind == UP_DEVICE_KIND_BATTERY) {
                 g_debug ("updating because %s changed", up_device_get_object_path (device));
-                engine_update_composite_device (manager, device);
+                engine_update_composite_device (manager);
                 device = manager->priv->device_composite;
         }
 
