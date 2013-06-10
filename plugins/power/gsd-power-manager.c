@@ -513,35 +513,18 @@ engine_get_summary (GsdPowerManager *manager)
 static gdouble
 engine_get_percentage (GsdPowerManager *manager)
 {
-        guint i;
-        GPtrArray *array;
-        UpDevice *device;
-        UpDeviceKind kind;
         gboolean is_present;
         gdouble percentage;
 
-        array = manager->priv->devices_array;
-        for (i = 0; i < array->len ; i++) {
-                device = g_ptr_array_index (array, i);
+        g_object_get (manager->priv->device_composite,
+                      "percentage", &percentage,
+                      "is-present", &is_present,
+                      NULL);
 
-                /* get device properties */
-                g_object_get (device,
-                              "kind", &kind,
-                              "is-present", &is_present,
-                              NULL);
-
-                /* if battery then use composite device to cope with multiple batteries */
-                if (kind == UP_DEVICE_KIND_BATTERY)
-                        device = manager->priv->device_composite;
-
-                if (is_present) {
-                        /* Doing it here as it could be a composite device */
-                        g_object_get (device, "percentage", &percentage, NULL);
-                        return percentage;
-                }
-        }
-        return -1;
-
+        if (is_present)
+                return percentage;
+        else
+                return -1;
 }
 
 static GIcon *
