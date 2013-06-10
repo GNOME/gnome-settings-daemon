@@ -713,6 +713,7 @@ engine_update_composite_device (GsdPowerManager *manager)
         gdouble energy_rate_total = 0.0;
         gint64 time_to_empty = 0;
         gint64 time_to_full = 0;
+        guint battery_devices = 0;
         gboolean is_charging = FALSE;
         gboolean is_discharging = FALSE;
         gboolean is_fully_charged = TRUE;
@@ -751,7 +752,11 @@ engine_update_composite_device (GsdPowerManager *manager)
                 energy_total += energy;
                 energy_full_total += energy_full;
                 energy_rate_total += energy_rate;
+                battery_devices++;
         }
+
+        if (battery_devices == 0)
+                goto out;
 
         /* use percentage weighted for each battery capacity */
         if (energy_full_total > 0.0)
@@ -775,6 +780,7 @@ engine_update_composite_device (GsdPowerManager *manager)
                         time_to_full = 3600 * ((energy_full_total - energy_total) / energy_rate_total);
         }
 
+ out:
         g_debug ("printing composite device");
         g_object_set (manager->priv->device_composite,
                       "energy", energy_total,
@@ -784,6 +790,7 @@ engine_update_composite_device (GsdPowerManager *manager)
                       "time-to-full", time_to_full,
                       "percentage", percentage,
                       "state", state,
+                      "is-present", (battery_devices > 0),
                       NULL);
 
         /* force update of icon */
