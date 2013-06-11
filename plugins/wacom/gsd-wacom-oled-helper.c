@@ -59,12 +59,12 @@ gsd_wacom_oled_helper_write (const gchar *filename, gchar *buffer, GError **erro
 	if (retval != length) {
 		ret = FALSE;
 		g_set_error (error, 1, 0, "writing to %s failed", filename);
-		goto out;
 	}
+
+	g_free (image);
 out:
 	if (fd >= 0)
 		close (fd);
-	g_free (image);
 	return ret;
 }
 
