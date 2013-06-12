@@ -1,7 +1,7 @@
 #! /bin/bash
 
 SETTING=$(gsettings get org.gnome.system.locale region)
-REGION=${SETTING//\,/}
+REGION=${SETTING//\'/}
 
 if [ -n "$REGION" ]; then
   export LC_TIME=$REGION
