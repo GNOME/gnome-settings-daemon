@@ -3771,21 +3771,10 @@ handle_method_call (GDBusConnection       *connection,
 }
 
 static GVariant *
-handle_get_property (GDBusConnection *connection,
-                     const gchar *sender,
-                     const gchar *object_path,
-                     const gchar *interface_name,
-                     const gchar *property_name,
-                     GError **error, gpointer user_data)
+handle_get_property_main (GsdPowerManager *manager,
+                          const gchar *property_name)
 {
-        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
         GVariant *retval = NULL;
-
-        /* Check session pointer as a proxy for whether the manager is in the
-           start or stop state */
-        if (manager->priv->session == NULL) {
-                return NULL;
-        }
 
         if (g_strcmp0 (property_name, "Icon") == 0) {
                 retval = engine_get_icon_property_variant (manager);
@@ -3799,6 +3788,30 @@ handle_get_property (GDBusConnection *connection,
         }
 
         return retval;
+}
+
+static GVariant *
+handle_get_property (GDBusConnection *connection,
+                     const gchar *sender,
+                     const gchar *object_path,
+                     const gchar *interface_name,
+                     const gchar *property_name,
+                     GError **error, gpointer user_data)
+{
+        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
+
+        /* Check session pointer as a proxy for whether the manager is in the
+           start or stop state */
+        if (manager->priv->session == NULL) {
+                return NULL;
+        }
+
+        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE) == 0) {
+                return handle_get_property_main (manager, property_name);
+        } else {
+                g_warning ("not recognised interface: %s", interface_name);
+                return NULL;
+        }
 }
 
 static const GDBusInterfaceVTable interface_vtable =
