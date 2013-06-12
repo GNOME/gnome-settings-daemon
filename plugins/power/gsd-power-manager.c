@@ -261,11 +261,12 @@ gsd_power_manager_error_quark (void)
 }
 
 static void
-notify_close_if_showing (NotifyNotification *notification)
+notify_close_if_showing (NotifyNotification **notification)
 {
-        if (notification == NULL)
+        if (*notification == NULL)
                 return;
-        notify_notification_close (notification, NULL);
+        notify_notification_close (*notification, NULL);
+        g_clear_object (notification);
 }
 
 typedef enum {
@@ -1214,7 +1215,7 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
         icon = gpm_upower_get_device_icon (device, TRUE);
 
         /* close any existing notification of this class */
-        notify_close_if_showing (manager->priv->notification_ups_discharging);
+        notify_close_if_showing (&manager->priv->notification_ups_discharging);
 
         /* create a new notification */
         create_notification (title, message->str,
@@ -1424,7 +1425,7 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
         icon = gpm_upower_get_device_icon (device, TRUE);
 
         /* close any existing notification of this class */
-        notify_close_if_showing (manager->priv->notification_low);
+        notify_close_if_showing (&manager->priv->notification_low);
 
         /* create a new notification */
         create_notification (title, message,
@@ -1597,7 +1598,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
         icon = gpm_upower_get_device_icon (device, TRUE);
 
         /* close any existing notification of this class */
-        notify_close_if_showing (manager->priv->notification_low);
+        notify_close_if_showing (&manager->priv->notification_low);
 
         /* create a new notification */
         create_notification (title, message,
@@ -1735,7 +1736,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
         icon = gpm_upower_get_device_icon (device, TRUE);
 
         /* close any existing notification of this class */
-        notify_close_if_showing (manager->priv->notification_low);
+        notify_close_if_showing (&manager->priv->notification_low);
 
         /* create a new notification */
         create_notification (title, message,
@@ -1797,8 +1798,8 @@ engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *m
                 } else if (state == UP_DEVICE_STATE_FULLY_CHARGED ||
                            state == UP_DEVICE_STATE_CHARGING) {
                         g_debug ("fully charged or charging, hiding notifications if any");
-                        notify_close_if_showing (manager->priv->notification_low);
-                        notify_close_if_showing (manager->priv->notification_ups_discharging);
+                        notify_close_if_showing (&manager->priv->notification_low);
+                        notify_close_if_showing (&manager->priv->notification_ups_discharging);
                         main_battery_or_ups_low_changed (manager, FALSE);
                 }
 
@@ -2268,7 +2269,7 @@ up_client_changed_cb (UpClient *client, GsdPowerManager *manager)
         if (!up_client_get_on_battery (client)) {
             /* if we are playing a critical charge sound loop on AC, stop it */
             play_loop_stop (&manager->priv->critical_alert_timeout_id);
-            notify_close_if_showing (manager->priv->notification_low);
+            notify_close_if_showing (&manager->priv->notification_low);
             main_battery_or_ups_low_changed (manager, FALSE);
         }
 
@@ -2638,7 +2639,7 @@ idle_configure (GsdPowerManager *manager)
                                   &manager->priv->idle_dim_id);
                 clear_idle_watch (manager->priv->idle_monitor,
                                   &manager->priv->idle_sleep_warning_id);
-                notify_close_if_showing (manager->priv->notification_sleep_warning);
+                notify_close_if_showing (&manager->priv->notification_sleep_warning);
                 return;
         }
 
@@ -2705,7 +2706,7 @@ idle_configure (GsdPowerManager *manager)
         }
 
         if (manager->priv->idle_sleep_warning_id == 0)
-                notify_close_if_showing (manager->priv->notification_sleep_warning);
+                notify_close_if_showing (&manager->priv->notification_sleep_warning);
 
         /* set up dim callback for when the screen lock is not active,
          * but only if we actually want to dim. */
@@ -3038,7 +3039,7 @@ static void
 show_sleep_warning (GsdPowerManager *manager)
 {
         /* close any existing notification of this class */
-        notify_close_if_showing (manager->priv->notification_sleep_warning);
+        notify_close_if_showing (&manager->priv->notification_sleep_warning);
 
         /* create a new notification */
         switch (manager->priv->sleep_action_type) {
@@ -3109,7 +3110,7 @@ idle_became_active_cb (GnomeIdleMonitor *monitor,
         set_temporary_unidle_on_ac (manager, FALSE);
 
         /* close any existing notification about idleness */
-        notify_close_if_showing (manager->priv->notification_sleep_warning);
+        notify_close_if_showing (&manager->priv->notification_sleep_warning);
 
         idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
 }
@@ -3344,8 +3345,8 @@ handle_resume_actions (GsdPowerManager *manager)
 {
         /* close existing notifications on resume, the system power
          * state is probably different now */
-        notify_close_if_showing (manager->priv->notification_low);
-        notify_close_if_showing (manager->priv->notification_ups_discharging);
+        notify_close_if_showing (&manager->priv->notification_low);
+        notify_close_if_showing (&manager->priv->notification_ups_discharging);
         main_battery_or_ups_low_changed (manager, FALSE);
 
         /* ensure we turn the panel back on after resume */
