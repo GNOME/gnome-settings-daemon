@@ -36,6 +36,8 @@ libmedia_keys_la_SOURCES = 		\
 	gsd-screenshot-utils.c		\
 	shortcuts-list.h		\
 	shell-keybinding-modes.h	\
+	bus-watch-namespace.c		\
+	bus-watch-namespace.h		\
 	$(BUILT_SOURCES)		\
 	$(NULL)
 
@@ -78,6 +80,8 @@ gsd_test_media_keys_SOURCES =			\
 	gsd-media-keys-manager.h		\
 	gsd-screenshot-utils.h			\
 	gsd-screenshot-utils.c			\
+	bus-watch-namespace.c			\
+	bus-watch-namespace.h			\
 	test-media-keys.c			\
 	$(BUILT_SOURCES)			\
 	$(NULL)
