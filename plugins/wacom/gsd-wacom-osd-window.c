@@ -45,7 +45,10 @@
 #define DARK_COLOR		"#535353"
 #define BACK_COLOR		"#000000"
 
-#define ELEVATOR_TIMEOUT	250 /* ms */
+#define BUTTON_HIGHLIGHT_DURATION     250 /* ms */
+#define BUTTON_TRANSITION_DURATION    150 /* ms */
+#define BUTTON_TIMER_STEP             25  /* ms */
+#define BUTTON_FULL_TRANSITION        1.0 /* % */
 
 #define CURSOR_HIDE_TIMEOUT	2 /* seconds */
 
@@ -245,7 +248,14 @@ struct GsdWacomOSDButtonPrivate {
 	gboolean                  active;
 	gboolean                  visible;
 	guint                     auto_off;
-	guint                     timeout;
+	GdkRGBA                   active_color;
+	GdkRGBA                   inactive_color;
+
+	/* Animations */
+	gboolean                  next_state;            /* what the next state should be, "active" or not */
+	guint                     timeout_id;            /* ms */
+	gint                      elapsed_time;          /* ms */
+	gdouble                   transition_percentage; /* 0.0 to 1.0 */
 };
 
 static void     gsd_wacom_osd_button_class_init  (GsdWacomOSDButtonClass *klass);
@@ -344,11 +354,51 @@ gsd_wacom_osd_button_redraw (GsdWacomOSDButton *osd_button)
 static gboolean
 gsd_wacom_osd_button_timer (GsdWacomOSDButton *osd_button)
 {
-	/* Auto de-activate the button */
-	osd_button->priv->active = FALSE;
+	gint     total_timeout;
+	gdouble  transition_step;
+	gboolean ret = G_SOURCE_CONTINUE;
+
+	total_timeout = BUTTON_TRANSITION_DURATION;
+	/* if the state is active, then we need it to be "on" at least
+	 * for the time of BUTTON_HIGHLIGHT_DURATION after the fade-in */
+	if (osd_button->priv->active)
+		total_timeout += BUTTON_HIGHLIGHT_DURATION;
+
+	transition_step = (gdouble) BUTTON_TIMER_STEP / BUTTON_TRANSITION_DURATION;
+	osd_button->priv->transition_percentage = MIN (osd_button->priv->transition_percentage + transition_step,
+						       BUTTON_FULL_TRANSITION);
+
+	osd_button->priv->elapsed_time += BUTTON_TIMER_STEP;
+	if (osd_button->priv->elapsed_time > total_timeout) {
+		/* If the next state and the current one are the same, then
+		 * we finish this timer */
+		if (osd_button->priv->active == osd_button->priv->next_state) {
+			ret = G_SOURCE_REMOVE;
+			osd_button->priv->timeout_id = 0;
+		} else
+			osd_button->priv->active = osd_button->priv->next_state;
+
+		osd_button->priv->elapsed_time = 0;
+		osd_button->priv->transition_percentage = 0;
+	}
+
 	gsd_wacom_osd_button_redraw (osd_button);
 
-	return FALSE;
+	return ret;
+}
+
+static void
+invert_button_color_transition (GsdWacomOSDButton *osd_button)
+{
+	osd_button->priv->elapsed_time = (BUTTON_HIGHLIGHT_DURATION + BUTTON_TRANSITION_DURATION) - osd_button->priv->elapsed_time;
+	osd_button->priv->transition_percentage = BUTTON_FULL_TRANSITION - osd_button->priv->transition_percentage;
+}
+
+static void
+extend_on_state (GsdWacomOSDButton *osd_button)
+{
+	osd_button->priv->elapsed_time = BUTTON_TRANSITION_DURATION;
+	osd_button->priv->transition_percentage = BUTTON_FULL_TRANSITION;
 }
 
 static void
@@ -359,24 +409,26 @@ gsd_wacom_osd_button_set_active (GsdWacomOSDButton *osd_button,
 
 	g_return_if_fail (GSD_IS_WACOM_OSD_BUTTON (osd_button));
 
+        osd_button->priv->next_state = active;
 	previous_state = osd_button->priv->active;
-	if (osd_button->priv->auto_off > 0) {
-		/* For auto-off buttons, apply only if active, de-activation is done in the timeout */
-		if (active == TRUE)
-			osd_button->priv->active = active;
-
-		if (osd_button->priv->timeout)
-			g_source_remove (osd_button->priv->timeout);
-		osd_button->priv->timeout = g_timeout_add (osd_button->priv->auto_off,
-		                                           (GSourceFunc) gsd_wacom_osd_button_timer,
-		                                           osd_button);
-	} else {
-		/* Whereas for other buttons, apply the change straight away */
+	if (osd_button->priv->timeout_id == 0) {
 		osd_button->priv->active = active;
+		osd_button->priv->timeout_id = g_timeout_add (BUTTON_TIMER_STEP,
+							      (GSourceFunc) gsd_wacom_osd_button_timer,
+							      osd_button);
+	} else if (osd_button->priv->next_state) {
+		/* it was on and now should be on again */
+		if (previous_state == active) {
+			/* if the button has transitioned to on already, then it
+			 * needs to remain on for the default amount of time again */
+			if (osd_button->priv->elapsed_time > BUTTON_TRANSITION_DURATION)
+				extend_on_state (osd_button);
+		} else {
+			/* if we have an on-going timeout which was fading out and
+			 * now we need to fade it in again, we just invert the transition*/
+			invert_button_color_transition (osd_button);
+		}
 	}
-
-	if (previous_state != osd_button->priv->active)
-		gsd_wacom_osd_button_redraw (osd_button);
 }
 
 static void
@@ -533,6 +585,9 @@ static void
 gsd_wacom_osd_button_init (GsdWacomOSDButton *osd_button)
 {
 	osd_button->priv = GSD_WACOM_OSD_BUTTON_GET_PRIVATE (osd_button);
+
+	gdk_rgba_parse (&osd_button->priv->active_color, ACTIVE_COLOR);
+	gdk_rgba_parse (&osd_button->priv->inactive_color, INACTIVE_COLOR);
 }
 
 static void
@@ -550,8 +605,8 @@ gsd_wacom_osd_button_finalize (GObject *object)
 
 	priv = osd_button->priv;
 
-	if (priv->timeout > 0)
-		g_source_remove (priv->timeout);
+	if (priv->timeout_id > 0)
+		g_source_remove (priv->timeout_id);
 	g_clear_pointer (&priv->id, g_free);
 	g_clear_pointer (&priv->class, g_free);
 	g_clear_pointer (&priv->label, g_free);
@@ -588,6 +643,67 @@ get_actual_position (GsdWacomTabletButtonPos position,
 	return position;
 }
 
+static gchar *
+rgb_color_to_hex (GdkRGBA *color)
+{
+	gchar *hex_color;
+
+	hex_color = g_strdup_printf ("#%02X%02X%02X",
+				     (guint) (color->red * 255),
+				     (guint) (color->green * 255),
+				     (guint) (color->blue * 255));
+
+	return hex_color;
+}
+
+static GdkRGBA *
+transition_rgba_colors (GdkRGBA *from_rgba,
+			GdkRGBA *to_rgba,
+			gdouble  transition_percentage)
+{
+	GdkRGBA *new_color = gdk_rgba_copy (from_rgba);
+
+	if (transition_percentage == 0.0)
+		return new_color;
+
+	new_color->red -= (from_rgba->red - to_rgba->red) * transition_percentage;
+	new_color->green -= (from_rgba->green - to_rgba->green) * transition_percentage;
+	new_color->blue -= (from_rgba->blue - to_rgba->blue) * transition_percentage;
+
+	return new_color;
+}
+
+static gchar *
+gsd_wacom_osd_button_get_color_str (GsdWacomOSDButton *osd_button)
+{
+	GdkRGBA *current_color, *from_color, *to_color;
+	gboolean free_current_color = FALSE;
+	gchar   *color_str;
+
+	/* If we got an on-going transition, then we need to apply it */
+	if (osd_button->priv->timeout_id > 0) {
+		if (osd_button->priv->active) {
+			from_color = &osd_button->priv->inactive_color;
+			to_color = &osd_button->priv->active_color;
+		} else {
+			from_color = &osd_button->priv->active_color;
+			to_color = &osd_button->priv->inactive_color;
+		}
+
+		current_color = transition_rgba_colors (from_color, to_color, osd_button->priv->transition_percentage);
+
+		free_current_color = TRUE;
+	} else
+		current_color = osd_button->priv->active ? &osd_button->priv->active_color : &osd_button->priv->inactive_color;
+
+	color_str = rgb_color_to_hex (current_color);
+
+	if (free_current_color)
+		gdk_rgba_free (current_color);
+
+	return color_str;
+}
+
 static void
 gsd_wacom_osd_button_draw_label (GsdWacomOSDButton *osd_button,
 			         GtkStyleContext   *style_context,
@@ -600,7 +716,7 @@ gsd_wacom_osd_button_draw_label (GsdWacomOSDButton *osd_button,
 	PangoRectangle            logical_rect;
 	GsdWacomTabletButtonPos   actual_position;
 	double                    lx, ly;
-	gchar                    *markup;
+	gchar                    *markup, *color_str;
 
 	g_return_if_fail (GSD_IS_WACOM_OSD_BUTTON (osd_button));
 
@@ -610,10 +726,9 @@ gsd_wacom_osd_button_draw_label (GsdWacomOSDButton *osd_button,
 
 	actual_position = get_actual_position (priv->position, rotation);
 	layout = pango_layout_new (pango_context);
-	if (priv->active)
-		markup = g_strdup_printf ("<span foreground=\"" ACTIVE_COLOR "\" weight=\"normal\">%s</span>", priv->label);
-	else
-		markup = g_strdup_printf ("<span foreground=\"" INACTIVE_COLOR "\" weight=\"normal\">%s</span>", priv->label);
+	color_str = gsd_wacom_osd_button_get_color_str (osd_button);
+	markup = g_strdup_printf ("<span foreground=\"%s\" weight=\"normal\">%s</span>", color_str, priv->label);
+	g_free (color_str);
 	pango_layout_set_markup (layout, markup, -1);
 	g_free (markup);
 
@@ -715,19 +830,24 @@ gsd_wacom_osd_window_update (GsdWacomOSDWindow *osd_window)
 	/* Build the buttons section */
 	buttons_section = g_strdup ("");
 	for (l = osd_window->priv->buttons; l != NULL; l = l->next) {
+		gchar *color_str;
 		GsdWacomOSDButton *osd_button = l->data;
 
 		if (osd_button->priv->visible == FALSE)
 			continue;
 
-		if (osd_button->priv->active) {
-			buttons_section = g_strconcat (buttons_section,
-			                               ".", osd_button->priv->class, " {\n"
-			                               "      stroke:   active_color !important;\n"
-			                               "      fill:     active_color !important;\n"
-			                               "    }\n",
-			                               NULL);
-		}
+		color_str = gsd_wacom_osd_button_get_color_str (osd_button);
+		buttons_section = g_strconcat (buttons_section,
+					       ".", osd_button->priv->class, " {\n"
+					       "      stroke:   ",
+					       color_str,
+					       " !important;\n"
+					       "      fill:     ",
+					       color_str,
+					       " !important;\n",
+					       "    }\n",
+					       NULL);
+		g_free (color_str);
 	}
 	replace_string (&css_string, "buttons_section", buttons_section);
 	g_free (buttons_section);
@@ -1167,14 +1287,14 @@ gsd_wacom_osd_window_add_tablet_button (GsdWacomOSDWindow    *osd_window,
 		/* Add 2 buttons per elevator, one "Up"... */
 		osd_button = gsd_wacom_osd_window_add_button_with_dir (osd_window,
 		                                                       tablet_button,
-		                                                       ELEVATOR_TIMEOUT,
+		                                                       BUTTON_HIGHLIGHT_DURATION,
 		                                                       GTK_DIR_UP);
 		gsd_wacom_osd_button_set_visible (osd_button, tablet_button->idx == mode);
 
 		/* ... and one "Down" */
 		osd_button = gsd_wacom_osd_window_add_button_with_dir (osd_window,
 		                                                       tablet_button,
-		                                                       ELEVATOR_TIMEOUT,
+		                                                       BUTTON_HIGHLIGHT_DURATION,
 		                                                       GTK_DIR_DOWN);
 		gsd_wacom_osd_button_set_visible (osd_button, tablet_button->idx == mode);
 
