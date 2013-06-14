@@ -694,8 +694,8 @@ engine_update_composite_device (GsdPowerManager *manager)
         gdouble energy_total = 0.0;
         gdouble energy_full_total = 0.0;
         gdouble energy_rate_total = 0.0;
-        gint64 time_to_empty = 0;
-        gint64 time_to_full = 0;
+        gint64 time_to_empty_total = 0;
+        gint64 time_to_full_total = 0;
         guint battery_devices = 0;
         gboolean is_charging = FALSE;
         gboolean is_discharging = FALSE;
@@ -711,6 +711,8 @@ engine_update_composite_device (GsdPowerManager *manager)
                 gdouble energy = 0.0;
                 gdouble energy_full = 0.0;
                 gdouble energy_rate = 0.0;
+                gint64 time_to_empty = 0;
+                gint64 time_to_full = 0;
 
                 device = g_ptr_array_index (array, i);
                 g_object_get (device,
@@ -719,6 +721,8 @@ engine_update_composite_device (GsdPowerManager *manager)
                               "energy", &energy,
                               "energy-full", &energy_full,
                               "energy-rate", &energy_rate,
+                              "time-to-empty", &time_to_empty,
+                              "time-to-full", &time_to_full,
                               NULL);
                 if (kind != UP_DEVICE_KIND_BATTERY)
                         continue;
@@ -735,6 +739,8 @@ engine_update_composite_device (GsdPowerManager *manager)
                 energy_total += energy;
                 energy_full_total += energy_full;
                 energy_rate_total += energy_rate;
+                time_to_empty_total += time_to_empty;
+                time_to_full_total += time_to_full;
                 battery_devices++;
         }
 
@@ -757,10 +763,10 @@ engine_update_composite_device (GsdPowerManager *manager)
 
         /* calculate a quick and dirty time remaining value */
         if (energy_rate_total > 0) {
-                if (state == UP_DEVICE_STATE_DISCHARGING)
-                        time_to_empty = 3600 * (energy_total / energy_rate_total);
-                else if (state == UP_DEVICE_STATE_CHARGING)
-                        time_to_full = 3600 * ((energy_full_total - energy_total) / energy_rate_total);
+                if (state == UP_DEVICE_STATE_DISCHARGING && time_to_empty_total == 0)
+                        time_to_empty_total = 3600 * (energy_total / energy_rate_total);
+                else if (state == UP_DEVICE_STATE_CHARGING && time_to_full_total == 0)
+                        time_to_full_total = 3600 * ((energy_full_total - energy_total) / energy_rate_total);
         }
 
  out:
@@ -769,8 +775,8 @@ engine_update_composite_device (GsdPowerManager *manager)
                       "energy", energy_total,
                       "energy-full", energy_full_total,
                       "energy-rate", energy_rate_total,
-                      "time-to-empty", time_to_empty,
-                      "time-to-full", time_to_full,
+                      "time-to-empty", time_to_empty_total,
+                      "time-to-full", time_to_full_total,
                       "percentage", percentage,
                       "state", state,
                       "is-present", (battery_devices > 0),
