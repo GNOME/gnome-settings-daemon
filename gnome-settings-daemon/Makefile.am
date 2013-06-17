@@ -89,4 +89,6 @@ gnome_settings_daemon_LDADD = 		\
 	$(GNOME_DESKTOP_LIBS)		\
 	$(NULL)
 
+CLEANFILES = $(gsd_SCRIPTS)
+
 # vim: ts=8
