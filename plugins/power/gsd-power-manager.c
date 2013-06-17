@@ -748,9 +748,6 @@ engine_update_composite_device (GsdPowerManager *manager,
 {
         guint i;
         gdouble percentage = 0.0;
-        gdouble energy = 0.0;
-        gdouble energy_full = 0.0;
-        gdouble energy_rate = 0.0;
         gdouble energy_total = 0.0;
         gdouble energy_full_total = 0.0;
         gdouble energy_rate_total = 0.0;
@@ -763,7 +760,6 @@ engine_update_composite_device (GsdPowerManager *manager,
         GPtrArray *array;
         UpDevice *device;
         UpDeviceState state;
-        UpDeviceKind kind;
         UpDeviceKind original_kind;
 
         /* get the type of the original device */
@@ -774,6 +770,11 @@ engine_update_composite_device (GsdPowerManager *manager,
         /* update the composite device */
         array = manager->priv->devices_array;
         for (i=0;i<array->len;i++) {
+                UpDeviceKind kind;
+                gdouble energy = 0.0;
+                gdouble energy_full = 0.0;
+                gdouble energy_rate = 0.0;
+
                 device = g_ptr_array_index (array, i);
                 g_object_get (device,
                               "kind", &kind,
@@ -834,9 +835,9 @@ engine_update_composite_device (GsdPowerManager *manager,
 
         g_debug ("printing composite device");
         g_object_set (device,
-                      "energy", energy,
-                      "energy-full", energy_full,
-                      "energy-rate", energy_rate,
+                      "energy", energy_total,
+                      "energy-full", energy_full_total,
+                      "energy-rate", energy_rate_total,
                       "time-to-empty", time_to_empty,
                       "time-to-full", time_to_full,
                       "percentage", percentage,
