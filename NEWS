@@ -1,4 +1,29 @@
 =============
+Version 3.9.3
+=============
+
+Daemon:
+- Fix possible crash on start when calling setenv() after
+  starting threads
+
+Color:
+- Bump colord dependency
+
+Keyboard:
+- Don't show on the bus before we're fully initialised
+
+Wacom:
+- Fix calling for calibration from the notification
+- Add configure button to the OSD window
+
+Power:
+- Fix non-transient notifications sticking around
+- Simplify composite battery as advertised in the D-Bus API
+
+Updates:
+- Make sure only one notification appears
+
+=============
 Version 3.9.2
 =============
 
