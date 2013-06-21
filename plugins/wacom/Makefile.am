@@ -6,6 +6,10 @@ libgsdwacom_la_SOURCES =	\
 	gsd-wacom-plugin.c	\
 	gsd-wacom-manager.h	\
 	gsd-wacom-manager.c	\
+	gsd-wacom-key-shortcut-button.h	\
+	gsd-wacom-key-shortcut-button.c	\
+	gsd-wacom-button-editor.h	\
+	gsd-wacom-button-editor.c	\
 	gsd-wacom-osd-window.h	\
 	gsd-wacom-osd-window.c	\
 	gsd-wacom-oled.h	\
@@ -87,6 +91,10 @@ gsd_test_wacom_SOURCES =	\
 	test-wacom.c		\
 	gsd-wacom-manager.c	\
 	gsd-wacom-manager.h	\
+	gsd-wacom-key-shortcut-button.h	\
+	gsd-wacom-key-shortcut-button.c	\
+	gsd-wacom-button-editor.h	\
+	gsd-wacom-button-editor.c	\
 	gsd-wacom-osd-window.h	\
 	gsd-wacom-osd-window.c	\
 	gsd-wacom-oled.h	\
@@ -151,6 +159,10 @@ gsd_list_wacom_LDADD =						\
 
 gsd_test_wacom_osd_SOURCES =					\
 	test-osd-window.c					\
+	gsd-wacom-key-shortcut-button.h				\
+	gsd-wacom-key-shortcut-button.c				\
+	gsd-wacom-button-editor.h				\
+	gsd-wacom-button-editor.c				\
 	gsd-wacom-osd-window.h					\
 	gsd-wacom-osd-window.c					\
 	gsd-wacom-device.c					\

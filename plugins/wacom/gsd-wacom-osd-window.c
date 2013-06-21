@@ -30,6 +30,7 @@
 
 #include "gsd-wacom-osd-window.h"
 #include "gsd-wacom-device.h"
+#include "gsd-wacom-button-editor.h"
 #include "gsd-enums.h"
 
 #define ROTATION_KEY                "rotation"
@@ -39,6 +40,7 @@
 #define RES_PATH                    "/org/gnome/settings-daemon/plugins/wacom/"
 
 #define BACK_OPACITY		0.8
+#define OPACITY_IN_EDITION	"0.5"
 #define INACTIVE_COLOR		"#ededed"
 #define ACTIVE_COLOR		"#729fcf"
 #define STROKE_COLOR		"#000000"
@@ -742,7 +744,8 @@ gsd_wacom_osd_button_draw_label (GsdWacomOSDButton *osd_button,
 enum {
   PROP_OSD_WINDOW_0,
   PROP_OSD_WINDOW_MESSAGE,
-  PROP_OSD_WINDOW_GSD_WACOM_DEVICE
+  PROP_OSD_WINDOW_GSD_WACOM_DEVICE,
+  PROP_OSD_WINDOW_EDITION_MODE
 };
 
 #define GSD_WACOM_OSD_WINDOW_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), \
@@ -758,8 +761,14 @@ struct GsdWacomOSDWindowPrivate
 	GdkRectangle              monitor_area;
 	GdkRectangle              tablet_area;
 	char                     *message;
+	char                     *edition_mode_message;
+	char                     *regular_mode_message;
 	GList                    *buttons;
 	guint                     cursor_timeout;
+	gboolean                  edition_mode;
+	GsdWacomOSDButton        *current_button;
+	GtkWidget                *editor;
+	GtkWidget                *change_mode_button;
 };
 
 static void     gsd_wacom_osd_window_class_init  (GsdWacomOSDWindowClass *klass);
@@ -767,6 +776,12 @@ static void     gsd_wacom_osd_window_init        (GsdWacomOSDWindow      *osd_wi
 static void     gsd_wacom_osd_window_finalize    (GObject                *object);
 
 G_DEFINE_TYPE (GsdWacomOSDWindow, gsd_wacom_osd_window, GTK_TYPE_WINDOW)
+
+static gboolean
+osd_window_editing_button (GsdWacomOSDWindow *self)
+{
+	return self->priv->edition_mode && gtk_widget_get_visible (self->priv->editor);
+}
 
 static void
 gsd_wacom_osd_window_update (GsdWacomOSDWindow *osd_window)
@@ -805,23 +820,35 @@ gsd_wacom_osd_window_update (GsdWacomOSDWindow *osd_window)
 	buttons_section = g_strdup ("");
 	for (l = osd_window->priv->buttons; l != NULL; l = l->next) {
 		gchar *color_str;
+		const gchar *css;
 		GsdWacomOSDButton *osd_button = l->data;
 
 		if (osd_button->priv->visible == FALSE)
 			continue;
 
-		color_str = gsd_wacom_osd_button_get_color_str (osd_button);
-		buttons_section = g_strconcat (buttons_section,
-					       ".", osd_button->priv->class, " {\n"
-					       "      stroke:   ",
-					       color_str,
-					       " !important;\n"
-					       "      fill:     ",
-					       color_str,
-					       " !important;\n",
-					       "    }\n",
-					       NULL);
-		g_free (color_str);
+		if (osd_window_editing_button (osd_window) &&
+		    osd_button != osd_window->priv->current_button) {
+			css = "%s.%s {\n"
+				"      opacity: %s\n"
+				"}\n";
+			buttons_section = g_strdup_printf (css,
+							   buttons_section,
+							   osd_button->priv->class,
+							   OPACITY_IN_EDITION,
+							   NULL);
+		} else {
+			color_str = gsd_wacom_osd_button_get_color_str (osd_button);
+			css = "%s.%s {\n"
+				"      stroke: %s !important;\n"
+				"      fill: %s !important;\n"
+				"}\n";
+			buttons_section = g_strdup_printf (css,
+							   buttons_section,
+							   osd_button->priv->class,
+							   color_str,
+							   color_str);
+			g_free (color_str);
+		}
 	}
 	replace_string (&css_string, "buttons_section", buttons_section);
 	g_free (buttons_section);
@@ -861,7 +888,7 @@ gsd_wacom_osd_window_draw_message (GsdWacomOSDWindow   *osd_window,
 	double x;
 	double y;
 
-	if (osd_window->priv->message == NULL)
+	if (osd_window->priv->message == NULL || osd_window_editing_button (osd_window))
 		return;
 
 	layout = pango_layout_new (pango_context);
@@ -1209,6 +1236,15 @@ get_elevator_current_mode (GsdWacomOSDWindow    *osd_window,
 	return mode;
 }
 
+static void
+redraw_window (GsdWacomOSDWindow *self)
+{
+	GdkWindow *window;
+
+	window = gtk_widget_get_window (GTK_WIDGET (self));
+	gdk_window_invalidate_rect (window, NULL, FALSE);
+}
+
 static GsdWacomOSDButton *
 gsd_wacom_osd_window_add_button_with_dir (GsdWacomOSDWindow    *osd_window,
                                           GsdWacomTabletButton *tablet_button,
@@ -1274,48 +1310,57 @@ gsd_wacom_osd_window_add_tablet_button (GsdWacomOSDWindow    *osd_window,
 	}
 }
 
-static gboolean
-call_device_configuration (GsdWacomDevice *device)
+static char *
+get_regular_mode_message (GsdWacomOSDWindow *osd_window)
 {
-	gboolean success;
-	gchar *command;
-	const gchar *device_name;
-	GError *error = NULL;
+	const gchar *name;
+	gchar       *message;
 
-	device_name = gsd_wacom_device_get_name (device);
-	command = g_strdup_printf ("gnome-control-center wacom \"%s\"", device_name);
-	success = g_spawn_command_line_async (command, &error);
-	if (!success) {
-		g_warning ("Failure launching gnome-control-center: %s\n%s",
-			   error->message, command);
-		g_error_free (error);
-	}
-	g_free (command);
+	name = gsd_wacom_device_get_name (osd_window->priv->pad);
+	message = g_strdup_printf ("<big><b>%s</b></big>\n<span foreground=\"%s\">%s</span>",
+				   name, INACTIVE_COLOR, _("(press any key to exit)"));
 
-	return success;
+	return message;
+}
+
+static char *
+get_edition_mode_message (GsdWacomOSDWindow *osd_window)
+{
+	return g_strdup_printf ("<big><b>%s</b></big>\n<span foreground=\"%s\">%s</span>",
+				_("Push a button to configure"), INACTIVE_COLOR, _("(Esc to cancel)"));
 }
 
 static void
-on_configure_button_clicked (GtkButton         *button,
-			     GsdWacomOSDWindow *window)
+close_editor (GsdWacomOSDWindow *self)
 {
-	if (call_device_configuration (window->priv->pad))
-		gtk_widget_destroy (GTK_WIDGET (window));
+	if (self->priv->current_button)
+		self->priv->current_button->priv->visible = TRUE;
+
+	gtk_widget_hide (self->priv->editor);
+	self->priv->current_button = NULL;
 }
 
-static GtkWidget *
-create_osd_configure_button (GsdWacomOSDWindow *window)
+static void
+edition_mode_changed (GsdWacomOSDWindow *self)
 {
-	GtkWidget *configure_button;
-	GtkStyleContext *style_context;
+	if (self->priv->edition_mode)
+		gsd_wacom_osd_window_set_message (self, self->priv->edition_mode_message);
+	else {
+		gsd_wacom_osd_window_set_message (self, self->priv->regular_mode_message);
 
-	configure_button = gtk_button_new_with_label (_("Configure device"));
-	g_object_set (configure_button, "halign", GTK_ALIGN_CENTER, NULL);
+		close_editor (self);
+	}
 
-	style_context = gtk_widget_get_style_context (configure_button);
-	gtk_style_context_add_class (style_context, "osd");
+	redraw_window (self);
+}
 
-	return configure_button;
+static void
+on_change_mode_button_clicked (GtkButton         *button,
+			       GsdWacomOSDWindow *window)
+{
+	window->priv->edition_mode = !window->priv->edition_mode;
+
+	edition_mode_changed (window);
 }
 
 static void
@@ -1461,6 +1506,74 @@ gsd_wacom_osd_window_show (GtkWidget *widget)
 }
 
 static void
+on_button_edited (GsdWacomButtonEditor *editor,
+		  GsdWacomOSDWindow    *self)
+{
+	GsdWacomTabletButton *button;
+	GtkDirectionType      dir;
+	char                 *str;
+
+	button = gsd_wacom_button_editor_get_button (editor, &dir);
+
+	if (button == NULL || self->priv->current_button == NULL)
+		return;
+
+	str = get_tablet_button_label (self->priv->pad, button, dir);
+	gsd_wacom_osd_button_set_label (self->priv->current_button, str);
+	g_free (str);
+
+	gsd_wacom_osd_button_redraw (self->priv->current_button);
+}
+
+static void
+on_button_editing_done (GtkWidget         *editor,
+			GsdWacomOSDWindow *self)
+{
+	close_editor (self);
+	redraw_window (self);
+	grab_keyboard (self);
+}
+
+static gboolean
+on_get_child_position (GtkOverlay        *overlay,
+		       GtkWidget         *widget,
+		       GdkRectangle      *allocation,
+		       GsdWacomOSDWindow *self)
+{
+	GsdWacomOSDButton       *button;
+	GtkRequisition           requisition;
+	GsdWacomTabletButtonPos  position;
+
+	button = self->priv->current_button;
+
+	if (button == NULL)
+		return FALSE;
+
+	gtk_widget_get_preferred_size (widget, NULL, &requisition);
+
+	allocation->x = button->priv->label_x;
+	allocation->y = button->priv->label_y;
+	allocation->width = requisition.width;
+	allocation->height = requisition.height;
+
+	position = get_actual_position (button->priv->position, self->priv->rotation);
+
+	if (position == WACOM_TABLET_BUTTON_POS_LEFT) {
+		allocation->y -= requisition.height / 2.0;
+	} else if (position == WACOM_TABLET_BUTTON_POS_RIGHT) {
+		allocation->x -= requisition.width;
+		allocation->y -= requisition.height / 2.0;
+	} else if (position == WACOM_TABLET_BUTTON_POS_BOTTOM) {
+		allocation->x -= requisition.width / 2.0;
+		allocation->y -= requisition.height;
+	} else if (position == WACOM_TABLET_BUTTON_POS_TOP) {
+		allocation->x -= requisition.width / 2.0;
+	}
+
+	return TRUE;
+}
+
+static void
 gsd_wacom_osd_window_realized (GtkWidget *widget,
                                gpointer   data)
 {
@@ -1564,6 +1677,10 @@ gsd_wacom_osd_window_set_device (GsdWacomOSDWindow *osd_window,
 		gsd_wacom_osd_window_add_tablet_button (osd_window, tablet_button);
 	}
 	g_list_free (list);
+
+	g_clear_pointer (&osd_window->priv->regular_mode_message, g_free);
+	osd_window->priv->regular_mode_message = get_regular_mode_message (osd_window);
+
 }
 
 GsdWacomDevice *
@@ -1606,6 +1723,9 @@ gsd_wacom_osd_window_set_property (GObject        *object,
 	case PROP_OSD_WINDOW_MESSAGE:
 		gsd_wacom_osd_window_set_message (osd_window, g_value_get_string (value));
 		break;
+	case PROP_OSD_WINDOW_EDITION_MODE:
+		osd_window->priv->edition_mode = g_value_get_boolean (value);
+		break;
 	case PROP_OSD_WINDOW_GSD_WACOM_DEVICE:
 		gsd_wacom_osd_window_set_device (osd_window, g_value_get_object (value));
 		break;
@@ -1629,6 +1749,9 @@ gsd_wacom_osd_window_get_property (GObject        *object,
 	case PROP_OSD_WINDOW_MESSAGE:
 		g_value_set_string (value, osd_window->priv->message);
 		break;
+	case PROP_OSD_WINDOW_EDITION_MODE:
+		g_value_set_boolean (value, osd_window->priv->edition_mode);
+		break;
 	case PROP_OSD_WINDOW_GSD_WACOM_DEVICE:
 		g_value_set_object (value, (GObject*) osd_window->priv->pad);
 		break;
@@ -1644,19 +1767,45 @@ gsd_wacom_osd_window_set_active (GsdWacomOSDWindow    *osd_window,
 				 GtkDirectionType      dir,
 				 gboolean              active)
 {
+	GsdWacomOSDWindowPrivate *priv;
 	GList     *l;
 	gchar     *id;
 
 	g_return_if_fail (GSD_IS_WACOM_OSD_WINDOW (osd_window));
 	g_return_if_fail (button != NULL);
 
+	priv = osd_window->priv;
+
+	if (priv->current_button)
+		priv->current_button->priv->visible = TRUE;
+
 	id = get_tablet_button_id_name (button, dir);
-	for (l = osd_window->priv->buttons; l != NULL; l = l->next) {
+	for (l = priv->buttons; l != NULL; l = l->next) {
 		GsdWacomOSDButton *osd_button = l->data;
-		if (MATCH_ID (osd_button, id))
-			gsd_wacom_osd_button_set_active (osd_button, active);
+		if (MATCH_ID (osd_button, id)) {
+			if (priv->edition_mode && button->type != WACOM_TABLET_BUTTON_TYPE_HARDCODED)
+				priv->current_button = osd_button;
+			else
+				gsd_wacom_osd_button_set_active (osd_button, active);
+		}
 	}
 	g_free (id);
+
+	if (priv->edition_mode) {
+		if (priv->current_button)
+			priv->current_button->priv->visible = FALSE;
+
+		if (button->type == WACOM_TABLET_BUTTON_TYPE_HARDCODED)
+			return;
+
+		gtk_widget_hide (priv->editor);
+		gsd_wacom_button_editor_set_button (GSD_WACOM_BUTTON_EDITOR (priv->editor), button, dir);
+		gtk_widget_show (priv->editor);
+
+		redraw_window (osd_window);
+
+		return;
+	}
 }
 
 void
@@ -1685,8 +1834,27 @@ gsd_wacom_osd_window_set_mode (GsdWacomOSDWindow    *osd_window,
 			GsdWacomOSDButton *osd_button = l2->data;
 			gboolean           visible = (tablet_button->idx == mode - 1);
 
-			if (MATCH_ID (osd_button, id_up) || MATCH_ID (osd_button, id_down))
+			if (MATCH_ID (osd_button, id_up) || MATCH_ID (osd_button, id_down)) {
 				gsd_wacom_osd_button_set_visible (osd_button, visible);
+
+				if (osd_window->priv->current_button) {
+					gchar *current_id;
+					GtkDirectionType dir;
+
+					gsd_wacom_button_editor_get_button (GSD_WACOM_BUTTON_EDITOR (osd_window->priv->editor), &dir);
+					current_id = get_tablet_button_id_name (tablet_button, dir);
+
+					if (MATCH_ID (osd_button, current_id) && visible) {
+						osd_window->priv->current_button = osd_button;
+
+						gtk_widget_hide (osd_window->priv->editor);
+						gsd_wacom_button_editor_set_button (GSD_WACOM_BUTTON_EDITOR (osd_window->priv->editor), tablet_button, dir);
+						gtk_widget_show (osd_window->priv->editor);
+					}
+				}
+
+				redraw_window (osd_window);
+			}
 		}
 
 		g_free (id_up);
@@ -1696,6 +1864,14 @@ gsd_wacom_osd_window_set_mode (GsdWacomOSDWindow    *osd_window,
 	g_list_free (list);
 }
 
+gboolean
+gsd_wacom_osd_window_get_edition_mode (GsdWacomOSDWindow *osd_window)
+{
+	g_return_val_if_fail (GSD_IS_WACOM_OSD_WINDOW (osd_window), FALSE);
+
+	return osd_window->priv->edition_mode;
+}
+
 GtkWidget *
 gsd_wacom_osd_window_new (GsdWacomDevice       *pad,
                           const gchar          *message)
@@ -1703,7 +1879,8 @@ gsd_wacom_osd_window_new (GsdWacomDevice       *pad,
 	GsdWacomOSDWindow *osd_window;
 	GdkScreen         *screen;
 	GdkVisual         *visual;
-	GtkWidget         *configure_button, *box;
+	GtkWidget         *button, *box, *overlay;
+	GtkStyleContext   *style_context;
 
 	osd_window = GSD_WACOM_OSD_WINDOW (g_object_new (GSD_TYPE_WACOM_OSD_WINDOW,
 	                                                 "type",              GTK_WINDOW_POPUP,
@@ -1725,20 +1902,50 @@ gsd_wacom_osd_window_new (GsdWacomDevice       *pad,
 		visual = gdk_screen_get_system_visual (screen);
 	gtk_widget_set_visual (GTK_WIDGET (osd_window), visual);
 
+	osd_window->priv->editor = gsd_wacom_button_editor_new ();
+	g_signal_connect (osd_window->priv->editor, "button-edited",
+			  G_CALLBACK (on_button_edited),
+			  osd_window);
+	g_signal_connect (osd_window->priv->editor, "done-editing",
+			  G_CALLBACK (on_button_editing_done),
+			  osd_window);
+
 	g_signal_connect (GTK_WIDGET (osd_window), "realize",
 	                  G_CALLBACK (gsd_wacom_osd_window_realized),
 	                  NULL);
 
-	configure_button = create_osd_configure_button (osd_window);
+	overlay = gtk_overlay_new ();
+	gtk_container_add (GTK_CONTAINER (osd_window), overlay);
 
 	box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-	gtk_container_add (GTK_CONTAINER (osd_window), box);
-	gtk_box_pack_end (GTK_BOX (box), configure_button, FALSE, FALSE, 12);
-	gtk_widget_show_all(box);
+	gtk_container_add (GTK_CONTAINER (overlay), box);
 
-	g_signal_connect (configure_button, "clicked",
-			  G_CALLBACK (on_configure_button_clicked),
+	gtk_overlay_add_overlay (GTK_OVERLAY (overlay), osd_window->priv->editor);
+
+	button = gtk_toggle_button_new_with_label (_("Edit"));
+	g_object_set (button, "halign", GTK_ALIGN_CENTER, NULL);
+
+	style_context = gtk_widget_get_style_context (button);
+	gtk_style_context_add_class (style_context, "osd");
+
+	gtk_box_pack_end (GTK_BOX (box), button, FALSE, FALSE, 12);
+	osd_window->priv->change_mode_button = button;
+
+	gtk_widget_show (overlay);
+	gtk_widget_show (box);
+	gtk_widget_show (osd_window->priv->change_mode_button);
+
+	g_signal_connect (osd_window->priv->change_mode_button, "clicked",
+			  G_CALLBACK (on_change_mode_button_clicked),
 			  osd_window);
+
+	g_signal_connect (overlay, "get-child-position",
+			  G_CALLBACK (on_get_child_position),
+			  osd_window);
+
+	osd_window->priv->regular_mode_message = get_regular_mode_message (osd_window);
+
+	edition_mode_changed (osd_window);
 
 	return GTK_WIDGET (osd_window);
 }
@@ -1774,15 +1981,32 @@ gsd_wacom_osd_window_class_init (GsdWacomOSDWindowClass *klass)
 	                                                      GSD_TYPE_WACOM_DEVICE,
 	                                                      G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE));
 
+	g_object_class_install_property (gobject_class,
+	                                 PROP_OSD_WINDOW_EDITION_MODE,
+	                                 g_param_spec_boolean ("edition-mode",
+							       "Edition mode",
+							       "The edition mode of the OSD Window.",
+							       FALSE,
+							       G_PARAM_READWRITE));
+
+
 	g_type_class_add_private (klass, sizeof (GsdWacomOSDWindowPrivate));
 }
 
 static void
 gsd_wacom_osd_window_init (GsdWacomOSDWindow *osd_window)
 {
+	GtkSettings *settings;
 	osd_window->priv = GSD_WACOM_OSD_WINDOW_GET_PRIVATE (osd_window);
 	osd_window->priv->cursor_timeout = 0;
 	gtk_widget_add_events (GTK_WIDGET (osd_window), GDK_POINTER_MOTION_MASK);
+
+	osd_window->priv->edition_mode = FALSE;
+
+	osd_window->priv->edition_mode_message = get_edition_mode_message (osd_window);
+
+	settings = gtk_settings_get_default ();
+	g_object_set (G_OBJECT (settings), "gtk-application-prefer-dark-theme", TRUE, NULL);
 }
 
 static void
@@ -1801,6 +2025,8 @@ gsd_wacom_osd_window_finalize (GObject *object)
 	cursor_timeout_stop (osd_window);
 	g_clear_object (&priv->handle);
 	g_clear_pointer (&priv->message, g_free);
+	g_clear_pointer (&priv->regular_mode_message, g_free);
+	g_clear_pointer (&priv->edition_mode_message, g_free);
 	if (priv->buttons) {
 		g_list_free_full (priv->buttons, g_object_unref);
 		priv->buttons = NULL;

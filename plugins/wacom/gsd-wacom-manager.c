@@ -920,6 +920,13 @@ osd_window_on_key_release_event (GtkWidget   *widget,
                                  GdkEventKey *event,
                                  GsdWacomManager *manager)
 {
+	gboolean editing_mode;
+
+	/* If it's in edition mode, we don't destroy the window */
+	g_object_get (widget, "edition-mode", &editing_mode, NULL);
+
+	if (editing_mode)
+		return FALSE;
 
 	if (event->type != GDK_KEY_RELEASE)
 		return FALSE;
@@ -936,7 +943,14 @@ osd_window_on_focus_out_event (GtkWidget *widget,
                                GdkEvent  *event,
                                GsdWacomManager *manager)
 {
-	/* If the OSD window loses focus, hide it */
+	GsdWacomOSDWindow *osd_window;
+
+        osd_window = GSD_WACOM_OSD_WINDOW (widget);
+
+	/* If the OSD window loses focus, hide it unless it is in edition mode */
+	if (gsd_wacom_osd_window_get_edition_mode (osd_window))
+		return FALSE;
+
 	osd_window_destroy (manager);
 
 	return FALSE;
@@ -1370,6 +1384,21 @@ filter_button_events (XEvent          *xevent,
                 }
 		set_led (device, wbutton, new_mode);
 		return GDK_FILTER_REMOVE;
+	}
+
+	if (manager->priv->osd_window != NULL) {
+		GsdWacomDevice *osd_window_device;
+		gboolean edition_mode;
+
+		g_object_get (manager->priv->osd_window,
+                              "wacom-device", &osd_window_device,
+                              "edition-mode", &edition_mode, NULL);
+
+		if (osd_window_device && device == osd_window_device && edition_mode) {
+			osd_window_update_viewable (manager, wbutton, dir, xiev);
+
+			return GDK_FILTER_REMOVE;
+		}
 	}
 
 	/* Update OSD window if shown */
