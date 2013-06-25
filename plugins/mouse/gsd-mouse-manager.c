@@ -733,8 +733,9 @@ set_horiz_scroll (GdkDevice *device,
 }
 
 static void
-set_edge_scroll (GdkDevice               *device,
-                 GsdTouchpadScrollMethod  method)
+set_scroll_method (GsdMouseManager         *manager,
+                   GdkDevice               *device,
+                   GsdTouchpadScrollMethod  method)
 {
         int rc;
         XDevice *xdevice;
@@ -745,6 +746,10 @@ set_edge_scroll (GdkDevice               *device,
 
         prop_edge = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Edge Scrolling", False);
         prop_twofinger = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Two-Finger Scrolling", False);
+        if (!prop_twofinger && method == GSD_TOUCHPAD_SCROLL_METHOD_TWO_FINGER_SCROLLING) {
+                method = GSD_TOUCHPAD_SCROLL_METHOD_EDGE_SCROLLING;
+                g_settings_set_enum (manager->priv->touchpad_settings, KEY_SCROLL_METHOD, method);
+        }
 
         if (!prop_edge || !prop_twofinger)
                 return;
@@ -957,7 +962,7 @@ set_mouse_settings (GsdMouseManager *manager,
         set_middle_button (manager, device, g_settings_get_boolean (manager->priv->mouse_settings, KEY_MIDDLE_BUTTON_EMULATION));
 
         set_tap_to_click (device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK), touchpad_left_handed);
-        set_edge_scroll (device, g_settings_get_enum (manager->priv->touchpad_settings, KEY_SCROLL_METHOD));
+        set_scroll_method (manager, device, g_settings_get_enum (manager->priv->touchpad_settings, KEY_SCROLL_METHOD));
         set_horiz_scroll (device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_PAD_HORIZ_SCROLL));
         set_natural_scroll (manager, device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_NATURAL_SCROLL_ENABLED));
         if (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED) == FALSE)
@@ -1089,7 +1094,7 @@ touchpad_callback (GSettings       *settings,
                         set_tap_to_click (device, g_settings_get_boolean (settings, key),
                                           g_settings_get_boolean (manager->priv->touchpad_settings, KEY_LEFT_HANDED));
                 } else if (g_str_equal (key, KEY_SCROLL_METHOD)) {
-                        set_edge_scroll (device, g_settings_get_enum (settings, key));
+                        set_scroll_method (manager, device, g_settings_get_enum (settings, key));
                         set_horiz_scroll (device, g_settings_get_boolean (settings, KEY_PAD_HORIZ_SCROLL));
                 } else if (g_str_equal (key, KEY_PAD_HORIZ_SCROLL)) {
                         set_horiz_scroll (device, g_settings_get_boolean (settings, key));
