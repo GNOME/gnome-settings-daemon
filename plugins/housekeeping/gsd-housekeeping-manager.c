@@ -372,11 +372,19 @@ gboolean
 gsd_housekeeping_manager_start (GsdHousekeepingManager *manager,
                                 GError                **error)
 {
+        gchar *dir;
+
         g_debug ("Starting housekeeping manager");
         gnome_settings_profile_start (NULL);
 
         /* Create ~/.local/ as early as possible */
         g_mkdir_with_parents(g_get_user_data_dir (), 0700);
+
+        /* Create ~/.local/share/applications/, see
+         * https://bugzilla.gnome.org/show_bug.cgi?id=703048 */
+        dir = g_build_filename (g_get_user_data_dir (), "applications", NULL);
+        g_mkdir (dir, 0700);
+        g_free (dir);
 
         gsd_ldsm_setup (FALSE);
 
