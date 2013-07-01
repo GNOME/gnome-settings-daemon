@@ -390,6 +390,7 @@ get_window_scale (GnomeXSettingsManager *manager)
         GdkDisplay *display;
         GdkScreen *screen;
         int width_mm, height_mm;
+        int monitor_scale;
         double dpi_x, dpi_y;
 
 	interface_settings = g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA);
@@ -401,11 +402,12 @@ get_window_scale (GnomeXSettingsManager *manager)
                 gdk_screen_get_monitor_geometry (screen, 0, &rect);
                 width_mm = gdk_screen_get_monitor_width_mm (screen, 0);
                 height_mm = gdk_screen_get_monitor_height_mm (screen, 0);
+                monitor_scale = gdk_screen_get_monitor_scale_factor (screen, 0);
 
                 window_scale = 1;
                 if (width_mm > 0 && height_mm > 0) {
-                        dpi_x = (double)rect.width / (width_mm / 25.4);
-                        dpi_y = (double)rect.height / (height_mm / 25.4);
+                        dpi_x = (double)rect.width * monitor_scale / (width_mm / 25.4);
+                        dpi_y = (double)rect.height * monitor_scale / (height_mm / 25.4);
                         /* We don't completely trust these values so both
                            must be high, and never pick higher ratio than
                            2 automatically */
