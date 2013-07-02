@@ -26,28 +26,6 @@ G_BEGIN_DECLS
 #include <X11/keysym.h>
 #include <X11/extensions/XInput2.h>
 
-typedef struct {
-        guint keysym;
-        guint state;
-        guint *keycodes;
-} Key;
-
-typedef enum {
-        GSD_KEYGRAB_NORMAL           = 0,
-        GSD_KEYGRAB_ALLOW_UNMODIFIED = 1 << 0,
-        GSD_KEYGRAB_SYNCHRONOUS      = 1 << 1
-} GsdKeygrabFlags;
-
-void	        grab_key_unsafe	(Key     *key,
-				 GsdKeygrabFlags flags,
-			         GSList  *screens);
-
-gboolean        match_xi2_key   (Key           *key,
-                                 XIDeviceEvent *event);
-
-gboolean        key_uses_keycode (const Key *key,
-                                  guint keycode);
-
 void            grab_button      (int        deviceid,
                                   gboolean   grab,
                                   GdkScreen *screen);
