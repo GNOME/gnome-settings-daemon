@@ -30,18 +30,19 @@
 #include <string.h>
 #include <gudev/gudev.h>
 
-static gboolean
+#define LED_BRIGHTNESS 127 /* maximum brightness accepted by led on wacom Intuos4 connected over Bluetooth */
+
+static int
 gsd_wacom_led_helper_write (const gchar *filename, gint value, GError **error)
 {
 	gchar *text = NULL;
 	gint retval;
 	gint length;
 	gint fd = -1;
-	gboolean ret = TRUE;
+	int ret = 1;
 
 	fd = open (filename, O_WRONLY);
 	if (fd < 0) {
-		ret = FALSE;
 		g_set_error (error, 1, 0, "failed to open filename: %s", filename);
 		goto out;
 	}
@@ -53,10 +54,10 @@ gsd_wacom_led_helper_write (const gchar *filename, gint value, GError **error)
 	/* write to device file */
 	retval = write (fd, text, length);
 	if (retval != length) {
-		ret = FALSE;
 		g_set_error (error, 1, 0, "writing '%s' to %s failed", text, filename);
 		goto out;
-	}
+	} else
+		ret = 0;
 out:
 	if (fd >= 0)
 		close (fd);
@@ -65,28 +66,76 @@ out:
 }
 
 static char *
-get_led_sysfs_path (GUdevDevice *device,
-		    int          group_num)
+get_led_sys_path (GUdevClient *client,
+		  GUdevDevice *device,
+		  int          group_num,
+		  int          led_num,
+		  gboolean     usb,
+		  int         *write_value)
 {
-	char *status;
-	char *filename;
+	GUdevDevice *parent;
+	char *status = NULL;
+	char *filename = NULL;
+	GUdevDevice *hid_dev;
+	const char *dev_uniq;
+	GList *hid_list;
+	GList *element;
+	const char *dev_hid_uniq;
 
-	status = g_strdup_printf ("status_led%d_select", group_num);
-	filename = g_build_filename (g_udev_device_get_sysfs_path (device), "wacom_led", status, NULL);
+	if (usb) {
+		parent = g_udev_device_get_parent_with_subsystem (device, "usb", "usb_interface");
+		if (!parent)
+			goto no_parent;
+		status = g_strdup_printf ("status_led%d_select", group_num);
+		filename = g_build_filename (g_udev_device_get_sysfs_path (parent), "wacom_led", status, NULL);
+
+		*write_value = led_num;
+	 } else {
+		parent = g_udev_device_get_parent_with_subsystem (device, "input", NULL);
+		if (!parent)
+			goto no_parent;
+		dev_uniq = g_udev_device_get_property (parent, "UNIQ");
+
+		hid_list =  g_udev_client_query_by_subsystem (client, "hid");
+		element = g_list_first(hid_list);
+		while (element) {
+			hid_dev = (GUdevDevice*)element->data;
+			dev_hid_uniq = g_udev_device_get_property (hid_dev, "HID_UNIQ");
+			if (g_strrstr (dev_uniq, dev_hid_uniq)){
+				status = g_strdup_printf ("/leds/%s:selector:%i/brightness", g_udev_device_get_name (hid_dev), led_num);
+				filename = g_build_filename (g_udev_device_get_sysfs_path (hid_dev), status, NULL);
+				break;
+			}
+			element = g_list_next(element);
+		}
+		g_list_free_full(hid_list, g_object_unref);
+
+		*write_value = LED_BRIGHTNESS;
+	}
 	g_free (status);
 
+	g_object_unref (parent);
+
 	return filename;
+
+no_parent:
+	g_debug ("Could not find proper parent device for '%s'",
+		 g_udev_device_get_device_file (device));
+
+	return NULL;
 }
 
 int main (int argc, char **argv)
 {
 	GOptionContext *context;
 	GUdevClient *client;
-	GUdevDevice *device, *parent;
+	GUdevDevice *device;
 	int uid, euid;
 	char *filename;
+	gboolean usb;
+	int value;
 	GError *error = NULL;
-        const char * const subsystems[] = { "input", NULL };
+        const char * const subsystems[] = { "hid", "input", NULL };
         int ret = 1;
 
 	char *path = NULL;
@@ -141,22 +190,16 @@ int main (int argc, char **argv)
 		goto out;
 	}
 
-	if (g_strcmp0 (g_udev_device_get_property (device, "ID_BUS"), "usb") != 0) {
-		/* FIXME handle Bluetooth LEDs too */
-		g_debug ("Non-USB LEDs setting is not supported");
-		goto out;
-	}
+	if (g_strcmp0 (g_udev_device_get_property (device, "ID_BUS"), "usb") != 0)
+		usb = FALSE;
+	else
+		usb = TRUE;
 
-	parent = g_udev_device_get_parent_with_subsystem (device, "usb", "usb_interface");
-	if (parent == NULL) {
-		g_debug ("Could not find parent USB device for '%s'", path);
+	filename = get_led_sys_path (client, device, group_num, led_num, usb, &value);
+	if (!filename)
 		goto out;
-	}
-	g_object_unref (device);
-	device = parent;
 
-	filename = get_led_sysfs_path (device, group_num);
-	if (gsd_wacom_led_helper_write (filename, led_num, &error) == FALSE) {
+	if (gsd_wacom_led_helper_write (filename, value, &error)) {
 		g_debug ("Could not set LED status for '%s': %s", path, error->message);
 		g_error_free (error);
 		g_free (filename);
