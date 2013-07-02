@@ -26,6 +26,7 @@ libgsd_la_SOURCES =		\
 	$(NULL)
 
 libgsd_la_CPPFLAGS = 		\
+	$(AM_CPPFLAGS)			\
 	$(DISABLE_DEPRECATED_CFLAGS)	\
 	$(NULL)
 
