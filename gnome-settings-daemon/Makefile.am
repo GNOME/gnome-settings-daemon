@@ -1,6 +1,6 @@
 NULL =
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	-DDATADIR=\""$(datadir)"\"				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\" 			\
