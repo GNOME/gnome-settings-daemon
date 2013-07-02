@@ -36,7 +36,6 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 #include <gdk/gdk.h>
-#include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 #include <gio/gdesktopappinfo.h>
 #include <gio/gunixfdlist.h>
