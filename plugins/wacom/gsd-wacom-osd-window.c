@@ -1332,25 +1332,6 @@ display_relative_rotation (GsdWacomRotation device_rotation,
 }
 
 static void
-gsd_wacom_osd_window_mapped (GtkWidget *widget,
-                             gpointer   data)
-{
-	GsdWacomOSDWindow *osd_window = GSD_WACOM_OSD_WINDOW (widget);
-
-	g_return_if_fail (GSD_IS_WACOM_OSD_WINDOW (osd_window));
-
-	/* Position the window at its expected postion before moving
-	 * to fullscreen, so the window will be on the right monitor.
-	 */
-	gtk_window_move (GTK_WINDOW (osd_window),
-	                 osd_window->priv->screen_area.x,
-	                 osd_window->priv->screen_area.y);
-
-	gtk_window_fullscreen (GTK_WINDOW (osd_window));
-	gtk_window_set_keep_above (GTK_WINDOW (osd_window), TRUE);
-}
-
-static void
 gsd_wacom_osd_window_realized (GtkWidget *widget,
                                gpointer   data)
 {
@@ -1401,6 +1382,16 @@ gsd_wacom_osd_window_realized (GtkWidget *widget,
 	                         &osd_window->priv->tablet_area.height);
 	if (status == FALSE)
 		osd_window->priv->tablet_area = osd_window->priv->monitor_area;
+
+	/* Position the window at its expected postion before moving
+	 * to fullscreen, so the window will be on the right monitor.
+	 */
+	gtk_window_move (GTK_WINDOW (osd_window),
+	                 osd_window->priv->screen_area.x,
+	                 osd_window->priv->screen_area.y);
+
+	gtk_window_fullscreen (GTK_WINDOW (osd_window));
+	gtk_window_set_keep_above (GTK_WINDOW (osd_window), TRUE);
 }
 
 static void
@@ -1607,9 +1598,6 @@ gsd_wacom_osd_window_new (GsdWacomDevice       *pad,
 
 	g_signal_connect (GTK_WIDGET (osd_window), "realize",
 	                  G_CALLBACK (gsd_wacom_osd_window_realized),
-	                  NULL);
-	g_signal_connect (GTK_WIDGET (osd_window), "map",
-	                  G_CALLBACK (gsd_wacom_osd_window_mapped),
 	                  NULL);
 
 	configure_button = create_osd_configure_button (osd_window);
