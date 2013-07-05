@@ -26,19 +26,6 @@
 #include <gtk/gtk.h>
 
 #include "gcm-edid.h"
-#include "gcm-dmi.h"
-
-static void
-gcm_test_dmi_func (void)
-{
-        GcmDmi *dmi;
-
-        dmi = gcm_dmi_new ();
-        g_assert (dmi != NULL);
-        g_assert (gcm_dmi_get_name (dmi) != NULL);
-        g_assert (gcm_dmi_get_vendor (dmi) != NULL);
-        g_object_unref (dmi);
-}
 
 static void
 gcm_test_edid_func (void)
@@ -103,7 +90,6 @@ main (int argc, char **argv)
         gtk_init (&argc, &argv);
         g_test_init (&argc, &argv, NULL);
 
-        g_test_add_func ("/color/dmi", gcm_test_dmi_func);
         g_test_add_func ("/color/edid", gcm_test_edid_func);
 
         return g_test_run ();

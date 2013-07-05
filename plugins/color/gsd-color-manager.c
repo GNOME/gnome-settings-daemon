@@ -36,7 +36,6 @@
 #include "gnome-settings-profile.h"
 #include "gnome-settings-session.h"
 #include "gsd-color-manager.h"
-#include "gcm-dmi.h"
 #include "gcm-edid.h"
 
 #define GSD_COLOR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_COLOR_MANAGER, GsdColorManagerPrivate))
@@ -51,7 +50,6 @@ struct GsdColorManagerPrivate
         CdClient        *client;
         GSettings       *settings;
         CdIccStore      *icc_store;
-        GcmDmi          *dmi;
         GnomeRRScreen   *x11_screen;
         GHashTable      *edid_cache;
         GdkWindow       *gdk_window;
@@ -310,7 +308,7 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
         /* set model and title */
         data = gcm_edid_get_monitor_name (edid);
         if (data == NULL)
-                data = gcm_dmi_get_name (priv->dmi);
+                data = cd_client_get_system_model (priv->client);
         if (data == NULL)
                 data = "Unknown monitor";
         cd_icc_set_model (icc, NULL, data);
@@ -319,7 +317,7 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
         /* get manufacturer */
         data = gcm_edid_get_vendor_name (edid);
         if (data == NULL)
-                data = gcm_dmi_get_vendor (priv->dmi);
+                data = cd_client_get_system_vendor (priv->client);
         if (data == NULL)
                 data = "Unknown vendor";
         cd_icc_set_manufacturer (icc, NULL, data);
@@ -999,8 +997,8 @@ gcm_session_add_x11_output (GsdColorManager *manager, GnomeRROutput *output)
         /* prefer DMI data for the internal output */
         ret = gnome_rr_output_is_builtin_display (output);
         if (ret) {
-                model = gcm_dmi_get_name (priv->dmi);
-                vendor = gcm_dmi_get_vendor (priv->dmi);
+                model = cd_client_get_system_model (priv->client);
+                vendor = cd_client_get_system_vendor (priv->client);
         }
 
         /* use EDID data if we have it */
@@ -1354,7 +1352,6 @@ gsd_color_manager_stop (GsdColorManager *manager)
         g_clear_object (&manager->priv->settings);
         g_clear_object (&manager->priv->client);
         g_clear_object (&manager->priv->icc_store);
-        g_clear_object (&manager->priv->dmi);
         g_clear_object (&manager->priv->session);
         g_clear_pointer (&manager->priv->edid_cache, g_hash_table_destroy);
         g_clear_pointer (&manager->priv->device_assign_hash, g_hash_table_destroy);
@@ -1862,9 +1859,6 @@ gsd_color_manager_init (GsdColorManager *manager)
                                                           g_free,
                                                           NULL);
 
-        /* use DMI data for internal panels */
-        priv->dmi = gcm_dmi_new ();
-
         priv->settings = g_settings_new ("org.gnome.settings-daemon.plugins.color");
         priv->client = cd_client_new ();
         g_signal_connect (priv->client, "device-added",
@@ -1902,7 +1896,6 @@ gsd_color_manager_finalize (GObject *object)
         g_clear_object (&manager->priv->settings);
         g_clear_object (&manager->priv->client);
         g_clear_object (&manager->priv->icc_store);
-        g_clear_object (&manager->priv->dmi);
         g_clear_object (&manager->priv->session);
         g_clear_pointer (&manager->priv->edid_cache, g_hash_table_destroy);
         g_clear_pointer (&manager->priv->device_assign_hash, g_hash_table_destroy);

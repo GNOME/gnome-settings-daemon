@@ -4,8 +4,6 @@ plugin_LTLIBRARIES = \
 	libcolor.la
 
 libcolor_la_SOURCES = 			\
-	gcm-dmi.c			\
-	gcm-dmi.h			\
 	gcm-edid.c			\
 	gcm-edid.h			\
 	gsd-color-manager.c		\
