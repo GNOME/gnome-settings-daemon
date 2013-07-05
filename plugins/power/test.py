@@ -31,6 +31,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
     '''Test the power plugin'''
 
     def setUp(self):
+        self.check_logind_gnome_session()
         self.daemon_death_expected = False
         self.session_log_write = open(os.path.join(self.workdir, 'gnome-session.log'), 'wb')
         self.session = subprocess.Popen(['gnome-session', '-f',
@@ -164,6 +165,16 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.session_log_write.flush()
         self.session_log_write.close()
         self.session_log.close()
+
+    def check_logind_gnome_session(self):
+        '''Check that gnome-session is built with logind support'''
+
+        path = GLib.find_program_in_path ('gnome-session')
+        assert(path)
+        ldd = subprocess.Popen(['ldd', path], stdout=subprocess.PIPE)
+        out = ldd.communicate()[0]
+        if not 'libsystemd-login.so.0' in out:
+            self.fail('gnome-session is not built with logind support')
 
     def get_status(self):
         return self.obj_session_presence_props.Get('org.gnome.SessionManager.Presence', 'status')
