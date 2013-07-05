@@ -3606,7 +3606,7 @@ out:
                                                      error);
         } else {
                 g_dbus_method_invocation_return_value (invocation,
-                                                       g_variant_new ("(u)",
+                                                       g_variant_new ("(i)",
                                                                       value));
         }
 }
