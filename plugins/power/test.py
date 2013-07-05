@@ -698,6 +698,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         self.check_for_suspend(5)
 
+    # Currently broken https://bugzilla.gnome.org/show_bug.cgi?id=703661
     def test_forced_logout(self):
         '''Test forced logout'''
 
