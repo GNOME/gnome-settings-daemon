@@ -198,11 +198,11 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         Fail after the given timeout.
         '''
-        # check that it request suspend
+        # check that it request logout
         while timeout > 0:
             time.sleep(1)
             timeout -= 1
-            # check that it requested suspend
+            # check that it requested logout
             try:
                 log = self.session_log.read()
             except IOError:
