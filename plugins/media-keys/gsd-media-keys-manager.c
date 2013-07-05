@@ -1851,7 +1851,7 @@ update_screen_cb (GObject             *source_object,
         }
 
         /* update the dialog with the new value */
-        g_variant_get (new_percentage, "(i)", &percentage);
+        g_variant_get (new_percentage, "(u)", &percentage);
         show_osd (manager, "display-brightness-symbolic", NULL, percentage);
         g_variant_unref (new_percentage);
 }
