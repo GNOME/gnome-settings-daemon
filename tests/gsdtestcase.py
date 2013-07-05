@@ -14,6 +14,8 @@ import shutil
 import sys
 from glob import glob
 
+from gi.repository import GLib
+
 try:
     import dbusmock
 except ImportError:
@@ -185,9 +187,8 @@ class GSDTestCase(dbusmock.DBusTestCase):
 
         # some distros like Fedora install Xorg as suid root; copy it into our
         # workdir to drop the suid bit and run it as user
-        which = subprocess.Popen(['which', 'Xorg'], stdout=subprocess.PIPE)
-        out = which.communicate()[0].strip()
-        if which.returncode != 0 or not out:
+        out = GLib.find_program_in_path ('Xorg')
+        if not out:
             sys.stderr.write('ERROR: Xorg not installed\n')
             sys.exit(1)
         xorg = os.path.join(klass.workdir, 'Xorg')
