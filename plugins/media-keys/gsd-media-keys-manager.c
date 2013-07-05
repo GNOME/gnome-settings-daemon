@@ -1837,7 +1837,7 @@ update_screen_cb (GObject             *source_object,
                   gpointer             user_data)
 {
         GError *error = NULL;
-        guint percentage;
+        int percentage;
         GVariant *new_percentage;
         GsdMediaKeysManager *manager = GSD_MEDIA_KEYS_MANAGER (user_data);
 
@@ -1851,8 +1851,9 @@ update_screen_cb (GObject             *source_object,
         }
 
         /* update the dialog with the new value */
-        g_variant_get (new_percentage, "(u)", &percentage);
-        show_osd (manager, "display-brightness-symbolic", NULL, percentage);
+        g_variant_get (new_percentage, "(i)", &percentage);
+        if (percentage >= 0)
+                show_osd (manager, "display-brightness-symbolic", NULL, percentage);
         g_variant_unref (new_percentage);
 }
 
