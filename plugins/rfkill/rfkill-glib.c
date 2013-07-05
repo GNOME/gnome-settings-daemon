@@ -238,7 +238,7 @@ cc_rfkill_glib_open (CcRfkillGlib *rfkill)
 	GList *events;
 
 	g_return_val_if_fail (RFKILL_IS_GLIB (rfkill), -1);
-	g_return_val_if_fail (rfkill->priv->stream, -1);
+	g_return_val_if_fail (rfkill->priv->stream == NULL, -1);
 
 	priv = rfkill->priv;
 
