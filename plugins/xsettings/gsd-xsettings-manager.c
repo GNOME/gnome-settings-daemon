@@ -231,6 +231,14 @@ struct _TranslationEntry {
         TranslationFunc translate;
 };
 
+typedef struct _FixedEntry FixedEntry;
+typedef void (* FixedFunc) (GnomeXSettingsManager *manager,
+                            FixedEntry            *fixed);
+struct _FixedEntry {
+        const char     *xsetting_name;
+        FixedFunc       func;
+};
+
 struct GnomeXSettingsManagerPrivate
 {
         guint              start_idle_id;
@@ -308,6 +316,36 @@ translate_string_string (GnomeXSettingsManager *manager,
         }
 }
 
+static void
+fixed_false_int (GnomeXSettingsManager *manager,
+                 FixedEntry            *fixed)
+{
+        int i;
+
+        for (i = 0; manager->priv->managers [i]; i++) {
+                xsettings_manager_set_int (manager->priv->managers [i], fixed->xsetting_name, FALSE);
+        }
+}
+
+static void
+fixed_true_int (GnomeXSettingsManager *manager,
+                FixedEntry            *fixed)
+{
+        int i;
+
+        for (i = 0; manager->priv->managers [i]; i++) {
+                xsettings_manager_set_int (manager->priv->managers [i], fixed->xsetting_name, TRUE);
+        }
+}
+
+static FixedEntry fixed_entries [] = {
+        { "Gtk/MenuImages",          fixed_false_int },
+        { "Gtk/ButtonImages",        fixed_false_int },
+        { "Gtk/ShowInputMethodMenu", fixed_false_int },
+        { "Gtk/ShowUnicodeMenu",     fixed_false_int },
+        { "Gtk/AutoMnemonics",       fixed_true_int },
+};
+
 static TranslationEntry translations [] = {
         { "org.gnome.settings-daemon.peripherals.mouse", "double-click",   "Net/DoubleClickTime",  translate_int_int },
         { "org.gnome.settings-daemon.peripherals.mouse", "drag-threshold", "Net/DndDragThreshold", translate_int_int },
@@ -329,15 +367,10 @@ static TranslationEntry translations [] = {
         { "org.gnome.desktop.interface", "gtk-im-status-style",    "Gtk/IMStatusStyle",       translate_string_string },
         { "org.gnome.desktop.interface", "gtk-im-module",          "Gtk/IMModule",            translate_string_string },
         { "org.gnome.desktop.interface", "icon-theme",             "Net/IconThemeName",       translate_string_string },
-        { "org.gnome.desktop.interface", "menus-have-icons",       "Gtk/MenuImages",          translate_bool_int },
-        { "org.gnome.desktop.interface", "buttons-have-icons",     "Gtk/ButtonImages",        translate_bool_int },
         { "org.gnome.desktop.interface", "menubar-accel",          "Gtk/MenuBarAccel",        translate_string_string },
         { "org.gnome.desktop.interface", "enable-animations",      "Gtk/EnableAnimations",    translate_bool_int },
         { "org.gnome.desktop.interface", "cursor-theme",           "Gtk/CursorThemeName",     translate_string_string },
         { "org.gnome.desktop.interface", "cursor-size",            "Gtk/CursorThemeSize",     translate_int_int },
-        { "org.gnome.desktop.interface", "show-input-method-menu", "Gtk/ShowInputMethodMenu", translate_bool_int },
-        { "org.gnome.desktop.interface", "show-unicode-menu",      "Gtk/ShowUnicodeMenu",     translate_bool_int },
-        { "org.gnome.desktop.interface", "automatic-mnemonics",    "Gtk/AutoMnemonics",       translate_bool_int },
 
         { "org.gnome.desktop.sound", "theme-name",                 "Net/SoundThemeName",            translate_string_string },
         { "org.gnome.desktop.sound", "event-sounds",               "Net/EnableEventSounds" ,        translate_bool_int },
@@ -877,6 +910,11 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                              SOUND_SETTINGS_SCHEMA, g_settings_new (SOUND_SETTINGS_SCHEMA));
         g_hash_table_insert (manager->priv->settings,
                              PRIVACY_SETTINGS_SCHEMA, g_settings_new (PRIVACY_SETTINGS_SCHEMA));
+
+        for (i = 0; i < G_N_ELEMENTS (fixed_entries); i++) {
+                FixedEntry *fixed = &fixed_entries[i];
+                (* fixed->func) (manager, fixed);
+        }
 
         for (i = 0; i < G_N_ELEMENTS (translations); i++) {
                 GVariant *val;
