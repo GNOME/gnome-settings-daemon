@@ -31,6 +31,8 @@
 #include "gsd-wacom-device.h"
 #include "gsd-wacom-oled.h"
 
+#define MAGIC_BASE64        "base64:"        /*Label starting with base64: is treated as already encoded*/
+
 static void
 oled_scramble_icon (guchar* image)
 {
