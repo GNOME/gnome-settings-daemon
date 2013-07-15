@@ -916,29 +916,6 @@ osd_window_destroy (GsdWacomManager *manager)
 }
 
 static gboolean
-osd_window_on_key_release_event (GtkWidget   *widget,
-                                 GdkEventKey *event,
-                                 GsdWacomManager *manager)
-{
-	gboolean editing_mode;
-
-	/* If it's in edition mode, we don't destroy the window */
-	g_object_get (widget, "edition-mode", &editing_mode, NULL);
-
-	if (editing_mode)
-		return FALSE;
-
-	if (event->type != GDK_KEY_RELEASE)
-		return FALSE;
-	if (event->keyval != GDK_KEY_Escape)
-		return FALSE;
-
-	osd_window_destroy (manager);
-
-	return FALSE;
-}
-
-static gboolean
 osd_window_on_focus_out_event (GtkWidget *widget,
                                GdkEvent  *event,
                                GsdWacomManager *manager)
@@ -988,9 +965,8 @@ osd_window_toggle_visibility (GsdWacomManager *manager,
 
 	widget = gsd_wacom_osd_window_new (device, NULL);
 
-	/* Connect some signals to the OSD window */
-	g_signal_connect (widget, "key-release-event",
-			  G_CALLBACK(osd_window_on_key_release_event), manager);
+	g_object_add_weak_pointer (G_OBJECT (widget), (gpointer *) &manager->priv->osd_window);
+
 	g_signal_connect (widget, "focus-out-event",
 			  G_CALLBACK(osd_window_on_focus_out_event), manager);
 	g_object_add_weak_pointer (G_OBJECT (widget), (gpointer *) &manager->priv->osd_window);

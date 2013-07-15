@@ -1636,6 +1636,32 @@ gsd_wacom_osd_window_realized (GtkWidget *widget,
 	gtk_window_set_keep_above (GTK_WINDOW (osd_window), TRUE);
 }
 
+static gboolean
+gsd_wacom_osd_window_key_release_event (GtkWidget    *widget,
+					GdkEventKey  *event)
+{
+	GsdWacomOSDWindow *osd_window;
+	osd_window = GSD_WACOM_OSD_WINDOW (widget);
+
+	if (event->type != GDK_KEY_RELEASE)
+		goto out;
+
+	if (osd_window->priv->edition_mode) {
+		if (event->keyval == GDK_KEY_Escape && !gtk_widget_get_visible (osd_window->priv->editor))
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (osd_window->priv->change_mode_button),
+						      FALSE);
+
+		goto out;
+	}
+
+	gtk_widget_destroy (widget);
+
+ out:
+	GTK_WIDGET_CLASS (gsd_wacom_osd_window_parent_class)->key_release_event (widget, event);
+
+	return FALSE;
+}
+
 static void
 gsd_wacom_osd_window_set_device (GsdWacomOSDWindow *osd_window,
 				 GsdWacomDevice    *device)
@@ -1965,6 +1991,7 @@ gsd_wacom_osd_window_class_init (GsdWacomOSDWindowClass *klass)
 	widget_class->draw          = gsd_wacom_osd_window_draw;
 	widget_class->motion_notify_event = gsd_wacom_osd_window_motion_notify_event;
 	widget_class->show          = gsd_wacom_osd_window_show;
+	widget_class->key_release_event = gsd_wacom_osd_window_key_release_event;
 
 	g_object_class_install_property (gobject_class,
 	                                 PROP_OSD_WINDOW_MESSAGE,
