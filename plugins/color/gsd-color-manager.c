@@ -1654,11 +1654,19 @@ gcm_session_icc_store_added_cb (CdIccStore *icc_store,
                                 CdIcc *icc,
                                 GsdColorManager *manager)
 {
+        GsdColorManagerPrivate *priv = manager->priv;
+#if CD_CHECK_VERSION(1,1,1)
+        cd_client_create_profile_for_icc (priv->client,
+                                          icc,
+                                          CD_OBJECT_SCOPE_TEMP,
+                                          NULL,
+                                          gcm_session_create_profile_cb,
+                                          manager);
+#else
         const gchar *filename;
         const gchar *checksum;
         gchar *profile_id = NULL;
         GHashTable *profile_props = NULL;
-        GsdColorManagerPrivate *priv = manager->priv;
 
         filename = cd_icc_get_filename (icc);
         g_debug ("profile %s added", filename);
@@ -1684,6 +1692,7 @@ gcm_session_icc_store_added_cb (CdIccStore *icc_store,
         g_free (profile_id);
         if (profile_props != NULL)
                 g_hash_table_unref (profile_props);
+#endif
 }
 
 static void
