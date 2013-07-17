@@ -170,6 +170,7 @@ int main (int argc, char **argv)
 	ret = 0;
 
 out:
+	g_free (path);
 	g_clear_object (&device);
 	g_clear_object (&client);
 
