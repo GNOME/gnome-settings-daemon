@@ -10,6 +10,8 @@ libcolor_la_SOURCES = 			\
 	gsd-color-calibrate.h		\
 	gsd-color-manager.c		\
 	gsd-color-manager.h		\
+	gsd-color-profiles.c		\
+	gsd-color-profiles.h		\
 	gsd-color-plugin.c
 
 libcolor_la_CPPFLAGS = \

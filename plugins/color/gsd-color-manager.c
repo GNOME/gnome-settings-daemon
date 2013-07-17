@@ -36,6 +36,7 @@
 #include "gnome-settings-session.h"
 #include "gsd-color-calibrate.h"
 #include "gsd-color-manager.h"
+#include "gsd-color-profiles.h"
 #include "gcm-edid.h"
 
 #define GSD_COLOR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_COLOR_MANAGER, GsdColorManagerPrivate))
@@ -44,13 +45,13 @@ struct GsdColorManagerPrivate
 {
         GDBusProxy      *session;
         CdClient        *client;
-        CdIccStore      *icc_store;
         GnomeRRScreen   *x11_screen;
         GHashTable      *edid_cache;
         GdkWindow       *gdk_window;
         gboolean         session_is_active;
         GHashTable      *device_assign_hash;
         GsdColorCalibrate *calibrate;
+        GsdColorProfiles  *profiles;
 };
 
 enum {
@@ -1256,18 +1257,6 @@ gcm_session_client_connect_cb (GObject *source_object,
                 goto out;
         }
 
-        /* add profiles */
-        ret = cd_icc_store_search_kind (priv->icc_store,
-                                        CD_ICC_STORE_SEARCH_KIND_USER,
-                                        CD_ICC_STORE_SEARCH_FLAGS_CREATE_LOCATION,
-                                        NULL,
-                                        &error);
-        if (!ret) {
-                g_warning ("failed to add user icc: %s", error->message);
-                g_error_free (error);
-                goto out;
-        }
-
         /* add screens */
         gnome_rr_screen_refresh (priv->x11_screen, &error);
         if (error != NULL) {
@@ -1328,6 +1317,11 @@ gsd_color_manager_start (GsdColorManager *manager,
         if (priv->x11_screen == NULL)
                 goto out;
 
+        /* start the profiles collection */
+        ret = gsd_color_profiles_start (priv->profiles, error);
+        if (!ret)
+                goto out;
+
         cd_client_connect (priv->client,
                            NULL,
                            gcm_session_client_connect_cb,
@@ -1346,135 +1340,10 @@ gsd_color_manager_stop (GsdColorManager *manager)
         g_debug ("Stopping color manager");
 
         g_clear_object (&manager->priv->client);
-        g_clear_object (&manager->priv->icc_store);
         g_clear_object (&manager->priv->session);
         g_clear_pointer (&manager->priv->edid_cache, g_hash_table_destroy);
         g_clear_pointer (&manager->priv->device_assign_hash, g_hash_table_destroy);
         g_clear_object (&manager->priv->x11_screen);
-}
-
-static void
-gcm_session_create_profile_cb (GObject *object,
-                               GAsyncResult *res,
-                               gpointer user_data)
-{
-        CdProfile *profile;
-        GError *error = NULL;
-        CdClient *client = CD_CLIENT (object);
-
-        profile = cd_client_create_profile_finish (client, res, &error);
-        if (profile == NULL) {
-                if (error->domain != CD_CLIENT_ERROR ||
-                    error->code != CD_CLIENT_ERROR_ALREADY_EXISTS)
-                        g_warning ("%s", error->message);
-                g_error_free (error);
-                return;
-        }
-        g_object_unref (profile);
-}
-
-static void
-gcm_session_icc_store_added_cb (CdIccStore *icc_store,
-                                CdIcc *icc,
-                                GsdColorManager *manager)
-{
-        GsdColorManagerPrivate *priv = manager->priv;
-#if CD_CHECK_VERSION(1,1,1)
-        cd_client_create_profile_for_icc (priv->client,
-                                          icc,
-                                          CD_OBJECT_SCOPE_TEMP,
-                                          NULL,
-                                          gcm_session_create_profile_cb,
-                                          manager);
-#else
-        const gchar *filename;
-        const gchar *checksum;
-        gchar *profile_id = NULL;
-        GHashTable *profile_props = NULL;
-
-        filename = cd_icc_get_filename (icc);
-        g_debug ("profile %s added", filename);
-
-        /* generate ID */
-        checksum = cd_icc_get_checksum (icc);
-        profile_id = g_strdup_printf ("icc-%s", checksum);
-        profile_props = g_hash_table_new_full (g_str_hash, g_str_equal,
-                                               NULL, NULL);
-        g_hash_table_insert (profile_props,
-                             CD_PROFILE_PROPERTY_FILENAME,
-                             (gpointer) filename);
-        g_hash_table_insert (profile_props,
-                             CD_PROFILE_METADATA_FILE_CHECKSUM,
-                             (gpointer) checksum);
-        cd_client_create_profile (priv->client,
-                                  profile_id,
-                                  CD_OBJECT_SCOPE_TEMP,
-                                  profile_props,
-                                  NULL,
-                                  gcm_session_create_profile_cb,
-                                  manager);
-        g_free (profile_id);
-        if (profile_props != NULL)
-                g_hash_table_unref (profile_props);
-#endif
-}
-
-static void
-gcm_session_delete_profile_cb (GObject *object,
-                               GAsyncResult *res,
-                               gpointer user_data)
-{
-        gboolean ret;
-        GError *error = NULL;
-        CdClient *client = CD_CLIENT (object);
-
-        ret = cd_client_delete_profile_finish (client, res, &error);
-        if (!ret) {
-                g_warning ("%s", error->message);
-                g_error_free (error);
-        }
-}
-
-static void
-gcm_session_find_profile_by_filename_cb (GObject *object,
-                                         GAsyncResult *res,
-                                         gpointer user_data)
-{
-        GError *error = NULL;
-        CdProfile *profile;
-        CdClient *client = CD_CLIENT (object);
-        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
-
-        profile = cd_client_find_profile_by_filename_finish (client, res, &error);
-        if (profile == NULL) {
-                g_warning ("%s", error->message);
-                g_error_free (error);
-                goto out;
-        }
-
-        /* remove it from colord */
-        cd_client_delete_profile (manager->priv->client,
-                                  profile,
-                                  NULL,
-                                  gcm_session_delete_profile_cb,
-                                  manager);
-out:
-        if (profile != NULL)
-                g_object_unref (profile);
-}
-
-static void
-gcm_session_icc_store_removed_cb (CdIccStore *icc_store,
-                                  CdIcc *icc,
-                                  GsdColorManager *manager)
-{
-        /* find the ID for the filename */
-        g_debug ("filename %s removed", cd_icc_get_filename (icc));
-        cd_client_find_profile_by_filename (manager->priv->client,
-                                            cd_icc_get_filename (icc),
-                                            NULL,
-                                            gcm_session_find_profile_by_filename_cb,
-                                            manager);
 }
 
 static gboolean
@@ -1565,19 +1434,9 @@ gsd_color_manager_init (GsdColorManager *manager)
 
         priv->client = cd_client_new ();
 
-        /* have access to all user profiles */
-        priv->icc_store = cd_icc_store_new ();
-        cd_icc_store_set_load_flags (priv->icc_store,
-                                     CD_ICC_LOAD_FLAGS_FALLBACK_MD5);
-        g_signal_connect (priv->icc_store, "added",
-                          G_CALLBACK (gcm_session_icc_store_added_cb),
-                          manager);
-        g_signal_connect (priv->icc_store, "removed",
-                          G_CALLBACK (gcm_session_icc_store_removed_cb),
-                          manager);
-
         /* setup calibration features */
         priv->calibrate = gsd_color_calibrate_new ();
+        priv->profiles = gsd_color_profiles_new ();
 }
 
 static void
@@ -1592,7 +1451,7 @@ gsd_color_manager_finalize (GObject *object)
 
         g_clear_object (&manager->priv->client);
         g_clear_object (&manager->priv->calibrate);
-        g_clear_object (&manager->priv->icc_store);
+        g_clear_object (&manager->priv->profiles);
         g_clear_object (&manager->priv->session);
         g_clear_pointer (&manager->priv->edid_cache, g_hash_table_destroy);
         g_clear_pointer (&manager->priv->device_assign_hash, g_hash_table_destroy);
