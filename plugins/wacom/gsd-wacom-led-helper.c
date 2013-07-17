@@ -87,6 +87,7 @@ int main (int argc, char **argv)
 	char *filename;
 	GError *error = NULL;
         const char * const subsystems[] = { "input", NULL };
+        int ret = 1;
 
 	char *path = NULL;
 	int group_num = -1;
@@ -131,25 +132,25 @@ int main (int argc, char **argv)
 	device = g_udev_client_query_by_device_file (client, path);
 	if (device == NULL) {
 		g_debug ("Could not find device '%s' in udev database", path);
-		goto bail;
+		goto out;
 	}
 
 	if (g_udev_device_get_property_as_boolean (device, "ID_INPUT_TABLET") == FALSE &&
 	    g_udev_device_get_property_as_boolean (device, "ID_INPUT_TOUCHPAD") == FALSE) {
 		g_debug ("Device '%s' is not a Wacom tablet", path);
-		goto bail;
+		goto out;
 	}
 
 	if (g_strcmp0 (g_udev_device_get_property (device, "ID_BUS"), "usb") != 0) {
 		/* FIXME handle Bluetooth LEDs too */
 		g_debug ("Non-USB LEDs setting is not supported");
-		goto bail;
+		goto out;
 	}
 
 	parent = g_udev_device_get_parent_with_subsystem (device, "usb", "usb_interface");
 	if (parent == NULL) {
 		g_debug ("Could not find parent USB device for '%s'", path);
-		goto bail;
+		goto out;
 	}
 	g_object_unref (device);
 	device = parent;
@@ -159,22 +160,18 @@ int main (int argc, char **argv)
 		g_debug ("Could not set LED status for '%s': %s", path, error->message);
 		g_error_free (error);
 		g_free (filename);
-		goto bail;
+		goto out;
 	}
 	g_free (filename);
 
 	g_debug ("Successfully set LED status for '%s', group %d to %d",
 		 path, group_num, led_num);
 
-	g_object_unref (device);
-	g_object_unref (client);
+	ret = 0;
 
-	return 0;
+out:
+	g_clear_object (&device);
+	g_clear_object (&client);
 
-bail:
-	if (device != NULL)
-		g_object_unref (device);
-	if (client != NULL)
-		g_object_unref (client);
-	return 1;
+	return ret;
 }
