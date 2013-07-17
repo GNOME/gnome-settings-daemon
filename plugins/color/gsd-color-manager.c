@@ -23,7 +23,6 @@
 
 #include <glib/gi18n.h>
 #include <colord.h>
-#include <libnotify/notify.h>
 #include <gdk/gdk.h>
 #include <stdlib.h>
 #include <lcms2.h>
@@ -35,26 +34,23 @@
 #include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
 #include "gnome-settings-session.h"
+#include "gsd-color-calibrate.h"
 #include "gsd-color-manager.h"
 #include "gcm-edid.h"
 
 #define GSD_COLOR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_COLOR_MANAGER, GsdColorManagerPrivate))
 
-#define GCM_SESSION_NOTIFY_TIMEOUT                      30000 /* ms */
-#define GCM_SETTINGS_RECALIBRATE_PRINTER_THRESHOLD      "recalibrate-printer-threshold"
-#define GCM_SETTINGS_RECALIBRATE_DISPLAY_THRESHOLD      "recalibrate-display-threshold"
-
 struct GsdColorManagerPrivate
 {
         GDBusProxy      *session;
         CdClient        *client;
-        GSettings       *settings;
         CdIccStore      *icc_store;
         GnomeRRScreen   *x11_screen;
         GHashTable      *edid_cache;
         GdkWindow       *gdk_window;
         gboolean         session_is_active;
         GHashTable      *device_assign_hash;
+        GsdColorCalibrate *calibrate;
 };
 
 enum {
@@ -1349,284 +1345,12 @@ gsd_color_manager_stop (GsdColorManager *manager)
 {
         g_debug ("Stopping color manager");
 
-        g_clear_object (&manager->priv->settings);
         g_clear_object (&manager->priv->client);
         g_clear_object (&manager->priv->icc_store);
         g_clear_object (&manager->priv->session);
         g_clear_pointer (&manager->priv->edid_cache, g_hash_table_destroy);
         g_clear_pointer (&manager->priv->device_assign_hash, g_hash_table_destroy);
         g_clear_object (&manager->priv->x11_screen);
-}
-
-static void
-gcm_session_exec_control_center (GsdColorManager *manager)
-{
-        gboolean ret;
-        GError *error = NULL;
-        GAppInfo *app_info;
-        GdkAppLaunchContext *launch_context;
-
-        /* setup the launch context so the startup notification is correct */
-        launch_context = gdk_display_get_app_launch_context (gdk_display_get_default ());
-        app_info = g_app_info_create_from_commandline (BINDIR "/gnome-control-center color",
-                                                       "gnome-control-center",
-                                                       G_APP_INFO_CREATE_SUPPORTS_STARTUP_NOTIFICATION,
-                                                       &error);
-        if (app_info == NULL) {
-                g_warning ("failed to create application info: %s",
-                           error->message);
-                g_error_free (error);
-                goto out;
-        }
-
-        /* launch gnome-control-center */
-        ret = g_app_info_launch (app_info,
-                                 NULL,
-                                 G_APP_LAUNCH_CONTEXT (launch_context),
-                                 &error);
-        if (!ret) {
-                g_warning ("failed to launch gnome-control-center: %s",
-                           error->message);
-                g_error_free (error);
-                goto out;
-        }
-out:
-        g_object_unref (launch_context);
-        if (app_info != NULL)
-                g_object_unref (app_info);
-}
-
-static void
-gcm_session_notify_cb (NotifyNotification *notification,
-                       gchar *action,
-                       gpointer user_data)
-{
-        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
-
-        if (g_strcmp0 (action, "recalibrate") == 0) {
-                notify_notification_close (notification, NULL);
-                gcm_session_exec_control_center (manager);
-        }
-}
-
-static void
-closed_cb (NotifyNotification *notification, gpointer data)
-{
-        g_object_unref (notification);
-}
-
-static gboolean
-gcm_session_notify_recalibrate (GsdColorManager *manager,
-                                const gchar *title,
-                                const gchar *message,
-                                CdDeviceKind kind)
-{
-        gboolean ret;
-        GError *error = NULL;
-        NotifyNotification *notification;
-        GsdColorManagerPrivate *priv = manager->priv;
-
-        /* show a bubble */
-        notification = notify_notification_new (title, message, "preferences-color");
-        notify_notification_set_timeout (notification, GCM_SESSION_NOTIFY_TIMEOUT);
-        notify_notification_set_urgency (notification, NOTIFY_URGENCY_LOW);
-        notify_notification_set_app_name (notification, _("Color"));
-
-        /* TRANSLATORS: button: this is to open GCM */
-        notify_notification_add_action (notification,
-                                        "recalibrate",
-                                        _("Recalibrate now"),
-                                        gcm_session_notify_cb,
-                                        priv, NULL);
-
-        g_signal_connect (notification, "closed", G_CALLBACK (closed_cb), NULL);
-        ret = notify_notification_show (notification, &error);
-        if (!ret) {
-                g_warning ("failed to show notification: %s",
-                           error->message);
-                g_error_free (error);
-        }
-        return ret;
-}
-
-static gchar *
-gcm_session_device_get_title (CdDevice *device)
-{
-        const gchar *vendor;
-        const gchar *model;
-
-        model = cd_device_get_model (device);
-        vendor = cd_device_get_vendor (device);
-        if (model != NULL && vendor != NULL)
-                return g_strdup_printf ("%s - %s", vendor, model);
-        if (vendor != NULL)
-                return g_strdup (vendor);
-        if (model != NULL)
-                return g_strdup (model);
-        return g_strdup (cd_device_get_id (device));
-}
-
-static void
-gcm_session_notify_device (GsdColorManager *manager, CdDevice *device)
-{
-        CdDeviceKind kind;
-        const gchar *title;
-        gchar *device_title = NULL;
-        gchar *message;
-        guint threshold;
-        glong since;
-        GsdColorManagerPrivate *priv = manager->priv;
-
-        /* TRANSLATORS: this is when the device has not been recalibrated in a while */
-        title = _("Recalibration required");
-        device_title = gcm_session_device_get_title (device);
-
-        /* check we care */
-        kind = cd_device_get_kind (device);
-        if (kind == CD_DEVICE_KIND_DISPLAY) {
-
-                /* get from GSettings */
-                threshold = g_settings_get_uint (priv->settings,
-                                                 GCM_SETTINGS_RECALIBRATE_DISPLAY_THRESHOLD);
-
-                /* TRANSLATORS: this is when the display has not been recalibrated in a while */
-                message = g_strdup_printf (_("The display '%s' should be recalibrated soon."),
-                                           device_title);
-        } else {
-
-                /* get from GSettings */
-                threshold = g_settings_get_uint (priv->settings,
-                                                 GCM_SETTINGS_RECALIBRATE_PRINTER_THRESHOLD);
-
-                /* TRANSLATORS: this is when the printer has not been recalibrated in a while */
-                message = g_strdup_printf (_("The printer '%s' should be recalibrated soon."),
-                                           device_title);
-        }
-
-        /* check if we need to notify */
-        since = (g_get_real_time () - cd_device_get_modified (device)) / G_USEC_PER_SEC;
-        if (threshold > since)
-                gcm_session_notify_recalibrate (manager, title, message, kind);
-        g_free (device_title);
-        g_free (message);
-}
-
-static void
-gcm_session_profile_connect_cb (GObject *object,
-                                GAsyncResult *res,
-                                gpointer user_data)
-{
-        const gchar *filename;
-        gboolean ret;
-        gchar *basename = NULL;
-        const gchar *data_source;
-        GError *error = NULL;
-        CdProfile *profile = CD_PROFILE (object);
-        GcmSessionAsyncHelper *helper = (GcmSessionAsyncHelper *) user_data;
-        GsdColorManager *manager = GSD_COLOR_MANAGER (helper->manager);
-
-        ret = cd_profile_connect_finish (profile,
-                                         res,
-                                         &error);
-        if (!ret) {
-                g_warning ("failed to connect to profile: %s",
-                           error->message);
-                g_error_free (error);
-                goto out;
-        }
-
-        /* ensure it's a profile generated by us */
-        data_source = cd_profile_get_metadata_item (profile,
-                                                    CD_PROFILE_METADATA_DATA_SOURCE);
-        if (data_source == NULL) {
-
-                /* existing profiles from gnome-color-manager < 3.1
-                 * won't have the extra metadata values added */
-                filename = cd_profile_get_filename (profile);
-                if (filename == NULL)
-                        goto out;
-                basename = g_path_get_basename (filename);
-                if (!g_str_has_prefix (basename, "GCM")) {
-                        g_debug ("not a GCM profile for %s: %s",
-                                 cd_device_get_id (helper->device), filename);
-                        goto out;
-                }
-
-        /* ensure it's been created from a calibration, rather than from
-         * auto-EDID */
-        } else if (g_strcmp0 (data_source,
-                   CD_PROFILE_METADATA_DATA_SOURCE_CALIB) != 0) {
-                g_debug ("not a calib profile for %s",
-                         cd_device_get_id (helper->device));
-                goto out;
-        }
-
-        /* handle device */
-        gcm_session_notify_device (manager, helper->device);
-out:
-        gcm_session_async_helper_free (helper);
-        g_free (basename);
-}
-
-static void
-gcm_session_device_connect_cb (GObject *object,
-                               GAsyncResult *res,
-                               gpointer user_data)
-{
-        gboolean ret;
-        GError *error = NULL;
-        CdDeviceKind kind;
-        CdProfile *profile = NULL;
-        CdDevice *device = CD_DEVICE (object);
-        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
-        GcmSessionAsyncHelper *helper;
-
-        ret = cd_device_connect_finish (device,
-                                        res,
-                                        &error);
-        if (!ret) {
-                g_warning ("failed to connect to device: %s",
-                           error->message);
-                g_error_free (error);
-                goto out;
-        }
-
-        /* check we care */
-        kind = cd_device_get_kind (device);
-        if (kind != CD_DEVICE_KIND_DISPLAY &&
-            kind != CD_DEVICE_KIND_PRINTER)
-                goto out;
-
-        /* ensure we have a profile */
-        profile = cd_device_get_default_profile (device);
-        if (profile == NULL) {
-                g_debug ("no profile set for %s", cd_device_get_id (device));
-                goto out;
-        }
-
-        /* connect to the profile */
-        helper = g_new0 (GcmSessionAsyncHelper, 1);
-        helper->manager = g_object_ref (manager);
-        helper->device = g_object_ref (device);
-        cd_profile_connect (profile,
-                            NULL,
-                            gcm_session_profile_connect_cb,
-                            helper);
-out:
-        if (profile != NULL)
-                g_object_unref (profile);
-}
-
-static void
-gcm_session_device_added_notify_cb (CdClient *client,
-                                    CdDevice *device,
-                                    GsdColorManager *manager)
-{
-        /* connect to the device to get properties */
-        cd_device_connect (device,
-                           NULL,
-                           gcm_session_device_connect_cb,
-                           manager);
 }
 
 static void
@@ -1753,35 +1477,6 @@ gcm_session_icc_store_removed_cb (CdIccStore *icc_store,
                                             manager);
 }
 
-static void
-gcm_session_sensor_added_cb (CdClient *client,
-                             CdSensor *sensor,
-                             GsdColorManager *manager)
-{
-        ca_context_play (ca_gtk_context_get (), 0,
-                         CA_PROP_EVENT_ID, "device-added",
-                         /* TRANSLATORS: this is the application name */
-                         CA_PROP_APPLICATION_NAME, _("GNOME Settings Daemon Color Plugin"),
-                        /* TRANSLATORS: this is a sound description */
-                         CA_PROP_EVENT_DESCRIPTION, _("Color calibration device added"), NULL);
-
-        /* open up the color prefs window */
-        gcm_session_exec_control_center (manager);
-}
-
-static void
-gcm_session_sensor_removed_cb (CdClient *client,
-                               CdSensor *sensor,
-                               GsdColorManager *manager)
-{
-        ca_context_play (ca_gtk_context_get (), 0,
-                         CA_PROP_EVENT_ID, "device-removed",
-                         /* TRANSLATORS: this is the application name */
-                         CA_PROP_APPLICATION_NAME, _("GNOME Settings Daemon Color Plugin"),
-                        /* TRANSLATORS: this is a sound description */
-                         CA_PROP_EVENT_DESCRIPTION, _("Color calibration device removed"), NULL);
-}
-
 static gboolean
 has_changed (char       **strv,
 	     const char  *str)
@@ -1868,17 +1563,7 @@ gsd_color_manager_init (GsdColorManager *manager)
                                                           g_free,
                                                           NULL);
 
-        priv->settings = g_settings_new ("org.gnome.settings-daemon.plugins.color");
         priv->client = cd_client_new ();
-        g_signal_connect (priv->client, "device-added",
-                          G_CALLBACK (gcm_session_device_added_notify_cb),
-                          manager);
-        g_signal_connect (priv->client, "sensor-added",
-                          G_CALLBACK (gcm_session_sensor_added_cb),
-                          manager);
-        g_signal_connect (priv->client, "sensor-removed",
-                          G_CALLBACK (gcm_session_sensor_removed_cb),
-                          manager);
 
         /* have access to all user profiles */
         priv->icc_store = cd_icc_store_new ();
@@ -1890,6 +1575,9 @@ gsd_color_manager_init (GsdColorManager *manager)
         g_signal_connect (priv->icc_store, "removed",
                           G_CALLBACK (gcm_session_icc_store_removed_cb),
                           manager);
+
+        /* setup calibration features */
+        priv->calibrate = gsd_color_calibrate_new ();
 }
 
 static void
@@ -1902,8 +1590,8 @@ gsd_color_manager_finalize (GObject *object)
 
         manager = GSD_COLOR_MANAGER (object);
 
-        g_clear_object (&manager->priv->settings);
         g_clear_object (&manager->priv->client);
+        g_clear_object (&manager->priv->calibrate);
         g_clear_object (&manager->priv->icc_store);
         g_clear_object (&manager->priv->session);
         g_clear_pointer (&manager->priv->edid_cache, g_hash_table_destroy);

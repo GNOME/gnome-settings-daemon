@@ -6,6 +6,8 @@ plugin_LTLIBRARIES = \
 libcolor_la_SOURCES = 			\
 	gcm-edid.c			\
 	gcm-edid.h			\
+	gsd-color-calibrate.c		\
+	gsd-color-calibrate.h		\
 	gsd-color-manager.c		\
 	gsd-color-manager.h		\
 	gsd-color-plugin.c
