@@ -34,6 +34,7 @@
 #include <glib/gi18n.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
+#include <X11/Xatom.h>
 
 #include "gnome-settings-bus.h"
 #include "gnome-settings-profile.h"
@@ -158,6 +159,35 @@ gsd_display_has_extension (const gchar *ext)
 				ext, &op, &event, &error);
 }
 
+static gboolean
+gsd_display_has_llvmpipe (void)
+{
+        glong is_software_rendering_atom;
+        Atom type;
+        gint format;
+        gulong nitems;
+        gulong bytes_after;
+        guchar *data;
+        GdkDisplay *display;
+
+        display = gdk_display_get_default ();
+        is_software_rendering_atom = gdk_x11_get_xatom_by_name_for_display (display, "_GNOME_IS_SOFTWARE_RENDERING");
+        gdk_x11_display_error_trap_push (display);
+        XGetWindowProperty (GDK_DISPLAY_XDISPLAY (display),  gdk_x11_get_default_root_xwindow (),
+                            is_software_rendering_atom,
+                            0, G_MAXLONG, False, XA_CARDINAL, &type, &format, &nitems,
+                            &bytes_after, &data);
+        gdk_x11_display_error_trap_pop_ignored (display);
+
+        if (type == XA_CARDINAL) {
+               glong *is_accelerated_ptr = (glong*) data;
+
+               return (*is_accelerated_ptr == 1);
+        }
+
+        return FALSE;
+}
+
 gboolean
 gsd_remote_display_manager_start (GsdRemoteDisplayManager *manager,
 				  GError               **error)
@@ -182,6 +212,15 @@ gsd_remote_display_manager_start (GsdRemoteDisplayManager *manager,
 	/* Xvnc exposes an extension named VNC-EXTENSION */
 	if (gsd_display_has_extension ("VNC-EXTENSION")) {
 		g_debug ("Disabling animations because VNC-EXTENSION was detected");
+		g_settings_set_boolean (manager->priv->desktop_settings,
+					"enable-animations",
+					FALSE);
+		goto out;
+	}
+
+	/* disable animations if running under llvmpipe */
+	if (gsd_display_has_llvmpipe ()) {
+		g_debug ("Disabling animations because llvmpipe was detected");
 		g_settings_set_boolean (manager->priv->desktop_settings,
 					"enable-animations",
 					FALSE);
