@@ -78,18 +78,6 @@ get_led_sysfs_path (GUdevDevice *device,
 	return filename;
 }
 
-static char *path = NULL;
-static int group_num = -1;
-static int led_num = -1;
-
-const GOptionEntry options[] = {
-	{ "path", '\0', 0, G_OPTION_ARG_FILENAME, &path, "Device path for the Wacom device", NULL },
-	{ "group", '\0', 0, G_OPTION_ARG_INT, &group_num, "Which LED group to set", NULL },
-	{ "led", '\0', 0, G_OPTION_ARG_INT, &led_num, "Which LED to set", NULL },
-	{ NULL}
-};
-
-
 int main (int argc, char **argv)
 {
 	GOptionContext *context;
@@ -99,6 +87,17 @@ int main (int argc, char **argv)
 	char *filename;
 	GError *error = NULL;
         const char * const subsystems[] = { "input", NULL };
+
+	char *path = NULL;
+	int group_num = -1;
+	int led_num = -1;
+
+	const GOptionEntry options[] = {
+		{ "path", '\0', 0, G_OPTION_ARG_FILENAME, &path, "Device path for the Wacom device", NULL },
+		{ "group", '\0', 0, G_OPTION_ARG_INT, &group_num, "Which LED group to set", NULL },
+		{ "led", '\0', 0, G_OPTION_ARG_INT, &led_num, "Which LED to set", NULL },
+		{ NULL}
+	};
 
 	/* get calling process */
 	uid = getuid ();

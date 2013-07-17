@@ -82,18 +82,6 @@ get_oled_sysfs_path (GUdevDevice *device,
 	return filename;
 }
 
-static char *path = NULL;
-static char *buffer = "";
-static int button_num = -1;
-
-const GOptionEntry options[] = {
-	{ "path", '\0', 0, G_OPTION_ARG_FILENAME, &path, "Device path for the Wacom device", NULL },
-	{ "buffer", '\0', 0, G_OPTION_ARG_STRING, &buffer, "Image to set base64 encoded", NULL },
-	{ "button", '\0', 0, G_OPTION_ARG_INT, &button_num, "Which button icon to set", NULL },
-	{ NULL}
-};
-
-
 int main (int argc, char **argv)
 {
 	GOptionContext *context;
@@ -103,6 +91,17 @@ int main (int argc, char **argv)
 	char *filename;
 	GError *error = NULL;
 	const char * const subsystems[] = { "input", NULL };
+
+	char *path = NULL;
+	char *buffer = "";
+	int button_num = -1;
+
+	const GOptionEntry options[] = {
+		{ "path", '\0', 0, G_OPTION_ARG_FILENAME, &path, "Device path for the Wacom device", NULL },
+		{ "buffer", '\0', 0, G_OPTION_ARG_STRING, &buffer, "Image to set base64 encoded", NULL },
+		{ "button", '\0', 0, G_OPTION_ARG_INT, &button_num, "Which button icon to set", NULL },
+		{ NULL}
+	};
 
 	/* get calling process */
 	uid = getuid ();
