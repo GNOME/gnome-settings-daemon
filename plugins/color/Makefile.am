@@ -12,6 +12,8 @@ libcolor_la_SOURCES = 			\
 	gsd-color-manager.h		\
 	gsd-color-profiles.c		\
 	gsd-color-profiles.h		\
+	gsd-color-x11.c			\
+	gsd-color-x11.h			\
 	gsd-color-plugin.c
 
 libcolor_la_CPPFLAGS = \
