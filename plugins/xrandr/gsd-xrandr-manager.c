@@ -487,7 +487,7 @@ apply_configuration_from_filename (GsdXrandrManager *manager,
  * We just return whether setting the configuration succeeded.
  */
 static gboolean
-apply_configuration (GsdXrandrManager *manager, GnomeRRConfig *config, guint32 timestamp, gboolean show_error, gboolean save_configuration)
+apply_configuration (GsdXrandrManager *manager, GnomeRRConfig *config, guint32 timestamp, gboolean save_configuration)
 {
         GsdXrandrManagerPrivate *priv = manager->priv;
         GError *error;
@@ -505,8 +505,6 @@ apply_configuration (GsdXrandrManager *manager, GnomeRRConfig *config, guint32 t
         } else {
                 log_msg ("Could not switch to the following configuration (timestamp %u): %s\n", timestamp, error->message);
                 log_configuration (config);
-                if (show_error)
-                        error_message (manager, _("Could not switch the monitor configuration"), error, NULL);
                 g_error_free (error);
         }
 
@@ -1332,15 +1330,10 @@ generate_fn_f7_configs (GsdXrandrManager *mgr)
 static void
 error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to_display, const char *secondary_text)
 {
-        GtkWidget *dialog;
-
-        dialog = gtk_message_dialog_new (NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
-                                         "%s", primary_text);
-        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), "%s",
-                                                  error_to_display ? error_to_display->message : secondary_text);
-
-        gtk_dialog_run (GTK_DIALOG (dialog));
-        gtk_widget_destroy (dialog);
+    g_warning("%s\n%s\n%s",
+              primary_text? primary_text : "",
+              secondary_text? secondary_text : "",
+              error_to_display? error_to_display->message : "");
 }
 
 static void
@@ -1376,7 +1369,6 @@ handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
                 g_error_free (error);
 
                 log_msg ("%s\n", str);
-                error_message (mgr, str, NULL, _("Trying to switch the monitor configuration anyway."));
                 g_free (str);
         }
 
@@ -1432,7 +1424,7 @@ handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
                 if (timestamp < server_timestamp)
                         timestamp = server_timestamp;
 
-                success = apply_configuration (mgr, priv->fn_f7_configs[mgr->priv->current_fn_f7_config], timestamp, TRUE, TRUE);
+                success = apply_configuration (mgr, priv->fn_f7_configs[mgr->priv->current_fn_f7_config], timestamp, TRUE);
 
                 if (success) {
                         log_msg ("Successfully switched to configuration (timestamp %u):\n", timestamp);
@@ -1632,7 +1624,7 @@ handle_rotate_windows (GsdXrandrManager *mgr,
         int num_allowed_rotations;
         GnomeRRRotation allowed_rotations;
         GnomeRRRotation next_rotation;
-        gboolean success, show_error;
+        gboolean success;
 
         g_debug ("Handling XF86RotateWindows with rotation %d", rotation);
 
@@ -1656,17 +1648,15 @@ handle_rotate_windows (GsdXrandrManager *mgr,
                         g_debug ("No rotations are supported other than the current one; XF86RotateWindows key will do nothing");
                         goto out;
                 }
-                show_error = TRUE;
         } else {
                 next_rotation = rotation;
-                show_error = FALSE;
         }
 
         /* Rotate */
 
         gnome_rr_output_info_set_rotation (rotatable_output_info, next_rotation);
 
-        success = apply_configuration (mgr, current, timestamp, show_error, TRUE);
+        success = apply_configuration (mgr, current, timestamp, TRUE);
         if (success)
                 rotate_touchscreens (mgr, next_rotation);
 
@@ -1715,7 +1705,7 @@ auto_configure_outputs (GsdXrandrManager *manager, guint32 timestamp)
         g_debug ("xrandr auto-configure");
         config = make_default_setup (manager);
         if (config) {
-                apply_configuration (manager, config, timestamp, TRUE, FALSE);
+                apply_configuration (manager, config, timestamp, TRUE);
                 g_object_unref (config);
         } else {
                 g_debug ("No applicable configuration found during auto-configure");
@@ -1898,7 +1888,7 @@ apply_default_boot_configuration (GsdXrandrManager *mgr, guint32 timestamp)
                 /* We don't save the configuration (the "false" parameter to the following function) because we don't want to
                  * install a user-side setting when *here* we are using a system-default setting.
                  */
-                apply_configuration (mgr, config, timestamp, TRUE, FALSE);
+                apply_configuration (mgr, config, timestamp, TRUE);
                 g_object_unref (config);
         }
 }
@@ -1998,7 +1988,7 @@ turn_off_laptop_display (GsdXrandrManager *manager, guint32 timestamp)
                  * wouldn't want to restore a configuration with the laptop's display turned off, if at some
                  * point later the user booted his laptop with the lid open.
                  */
-                apply_configuration (manager, config, timestamp, FALSE, FALSE);
+                apply_configuration (manager, config, timestamp, FALSE);
         }
 
         g_object_unref (config);
