@@ -1421,6 +1421,46 @@ display_relative_rotation (GsdWacomRotation device_rotation,
 }
 
 static void
+grab_keyboard (GsdWacomOSDWindow *self)
+{
+	GdkDevice        *kbd = NULL;
+	GdkWindow        *gdk_window;
+	GdkDisplay       *display;
+	GdkDeviceManager *device_manager;
+	GList            *devices, *l;
+
+	gdk_window = gtk_widget_get_window (GTK_WIDGET (self));
+	display = gtk_widget_get_display (GTK_WIDGET (self));
+	device_manager = gdk_display_get_device_manager (display);
+	devices = gdk_device_manager_list_devices (device_manager, GDK_DEVICE_TYPE_MASTER);
+
+	for (l = devices; l != NULL; l = l->next) {
+		GdkDevice *current_device;
+
+		current_device = l->data;
+		if (gdk_device_get_source (current_device) == GDK_SOURCE_KEYBOARD) {
+			kbd = current_device;
+			break;
+		}
+	}
+	g_list_free (devices);
+
+	g_assert (kbd);
+
+	gdk_device_grab (kbd, gdk_window, GDK_OWNERSHIP_WINDOW, FALSE,
+			 GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK,
+			 NULL, GDK_CURRENT_TIME);
+}
+
+static void
+gsd_wacom_osd_window_show (GtkWidget *widget)
+{
+	GTK_WIDGET_CLASS (gsd_wacom_osd_window_parent_class)->show (widget);
+
+	grab_keyboard (GSD_WACOM_OSD_WINDOW (widget));
+}
+
+static void
 gsd_wacom_osd_window_realized (GtkWidget *widget,
                                gpointer   data)
 {
@@ -1666,7 +1706,7 @@ gsd_wacom_osd_window_new (GsdWacomDevice       *pad,
 	GtkWidget         *configure_button, *box;
 
 	osd_window = GSD_WACOM_OSD_WINDOW (g_object_new (GSD_TYPE_WACOM_OSD_WINDOW,
-	                                                 "type",              GTK_WINDOW_TOPLEVEL,
+	                                                 "type",              GTK_WINDOW_POPUP,
 	                                                 "skip-pager-hint",   TRUE,
 	                                                 "skip-taskbar-hint", TRUE,
 	                                                 "focus-on-map",      TRUE,
@@ -1717,6 +1757,7 @@ gsd_wacom_osd_window_class_init (GsdWacomOSDWindowClass *klass)
 	gobject_class->finalize     = gsd_wacom_osd_window_finalize;
 	widget_class->draw          = gsd_wacom_osd_window_draw;
 	widget_class->motion_notify_event = gsd_wacom_osd_window_motion_notify_event;
+	widget_class->show          = gsd_wacom_osd_window_show;
 
 	g_object_class_install_property (gobject_class,
 	                                 PROP_OSD_WINDOW_MESSAGE,
