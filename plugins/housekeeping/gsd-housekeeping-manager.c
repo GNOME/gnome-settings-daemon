@@ -412,21 +412,9 @@ gsd_housekeeping_manager_stop (GsdHousekeepingManager *manager)
 
         g_debug ("Stopping housekeeping manager");
 
-        if (manager->priv->bus_cancellable != NULL) {
-                g_cancellable_cancel (manager->priv->bus_cancellable);
-                g_object_unref (manager->priv->bus_cancellable);
-                manager->priv->bus_cancellable = NULL;
-        }
-
-        if (manager->priv->introspection_data) {
-                g_dbus_node_info_unref (manager->priv->introspection_data);
-                manager->priv->introspection_data = NULL;
-        }
-
-        if (manager->priv->connection != NULL) {
-                g_object_unref (manager->priv->connection);
-                manager->priv->connection = NULL;
-        }
+        g_clear_object (&p->bus_cancellable);
+        g_clear_pointer (&p->introspection_data, g_dbus_node_info_unref);
+        g_clear_object (&p->connection);
 
         if (p->short_term_cb) {
                 g_source_remove (p->short_term_cb);
@@ -444,10 +432,9 @@ gsd_housekeeping_manager_stop (GsdHousekeepingManager *manager)
                         do_cleanup (manager);
                 }
 
-                g_object_unref (p->settings);
-                p->settings = NULL;
         }
 
+        g_clear_object (&p->settings);
         gsd_ldsm_clean ();
 }
 

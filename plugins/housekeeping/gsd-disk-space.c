@@ -1037,33 +1037,13 @@ gsd_ldsm_clean (void)
                 g_source_remove (ldsm_timeout_id);
         ldsm_timeout_id = 0;
 
-        if (ldsm_notified_hash)
-                g_hash_table_destroy (ldsm_notified_hash);
-        ldsm_notified_hash = NULL;
-
-        if (ldsm_monitor)
-                g_object_unref (ldsm_monitor);
-        ldsm_monitor = NULL;
-
-        if (settings != NULL) {
-                g_object_unref (settings);
-        }
-
+        g_clear_pointer (&ldsm_notified_hash, g_hash_table_destroy);
+        g_clear_object (&ldsm_monitor);
+        g_clear_object (&settings);
         g_clear_object (&privacy_settings);
-
-        if (dialog) {
-                gtk_widget_destroy (GTK_WIDGET (dialog));
-                dialog = NULL;
-        }
-
-        if (notification != NULL) {
-                notify_notification_close (notification, NULL);
-                notification = NULL;
-        }
-
-        if (ignore_paths) {
-                g_slist_foreach (ignore_paths, (GFunc) g_free, NULL);
-                g_slist_free (ignore_paths);
-        }
+        g_clear_object (&dialog);
+        g_clear_pointer (&notification, notify_notification_close);
+        g_slist_free_full (ignore_paths, g_free);
+        ignore_paths = NULL;
 }
 

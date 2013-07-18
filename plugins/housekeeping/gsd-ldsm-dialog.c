@@ -267,13 +267,10 @@ gsd_ldsm_dialog_finalize (GObject *object)
         g_return_if_fail (GSD_IS_LDSM_DIALOG (object));
 
         self = GSD_LDSM_DIALOG (object);
-	
-        if (self->priv->partition_name)
-                g_free (self->priv->partition_name);
-	
-        if (self->priv->mount_path)
-                g_free (self->priv->mount_path);
-	
+
+        g_clear_pointer (&self->priv->partition_name, g_free);
+        g_clear_pointer (&self->priv->mount_path, g_free);
+
         G_OBJECT_CLASS (gsd_ldsm_dialog_parent_class)->finalize (object);
 }
 
