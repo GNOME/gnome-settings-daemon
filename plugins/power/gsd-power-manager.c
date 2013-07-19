@@ -1011,24 +1011,22 @@ engine_coldplug (GsdPowerManager *manager)
         if (!ret) {
                 g_warning ("failed to get device list: %s", error->message);
                 g_error_free (error);
-                goto out;
+                return FALSE;
         }
 
         engine_recalculate_state (manager);
 
         /* add to database */
         array = up_client_get_devices (manager->priv->up_client);
-        if (array == NULL)
-                goto out;
 
-        for (i=0;i<array->len;i++) {
+        for (i = 0 ; array != NULL && i < array->len ; i++) {
                 device = g_ptr_array_index (array, i);
                 engine_device_add (manager, device);
                 engine_check_recall (manager, device);
         }
-out:
-        if (array != NULL)
-                g_ptr_array_unref (array);
+
+        g_clear_pointer (&array, g_ptr_array_unref);
+
         /* never repeat */
         return FALSE;
 }
