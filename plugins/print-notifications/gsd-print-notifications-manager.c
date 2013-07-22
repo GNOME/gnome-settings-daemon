@@ -655,8 +655,8 @@ on_cups_notification (GDBusConnection *connection,
 
                                                         data = g_new0 (TimeoutData, 1);
                                                         data->printer_name = g_strdup (printer_name);
-                                                        data->primary_text = g_strdup (statuses_first[j]);
-                                                        data->secondary_text = g_strdup_printf (statuses_second[j], printer_name);
+                                                        data->primary_text = g_strdup ( _(statuses_first[j]));
+                                                        data->secondary_text = g_strdup_printf ( _(statuses_second[j]), printer_name);
                                                         data->manager = manager;
 
                                                         data->timeout_id = g_timeout_add_seconds (CONNECTING_TIMEOUT, show_notification, data);
@@ -664,9 +664,9 @@ on_cups_notification (GDBusConnection *connection,
                                                 }
                                                 else {
                                                         ReasonData *reason_data;
-                                                        gchar *second_row = g_strdup_printf (statuses_second[j], printer_name);
+                                                        gchar *second_row = g_strdup_printf ( _(statuses_second[j]), printer_name);
 
-                                                        notification = notify_notification_new (statuses_first[j],
+                                                        notification = notify_notification_new ( _(statuses_first[j]),
                                                                                                 second_row,
                                                                                                 "printer-symbolic");
                                                         notify_notification_set_app_name (notification, _("Printers"));
