@@ -1898,6 +1898,15 @@ gsd_wacom_osd_window_get_edition_mode (GsdWacomOSDWindow *osd_window)
 	return osd_window->priv->edition_mode;
 }
 
+void
+gsd_wacom_osd_window_set_edition_mode (GsdWacomOSDWindow *osd_window, gboolean edition_mode)
+{
+	g_return_if_fail (GSD_IS_WACOM_OSD_WINDOW (osd_window));
+
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (osd_window->priv->change_mode_button),
+				      edition_mode);
+}
+
 GtkWidget *
 gsd_wacom_osd_window_new (GsdWacomDevice       *pad,
                           const gchar          *message)

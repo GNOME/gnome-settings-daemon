@@ -59,6 +59,8 @@ void                      gsd_wacom_osd_window_set_mode        (GsdWacomOSDWindo
                                                                 gint                      group_id,
                                                                 gint                      mode);
 gboolean                  gsd_wacom_osd_window_get_edition_mode (GsdWacomOSDWindow        *osd_window);
+void                      gsd_wacom_osd_window_set_edition_mode (GsdWacomOSDWindow        *osd_window,
+                                                                 gboolean                  edition_mode);
 GtkWidget *               gsd_wacom_osd_window_new             (GsdWacomDevice           *pad,
                                                                 const gchar              *message);
 
