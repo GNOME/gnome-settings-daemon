@@ -49,6 +49,10 @@
 
 #define GSD_CURSOR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_CURSOR_MANAGER, GsdCursorManagerPrivate))
 
+#define GSD_CURSOR_DBUS_NAME "org.gnome.SettingsDaemon.Cursor"
+#define GSD_CURSOR_DBUS_PATH "/org/gnome/SettingsDaemon/Cursor"
+#define GSD_CURSOR_DBUS_INTERFACE "org.gnome.SettingsDaemon.Cursor"
+
 struct GsdCursorManagerPrivate
 {
         guint added_id;
@@ -56,7 +60,21 @@ struct GsdCursorManagerPrivate
         guint changed_id;
         gboolean cursor_shown;
         GHashTable *monitors;
+
+        gboolean show_osk;
+        guint dbus_own_name_id;
+        guint dbus_register_object_id;
+        GCancellable *cancellable;
+        GDBusConnection *dbus_connection;
+        GDBusNodeInfo *dbus_introspection;
 };
+
+static const gchar introspection_xml[] =
+        "<node>"
+        "  <interface name='org.gnome.SettingsDaemon.Cursor'>"
+        "    <property name='ShowOSK' type='b' access='read'/>"
+        "  </interface>"
+        "</node>";
 
 static void     gsd_cursor_manager_class_init  (GsdCursorManagerClass *klass);
 static void     gsd_cursor_manager_init        (GsdCursorManager      *cursor_manager);
@@ -126,6 +144,39 @@ set_cursor_visibility (GsdCursorManager *manager,
 }
 
 static void
+set_osk_enabled (GsdCursorManager *manager,
+                 gboolean          enabled)
+{
+        GError *error = NULL;
+        GVariantBuilder *builder;
+
+        if (manager->priv->show_osk == enabled)
+                return;
+
+        g_debug ("Switching the OSK to %s", enabled ? "enabled" : "disabled");
+        manager->priv->show_osk = enabled;
+
+        builder = g_variant_builder_new (G_VARIANT_TYPE_ARRAY);
+        g_variant_builder_add (builder,
+                               "{sv}",
+                               "ShowOSK",
+                               g_variant_new_boolean (enabled));
+        g_dbus_connection_emit_signal (manager->priv->dbus_connection,
+                                       NULL,
+                                       GSD_CURSOR_DBUS_PATH,
+                                       "org.freedesktop.DBus.Properties",
+                                       "PropertiesChanged",
+                                       g_variant_new ("(sa{sv}as)",
+                                                      GSD_CURSOR_DBUS_INTERFACE,
+                                                      builder,
+                                                      NULL),
+                                       &error);
+
+        if (error)
+                g_warning ("Error while emitting D-Bus signal: %s", error->message);
+}
+
+static void
 monitor_became_active (GnomeIdleMonitor *monitor,
                        guint             watch_id,
                        gpointer          user_data)
@@ -138,6 +189,8 @@ monitor_became_active (GnomeIdleMonitor *monitor,
         g_debug ("Device %d '%s' became active", gdk_x11_device_get_id (device), gdk_device_get_name (device));
         set_cursor_visibility (manager,
                                gdk_device_get_source (device) != GDK_SOURCE_TOUCHSCREEN);
+        set_osk_enabled (manager,
+                         gdk_device_get_source (device) == GDK_SOURCE_TOUCHSCREEN);
 
         /* Remove the device from the watch */
         g_hash_table_remove (manager->priv->monitors, device);
@@ -271,6 +324,89 @@ add_all_devices (GsdCursorManager *manager,
         return ret;
 }
 
+static GVariant *
+handle_dbus_get_property (GDBusConnection  *connection,
+                          const gchar      *sender,
+                          const gchar      *object_path,
+                          const gchar      *interface_name,
+                          const gchar      *property_name,
+                          GError          **error,
+                          GsdCursorManager *manager)
+{
+        GVariant *ret;
+
+        ret = NULL;
+        if (g_strcmp0 (property_name, "ShowOSK") == 0)
+                ret = g_variant_new_boolean (manager->priv->show_osk);
+
+        return ret;
+}
+
+static void
+got_session_bus (GObject          *source,
+                 GAsyncResult     *res,
+                 GsdCursorManager *manager)
+{
+        GsdCursorManagerPrivate *priv;
+        GDBusConnection *connection;
+        GError *error = NULL;
+        const GDBusInterfaceVTable vtable = {
+                NULL,
+                (GDBusInterfaceGetPropertyFunc)handle_dbus_get_property,
+                NULL,
+        };
+
+        connection = g_bus_get_finish (res, &error);
+        if (!connection) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Couldn't get session bus: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+
+        priv = manager->priv;
+        priv->dbus_connection = connection;
+
+        priv->dbus_register_object_id = g_dbus_connection_register_object (priv->dbus_connection,
+                                                                           GSD_CURSOR_DBUS_PATH,
+                                                                           priv->dbus_introspection->interfaces[0],
+                                                                           &vtable,
+                                                                           manager,
+                                                                           NULL,
+                                                                           &error);
+        if (!priv->dbus_register_object_id) {
+                g_warning ("Error registering object: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+
+        priv->dbus_own_name_id = g_bus_own_name_on_connection (priv->dbus_connection,
+                                                               GSD_CURSOR_DBUS_NAME,
+                                                               G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL);
+}
+
+static void
+register_manager_dbus (GsdCursorManager *manager)
+{
+        GError *error = NULL;
+
+        manager->priv->dbus_introspection = g_dbus_node_info_new_for_xml (introspection_xml, &error);
+        if (error) {
+                g_warning ("Error creating introspection data: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+
+        g_bus_get (G_BUS_TYPE_SESSION,
+                   manager->priv->cancellable,
+                   (GAsyncReadyCallback) got_session_bus,
+                   manager);
+}
+
 gboolean
 gsd_cursor_manager_start (GsdCursorManager  *manager,
                           GError           **error)
@@ -310,6 +446,9 @@ gsd_cursor_manager_start (GsdCursorManager  *manager,
          * root window cursor, as the window manager shouldn't do that. */
         set_cursor_visibility (manager, FALSE);
 
+        manager->priv->cancellable = g_cancellable_new ();
+        register_manager_dbus (manager);
+
         gnome_settings_profile_end (NULL);
 
         return TRUE;
@@ -339,8 +478,16 @@ gsd_cursor_manager_stop (GsdCursorManager *manager)
                 manager->priv->changed_id = 0;
         }
 
-        if (manager->priv->cursor_shown == FALSE)
+        if (manager->priv->cursor_shown == FALSE) {
                 set_cursor_visibility (manager, TRUE);
+                set_osk_enabled (manager, FALSE);
+        }
+
+        g_cancellable_cancel (manager->priv->cancellable);
+        g_clear_object (&manager->priv->cancellable);
+
+        g_clear_pointer (&manager->priv->dbus_introspection, g_dbus_node_info_unref);
+        g_clear_object (&manager->priv->dbus_connection);
 }
 
 static void
@@ -362,6 +509,8 @@ gsd_cursor_manager_init (GsdCursorManager *manager)
                                                          g_direct_equal,
                                                          NULL,
                                                          g_object_unref);
+
+        manager->priv->show_osk = FALSE;
 }
 
 static void
