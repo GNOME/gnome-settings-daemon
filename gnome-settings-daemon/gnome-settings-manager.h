@@ -63,7 +63,6 @@ GType                  gnome_settings_manager_get_type   (void);
 GnomeSettingsManager * gnome_settings_manager_new        (void);
 gboolean               gnome_settings_manager_start      (GnomeSettingsManager *manager,
                                                           GError              **error);
-void                   gnome_settings_manager_stop       (GnomeSettingsManager *manager);
 
 G_END_DECLS
 

@@ -64,13 +64,6 @@ timed_exit_cb (void)
 }
 
 static void
-stop_manager (GnomeSettingsManager *manager)
-{
-        gnome_settings_manager_stop (manager);
-        gtk_main_quit ();
-}
-
-static void
 on_session_over (GDBusProxy *proxy,
                  gchar      *sender_name,
                  gchar      *signal_name,
@@ -79,7 +72,7 @@ on_session_over (GDBusProxy *proxy,
 {
         if (g_strcmp0 (signal_name, "SessionOver") == 0) {
                 g_debug ("Got a SessionOver signal - stopping");
-                stop_manager (manager);
+                gtk_main_quit ();
         }
 }
 
@@ -109,7 +102,7 @@ client_proxy_signal_cb (GDBusProxy *proxy,
                 respond_to_end_session (proxy);
         } else if (g_strcmp0 (signal_name, "Stop") == 0) {
                 g_debug ("Got Stop signal");
-                stop_manager (manager);
+                gtk_main_quit ();
         }
 }
 
@@ -369,9 +362,6 @@ name_lost_handler (GDBusConnection *connection,
 
         g_warning ("Name taken or bus went away - shutting down");
 
-        if (manager != NULL)
-                stop_manager (manager);
-
         gtk_main_quit ();
 
 }
@@ -485,9 +475,7 @@ main (int argc, char *argv[])
                 name_id = 0;
         }
 
-        if (manager != NULL) {
-                g_object_unref (manager);
-        }
+        g_clear_object (&manager);
 
         g_debug ("SettingsDaemon finished");
         gnome_settings_profile_end (NULL);

@@ -421,9 +421,13 @@ gnome_settings_manager_start (GnomeSettingsManager *manager,
         return ret;
 }
 
-void
-gnome_settings_manager_stop (GnomeSettingsManager *manager)
+static void
+gnome_settings_manager_dispose (GObject *object)
 {
+        GnomeSettingsManager *manager;
+
+        manager = GNOME_SETTINGS_MANAGER (object);
+
         g_debug ("Stopping settings manager");
 
         _unload_all (manager);
@@ -446,16 +450,6 @@ gnome_settings_manager_stop (GnomeSettingsManager *manager)
         g_clear_object (&manager->priv->settings);
         g_clear_object (&manager->priv->pnp_ids);
         g_clear_object (&manager->priv->connection);
-}
-
-static void
-gnome_settings_manager_dispose (GObject *object)
-{
-        GnomeSettingsManager *manager;
-
-        manager = GNOME_SETTINGS_MANAGER (object);
-
-        gnome_settings_manager_stop (manager);
 
         G_OBJECT_CLASS (gnome_settings_manager_parent_class)->dispose (object);
 }
