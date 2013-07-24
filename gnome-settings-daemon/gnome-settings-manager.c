@@ -70,7 +70,6 @@ struct GnomeSettingsManagerPrivate
 
 static void     gnome_settings_manager_class_init  (GnomeSettingsManagerClass *klass);
 static void     gnome_settings_manager_init        (GnomeSettingsManager      *settings_manager);
-static void     gnome_settings_manager_finalize    (GObject                   *object);
 
 G_DEFINE_TYPE (GnomeSettingsManager, gnome_settings_manager, G_TYPE_OBJECT)
 
@@ -450,7 +449,6 @@ gnome_settings_manager_class_init (GnomeSettingsManagerClass *klass)
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
         object_class->dispose = gnome_settings_manager_dispose;
-        object_class->finalize = gnome_settings_manager_finalize;
 
         g_type_class_add_private (klass, sizeof (GnomeSettingsManagerPrivate));
 }
@@ -460,21 +458,6 @@ gnome_settings_manager_init (GnomeSettingsManager *manager)
 {
 
         manager->priv = GNOME_SETTINGS_MANAGER_GET_PRIVATE (manager);
-}
-
-static void
-gnome_settings_manager_finalize (GObject *object)
-{
-        GnomeSettingsManager *manager;
-
-        g_return_if_fail (object != NULL);
-        g_return_if_fail (GNOME_IS_SETTINGS_MANAGER (object));
-
-        manager = GNOME_SETTINGS_MANAGER (object);
-
-        g_return_if_fail (manager->priv != NULL);
-
-        G_OBJECT_CLASS (gnome_settings_manager_parent_class)->finalize (object);
 }
 
 GnomeSettingsManager *
