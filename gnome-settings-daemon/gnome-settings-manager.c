@@ -62,6 +62,9 @@ struct GnomeSettingsManagerPrivate
         guint                       owner_id;
         GDBusNodeInfo              *introspection_data;
         GDBusConnection            *connection;
+        guint                       dbus_register_object_id;
+        GCancellable               *cancellable;
+
         GSettings                  *settings;
         char                      **whitelist;
         GnomePnpIds                *pnp_ids;
@@ -348,19 +351,21 @@ on_bus_gotten (GObject             *source_object,
 
         connection = g_bus_get_finish (res, &error);
         if (connection == NULL) {
-                g_warning ("Could not get session bus: %s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Could not get session bus: %s", error->message);
                 g_error_free (error);
                 return;
         }
         manager->priv->connection = connection;
 
-        g_dbus_connection_register_object (connection,
-                                           GSD_DBUS_PATH,
-                                           manager->priv->introspection_data->interfaces[0],
-                                           NULL,
-                                           NULL,
-                                           NULL,
-                                           NULL);
+        manager->priv->dbus_register_object_id = g_dbus_connection_register_object (connection,
+                                                                                    GSD_DBUS_PATH,
+                                                                                    manager->priv->introspection_data->interfaces[0],
+                                                                                    NULL,
+                                                                                    NULL,
+                                                                                    NULL,
+                                                                                    NULL);
+        g_assert (manager->priv->dbus_register_object_id > 0);
 }
 
 static void
@@ -369,8 +374,10 @@ register_manager (GnomeSettingsManager *manager)
         manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
         g_assert (manager->priv->introspection_data != NULL);
 
+        manager->priv->cancellable = g_cancellable_new ();
+
         g_bus_get (G_BUS_TYPE_SESSION,
-                   NULL,
+                   manager->priv->cancellable,
                    (GAsyncReadyCallback) on_bus_gotten,
                    manager);
 }
@@ -421,14 +428,24 @@ gnome_settings_manager_stop (GnomeSettingsManager *manager)
 
         _unload_all (manager);
 
+        if (manager->priv->cancellable) {
+                g_cancellable_cancel (manager->priv->cancellable);
+                g_clear_object (&manager->priv->cancellable);
+        }
         if (manager->priv->owner_id > 0) {
                 g_bus_unown_name (manager->priv->owner_id);
                 manager->priv->owner_id = 0;
+        }
+        if (manager->priv->dbus_register_object_id > 0) {
+                g_dbus_connection_unregister_object (manager->priv->connection,
+                                                     manager->priv->dbus_register_object_id);
+                manager->priv->dbus_register_object_id = 0;
         }
 
         g_clear_pointer (&manager->priv->whitelist, g_strfreev);
         g_clear_object (&manager->priv->settings);
         g_clear_object (&manager->priv->pnp_ids);
+        g_clear_object (&manager->priv->connection);
 }
 
 static void
