@@ -2104,6 +2104,17 @@ do_action (GsdMediaKeysManager *manager,
         return FALSE;
 }
 
+static guint
+get_timestamp (void)
+{
+	GdkWindow *window;
+	GdkDisplayManager *manager;
+
+	manager = gdk_display_manager_get ();
+	window = gdk_x11_window_lookup_for_display (gdk_display_manager_get_default_display(manager), GDK_ROOT_WINDOW());
+	return gdk_x11_get_server_time (window);
+}
+
 static void
 on_accelerator_activated (ShellKeyGrabber     *grabber,
                           guint                accel_id,
@@ -2111,6 +2122,7 @@ on_accelerator_activated (ShellKeyGrabber     *grabber,
                           GsdMediaKeysManager *manager)
 {
         guint i;
+        guint timestamp;
 
         for (i = 0; i < manager->priv->keys->len; i++) {
                 MediaKey *key;
@@ -2120,10 +2132,12 @@ on_accelerator_activated (ShellKeyGrabber     *grabber,
                 if (key->accel_id != accel_id)
                         continue;
 
+                timestamp = get_timestamp ();
+
                 if (key->key_type == CUSTOM_KEY)
-                        do_custom_action (manager, deviceid, key, GDK_CURRENT_TIME);
+                        do_custom_action (manager, deviceid, key, timestamp);
                 else
-                        do_action (manager, deviceid, key->key_type, GDK_CURRENT_TIME);
+                        do_action (manager, deviceid, key->key_type, timestamp);
                 return;
         }
 }
