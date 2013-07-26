@@ -46,6 +46,7 @@
 #include "gsd-enums.h"
 #include "gsd-input-helper.h"
 #include "gsd-keygrab.h"
+#include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
 #include "gsd-wacom-manager.h"
 #include "gsd-wacom-device.h"
@@ -81,6 +82,21 @@
 #define SHOW_CALIBRATION_TIMEOUT          2000
 #define UNKNOWN_DEVICE_NOTIFICATION_TIMEOUT 15000
 
+#define GSD_WACOM_DBUS_PATH GSD_DBUS_PATH "/Wacom"
+#define GSD_WACOM_DBUS_NAME GSD_DBUS_NAME ".Wacom"
+
+static const gchar introspection_xml[] =
+"<node name='/org/gnome/SettingsDaemon/Wacom'>"
+"  <interface name='org.gnome.SettingsDaemon.Wacom'>"
+"    <method name='SetOSDVisibility'>"
+"      <arg name='device_id' direction='in' type='u'/>"
+"      <arg name='visible' direction='in' type='b'/>"
+"      <arg name='edition_mode' direction='in' type='b'/>"
+"    </method>"
+"  </interface>"
+"</node>";
+
+
 struct GsdWacomManagerPrivate
 {
         guint start_idle_id;
@@ -101,6 +117,13 @@ struct GsdWacomManagerPrivate
         guint notification_timeout_src_id;
         NotifyNotification *calibration_notification;
         GsdWacomDevice *calibration_device;
+
+        /* DBus */
+        GDBusNodeInfo   *introspection_data;
+        GDBusConnection *dbus_connection;
+        GCancellable    *dbus_cancellable;
+        guint            dbus_register_object_id;
+        guint            name_id;
 };
 
 static void     gsd_wacom_manager_class_init  (GsdWacomManagerClass *klass);
@@ -109,6 +132,14 @@ static void     gsd_wacom_manager_finalize    (GObject              *object);
 
 static void     on_notification_closed (NotifyNotification *notification,
                                         GsdWacomManager    *manager);
+
+static gboolean osd_window_toggle_visibility (GsdWacomManager *manager,
+                                              GsdWacomDevice  *device);
+
+static GsdWacomDevice * device_id_to_device (GsdWacomManager *manager,
+                                             int              deviceid);
+
+static void             osd_window_destroy  (GsdWacomManager *manager);
 
 G_DEFINE_TYPE (GsdWacomManager, gsd_wacom_manager, G_TYPE_OBJECT)
 
@@ -177,6 +208,73 @@ open_device (GsdWacomDevice *device)
 	return xdev;
 }
 
+static gboolean
+set_osd_visibility (GsdWacomManager *manager,
+		    guint            device_id,
+		    gboolean         visible,
+		    gboolean         edition_mode)
+{
+	GsdWacomDevice *device;
+	gboolean ret = TRUE;
+
+	if (!visible) {
+		osd_window_destroy (manager);
+		return TRUE;
+	}
+
+	device = device_id_to_device (manager, device_id);
+	if (!device)
+		return FALSE;
+
+	/* Check whether we need to destroy the old OSD window */
+	if (manager->priv->osd_window &&
+	    device != gsd_wacom_osd_window_get_device (GSD_WACOM_OSD_WINDOW (manager->priv->osd_window)))
+		osd_window_destroy (manager);
+
+	/* Do we need to create a new OSD or are we reusing one? */
+	if (manager->priv->osd_window == NULL)
+		ret = osd_window_toggle_visibility (manager, device);
+
+	gsd_wacom_osd_window_set_edition_mode (GSD_WACOM_OSD_WINDOW (manager->priv->osd_window),
+					       edition_mode);
+
+	return ret;
+}
+
+static void
+handle_method_call (GDBusConnection       *connection,
+                    const gchar           *sender,
+                    const gchar           *object_path,
+                    const gchar           *interface_name,
+                    const gchar           *method_name,
+                    GVariant              *parameters,
+                    GDBusMethodInvocation *invocation,
+                    gpointer               data)
+{
+	GsdWacomManager *self = GSD_WACOM_MANAGER (data);
+
+	if (g_strcmp0 (method_name, "SetOSDVisibility") == 0) {
+		guint32		   device_id;
+		gboolean	   visible, edition_mode;
+
+		g_variant_get (parameters, "(ubb)", &device_id, &visible, &edition_mode);
+		if (!set_osd_visibility (self, device_id, visible, edition_mode)) {
+			g_dbus_method_invocation_return_error_literal (invocation,
+								       G_IO_ERROR,
+								       G_IO_ERROR_FAILED,
+								       "Failed to show the OSD for this device");
+		} else {
+			g_dbus_method_invocation_return_value (invocation, NULL);
+		}
+	}
+}
+
+static const GDBusInterfaceVTable interface_vtable =
+{
+	handle_method_call,
+	NULL, /* Get Property */
+	NULL, /* Set Property */
+};
 
 static void
 wacom_set_property (GsdWacomDevice *device,
@@ -1699,6 +1797,63 @@ init_screen (GsdWacomManager *manager)
                           manager);
 }
 
+static void
+on_bus_gotten (GObject		   *source_object,
+	       GAsyncResult	   *res,
+	       GsdWacomManager	   *manager)
+{
+	GDBusConnection	       *connection;
+	GError		       *error = NULL;
+	GsdWacomManagerPrivate *priv;
+
+	priv = manager->priv;
+
+	connection = g_bus_get_finish (res, &error);
+
+	if (connection == NULL) {
+		if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+			g_warning ("Couldn't get session bus: %s", error->message);
+		g_error_free (error);
+		return;
+	}
+
+	priv->dbus_connection = connection;
+	priv->dbus_register_object_id = g_dbus_connection_register_object (connection,
+									   GSD_WACOM_DBUS_PATH,
+									   priv->introspection_data->interfaces[0],
+									   &interface_vtable,
+									   manager,
+									   NULL,
+									   &error);
+
+	if (priv->dbus_register_object_id == 0) {
+		g_warning ("Error registering object: %s", error->message);
+		g_error_free (error);
+		return;
+	}
+
+        manager->priv->name_id = g_bus_own_name_on_connection (connection,
+                                                               GSD_WACOM_DBUS_NAME,
+                                                               G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL);
+}
+
+static void
+register_manager (GsdWacomManager *manager)
+{
+        manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        manager->priv->dbus_cancellable = g_cancellable_new ();
+        g_assert (manager->priv->introspection_data != NULL);
+
+        g_bus_get (G_BUS_TYPE_SESSION,
+                   manager->priv->dbus_cancellable,
+                   (GAsyncReadyCallback) on_bus_gotten,
+                   manager);
+}
+
 gboolean
 gsd_wacom_manager_start (GsdWacomManager *manager,
                          GError         **error)
@@ -1716,6 +1871,7 @@ gsd_wacom_manager_start (GsdWacomManager *manager,
         }
 
         init_screen (manager);
+        register_manager (manager_object);
 
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) gsd_wacom_manager_idle_cb, manager);
 
@@ -1731,6 +1887,12 @@ gsd_wacom_manager_stop (GsdWacomManager *manager)
         GList *l;
 
         g_debug ("Stopping wacom manager");
+
+        if (p->dbus_register_object_id) {
+                g_dbus_connection_unregister_object (p->dbus_connection,
+                                                     p->dbus_register_object_id);
+                p->dbus_register_object_id = 0;
+        }
 
         if (p->device_manager != NULL) {
                 GList *devices;
