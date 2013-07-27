@@ -16,7 +16,7 @@ $(dbus_built_sources) : Makefile.am org.gnome.SettingsDaemon.Smartcard.xml
 	--c-namespace GsdSmartcardService \
 	--c-generate-object-manager \
 	--generate-c-code org.gnome.SettingsDaemon.Smartcard \
-	org.gnome.SettingsDaemon.Smartcard.xml
+	$(srcdir)/org.gnome.SettingsDaemon.Smartcard.xml
 
 gsd-smartcard-enum-types.h: gsd-smartcard-enum-types.h.in $(libsmartcard_headers)
 	$(AM_V_GEN) $(GLIB_MKENUMS) --template $^ > $@
