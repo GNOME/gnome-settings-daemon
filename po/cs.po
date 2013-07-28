@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-07-24 18:07+0000\n"
-"PO-Revision-Date: 2013-07-24 23:21+0200\n"
+"POT-Creation-Date: 2013-07-27 17:47+0000\n"
+"PO-Revision-Date: 2013-07-28 13:16+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -1246,7 +1246,7 @@ msgid "Clipboard plugin"
 msgstr "Zásuvný modul schránky"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:1
-#: ../plugins/color/gsd-color-manager.c:1433
+#: ../plugins/color/gsd-color-calibrate.c:140
 msgid "Color"
 msgstr "Barva"
 
@@ -1254,40 +1254,40 @@ msgstr "Barva"
 msgid "Color plugin"
 msgstr "Zásuvný modul barev"
 
-#: ../plugins/color/gsd-color-manager.c:1438
+#: ../plugins/color/gsd-color-calibrate.c:145
 msgid "Recalibrate now"
 msgstr "Překalibrovat nyní"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1481
+#: ../plugins/color/gsd-color-calibrate.c:188
 msgid "Recalibration required"
 msgstr "Vyžadováno překlalibrování"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1493
+#: ../plugins/color/gsd-color-calibrate.c:200
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "Obrazovka „%s“ by měla být v dohledné době překalibrována."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1502
+#: ../plugins/color/gsd-color-calibrate.c:209
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "Tiskárna „%s“ by měla být v dohledné době překalibrována."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:1764
-#: ../plugins/color/gsd-color-manager.c:1780
+#: ../plugins/color/gsd-color-calibrate.c:347
+#: ../plugins/color/gsd-color-calibrate.c:363
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "Zásuvný modul barev pro démona nastavení GNOME"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:1766
+#: ../plugins/color/gsd-color-calibrate.c:349
 msgid "Color calibration device added"
 msgstr "Zařízení pro kalibraci barev přidáno"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:1782
+#: ../plugins/color/gsd-color-calibrate.c:365
 msgid "Color calibration device removed"
 msgstr "Zařízení pro kalibraci barev odebráno"
 
@@ -2800,34 +2800,9 @@ msgstr "Zmocnění šetřiče obrazovky"
 msgid "Proxy FreeDesktop screensaver inhibition to gnome-session"
 msgstr "Zmocnit šetřič obrazovky FreeDesktop, aby blokoval sezení Gnome"
 
-#: ../plugins/smartcard/gsd-smartcard-manager.c:529
-msgid "received error or hang up from event source"
-msgstr "obdržena chyba nebo zablokování od zdroje události"
-
-#: ../plugins/smartcard/gsd-smartcard-manager.c:663
-#, c-format
-msgid "NSS security system could not be initialized"
-msgstr "Bezpečností systém NSS nemohl být spuštěn"
-
-#: ../plugins/smartcard/gsd-smartcard-manager.c:791
-#, c-format
-msgid "no suitable smartcard driver could be found"
-msgstr "nenalezen žádný použitelný ovladač čipové karty"
-
-#: ../plugins/smartcard/gsd-smartcard-manager.c:805
-#, c-format
-msgid "smartcard driver '%s' could not be loaded"
-msgstr "ovladač čipové karty „%s“ nelze načíst"
-
-#: ../plugins/smartcard/gsd-smartcard-manager.c:877
-#, c-format
-msgid "could not watch for incoming card events - %s"
-msgstr "nelze sledovat příchozí události karty – %s"
-
-#: ../plugins/smartcard/gsd-smartcard-manager.c:1275
-#, c-format
-msgid "encountered unexpected error while waiting for smartcard events"
-msgstr "při čekání na události čipové karty došlo k neočekávané chybě"
+#: ../plugins/smartcard/gsd-smartcard-service.c:224
+msgid "User was not logged in with smartcard."
+msgstr "Uživatel nebyl pomocí čipové karty přihlášen."
 
 #: ../plugins/smartcard/smartcard.gnome-settings-plugin.in.h:1
 msgid "Smartcard"
@@ -3203,30 +3178,30 @@ msgstr "Dolní tlačítko č. %d"
 msgid "New shortcut…"
 msgstr "Nová klávesová zkratka…"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1003
+#: ../plugins/wacom/gsd-wacom-manager.c:1101
 #, c-format
 msgid "The \"%s\" tablet may not work as expected."
 msgstr "Tablet „%s“ nemusí pracovat podle očekávání."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1004
+#: ../plugins/wacom/gsd-wacom-manager.c:1102
 msgid "Unknown Tablet Connected"
 msgstr "Připojen neznámý tablet"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1007
-#: ../plugins/wacom/gsd-wacom-manager.c:1582
+#: ../plugins/wacom/gsd-wacom-manager.c:1105
+#: ../plugins/wacom/gsd-wacom-manager.c:1680
 msgid "Wacom Settings"
 msgstr "Nastavení tabletu Wacom"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1575
+#: ../plugins/wacom/gsd-wacom-manager.c:1673
 #, c-format
 msgid "Tablet %s needs to be calibrated."
 msgstr "Tablet %s by měl být zkalibrován."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1577
+#: ../plugins/wacom/gsd-wacom-manager.c:1675
 msgid "Calibration needed"
 msgstr "Je zapotřebí kalibrace"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1591
+#: ../plugins/wacom/gsd-wacom-manager.c:1689
 msgid "Calibrate"
 msgstr "Kalibrovat"
 
@@ -3270,7 +3245,7 @@ msgstr "Zmáčkněte tlačítko, které se má nastavit"
 msgid "(Esc to cancel)"
 msgstr "(pomocí Esc zrušíte)"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1951
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1960
 msgid "Edit"
 msgstr "Upravit"
 
