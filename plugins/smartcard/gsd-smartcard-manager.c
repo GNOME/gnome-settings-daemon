@@ -31,6 +31,9 @@
 #include "gsd-smartcard-enum-types.h"
 #include "gsd-smartcard-utils.h"
 
+#include "org.gnome.ScreenSaver.h"
+#include "org.gnome.SessionManager.h"
+
 #include <prerror.h>
 #include <prinit.h>
 #include <nss.h>
@@ -40,6 +43,8 @@
 
 #define GSD_SMARTCARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_SMARTCARD_MANAGER, GsdSmartcardManagerPrivate))
 
+#define GSD_SESSION_MANAGER_LOGOUT_MODE_FORCE 2
+
 struct GsdSmartcardManagerPrivate
 {
         guint start_idle_id;
@@ -47,16 +52,22 @@ struct GsdSmartcardManagerPrivate
         GList *smartcards_watch_tasks;
         GCancellable *cancellable;
 
+        GsdSessionManager *session_manager;
+        GsdScreenSaver *screen_saver;
+
         GSettings *settings;
 
         guint32 nss_is_loaded : 1;
 };
 
 #define CONF_SCHEMA "org.gnome.settings-daemon.peripherals.smartcard"
+#define KEY_REMOVE_ACTION "removal-action"
 
 static void     gsd_smartcard_manager_class_init  (GsdSmartcardManagerClass *klass);
 static void     gsd_smartcard_manager_init        (GsdSmartcardManager      *self);
 static void     gsd_smartcard_manager_finalize    (GObject                  *object);
+static void     lock_screen                       (GsdSmartcardManager *self);
+static void     log_out                           (GsdSmartcardManager *self);
 G_DEFINE_TYPE (GsdSmartcardManager, gsd_smartcard_manager, G_TYPE_OBJECT)
 G_DEFINE_QUARK (gsd-smartcard-manager-error, gsd_smartcard_manager_error)
 G_LOCK_DEFINE_STATIC (gsd_smartcards_watch_tasks);
@@ -221,7 +232,6 @@ watch_one_event_from_driver (GsdSmartcardManager       *self,
                                       PK11_ReferenceSlot (card));
 
                 gsd_smartcard_service_sync_token (priv->service, card, cancellable);
-
         } else if (old_card == NULL) {
                 /* If the just removed smartcard is not known to us then
                  * ignore the removal event. NSS sends a synthentic removal
@@ -556,12 +566,23 @@ on_all_drivers_activated (GsdSmartcardManager *self,
 {
         GError *error = NULL;
         gboolean driver_activated;
+        PK11SlotInfo *login_token;
 
         driver_activated = activate_all_drivers_async_finish (self, result, &error);
 
         if (!driver_activated) {
                 g_task_return_error (task, error);
                 return;
+        }
+
+        login_token = gsd_smartcard_manager_get_login_token (self);
+
+        if (login_token || g_getenv ("PKCS11_LOGIN_TOKEN_NAME") != NULL) {
+                /* The card used to log in was removed before login completed.
+                 * Do removal action immediately
+                 */
+                if (!login_token || !PK11_IsPresent (login_token))
+                        gsd_smartcard_manager_do_remove_action (self);
         }
 
         g_task_return_boolean (task, TRUE);
@@ -703,6 +724,153 @@ gsd_smartcard_manager_stop (GsdSmartcardManager *self)
 
         g_clear_object (&priv->settings);
         g_clear_object (&priv->cancellable);
+        g_clear_object (&priv->session_manager);
+        g_clear_object (&priv->screen_saver);
+}
+
+static void
+on_got_screen_saver_to_lock_screen (GObject             *object,
+                                    GAsyncResult        *result,
+                                    GsdSmartcardManager *self)
+{
+        GsdSmartcardManagerPrivate *priv = self->priv;
+        GsdScreenSaver *screen_saver;
+        GError *error = NULL;
+
+        screen_saver = gsd_screen_saver_proxy_new_for_bus_finish (result, &error);
+
+        if (screen_saver == NULL) {
+                g_warning ("Couldn't find screen saver service to lock screen: %s",
+                           error->message);
+                g_error_free (error);
+                return;
+        }
+
+        if (priv->screen_saver != NULL)
+                g_object_unref (screen_saver);
+
+        priv->screen_saver = screen_saver;
+
+        lock_screen (self);
+}
+
+static void
+on_screen_locked (GsdScreenSaver      *screen_saver,
+                  GAsyncResult        *result,
+                  GsdSmartcardManager *self)
+{
+        gboolean is_locked;
+        GError *error = NULL;
+
+        is_locked = gsd_screen_saver_call_lock_finish (screen_saver, result, &error);
+
+        if (!is_locked) {
+                g_warning ("Couldn't lock screen: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+}
+
+static void
+lock_screen (GsdSmartcardManager *self)
+{
+        GsdSmartcardManagerPrivate *priv = self->priv;
+
+        if (priv->screen_saver == NULL) {
+                gsd_screen_saver_proxy_new_for_bus (G_BUS_TYPE_SESSION,
+                                                    G_DBUS_PROXY_FLAGS_NONE,
+                                                    "org.gnome.ScreenSaver",
+                                                    "/org/gnome/ScreenSaver",
+                                                    priv->cancellable,
+                                                    (GAsyncReadyCallback) on_got_screen_saver_to_lock_screen,
+                                                    self);
+                return;
+        }
+
+        gsd_screen_saver_call_lock (priv->screen_saver,
+                                    priv->cancellable,
+                                    (GAsyncReadyCallback) on_screen_locked,
+                                    self);
+}
+
+static void
+on_got_session_manager_to_log_out (GObject             *object,
+                                   GAsyncResult        *result,
+                                   GsdSmartcardManager *self)
+{
+        GsdSmartcardManagerPrivate *priv = self->priv;
+        GsdSessionManager *session_manager;
+        GError *error = NULL;
+
+        session_manager = gsd_session_manager_proxy_new_for_bus_finish (result, &error);
+
+        if (session_manager == NULL) {
+                g_warning ("Couldn't find session manager service to log out: %s",
+                           error->message);
+                g_error_free (error);
+                return;
+        }
+
+        if (priv->session_manager != NULL)
+                g_object_unref (session_manager);
+
+        priv->session_manager = session_manager;
+
+        log_out (self);
+}
+
+static void
+on_logged_out (GsdSessionManager   *session_manager,
+               GAsyncResult        *result,
+               GsdSmartcardManager *self)
+{
+        gboolean is_logged_out;
+        GError *error = NULL;
+
+        is_logged_out = gsd_session_manager_call_logout_finish (session_manager, result, &error);
+
+        if (!is_logged_out) {
+                g_warning ("Couldn't log out: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+}
+
+static void
+log_out (GsdSmartcardManager *self)
+{
+        GsdSmartcardManagerPrivate *priv = self->priv;
+
+        if (priv->session_manager == NULL) {
+                gsd_session_manager_proxy_new_for_bus (G_BUS_TYPE_SESSION,
+                                                       G_DBUS_PROXY_FLAGS_NONE,
+                                                       "org.gnome.SessionManager",
+                                                       "/org/gnome/SessionManager",
+                                                       priv->cancellable,
+                                                       (GAsyncReadyCallback) on_got_session_manager_to_log_out,
+                                                       self);
+                return;
+        }
+
+        gsd_session_manager_call_logout (priv->session_manager,
+                                         GSD_SESSION_MANAGER_LOGOUT_MODE_FORCE,
+                                         priv->cancellable,
+                                         (GAsyncReadyCallback) on_logged_out,
+                                         self);
+}
+
+void
+gsd_smartcard_manager_do_remove_action (GsdSmartcardManager *self)
+{
+        GsdSmartcardManagerPrivate *priv = self->priv;
+        char *remove_action;
+
+        remove_action = g_settings_get_string (priv->settings, KEY_REMOVE_ACTION);
+
+        if (strcmp (remove_action, "lock-screen") == 0)
+                lock_screen (self);
+        else if (strcmp (remove_action, "force-logout") == 0)
+                log_out (self);
 }
 
 static PK11SlotInfo *

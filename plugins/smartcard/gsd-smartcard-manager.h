@@ -76,6 +76,7 @@ void                    gsd_smartcard_manager_stop        (GsdSmartcardManager  
 PK11SlotInfo *          gsd_smartcard_manager_get_login_token (GsdSmartcardManager *manager);
 GList *                 gsd_smartcard_manager_get_inserted_tokens (GsdSmartcardManager *manager,
                                                                    gsize               *num_tokens);
+void                    gsd_smartcard_manager_do_remove_action (GsdSmartcardManager *manager);
 
 G_END_DECLS
 

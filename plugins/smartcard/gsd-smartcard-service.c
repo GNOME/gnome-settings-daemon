@@ -505,6 +505,17 @@ synchronize_token_now (GsdSmartcardService *self,
         g_debug (" Previously used to login: %s", is_login_card? "yes" : "no");
         g_debug ("===============================\n");
 
+        if (!is_present && is_login_card) {
+                gboolean was_present;
+
+                g_object_get (G_OBJECT (interface),
+                              "is-inserted", &was_present,
+                              NULL);
+
+                if (was_present)
+                        gsd_smartcard_manager_do_remove_action (priv->smartcard_manager);
+        }
+
         g_object_set (G_OBJECT (interface),
                       "used-to-login", is_login_card,
                       "is-inserted", is_present,
