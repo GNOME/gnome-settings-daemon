@@ -50,7 +50,9 @@ gsd_test_smartcard_SOURCES =        \
 	$(session_manager_dbus_built_sources) \
 	$(enum_built_sources)   \
 	gsd-smartcard-service.c \
+	gsd-smartcard-service.h \
 	gsd-smartcard-manager.c \
+	gsd-smartcard-utils.h \
 	gsd-smartcard-utils.c   \
 	test-smartcard.c
 
@@ -87,7 +89,9 @@ libsmartcard_la_SOURCES = \
 	$(enum_built_sources) \
 	gsd-smartcard-manager.c \
 	gsd-smartcard-plugin.c  \
+	gsd-smartcard-service.h \
 	gsd-smartcard-service.c \
+	gsd-smartcard-utils.h \
 	gsd-smartcard-utils.c
 
 libsmartcard_la_CPPFLAGS = \
@@ -120,6 +124,11 @@ plugin_in_files = \
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
 EXTRA_DIST = \
+	gsd-smartcard-enum-types.c.in \
+	gsd-smartcard-enum-types.h.in \
+	org.gnome.ScreenSaver.xml \
+	org.gnome.SessionManager.xml \
+	org.gnome.SettingsDaemon.Smartcard.xml \
 	$(plugin_in_files)
 
 CLEANFILES = \

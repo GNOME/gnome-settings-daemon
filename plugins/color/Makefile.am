@@ -54,8 +54,6 @@ gcm_self_test_CFLAGS =			\
 	$(AM_CFLAGS)
 
 gcm_self_test_SOURCES =			\
-	gcm-dmi.c			\
-	gcm-dmi.h			\
 	gcm-edid.c			\
 	gcm-edid.h			\
 	gcm-self-test.c
