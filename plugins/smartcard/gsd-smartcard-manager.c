@@ -321,28 +321,6 @@ watch_smartcards_from_driver_async (GsdSmartcardManager *self,
         g_object_unref (task);
 }
 
-typedef struct
-{
-        guint driver_registered : 1;
-        guint smartcards_watched : 1;
-} ActivateDriverOperation;
-
-static void
-try_to_complete_driver_activation (GTask *task)
-{
-        ActivateDriverOperation *operation;
-
-        operation = g_task_get_task_data (task);
-
-        if (!operation->driver_registered)
-                return;
-
-        if (!operation->smartcards_watched)
-                return;
-
-        g_task_return_boolean (task, TRUE);
-}
-
 static gboolean
 register_driver_finish (GsdSmartcardManager  *self,
                         GAsyncResult         *result,
@@ -356,7 +334,6 @@ on_driver_registered (GsdSmartcardManager *self,
                       GAsyncResult        *result,
                       GTask               *task)
 {
-        ActivateDriverOperation *operation;
         GError *error = NULL;
 
         if (!register_driver_finish (self, result, &error)) {
@@ -365,10 +342,7 @@ on_driver_registered (GsdSmartcardManager *self,
                 return;
         }
 
-        operation = g_task_get_task_data (task);
-        operation->driver_registered = TRUE;
-
-        try_to_complete_driver_activation (task);
+        g_task_return_boolean (task, TRUE);
 }
 
 static void
@@ -376,12 +350,7 @@ on_smartcards_from_driver_watched (GsdSmartcardManager *self,
                                    GAsyncResult        *result,
                                    GTask               *task)
 {
-        ActivateDriverOperation *operation;
-
-        operation = g_task_get_task_data (task);
-        operation->smartcards_watched = TRUE;
-
-        try_to_complete_driver_activation (task);
+        g_debug ("Done watching smartcards from driver");
 }
 
 typedef struct {
@@ -462,14 +431,11 @@ activate_driver (GsdSmartcardManager *self,
                  GAsyncReadyCallback  callback,
                  gpointer             user_data)
 {
-        ActivateDriverOperation *operation;
         GTask *task;
 
         g_debug ("Activating driver '%s'", driver->commonName);
 
         task = g_task_new (self, cancellable, callback, user_data);
-        operation = g_new0 (ActivateDriverOperation, 1);
-        g_task_set_task_data (task, operation, (GDestroyNotify) g_free);
 
         register_driver (self,
                          driver,
@@ -504,7 +470,7 @@ try_to_complete_all_drivers_activation (GTask *task)
 
         operation = g_task_get_task_data (task);
 
-        if (operation->pending_drivers_count >= 0)
+        if (operation->pending_drivers_count > 0)
                 return;
 
         if (operation->activated_drivers_count > 0)
