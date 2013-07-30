@@ -1,4 +1,51 @@
 =============
+Version 3.9.5
+=============
+
+- Add RFKill support for Linux systems
+- Smartcard plugin rewrite
+
+Build:
+- Don't create empty directories in /etc
+- Remove some GTK+ includes that we do not use
+
+Color:
+- Update for new functionality in colord
+- Disable X11 specific color management when running on Wayland
+
+Cursor:
+- Request the OSK when the cursor is disabled (requires gnome-shell changes)
+
+Media-keys:
+- Fix launched apps not getting focused
+
+Power:
+- Use a property for the screen brightness, instead of custom API
+
+Housekeeping:
+- Create ~/.local/share/applications so that gnome-shell can monitor it
+
+Printers:
+- Translate printer warnings
+
+Wacom:
+- Use the OSD window to edit button shortcuts
+- Fix the ring not showing up in the OSD in some cases
+- Prevent the OSD flashing on the primary screen
+- Make the highlight duration of buttons in the OSD longer fade in/out
+- Add support for custom OLEDs
+- Make sure we only ignore the touch device when turning it off
+- Fix UI problems with the OSD
+
+XRandR:
+- Use the transformation matrix to rotate touchscreens
+- Simplify layout of adjacent screens, fixing bugs on some changing systems
+- Don't ever show a dialog for xrandr failures
+
+XSettings:
+- Hardcode deprecated GTK+ XSettings
+
+=============
 Version 3.9.3
 =============
 
