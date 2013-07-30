@@ -999,7 +999,7 @@ cups_connection_test_cb (GObject      *source_object,
                 g_object_unref (connection);
 
                 manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
-                gnome_settings_profile_msg ("got dests");
+                g_debug ("Got dests from remote CUPS server.");
 
                 renew_subscription (user_data);
                 g_timeout_add_seconds (RENEW_INTERVAL, renew_subscription_with_connection_test, manager);
@@ -1036,7 +1036,7 @@ cups_connection_test (gpointer user_data)
                         g_object_unref (client);
                 } else {
                         manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
-                        gnome_settings_profile_msg ("got dests");
+                        g_debug ("Got dests from local CUPS server.");
 
                         renew_subscription (user_data);
                         g_timeout_add_seconds (RENEW_INTERVAL, renew_subscription_with_connection_test, manager);
