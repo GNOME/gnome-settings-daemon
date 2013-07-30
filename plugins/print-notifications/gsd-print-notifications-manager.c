@@ -442,18 +442,18 @@ on_cups_notification (GDBusConnection *connection,
                 cupsFreeDests (manager->priv->num_dests, manager->priv->dests);
                 manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
 
-                /* Translators: New printer has been added */
                 if (is_local_dest (printer_name,
                                    manager->priv->dests,
                                    manager->priv->num_dests)) {
+                        /* Translators: New printer has been added */
                         primary_text = g_strdup (_("Printer added"));
                         secondary_text = g_strdup (printer_name);
                 }
         } else if (g_strcmp0 (signal_name, "PrinterDeleted") == 0) {
-                /* Translators: A printer has been removed */
                 if (is_local_dest (printer_name,
                                    manager->priv->dests,
                                    manager->priv->num_dests)) {
+                        /* Translators: A printer has been removed */
                         primary_text = g_strdup (_("Printer removed"));
                         secondary_text = g_strdup (printer_name);
                 }
