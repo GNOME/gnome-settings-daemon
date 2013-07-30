@@ -408,8 +408,7 @@ on_cups_notification (GDBusConnection *connection,
                 if ((http = httpConnectEncrypt (cupsServer (), ippPort (),
                                                 cupsEncryption ())) == NULL) {
                         g_debug ("Connection to CUPS server \'%s\' failed.", cupsServer ());
-                }
-                else {
+                } else {
                         job_uri = g_strdup_printf ("ipp://localhost/jobs/%d", job_id);
 
                         request = ippNewRequest (IPP_GET_JOB_ATTRIBUTES);
@@ -432,8 +431,7 @@ on_cups_notification (GDBusConnection *connection,
                         }
                         g_free (job_uri);
                 }
-        }
-        else {
+        } else {
                 g_warning ("Invalid number of parameters for signal '%s'", signal_name);
                 return;
         }
@@ -632,8 +630,7 @@ on_cups_notification (GDBusConnection *connection,
                                                 added_reasons = g_slist_append (added_reasons,
                                                                                 new_state_reasons[i]);
                                 }
-                        }
-                        else {
+                        } else {
                                 for (i = 0; new_state_reasons && i < g_strv_length (new_state_reasons); i++) {
                                         added_reasons = g_slist_append (added_reasons,
                                                                         new_state_reasons[i]);
@@ -661,8 +658,7 @@ on_cups_notification (GDBusConnection *connection,
 
                                                         data->timeout_id = g_timeout_add_seconds (CONNECTING_TIMEOUT, show_notification, data);
                                                         manager->priv->timeouts = g_list_append (manager->priv->timeouts, data);
-                                                }
-                                                else {
+                                                } else {
                                                         ReasonData *reason_data;
                                                         gchar *second_row = g_strdup_printf ( _(statuses_second[j]), printer_name);
 
@@ -836,8 +832,7 @@ scp_handler (GsdPrintNotificationsManager *manager,
                                    error->message);
                         g_error_free (error);
                 }
-        }
-        else if (manager->priv->scp_handler_spawned) {
+        } else if (manager->priv->scp_handler_spawned) {
                 kill (manager->priv->scp_handler_pid, SIGHUP);
                 g_spawn_close_pid (manager->priv->scp_handler_pid);
                 manager->priv->scp_handler_spawned = FALSE;
@@ -885,8 +880,7 @@ renew_subscription (gpointer data)
         if ((http = httpConnectEncrypt (cupsServer (), ippPort (),
                                         cupsEncryption ())) == NULL) {
                 g_debug ("Connection to CUPS server \'%s\' failed.", cupsServer ());
-        }
-        else {
+        } else {
                 if (manager->priv->subscription_id >= 0) {
                         request = ippNewRequest (IPP_RENEW_SUBSCRIPTION);
                         ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_URI,
@@ -898,8 +892,7 @@ renew_subscription (gpointer data)
                         ippAddInteger (request, IPP_TAG_SUBSCRIPTION, IPP_TAG_INTEGER,
                                       "notify-lease-duration", SUBSCRIPTION_DURATION);
                         ippDelete (cupsDoRequest (http, request, "/"));
-                }
-                else {
+                } else {
                         request = ippNewRequest (IPP_CREATE_PRINTER_SUBSCRIPTION);
                         ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_URI,
                                       "printer-uri", NULL,
@@ -951,8 +944,7 @@ renew_subscription_with_connection_test_cb (GObject      *source_object,
                 g_object_unref (connection);
 
                 renew_subscription (user_data);
-        }
-        else {
+        } else {
                 g_debug ("Test connection to CUPS server \'%s:%d\' failed.", cupsServer (), ippPort ());
         }
 }
@@ -978,8 +970,7 @@ renew_subscription_with_connection_test (gpointer user_data)
                                                        user_data);
 
                 g_object_unref (client);
-        }
-        else {
+        } else {
                 renew_subscription (user_data);
         }
 
@@ -1012,8 +1003,7 @@ cups_connection_test_cb (GObject      *source_object,
 
                 renew_subscription (user_data);
                 g_timeout_add_seconds (RENEW_INTERVAL, renew_subscription_with_connection_test, manager);
-        }
-        else {
+        } else {
                 g_debug ("Test connection to CUPS server \'%s:%d\' failed.", cupsServer (), ippPort ());
                 if (manager->priv->cups_connection_timeout_id == 0)
                         manager->priv->cups_connection_timeout_id =
@@ -1044,8 +1034,7 @@ cups_connection_test (gpointer user_data)
                                                                manager);
 
                         g_object_unref (client);
-                }
-                else {
+                } else {
                         manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
                         gnome_settings_profile_msg ("got dests");
 
@@ -1060,8 +1049,7 @@ cups_connection_test (gpointer user_data)
                 manager->priv->cups_connection_timeout_id = 0;
 
                 return FALSE;
-        }
-        else {
+        } else {
                 return TRUE;
         }
 }
