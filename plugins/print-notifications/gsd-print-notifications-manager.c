@@ -954,17 +954,20 @@ renew_subscription_with_connection_test (gpointer user_data)
 {
         GSocketClient *client;
         gchar         *address;
+        int            port;
 
-        address = g_strdup_printf ("%s:%d", cupsServer (), ippPort ());
+        port = ippPort ();
+
+        address = g_strdup_printf ("%s:%d", cupsServer (), port);
 
         if (address && address[0] != '/') {
                 client = g_socket_client_new ();
 
-                g_debug ("Initiating test connection to CUPS server \'%s:%d\'.", cupsServer (), ippPort ());
+                g_debug ("Initiating test connection to CUPS server \'%s:%d\'.", cupsServer (), port);
 
                 g_socket_client_connect_to_host_async (client,
                                                        address,
-                                                       631,
+                                                       port,
                                                        NULL,
                                                        renew_subscription_with_connection_test_cb,
                                                        user_data);
@@ -1017,18 +1020,19 @@ cups_connection_test (gpointer user_data)
         GsdPrintNotificationsManager *manager = (GsdPrintNotificationsManager *) user_data;
         GSocketClient                *client;
         gchar                        *address;
+        int                           port = ippPort ();
 
         if (!manager->priv->dests) {
-                address = g_strdup_printf ("%s:%d", cupsServer (), ippPort ());
+                address = g_strdup_printf ("%s:%d", cupsServer (), port);
 
                 if (address && address[0] != '/') {
                         client = g_socket_client_new ();
 
-                        g_debug ("Initiating test connection to CUPS server \'%s:%d\'.", cupsServer (), ippPort ());
+                        g_debug ("Initiating test connection to CUPS server \'%s:%d\'.", cupsServer (), port);
 
                         g_socket_client_connect_to_host_async (client,
                                                                address,
-                                                               631,
+                                                               port,
                                                                NULL,
                                                                cups_connection_test_cb,
                                                                manager);
