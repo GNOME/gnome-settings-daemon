@@ -75,6 +75,7 @@ struct GsdPrintNotificationsManagerPrivate
         GHashTable                   *printing_printers;
         GList                        *active_notifications;
         guint                         cups_connection_timeout_id;
+        guint                         cups_dbus_subscription_id;
 };
 
 enum {
@@ -1069,16 +1070,17 @@ gsd_print_notifications_manager_got_dbus_connection (GObject      *source_object
         manager->priv->cups_bus_connection = g_bus_get_finish (res, &error);
 
         if (manager->priv->cups_bus_connection != NULL) {
-                g_dbus_connection_signal_subscribe (manager->priv->cups_bus_connection,
-                                                    NULL,
-                                                    CUPS_DBUS_INTERFACE,
-                                                    NULL,
-                                                    CUPS_DBUS_PATH,
-                                                    NULL,
-                                                    0,
-                                                    on_cups_notification,
-                                                    manager,
-                                                    NULL);
+                manager->priv->cups_dbus_subscription_id =
+                        g_dbus_connection_signal_subscribe (manager->priv->cups_bus_connection,
+                                                            NULL,
+                                                            CUPS_DBUS_INTERFACE,
+                                                            NULL,
+                                                            CUPS_DBUS_PATH,
+                                                            NULL,
+                                                            0,
+                                                            on_cups_notification,
+                                                            manager,
+                                                            NULL);
         } else {
                 g_warning ("Connection to message bus failed: %s", error->message);
                 g_error_free (error);
@@ -1145,6 +1147,13 @@ gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
         cupsFreeDests (manager->priv->num_dests, manager->priv->dests);
         manager->priv->num_dests = 0;
         manager->priv->dests = NULL;
+
+        if (manager->priv->cups_dbus_subscription_id > 0 &&
+            manager->priv->cups_bus_connection != NULL) {
+                g_dbus_connection_signal_unsubscribe (manager->priv->cups_bus_connection,
+                                                      manager->priv->cups_dbus_subscription_id);
+                manager->priv->cups_dbus_subscription_id = 0;
+        }
 
         if (manager->priv->subscription_id >= 0)
                 cancel_subscription (manager->priv->subscription_id);
