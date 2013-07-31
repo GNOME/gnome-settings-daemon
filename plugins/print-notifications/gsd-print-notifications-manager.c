@@ -76,6 +76,7 @@ struct GsdPrintNotificationsManagerPrivate
         GList                        *active_notifications;
         guint                         cups_connection_timeout_id;
         guint                         cups_dbus_subscription_id;
+        guint                         renew_source_id;
 };
 
 enum {
@@ -984,6 +985,24 @@ renew_subscription_with_connection_test (gpointer user_data)
 }
 
 static void
+renew_subscription_timeout_enable (GsdPrintNotificationsManager *manager,
+                                   gboolean                      enable)
+{
+        if (manager->priv->renew_source_id > 0)
+                g_source_remove (manager->priv->renew_source_id);
+
+        if (enable) {
+                renew_subscription (manager);
+                manager->priv->renew_source_id =
+                        g_timeout_add_seconds (RENEW_INTERVAL,
+                                               renew_subscription_with_connection_test,
+                                               manager);
+        } else {
+                manager->priv->renew_source_id = 0;
+        }
+}
+
+static void
 cups_connection_test_cb (GObject      *source_object,
                          GAsyncResult *res,
                          gpointer      user_data)
@@ -1005,8 +1024,7 @@ cups_connection_test_cb (GObject      *source_object,
                 manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
                 g_debug ("Got dests from remote CUPS server.");
 
-                renew_subscription (user_data);
-                g_timeout_add_seconds (RENEW_INTERVAL, renew_subscription_with_connection_test, manager);
+                renew_subscription_timeout_enable (manager, TRUE);
         } else {
                 g_debug ("Test connection to CUPS server \'%s:%d\' failed.", cupsServer (), ippPort ());
                 if (manager->priv->cups_connection_timeout_id == 0)
@@ -1043,8 +1061,7 @@ cups_connection_test (gpointer user_data)
                         manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
                         g_debug ("Got dests from local CUPS server.");
 
-                        renew_subscription (user_data);
-                        g_timeout_add_seconds (RENEW_INTERVAL, renew_subscription_with_connection_test, manager);
+                        renew_subscription_timeout_enable (manager, TRUE);
                 }
 
                 g_free (address);
@@ -1154,6 +1171,8 @@ gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
                                                       manager->priv->cups_dbus_subscription_id);
                 manager->priv->cups_dbus_subscription_id = 0;
         }
+
+        renew_subscription_timeout_enable (manager, FALSE);
 
         if (manager->priv->subscription_id >= 0)
                 cancel_subscription (manager->priv->subscription_id);
