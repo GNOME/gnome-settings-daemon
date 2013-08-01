@@ -38,6 +38,8 @@ libmedia_keys_la_SOURCES = 		\
 	shell-keybinding-modes.h	\
 	bus-watch-namespace.c		\
 	bus-watch-namespace.h		\
+	mpris-controller.c		\
+	mpris-controller.h		\
 	$(BUILT_SOURCES)		\
 	$(NULL)
 
@@ -82,6 +84,8 @@ gsd_test_media_keys_SOURCES =			\
 	gsd-screenshot-utils.c			\
 	bus-watch-namespace.c			\
 	bus-watch-namespace.h			\
+	mpris-controller.c			\
+	mpris-controller.h			\
 	test-media-keys.c			\
 	$(BUILT_SOURCES)			\
 	$(NULL)

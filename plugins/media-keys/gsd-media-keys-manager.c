@@ -44,6 +44,7 @@
 #include <gudev/gudev.h>
 #endif
 
+#include "mpris-controller.h"
 #include "gnome-settings-plugin.h"
 #include "gnome-settings-session.h"
 #include "gnome-settings-profile.h"
@@ -184,6 +185,8 @@ struct GsdMediaKeysManagerPrivate
         GCancellable    *cancellable;
 
         guint            start_idle_id;
+
+        MprisController *mpris_controller;
 };
 
 static void     gsd_media_keys_manager_class_init  (GsdMediaKeysManagerClass *klass);
@@ -1511,9 +1514,11 @@ gsd_media_player_key_pressed (GsdMediaKeysManager *manager,
         have_listeners = (manager->priv->media_players != NULL);
 
         if (!have_listeners) {
-                /* Popup a dialog with an (/) icon */
-                show_osd (manager, "action-unavailable-symbolic", NULL, -1);
-                return TRUE;
+                if (!mpris_controller_key (manager->priv->mpris_controller, key)) {
+                        /* Popup a dialog with an (/) icon */
+                        show_osd (manager, "action-unavailable-symbolic", NULL, -1);
+                }
+		return TRUE;
         }
 
         player = manager->priv->media_players->data;
@@ -2332,6 +2337,9 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
                                                          on_shell_vanished,
                                                          manager, NULL);
 
+        g_debug ("Starting mpris controller");
+        manager->priv->mpris_controller = mpris_controller_new ();
+
         gnome_settings_profile_end (NULL);
 
         manager->priv->start_idle_id = 0;
@@ -2393,6 +2401,7 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         g_clear_object (&priv->power_proxy);
         g_clear_object (&priv->power_screen_proxy);
         g_clear_object (&priv->power_keyboard_proxy);
+        g_clear_object (&priv->mpris_controller);
 
         if (manager->priv->name_owner_id) {
                 g_bus_unwatch_name (manager->priv->name_owner_id);
