@@ -3842,6 +3842,8 @@ handle_set_property_other (GsdPowerManager *manager,
                                                  brightness_value, NULL);
         } else if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
                 g_variant_get (value, "i", &brightness_value);
+                brightness_value = PERCENTAGE_TO_ABS (0, manager->priv->kbd_brightness_max,
+                                                      brightness_value);
                 return upower_kbd_set_brightness (manager, brightness_value, NULL);
         }
 
