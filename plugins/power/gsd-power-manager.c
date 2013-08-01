@@ -112,14 +112,15 @@ static const gchar introspection_xml[] =
 "    </method>"
 "  </interface>"
 "  <interface name='org.gnome.SettingsDaemon.Power.Keyboard'>"
+"    <property name='Brightness' type='i' access='readwrite'/>"
 "    <method name='StepUp'>"
-"      <arg type='u' name='new_percentage' direction='out'/>"
+"      <arg type='i' name='new_percentage' direction='out'/>"
 "    </method>"
 "    <method name='StepDown'>"
-"      <arg type='u' name='new_percentage' direction='out'/>"
+"      <arg type='i' name='new_percentage' direction='out'/>"
 "    </method>"
 "    <method name='Toggle'>"
-"      <arg type='u' name='new_percentage' direction='out'/>"
+"      <arg type='i' name='new_percentage' direction='out'/>"
 "    </method>"
 "  </interface>"
 "</node>";
@@ -1990,11 +1991,12 @@ upower_kbd_set_brightness (GsdPowerManager *manager, guint value, GError **error
         return TRUE;
 }
 
-static gboolean
+static int
 upower_kbd_toggle (GsdPowerManager *manager,
                    GError **error)
 {
         gboolean ret;
+        int value = -1;
 
         if (manager->priv->kbd_brightness_old >= 0) {
                 g_debug ("keyboard toggle off");
@@ -2004,6 +2006,7 @@ upower_kbd_toggle (GsdPowerManager *manager,
                 if (ret) {
                         /* succeeded, set to -1 since now no old value */
                         manager->priv->kbd_brightness_old = -1;
+                        value = 0;
                 }
         } else {
                 g_debug ("keyboard toggle on");
@@ -2013,10 +2016,14 @@ upower_kbd_toggle (GsdPowerManager *manager,
                 if (!ret) {
                         /* failed, reset back to -1 */
                         manager->priv->kbd_brightness_old = -1;
+                } else {
+                        value = 0;
                 }
         }
 
-        return ret;
+        if (ret)
+                return value;
+        return -1;
 }
 
 static gboolean
@@ -2213,17 +2220,21 @@ idle_watch_id_to_string (GsdPowerManager *manager, guint id)
 }
 
 static void
-backlight_emit_changed (GsdPowerManager *manager,
-                        gint32           value)
+backlight_iface_emit_changed (GsdPowerManager *manager,
+                              const char      *interface_name,
+                              gint32           value)
 {
         GVariant *params;
+        gchar *string;
 
         /* not yet connected to the bus */
         if (manager->priv->connection == NULL)
                 return;
 
-        params = g_variant_new_parsed ("('" GSD_POWER_DBUS_INTERFACE_SCREEN "', [{'Brightness', %v}], @as [])",
+        string = g_strdup_printf ("('%s', [{'Brightness', %%v}], @as [])", interface_name);
+        params = g_variant_new_parsed (string,
                                        g_variant_new_int32 (value));
+        g_free (string);
 
         g_dbus_connection_emit_signal (manager->priv->connection,
                                        NULL,
@@ -2403,8 +2414,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                 /* only toggle keyboard if present and not already toggled */
                 if (manager->priv->upower_kdb_proxy &&
                     manager->priv->kbd_brightness_old == -1) {
-                        ret = upower_kbd_toggle (manager, &error);
-                        if (!ret) {
+                        if (upower_kbd_toggle (manager, &error) < 0) {
                                 g_warning ("failed to turn the kbd backlight off: %s",
                                            error->message);
                                 g_error_free (error);
@@ -2446,8 +2456,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                 /* only toggle keyboard if present and already toggled off */
                 if (manager->priv->upower_kdb_proxy &&
                     manager->priv->kbd_brightness_old != -1) {
-                        ret = upower_kbd_toggle (manager, &error);
-                        if (!ret) {
+                        if (upower_kbd_toggle (manager, &error) < 0) {
                                 g_warning ("failed to turn the kbd backlight on: %s",
                                            error->message);
                                 g_clear_error (&error);
@@ -3549,7 +3558,9 @@ handle_method_call_keyboard (GsdPowerManager *manager,
                 ret = upower_kbd_set_brightness (manager, value, &error);
 
         } else if (g_strcmp0 (method_name, "Toggle") == 0) {
-                ret = upower_kbd_toggle (manager, &error);
+                value = upower_kbd_toggle (manager, &error);
+                ret = (value >= 0);
+
         } else {
                 g_assert_not_reached ();
         }
@@ -3558,13 +3569,15 @@ handle_method_call_keyboard (GsdPowerManager *manager,
         if (!ret) {
                 g_dbus_method_invocation_take_error (invocation,
                                                      error);
+                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, -1);
         } else {
                 percentage = ABS_TO_PERCENTAGE (0,
                                                 manager->priv->kbd_brightness_max,
                                                 value);
                 g_dbus_method_invocation_return_value (invocation,
-                                                       g_variant_new ("(u)",
+                                                       g_variant_new ("(i)",
                                                                       percentage));
+                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, percentage);
         }
 }
 
@@ -3588,11 +3601,11 @@ handle_method_call_screen (GsdPowerManager *manager,
         if (g_strcmp0 (method_name, "StepUp") == 0) {
                 g_debug ("screen step up");
                 value = backlight_step_up (manager->priv->rr_screen, &error);
-                backlight_emit_changed (manager, value);
+                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN, value);
         } else if (g_strcmp0 (method_name, "StepDown") == 0) {
                 g_debug ("screen step down");
                 value = backlight_step_down (manager->priv->rr_screen, &error);
-                backlight_emit_changed (manager, value);
+                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN, value);
         } else {
                 g_assert_not_reached ();
         }
@@ -3764,15 +3777,22 @@ handle_get_property_main (GsdPowerManager *manager,
 }
 
 static GVariant *
-handle_get_property_screen (GsdPowerManager *manager,
-                            const gchar *property_name)
+handle_get_property_other (GsdPowerManager *manager,
+                           const gchar *interface_name,
+                           const gchar *property_name)
 {
         GVariant *retval = NULL;
+        gint32 value;
 
-        if (g_strcmp0 (property_name, "Brightness") == 0) {
-                guint32 value;
+        if (g_strcmp0 (property_name, "Brightness") != 0)
+                return NULL;
+
+        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
                 value = backlight_get_percentage (manager->priv->rr_screen, NULL);
                 retval = g_variant_new_int32 (value);
+        } else if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
+                value = manager->priv->kbd_brightness_now;
+                retval =  g_variant_new_int32 (value);
         }
 
         return retval;
@@ -3796,8 +3816,9 @@ handle_get_property (GDBusConnection *connection,
 
         if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE) == 0) {
                 return handle_get_property_main (manager, property_name);
-        } else if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
-                return handle_get_property_screen (manager, property_name);
+        } else if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0 ||
+                   g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
+                return handle_get_property_other (manager, interface_name, property_name);
         } else {
                 g_warning ("not recognised interface: %s", interface_name);
                 return NULL;
@@ -3805,15 +3826,23 @@ handle_get_property (GDBusConnection *connection,
 }
 
 static gboolean
-handle_set_property_screen (GsdPowerManager *manager,
-                            const gchar *property_name,
-                            GVariant *value)
+handle_set_property_other (GsdPowerManager *manager,
+                           const gchar *interface_name,
+                           const gchar *property_name,
+                           GVariant *value)
 {
-        if (g_strcmp0 (property_name, "Brightness") == 0) {
-                guint32 brightness_value;
+        gint32 brightness_value;
+
+        if (g_strcmp0 (property_name, "Brightness") != 0)
+                return FALSE;
+
+        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
                 g_variant_get (value, "i", &brightness_value);
                 return backlight_set_percentage (manager->priv->rr_screen,
                                                  brightness_value, NULL);
+        } else if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
+                g_variant_get (value, "i", &brightness_value);
+                return upower_kbd_set_brightness (manager, brightness_value, NULL);
         }
 
         return FALSE;
@@ -3836,8 +3865,9 @@ handle_set_property (GDBusConnection *connection,
                 return FALSE;
         }
 
-        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
-                return handle_set_property_screen (manager, property_name, value);
+        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0 ||
+            g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
+                return handle_set_property_other (manager, interface_name, property_name, value);
         } else {
                 g_warning ("not recognised interface: %s", interface_name);
                 return FALSE;
