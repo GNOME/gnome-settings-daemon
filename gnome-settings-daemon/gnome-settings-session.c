@@ -31,25 +31,22 @@
 
 #define GNOME_SESSION_DBUS_NAME      "org.gnome.SessionManager"
 #define GNOME_SESSION_DBUS_OBJECT    "/org/gnome/SessionManager"
-#define GNOME_SESSION_DBUS_INTERFACE "org.gnome.SessionManager"
 
-GDBusProxy *
+GsdSessionManager *
 gnome_settings_session_get_session_proxy (void)
 {
-        static GDBusProxy *session_proxy;
+        static GsdSessionManager *session_proxy;
         GError *error =  NULL;
 
         if (session_proxy != NULL) {
                 g_object_ref (session_proxy);
         } else {
-                session_proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
-                                                               G_DBUS_PROXY_FLAGS_NONE,
-                                                               NULL,
-                                                               GNOME_SESSION_DBUS_NAME,
-                                                               GNOME_SESSION_DBUS_OBJECT,
-                                                               GNOME_SESSION_DBUS_INTERFACE,
-                                                               NULL,
-                                                               &error);
+                session_proxy = gsd_session_manager_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
+                                                                            G_DBUS_PROXY_FLAGS_NONE,
+                                                                            GNOME_SESSION_DBUS_NAME,
+                                                                            GNOME_SESSION_DBUS_OBJECT,
+                                                                            NULL,
+                                                                            &error);
                 if (error) {
                         g_warning ("Failed to connect to the session manager: %s", error->message);
                         g_error_free (error);

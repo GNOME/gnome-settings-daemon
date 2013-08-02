@@ -23,10 +23,11 @@
 #define __GNOME_SETTINGS_SESSION_H
 
 #include <glib-object.h>
+#include "gsd-session-manager-glue.h"
 
 G_BEGIN_DECLS
 
-GDBusProxy              *gnome_settings_session_get_session_proxy  (void);
+GsdSessionManager        *gnome_settings_session_get_session_proxy  (void);
 
 G_END_DECLS
 

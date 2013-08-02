@@ -42,7 +42,7 @@
 
 struct GsdColorX11Private
 {
-        GDBusProxy      *session;
+        GsdSessionManager *session;
         CdClient        *client;
         GnomeRRScreen   *x11_screen;
         GHashTable      *edid_cache;

@@ -92,7 +92,7 @@ static const gchar introspection_xml[] =
 
 struct GsdScreensaverProxyManagerPrivate
 {
-        GDBusProxy              *session;
+        GsdSessionManager       *session;
         GDBusConnection         *connection;
         GCancellable            *bus_cancellable;
         GDBusNodeInfo           *introspection_data;
@@ -126,7 +126,7 @@ name_vanished_cb (GDBusConnection            *connection,
                 if (g_strcmp0 (sender, name) == 0) {
                         guint cookie = GPOINTER_TO_UINT (cookie_ptr);
 
-                        g_dbus_proxy_call_sync (manager->priv->session,
+                        g_dbus_proxy_call_sync (G_DBUS_PROXY (manager->priv->session),
                                                 "Uninhibit",
                                                 g_variant_new ("(u)", cookie),
                                                 G_DBUS_CALL_FLAGS_NONE,
@@ -170,7 +170,7 @@ handle_method_call (GDBusConnection       *connection,
                 g_variant_get (parameters,
                                "(ss)", &app_id, &reason);
 
-                ret = g_dbus_proxy_call_sync (manager->priv->session,
+                ret = g_dbus_proxy_call_sync (G_DBUS_PROXY (G_DBUS_PROXY (manager->priv->session)),
                                               "Inhibit",
                                               g_variant_new ("(susu)",
                                                              app_id, 0, reason, GSM_INHIBITOR_FLAG_IDLE),
@@ -199,7 +199,7 @@ handle_method_call (GDBusConnection       *connection,
                 guint cookie;
 
                 g_variant_get (parameters, "(u)", &cookie);
-                g_dbus_proxy_call_sync (manager->priv->session,
+                g_dbus_proxy_call_sync (G_DBUS_PROXY (manager->priv->session),
                                         "Uninhibit",
                                         parameters,
                                         G_DBUS_CALL_FLAGS_NONE,

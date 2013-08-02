@@ -845,7 +845,7 @@ gnome_session_shutdown (GsdMediaKeysManager *manager)
 	GVariant *variant;
         GDBusProxy *proxy;
 
-        proxy = gnome_settings_session_get_session_proxy ();
+        proxy = G_DBUS_PROXY (gnome_settings_session_get_session_proxy ());
 	variant = g_dbus_proxy_call_sync (proxy,
 					  "Shutdown",
 					  NULL,

@@ -136,7 +136,7 @@ typedef enum {
 struct GsdPowerManagerPrivate
 {
         /* D-Bus */
-        GDBusProxy              *session;
+        GsdSessionManager       *session;
         guint                    name_id;
         GDBusNodeInfo           *introspection_data;
         GDBusConnection         *connection;
@@ -1794,7 +1794,7 @@ gnome_session_shutdown_cb (GObject *source_object,
 static void
 gnome_session_shutdown (GsdPowerManager *manager)
 {
-        g_dbus_proxy_call (manager->priv->session,
+        g_dbus_proxy_call (G_DBUS_PROXY (manager->priv->session),
                            "Shutdown",
                            NULL,
                            G_DBUS_CALL_FLAGS_NONE,
@@ -1826,7 +1826,7 @@ static void
 gnome_session_logout (GsdPowerManager *manager,
                       guint            logout_mode)
 {
-        g_dbus_proxy_call (manager->priv->session,
+        g_dbus_proxy_call (G_DBUS_PROXY (manager->priv->session),
                            "Logout",
                            g_variant_new ("(u)", logout_mode),
                            G_DBUS_CALL_FLAGS_NONE,
@@ -2349,7 +2349,7 @@ is_session_active (GsdPowerManager *manager)
         GVariant *variant;
         gboolean is_session_active = FALSE;
 
-        variant = g_dbus_proxy_get_cached_property (manager->priv->session,
+        variant = g_dbus_proxy_get_cached_property (G_DBUS_PROXY (manager->priv->session),
                                                     "SessionIsActive");
         if (variant) {
                 is_session_active = g_variant_get_boolean (variant);
@@ -2512,7 +2512,7 @@ idle_is_session_inhibited (GsdPowerManager  *manager,
         if (manager->priv->session == NULL)
                 return FALSE;
 
-        variant = g_dbus_proxy_get_cached_property (manager->priv->session,
+        variant = g_dbus_proxy_get_cached_property (G_DBUS_PROXY (manager->priv->session),
                                                     "InhibitedActions");
         if (!variant)
                 return FALSE;
