@@ -55,7 +55,7 @@
 #include "gsd-input-helper.h"
 #include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
-#include "gnome-settings-session.h"
+#include "gnome-settings-bus.h"
 #include "gsd-xrandr-manager.h"
 
 #define GSD_XRANDR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_XRANDR_MANAGER, GsdXrandrManagerPrivate))

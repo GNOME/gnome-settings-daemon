@@ -46,7 +46,7 @@
 #include "gpm-common.h"
 #include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
-#include "gnome-settings-session.h"
+#include "gnome-settings-bus.h"
 #include "gsd-enums.h"
 #include "gsd-power-manager.h"
 
@@ -145,7 +145,7 @@ struct GsdPowerManagerPrivate
 
         /* Settings */
         GSettings               *settings;
-        GSettings               *settings_session;
+        GSettings               *settings_bus;
         GSettings               *settings_screensaver;
         GSettings               *settings_xrandr;
 
@@ -2649,7 +2649,7 @@ idle_configure (GsdPowerManager *manager)
                 timeout_dim = SCREENSAVER_TIMEOUT_BLANK;
         } else {
                 if (g_settings_get_boolean (manager->priv->settings, "idle-dim")) {
-                        timeout_dim = g_settings_get_uint (manager->priv->settings_session,
+                        timeout_dim = g_settings_get_uint (manager->priv->settings_bus,
                                                            "idle-delay");
                         if (timeout_dim == 0) {
                                 timeout_dim = IDLE_DIM_BLANK_DISABLED_MIN;
@@ -3349,7 +3349,7 @@ gsd_power_manager_start (GsdPowerManager *manager,
         inhibit_suspend (manager);
 
         /* track the active session */
-        manager->priv->session = gnome_settings_session_get_session_proxy ();
+        manager->priv->session = gnome_settings_bus_get_session_proxy ();
         g_signal_connect (manager->priv->session, "g-properties-changed",
                           G_CALLBACK (engine_session_properties_changed_cb),
                           manager);
@@ -3361,8 +3361,8 @@ gsd_power_manager_start (GsdPowerManager *manager,
         g_signal_connect (manager->priv->settings, "changed",
                           G_CALLBACK (engine_settings_key_changed_cb), manager);
         manager->priv->settings_screensaver = g_settings_new ("org.gnome.desktop.screensaver");
-        manager->priv->settings_session = g_settings_new ("org.gnome.desktop.session");
-        g_signal_connect (manager->priv->settings_session, "changed",
+        manager->priv->settings_bus = g_settings_new ("org.gnome.desktop.session");
+        g_signal_connect (manager->priv->settings_bus, "changed",
                           G_CALLBACK (engine_settings_key_changed_cb), manager);
         manager->priv->settings_xrandr = g_settings_new (GSD_XRANDR_SETTINGS_SCHEMA);
         g_signal_connect (manager->priv->up_client, "device-added",
@@ -3504,7 +3504,7 @@ gsd_power_manager_stop (GsdPowerManager *manager)
         g_clear_object (&manager->priv->session);
         g_clear_object (&manager->priv->settings);
         g_clear_object (&manager->priv->settings_screensaver);
-        g_clear_object (&manager->priv->settings_session);
+        g_clear_object (&manager->priv->settings_bus);
         g_clear_object (&manager->priv->up_client);
 
         if (manager->priv->inhibit_lid_switch_fd != -1) {

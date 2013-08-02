@@ -36,7 +36,7 @@
 #include "gnome-settings-manager.h"
 #include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
-#include "gnome-settings-session.h"
+#include "gnome-settings-bus.h"
 
 #define GNOME_SESSION_DBUS_NAME      "org.gnome.SessionManager"
 #define GNOME_SESSION_CLIENT_PRIVATE_DBUS_INTERFACE "org.gnome.SessionManager.ClientPrivate"
@@ -341,7 +341,7 @@ name_acquired_handler (GDBusConnection *connection,
 {
         GDBusProxy *proxy;
 
-        proxy = G_DBUS_PROXY (gnome_settings_session_get_session_proxy ());
+        proxy = G_DBUS_PROXY (gnome_settings_bus_get_session_proxy ());
         /* Always call this first, as Setenv can only be called before
            any client registers */
         set_locale (proxy);

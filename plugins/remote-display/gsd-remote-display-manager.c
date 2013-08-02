@@ -35,7 +35,7 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 
-#include "gnome-settings-session.h"
+#include "gnome-settings-bus.h"
 #include "gnome-settings-profile.h"
 #include "gsd-remote-display-manager.h"
 

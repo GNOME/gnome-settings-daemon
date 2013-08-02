@@ -25,7 +25,7 @@
 #include <packagekit-glib2/packagekit.h>
 #include <libupower-glib/upower.h>
 
-#include "gnome-settings-session.h"
+#include "gnome-settings-bus.h"
 
 #include "gsd-updates-common.h"
 #include "gsd-updates-refresh.h"
@@ -506,7 +506,7 @@ gsd_updates_refresh_init (GsdUpdatesRefresh *refresh)
 
         /* use gnome-session for the idle detection */
         refresh->priv->proxy_session =
-                gnome_settings_session_get_session_proxy ();
+                gnome_settings_bus_get_session_proxy ();
         if (refresh->priv->proxy_session != NULL) {
                 g_signal_connect (G_DBUS_PROXY (refresh->priv->proxy_session),
                                   "g-signal",

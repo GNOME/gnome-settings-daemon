@@ -27,13 +27,13 @@
 #include <glib.h>
 #include <gio/gio.h>
 
-#include "gnome-settings-session.h"
+#include "gnome-settings-bus.h"
 
 #define GNOME_SESSION_DBUS_NAME      "org.gnome.SessionManager"
 #define GNOME_SESSION_DBUS_OBJECT    "/org/gnome/SessionManager"
 
 GsdSessionManager *
-gnome_settings_session_get_session_proxy (void)
+gnome_settings_bus_get_session_proxy (void)
 {
         static GsdSessionManager *session_proxy;
         GError *error =  NULL;

@@ -33,7 +33,7 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
-#include "gnome-settings-session.h"
+#include "gnome-settings-bus.h"
 #include "gnome-settings-profile.h"
 #include "gsd-screensaver-proxy-manager.h"
 
@@ -300,7 +300,7 @@ gsd_screensaver_proxy_manager_start (GsdScreensaverProxyManager *manager,
         g_debug ("Starting screensaver-proxy manager");
         gnome_settings_profile_start (NULL);
         manager->priv->session =
-                gnome_settings_session_get_session_proxy ();
+                gnome_settings_bus_get_session_proxy ();
         manager->priv->watch_ht = g_hash_table_new_full (g_str_hash,
                                                          g_str_equal,
                                                          (GDestroyNotify) g_free,

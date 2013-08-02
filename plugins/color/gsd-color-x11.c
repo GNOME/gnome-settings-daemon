@@ -31,7 +31,7 @@
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
 
-#include "gnome-settings-session.h"
+#include "gnome-settings-bus.h"
 #include "gnome-settings-plugin.h"
 
 #include "gsd-color-manager.h"
@@ -1386,7 +1386,7 @@ gsd_color_x11_init (GsdColorX11 *x11)
         priv = x11->priv = GSD_COLOR_X11_GET_PRIVATE (x11);
 
         /* track the active session */
-        priv->session = gnome_settings_session_get_session_proxy ();
+        priv->session = gnome_settings_bus_get_session_proxy ();
 
         /* set the _ICC_PROFILE atoms on the root screen */
         priv->gdk_window = gdk_screen_get_root_window (gdk_screen_get_default ());

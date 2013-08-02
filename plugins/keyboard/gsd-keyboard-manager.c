@@ -50,7 +50,7 @@
 #include <ibus.h>
 #endif
 
-#include "gnome-settings-session.h"
+#include "gnome-settings-bus.h"
 #include "gnome-settings-profile.h"
 #include "gsd-keyboard-manager.h"
 #include "gsd-input-helper.h"

@@ -35,8 +35,8 @@ libgsd_la_SOURCES =		\
 	$(session_manager_dbus_built_sources) \
 	gnome-settings-profile.c	\
 	gnome-settings-profile.h	\
-	gnome-settings-session.c	\
-	gnome-settings-session.h	\
+	gnome-settings-bus.c	\
+	gnome-settings-bus.h	\
 	$(NULL)
 
 libgsd_la_CPPFLAGS = 		\

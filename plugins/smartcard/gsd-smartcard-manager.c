@@ -26,7 +26,7 @@
 
 #include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
-#include "gnome-settings-session.h"
+#include "gnome-settings-bus.h"
 #include "gsd-smartcard-manager.h"
 #include "gsd-smartcard-service.h"
 #include "gsd-smartcard-enum-types.h"
@@ -816,7 +816,7 @@ log_out (GsdSmartcardManager *self)
         GsdSmartcardManagerPrivate *priv = self->priv;
 
         if (priv->session_manager == NULL)
-                priv->session_manager = gnome_settings_session_get_session_proxy ();
+                priv->session_manager = gnome_settings_bus_get_session_proxy ();
 
         gsd_session_manager_call_logout (priv->session_manager,
                                          GSD_SESSION_MANAGER_LOGOUT_MODE_FORCE,
