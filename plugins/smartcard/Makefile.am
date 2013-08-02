@@ -3,9 +3,8 @@ libsmartcard_headers = gsd-smartcard-manager.h \
 		       gsd-smartcard-utils.h
 dbus_built_sources = org.gnome.SettingsDaemon.Smartcard.c org.gnome.SettingsDaemon.Smartcard.h
 screensaver_dbus_built_sources = org.gnome.ScreenSaver.c org.gnome.ScreenSaver.h
-session_manager_dbus_built_sources = org.gnome.SessionManager.c org.gnome.SessionManager.h
 enum_built_sources = gsd-smartcard-enum-types.h gsd-smartcard-enum-types.c
-BUILT_SOURCES = $(dbus_built_sources) $(screensaver_dbus_built_sources) $(session_manager_dbus_built_sources) $(enum_built_sources)
+BUILT_SOURCES = $(dbus_built_sources) $(screensaver_dbus_built_sources) $(enum_built_sources)
 
 libexec_PROGRAMS = gsd-test-smartcard
 
@@ -29,15 +28,6 @@ $(screensaver_dbus_built_sources) : Makefile.am org.gnome.ScreenSaver.xml
 		           "org.gtk.GDBus.C.Name" ScreenSaver	\
 		$(srcdir)/org.gnome.ScreenSaver.xml
 
-$(session_manager_dbus_built_sources) : Makefile.am org.gnome.SessionManager.xml
-	gdbus-codegen						\
-		--interface-prefix org.gnome.SessionManager.	\
-		--generate-c-code org.gnome.SessionManager	\
-		--c-namespace Gsd				\
-		--annotate "org.gnome.SessionManager"		\
-		           "org.gtk.GDBus.C.Name" SessionManager	\
-		$(srcdir)/org.gnome.SessionManager.xml
-
 gsd-smartcard-enum-types.h: gsd-smartcard-enum-types.h.in $(libsmartcard_headers)
 	$(AM_V_GEN) $(GLIB_MKENUMS) --template $^ > $@
 
@@ -47,7 +37,6 @@ gsd-smartcard-enum-types.c: gsd-smartcard-enum-types.c.in $(libsmartcard_headers
 gsd_test_smartcard_SOURCES =        \
 	$(dbus_built_sources)   \
 	$(screensaver_dbus_built_sources) \
-	$(session_manager_dbus_built_sources) \
 	$(enum_built_sources)   \
 	gsd-smartcard-service.c \
 	gsd-smartcard-service.h \
@@ -85,7 +74,6 @@ libsmartcard_la_SOURCES = \
 	$(libsmartcard_headers) \
 	$(dbus_built_sources) \
 	$(screensaver_dbus_built_sources) \
-	$(session_manager_dbus_built_sources) \
 	$(enum_built_sources) \
 	gsd-smartcard-manager.c \
 	gsd-smartcard-plugin.c  \
@@ -127,7 +115,6 @@ EXTRA_DIST = \
 	gsd-smartcard-enum-types.c.in \
 	gsd-smartcard-enum-types.h.in \
 	org.gnome.ScreenSaver.xml \
-	org.gnome.SessionManager.xml \
 	org.gnome.SettingsDaemon.Smartcard.xml \
 	$(plugin_in_files)
 

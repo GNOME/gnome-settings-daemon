@@ -26,13 +26,13 @@
 
 #include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
+#include "gnome-settings-session.h"
 #include "gsd-smartcard-manager.h"
 #include "gsd-smartcard-service.h"
 #include "gsd-smartcard-enum-types.h"
 #include "gsd-smartcard-utils.h"
 
 #include "org.gnome.ScreenSaver.h"
-#include "org.gnome.SessionManager.h"
 
 #include <prerror.h>
 #include <prinit.h>
@@ -794,32 +794,6 @@ lock_screen (GsdSmartcardManager *self)
 }
 
 static void
-on_got_session_manager_to_log_out (GObject             *object,
-                                   GAsyncResult        *result,
-                                   GsdSmartcardManager *self)
-{
-        GsdSmartcardManagerPrivate *priv = self->priv;
-        GsdSessionManager *session_manager;
-        GError *error = NULL;
-
-        session_manager = gsd_session_manager_proxy_new_for_bus_finish (result, &error);
-
-        if (session_manager == NULL) {
-                g_warning ("Couldn't find session manager service to log out: %s",
-                           error->message);
-                g_error_free (error);
-                return;
-        }
-
-        if (priv->session_manager != NULL)
-                g_object_unref (session_manager);
-
-        priv->session_manager = session_manager;
-
-        log_out (self);
-}
-
-static void
 on_logged_out (GsdSessionManager   *session_manager,
                GAsyncResult        *result,
                GsdSmartcardManager *self)
@@ -841,16 +815,8 @@ log_out (GsdSmartcardManager *self)
 {
         GsdSmartcardManagerPrivate *priv = self->priv;
 
-        if (priv->session_manager == NULL) {
-                gsd_session_manager_proxy_new_for_bus (G_BUS_TYPE_SESSION,
-                                                       G_DBUS_PROXY_FLAGS_NONE,
-                                                       "org.gnome.SessionManager",
-                                                       "/org/gnome/SessionManager",
-                                                       priv->cancellable,
-                                                       (GAsyncReadyCallback) on_got_session_manager_to_log_out,
-                                                       self);
-                return;
-        }
+        if (priv->session_manager == NULL)
+                priv->session_manager = gnome_settings_session_get_session_proxy ();
 
         gsd_session_manager_call_logout (priv->session_manager,
                                          GSD_SESSION_MANAGER_LOGOUT_MODE_FORCE,
