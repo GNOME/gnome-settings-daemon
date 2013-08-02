@@ -2,9 +2,8 @@ plugin_name = smartcard
 libsmartcard_headers = gsd-smartcard-manager.h \
 		       gsd-smartcard-utils.h
 dbus_built_sources = org.gnome.SettingsDaemon.Smartcard.c org.gnome.SettingsDaemon.Smartcard.h
-screensaver_dbus_built_sources = org.gnome.ScreenSaver.c org.gnome.ScreenSaver.h
 enum_built_sources = gsd-smartcard-enum-types.h gsd-smartcard-enum-types.c
-BUILT_SOURCES = $(dbus_built_sources) $(screensaver_dbus_built_sources) $(enum_built_sources)
+BUILT_SOURCES = $(dbus_built_sources) $(enum_built_sources)
 
 libexec_PROGRAMS = gsd-test-smartcard
 
@@ -19,15 +18,6 @@ $(dbus_built_sources) : Makefile.am org.gnome.SettingsDaemon.Smartcard.xml
 	--generate-c-code org.gnome.SettingsDaemon.Smartcard \
 	$(srcdir)/org.gnome.SettingsDaemon.Smartcard.xml
 
-$(screensaver_dbus_built_sources) : Makefile.am org.gnome.ScreenSaver.xml
-	gdbus-codegen						\
-		--interface-prefix org.gnome.ScreenSaver.	\
-		--generate-c-code org.gnome.ScreenSaver		\
-		--c-namespace Gsd				\
-		--annotate "org.gnome.ScreenSaver"		\
-		           "org.gtk.GDBus.C.Name" ScreenSaver	\
-		$(srcdir)/org.gnome.ScreenSaver.xml
-
 gsd-smartcard-enum-types.h: gsd-smartcard-enum-types.h.in $(libsmartcard_headers)
 	$(AM_V_GEN) $(GLIB_MKENUMS) --template $^ > $@
 
@@ -36,7 +26,6 @@ gsd-smartcard-enum-types.c: gsd-smartcard-enum-types.c.in $(libsmartcard_headers
 
 gsd_test_smartcard_SOURCES =        \
 	$(dbus_built_sources)   \
-	$(screensaver_dbus_built_sources) \
 	$(enum_built_sources)   \
 	gsd-smartcard-service.c \
 	gsd-smartcard-service.h \
@@ -73,7 +62,6 @@ gsd_test_smartcard_LDADD =                                      \
 libsmartcard_la_SOURCES = \
 	$(libsmartcard_headers) \
 	$(dbus_built_sources) \
-	$(screensaver_dbus_built_sources) \
 	$(enum_built_sources) \
 	gsd-smartcard-manager.c \
 	gsd-smartcard-plugin.c  \
@@ -114,7 +102,6 @@ plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin
 EXTRA_DIST = \
 	gsd-smartcard-enum-types.c.in \
 	gsd-smartcard-enum-types.h.in \
-	org.gnome.ScreenSaver.xml \
 	org.gnome.SettingsDaemon.Smartcard.xml \
 	$(plugin_in_files)
 

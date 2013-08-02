@@ -24,10 +24,12 @@
 
 #include <glib-object.h>
 #include "gsd-session-manager-glue.h"
+#include "gsd-screen-saver-glue.h"
 
 G_BEGIN_DECLS
 
-GsdSessionManager        *gnome_settings_bus_get_session_proxy  (void);
+GsdSessionManager        *gnome_settings_bus_get_session_proxy       (void);
+GsdScreenSaver           *gnome_settings_bus_get_screen_saver_proxy  (void);
 
 G_END_DECLS
 

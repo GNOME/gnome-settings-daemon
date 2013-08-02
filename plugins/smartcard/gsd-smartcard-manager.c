@@ -32,8 +32,6 @@
 #include "gsd-smartcard-enum-types.h"
 #include "gsd-smartcard-utils.h"
 
-#include "org.gnome.ScreenSaver.h"
-
 #include <prerror.h>
 #include <prinit.h>
 #include <nss.h>
@@ -729,32 +727,6 @@ gsd_smartcard_manager_stop (GsdSmartcardManager *self)
 }
 
 static void
-on_got_screen_saver_to_lock_screen (GObject             *object,
-                                    GAsyncResult        *result,
-                                    GsdSmartcardManager *self)
-{
-        GsdSmartcardManagerPrivate *priv = self->priv;
-        GsdScreenSaver *screen_saver;
-        GError *error = NULL;
-
-        screen_saver = gsd_screen_saver_proxy_new_for_bus_finish (result, &error);
-
-        if (screen_saver == NULL) {
-                g_warning ("Couldn't find screen saver service to lock screen: %s",
-                           error->message);
-                g_error_free (error);
-                return;
-        }
-
-        if (priv->screen_saver != NULL)
-                g_object_unref (screen_saver);
-
-        priv->screen_saver = screen_saver;
-
-        lock_screen (self);
-}
-
-static void
 on_screen_locked (GsdScreenSaver      *screen_saver,
                   GAsyncResult        *result,
                   GsdSmartcardManager *self)
@@ -776,16 +748,8 @@ lock_screen (GsdSmartcardManager *self)
 {
         GsdSmartcardManagerPrivate *priv = self->priv;
 
-        if (priv->screen_saver == NULL) {
-                gsd_screen_saver_proxy_new_for_bus (G_BUS_TYPE_SESSION,
-                                                    G_DBUS_PROXY_FLAGS_NONE,
-                                                    "org.gnome.ScreenSaver",
-                                                    "/org/gnome/ScreenSaver",
-                                                    priv->cancellable,
-                                                    (GAsyncReadyCallback) on_got_screen_saver_to_lock_screen,
-                                                    self);
-                return;
-        }
+        if (priv->screen_saver == NULL)
+                priv->screen_saver = gnome_settings_bus_get_screen_saver_proxy ();
 
         gsd_screen_saver_call_lock (priv->screen_saver,
                                     priv->cancellable,

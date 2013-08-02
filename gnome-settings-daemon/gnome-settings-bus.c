@@ -32,6 +32,9 @@
 #define GNOME_SESSION_DBUS_NAME      "org.gnome.SessionManager"
 #define GNOME_SESSION_DBUS_OBJECT    "/org/gnome/SessionManager"
 
+#define GNOME_SCREENSAVER_DBUS_NAME      "org.gnome.ScreenSaver"
+#define GNOME_SCREENSAVER_DBUS_OBJECT    "/org/gnome/ScreenSaver"
+
 GsdSessionManager *
 gnome_settings_bus_get_session_proxy (void)
 {
@@ -56,4 +59,31 @@ gnome_settings_bus_get_session_proxy (void)
         }
 
         return session_proxy;
+}
+
+GsdScreenSaver *
+gnome_settings_bus_get_screen_saver_proxy (void)
+{
+        static GsdScreenSaver *screen_saver_proxy;
+        GError *error =  NULL;
+
+        if (screen_saver_proxy != NULL) {
+                g_object_ref (screen_saver_proxy);
+        } else {
+                screen_saver_proxy = gsd_screen_saver_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
+                                                                              G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES |
+                                                                              G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START,
+                                                                              GNOME_SCREENSAVER_DBUS_NAME,
+                                                                              GNOME_SCREENSAVER_DBUS_OBJECT,
+                                                                              NULL,
+                                                                              &error);
+                if (error) {
+                        g_warning ("Failed to connect to the screen saver: %s", error->message);
+                        g_error_free (error);
+                } else {
+                        g_object_add_weak_pointer (G_OBJECT (screen_saver_proxy), (gpointer*)&screen_saver_proxy);
+                }
+        }
+
+        return screen_saver_proxy;
 }
