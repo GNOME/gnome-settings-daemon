@@ -2,6 +2,7 @@
 #
 # Max Valianskiy <maxcom@vinchi.ru> 1998-99
 # Sergey Panov <sipan@mit.edu> 1999
+#
 # Valek Filippov <frob@df.ru>, 2000-2002.
 # Dmitry G. Mastrukov <dmitry@taurussoft.org>, 2002-2004.
 # Andrew W. Nosenko <awn@bcs.zp.ua>, 2003.
@@ -12,23 +13,23 @@
 # Yuri Kozlov <yuray@komyakino.ru>, 2011.
 # Александр Прокудин <alexandre.prokoudine@gmail.com>, 2009, 2011.
 # Yuri Myasoedov <omerta13@yandex.ru>, 2012, 2013.
-#
+# Julia Dronova <juliette.tux@gmail.com>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-03-21 08:34+0000\n"
-"PO-Revision-Date: 2013-03-23 10:37+0400\n"
-"Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
-"Language-Team: русский <gnome-cyr@gnome.org>\n"
+"POT-Creation-Date: 2013-07-26 18:06+0000\n"
+"PO-Revision-Date: 2013-08-01 20:24+0400\n"
+"Last-Translator: Julia Dronova <juliette.tux@gmail.com>\n"
+"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -1220,7 +1221,7 @@ msgid "Clipboard plugin"
 msgstr "Модуль буфера обмена"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:1
-#: ../plugins/color/gsd-color-manager.c:1664
+#: ../plugins/color/gsd-color-manager.c:1666
 msgid "Color"
 msgstr "Управление цветом"
 
@@ -1228,40 +1229,40 @@ msgstr "Управление цветом"
 msgid "Color plugin"
 msgstr "Модуль управления цветом"
 
-#: ../plugins/color/gsd-color-manager.c:1669
+#: ../plugins/color/gsd-color-manager.c:1671
 msgid "Recalibrate now"
 msgstr "Перекалибровать сейчас"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1712
+#: ../plugins/color/gsd-color-manager.c:1714
 msgid "Recalibration required"
 msgstr "Требуется перекалибровка"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1724
+#: ../plugins/color/gsd-color-manager.c:1726
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "Монитор «%s» должен быть перекалиброван как можно скорее."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-manager.c:1733
+#: ../plugins/color/gsd-color-manager.c:1735
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "Принтер «%s» должен быть перекалиброван как можно скорее."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-manager.c:2057
-#: ../plugins/color/gsd-color-manager.c:2073
+#: ../plugins/color/gsd-color-manager.c:2059
+#: ../plugins/color/gsd-color-manager.c:2075
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "Модуль управления цветом для службы параметров GNOME"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2059
+#: ../plugins/color/gsd-color-manager.c:2061
 msgid "Color calibration device added"
 msgstr "Добавлено устройство калибровки цветопередачи"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-manager.c:2075
+#: ../plugins/color/gsd-color-manager.c:2077
 msgid "Color calibration device removed"
 msgstr "Удалено устройство калибровки цветопередачи"
 
@@ -2147,7 +2148,7 @@ msgstr "Время работы от ИБП — %s"
 #: ../plugins/power/gsd-power-manager.c:1438
 #: ../plugins/power/gsd-power-manager.c:1611
 #: ../plugins/power/gsd-power-manager.c:1749
-#: ../plugins/power/gsd-power-manager.c:3084
+#: ../plugins/power/gsd-power-manager.c:3068
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Электропитание"
@@ -2160,13 +2161,13 @@ msgstr "Низкий заряд батареи"
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
 #: ../plugins/power/gsd-power-manager.c:1351
 msgid "Laptop battery low"
-msgstr "Низкий заряд батареи ноутбука"
+msgstr "Низкий заряд батареи"
 
 #. TRANSLATORS: tell the user how much time they have got
 #: ../plugins/power/gsd-power-manager.c:1358
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
-msgstr "Приблизительно осталось %s (%.0f%%)"
+msgstr "%s (%.0f%%) до полной разрядки"
 
 #. TRANSLATORS: UPS is starting to get a little low
 #: ../plugins/power/gsd-power-manager.c:1365
@@ -2284,7 +2285,7 @@ msgstr "Критически низкий заряд батареи"
 #: ../plugins/power/gsd-power-manager.c:1492
 #: ../plugins/power/gsd-power-manager.c:1663
 msgid "Laptop battery critically low"
-msgstr "Критически низкий заряд батареи ноутбука"
+msgstr "Заряд батареи почти нулевой"
 
 #. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
 #: ../plugins/power/gsd-power-manager.c:1501
@@ -2464,33 +2465,33 @@ msgstr ""
 "Заряд ИБП упал ниже критического уровня. Данный компьютер будет выключен."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2223
+#: ../plugins/power/gsd-power-manager.c:2203
 msgid "Lid has been opened"
 msgstr "Крышка открыта"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:2261
+#: ../plugins/power/gsd-power-manager.c:2241
 msgid "Lid has been closed"
 msgstr "Крышка закрыта"
 
-#: ../plugins/power/gsd-power-manager.c:3063
+#: ../plugins/power/gsd-power-manager.c:3047
 msgid "Automatic logout"
 msgstr "Автоматическое завершение сеанса"
 
-#: ../plugins/power/gsd-power-manager.c:3063
+#: ../plugins/power/gsd-power-manager.c:3047
 msgid "You will soon log out because of inactivity."
 msgstr "Из-за неактивности скоро будет произведено завершение сеанса."
 
-#: ../plugins/power/gsd-power-manager.c:3068
+#: ../plugins/power/gsd-power-manager.c:3052
 msgid "Automatic suspend"
 msgstr "Автоматический переводить из ждущего режима"
 
-#: ../plugins/power/gsd-power-manager.c:3068
-#: ../plugins/power/gsd-power-manager.c:3073
+#: ../plugins/power/gsd-power-manager.c:3052
+#: ../plugins/power/gsd-power-manager.c:3057
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Компьютер скоро перейдёт в ждущий режим из-за отсутствия активности."
 
-#: ../plugins/power/gsd-power-manager.c:3073
+#: ../plugins/power/gsd-power-manager.c:3057
 msgid "Automatic hibernation"
 msgstr "Автоматически переводить в спящий режим"
 
@@ -2688,7 +2689,6 @@ msgstr "Принтер удалён"
 
 #. Translators: A print job has been stopped
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:474
-msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "Принтер остановлен"
 
@@ -2700,32 +2700,27 @@ msgstr "Принтер остановлен"
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:506
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:526
 #, c-format
-msgctxt "print job"
 msgid "\"%s\" on %s"
 msgstr "«%s» в %s"
 
 #. Translators: A print job has been canceled
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:480
-msgctxt "print job state"
 msgid "Printing canceled"
 msgstr "Печать отменена"
 
 #. Translators: A print job has been aborted
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:486
-msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "Печать прервана"
 
 #. Translators: A print job has been completed
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:492
-msgctxt "print job state"
 msgid "Printing completed"
 msgstr "Печать завершена"
 
 #. Translators: A job is printing
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:504
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:524
-msgctxt "print job state"
 msgid "Printing"
 msgstr "Печать"
 
@@ -3223,16 +3218,16 @@ msgstr "_Оставить эту конфигурацию"
 msgid "The selected configuration for displays could not be applied"
 msgstr "Не удалось применить выбранную конфигурацию мониторов"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1384
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1375
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Не удалось обновить информацию об экране: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1388
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1379
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Принудительная попытка применения конфигурации мониторов."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1891
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1882
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Не удалось применить сохранённую конфигурацию мониторов"
 
