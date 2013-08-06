@@ -1163,7 +1163,7 @@ static GsdPowerActionType
 manager_critical_action_get (GsdPowerManager *manager,
                              gboolean         is_ups)
 {
-        GsdPowerActionType policy = GSD_POWER_ACTION_SHUTDOWN;
+        GsdPowerActionType policy;
         GVariant *result = NULL;
 
         policy = g_settings_get_enum (manager->priv->settings, "critical-battery-action");
@@ -1194,6 +1194,8 @@ manager_critical_action_get (GsdPowerManager *manager,
                 if (g_strcmp0 (s, "yes") != 0)
                         policy = GSD_POWER_ACTION_SHUTDOWN;
                 g_variant_unref (result);
+        } else {
+                policy = GSD_POWER_ACTION_SHUTDOWN;
         }
 
         return policy;
