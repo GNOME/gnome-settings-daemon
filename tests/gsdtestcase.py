@@ -170,6 +170,12 @@ class GSDTestCase(dbusmock.DBusTestCase):
                 ('Inhibit', 'ssss', 'h', 'ret = 5'),
             ], dbus_interface='org.freedesktop.DBus.Mock')
 
+        self.obj_logind.AddProperties('',
+                                      {
+                                          'CanSuspend': True,
+                                          'CanHibernate': False,
+                                      })
+
         # set log to nonblocking
         set_nonblock(self.logind.stdout)
 
