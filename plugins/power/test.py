@@ -266,6 +266,17 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             self.assertFalse(b' Suspend' in log, 'unexpected Suspend request')
             self.assertFalse(b' Hibernate' in log, 'unexpected Hibernate request')
 
+    def check_suspend_no_hibernate(self, seconds):
+        '''Check that Suspend was requested and not Hibernate, in the given time'''
+
+        # wait for specified time to ensure it didn't do anything
+        time.sleep(seconds)
+        # check that it did suspend and didn't hibernate
+        log = self.logind.stdout.read()
+        if log:
+            self.assertTrue(b' Suspend' in log, 'missing Suspend request')
+            self.assertFalse(b' Hibernate' in log, 'unexpected Hibernate request')
+
     def check_no_dim(self, seconds):
         '''Check that mode is not set to dim in the given time'''
 
@@ -474,6 +485,21 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # suspend should happen after inactive sleep timeout + 1 s notification
         # delay + 1 s error margin
         self.check_for_suspend(7)
+
+    def test_suspend_no_hibernate(self):
+        '''suspend-no-hibernate'''
+
+        self.settings_session['idle-delay'] = 2
+        self.settings_gsd_power['sleep-inactive-battery-timeout'] = 5
+        # Hibernate isn't possible, so it should end up suspending
+        self.settings_gsd_power['critical-battery-action'] = 'hibernate'
+
+        # wait for idle delay; should not yet hibernate
+        self.check_no_suspend(2)
+
+        # suspend should happen after inactive sleep timeout + 1 s notification
+        # delay + 1 s error margin
+        self.check_suspend_no_hibernate(7)
 
     def test_sleep_inhibition(self):
         '''Does not sleep under idle inhibition'''
