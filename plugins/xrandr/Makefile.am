@@ -39,6 +39,7 @@ gsd_test_xrandr_SOURCES =		\
 gsd_test_xrandr_CPPFLAGS =					\
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_builddir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
@@ -67,6 +68,7 @@ libxrandr_la_SOURCES = 		\
 
 libxrandr_la_CPPFLAGS =						\
 	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_builddir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/plugins/common/				\
 	-DBINDIR=\"$(bindir)\"					\

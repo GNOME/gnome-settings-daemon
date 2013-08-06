@@ -9,6 +9,7 @@ gsd_test_orientation_SOURCES =		\
 
 gsd_test_orientation_CFLAGS =					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_builddir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(ORIENTATION_CFLAGS)					\
@@ -31,6 +32,7 @@ liborientation_la_SOURCES = 		\
 
 liborientation_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
+	-I$(top_builddir)/gnome-settings-daemon		\
 	-I$(top_srcdir)/plugins/common/			\
 	-I$(top_srcdir)/data/				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \

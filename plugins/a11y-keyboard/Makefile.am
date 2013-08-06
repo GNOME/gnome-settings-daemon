@@ -11,6 +11,7 @@ gsd_test_a11y_keyboard_SOURCES =		\
 
 gsd_test_a11y_keyboard_CFLAGS =					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_builddir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
@@ -37,6 +38,7 @@ liba11y_keyboard_la_SOURCES = 		\
 
 liba11y_keyboard_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
+	-I$(top_builddir)/gnome-settings-daemon		\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DGTKBUILDERDIR=\""$(gtkbuilderdir)"\" \
 	$(AM_CPPFLAGS)

@@ -19,6 +19,7 @@ libclipboard_la_SOURCES = 	\
 libclipboard_la_CPPFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	-I$(top_srcdir)/gnome-settings-daemon		\
+	-I$(top_builddir)/gnome-settings-daemon		\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 

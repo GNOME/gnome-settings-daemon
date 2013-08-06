@@ -9,6 +9,7 @@ gsd_test_a11y_settings_SOURCES =	\
 
 gsd_test_a11y_settings_CFLAGS =					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_builddir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(PLUGIN_CFLAGS)					\
@@ -30,6 +31,7 @@ liba11y_settings_la_SOURCES = 		\
 
 liba11y_settings_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
+	-I$(top_builddir)/gnome-settings-daemon		\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 

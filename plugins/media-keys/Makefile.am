@@ -46,6 +46,7 @@ libmedia_keys_la_SOURCES = 		\
 libmedia_keys_la_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_builddir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-I$(top_srcdir)/plugins/media-keys/gvc			\
 	-DBINDIR=\"$(bindir)\"					\
@@ -93,6 +94,7 @@ gsd_test_media_keys_SOURCES =			\
 gsd_test_media_keys_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_builddir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-I$(top_srcdir)/plugins/media-keys/gvc			\
 	-DBINDIR=\"$(bindir)\"					\

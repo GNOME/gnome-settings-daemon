@@ -21,6 +21,7 @@ libpower_la_SOURCES = 					\
 libpower_la_CPPFLAGS = \
 	-I$(top_srcdir)/data/				\
 	-I$(top_srcdir)/gnome-settings-daemon		\
+	-I$(top_builddir)/gnome-settings-daemon		\
 	-I$(top_srcdir)/plugins/common			\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"		\

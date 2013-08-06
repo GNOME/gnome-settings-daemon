@@ -37,6 +37,7 @@ gsd_test_smartcard_SOURCES =        \
 gsd_test_smartcard_CPPFLAGS =                                   \
 	-I$(top_srcdir)/data/                                   \
 	-I$(top_srcdir)/gnome-settings-daemon                   \
+	-I$(top_builddir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common                          \
 	-DSYSCONFDIR=\""$(sysconfdir)"\"                        \
 	-DLIBDIR=\""$(libdir)"\"                                \
@@ -72,6 +73,7 @@ libsmartcard_la_SOURCES = \
 
 libsmartcard_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon \
+	-I$(top_builddir)/gnome-settings-daemon		\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/plugins/common \
 	-DSYSCONFDIR=\""$(sysconfdir)"\" \
