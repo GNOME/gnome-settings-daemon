@@ -19,37 +19,37 @@
  *
  */
 
-#ifndef __GSD_COLOR_X11_H
-#define __GSD_COLOR_X11_H
+#ifndef __GSD_COLOR_STATE_H
+#define __GSD_COLOR_STATE_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_COLOR_X11         (gsd_color_x11_get_type ())
-#define GSD_COLOR_X11(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_COLOR_X11, GsdColorX11))
-#define GSD_IS_COLOR_X11(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_COLOR_X11))
+#define GSD_TYPE_COLOR_STATE         (gsd_color_state_get_type ())
+#define GSD_COLOR_STATE(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_COLOR_STATE, GsdColorState))
+#define GSD_IS_COLOR_STATE(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_COLOR_STATE))
 
-typedef struct GsdColorX11Private GsdColorX11Private;
-
-typedef struct
-{
-        GObject                     parent;
-        GsdColorX11Private *priv;
-} GsdColorX11;
+typedef struct GsdColorStatePrivate GsdColorStatePrivate;
 
 typedef struct
 {
-        GObjectClass   parent_class;
-} GsdColorX11Class;
+        GObject                  parent;
+        GsdColorStatePrivate    *priv;
+} GsdColorState;
 
-GType                   gsd_color_x11_get_type          (void);
-GQuark                  gsd_color_x11_error_quark       (void);
+typedef struct
+{
+        GObjectClass             parent_class;
+} GsdColorStateClass;
 
-GsdColorX11 *           gsd_color_x11_new               (void);
-gboolean                gsd_color_x11_start             (GsdColorX11 *x11,
-                                                         GError     **error);
+GType                   gsd_color_state_get_type        (void);
+GQuark                  gsd_color_state_error_quark     (void);
+
+GsdColorState *         gsd_color_state_new             (void);
+gboolean                gsd_color_state_start           (GsdColorState *state,
+                                                         GError       **error);
 
 G_END_DECLS
 
-#endif /* __GSD_COLOR_X11_H */
+#endif /* __GSD_COLOR_STATE_H */

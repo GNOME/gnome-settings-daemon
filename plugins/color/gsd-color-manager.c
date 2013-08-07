@@ -24,16 +24,12 @@
 #include <glib/gi18n.h>
 #include <gdk/gdk.h>
 
-#ifdef GDK_WINDOWING_X11
-#include <gdk/gdkx.h>
-#endif
-
 #include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
 #include "gsd-color-calibrate.h"
 #include "gsd-color-manager.h"
 #include "gsd-color-profiles.h"
-#include "gsd-color-x11.h"
+#include "gsd-color-state.h"
 
 #define GSD_COLOR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_COLOR_MANAGER, GsdColorManagerPrivate))
 
@@ -41,7 +37,7 @@ struct GsdColorManagerPrivate
 {
         GsdColorCalibrate *calibrate;
         GsdColorProfiles  *profiles;
-        GsdColorX11       *x11;
+        GsdColorState     *state;
 };
 
 enum {
@@ -75,14 +71,10 @@ gsd_color_manager_start (GsdColorManager *manager,
         g_debug ("Starting color manager");
         gnome_settings_profile_start (NULL);
 
-#ifdef GDK_WINDOWING_X11
-        /* start the X11 device probing */
-        if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
-                ret = gsd_color_x11_start (priv->x11, error);
-                if (!ret)
-                        goto out;
-        }
-#endif
+        /* start the device probing */
+        ret = gsd_color_state_start (priv->state, error);
+        if (!ret)
+                goto out;
 
         /* start the profiles collection */
         ret = gsd_color_profiles_start (priv->profiles, error);
@@ -118,7 +110,7 @@ gsd_color_manager_init (GsdColorManager *manager)
         /* setup calibration features */
         priv->calibrate = gsd_color_calibrate_new ();
         priv->profiles = gsd_color_profiles_new ();
-        priv->x11 = gsd_color_x11_new ();
+        priv->state = gsd_color_state_new ();
 }
 
 static void
@@ -133,7 +125,7 @@ gsd_color_manager_finalize (GObject *object)
 
         g_clear_object (&manager->priv->calibrate);
         g_clear_object (&manager->priv->profiles);
-        g_clear_object (&manager->priv->x11);
+        g_clear_object (&manager->priv->state);
 
         G_OBJECT_CLASS (gsd_color_manager_parent_class)->finalize (object);
 }

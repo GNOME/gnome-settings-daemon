@@ -31,31 +31,35 @@
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
 
+#ifdef GDK_WINDOWING_X11
+#include <gdk/gdkx.h>
+#endif
+
 #include "gnome-settings-bus.h"
 #include "gnome-settings-plugin.h"
 
 #include "gsd-color-manager.h"
-#include "gsd-color-x11.h"
+#include "gsd-color-state.h"
 #include "gcm-edid.h"
 
-#define GSD_COLOR_X11_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_COLOR_X11, GsdColorX11Private))
+#define GSD_COLOR_STATE_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_COLOR_STATE, GsdColorStatePrivate))
 
-struct GsdColorX11Private
+struct GsdColorStatePrivate
 {
         GsdSessionManager *session;
         CdClient        *client;
-        GnomeRRScreen   *x11_screen;
+        GnomeRRScreen   *state_screen;
         GHashTable      *edid_cache;
         GdkWindow       *gdk_window;
         gboolean         session_is_active;
         GHashTable      *device_assign_hash;
 };
 
-static void     gsd_color_x11_class_init  (GsdColorX11Class *klass);
-static void     gsd_color_x11_init        (GsdColorX11      *color_x11);
-static void     gsd_color_x11_finalize    (GObject             *object);
+static void     gsd_color_state_class_init  (GsdColorStateClass *klass);
+static void     gsd_color_state_init        (GsdColorState      *color_state);
+static void     gsd_color_state_finalize    (GObject            *object);
 
-G_DEFINE_TYPE (GsdColorX11, gsd_color_x11, G_TYPE_OBJECT)
+G_DEFINE_TYPE (GsdColorState, gsd_color_state, G_TYPE_OBJECT)
 
 /* see http://www.oyranos.org/wiki/index.php?title=ICC_Profiles_in_X_Specification_0.3 */
 #define GCM_ICC_PROFILE_IN_X_VERSION_MAJOR      0
@@ -68,16 +72,16 @@ typedef struct {
 } GnomeRROutputClutItem;
 
 GQuark
-gsd_color_x11_error_quark (void)
+gsd_color_state_error_quark (void)
 {
         static GQuark quark = 0;
         if (!quark)
-                quark = g_quark_from_static_string ("gsd_color_x11_error");
+                quark = g_quark_from_static_string ("gsd_color_state_error");
         return quark;
 }
 
 static GcmEdid *
-gcm_session_get_output_edid (GsdColorX11 *x11, GnomeRROutput *output, GError **error)
+gcm_session_get_output_edid (GsdColorState *state, GnomeRROutput *output, GError **error)
 {
         const guint8 *data;
         gsize size;
@@ -85,7 +89,7 @@ gcm_session_get_output_edid (GsdColorX11 *x11, GnomeRROutput *output, GError **e
         gboolean ret;
 
         /* can we find it in the cache */
-        edid = g_hash_table_lookup (x11->priv->edid_cache,
+        edid = g_hash_table_lookup (state->priv->edid_cache,
                                     gnome_rr_output_get_name (output));
         if (edid != NULL) {
                 g_object_ref (edid);
@@ -110,7 +114,7 @@ gcm_session_get_output_edid (GsdColorX11 *x11, GnomeRROutput *output, GError **e
         }
 
         /* add to cache */
-        g_hash_table_insert (x11->priv->edid_cache,
+        g_hash_table_insert (state->priv->edid_cache,
                              g_strdup (gnome_rr_output_get_name (output)),
                              g_object_ref (edid));
 out:
@@ -118,17 +122,23 @@ out:
 }
 
 static gboolean
-gcm_session_screen_set_icc_profile (GsdColorX11 *x11,
+gcm_session_screen_set_icc_profile (GsdColorState *state,
                                     const gchar *filename,
                                     GError **error)
 {
-        gboolean ret;
+        gboolean ret = TRUE;
         gchar *data = NULL;
         gsize length;
         guint version_data;
-        GsdColorX11Private *priv = x11->priv;
+        GsdColorStatePrivate *priv = state->priv;
 
         g_return_val_if_fail (filename != NULL, FALSE);
+
+        /* wayland */
+        if (priv->gdk_window == NULL) {
+                g_debug ("not setting atom as running under wayland");
+                goto out;
+        }
 
         g_debug ("setting root window ICC profile atom from %s", filename);
 
@@ -160,7 +170,7 @@ out:
 }
 
 static gchar *
-gcm_session_get_output_id (GsdColorX11 *x11, GnomeRROutput *output)
+gcm_session_get_output_id (GsdColorState *state, GnomeRROutput *output)
 {
         const gchar *name;
         const gchar *serial;
@@ -173,7 +183,7 @@ gcm_session_get_output_id (GsdColorX11 *x11, GnomeRROutput *output)
         device_id = g_string_new ("xrandr");
 
         /* get the output EDID if possible */
-        edid = gcm_session_get_output_edid (x11, output, &error);
+        edid = gcm_session_get_output_edid (state, output, &error);
         if (edid == NULL) {
                 g_debug ("no edid for %s [%s], falling back to connection name",
                          gnome_rr_output_get_name (output),
@@ -212,7 +222,7 @@ out:
 }
 
 typedef struct {
-        GsdColorX11         *x11;
+        GsdColorState         *state;
         CdProfile               *profile;
         CdDevice                *device;
         guint32                  output_id;
@@ -221,8 +231,8 @@ typedef struct {
 static void
 gcm_session_async_helper_free (GcmSessionAsyncHelper *helper)
 {
-        if (helper->x11 != NULL)
-                g_object_unref (helper->x11);
+        if (helper->state != NULL)
+                g_object_unref (helper->state);
         if (helper->profile != NULL)
                 g_object_unref (helper->profile);
         if (helper->device != NULL)
@@ -260,7 +270,7 @@ out:
 }
 
 static gboolean
-gcm_apply_create_icc_profile_for_edid (GsdColorX11 *x11,
+gcm_apply_create_icc_profile_for_edid (GsdColorState *state,
                                        CdDevice *device,
                                        GcmEdid *edid,
                                        GFile *file,
@@ -269,7 +279,7 @@ gcm_apply_create_icc_profile_for_edid (GsdColorX11 *x11,
         CdIcc *icc = NULL;
         const gchar *data;
         gboolean ret = FALSE;
-        GsdColorX11Private *priv = x11->priv;
+        GsdColorStatePrivate *priv = state->priv;
 
         /* ensure the per-user directory exists */
         ret = gcm_utils_mkdir_for_filename (file, error);
@@ -534,7 +544,7 @@ out:
 }
 
 static GnomeRROutput *
-gcm_session_get_x11_output_by_id (GsdColorX11 *x11,
+gcm_session_get_state_output_by_id (GsdColorState *state,
                                   const gchar *device_id,
                                   GError **error)
 {
@@ -542,10 +552,10 @@ gcm_session_get_x11_output_by_id (GsdColorX11 *x11,
         GnomeRROutput *output = NULL;
         GnomeRROutput **outputs = NULL;
         guint i;
-        GsdColorX11Private *priv = x11->priv;
+        GsdColorStatePrivate *priv = state->priv;
 
-        /* search all X11 outputs for the device id */
-        outputs = gnome_rr_screen_list_outputs (priv->x11_screen);
+        /* search all STATE outputs for the device id */
+        outputs = gnome_rr_screen_list_outputs (priv->state_screen);
         if (outputs == NULL) {
                 g_set_error_literal (error,
                                      GSD_COLOR_MANAGER_ERROR,
@@ -556,7 +566,7 @@ gcm_session_get_x11_output_by_id (GsdColorX11 *x11,
         for (i = 0; outputs[i] != NULL && output == NULL; i++) {
                 if (!gnome_rr_output_is_connected (outputs[i]))
                         continue;
-                output_id = gcm_session_get_output_id (x11, outputs[i]);
+                output_id = gcm_session_get_output_id (state, outputs[i]);
                 if (g_strcmp0 (output_id, device_id) == 0)
                         output = outputs[i];
                 g_free (output_id);
@@ -576,7 +586,7 @@ out:
  * fact that XOrg sometimes assigns no primary devices when using
  * "xrandr --auto" or when the version of RANDR is < 1.3 */
 static gboolean
-gcm_session_use_output_profile_for_screen (GsdColorX11 *x11,
+gcm_session_use_output_profile_for_screen (GsdColorState *state,
                                            GnomeRROutput *output)
 {
         gboolean has_laptop = FALSE;
@@ -586,7 +596,7 @@ gcm_session_use_output_profile_for_screen (GsdColorX11 *x11,
         guint i;
 
         /* do we have any screens marked as primary */
-        outputs = gnome_rr_screen_list_outputs (x11->priv->x11_screen);
+        outputs = gnome_rr_screen_list_outputs (state->priv->state_screen);
         if (outputs == NULL || outputs[0] == NULL) {
                 g_warning ("failed to get outputs");
                 return FALSE;
@@ -662,7 +672,7 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
         GnomeRROutput *output;
         guint brightness_percentage;
         GcmSessionAsyncHelper *helper = (GcmSessionAsyncHelper *) user_data;
-        GsdColorX11 *x11 = GSD_COLOR_X11 (helper->x11);
+        GsdColorState *state = GSD_COLOR_STATE (helper->state);
 
         /* get properties */
         ret = cd_profile_connect_finish (profile, res, &error);
@@ -679,7 +689,7 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
 
         /* get the output (can't save in helper as GnomeRROutput isn't
          * a GObject, just a pointer */
-        output = gnome_rr_screen_get_output_by_id (x11->priv->x11_screen,
+        output = gnome_rr_screen_get_output_by_id (state->priv->state_screen,
                                                    helper->output_id);
         if (output == NULL)
                 goto out;
@@ -697,9 +707,9 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
         }
 
         /* set the _ICC_PROFILE atom */
-        ret = gcm_session_use_output_profile_for_screen (x11, output);
+        ret = gcm_session_use_output_profile_for_screen (state, output);
         if (ret) {
-                ret = gcm_session_screen_set_icc_profile (x11,
+                ret = gcm_session_screen_set_icc_profile (state,
                                                           filename,
                                                           &error);
                 if (!ret) {
@@ -780,11 +790,11 @@ gcm_session_device_assign_connect_cb (GObject *object,
         const gchar *xrandr_id;
         GcmSessionAsyncHelper *helper;
         CdDevice *device = CD_DEVICE (object);
-        GsdColorX11 *x11 = GSD_COLOR_X11 (user_data);
-        GsdColorX11Private *priv = x11->priv;
+        GsdColorState *state = GSD_COLOR_STATE (user_data);
+        GsdColorStatePrivate *priv = state->priv;
 
         /* remove from assign array */
-        g_hash_table_remove (x11->priv->device_assign_hash,
+        g_hash_table_remove (state->priv->device_assign_hash,
                              cd_device_get_object_path (device));
 
         /* get properties */
@@ -806,7 +816,7 @@ gcm_session_device_assign_connect_cb (GObject *object,
 
         /* get the GnomeRROutput for the device id */
         xrandr_id = cd_device_get_id (device);
-        output = gcm_session_get_x11_output_by_id (x11,
+        output = gcm_session_get_state_output_by_id (state,
                                                    xrandr_id,
                                                    &error);
         if (output == NULL) {
@@ -818,7 +828,7 @@ gcm_session_device_assign_connect_cb (GObject *object,
         }
 
         /* create profile from device edid if it exists */
-        edid = gcm_session_get_output_edid (x11, output, &error);
+        edid = gcm_session_get_output_edid (state, output, &error);
         if (edid == NULL) {
                 g_warning ("unable to get EDID for %s: %s",
                            cd_device_get_id (device),
@@ -838,7 +848,7 @@ gcm_session_device_assign_connect_cb (GObject *object,
                 } else {
                         g_debug ("auto-profile edid does not exist, creating as %s",
                                  autogen_path);
-                        ret = gcm_apply_create_icc_profile_for_edid (x11,
+                        ret = gcm_apply_create_icc_profile_for_edid (state,
                                                                      device,
                                                                      edid,
                                                                      file,
@@ -858,7 +868,8 @@ gcm_session_device_assign_connect_cb (GObject *object,
                          cd_device_get_id (device));
 
                 /* the default output? */
-                if (gnome_rr_output_get_is_primary (output)) {
+                if (gnome_rr_output_get_is_primary (output) &&
+                    priv->gdk_window != NULL) {
                         gdk_property_delete (priv->gdk_window,
                                              gdk_atom_intern_static_string ("_ICC_PROFILE"));
                         gdk_property_delete (priv->gdk_window,
@@ -881,7 +892,7 @@ gcm_session_device_assign_connect_cb (GObject *object,
         /* get properties */
         helper = g_new0 (GcmSessionAsyncHelper, 1);
         helper->output_id = gnome_rr_output_get_id (output);
-        helper->x11 = g_object_ref (x11);
+        helper->state = g_object_ref (state);
         helper->device = g_object_ref (device);
         cd_profile_connect (profile,
                             NULL,
@@ -899,42 +910,42 @@ out:
 }
 
 static void
-gcm_session_device_assign (GsdColorX11 *x11, CdDevice *device)
+gcm_session_device_assign (GsdColorState *state, CdDevice *device)
 {
         const gchar *key;
         gpointer found;
 
         /* are we already assigning this device */
         key = cd_device_get_object_path (device);
-        found = g_hash_table_lookup (x11->priv->device_assign_hash, key);
+        found = g_hash_table_lookup (state->priv->device_assign_hash, key);
         if (found != NULL) {
                 g_debug ("assign for %s already in progress", key);
                 return;
         }
-        g_hash_table_insert (x11->priv->device_assign_hash,
+        g_hash_table_insert (state->priv->device_assign_hash,
                              g_strdup (key),
                              GINT_TO_POINTER (TRUE));
         cd_device_connect (device,
                            NULL,
                            gcm_session_device_assign_connect_cb,
-                           x11);
+                           state);
 }
 
 static void
 gcm_session_device_added_assign_cb (CdClient *client,
                                     CdDevice *device,
-                                    GsdColorX11 *x11)
+                                    GsdColorState *state)
 {
-        gcm_session_device_assign (x11, device);
+        gcm_session_device_assign (state, device);
 }
 
 static void
 gcm_session_device_changed_assign_cb (CdClient *client,
                                       CdDevice *device,
-                                      GsdColorX11 *x11)
+                                      GsdColorState *state)
 {
         g_debug ("%s changed", cd_device_get_object_path (device));
-        gcm_session_device_assign (x11, device);
+        gcm_session_device_assign (state, device);
 }
 
 static void
@@ -961,7 +972,7 @@ gcm_session_create_device_cb (GObject *object,
 }
 
 static void
-gcm_session_add_x11_output (GsdColorX11 *x11, GnomeRROutput *output)
+gcm_session_add_state_output (GsdColorState *state, GnomeRROutput *output)
 {
         const gchar *edid_checksum = NULL;
         const gchar *model = NULL;
@@ -972,10 +983,10 @@ gcm_session_add_x11_output (GsdColorX11 *x11, GnomeRROutput *output)
         GcmEdid *edid;
         GError *error = NULL;
         GHashTable *device_props = NULL;
-        GsdColorX11Private *priv = x11->priv;
+        GsdColorStatePrivate *priv = state->priv;
 
         /* try to get edid */
-        edid = gcm_session_get_output_edid (x11, output, &error);
+        edid = gcm_session_get_output_edid (state, output, &error);
         if (edid == NULL) {
                 g_warning ("failed to get edid: %s",
                            error->message);
@@ -1008,7 +1019,7 @@ gcm_session_add_x11_output (GsdColorX11 *x11, GnomeRROutput *output)
         if (serial == NULL)
                 serial = "unknown";
 
-        device_id = gcm_session_get_output_id (x11, output);
+        device_id = gcm_session_get_output_id (state, output);
         g_debug ("output %s added", device_id);
         device_props = g_hash_table_new_full (g_str_hash, g_str_equal,
                                               NULL, NULL);
@@ -1056,7 +1067,7 @@ gcm_session_add_x11_output (GsdColorX11 *x11, GnomeRROutput *output)
                                  device_props,
                                  NULL,
                                  gcm_session_create_device_cb,
-                                 x11);
+                                 state);
         g_free (device_id);
         if (device_props != NULL)
                 g_hash_table_unref (device_props);
@@ -1068,9 +1079,9 @@ gcm_session_add_x11_output (GsdColorX11 *x11, GnomeRROutput *output)
 static void
 gnome_rr_screen_output_added_cb (GnomeRRScreen *screen,
                                 GnomeRROutput *output,
-                                GsdColorX11 *x11)
+                                GsdColorState *state)
 {
-        gcm_session_add_x11_output (x11, output);
+        gcm_session_add_state_output (state, output);
 }
 
 static void
@@ -1095,9 +1106,9 @@ gcm_session_screen_removed_find_device_cb (GObject *object, GAsyncResult *res, g
 {
         GError *error = NULL;
         CdDevice *device;
-        GsdColorX11 *x11 = GSD_COLOR_X11 (user_data);
+        GsdColorState *state = GSD_COLOR_STATE (user_data);
 
-        device = cd_client_find_device_finish (x11->priv->client,
+        device = cd_client_find_device_finish (state->priv->client,
                                                res,
                                                &error);
         if (device == NULL) {
@@ -1108,29 +1119,29 @@ gcm_session_screen_removed_find_device_cb (GObject *object, GAsyncResult *res, g
         }
         g_debug ("output %s found, and will be removed",
                  cd_device_get_object_path (device));
-        cd_client_delete_device (x11->priv->client,
+        cd_client_delete_device (state->priv->client,
                                  device,
                                  NULL,
                                  gcm_session_screen_removed_delete_device_cb,
-                                 x11);
+                                 state);
         g_object_unref (device);
 }
 
 static void
 gnome_rr_screen_output_removed_cb (GnomeRRScreen *screen,
                                    GnomeRROutput *output,
-                                   GsdColorX11 *x11)
+                                   GsdColorState *state)
 {
         g_debug ("output %s removed",
                  gnome_rr_output_get_name (output));
-        g_hash_table_remove (x11->priv->edid_cache,
+        g_hash_table_remove (state->priv->edid_cache,
                              gnome_rr_output_get_name (output));
-        cd_client_find_device_by_property (x11->priv->client,
+        cd_client_find_device_by_property (state->priv->client,
                                            CD_DEVICE_METADATA_XRANDR_NAME,
                                            gnome_rr_output_get_name (output),
                                            NULL,
                                            gcm_session_screen_removed_find_device_cb,
-                                           x11);
+                                           state);
 }
 
 static void
@@ -1140,7 +1151,7 @@ gcm_session_get_devices_cb (GObject *object, GAsyncResult *res, gpointer user_da
         GError *error = NULL;
         GPtrArray *array;
         guint i;
-        GsdColorX11 *x11 = GSD_COLOR_X11 (user_data);
+        GsdColorState *state = GSD_COLOR_STATE (user_data);
 
         array = cd_client_get_devices_finish (CD_CLIENT (object), res, &error);
         if (array == NULL) {
@@ -1151,7 +1162,7 @@ gcm_session_get_devices_cb (GObject *object, GAsyncResult *res, gpointer user_da
         }
         for (i = 0; i < array->len; i++) {
                 device = g_ptr_array_index (array, i);
-                gcm_session_device_assign (x11, device);
+                gcm_session_device_assign (state, device);
         }
 out:
         if (array != NULL)
@@ -1166,7 +1177,7 @@ gcm_session_profile_gamma_find_device_cb (GObject *object,
         CdClient *client = CD_CLIENT (object);
         CdDevice *device = NULL;
         GError *error = NULL;
-        GsdColorX11 *x11 = GSD_COLOR_X11 (user_data);
+        GsdColorState *state = GSD_COLOR_STATE (user_data);
 
         device = cd_client_find_device_by_property_finish (client,
                                                            res,
@@ -1182,7 +1193,7 @@ gcm_session_profile_gamma_find_device_cb (GObject *object,
         cd_device_connect (device,
                            NULL,
                            gcm_session_device_assign_connect_cb,
-                           x11);
+                           state);
 out:
         if (device != NULL)
                 g_object_unref (device);
@@ -1193,14 +1204,14 @@ out:
  * See https://bugzilla.gnome.org/show_bug.cgi?id=660164 for an example */
 static void
 gnome_rr_screen_output_changed_cb (GnomeRRScreen *screen,
-                                   GsdColorX11 *x11)
+                                   GsdColorState *state)
 {
         GnomeRROutput **outputs;
-        GsdColorX11Private *priv = x11->priv;
+        GsdColorStatePrivate *priv = state->priv;
         guint i;
 
-        /* get X11 outputs */
-        outputs = gnome_rr_screen_list_outputs (priv->x11_screen);
+        /* get STATE outputs */
+        outputs = gnome_rr_screen_list_outputs (priv->state_screen);
         if (outputs == NULL) {
                 g_warning ("failed to get outputs");
                 return;
@@ -1210,12 +1221,12 @@ gnome_rr_screen_output_changed_cb (GnomeRRScreen *screen,
                         continue;
 
                 /* get CdDevice for this output */
-                cd_client_find_device_by_property (x11->priv->client,
+                cd_client_find_device_by_property (state->priv->client,
                                                    CD_DEVICE_METADATA_XRANDR_NAME,
                                                    gnome_rr_output_get_name (outputs[i]),
                                                    NULL,
                                                    gcm_session_profile_gamma_find_device_cb,
-                                                   x11);
+                                                   state);
         }
 
 }
@@ -1236,9 +1247,9 @@ static void
 gcm_session_active_changed_cb (GDBusProxy      *session,
                                GVariant        *changed,
                                char           **invalidated,
-                               GsdColorX11 *x11)
+                               GsdColorState *state)
 {
-        GsdColorX11Private *priv = x11->priv;
+        GsdColorStatePrivate *priv = state->priv;
         GVariant *active_v = NULL;
         gboolean is_active;
 
@@ -1263,9 +1274,9 @@ gcm_session_active_changed_cb (GDBusProxy      *session,
          */
         if (is_active && !priv->session_is_active) {
                 g_debug ("Done switch to new account, reload devices");
-                cd_client_get_devices (x11->priv->client, NULL,
+                cd_client_get_devices (state->priv->client, NULL,
                                        gcm_session_get_devices_cb,
-                                       x11);
+                                       state);
         }
         priv->session_is_active = is_active;
 }
@@ -1279,11 +1290,11 @@ gcm_session_client_connect_cb (GObject *source_object,
         GError *error = NULL;
         GnomeRROutput **outputs;
         guint i;
-        GsdColorX11 *x11 = GSD_COLOR_X11 (user_data);
-        GsdColorX11Private *priv = x11->priv;
+        GsdColorState *state = GSD_COLOR_STATE (user_data);
+        GsdColorStatePrivate *priv = state->priv;
 
         /* connected */
-        ret = cd_client_connect_finish (x11->priv->client, res, &error);
+        ret = cd_client_connect_finish (state->priv->client, res, &error);
         if (!ret) {
                 g_warning ("failed to connect to colord: %s", error->message);
                 g_error_free (error);
@@ -1291,7 +1302,7 @@ gcm_session_client_connect_cb (GObject *source_object,
         }
 
         /* is there an available colord instance? */
-        ret = cd_client_get_has_server (x11->priv->client);
+        ret = cd_client_get_has_server (state->priv->client);
         if (!ret) {
                 g_warning ("There is no colord server available");
                 goto out;
@@ -1299,69 +1310,69 @@ gcm_session_client_connect_cb (GObject *source_object,
 
         /* watch if sessions change */
         g_signal_connect (priv->session, "g-properties-changed",
-                          G_CALLBACK (gcm_session_active_changed_cb), x11);
+                          G_CALLBACK (gcm_session_active_changed_cb), state);
 
         /* add screens */
-        gnome_rr_screen_refresh (priv->x11_screen, &error);
+        gnome_rr_screen_refresh (priv->state_screen, &error);
         if (error != NULL) {
                 g_warning ("failed to refresh: %s", error->message);
                 g_error_free (error);
                 goto out;
         }
 
-        /* get X11 outputs */
-        outputs = gnome_rr_screen_list_outputs (priv->x11_screen);
+        /* get STATE outputs */
+        outputs = gnome_rr_screen_list_outputs (priv->state_screen);
         if (outputs == NULL) {
                 g_warning ("failed to get outputs");
                 goto out;
         }
         for (i = 0; outputs[i] != NULL; i++) {
                 if (gnome_rr_output_is_connected (outputs[i]))
-                        gcm_session_add_x11_output (x11, outputs[i]);
+                        gcm_session_add_state_output (state, outputs[i]);
         }
 
         /* only connect when colord is awake */
-        g_signal_connect (priv->x11_screen, "output-connected",
+        g_signal_connect (priv->state_screen, "output-connected",
                           G_CALLBACK (gnome_rr_screen_output_added_cb),
-                          x11);
-        g_signal_connect (priv->x11_screen, "output-disconnected",
+                          state);
+        g_signal_connect (priv->state_screen, "output-disconnected",
                           G_CALLBACK (gnome_rr_screen_output_removed_cb),
-                          x11);
-        g_signal_connect (priv->x11_screen, "changed",
+                          state);
+        g_signal_connect (priv->state_screen, "changed",
                           G_CALLBACK (gnome_rr_screen_output_changed_cb),
-                          x11);
+                          state);
 
         g_signal_connect (priv->client, "device-added",
                           G_CALLBACK (gcm_session_device_added_assign_cb),
-                          x11);
+                          state);
         g_signal_connect (priv->client, "device-changed",
                           G_CALLBACK (gcm_session_device_changed_assign_cb),
-                          x11);
+                          state);
 
         /* set for each device that already exist */
         cd_client_get_devices (priv->client, NULL,
                                gcm_session_get_devices_cb,
-                               x11);
+                               state);
 out:
         return;
 }
 
 gboolean
-gsd_color_x11_start (GsdColorX11 *x11,
+gsd_color_state_start (GsdColorState *state,
                      GError     **error)
 {
-        GsdColorX11Private *priv = x11->priv;
+        GsdColorStatePrivate *priv = state->priv;
         gboolean ret = FALSE;
 
         /* coldplug the list of screens */
-        priv->x11_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
-        if (priv->x11_screen == NULL)
+        priv->state_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
+        if (priv->state_screen == NULL)
                 goto out;
 
         cd_client_connect (priv->client,
                            NULL,
                            gcm_session_client_connect_cb,
-                           x11);
+                           state);
 
         /* success */
         ret = TRUE;
@@ -1370,26 +1381,29 @@ out:
 }
 
 static void
-gsd_color_x11_class_init (GsdColorX11Class *klass)
+gsd_color_state_class_init (GsdColorStateClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->finalize = gsd_color_x11_finalize;
+        object_class->finalize = gsd_color_state_finalize;
 
-        g_type_class_add_private (klass, sizeof (GsdColorX11Private));
+        g_type_class_add_private (klass, sizeof (GsdColorStatePrivate));
 }
 
 static void
-gsd_color_x11_init (GsdColorX11 *x11)
+gsd_color_state_init (GsdColorState *state)
 {
-        GsdColorX11Private *priv;
-        priv = x11->priv = GSD_COLOR_X11_GET_PRIVATE (x11);
+        GsdColorStatePrivate *priv;
+        priv = state->priv = GSD_COLOR_STATE_GET_PRIVATE (state);
 
         /* track the active session */
         priv->session = gnome_settings_bus_get_session_proxy ();
 
+#ifdef GDK_WINDOWING_X11
         /* set the _ICC_PROFILE atoms on the root screen */
-        priv->gdk_window = gdk_screen_get_root_window (gdk_screen_get_default ());
+        if (GDK_IS_X11_DISPLAY (gdk_display_get_default ()))
+                priv->gdk_window = gdk_screen_get_root_window (gdk_screen_get_default ());
+#endif
 
         /* parsing the EDID is expensive */
         priv->edid_cache = g_hash_table_new_full (g_str_hash,
@@ -1407,28 +1421,28 @@ gsd_color_x11_init (GsdColorX11 *x11)
 }
 
 static void
-gsd_color_x11_finalize (GObject *object)
+gsd_color_state_finalize (GObject *object)
 {
-        GsdColorX11 *x11;
+        GsdColorState *state;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_COLOR_X11 (object));
+        g_return_if_fail (GSD_IS_COLOR_STATE (object));
 
-        x11 = GSD_COLOR_X11 (object);
+        state = GSD_COLOR_STATE (object);
 
-        g_clear_object (&x11->priv->client);
-        g_clear_object (&x11->priv->session);
-        g_clear_pointer (&x11->priv->edid_cache, g_hash_table_destroy);
-        g_clear_pointer (&x11->priv->device_assign_hash, g_hash_table_destroy);
-        g_clear_object (&x11->priv->x11_screen);
+        g_clear_object (&state->priv->client);
+        g_clear_object (&state->priv->session);
+        g_clear_pointer (&state->priv->edid_cache, g_hash_table_destroy);
+        g_clear_pointer (&state->priv->device_assign_hash, g_hash_table_destroy);
+        g_clear_object (&state->priv->state_screen);
 
-        G_OBJECT_CLASS (gsd_color_x11_parent_class)->finalize (object);
+        G_OBJECT_CLASS (gsd_color_state_parent_class)->finalize (object);
 }
 
-GsdColorX11 *
-gsd_color_x11_new (void)
+GsdColorState *
+gsd_color_state_new (void)
 {
-        GsdColorX11 *x11;
-        x11 = g_object_new (GSD_TYPE_COLOR_X11, NULL);
-        return GSD_COLOR_X11 (x11);
+        GsdColorState *state;
+        state = g_object_new (GSD_TYPE_COLOR_STATE, NULL);
+        return GSD_COLOR_STATE (state);
 }
