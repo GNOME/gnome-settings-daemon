@@ -44,6 +44,7 @@
 #include "gsd-xsettings-gtk.h"
 #include "xsettings-manager.h"
 #include "fontconfig-monitor.h"
+#include "gsd-remote-display-manager.h"
 
 #define GNOME_XSETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GNOME_TYPE_XSETTINGS_MANAGER, GnomeXSettingsManagerPrivate))
 
@@ -254,6 +255,8 @@ struct GnomeXSettingsManagerPrivate
 
         GsdXSettingsGtk   *gtk;
 
+        GsdRemoteDisplayManager *remote_display;
+
         guint              shell_name_watch_id;
         gboolean           have_shell;
 
@@ -373,7 +376,6 @@ static TranslationEntry translations [] = {
         { "org.gnome.desktop.interface", "gtk-im-module",          "Gtk/IMModule",            translate_string_string },
         { "org.gnome.desktop.interface", "icon-theme",             "Net/IconThemeName",       translate_string_string },
         { "org.gnome.desktop.interface", "menubar-accel",          "Gtk/MenuBarAccel",        translate_string_string },
-        { "org.gnome.desktop.interface", "enable-animations",      "Gtk/EnableAnimations",    translate_bool_int },
         { "org.gnome.desktop.interface", "cursor-theme",           "Gtk/CursorThemeName",     translate_string_string },
         /* cursor-size is handled via the Xft side as it needs the scaling factor */
 
@@ -941,6 +943,29 @@ start_shell_monitor (GnomeXSettingsManager *manager)
                                                                NULL);
 }
 
+static void
+force_disable_animation_changed (GObject    *gobject,
+                                 GParamSpec *pspec,
+                                 GnomeXSettingsManager *manager)
+{
+        gboolean force_disable, value;
+        int i;
+
+        g_object_get (gobject, "force-disable-animations", &force_disable, NULL);
+        if (force_disable)
+                value = FALSE;
+        else {
+                GSettings *settings;
+
+                settings = g_hash_table_lookup (manager->priv->settings, "org.gnome.desktop.interface");
+                value = g_settings_get_boolean (settings, "enable-animations");
+        }
+
+        for (i = 0; manager->priv->managers [i]; i++) {
+                xsettings_manager_set_int (manager->priv->managers [i], "Gtk/EnableAnimations", value);
+        }
+}
+
 gboolean
 gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                                GError               **error)
@@ -958,6 +983,10 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                              "Could not initialize xsettings manager.");
                 return FALSE;
         }
+
+        manager->priv->remote_display = gsd_remote_display_manager_new ();
+        g_signal_connect (G_OBJECT (manager->priv->remote_display), "notify::force-disable-animations",
+                          G_CALLBACK (force_disable_animation_changed), manager);
 
         manager->priv->settings = g_hash_table_new_full (g_str_hash, g_str_equal,
                                                          NULL, (GDestroyNotify) g_object_unref);
@@ -1008,6 +1037,9 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                           G_CALLBACK (gtk_modules_callback), manager);
         gtk_modules_callback (manager->priv->gtk, NULL, manager);
 
+        /* Animation settings */
+        force_disable_animation_changed (G_OBJECT (manager->priv->remote_display), NULL, manager);
+
         /* Xft settings */
         update_xft_settings (manager);
 
@@ -1040,6 +1072,8 @@ gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
         int i;
 
         g_debug ("Stopping xsettings manager");
+
+        g_clear_object (&manager->priv->remote_display);
 
         if (p->managers != NULL) {
                 for (i = 0; p->managers [i]; ++i)

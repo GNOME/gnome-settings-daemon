@@ -40,6 +40,8 @@ gsd_test_xsettings_SOURCES =	\
 	xsettings-manager.h	\
 	fontconfig-monitor.c	\
 	fontconfig-monitor.h	\
+	gsd-remote-display-manager.c \
+	gsd-remote-display-manager.h \
 	test-xsettings.c
 
 gsd_test_xsettings_CFLAGS = $(test_gtk_modules_CFLAGS)
