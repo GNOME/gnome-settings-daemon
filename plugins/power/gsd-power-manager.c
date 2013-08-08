@@ -3219,46 +3219,30 @@ logind_proxy_signal_cb (GDBusProxy  *proxy,
         }
 }
 
-gboolean
-gsd_power_manager_start (GsdPowerManager *manager,
-                         GError **error)
+static void
+on_rr_screen_acquired (GObject      *object,
+                       GAsyncResult *result,
+                       gpointer      user_data)
 {
-        g_debug ("Starting power manager");
+        GsdPowerManager *manager = user_data;
+
         gnome_settings_profile_start (NULL);
 
-        /* Check whether we have a lid first */
-        manager->priv->up_client = up_client_new ();
-        manager->priv->lid_is_present = up_client_get_lid_is_present (manager->priv->up_client);
-        if (manager->priv->lid_is_present)
-                manager->priv->lid_is_closed = up_client_get_lid_is_closed (manager->priv->up_client);
+        manager->priv->rr_screen = gnome_rr_screen_new_finish (result, NULL);
 
-        /* coldplug the list of screens */
-        manager->priv->rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
-        if (manager->priv->rr_screen == NULL) {
-                g_debug ("Couldn't detect any screens, disabling plugin");
-                return FALSE;
+        /* set up the screens */
+        if (manager->priv->lid_is_present) {
+                g_signal_connect (manager->priv->rr_screen, "changed", G_CALLBACK (on_randr_event), manager);
+                watch_external_monitor (manager->priv->rr_screen);
+                on_randr_event (manager->priv->rr_screen, manager);
         }
 
-        /* Check for XTEST support */
-        if (supports_xtest () == FALSE) {
-                g_debug ("XTEST extension required, disabling plugin");
-                return FALSE;
-        }
+        /* check whether a backlight is available */
+        manager->priv->backlight_available = backlight_available (manager->priv->rr_screen);
 
-        /* Set up the logind proxy */
-        manager->priv->logind_proxy =
-                g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
-                                               0,
-                                               NULL,
-                                               SYSTEMD_DBUS_NAME,
-                                               SYSTEMD_DBUS_PATH,
-                                               SYSTEMD_DBUS_INTERFACE,
-                                               NULL,
-                                               error);
-        if (manager->priv->logind_proxy == NULL) {
-                g_debug ("No systemd (logind) support, disabling plugin");
-                return FALSE;
-        }
+        /* ensure the default dpms timeouts are cleared */
+        backlight_enable (manager);
+
         g_signal_connect (manager->priv->logind_proxy, "g-signal",
                           G_CALLBACK (logind_proxy_signal_cb),
                           manager);
@@ -3355,19 +3339,6 @@ gsd_power_manager_start (GsdPowerManager *manager,
         /* create IDLETIME watcher */
         manager->priv->idle_monitor = gnome_idle_monitor_new ();
 
-        /* set up the screens */
-        if (manager->priv->lid_is_present) {
-                g_signal_connect (manager->priv->rr_screen, "changed", G_CALLBACK (on_randr_event), manager);
-                watch_external_monitor (manager->priv->rr_screen);
-                on_randr_event (manager->priv->rr_screen, manager);
-        }
-
-        /* check whether a backlight is available */
-        manager->priv->backlight_available = backlight_available (manager->priv->rr_screen);
-
-        /* ensure the default dpms timeouts are cleared */
-        backlight_enable (manager);
-
         /* coldplug the engine */
         engine_coldplug (manager);
         idle_configure (manager);
@@ -3376,6 +3347,47 @@ gsd_power_manager_start (GsdPowerManager *manager,
 
         /* don't blank inside a VM */
         manager->priv->is_virtual_machine = gsd_power_is_hardware_a_vm ();
+
+        gnome_settings_profile_end (NULL);
+}
+
+gboolean
+gsd_power_manager_start (GsdPowerManager *manager,
+                         GError **error)
+{
+        g_debug ("Starting power manager");
+        gnome_settings_profile_start (NULL);
+
+        /* Check whether we have a lid first */
+        manager->priv->up_client = up_client_new ();
+        manager->priv->lid_is_present = up_client_get_lid_is_present (manager->priv->up_client);
+        if (manager->priv->lid_is_present)
+                manager->priv->lid_is_closed = up_client_get_lid_is_closed (manager->priv->up_client);
+
+        /* Set up the logind proxy */
+        manager->priv->logind_proxy =
+                g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                               0,
+                                               NULL,
+                                               SYSTEMD_DBUS_NAME,
+                                               SYSTEMD_DBUS_PATH,
+                                               SYSTEMD_DBUS_INTERFACE,
+                                               NULL,
+                                               error);
+        if (manager->priv->logind_proxy == NULL) {
+                g_debug ("No systemd (logind) support, disabling plugin");
+                return FALSE;
+        }
+
+        /* Check for XTEST support */
+        if (supports_xtest () == FALSE) {
+                g_debug ("XTEST extension required, disabling plugin");
+                return FALSE;
+        }
+
+        /* coldplug the list of screens */
+        gnome_rr_screen_new_async (gdk_screen_get_default (),
+                                   on_rr_screen_acquired, manager);
 
         gnome_settings_profile_end (NULL);
         return TRUE;

@@ -1168,10 +1168,8 @@ get_primary_output (GnomeRRScreen *rr_screen)
                 goto out;
 
         for (i = 0; outputs[i] != NULL; i++) {
-                if (gnome_rr_output_is_connected (outputs[i]) &&
-                    gnome_rr_output_is_builtin_display (outputs[i]) &&
-                    gnome_rr_output_get_backlight_min (outputs[i]) >= 0 &&
-                    gnome_rr_output_get_backlight_max (outputs[i]) > 0) {
+                if (gnome_rr_output_is_builtin_display (outputs[i]) &&
+                    gnome_rr_output_get_backlight (outputs[i]) >= 0) {
                         output = outputs[i];
                         break;
                 }
@@ -1394,8 +1392,7 @@ backlight_get_abs (GnomeRRScreen *rr_screen, GError **error)
         /* prefer xbacklight */
         output = get_primary_output (rr_screen);
         if (output != NULL) {
-                return gnome_rr_output_get_backlight (output,
-                                                      error);
+                return gnome_rr_output_get_backlight (output);
         }
 
         /* fall back to the polkit helper */
@@ -1414,13 +1411,10 @@ backlight_get_percentage (GnomeRRScreen *rr_screen, GError **error)
         /* prefer xbacklight */
         output = get_primary_output (rr_screen);
         if (output != NULL) {
-
-                min = gnome_rr_output_get_backlight_min (output);
-                max = gnome_rr_output_get_backlight_max (output);
-                now = gnome_rr_output_get_backlight (output, error);
+                now = gnome_rr_output_get_backlight (output);
                 if (now < 0)
                         goto out;
-                value = ABS_TO_PERCENTAGE (min, max, now);
+                value = ABS_TO_PERCENTAGE (0, 100, now);
                 goto out;
         }
 
@@ -1439,36 +1433,18 @@ out:
 int
 backlight_get_min (GnomeRRScreen *rr_screen)
 {
-        GnomeRROutput *output;
-
-        /* if we have no xbacklight device, then hardcode zero as sysfs
-         * offsets everything to 0 as min */
-        output = get_primary_output (rr_screen);
-        if (output == NULL)
-                return 0;
-
-        /* get xbacklight value, which maybe non-zero */
-        return gnome_rr_output_get_backlight_min (output);
+        return 0;
 }
 
 int
 backlight_get_max (GnomeRRScreen *rr_screen, GError **error)
 {
-        gint value;
         GnomeRROutput *output;
 
         /* prefer xbacklight */
         output = get_primary_output (rr_screen);
-        if (output != NULL) {
-                value = gnome_rr_output_get_backlight_max (output);
-                if (value < 0) {
-                        g_set_error (error,
-                                     GSD_POWER_MANAGER_ERROR,
-                                     GSD_POWER_MANAGER_ERROR_FAILED,
-                                     "failed to get backlight max");
-                }
-                return value;
-        }
+        if (output != NULL)
+                return 100;
 
         /* fall back to the polkit helper */
         return  backlight_helper_get_value ("get-max-brightness", error);
@@ -1487,19 +1463,8 @@ backlight_set_percentage (GnomeRRScreen *rr_screen,
 
         /* prefer xbacklight */
         output = get_primary_output (rr_screen);
-        if (output != NULL) {
-                min = gnome_rr_output_get_backlight_min (output);
-                max = gnome_rr_output_get_backlight_max (output);
-                if (min < 0 || max < 0) {
-                        g_warning ("no xrandr backlight capability");
-                        return ret;
-                }
-                discrete = PERCENTAGE_TO_ABS (min, max, value);
-                ret = gnome_rr_output_set_backlight (output,
-                                                     discrete,
-                                                     error);
-                return ret;
-        }
+        if (output != NULL)
+                return gnome_rr_output_set_backlight (output, value, error);
 
         /* fall back to the polkit helper */
         max = backlight_helper_get_value ("get-max-brightness", error);
@@ -1539,9 +1504,9 @@ backlight_step_up (GnomeRRScreen *rr_screen, GError **error)
                                      gnome_rr_output_get_name (output));
                         return percentage_value;
                 }
-                min = gnome_rr_output_get_backlight_min (output);
-                max = gnome_rr_output_get_backlight_max (output);
-                now = gnome_rr_output_get_backlight (output, error);
+                min = 0;
+                max = 100;
+                now = gnome_rr_output_get_backlight (output);
                 if (now < 0)
                        return percentage_value;
                 step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
@@ -1598,9 +1563,9 @@ backlight_step_down (GnomeRRScreen *rr_screen, GError **error)
                                      gnome_rr_output_get_name (output));
                         return percentage_value;
                 }
-                min = gnome_rr_output_get_backlight_min (output);
-                max = gnome_rr_output_get_backlight_max (output);
-                now = gnome_rr_output_get_backlight (output, error);
+                min = 0;
+                max = 100;
+                now = gnome_rr_output_get_backlight (output);
                 if (now < 0)
                        return percentage_value;
                 step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
@@ -1641,12 +1606,8 @@ backlight_set_abs (GnomeRRScreen *rr_screen,
 
         /* prefer xbacklight */
         output = get_primary_output (rr_screen);
-        if (output != NULL) {
-                ret = gnome_rr_output_set_backlight (output,
-                                                     value,
-                                                     error);
-                return ret;
-        }
+        if (output != NULL)
+                return gnome_rr_output_set_backlight (output, value, error);
 
         /* fall back to the polkit helper */
         ret = backlight_helper_set_value ("set-brightness",
