@@ -79,15 +79,6 @@ static const gchar introspection_xml[] =
 "<node name='/org/gnome/SettingsDaemon/XRANDR'>"
 "  <interface name='org.gnome.SettingsDaemon.XRANDR_2'>"
 "    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='gsd_xrandr_manager_2'/>"
-"    <method name='ApplyConfiguration'>"
-"      <!-- transient-parent window for the confirmation dialog; use 0"
-"      for no parent -->"
-"      <arg name='parent_window_id' type='x' direction='in'/>"
-""
-"      <!-- Timestamp used to present the confirmation dialog and (in"
-"      the future) for the RANDR calls themselves -->"
-"      <arg name='timestamp' type='x' direction='in'/>"
-"    </method>"
 "    <method name='VideoModeSwitch'>"
 "       <!-- Timestamp for the RANDR call itself -->"
 "       <arg name='timestamp' type='x' direction='in'/>"
@@ -729,29 +720,6 @@ try_to_apply_intended_configuration (GsdXrandrManager *manager, GdkWindow *paren
 out:
         g_free (backup_filename);
         g_free (intended_filename);
-
-        return result;
-}
-
-/* DBus method for org.gnome.SettingsDaemon.XRANDR_2 ApplyConfiguration; see gsd-xrandr-manager.xml for the interface definition */
-static gboolean
-gsd_xrandr_manager_2_apply_configuration (GsdXrandrManager *manager,
-                                          gint64            parent_window_id,
-                                          gint64            timestamp,
-                                          GError          **error)
-{
-        GdkWindow *parent_window;
-        gboolean result;
-
-        if (parent_window_id != 0)
-                parent_window = gdk_x11_window_foreign_new_for_display (gdk_display_get_default (), (Window) parent_window_id);
-        else
-                parent_window = NULL;
-
-        result = try_to_apply_intended_configuration (manager, parent_window, (guint32) timestamp, error);
-
-        if (parent_window)
-                g_object_unref (parent_window);
 
         return result;
 }
@@ -2167,21 +2135,10 @@ handle_method_call_xrandr_2 (GsdXrandrManager *manager,
                              GDBusMethodInvocation *invocation)
 {
         gint64 timestamp;
-        GError *error = NULL;
 
         g_debug ("Calling method '%s' for org.gnome.SettingsDaemon.XRANDR_2", method_name);
 
-        if (g_strcmp0 (method_name, "ApplyConfiguration") == 0) {
-                gint64 parent_window_id;
-
-                g_variant_get (parameters, "(xx)", &parent_window_id, &timestamp);
-                if (gsd_xrandr_manager_2_apply_configuration (manager, parent_window_id,
-                                                              timestamp, &error) == FALSE) {
-                        g_dbus_method_invocation_return_gerror (invocation, error);
-                } else {
-                        g_dbus_method_invocation_return_value (invocation, NULL);
-                }
-        } else if (g_strcmp0 (method_name, "VideoModeSwitch") == 0) {
+        if (g_strcmp0 (method_name, "VideoModeSwitch") == 0) {
                 g_variant_get (parameters, "(x)", &timestamp);
                 gsd_xrandr_manager_2_video_mode_switch (manager, timestamp, NULL);
                 g_dbus_method_invocation_return_value (invocation, NULL);
