@@ -47,8 +47,7 @@ GType                   gsd_color_state_get_type        (void);
 GQuark                  gsd_color_state_error_quark     (void);
 
 GsdColorState *         gsd_color_state_new             (void);
-gboolean                gsd_color_state_start           (GsdColorState *state,
-                                                         GError       **error);
+void                    gsd_color_state_start           (GsdColorState *state);
 
 G_END_DECLS
 

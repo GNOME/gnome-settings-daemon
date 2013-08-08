@@ -564,8 +564,6 @@ gcm_session_get_state_output_by_id (GsdColorState *state,
                 goto out;
         }
         for (i = 0; outputs[i] != NULL && output == NULL; i++) {
-                if (!gnome_rr_output_is_connected (outputs[i]))
-                        continue;
                 output_id = gcm_session_get_output_id (state, outputs[i]);
                 if (g_strcmp0 (output_id, device_id) == 0)
                         output = outputs[i];
@@ -602,8 +600,6 @@ gcm_session_use_output_profile_for_screen (GsdColorState *state,
                 return FALSE;
         }
         for (i = 0; outputs[i] != NULL; i++) {
-                if (!gnome_rr_output_is_connected (outputs[i]))
-                        continue;
                 if (connected == NULL)
                         connected = outputs[i];
                 if (gnome_rr_output_get_is_primary (outputs[i]))
@@ -1217,9 +1213,6 @@ gnome_rr_screen_output_changed_cb (GnomeRRScreen *screen,
                 return;
         }
         for (i = 0; outputs[i] != NULL; i++) {
-                if (!gnome_rr_output_is_connected (outputs[i]))
-                        continue;
-
                 /* get CdDevice for this output */
                 cd_client_find_device_by_property (state->priv->client,
                                                    CD_DEVICE_METADATA_XRANDR_NAME,
@@ -1327,8 +1320,7 @@ gcm_session_client_connect_cb (GObject *source_object,
                 goto out;
         }
         for (i = 0; outputs[i] != NULL; i++) {
-                if (gnome_rr_output_is_connected (outputs[i]))
-                        gcm_session_add_state_output (state, outputs[i]);
+                gcm_session_add_state_output (state, outputs[i]);
         }
 
         /* only connect when colord is awake */
@@ -1357,27 +1349,34 @@ out:
         return;
 }
 
-gboolean
-gsd_color_state_start (GsdColorState *state,
-                     GError     **error)
+static void
+on_rr_screen_acquired (GObject      *object,
+                       GAsyncResult *result,
+                       gpointer      data)
 {
+        GsdColorState *state = data;
         GsdColorStatePrivate *priv = state->priv;
-        gboolean ret = FALSE;
+        GnomeRRScreen *screen;
 
-        /* coldplug the list of screens */
-        priv->state_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
-        if (priv->state_screen == NULL)
-                goto out;
+        screen = gnome_rr_screen_new_finish (result, NULL);
+        if (!screen)
+                return;
+
+        priv->state_screen = screen;
 
         cd_client_connect (priv->client,
                            NULL,
                            gcm_session_client_connect_cb,
                            state);
+}
 
-        /* success */
-        ret = TRUE;
-out:
-        return ret;
+void
+gsd_color_state_start (GsdColorState *state)
+{
+        /* coldplug the list of screens */
+        gnome_rr_screen_new_async (gdk_screen_get_default (),
+                                   on_rr_screen_acquired,
+                                   state);
 }
 
 static void

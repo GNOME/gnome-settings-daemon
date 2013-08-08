@@ -72,9 +72,7 @@ gsd_color_manager_start (GsdColorManager *manager,
         gnome_settings_profile_start (NULL);
 
         /* start the device probing */
-        ret = gsd_color_state_start (priv->state, error);
-        if (!ret)
-                goto out;
+        gsd_color_state_start (priv->state);
 
         /* start the profiles collection */
         ret = gsd_color_profiles_start (priv->profiles, error);
