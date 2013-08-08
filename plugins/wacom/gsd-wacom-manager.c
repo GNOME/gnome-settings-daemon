@@ -1768,11 +1768,30 @@ on_screen_changed_cb (GnomeRRScreen *rr_screen,
 }
 
 static void
+on_rr_screen_acquired (GObject      *object,
+                       GAsyncResult *result,
+                       gpointer      user_data)
+{
+        GsdWacomManager *manager = user_data;
+        GError *error = NULL;
+
+        manager->priv->rr_screen = gnome_rr_screen_new_finish (result, NULL);
+        if (manager->priv->rr_screen == NULL) {
+                g_warning ("Failed to create GnomeRRScreen: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+
+        g_signal_connect (manager->priv->rr_screen,
+                          "changed",
+                          G_CALLBACK (on_screen_changed_cb),
+                          manager);
+}
+
+static void
 init_screen (GsdWacomManager *manager)
 {
-        GError *error = NULL;
         GdkScreen *screen;
-        GnomeRRScreen *rr_screen;
 
         screen = gdk_screen_get_default ();
         if (screen == NULL) {
@@ -1784,17 +1803,7 @@ init_screen (GsdWacomManager *manager)
          * We keep GnomeRRScreen to monitor changes such as rotation
          * which are not reported by Gdk's "monitors-changed" callback
          */
-        rr_screen = gnome_rr_screen_new (screen, &error);
-        if (rr_screen == NULL) {
-                g_warning ("Failed to create GnomeRRScreen: %s", error->message);
-                g_error_free (error);
-                return;
-        }
-        manager->priv->rr_screen = rr_screen;
-        g_signal_connect (rr_screen,
-                          "changed",
-                          G_CALLBACK (on_screen_changed_cb),
-                          manager);
+        gnome_rr_screen_new_async (screen, on_rr_screen_acquired, manager);
 }
 
 static void
