@@ -51,6 +51,7 @@ static const gchar introspection_xml[] =
 "  <interface name='org.gnome.SettingsDaemon.Rfkill'>"
 "    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='gsd_rfkill_manager'/>"
 "      <property name='AirplaneMode' type='b' access='readwrite'/>"
+"      <property name='HasAirplaneMode' type='b' access='readonly'/>"
 "  </interface>"
 "</node>";
 
@@ -119,13 +120,43 @@ engine_get_airplane_mode (GsdRfkillManager *manager)
         return TRUE;
 }
 
+static gboolean
+engine_get_has_airplane_mode (GsdRfkillManager *manager)
+{
+        return (g_hash_table_size (manager->priv->killswitches) > 0);
+}
+
+static void
+engine_properties_changed (GsdRfkillManager *manager)
+{
+        GVariantBuilder props_builder;
+        GVariant *props_changed = NULL;
+
+        g_variant_builder_init (&props_builder, G_VARIANT_TYPE ("a{sv}"));
+
+        g_variant_builder_add (&props_builder, "{sv}", "AirplaneMode",
+                               engine_get_airplane_mode (manager));
+        g_variant_builder_add (&props_builder, "{sv}", "HasAirplaneMode",
+                               engine_get_has_airplane_mode (manager));
+
+        props_changed = g_variant_new ("(s@a{sv}@as)", GSD_RFKILL_DBUS_NAME,
+                                       g_variant_builder_end (&props_builder),
+                                       g_variant_new_strv (NULL, 0));
+
+        g_dbus_connection_emit_signal (manager->priv->connection,
+                                       NULL,
+                                       GSD_RFKILL_DBUS_PATH,
+                                       "org.freedesktop.DBus.Properties",
+                                       "PropertiesChanged",
+                                       props_changed, NULL);
+}
+
 static void
 rfkill_changed (CcRfkillGlib     *rfkill,
 		GList            *events,
 		GsdRfkillManager  *manager)
 {
 	GList *l;
-        GVariant *params;
 
 	for (l = events; l != NULL; l = l->next) {
 		struct rfkill_event *event = l->data;
@@ -148,15 +179,7 @@ rfkill_changed (CcRfkillGlib     *rfkill,
         if (manager->priv->connection == NULL)
                 return;
 
-        params = g_variant_new_parsed ("('" GSD_RFKILL_DBUS_NAME "', [{'AirplaneMode', %v}], @as [])",
-                                       g_variant_new_boolean (engine_get_airplane_mode (manager)));
-
-        g_dbus_connection_emit_signal (manager->priv->connection,
-                                       NULL,
-                                       GSD_RFKILL_DBUS_PATH,
-                                       "org.freedesktop.DBus.Properties",
-                                       "PropertiesChanged",
-                                       params, NULL);
+        engine_properties_changed (manager);
 }
 
 static void
@@ -231,6 +254,12 @@ handle_get_property (GDBusConnection *connection,
                 gboolean airplane_mode;
                 airplane_mode = engine_get_airplane_mode (manager);
                 return g_variant_new_boolean (airplane_mode);
+        }
+
+        if (g_strcmp0 (property_name, "HasAirplaneMode") == 0) {
+                gboolean has_airplane_mode;
+                has_airplane_mode = engine_get_has_airplane_mode (manager);
+                return g_variant_new_boolean (has_airplane_mode);
         }
 
         return NULL;
