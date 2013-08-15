@@ -96,28 +96,27 @@ gsd_rfkill_manager_init (GsdRfkillManager *manager)
 static gboolean
 engine_get_airplane_mode (GsdRfkillManager *manager)
 {
-	gboolean enabled;
 	GHashTableIter iter;
 	gpointer key, value;
 
-	enabled = TRUE;
+        /* If we have no killswitches, airplane mode is off. */
+        if (g_hash_table_size (manager->priv->killswitches) == 0) {
+                return FALSE;
+        }
 
 	g_hash_table_iter_init (&iter, manager->priv->killswitches);
 	while (g_hash_table_iter_next (&iter, &key, &value)) {
-		int idx, state;
+		gboolean state;
 
-		idx = GPOINTER_TO_INT (key);
 		state = GPOINTER_TO_INT (value);
-		g_debug ("Killswitch %d is %s", idx, state ? "enabled" : "disabled");
 
-		/* A single device that's enabled? airplane mode is off */
-		if (state == FALSE) {
-			enabled = FALSE;
-			break;
-		}
+		/* A single rfkill switch that's disabled? Airplane mode is off */
+		if (!state) {
+                        return FALSE;
+                }
 	}
 
-        return enabled;
+        return TRUE;
 }
 
 static void
