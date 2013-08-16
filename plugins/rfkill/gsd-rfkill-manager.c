@@ -51,7 +51,7 @@ static const gchar introspection_xml[] =
 "  <interface name='org.gnome.SettingsDaemon.Rfkill'>"
 "    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='gsd_rfkill_manager'/>"
 "      <property name='AirplaneMode' type='b' access='readwrite'/>"
-"      <property name='HasAirplaneMode' type='b' access='readonly'/>"
+"      <property name='HasAirplaneMode' type='b' access='read'/>"
 "  </interface>"
 "</node>";
 
