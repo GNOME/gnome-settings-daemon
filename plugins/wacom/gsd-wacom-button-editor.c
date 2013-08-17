@@ -31,6 +31,7 @@
 #define ACTION_TYPE_KEY             "action-type"
 #define CUSTOM_ACTION_KEY           "custom-action"
 #define CUSTOM_ELEVATOR_ACTION_KEY  "custom-elevator-action"
+#define OLED_LABEL                  "oled-label"
 
 #define GSD_WACOM_BUTTON_EDITOR_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), GSD_WACOM_BUTTON_EDITOR_TYPE, GsdWacomButtonEditorPrivate))
 
@@ -144,6 +145,23 @@ change_button_action_type (GsdWacomButtonEditor *self,
     }
   else if (current_type != type)
     {
+      const char *oled_label;
+
+      switch (type) {
+      case GSD_WACOM_ACTION_TYPE_NONE:
+          oled_label = "";
+          break;
+      case GSD_WACOM_ACTION_TYPE_HELP:
+          oled_label = C_("Action type", "Show On-Screen Help");
+          break;
+      case GSD_WACOM_ACTION_TYPE_SWITCH_MONITOR:
+          oled_label = C_("Action type", "Switch Monitor");
+          break;
+      default:
+          oled_label = "";
+          break;
+      };
+      g_settings_set_string (button->settings, OLED_LABEL, oled_label);
       g_settings_set_enum (button->settings, ACTION_TYPE_KEY, type);
     }
 
@@ -253,7 +271,15 @@ on_key_shortcut_edited (GsdWacomKeyShortcutButton  *shortcut_button,
       g_strfreev (strv);
     }
   else
-    g_settings_set_string (button->settings, CUSTOM_ACTION_KEY, custom_key);
+    {
+      char *oled_label;
+
+      oled_label = gtk_accelerator_get_label (keyval, mask);
+      g_settings_set_string (button->settings, OLED_LABEL, oled_label);
+      g_free (oled_label);
+
+      g_settings_set_string (button->settings, CUSTOM_ACTION_KEY, custom_key);
+    }
 
   g_free (custom_key);
 
