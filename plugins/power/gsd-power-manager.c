@@ -3263,14 +3263,10 @@ on_rr_screen_acquired (GObject      *object,
         manager->priv->kbd_brightness_old = -1;
         manager->priv->kbd_brightness_pre_dim = -1;
         manager->priv->pre_dim_brightness = -1;
-        manager->priv->settings = g_settings_new (GSD_POWER_SETTINGS_SCHEMA);
         g_signal_connect (manager->priv->settings, "changed",
                           G_CALLBACK (engine_settings_key_changed_cb), manager);
-        manager->priv->settings_screensaver = g_settings_new ("org.gnome.desktop.screensaver");
-        manager->priv->settings_bus = g_settings_new ("org.gnome.desktop.session");
         g_signal_connect (manager->priv->settings_bus, "changed",
                           G_CALLBACK (engine_settings_key_changed_cb), manager);
-        manager->priv->settings_xrandr = g_settings_new (GSD_XRANDR_SETTINGS_SCHEMA);
         g_signal_connect (manager->priv->up_client, "device-added",
                           G_CALLBACK (engine_device_added_cb), manager);
         g_signal_connect (manager->priv->up_client, "device-removed",
@@ -3388,6 +3384,11 @@ gsd_power_manager_start (GsdPowerManager *manager,
         /* coldplug the list of screens */
         gnome_rr_screen_new_async (gdk_screen_get_default (),
                                    on_rr_screen_acquired, manager);
+
+        manager->priv->settings = g_settings_new (GSD_POWER_SETTINGS_SCHEMA);
+        manager->priv->settings_screensaver = g_settings_new ("org.gnome.desktop.screensaver");
+        manager->priv->settings_bus = g_settings_new ("org.gnome.desktop.session");
+        manager->priv->settings_xrandr = g_settings_new (GSD_XRANDR_SETTINGS_SCHEMA);
 
         gnome_settings_profile_end (NULL);
         return TRUE;

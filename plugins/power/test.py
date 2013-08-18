@@ -66,6 +66,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         gsdtestcase.set_nonblock(self.screensaver.stdout)
 
         self.start_logind()
+        self.start_mutter()
 
         # Set up the gnome-session presence
         obj_session_presence = self.session_bus_con.get_object(
@@ -133,6 +134,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.screensaver.terminate()
         self.screensaver.wait()
         self.stop_session()
+        self.stop_mutter()
         self.stop_logind()
 
         # reset all changed gsettings, so that tests are independent from each
