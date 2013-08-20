@@ -454,11 +454,6 @@ get_window_scale (GnomeXSettingsManager *manager)
                         if (dpi_x > HIDPI_LIMIT && dpi_y > HIDPI_LIMIT)
                                 window_scale = 2;
                 }
-
-                /* TODO: For now we don't support automatic scale picking, because it
-                   any scale but 1 breaks gnome-shell. Remove this when gnome-shell
-                   is fixed. */
-                window_scale = 1;
         }
 
         return window_scale;
