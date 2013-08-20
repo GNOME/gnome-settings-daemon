@@ -62,6 +62,17 @@
 #define ippGetStatusCode(ipp) ipp->request.status.status_code
 #define ippGetInteger(attr, element) attr->values[element].integer
 #define ippGetString(attr, element, language) attr->values[element].string.text
+#define ippGetName(attr) attr->name
+#define ippGetCount(attr) attr->num_values
+#define ippGetBoolean(attr, index) attr->values[index].boolean
+
+static ipp_attribute_t *
+ippNextAttribute (ipp_t *ipp)
+{
+  if (!ipp || !ipp->current)
+    return (NULL);
+  return (ipp->current = ipp->current->next);
+}
 #endif
 
 struct GsdPrintNotificationsManagerPrivate
