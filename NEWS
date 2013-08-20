@@ -1,3 +1,45 @@
+==============
+Version 3.9.90
+==============
+
+- Consolidate access to common bus proxies like session and
+  screensaver
+
+Housekeeping:
+- Fixed a bug that would prevent files in the Trash from being purged
+
+Media-keys:
+- Add a way to watch DBus namespaces
+- Use an MPRIS interface to handle Play, Pause, etc. keys in case we
+  don't have a native client registered for our media-keys API
+- Add a binding to take a short screencast of the screen
+- Add a shortcut to toggle the screen reader
+
+Mouse:
+- Enable edge scrolling if two-finger scroll is unavailable
+
+Power:
+- Add Brightness property for keyboard backlights
+- Use logind to discover critical action availability
+
+Printers:
+- Code cleanup
+- Do more things asynchronously
+- Poll remote CUPS servers for notifications
+
+RFKill:
+- Add a property to determine whether we can toggle airplane mode
+
+XRandR:
+- Stop handling monitors.xml and the initial modeset for the session,
+  as well as monitor hotplug and lid switches. All that is implemented
+  in mutter now
+
+XSettings:
+- Disable middle-click paste by default. Can be enabled in
+  gnome-tweak-tool
+- Add support to detect and set a scale factor on high DPI displays
+
 =============
 Version 3.9.5
 =============
