@@ -135,9 +135,9 @@ engine_properties_changed (GsdRfkillManager *manager)
         g_variant_builder_init (&props_builder, G_VARIANT_TYPE ("a{sv}"));
 
         g_variant_builder_add (&props_builder, "{sv}", "AirplaneMode",
-                               engine_get_airplane_mode (manager));
+                               g_variant_new_boolean (engine_get_airplane_mode (manager)));
         g_variant_builder_add (&props_builder, "{sv}", "HasAirplaneMode",
-                               engine_get_has_airplane_mode (manager));
+                               g_variant_new_boolean (engine_get_has_airplane_mode (manager)));
 
         props_changed = g_variant_new ("(s@a{sv}@as)", GSD_RFKILL_DBUS_NAME,
                                        g_variant_builder_end (&props_builder),
