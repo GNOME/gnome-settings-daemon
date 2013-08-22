@@ -538,6 +538,9 @@ activate_all_drivers_async (GsdSmartcardManager *self,
                 if (!SECMOD_HasRemovableSlots (node->module))
                         continue;
 
+                if (node->module->dllName == NULL)
+                        continue;
+
                 operation->pending_drivers_count++;
 
                 activate_driver (self, node->module,
