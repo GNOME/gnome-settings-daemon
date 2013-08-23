@@ -66,6 +66,9 @@ struct GsdUpdatesManagerPrivate
         GVolumeMonitor          *volume_monitor;
         guint                    failed_get_updates_count;
         GPtrArray               *update_packages;
+        GFile                   *offline_update_file;
+        GFileMonitor            *offline_update_monitor;
+        gboolean                 offline_update_notified;
 };
 
 static void gsd_updates_manager_class_init (GsdUpdatesManagerClass *klass);
@@ -1278,6 +1281,177 @@ out:
         return FALSE;
 }
 
+static void
+reboot_failed (GObject *source, GAsyncResult *res, gpointer data)
+{
+        GVariant *ret;
+        const gchar *command;
+        GError *error = NULL;
+
+        ret = g_dbus_connection_call_finish (G_DBUS_CONNECTION (source), res, &error);
+        if (ret)
+                g_variant_unref (ret);
+
+        if (error) {
+                g_warning ("Calling org.gnome.SessionManager.Reboot failed: %s\n", error->message);
+                g_error_free (error);
+                return;
+        }
+
+        command = "pkexec /usr/libexec/pk-trigger-offline-update --cancel";
+        g_debug ("calling '%s'", command);
+        if (!g_spawn_command_line_sync (command, NULL, NULL, NULL, &error)) {
+                g_warning ("Failed to call '%s': %s\n", command, error->message);
+                g_error_free (error);
+        }
+}
+
+static void
+restart_and_install_updates (void)
+{
+        GDBusConnection *bus;
+        const gchar *command;
+        GError *error = NULL;
+
+        command = "pkexec /usr/libexec/pk-trigger-offline-update";
+        g_debug ("calling '%s'", command);
+        if (!g_spawn_command_line_sync (command, NULL, NULL, NULL, &error)) {
+                g_warning ("Failed to call '%s': %s\n", command, error->message);
+                g_error_free (error);
+                return;
+        }
+
+        g_debug ("calling org.gnome.SessionManager.Reboot");
+        bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
+        g_dbus_connection_call (bus,
+                                "org.gnome.SessionManager",
+                                "/org/gnome/SessionManager",
+                                "org.gnome.SessionManager",
+                                "Reboot",
+                                NULL,
+                                NULL,
+                                G_DBUS_CALL_FLAGS_NONE,
+                                G_MAXINT,
+                                NULL,
+                                reboot_failed,
+                                NULL);
+        g_object_unref (bus);
+}
+
+static void
+view_updates (void)
+{
+        gboolean ret;
+        GError *error = NULL;
+
+        ret = g_spawn_command_line_async (BINDIR "/gnome-software --mode updates", &error);
+        if (!ret) {
+                g_warning ("Failure launching gnome-software: %s",
+                           error->message);
+                g_error_free (error);
+        }
+}
+
+static void
+offline_update_action_cb (NotifyNotification *notification,
+                          gchar              *action,
+                          gpointer            user_data)
+{
+
+        notify_notification_close (notification, NULL);
+
+        if (g_strcmp0 (action, "view") == 0) {
+                view_updates ();
+        }
+        else if (g_strcmp0 (action, "install") == 0) {
+                restart_and_install_updates ();
+        }
+}
+
+static gboolean
+reenable_offline_update (gpointer data)
+{
+        GsdUpdatesManager *manager = data;
+
+        manager->priv->offline_update_notified = FALSE;
+
+        return G_SOURCE_REMOVE;
+}
+
+static void
+notify_offline_update_available (GsdUpdatesManager *manager)
+{
+        NotifyNotification *notification;
+        const gchar *title;
+        const gchar *body;
+        gboolean ret;
+        GError *error = NULL;
+
+        if (!g_file_query_exists (manager->priv->offline_update_file, NULL))
+                return;
+
+        if (manager->priv->offline_update_notified)
+                return;
+
+        manager->priv->offline_update_notified = TRUE;
+
+        /* don't notify more often than every 5 minutes */
+        g_timeout_add_seconds (300, reenable_offline_update, manager);
+
+        title = _("Software Updates available");
+        body = _("Important OS and application updates are ready to be installed");
+        notification = notify_notification_new (title, body,
+                                                GSD_UPDATES_ICON_NORMAL);
+        notify_notification_set_hint_string (notification, "desktop-entry", "gnome-software");
+        notify_notification_set_app_name (notification, _("GNOME Software"));
+        notify_notification_set_timeout (notification, NOTIFY_EXPIRES_NEVER);
+        notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
+        notify_notification_add_action (notification, "ignore",
+                                        /* TRANSLATORS: don't install updates now */
+                                        _("Not Now"),
+                                        offline_update_action_cb,
+                                        manager, NULL);
+        if (g_find_program_in_path ("gnome-software"))
+                notify_notification_add_action (notification, "view",
+                                                /* TRANSLATORS: view available updates */
+                                                _("View"),
+                                                offline_update_action_cb,
+                                                manager, NULL);
+        else
+                notify_notification_add_action (notification, "install",
+                                                /* TRANSLATORS: install available updates */
+                                                _("Restart & Install"),
+                                                offline_update_action_cb,
+                                                manager, NULL);
+        g_signal_connect (notification, "closed",
+                          G_CALLBACK (on_notification_closed), NULL);
+        ret = notify_notification_show (notification, &error);
+        if (!ret) {
+                g_warning ("error: %s", error->message);
+                g_error_free (error);
+        }
+}
+
+static void
+offline_update_cb (GFileMonitor      *monitor,
+                   GFile             *file,
+                   GFile             *other_file,
+                   GFileMonitorEvent  event_type,
+                   GsdUpdatesManager *manager)
+{
+        notify_offline_update_available (manager);
+}
+
+static gboolean
+initial_offline_update_check (gpointer data)
+{
+        GsdUpdatesManager *manager = data;
+
+        notify_offline_update_available (manager);
+
+        return G_SOURCE_REMOVE;
+}
+
 gboolean
 gsd_updates_manager_start (GsdUpdatesManager *manager,
                            GError **error)
@@ -1363,6 +1537,15 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
                                        check_offline_update_cb,
                                        manager);
 
+        manager->priv->offline_update_file = g_file_new_for_path ("/var/lib/PackageKit/prepared-update");
+        manager->priv->offline_update_monitor = g_file_monitor_file (manager->priv->offline_update_file, 0, NULL, NULL);
+        g_signal_connect (manager->priv->offline_update_monitor, "changed",
+                          G_CALLBACK (offline_update_cb), manager);
+
+        g_timeout_add_seconds (300,
+                               initial_offline_update_check,
+                               manager);
+
         /* success */
         ret = TRUE;
         g_debug ("Started updates manager");
@@ -1385,6 +1568,8 @@ gsd_updates_manager_stop (GsdUpdatesManager *manager)
         g_clear_object (&manager->priv->firmware);
         g_clear_object (&manager->priv->proxy_session);
         g_clear_object (&manager->priv->volume_monitor);
+        g_clear_object (&manager->priv->offline_update_file);
+        g_clear_object (&manager->priv->offline_update_monitor);
         if (manager->priv->cancellable) {
                 g_cancellable_cancel (manager->priv->cancellable);
                 g_clear_object (&manager->priv->cancellable);
