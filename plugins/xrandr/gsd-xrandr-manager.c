@@ -1303,7 +1303,7 @@ on_rr_screen_acquired (GObject      *object,
         GsdXrandrManager *manager = user_data;
         GError *error = NULL;
 
-        manager->priv->rw_screen = gnome_rr_screen_new_finish (result, NULL);
+        manager->priv->rw_screen = gnome_rr_screen_new_finish (result, &error);
 
         if (manager->priv->rw_screen == NULL) {
                 log_msg ("Could not initialize the RANDR plugin: %s\n",
