@@ -1859,94 +1859,73 @@ do_config_power_action (GsdMediaKeysManager *manager,
 }
 
 static void
-update_screen_cb (GObject             *source_object,
-                  GAsyncResult        *res,
-                  gpointer             user_data)
+update_brightness_cb (GObject             *source_object,
+                      GAsyncResult        *res,
+                      gpointer             user_data)
 {
         GError *error = NULL;
         int percentage;
         GVariant *new_percentage;
         GsdMediaKeysManager *manager = GSD_MEDIA_KEYS_MANAGER (user_data);
+        const char *icon, *debug;
+
+        if (G_DBUS_PROXY (source_object) == manager->priv->power_keyboard_proxy) {
+                icon = "keyboard-brightness-symbolic";
+                debug = "keyboard";
+        } else {
+                icon = "display-brightness-symbolic";
+                debug = "screen";
+        }
 
         new_percentage = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
                                                    res, &error);
         if (new_percentage == NULL) {
-                g_warning ("Failed to set new screen percentage: %s",
-                           error->message);
+                g_warning ("Failed to set new %s percentage: %s",
+                           debug, error->message);
                 g_error_free (error);
                 return;
         }
 
         /* update the dialog with the new value */
         g_variant_get (new_percentage, "(i)", &percentage);
-        if (percentage >= 0)
-                show_osd (manager, "display-brightness-symbolic", NULL, percentage);
+        show_osd (manager, icon, NULL, percentage);
         g_variant_unref (new_percentage);
 }
 
 static void
-do_screen_brightness_action (GsdMediaKeysManager *manager,
-                             MediaKeyType type)
-{
-        if (manager->priv->connection == NULL ||
-            manager->priv->power_screen_proxy == NULL) {
-                g_warning ("No existing D-Bus connection trying to handle power keys");
-                return;
-        }
-
-        /* call into the power plugin */
-        g_dbus_proxy_call (manager->priv->power_screen_proxy,
-                           type == SCREEN_BRIGHTNESS_UP_KEY ? "StepUp" : "StepDown",
-                           NULL,
-                           G_DBUS_CALL_FLAGS_NONE,
-                           -1,
-                           NULL,
-                           update_screen_cb,
-                           manager);
-}
-
-static void
-update_keyboard_cb (GObject             *source_object,
-                    GAsyncResult        *res,
-                    gpointer             user_data)
-{
-        GError *error = NULL;
-        guint percentage;
-        GVariant *new_percentage;
-        GsdMediaKeysManager *manager = GSD_MEDIA_KEYS_MANAGER (user_data);
-
-        new_percentage = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
-                                                   res, &error);
-        if (new_percentage == NULL) {
-                g_warning ("Failed to set new keyboard percentage: %s",
-                           error->message);
-                g_error_free (error);
-                return;
-        }
-
-        /* update the dialog with the new value */
-        g_variant_get (new_percentage, "(i)", &percentage);
-        show_osd (manager, "keyboard-brightness-symbolic", NULL, percentage);
-        g_variant_unref (new_percentage);
-}
-
-static void
-do_keyboard_brightness_action (GsdMediaKeysManager *manager,
-                               MediaKeyType type)
+do_brightness_action (GsdMediaKeysManager *manager,
+                      MediaKeyType type)
 {
         const char *cmd;
+        GDBusProxy *proxy;
+
+        switch (type) {
+        case KEYBOARD_BRIGHTNESS_UP_KEY:
+        case KEYBOARD_BRIGHTNESS_DOWN_KEY:
+        case KEYBOARD_BRIGHTNESS_TOGGLE_KEY:
+                proxy = manager->priv->power_keyboard_proxy;
+                break;
+        case SCREEN_BRIGHTNESS_UP_KEY:
+        case SCREEN_BRIGHTNESS_DOWN_KEY:
+                proxy = manager->priv->power_screen_proxy;
+                break;
+        default:
+                g_assert_not_reached ();
+        }
 
         if (manager->priv->connection == NULL ||
-            manager->priv->power_keyboard_proxy == NULL) {
+            proxy == NULL) {
                 g_warning ("No existing D-Bus connection trying to handle power keys");
                 return;
         }
 
         switch (type) {
         case KEYBOARD_BRIGHTNESS_UP_KEY:
+        case SCREEN_BRIGHTNESS_UP_KEY:
                 cmd = "StepUp";
                 break;
         case KEYBOARD_BRIGHTNESS_DOWN_KEY:
+        case SCREEN_BRIGHTNESS_DOWN_KEY:
                 cmd = "StepDown";
                 break;
         case KEYBOARD_BRIGHTNESS_TOGGLE_KEY:
@@ -1957,13 +1936,13 @@ do_keyboard_brightness_action (GsdMediaKeysManager *manager,
         }
 
         /* call into the power plugin */
-        g_dbus_proxy_call (manager->priv->power_keyboard_proxy,
+        g_dbus_proxy_call (proxy,
                            cmd,
                            NULL,
                            G_DBUS_CALL_FLAGS_NONE,
                            -1,
                            NULL,
-                           update_keyboard_cb,
+                           update_brightness_cb,
                            manager);
 }
 
@@ -2197,12 +2176,10 @@ do_action (GsdMediaKeysManager *manager,
                 break;
         case SCREEN_BRIGHTNESS_UP_KEY:
         case SCREEN_BRIGHTNESS_DOWN_KEY:
-                do_screen_brightness_action (manager, type);
-                break;
         case KEYBOARD_BRIGHTNESS_UP_KEY:
         case KEYBOARD_BRIGHTNESS_DOWN_KEY:
         case KEYBOARD_BRIGHTNESS_TOGGLE_KEY:
-                do_keyboard_brightness_action (manager, type);
+                do_brightness_action (manager, type);
                 break;
         case BATTERY_KEY:
                 do_battery_action (manager);
