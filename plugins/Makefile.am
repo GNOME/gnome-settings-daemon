@@ -6,6 +6,7 @@ enabled_plugins =	\
 	clipboard	\
 	color		\
 	cursor		\
+	datetime	\
 	dummy		\
 	power		\
 	housekeeping    \

@@ -245,6 +245,13 @@ dnl ---------------------------------------------------------------------------
 PKG_CHECK_MODULES(COLOR, [colord >= 1.0.2 gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION libcanberra-gtk3])
 
 dnl ---------------------------------------------------------------------------
+dnl - datetime
+dnl ---------------------------------------------------------------------------
+
+AC_CHECK_LIBM
+AC_SUBST(LIBM)
+
+dnl ---------------------------------------------------------------------------
 dnl - wacom (disabled for s390/s390x and non Linux platforms)
 dnl ---------------------------------------------------------------------------
 
@@ -508,6 +515,7 @@ plugins/clipboard/Makefile
 plugins/color/Makefile
 plugins/common/Makefile
 plugins/cursor/Makefile
+plugins/datetime/Makefile
 plugins/dummy/Makefile
 plugins/power/Makefile
 plugins/housekeeping/Makefile
@@ -534,6 +542,7 @@ data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.power.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.color.gschema.xml.in
+data/org.gnome.settings-daemon.plugins.datetime.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in
 data/org.gnome.settings-daemon.peripherals.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in
