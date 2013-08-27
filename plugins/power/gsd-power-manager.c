@@ -3693,7 +3693,8 @@ handle_method_call (GDBusConnection       *connection,
 
 static GVariant *
 handle_get_property_main (GsdPowerManager *manager,
-                          const gchar *property_name)
+                          const gchar *property_name,
+                          GError **error)
 {
         GVariant *retval = NULL;
 
@@ -3707,20 +3708,27 @@ handle_get_property_main (GsdPowerManager *manager,
                 if (percentage >= 0)
                         retval = g_variant_new_double (percentage);
         }
-
+        if (retval == NULL) {
+                g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
+                             "Failed to get property: %s", property_name);
+        }
         return retval;
 }
 
 static GVariant *
 handle_get_property_other (GsdPowerManager *manager,
                            const gchar *interface_name,
-                           const gchar *property_name)
+                           const gchar *property_name,
+                           GError **error)
 {
         GVariant *retval = NULL;
         gint32 value;
 
-        if (g_strcmp0 (property_name, "Brightness") != 0)
+        if (g_strcmp0 (property_name, "Brightness") != 0) {
+                g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
+                             "No such property: %s", property_name);
                 return NULL;
+        }
 
         if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
                 value = backlight_get_percentage (manager->priv->rr_screen, NULL);
@@ -3730,6 +3738,10 @@ handle_get_property_other (GsdPowerManager *manager,
                 retval =  g_variant_new_int32 (value);
         }
 
+        if (retval == NULL) {
+                g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
+                             "Failed to get property: %s", property_name);
+        }
         return retval;
 }
 
@@ -3746,16 +3758,19 @@ handle_get_property (GDBusConnection *connection,
         /* Check session pointer as a proxy for whether the manager is in the
            start or stop state */
         if (manager->priv->session == NULL) {
+                g_set_error_literal (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
+                                     "No session");
                 return NULL;
         }
 
         if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE) == 0) {
-                return handle_get_property_main (manager, property_name);
+                return handle_get_property_main (manager, property_name, error);
         } else if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0 ||
                    g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
-                return handle_get_property_other (manager, interface_name, property_name);
+                return handle_get_property_other (manager, interface_name, property_name, error);
         } else {
-                g_warning ("not recognised interface: %s", interface_name);
+                g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
+                             "No such interface: %s", interface_name);
                 return NULL;
         }
 }
@@ -3764,24 +3779,30 @@ static gboolean
 handle_set_property_other (GsdPowerManager *manager,
                            const gchar *interface_name,
                            const gchar *property_name,
-                           GVariant *value)
+                           GVariant *value,
+                           GError **error)
 {
         gint32 brightness_value;
 
-        if (g_strcmp0 (property_name, "Brightness") != 0)
+        if (g_strcmp0 (property_name, "Brightness") != 0) {
+                g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
+                             "No such property: %s", property_name);
                 return FALSE;
+        }
 
         if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
                 g_variant_get (value, "i", &brightness_value);
                 return backlight_set_percentage (manager->priv->rr_screen,
-                                                 brightness_value, NULL);
+                                                 brightness_value, error);
         } else if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
                 g_variant_get (value, "i", &brightness_value);
                 brightness_value = PERCENTAGE_TO_ABS (0, manager->priv->kbd_brightness_max,
                                                       brightness_value);
-                return upower_kbd_set_brightness (manager, brightness_value, NULL);
+                return upower_kbd_set_brightness (manager, brightness_value, error);
         }
 
+        g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
+                     "No such interface: %s", interface_name);
         return FALSE;
 }
 
@@ -3804,9 +3825,10 @@ handle_set_property (GDBusConnection *connection,
 
         if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0 ||
             g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
-                return handle_set_property_other (manager, interface_name, property_name, value);
+                return handle_set_property_other (manager, interface_name, property_name, value, error);
         } else {
-                g_warning ("not recognised interface: %s", interface_name);
+                g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
+                             "No such interface: %s", interface_name);
                 return FALSE;
         }
 }
