@@ -1,7 +1,6 @@
 # Brazilian Portuguese translation of gnome-settings-daemon.
 # Copyright (C) 1999-2013 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-settings-daemon package.
-#
 # Ivan Passos <ivan@cyclades.com>, 1999.
 # Sandro Nunes Henrique <sandro@conectiva.com.br>, 1999.
 # Gustavo Maciel Dias Vieira <gustavo@sagui.org>, 2000-2001.
@@ -19,7 +18,7 @@
 # Vladimir Melo <vmelo@gnome.org>, 2009.
 # Henrique P. Machado <hpmachado@gnome.org>, 2009, 2010.
 # Antonio Fernandes C. Neto <fernandes@pelivre.org>, 2010.
-# Enrico Nicoletto <liverig@gmail.com>, 2011, 2012.
+# Enrico Nicoletto <liverig@gmail.com>, 2011, 2012, 2013.
 # Jonh Wendell <jwendell@gnome.org>, 2009, 2012.
 # Rafael Ferreira <rafael.f.f1@gmail.com>, 2012, 2013.
 #
@@ -28,16 +27,16 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-20 13:56+0000\n"
-"PO-Revision-Date: 2013-08-18 21:30-0300\n"
-"Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
+"POT-Creation-Date: 2013-08-27 11:55+0000\n"
+"PO-Revision-Date: 2013-08-27 09:20-0300\n"
+"Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -2855,11 +2854,11 @@ msgstr "Software adicional foi instalado"
 #: ../plugins/updates/gsd-updates-firmware.c:283
 #: ../plugins/updates/gsd-updates-firmware.c:311
 #: ../plugins/updates/gsd-updates-firmware.c:603
-#: ../plugins/updates/gsd-updates-manager.c:348
-#: ../plugins/updates/gsd-updates-manager.c:479
-#: ../plugins/updates/gsd-updates-manager.c:541
-#: ../plugins/updates/gsd-updates-manager.c:595
-#: ../plugins/updates/gsd-updates-manager.c:1244
+#: ../plugins/updates/gsd-updates-manager.c:351
+#: ../plugins/updates/gsd-updates-manager.c:482
+#: ../plugins/updates/gsd-updates-manager.c:544
+#: ../plugins/updates/gsd-updates-manager.c:598
+#: ../plugins/updates/gsd-updates-manager.c:1247
 msgid "Software Updates"
 msgstr "Atualizações de software"
 
@@ -2902,171 +2901,200 @@ msgid "Ignore devices"
 msgstr "Ignorar dispositivos"
 
 #. TRANSLATORS: this is when the offline update failed
-#: ../plugins/updates/gsd-updates-manager.c:121
+#: ../plugins/updates/gsd-updates-manager.c:124
 msgid "Failed To Update"
 msgstr "Houve falha ao atualizar"
 
 #. TRANSLATORS: the transaction could not be completed
 #. * as a previous transaction was unfinished
-#: ../plugins/updates/gsd-updates-manager.c:127
+#: ../plugins/updates/gsd-updates-manager.c:130
 msgid "A previous update was unfinished."
 msgstr "Uma atualização anterior não foi finalizada."
 
 #. TRANSLATORS: the package manager needed to download
 #. * something with no network available
-#: ../plugins/updates/gsd-updates-manager.c:137
+#: ../plugins/updates/gsd-updates-manager.c:140
 msgid "Network access was required but not available."
 msgstr "Acesso de rede foi requisitado, mas não está disponível."
 
 #. TRANSLATORS: if the package is not signed correctly
 #. *
-#: ../plugins/updates/gsd-updates-manager.c:146
+#: ../plugins/updates/gsd-updates-manager.c:149
 msgid "An update was not signed in the correct way."
 msgstr "Uma atualização não foi assinada de forma correta."
 
 #. TRANSLATORS: the transaction failed in a way the user
 #. * probably cannot comprehend. Package management systems
 #. * really are teh suck.
-#: ../plugins/updates/gsd-updates-manager.c:156
+#: ../plugins/updates/gsd-updates-manager.c:159
 msgid "The update could not be completed."
 msgstr "A atualização não pôde ser completada."
 
 #. TRANSLATORS: the user aborted the update manually
-#: ../plugins/updates/gsd-updates-manager.c:161
+#: ../plugins/updates/gsd-updates-manager.c:164
 msgid "The update was cancelled."
 msgstr "A atualização foi cancelada."
 
 #. TRANSLATORS: the user must have updated manually after
 #. * the updates were prepared
-#: ../plugins/updates/gsd-updates-manager.c:167
+#: ../plugins/updates/gsd-updates-manager.c:170
 msgid "An offline update was requested but no packages required updating."
 msgstr ""
 "Uma atualização offline foi requisitada, mas nenhum pacote requeria "
 "atualização."
 
 #. TRANSLATORS: we ran out of disk space
-#: ../plugins/updates/gsd-updates-manager.c:171
+#: ../plugins/updates/gsd-updates-manager.c:174
 msgid "No space was left on the drive."
 msgstr "Não há espaço disponível em disco."
 
 #. TRANSLATORS: the update process failed in a general
 #. * way, usually this message will come from source distros
 #. * like gentoo
-#: ../plugins/updates/gsd-updates-manager.c:179
+#: ../plugins/updates/gsd-updates-manager.c:182
 msgid "An update failed to install correctly."
 msgstr "Houve falha ao instalar corretamente uma atualização."
 
 #. TRANSLATORS: We didn't handle the error type
-#: ../plugins/updates/gsd-updates-manager.c:184
+#: ../plugins/updates/gsd-updates-manager.c:187
 msgid "The offline update failed in an unexpected way."
 msgstr "A atualização offline falhou de uma forma inesperada."
 
 #. TRANSLATORS: these are geeky messages from the
 #. * package manager no mortal is supposed to understand,
 #. * but google might know what they mean
-#: ../plugins/updates/gsd-updates-manager.c:193
+#: ../plugins/updates/gsd-updates-manager.c:196
 msgid "Detailed errors from the package manager follow:"
 msgstr "Seguem-se os erros detalhados pelo gerenciador de pacotes:"
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:343
+#: ../plugins/updates/gsd-updates-manager.c:346
 msgid "Distribution upgrades available"
 msgstr "Atualizações da distribuição disponível"
 
 #. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:353
+#: ../plugins/updates/gsd-updates-manager.c:356
 msgid "More information"
 msgstr "Mais informações"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:461
-#: ../plugins/updates/gsd-updates-manager.c:523
+#: ../plugins/updates/gsd-updates-manager.c:464
+#: ../plugins/updates/gsd-updates-manager.c:526
 msgid "Update"
 msgid_plural "Updates"
 msgstr[0] "Atualização"
 msgstr[1] "Atualizações"
 
 #. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:464
+#: ../plugins/updates/gsd-updates-manager.c:467
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
 msgstr[0] "Uma atualização importante de software está disponível"
 msgstr[1] "Atualizações importantes de software estão disponíveis"
 
 #. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:484
-#: ../plugins/updates/gsd-updates-manager.c:546
+#: ../plugins/updates/gsd-updates-manager.c:487
+#: ../plugins/updates/gsd-updates-manager.c:549
 msgid "Install updates"
 msgstr "Instalar atualizações"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:526
+#: ../plugins/updates/gsd-updates-manager.c:529
 msgid "A software update is available."
 msgid_plural "Software updates are available."
 msgstr[0] "Uma atualização de software está disponível."
 msgstr[1] "Atualizações de software estão disponíveis."
 
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:582
+#: ../plugins/updates/gsd-updates-manager.c:585
 #: ../plugins/updates/updates.gnome-settings-plugin.in.h:1
 msgid "Updates"
 msgstr "Atualizações"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:586
+#: ../plugins/updates/gsd-updates-manager.c:589
 msgid "Unable to access software updates"
 msgstr "Não é possível acessar as atualizações de software"
 
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:589
+#: ../plugins/updates/gsd-updates-manager.c:592
 msgid "Try again"
 msgstr "Tentar novamente"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:974
+#: ../plugins/updates/gsd-updates-manager.c:977
 msgid "A transaction that cannot be interrupted is running"
 msgstr "Uma transação que não pode ser interrompida está em execução"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1194
+#: ../plugins/updates/gsd-updates-manager.c:1197
 msgid "Software Update Installed"
 msgid_plural "Software Updates Installed"
 msgstr[0] "Atualização de software instalada"
 msgstr[1] "Atualizações de softwares instaladas"
 
 #. TRANSLATORS: message when we've done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1199
+#: ../plugins/updates/gsd-updates-manager.c:1202
 msgid "An important OS update has been installed."
 msgid_plural "Important OS updates have been installed."
 msgstr[0] "Uma atualização importante do sistema operacional foi instalada."
 msgstr[1] "Atualizações importantes do sistema operacional foram instaladas."
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1225
+#: ../plugins/updates/gsd-updates-manager.c:1228
 msgid "Software Updates Failed"
 msgstr "Houve falha ao atualizar o software"
 
 #. TRANSLATORS: message when we've not done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1228
+#: ../plugins/updates/gsd-updates-manager.c:1231
 msgid "An important OS update failed to be installed."
 msgstr ""
 "Houve falha ao instalar uma atualização importante do sistema operacional."
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1251
+#: ../plugins/updates/gsd-updates-manager.c:1254
 msgid "Review"
 msgstr "Revisar"
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1256
+#: ../plugins/updates/gsd-updates-manager.c:1259
 msgid "Show details"
 msgstr "Mostrar detalhes"
 
 #. TRANSLATORS: button: clear notification
-#: ../plugins/updates/gsd-updates-manager.c:1260
+#: ../plugins/updates/gsd-updates-manager.c:1263
 msgid "OK"
 msgstr "OK"
+
+#: ../plugins/updates/gsd-updates-manager.c:1401
+msgid "Software Updates available"
+msgstr "Há atualizações de softwares disponíveis"
+
+#: ../plugins/updates/gsd-updates-manager.c:1402
+msgid "Important OS and application updates are ready to be installed"
+msgstr ""
+"Atualizações importantes do sistema operacional e de aplicativos estão "
+"prontas para serem instaladas"
+
+#: ../plugins/updates/gsd-updates-manager.c:1406
+msgid "GNOME Software"
+msgstr "Softwares do GNOME"
+
+#. TRANSLATORS: don't install updates now
+#: ../plugins/updates/gsd-updates-manager.c:1411
+msgid "Not Now"
+msgstr "Agora não"
+
+#. TRANSLATORS: view available updates
+#: ../plugins/updates/gsd-updates-manager.c:1417
+msgid "View"
+msgstr "Ver"
+
+#. TRANSLATORS: install available updates
+#: ../plugins/updates/gsd-updates-manager.c:1423
+msgid "Restart & Install"
+msgstr "Reiniciar & Instalar"
 
 #: ../plugins/updates/updates.gnome-settings-plugin.in.h:2
 msgid "Updates plugin"
@@ -3333,377 +3361,3 @@ msgstr "Gerenciar configurações do X"
 
 #~ msgid "Does the display look OK?"
 #~ msgstr "O vídeo está bom?"
-
-#~| msgid "_Restore Previous Configuration"
-#~ msgid "Confirm New Configuration"
-#~ msgstr "Confirmar nova configuração"
-
-#~ msgid "_Restore Previous Configuration"
-#~ msgstr "_Restaurar configuração anterior"
-
-#~ msgid "_Keep This Configuration"
-#~ msgstr "_Manter esta configuração"
-
-#~ msgid "The selected configuration for displays could not be applied"
-#~ msgstr "A configuração escolhida para o(s) vídeo(s) não pôde ser aplicada"
-
-#~ msgid "Could not apply the stored configuration for monitors"
-#~ msgstr "Não foi possível aplicar a configuração armazenada para monitores"
-
-#~ msgid "Could not enable mouse accessibility features"
-#~ msgstr "Não foi possível habilitar os recursos de acessibilidade do mouse"
-
-#~ msgid ""
-#~ "Mouse accessibility requires Mousetweaks to be installed on your system."
-#~ msgstr ""
-#~ "A acessibilidade de mouse requer que o Mousetweaks seja instalado em seu "
-#~ "sistema."
-
-#~ msgid "received error or hang up from event source"
-#~ msgstr "erro recebido ou desligado a partir da fonte do evento"
-
-#~ msgid "NSS security system could not be initialized"
-#~ msgstr "O sistema de segurança NSS não pôde ser inicializado"
-
-#~ msgid "no suitable smartcard driver could be found"
-#~ msgstr "nenhum driver de smartcard adequado pôde ser encontrado"
-
-#~ msgid "smartcard driver '%s' could not be loaded"
-#~ msgstr "o driver de smartcard \"%s\" não pôde ser carregado"
-
-#~ msgid "could not watch for incoming card events - %s"
-#~ msgstr "não foi possível assistir a eventos de entrada de cartões - %s"
-
-#~ msgid "encountered unexpected error while waiting for smartcard events"
-#~ msgstr ""
-#~ "encontrado um erro não esperado ao aguardar por eventos do smartcard"
-
-#~| msgid "Ignore devices"
-#~ msgid "Configure device"
-#~ msgstr "Configurar dispositivo"
-
-#~ msgid "Could not switch the monitor configuration"
-#~ msgstr "Não foi possível mudar a configuração do monitor"
-
-#~ msgid "Trying to switch the monitor configuration anyway."
-#~ msgstr "Tentando mudar a configuração do monitor de qualquer modo."
-
-#~ msgid "Command to be run when a device is added or removed."
-#~ msgstr ""
-#~ "Comando a ser executado quando um dispositivo é adicionado ou removido."
-
-#~ msgid "Binding to select the next input source"
-#~ msgstr "Atalho para selecionar a próxima fonte de entrada"
-
-#~ msgid "Switch input source backward"
-#~ msgstr "Alternar para a fonte de entrada anterior"
-
-#~ msgid "Binding to select the previous input source"
-#~ msgstr "Atalho para selecionar a fonte de entrada anterior"
-
-#~ msgid "There was an error displaying help: %s"
-#~ msgstr "Houve um erro ao exibir a ajuda: %s"
-
-#~ msgid "_Turn Off"
-#~ msgstr "_Desligar"
-
-#~ msgid "_Turn On"
-#~ msgstr "_Ligar"
-
-#~ msgid "_Leave On"
-#~ msgstr "_Deixar ligado"
-
-#~ msgid "_Leave Off"
-#~ msgstr "_Deixar desligado"
-
-#~ msgid "Universal Access Preferences"
-#~ msgstr "Preferências de acesso universal"
-
-#~ msgid "Use on-screen _keyboard"
-#~ msgstr "Usar t_eclado exibido na tela"
-
-#~ msgid "Use screen _reader"
-#~ msgstr "Usar _leitor de tela"
-
-#~ msgid "Use screen _magnifier"
-#~ msgstr "Usar a_mpliador de tela"
-
-#~ msgid "Enhance _contrast in colors"
-#~ msgstr "Realçar _contraste em cores"
-
-#~ msgid "Make _text larger and easier to read"
-#~ msgstr "Tornar o _texto maior e fácil de ler"
-
-#~ msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
-#~ msgstr ""
-#~ "_Pressionar atalhos do teclado, uma tecla de cada vez (teclas de "
-#~ "aderência)"
-
-#~ msgid "_Ignore duplicate keypresses (Bounce Keys)"
-#~ msgstr ""
-#~ "_Ignorar pressionamento de teclas duplicados (teclas de repercussão)"
-
-#~ msgid "Press and _hold keys to accept them (Slow Keys)"
-#~ msgstr "Pressionar e _segurar teclas para aceitá-las (teclas lentas)"
-
-#~ msgid "Mount Helper"
-#~ msgstr "Assistente de montagem"
-
-#~ msgid "Automount and autorun plugged devices"
-#~ msgstr "Montar e executar automaticamente dispositivos conectados"
-
-#~ msgid "Unable to mount %s"
-#~ msgstr "Não é possível montar %s"
-
-#~ msgid "Unable to open a folder for %s"
-#~ msgstr "Não é possível abrir uma pasta para %s"
-
-#~ msgid "Ask what to do"
-#~ msgstr "Pergunte-me o que fazer"
-
-#~ msgid "Do Nothing"
-#~ msgstr "Não fazer nada"
-
-#~ msgid "Open Folder"
-#~ msgstr "Abrir pasta"
-
-#~ msgid "Unable to eject %p"
-#~ msgstr "Não é possível ejetar %p"
-
-#~ msgid "Unable to unmount %p"
-#~ msgstr "Não é possível desmontar %p"
-
-#~ msgid "You have just inserted an Audio CD."
-#~ msgstr "Você inseriu um CD de áudio."
-
-#~ msgid "You have just inserted an Audio DVD."
-#~ msgstr "Você inseriu um DVD de áudio."
-
-#~ msgid "You have just inserted a Video DVD."
-#~ msgstr "Você inseriu um DVD de vídeo."
-
-#~ msgid "You have just inserted a Video CD."
-#~ msgstr "Você inseriu um CD de vídeo."
-
-#~ msgid "You have just inserted a Super Video CD."
-#~ msgstr "Você inseriu um super CD de vídeo (SVCD)."
-
-#~ msgid "You have just inserted a blank CD."
-#~ msgstr "Você inseriu um CD em branco."
-
-#~ msgid "You have just inserted a blank DVD."
-#~ msgstr "Você inseriu um DVD em branco."
-
-#~ msgid "You have just inserted a blank Blu-Ray disc."
-#~ msgstr "Você inseriu um disco de Blue-Ray em branco."
-
-#~ msgid "You have just inserted a blank HD DVD."
-#~ msgstr "Você inseriu um HD DVD em branco."
-
-#~ msgid "You have just inserted a Photo CD."
-#~ msgstr "Você inseriu um CD de fotos."
-
-#~ msgid "You have just inserted a Picture CD."
-#~ msgstr "Você inseriu um CD de imagens."
-
-#~ msgid "You have just inserted a medium with digital photos."
-#~ msgstr "Você inseriu uma mídia com fotos digitais."
-
-#~ msgid "You have just inserted a digital audio player."
-#~ msgstr "Você inseriu um reprodutor de áudio digital."
-
-#~ msgid ""
-#~ "You have just inserted a medium with software intended to be "
-#~ "automatically started."
-#~ msgstr ""
-#~ "Você inseriu uma mídia com software que deseja se iniciar automaticamente."
-
-#~ msgid "You have just inserted a medium."
-#~ msgstr "Você inseriu uma mídia."
-
-#~ msgid "Choose what application to launch."
-#~ msgstr "Escolha qual o aplicativo a ser lançado."
-
-#~ msgid ""
-#~ "Select how to open \"%s\" and whether to perform this action in the "
-#~ "future for other media of type \"%s\"."
-#~ msgstr ""
-#~ "Selecione como abrir \"%s\" e se é para realizar esta mesma ação no "
-#~ "futuro para outras mídias do tipo \"%s\"."
-
-#~ msgid "_Always perform this action"
-#~ msgstr "Sempre executar esta _ação"
-
-#~ msgid "_Eject"
-#~ msgstr "_Ejetar"
-
-#~ msgid "_Unmount"
-#~ msgstr "_Desmontar"
-
-#~ msgid "Background"
-#~ msgstr "Plano de fundo"
-
-#~ msgid "Power Manager"
-#~ msgstr "Gerenciador de energia"
-
-#~ msgid "Automatically install these types of updates"
-#~ msgstr "Instalar automaticamente esses tipos de atualizações"
-
-#~ msgid "Automatically install these types of updates."
-#~ msgstr "Instalar automaticamente esses tipos de atualizações."
-
-#~ msgid "Get the update list when the session starts"
-#~ msgstr "Obter lista de atualizações quando a iniciar sessão"
-
-#~ msgid ""
-#~ "Get the update list when the session starts, even if not scheduled to."
-#~ msgstr ""
-#~ "Obtém a lista de atualizações quando a sessão inicia, desde que não "
-#~ "esteja agendada."
-
-#~ msgid "Notify the user for completed updates"
-#~ msgstr "Notificar o usuário quando terminar de atualizar"
-
-#~ msgid ""
-#~ "Notify the user for completed updates where the user needs to restart"
-#~ msgstr ""
-#~ "Notificar o usuário quando terminar de atualizar e o usuário precisar "
-#~ "reiniciar"
-
-#~ msgid ""
-#~ "Notify the user for completed updates where the user needs to restart."
-#~ msgstr ""
-#~ "Notifica o usuário quando terminar de atualizar e o usuário precisar "
-#~ "reiniciar."
-
-#~ msgid ""
-#~ "Notify the user for completed updates. This may be a useful notification "
-#~ "for some users as installing updates prevents shutdown."
-#~ msgstr ""
-#~ "Notifica o usuário quando termina de atualizar. Isto pode ser uma "
-#~ "notificação útil para alguns usuários para prevenir desligamentos durante "
-#~ "a instalação."
-
-#~ msgid ""
-#~ "Notify the user when the automatic update was not started on battery power"
-#~ msgstr ""
-#~ "Notificar o usuário quando a atualização automática não for iniciada "
-#~ "usando a bateria"
-
-#~ msgid ""
-#~ "Notify the user when the update was not automatically started because the "
-#~ "machine is running on battery power."
-#~ msgstr ""
-#~ "Notifica o usuário quando uma atualização não foi automaticamente "
-#~ "iniciada pelo fato da máquina estar usando a bateria."
-
-#~ msgid "Notify the user when the update was started"
-#~ msgstr "Notificar o usuário quando uma atualização for iniciada"
-
-#~ msgid "Notify the user when the update was started."
-#~ msgstr "Notifica o usuário quando uma atualização for iniciada."
-
-#~ msgid "The install root to use when adding and removing packages"
-#~ msgstr ""
-#~ "A raiz de instalação a ser usada quando adicionar ou remover pacotes"
-
-#~ msgid ""
-#~ "The install root to use when processing packages, which is changed when "
-#~ "using LTSP or when testing."
-#~ msgstr ""
-#~ "A raiz de instalação a ser usada ao processar pacotes, que é alterada ao "
-#~ "usar LTSP ou quando testando."
-
-#~ msgid ""
-#~ "The number of seconds at session startup to wait before checking for "
-#~ "updates"
-#~ msgstr ""
-#~ "O número de segundos na inicialização da sessão para aguardar antes de "
-#~ "verificar por atualizações"
-
-#~ msgid ""
-#~ "The number of seconds at session startup to wait before checking for "
-#~ "updates. Value is in seconds."
-#~ msgstr ""
-#~ "O número de segundos na inicialização da sessão para aguardar antes de "
-#~ "verificar por atualizações. O valor está em segundos"
-
-#~ msgid ""
-#~ "Use WiFi (wireless LAN) connections to check for updates. It may be "
-#~ "faster to download packages when on a wired connection, and the VPN or "
-#~ "proxy required may also only be available on wired connections."
-#~ msgstr ""
-#~ "Usar a conexão WiFi (Rede wireless) para verificar atualizações. Pode ser "
-#~ "mais rápido baixar pacotes usando uma conexão cabeada, a VPN ou proxy "
-#~ "necessários podem também somente estar disponíveis em conexões via cabo."
-
-#~ msgid "Use WiFi connections"
-#~ msgstr "Usar conexões WiFi"
-
-#~ msgid ""
-#~ "Error activating XKB configuration.\n"
-#~ "There can be various reasons for that.\n"
-#~ "\n"
-#~ "If you report this situation as a bug, include the results of\n"
-#~ " • <b>%s</b>\n"
-#~ " • <b>%s</b>\n"
-#~ " • <b>%s</b>\n"
-#~ " • <b>%s</b>"
-#~ msgstr ""
-#~ "Erro ativando a configuração XKB.\n"
-#~ "Podem ser vários os motivos para isto.\n"
-#~ "\n"
-#~ "Se você reportar esta situação como um erro, inclua o resultado de\n"
-#~ " • <b>%s</b>\n"
-#~ " • <b>%s</b>\n"
-#~ " • <b>%s</b>\n"
-#~ " • <b>%s</b>"
-
-#~ msgid "_Layouts"
-#~ msgstr "_Disposições"
-
-#~ msgid "Show _Keyboard Layout..."
-#~ msgstr "Mostrar disposição do _teclado ..."
-
-#~ msgid "Region and Language Settings"
-#~ msgstr "Configurações de região e idioma"
-
-#~ msgid ""
-#~ "Automatic updates are not being installed as the computer is running on "
-#~ "battery power"
-#~ msgstr ""
-#~ "Atualizações automáticas não serão instaladas quando o computador estiver "
-#~ "rodando na bateria"
-
-#~ msgid "Updates not installed"
-#~ msgstr "Atualizações não instaladas"
-
-#~ msgid "Install the updates anyway"
-#~ msgstr "Instalar as atualizações de qualquer forma"
-
-#~ msgid "No restart is required."
-#~ msgstr "Não é preciso reiniciar."
-
-#~ msgid "A restart is required."
-#~ msgstr "É preciso reiniciar."
-
-#~ msgid "You need to log out and log back in."
-#~ msgstr "Você precisa encerrar sessão e efetuar log-in novamente."
-
-#~ msgid "You need to restart the application."
-#~ msgstr "Você precisar reiniciar o aplicativo."
-
-#~ msgid "You need to log out and log back in to remain secure."
-#~ msgstr ""
-#~ "Você precisa encerrar sessão e efetuar log-in para manter a segurança."
-
-#~ msgid "A restart is required to remain secure."
-#~ msgstr "Uma reinicialização é necessária manter a segurança."
-
-#~ msgid "One package was skipped:"
-#~ msgid_plural "Some packages were skipped:"
-#~ msgstr[0] "Uma pacote foi pulado:"
-#~ msgstr[1] "Alguns pacotes foram pulados:"
-
-#~ msgid "Restart computer now"
-#~ msgstr "Reiniciar computador agora"
