@@ -50,6 +50,7 @@ gsd_test_datetime_CFLAGS =					\
 gsd_test_datetime_LDADD =					\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
+	$(DATETIME_LIBS)					\
 	$(LIBM)							\
 	$(SETTINGS_PLUGIN_LIBS)
 
@@ -74,6 +75,7 @@ libdatetime_la_CPPFLAGS =					\
 	$(AM_CPPFLAGS)
 
 libdatetime_la_CFLAGS =			\
+	$(DATETIME_CFLAGS)		\
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
@@ -82,6 +84,7 @@ libdatetime_la_LDFLAGS = \
 	$(GSD_PLUGIN_LDFLAGS)
 
 libdatetime_la_LIBADD = \
+	$(DATETIME_LIBS)						\
 	$(LIBM) \
 	$(SETTINGS_PLUGIN_LIBS)
 

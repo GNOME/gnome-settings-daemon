@@ -27,10 +27,14 @@
 #include "tz.h"
 
 #include <math.h>
+#include <polkit/polkit.h>
+
+#define SET_TIMEZONE_PERMISSION "org.freedesktop.timedate1.set-timezone"
 
 typedef struct
 {
         GCancellable *cancellable;
+        GPermission *permission;
         GeoclueClient *geoclue_client;
         GeoclueManager *geoclue_manager;
         Timedate1 *dtm;
@@ -313,6 +317,7 @@ gsd_timezone_monitor_finalize (GObject *obj)
         g_clear_object (&priv->dtm);
         g_clear_object (&priv->geoclue_client);
         g_clear_object (&priv->geoclue_manager);
+        g_clear_object (&priv->permission);
         g_clear_pointer (&priv->current_timezone, g_free);
         g_clear_pointer (&priv->tzdb, tz_db_free);
 
@@ -334,6 +339,22 @@ gsd_timezone_monitor_init (GsdTimezoneMonitor *self)
         GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
 
         g_debug ("Starting timezone monitor");
+
+        priv->permission = polkit_permission_new_sync (SET_TIMEZONE_PERMISSION,
+                                                       NULL, NULL,
+                                                       &error);
+        if (priv->permission == NULL) {
+                g_warning ("Could not get '%s' permission: %s",
+                           SET_TIMEZONE_PERMISSION,
+                           error->message);
+                g_error_free (error);
+                return;
+        }
+
+        if (!g_permission_get_allowed (priv->permission)) {
+                g_debug ("No permission to set timezone");
+                return;
+        }
 
         priv->cancellable = g_cancellable_new ();
         priv->dtm = timedate1_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,

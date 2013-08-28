@@ -54,6 +54,7 @@ PA_REQUIRED_VERSION=2.0
 LIBWACOM_REQUIRED_VERSION=0.7
 LIBRSVG_REQUIRED_VERSION=2.36.2
 PANGO_REQUIRED_VERSION=1.20.0
+POLKIT_REQUIRED_VERSION=0.103
 UPOWER_REQUIRED_VERSION=0.9.11
 IBUS_REQUIRED_VERSION=1.4.99
 GSETTINGS_DESKTOP_SCHEMAS_REQUIRED_VERSION=3.7.2.1
@@ -250,6 +251,8 @@ dnl ---------------------------------------------------------------------------
 
 AC_CHECK_LIBM
 AC_SUBST(LIBM)
+
+PKG_CHECK_MODULES(DATETIME, polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION)
 
 dnl ---------------------------------------------------------------------------
 dnl - wacom (disabled for s390/s390x and non Linux platforms)
