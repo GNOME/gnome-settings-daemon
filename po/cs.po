@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-15 00:43+0000\n"
-"PO-Revision-Date: 2013-08-15 17:55+0200\n"
+"POT-Creation-Date: 2013-08-27 11:55+0000\n"
+"PO-Revision-Date: 2013-08-28 11:59+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -1311,12 +1311,12 @@ msgstr "Prázdný"
 msgid "Dummy plugin"
 msgstr "Prázdný zásuvný modul"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:578
+#: ../plugins/housekeeping/gsd-disk-space.c:588
 #, c-format
 msgid "Low Disk Space on \"%s\""
 msgstr "Nedostatek místa na disku „%s“"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:580
+#: ../plugins/housekeeping/gsd-disk-space.c:590
 #, c-format
 msgid ""
 "The volume \"%s\" has only %s disk space remaining.  You may free up some "
@@ -1325,19 +1325,19 @@ msgstr ""
 "Na svazku „%s“ zbývá pouze %s volného místa. Nějaké místo můžete uvolnit "
 "vyprázdněním koše."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:584
+#: ../plugins/housekeeping/gsd-disk-space.c:594
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:81
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
 msgstr "Na svazku „%s“ zbývá pouze %s volného místa."
 
 #. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-disk-space.c:589
+#: ../plugins/housekeeping/gsd-disk-space.c:599
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:205
 msgid "Low Disk Space"
 msgstr "Nedostatek místa na disku"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:591
+#: ../plugins/housekeeping/gsd-disk-space.c:601
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1346,26 +1346,26 @@ msgstr ""
 "U tohoto počítače zbývá pouze %s volného místa na disku. Nějaké místo můžete "
 "uvolnit vyprázdněním koše."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:594
+#: ../plugins/housekeeping/gsd-disk-space.c:604
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:84
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "U tohoto počítače zbývá pouze %s volného místa na disku."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:609
+#: ../plugins/housekeeping/gsd-disk-space.c:619
 msgid "Disk space"
 msgstr "Místo na disku"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:616
+#: ../plugins/housekeeping/gsd-disk-space.c:626
 msgid "Examine"
 msgstr "Prozkoumat"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:624
+#: ../plugins/housekeeping/gsd-disk-space.c:634
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:434
 msgid "Empty Trash"
 msgstr "Vyprázdnit koš"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:631
+#: ../plugins/housekeeping/gsd-disk-space.c:641
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:449
 msgid "Ignore"
 msgstr "Ignorovat"
@@ -2123,7 +2123,7 @@ msgid "Computer is charged"
 msgstr "Počítač je nabitý"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:1771
+#: ../plugins/power/gpm-common.c:1732
 #: ../plugins/power/gsd-power-manager.c:1564
 #: ../plugins/power/gsd-power-manager.c:1694
 msgid "Battery is critically low"
@@ -2851,11 +2851,11 @@ msgstr "Byl nainstalován dodatečný software"
 #: ../plugins/updates/gsd-updates-firmware.c:283
 #: ../plugins/updates/gsd-updates-firmware.c:311
 #: ../plugins/updates/gsd-updates-firmware.c:603
-#: ../plugins/updates/gsd-updates-manager.c:348
-#: ../plugins/updates/gsd-updates-manager.c:479
-#: ../plugins/updates/gsd-updates-manager.c:541
-#: ../plugins/updates/gsd-updates-manager.c:595
-#: ../plugins/updates/gsd-updates-manager.c:1244
+#: ../plugins/updates/gsd-updates-manager.c:351
+#: ../plugins/updates/gsd-updates-manager.c:482
+#: ../plugins/updates/gsd-updates-manager.c:544
+#: ../plugins/updates/gsd-updates-manager.c:598
+#: ../plugins/updates/gsd-updates-manager.c:1247
 msgid "Software Updates"
 msgstr "Aktualizace softwaru"
 
@@ -2898,85 +2898,85 @@ msgid "Ignore devices"
 msgstr "Ignorovat zařízení"
 
 #. TRANSLATORS: this is when the offline update failed
-#: ../plugins/updates/gsd-updates-manager.c:121
+#: ../plugins/updates/gsd-updates-manager.c:124
 msgid "Failed To Update"
 msgstr "Selhala aktualizace"
 
 #. TRANSLATORS: the transaction could not be completed
 #. * as a previous transaction was unfinished
-#: ../plugins/updates/gsd-updates-manager.c:127
+#: ../plugins/updates/gsd-updates-manager.c:130
 msgid "A previous update was unfinished."
 msgstr "Předchozí aktualizace nebyla dokončena."
 
 #. TRANSLATORS: the package manager needed to download
 #. * something with no network available
-#: ../plugins/updates/gsd-updates-manager.c:137
+#: ../plugins/updates/gsd-updates-manager.c:140
 msgid "Network access was required but not available."
 msgstr "Je požadován přístup k síti, ale není k dispozici."
 
 #. TRANSLATORS: if the package is not signed correctly
 #. *
-#: ../plugins/updates/gsd-updates-manager.c:146
+#: ../plugins/updates/gsd-updates-manager.c:149
 msgid "An update was not signed in the correct way."
 msgstr "Některá aktualizace není správně podepsána."
 
 #. TRANSLATORS: the transaction failed in a way the user
 #. * probably cannot comprehend. Package management systems
 #. * really are teh suck.
-#: ../plugins/updates/gsd-updates-manager.c:156
+#: ../plugins/updates/gsd-updates-manager.c:159
 msgid "The update could not be completed."
 msgstr "Aktualizace nemohla být dokončena."
 
 #. TRANSLATORS: the user aborted the update manually
-#: ../plugins/updates/gsd-updates-manager.c:161
+#: ../plugins/updates/gsd-updates-manager.c:164
 msgid "The update was cancelled."
 msgstr "Aktualizace byla zrušena."
 
 #. TRANSLATORS: the user must have updated manually after
 #. * the updates were prepared
-#: ../plugins/updates/gsd-updates-manager.c:167
+#: ../plugins/updates/gsd-updates-manager.c:170
 msgid "An offline update was requested but no packages required updating."
 msgstr ""
 "Byla požadována aktualizace off-line, ale žádný z balíčků aktualizaci "
 "nevyžaduje."
 
 #. TRANSLATORS: we ran out of disk space
-#: ../plugins/updates/gsd-updates-manager.c:171
+#: ../plugins/updates/gsd-updates-manager.c:174
 msgid "No space was left on the drive."
 msgstr "Na disku nezbývá žádné volné místo."
 
 #. TRANSLATORS: the update process failed in a general
 #. * way, usually this message will come from source distros
 #. * like gentoo
-#: ../plugins/updates/gsd-updates-manager.c:179
+#: ../plugins/updates/gsd-updates-manager.c:182
 msgid "An update failed to install correctly."
 msgstr "Aktualizace se nenainstalovala správně."
 
 #. TRANSLATORS: We didn't handle the error type
-#: ../plugins/updates/gsd-updates-manager.c:184
+#: ../plugins/updates/gsd-updates-manager.c:187
 msgid "The offline update failed in an unexpected way."
 msgstr "Aktualizace off-line selhala neočekávaným způsobem."
 
 #. TRANSLATORS: these are geeky messages from the
 #. * package manager no mortal is supposed to understand,
 #. * but google might know what they mean
-#: ../plugins/updates/gsd-updates-manager.c:193
+#: ../plugins/updates/gsd-updates-manager.c:196
 msgid "Detailed errors from the package manager follow:"
 msgstr "Podrobné informace o chybě od správy balíčků jsou následující:"
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:343
+#: ../plugins/updates/gsd-updates-manager.c:346
 msgid "Distribution upgrades available"
 msgstr "Je dostupné povýšení distribuce"
 
 #. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:353
+#: ../plugins/updates/gsd-updates-manager.c:356
 msgid "More information"
 msgstr "Více informací"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:461
-#: ../plugins/updates/gsd-updates-manager.c:523
+#: ../plugins/updates/gsd-updates-manager.c:464
+#: ../plugins/updates/gsd-updates-manager.c:526
 msgid "Update"
 msgid_plural "Updates"
 msgstr[0] "Aktualizace"
@@ -2984,7 +2984,7 @@ msgstr[1] "Aktualizace"
 msgstr[2] "Aktualizace"
 
 #. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:464
+#: ../plugins/updates/gsd-updates-manager.c:467
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
 msgstr[0] "Je dostupná důležitá aktualizace softwaru"
@@ -2992,13 +2992,13 @@ msgstr[1] "Jsou dostupné důležité aktualizace softwaru"
 msgstr[2] "Jsou dostupné důležité aktualizace softwaru"
 
 #. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:484
-#: ../plugins/updates/gsd-updates-manager.c:546
+#: ../plugins/updates/gsd-updates-manager.c:487
+#: ../plugins/updates/gsd-updates-manager.c:549
 msgid "Install updates"
 msgstr "Instalovat aktualizace"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:526
+#: ../plugins/updates/gsd-updates-manager.c:529
 msgid "A software update is available."
 msgid_plural "Software updates are available."
 msgstr[0] "Je dostupná aktualizace softwaru"
@@ -3006,29 +3006,29 @@ msgstr[1] "Jsou dostupné aktualizace softwaru"
 msgstr[2] "Jsou dostupné aktualizace softwaru"
 
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:582
+#: ../plugins/updates/gsd-updates-manager.c:585
 #: ../plugins/updates/updates.gnome-settings-plugin.in.h:1
 msgid "Updates"
 msgstr "Aktualizace"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:586
+#: ../plugins/updates/gsd-updates-manager.c:589
 msgid "Unable to access software updates"
 msgstr "Nelze získat přístup k aktualizacím softwaru"
 
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:589
+#: ../plugins/updates/gsd-updates-manager.c:592
 msgid "Try again"
 msgstr "Zkusit znovu"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:974
+#: ../plugins/updates/gsd-updates-manager.c:977
 msgid "A transaction that cannot be interrupted is running"
 msgstr "Běží transakce, kterou nelze přerušit"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1194
+#: ../plugins/updates/gsd-updates-manager.c:1197
 msgid "Software Update Installed"
 msgid_plural "Software Updates Installed"
 msgstr[0] "Aktualizace softwaru nainstalována"
@@ -3036,7 +3036,7 @@ msgstr[1] "Aktualizace softwaru nainstalovány"
 msgstr[2] "Aktualizace softwaru nainstalovány"
 
 #. TRANSLATORS: message when we've done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1199
+#: ../plugins/updates/gsd-updates-manager.c:1202
 msgid "An important OS update has been installed."
 msgid_plural "Important OS updates have been installed."
 msgstr[0] "Byla nainstalována důležitá aktualizace OS"
@@ -3044,29 +3044,58 @@ msgstr[1] "Byly nainstalovány důležité aktualizace OS"
 msgstr[2] "Byly nainstalovány důležité aktualizace OS"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1225
+#: ../plugins/updates/gsd-updates-manager.c:1228
 msgid "Software Updates Failed"
 msgstr "Selhala aktualizace softwaru"
 
 #. TRANSLATORS: message when we've not done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1228
+#: ../plugins/updates/gsd-updates-manager.c:1231
 msgid "An important OS update failed to be installed."
 msgstr "Selhala instalace důležité aktualizace OS"
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1251
+#: ../plugins/updates/gsd-updates-manager.c:1254
 msgid "Review"
 msgstr "Vyhodnocení"
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1256
+#: ../plugins/updates/gsd-updates-manager.c:1259
 msgid "Show details"
 msgstr "Zobrazit podrobnosti"
 
 #. TRANSLATORS: button: clear notification
-#: ../plugins/updates/gsd-updates-manager.c:1260
+#: ../plugins/updates/gsd-updates-manager.c:1263
 msgid "OK"
 msgstr "Budiž"
+
+#: ../plugins/updates/gsd-updates-manager.c:1401
+#| msgid "Software Updates Failed"
+msgid "Software Updates available"
+msgstr "Dostupné aktualizace softwaru"
+
+#: ../plugins/updates/gsd-updates-manager.c:1402
+#| msgid "An important OS update failed to be installed."
+msgid "Important OS and application updates are ready to be installed"
+msgstr "Důležité aktualizace OS a aplikací jsou připraveny k instalaci"
+
+#: ../plugins/updates/gsd-updates-manager.c:1406
+msgid "GNOME Software"
+msgstr "Software GNOME"
+
+#. TRANSLATORS: don't install updates now
+#: ../plugins/updates/gsd-updates-manager.c:1411
+msgid "Not Now"
+msgstr "Odložit"
+
+#. TRANSLATORS: view available updates
+#: ../plugins/updates/gsd-updates-manager.c:1417
+msgid "View"
+msgstr "Zobrazit"
+
+#. TRANSLATORS: install available updates
+#: ../plugins/updates/gsd-updates-manager.c:1423
+msgid "Restart & Install"
+msgstr "Restartovat a instalovat"
 
 #: ../plugins/updates/updates.gnome-settings-plugin.in.h:2
 msgid "Updates plugin"
@@ -3102,86 +3131,86 @@ msgid "Done"
 msgstr "Hotovo"
 
 #. If no mode is available, we use "left-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1078
+#: ../plugins/wacom/gsd-wacom-device.c:1063
 msgid "Left Ring"
 msgstr "Levý dotykový prstenec č. %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1089
+#: ../plugins/wacom/gsd-wacom-device.c:1074
 #, c-format
 msgid "Left Ring Mode #%d"
 msgstr "Režim levého dotykového prstence č. %d"
 
 #. If no mode is available, we use "right-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1109
+#: ../plugins/wacom/gsd-wacom-device.c:1094
 msgid "Right Ring"
 msgstr "Pravý dotykový prstenec"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1120
+#: ../plugins/wacom/gsd-wacom-device.c:1105
 #, c-format
 msgid "Right Ring Mode #%d"
 msgstr "Režim pravého dotykového prstence č. %d"
 
 #. If no mode is available, we use "left-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1162
+#: ../plugins/wacom/gsd-wacom-device.c:1147
 msgid "Left Touchstrip"
 msgstr "Levý dotykový pruh č. %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1173
+#: ../plugins/wacom/gsd-wacom-device.c:1158
 #, c-format
 msgid "Left Touchstrip Mode #%d"
 msgstr "Režim levého dotykového pruhu č. %d"
 
 #. If no mode is available, we use "right-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1193
+#: ../plugins/wacom/gsd-wacom-device.c:1178
 msgid "Right Touchstrip"
 msgstr "Pravý dotykový pruh"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1204
+#: ../plugins/wacom/gsd-wacom-device.c:1189
 #, c-format
 msgid "Right Touchstrip Mode #%d"
 msgstr "Režim pravého dotykového pruhu č. %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1230
+#: ../plugins/wacom/gsd-wacom-device.c:1215
 #, c-format
 msgid "Left Touchring Mode Switch"
 msgstr "Přepínač režimů levého dotykového prstence"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1232
+#: ../plugins/wacom/gsd-wacom-device.c:1217
 #, c-format
 msgid "Right Touchring Mode Switch"
 msgstr "Přepínač režimů pravého dotykového prstence"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1235
+#: ../plugins/wacom/gsd-wacom-device.c:1220
 #, c-format
 msgid "Left Touchstrip Mode Switch"
 msgstr "Přepínač režimů levého dotykového pruhu"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1237
+#: ../plugins/wacom/gsd-wacom-device.c:1222
 #, c-format
 msgid "Right Touchstrip Mode Switch"
 msgstr "Přepínač režimů pravého dotykového pruhu"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1242
+#: ../plugins/wacom/gsd-wacom-device.c:1227
 #, c-format
 msgid "Mode Switch #%d"
 msgstr "Přepínač režimů č. %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1351
+#: ../plugins/wacom/gsd-wacom-device.c:1336
 #, c-format
 msgid "Left Button #%d"
 msgstr "Levé tlačítko č. %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1354
+#: ../plugins/wacom/gsd-wacom-device.c:1339
 #, c-format
 msgid "Right Button #%d"
 msgstr "Pravé tlačítko č. %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1357
+#: ../plugins/wacom/gsd-wacom-device.c:1342
 #, c-format
 msgid "Top Button #%d"
 msgstr "Horní tlačítko č. %d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1360
+#: ../plugins/wacom/gsd-wacom-device.c:1345
 #, c-format
 msgid "Bottom Button #%d"
 msgstr "Dolní tlačítko č. %d"
@@ -3293,47 +3322,10 @@ msgstr "Wacom"
 msgid "Wacom plugin"
 msgstr "Zásuvný modul tabletů Wacom"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:531
-msgid "Could not restore the display's configuration"
-msgstr "Nelze obnovit nastavení displeje"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:556
-msgid "Could not restore the display's configuration from a backup"
-msgstr "Ze zálohy nelze obnovit nastavení displeje"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:577
-#, c-format
-msgid "The display will be reset to its previous configuration in %d second"
-msgid_plural ""
-"The display will be reset to its previous configuration in %d seconds"
-msgstr[0] "Nastavení displeje bude vráceno na původní nastavení za %d sekundu"
-msgstr[1] "Nastavení displeje bude vráceno na původní nastavení za %d sekundy"
-msgstr[2] "Nastavení displeje bude vráceno na původní nastavení za %d sekund"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:626
-msgid "Does the display look OK?"
-msgstr "Vypadá displej v pořádku?"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:633
-msgid "_Restore Previous Configuration"
-msgstr "_Obnovit předchozí nastavení"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:634
-msgid "_Keep This Configuration"
-msgstr "Z_achovat toto nastavení"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:715
-msgid "The selected configuration for displays could not be applied"
-msgstr "Vybrané nastavení displejů nelze použít"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1368
+#: ../plugins/xrandr/gsd-xrandr-manager.c:977
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Nelze občerstvit informace o obrazovce: %s"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1865
-msgid "Could not apply the stored configuration for monitors"
-msgstr "Nelze použít uložené nastavení monitorů"
 
 #: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
 msgid "XRandR"
@@ -3350,3 +3342,34 @@ msgstr "Nastavení X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Spravovat nastavení X"
+
+#~ msgid "Could not restore the display's configuration"
+#~ msgstr "Nelze obnovit nastavení displeje"
+
+#~ msgid "Could not restore the display's configuration from a backup"
+#~ msgstr "Ze zálohy nelze obnovit nastavení displeje"
+
+#~ msgid "The display will be reset to its previous configuration in %d second"
+#~ msgid_plural ""
+#~ "The display will be reset to its previous configuration in %d seconds"
+#~ msgstr[0] ""
+#~ "Nastavení displeje bude vráceno na původní nastavení za %d sekundu"
+#~ msgstr[1] ""
+#~ "Nastavení displeje bude vráceno na původní nastavení za %d sekundy"
+#~ msgstr[2] ""
+#~ "Nastavení displeje bude vráceno na původní nastavení za %d sekund"
+
+#~ msgid "Does the display look OK?"
+#~ msgstr "Vypadá displej v pořádku?"
+
+#~ msgid "_Restore Previous Configuration"
+#~ msgstr "_Obnovit předchozí nastavení"
+
+#~ msgid "_Keep This Configuration"
+#~ msgstr "Z_achovat toto nastavení"
+
+#~ msgid "The selected configuration for displays could not be applied"
+#~ msgstr "Vybrané nastavení displejů nelze použít"
+
+#~ msgid "Could not apply the stored configuration for monitors"
+#~ msgstr "Nelze použít uložené nastavení monitorů"
