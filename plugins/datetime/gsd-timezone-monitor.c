@@ -31,6 +31,13 @@
 
 #define SET_TIMEZONE_PERMISSION "org.freedesktop.timedate1.set-timezone"
 
+enum {
+        TIMEZONE_CHANGED,
+        LAST_SIGNAL
+};
+
+static int signals[LAST_SIGNAL] = { 0 };
+
 typedef struct
 {
         GCancellable *cancellable;
@@ -59,17 +66,21 @@ set_timezone_cb (GObject      *source,
                                                  &error)) {
                 g_warning ("Could not set system timezone: %s", error->message);
                 g_error_free (error);
+                return;
         }
+
+        g_signal_emit (G_OBJECT (self),
+                       signals[TIMEZONE_CHANGED],
+                       0, priv->current_timezone);
 }
 
 static void
-queue_set_timezone (GsdTimezoneMonitor *self,
-                    const char *timezone)
+queue_set_timezone (GsdTimezoneMonitor *self)
 {
         GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
 
         timedate1_call_set_timezone (priv->dtm,
-                                     timezone,
+                                     priv->current_timezone,
                                      TRUE,
                                      priv->cancellable,
                                      set_timezone_cb,
@@ -125,6 +136,8 @@ process_location (GsdTimezoneMonitor *self,
         TzLocation *closest_tz_location;
         gint i;
 
+        g_return_if_fail (priv->current_timezone != NULL);
+
         array = tz_get_locations (priv->tzdb);
 
         for (i = 0; i < array->len; i++) {
@@ -140,7 +153,9 @@ process_location (GsdTimezoneMonitor *self,
         closest_tz_location = (TzLocation*) distances->data;
         if (g_strcmp0 (priv->current_timezone, closest_tz_location->zone) != 0) {
                 g_debug ("Changing timezone to %s", closest_tz_location->zone);
-                queue_set_timezone (self, closest_tz_location->zone);
+                g_free (priv->current_timezone);
+                priv->current_timezone = g_strdup (closest_tz_location->zone);
+                queue_set_timezone (self);
         }
 
         g_list_free (distances);
@@ -330,6 +345,15 @@ gsd_timezone_monitor_class_init (GsdTimezoneMonitorClass *klass)
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
         object_class->finalize = gsd_timezone_monitor_finalize;
+
+        signals[TIMEZONE_CHANGED] =
+                g_signal_new ("timezone-changed",
+                              G_TYPE_FROM_CLASS (klass),
+                              G_SIGNAL_RUN_LAST,
+                              G_STRUCT_OFFSET (GsdTimezoneMonitorClass, timezone_changed),
+                              NULL, NULL,
+                              NULL,
+                              G_TYPE_NONE, 1, G_TYPE_POINTER);
 }
 
 static void

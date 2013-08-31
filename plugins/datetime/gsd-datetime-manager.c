@@ -21,6 +21,8 @@
 #include "config.h"
 
 #include <gio/gio.h>
+#include <glib/gi18n.h>
+#include <libnotify/notify.h>
 
 #include "gsd-datetime-manager.h"
 #include "gsd-timezone-monitor.h"
@@ -35,6 +37,7 @@ struct GsdDatetimeManagerPrivate
 {
         GSettings *settings;
         GsdTimezoneMonitor *timezone_monitor;
+        NotifyNotification *notification;
 };
 
 static void gsd_datetime_manager_class_init (GsdDatetimeManagerClass *klass);
@@ -44,6 +47,102 @@ static void gsd_datetime_manager_finalize (GObject *object);
 G_DEFINE_TYPE (GsdDatetimeManager, gsd_datetime_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
+
+static gboolean
+notification_server_has_actions (void)
+{
+        GList *caps;
+        gboolean has_actions = FALSE;
+
+        caps = notify_get_server_caps ();
+        if (g_list_find_custom (caps, "actions", (GCompareFunc)g_strcmp0) != NULL)
+                has_actions = TRUE;
+        g_list_free_full (caps, g_free);
+
+        return has_actions;
+}
+
+static void
+notification_closed_cb (NotifyNotification *n,
+                        GsdDatetimeManager *self)
+{
+        g_clear_object (&self->priv->notification);
+}
+
+static void
+open_settings_cb (NotifyNotification *n,
+                  const char         *action,
+                  const char         *path)
+{
+        const gchar *argv[] = { "gnome-control-center", "datetime", NULL };
+
+        g_debug ("Running gnome-control-center datetime");
+        g_spawn_async (NULL, (gchar **) argv, NULL, G_SPAWN_SEARCH_PATH,
+                       NULL, NULL, NULL, NULL);
+
+        notify_notification_close (n, NULL);
+}
+
+static void
+timezone_changed_cb (GsdTimezoneMonitor *timezone_monitor,
+                     const gchar        *timezone_id,
+                     GsdDatetimeManager *self)
+{
+        GDateTime *datetime;
+        GTimeZone *tz;
+        gchar *control_center;
+        gchar *notification_summary;
+        gchar *timezone_name;
+        gchar *utc_offset;
+
+        tz = g_time_zone_new (timezone_id);
+        datetime = g_date_time_new_now (tz);
+        g_time_zone_unref (tz);
+
+        /* Translators: UTC here means the Coordinated Universal Time.
+         * %:::z will be replaced by the offset from UTC e.g. UTC+02 */
+        utc_offset = g_date_time_format (datetime, _("UTC%:::z"));
+        timezone_name = g_strdup (g_date_time_get_timezone_abbreviation (datetime));
+        g_date_time_unref (datetime);
+
+        notification_summary = g_strdup_printf (_("Time Zone Updated to %s (%s)"),
+                                                timezone_name,
+                                                utc_offset);
+        g_free (timezone_name);
+        g_free (utc_offset);
+
+        if (self->priv->notification == NULL) {
+                self->priv->notification = notify_notification_new (notification_summary, NULL,
+                                                                    "preferences-system-time-symbolic");
+                g_signal_connect (self->priv->notification,
+                                  "closed",
+                                  G_CALLBACK (notification_closed_cb),
+                                  self);
+        } else {
+                notify_notification_update (self->priv->notification,
+                                            notification_summary, NULL,
+                                            "preferences-system-time-symbolic");
+        }
+        g_free (notification_summary);
+
+        notify_notification_set_app_name (self->priv->notification, _("Date & Time Settings"));
+        notify_notification_set_urgency (self->priv->notification, NOTIFY_URGENCY_NORMAL);
+        notify_notification_set_timeout (self->priv->notification, NOTIFY_EXPIRES_NEVER);
+
+        control_center = g_find_program_in_path ("gnome-control-center");
+        if (control_center != NULL && notification_server_has_actions ()) {
+                notify_notification_add_action (self->priv->notification,
+                                                "settings",
+                                                _("Settings"),
+                                                (NotifyActionCallback) open_settings_cb,
+                                                NULL, NULL);
+        }
+        g_free (control_center);
+
+        if (!notify_notification_show (self->priv->notification, NULL)) {
+                g_warning ("Failed to send timezone notification");
+        }
+}
 
 static void
 auto_timezone_settings_changed_cb (GSettings          *settings,
@@ -56,6 +155,9 @@ auto_timezone_settings_changed_cb (GSettings          *settings,
         if (enabled && self->priv->timezone_monitor == NULL) {
                 g_debug ("Automatic timezone enabled");
                 self->priv->timezone_monitor = gsd_timezone_monitor_new ();
+
+                g_signal_connect (self->priv->timezone_monitor, "timezone-changed",
+                                  G_CALLBACK (timezone_changed_cb), self);
         } else {
                 g_debug ("Automatic timezone disabled");
                 g_clear_object (&self->priv->timezone_monitor);
@@ -87,6 +189,13 @@ gsd_datetime_manager_stop (GsdDatetimeManager *self)
 
         g_clear_object (&self->priv->settings);
         g_clear_object (&self->priv->timezone_monitor);
+
+        if (self->priv->notification != NULL) {
+                g_signal_handlers_disconnect_by_func (self->priv->notification,
+                                                      G_CALLBACK (notification_closed_cb),
+                                                      self);
+                g_clear_object (&self->priv->notification);
+        }
 }
 
 static GObject *

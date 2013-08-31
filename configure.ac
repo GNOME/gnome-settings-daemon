@@ -43,7 +43,7 @@ dnl ---------------------------------------------------------------------------
 dnl - Dependencies
 dnl ---------------------------------------------------------------------------
 
-GLIB_REQUIRED_VERSION=2.35.3
+GLIB_REQUIRED_VERSION=2.37.7
 GIO_REQUIRED_VERSION=${GLIB_REQUIRED_VERSION}
 GTK_REQUIRED_VERSION=3.7.8
 GCONF_REQUIRED_VERSION=2.6.1

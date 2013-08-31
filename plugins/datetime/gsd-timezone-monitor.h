@@ -43,6 +43,8 @@ struct _GsdTimezoneMonitor
 struct _GsdTimezoneMonitorClass
 {
 	GObjectClass parent_class;
+
+	void (*timezone_changed) (GsdTimezoneMonitor *monitor, gchar *timezone_id);
 };
 
 GType gsd_timezone_monitor_get_type (void) G_GNUC_CONST;
