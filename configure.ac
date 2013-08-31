@@ -58,6 +58,7 @@ POLKIT_REQUIRED_VERSION=0.103
 UPOWER_REQUIRED_VERSION=0.9.11
 IBUS_REQUIRED_VERSION=1.4.99
 GSETTINGS_DESKTOP_SCHEMAS_REQUIRED_VERSION=3.7.2.1
+GEOCODE_GLIB_REQUIRED_VERSION=0.99.3
 
 EXTRA_COMPILE_WARNINGS(yes)
 
@@ -252,7 +253,10 @@ dnl ---------------------------------------------------------------------------
 AC_CHECK_LIBM
 AC_SUBST(LIBM)
 
-PKG_CHECK_MODULES(DATETIME, polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION)
+PKG_CHECK_MODULES(DATETIME,
+	geocode-glib-1.0 >= $GEOCODE_GLIB_REQUIRED_VERSION
+	polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION
+)
 
 dnl ---------------------------------------------------------------------------
 dnl - wacom (disabled for s390/s390x and non Linux platforms)

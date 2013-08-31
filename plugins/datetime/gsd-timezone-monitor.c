@@ -26,6 +26,7 @@
 #include "timedated.h"
 #include "tz.h"
 
+#include <geocode-glib/geocode-glib.h>
 #include <math.h>
 #include <polkit/polkit.h>
 
@@ -75,16 +76,22 @@ set_timezone_cb (GObject      *source,
 }
 
 static void
-queue_set_timezone (GsdTimezoneMonitor *self)
+queue_set_timezone (GsdTimezoneMonitor *self,
+                    const gchar        *new_timezone)
 {
         GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
 
+        g_debug ("Changing timezone to '%s'", new_timezone);
+
         timedate1_call_set_timezone (priv->dtm,
-                                     priv->current_timezone,
+                                     new_timezone,
                                      TRUE,
                                      priv->cancellable,
                                      set_timezone_cb,
                                      self);
+
+        g_free (priv->current_timezone);
+        priv->current_timezone = g_strdup (new_timezone);
 }
 
 
@@ -125,40 +132,154 @@ compare_locations (TzLocation *a,
         return 0;
 }
 
-static void
-process_location (GsdTimezoneMonitor *self,
-                  gdouble             latitude,
-                  gdouble             longitude)
+static GList *
+sort_by_closest_to (GList           *locations,
+                    GeocodeLocation *location)
 {
-        GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
-        GPtrArray *array;
-        GList *distances = NULL;
-        TzLocation *closest_tz_location;
-        gint i;
+        GList *l;
+        gdouble latitude, longitude;
 
-        g_return_if_fail (priv->current_timezone != NULL);
+        latitude = geocode_location_get_latitude (location);
+        longitude = geocode_location_get_longitude (location);
 
-        array = tz_get_locations (priv->tzdb);
-
-        for (i = 0; i < array->len; i++) {
-                TzLocation *loc = array->pdata[i];
+        for (l = locations; l; l = l->next) {
+                TzLocation *loc = l->data;
 
                 loc->dist = distance_between (latitude, longitude,
                                               loc->latitude, loc->longitude);
-                distances = g_list_prepend (distances, loc);
-
-        }
-        distances = g_list_sort (distances, (GCompareFunc) compare_locations);
-
-        closest_tz_location = (TzLocation*) distances->data;
-        if (g_strcmp0 (priv->current_timezone, closest_tz_location->zone) != 0) {
-                g_debug ("Changing timezone to %s", closest_tz_location->zone);
-                g_free (priv->current_timezone);
-                priv->current_timezone = g_strdup (closest_tz_location->zone);
-                queue_set_timezone (self);
         }
 
-        g_list_free (distances);
+        return g_list_sort (locations, (GCompareFunc) compare_locations);
+}
+
+static GList *
+ptr_array_to_list (GPtrArray *array)
+{
+        GList *l = NULL;
+        gint i;
+
+        for (i = 0; i < array->len; i++)
+                l = g_list_prepend (l, g_ptr_array_index (array, i));
+
+        return l;
+}
+
+static GList *
+find_by_country (GList       *locations,
+                 const gchar *country_code)
+{
+        GList *l, *found = NULL;
+        gchar *c1;
+        gchar *c2;
+
+        c1 = g_ascii_strdown (country_code, -1);
+
+        for (l = locations; l; l = l->next) {
+                TzLocation *loc = l->data;
+
+                c2 = g_ascii_strdown (loc->country, -1);
+                if (g_strcmp0 (c1, c2) == 0)
+                        found = g_list_prepend (found, loc);
+                g_free (c2);
+        }
+        g_free (c1);
+
+        return found;
+}
+
+static const gchar *
+find_timezone (GeocodeLocation *location,
+               const gchar     *country_code,
+               TzDB            *tzdb)
+{
+        GList *filtered;
+        GList *locations;
+        TzLocation *closest_tz_location;
+
+        locations = ptr_array_to_list (tz_get_locations (tzdb));
+        g_return_val_if_fail (locations != NULL, NULL);
+
+        /* Filter tz locations by country */
+        filtered = find_by_country (locations, country_code);
+        if (filtered != NULL) {
+                g_list_free (locations);
+                locations = filtered;
+        } else {
+                g_debug ("No match for country code '%s' in tzdb", country_code);
+        }
+
+        /* Find the closest tz location */
+        locations = sort_by_closest_to (locations, location);
+        closest_tz_location = (TzLocation *) locations->data;
+
+        g_list_free (locations);
+
+        return closest_tz_location->zone;
+}
+
+static void
+process_location (GsdTimezoneMonitor *self,
+                  GeocodePlace       *place)
+{
+        GeocodeLocation *location;
+        GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
+        const gchar *country_code;
+        const gchar *new_timezone;
+
+        country_code = geocode_place_get_country_code (place);
+        location = geocode_place_get_location (place);
+
+        new_timezone = find_timezone (location, country_code, priv->tzdb);
+
+        if (g_strcmp0 (priv->current_timezone, new_timezone) != 0)
+                queue_set_timezone (self, new_timezone);
+}
+
+static void
+on_reverse_geocoding_ready (GObject      *source_object,
+                            GAsyncResult *res,
+                            gpointer      user_data)
+{
+        GeocodePlace *place;
+        GError *error = NULL;
+        GsdTimezoneMonitor *self = user_data;
+
+        place = geocode_reverse_resolve_finish (GEOCODE_REVERSE (source_object),
+                                                res,
+                                                &error);
+        if (error != NULL) {
+                g_debug ("Reverse geocoding failed: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+        g_debug ("Geocode lookup resolved country to '%s'",
+                 geocode_place_get_country (place));
+
+        process_location (self, place);
+        g_object_unref (place);
+}
+
+static void
+start_reverse_geocoding (GsdTimezoneMonitor *self,
+                         gdouble             latitude,
+                         gdouble             longitude)
+{
+        GeocodeLocation *location;
+        GeocodeReverse *reverse;
+        GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
+
+        location = geocode_location_new (latitude,
+                                         longitude,
+                                         GEOCODE_LOCATION_ACCURACY_CITY);
+
+        reverse = geocode_reverse_new_for_location (location);
+        geocode_reverse_resolve_async (reverse,
+                                       priv->cancellable,
+                                       on_reverse_geocoding_ready,
+                                       self);
+
+        g_object_unref (location);
+        g_object_unref (reverse);
 }
 
 static void
@@ -181,7 +302,7 @@ on_location_proxy_ready (GObject      *source_object,
         latitude = geoclue_location_get_latitude (location);
         longitude = geoclue_location_get_longitude (location);
 
-        process_location (self, latitude, longitude);
+        start_reverse_geocoding (self, latitude, longitude);
 
         g_object_unref (location);
 }
