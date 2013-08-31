@@ -27,7 +27,6 @@
 #include "tz.h"
 
 #include <geocode-glib/geocode-glib.h>
-#include <math.h>
 #include <polkit/polkit.h>
 
 #define SET_TIMEZONE_PERMISSION "org.freedesktop.timedate1.set-timezone"
@@ -94,31 +93,6 @@ queue_set_timezone (GsdTimezoneMonitor *self,
         priv->current_timezone = g_strdup (new_timezone);
 }
 
-
-#define EARTH_RADIUS_KM 6372.795
-
-/* Copy of geocode_location_get_distance_from() from geocode-glib */
-static double
-distance_between (gdouble loca_latitude, gdouble loca_longitude,
-                  gdouble locb_latitude, gdouble locb_longitude)
-{
-        gdouble dlat, dlon, lat1, lat2;
-        gdouble a, c;
-
-        /* Algorithm from:
-         * http://www.movable-type.co.uk/scripts/latlong.html */
-
-        dlat = (locb_latitude - loca_latitude) * M_PI / 180.0;
-        dlon = (locb_longitude - loca_longitude) * M_PI / 180.0;
-        lat1 = loca_latitude * M_PI / 180.0;
-        lat2 = locb_latitude * M_PI / 180.0;
-
-        a = sin (dlat / 2) * sin (dlat / 2) +
-            sin (dlon / 2) * sin (dlon / 2) * cos (lat1) * cos (lat2);
-        c = 2 * atan2 (sqrt (a), sqrt (1-a));
-        return EARTH_RADIUS_KM * c;
-}
-
 static gint
 compare_locations (TzLocation *a,
                    TzLocation *b)
@@ -137,16 +111,16 @@ sort_by_closest_to (GList           *locations,
                     GeocodeLocation *location)
 {
         GList *l;
-        gdouble latitude, longitude;
-
-        latitude = geocode_location_get_latitude (location);
-        longitude = geocode_location_get_longitude (location);
 
         for (l = locations; l; l = l->next) {
-                TzLocation *loc = l->data;
+                GeocodeLocation *loc;
+                TzLocation *tz_location = l->data;
 
-                loc->dist = distance_between (latitude, longitude,
-                                              loc->latitude, loc->longitude);
+                loc = geocode_location_new (tz_location->latitude,
+                                            tz_location->longitude,
+                                            GEOCODE_LOCATION_ACCURACY_UNKNOWN);
+                tz_location->dist = geocode_location_get_distance_from (loc, location);
+                g_object_unref (loc);
         }
 
         return g_list_sort (locations, (GCompareFunc) compare_locations);
