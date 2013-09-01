@@ -78,6 +78,7 @@ char *     tz_info_get_clean_name     (TzDB *tz_db,
 GPtrArray *tz_get_locations           (TzDB *db);
 void       tz_location_get_position   (TzLocation *loc,
 				       double *longitude, double *latitude);
+void       tz_location_free           (TzLocation *loc);
 char      *tz_location_get_country    (TzLocation *loc);
 gchar     *tz_location_get_zone       (TzLocation *loc);
 gchar     *tz_location_get_comment    (TzLocation *loc);

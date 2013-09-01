@@ -34,7 +34,9 @@ gsd_test_datetime_SOURCES =	\
 	gsd-timezone-monitor.h	\
 	test-datetime.c		\
 	tz.c			\
-	tz.h
+	tz.h			\
+	weather-tz.c		\
+	weather-tz.h
 
 gsd_test_datetime_CFLAGS =					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
@@ -65,7 +67,9 @@ libdatetime_la_SOURCES =	\
 	gsd-timezone-monitor.h	\
 	gsd-timezone-monitor.c	\
 	tz.h			\
-	tz.c
+	tz.c			\
+	weather-tz.c		\
+	weather-tz.h
 
 libdatetime_la_CPPFLAGS =					\
 	-I$(top_srcdir)/gnome-settings-daemon			\

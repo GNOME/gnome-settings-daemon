@@ -131,7 +131,7 @@ tz_load_db (void)
 	return tz_db;
 }
 
-static void
+void
 tz_location_free (TzLocation *loc)
 {
 	g_free (loc->country);

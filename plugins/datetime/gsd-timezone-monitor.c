@@ -25,6 +25,7 @@
 #include "geoclue.h"
 #include "timedated.h"
 #include "tz.h"
+#include "weather-tz.h"
 
 #include <geocode-glib/geocode-glib.h>
 #include <polkit/polkit.h>
@@ -47,6 +48,7 @@ typedef struct
         Timedate1 *dtm;
 
         TzDB *tzdb;
+        WeatherTzDB *weather_tzdb;
         gchar *current_timezone;
 } GsdTimezoneMonitorPrivate;
 
@@ -162,16 +164,22 @@ find_by_country (GList       *locations,
 }
 
 static const gchar *
-find_timezone (GeocodeLocation *location,
-               const gchar     *country_code,
-               TzDB            *tzdb)
+find_timezone (GsdTimezoneMonitor *self,
+               GeocodeLocation    *location,
+               const gchar        *country_code)
 {
         GList *filtered;
         GList *locations;
+        GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
         TzLocation *closest_tz_location;
 
-        locations = ptr_array_to_list (tz_get_locations (tzdb));
+        /* First load locations from Olson DB */
+        locations = ptr_array_to_list (tz_get_locations (priv->tzdb));
         g_return_val_if_fail (locations != NULL, NULL);
+
+        /* ... and then add libgweather's locations as well */
+        locations = g_list_concat (locations,
+                                   weather_tz_db_get_locations (priv->weather_tzdb));
 
         /* Filter tz locations by country */
         filtered = find_by_country (locations, country_code);
@@ -203,7 +211,7 @@ process_location (GsdTimezoneMonitor *self,
         country_code = geocode_place_get_country_code (place);
         location = geocode_place_get_location (place);
 
-        new_timezone = find_timezone (location, country_code, priv->tzdb);
+        new_timezone = find_timezone (self, location, country_code);
 
         if (g_strcmp0 (priv->current_timezone, new_timezone) != 0)
                 queue_set_timezone (self, new_timezone);
@@ -430,6 +438,7 @@ gsd_timezone_monitor_finalize (GObject *obj)
         g_clear_object (&priv->permission);
         g_clear_pointer (&priv->current_timezone, g_free);
         g_clear_pointer (&priv->tzdb, tz_db_free);
+        g_clear_pointer (&priv->weather_tzdb, weather_tz_db_free);
 
         G_OBJECT_CLASS (gsd_timezone_monitor_parent_class)->finalize (obj);
 }
@@ -490,6 +499,7 @@ gsd_timezone_monitor_init (GsdTimezoneMonitor *self)
 
         priv->current_timezone = timedate1_dup_timezone (priv->dtm);
         priv->tzdb = tz_load_db ();
+        priv->weather_tzdb = weather_tz_db_new ();
 
         register_geoclue (self);
 }
