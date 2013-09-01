@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-deamon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-17 15:34+0000\n"
-"PO-Revision-Date: 2013-08-18 01:43+0100\n"
+"POT-Creation-Date: 2013-08-31 21:19+0000\n"
+"PO-Revision-Date: 2013-09-01 21:04+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -150,6 +150,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.datetime.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
@@ -165,6 +166,7 @@ msgstr "Omogočitev tega vstavka"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.datetime.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
@@ -180,6 +182,7 @@ msgstr "Ali naj ta vstavek gnome-settings-deamon omogoči ali ne"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.datetime.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
@@ -195,6 +198,7 @@ msgstr "Prednost, ki jo uporablja ta vstavek"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.datetime.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
@@ -265,14 +269,15 @@ msgid "Enable this to only report stylus events when the tip is pressed."
 msgstr "Omogočite to za poročanje dogodkov  palčke, ko je pritisnjena tipka."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
-#, fuzzy
 msgid "Wacom last calibrated resolution"
-msgstr "Vrtenje tablice Wacom"
+msgstr "Zadnja umerjena ločljivost tablice Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
 msgid ""
 "Holds the last calibrated resolution to help check if calibration is needed."
 msgstr ""
+"Vsebuje zadnjo umerjeno ločljivost za pomoč pri preverjanju potrebe po "
+"ponovnem pregledu."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
 msgid "Wacom display mapping"
@@ -378,13 +383,12 @@ msgstr ""
 #. Translators: This is the OLED display on an Intuos4 tablet:
 #. http://eu.shop.wacom.eu/images/articles/d9abd9f2d4d88aa0649cda97a8077e2b_8.jpg
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:40
-#, fuzzy
 msgid "Button label for OLED display."
-msgstr "Oznaka potrditvenega gumba"
+msgstr "Oznaka gumba zaslona OLED."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:41
 msgid "Label will be rendered to OLED display belonging to the button"
-msgstr ""
+msgstr "Oznaka bo izrisana na gumb OLED"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
 msgid "The duration a display profile is valid"
@@ -670,9 +674,8 @@ msgid "Binding to copy a screenshot of an area to clipboard."
 msgstr "Tipkovna bližnjica za kopiranje zaslonske slike področja v odložišče."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
-#, fuzzy
 msgid "Record a short video of the screen"
-msgstr "Snemanje slike namizne seje"
+msgstr "Snemanje posnetka zaslona namizne seje"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Launch web browser"
@@ -1286,6 +1289,15 @@ msgstr "Kazalec"
 msgid "Show/hide cursor on tablet devices"
 msgstr "Pokaži/skrij kazalec na tabličnih napravah"
 
+#. Priority=100
+#: ../plugins/datetime/datetime.gnome-settings-plugin.in.h:2
+msgid "Date and Time"
+msgstr "Datum in čas"
+
+#: ../plugins/datetime/datetime.gnome-settings-plugin.in.h:3
+msgid "Automatically update timezone and display notifications"
+msgstr "Samodejno posodobi časovni pas in prikaži obvestila"
+
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Poskusno"
@@ -1294,12 +1306,12 @@ msgstr "Poskusno"
 msgid "Dummy plugin"
 msgstr "Poskusni vstavek"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:578
+#: ../plugins/housekeeping/gsd-disk-space.c:588
 #, c-format
 msgid "Low Disk Space on \"%s\""
 msgstr "Ni prostora na \"%s\""
 
-#: ../plugins/housekeeping/gsd-disk-space.c:580
+#: ../plugins/housekeeping/gsd-disk-space.c:590
 #, c-format
 msgid ""
 "The volume \"%s\" has only %s disk space remaining.  You may free up some "
@@ -1308,19 +1320,19 @@ msgstr ""
 "Na razdelku \"%s\" je le še %s razpoložljivega prostora. Prostor je mogoče "
 "povečati z rednim praznjenjem smeti."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:584
+#: ../plugins/housekeeping/gsd-disk-space.c:594
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:81
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
 msgstr "Na razdelku \"%s\" je le še %s razpoložljivega prostora."
 
 #. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-disk-space.c:589
+#: ../plugins/housekeeping/gsd-disk-space.c:599
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:205
 msgid "Low Disk Space"
 msgstr "Na disku zmanjkuje prostora"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:591
+#: ../plugins/housekeeping/gsd-disk-space.c:601
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1329,26 +1341,26 @@ msgstr ""
 "Računalnik ima na voljo še %s prostora na disku. Prostor je mogoče povečati "
 "z rednim praznjenjem smeti."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:594
+#: ../plugins/housekeeping/gsd-disk-space.c:604
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:84
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "Računalnik ima na voljo še %s prostora na disku."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:609
+#: ../plugins/housekeeping/gsd-disk-space.c:619
 msgid "Disk space"
 msgstr "Prostor na disku"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:616
+#: ../plugins/housekeeping/gsd-disk-space.c:626
 msgid "Examine"
 msgstr "Preišči"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:624
+#: ../plugins/housekeeping/gsd-disk-space.c:634
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:434
 msgid "Empty Trash"
 msgstr "Izprazni smeti"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:631
+#: ../plugins/housekeeping/gsd-disk-space.c:641
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:449
 msgid "Ignore"
 msgstr "Prezri"
@@ -1426,9 +1438,8 @@ msgid "Keyboard plugin"
 msgstr "Vstavek tipkovnice"
 
 #: ../plugins/media-keys/gsd-media-keys-manager.c:2020
-#, fuzzy
 msgid "Screencast from %d %t.webm"
-msgstr "Prilepi iz odložišča"
+msgstr "Zaslonski posnetek %d %t.webm"
 
 #: ../plugins/media-keys/gsd-screenshot-utils.c:84
 msgid "Unable to capture a screenshot"
@@ -2126,7 +2137,7 @@ msgid "Computer is charged"
 msgstr "Baterija računalnika napolnjena"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:1771
+#: ../plugins/power/gpm-common.c:1732
 #: ../plugins/power/gsd-power-manager.c:1564
 #: ../plugins/power/gsd-power-manager.c:1694
 msgid "Battery is critically low"
@@ -2565,225 +2576,220 @@ msgid "No driver for this printer."
 msgstr "Ni gonilnika za ta tiskalnik."
 
 #: ../plugins/print-notifications/gsd-printer.c:1032
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:253
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:692
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:782
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:825
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:264
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:703
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:793
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:836
 msgid "Printers"
 msgstr "Tiskalniki"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:361
 msgid "Toner low"
 msgstr "Tonerj je skoraj prazen"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:352
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:363
 msgid "Toner empty"
 msgstr "Toner je prazen"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:365
 msgid "Not connected?"
 msgstr "Niste povezani?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:356
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:367
 msgid "Cover open"
 msgstr "Pokrov je odprt"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:369
 msgid "Printer configuration error"
 msgstr "Napaka med nastavljanjem tiskalnika"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:360
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 msgid "Door open"
 msgstr "Vratca so odprta"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:373
 msgid "Marker supply low"
 msgstr "Posoda z barvo je skoraj prazna"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:364
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
 msgid "Out of a marker supply"
 msgstr "Posoda z barvo je prazna"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:377
 msgid "Paper low"
 msgstr "Papirja je le še malo"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:368
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
 msgid "Out of paper"
 msgstr "Brez papirja"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:370
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:381
 msgid "Printer off-line"
 msgstr "Tiskalnik ni povezan"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:372
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:768
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:779
 msgid "Printer error"
 msgstr "Napaka tiskalnika"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:376
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
 #, c-format
 msgid "Printer '%s' is low on toner."
 msgstr "Tiskalnik '%s' ima skoraj prazen toner."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:378
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:389
 #, c-format
 msgid "Printer '%s' has no toner left."
 msgstr "V tiskalniku '%s' je prazen toner."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:380
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
 #, c-format
 msgid "Printer '%s' may not be connected."
 msgstr "Tiskalnik '%s' morda ni povezan."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:382
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:393
 #, c-format
 msgid "The cover is open on printer '%s'."
 msgstr "Tiskalnik '%s' ima odprt pokrov."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:384
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:395
 #, c-format
 msgid "There is a missing print filter for printer '%s'."
 msgstr "Manjka filter tiskanja za tiskalnik '%s'."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:398
 #, c-format
 msgid "The door is open on printer '%s'."
 msgstr "Tiskalnik '%s' ima odprta vratca."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:389
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:400
 #, c-format
 msgid "Printer '%s' is low on a marker supply."
 msgstr "V tiskalniku '%s' je skoraj prazna vsaj ena posoda z barvo."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:402
 #, c-format
 msgid "Printer '%s' is out of a marker supply."
 msgstr "Tiskalniku '%s' je zmanjkalo črnila."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:393
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:404
 #, c-format
 msgid "Printer '%s' is low on paper."
 msgstr "V tiskalniku '%s' je le še malo papirja."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:395
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:406
 #, c-format
 msgid "Printer '%s' is out of paper."
 msgstr "Tiskalnik '%s' je brez papirja."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:397
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:408
 #, c-format
 msgid "Printer '%s' is currently off-line."
 msgstr "Tiskalnik '%s' trenutno ni povezan."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:399
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:410
 #, c-format
 msgid "There is a problem on printer '%s'."
 msgstr "Prišlo je do težave na tiskalniku '%s'."
 
 #. Translators: New printer has been added
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:446
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:457
 msgid "Printer added"
 msgstr "Dodan je tiskalnik."
 
 #. Translators: A printer has been removed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:454
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:465
 msgid "Printer removed"
 msgstr "Tiskalnik je odstranjen."
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:471
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:509
-#, fuzzy
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:482
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:520
 msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "Tiskanje je zaustavljeno."
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:473
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:479
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:485
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:491
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:503
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:511
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:519
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:527
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:535
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:548
-#, fuzzy, c-format
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:484
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:490
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:496
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:502
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:514
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:522
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:530
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:538
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:546
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:559
+#, c-format
 msgctxt "print job"
 msgid "\"%s\" on %s"
 msgstr "\"%s\" na %s"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:477
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:517
-#, fuzzy
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:488
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:528
 msgctxt "print job state"
 msgid "Printing canceled"
 msgstr "Tiskanje je preklicano."
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:483
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:525
-#, fuzzy
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:494
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:536
 msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "Tiskanje je prekinjeno."
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:489
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:533
-#, fuzzy
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:500
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:544
 msgctxt "print job state"
 msgid "Printing completed"
 msgstr "Tiskanje je končano."
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:501
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:546
-#, fuzzy
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:512
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:557
 msgctxt "print job state"
 msgid "Printing"
 msgstr "Tiskanje"
 
 #. Translators: This is a title of a report notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:762
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:773
 msgid "Printer report"
 msgstr "Poročilo tiskalnika"
 
 #. Translators: This is a title of a warning notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:765
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:776
 msgid "Printer warning"
 msgstr "Opozorilo tiskalnika"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:775
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:786
 #, c-format
 msgid "Printer '%s': '%s'."
 msgstr "Tiskalnik '%s': '%s'."
@@ -2808,7 +2814,7 @@ msgstr "Onemogoči animacijo na oddaljenih namizjih"
 #. Priority=100
 #: ../plugins/rfkill/rfkill.gnome-settings-plugin.in.h:2
 msgid "Rfkill"
-msgstr ""
+msgstr "Rfkill"
 
 #: ../plugins/rfkill/rfkill.gnome-settings-plugin.in.h:3
 msgid "Rfkill plugin"
@@ -2826,7 +2832,7 @@ msgstr ""
 
 #: ../plugins/smartcard/gsd-smartcard-service.c:224
 msgid "User was not logged in with smartcard."
-msgstr ""
+msgstr "Uporabnik ni prijavljan v sistem s pametno kartico."
 
 #: ../plugins/smartcard/smartcard.gnome-settings-plugin.in.h:1
 msgid "Smartcard"
@@ -2862,11 +2868,11 @@ msgstr "Nameščena je bila dodatna programska oprema"
 #: ../plugins/updates/gsd-updates-firmware.c:283
 #: ../plugins/updates/gsd-updates-firmware.c:311
 #: ../plugins/updates/gsd-updates-firmware.c:603
-#: ../plugins/updates/gsd-updates-manager.c:348
-#: ../plugins/updates/gsd-updates-manager.c:479
-#: ../plugins/updates/gsd-updates-manager.c:541
-#: ../plugins/updates/gsd-updates-manager.c:595
-#: ../plugins/updates/gsd-updates-manager.c:1244
+#: ../plugins/updates/gsd-updates-manager.c:351
+#: ../plugins/updates/gsd-updates-manager.c:482
+#: ../plugins/updates/gsd-updates-manager.c:544
+#: ../plugins/updates/gsd-updates-manager.c:598
+#: ../plugins/updates/gsd-updates-manager.c:1247
 msgid "Software Updates"
 msgstr "Programske posodobitve"
 
@@ -2906,85 +2912,85 @@ msgid "Ignore devices"
 msgstr "Prezri naprave"
 
 #. TRANSLATORS: this is when the offline update failed
-#: ../plugins/updates/gsd-updates-manager.c:121
+#: ../plugins/updates/gsd-updates-manager.c:124
 msgid "Failed To Update"
 msgstr "Posodobitev ni uspela"
 
 #. TRANSLATORS: the transaction could not be completed
 #. * as a previous transaction was unfinished
-#: ../plugins/updates/gsd-updates-manager.c:127
+#: ../plugins/updates/gsd-updates-manager.c:130
 msgid "A previous update was unfinished."
 msgstr "Prejšnja posodobitev še ni zaključena."
 
 #. TRANSLATORS: the package manager needed to download
 #. * something with no network available
-#: ../plugins/updates/gsd-updates-manager.c:137
+#: ../plugins/updates/gsd-updates-manager.c:140
 msgid "Network access was required but not available."
 msgstr "Potreben je omrežni dostop, ki pa ni na voljo."
 
 #. TRANSLATORS: if the package is not signed correctly
 #. *
-#: ../plugins/updates/gsd-updates-manager.c:146
+#: ../plugins/updates/gsd-updates-manager.c:149
 msgid "An update was not signed in the correct way."
 msgstr "Posodobitev ni podpisana na ustrezen način."
 
 #. TRANSLATORS: the transaction failed in a way the user
 #. * probably cannot comprehend. Package management systems
 #. * really are teh suck.
-#: ../plugins/updates/gsd-updates-manager.c:156
+#: ../plugins/updates/gsd-updates-manager.c:159
 msgid "The update could not be completed."
 msgstr "Posodobitve sistema ni mogoče dokončati."
 
 #. TRANSLATORS: the user aborted the update manually
-#: ../plugins/updates/gsd-updates-manager.c:161
+#: ../plugins/updates/gsd-updates-manager.c:164
 msgid "The update was cancelled."
 msgstr "Posodobitev je preklicana."
 
 #. TRANSLATORS: the user must have updated manually after
 #. * the updates were prepared
-#: ../plugins/updates/gsd-updates-manager.c:167
+#: ../plugins/updates/gsd-updates-manager.c:170
 msgid "An offline update was requested but no packages required updating."
 msgstr ""
 "Prejeta zahteva za posodobitev brez povezave, vendar noben paket ne zahteva "
 "posodabljanja."
 
 #. TRANSLATORS: we ran out of disk space
-#: ../plugins/updates/gsd-updates-manager.c:171
+#: ../plugins/updates/gsd-updates-manager.c:174
 msgid "No space was left on the drive."
 msgstr "Na pogonu ni več prostora."
 
 #. TRANSLATORS: the update process failed in a general
 #. * way, usually this message will come from source distros
 #. * like gentoo
-#: ../plugins/updates/gsd-updates-manager.c:179
+#: ../plugins/updates/gsd-updates-manager.c:182
 msgid "An update failed to install correctly."
 msgstr "Posodobitve ni mogoče pravilno namestiti."
 
 #. TRANSLATORS: We didn't handle the error type
-#: ../plugins/updates/gsd-updates-manager.c:184
+#: ../plugins/updates/gsd-updates-manager.c:187
 msgid "The offline update failed in an unexpected way."
 msgstr "Posodobitev brez povezave je spodletela na nepričakovan način."
 
 #. TRANSLATORS: these are geeky messages from the
 #. * package manager no mortal is supposed to understand,
 #. * but google might know what they mean
-#: ../plugins/updates/gsd-updates-manager.c:193
+#: ../plugins/updates/gsd-updates-manager.c:196
 msgid "Detailed errors from the package manager follow:"
 msgstr "Sledijo podrobne napake iz upravitelja paketov:"
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:343
+#: ../plugins/updates/gsd-updates-manager.c:346
 msgid "Distribution upgrades available"
 msgstr "Na voljo je posodobitev distribucije"
 
 #. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:353
+#: ../plugins/updates/gsd-updates-manager.c:356
 msgid "More information"
 msgstr "Več podrobnosti"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:461
-#: ../plugins/updates/gsd-updates-manager.c:523
+#: ../plugins/updates/gsd-updates-manager.c:464
+#: ../plugins/updates/gsd-updates-manager.c:526
 msgid "Update"
 msgid_plural "Updates"
 msgstr[0] "Posodobitve"
@@ -2993,7 +2999,7 @@ msgstr[2] "Posodobitvi"
 msgstr[3] "Posodobitve"
 
 #. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:464
+#: ../plugins/updates/gsd-updates-manager.c:467
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
 msgstr[0] "Na voljo so pomembne programske posodobitve."
@@ -3002,13 +3008,13 @@ msgstr[2] "Na voljo sta pomembni programski posodobitvi."
 msgstr[3] "Na voljo so pomembne programske posodobitve."
 
 #. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:484
-#: ../plugins/updates/gsd-updates-manager.c:546
+#: ../plugins/updates/gsd-updates-manager.c:487
+#: ../plugins/updates/gsd-updates-manager.c:549
 msgid "Install updates"
 msgstr "Namesti posodobitve"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:526
+#: ../plugins/updates/gsd-updates-manager.c:529
 msgid "A software update is available."
 msgid_plural "Software updates are available."
 msgstr[0] "Na voljo so programske posodobitve"
@@ -3017,29 +3023,29 @@ msgstr[2] "Na voljo sta programski posodobitvi"
 msgstr[3] "Na voljo so programske posodobitve"
 
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:582
+#: ../plugins/updates/gsd-updates-manager.c:585
 #: ../plugins/updates/updates.gnome-settings-plugin.in.h:1
 msgid "Updates"
 msgstr "Posodobitve"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:586
+#: ../plugins/updates/gsd-updates-manager.c:589
 msgid "Unable to access software updates"
 msgstr "Ni mogoč dostop do posodobitev programske opreme"
 
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:589
+#: ../plugins/updates/gsd-updates-manager.c:592
 msgid "Try again"
 msgstr "Poskusite znova"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:974
+#: ../plugins/updates/gsd-updates-manager.c:977
 msgid "A transaction that cannot be interrupted is running"
 msgstr "Zagnan je prenos, ki ga ni mogoče prekiniti"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1194
+#: ../plugins/updates/gsd-updates-manager.c:1197
 msgid "Software Update Installed"
 msgid_plural "Software Updates Installed"
 msgstr[0] "Programske posodobitve so nameščene"
@@ -3048,7 +3054,7 @@ msgstr[2] "Programski posodobitvi sta nameščeni"
 msgstr[3] "Programske posodobitve so nameščene"
 
 #. TRANSLATORS: message when we've done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1199
+#: ../plugins/updates/gsd-updates-manager.c:1202
 msgid "An important OS update has been installed."
 msgid_plural "Important OS updates have been installed."
 msgstr[0] "Pomembne programske posodobitve so nameščene."
@@ -3057,57 +3063,80 @@ msgstr[2] "Pomembni programski posodobitvi sta nameščeni."
 msgstr[3] "Pomembne programske posodobitve so nameščene."
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1225
+#: ../plugins/updates/gsd-updates-manager.c:1228
 msgid "Software Updates Failed"
 msgstr "Programske posodobitve spodletele"
 
 #. TRANSLATORS: message when we've not done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1228
+#: ../plugins/updates/gsd-updates-manager.c:1231
 msgid "An important OS update failed to be installed."
 msgstr "Pomembne programske posodobitve ni mogoče namestiti."
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1251
+#: ../plugins/updates/gsd-updates-manager.c:1254
 msgid "Review"
 msgstr "Preglej"
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1256
+#: ../plugins/updates/gsd-updates-manager.c:1259
 msgid "Show details"
 msgstr "Pokaži podrobnosti"
 
 #. TRANSLATORS: button: clear notification
-#: ../plugins/updates/gsd-updates-manager.c:1260
+#: ../plugins/updates/gsd-updates-manager.c:1263
 msgid "OK"
 msgstr "V redu"
+
+#: ../plugins/updates/gsd-updates-manager.c:1401
+msgid "Software Updates available"
+msgstr "Na voljo je posodobitev programske opreme"
+
+#: ../plugins/updates/gsd-updates-manager.c:1402
+msgid "Important OS and application updates are ready to be installed"
+msgstr "Pomembne programske posodobitve so pripravljene za namestitev."
+
+#: ../plugins/updates/gsd-updates-manager.c:1406
+msgid "GNOME Software"
+msgstr "Programska oprema ..."
+
+#. TRANSLATORS: don't install updates now
+#: ../plugins/updates/gsd-updates-manager.c:1411
+msgid "Not Now"
+msgstr "Ne zdaj"
+
+#. TRANSLATORS: view available updates
+#: ../plugins/updates/gsd-updates-manager.c:1417
+msgid "View"
+msgstr "Pogled"
+
+#. TRANSLATORS: install available updates
+#: ../plugins/updates/gsd-updates-manager.c:1423
+msgid "Restart & Install"
+msgstr "Ponovno zaženi in namesti"
 
 #: ../plugins/updates/updates.gnome-settings-plugin.in.h:2
 msgid "Updates plugin"
 msgstr "Vstavek posodobitev"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:51
-#, fuzzy
 msgctxt "Wacom action-type"
 msgid "None"
 msgstr "Brez"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:52
-#, fuzzy
 msgctxt "Wacom action-type"
 msgid "Send Keystroke"
-msgstr "Izbor datoteke PPD"
+msgstr "Pošlji kodo tipke"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:53
-#, fuzzy
 msgctxt "Wacom action-type"
 msgid "Switch Monitor"
-msgstr "Ni mogoče najti ustreznega gonilnika"
+msgstr "Preklopi zaslon"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:54
-#, fuzzy
 msgctxt "Wacom action-type"
 msgid "Show On-Screen Help"
-msgstr "Bližnjica za prikaz zaslonske tipkovnice."
+msgstr "Pokaži zaslonsko pomoč"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:184
 msgctxt "keyboard shortcut"
@@ -3119,120 +3148,116 @@ msgid "Done"
 msgstr "Končano"
 
 #. If no mode is available, we use "left-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1078
+#: ../plugins/wacom/gsd-wacom-device.c:1063
 msgid "Left Ring"
 msgstr "Levi drsni obroč"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1089
+#: ../plugins/wacom/gsd-wacom-device.c:1074
 #, c-format
 msgid "Left Ring Mode #%d"
 msgstr "Levi način drsnega obroča #%d"
 
 #. If no mode is available, we use "right-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1109
+#: ../plugins/wacom/gsd-wacom-device.c:1094
 msgid "Right Ring"
 msgstr "Desni drsni obroč"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1120
+#: ../plugins/wacom/gsd-wacom-device.c:1105
 #, c-format
 msgid "Right Ring Mode #%d"
 msgstr "Desni način drsnega obroča #%d"
 
 #. If no mode is available, we use "left-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1162
+#: ../plugins/wacom/gsd-wacom-device.c:1147
 msgid "Left Touchstrip"
 msgstr "Levi način drsne ploščice"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1173
+#: ../plugins/wacom/gsd-wacom-device.c:1158
 #, c-format
 msgid "Left Touchstrip Mode #%d"
 msgstr "Levi način drsne ploščice #%d"
 
 #. If no mode is available, we use "right-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1193
+#: ../plugins/wacom/gsd-wacom-device.c:1178
 msgid "Right Touchstrip"
 msgstr "Desni način drsne ploščice"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1204
+#: ../plugins/wacom/gsd-wacom-device.c:1189
 #, c-format
 msgid "Right Touchstrip Mode #%d"
 msgstr "Desni način drsne ploščice #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1230
+#: ../plugins/wacom/gsd-wacom-device.c:1215
 #, c-format
 msgid "Left Touchring Mode Switch"
 msgstr "Levi gumb preklopa drsnega obroča"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1232
+#: ../plugins/wacom/gsd-wacom-device.c:1217
 #, c-format
 msgid "Right Touchring Mode Switch"
 msgstr "Desni gumb preklopa drsnega obroča"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1235
+#: ../plugins/wacom/gsd-wacom-device.c:1220
 #, c-format
 msgid "Left Touchstrip Mode Switch"
 msgstr "Levi gumb preklopa drsne ploščice"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1237
+#: ../plugins/wacom/gsd-wacom-device.c:1222
 #, c-format
 msgid "Right Touchstrip Mode Switch"
 msgstr "Desni gumb preklopa drsne ploščice"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1242
+#: ../plugins/wacom/gsd-wacom-device.c:1227
 #, c-format
 msgid "Mode Switch #%d"
 msgstr "Gumb preklopa #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1351
+#: ../plugins/wacom/gsd-wacom-device.c:1336
 #, c-format
 msgid "Left Button #%d"
 msgstr "Levi gumb #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1354
+#: ../plugins/wacom/gsd-wacom-device.c:1339
 #, c-format
 msgid "Right Button #%d"
 msgstr "Desni gumb #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1357
+#: ../plugins/wacom/gsd-wacom-device.c:1342
 #, c-format
 msgid "Top Button #%d"
 msgstr "Zgornji gumb #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1360
+#: ../plugins/wacom/gsd-wacom-device.c:1345
 #, c-format
 msgid "Bottom Button #%d"
 msgstr "Spodnji gumb #%d"
 
 #: ../plugins/wacom/gsd-wacom-key-shortcut-button.c:264
-#, fuzzy
 msgid "New shortcut…"
-msgstr "<i>_Nov pogled ...</i>"
+msgstr "_Nova tipkovna bližnjica ..."
 
 #: ../plugins/wacom/gsd-wacom-manager.c:1101
 #, c-format
 msgid "The \"%s\" tablet may not work as expected."
-msgstr ""
+msgstr "Tablica \"%s\" morda ne bo delovala po pričakovanjih."
 
 #: ../plugins/wacom/gsd-wacom-manager.c:1102
-#, fuzzy
 msgid "Unknown Tablet Connected"
-msgstr "Povezan z MTA"
+msgstr "Povezana je neznana vrsta tablice"
 
 #: ../plugins/wacom/gsd-wacom-manager.c:1105
 #: ../plugins/wacom/gsd-wacom-manager.c:1680
-#, fuzzy
 msgid "Wacom Settings"
-msgstr "Uporabniške nastavitve"
+msgstr "Nastavitve Wacom"
 
 #: ../plugins/wacom/gsd-wacom-manager.c:1673
-#, fuzzy, c-format
+#, c-format
 msgid "Tablet %s needs to be calibrated."
-msgstr "Tiskalnik '%s' bo treba kmalu ponovno umeriti."
+msgstr "Tablica %s zahteva umeritev."
 
 #: ../plugins/wacom/gsd-wacom-manager.c:1675
-#, fuzzy
 msgid "Calibration needed"
-msgstr "Zahtevano je geslo"
+msgstr "Zahtevana je umeritev"
 
 #: ../plugins/wacom/gsd-wacom-manager.c:1689
 msgid "Calibrate"
@@ -3267,19 +3292,16 @@ msgid "Mode %d: %s"
 msgstr "Način %d: %s"
 
 #: ../plugins/wacom/gsd-wacom-osd-window.c:1321
-#, fuzzy
 msgid "(press any key to exit)"
-msgstr "Pritisk tipke za izpustitev kroglice."
+msgstr "(katerakoli tipka za izkod)"
 
 #: ../plugins/wacom/gsd-wacom-osd-window.c:1330
-#, fuzzy
 msgid "Push a button to configure"
-msgstr "_Izbor naprave za nastavitev:"
+msgstr "Pritisnite gumb za nastavitev"
 
 #: ../plugins/wacom/gsd-wacom-osd-window.c:1330
-#, fuzzy
 msgid "(Esc to cancel)"
-msgstr "Članka ni mogoče preklicati."
+msgstr "(Ubežna tipka za preklic)"
 
 #: ../plugins/wacom/gsd-wacom-osd-window.c:1960
 msgid "Edit"
@@ -3302,14 +3324,12 @@ msgstr "Za spremembo osvetljenosti LED tablice Wacom je zahtevana overitev"
 #. to change the OLED images for a Wacom tablet
 #.
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:11
-#, fuzzy
 msgid "Modify the OLED image for a Wacom tablet"
-msgstr "Spremeni osvetlitev LED tablice Wacom"
+msgstr "Spremeni sliko OLED tablice Wacom"
 
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:12
-#, fuzzy
 msgid "Authentication is required to modify the OLED image for a Wacom tablet"
-msgstr "Za spremembo osvetljenosti LED tablice Wacom je zahtevana overitev"
+msgstr "Za spremembo slike OLED tablice Wacom je zahtevana overitev"
 
 #: ../plugins/wacom/wacom.gnome-settings-plugin.in.h:1
 msgid "Wacom"
@@ -3319,53 +3339,10 @@ msgstr "Wacom"
 msgid "Wacom plugin"
 msgstr "Vstavek Wacom"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:531
-msgid "Could not restore the display's configuration"
-msgstr "Ni mogoče obnoviti nastavitev zaslona"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:556
-msgid "Could not restore the display's configuration from a backup"
-msgstr "Ni mogoče obnoviti nastavitve zaslona iz varnostne kopije"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:577
-#, c-format
-msgid "The display will be reset to its previous configuration in %d second"
-msgid_plural ""
-"The display will be reset to its previous configuration in %d seconds"
-msgstr[0] "Zaslon se bo povrnil na predhodne nastavitve v %d sekundah"
-msgstr[1] "Zaslon se bo povrnil na predhodne nastavitve v %d sekundi"
-msgstr[2] "Zaslon se bo povrnil na predhodne nastavitve v %d sekundah"
-msgstr[3] "Zaslon se bo povrnil na predhodne nastavitve v %d sekundah"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:626
-msgid "Does the display look OK?"
-msgstr "Ali je slika na zaslonu videti v redu?"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:632
-#, fuzzy
-msgid "Confirm New Configuration"
-msgstr "Potrdi novo šifrirno geslo"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:634
-msgid "_Restore Previous Configuration"
-msgstr "_Obnovi predhodne nastavitve"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:635
-msgid "_Keep This Configuration"
-msgstr "_Ohrani nastavitve"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:716
-msgid "The selected configuration for displays could not be applied"
-msgstr "Izbranih nastavitev zaslona ni mogoče uporabiti"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1369
+#: ../plugins/xrandr/gsd-xrandr-manager.c:977
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Ni mogoče posodobiti podrobnosti zaslona: %s"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1866
-msgid "Could not apply the stored configuration for monitors"
-msgstr "Ni mogoče uporabiti shranjenih nastavitev za zaslone."
 
 #: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
 msgid "XRandR"
@@ -3382,6 +3359,39 @@ msgstr "Nastavitve X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Upravljanje nastavitev strežnika X"
+
+#~ msgid "Could not restore the display's configuration"
+#~ msgstr "Ni mogoče obnoviti nastavitev zaslona"
+
+#~ msgid "Could not restore the display's configuration from a backup"
+#~ msgstr "Ni mogoče obnoviti nastavitve zaslona iz varnostne kopije"
+
+#~ msgid "The display will be reset to its previous configuration in %d second"
+#~ msgid_plural ""
+#~ "The display will be reset to its previous configuration in %d seconds"
+#~ msgstr[0] "Zaslon se bo povrnil na predhodne nastavitve v %d sekundah"
+#~ msgstr[1] "Zaslon se bo povrnil na predhodne nastavitve v %d sekundi"
+#~ msgstr[2] "Zaslon se bo povrnil na predhodne nastavitve v %d sekundah"
+#~ msgstr[3] "Zaslon se bo povrnil na predhodne nastavitve v %d sekundah"
+
+#~ msgid "Does the display look OK?"
+#~ msgstr "Ali je slika na zaslonu videti v redu?"
+
+#, fuzzy
+#~ msgid "Confirm New Configuration"
+#~ msgstr "Potrdi novo šifrirno geslo"
+
+#~ msgid "_Restore Previous Configuration"
+#~ msgstr "_Obnovi predhodne nastavitve"
+
+#~ msgid "_Keep This Configuration"
+#~ msgstr "_Ohrani nastavitve"
+
+#~ msgid "The selected configuration for displays could not be applied"
+#~ msgstr "Izbranih nastavitev zaslona ni mogoče uporabiti"
+
+#~ msgid "Could not apply the stored configuration for monitors"
+#~ msgstr "Ni mogoče uporabiti shranjenih nastavitev za zaslone."
 
 #~ msgid "Could not enable mouse accessibility features"
 #~ msgstr "Ni mogoče zagnati možnosti dostopnosti miške"
