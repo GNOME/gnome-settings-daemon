@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-19 07:54+0000\n"
-"PO-Revision-Date: 2013-08-19 11:25+0200\n"
+"POT-Creation-Date: 2013-08-29 23:39+0000\n"
+"PO-Revision-Date: 2013-09-02 14:59+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -161,6 +161,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.datetime.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
@@ -176,6 +177,7 @@ msgstr "Activación de este complemento"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.datetime.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
@@ -191,6 +193,7 @@ msgstr "Indica si gnome-settings-daemon activará este complemento o no"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.datetime.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
@@ -206,6 +209,7 @@ msgstr "Prioridad de uso para este complemento"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.datetime.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
@@ -1325,6 +1329,17 @@ msgstr "Cursor"
 msgid "Show/hide cursor on tablet devices"
 msgstr "Mostrar u ocultar el cursor en tabletas"
 
+#. Priority=100
+#: ../plugins/datetime/datetime.gnome-settings-plugin.in.h:2
+msgid "Date and Time"
+msgstr "Fecha y hora"
+
+#: ../plugins/datetime/datetime.gnome-settings-plugin.in.h:3
+#| msgid ""
+#| "Automatically download updates in the background without confirmation"
+msgid "Automatically update timezone and display notifications"
+msgstr "Actualizar la zona horaria automática y mostrar notificaciones"
+
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "De prueba"
@@ -1333,12 +1348,12 @@ msgstr "De prueba"
 msgid "Dummy plugin"
 msgstr "Complemento de prueba"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:578
+#: ../plugins/housekeeping/gsd-disk-space.c:588
 #, c-format
 msgid "Low Disk Space on \"%s\""
 msgstr "Espacio de disco bajo en «%s»"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:580
+#: ../plugins/housekeeping/gsd-disk-space.c:590
 #, c-format
 msgid ""
 "The volume \"%s\" has only %s disk space remaining.  You may free up some "
@@ -1347,19 +1362,19 @@ msgstr ""
 "El volumen «%s» sólo tiene %s de espacio en disco libre. Puede liberar algún "
 "espacio vaciando la papelera."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:584
+#: ../plugins/housekeeping/gsd-disk-space.c:594
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:81
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
 msgstr "El volumen «%s» sólo tiene %s de espacio en disco libre."
 
 #. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-disk-space.c:589
+#: ../plugins/housekeeping/gsd-disk-space.c:599
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:205
 msgid "Low Disk Space"
 msgstr "Espacio de disco bajo"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:591
+#: ../plugins/housekeeping/gsd-disk-space.c:601
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1368,26 +1383,26 @@ msgstr ""
 "Este equipo sólo tiene %s de espacio en disco libre. Puede liberar algún "
 "espacio vaciando la papelera."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:594
+#: ../plugins/housekeeping/gsd-disk-space.c:604
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:84
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "Este equipo sólo tiene %s de espacio en disco libre."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:609
+#: ../plugins/housekeeping/gsd-disk-space.c:619
 msgid "Disk space"
 msgstr "Espacio en el disco"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:616
+#: ../plugins/housekeeping/gsd-disk-space.c:626
 msgid "Examine"
 msgstr "Examinar"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:624
+#: ../plugins/housekeeping/gsd-disk-space.c:634
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:434
 msgid "Empty Trash"
 msgstr "Vaciar la papelera"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:631
+#: ../plugins/housekeeping/gsd-disk-space.c:641
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:449
 msgid "Ignore"
 msgstr "Ignorar"
@@ -1461,7 +1476,6 @@ msgid "Keyboard plugin"
 msgstr "Complemento de teclado"
 
 #: ../plugins/media-keys/gsd-media-keys-manager.c:2020
-#| msgid "Screenshot from %s"
 msgid "Screencast from %d %t.webm"
 msgstr "Captura del escritorio de %d %t.webm"
 
@@ -2567,220 +2581,220 @@ msgid "No driver for this printer."
 msgstr "No existe un controlador para esta impresora."
 
 #: ../plugins/print-notifications/gsd-printer.c:1032
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:253
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:692
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:782
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:825
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:264
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:703
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:793
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:836
 msgid "Printers"
 msgstr "Impresoras"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:361
 msgid "Toner low"
 msgstr "Nivel de tóner bajo"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:352
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:363
 msgid "Toner empty"
 msgstr "Tóner vacío"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:365
 msgid "Not connected?"
 msgstr "¿No está conectada?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:356
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:367
 msgid "Cover open"
 msgstr "Tapa abierta"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:369
 msgid "Printer configuration error"
 msgstr "Error de configuración de la impresora"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:360
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 msgid "Door open"
 msgstr "Puerta abierta"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:373
 msgid "Marker supply low"
 msgstr "Nivel de marcador bajo"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:364
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
 msgid "Out of a marker supply"
 msgstr "Marcador agotado"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:377
 msgid "Paper low"
 msgstr "Nivel de papel bajo"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:368
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
 msgid "Out of paper"
 msgstr "Papel agotado"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:370
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:381
 msgid "Printer off-line"
 msgstr "Impresora desconectada"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:372
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:768
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:779
 msgid "Printer error"
 msgstr "Error en la impresora"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:376
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
 #, c-format
 msgid "Printer '%s' is low on toner."
 msgstr "A la impresora «%s» le queda poco tóner."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:378
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:389
 #, c-format
 msgid "Printer '%s' has no toner left."
 msgstr "A la impresora «%s» no le queda tóner."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:380
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
 #, c-format
 msgid "Printer '%s' may not be connected."
 msgstr "Puede que la impresora «%s» no esté conectada."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:382
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:393
 #, c-format
 msgid "The cover is open on printer '%s'."
 msgstr "La tapa de la impresora «%s» está abierta."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:384
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:395
 #, c-format
 msgid "There is a missing print filter for printer '%s'."
 msgstr "No se encuentra un filtro para la impresora «%s»."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:398
 #, c-format
 msgid "The door is open on printer '%s'."
 msgstr "La puerta de la impresora «%s» está abierta."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:389
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:400
 #, c-format
 msgid "Printer '%s' is low on a marker supply."
 msgstr "La impresora «%s» tiene poco marcador."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:402
 #, c-format
 msgid "Printer '%s' is out of a marker supply."
 msgstr "La impresora «%s» no tiene marcador."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:393
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:404
 #, c-format
 msgid "Printer '%s' is low on paper."
 msgstr "La impresora «%s» tiene poco papel."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:395
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:406
 #, c-format
 msgid "Printer '%s' is out of paper."
 msgstr "La impresora «%s» no tiene papel."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:397
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:408
 #, c-format
 msgid "Printer '%s' is currently off-line."
 msgstr "La impresora «%s» está actualmente desconectada."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:399
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:410
 #, c-format
 msgid "There is a problem on printer '%s'."
 msgstr "Existe un problema con la impresora «%s»."
 
 #. Translators: New printer has been added
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:446
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:457
 msgid "Printer added"
 msgstr "Impresora añadida"
 
 #. Translators: A printer has been removed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:454
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:465
 msgid "Printer removed"
 msgstr "Impresora quitada"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:471
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:509
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:482
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:520
 msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "Impresión detenida"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:473
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:479
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:485
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:491
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:503
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:511
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:519
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:527
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:535
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:548
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:484
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:490
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:496
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:502
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:514
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:522
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:530
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:538
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:546
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:559
 #, c-format
 msgctxt "print job"
 msgid "\"%s\" on %s"
 msgstr "«%s» en %s"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:477
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:517
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:488
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:528
 msgctxt "print job state"
 msgid "Printing canceled"
 msgstr "Impresión cancelada"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:483
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:525
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:494
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:536
 msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "Impresión abortada"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:489
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:533
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:500
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:544
 msgctxt "print job state"
 msgid "Printing completed"
 msgstr "Impresión completa"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:501
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:546
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:512
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:557
 msgctxt "print job state"
 msgid "Printing"
 msgstr "Imprimiendo"
 
 #. Translators: This is a title of a report notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:762
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:773
 msgid "Printer report"
 msgstr "Informe de la impresora"
 
 #. Translators: This is a title of a warning notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:765
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:776
 msgid "Printer warning"
 msgstr "Advertencia de la impresora"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:775
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:786
 #, c-format
 msgid "Printer '%s': '%s'."
 msgstr "Impresora «%s»: «%s»."
@@ -2858,11 +2872,11 @@ msgstr "Se instaló software adicional"
 #: ../plugins/updates/gsd-updates-firmware.c:283
 #: ../plugins/updates/gsd-updates-firmware.c:311
 #: ../plugins/updates/gsd-updates-firmware.c:603
-#: ../plugins/updates/gsd-updates-manager.c:348
-#: ../plugins/updates/gsd-updates-manager.c:479
-#: ../plugins/updates/gsd-updates-manager.c:541
-#: ../plugins/updates/gsd-updates-manager.c:595
-#: ../plugins/updates/gsd-updates-manager.c:1244
+#: ../plugins/updates/gsd-updates-manager.c:351
+#: ../plugins/updates/gsd-updates-manager.c:482
+#: ../plugins/updates/gsd-updates-manager.c:544
+#: ../plugins/updates/gsd-updates-manager.c:598
+#: ../plugins/updates/gsd-updates-manager.c:1247
 msgid "Software Updates"
 msgstr "Actualizaciones de software"
 
@@ -2905,171 +2919,202 @@ msgid "Ignore devices"
 msgstr "Ignorar dispositivos"
 
 #. TRANSLATORS: this is when the offline update failed
-#: ../plugins/updates/gsd-updates-manager.c:121
+#: ../plugins/updates/gsd-updates-manager.c:124
 msgid "Failed To Update"
 msgstr "Falló al actualizar"
 
 #. TRANSLATORS: the transaction could not be completed
 #. * as a previous transaction was unfinished
-#: ../plugins/updates/gsd-updates-manager.c:127
+#: ../plugins/updates/gsd-updates-manager.c:130
 msgid "A previous update was unfinished."
 msgstr "No se terminó una actualización previa."
 
 #. TRANSLATORS: the package manager needed to download
 #. * something with no network available
-#: ../plugins/updates/gsd-updates-manager.c:137
+#: ../plugins/updates/gsd-updates-manager.c:140
 msgid "Network access was required but not available."
 msgstr "Se necesita una conexión de red, pero no está disponible."
 
 #. TRANSLATORS: if the package is not signed correctly
 #. *
-#: ../plugins/updates/gsd-updates-manager.c:146
+#: ../plugins/updates/gsd-updates-manager.c:149
 msgid "An update was not signed in the correct way."
 msgstr "No se ha firmado correctamente una actualización."
 
 #. TRANSLATORS: the transaction failed in a way the user
 #. * probably cannot comprehend. Package management systems
 #. * really are teh suck.
-#: ../plugins/updates/gsd-updates-manager.c:156
+#: ../plugins/updates/gsd-updates-manager.c:159
 msgid "The update could not be completed."
 msgstr "No se pudo completar la actualización."
 
 #. TRANSLATORS: the user aborted the update manually
-#: ../plugins/updates/gsd-updates-manager.c:161
+#: ../plugins/updates/gsd-updates-manager.c:164
 msgid "The update was cancelled."
 msgstr "Se ha cancelado la actualización."
 
 #. TRANSLATORS: the user must have updated manually after
 #. * the updates were prepared
-#: ../plugins/updates/gsd-updates-manager.c:167
+#: ../plugins/updates/gsd-updates-manager.c:170
 msgid "An offline update was requested but no packages required updating."
 msgstr ""
 "Se solicitó una actualización en modo desconectado, pero no hay ningún "
 "paquete que necesite actualizarse."
 
 #. TRANSLATORS: we ran out of disk space
-#: ../plugins/updates/gsd-updates-manager.c:171
+#: ../plugins/updates/gsd-updates-manager.c:174
 msgid "No space was left on the drive."
 msgstr "No hay espacio libre en el disco"
 
 #. TRANSLATORS: the update process failed in a general
 #. * way, usually this message will come from source distros
 #. * like gentoo
-#: ../plugins/updates/gsd-updates-manager.c:179
+#: ../plugins/updates/gsd-updates-manager.c:182
 msgid "An update failed to install correctly."
 msgstr "Falló al instalar correctamente una actualización."
 
 #. TRANSLATORS: We didn't handle the error type
-#: ../plugins/updates/gsd-updates-manager.c:184
+#: ../plugins/updates/gsd-updates-manager.c:187
 msgid "The offline update failed in an unexpected way."
 msgstr "Falló la actualización en modo desconectado de manera inesperada."
 
 #. TRANSLATORS: these are geeky messages from the
 #. * package manager no mortal is supposed to understand,
 #. * but google might know what they mean
-#: ../plugins/updates/gsd-updates-manager.c:193
+#: ../plugins/updates/gsd-updates-manager.c:196
 msgid "Detailed errors from the package manager follow:"
 msgstr ""
 "A continuación se muestran los errores detallados del gestor de paquetes:"
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:343
+#: ../plugins/updates/gsd-updates-manager.c:346
 msgid "Distribution upgrades available"
 msgstr "Existen actualizaciones para la distribución"
 
 #. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:353
+#: ../plugins/updates/gsd-updates-manager.c:356
 msgid "More information"
 msgstr "Más información"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:461
-#: ../plugins/updates/gsd-updates-manager.c:523
+#: ../plugins/updates/gsd-updates-manager.c:464
+#: ../plugins/updates/gsd-updates-manager.c:526
 msgid "Update"
 msgid_plural "Updates"
 msgstr[0] "Actualización"
 msgstr[1] "Actualizaciones"
 
 #. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:464
+#: ../plugins/updates/gsd-updates-manager.c:467
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
 msgstr[0] "Existe una importante actualización de software disponible"
 msgstr[1] "Existen importantes actualizaciones de software disponibles"
 
 #. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:484
-#: ../plugins/updates/gsd-updates-manager.c:546
+#: ../plugins/updates/gsd-updates-manager.c:487
+#: ../plugins/updates/gsd-updates-manager.c:549
 msgid "Install updates"
 msgstr "Instalar actualizaciones"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:526
+#: ../plugins/updates/gsd-updates-manager.c:529
 msgid "A software update is available."
 msgid_plural "Software updates are available."
 msgstr[0] "Existe una actualización de software disponible"
 msgstr[1] "Existen actualizaciones de software disponibles"
 
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:582
+#: ../plugins/updates/gsd-updates-manager.c:585
 #: ../plugins/updates/updates.gnome-settings-plugin.in.h:1
 msgid "Updates"
 msgstr "Actualizaciones"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:586
+#: ../plugins/updates/gsd-updates-manager.c:589
 msgid "Unable to access software updates"
 msgstr "No se pudo acceder a las actualizaciones de software"
 
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:589
+#: ../plugins/updates/gsd-updates-manager.c:592
 msgid "Try again"
 msgstr "Intentarlo de nuevo"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:974
+#: ../plugins/updates/gsd-updates-manager.c:977
 msgid "A transaction that cannot be interrupted is running"
 msgstr "Se está ejecutando una transacción que no se puede interrumpir"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1194
+#: ../plugins/updates/gsd-updates-manager.c:1197
 msgid "Software Update Installed"
 msgid_plural "Software Updates Installed"
 msgstr[0] "Actualización de software instalada"
 msgstr[1] "Actualizaciones de software instaladas"
 
 #. TRANSLATORS: message when we've done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1199
+#: ../plugins/updates/gsd-updates-manager.c:1202
 msgid "An important OS update has been installed."
 msgid_plural "Important OS updates have been installed."
 msgstr[0] "Se ha instalado una actualización importante del sistema."
 msgstr[1] "Se han instalado actualizaciones importantes del sistema."
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1225
+#: ../plugins/updates/gsd-updates-manager.c:1228
 msgid "Software Updates Failed"
 msgstr "Falló al actualizar el software"
 
 #. TRANSLATORS: message when we've not done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1228
+#: ../plugins/updates/gsd-updates-manager.c:1231
 msgid "An important OS update failed to be installed."
 msgstr "Falló al instalar una actualización importante del sistema."
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1251
+#: ../plugins/updates/gsd-updates-manager.c:1254
 msgid "Review"
 msgstr "Revisar"
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1256
+#: ../plugins/updates/gsd-updates-manager.c:1259
 msgid "Show details"
 msgstr "Mostrar detalles"
 
 #. TRANSLATORS: button: clear notification
-#: ../plugins/updates/gsd-updates-manager.c:1260
+#: ../plugins/updates/gsd-updates-manager.c:1263
 msgid "OK"
 msgstr "Aceptar"
+
+#: ../plugins/updates/gsd-updates-manager.c:1401
+#| msgid "Software Updates Failed"
+msgid "Software Updates available"
+msgstr "Actualizaciones de software disponibles"
+
+#: ../plugins/updates/gsd-updates-manager.c:1402
+#| msgid "An important OS update failed to be installed."
+msgid "Important OS and application updates are ready to be installed"
+msgstr ""
+"Las actualizaciones importantes del S.O. y de las aplicaciones están listas "
+"para instalarse"
+
+#: ../plugins/updates/gsd-updates-manager.c:1406
+msgid "GNOME Software"
+msgstr "Software de GNOME"
+
+#. TRANSLATORS: don't install updates now
+#: ../plugins/updates/gsd-updates-manager.c:1411
+msgid "Not Now"
+msgstr "Ahora no"
+
+#. TRANSLATORS: view available updates
+#: ../plugins/updates/gsd-updates-manager.c:1417
+msgid "View"
+msgstr "Ver"
+
+#. TRANSLATORS: install available updates
+#: ../plugins/updates/gsd-updates-manager.c:1423
+msgid "Restart & Install"
+msgstr "Reiniciar e instalar"
 
 #: ../plugins/updates/updates.gnome-settings-plugin.in.h:2
 msgid "Updates plugin"
