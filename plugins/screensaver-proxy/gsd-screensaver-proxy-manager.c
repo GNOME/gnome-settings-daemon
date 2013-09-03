@@ -180,7 +180,7 @@ name_vanished_cb (GDBusConnection            *connection,
                 }
         }
 
-        g_hash_table_remove (manager->priv->watch_ht, sender);
+        g_hash_table_remove (manager->priv->watch_ht, name);
 }
 
 static void
