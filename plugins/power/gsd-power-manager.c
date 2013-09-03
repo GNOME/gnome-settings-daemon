@@ -2903,6 +2903,7 @@ show_sleep_warning (GsdPowerManager *manager)
                 create_notification (_("Automatic hibernation"), _("Computer will suspend very soon because of inactivity."),
                                      NULL,
                                      &manager->priv->notification_sleep_warning);
+                break;
         default:
                 g_assert_not_reached ();
                 break;
