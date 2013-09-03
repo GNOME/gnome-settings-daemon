@@ -1271,8 +1271,7 @@ gsd_wacom_device_add_buttons_dir (WacomDevice      *wacom_device,
 
 		name = g_strdup_printf (button_str, button_num++);
 		id = g_strdup_printf ("%s%c", button_str_id, i);
-		if (libwacom_get_button_flag (wacom_device, i) & WACOM_BUTTON_OLED)
-			has_oled = TRUE;
+		has_oled = (libwacom_get_button_flag (wacom_device, i) & WACOM_BUTTON_OLED) != 0;
 		l = g_list_append (l, gsd_wacom_tablet_button_new (name,
 		                                                   id,
 		                                                   settings_path,
