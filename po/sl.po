@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-deamon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-31 21:19+0000\n"
-"PO-Revision-Date: 2013-09-01 21:04+0100\n"
+"POT-Creation-Date: 2013-09-03 19:35+0000\n"
+"PO-Revision-Date: 2013-09-03 22:15+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -1297,6 +1297,25 @@ msgstr "Datum in čas"
 #: ../plugins/datetime/datetime.gnome-settings-plugin.in.h:3
 msgid "Automatically update timezone and display notifications"
 msgstr "Samodejno posodobi časovni pas in prikaži obvestila"
+
+#. Translators: UTC here means the Coordinated Universal Time.
+#. * %:::z will be replaced by the offset from UTC e.g. UTC+02
+#: ../plugins/datetime/gsd-datetime-manager.c:104
+msgid "UTC%:::z"
+msgstr "UTC%:::z"
+
+#: ../plugins/datetime/gsd-datetime-manager.c:108
+#, c-format
+msgid "Time Zone Updated to %s (%s)"
+msgstr "Časovni pas je posodobljen na %s (%s)"
+
+#: ../plugins/datetime/gsd-datetime-manager.c:128
+msgid "Date & Time Settings"
+msgstr "Nastavitve časa in datuma"
+
+#: ../plugins/datetime/gsd-datetime-manager.c:136
+msgid "Settings"
+msgstr "Nastavitve"
 
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
