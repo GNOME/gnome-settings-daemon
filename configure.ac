@@ -260,6 +260,12 @@ PKG_CHECK_MODULES(DATETIME,
 	polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION
 )
 
+GEOCLUE_DBUS_INTERFACE_XML=`pkg-config --variable=dbus_interface geoclue-2.0`
+if test "x$GEOCLUE_DBUS_INTERFACE_XML" = "x"; then
+	AC_MSG_ERROR([Cannot find dbus_interface variable in geoclue-2.0.pc])
+fi
+AC_SUBST(GEOCLUE_DBUS_INTERFACE_XML)
+
 dnl ---------------------------------------------------------------------------
 dnl - wacom (disabled for s390/s390x and non Linux platforms)
 dnl ---------------------------------------------------------------------------

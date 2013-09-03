@@ -1,12 +1,12 @@
 plugin_name = datetime
 
 geoclue.c: geoclue.h
-geoclue.h: Makefile.am geoclue-interface.xml
+geoclue.h: Makefile.am $(GEOCLUE_DBUS_INTERFACE_XML)
 	gdbus-codegen						\
 		--interface-prefix org.freedesktop.GeoClue2	\
 		--generate-c-code geoclue			\
 		--c-namespace Geoclue				\
-		$(srcdir)/geoclue-interface.xml
+		$(GEOCLUE_DBUS_INTERFACE_XML)
 
 timedated.c: timedated.h
 timedated.h: Makefile.am timedated1-interface.xml
@@ -98,7 +98,6 @@ plugin_in_files = \
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
 EXTRA_DIST =				\
-	geoclue-interface.xml		\
 	timedated1-interface.xml	\
 	$(plugin_in_files)
 
