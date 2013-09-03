@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-29 23:39+0000\n"
-"PO-Revision-Date: 2013-08-30 20:49+0200\n"
+"POT-Creation-Date: 2013-09-03 02:45+0000\n"
+"PO-Revision-Date: 2013-09-03 21:34+0200\n"
 "Last-Translator: Balázs Úr <urbalazs at gmail dot com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
@@ -1304,10 +1304,29 @@ msgid "Date and Time"
 msgstr "Dátum és idő"
 
 #: ../plugins/datetime/datetime.gnome-settings-plugin.in.h:3
-#| msgid ""
-#| "Automatically download updates in the background without confirmation"
 msgid "Automatically update timezone and display notifications"
 msgstr "Időzóna automatikus frissítése és értesítések megjelenítése"
+
+#. Translators: UTC here means the Coordinated Universal Time.
+#. * %:::z will be replaced by the offset from UTC e.g. UTC+02
+#: ../plugins/datetime/gsd-datetime-manager.c:104
+msgid "UTC%:::z"
+msgstr "UTC%:::z"
+
+#: ../plugins/datetime/gsd-datetime-manager.c:108
+#, c-format
+msgid "Time Zone Updated to %s (%s)"
+msgstr "Az időzóna frissítve erre: %s (%s)"
+
+#: ../plugins/datetime/gsd-datetime-manager.c:128
+#| msgid "Manage X Settings"
+msgid "Date & Time Settings"
+msgstr "Dátum- és időbeállítások"
+
+#: ../plugins/datetime/gsd-datetime-manager.c:136
+#| msgid "X Settings"
+msgid "Settings"
+msgstr "Beállítások"
 
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
@@ -3056,12 +3075,10 @@ msgid "OK"
 msgstr "OK"
 
 #: ../plugins/updates/gsd-updates-manager.c:1401
-#| msgid "Software Updates Failed"
 msgid "Software Updates available"
 msgstr "Szoftverfrissítések érhetők el"
 
 #: ../plugins/updates/gsd-updates-manager.c:1402
-#| msgid "An important OS update failed to be installed."
 msgid "Important OS and application updates are ready to be installed"
 msgstr ""
 "A fontos rendszer- és alkalmazásfrissítések készen állnak a telepítésre"
