@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-29 23:39+0000\n"
-"PO-Revision-Date: 2013-09-02 14:59+0200\n"
+"POT-Creation-Date: 2013-09-03 02:45+0000\n"
+"PO-Revision-Date: 2013-09-03 16:07+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -1335,10 +1335,29 @@ msgid "Date and Time"
 msgstr "Fecha y hora"
 
 #: ../plugins/datetime/datetime.gnome-settings-plugin.in.h:3
-#| msgid ""
-#| "Automatically download updates in the background without confirmation"
 msgid "Automatically update timezone and display notifications"
 msgstr "Actualizar la zona horaria automática y mostrar notificaciones"
+
+#. Translators: UTC here means the Coordinated Universal Time.
+#. * %:::z will be replaced by the offset from UTC e.g. UTC+02
+#: ../plugins/datetime/gsd-datetime-manager.c:104
+msgid "UTC%:::z"
+msgstr "UTC%:::z"
+
+#: ../plugins/datetime/gsd-datetime-manager.c:108
+#, c-format
+msgid "Time Zone Updated to %s (%s)"
+msgstr "Zona horaria actualizada a %s (%s)"
+
+#: ../plugins/datetime/gsd-datetime-manager.c:128
+#| msgid "Manage X Settings"
+msgid "Date & Time Settings"
+msgstr "Configuración de fecha y hora"
+
+#: ../plugins/datetime/gsd-datetime-manager.c:136
+#| msgid "X Settings"
+msgid "Settings"
+msgstr "Configuración"
 
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
@@ -3086,12 +3105,10 @@ msgid "OK"
 msgstr "Aceptar"
 
 #: ../plugins/updates/gsd-updates-manager.c:1401
-#| msgid "Software Updates Failed"
 msgid "Software Updates available"
 msgstr "Actualizaciones de software disponibles"
 
 #: ../plugins/updates/gsd-updates-manager.c:1402
-#| msgid "An important OS update failed to be installed."
 msgid "Important OS and application updates are ready to be installed"
 msgstr ""
 "Las actualizaciones importantes del S.O. y de las aplicaciones están listas "
