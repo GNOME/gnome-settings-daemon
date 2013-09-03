@@ -84,9 +84,50 @@ static const gchar introspection_xml[] =
     "</signal>"
   "</interface>"
 "</node>";
+static const gchar introspection_xml2[] =
+"<node name='/ScreenSaver'>"
+    "<interface name='org.freedesktop.ScreenSaver'>"
+    "<method name='Lock'/>"
+    "<method name='SimulateUserActivity'/>"
+    "<method name='GetActive'>"
+      "<arg type='b' direction='out'/>"
+    "</method>"
+    "<method name='GetActiveTime'>"
+      "<arg name='seconds' type='u' direction='out'/>"
+    "</method>"
+    "<method name='GetSessionIdleTime'>"
+      "<arg name='seconds' type='u' direction='out'/>"
+    "</method>"
+    "<method name='SetActive'>"
+      "<arg type='b' direction='out'/>"
+      "<arg name='e' type='b' direction='in'/>"
+    "</method>"
+    "<method name='Inhibit'>"
+      "<arg name='application_name' type='s' direction='in'/>"
+      "<arg name='reason_for_inhibit' type='s' direction='in'/>"
+      "<arg name='cookie' type='u' direction='out'/>"
+    "</method>"
+    "<method name='UnInhibit'>"
+      "<arg name='cookie' type='u' direction='in'/>"
+    "</method>"
+    "<method name='Throttle'>"
+      "<arg name='application_name' type='s' direction='in'/>"
+      "<arg name='reason_for_inhibit' type='s' direction='in'/>"
+      "<arg name='cookie' type='u' direction='out'/>"
+    "</method>"
+    "<method name='UnThrottle'>"
+      "<arg name='cookie' type='u' direction='in'/>"
+    "</method>"
+
+    "<signal name='ActiveChanged'>"
+      "<arg type='b'/>"
+    "</signal>"
+  "</interface>"
+"</node>";
 
 #define GSD_SCREENSAVER_PROXY_DBUS_SERVICE      "org.freedesktop.ScreenSaver"
 #define GSD_SCREENSAVER_PROXY_DBUS_PATH         "/org/freedesktop/ScreenSaver"
+#define GSD_SCREENSAVER_PROXY_DBUS_PATH2        "/ScreenSaver"
 #define GSD_SCREENSAVER_PROXY_DBUS_INTERFACE    "org.freedesktop.ScreenSaver"
 
 #define GSM_INHIBITOR_FLAG_IDLE 1 << 3
@@ -97,6 +138,7 @@ struct GsdScreensaverProxyManagerPrivate
         GDBusConnection         *connection;
         GCancellable            *bus_cancellable;
         GDBusNodeInfo           *introspection_data;
+        GDBusNodeInfo           *introspection_data2;
         guint                    name_id;
 
         GHashTable              *watch_ht;  /* key = sender, value = name watch id */
@@ -271,6 +313,14 @@ on_bus_gotten (GObject                    *source_object,
                                            manager,
                                            NULL,
                                            NULL);
+        infos = manager->priv->introspection_data2->interfaces;
+        g_dbus_connection_register_object (connection,
+                                           GSD_SCREENSAVER_PROXY_DBUS_PATH2,
+                                           infos[0],
+                                           &interface_vtable,
+                                           manager,
+                                           NULL,
+                                           NULL);
 
         manager->priv->name_id = g_bus_own_name_on_connection (manager->priv->connection,
                                                                GSD_SCREENSAVER_PROXY_DBUS_SERVICE,
@@ -285,8 +335,10 @@ static void
 register_manager_dbus (GsdScreensaverProxyManager *manager)
 {
         manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        manager->priv->introspection_data2 = g_dbus_node_info_new_for_xml (introspection_xml2, NULL);
         manager->priv->bus_cancellable = g_cancellable_new ();
         g_assert (manager->priv->introspection_data != NULL);
+        g_assert (manager->priv->introspection_data2 != NULL);
 
         g_bus_get (G_BUS_TYPE_SESSION,
                    manager->priv->bus_cancellable,
@@ -358,6 +410,7 @@ gsd_screensaver_proxy_manager_finalize (GObject *object)
         g_clear_object (&manager->priv->connection);
         g_clear_object (&manager->priv->bus_cancellable);
         g_clear_pointer (&manager->priv->introspection_data, g_dbus_node_info_unref);
+        g_clear_pointer (&manager->priv->introspection_data2, g_dbus_node_info_unref);
 
         G_OBJECT_CLASS (gsd_screensaver_proxy_manager_parent_class)->finalize (object);
 }
