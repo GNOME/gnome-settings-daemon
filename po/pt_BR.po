@@ -27,16 +27,16 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-30 10:38+0000\n"
-"PO-Revision-Date: 2013-08-30 10:03-0300\n"
-"Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
+"POT-Creation-Date: 2013-09-02 20:34+0000\n"
+"PO-Revision-Date: 2013-09-02 20:53-0300\n"
+"Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.7\n"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -1332,6 +1332,27 @@ msgstr "Data e Hora"
 #: ../plugins/datetime/datetime.gnome-settings-plugin.in.h:3
 msgid "Automatically update timezone and display notifications"
 msgstr "Atualizar automaticamente o fuso horário e exibir notificações"
+
+#. Translators: UTC here means the Coordinated Universal Time.
+#. * %:::z will be replaced by the offset from UTC e.g. UTC+02
+#: ../plugins/datetime/gsd-datetime-manager.c:104
+msgid "UTC%:::z"
+msgstr "UTC%:::z"
+
+#: ../plugins/datetime/gsd-datetime-manager.c:108
+#, c-format
+msgid "Time Zone Updated to %s (%s)"
+msgstr "Fuso horário atualizado para %s (%s)"
+
+#: ../plugins/datetime/gsd-datetime-manager.c:128
+#| msgid "Manage X Settings"
+msgid "Date & Time Settings"
+msgstr "Configurações de data & hora"
+
+#: ../plugins/datetime/gsd-datetime-manager.c:136
+#| msgid "X Settings"
+msgid "Settings"
+msgstr "Configurações"
 
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
