@@ -490,6 +490,8 @@ notify_critical_updates (GsdUpdatesManager *manager, GPtrArray *array)
         }
         /* track so we can prevent doubled notifications */
         manager->priv->notification_updates = notification;
+        g_object_add_weak_pointer (G_OBJECT (manager->priv->notification_updates),
+                                   (void **) &manager->priv->notification_updates);
 }
 
 static void
@@ -558,6 +560,8 @@ notify_normal_updates_maybe (GsdUpdatesManager *manager, GPtrArray *array)
 
         /* track so we can prevent doubled notifications */
         manager->priv->notification_updates = notification;
+        g_object_add_weak_pointer (G_OBJECT (manager->priv->notification_updates),
+                                   (void **) &manager->priv->notification_updates);
 }
 
 static void
