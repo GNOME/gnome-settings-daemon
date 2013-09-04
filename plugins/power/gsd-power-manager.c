@@ -3570,16 +3570,22 @@ device_to_variant_blob (UpDevice *device)
         GVariant *value;
         UpDeviceKind kind;
         UpDeviceState state;
+        gboolean is_present;
 
-        icon = gpm_upower_get_device_icon (device, TRUE);
-        device_icon = g_icon_to_string (icon);
         g_object_get (device,
+                      "is-present", &is_present,
                       "kind", &kind,
                       "percentage", &percentage,
                       "state", &state,
                       "time-to-empty", &time_empty,
                       "time-to-full", &time_full,
                       NULL);
+
+        if (!is_present)
+                return NULL;
+
+        icon = gpm_upower_get_device_icon (device, TRUE);
+        device_icon = g_icon_to_string (icon);
 
         /* only return time for these simple states */
         if (state == UP_DEVICE_STATE_DISCHARGING)
@@ -3620,8 +3626,15 @@ handle_method_call_main (GsdPowerManager *manager,
         /* return object */
         if (g_strcmp0 (method_name, "GetPrimaryDevice") == 0) {
                 value = device_to_variant_blob (manager->priv->device_composite);
-                tuple = g_variant_new_tuple (&value, 1);
-                g_dbus_method_invocation_return_value (invocation, tuple);
+                if (value) {
+                        tuple = g_variant_new_tuple (&value, 1);
+                        g_dbus_method_invocation_return_value (invocation, tuple);
+                } else {
+                        g_dbus_method_invocation_return_error_literal (invocation,
+                                                                       GSD_POWER_MANAGER_ERROR,
+                                                                       GSD_POWER_MANAGER_ERROR_FAILED,
+                                                                       "Main battery device not available");
+                }
                 return;
         }
 
@@ -3637,6 +3650,8 @@ handle_method_call_main (GsdPowerManager *manager,
                 for (i=0; i<array->len; i++) {
                         device = g_ptr_array_index (array, i);
                         value = device_to_variant_blob (device);
+                        if (!value)
+                                continue;
                         g_variant_builder_add_value (builder, value);
                 }
 
