@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-30 12:37+0200\n"
-"PO-Revision-Date: 2013-08-30 12:37+0200\n"
+"POT-Creation-Date: 2013-09-04 17:10+0200\n"
+"PO-Revision-Date: 2013-09-04 17:10+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: gnome-l10n-gl@gnome.org\n"
 "Language: gl\n"
@@ -1332,6 +1332,25 @@ msgstr "Data e hora"
 #: ../plugins/datetime/datetime.gnome-settings-plugin.in.h:3
 msgid "Automatically update timezone and display notifications"
 msgstr "Actualiza automaticamente o fuso horario e mostra notificacións"
+
+#. Translators: UTC here means the Coordinated Universal Time.
+#. * %:::z will be replaced by the offset from UTC e.g. UTC+02
+#: ../plugins/datetime/gsd-datetime-manager.c:104
+msgid "UTC%:::z"
+msgstr "UTC%:::z"
+
+#: ../plugins/datetime/gsd-datetime-manager.c:108
+#, c-format
+msgid "Time Zone Updated to %s (%s)"
+msgstr "Fuso horario actualizado a %s (%s)"
+
+#: ../plugins/datetime/gsd-datetime-manager.c:128
+msgid "Date & Time Settings"
+msgstr "Preferencias de data e hora"
+
+#: ../plugins/datetime/gsd-datetime-manager.c:136
+msgid "Settings"
+msgstr "Preferencias"
 
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
