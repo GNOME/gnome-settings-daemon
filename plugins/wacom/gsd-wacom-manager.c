@@ -1775,7 +1775,7 @@ on_rr_screen_acquired (GObject      *object,
         GsdWacomManager *manager = user_data;
         GError *error = NULL;
 
-        manager->priv->rr_screen = gnome_rr_screen_new_finish (result, NULL);
+        manager->priv->rr_screen = gnome_rr_screen_new_finish (result, &error);
         if (manager->priv->rr_screen == NULL) {
                 g_warning ("Failed to create GnomeRRScreen: %s", error->message);
                 g_error_free (error);
