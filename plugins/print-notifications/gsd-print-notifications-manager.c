@@ -146,6 +146,20 @@ is_local_dest (const char  *name,
         return !is_remote;
 }
 
+static gboolean
+server_is_local (const gchar *server_name)
+{
+        if (server_name != NULL &&
+            (g_ascii_strncasecmp (server_name, "localhost", 9) == 0 ||
+             g_ascii_strncasecmp (server_name, "127.0.0.1", 9) == 0 ||
+             g_ascii_strncasecmp (server_name, "::1", 3) == 0 ||
+             server_name[0] == '/')) {
+                return TRUE;
+        } else {
+                return FALSE;
+        }
+}
+
 static int
 strcmp0(const void *a, const void *b)
 {
@@ -905,8 +919,10 @@ renew_subscription (gpointer data)
                                        "notify-events", num_events, NULL, events);
                         ippAddString (request, IPP_TAG_SUBSCRIPTION, IPP_TAG_KEYWORD,
                                       "notify-pull-method", NULL, "ippget");
-                        ippAddString (request, IPP_TAG_SUBSCRIPTION, IPP_TAG_URI,
-                                      "notify-recipient-uri", NULL, "dbus://");
+                        if (server_is_local (cupsServer ())) {
+                                ippAddString (request, IPP_TAG_SUBSCRIPTION, IPP_TAG_URI,
+                                              "notify-recipient-uri", NULL, "dbus://");
+                        }
                         ippAddInteger (request, IPP_TAG_SUBSCRIPTION, IPP_TAG_INTEGER,
                                        "notify-lease-duration", SUBSCRIPTION_DURATION);
                         response = cupsDoRequest (http, request, "/");
