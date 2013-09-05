@@ -1002,17 +1002,24 @@ renew_subscription_with_connection_test (gpointer user_data)
 
 static void
 renew_subscription_timeout_enable (GsdPrintNotificationsManager *manager,
-                                   gboolean                      enable)
+                                   gboolean                      enable,
+                                   gboolean                      with_connection_test)
 {
         if (manager->priv->renew_source_id > 0)
                 g_source_remove (manager->priv->renew_source_id);
 
         if (enable) {
                 renew_subscription (manager);
-                manager->priv->renew_source_id =
-                        g_timeout_add_seconds (RENEW_INTERVAL,
-                                               renew_subscription_with_connection_test,
-                                               manager);
+                if (with_connection_test)
+                        manager->priv->renew_source_id =
+                                g_timeout_add_seconds (RENEW_INTERVAL,
+                                                       renew_subscription_with_connection_test,
+                                                       manager);
+                else
+                        manager->priv->renew_source_id =
+                                g_timeout_add_seconds (RENEW_INTERVAL,
+                                                       renew_subscription,
+                                                       manager);
         } else {
                 manager->priv->renew_source_id = 0;
         }
@@ -1040,7 +1047,7 @@ cups_connection_test_cb (GObject      *source_object,
                 manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
                 g_debug ("Got dests from remote CUPS server.");
 
-                renew_subscription_timeout_enable (manager, TRUE);
+                renew_subscription_timeout_enable (manager, TRUE, TRUE);
         } else {
                 g_debug ("Test connection to CUPS server \'%s:%d\' failed.", cupsServer (), ippPort ());
                 if (manager->priv->cups_connection_timeout_id == 0)
@@ -1060,26 +1067,18 @@ cups_connection_test (gpointer user_data)
         if (!manager->priv->dests) {
                 address = g_strdup_printf ("%s:%d", cupsServer (), port);
 
-                if (address && address[0] != '/') {
-                        client = g_socket_client_new ();
+                client = g_socket_client_new ();
 
-                        g_debug ("Initiating test connection to CUPS server \'%s:%d\'.", cupsServer (), port);
+                g_debug ("Initiating test connection to CUPS server \'%s:%d\'.", cupsServer (), port);
 
-                        g_socket_client_connect_to_host_async (client,
-                                                               address,
-                                                               port,
-                                                               NULL,
-                                                               cups_connection_test_cb,
-                                                               manager);
+                g_socket_client_connect_to_host_async (client,
+                                                       address,
+                                                       port,
+                                                       NULL,
+                                                       cups_connection_test_cb,
+                                                       manager);
 
-                        g_object_unref (client);
-                } else {
-                        manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
-                        g_debug ("Got dests from local CUPS server.");
-
-                        renew_subscription_timeout_enable (manager, TRUE);
-                }
-
+                g_object_unref (client);
                 g_free (address);
         }
 
@@ -1129,12 +1128,20 @@ gsd_print_notifications_manager_start_idle (gpointer data)
 
         manager->priv->printing_printers = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
-        cups_connection_test (manager);
 
-        g_bus_get (G_BUS_TYPE_SYSTEM,
-                   NULL,
-                   gsd_print_notifications_manager_got_dbus_connection,
-                   data);
+        if (server_is_local (cupsServer ())) {
+                manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
+                g_debug ("Got dests from local CUPS server.");
+
+                renew_subscription_timeout_enable (manager, TRUE, FALSE);
+
+                g_bus_get (G_BUS_TYPE_SYSTEM,
+                           NULL,
+                           gsd_print_notifications_manager_got_dbus_connection,
+                           data);
+        } else {
+                cups_connection_test (manager);
+        }
 
         scp_handler (manager, TRUE);
 
@@ -1188,7 +1195,7 @@ gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
                 manager->priv->cups_dbus_subscription_id = 0;
         }
 
-        renew_subscription_timeout_enable (manager, FALSE);
+        renew_subscription_timeout_enable (manager, FALSE, FALSE);
 
         if (manager->priv->subscription_id >= 0)
                 cancel_subscription (manager->priv->subscription_id);
