@@ -77,6 +77,7 @@ struct GsdPrintNotificationsManagerPrivate
         guint                         cups_connection_timeout_id;
         guint                         cups_dbus_subscription_id;
         guint                         renew_source_id;
+        gint                          last_notify_sequence_number;
 };
 
 enum {
@@ -87,6 +88,7 @@ static void     gsd_print_notifications_manager_class_init  (GsdPrintNotificatio
 static void     gsd_print_notifications_manager_init        (GsdPrintNotificationsManager      *print_notifications_manager);
 static void     gsd_print_notifications_manager_finalize    (GObject                           *object);
 static gboolean cups_connection_test                        (gpointer                           user_data);
+static gboolean process_new_notifications                   (gpointer                           user_data);
 
 G_DEFINE_TYPE (GsdPrintNotificationsManager, gsd_print_notifications_manager, G_TYPE_OBJECT)
 
@@ -301,25 +303,32 @@ on_cups_notification (GDBusConnection *connection,
                       GVariant        *parameters,
                       gpointer         user_data)
 {
-        GsdPrintNotificationsManager *manager = (GsdPrintNotificationsManager *) user_data;
-        gboolean                     printer_is_accepting_jobs;
-        gboolean                     my_job = FALSE;
-        gboolean                     known_reason;
-        http_t                      *http;
-        gchar                       *printer_name = NULL;
-        gchar                       *primary_text = NULL;
-        gchar                       *secondary_text = NULL;
-        gchar                       *text = NULL;
-        gchar                       *printer_uri = NULL;
-        gchar                       *printer_state_reasons = NULL;
-        gchar                       *job_state_reasons = NULL;
-        gchar                       *job_name = NULL;
-        gchar                       *job_uri = NULL;
-        guint                        job_id;
-        ipp_t                       *request, *response;
-        gint                         printer_state;
-        gint                         job_state;
-        gint                         job_impressions_completed;
+        process_new_notifications (user_data);
+}
+
+static void
+process_cups_notification (GsdPrintNotificationsManager *manager,
+                           const char                   *notify_subscribed_event,
+                           const char                   *notify_text,
+                           const char                   *notify_printer_uri,
+                           const char                   *printer_name,
+                           gint                          printer_state,
+                           const char                   *printer_state_reasons,
+                           gboolean                      printer_is_accepting_jobs,
+                           guint                         notify_job_id,
+                           gint                          job_state,
+                           const char                   *job_state_reasons,
+                           const char                   *job_name,
+                           gint                          job_impressions_completed)
+{
+        ipp_attribute_t *attr;
+        gboolean         my_job = FALSE;
+        gboolean         known_reason;
+        http_t          *http;
+        gchar           *primary_text = NULL;
+        gchar           *secondary_text = NULL;
+        gchar           *job_uri = NULL;
+        ipp_t           *request, *response;
         static const char * const reasons[] = {
                 "toner-low",
                 "toner-empty",
@@ -387,45 +396,20 @@ on_cups_notification (GDBusConnection *connection,
                 /* Translators: The printer has detected an error (same as in system-config-printer) */
                 N_("There is a problem on printer '%s'.") };
 
-        if (g_strcmp0 (signal_name, "PrinterAdded") != 0 &&
-            g_strcmp0 (signal_name, "PrinterDeleted") != 0 &&
-            g_strcmp0 (signal_name, "PrinterStateChanged") != 0 &&
-            g_strcmp0 (signal_name, "JobCompleted") != 0 &&
-            g_strcmp0 (signal_name, "JobState") != 0 &&
-            g_strcmp0 (signal_name, "JobCreated") != 0)
+        if (g_strcmp0 (notify_subscribed_event, "printer-added") != 0 &&
+            g_strcmp0 (notify_subscribed_event, "printer-deleted") != 0 &&
+            g_strcmp0 (notify_subscribed_event, "printer-state-changed") != 0 &&
+            g_strcmp0 (notify_subscribed_event, "job-completed") != 0 &&
+            g_strcmp0 (notify_subscribed_event, "job-state-changed") != 0 &&
+            g_strcmp0 (notify_subscribed_event, "job-created") != 0)
                 return;
 
-        if (g_variant_n_children (parameters) == 1) {
-                g_variant_get (parameters, "(&s)", &text);
-        } else if (g_variant_n_children (parameters) == 6) {
-                g_variant_get (parameters, "(&s&s&su&sb)",
-                               &text,
-                               &printer_uri,
-                               &printer_name,
-                               &printer_state,
-                               &printer_state_reasons,
-                               &printer_is_accepting_jobs);
-        } else if (g_variant_n_children (parameters) == 11) {
-                ipp_attribute_t *attr;
-
-                g_variant_get (parameters, "(&s&s&su&sbuu&s&su)",
-                               &text,
-                               &printer_uri,
-                               &printer_name,
-                               &printer_state,
-                               &printer_state_reasons,
-                               &printer_is_accepting_jobs,
-                               &job_id,
-                               &job_state,
-                               &job_state_reasons,
-                               &job_name,
-                               &job_impressions_completed);
-
+        if (notify_job_id > 0) {
                 if ((http = httpConnectEncrypt (cupsServer (), ippPort (),
                                                 cupsEncryption ())) == NULL) {
                         g_debug ("Connection to CUPS server \'%s\' failed.", cupsServer ());
                 } else {
-                        job_uri = g_strdup_printf ("ipp://localhost/jobs/%d", job_id);
+                        job_uri = g_strdup_printf ("ipp://localhost/jobs/%d", notify_job_id);
 
                         request = ippNewRequest (IPP_GET_JOB_ATTRIBUTES);
                         ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_URI,
@@ -447,12 +431,9 @@ on_cups_notification (GDBusConnection *connection,
                         }
                         g_free (job_uri);
                 }
-        } else {
-                g_warning ("Invalid number of parameters for signal '%s'", signal_name);
-                return;
         }
 
-        if (g_strcmp0 (signal_name, "PrinterAdded") == 0) {
+        if (g_strcmp0 (notify_subscribed_event, "printer-added") == 0) {
                 cupsFreeDests (manager->priv->num_dests, manager->priv->dests);
                 manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
 
@@ -463,7 +444,7 @@ on_cups_notification (GDBusConnection *connection,
                         primary_text = g_strdup (_("Printer added"));
                         secondary_text = g_strdup (printer_name);
                 }
-        } else if (g_strcmp0 (signal_name, "PrinterDeleted") == 0) {
+        } else if (g_strcmp0 (notify_subscribed_event, "printer-deleted") == 0) {
                 if (is_local_dest (printer_name,
                                    manager->priv->dests,
                                    manager->priv->num_dests)) {
@@ -474,7 +455,7 @@ on_cups_notification (GDBusConnection *connection,
 
                 cupsFreeDests (manager->priv->num_dests, manager->priv->dests);
                 manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
-        } else if (g_strcmp0 (signal_name, "JobCompleted") == 0 && my_job) {
+        } else if (g_strcmp0 (notify_subscribed_event, "job-completed") == 0 && my_job) {
                 g_hash_table_remove (manager->priv->printing_printers,
                                      printer_name);
 
@@ -508,7 +489,7 @@ on_cups_notification (GDBusConnection *connection,
                                 secondary_text = g_strdup_printf (_("\"%s\" on %s"), job_name, printer_name);
                                 break;
                 }
-        } else if (g_strcmp0 (signal_name, "JobState") == 0 && my_job) {
+        } else if (g_strcmp0 (notify_subscribed_event, "job-state-changed") == 0 && my_job) {
                 switch (job_state) {
                         case IPP_JOB_PROCESSING:
                                 g_hash_table_insert (manager->priv->printing_printers,
@@ -529,7 +510,7 @@ on_cups_notification (GDBusConnection *connection,
                         default:
                                 break;
                 }
-        } else if (g_strcmp0 (signal_name, "JobCreated") == 0 && my_job) {
+        } else if (g_strcmp0 (notify_subscribed_event, "job-created") == 0 && my_job) {
                 if (job_state == IPP_JOB_PROCESSING) {
                         g_hash_table_insert (manager->priv->printing_printers,
                                              g_strdup (printer_name), NULL);
@@ -539,7 +520,7 @@ on_cups_notification (GDBusConnection *connection,
                         /* Translators: "print-job xy" on a printer */
                         secondary_text = g_strdup_printf (_("\"%s\" on %s"), job_name, printer_name);
                 }
-        } else if (g_strcmp0 (signal_name, "PrinterStateChanged") == 0) {
+        } else if (g_strcmp0 (notify_subscribed_event, "printer-state-changed") == 0) {
                 cups_dest_t  *dest = NULL;
                 const gchar  *tmp_printer_state_reasons = NULL;
                 GSList       *added_reasons = NULL;
@@ -821,6 +802,154 @@ on_cups_notification (GDBusConnection *connection,
                 g_free (primary_text);
                 g_free (secondary_text);
         }
+}
+
+static gboolean
+process_new_notifications (gpointer user_data)
+{
+        GsdPrintNotificationsManager  *manager = (GsdPrintNotificationsManager *) user_data;
+        ipp_attribute_t               *attr;
+        const gchar                   *notify_subscribed_event = NULL;
+        const gchar                   *printer_name = NULL;
+        const gchar                   *notify_text = NULL;
+        const gchar                   *notify_printer_uri = NULL;
+        const gchar                   *job_state_reasons = NULL;
+        const gchar                   *job_name = NULL;
+        const char                    *attr_name;
+        gboolean                       printer_is_accepting_jobs = FALSE;
+        gchar                         *printer_state_reasons = NULL;
+        gchar                        **reasons;
+        guint                          notify_job_id = 0;
+        ipp_t                         *request;
+        ipp_t                         *response;
+        gint                           printer_state = -1;
+        gint                           job_state = -1;
+        gint                           job_impressions_completed = -1;
+        gint                           notify_sequence_number = -1;
+        gint                           i;
+
+        request = ippNewRequest (IPP_GET_NOTIFICATIONS);
+
+        ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_NAME,
+                      "requesting-user-name", NULL, cupsUser ());
+
+        ippAddInteger (request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
+                       "notify-subscription-ids", manager->priv->subscription_id);
+
+        ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL,
+                      "/printers/");
+
+        ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", NULL,
+                      "/jobs/");
+
+        ippAddInteger (request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
+                       "notify-sequence-numbers",
+                       manager->priv->last_notify_sequence_number + 1);
+
+
+        response = cupsDoRequest (CUPS_HTTP_DEFAULT, request, "/");
+
+
+        for (attr = ippFindAttribute (response, "notify-sequence-number", IPP_TAG_INTEGER);
+             attr != NULL;
+             attr = ippNextAttribute (response)) {
+
+                attr_name = ippGetName (attr);
+                if (g_strcmp0 (attr_name, "notify-sequence-number") == 0) {
+                        notify_sequence_number = ippGetInteger (attr, 0);
+
+                        if (notify_sequence_number > manager->priv->last_notify_sequence_number)
+                                manager->priv->last_notify_sequence_number = notify_sequence_number;
+
+                        if (notify_subscribed_event != NULL) {
+                                process_cups_notification (manager,
+                                                           notify_subscribed_event,
+                                                           notify_text,
+                                                           notify_printer_uri,
+                                                           printer_name,
+                                                           printer_state,
+                                                           printer_state_reasons,
+                                                           printer_is_accepting_jobs,
+                                                           notify_job_id,
+                                                           job_state,
+                                                           job_state_reasons,
+                                                           job_name,
+                                                           job_impressions_completed);
+
+                                g_clear_pointer (&printer_state_reasons, g_free);
+                                g_clear_pointer (&job_state_reasons, g_free);
+                        }
+
+                        notify_subscribed_event = NULL;
+                        notify_text = NULL;
+                        notify_printer_uri = NULL;
+                        printer_name = NULL;
+                        printer_state = -1;
+                        printer_state_reasons = NULL;
+                        printer_is_accepting_jobs = FALSE;
+                        notify_job_id = 0;
+                        job_state = -1;
+                        job_state_reasons = NULL;
+                        job_name = NULL;
+                        job_impressions_completed = -1;
+                } else if (g_strcmp0 (attr_name, "notify-subscribed-event") == 0) {
+                        notify_subscribed_event = ippGetString (attr, 0, NULL);
+                } else if (g_strcmp0 (attr_name, "notify-text") == 0) {
+                        notify_text = ippGetString (attr, 0, NULL);
+                } else if (g_strcmp0 (attr_name, "notify-printer-uri") == 0) {
+                        notify_printer_uri = ippGetString (attr, 0, NULL);
+                } else if (g_strcmp0 (attr_name, "printer-name") == 0) {
+                        printer_name = ippGetString (attr, 0, NULL);
+                } else if (g_strcmp0 (attr_name, "printer-state") == 0) {
+                        printer_state = ippGetInteger (attr, 0);
+                } else if (g_strcmp0 (attr_name, "printer-state-reasons") == 0) {
+                        reasons = g_new0 (gchar *, ippGetCount (attr) + 1);
+                        for (i = 0; i < ippGetCount (attr); i++)
+                                reasons[i] = g_strdup (ippGetString (attr, i, NULL));
+                        printer_state_reasons = g_strjoinv (",", reasons);
+                        g_strfreev (reasons);
+                } else if (g_strcmp0 (attr_name, "printer-is-accepting-jobs") == 0) {
+                        printer_is_accepting_jobs = ippGetBoolean (attr, 0);
+                } else if (g_strcmp0 (attr_name, "notify-job-id") == 0) {
+                        notify_job_id = ippGetInteger (attr, 0);
+                } else if (g_strcmp0 (attr_name, "job-state") == 0) {
+                        job_state = ippGetInteger (attr, 0);
+                } else if (g_strcmp0 (attr_name, "job-state-reasons") == 0) {
+                        reasons = g_new0 (gchar *, ippGetCount (attr) + 1);
+                        for (i = 0; i < ippGetCount (attr); i++)
+                                reasons[i] = g_strdup (ippGetString (attr, i, NULL));
+                        job_state_reasons = g_strjoinv (",", reasons);
+                        g_strfreev (reasons);
+                } else if (g_strcmp0 (attr_name, "job-name") == 0) {
+                        job_name = ippGetString (attr, 0, NULL);
+                } else if (g_strcmp0 (attr_name, "job-impressions-completed") == 0) {
+                        job_impressions_completed = ippGetInteger (attr, 0);
+                }
+        }
+
+        if (notify_subscribed_event != NULL) {
+                process_cups_notification (manager,
+                                           notify_subscribed_event,
+                                           notify_text,
+                                           notify_printer_uri,
+                                           printer_name,
+                                           printer_state,
+                                           printer_state_reasons,
+                                           printer_is_accepting_jobs,
+                                           notify_job_id,
+                                           job_state,
+                                           job_state_reasons,
+                                           job_name,
+                                           job_impressions_completed);
+
+                g_clear_pointer (&printer_state_reasons, g_free);
+                g_clear_pointer (&job_state_reasons, g_free);
+        }
+
+        if (response != NULL)
+                ippDelete (response);
+
+        return TRUE;
 }
 
 static void
@@ -1167,6 +1296,7 @@ gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
         manager->priv->active_notifications = NULL;
         manager->priv->cups_bus_connection = NULL;
         manager->priv->cups_connection_timeout_id = 0;
+        manager->priv->last_notify_sequence_number = -1;
 
         g_idle_add (gsd_print_notifications_manager_start_idle, manager);
 
