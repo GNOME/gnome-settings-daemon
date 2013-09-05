@@ -52,6 +52,7 @@
 #define CONNECTING_TIMEOUT               60
 #define REASON_TIMEOUT                   15000
 #define CUPS_CONNECTION_TEST_INTERVAL    300
+#define CHECK_INTERVAL                   60 /* secs */
 
 #if (CUPS_VERSION_MAJOR > 1) || (CUPS_VERSION_MINOR > 5)
 #define HAVE_CUPS_1_6 1
@@ -75,6 +76,7 @@ struct GsdPrintNotificationsManagerPrivate
         GHashTable                   *printing_printers;
         GList                        *active_notifications;
         guint                         cups_connection_timeout_id;
+        guint                         check_source_id;
         guint                         cups_dbus_subscription_id;
         guint                         renew_source_id;
         gint                          last_notify_sequence_number;
@@ -1177,6 +1179,7 @@ cups_connection_test_cb (GObject      *source_object,
                 g_debug ("Got dests from remote CUPS server.");
 
                 renew_subscription_timeout_enable (manager, TRUE, TRUE);
+                manager->priv->check_source_id = g_timeout_add_seconds (CHECK_INTERVAL, process_new_notifications, manager);
         } else {
                 g_debug ("Test connection to CUPS server \'%s:%d\' failed.", cupsServer (), ippPort ());
                 if (manager->priv->cups_connection_timeout_id == 0)
@@ -1326,6 +1329,11 @@ gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
         }
 
         renew_subscription_timeout_enable (manager, FALSE, FALSE);
+
+        if (manager->priv->check_source_id > 0) {
+                g_source_remove (manager->priv->check_source_id);
+                manager->priv->check_source_id = 0;
+        }
 
         if (manager->priv->subscription_id >= 0)
                 cancel_subscription (manager->priv->subscription_id);
