@@ -503,11 +503,36 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                                 secondary_text = g_strdup_printf (_("\"%s\" on %s"), job_name, printer_name);
                                 break;
                         case IPP_JOB_STOPPED:
+                                g_hash_table_remove (manager->priv->printing_printers,
+                                                     printer_name);
+                                /* Translators: A print job has been stopped */
+                                primary_text = g_strdup (_("Printing stopped"));
+                                /* Translators: "print-job xy" on a printer */
+                                secondary_text = g_strdup_printf (_("\"%s\" on %s"), job_name, printer_name);
+                                break;
                         case IPP_JOB_CANCELED:
+                                g_hash_table_remove (manager->priv->printing_printers,
+                                                     printer_name);
+                                /* Translators: A print job has been canceled */
+                                primary_text = g_strdup (_("Printing canceled"));
+                                /* Translators: "print-job xy" on a printer */
+                                secondary_text = g_strdup_printf (_("\"%s\" on %s"), job_name, printer_name);
+                                break;
                         case IPP_JOB_ABORTED:
+                                g_hash_table_remove (manager->priv->printing_printers,
+                                                     printer_name);
+                                /* Translators: A print job has been aborted */
+                                primary_text = g_strdup (_("Printing aborted"));
+                                /* Translators: "print-job xy" on a printer */
+                                secondary_text = g_strdup_printf (_("\"%s\" on %s"), job_name, printer_name);
+                                break;
                         case IPP_JOB_COMPLETED:
                                 g_hash_table_remove (manager->priv->printing_printers,
                                                      printer_name);
+                                /* Translators: A print job has been completed */
+                                primary_text = g_strdup (_("Printing completed"));
+                                /* Translators: "print-job xy" on a printer */
+                                secondary_text = g_strdup_printf (_("\"%s\" on %s"), job_name, printer_name);
                                 break;
                         default:
                                 break;
