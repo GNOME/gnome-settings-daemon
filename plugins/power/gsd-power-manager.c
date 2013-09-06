@@ -2876,6 +2876,11 @@ power_keyboard_proxy_ready_cb (GObject             *source_object,
                         g_error_free (error);
                 }
         }
+
+        /* Tell the front-end that the brightness changed from
+         * its default "-1/no keyboard backlight available" default */
+        backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, manager->priv->kbd_brightness_now);
+
 out:
         if (k_now != NULL)
                 g_variant_unref (k_now);
@@ -3282,6 +3287,7 @@ on_rr_screen_acquired (GObject      *object,
                           G_CALLBACK (up_client_on_battery_cb), manager);
 
         /* connect to UPower for keyboard backlight control */
+        manager->priv->kbd_brightness_now = -1;
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
                                   G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
                                   NULL,
