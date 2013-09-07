@@ -307,22 +307,6 @@ gsd_sound_manager_stop (GsdSoundManager *manager)
         }
 }
 
-static GObject *
-gsd_sound_manager_constructor (
-                GType type,
-                guint n_construct_properties,
-                GObjectConstructParam *construct_properties)
-{
-        GsdSoundManager *m;
-
-        m = GSD_SOUND_MANAGER (G_OBJECT_CLASS (gsd_sound_manager_parent_class)->constructor (
-                                                           type,
-                                                           n_construct_properties,
-                                                           construct_properties));
-
-        return G_OBJECT (m);
-}
-
 static void
 gsd_sound_manager_dispose (GObject *object)
 {
@@ -340,7 +324,6 @@ gsd_sound_manager_class_init (GsdSoundManagerClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_sound_manager_constructor;
         object_class->dispose = gsd_sound_manager_dispose;
         object_class->finalize = gsd_sound_manager_finalize;
 
