@@ -2550,26 +2550,11 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         }
 }
 
-static GObject *
-gsd_media_keys_manager_constructor (GType                  type,
-                              guint                  n_construct_properties,
-                              GObjectConstructParam *construct_properties)
-{
-        GsdMediaKeysManager      *media_keys_manager;
-
-        media_keys_manager = GSD_MEDIA_KEYS_MANAGER (G_OBJECT_CLASS (gsd_media_keys_manager_parent_class)->constructor (type,
-                                                                                                      n_construct_properties,
-                                                                                                      construct_properties));
-
-        return G_OBJECT (media_keys_manager);
-}
-
 static void
 gsd_media_keys_manager_class_init (GsdMediaKeysManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_media_keys_manager_constructor;
         object_class->finalize = gsd_media_keys_manager_finalize;
 
         g_type_class_add_private (klass, sizeof (GsdMediaKeysManagerPrivate));
