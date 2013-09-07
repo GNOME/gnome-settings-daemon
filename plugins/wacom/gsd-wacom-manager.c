@@ -145,33 +145,11 @@ G_DEFINE_TYPE (GsdWacomManager, gsd_wacom_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
-static GObject *
-gsd_wacom_manager_constructor (GType                     type,
-                               guint                      n_construct_properties,
-                               GObjectConstructParam     *construct_properties)
-{
-        GsdWacomManager      *wacom_manager;
-
-        wacom_manager = GSD_WACOM_MANAGER (G_OBJECT_CLASS (gsd_wacom_manager_parent_class)->constructor (type,
-                                                                                                         n_construct_properties,
-                                                                                                         construct_properties));
-
-        return G_OBJECT (wacom_manager);
-}
-
-static void
-gsd_wacom_manager_dispose (GObject *object)
-{
-        G_OBJECT_CLASS (gsd_wacom_manager_parent_class)->dispose (object);
-}
-
 static void
 gsd_wacom_manager_class_init (GsdWacomManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_wacom_manager_constructor;
-        object_class->dispose = gsd_wacom_manager_dispose;
         object_class->finalize = gsd_wacom_manager_finalize;
 
         g_type_class_add_private (klass, sizeof (GsdWacomManagerPrivate));
