@@ -1593,22 +1593,6 @@ gsd_updates_manager_stop (GsdUpdatesManager *manager)
         g_clear_object (&manager->priv->offline_update_error);
 }
 
-static GObject *
-gsd_updates_manager_constructor (
-                GType type,
-                guint n_construct_properties,
-                GObjectConstructParam *construct_properties)
-{
-        GsdUpdatesManager *m;
-
-        m = GSD_UPDATES_MANAGER (G_OBJECT_CLASS (gsd_updates_manager_parent_class)->constructor (
-                                                           type,
-                                                           n_construct_properties,
-                                                           construct_properties));
-
-        return G_OBJECT (m);
-}
-
 static void
 gsd_updates_manager_dispose (GObject *object)
 {
@@ -1626,7 +1610,6 @@ gsd_updates_manager_class_init (GsdUpdatesManagerClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_updates_manager_constructor;
         object_class->dispose = gsd_updates_manager_dispose;
 
         g_type_class_add_private (klass, sizeof (GsdUpdatesManagerPrivate));
