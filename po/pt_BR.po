@@ -27,9 +27,9 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-09-02 20:34+0000\n"
-"PO-Revision-Date: 2013-09-02 20:53-0300\n"
-"Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
+"POT-Creation-Date: 2013-09-06 08:23+0000\n"
+"PO-Revision-Date: 2013-09-07 14:04-0300\n"
+"Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -44,7 +44,7 @@ msgstr "Daemon de configurações do GNOME"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Smartcard removal action"
-msgstr "Ação de remoção de smartcard"
+msgstr "Ação de remoção de cartão inteligente"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
 msgid ""
@@ -52,7 +52,8 @@ msgid ""
 "action will get performed when the smartcard used for log in is removed."
 msgstr ""
 "Defina isto como \"none\", \"lock-screen\", ou \"force-logout\". A ação irá "
-"se realizar quando o smartcard usado para se conectar for removido."
+"se realizar quando o cartão inteligente usado para iniciar sessão for "
+"removido."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
 msgid "Disable touchpad while typing"
@@ -1345,12 +1346,10 @@ msgid "Time Zone Updated to %s (%s)"
 msgstr "Fuso horário atualizado para %s (%s)"
 
 #: ../plugins/datetime/gsd-datetime-manager.c:128
-#| msgid "Manage X Settings"
 msgid "Date & Time Settings"
 msgstr "Configurações de data & hora"
 
 #: ../plugins/datetime/gsd-datetime-manager.c:136
-#| msgid "X Settings"
 msgid "Settings"
 msgstr "Configurações"
 
@@ -2209,7 +2208,7 @@ msgstr "Restam %s de energia reserva no no-break"
 #: ../plugins/power/gsd-power-manager.c:1374
 #: ../plugins/power/gsd-power-manager.c:1547
 #: ../plugins/power/gsd-power-manager.c:1685
-#: ../plugins/power/gsd-power-manager.c:2914
+#: ../plugins/power/gsd-power-manager.c:2915
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Energia"
@@ -2318,18 +2317,19 @@ msgstr "Tablet com bateria baixa"
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "A bateria do tablet está baixa (%.0f%%)"
 
+# Dizer 'Computador conectado' remete a idéia de computador com acesso a internet, podendo confundir o usuário. A idéia aqui é dizer que é um dispositivo anexo ao computador--Enrico
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
 #: ../plugins/power/gsd-power-manager.c:1354
 #: ../plugins/power/gsd-power-manager.c:1525
 msgid "Attached computer battery low"
-msgstr "Computador conectado com bateria baixa"
+msgstr "Dispositivo conectado com bateria baixa"
 
 #. TRANSLATORS: tell user more details
 #: ../plugins/power/gsd-power-manager.c:1357
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
-msgstr "A bateria do computador conectado está baixa (%.0f%%)"
+msgstr "A bateria do dispositivo conectado à máquina está baixa (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
 #: ../plugins/power/gsd-power-manager.c:1384
@@ -2351,25 +2351,25 @@ msgstr "Bateria do laptop criticamente baixa"
 #. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
 #: ../plugins/power/gsd-power-manager.c:1437
 msgid "Plug in your AC adapter to avoid losing data."
-msgstr "Conecte na tomada para evitar perda de dados."
+msgstr "Ligue na tomada para evitar perda de dados."
 
 #. TRANSLATORS: give the user a ultimatum
 #: ../plugins/power/gsd-power-manager.c:1441
 #, c-format
 msgid "Computer will suspend very soon unless it is plugged in."
-msgstr "Computador irá suspender em breve a menos que seja conectado."
+msgstr "O computador irá suspender em breve a menos que seja conectado."
 
 #. TRANSLATORS: give the user a ultimatum
 #: ../plugins/power/gsd-power-manager.c:1445
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
-msgstr "Computador vai hibernar muito em breve a menos que seja conectado."
+msgstr "O computador irá hibernar em breve a menos que seja conectado."
 
 #. TRANSLATORS: give the user a ultimatum
 #: ../plugins/power/gsd-power-manager.c:1449
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
-msgstr "Computador vai desligar em breve a menos que seja conectado."
+msgstr "O computador irá desligar em breve a menos que seja conectado."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
@@ -2385,7 +2385,7 @@ msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
 "computer to avoid losing data."
 msgstr ""
-"Aproximadamente %s de energia restante no no-break (%.0f%%). Conecte o "
+"Aproximadamente %s de energia restante no no-break (%.0f%%). Ligue o "
 "computador na tomada para evitar perda de dados."
 
 #. TRANSLATORS: the device is just going to stop working
@@ -2455,8 +2455,8 @@ msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
 "shutdown if not charged."
 msgstr ""
-"A carga do computador conectado está muito baixa (%.0f%%). O dispositivo vai "
-"parar de funcionar em breve se não for carregado."
+"A carga do dispositivo conectado à máquina está muito baixa (%.0f%%). O "
+"dispositivo vai parar de funcionar em breve se não for carregado."
 
 #. TRANSLATORS: computer will shutdown without saving data
 #: ../plugins/power/gsd-power-manager.c:1607
@@ -2538,7 +2538,7 @@ msgstr "Encerramento de sessão automático"
 
 #: ../plugins/power/gsd-power-manager.c:2893
 msgid "You will soon log out because of inactivity."
-msgstr "Você terá sua sessão encerrada em breve por causa de inatividade."
+msgstr "Em breve sua sessão será encerrada devido inatividade."
 
 #: ../plugins/power/gsd-power-manager.c:2898
 msgid "Automatic suspend"
@@ -2848,17 +2848,18 @@ msgstr "Proxy de proteção de tela"
 msgid "Proxy FreeDesktop screensaver inhibition to gnome-session"
 msgstr "Proxy para inibição de proteção de tela FreeDesktop para gnome-session"
 
+# Não deve ser usado 'conectado' pois o fato de conectar o cartão inteligente não implica diretamente em inicio de sessão (ex: pode estar conectado, mas não ser reconhecido)--Enrico
 #: ../plugins/smartcard/gsd-smartcard-service.c:224
 msgid "User was not logged in with smartcard."
-msgstr "O usuário não estava conectado com um smartcard."
+msgstr "O usuário não havia iniciado sessão com cartão inteligente."
 
 #: ../plugins/smartcard/smartcard.gnome-settings-plugin.in.h:1
 msgid "Smartcard"
-msgstr "Smartcard"
+msgstr "Cartão inteligente"
 
 #: ../plugins/smartcard/smartcard.gnome-settings-plugin.in.h:2
 msgid "Smartcard plugin"
-msgstr "Plug-in do smartcard"
+msgstr "Plug-in do cartão inteligente"
 
 #: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
 msgid "Sound"
@@ -2890,9 +2891,9 @@ msgstr "Software adicional foi instalado"
 #: ../plugins/updates/gsd-updates-firmware.c:603
 #: ../plugins/updates/gsd-updates-manager.c:351
 #: ../plugins/updates/gsd-updates-manager.c:482
-#: ../plugins/updates/gsd-updates-manager.c:544
-#: ../plugins/updates/gsd-updates-manager.c:598
-#: ../plugins/updates/gsd-updates-manager.c:1247
+#: ../plugins/updates/gsd-updates-manager.c:546
+#: ../plugins/updates/gsd-updates-manager.c:602
+#: ../plugins/updates/gsd-updates-manager.c:1251
 msgid "Software Updates"
 msgstr "Atualizações de software"
 
@@ -3013,7 +3014,7 @@ msgstr "Mais informações"
 
 #. TRANSLATORS: title in the libnotify popup
 #: ../plugins/updates/gsd-updates-manager.c:464
-#: ../plugins/updates/gsd-updates-manager.c:526
+#: ../plugins/updates/gsd-updates-manager.c:528
 msgid "Update"
 msgid_plural "Updates"
 msgstr[0] "Atualização"
@@ -3028,105 +3029,105 @@ msgstr[1] "Atualizações importantes de software estão disponíveis"
 
 #. TRANSLATORS: button: open the update viewer to install updates
 #: ../plugins/updates/gsd-updates-manager.c:487
-#: ../plugins/updates/gsd-updates-manager.c:549
+#: ../plugins/updates/gsd-updates-manager.c:551
 msgid "Install updates"
 msgstr "Instalar atualizações"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:529
+#: ../plugins/updates/gsd-updates-manager.c:531
 msgid "A software update is available."
 msgid_plural "Software updates are available."
 msgstr[0] "Uma atualização de software está disponível."
 msgstr[1] "Atualizações de software estão disponíveis."
 
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:585
+#: ../plugins/updates/gsd-updates-manager.c:589
 #: ../plugins/updates/updates.gnome-settings-plugin.in.h:1
 msgid "Updates"
 msgstr "Atualizações"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:589
+#: ../plugins/updates/gsd-updates-manager.c:593
 msgid "Unable to access software updates"
 msgstr "Não é possível acessar as atualizações de software"
 
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:592
+#: ../plugins/updates/gsd-updates-manager.c:596
 msgid "Try again"
 msgstr "Tentar novamente"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:977
+#: ../plugins/updates/gsd-updates-manager.c:981
 msgid "A transaction that cannot be interrupted is running"
 msgstr "Uma transação que não pode ser interrompida está em execução"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1197
+#: ../plugins/updates/gsd-updates-manager.c:1201
 msgid "Software Update Installed"
 msgid_plural "Software Updates Installed"
 msgstr[0] "Atualização de software instalada"
 msgstr[1] "Atualizações de softwares instaladas"
 
 #. TRANSLATORS: message when we've done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1202
+#: ../plugins/updates/gsd-updates-manager.c:1206
 msgid "An important OS update has been installed."
 msgid_plural "Important OS updates have been installed."
 msgstr[0] "Uma atualização importante do sistema operacional foi instalada."
 msgstr[1] "Atualizações importantes do sistema operacional foram instaladas."
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1228
+#: ../plugins/updates/gsd-updates-manager.c:1232
 msgid "Software Updates Failed"
 msgstr "Houve falha ao atualizar o software"
 
 #. TRANSLATORS: message when we've not done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1231
+#: ../plugins/updates/gsd-updates-manager.c:1235
 msgid "An important OS update failed to be installed."
 msgstr ""
 "Houve falha ao instalar uma atualização importante do sistema operacional."
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1254
+#: ../plugins/updates/gsd-updates-manager.c:1258
 msgid "Review"
 msgstr "Revisar"
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1259
+#: ../plugins/updates/gsd-updates-manager.c:1263
 msgid "Show details"
 msgstr "Mostrar detalhes"
 
 #. TRANSLATORS: button: clear notification
-#: ../plugins/updates/gsd-updates-manager.c:1263
+#: ../plugins/updates/gsd-updates-manager.c:1267
 msgid "OK"
 msgstr "OK"
 
-#: ../plugins/updates/gsd-updates-manager.c:1401
+#: ../plugins/updates/gsd-updates-manager.c:1405
 msgid "Software Updates available"
 msgstr "Há atualizações de softwares disponíveis"
 
-#: ../plugins/updates/gsd-updates-manager.c:1402
+#: ../plugins/updates/gsd-updates-manager.c:1406
 msgid "Important OS and application updates are ready to be installed"
 msgstr ""
 "Atualizações importantes do sistema operacional e de aplicativos estão "
 "prontas para serem instaladas"
 
-#: ../plugins/updates/gsd-updates-manager.c:1406
+#: ../plugins/updates/gsd-updates-manager.c:1410
 msgid "GNOME Software"
 msgstr "Softwares do GNOME"
 
 #. TRANSLATORS: don't install updates now
-#: ../plugins/updates/gsd-updates-manager.c:1411
+#: ../plugins/updates/gsd-updates-manager.c:1415
 msgid "Not Now"
 msgstr "Agora não"
 
 #. TRANSLATORS: view available updates
-#: ../plugins/updates/gsd-updates-manager.c:1417
+#: ../plugins/updates/gsd-updates-manager.c:1421
 msgid "View"
 msgstr "Ver"
 
 #. TRANSLATORS: install available updates
-#: ../plugins/updates/gsd-updates-manager.c:1423
+#: ../plugins/updates/gsd-updates-manager.c:1427
 msgid "Restart & Install"
 msgstr "Reiniciar & Instalar"
 
@@ -3228,22 +3229,22 @@ msgstr "Alternador de modo Touchstrip direito"
 msgid "Mode Switch #%d"
 msgstr "Alternador de modo #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1336
+#: ../plugins/wacom/gsd-wacom-device.c:1335
 #, c-format
 msgid "Left Button #%d"
 msgstr "Botão esquerdo #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1339
+#: ../plugins/wacom/gsd-wacom-device.c:1338
 #, c-format
 msgid "Right Button #%d"
 msgstr "Botão direito #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1342
+#: ../plugins/wacom/gsd-wacom-device.c:1341
 #, c-format
 msgid "Top Button #%d"
 msgstr "Botão superior #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1345
+#: ../plugins/wacom/gsd-wacom-device.c:1344
 #, c-format
 msgid "Bottom Button #%d"
 msgstr "Botão inferior #%d"
