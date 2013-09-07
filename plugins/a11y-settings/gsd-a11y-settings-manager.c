@@ -120,33 +120,11 @@ gsd_a11y_settings_manager_stop (GsdA11ySettingsManager *manager)
         g_debug ("Stopping a11y_settings manager");
 }
 
-static GObject *
-gsd_a11y_settings_manager_constructor (GType                  type,
-                                       guint                  n_construct_properties,
-                                       GObjectConstructParam *construct_properties)
-{
-        GsdA11ySettingsManager      *a11y_settings_manager;
-
-        a11y_settings_manager = GSD_A11Y_SETTINGS_MANAGER (G_OBJECT_CLASS (gsd_a11y_settings_manager_parent_class)->constructor (type,
-                                                                                                                                 n_construct_properties,
-                                                                                                                                 construct_properties));
-
-        return G_OBJECT (a11y_settings_manager);
-}
-
-static void
-gsd_a11y_settings_manager_dispose (GObject *object)
-{
-        G_OBJECT_CLASS (gsd_a11y_settings_manager_parent_class)->dispose (object);
-}
-
 static void
 gsd_a11y_settings_manager_class_init (GsdA11ySettingsManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_a11y_settings_manager_constructor;
-        object_class->dispose = gsd_a11y_settings_manager_dispose;
         object_class->finalize = gsd_a11y_settings_manager_finalize;
 
         g_type_class_add_private (klass, sizeof (GsdA11ySettingsManagerPrivate));
