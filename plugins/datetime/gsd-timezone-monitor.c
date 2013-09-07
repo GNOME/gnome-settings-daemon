@@ -339,6 +339,9 @@ on_client_proxy_ready (GObject      *source_object,
                 return;
         }
 
+        geoclue_client_set_distance_threshold (priv->geoclue_client,
+                                               GEOCODE_LOCATION_ACCURACY_CITY);
+
         g_signal_connect (priv->geoclue_client, "location-updated",
                           G_CALLBACK (on_location_updated), self);
 
