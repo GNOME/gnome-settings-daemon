@@ -1405,26 +1405,11 @@ gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
         scp_handler (manager, FALSE);
 }
 
-static GObject *
-gsd_print_notifications_manager_constructor (GType                  type,
-                                             guint                  n_construct_properties,
-                                             GObjectConstructParam *construct_properties)
-{
-        GsdPrintNotificationsManager      *print_notifications_manager;
-
-        print_notifications_manager = GSD_PRINT_NOTIFICATIONS_MANAGER (G_OBJECT_CLASS (gsd_print_notifications_manager_parent_class)->constructor (type,
-                                                                                                                                                   n_construct_properties,
-                                                                                                                                                   construct_properties));
-
-        return G_OBJECT (print_notifications_manager);
-}
-
 static void
 gsd_print_notifications_manager_class_init (GsdPrintNotificationsManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_print_notifications_manager_constructor;
         object_class->finalize = gsd_print_notifications_manager_finalize;
 
         g_type_class_add_private (klass, sizeof (GsdPrintNotificationsManagerPrivate));
