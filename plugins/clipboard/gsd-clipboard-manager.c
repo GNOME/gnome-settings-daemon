@@ -980,26 +980,11 @@ gsd_clipboard_manager_stop (GsdClipboardManager *manager)
         }
 }
 
-static GObject *
-gsd_clipboard_manager_constructor (GType                  type,
-                                   guint                  n_construct_properties,
-                                   GObjectConstructParam *construct_properties)
-{
-        GsdClipboardManager      *clipboard_manager;
-
-        clipboard_manager = GSD_CLIPBOARD_MANAGER (G_OBJECT_CLASS (gsd_clipboard_manager_parent_class)->constructor (type,
-                                                                                                      n_construct_properties,
-                                                                                                      construct_properties));
-
-        return G_OBJECT (clipboard_manager);
-}
-
 static void
 gsd_clipboard_manager_class_init (GsdClipboardManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_clipboard_manager_constructor;
         object_class->finalize = gsd_clipboard_manager_finalize;
 
         g_type_class_add_private (klass, sizeof (GsdClipboardManagerPrivate));
