@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-20 17:49+0000\n"
-"PO-Revision-Date: 2013-08-25 19:01-0500\n"
+"POT-Creation-Date: 2013-09-07 17:40+0000\n"
+"PO-Revision-Date: 2013-09-09 14:16-0500\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
 "Language: pa\n"
@@ -156,6 +156,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.datetime.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
@@ -171,6 +172,7 @@ msgstr "ਇਹ ਪਲੱਗਇਨ ਦੀ ਐਕਟੀਵੇਸ਼ਨ"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.datetime.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
@@ -186,6 +188,7 @@ msgstr "ਕੀ ਇਹ ਪਲੱਗਇਨ gnome-settings-daemon  ਵਲੋਂ ਐ
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.datetime.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
@@ -201,6 +204,7 @@ msgstr "ਇਹ ਪਲੱਗਇਨ ਵਰਤਣ ਲਈ ਤਰਜੀਹ"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.datetime.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
@@ -271,7 +275,6 @@ msgstr ""
 "ਜਦੋਂ ਟਿੱਪ ਨੂੰ ਦਬਾਇਆ ਜਾਵੇ ਤਾਂ ਕੇਵਲ ਸਟਾਈਲਸ ਈਵੈਂਟ ਰਿਪੋਰਟ ਕਰਨ ਲਈ ਇਹ ਯੋਗ ਕਰੋ।"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
-#| msgid "Wacom tablet rotation"
 msgid "Wacom last calibrated resolution"
 msgstr "ਵਸਕੋਮ ਆਖਰੀ ਵਾਰ ਕੈਲੀਬਰੇਟ ਕੀਤਾ ਰੈਜ਼ੋਲੂਸ਼ਨ"
 
@@ -1309,6 +1312,38 @@ msgstr "ਕਰਸਰ"
 msgid "Show/hide cursor on tablet devices"
 msgstr "ਟੇਬਲੇਟ ਜੰਤਰਾਂ ਉੱਤੇ ਕਰਸਰ ਵੇਖਾਓ/ਓਹਲੇ"
 
+#. Priority=100
+#: ../plugins/datetime/datetime.gnome-settings-plugin.in.h:2
+msgid "Date and Time"
+msgstr "ਮਿਤੀ ਅਤੇ ਸਮਾਂ"
+
+#: ../plugins/datetime/datetime.gnome-settings-plugin.in.h:3
+#| msgid ""
+#| "Automatically download updates in the background without confirmation"
+msgid "Automatically update timezone and display notifications"
+msgstr "ਸਮਾਂ-ਖੇਤਰ ਤੇ ਡਿਸਪਲੇਅ ਸੂਚਨਾਵਾਂ (ਨੋਟੀਫਿਕੇਸ਼ਨ) ਆਪਣੇ-ਆਪ ਹੀ ਅੱਪਡੇਟ ਕਰੋ"
+
+#. Translators: UTC here means the Coordinated Universal Time.
+#. * %:::z will be replaced by the offset from UTC e.g. UTC+02
+#: ../plugins/datetime/gsd-datetime-manager.c:104
+msgid "UTC%:::z"
+msgstr "UTC%:::z"
+
+#: ../plugins/datetime/gsd-datetime-manager.c:108
+#, c-format
+msgid "Time Zone Updated to %s (%s)"
+msgstr "ਸਮਾਂ ਖੇਤਰ %s (%s) ਨਾਲ ਅੱਪਡੇਟ ਕੀਤਾ ਗਿਆ"
+
+#: ../plugins/datetime/gsd-datetime-manager.c:128
+#| msgid "Manage X Settings"
+msgid "Date & Time Settings"
+msgstr "ਮਿਤੀ ਤੇ ਸਮਾਂ ਸੈਟਿੰਗ"
+
+#: ../plugins/datetime/gsd-datetime-manager.c:136
+#| msgid "X Settings"
+msgid "Settings"
+msgstr "ਸੈਟਿੰਗ"
+
 #: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "ਡੰਮੀ"
@@ -1451,7 +1486,6 @@ msgid "Keyboard plugin"
 msgstr "ਕੀ-ਬੋਰਡ ਪਲੱਗਇਨ"
 
 #: ../plugins/media-keys/gsd-media-keys-manager.c:2020
-#| msgid "Screenshot from %s"
 msgid "Screencast from %d %t.webm"
 msgstr "%d %t.webm ਤੋਂ ਸਕਰੀਨਕਾਸਟ"
 
@@ -1569,7 +1603,6 @@ msgid "Rotate Screen"
 msgstr "ਸਕਰੀਨ ਘੁੰਮਾਓ"
 
 #: ../plugins/media-keys/shortcuts-list.h:144
-#| msgid "Orientation"
 msgid "Orientation Lock"
 msgstr "ਸਥਿਤੀ ਲਾਕ"
 
@@ -2170,7 +2203,7 @@ msgstr "UPS ਦੀ %s ਬੈਕਅੱਪ ਊਰਜਾ ਬਾਕੀ"
 #: ../plugins/power/gsd-power-manager.c:1374
 #: ../plugins/power/gsd-power-manager.c:1547
 #: ../plugins/power/gsd-power-manager.c:1685
-#: ../plugins/power/gsd-power-manager.c:2914
+#: ../plugins/power/gsd-power-manager.c:2915
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "ਪਾਵਰ"
@@ -2567,220 +2600,220 @@ msgid "No driver for this printer."
 msgstr "ਇਸ ਪਰਿੰਟਰ ਲਈ ਕੋਈ ਡਰਾਇਵਰ ਨਹੀਂ ਹੈ।"
 
 #: ../plugins/print-notifications/gsd-printer.c:1032
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:253
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:692
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:782
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:825
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:264
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:703
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:793
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:836
 msgid "Printers"
 msgstr "ਪਰਿੰਟਰ"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:361
 msgid "Toner low"
 msgstr "ਟੋਨਰ ਘੱਟ ਹੈ"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:352
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:363
 msgid "Toner empty"
 msgstr "ਟੋਨਰ ਖਾਲੀ ਹੈ"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:365
 msgid "Not connected?"
 msgstr "ਕੁਨੈਕਟ ਨਹੀਂ ਹੈ?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:356
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:367
 msgid "Cover open"
 msgstr "ਢੱਕਣ ਖੁੱਲ੍ਹਾ ਹੈ"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:369
 msgid "Printer configuration error"
 msgstr "ਪਰਿੰਟਰ ਸੰਰਚਨਾ ਗਲਤੀ"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:360
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 msgid "Door open"
 msgstr "ਦਰਵਾਜ਼ਾ ਖੁੱਲ੍ਹਾ ਹੈ"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:373
 msgid "Marker supply low"
 msgstr "ਮਾਰਕਰ ਸਪਲਾਈ ਘੱਟ ਹੈ"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:364
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
 msgid "Out of a marker supply"
 msgstr "ਮਾਰਕਰ ਸਪਲਾਈ ਖਤਮ ਹੈ"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:377
 msgid "Paper low"
 msgstr "ਪੇਪਰ ਘੱਟ ਹਨ"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:368
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
 msgid "Out of paper"
 msgstr "ਪੇਪਰ ਖਤਮ ਹੈ"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:370
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:381
 msgid "Printer off-line"
 msgstr "ਪਰਿੰਟਰ ਆਫਲਾਈਨ"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:372
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:768
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:779
 msgid "Printer error"
 msgstr "ਪਰਿੰਟਰ ਗਲਤੀ"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:376
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
 #, c-format
 msgid "Printer '%s' is low on toner."
 msgstr "ਪਰਿੰਟਰ '%s' ਦਾ ਟੋਨਰ ਘੱਟ ਹੈ।"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:378
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:389
 #, c-format
 msgid "Printer '%s' has no toner left."
 msgstr "ਪਰਿੰਟਰ '%s' ਦਾ ਟੋਨਰ ਖਤਮ ਹੋ ਗਿਆ ਹੈ।"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:380
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
 #, c-format
 msgid "Printer '%s' may not be connected."
 msgstr "ਪਰਿੰਟਰ '%s' ਸ਼ਾਇਦ ਕੁਨੈਕਸ਼ਨ ਨਾ ਹੋਵੇ।"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:382
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:393
 #, c-format
 msgid "The cover is open on printer '%s'."
 msgstr "ਪਰਿੰਟਰ '%s' ਦਾ ਢੱਕਣ ਖੁੱਲ੍ਹਾ ਹੈ।"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:384
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:395
 #, c-format
 msgid "There is a missing print filter for printer '%s'."
 msgstr "ਪਰਿੰਟਰ '%s' ਲਈ ਪਰਿੰਟ ਫਿਲਟਰ ਗੁੰਮ ਹੈ।"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:398
 #, c-format
 msgid "The door is open on printer '%s'."
 msgstr "ਪਰਿੰਟਰ '%s' ਦਾ ਦਰਵਾਜ਼ਾ ਖੁੱਲ੍ਹਾ ਹੈ।"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:389
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:400
 #, c-format
 msgid "Printer '%s' is low on a marker supply."
 msgstr "ਪਰਿੰਟਰ '%s' ਦੀ ਮਾਰਕਰ ਸਪਲਾਈ ਘੱਟ ਹੈ।"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:402
 #, c-format
 msgid "Printer '%s' is out of a marker supply."
 msgstr "ਪਰਿੰਟਰ '%s' ਦੀ ਮਾਰਕਰ ਸਪਲਾਈ ਖਤਮ ਹੋ ਚੁੱਕੀ ਹੈ।"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:393
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:404
 #, c-format
 msgid "Printer '%s' is low on paper."
 msgstr "ਪਰਿੰਟਰ '%s' ਵਿੱਚ ਪੇਪਰ ਘੱਟ ਹਨ।"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:395
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:406
 #, c-format
 msgid "Printer '%s' is out of paper."
 msgstr "ਪਰਿੰਟਰ '%s' ਵਿੱਚ ਪੇਪਰ ਖਤਮ ਹੋ ਗਿਆ ਹੈ।"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:397
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:408
 #, c-format
 msgid "Printer '%s' is currently off-line."
 msgstr "ਪਰਿੰਟਰ '%s' ਹੁਣ ਬੰਦ (ਆਫਲਾਈਨ) ਹੈ।"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:399
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:410
 #, c-format
 msgid "There is a problem on printer '%s'."
 msgstr "ਪਰਿੰਟਰ '%s' ਉੱਤੇ ਸਮੱਸਿਆ ਹੈ।"
 
 #. Translators: New printer has been added
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:446
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:457
 msgid "Printer added"
 msgstr "ਪਰਿੰਟਰ ਸ਼ਾਮਲ ਕੀਤਾ"
 
 #. Translators: A printer has been removed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:454
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:465
 msgid "Printer removed"
 msgstr "ਪਰਿੰਟਰ ਹਟਾਇਆ ਗਿਆ"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:471
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:509
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:482
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:520
 msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "ਪਰਿੰਟ ਕਰਨਾ ਰੋਕਿਆ"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:473
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:479
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:485
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:491
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:503
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:511
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:519
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:527
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:535
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:548
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:484
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:490
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:496
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:502
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:514
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:522
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:530
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:538
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:546
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:559
 #, c-format
 msgctxt "print job"
 msgid "\"%s\" on %s"
 msgstr "%2$s ਉੱਤੇ \"%1$s\""
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:477
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:517
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:488
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:528
 msgctxt "print job state"
 msgid "Printing canceled"
 msgstr "ਪਰਿੰਟ ਕਰਨਾ ਰੱਦ ਕੀਤਾ"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:483
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:525
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:494
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:536
 msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "ਪਰਿੰਟ ਕਰਨਾ ਅਧੂਰਾ ਛੱਡਿਆ"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:489
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:533
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:500
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:544
 msgctxt "print job state"
 msgid "Printing completed"
 msgstr "ਪਰਿੰਟ ਕਾਰਵਾਈ ਪੂਰੀ ਹੋਈ"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:501
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:546
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:512
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:557
 msgctxt "print job state"
 msgid "Printing"
 msgstr "ਪਰਿੰਟਿੰਗ"
 
 #. Translators: This is a title of a report notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:762
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:773
 msgid "Printer report"
 msgstr "ਪਰਿੰਟਰ ਰਿਪੋਰਟ"
 
 #. Translators: This is a title of a warning notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:765
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:776
 msgid "Printer warning"
 msgstr "ਪਰਿੰਟਰ ਚੇਤਾਵਨੀ"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:775
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:786
 #, c-format
 msgid "Printer '%s': '%s'."
 msgstr "ਪਰਿੰਟਰ '%s': '%s'"
@@ -2808,7 +2841,6 @@ msgid "Rfkill"
 msgstr "Rfkill"
 
 #: ../plugins/rfkill/rfkill.gnome-settings-plugin.in.h:3
-#| msgid "Color plugin"
 msgid "Rfkill plugin"
 msgstr "Rfkill ਪਲੱਗਇਨ"
 
@@ -2860,11 +2892,11 @@ msgstr "ਹੋਰ ਸਾਫਟਵੇਅਰ ਇੰਸਟਾਲ ਕੀਤੇ ਗ�
 #: ../plugins/updates/gsd-updates-firmware.c:283
 #: ../plugins/updates/gsd-updates-firmware.c:311
 #: ../plugins/updates/gsd-updates-firmware.c:603
-#: ../plugins/updates/gsd-updates-manager.c:348
-#: ../plugins/updates/gsd-updates-manager.c:479
-#: ../plugins/updates/gsd-updates-manager.c:541
-#: ../plugins/updates/gsd-updates-manager.c:595
-#: ../plugins/updates/gsd-updates-manager.c:1244
+#: ../plugins/updates/gsd-updates-manager.c:351
+#: ../plugins/updates/gsd-updates-manager.c:482
+#: ../plugins/updates/gsd-updates-manager.c:546
+#: ../plugins/updates/gsd-updates-manager.c:602
+#: ../plugins/updates/gsd-updates-manager.c:1251
 msgid "Software Updates"
 msgstr "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ"
 
@@ -2903,205 +2935,224 @@ msgid "Ignore devices"
 msgstr "ਜੰਤਰ ਅਣਡਿੱਠੇ"
 
 #. TRANSLATORS: this is when the offline update failed
-#: ../plugins/updates/gsd-updates-manager.c:121
+#: ../plugins/updates/gsd-updates-manager.c:124
 msgid "Failed To Update"
 msgstr "ਅੱਪਡੇਟ ਲਈ ਫੇਲ੍ਹ"
 
 #. TRANSLATORS: the transaction could not be completed
 #. * as a previous transaction was unfinished
-#: ../plugins/updates/gsd-updates-manager.c:127
+#: ../plugins/updates/gsd-updates-manager.c:130
 msgid "A previous update was unfinished."
 msgstr "ਪਿਛਲਾ ਅੱਪਡੇਟ ਅਧੂਰਾ ਪਿਆ ਹੈ।"
 
 #. TRANSLATORS: the package manager needed to download
 #. * something with no network available
-#: ../plugins/updates/gsd-updates-manager.c:137
+#: ../plugins/updates/gsd-updates-manager.c:140
 msgid "Network access was required but not available."
 msgstr "ਨੈੱਟਵਰਕ ਦੀ ਲੋੜ ਸੀ, ਪਰ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ।"
 
 #. TRANSLATORS: if the package is not signed correctly
 #. *
-#: ../plugins/updates/gsd-updates-manager.c:146
+#: ../plugins/updates/gsd-updates-manager.c:149
 msgid "An update was not signed in the correct way."
 msgstr "ਅੱਪਡੇਟ ਠੀਕ ਤਰ੍ਹਾਂ ਸਾਇਨ ਨਹੀਂ ਕੀਤਾ ਗਿਆ ਹੈ।"
 
 #. TRANSLATORS: the transaction failed in a way the user
 #. * probably cannot comprehend. Package management systems
 #. * really are teh suck.
-#: ../plugins/updates/gsd-updates-manager.c:156
+#: ../plugins/updates/gsd-updates-manager.c:159
 msgid "The update could not be completed."
 msgstr "ਅੱਪਡੇਟ ਪੂਰਾ ਨਹੀਂ ਹੋਇਆ।"
 
 #. TRANSLATORS: the user aborted the update manually
-#: ../plugins/updates/gsd-updates-manager.c:161
+#: ../plugins/updates/gsd-updates-manager.c:164
 msgid "The update was cancelled."
 msgstr "ਅੱਪਡੇਟ ਰੱਦ ਕੀਤਾ ਗਿਆ ਸੀ।"
 
 #. TRANSLATORS: the user must have updated manually after
 #. * the updates were prepared
-#: ../plugins/updates/gsd-updates-manager.c:167
+#: ../plugins/updates/gsd-updates-manager.c:170
 msgid "An offline update was requested but no packages required updating."
 msgstr ""
 "ਆਫਲਾਈਨ ਅੱਪਡੇਟ ਦੀ ਮੰਗ ਕੀਤੀ ਗਈ ਸੀ, ਪਰ ਅੱਪਡੇਟ ਕਰਨ ਲਈ ਕੋਈ ਪੈਕੇਜ ਨਹੀਂ ਚਾਹੀਦੀ ਹੈ।"
 
 #. TRANSLATORS: we ran out of disk space
-#: ../plugins/updates/gsd-updates-manager.c:171
+#: ../plugins/updates/gsd-updates-manager.c:174
 msgid "No space was left on the drive."
 msgstr "ਜੰਤਰ ਉੱਤੇ ਕੋਈ ਥਾਂ ਨਹੀਂ ਬਾਕੀ ਬਚੀ।"
 
 #. TRANSLATORS: the update process failed in a general
 #. * way, usually this message will come from source distros
 #. * like gentoo
-#: ../plugins/updates/gsd-updates-manager.c:179
+#: ../plugins/updates/gsd-updates-manager.c:182
 msgid "An update failed to install correctly."
 msgstr "ਅੱਪਡੇਟ ਠੀਕ ਤਰ੍ਹਾਂ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਫੇਲ੍ਹ ਹੈ।"
 
 #. TRANSLATORS: We didn't handle the error type
-#: ../plugins/updates/gsd-updates-manager.c:184
+#: ../plugins/updates/gsd-updates-manager.c:187
 msgid "The offline update failed in an unexpected way."
 msgstr "ਆਫਲਾਈਨ ਅੱਪਡੇਟ ਅਣਜਾਣੇ ਢੰਗ ਨਾਲ ਫੇਲ੍ਹ ਹੋਇਆ।"
 
 #. TRANSLATORS: these are geeky messages from the
 #. * package manager no mortal is supposed to understand,
 #. * but google might know what they mean
-#: ../plugins/updates/gsd-updates-manager.c:193
+#: ../plugins/updates/gsd-updates-manager.c:196
 msgid "Detailed errors from the package manager follow:"
 msgstr "ਪੈਕੇਜ ਮੈਨੇਜਰ ਤੋਂ ਵੇਰਵੇ ਸਮੇਤ ਗਲਤੀਆਂ ਅੱਗੇ ਹਨ:"
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:343
+#: ../plugins/updates/gsd-updates-manager.c:346
 msgid "Distribution upgrades available"
 msgstr "ਡਿਸਟਰੀਬਿਊਸ਼ਨ ਅੱਪਗਰੇਡ ਉਪਲੱਬਧ ਹੈ"
 
 #. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:353
+#: ../plugins/updates/gsd-updates-manager.c:356
 msgid "More information"
 msgstr "ਹੋਰ ਜਾਣਕਾਰੀ"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:461
-#: ../plugins/updates/gsd-updates-manager.c:523
+#: ../plugins/updates/gsd-updates-manager.c:464
+#: ../plugins/updates/gsd-updates-manager.c:528
 msgid "Update"
 msgid_plural "Updates"
 msgstr[0] "ਅੱਪਡੇਟ"
 msgstr[1] "ਅੱਪਡੇਟ"
 
 #. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:464
+#: ../plugins/updates/gsd-updates-manager.c:467
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
 msgstr[0] "ਇੱਕ ਖਾਸ ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਹੈ"
 msgstr[1] "ਖਾਸ ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਹਨ"
 
 #. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:484
-#: ../plugins/updates/gsd-updates-manager.c:546
+#: ../plugins/updates/gsd-updates-manager.c:487
+#: ../plugins/updates/gsd-updates-manager.c:551
 msgid "Install updates"
 msgstr "ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕਰੋ"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:526
+#: ../plugins/updates/gsd-updates-manager.c:531
 msgid "A software update is available."
 msgid_plural "Software updates are available."
 msgstr[0] "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਹੈ।"
 msgstr[1] "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਹਨ।"
 
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:582
+#: ../plugins/updates/gsd-updates-manager.c:589
 #: ../plugins/updates/updates.gnome-settings-plugin.in.h:1
 msgid "Updates"
 msgstr "ਅੱਪਡੇਟ"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:586
+#: ../plugins/updates/gsd-updates-manager.c:593
 msgid "Unable to access software updates"
 msgstr "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਲੈਣ ਲਈ ਅਸਮਰੱਥ"
 
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:589
+#: ../plugins/updates/gsd-updates-manager.c:596
 msgid "Try again"
 msgstr "ਮੁੜ-ਕੋਸ਼ਿਸ਼ ਕਰੋ"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:974
+#: ../plugins/updates/gsd-updates-manager.c:981
 msgid "A transaction that cannot be interrupted is running"
 msgstr "ਟਰਾਂਸੈਕਸ਼ਨ, ਜਿਸ ਵਿੱਚ ਦਖ਼ਲ ਨਹੀਂ ਦਿੱਤਾ ਜਾ ਸਕਦਾ, ਚੱਲ ਰਹੀ ਹੈ"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1194
+#: ../plugins/updates/gsd-updates-manager.c:1201
 msgid "Software Update Installed"
 msgid_plural "Software Updates Installed"
 msgstr[0] "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਹੈ"
 msgstr[1] "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਹਨ"
 
 #. TRANSLATORS: message when we've done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1199
+#: ../plugins/updates/gsd-updates-manager.c:1206
 msgid "An important OS update has been installed."
 msgid_plural "Important OS updates have been installed."
 msgstr[0] "ਖਾਸ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕੀਤਾ ਗਿਆ ਹੈ।"
 msgstr[1] "ਖਾਸ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕੀਤੇ ਗਏ ਹਨ।"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1225
+#: ../plugins/updates/gsd-updates-manager.c:1232
 msgid "Software Updates Failed"
 msgstr "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਫੇਲ੍ਹ ਹੈ"
 
 #. TRANSLATORS: message when we've not done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1228
+#: ../plugins/updates/gsd-updates-manager.c:1235
 msgid "An important OS update failed to be installed."
 msgstr "ਖਾਸ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਫੇਲ੍ਹ ਹੈ।"
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1251
+#: ../plugins/updates/gsd-updates-manager.c:1258
 msgid "Review"
 msgstr "ਪੜਤਾਲ"
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1256
+#: ../plugins/updates/gsd-updates-manager.c:1263
 msgid "Show details"
 msgstr "ਵੇਰਵਾ ਵੇਖਾਓ"
 
 #. TRANSLATORS: button: clear notification
-#: ../plugins/updates/gsd-updates-manager.c:1260
+#: ../plugins/updates/gsd-updates-manager.c:1267
 msgid "OK"
 msgstr "ਠੀਕ ਹੈ"
+
+#: ../plugins/updates/gsd-updates-manager.c:1405
+#| msgid "Software Updates Failed"
+msgid "Software Updates available"
+msgstr "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਹਨ"
+
+#: ../plugins/updates/gsd-updates-manager.c:1406
+#| msgid "An important OS update failed to be installed."
+msgid "Important OS and application updates are ready to be installed"
+msgstr "ਖਾਸ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਅਤੇ ਐਪਲੀਕੇਸ਼ਨ ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਉਪਲੱਬਧ ਹਨ"
+
+#: ../plugins/updates/gsd-updates-manager.c:1410
+msgid "GNOME Software"
+msgstr "ਗਨੋਮ ਸਾਫਟਵੇਅਰ"
+
+#. TRANSLATORS: don't install updates now
+#: ../plugins/updates/gsd-updates-manager.c:1415
+msgid "Not Now"
+msgstr "ਹੁਣੇ ਨਹੀਂ"
+
+#. TRANSLATORS: view available updates
+#: ../plugins/updates/gsd-updates-manager.c:1421
+msgid "View"
+msgstr "ਵੇਖਾਓ"
+
+#. TRANSLATORS: install available updates
+#: ../plugins/updates/gsd-updates-manager.c:1427
+msgid "Restart & Install"
+msgstr "ਮੁੜ-ਚਾਲੂ ਤੇ ਇੰਸਟਾਲ ਕਰੋ"
 
 #: ../plugins/updates/updates.gnome-settings-plugin.in.h:2
 msgid "Updates plugin"
 msgstr "ਅੱਪਡੇਟ ਪਲੱਗਇਨ"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:51
-#| msgctxt "Action type"
-#| msgid "None"
 msgctxt "Wacom action-type"
 msgid "None"
 msgstr "ਕੋਈ ਨਹੀਂ"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:52
-#| msgctxt "Action type"
-#| msgid "Send Keystroke %s"
 msgctxt "Wacom action-type"
 msgid "Send Keystroke"
 msgstr "ਕੀਸਟਰੋਕ ਭੇਜੋ"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:53
-#| msgctxt "Action type"
-#| msgid "Switch Monitor"
 msgctxt "Wacom action-type"
 msgid "Switch Monitor"
 msgstr "ਮਾਨੀਟਰ ਬਦਲੋ"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:54
-#| msgctxt "Action type"
-#| msgid "Show On-Screen Help"
 msgctxt "Wacom action-type"
 msgid "Show On-Screen Help"
 msgstr "ਸਕਰੀਨ ਉੱਤੇ ਮੱਦਦ ਵੇਖਾਓ"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:184
-#| msgctxt "Action type"
-#| msgid "None"
 msgctxt "keyboard shortcut"
 msgid "None"
 msgstr "ਕੋਈ ਨਹੀਂ"
@@ -3175,22 +3226,22 @@ msgstr "ਸੱਜਾ ਟੱਚਸਟਰਿਪ ਮੋਡ ਬਦਲੋ"
 msgid "Mode Switch #%d"
 msgstr "ਮੋਡ ਬਦਲੋ #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1336
+#: ../plugins/wacom/gsd-wacom-device.c:1335
 #, c-format
 msgid "Left Button #%d"
 msgstr "ਖੱਬਾ ਬਟਨ #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1339
+#: ../plugins/wacom/gsd-wacom-device.c:1338
 #, c-format
 msgid "Right Button #%d"
 msgstr "ਸੱਜਾ ਬਟਨ #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1342
+#: ../plugins/wacom/gsd-wacom-device.c:1341
 #, c-format
 msgid "Top Button #%d"
 msgstr "ਟਾਪ ਬਟਨ #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1345
+#: ../plugins/wacom/gsd-wacom-device.c:1344
 #, c-format
 msgid "Bottom Button #%d"
 msgstr "ਤਲ ਬਟਨ #%d"
@@ -3210,23 +3261,19 @@ msgstr "ਅਣਜਾਣ ਟੇਬਲੇਟ ਕੁਨੈਕਟ ਹੈ"
 
 #: ../plugins/wacom/gsd-wacom-manager.c:1105
 #: ../plugins/wacom/gsd-wacom-manager.c:1680
-#| msgid "X Settings"
 msgid "Wacom Settings"
 msgstr "ਵਾਕੋਮ ਸੈਟਿੰਗ"
 
 #: ../plugins/wacom/gsd-wacom-manager.c:1673
 #, c-format
-#| msgid "The printer '%s' should be recalibrated soon."
 msgid "Tablet %s needs to be calibrated."
 msgstr "ਟੇਬਲੇਟ '%s' ਨੂੰ ਕੈਲੀਬਰੇਟ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ।"
 
 #: ../plugins/wacom/gsd-wacom-manager.c:1675
-#| msgid "Color calibration device added"
 msgid "Calibration needed"
 msgstr "ਕੈਲੀਬਰੇਟ ਕਰਨ ਦੀ ਲੋੜ ਹੈ"
 
 #: ../plugins/wacom/gsd-wacom-manager.c:1689
-#| msgid "Recalibrate now"
 msgid "Calibrate"
 msgstr "ਕੈਲੀਬਰੇਟ ਕਰੋ"
 
@@ -3291,12 +3338,10 @@ msgstr "ਵਕੋਮ ਟੇਬਲ ਲਈ lit LED ਬਦਲਣ ਲਈ ਪਰਮ�
 #. to change the OLED images for a Wacom tablet
 #.
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:11
-#| msgid "Modify the lit LED for a Wacom tablet"
 msgid "Modify the OLED image for a Wacom tablet"
 msgstr "ਵਕੋਮ ਟੇਬਲੇਟ ਲਈ OLED ਚਿੱਤਰ ਬਦਲੋ"
 
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:12
-#| msgid "Authentication is required to modify the lit LED for a Wacom tablet"
 msgid "Authentication is required to modify the OLED image for a Wacom tablet"
 msgstr "ਵਕੋਮ ਟੇਬਲ ਲਈ OLED ਚਿੱਤਰ ਬਦਲਣ ਲਈ ਪਰਮਾਣਕਿਤਾ ਚਾਹੀਦੀ ਹੈ"
 
