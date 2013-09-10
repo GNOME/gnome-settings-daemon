@@ -3310,8 +3310,8 @@ on_rr_screen_acquired (GObject      *object,
                       "is-rechargeable", TRUE,
                       "native-path", "dummy:composite_battery",
                       "power-supply", TRUE,
-                      "is-present", TRUE,
                       NULL);
+        engine_update_composite_device (manager);
 
         /* get percentage policy */
         manager->priv->low_percentage = g_settings_get_int (manager->priv->settings,
