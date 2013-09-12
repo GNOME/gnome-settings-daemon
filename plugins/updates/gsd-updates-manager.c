@@ -211,6 +211,30 @@ show_offline_updates_error (GsdUpdatesManager *manager)
         g_string_free (msg, TRUE);
 }
 
+static gboolean
+does_gnome_software_exist (void)
+{
+        return g_file_test (BINDIR "/gnome-software", G_FILE_TEST_EXISTS);
+}
+
+static void
+start_gnome_software_with_mode (const gchar *mode)
+{
+        gboolean ret;
+        gchar **argv;
+        GError *error = NULL;
+
+        argv = g_new0 (gchar *, 3);
+        argv[0] = g_build_filename (BINDIR, "gnome-software", NULL);
+        argv[1] = g_strdup_printf ("--mode %s", mode);
+        ret = g_spawn_async (NULL, argv, NULL, 0, NULL, NULL, NULL, &error);
+        if (!ret) {
+                g_warning ("Failed to spawn gnome-software: %s", error->message);
+                g_error_free (error);
+        }
+        g_strfreev (argv);
+}
+
 static void
 libnotify_action_cb (NotifyNotification *notification,
                      gchar *action,
@@ -232,13 +256,21 @@ libnotify_action_cb (NotifyNotification *notification,
                 goto out;
         }
         if (g_strcmp0 (action, "show-update-viewer") == 0) {
-                ret = g_spawn_command_line_async (BINDIR "/gpk-update-viewer",
-                                                  &error);
-                if (!ret) {
-                        g_warning ("Failure launching update viewer: %s",
-                                   error->message);
-                        g_error_free (error);
+                if (does_gnome_software_exist ()) {
+                        start_gnome_software_with_mode ("updates");
+                } else {
+                        ret = g_spawn_command_line_async (BINDIR "/gpk-update-viewer",
+                                                          &error);
+                        if (!ret) {
+                                g_warning ("Failure launching update viewer: %s",
+                                           error->message);
+                                g_error_free (error);
+                        }
                 }
+                goto out;
+        }
+        if (g_strcmp0 (action, "review-offline-updates") == 0) {
+                start_gnome_software_with_mode ("updated");
                 goto out;
         }
         if (g_strcmp0 (action, "clear-offline-updates") == 0) {
@@ -1252,11 +1284,10 @@ check_offline_update_cb (gpointer user_data)
         notify_notification_set_timeout (notification, -1);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
         if (success) {
-#if 0
+                if (does_gnome_software_exist ())
                 notify_notification_add_action (notification, "review-offline-updates",
                                                 /* TRANSLATORS: button: review the offline update changes */
                                                 _("Review"), libnotify_action_cb, manager, NULL);
-#endif
         } else {
                 notify_notification_add_action (notification, "error-offline-updates",
                                                 /* TRANSLATORS: button: review the offline update changes */
