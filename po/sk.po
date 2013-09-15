@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-09-08 16:07+0000\n"
-"PO-Revision-Date: 2013-09-02 13:50+0100\n"
+"POT-Creation-Date: 2013-09-12 14:21+0000\n"
+"PO-Revision-Date: 2013-09-11 10:14+0100\n"
 "Last-Translator: Peter Mráz <etkinator@gmail.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -1535,7 +1535,7 @@ msgstr "Automaticky aktualizovať časové pásmo a zobrazovať oznámenia"
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #: ../plugins/datetime/gsd-datetime-manager.c:104
 msgid "UTC%:::z"
-msgstr ""
+msgstr "UTC%:::z"
 
 #: ../plugins/datetime/gsd-datetime-manager.c:108
 #, c-format
@@ -1543,12 +1543,10 @@ msgid "Time Zone Updated to %s (%s)"
 msgstr "Časové pásmo aktualizované na %s (%s)"
 
 #: ../plugins/datetime/gsd-datetime-manager.c:128
-#| msgid "Manage X Settings"
 msgid "Date & Time Settings"
 msgstr "Nastavenia dátumu a času"
 
 #: ../plugins/datetime/gsd-datetime-manager.c:136
-#| msgid "X Settings"
 msgid "Settings"
 msgstr "Nastavenia"
 
@@ -3154,11 +3152,11 @@ msgstr "Prídavný softvér bol nainštalovaný"
 #: ../plugins/updates/gsd-updates-firmware.c:283
 #: ../plugins/updates/gsd-updates-firmware.c:311
 #: ../plugins/updates/gsd-updates-firmware.c:603
-#: ../plugins/updates/gsd-updates-manager.c:351
-#: ../plugins/updates/gsd-updates-manager.c:482
-#: ../plugins/updates/gsd-updates-manager.c:546
-#: ../plugins/updates/gsd-updates-manager.c:602
-#: ../plugins/updates/gsd-updates-manager.c:1251
+#: ../plugins/updates/gsd-updates-manager.c:383
+#: ../plugins/updates/gsd-updates-manager.c:514
+#: ../plugins/updates/gsd-updates-manager.c:578
+#: ../plugins/updates/gsd-updates-manager.c:634
+#: ../plugins/updates/gsd-updates-manager.c:1283
 msgid "Software Updates"
 msgstr "Aktualizácie softvéru"
 
@@ -3272,19 +3270,19 @@ msgstr "Nasledujú podrobné chybové správy zo správcu balíkov:"
 
 # notification title
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:346
+#: ../plugins/updates/gsd-updates-manager.c:378
 msgid "Distribution upgrades available"
 msgstr "Dostupná nová verzia distribúcie"
 
 # action
 #. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:356
+#: ../plugins/updates/gsd-updates-manager.c:388
 msgid "More information"
 msgstr "Viac informácií"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:464
-#: ../plugins/updates/gsd-updates-manager.c:528
+#: ../plugins/updates/gsd-updates-manager.c:496
+#: ../plugins/updates/gsd-updates-manager.c:560
 msgid "Update"
 msgid_plural "Updates"
 msgstr[0] "Aktualizácie"
@@ -3292,7 +3290,7 @@ msgstr[1] "Aktualizácia"
 msgstr[2] "Aktualizácie"
 
 #. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:467
+#: ../plugins/updates/gsd-updates-manager.c:499
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
 msgstr[0] "Sú dostupné dôležité softvérové aktualizácie"
@@ -3300,13 +3298,13 @@ msgstr[1] "Je dostupná dôležitá softvérová aktualizácia"
 msgstr[2] "Sú dostupné dôležité softvérové aktualizácie"
 
 #. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:487
-#: ../plugins/updates/gsd-updates-manager.c:551
+#: ../plugins/updates/gsd-updates-manager.c:519
+#: ../plugins/updates/gsd-updates-manager.c:583
 msgid "Install updates"
 msgstr "Inštalovať aktualizácie"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:531
+#: ../plugins/updates/gsd-updates-manager.c:563
 msgid "A software update is available."
 msgid_plural "Software updates are available."
 msgstr[0] "Sú dostupné softvérové aktualizácie."
@@ -3314,31 +3312,31 @@ msgstr[1] "Je dostupná softvérová aktualizácia."
 msgstr[2] "Sú dostupné softvérové aktualizácie."
 
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:589
+#: ../plugins/updates/gsd-updates-manager.c:621
 #: ../plugins/updates/updates.gnome-settings-plugin.in.h:1
 msgid "Updates"
 msgstr "Aktualizácie"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:593
+#: ../plugins/updates/gsd-updates-manager.c:625
 msgid "Unable to access software updates"
 msgstr "Nepodaril sa prístup k softvérovým aktualizáciám"
 
 # button
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:596
+#: ../plugins/updates/gsd-updates-manager.c:628
 msgid "Try again"
 msgstr "Skúsiť znova"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:981
+#: ../plugins/updates/gsd-updates-manager.c:1013
 msgid "A transaction that cannot be interrupted is running"
 msgstr "Beží transakcia, ktorá nesmie byť prerušená"
 
 # notification app name
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1201
+#: ../plugins/updates/gsd-updates-manager.c:1233
 msgid "Software Update Installed"
 msgid_plural "Software Updates Installed"
 msgstr[0] "Nainštalované aktualizácie softvéru"
@@ -3346,7 +3344,7 @@ msgstr[1] "Nainštalovaná aktualizácia softvéru"
 msgstr[2] "Nainštalované aktualizácie softvéru"
 
 #. TRANSLATORS: message when we've done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1206
+#: ../plugins/updates/gsd-updates-manager.c:1238
 msgid "An important OS update has been installed."
 msgid_plural "Important OS updates have been installed."
 msgstr[0] "Boli nainštalované dôležité aktualizácie systému."
@@ -3355,55 +3353,55 @@ msgstr[2] "Boli nainštalované dôležité aktualizácie systému."
 
 # notification app name
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1232
+#: ../plugins/updates/gsd-updates-manager.c:1264
 msgid "Software Updates Failed"
 msgstr "Zlyhanie aktualizácie softvéru"
 
 #. TRANSLATORS: message when we've not done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1235
+#: ../plugins/updates/gsd-updates-manager.c:1267
 msgid "An important OS update failed to be installed."
 msgstr "Nepodarilo sa nainštalovať dôležitú aktualizáciu systému."
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1258
+#: ../plugins/updates/gsd-updates-manager.c:1290
 msgid "Review"
 msgstr "Revízia"
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1263
+#: ../plugins/updates/gsd-updates-manager.c:1294
 msgid "Show details"
 msgstr "Zobraziť podrobnosti"
 
 #. TRANSLATORS: button: clear notification
-#: ../plugins/updates/gsd-updates-manager.c:1267
+#: ../plugins/updates/gsd-updates-manager.c:1298
 msgid "OK"
 msgstr "Ok"
 
 # notification app name
-#: ../plugins/updates/gsd-updates-manager.c:1405
+#: ../plugins/updates/gsd-updates-manager.c:1436
 msgid "Software Updates available"
 msgstr "Dostupné aktualizácie softvéru"
 
-#: ../plugins/updates/gsd-updates-manager.c:1406
+#: ../plugins/updates/gsd-updates-manager.c:1437
 msgid "Important OS and application updates are ready to be installed"
 msgstr "Dôležité aktualizácie systému a aplikácií sú pripravené na inštaláciu"
 
-#: ../plugins/updates/gsd-updates-manager.c:1410
+#: ../plugins/updates/gsd-updates-manager.c:1441
 msgid "GNOME Software"
 msgstr "Softvér GNOME"
 
 #. TRANSLATORS: don't install updates now
-#: ../plugins/updates/gsd-updates-manager.c:1415
+#: ../plugins/updates/gsd-updates-manager.c:1446
 msgid "Not Now"
 msgstr "Teraz nie"
 
 #. TRANSLATORS: view available updates
-#: ../plugins/updates/gsd-updates-manager.c:1421
+#: ../plugins/updates/gsd-updates-manager.c:1452
 msgid "View"
 msgstr "Zobraziť"
 
 #. TRANSLATORS: install available updates
-#: ../plugins/updates/gsd-updates-manager.c:1427
+#: ../plugins/updates/gsd-updates-manager.c:1458
 msgid "Restart & Install"
 msgstr "Reštartovať a nainštalovať"
 
