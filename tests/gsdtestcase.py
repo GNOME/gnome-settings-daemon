@@ -185,46 +185,23 @@ class GSDTestCase(dbusmock.DBusTestCase):
         self.logind.terminate()
         self.logind.wait()
 
-    def start_mutter(self):
-        ''' start mock mutter DisplayConfig '''
-        self.mutter = self.spawn_server('org.gnome.Mutter.DisplayConfig',
-                                        '/org/gnome/Mutter/DisplayConfig',
-                                        'org.gnome.Mutter.DisplayConfig',
-                                        stdout=subprocess.PIPE)
-        self.obj_mutter = self.session_bus_con.get_object(
-            'org.gnome.Mutter.DisplayConfig', '/org/gnome/Mutter/DisplayConfig')
+    def start_mutter(klass):
+        ''' start mutter '''
 
-        self.obj_mutter.AddMethods('',
-            [
-                ('GetResources', '', 'ua(uxiiiiiuaua{sv})a(uxiausauaua{sv})a(uxuud)ii', '''
-ret = (1, [(0, 1, 0, 0, 1024, 768, 0, 0, [0, 1, 2, 3, 4, 5, 6, 7], {}),
-           (1, 2, 0, 0, 0, 0, -1, 0, [], {})],
-          [(0, 3, 0, [0, 1], 'LVDS1', [0, 1], [], {'vendor': 'FOO',
-                                                   'product': '0x0000',
-                                                   'serial': '0x0000000',
-                                                   'display-name': 'Built-in Display',
-                                                   'backlight': -1,
-                                                   'primary': True })],
-          [(0, 5, 1024, 768, 60), (1, 6, 800, 600, 60)], 8192, 8192)'''),
-                ('ApplyConfiguration', 'uba(uiiiuaua{sv})a(ua{sv})', '', ''),
-                ('ChangeBacklight', 'uui', '', ''),
-                ('GetCrtcGamma', 'uu', 'aqaqaq', 'ret = ([],[],[])'),
-                ('SetCrtcGamma', 'uuaqaqaq', '', ''),
-            ], dbus_interface='org.freedesktop.DBus.Mock')
+        klass.mutter_log = open(os.path.join(klass.workdir, 'mutter.log'), 'wb')
+        klass.mutter = subprocess.Popen(['mutter'],
+                                         stdout=klass.monitor_log,
+                                         stderr=subprocess.STDOUT)
 
-        self.obj_mutter.AddProperties('',
-                                      {
-                                          'PowerSaveMode': 0,
-                                      })
+    def stop_mutter(klass):
+        '''stop mutter'''
 
-        # set log to nonblocking
-        set_nonblock(self.mutter.stdout)
+        assert klass.monitor
+        klass.mutter.terminate()
+        klass.mutter.wait()
 
-    def stop_mutter(self):
-        '''stop mock mutter'''
-
-        self.mutter.terminate()
-        self.mutter.wait()
+        klass.mutter_log.flush()
+        klass.mutter_log.close()
 
     @classmethod
     def start_xorg(klass):
