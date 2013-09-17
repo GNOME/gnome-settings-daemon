@@ -731,7 +731,8 @@ engine_update_composite_device (GsdPowerManager *manager)
                 battery_devices++;
         }
 
-        if (battery_devices == 0)
+        if (battery_devices == 0) {
+                state = UP_DEVICE_STATE_UNKNOWN;
                 goto out;
 
         /* use percentage weighted for each battery capacity */
