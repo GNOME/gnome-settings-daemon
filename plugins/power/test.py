@@ -78,6 +78,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.settings_screensaver = Gio.Settings('org.gnome.desktop.screensaver')
         self.settings_screensaver['lock-enabled'] = False
 
+        # Ensure we set up the external monitor state
+        self.set_has_external_monitor(False)
+
         self.settings_gsd_power = Gio.Settings('org.gnome.settings-daemon.plugins.power')
 
         # start power plugin
