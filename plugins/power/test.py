@@ -85,6 +85,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # start power plugin
         self.settings_gsd_power['active'] = False
+        # As hibernate is not available, suspend by default on critical
+        self.settings_gsd_power['critical-battery-action'] = 'suspend'
         Gio.Settings.sync()
         self.plugin_log_write = open(os.path.join(self.workdir, 'plugin_power.log'), 'wb')
         # avoid painfully long delays of actions for tests
