@@ -717,9 +717,9 @@ engine_update_composite_device (GsdPowerManager *manager)
                 /* one of these will be charging or discharging */
                 if (state == UP_DEVICE_STATE_CHARGING)
                         is_charging = TRUE;
-                if (state == UP_DEVICE_STATE_DISCHARGING)
+                else if (state == UP_DEVICE_STATE_DISCHARGING)
                         is_discharging = TRUE;
-                if (state != UP_DEVICE_STATE_FULLY_CHARGED)
+                else if (state != UP_DEVICE_STATE_FULLY_CHARGED)
                         is_fully_charged = FALSE;
 
                 /* sum up composite */
