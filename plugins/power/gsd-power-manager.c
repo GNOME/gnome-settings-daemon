@@ -734,16 +734,17 @@ engine_update_composite_device (GsdPowerManager *manager)
         if (battery_devices == 0) {
                 state = UP_DEVICE_STATE_UNKNOWN;
                 goto out;
+        }
 
         /* use percentage weighted for each battery capacity */
         if (energy_full_total > 0.0)
                 percentage = 100.0 * energy_total / energy_full_total;
 
         /* set composite state */
-        if (is_charging)
-                state = UP_DEVICE_STATE_CHARGING;
-        else if (is_discharging)
+        if (is_discharging)
                 state = UP_DEVICE_STATE_DISCHARGING;
+        else if (is_charging)
+                state = UP_DEVICE_STATE_CHARGING;
         else if (is_fully_charged)
                 state = UP_DEVICE_STATE_FULLY_CHARGED;
         else
