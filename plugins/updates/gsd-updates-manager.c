@@ -1324,8 +1324,10 @@ reboot_failed (GObject *source, GAsyncResult *res, gpointer data)
         GError *error = NULL;
 
         ret = g_dbus_connection_call_finish (G_DBUS_CONNECTION (source), res, &error);
-        if (ret)
+        if (ret) {
                 g_variant_unref (ret);
+                return;
+        }
 
         if (error) {
                 g_warning ("Calling org.gnome.SessionManager.Reboot failed: %s\n", error->message);
