@@ -766,7 +766,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # Drop inhibitor
         self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id))
 
-    def test_unindle_on_ac_plug(self):
+    def disabled_test_unindle_on_ac_plug(self):
         idle_delay = round(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY / gsdpowerconstants.IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER)
         self.settings_session['idle-delay'] = idle_delay
 
