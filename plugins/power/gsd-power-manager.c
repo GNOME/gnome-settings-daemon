@@ -2175,7 +2175,6 @@ do_lid_closed_action (GsdPowerManager *manager)
                 restart_inhibit_lid_switch_timer (manager);
         } else {
                 stop_inhibit_lid_switch_timer (manager);
-                uninhibit_lid_switch (manager);
         }
 }
 
