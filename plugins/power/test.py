@@ -368,7 +368,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.assertFalse('TESTSUITE: Blanked screen' in log, 'unexpected blank request')
 
     def test_screensaver(self):
-        self.settings_screensaver['lock-enabled'] = False
+        # Note that the screensaver mock object
+        # doesn't know how to get out of being active,
+        # be it if the lock is disabled, or not.
 
         self.obj_screensaver.Lock()
         # 0.3 second animation
