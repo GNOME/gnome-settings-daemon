@@ -442,8 +442,7 @@ gsd_cursor_manager_start (GsdCursorManager  *manager,
                 return FALSE;
         }
 
-        /* Start by hiding the cursor, and then initialising the default
-         * root window cursor, as the window manager shouldn't do that. */
+        /* Start by hiding the cursor */
         set_cursor_visibility (manager, FALSE);
 
         manager->priv->cancellable = g_cancellable_new ();
