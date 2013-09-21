@@ -1091,8 +1091,10 @@ touchpad_callback (GSettings       *settings,
                         continue;
 
                 if (g_str_equal (key, KEY_TAP_TO_CLICK)) {
+                        gboolean mouse_left_handed;
+                        mouse_left_handed = g_settings_get_boolean (manager->priv->mouse_settings, KEY_LEFT_HANDED);
                         set_tap_to_click (device, g_settings_get_boolean (settings, key),
-                                          g_settings_get_boolean (manager->priv->touchpad_settings, KEY_LEFT_HANDED));
+                                          get_touchpad_handedness (manager, mouse_left_handed));
                 } else if (g_str_equal (key, KEY_SCROLL_METHOD)) {
                         set_scroll_method (manager, device, g_settings_get_enum (settings, key));
                         set_horiz_scroll (device, g_settings_get_boolean (settings, KEY_PAD_HORIZ_SCROLL));
