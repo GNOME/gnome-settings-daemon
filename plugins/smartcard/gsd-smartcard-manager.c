@@ -346,7 +346,6 @@ on_driver_registered (GsdSmartcardManager *self,
 
         if (!register_driver_finish (self, result, &error)) {
                 g_task_return_error (task, error);
-                g_object_unref (task);
                 return;
         }
 
