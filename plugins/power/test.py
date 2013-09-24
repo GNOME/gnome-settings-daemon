@@ -32,6 +32,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
     def setUp(self):
         self.check_logind_gnome_session()
+        self.start_logind()
         self.daemon_death_expected = False
         self.session_log_write = open(os.path.join(self.workdir, 'gnome-session.log'), 'wb')
         self.session = subprocess.Popen(['gnome-session', '-f',
@@ -65,7 +66,6 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             'gnome_screensaver', stdout=subprocess.PIPE)
         gsdtestcase.set_nonblock(self.screensaver.stdout)
 
-        self.start_logind()
         self.start_mutter()
 
         # Set up the gnome-session presence
