@@ -76,9 +76,6 @@
 
 #define SHELL_GRABBER_RETRY_INTERVAL 1
 
-/* Screencasts last for 30 seconds */
-#define SCREENCAST_LENGTH 30
-
 static const gchar introspection_xml[] =
 "<node name='/org/gnome/SettingsDaemon/MediaKeys'>"
 "  <interface name='org.gnome.SettingsDaemon.MediaKeys'>"
@@ -177,6 +174,7 @@ struct GsdMediaKeysManagerPrivate
         /* Screencast stuff */
         GDBusProxy      *screencast_proxy;
         guint            screencast_timeout_id;
+        gboolean         screencast_recording;
         GCancellable    *screencast_cancellable;
 
         /* systemd stuff */
@@ -595,6 +593,11 @@ gsettings_changed_cb (GSettings           *settings,
 	/* handled in gsettings_custom_changed_cb() */
         if (g_str_equal (settings_key, "custom-keybindings"))
 		return;
+
+	/* not needed here */
+        if (g_str_equal (settings_key, "max-screencast-length"))
+		return;
+
 
         /* Find the key that was modified */
         for (i = 0; i < manager->priv->keys->len; i++) {
@@ -1997,6 +2000,8 @@ screencast_stop (GsdMediaKeysManager *manager)
                            G_DBUS_CALL_FLAGS_NONE, -1,
                            manager->priv->screencast_cancellable,
                            NULL, NULL);
+
+        manager->priv->screencast_recording = FALSE;
 }
 
 static gboolean
@@ -2010,6 +2015,7 @@ screencast_timeout (gpointer user_data)
 static void
 screencast_start (GsdMediaKeysManager *manager)
 {
+        guint max_length;
         g_dbus_proxy_call (manager->priv->screencast_proxy,
                            "Screencast",
                            /* Translators: this is a filename used for screencast
@@ -2022,9 +2028,13 @@ screencast_start (GsdMediaKeysManager *manager)
                            manager->priv->screencast_cancellable,
                            NULL, NULL);
 
-        manager->priv->screencast_timeout_id = g_timeout_add_seconds (SCREENCAST_LENGTH,
-                                                                      screencast_timeout,
-                                                                      manager);
+        max_length = g_settings_get_int (manager->priv->settings, "max-screencast-length");
+
+        if (max_length > 0)
+                manager->priv->screencast_timeout_id = g_timeout_add_seconds (max_length,
+                                                                              screencast_timeout,
+                                                                              manager);
+        manager->priv->screencast_recording = TRUE;
 }
 
 static void
@@ -2033,7 +2043,7 @@ do_screencast_action (GsdMediaKeysManager *manager)
         if (manager->priv->screencast_proxy == NULL)
                 return;
 
-        if (manager->priv->screencast_timeout_id == 0)
+        if (!manager->priv->screencast_recording)
                 screencast_start (manager);
         else
                 screencast_stop (manager);
