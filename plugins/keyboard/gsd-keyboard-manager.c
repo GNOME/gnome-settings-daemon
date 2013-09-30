@@ -913,29 +913,64 @@ append_options (gchar **a,
 }
 
 static void
-add_xkb_options (GsdKeyboardManager *manager,
-                 XkbRF_VarDefsRec   *xkb_var_defs,
-                 gchar             **extra_options)
+strip_xkb_option (gchar       **options,
+                  const gchar  *prefix)
+{
+        guint last;
+        gchar **p = options;
+
+        if (!p)
+                return;
+
+        while (*p) {
+                if (g_str_has_prefix (*p, prefix)) {
+                        last = g_strv_length (options) - 1;
+                        g_free (*p);
+                        *p = options[last];
+                        options[last] = NULL;
+                }
+                p += 1;
+        }
+}
+
+static gchar *
+prepare_xkb_options (GsdKeyboardManager *manager,
+                     guint               n_sources,
+                     gchar             **extra_options)
 {
         gchar **options;
         gchar **settings_options;
+        gchar  *options_str;
 
         settings_options = g_settings_get_strv (manager->priv->input_sources_settings,
                                                 KEY_KEYBOARD_OPTIONS);
         options = append_options (settings_options, extra_options);
         g_strfreev (settings_options);
 
-        free (xkb_var_defs->options);
-        xkb_var_defs->options = build_xkb_options_string (options);
+        /* We might set up different layouts in different groups - see
+         * replace_layout_and_variant(). But we don't want the X
+         * server group switching feature to actually switch
+         * them. Regularly, if we have at least two input sources,
+         * gnome-shell will tell us to switch input source at that
+         * point so we fix that automatically. But when there's only
+         * one source, gnome-shell short circuits as an optimization
+         * and doesn't call us so we can't set the group switching XKB
+         * option in the first place otherwise the X server's switch
+         * will take effect and we get a broken configuration. */
+        if (n_sources < 2)
+                strip_xkb_option (options, "grp:");
 
+        options_str = build_xkb_options_string (options);
         g_strfreev (options);
+
+        return options_str;
 }
 
 static void
 apply_xkb_settings (GsdKeyboardManager *manager,
                     const gchar        *layout,
                     const gchar        *variant,
-                    gchar             **options)
+                    gchar              *options)
 {
         XkbRF_RulesRec *xkb_rules;
         XkbRF_VarDefsRec *xkb_var_defs;
@@ -943,7 +978,9 @@ apply_xkb_settings (GsdKeyboardManager *manager,
 
         gnome_xkb_info_get_var_defs (&rules_file_path, &xkb_var_defs);
 
-        add_xkb_options (manager, xkb_var_defs, options);
+        free (xkb_var_defs->options);
+        xkb_var_defs->options = options;
+
         replace_layout_and_variant (manager, xkb_var_defs, layout, variant);
 
         gdk_error_trap_push ();
@@ -1055,7 +1092,8 @@ apply_input_sources_settings (GSettings          *settings,
         }
 
  exit:
-        apply_xkb_settings (manager, layout, variant, options);
+        apply_xkb_settings (manager, layout, variant,
+                            prepare_xkb_options (manager, n_sources, options));
         maybe_return_from_set_input_source (manager);
         g_variant_unref (sources);
         g_free (layout);
