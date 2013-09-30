@@ -57,7 +57,6 @@
 
 #define KEY_ROTATION            "rotation"
 #define KEY_TOUCH               "touch"
-#define KEY_TPCBUTTON           "tablet-pc-button"
 #define KEY_IS_ABSOLUTE         "is-absolute"
 #define KEY_AREA                "area"
 #define KEY_DISPLAY             "display"
@@ -576,26 +575,6 @@ set_touch (GsdWacomDevice *device,
 }
 
 static void
-set_tpcbutton (GsdWacomDevice *device,
-	       gboolean        tpcbutton)
-{
-        /* Wacom's TPCButton option which this setting emulates is to enable
-         * Tablet PC stylus behaviour when on. The property "Hover Click"
-         * works the other way round, i.e. if Hover Click is enabled this
-         * is the equivalent of TPC behaviour disabled. */
-        gchar data = tpcbutton ? 0 : 1;
-        PropertyHelper property = {
-                .name = "Wacom Hover Click",
-                .nitems = 1,
-                .format = 8,
-                .type   = XA_INTEGER,
-                .data.c = &data,
-        };
-
-        wacom_set_property (device, &property);
-}
-
-static void
 set_pressurethreshold (GsdWacomDevice *device,
                        gint            threshold)
 {
@@ -874,9 +853,6 @@ set_wacom_settings (GsdWacomManager *manager,
 		return;
 	}
 
-	if (type == WACOM_TYPE_STYLUS)
-		set_tpcbutton (device, g_settings_get_boolean (settings, KEY_TPCBUTTON));
-
 	set_absolute (device, g_settings_get_boolean (settings, KEY_IS_ABSOLUTE));
 
 	/* Ignore touch devices as they do not share the same range of values for area */
@@ -909,8 +885,6 @@ wacom_settings_changed (GSettings      *settings,
 	} else if (g_str_equal (key, KEY_TOUCH)) {
 	        if (type == WACOM_TYPE_TOUCH)
 			set_touch (device, g_settings_get_boolean (settings, key));
-	} else if (g_str_equal (key, KEY_TPCBUTTON)) {
-		set_tpcbutton (device, g_settings_get_boolean (settings, key));
 	} else if (g_str_equal (key, KEY_IS_ABSOLUTE)) {
 		if (type != WACOM_TYPE_CURSOR &&
 		    type != WACOM_TYPE_PAD &&
