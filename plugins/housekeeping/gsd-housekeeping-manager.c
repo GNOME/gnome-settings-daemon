@@ -225,6 +225,13 @@ purge_thumbnail_cache (GsdHousekeepingManager *manager)
 
         g_debug ("housekeeping: checking thumbnail cache size and freshness");
 
+        purge_data.max_age = g_settings_get_int (manager->priv->settings, THUMB_AGE_KEY) * 24 * 60 * 60;
+        purge_data.max_size = g_settings_get_int (manager->priv->settings, THUMB_SIZE_KEY) * 1024 * 1024;
+
+        /* if both are set to -1, we don't need to read anything */
+        if ((purge_data.max_age < 0) && (purge_data.max_size < 0))
+                return;
+
         paths = get_thumbnail_dirs ();
         files = NULL;
         for (i = 0; paths[i] != NULL; i++)
@@ -234,8 +241,6 @@ purge_thumbnail_cache (GsdHousekeepingManager *manager)
         g_get_current_time (&current_time);
 
         purge_data.now = current_time.tv_sec;
-        purge_data.max_age = g_settings_get_int (manager->priv->settings, THUMB_AGE_KEY) * 24 * 60 * 60;
-        purge_data.max_size = g_settings_get_int (manager->priv->settings, THUMB_SIZE_KEY) * 1024 * 1024;
         purge_data.total_size = 0;
 
         if (purge_data.max_age >= 0)
