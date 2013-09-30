@@ -245,6 +245,8 @@ libnotify_action_cb (NotifyNotification *notification,
         GsdUpdatesManager *manager = GSD_UPDATES_MANAGER (user_data);
 
         notify_notification_close (notification, NULL);
+        if (g_strcmp0 (action, "ignore") == 0)
+                goto out;
         if (g_strcmp0 (action, "distro-upgrade-info") == 0) {
                 ret = g_spawn_command_line_async (DATADIR "/PackageKit/pk-upgrade-distro.sh",
                                                   &error);
@@ -383,6 +385,11 @@ get_distro_upgrades_finished_cb (GObject *object,
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, NOTIFY_EXPIRES_NEVER);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
+        notify_notification_add_action (notification, "ignore",
+                                        /* TRANSLATORS: don't install updates now */
+                                        _("Not Now"),
+                                        libnotify_action_cb,
+                                        manager, NULL);
         notify_notification_add_action (notification, "distro-upgrade-info",
                                         /* TRANSLATORS: provides more information about the upgrade */
                                         _("More information"),
