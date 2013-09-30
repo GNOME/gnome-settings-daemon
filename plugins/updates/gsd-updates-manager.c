@@ -742,7 +742,6 @@ auto_download_updates (GsdUpdatesManager *manager)
                 package_ids[i] = g_strdup (pk_package_get_id (pkg));
         }
 
-#if PK_CHECK_VERSION(0,8,1)
         /* we've set only-download in PkTask */
         pk_task_update_packages_async (manager->priv->task,
                                        package_ids,
@@ -750,16 +749,6 @@ auto_download_updates (GsdUpdatesManager *manager)
                                        NULL, NULL,
                                        (GAsyncReadyCallback) package_download_finished_cb,
                                        manager);
-#else
-        /* download them all */
-        pk_client_download_packages_async (PK_CLIENT(manager->priv->task),
-                                           package_ids,
-                                           NULL, /* this means system cache */
-                                           manager->priv->cancellable,
-                                           NULL, NULL,
-                                           (GAsyncReadyCallback) package_download_finished_cb,
-                                           manager);
-#endif
         g_strfreev (package_ids);
 }
 
@@ -1506,9 +1495,7 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
         g_object_set (manager->priv->task,
                       "background", TRUE,
                       "interactive", FALSE,
-#if PK_CHECK_VERSION(0,8,1)
                       "only-download", TRUE,
-#endif
                       NULL);
 
         /* watch UDev for missing firmware */
