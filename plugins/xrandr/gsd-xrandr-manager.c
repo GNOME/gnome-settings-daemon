@@ -339,7 +339,7 @@ get_laptop_output_info (GnomeRRScreen *screen, GnomeRRConfig *config)
  * We just return whether setting the configuration succeeded.
  */
 static gboolean
-apply_configuration (GsdXrandrManager *manager, GnomeRRConfig *config, guint32 timestamp, gboolean save_configuration)
+apply_configuration (GsdXrandrManager *manager, GnomeRRConfig *config, guint32 timestamp)
 {
         GsdXrandrManagerPrivate *priv = manager->priv;
         GError *error;
@@ -350,10 +350,7 @@ apply_configuration (GsdXrandrManager *manager, GnomeRRConfig *config, guint32 t
         print_configuration (config, "Applying Configuration");
 
         error = NULL;
-        if (save_configuration)
-                success = gnome_rr_config_apply_persistent (config, priv->rw_screen, &error);
-        else
-                success = gnome_rr_config_apply (config, priv->rw_screen, &error);
+        success = gnome_rr_config_apply (config, priv->rw_screen, &error);
 
         if (!success) {
                 log_msg ("Could not switch to the following configuration (timestamp %u): %s\n", timestamp, error->message);
@@ -1016,7 +1013,7 @@ handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
 
                 g_debug ("applying");
 
-                success = apply_configuration (mgr, priv->fn_f7_configs[mgr->priv->current_fn_f7_config], timestamp, TRUE);
+                success = apply_configuration (mgr, priv->fn_f7_configs[mgr->priv->current_fn_f7_config], timestamp);
 
                 if (success) {
                         log_msg ("Successfully switched to configuration (timestamp %u):\n", timestamp);
@@ -1248,7 +1245,7 @@ handle_rotate_windows (GsdXrandrManager *mgr,
 
         gnome_rr_output_info_set_rotation (rotatable_output_info, next_rotation);
 
-        success = apply_configuration (mgr, current, timestamp, TRUE);
+        success = apply_configuration (mgr, current, timestamp);
         if (success)
                 rotate_touchscreens (mgr, next_rotation);
 
