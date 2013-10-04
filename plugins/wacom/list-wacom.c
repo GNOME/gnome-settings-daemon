@@ -142,6 +142,7 @@ print_buttons (GsdWacomDevice *device)
 
 	for (l = buttons; l != NULL; l = l->next) {
 		GsdWacomTabletButton *button = l->data;
+		gboolean has_led;
 
 		g_print ("\tButton: %s (%s)\n", button->name, button->id);
 		g_print ("\t\tType: %s\n", button_type_to_string (button->type));
@@ -152,6 +153,9 @@ print_buttons (GsdWacomDevice *device)
 			else
 				g_print ("\n");
 		}
+		has_led = (button->type == WACOM_TABLET_BUTTON_TYPE_HARDCODED && button->status_led != GSD_WACOM_NO_LED);
+		if (has_led || button->has_oled)
+			g_print ("\t\tHas LED: %s Has OLED: %s\n", BOOL_AS_STR(has_led), BOOL_AS_STR(button->has_oled));
 		if (button->settings) {
 			char *loc;
 			loc = get_loc (button->settings);
