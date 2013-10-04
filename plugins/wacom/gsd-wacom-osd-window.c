@@ -1242,7 +1242,8 @@ redraw_window (GsdWacomOSDWindow *self)
 	GdkWindow *window;
 
 	window = gtk_widget_get_window (GTK_WIDGET (self));
-	gdk_window_invalidate_rect (window, NULL, FALSE);
+	if (window)
+		gdk_window_invalidate_rect (window, NULL, FALSE);
 }
 
 static GsdWacomOSDButton *
