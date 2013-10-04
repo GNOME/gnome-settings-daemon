@@ -129,10 +129,8 @@ get_sub_location (RsvgHandle *handle,
 	RsvgPositionData  position;
 	double tx, ty;
 
-	if (!rsvg_handle_get_position_sub (handle, &position, sub)) {
-		g_warning ("Failed to retrieve '%s' position", sub);
+	if (!rsvg_handle_get_position_sub (handle, &position, sub))
 		return FALSE;
-	}
 
 	tx = (double) position.x;
 	ty = (double) position.y;
