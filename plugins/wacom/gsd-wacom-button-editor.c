@@ -365,7 +365,10 @@ update_button (GsdWacomButtonEditor *self)
 
           g_strfreev (strv);
         }
-
+      else
+        {
+          current_type = GSD_WACOM_ACTION_TYPE_NONE;
+        }
     }
   else
     {
