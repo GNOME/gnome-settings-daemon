@@ -676,6 +676,35 @@ static void     gsd_wacom_osd_window_finalize    (GObject                *object
 
 G_DEFINE_TYPE (GsdWacomOSDWindow, gsd_wacom_osd_window, GTK_TYPE_WINDOW)
 
+static RsvgHandle *
+load_rsvg_with_base (const char  *css_string,
+		     const char  *original_layout_path,
+		     GError     **error)
+{
+	RsvgHandle *handle;
+	char *dirname;
+
+	handle = rsvg_handle_new ();
+
+	dirname = g_path_get_dirname (original_layout_path);
+	rsvg_handle_set_base_uri (handle, dirname);
+	g_free (dirname);
+
+	if (!rsvg_handle_write (handle,
+				(guint8 *) css_string,
+				strlen (css_string),
+				error)) {
+		g_object_unref (handle);
+		return NULL;
+	}
+	if (!rsvg_handle_close (handle, error)) {
+		g_object_unref (handle);
+		return NULL;
+	}
+
+	return handle;
+}
+
 static void
 gsd_wacom_osd_window_update (GsdWacomOSDWindow *osd_window)
 {
@@ -738,15 +767,12 @@ gsd_wacom_osd_window_update (GsdWacomOSDWindow *osd_window)
 	replace_string (&css_string, "layout_file", layout_file);
 
 	/* Render the SVG with the CSS applied */
-	if (osd_window->priv->handle)
-		g_object_unref (osd_window->priv->handle);
-	osd_window->priv->handle = rsvg_handle_new_from_data ((guint8 *) css_string,
-	                                                      strlen (css_string),
-	                                                      &error);
-	if (error != NULL) {
+	g_clear_object (&osd_window->priv->handle);
+	osd_window->priv->handle = load_rsvg_with_base (css_string, layout_file, &error);
+	if (osd_window->priv->handle == NULL) {
 		g_debug ("CSS applied:\n%s\n", css_string);
 		g_printerr ("RSVG error: %s\n", error->message);
-		g_clear_pointer (&error, g_error_free);
+		g_clear_error (&error);
 	}
 	g_free (css_string);
 }
