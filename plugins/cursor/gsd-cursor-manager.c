@@ -155,6 +155,9 @@ set_osk_enabled (GsdCursorManager *manager,
         g_debug ("Switching the OSK to %s", enabled ? "enabled" : "disabled");
         manager->priv->show_osk = enabled;
 
+        if (manager->priv->dbus_connection == NULL)
+                return;
+
         builder = g_variant_builder_new (G_VARIANT_TYPE_ARRAY);
         g_variant_builder_add (builder,
                                "{sv}",
