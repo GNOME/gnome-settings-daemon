@@ -29,6 +29,7 @@
 #include <glib/gi18n.h>
 #include <gdk/gdkx.h>
 #include <X11/extensions/XTest.h>
+#include <X11/extensions/dpms.h>
 #include <canberra-gtk.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
@@ -1150,6 +1151,15 @@ disable_builtin_screensaver (gpointer unused)
 guint
 gsd_power_enable_screensaver_watchdog (void)
 {
+        int dummy;
+
+        /* Make sure that Xorg's DPMS extension never gets in our
+         * way. The defaults are now applied in Fedora 20 from
+         * being "0" by default to being "600" by default */
+        gdk_error_trap_push ();
+        if (DPMSQueryExtension(GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &dummy, &dummy))
+                DPMSSetTimeouts (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), 0, 0, 0);
+        gdk_error_trap_pop_ignored ();
         return g_timeout_add_seconds (XSCREENSAVER_WATCHDOG_TIMEOUT,
                                       disable_builtin_screensaver,
                                       NULL);
