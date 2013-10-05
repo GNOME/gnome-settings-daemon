@@ -78,7 +78,6 @@ static const gchar introspection_xml[] =
 
 static void     gsd_cursor_manager_class_init  (GsdCursorManagerClass *klass);
 static void     gsd_cursor_manager_init        (GsdCursorManager      *cursor_manager);
-static void     gsd_cursor_manager_finalize    (GObject               *object);
 
 G_DEFINE_TYPE (GsdCursorManager, gsd_cursor_manager, G_TYPE_OBJECT)
 
@@ -416,6 +415,11 @@ gsd_cursor_manager_start (GsdCursorManager  *manager,
         g_debug ("Starting cursor manager");
         gnome_settings_profile_start (NULL);
 
+        manager->priv->monitors = g_hash_table_new_full (g_direct_hash,
+                                                         g_direct_equal,
+                                                         NULL,
+                                                         g_object_unref);
+
         if (supports_cursor_xfixes () == FALSE) {
                 g_set_error (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
                              "XFixes cursor extension not available");
@@ -482,6 +486,8 @@ gsd_cursor_manager_stop (GsdCursorManager *manager)
                 set_osk_enabled (manager, FALSE);
         }
 
+        g_clear_pointer (&manager->priv->monitors, g_hash_table_destroy);
+
         g_cancellable_cancel (manager->priv->cancellable);
         g_clear_object (&manager->priv->cancellable);
 
@@ -492,10 +498,6 @@ gsd_cursor_manager_stop (GsdCursorManager *manager)
 static void
 gsd_cursor_manager_class_init (GsdCursorManagerClass *klass)
 {
-        GObjectClass   *object_class = G_OBJECT_CLASS (klass);
-
-        object_class->finalize = gsd_cursor_manager_finalize;
-
         g_type_class_add_private (klass, sizeof (GsdCursorManagerPrivate));
 }
 
@@ -504,27 +506,8 @@ gsd_cursor_manager_init (GsdCursorManager *manager)
 {
         manager->priv = GSD_CURSOR_MANAGER_GET_PRIVATE (manager);
         manager->priv->cursor_shown = TRUE;
-        manager->priv->monitors = g_hash_table_new_full (g_direct_hash,
-                                                         g_direct_equal,
-                                                         NULL,
-                                                         g_object_unref);
 
         manager->priv->show_osk = FALSE;
-}
-
-static void
-gsd_cursor_manager_finalize (GObject *object)
-{
-        GsdCursorManager *cursor_manager;
-
-        g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_CURSOR_MANAGER (object));
-
-        cursor_manager = GSD_CURSOR_MANAGER (object);
-
-        g_clear_pointer (&cursor_manager->priv->monitors, g_hash_table_destroy);
-
-        G_OBJECT_CLASS (gsd_cursor_manager_parent_class)->finalize (object);
 }
 
 GsdCursorManager *
