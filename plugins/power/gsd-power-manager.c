@@ -570,31 +570,19 @@ engine_get_icon (GsdPowerManager *manager)
         GIcon *icon = NULL;
 
 
-        /* we try CRITICAL: BATTERY, UPS, MOUSE, KEYBOARD */
+        /* we try CRITICAL: BATTERY, UPS */
         icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_BATTERY, WARNING_CRITICAL, FALSE);
         if (icon != NULL)
                 return icon;
         icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_UPS, WARNING_CRITICAL, FALSE);
         if (icon != NULL)
                 return icon;
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_MOUSE, WARNING_CRITICAL, FALSE);
-        if (icon != NULL)
-                return icon;
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_KEYBOARD, WARNING_CRITICAL, FALSE);
-        if (icon != NULL)
-                return icon;
 
-        /* we try CRITICAL: BATTERY, UPS, MOUSE, KEYBOARD */
+        /* we try CRITICAL: BATTERY, UPS */
         icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_BATTERY, WARNING_LOW, FALSE);
         if (icon != NULL)
                 return icon;
         icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_UPS, WARNING_LOW, FALSE);
-        if (icon != NULL)
-                return icon;
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_MOUSE, WARNING_LOW, FALSE);
-        if (icon != NULL)
-                return icon;
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_KEYBOARD, WARNING_LOW, FALSE);
         if (icon != NULL)
                 return icon;
 
