@@ -1931,8 +1931,8 @@ fill_old_axis (int    device_id,
 
 				if (V->num_axes >= 2) {
 					items[0] = ax[0].min_value;
-					items[1] = ax[0].max_value;
-					items[2] = ax[1].min_value;
+					items[2] = ax[0].max_value;
+					items[1] = ax[1].min_value;
 					items[3] = ax[1].max_value;
 					g_debug ("Found factory values for device calibration");
 					retval = TRUE;
