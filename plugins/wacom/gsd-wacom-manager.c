@@ -332,9 +332,19 @@ set_area (GsdWacomDevice  *device,
                 gint *area;
                 area = gsd_wacom_device_get_default_area (device);
                 property.data.i = area;
+                g_debug ("Resetting area to: %d, %d, %d, %d",
+                         property.data.i[0],
+                         property.data.i[1],
+                         property.data.i[2],
+                         property.data.i[3]);
                 wacom_set_property (device, &property);
                 g_free (area);
         } else {
+                g_debug ("Setting area to: %d, %d, %d, %d",
+                         property.data.i[0],
+                         property.data.i[1],
+                         property.data.i[2],
+                         property.data.i[3]);
                 wacom_set_property (device, &property);
         }
 }
