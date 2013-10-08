@@ -1904,8 +1904,8 @@ gsd_wacom_device_get_area (GsdWacomDevice *device)
 }
 
 static gboolean
-fill_old_axis (int     device_id,
-	       gint  **items)
+fill_old_axis (int    device_id,
+	       gint  *items)
 {
 	int ndevices, i;
 	XDeviceInfoPtr list, slist;
@@ -1930,10 +1930,10 @@ fill_old_axis (int     device_id,
 				XAxisInfoPtr ax = (XAxisInfoPtr) V->axes;
 
 				if (V->num_axes >= 2) {
-					*items[0] = ax[0].min_value;
-					*items[1] = ax[0].max_value;
-					*items[2] = ax[1].min_value;
-					*items[3] = ax[1].max_value;
+					items[0] = ax[0].min_value;
+					items[1] = ax[0].max_value;
+					items[2] = ax[1].min_value;
+					items[3] = ax[1].max_value;
 					g_debug ("Found factory values for device calibration");
 					retval = TRUE;
 					break;
@@ -1965,7 +1965,7 @@ gsd_wacom_device_get_default_area (GsdWacomDevice *device)
 	g_object_get (device->priv->gdk_device, "device-id", &id, NULL);
 
 	device_area = g_new0 (int, 4);
-	ret = fill_old_axis (id, &device_area);
+	ret = fill_old_axis (id, device_area);
 	if (!ret) {
 		g_free (device_area);
 		return NULL;
