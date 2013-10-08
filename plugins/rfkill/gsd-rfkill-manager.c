@@ -41,6 +41,20 @@ struct GsdRfkillManagerPrivate
 
         CcRfkillGlib            *rfkill;
         GHashTable              *killswitches;
+
+        /* In addition to using the rfkill kernel subsystem
+           (which is exposed by wlan, wimax, bluetooth, nfc,
+           some platform drivers and some usb modems), we
+           need to go through NetworkManager, which in turn
+           will tell ModemManager to write the right commands
+           in the USB bus to take external modems down, all
+           from userspace.
+        */
+        GCancellable            *nm_cancellable;
+        GDBusProxy              *nm_client;
+        gboolean                 wwan_enabled;
+        GDBusObjectManager      *mm_client;
+        gboolean                 wwan_interesting;
 };
 
 #define GSD_RFKILL_DBUS_NAME GSD_DBUS_NAME ".Rfkill"
@@ -85,9 +99,9 @@ engine_get_airplane_mode (GsdRfkillManager *manager)
 	GHashTableIter iter;
 	gpointer key, value;
 
-        /* If we have no killswitches, airplane mode is off. */
+        /* If we have no killswitches, airplane mode only depends on NM's wwan state. */
         if (g_hash_table_size (manager->priv->killswitches) == 0) {
-                return FALSE;
+                return manager->priv->wwan_interesting && !manager->priv->wwan_enabled;
         }
 
 	g_hash_table_iter_init (&iter, manager->priv->killswitches);
@@ -102,13 +116,19 @@ engine_get_airplane_mode (GsdRfkillManager *manager)
                 }
 	}
 
+        /* wwan enabled? then airplane mode is off (because an USB modem
+           could be on in this state) */
+        if (manager->priv->wwan_interesting && manager->priv->wwan_enabled)
+                return FALSE;
+
         return TRUE;
 }
 
 static gboolean
 engine_get_has_airplane_mode (GsdRfkillManager *manager)
 {
-        return (g_hash_table_size (manager->priv->killswitches) > 0);
+        return (g_hash_table_size (manager->priv->killswitches) > 0) ||
+                manager->priv->wwan_interesting;
 }
 
 static void
@@ -182,6 +202,27 @@ rfkill_set_cb (GObject      *source_object,
 	}
 }
 
+static void
+set_wwan_complete (GObject      *object,
+                   GAsyncResult *result,
+                   gpointer      user_data)
+{
+        GError *error;
+        GVariant *variant;
+
+        error = NULL;
+        variant = g_dbus_proxy_call_finish (G_DBUS_PROXY (object), result, &error);
+
+        if (variant == NULL) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to set WWAN power status: %s", error->message);
+
+                g_error_free (error);
+        } else {
+                g_variant_unref (variant);
+        }
+}
+
 static gboolean
 engine_set_airplane_mode (GsdRfkillManager *manager,
                           gboolean          enable)
@@ -193,6 +234,21 @@ engine_set_airplane_mode (GsdRfkillManager *manager,
 	event.type = RFKILL_TYPE_ALL;
 	event.soft = enable ? 1 : 0;
 	cc_rfkill_glib_send_event (manager->priv->rfkill, &event, NULL, rfkill_set_cb, manager);
+
+        /* Note: we set the the NM property even if there are no modems, so we don't
+           need to resync when one is plugged in */
+        if (manager->priv->nm_client) {
+                g_dbus_proxy_call (manager->priv->nm_client,
+                                   "org.freedesktop.DBus.Properties.Set",
+                                   g_variant_new ("(ssv)",
+                                                  "org.freedesktop.NetworkManager",
+                                                  "WwanEnabled",
+                                                  g_variant_new_boolean (!enable)),
+                                   G_DBUS_CALL_FLAGS_NONE,
+                                   -1, /* timeout */
+                                   manager->priv->nm_cancellable,
+                                   set_wwan_complete, NULL);
+        }
 
 	return TRUE;
 }
@@ -290,6 +346,130 @@ on_bus_gotten (GObject               *source_object,
                                                                NULL);
 }
 
+static void
+sync_wwan_enabled (GsdRfkillManager *manager)
+{
+        GVariant *property;
+
+        property = g_dbus_proxy_get_cached_property (manager->priv->nm_client,
+                                                     "WwanEnabled");
+
+        if (property == NULL) {
+                /* GDBus telling us NM went down */
+                return;
+        }
+
+        manager->priv->wwan_enabled = g_variant_get_boolean (property);
+        engine_properties_changed (manager);
+
+        g_variant_unref (property);
+}
+
+static void
+nm_signal (GDBusProxy *proxy,
+           char       *sender_name,
+           char       *signal_name,
+           GVariant   *parameters,
+           gpointer    user_data)
+{
+        GsdRfkillManager *manager = user_data;
+        GVariant *changed;
+        GVariant *property;
+
+        if (g_strcmp0 (signal_name, "PropertiesChanged") == 0) {
+                changed = g_variant_get_child_value (parameters, 0);
+                property = g_variant_lookup_value (changed, "WwanEnabled", G_VARIANT_TYPE ("b"));
+                g_dbus_proxy_set_cached_property (proxy, "WwanEnabled", property);
+
+                if (property != NULL) {
+                        sync_wwan_enabled (manager);
+                        g_variant_unref (property);
+                }
+
+                g_variant_unref (changed);
+        }
+}
+
+static void
+on_nm_proxy_gotten (GObject      *source,
+                    GAsyncResult *result,
+                    gpointer      user_data)
+{
+        GsdRfkillManager *manager = user_data;
+        GDBusProxy *proxy;
+        GError *error;
+
+        error = NULL;
+        proxy = g_dbus_proxy_new_for_bus_finish (result, &error);
+
+        if (proxy == NULL) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED) &&
+                    !g_error_matches (error, G_DBUS_ERROR, G_DBUS_ERROR_SERVICE_UNKNOWN))
+                        g_warning ("Failed to acquire NetworkManager proxy: %s", error->message);
+
+                g_error_free (error);
+                goto out;
+        }
+
+        manager->priv->nm_client = proxy;
+
+        g_signal_connect (manager->priv->nm_client, "g-signal",
+                          G_CALLBACK (nm_signal), manager);
+        sync_wwan_enabled (manager);
+
+ out:
+        g_object_unref (manager);
+}
+
+static void
+sync_wwan_interesting (GDBusObjectManager *object_manager,
+                       GDBusObject        *object,
+                       GDBusInterface     *interface,
+                       gpointer            user_data)
+{
+        GsdRfkillManager *manager = user_data;
+        GList *objects;
+
+        objects = g_dbus_object_manager_get_objects (object_manager);
+        manager->priv->wwan_interesting = (objects != NULL);
+        engine_properties_changed (manager);
+
+        g_list_free_full (objects, g_object_unref);
+}
+
+static void
+on_mm_proxy_gotten (GObject      *source,
+                    GAsyncResult *result,
+                    gpointer      user_data)
+{
+        GsdRfkillManager *manager = user_data;
+        GDBusObjectManager *proxy;
+        GError *error;
+
+        error = NULL;
+        proxy = g_dbus_object_manager_client_new_for_bus_finish (result, &error);
+
+        if (proxy == NULL) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED) &&
+                    !g_error_matches (error, G_DBUS_ERROR, G_DBUS_ERROR_SERVICE_UNKNOWN))
+                        g_warning ("Failed to acquire ModemManager proxy: %s", error->message);
+
+                g_error_free (error);
+                goto out;
+        }
+
+        manager->priv->mm_client = proxy;
+
+        g_signal_connect (manager->priv->mm_client, "interface-added",
+                          G_CALLBACK (sync_wwan_interesting), manager);
+        g_signal_connect (manager->priv->mm_client, "interface-removed",
+                          G_CALLBACK (sync_wwan_interesting), manager);
+        sync_wwan_interesting (manager->priv->mm_client, NULL, NULL, manager);
+
+ out:
+        g_object_unref (manager);
+}
+
 gboolean
 gsd_rfkill_manager_start (GsdRfkillManager *manager,
                          GError         **error)
@@ -304,6 +484,25 @@ gsd_rfkill_manager_start (GsdRfkillManager *manager,
         g_signal_connect (G_OBJECT (manager->priv->rfkill), "changed",
                           G_CALLBACK (rfkill_changed), manager);
         cc_rfkill_glib_open (manager->priv->rfkill);
+
+        manager->priv->nm_cancellable = g_cancellable_new ();
+
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+                                  G_DBUS_PROXY_FLAGS_NONE,
+                                  NULL, /* g-interface-info */
+                                  "org.freedesktop.NetworkManager",
+                                  "/org/freedesktop/NetworkManager",
+                                  "org.freedesktop.NetworkManager",
+                                  manager->priv->nm_cancellable,
+                                  on_nm_proxy_gotten, g_object_ref (manager));
+
+        g_dbus_object_manager_client_new_for_bus (G_BUS_TYPE_SYSTEM,
+                                                  G_DBUS_OBJECT_MANAGER_CLIENT_FLAGS_NONE,
+                                                  "org.freedesktop.ModemManager1",
+                                                  "/org/freedesktop/ModemManager1",
+                                                  NULL, NULL, NULL, /* get_proxy_type and closure */
+                                                  manager->priv->nm_cancellable,
+                                                  on_mm_proxy_gotten, g_object_ref (manager));
 
         /* Start process of owning a D-Bus name */
         g_bus_get (G_BUS_TYPE_SESSION,
@@ -330,6 +529,16 @@ gsd_rfkill_manager_stop (GsdRfkillManager *manager)
         g_clear_object (&p->connection);
         g_clear_object (&p->rfkill);
         g_clear_pointer (&p->killswitches, g_hash_table_destroy);
+
+        if (p->nm_cancellable) {
+                g_cancellable_cancel (p->nm_cancellable);
+                g_clear_object (&p->nm_cancellable);
+        }
+
+        g_clear_object (&p->nm_client);
+        g_clear_object (&p->mm_client);
+        p->wwan_enabled = FALSE;
+        p->wwan_interesting = FALSE;
 }
 
 static void
