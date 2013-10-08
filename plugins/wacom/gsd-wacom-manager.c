@@ -325,8 +325,34 @@ set_area (GsdWacomDevice  *device,
                 return;
         }
 
-        wacom_set_property (device, &property);
+        if (property.data.i[0] == -1 &&
+            property.data.i[1] == -1 &&
+            property.data.i[2] == -1 &&
+            property.data.i[3] == -1) {
+                gint *area;
+                area = gsd_wacom_device_get_default_area (device);
+                property.data.i = area;
+                wacom_set_property (device, &property);
+                g_free (area);
+        } else {
+                wacom_set_property (device, &property);
+        }
+
         g_variant_unref (value);
+}
+
+static void
+reset_area (GsdWacomDevice *device)
+{
+        GVariant *values[4], *variant;
+        guint i;
+
+        /* Set area to default values for the device */
+        for (i = 0; i < G_N_ELEMENTS (values); i++)
+                values[i] = g_variant_new_int32 (-1);
+        variant = g_variant_new_array (G_VARIANT_TYPE_INT32, values, G_N_ELEMENTS (values));
+
+        set_area (device, variant);
 }
 
 /* Returns the rotation to apply a device relative to the current rotation of the output */
@@ -483,7 +509,7 @@ set_keep_aspect (GsdWacomDevice *device,
 	variant = g_variant_new_array (G_VARIANT_TYPE_INT32, values, G_N_ELEMENTS (values));
 
         /* If keep_aspect is not set, just reset the area to default and let
-         * gsettings notification call set_area() for us...
+         * gsettings notification call reset_area() for us...
          */
 	if (!keep_aspect) {
 		g_settings_set_value (settings, KEY_AREA, variant);
@@ -492,7 +518,7 @@ set_keep_aspect (GsdWacomDevice *device,
         }
 
         /* Reset the device area to get the default area */
-	set_area (device, variant);
+	reset_area (device);
 
 	/* Get current rotation */
 	rotation = g_settings_get_enum (settings, KEY_ROTATION);
@@ -820,16 +846,8 @@ set_wacom_settings (GsdWacomManager *manager,
 	}
 
 	if (type == WACOM_TYPE_CURSOR) {
-		GVariant *values[4], *variant;
-		guint i;
-
 		set_absolute (device, FALSE);
-
-		for (i = 0; i < G_N_ELEMENTS (values); i++)
-			values[i] = g_variant_new_int32 (-1);
-
-		variant = g_variant_new_array (G_VARIANT_TYPE_INT32, values, G_N_ELEMENTS (values));
-		set_area (device, variant);
+		reset_area (device);
 		return;
 	}
 
