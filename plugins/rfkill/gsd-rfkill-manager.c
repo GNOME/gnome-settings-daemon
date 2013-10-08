@@ -65,6 +65,7 @@ static const gchar introspection_xml[] =
 "  <interface name='org.gnome.SettingsDaemon.Rfkill'>"
 "    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='gsd_rfkill_manager'/>"
 "      <property name='AirplaneMode' type='b' access='readwrite'/>"
+"      <property name='HardwareAirplaneMode' type='b' access='read'/>"
 "      <property name='HasAirplaneMode' type='b' access='read'/>"
 "  </interface>"
 "</node>";
@@ -106,20 +107,45 @@ engine_get_airplane_mode (GsdRfkillManager *manager)
 
 	g_hash_table_iter_init (&iter, manager->priv->killswitches);
 	while (g_hash_table_iter_next (&iter, &key, &value)) {
-		gboolean state;
+		int state;
 
 		state = GPOINTER_TO_INT (value);
 
-		/* A single rfkill switch that's disabled? Airplane mode is off */
-		if (!state) {
+		/* A single rfkill switch that's unblocked? Airplane mode is off */
+		if (state == RFKILL_STATE_UNBLOCKED)
                         return FALSE;
-                }
 	}
 
         /* wwan enabled? then airplane mode is off (because an USB modem
            could be on in this state) */
         if (manager->priv->wwan_interesting && manager->priv->wwan_enabled)
                 return FALSE;
+
+        return TRUE;
+}
+
+static gboolean
+engine_get_hardware_airplane_mode (GsdRfkillManager *manager)
+{
+	GHashTableIter iter;
+	gpointer key, value;
+
+        /* If we have no killswitches, hw airplane mode is off. */
+        if (g_hash_table_size (manager->priv->killswitches) == 0) {
+                return FALSE;
+        }
+
+	g_hash_table_iter_init (&iter, manager->priv->killswitches);
+	while (g_hash_table_iter_next (&iter, &key, &value)) {
+		int state;
+
+		state = GPOINTER_TO_INT (value);
+
+		/* A single rfkill switch that's not hw blocked? Hw airplane mode is off */
+		if (state != RFKILL_STATE_HARD_BLOCKED) {
+                        return FALSE;
+                }
+	}
 
         return TRUE;
 }
@@ -141,6 +167,8 @@ engine_properties_changed (GsdRfkillManager *manager)
 
         g_variant_builder_add (&props_builder, "{sv}", "AirplaneMode",
                                g_variant_new_boolean (engine_get_airplane_mode (manager)));
+        g_variant_builder_add (&props_builder, "{sv}", "HardwareAirplaneMode",
+                               g_variant_new_boolean (engine_get_hardware_airplane_mode (manager)));
         g_variant_builder_add (&props_builder, "{sv}", "HasAirplaneMode",
                                g_variant_new_boolean (engine_get_has_airplane_mode (manager)));
 
@@ -162,6 +190,7 @@ rfkill_changed (CcRfkillGlib     *rfkill,
 		GsdRfkillManager  *manager)
 {
 	GList *l;
+        int value;
 
 	for (l = events; l != NULL; l = l->next) {
 		struct rfkill_event *event = l->data;
@@ -169,9 +198,16 @@ rfkill_changed (CcRfkillGlib     *rfkill,
                 switch (event->op) {
                 case RFKILL_OP_ADD:
                 case RFKILL_OP_CHANGE:
-			g_hash_table_insert (manager->priv->killswitches,
-					     GINT_TO_POINTER (event->idx),
-					     GINT_TO_POINTER (event->soft || event->hard));
+                        if (event->hard)
+                                value = RFKILL_STATE_HARD_BLOCKED;
+                        else if (event->soft)
+                                value = RFKILL_STATE_SOFT_BLOCKED;
+                        else
+                                value = RFKILL_STATE_UNBLOCKED;
+
+                        g_hash_table_insert (manager->priv->killswitches,
+                                             GINT_TO_POINTER (event->idx),
+                                             GINT_TO_POINTER (value));
                         break;
                 case RFKILL_OP_DEL:
 			g_hash_table_remove (manager->priv->killswitches,
@@ -295,6 +331,12 @@ handle_get_property (GDBusConnection *connection,
                 gboolean airplane_mode;
                 airplane_mode = engine_get_airplane_mode (manager);
                 return g_variant_new_boolean (airplane_mode);
+        }
+
+        if (g_strcmp0 (property_name, "HardwareAirplaneMode") == 0) {
+                gboolean hw_airplane_mode;
+                hw_airplane_mode = engine_get_hardware_airplane_mode (manager);
+                return g_variant_new_boolean (hw_airplane_mode);
         }
 
         if (g_strcmp0 (property_name, "HasAirplaneMode") == 0) {
