@@ -1929,7 +1929,7 @@ fill_old_axis (int     device_id,
 				XValuatorInfoPtr V = (XValuatorInfoPtr) any;
 				XAxisInfoPtr ax = (XAxisInfoPtr) V->axes;
 
-				if (V->mode == Absolute && V->num_axes >= 2) {
+				if (V->num_axes >= 2) {
 					*items[0] = ax[0].min_value;
 					*items[1] = ax[0].max_value;
 					*items[2] = ax[1].min_value;
