@@ -487,6 +487,7 @@ set_keep_aspect (GsdWacomDevice *device,
          */
 	if (!keep_aspect) {
 		g_settings_set_value (settings, KEY_AREA, variant);
+		g_variant_unref (variant);
 		return;
         }
 
