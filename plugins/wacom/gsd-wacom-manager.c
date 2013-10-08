@@ -337,8 +337,6 @@ set_area (GsdWacomDevice  *device,
         } else {
                 wacom_set_property (device, &property);
         }
-
-        g_variant_unref (value);
 }
 
 static void
@@ -353,6 +351,7 @@ reset_area (GsdWacomDevice *device)
         variant = g_variant_new_array (G_VARIANT_TYPE_INT32, values, G_N_ELEMENTS (values));
 
         set_area (device, variant);
+        g_variant_unref (variant);
 }
 
 /* Returns the rotation to apply a device relative to the current rotation of the output */
