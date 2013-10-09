@@ -2828,6 +2828,9 @@ power_keyboard_proxy_ready_cb (GObject             *source_object,
                     error->code != G_DBUS_ERROR_UNKNOWN_METHOD) {
                         g_warning ("Failed to get brightness: %s",
                                    error->message);
+                } else {
+                        /* Keyboard brightness is not available */
+                        g_clear_object (&manager->priv->upower_kdb_proxy);
                 }
                 g_error_free (error);
                 goto out;
