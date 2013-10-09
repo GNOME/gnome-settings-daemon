@@ -886,6 +886,7 @@ gsd_wacom_osd_window_update (GsdWacomOSDWindow *osd_window)
 		                css_color_table[i].color_value);
 
 	layout_file = gsd_wacom_device_get_layout_path (osd_window->priv->pad);
+	g_debug ("Using layout path: %s", layout_file);
 	replace_string (&css_string, "layout_file", layout_file);
 
 	/* Render the SVG with the CSS applied */
