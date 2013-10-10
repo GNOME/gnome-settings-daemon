@@ -495,11 +495,6 @@ gpm_upower_get_device_description (UpDevice *device)
                 /* TRANSLATORS: manufacturer */
                 g_string_append_printf (details, "<b>%s</b> %s\n", _("Vendor:"), vendor);
         }
-        if (technology != UP_DEVICE_TECHNOLOGY_UNKNOWN) {
-                text = gpm_device_technology_to_localised_string (technology);
-                /* TRANSLATORS: how the battery is made, e.g. Lithium Ion */
-                g_string_append_printf (details, "<b>%s</b> %s\n", _("Technology:"), text);
-        }
         if (serial) {
                 /* TRANSLATORS: serial number of the battery */
                 g_string_append_printf (details, "<b>%s</b> %s\n", _("Serial number:"), serial);
@@ -638,46 +633,6 @@ gpm_device_kind_to_localised_string (UpDeviceKind kind, guint number)
                 text = up_device_kind_to_string (kind);
         }
         return text;
-}
-
-const gchar *
-gpm_device_technology_to_localised_string (UpDeviceTechnology technology_enum)
-{
-        const gchar *technology = NULL;
-        switch (technology_enum) {
-        case UP_DEVICE_TECHNOLOGY_LITHIUM_ION:
-                /* TRANSLATORS: battery technology */
-                technology = _("Lithium Ion");
-                break;
-        case UP_DEVICE_TECHNOLOGY_LITHIUM_POLYMER:
-                /* TRANSLATORS: battery technology */
-                technology = _("Lithium Polymer");
-                break;
-        case UP_DEVICE_TECHNOLOGY_LITHIUM_IRON_PHOSPHATE:
-                /* TRANSLATORS: battery technology */
-                technology = _("Lithium Iron Phosphate");
-                break;
-        case UP_DEVICE_TECHNOLOGY_LEAD_ACID:
-                /* TRANSLATORS: battery technology */
-                technology = _("Lead acid");
-                break;
-        case UP_DEVICE_TECHNOLOGY_NICKEL_CADMIUM:
-                /* TRANSLATORS: battery technology */
-                technology = _("Nickel Cadmium");
-                break;
-        case UP_DEVICE_TECHNOLOGY_NICKEL_METAL_HYDRIDE:
-                /* TRANSLATORS: battery technology */
-                technology = _("Nickel metal hydride");
-                break;
-        case UP_DEVICE_TECHNOLOGY_UNKNOWN:
-                /* TRANSLATORS: battery technology */
-                technology = _("Unknown technology");
-                break;
-        default:
-                g_assert_not_reached ();
-                break;
-        }
-        return technology;
 }
 
 const gchar *
