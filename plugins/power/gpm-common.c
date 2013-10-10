@@ -641,53 +641,6 @@ gpm_device_kind_to_localised_string (UpDeviceKind kind, guint number)
 }
 
 const gchar *
-gpm_device_kind_to_icon (UpDeviceKind kind)
-{
-        const gchar *icon = NULL;
-        switch (kind) {
-        case UP_DEVICE_KIND_LINE_POWER:
-                icon = "ac-adapter";
-                break;
-        case UP_DEVICE_KIND_BATTERY:
-                icon = "battery";
-                break;
-        case UP_DEVICE_KIND_UPS:
-                icon = "network-wired";
-                break;
-        case UP_DEVICE_KIND_MONITOR:
-                icon = "application-certificate";
-                break;
-        case UP_DEVICE_KIND_MOUSE:
-                icon = "input-mouse";
-                break;
-        case UP_DEVICE_KIND_KEYBOARD:
-                icon = "input-keyboard";
-                break;
-        case UP_DEVICE_KIND_PDA:
-                icon = "pda";
-                break;
-        case UP_DEVICE_KIND_PHONE:
-                icon = "phone";
-                break;
-#if UP_CHECK_VERSION(0,9,5)
-        case UP_DEVICE_KIND_MEDIA_PLAYER:
-                icon = "multimedia-player";
-                break;
-        case UP_DEVICE_KIND_TABLET:
-                icon = "input-tablet";
-                break;
-        case UP_DEVICE_KIND_COMPUTER:
-                icon = "computer-apple-ipad";
-                break;
-#endif
-        default:
-                g_warning ("enum unrecognised: %i", kind);
-                icon = "gtk-help";
-        }
-        return icon;
-}
-
-const gchar *
 gpm_device_technology_to_localised_string (UpDeviceTechnology technology_enum)
 {
         const gchar *technology = NULL;
