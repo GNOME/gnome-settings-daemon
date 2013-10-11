@@ -217,6 +217,7 @@ enum {
 static void     gsd_power_manager_class_init  (GsdPowerManagerClass *klass);
 static void     gsd_power_manager_init        (GsdPowerManager      *power_manager);
 
+static void      engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *manager);
 static void      engine_update_composite_device (GsdPowerManager *manager);
 static GIcon    *engine_get_icon (GsdPowerManager *manager);
 static gchar    *engine_get_summary (GsdPowerManager *manager);
@@ -932,15 +933,15 @@ engine_device_add (GsdPowerManager *manager, UpDevice *device)
                 g_debug ("updating because we added a device");
                 engine_update_composite_device (manager);
 
-                /* get the same values for the composite device */
-                warning = engine_get_warning (manager, manager->priv->device_composite);
+                /* reset those values for the composite device */
                 g_object_set_data (G_OBJECT(manager->priv->device_composite),
                                    "engine-warning-old",
-                                   GUINT_TO_POINTER(warning));
-                g_object_get (manager->priv->device_composite, "state", &state, NULL);
+                                   GUINT_TO_POINTER(WARNING_NONE));
                 g_object_set_data (G_OBJECT(manager->priv->device_composite),
                                    "engine-state-old",
-                                   GUINT_TO_POINTER(state));
+                                   GUINT_TO_POINTER(UP_DEVICE_STATE_UNKNOWN));
+
+                engine_device_changed_cb (NULL, manager->priv->device_composite, manager);
         }
 
         /* the device is recalled */
@@ -1020,6 +1021,7 @@ engine_device_added_cb (UpClient *client, UpDevice *device, GsdPowerManager *man
 {
         /* add to list */
         g_ptr_array_add (manager->priv->devices_array, g_object_ref (device));
+        engine_device_add (manager, device);
         engine_check_recall (manager, device);
 
         engine_recalculate_state (manager);
