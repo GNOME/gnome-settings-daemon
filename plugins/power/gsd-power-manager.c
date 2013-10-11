@@ -132,14 +132,6 @@ struct GsdPowerManagerPrivate
         GSettings               *settings_screensaver;
         GSettings               *settings_xrandr;
 
-        gboolean                 use_time_primary;
-        guint                    action_percentage;
-        guint                    action_time;
-        guint                    critical_percentage;
-        guint                    critical_time;
-        guint                    low_percentage;
-        guint                    low_time;
-
         /* Screensaver */
         GsdScreenSaver          *screensaver_proxy;
         gboolean                 screensaver_active;
@@ -2349,10 +2341,6 @@ engine_settings_key_changed_cb (GSettings *settings,
                                 const gchar *key,
                                 GsdPowerManager *manager)
 {
-        if (g_strcmp0 (key, "use-time-for-policy") == 0) {
-                manager->priv->use_time_primary = g_settings_get_boolean (settings, key);
-                return;
-        }
         if (g_str_has_prefix (key, "sleep-inactive") ||
             g_str_equal (key, "idle-delay") ||
             g_str_equal (key, "idle-dim")) {
@@ -2695,26 +2683,6 @@ on_rr_screen_acquired (GObject      *object,
                       "power-supply", TRUE,
                       NULL);
         engine_update_composite_device (manager);
-
-        /* get percentage policy */
-        manager->priv->low_percentage = g_settings_get_int (manager->priv->settings,
-                                                            "percentage-low");
-        manager->priv->critical_percentage = g_settings_get_int (manager->priv->settings,
-                                                                 "percentage-critical");
-        manager->priv->action_percentage = g_settings_get_int (manager->priv->settings,
-                                                               "percentage-action");
-
-        /* get time policy */
-        manager->priv->low_time = g_settings_get_int (manager->priv->settings,
-                                                      "time-low");
-        manager->priv->critical_time = g_settings_get_int (manager->priv->settings,
-                                                           "time-critical");
-        manager->priv->action_time = g_settings_get_int (manager->priv->settings,
-                                                         "time-action");
-
-        /* we can disable this if the time remaining is inaccurate or just plain wrong */
-        manager->priv->use_time_primary = g_settings_get_boolean (manager->priv->settings,
-                                                                  "use-time-for-policy");
 
         /* create IDLETIME watcher */
         manager->priv->idle_monitor = gnome_idle_monitor_new ();
