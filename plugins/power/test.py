@@ -589,6 +589,25 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # verify notification
         self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" 0 "battery-.*" ".*battery critical.*"')
 
+    def test_action_critical_battery_on_start(self):
+        '''action on critical battery on startup'''
+
+        # add a fake battery with 2%/1 minute charge to upower
+        bat_path = self.obj_upower.AddDischargingBattery('mock_BAT', 'Mock Bat', 2.0, 60)
+        obj_bat = self.system_bus_con.get_object('org.freedesktop.UPower', bat_path)
+        self.obj_upower.EmitSignal('', 'DeviceAdded', 's', [bat_path],
+                                   dbus_interface='org.freedesktop.DBus.Mock')
+
+        time.sleep(5)
+
+        # we should have gotten a notification now
+        notify_log = self.p_notify.stdout.read()
+
+        self.check_for_suspend(5)
+
+        # verify notification
+        self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" 0 "battery-.*" ".*battery critical.*"')
+
     def test_action_multiple_batteries(self):
         '''critical actions for multiple batteries'''
 
