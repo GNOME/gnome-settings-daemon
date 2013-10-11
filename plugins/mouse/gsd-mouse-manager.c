@@ -717,19 +717,16 @@ set_scroll_method (GsdMouseManager         *manager,
 {
         int rc;
         XDevice *xdevice;
-        Atom act_type, prop_edge, prop_twofinger;
+        Atom act_type, prop, prop_edge, prop_twofinger;
         int act_format;
         unsigned long nitems, bytes_after;
         unsigned char *data;
 
+        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Capabilities", True);
         prop_edge = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Edge Scrolling", False);
         prop_twofinger = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Two-Finger Scrolling", False);
-        if (!prop_twofinger && method == GSD_TOUCHPAD_SCROLL_METHOD_TWO_FINGER_SCROLLING) {
-                method = GSD_TOUCHPAD_SCROLL_METHOD_EDGE_SCROLLING;
-                g_settings_set_enum (manager->priv->touchpad_settings, KEY_SCROLL_METHOD, method);
-        }
 
-        if (!prop_edge || !prop_twofinger)
+        if (!prop_edge || !prop_twofinger || !prop)
                 return;
 
         xdevice = open_gdk_device (device);
@@ -744,6 +741,20 @@ set_scroll_method (GsdMouseManager         *manager,
 	g_debug ("setting edge scroll on %s", gdk_device_get_name (device));
 
         gdk_error_trap_push ();
+        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
+                                 prop, 0, 2, False,
+                                 XA_INTEGER, &act_type, &act_format, &nitems,
+                                 &bytes_after, &data);
+        if (rc == Success && act_type != None) {
+                if (!(data[3]) && method == GSD_TOUCHPAD_SCROLL_METHOD_TWO_FINGER_SCROLLING) {
+                        g_warning ("Two finger scroll is not supported by %s", gdk_device_get_name (device));
+                        method = GSD_TOUCHPAD_SCROLL_METHOD_EDGE_SCROLLING;
+                        g_settings_set_enum (manager->priv->touchpad_settings, KEY_SCROLL_METHOD, method);
+                }
+
+                XFree (data);
+        }
+
         rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
                                  prop_edge, 0, 1, False,
                                  XA_INTEGER, &act_type, &act_format, &nitems,
