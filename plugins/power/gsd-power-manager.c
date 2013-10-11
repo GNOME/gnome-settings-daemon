@@ -233,133 +233,6 @@ notify_close_if_showing (NotifyNotification **notification)
         g_clear_object (notification);
 }
 
-typedef enum {
-        WARNING_NONE            = 0,
-        WARNING_DISCHARGING     = 1,
-        WARNING_LOW             = 2,
-        WARNING_CRITICAL        = 3,
-        WARNING_ACTION          = 4
-} GsdPowerManagerWarning;
-
-static GsdPowerManagerWarning
-engine_get_warning_csr (GsdPowerManager *manager, UpDevice *device)
-{
-        gdouble percentage;
-
-        /* get device properties */
-        g_object_get (device, "percentage", &percentage, NULL);
-
-        if (percentage < 26.0f)
-                return WARNING_LOW;
-        else if (percentage < 13.0f)
-                return WARNING_CRITICAL;
-        return WARNING_NONE;
-}
-
-static GsdPowerManagerWarning
-engine_get_warning_percentage (GsdPowerManager *manager, UpDevice *device)
-{
-        gdouble percentage;
-
-        /* get device properties */
-        g_object_get (device, "percentage", &percentage, NULL);
-
-        if (percentage <= manager->priv->action_percentage)
-                return WARNING_ACTION;
-        if (percentage <= manager->priv->critical_percentage)
-                return WARNING_CRITICAL;
-        if (percentage <= manager->priv->low_percentage)
-                return WARNING_LOW;
-        return WARNING_NONE;
-}
-
-static GsdPowerManagerWarning
-engine_get_warning_time (GsdPowerManager *manager, UpDevice *device)
-{
-        UpDeviceKind kind;
-        gint64 time_to_empty;
-
-        /* get device properties */
-        g_object_get (device,
-                      "kind", &kind,
-                      "time-to-empty", &time_to_empty,
-                      NULL);
-
-        /* this is probably an error condition */
-        if (time_to_empty == 0) {
-                g_debug ("time zero, falling back to percentage for %s",
-                         up_device_kind_to_string (kind));
-                return engine_get_warning_percentage (manager, device);
-        }
-
-        if (time_to_empty <= manager->priv->action_time)
-                return WARNING_ACTION;
-        if (time_to_empty <= manager->priv->critical_time)
-                return WARNING_CRITICAL;
-        if (time_to_empty <= manager->priv->low_time)
-                return WARNING_LOW;
-        return WARNING_NONE;
-}
-
-/**
- * This gets the possible engine state for the device according to the
- * policy, which could be per-percent, or per-time.
- **/
-static GsdPowerManagerWarning
-engine_get_warning (GsdPowerManager *manager, UpDevice *device)
-{
-        UpDeviceKind kind;
-        UpDeviceState state;
-        GsdPowerManagerWarning warning_type;
-
-        /* get device properties */
-        g_object_get (device,
-                      "kind", &kind,
-                      "state", &state,
-                      NULL);
-
-        /* default to no engine */
-        warning_type = WARNING_NONE;
-
-        /* if the device in question is on ac, don't give a warning */
-        if (state == UP_DEVICE_STATE_CHARGING)
-                goto out;
-
-        if (kind == UP_DEVICE_KIND_MOUSE ||
-            kind == UP_DEVICE_KIND_KEYBOARD) {
-
-                warning_type = engine_get_warning_csr (manager, device);
-
-        } else if (kind == UP_DEVICE_KIND_UPS ||
-                   kind == UP_DEVICE_KIND_MEDIA_PLAYER ||
-                   kind == UP_DEVICE_KIND_TABLET ||
-                   kind == UP_DEVICE_KIND_COMPUTER ||
-                   kind == UP_DEVICE_KIND_PDA) {
-
-                warning_type = engine_get_warning_percentage (manager, device);
-
-        } else if (kind == UP_DEVICE_KIND_PHONE) {
-
-                warning_type = engine_get_warning_percentage (manager, device);
-
-        } else if (kind == UP_DEVICE_KIND_BATTERY) {
-                /* only use the time when it is accurate, and settings is not disabled */
-                if (manager->priv->use_time_primary)
-                        warning_type = engine_get_warning_time (manager, device);
-                else
-                        warning_type = engine_get_warning_percentage (manager, device);
-        }
-
-        /* If we have no important engines, we should test for discharging */
-        if (warning_type == WARNING_NONE) {
-                if (state == UP_DEVICE_STATE_DISCHARGING)
-                        warning_type = WARNING_DISCHARGING;
-        }
-
- out:
-        return warning_type;
-}
-
 static void
 engine_update_composite_device (GsdPowerManager *manager)
 {
@@ -462,12 +335,12 @@ engine_update_composite_device (GsdPowerManager *manager)
 static void
 engine_device_add (GsdPowerManager *manager, UpDevice *device)
 {
-        GsdPowerManagerWarning warning;
+        UpDeviceLevel warning;
         UpDeviceState state;
         UpDeviceKind kind;
 
         /* assign warning */
-        warning = engine_get_warning (manager, device);
+        g_object_get (device, "warning-level", &warning, NULL);
         g_object_set_data (G_OBJECT(device),
                            "engine-warning-old",
                            GUINT_TO_POINTER(warning));
@@ -492,7 +365,7 @@ engine_device_add (GsdPowerManager *manager, UpDevice *device)
                 /* reset those values for the composite device */
                 g_object_set_data (G_OBJECT(manager->priv->device_composite),
                                    "engine-warning-old",
-                                   GUINT_TO_POINTER(WARNING_NONE));
+                                   GUINT_TO_POINTER(UP_DEVICE_LEVEL_NONE));
                 g_object_set_data (G_OBJECT(manager->priv->device_composite),
                                    "engine-state-old",
                                    GUINT_TO_POINTER(UP_DEVICE_STATE_UNKNOWN));
@@ -1208,8 +1081,8 @@ engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *m
         UpDeviceKind kind;
         UpDeviceState state;
         UpDeviceState state_old;
-        GsdPowerManagerWarning warning_old;
-        GsdPowerManagerWarning warning;
+        UpDeviceLevel warning_old;
+        UpDeviceLevel warning;
 
         /* get device properties */
         g_object_get (device,
@@ -1250,15 +1123,15 @@ engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *m
 
         /* check the warning state has not changed */
         warning_old = GPOINTER_TO_INT(g_object_get_data (G_OBJECT(device), "engine-warning-old"));
-        warning = engine_get_warning (manager, device);
+        g_object_get (device, "warning-level", &warning, NULL);
         if (warning != warning_old) {
-                if (warning == WARNING_LOW) {
+                if (warning == UP_DEVICE_LEVEL_LOW) {
                         g_debug ("** EMIT: charge-low");
                         engine_charge_low (manager, device);
-                } else if (warning == WARNING_CRITICAL) {
+                } else if (warning == UP_DEVICE_LEVEL_CRITICAL) {
                         g_debug ("** EMIT: charge-critical");
                         engine_charge_critical (manager, device);
-                } else if (warning == WARNING_ACTION) {
+                } else if (warning == UP_DEVICE_LEVEL_ACTION) {
                         g_debug ("charge-action");
                         engine_charge_action (manager, device);
                 }
