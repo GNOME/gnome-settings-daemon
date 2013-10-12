@@ -668,7 +668,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # add a fake battery with 30%/2 hours charge to upower
         bat_path = self.obj_upower.AddDischargingBattery('mock_BAT', 'Mock Bat', 30.0, 1200)
         obj_bat = self.system_bus_con.get_object('org.freedesktop.UPower', bat_path)
-        self.obj_upower.EmitSignal('', 'DeviceAdded', 's', [bat_path],
+        self.obj_upower.EmitSignal('', 'DeviceAdded', 'o', [bat_path],
                                    dbus_interface='org.freedesktop.DBus.Mock')
 
         time.sleep(1)
@@ -678,7 +678,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
                     dbus.Int64(30, variant_level=1),
                     dbus_interface=dbus.PROPERTIES_IFACE)
         obj_bat.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
-        self.obj_upower.EmitSignal('', 'DeviceChanged', 's', [obj_bat.object_path],
+        self.obj_upower.EmitSignal('', 'DeviceChanged', 'o', [obj_bat.object_path],
                                    dbus_interface='org.freedesktop.DBus.Mock')
 
         time.sleep(0.5)
@@ -696,7 +696,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # add a fake battery with 2%/1 minute charge to upower
         bat_path = self.obj_upower.AddDischargingBattery('mock_BAT', 'Mock Bat', 2.0, 60)
         obj_bat = self.system_bus_con.get_object('org.freedesktop.UPower', bat_path)
-        self.obj_upower.EmitSignal('', 'DeviceAdded', 's', [bat_path],
+        self.obj_upower.EmitSignal('', 'DeviceAdded', 'o', [bat_path],
                                    dbus_interface='org.freedesktop.DBus.Mock')
 
         time.sleep(5)
@@ -715,12 +715,12 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # add two fake batteries to upower
         bat1_path = self.obj_upower.AddDischargingBattery('mock_BAT1', 'Bat0', 30.0, 1200)
         obj_bat1 = self.system_bus_con.get_object('org.freedesktop.UPower', bat1_path)
-        self.obj_upower.EmitSignal('', 'DeviceAdded', 's', [bat1_path],
+        self.obj_upower.EmitSignal('', 'DeviceAdded', 'o', [bat1_path],
                                    dbus_interface='org.freedesktop.DBus.Mock')
 
         bat2_path = self.obj_upower.AddDischargingBattery('mock_BAT2', 'Bat2', 40.0, 1600)
         obj_bat2 = self.system_bus_con.get_object('org.freedesktop.UPower', bat2_path)
-        self.obj_upower.EmitSignal('', 'DeviceAdded', 's', [bat2_path],
+        self.obj_upower.EmitSignal('', 'DeviceAdded', 'o', [bat2_path],
                                    dbus_interface='org.freedesktop.DBus.Mock')
         time.sleep(1)
 
@@ -732,7 +732,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
                      dbus.Double(0.5, variant_level=1),
                      dbus_interface=dbus.PROPERTIES_IFACE)
         obj_bat1.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
-        self.obj_upower.EmitSignal('', 'DeviceChanged', 's', [bat1_path],
+        self.obj_upower.EmitSignal('', 'DeviceChanged', 'o', [bat1_path],
                                    dbus_interface='org.freedesktop.DBus.Mock')
 
         # wait long enough to ensure it didn't do anything (as we still have
@@ -747,7 +747,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
                      dbus.Double(0.4, variant_level=1),
                      dbus_interface=dbus.PROPERTIES_IFACE)
         obj_bat2.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
-        self.obj_upower.EmitSignal('', 'DeviceChanged', 's', [bat2_path],
+        self.obj_upower.EmitSignal('', 'DeviceChanged', 'o', [bat2_path],
                                    dbus_interface='org.freedesktop.DBus.Mock')
 
         self.check_for_suspend(5)
@@ -758,7 +758,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # add a fake battery to upower
         bat1_path = self.obj_upower.AddDischargingBattery('mock_BAT1', 'Bat0', 30.0, 1200)
         obj_bat1 = self.system_bus_con.get_object('org.freedesktop.UPower', bat1_path)
-        self.obj_upower.EmitSignal('', 'DeviceAdded', 's', [bat1_path],
+        self.obj_upower.EmitSignal('', 'DeviceAdded', 'o', [bat1_path],
                                    dbus_interface='org.freedesktop.DBus.Mock')
 
         bat2_path = '/org/freedesktop/UPower/devices/' + 'mock_MOUSE_BAT1'
@@ -779,7 +779,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
                                    }, dbus.Array([], signature='(ssss)'))
 
         obj_bat2 = self.system_bus_con.get_object('org.freedesktop.UPower', bat2_path)
-        self.obj_upower.EmitSignal('', 'DeviceAdded', 's', [bat2_path],
+        self.obj_upower.EmitSignal('', 'DeviceAdded', 'o', [bat2_path],
                                    dbus_interface='org.freedesktop.DBus.Mock')
         time.sleep(1)
 
@@ -791,7 +791,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
                      dbus.Double(0.5, variant_level=1),
                      dbus_interface=dbus.PROPERTIES_IFACE)
         obj_bat2.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
-        self.obj_upower.EmitSignal('', 'DeviceChanged', 's', [bat2_path],
+        self.obj_upower.EmitSignal('', 'DeviceChanged', 'o', [bat2_path],
                                    dbus_interface='org.freedesktop.DBus.Mock')
 
         # wait long enough to ensure it didn't do anything (as we still have
@@ -806,7 +806,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
                      dbus.Double(0.4, variant_level=1),
                      dbus_interface=dbus.PROPERTIES_IFACE)
         obj_bat1.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
-        self.obj_upower.EmitSignal('', 'DeviceChanged', 's', [bat1_path],
+        self.obj_upower.EmitSignal('', 'DeviceChanged', 'o', [bat1_path],
                                    dbus_interface='org.freedesktop.DBus.Mock')
 
         self.check_for_suspend(5)
