@@ -627,7 +627,7 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
                 g_string_append_printf (message, _("%s of UPS backup power remaining"),
                                         remaining_text);
         } else {
-                g_string_append (message, gpm_device_to_localised_string (device));
+                g_string_append (message, _("Unknown amount of UPS backup power remaining"));
         }
         g_string_append_printf (message, " (%.0f%%)", percentage);
 
