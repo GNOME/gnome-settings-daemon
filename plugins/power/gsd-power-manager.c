@@ -84,17 +84,6 @@
 
 static const gchar introspection_xml[] =
 "<node>"
-"  <interface name='org.gnome.SettingsDaemon.Power'>"
-"    <property name='Icon' type='s' access='read'/>"
-"    <property name='Tooltip' type='s' access='read'/>"
-"    <property name='Percentage' type='d' access='read'/>"
-"    <method name='GetPrimaryDevice'>"
-"      <arg name='device' type='(susdut)' direction='out' />"
-"    </method>"
-"    <method name='GetDevices'>"
-"      <arg name='devices' type='a(susdut)' direction='out' />"
-"    </method>"
-"  </interface>"
 "  <interface name='org.gnome.SettingsDaemon.Power.Screen'>"
 "    <property name='Brightness' type='i' access='readwrite'/>"
 "    <method name='StepUp'>"
@@ -159,8 +148,6 @@ struct GsdPowerManagerPrivate
         gboolean                 lid_is_present;
         gboolean                 lid_is_closed;
         UpClient                *up_client;
-        gchar                   *previous_summary;
-        GIcon                   *previous_icon;
         GPtrArray               *devices_array;
         UpDevice                *device_composite;
         GnomeRRScreen           *rr_screen;
@@ -217,9 +204,6 @@ static void     gsd_power_manager_init        (GsdPowerManager      *power_manag
 
 static void      engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *manager);
 static void      engine_update_composite_device (GsdPowerManager *manager);
-static GIcon    *engine_get_icon (GsdPowerManager *manager);
-static gchar    *engine_get_summary (GsdPowerManager *manager);
-static gdouble   engine_get_percentage (GsdPowerManager *manager);
 static void      do_power_action_type (GsdPowerManager *manager, GsdPowerActionType action_type);
 static void      uninhibit_lid_switch (GsdPowerManager *manager);
 static void      main_battery_or_ups_low_changed (GsdPowerManager *manager, gboolean is_low);
@@ -256,85 +240,6 @@ typedef enum {
         WARNING_CRITICAL        = 3,
         WARNING_ACTION          = 4
 } GsdPowerManagerWarning;
-
-static GVariant *
-engine_get_icon_property_variant (GsdPowerManager  *manager)
-{
-        GIcon *icon;
-        GVariant *retval;
-
-        icon = engine_get_icon (manager);
-        if (icon != NULL) {
-                char *str;
-                str = g_icon_to_string (icon);
-                g_object_unref (icon);
-                retval = g_variant_new_string (str);
-                g_free (str);
-        } else {
-                retval = g_variant_new_string ("");
-        }
-        return retval;
-}
-
-static GVariant *
-engine_get_tooltip_property_variant (GsdPowerManager  *manager)
-{
-        char *tooltip;
-        GVariant *retval;
-
-        tooltip = engine_get_summary (manager);
-        retval = g_variant_new_string (tooltip != NULL ? tooltip : "");
-        g_free (tooltip);
-
-        return retval;
-}
-
-static void
-engine_emit_changed (GsdPowerManager *manager,
-                     gboolean         icon_changed,
-                     gboolean         state_changed)
-{
-        GVariantBuilder props_builder;
-        GVariant *props_changed = NULL;
-        GError *error = NULL;
-
-        /* not yet connected to the bus */
-        if (manager->priv->connection == NULL)
-                return;
-
-        g_variant_builder_init (&props_builder, G_VARIANT_TYPE ("a{sv}"));
-
-        if (icon_changed)
-                g_variant_builder_add (&props_builder, "{sv}", "Icon",
-                                       engine_get_icon_property_variant (manager));
-        if (state_changed)
-                g_variant_builder_add (&props_builder, "{sv}", "Tooltip",
-                                       engine_get_tooltip_property_variant (manager));
-        g_variant_builder_add (&props_builder, "{sv}", "Percentage",
-                               g_variant_new_double (engine_get_percentage (manager)));
-
-        props_changed = g_variant_new ("(s@a{sv}@as)", GSD_POWER_DBUS_INTERFACE,
-                                       g_variant_builder_end (&props_builder),
-                                       g_variant_new_strv (NULL, 0));
-        g_variant_ref_sink (props_changed);
-
-        if (!g_dbus_connection_emit_signal (manager->priv->connection,
-                                            NULL,
-                                            GSD_POWER_DBUS_PATH,
-                                            "org.freedesktop.DBus.Properties",
-                                            "PropertiesChanged",
-                                            props_changed,
-                                            &error))
-                goto out;
-
- out:
-        if (error) {
-                g_warning ("%s", error->message);
-                g_clear_error (&error);
-        }
-        if (props_changed)
-                g_variant_unref (props_changed);
-}
 
 static GsdPowerManagerWarning
 engine_get_warning_csr (GsdPowerManager *manager, UpDevice *device)
@@ -455,211 +360,6 @@ engine_get_warning (GsdPowerManager *manager, UpDevice *device)
         return warning_type;
 }
 
-static gchar *
-engine_get_summary (GsdPowerManager *manager)
-{
-        guint i;
-        GPtrArray *array;
-        UpDevice *device;
-        UpDeviceState state;
-        GString *tooltip = NULL;
-        gchar *part;
-        gboolean is_present;
-
-
-        /* need to get AC state */
-        tooltip = g_string_new ("");
-
-        /* do we have specific device types? */
-        array = manager->priv->devices_array;
-        for (i=0;i<array->len;i++) {
-                device = g_ptr_array_index (array, i);
-                g_object_get (device,
-                              "is-present", &is_present,
-                              "state", &state,
-                              NULL);
-                if (!is_present)
-                        continue;
-                if (state == UP_DEVICE_STATE_EMPTY)
-                        continue;
-                part = gpm_upower_get_device_summary (device);
-                if (part != NULL)
-                        g_string_append_printf (tooltip, "%s\n", part);
-                g_free (part);
-        }
-
-        /* remove the last \n */
-        g_string_truncate (tooltip, tooltip->len-1);
-
-        g_debug ("tooltip: %s", tooltip->str);
-
-        return g_string_free (tooltip, FALSE);
-}
-
-static gdouble
-engine_get_percentage (GsdPowerManager *manager)
-{
-        gboolean is_present;
-        gdouble percentage;
-
-        g_object_get (manager->priv->device_composite,
-                      "percentage", &percentage,
-                      "is-present", &is_present,
-                      NULL);
-
-        if (is_present)
-                return percentage;
-        else
-                return -1;
-}
-
-static GIcon *
-engine_get_icon_priv (GsdPowerManager *manager,
-                      UpDeviceKind device_kind,
-                      GsdPowerManagerWarning warning,
-                      gboolean use_state)
-{
-        guint i;
-        GPtrArray *array;
-        UpDevice *device;
-        GsdPowerManagerWarning warning_temp;
-        UpDeviceKind kind;
-        UpDeviceState state;
-        gboolean is_present;
-
-        /* do we have specific device types? */
-        array = manager->priv->devices_array;
-        for (i=0;i<array->len;i++) {
-                device = g_ptr_array_index (array, i);
-
-                /* get device properties */
-                g_object_get (device,
-                              "kind", &kind,
-                              "state", &state,
-                              "is-present", &is_present,
-                              NULL);
-
-                /* if battery then use composite device to cope with multiple batteries */
-                if (kind == UP_DEVICE_KIND_BATTERY)
-                        device = manager->priv->device_composite;
-
-                warning_temp = GPOINTER_TO_INT(g_object_get_data (G_OBJECT(device),
-                                                                  "engine-warning-old"));
-                if (kind == device_kind && is_present) {
-                        if (warning != WARNING_NONE) {
-                                if (warning_temp == warning)
-                                        return gpm_upower_get_device_icon (device, TRUE);
-                                continue;
-                        }
-                        if (use_state) {
-                                if (state == UP_DEVICE_STATE_CHARGING ||
-                                    state == UP_DEVICE_STATE_DISCHARGING)
-                                        return gpm_upower_get_device_icon (device, TRUE);
-                                continue;
-                        }
-                        return gpm_upower_get_device_icon (device, TRUE);
-                }
-        }
-        return NULL;
-}
-
-static GIcon *
-engine_get_icon (GsdPowerManager *manager)
-{
-        GIcon *icon = NULL;
-
-
-        /* we try CRITICAL: BATTERY, UPS */
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_BATTERY, WARNING_CRITICAL, FALSE);
-        if (icon != NULL)
-                return icon;
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_UPS, WARNING_CRITICAL, FALSE);
-        if (icon != NULL)
-                return icon;
-
-        /* we try CRITICAL: BATTERY, UPS */
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_BATTERY, WARNING_LOW, FALSE);
-        if (icon != NULL)
-                return icon;
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_UPS, WARNING_LOW, FALSE);
-        if (icon != NULL)
-                return icon;
-
-        /* we try (DIS)CHARGING: BATTERY, UPS */
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_BATTERY, WARNING_NONE, TRUE);
-        if (icon != NULL)
-                return icon;
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_UPS, WARNING_NONE, TRUE);
-        if (icon != NULL)
-                return icon;
-
-        /* we try PRESENT: BATTERY, UPS */
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_BATTERY, WARNING_NONE, FALSE);
-        if (icon != NULL)
-                return icon;
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_UPS, WARNING_NONE, FALSE);
-        if (icon != NULL)
-                return icon;
-
-        /* do not show an icon */
-        return NULL;
-}
-
-static gboolean
-engine_recalculate_state_icon (GsdPowerManager *manager)
-{
-        GIcon *icon;
-
-        /* show a different icon if we are disconnected */
-        icon = engine_get_icon (manager);
-
-        if (g_icon_equal (icon, manager->priv->previous_icon)) {
-                g_clear_object (&icon);
-                return FALSE;
-        }
-
-        g_clear_object (&manager->priv->previous_icon);
-        manager->priv->previous_icon = icon;
-
-        g_debug ("Icon changed");
-
-        return TRUE;
-}
-
-static gboolean
-engine_recalculate_state_summary (GsdPowerManager *manager)
-{
-        char *summary;
-
-        summary = engine_get_summary (manager);
-
-        if (g_strcmp0 (manager->priv->previous_summary, summary) == 0) {
-                g_free (summary);
-                return FALSE;
-        }
-
-        g_free (manager->priv->previous_summary);
-        manager->priv->previous_summary = summary;
-
-        g_debug ("Summary changed");
-
-        return TRUE;
-}
-
-static void
-engine_recalculate_state (GsdPowerManager *manager)
-{
-        gboolean icon_changed = FALSE;
-        gboolean state_changed = FALSE;
-
-        icon_changed = engine_recalculate_state_icon (manager);
-        state_changed = engine_recalculate_state_summary (manager);
-
-        /* only emit if the icon or summary has changed */
-        if (icon_changed || state_changed)
-                engine_emit_changed (manager, icon_changed, state_changed);
-}
-
 static void
 engine_update_composite_device (GsdPowerManager *manager)
 {
@@ -757,10 +457,6 @@ engine_update_composite_device (GsdPowerManager *manager)
                       "state", state,
                       "is-present", (battery_devices > 0),
                       NULL);
-
-        /* force update of icon */
-        if (engine_recalculate_state_icon (manager))
-                engine_emit_changed (manager, TRUE, FALSE);
 }
 
 static void
@@ -822,8 +518,6 @@ engine_coldplug (GsdPowerManager *manager)
                 return FALSE;
         }
 
-        engine_recalculate_state (manager);
-
         /* add to database */
         array = up_client_get_devices (manager->priv->up_client);
 
@@ -844,7 +538,6 @@ engine_device_added_cb (UpClient *client, UpDevice *device, GsdPowerManager *man
         /* add to list */
         g_ptr_array_add (manager->priv->devices_array, g_object_ref (device));
         engine_device_add (manager, device);
-        engine_recalculate_state (manager);
 }
 
 static void
@@ -854,7 +547,6 @@ engine_device_removed_cb (UpClient *client, UpDevice *device, GsdPowerManager *m
         ret = g_ptr_array_remove (manager->priv->devices_array, device);
         if (!ret)
                 return;
-        engine_recalculate_state (manager);
 }
 
 static void
@@ -1573,8 +1265,6 @@ engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *m
                 /* save new state */
                 g_object_set_data (G_OBJECT(device), "engine-warning-old", GUINT_TO_POINTER(warning));
         }
-
-        engine_recalculate_state (manager);
 }
 
 static void
@@ -3261,9 +2951,6 @@ gsd_power_manager_stop (GsdPowerManager *manager)
         g_ptr_array_unref (manager->priv->devices_array);
         manager->priv->devices_array = NULL;
         g_clear_object (&manager->priv->device_composite);
-        g_clear_object (&manager->priv->previous_icon);
-
-        g_clear_pointer (&manager->priv->previous_summary, g_free);
 
         g_clear_object (&manager->priv->session_presence_proxy);
         g_clear_object (&manager->priv->screensaver_proxy);
@@ -3378,114 +3065,6 @@ out:
         }
 }
 
-static GVariant *
-device_to_variant_blob (UpDevice *device)
-{
-        const gchar *object_path;
-        gchar *device_icon;
-        gdouble percentage;
-        GIcon *icon;
-        guint64 time_empty, time_full;
-        guint64 time_state = 0;
-        GVariant *value;
-        UpDeviceKind kind;
-        UpDeviceState state;
-        gboolean is_present;
-
-        g_object_get (device,
-                      "is-present", &is_present,
-                      "kind", &kind,
-                      "percentage", &percentage,
-                      "state", &state,
-                      "time-to-empty", &time_empty,
-                      "time-to-full", &time_full,
-                      NULL);
-
-        if (!is_present)
-                return NULL;
-
-        icon = gpm_upower_get_device_icon (device, TRUE);
-        device_icon = g_icon_to_string (icon);
-
-        /* only return time for these simple states */
-        if (state == UP_DEVICE_STATE_DISCHARGING)
-                time_state = time_empty;
-        else if (state == UP_DEVICE_STATE_CHARGING)
-                time_state = time_full;
-
-        /* get an object path, even for the composite device */
-        object_path = up_device_get_object_path (device);
-        if (object_path == NULL)
-                object_path = GSD_DBUS_PATH;
-
-        /* format complex object */
-        value = g_variant_new ("(susdut)",
-                               object_path,
-                               kind,
-                               device_icon,
-                               percentage,
-                               state,
-                               time_state);
-        g_free (device_icon);
-        g_object_unref (icon);
-        return value;
-}
-
-static void
-handle_method_call_main (GsdPowerManager *manager,
-                         const gchar *method_name,
-                         GVariant *parameters,
-                         GDBusMethodInvocation *invocation)
-{
-        GPtrArray *array;
-        guint i;
-        GVariantBuilder *builder;
-        GVariant *tuple = NULL;
-        GVariant *value = NULL;
-
-        /* return object */
-        if (g_strcmp0 (method_name, "GetPrimaryDevice") == 0) {
-                value = device_to_variant_blob (manager->priv->device_composite);
-                if (value) {
-                        tuple = g_variant_new_tuple (&value, 1);
-                        g_dbus_method_invocation_return_value (invocation, tuple);
-                } else {
-                        g_dbus_method_invocation_return_error_literal (invocation,
-                                                                       GSD_POWER_MANAGER_ERROR,
-                                                                       GSD_POWER_MANAGER_ERROR_FAILED,
-                                                                       "Main battery device not available");
-                }
-                return;
-        }
-
-        /* return array */
-        if (g_strcmp0 (method_name, "GetDevices") == 0) {
-                UpDevice *device;
-
-                /* create builder */
-                builder = g_variant_builder_new (G_VARIANT_TYPE("a(susdut)"));
-
-                /* add each tuple to the array */
-                array = manager->priv->devices_array;
-                for (i=0; i<array->len; i++) {
-                        device = g_ptr_array_index (array, i);
-                        value = device_to_variant_blob (device);
-                        if (!value)
-                                continue;
-                        g_variant_builder_add_value (builder, value);
-                }
-
-                /* return the value */
-                value = g_variant_builder_end (builder);
-                tuple = g_variant_new_tuple (&value, 1);
-                g_dbus_method_invocation_return_value (invocation, tuple);
-                g_variant_builder_unref (builder);
-                return;
-        }
-
-        g_assert_not_reached ();
-}
-
 static void
 handle_method_call (GDBusConnection       *connection,
                     const gchar           *sender,
@@ -3507,12 +3086,7 @@ handle_method_call (GDBusConnection       *connection,
         g_debug ("Calling method '%s.%s' for Power",
                  interface_name, method_name);
 
-        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE) == 0) {
-                handle_method_call_main (manager,
-                                         method_name,
-                                         parameters,
-                                         invocation);
-        } else if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
+        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
                 handle_method_call_screen (manager,
                                            method_name,
                                            parameters,
@@ -3525,30 +3099,6 @@ handle_method_call (GDBusConnection       *connection,
         } else {
                 g_warning ("not recognised interface: %s", interface_name);
         }
-}
-
-static GVariant *
-handle_get_property_main (GsdPowerManager *manager,
-                          const gchar *property_name,
-                          GError **error)
-{
-        GVariant *retval = NULL;
-
-        if (g_strcmp0 (property_name, "Icon") == 0) {
-                retval = engine_get_icon_property_variant (manager);
-        } else if (g_strcmp0 (property_name, "Tooltip") == 0) {
-                retval = engine_get_tooltip_property_variant (manager);
-        } else if (g_strcmp0 (property_name, "Percentage") == 0) {
-                gdouble percentage;
-                percentage = engine_get_percentage (manager);
-                if (percentage >= 0)
-                        retval = g_variant_new_double (percentage);
-        }
-        if (retval == NULL) {
-                g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
-                             "Failed to get property: %s", property_name);
-        }
-        return retval;
 }
 
 static GVariant *
@@ -3599,9 +3149,7 @@ handle_get_property (GDBusConnection *connection,
                 return NULL;
         }
 
-        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE) == 0) {
-                return handle_get_property_main (manager, property_name, error);
-        } else if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0 ||
+        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0 ||
                    g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
                 return handle_get_property_other (manager, interface_name, property_name, error);
         } else {
