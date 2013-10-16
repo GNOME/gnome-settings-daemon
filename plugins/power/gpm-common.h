@@ -36,7 +36,6 @@ const gchar     *gpm_device_state_to_localised_string   (UpDeviceState   state);
 GIcon           *gpm_upower_get_device_icon             (UpDevice       *device,
                                                          gboolean        use_symbolic);
 gchar           *gpm_upower_get_device_summary          (UpDevice       *device);
-gchar           *gpm_upower_get_device_description      (UpDevice       *device);
 
 /* Power helpers */
 gboolean         gsd_power_is_hardware_a_vm             (void);
