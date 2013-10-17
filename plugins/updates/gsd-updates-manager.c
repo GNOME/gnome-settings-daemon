@@ -224,7 +224,7 @@ start_gnome_software_with_mode (const gchar *mode)
 
         argv = g_new0 (gchar *, 3);
         argv[0] = g_build_filename (BINDIR, "gnome-software", NULL);
-        argv[1] = g_strdup_printf ("--mode %s", mode);
+        argv[1] = g_strdup_printf ("--mode=%s", mode);
         ret = g_spawn_async (NULL, argv, NULL, 0, NULL, NULL, NULL, &error);
         if (!ret) {
                 g_warning ("Failed to spawn gnome-software: %s", error->message);
