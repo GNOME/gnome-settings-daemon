@@ -523,44 +523,18 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
 }
 
 static GsdPowerActionType
-manager_critical_action_get (GsdPowerManager *manager,
-                             gboolean         is_ups)
+manager_critical_action_get (GsdPowerManager *manager)
 {
         GsdPowerActionType policy;
-        GVariant *result = NULL;
+        char *action;
 
-        policy = g_settings_get_enum (manager->priv->settings, "critical-battery-action");
-
-        if (policy == GSD_POWER_ACTION_SUSPEND) {
-                if (is_ups == FALSE) {
-                        result = g_dbus_proxy_call_sync (manager->priv->logind_proxy,
-                                                         "CanSuspend",
-                                                         NULL,
-                                                         G_DBUS_CALL_FLAGS_NONE,
-                                                         -1, NULL, NULL);
-                }
-        } else if (policy == GSD_POWER_ACTION_HIBERNATE) {
-                result = g_dbus_proxy_call_sync (manager->priv->logind_proxy,
-                                                 "CanHibernate",
-                                                 NULL,
-                                                 G_DBUS_CALL_FLAGS_NONE,
-                                                 -1, NULL, NULL);
-        } else {
-                /* Other actions need no check */
-                return policy;
-        }
-
-        if (result) {
-                const char *s;
-
-                g_variant_get (result, "(s)", &s);
-                if (g_strcmp0 (s, "yes") != 0)
-                        policy = GSD_POWER_ACTION_SHUTDOWN;
-                g_variant_unref (result);
-        } else {
+        action = up_client_get_critical_action (manager->priv->up_client);
+        /* We don't make the difference between HybridSleep and Hibernate */
+        if (g_strcmp0 (action, "PowerOff") == 0)
                 policy = GSD_POWER_ACTION_SHUTDOWN;
-        }
-
+        else
+                policy = GSD_POWER_ACTION_HIBERNATE;
+        g_free (action);
         return policy;
 }
 
@@ -573,7 +547,7 @@ manager_critical_action_do (GsdPowerManager *manager,
         /* stop playing the alert as it's too late to do anything now */
         play_loop_stop (&manager->priv->critical_alert_timeout_id);
 
-        action_type = manager_critical_action_get (manager, is_ups);
+        action_type = manager_critical_action_get (manager);
         do_power_action_type (manager, action_type);
 
         return FALSE;
@@ -798,7 +772,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
                 }
 
                 /* we have to do different warnings depending on the policy */
-                policy = manager_critical_action_get (manager, FALSE);
+                policy = manager_critical_action_get (manager);
 
                 /* use different text for different actions */
                 if (policy == GSD_POWER_ACTION_NOTHING) {
@@ -968,7 +942,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
                 title = _("Laptop battery critically low");
 
                 /* we have to do different warnings depending on the policy */
-                policy = manager_critical_action_get (manager, FALSE);
+                policy = manager_critical_action_get (manager);
 
                 /* use different text for different actions */
                 if (policy == GSD_POWER_ACTION_NOTHING) {
@@ -1006,7 +980,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
                 title = _("UPS critically low");
 
                 /* we have to do different warnings depending on the policy */
-                policy = manager_critical_action_get (manager, TRUE);
+                policy = manager_critical_action_get (manager);
 
                 /* use different text for different actions */
                 if (policy == GSD_POWER_ACTION_NOTHING) {
