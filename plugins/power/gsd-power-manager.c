@@ -799,6 +799,7 @@ engine_device_warning_changed_cb (UpDevice *device, GParamSpec *pspec, GsdPowerM
                 /* FIXME: this only handles one notification
                  * for the whole system, instead of one per device */
                 g_debug ("fully charged or charging, hiding notifications if any");
+                play_loop_stop (&manager->priv->critical_alert_timeout_id);
                 notify_close_if_showing (&manager->priv->notification_low);
                 notify_close_if_showing (&manager->priv->notification_ups_discharging);
         }
@@ -1221,13 +1222,6 @@ static void
 up_client_changed_cb (UpClient *client, GsdPowerManager *manager)
 {
         gboolean tmp;
-
-        if (!up_client_get_on_battery (client)) {
-            /* if we are playing a critical charge sound loop on AC, stop it */
-            play_loop_stop (&manager->priv->critical_alert_timeout_id);
-            notify_close_if_showing (&manager->priv->notification_low);
-            main_battery_or_ups_low_changed (manager, FALSE);
-        }
 
         if (!manager->priv->lid_is_present)
                 return;
@@ -2227,12 +2221,6 @@ handle_suspend_actions (GsdPowerManager *manager)
 static void
 handle_resume_actions (GsdPowerManager *manager)
 {
-        /* close existing notifications on resume, the system power
-         * state is probably different now */
-        notify_close_if_showing (&manager->priv->notification_low);
-        notify_close_if_showing (&manager->priv->notification_ups_discharging);
-        main_battery_or_ups_low_changed (manager, FALSE);
-
         /* ensure we turn the panel back on after resume */
         backlight_enable (manager);
 
