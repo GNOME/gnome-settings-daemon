@@ -307,10 +307,7 @@ engine_device_added_cb (UpClient *client, UpDevice *device, GsdPowerManager *man
 static void
 engine_device_removed_cb (UpClient *client, UpDevice *device, GsdPowerManager *manager)
 {
-        gboolean ret;
-        ret = g_ptr_array_remove (manager->priv->devices_array, device);
-        if (!ret)
-                return;
+        g_ptr_array_remove (manager->priv->devices_array, device);
 }
 
 static void
