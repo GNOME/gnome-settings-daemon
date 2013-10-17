@@ -195,7 +195,6 @@ static void     gsd_power_manager_class_init  (GsdPowerManagerClass *klass);
 static void     gsd_power_manager_init        (GsdPowerManager      *power_manager);
 
 static void      engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *manager);
-static void      engine_update_composite_device (GsdPowerManager *manager);
 static void      do_power_action_type (GsdPowerManager *manager, GsdPowerActionType action_type);
 static void      uninhibit_lid_switch (GsdPowerManager *manager);
 static void      main_battery_or_ups_low_changed (GsdPowerManager *manager, gboolean is_low);
@@ -226,105 +225,6 @@ notify_close_if_showing (NotifyNotification **notification)
 }
 
 static void
-engine_update_composite_device (GsdPowerManager *manager)
-{
-        guint i;
-        gdouble percentage = 0.0;
-        gdouble energy_total = 0.0;
-        gdouble energy_full_total = 0.0;
-        gdouble energy_rate_total = 0.0;
-        gint64 time_to_empty_total = 0;
-        gint64 time_to_full_total = 0;
-        guint battery_devices = 0;
-        gboolean is_charging = FALSE;
-        gboolean is_discharging = FALSE;
-        gboolean is_fully_charged = TRUE;
-        GPtrArray *array;
-        UpDevice *device;
-        UpDeviceState state;
-
-        /* update the composite device */
-        array = manager->priv->devices_array;
-        for (i=0;i<array->len;i++) {
-                UpDeviceKind kind;
-                gdouble energy = 0.0;
-                gdouble energy_full = 0.0;
-                gdouble energy_rate = 0.0;
-                gint64 time_to_empty = 0;
-                gint64 time_to_full = 0;
-
-                device = g_ptr_array_index (array, i);
-                g_object_get (device,
-                              "kind", &kind,
-                              "state", &state,
-                              "energy", &energy,
-                              "energy-full", &energy_full,
-                              "energy-rate", &energy_rate,
-                              "time-to-empty", &time_to_empty,
-                              "time-to-full", &time_to_full,
-                              NULL);
-                if (kind != UP_DEVICE_KIND_BATTERY)
-                        continue;
-
-                /* one of these will be charging or discharging */
-                if (state == UP_DEVICE_STATE_CHARGING)
-                        is_charging = TRUE;
-                else if (state == UP_DEVICE_STATE_DISCHARGING)
-                        is_discharging = TRUE;
-                else if (state != UP_DEVICE_STATE_FULLY_CHARGED)
-                        is_fully_charged = FALSE;
-
-                /* sum up composite */
-                energy_total += energy;
-                energy_full_total += energy_full;
-                energy_rate_total += energy_rate;
-                time_to_empty_total += time_to_empty;
-                time_to_full_total += time_to_full;
-                battery_devices++;
-        }
-
-        if (battery_devices == 0) {
-                state = UP_DEVICE_STATE_UNKNOWN;
-                goto out;
-        }
-
-        /* use percentage weighted for each battery capacity */
-        if (energy_full_total > 0.0)
-                percentage = 100.0 * energy_total / energy_full_total;
-
-        /* set composite state */
-        if (is_discharging)
-                state = UP_DEVICE_STATE_DISCHARGING;
-        else if (is_charging)
-                state = UP_DEVICE_STATE_CHARGING;
-        else if (is_fully_charged)
-                state = UP_DEVICE_STATE_FULLY_CHARGED;
-        else
-                state = UP_DEVICE_STATE_UNKNOWN;
-
-        /* calculate a quick and dirty time remaining value */
-        if (energy_rate_total > 0) {
-                if (state == UP_DEVICE_STATE_DISCHARGING && time_to_empty_total == 0)
-                        time_to_empty_total = 3600 * (energy_total / energy_rate_total);
-                else if (state == UP_DEVICE_STATE_CHARGING && time_to_full_total == 0)
-                        time_to_full_total = 3600 * ((energy_full_total - energy_total) / energy_rate_total);
-        }
-
- out:
-        g_debug ("printing composite device");
-        g_object_set (manager->priv->device_composite,
-                      "energy", energy_total,
-                      "energy-full", energy_full_total,
-                      "energy-rate", energy_rate_total,
-                      "time-to-empty", time_to_empty_total,
-                      "time-to-full", time_to_full_total,
-                      "percentage", percentage,
-                      "state", state,
-                      "is-present", (battery_devices > 0),
-                      NULL);
-}
-
-static void
 engine_device_add (GsdPowerManager *manager, UpDevice *device)
 {
         UpDeviceLevel warning;
@@ -352,7 +252,6 @@ engine_device_add (GsdPowerManager *manager, UpDevice *device)
 
         if (kind == UP_DEVICE_KIND_BATTERY) {
                 g_debug ("updating because we added a device");
-                engine_update_composite_device (manager);
 
                 /* reset those values for the composite device */
                 g_object_set_data (G_OBJECT(manager->priv->device_composite),
@@ -1011,7 +910,6 @@ engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *m
         /* if battery then use composite device to cope with multiple batteries */
         if (kind == UP_DEVICE_KIND_BATTERY) {
                 g_debug ("updating because %s changed", up_device_get_object_path (device));
-                engine_update_composite_device (manager);
                 device = manager->priv->device_composite;
         }
 
@@ -2602,14 +2500,7 @@ on_rr_screen_acquired (GObject      *object,
         manager->priv->devices_array = g_ptr_array_new_with_free_func (g_object_unref);
 
         /* create a fake virtual composite battery */
-        manager->priv->device_composite = up_device_new ();
-        g_object_set (manager->priv->device_composite,
-                      "kind", UP_DEVICE_KIND_BATTERY,
-                      "is-rechargeable", TRUE,
-                      "native-path", "dummy:composite_battery",
-                      "power-supply", TRUE,
-                      NULL);
-        engine_update_composite_device (manager);
+        manager->priv->device_composite = up_client_get_display_device (manager->priv->up_client);
 
         /* create IDLETIME watcher */
         manager->priv->idle_monitor = gnome_idle_monitor_new ();
