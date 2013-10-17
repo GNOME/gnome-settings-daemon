@@ -316,35 +316,15 @@ on_notification_closed (NotifyNotification *notification, gpointer data)
     g_object_unref (notification);
 }
 
-static const gchar *
-get_first_themed_icon_name (GIcon *icon)
-{
-        const gchar* const *icon_names;
-        const gchar *icon_name = NULL;
-
-        /* no icon */
-        if (icon == NULL)
-                goto out;
-
-        /* just use the first icon */
-        icon_names = g_themed_icon_get_names (G_THEMED_ICON (icon));
-        if (icon_names != NULL)
-                icon_name = icon_names[0];
-out:
-        return icon_name;
-}
-
 static void
 create_notification (const char *summary,
                      const char *body,
-                     GIcon      *icon,
+                     const char *icon_name,
                      NotifyNotification **weak_pointer_location)
 {
         NotifyNotification *notification;
 
-        notification = notify_notification_new (summary,
-                                                body,
-                                                icon ? get_first_themed_icon_name (icon) : NULL);
+        notification = notify_notification_new (summary, body, icon_name);
         *weak_pointer_location = notification;
         g_object_add_weak_pointer (G_OBJECT (notification),
                                    (gpointer *) weak_pointer_location);
@@ -358,7 +338,7 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
         const gchar *title;
         gchar *remaining_text = NULL;
         gdouble percentage;
-        GIcon *icon = NULL;
+        char *icon_name;
         gint64 time_to_empty;
         GString *message;
         UpDeviceKind kind;
@@ -368,10 +348,13 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
                       "kind", &kind,
                       "percentage", &percentage,
                       "time-to-empty", &time_to_empty,
+                      "icon-name", &icon_name,
                       NULL);
 
-        if (kind != UP_DEVICE_KIND_UPS)
+        if (kind != UP_DEVICE_KIND_UPS) {
+                g_free (icon_name);
                 return;
+        }
 
         main_battery_or_ups_low_changed (manager, TRUE);
 
@@ -392,14 +375,12 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
         }
         g_string_append_printf (message, " (%.0f%%)", percentage);
 
-        icon = gpm_upower_get_device_icon (device, TRUE);
-
         /* close any existing notification of this class */
         notify_close_if_showing (&manager->priv->notification_ups_discharging);
 
         /* create a new notification */
         create_notification (title, message->str,
-                             icon,
+                             icon_name,
                              &manager->priv->notification_ups_discharging);
         notify_notification_set_timeout (manager->priv->notification_ups_discharging,
                                          GSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG);
@@ -413,8 +394,7 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
         notify_notification_show (manager->priv->notification_ups_discharging, NULL);
 
         g_string_free (message, TRUE);
-        if (icon != NULL)
-                g_object_unref (icon);
+        g_free (icon_name);
         g_free (remaining_text);
 }
 
@@ -475,7 +455,7 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
         gchar *tmp;
         gchar *remaining_text;
         gdouble percentage;
-        GIcon *icon = NULL;
+        char *icon_name;
         gint64 time_to_empty;
         UpDeviceKind kind;
 
@@ -484,6 +464,7 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
                       "kind", &kind,
                       "percentage", &percentage,
                       "time-to-empty", &time_to_empty,
+                      "icon-name", &icon_name,
                       NULL);
 
         /* check to see if the batteries have not noticed we are on AC */
@@ -576,15 +557,12 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
                 message = g_strdup_printf (_("Attached computer is low in power (%.0f%%)"), percentage);
         }
 
-        /* get correct icon */
-        icon = gpm_upower_get_device_icon (device, TRUE);
-
         /* close any existing notification of this class */
         notify_close_if_showing (&manager->priv->notification_low);
 
         /* create a new notification */
         create_notification (title, message,
-                             icon,
+                             icon_name,
                              &manager->priv->notification_low);
         notify_notification_set_timeout (manager->priv->notification_low,
                                          GSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG);
@@ -603,8 +581,7 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
                          CA_PROP_EVENT_DESCRIPTION, _("Battery is low"), NULL);
 
 out:
-        if (icon != NULL)
-                g_object_unref (icon);
+        g_free (icon_name);
         g_free (message);
 }
 
@@ -615,7 +592,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
         gboolean ret;
         gchar *message = NULL;
         gdouble percentage;
-        GIcon *icon = NULL;
+        char *icon_name;
         gint64 time_to_empty;
         GsdPowerActionType policy;
         UpDeviceKind kind;
@@ -625,6 +602,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
                       "kind", &kind,
                       "percentage", &percentage,
                       "time-to-empty", &time_to_empty,
+                      "icon-name", &icon_name,
                       NULL);
 
         /* check to see if the batteries have not noticed we are on AC */
@@ -741,15 +719,12 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
                                            percentage);
         }
 
-        /* get correct icon */
-        icon = gpm_upower_get_device_icon (device, TRUE);
-
         /* close any existing notification of this class */
         notify_close_if_showing (&manager->priv->notification_low);
 
         /* create a new notification */
         create_notification (title, message,
-                             icon,
+                             icon_name,
                              &manager->priv->notification_low);
         notify_notification_set_timeout (manager->priv->notification_low,
                                          NOTIFY_EXPIRES_NEVER);
@@ -776,8 +751,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
                 break;
         }
 out:
-        if (icon != NULL)
-                g_object_unref (icon);
+        g_free (icon_name);
         g_free (message);
 }
 
@@ -786,7 +760,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
 {
         const gchar *title = NULL;
         gchar *message = NULL;
-        GIcon *icon = NULL;
+        char *icon_name;
         GsdPowerActionType policy;
         guint timer_id;
         UpDeviceKind kind;
@@ -794,6 +768,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
         /* get device properties */
         g_object_get (device,
                       "kind", &kind,
+                      "icon-name", &icon_name,
                       NULL);
 
         /* check to see if the batteries have not noticed we are on AC */
@@ -860,15 +835,12 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
         if (title == NULL)
                 return;
 
-        /* get correct icon */
-        icon = gpm_upower_get_device_icon (device, TRUE);
-
         /* close any existing notification of this class */
         notify_close_if_showing (&manager->priv->notification_low);
 
         /* create a new notification */
         create_notification (title, message,
-                             icon,
+                             icon_name,
                              &manager->priv->notification_low);
         notify_notification_set_timeout (manager->priv->notification_low,
                                          NOTIFY_EXPIRES_NEVER);
@@ -885,8 +857,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
                          /* TRANSLATORS: this is the sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Battery is critically low"), NULL);
 out:
-        if (icon != NULL)
-                g_object_unref (icon);
+        g_free (icon_name);
         g_free (message);
 }
 
