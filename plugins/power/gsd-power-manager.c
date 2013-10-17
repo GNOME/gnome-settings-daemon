@@ -194,7 +194,7 @@ enum {
 static void     gsd_power_manager_class_init  (GsdPowerManagerClass *klass);
 static void     gsd_power_manager_init        (GsdPowerManager      *power_manager);
 
-static void      engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *manager);
+static void      engine_device_warning_changed_cb (UpDevice *device, GParamSpec *pspec, GsdPowerManager *manager);
 static void      do_power_action_type (GsdPowerManager *manager, GsdPowerActionType action_type);
 static void      uninhibit_lid_switch (GsdPowerManager *manager);
 static void      main_battery_or_ups_low_changed (GsdPowerManager *manager, gboolean is_low);
@@ -227,42 +227,21 @@ notify_close_if_showing (NotifyNotification **notification)
 static void
 engine_device_add (GsdPowerManager *manager, UpDevice *device)
 {
-        UpDeviceLevel warning;
-        UpDeviceState state;
         UpDeviceKind kind;
 
-        /* assign warning */
-        g_object_get (device, "warning-level", &warning, NULL);
-        g_object_set_data (G_OBJECT(device),
-                           "engine-warning-old",
-                           GUINT_TO_POINTER(warning));
+        /* Batteries and UPSes are already handled through
+         * the composite battery */
+        g_object_get (device, "kind", &kind, NULL);
+        if (kind == UP_DEVICE_KIND_BATTERY ||
+            kind == UP_DEVICE_KIND_UPS ||
+            kind == UP_DEVICE_KIND_LINE_POWER)
+                return;
+        g_ptr_array_add (manager->priv->devices_array, g_object_ref (device));
 
-        /* get device properties */
-        g_object_get (device,
-                      "kind", &kind,
-                      "state", &state,
-                      NULL);
+        g_signal_connect (device, "notify::warning-level",
+                          G_CALLBACK (engine_device_warning_changed_cb), manager);
 
-        /* add old state for transitions */
-        g_debug ("adding %s with state %s",
-                 up_device_get_object_path (device), up_device_state_to_string (state));
-        g_object_set_data (G_OBJECT(device),
-                           "engine-state-old",
-                           GUINT_TO_POINTER(state));
-
-        if (kind == UP_DEVICE_KIND_BATTERY) {
-                g_debug ("updating because we added a device");
-
-                /* reset those values for the composite device */
-                g_object_set_data (G_OBJECT(manager->priv->device_composite),
-                                   "engine-warning-old",
-                                   GUINT_TO_POINTER(UP_DEVICE_LEVEL_NONE));
-                g_object_set_data (G_OBJECT(manager->priv->device_composite),
-                                   "engine-state-old",
-                                   GUINT_TO_POINTER(UP_DEVICE_STATE_UNKNOWN));
-
-                engine_device_changed_cb (NULL, manager->priv->device_composite, manager);
-        }
+        engine_device_warning_changed_cb (device, NULL, manager);
 }
 
 static gboolean
@@ -299,8 +278,6 @@ engine_coldplug (GsdPowerManager *manager)
 static void
 engine_device_added_cb (UpClient *client, UpDevice *device, GsdPowerManager *manager)
 {
-        /* add to list */
-        g_ptr_array_add (manager->priv->devices_array, g_object_ref (device));
         engine_device_add (manager, device);
 }
 
@@ -862,66 +839,31 @@ out:
 }
 
 static void
-engine_device_changed_cb (UpClient *client, UpDevice *device, GsdPowerManager *manager)
+engine_device_warning_changed_cb (UpDevice *device, GParamSpec *pspec, GsdPowerManager *manager)
 {
-        UpDeviceKind kind;
-        UpDeviceState state;
-        UpDeviceState state_old;
-        UpDeviceLevel warning_old;
         UpDeviceLevel warning;
 
-        /* get device properties */
-        g_object_get (device,
-                      "kind", &kind,
-                      NULL);
-
-        /* if battery then use composite device to cope with multiple batteries */
-        if (kind == UP_DEVICE_KIND_BATTERY) {
-                g_debug ("updating because %s changed", up_device_get_object_path (device));
-                device = manager->priv->device_composite;
-        }
-
-        /* get device properties (may be composite) */
-        g_object_get (device,
-                      "state", &state,
-                      NULL);
-
-        g_debug ("%s state is now %s", up_device_get_object_path (device), up_device_state_to_string (state));
-
-        /* see if any interesting state changes have happened */
-        state_old = GPOINTER_TO_INT(g_object_get_data (G_OBJECT(device), "engine-state-old"));
-        if (state_old != state) {
-                if (state == UP_DEVICE_STATE_DISCHARGING) {
-                        g_debug ("discharging");
-                        engine_ups_discharging (manager, device);
-                } else if (state == UP_DEVICE_STATE_FULLY_CHARGED ||
-                           state == UP_DEVICE_STATE_CHARGING) {
-                        g_debug ("fully charged or charging, hiding notifications if any");
-                        notify_close_if_showing (&manager->priv->notification_low);
-                        notify_close_if_showing (&manager->priv->notification_ups_discharging);
-                        main_battery_or_ups_low_changed (manager, FALSE);
-                }
-
-                /* save new state */
-                g_object_set_data (G_OBJECT(device), "engine-state-old", GUINT_TO_POINTER(state));
-        }
-
-        /* check the warning state has not changed */
-        warning_old = GPOINTER_TO_INT(g_object_get_data (G_OBJECT(device), "engine-warning-old"));
         g_object_get (device, "warning-level", &warning, NULL);
-        if (warning != warning_old) {
-                if (warning == UP_DEVICE_LEVEL_LOW) {
-                        g_debug ("** EMIT: charge-low");
-                        engine_charge_low (manager, device);
-                } else if (warning == UP_DEVICE_LEVEL_CRITICAL) {
-                        g_debug ("** EMIT: charge-critical");
-                        engine_charge_critical (manager, device);
-                } else if (warning == UP_DEVICE_LEVEL_ACTION) {
-                        g_debug ("charge-action");
-                        engine_charge_action (manager, device);
-                }
-                /* save new state */
-                g_object_set_data (G_OBJECT(device), "engine-warning-old", GUINT_TO_POINTER(warning));
+
+        if (warning == UP_DEVICE_LEVEL_DISCHARGING) {
+                g_debug ("** EMIT: discharging");
+                engine_ups_discharging (manager, device);
+        } else if (warning == UP_DEVICE_LEVEL_LOW) {
+                g_debug ("** EMIT: charge-low");
+                engine_charge_low (manager, device);
+        } else if (warning == UP_DEVICE_LEVEL_CRITICAL) {
+                g_debug ("** EMIT: charge-critical");
+                engine_charge_critical (manager, device);
+        } else if (warning == UP_DEVICE_LEVEL_ACTION) {
+                g_debug ("** EMIT: charge-action");
+                engine_charge_action (manager, device);
+        } else if (warning == UP_DEVICE_LEVEL_NONE) {
+                /* FIXME: this only handles one notification
+                 * for the whole system, instead of one per device */
+                g_debug ("fully charged or charging, hiding notifications if any");
+                notify_close_if_showing (&manager->priv->notification_low);
+                notify_close_if_showing (&manager->priv->notification_ups_discharging);
+                main_battery_or_ups_low_changed (manager, FALSE);
         }
 }
 
@@ -2435,8 +2377,6 @@ on_rr_screen_acquired (GObject      *object,
                           G_CALLBACK (engine_device_added_cb), manager);
         g_signal_connect (manager->priv->up_client, "device-removed",
                           G_CALLBACK (engine_device_removed_cb), manager);
-        g_signal_connect (manager->priv->up_client, "device-changed",
-                          G_CALLBACK (engine_device_changed_cb), manager);
         g_signal_connect_after (manager->priv->up_client, "changed",
                                 G_CALLBACK (up_client_changed_cb), manager);
         g_signal_connect (manager->priv->up_client, "notify::on-battery",
@@ -2469,6 +2409,8 @@ on_rr_screen_acquired (GObject      *object,
 
         /* create a fake virtual composite battery */
         manager->priv->device_composite = up_client_get_display_device (manager->priv->up_client);
+        g_signal_connect (manager->priv->device_composite, "notify::warning-level",
+                          G_CALLBACK (engine_device_warning_changed_cb), manager);
 
         /* create IDLETIME watcher */
         manager->priv->idle_monitor = gnome_idle_monitor_new ();
