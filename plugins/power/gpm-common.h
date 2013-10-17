@@ -29,8 +29,6 @@ G_BEGIN_DECLS
 
 /* UPower helpers */
 gchar           *gpm_get_timestring                     (guint           time);
-GIcon           *gpm_upower_get_device_icon             (UpDevice       *device,
-                                                         gboolean        use_symbolic);
 
 /* Power helpers */
 gboolean         gsd_power_is_hardware_a_vm             (void);
