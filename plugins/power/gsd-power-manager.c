@@ -1219,7 +1219,7 @@ do_lid_closed_action (GsdPowerManager *manager)
 }
 
 static void
-up_client_changed_cb (UpClient *client, GsdPowerManager *manager)
+lid_state_changed_cb (UpClient *client, GParamSpec *pspec, GsdPowerManager *manager)
 {
         gboolean tmp;
 
@@ -2304,8 +2304,8 @@ on_rr_screen_acquired (GObject      *object,
                           G_CALLBACK (engine_device_added_cb), manager);
         g_signal_connect (manager->priv->up_client, "device-removed",
                           G_CALLBACK (engine_device_removed_cb), manager);
-        g_signal_connect_after (manager->priv->up_client, "changed",
-                                G_CALLBACK (up_client_changed_cb), manager);
+        g_signal_connect_after (manager->priv->up_client, "notify::lid-is-closed",
+                                G_CALLBACK (lid_state_changed_cb), manager);
         g_signal_connect (manager->priv->up_client, "notify::on-battery",
                           G_CALLBACK (up_client_on_battery_cb), manager);
 
