@@ -318,20 +318,13 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
         char *icon_name;
         gint64 time_to_empty;
         GString *message;
-        UpDeviceKind kind;
 
         /* get device properties */
         g_object_get (device,
-                      "kind", &kind,
                       "percentage", &percentage,
                       "time-to-empty", &time_to_empty,
                       "icon-name", &icon_name,
                       NULL);
-
-        if (kind != UP_DEVICE_KIND_UPS) {
-                g_free (icon_name);
-                return;
-        }
 
         main_battery_or_ups_low_changed (manager, TRUE);
 
