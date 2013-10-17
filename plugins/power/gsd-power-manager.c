@@ -539,26 +539,11 @@ manager_critical_action_get (GsdPowerManager *manager)
 }
 
 static gboolean
-manager_critical_action_do (GsdPowerManager *manager,
-                            gboolean         is_ups)
+manager_critical_action_do_cb (GsdPowerManager *manager)
 {
         /* stop playing the alert as it's too late to do anything now */
         play_loop_stop (&manager->priv->critical_alert_timeout_id);
 
-        return FALSE;
-}
-
-static gboolean
-manager_critical_action_do_cb (GsdPowerManager *manager)
-{
-        manager_critical_action_do (manager, FALSE);
-        return FALSE;
-}
-
-static gboolean
-manager_critical_ups_action_do_cb (GsdPowerManager *manager)
-{
-        manager_critical_action_do (manager, TRUE);
         return FALSE;
 }
 
@@ -970,7 +955,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
 
                 /* wait 20 seconds for user-panic */
                 timer_id = g_timeout_add_seconds (GSD_ACTION_DELAY,
-                                                  (GSourceFunc) manager_critical_ups_action_do_cb,
+                                                  (GSourceFunc) manager_critical_action_do_cb,
                                                   manager);
                 g_source_set_name_by_id (timer_id, "[GsdPowerManager] ups critical-action");
         }
