@@ -76,11 +76,10 @@
 #define SYSTEMD_DBUS_PATH                       "/org/freedesktop/login1"
 #define SYSTEMD_DBUS_INTERFACE                  "org.freedesktop.login1.Manager"
 
-/* Time between notifying the user about a critical action and executing it.
- * This can be changed with the GSD_ACTION_DELAY constant. */
-#ifndef GSD_ACTION_DELAY
+/* Time between notifying the user about a critical action and the action itself in UPower. */
 #define GSD_ACTION_DELAY 20
-#endif /* !GSD_ACTION_DELAY */
+/* And the time before we stop the warning sound */
+#define GSD_STOP_SOUND_DELAY GSD_ACTION_DELAY - 2
 
 static const gchar introspection_xml[] =
 "<node>"
@@ -385,7 +384,7 @@ manager_critical_action_get (GsdPowerManager *manager)
 }
 
 static gboolean
-manager_critical_action_do_cb (GsdPowerManager *manager)
+manager_critical_action_stop_sound_cb (GsdPowerManager *manager)
 {
         /* stop playing the alert as it's too late to do anything now */
         play_loop_stop (&manager->priv->critical_alert_timeout_id);
@@ -722,8 +721,8 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
                 }
 
                 /* wait 20 seconds for user-panic */
-                timer_id = g_timeout_add_seconds (GSD_ACTION_DELAY,
-                                                  (GSourceFunc) manager_critical_action_do_cb,
+                timer_id = g_timeout_add_seconds (GSD_STOP_SOUND_DELAY,
+                                                  (GSourceFunc) manager_critical_action_stop_sound_cb,
                                                   manager);
                 g_source_set_name_by_id (timer_id, "[GsdPowerManager] battery critical-action");
 
@@ -747,8 +746,8 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
                 }
 
                 /* wait 20 seconds for user-panic */
-                timer_id = g_timeout_add_seconds (GSD_ACTION_DELAY,
-                                                  (GSourceFunc) manager_critical_action_do_cb,
+                timer_id = g_timeout_add_seconds (GSD_STOP_SOUND_DELAY,
+                                                  (GSourceFunc) manager_critical_action_stop_sound_cb,
                                                   manager);
                 g_source_set_name_by_id (timer_id, "[GsdPowerManager] ups critical-action");
         }
