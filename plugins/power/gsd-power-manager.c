@@ -775,15 +775,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
                 policy = manager_critical_action_get (manager);
 
                 /* use different text for different actions */
-                if (policy == GSD_POWER_ACTION_NOTHING) {
-                        /* TRANSLATORS: tell the use to insert the plug, as we're not going to do anything */
-                        message = g_strdup (_("Plug in your AC adapter to avoid losing data."));
-
-                } else if (policy == GSD_POWER_ACTION_SUSPEND) {
-                        /* TRANSLATORS: give the user a ultimatum */
-                        message = g_strdup_printf (_("Computer will suspend very soon unless it is plugged in."));
-
-                } else if (policy == GSD_POWER_ACTION_HIBERNATE) {
+                if (policy == GSD_POWER_ACTION_HIBERNATE) {
                         /* TRANSLATORS: give the user a ultimatum */
                         message = g_strdup_printf (_("Computer will hibernate very soon unless it is plugged in."));
 
@@ -945,20 +937,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
                 policy = manager_critical_action_get (manager);
 
                 /* use different text for different actions */
-                if (policy == GSD_POWER_ACTION_NOTHING) {
-                        /* TRANSLATORS: computer will shutdown without saving data */
-                        message = g_strdup (_("The battery is below the critical level and "
-                                              "this computer will <b>power-off</b> when the "
-                                              "battery becomes completely empty."));
-
-                } else if (policy == GSD_POWER_ACTION_SUSPEND) {
-                        /* TRANSLATORS: computer will suspend */
-                        message = g_strdup (_("The battery is below the critical level and "
-                                              "this computer is about to suspend.\n"
-                                              "<b>NOTE:</b> A small amount of power is required "
-                                              "to keep your computer in a suspended state."));
-
-                } else if (policy == GSD_POWER_ACTION_HIBERNATE) {
+                if (policy == GSD_POWER_ACTION_HIBERNATE) {
                         /* TRANSLATORS: computer will hibernate */
                         message = g_strdup (_("The battery is below the critical level and "
                                               "this computer is about to hibernate."));
@@ -983,13 +962,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
                 policy = manager_critical_action_get (manager);
 
                 /* use different text for different actions */
-                if (policy == GSD_POWER_ACTION_NOTHING) {
-                        /* TRANSLATORS: computer will shutdown without saving data */
-                        message = g_strdup (_("UPS is below the critical level and "
-                                              "this computer will <b>power-off</b> when the "
-                                              "UPS becomes completely empty."));
-
-                } else if (policy == GSD_POWER_ACTION_HIBERNATE) {
+                if (policy == GSD_POWER_ACTION_HIBERNATE) {
                         /* TRANSLATORS: computer will hibernate */
                         message = g_strdup (_("UPS is below the critical level and "
                                               "this computer is about to hibernate."));
