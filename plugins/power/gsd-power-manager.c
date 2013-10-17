@@ -249,16 +249,6 @@ engine_coldplug (GsdPowerManager *manager)
         guint i;
         GPtrArray *array = NULL;
         UpDevice *device;
-        gboolean ret;
-        GError *error = NULL;
-
-        /* get devices from UPower */
-        ret = up_client_enumerate_devices_sync (manager->priv->up_client, NULL, &error);
-        if (!ret) {
-                g_warning ("failed to get device list: %s", error->message);
-                g_error_free (error);
-                return FALSE;
-        }
 
         /* add to database */
         array = up_client_get_devices (manager->priv->up_client);
@@ -281,9 +271,18 @@ engine_device_added_cb (UpClient *client, UpDevice *device, GsdPowerManager *man
 }
 
 static void
-engine_device_removed_cb (UpClient *client, UpDevice *device, GsdPowerManager *manager)
+engine_device_removed_cb (UpClient *client, const char *object_path, GsdPowerManager *manager)
 {
-        g_ptr_array_remove (manager->priv->devices_array, device);
+        guint i;
+
+        for (i = 0; i < manager->priv->devices_array->len; i++) {
+                UpDevice *device = g_ptr_array_index (manager->priv->devices_array, i);
+
+                if (g_strcmp0 (object_path, up_device_get_object_path (device)) == 0) {
+                        g_ptr_array_remove_index (manager->priv->devices_array, i);
+                        break;
+                }
+        }
 }
 
 static void
