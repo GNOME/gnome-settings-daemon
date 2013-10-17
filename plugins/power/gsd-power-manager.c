@@ -542,13 +542,8 @@ static gboolean
 manager_critical_action_do (GsdPowerManager *manager,
                             gboolean         is_ups)
 {
-        GsdPowerActionType action_type;
-
         /* stop playing the alert as it's too late to do anything now */
         play_loop_stop (&manager->priv->critical_alert_timeout_id);
-
-        action_type = manager_critical_action_get (manager);
-        do_power_action_type (manager, action_type);
 
         return FALSE;
 }
