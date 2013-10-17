@@ -393,29 +393,6 @@ manager_critical_action_do_cb (GsdPowerManager *manager)
         return FALSE;
 }
 
-static gboolean
-engine_just_laptop_battery (GsdPowerManager *manager)
-{
-        UpDevice *device;
-        UpDeviceKind kind;
-        GPtrArray *array;
-        gboolean ret = TRUE;
-        guint i;
-
-        /* find if there are any other device types that mean we have to
-         * be more specific in our wording */
-        array = manager->priv->devices_array;
-        for (i=0; i<array->len; i++) {
-                device = g_ptr_array_index (array, i);
-                g_object_get (device, "kind", &kind, NULL);
-                if (kind != UP_DEVICE_KIND_BATTERY) {
-                        ret = FALSE;
-                        break;
-                }
-        }
-        return ret;
-}
-
 static void
 engine_charge_low (GsdPowerManager *manager, UpDevice *device)
 {
@@ -440,7 +417,7 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
         /* check to see if the batteries have not noticed we are on AC */
         if (kind == UP_DEVICE_KIND_BATTERY) {
                 if (!up_client_get_on_battery (manager->priv->up_client)) {
-                        g_warning ("ignoring low message as we are not on battery power");
+                        g_warning ("ignoring critically low message as we are not on battery power");
                         goto out;
                 }
         }
@@ -448,7 +425,7 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
         if (kind == UP_DEVICE_KIND_BATTERY) {
 
                 /* if the user has no other batteries, drop the "Laptop" wording */
-                ret = engine_just_laptop_battery (manager);
+                ret = (manager->priv->devices_array->len > 0);
                 if (ret) {
                         /* TRANSLATORS: laptop battery low, and we only have one battery */
                         title = _("Battery low");
@@ -578,7 +555,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
         /* check to see if the batteries have not noticed we are on AC */
         if (kind == UP_DEVICE_KIND_BATTERY) {
                 if (!up_client_get_on_battery (manager->priv->up_client)) {
-                        g_warning ("ignoring critically low message as we are not on battery power");
+                        g_warning ("ignoring low message as we are not on battery power");
                         goto out;
                 }
         }
@@ -586,7 +563,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
         if (kind == UP_DEVICE_KIND_BATTERY) {
 
                 /* if the user has no other batteries, drop the "Laptop" wording */
-                ret = engine_just_laptop_battery (manager);
+                ret = (manager->priv->devices_array->len > 0);
                 if (ret) {
                         /* TRANSLATORS: laptop battery critically low, and only have one kind of battery */
                         title = _("Battery critically low");
