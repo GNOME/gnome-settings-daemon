@@ -325,8 +325,6 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
                       "icon-name", &icon_name,
                       NULL);
 
-        main_battery_or_ups_low_changed (manager, TRUE);
-
         /* only show text if there is a valid time */
         if (time_to_empty > 0)
                 remaining_text = gpm_get_timestring (time_to_empty);
@@ -431,8 +429,6 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
                 /* TRANSLATORS: tell the user how much time they have got */
                 message = g_strdup_printf (_("Approximately %s remaining (%.0f%%)"), remaining_text, percentage);
                 g_free (remaining_text);
-
-                main_battery_or_ups_low_changed (manager, TRUE);
 
         } else if (kind == UP_DEVICE_KIND_UPS) {
                 /* TRANSLATORS: UPS is starting to get a little low */
@@ -566,8 +562,6 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
                         /* TRANSLATORS: give the user a ultimatum */
                         message = g_strdup_printf (_("Computer will shutdown very soon unless it is plugged in."));
                 }
-
-                main_battery_or_ups_low_changed (manager, TRUE);
 
         } else if (kind == UP_DEVICE_KIND_UPS) {
                 gchar *remaining_text;
@@ -807,8 +801,9 @@ engine_device_warning_changed_cb (UpDevice *device, GParamSpec *pspec, GsdPowerM
                 g_debug ("fully charged or charging, hiding notifications if any");
                 notify_close_if_showing (&manager->priv->notification_low);
                 notify_close_if_showing (&manager->priv->notification_ups_discharging);
-                main_battery_or_ups_low_changed (manager, FALSE);
         }
+
+        main_battery_or_ups_low_changed (manager, (warning != UP_DEVICE_LEVEL_NONE));
 }
 
 static void
@@ -1717,7 +1712,7 @@ idle_configure (GsdPowerManager *manager)
 
 static void
 main_battery_or_ups_low_changed (GsdPowerManager *manager,
-                          gboolean         is_low)
+                                 gboolean         is_low)
 {
         if (is_low == manager->priv->battery_is_low)
                 return;
