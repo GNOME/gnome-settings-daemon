@@ -414,14 +414,6 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
                       "icon-name", &icon_name,
                       NULL);
 
-        /* check to see if the batteries have not noticed we are on AC */
-        if (kind == UP_DEVICE_KIND_BATTERY) {
-                if (!up_client_get_on_battery (manager->priv->up_client)) {
-                        g_warning ("ignoring critically low message as we are not on battery power");
-                        goto out;
-                }
-        }
-
         if (kind == UP_DEVICE_KIND_BATTERY) {
 
                 /* if the user has no other batteries, drop the "Laptop" wording */
@@ -527,7 +519,6 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
                          /* TRANSLATORS: this is the sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Battery is low"), NULL);
 
-out:
         g_free (icon_name);
         g_free (message);
 }
@@ -551,14 +542,6 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
                       "time-to-empty", &time_to_empty,
                       "icon-name", &icon_name,
                       NULL);
-
-        /* check to see if the batteries have not noticed we are on AC */
-        if (kind == UP_DEVICE_KIND_BATTERY) {
-                if (!up_client_get_on_battery (manager->priv->up_client)) {
-                        g_warning ("ignoring low message as we are not on battery power");
-                        goto out;
-                }
-        }
 
         if (kind == UP_DEVICE_KIND_BATTERY) {
 
@@ -697,7 +680,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
                                  CA_PROP_EVENT_DESCRIPTION, _("Battery is critically low"), NULL);
                 break;
         }
-out:
+
         g_free (icon_name);
         g_free (message);
 }
@@ -717,14 +700,6 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
                       "kind", &kind,
                       "icon-name", &icon_name,
                       NULL);
-
-        /* check to see if the batteries have not noticed we are on AC */
-        if (kind == UP_DEVICE_KIND_BATTERY) {
-                if (!up_client_get_on_battery (manager->priv->up_client)) {
-                        g_warning ("ignoring critically low message as we are not on battery power");
-                        goto out;
-                }
-        }
 
         if (kind == UP_DEVICE_KIND_BATTERY) {
 
@@ -803,7 +778,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
                          CA_PROP_EVENT_ID, "battery-caution",
                          /* TRANSLATORS: this is the sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Battery is critically low"), NULL);
-out:
+
         g_free (icon_name);
         g_free (message);
 }
