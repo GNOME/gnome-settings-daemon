@@ -1791,8 +1791,10 @@ do_config_power_action (GsdMediaKeysManager *manager,
                 power_action (manager, "Suspend");
                 break;
         case GSD_POWER_ACTION_INTERACTIVE:
-        case GSD_POWER_ACTION_SHUTDOWN:
                 gnome_session_shutdown (manager);
+                break;
+        case GSD_POWER_ACTION_SHUTDOWN:
+                power_action (manager, "PowerOff");
                 break;
         case GSD_POWER_ACTION_HIBERNATE:
                 power_action (manager, "Hibernate");
