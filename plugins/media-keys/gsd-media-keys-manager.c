@@ -1766,22 +1766,11 @@ do_toggle_contrast_action (GsdMediaKeysManager *manager)
 }
 
 static void
-power_action_suspend (GsdMediaKeysManager *manager)
+power_action (GsdMediaKeysManager *manager,
+              const char          *action)
 {
         g_dbus_proxy_call (manager->priv->logind_proxy,
-                           "Suspend",
-                           g_variant_new ("(b)", TRUE),
-                           G_DBUS_CALL_FLAGS_NONE,
-                           G_MAXINT,
-                           manager->priv->bus_cancellable,
-                           NULL, NULL);
-}
-
-static void
-power_action_hibernate (GsdMediaKeysManager *manager)
-{
-        g_dbus_proxy_call (manager->priv->logind_proxy,
-                           "Hibernate",
+                           action,
                            g_variant_new ("(b)", TRUE),
                            G_DBUS_CALL_FLAGS_NONE,
                            G_MAXINT,
@@ -1799,14 +1788,14 @@ do_config_power_action (GsdMediaKeysManager *manager,
                                            config_key);
         switch (action_type) {
         case GSD_POWER_ACTION_SUSPEND:
-                power_action_suspend (manager);
+                power_action (manager, "Suspend");
                 break;
         case GSD_POWER_ACTION_INTERACTIVE:
         case GSD_POWER_ACTION_SHUTDOWN:
                 gnome_session_shutdown (manager);
                 break;
         case GSD_POWER_ACTION_HIBERNATE:
-                power_action_hibernate (manager);
+                power_action (manager, "Hibernate");
                 break;
         case GSD_POWER_ACTION_BLANK:
         case GSD_POWER_ACTION_NOTHING:
