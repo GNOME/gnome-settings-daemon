@@ -62,6 +62,8 @@ libxsettings_la_SOURCES = 	\
 	xsettings-common.c	\
 	xsettings-manager.h	\
 	xsettings-manager.c	\
+	gsd-remote-display-manager.c \
+	gsd-remote-display-manager.h \
 	fontconfig-monitor.h	\
 	fontconfig-monitor.c	\
 	$(NULL)
