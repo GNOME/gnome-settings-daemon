@@ -2176,6 +2176,16 @@ gsd_xrandr_manager_finalize (GObject *object)
         G_OBJECT_CLASS (gsd_xrandr_manager_parent_class)->finalize (object);
 }
 
+static guint32
+clamp_timestamp (gint64 timestamp)
+{
+        if (timestamp < 0)
+                return 0;
+        if (timestamp > G_MAXUINT32)
+                return G_MAXUINT32;
+        return timestamp;
+}
+
 static void
 handle_method_call_xrandr_2 (GsdXrandrManager *manager,
                              const gchar *method_name,
@@ -2192,23 +2202,23 @@ handle_method_call_xrandr_2 (GsdXrandrManager *manager,
 
                 g_variant_get (parameters, "(xx)", &parent_window_id, &timestamp);
                 if (gsd_xrandr_manager_2_apply_configuration (manager, parent_window_id,
-                                                              timestamp, &error) == FALSE) {
+                                                              clamp_timestamp(timestamp), &error) == FALSE) {
                         g_dbus_method_invocation_return_gerror (invocation, error);
                 } else {
                         g_dbus_method_invocation_return_value (invocation, NULL);
                 }
         } else if (g_strcmp0 (method_name, "VideoModeSwitch") == 0) {
                 g_variant_get (parameters, "(x)", &timestamp);
-                gsd_xrandr_manager_2_video_mode_switch (manager, timestamp, NULL);
+                gsd_xrandr_manager_2_video_mode_switch (manager, clamp_timestamp(timestamp), NULL);
                 g_dbus_method_invocation_return_value (invocation, NULL);
         } else if (g_strcmp0 (method_name, "Rotate") == 0) {
                 g_variant_get (parameters, "(x)", &timestamp);
-                gsd_xrandr_manager_2_rotate (manager, timestamp, NULL);
+                gsd_xrandr_manager_2_rotate (manager, clamp_timestamp(timestamp), NULL);
                 g_dbus_method_invocation_return_value (invocation, NULL);
         } else if (g_strcmp0 (method_name, "RotateTo") == 0) {
                 GnomeRRRotation rotation;
                 g_variant_get (parameters, "(ix)", &rotation, &timestamp);
-                gsd_xrandr_manager_2_rotate_to (manager, rotation, timestamp, NULL);
+                gsd_xrandr_manager_2_rotate_to (manager, rotation, clamp_timestamp(timestamp), NULL);
                 g_dbus_method_invocation_return_value (invocation, NULL);
         }
 }
