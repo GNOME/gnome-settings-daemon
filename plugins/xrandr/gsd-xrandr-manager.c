@@ -134,8 +134,8 @@ static void get_allowed_rotations_for_output (GnomeRRConfig *config,
                                               GnomeRROutputInfo *output,
                                               int *out_num_rotations,
                                               GnomeRRRotation *out_rotations);
-static void handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp);
-static void handle_rotate_windows (GsdXrandrManager *mgr, GnomeRRRotation rotation, guint32 timestamp);
+static void handle_fn_f7 (GsdXrandrManager *mgr, gint64 timestamp);
+static void handle_rotate_windows (GsdXrandrManager *mgr, GnomeRRRotation rotation, gint64 timestamp);
 
 G_DEFINE_TYPE (GsdXrandrManager, gsd_xrandr_manager, G_TYPE_OBJECT)
 
@@ -339,7 +339,7 @@ get_laptop_output_info (GnomeRRScreen *screen, GnomeRRConfig *config)
  * We just return whether setting the configuration succeeded.
  */
 static gboolean
-apply_configuration (GsdXrandrManager *manager, GnomeRRConfig *config, guint32 timestamp)
+apply_configuration (GsdXrandrManager *manager, GnomeRRConfig *config, gint64 timestamp)
 {
         GsdXrandrManagerPrivate *priv = manager->priv;
         GError *error;
@@ -353,7 +353,7 @@ apply_configuration (GsdXrandrManager *manager, GnomeRRConfig *config, guint32 t
         success = gnome_rr_config_apply (config, priv->rw_screen, &error);
 
         if (!success) {
-                log_msg ("Could not switch to the following configuration (timestamp %u): %s\n", timestamp, error->message);
+                log_msg ("Could not switch to the following configuration (timestamp %" G_GINT64_FORMAT "): %s\n", timestamp, error->message);
                 log_configuration (config);
                 g_error_free (error);
         }
@@ -364,7 +364,7 @@ apply_configuration (GsdXrandrManager *manager, GnomeRRConfig *config, guint32 t
 /* DBus method for org.gnome.SettingsDaemon.XRANDR_2 VideoModeSwitch; see gsd-xrandr-manager.xml for the interface definition */
 static gboolean
 gsd_xrandr_manager_2_video_mode_switch (GsdXrandrManager *manager,
-                                        guint32           timestamp,
+                                        gint64            timestamp,
                                         GError          **error)
 {
         handle_fn_f7 (manager, timestamp);
@@ -374,7 +374,7 @@ gsd_xrandr_manager_2_video_mode_switch (GsdXrandrManager *manager,
 /* DBus method for org.gnome.SettingsDaemon.XRANDR_2 Rotate; see gsd-xrandr-manager.xml for the interface definition */
 static gboolean
 gsd_xrandr_manager_2_rotate (GsdXrandrManager *manager,
-                             guint32           timestamp,
+                             gint64            timestamp,
                              GError          **error)
 {
         handle_rotate_windows (manager, GNOME_RR_ROTATION_NEXT, timestamp);
@@ -385,7 +385,7 @@ gsd_xrandr_manager_2_rotate (GsdXrandrManager *manager,
 static gboolean
 gsd_xrandr_manager_2_rotate_to (GsdXrandrManager *manager,
                                 GnomeRRRotation   rotation,
-                                guint32           timestamp,
+                                gint64            timestamp,
                                 GError          **error)
 {
         guint i;
@@ -943,7 +943,7 @@ error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to
 }
 
 static void
-handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
+handle_fn_f7 (GsdXrandrManager *mgr, gint64 timestamp)
 {
         GsdXrandrManagerPrivate *priv = mgr->priv;
         GnomeRRScreen *screen = priv->rw_screen;
@@ -965,7 +965,7 @@ handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
         g_debug ("Handling fn-f7");
 
         log_open ();
-        log_msg ("Handling XF86Display hotkey - timestamp %u\n", timestamp);
+        log_msg ("Handling XF86Display hotkey - timestamp %" G_GINT64_FORMAT "\n", timestamp);
 
         error = NULL;
         if (!gnome_rr_screen_refresh (screen, &error) && error) {
@@ -1016,7 +1016,7 @@ handle_fn_f7 (GsdXrandrManager *mgr, guint32 timestamp)
                 success = apply_configuration (mgr, priv->fn_f7_configs[mgr->priv->current_fn_f7_config], timestamp);
 
                 if (success) {
-                        log_msg ("Successfully switched to configuration (timestamp %u):\n", timestamp);
+                        log_msg ("Successfully switched to configuration (timestamp %" G_GINT64_FORMAT "):\n", timestamp);
                         log_configuration (priv->fn_f7_configs[mgr->priv->current_fn_f7_config]);
                 }
         }
@@ -1204,7 +1204,7 @@ rotate_touchscreens (GsdXrandrManager *mgr,
 static void
 handle_rotate_windows (GsdXrandrManager *mgr,
                        GnomeRRRotation rotation,
-                       guint32 timestamp)
+                       gint64 timestamp)
 {
         GsdXrandrManagerPrivate *priv = mgr->priv;
         GnomeRRScreen *screen = priv->rw_screen;
