@@ -1,4 +1,22 @@
 ==============
+Version 3.11.1
+==============
+
+Power:
+- Remove battery recall support code
+- Update for new UPower API
+- Remove org.gnome.SettingsDaemon.Power D-Bus interface
+  (deprecated by the new UPower)
+- Fix brightness keys when there's less than 20 brightness steps
+
+Remote display:
+- Merge plugin functionality into the XSettings plugin
+  we shouldn't modify GSettings on startup
+
+RFKill:
+- Handle rfkill for WWAN modems
+
+==============
 Version 3.10.1
 ==============
 
