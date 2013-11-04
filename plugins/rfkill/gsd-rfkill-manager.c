@@ -633,7 +633,7 @@ gsd_rfkill_manager_start (GsdRfkillManager *manager,
                                   on_nm_proxy_gotten, g_object_ref (manager));
 
         g_dbus_object_manager_client_new_for_bus (G_BUS_TYPE_SYSTEM,
-                                                  G_DBUS_OBJECT_MANAGER_CLIENT_FLAGS_NONE,
+                                                  G_DBUS_OBJECT_MANAGER_CLIENT_FLAGS_DO_NOT_AUTO_START,
                                                   "org.freedesktop.ModemManager1",
                                                   "/org/freedesktop/ModemManager1",
                                                   NULL, NULL, NULL, /* get_proxy_type and closure */
