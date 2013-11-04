@@ -80,11 +80,11 @@ update_property_from_variant (GsdRemoteDisplayManager *manager,
                               GVariant                *variant)
 {
         manager->priv->vnc_in_use = g_variant_get_boolean (variant);
+        manager->priv->disabled = manager->priv->vnc_in_use;
 
         g_debug ("%s because of remote display status (vnc: %d)",
-                 !manager->priv->vnc_in_use ? "Enabling" : "Disabling",
+                 manager->priv->disabled ? "Disabling" : "Enabling",
                  manager->priv->vnc_in_use);
-        manager->priv->disabled = !manager->priv->vnc_in_use;
         g_object_notify (G_OBJECT (manager), "force-disable-animations");
 }
 
