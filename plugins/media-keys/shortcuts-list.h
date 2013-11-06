@@ -75,6 +75,10 @@ typedef enum {
         SLEEP_KEY,
         SUSPEND_KEY,
         HIBERNATE_KEY,
+        POWER_KEY_NO_DIALOG,
+        SLEEP_KEY_NO_DIALOG,
+        SUSPEND_KEY_NO_DIALOG,
+        HIBERNATE_KEY_NO_DIALOG,
         SCREEN_BRIGHTNESS_UP_KEY,
         SCREEN_BRIGHTNESS_DOWN_KEY,
         KEYBOARD_BRIGHTNESS_UP_KEY,
@@ -88,6 +92,11 @@ typedef enum {
 #define GSD_KEYBINDING_MODE_LAUNCHER (SHELL_KEYBINDING_MODE_NORMAL | \
                                       SHELL_KEYBINDING_MODE_OVERVIEW)
 #define SCREENSAVER_MODE SHELL_KEYBINDING_MODE_ALL & ~SHELL_KEYBINDING_MODE_UNLOCK_SCREEN
+#define POWER_KEYS_MODE (SHELL_KEYBINDING_MODE_NORMAL | \
+			 SHELL_KEYBINDING_MODE_OVERVIEW | \
+			 SHELL_KEYBINDING_MODE_LOGIN_SCREEN)
+#define POWER_KEYS_MODE_NO_DIALOG (SHELL_KEYBINDING_MODE_LOCK_SCREEN | \
+				   SHELL_KEYBINDING_MODE_UNLOCK_SCREEN)
 
 static struct {
         MediaKeyType key_type;
@@ -145,12 +154,18 @@ static struct {
         { TOGGLE_CONTRAST_KEY, "toggle-contrast", NULL, NULL, SHELL_KEYBINDING_MODE_ALL },
         { MAGNIFIER_ZOOM_IN_KEY, "magnifier-zoom-in", NULL, NULL, SHELL_KEYBINDING_MODE_ALL },
         { MAGNIFIER_ZOOM_OUT_KEY, "magnifier-zoom-out", NULL, NULL, SHELL_KEYBINDING_MODE_ALL },
-        { POWER_KEY, NULL, N_("Power Off"), "XF86PowerOff", GSD_KEYBINDING_MODE_LAUNCHER },
+        { POWER_KEY, NULL, N_("Power Off"), "XF86PowerOff", POWER_KEYS_MODE },
         /* the kernel / Xorg names really are like this... */
         /* translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend */
-        { SLEEP_KEY, NULL, N_("Sleep"), "XF86Suspend", SHELL_KEYBINDING_MODE_ALL },
-        { SUSPEND_KEY, NULL, N_("Suspend"), "XF86Sleep", SHELL_KEYBINDING_MODE_ALL },
-        { HIBERNATE_KEY, NULL, N_("Hibernate"), "XF86Hibernate", SHELL_KEYBINDING_MODE_ALL },
+        { SLEEP_KEY, NULL, N_("Sleep"), "XF86Suspend", POWER_KEYS_MODE },
+        { SUSPEND_KEY, NULL, N_("Suspend"), "XF86Sleep", POWER_KEYS_MODE },
+        { HIBERNATE_KEY, NULL, N_("Hibernate"), "XF86Hibernate", POWER_KEYS_MODE },
+        { POWER_KEY_NO_DIALOG, NULL, N_("Power Off"), "XF86PowerOff", POWER_KEYS_MODE_NO_DIALOG },
+        /* the kernel / Xorg names really are like this... */
+        /* translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend */
+        { SLEEP_KEY_NO_DIALOG, NULL, N_("Sleep"), "XF86Suspend", POWER_KEYS_MODE_NO_DIALOG },
+        { SUSPEND_KEY_NO_DIALOG, NULL, N_("Suspend"), "XF86Sleep", POWER_KEYS_MODE_NO_DIALOG },
+        { HIBERNATE_KEY_NO_DIALOG, NULL, N_("Hibernate"), "XF86Hibernate", POWER_KEYS_MODE_NO_DIALOG },
         { SCREEN_BRIGHTNESS_UP_KEY, NULL, N_("Brightness Up"), "XF86MonBrightnessUp", SHELL_KEYBINDING_MODE_ALL },
         { SCREEN_BRIGHTNESS_DOWN_KEY, NULL, N_("Brightness Down"), "XF86MonBrightnessDown", SHELL_KEYBINDING_MODE_ALL },
         { KEYBOARD_BRIGHTNESS_UP_KEY, NULL, N_("Keyboard Brightness Up"), "XF86KbdBrightnessUp", SHELL_KEYBINDING_MODE_ALL },

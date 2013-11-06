@@ -1767,11 +1767,12 @@ do_toggle_contrast_action (GsdMediaKeysManager *manager)
 
 static void
 power_action (GsdMediaKeysManager *manager,
-              const char          *action)
+              const char          *action,
+              gboolean             allow_interaction)
 {
         g_dbus_proxy_call (manager->priv->logind_proxy,
                            action,
-                           g_variant_new ("(b)", TRUE),
+                           g_variant_new ("(b)", allow_interaction),
                            G_DBUS_CALL_FLAGS_NONE,
                            G_MAXINT,
                            manager->priv->bus_cancellable,
@@ -1780,7 +1781,8 @@ power_action (GsdMediaKeysManager *manager,
 
 static void
 do_config_power_action (GsdMediaKeysManager *manager,
-                        const gchar *config_key)
+                        const gchar *config_key,
+                        gboolean in_lock_screen)
 {
         GsdPowerActionType action_type;
 
@@ -1788,16 +1790,17 @@ do_config_power_action (GsdMediaKeysManager *manager,
                                            config_key);
         switch (action_type) {
         case GSD_POWER_ACTION_SUSPEND:
-                power_action (manager, "Suspend");
+                power_action (manager, "Suspend", !in_lock_screen);
                 break;
         case GSD_POWER_ACTION_INTERACTIVE:
-                gnome_session_shutdown (manager);
+                if (!in_lock_screen)
+                        gnome_session_shutdown (manager);
                 break;
         case GSD_POWER_ACTION_SHUTDOWN:
-                power_action (manager, "PowerOff");
+                power_action (manager, "PowerOff", !in_lock_screen);
                 break;
         case GSD_POWER_ACTION_HIBERNATE:
-                power_action (manager, "Hibernate");
+                power_action (manager, "Hibernate", !in_lock_screen);
                 break;
         case GSD_POWER_ACTION_BLANK:
         case GSD_POWER_ACTION_NOTHING:
@@ -2064,16 +2067,28 @@ do_action (GsdMediaKeysManager *manager,
 		do_toggle_contrast_action (manager);
 		break;
         case POWER_KEY:
-                do_config_power_action (manager, "button-power");
+                do_config_power_action (manager, "button-power", FALSE);
                 break;
         case SLEEP_KEY:
-                do_config_power_action (manager, "button-sleep");
+                do_config_power_action (manager, "button-sleep", FALSE);
                 break;
         case SUSPEND_KEY:
-                do_config_power_action (manager, "button-suspend");
+                do_config_power_action (manager, "button-suspend", FALSE);
                 break;
         case HIBERNATE_KEY:
-                do_config_power_action (manager, "button-hibernate");
+                do_config_power_action (manager, "button-hibernate", FALSE);
+                break;
+        case POWER_KEY_NO_DIALOG:
+                do_config_power_action (manager, "button-power", TRUE);
+                break;
+        case SLEEP_KEY_NO_DIALOG:
+                do_config_power_action (manager, "button-sleep", TRUE);
+                break;
+        case SUSPEND_KEY_NO_DIALOG:
+                do_config_power_action (manager, "button-suspend", TRUE);
+                break;
+        case HIBERNATE_KEY_NO_DIALOG:
+                do_config_power_action (manager, "button-hibernate", TRUE);
                 break;
         case SCREEN_BRIGHTNESS_UP_KEY:
         case SCREEN_BRIGHTNESS_DOWN_KEY:
