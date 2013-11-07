@@ -105,6 +105,8 @@ mpris_proxy_ready_cb (GObject      *object,
   if (!priv->mpris_client_proxy)
     g_warning ("Error connecting to mpris interface %s", error->message);
 
+  priv->connecting = FALSE;
+
   g_clear_error (&error);
 }
 
