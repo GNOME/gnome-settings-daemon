@@ -725,6 +725,10 @@ engine_update_composite_device (GsdPowerManager *manager)
                 goto out;
         }
 
+        /* use percentage weighted for each battery capacity */
+        if (energy_full_total > 0.0)
+                percentage = 100.0 * energy_total / energy_full_total;
+
         /* set composite state */
         if (is_discharging)
                 state = UP_DEVICE_STATE_DISCHARGING;
@@ -737,10 +741,6 @@ engine_update_composite_device (GsdPowerManager *manager)
 
         if (battery_devices == 1)
                 goto out;
-
-        /* use percentage weighted for each battery capacity */
-        if (energy_full_total > 0.0)
-                percentage = 100.0 * energy_total / energy_full_total;
 
         /* calculate a quick and dirty time remaining value */
         if (energy_rate_total > 0) {
