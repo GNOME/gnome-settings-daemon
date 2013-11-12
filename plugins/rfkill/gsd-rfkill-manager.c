@@ -205,6 +205,10 @@ engine_properties_changed (GsdRfkillManager *manager)
         GVariantBuilder props_builder;
         GVariant *props_changed = NULL;
 
+        /* not yet connected to the session bus */
+        if (manager->priv->connection == NULL)
+                return;
+
         g_variant_builder_init (&props_builder, G_VARIANT_TYPE ("a{sv}"));
 
         g_variant_builder_add (&props_builder, "{sv}", "AirplaneMode",
@@ -270,10 +274,6 @@ rfkill_changed (CcRfkillGlib     *rfkill,
                         break;
                 }
 	}
-
-        /* not yet connected to the bus */
-        if (manager->priv->connection == NULL)
-                return;
 
         engine_properties_changed (manager);
 }
