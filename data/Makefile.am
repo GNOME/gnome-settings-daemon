@@ -42,12 +42,9 @@ pkgconfig_DATA = gnome-settings-daemon.pc
 
 @INTLTOOL_XML_NOMERGE_RULE@
 
-man_MANS = gnome-settings-daemon.1
-
 dbusservice_in_files = org.freedesktop.IBus.service.in
 
 EXTRA_DIST = 					\
-	$(man_MANS)				\
 	$(convert_DATA)				\
 	$(gsettings_SCHEMAS:.xml=.xml.in.in)	\
 	$(desktop_in_files)			\
