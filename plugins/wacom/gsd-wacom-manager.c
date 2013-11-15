@@ -1348,7 +1348,7 @@ switch_monitor (GsdWacomDevice *device)
 	current_monitor++;
 
 	if (current_monitor >= n_monitors)
-		current_monitor = GSD_WACOM_SET_ALL_MONITORS;
+		current_monitor = 0;
 
 	gsd_wacom_device_set_display (device, current_monitor);
 }
