@@ -6,9 +6,12 @@ libcommon_la_SOURCES = \
 	gsd-keygrab.c		\
 	gsd-keygrab.h		\
 	gsd-input-helper.c	\
-	gsd-input-helper.h
+	gsd-input-helper.h	\
+	gsd-shell-helper.c	\
+	gsd-shell-helper.h
 
 libcommon_la_CPPFLAGS = \
+	-I$(top_srcdir)/gnome-settings-daemon	\
 	$(AM_CPPFLAGS)
 
 libcommon_la_CFLAGS = \
