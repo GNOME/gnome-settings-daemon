@@ -52,6 +52,7 @@
 #include "gsd-wacom-device.h"
 #include "gsd-wacom-oled.h"
 #include "gsd-wacom-osd-window.h"
+#include "gsd-shell-helper.h"
 
 #define GSD_WACOM_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_WACOM_MANAGER, GsdWacomManagerPrivate))
 
@@ -105,6 +106,8 @@ struct GsdWacomManagerPrivate
         GHashTable *devices; /* key = GdkDevice, value = GsdWacomDevice */
         GnomeRRScreen *rr_screen;
         GHashTable *warned_devices;
+
+        GsdShell *shell_proxy;
 
         /* button capture */
         GdkScreen *screen;
@@ -1363,6 +1366,32 @@ switch_monitor (GsdWacomDevice *device)
 	gsd_wacom_device_set_display (device, current_monitor);
 }
 
+static void
+notify_osd_for_device (GsdWacomManager *manager,
+                       GsdWacomDevice  *device)
+{
+        GdkScreen *screen;
+        gint monitor_num;
+
+        monitor_num = gsd_wacom_device_get_display_monitor (device);
+
+        if (monitor_num == GSD_WACOM_SET_ALL_MONITORS)
+                return;
+
+        screen = gdk_screen_get_default ();
+
+        if (gdk_screen_get_n_monitors (screen) == 1)
+                return;
+
+        if (manager->priv->shell_proxy == NULL)
+                manager->priv->shell_proxy = gnome_settings_bus_get_shell_proxy ();
+
+        shell_show_osd (manager->priv->shell_proxy,
+                        "input-tablet-symbolic",
+                        gsd_wacom_device_get_name (device), -1,
+                        monitor_num);
+}
+
 static const char*
 get_direction_name (GsdWacomTabletButtonType type,
                     GtkDirectionType         dir)
@@ -1484,8 +1513,10 @@ filter_button_events (XEvent          *xevent,
 
 	/* Switch monitor */
 	if (g_settings_get_enum (wbutton->settings, KEY_ACTION_TYPE) == GSD_WACOM_ACTION_TYPE_SWITCH_MONITOR) {
-		if (xiev->evtype == XI_ButtonRelease)
+		if (xiev->evtype == XI_ButtonRelease) {
 			switch_monitor (device);
+			notify_osd_for_device (manager, device);
+		}
 		return GDK_FILTER_REMOVE;
 	}
 
@@ -1958,6 +1989,8 @@ gsd_wacom_manager_finalize (GObject *object)
         if (wacom_manager->priv->notification_timeout_src_id != 0)
                 g_source_remove (wacom_manager->priv->notification_timeout_src_id);
         remove_notification (wacom_manager);
+
+        g_clear_object (&wacom_manager->priv->shell_proxy);
 
         G_OBJECT_CLASS (gsd_wacom_manager_parent_class)->finalize (object);
 }
