@@ -916,8 +916,10 @@ wacom_settings_changed (GSettings      *settings,
 	type = gsd_wacom_device_get_device_type (device);
 
 	if (g_str_equal (key, KEY_ROTATION)) {
-	        if (type != WACOM_TYPE_PAD)
-		        set_rotation (device, g_settings_get_enum (settings, key));
+		if (type != WACOM_TYPE_PAD)
+			set_rotation (device, g_settings_get_enum (settings, key));
+		else
+			update_pad_leds (device);
 	} else if (g_str_equal (key, KEY_TOUCH)) {
 	        if (type == WACOM_TYPE_TOUCH)
 			set_touch (device, g_settings_get_boolean (settings, key));
