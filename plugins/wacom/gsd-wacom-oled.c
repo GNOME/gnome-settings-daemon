@@ -33,6 +33,7 @@
 
 #define MAGIC_BASE64		"base64:"		/*Label starting with base64: is treated as already encoded*/
 #define MAGIC_BASE64_LEN	strlen(MAGIC_BASE64)
+#define ROTATION_KEY		"rotation"
 
 static void
 oled_scramble_icon (guchar* image)
@@ -119,8 +120,9 @@ oled_split_text (char *label,
 }
 
 static void
-oled_render_text (char   *label,
-		  guchar *image)
+oled_render_text (char             *label,
+		  guchar	   *image,
+		  GsdWacomRotation  rotation)
 {
 	cairo_t *cr;
 	cairo_surface_t *surface;
@@ -138,6 +140,16 @@ oled_render_text (char   *label,
 
 	surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, OLED_WIDTH, OLED_HEIGHT);
 	cr = cairo_create (surface);
+
+        /* Rotate text so it's seen correctly on the device, or at
+         * least from top to bottom for LTR text in vertical modes.
+         */
+        if (rotation == GSD_WACOM_ROTATION_HALF ||
+            rotation == GSD_WACOM_ROTATION_CCW) {
+		cairo_translate (cr, OLED_WIDTH, OLED_HEIGHT);
+		cairo_scale (cr, -1, -1);
+        }
+
 	cairo_set_source_rgba (cr, 0.0, 0.0, 0.0, 0.99);
 	cairo_paint (cr);
 
@@ -219,14 +231,15 @@ gsd_wacom_oled_gdkpixbuf_to_base64 (GdkPixbuf *pixbuf)
 }
 
 static char *
-oled_encode_image (char *label)
+oled_encode_image (char             *label,
+                   GsdWacomRotation  rotation)
 {
 	guchar *image;
 
 	image = g_malloc (MAX_IMAGE_SIZE);
 
 	/* convert label to image */
-	oled_render_text (label, image);
+	oled_render_text (label, image, rotation);
 	oled_scramble_icon (image);
 
 	return (g_base64_encode (image, MAX_IMAGE_SIZE));
@@ -237,7 +250,9 @@ set_oled (GsdWacomDevice	*device,
 	  char			*button_id,
 	  char			*label)
 {
+	GsdWacomRotation device_rotation;
 	GError *error = NULL;
+	GSettings *settings;
 	const char *path;
 	char *command;
 	gboolean ret;
@@ -254,10 +269,13 @@ set_oled (GsdWacomDevice	*device,
 	button_id_short = (int)button_id_1[6];
 	button_id_short = button_id_short - 'A' - 1;
 
-	if (g_str_has_prefix (label, MAGIC_BASE64))
+	if (g_str_has_prefix (label, MAGIC_BASE64)) {
 		buffer = g_strdup (label + MAGIC_BASE64_LEN);
-	else
-		buffer = oled_encode_image (label);
+        } else {
+		settings = gsd_wacom_device_get_settings (device);
+		device_rotation = g_settings_get_enum (settings, ROTATION_KEY);
+		buffer = oled_encode_image (label, device_rotation);
+	}
 
 	path = gsd_wacom_device_get_path (device);
 
