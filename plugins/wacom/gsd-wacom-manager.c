@@ -759,6 +759,30 @@ reset_touch_buttons (XDevice               *xdev,
 			       (const guchar *) actions, i);
 }
 
+/* This function does LED and OLED */
+static void
+update_pad_leds (GsdWacomDevice *device)
+{
+	GList *buttons, *l;
+
+	/* Reset all the LEDs and OLEDs*/
+	buttons = gsd_wacom_device_get_buttons (device);
+	for (l = buttons; l != NULL; l = l->next) {
+		GsdWacomTabletButton *button = l->data;
+		if (button->type == WACOM_TABLET_BUTTON_TYPE_HARDCODED &&
+		    button->status_led != GSD_WACOM_NO_LED) {
+			set_led (device, button, 1);
+		}
+		if (button->has_oled) {
+			char *label;
+			label = g_settings_get_string (button->settings, OLED_LABEL);
+			set_oled (device, button->id, label);
+			g_free (label);
+		}
+	}
+	g_list_free (buttons);
+}
+
 static void
 reset_pad_buttons (GsdWacomDevice *device)
 {
@@ -766,7 +790,6 @@ reset_pad_buttons (GsdWacomDevice *device)
 	int nmap;
 	unsigned char *map;
 	int i, j, rc;
-	GList *buttons, *l;
 
 	/* Normal buttons */
 	xdev = open_device (device);
@@ -799,22 +822,7 @@ reset_pad_buttons (GsdWacomDevice *device)
 
 	XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev);
 
-	/* Reset all the LEDs and OLEDs*/
-	buttons = gsd_wacom_device_get_buttons (device);
-	for (l = buttons; l != NULL; l = l->next) {
-		GsdWacomTabletButton *button = l->data;
-                if (button->type == WACOM_TABLET_BUTTON_TYPE_HARDCODED &&
-                    button->status_led != GSD_WACOM_NO_LED) {
-                        set_led (device, button, 1);
-                }
-		if (button->has_oled) {
-			char *label;
-			label = g_settings_get_string (button->settings, OLED_LABEL);
-			set_oled (device, button->id, label);
-			g_free (label);
-		}
-	}
-        g_list_free (buttons);
+	update_pad_leds (device);
 }
 
 static void
