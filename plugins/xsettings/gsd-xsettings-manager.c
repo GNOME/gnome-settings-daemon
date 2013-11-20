@@ -229,6 +229,9 @@
 
 #define HIDPI_LIMIT (DPI_FALLBACK * 2)
 
+/* From http://en.wikipedia.org/wiki/4K_resolution#Resolutions_of_common_formats */
+#define SMALLEST_4K_WIDTH 3656
+
 typedef struct _TranslationEntry TranslationEntry;
 typedef void (* TranslationFunc) (GnomeXSettingsManager *manager,
                                   TranslationEntry      *trans,
@@ -473,6 +476,17 @@ primary_monitor_at_native_resolution (GnomeRROutput *primary)
 }
 
 static gboolean
+primary_monitor_is_4k (GnomeRROutput *primary)
+{
+        GnomeRRMode *mode;
+
+        mode = gnome_rr_output_get_current_mode (primary);
+        if (gnome_rr_mode_get_width (mode) >= SMALLEST_4K_WIDTH)
+                return TRUE;
+        return FALSE;
+}
+
+static gboolean
 primary_monitor_on_hdmi (GnomeRROutput *primary)
 {
         const char *name;
@@ -512,8 +526,9 @@ get_window_scale (GnomeXSettingsManager *manager)
                 output = get_primary_output (rr_screen);
                 if (!output)
                         goto out;
-                if (!primary_monitor_at_native_resolution (output) ||
-                    primary_monitor_on_hdmi (output))
+                if (!primary_monitor_at_native_resolution (output))
+                        goto out;
+                if (!primary_monitor_is_4k (output) && primary_monitor_on_hdmi (output))
                         goto out;
 
                 display = gdk_display_get_default ();
