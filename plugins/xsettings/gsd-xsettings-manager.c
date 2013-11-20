@@ -38,6 +38,12 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
+#define GNOME_DESKTOP_USE_UNSTABLE_API
+
+#include <libgnome-desktop/gnome-rr-config.h>
+#include <libgnome-desktop/gnome-rr.h>
+#include <libgnome-desktop/gnome-pnp-ids.h>
+
 #include "gnome-settings-profile.h"
 #include "gsd-enums.h"
 #include "gsd-xsettings-manager.h"
@@ -424,6 +430,48 @@ get_dpi_from_gsettings (GnomeXSettingsManager *manager)
         return dpi * factor;
 }
 
+static gboolean
+primary_monitor_at_native_resolution (void)
+{
+        GnomeRRScreen *screen;
+        GnomeRROutput *primary = NULL;
+        GnomeRROutput **outputs;
+        int current_width, current_height;
+        int pref_width, pref_height;
+        gboolean native = TRUE;
+        GnomeRRMode *mode;
+        guint i;
+
+        screen = gnome_rr_screen_new (gdk_screen_get_default (), NULL);
+        if (screen == NULL)
+                goto out;
+
+        outputs = gnome_rr_screen_list_outputs (screen);
+        if (outputs == NULL || outputs[0] == NULL)
+                goto out;
+        for (i = 0; outputs[i] != NULL; i++) {
+                if (gnome_rr_output_get_is_primary (outputs[i])) {
+                        primary = outputs[i];
+                        break;
+                }
+        }
+        if (primary == NULL)
+                primary = outputs[0];
+
+        mode = gnome_rr_output_get_current_mode (primary);
+        current_width = gnome_rr_mode_get_width (mode);
+        current_height = gnome_rr_mode_get_height (mode);
+        mode = gnome_rr_output_get_preferred_mode (primary);
+        pref_width = gnome_rr_mode_get_width (mode);
+        pref_height = gnome_rr_mode_get_height (mode);
+        if (current_width != pref_width || current_height != pref_height)
+                native = FALSE;
+
+out:
+        g_clear_object (&screen);
+        return native;
+}
+
 static int
 get_window_scale (GnomeXSettingsManager *manager)
 {
@@ -441,6 +489,10 @@ get_window_scale (GnomeXSettingsManager *manager)
                 g_settings_get_uint (interface_settings, SCALING_FACTOR_KEY);
         if (window_scale == 0) {
                 int primary;
+
+                window_scale = 1;
+                if (!primary_monitor_at_native_resolution ())
+                        goto out;
 
                 display = gdk_display_get_default ();
                 screen = gdk_display_get_default_screen (display);
@@ -462,6 +514,7 @@ get_window_scale (GnomeXSettingsManager *manager)
                 }
         }
 
+out:
         return window_scale;
 }
 

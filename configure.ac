@@ -173,7 +173,7 @@ dnl ---------------------------------------------------------------------------
 dnl - xsettings
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(XSETTINGS, fontconfig)
+PKG_CHECK_MODULES(XSETTINGS, fontconfig gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
 
 dnl ---------------------------------------------------------------------------
 dnl - Keyboard plugin stuff
