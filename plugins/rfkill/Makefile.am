@@ -59,6 +59,9 @@ plugin_in_files = rfkill.gnome-settings-plugin.in
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
+udevrulesdir = $(prefix)/lib/udev/rules.d
+udevrules_DATA = 61-gnome-settings-daemon-rfkill.rules
+
 EXTRA_DIST = $(plugin_in_files)
 CLEANFILES = $(plugin_DATA)
 DISTCLEANFILES = $(plugin_DATA)
