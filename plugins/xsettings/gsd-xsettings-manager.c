@@ -430,25 +430,16 @@ get_dpi_from_gsettings (GnomeXSettingsManager *manager)
         return dpi * factor;
 }
 
-static gboolean
-primary_monitor_at_native_resolution (void)
+static GnomeRROutput *
+get_primary_output (GnomeRRScreen *screen)
 {
-        GnomeRRScreen *screen;
         GnomeRROutput *primary = NULL;
         GnomeRROutput **outputs;
-        int current_width, current_height;
-        int pref_width, pref_height;
-        gboolean native = TRUE;
-        GnomeRRMode *mode;
         guint i;
-
-        screen = gnome_rr_screen_new (gdk_screen_get_default (), NULL);
-        if (screen == NULL)
-                goto out;
 
         outputs = gnome_rr_screen_list_outputs (screen);
         if (outputs == NULL || outputs[0] == NULL)
-                goto out;
+                return NULL;
         for (i = 0; outputs[i] != NULL; i++) {
                 if (gnome_rr_output_get_is_primary (outputs[i])) {
                         primary = outputs[i];
@@ -457,6 +448,17 @@ primary_monitor_at_native_resolution (void)
         }
         if (primary == NULL)
                 primary = outputs[0];
+
+        return primary;
+}
+
+static gboolean
+primary_monitor_at_native_resolution (GnomeRROutput *primary)
+{
+        int current_width, current_height;
+        int pref_width, pref_height;
+        gboolean native = TRUE;
+        GnomeRRMode *mode;
 
         mode = gnome_rr_output_get_current_mode (primary);
         current_width = gnome_rr_mode_get_width (mode);
@@ -467,9 +469,19 @@ primary_monitor_at_native_resolution (void)
         if (current_width != pref_width || current_height != pref_height)
                 native = FALSE;
 
-out:
-        g_clear_object (&screen);
         return native;
+}
+
+static gboolean
+primary_monitor_on_hdmi (GnomeRROutput *primary)
+{
+        const char *name;
+
+        name = gnome_rr_output_get_name (primary);
+        if (name == NULL ||
+            strstr (name, "HDMI") == NULL)
+                return FALSE;
+        return TRUE;
 }
 
 static int
@@ -483,15 +495,25 @@ get_window_scale (GnomeXSettingsManager *manager)
         int width_mm, height_mm;
         int monitor_scale;
         double dpi_x, dpi_y;
+        GnomeRRScreen *rr_screen = NULL;
 
 	interface_settings = g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA);
         window_scale =
                 g_settings_get_uint (interface_settings, SCALING_FACTOR_KEY);
         if (window_scale == 0) {
                 int primary;
+                GnomeRROutput *output;
 
                 window_scale = 1;
-                if (!primary_monitor_at_native_resolution ())
+
+                rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), NULL);
+                if (!rr_screen)
+                        goto out;
+                output = get_primary_output (rr_screen);
+                if (!output)
+                        goto out;
+                if (!primary_monitor_at_native_resolution (output) ||
+                    primary_monitor_on_hdmi (output))
                         goto out;
 
                 display = gdk_display_get_default ();
@@ -515,6 +537,7 @@ get_window_scale (GnomeXSettingsManager *manager)
         }
 
 out:
+        g_clear_object (&rr_screen);
         return window_scale;
 }
 
