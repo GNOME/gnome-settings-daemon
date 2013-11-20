@@ -35,6 +35,9 @@
 #define GNOME_SCREENSAVER_DBUS_NAME      "org.gnome.ScreenSaver"
 #define GNOME_SCREENSAVER_DBUS_OBJECT    "/org/gnome/ScreenSaver"
 
+#define GNOME_SHELL_DBUS_NAME      "org.gnome.Shell"
+#define GNOME_SHELL_DBUS_OBJECT    "/org/gnome/Shell"
+
 GsdSessionManager *
 gnome_settings_bus_get_session_proxy (void)
 {
@@ -86,4 +89,31 @@ gnome_settings_bus_get_screen_saver_proxy (void)
         }
 
         return screen_saver_proxy;
+}
+
+GsdShell *
+gnome_settings_bus_get_shell_proxy (void)
+{
+        static GsdShell *shell_proxy = NULL;
+        GError *error =  NULL;
+
+        if (shell_proxy != NULL) {
+                g_object_ref (shell_proxy);
+        } else {
+                shell_proxy = gsd_shell_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
+								G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES |
+								G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START,
+								GNOME_SHELL_DBUS_NAME,
+								GNOME_SHELL_DBUS_OBJECT,
+								NULL,
+								&error);
+                if (error) {
+                        g_warning ("Failed to connect to the shell: %s", error->message);
+                        g_error_free (error);
+                } else {
+                        g_object_add_weak_pointer (G_OBJECT (shell_proxy), (gpointer*)&shell_proxy);
+                }
+        }
+
+        return shell_proxy;
 }
