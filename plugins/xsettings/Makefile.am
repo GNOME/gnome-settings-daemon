@@ -44,9 +44,9 @@ gsd_test_xsettings_SOURCES =	\
 	gsd-remote-display-manager.h \
 	test-xsettings.c
 
-gsd_test_xsettings_CFLAGS = $(test_gtk_modules_CFLAGS)
-gsd_test_xsettings_CPPFLAGS = $(test_gtk_modules_CPPFLAGS) -I$(top_srcdir)/plugins/common
-gsd_test_xsettings_LDADD = $(test_gtk_modules_LDADD)
+gsd_test_xsettings_CFLAGS = $(libxsettings_la_CFLAGS) $(PLUGIN_CFLAGS)
+gsd_test_xsettings_CPPFLAGS = $(libxsettings_la_CPPFLAGS) -I$(top_srcdir)/plugins/common
+gsd_test_xsettings_LDADD = $(libxsettings_la_LIBADD)
 
 plugin_LTLIBRARIES = \
 	libxsettings.la		\
