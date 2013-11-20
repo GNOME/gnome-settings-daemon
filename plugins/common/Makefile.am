@@ -12,6 +12,7 @@ libcommon_la_SOURCES = \
 
 libcommon_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon	\
+	-I$(top_builddir)/gnome-settings-daemon	\
 	$(AM_CPPFLAGS)
 
 libcommon_la_CFLAGS = \
