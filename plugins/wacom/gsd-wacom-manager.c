@@ -48,6 +48,7 @@
 #include "gsd-keygrab.h"
 #include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
+#include "gnome-settings-bus.h"
 #include "gsd-wacom-manager.h"
 #include "gsd-wacom-device.h"
 #include "gsd-wacom-oled.h"
