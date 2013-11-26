@@ -175,9 +175,8 @@ engine_get_hardware_airplane_mode (GsdRfkillManager *manager)
 	gpointer key, value;
 
         /* If we have no killswitches, hw airplane mode is off. */
-        if (g_hash_table_size (manager->priv->killswitches) == 0) {
+        if (g_hash_table_size (manager->priv->killswitches) == 0)
                 return FALSE;
-        }
 
 	g_hash_table_iter_init (&iter, manager->priv->killswitches);
 	while (g_hash_table_iter_next (&iter, &key, &value)) {
