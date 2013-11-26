@@ -99,15 +99,15 @@ gsd_rfkill_manager_init (GsdRfkillManager *manager)
 }
 
 static gboolean
-engine_get_bluetooth_airplane_mode (GsdRfkillManager *manager)
+engine_get_airplane_mode_helper (GHashTable *killswitches)
 {
 	GHashTableIter iter;
 	gpointer key, value;
 
-	if (g_hash_table_size (manager->priv->bt_killswitches) == 0)
+	if (g_hash_table_size (killswitches) == 0)
 		return FALSE;
 
-	g_hash_table_iter_init (&iter, manager->priv->bt_killswitches);
+	g_hash_table_iter_init (&iter, killswitches);
 	while (g_hash_table_iter_next (&iter, &key, &value)) {
 		int state;
 
@@ -119,6 +119,12 @@ engine_get_bluetooth_airplane_mode (GsdRfkillManager *manager)
 	}
 
 	return TRUE;
+}
+
+static gboolean
+engine_get_bluetooth_airplane_mode (GsdRfkillManager *manager)
+{
+	return engine_get_airplane_mode_helper (manager->priv->bt_killswitches);
 }
 
 static gboolean
@@ -155,31 +161,11 @@ engine_get_has_bluetooth_airplane_mode (GsdRfkillManager *manager)
 static gboolean
 engine_get_airplane_mode (GsdRfkillManager *manager)
 {
-	GHashTableIter iter;
-	gpointer key, value;
-
-        /* If we have no killswitches, airplane mode only depends on NM's wwan state. */
-        if (g_hash_table_size (manager->priv->killswitches) == 0) {
-                return manager->priv->wwan_interesting && !manager->priv->wwan_enabled;
-        }
-
-	g_hash_table_iter_init (&iter, manager->priv->killswitches);
-	while (g_hash_table_iter_next (&iter, &key, &value)) {
-		int state;
-
-		state = GPOINTER_TO_INT (value);
-
-		/* A single rfkill switch that's unblocked? Airplane mode is off */
-		if (state == RFKILL_STATE_UNBLOCKED)
-                        return FALSE;
-	}
-
+	if (!manager->priv->wwan_interesting)
+		return engine_get_airplane_mode_helper (manager->priv->killswitches);
         /* wwan enabled? then airplane mode is off (because an USB modem
            could be on in this state) */
-        if (manager->priv->wwan_interesting && manager->priv->wwan_enabled)
-                return FALSE;
-
-        return TRUE;
+	return engine_get_airplane_mode_helper (manager->priv->killswitches) && !manager->priv->wwan_enabled;
 }
 
 static gboolean
