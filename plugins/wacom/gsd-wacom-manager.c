@@ -135,6 +135,8 @@ static void     gsd_wacom_manager_class_init  (GsdWacomManagerClass *klass);
 static void     gsd_wacom_manager_init        (GsdWacomManager      *wacom_manager);
 static void     gsd_wacom_manager_finalize    (GObject              *object);
 
+static void     wacom_device_calibration_check (GsdWacomDevice  *device);
+
 static gboolean osd_window_toggle_visibility (GsdWacomManager *manager,
                                               GsdWacomDevice  *device);
 
@@ -932,8 +934,9 @@ wacom_settings_changed (GSettings      *settings,
 		    type != WACOM_TYPE_TOUCH)
 			set_absolute (device, g_settings_get_boolean (settings, key));
 	} else if (g_str_equal (key, KEY_LAST_CALIBRATED_RESOLUTION)) {
-                /* We do nothing as this is used only for
-                   checking whether calibration is needed*/
+                if (type == WACOM_TYPE_STYLUS &&
+                    gsd_wacom_device_is_screen_tablet (device))
+                        wacom_device_calibration_check (device);
 	} else if (g_str_equal (key, KEY_AREA)) {
 		if (type != WACOM_TYPE_CURSOR &&
 		    type != WACOM_TYPE_PAD &&
