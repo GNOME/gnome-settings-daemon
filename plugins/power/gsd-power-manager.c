@@ -1105,7 +1105,7 @@ inhibit_lid_switch_timer_cb (GsdPowerManager *manager)
         }
 
         g_debug ("external monitor still there; trying again later");
-        return G_SOURCE_REMOVE;
+        return G_SOURCE_CONTINUE;
 }
 
 /* Sets up a timer to be triggered some seconds after closing the laptop lid
