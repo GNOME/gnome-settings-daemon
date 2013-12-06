@@ -1934,14 +1934,19 @@ gsd_wacom_manager_stop (GsdWacomManager *manager)
                 devices = gdk_device_manager_list_devices (p->device_manager, GDK_DEVICE_TYPE_SLAVE);
                 for (l = devices; l != NULL; l = l->next) {
                         GsdWacomDeviceType type;
+                        GsdWacomDevice *device;
+                        int id;
 
-                        type = gsd_wacom_device_get_device_type (l->data);
-                        if (type == WACOM_TYPE_PAD) {
-                                int id;
+                        id = gdk_x11_device_get_id (l->data);
+                        device = device_id_to_device (manager, id);
 
-                                id = get_device_id (l->data);
+                        if (!device)
+                                continue;
+
+                        type = gsd_wacom_device_get_device_type (device);
+
+                        if (type == WACOM_TYPE_PAD)
                                 grab_button (id, FALSE, manager->priv->screen);
-                        }
                 }
                 g_list_free (devices);
 
