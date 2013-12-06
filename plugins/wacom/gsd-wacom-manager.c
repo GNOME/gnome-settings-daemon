@@ -1115,13 +1115,14 @@ device_added_cb (GdkDeviceManager *device_manager,
 	GsdWacomDevice *device;
 	GSettings *settings;
 	const gchar *device_name;
+	GsdWacomDeviceType type;
 
 	device = gsd_wacom_device_new (gdk_device);
 	device_name = gsd_wacom_device_get_name (device);
+	type = gsd_wacom_device_get_device_type (device);
 
         if (gsd_wacom_device_is_fallback (device) &&
-            gsd_wacom_device_get_device_type (device) != WACOM_TYPE_TOUCH &&
-            device_name != NULL) {
+            type != WACOM_TYPE_TOUCH && device_name != NULL) {
                 GHashTable *warned_devices;
 
                 warned_devices = manager->priv->warned_devices;
@@ -1134,21 +1135,20 @@ device_added_cb (GdkDeviceManager *device_manager,
                 }
         }
 
-	if (gsd_wacom_device_get_device_type (device) == WACOM_TYPE_INVALID) {
+	if (type == WACOM_TYPE_INVALID) {
 		g_object_unref (device);
 		return;
 	}
 	g_debug ("Adding device '%s' (type: '%s') to known devices list",
 		 gsd_wacom_device_get_tool_name (device),
-		 gsd_wacom_device_type_to_string (gsd_wacom_device_get_device_type (device)));
+		 gsd_wacom_device_type_to_string (type));
 	g_hash_table_insert (manager->priv->devices, (gpointer) gdk_device, device);
 
 	settings = gsd_wacom_device_get_settings (device);
 	g_signal_connect (G_OBJECT (settings), "changed",
 			  G_CALLBACK (wacom_settings_changed), device);
 
-	if (gsd_wacom_device_get_device_type (device) == WACOM_TYPE_STYLUS ||
-	    gsd_wacom_device_get_device_type (device) == WACOM_TYPE_ERASER) {
+	if (type == WACOM_TYPE_STYLUS || type == WACOM_TYPE_ERASER) {
 		GList *styli, *l;
 
 		styli = gsd_wacom_device_list_styli (device);
