@@ -2257,10 +2257,19 @@ on_rr_screen_acquired (GObject      *object,
                        gpointer      user_data)
 {
         GsdPowerManager *manager = user_data;
+        GError *error = NULL;
 
         gnome_settings_profile_start (NULL);
 
-        manager->priv->rr_screen = gnome_rr_screen_new_finish (result, NULL);
+        manager->priv->rr_screen = gnome_rr_screen_new_finish (result, &error);
+
+        if (error) {
+                g_warning ("Could not create GnomeRRScreen: %s\n", error->message);
+                g_error_free (error);
+                gnome_settings_profile_end (NULL);
+
+                return;
+        }
 
         /* set up the screens */
         if (manager->priv->lid_is_present) {
