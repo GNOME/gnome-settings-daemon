@@ -27,17 +27,39 @@
 #include "gsd-datetime-manager.h"
 #include "gsd-timezone-monitor.h"
 #include "gnome-settings-profile.h"
+#include "gnome-settings-plugin.h"
+
+#define DATETIME_SCHEMA                         "org.gnome.desktop.datetime"
+#define AUTO_TIMEZONE_KEY                       "automatic-timezone"
+
+#define GSD_DATETIME_DBUS_NAME                  GSD_DBUS_NAME ".DateTime"
+#define GSD_DATETIME_DBUS_PATH                  GSD_DBUS_PATH "/DateTime"
+#define GSD_DATETIME_DBUS_INTERFACE             GSD_DBUS_BASE_INTERFACE ".DateTime"
+
+static const gchar introspection_xml[] =
+"<node>"
+"  <interface name='org.gnome.SettingsDaemon.DateTime'>"
+"    <property name='HasAutomaticTimezone' type='b' access='read'/>"
+"  </interface>"
+"</node>";
 
 #define GSD_DATETIME_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_DATETIME_MANAGER, GsdDatetimeManagerPrivate))
 
-#define DATETIME_SCHEMA "org.gnome.desktop.datetime"
-#define AUTO_TIMEZONE_KEY "automatic-timezone"
-
 struct GsdDatetimeManagerPrivate
 {
+        /* D-Bus */
+        guint                    name_id;
+        GDBusNodeInfo           *introspection_data;
+        GDBusConnection         *connection;
+        GCancellable            *bus_cancellable;
+
+        /* Settings */
         GSettings *settings;
+
+        /* Timezone Monitoring */
         GsdTimezoneMonitor *timezone_monitor;
         NotifyNotification *notification;
+        gboolean has_automatic_timezone;
 };
 
 static void gsd_datetime_manager_class_init (GsdDatetimeManagerClass *klass);
@@ -94,6 +116,16 @@ timezone_changed_cb (GsdTimezoneMonitor *timezone_monitor,
         gchar *notification_summary;
         gchar *timezone_name;
         gchar *utc_offset;
+
+        self->priv->has_automatic_timezone = TRUE;
+        g_dbus_connection_emit_signal (self->priv->connection,
+                                       NULL,
+                                       GSD_DATETIME_DBUS_PATH,
+                                       "org.freedesktop.DBus.Properties",
+                                       "PropertiesChanged",
+                                       g_variant_new_parsed ("('" GSD_DATETIME_DBUS_INTERFACE "', [{'HasAutomaticTimezone', %v}], @as [])",
+                                                             g_variant_new_boolean (TRUE)),
+                                       NULL);
 
         tz = g_time_zone_new (timezone_id);
         datetime = g_date_time_new_now (tz);
@@ -196,6 +228,17 @@ gsd_datetime_manager_stop (GsdDatetimeManager *self)
                                                       self);
                 g_clear_object (&self->priv->notification);
         }
+
+        if (self->priv->bus_cancellable != NULL) {
+                g_cancellable_cancel (self->priv->bus_cancellable);
+                g_object_unref (self->priv->bus_cancellable);
+                self->priv->bus_cancellable = NULL;
+        }
+
+        if (self->priv->introspection_data) {
+                g_dbus_node_info_unref (self->priv->introspection_data);
+                self->priv->introspection_data = NULL;
+        }
 }
 
 static void
@@ -212,6 +255,10 @@ static void
 gsd_datetime_manager_init (GsdDatetimeManager *manager)
 {
         manager->priv = GSD_DATETIME_MANAGER_GET_PRIVATE (manager);
+        manager->priv->bus_cancellable = g_cancellable_new ();
+
+        /* XXX - save this data somewhere? */
+        manager->priv->has_automatic_timezone = FALSE;
 }
 
 static void
@@ -226,9 +273,88 @@ gsd_datetime_manager_finalize (GObject *object)
 
         g_return_if_fail (manager->priv != NULL);
 
-        gsd_datetime_manager_stop (manager);
+        g_clear_object (&manager->priv->connection);
+
+        if (manager->priv->name_id != 0)
+                g_bus_unown_name (manager->priv->name_id);
 
         G_OBJECT_CLASS (gsd_datetime_manager_parent_class)->finalize (object);
+}
+
+static GVariant *
+handle_get_property (GDBusConnection *connection,
+                     const gchar *sender,
+                     const gchar *object_path,
+                     const gchar *interface_name,
+                     const gchar *property_name,
+                     GError **error, gpointer user_data)
+{
+        GsdDatetimeManager *manager = GSD_DATETIME_MANAGER (user_data);
+
+        if (g_strcmp0 (property_name, "HasAutomaticTimezone") == 0) {
+                return g_variant_new_boolean (manager->priv->has_automatic_timezone);
+        } else {
+                g_assert_not_reached ();
+        }
+}
+
+static const GDBusInterfaceVTable interface_vtable =
+{
+        NULL,
+        handle_get_property,
+        NULL
+};
+
+static void
+on_bus_gotten (GObject             *source_object,
+               GAsyncResult        *res,
+               GsdDatetimeManager  *manager)
+{
+        GDBusConnection *connection;
+        GDBusInterfaceInfo **infos;
+        GError *error = NULL;
+        guint i;
+
+        connection = g_bus_get_finish (res, &error);
+        if (connection == NULL) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Could not get session bus: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+
+        manager->priv->connection = connection;
+
+        infos = manager->priv->introspection_data->interfaces;
+        for (i = 0; infos[i] != NULL; i++) {
+                g_dbus_connection_register_object (connection,
+                                                   GSD_DATETIME_DBUS_PATH,
+                                                   infos[i],
+                                                   &interface_vtable,
+                                                   manager,
+                                                   NULL,
+                                                   NULL);
+        }
+
+        manager->priv->name_id = g_bus_own_name_on_connection (connection,
+                                                               GSD_DATETIME_DBUS_NAME,
+                                                               G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL);
+}
+
+static void
+register_manager_dbus (GsdDatetimeManager *manager)
+{
+        manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        g_assert (manager->priv->introspection_data != NULL);
+
+        g_bus_get (G_BUS_TYPE_SESSION,
+                   manager->priv->bus_cancellable,
+                   (GAsyncReadyCallback) on_bus_gotten,
+                   manager);
 }
 
 GsdDatetimeManager *
@@ -240,6 +366,7 @@ gsd_datetime_manager_new (void)
                 manager_object = g_object_new (GSD_TYPE_DATETIME_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
+                register_manager_dbus (manager_object);
         }
 
         return GSD_DATETIME_MANAGER (manager_object);
