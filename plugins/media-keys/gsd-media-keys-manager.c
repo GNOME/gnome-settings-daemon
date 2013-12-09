@@ -40,6 +40,8 @@
 #include <gio/gdesktopappinfo.h>
 #include <gio/gunixfdlist.h>
 
+#include <libupower-glib/upower.h>
+
 #ifdef HAVE_GUDEV
 #include <gudev/gudev.h>
 #endif
@@ -161,6 +163,7 @@ struct GsdMediaKeysManagerPrivate
         GDBusProxy      *power_proxy;
         GDBusProxy      *power_screen_proxy;
         GDBusProxy      *power_keyboard_proxy;
+        UpDevice        *composite_device;
 
         /* Shell stuff */
         GsdShell        *shell_proxy;
@@ -1920,21 +1923,24 @@ do_brightness_action (GsdMediaKeysManager *manager,
 static void
 do_battery_action (GsdMediaKeysManager *manager)
 {
-        GVariant *icon_var, *percentage;
-        char *label = NULL;
+        gdouble percentage;
+        UpDeviceKind kind;
+        gchar *icon_name;
 
-        if (manager->priv->power_proxy == NULL)
-                return;
+        g_return_if_fail (manager->priv->composite_device != NULL);
 
-        icon_var = g_dbus_proxy_get_cached_property (manager->priv->power_proxy, "Icon");
-        percentage = g_dbus_proxy_get_cached_property (manager->priv->power_proxy, "Percentage");
+        g_object_get (manager->priv->composite_device,
+                      "kind", &kind,
+                      "icon-name", &icon_name,
+                      "percentage", &percentage,
+                      NULL);
 
-        if (g_variant_get_double (percentage) >= 0.0)
-                label = g_strdup_printf ("%d %%", (int) g_variant_get_double (percentage));
+        if (kind == UP_DEVICE_KIND_UPS || kind == UP_DEVICE_KIND_BATTERY) {
+                g_debug ("showing battery level OSD");
+                show_osd (manager, icon_name, NULL, percentage);
+        }
 
-        show_osd (manager, g_variant_get_string (icon_var, NULL),
-                  label, g_variant_get_double (percentage));
-        g_free (label);
+        g_free (icon_name);
 }
 
 static void
@@ -2439,6 +2445,7 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         g_clear_object (&priv->power_proxy);
         g_clear_object (&priv->power_screen_proxy);
         g_clear_object (&priv->power_keyboard_proxy);
+        g_clear_object (&priv->composite_device);
         g_clear_object (&priv->mpris_controller);
         g_clear_object (&priv->screencast_proxy);
 
@@ -2662,6 +2669,7 @@ on_bus_gotten (GObject             *source_object,
 {
         GDBusConnection *connection;
         GError *error = NULL;
+        UpClient *up_client;
 
         if (manager->priv->bus_cancellable == NULL ||
             g_cancellable_is_cancelled (manager->priv->bus_cancellable)) {
@@ -2724,6 +2732,10 @@ on_bus_gotten (GObject             *source_object,
                           NULL,
                           (GAsyncReadyCallback) power_keyboard_ready_cb,
                           manager);
+
+        up_client = up_client_new ();
+        manager->priv->composite_device = up_client_get_display_device (up_client);
+        g_object_unref (up_client);
 }
 
 static void
