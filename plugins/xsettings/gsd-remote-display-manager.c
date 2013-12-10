@@ -34,7 +34,7 @@
 #include <glib/gi18n.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
-#include </usr/include/X11/Xatom.h>
+#include <X11/Xatom.h>
 
 #include "gnome-settings-bus.h"
 #include "gnome-settings-profile.h"
