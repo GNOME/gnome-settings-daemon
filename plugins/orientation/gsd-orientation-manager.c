@@ -413,7 +413,7 @@ gsd_orientation_manager_idle_cb (GsdOrientationManager *manager)
         if (dev == NULL) {
                 g_debug ("Did not find an accelerometer");
                 gnome_settings_profile_end (NULL);
-                return FALSE;
+                return G_SOURCE_REMOVE;
         }
         manager->priv->sysfs_path = g_strdup (g_udev_device_get_sysfs_path (dev));
         g_debug ("Found accelerometer at sysfs path '%s'", manager->priv->sysfs_path);
@@ -432,7 +432,7 @@ gsd_orientation_manager_idle_cb (GsdOrientationManager *manager)
 
         gnome_settings_profile_end (NULL);
 
-        return FALSE;
+        return G_SOURCE_REMOVE;
 }
 
 gboolean
