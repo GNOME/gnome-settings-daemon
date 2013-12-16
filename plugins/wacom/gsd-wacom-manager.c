@@ -1166,6 +1166,10 @@ device_added_cb (GdkDeviceManager *device_manager,
 	}
 
         set_wacom_settings (manager, device);
+
+	if (type == WACOM_TYPE_STYLUS &&
+	    gsd_wacom_device_is_screen_tablet (device))
+		wacom_device_calibration_check (device);
 }
 
 static void
