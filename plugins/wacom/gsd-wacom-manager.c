@@ -1012,7 +1012,8 @@ notify_unknown_device (GsdWacomManager *manager, const gchar *device_name)
         NotifyNotification *notification;
 
         msg_body = g_strdup_printf (_("The \"%s\" tablet may not work as expected."), device_name);
-        notification = notify_notification_new (_("Unknown Tablet Connected"), msg_body, NULL);
+        notification = notify_notification_new (_("Unknown Tablet Connected"), msg_body,
+                                                "input-tablet");
         notify_notification_set_timeout (notification, UNKNOWN_DEVICE_NOTIFICATION_TIMEOUT);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
         notify_notification_set_app_name (notification, _("Wacom Settings"));
@@ -1637,8 +1638,7 @@ wacom_device_calibration_data_update (GsdWacomDeviceCalibration *data)
                                     gsd_wacom_device_get_name (data->device));
         data->calibration_notification = notify_notification_new (_("Calibration needed"),
                                                                   msg_body,
-                                                                  NULL);
-
+                                                                  "input-tablet");
         notify_notification_set_app_name (data->calibration_notification,
                                           _("Wacom Settings"));
         notify_notification_set_timeout (data->calibration_notification,
