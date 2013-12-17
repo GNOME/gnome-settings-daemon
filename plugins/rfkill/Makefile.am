@@ -62,7 +62,7 @@ plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin
 udevrulesdir = $(prefix)/lib/udev/rules.d
 udevrules_DATA = 61-gnome-settings-daemon-rfkill.rules
 
-EXTRA_DIST = $(plugin_in_files)
+EXTRA_DIST = $(plugin_in_files) $(udevrules_DATA)
 CLEANFILES = $(plugin_DATA)
 DISTCLEANFILES = $(plugin_DATA)
 
