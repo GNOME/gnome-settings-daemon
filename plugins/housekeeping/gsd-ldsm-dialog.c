@@ -415,7 +415,7 @@ gsd_ldsm_dialog_new (gboolean     other_usable_partitions,
 {
         GsdLdsmDialog *dialog;
         GtkWidget *button_empty_trash, *button_ignore, *button_analyze;
-        GtkWidget *empty_trash_image, *analyze_image, *ignore_image;
+        GtkWidget *empty_trash_image, *analyze_image;
         gchar *primary_text, *primary_text_markup;
         const gchar *secondary_text, *checkbutton_text;
 	
@@ -448,8 +448,6 @@ gsd_ldsm_dialog_new (gboolean     other_usable_partitions,
         button_ignore = gtk_dialog_add_button (GTK_DIALOG (dialog), 
                                                _("Ignore"), 
                                                GTK_RESPONSE_CANCEL);
-        ignore_image = gtk_image_new_from_stock (GTK_STOCK_CANCEL, GTK_ICON_SIZE_BUTTON);
-        gtk_button_set_image (GTK_BUTTON (button_ignore), ignore_image);
 
         gtk_widget_grab_default (button_ignore);
 	
