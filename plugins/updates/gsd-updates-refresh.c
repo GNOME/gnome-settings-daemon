@@ -393,8 +393,9 @@ periodic_timeout_cb (gpointer user_data)
 }
 
 static void
-gsd_updates_refresh_client_changed_cb (UpClient *client,
-                                       GsdUpdatesRefresh *refresh)
+gsd_updates_refresh_client_on_battery_cb (UpClient *client,
+					  GParamSpec *pspec,
+					  GsdUpdatesRefresh *refresh)
 {
         gboolean on_battery;
 
@@ -497,8 +498,8 @@ gsd_updates_refresh_init (GsdUpdatesRefresh *refresh)
 
         /* use a UpClient */
         refresh->priv->client = up_client_new ();
-        g_signal_connect (refresh->priv->client, "changed",
-                          G_CALLBACK (gsd_updates_refresh_client_changed_cb), refresh);
+        g_signal_connect (refresh->priv->client, "notify::on-battery",
+                          G_CALLBACK (gsd_updates_refresh_client_on_battery_cb), refresh);
 
         /* get the battery state */
         refresh->priv->on_battery = up_client_get_on_battery (refresh->priv->client);
