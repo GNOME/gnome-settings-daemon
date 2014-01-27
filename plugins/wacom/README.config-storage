@@ -8,15 +8,27 @@ possible to use the same device, with same configuration on 2 machines
 with a shared home directory, or replace a malfunctioning device with the
 same model and have the same configuration.
 
-It does not allow having 2 separate tablets of the same model to have different
-configurations, whether on a single machine, or using a shared home directory.
+It does not allow [1] having 2 separate tablets of the same model to have
+different configurations, whether on a single machine, or using a shared
+home directory.
 
 The configuration scheme is:
 schema: org.gnome.settings-daemon.peripherals.wacom
 path: /org/gnome/settings-daemon/peripherals/wacom/<machine ID>-<device ID>/
 
 where <machine ID> is the D-Bus machine-id for the machine, and
-<device ID> is a unique identifier for the tablet.
+<device ID> is a unique identifier for the tablet model.
+
+[1]: If you're using NFS shared home directories, you can share configurations
+between different machines by creating an empty
+~/.config/gnome-settings-daemon/no-per-machine-config file.
+$ mkdir -p ~/.config/gnome-settings-daemon/
+$ touch  ~/.config/gnome-settings-daemon/no-per-machine-config
+
+Note that this needs to happen without any gnome-settings-daemon
+running (otherwise half of the configuration would be done in a per-machine
+way and half in a generic way), and that previous machine-specific
+configurations will be lost.
 
 Stylus
 ------
