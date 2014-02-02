@@ -64,19 +64,6 @@ timed_exit_cb (void)
 }
 
 static void
-on_session_over (GDBusProxy *proxy,
-                 gchar      *sender_name,
-                 gchar      *signal_name,
-                 GVariant   *parameters,
-                 gpointer    user_data)
-{
-        if (g_strcmp0 (signal_name, "SessionOver") == 0) {
-                g_debug ("Got a SessionOver signal - stopping");
-                gtk_main_quit ();
-        }
-}
-
-static void
 respond_to_end_session (GDBusProxy *proxy)
 {
         /* we must answer with "EndSessionResponse" */
@@ -277,8 +264,6 @@ register_with_gnome_session (GDBusProxy *proxy)
 {
         const char *startup_id;
 
-        g_signal_connect (G_OBJECT (proxy), "g-signal",
-                          G_CALLBACK (on_session_over), NULL);
         startup_id = g_getenv ("DESKTOP_AUTOSTART_ID");
         g_dbus_proxy_call (proxy,
                            "RegisterClient",
