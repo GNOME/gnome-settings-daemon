@@ -87,9 +87,6 @@ client_proxy_signal_cb (GDBusProxy *proxy,
         } else if (g_strcmp0 (signal_name, "EndSession") == 0) {
                 g_debug ("Got EndSession signal");
                 respond_to_end_session (proxy);
-        } else if (g_strcmp0 (signal_name, "Stop") == 0) {
-                g_debug ("Got Stop signal");
-                gtk_main_quit ();
         }
 }
 
