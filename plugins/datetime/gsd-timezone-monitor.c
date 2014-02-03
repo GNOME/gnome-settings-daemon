@@ -29,6 +29,7 @@
 #include <geocode-glib/geocode-glib.h>
 #include <polkit/polkit.h>
 
+#define DESKTOP_ID "gnome-datetime-panel"
 #define SET_TIMEZONE_PERMISSION "org.freedesktop.timedate1.set-timezone"
 
 enum {
@@ -338,6 +339,7 @@ on_client_proxy_ready (GObject      *source_object,
                 return;
         }
 
+        geoclue_client_set_desktop_id (priv->geoclue_client, DESKTOP_ID);
         geoclue_client_set_distance_threshold (priv->geoclue_client,
                                                GEOCODE_LOCATION_ACCURACY_CITY);
 
