@@ -3,6 +3,8 @@ plugin_name = common
 noinst_LTLIBRARIES = libcommon.la
 
 libcommon_la_SOURCES = \
+	gsd-device-mapper.c	\
+	gsd-device-mapper.h	\
 	gsd-keygrab.c		\
 	gsd-keygrab.h		\
 	gsd-input-helper.c	\
@@ -13,12 +15,15 @@ libcommon_la_SOURCES = \
 libcommon_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon	\
 	-I$(top_builddir)/gnome-settings-daemon	\
+	-I$(top_srcdir)/data/				\
 	$(AM_CPPFLAGS)
 
 libcommon_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(COMMON_CFLAGS)		\
+	$(GNOME_DESKTOP_CFLAGS)		\
+	$(LIBWACOM_CFLAGS)		\
 	$(AM_CFLAGS)
 
 libcommon_la_LDFLAGS = \
@@ -26,6 +31,8 @@ libcommon_la_LDFLAGS = \
 
 libcommon_la_LIBADD  = \
 	$(SETTINGS_PLUGIN_LIBS)		\
+	$(GNOME_DESKTOP_LIBS)		\
+	$(LIBWACOM_LIBS)		\
 	$(COMMON_LIBS)
 
 libexec_PROGRAMS = gsd-test-input-helper

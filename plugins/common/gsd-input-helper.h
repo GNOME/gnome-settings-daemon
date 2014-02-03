@@ -81,6 +81,8 @@ GList *   get_disabled_devices     (GdkDeviceManager       *manager);
 char *    xdevice_get_device_node  (int                     deviceid);
 int       xdevice_get_last_tool_id (int                     deviceid);
 
+const char * xdevice_get_wacom_tool_type (int               deviceid);
+
 G_END_DECLS
 
 #endif /* __GSD_INPUT_HELPER_H */

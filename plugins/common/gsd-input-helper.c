@@ -575,3 +575,38 @@ get_disabled_devices (GdkDeviceManager *manager)
 
         return ret;
 }
+
+const char *
+xdevice_get_wacom_tool_type (int deviceid)
+{
+        unsigned long nitems, bytes_after;
+        unsigned char *data = NULL;
+        Atom prop, realtype, tool;
+        GdkDisplay *display;
+        int realformat, rc;
+        const gchar *ret = NULL;
+
+        gdk_error_trap_push ();
+
+        display = gdk_display_get_default ();
+        prop = gdk_x11_get_xatom_by_name ("Wacom Tool Type");
+
+        rc = XIGetProperty (GDK_DISPLAY_XDISPLAY (display),
+                            deviceid, prop, 0, 1, False,
+                            XA_ATOM, &realtype, &realformat, &nitems,
+                            &bytes_after, &data);
+
+        gdk_error_trap_pop_ignored ();
+
+        if (rc != Success || nitems == 0)
+                return NULL;
+
+        if (realtype == XA_ATOM) {
+                tool = *((Atom*) data);
+                ret = gdk_x11_get_xatom_name (tool);
+        }
+
+        XFree (data);
+
+        return ret;
+}
