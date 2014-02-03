@@ -32,6 +32,9 @@
 #define DESKTOP_ID "gnome-datetime-panel"
 #define SET_TIMEZONE_PERMISSION "org.freedesktop.timedate1.set-timezone"
 
+/* Defines from geoclue private header src/public-api/gclue-enums.h */
+#define GCLUE_ACCURACY_LEVEL_CITY 4
+
 enum {
         TIMEZONE_CHANGED,
         LAST_SIGNAL
@@ -342,6 +345,8 @@ on_client_proxy_ready (GObject      *source_object,
         geoclue_client_set_desktop_id (priv->geoclue_client, DESKTOP_ID);
         geoclue_client_set_distance_threshold (priv->geoclue_client,
                                                GEOCODE_LOCATION_ACCURACY_CITY);
+        geoclue_client_set_requested_accuracy_level (priv->geoclue_client,
+                                                     GCLUE_ACCURACY_LEVEL_CITY);
 
         g_signal_connect (priv->geoclue_client, "location-updated",
                           G_CALLBACK (on_location_updated), self);
