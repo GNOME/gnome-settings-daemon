@@ -1,4 +1,23 @@
 ==============
+Version 3.11.5
+==============
+
+- We no longer quit when gnome-session tells all registered clients to
+  stop so that applications still running don't lose their theme and
+  icons briefly before the session ends
+
+Date & Time:
+- Specify the accuracy level for geoclue
+- Provide desktop id to geoclue so that authorization works
+
+Media-keys:
+- Remove the default shortcut to toggle the screen reader since it
+  conflicts with the "panel main menu" shortcut
+
+Wacom:
+- Check for calibration state on startup/device-added
+
+==============
 Version 3.11.3
 ==============
 
