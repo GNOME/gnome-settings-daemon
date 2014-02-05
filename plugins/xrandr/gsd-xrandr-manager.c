@@ -46,15 +46,12 @@
 #include <libgnome-desktop/gnome-rr.h>
 #include <libgnome-desktop/gnome-pnp-ids.h>
 
-#ifdef HAVE_WACOM
-#include <libwacom/libwacom.h>
-#endif /* HAVE_WACOM */
-
 #include "gsd-enums.h"
 #include "gsd-input-helper.h"
 #include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
 #include "gnome-settings-bus.h"
+#include "gsd-device-mapper.h"
 #include "gsd-xrandr-manager.h"
 
 #define GSD_XRANDR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_XRANDR_MANAGER, GsdXrandrManagerPrivate))
@@ -105,13 +102,14 @@ struct GsdXrandrManagerPrivate {
         GDBusConnection *connection;
         GCancellable    *bus_cancellable;
 
+        GsdDeviceMapper  *device_mapper;
+        GdkDeviceManager *device_manager;
+        guint             device_added_id;
+        guint             device_removed_id;
+
         /* fn-F7 status */
         int             current_fn_f7_config;             /* -1 if no configs */
         GnomeRRConfig **fn_f7_configs;  /* NULL terminated, NULL if there are no configs */
-
-#ifdef HAVE_WACOM
-        WacomDeviceDatabase *wacom_db;
-#endif /* HAVE_WACOM */
 };
 
 static const GnomeRRRotation possible_rotations[] = {
@@ -1071,130 +1069,6 @@ get_next_rotation (GnomeRRRotation allowed_rotations, GnomeRRRotation current_ro
         }
 }
 
-struct {
-        GnomeRRRotation rotation;
-        /* Coordinate Transformation Matrix */
-        gfloat matrix[9];
-} evdev_rotations[] = {
-        { GNOME_RR_ROTATION_0, {1, 0, 0, 0, 1, 0, 0, 0, 1}},
-        { GNOME_RR_ROTATION_90, {0, -1, 1, 1, 0, 0, 0, 0, 1}},
-        { GNOME_RR_ROTATION_180, {-1, 0, 1, 0, -1, 1, 0, 0, 1}},
-        { GNOME_RR_ROTATION_270, {0, 1, 0, -1, 0, 1, 0,  0, 1}}
-};
-
-static guint
-get_rotation_index (GnomeRRRotation rotation)
-{
-        guint i;
-
-        for (i = 0; i < G_N_ELEMENTS (evdev_rotations); i++) {
-                if (evdev_rotations[i].rotation == rotation)
-                        return i;
-        }
-        g_assert_not_reached ();
-}
-
-static gboolean
-is_wacom_tablet_device (GsdXrandrManager *mgr,
-                        XDeviceInfo      *device_info)
-{
-#ifdef HAVE_WACOM
-        GsdXrandrManagerPrivate *priv = mgr->priv;
-        gchar       *device_node;
-        WacomDevice *wacom_device;
-        gboolean     is_tablet = FALSE;
-
-        if (priv->wacom_db == NULL)
-                priv->wacom_db = libwacom_database_new ();
-
-        device_node = xdevice_get_device_node (device_info->id);
-        if (device_node == NULL)
-                return FALSE;
-
-        wacom_device = libwacom_new_from_path (priv->wacom_db, device_node, FALSE, NULL);
-        g_free (device_node);
-        if (wacom_device == NULL) {
-                g_free (device_node);
-                return FALSE;
-        }
-        is_tablet = libwacom_has_touch (wacom_device) &&
-                    libwacom_is_builtin (wacom_device);
-
-        libwacom_destroy (wacom_device);
-
-        return is_tablet;
-#else  /* HAVE_WACOM */
-        return FALSE;
-#endif /* HAVE_WACOM */
-}
-
-static void
-rotate_touchscreens (GsdXrandrManager *mgr,
-                     GnomeRRRotation   rotation)
-{
-        XDeviceInfo *device_info;
-        gint n_devices;
-        guint i, rot_idx;
-        Atom float_atom;
-
-        if (!supports_xinput_devices ())
-                return;
-
-        g_debug ("Rotating touchscreen devices");
-
-        device_info = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &n_devices);
-        if (device_info == NULL)
-                return;
-
-        rot_idx = get_rotation_index (rotation);
-
-        float_atom = XInternAtom(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), "FLOAT", True);
-
-        for (i = 0; i < n_devices; i++) {
-                if (is_wacom_tablet_device  (mgr, &device_info[i])) {
-                        g_debug ("Not rotating tablet device '%s'", device_info[i].name);
-                        continue;
-                }
-
-                if (device_info_is_touchscreen (&device_info[i]) ||
-                            device_info_is_tablet (&device_info[i])) {
-                        XDevice *device;
-                        gfloat *m = evdev_rotations[rot_idx].matrix;
-                        PropertyHelper matrix = {
-                                .name = "Coordinate Transformation Matrix",
-                                .nitems = 9,
-                                .format = 32,
-                                .type = float_atom,
-                                .data.i = (int *)m,
-                        };
-
-                        g_debug ("About to rotate '%s'", device_info[i].name);
-
-                        gdk_error_trap_push ();
-                        device = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device_info[i].id);
-                        if (gdk_error_trap_pop () || (device == NULL))
-                                continue;
-
-                        if (device_set_property (device, device_info[i].name, &matrix) != FALSE) {
-                                g_debug ("Rotated '%s' to configuration '%f, %f, %f, %f, %f, %f, %f, %f, %f'\n",
-                                         device_info[i].name,
-                                         evdev_rotations[rot_idx].matrix[0],
-                                         evdev_rotations[rot_idx].matrix[1],
-                                         evdev_rotations[rot_idx].matrix[2],
-                                         evdev_rotations[rot_idx].matrix[3],
-                                         evdev_rotations[rot_idx].matrix[4],
-                                         evdev_rotations[rot_idx].matrix[5],
-                                         evdev_rotations[rot_idx].matrix[6],
-                                         evdev_rotations[rot_idx].matrix[7],
-                                         evdev_rotations[rot_idx].matrix[8]);
-                        }
-
-                        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
-                }
-        }
-        XFreeDeviceList (device_info);
-}
-
 /* We use this when the XF86RotateWindows key is pressed, or the
  * orientation of a tablet changes. The key is present
  * on some tablet PCs; they use it so that the user can rotate the tablet
@@ -1212,7 +1086,6 @@ handle_rotate_windows (GsdXrandrManager *mgr,
         int num_allowed_rotations;
         GnomeRRRotation allowed_rotations;
         GnomeRRRotation next_rotation;
-        gboolean success;
 
         g_debug ("Handling XF86RotateWindows with rotation %d", rotation);
 
@@ -1244,9 +1117,7 @@ handle_rotate_windows (GsdXrandrManager *mgr,
 
         gnome_rr_output_info_set_rotation (rotatable_output_info, next_rotation);
 
-        success = apply_configuration (mgr, current, timestamp);
-        if (success)
-                rotate_touchscreens (mgr, next_rotation);
+        apply_configuration (mgr, current, timestamp);
 
 out:
         g_object_unref (current);
@@ -1292,6 +1163,56 @@ get_allowed_rotations_for_output (GnomeRRConfig *config,
 }
 
 static void
+manager_device_added (GsdXrandrManager *manager,
+                      GdkDevice        *device)
+{
+        if (gdk_device_get_device_type (device) == GDK_DEVICE_TYPE_MASTER ||
+            gdk_device_get_source (device) != GDK_SOURCE_TOUCHSCREEN)
+                return;
+
+        gsd_device_mapper_add_input (manager->priv->device_mapper, device, NULL);
+}
+
+static void
+manager_device_removed (GsdXrandrManager *manager,
+                        GdkDevice        *device)
+{
+        if (gdk_device_get_device_type (device) == GDK_DEVICE_TYPE_MASTER ||
+            gdk_device_get_source (device) != GDK_SOURCE_TOUCHSCREEN)
+                return;
+
+        gsd_device_mapper_remove_input (manager->priv->device_mapper, device);
+}
+
+static void
+manager_init_devices (GsdXrandrManager *manager)
+{
+        GdkDisplay *display;
+        GList *devices, *d;
+        GdkScreen *screen;
+
+        screen = gdk_screen_get_default ();
+        display = gdk_screen_get_display (screen);
+
+        manager->priv->device_mapper = gsd_device_mapper_get ();
+        manager->priv->device_manager = gdk_display_get_device_manager (display);
+        manager->priv->device_added_id =
+                g_signal_connect_swapped (manager->priv->device_manager, "device-added",
+                                          G_CALLBACK (manager_device_added), manager);
+        manager->priv->device_removed_id =
+                g_signal_connect_swapped (manager->priv->device_manager, "device-removed",
+                                  G_CALLBACK (manager_device_removed), manager);
+
+        devices = gdk_device_manager_list_devices (manager->priv->device_manager,
+                                                   GDK_DEVICE_TYPE_SLAVE);
+
+        for (d = devices; d; d = d->next)
+                manager_device_added (manager, d->data);
+
+        g_list_free (devices);
+}
+
+static void
 on_rr_screen_acquired (GObject      *object,
                        GAsyncResult *result,
                        gpointer      user_data)
@@ -1316,6 +1237,8 @@ on_rr_screen_acquired (GObject      *object,
 
         manager->priv->running = TRUE;
         manager->priv->settings = g_settings_new (CONF_SCHEMA);
+
+        manager_init_devices (manager);
 
         log_close ();
 }
@@ -1377,12 +1300,12 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
                 manager->priv->connection = NULL;
         }
 
-#ifdef HAVE_WACOM
-        if (manager->priv->wacom_db != NULL) {
-                libwacom_database_destroy (manager->priv->wacom_db);
-                manager->priv->wacom_db = NULL;
+        if (manager->priv->device_manager != NULL) {
+                g_signal_handler_disconnect (manager->priv->device_manager,
+                                             manager->priv->device_added_id);
+                g_signal_handler_disconnect (manager->priv->device_manager,
+                                             manager->priv->device_removed_id);
         }
-#endif /* HAVE_WACOM */
 
         log_open ();
         log_msg ("STOPPING XRANDR PLUGIN\n------------------------------------------------------------\n");
