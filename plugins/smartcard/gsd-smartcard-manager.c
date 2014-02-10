@@ -181,6 +181,11 @@ watch_one_event_from_driver (GsdSmartcardManager       *self,
 
         g_cancellable_disconnect (cancellable, handler_id);
 
+        if (g_cancellable_is_cancelled (cancellable)) {
+                g_warning ("smartcard event function cancelled");
+                return FALSE;
+        }
+
         if (card == NULL) {
                 int error_code;
 
@@ -263,6 +268,10 @@ watch_smartcards_from_driver (GTask                    *task,
                 GError *error = NULL;
 
                 watch_succeeded = watch_one_event_from_driver (self, operation, cancellable, &error);
+
+                if (g_task_return_error_if_cancelled (task)) {
+                        break;
+                }
 
                 if (!watch_succeeded) {
                         g_task_return_error (task, error);
