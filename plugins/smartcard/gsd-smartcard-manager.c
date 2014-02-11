@@ -151,6 +151,7 @@ typedef struct
 {
         SECMODModule *driver;
         GHashTable *smartcards;
+        int number_of_consecutive_errors;
 } WatchSmartcardsOperation;
 
 static void
@@ -191,16 +192,26 @@ watch_one_event_from_driver (GsdSmartcardManager       *self,
 
                 error_code = PORT_GetError ();
 
-                g_warning ("smartcard event function failed.");
+                operation->number_of_consecutive_errors++;
+                if (operation->number_of_consecutive_errors > 10) {
+                     g_warning ("Got %d consecutive smartcard errors, so giving up.",
+                                operation->number_of_consecutive_errors);
 
-                g_set_error (error,
-                             GSD_SMARTCARD_MANAGER_ERROR,
-                             GSD_SMARTCARD_MANAGER_ERROR_WITH_NSS,
-                             "encountered unexpected error while "
-                             "waiting for smartcard events (error %d)",
-                             error_code);
-                return FALSE;
+                     g_set_error (error,
+                                  GSD_SMARTCARD_MANAGER_ERROR,
+                                  GSD_SMARTCARD_MANAGER_ERROR_WITH_NSS,
+                                  "encountered unexpected error while "
+                                  "waiting for smartcard events (error %x)",
+                                  error_code);
+                     return FALSE;
+                }
+
+                g_warning ("Got potentially spurious smartcard event error: %x.", error_code);
+
+                g_usleep (0.5 * G_USEC_PER_SEC);
+                return TRUE;
         }
+        operation->number_of_consecutive_errors = 0;
 
         slot_id = PK11_GetSlotID (card);
         slot_series = PK11_GetSlotSeries (card);
