@@ -1,3 +1,4 @@
+#include "gsd-xkb-utils.c"
 #include "gsd-keyboard-manager.c"
 
 static void

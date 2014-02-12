@@ -37,9 +37,7 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
-#include <X11/XKBlib.h>
 #include <X11/keysym.h>
-#include <X11/extensions/XKBrules.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-languages.h>
@@ -54,6 +52,7 @@
 #include "gsd-keyboard-manager.h"
 #include "gsd-input-helper.h"
 #include "gsd-enums.h"
+#include "gsd-xkb-utils.h"
 
 #define GSD_KEYBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_KEYBOARD_MANAGER, GsdKeyboardManagerPrivate))
 
@@ -924,7 +923,7 @@ apply_xkb_settings (GsdKeyboardManager *manager,
         XkbRF_VarDefsRec *xkb_var_defs;
         gchar *rules_file_path;
 
-        gnome_xkb_info_get_var_defs (&rules_file_path, &xkb_var_defs);
+        gsd_xkb_get_var_defs (&rules_file_path, &xkb_var_defs);
 
         free (xkb_var_defs->options);
         xkb_var_defs->options = options;
@@ -950,7 +949,7 @@ apply_xkb_settings (GsdKeyboardManager *manager,
         if (gdk_error_trap_pop ())
                 g_warning ("Error loading XKB rules");
 
-        gnome_xkb_info_free_var_defs (xkb_var_defs);
+        gsd_xkb_free_var_defs (xkb_var_defs);
         g_free (rules_file_path);
 }
 
