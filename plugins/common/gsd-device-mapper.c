@@ -122,11 +122,7 @@ enum {
 
 static guint signals[N_SIGNALS] = { 0 };
 
-static void gsd_device_mapper_initable_iface_init (GInitableIface *iface);
-
-G_DEFINE_TYPE_WITH_CODE (GsdDeviceMapper, gsd_device_mapper, G_TYPE_OBJECT,
-			 G_IMPLEMENT_INTERFACE (G_TYPE_INITABLE,
-						gsd_device_mapper_initable_iface_init))
+G_DEFINE_TYPE (GsdDeviceMapper, gsd_device_mapper, G_TYPE_OBJECT)
 
 static XDevice *
 open_device (GdkDevice *device)
@@ -191,6 +187,10 @@ find_output_by_edid (GnomeRRScreen *rr_screen,
 	GnomeRROutput **outputs;
 	GnomeRROutput *retval = NULL;
 	guint i;
+
+        /* possible during async initialization */
+	if (rr_screen == NULL)
+		return NULL;
 
 	outputs = gnome_rr_screen_list_outputs (rr_screen);
 
@@ -986,47 +986,41 @@ _device_mapper_update_outputs (GsdDeviceMapper *mapper)
 }
 
 static void
-outputs_changed_cb (GnomeRRScreen   *rr_screen,
-		    GnomeRROutput   *output,
-		    GsdDeviceMapper *mapper)
-{
-	_device_mapper_update_outputs (mapper);
-}
-
-static void
 screen_changed_cb (GnomeRRScreen   *rr_screen,
 		   GsdDeviceMapper *mapper)
 {
 	_device_mapper_update_outputs (mapper);
 }
 
-static gboolean
-gsd_device_mapper_initable_init (GInitable     *initable,
-				 GCancellable  *cancellable,
-				 GError	      **error)
+static void
+on_rr_screen_ready (GObject      *object,
+		    GAsyncResult *result,
+		    gpointer      user_data)
 {
-	GsdDeviceMapper *mapper;
+	GError *error;
+	GsdDeviceMapper *mapper = user_data;
 
-	mapper = GSD_DEVICE_MAPPER (initable);
-	mapper->rr_screen = gnome_rr_screen_new (mapper->screen, error);
+	error = NULL;
+	mapper->rr_screen = gnome_rr_screen_new_finish (result, &error);
 
-	if (!mapper->rr_screen)
-		return FALSE;
+	if (!mapper->rr_screen) {
+		g_warning ("Failed to construct RR screen: %s", error->message);
+		g_error_free (error);
+		return;
+	}
 
 	g_signal_connect (mapper->rr_screen, "changed",
-			  G_CALLBACK (screen_changed_cb), initable);
-	g_signal_connect (mapper->rr_screen, "output-connected",
-			  G_CALLBACK (outputs_changed_cb), initable);
-	g_signal_connect (mapper->rr_screen, "output-disconnected",
-			  G_CALLBACK (outputs_changed_cb), initable);
-	_device_mapper_update_outputs (GSD_DEVICE_MAPPER (initable));
-	return TRUE;
+			  G_CALLBACK (screen_changed_cb), mapper);
+	_device_mapper_update_outputs (mapper);
 }
 
 static void
-gsd_device_mapper_initable_iface_init (GInitableIface *iface)
+gsd_device_mapper_constructed (GObject *object)
 {
-	iface->init = gsd_device_mapper_initable_init;
+	GsdDeviceMapper *mapper;
+
+	mapper = GSD_DEVICE_MAPPER (object);
+	gnome_rr_screen_new_async (mapper->screen, on_rr_screen_ready, mapper);
 }
 
 static void
@@ -1071,6 +1065,7 @@ gsd_device_mapper_class_init (GsdDeviceMapperClass *klass)
 	object_class->set_property = gsd_device_mapper_set_property;
 	object_class->get_property = gsd_device_mapper_get_property;
 	object_class->finalize = gsd_device_mapper_finalize;
+	object_class->constructed = gsd_device_mapper_constructed;
 
 	g_object_class_install_property (object_class,
 					 PROP_SCREEN,
@@ -1110,17 +1105,9 @@ gsd_device_mapper_get (void)
 	mapper = g_object_get_data (G_OBJECT (screen), "gsd-device-mapper-data");
 
 	if (!mapper) {
-		GError *error = NULL;
-
-		mapper = g_initable_new (GSD_TYPE_DEVICE_MAPPER, NULL, &error,
-					 "screen", screen, NULL);
-		if (error) {
-			g_critical ("Could not create device mapper: %s", error->message);
-			g_error_free (error);
-		} else {
-			g_object_set_data_full (G_OBJECT (screen), "gsd-device-mapper-data",
-						mapper, (GDestroyNotify) g_object_unref);
-		}
+		mapper = g_object_new (GSD_TYPE_DEVICE_MAPPER, "screen", screen, NULL);
+		g_object_set_data_full (G_OBJECT (screen), "gsd-device-mapper-data",
+                                        mapper, (GDestroyNotify) g_object_unref);
 	}
 
 	return mapper;
