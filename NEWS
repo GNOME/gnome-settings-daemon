@@ -1,3 +1,32 @@
+===============
+Version 3.11.90
+===============
+
+Date & Time:
+- Require a newer Geoclue
+
+Keyboard:
+- Move X11 specific code from gnome-desktop to here
+
+Wacom, XRandR:
+- Add explicit input device to display output mapping
+  and apply rotation and mapping to the input devices
+  when the display output changes
+- Use "input-tablet" icon for notifications
+
+Rfkill:
+- Avoid spurious warning on startup
+
+Updates:
+- Update for UPower API changes
+
+Smartcard:
+- Detect explicit cancellation
+- Filter out spurious errors
+
+Wacom:
+- Add OLED handling over Bluetooth
+
 ==============
 Version 3.11.5
 ==============
