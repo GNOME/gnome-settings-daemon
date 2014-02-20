@@ -1190,7 +1190,7 @@ rotate_touchscreens (GsdXrandrManager *mgr,
                                          evdev_rotations[rot_idx].matrix[8]);
                         }
 
-                        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
+                        xdevice_close (device);
                 }
         }
         XFreeDeviceList (device_info);

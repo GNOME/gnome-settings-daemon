@@ -371,7 +371,7 @@ set_left_handed (GsdMouseManager *manager,
         gdk_error_trap_pop_ignored ();
 
 out:
-        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+        xdevice_close (xdevice);
         g_free (buttons);
 }
 
@@ -468,7 +468,7 @@ set_motion (GsdMouseManager *manager,
 
     out:
 
-        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+        xdevice_close (xdevice);
 }
 
 static void
@@ -515,7 +515,7 @@ set_middle_button (GsdMouseManager *manager,
         if (rc == Success)
                 XFree (data);
 
-        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+        xdevice_close (xdevice);
 }
 
 /* Ensure that syndaemon dies together with us, to avoid running several of
@@ -622,7 +622,7 @@ set_tap_to_click (GdkDevice *device,
                 return;
 
         if (!device_is_touchpad (xdevice)) {
-                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+                xdevice_close (xdevice);
                 return;
         }
 
@@ -648,7 +648,7 @@ set_tap_to_click (GdkDevice *device,
         if (gdk_error_trap_pop ())
                 g_warning ("Error in setting tap to click on \"%s\"", gdk_device_get_name (device));
 
-        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+        xdevice_close (xdevice);
 }
 
 static void
@@ -673,7 +673,7 @@ set_horiz_scroll (GdkDevice *device,
                 return;
 
         if (!device_is_touchpad (xdevice)) {
-                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+                xdevice_close (xdevice);
                 return;
         }
 
@@ -712,7 +712,7 @@ set_horiz_scroll (GdkDevice *device,
         if (rc == Success)
                 XFree (data);
 
-        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+        xdevice_close (xdevice);
 
 }
 
@@ -740,7 +740,7 @@ set_scroll_method (GsdMouseManager         *manager,
                 return;
 
         if (!device_is_touchpad (xdevice)) {
-                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+                xdevice_close (xdevice);
                 return;
         }
 
@@ -793,7 +793,7 @@ set_scroll_method (GsdMouseManager         *manager,
         if (rc == Success)
                 XFree (data);
 
-        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+        xdevice_close (xdevice);
 }
 
 static void
@@ -811,7 +811,7 @@ set_touchpad_disabled (GdkDevice *device)
                 return;
 
         if (!device_is_touchpad (xdevice)) {
-                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+                xdevice_close (xdevice);
                 return;
         }
 
@@ -820,7 +820,7 @@ set_touchpad_disabled (GdkDevice *device)
         else
                 g_debug ("Disabled device \"%s\" (%d)", gdk_device_get_name (device), id);
 
-        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+        xdevice_close (xdevice);
 }
 
 static void
@@ -836,7 +836,7 @@ set_touchpad_enabled (int id)
                 return;
 
         if (!device_is_touchpad (xdevice)) {
-                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+                xdevice_close (xdevice);
                 return;
         }
 
@@ -845,7 +845,7 @@ set_touchpad_enabled (int id)
         else
                 g_debug ("Enabled device %d", id);
 
-        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+        xdevice_close (xdevice);
 }
 
 static void
@@ -968,7 +968,7 @@ set_natural_scroll (GsdMouseManager *manager,
                 return;
 
         if (!device_is_touchpad (xdevice)) {
-                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+                xdevice_close (xdevice);
                 return;
         }
 
@@ -1009,7 +1009,7 @@ set_natural_scroll (GsdMouseManager *manager,
         if (rc == Success)
                 XFree (data);
 
-        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+        xdevice_close (xdevice);
 }
 
 static void

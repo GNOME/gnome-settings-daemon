@@ -576,3 +576,11 @@ get_disabled_devices (GdkDeviceManager *manager)
 
         return ret;
 }
+
+void
+xdevice_close (XDevice *xdevice)
+{
+    gdk_error_trap_push ();
+    XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+    gdk_error_trap_pop_ignored();
+}
