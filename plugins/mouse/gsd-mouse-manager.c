@@ -430,6 +430,8 @@ set_motion (GsdMouseManager *manager,
         /* And threshold */
         motion_threshold = g_settings_get_int (settings, KEY_MOTION_THRESHOLD);
 
+        gdk_error_trap_push ();
+
         /* Get the list of feedbacks for the device */
         states = XGetFeedbackControl (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, &num_feedbacks);
         if (states == NULL)
@@ -457,6 +459,9 @@ set_motion (GsdMouseManager *manager,
                 }
                 state = (XFeedbackState *) ((char *) state + state->length);
         }
+
+        if (gdk_error_trap_pop ())
+                g_warning ("Error setting acceleration on \"%s\"", gdk_device_get_name (device));
 
         XFreeFeedbackList (states);
 
