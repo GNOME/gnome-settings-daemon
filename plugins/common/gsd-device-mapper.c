@@ -157,7 +157,7 @@ device_apply_property (GdkDevice      *device,
 		return FALSE;
 
 	retval = device_set_property (xdev, gdk_device_get_name (device), property);
-	XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev);
+	xdevice_close (xdev);
 	return retval;
 }
 

@@ -500,10 +500,11 @@ get_device_type (XDeviceInfo *dev)
                                  device, prop, 0, 1, False,
                                  XA_ATOM, &realtype, &realformat, &nitems,
                                  &bytes_after, &data);
-        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
 
         if (gdk_error_trap_pop () || rc != Success || realtype == None)
                 ret = WACOM_TYPE_INVALID;
+
+        xdevice_close (device);
 
         XFree (data);
 
@@ -1901,7 +1902,7 @@ gsd_wacom_device_get_area (GsdWacomDevice *device)
 				 XA_INTEGER, &realtype, &realformat, &nitems,
 				 &bytes_after, &data);
 	if (gdk_error_trap_pop () || rc != Success || realtype == None || bytes_after != 0 || nitems != 4) {
-		XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+		xdevice_close (xdevice);
 		return NULL;
 	}
 
@@ -1910,7 +1911,7 @@ gsd_wacom_device_get_area (GsdWacomDevice *device)
 		device_area[i] = ((long *)data)[i];
 
 	XFree (data);
-	XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+	xdevice_close (xdevice);
 
 	return device_area;
 }
