@@ -287,6 +287,7 @@ case $host_os in
       else
         AC_MSG_ERROR([GUdev is necessary to compile Wacom support])
       fi
+      AC_DEFINE_UNQUOTED(HAVE_WACOM, 1, [Define to 1 if wacom support is available])
       have_wacom=yes
     fi
     ;;
