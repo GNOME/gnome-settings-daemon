@@ -1830,6 +1830,12 @@ handle_screensaver_active (GsdPowerManager *manager,
 }
 
 static void
+handle_wake_up_screen (GsdPowerManager *manager)
+{
+        set_temporary_unidle_on_ac (manager, TRUE);
+}
+
+static void
 screensaver_signal_cb (GDBusProxy *proxy,
                        const gchar *sender_name,
                        const gchar *signal_name,
@@ -1838,6 +1844,8 @@ screensaver_signal_cb (GDBusProxy *proxy,
 {
         if (g_strcmp0 (signal_name, "ActiveChanged") == 0)
                 handle_screensaver_active (GSD_POWER_MANAGER (user_data), parameters);
+        else if (g_strcmp0 (signal_name, "WakeUpScreen") == 0)
+                handle_wake_up_screen (GSD_POWER_MANAGER (user_data));
 }
 
 static void
@@ -1960,6 +1968,17 @@ show_sleep_warning (GsdPowerManager *manager)
 }
 
 static void
+idle_set_mode_no_temp (GsdPowerManager  *manager,
+                       GsdPowerIdleMode  mode)
+{
+        if (manager->priv->temporary_unidle_on_ac_id != 0 &&
+            manager->priv->previous_idle_mode == mode)
+                return;
+
+        idle_set_mode (manager, mode);
+}
+
+static void
 idle_triggered_idle_cb (GnomeIdleMonitor *monitor,
                         guint             watch_id,
                         gpointer          user_data)
@@ -1974,11 +1993,11 @@ idle_triggered_idle_cb (GnomeIdleMonitor *monitor,
                 g_debug ("idletime watch: %s (%i)", id_name, watch_id);
 
         if (watch_id == manager->priv->idle_dim_id) {
-                idle_set_mode (manager, GSD_POWER_IDLE_MODE_DIM);
+                idle_set_mode_no_temp (manager, GSD_POWER_IDLE_MODE_DIM);
         } else if (watch_id == manager->priv->idle_blank_id) {
-                idle_set_mode (manager, GSD_POWER_IDLE_MODE_BLANK);
+                idle_set_mode_no_temp (manager, GSD_POWER_IDLE_MODE_BLANK);
         } else if (watch_id == manager->priv->idle_sleep_id) {
-                idle_set_mode (manager, GSD_POWER_IDLE_MODE_SLEEP);
+                idle_set_mode_no_temp (manager, GSD_POWER_IDLE_MODE_SLEEP);
         } else if (watch_id == manager->priv->idle_sleep_warning_id) {
                 show_sleep_warning (manager);
         }
