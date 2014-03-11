@@ -14,6 +14,7 @@ libgsdwacom_la_SOURCES =	\
 	gsd-wacom-osd-window.c	\
 	gsd-wacom-oled.h	\
 	gsd-wacom-oled.c	\
+	gsd-wacom-oled-constants.h \
 	gsd-wacom-device.c	\
 	gsd-wacom-device.h	\
 	gsd-wacom-resources.c
@@ -59,7 +60,7 @@ polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
 
 # so it always gets included in the tarball
 gsd_wacom_led_helper_SOURCES =	gsd-wacom-led-helper.c
-gsd_wacom_oled_helper_SOURCES =	gsd-wacom-oled-helper.c
+gsd_wacom_oled_helper_SOURCES =	gsd-wacom-oled-helper.c gsd-wacom-oled-constants.h
 
 EXTRA_DIST = $(gsd_wacom_led_helper_SOURCES) wacom.gresource.xml tablet-layout.css \
 	     $(gsd_wacom_oled_helper_SOURCES)
