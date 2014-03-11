@@ -35,29 +35,6 @@
 #define ROTATION_KEY		"rotation"
 
 static void
-oled_scramble_icon (guchar* image)
-{
-	unsigned char buf[MAX_IMAGE_SIZE];
-	int x, y, i;
-	unsigned char l1, l2, h1, h2;
-
-	for (i = 0; i < MAX_IMAGE_SIZE; i++)
-		buf[i] = image[i];
-
-	for (y = 0; y < (OLED_HEIGHT / 2); y++) {
-		for (x = 0; x < (OLED_WIDTH / 2); x++) {
-			l1 = (0x0F & (buf[OLED_HEIGHT - 1 - x + OLED_WIDTH * y]));
-			l2 = (0x0F & (buf[OLED_HEIGHT - 1 - x + OLED_WIDTH * y] >> 4));
-			h1 = (0xF0 & (buf[OLED_WIDTH - 1 - x + OLED_WIDTH * y] << 4));
-			h2 = (0xF0 & (buf[OLED_WIDTH - 1 - x + OLED_WIDTH * y]));
-
-			image[2 * x + OLED_WIDTH * y] = h1 | l1;
-			image[2 * x + 1 + OLED_WIDTH * y] = h2 | l2;
-		}
-	}
-}
-
-static void
 oled_surface_to_image (guchar          *image,
 		       cairo_surface_t *surface)
 {
@@ -220,7 +197,6 @@ gsd_wacom_oled_gdkpixbuf_to_base64 (GdkPixbuf *pixbuf)
 		}
 	}
 
-	oled_scramble_icon (image);
 	base_string = g_base64_encode (image, MAX_IMAGE_SIZE);
 	base64 = g_strconcat (MAGIC_BASE64, base_string, NULL);
 	g_free (base_string);
@@ -233,13 +209,12 @@ static char *
 oled_encode_image (char             *label,
                    GsdWacomRotation  rotation)
 {
-	guchar *image;
+	unsigned char *image;
 
 	image = g_malloc (MAX_IMAGE_SIZE);
 
 	/* convert label to image */
 	oled_render_text (label, image, rotation);
-	oled_scramble_icon (image);
 
 	return (g_base64_encode (image, MAX_IMAGE_SIZE));
 }

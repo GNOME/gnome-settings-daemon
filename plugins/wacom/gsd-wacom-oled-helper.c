@@ -34,8 +34,73 @@
 #include <fcntl.h>
 #include <gudev/gudev.h>
 
+#include "gsd-wacom-oled-constants.h"
+
+#define USB_PIXELS_PER_BYTE 2
+#define BT_PIXELS_PER_BYTE 8
+#define USB_BUF_LEN OLED_HEIGHT * OLED_WIDTH / USB_PIXELS_PER_BYTE
+#define BT_BUF_LEN OLED_WIDTH * OLED_HEIGHT / BT_PIXELS_PER_BYTE
+
+static void
+oled_scramble_icon (guchar *image)
+{
+	guchar buf[USB_BUF_LEN];
+	int x, y, i;
+	guchar l1, l2, h1, h2;
+
+	for (i = 0; i < USB_BUF_LEN; i++)
+		buf[i] = image[i];
+
+	for (y = 0; y < (OLED_HEIGHT / 2); y++) {
+		for (x = 0; x < (OLED_WIDTH / 2); x++) {
+			l1 = (0x0F & (buf[OLED_HEIGHT - 1 - x + OLED_WIDTH * y]));
+			l2 = (0x0F & (buf[OLED_HEIGHT - 1 - x + OLED_WIDTH * y] >> 4));
+			h1 = (0xF0 & (buf[OLED_WIDTH - 1 - x + OLED_WIDTH * y] << 4));
+			h2 = (0xF0 & (buf[OLED_WIDTH - 1 - x + OLED_WIDTH * y]));
+
+			image[2 * x + OLED_WIDTH * y] = h1 | l1;
+			image[2 * x + 1 + OLED_WIDTH * y] = h2 | l2;
+		}
+	}
+}
+
+static int
+gsd_wacom_oled_prepare_buf (guchar *image, GsdWacomOledType type)
+{
+	guchar buf[BT_BUF_LEN];
+	guchar b0, b1, b2, b3, b4, b5, b6, b7;
+	int i;
+	int len = 0;
+
+	if (type == GSD_WACOM_OLED_TYPE_USB) {
+		/* Image has to be scrambled for devices connected over USB ... */
+		oled_scramble_icon (image);
+		len = USB_BUF_LEN;
+	} else if (type == GSD_WACOM_OLED_TYPE_BLUETOOTH) {
+		/* ... but for bluetooth it has to be converted to 1 bit colour instead of scrambling */
+		for (i = 0; i < BT_BUF_LEN; i++) {
+			b0 = 0b10000000 & (image[(4 * i) + 0] >> 0);
+			b1 = 0b01000000 & (image[(4 * i) + 0] << 3);
+			b2 = 0b00100000 & (image[(4 * i) + 1] >> 2);
+			b3 = 0b00010000 & (image[(4 * i) + 1] << 1);
+			b4 = 0b00001000 & (image[(4 * i) + 2] >> 4);
+			b5 = 0b00000100 & (image[(4 * i) + 2] >> 1);
+			b6 = 0b00000010 & (image[(4 * i) + 3] >> 6);
+			b7 = 0b00000001 & (image[(4 * i) + 3] >> 3);
+			buf[i] = b0 | b1 | b2 | b3 | b4 | b5 | b6 | b7;
+		}
+		for (i = 0; i < BT_BUF_LEN; i++)
+			image[i] = buf[i];
+		len = BT_BUF_LEN;
+	} else {
+		g_assert_not_reached ();
+	}
+
+	return len;
+}
+
 static gboolean
-gsd_wacom_oled_helper_write (const gchar *filename, gchar *buffer, GError **error)
+gsd_wacom_oled_helper_write (const gchar *filename, gchar *buffer, GsdWacomOledType type, GError **error)
 {
 	guchar *image;
 	gint retval;
@@ -46,19 +111,33 @@ gsd_wacom_oled_helper_write (const gchar *filename, gchar *buffer, GError **erro
 	fd = open (filename, O_WRONLY);
 	if (fd < 0) {
 		ret = FALSE;
-		g_set_error (error, 1, 0, "failed to open filename: %s", filename);
+		g_set_error (error, 1, 0, "Failed to open filename: %s", filename);
 		goto out;
 	}
 
 	image = g_base64_decode (buffer, &length);
-	if (!image)
+	if (length != USB_BUF_LEN) {
+		ret = FALSE;
+		g_set_error (error, 1, 0, "Base64 buffer has length of %" G_GSIZE_FORMAT " (expected %i)", length, USB_BUF_LEN);
 		goto out;
+	}
+	if (!image) {
+		ret = FALSE;
+		g_set_error (error, 1, 0, "Decoding base64 buffer failed");
+		goto out;
+	}
 
-	/* write to device file */
+	length = gsd_wacom_oled_prepare_buf (image, type);
+	if (!length) {
+		ret = FALSE;
+		g_set_error (error, 1, 0, "Invalid image buffer length");
+		goto out;
+	}
+
 	retval = write (fd, image, length);
 	if (retval != length) {
 		ret = FALSE;
-		g_set_error (error, 1, 0, "writing to %s failed", filename);
+		g_set_error (error, 1, 0, "Writing to %s failed", filename);
 	}
 
 	g_free (image);
@@ -82,6 +161,48 @@ get_oled_sysfs_path (GUdevDevice *device,
 	return filename;
 }
 
+static char *
+get_bt_oled_sysfs_path (GUdevDevice *device, int button_num)
+{
+	char *status;
+	char *filename;
+
+	status = g_strdup_printf ("/oled%i_img", button_num);
+	filename = g_build_filename (g_udev_device_get_sysfs_path (device), status, NULL);
+	g_free (status);
+	return filename;
+}
+
+static char *
+get_bt_oled_filename (GUdevClient *client, GUdevDevice *device, int button_num)
+{
+	GUdevDevice *hid_dev;
+	const char *dev_uniq;
+	GList *hid_list;
+	GList *element;
+	const char *dev_hid_uniq;
+	char *filename = NULL;
+
+	dev_uniq = g_udev_device_get_property (device, "UNIQ");
+
+	hid_list =  g_udev_client_query_by_subsystem (client, "hid");
+	element = g_list_first(hid_list);
+	while (element) {
+		hid_dev = (GUdevDevice*)element->data;
+		dev_hid_uniq = g_udev_device_get_property (hid_dev, "HID_UNIQ");
+		if (g_strrstr (dev_uniq, dev_hid_uniq)){
+			filename = get_bt_oled_sysfs_path (hid_dev, button_num);
+			g_object_unref (hid_dev);
+			break;
+		}
+		g_object_unref (hid_dev);
+		element = g_list_next(element);
+	}
+	g_list_free(hid_list);
+	return filename;
+}
+
+
 int main (int argc, char **argv)
 {
 	GOptionContext *context;
@@ -92,6 +213,7 @@ int main (int argc, char **argv)
 	GError *error = NULL;
 	const char * const subsystems[] = { "input", NULL };
 	int ret = 1;
+	GsdWacomOledType type;
 
 	char *path = NULL;
 	char *buffer = "";
@@ -134,33 +256,45 @@ int main (int argc, char **argv)
 	client = g_udev_client_new (subsystems);
 	device = g_udev_client_query_by_device_file (client, path);
 	if (device == NULL) {
-		g_debug ("Could not find device '%s' in udev database", path);
+		g_critical ("Could not find device '%s' in udev database", path);
 		goto out;
 	}
 
 	if (g_udev_device_get_property_as_boolean (device, "ID_INPUT_TABLET") == FALSE &&
 	    g_udev_device_get_property_as_boolean (device, "ID_INPUT_TOUCHPAD") == FALSE) {
-		g_debug ("Device '%s' is not a Wacom tablet", path);
+		g_critical ("Device '%s' is not a Wacom tablet", path);
 		goto out;
 	}
 
-	if (g_strcmp0 (g_udev_device_get_property (device, "ID_BUS"), "usb") != 0) {
-		/* FIXME handle Bluetooth OLEDs too */
-		g_debug ("Non-USB OLEDs setting is not (yet) supported");
+	if (g_strcmp0 (g_udev_device_get_property (device, "ID_BUS"), "usb") == 0) {
+		parent = g_udev_device_get_parent_with_subsystem (device, "usb", "usb_interface");
+		if (parent == NULL) {
+			g_critical ("Could not find parent USB device for '%s'", path);
+			goto out;
+		}
+		g_object_unref (device);
+		device = parent;
+
+		filename = get_oled_sysfs_path (device, button_num);
+		type = GSD_WACOM_OLED_TYPE_USB;
+	} else if (g_strrstr( g_udev_device_get_property (device, "DEVPATH"), "bluetooth")) {
+		parent = g_udev_device_get_parent (device);
+		if (parent == NULL) {
+			g_critical ("Could not find parent device for '%s'", path);
+			goto out;
+		}
+		g_object_unref (device);
+		device = parent;
+
+		filename = get_bt_oled_filename (client, device, button_num);
+		type = GSD_WACOM_OLED_TYPE_BLUETOOTH;
+	} else {
+		g_critical ("Not an expected device: %s", path);
 		goto out;
 	}
 
-	parent = g_udev_device_get_parent_with_subsystem (device, "usb", "usb_interface");
-	if (parent == NULL) {
-		g_debug ("Could not find parent USB device for '%s'", path);
-		goto out;
-	}
-	g_object_unref (device);
-	device = parent;
-
-	filename = get_oled_sysfs_path (device, button_num);
-	if (gsd_wacom_oled_helper_write (filename, buffer, &error) == FALSE) {
-		g_debug ("Could not set OLED icon for '%s': %s", path, error->message);
+	if (gsd_wacom_oled_helper_write (filename, buffer, type, &error) == FALSE) {
+		g_critical ("Could not set OLED icon for '%s': %s", path, error->message);
 		g_error_free (error);
 		g_free (filename);
 		goto out;

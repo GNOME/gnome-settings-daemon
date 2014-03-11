@@ -17,16 +17,24 @@
  *
  */
 
-#include "gsd-wacom-oled-constants.h"
-
-#ifndef __GSD_WACOM_OLED_H
-#define __GSD_WACOM_OLED_H
+#ifndef __GSD_WACOM_OLED_CONSTANTS_H
+#define __GSD_WACOM_OLED_CONSTANTS_H
 
 G_BEGIN_DECLS
 
-void set_oled (GsdWacomDevice *device, char *button_id, char *label);
-char *gsd_wacom_oled_gdkpixbuf_to_base64 (GdkPixbuf *pixbuf);
+typedef enum {
+	GSD_WACOM_OLED_TYPE_USB,
+	GSD_WACOM_OLED_TYPE_BLUETOOTH
+} GsdWacomOledType;
+
+/* OLED parameters */
+#define OLED_WIDTH		64			/*Width of OLED icon - hardware dependent*/
+#define OLED_HEIGHT		32			/*Height of OLED icon - hardware dependent*/
+#define LABEL_SIZE		30			/*Maximum length of text for OLED icon*/
+#define MAX_TOKEN		(LABEL_SIZE >> 1)	/*Maximum number of tokens equals half of maximum number of characters*/
+#define MAX_IMAGE_SIZE		1024			/*Size of buffer for storing OLED image*/
+#define MAX_1ST_LINE_LEN	10			/*Maximum number of characters in 1st line of OLED icon*/
 
 G_END_DECLS
 
-#endif /* __GSD_WACOM_OLED_H */
+#endif /* __GSD_WACOM_OLED_CONSTANTS_H */
