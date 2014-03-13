@@ -513,44 +513,91 @@ primary_monitor_should_skip_resolution_check (GnomeRROutput *primary)
         return FALSE;
 }
 
+static void
+get_dimensions_xrandr (GnomeRROutput *primary,
+                       int           *width,
+                       int           *height,
+                       int           *width_mm,
+                       int           *height_mm)
+{
+        GnomeRRMode *mode;
+
+        mode = gnome_rr_output_get_current_mode (primary);
+        *width = gnome_rr_mode_get_width (mode);
+        *height = gnome_rr_mode_get_height (mode);
+
+        gnome_rr_output_get_physical_size (primary,
+                                           width_mm,
+                                           height_mm);
+}
+
+static void
+get_dimensions_gdk (int *width,
+                    int *height,
+                    int *width_mm,
+                    int *height_mm)
+{
+        GdkDisplay *display;
+        GdkScreen *screen;
+        GdkRectangle rect;
+        int primary;
+        int monitor_scale;
+
+        display = gdk_display_get_default ();
+        screen = gdk_display_get_default_screen (display);
+        primary = gdk_screen_get_primary_monitor (screen);
+        gdk_screen_get_monitor_geometry (screen, primary, &rect);
+        monitor_scale = gdk_screen_get_monitor_scale_factor (screen, primary);
+
+        *width = rect.width * monitor_scale;
+        *height = rect.height * monitor_scale;
+
+        *width_mm = gdk_screen_get_monitor_width_mm (screen, primary);
+        *height_mm = gdk_screen_get_monitor_height_mm (screen, primary);
+}
+
 static int
 get_window_scale (GnomeXSettingsManager *manager)
 {
 	GSettings  *interface_settings;
         int window_scale;
-        GdkRectangle rect;
-        GdkDisplay *display;
-        GdkScreen *screen;
+        int width, height;
         int width_mm, height_mm;
-        int monitor_scale;
         double dpi_x, dpi_y;
 
 	interface_settings = g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA);
         window_scale =
                 g_settings_get_uint (interface_settings, SCALING_FACTOR_KEY);
         if (window_scale == 0) {
-                int primary;
                 GnomeRROutput *output = NULL;
 
                 window_scale = 1;
 
                 if (manager->priv->rr_screen)
                         output = get_primary_output (manager->priv->rr_screen);
-                if (output && primary_monitor_should_skip_resolution_check (output))
-                        goto out;
 
-                display = gdk_display_get_default ();
-                screen = gdk_display_get_default_screen (display);
-                primary = gdk_screen_get_primary_monitor (screen);
-                gdk_screen_get_monitor_geometry (screen, primary, &rect);
-                width_mm = gdk_screen_get_monitor_width_mm (screen, primary);
-                height_mm = gdk_screen_get_monitor_height_mm (screen, primary);
-                monitor_scale = gdk_screen_get_monitor_scale_factor (screen, primary);
+                if (output) {
+                        if (primary_monitor_should_skip_resolution_check (output))
+                                goto out;
+
+                        get_dimensions_xrandr (output,
+                                               &width, &height,
+                                               &width_mm, &height_mm);
+                } else {
+                        /* Before the D-Bus DisplayConfig service exported by
+                         * Mutter becomes available, use the current information
+                         * that GDK has from the X server; in simple cases, this
+                         * will hopefully keep us from switching the window_scale
+                         * during startup.
+                         */
+                        get_dimensions_gdk (&width, &height,
+                                            &width_mm, &height_mm);
+                }
 
                 window_scale = 1;
                 if (width_mm > 0 && height_mm > 0) {
-                        dpi_x = (double)rect.width * monitor_scale / (width_mm / 25.4);
-                        dpi_y = (double)rect.height * monitor_scale / (height_mm / 25.4);
+                        dpi_x = (double)width / (width_mm / 25.4);
+                        dpi_y = (double)height / (height_mm / 25.4);
                         /* We don't completely trust these values so both
                            must be high, and never pick higher ratio than
                            2 automatically */
