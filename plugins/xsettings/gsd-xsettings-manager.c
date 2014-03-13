@@ -227,7 +227,13 @@
  */
 #define DPI_FALLBACK 96
 
+/* The minimum resolution at which we turn on a window-scale of 2 */
 #define HIDPI_LIMIT (DPI_FALLBACK * 2)
+
+/* The minimum screen height at which we turn on a window-scale of 2;
+ * below this there just isn't enough vertical real estate for GNOME
+ * apps to work, and it's better to just be tiny */
+#define HIDPI_MIN_HEIGHT 1200
 
 /* From http://en.wikipedia.org/wiki/4K_resolution#Resolutions_of_common_formats */
 #define SMALLEST_4K_WIDTH 3656
@@ -591,6 +597,9 @@ get_window_scale (GnomeXSettingsManager *manager)
                         get_dimensions_gdk (&width, &height,
                                             &width_mm, &height_mm);
                 }
+
+                if (height < HIDPI_MIN_HEIGHT)
+                        goto out;
 
                 window_scale = 1;
                 if (width_mm > 0 && height_mm > 0) {
