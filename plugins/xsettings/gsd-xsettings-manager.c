@@ -264,6 +264,8 @@ struct GnomeXSettingsManagerPrivate
 
         GsdXSettingsGtk   *gtk;
 
+        GnomeRRScreen     *rr_screen;
+
         guint              shell_name_watch_id;
         gboolean           have_shell;
 
@@ -498,6 +500,17 @@ primary_monitor_on_hdmi (GnomeRROutput *primary)
         return TRUE;
 }
 
+static gboolean
+primary_monitor_should_skip_resolution_check (GnomeRROutput *primary)
+{
+        if (!primary_monitor_at_native_resolution (primary))
+                return TRUE;
+        if (!primary_monitor_is_4k (primary) && primary_monitor_on_hdmi (primary))
+                return TRUE;
+
+        return FALSE;
+}
+
 static int
 get_window_scale (GnomeXSettingsManager *manager)
 {
@@ -509,26 +522,19 @@ get_window_scale (GnomeXSettingsManager *manager)
         int width_mm, height_mm;
         int monitor_scale;
         double dpi_x, dpi_y;
-        GnomeRRScreen *rr_screen = NULL;
 
 	interface_settings = g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA);
         window_scale =
                 g_settings_get_uint (interface_settings, SCALING_FACTOR_KEY);
         if (window_scale == 0) {
                 int primary;
-                GnomeRROutput *output;
+                GnomeRROutput *output = NULL;
 
                 window_scale = 1;
 
-                rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), NULL);
-                if (!rr_screen)
-                        goto out;
-                output = get_primary_output (rr_screen);
-                if (!output)
-                        goto out;
-                if (!primary_monitor_at_native_resolution (output))
-                        goto out;
-                if (!primary_monitor_is_4k (output) && primary_monitor_on_hdmi (output))
+                if (manager->priv->rr_screen)
+                        output = get_primary_output (manager->priv->rr_screen);
+                if (output && primary_monitor_should_skip_resolution_check (output))
                         goto out;
 
                 display = gdk_display_get_default ();
@@ -552,7 +558,6 @@ get_window_scale (GnomeXSettingsManager *manager)
         }
 
 out:
-        g_clear_object (&rr_screen);
         return window_scale;
 }
 
@@ -1038,6 +1043,33 @@ start_shell_monitor (GnomeXSettingsManager *manager)
                                                                NULL);
 }
 
+static void
+on_rr_screen_changed (GnomeRRScreen         *screen,
+                      GnomeXSettingsManager *manager)
+{
+        update_xft_settings (manager);
+        queue_notify (manager);
+}
+
+static void
+on_rr_screen_acquired (GObject      *object,
+                       GAsyncResult *result,
+                       gpointer      data)
+{
+        GnomeXSettingsManager *manager = data;
+        GnomeRRScreen *rr_screen;
+
+        rr_screen = gnome_rr_screen_new_finish (result, NULL);
+        if (!rr_screen)
+                return;
+
+        manager->priv->rr_screen = rr_screen;
+        g_signal_connect (rr_screen, "changed",
+                          G_CALLBACK (on_rr_screen_changed), manager);
+
+        on_rr_screen_changed (rr_screen, manager);
+}
+
 gboolean
 gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                                GError               **error)
@@ -1055,6 +1087,10 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                              "Could not initialize xsettings manager.");
                 return FALSE;
         }
+
+        gnome_rr_screen_new_async (gdk_screen_get_default (),
+                                   on_rr_screen_acquired,
+                                   manager);
 
         manager->priv->settings = g_hash_table_new_full (g_str_hash, g_str_equal,
                                                          NULL, (GDestroyNotify) g_object_unref);
@@ -1139,6 +1175,13 @@ gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
         int i;
 
         g_debug ("Stopping xsettings manager");
+
+        if (manager->priv->rr_screen != NULL) {
+                g_signal_handlers_disconnect_by_func (manager->priv->rr_screen,
+                                                      (gpointer) on_rr_screen_changed,
+                                                      manager);
+                g_clear_object (&manager->priv->rr_screen);
+        }
 
         if (p->shell_name_watch_id > 0)
                 g_bus_unwatch_name (p->shell_name_watch_id);
