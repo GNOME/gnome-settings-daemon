@@ -466,26 +466,6 @@ get_primary_output (GnomeRRScreen *screen)
 }
 
 static gboolean
-primary_monitor_at_native_resolution (GnomeRROutput *primary)
-{
-        int current_width, current_height;
-        int pref_width, pref_height;
-        gboolean native = TRUE;
-        GnomeRRMode *mode;
-
-        mode = gnome_rr_output_get_current_mode (primary);
-        current_width = gnome_rr_mode_get_width (mode);
-        current_height = gnome_rr_mode_get_height (mode);
-        mode = gnome_rr_output_get_preferred_mode (primary);
-        pref_width = gnome_rr_mode_get_width (mode);
-        pref_height = gnome_rr_mode_get_height (mode);
-        if (current_width != pref_width || current_height != pref_height)
-                native = FALSE;
-
-        return native;
-}
-
-static gboolean
 primary_monitor_is_4k (GnomeRROutput *primary)
 {
         GnomeRRMode *mode;
@@ -511,8 +491,6 @@ primary_monitor_on_hdmi (GnomeRROutput *primary)
 static gboolean
 primary_monitor_should_skip_resolution_check (GnomeRROutput *primary)
 {
-        if (!primary_monitor_at_native_resolution (primary))
-                return TRUE;
         if (!primary_monitor_is_4k (primary) && primary_monitor_on_hdmi (primary))
                 return TRUE;
 
