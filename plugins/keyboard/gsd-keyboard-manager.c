@@ -875,8 +875,9 @@ strip_xkb_option (gchar       **options,
                         g_free (*p);
                         *p = options[last];
                         options[last] = NULL;
+                } else {
+                        p += 1;
                 }
-                p += 1;
         }
 }
 
