@@ -188,9 +188,7 @@ find_output_by_edid (GnomeRRScreen *rr_screen,
 	GnomeRROutput *retval = NULL;
 	guint i;
 
-        /* possible during async initialization */
-	if (rr_screen == NULL)
-		return NULL;
+	g_return_val_if_fail (rr_screen != NULL, NULL);
 
 	outputs = gnome_rr_screen_list_outputs (rr_screen);
 
@@ -230,6 +228,8 @@ find_builtin_output (GnomeRRScreen *rr_screen)
 	GnomeRROutput **outputs;
 	guint i;
 
+	g_return_val_if_fail (rr_screen != NULL, NULL);
+
 	outputs = gnome_rr_screen_list_outputs (rr_screen);
 
 	for (i = 0; outputs[i] != NULL; i++) {
@@ -249,6 +249,8 @@ monitor_to_output (GsdDeviceMapper *mapper,
 {
 	GnomeRROutput **outputs;
 	guint i;
+
+	g_return_val_if_fail (mapper->rr_screen != NULL, NULL);
 
 	outputs = gnome_rr_screen_list_outputs (mapper->rr_screen);
 
@@ -843,7 +845,7 @@ device_settings_changed_cb (GSettings	 *settings,
 						      rr_output);
 			input_info_set_output (input, output, FALSE, FALSE);
 			input_info_remap (input);
-		} else {
+		} else if (input->mapper->rr_screen) {
 			/* Guess an output for this device */
 			mapper_recalculate_input (input->mapper, input);
 		}
@@ -883,7 +885,7 @@ input_info_new (GdkDevice	*device,
 					      rr_output);
 		input_info_set_output (info, output, FALSE, FALSE);
 		input_info_remap (info);
-	} else {
+	} else if (mapper->rr_screen) {
 		mapper_recalculate_input (mapper, info);
 	}
 
@@ -954,6 +956,9 @@ _device_mapper_update_outputs (GsdDeviceMapper *mapper)
 	GnomeRROutput **outputs;
 	GHashTable *map;
 	gint i = 0;
+
+	/* This *must* only be ever called after screen initialization */
+	g_assert (mapper->rr_screen != NULL);
 
 	map = g_hash_table_new_full (NULL, NULL, NULL,
 				     (GDestroyNotify) output_info_free);
