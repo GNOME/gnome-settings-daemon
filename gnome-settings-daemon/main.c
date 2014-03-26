@@ -45,6 +45,7 @@
 static gboolean   replace      = FALSE;
 static gboolean   debug        = FALSE;
 static gboolean   do_timed_exit = FALSE;
+static gboolean   ignore_name_lost = FALSE;
 static guint      name_id      = 0;
 static GnomeSettingsManager *manager = NULL;
 
@@ -75,6 +76,23 @@ respond_to_end_session (GDBusProxy *proxy)
 }
 
 static void
+do_stop (void)
+{
+        /* We don't want to quit yet because if we do, gnome-shell
+         * and still mapped windows lose their theme and icons. But
+         * we have to unown our DBus name otherwise gnome-session
+         * will hang waiting for us.
+         *
+         * This only works due to a bug in gnome-session where it
+         * handles any client name being unowned as if the client has
+         * disconnected. Will need to be revisited when that bug is
+         * fixed in gnome-session. */
+        ignore_name_lost = TRUE;
+        g_bus_unown_name (name_id);
+        name_id = 0;
+}
+
+static void
 client_proxy_signal_cb (GDBusProxy *proxy,
                         gchar *sender_name,
                         gchar *signal_name,
@@ -87,6 +105,9 @@ client_proxy_signal_cb (GDBusProxy *proxy,
         } else if (g_strcmp0 (signal_name, "EndSession") == 0) {
                 g_debug ("Got EndSession signal");
                 respond_to_end_session (proxy);
+        } else if (g_strcmp0 (signal_name, "Stop") == 0) {
+                g_debug ("Got Stop signal");
+                do_stop ();
         }
 }
 
@@ -307,6 +328,9 @@ name_lost_handler (GDBusConnection *connection,
                    const gchar *name,
                    gpointer user_data)
 {
+        if (ignore_name_lost)
+                return;
+
         /* Name was already taken, or the bus went away */
 
         g_warning ("Name taken or bus went away - shutting down");
