@@ -215,24 +215,6 @@ does_gnome_software_exist (void)
 }
 
 static void
-start_gnome_software_with_mode (const gchar *mode)
-{
-        gboolean ret;
-        gchar **argv;
-        GError *error = NULL;
-
-        argv = g_new0 (gchar *, 3);
-        argv[0] = g_build_filename (BINDIR, "gnome-software", NULL);
-        argv[1] = g_strdup_printf ("--mode=%s", mode);
-        ret = g_spawn_async (NULL, argv, NULL, 0, NULL, NULL, NULL, &error);
-        if (!ret) {
-                g_warning ("Failed to spawn gnome-software: %s", error->message);
-                g_error_free (error);
-        }
-        g_strfreev (argv);
-}
-
-static void
 libnotify_action_cb (NotifyNotification *notification,
                      gchar *action,
                      gpointer user_data)
@@ -255,21 +237,13 @@ libnotify_action_cb (NotifyNotification *notification,
                 goto out;
         }
         if (g_strcmp0 (action, "show-update-viewer") == 0) {
-                if (does_gnome_software_exist ()) {
-                        start_gnome_software_with_mode ("updates");
-                } else {
-                        ret = g_spawn_command_line_async (BINDIR "/gpk-update-viewer",
-                                                          &error);
-                        if (!ret) {
-                                g_warning ("Failure launching update viewer: %s",
-                                           error->message);
-                                g_error_free (error);
-                        }
+                ret = g_spawn_command_line_async (BINDIR "/gpk-update-viewer",
+                                                  &error);
+                if (!ret) {
+                        g_warning ("Failure launching update viewer: %s",
+                                   error->message);
+                        g_error_free (error);
                 }
-                goto out;
-        }
-        if (g_strcmp0 (action, "review-offline-updates") == 0) {
-                start_gnome_software_with_mode ("updated");
                 goto out;
         }
         if (g_strcmp0 (action, "clear-offline-updates") == 0) {
@@ -527,21 +501,9 @@ notify_critical_updates (GsdUpdatesManager *manager, GPtrArray *array)
                                         _("Not Now"),
                                         libnotify_action_cb,
                                         manager, NULL);
-        if (g_find_program_in_path ("gnome-software")) {
-                notify_notification_add_action (notification, "show-update-viewer",
-                                                /* TRANSLATORS: view available updates */
-                                                _("View"),
-                                                libnotify_action_cb, manager, NULL);
-                notify_notification_add_action (notification, "install",
-                                                /* TRANSLATORS: install available updates */
-                                                _("Restart & Install"),
-                                                libnotify_action_cb,
-                                                manager, NULL);
-        } else {
-                notify_notification_add_action (notification, "show-update-viewer",
-                                                /* TRANSLATORS: button: open the update viewer to install updates*/
-                                                _("Install updates"), libnotify_action_cb, manager, NULL);
-        }
+        notify_notification_add_action (notification, "show-update-viewer",
+                                        /* TRANSLATORS: button: open the update viewer to install updates */
+                                        _("Install updates"), libnotify_action_cb, manager, NULL);
         g_signal_connect (notification, "closed",
                           G_CALLBACK (on_notification_closed), NULL);
         ret = notify_notification_show (notification, &error);
@@ -608,21 +570,9 @@ notify_normal_updates_maybe (GsdUpdatesManager *manager, GPtrArray *array)
                                         _("Not Now"),
                                         libnotify_action_cb,
                                         manager, NULL);
-        if (g_find_program_in_path ("gnome-software")) {
-                notify_notification_add_action (notification, "show-update-viewer",
-                                                /* TRANSLATORS: view available updates */
-                                                _("View"),
-                                                libnotify_action_cb, manager, NULL);
-                notify_notification_add_action (notification, "install",
-                                                /* TRANSLATORS: install available updates */
-                                                _("Restart & Install"),
-                                                libnotify_action_cb,
-                                                manager, NULL);
-        } else {
-                notify_notification_add_action (notification, "show-update-viewer",
-                                                /* TRANSLATORS: button: open the update viewer to install updates*/
-                                                _("Install updates"), libnotify_action_cb, manager, NULL);
-        }
+        notify_notification_add_action (notification, "show-update-viewer",
+                                        /* TRANSLATORS: button: open the update viewer to install updates */
+                                        _("Install updates"), libnotify_action_cb, manager, NULL);
         g_signal_connect (notification, "closed",
                           G_CALLBACK (on_notification_closed), NULL);
         ret = notify_notification_show (notification, &error);
@@ -1311,12 +1261,7 @@ check_offline_update_cb (gpointer user_data)
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, -1);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
-        if (success) {
-                if (does_gnome_software_exist ())
-                notify_notification_add_action (notification, "review-offline-updates",
-                                                /* TRANSLATORS: button: review the offline update changes */
-                                                _("Review"), libnotify_action_cb, manager, NULL);
-        } else {
+        if (!success) {
                 notify_notification_add_action (notification, "error-offline-updates",
                                                 /* TRANSLATORS: button: review the offline update changes */
                                                 _("Show details"), libnotify_action_cb, manager, NULL);
@@ -1433,8 +1378,11 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
                           G_CALLBACK (due_get_upgrades_cb), manager);
         g_signal_connect (manager->priv->refresh, "refresh-cache",
                           G_CALLBACK (due_refresh_cache_cb), manager);
-        g_signal_connect (manager->priv->refresh, "get-updates",
-                          G_CALLBACK (due_get_updates_cb), manager);
+        /* gnome-software takes over software updates if it's installed */
+        if (!does_gnome_software_exist ()) {
+                g_signal_connect (manager->priv->refresh, "get-updates",
+                                  G_CALLBACK (due_get_updates_cb), manager);
+        }
 
         /* get proxy settings */
         manager->priv->settings_proxy = g_settings_new ("org.gnome.system.proxy");
@@ -1481,10 +1429,12 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
         reload_proxy_settings (manager);
 
         /* check for offline update */
-        manager->priv->offline_update_id =
-                g_timeout_add_seconds (GSD_UPDATES_CHECK_OFFLINE_TIMEOUT,
-                                       check_offline_update_cb,
-                                       manager);
+        if (!does_gnome_software_exist ()) {
+                manager->priv->offline_update_id =
+                        g_timeout_add_seconds (GSD_UPDATES_CHECK_OFFLINE_TIMEOUT,
+                                               check_offline_update_cb,
+                                               manager);
+        }
 
         /* success */
         ret = TRUE;
