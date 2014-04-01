@@ -570,7 +570,6 @@ echo "
         cflags:                   ${CFLAGS}
         Maintainer mode:          ${USE_MAINTAINER_MODE}
 
-        Session tracking:         ${SESSION_TRACKING}
         LCMS DICT support:        ${have_new_lcms}
         IBus support:             ${enable_ibus}
         Libnotify support:        ${have_libnotify}
