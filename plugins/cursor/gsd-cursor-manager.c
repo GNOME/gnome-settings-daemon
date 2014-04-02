@@ -84,55 +84,28 @@ static gpointer manager_object = NULL;
 
 static gboolean add_all_devices (GsdCursorManager *manager, GdkDevice *exception, GError **error);
 
-typedef void (*ForeachScreenFunc) (GdkDisplay *display, GdkScreen *screen, GsdCursorManager *manager, gpointer user_data);
-
-static void
-foreach_screen (GsdCursorManager  *manager,
-                ForeachScreenFunc  func,
-                gpointer           user_data)
-{
-        GdkDisplay *display;
-        guint n_screens;
-        guint i;
-
-        display = gdk_display_get_default ();
-        n_screens = gdk_display_get_n_screens (display);
-        for (i = 0; i < n_screens; i++) {
-                GdkScreen *screen;
-
-                screen = gdk_display_get_screen (display, i);
-                (func) (display, screen, manager, user_data);
-        }
-}
-
-static void
-set_cursor_visibility_foreach (GdkDisplay       *display,
-                               GdkScreen        *screen,
-                               GsdCursorManager *manager,
-                               gpointer          user_data)
-{
-        Display *xdisplay;
-        gboolean visible = GPOINTER_TO_INT (user_data);
-
-        xdisplay = GDK_DISPLAY_XDISPLAY (display);
-
-        if (visible)
-                XFixesShowCursor (xdisplay, GDK_WINDOW_XID (gdk_screen_get_root_window (screen)));
-        else
-                XFixesHideCursor (xdisplay, GDK_WINDOW_XID (gdk_screen_get_root_window (screen)));
-}
-
 static void
 set_cursor_visibility (GsdCursorManager *manager,
                        gboolean          visible)
 {
+        GdkWindow *root;
+        Display *xdisplay;
+
         g_debug ("Attempting to %s the cursor", visible ? "show" : "hide");
 
         if (manager->priv->cursor_shown == visible)
                 return;
 
         gdk_error_trap_push ();
-        foreach_screen (manager, set_cursor_visibility_foreach, GINT_TO_POINTER (visible));
+
+        root = gdk_screen_get_root_window (gdk_screen_get_default ());
+        xdisplay = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
+
+        if (visible)
+                XFixesShowCursor (xdisplay, GDK_WINDOW_XID (root));
+        else
+                XFixesHideCursor (xdisplay, GDK_WINDOW_XID (root));
+
         if (gdk_error_trap_pop ()) {
                 g_warning ("An error occurred trying to %s the cursor",
                            visible ? "show" : "hide");
