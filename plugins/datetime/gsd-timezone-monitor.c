@@ -441,8 +441,12 @@ gsd_timezone_monitor_finalize (GObject *obj)
                 g_clear_object (&priv->cancellable);
         }
 
+        if (priv->geoclue_client) {
+                geoclue_client_call_stop (priv->geoclue_client, NULL, NULL, NULL);
+                g_clear_object (&priv->geoclue_client);
+        }
+
         g_clear_object (&priv->dtm);
-        g_clear_object (&priv->geoclue_client);
         g_clear_object (&priv->geoclue_manager);
         g_clear_object (&priv->permission);
         g_clear_pointer (&priv->current_timezone, g_free);
