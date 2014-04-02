@@ -49,10 +49,6 @@
 #include "gsd-enums.h"
 #include "gsd-power-manager.h"
 
-#define GNOME_SESSION_DBUS_NAME                 "org.gnome.SessionManager"
-#define GNOME_SESSION_DBUS_PATH_PRESENCE        "/org/gnome/SessionManager/Presence"
-#define GNOME_SESSION_DBUS_INTERFACE_PRESENCE   "org.gnome.SessionManager.Presence"
-
 #define UPOWER_DBUS_NAME                        "org.freedesktop.UPower"
 #define UPOWER_DBUS_PATH                        "/org/freedesktop/UPower"
 #define UPOWER_DBUS_PATH_KBDBACKLIGHT           "/org/freedesktop/UPower/KbdBacklight"
@@ -122,7 +118,6 @@ struct GsdPowerManagerPrivate
         GDBusNodeInfo           *introspection_data;
         GDBusConnection         *connection;
         GCancellable            *bus_cancellable;
-        GDBusProxy              *session_presence_proxy;
 
         /* Settings */
         GSettings               *settings;
@@ -1792,23 +1787,6 @@ gsd_power_manager_class_init (GsdPowerManagerClass *klass)
 }
 
 static void
-session_presence_proxy_ready_cb (GObject *source_object,
-                                 GAsyncResult *res,
-                                 gpointer user_data)
-{
-        GError *error = NULL;
-        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
-
-        manager->priv->session_presence_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
-        if (manager->priv->session_presence_proxy == NULL) {
-                g_warning ("Could not connect to gnome-sesson: %s",
-                           error->message);
-                g_error_free (error);
-                return;
-        }
-}
-
-static void
 handle_screensaver_active (GsdPowerManager *manager,
                            GVariant        *parameters)
 {
@@ -2343,17 +2321,6 @@ on_rr_screen_acquired (GObject      *object,
                                   power_keyboard_proxy_ready_cb,
                                   manager);
 
-        /* connect to the session */
-        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
-                                  0,
-                                  NULL,
-                                  GNOME_SESSION_DBUS_NAME,
-                                  GNOME_SESSION_DBUS_PATH_PRESENCE,
-                                  GNOME_SESSION_DBUS_INTERFACE_PRESENCE,
-                                  NULL,
-                                  session_presence_proxy_ready_cb,
-                                  manager);
-
         manager->priv->devices_array = g_ptr_array_new_with_free_func (g_object_unref);
 
         /* create a fake virtual composite battery */
@@ -2470,7 +2437,6 @@ gsd_power_manager_stop (GsdPowerManager *manager)
         manager->priv->devices_array = NULL;
         g_clear_object (&manager->priv->device_composite);
 
-        g_clear_object (&manager->priv->session_presence_proxy);
         g_clear_object (&manager->priv->screensaver_proxy);
 
         play_loop_stop (&manager->priv->critical_alert_timeout_id);
