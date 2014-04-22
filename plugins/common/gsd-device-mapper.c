@@ -861,6 +861,8 @@ input_info_update_capabilities_from_tool_type (GsdInputInfo *info)
 		info->capabilities |= GSD_INPUT_IS_ERASER;
 	else if (g_str_equal (tool_type, "PAD"))
 		info->capabilities |= GSD_INPUT_IS_PAD;
+	else
+		return FALSE;
 
 	return TRUE;
 }
