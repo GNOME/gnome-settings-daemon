@@ -4,24 +4,23 @@
 #
 # Mohammad DAMT <mdamt@bisnisweb.com> 2003
 # Ahmad Riza H Nst  <rizahnst@gnome.org> 2006
-# Dirgita <dirgitadevina@yahoo.co.id>, 2011.
+# Dirgita <dirgitadevina@yahoo.co.id>, 2011, 2014.
 # Andika Triwidada <andika@gmail.com>, 2011, 2012, 2013, 2014.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-03-20 20:32+0000\n"
-"PO-Revision-Date: 2014-03-21 13:54+0700\n"
-"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
-"Language-Team: Indonesian <gnome@i15n.org>\n"
+"POT-Creation-Date: 2014-04-05 19:52+0000\n"
+"PO-Revision-Date: 2014-04-09 05:31+0700\n"
+"Last-Translator: Dirgita <dirgitadevina@yahoo.co.id>\n"
+"Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -405,7 +404,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 msgid "List of plugins that are allowed to be loaded"
-msgstr "Daftar pengaya yang diijinkan dimuat"
+msgstr "Daftar pengaya yang diizinkan dimuat"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
 msgid ""
@@ -413,7 +412,7 @@ msgid ""
 "(default: 'all'). The plugins still need to be marked as active to get "
 "loaded. This is only evaluated on startup."
 msgstr ""
-"Suatu daftar kalimat yang mewakili pengaya yang diijinkan dimuat (baku: "
+"Suatu daftar kalimat yang mewakili pengaya yang diizinkan dimuat (baku: "
 "'all' (semua)). Pengaya masih perlu ditandai sebagai aktif untuk dimuat. Ini "
 "hanya diperiksa saat awal mula."
 
@@ -931,7 +930,7 @@ msgid ""
 "such a file, or has one that does not match the user's setup of monitors, "
 "then the file specified by this key will be used instead."
 msgstr ""
-"Plugin XRandR akan mencari konfigurasi bawaan di dalam berkas yang "
+"Pengaya XRandR akan mencari konfigurasi bawaan di dalam berkas yang "
 "dinyatakan oleh kunci ini. Ini mirip dengan ~/.config/monitors.xml yang "
 "biasanya disimpan di direktori rumah para pengguna. Bila seorang pengguna "
 "tidak memiliki berkas itu, atau punya tapi tidak cocok dengan tatanan "
@@ -1025,15 +1024,15 @@ msgstr ""
 "Daftar string yang mewakili modul-modul GTK+ yang akan dimuat, biasanya "
 "sebagai tambahan ke yang dimatikan paksa dan bersyarat."
 
-#: ../gnome-settings-daemon/main.c:52
+#: ../gnome-settings-daemon/main.c:53
 msgid "Enable debugging code"
 msgstr "Aktifkan kode pengawakutuan"
 
-#: ../gnome-settings-daemon/main.c:53
+#: ../gnome-settings-daemon/main.c:54
 msgid "Replace existing daemon"
 msgstr "Gantikan daemon yang ada"
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../gnome-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Keluar setelah tundaan sejenak (untuk pengawakutuan)"
 
@@ -1371,7 +1370,7 @@ msgstr "Cuplikan layar dari %s"
 #. * The device has been disabled
 #: ../plugins/media-keys/gvc/gvc-mixer-control.c:1830
 msgid "Disabled"
-msgstr "Tidak aktif"
+msgstr "Tak aktif"
 
 #. translators:
 #. * The number of sound outputs on a particular device
@@ -1918,12 +1917,12 @@ msgstr "Kehilangan pengandar pencetak"
 #: ../plugins/print-notifications/gsd-printer.c:928
 #, c-format
 msgid "No printer driver for %s."
-msgstr "Tidak ada pengandar untuk pencetak %s."
+msgstr "Tak ada pengandar untuk pencetak %s."
 
 #. Translators: We have no driver installed for this printer
 #: ../plugins/print-notifications/gsd-printer.c:933
 msgid "No driver for this printer."
-msgstr "Tidak ada pengandar untuk pencetak ini."
+msgstr "Tak ada pengandar untuk pencetak ini."
 
 #: ../plugins/print-notifications/gsd-printer.c:1031
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:263
@@ -1946,7 +1945,7 @@ msgstr "Toner habis"
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:364
 msgid "Not connected?"
-msgstr "Tidak terhubung?"
+msgstr "Tak terhubung?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
@@ -2210,11 +2209,11 @@ msgstr "Perangkat lunak tambahan telah dipasang"
 #: ../plugins/updates/gsd-updates-firmware.c:283
 #: ../plugins/updates/gsd-updates-firmware.c:311
 #: ../plugins/updates/gsd-updates-firmware.c:603
-#: ../plugins/updates/gsd-updates-manager.c:386
-#: ../plugins/updates/gsd-updates-manager.c:522
-#: ../plugins/updates/gsd-updates-manager.c:603
-#: ../plugins/updates/gsd-updates-manager.c:676
-#: ../plugins/updates/gsd-updates-manager.c:1311
+#: ../plugins/updates/gsd-updates-manager.c:360
+#: ../plugins/updates/gsd-updates-manager.c:496
+#: ../plugins/updates/gsd-updates-manager.c:565
+#: ../plugins/updates/gsd-updates-manager.c:626
+#: ../plugins/updates/gsd-updates-manager.c:1261
 msgid "Software Updates"
 msgstr "Pemutakhiran Perangkat Lunak"
 
@@ -2323,115 +2322,98 @@ msgid "Detailed errors from the package manager follow:"
 msgstr "Galat terrinci dari manajer paket sebagai berikut:"
 
 #. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:381
+#: ../plugins/updates/gsd-updates-manager.c:355
 msgid "Distribution upgrades available"
 msgstr "Tersedia peningkatan versi distribusi"
 
 #. TRANSLATORS: don't install updates now
-#: ../plugins/updates/gsd-updates-manager.c:391
-#: ../plugins/updates/gsd-updates-manager.c:527
-#: ../plugins/updates/gsd-updates-manager.c:608
+#: ../plugins/updates/gsd-updates-manager.c:365
+#: ../plugins/updates/gsd-updates-manager.c:501
+#: ../plugins/updates/gsd-updates-manager.c:570
 msgid "Not Now"
 msgstr "Jangan Sekarang"
 
 #. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:396
+#: ../plugins/updates/gsd-updates-manager.c:370
 msgid "More information"
 msgstr "Informasi lebih lanjut"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:504
-#: ../plugins/updates/gsd-updates-manager.c:585
+#: ../plugins/updates/gsd-updates-manager.c:478
+#: ../plugins/updates/gsd-updates-manager.c:547
 msgid "Update"
 msgid_plural "Updates"
 msgstr[0] "Perbarui"
 
 #. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:507
+#: ../plugins/updates/gsd-updates-manager.c:481
 msgid "An important software update is available"
 msgid_plural "Important software updates are available"
 msgstr[0] "Tersedia pemutakhiran perangkat lunak yang penting"
 
-#. TRANSLATORS: view available updates
-#: ../plugins/updates/gsd-updates-manager.c:533
-#: ../plugins/updates/gsd-updates-manager.c:614
-msgid "View"
-msgstr "Tilik"
-
-#. TRANSLATORS: install available updates
-#: ../plugins/updates/gsd-updates-manager.c:537
-#: ../plugins/updates/gsd-updates-manager.c:618
-msgid "Restart & Install"
-msgstr "Start Ulang & Pasang"
-
 #. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:543
-#: ../plugins/updates/gsd-updates-manager.c:624
+#: ../plugins/updates/gsd-updates-manager.c:506
+#: ../plugins/updates/gsd-updates-manager.c:575
 msgid "Install updates"
 msgstr "Pasang pemutakhiran"
 
 #. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:588
+#: ../plugins/updates/gsd-updates-manager.c:550
 msgid "A software update is available."
 msgid_plural "Software updates are available."
 msgstr[0] "Pemutakhiran perangkat lunak telah tersedia."
 
 #. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:663
+#: ../plugins/updates/gsd-updates-manager.c:613
 #: ../plugins/updates/updates.gnome-settings-plugin.in.h:1
 msgid "Updates"
 msgstr "Pemutakhiran"
 
 #. TRANSLATORS: we failed to get the updates multiple times,
 #. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:667
+#: ../plugins/updates/gsd-updates-manager.c:617
 msgid "Unable to access software updates"
 msgstr "Tak bisa mengakses pemutakhiran perangkat lunak"
 
 #. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:670
+#: ../plugins/updates/gsd-updates-manager.c:620
 msgid "Try again"
 msgstr "Coba lagi"
 
 #. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:1044
+#: ../plugins/updates/gsd-updates-manager.c:994
 msgid "A transaction that cannot be interrupted is running"
 msgstr "Transaksi yang tidak dapat diputus sedang berjalan"
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1264
+#: ../plugins/updates/gsd-updates-manager.c:1214
 msgid "Software Update Installed"
 msgid_plural "Software Updates Installed"
 msgstr[0] "Pemutakhiran Perangkat Lunak Dipasang"
 
 #. TRANSLATORS: message when we've done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1269
+#: ../plugins/updates/gsd-updates-manager.c:1219
 msgid "An important OS update has been installed."
 msgid_plural "Important OS updates have been installed."
 msgstr[0] "Pemutakhiran OS yang penting telah dipasang."
 
 #. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1292
+#: ../plugins/updates/gsd-updates-manager.c:1242
 msgid "Software Updates Failed"
 msgstr "Pemutakhiran Perangkat Lunak Gagal"
 
 #. TRANSLATORS: message when we've not done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1295
+#: ../plugins/updates/gsd-updates-manager.c:1245
 msgid "An important OS update failed to be installed."
 msgstr "Pemutakhiran OS yang penting gagal dipasang."
 
 #. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1318
-msgid "Review"
-msgstr "Tinjau"
-
-#. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1322
+#: ../plugins/updates/gsd-updates-manager.c:1267
 msgid "Show details"
 msgstr "Tunjukkan rincian"
 
 #. TRANSLATORS: button: clear notification
-#: ../plugins/updates/gsd-updates-manager.c:1326
+#: ../plugins/updates/gsd-updates-manager.c:1271
 msgid "OK"
 msgstr "OK"
 
@@ -2682,3 +2664,12 @@ msgstr "Pengaturan X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Kelola Tatanan X"
+
+#~ msgid "View"
+#~ msgstr "Tilik"
+
+#~ msgid "Restart & Install"
+#~ msgstr "Start Ulang & Pasang"
+
+#~ msgid "Review"
+#~ msgstr "Tinjau"
