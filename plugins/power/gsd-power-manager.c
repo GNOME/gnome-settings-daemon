@@ -2660,13 +2660,26 @@ handle_set_property_other (GsdPowerManager *manager,
 
         if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
                 g_variant_get (value, "i", &brightness_value);
-                return backlight_set_percentage (manager->priv->rr_screen,
-                                                 brightness_value, error);
+                if (backlight_set_percentage (manager->priv->rr_screen, brightness_value, error)) {
+                        backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN, brightness_value);
+                        return TRUE;
+                } else {
+                        g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
+                                     "Setting %s.%s failed", interface_name, property_name);
+                        return FALSE;
+                }
         } else if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
                 g_variant_get (value, "i", &brightness_value);
                 brightness_value = PERCENTAGE_TO_ABS (0, manager->priv->kbd_brightness_max,
                                                       brightness_value);
-                return upower_kbd_set_brightness (manager, brightness_value, error);
+                if (upower_kbd_set_brightness (manager, brightness_value, error)) {
+                        backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, brightness_value);
+                        return TRUE;
+                } else {
+                        g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
+                                     "Setting %s.%s failed", interface_name, property_name);
+                        return FALSE;
+                }
         }
 
         g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
