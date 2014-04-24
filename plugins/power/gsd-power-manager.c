@@ -1638,9 +1638,12 @@ idle_configure (GsdPowerManager *manager)
         if (timeout_sleep != 0) {
                 g_debug ("setting up sleep callback %is", timeout_sleep);
 
-                manager->priv->idle_sleep_id = gnome_idle_monitor_add_idle_watch (manager->priv->idle_monitor,
-                                                                                  timeout_sleep * 1000,
-                                                                                  idle_triggered_idle_cb, manager, NULL);
+                if (action_type != GSD_POWER_ACTION_NOTHING) {
+                        manager->priv->idle_sleep_id = gnome_idle_monitor_add_idle_watch (manager->priv->idle_monitor,
+                                                                                          timeout_sleep * 1000,
+                                                                                          idle_triggered_idle_cb, manager, NULL);
+                }
+
                 if (action_type == GSD_POWER_ACTION_LOGOUT ||
                     action_type == GSD_POWER_ACTION_SUSPEND ||
                     action_type == GSD_POWER_ACTION_HIBERNATE) {
