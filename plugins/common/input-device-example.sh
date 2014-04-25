@@ -12,7 +12,7 @@
 #       device ID being the XInput device ID
 # <device name> The name of the device
 #
-# The script should return 0 if the device is to be
+# The script should return 1 if the device is to be
 # ignored from future configuration.
 #
 # Set the script to be used with:
