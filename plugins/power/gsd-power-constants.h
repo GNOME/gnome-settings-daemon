@@ -39,4 +39,4 @@
 
 /* When unplugging the external monitor, give a certain amount
  * of time before suspending the laptop */
-#define LID_CLOSE_SAFETY_TIMEOUT                        30 /* seconds */
+#define LID_CLOSE_SAFETY_TIMEOUT                        8 /* seconds */
