@@ -499,6 +499,7 @@ run_custom_command (GdkDevice              *device,
                     CustomCommand           command)
 {
         GSettings *settings;
+        GError *error = NULL;
         char *cmd;
         char *argv[7];
         int exit_status;
@@ -531,15 +532,25 @@ run_custom_command (GdkDevice              *device,
         g_free (out);
 
         rc = g_spawn_sync (g_get_home_dir (), argv, NULL, G_SPAWN_SEARCH_PATH,
-                           NULL, NULL, NULL, NULL, &exit_status, NULL);
+                           NULL, NULL, NULL, NULL, &exit_status, &error);
 
-        if (rc == FALSE)
-                g_warning ("Couldn't execute command '%s', verify that this is a valid command.", cmd);
+        if (rc == FALSE) {
+                g_warning ("Couldn't execute command '%s', verify that this is a valid command: %s", cmd, error->message);
+                g_clear_error (&error);
+        }
 
         g_free (argv[0]);
         g_free (argv[4]);
 
-        return (exit_status == 1);
+        if (!g_spawn_check_exit_status (exit_status, &error)) {
+                if (g_error_matches (error, G_SPAWN_EXIT_ERROR, 1)) {
+                        g_clear_error (&error);
+                        return TRUE;
+                }
+                g_clear_error (&error);
+        }
+
+        return FALSE;
 }
 
 GList *
