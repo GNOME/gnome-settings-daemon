@@ -1021,6 +1021,8 @@ upower_kbd_set_brightness (GsdPowerManager *manager, guint value, GError **error
         /* same as before */
         if (manager->priv->kbd_brightness_now == value)
                 return TRUE;
+        if (manager->priv->upower_kdb_proxy == NULL)
+                return TRUE;
 
         /* update h/w value */
         retval = g_dbus_proxy_call_sync (manager->priv->upower_kdb_proxy,
