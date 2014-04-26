@@ -959,7 +959,7 @@ do_execute_desktop_or_desktop (GsdMediaKeysManager *manager,
         GDesktopAppInfo *app_info;
 
         app_info = g_desktop_app_info_new (desktop);
-        if (app_info == NULL)
+        if (app_info == NULL && alt_desktop != NULL)
                 app_info = g_desktop_app_info_new (alt_desktop);
 
         if (app_info != NULL) {
@@ -2090,6 +2090,9 @@ do_action (GsdMediaKeysManager *manager,
                 break;
         case CALCULATOR_KEY:
                 do_execute_desktop_or_desktop (manager, "gcalctool.desktop", "gnome-calculator.desktop", timestamp);
+                break;
+        case CONTROL_CENTER_KEY:
+                do_execute_desktop_or_desktop (manager, "gnome-control-center.desktop", NULL, timestamp);
                 break;
         case PLAY_KEY:
                 return do_multimedia_player_action (manager, "Play");
