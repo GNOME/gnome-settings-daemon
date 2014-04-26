@@ -37,6 +37,7 @@ typedef enum {
         CALCULATOR_KEY,
         SEARCH_KEY,
         EMAIL_KEY,
+        CONTROL_CENTER_KEY,
         SCREENSAVER_KEY,
         HELP_KEY,
         SCREENSHOT_KEY,
