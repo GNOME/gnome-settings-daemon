@@ -598,10 +598,13 @@ input_info_get_matrix (GsdInputInfo *input,
 		       float	     matrix[NUM_ELEMS_MATRIX])
 {
 	GsdOutputInfo *output;
+	GnomeRRCrtc *crtc;
 
 	output = input_info_get_output (input);
+	if (output)
+		crtc = gnome_rr_output_get_crtc (output->output);
 
-	if (!output) {
+	if (!output || !crtc) {
 		init_output_rotation_matrix (GNOME_RR_ROTATION_0, matrix);
 	} else {
 		GdkScreen *screen = gdk_screen_get_default ();
@@ -609,14 +612,12 @@ input_info_get_matrix (GsdInputInfo *input,
 		float output_rot[NUM_ELEMS_MATRIX];
 		GdkRectangle display, desktop = { 0 };
 		GnomeRRRotation rotation;
-		GnomeRRCrtc *crtc;
 		int monitor;
 
 		g_debug ("Mapping '%s' to output '%s'",
 			 gdk_device_get_name (input->device),
 			 gnome_rr_output_get_name (output->output));
 
-		crtc = gnome_rr_output_get_crtc (output->output);
 		rotation = gnome_rr_crtc_get_current_rotation (crtc);
 		init_output_rotation_matrix (rotation, output_rot);
 
