@@ -1692,6 +1692,8 @@ randr_output_is_on (GnomeRROutput *output)
 {
         GnomeRRCrtc *crtc;
 
+        if (!gnome_rr_output_is_connected (output))
+                return FALSE;
         crtc = gnome_rr_output_get_crtc (output);
         if (!crtc)
                 return FALSE;
