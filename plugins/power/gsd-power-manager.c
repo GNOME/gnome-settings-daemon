@@ -3325,13 +3325,6 @@ on_randr_event (GnomeRRScreen *screen, gpointer user_data)
         setup_inhibit_lid_switch_timer (manager);
 }
 
-static void
-on_randr_connection_event (GnomeRRScreen *screen, GnomeRROutput *output, gpointer user_data)
-{
-        gnome_rr_screen_refresh (screen, NULL);
-        on_randr_event (screen, user_data);
-}
-
 #ifdef GSD_MOCK
 static gboolean
 received_sigusr2 (GsdPowerManager *manager)
@@ -3526,8 +3519,6 @@ gsd_power_manager_start (GsdPowerManager *manager,
 
         /* set up the screens */
         g_signal_connect (manager->priv->rr_screen, "changed", G_CALLBACK (on_randr_event), manager);
-        g_signal_connect (manager->priv->rr_screen, "output-connected", G_CALLBACK (on_randr_connection_event), manager);
-        g_signal_connect (manager->priv->rr_screen, "output-disconnected", G_CALLBACK (on_randr_connection_event), manager);
         on_randr_event (manager->priv->rr_screen, manager);
 
 #ifdef GSD_MOCK
