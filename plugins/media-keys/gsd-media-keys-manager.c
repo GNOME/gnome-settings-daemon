@@ -222,32 +222,6 @@ media_key_free (MediaKey *key)
         g_free (key);
 }
 
-static char *
-get_term_command (GsdMediaKeysManager *manager)
-{
-        char *cmd_term, *cmd_args;;
-        char *cmd = NULL;
-        GSettings *settings;
-
-        settings = g_settings_new ("org.gnome.desktop.default-applications.terminal");
-        cmd_term = g_settings_get_string (settings, "exec");
-        if (cmd_term[0] == '\0')
-                cmd_term = g_strdup ("gnome-terminal");
-
-        cmd_args = g_settings_get_string (settings, "exec-arg");
-        if (strcmp (cmd_term, "") != 0) {
-                cmd = g_strdup_printf ("%s %s -e", cmd_term, cmd_args);
-        } else {
-                cmd = g_strdup_printf ("%s -e", cmd_term);
-        }
-
-        g_free (cmd_args);
-        g_free (cmd_term);
-        g_object_unref (settings);
-
-        return cmd;
-}
-
 static char **
 get_keyring_env (GsdMediaKeysManager *manager)
 {
@@ -302,29 +276,16 @@ get_keyring_env (GsdMediaKeysManager *manager)
 
 static void
 execute (GsdMediaKeysManager *manager,
-         char                *cmd,
-         gboolean             need_term)
+         char                *cmd)
 {
         gboolean retval;
         char   **argv;
         int      argc;
-        char    *exec;
-        char    *term = NULL;
         GError  *error = NULL;
 
         retval = FALSE;
 
-        if (need_term)
-                term = get_term_command (manager);
-
-        if (term) {
-                exec = g_strdup_printf ("%s %s", term, cmd);
-                g_free (term);
-        } else {
-                exec = g_strdup (cmd);
-        }
-
-        if (g_shell_parse_argv (exec, &argc, &argv, NULL)) {
+        if (g_shell_parse_argv (cmd, &argc, &argv, NULL)) {
 		char   **envp;
 
 		envp = get_keyring_env (manager);
@@ -343,10 +304,9 @@ execute (GsdMediaKeysManager *manager,
         }
 
         if (retval == FALSE) {
-                g_warning ("Couldn't execute command: %s: %s", exec, error->message);
+                g_warning ("Couldn't execute command: %s: %s", cmd, error->message);
                 g_error_free (error);
         }
-        g_free (exec);
 }
 
 static char *
@@ -2023,7 +1983,7 @@ do_custom_action (GsdMediaKeysManager *manager,
 {
         g_debug ("Launching custom action for key (on device id %d)", deviceid);
 
-	execute (manager, key->custom_command, FALSE);
+	execute (manager, key->custom_command);
 }
 
 static gboolean
