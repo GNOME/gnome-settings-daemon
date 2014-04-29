@@ -222,6 +222,53 @@ media_key_free (MediaKey *key)
         g_free (key);
 }
 
+static void
+set_launch_context_env (GsdMediaKeysManager *manager,
+			GAppLaunchContext   *launch_context)
+{
+	GError *error = NULL;
+	GVariant *variant, *item;
+	GVariantIter *iter;
+
+	variant = g_dbus_connection_call_sync (manager->priv->connection,
+					       GNOME_KEYRING_DBUS_NAME,
+					       GNOME_KEYRING_DBUS_PATH,
+					       GNOME_KEYRING_DBUS_INTERFACE,
+					       "GetEnvironment",
+					       NULL,
+					       NULL,
+					       G_DBUS_CALL_FLAGS_NONE,
+					       -1,
+					       NULL,
+					       &error);
+	if (variant == NULL) {
+		g_warning ("Failed to call GetEnvironment on keyring daemon: %s", error->message);
+		g_error_free (error);
+		return;
+	}
+
+	g_variant_get (variant, "(a{ss})", &iter);
+
+	while ((item = g_variant_iter_next_value (iter))) {
+		char *key;
+		char *value;
+
+		g_variant_get (item,
+			       "{ss}",
+			       &key,
+			       &value);
+
+		g_app_launch_context_setenv (launch_context, key, value);
+
+		g_variant_unref (item);
+		g_free (key);
+		g_free (value);
+	}
+
+	g_variant_iter_free (iter);
+	g_variant_unref (variant);
+}
+
 static char **
 get_keyring_env (GsdMediaKeysManager *manager)
 {
@@ -748,8 +795,9 @@ init_kbd (GsdMediaKeysManager *manager)
 }
 
 static void
-launch_app (GAppInfo *app_info,
-	    gint64    timestamp)
+launch_app (GsdMediaKeysManager *manager,
+	    GAppInfo            *app_info,
+	    gint64               timestamp)
 {
 	GError *error = NULL;
         GdkAppLaunchContext *launch_context;
@@ -757,6 +805,7 @@ launch_app (GAppInfo *app_info,
         /* setup the launch context so the startup notification is correct */
         launch_context = gdk_display_get_app_launch_context (gdk_display_get_default ());
         gdk_app_launch_context_set_timestamp (launch_context, timestamp);
+        set_launch_context_env (manager, G_APP_LAUNCH_CONTEXT (launch_context));
 
 	if (!g_app_info_launch (app_info, NULL, G_APP_LAUNCH_CONTEXT (launch_context), &error)) {
 		g_warning ("Could not launch '%s': %s",
@@ -776,7 +825,7 @@ do_url_action (GsdMediaKeysManager *manager,
 
         app_info = g_app_info_get_default_for_uri_scheme (scheme);
         if (app_info != NULL) {
-                launch_app (app_info, timestamp);
+                launch_app (manager, app_info, timestamp);
                 g_object_unref (app_info);
         } else {
                 g_warning ("Could not find default application for '%s' scheme", scheme);
@@ -791,7 +840,7 @@ do_media_action (GsdMediaKeysManager *manager,
 
         app_info = g_app_info_get_default_for_type ("audio/x-vorbis+ogg", FALSE);
         if (app_info != NULL) {
-                launch_app (app_info, timestamp);
+                launch_app (manager, app_info, timestamp);
                 g_object_unref (app_info);
         } else {
                 g_warning ("Could not find default application for '%s' mime-type", "audio/x-vorbis+ogg");
@@ -932,7 +981,7 @@ do_execute_desktop_or_desktop (GsdMediaKeysManager *manager,
                 app_info = g_desktop_app_info_new (alt_desktop);
 
         if (app_info != NULL) {
-                launch_app (G_APP_INFO (app_info), timestamp);
+                launch_app (manager, G_APP_INFO (app_info), timestamp);
                 g_object_unref (app_info);
                 return;
         }
