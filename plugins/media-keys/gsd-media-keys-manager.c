@@ -269,93 +269,6 @@ set_launch_context_env (GsdMediaKeysManager *manager,
 	g_variant_unref (variant);
 }
 
-static char **
-get_keyring_env (GsdMediaKeysManager *manager)
-{
-	GError *error = NULL;
-	GVariant *variant, *item;
-	GVariantIter *iter;
-	char **envp;
-
-	variant = g_dbus_connection_call_sync (manager->priv->connection,
-					       GNOME_KEYRING_DBUS_NAME,
-					       GNOME_KEYRING_DBUS_PATH,
-					       GNOME_KEYRING_DBUS_INTERFACE,
-					       "GetEnvironment",
-					       NULL,
-					       NULL,
-					       G_DBUS_CALL_FLAGS_NONE,
-					       -1,
-					       NULL,
-					       &error);
-	if (variant == NULL) {
-		g_warning ("Failed to call GetEnvironment on keyring daemon: %s", error->message);
-		g_error_free (error);
-		return NULL;
-	}
-
-	envp = g_get_environ ();
-	envp = g_environ_unsetenv (envp, "DESKTOP_AUTOSTART_ID");
-
-	g_variant_get (variant, "(a{ss})", &iter);
-
-	while ((item = g_variant_iter_next_value (iter))) {
-		char *key;
-		char *value;
-
-		g_variant_get (item,
-			       "{ss}",
-			       &key,
-			       &value);
-
-		envp = g_environ_setenv (envp, key, value, TRUE);
-
-		g_variant_unref (item);
-		g_free (key);
-		g_free (value);
-	}
-
-	g_variant_iter_free (iter);
-	g_variant_unref (variant);
-
-	return envp;
-}
-
-static void
-execute (GsdMediaKeysManager *manager,
-         char                *cmd)
-{
-        gboolean retval;
-        char   **argv;
-        int      argc;
-        GError  *error = NULL;
-
-        retval = FALSE;
-
-        if (g_shell_parse_argv (cmd, &argc, &argv, NULL)) {
-		char   **envp;
-
-		envp = get_keyring_env (manager);
-
-                retval = g_spawn_async (g_get_home_dir (),
-                                        argv,
-                                        envp,
-                                        G_SPAWN_SEARCH_PATH,
-                                        NULL,
-                                        NULL,
-                                        NULL,
-                                        &error);
-
-                g_strfreev (argv);
-                g_strfreev (envp);
-        }
-
-        if (retval == FALSE) {
-                g_warning ("Couldn't execute command: %s: %s", cmd, error->message);
-                g_error_free (error);
-        }
-}
-
 static char *
 get_key_string (GsdMediaKeysManager *manager,
 		MediaKey            *key)
@@ -814,6 +727,18 @@ launch_app (GsdMediaKeysManager *manager,
 		g_error_free (error);
 	}
         g_object_unref (launch_context);
+}
+
+static void
+execute (GsdMediaKeysManager *manager,
+         char                *cmd,
+         gint64               timestamp)
+{
+	GAppInfo *app_info;
+
+	app_info = g_app_info_create_from_commandline (cmd, NULL, G_APP_INFO_CREATE_NONE, NULL);
+	launch_app (manager, app_info, timestamp);
+	g_object_unref (app_info);
 }
 
 static void
@@ -2032,7 +1957,7 @@ do_custom_action (GsdMediaKeysManager *manager,
 {
         g_debug ("Launching custom action for key (on device id %d)", deviceid);
 
-	execute (manager, key->custom_command);
+	execute (manager, key->custom_command, timestamp);
 }
 
 static gboolean
