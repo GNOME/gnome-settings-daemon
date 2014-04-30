@@ -224,6 +224,7 @@ static gchar    *engine_get_summary (GsdPowerManager *manager);
 static gdouble   engine_get_percentage (GsdPowerManager *manager);
 static void      do_power_action_type (GsdPowerManager *manager, GsdPowerActionType action_type);
 static void      uninhibit_lid_switch (GsdPowerManager *manager);
+static void      stop_inhibit_lid_switch_timer (GsdPowerManager *manager);
 static void      main_battery_or_ups_low_changed (GsdPowerManager *manager, gboolean is_low);
 static gboolean  idle_is_session_inhibited (GsdPowerManager *manager, guint mask, gboolean *is_inhibited);
 static void      idle_triggered_idle_cb (GnomeIdleMonitor *monitor, guint watch_id, gpointer user_data);
@@ -2050,16 +2051,15 @@ suspend_on_lid_close (GsdPowerManager *manager)
 static gboolean
 inhibit_lid_switch_timer_cb (GsdPowerManager *manager)
 {
-	/* Just to make sure */
+        stop_inhibit_lid_switch_timer (manager);
+
         if (suspend_on_lid_close (manager)) {
                 g_debug ("no external monitors for a while; uninhibiting lid close");
                 uninhibit_lid_switch (manager);
-                manager->priv->inhibit_lid_switch_timer_id = 0;
-                return G_SOURCE_REMOVE;
         }
 
-        g_debug ("external monitor still there; trying again later");
-        return G_SOURCE_CONTINUE;
+        /* This is a one shot timer. */
+        return G_SOURCE_REMOVE;
 }
 
 /* Sets up a timer to be triggered some seconds after closing the laptop lid
@@ -2094,11 +2094,9 @@ stop_inhibit_lid_switch_timer (GsdPowerManager *manager) {
 static void
 restart_inhibit_lid_switch_timer (GsdPowerManager *manager)
 {
-        if (manager->priv->inhibit_lid_switch_timer_id != 0) {
-                stop_inhibit_lid_switch_timer (manager);
-                g_debug ("restarting lid close safety timer");
-                setup_inhibit_lid_switch_timer (manager);
-        }
+        stop_inhibit_lid_switch_timer (manager);
+        g_debug ("restarting lid close safety timer");
+        setup_inhibit_lid_switch_timer (manager);
 }
 
 static void
@@ -2164,10 +2162,6 @@ do_lid_closed_action (GsdPowerManager *manager)
                          * but the lid is closed */
                         lock_screensaver (manager);
                 }
-
-                restart_inhibit_lid_switch_timer (manager);
-        } else {
-                stop_inhibit_lid_switch_timer (manager);
         }
 }
 
@@ -3158,21 +3152,12 @@ on_randr_event (GnomeRRScreen *screen, gpointer user_data)
 
         g_debug ("Screen configuration changed");
 
-        if (suspend_on_lid_close (manager)) {
-                restart_inhibit_lid_switch_timer (manager);
-                return;
-        }
-
-        /* when a second monitor is plugged in, we take the
-         * handle-lid-switch inhibitor lock of logind to prevent
-         * it from suspending.
-         *
-         * Uninhibiting is done in the inhibit_lid_switch_timer,
+        /* Uninhibiting is done in inhibit_lid_switch_timer_cb,
          * since we want to give users a few seconds when unplugging
          * and replugging an external monitor, not suspend right away.
          */
         inhibit_lid_switch (manager);
-        setup_inhibit_lid_switch_timer (manager);
+        restart_inhibit_lid_switch_timer (manager);
 }
 
 static void
