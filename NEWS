@@ -1,3 +1,38 @@
+==============
+Version 3.13.1
+==============
+
+Color:
+- Fix 13 byte long EDID description text parsing
+
+Common:
+- Improve hotplug scripts exit status checking and correct the
+  documentation
+- Fix possible crasher in device-mapper
+
+Cursor:
+- Remove multi-screen support
+
+Date & Time:
+- Make the geolocation marker in gnome-shell's status area go away
+  after turning Automatic Time Zone off
+
+Keyboard:
+- Fix consecutive xkb grp: options not being stripped
+
+Power:
+- Remove unused session presence proxy
+- Emit change notification for brightness
+- Fix display not blanking after gnome-shell wake up
+- Don't warn when Kdb backlight D-Bus is called
+- Lower the lid safety timeout to 8 seconds
+
+Updates:
+- Remove the updates plugin. The functionality now lives on in the
+  gnome-software session service.
+
+- Translation updates
+
 ================
 Version 3.12.0.1
 ================
