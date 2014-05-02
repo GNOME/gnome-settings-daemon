@@ -2770,11 +2770,12 @@ set_temporary_unidle_on_ac (GsdPowerManager *manager,
                             gboolean         enable)
 {
         if (!enable) {
+                /* Don't automatically go back to the previous idle
+                   mode. The caller probably has a better idea of
+                   which state to move to when disabling us. */
                 if (manager->priv->temporary_unidle_on_ac_id != 0) {
                         g_source_remove (manager->priv->temporary_unidle_on_ac_id);
                         manager->priv->temporary_unidle_on_ac_id = 0;
-
-                        idle_set_mode (manager, manager->priv->previous_idle_mode);
                 }
         } else {
                 /* Don't overwrite the previous idle mode when an unidle is
