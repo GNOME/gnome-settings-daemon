@@ -1630,20 +1630,18 @@ backlight_set_abs (GnomeRRScreen *rr_screen,
 void
 reset_idletime (void)
 {
-        static gboolean inited = FALSE;
-        static KeyCode keycode1, keycode2;
-        static gboolean first_keycode = FALSE;
+        static KeyCode keycode;
 
-        if (inited == FALSE) {
-                keycode1 = XKeysymToKeycode (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), GDK_KEY_Alt_L);
-                keycode2 = XKeysymToKeycode (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), GDK_KEY_Alt_R);
+        if (keycode == 0) {
+                keycode = XKeysymToKeycode (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), GDK_KEY_WakeUp);
+                if (keycode == 0)
+                        keycode = XKeysymToKeycode (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), GDK_KEY_Alt_L);
         }
 
         gdk_error_trap_push ();
-        /* send a left or right alt key; first press, then release */
-        XTestFakeKeyEvent (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), first_keycode ? keycode1 : keycode2, True, CurrentTime);
-        XTestFakeKeyEvent (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), first_keycode ? keycode1 : keycode2, False, CurrentTime);
-        first_keycode = !first_keycode;
+        /* send a wakeup or left alt key; first press, then release */
+        XTestFakeKeyEvent (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), keycode, True, CurrentTime);
+        XTestFakeKeyEvent (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), keycode, False, CurrentTime);
         gdk_error_trap_pop_ignored ();
 }
 
