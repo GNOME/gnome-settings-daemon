@@ -1264,17 +1264,13 @@ backlight_iface_emit_changed (GsdPowerManager *manager,
                               gint32           value)
 {
         GVariant *params;
-        gchar *string;
 
         /* not yet connected to the bus */
         if (manager->priv->connection == NULL)
                 return;
 
-        string = g_strdup_printf ("('%s', [{'Brightness', %%v}], @as [])", interface_name);
-        params = g_variant_new_parsed (string,
-                                       g_variant_new_int32 (value));
-        g_free (string);
-
+        params = g_variant_new_parsed ("(%s, [{'Brightness', <%i>}], @as [])", interface_name,
+                                       value);
         g_dbus_connection_emit_signal (manager->priv->connection,
                                        NULL,
                                        GSD_POWER_DBUS_PATH,
