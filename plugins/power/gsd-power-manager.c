@@ -2679,7 +2679,7 @@ handle_set_property_other (GsdPowerManager *manager,
 
         if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
                 g_variant_get (value, "i", &brightness_value);
-                if (backlight_set_percentage (manager->priv->rr_screen, brightness_value, error)) {
+                if (backlight_set_percentage (manager->priv->rr_screen, &brightness_value, error)) {
                         backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN, brightness_value);
                         return TRUE;
                 } else {

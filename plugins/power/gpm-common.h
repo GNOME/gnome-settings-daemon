@@ -50,7 +50,7 @@ int              backlight_get_percentage               (GnomeRRScreen *rr_scree
 int              backlight_get_min                      (GnomeRRScreen *rr_screen);
 int              backlight_get_max                      (GnomeRRScreen *rr_screen, GError **error);
 gboolean         backlight_set_percentage               (GnomeRRScreen *rr_screen,
-                                                         guint value,
+                                                         gint *value,
                                                          GError **error);
 int              backlight_step_up                      (GnomeRRScreen *rr_screen, GError **error);
 int              backlight_step_down                    (GnomeRRScreen *rr_screen, GError **error);
