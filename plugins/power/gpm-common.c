@@ -576,7 +576,7 @@ backlight_get_max (GnomeRRScreen *rr_screen, GError **error)
 
 gboolean
 backlight_set_percentage (GnomeRRScreen *rr_screen,
-                          guint value,
+                          gint *value,
                           GError **error)
 {
         GnomeRROutput *output;
@@ -587,17 +587,23 @@ backlight_set_percentage (GnomeRRScreen *rr_screen,
 
         /* prefer xbacklight */
         output = get_primary_output (rr_screen);
-        if (output != NULL)
-                return gnome_rr_output_set_backlight (output, value, error);
+        if (output != NULL) {
+                if (!gnome_rr_output_set_backlight (output, *value, error))
+                        return ret;
+                *value = gnome_rr_output_get_backlight (output);
+                return TRUE;
+        }
 
         /* fall back to the polkit helper */
         max = backlight_helper_get_value ("get-max-brightness", error);
         if (max < 0)
                 return ret;
-        discrete = PERCENTAGE_TO_ABS (min, max, value);
+        discrete = PERCENTAGE_TO_ABS (min, max, *value);
         ret = backlight_helper_set_value ("set-brightness",
                                           discrete,
                                           error);
+        if (ret)
+                *value = ABS_TO_PERCENTAGE (min, max, discrete);
 
         return ret;
 }
