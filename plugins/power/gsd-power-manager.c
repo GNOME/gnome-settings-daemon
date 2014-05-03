@@ -2327,6 +2327,15 @@ on_rr_screen_acquired (GObject      *object,
         /* don't blank inside a VM */
         manager->priv->is_virtual_machine = gsd_power_is_hardware_a_vm ();
 
+        /* queue a signal in case the proxy from gnome-shell was created before we got here
+           (likely, considering that to get here we need a reply from gnome-shell)
+        */
+        if (manager->priv->backlight_available)
+                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN,
+                                              backlight_get_percentage (manager->priv->rr_screen, NULL));
+        else
+                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN, -1);
+
         gnome_settings_profile_end (NULL);
 }
 
