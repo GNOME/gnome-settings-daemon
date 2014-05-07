@@ -43,7 +43,6 @@
 #include "gsd-a11y-keyboard-manager.h"
 
 #define KEYBOARD_A11Y_SCHEMA "org.gnome.desktop.a11y.keyboard"
-#define NOTIFICATION_TIMEOUT 30
 
 #define GSD_A11Y_KEYBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_A11Y_KEYBOARD_MANAGER, GsdA11yKeyboardManagerPrivate))
 
@@ -409,8 +408,8 @@ ax_slowkeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
                                                                message,
                                                                "preferences-desktop-accessibility-symbolic");
         notify_notification_set_app_name (manager->priv->notification, _("Universal Access"));
-        notify_notification_set_timeout (manager->priv->notification, NOTIFICATION_TIMEOUT * 1000);
-        notify_notification_set_hint (manager->priv->notification, "transient", g_variant_new_boolean (TRUE));
+        notify_notification_set_timeout (manager->priv->notification, 0);
+        notify_notification_set_urgency (manager->priv->notification, NOTIFY_URGENCY_CRITICAL);
 
         notify_notification_add_action (manager->priv->notification,
                                         "reject",
@@ -477,8 +476,8 @@ ax_stickykeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
                                                                message,
                                                                "preferences-desktop-accessibility-symbolic");
         notify_notification_set_app_name (manager->priv->notification, _("Universal Access"));
-        notify_notification_set_timeout (manager->priv->notification, NOTIFICATION_TIMEOUT * 1000);
-        notify_notification_set_hint (manager->priv->notification, "transient", g_variant_new_boolean (TRUE));
+        notify_notification_set_timeout (manager->priv->notification, 0);
+        notify_notification_set_urgency (manager->priv->notification, NOTIFY_URGENCY_CRITICAL);
 
         notify_notification_add_action (manager->priv->notification,
                                         "reject",
