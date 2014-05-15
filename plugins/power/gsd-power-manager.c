@@ -1741,6 +1741,19 @@ up_client_on_battery_cb (UpClient *client,
                          GParamSpec *pspec,
                          GsdPowerManager *manager)
 {
+        if (up_client_get_on_battery (manager->priv->up_client)) {
+                ca_context_play (ca_gtk_context_get (), 0,
+                                 CA_PROP_EVENT_ID, "power-unplug",
+                                 /* TRANSLATORS: this is the sound description */
+                                 CA_PROP_EVENT_DESCRIPTION, _("On battery power"), NULL);
+        } else {
+                ca_context_play (ca_gtk_context_get (), 0,
+                                 CA_PROP_EVENT_ID, "power-plug",
+                                 /* TRANSLATORS: this is the sound description */
+                                 CA_PROP_EVENT_DESCRIPTION, _("On AC power"), NULL);
+
+        }
+
         idle_configure (manager);
 
         if (manager->priv->lid_is_closed)
