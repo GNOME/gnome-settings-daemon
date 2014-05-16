@@ -244,6 +244,8 @@ should_purge_file (GFile        *file,
                                   G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
                                   cancellable,
                                   NULL);
+        if (!info)
+                return FALSE;
 
         date = g_file_info_get_deletion_date (info);
         if (date == NULL) {
