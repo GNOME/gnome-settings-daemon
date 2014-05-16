@@ -28,6 +28,26 @@
 
 G_BEGIN_DECLS
 
+typedef struct {
+        gint ref_count;
+        GFile           *file;
+        GCancellable    *cancellable;
+        GDateTime       *old;
+        gboolean         dry_run;
+        gboolean         trash;
+        gchar           *name;
+        gint             depth;
+} DeleteData;
+
+void delete_data_unref (DeleteData *data);
+DeleteData *delete_data_new (GFile        *file,
+                             GCancellable *cancellable,
+                             GDateTime    *old,
+                             gboolean      dry_run,
+                             gboolean      trash,
+                             gint          depth);
+void delete_recursively_by_age (DeleteData *data);
+
 void gsd_ldsm_setup (gboolean check_now);
 void gsd_ldsm_clean (void);
 
