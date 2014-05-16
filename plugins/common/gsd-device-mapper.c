@@ -496,7 +496,8 @@ input_info_get_output (GsdInputInfo *input)
 	if (input->guessed_output)
 		return input->guessed_output;
 
-	if (g_hash_table_size (input->mapper->output_devices) == 1) {
+	if (input->mapper->output_devices &&
+	    g_hash_table_size (input->mapper->output_devices) == 1) {
 		GsdOutputInfo *output;
 		GHashTableIter iter;
 
@@ -878,7 +879,8 @@ input_info_new (GdkDevice	*device,
 						     info);
 
 		/* Assign output from config */
-		rr_output = settings_get_display (settings, mapper);
+		if (mapper->rr_screen)
+			rr_output = settings_get_display (settings, mapper);
 	}
 
 	input_info_update_capabilities (info);
