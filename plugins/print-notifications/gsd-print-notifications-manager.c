@@ -90,6 +90,7 @@ struct GsdPrintNotificationsManagerPrivate
         guint                         cups_dbus_subscription_id;
         guint                         renew_source_id;
         gint                          last_notify_sequence_number;
+        guint                         start_idle_id;
 };
 
 enum {
@@ -691,6 +692,7 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                                                         data->manager = manager;
 
                                                         data->timeout_id = g_timeout_add_seconds (CONNECTING_TIMEOUT, show_notification, data);
+                                                        g_source_set_name_by_id (data->timeout_id, "[gnome-settings-daemon] show_notification");
                                                         manager->priv->timeouts = g_list_append (manager->priv->timeouts, data);
                                                 } else {
                                                         ReasonData *reason_data;
@@ -1176,16 +1178,19 @@ renew_subscription_timeout_enable (GsdPrintNotificationsManager *manager,
 
         if (enable) {
                 renew_subscription (manager);
-                if (with_connection_test)
+                if (with_connection_test) {
                         manager->priv->renew_source_id =
                                 g_timeout_add_seconds (RENEW_INTERVAL,
                                                        renew_subscription_with_connection_test,
                                                        manager);
-                else
+                        g_source_set_name_by_id (manager->priv->renew_source_id, "[gnome-settings-daemon] renew_subscription_with_connection_test");
+                } else {
                         manager->priv->renew_source_id =
                                 g_timeout_add_seconds (RENEW_INTERVAL,
                                                        renew_subscription,
                                                        manager);
+                        g_source_set_name_by_id (manager->priv->renew_source_id, "[gnome-settings-daemon] renew_subscription");
+                }
         } else {
                 manager->priv->renew_source_id = 0;
         }
@@ -1215,11 +1220,14 @@ cups_connection_test_cb (GObject      *source_object,
 
                 renew_subscription_timeout_enable (manager, TRUE, TRUE);
                 manager->priv->check_source_id = g_timeout_add_seconds (CHECK_INTERVAL, process_new_notifications, manager);
+                g_source_set_name_by_id (manager->priv->check_source_id, "[gnome-settings-daemon] process_new_notifications");
         } else {
                 g_debug ("Test connection to CUPS server \'%s:%d\' failed.", cupsServer (), ippPort ());
-                if (manager->priv->cups_connection_timeout_id == 0)
+                if (manager->priv->cups_connection_timeout_id == 0) {
                         manager->priv->cups_connection_timeout_id =
                                 g_timeout_add_seconds (CUPS_CONNECTION_TEST_INTERVAL, cups_connection_test, manager);
+                        g_source_set_name_by_id (manager->priv->cups_connection_timeout_id, "[gnome-settings-daemon] cups_connection_test");
+                }
         }
 }
 
@@ -1336,7 +1344,8 @@ gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
         manager->priv->cups_connection_timeout_id = 0;
         manager->priv->last_notify_sequence_number = -1;
 
-        g_idle_add (gsd_print_notifications_manager_start_idle, manager);
+        manager->priv->start_idle_id = g_idle_add (gsd_print_notifications_manager_start_idle, manager);
+        g_source_set_name_by_id (manager->priv->start_idle_id, "[gnome-settings-daemon] gsd_print_notifications_manager_start_idle");
 
         gnome_settings_profile_end (NULL);
 
@@ -1432,6 +1441,9 @@ gsd_print_notifications_manager_finalize (GObject *object)
         manager = GSD_PRINT_NOTIFICATIONS_MANAGER (object);
 
         g_return_if_fail (manager->priv != NULL);
+
+        if (manager->priv->start_idle_id != 0)
+                g_source_remove (manager->priv->start_idle_id);
 
         G_OBJECT_CLASS (gsd_print_notifications_manager_parent_class)->finalize (object);
 }

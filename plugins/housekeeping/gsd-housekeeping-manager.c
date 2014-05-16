@@ -282,6 +282,7 @@ do_cleanup_soon (GsdHousekeepingManager *manager)
                 manager->priv->short_term_cb = g_timeout_add_seconds (INTERVAL_TWO_MINUTES,
                                                (GSourceFunc) do_cleanup_once,
                                                manager);
+                g_source_set_name_by_id (manager->priv->short_term_cb, "[gnome-settings-daemon] do_cleanup_once");
         }
 }
 
@@ -403,6 +404,7 @@ gsd_housekeeping_manager_start (GsdHousekeepingManager *manager,
         manager->priv->long_term_cb = g_timeout_add_seconds (INTERVAL_ONCE_A_DAY,
                                       (GSourceFunc) do_cleanup,
                                       manager);
+        g_source_set_name_by_id (manager->priv->long_term_cb, "[gnome-settings-daemon] do_cleanup");
 
         gnome_settings_profile_end (NULL);
 

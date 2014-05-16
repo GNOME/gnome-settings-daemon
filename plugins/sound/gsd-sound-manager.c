@@ -192,6 +192,7 @@ trigger_flush (GsdSoundManager *manager)
         /* We delay the flushing a bit so that we can coalesce
          * multiple changes into a single cache flush */
         manager->priv->timeout = g_timeout_add (500, (GSourceFunc) flush_cb, manager);
+        g_source_set_name_by_id (manager->priv->timeout, "[gnome-settings-daemon] flush_cb");
 }
 
 static void

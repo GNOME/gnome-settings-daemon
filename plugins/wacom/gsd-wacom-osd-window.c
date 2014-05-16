@@ -404,6 +404,7 @@ gsd_wacom_osd_button_set_active (GsdWacomOSDButton *osd_button,
 		osd_button->priv->timeout_id = g_timeout_add (BUTTON_TIMER_STEP,
 							      (GSourceFunc) gsd_wacom_osd_button_timer,
 							      osd_button);
+		g_source_set_name_by_id (osd_button->priv->timeout_id, "[gnome-settings-daemon] gsd_wacom_osd_button_timer");
 	} else if (osd_button->priv->next_state) {
 		/* it was on and now should be on again */
 		if (previous_state == active) {
@@ -1447,6 +1448,7 @@ gsd_wacom_osd_window_motion_notify_event (GtkWidget      *widget,
 	window->priv->cursor_timeout = g_timeout_add_seconds (CURSOR_HIDE_TIMEOUT,
 							      cursor_timeout_source_func,
 							      window);
+	g_source_set_name_by_id (window->priv->cursor_timeout, "[gnome-settings-daemon] cursor_timeout_source_func");
 
 	return FALSE;
 }

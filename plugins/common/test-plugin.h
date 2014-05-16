@@ -76,8 +76,11 @@ main (int argc, char **argv)
                 exit (1);
         }
 
-	if (timeout > 0)
-		g_timeout_add_seconds (timeout, (GSourceFunc) gtk_main_quit, NULL);
+	if (timeout > 0) {
+		guint id;
+		id = g_timeout_add_seconds (timeout, (GSourceFunc) gtk_main_quit, NULL);
+		g_source_set_name_by_id (id, "[gnome-settings-daemon] gtk_main_quit");
+	}
 
 	if (has_settings () == FALSE) {
 		fprintf (stderr, "The schemas for plugin '%s' isn't available, check your installation.\n", SCHEMA_NAME);

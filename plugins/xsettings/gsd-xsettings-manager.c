@@ -426,6 +426,7 @@ queue_notify (GnomeXSettingsManager *manager)
                 return;
 
         manager->priv->notify_idle_id = g_idle_add (notify_idle, manager);
+        g_source_set_name_by_id (manager->priv->notify_idle_id, "[gnome-settings-daemon] notify_idle");
 }
 
 static double
@@ -900,6 +901,7 @@ start_fontconfig_monitor (GnomeXSettingsManager  *manager)
         fontconfig_cache_init ();
 
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_fontconfig_monitor_idle_cb, manager);
+        g_source_set_name_by_id (manager->priv->start_idle_id, "[gnome-settings-daemon] start_fontconfig_monitor_idle_cb");
 
         gnome_settings_profile_end (NULL);
 }

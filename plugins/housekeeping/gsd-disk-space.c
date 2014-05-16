@@ -946,6 +946,7 @@ ldsm_mounts_changed (GObject  *monitor,
                 g_source_remove (ldsm_timeout_id);
         ldsm_timeout_id = g_timeout_add_seconds (CHECK_EVERY_X_SECONDS,
                                                  ldsm_check_all_mounts, NULL);
+        g_source_set_name_by_id (ldsm_timeout_id, "[gnome-settings-daemon] ldsm_check_all_mounts");
 }
 
 static gboolean
@@ -1027,8 +1028,10 @@ gsd_ldsm_setup (gboolean check_now)
 
         ldsm_timeout_id = g_timeout_add_seconds (CHECK_EVERY_X_SECONDS,
                                                  ldsm_check_all_mounts, NULL);
+        g_source_set_name_by_id (ldsm_timeout_id, "[gnome-settings-daemon] ldsm_check_all_mounts");
 
         purge_trash_id = g_timeout_add_seconds (3600, ldsm_purge_trash_and_temp, NULL);
+        g_source_set_name_by_id (purge_trash_id, "[gnome-settings-daemon] ldsm_purge_trash_and_temp");
 }
 
 void

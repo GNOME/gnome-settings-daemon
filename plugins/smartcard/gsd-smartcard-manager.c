@@ -448,6 +448,7 @@ register_driver (GsdSmartcardManager *self,
                               (GDestroyNotify) destroy_driver_registration_operation);
 
         operation->idle_id = g_idle_add ((GSourceFunc) on_main_thread_to_register_driver, task);
+        g_source_set_name_by_id (operation->idle_id, "[gnome-settings-daemon] on_main_thread_to_register_driver");
 }
 
 static void
@@ -726,6 +727,7 @@ gsd_smartcard_manager_start (GsdSmartcardManager  *self,
         gnome_settings_profile_start (NULL);
 
         priv->start_idle_id = g_idle_add ((GSourceFunc) gsd_smartcard_manager_idle_cb, self);
+        g_source_set_name_by_id (priv->start_idle_id, "[gnome-settings-daemon] gsd_smartcard_manager_idle_cb");
 
         gnome_settings_profile_end (NULL);
 

@@ -1733,6 +1733,7 @@ set_temporary_unidle_on_ac (GsdPowerManager *manager,
                 manager->priv->temporary_unidle_on_ac_id = g_timeout_add_seconds (POWER_UP_TIME_ON_AC,
                                                                                   (GSourceFunc) temporary_unidle_done_cb,
                                                                                   manager);
+                g_source_set_name_by_id (manager->priv->temporary_unidle_on_ac_id, "[gnome-settings-daemon] temporary_unidle_done_cb");
         }
 }
 

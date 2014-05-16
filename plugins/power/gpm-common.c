@@ -266,6 +266,7 @@ guint
 gsd_power_enable_screensaver_watchdog (void)
 {
         int dummy;
+        guint id;
 
         /* Make sure that Xorg's DPMS extension never gets in our
          * way. The defaults are now applied in Fedora 20 from
@@ -274,9 +275,11 @@ gsd_power_enable_screensaver_watchdog (void)
         if (DPMSQueryExtension(GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &dummy, &dummy))
                 DPMSSetTimeouts (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), 0, 0, 0);
         gdk_error_trap_pop_ignored ();
-        return g_timeout_add_seconds (XSCREENSAVER_WATCHDOG_TIMEOUT,
-                                      disable_builtin_screensaver,
-                                      NULL);
+        id = g_timeout_add_seconds (XSCREENSAVER_WATCHDOG_TIMEOUT,
+                                    disable_builtin_screensaver,
+                                    NULL);
+        g_source_set_name_by_id (id, "[gnome-settings-daemon] disable_builtin_screensaver");
+        return id;
 }
 
 static GnomeRROutput *
@@ -876,6 +879,7 @@ play_loop_start (guint *id)
         *id = g_timeout_add_seconds (GSD_POWER_MANAGER_CRITICAL_ALERT_TIMEOUT,
                                      (GSourceFunc) play_loop_timeout_cb,
                                      NULL);
+        g_source_set_name_by_id (*id, "[gnome-settings-daemon] play_loop_timeout_cb");
         play_sound ();
 }
 

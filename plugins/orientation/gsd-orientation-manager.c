@@ -442,6 +442,7 @@ gsd_orientation_manager_start (GsdOrientationManager *manager,
         gnome_settings_profile_start (NULL);
 
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) gsd_orientation_manager_idle_cb, manager);
+        g_source_set_name_by_id (manager->priv->start_idle_id, "[gnome-settings-daemon] gsd_orientation_manager_idle_cb");
 
         manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
         g_assert (manager->priv->introspection_data != NULL);

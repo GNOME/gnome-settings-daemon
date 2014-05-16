@@ -468,9 +468,12 @@ grab_accelerators_complete (GObject      *object,
                 }
         }
 
-        if (retry)
-                g_timeout_add_seconds (SHELL_GRABBER_RETRY_INTERVAL,
-                                       retry_grabs, manager);
+        if (retry) {
+                guint id;
+                id = g_timeout_add_seconds (SHELL_GRABBER_RETRY_INTERVAL,
+                                            retry_grabs, manager);
+                g_source_set_name_by_id (id, "[gnome-settings-daemon] retry_grabs");
+        }
 }
 
 static void
@@ -1985,10 +1988,12 @@ screencast_start (GsdMediaKeysManager *manager)
 
         max_length = g_settings_get_int (manager->priv->settings, "max-screencast-length");
 
-        if (max_length > 0)
+        if (max_length > 0) {
                 manager->priv->screencast_timeout_id = g_timeout_add_seconds (max_length,
                                                                               screencast_timeout,
                                                                               manager);
+                g_source_set_name_by_id (manager->priv->screencast_timeout_id, "[gnome-settings-daemon] screencast_timeout");
+        }
         manager->priv->screencast_recording = TRUE;
 }
 
@@ -2404,6 +2409,7 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
 #endif
 
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_media_keys_idle_cb, manager);
+        g_source_set_name_by_id (manager->priv->start_idle_id, "[gnome-settings-daemon] start_media_keys_idle_cb");
 
         register_manager (manager_object);
 

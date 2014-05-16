@@ -140,6 +140,7 @@ stuff_changed (GFileMonitor *monitor G_GNUC_UNUSED,
                 g_source_remove (handle->timeout);
 
         handle->timeout = g_timeout_add_seconds (TIMEOUT_SECONDS, update, data);
+        g_source_set_name_by_id (handle->timeout, "[gnome-settings-daemon] update");
 }
 
 

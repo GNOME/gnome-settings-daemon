@@ -732,6 +732,7 @@ gsd_a11y_keyboard_manager_start (GsdA11yKeyboardManager *manager,
         gnome_settings_profile_start (NULL);
 
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_a11y_keyboard_idle_cb, manager);
+        g_source_set_name_by_id (manager->priv->start_idle_id, "[gnome-settings-daemon] start_a11y_keyboard_idle_cb");
 
         gnome_settings_profile_end (NULL);
 

@@ -1705,6 +1705,7 @@ wacom_device_calibration_check (GsdWacomDevice  *device)
                         data->notification_timeout_id = g_timeout_add (SHOW_CALIBRATION_TIMEOUT,
                                                                        notify_need_for_calibration,
                                                                        data);
+                        g_source_set_name_by_id (data->notification_timeout_id, "[gnome-settings-daemon] notify_need_for_calibration");
                 }
         } else {
                 wacom_device_calibration_data_unset (device);
@@ -1871,6 +1872,7 @@ gsd_wacom_manager_start (GsdWacomManager *manager,
         register_manager (manager_object);
 
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) gsd_wacom_manager_idle_cb, manager);
+        g_source_set_name_by_id (manager->priv->start_idle_id, "[gnome-settings-daemon] gsd_wacom_manager_idle_cb");
 
         gnome_settings_profile_end (NULL);
 
