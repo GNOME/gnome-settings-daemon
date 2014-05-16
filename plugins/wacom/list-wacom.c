@@ -188,7 +188,8 @@ list_devices (GList *devices)
 	for (l = devices; l ; l = l->next) {
 		GsdWacomDevice *device;
 		GsdWacomDeviceType type;
-		char *loc;
+		GSettings *settings;
+		char *loc, **edid;
 
 		device = l->data;
 
@@ -203,9 +204,21 @@ list_devices (GList *devices)
 		g_print ("\tIntegrated Device: %s\n", BOOL_AS_STR (gsd_wacom_device_is_isd (device)));
 		g_print ("\tUnknown (fallback) device: %s\n", BOOL_AS_STR(gsd_wacom_device_is_fallback (device)));
 
-		loc = get_loc (gsd_wacom_device_get_settings (device));
+		settings = gsd_wacom_device_get_settings (device);
+		loc = get_loc (settings);
 		g_print ("\tGeneric settings: %s\n", loc);
 		g_free (loc);
+
+		edid = g_settings_get_strv (settings, "display");
+		if (!edid || g_strv_length (edid) != 3)
+			g_warning ("Invalid display EDID set for device");
+		else {
+			if (*edid[0] == '\0' && *edid[1] == '\0' && *edid[2] == '\0')
+				g_print ("\tDisplay EDID: unset\n");
+			else
+				g_print ("\tDisplay EDID: '%s', '%s', '%s'\n", edid[0], edid[1], edid[2]);
+		}
+		g_clear_pointer (&edid, g_strfreev);
 
 		type = gsd_wacom_device_get_device_type (device);
 		if (type == WACOM_TYPE_STYLUS ||
