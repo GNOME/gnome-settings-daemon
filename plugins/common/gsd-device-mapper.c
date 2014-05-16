@@ -325,6 +325,13 @@ mapping_helper_add (MappingHelper *helper,
 		g_array_insert_val (helper->device_maps, pos, info);
 }
 
+struct {
+	const gchar *input_device_name;
+	const gchar *edid[3];
+} hardcoded_devices[] = {
+	{ "3M 3M MicroTouch USB controller", { "DEL", "DELL S2340T", NULL } }
+};
+
 /* This function gets a map of outputs, sorted by confidence, for a given device,
  * the array can actually contain NULLs if no output matched a priority. */
 static void
@@ -334,8 +341,24 @@ input_info_guess_candidates (GsdInputInfo  *input,
 	gboolean found = FALSE;
 	const gchar *name;
 	gchar **split;
+	gint i;
 
 	name = gdk_device_get_name (input->device);
+
+	/* Hard-coded detection */
+	for (i = 0; i < G_N_ELEMENTS (hardcoded_devices); i++) {
+		if (g_strcmp0 (name, hardcoded_devices[i].input_device_name) != 0)
+			continue;
+
+		outputs[GSD_PRIO_EDID_MATCH_FULL] = find_output_by_edid (input->mapper->rr_screen, hardcoded_devices[i].edid);
+		if (outputs[GSD_PRIO_EDID_MATCH_FULL]) {
+			found = TRUE;
+			break;
+		}
+	}
+	if (found)
+		return;
+
 	split = g_strsplit (name, " ", -1);
 
 	/* On Wacom devices that are integrated on a not-in-system screen (eg. Cintiqs),
@@ -351,7 +374,6 @@ input_info_guess_candidates (GsdInputInfo  *input,
 			{ "WAC", split[1], NULL },
 			{ "WAC", NULL, NULL }
 		};
-		gint i;
 
 		for (i = 0; i < G_N_ELEMENTS (edids); i++) {
 			/* i + 1 matches the desired priority, we skip GSD_PRIO_BUILTIN here */
