@@ -1100,6 +1100,8 @@ force_disable_animation_changed (GObject    *gobject,
         for (i = 0; manager->priv->managers [i]; i++) {
                 xsettings_manager_set_int (manager->priv->managers [i], "Gtk/EnableAnimations", value);
         }
+
+        queue_notify (manager);
 }
 
 static void
