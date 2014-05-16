@@ -1103,6 +1103,14 @@ force_disable_animation_changed (GObject    *gobject,
 }
 
 static void
+enable_animations_changed_cb (GSettings             *settings,
+                              gchar                 *key,
+                              GnomeXSettingsManager *manager)
+{
+        force_disable_animation_changed (G_OBJECT (manager->priv->remote_display), NULL, manager);
+}
+
+static void
 on_rr_screen_changed (GnomeRRScreen         *screen,
                       GnomeXSettingsManager *manager)
 {
@@ -1168,6 +1176,9 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                              SOUND_SETTINGS_SCHEMA, g_settings_new (SOUND_SETTINGS_SCHEMA));
         g_hash_table_insert (manager->priv->settings,
                              PRIVACY_SETTINGS_SCHEMA, g_settings_new (PRIVACY_SETTINGS_SCHEMA));
+
+        g_signal_connect (G_OBJECT (g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA)), "changed::enable-animations",
+                          G_CALLBACK (enable_animations_changed_cb), manager);
 
         for (i = 0; i < G_N_ELEMENTS (fixed_entries); i++) {
                 FixedEntry *fixed = &fixed_entries[i];
