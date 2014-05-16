@@ -8,7 +8,7 @@ COMMON_FILES =				\
 	gsd-disk-space-helper.h		\
 	gsd-disk-space-helper.c
 
-noinst_PROGRAMS = gsd-disk-space-test gsd-empty-trash-test
+noinst_PROGRAMS = gsd-disk-space-test gsd-empty-trash-test gsd-purge-temp-test
 
 gsd_disk_space_test_SOURCES =		\
 	gsd-disk-space-test.c		\
@@ -25,6 +25,16 @@ gsd_empty_trash_test_SOURCES =		\
 	$(COMMON_FILES)
 gsd_empty_trash_test_LDADD = $(SETTINGS_PLUGIN_LIBS) $(GIOUNIX_LIBS) $(LIBNOTIFY_LIBS)
 gsd_empty_trash_test_CFLAGS =		\
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(GIOUNIX_CFLAGS)		\
+	$(LIBNOTIFY_CFLAGS)		\
+	$(AM_CFLAGS)
+
+gsd_purge_temp_test_SOURCES =		\
+	gsd-purge-temp-test.c		\
+	$(COMMON_FILES)
+gsd_purge_temp_test_LDADD = $(SETTINGS_PLUGIN_LIBS) $(GIOUNIX_LIBS) $(LIBNOTIFY_LIBS)
+gsd_purge_temp_test_CFLAGS =		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(GIOUNIX_CFLAGS)		\
 	$(LIBNOTIFY_CFLAGS)		\
