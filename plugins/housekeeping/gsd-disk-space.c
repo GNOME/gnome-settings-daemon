@@ -269,18 +269,7 @@ out:
         return should_purge;
 }
 
-typedef struct {
-        gint ref_count;
-        GFile           *file;
-        GCancellable    *cancellable;
-        GDateTime       *old;
-        gboolean         dry_run;
-        gboolean         trash;
-        gchar           *name;
-        gint             depth;
-} DeleteData;
-
-static DeleteData *
+DeleteData *
 delete_data_new (GFile        *file,
                  GCancellable *cancellable,
                  GDateTime    *old,
@@ -310,7 +299,7 @@ delete_data_ref (DeleteData *data)
   return data;
 }
 
-static void
+void
 delete_data_unref (DeleteData *data)
 {
         data->ref_count -= 1;
@@ -324,8 +313,6 @@ delete_data_unref (DeleteData *data)
         g_free (data->name);
         g_free (data);
 }
-
-static void delete_recursively_by_age (DeleteData *data);
 
 static void
 delete_batch (GObject      *source,
@@ -426,7 +413,7 @@ delete_subdir (GObject      *source,
         delete_data_unref (data);
 }
 
-static void
+void
 delete_recursively_by_age (DeleteData *data)
 {
         if (data->trash && (data->depth == 1) &&
