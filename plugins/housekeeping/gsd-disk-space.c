@@ -446,6 +446,7 @@ delete_subdir_check_symlink (GObject      *source,
                                                  delete_data_ref (data));
         } else if (type == G_FILE_TYPE_SYMBOLIC_LINK) {
                 if (should_purge_file (data->file, data->cancellable, data->old)) {
+                        g_debug ("Purging %s leaf node", data->name);
                         if (!data->dry_run) {
                                 g_file_delete (data->file, data->cancellable, NULL);
                         }
