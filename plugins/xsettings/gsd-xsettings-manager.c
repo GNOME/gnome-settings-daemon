@@ -262,7 +262,7 @@ struct _FixedEntry {
 struct GnomeXSettingsManagerPrivate
 {
         guint              start_idle_id;
-        XSettingsManager **managers;
+        XSettingsManager  *manager;
         GHashTable        *settings;
 
         GSettings         *plugin_settings;
@@ -305,12 +305,8 @@ translate_bool_int (GnomeXSettingsManager *manager,
                     TranslationEntry      *trans,
                     GVariant              *value)
 {
-        int i;
-
-        for (i = 0; manager->priv->managers [i]; i++) {
-                xsettings_manager_set_int (manager->priv->managers [i], trans->xsetting_name,
-                                           g_variant_get_boolean (value));
-        }
+        xsettings_manager_set_int (manager->priv->manager, trans->xsetting_name,
+                                   g_variant_get_boolean (value));
 }
 
 static void
@@ -318,12 +314,8 @@ translate_int_int (GnomeXSettingsManager *manager,
                    TranslationEntry      *trans,
                    GVariant              *value)
 {
-        int i;
-
-        for (i = 0; manager->priv->managers [i]; i++) {
-                xsettings_manager_set_int (manager->priv->managers [i], trans->xsetting_name,
-                                           g_variant_get_int32 (value));
-        }
+        xsettings_manager_set_int (manager->priv->manager, trans->xsetting_name,
+                                   g_variant_get_int32 (value));
 }
 
 static void
@@ -331,35 +323,23 @@ translate_string_string (GnomeXSettingsManager *manager,
                          TranslationEntry      *trans,
                          GVariant              *value)
 {
-        int i;
-
-        for (i = 0; manager->priv->managers [i]; i++) {
-                xsettings_manager_set_string (manager->priv->managers [i],
-                                              trans->xsetting_name,
-                                              g_variant_get_string (value, NULL));
-        }
+        xsettings_manager_set_string (manager->priv->manager,
+                                      trans->xsetting_name,
+                                      g_variant_get_string (value, NULL));
 }
 
 static void
 fixed_false_int (GnomeXSettingsManager *manager,
                  FixedEntry            *fixed)
 {
-        int i;
-
-        for (i = 0; manager->priv->managers [i]; i++) {
-                xsettings_manager_set_int (manager->priv->managers [i], fixed->xsetting_name, FALSE);
-        }
+        xsettings_manager_set_int (manager->priv->manager, fixed->xsetting_name, FALSE);
 }
 
 static void
 fixed_true_int (GnomeXSettingsManager *manager,
                 FixedEntry            *fixed)
 {
-        int i;
-
-        for (i = 0; manager->priv->managers [i]; i++) {
-                xsettings_manager_set_int (manager->priv->managers [i], fixed->xsetting_name, TRUE);
-        }
+        xsettings_manager_set_int (manager->priv->manager, fixed->xsetting_name, TRUE);
 }
 
 static FixedEntry fixed_entries [] = {
@@ -411,10 +391,7 @@ static gboolean
 notify_idle (gpointer data)
 {
         GnomeXSettingsManager *manager = data;
-        gint i;
-        for (i = 0; manager->priv->managers [i]; i++) {
-                xsettings_manager_notify (manager->priv->managers[i]);
-        }
+        xsettings_manager_notify (manager->priv->manager);
         manager->priv->notify_idle_id = 0;
         return G_SOURCE_REMOVE;
 }
@@ -693,20 +670,17 @@ static void
 xft_settings_set_xsettings (GnomeXSettingsManager *manager,
                             GnomeXftSettings      *settings)
 {
-        int i;
-
         gnome_settings_profile_start (NULL);
 
-        for (i = 0; manager->priv->managers [i]; i++) {
-                xsettings_manager_set_int (manager->priv->managers [i], "Xft/Antialias", settings->antialias);
-                xsettings_manager_set_int (manager->priv->managers [i], "Xft/Hinting", settings->hinting);
-                xsettings_manager_set_string (manager->priv->managers [i], "Xft/HintStyle", settings->hintstyle);
-                xsettings_manager_set_int (manager->priv->managers [i], "Gdk/WindowScalingFactor", settings->window_scale);
-                xsettings_manager_set_int (manager->priv->managers [i], "Gdk/UnscaledDPI", settings->dpi);
-                xsettings_manager_set_int (manager->priv->managers [i], "Xft/DPI", settings->scaled_dpi);
-                xsettings_manager_set_string (manager->priv->managers [i], "Xft/RGBA", settings->rgba);
-                xsettings_manager_set_int (manager->priv->managers [i], "Gtk/CursorThemeSize", settings->cursor_size);
-        }
+        xsettings_manager_set_int (manager->priv->manager, "Xft/Antialias", settings->antialias);
+        xsettings_manager_set_int (manager->priv->manager, "Xft/Hinting", settings->hinting);
+        xsettings_manager_set_string (manager->priv->manager, "Xft/HintStyle", settings->hintstyle);
+        xsettings_manager_set_int (manager->priv->manager, "Gdk/WindowScalingFactor", settings->window_scale);
+        xsettings_manager_set_int (manager->priv->manager, "Gdk/UnscaledDPI", settings->dpi);
+        xsettings_manager_set_int (manager->priv->manager, "Xft/DPI", settings->scaled_dpi);
+        xsettings_manager_set_string (manager->priv->manager, "Xft/RGBA", settings->rgba);
+        xsettings_manager_set_int (manager->priv->manager, "Gtk/CursorThemeSize", settings->cursor_size);
+
         gnome_settings_profile_end (NULL);
 }
 
@@ -812,13 +786,10 @@ override_callback (GSettings             *settings,
                    GnomeXSettingsManager *manager)
 {
         GVariant *value;
-        int i;
 
         value = g_settings_get_value (settings, XSETTINGS_OVERRIDE_KEY);
 
-        for (i = 0; manager->priv->managers[i]; i++) {
-                xsettings_manager_set_overrides (manager->priv->managers[i], value);
-        }
+        xsettings_manager_set_overrides (manager->priv->manager, value);
         queue_notify (manager);
 
         g_variant_unref (value);
@@ -845,19 +816,14 @@ gtk_modules_callback (GsdXSettingsGtk       *gtk,
                       GnomeXSettingsManager *manager)
 {
         const char *modules = gsd_xsettings_gtk_get_modules (manager->priv->gtk);
-        int i;
 
         if (modules == NULL) {
-                for (i = 0; manager->priv->managers [i]; ++i) {
-                        xsettings_manager_delete_setting (manager->priv->managers [i], "Gtk/Modules");
-                }
+                xsettings_manager_delete_setting (manager->priv->manager, "Gtk/Modules");
         } else {
                 g_debug ("Setting GTK modules '%s'", modules);
-                for (i = 0; manager->priv->managers [i]; ++i) {
-                        xsettings_manager_set_string (manager->priv->managers [i],
-                                                      "Gtk/Modules",
-                                                      modules);
-                }
+                xsettings_manager_set_string (manager->priv->manager,
+                                              "Gtk/Modules",
+                                              modules);
         }
 
         queue_notify (manager);
@@ -867,14 +833,11 @@ static void
 fontconfig_callback (fontconfig_monitor_handle_t *handle,
                      GnomeXSettingsManager       *manager)
 {
-        int i;
         int timestamp = time (NULL);
 
         gnome_settings_profile_start (NULL);
 
-        for (i = 0; manager->priv->managers [i]; i++) {
-                xsettings_manager_set_int (manager->priv->managers [i], "Fontconfig/Timestamp", timestamp);
-        }
+        xsettings_manager_set_int (manager->priv->manager, "Fontconfig/Timestamp", timestamp);
         queue_notify (manager);
         gnome_settings_profile_end (NULL);
 }
@@ -919,15 +882,11 @@ static void
 notify_have_shell (GnomeXSettingsManager   *manager,
                    gboolean                 have_shell)
 {
-        int i;
-
         gnome_settings_profile_start (NULL);
         if (manager->priv->have_shell == have_shell)
                 return;
         manager->priv->have_shell = have_shell;
-        for (i = 0; manager->priv->managers [i]; i++) {
-                xsettings_manager_set_int (manager->priv->managers [i], "Gtk/ShellShowsAppMenu", have_shell);
-        }
+        xsettings_manager_set_int (manager->priv->manager, "Gtk/ShellShowsAppMenu", have_shell);
         queue_notify (manager);
         gnome_settings_profile_end (NULL);
 }
@@ -984,7 +943,6 @@ xsettings_callback (GSettings             *settings,
                     GnomeXSettingsManager *manager)
 {
         TranslationEntry *trans;
-        guint             i;
         GVariant         *value;
 
         if (g_str_equal (key, TEXT_SCALING_FACTOR_KEY) ||
@@ -1004,11 +962,9 @@ xsettings_callback (GSettings             *settings,
 
         g_variant_unref (value);
 
-        for (i = 0; manager->priv->managers [i]; i++) {
-                xsettings_manager_set_string (manager->priv->managers [i],
-                                              "Net/FallbackIconTheme",
-                                              "gnome");
-        }
+        xsettings_manager_set_string (manager->priv->manager,
+                                      "Net/FallbackIconTheme",
+                                      "gnome");
         queue_notify (manager);
 }
 
@@ -1030,13 +986,10 @@ static gboolean
 setup_xsettings_managers (GnomeXSettingsManager *manager)
 {
         GdkDisplay *display;
-        int         i;
-        int         n_screens;
         gboolean    res;
         gboolean    terminated;
 
         display = gdk_display_get_default ();
-        n_screens = gdk_display_get_n_screens (display);
 
         res = xsettings_manager_check_running (gdk_x11_display_get_xdisplay (display),
                                                gdk_screen_get_number (gdk_screen_get_default ()));
@@ -1046,22 +999,14 @@ setup_xsettings_managers (GnomeXSettingsManager *manager)
                 return FALSE;
         }
 
-        manager->priv->managers = g_new0 (XSettingsManager *, n_screens + 1);
-
         terminated = FALSE;
-        for (i = 0; i < n_screens; i++) {
-                GdkScreen *screen;
-
-                screen = gdk_display_get_screen (display, i);
-
-                manager->priv->managers [i] = xsettings_manager_new (gdk_x11_display_get_xdisplay (display),
-                                                                     gdk_screen_get_number (screen),
-                                                                     terminate_cb,
-                                                                     &terminated);
-                if (! manager->priv->managers [i]) {
-                        g_warning ("Could not create xsettings manager for screen %d!", i);
-                        return FALSE;
-                }
+        manager->priv->manager = xsettings_manager_new (gdk_x11_display_get_xdisplay (display),
+                                                        gdk_screen_get_number (gdk_screen_get_default ()),
+                                                        terminate_cb,
+                                                        &terminated);
+        if (! manager->priv->manager) {
+                g_warning ("Could not create xsettings manager!");
+                return FALSE;
         }
 
         return TRUE;
@@ -1087,7 +1032,6 @@ force_disable_animation_changed (GObject    *gobject,
                                  GnomeXSettingsManager *manager)
 {
         gboolean force_disable, value;
-        int i;
 
         g_object_get (gobject, "force-disable-animations", &force_disable, NULL);
         if (force_disable)
@@ -1099,9 +1043,7 @@ force_disable_animation_changed (GObject    *gobject,
                 value = g_settings_get_boolean (settings, "enable-animations");
         }
 
-        for (i = 0; manager->priv->managers [i]; i++) {
-                xsettings_manager_set_int (manager->priv->managers [i], "Gtk/EnableAnimations", value);
-        }
+        xsettings_manager_set_int (manager->priv->manager, "Gtk/EnableAnimations", value);
 
         queue_notify (manager);
 }
@@ -1231,15 +1173,12 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
 
         start_shell_monitor (manager);
 
-        for (i = 0; manager->priv->managers [i]; i++)
-                xsettings_manager_set_string (manager->priv->managers [i],
-                                              "Net/FallbackIconTheme",
-                                              "gnome");
+        xsettings_manager_set_string (manager->priv->manager,
+                                      "Net/FallbackIconTheme",
+                                      "gnome");
 
         overrides = g_settings_get_value (manager->priv->plugin_settings, XSETTINGS_OVERRIDE_KEY);
-        for (i = 0; manager->priv->managers [i]; i++) {
-                xsettings_manager_set_overrides (manager->priv->managers [i], overrides);
-        }
+        xsettings_manager_set_overrides (manager->priv->manager, overrides);
         queue_notify (manager);
         g_variant_unref (overrides);
 
@@ -1253,7 +1192,6 @@ void
 gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
 {
         GnomeXSettingsManagerPrivate *p = manager->priv;
-        int i;
 
         g_debug ("Stopping xsettings manager");
 
@@ -1269,12 +1207,9 @@ gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
         if (p->shell_name_watch_id > 0)
                 g_bus_unwatch_name (p->shell_name_watch_id);
 
-        if (p->managers != NULL) {
-                for (i = 0; p->managers [i]; ++i)
-                        xsettings_manager_destroy (p->managers [i]);
-
-                g_free (p->managers);
-                p->managers = NULL;
+        if (p->manager != NULL) {
+                xsettings_manager_destroy (p->manager);
+                p->manager = NULL;
         }
 
         if (p->plugin_settings != NULL) {
