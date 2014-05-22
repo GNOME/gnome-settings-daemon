@@ -20,74 +20,9 @@
 #define __SHORTCUTS_LIST_H__
 
 #include "shell-keybinding-modes.h"
+#include "media-keys.h"
 
 #define SETTINGS_BINDING_DIR "org.gnome.settings-daemon.plugins.media-keys"
-
-typedef enum {
-        TOUCHPAD_KEY,
-        TOUCHPAD_ON_KEY,
-        TOUCHPAD_OFF_KEY,
-        MUTE_KEY,
-        VOLUME_DOWN_KEY,
-        VOLUME_UP_KEY,
-        MUTE_QUIET_KEY,
-        VOLUME_DOWN_QUIET_KEY,
-        VOLUME_UP_QUIET_KEY,
-        MIC_MUTE_KEY,
-        LOGOUT_KEY,
-        EJECT_KEY,
-        HOME_KEY,
-        MEDIA_KEY,
-        CALCULATOR_KEY,
-        SEARCH_KEY,
-        EMAIL_KEY,
-        SCREENSAVER_KEY,
-        HELP_KEY,
-        SCREENSHOT_KEY,
-        WINDOW_SCREENSHOT_KEY,
-        AREA_SCREENSHOT_KEY,
-        SCREENSHOT_CLIP_KEY,
-        WINDOW_SCREENSHOT_CLIP_KEY,
-        AREA_SCREENSHOT_CLIP_KEY,
-        SCREENCAST_KEY,
-        WWW_KEY,
-        PLAY_KEY,
-        PAUSE_KEY,
-        STOP_KEY,
-        PREVIOUS_KEY,
-        NEXT_KEY,
-        REWIND_KEY,
-        FORWARD_KEY,
-        REPEAT_KEY,
-        RANDOM_KEY,
-        VIDEO_OUT_KEY,
-        ROTATE_VIDEO_KEY,
-        ROTATE_VIDEO_LOCK_KEY,
-        MAGNIFIER_KEY,
-        SCREENREADER_KEY,
-        ON_SCREEN_KEYBOARD_KEY,
-        INCREASE_TEXT_KEY,
-        DECREASE_TEXT_KEY,
-        TOGGLE_CONTRAST_KEY,
-        MAGNIFIER_ZOOM_IN_KEY,
-        MAGNIFIER_ZOOM_OUT_KEY,
-        POWER_KEY,
-        SLEEP_KEY,
-        SUSPEND_KEY,
-        HIBERNATE_KEY,
-        POWER_KEY_NO_DIALOG,
-        SLEEP_KEY_NO_DIALOG,
-        SUSPEND_KEY_NO_DIALOG,
-        HIBERNATE_KEY_NO_DIALOG,
-        SCREEN_BRIGHTNESS_UP_KEY,
-        SCREEN_BRIGHTNESS_DOWN_KEY,
-        KEYBOARD_BRIGHTNESS_UP_KEY,
-        KEYBOARD_BRIGHTNESS_DOWN_KEY,
-        KEYBOARD_BRIGHTNESS_TOGGLE_KEY,
-        BATTERY_KEY,
-        CUSTOM_KEY
-} MediaKeyType;
-
 
 #define GSD_KEYBINDING_MODE_LAUNCHER (SHELL_KEYBINDING_MODE_NORMAL | \
                                       SHELL_KEYBINDING_MODE_OVERVIEW)

@@ -25,7 +25,7 @@
 #ifndef __GSD_SCREENSHOT_UTILS_H__
 #define __GSD_SCREENSHOT_UTILS_H__
 
-#include "shortcuts-list.h"
+#include "media-keys.h"
 
 G_BEGIN_DECLS
 

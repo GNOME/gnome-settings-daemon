@@ -35,6 +35,7 @@ libmedia_keys_la_SOURCES = 		\
 	gsd-screenshot-utils.h		\
 	gsd-screenshot-utils.c		\
 	shortcuts-list.h		\
+	media-keys.h			\
 	shell-keybinding-modes.h	\
 	bus-watch-namespace.c		\
 	bus-watch-namespace.h		\
