@@ -124,8 +124,6 @@ static void     gsd_xrandr_manager_class_init  (GsdXrandrManagerClass *klass);
 static void     gsd_xrandr_manager_init        (GsdXrandrManager      *xrandr_manager);
 static void     gsd_xrandr_manager_finalize    (GObject             *object);
 
-static void error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to_display, const char *secondary_text);
-
 static void get_allowed_rotations_for_output (GnomeRRConfig *config,
                                               GnomeRRScreen *rr_screen,
                                               GnomeRROutputInfo *output,
@@ -928,15 +926,6 @@ generate_fn_f7_configs (GsdXrandrManager *mgr)
                 mgr->priv->fn_f7_configs = (GnomeRRConfig **)g_ptr_array_free (array, FALSE);
                 mgr->priv->current_fn_f7_config = 0;
         }
-}
-
-static void
-error_message (GsdXrandrManager *mgr, const char *primary_text, GError *error_to_display, const char *secondary_text)
-{
-    g_warning("%s\n%s\n%s",
-              primary_text? primary_text : "",
-              secondary_text? secondary_text : "",
-              error_to_display? error_to_display->message : "");
 }
 
 static void
