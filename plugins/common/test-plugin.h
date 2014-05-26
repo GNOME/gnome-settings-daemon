@@ -34,17 +34,39 @@ static GOptionEntry entries[] = {
 };
 
 static gboolean
+contained (char       **items,
+           const char  *item)
+{
+        while (*items) {
+                if (g_strcmp0 (*items++, item) == 0) {
+                        return TRUE;
+                }
+        }
+
+        return FALSE;
+}
+
+static gboolean
+is_schema (const char *schema)
+{
+        GSettingsSchemaSource *source = NULL;
+        gchar **non_relocatable = NULL;
+        gchar **relocatable = NULL;
+
+        source = g_settings_schema_source_get_default ();
+        if (!source)
+                return FALSE;
+
+        g_settings_schema_source_list_schemas (source, TRUE, &non_relocatable, &relocatable);
+
+        return (contained (non_relocatable, schema) ||
+                contained (relocatable, schema));
+}
+
+static gboolean
 has_settings (void)
 {
-	const gchar * const * list;
-	guint i;
-
-	list = g_settings_list_schemas ();
-	for (i = 0; list[i] != NULL; i++) {
-		if (g_str_equal (list[i], "org.gnome.settings-daemon.plugins." SCHEMA_NAME))
-			return TRUE;
-	}
-	return FALSE;
+  return is_schema ("org.gnome.settings-daemon.plugins." SCHEMA_NAME);
 }
 
 static void
