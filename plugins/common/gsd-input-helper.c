@@ -33,6 +33,11 @@
 #define INPUT_DEVICES_SCHEMA "org.gnome.settings-daemon.peripherals.input-devices"
 #define KEY_HOTPLUG_COMMAND  "hotplug-command"
 
+#define ABS_MT_X "Abs MT Position X"
+#define ABS_MT_Y "Abs MT Position Y"
+#define ABS_X "Abs X"
+#define ABS_Y "Abs Y"
+
 typedef gboolean (* InfoIdentifyFunc) (XDeviceInfo *device_info);
 typedef gboolean (* DeviceIdentifyFunc) (XDevice *xdevice);
 
@@ -625,4 +630,48 @@ xdevice_close (XDevice *xdevice)
     gdk_error_trap_push ();
     XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
     gdk_error_trap_pop_ignored();
+}
+
+gboolean
+xdevice_get_dimensions (int    deviceid,
+                        guint *width,
+                        guint *height)
+{
+        GdkDisplay *display = gdk_display_get_default ();
+        XIDeviceInfo *info;
+        guint *value, w, h;
+        int i, n_info;
+
+        info = XIQueryDevice (GDK_DISPLAY_XDISPLAY (display), deviceid, &n_info);
+        *width = *height = w = h = 0;
+
+        if (!info)
+                return FALSE;
+
+        for (i = 0; i < info->num_classes; i++) {
+                XIValuatorClassInfo *valuator_info;
+
+                if (info->classes[i]->type != XIValuatorClass)
+                        continue;
+
+                valuator_info = (XIValuatorClassInfo *) info->classes[i];
+
+                if (valuator_info->label == gdk_x11_get_xatom_by_name_for_display (display, ABS_X) ||
+                    valuator_info->label == gdk_x11_get_xatom_by_name_for_display (display, ABS_MT_X))
+                        value = &w;
+                else if (valuator_info->label == gdk_x11_get_xatom_by_name_for_display (display, ABS_Y) ||
+                         valuator_info->label == gdk_x11_get_xatom_by_name_for_display (display, ABS_MT_Y))
+                        value = &h;
+                else
+                        continue;
+
+                *value = (valuator_info->max -  valuator_info->min) * 1000 / valuator_info->resolution;
+        }
+
+        *width = w;
+        *height = h;
+
+        XIFreeDeviceInfo (info);
+
+        return (w != 0 && h != 0);
 }
