@@ -182,8 +182,8 @@ on_plugin_deactivated (GnomeSettingsPluginInfo *info,
 }
 
 static gboolean
-contained (const char * const *items,
-           const char         *item)
+contained (char       **items,
+           const char  *item)
 {
         while (*items) {
                 if (g_strcmp0 (*items++, item) == 0) {
@@ -197,7 +197,18 @@ contained (const char * const *items,
 static gboolean
 is_schema (const char *schema)
 {
-        return contained (g_settings_list_schemas (), schema);
+        GSettingsSchemaSource *source = NULL;
+        gchar **non_relocatable = NULL;
+        gchar **relocatable = NULL;
+
+        source = g_settings_schema_source_get_default ();
+        if (!source)
+                return FALSE;
+
+        g_settings_schema_source_list_schemas (source, TRUE, &non_relocatable, &relocatable);
+
+        return (contained (non_relocatable, schema) ||
+                contained (relocatable, schema));
 }
 
 static gboolean
@@ -209,7 +220,7 @@ is_whitelisted (char       **whitelist,
             g_strcmp0 (whitelist[0], "all") == 0)
                 return TRUE;
 
-        return contained ((const char * const *) whitelist, plugin_name);
+        return contained (whitelist, plugin_name);
 }
 
 static void
