@@ -51,6 +51,7 @@ typedef enum {
 
 typedef enum {
 	GSD_PRIO_BUILTIN,            /* Output is builtin, applies mainly to system-integrated devices */
+	GSD_PRIO_MATCH_SIZE,	     /* Size from input device and output match */
 	GSD_PRIO_EDID_MATCH_FULL,    /* Full EDID model match, eg. "Cintiq 12WX" */
 	GSD_PRIO_EDID_MATCH_PARTIAL, /* Partial EDID model match, eg. "Cintiq" */
 	GSD_PRIO_EDID_MATCH_VENDOR,  /* EDID vendor match, eg. "WAC" for Wacom */
@@ -119,6 +120,9 @@ enum {
 	DEVICE_CHANGED,
 	N_SIGNALS
 };
+
+static GnomeRROutput * input_info_find_size_match (GsdInputInfo  *input,
+                                                   GnomeRRScreen *rr_screen);
 
 static guint signals[N_SIGNALS] = { 0 };
 
@@ -359,6 +363,10 @@ input_info_guess_candidates (GsdInputInfo  *input,
 	if (found)
 		return;
 
+	if (input->capabilities & GSD_INPUT_IS_SCREEN_INTEGRATED) {
+		outputs[GSD_PRIO_MATCH_SIZE] = input_info_find_size_match (input, input->mapper->rr_screen);
+	}
+
 	split = g_strsplit (name, " ", -1);
 
 	/* On Wacom devices that are integrated on a not-in-system screen (eg. Cintiqs),
@@ -377,10 +385,10 @@ input_info_guess_candidates (GsdInputInfo  *input,
 
 		for (i = 0; i < G_N_ELEMENTS (edids); i++) {
 			/* i + 1 matches the desired priority, we skip GSD_PRIO_BUILTIN here */
-			outputs[i + 1] =
+			outputs[i + GSD_PRIO_EDID_MATCH_FULL] =
 				find_output_by_edid (input->mapper->rr_screen,
 						     edids[i]);
-			found |= outputs[i + 1] != NULL;
+			found |= outputs[i + GSD_PRIO_EDID_MATCH_FULL] != NULL;
 		}
 
 		g_free (product);
@@ -614,6 +622,60 @@ monitor_for_output (GnomeRROutput *output)
 	gnome_rr_crtc_get_position (crtc, &x, &y);
 
 	return gdk_screen_get_monitor_at_point (screen, x, y);
+}
+
+static gboolean
+output_get_dimensions (GnomeRROutput *output,
+		       guint         *width,
+		       guint         *height)
+{
+	GdkScreen *screen = gdk_screen_get_default ();
+	gint monitor_num;
+
+	monitor_num = monitor_for_output (output);
+
+	if (monitor_num < 0)
+		return FALSE;
+
+	*width = gdk_screen_get_monitor_width_mm (screen, monitor_num);
+	*height = gdk_screen_get_monitor_height_mm (screen, monitor_num);
+	return TRUE;
+}
+
+static GnomeRROutput *
+input_info_find_size_match (GsdInputInfo  *input,
+			    GnomeRRScreen *rr_screen)
+{
+	guint i, input_width, input_height, output_width, output_height;
+	GnomeRROutput **outputs;
+
+	g_return_val_if_fail (rr_screen != NULL, NULL);
+
+	if (!xdevice_get_dimensions (gdk_x11_device_get_id (input->device),
+				     &input_width, &input_height))
+		return NULL;
+
+	g_debug ("Input device '%s' has %dx%d mm",
+		 gdk_device_get_name (input->device), input_width, input_height);
+
+	outputs = gnome_rr_screen_list_outputs (rr_screen);
+
+	for (i = 0; outputs[i] != NULL; i++) {
+		if (!output_get_dimensions (outputs[i], &output_width, &output_height))
+			continue;
+
+#define MAX_DIFF 0.05
+		if (ABS (1 - ((gdouble) output_width / input_width)) < MAX_DIFF &&
+		    ABS (1 - ((gdouble) output_height / input_height)) < MAX_DIFF) {
+			g_debug ("Output device '%s' is considered a match with %dx%d mm",
+				 gnome_rr_output_get_name (outputs[i]),
+				 output_width, output_height);
+			return outputs[i];
+		}
+#undef MAX_DIFF
+	}
+
+	return NULL;
 }
 
 static void
