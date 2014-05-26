@@ -168,17 +168,33 @@ init_builder_with_sources (GVariantBuilder *builder,
 }
 
 static gboolean
-schema_is_installed (const gchar *name)
+contained (char       **items,
+           const char  *item)
 {
-        const gchar * const *schemas;
-        const gchar * const *s;
-
-        schemas = g_settings_list_schemas ();
-        for (s = schemas; *s; ++s)
-                if (g_str_equal (*s, name))
+        while (*items) {
+                if (g_strcmp0 (*items++, item) == 0) {
                         return TRUE;
+                }
+        }
 
         return FALSE;
+}
+
+static gboolean
+schema_is_installed (const char *schema)
+{
+        GSettingsSchemaSource *source = NULL;
+        gchar **non_relocatable = NULL;
+        gchar **relocatable = NULL;
+
+        source = g_settings_schema_source_get_default ();
+        if (!source)
+                return FALSE;
+
+        g_settings_schema_source_list_schemas (source, TRUE, &non_relocatable, &relocatable);
+
+        return (contained (non_relocatable, schema) ||
+                contained (relocatable, schema));
 }
 
 #ifdef HAVE_IBUS
