@@ -582,8 +582,14 @@ gsettings_changed_cb (GSettings           *settings,
         if (g_str_equal (settings_key, "max-screencast-length"))
 		return;
 
+	/* Handled by the core */
+        if (g_str_equal (settings_key, "active"))
+                return;
 
         /* Find the key that was modified */
+        if (manager->priv->keys == NULL)
+                return;
+
         for (i = 0; i < manager->priv->keys->len; i++) {
                 MediaKey *key;
 
