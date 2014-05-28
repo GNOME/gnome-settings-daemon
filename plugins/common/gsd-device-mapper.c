@@ -626,7 +626,8 @@ input_info_find_size_match (GsdInputInfo  *input,
 			    GnomeRRScreen *rr_screen)
 {
 	guint i, input_width, input_height, output_width, output_height;
-	GnomeRROutput **outputs;
+	gdouble min_width_diff, min_height_diff;
+	GnomeRROutput **outputs, *match = NULL;
 
 	g_return_val_if_fail (rr_screen != NULL, NULL);
 
@@ -634,27 +635,44 @@ input_info_find_size_match (GsdInputInfo  *input,
 				     &input_width, &input_height))
 		return NULL;
 
+	/* Restrict the matches to be below a narrow percentage */
+	min_width_diff = min_height_diff = 0.05;
+
 	g_debug ("Input device '%s' has %dx%d mm",
 		 gdk_device_get_name (input->device), input_width, input_height);
 
 	outputs = gnome_rr_screen_list_outputs (rr_screen);
 
 	for (i = 0; outputs[i] != NULL; i++) {
+		gdouble width_diff, height_diff;
+
 		if (!output_get_dimensions (outputs[i], &output_width, &output_height))
 			continue;
 
-#define MAX_DIFF 0.05
-		if (ABS (1 - ((gdouble) output_width / input_width)) < MAX_DIFF &&
-		    ABS (1 - ((gdouble) output_height / input_height)) < MAX_DIFF) {
-			g_debug ("Output device '%s' is considered a match with %dx%d mm",
-				 gnome_rr_output_get_name (outputs[i]),
-				 output_width, output_height);
-			return outputs[i];
+		width_diff = ABS (1 - ((gdouble) output_width / input_width));
+		height_diff = ABS (1 - ((gdouble) output_height / input_height));
+
+		g_debug ("Output '%s' has size %dx%d mm, deviation from "
+			 "input device size: %.2f width, %.2f height ",
+			 gnome_rr_output_get_name (outputs[i]),
+			 output_width, output_height, width_diff, height_diff);
+
+		if (width_diff <= min_width_diff && height_diff <= min_height_diff) {
+			match = outputs[i];
+			min_width_diff = width_diff;
+			min_height_diff = height_diff;
 		}
-#undef MAX_DIFF
 	}
 
-	return NULL;
+	if (match) {
+		g_debug ("Output '%s' is considered a best size match (%.2f / %.2f)",
+			 gnome_rr_output_get_name (match),
+			 min_width_diff, min_height_diff);
+	} else {
+		g_debug ("No input/output size match was found\n");
+	}
+
+	return match;
 }
 
 static void

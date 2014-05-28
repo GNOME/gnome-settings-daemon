@@ -87,7 +87,6 @@ void      xdevice_close      (XDevice                *xdevice);
 
 const char * xdevice_get_wacom_tool_type (int               deviceid);
 
-
 G_END_DECLS
 
 #endif /* __GSD_INPUT_HELPER_H */
