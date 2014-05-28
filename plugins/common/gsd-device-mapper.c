@@ -329,13 +329,6 @@ mapping_helper_add (MappingHelper *helper,
 		g_array_insert_val (helper->device_maps, pos, info);
 }
 
-struct {
-	const gchar *input_device_name;
-	const gchar *edid[3];
-} hardcoded_devices[] = {
-	{ "3M 3M MicroTouch USB controller", { "DEL", "DELL S2340T", NULL } }
-};
-
 /* This function gets a map of outputs, sorted by confidence, for a given device,
  * the array can actually contain NULLs if no output matched a priority. */
 static void
@@ -348,20 +341,6 @@ input_info_guess_candidates (GsdInputInfo  *input,
 	gint i;
 
 	name = gdk_device_get_name (input->device);
-
-	/* Hard-coded detection */
-	for (i = 0; i < G_N_ELEMENTS (hardcoded_devices); i++) {
-		if (g_strcmp0 (name, hardcoded_devices[i].input_device_name) != 0)
-			continue;
-
-		outputs[GSD_PRIO_EDID_MATCH_FULL] = find_output_by_edid (input->mapper->rr_screen, hardcoded_devices[i].edid);
-		if (outputs[GSD_PRIO_EDID_MATCH_FULL]) {
-			found = TRUE;
-			break;
-		}
-	}
-	if (found)
-		return;
 
 	if (input->capabilities & GSD_INPUT_IS_SCREEN_INTEGRATED) {
 		outputs[GSD_PRIO_MATCH_SIZE] = input_info_find_size_match (input, input->mapper->rr_screen);
