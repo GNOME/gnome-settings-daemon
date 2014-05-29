@@ -60,6 +60,7 @@
 #define SOUND_SETTINGS_SCHEMA     "org.gnome.desktop.sound"
 #define PRIVACY_SETTINGS_SCHEMA     "org.gnome.desktop.privacy"
 #define WM_SETTINGS_SCHEMA        "org.gnome.desktop.wm.preferences"
+#define CLASSIC_WM_SETTINGS_SCHEMA "org.gnome.shell.extensions.classic-overrides"
 
 #define XSETTINGS_PLUGIN_SCHEMA "org.gnome.settings-daemon.plugins.xsettings"
 #define XSETTINGS_OVERRIDE_KEY  "overrides"
@@ -335,8 +336,25 @@ translate_button_layout (GnomeXSettingsManager *manager,
                          TranslationEntry      *trans,
                          GVariant              *value)
 {
-        char *layout = g_variant_dup_string (value, NULL);
+        GSettings *classic_settings;
+        GVariant *classic_value = NULL;
+        const char *session;
+        char *layout;
         int i;
+
+        /* Hack: until we get session-dependent defaults in GSettings,
+         *       swap out the usual schema for the "classic" one when
+         *       running in classic mode
+         */
+        session = g_getenv ("XDG_CURRENT_DESKTOP");
+        classic_settings = g_hash_table_lookup (manager->priv->settings,
+                                                CLASSIC_WM_SETTINGS_SCHEMA);
+        if (session && strstr (session, "GNOME-Classic") && classic_settings) {
+                classic_value = g_settings_get_value (classic_settings, "button-layout");
+                layout = g_variant_dup_string (classic_value, NULL);
+        } else {
+                layout = g_variant_dup_string (value, NULL);
+        }
 
         translate_wm_button_layout_to_gtk (layout);
 
@@ -345,6 +363,8 @@ translate_button_layout (GnomeXSettingsManager *manager,
                                               trans->xsetting_name,
                                               layout);
 
+        if (classic_value)
+                g_variant_unref (classic_value);
         g_free (layout);
 }
 
@@ -945,6 +965,11 @@ find_translation_entry (GSettings *settings, const char *key)
 
         g_object_get (settings, "schema", &schema, NULL);
 
+        if (g_str_equal (schema, CLASSIC_WM_SETTINGS_SCHEMA)) {
+              g_free (schema);
+              schema = g_strdup (WM_SETTINGS_SCHEMA);
+        }
+
         for (i = 0; i < G_N_ELEMENTS (translations); i++) {
                 if (g_str_equal (schema, translations[i].gsettings_schema) &&
                     g_str_equal (key, translations[i].gsettings_key)) {
@@ -1108,6 +1133,7 @@ gboolean
 gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                                GError               **error)
 {
+        GSettingsSchema *schema;
         GVariant    *overrides;
         guint        i;
         GList       *list, *l;
@@ -1145,6 +1171,15 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                              PRIVACY_SETTINGS_SCHEMA, g_settings_new (PRIVACY_SETTINGS_SCHEMA));
         g_hash_table_insert (manager->priv->settings,
                              WM_SETTINGS_SCHEMA, g_settings_new (WM_SETTINGS_SCHEMA));
+
+        schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (),
+                                                  CLASSIC_WM_SETTINGS_SCHEMA, FALSE);
+        if (schema) {
+                g_hash_table_insert (manager->priv->settings,
+                                     CLASSIC_WM_SETTINGS_SCHEMA,
+                                     g_settings_new_full (schema, NULL, NULL));
+                g_settings_schema_unref (schema);
+        }
 
         g_signal_connect (G_OBJECT (g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA)), "changed::enable-animations",
                           G_CALLBACK (enable_animations_changed_cb), manager);
