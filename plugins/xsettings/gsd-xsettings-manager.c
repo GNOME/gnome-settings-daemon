@@ -50,6 +50,7 @@
 #include "xsettings-manager.h"
 #include "fontconfig-monitor.h"
 #include "gsd-remote-display-manager.h"
+#include "wm-button-layout-translation.h"
 
 #define GNOME_XSETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GNOME_TYPE_XSETTINGS_MANAGER, GnomeXSettingsManagerPrivate))
 
@@ -58,6 +59,7 @@
 #define INTERFACE_SETTINGS_SCHEMA "org.gnome.desktop.interface"
 #define SOUND_SETTINGS_SCHEMA     "org.gnome.desktop.sound"
 #define PRIVACY_SETTINGS_SCHEMA     "org.gnome.desktop.privacy"
+#define WM_SETTINGS_SCHEMA        "org.gnome.desktop.wm.preferences"
 
 #define XSETTINGS_PLUGIN_SCHEMA "org.gnome.settings-daemon.plugins.xsettings"
 #define XSETTINGS_OVERRIDE_KEY  "overrides"
@@ -329,6 +331,24 @@ translate_string_string (GnomeXSettingsManager *manager,
 }
 
 static void
+translate_button_layout (GnomeXSettingsManager *manager,
+                         TranslationEntry      *trans,
+                         GVariant              *value)
+{
+        char *layout = g_variant_dup_string (value, NULL);
+        int i;
+
+        translate_wm_button_layout_to_gtk (layout);
+
+        for (i = 0; manager->priv->managers [i]; i++)
+                xsettings_manager_set_string (manager->priv->managers [i],
+                                              trans->xsetting_name,
+                                              layout);
+
+        g_free (layout);
+}
+
+static void
 fixed_false_int (GnomeXSettingsManager *manager,
                  FixedEntry            *fixed)
 {
@@ -384,7 +404,8 @@ static TranslationEntry translations [] = {
         { "org.gnome.desktop.sound", "input-feedback-sounds",      "Net/EnableInputFeedbackSounds", translate_bool_int },
 
         { "org.gnome.desktop.privacy", "recent-files-max-age",      "Gtk/RecentFilesMaxAge", translate_int_int },
-        { "org.gnome.desktop.privacy", "remember-recent-files",    "Gtk/RecentFilesEnabled", translate_bool_int }
+        { "org.gnome.desktop.privacy", "remember-recent-files",    "Gtk/RecentFilesEnabled", translate_bool_int },
+        { "org.gnome.desktop.wm.preferences", "button-layout",     "Gtk/DecorationLayout", translate_button_layout }
 };
 
 static gboolean
@@ -1122,6 +1143,8 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                              SOUND_SETTINGS_SCHEMA, g_settings_new (SOUND_SETTINGS_SCHEMA));
         g_hash_table_insert (manager->priv->settings,
                              PRIVACY_SETTINGS_SCHEMA, g_settings_new (PRIVACY_SETTINGS_SCHEMA));
+        g_hash_table_insert (manager->priv->settings,
+                             WM_SETTINGS_SCHEMA, g_settings_new (WM_SETTINGS_SCHEMA));
 
         g_signal_connect (G_OBJECT (g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA)), "changed::enable-animations",
                           G_CALLBACK (enable_animations_changed_cb), manager);

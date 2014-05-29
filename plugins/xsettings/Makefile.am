@@ -27,6 +27,23 @@ test_gtk_modules_CPPFLAGS =				\
 	-DGTK_MODULES_DIRECTORY=\""$(libdir)/gnome-settings-daemon-@GSD_API_VERSION@/gtk-modules/"\" \
 	$(AM_CPPFLAGS)
 
+noinst_PROGRAMS += test-wm-button-layout-translations
+
+test_wm_button_layout_translations_SOURCES =	\
+	test-wm-button-layout-translations.c	\
+	wm-button-layout-translation.c		\
+	wm-button-layout-translation.h		\
+	$(NULL)
+
+test_wm_button_layout_translations_CFLAGS =	\
+	$(XSETTINGS_CFLAGS)			\
+	$(AM_CFLAGS)				\
+	$(NULL)
+
+test_wm_button_layout_translations_LDADD =	\
+	$(XSETTINGS_LIBS)			\
+	$(NULL)
+
 libexec_PROGRAMS = gsd-test-xsettings
 
 gsd_test_xsettings_SOURCES =	\
@@ -42,6 +59,8 @@ gsd_test_xsettings_SOURCES =	\
 	fontconfig-monitor.h	\
 	gsd-remote-display-manager.c \
 	gsd-remote-display-manager.h \
+	wm-button-layout-translation.c	\
+	wm-button-layout-translation.h	\
 	test-xsettings.c
 
 gsd_test_xsettings_CFLAGS = $(libxsettings_la_CFLAGS) $(PLUGIN_CFLAGS)
@@ -66,6 +85,8 @@ libxsettings_la_SOURCES = 	\
 	gsd-remote-display-manager.h \
 	fontconfig-monitor.h	\
 	fontconfig-monitor.c	\
+	wm-button-layout-translation.c	\
+	wm-button-layout-translation.h	\
 	$(NULL)
 
 libxsettings_la_CPPFLAGS =					\
