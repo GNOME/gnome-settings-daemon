@@ -1,4 +1,40 @@
 ==============
+Version 3.10.3
+==============
+
+- Several fixes for hi-dpi displays - see below
+- Don't die when gnome-session says Stop so that applications that are
+  still running during session exit don't lose their theme and icons
+- Check the exit status of hotplug scripts correctly
+
+Housekeeping:
+- Don't follow symlinks to subdirectories
+
+Keyboard:
+- Apply num-lock to newly connected keyboards
+
+Mouse:
+- Avoid X errors, and thus a crash, in some cases
+
+Power:
+- Fix wakeup with some keymaps
+- Fix restarting of the lid inhibitor check timer
+
+Updates:
+- Remove the unconditional clearing of the offline updates message
+
+Wacom:
+- Add OLED handling over Bluetooth for the Intuos4 Wireless tablets
+
+XSettings:
+- Export Gtk/ShellShowsDesktop setting so that Gtk can decide whether
+  to show the 'Desktop' item in the places sidebar
+- Use primary monitor for scaling factor
+- Disable scaling factor on HDMI outputs
+- Enable hidpi scaling on 4K monitors
+- Never turn on hi-dpi support for small resolutions
+
+==============
 Version 3.10.2
 ==============
 
