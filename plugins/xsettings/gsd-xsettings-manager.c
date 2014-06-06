@@ -340,7 +340,6 @@ translate_button_layout (GnomeXSettingsManager *manager,
         GVariant *classic_value = NULL;
         const char *session;
         char *layout;
-        int i;
 
         /* Hack: until we get session-dependent defaults in GSettings,
          *       swap out the usual schema for the "classic" one when
@@ -358,10 +357,9 @@ translate_button_layout (GnomeXSettingsManager *manager,
 
         translate_wm_button_layout_to_gtk (layout);
 
-        for (i = 0; manager->priv->managers [i]; i++)
-                xsettings_manager_set_string (manager->priv->managers [i],
-                                              trans->xsetting_name,
-                                              layout);
+        xsettings_manager_set_string (manager->priv->manager,
+                                      trans->xsetting_name,
+                                      layout);
 
         if (classic_value)
                 g_variant_unref (classic_value);
