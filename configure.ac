@@ -60,6 +60,7 @@ IBUS_REQUIRED_VERSION=1.4.99
 GSETTINGS_DESKTOP_SCHEMAS_REQUIRED_VERSION=3.9.91
 GEOCODE_GLIB_REQUIRED_VERSION=3.10.0
 GEOCLUE_REQUIRED_VERSION=2.1.2
+NM_REQUIRED_VERSION=0.9.9.1
 
 EXTRA_COMPILE_WARNINGS(yes)
 
@@ -402,6 +403,25 @@ fi
 
 AM_CONDITIONAL(BUILD_RFKILL, [test x"$enable_rfkill" = x"yes"])
 
+dnl ---------------------------------------------------------------------------
+dnl Sharing plugin
+dnl ---------------------------------------------------------------------------
+
+AC_ARG_ENABLE(network-manager,
+        AS_HELP_STRING([--disable-network-manager],
+                       [Disable NetworkManager support]),
+        enable_network_manager=$enableval,
+        enable_network_manager=yes)
+
+if test "x$enable_network_manager" = "xyes" ; then
+        NM_MODULE="libnm-glib >= $NM_REQUIRED_VERSION libnm-util >= $NM_REQUIRED_VERSION"
+        AC_DEFINE(HAVE_NETWORK_MANAGER, 1, [Defined if NetworkManager support is enabled])
+else
+        NM_MODULE=
+fi
+
+PKG_CHECK_MODULES(SHARING, gio-2.0 $NM_MODULE)
+
 # ---------------------------------------------------------------------------
 # Enable Profiling
 # ---------------------------------------------------------------------------
@@ -521,6 +541,7 @@ plugins/orientation/Makefile
 plugins/print-notifications/Makefile
 plugins/rfkill/Makefile
 plugins/screensaver-proxy/Makefile
+plugins/sharing/Makefile
 plugins/smartcard/Makefile
 plugins/sound/Makefile
 plugins/wacom/Makefile
@@ -539,6 +560,7 @@ data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in
 data/org.gnome.settings-daemon.peripherals.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in
+data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in
 data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in
@@ -572,6 +594,7 @@ echo "
 
         LCMS DICT support:        ${have_new_lcms}
         IBus support:             ${enable_ibus}
+        NetworkManager support:   ${enable_network_manager}
         Libnotify support:        ${have_libnotify}
         Smartcard support:        ${have_smartcard_support}
         Cups support:             ${enable_cups}
