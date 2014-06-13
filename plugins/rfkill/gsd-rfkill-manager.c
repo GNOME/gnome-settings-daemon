@@ -37,6 +37,7 @@ struct GsdRfkillManagerPrivate
         GDBusNodeInfo           *introspection_data;
         guint                    name_id;
         GDBusConnection         *connection;
+        GCancellable            *cancellable;
 
         CcRfkillGlib            *rfkill;
         GHashTable              *killswitches;
@@ -50,7 +51,6 @@ struct GsdRfkillManagerPrivate
            in the USB bus to take external modems down, all
            from userspace.
         */
-        GCancellable            *nm_cancellable;
         GDBusProxy              *nm_client;
         gboolean                 wwan_enabled;
         GDBusObjectManager      *mm_client;
@@ -352,7 +352,7 @@ engine_set_airplane_mode (GsdRfkillManager *manager,
                                                   g_variant_new_boolean (!enable)),
                                    G_DBUS_CALL_FLAGS_NONE,
                                    -1, /* timeout */
-                                   manager->priv->nm_cancellable,
+                                   manager->priv->cancellable,
                                    set_wwan_complete, NULL);
         }
 
@@ -457,7 +457,8 @@ on_bus_gotten (GObject               *source_object,
 
         connection = g_bus_get_finish (res, &error);
         if (connection == NULL) {
-                g_warning ("Could not get session bus: %s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Could not get session bus: %s", error->message);
                 g_error_free (error);
                 return;
         }
@@ -620,7 +621,7 @@ gsd_rfkill_manager_start (GsdRfkillManager *manager,
                           G_CALLBACK (rfkill_changed), manager);
         cc_rfkill_glib_open (manager->priv->rfkill);
 
-        manager->priv->nm_cancellable = g_cancellable_new ();
+        manager->priv->cancellable = g_cancellable_new ();
 
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
                                   G_DBUS_PROXY_FLAGS_NONE,
@@ -628,7 +629,7 @@ gsd_rfkill_manager_start (GsdRfkillManager *manager,
                                   "org.freedesktop.NetworkManager",
                                   "/org/freedesktop/NetworkManager",
                                   "org.freedesktop.NetworkManager",
-                                  manager->priv->nm_cancellable,
+                                  manager->priv->cancellable,
                                   on_nm_proxy_gotten, g_object_ref (manager));
 
         g_dbus_object_manager_client_new_for_bus (G_BUS_TYPE_SYSTEM,
@@ -636,12 +637,12 @@ gsd_rfkill_manager_start (GsdRfkillManager *manager,
                                                   "org.freedesktop.ModemManager1",
                                                   "/org/freedesktop/ModemManager1",
                                                   NULL, NULL, NULL, /* get_proxy_type and closure */
-                                                  manager->priv->nm_cancellable,
+                                                  manager->priv->cancellable,
                                                   on_mm_proxy_gotten, g_object_ref (manager));
 
         /* Start process of owning a D-Bus name */
         g_bus_get (G_BUS_TYPE_SESSION,
-                   NULL,
+                   manager->priv->cancellable,
                    (GAsyncReadyCallback) on_bus_gotten,
                    manager);
 
@@ -668,9 +669,9 @@ gsd_rfkill_manager_stop (GsdRfkillManager *manager)
         g_clear_pointer (&p->killswitches, g_hash_table_destroy);
         g_clear_pointer (&p->bt_killswitches, g_hash_table_destroy);
 
-        if (p->nm_cancellable) {
-                g_cancellable_cancel (p->nm_cancellable);
-                g_clear_object (&p->nm_cancellable);
+        if (p->cancellable) {
+                g_cancellable_cancel (p->cancellable);
+                g_clear_object (&p->cancellable);
         }
 
         g_clear_object (&p->nm_client);
