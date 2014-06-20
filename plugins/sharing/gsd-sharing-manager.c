@@ -26,6 +26,7 @@
 #include <nm-device.h>
 #include <nm-remote-settings.h>
 #include <gio/gdesktopappinfo.h>
+#include <glib/gstdio.h>
 
 #include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
@@ -609,6 +610,31 @@ remote_settings_ready_cb (GObject      *source_object,
         manager->priv->remote_settings = remote_settings;
 }
 
+#define RYGEL_BUS_NAME "org.gnome.Rygel1"
+#define RYGEL_OBJECT_PATH "/org/gnome/Rygel1"
+#define RYGEL_INTERFACE_NAME "org.gnome.Rygel1"
+
+static void
+gsd_sharing_manager_disable_rygel (void)
+{
+	GDBusConnection *connection;
+	gchar *path;
+
+	path = g_build_filename (g_get_user_config_dir (), "autostart",
+				 "rygel.desktop", NULL);
+	if (g_file_test (path, G_FILE_TEST_IS_SYMLINK | G_FILE_TEST_IS_REGULAR))
+		g_unlink (path);
+	g_free (path);
+
+	connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
+	if (connection) {
+		g_dbus_connection_call (connection, RYGEL_BUS_NAME, RYGEL_OBJECT_PATH, RYGEL_INTERFACE_NAME,
+					"Shutdown", NULL, NULL, G_DBUS_CALL_FLAGS_NONE, -1,
+					NULL, NULL, NULL);
+	}
+	g_object_unref (connection);
+}
+
 gboolean
 gsd_sharing_manager_start (GsdSharingManager *manager,
                            GError           **error)
@@ -618,6 +644,8 @@ gsd_sharing_manager_start (GsdSharingManager *manager,
 
         manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
         g_assert (manager->priv->introspection_data != NULL);
+
+        gsd_sharing_manager_disable_rygel ();
 
         manager->priv->cancellable = g_cancellable_new ();
         nm_client_new_async (manager->priv->cancellable, nm_client_ready, manager);
