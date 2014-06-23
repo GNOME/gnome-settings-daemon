@@ -1626,19 +1626,15 @@ gsd_wacom_osd_window_realized (GtkWidget *widget,
 
 	/* Determine the monitor for that device and set appropriate fullscreen mode*/
 	monitor = gsd_wacom_device_get_display_monitor (osd_window->priv->pad);
+
 	if (monitor == GSD_WACOM_SET_ALL_MONITORS) {
-		/* Covers the entire screen */
-		osd_window->priv->screen_area.x = 0;
-		osd_window->priv->screen_area.y = 0;
-		osd_window->priv->screen_area.width = gdk_screen_get_width (screen);
-		osd_window->priv->screen_area.height = gdk_screen_get_height (screen);
-		gdk_screen_get_monitor_geometry (screen, 0, &osd_window->priv->monitor_area);
-		gdk_window_set_fullscreen_mode (gdk_window, GDK_FULLSCREEN_ON_ALL_MONITORS);
-	} else {
-		gdk_screen_get_monitor_geometry (screen, monitor, &osd_window->priv->screen_area);
-		osd_window->priv->monitor_area = osd_window->priv->screen_area;
-		gdk_window_set_fullscreen_mode (gdk_window, GDK_FULLSCREEN_ON_CURRENT_MONITOR);
+		/* Pick a monitor for the OSD to appear */
+		monitor = gdk_screen_get_primary_monitor (screen);
 	}
+
+	gdk_screen_get_monitor_geometry (screen, monitor, &osd_window->priv->screen_area);
+	osd_window->priv->monitor_area = osd_window->priv->screen_area;
+	gdk_window_set_fullscreen_mode (gdk_window, GDK_FULLSCREEN_ON_CURRENT_MONITOR);
 
 	gtk_window_set_default_size (GTK_WINDOW (osd_window),
 	                             osd_window->priv->screen_area.width,
