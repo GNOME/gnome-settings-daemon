@@ -1,4 +1,39 @@
 ==============
+Version 3.13.2
+==============
+
+- Add new sharing plugin
+
+General:
+- Implement size matching for touchscreens
+- Fix warnings in the display to input device mapper
+- Remove multiple screens support
+
+Power:
+- Fix wakeup not working with some keymaps
+- Fix restarting of the lid inhibitor check timer
+- Fix suspend happening again when resuming from suspend
+- Discretize the set backlight value fixing problems
+  on some harwdare with limited number of backlight settings
+- Fix initial backlight state in gnome-shell
+- Add sound notification on power plug/unplug
+
+Wacom:
+- Add Bluetooth OLED handling for Intuos4 WL
+- Fix OLED application for wired Intuos4
+- Make OSD always appear on a single monitor
+
+XSettings:
+- Honor changes to the enable-animations setting
+- Better support for GTK+ CSD titlebar button layout
+
+Housekeeping:
+- Fix a possible data loss when symlinks are created from /tmp
+
+Media-keys:
+- Fix possible crash disabling media-keys plugin
+
+==============
 Version 3.13.1
 ==============
 
