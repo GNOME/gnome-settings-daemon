@@ -114,6 +114,11 @@ gsd_sharing_manager_start_service (GsdSharingManager *manager,
         app = g_desktop_app_info_new (desktop);
         g_free (desktop);
 
+        if (!app) {
+                g_warning ("Could not find desktop file for service '%s'", service->name);
+                return;
+        }
+
         exec = g_app_info_get_commandline (G_APP_INFO (app));
         g_object_unref (app);
 
