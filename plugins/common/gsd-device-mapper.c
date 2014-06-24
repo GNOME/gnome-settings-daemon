@@ -46,7 +46,8 @@ typedef enum {
 	GSD_INPUT_IS_TOUCH             = 1 << 2, /* touch device, either touchscreen or tablet */
 	GSD_INPUT_IS_PEN               = 1 << 3, /* pen device, either touchscreen or tablet */
 	GSD_INPUT_IS_ERASER            = 1 << 4, /* eraser device, either touchscreen or tablet */
-	GSD_INPUT_IS_PAD               = 1 << 5  /* pad device, most usually in tablets */
+	GSD_INPUT_IS_PAD               = 1 << 5, /* pad device, most usually in tablets */
+	GSD_INPUT_IS_CURSOR            = 1 << 6  /* pointer-like device in tablets */
 } GsdInputCapabilityFlags;
 
 typedef enum {
@@ -861,6 +862,8 @@ input_info_update_capabilities_from_tool_type (GsdInputInfo *info)
 		info->capabilities |= GSD_INPUT_IS_ERASER;
 	else if (g_str_equal (tool_type, "PAD"))
 		info->capabilities |= GSD_INPUT_IS_PAD;
+	else if (g_str_equal (tool_type, "CURSOR"))
+		info->capabilities |= GSD_INPUT_IS_CURSOR;
 	else
 		return FALSE;
 
