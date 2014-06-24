@@ -1068,6 +1068,7 @@ device_added_cb (GdkDeviceManager *device_manager,
 
 	/* Map devices, the xrandr module handles touchscreens in general, so bypass these here */
 	if (type == WACOM_TYPE_PAD ||
+	    type == WACOM_TYPE_CURSOR ||
 	    type == WACOM_TYPE_STYLUS ||
 	    type == WACOM_TYPE_ERASER ||
 	    (type == WACOM_TYPE_TOUCH && !gsd_wacom_device_is_screen_tablet (device))) {
