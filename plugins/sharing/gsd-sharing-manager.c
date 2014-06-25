@@ -169,6 +169,13 @@ service_is_enabled_on_current_connection (GsdSharingManager *manager,
         g_strfreev (connections);
         return ret;
 }
+#else
+static gboolean
+service_is_enabled_on_current_connection (GsdSharingManager *manager,
+                                          ServiceInfo       *service)
+{
+        return FALSE;
+}
 #endif /* HAVE_NETWORK_MANAGER */
 
 static void
