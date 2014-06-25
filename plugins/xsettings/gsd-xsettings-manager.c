@@ -961,7 +961,7 @@ find_translation_entry (GSettings *settings, const char *key)
         guint i;
         char *schema;
 
-        g_object_get (settings, "schema", &schema, NULL);
+        g_object_get (settings, "schema-id", &schema, NULL);
 
         if (g_str_equal (schema, CLASSIC_WM_SETTINGS_SCHEMA)) {
               g_free (schema);
