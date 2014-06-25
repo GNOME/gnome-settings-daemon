@@ -351,8 +351,8 @@ gsd_sharing_manager_disable_service (GsdSharingManager  *manager,
 
 #ifdef HAVE_NETWORK_MANAGER
 static const char *
-get_type_for_connection_id (GsdSharingManager *manager,
-                            const char        *id)
+get_type_for_connection_uuid (GsdSharingManager *manager,
+                              const char        *uuid)
 {
         NMRemoteConnection *conn;
         const char *type;
@@ -360,7 +360,7 @@ get_type_for_connection_id (GsdSharingManager *manager,
         if (!manager->priv->remote_settings)
                 return NULL;
 
-        conn = nm_remote_settings_get_connection_by_id (manager->priv->remote_settings, id);
+        conn = nm_remote_settings_get_connection_by_uuid (manager->priv->remote_settings, uuid);
         if (!conn)
                 return NULL;
         type = nm_connection_get_connection_type (NM_CONNECTION (conn));
@@ -379,14 +379,14 @@ get_type_for_connection_id (GsdSharingManager *manager,
 #ifdef HAVE_NETWORK_MANAGER
 static gboolean
 connection_is_low_security (GsdSharingManager *manager,
-                            const char        *id)
+                            const char        *uuid)
 {
         NMRemoteConnection *conn;
 
         if (!manager->priv->remote_settings)
                 return TRUE;
 
-        conn = nm_remote_settings_get_connection_by_id (manager->priv->remote_settings, id);
+        conn = nm_remote_settings_get_connection_by_uuid (manager->priv->remote_settings, uuid);
         if (!conn)
                 return TRUE;
 
@@ -423,7 +423,7 @@ gsd_sharing_manager_list_networks (GsdSharingManager  *manager,
         for (i = 0; connections[i] != NULL; i++) {
                 const char *type;
 
-                type = get_type_for_connection_id (manager, connections[i]);
+                type = get_type_for_connection_uuid (manager, connections[i]);
                 if (!type)
                         continue;
 
@@ -574,7 +574,7 @@ primary_connection_changed (GObject    *gobject,
         g_clear_pointer (&manager->priv->carrier_type, g_free);
 
         if (a_con) {
-                manager->priv->current_network = g_strdup (nm_active_connection_get_id (a_con));
+                manager->priv->current_network = g_strdup (nm_active_connection_get_uuid (a_con));
                 manager->priv->carrier_type = g_strdup (nm_active_connection_get_connection_type (a_con));
         } else {
                 manager->priv->current_network = g_strdup ("");
