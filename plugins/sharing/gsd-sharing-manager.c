@@ -60,6 +60,7 @@ struct GsdSharingManagerPrivate
         GHashTable              *services;
 
         char                    *current_network;
+        char                    *current_network_name;
         char                    *carrier_type;
         GsdSharingStatus         sharing_status;
 };
@@ -72,6 +73,7 @@ static const gchar introspection_xml[] =
 "  <interface name='org.gnome.SettingsDaemon.Sharing'>"
 "    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='gsd_sharing_manager'/>"
 "    <property name='CurrentNetwork' type='s' access='read'/>"
+"    <property name='CurrentNetworkName' type='s' access='read'/>"
 "    <property name='CarrierType' type='s' access='read'/>"
 "    <property name='SharingStatus' type='u' access='read'/>"
 "    <method name='EnableService'>"
@@ -83,7 +85,7 @@ static const gchar introspection_xml[] =
 "    </method>"
 "    <method name='ListNetworks'>"
 "      <arg name='service-name' direction='in' type='s'/>"
-"      <arg name='networks' direction='out' type='a{ss}'/>"
+"      <arg name='networks' direction='out' type='a(sss)'/>"
 "    </method>"
 "  </interface>"
 "</node>";
@@ -225,6 +227,8 @@ properties_changed (GsdSharingManager *manager)
 
         g_variant_builder_add (&props_builder, "{sv}", "CurrentNetwork",
                                g_variant_new_string (manager->priv->current_network));
+        g_variant_builder_add (&props_builder, "{sv}", "CurrentNetworkName",
+                               g_variant_new_string (manager->priv->current_network_name));
         g_variant_builder_add (&props_builder, "{sv}", "CarrierType",
                                g_variant_new_string (manager->priv->carrier_type));
         g_variant_builder_add (&props_builder, "{sv}", "SharingStatus",
@@ -351,8 +355,9 @@ gsd_sharing_manager_disable_service (GsdSharingManager  *manager,
 
 #ifdef HAVE_NETWORK_MANAGER
 static const char *
-get_type_for_connection_uuid (GsdSharingManager *manager,
-                              const char        *uuid)
+get_type_and_name_for_connection_uuid (GsdSharingManager *manager,
+                                       const char        *uuid,
+                                       const char       **name)
 {
         NMRemoteConnection *conn;
         const char *type;
@@ -364,13 +369,15 @@ get_type_for_connection_uuid (GsdSharingManager *manager,
         if (!conn)
                 return NULL;
         type = nm_connection_get_connection_type (NM_CONNECTION (conn));
+        *name = nm_connection_get_id (NM_CONNECTION (conn));
 
         return type;
 }
 #else
 static const char *
-get_type_for_connection_id (GsdSharingManager *manager,
-                            const char        *id)
+get_type_and_name_for_connection_uuid (GsdSharingManager *manager,
+                                       const char        *id,
+                                       const char       **name)
 {
         return NULL;
 }
@@ -417,17 +424,17 @@ gsd_sharing_manager_list_networks (GsdSharingManager  *manager,
 
         connections = get_connections_for_service (manager, service_name);
 
-        g_variant_builder_init (&builder, G_VARIANT_TYPE ("(a{ss})"));
-        g_variant_builder_open (&builder, G_VARIANT_TYPE ("a{ss}"));
+        g_variant_builder_init (&builder, G_VARIANT_TYPE ("(a(sss))"));
+        g_variant_builder_open (&builder, G_VARIANT_TYPE ("a(sss)"));
 
         for (i = 0; connections[i] != NULL; i++) {
-                const char *type;
+                const char *type, *name;
 
-                type = get_type_for_connection_uuid (manager, connections[i]);
+                type = get_type_and_name_for_connection_uuid (manager, connections[i], &name);
                 if (!type)
                         continue;
 
-                g_variant_builder_add (&builder, "{ss}", connections[i], type);
+                g_variant_builder_add (&builder, "(sss)", connections[i], name, type);
         }
         g_strfreev (connections);
 
@@ -454,6 +461,10 @@ handle_get_property (GDBusConnection *connection,
 
         if (g_strcmp0 (property_name, "CurrentNetwork") == 0) {
                 return g_variant_new_string (manager->priv->current_network);
+        }
+
+        if (g_strcmp0 (property_name, "CurrentNetworkName") == 0) {
+                return g_variant_new_string (manager->priv->current_network_name);
         }
 
         if (g_strcmp0 (property_name, "CarrierType") == 0) {
@@ -571,13 +582,16 @@ primary_connection_changed (GObject    *gobject,
         a_con = nm_client_get_primary_connection (manager->priv->client);
 
         g_clear_pointer (&manager->priv->current_network, g_free);
+        g_clear_pointer (&manager->priv->current_network_name, g_free);
         g_clear_pointer (&manager->priv->carrier_type, g_free);
 
         if (a_con) {
                 manager->priv->current_network = g_strdup (nm_active_connection_get_uuid (a_con));
+                manager->priv->current_network_name = g_strdup (nm_active_connection_get_id (a_con));
                 manager->priv->carrier_type = g_strdup (nm_active_connection_get_connection_type (a_con));
         } else {
                 manager->priv->current_network = g_strdup ("");
+                manager->priv->current_network_name = g_strdup ("");
                 manager->priv->carrier_type = g_strdup ("");
         }
 
@@ -597,6 +611,7 @@ primary_connection_changed (GObject    *gobject,
         }
 
         g_debug ("current network: %s", manager->priv->current_network);
+        g_debug ("current network name: %s", manager->priv->current_network_name);
         g_debug ("conn type: %s", manager->priv->carrier_type);
         g_debug ("status: %d", manager->priv->sharing_status);
 
@@ -652,6 +667,7 @@ static void
 set_properties (GsdSharingManager *manager)
 {
                 manager->priv->current_network = g_strdup ("");
+                manager->priv->current_network_name = g_strdup ("");
                 manager->priv->carrier_type = g_strdup ("");
                 manager->priv->sharing_status = GSD_SHARING_STATUS_OFFLINE;
 }
@@ -743,6 +759,7 @@ gsd_sharing_manager_stop (GsdSharingManager *manager)
         g_clear_object (&manager->priv->connection);
 
         g_clear_pointer (&manager->priv->current_network, g_free);
+        g_clear_pointer (&manager->priv->current_network_name, g_free);
         g_clear_pointer (&manager->priv->carrier_type, g_free);
 }
 
@@ -776,6 +793,7 @@ gsd_sharing_manager_init (GsdSharingManager *manager)
 
         /* Default state */
         manager->priv->current_network = g_strdup ("");
+        manager->priv->current_network_name = g_strdup ("");
         manager->priv->carrier_type = g_strdup ("");
         manager->priv->sharing_status = GSD_SHARING_STATUS_OFFLINE;
 
