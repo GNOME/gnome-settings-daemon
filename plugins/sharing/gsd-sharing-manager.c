@@ -662,15 +662,6 @@ remote_settings_ready_cb (GObject      *source_object,
 
         manager->priv->remote_settings = remote_settings;
 }
-#else
-static void
-set_properties (GsdSharingManager *manager)
-{
-                manager->priv->current_network = g_strdup ("");
-                manager->priv->current_network_name = g_strdup ("");
-                manager->priv->carrier_type = g_strdup ("");
-                manager->priv->sharing_status = GSD_SHARING_STATUS_OFFLINE;
-}
 #endif /* HAVE_NETWORK_MANAGER */
 
 #define RYGEL_BUS_NAME "org.gnome.Rygel1"
@@ -718,8 +709,6 @@ gsd_sharing_manager_start (GsdSharingManager *manager,
 #ifdef HAVE_NETWORK_MANAGER
         nm_client_new_async (manager->priv->cancellable, nm_client_ready, manager);
         nm_remote_settings_new_async (NULL, manager->priv->cancellable, remote_settings_ready_cb, manager);
-#else
-        set_properties (manager);
 #endif /* HAVE_NETWORK_MANAGER */
 
         /* Start process of owning a D-Bus name */
