@@ -120,11 +120,11 @@ gsd_sharing_manager_start_service (GsdSharingManager *manager,
         }
 
         exec = g_app_info_get_commandline (G_APP_INFO (app));
-        g_object_unref (app);
 
         if (!g_shell_parse_argv (exec, NULL, &argvp, &error)) {
                 g_warning ("Could not parse command-line '%s': %s", exec, error->message);
                 g_error_free (error);
+                g_object_unref (app);
                 return;
         }
 
@@ -139,6 +139,7 @@ gsd_sharing_manager_start_service (GsdSharingManager *manager,
         }
 
         g_strfreev (argvp);
+        g_object_unref (app);
 }
 
 static void
