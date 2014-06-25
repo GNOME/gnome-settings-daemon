@@ -148,28 +148,24 @@ gsd_sharing_manager_start_service (GsdSharingManager *manager,
 }
 
 #ifdef HAVE_NETWORK_MANAGER
-static void
-gsd_sharing_manager_start_services (GsdSharingManager *manager)
+static gboolean
+service_is_enabled_on_current_connection (GsdSharingManager *manager,
+                                          ServiceInfo       *service)
 {
-        GList *services, *l;
-
-        services = g_hash_table_get_values (manager->priv->services);
-
-        for (l = services; l != NULL; l = l->next) {
-                ServiceInfo *service = l->data;
-                char **connections;
-                guint j;
-
-                connections = g_settings_get_strv (service->settings, "enabled-connections");
-                for (j = 0; connections[j] != NULL; j++) {
-                        if (g_strcmp0 (connections[j], manager->priv->current_network) == 0) {
-                                gsd_sharing_manager_start_service (manager, service);
-                                break;
-                        }
+        char **connections;
+        int j;
+        gboolean ret;
+        connections = g_settings_get_strv (service->settings, "enabled-connections");
+        ret = FALSE;
+        for (j = 0; connections[j] != NULL; j++) {
+                if (g_strcmp0 (connections[j], manager->priv->current_network) == 0) {
+                        ret = TRUE;
+                        break;
                 }
-                g_strfreev (connections);
         }
-        g_list_free (services);
+
+        g_strfreev (connections);
+        return ret;
 }
 #endif /* HAVE_NETWORK_MANAGER */
 
@@ -190,7 +186,7 @@ gsd_sharing_manager_stop_service (GsdSharingManager *manager,
 }
 
 static void
-gsd_sharing_manager_stop_services (GsdSharingManager *manager)
+gsd_sharing_manager_sync_services (GsdSharingManager *manager)
 {
         GList *services, *l;
 
@@ -198,7 +194,18 @@ gsd_sharing_manager_stop_services (GsdSharingManager *manager)
 
         for (l = services; l != NULL; l = l->next) {
                 ServiceInfo *service = l->data;
-                gsd_sharing_manager_stop_service (manager, service);
+                gboolean should_be_started = FALSE;
+
+                if (manager->priv->sharing_status == GSD_SHARING_STATUS_AVAILABLE &&
+                    service_is_enabled_on_current_connection (manager, service))
+                        should_be_started = TRUE;
+
+                if (service->started != should_be_started) {
+                        if (service->started)
+                                gsd_sharing_manager_stop_service (manager, service);
+                        else
+                                gsd_sharing_manager_start_service (manager, service);
+                }
         }
         g_list_free (services);
 }
@@ -602,11 +609,7 @@ primary_connection_changed (GObject    *gobject,
         g_debug ("status: %d", manager->priv->sharing_status);
 
         properties_changed (manager);
-
-        if (manager->priv->sharing_status == GSD_SHARING_STATUS_AVAILABLE)
-                gsd_sharing_manager_start_services (manager);
-        else
-                gsd_sharing_manager_stop_services (manager);
+        gsd_sharing_manager_sync_services (manager);
 }
 
 static void
@@ -718,7 +721,8 @@ gsd_sharing_manager_stop (GsdSharingManager *manager)
 {
         g_debug ("Stopping sharing manager");
 
-        gsd_sharing_manager_stop_services (manager);
+        manager->priv->sharing_status = GSD_SHARING_STATUS_OFFLINE;
+        gsd_sharing_manager_sync_services (manager);
 
         if (manager->priv->cancellable) {
                 g_cancellable_cancel (manager->priv->cancellable);
