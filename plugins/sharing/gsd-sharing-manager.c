@@ -666,9 +666,10 @@ gsd_sharing_manager_disable_rygel (void)
 
 	path = g_build_filename (g_get_user_config_dir (), "autostart",
 				 "rygel.desktop", NULL);
-	if (g_file_test (path, G_FILE_TEST_IS_SYMLINK | G_FILE_TEST_IS_REGULAR))
-		g_unlink (path);
-	g_free (path);
+	if (!g_file_test (path, G_FILE_TEST_IS_SYMLINK | G_FILE_TEST_IS_REGULAR))
+                goto out;
+
+        g_unlink (path);
 
 	connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
 	if (connection) {
@@ -677,6 +678,9 @@ gsd_sharing_manager_disable_rygel (void)
 					NULL, NULL, NULL);
 	}
 	g_object_unref (connection);
+
+ out:
+        g_free (path);
 }
 
 gboolean
