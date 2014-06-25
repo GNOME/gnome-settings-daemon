@@ -584,7 +584,9 @@ primary_connection_changed (GObject    *gobject,
 
         if (!a_con) {
                 manager->priv->sharing_status = GSD_SHARING_STATUS_OFFLINE;
-        } else if (g_str_equal (manager->priv->carrier_type, "bluetooth")) {
+        } else if (g_str_equal (manager->priv->carrier_type, "bluetooth") ||
+                   g_str_equal (manager->priv->carrier_type, "gsm") ||
+                   g_str_equal (manager->priv->carrier_type, "cdma")) {
                 manager->priv->sharing_status = GSD_SHARING_STATUS_DISABLED_MOBILE_BROADBAND;
         } else if (g_str_equal (manager->priv->carrier_type, "802-11-wireless")) {
                 if (connection_is_low_security (manager, manager->priv->current_network))
