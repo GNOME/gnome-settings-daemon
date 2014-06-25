@@ -21,12 +21,15 @@
 
 #include <locale.h>
 #include <glib.h>
+#include <gio/gio.h>
+#include <gio/gdesktopappinfo.h>
+#include <glib/gstdio.h>
 
+#ifdef HAVE_NETWORK_MANAGER
 #include <nm-client.h>
 #include <nm-device.h>
 #include <nm-remote-settings.h>
-#include <gio/gdesktopappinfo.h>
-#include <glib/gstdio.h>
+#endif /* HAVE_NETWORK_MANAGER */
 
 #include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
@@ -49,8 +52,10 @@ struct GsdSharingManagerPrivate
         GDBusConnection         *connection;
 
         GCancellable            *cancellable;
+#ifdef HAVE_NETWORK_MANAGER
         NMClient                *client;
         NMRemoteSettings        *remote_settings;
+#endif /* HAVE_NETWORK_MANAGER */
 
         GHashTable              *services;
 
@@ -142,6 +147,7 @@ gsd_sharing_manager_start_service (GsdSharingManager *manager,
         g_object_unref (app);
 }
 
+#ifdef HAVE_NETWORK_MANAGER
 static void
 gsd_sharing_manager_start_services (GsdSharingManager *manager)
 {
@@ -165,6 +171,7 @@ gsd_sharing_manager_start_services (GsdSharingManager *manager)
         }
         g_list_free (services);
 }
+#endif /* HAVE_NETWORK_MANAGER */
 
 static void
 gsd_sharing_manager_stop_service (GsdSharingManager *manager,
@@ -196,6 +203,7 @@ gsd_sharing_manager_stop_services (GsdSharingManager *manager)
         g_list_free (services);
 }
 
+#ifdef HAVE_NETWORK_MANAGER
 static void
 properties_changed (GsdSharingManager *manager)
 {
@@ -236,6 +244,15 @@ get_connections_for_service (GsdSharingManager *manager,
         service = g_hash_table_lookup (manager->priv->services, service_name);
         return g_settings_get_strv (service->settings, "enabled-connections");
 }
+#else
+static char **
+get_connections_for_service (GsdSharingManager *manager,
+                             const char        *service_name)
+{
+        const char * const * connections [] = { NULL };
+        return g_strdupv ((char **) connections);
+}
+#endif /* HAVE_NETWORK_MANAGER */
 
 static gboolean
 check_service (GsdSharingManager  *manager,
@@ -325,6 +342,7 @@ gsd_sharing_manager_disable_service (GsdSharingManager  *manager,
         return TRUE;
 }
 
+#ifdef HAVE_NETWORK_MANAGER
 static const char *
 get_type_for_connection_id (GsdSharingManager *manager,
                             const char        *id)
@@ -342,7 +360,16 @@ get_type_for_connection_id (GsdSharingManager *manager,
 
         return type;
 }
+#else
+static const char *
+get_type_for_connection_id (GsdSharingManager *manager,
+                            const char        *id)
+{
+        return NULL;
+}
+#endif /* HAVE_NETWORK_MANAGER */
 
+#ifdef HAVE_NETWORK_MANAGER
 static gboolean
 connection_is_low_security (GsdSharingManager *manager,
                             const char        *id)
@@ -360,6 +387,7 @@ connection_is_low_security (GsdSharingManager *manager,
          * XXX: Also do this for WEP networks? */
         return (nm_connection_get_setting_wireless_security (NM_CONNECTION (conn)) == NULL);
 }
+#endif /* HAVE_NETWORK_MANAGER */
 
 static GVariant *
 gsd_sharing_manager_list_networks (GsdSharingManager  *manager,
@@ -373,10 +401,12 @@ gsd_sharing_manager_list_networks (GsdSharingManager  *manager,
         if (!check_service (manager, service_name, error))
                 return NULL;
 
+#ifdef HAVE_NETWORK_MANAGER
         if (!manager->priv->remote_settings) {
                 g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED, "Not ready yet");
                 return NULL;
         }
+#endif /* HAVE_NETWORK_MANAGER */
 
         connections = get_connections_for_service (manager, service_name);
 
@@ -412,10 +442,8 @@ handle_get_property (GDBusConnection *connection,
 
         /* Check session pointer as a proxy for whether the manager is in the
            start or stop state */
-        if (manager->priv->connection == NULL ||
-            manager->priv->client == NULL) {
+        if (manager->priv->connection == NULL)
                 return NULL;
-        }
 
         if (g_strcmp0 (property_name, "CurrentNetwork") == 0) {
                 return g_variant_new_string (manager->priv->current_network);
@@ -448,10 +476,8 @@ handle_method_call (GDBusConnection       *connection,
 
         /* Check session pointer as a proxy for whether the manager is in the
            start or stop state */
-        if (manager->priv->connection == NULL ||
-            manager->priv->client == NULL) {
+        if (manager->priv->connection == NULL)
                 return;
-        }
 
         if (g_strcmp0 (method_name, "EnableService") == 0) {
                 const char *service;
@@ -526,6 +552,15 @@ on_bus_gotten (GObject               *source_object,
                                                                NULL);
 }
 
+static void
+set_properties (GsdSharingManager *manager)
+{
+                manager->priv->current_network = g_strdup ("");
+                manager->priv->carrier_type = g_strdup ("");
+                manager->priv->sharing_status = GSD_SHARING_STATUS_OFFLINE;
+}
+
+#ifdef HAVE_NETWORK_MANAGER
 static void
 primary_connection_changed (GObject    *gobject,
                             GParamSpec *pspec,
@@ -615,6 +650,7 @@ remote_settings_ready_cb (GObject      *source_object,
 
         manager->priv->remote_settings = remote_settings;
 }
+#endif /* HAVE_NETWORK_MANAGER */
 
 #define RYGEL_BUS_NAME "org.gnome.Rygel1"
 #define RYGEL_OBJECT_PATH "/org/gnome/Rygel1"
@@ -654,8 +690,12 @@ gsd_sharing_manager_start (GsdSharingManager *manager,
         gsd_sharing_manager_disable_rygel ();
 
         manager->priv->cancellable = g_cancellable_new ();
+#ifdef HAVE_NETWORK_MANAGER
         nm_client_new_async (manager->priv->cancellable, nm_client_ready, manager);
         nm_remote_settings_new_async (NULL, manager->priv->cancellable, remote_settings_ready_cb, manager);
+#else
+        set_properties (manager);
+#endif /* HAVE_NETWORK_MANAGER */
 
         /* Start process of owning a D-Bus name */
         g_bus_get (G_BUS_TYPE_SESSION,
@@ -678,8 +718,11 @@ gsd_sharing_manager_stop (GsdSharingManager *manager)
                 g_cancellable_cancel (manager->priv->cancellable);
                 g_clear_object (&manager->priv->cancellable);
         }
+
+#ifdef HAVE_NETWORK_MANAGER
         g_clear_object (&manager->priv->client);
         g_clear_object (&manager->priv->remote_settings);
+#endif /* HAVE_NETWORK_MANAGER */
 
         if (manager->priv->name_id != 0) {
                 g_bus_unown_name (manager->priv->name_id);
