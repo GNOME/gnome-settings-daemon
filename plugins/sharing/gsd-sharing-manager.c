@@ -559,14 +559,6 @@ on_bus_gotten (GObject               *source_object,
                                                                NULL);
 }
 
-static void
-set_properties (GsdSharingManager *manager)
-{
-                manager->priv->current_network = g_strdup ("");
-                manager->priv->carrier_type = g_strdup ("");
-                manager->priv->sharing_status = GSD_SHARING_STATUS_OFFLINE;
-}
-
 #ifdef HAVE_NETWORK_MANAGER
 static void
 primary_connection_changed (GObject    *gobject,
@@ -654,6 +646,14 @@ remote_settings_ready_cb (GObject      *source_object,
         }
 
         manager->priv->remote_settings = remote_settings;
+}
+#else
+static void
+set_properties (GsdSharingManager *manager)
+{
+                manager->priv->current_network = g_strdup ("");
+                manager->priv->carrier_type = g_strdup ("");
+                manager->priv->sharing_status = GSD_SHARING_STATUS_OFFLINE;
 }
 #endif /* HAVE_NETWORK_MANAGER */
 
