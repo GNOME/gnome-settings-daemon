@@ -297,6 +297,7 @@ change_state (GsdUpdatesRefresh *refresh)
         /* no point continuing if we have no network */
         if (!refresh->priv->network_active) {
                 g_debug ("not when no network");
+                refresh->priv->timeout_id = 0;
                 return FALSE;
         }
 
@@ -305,6 +306,7 @@ change_state (GsdUpdatesRefresh *refresh)
                                       GSD_SETTINGS_UPDATE_BATTERY);
         if (!ret && refresh->priv->on_battery) {
                 g_debug ("not when on battery");
+                refresh->priv->timeout_id = 0;
                 return FALSE;
         }
 
