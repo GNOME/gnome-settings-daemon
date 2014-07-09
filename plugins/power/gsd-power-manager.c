@@ -2443,8 +2443,10 @@ gsd_power_manager_stop (GsdPowerManager *manager)
         g_clear_object (&manager->priv->logind_proxy);
         g_clear_object (&manager->priv->rr_screen);
 
-        g_ptr_array_unref (manager->priv->devices_array);
-        manager->priv->devices_array = NULL;
+        if (manager->priv->devices_array != NULL) {
+                g_ptr_array_unref (manager->priv->devices_array);
+                manager->priv->devices_array = NULL;
+        }
         g_clear_object (&manager->priv->device_composite);
 
         g_clear_object (&manager->priv->screensaver_proxy);
