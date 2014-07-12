@@ -434,7 +434,14 @@ delete_subdir_check_symlink (GObject      *source,
         type = g_file_info_get_file_type (info);
         g_object_unref (info);
 
-        if (type == G_FILE_TYPE_DIRECTORY) {
+        if (type == G_FILE_TYPE_SYMBOLIC_LINK) {
+                if (should_purge_file (data->file, data->cancellable, data->old)) {
+                        g_debug ("Purging %s leaf node", data->name);
+                        if (!data->dry_run) {
+                                g_file_delete (data->file, data->cancellable, NULL);
+                        }
+                }
+        } else {
                 g_file_enumerate_children_async (data->file,
                                                  G_FILE_ATTRIBUTE_STANDARD_NAME ","
                                                  G_FILE_ATTRIBUTE_STANDARD_TYPE,
@@ -443,13 +450,6 @@ delete_subdir_check_symlink (GObject      *source,
                                                  data->cancellable,
                                                  delete_subdir,
                                                  delete_data_ref (data));
-        } else if (type == G_FILE_TYPE_SYMBOLIC_LINK) {
-                if (should_purge_file (data->file, data->cancellable, data->old)) {
-                        g_debug ("Purging %s leaf node", data->name);
-                        if (!data->dry_run) {
-                                g_file_delete (data->file, data->cancellable, NULL);
-                        }
-                }
         }
         delete_data_unref (data);
 }
