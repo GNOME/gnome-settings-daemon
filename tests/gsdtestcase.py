@@ -207,12 +207,15 @@ class GSDTestCase(dbusmock.DBusTestCase):
 
         # some distros like Fedora install Xorg as suid root; copy it into our
         # workdir to drop the suid bit and run it as user
-        out = GLib.find_program_in_path ('Xorg')
-        if not out:
-            sys.stderr.write('ERROR: Xorg not installed\n')
-            sys.exit(1)
-        xorg = os.path.join(klass.workdir, 'Xorg')
-        shutil.copy(out, xorg)
+        if GLib.file_test('/usr/libexec/Xorg.bin', GLib.FileTest.IS_EXECUTABLE):
+            xorg = '/usr/libexec/Xorg.bin'
+        else:
+            out = GLib.find_program_in_path ('Xorg')
+            if not out:
+                sys.stderr.write('ERROR: Xorg not installed\n')
+                sys.exit(1)
+            xorg = os.path.join(klass.workdir, 'Xorg')
+            shutil.copy(out, xorg)
 
         display_num = 99
 
