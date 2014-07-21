@@ -458,6 +458,9 @@ gsd_orientation_manager_stop (GsdOrientationManager *manager)
 
         g_debug ("Stopping orientation manager");
 
+        if (manager->priv->name_id != 0)
+                g_bus_unown_name (manager->priv->name_id);
+
         g_clear_object (&p->settings);
         g_clear_pointer (&p->sysfs_path, g_free);
         g_clear_pointer (&p->introspection_data, g_dbus_node_info_unref);
@@ -478,9 +481,6 @@ gsd_orientation_manager_finalize (GObject *object)
 
         if (orientation_manager->priv->start_idle_id != 0)
                 g_source_remove (orientation_manager->priv->start_idle_id);
-
-        if (orientation_manager->priv->name_id != 0)
-                g_bus_unown_name (orientation_manager->priv->name_id);
 
         G_OBJECT_CLASS (gsd_orientation_manager_parent_class)->finalize (object);
 }
