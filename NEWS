@@ -1,4 +1,36 @@
 ==============
+Version 3.13.4
+==============
+
+General:
+- Fix crash when a plugin failed to start
+- Several code cleanups
+- Updated translations
+
+A11Y Keyboard:
+- Make sticky and slow keys notifications more difficult to miss
+
+Housekeeping:
+- Fix regular files not getting deleted from the Trash
+
+Media-keys:
+- Set the keyring environment variables on all processes that we
+  launch
+
+Orientation:
+- Fix plugin on MS Surface devices
+
+Power:
+- Fix crash when logind isn't available
+
+Sharing:
+- Fix compilation without NetworkManager
+
+Wacom:
+- Handle "cursor" tablet devices so that they get properly mapped for
+  different orientations
+
+==============
 Version 3.13.3
 ==============
 
