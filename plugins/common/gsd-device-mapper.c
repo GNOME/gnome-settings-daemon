@@ -500,6 +500,9 @@ input_info_set_output (GsdInputInfo  *input,
 static GsdOutputInfo *
 input_info_get_output (GsdInputInfo *input)
 {
+	if (!input)
+		return NULL;
+
 	if (input->output)
 		return input->output;
 
