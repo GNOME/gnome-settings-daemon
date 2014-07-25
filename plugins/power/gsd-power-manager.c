@@ -37,6 +37,7 @@
 #include <libgnome-desktop/gnome-idle-monitor.h>
 
 #include <gsd-input-helper.h>
+#include <gsd-device-mapper.h>
 
 #include "gsd-power-constants.h"
 #include "gsm-inhibitor-flag.h"
@@ -128,6 +129,7 @@ struct GsdPowerManagerPrivate
         /* Screensaver */
         GsdScreenSaver          *screensaver_proxy;
         gboolean                 screensaver_active;
+        GList                   *disabled_devices;
 
         /* State */
         gboolean                 lid_is_present;
@@ -915,6 +917,47 @@ action_hibernate (GsdPowerManager *manager)
 }
 
 static void
+screen_devices_disable (GsdPowerManager *manager)
+{
+        GsdDeviceMapper *mapper;
+        GdkDeviceManager *device_manager;
+        GList *devices, *l, *to_change;
+
+        mapper = gsd_device_mapper_get ();
+        device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
+        devices = gdk_device_manager_list_devices (device_manager, GDK_DEVICE_TYPE_SLAVE);
+        to_change = NULL;
+        for (l = devices; l != NULL; l = l->next ) {
+                GdkDevice *device = l->data;
+
+                if (gsd_device_mapper_get_device_output (mapper, device) != NULL) {
+                        int device_id;
+
+                        g_object_get (device, "device-id", &device_id, NULL);
+                        to_change = g_list_prepend (to_change, GINT_TO_POINTER (device_id));
+                }
+        }
+        g_list_free (devices);
+
+        for (l = to_change; l != NULL; l = l->next)
+                set_device_enabled (GPOINTER_TO_INT (l->data), FALSE);
+
+        g_clear_pointer (&manager->priv->disabled_devices, g_list_free);
+        manager->priv->disabled_devices = to_change;
+}
+
+static void
+screen_devices_enable (GsdPowerManager *manager)
+{
+        GList *l;
+
+        for (l = manager->priv->disabled_devices; l != NULL; l = l->next)
+                set_device_enabled (GPOINTER_TO_INT (l->data), TRUE);
+
+        g_clear_pointer (&manager->priv->disabled_devices, g_list_free);
+}
+
+static void
 backlight_enable (GsdPowerManager *manager)
 {
         gboolean ret;
@@ -928,6 +971,8 @@ backlight_enable (GsdPowerManager *manager)
                            error->message);
                 g_error_free (error);
         }
+
+        screen_devices_enable (manager);
 
         g_debug ("TESTSUITE: Unblanked screen");
 }
@@ -946,6 +991,9 @@ backlight_disable (GsdPowerManager *manager)
                            error->message);
                 g_error_free (error);
         }
+
+        screen_devices_disable (manager);
+
         g_debug ("TESTSUITE: Blanked screen");
 }
 
@@ -2406,6 +2454,8 @@ void
 gsd_power_manager_stop (GsdPowerManager *manager)
 {
         g_debug ("Stopping power manager");
+
+        screen_devices_enable (manager);
 
         if (manager->priv->inhibit_lid_switch_timer_id != 0) {
                 g_source_remove (manager->priv->inhibit_lid_switch_timer_id);
