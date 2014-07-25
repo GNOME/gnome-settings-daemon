@@ -178,6 +178,10 @@ struct GsdMediaKeysManagerPrivate
         gboolean         screencast_recording;
         GCancellable    *screencast_cancellable;
 
+        /* Rotation */
+        guint            orientation_watch_id;
+        gboolean         orientation_available;
+
         /* systemd stuff */
         GDBusProxy      *logind_proxy;
         gint             inhibit_keys_fd;
@@ -1660,11 +1664,35 @@ do_video_rotate_action (GsdMediaKeysManager *manager,
 }
 
 static void
+orientation_appeared_cb (GDBusConnection *connection,
+                         const gchar     *name,
+                         const gchar     *name_owner,
+                         gpointer         user_data)
+{
+        GsdMediaKeysManager *manager = user_data;
+
+        manager->priv->orientation_available = TRUE;
+}
+
+static void
+orientation_disappeared_cb (GDBusConnection *connection,
+                            const gchar     *name,
+                            gpointer         user_data)
+{
+        GsdMediaKeysManager *manager = user_data;
+
+        manager->priv->orientation_available = FALSE;
+}
+
+static void
 do_video_rotate_lock_action (GsdMediaKeysManager *manager,
                              gint64               timestamp)
 {
         GSettings *settings;
         gboolean locked;
+
+        if (!manager->priv->orientation_available)
+                return;
 
         settings = g_settings_new ("org.gnome.settings-daemon.peripherals.touchscreen");
         locked = !g_settings_get_boolean (settings, "orientation-lock");
@@ -2386,6 +2414,14 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
         g_debug ("Starting mpris controller");
         manager->priv->mpris_controller = mpris_controller_new ();
 
+        /* Rotation */
+        manager->priv->orientation_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
+                                                                "org.gnome.SettingsDaemon.Orientation",
+                                                                G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                                                orientation_appeared_cb,
+                                                                orientation_disappeared_cb,
+                                                                manager, NULL);
+
         gnome_settings_profile_end (NULL);
 
         manager->priv->start_idle_id = 0;
@@ -2432,6 +2468,11 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         if (manager->priv->gtksettings != NULL) {
                 g_signal_handlers_disconnect_by_func (manager->priv->gtksettings, sound_theme_changed, manager);
                 manager->priv->gtksettings = NULL;
+        }
+
+        if (manager->priv->orientation_watch_id > 0) {
+                g_bus_unwatch_name (manager->priv->orientation_watch_id);
+                manager->priv->orientation_watch_id = 0;
         }
 
         g_clear_pointer (&manager->priv->ca, ca_context_destroy);
