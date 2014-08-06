@@ -532,7 +532,6 @@ backlight_get_percentage (GnomeRRScreen *rr_screen, GError **error)
         GnomeRROutput *output;
         gint now;
         gint value = -1;
-        gint min = 0;
         gint max;
 
         /* prefer xbacklight */
@@ -552,7 +551,7 @@ backlight_get_percentage (GnomeRRScreen *rr_screen, GError **error)
         now = backlight_helper_get_value ("get-brightness", error);
         if (now < 0)
                 goto out;
-        value = ABS_TO_PERCENTAGE (min, max, now);
+        value = ABS_TO_PERCENTAGE (0, max, now);
 out:
         return value;
 }
@@ -584,7 +583,6 @@ backlight_set_percentage (GnomeRRScreen *rr_screen,
 {
         GnomeRROutput *output;
         gboolean ret = FALSE;
-        gint min = 0;
         gint max;
         guint discrete;
 
@@ -601,12 +599,12 @@ backlight_set_percentage (GnomeRRScreen *rr_screen,
         max = backlight_helper_get_value ("get-max-brightness", error);
         if (max < 0)
                 return ret;
-        discrete = PERCENTAGE_TO_ABS (min, max, *value);
+        discrete = PERCENTAGE_TO_ABS (0, max, *value);
         ret = backlight_helper_set_value ("set-brightness",
                                           discrete,
                                           error);
         if (ret)
-                *value = ABS_TO_PERCENTAGE (min, max, discrete);
+                *value = ABS_TO_PERCENTAGE (0, max, discrete);
 
         return ret;
 }
@@ -617,7 +615,6 @@ backlight_step_up (GnomeRRScreen *rr_screen, GError **error)
         GnomeRROutput *output;
         gboolean ret = FALSE;
         gint percentage_value = -1;
-        gint min = 0;
         gint max;
         gint now;
         gint step;
@@ -637,18 +634,17 @@ backlight_step_up (GnomeRRScreen *rr_screen, GError **error)
                                      gnome_rr_output_get_name (output));
                         return percentage_value;
                 }
-                min = 0;
                 max = 100;
                 now = gnome_rr_output_get_backlight (output);
                 if (now < 0)
                        return percentage_value;
-                step = MAX(gnome_rr_output_get_min_backlight_step (output), BRIGHTNESS_STEP_AMOUNT(max - min + 1));
+                step = MAX(gnome_rr_output_get_min_backlight_step (output), BRIGHTNESS_STEP_AMOUNT(max + 1));
                 discrete = MIN (now + step, max);
                 ret = gnome_rr_output_set_backlight (output,
                                                      discrete,
                                                      error);
                 if (ret)
-                        percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
+                        percentage_value = ABS_TO_PERCENTAGE (0, max, discrete);
                 return percentage_value;
         }
 
@@ -659,13 +655,13 @@ backlight_step_up (GnomeRRScreen *rr_screen, GError **error)
         max = backlight_helper_get_value ("get-max-brightness", error);
         if (max < 0)
                 return percentage_value;
-        step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
+        step = BRIGHTNESS_STEP_AMOUNT (max + 1);
         discrete = MIN (now + step, max);
         ret = backlight_helper_set_value ("set-brightness",
                                           discrete,
                                           error);
         if (ret)
-                percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
+                percentage_value = ABS_TO_PERCENTAGE (0, max, discrete);
 
         return percentage_value;
 }
@@ -676,7 +672,6 @@ backlight_step_down (GnomeRRScreen *rr_screen, GError **error)
         GnomeRROutput *output;
         gboolean ret = FALSE;
         gint percentage_value = -1;
-        gint min = 0;
         gint max;
         gint now;
         gint step;
@@ -696,18 +691,17 @@ backlight_step_down (GnomeRRScreen *rr_screen, GError **error)
                                      gnome_rr_output_get_name (output));
                         return percentage_value;
                 }
-                min = 0;
                 max = 100;
                 now = gnome_rr_output_get_backlight (output);
                 if (now < 0)
                        return percentage_value;
-                step = MAX (gnome_rr_output_get_min_backlight_step (output), BRIGHTNESS_STEP_AMOUNT (max - min + 1));
+                step = MAX (gnome_rr_output_get_min_backlight_step (output), BRIGHTNESS_STEP_AMOUNT (max + 1));
                 discrete = MAX (now - step, 0);
                 ret = gnome_rr_output_set_backlight (output,
                                                      discrete,
                                                      error);
                 if (ret)
-                        percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
+                        percentage_value = ABS_TO_PERCENTAGE (0, max, discrete);
                 return percentage_value;
         }
 
@@ -718,13 +712,13 @@ backlight_step_down (GnomeRRScreen *rr_screen, GError **error)
         max = backlight_helper_get_value ("get-max-brightness", error);
         if (max < 0)
                 return percentage_value;
-        step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
+        step = BRIGHTNESS_STEP_AMOUNT (max + 1);
         discrete = MAX (now - step, 0);
         ret = backlight_helper_set_value ("set-brightness",
                                           discrete,
                                           error);
         if (ret)
-                percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
+                percentage_value = ABS_TO_PERCENTAGE (0, max, discrete);
 
         return percentage_value;
 }
