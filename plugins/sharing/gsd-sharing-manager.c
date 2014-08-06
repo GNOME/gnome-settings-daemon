@@ -596,6 +596,8 @@ primary_connection_changed (GObject    *gobject,
                 manager->priv->current_network = g_strdup (nm_active_connection_get_uuid (a_con));
                 manager->priv->current_network_name = g_strdup (nm_active_connection_get_id (a_con));
                 manager->priv->carrier_type = g_strdup (nm_active_connection_get_connection_type (a_con));
+                if (manager->priv->carrier_type == NULL)
+                        manager->priv->carrier_type = g_strdup ("");
         } else {
                 manager->priv->current_network = g_strdup ("");
                 manager->priv->current_network_name = g_strdup ("");
@@ -603,6 +605,9 @@ primary_connection_changed (GObject    *gobject,
         }
 
         if (!a_con) {
+                manager->priv->sharing_status = GSD_SHARING_STATUS_OFFLINE;
+        } else if (*(manager->priv->carrier_type) == '\0') {
+                /* Missing carrier type information? */
                 manager->priv->sharing_status = GSD_SHARING_STATUS_OFFLINE;
         } else if (g_str_equal (manager->priv->carrier_type, "bluetooth") ||
                    g_str_equal (manager->priv->carrier_type, "gsm") ||
