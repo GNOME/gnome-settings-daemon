@@ -65,6 +65,57 @@ oled_scramble_icon (guchar *image)
 }
 
 static void
+oled_bt_scramble_icon (guchar *input_image)
+{
+	unsigned char image[BT_BUF_LEN];
+	unsigned mask;
+	unsigned s1;
+	unsigned s2;
+	unsigned r1 ;
+	unsigned r2 ;
+	unsigned r;
+	unsigned char buf[256];
+	int i, w, x, y, z;
+
+	for (i = 0; i < BT_BUF_LEN; i++)
+		image[i] = input_image[i];
+
+	for (x = 0; x < 32; x++) {
+		for (y = 0; y < 8; y++)
+			buf[(8 * x) + (7 - y)] = image[(8 * x) + y];
+	}
+
+	/* Change 76543210 into GECA6420 as required by Intuos4 WL
+	 *        HGFEDCBA      HFDB7531
+	 */
+	for (x = 0; x < 4; x++) {
+		for (y = 0; y < 4; y++) {
+			for (z = 0; z < 8; z++) {
+				mask = 0x0001;
+				r1 = 0;
+				r2 = 0;
+				i = (x << 6) + (y << 4) + z;
+				s1 = buf[i];
+				s2 = buf[i+8];
+				for (w = 0; w < 8; w++) {
+					r1 |= (s1 & mask);
+					r2 |= (s2 & mask);
+					s1 <<= 1;
+					s2 <<= 1;
+					mask <<= 2;
+				}
+				r = r1 | (r2 << 1);
+				i = (x << 6) + (y << 4) + (z << 1);
+				image[i] = 0xFF & r;
+				image[i+1] = (0xFF00 & r) >> 8;
+			}
+		}
+	}
+	for (i = 0; i < BT_BUF_LEN; i++)
+		input_image[i] = image[i];
+}
+
+static void
 gsd_wacom_oled_convert_1_bit (guchar *image)
 {
 	guchar buf[BT_BUF_LEN];
@@ -101,6 +152,12 @@ gsd_wacom_oled_prepare_buf (guchar *image, GsdWacomOledType type)
 		/* ... but for bluetooth it has to be converted to 1 bit colour instead of scrambling */
 		gsd_wacom_oled_convert_1_bit (image);
 		len = BT_BUF_LEN;
+		break;
+	case GSD_WACOM_OLED_TYPE_RAW_BLUETOOTH:
+		/* Image has also to be scrambled for devices connected over BT using the raw API ... */
+		gsd_wacom_oled_convert_1_bit (image);
+		len = BT_BUF_LEN;
+		oled_bt_scramble_icon (image);
 		break;
 	default:
 		g_assert_not_reached ();
@@ -228,7 +285,7 @@ get_oled_sys_path (GUdevClient      *client,
 		filename = get_oled_sysfs_path (parent, button_num);
 		g_object_unref (parent);
 		if(g_file_test (filename, G_FILE_TEST_EXISTS)) {
-			*type = GSD_WACOM_OLED_TYPE_USB;
+			*type = usb ? GSD_WACOM_OLED_TYPE_USB : GSD_WACOM_OLED_TYPE_RAW_BLUETOOTH;
 			return filename;
 		}
 		g_clear_pointer (&filename, g_free);
