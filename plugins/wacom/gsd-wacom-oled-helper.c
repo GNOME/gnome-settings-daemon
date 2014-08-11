@@ -64,35 +64,45 @@ oled_scramble_icon (guchar *image)
 	}
 }
 
-static int
-gsd_wacom_oled_prepare_buf (guchar *image, GsdWacomOledType type)
+static void
+gsd_wacom_oled_convert_1_bit (guchar *image)
 {
 	guchar buf[BT_BUF_LEN];
 	guchar b0, b1, b2, b3, b4, b5, b6, b7;
 	int i;
+
+	for (i = 0; i < BT_BUF_LEN; i++) {
+		b0 = 0b10000000 & (image[(4 * i) + 0] >> 0);
+		b1 = 0b01000000 & (image[(4 * i) + 0] << 3);
+		b2 = 0b00100000 & (image[(4 * i) + 1] >> 2);
+		b3 = 0b00010000 & (image[(4 * i) + 1] << 1);
+		b4 = 0b00001000 & (image[(4 * i) + 2] >> 4);
+		b5 = 0b00000100 & (image[(4 * i) + 2] >> 1);
+		b6 = 0b00000010 & (image[(4 * i) + 3] >> 6);
+		b7 = 0b00000001 & (image[(4 * i) + 3] >> 3);
+		buf[i] = b0 | b1 | b2 | b3 | b4 | b5 | b6 | b7;
+	}
+	for (i = 0; i < BT_BUF_LEN; i++)
+		image[i] = buf[i];
+}
+
+static int
+gsd_wacom_oled_prepare_buf (guchar *image, GsdWacomOledType type)
+{
 	int len = 0;
 
-	if (type == GSD_WACOM_OLED_TYPE_USB) {
+	switch (type) {
+	case GSD_WACOM_OLED_TYPE_USB:
 		/* Image has to be scrambled for devices connected over USB ... */
 		oled_scramble_icon (image);
 		len = USB_BUF_LEN;
-	} else if (type == GSD_WACOM_OLED_TYPE_BLUETOOTH) {
+		break;
+	case GSD_WACOM_OLED_TYPE_BLUETOOTH:
 		/* ... but for bluetooth it has to be converted to 1 bit colour instead of scrambling */
-		for (i = 0; i < BT_BUF_LEN; i++) {
-			b0 = 0b10000000 & (image[(4 * i) + 0] >> 0);
-			b1 = 0b01000000 & (image[(4 * i) + 0] << 3);
-			b2 = 0b00100000 & (image[(4 * i) + 1] >> 2);
-			b3 = 0b00010000 & (image[(4 * i) + 1] << 1);
-			b4 = 0b00001000 & (image[(4 * i) + 2] >> 4);
-			b5 = 0b00000100 & (image[(4 * i) + 2] >> 1);
-			b6 = 0b00000010 & (image[(4 * i) + 3] >> 6);
-			b7 = 0b00000001 & (image[(4 * i) + 3] >> 3);
-			buf[i] = b0 | b1 | b2 | b3 | b4 | b5 | b6 | b7;
-		}
-		for (i = 0; i < BT_BUF_LEN; i++)
-			image[i] = buf[i];
+		gsd_wacom_oled_convert_1_bit (image);
 		len = BT_BUF_LEN;
-	} else {
+		break;
+	default:
 		g_assert_not_reached ();
 	}
 
