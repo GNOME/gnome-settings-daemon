@@ -82,6 +82,21 @@ get_led_sys_path (GUdevClient *client,
 	GList *element;
 	const char *dev_hid_uniq;
 
+	/* check for new unified hid implementation first */
+	parent = g_udev_device_get_parent_with_subsystem (device, "hid", NULL);
+	if (parent) {
+		status = g_strdup_printf ("status_led%d_select", group_num);
+		filename = g_build_filename (g_udev_device_get_sysfs_path (parent), "wacom_led", status, NULL);
+		g_free (status);
+		g_object_unref (parent);
+		if(g_file_test (filename, G_FILE_TEST_EXISTS)) {
+			*write_value = led_num;
+			return filename;
+		}
+		g_clear_pointer (&filename, g_free);
+	}
+
+	/* old kernel */
 	if (usb) {
 		parent = g_udev_device_get_parent_with_subsystem (device, "usb", "usb_interface");
 		if (!parent)
