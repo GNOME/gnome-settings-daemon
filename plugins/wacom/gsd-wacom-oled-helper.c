@@ -202,17 +202,60 @@ get_bt_oled_filename (GUdevClient *client, GUdevDevice *device, int button_num)
 	return filename;
 }
 
+static char *
+get_oled_sys_path (GUdevClient      *client,
+		   GUdevDevice      *device,
+		   int               button_num,
+		   gboolean          usb,
+		   GsdWacomOledType *type)
+{
+	GUdevDevice *parent;
+	char *filename = NULL;
+
+	if (usb) {
+		parent = g_udev_device_get_parent_with_subsystem (device, "usb", "usb_interface");
+		if (!parent)
+			goto no_parent;
+
+		filename = get_oled_sysfs_path (parent, button_num);
+		*type = GSD_WACOM_OLED_TYPE_USB;
+	 } else if (g_strrstr (g_udev_device_get_property (device, "DEVPATH"), "bluetooth")) {
+		parent = g_udev_device_get_parent_with_subsystem (device, "input", NULL);
+		if (!parent)
+			goto no_parent;
+
+		filename = get_bt_oled_filename (client, parent, button_num);
+		*type = GSD_WACOM_OLED_TYPE_BLUETOOTH;
+	} else {
+		g_critical ("Not an expected device: '%s'",
+			    g_udev_device_get_device_file (device));
+		goto out_err;
+	}
+
+	g_object_unref (parent);
+
+	return filename;
+
+no_parent:
+	g_debug ("Could not find proper parent device for '%s'",
+		 g_udev_device_get_device_file (device));
+
+out_err:
+	return NULL;
+}
+
 
 int main (int argc, char **argv)
 {
 	GOptionContext *context;
 	GUdevClient *client;
-	GUdevDevice *device, *parent;
+	GUdevDevice *device;
 	int uid, euid;
 	char *filename;
 	GError *error = NULL;
 	const char * const subsystems[] = { "input", NULL };
 	int ret = 1;
+	gboolean usb;
 	GsdWacomOledType type;
 
 	char *path = NULL;
@@ -266,32 +309,14 @@ int main (int argc, char **argv)
 		goto out;
 	}
 
-	if (g_strcmp0 (g_udev_device_get_property (device, "ID_BUS"), "usb") == 0) {
-		parent = g_udev_device_get_parent_with_subsystem (device, "usb", "usb_interface");
-		if (parent == NULL) {
-			g_critical ("Could not find parent USB device for '%s'", path);
-			goto out;
-		}
-		g_object_unref (device);
-		device = parent;
+	if (g_strcmp0 (g_udev_device_get_property (device, "ID_BUS"), "usb") != 0)
+		usb = FALSE;
+	else
+		usb = TRUE;
 
-		filename = get_oled_sysfs_path (device, button_num);
-		type = GSD_WACOM_OLED_TYPE_USB;
-	} else if (g_strrstr( g_udev_device_get_property (device, "DEVPATH"), "bluetooth")) {
-		parent = g_udev_device_get_parent (device);
-		if (parent == NULL) {
-			g_critical ("Could not find parent device for '%s'", path);
-			goto out;
-		}
-		g_object_unref (device);
-		device = parent;
-
-		filename = get_bt_oled_filename (client, device, button_num);
-		type = GSD_WACOM_OLED_TYPE_BLUETOOTH;
-	} else {
-		g_critical ("Not an expected device: %s", path);
+	filename = get_oled_sys_path (client, device, button_num, usb, &type);
+	if (!filename)
 		goto out;
-	}
 
 	if (gsd_wacom_oled_helper_write (filename, buffer, type, &error) == FALSE) {
 		g_critical ("Could not set OLED icon for '%s': %s", path, error->message);
