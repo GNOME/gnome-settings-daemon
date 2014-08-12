@@ -222,6 +222,19 @@ get_oled_sys_path (GUdevClient      *client,
 	GUdevDevice *parent;
 	char *filename = NULL;
 
+	/* check for new unified hid implementation first */
+	parent = g_udev_device_get_parent_with_subsystem (device, "hid", NULL);
+	if (parent) {
+		filename = get_oled_sysfs_path (parent, button_num);
+		g_object_unref (parent);
+		if(g_file_test (filename, G_FILE_TEST_EXISTS)) {
+			*type = GSD_WACOM_OLED_TYPE_USB;
+			return filename;
+		}
+		g_clear_pointer (&filename, g_free);
+	}
+
+	/* old kernel */
 	if (usb) {
 		parent = g_udev_device_get_parent_with_subsystem (device, "usb", "usb_interface");
 		if (!parent)
