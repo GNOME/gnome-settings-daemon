@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon 3.3.5\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-03-05 20:28+0000\n"
-"PO-Revision-Date: 2014-03-09 11:59+0800\n"
+"POT-Creation-Date: 2014-08-15 19:30+0000\n"
+"PO-Revision-Date: 2014-08-19 19:19+0800\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (Hong Kong) <community@linuxhall.org>\n"
 "Language: zh_TW\n"
@@ -142,7 +142,7 @@ msgstr "當加入或移除裝置時要執行的指令。結束值若為 1 則表
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid "Activation of this plugin"
@@ -158,7 +158,7 @@ msgstr "這個外掛程式的使用情況"
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
@@ -170,11 +170,11 @@ msgstr "這個外掛程式是否要在 gnome-settings-daemon 中啟用"
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
 msgid "Priority to use for this plugin"
@@ -186,11 +186,11 @@ msgstr "這個外掛程式的優先順序"
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
@@ -441,406 +441,298 @@ msgid "Binding to launch the calculator."
 msgstr "執行計數機的組合鍵。"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
+msgid "Launch settings"
+msgstr "執行設定值"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+msgid "Binding to launch GNOME settings."
+msgstr "執行 GNOME 設定值的組合鍵。"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Launch email client"
 msgstr "執行電子郵件客戶端"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 msgid "Binding to launch the email client."
 msgstr "執行電子郵件客戶端的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Eject"
 msgstr "退出"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to eject an optical disc."
 msgstr "退出光碟片的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Launch help browser"
 msgstr "執行說明文件瀏覽器"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to launch the help browser."
 msgstr "執行說明文件瀏覽器的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Home folder"
 msgstr "個人資料夾"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to open the Home folder."
 msgstr "開啟家目錄的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Launch media player"
 msgstr "執行媒體播放程式"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to launch the media player."
 msgstr "執行媒體播放程式的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Next track"
 msgstr "下一首歌曲"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to skip to next track."
 msgstr "跳到下一首的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Pause playback"
 msgstr "暫停播放"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
 msgid "Binding to pause playback."
 msgstr "暫停播放的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
 msgid "Play (or play/pause)"
 msgstr "播放（或播放/暫停）"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "開始播放(或切換播放/暫停)的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Log out"
 msgstr "登出"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to log out."
 msgstr "登出的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
 msgid "Previous track"
 msgstr "上一首歌曲"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
 msgid "Binding to skip to previous track."
 msgstr "跳回上一首的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Lock screen"
 msgstr "鎖定畫面"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid "Binding to lock the screen."
 msgstr "鎖定螢幕的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
 msgid "Search"
 msgstr "搜尋"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
 msgid "Binding to launch the search tool."
 msgstr "執行搜尋工具的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Stop playback"
 msgstr "停止播放"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Binding to stop playback."
 msgstr "停止播放的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Volume down"
 msgstr "調低音量"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Binding to lower the system volume."
 msgstr "降低系統音量的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Volume mute"
 msgstr "靜音"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Binding to mute the system volume."
 msgstr "設定系統靜音的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Volume up"
 msgstr "調高音量"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
 msgid "Binding to raise the system volume."
 msgstr "提高系統音量的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
 msgid "Take a screenshot"
 msgstr "拍下螢幕截圖"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Binding to take a screenshot."
 msgstr "拍下螢幕截圖的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Take a screenshot of a window"
 msgstr "拍下視窗的螢幕截圖"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Binding to take a screenshot of a window."
 msgstr "拍下視窗的螢幕截圖的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 msgid "Take a screenshot of an area"
 msgstr "拍下區域的螢幕截圖"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
 msgid "Binding to take a screenshot of an area."
 msgstr "拍下區域的螢幕截圖的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
 msgid "Copy a screenshot to clipboard"
 msgstr "複製螢幕截圖到剪貼簿。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Binding to copy a screenshot to clipboard."
 msgstr "複製螢幕截圖到剪貼簿的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Copy a screenshot of a window to clipboard"
 msgstr "複製視窗的螢幕截圖到剪貼簿。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
 msgid "Binding to copy a screenshot of a window to clipboard."
 msgstr "複製視窗的螢幕截圖到剪貼簿的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Copy a screenshot of an area to clipboard"
 msgstr "複製區域的螢幕截圖到剪貼簿。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Binding to copy a screenshot of an area to clipboard."
 msgstr "複製區域的螢幕截圖到剪貼簿的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Record a short video of the screen"
 msgstr "錄製短時間的螢幕影片"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Launch web browser"
 msgstr "執行網頁瀏覽器"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Binding to launch the web browser."
 msgstr "執行網頁瀏覽器的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 msgid "Toggle magnifier"
 msgstr "切換放大鏡"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
 msgid "Binding to show the screen magnifier"
 msgstr "顯示螢幕放大鏡的組合鍵"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
 msgid "Toggle screen reader"
 msgstr "切換螢幕閱讀器"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
 msgid "Binding to start the screen reader"
 msgstr "啟動螢幕閱讀器的組合鍵"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
 msgid "Toggle on-screen keyboard"
 msgstr "切換螢幕鍵盤"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
 msgid "Binding to show the on-screen keyboard"
 msgstr "顯示螢幕鍵盤的組合鍵"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
 msgid "Increase text size"
 msgstr "將文字放大"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
 msgid "Binding to increase the text size"
 msgstr "繫結到將文字放大"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
 msgid "Decrease text size"
 msgstr "將文字縮小"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
 msgid "Binding to decrease the text size"
 msgstr "繫結到將文字縮小"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
 msgid "Toggle contrast"
 msgstr "切換對比"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
 msgid "Binding to toggle the interface contrast"
 msgstr "繫結到切換介面對比"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
 msgid "Magnifier zoom in"
 msgstr "放大鏡拉近"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
 msgid "Binding for the magnifier to zoom in"
 msgstr "螢幕放大鏡拉近的組合鍵"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
 msgid "Magnifier zoom out"
 msgstr "放大鏡拉遠"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
 msgid "Binding for the magnifier to zoom out"
 msgstr "螢幕放大鏡拉遠的組合鍵"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
 msgid "Name"
 msgstr "名稱"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
 msgid "Name of the custom binding"
 msgstr "自選組合鍵的名稱"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
 msgid "Binding"
 msgstr "組合鍵"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:77
 msgid "Binding for the custom binding"
 msgstr "自選組合鍵的組合"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:78
 msgid "Command"
 msgstr "指令"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:77
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:79
 msgid "Command to run when the binding is invoked"
 msgstr "當呼叫組合鍵時要執行的指令"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
-msgid "Use mobile broadband connections"
-msgstr "使用流動寬頻連線"
+#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:5
+msgid "On which connections the service is enabled"
+msgstr "此服務在哪一個連線啟用"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:6
 msgid ""
-"Use mobile broadband connections such as GSM and CDMA to check for updates."
-msgstr "使用流動寬頻連線，像是 GSM 和 CDMA 來檢查更新。"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
-msgid "Automatically download updates in the background without confirmation"
-msgstr "不要求確認就在背景自動下載更新"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
-msgid ""
-"Automatically download updates in the background without confirmation. "
-"Updates will be auto-downloaded when using wired network connnections, and "
-"mobile broadband if 'connection-use-mobile' is enabled."
-msgstr "不要求確認就在背景自動下載更新。更新會在使用有線網絡連線時自動下載；如果啟用「connection-use-mobile」則使用流動寬頻也會下載。"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
-msgid "How often to check for updates"
-msgstr "多久檢查更新"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
-msgid ""
-"How often to check for updates. Value is in seconds. This is a maximum "
-"amount of time that can pass between a security update being published, and "
-"the update being automatically installed or the user notified."
-msgstr "多久檢查更新。數值為秒數。這是在安全性更新發布後經過的最大時間總數，而更新會自動安裝或通知使用者。"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
-msgid "How often to notify the user that non-critical updates are available"
-msgstr "多久通知使用者有非重大更新可用"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
-msgid ""
-"How often to tell the user there are non-critical updates. Value is in "
-"seconds. Security update notifications are always shown after the check for "
-"updates, but non-critical notifications should be shown a lot less "
-"frequently."
-msgstr "多久告訴使用者有非重大更新。數值為秒數。安全性更新通知永遠會在檢查更新後顯示，但是非重大更新通知顯示的頻率應該少一些。"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
-msgid "The last time we told the user about non-critical notifications"
-msgstr "我們通知使用者有非重大更新的最後時刻"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
-msgid ""
-"The last time we notified the user about non-critical updates. Value is in "
-"seconds since the epoch, or zero for never."
-msgstr "我們通知使用者有非重大更新的最後時刻。數值為以電腦紀元計算的數值，或 0 代表永不使用。"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
-msgid "How often to check for distribution upgrades"
-msgstr "多久檢查是否有發行版本的更新"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
-msgid "How often to check for distribution upgrades. Value is in seconds."
-msgstr "多久檢查是否有發行版本的更新。數值為秒數。"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
-msgid "How often to refresh the package cache"
-msgstr "多久重新整理套件快取"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
-msgid "How often to refresh the package cache. Value is in seconds."
-msgstr "多久重新整理套件快取。數值為秒數。"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
-msgid "Check for updates when running on battery power"
-msgstr "當使用電池電力時檢查更新"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
-msgid "Check for updates when running on battery power."
-msgstr "當使用電池電力時檢查更新。"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
-msgid "Notify the user when distribution upgrades are available"
-msgstr "當有發行版本升級可用時通知使用者"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
-msgid "Notify the user when distribution upgrades are available."
-msgstr "當有發行版本升級可用時通知使用者。"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
-msgid "Ask the user if additional firmware should be installed"
-msgstr "如果要安裝額外的韌體先詢問使用者"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
-msgid ""
-"Ask the user if additional firmware should be installed if it is available."
-msgstr "如果要安裝額外的韌體，而且可以取得時先詢問使用者"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
-msgid "Firmware files that should not be searched for"
-msgstr "不包含在搜尋中的韌體檔案"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
-msgid ""
-"Firmware files that should not be searched for, separated by commas. These "
-"can include '*' and '?' characters."
-msgstr "不包含在搜尋中的韌體檔案，以逗號分隔。這些項目可以包含 '*' 和 '?' 字符。"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
-msgid "Devices that should be ignored"
-msgstr "應忽略的裝置"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
-msgid ""
-"Devices that should be ignored, separated by commas. These can include '*' "
-"and '?' characters."
-msgstr "要忽略的裝置，以逗號分隔。這些項目可以包含 '*' 和 '?' 字符。"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
-msgid "The filenames on removable media that designate it a software source."
-msgstr "可移除式媒體上的檔案名稱，為軟件的來源。"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
-msgid ""
-"When removable media is inserted, it is checked to see if it contains any "
-"important filenames in the root directory. If the filename matches, then an "
-"updates check is performed. This allows post-install disks to be used to "
-"update running systems."
-msgstr "當插入可移除式媒體，會檢查它的根目錄是否含有任何重要的檔案名稱。如果檔案名稱符合，就會進行更新檢查。這樣可以讓後續安裝的磁碟用來更新執行中的系統。"
+"The list of NetworkManager connections (each one represented with its UUID) "
+"on which this service is enabled and started."
+msgstr "NetworkManager 的連線清單(每一個都以 UUID 顯示)，此服務會在這些連線啟用並執行。"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
@@ -922,15 +814,15 @@ msgid ""
 "in addition to conditional and forcibly disabled ones."
 msgstr "表示要載入的 GTK+ 模組的字串清單，通常還有條件和明確停用的項目。"
 
-#: ../gnome-settings-daemon/main.c:52
+#: ../gnome-settings-daemon/main.c:53
 msgid "Enable debugging code"
 msgstr "啟用除錯碼"
 
-#: ../gnome-settings-daemon/main.c:53
+#: ../gnome-settings-daemon/main.c:54
 msgid "Replace existing daemon"
 msgstr "取代現有的伺服程式"
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../gnome-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "一段時間後離開（偵錯用）"
 
@@ -942,60 +834,60 @@ msgstr "鍵盤可存取性"
 msgid "Accessibility keyboard plugin"
 msgstr "鍵盤可存取性外掛程式"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:399
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:398
 msgid "Slow Keys Turned On"
 msgstr "遲緩鍵開啟"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:399
 msgid "Slow Keys Turned Off"
 msgstr "遲緩鍵關閉"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:401
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
 msgstr "你按住 Shift 鍵達 8 秒。這是使用遲緩鍵功能的捷徑，那會影響鍵盤的操作方式。"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:411
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:479
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:410
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:478
 msgid "Universal Access"
 msgstr "無障礙功能"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:417
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:485
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:416
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:484
 msgid "Turn Off"
 msgstr "關閉"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:417
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:485
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:416
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:484
 msgid "Turn On"
 msgstr "開啟"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:423
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:491
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:422
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:490
 msgid "Leave On"
 msgstr "保持開啟"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:423
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:491
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:422
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:490
 msgid "Leave Off"
 msgstr "保持關閉"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:464
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:463
 msgid "Sticky Keys Turned On"
 msgstr "黏性特殊鍵開啟"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:465
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:464
 msgid "Sticky Keys Turned Off"
 msgstr "黏性特殊鍵關閉"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:467
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:466
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
 msgstr "你連續按了 5 下 Shift 鍵。這是使用黏性特殊鍵功能的捷徑，那會影響鍵盤的操作方式。"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:469
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:468
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -1110,57 +1002,57 @@ msgstr "偽裝"
 msgid "Dummy plugin"
 msgstr "偽裝外掛程式"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:587
+#: ../plugins/housekeeping/gsd-disk-space.c:614
 #, c-format
 msgid "Low Disk Space on \"%s\""
 msgstr "「%s」上的空間很少"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:589
+#: ../plugins/housekeeping/gsd-disk-space.c:616
 #, c-format
 msgid ""
 "The volume \"%s\" has only %s disk space remaining.  You may free up some "
 "space by emptying the trash."
 msgstr "儲存區「%s」只剩下 %s 磁碟空間。你可以嘗試清空回收筒來釋放一些空間。"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:593
+#: ../plugins/housekeeping/gsd-disk-space.c:620
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:80
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
 msgstr "儲存區「%s」只剩下 %s 磁碟空間。"
 
 #. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-disk-space.c:598
+#: ../plugins/housekeeping/gsd-disk-space.c:625
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
 msgid "Low Disk Space"
 msgstr "磁碟空間不足"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:600
+#: ../plugins/housekeeping/gsd-disk-space.c:627
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
 "by emptying the trash."
 msgstr "這臺電腦只剩下 %s 磁碟空間。你可以嘗試清空回收筒來釋放一些空間。"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:603
+#: ../plugins/housekeeping/gsd-disk-space.c:630
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:83
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "這臺電腦只剩下 %s 磁碟空間。"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:618
+#: ../plugins/housekeeping/gsd-disk-space.c:645
 msgid "Disk space"
 msgstr "磁碟空間"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:625
+#: ../plugins/housekeeping/gsd-disk-space.c:652
 msgid "Examine"
 msgstr "檢驗"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:633
+#: ../plugins/housekeeping/gsd-disk-space.c:660
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:433
 msgid "Empty Trash"
 msgstr "清理回收筒"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:640
+#: ../plugins/housekeeping/gsd-disk-space.c:667
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:448
 msgid "Ignore"
 msgstr "忽略"
@@ -1212,8 +1104,6 @@ msgid ""
 msgstr "自動清除縮圖快取與其他暫時檔案，並且警告磁碟空間不足"
 
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
-#| msgid "Keyboard"
-#| msgid_plural "Keyboards"
 msgid "Keyboard"
 msgstr "鍵盤"
 
@@ -1221,7 +1111,7 @@ msgstr "鍵盤"
 msgid "Keyboard plugin"
 msgstr "鍵盤外掛程式"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:1981
+#: ../plugins/media-keys/gsd-media-keys-manager.c:1952
 msgid "Screencast from %d %t.webm"
 msgstr "來自 %d 螢幕廣播 %t.webm"
 
@@ -1276,119 +1166,117 @@ msgstr "多媒體按鍵"
 msgid "Media keys plugin"
 msgstr "多媒體按鍵外掛程式"
 
-#: ../plugins/media-keys/shortcuts-list.h:108
+#: ../plugins/media-keys/shortcuts-list.h:43
 msgid "Touchpad toggle"
 msgstr "觸控板切換"
 
-#: ../plugins/media-keys/shortcuts-list.h:109
+#: ../plugins/media-keys/shortcuts-list.h:44
 msgid "Touchpad On"
 msgstr "觸控板開啟"
 
-#: ../plugins/media-keys/shortcuts-list.h:110
+#: ../plugins/media-keys/shortcuts-list.h:45
 msgid "Touchpad Off"
 msgstr "觸控板關閉"
 
-#: ../plugins/media-keys/shortcuts-list.h:114
-#: ../plugins/media-keys/shortcuts-list.h:115
+#: ../plugins/media-keys/shortcuts-list.h:49
+#: ../plugins/media-keys/shortcuts-list.h:50
 msgid "Microphone Mute"
 msgstr "麥克風靜音"
 
-#: ../plugins/media-keys/shortcuts-list.h:116
+#: ../plugins/media-keys/shortcuts-list.h:51
 msgid "Quiet Volume Mute"
 msgstr "安靜音量靜音"
 
-#: ../plugins/media-keys/shortcuts-list.h:117
+#: ../plugins/media-keys/shortcuts-list.h:52
 msgid "Quiet Volume Down"
 msgstr "安靜音量降低"
 
-#: ../plugins/media-keys/shortcuts-list.h:118
+#: ../plugins/media-keys/shortcuts-list.h:53
 msgid "Quiet Volume Up"
 msgstr "安靜音量提高"
 
-#: ../plugins/media-keys/shortcuts-list.h:127
+#: ../plugins/media-keys/shortcuts-list.h:63
 msgid "Lock Screen"
 msgstr "鎖定畫面"
 
-#: ../plugins/media-keys/shortcuts-list.h:142
+#: ../plugins/media-keys/shortcuts-list.h:78
 msgid "Rewind"
 msgstr "倒轉"
 
-#: ../plugins/media-keys/shortcuts-list.h:143
+#: ../plugins/media-keys/shortcuts-list.h:79
 msgid "Forward"
 msgstr "快轉"
 
-#: ../plugins/media-keys/shortcuts-list.h:144
+#: ../plugins/media-keys/shortcuts-list.h:80
 msgid "Repeat"
 msgstr "重複"
 
-#: ../plugins/media-keys/shortcuts-list.h:145
+#: ../plugins/media-keys/shortcuts-list.h:81
 msgid "Random Play"
 msgstr "亂數播放"
 
 #. Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.)
-#: ../plugins/media-keys/shortcuts-list.h:146
-#: ../plugins/media-keys/shortcuts-list.h:148
+#: ../plugins/media-keys/shortcuts-list.h:82
+#: ../plugins/media-keys/shortcuts-list.h:84
 msgid "Video Out"
 msgstr "視像輸出"
 
 #. Key code of the XF86RotateWindows key (present on some tablets)
-#: ../plugins/media-keys/shortcuts-list.h:150
+#: ../plugins/media-keys/shortcuts-list.h:86
 msgid "Rotate Screen"
 msgstr "旋轉螢幕"
 
-#: ../plugins/media-keys/shortcuts-list.h:151
+#: ../plugins/media-keys/shortcuts-list.h:87
 msgid "Orientation Lock"
 msgstr "方向鎖"
 
-#: ../plugins/media-keys/shortcuts-list.h:160
-#: ../plugins/media-keys/shortcuts-list.h:166
+#: ../plugins/media-keys/shortcuts-list.h:96
+#: ../plugins/media-keys/shortcuts-list.h:102
 msgid "Power Off"
 msgstr "關閉電源"
 
 #. the kernel / Xorg names really are like this...
 #. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
-#: ../plugins/media-keys/shortcuts-list.h:163
-#: ../plugins/media-keys/shortcuts-list.h:169
+#: ../plugins/media-keys/shortcuts-list.h:99
+#: ../plugins/media-keys/shortcuts-list.h:105
 msgid "Sleep"
 msgstr "睡眠"
 
-#: ../plugins/media-keys/shortcuts-list.h:164
-#: ../plugins/media-keys/shortcuts-list.h:170
+#: ../plugins/media-keys/shortcuts-list.h:100
+#: ../plugins/media-keys/shortcuts-list.h:106
 msgid "Suspend"
 msgstr "暫停"
 
-#: ../plugins/media-keys/shortcuts-list.h:165
-#: ../plugins/media-keys/shortcuts-list.h:171
+#: ../plugins/media-keys/shortcuts-list.h:101
+#: ../plugins/media-keys/shortcuts-list.h:107
 msgid "Hibernate"
 msgstr "休眠"
 
-#: ../plugins/media-keys/shortcuts-list.h:172
+#: ../plugins/media-keys/shortcuts-list.h:108
 msgid "Brightness Up"
 msgstr "亮度提高"
 
-#: ../plugins/media-keys/shortcuts-list.h:173
+#: ../plugins/media-keys/shortcuts-list.h:109
 msgid "Brightness Down"
 msgstr "亮度降低"
 
-#: ../plugins/media-keys/shortcuts-list.h:174
+#: ../plugins/media-keys/shortcuts-list.h:110
 msgid "Keyboard Brightness Up"
 msgstr "鍵盤亮度提高"
 
-#: ../plugins/media-keys/shortcuts-list.h:175
+#: ../plugins/media-keys/shortcuts-list.h:111
 msgid "Keyboard Brightness Down"
 msgstr "鍵盤亮度降低"
 
-#: ../plugins/media-keys/shortcuts-list.h:176
+#: ../plugins/media-keys/shortcuts-list.h:112
 msgid "Keyboard Brightness Toggle"
 msgstr "鍵盤亮度切換"
 
-#: ../plugins/media-keys/shortcuts-list.h:177
+#: ../plugins/media-keys/shortcuts-list.h:113
 msgid "Battery Status"
 msgstr "電池狀態"
 
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
-#| msgid "Mouse"
-#| msgid_plural "Mice"
 msgid "Mouse"
 msgstr "滑鼠"
 
@@ -1439,192 +1327,191 @@ msgid_plural "minutes"
 msgstr[0] "分鐘"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:856 ../plugins/power/gsd-power-manager.c:670
-#: ../plugins/power/gsd-power-manager.c:770
+#: ../plugins/power/gpm-common.c:857 ../plugins/power/gsd-power-manager.c:666
+#: ../plugins/power/gsd-power-manager.c:766
 msgid "Battery is critically low"
 msgstr "電池電量極低"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:330
+#: ../plugins/power/gsd-power-manager.c:326
 msgid "UPS Discharging"
 msgstr "不斷電系統放電中"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:335
+#: ../plugins/power/gsd-power-manager.c:331
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "剩下 %s 的 UPS 備援電力"
 
-#: ../plugins/power/gsd-power-manager.c:338
-#| msgid "%s of UPS backup power remaining"
+#: ../plugins/power/gsd-power-manager.c:334
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "剩下的 UPS 備援電力不明"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:354
-#: ../plugins/power/gsd-power-manager.c:502
-#: ../plugins/power/gsd-power-manager.c:653
-#: ../plugins/power/gsd-power-manager.c:761
-#: ../plugins/power/gsd-power-manager.c:1954
+#: ../plugins/power/gsd-power-manager.c:350
+#: ../plugins/power/gsd-power-manager.c:498
+#: ../plugins/power/gsd-power-manager.c:649
+#: ../plugins/power/gsd-power-manager.c:757
+#: ../plugins/power/gsd-power-manager.c:1950
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "電源"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:417
+#: ../plugins/power/gsd-power-manager.c:413
 msgid "Battery low"
 msgstr "電池低電量"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:420
+#: ../plugins/power/gsd-power-manager.c:416
 msgid "Laptop battery low"
 msgstr "手提電腦電池電力低落"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:427
+#: ../plugins/power/gsd-power-manager.c:423
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "大約剩餘 %s (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:432
+#: ../plugins/power/gsd-power-manager.c:428
 msgid "UPS low"
 msgstr "不斷電系統(UPS)電力低落"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:438
+#: ../plugins/power/gsd-power-manager.c:434
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "大約剩下 %s 的不斷電系統備用電源 (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:443
-#: ../plugins/power/gsd-power-manager.c:580
+#: ../plugins/power/gsd-power-manager.c:439
+#: ../plugins/power/gsd-power-manager.c:576
 msgid "Mouse battery low"
 msgstr "滑鼠電池電力低落"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:446
+#: ../plugins/power/gsd-power-manager.c:442
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "無線滑鼠電力低落 (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:450
-#: ../plugins/power/gsd-power-manager.c:588
+#: ../plugins/power/gsd-power-manager.c:446
+#: ../plugins/power/gsd-power-manager.c:584
 msgid "Keyboard battery low"
 msgstr "鍵盤電池電力低落"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:453
+#: ../plugins/power/gsd-power-manager.c:449
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "無線鍵盤電力低落 (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:457
-#: ../plugins/power/gsd-power-manager.c:597
+#: ../plugins/power/gsd-power-manager.c:453
+#: ../plugins/power/gsd-power-manager.c:593
 msgid "PDA battery low"
 msgstr "PDA 電池電力低落"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:460
+#: ../plugins/power/gsd-power-manager.c:456
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "PDA 電力低落 (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:464
-#: ../plugins/power/gsd-power-manager.c:607
-#: ../plugins/power/gsd-power-manager.c:616
+#: ../plugins/power/gsd-power-manager.c:460
+#: ../plugins/power/gsd-power-manager.c:603
+#: ../plugins/power/gsd-power-manager.c:612
 msgid "Cell phone battery low"
 msgstr "手機電池電力低落"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:467
+#: ../plugins/power/gsd-power-manager.c:463
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "手機電力低落 (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:471
+#: ../plugins/power/gsd-power-manager.c:467
 msgid "Media player battery low"
 msgstr "媒體播放器電池低電量"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:474
+#: ../plugins/power/gsd-power-manager.c:470
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "媒體播放器電力低落 (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:478
-#: ../plugins/power/gsd-power-manager.c:625
+#: ../plugins/power/gsd-power-manager.c:474
+#: ../plugins/power/gsd-power-manager.c:621
 msgid "Tablet battery low"
 msgstr "手寫板電池低電量"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:481
+#: ../plugins/power/gsd-power-manager.c:477
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "手寫板電力低落 (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:485
-#: ../plugins/power/gsd-power-manager.c:634
+#: ../plugins/power/gsd-power-manager.c:481
+#: ../plugins/power/gsd-power-manager.c:630
 msgid "Attached computer battery low"
 msgstr "連接的電腦電池低電量"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:488
+#: ../plugins/power/gsd-power-manager.c:484
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "連接的電腦電力低落 (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:512
+#: ../plugins/power/gsd-power-manager.c:508
 msgid "Battery is low"
 msgstr "電池電量較低"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:544
+#: ../plugins/power/gsd-power-manager.c:540
 msgid "Battery critically low"
 msgstr "電池電量極低"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:547
-#: ../plugins/power/gsd-power-manager.c:697
+#: ../plugins/power/gsd-power-manager.c:543
+#: ../plugins/power/gsd-power-manager.c:693
 msgid "Laptop battery critically low"
 msgstr "手提電腦電池電量極低"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:556
+#: ../plugins/power/gsd-power-manager.c:552
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr "電腦即將進入休眠模式，除非你現在插上電源。"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:560
+#: ../plugins/power/gsd-power-manager.c:556
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "電腦即將關機，除非你現在插上電源。"
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:568
-#: ../plugins/power/gsd-power-manager.c:722
+#: ../plugins/power/gsd-power-manager.c:564
+#: ../plugins/power/gsd-power-manager.c:718
 msgid "UPS critically low"
 msgstr "不斷電系統的電量極低"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:574
+#: ../plugins/power/gsd-power-manager.c:570
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1632,7 +1519,7 @@ msgid ""
 msgstr "大約剩下 %s 的 UPS 電力 (%.0f%%)。請回復電腦的 AC 電源以避免遺失資料。"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:583
+#: ../plugins/power/gsd-power-manager.c:579
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1640,7 +1527,7 @@ msgid ""
 msgstr "無線滑鼠的電量極低 (%.0f%%)。如不充電該裝置將會無法使用。"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:591
+#: ../plugins/power/gsd-power-manager.c:587
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1648,7 +1535,7 @@ msgid ""
 msgstr "無線鍵盤的電量極低 (%.0f%%)。如不充電該裝置將會無法使用。"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:600
+#: ../plugins/power/gsd-power-manager.c:596
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1656,7 +1543,7 @@ msgid ""
 msgstr "PDA 的電量極低 (%.0f%%)。如不充電該裝置將會無法使用。"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:610
+#: ../plugins/power/gsd-power-manager.c:606
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -1664,7 +1551,7 @@ msgid ""
 msgstr "手機的電量極低 (%.0f%%)。如不充電該裝置將會無法使用。"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:619
+#: ../plugins/power/gsd-power-manager.c:615
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -1672,7 +1559,7 @@ msgid ""
 msgstr "媒體播放器的電量極低 (%.0f%%)。如不充電該裝置將會無法使用。"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:628
+#: ../plugins/power/gsd-power-manager.c:624
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -1680,7 +1567,7 @@ msgid ""
 msgstr "手寫板的電量極低 (%.0f%%)。如不充電該裝置將會無法使用。"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:637
+#: ../plugins/power/gsd-power-manager.c:633
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -1688,58 +1575,68 @@ msgid ""
 msgstr "連接的電腦電量極低 (%.0f%%)。如不充電該裝置將會無法使用。"
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:705
+#: ../plugins/power/gsd-power-manager.c:701
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
 msgstr "電池的電量已處於極低狀態，這臺電腦即將進入休眠模式。"
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:710
+#: ../plugins/power/gsd-power-manager.c:706
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
 msgstr "電池電量已在極低的程度之下，這臺電腦即將關機。"
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:730
+#: ../plugins/power/gsd-power-manager.c:726
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr "不斷電系統的電量已處於極低的程度，這臺電腦即將進入休眠模式。"
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:735
+#: ../plugins/power/gsd-power-manager.c:731
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr "不斷電系統的電量已處於極低的程度，這臺電腦即將關機。"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1155
+#: ../plugins/power/gsd-power-manager.c:1150
 msgid "Lid has been opened"
 msgstr "上蓋已經開啟"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1193
+#: ../plugins/power/gsd-power-manager.c:1188
 msgid "Lid has been closed"
 msgstr "上蓋已經關閉"
 
-#: ../plugins/power/gsd-power-manager.c:1932
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1749
+msgid "On battery power"
+msgstr "使用電池電源"
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1754
+msgid "On AC power"
+msgstr "使用 AC 電源"
+
+#: ../plugins/power/gsd-power-manager.c:1928
 msgid "Automatic logout"
 msgstr "自動登出"
 
-#: ../plugins/power/gsd-power-manager.c:1932
+#: ../plugins/power/gsd-power-manager.c:1928
 msgid "You will soon log out because of inactivity."
 msgstr "你即將因為沒有動作而登出。"
 
-#: ../plugins/power/gsd-power-manager.c:1937
+#: ../plugins/power/gsd-power-manager.c:1933
 msgid "Automatic suspend"
 msgstr "自動暫停"
 
-#: ../plugins/power/gsd-power-manager.c:1937
-#: ../plugins/power/gsd-power-manager.c:1942
+#: ../plugins/power/gsd-power-manager.c:1933
+#: ../plugins/power/gsd-power-manager.c:1938
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "電腦很快將因為沒有動作而暫停。"
 
-#: ../plugins/power/gsd-power-manager.c:1942
+#: ../plugins/power/gsd-power-manager.c:1938
 msgid "Automatic hibernation"
 msgstr "自動休眠"
 
@@ -1786,220 +1683,220 @@ msgid "No driver for this printer."
 msgstr "這個打印機沒有驅動程式。"
 
 #: ../plugins/print-notifications/gsd-printer.c:1031
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:263
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:702
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:792
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:835
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:264
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:704
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:794
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:837
 msgid "Printers"
 msgstr "打印機"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:360
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:361
 msgid "Toner low"
 msgstr "碳粉不足"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:363
 msgid "Toner empty"
 msgstr "碳粉用完"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:364
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:365
 msgid "Not connected?"
 msgstr "未連線？"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:367
 msgid "Cover open"
 msgstr "外殼開啟"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:368
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:369
 msgid "Printer configuration error"
 msgstr "打印機組態錯誤"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:370
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 msgid "Door open"
 msgstr "紙匣門開啟"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:372
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:373
 msgid "Marker supply low"
 msgstr "墨水匣不足"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:374
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
 msgid "Out of a marker supply"
 msgstr "墨水匣用完"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:376
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:377
 msgid "Paper low"
 msgstr "紙張不足"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:378
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
 msgid "Out of paper"
 msgstr "紙張用完"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:380
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:381
 msgid "Printer off-line"
 msgstr "打印機離線"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:382
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:778
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:780
 msgid "Printer error"
 msgstr "打印機錯誤"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:386
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
 #, c-format
 msgid "Printer '%s' is low on toner."
 msgstr "打印機「%s」碳粉不足。"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:388
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:389
 #, c-format
 msgid "Printer '%s' has no toner left."
 msgstr "打印機「%s」碳粉用完。"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:390
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
 #, c-format
 msgid "Printer '%s' may not be connected."
 msgstr "打印機「%s」可能尚未連線。"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:392
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:393
 #, c-format
 msgid "The cover is open on printer '%s'."
 msgstr "打印機「%s」的外殼是打開的。"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:394
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:395
 #, c-format
 msgid "There is a missing print filter for printer '%s'."
 msgstr "打印機「%s」缺少過濾器。"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:397
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:398
 #, c-format
 msgid "The door is open on printer '%s'."
 msgstr "打印機「%s」的紙匣門是打開的。"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:399
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:400
 #, c-format
 msgid "Printer '%s' is low on a marker supply."
 msgstr "打印機「%s」墨水匣不足。"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:401
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:402
 #, c-format
 msgid "Printer '%s' is out of a marker supply."
 msgstr "打印機「%s」的墨水匣已用盡。"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:403
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:404
 #, c-format
 msgid "Printer '%s' is low on paper."
 msgstr "打印機「%s」紙張不足。"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:405
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:406
 #, c-format
 msgid "Printer '%s' is out of paper."
 msgstr "打印機「%s」紙張用完。"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:407
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:408
 #, c-format
 msgid "Printer '%s' is currently off-line."
 msgstr "打印機「%s」目前離線。"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:409
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:410
 #, c-format
 msgid "There is a problem on printer '%s'."
 msgstr "打印機「%s」發生問題。"
 
 #. Translators: New printer has been added
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:456
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:457
 msgid "Printer added"
 msgstr "已加入打印機"
 
 #. Translators: A printer has been removed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:464
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:465
 msgid "Printer removed"
 msgstr "已移除打印機"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:481
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:519
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:482
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:520
 msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "已停止打印機"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:483
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:489
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:495
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:501
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:513
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:521
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:529
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:537
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:545
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:558
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:484
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:490
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:496
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:502
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:514
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:522
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:530
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:538
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:546
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:559
 #, c-format
 msgctxt "print job"
 msgid "\"%s\" on %s"
 msgstr "%2$s 的「%1$s」"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:487
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:527
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:488
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:528
 msgctxt "print job state"
 msgid "Printing canceled"
 msgstr "列印已取消"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:493
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:535
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:494
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:536
 msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "列印已中止"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:499
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:543
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:500
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:544
 msgctxt "print job state"
 msgid "Printing completed"
 msgstr "列印已完成"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:511
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:556
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:512
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:557
 msgctxt "print job state"
 msgid "Printing"
 msgstr "正在打印"
 
 #. Translators: This is a title of a report notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:772
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:774
 msgid "Printer report"
 msgstr "打印機報告"
 
 #. Translators: This is a title of a warning notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:775
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:777
 msgid "Printer warning"
 msgstr "列印機警示"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:785
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:787
 #, c-format
 msgid "Printer '%s': '%s'."
 msgstr "打印機「%s」：「%s」。"
@@ -2050,248 +1947,6 @@ msgstr "音效"
 msgid "Sound Sample Cache plugin"
 msgstr "音效取樣快取外掛程式"
 
-#. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:250
-msgid ""
-"You will need to restart this computer before the hardware will work "
-"correctly."
-msgstr "你需要重新啟動這臺電腦硬件才能正常運作。"
-
-#. TRANSLATORS: title of libnotify bubble
-#: ../plugins/updates/gsd-updates-firmware.c:253
-#: ../plugins/updates/gsd-updates-firmware.c:281
-#: ../plugins/updates/gsd-updates-firmware.c:309
-msgid "Additional software was installed"
-msgstr "已安裝額外的軟件"
-
-#: ../plugins/updates/gsd-updates-firmware.c:255
-#: ../plugins/updates/gsd-updates-firmware.c:283
-#: ../plugins/updates/gsd-updates-firmware.c:311
-#: ../plugins/updates/gsd-updates-firmware.c:603
-#: ../plugins/updates/gsd-updates-manager.c:386
-#: ../plugins/updates/gsd-updates-manager.c:522
-#: ../plugins/updates/gsd-updates-manager.c:603
-#: ../plugins/updates/gsd-updates-manager.c:676
-#: ../plugins/updates/gsd-updates-manager.c:1311
-msgid "Software Updates"
-msgstr "軟件更新"
-
-#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:278
-msgid ""
-"You will need to remove and then reinsert the hardware before it will work "
-"correctly."
-msgstr "你需要移除並重新插入這項硬件才能正常運作。"
-
-#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:306
-msgid "Your hardware has been set up and is now ready to use."
-msgstr "你的硬件已設定好，現在已可以使用。"
-
-#. TRANSLATORS: we need another package to keep udev quiet
-#: ../plugins/updates/gsd-updates-firmware.c:587
-msgid ""
-"Additional firmware is required to make hardware in this computer function "
-"correctly."
-msgstr "需要額外的韌體才能讓這臺電腦的硬件正常運作。"
-
-#. TRANSLATORS: title of libnotify bubble
-#: ../plugins/updates/gsd-updates-firmware.c:601
-msgid "Additional firmware required"
-msgstr "需要額外的韌體"
-
-#. TRANSLATORS: button label
-#: ../plugins/updates/gsd-updates-firmware.c:608
-msgid "Install firmware"
-msgstr "安裝韌體"
-
-#. TRANSLATORS: we should ignore this device and not ask anymore
-#: ../plugins/updates/gsd-updates-firmware.c:611
-msgid "Ignore devices"
-msgstr "忽略裝置"
-
-#. TRANSLATORS: this is when the offline update failed
-#: ../plugins/updates/gsd-updates-manager.c:121
-msgid "Failed To Update"
-msgstr "更新失敗"
-
-#. TRANSLATORS: the transaction could not be completed
-#. * as a previous transaction was unfinished
-#: ../plugins/updates/gsd-updates-manager.c:127
-msgid "A previous update was unfinished."
-msgstr "上一個更新尚未完成。"
-
-#. TRANSLATORS: the package manager needed to download
-#. * something with no network available
-#: ../plugins/updates/gsd-updates-manager.c:137
-msgid "Network access was required but not available."
-msgstr "需要網絡存取但無法使用。"
-
-#. TRANSLATORS: if the package is not signed correctly
-#. *
-#: ../plugins/updates/gsd-updates-manager.c:146
-msgid "An update was not signed in the correct way."
-msgstr "有更新沒有以正確的方式簽署。"
-
-#. TRANSLATORS: the transaction failed in a way the user
-#. * probably cannot comprehend. Package management systems
-#. * really are teh suck.
-#: ../plugins/updates/gsd-updates-manager.c:156
-msgid "The update could not be completed."
-msgstr "更新無法完成。"
-
-#. TRANSLATORS: the user aborted the update manually
-#: ../plugins/updates/gsd-updates-manager.c:161
-msgid "The update was cancelled."
-msgstr "更新已被取消。"
-
-#. TRANSLATORS: the user must have updated manually after
-#. * the updates were prepared
-#: ../plugins/updates/gsd-updates-manager.c:167
-msgid "An offline update was requested but no packages required updating."
-msgstr "已要求離線更新但沒有更新所需的套件。"
-
-#. TRANSLATORS: we ran out of disk space
-#: ../plugins/updates/gsd-updates-manager.c:171
-msgid "No space was left on the drive."
-msgstr "該磁碟已無剩餘空間。"
-
-#. TRANSLATORS: the update process failed in a general
-#. * way, usually this message will come from source distros
-#. * like gentoo
-#: ../plugins/updates/gsd-updates-manager.c:179
-msgid "An update failed to install correctly."
-msgstr "無法正確的安裝更新。"
-
-#. TRANSLATORS: We didn't handle the error type
-#: ../plugins/updates/gsd-updates-manager.c:184
-msgid "The offline update failed in an unexpected way."
-msgstr "離線更新以未預期的方式失敗。"
-
-#. TRANSLATORS: these are geeky messages from the
-#. * package manager no mortal is supposed to understand,
-#. * but google might know what they mean
-#: ../plugins/updates/gsd-updates-manager.c:193
-msgid "Detailed errors from the package manager follow:"
-msgstr "來自套件管理程式的詳細錯誤如下："
-
-#. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:381
-msgid "Distribution upgrades available"
-msgstr "有發行版本升級可用"
-
-#. TRANSLATORS: don't install updates now
-#: ../plugins/updates/gsd-updates-manager.c:391
-#: ../plugins/updates/gsd-updates-manager.c:527
-#: ../plugins/updates/gsd-updates-manager.c:608
-msgid "Not Now"
-msgstr "現在不要"
-
-#. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:396
-msgid "More information"
-msgstr "更多資訊"
-
-#. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:504
-#: ../plugins/updates/gsd-updates-manager.c:585
-msgid "Update"
-msgid_plural "Updates"
-msgstr[0] "更新"
-
-#. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:507
-msgid "An important software update is available"
-msgid_plural "Important software updates are available"
-msgstr[0] "有重要軟件更新可用"
-
-#. TRANSLATORS: view available updates
-#: ../plugins/updates/gsd-updates-manager.c:533
-#: ../plugins/updates/gsd-updates-manager.c:614
-msgid "View"
-msgstr "檢視"
-
-#. TRANSLATORS: install available updates
-#: ../plugins/updates/gsd-updates-manager.c:537
-#: ../plugins/updates/gsd-updates-manager.c:618
-msgid "Restart & Install"
-msgstr "重新啟動 & 安裝"
-
-#. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:543
-#: ../plugins/updates/gsd-updates-manager.c:624
-msgid "Install updates"
-msgstr "安裝更新"
-
-#. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:588
-msgid "A software update is available."
-msgid_plural "Software updates are available."
-msgstr[0] "有軟件更新可用。"
-
-#. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:663
-#: ../plugins/updates/updates.gnome-settings-plugin.in.h:1
-msgid "Updates"
-msgstr "更新"
-
-#. TRANSLATORS: we failed to get the updates multiple times,
-#. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:667
-msgid "Unable to access software updates"
-msgstr "無法存取軟件更新"
-
-#. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:670
-msgid "Try again"
-msgstr "再試一次"
-
-#. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:1044
-msgid "A transaction that cannot be interrupted is running"
-msgstr "有無法中斷的處理正在執行"
-
-#. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1264
-msgid "Software Update Installed"
-msgid_plural "Software Updates Installed"
-msgstr[0] "軟件更新已安裝"
-
-#. TRANSLATORS: message when we've done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1269
-msgid "An important OS update has been installed."
-msgid_plural "Important OS updates have been installed."
-msgstr[0] "重要的 OS 更新已安裝。"
-
-#. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1292
-msgid "Software Updates Failed"
-msgstr "軟件更新失敗"
-
-#. TRANSLATORS: message when we've not done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1295
-msgid "An important OS update failed to be installed."
-msgstr "重要的 OS 更新無法安裝。"
-
-#. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1318
-msgid "Review"
-msgstr "檢閱"
-
-#. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1322
-msgid "Show details"
-msgstr "顯示詳細資訊"
-
-#. TRANSLATORS: button: clear notification
-#: ../plugins/updates/gsd-updates-manager.c:1326
-msgid "OK"
-msgstr "確定"
-
-#: ../plugins/updates/updates.gnome-settings-plugin.in.h:2
-msgid "Updates plugin"
-msgstr "更新外掛程式"
-
 #: ../plugins/wacom/gsd-wacom-button-editor.c:51
 msgctxt "Wacom action-type"
 msgid "None"
@@ -2313,13 +1968,13 @@ msgid "Show On-Screen Help"
 msgstr "顯示螢幕說明文件"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:154
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1095
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1096
 msgctxt "Action type"
 msgid "Show On-Screen Help"
 msgstr "顯示螢幕求助"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:157
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1098
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1099
 msgctxt "Action type"
 msgid "Switch Monitor"
 msgstr "切換監視器"
@@ -2432,54 +2087,54 @@ msgid "Unknown Tablet Connected"
 msgstr "不明的繪圖板已連接"
 
 #: ../plugins/wacom/gsd-wacom-manager.c:1019
-#: ../plugins/wacom/gsd-wacom-manager.c:1643
+#: ../plugins/wacom/gsd-wacom-manager.c:1644
 msgid "Wacom Settings"
 msgstr "Wacom 設定值"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1637
+#: ../plugins/wacom/gsd-wacom-manager.c:1638
 #, c-format
 msgid "Tablet %s needs to be calibrated."
 msgstr "繪圖板「%s」不需要校正。"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1639
+#: ../plugins/wacom/gsd-wacom-manager.c:1640
 msgid "Calibration needed"
 msgstr "需要校正"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1652
+#: ../plugins/wacom/gsd-wacom-manager.c:1653
 msgid "Calibrate"
 msgstr "校正"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1072
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1092
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1103
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1073
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1093
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1104
 msgctxt "Action type"
 msgid "None"
 msgstr "沒有"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1077
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1078
 #, c-format
 msgctxt "Action type"
 msgid "Send Keystroke %s"
 msgstr "傳送筆劃 %s"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1136
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1137
 #, c-format
 msgid "Mode %d: %s"
 msgstr "模式 %d: %s"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1346
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1347
 msgid "(press any key to exit)"
 msgstr "(按任意鍵離開)"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1355
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1356
 msgid "Push a button to configure"
 msgstr "按下按鈕以設定"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1355
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1356
 msgid "(Esc to cancel)"
 msgstr "(按 Esc 取消)"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1985
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1983
 msgid "Edit"
 msgstr "編輯"
 
@@ -2515,7 +2170,7 @@ msgstr "Wacom"
 msgid "Wacom plugin"
 msgstr "Wacom 外掛程式"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:971
+#: ../plugins/xrandr/gsd-xrandr-manager.c:958
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "無法重新整理螢幕的資訊：%s"
@@ -2535,6 +2190,255 @@ msgstr "X 設定值"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "管理 X 設定值"
+
+#~ msgid "Use mobile broadband connections"
+#~ msgstr "使用行動寬頻連線"
+
+#~ msgid ""
+#~ "Use mobile broadband connections such as GSM and CDMA to check for "
+#~ "updates."
+#~ msgstr "使用行動寬頻連線，像是 GSM 和 CDMA 來檢查更新。"
+
+#~ msgid ""
+#~ "Automatically download updates in the background without confirmation"
+#~ msgstr "不要求確認就在背景自動下載更新"
+
+#~ msgid ""
+#~ "Automatically download updates in the background without confirmation. "
+#~ "Updates will be auto-downloaded when using wired network connnections, "
+#~ "and mobile broadband if 'connection-use-mobile' is enabled."
+#~ msgstr ""
+#~ "不要求確認就在背景自動下載更新。更新會在使用有線網路連線時自動下載；如果啟"
+#~ "用「connection-use-mobile」則使用行動寬頻也會下載。"
+
+#~ msgid "How often to check for updates"
+#~ msgstr "多久檢查更新"
+
+#~ msgid ""
+#~ "How often to check for updates. Value is in seconds. This is a maximum "
+#~ "amount of time that can pass between a security update being published, "
+#~ "and the update being automatically installed or the user notified."
+#~ msgstr ""
+#~ "多久檢查更新。數值為秒數。這是在安全性更新發布後經過的最大時間總數，而更新"
+#~ "會自動安裝或通知使用者。"
+
+#~ msgid "How often to notify the user that non-critical updates are available"
+#~ msgstr "多久通知使用者有非重大更新可用"
+
+#~ msgid ""
+#~ "How often to tell the user there are non-critical updates. Value is in "
+#~ "seconds. Security update notifications are always shown after the check "
+#~ "for updates, but non-critical notifications should be shown a lot less "
+#~ "frequently."
+#~ msgstr ""
+#~ "多久告訴使用者有非重大更新。數值為秒數。安全性更新通知永遠會在檢查更新後顯"
+#~ "示，但是非重大更新通知顯示的頻率應該少一些。"
+
+#~ msgid "The last time we told the user about non-critical notifications"
+#~ msgstr "我們通知使用者有非重大更新的最後時刻"
+
+#~ msgid ""
+#~ "The last time we notified the user about non-critical updates. Value is "
+#~ "in seconds since the epoch, or zero for never."
+#~ msgstr ""
+#~ "我們通知使用者有非重大更新的最後時刻。數值為以電腦紀元計算的數值，或 0 代"
+#~ "表永不使用。"
+
+#~ msgid "How often to check for distribution upgrades"
+#~ msgstr "多久檢查是否有發行版本的更新"
+
+#~ msgid "How often to check for distribution upgrades. Value is in seconds."
+#~ msgstr "多久檢查是否有發行版本的更新。數值為秒數。"
+
+#~ msgid "How often to refresh the package cache"
+#~ msgstr "多久重新整理套件快取"
+
+#~ msgid "How often to refresh the package cache. Value is in seconds."
+#~ msgstr "多久重新整理套件快取。數值為秒數。"
+
+#~ msgid "Check for updates when running on battery power"
+#~ msgstr "當使用電池電力時檢查更新"
+
+#~ msgid "Check for updates when running on battery power."
+#~ msgstr "當使用電池電力時檢查更新。"
+
+#~ msgid "Notify the user when distribution upgrades are available"
+#~ msgstr "當有發行版本升級可用時通知使用者"
+
+#~ msgid "Notify the user when distribution upgrades are available."
+#~ msgstr "當有發行版本升級可用時通知使用者。"
+
+#~ msgid "Ask the user if additional firmware should be installed"
+#~ msgstr "如果要安裝額外的韌體先詢問使用者"
+
+#~ msgid ""
+#~ "Ask the user if additional firmware should be installed if it is "
+#~ "available."
+#~ msgstr "如果要安裝額外的韌體，而且可以取得時先詢問使用者"
+
+#~ msgid "Firmware files that should not be searched for"
+#~ msgstr "不包含在搜尋中的韌體檔案"
+
+#~ msgid ""
+#~ "Firmware files that should not be searched for, separated by commas. "
+#~ "These can include '*' and '?' characters."
+#~ msgstr ""
+#~ "不包含在搜尋中的韌體檔案，以逗號分隔。這些項目可以包含 '*' 和 '?' 字元。"
+
+#~ msgid "Devices that should be ignored"
+#~ msgstr "應忽略的裝置"
+
+#~ msgid ""
+#~ "Devices that should be ignored, separated by commas. These can include "
+#~ "'*' and '?' characters."
+#~ msgstr "要忽略的裝置，以逗號分隔。這些項目可以包含 '*' 和 '?' 字元。"
+
+#~ msgid ""
+#~ "The filenames on removable media that designate it a software source."
+#~ msgstr "可移除式媒體上的檔案名稱，為軟體的來源。"
+
+#~ msgid ""
+#~ "When removable media is inserted, it is checked to see if it contains any "
+#~ "important filenames in the root directory. If the filename matches, then "
+#~ "an updates check is performed. This allows post-install disks to be used "
+#~ "to update running systems."
+#~ msgstr ""
+#~ "當插入可移除式媒體，會檢查它的根目錄是否含有任何重要的檔案名稱。如果檔案名"
+#~ "稱符合，就會進行更新檢查。這樣可以讓後續安裝的磁碟用來更新執行中的系統。"
+
+#~ msgid ""
+#~ "You will need to restart this computer before the hardware will work "
+#~ "correctly."
+#~ msgstr "您需要重新啟動這臺電腦硬體才能正常運作。"
+
+#~ msgid "Additional software was installed"
+#~ msgstr "已安裝額外的軟體"
+
+#~ msgid "Software Updates"
+#~ msgstr "軟體更新"
+
+#~ msgid ""
+#~ "You will need to remove and then reinsert the hardware before it will "
+#~ "work correctly."
+#~ msgstr "您需要移除並重新插入這項硬體才能正常運作。"
+
+#~ msgid "Your hardware has been set up and is now ready to use."
+#~ msgstr "您的硬體已設定好，現在已可以使用。"
+
+#~ msgid ""
+#~ "Additional firmware is required to make hardware in this computer "
+#~ "function correctly."
+#~ msgstr "需要額外的韌體才能讓這臺電腦的硬體正常運作。"
+
+#~ msgid "Additional firmware required"
+#~ msgstr "需要額外的韌體"
+
+#~ msgid "Install firmware"
+#~ msgstr "安裝韌體"
+
+#~ msgid "Ignore devices"
+#~ msgstr "忽略裝置"
+
+#~ msgid "Failed To Update"
+#~ msgstr "更新失敗"
+
+#~ msgid "A previous update was unfinished."
+#~ msgstr "上一個更新尚未完成。"
+
+#~ msgid "Network access was required but not available."
+#~ msgstr "需要網路存取但無法使用。"
+
+#~ msgid "An update was not signed in the correct way."
+#~ msgstr "有更新沒有以正確的方式簽署。"
+
+#~ msgid "The update could not be completed."
+#~ msgstr "更新無法完成。"
+
+#~ msgid "The update was cancelled."
+#~ msgstr "更新已被取消。"
+
+#~ msgid "An offline update was requested but no packages required updating."
+#~ msgstr "已要求離線更新但沒有更新所需的套件。"
+
+#~ msgid "No space was left on the drive."
+#~ msgstr "該磁碟已無剩餘空間。"
+
+#~ msgid "An update failed to install correctly."
+#~ msgstr "無法正確的安裝更新。"
+
+#~ msgid "The offline update failed in an unexpected way."
+#~ msgstr "離線更新以未預期的方式失敗。"
+
+#~ msgid "Detailed errors from the package manager follow:"
+#~ msgstr "來自套件管理程式的詳細錯誤如下："
+
+#~ msgid "Distribution upgrades available"
+#~ msgstr "有發行版本升級可用"
+
+#~ msgid "Not Now"
+#~ msgstr "現在不要"
+
+#~ msgid "More information"
+#~ msgstr "更多資訊"
+
+#~ msgid "Update"
+#~ msgid_plural "Updates"
+#~ msgstr[0] "更新"
+
+#~ msgid "An important software update is available"
+#~ msgid_plural "Important software updates are available"
+#~ msgstr[0] "有重要軟體更新可用"
+
+#~ msgid "View"
+#~ msgstr "檢視"
+
+#~ msgid "Restart & Install"
+#~ msgstr "重新啟動 & 安裝"
+
+#~ msgid "Install updates"
+#~ msgstr "安裝更新"
+
+#~ msgid "A software update is available."
+#~ msgid_plural "Software updates are available."
+#~ msgstr[0] "有軟體更新可用。"
+
+#~ msgid "Updates"
+#~ msgstr "更新"
+
+#~ msgid "Unable to access software updates"
+#~ msgstr "無法存取軟體更新"
+
+#~ msgid "Try again"
+#~ msgstr "再試一次"
+
+#~ msgid "A transaction that cannot be interrupted is running"
+#~ msgstr "有無法中斷的處理正在執行"
+
+#~ msgid "Software Update Installed"
+#~ msgid_plural "Software Updates Installed"
+#~ msgstr[0] "軟體更新已安裝"
+
+#~ msgid "An important OS update has been installed."
+#~ msgid_plural "Important OS updates have been installed."
+#~ msgstr[0] "重要的 OS 更新已安裝。"
+
+#~ msgid "Software Updates Failed"
+#~ msgstr "軟體更新失敗"
+
+#~ msgid "An important OS update failed to be installed."
+#~ msgstr "重要的 OS 更新無法安裝。"
+
+#~ msgid "Review"
+#~ msgstr "檢閱"
+
+#~ msgid "Show details"
+#~ msgstr "顯示詳細資訊"
+
+#~ msgid "OK"
+#~ msgstr "確定"
+
+#~ msgid "Updates plugin"
+#~ msgstr "更新外掛程式"
 
 #~ msgid "Wacom tablet PC feature"
 #~ msgstr "Wacom 平板 PC 功能"
@@ -3049,7 +2953,7 @@ msgstr "管理 X 設定值"
 #~ msgstr "按壓捷徑鍵時能一次按壓一個鍵（黏性鍵）(_P)"
 
 #~ msgid "_Ignore duplicate keypresses (Bounce Keys)"
-#~ msgstr "忽略重複按下的按鍵（回鍵）(_I)"
+#~ msgstr "忽略重複按下的按鍵（反彈鍵）(_I)"
 
 #~ msgid "Press and _hold keys to accept them (Slow Keys)"
 #~ msgstr "按住按鍵來接受他們（遲緩按鍵）"
