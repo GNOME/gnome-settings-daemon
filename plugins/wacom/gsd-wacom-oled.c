@@ -18,6 +18,8 @@
  *
  */
 
+#include "config.h"
+
 #include <unistd.h>
 #include <math.h>
 #include <pango/pango.h>
