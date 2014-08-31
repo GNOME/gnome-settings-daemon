@@ -977,6 +977,28 @@ do_lock_screensaver (GsdMediaKeysManager *manager)
 }
 
 static void
+ensure_canberra (GsdMediaKeysManager *manager)
+{
+	char *theme_name;
+
+	if (manager->priv->ca != NULL)
+		return;
+
+        ca_context_create (&manager->priv->ca);
+        ca_context_set_driver (manager->priv->ca, "pulse");
+        ca_context_change_props (manager->priv->ca, 0,
+                                 CA_PROP_APPLICATION_ID, "org.gnome.VolumeControl",
+                                 NULL);
+        manager->priv->gtksettings = gtk_settings_get_for_screen (gdk_screen_get_default ());
+        g_object_get (G_OBJECT (manager->priv->gtksettings), "gtk-sound-theme-name", &theme_name, NULL);
+        if (theme_name)
+                ca_context_change_props (manager->priv->ca, CA_PROP_CANBERRA_XDG_THEME_NAME, theme_name, NULL);
+        g_free (theme_name);
+        g_signal_connect (manager->priv->gtksettings, "notify::gtk-sound-theme-name",
+                          G_CALLBACK (sound_theme_changed), manager);
+}
+
+static void
 update_dialog (GsdMediaKeysManager *manager,
                GvcMixerStream      *stream,
                guint                vol,
@@ -1009,6 +1031,7 @@ update_dialog (GsdMediaKeysManager *manager,
         }
 
         if (quiet == FALSE && sound_changed != FALSE && muted == FALSE) {
+                ensure_canberra (manager);
                 ca_context_change_device (manager->priv->ca,
                                           gvc_mixer_stream_get_name (stream));
                 ca_context_play (manager->priv->ca, 1,
@@ -2299,8 +2322,6 @@ shell_presence_changed (GsdMediaKeysManager *manager)
 static gboolean
 start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 {
-        char *theme_name;
-
         g_debug ("Starting media_keys manager");
         gnome_settings_profile_start (NULL);
 
@@ -2317,20 +2338,6 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
         manager->priv->custom_settings =
           g_hash_table_new_full (g_str_hash, g_str_equal,
                                  g_free, g_object_unref);
-
-        /* Sound events */
-        ca_context_create (&manager->priv->ca);
-        ca_context_set_driver (manager->priv->ca, "pulse");
-        ca_context_change_props (manager->priv->ca, 0,
-                                 CA_PROP_APPLICATION_ID, "org.gnome.VolumeControl",
-                                 NULL);
-        manager->priv->gtksettings = gtk_settings_get_for_screen (gdk_screen_get_default ());
-        g_object_get (G_OBJECT (manager->priv->gtksettings), "gtk-sound-theme-name", &theme_name, NULL);
-        if (theme_name)
-                ca_context_change_props (manager->priv->ca, CA_PROP_CANBERRA_XDG_THEME_NAME, theme_name, NULL);
-        g_free (theme_name);
-        g_signal_connect (manager->priv->gtksettings, "notify::gtk-sound-theme-name",
-                          G_CALLBACK (sound_theme_changed), manager);
 
         /* for the power plugin interface code */
         manager->priv->power_settings = g_settings_new (SETTINGS_POWER_DIR);
