@@ -977,6 +977,19 @@ do_lock_screensaver (GsdMediaKeysManager *manager)
 }
 
 static void
+sound_theme_changed (GtkSettings         *settings,
+                     GParamSpec          *pspec,
+                     GsdMediaKeysManager *manager)
+{
+        char *theme_name;
+
+        g_object_get (G_OBJECT (manager->priv->gtksettings), "gtk-sound-theme-name", &theme_name, NULL);
+        if (theme_name)
+                ca_context_change_props (manager->priv->ca, CA_PROP_CANBERRA_XDG_THEME_NAME, theme_name, NULL);
+        g_free (theme_name);
+}
+
+static void
 ensure_canberra (GsdMediaKeysManager *manager)
 {
 	char *theme_name;
@@ -1219,19 +1232,6 @@ do_sound_action (GsdMediaKeysManager *manager,
         }
 
         update_dialog (manager, stream, new_vol, new_muted, sound_changed, quiet);
-}
-
-static void
-sound_theme_changed (GtkSettings         *settings,
-                     GParamSpec          *pspec,
-                     GsdMediaKeysManager *manager)
-{
-        char *theme_name;
-
-        g_object_get (G_OBJECT (manager->priv->gtksettings), "gtk-sound-theme-name", &theme_name, NULL);
-        if (theme_name)
-                ca_context_change_props (manager->priv->ca, CA_PROP_CANBERRA_XDG_THEME_NAME, theme_name, NULL);
-        g_free (theme_name);
 }
 
 static void
