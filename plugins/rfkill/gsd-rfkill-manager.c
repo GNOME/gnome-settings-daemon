@@ -55,6 +55,9 @@ struct GsdRfkillManagerPrivate
         gboolean                 wwan_enabled;
         GDBusObjectManager      *mm_client;
         gboolean                 wwan_interesting;
+
+        GDBusProxy              *hostnamed_client;
+        gchar                   *chassis_type;
 };
 
 #define GSD_RFKILL_DBUS_NAME GSD_DBUS_NAME ".Rfkill"
@@ -67,6 +70,7 @@ static const gchar introspection_xml[] =
 "      <property name='AirplaneMode' type='b' access='readwrite'/>"
 "      <property name='HardwareAirplaneMode' type='b' access='read'/>"
 "      <property name='HasAirplaneMode' type='b' access='read'/>"
+"      <property name='ShouldShowAirplaneMode' type='b' access='read'/>"
 "      <property name='BluetoothAirplaneMode' type='b' access='readwrite'/>"
 "      <property name='BluetoothHardwareAirplaneMode' type='b' access='read'/>"
 "      <property name='BluetoothHasAirplaneMode' type='b' access='read'/>"
@@ -199,6 +203,15 @@ engine_get_has_airplane_mode (GsdRfkillManager *manager)
                 manager->priv->wwan_interesting;
 }
 
+static gboolean
+engine_get_should_show_airplane_mode (GsdRfkillManager *manager)
+{
+        return (g_strcmp0 (manager->priv->chassis_type, "desktop") != 0) &&
+                (g_strcmp0 (manager->priv->chassis_type, "server") != 0) &&
+                (g_strcmp0 (manager->priv->chassis_type, "vm") != 0) &&
+                (g_strcmp0 (manager->priv->chassis_type, "container") != 0);
+}
+
 static void
 engine_properties_changed (GsdRfkillManager *manager)
 {
@@ -217,6 +230,8 @@ engine_properties_changed (GsdRfkillManager *manager)
                                g_variant_new_boolean (engine_get_hardware_airplane_mode (manager)));
         g_variant_builder_add (&props_builder, "{sv}", "HasAirplaneMode",
                                g_variant_new_boolean (engine_get_has_airplane_mode (manager)));
+        g_variant_builder_add (&props_builder, "{sv}", "ShouldShowAirplaneMode",
+                               g_variant_new_boolean (engine_get_should_show_airplane_mode (manager)));
         g_variant_builder_add (&props_builder, "{sv}", "BluetoothAirplaneMode",
                                g_variant_new_boolean (engine_get_bluetooth_airplane_mode (manager)));
         g_variant_builder_add (&props_builder, "{sv}", "BluetoothHardwareAirplaneMode",
@@ -413,6 +428,12 @@ handle_get_property (GDBusConnection *connection,
                 return g_variant_new_boolean (hw_airplane_mode);
         }
 
+        if (g_strcmp0 (property_name, "ShouldShowAirplaneMode") == 0) {
+                gboolean should_show_airplane_mode;
+                should_show_airplane_mode = engine_get_should_show_airplane_mode (manager);
+                return g_variant_new_boolean (should_show_airplane_mode);
+        }
+
         if (g_strcmp0 (property_name, "HasAirplaneMode") == 0) {
                 gboolean has_airplane_mode;
                 has_airplane_mode = engine_get_has_airplane_mode (manager);
@@ -605,6 +626,76 @@ on_mm_proxy_gotten (GObject      *source,
         g_object_unref (manager);
 }
 
+static void
+sync_chassis_type (GsdRfkillManager *manager)
+{
+        GVariant *property;
+        const gchar *chassis_type;
+
+        property = g_dbus_proxy_get_cached_property (manager->priv->hostnamed_client,
+                                                     "Chassis");
+
+        if (property == NULL)
+                return;
+
+        chassis_type = g_variant_get_string (property, NULL);
+        if (g_strcmp0 (manager->priv->chassis_type, chassis_type) != 0) {
+                g_free (manager->priv->chassis_type);
+                manager->priv->chassis_type = g_strdup (chassis_type);
+
+                engine_properties_changed (manager);
+        }
+
+        g_variant_unref (property);
+}
+
+static void
+hostnamed_properties_changed (GDBusProxy *proxy,
+                              GVariant   *changed_properties,
+                              GStrv       invalidated_properties,
+                              gpointer    user_data)
+{
+        GsdRfkillManager *manager = user_data;
+        GVariant *value;
+
+        value = g_variant_lookup_value (changed_properties, "Chassis", G_VARIANT_TYPE_STRING);
+        if (value != NULL) {
+                sync_chassis_type (manager);
+                g_variant_unref (value);
+        }
+}
+
+static void
+on_hostnamed_proxy_gotten (GObject      *source,
+                           GAsyncResult *result,
+                           gpointer      user_data)
+{
+        GsdRfkillManager *manager = user_data;
+        GDBusProxy *proxy;
+        GError *error;
+
+        error = NULL;
+        proxy = g_dbus_proxy_new_for_bus_finish (result, &error);
+
+        if (proxy == NULL) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED) &&
+                    !g_error_matches (error, G_DBUS_ERROR, G_DBUS_ERROR_SERVICE_UNKNOWN))
+                        g_warning ("Failed to acquire hostnamed proxy: %s", error->message);
+
+                g_error_free (error);
+                goto out;
+        }
+
+        manager->priv->hostnamed_client = proxy;
+
+        g_signal_connect (manager->priv->hostnamed_client, "g-properties-changed",
+                          G_CALLBACK (hostnamed_properties_changed), manager);
+        sync_chassis_type (manager);
+
+ out:
+        g_object_unref (manager);
+}
+
 gboolean
 gsd_rfkill_manager_start (GsdRfkillManager *manager,
                          GError         **error)
@@ -622,6 +713,15 @@ gsd_rfkill_manager_start (GsdRfkillManager *manager,
         cc_rfkill_glib_open (manager->priv->rfkill);
 
         manager->priv->cancellable = g_cancellable_new ();
+
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+                                  G_DBUS_PROXY_FLAGS_NONE,
+                                  NULL, /* g-interface-info */
+                                  "org.freedesktop.hostname1",
+                                  "/org/freedesktop/hostname1",
+                                  "org.freedesktop.hostname1",
+                                  manager->priv->cancellable,
+                                  on_hostnamed_proxy_gotten, g_object_ref (manager));
 
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
                                   G_DBUS_PROXY_FLAGS_NONE,
@@ -678,6 +778,9 @@ gsd_rfkill_manager_stop (GsdRfkillManager *manager)
         g_clear_object (&p->mm_client);
         p->wwan_enabled = FALSE;
         p->wwan_interesting = FALSE;
+
+        g_clear_object (&p->hostnamed_client);
+        g_clear_pointer (&p->chassis_type, g_free);
 }
 
 static void
