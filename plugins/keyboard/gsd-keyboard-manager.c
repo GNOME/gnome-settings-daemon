@@ -37,22 +37,14 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
+#include <X11/XKBlib.h>
 #include <X11/keysym.h>
-
-#define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-languages.h>
-#include <libgnome-desktop/gnome-xkb-info.h>
-
-#ifdef HAVE_IBUS
-#include <ibus.h>
-#endif
 
 #include "gnome-settings-bus.h"
 #include "gnome-settings-profile.h"
 #include "gsd-keyboard-manager.h"
 #include "gsd-input-helper.h"
 #include "gsd-enums.h"
-#include "gsd-xkb-utils.h"
 
 #define GSD_KEYBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_KEYBOARD_MANAGER, GsdKeyboardManagerPrivate))
 
@@ -72,78 +64,35 @@
 #define KEY_BELL_MODE      "bell-mode"
 #define KEY_BELL_CUSTOM_FILE "bell-custom-file"
 
-#define GNOME_DESKTOP_INTERFACE_DIR "org.gnome.desktop.interface"
-
-#define KEY_GTK_IM_MODULE    "gtk-im-module"
-#define GTK_IM_MODULE_SIMPLE "gtk-im-context-simple"
-#define GTK_IM_MODULE_IBUS   "ibus"
-
 #define GNOME_DESKTOP_INPUT_SOURCES_DIR "org.gnome.desktop.input-sources"
 
-#define KEY_CURRENT_INPUT_SOURCE "current"
 #define KEY_INPUT_SOURCES        "sources"
 #define KEY_KEYBOARD_OPTIONS     "xkb-options"
 
 #define INPUT_SOURCE_TYPE_XKB  "xkb"
-#define INPUT_SOURCE_TYPE_IBUS "ibus"
 
-#define DEFAULT_LANGUAGE "en_US"
 #define DEFAULT_LAYOUT "us"
-
-#define GSD_KEYBOARD_DBUS_NAME  "org.gnome.SettingsDaemon.Keyboard"
-#define GSD_KEYBOARD_DBUS_PATH  "/org/gnome/SettingsDaemon/Keyboard"
 
 struct GsdKeyboardManagerPrivate
 {
 	guint      start_idle_id;
         GSettings *settings;
         GSettings *input_sources_settings;
-        GSettings *interface_settings;
-        GnomeXkbInfo *xkb_info;
         GDBusProxy *localed;
         GCancellable *cancellable;
-#ifdef HAVE_IBUS
-        IBusBus   *ibus;
-        GHashTable *ibus_engines;
-        GCancellable *ibus_cancellable;
-#endif
+
         gint       xkb_event_base;
         GsdNumLockState old_state;
         GdkDeviceManager *device_manager;
         guint device_added_id;
         guint device_removed_id;
-
-        GDBusConnection *dbus_connection;
-        GDBusNodeInfo *dbus_introspection;
-        guint dbus_own_name_id;
-        guint dbus_register_object_id;
-
-        GDBusMethodInvocation *invocation;
-        guint pending_ops;
 };
 
 static void     gsd_keyboard_manager_class_init  (GsdKeyboardManagerClass *klass);
 static void     gsd_keyboard_manager_init        (GsdKeyboardManager      *keyboard_manager);
 static void     gsd_keyboard_manager_finalize    (GObject                 *object);
-static gboolean apply_input_sources_settings     (GSettings               *settings,
-                                                  gpointer                 keys,
-                                                  gint                     n_keys,
-                                                  GsdKeyboardManager      *manager);
-static void     set_gtk_im_module                (GsdKeyboardManager      *manager,
-                                                  GVariant                *sources);
-static void     maybe_return_from_set_input_source (GsdKeyboardManager    *manager);
-static void     increment_set_input_source_ops   (GsdKeyboardManager      *manager);
 
 G_DEFINE_TYPE (GsdKeyboardManager, gsd_keyboard_manager, G_TYPE_OBJECT)
-
-static const gchar introspection_xml[] =
-        "<node>"
-        "  <interface name='org.gnome.SettingsDaemon.Keyboard'>"
-        "    <method name='SetInputSource'>"
-        "      <arg type='u' name='idx' direction='in'/>"
-        "    </method>"
-        "  </interface>"
-        "</node>";
 
 static gpointer manager_object = NULL;
 
@@ -196,319 +145,6 @@ schema_is_installed (const char *schema)
         return (contained (non_relocatable, schema) ||
                 contained (relocatable, schema));
 }
-
-#ifdef HAVE_IBUS
-static void
-clear_ibus (GsdKeyboardManager *manager)
-{
-        GsdKeyboardManagerPrivate *priv = manager->priv;
-
-        g_cancellable_cancel (priv->ibus_cancellable);
-        g_clear_object (&priv->ibus_cancellable);
-        g_clear_pointer (&priv->ibus_engines, g_hash_table_destroy);
-        g_clear_object (&priv->ibus);
-}
-
-static void
-fetch_ibus_engines_result (GObject            *object,
-                           GAsyncResult       *result,
-                           GsdKeyboardManager *manager)
-{
-        GsdKeyboardManagerPrivate *priv = manager->priv;
-        GList *list, *l;
-        GError *error = NULL;
-
-        /* engines shouldn't be there yet */
-        g_return_if_fail (priv->ibus_engines == NULL);
-
-        g_clear_object (&priv->ibus_cancellable);
-
-        list = ibus_bus_list_engines_async_finish (priv->ibus,
-                                                   result,
-                                                   &error);
-        if (!list && error) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-                        g_warning ("Couldn't finish IBus request: %s", error->message);
-                g_error_free (error);
-
-                clear_ibus (manager);
-                return;
-        }
-
-        /* Maps IBus engine ids to engine description objects */
-        priv->ibus_engines = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, g_object_unref);
-
-        for (l = list; l; l = l->next) {
-                IBusEngineDesc *engine = l->data;
-                const gchar *engine_id = ibus_engine_desc_get_name (engine);
-
-                g_hash_table_replace (priv->ibus_engines, (gpointer)engine_id, engine);
-        }
-        g_list_free (list);
-
-        apply_input_sources_settings (priv->input_sources_settings, NULL, 0, manager);
-}
-
-static void
-fetch_ibus_engines (GsdKeyboardManager *manager)
-{
-        GsdKeyboardManagerPrivate *priv = manager->priv;
-
-        /* engines shouldn't be there yet */
-        g_return_if_fail (priv->ibus_engines == NULL);
-        g_return_if_fail (priv->ibus_cancellable == NULL);
-
-        priv->ibus_cancellable = g_cancellable_new ();
-
-        ibus_bus_list_engines_async (priv->ibus,
-                                     -1,
-                                     priv->ibus_cancellable,
-                                     (GAsyncReadyCallback)fetch_ibus_engines_result,
-                                     manager);
-}
-
-static void
-maybe_start_ibus (GsdKeyboardManager *manager)
-{
-        if (!manager->priv->ibus) {
-                ibus_init ();
-                manager->priv->ibus = ibus_bus_new_async ();
-                g_signal_connect_swapped (manager->priv->ibus, "connected",
-                                          G_CALLBACK (fetch_ibus_engines), manager);
-                g_signal_connect_swapped (manager->priv->ibus, "disconnected",
-                                          G_CALLBACK (clear_ibus), manager);
-        }
-        /* IBus doesn't export API in the session bus. The only thing
-         * we have there is a well known name which we can use as a
-         * sure-fire way to activate it. */
-        g_bus_unwatch_name (g_bus_watch_name (G_BUS_TYPE_SESSION,
-                                              IBUS_SERVICE_IBUS,
-                                              G_BUS_NAME_WATCHER_FLAGS_AUTO_START,
-                                              NULL,
-                                              NULL,
-                                              NULL,
-                                              NULL));
-}
-
-static void
-set_ibus_engine_finish (GObject            *object,
-                        GAsyncResult       *res,
-                        GsdKeyboardManager *manager)
-{
-        gboolean result;
-        IBusBus *ibus = IBUS_BUS (object);
-        GsdKeyboardManagerPrivate *priv = manager->priv;
-        GError *error = NULL;
-
-        g_clear_object (&priv->ibus_cancellable);
-
-        result = ibus_bus_set_global_engine_async_finish (ibus, res, &error);
-        if (!result) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-                        g_warning ("Couldn't set IBus engine: %s", error->message);
-                g_error_free (error);
-                return;
-        }
-
-        maybe_return_from_set_input_source (manager);
-}
-
-static void
-set_ibus_engine (GsdKeyboardManager *manager,
-                 const gchar        *engine_id)
-{
-        GsdKeyboardManagerPrivate *priv = manager->priv;
-
-        g_return_if_fail (priv->ibus != NULL);
-        g_return_if_fail (priv->ibus_engines != NULL);
-
-        g_cancellable_cancel (priv->ibus_cancellable);
-        g_clear_object (&priv->ibus_cancellable);
-        priv->ibus_cancellable = g_cancellable_new ();
-
-        increment_set_input_source_ops (manager);
-
-        ibus_bus_set_global_engine_async (priv->ibus,
-                                          engine_id,
-                                          -1,
-                                          priv->ibus_cancellable,
-                                          (GAsyncReadyCallback)set_ibus_engine_finish,
-                                          manager);
-}
-
-static void
-set_ibus_xkb_engine (GsdKeyboardManager *manager)
-{
-        IBusEngineDesc *engine;
-        GsdKeyboardManagerPrivate *priv = manager->priv;
-
-        if (!priv->ibus_engines)
-                return;
-
-        /* All the "xkb:..." IBus engines simply "echo" back symbols,
-           despite their naming implying differently, so we always set
-           one in order for XIM applications to work given that we set
-           XMODIFIERS=@im=ibus in the first place so that they can
-           work without restarting when/if the user adds an IBus
-           input source. */
-        engine = g_hash_table_lookup (priv->ibus_engines, "xkb:us::eng");
-        if (!engine)
-                return;
-
-        set_ibus_engine (manager, ibus_engine_desc_get_name (engine));
-}
-
-static gboolean
-need_ibus (GVariant *sources)
-{
-        GVariantIter iter;
-        const gchar *type;
-
-        g_variant_iter_init (&iter, sources);
-        while (g_variant_iter_next (&iter, "(&s&s)", &type, NULL))
-                if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS))
-                        return TRUE;
-
-        return FALSE;
-}
-
-
-static void
-set_gtk_im_module (GsdKeyboardManager *manager,
-                   GVariant           *sources)
-{
-        GsdKeyboardManagerPrivate *priv = manager->priv;
-        const gchar *new_module;
-        gchar *current_module;
-
-        if (!sources || need_ibus (sources))
-                new_module = GTK_IM_MODULE_IBUS;
-        else
-                new_module = GTK_IM_MODULE_SIMPLE;
-
-        current_module = g_settings_get_string (priv->interface_settings,
-                                                KEY_GTK_IM_MODULE);
-        if (!g_str_equal (current_module, new_module))
-                g_settings_set_string (priv->interface_settings,
-                                       KEY_GTK_IM_MODULE,
-                                       new_module);
-        g_free (current_module);
-}
-
-/* XXX: See upstream bug:
- * https://codereview.appspot.com/6586075/ */
-static gchar *
-layout_from_ibus_layout (const gchar *ibus_layout)
-{
-        const gchar *p;
-
-        /* we get something like "layout(variant)[option1,option2]" */
-
-        p = ibus_layout;
-        while (*p) {
-                if (*p == '(' || *p == '[')
-                        break;
-                p += 1;
-        }
-
-        return g_strndup (ibus_layout, p - ibus_layout);
-}
-
-static gchar *
-variant_from_ibus_layout (const gchar *ibus_layout)
-{
-        const gchar *a, *b;
-
-        /* we get something like "layout(variant)[option1,option2]" */
-
-        a = ibus_layout;
-        while (*a) {
-                if (*a == '(')
-                        break;
-                a += 1;
-        }
-        if (!*a)
-                return NULL;
-
-        a += 1;
-        b = a;
-        while (*b) {
-                if (*b == ')')
-                        break;
-                b += 1;
-        }
-        if (!*b)
-                return NULL;
-
-        return g_strndup (a, b - a);
-}
-
-static gchar **
-options_from_ibus_layout (const gchar *ibus_layout)
-{
-        const gchar *a, *b;
-        GPtrArray *opt_array;
-
-        /* we get something like "layout(variant)[option1,option2]" */
-
-        a = ibus_layout;
-        while (*a) {
-                if (*a == '[')
-                        break;
-                a += 1;
-        }
-        if (!*a)
-                return NULL;
-
-        opt_array = g_ptr_array_new ();
-
-        do {
-                a += 1;
-                b = a;
-                while (*b) {
-                        if (*b == ',' || *b == ']')
-                                break;
-                        b += 1;
-                }
-                if (!*b)
-                        goto out;
-
-                g_ptr_array_add (opt_array, g_strndup (a, b - a));
-
-                a = b;
-        } while (*a && *a == ',');
-
-out:
-        g_ptr_array_add (opt_array, NULL);
-        return (gchar **) g_ptr_array_free (opt_array, FALSE);
-}
-
-static void
-convert_ibus (GSettings *settings)
-{
-        GVariantBuilder builder;
-        GSettings *ibus_settings;
-        gchar **engines, **e;
-
-        if (!schema_is_installed ("org.freedesktop.ibus.general"))
-                return;
-
-        init_builder_with_sources (&builder, settings);
-
-        ibus_settings = g_settings_new ("org.freedesktop.ibus.general");
-        engines = g_settings_get_strv (ibus_settings, "preload-engines");
-        for (e = engines; *e; ++e) {
-                if (g_str_has_prefix (*e, "xkb:"))
-                        continue;
-                g_variant_builder_add (&builder, "(ss)", INPUT_SOURCE_TYPE_IBUS, *e);
-        }
-
-        g_settings_set_value (settings, KEY_INPUT_SOURCES, g_variant_builder_end (&builder));
-
-        g_strfreev (engines);
-        g_object_unref (ibus_settings);
-}
-#endif  /* HAVE_IBUS */
 
 static gboolean
 xkb_set_keyboard_autorepeat_rate (guint delay, guint interval)
@@ -629,443 +265,6 @@ remove_xkb_filter (GsdKeyboardManager *manager)
         gdk_window_remove_filter (NULL,
                                   xkb_events_filter,
                                   manager);
-}
-
-static void
-free_xkb_component_names (XkbComponentNamesRec *p)
-{
-        g_return_if_fail (p != NULL);
-
-        free (p->keymap);
-        free (p->keycodes);
-        free (p->types);
-        free (p->compat);
-        free (p->symbols);
-        free (p->geometry);
-
-        g_free (p);
-}
-
-static void
-upload_xkb_description (const gchar          *rules_file_path,
-                        XkbRF_VarDefsRec     *var_defs,
-                        XkbComponentNamesRec *comp_names)
-{
-        Display *display = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
-        XkbDescRec *xkb_desc;
-        gchar *rules_file;
-
-        /* The layout we want is always in the first XKB group index
-         * so we should enforce it to make sure we never end up with
-         * the wrong one. */
-        XkbLockGroup (display, XkbUseCoreKbd, 0);
-
-        /* Upload it to the X server using the same method as setxkbmap */
-        xkb_desc = XkbGetKeyboardByName (display,
-                                         XkbUseCoreKbd,
-                                         comp_names,
-                                         XkbGBN_AllComponentsMask,
-                                         XkbGBN_AllComponentsMask &
-                                         (~XkbGBN_GeometryMask), True);
-        if (!xkb_desc) {
-                g_warning ("Couldn't upload new XKB keyboard description");
-                return;
-        }
-
-        XkbFreeKeyboard (xkb_desc, 0, True);
-
-        rules_file = g_path_get_basename (rules_file_path);
-
-        if (!XkbRF_SetNamesProp (display, rules_file, var_defs))
-                g_warning ("Couldn't update the XKB root window property");
-
-        g_free (rules_file);
-}
-
-static gchar *
-build_xkb_group_string (const gchar *user,
-                        const gchar *locale,
-                        const gchar *latin)
-{
-        gchar *string;
-        gsize length = 0;
-        guint commas = 2;
-
-        if (latin)
-                length += strlen (latin);
-        else
-                commas -= 1;
-
-        if (locale)
-                length += strlen (locale);
-        else
-                commas -= 1;
-
-        length += strlen (user) + commas + 1;
-
-        string = malloc (length);
-
-        if (locale && latin)
-                sprintf (string, "%s,%s,%s", user, locale, latin);
-        else if (locale)
-                sprintf (string, "%s,%s", user, locale);
-        else if (latin)
-                sprintf (string, "%s,%s", user, latin);
-        else
-                sprintf (string, "%s", user);
-
-        return string;
-}
-
-static gboolean
-layout_equal (const gchar *layout_a,
-              const gchar *variant_a,
-              const gchar *layout_b,
-              const gchar *variant_b)
-{
-        return !g_strcmp0 (layout_a, layout_b) && !g_strcmp0 (variant_a, variant_b);
-}
-
-static void
-get_locale_layout (GsdKeyboardManager  *manager,
-                   const gchar        **layout,
-                   const gchar        **variant)
-{
-        const gchar *locale;
-        const gchar *type;
-        const gchar *id;
-        gboolean got_info;
-
-        *layout = NULL;
-        *variant = NULL;
-
-        locale = setlocale (LC_MESSAGES, NULL);
-        /* If LANG is empty, default to en_US */
-        if (!locale)
-                locale = DEFAULT_LANGUAGE;
-
-        got_info = gnome_get_input_source_from_locale (locale, &type, &id);
-        if (!got_info)
-                if (!gnome_get_input_source_from_locale (DEFAULT_LANGUAGE, &type, &id))
-                        return;
-
-        if (!g_str_equal (type, INPUT_SOURCE_TYPE_XKB))
-                return;
-
-        gnome_xkb_info_get_layout_info (manager->priv->xkb_info,
-                                        id,
-                                        NULL,
-                                        NULL,
-                                        layout,
-                                        variant);
-}
-
-static void
-replace_layout_and_variant (GsdKeyboardManager *manager,
-                            XkbRF_VarDefsRec   *xkb_var_defs,
-                            const gchar        *layout,
-                            const gchar        *variant)
-{
-        /* Toolkits need to know about both a latin layout to handle
-         * accelerators which are usually defined like Ctrl+C and a
-         * layout with the symbols for the language used in UI strings
-         * to handle mnemonics like Alt+Ф, so we try to find and add
-         * them in XKB group slots after the layout which the user
-         * actually intends to type with. */
-        const gchar *latin_layout = "us";
-        const gchar *latin_variant = "";
-        const gchar *locale_layout = NULL;
-        const gchar *locale_variant = NULL;
-
-        if (!layout)
-                return;
-
-        if (!variant)
-                variant = "";
-
-        get_locale_layout (manager, &locale_layout, &locale_variant);
-
-        /* We want to minimize the number of XKB groups if we have
-         * duplicated layout+variant pairs.
-         *
-         * Also, if a layout doesn't have a variant we still have to
-         * include it in the variants string because the number of
-         * variants must agree with the number of layouts. For
-         * instance:
-         *
-         * layouts:  "us,ru,us"
-         * variants: "dvorak,,"
-         */
-        if (layout_equal (latin_layout, latin_variant, locale_layout, locale_variant) ||
-            layout_equal (latin_layout, latin_variant, layout, variant)) {
-                latin_layout = NULL;
-                latin_variant = NULL;
-        }
-
-        if (layout_equal (locale_layout, locale_variant, layout, variant)) {
-                locale_layout = NULL;
-                locale_variant = NULL;
-        }
-
-        free (xkb_var_defs->layout);
-        xkb_var_defs->layout = build_xkb_group_string (layout, locale_layout, latin_layout);
-
-        free (xkb_var_defs->variant);
-        xkb_var_defs->variant = build_xkb_group_string (variant, locale_variant, latin_variant);
-}
-
-static gchar *
-build_xkb_options_string (gchar **options)
-{
-        gchar *string;
-
-        if (*options) {
-                gint i;
-                gsize len;
-                gchar *ptr;
-
-                /* First part, getting length */
-                len = 1 + strlen (options[0]);
-                for (i = 1; options[i] != NULL; i++)
-                        len += strlen (options[i]);
-                len += (i - 1); /* commas */
-
-                /* Second part, building string */
-                string = malloc (len);
-                ptr = g_stpcpy (string, *options);
-                for (i = 1; options[i] != NULL; i++) {
-                        ptr = g_stpcpy (ptr, ",");
-                        ptr = g_stpcpy (ptr, options[i]);
-                }
-        } else {
-                string = malloc (1);
-                *string = '\0';
-        }
-
-        return string;
-}
-
-static gchar **
-append_options (gchar **a,
-                gchar **b)
-{
-        gchar **c, **p;
-
-        if (!a && !b)
-                return NULL;
-        else if (!a)
-                return g_strdupv (b);
-        else if (!b)
-                return g_strdupv (a);
-
-        c = g_new0 (gchar *, g_strv_length (a) + g_strv_length (b) + 1);
-        p = c;
-
-        while (*a) {
-                *p = g_strdup (*a);
-                p += 1;
-                a += 1;
-        }
-        while (*b) {
-                *p = g_strdup (*b);
-                p += 1;
-                b += 1;
-        }
-
-        return c;
-}
-
-static void
-strip_xkb_option (gchar       **options,
-                  const gchar  *prefix)
-{
-        guint last;
-        gchar **p = options;
-
-        if (!p)
-                return;
-
-        while (*p) {
-                if (g_str_has_prefix (*p, prefix)) {
-                        last = g_strv_length (options) - 1;
-                        g_free (*p);
-                        *p = options[last];
-                        options[last] = NULL;
-                } else {
-                        p += 1;
-                }
-        }
-}
-
-static gchar *
-prepare_xkb_options (GsdKeyboardManager *manager,
-                     guint               n_sources,
-                     gchar             **extra_options)
-{
-        gchar **options;
-        gchar **settings_options;
-        gchar  *options_str;
-
-        settings_options = g_settings_get_strv (manager->priv->input_sources_settings,
-                                                KEY_KEYBOARD_OPTIONS);
-        options = append_options (settings_options, extra_options);
-        g_strfreev (settings_options);
-
-        /* We might set up different layouts in different groups - see
-         * replace_layout_and_variant(). But we don't want the X
-         * server group switching feature to actually switch
-         * them. Regularly, if we have at least two input sources,
-         * gnome-shell will tell us to switch input source at that
-         * point so we fix that automatically. But when there's only
-         * one source, gnome-shell short circuits as an optimization
-         * and doesn't call us so we can't set the group switching XKB
-         * option in the first place otherwise the X server's switch
-         * will take effect and we get a broken configuration. */
-        if (n_sources < 2)
-                strip_xkb_option (options, "grp:");
-
-        options_str = build_xkb_options_string (options);
-        g_strfreev (options);
-
-        return options_str;
-}
-
-static void
-apply_xkb_settings (GsdKeyboardManager *manager,
-                    const gchar        *layout,
-                    const gchar        *variant,
-                    gchar              *options)
-{
-        XkbRF_RulesRec *xkb_rules;
-        XkbRF_VarDefsRec *xkb_var_defs;
-        gchar *rules_file_path;
-
-        gsd_xkb_get_var_defs (&rules_file_path, &xkb_var_defs);
-
-        free (xkb_var_defs->options);
-        xkb_var_defs->options = options;
-
-        replace_layout_and_variant (manager, xkb_var_defs, layout, variant);
-
-        gdk_error_trap_push ();
-
-        xkb_rules = XkbRF_Load (rules_file_path, NULL, True, True);
-        if (xkb_rules) {
-                XkbComponentNamesRec *xkb_comp_names;
-                xkb_comp_names = g_new0 (XkbComponentNamesRec, 1);
-
-                XkbRF_GetComponents (xkb_rules, xkb_var_defs, xkb_comp_names);
-                upload_xkb_description (rules_file_path, xkb_var_defs, xkb_comp_names);
-
-                free_xkb_component_names (xkb_comp_names);
-                XkbRF_Free (xkb_rules, True);
-        } else {
-                g_warning ("Couldn't load XKB rules");
-        }
-
-        if (gdk_error_trap_pop ())
-                g_warning ("Error loading XKB rules");
-
-        gsd_xkb_free_var_defs (xkb_var_defs);
-        g_free (rules_file_path);
-}
-
-static gboolean
-apply_input_sources_settings (GSettings          *settings,
-                              gpointer            keys,
-                              gint                n_keys,
-                              GsdKeyboardManager *manager)
-{
-        GsdKeyboardManagerPrivate *priv = manager->priv;
-        GVariant *sources;
-        guint current;
-        guint n_sources;
-        const gchar *type = NULL;
-        const gchar *id = NULL;
-        gchar *layout = NULL;
-        gchar *variant = NULL;
-        gchar **options = NULL;
-
-        sources = g_settings_get_value (priv->input_sources_settings, KEY_INPUT_SOURCES);
-        current = g_settings_get_uint (priv->input_sources_settings, KEY_CURRENT_INPUT_SOURCE);
-        n_sources = g_variant_n_children (sources);
-
-        if (n_sources < 1)
-                goto exit;
-
-        if (current >= n_sources) {
-                g_settings_set_uint (priv->input_sources_settings,
-                                     KEY_CURRENT_INPUT_SOURCE,
-                                     n_sources - 1);
-                goto exit;
-        }
-
-#ifdef HAVE_IBUS
-        maybe_start_ibus (manager);
-#endif
-
-        g_variant_get_child (sources, current, "(&s&s)", &type, &id);
-
-        if (g_str_equal (type, INPUT_SOURCE_TYPE_XKB)) {
-                const gchar *l, *v;
-                gnome_xkb_info_get_layout_info (priv->xkb_info, id, NULL, NULL, &l, &v);
-
-                layout = g_strdup (l);
-                variant = g_strdup (v);
-
-                if (!layout || !layout[0]) {
-                        g_warning ("Couldn't find XKB input source '%s'", id);
-                        goto exit;
-                }
-#ifdef HAVE_IBUS
-                set_gtk_im_module (manager, sources);
-                set_ibus_xkb_engine (manager);
-#endif
-        } else if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS)) {
-#ifdef HAVE_IBUS
-                IBusEngineDesc *engine_desc = NULL;
-
-                if (priv->ibus_engines)
-                        engine_desc = g_hash_table_lookup (priv->ibus_engines, id);
-                else
-                        goto exit; /* we'll be called again when ibus is up and running */
-
-                if (engine_desc) {
-                        const gchar *ibus_layout;
-                        ibus_layout = ibus_engine_desc_get_layout (engine_desc);
-
-                        if (ibus_layout) {
-                                layout = layout_from_ibus_layout (ibus_layout);
-                                variant = variant_from_ibus_layout (ibus_layout);
-                                options = options_from_ibus_layout (ibus_layout);
-                        }
-                } else {
-                        g_warning ("Couldn't find IBus input source '%s'", id);
-                        goto exit;
-                }
-
-                /* NULL here is a shortcut for "I already know I
-                   need the IBus module". */
-                set_gtk_im_module (manager, NULL);
-                set_ibus_engine (manager, id);
-#else
-                g_warning ("IBus input source type specified but IBus support was not compiled");
-#endif
-        } else {
-                g_warning ("Unknown input source type '%s'", type);
-        }
-
- exit:
-        apply_xkb_settings (manager, layout, variant,
-                            prepare_xkb_options (manager, n_sources, options));
-        maybe_return_from_set_input_source (manager);
-        g_variant_unref (sources);
-        g_free (layout);
-        g_free (variant);
-        g_strfreev (options);
-        /* Prevent individual "changed" signal invocations since we
-           don't need them. */
-        return TRUE;
 }
 
 static void
@@ -1215,7 +414,6 @@ device_added_cb (GdkDeviceManager   *device_manager,
         if (source == GDK_SOURCE_KEYBOARD) {
                 g_debug ("New keyboard plugged in, applying all settings");
                 apply_numlock (manager);
-                apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
                 run_custom_command (device, COMMAND_DEVICE_ADDED);
         }
 }
@@ -1425,9 +623,6 @@ maybe_convert_old_settings (GSettings *settings)
         sources = g_settings_get_value (settings, KEY_INPUT_SOURCES);
         if (g_variant_n_children (sources) < 1) {
                 convert_libgnomekbd_layouts (settings);
-#ifdef HAVE_IBUS
-                convert_ibus (settings);
-#endif
         }
         g_variant_unref (sources);
 
@@ -1481,156 +676,6 @@ maybe_create_initial_settings (GsdKeyboardManager *manager)
 }
 
 static void
-set_input_source_return (GDBusMethodInvocation *invocation)
-{
-        g_dbus_method_invocation_return_value (invocation, NULL);
-}
-
-static void
-maybe_return_from_set_input_source (GsdKeyboardManager *manager)
-{
-        GsdKeyboardManagerPrivate *priv = manager->priv;
-
-        if (!priv->invocation)
-                return;
-
-        if (priv->pending_ops > 0) {
-                priv->pending_ops -= 1;
-                return;
-        }
-
-        g_clear_pointer (&priv->invocation, set_input_source_return);
-}
-
-static void
-increment_set_input_source_ops (GsdKeyboardManager *manager)
-{
-        GsdKeyboardManagerPrivate *priv = manager->priv;
-
-        if (!priv->invocation)
-                return;
-
-        priv->pending_ops += 1;
-}
-
-static void
-set_input_source (GsdKeyboardManager *manager)
-{
-        GsdKeyboardManagerPrivate *priv = manager->priv;
-        guint idx;
-
-        g_variant_get (g_dbus_method_invocation_get_parameters (priv->invocation), "(u)", &idx);
-
-        if (idx == g_settings_get_uint (priv->input_sources_settings, KEY_CURRENT_INPUT_SOURCE)) {
-                maybe_return_from_set_input_source (manager);
-                return;
-        }
-
-        g_settings_set_uint (priv->input_sources_settings, KEY_CURRENT_INPUT_SOURCE, idx);
-}
-
-static void
-handle_dbus_method_call (GDBusConnection       *connection,
-                         const gchar           *sender,
-                         const gchar           *object_path,
-                         const gchar           *interface_name,
-                         const gchar           *method_name,
-                         GVariant              *parameters,
-                         GDBusMethodInvocation *invocation,
-                         GsdKeyboardManager    *manager)
-{
-        GsdKeyboardManagerPrivate *priv = manager->priv;
-
-        if (g_str_equal (method_name, "SetInputSource")) {
-                if (priv->invocation) {
-#ifdef HAVE_IBUS
-                        /* This can only happen if there's an
-                         * ibus_bus_set_global_engine_async() call
-                         * going on. */
-                        g_cancellable_cancel (priv->ibus_cancellable);
-#endif
-                        g_clear_pointer (&priv->invocation, set_input_source_return);
-                        priv->pending_ops = 0;
-                }
-                priv->invocation = invocation;
-                set_input_source (manager);
-        }
-}
-
-static void
-on_bus_name_lost (GDBusConnection *connection,
-                  const gchar     *name,
-                  gpointer         data)
-{
-        g_warning ("DBus name %s lost", name);
-}
-
-static void
-got_session_bus (GObject            *source,
-                 GAsyncResult       *res,
-                 GsdKeyboardManager *manager)
-{
-        GsdKeyboardManagerPrivate *priv;
-        GDBusConnection *connection;
-        GError *error = NULL;
-        GDBusInterfaceVTable vtable = {
-                (GDBusInterfaceMethodCallFunc) handle_dbus_method_call,
-                NULL,
-                NULL,
-        };
-
-        connection = g_bus_get_finish (res, &error);
-        if (!connection) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-                        g_warning ("Couldn't get session bus: %s", error->message);
-                g_error_free (error);
-                return;
-        }
-
-        priv = manager->priv;
-        priv->dbus_connection = connection;
-
-        priv->dbus_register_object_id = g_dbus_connection_register_object (priv->dbus_connection,
-                                                                           GSD_KEYBOARD_DBUS_PATH,
-                                                                           priv->dbus_introspection->interfaces[0],
-                                                                           &vtable,
-                                                                           manager,
-                                                                           NULL,
-                                                                           &error);
-        if (!priv->dbus_register_object_id) {
-                g_warning ("Error registering object: %s", error->message);
-                g_error_free (error);
-                return;
-        }
-
-        priv->dbus_own_name_id = g_bus_own_name_on_connection (priv->dbus_connection,
-                                                               GSD_KEYBOARD_DBUS_NAME,
-                                                               G_BUS_NAME_OWNER_FLAGS_NONE,
-                                                               NULL,
-                                                               on_bus_name_lost,
-                                                               NULL,
-                                                               NULL);
-}
-
-static void
-register_manager_dbus (GsdKeyboardManager *manager)
-{
-        GError *error = NULL;
-
-        manager->priv->dbus_introspection = g_dbus_node_info_new_for_xml (introspection_xml, &error);
-        if (error) {
-                g_warning ("Error creating introspection data: %s", error->message);
-                g_error_free (error);
-                return;
-        }
-
-        g_bus_get (G_BUS_TYPE_SESSION,
-                   manager->priv->cancellable,
-                   (GAsyncReadyCallback) got_session_bus,
-                   manager);
-}
-
-static void
 localed_proxy_ready (GObject      *source,
                      GAsyncResult *res,
                      gpointer      data)
@@ -1647,14 +692,10 @@ localed_proxy_ready (GObject      *source,
                 }
                 g_warning ("Failed to contact localed: %s", error->message);
                 g_error_free (error);
-                goto out;
         }
 
         manager->priv->localed = proxy;
         maybe_create_initial_settings (manager);
-out:
-        apply_input_sources_settings (manager->priv->input_sources_settings, NULL, 0, manager);
-        register_manager_dbus (manager);
 }
 
 static gboolean
@@ -1671,8 +712,6 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
 	set_devicepresence_handler (manager);
 
         manager->priv->input_sources_settings = g_settings_new (GNOME_DESKTOP_INPUT_SOURCES_DIR);
-        manager->priv->interface_settings = g_settings_new (GNOME_DESKTOP_INTERFACE_DIR);
-        manager->priv->xkb_info = gnome_xkb_info_new ();
 
         manager->priv->cancellable = g_cancellable_new ();
 
@@ -1692,8 +731,6 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
 
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
                           G_CALLBACK (settings_changed), manager);
-        g_signal_connect (G_OBJECT (manager->priv->input_sources_settings), "change-event",
-                          G_CALLBACK (apply_input_sources_settings), manager);
 
 	install_xkb_filter (manager);
 
@@ -1730,29 +767,12 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
 
         g_debug ("Stopping keyboard manager");
 
-        if (p->dbus_own_name_id) {
-                g_bus_unown_name (p->dbus_own_name_id);
-                p->dbus_own_name_id = 0;
-        }
-
-        if (p->dbus_register_object_id) {
-                g_dbus_connection_unregister_object (p->dbus_connection,
-                                                     p->dbus_register_object_id);
-                p->dbus_register_object_id = 0;
-        }
-
         g_cancellable_cancel (p->cancellable);
         g_clear_object (&p->cancellable);
 
         g_clear_object (&p->settings);
         g_clear_object (&p->input_sources_settings);
-        g_clear_object (&p->interface_settings);
-        g_clear_object (&p->xkb_info);
         g_clear_object (&p->localed);
-
-#ifdef HAVE_IBUS
-        clear_ibus (manager);
-#endif
 
         if (p->device_manager != NULL) {
                 g_signal_handler_disconnect (p->device_manager, p->device_added_id);
@@ -1761,10 +781,6 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
         }
 
 	remove_xkb_filter (manager);
-
-        g_clear_pointer (&p->invocation, set_input_source_return);
-        g_clear_pointer (&p->dbus_introspection, g_dbus_node_info_unref);
-        g_clear_object (&p->dbus_connection);
 }
 
 static void

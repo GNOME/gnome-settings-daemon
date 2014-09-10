@@ -56,7 +56,6 @@ LIBRSVG_REQUIRED_VERSION=2.36.2
 PANGO_REQUIRED_VERSION=1.20.0
 POLKIT_REQUIRED_VERSION=0.103
 UPOWER_REQUIRED_VERSION=0.99.0
-IBUS_REQUIRED_VERSION=1.4.99
 GSETTINGS_DESKTOP_SCHEMAS_REQUIRED_VERSION=3.9.91
 GEOCODE_GLIB_REQUIRED_VERSION=3.10.0
 GEOCLUE_REQUIRED_VERSION=2.1.2
@@ -175,29 +174,6 @@ dnl - xsettings
 dnl ---------------------------------------------------------------------------
 
 PKG_CHECK_MODULES(XSETTINGS, fontconfig gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
-
-dnl ---------------------------------------------------------------------------
-dnl - Keyboard plugin stuff
-dnl ---------------------------------------------------------------------------
-
-AC_ARG_ENABLE(ibus,
-        AS_HELP_STRING([--disable-ibus],
-                       [Disable IBus support]),
-        enable_ibus=$enableval,
-        enable_ibus=yes)
-
-if test "x$enable_ibus" = "xyes" ; then
-        IBUS_MODULE="ibus-1.0 >= $IBUS_REQUIRED_VERSION"
-        AC_DEFINE(HAVE_IBUS, 1, [Defined if IBus support is enabled])
-else
-        IBUS_MODULE=
-fi
-AM_CONDITIONAL(HAVE_IBUS, test "x$enable_ibus" == "xyes")
-
-PKG_CHECK_MODULES(KEYBOARD, xkbfile xkeyboard-config $IBUS_MODULE gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
-
-XKB_BASE=$($PKG_CONFIG --variable xkb_base xkeyboard-config)
-AC_SUBST(XKB_BASE)
 
 dnl ---------------------------------------------------------------------------
 dnl - Housekeeping plugin stuff
@@ -593,7 +569,6 @@ echo "
         Maintainer mode:          ${USE_MAINTAINER_MODE}
 
         LCMS DICT support:        ${have_new_lcms}
-        IBus support:             ${enable_ibus}
         NetworkManager support:   ${enable_network_manager}
         Libnotify support:        ${have_libnotify}
         Smartcard support:        ${have_smartcard_support}

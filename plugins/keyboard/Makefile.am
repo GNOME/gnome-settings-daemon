@@ -10,8 +10,6 @@ libkeyboard_la_SOURCES = 	\
 	gsd-keyboard-plugin.c	\
 	gsd-keyboard-manager.h	\
 	gsd-keyboard-manager.c	\
-	gsd-xkb-utils.h		\
-	gsd-xkb-utils.c		\
 	$(NULL)
 
 libkeyboard_la_CPPFLAGS = \
@@ -22,13 +20,11 @@ libkeyboard_la_CPPFLAGS = \
 	-DDATADIR=\""$(pkgdatadir)"\"			\
 	-DLIBEXECDIR=\""$(libexecdir)"\"		\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	-DXKB_BASE=\""$(XKB_BASE)"\"			\
 	$(AM_CPPFLAGS)
 
 libkeyboard_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(KEYBOARD_CFLAGS)		\
 	$(AM_CFLAGS)
 
 libkeyboard_la_LDFLAGS = 	\
@@ -38,8 +34,6 @@ libkeyboard_la_LDFLAGS = 	\
 libkeyboard_la_LIBADD  =				\
 	$(top_builddir)/plugins/common/libcommon.la	\
 	$(SETTINGS_PLUGIN_LIBS)				\
-	$(XF86MISC_LIBS)				\
-	$(KEYBOARD_LIBS)				\
 	$(NULL)
 
 libexec_PROGRAMS = gsd-test-keyboard
@@ -47,8 +41,6 @@ gsd_test_keyboard_SOURCES =	\
 	test-keyboard.c		\
 	gsd-keyboard-manager.h	\
 	gsd-keyboard-manager.c	\
-	gsd-xkb-utils.h		\
-	gsd-xkb-utils.c		\
 	$(NULL)
 
 gsd_test_keyboard_CFLAGS = $(libkeyboard_la_CFLAGS)
@@ -60,17 +52,6 @@ plugin_in_files = 		\
 	$(NULL)
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
-
-if HAVE_IBUS
-noinst_PROGRAMS = test-keyboard-ibus-utils
-test_keyboard_ibus_utils_SOURCES = test-keyboard-ibus-utils.c
-test_keyboard_ibus_utils_CFLAGS = $(libkeyboard_la_CFLAGS)
-test_keyboard_ibus_utils_CPPFLAGS = $(libkeyboard_la_CPPFLAGS)
-test_keyboard_ibus_utils_LDADD = $(libkeyboard_la_LIBADD) $(top_builddir)/gnome-settings-daemon/libgsd.la
-
-check-local: test-keyboard-ibus-utils
-	$(builddir)/test-keyboard-ibus-utils > /dev/null
-endif
 
 EXTRA_DIST = 			\
 	$(plugin_in_files)	\
