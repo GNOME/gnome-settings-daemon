@@ -12,16 +12,16 @@
 # I. Felix <ifelix@redhat.com>, 2009.
 # Dr,T,Vasudevan <agnihot3@gmail.com>, 2010, 2011.
 # naveenkumar palaniswamy(கெம்ளின்) <naveenmtp@gmail.com>, 2011.
-# Shantha kumar <shkumar@redhat.com>, 2013.
+# Shantha kumar <shkumar@redhat.com>, 2013, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD.ta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-11-09 12:20+0000\n"
-"PO-Revision-Date: 2013-11-25 13:55+0530\n"
+"POT-Creation-Date: 2014-09-15 07:32+0000\n"
+"PO-Revision-Date: 2014-09-15 19:01+0630\n"
 "Last-Translator: Shantha kumar <shkumar@redhat.com>\n"
-"Language-Team: Tamil <>\n"
+"Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -171,7 +171,7 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid "Activation of this plugin"
@@ -187,7 +187,7 @@ msgstr "சொருகி செயலாக்கம்"
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
@@ -199,11 +199,11 @@ msgstr "க்னோம்-அமைப்பு-கிங்கரன் ஆல
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
 msgid "Priority to use for this plugin"
@@ -215,11 +215,11 @@ msgstr "சொருகிக்கான முன்னுரிமை"
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
@@ -275,7 +275,6 @@ msgid "Enable this to move the cursor when the user touches the tablet."
 msgstr "தொடுதிட்டை பயனர் தொட்டால் நிலைகாட்டி  நகர இதை செயலாக்குங்கள்."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
-#| msgid "Wacom tablet rotation"
 msgid "Wacom last calibrated resolution"
 msgstr "Wacom கடைசியாக அளவை வகுக்கப்பட்ட தெளிவுத்திறன்"
 
@@ -507,446 +506,302 @@ msgid "Binding to launch the calculator."
 msgstr "கணக்கிடும் கருவியை துவக்க பிணைப்பு"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
+#| msgid "Wacom Settings"
+msgid "Launch settings"
+msgstr "துவக்குதல் அமைவுகள்"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+#| msgid "Binding to launch the search tool."
+msgid "Binding to launch GNOME settings."
+msgstr "GNOME அமைவுகளைத் துவக்க பிணைத்தல்."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Launch email client"
 msgstr "மின்னஞ்சல் சார்ந்தோனை துவக்கு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 msgid "Binding to launch the email client."
 msgstr "மின்னஞ்சல் சார்ந்தோனை துவக்க பிணைப்பு "
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Eject"
 msgstr "வெளியேற்று"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to eject an optical disc."
 msgstr "ஒளி வட்டை வெளியேற்ற பிணைப்பு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Launch help browser"
 msgstr "உதவி மேலோடியை துவக்கு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to launch the help browser."
 msgstr "உதவி மேலோடியை துவக்க பிணைப்பு."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Home folder"
 msgstr "இல்ல அடைவுக்குப் போகவும்."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to open the Home folder."
 msgstr "இல்ல அடைவை திறக்க பிணைப்பு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Launch media player"
 msgstr "ஊடக இயக்கியை துவக்கு."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to launch the media player."
 msgstr "ஊடக இயக்கியை துவக்க பிணைப்பு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Next track"
 msgstr "அடுத்த தடம் ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to skip to next track."
 msgstr "அடுத்த வழித்தடத்தை தாவிச்செல் ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Pause playback"
 msgstr "ஒலி அளவை தாமதி."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
 msgid "Binding to pause playback."
 msgstr "திருப்பி இசைத்தலை தாமதிக்க பிணைப்பு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
 msgid "Play (or play/pause)"
 msgstr "துவக்கு (துவக்க/ தாமதிக்க)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "இசைப்பதை துவக்க (அல்லது துவக்க/ தாமதிக்க என மாற்ற)  பிணைப்பு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Log out"
 msgstr "வெளியேறு."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to log out."
 msgstr "வெளியேற  பிணைப்பு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
 msgid "Previous track"
 msgstr "முந்தய தடம் ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
 msgid "Binding to skip to previous track."
 msgstr "முந்தய வழித்தடத்தை தாவிச்செல் ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Lock screen"
 msgstr "திரையை பூட்டு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid "Binding to lock the screen."
 msgstr "திரையை பூட்ட பிணைப்பு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
 msgid "Search"
 msgstr "தேடு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
 msgid "Binding to launch the search tool."
 msgstr "தேடல் கருவியை துவக்க பிணைப்பு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Stop playback"
 msgstr "திருப்பி இசைத்தலை நிறுத்து."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Binding to stop playback."
 msgstr "திருப்பி இசைத்தலை நிறுத்த பிணைப்பு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Volume down"
 msgstr "ஒலி அளவை குறை"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Binding to lower the system volume."
 msgstr "கணினி ஒலி அளவை குறைக்க பிணைப்பு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Volume mute"
 msgstr "ஒலியை நிறுத்து"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Binding to mute the system volume."
 msgstr "கணினி ஒலியை நிறுத்த பிணைப்பு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Volume up"
 msgstr "ஒலி அளவை உயர்த்து"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
 msgid "Binding to raise the system volume."
 msgstr "கணினி ஒலி அளவை அதிகரிக்க பிணைப்பு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
 msgid "Take a screenshot"
 msgstr "திரைப்பிடிப்பினை எடுக்கவும்"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Binding to take a screenshot."
 msgstr "ஒரு திரைவெட்டை எடுக்க பிணைப்பு."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Take a screenshot of a window"
 msgstr "ஒரு சாளரத்தின் திரைப்பிடிப்பினை எடுக்கவும்"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Binding to take a screenshot of a window."
 msgstr "ஒரு சாளரத்தின் திரைவெட்டை எடுக்க பிணைப்பு."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 msgid "Take a screenshot of an area"
 msgstr "ஒரு இடத்தின் திரைவெட்டை எடுக்கவும்"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
 msgid "Binding to take a screenshot of an area."
 msgstr "ஒரு இடத்தின் திரைவெட்டை எடுக்க பிணைப்பு."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
 msgid "Copy a screenshot to clipboard"
 msgstr "திரைவெட்டை ஒட்டுப்பலகைக்கு நகல் எடுக்கவும்."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Binding to copy a screenshot to clipboard."
 msgstr "திரை வெட்டு பிரதியை ஒட்டுப்பலகைக்கு பிணைக்கிறது"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Copy a screenshot of a window to clipboard"
 msgstr "ஒரு சாரளத்தின் திரைவெட்டை ஒட்டுப்பலகைக்கு நகல் எடுக்கவும்."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
 msgid "Binding to copy a screenshot of a window to clipboard."
 msgstr "ஒரு சாளரத்தின் திரை வெட்டு பிரதியை ஒட்டுப்பலகைக்கு பிணைக்கிறது"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Copy a screenshot of an area to clipboard"
 msgstr "ஒரு இடத்தின் திரைவெட்டை ஒட்டுப்பலகைக்கு நகல் எடுக்கவும்."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Binding to copy a screenshot of an area to clipboard."
 msgstr "ஒரு இடத்தின் திரை வெட்டு பிரதியை ஒட்டுப்பலகைக்கு பிணைக்கிறது"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Record a short video of the screen"
 msgstr "திரையின் ஒரு குறுகிய நேர வீடியோவைப் பதிவு செய்யவும்"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Launch web browser"
 msgstr "வலை மேலோடியை துவக்கு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Binding to launch the web browser."
 msgstr "வலை மேலோடியை துவக்க பிணைப்பு "
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 msgid "Toggle magnifier"
 msgstr "பெரிதாக்கியை மாற்று"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
 msgid "Binding to show the screen magnifier"
 msgstr "திரை பெரிதாக்கியை மாற்ற பிணைப்பு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
 msgid "Toggle screen reader"
 msgstr "திரைபடிப்பானை மாற்று"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
 msgid "Binding to start the screen reader"
 msgstr "திரை வாசிப்பியை மாற்ற பிணைப்பு."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
 msgid "Toggle on-screen keyboard"
 msgstr "திரை விசைப்பலகையை மாற்று"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
 msgid "Binding to show the on-screen keyboard"
 msgstr "திரை விசைப்பலகையை காட்ட பிணைப்பு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
 msgid "Increase text size"
 msgstr "உரை அளவை அதிகமாக்கு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
 msgid "Binding to increase the text size"
 msgstr "உரை அளவை அதிகரிக்க பிணைப்பு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
 msgid "Decrease text size"
 msgstr "உரை அளவை குறைவாக்கு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
 msgid "Binding to decrease the text size"
 msgstr "உரை அளவை குறைக்க பிணைப்பு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
 msgid "Toggle contrast"
 msgstr "வேறுபாட்டை நிலை மாற்று"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
 msgid "Binding to toggle the interface contrast"
 msgstr "இடைமுக வேறுபாட்டை நிலை மாற்ற பிணைப்பு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
 msgid "Magnifier zoom in"
 msgstr "பெரிதாக்கி அணுகல்"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
 msgid "Binding for the magnifier to zoom in"
 msgstr "திரை பெரிதாக்கி அணுகலுக்கு பிணைப்பு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
 msgid "Magnifier zoom out"
 msgstr "பெரிதாக்கி விலகல்"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
 msgid "Binding for the magnifier to zoom out"
 msgstr "திரை பெரிதாக்கி விலக பிணைப்பு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
 msgid "Name"
 msgstr "பெயர்"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
 msgid "Name of the custom binding"
 msgstr "தனிப்பயன் பிணைப்பின் பெயர்"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
 msgid "Binding"
 msgstr "பிணைக்கிறது"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:77
 msgid "Binding for the custom binding"
 msgstr "தனிப்பயன் பிணைப்புக்கு பிணைப்பு"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:78
 msgid "Command"
 msgstr "கட்டளை"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:77
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:79
 msgid "Command to run when the binding is invoked"
 msgstr "பிணைப்பை அழைக்கும்போது இயக்க வேண்டிய கட்டளை"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
-msgid "Use mobile broadband connections"
-msgstr "அலைஅகலப்பட்டையை பயன்படுத்துக"
+#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:5
+msgid "On which connections the service is enabled"
+msgstr "எந்த இணைப்புகளில் இந்தச் சேவை செயல்படுத்தப்படும்"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:6
 msgid ""
-"Use mobile broadband connections such as GSM and CDMA to check for updates."
+"The list of NetworkManager connections (each one represented with its UUID) "
+"on which this service is enabled and started."
 msgstr ""
-"மேம்படுத்தல்களுக்கு சோதிக்க ஜிஎஸ்எம் மற்றும் சிடிஎம்ஏ போன்ற அலைஅகலப்பட்டையை "
-"பயன்படுத்துக"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
-msgid "Automatically download updates in the background without confirmation"
-msgstr ""
-"உறுதிப்படுத்தல் இல்லாமல் பின் புலத்தில் தானியங்கியாக மேம்படுத்தல்களை "
-"தரவிறக்குக."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
-msgid ""
-"Automatically download updates in the background without confirmation. "
-"Updates will be auto-downloaded when using wired network connnections, and "
-"mobile broadband if 'connection-use-mobile' is enabled."
-msgstr ""
-"உறுதிப்படுத்தல் இல்லாமல் பின் புலத்தில் தானியங்கியாக மேம்படுத்தல்களை "
-"தரவிறக்குக. கம்பி "
-"இணைப்பில் உள்ளபோதும்; 'இணைப்பு-பயனாக்கு-அலை' செயலாக்கி உள்ள போது அலை "
-"இணைப்பிலும் இவை "
-"தானியங்கியாக தரவிறக்கப்படும்."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
-msgid "How often to check for updates"
-msgstr "மேம்படுத்தல்களை எவ்வளவு இடைவெளியில் சோதிக்க வேண்டும்."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
-msgid ""
-"How often to check for updates. Value is in seconds. This is a maximum "
-"amount of time that can pass between a security update being published, and "
-"the update being automatically installed or the user notified."
-msgstr ""
-"மேம்படுத்தல்களை எவ்வளவு இடைவெளியில் சோதிக்க வேண்டும்.. மதிப்பு நொடிகளில். இது "
-"ஒரு "
-"பாதுகாப்பு மேம்படுத்தல் வெளியிடப்படுவதில் இருந்து அது தானியங்கியாக "
-"நிறுவப்படும் அல்லது "
-"பயனருக்கு அறிவிக்கப்படும் நேரத்துக்கும் உள்ள இடைவெளி."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
-msgid "How often to notify the user that non-critical updates are available"
-msgstr ""
-"மிக முக்கியமல்லாத மேம்படுத்தல்களை பயனருக்கு எவ்வளவு இடைவெளியில் அறிவிக்க "
-"வேண்டும்."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
-msgid ""
-"How often to tell the user there are non-critical updates. Value is in "
-"seconds. Security update notifications are always shown after the check for "
-"updates, but non-critical notifications should be shown a lot less "
-"frequently."
-msgstr ""
-"மிக முக்கியமல்லாத மேம்படுத்தல்கள் கிடைக்கின்றன என எவ்வளவுஇடைவெளியில் "
-"பயனருக்கு அறிவிக்க "
-"வேண்டும். மதிப்பு நொடிகளில். பாதுகாப்பு மேம்பாடுகள் மேம்பாடுகளுக்கு "
-"சோதித்தவுடன் "
-"அறிவிக்கப்படும்; ஆனால் முக்கியமல்லாதவை குறைவான முறைகள் அறிவிக்கப்பட வேண்டும்."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
-msgid "The last time we told the user about non-critical notifications"
-msgstr "மிக முக்கியமில்லாத அறிவிப்புகளை பயனருக்கு கடைசியாக கூறிய நேரம்."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
-msgid ""
-"The last time we notified the user about non-critical updates. Value is in "
-"seconds since the epoch, or zero for never."
-msgstr ""
-"மிக முக்கியமில்லாத அறிவிப்புகளை பயனருக்கு கடைசியாக கூறிய நேரம். மதிப்பு "
-"எபோக்கிலிருந்து நொடிகளில்; எப்போதுமில்லை என்பதற்கு பூஜ்யம்."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
-msgid "How often to check for distribution upgrades"
-msgstr "வினியோக மேம்படுத்தல்களை எவ்வளவு இடைவெளியில் சோதிக்க வேண்டும்."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
-msgid "How often to check for distribution upgrades. Value is in seconds."
-msgstr "மேம்படுத்தல்களை எவ்வளவு இடைவெளியில் சோதிக்க வேண்டும்."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
-msgid "How often to refresh the package cache"
-msgstr "பொதி மிக வேக சேமிப்பகத்தை எவ்வளவு இடைவெளியில் புதுப்பிக்க வேண்டும்."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
-msgid "How often to refresh the package cache. Value is in seconds."
-msgstr ""
-"பொதி மிக வேக சேமிப்பகத்தை எவ்வளவு இடைவெளியில் புதுப்பிக்க வேண்டும். மதிப்பு "
-"நொடிகளில்."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
-msgid "Check for updates when running on battery power"
-msgstr ""
-"கணினிப்பொறி மின்கல சக்தியில் இயங்கும்போதும்  தானியங்கியாக மேம்படுத்தலுக்கு "
-"சோதிக்கவும்"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
-msgid "Check for updates when running on battery power."
-msgstr ""
-"கணினிப்பொறி மின்கல சக்தியில் இயங்கும்போதும்  தானியங்கியாக மேம்படுத்தலுக்கு "
-"சோதிக்கவும்."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
-msgid "Notify the user when distribution upgrades are available"
-msgstr "வினியோக மேம்பாடு கிடைக்கும்போது பயனருக்கு அறிவி"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
-msgid "Notify the user when distribution upgrades are available."
-msgstr "வினியோக மேம்பாடு கிடைக்கும்போது பயனருக்கு அறிவி"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
-msgid "Ask the user if additional firmware should be installed"
-msgstr "கூடுதல்  தள நிரல்களை நிறுவ வேண்டுமா என பயனரை கேட்கவும்."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
-msgid ""
-"Ask the user if additional firmware should be installed if it is available."
-msgstr ""
-"கிடைக்கும் எனில் கூடுதல்  தள நிரல்களை நிறுவ வேண்டுமா என பயனரை கேட்கவும்."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
-msgid "Firmware files that should not be searched for"
-msgstr "தேடப்படக்கூடாத தள நிரல் கோப்புகள்"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
-msgid ""
-"Firmware files that should not be searched for, separated by commas. These "
-"can include '*' and '?' characters."
-msgstr ""
-"தேடப்படக்கூடாத தள நிரல் கோப்புகள்; கால்புள்ளியால் பிரிக்கப்பட்டு. இவை '*' "
-"மற்றும் '?' "
-"ஆகிய எழுத்துருகளை கொண்டு இருக்கலாம். "
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
-msgid "Devices that should be ignored"
-msgstr "உதாசீனப்படுத்த வேண்டிய சாதனங்கள்"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
-msgid ""
-"Devices that should be ignored, separated by commas. These can include '*' "
-"and '?' characters."
-msgstr ""
-"உதாசீனப்படுத்த வேண்டிய சாதனங்கள்; கால்புள்ளியால் பிரிக்கப்பட்டு. இவை '*' "
-"மற்றும் '?' ஆகிய "
-"எழுத்துருகளை கொண்டு இருக்கலாம். "
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
-msgid "The filenames on removable media that designate it a software source."
-msgstr "ஊடகத்தில் மென்பொருள் மூலம் எனக்குறிக்க உள்ள கோப்புக்களின் பெயர்."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
-msgid ""
-"When removable media is inserted, it is checked to see if it contains any "
-"important filenames in the root directory. If the filename matches, then an "
-"updates check is performed. This allows post-install disks to be used to "
-"update running systems."
-msgstr ""
-"ஊடகத்தை பொருத்திய போது அதன் மூல அடைவில் சில முக்க்கிய கோப்புகள் உள்ளனவா என "
-"சோதிக்கப்படும். அப்படி இருந்தால் மேம்பாடுசோதனை மேற்கொள்ளப்படும். இது இயங்கும் "
-"கணினிகள் "
-"வட்டுகளால் பின் நிறுவல் செய்யப்பட உதவும்."
+"எந்தெந்த NetworkManager இணைப்புகளில் இந்தச் சேவை செயல்படுத்தப்பட்டு "
+"துவக்கப்படும் என்ற பட்டியல் (ஒவ்வொன்றும் அதன் UUID மூலம் குறிப்பிடப்படுகிறது)."
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
@@ -1068,15 +923,15 @@ msgstr ""
 "நிபந்தனையுடன் "
 "கூடிய மற்றும் வலுக்கட்டாயமாக செயலிழக்கசெய்யப்பட்டவைகளுக்கு கூடிதலாக"
 
-#: ../gnome-settings-daemon/main.c:52
+#: ../gnome-settings-daemon/main.c:53
 msgid "Enable debugging code"
 msgstr "வழுநீக்கி  சொருகியை செயல்படுத்து"
 
-#: ../gnome-settings-daemon/main.c:53
+#: ../gnome-settings-daemon/main.c:54
 msgid "Replace existing daemon"
 msgstr "தற்போதுள்ள டெமானை இடமாற்று"
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../gnome-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "(பிழை திருத்த) சிறிய தாமதத்தின் பின் வெளியேறு"
 
@@ -1088,15 +943,15 @@ msgstr "விசைப்பலகை அணுகல் "
 msgid "Accessibility keyboard plugin"
 msgstr "விசைப்பலகை அணுகல்  சொருகி"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:398
 msgid "Slow Keys Turned On"
 msgstr "எச்சரிக்கை விசைகள் மெதுவானது"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:401
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:399
 msgid "Slow Keys Turned Off"
 msgstr "எச்சரிக்கை விசைகள் "
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:402
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -1105,40 +960,40 @@ msgstr ""
 "உங்கள் "
 "விசைப்பலகை வேலை செய்வதை பாதிக்கும்."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:412
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:480
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:410
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:478
 msgid "Universal Access"
 msgstr "உலகளாவிய அணுகல்"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:418
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:486
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:416
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:484
 msgid "Turn Off"
 msgstr "நிறுத்து"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:418
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:486
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:416
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:484
 msgid "Turn On"
 msgstr "இயக்கு"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:424
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:492
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:422
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:490
 msgid "Leave On"
 msgstr "இயக்கத்தில் விடு"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:424
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:492
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:422
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:490
 msgid "Leave Off"
 msgstr "இயக்க நீக்கத்தில் விடு"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:465
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:463
 msgid "Sticky Keys Turned On"
 msgstr "எச்சரிக்கை விசைகள் ஒட்டுபவை "
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:466
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:464
 msgid "Sticky Keys Turned Off"
 msgstr "எச்சரிக்கை விசைகள் ஒட்டுபவை "
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:468
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:466
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -1147,7 +1002,7 @@ msgstr ""
 "உங்கள் "
 "விசைப்பலகை வேலை செய்வதை பாதிக்கும்."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:470
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:468
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -1175,7 +1030,7 @@ msgid "Clipboard plugin"
 msgstr "ஒட்டுப்பலகை சொருகி"
 
 #: ../plugins/color/color.gnome-settings-plugin.in.h:1
-#: ../plugins/color/gsd-color-calibrate.c:140
+#: ../plugins/color/gsd-color-calibrate.c:139
 msgid "Color"
 msgstr "நிறம்"
 
@@ -1183,40 +1038,40 @@ msgstr "நிறம்"
 msgid "Color plugin"
 msgstr "நிற  சொருகி"
 
-#: ../plugins/color/gsd-color-calibrate.c:145
+#: ../plugins/color/gsd-color-calibrate.c:144
 msgid "Recalibrate now"
 msgstr "இப்போது மறு அளவீடு செய்க"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-calibrate.c:188
+#: ../plugins/color/gsd-color-calibrate.c:187
 msgid "Recalibration required"
 msgstr "மறு அளவீடு தேவைப்படுகிறது."
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-calibrate.c:200
+#: ../plugins/color/gsd-color-calibrate.c:199
 #, c-format
 msgid "The display '%s' should be recalibrated soon."
 msgstr "காட்டி '%s'  சீக்கிரம் மறு அளவீடு  செய்யப்பட வேண்டும்."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-calibrate.c:209
+#: ../plugins/color/gsd-color-calibrate.c:208
 #, c-format
 msgid "The printer '%s' should be recalibrated soon."
 msgstr "அச்சுப்பொறி '%s'  சீக்கிரம் மறு அளவீடு  செய்யப்பட வேண்டும்."
 
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-calibrate.c:347
-#: ../plugins/color/gsd-color-calibrate.c:363
+#: ../plugins/color/gsd-color-calibrate.c:346
+#: ../plugins/color/gsd-color-calibrate.c:362
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "GNOME அமைவுகள் கிங்கரன் நிற சொருகி"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-calibrate.c:349
+#: ../plugins/color/gsd-color-calibrate.c:348
 msgid "Color calibration device added"
 msgstr "நிற அளவீடு சாதனம் சேர்க்கப்பட்டது"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-calibrate.c:365
+#: ../plugins/color/gsd-color-calibrate.c:364
 msgid "Color calibration device removed"
 msgstr "நிற அளவீடு சாதனம் நீக்கப்பட்டது"
 
@@ -1235,29 +1090,25 @@ msgid "Date and Time"
 msgstr "தேதி மற்றும் நேரம்"
 
 #: ../plugins/datetime/datetime.gnome-settings-plugin.in.h:3
-#| msgid ""
-#| "Automatically download updates in the background without confirmation"
 msgid "Automatically update timezone and display notifications"
 msgstr "நேரமண்டலம் மற்றும் திரை அறிவிப்புகளை தானாக புதுப்பி"
 
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
-#: ../plugins/datetime/gsd-datetime-manager.c:104
+#: ../plugins/datetime/gsd-datetime-manager.c:103
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
-#: ../plugins/datetime/gsd-datetime-manager.c:108
+#: ../plugins/datetime/gsd-datetime-manager.c:107
 #, c-format
 msgid "Time Zone Updated to %s (%s)"
 msgstr "நேரமண்டலம் %s (%s) என புதுப்பிக்கப்பட்டது"
 
-#: ../plugins/datetime/gsd-datetime-manager.c:128
-#| msgid "Manage X Settings"
+#: ../plugins/datetime/gsd-datetime-manager.c:127
 msgid "Date & Time Settings"
 msgstr "தேதி & நேரம் அமைவுகள்"
 
-#: ../plugins/datetime/gsd-datetime-manager.c:136
-#| msgid "X Settings"
+#: ../plugins/datetime/gsd-datetime-manager.c:135
 msgid "Settings"
 msgstr "அமைவுகள்"
 
@@ -1269,12 +1120,12 @@ msgstr "டம்மி"
 msgid "Dummy plugin"
 msgstr "டம்மி சொருகி"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:588
+#: ../plugins/housekeeping/gsd-disk-space.c:614
 #, c-format
 msgid "Low Disk Space on \"%s\""
 msgstr "\"%s\" இல் குறைந்த வட்டு இடம்"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:590
+#: ../plugins/housekeeping/gsd-disk-space.c:616
 #, c-format
 msgid ""
 "The volume \"%s\" has only %s disk space remaining.  You may free up some "
@@ -1284,19 +1135,19 @@ msgstr ""
 "செய்வதால் "
 "கொஞ்சம் காலி இடத்தை பெறலாம்."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:594
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:81
+#: ../plugins/housekeeping/gsd-disk-space.c:620
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:80
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
 msgstr "தொகுதி  \"%s\" இல் %s வட்டு இடம் மட்டுமே மீதி உள்ளது."
 
 #. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-disk-space.c:599
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:205
+#: ../plugins/housekeeping/gsd-disk-space.c:625
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
 msgid "Low Disk Space"
 msgstr "குறைந்த வட்டு இடம்"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:601
+#: ../plugins/housekeeping/gsd-disk-space.c:627
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1306,39 +1157,39 @@ msgstr ""
 "கொஞ்சம் காலி "
 "இடத்தை பெறலாம்."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:604
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:84
+#: ../plugins/housekeeping/gsd-disk-space.c:630
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:83
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "கணினியில் %s வட்டு இடம் மட்டுமே மீதி உள்ளது"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:619
+#: ../plugins/housekeeping/gsd-disk-space.c:645
 msgid "Disk space"
 msgstr "வட்டு இடம்"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:626
+#: ../plugins/housekeeping/gsd-disk-space.c:652
 msgid "Examine"
 msgstr "சோதி..."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:634
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:434
+#: ../plugins/housekeeping/gsd-disk-space.c:660
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:433
 msgid "Empty Trash"
 msgstr "குப்பையை காலி செய்"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:641
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:449
+#: ../plugins/housekeeping/gsd-disk-space.c:667
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:448
 msgid "Ignore"
 msgstr "உதாசீனம் செய்"
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:65
 msgid "Don't show any warnings again for this file system"
 msgstr "இந்த கோப்பு முறைக்கு எச்சரிக்கைகளை இனிமேல் காண்பிக்க வேண்டாம்"
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:68
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:67
 msgid "Don't show any warnings again"
 msgstr "எச்சரிக்கைகளை இனிமேல் காண்பிக்க வேண்டாம்"
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:100
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:99
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to another disk or partition."
@@ -1347,7 +1198,7 @@ msgstr ""
 "கோப்புகளை "
 "வேறு வட்டு அல்லது பகிர்வுக்கு மாற்றுவதாலும் வட்டு இடத்தை மீட்கலாம்."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:103
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:102
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to another disk or partition."
@@ -1356,7 +1207,7 @@ msgstr ""
 "பகிர்வுக்கு "
 "மாற்றுவதாலும் வட்டு இடத்தை மீட்கலாம்."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:108
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:107
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to an external disk."
@@ -1365,7 +1216,7 @@ msgstr ""
 "கோப்புகளை "
 "வெளி  வட்டுக்கு மாற்றுவதாலும் வட்டு இடத்தை மீட்கலாம்."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:111
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:110
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to an external disk."
@@ -1374,7 +1225,7 @@ msgstr ""
 "மாற்றுவதாலும் "
 "வட்டு இடத்தை மீட்கலாம்."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:442
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:441
 msgid "Examine…"
 msgstr "சோதி..."
 
@@ -1392,8 +1243,6 @@ msgstr ""
 "குறைவாக இருந்தால் எச்சரிக்கை செய்கிறது"
 
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
-#| msgid "Keyboard"
-#| msgid_plural "Keyboards"
 msgid "Keyboard"
 msgstr "விசைப்பலகை"
 
@@ -1401,8 +1250,7 @@ msgstr "விசைப்பலகை"
 msgid "Keyboard plugin"
 msgstr "விசைப்பலகை சொருகி"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:1999
-#| msgid "Screenshot from %s"
+#: ../plugins/media-keys/gsd-media-keys-manager.c:1975
 msgid "Screencast from %d %t.webm"
 msgstr "%d %t இலிருந்து ஸ்கிரீன்காஸ்ட்.webm"
 
@@ -1459,120 +1307,117 @@ msgstr "ஊடக விசைகள்"
 msgid "Media keys plugin"
 msgstr "ஊடக விசைகள் சொருகி"
 
-#: ../plugins/media-keys/shortcuts-list.h:110
+#: ../plugins/media-keys/shortcuts-list.h:43
 msgid "Touchpad toggle"
 msgstr "தொடுதிட்டு நிலைமாற்று"
 
-#: ../plugins/media-keys/shortcuts-list.h:111
+#: ../plugins/media-keys/shortcuts-list.h:44
 msgid "Touchpad On"
 msgstr "தொடுதிட்டு ஆன்"
 
-#: ../plugins/media-keys/shortcuts-list.h:112
+#: ../plugins/media-keys/shortcuts-list.h:45
 msgid "Touchpad Off"
 msgstr "தொடுதிட்டு ஆஃப்"
 
-#: ../plugins/media-keys/shortcuts-list.h:116
-#: ../plugins/media-keys/shortcuts-list.h:117
+#: ../plugins/media-keys/shortcuts-list.h:49
+#: ../plugins/media-keys/shortcuts-list.h:50
 msgid "Microphone Mute"
 msgstr "ஒலிவாங்கி ஒலிதடு"
 
-#: ../plugins/media-keys/shortcuts-list.h:118
+#: ../plugins/media-keys/shortcuts-list.h:51
 msgid "Quiet Volume Mute"
 msgstr "கொயட் ஒலியளவு ஒலிதடு"
 
-#: ../plugins/media-keys/shortcuts-list.h:119
+#: ../plugins/media-keys/shortcuts-list.h:52
 msgid "Quiet Volume Down"
 msgstr "கொயட் ஒலியளவைக் குறை"
 
-#: ../plugins/media-keys/shortcuts-list.h:120
+#: ../plugins/media-keys/shortcuts-list.h:53
 msgid "Quiet Volume Up"
 msgstr "கொயட் ஒலியளவை உயர்த்து"
 
-#: ../plugins/media-keys/shortcuts-list.h:129
+#: ../plugins/media-keys/shortcuts-list.h:63
 msgid "Lock Screen"
 msgstr "திரையைப் பூட்டு"
 
-#: ../plugins/media-keys/shortcuts-list.h:144
+#: ../plugins/media-keys/shortcuts-list.h:78
 msgid "Rewind"
 msgstr "பின்னகர்த்து"
 
-#: ../plugins/media-keys/shortcuts-list.h:145
+#: ../plugins/media-keys/shortcuts-list.h:79
 msgid "Forward"
 msgstr "முன்னகர்த்து"
 
-#: ../plugins/media-keys/shortcuts-list.h:146
+#: ../plugins/media-keys/shortcuts-list.h:80
 msgid "Repeat"
 msgstr "மீண்டும் செய்"
 
-#: ../plugins/media-keys/shortcuts-list.h:147
+#: ../plugins/media-keys/shortcuts-list.h:81
 msgid "Random Play"
 msgstr "எழுந்தமானமாக இயக்கு"
 
 #. Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.)
-#: ../plugins/media-keys/shortcuts-list.h:148
-#: ../plugins/media-keys/shortcuts-list.h:150
+#: ../plugins/media-keys/shortcuts-list.h:82
+#: ../plugins/media-keys/shortcuts-list.h:84
 msgid "Video Out"
 msgstr "வீடியோ வெளியீடு"
 
 #. Key code of the XF86RotateWindows key (present on some tablets)
-#: ../plugins/media-keys/shortcuts-list.h:152
+#: ../plugins/media-keys/shortcuts-list.h:86
 msgid "Rotate Screen"
 msgstr "திரையைச் சுழற்று"
 
-#: ../plugins/media-keys/shortcuts-list.h:153
-#| msgid "Orientation"
+#: ../plugins/media-keys/shortcuts-list.h:87
 msgid "Orientation Lock"
 msgstr "திசையமைவுப் பூட்டு"
 
-#: ../plugins/media-keys/shortcuts-list.h:162
-#: ../plugins/media-keys/shortcuts-list.h:168
+#: ../plugins/media-keys/shortcuts-list.h:96
+#: ../plugins/media-keys/shortcuts-list.h:102
 msgid "Power Off"
 msgstr "மின்சக்தி நிறுத்தம்"
 
 #. the kernel / Xorg names really are like this...
 #. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
-#: ../plugins/media-keys/shortcuts-list.h:165
-#: ../plugins/media-keys/shortcuts-list.h:171
+#: ../plugins/media-keys/shortcuts-list.h:99
+#: ../plugins/media-keys/shortcuts-list.h:105
 msgid "Sleep"
 msgstr "உறங்கு"
 
-#: ../plugins/media-keys/shortcuts-list.h:166
-#: ../plugins/media-keys/shortcuts-list.h:172
+#: ../plugins/media-keys/shortcuts-list.h:100
+#: ../plugins/media-keys/shortcuts-list.h:106
 msgid "Suspend"
 msgstr "இடைநிறுத்து."
 
-#: ../plugins/media-keys/shortcuts-list.h:167
-#: ../plugins/media-keys/shortcuts-list.h:173
+#: ../plugins/media-keys/shortcuts-list.h:101
+#: ../plugins/media-keys/shortcuts-list.h:107
 msgid "Hibernate"
 msgstr "இடை உறக்கம்"
 
-#: ../plugins/media-keys/shortcuts-list.h:174
+#: ../plugins/media-keys/shortcuts-list.h:108
 msgid "Brightness Up"
 msgstr "பிரகாசம் அதிகரி"
 
-#: ../plugins/media-keys/shortcuts-list.h:175
+#: ../plugins/media-keys/shortcuts-list.h:109
 msgid "Brightness Down"
 msgstr "பிரகாசம் குறை"
 
-#: ../plugins/media-keys/shortcuts-list.h:176
+#: ../plugins/media-keys/shortcuts-list.h:110
 msgid "Keyboard Brightness Up"
 msgstr "விசைப்பலகை பிரகாசம் அதிகரி"
 
-#: ../plugins/media-keys/shortcuts-list.h:177
+#: ../plugins/media-keys/shortcuts-list.h:111
 msgid "Keyboard Brightness Down"
 msgstr "விசைப்பலகை பிரகாசம் குறை"
 
-#: ../plugins/media-keys/shortcuts-list.h:178
+#: ../plugins/media-keys/shortcuts-list.h:112
 msgid "Keyboard Brightness Toggle"
 msgstr "விசைப்பலகை பிரகாசம் நிலைமாற்று"
 
-#: ../plugins/media-keys/shortcuts-list.h:179
+#: ../plugins/media-keys/shortcuts-list.h:113
 msgid "Battery Status"
 msgstr "மின்கல நிலை"
 
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
-#| msgid "Mouse"
-#| msgid_plural "Mice"
 msgid "Mouse"
 msgstr "சொடுக்கி"
 
@@ -1627,180 +1472,179 @@ msgstr[0] "நிமிடம்"
 msgstr[1] "நிமிடங்கள்"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:856 ../plugins/power/gsd-power-manager.c:672
-#: ../plugins/power/gsd-power-manager.c:772
+#: ../plugins/power/gpm-common.c:857 ../plugins/power/gsd-power-manager.c:666
+#: ../plugins/power/gsd-power-manager.c:766
 msgid "Battery is critically low"
 msgstr "மின்கல சக்தி ஆபத்து அளவுக்கு குறைவு"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:332
+#: ../plugins/power/gsd-power-manager.c:326
 msgid "UPS Discharging"
 msgstr "யூபிஎஸ் மின் சக்தி இறங்குகிறது"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:337
+#: ../plugins/power/gsd-power-manager.c:331
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "யூபிஎஸ் மின்சக்தியில்  %s  மீதமுள்ளது"
 
-#: ../plugins/power/gsd-power-manager.c:340
-#| msgid "%s of UPS backup power remaining"
+#: ../plugins/power/gsd-power-manager.c:334
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "மீதமுள்ள UPS காப்புத் திறனின் அறியப்படாத மதிப்பு"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:356
-#: ../plugins/power/gsd-power-manager.c:504
-#: ../plugins/power/gsd-power-manager.c:655
-#: ../plugins/power/gsd-power-manager.c:763
-#: ../plugins/power/gsd-power-manager.c:1956
+#: ../plugins/power/gsd-power-manager.c:350
+#: ../plugins/power/gsd-power-manager.c:498
+#: ../plugins/power/gsd-power-manager.c:649
+#: ../plugins/power/gsd-power-manager.c:757
+#: ../plugins/power/gsd-power-manager.c:1950
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "சக்தி"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:419
+#: ../plugins/power/gsd-power-manager.c:413
 msgid "Battery low"
 msgstr "மின்கல சக்தி குறைவு"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:422
+#: ../plugins/power/gsd-power-manager.c:416
 msgid "Laptop battery low"
 msgstr "மடிகணினி மின்கல சக்தி குறைவு"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:429
+#: ../plugins/power/gsd-power-manager.c:423
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "தோராயமாக %s மீதமுள்ளது (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:434
+#: ../plugins/power/gsd-power-manager.c:428
 msgid "UPS low"
 msgstr "யூபிஎஸ் குறைவு"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:440
+#: ../plugins/power/gsd-power-manager.c:434
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "தோராயமாக  %s யூபிஎஸ் காப்பு மின்சக்தி மீதமுள்ளது (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:445
-#: ../plugins/power/gsd-power-manager.c:582
+#: ../plugins/power/gsd-power-manager.c:439
+#: ../plugins/power/gsd-power-manager.c:576
 msgid "Mouse battery low"
 msgstr "சொடுக்கி மின்கல சக்தி குறைவு"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:448
+#: ../plugins/power/gsd-power-manager.c:442
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "கம்பியில்லா சொடுக்கி மின்சக்தி குறைவு  (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:452
-#: ../plugins/power/gsd-power-manager.c:590
+#: ../plugins/power/gsd-power-manager.c:446
+#: ../plugins/power/gsd-power-manager.c:584
 msgid "Keyboard battery low"
 msgstr "விசைப்பலகை மின்கல சக்தி குறைவு"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:455
+#: ../plugins/power/gsd-power-manager.c:449
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "கம்பியில்லா விசைப்பலகை மின்சக்தி குறைவு  (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:459
-#: ../plugins/power/gsd-power-manager.c:599
+#: ../plugins/power/gsd-power-manager.c:453
+#: ../plugins/power/gsd-power-manager.c:593
 msgid "PDA battery low"
 msgstr "பிடிஏ மின்கல சக்தி குறைவு"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:462
+#: ../plugins/power/gsd-power-manager.c:456
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "பிடிஏ மின்சக்தி குறைவு  (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:466
-#: ../plugins/power/gsd-power-manager.c:609
-#: ../plugins/power/gsd-power-manager.c:618
+#: ../plugins/power/gsd-power-manager.c:460
+#: ../plugins/power/gsd-power-manager.c:603
+#: ../plugins/power/gsd-power-manager.c:612
 msgid "Cell phone battery low"
 msgstr "அலைபேசி மின்கல சக்தி குறைவு"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:469
+#: ../plugins/power/gsd-power-manager.c:463
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "அலைபேசி மின்சக்தி குறைவு  (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:473
+#: ../plugins/power/gsd-power-manager.c:467
 msgid "Media player battery low"
 msgstr "ஊடக இயக்கி மின்கல சக்தி குறைவு"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:476
+#: ../plugins/power/gsd-power-manager.c:470
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "ஊடக இயக்கி மின்சக்தி குறைவு  (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:480
-#: ../plugins/power/gsd-power-manager.c:627
+#: ../plugins/power/gsd-power-manager.c:474
+#: ../plugins/power/gsd-power-manager.c:621
 msgid "Tablet battery low"
 msgstr "தொடுபலகை மின்கல சக்தி குறைவு"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:483
+#: ../plugins/power/gsd-power-manager.c:477
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "தொடுபலகை மின்சக்தி குறைவு  (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:487
-#: ../plugins/power/gsd-power-manager.c:636
+#: ../plugins/power/gsd-power-manager.c:481
+#: ../plugins/power/gsd-power-manager.c:630
 msgid "Attached computer battery low"
 msgstr "இணைத்துள்ள கணினியின் மின்கல சக்தி குறைவு"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:490
+#: ../plugins/power/gsd-power-manager.c:484
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "இணைத்துள்ள கணினியின் மின்கல சக்தி குறைவு (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:514
+#: ../plugins/power/gsd-power-manager.c:508
 msgid "Battery is low"
 msgstr "மின்கல சக்தி குறைவு"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:546
+#: ../plugins/power/gsd-power-manager.c:540
 msgid "Battery critically low"
 msgstr "மின்கல சக்தி ஆபத்து அளவுக்கு குறைவு"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:549
-#: ../plugins/power/gsd-power-manager.c:699
+#: ../plugins/power/gsd-power-manager.c:543
+#: ../plugins/power/gsd-power-manager.c:693
 msgid "Laptop battery critically low"
 msgstr "மடிகணினி மின்கல சக்தி ஆபத்து அளவுக்கு குறைவு"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:558
+#: ../plugins/power/gsd-power-manager.c:552
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr ""
 "மின்சக்தி வாயில் சொருகாவிட்டால் இந்த கணினி இயக்கம் சீக்கிரம் உறங்கப்போகிறது "
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:562
+#: ../plugins/power/gsd-power-manager.c:556
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr ""
@@ -1809,13 +1653,13 @@ msgstr ""
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:570
-#: ../plugins/power/gsd-power-manager.c:724
+#: ../plugins/power/gsd-power-manager.c:564
+#: ../plugins/power/gsd-power-manager.c:718
 msgid "UPS critically low"
 msgstr "யூபிஎஸ் சக்தி ஆபத்து அளவுக்கு குறைவு"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:576
+#: ../plugins/power/gsd-power-manager.c:570
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1826,7 +1670,7 @@ msgstr ""
 "கணினிக்கு ஏசி சக்தியை மீட்டமைக்கவும்."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:585
+#: ../plugins/power/gsd-power-manager.c:579
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1837,7 +1681,7 @@ msgstr ""
 "சாதனம் சீக்கிரம் இயக்க நிறுத்தம் ஆகும்."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:593
+#: ../plugins/power/gsd-power-manager.c:587
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1848,7 +1692,7 @@ msgstr ""
 "சாதனம் சீக்கிரம் இயக்க நிறுத்தம் ஆகும்."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:602
+#: ../plugins/power/gsd-power-manager.c:596
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1859,7 +1703,7 @@ msgstr ""
 "இயக்க நிறுத்தம் ஆகும்."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:612
+#: ../plugins/power/gsd-power-manager.c:606
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -1870,7 +1714,7 @@ msgstr ""
 "இயக்க நிறுத்தம் ஆகும்."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:621
+#: ../plugins/power/gsd-power-manager.c:615
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -1881,7 +1725,7 @@ msgstr ""
 "சீக்கிரம் இயக்க நிறுத்தம் ஆகும்."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:630
+#: ../plugins/power/gsd-power-manager.c:624
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -1892,7 +1736,7 @@ msgstr ""
 "சாதனம் சீக்கிரம் இயக்க நிறுத்தம் ஆகும்."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:639
+#: ../plugins/power/gsd-power-manager.c:633
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -1903,14 +1747,14 @@ msgstr ""
 "சாதனம் சீக்கிரம் இயக்க நிறுத்தம் செய்யப்படும்."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:707
+#: ../plugins/power/gsd-power-manager.c:701
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
 msgstr "மின்கல சக்தி ஆபத்து மட்டத்தில் உள்லது; இந்த கணினி உறங்கப்போகிறது"
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:712
+#: ../plugins/power/gsd-power-manager.c:706
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -1919,46 +1763,57 @@ msgstr ""
 "நிறுத்தப்படப்போகிறது. "
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:732
+#: ../plugins/power/gsd-power-manager.c:726
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr "யூபிஎஸ் சக்தி ஆபத்து மட்டத்தில் உள்லது; இந்த கணினி உறங்கப்போகிறது"
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:737
+#: ../plugins/power/gsd-power-manager.c:731
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "யூபிஎஸ் சக்தி ஆபத்து மட்டத்தில் உள்லது; இந்த கணினி இயக்கம் "
 "நிறுத்தப்படப்போகிறது. "
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1157
+#: ../plugins/power/gsd-power-manager.c:1150
 msgid "Lid has been opened"
 msgstr "மூடி திறக்கப்பட்டது"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1195
+#: ../plugins/power/gsd-power-manager.c:1188
 msgid "Lid has been closed"
 msgstr "மூடி மூடப்பட்டது"
 
-#: ../plugins/power/gsd-power-manager.c:1934
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1749
+#| msgid "PDA battery low"
+msgid "On battery power"
+msgstr "மின்கல சக்தியில் இயங்கும் போது"
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1754
+msgid "On AC power"
+msgstr "AC மின்சாரத்தில் இயங்கும் போது"
+
+#: ../plugins/power/gsd-power-manager.c:1928
 msgid "Automatic logout"
 msgstr "தானாக வெளியேறுகிறது"
 
-#: ../plugins/power/gsd-power-manager.c:1934
+#: ../plugins/power/gsd-power-manager.c:1928
 msgid "You will soon log out because of inactivity."
 msgstr "செயலின்றி இருந்ததால் விரைவில் நீங்கள் வெளியேற்றப்படுவீர்கள்."
 
-#: ../plugins/power/gsd-power-manager.c:1939
+#: ../plugins/power/gsd-power-manager.c:1933
 msgid "Automatic suspend"
 msgstr "தானியங்கு இடைநிறுத்தம்"
 
-#: ../plugins/power/gsd-power-manager.c:1939
-#: ../plugins/power/gsd-power-manager.c:1944
+#: ../plugins/power/gsd-power-manager.c:1933
+#: ../plugins/power/gsd-power-manager.c:1938
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "செயலின்றி இருந்ததால் கணினி விரைவில் இடைநிறுத்தப்படும்."
 
-#: ../plugins/power/gsd-power-manager.c:1944
+#: ../plugins/power/gsd-power-manager.c:1938
 msgid "Automatic hibernation"
 msgstr "தானியங்கு இடை உறக்கம்"
 
@@ -1979,36 +1834,36 @@ msgid "Power plugin"
 msgstr "சக்தி சொருகி"
 
 #. Translators: We are configuring new printer
-#: ../plugins/print-notifications/gsd-printer.c:891
+#: ../plugins/print-notifications/gsd-printer.c:890
 msgid "Configuring new printer"
 msgstr "புதிய அச்சுப்பொறியை வடிவமைக்கிறது"
 
 #. Translators: Just wait
-#: ../plugins/print-notifications/gsd-printer.c:893
+#: ../plugins/print-notifications/gsd-printer.c:892
 msgid "Please wait..."
 msgstr "தயை செய்து காத்திருக்கவும்..."
 
 #. Translators: We have no driver installed for this printer
-#: ../plugins/print-notifications/gsd-printer.c:920
+#: ../plugins/print-notifications/gsd-printer.c:919
 msgid "Missing printer driver"
 msgstr "அச்சுப்பொறி இயக்கி இல்லை"
 
 #. Translators: We have no driver installed for the device
-#: ../plugins/print-notifications/gsd-printer.c:929
+#: ../plugins/print-notifications/gsd-printer.c:928
 #, c-format
 msgid "No printer driver for %s."
 msgstr "%s அச்சுப்பொறி இயக்கி இல்லை"
 
 #. Translators: We have no driver installed for this printer
-#: ../plugins/print-notifications/gsd-printer.c:934
+#: ../plugins/print-notifications/gsd-printer.c:933
 msgid "No driver for this printer."
 msgstr "இந்த அச்ச்சுப்பொறிக்கு இயக்கி இல்லை"
 
-#: ../plugins/print-notifications/gsd-printer.c:1032
+#: ../plugins/print-notifications/gsd-printer.c:1031
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:264
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:703
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:793
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:836
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:704
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:794
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:837
 msgid "Printers"
 msgstr "அச்சுப்பொறிகள்"
 
@@ -2070,7 +1925,7 @@ msgstr "அச்சுப்பொறி இணைப்பில் வில�
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:779
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:780
 msgid "Printer error"
 msgstr "அச்சுப்பொறி பிழை"
 
@@ -2208,17 +2063,17 @@ msgid "Printing"
 msgstr "அச்சடித்தல்"
 
 #. Translators: This is a title of a report notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:773
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:774
 msgid "Printer report"
 msgstr "அச்சுப்பொறி அறிக்கை"
 
 #. Translators: This is a title of a warning notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:776
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:777
 msgid "Printer warning"
 msgstr "அச்சுப்பொறி எச்சரிக்கை"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:786
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:787
 #, c-format
 msgid "Printer '%s': '%s'."
 msgstr "அச்சுப்பொறி '%s': '%s'."
@@ -2238,7 +2093,6 @@ msgid "Rfkill"
 msgstr "Rfkill"
 
 #: ../plugins/rfkill/rfkill.gnome-settings-plugin.in.h:3
-#| msgid "Color plugin"
 msgid "Rfkill plugin"
 msgstr "Rfkill செருகுநிரல்"
 
@@ -2250,7 +2104,7 @@ msgstr "திரைக்காப்பு பதிலி"
 msgid "Proxy FreeDesktop screensaver inhibition to gnome-session"
 msgstr "பதிலி FreeDesktop திரைக்காப்பு gnome-அமர்வுக்கு கட்டுப்பட்டது"
 
-#: ../plugins/smartcard/gsd-smartcard-service.c:224
+#: ../plugins/smartcard/gsd-smartcard-service.c:222
 msgid "User was not logged in with smartcard."
 msgstr "பயனர் ஸ்மார்ட்கார்டு கொண்டு புகுபதிவு செய்யப்படவில்லை."
 
@@ -2270,307 +2124,44 @@ msgstr "ஒலி"
 msgid "Sound Sample Cache plugin"
 msgstr "ஒலி மாதிரி தேக்கக செருகுநிரல்"
 
-#. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:250
-msgid ""
-"You will need to restart this computer before the hardware will work "
-"correctly."
-msgstr "வன்பொருள் சரியாக வேலை செய்யும் முன் மறு துவக்கம் தேவைப்படுகிறது."
-
-#. TRANSLATORS: title of libnotify bubble
-#: ../plugins/updates/gsd-updates-firmware.c:253
-#: ../plugins/updates/gsd-updates-firmware.c:281
-#: ../plugins/updates/gsd-updates-firmware.c:309
-msgid "Additional software was installed"
-msgstr "கூடுதல் மென்பொருள் நிறுவப்பட்டது"
-
-#: ../plugins/updates/gsd-updates-firmware.c:255
-#: ../plugins/updates/gsd-updates-firmware.c:283
-#: ../plugins/updates/gsd-updates-firmware.c:311
-#: ../plugins/updates/gsd-updates-firmware.c:603
-#: ../plugins/updates/gsd-updates-manager.c:387
-#: ../plugins/updates/gsd-updates-manager.c:523
-#: ../plugins/updates/gsd-updates-manager.c:604
-#: ../plugins/updates/gsd-updates-manager.c:677
-#: ../plugins/updates/gsd-updates-manager.c:1315
-msgid "Software Updates"
-msgstr "மென்பொருள் மேம்படுத்தல்கள்"
-
-#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:278
-msgid ""
-"You will need to remove and then reinsert the hardware before it will work "
-"correctly."
-msgstr ""
-"இது சரியாக பணி புரிவதற்கு முன்பு நீங்கள் வன்பொருளை நீக்கி மற்றும் இதை "
-"மறுஉள்ளிட வேண்டும்."
-
-#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:306
-msgid "Your hardware has been set up and is now ready to use."
-msgstr "உங்கள் வன்பொருள் அமைக்கப்பட்டது இப்போது பயன்படுத்த தயாராக உள்ளது."
-
-#. TRANSLATORS: we need another package to keep udev quiet
-#: ../plugins/updates/gsd-updates-firmware.c:587
-msgid ""
-"Additional firmware is required to make hardware in this computer function "
-"correctly."
-msgstr ""
-"இந்த கணினியின் வன்பொருள் சரியாக செயல்பட கூடுதல் firmware தேவைப்படுகிறது."
-
-#. TRANSLATORS: title of libnotify bubble
-#: ../plugins/updates/gsd-updates-firmware.c:601
-msgid "Additional firmware required"
-msgstr "கூடுதல் firmware தேவைப்படுகிறது"
-
-#. TRANSLATORS: button label
-#: ../plugins/updates/gsd-updates-firmware.c:608
-msgid "Install firmware"
-msgstr "firmwareஐ நிறுவு"
-
-#. TRANSLATORS: we should ignore this device and not ask anymore
-#: ../plugins/updates/gsd-updates-firmware.c:611
-msgid "Ignore devices"
-msgstr "சாதனங்களை தவிர்"
-
-#. TRANSLATORS: this is when the offline update failed
-#: ../plugins/updates/gsd-updates-manager.c:122
-msgid "Failed To Update"
-msgstr "மேம்படுத்தல் தோல்வி அடைந்தது"
-
-#. TRANSLATORS: the transaction could not be completed
-#. * as a previous transaction was unfinished
-#: ../plugins/updates/gsd-updates-manager.c:128
-msgid "A previous update was unfinished."
-msgstr "ஒரு முந்தைய மேம்படுத்தல் நிறைவடையவில்லை"
-
-#. TRANSLATORS: the package manager needed to download
-#. * something with no network available
-#: ../plugins/updates/gsd-updates-manager.c:138
-msgid "Network access was required but not available."
-msgstr "பிணைய இணைப்பு தேவைப்பட்டது; ஆனால் கிடைக்கப்பெறவில்லை."
-
-#. TRANSLATORS: if the package is not signed correctly
-#. *
-#: ../plugins/updates/gsd-updates-manager.c:147
-msgid "An update was not signed in the correct way."
-msgstr "மேம்படுத்தல் சரியான வழியில் கையொப்பமிடப்படவில்லை"
-
-#. TRANSLATORS: the transaction failed in a way the user
-#. * probably cannot comprehend. Package management systems
-#. * really are teh suck.
-#: ../plugins/updates/gsd-updates-manager.c:157
-msgid "The update could not be completed."
-msgstr "கணினி மேம்படுத்தல் முடியவில்லை"
-
-#. TRANSLATORS: the user aborted the update manually
-#: ../plugins/updates/gsd-updates-manager.c:162
-msgid "The update was cancelled."
-msgstr "மேம்படுத்தல் ரத்து செய்யப்பட்டது"
-
-#. TRANSLATORS: the user must have updated manually after
-#. * the updates were prepared
-#: ../plugins/updates/gsd-updates-manager.c:168
-msgid "An offline update was requested but no packages required updating."
-msgstr ""
-"ஒரு இணைப்பு விலகிய மேம்படுத்தல் கோரப்பட்டது; ஆனால் எந்த பொதிக்கும் "
-"மேம்படுத்தல் தேவை "
-"இருக்கவில்லை."
-
-#. TRANSLATORS: we ran out of disk space
-#: ../plugins/updates/gsd-updates-manager.c:172
-msgid "No space was left on the drive."
-msgstr "இயக்கியில் இடம் இல்லை."
-
-#. TRANSLATORS: the update process failed in a general
-#. * way, usually this message will come from source distros
-#. * like gentoo
-#: ../plugins/updates/gsd-updates-manager.c:180
-msgid "An update failed to install correctly."
-msgstr "ஒரு மேம்பாடு நிறுவுதல் தோல்வியுற்றது."
-
-#. TRANSLATORS: We didn't handle the error type
-#: ../plugins/updates/gsd-updates-manager.c:185
-msgid "The offline update failed in an unexpected way."
-msgstr "இணைப்பு விலகிய மேம்படுத்தல் எதிர்பாராமல் தோல்வியுற்றது"
-
-#. TRANSLATORS: these are geeky messages from the
-#. * package manager no mortal is supposed to understand,
-#. * but google might know what they mean
-#: ../plugins/updates/gsd-updates-manager.c:194
-msgid "Detailed errors from the package manager follow:"
-msgstr "தொகுப்பு மேலாளரிடமிருந்து விரிவான பிழை அறிக்கை பின் வருமாறு"
-
-#. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:382
-msgid "Distribution upgrades available"
-msgstr "விநியோக மேம்படுத்தல்கள் இருக்கின்றன"
-
-#. TRANSLATORS: don't install updates now
-#: ../plugins/updates/gsd-updates-manager.c:392
-#: ../plugins/updates/gsd-updates-manager.c:528
-#: ../plugins/updates/gsd-updates-manager.c:609
-msgid "Not Now"
-msgstr "இப்போது இல்லை"
-
-#. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:397
-msgid "More information"
-msgstr "அதிக தகவல்"
-
-#. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:505
-#: ../plugins/updates/gsd-updates-manager.c:586
-msgid "Update"
-msgid_plural "Updates"
-msgstr[0] "மேம்படுத்தல்"
-msgstr[1] "மேம்படுத்தல்கள்"
-
-#. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:508
-msgid "An important software update is available"
-msgid_plural "Important software updates are available"
-msgstr[0] "ஒரு முக்கிய மென்பொருள் மேம்படுத்தல் கிடைக்கிறது"
-msgstr[1] "முக்கிய மென்பொருள் மேம்படுத்தல்கள் கிடைக்கின்றன"
-
-#. TRANSLATORS: view available updates
-#: ../plugins/updates/gsd-updates-manager.c:534
-#: ../plugins/updates/gsd-updates-manager.c:615
-msgid "View"
-msgstr "காட்சி"
-
-#. TRANSLATORS: install available updates
-#: ../plugins/updates/gsd-updates-manager.c:538
-#: ../plugins/updates/gsd-updates-manager.c:619
-msgid "Restart & Install"
-msgstr "மறுதுவக்கி நிறுவு"
-
-#. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:544
-#: ../plugins/updates/gsd-updates-manager.c:625
-msgid "Install updates"
-msgstr "மேம்படுத்தல்களை நிறுவு"
-
-#. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:589
-msgid "A software update is available."
-msgid_plural "Software updates are available."
-msgstr[0] "ஒரு மென்பொருள் மேம்படுத்தல் கிடைக்கிறது"
-msgstr[1] "மென்பொருள் மேம்படுத்தல்கள் கிடைக்கின்றன."
-
-#. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:664
-#: ../plugins/updates/updates.gnome-settings-plugin.in.h:1
-msgid "Updates"
-msgstr "மேம்படுத்தல்கள்"
-
-#. TRANSLATORS: we failed to get the updates multiple times,
-#. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:668
-msgid "Unable to access software updates"
-msgstr "மென்பொருள் மேம்படுத்தலை அணுக இயலவில்லை"
-
-#. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:671
-msgid "Try again"
-msgstr "மீண்டும் முயற்சிக்கவும்"
-
-#. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:1045
-msgid "A transaction that cannot be interrupted is running"
-msgstr "ஒரு பரிமாற்றம் இடைபுகுவது இயங்குகிறது"
-
-#. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1265
-msgid "Software Update Installed"
-msgid_plural "Software Updates Installed"
-msgstr[0] "மென்பொருள் மேம்படுத்தல் நிறுவப்பட்டது"
-msgstr[1] "மென்பொருள் மேம்படுத்தல்கள்"
-
-#. TRANSLATORS: message when we've done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1270
-msgid "An important OS update has been installed."
-msgid_plural "Important OS updates have been installed."
-msgstr[0] "ஒரு முக்கிய இயங்குதள மேம்படுத்தல் நிறுவப்பட்டது"
-msgstr[1] "முக்கிய மென்பொருள் மேம்படுத்தல்கள் கிடைக்கின்றன"
-
-#. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1296
-msgid "Software Updates Failed"
-msgstr "மென்பொருள் மேம்படுத்தல்கள் தோல்வி அடைந்தது"
-
-#. TRANSLATORS: message when we've not done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1299
-msgid "An important OS update failed to be installed."
-msgstr "ஒரு முக்கிய மென்பொருள் மேம்படுத்தலை நிறுவ முடியவில்லை"
-
-#. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1322
-msgid "Review"
-msgstr "மீள்பார்வை"
-
-#. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1326
-msgid "Show details"
-msgstr "விவரங்களை காட்டு"
-
-#. TRANSLATORS: button: clear notification
-#: ../plugins/updates/gsd-updates-manager.c:1330
-msgid "OK"
-msgstr "சரி"
-
-#: ../plugins/updates/updates.gnome-settings-plugin.in.h:2
-msgid "Updates plugin"
-msgstr "மேம்படுத்தல்கள் செருகுநிரல்"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:52
-#| msgctxt "Action type"
-#| msgid "None"
+#: ../plugins/wacom/gsd-wacom-button-editor.c:51
 msgctxt "Wacom action-type"
 msgid "None"
 msgstr "எதுவுமில்லை"
 
-#: ../plugins/wacom/gsd-wacom-button-editor.c:53
-#| msgctxt "Action type"
-#| msgid "Send Keystroke %s"
+#: ../plugins/wacom/gsd-wacom-button-editor.c:52
 msgctxt "Wacom action-type"
 msgid "Send Keystroke"
 msgstr "விசைதட்டலை அனுப்பு"
 
-#: ../plugins/wacom/gsd-wacom-button-editor.c:54
-#| msgctxt "Action type"
-#| msgid "Switch Monitor"
+#: ../plugins/wacom/gsd-wacom-button-editor.c:53
 msgctxt "Wacom action-type"
 msgid "Switch Monitor"
 msgstr "மானிட்டரை மாற்று"
 
-#: ../plugins/wacom/gsd-wacom-button-editor.c:55
-#| msgctxt "Action type"
-#| msgid "Show On-Screen Help"
+#: ../plugins/wacom/gsd-wacom-button-editor.c:54
 msgctxt "Wacom action-type"
 msgid "Show On-Screen Help"
 msgstr "திரையிலான உதவியைக் காண்பி"
 
-#: ../plugins/wacom/gsd-wacom-button-editor.c:155
+#: ../plugins/wacom/gsd-wacom-button-editor.c:154
 #: ../plugins/wacom/gsd-wacom-osd-window.c:1096
 msgctxt "Action type"
 msgid "Show On-Screen Help"
 msgstr "திரையிலான உதவியைக் காண்பி"
 
-#: ../plugins/wacom/gsd-wacom-button-editor.c:158
+#: ../plugins/wacom/gsd-wacom-button-editor.c:157
 #: ../plugins/wacom/gsd-wacom-osd-window.c:1099
 msgctxt "Action type"
 msgid "Switch Monitor"
 msgstr "மானிட்டரை மாற்றுக"
 
-#: ../plugins/wacom/gsd-wacom-button-editor.c:202
-#| msgctxt "Action type"
-#| msgid "None"
+#: ../plugins/wacom/gsd-wacom-button-editor.c:201
 msgctxt "keyboard shortcut"
 msgid "None"
 msgstr "எதுவுமில்லை"
 
-#: ../plugins/wacom/gsd-wacom-button-editor.c:488
+#: ../plugins/wacom/gsd-wacom-button-editor.c:487
 msgid "Done"
 msgstr "முடிந்தது"
 
@@ -2659,38 +2250,34 @@ msgstr "மேல் பொத்தான் #%d"
 msgid "Bottom Button #%d"
 msgstr "கீழ் பொத்தான் #%d"
 
-#: ../plugins/wacom/gsd-wacom-key-shortcut-button.c:264
+#: ../plugins/wacom/gsd-wacom-key-shortcut-button.c:263
 msgid "New shortcut…"
 msgstr "புதிய குறுக்கு விசை…"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1081
+#: ../plugins/wacom/gsd-wacom-manager.c:1014
 #, c-format
 msgid "The \"%s\" tablet may not work as expected."
 msgstr "\"%s\" டேப்ளட் எதிர்பார்த்தபடி செயல்படாமல் போகலாம்."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1082
+#: ../plugins/wacom/gsd-wacom-manager.c:1015
 msgid "Unknown Tablet Connected"
 msgstr "தெரியாத டேப்ளட் இணைக்கப்பட்டது"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1085
-#: ../plugins/wacom/gsd-wacom-manager.c:1660
-#| msgid "X Settings"
+#: ../plugins/wacom/gsd-wacom-manager.c:1019
+#: ../plugins/wacom/gsd-wacom-manager.c:1644
 msgid "Wacom Settings"
 msgstr "Wacom அமைவுகள்"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1653
+#: ../plugins/wacom/gsd-wacom-manager.c:1638
 #, c-format
-#| msgid "The printer '%s' should be recalibrated soon."
 msgid "Tablet %s needs to be calibrated."
 msgstr "டேப்ளட் %s ஐ அளவை வகுக்க வேண்டும்."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1655
-#| msgid "Color calibration device added"
+#: ../plugins/wacom/gsd-wacom-manager.c:1640
 msgid "Calibration needed"
 msgstr "அளவை வகுக்க வேண்டும்"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1669
-#| msgid "Recalibrate now"
+#: ../plugins/wacom/gsd-wacom-manager.c:1653
 msgid "Calibrate"
 msgstr "அளவை வகு"
 
@@ -2724,7 +2311,7 @@ msgstr "அமைவாக்கம் செய்ய ஒரு பொத்த
 msgid "(Esc to cancel)"
 msgstr "(ரத்துசெய்ய Esc ஐ அழுத்தவும்)"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1986
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1983
 msgid "Edit"
 msgstr "திருத்து"
 
@@ -2745,12 +2332,10 @@ msgstr "தொடுத்திட்டு எல்ஈடி  வெளிச
 #. to change the OLED images for a Wacom tablet
 #.
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:11
-#| msgid "Modify the lit LED for a Wacom tablet"
 msgid "Modify the OLED image for a Wacom tablet"
 msgstr "ஒரு Wacom டேப்ளட்டுக்கான OLED படத்தை மாற்றியமைக்கவும்"
 
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:12
-#| msgid "Authentication is required to modify the lit LED for a Wacom tablet"
 msgid "Authentication is required to modify the OLED image for a Wacom tablet"
 msgstr "ஒரு Wacom டேப்ளட்டுக்கான OLED படத்தை மாற்றியமைக்க அங்கீகரிப்பு தேவை"
 
@@ -2762,7 +2347,7 @@ msgstr "வாகாம்"
 msgid "Wacom plugin"
 msgstr "வாகாம் செருகுநிரல்"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:974
+#: ../plugins/xrandr/gsd-xrandr-manager.c:958
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "திரை தகவலை புதுப்பிக்க முடியவில்லை: %s"
@@ -2782,6 +2367,278 @@ msgstr "x அமைப்பு"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "x அமைப்பை மேலாளுக"
+
+#~ msgid "Use mobile broadband connections"
+#~ msgstr "அலைஅகலப்பட்டையை பயன்படுத்துக"
+
+#~ msgid ""
+#~ "Use mobile broadband connections such as GSM and CDMA to check for "
+#~ "updates."
+#~ msgstr ""
+#~ "மேம்படுத்தல்களுக்கு சோதிக்க ஜிஎஸ்எம் மற்றும் சிடிஎம்ஏ போன்ற அலைஅகலப்பட்டையை பயன்படுத்துக"
+
+#~ msgid ""
+#~ "Automatically download updates in the background without confirmation"
+#~ msgstr "உறுதிப்படுத்தல் இல்லாமல் பின் புலத்தில் தானியங்கியாக மேம்படுத்தல்களை தரவிறக்குக."
+
+#~ msgid ""
+#~ "Automatically download updates in the background without confirmation. "
+#~ "Updates will be auto-downloaded when using wired network connnections, "
+#~ "and mobile broadband if 'connection-use-mobile' is enabled."
+#~ msgstr ""
+#~ "உறுதிப்படுத்தல் இல்லாமல் பின் புலத்தில் தானியங்கியாக மேம்படுத்தல்களை தரவிறக்குக. கம்பி "
+#~ "இணைப்பில் உள்ளபோதும்; 'இணைப்பு-பயனாக்கு-அலை' செயலாக்கி உள்ள போது அலை இணைப்பிலும் "
+#~ "இவை தானியங்கியாக தரவிறக்கப்படும்."
+
+#~ msgid "How often to check for updates"
+#~ msgstr "மேம்படுத்தல்களை எவ்வளவு இடைவெளியில் சோதிக்க வேண்டும்."
+
+#~ msgid ""
+#~ "How often to check for updates. Value is in seconds. This is a maximum "
+#~ "amount of time that can pass between a security update being published, "
+#~ "and the update being automatically installed or the user notified."
+#~ msgstr ""
+#~ "மேம்படுத்தல்களை எவ்வளவு இடைவெளியில் சோதிக்க வேண்டும்.. மதிப்பு நொடிகளில். இது ஒரு "
+#~ "பாதுகாப்பு மேம்படுத்தல் வெளியிடப்படுவதில் இருந்து அது தானியங்கியாக நிறுவப்படும் "
+#~ "அல்லது பயனருக்கு அறிவிக்கப்படும் நேரத்துக்கும் உள்ள இடைவெளி."
+
+#~ msgid "How often to notify the user that non-critical updates are available"
+#~ msgstr ""
+#~ "மிக முக்கியமல்லாத மேம்படுத்தல்களை பயனருக்கு எவ்வளவு இடைவெளியில் அறிவிக்க வேண்டும்."
+
+#~ msgid ""
+#~ "How often to tell the user there are non-critical updates. Value is in "
+#~ "seconds. Security update notifications are always shown after the check "
+#~ "for updates, but non-critical notifications should be shown a lot less "
+#~ "frequently."
+#~ msgstr ""
+#~ "மிக முக்கியமல்லாத மேம்படுத்தல்கள் கிடைக்கின்றன என எவ்வளவுஇடைவெளியில் பயனருக்கு "
+#~ "அறிவிக்க வேண்டும். மதிப்பு நொடிகளில். பாதுகாப்பு மேம்பாடுகள் மேம்பாடுகளுக்கு "
+#~ "சோதித்தவுடன் அறிவிக்கப்படும்; ஆனால் முக்கியமல்லாதவை குறைவான முறைகள் அறிவிக்கப்பட "
+#~ "வேண்டும்."
+
+#~ msgid "The last time we told the user about non-critical notifications"
+#~ msgstr "மிக முக்கியமில்லாத அறிவிப்புகளை பயனருக்கு கடைசியாக கூறிய நேரம்."
+
+#~ msgid ""
+#~ "The last time we notified the user about non-critical updates. Value is "
+#~ "in seconds since the epoch, or zero for never."
+#~ msgstr ""
+#~ "மிக முக்கியமில்லாத அறிவிப்புகளை பயனருக்கு கடைசியாக கூறிய நேரம். மதிப்பு "
+#~ "எபோக்கிலிருந்து நொடிகளில்; எப்போதுமில்லை என்பதற்கு பூஜ்யம்."
+
+#~ msgid "How often to check for distribution upgrades"
+#~ msgstr "வினியோக மேம்படுத்தல்களை எவ்வளவு இடைவெளியில் சோதிக்க வேண்டும்."
+
+#~ msgid "How often to check for distribution upgrades. Value is in seconds."
+#~ msgstr "மேம்படுத்தல்களை எவ்வளவு இடைவெளியில் சோதிக்க வேண்டும்."
+
+#~ msgid "How often to refresh the package cache"
+#~ msgstr "பொதி மிக வேக சேமிப்பகத்தை எவ்வளவு இடைவெளியில் புதுப்பிக்க வேண்டும்."
+
+#~ msgid "How often to refresh the package cache. Value is in seconds."
+#~ msgstr ""
+#~ "பொதி மிக வேக சேமிப்பகத்தை எவ்வளவு இடைவெளியில் புதுப்பிக்க வேண்டும். மதிப்பு "
+#~ "நொடிகளில்."
+
+#~ msgid "Check for updates when running on battery power"
+#~ msgstr ""
+#~ "கணினிப்பொறி மின்கல சக்தியில் இயங்கும்போதும்  தானியங்கியாக மேம்படுத்தலுக்கு சோதிக்கவும்"
+
+#~ msgid "Check for updates when running on battery power."
+#~ msgstr ""
+#~ "கணினிப்பொறி மின்கல சக்தியில் இயங்கும்போதும்  தானியங்கியாக மேம்படுத்தலுக்கு சோதிக்கவும்."
+
+#~ msgid "Notify the user when distribution upgrades are available"
+#~ msgstr "வினியோக மேம்பாடு கிடைக்கும்போது பயனருக்கு அறிவி"
+
+#~ msgid "Notify the user when distribution upgrades are available."
+#~ msgstr "வினியோக மேம்பாடு கிடைக்கும்போது பயனருக்கு அறிவி"
+
+#~ msgid "Ask the user if additional firmware should be installed"
+#~ msgstr "கூடுதல்  தள நிரல்களை நிறுவ வேண்டுமா என பயனரை கேட்கவும்."
+
+#~ msgid ""
+#~ "Ask the user if additional firmware should be installed if it is "
+#~ "available."
+#~ msgstr "கிடைக்கும் எனில் கூடுதல்  தள நிரல்களை நிறுவ வேண்டுமா என பயனரை கேட்கவும்."
+
+#~ msgid "Firmware files that should not be searched for"
+#~ msgstr "தேடப்படக்கூடாத தள நிரல் கோப்புகள்"
+
+#~ msgid ""
+#~ "Firmware files that should not be searched for, separated by commas. "
+#~ "These can include '*' and '?' characters."
+#~ msgstr ""
+#~ "தேடப்படக்கூடாத தள நிரல் கோப்புகள்; கால்புள்ளியால் பிரிக்கப்பட்டு. இவை '*' மற்றும் '?' "
+#~ "ஆகிய எழுத்துருகளை கொண்டு இருக்கலாம். "
+
+#~ msgid "Devices that should be ignored"
+#~ msgstr "உதாசீனப்படுத்த வேண்டிய சாதனங்கள்"
+
+#~ msgid ""
+#~ "Devices that should be ignored, separated by commas. These can include "
+#~ "'*' and '?' characters."
+#~ msgstr ""
+#~ "உதாசீனப்படுத்த வேண்டிய சாதனங்கள்; கால்புள்ளியால் பிரிக்கப்பட்டு. இவை '*' மற்றும் '?' "
+#~ "ஆகிய எழுத்துருகளை கொண்டு இருக்கலாம். "
+
+#~ msgid ""
+#~ "The filenames on removable media that designate it a software source."
+#~ msgstr "ஊடகத்தில் மென்பொருள் மூலம் எனக்குறிக்க உள்ள கோப்புக்களின் பெயர்."
+
+#~ msgid ""
+#~ "When removable media is inserted, it is checked to see if it contains any "
+#~ "important filenames in the root directory. If the filename matches, then "
+#~ "an updates check is performed. This allows post-install disks to be used "
+#~ "to update running systems."
+#~ msgstr ""
+#~ "ஊடகத்தை பொருத்திய போது அதன் மூல அடைவில் சில முக்க்கிய கோப்புகள் உள்ளனவா என "
+#~ "சோதிக்கப்படும். அப்படி இருந்தால் மேம்பாடுசோதனை மேற்கொள்ளப்படும். இது இயங்கும் கணினிகள் "
+#~ "வட்டுகளால் பின் நிறுவல் செய்யப்பட உதவும்."
+
+#~ msgid ""
+#~ "You will need to restart this computer before the hardware will work "
+#~ "correctly."
+#~ msgstr "வன்பொருள் சரியாக வேலை செய்யும் முன் மறு துவக்கம் தேவைப்படுகிறது."
+
+#~ msgid "Additional software was installed"
+#~ msgstr "கூடுதல் மென்பொருள் நிறுவப்பட்டது"
+
+#~ msgid "Software Updates"
+#~ msgstr "மென்பொருள் மேம்படுத்தல்கள்"
+
+#~ msgid ""
+#~ "You will need to remove and then reinsert the hardware before it will "
+#~ "work correctly."
+#~ msgstr ""
+#~ "இது சரியாக பணி புரிவதற்கு முன்பு நீங்கள் வன்பொருளை நீக்கி மற்றும் இதை மறுஉள்ளிட "
+#~ "வேண்டும்."
+
+#~ msgid "Your hardware has been set up and is now ready to use."
+#~ msgstr "உங்கள் வன்பொருள் அமைக்கப்பட்டது இப்போது பயன்படுத்த தயாராக உள்ளது."
+
+#~ msgid ""
+#~ "Additional firmware is required to make hardware in this computer "
+#~ "function correctly."
+#~ msgstr "இந்த கணினியின் வன்பொருள் சரியாக செயல்பட கூடுதல் firmware தேவைப்படுகிறது."
+
+#~ msgid "Additional firmware required"
+#~ msgstr "கூடுதல் firmware தேவைப்படுகிறது"
+
+#~ msgid "Install firmware"
+#~ msgstr "firmwareஐ நிறுவு"
+
+#~ msgid "Ignore devices"
+#~ msgstr "சாதனங்களை தவிர்"
+
+#~ msgid "Failed To Update"
+#~ msgstr "மேம்படுத்தல் தோல்வி அடைந்தது"
+
+#~ msgid "A previous update was unfinished."
+#~ msgstr "ஒரு முந்தைய மேம்படுத்தல் நிறைவடையவில்லை"
+
+#~ msgid "Network access was required but not available."
+#~ msgstr "பிணைய இணைப்பு தேவைப்பட்டது; ஆனால் கிடைக்கப்பெறவில்லை."
+
+#~ msgid "An update was not signed in the correct way."
+#~ msgstr "மேம்படுத்தல் சரியான வழியில் கையொப்பமிடப்படவில்லை"
+
+#~ msgid "The update could not be completed."
+#~ msgstr "கணினி மேம்படுத்தல் முடியவில்லை"
+
+#~ msgid "The update was cancelled."
+#~ msgstr "மேம்படுத்தல் ரத்து செய்யப்பட்டது"
+
+#~ msgid "An offline update was requested but no packages required updating."
+#~ msgstr ""
+#~ "ஒரு இணைப்பு விலகிய மேம்படுத்தல் கோரப்பட்டது; ஆனால் எந்த பொதிக்கும் மேம்படுத்தல் தேவை "
+#~ "இருக்கவில்லை."
+
+#~ msgid "No space was left on the drive."
+#~ msgstr "இயக்கியில் இடம் இல்லை."
+
+#~ msgid "An update failed to install correctly."
+#~ msgstr "ஒரு மேம்பாடு நிறுவுதல் தோல்வியுற்றது."
+
+#~ msgid "The offline update failed in an unexpected way."
+#~ msgstr "இணைப்பு விலகிய மேம்படுத்தல் எதிர்பாராமல் தோல்வியுற்றது"
+
+#~ msgid "Detailed errors from the package manager follow:"
+#~ msgstr "தொகுப்பு மேலாளரிடமிருந்து விரிவான பிழை அறிக்கை பின் வருமாறு"
+
+#~ msgid "Distribution upgrades available"
+#~ msgstr "விநியோக மேம்படுத்தல்கள் இருக்கின்றன"
+
+#~ msgid "Not Now"
+#~ msgstr "இப்போது இல்லை"
+
+#~ msgid "More information"
+#~ msgstr "அதிக தகவல்"
+
+#~ msgid "Update"
+#~ msgid_plural "Updates"
+#~ msgstr[0] "மேம்படுத்தல்"
+#~ msgstr[1] "மேம்படுத்தல்கள்"
+
+#~ msgid "An important software update is available"
+#~ msgid_plural "Important software updates are available"
+#~ msgstr[0] "ஒரு முக்கிய மென்பொருள் மேம்படுத்தல் கிடைக்கிறது"
+#~ msgstr[1] "முக்கிய மென்பொருள் மேம்படுத்தல்கள் கிடைக்கின்றன"
+
+#~ msgid "View"
+#~ msgstr "காட்சி"
+
+#~ msgid "Restart & Install"
+#~ msgstr "மறுதுவக்கி நிறுவு"
+
+#~ msgid "Install updates"
+#~ msgstr "மேம்படுத்தல்களை நிறுவு"
+
+#~ msgid "A software update is available."
+#~ msgid_plural "Software updates are available."
+#~ msgstr[0] "ஒரு மென்பொருள் மேம்படுத்தல் கிடைக்கிறது"
+#~ msgstr[1] "மென்பொருள் மேம்படுத்தல்கள் கிடைக்கின்றன."
+
+#~ msgid "Updates"
+#~ msgstr "மேம்படுத்தல்கள்"
+
+#~ msgid "Unable to access software updates"
+#~ msgstr "மென்பொருள் மேம்படுத்தலை அணுக இயலவில்லை"
+
+#~ msgid "Try again"
+#~ msgstr "மீண்டும் முயற்சிக்கவும்"
+
+#~ msgid "A transaction that cannot be interrupted is running"
+#~ msgstr "ஒரு பரிமாற்றம் இடைபுகுவது இயங்குகிறது"
+
+#~ msgid "Software Update Installed"
+#~ msgid_plural "Software Updates Installed"
+#~ msgstr[0] "மென்பொருள் மேம்படுத்தல் நிறுவப்பட்டது"
+#~ msgstr[1] "மென்பொருள் மேம்படுத்தல்கள்"
+
+#~ msgid "An important OS update has been installed."
+#~ msgid_plural "Important OS updates have been installed."
+#~ msgstr[0] "ஒரு முக்கிய இயங்குதள மேம்படுத்தல் நிறுவப்பட்டது"
+#~ msgstr[1] "முக்கிய மென்பொருள் மேம்படுத்தல்கள் கிடைக்கின்றன"
+
+#~ msgid "Software Updates Failed"
+#~ msgstr "மென்பொருள் மேம்படுத்தல்கள் தோல்வி அடைந்தது"
+
+#~ msgid "An important OS update failed to be installed."
+#~ msgstr "ஒரு முக்கிய மென்பொருள் மேம்படுத்தலை நிறுவ முடியவில்லை"
+
+#~ msgid "Review"
+#~ msgstr "மீள்பார்வை"
+
+#~ msgid "Show details"
+#~ msgstr "விவரங்களை காட்டு"
+
+#~ msgid "OK"
+#~ msgstr "சரி"
+
+#~ msgid "Updates plugin"
+#~ msgstr "மேம்படுத்தல்கள் செருகுநிரல்"
 
 #~ msgid "Wacom tablet PC feature"
 #~ msgstr "வாகாம் தொடுதிட்டு பிசிஅம்சம்"
