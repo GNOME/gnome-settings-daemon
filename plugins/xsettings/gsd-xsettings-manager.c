@@ -338,17 +338,15 @@ translate_button_layout (GnomeXSettingsManager *manager,
 {
         GSettings *classic_settings;
         GVariant *classic_value = NULL;
-        const char *session;
         char *layout;
 
         /* Hack: until we get session-dependent defaults in GSettings,
          *       swap out the usual schema for the "classic" one when
          *       running in classic mode
          */
-        session = g_getenv ("XDG_CURRENT_DESKTOP");
         classic_settings = g_hash_table_lookup (manager->priv->settings,
                                                 CLASSIC_WM_SETTINGS_SCHEMA);
-        if (session && strstr (session, "GNOME-Classic") && classic_settings) {
+        if (classic_settings) {
                 classic_value = g_settings_get_value (classic_settings, "button-layout");
                 layout = g_variant_dup_string (classic_value, NULL);
         } else {
@@ -1131,10 +1129,10 @@ gboolean
 gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                                GError               **error)
 {
-        GSettingsSchema *schema;
         GVariant    *overrides;
         guint        i;
         GList       *list, *l;
+        const char  *session;
 
         g_debug ("Starting xsettings manager");
         gnome_settings_profile_start (NULL);
@@ -1170,13 +1168,18 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
         g_hash_table_insert (manager->priv->settings,
                              WM_SETTINGS_SCHEMA, g_settings_new (WM_SETTINGS_SCHEMA));
 
-        schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (),
+        session = g_getenv ("XDG_CURRENT_DESKTOP");
+        if (session && strstr (session, "GNOME-Classic")) {
+                GSettingsSchema *schema;
+
+                schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (),
                                                   CLASSIC_WM_SETTINGS_SCHEMA, FALSE);
-        if (schema) {
-                g_hash_table_insert (manager->priv->settings,
-                                     CLASSIC_WM_SETTINGS_SCHEMA,
-                                     g_settings_new_full (schema, NULL, NULL));
-                g_settings_schema_unref (schema);
+                if (schema) {
+                        g_hash_table_insert (manager->priv->settings,
+                                             CLASSIC_WM_SETTINGS_SCHEMA,
+                                             g_settings_new_full (schema, NULL, NULL));
+                        g_settings_schema_unref (schema);
+                }
         }
 
         g_signal_connect (G_OBJECT (g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA)), "changed::enable-animations",
