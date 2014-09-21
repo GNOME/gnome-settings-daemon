@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-03-19 08:28+0000\n"
-"PO-Revision-Date: 2014-03-19 13:40-0500\n"
+"POT-Creation-Date: 2014-09-21 07:26+0000\n"
+"PO-Revision-Date: 2014-09-21 08:32-0500\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
 "Language: pa\n"
@@ -164,7 +164,7 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid "Activation of this plugin"
@@ -180,7 +180,7 @@ msgstr "ਇਹ ਪਲੱਗਇਨ ਦੀ ਐਕਟੀਵੇਸ਼ਨ"
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
 msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
@@ -192,11 +192,11 @@ msgstr "ਕੀ ਇਹ ਪਲੱਗਇਨ gnome-settings-daemon  ਵਲੋਂ ਐ
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
 msgid "Priority to use for this plugin"
@@ -208,11 +208,11 @@ msgstr "ਇਹ ਪਲੱਗਇਨ ਵਰਤਣ ਲਈ ਤਰਜੀਹ"
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
 #: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
@@ -490,438 +490,303 @@ msgid "Binding to launch the calculator."
 msgstr "ਕੈਲਕੂਲੇਟਰ ਲਾਂਚ ਕਰਨ ਲਈ ਬਾਈਡਿੰਗ ਹੈ।"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
+#| msgid "Wacom Settings"
+msgid "Launch settings"
+msgstr "ਲਾਂਚ ਸੈਟਿੰਗ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+#| msgid "Binding to launch the search tool."
+msgid "Binding to launch GNOME settings."
+msgstr "ਗਨੋਮ ਸੈਟਿੰਗ ਲਾਂਚ ਕਰਨ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Launch email client"
 msgstr "ਈਮੇਲ ਕਲਾਇਟ ਲਾਂਚ ਕਰੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 msgid "Binding to launch the email client."
 msgstr "ਈਮੇਲ ਕਲਾਇਟ ਲਾਂਚ ਕਰਨ ਲਈ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Eject"
 msgstr "ਬਾਹਰ ਕੱਢੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to eject an optical disc."
 msgstr "ਓਪਟੀਕਲ ਡਿਸਕ ਬਾਹਰ ਕੱਢਣ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Launch help browser"
 msgstr "ਮੱਦਦ-ਝਲਕਾਰਾ ਚਲਾਓ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to launch the help browser."
 msgstr "ਮੱਦਦ ਬਰਾਊਜ਼ਰ ਲਾਂਚ ਲਈ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Home folder"
 msgstr "ਘਰ ਫੋਲਡਰ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to open the Home folder."
 msgstr "ਘਰ ਫੋਲਡਰ ਖੋਲ੍ਹਣ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Launch media player"
 msgstr "ਮੀਡਿਆ ਪਲੇਅਰ ਲਾਂਚ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to launch the media player."
 msgstr "ਮੀਡਿਆ ਪਲੇਅਰ ਲਾਂਚ ਕਰਨ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Next track"
 msgstr "ਅਗਲਾ ਟਰੈਕ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to skip to next track."
 msgstr "ਅਗਲਾ ਟਰੈਕ ਉੱਤੇ ਜਾਣ ਲਈ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Pause playback"
 msgstr "ਪਲੇਅਬੈਕ ਪੌਜ਼"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
 msgid "Binding to pause playback."
 msgstr "ਪਲੇਅਬੈਕ ਪੌਜ਼ ਕਰਨ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
 msgid "Play (or play/pause)"
 msgstr "ਚਲਾਓ (ਜਾਂ ਚਲਾਓ/ਵਿਰਾਮ)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "ਪਲੇਅਬੈਕ ਸਟਾਰਟ ਕਰਨ ਵਾਸਤੇ ਬਾਈਡਿੰਗ (ਜਾਂ ਪਲੇਅ/ਪੌਜ਼ ਬਦਲਣ ਵਾਸਤੇ)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Log out"
 msgstr "ਲਾਗਆਉਟ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to log out."
 msgstr "ਲਾਗਆਉਟ ਲਈ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
 msgid "Previous track"
 msgstr "ਪਿਛਲਾ ਟਰੈਕ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
 msgid "Binding to skip to previous track."
 msgstr "ਪਿਛਲੇ ਟਰੈਕ ਉੱਤੇ ਜਾਣ ਲਈ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Lock screen"
 msgstr "ਪਰਦੇ ਨੂੰ ਤਾਲਾ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid "Binding to lock the screen."
 msgstr "ਸਕਰੀਨ ਲਾਕ ਕਰਨ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
 msgid "Search"
 msgstr "ਖੋਜ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
 msgid "Binding to launch the search tool."
 msgstr "ਖੋਜ ਟੂਲ ਲਾਂਚ ਕਰਨ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Stop playback"
 msgstr "ਪਲੇਅਬੈਕ ਰੋਕੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Binding to stop playback."
 msgstr "ਪਲੇਅਬੈਕ ਰੋਕਣ ਵਾਸਤੇ ਡਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Volume down"
 msgstr "ਆਵਾਜ਼ ਘਟਾਓ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Binding to lower the system volume."
 msgstr "ਸਿਸਟਮ ਵਾਲੀਅਮ ਘੱਟ ਕਰਨ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Volume mute"
 msgstr "ਆਵਾਜ਼ ਚੁੱਪ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Binding to mute the system volume."
 msgstr "ਸਿਸਟਮ ਵਾਲੀਅਮ ਚੁੱਪ ਕਰਨ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Volume up"
 msgstr "ਆਵਾਜ਼ ਵਧਾਓ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
 msgid "Binding to raise the system volume."
 msgstr "ਸਿਸਟਮ ਵਾਲੀਅਮ ਵਧਾਉਣ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
 msgid "Take a screenshot"
 msgstr "ਸਕਰੀਨ-ਸ਼ਾਟ ਲਵੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Binding to take a screenshot."
 msgstr "ਇੱਕ ਸਕਰੀਨਸ਼ਾਟ ਲੈਣ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Take a screenshot of a window"
 msgstr "ਇਕੱ ਵਿੰਡੋ ਦਾ ਸਕਰੀਨ-ਸ਼ਾਟ ਲਵੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Binding to take a screenshot of a window."
 msgstr "ਇੱਕ ਵਿੰਡੋ ਦਾ ਸਕਰੀਨਸ਼ਾਟ ਲੈਣ ਲਈ ਬਾਈਡਿੰਗ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 msgid "Take a screenshot of an area"
 msgstr "ਖੇਤਰ ਦਾ ਸਕਰੀਨ-ਸ਼ਾਟ ਲਵੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
 msgid "Binding to take a screenshot of an area."
 msgstr "ਇੱਕ ਖੇਤਰ ਦਾ ਸਕਰੀਨਸ਼ਾਟ ਲੈਣ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
 msgid "Copy a screenshot to clipboard"
 msgstr "ਸਕਰੀਨਸ਼ਾਟ ਕਲਿੱਪਬੋਰਡ 'ਚ ਕਾਪੀ ਕਰੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Binding to copy a screenshot to clipboard."
 msgstr "ਇੱਕ ਸਕਰੀਨਸ਼ਾਟ ਨੂੰ ਕਲਿੱਪਬੋਰਡ ਵਿਚ ਕਾਪੀ ਕਰਨ ਲਈ ਬਾਈਡਿੰਗ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Copy a screenshot of a window to clipboard"
 msgstr "ਵਿੰਡੋ ਦੀ ਸਕਰੀਨਸ਼ਾਟ ਕਲਿੱਪਬੋਰਡ 'ਚ ਕਾਪੀ ਕਰੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
 msgid "Binding to copy a screenshot of a window to clipboard."
 msgstr "ਇੱਕ ਵਿੰਡੋ ਦੇ ਸਕਰੀਨਸ਼ਾਟ ਨੂੰ ਕਲਿੱਪਬੋਰਡ ਵਿਚ ਕਾਪੀ ਕਰਨ ਲਈ ਬਾਈਡਿੰਗ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Copy a screenshot of an area to clipboard"
 msgstr "ਖੇਤਰ ਦਾ ਸਕਰੀਨਸ਼ਾਟ ਕਲਿੱਪਬੋਰਡ 'ਚ ਕਾਪੀ ਕਰੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Binding to copy a screenshot of an area to clipboard."
 msgstr "ਇੱਕ ਖੇਤਰ ਦੇ ਸਕਰੀਨਸ਼ਾਟ ਨੂੰ ਕਲਿੱਪਬੋਰਡ ਵਿਚ ਕਾਪੀ ਕਰਨ ਲਈ ਬਾਈਡਿੰਗ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Record a short video of the screen"
 msgstr "ਸਕਰੀਨ ਦੀ ਛੋਟੀ ਵਿਡੀਓ ਰਿਕਾਰਡ ਕਰੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Launch web browser"
 msgstr "ਵੈਬ-ਝਲਕਾਰਾ ਚਲਾਓ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Binding to launch the web browser."
 msgstr "ਵੈਬ ਬਰਾਊਜ਼ਰ ਲਾਂਚ ਕਰਨ ਲਈ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 msgid "Toggle magnifier"
 msgstr "ਵੱਡਦਰਸ਼ੀ ਬਦਲੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
 msgid "Binding to show the screen magnifier"
 msgstr "ਵੱਡਦਰਸ਼ੀ ਵੇਖਾਉਣ ਲਈ ਬਾਈਡਿੰਗ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
 msgid "Toggle screen reader"
 msgstr "ਸਕਰੀਨ ਰੀਡਰ ਬਦਲੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
 msgid "Binding to start the screen reader"
 msgstr "ਸਕਰੀਨ ਰੀਡਰ ਸ਼ੁਰੂ ਲਈ ਬਾਈਡਿੰਗ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
 msgid "Toggle on-screen keyboard"
 msgstr "ਆਨ-ਸਕਰੀਨ ਕੀਬੋਰਡ ਬਦਲੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
 msgid "Binding to show the on-screen keyboard"
 msgstr "ਆਨਸਕਰੀਨ ਕੀਬੋਰਡ ਵੇਖਾਉਣ ਲਈ ਬਾਈਡਿੰਗ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
 msgid "Increase text size"
 msgstr "ਟੈਕਸਟ ਅਕਾਰ ਵਧਾਓ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
 msgid "Binding to increase the text size"
 msgstr "ਟੈਕਸਟ ਅਕਾਰ ਵਧਾਉਣ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
 msgid "Decrease text size"
 msgstr "ਟੈਕਸਟ ਆਕਾਰ ਘਟਾਓ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
 msgid "Binding to decrease the text size"
 msgstr "ਟੈਕਸਟ ਆਕਾਰ ਘਟਾਉਣ ਵਾਸਤੇ ਬਾਈਡਿੰਗ ਹੈ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
 msgid "Toggle contrast"
 msgstr "ਕਨਟਰਾਸਟ ਬਦਲੋ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
 msgid "Binding to toggle the interface contrast"
 msgstr "ਇੰਟਰਫੇਸ ਕਨਟਰਾਸਟ ਬਦਲਣ ਲਈ ਬਾਈਡਿੰਗ ਹੈ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
 msgid "Magnifier zoom in"
 msgstr "ਵੱਡਦਰਸ਼ੀ ਜ਼ੂਮ ਇਨ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
 msgid "Binding for the magnifier to zoom in"
 msgstr "ਜ਼ੂਮ ਇਨ ਕਰਨ ਵਾਸਤੇ ਵੱਡਦਰਸ਼ੀ ਲਈ ਬਾਈਡਿੰਗ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
 msgid "Magnifier zoom out"
 msgstr "ਵੱਡਦਰਸ਼ੀ ਜ਼ੂਮ ਆਉਟ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
 msgid "Binding for the magnifier to zoom out"
 msgstr "ਜ਼ੂਮ ਆਉਟ ਕਰਨ ਵਾਸਤੇ ਵੱਡਦਰਸ਼ੀ ਲਈ ਬਾਈਡਿੰਗ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
 msgid "Name"
 msgstr "ਨਾਂ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
 msgid "Name of the custom binding"
 msgstr "ਕਸਟਮ ਬਾਈਡਿੰਗ ਦਾ ਨਾਂ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
 msgid "Binding"
 msgstr "ਬਾਈਡਿੰਗ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:77
 msgid "Binding for the custom binding"
 msgstr "ਕਸਟਮ ਬਾਈਡਿੰਗ ਲਈ ਬਾਈਡਿੰਗ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:78
 msgid "Command"
 msgstr "ਕਮਾਂਡ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:77
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:79
 msgid "Command to run when the binding is invoked"
 msgstr "ਜਦੋਂ ਬਾਈਡਿੰਗ ਸ਼ਾਮਿਲ ਹੋਵੇ ਤਾਂ ਚਲਾਉਣ ਵਾਲੀ ਕਮਾਂਡ।"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
-msgid "Use mobile broadband connections"
-msgstr "ਮੋਬਾਇਲ ਬਰਾਂਡਬੈਂਡ ਕੁਨੈਕਸ਼ਨ ਵਰਤੋਂ"
+#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:5
+msgid "On which connections the service is enabled"
+msgstr "ਕਿਹੜੇ ਕੁਨੈਕਸ਼ਨਾਂ ਉੱਤੇ ਸੇਵਾ ਚਾਲੂ ਕਰਨੀ ਹੈ"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:6
 msgid ""
-"Use mobile broadband connections such as GSM and CDMA to check for updates."
-msgstr "ਅੱਪਡੇਟ ਲਈ GSM ਅਤੇ CDMA ਵਾਂਗ ਮੋਬਾਇਲ ਬਰਾਂਡਬੈਂਡ ਕੁਨੈਕਸ਼ਨ ਵਰਤੋਂ।"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
-msgid "Automatically download updates in the background without confirmation"
-msgstr "ਅੱਪਡੇਟ ਬੈਕਗਰਾਊਂਡ ਵਿੱਚ ਆਟੋਮੈਟਿਕ ਹੀ ਬਿਨਾਂ ਪੁੱਛੇ ਡਾਊਨਲੋਡ ਕਰੋ"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
-msgid ""
-"Automatically download updates in the background without confirmation. "
-"Updates will be auto-downloaded when using wired network connnections, and "
-"mobile broadband if 'connection-use-mobile' is enabled."
+"The list of NetworkManager connections (each one represented with its UUID) "
+"on which this service is enabled and started."
 msgstr ""
-"ਅੱਪਡੇਟ ਬੈਕਗਰਾਊਂਡ ਵਿੱਚ ਆਟੋਮੈਟਿਕ ਹੀ ਬਿਨਾਂ ਪੁੱਛੇ ਡਾਊਨਲੋਡ ਕਰੋ। ਅੱਪਡੇਟ ਨੂੰ "
-"ਆਟੋਮੈਟਿਕ ਹੀ ਡਾਊਨਲੋਡ ਕੀਤਾ "
-"ਜਾਵੇਗਾ, ਜਦੋਂ ਤਾਰ ਨੈੱਟਵਰਕ ਕੁਨੈਕਸ਼ਨ ਹੋਵੇ ਅਤੇ ਮੋਬਾਇਲ ਬਰਾਡਬੈਂਡ ਤੋਂ ਵੀ, ਜੇ "
-"'connection-use-mobile' "
-"ਚਾਲੂ ਹੋਵੇ।"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
-msgid "How often to check for updates"
-msgstr "ਅੱਪਡੇਟ ਲਈ ਕਿੰਨੀ ਕੁ ਵਾਰ ਚੈੱਕ ਕਰਨਾ ਹੈ"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
-msgid ""
-"How often to check for updates. Value is in seconds. This is a maximum "
-"amount of time that can pass between a security update being published, and "
-"the update being automatically installed or the user notified."
-msgstr ""
-"ਅੱਪਡੇਟ ਲਈ ਕਿੰਨੀ ਕੁ ਵਾਰ ਚੈੱਕ ਕਰਨਾ ਹੈ। ਮੁੱਲ ਸਕਿੰਟਾਂ ਵਿੱਚ ਹੈ। ਇਹ ਸਮੇਂ ਦਾ ਵੱਧ ਤੋਂ "
-"ਵੱਧ ਅੰਤਰਾਲ ਹੈ, ਜੋ ਕਿ "
-"ਸੁਰੱਖਿਆ ਅੱਪਡੇਟ ਪਬਲਿਸ਼ ਕਰਨ ਅਤੇ ਅੱਪਡੇਟ ਨੂੰ ਆਟੋਮੈਟਿਕ ਹੀ ਇੰਸਟਾਲ ਕਰਨ ਜਾਂ ਯੂਜ਼ਰ "
-"ਸੂਚਨਾ ਦੇਣ ਦੇ ਵਿੱਚ "
-"ਲੰਘਾਇਆ ਜਾਂਦਾ ਹੈ।"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
-msgid "How often to notify the user that non-critical updates are available"
-msgstr ""
-"ਗ਼ੈਰ-ਨਾਜ਼ੁਕ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਹੋਣ ਦੀ ਹਾਲਤ ਵਿੱਚ ਯੂਜ਼ਰ ਨੂੰ ਕਿੰਨੀ ਕੁ ਵਾਰ ਸੂਚਨਾ ਦੇਣੀ "
-"ਹੈ"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
-msgid ""
-"How often to tell the user there are non-critical updates. Value is in "
-"seconds. Security update notifications are always shown after the check for "
-"updates, but non-critical notifications should be shown a lot less "
-"frequently."
-msgstr ""
-"ਗ਼ੈਰ-ਨਾਜ਼ੁਕ ਅੱਪਡੇਟ ਲਈ ਯੂਜ਼ਰ ਨੂੰ ਕਿੰਨੀ ਕੁ ਵਾਰ ਦੱਸਣਾ ਹੈ। ਮੁੱਲ ਸਕਿੰਟਾਂ ਵਿੱਚ ਹੈ। "
-"ਸੁਰੱਖਿਆ ਅੱਪਡੇਟ ਨੂੰ ਅੱਪਡੇਟ "
-"ਚੈੱਕ ਕਰਨ ਦੇ ਤੁਰੰਤ ਬਾਅਦ ਵੇਖਾਇਆ ਜਾਂਦਾ ਹੈ, ਪਰ ਗ਼ੈਰ-ਨਾਜ਼ੁਕ ਲਈ ਸੂਚਨਾ ਅਕਸਰ ਨਹੀਂ "
-"ਵੇਖਾਈ ਜਾਂਦੀ।"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
-msgid "The last time we told the user about non-critical notifications"
-msgstr "ਆਖਰੀ ਵਾਰ, ਜਦੋਂ ਅਸੀਂ ਯੂਜ਼ਰ ਨੂੰ ਗ਼ੈਰ-ਨਾਜ਼ੁਕ ਸੂਚਨਾ ਦਿੱਤੀ ਸੀ"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
-msgid ""
-"The last time we notified the user about non-critical updates. Value is in "
-"seconds since the epoch, or zero for never."
-msgstr ""
-"ਆਖਰੀ ਵਾਰ, ਜਦੋਂ ਅਸੀਂ ਯੂਜ਼ਰ ਨੂੰ ਗ਼ੈਰ-ਨਾਜ਼ੁਕ ਸੂਚਨਾ ਦਿੱਤੀ ਸੀ। ਮੁੱਲ ਸਕਿੰਟਾਂ ਵਿੱਚ "
-"ਹੈ, ਈਪੋਚ ਤੋਂ ਜਾਂ ਕਦੇ ਲਈ "
-"ਨਹੀਂ ਵਾਸਤੇ ਸਿਫ਼ਰ।"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
-msgid "How often to check for distribution upgrades"
-msgstr "ਡਿਸਟਰੀਬਿਊਸ਼ਨ ਅੱਪਗਰੇਡ ਲਈ ਕਿੰਨੀ ਵਾਰ ਚੈੱਕ ਕਰਨਾ ਹੈ"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
-msgid "How often to check for distribution upgrades. Value is in seconds."
-msgstr "ਡਿਸਟਰੀਬਿਊਸ਼ਨ ਅੱਪਗਰੇਡ ਲਈ ਕਿੰਨੀ ਵਾਰ ਚੈੱਕ ਕਰਨਾ ਹੈ। ਮੁੱਲ ਸਕਿੰਟਾਂ ਵਿੱਚ ਹੈ।"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
-msgid "How often to refresh the package cache"
-msgstr "ਪੈਕੇਜ ਕੈਸ਼ ਕਿੰਨੀ ਵਾਰ ਤਾਜ਼ਾ ਕੀਤੀ ਜਾਵੇ"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
-msgid "How often to refresh the package cache. Value is in seconds."
-msgstr "ਪੈਕੇਜ ਕੈਸ਼ ਕਿੰਨੀ ਵਾਰ ਤਾਜ਼ਾ ਕੀਤੀ ਜਾਵੇ। ਮੁੱਲ ਸਕਿੰਟਾਂ ਵਿੱਚ ਹੈ।"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
-msgid "Check for updates when running on battery power"
-msgstr "ਜਦੋਂ ਬੈਟਰੀ ਊਰਜਾ ਉੱਤੇ ਚੱਲਦਾ ਹੋਵੇ ਤਾਂ ਅੱਪਡੇਟ ਲਈ ਚੈੱਕ ਕਰੋ"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
-msgid "Check for updates when running on battery power."
-msgstr "ਜਦੋਂ ਬੈਟਰੀ ਊਰਜਾ ਉੱਤੇ ਚੱਲਦਾ ਹੋਵੇ ਤਾਂ ਅੱਪਡੇਟ ਲਈ ਚੈੱਕ ਕਰੋ।"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
-msgid "Notify the user when distribution upgrades are available"
-msgstr "ਜਦੋਂ ਡਿਸਟਰੀਬਿਊਸ਼ਨ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਹੋਵੇ ਤਾਂ ਯੂਜ਼ਰ ਨੂੰ ਸੂਚਨਾ ਦਿਓ"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
-msgid "Notify the user when distribution upgrades are available."
-msgstr "ਜਦੋਂ ਡਿਸਟਰੀਬਿਊਸ਼ਨ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਹੋਵੇ ਤਾਂ ਯੂਜ਼ਰ ਨੂੰ ਸੂਚਨਾ ਦਿਓ।"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
-msgid "Ask the user if additional firmware should be installed"
-msgstr "ਯੂਜ਼ਰ ਨੂੰ ਪੁੱਛੋ ਕਿ ਕੀ ਹੋਰ ਫਾਇਰਮਵੇਅਰ ਇੰਸਟਾਲ ਕਰਨਾ ਹੈ"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
-msgid ""
-"Ask the user if additional firmware should be installed if it is available."
-msgstr "ਯੂਜ਼ਰ ਨੂੰ ਪੁੱਛੋ ਕਿ ਕੀ ਹੋਰ ਫਾਇਰਮਵੇਅਰ ਇੰਸਟਾਲ ਕਰਨਾ ਹੈ, ਜੇ ਇਹ ਉਪਲੱਬਧ ਹੋਵੇ।"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
-msgid "Firmware files that should not be searched for"
-msgstr "ਫਾਇਰਮਵੇਅਰ ਫਾਇਲਾਂ ਇਸ ਲਈ ਨਹੀਂ ਲੱਭਣੀਆਂ ਚਾਹੀਦੀਆਂ"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
-msgid ""
-"Firmware files that should not be searched for, separated by commas. These "
-"can include '*' and '?' characters."
-msgstr ""
-"ਫਇਰਮਵੇਅਰ ਫਾਇਲਾਂ, ਜੋ ਕਿ ਨਹੀਂ ਲੱਭੀਆਂ ਜਾਣੀਆਂ ਚਾਹੀਦੀਆਂ, ਕਾਮਿਆਂ ਨਾਲ ਵੱਖ ਰੱਖੋ। ਇਸ "
-"ਵਿੱਚ '*' ਅਤੇ "
-"'?' ਅੱਖਰ ਹੋ ਸਕਦੇ ਹਨ।."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
-msgid "Devices that should be ignored"
-msgstr "ਜੰਤਰ, ਜੋ ਕਿ ਅਣਡਿੱਠੇ ਕਰਨੇ ਹਨ"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
-msgid ""
-"Devices that should be ignored, separated by commas. These can include '*' "
-"and '?' characters."
-msgstr ""
-"ਜੰਤਰ, ਜੋ ਕਿ ਅਣਡਿੱਠੇ ਕਰਨੇ ਹਨ, ਕਾਮਿਆਂ ਨਾਲ ਵੱਖ ਕੀਤੇ ਹਨ। ਇਸ ਵਿੱਚ '*', ਅਤੇ '?' "
-"ਅੱਖਰ ਸ਼ਾਮਲ ਕੀਤੇ "
-"ਜਾ ਸਕਦੇ ਹਨ।."
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
-msgid "The filenames on removable media that designate it a software source."
-msgstr "ਹਟਾਉਣਯੋਗ ਮੀਡਿਆ ਉੱਤੇ ਫਾਇਲ-ਨਾਂ, ਜੋ ਕਿ ਸਾਫਟਵੇਅਰ ਸਰੋਤ ਵਜੋਂ ਹੈ।"
-
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
-msgid ""
-"When removable media is inserted, it is checked to see if it contains any "
-"important filenames in the root directory. If the filename matches, then an "
-"updates check is performed. This allows post-install disks to be used to "
-"update running systems."
-msgstr ""
-"ਜਦੋਂ ਹਟਾਉਣਯੋਗ ਮੀਡਿਆ ਪਾਇਆ ਜਾਵੇ ਤਾਂ ਇਹ ਚੈੱਕ ਕੀਤਾ ਜਾਂਦਾ ਹੈ ਕਿ ਕਿਤੇ ਇਹ ਰੂਟ "
-"ਡਾਇਰੈਕਟਰੀ ਵਿੱਚ ਕੋਈ "
-"ਖਾਸ ਫਾਇਲ-ਨਾਂ ਤਾਂ ਨਹੀਂ ਰੱਖਦਾ। ਜੇ ਫਾਇਲ-ਨਾਂ ਮਿਲ ਜਾਵੇ ਤਾਂ ਅੱਪਡੇਟ ਚੈੱਕ ਕੀਤਾ ਜਾਂਦਾ "
-"ਹੈ। ਇਸ ਨਾਲ "
-"ਚੱਲਦੇ ਸਿਸਟਮਾਂ ਨੂੰ ਇੰਸਟਾਲ ਦੇ ਬਾਅਦ ਡਿਸਕ (ਪੋਸਟ-ਇੰਸਟਾਲ ਡਿਸਕ) ਦੀ ਵਰਤੋਂ ਨਾਲ ਅੱਪਡੇਟ "
-"ਕੀਤਾ ਜਾ ਸਕਦਾ "
-"ਹੈ।"
+"ਨੈੱਟਵਰਕਮੈਨੇਜਰ ਕੁਨੈਕਸ਼ਨਾਂ ਦੀ ਸੂਚੀ (ਹਰੇਕ ਨੂੰ ਇਸ ਦੇ UUID ਰਾਹੀਂ ਦਰਸਾਇਆ ਗਿਆ ਹੈ), "
+"ਜਿਸ ਉੱਤੇ ਇਹ "
+"ਸੇਵਾ ਨੂੰ ਚਾਲੂ ਰੱਖਿਆ ਤੇ ਸ਼ੁਰੂ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
@@ -1037,15 +902,15 @@ msgstr ""
 "ਵਿੱਚ ਬੰਦ ਕੀਤਾ "
 "ਹੁੰਦਾ ਹੈ।"
 
-#: ../gnome-settings-daemon/main.c:52
+#: ../gnome-settings-daemon/main.c:53
 msgid "Enable debugging code"
 msgstr "ਡੀਬੱਗ ਕੋਡ ਯੋਗ"
 
-#: ../gnome-settings-daemon/main.c:53
+#: ../gnome-settings-daemon/main.c:54
 msgid "Replace existing daemon"
 msgstr "ਮੌਜੂਦਾ ਡੈਮਨ ਬਦਲੋ"
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../gnome-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "ਸਮੇਂ ਬਾਅਦ ਬੰਦ ਕਰੋ (ਡੀਬੱਗ ਕਰਨ ਲਈ)"
 
@@ -1057,15 +922,15 @@ msgstr "ਅਸੈੱਸਬਿਲਟੀ ਕੀਬੋਰਡ"
 msgid "Accessibility keyboard plugin"
 msgstr "ਅਸੈੱਸਬਿਲਟੀ ਕੀਬੋਰਡ ਪਲੱਗਇਨ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:399
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:398
 msgid "Slow Keys Turned On"
 msgstr "ਹੌਲੀ ਸਵਿੱਚ ਚਾਲੂ ਹੋਈਆਂ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:399
 msgid "Slow Keys Turned Off"
 msgstr "ਹੌਲੀ ਸਵਿੱਚ ਬੰਦ ਹੋਈਆਂ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:401
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
 msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
@@ -1074,40 +939,40 @@ msgstr ""
 "ਸ਼ਾਰਟਕੱਟ ਹੈ, ਜੋ "
 "ਕਿ ਤੁਹਾਡੇ ਕੀ-ਬੋਰਡ ਦੇ ਕੰਮ ਕਰਨ ਦੇ ਢੰਗ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰੇਗਾ।"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:411
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:479
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:410
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:478
 msgid "Universal Access"
 msgstr "ਯੂਨੀਵਰਸਲ ਅਸੈੱਸ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:417
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:485
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:416
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:484
 msgid "Turn Off"
 msgstr "ਬੰਦ ਕਰੋ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:417
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:485
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:416
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:484
 msgid "Turn On"
 msgstr "ਚਾਲੂ ਕਰੋ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:423
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:491
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:422
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:490
 msgid "Leave On"
 msgstr "ਚਾਲੂ ਛੱਡੋ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:423
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:491
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:422
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:490
 msgid "Leave Off"
 msgstr "ਬੰਦ ਛੱਡੋ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:464
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:463
 msgid "Sticky Keys Turned On"
 msgstr "ਸਟਿੱਕੀ ਸਵਿੱਚ ਚਾਲ ਹੋਈਆਂ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:465
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:464
 msgid "Sticky Keys Turned Off"
 msgstr "ਸਟਿੱਕੀ ਸਵਿੱਚ ਬੰਦ ਹੋਈਆਂ"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:467
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:466
 msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
@@ -1116,7 +981,7 @@ msgstr ""
 "ਸ਼ਾਰਟਕੱਟ ਹੈ, "
 "ਜੋ ਕਿ ਤੁਹਾਡੇ ਕੀ-ਬੋਰਡ ਦੇ ਕੰਮ ਕਰਨ ਦੇ ਢੰਗ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰੇਗਾ।"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:469
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:468
 msgid ""
 "You just pressed two keys at once, or pressed the Shift key 5 times in a "
 "row.  This turns off the Sticky Keys feature, which affects the way your "
@@ -1235,12 +1100,12 @@ msgstr "ਡੰਮੀ"
 msgid "Dummy plugin"
 msgstr "ਡੰਮੀ ਪਲੱਗਇਨ"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:587
+#: ../plugins/housekeeping/gsd-disk-space.c:614
 #, c-format
 msgid "Low Disk Space on \"%s\""
 msgstr "\"%s\" ਉੱਤੇ ਘੱਟ ਥਾਂ"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:589
+#: ../plugins/housekeeping/gsd-disk-space.c:616
 #, c-format
 msgid ""
 "The volume \"%s\" has only %s disk space remaining.  You may free up some "
@@ -1250,19 +1115,19 @@ msgstr ""
 "ਹੋਰ ਥਾਂ "
 "ਵਿਹਲੀ ਕਰ ਸਕਦੇ ਹੋ।"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:593
+#: ../plugins/housekeeping/gsd-disk-space.c:620
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:80
 #, c-format
 msgid "The volume \"%s\" has only %s disk space remaining."
 msgstr "ਵਾਲੀਅਮ \"%s\" ਉੱਤੇ ਕੇਵਲ %s ਡਿਸਕ ਥਾਂ ਖਾਲੀ ਰਹਿ ਗਈ ਹੈ।"
 
 #. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-disk-space.c:598
+#: ../plugins/housekeeping/gsd-disk-space.c:625
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
 msgid "Low Disk Space"
 msgstr "ਘੱਟ ਡਿਸਕ ਥਾਂ"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:600
+#: ../plugins/housekeeping/gsd-disk-space.c:627
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1272,26 +1137,26 @@ msgstr ""
 "ਹੋਰ ਥਾਂ ਵਿਹਲੀ "
 "ਕਰ ਸਕਦੇ ਹੋ।"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:603
+#: ../plugins/housekeeping/gsd-disk-space.c:630
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:83
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "ਇਹ ਕੰਪਿਊਟਰ ਉੱਤੇ ਕੇਵਲ %s ਡਿਸਕ ਥਾਂ ਬਾਕੀ ਰਹਿ ਗਈ ਹੈ।"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:618
+#: ../plugins/housekeeping/gsd-disk-space.c:645
 msgid "Disk space"
 msgstr "ਡਿਸਕ ਥਾਂ"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:625
+#: ../plugins/housekeeping/gsd-disk-space.c:652
 msgid "Examine"
 msgstr "ਜਾਂਚ ਕਰੋ"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:633
+#: ../plugins/housekeeping/gsd-disk-space.c:660
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:433
 msgid "Empty Trash"
 msgstr "ਰੱਦੀ ਖਾਲੀ ਕਰੋ"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:640
+#: ../plugins/housekeeping/gsd-disk-space.c:667
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:448
 msgid "Ignore"
 msgstr "ਅਣਡਿੱਠਾ"
@@ -1357,8 +1222,6 @@ msgstr ""
 "ਜਾਣਕਾਰੀ ਦਿਉ।"
 
 #: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
-#| msgid "Keyboard"
-#| msgid_plural "Keyboards"
 msgid "Keyboard"
 msgstr "ਕੀ-ਬੋਰਡ"
 
@@ -1366,7 +1229,7 @@ msgstr "ਕੀ-ਬੋਰਡ"
 msgid "Keyboard plugin"
 msgstr "ਕੀ-ਬੋਰਡ ਪਲੱਗਇਨ"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:1981
+#: ../plugins/media-keys/gsd-media-keys-manager.c:1975
 msgid "Screencast from %d %t.webm"
 msgstr "%d %t.webm ਤੋਂ ਸਕਰੀਨਕਾਸਟ"
 
@@ -1423,119 +1286,117 @@ msgstr "ਮੀਡਿਆ ਸਵਿੱਚਾਂ"
 msgid "Media keys plugin"
 msgstr "ਮੀਡਿਆ ਸਵਿੱਚ ਪਲੱਗਇਨ"
 
-#: ../plugins/media-keys/shortcuts-list.h:108
+#: ../plugins/media-keys/shortcuts-list.h:43
 msgid "Touchpad toggle"
 msgstr "ਟੱਬਪੈਡ ਬਦਲੋ"
 
-#: ../plugins/media-keys/shortcuts-list.h:109
+#: ../plugins/media-keys/shortcuts-list.h:44
 msgid "Touchpad On"
 msgstr "ਟੱਚਪੈਡ ਚਾਲੂ"
 
-#: ../plugins/media-keys/shortcuts-list.h:110
+#: ../plugins/media-keys/shortcuts-list.h:45
 msgid "Touchpad Off"
 msgstr "ਟੱਚਪੈਡ ਬੰਦ"
 
-#: ../plugins/media-keys/shortcuts-list.h:114
-#: ../plugins/media-keys/shortcuts-list.h:115
+#: ../plugins/media-keys/shortcuts-list.h:49
+#: ../plugins/media-keys/shortcuts-list.h:50
 msgid "Microphone Mute"
 msgstr "ਮਾਈਕਰੋਫੋਨ ਚੁੱਪ"
 
-#: ../plugins/media-keys/shortcuts-list.h:116
+#: ../plugins/media-keys/shortcuts-list.h:51
 msgid "Quiet Volume Mute"
 msgstr "ਆਵਾਜ਼ ਚੁੱਪ "
 
-#: ../plugins/media-keys/shortcuts-list.h:117
+#: ../plugins/media-keys/shortcuts-list.h:52
 msgid "Quiet Volume Down"
 msgstr "ਆਵਾਜ਼ ਘਟਾਓ"
 
-#: ../plugins/media-keys/shortcuts-list.h:118
+#: ../plugins/media-keys/shortcuts-list.h:53
 msgid "Quiet Volume Up"
 msgstr "ਆਵਾਜ਼ ਵਧਾਓ"
 
-#: ../plugins/media-keys/shortcuts-list.h:127
+#: ../plugins/media-keys/shortcuts-list.h:63
 msgid "Lock Screen"
 msgstr "ਸਕਰੀਨ ਲਾਕ ਕਰੋ"
 
-#: ../plugins/media-keys/shortcuts-list.h:142
+#: ../plugins/media-keys/shortcuts-list.h:78
 msgid "Rewind"
 msgstr "ਤੇਜ਼ ਪਿੱਛੇ"
 
-#: ../plugins/media-keys/shortcuts-list.h:143
+#: ../plugins/media-keys/shortcuts-list.h:79
 msgid "Forward"
 msgstr "ਅੱਗੇ"
 
-#: ../plugins/media-keys/shortcuts-list.h:144
+#: ../plugins/media-keys/shortcuts-list.h:80
 msgid "Repeat"
 msgstr "ਦੁਹਰਾਓ"
 
-#: ../plugins/media-keys/shortcuts-list.h:145
+#: ../plugins/media-keys/shortcuts-list.h:81
 msgid "Random Play"
 msgstr "ਰਲਵੇਂ ਚਲਾਉ"
 
 #. Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.)
-#: ../plugins/media-keys/shortcuts-list.h:146
-#: ../plugins/media-keys/shortcuts-list.h:148
+#: ../plugins/media-keys/shortcuts-list.h:82
+#: ../plugins/media-keys/shortcuts-list.h:84
 msgid "Video Out"
 msgstr "ਵਿਡੀਓ ਆਉਟ"
 
 #. Key code of the XF86RotateWindows key (present on some tablets)
-#: ../plugins/media-keys/shortcuts-list.h:150
+#: ../plugins/media-keys/shortcuts-list.h:86
 msgid "Rotate Screen"
 msgstr "ਸਕਰੀਨ ਘੁੰਮਾਓ"
 
-#: ../plugins/media-keys/shortcuts-list.h:151
+#: ../plugins/media-keys/shortcuts-list.h:87
 msgid "Orientation Lock"
 msgstr "ਸਥਿਤੀ ਲਾਕ"
 
-#: ../plugins/media-keys/shortcuts-list.h:160
-#: ../plugins/media-keys/shortcuts-list.h:166
+#: ../plugins/media-keys/shortcuts-list.h:96
+#: ../plugins/media-keys/shortcuts-list.h:102
 msgid "Power Off"
 msgstr "ਬੰਦ ਕਰੋ"
 
 #. the kernel / Xorg names really are like this...
 #. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
-#: ../plugins/media-keys/shortcuts-list.h:163
-#: ../plugins/media-keys/shortcuts-list.h:169
+#: ../plugins/media-keys/shortcuts-list.h:99
+#: ../plugins/media-keys/shortcuts-list.h:105
 msgid "Sleep"
 msgstr "ਸਲੀਪ"
 
-#: ../plugins/media-keys/shortcuts-list.h:164
-#: ../plugins/media-keys/shortcuts-list.h:170
+#: ../plugins/media-keys/shortcuts-list.h:100
+#: ../plugins/media-keys/shortcuts-list.h:106
 msgid "Suspend"
 msgstr "ਸਸਪੈਂਡ"
 
-#: ../plugins/media-keys/shortcuts-list.h:165
-#: ../plugins/media-keys/shortcuts-list.h:171
+#: ../plugins/media-keys/shortcuts-list.h:101
+#: ../plugins/media-keys/shortcuts-list.h:107
 msgid "Hibernate"
 msgstr "ਹਾਈਬਰਨੇਟ"
 
-#: ../plugins/media-keys/shortcuts-list.h:172
+#: ../plugins/media-keys/shortcuts-list.h:108
 msgid "Brightness Up"
 msgstr "ਚਮਕ ਵਧਾਓ"
 
-#: ../plugins/media-keys/shortcuts-list.h:173
+#: ../plugins/media-keys/shortcuts-list.h:109
 msgid "Brightness Down"
 msgstr "ਚਮਕ ਘਟਾਓ"
 
-#: ../plugins/media-keys/shortcuts-list.h:174
+#: ../plugins/media-keys/shortcuts-list.h:110
 msgid "Keyboard Brightness Up"
 msgstr "ਕੀਬੋਰਡ ਚਮਕ ਵਧਾਓ"
 
-#: ../plugins/media-keys/shortcuts-list.h:175
+#: ../plugins/media-keys/shortcuts-list.h:111
 msgid "Keyboard Brightness Down"
 msgstr "ਕੀਬੋਰਡ ਚਮਕ ਘਟਾਓ"
 
-#: ../plugins/media-keys/shortcuts-list.h:176
+#: ../plugins/media-keys/shortcuts-list.h:112
 msgid "Keyboard Brightness Toggle"
 msgstr "ਕੀਬੋਰਡ ਚਮਕ ਬਦਲੋ"
 
-#: ../plugins/media-keys/shortcuts-list.h:177
+#: ../plugins/media-keys/shortcuts-list.h:113
 msgid "Battery Status"
 msgstr " ਬੈਟਰੀ ਸਥਿਤੀ"
 
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
-#| msgid "Mouse"
-#| msgid_plural "Mice"
 msgid "Mouse"
 msgstr "ਮਾਊਸ"
 
@@ -1590,192 +1451,191 @@ msgstr[0] "ਮਿੰਟ"
 msgstr[1] "ਮਿੰਟ"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:856 ../plugins/power/gsd-power-manager.c:670
-#: ../plugins/power/gsd-power-manager.c:770
+#: ../plugins/power/gpm-common.c:857 ../plugins/power/gsd-power-manager.c:666
+#: ../plugins/power/gsd-power-manager.c:766
 msgid "Battery is critically low"
 msgstr "ਬੈਟਰੀ ਨਾਜ਼ੁਕ ਰੂਪ ਵਿੱਚ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:330
+#: ../plugins/power/gsd-power-manager.c:326
 msgid "UPS Discharging"
 msgstr "UPS ਡਿਸਚਾਰਜ ਹੋ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:335
+#: ../plugins/power/gsd-power-manager.c:331
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "UPS ਦੀ %s ਬੈਕਅੱਪ ਊਰਜਾ ਬਾਕੀ"
 
-#: ../plugins/power/gsd-power-manager.c:338
-#| msgid "%s of UPS backup power remaining"
+#: ../plugins/power/gsd-power-manager.c:334
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "UPS ਬੈਕਅੱਪ ਊਰਜਾ ਅਣਜਾਣ ਮਾਤਰਾ ਵਿੱਚ ਬਾਕੀ ਹੈ"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:354
-#: ../plugins/power/gsd-power-manager.c:502
-#: ../plugins/power/gsd-power-manager.c:653
-#: ../plugins/power/gsd-power-manager.c:761
-#: ../plugins/power/gsd-power-manager.c:1962
+#: ../plugins/power/gsd-power-manager.c:350
+#: ../plugins/power/gsd-power-manager.c:498
+#: ../plugins/power/gsd-power-manager.c:649
+#: ../plugins/power/gsd-power-manager.c:757
+#: ../plugins/power/gsd-power-manager.c:1950
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "ਪਾਵਰ"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:417
+#: ../plugins/power/gsd-power-manager.c:413
 msgid "Battery low"
 msgstr "ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:420
+#: ../plugins/power/gsd-power-manager.c:416
 msgid "Laptop battery low"
 msgstr "ਲੈਪਟਾਪ ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:427
+#: ../plugins/power/gsd-power-manager.c:423
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "ਲਗਭਗ %s ਬਾਕੀ ਰਹਿ ਗਈ ਹੈ (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:432
+#: ../plugins/power/gsd-power-manager.c:428
 msgid "UPS low"
 msgstr "UPS ਘੱਟ"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:438
+#: ../plugins/power/gsd-power-manager.c:434
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "UPS ਬੈਕਅੱਪ ਪਾਵਰ ਵਿੱਚੋਂ ਲਗਭਗ %s ਬਾਕੀ ਰਹਿ ਗਈ ਹੈ (%.0f%%)।"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:443
-#: ../plugins/power/gsd-power-manager.c:580
+#: ../plugins/power/gsd-power-manager.c:439
+#: ../plugins/power/gsd-power-manager.c:576
 msgid "Mouse battery low"
 msgstr "ਮਾਊਸ ਬੈਟਰੀ ਘੱਟ"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:446
+#: ../plugins/power/gsd-power-manager.c:442
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "ਬੇਤਾਰ ਮਾਊਸ ਦੀ ਪਾਵਰ (%.0f%%) ਘੱਟ ਹੋ ਗਈ ਹੈ।"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:450
-#: ../plugins/power/gsd-power-manager.c:588
+#: ../plugins/power/gsd-power-manager.c:446
+#: ../plugins/power/gsd-power-manager.c:584
 msgid "Keyboard battery low"
 msgstr "ਕੀਬੋਰਡ ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:453
+#: ../plugins/power/gsd-power-manager.c:449
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "ਬੇਤਾਰ ਕੀ-ਬੋਰਡ ਵਿੱਚ ਪਾਵਰ ਘੱਟ ਹੈ (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:457
-#: ../plugins/power/gsd-power-manager.c:597
+#: ../plugins/power/gsd-power-manager.c:453
+#: ../plugins/power/gsd-power-manager.c:593
 msgid "PDA battery low"
 msgstr "PDA ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:460
+#: ../plugins/power/gsd-power-manager.c:456
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "PDA ਜੰਤਰ ਦੀ ਪਾਵਰ (%.0f%%) ਘੱਟ ਹੋ ਗਈ ਹੈ।"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:464
-#: ../plugins/power/gsd-power-manager.c:607
-#: ../plugins/power/gsd-power-manager.c:616
+#: ../plugins/power/gsd-power-manager.c:460
+#: ../plugins/power/gsd-power-manager.c:603
+#: ../plugins/power/gsd-power-manager.c:612
 msgid "Cell phone battery low"
 msgstr "ਸੈੱਲ ਫੋਨ ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:467
+#: ../plugins/power/gsd-power-manager.c:463
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "ਸੈੱਲ ਫੋਨ ਦੀ ਪਾਵਰ (%.0f%%) ਘੱਟ ਹੋ ਗਈ ਹੈ।"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:471
+#: ../plugins/power/gsd-power-manager.c:467
 msgid "Media player battery low"
 msgstr "ਮੀਡਿਆ ਪਲੇਅਰ ਦੀ ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:474
+#: ../plugins/power/gsd-power-manager.c:470
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "ਮੀਡਿਆ ਪਲੇਅਰ ਦੀ ਪਾਵਰ (%.1f%%) ਘੱਟ ਹੋ ਗਈ ਹੈ"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:478
-#: ../plugins/power/gsd-power-manager.c:625
+#: ../plugins/power/gsd-power-manager.c:474
+#: ../plugins/power/gsd-power-manager.c:621
 msgid "Tablet battery low"
 msgstr "ਟੈਬਲੇਟ ਦੀ ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:481
+#: ../plugins/power/gsd-power-manager.c:477
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "ਟੈਬਲੇਟ ਦੀ ਪਾਵਰ (%.0f%%) ਘੱਟ ਹੋ ਗਈ ਹੈ।"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:485
-#: ../plugins/power/gsd-power-manager.c:634
+#: ../plugins/power/gsd-power-manager.c:481
+#: ../plugins/power/gsd-power-manager.c:630
 msgid "Attached computer battery low"
 msgstr "ਜੁੜੇ ਕੰਪਿਊਟਰ ਦੀ ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:488
+#: ../plugins/power/gsd-power-manager.c:484
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "ਜੁੜੇ ਕੰਪਿਊਟਰ ਦੀ ਪਾਵਰ (%.0f%%) ਘੱਟ ਹੋ ਗਈ ਹੈ"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:512
+#: ../plugins/power/gsd-power-manager.c:508
 msgid "Battery is low"
 msgstr "ਬੈਟਰੀ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:544
+#: ../plugins/power/gsd-power-manager.c:540
 msgid "Battery critically low"
 msgstr "ਬੈਟਰੀ ਨਾਜ਼ੁਕ ਰੂਪ ਵਿੱਚ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:547
-#: ../plugins/power/gsd-power-manager.c:697
+#: ../plugins/power/gsd-power-manager.c:543
+#: ../plugins/power/gsd-power-manager.c:693
 msgid "Laptop battery critically low"
 msgstr "ਲੈਪਟਾਪ ਬੈਟਰੀ ਨਾਜ਼ੁਕ ਰੂਪ ਵਿੱਚ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:556
+#: ../plugins/power/gsd-power-manager.c:552
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr "ਕੰਪਿਊਟਰ ਛੇਤੀ ਹੀ ਹਾਈਬਰਨੇਟ ਹੋ ਜਾਵੇਗਾ, ਜੇ ਪਲੱਗਇਨ ਨਾ ਲਾਇਆ।"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:560
+#: ../plugins/power/gsd-power-manager.c:556
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "ਕੰਪਿਊਟਰ ਛੇਤੀ ਹੀ ਬੰਦ ਹੋ ਜਾਵੇਗਾ, ਜੇ ਪਲੱਗ ਨਾ ਲਾਇਆ।"
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:568
-#: ../plugins/power/gsd-power-manager.c:722
+#: ../plugins/power/gsd-power-manager.c:564
+#: ../plugins/power/gsd-power-manager.c:718
 msgid "UPS critically low"
 msgstr "UPS ਨਾਜ਼ੁਕ ਰੂਪ ਵਿੱਚ ਘੱਟ ਹੈ"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:574
+#: ../plugins/power/gsd-power-manager.c:570
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1786,7 +1646,7 @@ msgstr ""
 "AC ਬਿਜਲੀ ਪਾਵਰ ਦਿਓ।"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:583
+#: ../plugins/power/gsd-power-manager.c:579
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1797,7 +1657,7 @@ msgstr ""
 "ਛੇਤੀ ਹੀ ਕੰਮ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ।"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:591
+#: ../plugins/power/gsd-power-manager.c:587
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1808,7 +1668,7 @@ msgstr ""
 "ਤਾਂ ਛੇਤੀ ਹੀ ਕੰਮ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ।"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:600
+#: ../plugins/power/gsd-power-manager.c:596
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1819,7 +1679,7 @@ msgstr ""
 "ਹੀ ਕੰਮ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ।"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:610
+#: ../plugins/power/gsd-power-manager.c:606
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -1830,7 +1690,7 @@ msgstr ""
 "ਨਾ ਕੀਤਾ ਗਿਆ ਹੈ, ਤਾਂ ਛੇਤੀ ਹੀ ਕੰਮ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ।"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:619
+#: ../plugins/power/gsd-power-manager.c:615
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -1841,7 +1701,7 @@ msgstr ""
 "ਤਾਂ ਛੇਤੀ ਹੀ ਕੰਮ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ।"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:628
+#: ../plugins/power/gsd-power-manager.c:624
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -1852,7 +1712,7 @@ msgstr ""
 "ਹੀ ਕੰਮ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ।"
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:637
+#: ../plugins/power/gsd-power-manager.c:633
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -1863,7 +1723,7 @@ msgstr ""
 "ਤਾਂ ਛੇਤੀ ਹੀ ਕੰਮ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ।"
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:705
+#: ../plugins/power/gsd-power-manager.c:701
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -1872,7 +1732,7 @@ msgstr ""
 "ਹੋਣ ਵਾਲਾ ਹੀ ਹੈ।"
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:710
+#: ../plugins/power/gsd-power-manager.c:706
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -1881,7 +1741,7 @@ msgstr ""
 "ਵਾਲਾ ਹੀ ਹੈ।"
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:730
+#: ../plugins/power/gsd-power-manager.c:726
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
@@ -1889,40 +1749,51 @@ msgstr ""
 "ਹੋਣ ਵਾਲਾ ਹੀ ਹੈ।"
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:735
+#: ../plugins/power/gsd-power-manager.c:731
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "UPS ਹੁਣ ਨਾਜ਼ੁਕ ਪੱਧਰ ਤੋਂ ਵੀ ਹੇਠਾਂ ਚੱਲੀ ਗਈ ਹੈ ਅਤੇ ਇਹ ਕੰਪਿਊਟਰ ਹੁਣ ਬੱਸ ਬੰਦ ਹੋਣ "
 "ਵਾਲਾ ਹੀ ਹੈ।"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1155
+#: ../plugins/power/gsd-power-manager.c:1150
 msgid "Lid has been opened"
 msgstr "Lid ਖੋਲ੍ਹਿਆ ਜਾ ਚੁੱਕਾ ਹੈ"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1193
+#: ../plugins/power/gsd-power-manager.c:1188
 msgid "Lid has been closed"
 msgstr "Lid ਬੰਦ ਕੀਤਾ ਜਾ ਚੁੱਕਾ ਹੈ"
 
-#: ../plugins/power/gsd-power-manager.c:1940
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1749
+#| msgid "PDA battery low"
+msgid "On battery power"
+msgstr "ਬੈਟਰੀ ਪਾਵਰ ਉੱਤੇ"
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1754
+msgid "On AC power"
+msgstr "AC ਪਾਵਰ ਉੱਤੇ"
+
+#: ../plugins/power/gsd-power-manager.c:1928
 msgid "Automatic logout"
 msgstr "ਆਪਣੇ-ਆਪ ਲਾਗਆਉਟ"
 
-#: ../plugins/power/gsd-power-manager.c:1940
+#: ../plugins/power/gsd-power-manager.c:1928
 msgid "You will soon log out because of inactivity."
 msgstr "ਨਾ-ਸਰਗਰਮੀ ਦੇ ਵਜ੍ਹਾ ਕਰਕੇ ਤੁਸੀਂ ਛੇਤੀ ਹੀ ਲਾਗਆਉਟ ਹੋ ਜਾਵੋਗੇ।"
 
-#: ../plugins/power/gsd-power-manager.c:1945
+#: ../plugins/power/gsd-power-manager.c:1933
 msgid "Automatic suspend"
 msgstr "ਆਪਣੇ-ਆਪ ਸਸਪੈਂਡ"
 
-#: ../plugins/power/gsd-power-manager.c:1945
-#: ../plugins/power/gsd-power-manager.c:1950
+#: ../plugins/power/gsd-power-manager.c:1933
+#: ../plugins/power/gsd-power-manager.c:1938
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "ਨਾ-ਸਰਗਰਮੀ ਦੇ ਵਜ੍ਹਾ ਕਰਕੇ ਕੰਪਿਊਟਰ ਛੇਤੀ ਹੀ ਸਸਪੈਂਡ ਹੋ ਜਾਵੇਗਾ।"
 
-#: ../plugins/power/gsd-power-manager.c:1950
+#: ../plugins/power/gsd-power-manager.c:1938
 msgid "Automatic hibernation"
 msgstr "ਆਪਣੇ-ਆਪ ਹਾਈਬਰਨੇਸ਼ਨ"
 
@@ -1969,220 +1840,220 @@ msgid "No driver for this printer."
 msgstr "ਇਸ ਪਰਿੰਟਰ ਲਈ ਕੋਈ ਡਰਾਇਵਰ ਨਹੀਂ ਹੈ।"
 
 #: ../plugins/print-notifications/gsd-printer.c:1031
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:263
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:702
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:792
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:835
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:264
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:704
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:794
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:837
 msgid "Printers"
 msgstr "ਪਰਿੰਟਰ"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:360
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:361
 msgid "Toner low"
 msgstr "ਟੋਨਰ ਘੱਟ ਹੈ"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:363
 msgid "Toner empty"
 msgstr "ਟੋਨਰ ਖਾਲੀ ਹੈ"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:364
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:365
 msgid "Not connected?"
 msgstr "ਕੁਨੈਕਟ ਨਹੀਂ ਹੈ?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:367
 msgid "Cover open"
 msgstr "ਢੱਕਣ ਖੁੱਲ੍ਹਾ ਹੈ"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:368
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:369
 msgid "Printer configuration error"
 msgstr "ਪਰਿੰਟਰ ਸੰਰਚਨਾ ਗਲਤੀ"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:370
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 msgid "Door open"
 msgstr "ਦਰਵਾਜ਼ਾ ਖੁੱਲ੍ਹਾ ਹੈ"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:372
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:373
 msgid "Marker supply low"
 msgstr "ਮਾਰਕਰ ਸਪਲਾਈ ਘੱਟ ਹੈ"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:374
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
 msgid "Out of a marker supply"
 msgstr "ਮਾਰਕਰ ਸਪਲਾਈ ਖਤਮ ਹੈ"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:376
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:377
 msgid "Paper low"
 msgstr "ਪੇਪਰ ਘੱਟ ਹਨ"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:378
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
 msgid "Out of paper"
 msgstr "ਪੇਪਰ ਖਤਮ ਹੈ"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:380
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:381
 msgid "Printer off-line"
 msgstr "ਪਰਿੰਟਰ ਆਫਲਾਈਨ"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:382
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:778
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:780
 msgid "Printer error"
 msgstr "ਪਰਿੰਟਰ ਗਲਤੀ"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:386
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
 #, c-format
 msgid "Printer '%s' is low on toner."
 msgstr "ਪਰਿੰਟਰ '%s' ਦਾ ਟੋਨਰ ਘੱਟ ਹੈ।"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:388
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:389
 #, c-format
 msgid "Printer '%s' has no toner left."
 msgstr "ਪਰਿੰਟਰ '%s' ਦਾ ਟੋਨਰ ਖਤਮ ਹੋ ਗਿਆ ਹੈ।"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:390
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
 #, c-format
 msgid "Printer '%s' may not be connected."
 msgstr "ਪਰਿੰਟਰ '%s' ਸ਼ਾਇਦ ਕੁਨੈਕਸ਼ਨ ਨਾ ਹੋਵੇ।"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:392
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:393
 #, c-format
 msgid "The cover is open on printer '%s'."
 msgstr "ਪਰਿੰਟਰ '%s' ਦਾ ਢੱਕਣ ਖੁੱਲ੍ਹਾ ਹੈ।"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:394
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:395
 #, c-format
 msgid "There is a missing print filter for printer '%s'."
 msgstr "ਪਰਿੰਟਰ '%s' ਲਈ ਪਰਿੰਟ ਫਿਲਟਰ ਗੁੰਮ ਹੈ।"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:397
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:398
 #, c-format
 msgid "The door is open on printer '%s'."
 msgstr "ਪਰਿੰਟਰ '%s' ਦਾ ਦਰਵਾਜ਼ਾ ਖੁੱਲ੍ਹਾ ਹੈ।"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:399
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:400
 #, c-format
 msgid "Printer '%s' is low on a marker supply."
 msgstr "ਪਰਿੰਟਰ '%s' ਦੀ ਮਾਰਕਰ ਸਪਲਾਈ ਘੱਟ ਹੈ।"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:401
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:402
 #, c-format
 msgid "Printer '%s' is out of a marker supply."
 msgstr "ਪਰਿੰਟਰ '%s' ਦੀ ਮਾਰਕਰ ਸਪਲਾਈ ਖਤਮ ਹੋ ਚੁੱਕੀ ਹੈ।"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:403
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:404
 #, c-format
 msgid "Printer '%s' is low on paper."
 msgstr "ਪਰਿੰਟਰ '%s' ਵਿੱਚ ਪੇਪਰ ਘੱਟ ਹਨ।"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:405
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:406
 #, c-format
 msgid "Printer '%s' is out of paper."
 msgstr "ਪਰਿੰਟਰ '%s' ਵਿੱਚ ਪੇਪਰ ਖਤਮ ਹੋ ਗਿਆ ਹੈ।"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:407
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:408
 #, c-format
 msgid "Printer '%s' is currently off-line."
 msgstr "ਪਰਿੰਟਰ '%s' ਹੁਣ ਬੰਦ (ਆਫਲਾਈਨ) ਹੈ।"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:409
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:410
 #, c-format
 msgid "There is a problem on printer '%s'."
 msgstr "ਪਰਿੰਟਰ '%s' ਉੱਤੇ ਸਮੱਸਿਆ ਹੈ।"
 
 #. Translators: New printer has been added
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:456
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:457
 msgid "Printer added"
 msgstr "ਪਰਿੰਟਰ ਸ਼ਾਮਲ ਕੀਤਾ"
 
 #. Translators: A printer has been removed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:464
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:465
 msgid "Printer removed"
 msgstr "ਪਰਿੰਟਰ ਹਟਾਇਆ ਗਿਆ"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:481
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:519
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:482
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:520
 msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "ਪਰਿੰਟ ਕਰਨਾ ਰੋਕਿਆ"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:483
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:489
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:495
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:501
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:513
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:521
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:529
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:537
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:545
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:558
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:484
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:490
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:496
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:502
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:514
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:522
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:530
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:538
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:546
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:559
 #, c-format
 msgctxt "print job"
 msgid "\"%s\" on %s"
 msgstr "%2$s ਉੱਤੇ \"%1$s\""
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:487
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:527
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:488
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:528
 msgctxt "print job state"
 msgid "Printing canceled"
 msgstr "ਪਰਿੰਟ ਕਰਨਾ ਰੱਦ ਕੀਤਾ"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:493
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:535
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:494
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:536
 msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "ਪਰਿੰਟ ਕਰਨਾ ਅਧੂਰਾ ਛੱਡਿਆ"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:499
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:543
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:500
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:544
 msgctxt "print job state"
 msgid "Printing completed"
 msgstr "ਪਰਿੰਟ ਕਾਰਵਾਈ ਪੂਰੀ ਹੋਈ"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:511
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:556
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:512
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:557
 msgctxt "print job state"
 msgid "Printing"
 msgstr "ਪਰਿੰਟਿੰਗ"
 
 #. Translators: This is a title of a report notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:772
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:774
 msgid "Printer report"
 msgstr "ਪਰਿੰਟਰ ਰਿਪੋਰਟ"
 
 #. Translators: This is a title of a warning notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:775
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:777
 msgid "Printer warning"
 msgstr "ਪਰਿੰਟਰ ਚੇਤਾਵਨੀ"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:785
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:787
 #, c-format
 msgid "Printer '%s': '%s'."
 msgstr "ਪਰਿੰਟਰ '%s': '%s'"
@@ -2233,256 +2104,6 @@ msgstr "ਸਾਊਂਡ"
 msgid "Sound Sample Cache plugin"
 msgstr "ਸਾਊਂਡ ਨਮੂਨਾ ਕੈਸ਼ ਪਲੱਗਇਨ"
 
-#. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:250
-msgid ""
-"You will need to restart this computer before the hardware will work "
-"correctly."
-msgstr ""
-"ਇਸ ਤੋਂ ਪਹਿਲਾਂ ਕਿ ਤੁਹਾਡਾ ਹਾਰਡਵੇਅਰ ਠੀਕ ਤਰ੍ਹਾਂ ਕੰਮ ਕਰੇ, ਇਹ ਕੰਪਿਊਟਰ ਨੂੰ ਮੁੜ-ਚਾਲੂ "
-"ਕਰਨਾ ਪਵੇਗਾ।"
-
-#. TRANSLATORS: title of libnotify bubble
-#: ../plugins/updates/gsd-updates-firmware.c:253
-#: ../plugins/updates/gsd-updates-firmware.c:281
-#: ../plugins/updates/gsd-updates-firmware.c:309
-msgid "Additional software was installed"
-msgstr "ਹੋਰ ਸਾਫਟਵੇਅਰ ਇੰਸਟਾਲ ਕੀਤੇ ਗਏ"
-
-#: ../plugins/updates/gsd-updates-firmware.c:255
-#: ../plugins/updates/gsd-updates-firmware.c:283
-#: ../plugins/updates/gsd-updates-firmware.c:311
-#: ../plugins/updates/gsd-updates-firmware.c:603
-#: ../plugins/updates/gsd-updates-manager.c:386
-#: ../plugins/updates/gsd-updates-manager.c:522
-#: ../plugins/updates/gsd-updates-manager.c:603
-#: ../plugins/updates/gsd-updates-manager.c:676
-#: ../plugins/updates/gsd-updates-manager.c:1311
-msgid "Software Updates"
-msgstr "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ"
-
-#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:278
-msgid ""
-"You will need to remove and then reinsert the hardware before it will work "
-"correctly."
-msgstr "ਤੁਹਾਨੂੰ ਹਾਡਵੇਅਰ ਨੂੰ ਚਲਾਉਣ ਲਈ ਪਹਿਲਾਂ ਹਟਾਉਣਾ ਪਵੇਗਾ ਅਤੇ ਮੁੜ ਚਲਾਉਣਾ ਪਵੇਗਾ।"
-
-#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
-#: ../plugins/updates/gsd-updates-firmware.c:306
-msgid "Your hardware has been set up and is now ready to use."
-msgstr "ਤੁਹਾਡਾ ਹਾਰਡਵੇਅਰ ਸੈੱਟਅੱਪ ਕੀਤਾ ਗਿਆ ਹੈ ਅਤੇ ਹੁਣ ਵਰਤਣ ਲਈ ਤਿਆਰ ਹੈ।"
-
-#. TRANSLATORS: we need another package to keep udev quiet
-#: ../plugins/updates/gsd-updates-firmware.c:587
-msgid ""
-"Additional firmware is required to make hardware in this computer function "
-"correctly."
-msgstr "ਹਾਰਡਵੇਅਰ ਨੂੰ ਇਸ ਕੰਪਿਊਟਰ ਨਾਲ ਕੰਮ ਕਰਨ ਵਾਸਤੇ ਹੋਰ ਫਾਇਰਮਵੇਅਰ ਦੀ ਲੋੜ ਹੈ।"
-
-#. TRANSLATORS: title of libnotify bubble
-#: ../plugins/updates/gsd-updates-firmware.c:601
-msgid "Additional firmware required"
-msgstr "ਹੋਰ ਫਾਇਰਮਵੇਅਰ ਲੋੜੀਦਾ ਹੈ"
-
-#. TRANSLATORS: button label
-#: ../plugins/updates/gsd-updates-firmware.c:608
-msgid "Install firmware"
-msgstr "ਫਾਇਰਮਵੇਅਰ ਇੰਸਟਾਲ"
-
-#. TRANSLATORS: we should ignore this device and not ask anymore
-#: ../plugins/updates/gsd-updates-firmware.c:611
-msgid "Ignore devices"
-msgstr "ਜੰਤਰ ਅਣਡਿੱਠੇ"
-
-#. TRANSLATORS: this is when the offline update failed
-#: ../plugins/updates/gsd-updates-manager.c:121
-msgid "Failed To Update"
-msgstr "ਅੱਪਡੇਟ ਲਈ ਫੇਲ੍ਹ"
-
-#. TRANSLATORS: the transaction could not be completed
-#. * as a previous transaction was unfinished
-#: ../plugins/updates/gsd-updates-manager.c:127
-msgid "A previous update was unfinished."
-msgstr "ਪਿਛਲਾ ਅੱਪਡੇਟ ਅਧੂਰਾ ਪਿਆ ਹੈ।"
-
-#. TRANSLATORS: the package manager needed to download
-#. * something with no network available
-#: ../plugins/updates/gsd-updates-manager.c:137
-msgid "Network access was required but not available."
-msgstr "ਨੈੱਟਵਰਕ ਦੀ ਲੋੜ ਸੀ, ਪਰ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ।"
-
-#. TRANSLATORS: if the package is not signed correctly
-#. *
-#: ../plugins/updates/gsd-updates-manager.c:146
-msgid "An update was not signed in the correct way."
-msgstr "ਅੱਪਡੇਟ ਠੀਕ ਤਰ੍ਹਾਂ ਸਾਇਨ ਨਹੀਂ ਕੀਤਾ ਗਿਆ ਹੈ।"
-
-#. TRANSLATORS: the transaction failed in a way the user
-#. * probably cannot comprehend. Package management systems
-#. * really are teh suck.
-#: ../plugins/updates/gsd-updates-manager.c:156
-msgid "The update could not be completed."
-msgstr "ਅੱਪਡੇਟ ਪੂਰਾ ਨਹੀਂ ਹੋਇਆ।"
-
-#. TRANSLATORS: the user aborted the update manually
-#: ../plugins/updates/gsd-updates-manager.c:161
-msgid "The update was cancelled."
-msgstr "ਅੱਪਡੇਟ ਰੱਦ ਕੀਤਾ ਗਿਆ ਸੀ।"
-
-#. TRANSLATORS: the user must have updated manually after
-#. * the updates were prepared
-#: ../plugins/updates/gsd-updates-manager.c:167
-msgid "An offline update was requested but no packages required updating."
-msgstr ""
-"ਆਫਲਾਈਨ ਅੱਪਡੇਟ ਦੀ ਮੰਗ ਕੀਤੀ ਗਈ ਸੀ, ਪਰ ਅੱਪਡੇਟ ਕਰਨ ਲਈ ਕੋਈ ਪੈਕੇਜ ਨਹੀਂ ਚਾਹੀਦੀ ਹੈ।"
-
-#. TRANSLATORS: we ran out of disk space
-#: ../plugins/updates/gsd-updates-manager.c:171
-msgid "No space was left on the drive."
-msgstr "ਜੰਤਰ ਉੱਤੇ ਕੋਈ ਥਾਂ ਨਹੀਂ ਬਾਕੀ ਬਚੀ।"
-
-#. TRANSLATORS: the update process failed in a general
-#. * way, usually this message will come from source distros
-#. * like gentoo
-#: ../plugins/updates/gsd-updates-manager.c:179
-msgid "An update failed to install correctly."
-msgstr "ਅੱਪਡੇਟ ਠੀਕ ਤਰ੍ਹਾਂ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਫੇਲ੍ਹ ਹੈ।"
-
-#. TRANSLATORS: We didn't handle the error type
-#: ../plugins/updates/gsd-updates-manager.c:184
-msgid "The offline update failed in an unexpected way."
-msgstr "ਆਫਲਾਈਨ ਅੱਪਡੇਟ ਅਣਜਾਣੇ ਢੰਗ ਨਾਲ ਫੇਲ੍ਹ ਹੋਇਆ।"
-
-#. TRANSLATORS: these are geeky messages from the
-#. * package manager no mortal is supposed to understand,
-#. * but google might know what they mean
-#: ../plugins/updates/gsd-updates-manager.c:193
-msgid "Detailed errors from the package manager follow:"
-msgstr "ਪੈਕੇਜ ਮੈਨੇਜਰ ਤੋਂ ਵੇਰਵੇ ਸਮੇਤ ਗਲਤੀਆਂ ਅੱਗੇ ਹਨ:"
-
-#. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-#: ../plugins/updates/gsd-updates-manager.c:381
-msgid "Distribution upgrades available"
-msgstr "ਡਿਸਟਰੀਬਿਊਸ਼ਨ ਅੱਪਗਰੇਡ ਉਪਲੱਬਧ ਹੈ"
-
-#. TRANSLATORS: don't install updates now
-#: ../plugins/updates/gsd-updates-manager.c:391
-#: ../plugins/updates/gsd-updates-manager.c:527
-#: ../plugins/updates/gsd-updates-manager.c:608
-msgid "Not Now"
-msgstr "ਹੁਣੇ ਨਹੀਂ"
-
-#. TRANSLATORS: provides more information about the upgrade
-#: ../plugins/updates/gsd-updates-manager.c:396
-msgid "More information"
-msgstr "ਹੋਰ ਜਾਣਕਾਰੀ"
-
-#. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:504
-#: ../plugins/updates/gsd-updates-manager.c:585
-msgid "Update"
-msgid_plural "Updates"
-msgstr[0] "ਅੱਪਡੇਟ"
-msgstr[1] "ਅੱਪਡੇਟ"
-
-#. TRANSLATORS: message when there are security updates
-#: ../plugins/updates/gsd-updates-manager.c:507
-msgid "An important software update is available"
-msgid_plural "Important software updates are available"
-msgstr[0] "ਇੱਕ ਖਾਸ ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਹੈ"
-msgstr[1] "ਖਾਸ ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਹਨ"
-
-#. TRANSLATORS: view available updates
-#: ../plugins/updates/gsd-updates-manager.c:533
-#: ../plugins/updates/gsd-updates-manager.c:614
-msgid "View"
-msgstr "ਵੇਖਾਓ"
-
-#. TRANSLATORS: install available updates
-#: ../plugins/updates/gsd-updates-manager.c:537
-#: ../plugins/updates/gsd-updates-manager.c:618
-msgid "Restart & Install"
-msgstr "ਮੁੜ-ਚਾਲੂ ਤੇ ਇੰਸਟਾਲ ਕਰੋ"
-
-#. TRANSLATORS: button: open the update viewer to install updates
-#: ../plugins/updates/gsd-updates-manager.c:543
-#: ../plugins/updates/gsd-updates-manager.c:624
-msgid "Install updates"
-msgstr "ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕਰੋ"
-
-#. TRANSLATORS: message when there are non-security updates
-#: ../plugins/updates/gsd-updates-manager.c:588
-msgid "A software update is available."
-msgid_plural "Software updates are available."
-msgstr[0] "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਹੈ।"
-msgstr[1] "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਹਨ।"
-
-#. TRANSLATORS: the updates mechanism
-#: ../plugins/updates/gsd-updates-manager.c:663
-#: ../plugins/updates/updates.gnome-settings-plugin.in.h:1
-msgid "Updates"
-msgstr "ਅੱਪਡੇਟ"
-
-#. TRANSLATORS: we failed to get the updates multiple times,
-#. * and now we need to inform the user that something might be wrong
-#: ../plugins/updates/gsd-updates-manager.c:667
-msgid "Unable to access software updates"
-msgstr "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਲੈਣ ਲਈ ਅਸਮਰੱਥ"
-
-#. TRANSLATORS: try again, this time launching the update viewer
-#: ../plugins/updates/gsd-updates-manager.c:670
-msgid "Try again"
-msgstr "ਮੁੜ-ਕੋਸ਼ਿਸ਼ ਕਰੋ"
-
-#. TRANSLATORS: the reason why we've inhibited it
-#: ../plugins/updates/gsd-updates-manager.c:1044
-msgid "A transaction that cannot be interrupted is running"
-msgstr "ਟਰਾਂਸੈਕਸ਼ਨ, ਜਿਸ ਵਿੱਚ ਦਖ਼ਲ ਨਹੀਂ ਦਿੱਤਾ ਜਾ ਸਕਦਾ, ਚੱਲ ਰਹੀ ਹੈ"
-
-#. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1264
-msgid "Software Update Installed"
-msgid_plural "Software Updates Installed"
-msgstr[0] "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਹੈ"
-msgstr[1] "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਹਨ"
-
-#. TRANSLATORS: message when we've done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1269
-msgid "An important OS update has been installed."
-msgid_plural "Important OS updates have been installed."
-msgstr[0] "ਖਾਸ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕੀਤਾ ਗਿਆ ਹੈ।"
-msgstr[1] "ਖਾਸ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕੀਤੇ ਗਏ ਹਨ।"
-
-#. TRANSLATORS: title in the libnotify popup
-#: ../plugins/updates/gsd-updates-manager.c:1292
-msgid "Software Updates Failed"
-msgstr "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਫੇਲ੍ਹ ਹੈ"
-
-#. TRANSLATORS: message when we've not done offline updates
-#: ../plugins/updates/gsd-updates-manager.c:1295
-msgid "An important OS update failed to be installed."
-msgstr "ਖਾਸ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਫੇਲ੍ਹ ਹੈ।"
-
-#. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1318
-msgid "Review"
-msgstr "ਪੜਤਾਲ"
-
-#. TRANSLATORS: button: review the offline update changes
-#: ../plugins/updates/gsd-updates-manager.c:1322
-msgid "Show details"
-msgstr "ਵੇਰਵਾ ਵੇਖਾਓ"
-
-#. TRANSLATORS: button: clear notification
-#: ../plugins/updates/gsd-updates-manager.c:1326
-msgid "OK"
-msgstr "ਠੀਕ ਹੈ"
-
-#: ../plugins/updates/updates.gnome-settings-plugin.in.h:2
-msgid "Updates plugin"
-msgstr "ਅੱਪਡੇਟ ਪਲੱਗਇਨ"
-
 #: ../plugins/wacom/gsd-wacom-button-editor.c:51
 msgctxt "Wacom action-type"
 msgid "None"
@@ -2504,13 +2125,13 @@ msgid "Show On-Screen Help"
 msgstr "ਸਕਰੀਨ ਉੱਤੇ ਮੱਦਦ ਵੇਖਾਓ"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:154
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1095
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1096
 msgctxt "Action type"
 msgid "Show On-Screen Help"
 msgstr "ਆਨ-ਸਕਰੀਨ ਮੱਦਦ ਵੇਖਾਓ"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:157
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1098
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1099
 msgctxt "Action type"
 msgid "Switch Monitor"
 msgstr "ਮਾਨੀਟਰ ਬਦਲੋ"
@@ -2623,54 +2244,54 @@ msgid "Unknown Tablet Connected"
 msgstr "ਅਣਜਾਣ ਟੇਬਲੇਟ ਕੁਨੈਕਟ ਹੈ"
 
 #: ../plugins/wacom/gsd-wacom-manager.c:1019
-#: ../plugins/wacom/gsd-wacom-manager.c:1643
+#: ../plugins/wacom/gsd-wacom-manager.c:1644
 msgid "Wacom Settings"
 msgstr "ਵਾਕੋਮ ਸੈਟਿੰਗ"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1637
+#: ../plugins/wacom/gsd-wacom-manager.c:1638
 #, c-format
 msgid "Tablet %s needs to be calibrated."
 msgstr "ਟੇਬਲੇਟ '%s' ਨੂੰ ਕੈਲੀਬਰੇਟ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ।"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1639
+#: ../plugins/wacom/gsd-wacom-manager.c:1640
 msgid "Calibration needed"
 msgstr "ਕੈਲੀਬਰੇਟ ਕਰਨ ਦੀ ਲੋੜ ਹੈ"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1652
+#: ../plugins/wacom/gsd-wacom-manager.c:1653
 msgid "Calibrate"
 msgstr "ਕੈਲੀਬਰੇਟ ਕਰੋ"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1072
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1092
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1103
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1073
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1093
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1104
 msgctxt "Action type"
 msgid "None"
 msgstr "ਕੋਈ ਨਹੀਂ"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1077
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1078
 #, c-format
 msgctxt "Action type"
 msgid "Send Keystroke %s"
 msgstr "ਕੀ-ਸਟਰੋਕ %s ਭੇਜੋ"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1136
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1137
 #, c-format
 msgid "Mode %d: %s"
 msgstr "ਮੋਡ %d: %s"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1346
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1347
 msgid "(press any key to exit)"
 msgstr "(ਬਾਹਰ ਜਾਣ ਲਈ ਕੋਈ ਵੀ ਸਵਿੱਚ ਦੱਬੋ)"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1355
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1356
 msgid "Push a button to configure"
 msgstr "ਸੰਰਚਨਾ ਲਈ ਬਟਨ ਦੱਬੋ"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1355
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1356
 msgid "(Esc to cancel)"
 msgstr "(ਰੱਦ ਕਰਨ ਲਈ Esc)"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1985
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1983
 msgid "Edit"
 msgstr "ਸੋਧ"
 
@@ -2706,7 +2327,7 @@ msgstr "ਵਾਕੋਮ"
 msgid "Wacom plugin"
 msgstr "ਵਾਕੋਮ ਪਲੱਗਇਨ"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:971
+#: ../plugins/xrandr/gsd-xrandr-manager.c:958
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "ਸਕਰੀਨ ਜਾਣਕਾਰੀ ਤਾਜ਼ਾ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕੀ: %s"
@@ -2726,6 +2347,269 @@ msgstr "X ਸੈਟਿੰਗ"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "X ਸੈਟਿੰਗ ਪਰਬੰਧ"
+
+#~ msgid "Use mobile broadband connections"
+#~ msgstr "ਮੋਬਾਇਲ ਬਰਾਂਡਬੈਂਡ ਕੁਨੈਕਸ਼ਨ ਵਰਤੋਂ"
+
+#~ msgid ""
+#~ "Use mobile broadband connections such as GSM and CDMA to check for "
+#~ "updates."
+#~ msgstr "ਅੱਪਡੇਟ ਲਈ GSM ਅਤੇ CDMA ਵਾਂਗ ਮੋਬਾਇਲ ਬਰਾਂਡਬੈਂਡ ਕੁਨੈਕਸ਼ਨ ਵਰਤੋਂ।"
+
+#~ msgid ""
+#~ "Automatically download updates in the background without confirmation"
+#~ msgstr "ਅੱਪਡੇਟ ਬੈਕਗਰਾਊਂਡ ਵਿੱਚ ਆਟੋਮੈਟਿਕ ਹੀ ਬਿਨਾਂ ਪੁੱਛੇ ਡਾਊਨਲੋਡ ਕਰੋ"
+
+#~ msgid ""
+#~ "Automatically download updates in the background without confirmation. "
+#~ "Updates will be auto-downloaded when using wired network connnections, "
+#~ "and mobile broadband if 'connection-use-mobile' is enabled."
+#~ msgstr ""
+#~ "ਅੱਪਡੇਟ ਬੈਕਗਰਾਊਂਡ ਵਿੱਚ ਆਟੋਮੈਟਿਕ ਹੀ ਬਿਨਾਂ ਪੁੱਛੇ ਡਾਊਨਲੋਡ ਕਰੋ। ਅੱਪਡੇਟ ਨੂੰ ਆਟੋਮੈਟਿਕ ਹੀ ਡਾਊਨਲੋਡ "
+#~ "ਕੀਤਾ ਜਾਵੇਗਾ, ਜਦੋਂ ਤਾਰ ਨੈੱਟਵਰਕ ਕੁਨੈਕਸ਼ਨ ਹੋਵੇ ਅਤੇ ਮੋਬਾਇਲ ਬਰਾਡਬੈਂਡ ਤੋਂ ਵੀ, ਜੇ 'connection-use-"
+#~ "mobile' ਚਾਲੂ ਹੋਵੇ।"
+
+#~ msgid "How often to check for updates"
+#~ msgstr "ਅੱਪਡੇਟ ਲਈ ਕਿੰਨੀ ਕੁ ਵਾਰ ਚੈੱਕ ਕਰਨਾ ਹੈ"
+
+#~ msgid ""
+#~ "How often to check for updates. Value is in seconds. This is a maximum "
+#~ "amount of time that can pass between a security update being published, "
+#~ "and the update being automatically installed or the user notified."
+#~ msgstr ""
+#~ "ਅੱਪਡੇਟ ਲਈ ਕਿੰਨੀ ਕੁ ਵਾਰ ਚੈੱਕ ਕਰਨਾ ਹੈ। ਮੁੱਲ ਸਕਿੰਟਾਂ ਵਿੱਚ ਹੈ। ਇਹ ਸਮੇਂ ਦਾ ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਤਰਾਲ ਹੈ, ਜੋ "
+#~ "ਕਿ ਸੁਰੱਖਿਆ ਅੱਪਡੇਟ ਪਬਲਿਸ਼ ਕਰਨ ਅਤੇ ਅੱਪਡੇਟ ਨੂੰ ਆਟੋਮੈਟਿਕ ਹੀ ਇੰਸਟਾਲ ਕਰਨ ਜਾਂ ਯੂਜ਼ਰ ਸੂਚਨਾ ਦੇਣ ਦੇ "
+#~ "ਵਿੱਚ ਲੰਘਾਇਆ ਜਾਂਦਾ ਹੈ।"
+
+#~ msgid "How often to notify the user that non-critical updates are available"
+#~ msgstr "ਗ਼ੈਰ-ਨਾਜ਼ੁਕ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਹੋਣ ਦੀ ਹਾਲਤ ਵਿੱਚ ਯੂਜ਼ਰ ਨੂੰ ਕਿੰਨੀ ਕੁ ਵਾਰ ਸੂਚਨਾ ਦੇਣੀ ਹੈ"
+
+#~ msgid ""
+#~ "How often to tell the user there are non-critical updates. Value is in "
+#~ "seconds. Security update notifications are always shown after the check "
+#~ "for updates, but non-critical notifications should be shown a lot less "
+#~ "frequently."
+#~ msgstr ""
+#~ "ਗ਼ੈਰ-ਨਾਜ਼ੁਕ ਅੱਪਡੇਟ ਲਈ ਯੂਜ਼ਰ ਨੂੰ ਕਿੰਨੀ ਕੁ ਵਾਰ ਦੱਸਣਾ ਹੈ। ਮੁੱਲ ਸਕਿੰਟਾਂ ਵਿੱਚ ਹੈ। ਸੁਰੱਖਿਆ ਅੱਪਡੇਟ ਨੂੰ "
+#~ "ਅੱਪਡੇਟ ਚੈੱਕ ਕਰਨ ਦੇ ਤੁਰੰਤ ਬਾਅਦ ਵੇਖਾਇਆ ਜਾਂਦਾ ਹੈ, ਪਰ ਗ਼ੈਰ-ਨਾਜ਼ੁਕ ਲਈ ਸੂਚਨਾ ਅਕਸਰ ਨਹੀਂ ਵੇਖਾਈ "
+#~ "ਜਾਂਦੀ।"
+
+#~ msgid "The last time we told the user about non-critical notifications"
+#~ msgstr "ਆਖਰੀ ਵਾਰ, ਜਦੋਂ ਅਸੀਂ ਯੂਜ਼ਰ ਨੂੰ ਗ਼ੈਰ-ਨਾਜ਼ੁਕ ਸੂਚਨਾ ਦਿੱਤੀ ਸੀ"
+
+#~ msgid ""
+#~ "The last time we notified the user about non-critical updates. Value is "
+#~ "in seconds since the epoch, or zero for never."
+#~ msgstr ""
+#~ "ਆਖਰੀ ਵਾਰ, ਜਦੋਂ ਅਸੀਂ ਯੂਜ਼ਰ ਨੂੰ ਗ਼ੈਰ-ਨਾਜ਼ੁਕ ਸੂਚਨਾ ਦਿੱਤੀ ਸੀ। ਮੁੱਲ ਸਕਿੰਟਾਂ ਵਿੱਚ ਹੈ, ਈਪੋਚ ਤੋਂ ਜਾਂ ਕਦੇ "
+#~ "ਲਈ ਨਹੀਂ ਵਾਸਤੇ ਸਿਫ਼ਰ।"
+
+#~ msgid "How often to check for distribution upgrades"
+#~ msgstr "ਡਿਸਟਰੀਬਿਊਸ਼ਨ ਅੱਪਗਰੇਡ ਲਈ ਕਿੰਨੀ ਵਾਰ ਚੈੱਕ ਕਰਨਾ ਹੈ"
+
+#~ msgid "How often to check for distribution upgrades. Value is in seconds."
+#~ msgstr "ਡਿਸਟਰੀਬਿਊਸ਼ਨ ਅੱਪਗਰੇਡ ਲਈ ਕਿੰਨੀ ਵਾਰ ਚੈੱਕ ਕਰਨਾ ਹੈ। ਮੁੱਲ ਸਕਿੰਟਾਂ ਵਿੱਚ ਹੈ।"
+
+#~ msgid "How often to refresh the package cache"
+#~ msgstr "ਪੈਕੇਜ ਕੈਸ਼ ਕਿੰਨੀ ਵਾਰ ਤਾਜ਼ਾ ਕੀਤੀ ਜਾਵੇ"
+
+#~ msgid "How often to refresh the package cache. Value is in seconds."
+#~ msgstr "ਪੈਕੇਜ ਕੈਸ਼ ਕਿੰਨੀ ਵਾਰ ਤਾਜ਼ਾ ਕੀਤੀ ਜਾਵੇ। ਮੁੱਲ ਸਕਿੰਟਾਂ ਵਿੱਚ ਹੈ।"
+
+#~ msgid "Check for updates when running on battery power"
+#~ msgstr "ਜਦੋਂ ਬੈਟਰੀ ਊਰਜਾ ਉੱਤੇ ਚੱਲਦਾ ਹੋਵੇ ਤਾਂ ਅੱਪਡੇਟ ਲਈ ਚੈੱਕ ਕਰੋ"
+
+#~ msgid "Check for updates when running on battery power."
+#~ msgstr "ਜਦੋਂ ਬੈਟਰੀ ਊਰਜਾ ਉੱਤੇ ਚੱਲਦਾ ਹੋਵੇ ਤਾਂ ਅੱਪਡੇਟ ਲਈ ਚੈੱਕ ਕਰੋ।"
+
+#~ msgid "Notify the user when distribution upgrades are available"
+#~ msgstr "ਜਦੋਂ ਡਿਸਟਰੀਬਿਊਸ਼ਨ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਹੋਵੇ ਤਾਂ ਯੂਜ਼ਰ ਨੂੰ ਸੂਚਨਾ ਦਿਓ"
+
+#~ msgid "Notify the user when distribution upgrades are available."
+#~ msgstr "ਜਦੋਂ ਡਿਸਟਰੀਬਿਊਸ਼ਨ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਹੋਵੇ ਤਾਂ ਯੂਜ਼ਰ ਨੂੰ ਸੂਚਨਾ ਦਿਓ।"
+
+#~ msgid "Ask the user if additional firmware should be installed"
+#~ msgstr "ਯੂਜ਼ਰ ਨੂੰ ਪੁੱਛੋ ਕਿ ਕੀ ਹੋਰ ਫਾਇਰਮਵੇਅਰ ਇੰਸਟਾਲ ਕਰਨਾ ਹੈ"
+
+#~ msgid ""
+#~ "Ask the user if additional firmware should be installed if it is "
+#~ "available."
+#~ msgstr "ਯੂਜ਼ਰ ਨੂੰ ਪੁੱਛੋ ਕਿ ਕੀ ਹੋਰ ਫਾਇਰਮਵੇਅਰ ਇੰਸਟਾਲ ਕਰਨਾ ਹੈ, ਜੇ ਇਹ ਉਪਲੱਬਧ ਹੋਵੇ।"
+
+#~ msgid "Firmware files that should not be searched for"
+#~ msgstr "ਫਾਇਰਮਵੇਅਰ ਫਾਇਲਾਂ ਇਸ ਲਈ ਨਹੀਂ ਲੱਭਣੀਆਂ ਚਾਹੀਦੀਆਂ"
+
+#~ msgid ""
+#~ "Firmware files that should not be searched for, separated by commas. "
+#~ "These can include '*' and '?' characters."
+#~ msgstr ""
+#~ "ਫਇਰਮਵੇਅਰ ਫਾਇਲਾਂ, ਜੋ ਕਿ ਨਹੀਂ ਲੱਭੀਆਂ ਜਾਣੀਆਂ ਚਾਹੀਦੀਆਂ, ਕਾਮਿਆਂ ਨਾਲ ਵੱਖ ਰੱਖੋ। ਇਸ ਵਿੱਚ '*' "
+#~ "ਅਤੇ '?' ਅੱਖਰ ਹੋ ਸਕਦੇ ਹਨ।."
+
+#~ msgid "Devices that should be ignored"
+#~ msgstr "ਜੰਤਰ, ਜੋ ਕਿ ਅਣਡਿੱਠੇ ਕਰਨੇ ਹਨ"
+
+#~ msgid ""
+#~ "Devices that should be ignored, separated by commas. These can include "
+#~ "'*' and '?' characters."
+#~ msgstr ""
+#~ "ਜੰਤਰ, ਜੋ ਕਿ ਅਣਡਿੱਠੇ ਕਰਨੇ ਹਨ, ਕਾਮਿਆਂ ਨਾਲ ਵੱਖ ਕੀਤੇ ਹਨ। ਇਸ ਵਿੱਚ '*', ਅਤੇ '?' ਅੱਖਰ ਸ਼ਾਮਲ "
+#~ "ਕੀਤੇ ਜਾ ਸਕਦੇ ਹਨ।."
+
+#~ msgid ""
+#~ "The filenames on removable media that designate it a software source."
+#~ msgstr "ਹਟਾਉਣਯੋਗ ਮੀਡਿਆ ਉੱਤੇ ਫਾਇਲ-ਨਾਂ, ਜੋ ਕਿ ਸਾਫਟਵੇਅਰ ਸਰੋਤ ਵਜੋਂ ਹੈ।"
+
+#~ msgid ""
+#~ "When removable media is inserted, it is checked to see if it contains any "
+#~ "important filenames in the root directory. If the filename matches, then "
+#~ "an updates check is performed. This allows post-install disks to be used "
+#~ "to update running systems."
+#~ msgstr ""
+#~ "ਜਦੋਂ ਹਟਾਉਣਯੋਗ ਮੀਡਿਆ ਪਾਇਆ ਜਾਵੇ ਤਾਂ ਇਹ ਚੈੱਕ ਕੀਤਾ ਜਾਂਦਾ ਹੈ ਕਿ ਕਿਤੇ ਇਹ ਰੂਟ ਡਾਇਰੈਕਟਰੀ ਵਿੱਚ "
+#~ "ਕੋਈ ਖਾਸ ਫਾਇਲ-ਨਾਂ ਤਾਂ ਨਹੀਂ ਰੱਖਦਾ। ਜੇ ਫਾਇਲ-ਨਾਂ ਮਿਲ ਜਾਵੇ ਤਾਂ ਅੱਪਡੇਟ ਚੈੱਕ ਕੀਤਾ ਜਾਂਦਾ ਹੈ। ਇਸ "
+#~ "ਨਾਲ ਚੱਲਦੇ ਸਿਸਟਮਾਂ ਨੂੰ ਇੰਸਟਾਲ ਦੇ ਬਾਅਦ ਡਿਸਕ (ਪੋਸਟ-ਇੰਸਟਾਲ ਡਿਸਕ) ਦੀ ਵਰਤੋਂ ਨਾਲ ਅੱਪਡੇਟ ਕੀਤਾ "
+#~ "ਜਾ ਸਕਦਾ ਹੈ।"
+
+#~ msgid ""
+#~ "You will need to restart this computer before the hardware will work "
+#~ "correctly."
+#~ msgstr ""
+#~ "ਇਸ ਤੋਂ ਪਹਿਲਾਂ ਕਿ ਤੁਹਾਡਾ ਹਾਰਡਵੇਅਰ ਠੀਕ ਤਰ੍ਹਾਂ ਕੰਮ ਕਰੇ, ਇਹ ਕੰਪਿਊਟਰ ਨੂੰ ਮੁੜ-ਚਾਲੂ ਕਰਨਾ ਪਵੇਗਾ।"
+
+#~ msgid "Additional software was installed"
+#~ msgstr "ਹੋਰ ਸਾਫਟਵੇਅਰ ਇੰਸਟਾਲ ਕੀਤੇ ਗਏ"
+
+#~ msgid "Software Updates"
+#~ msgstr "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ"
+
+#~ msgid ""
+#~ "You will need to remove and then reinsert the hardware before it will "
+#~ "work correctly."
+#~ msgstr "ਤੁਹਾਨੂੰ ਹਾਡਵੇਅਰ ਨੂੰ ਚਲਾਉਣ ਲਈ ਪਹਿਲਾਂ ਹਟਾਉਣਾ ਪਵੇਗਾ ਅਤੇ ਮੁੜ ਚਲਾਉਣਾ ਪਵੇਗਾ।"
+
+#~ msgid "Your hardware has been set up and is now ready to use."
+#~ msgstr "ਤੁਹਾਡਾ ਹਾਰਡਵੇਅਰ ਸੈੱਟਅੱਪ ਕੀਤਾ ਗਿਆ ਹੈ ਅਤੇ ਹੁਣ ਵਰਤਣ ਲਈ ਤਿਆਰ ਹੈ।"
+
+#~ msgid ""
+#~ "Additional firmware is required to make hardware in this computer "
+#~ "function correctly."
+#~ msgstr "ਹਾਰਡਵੇਅਰ ਨੂੰ ਇਸ ਕੰਪਿਊਟਰ ਨਾਲ ਕੰਮ ਕਰਨ ਵਾਸਤੇ ਹੋਰ ਫਾਇਰਮਵੇਅਰ ਦੀ ਲੋੜ ਹੈ।"
+
+#~ msgid "Additional firmware required"
+#~ msgstr "ਹੋਰ ਫਾਇਰਮਵੇਅਰ ਲੋੜੀਦਾ ਹੈ"
+
+#~ msgid "Install firmware"
+#~ msgstr "ਫਾਇਰਮਵੇਅਰ ਇੰਸਟਾਲ"
+
+#~ msgid "Ignore devices"
+#~ msgstr "ਜੰਤਰ ਅਣਡਿੱਠੇ"
+
+#~ msgid "Failed To Update"
+#~ msgstr "ਅੱਪਡੇਟ ਲਈ ਫੇਲ੍ਹ"
+
+#~ msgid "A previous update was unfinished."
+#~ msgstr "ਪਿਛਲਾ ਅੱਪਡੇਟ ਅਧੂਰਾ ਪਿਆ ਹੈ।"
+
+#~ msgid "Network access was required but not available."
+#~ msgstr "ਨੈੱਟਵਰਕ ਦੀ ਲੋੜ ਸੀ, ਪਰ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ।"
+
+#~ msgid "An update was not signed in the correct way."
+#~ msgstr "ਅੱਪਡੇਟ ਠੀਕ ਤਰ੍ਹਾਂ ਸਾਇਨ ਨਹੀਂ ਕੀਤਾ ਗਿਆ ਹੈ।"
+
+#~ msgid "The update could not be completed."
+#~ msgstr "ਅੱਪਡੇਟ ਪੂਰਾ ਨਹੀਂ ਹੋਇਆ।"
+
+#~ msgid "The update was cancelled."
+#~ msgstr "ਅੱਪਡੇਟ ਰੱਦ ਕੀਤਾ ਗਿਆ ਸੀ।"
+
+#~ msgid "An offline update was requested but no packages required updating."
+#~ msgstr "ਆਫਲਾਈਨ ਅੱਪਡੇਟ ਦੀ ਮੰਗ ਕੀਤੀ ਗਈ ਸੀ, ਪਰ ਅੱਪਡੇਟ ਕਰਨ ਲਈ ਕੋਈ ਪੈਕੇਜ ਨਹੀਂ ਚਾਹੀਦੀ ਹੈ।"
+
+#~ msgid "No space was left on the drive."
+#~ msgstr "ਜੰਤਰ ਉੱਤੇ ਕੋਈ ਥਾਂ ਨਹੀਂ ਬਾਕੀ ਬਚੀ।"
+
+#~ msgid "An update failed to install correctly."
+#~ msgstr "ਅੱਪਡੇਟ ਠੀਕ ਤਰ੍ਹਾਂ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਫੇਲ੍ਹ ਹੈ।"
+
+#~ msgid "The offline update failed in an unexpected way."
+#~ msgstr "ਆਫਲਾਈਨ ਅੱਪਡੇਟ ਅਣਜਾਣੇ ਢੰਗ ਨਾਲ ਫੇਲ੍ਹ ਹੋਇਆ।"
+
+#~ msgid "Detailed errors from the package manager follow:"
+#~ msgstr "ਪੈਕੇਜ ਮੈਨੇਜਰ ਤੋਂ ਵੇਰਵੇ ਸਮੇਤ ਗਲਤੀਆਂ ਅੱਗੇ ਹਨ:"
+
+#~ msgid "Distribution upgrades available"
+#~ msgstr "ਡਿਸਟਰੀਬਿਊਸ਼ਨ ਅੱਪਗਰੇਡ ਉਪਲੱਬਧ ਹੈ"
+
+#~ msgid "Not Now"
+#~ msgstr "ਹੁਣੇ ਨਹੀਂ"
+
+#~ msgid "More information"
+#~ msgstr "ਹੋਰ ਜਾਣਕਾਰੀ"
+
+#~ msgid "Update"
+#~ msgid_plural "Updates"
+#~ msgstr[0] "ਅੱਪਡੇਟ"
+#~ msgstr[1] "ਅੱਪਡੇਟ"
+
+#~ msgid "An important software update is available"
+#~ msgid_plural "Important software updates are available"
+#~ msgstr[0] "ਇੱਕ ਖਾਸ ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਹੈ"
+#~ msgstr[1] "ਖਾਸ ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਹਨ"
+
+#~ msgid "View"
+#~ msgstr "ਵੇਖਾਓ"
+
+#~ msgid "Restart & Install"
+#~ msgstr "ਮੁੜ-ਚਾਲੂ ਤੇ ਇੰਸਟਾਲ ਕਰੋ"
+
+#~ msgid "Install updates"
+#~ msgstr "ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕਰੋ"
+
+#~ msgid "A software update is available."
+#~ msgid_plural "Software updates are available."
+#~ msgstr[0] "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਹੈ।"
+#~ msgstr[1] "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਹਨ।"
+
+#~ msgid "Updates"
+#~ msgstr "ਅੱਪਡੇਟ"
+
+#~ msgid "Unable to access software updates"
+#~ msgstr "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਲੈਣ ਲਈ ਅਸਮਰੱਥ"
+
+#~ msgid "Try again"
+#~ msgstr "ਮੁੜ-ਕੋਸ਼ਿਸ਼ ਕਰੋ"
+
+#~ msgid "A transaction that cannot be interrupted is running"
+#~ msgstr "ਟਰਾਂਸੈਕਸ਼ਨ, ਜਿਸ ਵਿੱਚ ਦਖ਼ਲ ਨਹੀਂ ਦਿੱਤਾ ਜਾ ਸਕਦਾ, ਚੱਲ ਰਹੀ ਹੈ"
+
+#~ msgid "Software Update Installed"
+#~ msgid_plural "Software Updates Installed"
+#~ msgstr[0] "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਹੈ"
+#~ msgstr[1] "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਹਨ"
+
+#~ msgid "An important OS update has been installed."
+#~ msgid_plural "Important OS updates have been installed."
+#~ msgstr[0] "ਖਾਸ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕੀਤਾ ਗਿਆ ਹੈ।"
+#~ msgstr[1] "ਖਾਸ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕੀਤੇ ਗਏ ਹਨ।"
+
+#~ msgid "Software Updates Failed"
+#~ msgstr "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਫੇਲ੍ਹ ਹੈ"
+
+#~ msgid "An important OS update failed to be installed."
+#~ msgstr "ਖਾਸ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਫੇਲ੍ਹ ਹੈ।"
+
+#~ msgid "Review"
+#~ msgstr "ਪੜਤਾਲ"
+
+#~ msgid "Show details"
+#~ msgstr "ਵੇਰਵਾ ਵੇਖਾਓ"
+
+#~ msgid "OK"
+#~ msgstr "ਠੀਕ ਹੈ"
+
+#~ msgid "Updates plugin"
+#~ msgstr "ਅੱਪਡੇਟ ਪਲੱਗਇਨ"
 
 #~ msgid "Wacom tablet PC feature"
 #~ msgstr "ਵਸਕੋਮ ਟੇਬਲੇਟ ਪੀਸੀ ਫੀਚਰ"
