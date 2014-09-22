@@ -1,4 +1,34 @@
 ==============
+Version 3.12.3
+==============
+
+General:
+- Implement size matching for touchscreens
+
+Housekeeping:
+- Fix a possible data loss when symlinks are created from /tmp
+- Fix regular files not getting deleted from the Trash
+
+Media-keys:
+- Add shortcut to start gnome-control-center
+- Don't show Orientation lock popup if not supported
+
+Orientation:
+- Fix plugin on MS Surface devices
+
+Power:
+- '0' keyboard backlight is a valid value
+
+Wacom:
+- Add Bluetooth OLED handling for Intuos4 WL
+- Make OSD always appear on a single monitor
+- Handle "cursor" tablet devices so that they get properly mapped for
+  different orientations
+
+XSettings:
+- Honor changes to the enable-animations setting
+
+==============
 Version 3.12.2
 ==============
 
