@@ -263,8 +263,29 @@ gsd_remote_display_manager_stop (GsdRemoteDisplayManager *manager)
 }
 
 static void
+gsd_remote_display_manager_finalize (GObject *object)
+{
+        GsdRemoteDisplayManager *manager;
+
+        g_return_if_fail (object != NULL);
+        g_return_if_fail (GSD_IS_REMOTE_DISPLAY_MANAGER (object));
+
+        manager = GSD_REMOTE_DISPLAY_MANAGER (object);
+
+        g_return_if_fail (manager->priv != NULL);
+
+        gsd_remote_display_manager_stop (manager);
+
+        G_OBJECT_CLASS (gsd_remote_display_manager_parent_class)->finalize (object);
+}
+
+static void
 gsd_remote_display_manager_class_init (GsdRemoteDisplayManagerClass *klass)
 {
+        GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+
+        object_class->finalize = gsd_remote_display_manager_finalize;
+
         g_type_class_add_private (klass, sizeof (GsdRemoteDisplayManagerPrivate));
 }
 
