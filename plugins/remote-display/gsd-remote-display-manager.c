@@ -245,6 +245,11 @@ gsd_remote_display_manager_stop (GsdRemoteDisplayManager *manager)
 {
         g_debug ("Stopping remote_display manager");
 
+        if (manager->priv->vino_watch_id > 0) {
+                g_bus_unwatch_name (manager->priv->vino_watch_id);
+                manager->priv->vino_watch_id = 0;
+	}
+
 	if (manager->priv->cancellable != NULL) {
 		g_cancellable_cancel (manager->priv->cancellable);
 		g_clear_object (&manager->priv->cancellable);
