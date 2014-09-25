@@ -197,6 +197,7 @@ gsd_remote_display_manager_start (GsdRemoteDisplayManager *manager,
         gnome_settings_profile_start (NULL);
 
         manager->priv->desktop_settings = g_settings_new ("org.gnome.desktop.interface");
+        manager->priv->cancellable = g_cancellable_new ();
 
 	/* Check if spice is used:
 	 * https://bugzilla.gnome.org/show_bug.cgi?id=680195#c7
