@@ -301,8 +301,6 @@ gsd_remote_display_manager_init (GsdRemoteDisplayManager *manager)
                                                          (GBusNameAppearedCallback) vino_appeared_cb,
                                                          (GBusNameVanishedCallback) vino_vanished_cb,
                                                          manager, NULL);
-
-
 }
 
 GsdRemoteDisplayManager *
