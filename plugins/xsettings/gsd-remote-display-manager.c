@@ -265,6 +265,7 @@ gsd_remote_display_manager_init (GsdRemoteDisplayManager *manager)
 {
 
         manager->priv = GSD_REMOTE_DISPLAY_MANAGER_GET_PRIVATE (manager);
+        manager->priv->cancellable = g_cancellable_new ();
 
         g_debug ("Starting remote-display manager");
 
