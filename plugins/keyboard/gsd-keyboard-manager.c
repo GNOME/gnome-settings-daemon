@@ -64,12 +64,19 @@
 #define KEY_BELL_MODE      "bell-mode"
 #define KEY_BELL_CUSTOM_FILE "bell-custom-file"
 
+#define GNOME_DESKTOP_INTERFACE_DIR "org.gnome.desktop.interface"
+
+#define KEY_GTK_IM_MODULE    "gtk-im-module"
+#define GTK_IM_MODULE_SIMPLE "gtk-im-context-simple"
+#define GTK_IM_MODULE_IBUS   "ibus"
+
 #define GNOME_DESKTOP_INPUT_SOURCES_DIR "org.gnome.desktop.input-sources"
 
 #define KEY_INPUT_SOURCES        "sources"
 #define KEY_KEYBOARD_OPTIONS     "xkb-options"
 
 #define INPUT_SOURCE_TYPE_XKB  "xkb"
+#define INPUT_SOURCE_TYPE_IBUS "ibus"
 
 #define DEFAULT_LAYOUT "us"
 
@@ -445,6 +452,57 @@ set_devicepresence_handler (GsdKeyboardManager *manager)
         manager->priv->device_manager = device_manager;
 }
 
+static gboolean
+need_ibus (GVariant *sources)
+{
+        GVariantIter iter;
+        const gchar *type;
+
+        g_variant_iter_init (&iter, sources);
+        while (g_variant_iter_next (&iter, "(&s&s)", &type, NULL))
+                if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS))
+                        return TRUE;
+
+        return FALSE;
+}
+
+static void
+set_gtk_im_module (GSettings *settings,
+                   GVariant  *sources)
+{
+        const gchar *new_module;
+        gchar *current_module;
+
+        if (need_ibus (sources))
+                new_module = GTK_IM_MODULE_IBUS;
+        else
+                new_module = GTK_IM_MODULE_SIMPLE;
+
+        current_module = g_settings_get_string (settings, KEY_GTK_IM_MODULE);
+        if (!g_str_equal (current_module, new_module))
+                g_settings_set_string (settings, KEY_GTK_IM_MODULE, new_module);
+        g_free (current_module);
+}
+
+static void
+input_sources_changed (GSettings          *settings,
+                       const char         *key,
+                       GsdKeyboardManager *manager)
+{
+        GSettings *interface_settings;
+        GVariant *sources;
+        /* Gtk+ uses the IM module advertised in XSETTINGS so, if we
+         * have IBus input sources, we want it to load that
+         * module. Otherwise we can use the default "simple" module
+         * which is builtin gtk+
+         */
+        sources = g_settings_get_value (settings, KEY_INPUT_SOURCES);
+        interface_settings = g_settings_new (GNOME_DESKTOP_INTERFACE_DIR);
+        set_gtk_im_module (interface_settings, sources);
+        g_object_unref (interface_settings);
+        g_variant_unref (sources);
+}
+
 static void
 get_sources_from_xkb_config (GsdKeyboardManager *manager)
 {
@@ -712,6 +770,8 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
 	set_devicepresence_handler (manager);
 
         manager->priv->input_sources_settings = g_settings_new (GNOME_DESKTOP_INPUT_SOURCES_DIR);
+        g_signal_connect (manager->priv->input_sources_settings, "changed::"KEY_INPUT_SOURCES,
+                          G_CALLBACK (input_sources_changed), manager);
 
         manager->priv->cancellable = g_cancellable_new ();
 
