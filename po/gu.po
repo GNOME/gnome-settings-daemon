@@ -6,7 +6,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
 "cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2014-09-01 07:34+0000\n"
-"PO-Revision-Date: 2014-09-01 16:35+0530\n"
+"PO-Revision-Date: 2014-09-26 16:12+0530\n"
 "Last-Translator: \n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "Language: \n"
@@ -108,7 +108,7 @@ msgstr "મિલિસેકંડમાં બમણી ક્લિકની 
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
 msgid "Drag threshold"
-msgstr ""
+msgstr "થ્રેશોલ્ડ ઘસેડો"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
 msgid "Distance before a drag is started."
@@ -253,14 +253,15 @@ msgid "Enable this to move the cursor when the user touches the tablet."
 msgstr "કર્સરને ખસેડવા માટે આને સક્રિય કરો જ્યારે વપરાશકર્તા ટૅબલેટને સ્પર્શ કરે."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
-#, fuzzy
 #| msgid "Wacom tablet rotation"
 msgid "Wacom last calibrated resolution"
-msgstr "Wacom ટૅબલેટ પરિભ્રમણ"
+msgstr "Wacom છેલ્લે કેલિબ્રેટ થયેલ રિઝોલ્યુશન"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
 msgid "Holds the last calibrated resolution to help check if calibration is needed."
 msgstr ""
+"ચકાસણીની મદદ કરવા માટે છેલ્લે કેલીબ્રેટ થયેલ રિઝોલ્યુશનને અટકાવે છે જો કેલીબ્રેશનની "
+"જરૂરિયાત છે."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
 msgid "Wacom display mapping"
@@ -353,11 +354,11 @@ msgstr ""
 #. http://eu.shop.wacom.eu/images/articles/d9abd9f2d4d88aa0649cda97a8077e2b_8.jpg
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:38
 msgid "Button label for OLED display."
-msgstr ""
+msgstr "OLED દર્શાવ માટે બટન લેબલ"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:39
 msgid "Label will be rendered to OLED display belonging to the button"
-msgstr ""
+msgstr "લેબલ એ બટનને જોડાયેલ OLED દર્શાવમાં રેન્ડર થયેલ હશે"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
 msgid "The duration a display profile is valid"
@@ -468,16 +469,14 @@ msgid "Binding to launch the calculator."
 msgstr "કેલ્ક્યુલેટરને શરૂ કરવા માટે જોડાણ."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
-#, fuzzy
 #| msgid "X Settings"
 msgid "Launch settings"
-msgstr "X સુયોજનો"
+msgstr "શરૂઆત સુયોજનો"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
-#, fuzzy
 #| msgid "Binding to launch the search tool."
 msgid "Binding to launch GNOME settings."
-msgstr "શોધ સાધન ને શરૂ કરવા માટે જોડાણ."
+msgstr "GNOME સુયોજનોને શરૂ કરવા માટે બાઇન્ડીંગ"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Launch email client"
@@ -657,7 +656,7 @@ msgstr "ક્લિપબોર્ડમાં સ્ક્રીનશોટ �
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Record a short video of the screen"
-msgstr ""
+msgstr "સ્ક્રીનનાં ટૂંકા વિડિઓનો રેકોર્ડ કરો"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Launch web browser"
@@ -764,13 +763,15 @@ msgstr "ચલાવવા માટે આદેશ જ્યારે બા�
 
 #: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:5
 msgid "On which connections the service is enabled"
-msgstr ""
+msgstr "ક્યાં જોડાણ પર સેવા સક્રિય થયેલ છે"
 
 #: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:6
 msgid ""
 "The list of NetworkManager connections (each one represented with its UUID) "
 "on which this service is enabled and started."
 msgstr ""
+"NetworkManager જોડાણોની યાદી (દરેક એક તેની UUID સાથે રજૂ થયેલ છે) "
+"કંઇ આ સેવા પર સક્રિય થયેલ અને શરૂ થયેલ છે."
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
@@ -802,6 +803,10 @@ msgid ""
 "choose between 'do-nothing' and 'dock' depending on whether the lid is "
 "(respectively) open or closed."
 msgstr ""
+"'ક્લોન' એ બધા મોનિટર પર એજ વસ્તુને દર્શાવાશે, 'ડૉક' એ આંતરિક મોનિટરને બંધ કરશે, 'કંઇ કરવાનુ "
+"નથી' એ મૂળભૂત Xorg વર્ણતૂકને વાપરશે (તાજેતરની આવૃત્તિઓમાં ડેસ્કટોપને વિસ્તારો). મૂળભૂત, "
+"'lid અનૂસરો', એ 'કંઇ કરવાનુ નથી' અને 'ડૉક' વચ્ચે પસંદ કરશે ક્યાંતો lid એ (અનુક્રમે) ખુલ્લી "
+"અથવા બંધ થયેલ છે તેની પર આધાર રાખી રહ્યુ છે."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
 msgid "Antialiasing"
@@ -891,10 +896,9 @@ msgid "Accessibility keyboard plugin"
 msgstr "સુલભતા કીબોર્ડ પ્લગઇન"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:398
-#, fuzzy
 #| msgid "Slow Keys Alert"
 msgid "Slow Keys Turned On"
-msgstr "કીની ચેતવણી બતાવો"
+msgstr "સ્લો કી ચાલુ છે"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:399
 #| msgid "Slow Keys Alert"
@@ -1037,11 +1041,10 @@ msgid "Date and Time"
 msgstr "તારીખ અને સમય"
 
 #: ../plugins/datetime/datetime.gnome-settings-plugin.in.h:3
-#, fuzzy
 #| msgid ""
 #| "Automatically download updates in the background without confirmation"
 msgid "Automatically update timezone and display notifications"
-msgstr "ખાતરી વગર પાશ્ર્વભાગમાં આપમેળે સુધારાને ડાઉનલોડ કરો"
+msgstr "આપમેળે ટાઇમઝોનને સુધારો અને સૂચનાઓને દર્શાવો"
 
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
@@ -1052,7 +1055,7 @@ msgstr "UTC%:::z"
 #: ../plugins/datetime/gsd-datetime-manager.c:107
 #, c-format
 msgid "Time Zone Updated to %s (%s)"
-msgstr ""
+msgstr "ટાઇમઝોન %s (%s) માં સુધારેલ છે"
 
 #: ../plugins/datetime/gsd-datetime-manager.c:127
 #| msgid "Manage X Settings"
@@ -1197,7 +1200,7 @@ msgstr "કીબોર્ડ પ્લગઇન"
 
 #: ../plugins/media-keys/gsd-media-keys-manager.c:1952
 msgid "Screencast from %d %t.webm"
-msgstr ""
+msgstr "%d %t.webm માંથી સ્ક્રીનકાસ્ટ"
 
 #: ../plugins/media-keys/gsd-screenshot-utils.c:84
 #| msgid "Binding to take a screenshot."
@@ -1273,10 +1276,9 @@ msgid "Microphone Mute"
 msgstr "માઇક્રોફોન મૂંગુ"
 
 #: ../plugins/media-keys/shortcuts-list.h:51
-#, fuzzy
 #| msgid "Volume mute"
 msgid "Quiet Volume Mute"
-msgstr "અવાજ બંધ કરો"
+msgstr "અવાજ મૂંગો"
 
 #: ../plugins/media-keys/shortcuts-list.h:52
 #| msgid "Volume down"
@@ -1322,7 +1324,7 @@ msgstr "સ્ક્રીન ફેરવો"
 
 #: ../plugins/media-keys/shortcuts-list.h:87
 msgid "Orientation Lock"
-msgstr ""
+msgstr "દિશા તાળુ"
 
 #: ../plugins/media-keys/shortcuts-list.h:96
 #: ../plugins/media-keys/shortcuts-list.h:102
@@ -1451,10 +1453,9 @@ msgid "%s of UPS backup power remaining"
 msgstr "UPS બેકઅપ પાવરનું %s બાકી રહેલ છે"
 
 #: ../plugins/power/gsd-power-manager.c:334
-#, fuzzy
 #| msgid "%s of UPS backup power remaining"
 msgid "Unknown amount of UPS backup power remaining"
-msgstr "UPS બેકઅપ પાવરનું %s બાકી રહેલ છે"
+msgstr "UPS બેકઅપ પાવરની અજ્ઞાત સંખ્યા બાકી રહેલ છે"
 
 #. TRANSLATORS: this is the notification application name
 #: ../plugins/power/gsd-power-manager.c:350
@@ -1742,12 +1743,12 @@ msgstr "બેટરી પાવર પર"
 #. TRANSLATORS: this is the sound description
 #: ../plugins/power/gsd-power-manager.c:1754
 msgid "On AC power"
-msgstr ""
+msgstr "AC પાવર પર"
 
 #: ../plugins/power/gsd-power-manager.c:1928
 #| msgid "Automount"
 msgid "Automatic logout"
-msgstr ""
+msgstr "આપોઆપ બહાર નીકળો"
 
 #: ../plugins/power/gsd-power-manager.c:1928
 msgid "You will soon log out because of inactivity."
@@ -2056,7 +2057,7 @@ msgstr "gnome-session માટે પ્રોક્સી FreeDesktop સ્�
 
 #: ../plugins/smartcard/gsd-smartcard-service.c:222
 msgid "User was not logged in with smartcard."
-msgstr ""
+msgstr "વપરાશકર્તા સ્માર્ટકાર્ડ  સાથે પ્રવેશેલ ન હતુ."
 
 #: ../plugins/smartcard/smartcard.gnome-settings-plugin.in.h:1
 #| msgid "smartcard driver"
@@ -2215,11 +2216,11 @@ msgstr "નવાં ટૂંકાણ..."
 #: ../plugins/wacom/gsd-wacom-manager.c:1014
 #, c-format
 msgid "The \"%s\" tablet may not work as expected."
-msgstr ""
+msgstr "\"%s\" ટૅબલેટ એ ઇચ્છા પ્રમાણે કામ કરી શકતુ નથી."
 
 #: ../plugins/wacom/gsd-wacom-manager.c:1015
 msgid "Unknown Tablet Connected"
-msgstr ""
+msgstr "અજ્ઞાત ટેબલેટ જોડાયેલ છે"
 
 #: ../plugins/wacom/gsd-wacom-manager.c:1019
 #: ../plugins/wacom/gsd-wacom-manager.c:1644
@@ -2228,16 +2229,15 @@ msgid "Wacom Settings"
 msgstr "Wacom સુયોજનો"
 
 #: ../plugins/wacom/gsd-wacom-manager.c:1638
-#, fuzzy, c-format
+#, c-format
 #| msgid "The printer '%s' should be recalibrated soon."
 msgid "Tablet %s needs to be calibrated."
-msgstr "પ્રિન્ટર '%s' ને ઝલ્દી ફરી કેલીબ્રેટ કરવુ જોઇએ."
+msgstr "ટૅબલેટ %s ને ઝલ્દી ફરી કેલીબ્રેટ કરવુ જોઇએ."
 
 #: ../plugins/wacom/gsd-wacom-manager.c:1640
-#, fuzzy
 #| msgid "Color calibration device added"
 msgid "Calibration needed"
-msgstr "રંગ કેલીબ્રેશન ઉપકરણ ઉમેરાયેલ છે"
+msgstr "કેલીબ્રેશન જરૂરી"
 
 #: ../plugins/wacom/gsd-wacom-manager.c:1653
 #| msgid "Recalibrate now"
@@ -2264,15 +2264,15 @@ msgstr "સ્થિતિ %d: %s"
 
 #: ../plugins/wacom/gsd-wacom-osd-window.c:1347
 msgid "(press any key to exit)"
-msgstr ""
+msgstr "(બહાર નીકળવા માટે કોઇપણ કીને દબાવો)"
 
 #: ../plugins/wacom/gsd-wacom-osd-window.c:1356
 msgid "Push a button to configure"
-msgstr ""
+msgstr "રૂપરેખાંકિત કરવા માટે બટનને દબાવો"
 
 #: ../plugins/wacom/gsd-wacom-osd-window.c:1356
 msgid "(Esc to cancel)"
-msgstr ""
+msgstr "(રદ કરવા માટે Esc)"
 
 #: ../plugins/wacom/gsd-wacom-osd-window.c:1983
 msgid "Edit"
@@ -2296,13 +2296,12 @@ msgstr "Wacom ટૅબલેટ માટે લીટ LED ને બદલવ�
 #.
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:11
 msgid "Modify the OLED image for a Wacom tablet"
-msgstr ""
+msgstr "Wacom ટૅબલેટ માટે OLED ઇમેજને બદલો"
 
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:12
-#, fuzzy
 #| msgid "Authentication is required to modify the laptop brightness"
 msgid "Authentication is required to modify the OLED image for a Wacom tablet"
-msgstr "સત્તાધિકરણ લેપટોપ પ્રકાશતાને બદલવા માટે જરૂરી છે"
+msgstr "સત્તાધિકરણને Wacom ટૅબલેટ માટે OLED ઇમેજને બદલવાની જરૂરિયાત છે"
 
 #: ../plugins/wacom/wacom.gnome-settings-plugin.in.h:1
 msgid "Wacom"
