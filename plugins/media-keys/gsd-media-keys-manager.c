@@ -2601,6 +2601,7 @@ gsd_media_keys_manager_finalize (GObject *object)
         if (media_keys_manager->priv->inhibit_keys_fd != -1)
                 close (media_keys_manager->priv->inhibit_keys_fd);
 
+        g_clear_object (&media_keys_manager->priv->logind_proxy);
         g_clear_object (&media_keys_manager->priv->screen_saver_proxy);
 
         G_OBJECT_CLASS (gsd_media_keys_manager_parent_class)->finalize (object);
