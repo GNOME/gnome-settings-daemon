@@ -1977,7 +1977,7 @@ screencast_start (GsdMediaKeysManager *manager)
                            manager->priv->screencast_cancellable,
                            NULL, NULL);
 
-        max_length = g_settings_get_int (manager->priv->settings, "max-screencast-length");
+        max_length = g_settings_get_uint (manager->priv->settings, "max-screencast-length");
 
         if (max_length > 0) {
                 manager->priv->screencast_timeout_id = g_timeout_add_seconds (max_length,
