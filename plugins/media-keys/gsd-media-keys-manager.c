@@ -2464,6 +2464,8 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 priv->keys = NULL;
         }
 
+        g_clear_object (&priv->key_grabber);
+
         if (priv->grab_cancellable != NULL) {
                 g_cancellable_cancel (priv->grab_cancellable);
                 g_clear_object (&priv->grab_cancellable);
