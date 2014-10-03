@@ -2490,6 +2490,8 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 g_list_free_full (priv->media_players, (GDestroyNotify) free_media_player);
                 priv->media_players = NULL;
         }
+
+        g_clear_object (&priv->shell_proxy);
 }
 
 static void
@@ -2600,7 +2602,6 @@ gsd_media_keys_manager_finalize (GObject *object)
                 close (media_keys_manager->priv->inhibit_keys_fd);
 
         g_clear_object (&media_keys_manager->priv->screen_saver_proxy);
-        g_clear_object (&media_keys_manager->priv->shell_proxy);
 
         G_OBJECT_CLASS (gsd_media_keys_manager_parent_class)->finalize (object);
 }
