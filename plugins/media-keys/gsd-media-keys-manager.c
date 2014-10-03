@@ -2413,6 +2413,11 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
 
         g_debug ("Stopping media_keys manager");
 
+        if (priv->start_idle_id != 0) {
+                g_source_remove (priv->start_idle_id);
+                priv->start_idle_id = 0;
+        }
+
         if (priv->bus_cancellable != NULL) {
                 g_cancellable_cancel (priv->bus_cancellable);
                 g_object_unref (priv->bus_cancellable);
@@ -2591,8 +2596,6 @@ gsd_media_keys_manager_finalize (GObject *object)
 
         g_return_if_fail (media_keys_manager->priv != NULL);
 
-        if (media_keys_manager->priv->start_idle_id != 0)
-                g_source_remove (media_keys_manager->priv->start_idle_id);
         if (media_keys_manager->priv->inhibit_keys_fd != -1)
                 close (media_keys_manager->priv->inhibit_keys_fd);
 
