@@ -2316,6 +2316,7 @@ shell_presence_changed (GsdMediaKeysManager *manager)
         } else {
                 g_ptr_array_set_size (manager->priv->keys, 0);
                 g_clear_object (&manager->priv->key_grabber);
+                g_clear_object (&manager->priv->screencast_proxy);
         }
 }
 
