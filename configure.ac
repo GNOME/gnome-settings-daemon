@@ -144,6 +144,23 @@ fi
 AM_CONDITIONAL(HAVE_GUDEV, test x$have_gudev = xyes)
 
 dnl ---------------------------------------------------------------------------
+dnl - Check for libwayland-client
+dnl ---------------------------------------------------------------------------
+AC_ARG_ENABLE(wayland,
+        AC_HELP_STRING([--disable-wayland], [Disable wayland support (default: auto)]),
+        enable_wayland=$enableval, enable_wayland=auto)
+if test x$enable_wayland != xno; then
+        PKG_CHECK_MODULES(WAYLAND, wayland-client, have_wayland=yes, have_wayland=no)
+        if test x$have_wayland = xyes; then
+                AC_DEFINE(HAVE_WAYLAND, 1, [Define if libwayland-client is available])
+        else
+                if test x$enable_wayland = xyes; then
+                        AC_MSG_ERROR([Wayland enabled but not found])
+                fi
+        fi
+fi
+
+dnl ---------------------------------------------------------------------------
 dnl - common
 dnl ---------------------------------------------------------------------------
 

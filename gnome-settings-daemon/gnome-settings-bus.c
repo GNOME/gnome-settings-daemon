@@ -27,6 +27,10 @@
 #include <glib.h>
 #include <gio/gio.h>
 
+#if HAVE_WAYLAND
+#include <wayland-client.h>
+#endif
+
 #include "gnome-settings-bus.h"
 
 #define GNOME_SESSION_DBUS_NAME      "org.gnome.SessionManager"
@@ -116,4 +120,33 @@ gnome_settings_bus_get_shell_proxy (void)
         }
 
         return shell_proxy;
+}
+
+static gboolean
+is_wayland_session (void)
+{
+#if HAVE_WAYLAND
+        struct wl_display *display;
+
+        display = wl_display_connect (NULL);
+        if (!display)
+                return FALSE;
+        wl_display_disconnect (display);
+        return TRUE;
+#else
+        return FALSE;
+#endif
+}
+
+gboolean
+gnome_settings_is_wayland (void)
+{
+        static gboolean checked = FALSE;
+        static gboolean wayland = FALSE;
+
+        if (!checked) {
+                wayland = is_wayland_session ();
+                checked = TRUE;
+        }
+        return wayland;
 }
