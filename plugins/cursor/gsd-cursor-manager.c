@@ -40,6 +40,7 @@
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-idle-monitor.h>
 
+#include "gnome-settings-bus.h"
 #include "gnome-settings-profile.h"
 #include "gsd-cursor-manager.h"
 #include "gsd-input-helper.h"
@@ -386,6 +387,11 @@ gsd_cursor_manager_start (GsdCursorManager  *manager,
                           GError           **error)
 {
         GdkDeviceManager *device_manager;
+
+        if (gnome_settings_is_wayland ()) {
+                g_debug ("Running under a wayland compositor, disabling");
+                return TRUE;
+        }
 
         g_debug ("Starting cursor manager");
         gnome_settings_profile_start (NULL);
