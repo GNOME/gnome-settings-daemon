@@ -1292,6 +1292,7 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
                                              manager->priv->device_added_id);
                 g_signal_handler_disconnect (manager->priv->device_manager,
                                              manager->priv->device_removed_id);
+                manager->priv->device_manager = NULL;
         }
 
         log_open ();
@@ -1329,6 +1330,8 @@ gsd_xrandr_manager_finalize (GObject *object)
         manager = GSD_XRANDR_MANAGER (object);
 
         g_return_if_fail (manager->priv != NULL);
+
+        gsd_xrandr_manager_stop (manager);
 
         if (manager->priv->name_id != 0)
                 g_bus_unown_name (manager->priv->name_id);
