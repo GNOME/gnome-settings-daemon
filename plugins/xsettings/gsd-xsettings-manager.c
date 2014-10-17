@@ -1266,8 +1266,10 @@ gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
                 g_clear_object (&manager->priv->rr_screen);
         }
 
-        if (p->shell_name_watch_id > 0)
+        if (p->shell_name_watch_id > 0) {
                 g_bus_unwatch_name (p->shell_name_watch_id);
+                p->shell_name_watch_id = 0;
+        }
 
         if (p->manager != NULL) {
                 xsettings_manager_destroy (p->manager);
@@ -1319,6 +1321,8 @@ gnome_xsettings_manager_finalize (GObject *object)
         xsettings_manager = GNOME_XSETTINGS_MANAGER (object);
 
         g_return_if_fail (xsettings_manager->priv != NULL);
+
+        gnome_xsettings_manager_stop (xsettings_manager);
 
         if (xsettings_manager->priv->start_idle_id != 0)
                 g_source_remove (xsettings_manager->priv->start_idle_id);
