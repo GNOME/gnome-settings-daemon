@@ -871,6 +871,8 @@ gsd_keyboard_manager_finalize (GObject *object)
 
         g_return_if_fail (keyboard_manager->priv != NULL);
 
+        gsd_keyboard_manager_stop (keyboard_manager);
+
         if (keyboard_manager->priv->start_idle_id != 0)
                 g_source_remove (keyboard_manager->priv->start_idle_id);
 
