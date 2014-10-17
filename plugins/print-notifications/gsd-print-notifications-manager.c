@@ -1382,8 +1382,7 @@ gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
         if (manager->priv->subscription_id >= 0)
                 cancel_subscription (manager->priv->subscription_id);
 
-        if (manager->priv->printing_printers)
-                g_hash_table_destroy (manager->priv->printing_printers);
+        g_clear_pointer (&manager->priv->printing_printers, g_hash_table_destroy);
 
         g_clear_object (&manager->priv->cups_bus_connection);
 
@@ -1441,6 +1440,8 @@ gsd_print_notifications_manager_finalize (GObject *object)
         manager = GSD_PRINT_NOTIFICATIONS_MANAGER (object);
 
         g_return_if_fail (manager->priv != NULL);
+
+        gsd_print_notifications_manager_stop (manager);
 
         if (manager->priv->start_idle_id != 0)
                 g_source_remove (manager->priv->start_idle_id);
