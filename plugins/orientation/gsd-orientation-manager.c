@@ -507,6 +507,8 @@ gsd_orientation_manager_finalize (GObject *object)
 
         g_return_if_fail (orientation_manager->priv != NULL);
 
+        gsd_orientation_manager_stop (orientation_manager);
+
         if (orientation_manager->priv->start_idle_id != 0)
                 g_source_remove (orientation_manager->priv->start_idle_id);
 
