@@ -1778,6 +1778,8 @@ gsd_power_manager_finalize (GObject *object)
 
         g_return_if_fail (manager->priv != NULL);
 
+        gsd_power_manager_stop (manager);
+
         g_clear_object (&manager->priv->connection);
 
         if (manager->priv->name_id != 0)
@@ -2421,7 +2423,8 @@ gsd_power_manager_stop (GsdPowerManager *manager)
                 manager->priv->introspection_data = NULL;
         }
 
-        g_signal_handlers_disconnect_by_data (manager->priv->up_client, manager);
+        if (manager->priv->up_client)
+                g_signal_handlers_disconnect_by_data (manager->priv->up_client, manager);
 
         g_clear_object (&manager->priv->session);
         g_clear_object (&manager->priv->settings);
