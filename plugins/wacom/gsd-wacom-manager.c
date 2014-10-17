@@ -1943,6 +1943,8 @@ gsd_wacom_manager_finalize (GObject *object)
 
         g_return_if_fail (wacom_manager->priv != NULL);
 
+        gsd_wacom_manager_stop (wacom_manager);
+
         if (wacom_manager->priv->warned_devices) {
                 g_hash_table_destroy (wacom_manager->priv->warned_devices);
                 wacom_manager->priv->warned_devices = NULL;
