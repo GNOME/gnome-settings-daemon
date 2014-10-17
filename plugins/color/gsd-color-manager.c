@@ -120,6 +120,8 @@ gsd_color_manager_finalize (GObject *object)
 
         manager = GSD_COLOR_MANAGER (object);
 
+        gsd_color_manager_stop (manager);
+
         g_clear_object (&manager->priv->calibrate);
         g_clear_object (&manager->priv->profiles);
         g_clear_object (&manager->priv->state);
