@@ -477,8 +477,20 @@ gsd_cursor_manager_stop (GsdCursorManager *manager)
 }
 
 static void
+gsd_cursor_manager_finalize (GObject *object)
+{
+        gsd_cursor_manager_stop (GSD_CURSOR_MANAGER (object));
+
+        G_OBJECT_CLASS (gsd_cursor_manager_parent_class)->finalize (object);
+}
+
+static void
 gsd_cursor_manager_class_init (GsdCursorManagerClass *klass)
 {
+        GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+        object_class->finalize = gsd_cursor_manager_finalize;
+
         g_type_class_add_private (klass, sizeof (GsdCursorManagerPrivate));
 }
 
