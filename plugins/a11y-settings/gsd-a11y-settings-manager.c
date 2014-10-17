@@ -148,6 +148,8 @@ gsd_a11y_settings_manager_finalize (GObject *object)
 
         g_return_if_fail (a11y_settings_manager->priv != NULL);
 
+        gsd_a11y_settings_manager_stop (a11y_settings_manager);
+
         G_OBJECT_CLASS (gsd_a11y_settings_manager_parent_class)->finalize (object);
 }
 
