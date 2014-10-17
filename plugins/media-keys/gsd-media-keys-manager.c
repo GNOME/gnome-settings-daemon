@@ -2598,6 +2598,8 @@ gsd_media_keys_manager_finalize (GObject *object)
 
         g_return_if_fail (media_keys_manager->priv != NULL);
 
+        gsd_media_keys_manager_stop (media_keys_manager);
+
         if (media_keys_manager->priv->inhibit_keys_fd != -1)
                 close (media_keys_manager->priv->inhibit_keys_fd);
 
