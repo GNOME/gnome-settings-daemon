@@ -99,9 +99,6 @@ static void     gsd_mouse_manager_finalize    (GObject             *object);
 static void     set_tap_to_click              (GdkDevice           *device,
                                                gboolean             state,
                                                gboolean             left_handed);
-static void     set_natural_scroll            (GsdMouseManager *manager,
-                                               GdkDevice       *device,
-                                               gboolean         natural_scroll);
 
 G_DEFINE_TYPE (GsdMouseManager, gsd_mouse_manager, G_TYPE_OBJECT)
 
@@ -930,27 +927,6 @@ get_touchpad_handedness (GsdMouseManager *manager, gboolean mouse_left_handed)
 }
 
 static void
-set_mouse_settings (GsdMouseManager *manager,
-                    GdkDevice       *device)
-{
-        gboolean mouse_left_handed, touchpad_left_handed;
-
-        mouse_left_handed = g_settings_get_boolean (manager->priv->mouse_settings, KEY_LEFT_HANDED);
-        touchpad_left_handed = get_touchpad_handedness (manager, mouse_left_handed);
-        set_left_handed (manager, device, mouse_left_handed, touchpad_left_handed);
-
-        set_motion (manager, device);
-        set_middle_button (manager, device, g_settings_get_boolean (manager->priv->mouse_settings, KEY_MIDDLE_BUTTON_EMULATION));
-
-        set_tap_to_click (device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK), touchpad_left_handed);
-        set_scroll_method (manager, device, g_settings_get_enum (manager->priv->touchpad_settings, KEY_SCROLL_METHOD));
-        set_horiz_scroll (device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_PAD_HORIZ_SCROLL));
-        set_natural_scroll (manager, device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_NATURAL_SCROLL_ENABLED));
-        if (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED) == FALSE)
-                set_touchpad_disabled (device);
-}
-
-static void
 set_natural_scroll (GsdMouseManager *manager,
                     GdkDevice       *device,
                     gboolean         natural_scroll)
@@ -1009,6 +985,27 @@ set_natural_scroll (GsdMouseManager *manager,
                 XFree (data);
 
         xdevice_close (xdevice);
+}
+
+static void
+set_mouse_settings (GsdMouseManager *manager,
+                    GdkDevice       *device)
+{
+        gboolean mouse_left_handed, touchpad_left_handed;
+
+        mouse_left_handed = g_settings_get_boolean (manager->priv->mouse_settings, KEY_LEFT_HANDED);
+        touchpad_left_handed = get_touchpad_handedness (manager, mouse_left_handed);
+        set_left_handed (manager, device, mouse_left_handed, touchpad_left_handed);
+
+        set_motion (manager, device);
+        set_middle_button (manager, device, g_settings_get_boolean (manager->priv->mouse_settings, KEY_MIDDLE_BUTTON_EMULATION));
+
+        set_tap_to_click (device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK), touchpad_left_handed);
+        set_scroll_method (manager, device, g_settings_get_enum (manager->priv->touchpad_settings, KEY_SCROLL_METHOD));
+        set_horiz_scroll (device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_PAD_HORIZ_SCROLL));
+        set_natural_scroll (manager, device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_NATURAL_SCROLL_ENABLED));
+        if (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED) == FALSE)
+                set_touchpad_disabled (device);
 }
 
 static void
