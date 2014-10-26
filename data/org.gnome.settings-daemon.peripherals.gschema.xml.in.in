@@ -4,6 +4,7 @@
     <child name="touchpad" schema="org.gnome.settings-daemon.peripherals.touchpad"/>
     <child name="keyboard" schema="org.gnome.settings-daemon.peripherals.keyboard"/>
     <child name="mouse" schema="org.gnome.settings-daemon.peripherals.mouse"/>
+    <child name="trackball" schema="org.gnome.settings-daemon.peripherals.trackball"/>
     <child name="touchscreen" schema="org.gnome.settings-daemon.peripherals.touchscreen"/>
     <child name="input-devices" schema="org.gnome.settings-daemon.peripherals.input-devices"/>
   </schema>
@@ -147,6 +148,13 @@
     <key name="orientation-lock" type="b">
       <default>false</default>
       <_summary>Whether the tablet's orientation is locked, or rotated automatically.</_summary>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.trackball" path="/org/gnome/settings-daemon/peripherals/trackball/">
+    <key name="scroll-wheel-emulation-button" type="i">
+      <default>0</default>
+      <range min="0" max="24"/>
+      <_summary>Mouse wheel emulation button. 0 to disable the feature.</_summary>
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.input-devices" path="/org/gnome/settings-daemon/peripherals/input-devices/">

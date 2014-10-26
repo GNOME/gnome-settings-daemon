@@ -55,6 +55,7 @@
 
 #define SETTINGS_MOUSE_DIR         "org.gnome.settings-daemon.peripherals.mouse"
 #define SETTINGS_TOUCHPAD_DIR      "org.gnome.settings-daemon.peripherals.touchpad"
+#define SETTINGS_TRACKBALL_DIR     "org.gnome.settings-daemon.peripherals.trackball"
 
 /* Keys for both touchpad and mouse */
 #define KEY_LEFT_HANDED         "left-handed"                /* a boolean for mouse, an enum for touchpad */
@@ -75,12 +76,16 @@
 #define KEY_SECONDARY_CLICK_ENABLED      "secondary-click-enabled"
 #define KEY_MIDDLE_BUTTON_EMULATION      "middle-button-enabled"
 
+/* Trackball settings */
+#define KEY_SCROLL_WHEEL_BUTTON          "scroll-wheel-emulation-button"
+
 struct GsdMouseManagerPrivate
 {
         guint start_idle_id;
         GSettings *touchpad_settings;
         GSettings *mouse_settings;
         GSettings *mouse_a11y_settings;
+        GSettings *trackball_settings;
         GdkDeviceManager *device_manager;
         guint device_added_id;
         guint device_removed_id;
@@ -131,6 +136,38 @@ open_gdk_device (GdkDevice *device)
                 return NULL;
 
         return xdevice;
+}
+
+static gboolean
+device_is_trackball (GdkDevice *device)
+{
+        XDeviceInfo *device_info;
+        gboolean retval = FALSE;
+        gint n_devices;
+        guint i;
+        int id;
+
+        g_object_get (G_OBJECT (device), "device-id", &id, NULL);
+
+        gdk_error_trap_push ();
+
+        device_info = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &n_devices);
+        if (device_info == NULL)
+                return retval;
+
+        for (i = 0; i < n_devices; i++) {
+                if (device_info[i].id != id)
+                        continue;
+
+                retval = device_info_is_trackball (&device_info[i]);
+                break;
+        }
+        XFreeDeviceList (device_info);
+
+        if (gdk_error_trap_pop () != 0)
+                return FALSE;
+
+        return retval;
 }
 
 static gboolean
@@ -988,6 +1025,83 @@ set_natural_scroll (GsdMouseManager *manager,
 }
 
 static void
+set_scroll_wheel_button (GsdMouseManager *manager,
+                         GdkDevice       *device)
+{
+        Atom wheel_prop, button_prop;
+        XDevice *xdevice;
+        Atom type;
+        int format;
+        unsigned long nitems, bytes_after;
+        unsigned char *data = NULL;
+        int button;
+        int rc;
+
+        if (!device_is_trackball (device))
+                return;
+
+        xdevice = open_gdk_device (device);
+        if (xdevice == NULL)
+                return;
+
+        wheel_prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                                  "Evdev Wheel Emulation", True);
+        button_prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                                   "Evdev Wheel Emulation Button", True);
+
+        if (!wheel_prop || !button_prop) {
+                xdevice_close (xdevice);
+                return;
+        }
+
+        g_debug ("setting scroll wheel emulation on %s", gdk_device_get_name (device));
+
+        gdk_error_trap_push ();
+
+        button = g_settings_get_int (manager->priv->trackball_settings, KEY_SCROLL_WHEEL_BUTTON);
+
+        /* Whether scroll wheel emulation is enabled */
+        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                                 xdevice, wheel_prop, 0, 1, False, XA_INTEGER, &type, &format,
+                                 &nitems, &bytes_after, &data);
+
+        if (rc == Success && format == 8 && type == XA_INTEGER && nitems == 1) {
+                data[0] = button > 0 ? 1 : 0;
+
+                gdk_error_trap_push ();
+                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                                       xdevice, wheel_prop, type, format, PropModeReplace, data, nitems);
+        }
+
+        if (data) {
+                XFree (data);
+                data = NULL;
+        }
+
+        /* Which button is used for the emulation */
+        if (button > 0) {
+                rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                                         xdevice, button_prop, 0, 1, False, XA_INTEGER, &type, &format,
+                                         &nitems, &bytes_after, &data);
+
+                if (rc == Success && format == 8 && type == XA_INTEGER && nitems == 1) {
+                        data[0] = button;
+
+                        XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                                               xdevice, button_prop, type, format, PropModeReplace, data, nitems);
+                }
+
+                if (data)
+                        XFree (data);
+        }
+
+        if (gdk_error_trap_pop ())
+                g_warning ("Error in setting scroll wheel emulation on \"%s\"", gdk_device_get_name (device));
+
+        xdevice_close (xdevice);
+}
+
+static void
 set_mouse_settings (GsdMouseManager *manager,
                     GdkDevice       *device)
 {
@@ -1006,6 +1120,8 @@ set_mouse_settings (GsdMouseManager *manager,
         set_natural_scroll (manager, device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_NATURAL_SCROLL_ENABLED));
         if (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED) == FALSE)
                 set_touchpad_disabled (device);
+
+        set_scroll_wheel_button (manager, device);
 }
 
 static void
@@ -1109,6 +1225,26 @@ touchpad_callback (GSettings       *settings,
         }
 }
 
+static void
+trackball_callback (GSettings       *settings,
+                    const gchar     *key,
+                    GsdMouseManager *manager)
+{
+        GList *devices, *l;
+
+        devices = gdk_device_manager_list_devices (manager->priv->device_manager, GDK_DEVICE_TYPE_SLAVE);
+
+        for (l = devices; l != NULL; l = l->next) {
+                GdkDevice *device = l->data;
+
+                if (device_is_ignored (manager, device))
+                        continue;
+
+                set_scroll_wheel_button (manager, device);
+        }
+        g_list_free (devices);
+}
+
 /* Re-enable touchpad when any other pointing device isn't present. */
 static void
 ensure_touchpad_active (GsdMouseManager *manager)
@@ -1202,6 +1338,10 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
         g_signal_connect (manager->priv->touchpad_settings, "changed",
                           G_CALLBACK (touchpad_callback), manager);
 
+        manager->priv->trackball_settings = g_settings_new (SETTINGS_TRACKBALL_DIR);
+        g_signal_connect (manager->priv->trackball_settings, "changed",
+                          G_CALLBACK (trackball_callback), manager);
+
         manager->priv->syndaemon_spawned = FALSE;
 
         set_locate_pointer (manager, g_settings_get_boolean (manager->priv->mouse_settings, KEY_LOCATE_POINTER));
@@ -1288,6 +1428,7 @@ gsd_mouse_manager_stop (GsdMouseManager *manager)
         g_clear_object (&p->mouse_a11y_settings);
         g_clear_object (&p->mouse_settings);
         g_clear_object (&p->touchpad_settings);
+        g_clear_object (&p->trackball_settings);
 
         set_locate_pointer (manager, FALSE);
 }
