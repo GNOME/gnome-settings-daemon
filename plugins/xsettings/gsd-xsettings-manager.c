@@ -599,6 +599,14 @@ get_window_scale (GnomeXSettingsManager *manager)
                 if (height < HIDPI_MIN_HEIGHT)
                         goto out;
 
+                /* Somebody encoded the aspect ratio (16/9 or 16/10)
+                 * instead of the physical size */
+                if ((width_mm == 160 && height_mm == 90) ||
+                    (width_mm == 160 && height_mm == 100) ||
+                    (width_mm == 16 && height_mm == 9) ||
+                    (width_mm == 16 && height_mm == 10))
+                        goto out;
+
                 window_scale = 1;
                 if (width_mm > 0 && height_mm > 0) {
                         dpi_x = (double)width / (width_mm / 25.4);
