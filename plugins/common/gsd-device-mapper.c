@@ -124,6 +124,8 @@ enum {
 
 static GnomeRROutput * input_info_find_size_match (GsdInputInfo  *input,
                                                    GnomeRRScreen *rr_screen);
+static void            input_info_update_settings_output (GsdInputInfo *info);
+
 
 static guint signals[N_SIGNALS] = { 0 };
 
@@ -813,6 +815,8 @@ mapper_recalculate_candidates (GsdDeviceMapper *mapper)
 
 	while (g_hash_table_iter_next (&iter, NULL, (gpointer *) &input)) {
 		GnomeRROutput *outputs[N_OUTPUT_PRIORITIES] = { 0 };
+
+		input_info_update_settings_output (input);
 
 		/* Device has an output from settings */
 		if (input->output)
