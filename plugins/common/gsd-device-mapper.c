@@ -940,6 +940,7 @@ input_info_update_settings_output (GsdInputInfo *info)
 		input_info_remap (info);
 	} else {
 		/* Guess an output for this device */
+		input_info_set_output (info, NULL, FALSE, FALSE);
 		mapper_recalculate_input (info->mapper, info);
 	}
 }
