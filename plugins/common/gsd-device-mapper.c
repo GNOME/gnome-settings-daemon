@@ -918,25 +918,39 @@ input_info_update_capabilities (GsdInputInfo *info)
 }
 
 static void
+input_info_update_settings_output (GsdInputInfo *info)
+{
+	GsdOutputInfo *output = NULL;
+	GnomeRROutput *rr_output;
+
+	if (!info->settings || !info->mapper->rr_screen)
+		return;
+
+	rr_output = settings_get_display (info->settings, info->mapper);
+
+	if (rr_output)
+		output = g_hash_table_lookup (info->mapper->output_devices,
+					      rr_output);
+
+	if (output == info->output)
+		return;
+
+	if (output) {
+		input_info_set_output (info, output, FALSE, FALSE);
+		input_info_remap (info);
+	} else {
+		/* Guess an output for this device */
+		mapper_recalculate_input (info->mapper, info);
+	}
+}
+
+static void
 device_settings_changed_cb (GSettings	 *settings,
 			    gchar	 *key,
 			    GsdInputInfo *input)
 {
 	if (g_str_equal (key, KEY_DISPLAY)) {
-		GnomeRROutput *rr_output;
-		GsdOutputInfo *output;
-
-		rr_output = settings_get_display (settings, input->mapper);
-
-		if (rr_output) {
-			output = g_hash_table_lookup (input->mapper->output_devices,
-						      rr_output);
-			input_info_set_output (input, output, FALSE, FALSE);
-			input_info_remap (input);
-		} else if (input->mapper->rr_screen) {
-			/* Guess an output for this device */
-			mapper_recalculate_input (input->mapper, input);
-		}
+		input_info_update_settings_output (input);
 	} else if (g_str_equal (key, KEY_ROTATION)) {
 		/* Remap the device so the new rotation is applied */
 		input_info_remap (input);
@@ -948,8 +962,6 @@ input_info_new (GdkDevice	*device,
 		GSettings	*settings,
 		GsdDeviceMapper *mapper)
 {
-	GnomeRROutput *rr_output = NULL;
-	GsdOutputInfo *output = NULL;
 	GsdInputInfo *info;
 
 	info = g_new0 (GsdInputInfo, 1);
@@ -961,22 +973,10 @@ input_info_new (GdkDevice	*device,
 		info->changed_id = g_signal_connect (info->settings, "changed",
 						     G_CALLBACK (device_settings_changed_cb),
 						     info);
-
-		/* Assign output from config */
-		if (mapper->rr_screen)
-			rr_output = settings_get_display (settings, mapper);
 	}
 
 	input_info_update_capabilities (info);
-
-	if (rr_output) {
-		output = g_hash_table_lookup (mapper->output_devices,
-					      rr_output);
-		input_info_set_output (info, output, FALSE, FALSE);
-		input_info_remap (info);
-	} else if (mapper->rr_screen) {
-		mapper_recalculate_input (mapper, info);
-	}
+	input_info_update_settings_output (info);
 
 	return info;
 }
