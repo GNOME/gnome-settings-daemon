@@ -1,4 +1,29 @@
 ==============
+Version 3.14.2
+==============
+
+- Updated translations
+
+Media-keys:
+- Fixed a few minor leaks
+
+Power:
+- Disable touchscreens when turning off its screen
+
+Smartcard:
+- Fixed a locking issue
+
+Wacom:
+- Fix possible crash in GsdDeviceMapper
+- Make sure that display-less tablets can be set back to mapping to
+  the full desktop extent
+- Make sure that the output is looked up again from settings when the
+  connected outputs change
+
+XSettings:
+- Don't check for hi-dpi on monitors with broken EDID
+
+==============
 Version 3.14.1
 ==============
 
