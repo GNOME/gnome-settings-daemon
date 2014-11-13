@@ -512,6 +512,28 @@ out:
 }
 
 int
+backlight_get_output_id (GnomeRRScreen *rr_screen)
+{
+        GnomeRROutput *output;
+        GnomeRRCrtc *crtc;
+        GdkScreen *gdk_screen;
+        gint x, y;
+
+        output = get_primary_output (rr_screen);
+        if (output == NULL)
+                return -1;
+
+        crtc = gnome_rr_output_get_crtc (output);
+        if (crtc == NULL)
+                return -1;
+
+        gdk_screen = gdk_screen_get_default ();
+        gnome_rr_crtc_get_position (crtc, &x, &y);
+
+        return gdk_screen_get_monitor_at_point (gdk_screen, x, y);
+}
+
+int
 backlight_get_abs (GnomeRRScreen *rr_screen, GError **error)
 {
         GnomeRROutput *output;
