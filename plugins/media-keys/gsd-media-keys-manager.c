@@ -77,6 +77,7 @@
 #define CUSTOM_BINDING_SCHEMA SETTINGS_BINDING_DIR ".custom-keybinding"
 
 #define SHELL_GRABBER_RETRY_INTERVAL 1
+#define OSD_ALL_OUTPUTS -1
 
 static const gchar introspection_xml[] =
 "<node name='/org/gnome/SettingsDaemon/MediaKeys'>"
@@ -307,13 +308,14 @@ static void
 show_osd (GsdMediaKeysManager *manager,
           const char          *icon,
           const char          *label,
-          int                  level)
+          int                  level,
+          int                  output_id)
 {
         if (manager->priv->shell_proxy == NULL)
                 return;
 
         shell_show_osd (manager->priv->shell_proxy,
-                        icon, label, level, -1);
+                        icon, label, level, output_id);
 }
 
 static const char *
@@ -847,7 +849,7 @@ do_eject_action (GsdMediaKeysManager *manager)
         }
 
         /* Show OSD */
-        show_osd (manager, "media-eject-symbolic", NULL, -1);
+        show_osd (manager, "media-eject-symbolic", NULL, -1, OSD_ALL_OUTPUTS);
 
         /* Clean up the drive selection and exit if no suitable
          * drives are found */
@@ -922,7 +924,7 @@ static void
 do_touchpad_osd_action (GsdMediaKeysManager *manager, gboolean state)
 {
         show_osd (manager, state ? "input-touchpad-symbolic"
-                                 : "touchpad-disabled-symbolic", NULL, -1);
+                                 : "touchpad-disabled-symbolic", NULL, -1, OSD_ALL_OUTPUTS);
 }
 
 static void
@@ -1038,9 +1040,9 @@ update_dialog (GsdMediaKeysManager *manager,
              g_strcmp0 (port->port, "analog-output") != 0)) {
                 device = gvc_mixer_control_lookup_device_from_stream (manager->priv->volume, stream);
                 show_osd (manager, icon,
-                          gvc_mixer_ui_device_get_description (device), vol);
+                          gvc_mixer_ui_device_get_description (device), vol, OSD_ALL_OUTPUTS);
         } else {
-                show_osd (manager, icon, NULL, vol);
+                show_osd (manager, icon, NULL, vol, OSD_ALL_OUTPUTS);
         }
 
         if (quiet == FALSE && sound_changed != FALSE && muted == FALSE) {
@@ -1487,7 +1489,7 @@ gsd_media_player_key_pressed (GsdMediaKeysManager *manager,
         if (!have_listeners) {
                 if (!mpris_controller_key (manager->priv->mpris_controller, key)) {
                         /* Popup a dialog with an (/) icon */
-                        show_osd (manager, "action-unavailable-symbolic", NULL, -1);
+                        show_osd (manager, "action-unavailable-symbolic", NULL, -1, OSD_ALL_OUTPUTS);
                 }
 		return TRUE;
         }
@@ -1666,7 +1668,7 @@ do_video_rotate_lock_action (GsdMediaKeysManager *manager,
         g_object_unref (settings);
 
         show_osd (manager, locked ? "rotation-locked-symbolic"
-                                  : "rotation-allowed-symbolic", NULL, -1);
+                                  : "rotation-allowed-symbolic", NULL, -1, OSD_ALL_OUTPUTS);
 }
 
 static void
@@ -1862,7 +1864,7 @@ update_brightness_cb (GObject             *source_object,
                 g_variant_get (variant, "(ii)", &percentage, &output_id);
         }
 
-        show_osd (manager, icon, NULL, percentage);
+        show_osd (manager, icon, NULL, percentage, output_id);
         g_variant_unref (variant);
 }
 
@@ -1937,7 +1939,7 @@ do_battery_action (GsdMediaKeysManager *manager)
 
         if (kind == UP_DEVICE_KIND_UPS || kind == UP_DEVICE_KIND_BATTERY) {
                 g_debug ("showing battery level OSD");
-                show_osd (manager, icon_name, NULL, percentage);
+                show_osd (manager, icon_name, NULL, percentage, OSD_ALL_OUTPUTS);
         }
 
         g_free (icon_name);
