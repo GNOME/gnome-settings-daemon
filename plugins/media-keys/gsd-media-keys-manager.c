@@ -1831,22 +1831,21 @@ update_brightness_cb (GObject             *source_object,
                       gpointer             user_data)
 {
         GError *error = NULL;
-        int percentage;
-        GVariant *new_percentage;
+        int percentage, output_id;
+        GVariant *variant;
         GsdMediaKeysManager *manager = GSD_MEDIA_KEYS_MANAGER (user_data);
         const char *icon, *debug;
 
+        /* update the dialog with the new value */
         if (G_DBUS_PROXY (source_object) == manager->priv->power_keyboard_proxy) {
-                icon = "keyboard-brightness-symbolic";
                 debug = "keyboard";
         } else {
-                icon = "display-brightness-symbolic";
                 debug = "screen";
         }
 
-        new_percentage = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
-                                                   res, &error);
-        if (new_percentage == NULL) {
+        variant = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
+                                        res, &error);
+        if (variant == NULL) {
                 g_warning ("Failed to set new %s percentage: %s",
                            debug, error->message);
                 g_error_free (error);
@@ -1854,9 +1853,17 @@ update_brightness_cb (GObject             *source_object,
         }
 
         /* update the dialog with the new value */
-        g_variant_get (new_percentage, "(i)", &percentage);
+        if (G_DBUS_PROXY (source_object) == manager->priv->power_keyboard_proxy) {
+                icon = "keyboard-brightness-symbolic";
+                output_id = -1;
+                g_variant_get (variant, "(i)", &percentage);
+        } else {
+                icon = "display-brightness-symbolic";
+                g_variant_get (variant, "(ii)", &percentage, &output_id);
+        }
+
         show_osd (manager, icon, NULL, percentage);
-        g_variant_unref (new_percentage);
+        g_variant_unref (variant);
 }
 
 static void
