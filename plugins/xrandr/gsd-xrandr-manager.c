@@ -129,6 +129,7 @@ static void get_allowed_rotations_for_output (GnomeRRConfig *config,
                                               GnomeRRRotation *out_rotations);
 static void handle_fn_f7 (GsdXrandrManager *mgr, gint64 timestamp);
 static void handle_rotate_windows (GsdXrandrManager *mgr, GnomeRRRotation rotation, gint64 timestamp);
+static void register_manager_dbus (GsdXrandrManager *manager);
 
 G_DEFINE_TYPE (GsdXrandrManager, gsd_xrandr_manager, G_TYPE_OBJECT)
 
@@ -1232,6 +1233,7 @@ on_rr_screen_acquired (GObject      *object,
         manager->priv->settings = g_settings_new (CONF_SCHEMA);
 
         manager_init_devices (manager);
+        register_manager_dbus (manager);
 
         log_close ();
 }
@@ -1282,6 +1284,9 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
                 g_object_unref (manager->priv->upower_client);
                 manager->priv->upower_client = NULL;
         }
+
+        if (manager->priv->name_id != 0)
+                g_bus_unown_name (manager->priv->name_id);
 
         if (manager->priv->introspection_data) {
                 g_dbus_node_info_unref (manager->priv->introspection_data);
@@ -1340,9 +1345,6 @@ gsd_xrandr_manager_finalize (GObject *object)
         g_return_if_fail (manager->priv != NULL);
 
         gsd_xrandr_manager_stop (manager);
-
-        if (manager->priv->name_id != 0)
-                g_bus_unown_name (manager->priv->name_id);
 
         G_OBJECT_CLASS (gsd_xrandr_manager_parent_class)->finalize (object);
 }
@@ -1462,8 +1464,6 @@ gsd_xrandr_manager_new (void)
                 manager_object = g_object_new (GSD_TYPE_XRANDR_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
-
-                register_manager_dbus (manager_object);
         }
 
         return GSD_XRANDR_MANAGER (manager_object);
