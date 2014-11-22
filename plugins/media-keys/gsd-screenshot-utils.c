@@ -296,7 +296,7 @@ screenshot_build_filename (void)
   GDateTime *d;
 
   d = g_date_time_new_now_local ();
-  origin = g_date_time_format (d, "%Y-%m-%d %H:%M:%S");
+  origin = g_date_time_format (d, "%Y-%m-%d %H-%M-%S");
   g_date_time_unref (d);
 
   /* translators: this is the name of the file that gets made up
