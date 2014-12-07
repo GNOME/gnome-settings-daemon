@@ -11,14 +11,13 @@
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013.
 # Mate ORY <orymate at gmail d0t com>, 2006.
 # Balázs Úr <urbalazs at gmail dot com>, 2013, 2014.
-# Balázs Úr <urbalazs@gmail.com>, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-09-11 07:33+0000\n"
-"PO-Revision-Date: 2014-09-11 18:48+0200\n"
+"POT-Creation-Date: 2014-12-07 08:30+0000\n"
+"PO-Revision-Date: 2014-12-07 12:45+0100\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
@@ -142,10 +141,14 @@ msgid "Whether the tablet's orientation is locked, or rotated automatically."
 msgstr "A táblagép tájolása zárolt-e, vagy automatikusan elforgatott."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
+msgid "Mouse wheel emulation button. 0 to disable the feature."
+msgstr "Egérgörgő emulációs gomb. 0 értékkel letiltható a funkció."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
 msgid "Device hotplug custom command"
 msgstr "Eszközcsatlakoztatási egyéni parancs"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:23
 msgid ""
 "Command to be run when a device is added or removed. An exit value of 1 "
 "means that the device will not be handled further by gnome-settings-daemon."
@@ -491,12 +494,10 @@ msgid "Binding to launch the calculator."
 msgstr "Gyorsbillentyű a számológép indításához."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
-#| msgid "Wacom Settings"
 msgid "Launch settings"
 msgstr "Indítási beállítások"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
-#| msgid "Binding to launch the search tool."
 msgid "Binding to launch GNOME settings."
 msgstr "Gyorsbillentyű a GNOME beállítások indításához."
 
@@ -1212,7 +1213,7 @@ msgstr "Billentyűzet"
 msgid "Keyboard plugin"
 msgstr "Billentyűzet bővítmény"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:1975
+#: ../plugins/media-keys/gsd-media-keys-manager.c:1984
 msgid "Screencast from %d %t.webm"
 msgstr "Képernyővideó ekkor: %d %t.webm"
 
@@ -1269,113 +1270,113 @@ msgstr "Médiabillentyűk"
 msgid "Media keys plugin"
 msgstr "Médiabillentyűk bővítmény"
 
-#: ../plugins/media-keys/shortcuts-list.h:43
+#: ../plugins/media-keys/shortcuts-list.h:44
 msgid "Touchpad toggle"
 msgstr "Érintőtábla átváltása"
 
-#: ../plugins/media-keys/shortcuts-list.h:44
+#: ../plugins/media-keys/shortcuts-list.h:45
 msgid "Touchpad On"
 msgstr "Érintőtábla be"
 
-#: ../plugins/media-keys/shortcuts-list.h:45
+#: ../plugins/media-keys/shortcuts-list.h:46
 msgid "Touchpad Off"
 msgstr "Érintőtábla ki"
 
-#: ../plugins/media-keys/shortcuts-list.h:49
 #: ../plugins/media-keys/shortcuts-list.h:50
+#: ../plugins/media-keys/shortcuts-list.h:51
 msgid "Microphone Mute"
 msgstr "Mikrofon némítása"
 
-#: ../plugins/media-keys/shortcuts-list.h:51
+#: ../plugins/media-keys/shortcuts-list.h:52
 msgid "Quiet Volume Mute"
 msgstr "Alacsony hangerő némítása"
 
-#: ../plugins/media-keys/shortcuts-list.h:52
+#: ../plugins/media-keys/shortcuts-list.h:53
 msgid "Quiet Volume Down"
 msgstr "Alacsony hangerő halkítása"
 
-#: ../plugins/media-keys/shortcuts-list.h:53
+#: ../plugins/media-keys/shortcuts-list.h:54
 msgid "Quiet Volume Up"
 msgstr "Alacsony hangerő hangosítása"
 
-#: ../plugins/media-keys/shortcuts-list.h:63
+#: ../plugins/media-keys/shortcuts-list.h:64
 msgid "Lock Screen"
 msgstr "Képernyő zárolása"
 
-#: ../plugins/media-keys/shortcuts-list.h:78
+#: ../plugins/media-keys/shortcuts-list.h:79
 msgid "Rewind"
 msgstr "Visszatekerés"
 
-#: ../plugins/media-keys/shortcuts-list.h:79
+#: ../plugins/media-keys/shortcuts-list.h:80
 msgid "Forward"
 msgstr "Előre"
 
-#: ../plugins/media-keys/shortcuts-list.h:80
+#: ../plugins/media-keys/shortcuts-list.h:81
 msgid "Repeat"
 msgstr "Ismétlés"
 
-#: ../plugins/media-keys/shortcuts-list.h:81
+#: ../plugins/media-keys/shortcuts-list.h:82
 msgid "Random Play"
 msgstr "Véletlenszerű lejátszás"
 
 #. Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.)
-#: ../plugins/media-keys/shortcuts-list.h:82
-#: ../plugins/media-keys/shortcuts-list.h:84
+#: ../plugins/media-keys/shortcuts-list.h:83
+#: ../plugins/media-keys/shortcuts-list.h:85
 msgid "Video Out"
 msgstr "Video ki"
 
 #. Key code of the XF86RotateWindows key (present on some tablets)
-#: ../plugins/media-keys/shortcuts-list.h:86
+#: ../plugins/media-keys/shortcuts-list.h:87
 msgid "Rotate Screen"
 msgstr "Képernyő forgatása"
 
-#: ../plugins/media-keys/shortcuts-list.h:87
+#: ../plugins/media-keys/shortcuts-list.h:88
 msgid "Orientation Lock"
 msgstr "Tájolás zárolása"
 
-#: ../plugins/media-keys/shortcuts-list.h:96
-#: ../plugins/media-keys/shortcuts-list.h:102
+#: ../plugins/media-keys/shortcuts-list.h:97
+#: ../plugins/media-keys/shortcuts-list.h:103
 msgid "Power Off"
 msgstr "Kikapcsolás"
 
 #. the kernel / Xorg names really are like this...
 #. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
-#: ../plugins/media-keys/shortcuts-list.h:99
-#: ../plugins/media-keys/shortcuts-list.h:105
+#: ../plugins/media-keys/shortcuts-list.h:100
+#: ../plugins/media-keys/shortcuts-list.h:106
 msgid "Sleep"
 msgstr "Alvás"
 
-#: ../plugins/media-keys/shortcuts-list.h:100
-#: ../plugins/media-keys/shortcuts-list.h:106
+#: ../plugins/media-keys/shortcuts-list.h:101
+#: ../plugins/media-keys/shortcuts-list.h:107
 msgid "Suspend"
 msgstr "Felfüggesztés"
 
-#: ../plugins/media-keys/shortcuts-list.h:101
-#: ../plugins/media-keys/shortcuts-list.h:107
+#: ../plugins/media-keys/shortcuts-list.h:102
+#: ../plugins/media-keys/shortcuts-list.h:108
 msgid "Hibernate"
 msgstr "Hibernálás"
 
-#: ../plugins/media-keys/shortcuts-list.h:108
+#: ../plugins/media-keys/shortcuts-list.h:109
 msgid "Brightness Up"
 msgstr "Fényerő növelése"
 
-#: ../plugins/media-keys/shortcuts-list.h:109
+#: ../plugins/media-keys/shortcuts-list.h:110
 msgid "Brightness Down"
 msgstr "Fényerő csökkentése"
 
-#: ../plugins/media-keys/shortcuts-list.h:110
+#: ../plugins/media-keys/shortcuts-list.h:111
 msgid "Keyboard Brightness Up"
 msgstr "Billentyűzet-fényerő növelése"
 
-#: ../plugins/media-keys/shortcuts-list.h:111
+#: ../plugins/media-keys/shortcuts-list.h:112
 msgid "Keyboard Brightness Down"
 msgstr "Billentyűzet-fényerő csökkentése"
 
-#: ../plugins/media-keys/shortcuts-list.h:112
+#: ../plugins/media-keys/shortcuts-list.h:113
 msgid "Keyboard Brightness Toggle"
 msgstr "Billentyűzet-fényerő átváltása"
 
-#: ../plugins/media-keys/shortcuts-list.h:113
+#: ../plugins/media-keys/shortcuts-list.h:114
 msgid "Battery Status"
 msgstr "Akkumulátor állapota"
 
@@ -1434,59 +1435,59 @@ msgstr[0] "perc"
 msgstr[1] "perc"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:857 ../plugins/power/gsd-power-manager.c:666
-#: ../plugins/power/gsd-power-manager.c:766
+#: ../plugins/power/gpm-common.c:879 ../plugins/power/gsd-power-manager.c:670
+#: ../plugins/power/gsd-power-manager.c:770
 msgid "Battery is critically low"
 msgstr "Az akkumulátor kritikusan gyenge"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:326
+#: ../plugins/power/gsd-power-manager.c:330
 msgid "UPS Discharging"
 msgstr "A szünetmentes táp kisül"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:331
+#: ../plugins/power/gsd-power-manager.c:335
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "%s szünetmentes tápellátás van hátra"
 
-#: ../plugins/power/gsd-power-manager.c:334
+#: ../plugins/power/gsd-power-manager.c:338
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "Ismeretlen a szünetmentes tápellátás hátralévő mennyisége"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:350
-#: ../plugins/power/gsd-power-manager.c:498
-#: ../plugins/power/gsd-power-manager.c:649
-#: ../plugins/power/gsd-power-manager.c:757
-#: ../plugins/power/gsd-power-manager.c:1950
+#: ../plugins/power/gsd-power-manager.c:354
+#: ../plugins/power/gsd-power-manager.c:502
+#: ../plugins/power/gsd-power-manager.c:653
+#: ../plugins/power/gsd-power-manager.c:761
+#: ../plugins/power/gsd-power-manager.c:2002
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Energiagazdálkodás"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:413
+#: ../plugins/power/gsd-power-manager.c:417
 msgid "Battery low"
 msgstr "Az akkumulátor gyenge"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:416
+#: ../plugins/power/gsd-power-manager.c:420
 msgid "Laptop battery low"
 msgstr "A noteszgép-akkumulátor gyenge"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:423
+#: ../plugins/power/gsd-power-manager.c:427
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "Megközelítőleg %s van hátra (%.0lf%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:428
+#: ../plugins/power/gsd-power-manager.c:432
 msgid "UPS low"
 msgstr "A szünetmentes táp gyenge"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:434
+#: ../plugins/power/gsd-power-manager.c:438
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr ""
@@ -1495,132 +1496,132 @@ msgstr ""
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:439
-#: ../plugins/power/gsd-power-manager.c:576
+#: ../plugins/power/gsd-power-manager.c:443
+#: ../plugins/power/gsd-power-manager.c:580
 msgid "Mouse battery low"
 msgstr "Az egér akkumulátora gyenge"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:442
+#: ../plugins/power/gsd-power-manager.c:446
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "A vezeték nélküli egér akkumulátora gyenge (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:446
-#: ../plugins/power/gsd-power-manager.c:584
+#: ../plugins/power/gsd-power-manager.c:450
+#: ../plugins/power/gsd-power-manager.c:588
 msgid "Keyboard battery low"
 msgstr "A billentyűzet akkumulátora gyenge"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:449
+#: ../plugins/power/gsd-power-manager.c:453
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "A vezeték nélküli billentyűzet akkumulátora gyenge (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:453
-#: ../plugins/power/gsd-power-manager.c:593
+#: ../plugins/power/gsd-power-manager.c:457
+#: ../plugins/power/gsd-power-manager.c:597
 msgid "PDA battery low"
 msgstr "A PDA akkumulátora gyenge"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:456
+#: ../plugins/power/gsd-power-manager.c:460
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "A PDA akkumulátora gyenge (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:460
-#: ../plugins/power/gsd-power-manager.c:603
-#: ../plugins/power/gsd-power-manager.c:612
+#: ../plugins/power/gsd-power-manager.c:464
+#: ../plugins/power/gsd-power-manager.c:607
+#: ../plugins/power/gsd-power-manager.c:616
 msgid "Cell phone battery low"
 msgstr "A mobiltelefon akkumulátora gyenge"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:463
+#: ../plugins/power/gsd-power-manager.c:467
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "A mobiltelefon akkumulátora gyenge (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:467
+#: ../plugins/power/gsd-power-manager.c:471
 msgid "Media player battery low"
 msgstr "A médialejátszó akkumulátora gyenge"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:470
+#: ../plugins/power/gsd-power-manager.c:474
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "A médialejátszó akkumulátora gyenge (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:474
-#: ../plugins/power/gsd-power-manager.c:621
+#: ../plugins/power/gsd-power-manager.c:478
+#: ../plugins/power/gsd-power-manager.c:625
 msgid "Tablet battery low"
 msgstr "A táblagép akkumulátora gyenge"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:477
+#: ../plugins/power/gsd-power-manager.c:481
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "A táblagép akkumulátora gyenge (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:481
-#: ../plugins/power/gsd-power-manager.c:630
+#: ../plugins/power/gsd-power-manager.c:485
+#: ../plugins/power/gsd-power-manager.c:634
 msgid "Attached computer battery low"
 msgstr "A csatlakozó számítógép akkumulátora gyenge"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:484
+#: ../plugins/power/gsd-power-manager.c:488
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "A csatlakozó számítógép akkumulátora gyenge (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:508
+#: ../plugins/power/gsd-power-manager.c:512
 msgid "Battery is low"
 msgstr "Az akkumulátor gyenge"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:540
+#: ../plugins/power/gsd-power-manager.c:544
 msgid "Battery critically low"
 msgstr "Az akkumulátor kritikusan gyenge"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:543
-#: ../plugins/power/gsd-power-manager.c:693
+#: ../plugins/power/gsd-power-manager.c:547
+#: ../plugins/power/gsd-power-manager.c:697
 msgid "Laptop battery critically low"
 msgstr "A noteszgép akkumulátora kritikusan gyenge"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:552
+#: ../plugins/power/gsd-power-manager.c:556
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr "A számítógép hamarosan hibernálva lesz, ha nem csatlakoztatja."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:556
+#: ../plugins/power/gsd-power-manager.c:560
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "A számítógép hamarosan leáll, ha nem csatlakoztatja."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:564
-#: ../plugins/power/gsd-power-manager.c:718
+#: ../plugins/power/gsd-power-manager.c:568
+#: ../plugins/power/gsd-power-manager.c:722
 msgid "UPS critically low"
 msgstr "A szünetmentes táp kritikusan gyenge"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:570
+#: ../plugins/power/gsd-power-manager.c:574
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1631,7 +1632,7 @@ msgstr ""
 "tápellátást."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:579
+#: ../plugins/power/gsd-power-manager.c:583
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1641,7 +1642,7 @@ msgstr ""
 "fel, az eszköz le fog állni."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:587
+#: ../plugins/power/gsd-power-manager.c:591
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1651,7 +1652,7 @@ msgstr ""
 "tölti fel, az eszköz le fog állni."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:596
+#: ../plugins/power/gsd-power-manager.c:600
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1661,7 +1662,7 @@ msgstr ""
 "fog állni."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:606
+#: ../plugins/power/gsd-power-manager.c:610
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -1671,7 +1672,7 @@ msgstr ""
 "eszköz le fog állni."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:615
+#: ../plugins/power/gsd-power-manager.c:619
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -1681,7 +1682,7 @@ msgstr ""
 "eszköz le fog állni."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:624
+#: ../plugins/power/gsd-power-manager.c:628
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -1691,7 +1692,7 @@ msgstr ""
 "le fog állni."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:633
+#: ../plugins/power/gsd-power-manager.c:637
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -1701,7 +1702,7 @@ msgstr ""
 "fel, az eszköz le fog állni."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:701
+#: ../plugins/power/gsd-power-manager.c:705
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -1710,7 +1711,7 @@ msgstr ""
 "készül."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:706
+#: ../plugins/power/gsd-power-manager.c:710
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -1719,7 +1720,7 @@ msgstr ""
 "készül."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:726
+#: ../plugins/power/gsd-power-manager.c:730
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
@@ -1727,51 +1728,50 @@ msgstr ""
 "hibernálásra készül."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:731
+#: ../plugins/power/gsd-power-manager.c:735
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "A szünetmentes táp kapacitása a kritikus szint alá esett, és a gép leállni "
 "készül."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1150
+#: ../plugins/power/gsd-power-manager.c:1200
 msgid "Lid has been opened"
 msgstr "Fedél kinyitva"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1188
+#: ../plugins/power/gsd-power-manager.c:1238
 msgid "Lid has been closed"
 msgstr "Fedél lezárva"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1749
-#| msgid "PDA battery low"
+#: ../plugins/power/gsd-power-manager.c:1799
 msgid "On battery power"
 msgstr "Akkumulátoron"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1754
+#: ../plugins/power/gsd-power-manager.c:1804
 msgid "On AC power"
 msgstr "Hálózaton"
 
-#: ../plugins/power/gsd-power-manager.c:1928
+#: ../plugins/power/gsd-power-manager.c:1980
 msgid "Automatic logout"
 msgstr "Automatikus kijelentkezés"
 
-#: ../plugins/power/gsd-power-manager.c:1928
+#: ../plugins/power/gsd-power-manager.c:1980
 msgid "You will soon log out because of inactivity."
 msgstr "Hamarosan kijelentkezik inaktivitás miatt."
 
-#: ../plugins/power/gsd-power-manager.c:1933
+#: ../plugins/power/gsd-power-manager.c:1985
 msgid "Automatic suspend"
 msgstr "Automatikus felfüggesztés"
 
-#: ../plugins/power/gsd-power-manager.c:1933
-#: ../plugins/power/gsd-power-manager.c:1938
+#: ../plugins/power/gsd-power-manager.c:1985
+#: ../plugins/power/gsd-power-manager.c:1990
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "A számítógép inaktivitás miatt hamarosan fel lesz függesztve."
 
-#: ../plugins/power/gsd-power-manager.c:1938
+#: ../plugins/power/gsd-power-manager.c:1990
 msgid "Automatic hibernation"
 msgstr "Automatikus hibernálás"
 
@@ -2306,7 +2306,7 @@ msgstr "Wacom"
 msgid "Wacom plugin"
 msgstr "Wacom bővítmény"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:958
+#: ../plugins/xrandr/gsd-xrandr-manager.c:965
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "A kijelzőinformációk nem frissíthetők: %s"
