@@ -36,7 +36,7 @@ libmedia_keys_la_SOURCES = 		\
 	gsd-screenshot-utils.c		\
 	shortcuts-list.h		\
 	media-keys.h			\
-	shell-keybinding-modes.h	\
+	shell-action-modes.h		\
 	bus-watch-namespace.c		\
 	bus-watch-namespace.h		\
 	mpris-controller.c		\

@@ -122,7 +122,7 @@ typedef struct {
 
 typedef struct {
         MediaKeyType key_type;
-        ShellKeyBindingMode modes;
+        ShellActionMode modes;
         const char *settings_key;
         const char *hard_coded;
         char *custom_path;
@@ -564,7 +564,7 @@ media_key_new_for_path (GsdMediaKeysManager *manager,
 
         key = g_new0 (MediaKey, 1);
         key->key_type = CUSTOM_KEY;
-        key->modes = GSD_KEYBINDING_MODE_LAUNCHER;
+        key->modes = GSD_ACTION_MODE_LAUNCHER;
         key->custom_path = g_strdup (path);
         key->custom_command = command;
 
