@@ -2191,11 +2191,20 @@ do_action (GsdMediaKeysManager *manager,
 static void
 on_accelerator_activated (ShellKeyGrabber     *grabber,
                           guint                accel_id,
-                          guint                deviceid,
-                          guint                timestamp,
+                          GVariant            *parameters,
                           GsdMediaKeysManager *manager)
 {
+        GVariantDict dict;
         guint i;
+        guint deviceid;
+        guint timestamp;
+
+        g_variant_dict_init (&dict, parameters);
+
+        if (!g_variant_dict_lookup (&dict, "device-id", "u", &deviceid))
+              deviceid = 0;
+        if (!g_variant_dict_lookup (&dict, "timestamp", "u", &timestamp))
+              timestamp = GDK_CURRENT_TIME;
 
         for (i = 0; i < manager->priv->keys->len; i++) {
                 MediaKey *key;
