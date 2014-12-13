@@ -22,11 +22,11 @@ gsd-marshal.h: gsd-marshal.list
 	$(AM_V_GEN) $(GLIB_GENMARSHAL) --prefix=gsd_marshal $< --header --internal > $@
 
 shell-key-grabber.c: shell-key-grabber.h
-shell-key-grabber.h: Makefile.am org.gnome.ShellKeyGrabber.xml
-	gdbus-codegen --interface-prefix org.gnome.		\
+shell-key-grabber.h: Makefile.am org.gnome.Shell.KeyGrabber.xml
+	gdbus-codegen --interface-prefix org.gnome.Shell	\
 	              --generate-c-code shell-key-grabber	\
 	              --c-namespace Shell			\
-	              $(srcdir)/org.gnome.ShellKeyGrabber.xml
+	              $(srcdir)/org.gnome.Shell.KeyGrabber.xml
 
 libmedia_keys_la_SOURCES = 		\
 	gsd-media-keys-plugin.c		\
@@ -122,7 +122,7 @@ gsd_test_media_keys_LDADD = \
 EXTRA_DIST = 				\
 	gsd-marshal.list		\
 	README.media-keys-API		\
-	org.gnome.ShellKeyGrabber.xml	\
+	org.gnome.Shell.KeyGrabber.xml	\
 	$(plugin_in_files)
 
 CLEANFILES = 			\

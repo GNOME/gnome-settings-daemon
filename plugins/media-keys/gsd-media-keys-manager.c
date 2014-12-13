@@ -74,6 +74,9 @@
 #define SHELL_DBUS_NAME "org.gnome.Shell"
 #define SHELL_DBUS_PATH "/org/gnome/Shell"
 
+#define SHELL_KEY_GRABBER_DBUS_NAME "org.gnome.Shell.KeyGrabber"
+#define SHELL_KEY_GRABBER_DBUS_PATH "/org/gnome/Shell/KeyGrabber"
+
 #define CUSTOM_BINDING_SCHEMA SETTINGS_BINDING_DIR ".custom-keybinding"
 
 #define SHELL_GRABBER_RETRY_INTERVAL 1
@@ -172,6 +175,7 @@ struct GsdMediaKeysManagerPrivate
         GsdShellOSD     *shell_osd_proxy;
 
         /* Shell KeyGrabber stuff */
+        gint             key_grabber_id;
         ShellKeyGrabber *key_grabber;
         GCancellable    *grab_cancellable;
 
@@ -2315,13 +2319,6 @@ shell_presence_changed (GsdMediaKeysManager *manager)
         name_owner = g_dbus_proxy_get_name_owner (G_DBUS_PROXY (manager->priv->shell_proxy));
 
         if (name_owner) {
-                shell_key_grabber_proxy_new_for_bus (G_BUS_TYPE_SESSION,
-                                                     0,
-                                                     name_owner,
-                                                     SHELL_DBUS_PATH,
-                                                     manager->priv->grab_cancellable,
-                                                     on_key_grabber_ready, manager);
-
                 g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
                                           0, NULL,
                                           name_owner,
@@ -2331,8 +2328,6 @@ shell_presence_changed (GsdMediaKeysManager *manager)
                                           on_screencast_proxy_ready, manager);
                 g_free (name_owner);
         } else {
-                g_ptr_array_set_size (manager->priv->keys, 0);
-                g_clear_object (&manager->priv->key_grabber);
                 g_clear_object (&manager->priv->screencast_proxy);
         }
 }
@@ -2554,6 +2549,35 @@ inhibit_done (GObject      *source,
 }
 
 static void
+on_shell_key_grabber_name_appeared (GDBusConnection *connection,
+                                    const gchar     *name,
+                                    const gchar     *name_owner,
+                                    gpointer         user_data)
+{
+        GsdMediaKeysManager *manager = GSD_MEDIA_KEYS_MANAGER (user_data);
+
+        shell_key_grabber_proxy_new_for_bus (G_BUS_TYPE_SESSION,
+                                             0,
+                                             SHELL_KEY_GRABBER_DBUS_NAME,
+                                             SHELL_KEY_GRABBER_DBUS_PATH,
+                                             manager->priv->grab_cancellable,
+                                             on_key_grabber_ready,
+                                             manager);
+}
+
+static void
+on_shell_key_grabber_name_vanished (GDBusConnection *connection,
+                                    const gchar     *name,
+                                    gpointer         user_data)
+{
+        GsdMediaKeysManager *manager = GSD_MEDIA_KEYS_MANAGER (user_data);
+
+        if (manager->priv->keys != NULL)
+                g_ptr_array_set_size (manager->priv->keys, 0);
+        g_clear_object (&manager->priv->key_grabber);
+}
+
+static void
 gsd_media_keys_manager_init (GsdMediaKeysManager *manager)
 {
         GError *error;
@@ -2604,6 +2628,13 @@ gsd_media_keys_manager_init (GsdMediaKeysManager *manager)
                                              inhibit_done,
                                              manager);
 
+        manager->priv->key_grabber_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
+                                                          SHELL_KEY_GRABBER_DBUS_NAME,
+                                                          G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                                          on_shell_key_grabber_name_appeared,
+                                                          on_shell_key_grabber_name_vanished,
+                                                          manager,
+                                                          NULL);
 }
 
 static void
@@ -2625,6 +2656,11 @@ gsd_media_keys_manager_finalize (GObject *object)
 
         g_clear_object (&media_keys_manager->priv->logind_proxy);
         g_clear_object (&media_keys_manager->priv->screen_saver_proxy);
+
+        if (media_keys_manager->priv->key_grabber_id != 0) {
+                g_bus_unwatch_name (media_keys_manager->priv->key_grabber_id);
+                media_keys_manager->priv->key_grabber_id = 0;
+        }
 
         G_OBJECT_CLASS (gsd_media_keys_manager_parent_class)->finalize (object);
 }
