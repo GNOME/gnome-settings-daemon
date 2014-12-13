@@ -74,6 +74,9 @@
 #define SHELL_DBUS_NAME "org.gnome.Shell"
 #define SHELL_DBUS_PATH "/org/gnome/Shell"
 
+#define SHELL_SCREENCAST_DBUS_NAME "org.gnome.Shell.Screencast"
+#define SHELL_SCREENCAST_DBUS_PATH "/org/gnome/Shell/Screencast"
+
 #define SHELL_KEY_GRABBER_DBUS_NAME "org.gnome.Shell.KeyGrabber"
 #define SHELL_KEY_GRABBER_DBUS_PATH "/org/gnome/Shell/KeyGrabber"
 
@@ -183,6 +186,7 @@ struct GsdMediaKeysManagerPrivate
         GsdScreenSaver  *screen_saver_proxy;
 
         /* Screencast stuff */
+        gint             screencast_id;
         GDBusProxy      *screencast_proxy;
         guint            screencast_timeout_id;
         gboolean         screencast_recording;
@@ -2311,27 +2315,6 @@ on_key_grabber_ready (GObject      *source,
         init_kbd (manager);
 }
 
-static void
-shell_presence_changed (GsdMediaKeysManager *manager)
-{
-        gchar *name_owner;
-
-        name_owner = g_dbus_proxy_get_name_owner (G_DBUS_PROXY (manager->priv->shell_proxy));
-
-        if (name_owner) {
-                g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
-                                          0, NULL,
-                                          name_owner,
-                                          SHELL_DBUS_PATH "/Screencast",
-                                          SHELL_DBUS_NAME ".Screencast",
-                                          manager->priv->screencast_cancellable,
-                                          on_screencast_proxy_ready, manager);
-                g_free (name_owner);
-        } else {
-                g_clear_object (&manager->priv->screencast_proxy);
-        }
-}
-
 static gboolean
 start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 {
@@ -2372,10 +2355,6 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
         ensure_cancellable (&manager->priv->screencast_cancellable);
 
         manager->priv->shell_proxy = gnome_settings_bus_get_shell_proxy ();
-        g_signal_connect_swapped (manager->priv->shell_proxy, "notify::g-name-owner",
-                                  G_CALLBACK (shell_presence_changed), manager);
-        shell_presence_changed (manager);
-
         manager->priv->shell_osd_proxy = gnome_settings_bus_get_shell_osd_proxy ();
 
         g_debug ("Starting mpris controller");
@@ -2578,6 +2557,35 @@ on_shell_key_grabber_name_vanished (GDBusConnection *connection,
 }
 
 static void
+on_shell_screencast_name_appeared (GDBusConnection *connection,
+                                   const gchar     *name,
+                                   const gchar     *name_owner,
+                                   gpointer         user_data)
+{
+        GsdMediaKeysManager *manager = GSD_MEDIA_KEYS_MANAGER (user_data);
+
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
+                                  0,
+                                  NULL,
+                                  SHELL_SCREENCAST_DBUS_NAME,
+                                  SHELL_SCREENCAST_DBUS_PATH,
+                                  SHELL_SCREENCAST_DBUS_NAME,
+                                  manager->priv->screencast_cancellable,
+                                  on_screencast_proxy_ready,
+                                  manager);
+}
+
+static void
+on_shell_screencast_name_vanished (GDBusConnection *connection,
+                                   const gchar     *name,
+                                   gpointer         user_data)
+{
+        GsdMediaKeysManager *manager = GSD_MEDIA_KEYS_MANAGER (user_data);
+
+        g_clear_object (&manager->priv->screencast_proxy);
+}
+
+static void
 gsd_media_keys_manager_init (GsdMediaKeysManager *manager)
 {
         GError *error;
@@ -2635,6 +2643,14 @@ gsd_media_keys_manager_init (GsdMediaKeysManager *manager)
                                                           on_shell_key_grabber_name_vanished,
                                                           manager,
                                                           NULL);
+
+        manager->priv->screencast_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
+                                                         SHELL_SCREENCAST_DBUS_NAME,
+                                                         G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                                         on_shell_screencast_name_appeared,
+                                                         on_shell_screencast_name_vanished,
+                                                         manager,
+                                                         NULL);
 }
 
 static void
@@ -2660,6 +2676,11 @@ gsd_media_keys_manager_finalize (GObject *object)
         if (media_keys_manager->priv->key_grabber_id != 0) {
                 g_bus_unwatch_name (media_keys_manager->priv->key_grabber_id);
                 media_keys_manager->priv->key_grabber_id = 0;
+        }
+
+        if (media_keys_manager->priv->screencast_id != 0) {
+                g_bus_unwatch_name (media_keys_manager->priv->screencast_id);
+                media_keys_manager->priv->screencast_id = 0;
         }
 
         G_OBJECT_CLASS (gsd_media_keys_manager_parent_class)->finalize (object);
