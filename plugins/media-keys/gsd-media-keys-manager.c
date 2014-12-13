@@ -167,6 +167,11 @@ struct GsdMediaKeysManagerPrivate
 
         /* Shell stuff */
         GsdShell        *shell_proxy;
+
+        /* Shell OSD stuff */
+        GsdShellOSD     *shell_osd_proxy;
+
+        /* Shell KeyGrabber stuff */
         ShellKeyGrabber *key_grabber;
         GCancellable    *grab_cancellable;
 
@@ -311,10 +316,10 @@ show_osd (GsdMediaKeysManager *manager,
           int                  level,
           int                  output_id)
 {
-        if (manager->priv->shell_proxy == NULL)
+        if (manager->priv->shell_osd_proxy == NULL)
                 return;
 
-        shell_show_osd (manager->priv->shell_proxy,
+        shell_show_osd (manager->priv->shell_osd_proxy,
                         icon, label, level, output_id);
 }
 
@@ -2376,6 +2381,8 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
                                   G_CALLBACK (shell_presence_changed), manager);
         shell_presence_changed (manager);
 
+        manager->priv->shell_osd_proxy = gnome_settings_bus_get_shell_osd_proxy ();
+
         g_debug ("Starting mpris controller");
         manager->priv->mpris_controller = mpris_controller_new ();
 
@@ -2504,6 +2511,7 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         }
 
         g_clear_object (&priv->shell_proxy);
+        g_clear_object (&priv->shell_osd_proxy);
 }
 
 static void
