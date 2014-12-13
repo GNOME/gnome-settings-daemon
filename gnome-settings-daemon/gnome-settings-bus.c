@@ -42,6 +42,9 @@
 #define GNOME_SHELL_DBUS_NAME      "org.gnome.Shell"
 #define GNOME_SHELL_DBUS_OBJECT    "/org/gnome/Shell"
 
+#define GNOME_SHELL_OSD_DBUS_NAME   "org.gnome.Shell.OSD"
+#define GNOME_SHELL_OSD_DBUS_OBJECT "/org/gnome/Shell/OSD"
+
 GsdSessionManager *
 gnome_settings_bus_get_session_proxy (void)
 {
@@ -120,6 +123,33 @@ gnome_settings_bus_get_shell_proxy (void)
         }
 
         return shell_proxy;
+}
+
+GsdShellOSD *
+gnome_settings_bus_get_shell_osd_proxy (void)
+{
+        static GsdShellOSD *proxy = NULL;
+        GError *error =  NULL;
+
+        if (proxy != NULL) {
+                g_object_ref (proxy);
+        } else {
+                proxy = gsd_shell_osd_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
+                                                              G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES |
+                                                              G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START,
+                                                              GNOME_SHELL_OSD_DBUS_NAME,
+                                                              GNOME_SHELL_OSD_DBUS_OBJECT,
+                                                              NULL,
+                                                              &error);
+                if (error) {
+                        g_warning ("Failed to connect to the shell osd: %s", error->message);
+                        g_error_free (error);
+                } else {
+                        g_object_add_weak_pointer (G_OBJECT (proxy), (gpointer*)&proxy);
+                }
+        }
+
+        return proxy;
 }
 
 char *

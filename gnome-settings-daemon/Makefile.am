@@ -58,10 +58,24 @@ $(shell_dbus_built_sources) : Makefile.am org.gnome.Shell.xml
 			   "org.gtk.GDBus.C.Name" Shell		\
 		$(srcdir)/org.gnome.Shell.xml
 
+shell_osd_dbus_built_sources = gsd-shell-osd-glue.c gsd-shell-osd-glue.h
+
+BUILT_SOURCES += $(shell_osd_dbus_built_sources)
+
+$(shell_osd_dbus_built_sources) : Makefile.am org.gnome.Shell.OSD.xml
+	gdbus-codegen						\
+		--interface-prefix org.gnome.Shell.OSD		\
+		--generate-c-code gsd-shell-osd-glue		\
+		--c-namespace Gsd				\
+		--annotate "org.gnome.Shell.OSD"		\
+			   "org.gtk.GDBus.C.Name" ShellOSD	\
+		$(srcdir)/org.gnome.Shell.OSD.xml
+
 libgsd_la_SOURCES =		\
 	$(session_manager_dbus_built_sources) \
 	$(screen_saver_dbus_built_sources) \
 	$(shell_dbus_built_sources)	\
+	$(shell_osd_dbus_built_sources)	\
 	gnome-settings-profile.c	\
 	gnome-settings-profile.h	\
 	gnome-settings-bus.c	\
@@ -101,6 +115,7 @@ EXTRA_DIST = \
 	org.gnome.SessionManager.xml        \
 	org.gnome.ScreenSaver.xml           \
 	org.gnome.Shell.xml                 \
+	org.gnome.Shell.OSD.xml             \
 	$(NULL)
 
 gnome-settings-daemon-localeexec: gnome-settings-daemon-localeexec.in

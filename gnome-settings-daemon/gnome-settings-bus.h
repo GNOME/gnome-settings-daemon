@@ -26,12 +26,14 @@
 #include "gsd-session-manager-glue.h"
 #include "gsd-screen-saver-glue.h"
 #include "gsd-shell-glue.h"
+#include "gsd-shell-osd-glue.h"
 
 G_BEGIN_DECLS
 
 GsdSessionManager        *gnome_settings_bus_get_session_proxy       (void);
 GsdScreenSaver           *gnome_settings_bus_get_screen_saver_proxy  (void);
 GsdShell                 *gnome_settings_bus_get_shell_proxy         (void);
+GsdShellOSD              *gnome_settings_bus_get_shell_osd_proxy     (void);
 gboolean                  gnome_settings_is_wayland                  (void);
 char *                    gnome_settings_get_chassis_type            (void);
 

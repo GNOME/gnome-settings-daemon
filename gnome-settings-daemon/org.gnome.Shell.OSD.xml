@@ -25,7 +25,9 @@
 
       An interface used to request shell features.
   -->
-  <interface name="org.gnome.Shell">
-    <method name="FocusSearch"/>
+  <interface name="org.gnome.Shell.OSD">
+    <method name="ShowOSD">
+      <arg type="a{sv}" direction="in" name="params"/>
+    </method>
   </interface>
 </node>
