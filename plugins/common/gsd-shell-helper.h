@@ -20,11 +20,11 @@
 #ifndef __GSD_SHELL_HELPER_H__
 #define __GSD_SHELL_HELPER_H__
 
-#include "gsd-shell-glue.h"
+#include "gsd-shell-osd-glue.h"
 
 G_BEGIN_DECLS
 
-void shell_show_osd (GsdShell    *shell,
+void shell_show_osd (GsdShellOSD *shell_osd,
 		     const gchar *icon_name,
 		     const gchar *label,
 		     gint         level,

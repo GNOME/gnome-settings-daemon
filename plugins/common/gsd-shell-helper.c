@@ -21,7 +21,7 @@
 #include "gsd-shell-helper.h"
 
 void
-shell_show_osd (GsdShell    *shell,
+shell_show_osd (GsdShellOSD *shell_osd,
 		const gchar *icon_name,
 		const gchar *label,
 		gint         level,
@@ -29,7 +29,7 @@ shell_show_osd (GsdShell    *shell,
 {
 	GVariantBuilder builder;
 
-        g_return_if_fail (GSD_IS_SHELL (shell));
+        g_return_if_fail (GSD_IS_SHELL_OSD (shell_osd));
 
         g_variant_builder_init (&builder, G_VARIANT_TYPE_VARDICT);
 
@@ -46,7 +46,7 @@ shell_show_osd (GsdShell    *shell,
                 g_variant_builder_add (&builder, "{sv}",
                                        "monitor", g_variant_new_int32 (monitor));
 
-	gsd_shell_call_show_osd (shell,
-				 g_variant_builder_end (&builder),
-				 NULL, NULL, NULL);
+	gsd_shell_osd_call_show_osd (shell_osd,
+				     g_variant_builder_end (&builder),
+				     NULL, NULL, NULL);
 }
