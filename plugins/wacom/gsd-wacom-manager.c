@@ -115,7 +115,7 @@ struct GsdWacomManagerPrivate
         GnomeRRScreen *rr_screen;
         GHashTable *warned_devices;
 
-        GsdShell *shell_proxy;
+        GsdShellOSD *shell_osd_proxy;
 
         GsdDeviceMapper *device_mapper;
 
@@ -1381,10 +1381,10 @@ notify_osd_for_device (GsdWacomManager *manager,
         if (gdk_screen_get_n_monitors (screen) == 1)
                 return;
 
-        if (manager->priv->shell_proxy == NULL)
-                manager->priv->shell_proxy = gnome_settings_bus_get_shell_proxy ();
+        if (manager->priv->shell_osd_proxy == NULL)
+                manager->priv->shell_osd_proxy = gnome_settings_bus_get_shell_osd_proxy ();
 
-        shell_show_osd (manager->priv->shell_proxy,
+        shell_show_osd (manager->priv->shell_osd_proxy,
                         "input-tablet-symbolic",
                         gsd_wacom_device_get_name (device), -1,
                         monitor_num);
@@ -2013,7 +2013,7 @@ gsd_wacom_manager_finalize (GObject *object)
         if (wacom_manager->priv->start_idle_id != 0)
                 g_source_remove (wacom_manager->priv->start_idle_id);
 
-        g_clear_object (&wacom_manager->priv->shell_proxy);
+        g_clear_object (&wacom_manager->priv->shell_osd_proxy);
 
         G_OBJECT_CLASS (gsd_wacom_manager_parent_class)->finalize (object);
 }
