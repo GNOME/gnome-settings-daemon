@@ -32,7 +32,7 @@
 
 #include "gsd-screenshot-utils.h"
 
-#define SHELL_SCREENSHOT_BUS_NAME "org.gnome.Shell"
+#define SHELL_SCREENSHOT_BUS_NAME "org.gnome.Shell.Screenshot"
 #define SHELL_SCREENSHOT_BUS_PATH "/org/gnome/Shell/Screenshot"
 #define SHELL_SCREENSHOT_BUS_IFACE "org.gnome.Shell.Screenshot"
 
