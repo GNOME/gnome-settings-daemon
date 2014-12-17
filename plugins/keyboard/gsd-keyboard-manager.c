@@ -392,6 +392,9 @@ set_devicepresence_handler (GsdKeyboardManager *manager)
 {
         GdkDeviceManager *device_manager;
 
+        if (gnome_settings_is_wayland ())
+                return;
+
         device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
 
         manager->priv->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
@@ -734,12 +737,14 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
                                   localed_proxy_ready,
                                   manager);
 
-        /* apply current settings before we install the callback */
-        g_debug ("Started the keyboard plugin, applying all settings");
-        apply_all_settings (manager);
+        if (!gnome_settings_is_wayland ()) {
+                /* apply current settings before we install the callback */
+                g_debug ("Started the keyboard plugin, applying all settings");
+                apply_all_settings (manager);
 
-        g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
-                          G_CALLBACK (settings_changed), manager);
+                g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
+                                  G_CALLBACK (settings_changed), manager);
+        }
 
 	install_xkb_filter (manager);
 
