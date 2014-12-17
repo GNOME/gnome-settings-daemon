@@ -50,10 +50,7 @@
 
 #define GSD_KEYBOARD_DIR "org.gnome.settings-daemon.peripherals.keyboard"
 
-#define KEY_REPEAT         "repeat"
 #define KEY_CLICK          "click"
-#define KEY_INTERVAL       "repeat-interval"
-#define KEY_DELAY          "delay"
 #define KEY_CLICK_VOLUME   "click-volume"
 #define KEY_REMEMBER_NUMLOCK_STATE "remember-numlock-state"
 #define KEY_NUMLOCK_STATE  "numlock-state"
@@ -151,15 +148,6 @@ schema_is_installed (const char *schema)
 
         return (contained (non_relocatable, schema) ||
                 contained (relocatable, schema));
-}
-
-static gboolean
-xkb_set_keyboard_autorepeat_rate (guint delay, guint interval)
-{
-        return XkbSetAutoRepeatRate (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                                     XkbUseCoreKbd,
-                                     delay,
-                                     interval);
 }
 
 static gboolean
@@ -340,42 +328,8 @@ apply_numlock (GsdKeyboardManager *manager)
 }
 
 static void
-apply_repeat (GsdKeyboardManager *manager)
-{
-	GSettings       *settings;
-        gboolean         repeat;
-        guint            interval;
-        guint            delay;
-
-        g_debug ("Applying the repeat settings");
-        settings      = manager->priv->settings;
-        repeat        = g_settings_get_boolean  (settings, KEY_REPEAT);
-        interval      = g_settings_get_uint  (settings, KEY_INTERVAL);
-        delay         = g_settings_get_uint  (settings, KEY_DELAY);
-
-        gdk_error_trap_push ();
-        if (repeat) {
-                gboolean rate_set = FALSE;
-
-                XAutoRepeatOn (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()));
-                /* Use XKB in preference */
-                rate_set = xkb_set_keyboard_autorepeat_rate (delay, interval);
-
-                if (!rate_set)
-                        g_warning ("Neither XKeyboard not Xfree86's keyboard extensions are available,\n"
-                                   "no way to support keyboard autorepeat rate settings");
-        } else {
-                XAutoRepeatOff (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()));
-        }
-
-        XSync (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), FALSE);
-        gdk_error_trap_pop_ignored ();
-}
-
-static void
 apply_all_settings (GsdKeyboardManager *manager)
 {
-	apply_repeat (manager);
 	apply_bell (manager);
 	apply_numlock (manager);
 }
@@ -397,11 +351,6 @@ settings_changed (GSettings          *settings,
 		apply_numlock (manager);
 	} else if (g_strcmp0 (key, KEY_NUMLOCK_STATE) == 0) {
 		g_debug ("Num-Lock state '%s' changed, will apply at next startup", key);
-	} else if (g_strcmp0 (key, KEY_REPEAT) == 0 ||
-		 g_strcmp0 (key, KEY_INTERVAL) == 0 ||
-		 g_strcmp0 (key, KEY_DELAY) == 0) {
-		g_debug ("Key repeat setting '%s' changed, applying key repeat settings", key);
-		apply_repeat (manager);
 	} else if (g_strcmp0 (key, KEY_BELL_CUSTOM_FILE) == 0){
 		g_debug ("Ignoring '%s' setting change", KEY_BELL_CUSTOM_FILE);
 	} else {
