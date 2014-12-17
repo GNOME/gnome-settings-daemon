@@ -54,6 +54,8 @@
 #include "gsd-wacom-osd-window.h"
 #include "gsd-shell-helper.h"
 #include "gsd-device-mapper.h"
+#include "gsd-device-manager.h"
+#include "gsd-device-manager-x11.h"
 
 #define GSD_WACOM_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_WACOM_MANAGER, GsdWacomManagerPrivate))
 
@@ -107,7 +109,7 @@ typedef struct
 struct GsdWacomManagerPrivate
 {
         guint start_idle_id;
-        GdkDeviceManager *device_manager;
+        GsdDeviceManager *device_manager;
         guint device_added_id;
         guint device_removed_id;
         GHashTable *devices; /* key = GdkDevice, value = GsdWacomDevice */
@@ -430,6 +432,8 @@ set_keep_aspect (GsdWacomDevice *device,
 	guint i;
 	GdkDevice *gdk_device;
 	GsdDeviceMapper *mapper;
+        GsdDeviceManager *device_manager;
+        GsdDevice *gsd_device;
 	gint *area;
 	gint monitor = GSD_WACOM_SET_ALL_MONITORS;
 	GsdWacomRotation rotation;
@@ -466,8 +470,12 @@ set_keep_aspect (GsdWacomDevice *device,
 
 	/* Get corresponding monitor size */
 	mapper = gsd_device_mapper_get ();
+	device_manager = gsd_device_manager_get ();
 	g_object_get (device, "gdk-device", &gdk_device, NULL);
-	monitor = gsd_device_mapper_get_device_monitor (mapper, gdk_device);
+	gsd_device = gsd_x11_device_manager_lookup_gdk_device (GSD_X11_DEVICE_MANAGER (device_manager),
+							       gdk_device);
+	monitor = gsd_device_mapper_get_device_monitor (mapper, gsd_device);
+	g_object_unref (gdk_device);
 
 	/* Adjust area to match the monitor aspect ratio */
 	g_debug ("Initial device area: (%d,%d) (%d,%d)", area[0], area[1], area[2], area[3]);
@@ -1026,9 +1034,8 @@ notify_unknown_device (GsdWacomManager *manager, const gchar *device_name)
 }
 
 static void
-device_added_cb (GdkDeviceManager *device_manager,
-                 GdkDevice        *gdk_device,
-                 GsdWacomManager  *manager)
+gsd_wacom_manager_add_gdk_device (GsdWacomManager *manager,
+                                  GdkDevice       *gdk_device)
 {
 	GsdWacomDevice *device;
 	GSettings *settings;
@@ -1066,16 +1073,6 @@ device_added_cb (GdkDeviceManager *device_manager,
 	g_signal_connect (G_OBJECT (settings), "changed",
 			  G_CALLBACK (wacom_settings_changed), device);
 
-	/* Map devices, the xrandr module handles touchscreens in general, so bypass these here */
-	if (type == WACOM_TYPE_PAD ||
-	    type == WACOM_TYPE_CURSOR ||
-	    type == WACOM_TYPE_STYLUS ||
-	    type == WACOM_TYPE_ERASER ||
-	    (type == WACOM_TYPE_TOUCH && !gsd_wacom_device_is_screen_tablet (device))) {
-		gsd_device_mapper_add_input (manager->priv->device_mapper,
-					     gdk_device, settings);
-	}
-
 	if (type == WACOM_TYPE_STYLUS || type == WACOM_TYPE_ERASER) {
 		GList *styli, *l;
 
@@ -1101,16 +1098,38 @@ device_added_cb (GdkDeviceManager *device_manager,
 }
 
 static void
-device_removed_cb (GdkDeviceManager *device_manager,
-                   GdkDevice        *gdk_device,
-                   GsdWacomManager  *manager)
+device_added_cb (GsdDeviceManager *device_manager,
+                 GsdDevice        *gsd_device,
+                 GsdWacomManager  *manager)
+{
+	GdkDevice **devices;
+	GsdDeviceType device_type;
+	guint i, n_gdk_devices;
+
+	device_type = gsd_device_get_device_type (gsd_device);
+
+	if (device_type & GSD_DEVICE_TYPE_TABLET) {
+		gsd_device_mapper_add_input (manager->priv->device_mapper,
+					     gsd_device);
+	}
+
+	if (gnome_settings_is_wayland ())
+	    return;
+
+	devices = gsd_x11_device_manager_get_gdk_devices (GSD_X11_DEVICE_MANAGER (device_manager),
+							  gsd_device, &n_gdk_devices);
+
+	for (i = 0; i < n_gdk_devices; i++)
+		gsd_wacom_manager_add_gdk_device (manager, devices[i]);
+}
+
+static void
+gsd_wacom_manager_remove_gdk_device (GsdWacomManager *manager,
+                                     GdkDevice       *gdk_device)
 {
 	g_debug ("Removing device '%s' from known devices list",
 		 gdk_device_get_name (gdk_device));
 	g_hash_table_remove (manager->priv->devices, gdk_device);
-
-        gsd_device_mapper_remove_input (manager->priv->device_mapper,
-                                        gdk_device);
 
 	/* Enable this chunk of code if you want to valgrind
 	 * test-wacom. It will exit when there are no Wacom devices left */
@@ -1118,6 +1137,24 @@ device_removed_cb (GdkDeviceManager *device_manager,
 	if (g_hash_table_size (manager->priv->devices) == 0)
 		gtk_main_quit ();
 #endif
+}
+
+static void
+device_removed_cb (GsdDeviceManager *device_manager,
+                   GsdDevice        *gsd_device,
+                   GsdWacomManager  *manager)
+{
+	GdkDevice **devices;
+	guint i, n_gdk_devices;
+
+	gsd_device_mapper_remove_input (manager->priv->device_mapper,
+					gsd_device);
+
+	devices = gsd_x11_device_manager_get_gdk_devices (GSD_X11_DEVICE_MANAGER (device_manager),
+							  gsd_device, &n_gdk_devices);
+
+	for (i = 0; i < n_gdk_devices; i++)
+		gsd_wacom_manager_remove_gdk_device (manager, devices[i]);
 }
 
 static GsdWacomDevice *
@@ -1285,6 +1322,7 @@ switch_monitor (GsdWacomManager *manager,
 {
 	gint current_monitor, n_monitors;
         GdkDevice *gdk_device;
+        GsdDevice *gsd_device;
 
 	/* We dont; do that for screen tablets, sorry... */
 	if (gsd_wacom_device_is_screen_tablet (device))
@@ -1297,9 +1335,12 @@ switch_monitor (GsdWacomManager *manager,
 		return;
 
         g_object_get (device, "gdk-device", &gdk_device, NULL);
+        gsd_device = gsd_x11_device_manager_lookup_gdk_device (GSD_X11_DEVICE_MANAGER (gsd_device_manager_get ()),
+                                                               gdk_device);
+        g_object_unref (gdk_device);
         current_monitor =
                 gsd_device_mapper_get_device_monitor (manager->priv->device_mapper,
-                                                      gdk_device);
+                                                      gsd_device);
 
 	/* Select next monitor */
 	current_monitor++;
@@ -1308,7 +1349,7 @@ switch_monitor (GsdWacomManager *manager,
 		current_monitor = 0;
 
         gsd_device_mapper_set_device_monitor (manager->priv->device_mapper,
-                                              gdk_device, current_monitor);
+                                              gsd_device, current_monitor);
 }
 
 static void
@@ -1316,12 +1357,15 @@ notify_osd_for_device (GsdWacomManager *manager,
                        GsdWacomDevice  *device)
 {
         GdkDevice *gdk_device;
+        GsdDevice *gsd_device;
         GdkScreen *screen;
         gint monitor_num;
 
         g_object_get (device, "gdk-device", &gdk_device, NULL);
+        gsd_device = gsd_x11_device_manager_lookup_gdk_device (GSD_X11_DEVICE_MANAGER (gsd_device_manager_get ()),
+                                                               gdk_device);
         monitor_num = gsd_device_mapper_get_device_monitor (manager->priv->device_mapper,
-                                                            gdk_device);
+                                                            gsd_device);
 
         if (monitor_num == GSD_WACOM_SET_ALL_MONITORS)
                 return;
@@ -1477,12 +1521,9 @@ filter_button_events (XEvent          *xevent,
 static void
 set_devicepresence_handler (GsdWacomManager *manager)
 {
-        GdkDeviceManager *device_manager;
+        GsdDeviceManager *device_manager;
 
-        device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
-        if (device_manager == NULL)
-                return;
-
+        device_manager = gsd_device_manager_get ();
         manager->priv->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
                                                            G_CALLBACK (device_added_cb), manager);
         manager->priv->device_removed_id = g_signal_connect (G_OBJECT (device_manager), "device-removed",
@@ -1511,15 +1552,18 @@ gsd_wacom_manager_idle_cb (GsdWacomManager *manager)
 
         set_devicepresence_handler (manager);
 
-        devices = gdk_device_manager_list_devices (manager->priv->device_manager, GDK_DEVICE_TYPE_SLAVE);
+        devices = gsd_device_manager_list_devices (manager->priv->device_manager,
+                                                   GSD_DEVICE_TYPE_TABLET);
         for (l = devices; l ; l = l->next)
 		device_added_cb (manager->priv->device_manager, l->data, manager);
         g_list_free (devices);
 
-        /* Start filtering the button events */
-        gdk_window_add_filter (gdk_screen_get_root_window (manager->priv->screen),
-                               (GdkFilterFunc) filter_button_events,
-                               manager);
+        if (!gnome_settings_is_wayland ()) {
+                /* Start filtering the button events */
+                gdk_window_add_filter (gdk_screen_get_root_window (manager->priv->screen),
+                                       (GdkFilterFunc) filter_button_events,
+                                       manager);
+        }
 
         gnome_settings_profile_end (NULL);
 
@@ -1536,6 +1580,7 @@ check_need_for_calibration (GsdWacomDevice  *device)
         gint width, height;
         GdkScreen *screen;
         GdkDevice *gdk_device;
+        GsdDevice *gsd_device;
         GsdDeviceMapper *mapper;
         gint monitor;
         GdkRectangle geometry;
@@ -1548,7 +1593,10 @@ check_need_for_calibration (GsdWacomDevice  *device)
         screen = gdk_screen_get_default ();
         mapper = gsd_device_mapper_get ();
         g_object_get (device, "gdk-device", &gdk_device, NULL);
-        monitor = gsd_device_mapper_get_device_monitor (mapper, gdk_device);
+        gsd_device = gsd_x11_device_manager_lookup_gdk_device (GSD_X11_DEVICE_MANAGER (gsd_device_manager_get ()),
+                                                               gdk_device);
+        monitor = gsd_device_mapper_get_device_monitor (mapper, gsd_device);
+        g_object_unref (gdk_device);
 
 	if (monitor < 0) {
 		geometry.width = gdk_screen_get_width (screen);
@@ -1884,7 +1932,9 @@ void
 gsd_wacom_manager_stop (GsdWacomManager *manager)
 {
         GsdWacomManagerPrivate *p = manager->priv;
-        GList *l;
+        GsdWacomDeviceType type;
+        GsdWacomDevice *device;
+        GHashTableIter iter;
 
         g_debug ("Stopping wacom manager");
 
@@ -1895,36 +1945,30 @@ gsd_wacom_manager_stop (GsdWacomManager *manager)
         }
 
         if (p->device_manager != NULL) {
-                GList *devices;
-
                 g_signal_handler_disconnect (p->device_manager, p->device_added_id);
                 g_signal_handler_disconnect (p->device_manager, p->device_removed_id);
-
-                devices = gdk_device_manager_list_devices (p->device_manager, GDK_DEVICE_TYPE_SLAVE);
-                for (l = devices; l != NULL; l = l->next) {
-                        GsdWacomDeviceType type;
-                        GsdWacomDevice *device;
-                        int id;
-
-                        id = gdk_x11_device_get_id (l->data);
-                        device = device_id_to_device (manager, id);
-
-                        if (!device)
-                                continue;
-
-                        type = gsd_wacom_device_get_device_type (device);
-
-                        if (type == WACOM_TYPE_PAD)
-                                grab_button (id, FALSE, manager->priv->screen);
-                }
-                g_list_free (devices);
-
                 p->device_manager = NULL;
         }
 
-        gdk_window_remove_filter (gdk_screen_get_root_window (p->screen),
-                                  (GdkFilterFunc) filter_button_events,
-                                  manager);
+        if (!gnome_settings_is_wayland ()) {
+                g_hash_table_iter_init (&iter, manager->priv->devices);
+
+                while (g_hash_table_iter_next (&iter, NULL, (gpointer *) &device)) {
+                        type = gsd_wacom_device_get_device_type (device);
+                        if (type == WACOM_TYPE_PAD) {
+                                GdkDevice *gdk_device;
+
+                                g_object_get (device, "gdk-device", &gdk_device, NULL);
+                                grab_button (gdk_x11_device_get_id (gdk_device),
+                                             FALSE, manager->priv->screen);
+                                g_object_unref (gdk_device);
+                        }
+                }
+
+                gdk_window_remove_filter (gdk_screen_get_root_window (p->screen),
+                                          (GdkFilterFunc) filter_button_events,
+                                          manager);
+        }
 
         g_signal_handlers_disconnect_by_func (p->rr_screen, on_screen_changed_cb, manager);
 

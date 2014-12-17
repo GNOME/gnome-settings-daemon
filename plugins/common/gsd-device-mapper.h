@@ -25,6 +25,8 @@
 #undef GNOME_DESKTOP_USE_UNSTABLE_API
 #include <gdk/gdk.h>
 
+#include "gsd-device-manager.h"
+
 G_BEGIN_DECLS
 
 #define GSD_TYPE_DEVICE_MAPPER	       (gsd_device_mapper_get_type ())
@@ -41,26 +43,25 @@ GType		  gsd_device_mapper_get_type	      (void) G_GNUC_CONST;
 GsdDeviceMapper * gsd_device_mapper_get		      (void);
 
 void		  gsd_device_mapper_add_input	      (GsdDeviceMapper *mapper,
-						       GdkDevice       *device,
-						       GSettings       *settings);
+						       GsdDevice       *device);
 void		  gsd_device_mapper_remove_input      (GsdDeviceMapper *mapper,
-						       GdkDevice       *device);
+						       GsdDevice       *device);
 void		  gsd_device_mapper_add_output	      (GsdDeviceMapper *mapper,
 						       GnomeRROutput   *output);
 void		  gsd_device_mapper_remove_output     (GsdDeviceMapper *mapper,
 						       GnomeRROutput   *output);
 
 GnomeRROutput	* gsd_device_mapper_get_device_output (GsdDeviceMapper *mapper,
-						       GdkDevice       *device);
+						       GsdDevice       *device);
 
 void		  gsd_device_mapper_set_device_output (GsdDeviceMapper *mapper,
-						       GdkDevice       *device,
+						       GsdDevice       *device,
 						       GnomeRROutput   *output);
 
 gint		  gsd_device_mapper_get_device_monitor (GsdDeviceMapper *mapper,
-							GdkDevice	*device);
+							GsdDevice	*device);
 void		  gsd_device_mapper_set_device_monitor (GsdDeviceMapper *mapper,
-							GdkDevice	*device,
+							GsdDevice	*device,
 							gint		 monitor_num);
 
 G_END_DECLS

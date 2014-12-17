@@ -34,9 +34,12 @@
 #include <X11/extensions/XInput2.h>
 
 #include "gsd-input-helper.h"
+#include "gsd-device-mapper.h"
 
 #include "gsd-enums.h"
 #include "gsd-wacom-device.h"
+#include "gsd-device-manager.h"
+#include "gsd-device-manager-x11.h"
 
 #define GSD_WACOM_STYLUS_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_WACOM_STYLUS, GsdWacomStylusPrivate))
 
@@ -890,25 +893,24 @@ gsd_wacom_device_get_display_matrix (GsdWacomDevice *device, float matrix[NUM_EL
 GsdWacomRotation
 gsd_wacom_device_get_display_rotation (GsdWacomDevice *device)
 {
-	GError *error = NULL;
-	GnomeRRScreen *rr_screen;
 	GnomeRROutput *rr_output;
 	GnomeRRRotation rotation = GNOME_RR_ROTATION_0;
+	GsdDevice *gsd_device;
 
-	rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), &error);
-	if (rr_screen == NULL) {
-		g_warning ("Failed to create GnomeRRScreen: %s", error->message);
-		g_error_free (error);
+	gsd_device = gsd_x11_device_manager_lookup_gdk_device (GSD_X11_DEVICE_MANAGER (gsd_device_manager_get ()),
+							       device->priv->gdk_device);
+
+	if (!gsd_device)
 		return GSD_WACOM_ROTATION_NONE;
-	}
 
-	rr_output = find_output (rr_screen, device);
+	rr_output = gsd_device_mapper_get_device_output (gsd_device_mapper_get (),
+							 gsd_device);
+
 	if (rr_output) {
 		GnomeRRCrtc *crtc = gnome_rr_output_get_crtc (rr_output);
 		if (crtc)
 			rotation = gnome_rr_crtc_get_current_rotation (crtc);
 	}
-	g_object_unref (rr_screen);
 
 	return get_rotation_wacom (rotation);
 }

@@ -101,7 +101,7 @@ struct GsdXrandrManagerPrivate {
         GCancellable    *bus_cancellable;
 
         GsdDeviceMapper  *device_mapper;
-        GdkDeviceManager *device_manager;
+        GsdDeviceManager *device_manager;
         guint             device_added_id;
         guint             device_removed_id;
 
@@ -1158,21 +1158,27 @@ get_allowed_rotations_for_output (GnomeRRConfig *config,
 
 static void
 manager_device_added (GsdXrandrManager *manager,
-                      GdkDevice        *device)
+                      GsdDevice        *device)
 {
-        if (gdk_device_get_device_type (device) == GDK_DEVICE_TYPE_MASTER ||
-            gdk_device_get_source (device) != GDK_SOURCE_TOUCHSCREEN)
+        GsdDeviceType type;
+
+        type = gsd_device_get_device_type (device);
+
+        if ((type & GSD_DEVICE_TYPE_TOUCHSCREEN) == 0)
                 return;
 
-        gsd_device_mapper_add_input (manager->priv->device_mapper, device, NULL);
+        gsd_device_mapper_add_input (manager->priv->device_mapper, device);
 }
 
 static void
 manager_device_removed (GsdXrandrManager *manager,
-                        GdkDevice        *device)
+                        GsdDevice        *device)
 {
-        if (gdk_device_get_device_type (device) == GDK_DEVICE_TYPE_MASTER ||
-            gdk_device_get_source (device) != GDK_SOURCE_TOUCHSCREEN)
+        GsdDeviceType type;
+
+        type = gsd_device_get_device_type (device);
+
+        if ((type & GSD_DEVICE_TYPE_TOUCHSCREEN) == 0)
                 return;
 
         gsd_device_mapper_remove_input (manager->priv->device_mapper, device);
@@ -1181,15 +1187,10 @@ manager_device_removed (GsdXrandrManager *manager,
 static void
 manager_init_devices (GsdXrandrManager *manager)
 {
-        GdkDisplay *display;
         GList *devices, *d;
-        GdkScreen *screen;
-
-        screen = gdk_screen_get_default ();
-        display = gdk_screen_get_display (screen);
 
         manager->priv->device_mapper = gsd_device_mapper_get ();
-        manager->priv->device_manager = gdk_display_get_device_manager (display);
+        manager->priv->device_manager = gsd_device_manager_get ();
         manager->priv->device_added_id =
                 g_signal_connect_swapped (manager->priv->device_manager, "device-added",
                                           G_CALLBACK (manager_device_added), manager);
@@ -1197,8 +1198,8 @@ manager_init_devices (GsdXrandrManager *manager)
                 g_signal_connect_swapped (manager->priv->device_manager, "device-removed",
                                   G_CALLBACK (manager_device_removed), manager);
 
-        devices = gdk_device_manager_list_devices (manager->priv->device_manager,
-                                                   GDK_DEVICE_TYPE_SLAVE);
+        devices = gsd_device_manager_list_devices (manager->priv->device_manager,
+                                                   GSD_DEVICE_TYPE_TOUCHSCREEN);
 
         for (d = devices; d; d = d->next)
                 manager_device_added (manager, d->data);
