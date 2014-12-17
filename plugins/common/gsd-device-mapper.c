@@ -27,6 +27,7 @@
 #include <libwacom/libwacom.h>
 #endif
 
+#include "gsd-device-manager.h"
 #include "gsd-device-mapper.h"
 #include "gsd-input-helper.h"
 #include "gsd-enums.h"
@@ -36,7 +37,6 @@ typedef struct _GsdOutputInfo GsdOutputInfo;
 typedef struct _MappingHelper MappingHelper;
 typedef struct _DeviceMapHelper DeviceMapHelper;
 
-#define NUM_ELEMS_MATRIX 9
 #define KEY_DISPLAY  "display"
 #define KEY_ROTATION "rotation"
 
@@ -44,10 +44,9 @@ typedef enum {
 	GSD_INPUT_IS_SYSTEM_INTEGRATED = 1 << 0, /* eg. laptop tablets/touchscreens */
 	GSD_INPUT_IS_SCREEN_INTEGRATED = 1 << 1, /* eg. Wacom Cintiq devices */
 	GSD_INPUT_IS_TOUCH             = 1 << 2, /* touch device, either touchscreen or tablet */
-	GSD_INPUT_IS_PEN               = 1 << 3, /* pen device, either touchscreen or tablet */
-	GSD_INPUT_IS_ERASER            = 1 << 4, /* eraser device, either touchscreen or tablet */
-	GSD_INPUT_IS_PAD               = 1 << 5, /* pad device, most usually in tablets */
-	GSD_INPUT_IS_CURSOR            = 1 << 6  /* pointer-like device in tablets */
+	GSD_INPUT_IS_PEN               = 1 << 3, /* tablet pen */
+	GSD_INPUT_IS_PAD               = 1 << 4, /* pad device, most usually in tablets */
+	GSD_INPUT_IS_CURSOR            = 1 << 5  /* pointer-like device in tablets */
 } GsdInputCapabilityFlags;
 
 typedef enum {
@@ -60,7 +59,7 @@ typedef enum {
 } GsdOutputPriority;
 
 struct _GsdInputInfo {
-	GdkDevice *device;
+	GsdDevice *device;
 	GSettings *settings;
 	GsdDeviceMapper *mapper;
 	GsdOutputInfo *output;
@@ -89,7 +88,7 @@ struct _GsdDeviceMapper {
 	GObject parent_instance;
 	GdkScreen *screen;
 	GnomeRRScreen *rr_screen;
-	GHashTable *input_devices; /* GdkDevice -> GsdInputInfo */
+	GHashTable *input_devices; /* GsdDevice -> GsdInputInfo */
 	GHashTable *output_devices; /* GnomeRROutput -> GsdOutputInfo */
 #if HAVE_WACOM
 	WacomDeviceDatabase *wacom_db;
@@ -98,18 +97,6 @@ struct _GsdDeviceMapper {
 
 struct _GsdDeviceMapperClass {
 	GObjectClass parent_class;
-};
-
-/* Array order matches GsdWacomRotation */
-struct {
-	GnomeRRRotation rotation;
-	/* Coordinate Transformation Matrix */
-	gfloat matrix[NUM_ELEMS_MATRIX];
-} rotation_matrices[] = {
-	{ GNOME_RR_ROTATION_0, { 1, 0, 0, 0, 1, 0, 0, 0, 1 } },
-	{ GNOME_RR_ROTATION_90, { 0, -1, 1, 1, 0, 0, 0, 0, 1 } },
-	{ GNOME_RR_ROTATION_270, { 0, 1, 0, -1, 0, 1, 0,  0, 1 } },
-	{ GNOME_RR_ROTATION_180, { -1, 0, 1, 0, -1, 1, 0, 0, 1 } }
 };
 
 enum {
@@ -130,60 +117,6 @@ static void            input_info_update_settings_output (GsdInputInfo *info);
 static guint signals[N_SIGNALS] = { 0 };
 
 G_DEFINE_TYPE (GsdDeviceMapper, gsd_device_mapper, G_TYPE_OBJECT)
-
-static XDevice *
-open_device (GdkDevice *device)
-{
-	XDevice *xdev;
-	int id;
-
-	id = gdk_x11_device_get_id (device);
-
-	gdk_error_trap_push ();
-	xdev = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), id);
-	if (gdk_error_trap_pop () || (xdev == NULL))
-		return NULL;
-
-	return xdev;
-}
-
-static gboolean
-device_apply_property (GdkDevice      *device,
-		       PropertyHelper *property)
-{
-	gboolean retval;
-	XDevice *xdev;
-
-	xdev = open_device (device);
-
-	if (!xdev)
-		return FALSE;
-
-	retval = device_set_property (xdev, gdk_device_get_name (device), property);
-	xdevice_close (xdev);
-	return retval;
-}
-
-static gboolean
-device_set_matrix (GdkDevice *device,
-		   gfloat     matrix[NUM_ELEMS_MATRIX])
-{
-	PropertyHelper property = {
-		.name = "Coordinate Transformation Matrix",
-		.nitems = 9,
-		.format = 32,
-		.type = gdk_x11_get_xatom_by_name ("FLOAT"),
-		.data.i = (int *) matrix,
-	};
-
-	g_debug ("Setting '%s' matrix to:\n %f,%f,%f,\n %f,%f,%f,\n %f,%f,%f",
-		 gdk_device_get_name (device),
-		 matrix[0], matrix[1], matrix[2],
-		 matrix[3], matrix[4], matrix[5],
-		 matrix[6], matrix[7], matrix[8]);
-
-	return device_apply_property (device, &property);
-}
 
 /* Finds an output which matches the given EDID information. Any NULL
  * parameter will be interpreted to match any value. */
@@ -343,7 +276,7 @@ input_info_guess_candidates (GsdInputInfo  *input,
 	gchar **split;
 	gint i;
 
-	name = gdk_device_get_name (input->device);
+	name = gsd_device_get_name (input->device);
 
 	if (input->capabilities & GSD_INPUT_IS_SCREEN_INTEGRATED) {
 		outputs[GSD_PRIO_MATCH_SIZE] = input_info_find_size_match (input, input->mapper->rr_screen);
@@ -525,75 +458,6 @@ input_info_get_output (GsdInputInfo *input)
 	return NULL;
 }
 
-static void
-init_device_rotation_matrix (GsdWacomRotation rotation,
-			     float	      matrix[NUM_ELEMS_MATRIX])
-{
-        memcpy (matrix, rotation_matrices[rotation].matrix,
-                sizeof (rotation_matrices[rotation].matrix));
-}
-
-static void
-init_output_rotation_matrix (GnomeRRRotation rotation,
-			     float	     matrix[NUM_ELEMS_MATRIX])
-{
-	guint i;
-
-	for (i = 0; i < G_N_ELEMENTS (rotation_matrices); i++) {
-		if (rotation_matrices[i].rotation != rotation)
-			continue;
-
-		memcpy (matrix, rotation_matrices[i].matrix, sizeof (rotation_matrices[i].matrix));
-		return;
-	}
-
-	/* We know nothing about this rotation */
-	init_device_rotation_matrix (GSD_WACOM_ROTATION_NONE, matrix);
-}
-
-static void
-multiply_matrix (float a[NUM_ELEMS_MATRIX],
-		 float b[NUM_ELEMS_MATRIX],
-		 float res[NUM_ELEMS_MATRIX])
-{
-	float result[NUM_ELEMS_MATRIX];
-
-	result[0] = a[0] * b[0] + a[1] * b[3] + a[2] * b[6];
-	result[1] = a[0] * b[1] + a[1] * b[4] + a[2] * b[7];
-	result[2] = a[0] * b[2] + a[1] * b[5] + a[2] * b[8];
-	result[3] = a[3] * b[0] + a[4] * b[3] + a[5] * b[6];
-	result[4] = a[3] * b[1] + a[4] * b[4] + a[5] * b[7];
-	result[5] = a[3] * b[2] + a[4] * b[5] + a[5] * b[8];
-	result[6] = a[6] * b[0] + a[7] * b[3] + a[8] * b[6];
-	result[7] = a[6] * b[1] + a[7] * b[4] + a[8] * b[7];
-	result[8] = a[6] * b[2] + a[7] * b[5] + a[8] * b[8];
-
-	memcpy (res, result, sizeof (result));
-}
-
-static void
-calculate_viewport_matrix (const GdkRectangle mapped,
-			   const GdkRectangle desktop,
-			   float	      viewport[NUM_ELEMS_MATRIX])
-{
-	float x_scale = (float) mapped.x / desktop.width;
-	float y_scale = (float) mapped.y / desktop.height;
-	float width_scale  = (float) mapped.width / desktop.width;
-	float height_scale = (float) mapped.height / desktop.height;
-
-	viewport[0] = width_scale;
-	viewport[1] = 0.0f;
-	viewport[2] = x_scale;
-
-	viewport[3] = 0.0f;
-	viewport[4] = height_scale;
-	viewport[5] = y_scale;
-
-	viewport[6] = 0.0f;
-	viewport[7] = 0.0f;
-	viewport[8] = 1.0f;
-}
-
 static gint
 monitor_for_output (GnomeRROutput *output)
 {
@@ -637,15 +501,15 @@ input_info_find_size_match (GsdInputInfo  *input,
 
 	g_return_val_if_fail (rr_screen != NULL, NULL);
 
-	if (!xdevice_get_dimensions (gdk_x11_device_get_id (input->device),
-				     &input_width, &input_height))
+	if (!gsd_device_get_dimensions (input->device,
+					&input_width, &input_height))
 		return NULL;
 
 	/* Restrict the matches to be below a narrow percentage */
 	min_width_diff = min_height_diff = 0.05;
 
 	g_debug ("Input device '%s' has %dx%d mm",
-		 gdk_device_get_name (input->device), input_width, input_height);
+		 gsd_device_get_name (input->device), input_width, input_height);
 
 	outputs = gnome_rr_screen_list_outputs (rr_screen);
 
@@ -682,81 +546,16 @@ input_info_find_size_match (GsdInputInfo  *input,
 }
 
 static void
-input_info_get_matrix (GsdInputInfo *input,
-		       float	     matrix[NUM_ELEMS_MATRIX])
-{
-	GsdOutputInfo *output;
-	GnomeRRCrtc *crtc;
-
-	output = input_info_get_output (input);
-	if (output)
-		crtc = gnome_rr_output_get_crtc (output->output);
-
-	if (!output || !crtc) {
-		init_output_rotation_matrix (GNOME_RR_ROTATION_0, matrix);
-	} else {
-		GdkScreen *screen = gdk_screen_get_default ();
-		float viewport[NUM_ELEMS_MATRIX];
-		float output_rot[NUM_ELEMS_MATRIX];
-		GdkRectangle display, desktop = { 0 };
-		GnomeRRRotation rotation;
-		int monitor;
-
-		g_debug ("Mapping '%s' to output '%s'",
-			 gdk_device_get_name (input->device),
-			 gnome_rr_output_get_name (output->output));
-
-		rotation = gnome_rr_crtc_get_current_rotation (crtc);
-		init_output_rotation_matrix (rotation, output_rot);
-
-		desktop.width = gdk_screen_get_width (screen);
-		desktop.height = gdk_screen_get_height (screen);
-
-		monitor = monitor_for_output (output->output);
-		gdk_screen_get_monitor_geometry (screen, monitor, &display);
-		calculate_viewport_matrix (display, desktop, viewport);
-
-		multiply_matrix (viewport, output_rot, matrix);
-	}
-
-	/* Apply device rotation after output rotation */
-	if (input->settings &&
-	    (input->capabilities &
-	     (GSD_INPUT_IS_SYSTEM_INTEGRATED | GSD_INPUT_IS_SCREEN_INTEGRATED)) == 0) {
-		gint rotation;
-
-		rotation = g_settings_get_enum (input->settings, KEY_ROTATION);
-
-		if (rotation > 0) {
-			float device_rot[NUM_ELEMS_MATRIX];
-
-			g_debug ("Applying device rotation %d to '%s'",
-				 rotation, gdk_device_get_name (input->device));
-
-			init_device_rotation_matrix (rotation, device_rot);
-			multiply_matrix (matrix, device_rot, matrix);
-		}
-	}
-}
-
-static void
 input_info_remap (GsdInputInfo *input)
 {
-	float matrix[NUM_ELEMS_MATRIX] = { 0 };
+	GsdOutputInfo *output;
 
 	if (input->capabilities & GSD_INPUT_IS_PAD)
 		return;
 
-	input_info_get_matrix (input, matrix);
-
-	g_debug ("About to remap device '%s'",
-		 gdk_device_get_name (input->device));
-
-	if (!device_set_matrix (input->device, matrix)) {
-		g_warning ("Failed to map device '%s'",
-			   gdk_device_get_name (input->device));
-	}
-
+	output = input_info_get_output (input);
+	settings_set_display (gsd_device_get_settings (input->device),
+			      output ? output->output : NULL);
 	g_signal_emit (input->mapper, signals[DEVICE_CHANGED], 0, input->device);
 }
 
@@ -852,41 +651,16 @@ mapper_recalculate_input (GsdDeviceMapper *mapper,
 	mapping_helper_free (helper);
 }
 
-static gboolean
-input_info_update_capabilities_from_tool_type (GsdInputInfo *info)
-{
-	const char *tool_type;
-	int deviceid;
-
-	deviceid = gdk_x11_device_get_id (info->device);
-	tool_type = xdevice_get_wacom_tool_type (deviceid);
-
-	if (!tool_type)
-		return FALSE;
-
-	if (g_str_equal (tool_type, "STYLUS"))
-		info->capabilities |= GSD_INPUT_IS_PEN;
-	else if (g_str_equal (tool_type, "ERASER"))
-		info->capabilities |= GSD_INPUT_IS_ERASER;
-	else if (g_str_equal (tool_type, "PAD"))
-		info->capabilities |= GSD_INPUT_IS_PAD;
-	else if (g_str_equal (tool_type, "CURSOR"))
-		info->capabilities |= GSD_INPUT_IS_CURSOR;
-	else
-		return FALSE;
-
-	return TRUE;
-}
-
 static void
 input_info_update_capabilities (GsdInputInfo *info)
 {
 #if HAVE_WACOM
 	WacomDevice *wacom_device;
-	gchar *devpath;
+	const gchar *devpath;
+	GsdDeviceType type;
 
 	info->capabilities = 0;
-	devpath = xdevice_get_device_node (gdk_x11_device_get_id (info->device));
+	devpath = gsd_device_get_device_file (info->device);
 	wacom_device = libwacom_new_from_path (info->mapper->wacom_db, devpath,
 					       WFALLBACK_GENERIC, NULL);
 
@@ -903,25 +677,17 @@ input_info_update_capabilities (GsdInputInfo *info)
 
 		libwacom_destroy (wacom_device);
 	}
-
-	g_free (devpath);
 #else
 	info->capabilities = 0;
 #endif /* HAVE_WACOM */
 
-	if (!input_info_update_capabilities_from_tool_type (info)) {
-		GdkInputSource source;
+	/* Fallback to GsdDeviceType */
+	type = gsd_device_get_device_type (info->device);
 
-		/* Fallback to GdkInputSource */
-		source = gdk_device_get_source (info->device);
-
-		if (source == GDK_SOURCE_TOUCHSCREEN)
-			info->capabilities |= GSD_INPUT_IS_TOUCH | GSD_INPUT_IS_SCREEN_INTEGRATED;
-		else if (source == GDK_SOURCE_PEN)
-			info->capabilities |= GSD_INPUT_IS_PEN;
-		else if (source == GDK_SOURCE_ERASER)
-			info->capabilities |= GSD_INPUT_IS_ERASER;
-	}
+	if (type & GSD_DEVICE_TYPE_TOUCHSCREEN)
+		info->capabilities |= GSD_INPUT_IS_TOUCH | GSD_INPUT_IS_SCREEN_INTEGRATED;
+	else if (type & GSD_DEVICE_TYPE_TABLET)
+		info->capabilities |= GSD_INPUT_IS_PEN;
 }
 
 static void
@@ -966,15 +732,14 @@ device_settings_changed_cb (GSettings	 *settings,
 }
 
 static GsdInputInfo *
-input_info_new (GdkDevice	*device,
-		GSettings	*settings,
+input_info_new (GsdDevice	*device,
 		GsdDeviceMapper *mapper)
 {
 	GsdInputInfo *info;
 
 	info = g_new0 (GsdInputInfo, 1);
 	info->device = device;
-	info->settings = (settings) ? g_object_ref (settings) : NULL;
+	info->settings = gsd_device_get_settings (device);;
 	info->mapper = mapper;
 
 	if (info->settings) {
@@ -1182,7 +947,7 @@ gsd_device_mapper_class_init (GsdDeviceMapperClass *klass)
 			      GSD_TYPE_DEVICE_MAPPER,
 			      G_SIGNAL_RUN_LAST, 0,
 			      NULL, NULL, NULL,
-			      G_TYPE_NONE, 1, GDK_TYPE_DEVICE);
+			      G_TYPE_NONE, 1, GSD_TYPE_DEVICE);
 }
 
 static void
@@ -1217,41 +982,39 @@ gsd_device_mapper_get (void)
 
 void
 gsd_device_mapper_add_input (GsdDeviceMapper *mapper,
-			     GdkDevice	     *device,
-			     GSettings	     *settings)
+			     GsdDevice	     *device)
 {
 	GsdInputInfo *info;
 
 	g_return_if_fail (mapper != NULL);
-	g_return_if_fail (GDK_IS_DEVICE (device));
-	g_return_if_fail (!settings || G_IS_SETTINGS (settings));
+	g_return_if_fail (device != NULL);
 
 	if (g_hash_table_contains (mapper->input_devices, device))
 		return;
 
-	info = input_info_new (device, settings, mapper);
+	info = input_info_new (device, mapper);
 	g_hash_table_insert (mapper->input_devices, device, info);
 }
 
 void
 gsd_device_mapper_remove_input (GsdDeviceMapper *mapper,
-				GdkDevice	*device)
+				GsdDevice	*device)
 {
 	g_return_if_fail (mapper != NULL);
-	g_return_if_fail (GDK_IS_DEVICE (device));
+	g_return_if_fail (device != NULL);
 
 	g_hash_table_remove (mapper->input_devices, device);
 }
 
 GnomeRROutput *
 gsd_device_mapper_get_device_output (GsdDeviceMapper *mapper,
-				     GdkDevice	     *device)
+				     GsdDevice	     *device)
 {
 	GsdOutputInfo *output;
 	GsdInputInfo *input;
 
 	g_return_val_if_fail (mapper != NULL, NULL);
-	g_return_val_if_fail (GDK_IS_DEVICE (device), NULL);
+	g_return_val_if_fail (device != NULL, NULL);
 
 	input = g_hash_table_lookup (mapper->input_devices, device);
 	output = input_info_get_output (input);
@@ -1264,13 +1027,13 @@ gsd_device_mapper_get_device_output (GsdDeviceMapper *mapper,
 
 gint
 gsd_device_mapper_get_device_monitor (GsdDeviceMapper *mapper,
-				      GdkDevice	      *device)
+				      GsdDevice	      *device)
 {
 	GsdOutputInfo *output;
 	GsdInputInfo *input;
 
 	g_return_val_if_fail (GSD_IS_DEVICE_MAPPER (mapper), -1);
-	g_return_val_if_fail (GDK_IS_DEVICE (device), -1);
+	g_return_val_if_fail (device != NULL, -1);
 
 	input = g_hash_table_lookup (mapper->input_devices, device);
 
@@ -1287,14 +1050,14 @@ gsd_device_mapper_get_device_monitor (GsdDeviceMapper *mapper,
 
 void
 gsd_device_mapper_set_device_output (GsdDeviceMapper *mapper,
-				     GdkDevice	     *device,
+				     GsdDevice	     *device,
 				     GnomeRROutput   *output)
 {
 	GsdInputInfo *input_info;
 	GsdOutputInfo *output_info;
 
 	g_return_if_fail (mapper != NULL);
-	g_return_if_fail (GDK_IS_DEVICE (device));
+	g_return_if_fail (device != NULL);
 
 	input_info = g_hash_table_lookup (mapper->input_devices, device);
 	output_info = g_hash_table_lookup (mapper->output_devices, output);
@@ -1308,13 +1071,13 @@ gsd_device_mapper_set_device_output (GsdDeviceMapper *mapper,
 
 void
 gsd_device_mapper_set_device_monitor (GsdDeviceMapper *mapper,
-				      GdkDevice	      *device,
+				      GsdDevice	      *device,
 				      gint	       monitor_num)
 {
 	GnomeRROutput *output;
 
 	g_return_if_fail (GSD_IS_DEVICE_MAPPER (mapper));
-	g_return_if_fail (GDK_IS_DEVICE (device));
+	g_return_if_fail (device != NULL);
 
 	output = monitor_to_output (mapper, monitor_num);
 	gsd_device_mapper_set_device_output (mapper, device, output);
