@@ -921,18 +921,27 @@ action_hibernate (GsdPowerManager *manager)
 static void
 screen_devices_disable (GsdPowerManager *manager)
 {
-        GsdDeviceMapper *mapper;
         GdkDeviceManager *device_manager;
         GList *devices, *l, *to_change;
 
-        mapper = gsd_device_mapper_get ();
+        /* This will be managed by the compositor eventually on X11 too:
+         * https://bugzilla.gnome.org/show_bug.cgi?id=742598
+         */
+        if (gnome_settings_is_wayland ())
+                return;
+
         device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
         devices = gdk_device_manager_list_devices (device_manager, GDK_DEVICE_TYPE_SLAVE);
         to_change = NULL;
         for (l = devices; l != NULL; l = l->next ) {
                 GdkDevice *device = l->data;
+                GdkInputSource source;
 
-                if (gsd_device_mapper_get_device_output (mapper, device) != NULL) {
+                source = gdk_device_get_source (device);
+
+                if (source == GDK_SOURCE_PEN ||
+                    source == GDK_SOURCE_ERASER ||
+                    source == GDK_SOURCE_TOUCHSCREEN) {
                         int device_id;
 
                         g_object_get (device, "device-id", &device_id, NULL);
@@ -952,6 +961,9 @@ static void
 screen_devices_enable (GsdPowerManager *manager)
 {
         GList *l;
+
+        if (gnome_settings_is_wayland ())
+                return;
 
         for (l = manager->priv->disabled_devices; l != NULL; l = l->next)
                 set_device_enabled (GPOINTER_TO_INT (l->data), TRUE);
