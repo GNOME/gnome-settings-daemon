@@ -675,3 +675,27 @@ xdevice_get_dimensions (int    deviceid,
 
         return (w != 0 && h != 0);
 }
+
+gboolean
+xdevice_is_libinput (gint deviceid)
+{
+        GdkDisplay *display = gdk_display_get_default ();
+        gulong nitems, bytes_after;
+        gint rc, format;
+        guchar *data;
+        Atom type;
+
+        gdk_error_trap_push ();
+
+        /* Lookup a libinput driver specific property */
+        rc = XIGetProperty (GDK_DISPLAY_XDISPLAY (display), deviceid,
+                            gdk_x11_get_xatom_by_name ("libinput Send Events Mode Enabled"),
+                            0, 1, False, XA_INTEGER, &type, &format, &nitems, &bytes_after, &data);
+
+        if (rc == Success)
+                XFree (data);
+
+        gdk_error_trap_pop_ignored ();
+
+        return rc == Success && nitems > 0;
+}
