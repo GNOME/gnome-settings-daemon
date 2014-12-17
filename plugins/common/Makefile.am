@@ -2,7 +2,30 @@ plugin_name = common
 
 noinst_LTLIBRARIES = libcommon.la
 
+GSD_COMMON_ENUM_FILES = gsd-common-enums.c gsd-common-enums.h
+
+gsd-common-enums.h: gsd-device-manager.h Makefile
+	$(AM_V_GEN)($(GLIB_MKENUMS) \
+			--fhead "#ifndef GSD_COMMON_ENUMS_H\n#define GSD_COMMON_ENUMS_H\n\n#include <glib-object.h>\n\nG_BEGIN_DECLS\n" \
+			--fprod "/* enumerations from \"@filename@\" */\n" \
+			--vhead "GType @enum_name@_get_type (void) G_GNUC_CONST;\n#define GSD_TYPE_@ENUMSHORT@ (@enum_name@_get_type())\n" \
+			--ftail "G_END_DECLS\n\n#endif /* !GSD_COMMON_ENUMS_H */" \
+		$(srcdir)/gsd-device-manager.h > $@)
+
+gsd-common-enums.c: gsd-device-manager.h Makefile gsd-common-enums.h
+	$(AM_V_GEN)($(GLIB_MKENUMS) \
+			--fhead "#include \"gsd-device-manager.h\"\n#include \"gsd-common-enums.h\"\n" \
+			--fprod "\n/* enumerations from \"@filename@\" */" \
+			--vhead "GType\n@enum_name@_get_type (void)\n{\n  static GType etype = 0;\n  if (etype == 0) {\n    static const G@Type@Value values[] = {" \
+			--vprod "      { @VALUENAME@, \"@VALUENAME@\", \"@valuenick@\" }," \
+			--vtail "      { 0, NULL, NULL }\n    };\n    etype = g_@type@_register_static (\"@EnumName@\", values);\n  }\n  return etype;\n}\n" \
+		$(srcdir)/gsd-device-manager.h > $@)
+
 libcommon_la_SOURCES = \
+	gsd-common-enums.c	\
+	gsd-common-enums.h	\
+	gsd-device-manager.c	\
+	gsd-device-manager.h	\
 	gsd-device-mapper.c	\
 	gsd-device-mapper.h	\
 	gsd-keygrab.c		\
@@ -51,3 +74,6 @@ scriptsdir = $(datadir)/gnome-settings-daemon-@GSD_API_VERSION@
 scripts_DATA = input-device-example.sh
 
 EXTRA_DIST = $(scripts_DATA) test-plugin.h
+
+CLEANFILES = \
+	$(GSD_COMMON_ENUM_FILES)
