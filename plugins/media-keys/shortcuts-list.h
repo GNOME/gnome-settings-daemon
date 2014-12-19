@@ -28,11 +28,12 @@
                                   SHELL_ACTION_MODE_OVERVIEW)
 #define SCREENSAVER_MODE SHELL_ACTION_MODE_ALL & ~SHELL_ACTION_MODE_UNLOCK_SCREEN
 #define NO_LOCK_MODE SCREENSAVER_MODE & ~SHELL_ACTION_MODE_LOCK_SCREEN
-#define POWER_KEYS_MODE (SHELL_ACTION_MODE_NORMAL | \
-			 SHELL_ACTION_MODE_OVERVIEW | \
-			 SHELL_ACTION_MODE_LOGIN_SCREEN)
 #define POWER_KEYS_MODE_NO_DIALOG (SHELL_ACTION_MODE_LOCK_SCREEN | \
 				   SHELL_ACTION_MODE_UNLOCK_SCREEN)
+#define POWER_KEYS_MODE (SHELL_ACTION_MODE_NORMAL | \
+			 SHELL_ACTION_MODE_OVERVIEW | \
+			 SHELL_ACTION_MODE_LOGIN_SCREEN |\
+                         POWER_KEYS_MODE_NO_DIALOG)
 
 static struct {
         MediaKeyType key_type;
@@ -100,12 +101,6 @@ static struct {
         { SLEEP_KEY, NULL, N_("Sleep"), "XF86Suspend", POWER_KEYS_MODE },
         { SUSPEND_KEY, NULL, N_("Suspend"), "XF86Sleep", POWER_KEYS_MODE },
         { HIBERNATE_KEY, NULL, N_("Hibernate"), "XF86Hibernate", POWER_KEYS_MODE },
-        { POWER_KEY_NO_DIALOG, NULL, N_("Power Off"), "XF86PowerOff", POWER_KEYS_MODE_NO_DIALOG },
-        /* the kernel / Xorg names really are like this... */
-        /* translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend */
-        { SLEEP_KEY_NO_DIALOG, NULL, N_("Sleep"), "XF86Suspend", POWER_KEYS_MODE_NO_DIALOG },
-        { SUSPEND_KEY_NO_DIALOG, NULL, N_("Suspend"), "XF86Sleep", POWER_KEYS_MODE_NO_DIALOG },
-        { HIBERNATE_KEY_NO_DIALOG, NULL, N_("Hibernate"), "XF86Hibernate", POWER_KEYS_MODE_NO_DIALOG },
         { SCREEN_BRIGHTNESS_UP_KEY, NULL, N_("Brightness Up"), "XF86MonBrightnessUp", SHELL_ACTION_MODE_ALL },
         { SCREEN_BRIGHTNESS_DOWN_KEY, NULL, N_("Brightness Down"), "XF86MonBrightnessDown", SHELL_ACTION_MODE_ALL },
         { KEYBOARD_BRIGHTNESS_UP_KEY, NULL, N_("Keyboard Brightness Up"), "XF86KbdBrightnessUp", SHELL_ACTION_MODE_ALL },

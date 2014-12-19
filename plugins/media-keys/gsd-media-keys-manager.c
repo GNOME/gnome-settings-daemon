@@ -2023,10 +2023,13 @@ do_custom_action (GsdMediaKeysManager *manager,
 static gboolean
 do_action (GsdMediaKeysManager *manager,
            guint                deviceid,
+           guint                mode,
            MediaKeyType         type,
            gint64               timestamp)
 {
         g_debug ("Launching action for key type '%d' (on device id %d)", type, deviceid);
+
+        gboolean power_action_interactive = !(POWER_KEYS_MODE_NO_DIALOG & mode);
 
         switch (type) {
         case TOUCHPAD_KEY:
@@ -2147,28 +2150,16 @@ do_action (GsdMediaKeysManager *manager,
 		do_toggle_contrast_action (manager);
 		break;
         case POWER_KEY:
-                do_config_power_action (manager, "button-power", FALSE);
+                do_config_power_action (manager, "button-power", power_action_interactive);
                 break;
         case SLEEP_KEY:
-                do_config_power_action (manager, "button-sleep", FALSE);
+                do_config_power_action (manager, "button-sleep", power_action_interactive);
                 break;
         case SUSPEND_KEY:
-                do_config_power_action (manager, "button-suspend", FALSE);
+                do_config_power_action (manager, "button-suspend", power_action_interactive);
                 break;
         case HIBERNATE_KEY:
-                do_config_power_action (manager, "button-hibernate", FALSE);
-                break;
-        case POWER_KEY_NO_DIALOG:
-                do_config_power_action (manager, "button-power", TRUE);
-                break;
-        case SLEEP_KEY_NO_DIALOG:
-                do_config_power_action (manager, "button-sleep", TRUE);
-                break;
-        case SUSPEND_KEY_NO_DIALOG:
-                do_config_power_action (manager, "button-suspend", TRUE);
-                break;
-        case HIBERNATE_KEY_NO_DIALOG:
-                do_config_power_action (manager, "button-hibernate", TRUE);
+                do_config_power_action (manager, "button-hibernate", power_action_interactive);
                 break;
         case SCREEN_BRIGHTNESS_UP_KEY:
         case SCREEN_BRIGHTNESS_DOWN_KEY:
@@ -2198,6 +2189,7 @@ on_accelerator_activated (ShellKeyGrabber     *grabber,
         guint i;
         guint deviceid;
         guint timestamp;
+        guint mode;
 
         g_variant_dict_init (&dict, parameters);
 
@@ -2205,6 +2197,8 @@ on_accelerator_activated (ShellKeyGrabber     *grabber,
               deviceid = 0;
         if (!g_variant_dict_lookup (&dict, "timestamp", "u", &timestamp))
               timestamp = GDK_CURRENT_TIME;
+        if (!g_variant_dict_lookup (&dict, "action-mode", "u", &mode))
+              mode = 0;
 
         for (i = 0; i < manager->priv->keys->len; i++) {
                 MediaKey *key;
@@ -2217,7 +2211,7 @@ on_accelerator_activated (ShellKeyGrabber     *grabber,
                 if (key->key_type == CUSTOM_KEY)
                         do_custom_action (manager, deviceid, key, timestamp);
                 else
-                        do_action (manager, deviceid, key->key_type, timestamp);
+                        do_action (manager, deviceid, mode, key->key_type, timestamp);
                 return;
         }
 }
