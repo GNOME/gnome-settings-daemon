@@ -378,6 +378,37 @@ fixed_true_int (GnomeXSettingsManager *manager,
         xsettings_manager_set_int (manager->priv->manager, fixed->xsetting_name, TRUE);
 }
 
+static void
+fixed_bus_id (GnomeXSettingsManager *manager,
+              FixedEntry            *fixed)
+{
+        const gchar *id;
+        GDBusConnection *bus;
+        GVariant *res;
+
+        bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
+        res = g_dbus_connection_call_sync (bus,
+                                           "org.freedesktop.DBus",
+                                           "/org/freedesktop/DBus",
+                                           "org.freedesktop.DBus",
+                                           "GetId",
+                                           NULL,
+                                           NULL,
+                                           G_DBUS_CALL_FLAGS_NONE,
+                                           -1,
+                                           NULL,
+                                           NULL);
+
+        if (res) {
+                g_variant_get (res, "(&s)", &id);
+
+                xsettings_manager_set_string (manager->priv->manager, fixed->xsetting_name, id);
+                g_variant_unref (res);
+        }
+
+        g_object_unref (bus);
+}
+
 static FixedEntry fixed_entries [] = {
         { "Gtk/MenuImages",          fixed_false_int },
         { "Gtk/ButtonImages",        fixed_false_int },
@@ -386,6 +417,7 @@ static FixedEntry fixed_entries [] = {
         { "Gtk/AutoMnemonics",       fixed_true_int },
         { "Gtk/EnablePrimaryPaste",  fixed_true_int },
         { "Gtk/DialogsUseHeader",    fixed_true_int },
+        { "Gtk/SessionBusId",        fixed_bus_id },
 };
 
 static TranslationEntry translations [] = {
