@@ -2,7 +2,6 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
-#
 # Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>, 2004, 2005.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2004, 2005, 2006, 2007, 2008, 2009, 2010.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2011, 2012, 2013, 2014.
@@ -12,15 +11,15 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-07-28 07:29+0000\n"
-"PO-Revision-Date: 2014-07-29 19:28+0200\n"
+"POT-Creation-Date: 2014-12-31 08:32+0000\n"
+"PO-Revision-Date: 2014-12-05 23:42+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
 "Language-Team: Basque <librezale@librezale.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
@@ -137,10 +136,14 @@ msgid "Whether the tablet's orientation is locked, or rotated automatically."
 msgstr "Taularen orientazio blokeatuta dagoen edo automatikoki biratuko den."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
+msgid "Mouse wheel emulation button. 0 to disable the feature."
+msgstr "Saguaren gurpila emulatzeko botoia. 0 eginbidea desgaitzeko."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
 msgid "Device hotplug custom command"
 msgstr "Gailuaren konexioarentzako komando pertsonalizatua"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:23
 msgid ""
 "Command to be run when a device is added or removed. An exit value of 1 "
 "means that the device will not be handled further by gnome-settings-daemon."
@@ -497,12 +500,10 @@ msgid "Binding to launch the calculator."
 msgstr "Lotura kalkulagailua abiarazteko."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
-#| msgid "Wacom Settings"
 msgid "Launch settings"
 msgstr "Abiarazi ezarpenak"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
-#| msgid "Binding to launch the search tool."
 msgid "Binding to launch GNOME settings."
 msgstr "Lotura GNOMEren konfigurazioa abiarazteko."
 
@@ -873,10 +874,10 @@ msgid ""
 "common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red "
 "on bottom."
 msgstr ""
-"LCD pantailako azpipixel elementuen ordena, antialiasing-a \"rgba"
-"\" (gbua)balioarekin ezartzean bakarrik erabiltzen da. Balio erabilgarriak: "
-"\"rgb\" (gbu) - gorrian ezkerrean (erabiliena); \"bgr\" (ubg) - urdina "
-"ezkerrean; \"vrgb\" (bgbu) gorrian goian; \"vbgr\" (bubg) - gorria behean."
+"LCD pantailako azpipixel elementuen ordena, antialiasing-a \"rgba\" (gbua)"
+"balioarekin ezartzean bakarrik erabiltzen da. Balio erabilgarriak: \"rgb"
+"\" (gbu) - gorrian ezkerrean (erabiliena); \"bgr\" (ubg) - urdina ezkerrean; "
+"\"vrgb\" (bgbu) gorrian goian; \"vbgr\" (bubg) - gorria behean."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
 msgid "List of explicitly disabled GTK+ modules"
@@ -1220,7 +1221,7 @@ msgstr "Teklatua"
 msgid "Keyboard plugin"
 msgstr "Teklatuaren plugina"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:1952
+#: ../plugins/media-keys/gsd-media-keys-manager.c:1984
 msgid "Screencast from %d %t.webm"
 msgstr "%d %t.webm-ren pantailaren bideoa"
 
@@ -1277,113 +1278,113 @@ msgstr "Multimedia-teklak"
 msgid "Media keys plugin"
 msgstr "Multimedia-teklen plugina"
 
-#: ../plugins/media-keys/shortcuts-list.h:43
+#: ../plugins/media-keys/shortcuts-list.h:44
 msgid "Touchpad toggle"
 msgstr "Txandakatu touchpad-a"
 
-#: ../plugins/media-keys/shortcuts-list.h:44
+#: ../plugins/media-keys/shortcuts-list.h:45
 msgid "Touchpad On"
 msgstr "Touchpad-a aktibatuta"
 
-#: ../plugins/media-keys/shortcuts-list.h:45
+#: ../plugins/media-keys/shortcuts-list.h:46
 msgid "Touchpad Off"
 msgstr "Touchpad-a desaktibatuta"
 
-#: ../plugins/media-keys/shortcuts-list.h:49
 #: ../plugins/media-keys/shortcuts-list.h:50
+#: ../plugins/media-keys/shortcuts-list.h:51
 msgid "Microphone Mute"
 msgstr "Mikrofonoa mutututa"
 
-#: ../plugins/media-keys/shortcuts-list.h:51
+#: ../plugins/media-keys/shortcuts-list.h:52
 msgid "Quiet Volume Mute"
 msgstr "Mututu bolumena zuhurki"
 
-#: ../plugins/media-keys/shortcuts-list.h:52
+#: ../plugins/media-keys/shortcuts-list.h:53
 msgid "Quiet Volume Down"
 msgstr "Jaitsi bolumena zuhurki"
 
-#: ../plugins/media-keys/shortcuts-list.h:53
+#: ../plugins/media-keys/shortcuts-list.h:54
 msgid "Quiet Volume Up"
 msgstr "Igo bolumena zuhurki"
 
-#: ../plugins/media-keys/shortcuts-list.h:63
+#: ../plugins/media-keys/shortcuts-list.h:64
 msgid "Lock Screen"
 msgstr "Blokeatu pantaila"
 
-#: ../plugins/media-keys/shortcuts-list.h:78
+#: ../plugins/media-keys/shortcuts-list.h:79
 msgid "Rewind"
 msgstr "Atzera eraman"
 
-#: ../plugins/media-keys/shortcuts-list.h:79
+#: ../plugins/media-keys/shortcuts-list.h:80
 msgid "Forward"
 msgstr "Aurrera eraman"
 
-#: ../plugins/media-keys/shortcuts-list.h:80
+#: ../plugins/media-keys/shortcuts-list.h:81
 msgid "Repeat"
 msgstr "Errepikatu"
 
-#: ../plugins/media-keys/shortcuts-list.h:81
+#: ../plugins/media-keys/shortcuts-list.h:82
 msgid "Random Play"
 msgstr "Ausazko erreprodukzioa"
 
 #. Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.)
-#: ../plugins/media-keys/shortcuts-list.h:82
-#: ../plugins/media-keys/shortcuts-list.h:84
+#: ../plugins/media-keys/shortcuts-list.h:83
+#: ../plugins/media-keys/shortcuts-list.h:85
 msgid "Video Out"
 msgstr "Bideo irteera"
 
 #. Key code of the XF86RotateWindows key (present on some tablets)
-#: ../plugins/media-keys/shortcuts-list.h:86
+#: ../plugins/media-keys/shortcuts-list.h:87
 msgid "Rotate Screen"
 msgstr "Biratu pantaila"
 
-#: ../plugins/media-keys/shortcuts-list.h:87
+#: ../plugins/media-keys/shortcuts-list.h:88
 msgid "Orientation Lock"
 msgstr "Orientazioaren blokeoa"
 
-#: ../plugins/media-keys/shortcuts-list.h:96
-#: ../plugins/media-keys/shortcuts-list.h:102
+#: ../plugins/media-keys/shortcuts-list.h:97
+#: ../plugins/media-keys/shortcuts-list.h:103
 msgid "Power Off"
 msgstr "Itzali"
 
 #. the kernel / Xorg names really are like this...
 #. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
-#: ../plugins/media-keys/shortcuts-list.h:99
-#: ../plugins/media-keys/shortcuts-list.h:105
+#: ../plugins/media-keys/shortcuts-list.h:100
+#: ../plugins/media-keys/shortcuts-list.h:106
 msgid "Sleep"
 msgstr "Lo egin"
 
-#: ../plugins/media-keys/shortcuts-list.h:100
-#: ../plugins/media-keys/shortcuts-list.h:106
+#: ../plugins/media-keys/shortcuts-list.h:101
+#: ../plugins/media-keys/shortcuts-list.h:107
 msgid "Suspend"
 msgstr "Eseki"
 
-#: ../plugins/media-keys/shortcuts-list.h:101
-#: ../plugins/media-keys/shortcuts-list.h:107
+#: ../plugins/media-keys/shortcuts-list.h:102
+#: ../plugins/media-keys/shortcuts-list.h:108
 msgid "Hibernate"
 msgstr "Hibernatu"
 
-#: ../plugins/media-keys/shortcuts-list.h:108
+#: ../plugins/media-keys/shortcuts-list.h:109
 msgid "Brightness Up"
 msgstr "Handitu distira"
 
-#: ../plugins/media-keys/shortcuts-list.h:109
+#: ../plugins/media-keys/shortcuts-list.h:110
 msgid "Brightness Down"
 msgstr "Gutxitu distira"
 
-#: ../plugins/media-keys/shortcuts-list.h:110
+#: ../plugins/media-keys/shortcuts-list.h:111
 msgid "Keyboard Brightness Up"
 msgstr "Igo teklatuaren distira"
 
-#: ../plugins/media-keys/shortcuts-list.h:111
+#: ../plugins/media-keys/shortcuts-list.h:112
 msgid "Keyboard Brightness Down"
 msgstr "Jaitsi teklatuaren distira"
 
-#: ../plugins/media-keys/shortcuts-list.h:112
+#: ../plugins/media-keys/shortcuts-list.h:113
 msgid "Keyboard Brightness Toggle"
 msgstr "Txandakatu teklatuaren distira"
 
-#: ../plugins/media-keys/shortcuts-list.h:113
+#: ../plugins/media-keys/shortcuts-list.h:114
 msgid "Battery Status"
 msgstr "Bateriaren egoera"
 
@@ -1442,191 +1443,191 @@ msgstr[0] "minutu"
 msgstr[1] "minutu"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:863 ../plugins/power/gsd-power-manager.c:666
-#: ../plugins/power/gsd-power-manager.c:766
+#: ../plugins/power/gpm-common.c:879 ../plugins/power/gsd-power-manager.c:670
+#: ../plugins/power/gsd-power-manager.c:770
 msgid "Battery is critically low"
 msgstr "Bateria larriki baxua"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:326
+#: ../plugins/power/gsd-power-manager.c:330
 msgid "UPS Discharging"
 msgstr "UPS deskargatzen"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:331
+#: ../plugins/power/gsd-power-manager.c:335
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "UPS babeseko energiari %s geratzen zaio"
 
-#: ../plugins/power/gsd-power-manager.c:334
+#: ../plugins/power/gsd-power-manager.c:338
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "UPS babeseko energiari kopuru ezezaguna geratzen zaio"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:350
-#: ../plugins/power/gsd-power-manager.c:498
-#: ../plugins/power/gsd-power-manager.c:649
-#: ../plugins/power/gsd-power-manager.c:757
-#: ../plugins/power/gsd-power-manager.c:1950
+#: ../plugins/power/gsd-power-manager.c:354
+#: ../plugins/power/gsd-power-manager.c:502
+#: ../plugins/power/gsd-power-manager.c:653
+#: ../plugins/power/gsd-power-manager.c:761
+#: ../plugins/power/gsd-power-manager.c:2002
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Energia"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:413
+#: ../plugins/power/gsd-power-manager.c:417
 msgid "Battery low"
 msgstr "Bateria baxua"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:416
+#: ../plugins/power/gsd-power-manager.c:420
 msgid "Laptop battery low"
 msgstr "Eramangarriaren bateria baxua"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:423
+#: ../plugins/power/gsd-power-manager.c:427
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "Gutxi gorabehera gelditzen zaio: %s (%% %.0f)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:428
+#: ../plugins/power/gsd-power-manager.c:432
 msgid "UPS low"
 msgstr "UPS baxua"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:434
+#: ../plugins/power/gsd-power-manager.c:438
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "UPSri gelditzen zaion batez besteko denbora: %s (%% %.0f)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:439
-#: ../plugins/power/gsd-power-manager.c:576
+#: ../plugins/power/gsd-power-manager.c:443
+#: ../plugins/power/gsd-power-manager.c:580
 msgid "Mouse battery low"
 msgstr "Saguaren bateria baxua"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:442
+#: ../plugins/power/gsd-power-manager.c:446
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "Haririk gabeko saguak energia baxua du (%% %.0f)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:446
-#: ../plugins/power/gsd-power-manager.c:584
+#: ../plugins/power/gsd-power-manager.c:450
+#: ../plugins/power/gsd-power-manager.c:588
 msgid "Keyboard battery low"
 msgstr "Teklatuaren bateria baxua"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:449
+#: ../plugins/power/gsd-power-manager.c:453
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "Haririk gabeko teklatuak energia baxua du (%% %.1f)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:453
-#: ../plugins/power/gsd-power-manager.c:593
+#: ../plugins/power/gsd-power-manager.c:457
+#: ../plugins/power/gsd-power-manager.c:597
 msgid "PDA battery low"
 msgstr "PDAren bateria baxua"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:456
+#: ../plugins/power/gsd-power-manager.c:460
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "PDAk energia baxua du (%% %.0f)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:460
-#: ../plugins/power/gsd-power-manager.c:603
-#: ../plugins/power/gsd-power-manager.c:612
+#: ../plugins/power/gsd-power-manager.c:464
+#: ../plugins/power/gsd-power-manager.c:607
+#: ../plugins/power/gsd-power-manager.c:616
 msgid "Cell phone battery low"
 msgstr "Telefono mugikorraren bateria baxua"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:463
+#: ../plugins/power/gsd-power-manager.c:467
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "Telefono mugikorrak energia baxua du (%% %.0f)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:467
+#: ../plugins/power/gsd-power-manager.c:471
 msgid "Media player battery low"
 msgstr "Multimediaren erreproduzigailuak bateria baxua"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:470
+#: ../plugins/power/gsd-power-manager.c:474
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "Multimediaren erreproduzigailuak energia baxua du (%% %.0f)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:474
-#: ../plugins/power/gsd-power-manager.c:621
+#: ../plugins/power/gsd-power-manager.c:478
+#: ../plugins/power/gsd-power-manager.c:625
 msgid "Tablet battery low"
 msgstr "Taularen bateria baxua"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:477
+#: ../plugins/power/gsd-power-manager.c:481
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "Taulak energia baxua du (%% %.0f)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:481
-#: ../plugins/power/gsd-power-manager.c:630
+#: ../plugins/power/gsd-power-manager.c:485
+#: ../plugins/power/gsd-power-manager.c:634
 msgid "Attached computer battery low"
 msgstr "Konektatutako ordenagailuak bateria baxua"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:484
+#: ../plugins/power/gsd-power-manager.c:488
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "Konektatutako ordenagailuak energia baxua du (%% %.0f)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:508
+#: ../plugins/power/gsd-power-manager.c:512
 msgid "Battery is low"
 msgstr "Bateria baxua"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:540
+#: ../plugins/power/gsd-power-manager.c:544
 msgid "Battery critically low"
 msgstr "Bateria larriki baxua"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:543
-#: ../plugins/power/gsd-power-manager.c:693
+#: ../plugins/power/gsd-power-manager.c:547
+#: ../plugins/power/gsd-power-manager.c:697
 msgid "Laptop battery critically low"
 msgstr "Eramangarriaren bateria larriki baxua"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:552
+#: ../plugins/power/gsd-power-manager.c:556
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr "Ordenagailua berehala hibernatuko da, ez bada entxufatzen."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:556
+#: ../plugins/power/gsd-power-manager.c:560
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "Ordenagailua berehala itzaliko da, ez bada entxufatzen."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:564
-#: ../plugins/power/gsd-power-manager.c:718
+#: ../plugins/power/gsd-power-manager.c:568
+#: ../plugins/power/gsd-power-manager.c:722
 msgid "UPS critically low"
 msgstr "UPS larriki baxua"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:570
+#: ../plugins/power/gsd-power-manager.c:574
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1636,7 +1637,7 @@ msgstr ""
 "ez galtzeko."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:579
+#: ../plugins/power/gsd-power-manager.c:583
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1646,7 +1647,7 @@ msgstr ""
 "utzi egingo dio ez bada kargatzen."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:587
+#: ../plugins/power/gsd-power-manager.c:591
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1656,7 +1657,7 @@ msgstr ""
 "funtzionatzeari utzi egingo dio ez bada kargatzen."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:596
+#: ../plugins/power/gsd-power-manager.c:600
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1666,7 +1667,7 @@ msgstr ""
 "ez bada kargatzen."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:606
+#: ../plugins/power/gsd-power-manager.c:610
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -1676,7 +1677,7 @@ msgstr ""
 "utzi egingo dio ez bada kargatzen."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:615
+#: ../plugins/power/gsd-power-manager.c:619
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -1686,7 +1687,7 @@ msgstr ""
 "funtzionatzeari utzi egingo dio ez bada kargatzen."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:624
+#: ../plugins/power/gsd-power-manager.c:628
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -1696,7 +1697,7 @@ msgstr ""
 "dio ez bada kargatzen."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:633
+#: ../plugins/power/gsd-power-manager.c:637
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -1706,7 +1707,7 @@ msgstr ""
 "funtzionatzeari utzi egingo dio ez bada kargatzen."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:701
+#: ../plugins/power/gsd-power-manager.c:705
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -1714,7 +1715,7 @@ msgstr ""
 "Bateria maila larriaren azpitik dabil eta ordenagailua hibernatu egingo da."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:706
+#: ../plugins/power/gsd-power-manager.c:710
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -1722,56 +1723,55 @@ msgstr ""
 "Bateria maila larriaren azpitik dabil eta ordenagailua itzali egingo da."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:726
+#: ../plugins/power/gsd-power-manager.c:730
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
 "UPS maila larriaren azpitik dabil eta ordenagailua hibernatu egingo da."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:731
+#: ../plugins/power/gsd-power-manager.c:735
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr "UPS maila larriaren azpitik dabil eta ordenagailua itzali egingo da."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1150
+#: ../plugins/power/gsd-power-manager.c:1200
 msgid "Lid has been opened"
 msgstr "Tapa ireki egin da"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1188
+#: ../plugins/power/gsd-power-manager.c:1238
 msgid "Lid has been closed"
 msgstr "Tapa itxi egin da"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1749
-#| msgid "PDA battery low"
+#: ../plugins/power/gsd-power-manager.c:1799
 msgid "On battery power"
 msgstr "Bateriaren energiarekin"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1754
+#: ../plugins/power/gsd-power-manager.c:1804
 msgid "On AC power"
 msgstr "Entxufatuta"
 
-#: ../plugins/power/gsd-power-manager.c:1928
+#: ../plugins/power/gsd-power-manager.c:1980
 msgid "Automatic logout"
 msgstr "Saio-amaiera automatikoa"
 
-#: ../plugins/power/gsd-power-manager.c:1928
+#: ../plugins/power/gsd-power-manager.c:1980
 msgid "You will soon log out because of inactivity."
 msgstr "Berehala saiotik irtengo zara inaktibitatea dela eta."
 
-#: ../plugins/power/gsd-power-manager.c:1933
+#: ../plugins/power/gsd-power-manager.c:1985
 msgid "Automatic suspend"
 msgstr "Esekitze automatikoa"
 
-#: ../plugins/power/gsd-power-manager.c:1933
-#: ../plugins/power/gsd-power-manager.c:1938
+#: ../plugins/power/gsd-power-manager.c:1985
+#: ../plugins/power/gsd-power-manager.c:1990
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Ordenagailua berehala esekituko da inaktibitatea dela eta."
 
-#: ../plugins/power/gsd-power-manager.c:1938
+#: ../plugins/power/gsd-power-manager.c:1990
 msgid "Automatic hibernation"
 msgstr "Hibernatze automatikoa"
 
@@ -2305,7 +2305,7 @@ msgstr "Wacom"
 msgid "Wacom plugin"
 msgstr "Wacom plugina"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:958
+#: ../plugins/xrandr/gsd-xrandr-manager.c:965
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Ezin izan da pantailaren informazioa freskatu: %s"
