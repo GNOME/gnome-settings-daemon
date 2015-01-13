@@ -26,6 +26,8 @@ libcommon_la_SOURCES = \
 	gsd-common-enums.h	\
 	gsd-device-manager.c	\
 	gsd-device-manager.h	\
+	gsd-device-manager-x11.c  \
+	gsd-device-manager-x11.h  \
 	gsd-device-manager-udev.c \
 	gsd-device-manager-udev.h \
 	gsd-device-mapper.c	\
