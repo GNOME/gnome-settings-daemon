@@ -23,6 +23,7 @@
 
 #include <string.h>
 
+#include "gsd-device-manager-x11.h"
 #include "gsd-device-manager-udev.h"
 #include "gsd-common-enums.h"
 #include "gnome-settings-bus.h"
@@ -267,8 +268,12 @@ gsd_device_manager_get (void)
 		if (gnome_settings_is_wayland ()) {
 			manager = g_object_new (GSD_TYPE_UDEV_DEVICE_MANAGER,
 						NULL);
-		}
+		} else
 #endif /* HAVE_WAYLAND */
+		{
+			manager = g_object_new (GSD_TYPE_X11_DEVICE_MANAGER,
+						NULL);
+		}
 
 		g_object_set_data_full (G_OBJECT (screen), "gsd-device-manager-data",
 					manager, (GDestroyNotify) g_object_unref);
