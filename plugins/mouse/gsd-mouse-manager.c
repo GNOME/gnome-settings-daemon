@@ -53,6 +53,7 @@
 #include "gsd-mouse-manager.h"
 #include "gsd-input-helper.h"
 #include "gsd-enums.h"
+#include "gsd-settings-migrate.h"
 
 #define GSD_MOUSE_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_MOUSE_MANAGER, GsdMouseManagerPrivate))
 
@@ -1488,12 +1489,81 @@ gsd_mouse_manager_finalize (GObject *object)
         G_OBJECT_CLASS (gsd_mouse_manager_parent_class)->finalize (object);
 }
 
+static GVariant *
+map_speed (GVariant *variant)
+{
+        gdouble value;
+
+        value = g_variant_get_double (variant);
+
+        /* Remap from [0..10] to [-1..1] */
+        value = (value / 5) - 1;
+
+        return g_variant_new_double (value);
+}
+
+static GVariant *
+map_send_events (GVariant *variant)
+{
+        gboolean enabled;
+
+        enabled = g_variant_get_boolean (variant);
+
+        if (enabled) {
+                return g_variant_new_string ("enabled");
+        } else {
+                return g_variant_new_string ("disabled");
+        }
+}
+
+static void
+migrate_mouse_settings (void)
+{
+        GsdSettingsMigrateEntry trackball_entries[] = {
+                { "scroll-wheel-emulation-button", "scroll-wheel-emulation-button", NULL }
+        };
+        GsdSettingsMigrateEntry mouse_entries[] = {
+                { "left-handed",           "left-handed", NULL },
+                { "motion-acceleration",   "speed",       map_speed },
+                { "motion-threshold",      NULL,          NULL },
+                { "middle-button-enabled", NULL,          NULL },
+        };
+        GsdSettingsMigrateEntry touchpad_entries[] = {
+                { "disable-while-typing", NULL,             NULL },
+                { "horiz-scroll-enabled", NULL,             NULL },
+                { "scroll-method",        "scroll-method",  NULL },
+                { "tap-to-click",         "tap-to-click",   NULL },
+                { "touchpad-enabled",     "send-events",    map_send_events },
+                { "left-handed",          "left-handed",    NULL },
+                { "motion-acceleration",  "speed",          map_speed },
+                { "motion-threshold",     NULL,             NULL },
+                { "natural-scroll",       "natural-scroll", NULL }
+        };
+
+        gsd_settings_migrate_check ("org.gnome.settings-daemon.peripherals.trackball.deprecated",
+                                    "/org/gnome/settings-daemon/peripherals/trackball/",
+                                    "org.gnome.desktop.peripherals.trackball",
+                                    "/org/gnome/desktop/peripherals/trackball/",
+                                    trackball_entries, G_N_ELEMENTS (trackball_entries));
+        gsd_settings_migrate_check ("org.gnome.settings-daemon.peripherals.mouse.deprecated",
+                                    "/org/gnome/settings-daemon/peripherals/mouse/",
+                                    "org.gnome.desktop.peripherals.mouse",
+                                    "/org/gnome/desktop/peripherals/mouse/",
+                                    mouse_entries, G_N_ELEMENTS (mouse_entries));
+        gsd_settings_migrate_check ("org.gnome.settings-daemon.peripherals.touchpad.deprecated",
+                                    "/org/gnome/settings-daemon/peripherals/touchpad/",
+                                    "org.gnome.desktop.peripherals.touchpad",
+                                    "/org/gnome/desktop/peripherals/touchpad/",
+                                    touchpad_entries, G_N_ELEMENTS (touchpad_entries));
+}
+
 GsdMouseManager *
 gsd_mouse_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
+                migrate_mouse_settings ();
                 manager_object = g_object_new (GSD_TYPE_MOUSE_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);

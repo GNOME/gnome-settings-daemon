@@ -45,6 +45,7 @@
 #include "gsd-keyboard-manager.h"
 #include "gsd-input-helper.h"
 #include "gsd-enums.h"
+#include "gsd-settings-migrate.h"
 
 #define GSD_KEYBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_KEYBOARD_MANAGER, GsdKeyboardManagerPrivate))
 
@@ -833,12 +834,29 @@ gsd_keyboard_manager_finalize (GObject *object)
         G_OBJECT_CLASS (gsd_keyboard_manager_parent_class)->finalize (object);
 }
 
+static void
+migrate_keyboard_settings (void)
+{
+        GsdSettingsMigrateEntry entries[] = {
+                { "repeat",          "repeat",          NULL },
+                { "repeat-interval", "repeat-interval", NULL },
+                { "delay",           "delay",           NULL }
+        };
+
+        gsd_settings_migrate_check ("org.gnome.settings-daemon.peripherals.keyboard.deprecated",
+                                    "/org/gnome/settings-daemon/peripherals/keyboard/",
+                                    "org.gnome.desktop.peripherals.keyboard",
+                                    "/org/gnome/desktop/peripherals/keyboard/",
+                                    entries, G_N_ELEMENTS (entries));
+}
+
 GsdKeyboardManager *
 gsd_keyboard_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
+                migrate_keyboard_settings ();
                 manager_object = g_object_new (GSD_TYPE_KEYBOARD_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);

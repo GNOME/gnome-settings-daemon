@@ -36,6 +36,8 @@ libcommon_la_SOURCES = \
 	gsd-keygrab.h		\
 	gsd-input-helper.c	\
 	gsd-input-helper.h	\
+	gsd-settings-migrate.c	\
+	gsd-settings-migrate.h	\
 	gsd-shell-helper.c	\
 	gsd-shell-helper.h
 
