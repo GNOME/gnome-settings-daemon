@@ -106,6 +106,8 @@ static void     gsd_mouse_manager_finalize    (GObject             *object);
 static void     set_tap_to_click              (GdkDevice           *device,
                                                gboolean             state,
                                                gboolean             left_handed);
+static void     ensure_touchpad_active        (GsdMouseManager     *manager);
+
 
 G_DEFINE_TYPE (GsdMouseManager, gsd_mouse_manager, G_TYPE_OBJECT)
 
@@ -1207,16 +1209,8 @@ touchpad_callback (GSettings       *settings,
         }
         g_list_free (devices);
 
-        if (g_str_equal (key, KEY_SEND_EVENTS) &&
-            get_touchpad_enabled (manager)) {
-                devices = get_disabled_devices (manager->priv->device_manager);
-                for (l = devices; l != NULL; l = l->next) {
-                        int device_id;
-
-                        device_id = GPOINTER_TO_INT (l->data);
-                        set_touchpad_enabled (device_id);
-                }
-                g_list_free (devices);
+        if (g_str_equal (key, KEY_SEND_EVENTS)) {
+                ensure_touchpad_active (manager);
         }
 }
 
