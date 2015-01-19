@@ -1150,6 +1150,9 @@ device_removed_cb (GsdDeviceManager *device_manager,
 	gsd_device_mapper_remove_input (manager->priv->device_mapper,
 					gsd_device);
 
+	if (gnome_settings_is_wayland ())
+	    return;
+
 	devices = gsd_x11_device_manager_get_gdk_devices (GSD_X11_DEVICE_MANAGER (device_manager),
 							  gsd_device, &n_gdk_devices);
 
