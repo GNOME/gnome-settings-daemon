@@ -605,12 +605,19 @@ find_output_by_display (GnomeRRScreen *rr_screen, GsdWacomDevice *device)
 	GVariant *display;
 	const gchar **edid;
 	GnomeRROutput *ret;
+	GsdDevice *gsd_device;
 
 	if (device == NULL)
 		return NULL;
 
+	gsd_device = gsd_x11_device_manager_lookup_gdk_device (GSD_X11_DEVICE_MANAGER (gsd_device_manager_get ()),
+							       device->priv->gdk_device);
+
+	if (gsd_device == NULL)
+		return NULL;
+
 	ret      = NULL;
-	tablet   = device->priv->wacom_settings;
+	tablet   = gsd_device_get_settings (gsd_device);
 	display  = g_settings_get_value (tablet, "display");
 	edid     = g_variant_get_strv (display, &n);
 
@@ -627,6 +634,7 @@ find_output_by_display (GnomeRRScreen *rr_screen, GsdWacomDevice *device)
 out:
 	g_free (edid);
 	g_variant_unref (display);
+	g_object_unref (tablet);
 
 	return ret;
 }
@@ -693,12 +701,23 @@ set_display_by_output (GsdWacomDevice  *device,
 	gsize        nvalues;
 	gchar       *o_vendor, *o_product, *o_serial;
 	const gchar *values[3];
+	GsdDevice *gsd_device;
 
-	tablet  = gsd_wacom_device_get_settings (device);
+	if (device == NULL)
+		return;
+
+	gsd_device = gsd_x11_device_manager_lookup_gdk_device (GSD_X11_DEVICE_MANAGER (gsd_device_manager_get ()),
+							       device->priv->gdk_device);
+
+	if (gsd_device == NULL)
+		return;
+
+	tablet  = gsd_device_get_settings (gsd_device);
 	c_array = g_settings_get_value (tablet, "display");
 	g_variant_get_strv (c_array, &nvalues);
 	if (nvalues != 3) {
 		g_warning ("Unable set set display property. Got %"G_GSIZE_FORMAT" items; expected %d items.\n", nvalues, 4);
+		g_object_unref (tablet);
 		return;
 	}
 
@@ -722,6 +741,7 @@ set_display_by_output (GsdWacomDevice  *device,
 	g_free (o_vendor);
 	g_free (o_product);
 	g_free (o_serial);
+	g_object_unref (tablet);
 }
 
 static GsdWacomRotation
