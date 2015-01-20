@@ -250,7 +250,7 @@ gsd_x11_device_manager_lookup_gdk_device (GsdX11DeviceManager *manager,
 	const gchar *device_node;
 
 	g_return_val_if_fail (GSD_IS_X11_DEVICE_MANAGER (manager), NULL);
-	g_return_val_if_fail (GDK_IS_DEVICE (manager), NULL);
+	g_return_val_if_fail (GDK_IS_DEVICE (gdk_device), NULL);
 
 	device_node = g_hash_table_lookup (manager->gdk_devices, gdk_device);
 
