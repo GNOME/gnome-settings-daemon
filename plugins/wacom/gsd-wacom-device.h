@@ -142,6 +142,8 @@ typedef enum {
 
 GType gsd_wacom_device_get_type     (void);
 
+void     gsd_wacom_device_set_display         (GsdWacomDevice    *device,
+                                               int                monitor);
 gint     gsd_wacom_device_get_display_monitor (GsdWacomDevice *device);
 GsdWacomRotation gsd_wacom_device_get_display_rotation (GsdWacomDevice *device);
 
