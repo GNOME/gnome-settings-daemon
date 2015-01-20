@@ -34,7 +34,6 @@
 #include <X11/extensions/XInput2.h>
 
 #include "gsd-input-helper.h"
-#include "gsd-device-mapper.h"
 
 #include "gsd-enums.h"
 #include "gsd-wacom-device.h"
@@ -833,24 +832,24 @@ gsd_wacom_device_get_display_monitor (GsdWacomDevice *device)
 GsdWacomRotation
 gsd_wacom_device_get_display_rotation (GsdWacomDevice *device)
 {
+	GnomeRRScreen *rr_screen;
 	GnomeRROutput *rr_output;
 	GnomeRRRotation rotation = GNOME_RR_ROTATION_0;
-	GsdDevice *gsd_device;
 
-	gsd_device = gsd_x11_device_manager_lookup_gdk_device (GSD_X11_DEVICE_MANAGER (gsd_device_manager_get ()),
-							       device->priv->gdk_device);
+	rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), NULL);
 
-	if (!gsd_device)
+	if (rr_screen == NULL)
 		return GSD_WACOM_ROTATION_NONE;
 
-	rr_output = gsd_device_mapper_get_device_output (gsd_device_mapper_get (),
-							 gsd_device);
+	rr_output = find_output_by_display (rr_screen, device);
 
 	if (rr_output) {
 		GnomeRRCrtc *crtc = gnome_rr_output_get_crtc (rr_output);
 		if (crtc)
 			rotation = gnome_rr_crtc_get_current_rotation (crtc);
 	}
+
+	g_object_unref (rr_screen);
 
 	return get_rotation_wacom (rotation);
 }
