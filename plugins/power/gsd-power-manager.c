@@ -129,7 +129,7 @@ struct GsdPowerManagerPrivate
         /* Screensaver */
         GsdScreenSaver          *screensaver_proxy;
         gboolean                 screensaver_active;
-        GList                   *disabled_devices;
+        GHashTable              *disabled_devices;
 
         /* State */
         gboolean                 lid_is_present;
@@ -921,12 +921,11 @@ screen_devices_disable (GsdPowerManager *manager)
 {
         GsdDeviceMapper *mapper;
         GdkDeviceManager *device_manager;
-        GList *devices, *l, *to_change;
+        GList *devices, *l;
 
         mapper = gsd_device_mapper_get ();
         device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
         devices = gdk_device_manager_list_devices (device_manager, GDK_DEVICE_TYPE_SLAVE);
-        to_change = NULL;
         for (l = devices; l != NULL; l = l->next ) {
                 GdkDevice *device = l->data;
 
@@ -934,27 +933,30 @@ screen_devices_disable (GsdPowerManager *manager)
                         int device_id;
 
                         g_object_get (device, "device-id", &device_id, NULL);
-                        to_change = g_list_prepend (to_change, GINT_TO_POINTER (device_id));
+                        g_hash_table_insert (manager->priv->disabled_devices,
+                                             GINT_TO_POINTER (device_id),
+                                             GINT_TO_POINTER (TRUE));
                 }
         }
         g_list_free (devices);
 
-        for (l = to_change; l != NULL; l = l->next)
+        devices = g_hash_table_get_keys (manager->priv->disabled_devices);
+        for (l = devices; l != NULL; l = l->next)
                 set_device_enabled (GPOINTER_TO_INT (l->data), FALSE);
-
-        g_clear_pointer (&manager->priv->disabled_devices, g_list_free);
-        manager->priv->disabled_devices = to_change;
+        g_list_free (devices);
 }
 
 static void
 screen_devices_enable (GsdPowerManager *manager)
 {
-        GList *l;
+        GList *l, *disabled_devices;
 
-        for (l = manager->priv->disabled_devices; l != NULL; l = l->next)
+        disabled_devices = g_hash_table_get_keys (manager->priv->disabled_devices);
+        for (l = disabled_devices; l != NULL; l = l->next)
                 set_device_enabled (GPOINTER_TO_INT (l->data), TRUE);
+        g_list_free (disabled_devices);
 
-        g_clear_pointer (&manager->priv->disabled_devices, g_list_free);
+        g_hash_table_remove_all (manager->priv->disabled_devices);
 }
 
 static void
@@ -1828,6 +1830,8 @@ gsd_power_manager_finalize (GObject *object)
 
         gsd_power_manager_stop (manager);
 
+        g_clear_pointer (&manager->priv->disabled_devices, g_hash_table_unref);
+
         g_clear_object (&manager->priv->connection);
 
         if (manager->priv->name_id != 0)
@@ -2521,6 +2525,7 @@ gsd_power_manager_init (GsdPowerManager *manager)
         manager->priv->inhibit_lid_switch_fd = -1;
         manager->priv->inhibit_suspend_fd = -1;
         manager->priv->bus_cancellable = g_cancellable_new ();
+        manager->priv->disabled_devices = g_hash_table_new (g_direct_hash, g_direct_equal);
 }
 
 /* returns new level */
