@@ -1,4 +1,23 @@
 ==============
+Version 3.15.4
+==============
+
+- Added GsdDeviceManager with X11 and udev (for native wayland
+  sessions) backends
+- Most keyboard, mouse, touchpad and wacom settings schemas moved to
+  gsettings-desktop-schemas. User settings migration is done
+  automatically at startup
+- The moved settings are now applied by mutter >= 3.15.4
+
+Media-keys:
+- Adjust to ShellKeyGrabber changes (requires gnome-shell >= 3.15.4 at
+  run time)
+- Make power-actions non-interactive based on mode
+
+XSettings:
+- Export the session bus ID as an xsetting
+
+==============
 Version 3.15.1
 ==============
 
