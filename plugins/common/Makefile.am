@@ -28,8 +28,6 @@ libcommon_la_SOURCES = \
 	gsd-device-manager.h	\
 	gsd-device-manager-x11.c  \
 	gsd-device-manager-x11.h  \
-	gsd-device-manager-udev.c \
-	gsd-device-manager-udev.h \
 	gsd-device-mapper.c	\
 	gsd-device-mapper.h	\
 	gsd-keygrab.c		\
@@ -40,6 +38,12 @@ libcommon_la_SOURCES = \
 	gsd-settings-migrate.h	\
 	gsd-shell-helper.c	\
 	gsd-shell-helper.h
+
+if HAVE_GUDEV
+libcommon_la_SOURCES += \
+	gsd-device-manager-udev.c \
+	gsd-device-manager-udev.h
+endif
 
 libcommon_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon	\
