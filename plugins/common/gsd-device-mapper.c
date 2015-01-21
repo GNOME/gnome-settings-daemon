@@ -654,10 +654,11 @@ mapper_recalculate_input (GsdDeviceMapper *mapper,
 static void
 input_info_update_capabilities (GsdInputInfo *info)
 {
+	GsdDeviceType type;
+
 #if HAVE_WACOM
 	WacomDevice *wacom_device;
 	const gchar *devpath;
-	GsdDeviceType type;
 
 	info->capabilities = 0;
 	devpath = gsd_device_get_device_file (info->device);
