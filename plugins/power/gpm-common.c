@@ -191,6 +191,19 @@ out:
         return ret;
 }
 
+gboolean
+gsd_power_is_hardware_a_tablet (void)
+{
+        char *type;
+        gboolean ret = FALSE;
+
+        type = gnome_settings_get_chassis_type ();
+        ret = (g_strcmp0 (type, "tablet") == 0);
+        g_free (type);
+
+        return ret;
+}
+
 /* This timer goes off every few minutes, whether the user is idle or not,
    to try and clean up anything that has gone wrong.
 
