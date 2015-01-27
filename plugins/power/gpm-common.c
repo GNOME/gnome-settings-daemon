@@ -183,6 +183,7 @@ gsd_power_is_hardware_a_vm (void)
         str = g_variant_get_string (inner, NULL);
         if (str != NULL && str[0] != '\0')
                 ret = TRUE;
+        g_variant_unref (inner);
 out:
         if (connection != NULL)
                 g_object_unref (connection);
