@@ -122,31 +122,28 @@ gnome_settings_bus_get_shell_proxy (void)
         return shell_proxy;
 }
 
-static gboolean
-is_wayland_session (void)
+static gpointer
+is_wayland_session (gpointer user_data)
 {
 #if HAVE_WAYLAND
         struct wl_display *display;
 
         display = wl_display_connect (NULL);
         if (!display)
-                return FALSE;
+                return GUINT_TO_POINTER(FALSE);
         wl_display_disconnect (display);
-        return TRUE;
+        return GUINT_TO_POINTER(TRUE);
 #else
-        return FALSE;
+        return GUINT_TO_POINTER(FALSE);
 #endif
 }
 
 gboolean
 gnome_settings_is_wayland (void)
 {
-        static gboolean checked = FALSE;
-        static gboolean wayland = FALSE;
+        static GOnce wayland_once = G_ONCE_INIT;
 
-        if (!checked) {
-                wayland = is_wayland_session ();
-                checked = TRUE;
-        }
-        return wayland;
+        g_once (&wayland_once, is_wayland_session, NULL);
+
+        return GPOINTER_TO_UINT(wayland_once.retval);
 }
