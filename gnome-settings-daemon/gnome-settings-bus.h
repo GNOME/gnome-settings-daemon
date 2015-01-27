@@ -33,6 +33,7 @@ GsdSessionManager        *gnome_settings_bus_get_session_proxy       (void);
 GsdScreenSaver           *gnome_settings_bus_get_screen_saver_proxy  (void);
 GsdShell                 *gnome_settings_bus_get_shell_proxy         (void);
 gboolean                  gnome_settings_is_wayland                  (void);
+char *                    gnome_settings_get_chassis_type            (void);
 
 G_END_DECLS
 
