@@ -29,6 +29,7 @@
 #include "gnome-settings-profile.h"
 #include "gsd-rfkill-manager.h"
 #include "rfkill-glib.h"
+#include "gnome-settings-bus.h"
 
 #define GSD_RFKILL_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_RFKILL_MANAGER, GsdRfkillManagerPrivate))
 
@@ -56,7 +57,6 @@ struct GsdRfkillManagerPrivate
         GDBusObjectManager      *mm_client;
         gboolean                 wwan_interesting;
 
-        GDBusProxy              *hostnamed_client;
         gchar                   *chassis_type;
 };
 
@@ -626,76 +626,6 @@ on_mm_proxy_gotten (GObject      *source,
         g_object_unref (manager);
 }
 
-static void
-sync_chassis_type (GsdRfkillManager *manager)
-{
-        GVariant *property;
-        const gchar *chassis_type;
-
-        property = g_dbus_proxy_get_cached_property (manager->priv->hostnamed_client,
-                                                     "Chassis");
-
-        if (property == NULL)
-                return;
-
-        chassis_type = g_variant_get_string (property, NULL);
-        if (g_strcmp0 (manager->priv->chassis_type, chassis_type) != 0) {
-                g_free (manager->priv->chassis_type);
-                manager->priv->chassis_type = g_strdup (chassis_type);
-
-                engine_properties_changed (manager);
-        }
-
-        g_variant_unref (property);
-}
-
-static void
-hostnamed_properties_changed (GDBusProxy *proxy,
-                              GVariant   *changed_properties,
-                              GStrv       invalidated_properties,
-                              gpointer    user_data)
-{
-        GsdRfkillManager *manager = user_data;
-        GVariant *value;
-
-        value = g_variant_lookup_value (changed_properties, "Chassis", G_VARIANT_TYPE_STRING);
-        if (value != NULL) {
-                sync_chassis_type (manager);
-                g_variant_unref (value);
-        }
-}
-
-static void
-on_hostnamed_proxy_gotten (GObject      *source,
-                           GAsyncResult *result,
-                           gpointer      user_data)
-{
-        GsdRfkillManager *manager = user_data;
-        GDBusProxy *proxy;
-        GError *error;
-
-        error = NULL;
-        proxy = g_dbus_proxy_new_for_bus_finish (result, &error);
-
-        if (proxy == NULL) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED) &&
-                    !g_error_matches (error, G_DBUS_ERROR, G_DBUS_ERROR_SERVICE_UNKNOWN))
-                        g_warning ("Failed to acquire hostnamed proxy: %s", error->message);
-
-                g_error_free (error);
-                goto out;
-        }
-
-        manager->priv->hostnamed_client = proxy;
-
-        g_signal_connect (manager->priv->hostnamed_client, "g-properties-changed",
-                          G_CALLBACK (hostnamed_properties_changed), manager);
-        sync_chassis_type (manager);
-
- out:
-        g_object_unref (manager);
-}
-
 gboolean
 gsd_rfkill_manager_start (GsdRfkillManager *manager,
                          GError         **error)
@@ -714,14 +644,7 @@ gsd_rfkill_manager_start (GsdRfkillManager *manager,
 
         manager->priv->cancellable = g_cancellable_new ();
 
-        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
-                                  G_DBUS_PROXY_FLAGS_NONE,
-                                  NULL, /* g-interface-info */
-                                  "org.freedesktop.hostname1",
-                                  "/org/freedesktop/hostname1",
-                                  "org.freedesktop.hostname1",
-                                  manager->priv->cancellable,
-                                  on_hostnamed_proxy_gotten, g_object_ref (manager));
+        manager->priv->chassis_type = gnome_settings_get_chassis_type ();
 
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
                                   G_DBUS_PROXY_FLAGS_NONE,
@@ -779,7 +702,6 @@ gsd_rfkill_manager_stop (GsdRfkillManager *manager)
         p->wwan_enabled = FALSE;
         p->wwan_interesting = FALSE;
 
-        g_clear_object (&p->hostnamed_client);
         g_clear_pointer (&p->chassis_type, g_free);
 }
 
