@@ -35,6 +35,7 @@
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
 
+#include "gnome-settings-bus.h"
 #include "gpm-common.h"
 #include "gsd-power-constants.h"
 #include "gsd-power-manager.h"
