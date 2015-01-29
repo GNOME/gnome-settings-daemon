@@ -63,6 +63,7 @@ libcommon_la_LDFLAGS = \
 	$(GSD_PLUGIN_LDFLAGS)
 
 libcommon_la_LIBADD  = \
+	$(top_builddir)/gnome-settings-daemon/libgsd.la \
 	$(SETTINGS_PLUGIN_LIBS)		\
 	$(GNOME_DESKTOP_LIBS)		\
 	$(LIBWACOM_LIBS)		\
