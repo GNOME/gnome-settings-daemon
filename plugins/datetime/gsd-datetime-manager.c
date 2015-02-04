@@ -89,7 +89,6 @@ timezone_changed_cb (GsdTimezoneMonitor *timezone_monitor,
 {
         GDateTime *datetime;
         GTimeZone *tz;
-        gchar *control_center;
         gchar *notification_summary;
         gchar *timezone_name;
         gchar *utc_offset;
@@ -111,12 +110,24 @@ timezone_changed_cb (GsdTimezoneMonitor *timezone_monitor,
         g_free (utc_offset);
 
         if (self->priv->notification == NULL) {
+                gchar *control_center;
+
                 self->priv->notification = notify_notification_new (notification_summary, NULL,
                                                                     "preferences-system-time-symbolic");
                 g_signal_connect (self->priv->notification,
                                   "closed",
                                   G_CALLBACK (notification_closed_cb),
                                   self);
+
+                control_center = g_find_program_in_path ("gnome-control-center");
+                if (control_center != NULL && notification_server_has_actions ()) {
+                        notify_notification_add_action (self->priv->notification,
+                                                        "settings",
+                                                        _("Settings"),
+                                                        (NotifyActionCallback) open_settings_cb,
+                                                        NULL, NULL);
+                }
+                g_free (control_center);
         } else {
                 notify_notification_update (self->priv->notification,
                                             notification_summary, NULL,
@@ -127,16 +138,6 @@ timezone_changed_cb (GsdTimezoneMonitor *timezone_monitor,
         notify_notification_set_app_name (self->priv->notification, _("Date & Time Settings"));
         notify_notification_set_urgency (self->priv->notification, NOTIFY_URGENCY_NORMAL);
         notify_notification_set_timeout (self->priv->notification, NOTIFY_EXPIRES_NEVER);
-
-        control_center = g_find_program_in_path ("gnome-control-center");
-        if (control_center != NULL && notification_server_has_actions ()) {
-                notify_notification_add_action (self->priv->notification,
-                                                "settings",
-                                                _("Settings"),
-                                                (NotifyActionCallback) open_settings_cb,
-                                                NULL, NULL);
-        }
-        g_free (control_center);
 
         if (!notify_notification_show (self->priv->notification, NULL)) {
                 g_warning ("Failed to send timezone notification");
