@@ -47,20 +47,6 @@ G_DEFINE_TYPE (GsdDatetimeManager, gsd_datetime_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
-static gboolean
-notification_server_has_actions (void)
-{
-        GList *caps;
-        gboolean has_actions = FALSE;
-
-        caps = notify_get_server_caps ();
-        if (g_list_find_custom (caps, "actions", (GCompareFunc)g_strcmp0) != NULL)
-                has_actions = TRUE;
-        g_list_free_full (caps, g_free);
-
-        return has_actions;
-}
-
 static void
 notification_closed_cb (NotifyNotification *n,
                         GsdDatetimeManager *self)
@@ -110,8 +96,6 @@ timezone_changed_cb (GsdTimezoneMonitor *timezone_monitor,
         g_free (utc_offset);
 
         if (self->priv->notification == NULL) {
-                gchar *control_center;
-
                 self->priv->notification = notify_notification_new (notification_summary, NULL,
                                                                     "preferences-system-time-symbolic");
                 g_signal_connect (self->priv->notification,
@@ -119,15 +103,11 @@ timezone_changed_cb (GsdTimezoneMonitor *timezone_monitor,
                                   G_CALLBACK (notification_closed_cb),
                                   self);
 
-                control_center = g_find_program_in_path ("gnome-control-center");
-                if (control_center != NULL && notification_server_has_actions ()) {
-                        notify_notification_add_action (self->priv->notification,
-                                                        "settings",
-                                                        _("Settings"),
-                                                        (NotifyActionCallback) open_settings_cb,
-                                                        NULL, NULL);
-                }
-                g_free (control_center);
+                notify_notification_add_action (self->priv->notification,
+                                                "settings",
+                                                _("Settings"),
+                                                (NotifyActionCallback) open_settings_cb,
+                                                NULL, NULL);
         } else {
                 notify_notification_update (self->priv->notification,
                                             notification_summary, NULL,
