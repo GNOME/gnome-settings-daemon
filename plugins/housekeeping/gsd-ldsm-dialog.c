@@ -219,11 +219,13 @@ gsd_ldsm_dialog_init (GsdLdsmDialog *dialog)
         gtk_label_set_line_wrap (GTK_LABEL (dialog->priv->primary_label), TRUE);
         gtk_label_set_single_line_mode (GTK_LABEL (dialog->priv->primary_label), FALSE);
         gtk_misc_set_alignment (GTK_MISC (dialog->priv->primary_label), 0.0, 0.0);
-	
+        gtk_label_set_max_width_chars (GTK_LABEL (dialog->priv->primary_label), 72);
+
         dialog->priv->secondary_label = gtk_label_new (NULL);
         gtk_label_set_line_wrap (GTK_LABEL (dialog->priv->secondary_label), TRUE);
         gtk_label_set_single_line_mode (GTK_LABEL (dialog->priv->secondary_label), FALSE);
         gtk_misc_set_alignment (GTK_MISC (dialog->priv->secondary_label), 0.0, 0.0);
+        gtk_label_set_max_width_chars (GTK_LABEL (dialog->priv->secondary_label), 72);
 
         /* Create the check button to ignore future warnings */
         dialog->priv->ignore_check_button = gtk_check_button_new ();
