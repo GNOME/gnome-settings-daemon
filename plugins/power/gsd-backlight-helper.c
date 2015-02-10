@@ -128,6 +128,7 @@ main (int argc, char *argv[])
 	gboolean get_brightness = FALSE;
 	gboolean get_max_brightness = FALSE;
 	gchar *filename = NULL;
+	GsdBacklightType type;
 
 	const GOptionEntry options[] = {
 		{ "set-brightness", '\0', 0, G_OPTION_ARG_INT, &set_brightness,
@@ -162,7 +163,7 @@ main (int argc, char *argv[])
 	}
 
 	/* find device */
-	filename = gsd_backlight_helper_get_best_backlight ();
+	filename = gsd_backlight_helper_get_best_backlight (&type);
 	if (filename == NULL) {
 		retval = GSD_BACKLIGHT_HELPER_EXIT_CODE_NO_DEVICES;
 		g_print ("%s: %s\n",

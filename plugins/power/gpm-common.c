@@ -378,7 +378,7 @@ backlight_available (GnomeRRScreen *rr_screen)
         return (get_primary_output (rr_screen) != NULL);
 #endif
 
-        path = gsd_backlight_helper_get_best_backlight ();
+        path = gsd_backlight_helper_get_best_backlight (NULL);
         if (path == NULL)
                 return FALSE;
 

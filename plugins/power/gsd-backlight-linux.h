@@ -19,4 +19,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-char *gsd_backlight_helper_get_best_backlight (void);
+typedef enum {
+	GSD_BACKLIGHT_TYPE_FIRMWARE,
+	GSD_BACKLIGHT_TYPE_PLATFORM,
+	GSD_BACKLIGHT_TYPE_RAW,
+} GsdBacklightType;
+
+char *gsd_backlight_helper_get_best_backlight (GsdBacklightType *type);
