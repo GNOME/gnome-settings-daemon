@@ -21,6 +21,7 @@
 
 #include "config.h"
 
+#include <stdlib.h>
 #include <unistd.h>
 #include <glib-object.h>
 #include <locale.h>
@@ -41,13 +42,16 @@
 static gboolean
 gsd_backlight_helper_write (const gchar *filename, gint value, GError **error)
 {
+	gchar *filename_path = NULL;
 	gchar *text = NULL;
 	gint retval;
 	gint length;
 	gint fd = -1;
 	gboolean ret = TRUE;
 
-	fd = open (filename, O_WRONLY);
+	filename_path = g_build_filename (filename, "brightness", NULL);
+
+	fd = open (filename_path, O_WRONLY);
 	if (fd < 0) {
 		ret = FALSE;
 		g_set_error (error, 1, 0, "failed to open filename: %s", filename);
@@ -69,7 +73,47 @@ out:
 	if (fd >= 0)
 		close (fd);
 	g_free (text);
+	g_free (filename_path);
 	return ret;
+}
+
+static gint
+gsd_backlight_helper_read_value (const gchar *filename, GError **error)
+{
+	gchar *contents = NULL;
+	gint value;
+
+	if (g_file_get_contents (filename, &contents, NULL, error))
+		value = atoi (contents);
+	else
+		value = -1;
+	g_free (contents);
+
+	return value;
+}
+
+static gint
+gsd_backlight_helper_get (const gchar *filename, GError **error)
+{
+	gchar *filename_path = NULL;
+	gint value;
+
+	filename_path = g_build_filename (filename, "brightness", NULL);
+	value = gsd_backlight_helper_read_value (filename_path, error);
+	g_free (filename_path);
+	return value;
+}
+
+static gint
+gsd_backlight_helper_get_max (const gchar *filename, GError **error)
+{
+	gchar *filename_path = NULL;
+	gint value;
+
+	filename_path = g_build_filename (filename, "max_brightness", NULL);
+	value = gsd_backlight_helper_read_value (filename_path, error);
+	g_free (filename_path);
+	return value;
 }
 
 int
@@ -80,13 +124,10 @@ main (int argc, char *argv[])
 	gint euid;
 	guint retval = 0;
 	GError *error = NULL;
-	gboolean ret = FALSE;
 	gint set_brightness = -1;
 	gboolean get_brightness = FALSE;
 	gboolean get_max_brightness = FALSE;
 	gchar *filename = NULL;
-	gchar *filename_file = NULL;
-	gchar *contents = NULL;
 
 	const GOptionEntry options[] = {
 		{ "set-brightness", '\0', 0, G_OPTION_ARG_INT, &set_brightness,
@@ -132,9 +173,9 @@ main (int argc, char *argv[])
 
 	/* GetBrightness */
 	if (get_brightness) {
-		filename_file = g_build_filename (filename, "brightness", NULL);
-		ret = g_file_get_contents (filename_file, &contents, NULL, &error);
-		if (!ret) {
+		gint value;
+		value = gsd_backlight_helper_get (filename, &error);
+		if (value < 0) {
 			g_print ("%s: %s\n",
 				 "Could not get the value of the backlight",
 				 error->message);
@@ -144,16 +185,16 @@ main (int argc, char *argv[])
 		}
 
 		/* just print the contents to stdout */
-		g_print ("%s", contents);
+		g_print ("%d", value);
 		retval = GSD_BACKLIGHT_HELPER_EXIT_CODE_SUCCESS;
 		goto out;
 	}
 
 	/* GetSteps */
 	if (get_max_brightness) {
-		filename_file = g_build_filename (filename, "max_brightness", NULL);
-		ret = g_file_get_contents (filename_file, &contents, NULL, &error);
-		if (!ret) {
+		gint value;
+		value = gsd_backlight_helper_get_max (filename, &error);
+		if (value < 0) {
 			g_print ("%s: %s\n",
 				 "Could not get the maximum value of the backlight",
 				 error->message);
@@ -163,7 +204,7 @@ main (int argc, char *argv[])
 		}
 
 		/* just print the contents to stdout */
-		g_print ("%s", contents);
+		g_print ("%d", value);
 		retval = GSD_BACKLIGHT_HELPER_EXIT_CODE_SUCCESS;
 		goto out;
 	}
@@ -180,8 +221,8 @@ main (int argc, char *argv[])
 
 	/* SetBrightness */
 	if (set_brightness != -1) {
-		filename_file = g_build_filename (filename, "brightness", NULL);
-		ret = gsd_backlight_helper_write (filename_file, set_brightness, &error);
+		gboolean ret = FALSE;
+		ret = gsd_backlight_helper_write (filename, set_brightness, &error);
 		if (!ret) {
 			g_print ("%s: %s\n",
 				 "Could not set the value of the backlight",
@@ -196,8 +237,6 @@ main (int argc, char *argv[])
 	retval = GSD_BACKLIGHT_HELPER_EXIT_CODE_SUCCESS;
 out:
 	g_free (filename);
-	g_free (filename_file);
-	g_free (contents);
 	return retval;
 }
 
