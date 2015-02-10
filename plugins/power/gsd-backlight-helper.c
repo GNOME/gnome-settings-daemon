@@ -116,6 +116,21 @@ gsd_backlight_helper_get_max (const gchar *filename, GError **error)
 	return value;
 }
 
+static gint
+clamp_minimum (gint max, gint value)
+{
+	gint minimum;
+	/* If the interface has less than 100 possible values, it's
+	 * likely that 0 doesn't turn the backlight off so we let 0 be
+	 * set in that case. */
+	if (max > 99)
+		minimum = 1;
+	else
+		minimum = 0;
+
+	return MAX (value, minimum);
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -223,6 +238,20 @@ main (int argc, char *argv[])
 	/* SetBrightness */
 	if (set_brightness != -1) {
 		gboolean ret = FALSE;
+		gint max = gsd_backlight_helper_get_max (filename, &error);
+
+		if (max < 0) {
+			g_print ("%s: %s\n",
+				 "Could not get the maximum value of the backlight",
+				 error->message);
+			g_error_free (error);
+			retval = GSD_BACKLIGHT_HELPER_EXIT_CODE_ARGUMENTS_INVALID;
+			goto out;
+		}
+
+		if (type == GSD_BACKLIGHT_TYPE_RAW)
+			set_brightness = clamp_minimum (max, set_brightness);
+
 		ret = gsd_backlight_helper_write (filename, set_brightness, &error);
 		if (!ret) {
 			g_print ("%s: %s\n",
