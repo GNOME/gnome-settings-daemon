@@ -5,7 +5,6 @@ enabled_plugins =	\
 	a11y-settings	\
 	clipboard	\
 	color		\
-	cursor		\
 	datetime	\
 	dummy		\
 	power		\

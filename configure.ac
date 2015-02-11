@@ -181,12 +181,6 @@ dnl ---------------------------------------------------------------------------
 PKG_CHECK_MODULES(MOUSE, x11 xi)
 
 dnl ---------------------------------------------------------------------------
-dnl - cursor
-dnl ---------------------------------------------------------------------------
-
-PKG_CHECK_MODULES(CURSOR, xfixes gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
-
-dnl ---------------------------------------------------------------------------
 dnl - xsettings
 dnl ---------------------------------------------------------------------------
 
@@ -521,7 +515,6 @@ plugins/a11y-settings/Makefile
 plugins/clipboard/Makefile
 plugins/color/Makefile
 plugins/common/Makefile
-plugins/cursor/Makefile
 plugins/datetime/Makefile
 plugins/dummy/Makefile
 plugins/power/Makefile

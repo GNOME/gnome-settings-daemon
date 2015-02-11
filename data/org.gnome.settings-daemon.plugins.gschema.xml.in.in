@@ -13,7 +13,6 @@
     <child name="a11y-settings" schema="org.gnome.settings-daemon.plugins.a11y-settings"/>
     <child name="clipboard" schema="org.gnome.settings-daemon.plugins.clipboard"/>
     <child name="color" schema="org.gnome.settings-daemon.plugins.color"/>
-    <child name="cursor" schema="org.gnome.settings-daemon.plugins.cursor"/>
     <child name="datetime" schema="org.gnome.settings-daemon.plugins.datetime"/>
     <child name="gsdwacom" schema="org.gnome.settings-daemon.plugins.gsdwacom"/>
     <child name="housekeeping" schema="org.gnome.settings-daemon.plugins.housekeeping"/>
@@ -55,18 +54,6 @@
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.clipboard" path="/org/gnome/settings-daemon/plugins/clipboard/">
-    <key name="active" type="b">
-      <default>true</default>
-      <_summary>Activation of this plugin</_summary>
-      <_description>Whether this plugin would be activated by gnome-settings-daemon or not</_description>
-    </key>
-    <key name="priority" type="i">
-      <default>0</default>
-      <_summary>Priority to use for this plugin</_summary>
-      <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
-    </key>
-  </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.cursor" path="/org/gnome/settings-daemon/plugins/cursor/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
