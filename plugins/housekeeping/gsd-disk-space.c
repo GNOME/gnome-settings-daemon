@@ -611,13 +611,13 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
                 free_space_str = g_format_size (free_space);
 
                 if (multiple_volumes) {
-                        summary = g_strdup_printf (_("Low Disk Space on \"%s\""), name);
+                        summary = g_strdup_printf (_("Low Disk Space on “%s”"), name);
                         if (has_trash) {
-                                body = g_strdup_printf (_("The volume \"%s\" has only %s disk space remaining.  You may free up some space by emptying the trash."),
+                                body = g_strdup_printf (_("The volume “%s” has only %s disk space remaining.  You may free up some space by emptying the trash."),
                                                         name,
                                                         free_space_str);
                         } else {
-                                body = g_strdup_printf (_("The volume \"%s\" has only %s disk space remaining."),
+                                body = g_strdup_printf (_("The volume “%s” has only %s disk space remaining."),
                                                         name,
                                                         free_space_str);
                         }
