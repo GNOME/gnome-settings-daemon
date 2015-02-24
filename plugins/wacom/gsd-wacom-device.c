@@ -1936,6 +1936,9 @@ gsd_wacom_device_get_default_area (GsdWacomDevice *device)
 
 	g_return_val_if_fail (GSD_IS_WACOM_DEVICE (device), NULL);
 
+	if (!device->priv->gdk_device)
+		return NULL;
+
 	g_object_get (device->priv->gdk_device, "device-id", &id, NULL);
 
 	device_area = g_new0 (int, 4);
