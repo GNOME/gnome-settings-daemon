@@ -269,16 +269,6 @@ gsd_remote_display_manager_init (GsdRemoteDisplayManager *manager)
 
         g_debug ("Starting remote-display manager");
 
-        /* Check if spice is used:
-         * https://bugzilla.gnome.org/show_bug.cgi?id=680195#c7
-         * This doesn't change at run-time, so it's to the point */
-        if (g_file_test ("/dev/virtio-ports/com.redhat.spice.0", G_FILE_TEST_EXISTS)) {
-                g_debug ("Disabling animations because SPICE is in use");
-                manager->priv->disabled = TRUE;
-                g_object_notify (G_OBJECT (manager), "force-disable-animations");
-                return;
-        }
-
         /* Xvnc exposes an extension named VNC-EXTENSION */
         if (gsd_display_has_extension ("VNC-EXTENSION")) {
                 g_debug ("Disabling animations because VNC-EXTENSION was detected");
