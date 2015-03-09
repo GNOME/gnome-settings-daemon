@@ -2793,6 +2793,8 @@ handle_set_property (GDBusConnection *connection,
         /* Check session pointer as a proxy for whether the manager is in the
            start or stop state */
         if (manager->priv->session == NULL) {
+                g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
+                             "Manager is starting or stopping");
                 return FALSE;
         }
 
