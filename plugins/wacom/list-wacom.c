@@ -23,6 +23,8 @@
 #include <gtk/gtk.h>
 
 #include "gsd-wacom-device.h"
+#include "gsd-device-manager.h"
+#include "gsd-device-manager-x11.h"
 
 static gboolean fake_devices = FALSE;
 static gboolean monitor_styli = FALSE;
@@ -180,6 +182,36 @@ last_stylus_changed (GsdWacomDevice  *device,
 	print_stylus (stylus, TRUE);
 }
 
+static char **
+get_edid (GsdWacomDevice *device)
+{
+	GdkDevice *gdk_device;
+	GsdDevice *gsd_device;
+	GSettings *gsd_settings;
+	char **edid;
+
+	g_object_get (device, "gdk-device", &gdk_device, NULL);
+	if (!gdk_device)
+		goto bail;
+
+	gsd_device = gsd_x11_device_manager_lookup_gdk_device (GSD_X11_DEVICE_MANAGER (gsd_device_manager_get ()),
+							       gdk_device);
+	g_object_unref (gdk_device);
+	if (!gsd_device)
+		goto bail;
+
+	gsd_settings = gsd_device_get_settings (gsd_device);
+	g_object_unref (gsd_device);
+
+	edid = g_settings_get_strv (gsd_settings, "display");
+	g_object_unref (gsd_settings);
+
+	return edid;
+
+bail:
+	return g_strsplit (",,", ",", 3);
+}
+
 static void
 list_devices (GList *devices)
 {
@@ -209,7 +241,7 @@ list_devices (GList *devices)
 		g_print ("\tGeneric settings: %s\n", loc);
 		g_free (loc);
 
-		edid = g_settings_get_strv (settings, "display");
+		edid = get_edid (device);
 		if (!edid || g_strv_length (edid) != 3)
 			g_warning ("Invalid display EDID set for device");
 		else {
