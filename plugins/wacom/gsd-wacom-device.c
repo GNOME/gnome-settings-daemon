@@ -2230,3 +2230,27 @@ gsd_wacom_device_create_fake_intuos4 (void)
 
 	return devices;
 }
+
+GList *
+gsd_wacom_device_create_fake_h610pro (void)
+{
+	GsdWacomDevice *device;
+	GList *devices;
+
+	device = gsd_wacom_device_create_fake (WACOM_TYPE_STYLUS,
+					       "Huion H610 Pro",
+					       "Huion H610 Pro stylus");
+	if (!device) {
+		g_warning ("Not appending Huion H610 Pro, libwacom is not new enough");
+		return NULL;
+	}
+
+	devices = g_list_prepend (NULL, device);
+
+	device = gsd_wacom_device_create_fake (WACOM_TYPE_PAD,
+					       "Huion H610 Pro",
+					       "Huion H610 Pro pad");
+	devices = g_list_prepend (devices, device);
+
+	return devices;
+}
