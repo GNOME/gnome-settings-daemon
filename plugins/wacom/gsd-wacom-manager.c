@@ -63,7 +63,6 @@
 #define KEY_TOUCH               "touch"
 #define KEY_IS_ABSOLUTE         "is-absolute"
 #define KEY_AREA                "area"
-#define KEY_DISPLAY             "display"
 #define KEY_KEEP_ASPECT         "keep-aspect"
 #define KEY_LAST_CALIBRATED_RESOLUTION "last-calibrated-resolution"
 
@@ -875,8 +874,6 @@ wacom_settings_changed (GSettings      *settings,
 		    type != WACOM_TYPE_PAD &&
 		    type != WACOM_TYPE_TOUCH)
 			set_area (device, g_settings_get_value (settings, key));
-	} else if (g_str_equal (key, KEY_DISPLAY)) {
-                /* Unhandled, GsdDeviceMapper handles this */
 	} else if (g_str_equal (key, KEY_KEEP_ASPECT)) {
 		if (type != WACOM_TYPE_CURSOR &&
 		    type != WACOM_TYPE_PAD &&
