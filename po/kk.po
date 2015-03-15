@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-"
 "daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-03-02 08:41+0000\n"
-"PO-Revision-Date: 2015-03-04 22:36+0500\n"
+"POT-Creation-Date: 2015-03-15 08:32+0000\n"
+"PO-Revision-Date: 2015-03-15 22:27+0500\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk@li.org>\n"
 "Language: kk\n"
@@ -302,47 +302,55 @@ msgstr "Қай тіркеу нүктелерін елемейміз"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
 msgid "Specify a list of mount paths to ignore when they run low on space."
-msgstr ""
+msgstr "Бос орындары аз болып қалса да, біз елемейтін тіркелу нүктелерін көрсетіңіз."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
 msgid "Free percentage notify threshold"
-msgstr ""
+msgstr "Хабарлау үшін бос орынның табалдырықты пайызы"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
 msgid ""
 "Percentage free space threshold for initial warning of low disk space. If the "
 "percentage free space drops below this, a warning will be shown."
 msgstr ""
+"Дискідегі аз бос орын жөнінде бірінші ескерту үшін бос орынның табалдырықты пайызы. "
+"Егер бос орынның пайызы осы шамадан аз түссе, ескерту көрсетілетін болады."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 msgid "Subsequent free space percentage notify threshold"
-msgstr ""
+msgstr "Дискідегі бос орын жөнінде келесі ескертулердің табалдырықты пайызы"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
 msgid ""
 "Specify the percentage that the free disk space should reduce by before issuing a "
 "subsequent warning."
 msgstr ""
+"Келесі ескертуді көрсету үшін дискідегі бос орын қандай пайыздық шамасына азаюы "
+"керек."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
 msgid "Free space notify threshold"
-msgstr ""
+msgstr "Хабарлау үшін бос орынның табалдырықты мәні"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no warning "
 "will be shown."
 msgstr ""
+"ГБ есебімен шамасын көрсетіңіз. Егер бос орын шамасы осы шамадан үлкен болса, "
+"ескерту көрсетілмейді."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
 msgid "Minimum notify period for repeated warnings"
-msgstr ""
+msgstr "Қайталанатын ескертулер арасындағы минималды уақыты"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
 msgid ""
 "Specify a time in minutes. Subsequent warnings for a volume will not appear more "
 "often than this period."
 msgstr ""
+"Минут есебімен уақытты көрсетіңіз. Бос орын туралы келесі ескертулер бұл уақытта бір "
+"реттен көп емес рет көрсетіледі."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
 msgid "Custom keybindings"
@@ -882,15 +890,6 @@ msgid "Color calibration device removed"
 msgstr "Түсті калибрациялау құрылғысы алынды"
 
 #. Priority=100
-#: ../plugins/cursor/cursor.gnome-settings-plugin.in.h:2
-msgid "Cursor"
-msgstr "Курсор"
-
-#: ../plugins/cursor/cursor.gnome-settings-plugin.in.h:3
-msgid "Show/hide cursor on tablet devices"
-msgstr "Планшет құрылғыларында курсорды көрсету/жасыру"
-
-#. Priority=100
 #: ../plugins/datetime/datetime.gnome-settings-plugin.in.h:2
 msgid "Date and Time"
 msgstr "Күн және уақыт"
@@ -1120,19 +1119,19 @@ msgstr "Тачпад сөндірілген"
 
 #: ../plugins/media-keys/shortcuts-list.h:51 ../plugins/media-keys/shortcuts-list.h:52
 msgid "Microphone Mute"
-msgstr ""
+msgstr "Микрофонды сөндіру"
 
 #: ../plugins/media-keys/shortcuts-list.h:53
 msgid "Quiet Volume Mute"
-msgstr ""
+msgstr "Дыбысты сөндіру"
 
 #: ../plugins/media-keys/shortcuts-list.h:54
 msgid "Quiet Volume Down"
-msgstr ""
+msgstr "Дыбыс деңгейін төмендету"
 
 #: ../plugins/media-keys/shortcuts-list.h:55
 msgid "Quiet Volume Up"
-msgstr ""
+msgstr "Дыбыс деңгейін арттыру"
 
 #: ../plugins/media-keys/shortcuts-list.h:65
 msgid "Lock Screen"
@@ -1892,12 +1891,12 @@ msgstr "Ешнәрсе"
 #: ../plugins/wacom/gsd-wacom-button-editor.c:52
 msgctxt "Wacom action-type"
 msgid "Send Keystroke"
-msgstr ""
+msgstr "Пернені басу оқиғасы"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:53
 msgctxt "Wacom action-type"
 msgid "Switch Monitor"
-msgstr ""
+msgstr "Мониторды ауыстыру"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:54
 msgctxt "Wacom action-type"
@@ -1914,7 +1913,7 @@ msgstr "Экрандағы көмекті көрсету"
 #: ../plugins/wacom/gsd-wacom-osd-window.c:1099
 msgctxt "Action type"
 msgid "Switch Monitor"
-msgstr ""
+msgstr "Мониторды ауыстыру"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:201
 msgctxt "keyboard shortcut"
@@ -1928,67 +1927,67 @@ msgstr "Дайын"
 #. If no mode is available, we use "left-ring-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1024
 msgid "Left Ring"
-msgstr ""
+msgstr "Сол жақ сақина"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1035
 #, c-format
 msgid "Left Ring Mode #%d"
-msgstr ""
+msgstr "Сол жақ сақина режимі #%d"
 
 #. If no mode is available, we use "right-ring-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1055
 msgid "Right Ring"
-msgstr ""
+msgstr "Оң жақ сақина"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1066
 #, c-format
 msgid "Right Ring Mode #%d"
-msgstr ""
+msgstr "Оң жақ сақина режимі #%d"
 
 #. If no mode is available, we use "left-strip-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1108
 msgid "Left Touchstrip"
-msgstr ""
+msgstr "Сол жақтағы сенсорлы жолақ"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1119
 #, c-format
 msgid "Left Touchstrip Mode #%d"
-msgstr ""
+msgstr "Сол жақтағы сенсорлы жолақ режимі #%d"
 
 #. If no mode is available, we use "right-strip-mode-1" for backward compat
 #: ../plugins/wacom/gsd-wacom-device.c:1139
 msgid "Right Touchstrip"
-msgstr ""
+msgstr "Оң жақтағы сенсорлы жолақ"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1150
 #, c-format
 msgid "Right Touchstrip Mode #%d"
-msgstr ""
+msgstr "Оң жақтағы сенсорлы жолақ режимі #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1176
 #, c-format
 msgid "Left Touchring Mode Switch"
-msgstr ""
+msgstr "Сол жақтағы сенсорлық сақина режимін ауыстырғышы"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1178
 #, c-format
 msgid "Right Touchring Mode Switch"
-msgstr ""
+msgstr "Оң жақтағы сенсорлық сақина режимін ауыстырғышы"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1181
 #, c-format
 msgid "Left Touchstrip Mode Switch"
-msgstr ""
+msgstr "Сол жақтағы сенсорлық жолақ режимін ауыстырғышы"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1183
 #, c-format
 msgid "Right Touchstrip Mode Switch"
-msgstr ""
+msgstr "Оң жақтағы сенсорлық жолақ режимін ауыстырғышы"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1188
 #, c-format
 msgid "Mode Switch #%d"
-msgstr ""
+msgstr "Режимді ауыстырғыш #%d"
 
 #: ../plugins/wacom/gsd-wacom-device.c:1296
 #, c-format
@@ -2014,29 +2013,29 @@ msgstr "Төменгі батырма #%d"
 msgid "New shortcut…"
 msgstr "Жаңа жарлық…"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1028
+#: ../plugins/wacom/gsd-wacom-manager.c:1025
 #, c-format
 msgid "The \"%s\" tablet may not work as expected."
 msgstr "\"%s\" планшеті күткендей жұмыс істемеуі мүмкін."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1029
+#: ../plugins/wacom/gsd-wacom-manager.c:1026
 msgid "Unknown Tablet Connected"
 msgstr "Белгісіз планшет жалғанды"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1033 ../plugins/wacom/gsd-wacom-manager.c:1701
+#: ../plugins/wacom/gsd-wacom-manager.c:1030 ../plugins/wacom/gsd-wacom-manager.c:1698
 msgid "Wacom Settings"
 msgstr "Wacom баптаулары"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1695
+#: ../plugins/wacom/gsd-wacom-manager.c:1692
 #, c-format
 msgid "Tablet %s needs to be calibrated."
 msgstr "%s планшетін калибрациялау керек."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1697
+#: ../plugins/wacom/gsd-wacom-manager.c:1694
 msgid "Calibration needed"
 msgstr "Калибрация керек"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1710
+#: ../plugins/wacom/gsd-wacom-manager.c:1707
 msgid "Calibrate"
 msgstr "Калибрациялау"
 
@@ -2051,7 +2050,7 @@ msgstr "Ешнәрсе"
 #, c-format
 msgctxt "Action type"
 msgid "Send Keystroke %s"
-msgstr ""
+msgstr "%s пернені басу оқиғасын жіберу"
 
 #: ../plugins/wacom/gsd-wacom-osd-window.c:1137
 #, c-format
@@ -2126,6 +2125,12 @@ msgstr "X баптаулары"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "X баптауларын түзету"
+
+#~ msgid "Cursor"
+#~ msgstr "Курсор"
+
+#~ msgid "Show/hide cursor on tablet devices"
+#~ msgstr "Планшет құрылғыларында курсорды көрсету/жасыру"
 
 #~ msgid "Disable touchpad while typing"
 #~ msgstr "Теру кезінде тачпадты сөндіру"
