@@ -660,17 +660,8 @@ maybe_create_initial_settings (GsdKeyboardManager *manager)
 
         settings = manager->priv->input_sources_settings;
 
-        if (g_getenv ("RUNNING_UNDER_GDM")) {
-                GVariantBuilder builder;
-                /* clean the settings and get them from the "system" */
-                g_variant_builder_init (&builder, G_VARIANT_TYPE ("a(ss)"));
-                g_settings_set_value (settings, KEY_INPUT_SOURCES, g_variant_builder_end (&builder));
-                get_sources_from_xkb_config (manager);
-
-                g_settings_set_strv (settings, KEY_KEYBOARD_OPTIONS, NULL);
-                get_options_from_xkb_config (manager);
+        if (g_getenv ("RUNNING_UNDER_GDM"))
                 return;
-        }
 
         maybe_convert_old_settings (settings);
 
