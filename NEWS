@@ -1,4 +1,25 @@
 ===============
+Version 3.15.92
+===============
+
+- Updated translations
+
+Cursor:
+- Plugin removed, its functionality was moved to mutter
+
+Keyboard:
+- Remove the special handling of settings under GDM - moved to
+  gnome-shell
+
+Power:
+- Make sure to set an error when GDBus set_property fails
+
+Wacom:
+- Remove use of removed "display" settings key
+- Remove handling of moved "display" key
+- Add fake Huion H610 Pro for tests
+
+===============
 Version 3.15.91
 ===============
 
