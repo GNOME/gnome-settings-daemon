@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon 3.15.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-11 16:34+0100\n"
-"PO-Revision-Date: 2015-02-11 16:34+0100\n"
+"POT-Creation-Date: 2015-03-19 21:33+0100\n"
+"PO-Revision-Date: 2015-03-19 21:34+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: \n"
@@ -912,15 +912,6 @@ msgid "Color calibration device removed"
 msgstr "Enhet for kalibrering av farger ble fjernet"
 
 #. Priority=100
-#: ../plugins/cursor/cursor.gnome-settings-plugin.in.h:2
-msgid "Cursor"
-msgstr "Markør"
-
-#: ../plugins/cursor/cursor.gnome-settings-plugin.in.h:3
-msgid "Show/hide cursor on tablet devices"
-msgstr "Vis/skjul markør på nettbrett"
-
-#. Priority=100
 #: ../plugins/datetime/datetime.gnome-settings-plugin.in.h:2
 msgid "Date and Time"
 msgstr "Dato og klokkeslett"
@@ -958,22 +949,19 @@ msgstr "Dummy-tillegg"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:614
 #, c-format
-msgid "Low Disk Space on \"%s\""
+msgid "Low Disk Space on “%s”"
 msgstr "Lite diskplass på «%s»"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:616
 #, c-format
 msgid ""
-"The volume \"%s\" has only %s disk space remaining.  You may free up some "
+"The volume “%s” has only %s disk space remaining.  You may free up some "
 "space by emptying the trash."
-msgstr ""
-"Volumet «%s» har kun %s gjenværende plass. Du kan frigjøre plass ved å tømme "
-"papirkurven."
+msgstr "Volumet «%s» har kun %s gjenværende plass. Du kan frigjøre plass ved å tømme papirkurven."
 
 #: ../plugins/housekeeping/gsd-disk-space.c:620
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:80
 #, c-format
-msgid "The volume \"%s\" has only %s disk space remaining."
+msgid "The volume “%s” has only %s disk space remaining."
 msgstr "Volumet «%s» har kun %s gjenværende plass."
 
 #. Set up all the window stuff here
@@ -1022,6 +1010,11 @@ msgstr "Ikke vis advarsel igjen for dette filsystemet"
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:67
 msgid "Don't show any warnings again"
 msgstr "Ikke vis denne varsel igjen"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:80
+#, c-format
+msgid "The volume \"%s\" has only %s disk space remaining."
+msgstr "Volumet «%s» har kun %s gjenværende plass."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:99
 msgid ""
@@ -1297,7 +1290,7 @@ msgstr[0] "minutt"
 msgstr[1] "minutter"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:894 ../plugins/power/gsd-power-manager.c:671
+#: ../plugins/power/gpm-common.c:889 ../plugins/power/gsd-power-manager.c:671
 #: ../plugins/power/gsd-power-manager.c:771
 msgid "Battery is critically low"
 msgstr "Batteri har kritisk lav kapasitet"
@@ -2071,30 +2064,30 @@ msgstr "Nederste knapp #%d"
 msgid "New shortcut…"
 msgstr "Ny snarvei …"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1022
+#: ../plugins/wacom/gsd-wacom-manager.c:1025
 #, c-format
 msgid "The \"%s\" tablet may not work as expected."
 msgstr "«%s»-tegnebrett virker kanskje ikke som forventet."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1023
+#: ../plugins/wacom/gsd-wacom-manager.c:1026
 msgid "Unknown Tablet Connected"
 msgstr "Ukjent tegnebrett tilkoblet"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1027
-#: ../plugins/wacom/gsd-wacom-manager.c:1695
+#: ../plugins/wacom/gsd-wacom-manager.c:1030
+#: ../plugins/wacom/gsd-wacom-manager.c:1698
 msgid "Wacom Settings"
 msgstr "Innstillinger for Wacom"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1689
+#: ../plugins/wacom/gsd-wacom-manager.c:1692
 #, c-format
 msgid "Tablet %s needs to be calibrated."
 msgstr "Tegnebrett %s bør kalibreres på nytt."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1691
+#: ../plugins/wacom/gsd-wacom-manager.c:1694
 msgid "Calibration needed"
 msgstr "Kalibrering kreves"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1704
+#: ../plugins/wacom/gsd-wacom-manager.c:1707
 msgid "Calibrate"
 msgstr "Kalibrer"
 
