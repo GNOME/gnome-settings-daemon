@@ -3,8 +3,6 @@ plugin_name = housekeeping
 COMMON_FILES =				\
 	gsd-disk-space.c		\
 	gsd-disk-space.h		\
-	gsd-ldsm-dialog.c		\
-	gsd-ldsm-dialog.h		\
 	gsd-disk-space-helper.h		\
 	gsd-disk-space-helper.c
 
