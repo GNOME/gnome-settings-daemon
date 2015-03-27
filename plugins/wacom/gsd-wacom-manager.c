@@ -480,7 +480,6 @@ set_keep_aspect (GsdWacomDevice *device,
 	gsd_device = gsd_x11_device_manager_lookup_gdk_device (GSD_X11_DEVICE_MANAGER (device_manager),
 							       gdk_device);
 	monitor = gsd_device_mapper_get_device_monitor (mapper, gsd_device);
-	g_object_unref (gdk_device);
 
 	/* Adjust area to match the monitor aspect ratio */
 	g_debug ("Initial device area: (%d,%d) (%d,%d)", area[0], area[1], area[2], area[3]);
@@ -1343,7 +1342,6 @@ switch_monitor (GsdWacomManager *manager,
         g_object_get (device, "gdk-device", &gdk_device, NULL);
         gsd_device = gsd_x11_device_manager_lookup_gdk_device (GSD_X11_DEVICE_MANAGER (gsd_device_manager_get ()),
                                                                gdk_device);
-        g_object_unref (gdk_device);
         current_monitor =
                 gsd_device_mapper_get_device_monitor (manager->priv->device_mapper,
                                                       gsd_device);
@@ -1602,7 +1600,6 @@ check_need_for_calibration (GsdWacomDevice  *device)
         gsd_device = gsd_x11_device_manager_lookup_gdk_device (GSD_X11_DEVICE_MANAGER (gsd_device_manager_get ()),
                                                                gdk_device);
         monitor = gsd_device_mapper_get_device_monitor (mapper, gsd_device);
-        g_object_unref (gdk_device);
 
 	if (monitor < 0) {
 		geometry.width = gdk_screen_get_width (screen);
@@ -1967,7 +1964,6 @@ gsd_wacom_manager_stop (GsdWacomManager *manager)
                                 g_object_get (device, "gdk-device", &gdk_device, NULL);
                                 grab_button (gdk_x11_device_get_id (gdk_device),
                                              FALSE, manager->priv->screen);
-                                g_object_unref (gdk_device);
                         }
                 }
 

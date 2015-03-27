@@ -196,7 +196,6 @@ get_edid (GsdWacomDevice *device)
 
 	gsd_device = gsd_x11_device_manager_lookup_gdk_device (GSD_X11_DEVICE_MANAGER (gsd_device_manager_get ()),
 							       gdk_device);
-	g_object_unref (gdk_device);
 	if (!gsd_device)
 		goto bail;
 
