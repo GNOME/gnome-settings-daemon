@@ -2029,7 +2029,7 @@ do_action (GsdMediaKeysManager *manager,
 {
         g_debug ("Launching action for key type '%d' (on device id %d)", type, deviceid);
 
-        gboolean power_action_interactive = !(POWER_KEYS_MODE_NO_DIALOG & mode);
+        gboolean power_action_noninteractive = (POWER_KEYS_MODE_NO_DIALOG & mode);
 
         switch (type) {
         case TOUCHPAD_KEY:
@@ -2150,16 +2150,16 @@ do_action (GsdMediaKeysManager *manager,
 		do_toggle_contrast_action (manager);
 		break;
         case POWER_KEY:
-                do_config_power_action (manager, "button-power", power_action_interactive);
+                do_config_power_action (manager, "button-power", power_action_noninteractive);
                 break;
         case SLEEP_KEY:
-                do_config_power_action (manager, "button-sleep", power_action_interactive);
+                do_config_power_action (manager, "button-sleep", power_action_noninteractive);
                 break;
         case SUSPEND_KEY:
-                do_config_power_action (manager, "button-suspend", power_action_interactive);
+                do_config_power_action (manager, "button-suspend", power_action_noninteractive);
                 break;
         case HIBERNATE_KEY:
-                do_config_power_action (manager, "button-hibernate", power_action_interactive);
+                do_config_power_action (manager, "button-hibernate", power_action_noninteractive);
                 break;
         case SCREEN_BRIGHTNESS_UP_KEY:
         case SCREEN_BRIGHTNESS_DOWN_KEY:
