@@ -1448,6 +1448,7 @@ gsd_mouse_manager_stop (GsdMouseManager *manager)
         g_clear_object (&p->mouse_settings);
         g_clear_object (&p->touchpad_settings);
         g_clear_object (&p->trackball_settings);
+        g_clear_object (&p->gsd_mouse_settings);
 
         set_locate_pointer (manager, FALSE);
 }
