@@ -190,7 +190,7 @@ get_edid (GsdWacomDevice *device)
 	GSettings *gsd_settings;
 	char **edid;
 
-	g_object_get (device, "gdk-device", &gdk_device, NULL);
+	gdk_device = gsd_wacom_device_get_gdk_device (device);
 	if (!gdk_device)
 		goto bail;
 

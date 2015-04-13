@@ -168,7 +168,8 @@ get_device_id (GsdWacomDevice *device)
 	GdkDevice *gdk_device;
 	int id;
 
-	g_object_get (device, "gdk-device", &gdk_device, NULL);
+	gdk_device = gsd_wacom_device_get_gdk_device (device);
+
 	if (gdk_device == NULL)
 		return -1;
 	g_object_get (gdk_device, "device-id", &id, NULL);
@@ -476,7 +477,8 @@ set_keep_aspect (GsdWacomDevice *device,
 	/* Get corresponding monitor size */
 	mapper = gsd_device_mapper_get ();
 	device_manager = gsd_device_manager_get ();
-	g_object_get (device, "gdk-device", &gdk_device, NULL);
+
+	gdk_device = gsd_wacom_device_get_gdk_device (device);
 	gsd_device = gsd_x11_device_manager_lookup_gdk_device (GSD_X11_DEVICE_MANAGER (device_manager),
 							       gdk_device);
 	monitor = gsd_device_mapper_get_device_monitor (mapper, gsd_device);
@@ -1339,7 +1341,7 @@ switch_monitor (GsdWacomManager *manager,
 	if (n_monitors < 2)
 		return;
 
-        g_object_get (device, "gdk-device", &gdk_device, NULL);
+        gdk_device = gsd_wacom_device_get_gdk_device (device);
         gsd_device = gsd_x11_device_manager_lookup_gdk_device (GSD_X11_DEVICE_MANAGER (gsd_device_manager_get ()),
                                                                gdk_device);
         current_monitor =
@@ -1365,7 +1367,7 @@ notify_osd_for_device (GsdWacomManager *manager,
         GdkScreen *screen;
         gint monitor_num;
 
-        g_object_get (device, "gdk-device", &gdk_device, NULL);
+        gdk_device = gsd_wacom_device_get_gdk_device (device);
         gsd_device = gsd_x11_device_manager_lookup_gdk_device (GSD_X11_DEVICE_MANAGER (gsd_device_manager_get ()),
                                                                gdk_device);
         monitor_num = gsd_device_mapper_get_device_monitor (manager->priv->device_mapper,
@@ -1596,7 +1598,7 @@ check_need_for_calibration (GsdWacomDevice  *device)
 
         screen = gdk_screen_get_default ();
         mapper = gsd_device_mapper_get ();
-        g_object_get (device, "gdk-device", &gdk_device, NULL);
+        gdk_device = gsd_wacom_device_get_gdk_device (device);
         gsd_device = gsd_x11_device_manager_lookup_gdk_device (GSD_X11_DEVICE_MANAGER (gsd_device_manager_get ()),
                                                                gdk_device);
         monitor = gsd_device_mapper_get_device_monitor (mapper, gsd_device);
@@ -1961,7 +1963,7 @@ gsd_wacom_manager_stop (GsdWacomManager *manager)
                         if (type == WACOM_TYPE_PAD) {
                                 GdkDevice *gdk_device;
 
-                                g_object_get (device, "gdk-device", &gdk_device, NULL);
+                                gdk_device = gsd_wacom_device_get_gdk_device (device);
                                 grab_button (gdk_x11_device_get_id (gdk_device),
                                              FALSE, manager->priv->screen);
                         }
