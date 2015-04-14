@@ -71,6 +71,7 @@
 #define TEXT_SCALING_FACTOR_KEY "text-scaling-factor"
 #define SCALING_FACTOR_KEY "scaling-factor"
 #define CURSOR_SIZE_KEY "cursor-size"
+#define CURSOR_THEME_KEY "cursor-theme"
 
 #define FONT_ANTIALIASING_KEY "antialiasing"
 #define FONT_HINTING_KEY      "hinting"
@@ -662,6 +663,7 @@ typedef struct {
         int         dpi;
         int         window_scale;
         int         cursor_size;
+        char       *cursor_theme;
         const char *rgba;
         const char *hintstyle;
 } GnomeXftSettings;
@@ -693,6 +695,7 @@ xft_settings_get (GnomeXSettingsManager *manager,
         settings->scaled_dpi = dpi * settings->window_scale * 1024;
         cursor_size = g_settings_get_int (interface_settings, CURSOR_SIZE_KEY);
         settings->cursor_size = cursor_size * settings->window_scale;
+        settings->cursor_theme = g_settings_get_string (interface_settings, CURSOR_THEME_KEY);
         settings->rgba = "rgb";
         settings->hintstyle = "hintfull";
 
@@ -747,6 +750,12 @@ xft_settings_get (GnomeXSettingsManager *manager,
 }
 
 static void
+xft_settings_clear (GnomeXftSettings *settings)
+{
+        g_free (settings->cursor_theme);
+}
+
+static void
 xft_settings_set_xsettings (GnomeXSettingsManager *manager,
                             GnomeXftSettings      *settings)
 {
@@ -760,6 +769,7 @@ xft_settings_set_xsettings (GnomeXSettingsManager *manager,
         xsettings_manager_set_int (manager->priv->manager, "Xft/DPI", settings->scaled_dpi);
         xsettings_manager_set_string (manager->priv->manager, "Xft/RGBA", settings->rgba);
         xsettings_manager_set_int (manager->priv->manager, "Gtk/CursorThemeSize", settings->cursor_size);
+        xsettings_manager_set_string (manager->priv->manager, "Gtk/CursorThemeName", settings->cursor_theme);
 
         gnome_settings_profile_end (NULL);
 }
@@ -823,6 +833,8 @@ xft_settings_set_xresources (GnomeXftSettings *settings)
                                 settings->rgba);
         update_property (add_string, "Xcursor.size",
                                 g_ascii_dtostr (dpibuf, sizeof (dpibuf), (double) settings->cursor_size));
+        update_property (add_string, "Xcursor.theme",
+                                settings->cursor_theme);
 
         g_debug("xft_settings_set_xresources: new res '%s'", add_string->str);
 
@@ -849,6 +861,7 @@ update_xft_settings (GnomeXSettingsManager *manager)
         xft_settings_get (manager, &settings);
         xft_settings_set_xsettings (manager, &settings);
         xft_settings_set_xresources (&settings);
+        xft_settings_clear (&settings);
 
         gnome_settings_profile_end (NULL);
 }
@@ -1034,7 +1047,8 @@ xsettings_callback (GSettings             *settings,
 
         if (g_str_equal (key, TEXT_SCALING_FACTOR_KEY) ||
             g_str_equal (key, SCALING_FACTOR_KEY) ||
-            g_str_equal (key, CURSOR_SIZE_KEY)) {
+            g_str_equal (key, CURSOR_SIZE_KEY) ||
+            g_str_equal (key, CURSOR_THEME_KEY)) {
         	xft_callback (NULL, key, manager);
         	return;
 	}
