@@ -821,6 +821,8 @@ xft_settings_set_xresources (GnomeXftSettings *settings)
                                 settings->hintstyle);
         update_property (add_string, "Xft.rgba",
                                 settings->rgba);
+        update_property (add_string, "Xcursor.size",
+                                g_ascii_dtostr (dpibuf, sizeof (dpibuf), (double) settings->cursor_size));
 
         g_debug("xft_settings_set_xresources: new res '%s'", add_string->str);
 
