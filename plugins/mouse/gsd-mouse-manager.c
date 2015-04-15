@@ -607,13 +607,14 @@ set_tap_to_click (GdkDevice *device,
         unsigned long nitems, bytes_after;
         XDevice *xdevice;
         unsigned char* data;
-        Atom prop, type;
+        Atom prop_capabilities, prop, type;
 
         if (xdevice_is_libinput (gdk_x11_device_get_id (device)))
                 return;
 
         prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Tap Action", False);
-        if (!prop)
+        prop_capabilities = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Capabilities", False);
+        if (!prop || !prop_capabilities)
                 return;
 
         xdevice = open_gdk_device (device);
@@ -628,6 +629,17 @@ set_tap_to_click (GdkDevice *device,
 	g_debug ("setting tap to click on %s", gdk_device_get_name (device));
 
         gdk_error_trap_push ();
+        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop_capabilities, 0, 1,
+                                 False, XA_INTEGER, &type, &format, &nitems, &bytes_after, &data);
+        if (rc == Success && type == XA_INTEGER && format == 8 && nitems >= 1) {
+                if (!(data[0])) {
+                        g_debug ("No hardware buttons, enabling tap to click on %s", gdk_device_get_name (device));
+                        state = TRUE;
+                }
+
+                XFree (data);
+        }
+
         rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop, 0, 2,
                                  False, XA_INTEGER, &type, &format, &nitems,
                                  &bytes_after, &data);
