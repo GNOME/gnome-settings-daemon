@@ -107,6 +107,16 @@ G_DEFINE_TYPE (GsdPrintNotificationsManager, gsd_print_notifications_manager, G_
 
 static gpointer manager_object = NULL;
 
+static const char *
+password_cb (const char *prompt,
+             http_t     *http,
+             const char *method,
+             const char *resource,
+             void       *user_data)
+{
+  return NULL;
+}
+
 static char *
 get_dest_attr (const char *dest_name,
                const char *attr,
@@ -1297,6 +1307,11 @@ gsd_print_notifications_manager_start_idle (gpointer data)
 
         manager->priv->printing_printers = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
+        /*
+         * Set a password callback which cancels authentication
+         * before we prepare a correct solution (see bug #725440).
+         */
+        cupsSetPasswordCB2 (password_cb, NULL);
 
         if (server_is_local (cupsServer ())) {
                 manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
