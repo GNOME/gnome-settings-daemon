@@ -760,7 +760,6 @@ set_scroll_method (GsdMouseManager         *manager,
                 if (!(data[3]) && method == GSD_TOUCHPAD_SCROLL_METHOD_TWO_FINGER_SCROLLING) {
                         g_warning ("Two finger scroll is not supported by %s", gdk_device_get_name (device));
                         method = GSD_TOUCHPAD_SCROLL_METHOD_EDGE_SCROLLING;
-                        g_settings_set_enum (manager->priv->touchpad_settings, KEY_SCROLL_METHOD, method);
                 }
 
                 XFree (data);
