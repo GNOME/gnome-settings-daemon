@@ -1063,7 +1063,6 @@ set_scroll_wheel_button (GsdMouseManager *manager,
         if (rc == Success && format == 8 && type == XA_INTEGER && nitems == 1) {
                 data[0] = button > 0 ? 1 : 0;
 
-                gdk_error_trap_push ();
                 XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                                        xdevice, wheel_prop, type, format, PropModeReplace, data, nitems);
         }
