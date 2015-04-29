@@ -63,7 +63,6 @@
 #define KEY_AREA                "area"
 #define KEY_DISPLAY             "display"
 #define KEY_KEEP_ASPECT         "keep-aspect"
-#define KEY_LAST_CALIBRATED_RESOLUTION "last-calibrated-resolution"
 
 /* Stylus and Eraser settings */
 #define KEY_BUTTON_MAPPING      "buttonmapping"
@@ -79,8 +78,6 @@
 /* See "Wacom Pressure Threshold" */
 #define DEFAULT_PRESSURE_THRESHOLD 27
 
-#define CALIBRATION_NOTIFICATION_TIMEOUT 15000
-#define SHOW_CALIBRATION_TIMEOUT          2000
 #define UNKNOWN_DEVICE_NOTIFICATION_TIMEOUT 15000
 
 #define GSD_WACOM_DBUS_PATH GSD_DBUS_PATH "/Wacom"
@@ -96,13 +93,6 @@ static const gchar introspection_xml[] =
 "    </method>"
 "  </interface>"
 "</node>";
-
-typedef struct
-{
-        NotifyNotification *calibration_notification;
-        GsdWacomDevice     *device;
-        guint               notification_timeout_id;
-} GsdWacomDeviceCalibration;
 
 struct GsdWacomManagerPrivate
 {
@@ -136,8 +126,6 @@ struct GsdWacomManagerPrivate
 static void     gsd_wacom_manager_class_init  (GsdWacomManagerClass *klass);
 static void     gsd_wacom_manager_init        (GsdWacomManager      *wacom_manager);
 static void     gsd_wacom_manager_finalize    (GObject              *object);
-
-static void     wacom_device_calibration_check (GsdWacomDevice  *device);
 
 static gboolean osd_window_toggle_visibility (GsdWacomManager *manager,
                                               GsdWacomDevice  *device);
@@ -858,10 +846,6 @@ wacom_settings_changed (GSettings      *settings,
 		    type != WACOM_TYPE_PAD &&
 		    type != WACOM_TYPE_TOUCH)
 			set_absolute (device, g_settings_get_boolean (settings, key));
-	} else if (g_str_equal (key, KEY_LAST_CALIBRATED_RESOLUTION)) {
-                if (type == WACOM_TYPE_STYLUS &&
-                    gsd_wacom_device_is_screen_tablet (device))
-                        wacom_device_calibration_check (device);
 	} else if (g_str_equal (key, KEY_AREA)) {
 		if (type != WACOM_TYPE_CURSOR &&
 		    type != WACOM_TYPE_PAD &&
@@ -1100,10 +1084,6 @@ device_added_cb (GdkDeviceManager *device_manager,
 	}
 
         set_wacom_settings (manager, device);
-
-	if (type == WACOM_TYPE_STYLUS &&
-	    gsd_wacom_device_is_screen_tablet (device))
-		wacom_device_calibration_check (device);
 }
 
 static void
@@ -1534,191 +1514,6 @@ gsd_wacom_manager_idle_cb (GsdWacomManager *manager)
         return FALSE;
 }
 
-static gboolean
-check_need_for_calibration (GsdWacomDevice  *device)
-{
-        GSettings *settings;
-        GVariant *variant;
-        gint width, height;
-        GdkScreen *screen;
-        GdkDevice *gdk_device;
-        GsdDeviceMapper *mapper;
-        gint monitor;
-        GdkRectangle geometry;
-
-        g_debug ("Checking calibration for: %s", gsd_wacom_device_get_name (device));
-
-        width = -1;
-        height = -1;
-
-        screen = gdk_screen_get_default ();
-        mapper = gsd_device_mapper_get ();
-        g_object_get (device, "gdk-device", &gdk_device, NULL);
-        monitor = gsd_device_mapper_get_device_monitor (mapper, gdk_device);
-
-	if (monitor < 0) {
-		geometry.width = gdk_screen_get_width (screen);
-		geometry.height = gdk_screen_get_height (screen);
-	} else {
-		gdk_screen_get_monitor_geometry (screen, monitor, &geometry);
-	}
-
-        settings = gsd_wacom_device_get_settings (device);
-
-        variant = g_settings_get_value (settings, KEY_LAST_CALIBRATED_RESOLUTION);
-
-        g_variant_get (variant, "(ii)", &width, &height);
-
-        g_debug ("Last calibrated resolution: %d, %d", width, height);
-
-        return width == -1 || width != geometry.width ||
-                height == -1 || height != geometry.height;
-}
-
-static void
-wacom_device_calibration_data_unset (GsdWacomDevice *device)
-{
-        g_object_set_data (G_OBJECT (device),
-                           "gsd-wacom-calibration-data", NULL);
-}
-
-static void
-on_notification_closed (NotifyNotification        *notification,
-                        GsdWacomDeviceCalibration *data)
-{
-        wacom_device_calibration_data_unset (data->device);
-}
-
-static void
-on_notification_action (NotifyNotification *notification,
-                        gchar              *action,
-                        gpointer            user_data)
-{
-        gboolean success;
-        gchar *command;
-        const gchar *device_name;
-        GError *error = NULL;
-        GsdWacomDeviceCalibration *data = user_data;
-
-        device_name = gsd_wacom_device_get_name (data->device);
-
-        if (g_strcmp0 (action, "run-calibration") == 0) {
-                command = g_strdup_printf ("gnome-control-center wacom run-calibration \"%s\"",
-                                           device_name);
-                success = g_spawn_command_line_async (command, &error);
-                if (!success) {
-                        g_warning ("Failure launching gnome-control-center: %s",
-                                   error->message);
-                        g_clear_error (&error);
-                }
-                g_free (command);
-        }
-
-        wacom_device_calibration_data_unset (data->device);
-}
-
-static void
-wacom_device_calibration_data_free (GsdWacomDeviceCalibration *data)
-{
-        if (data->notification_timeout_id)
-                g_source_remove (data->notification_timeout_id);
-
-        if (data->calibration_notification) {
-                notify_notification_close (data->calibration_notification, NULL);
-                g_object_unref (data->calibration_notification);
-        }
-
-        g_free (data);
-}
-
-static void
-wacom_device_calibration_data_update (GsdWacomDeviceCalibration *data)
-{
-        gchar *msg_body;
-
-        if (data->calibration_notification) {
-                notify_notification_close (data->calibration_notification, NULL);
-                g_object_unref (data->calibration_notification);
-        }
-
-        msg_body = g_strdup_printf (_("Tablet %s needs to be calibrated."),
-                                    gsd_wacom_device_get_name (data->device));
-        data->calibration_notification = notify_notification_new (_("Calibration needed"),
-                                                                  msg_body,
-                                                                  "input-tablet");
-        notify_notification_set_app_name (data->calibration_notification,
-                                          _("Wacom Settings"));
-        notify_notification_set_timeout (data->calibration_notification,
-                                         CALIBRATION_NOTIFICATION_TIMEOUT);
-        notify_notification_set_urgency (data->calibration_notification,
-                                         NOTIFY_URGENCY_NORMAL);
-        /* TRANSLATORS: launches the calibration screen for the
-           tablet in question */
-        notify_notification_add_action (data->calibration_notification,
-                                        "run-calibration",
-                                        _("Calibrate"),
-                                        on_notification_action,
-                                        data,
-                                        NULL);
-
-        g_signal_connect (data->calibration_notification,
-                          "closed",
-                          G_CALLBACK (on_notification_closed),
-                          data);
-
-        g_free (msg_body);
-}
-
-static GsdWacomDeviceCalibration *
-wacom_device_calibration_data_get (GsdWacomDevice *device)
-{
-        GsdWacomDeviceCalibration *data;
-
-        data = g_object_get_data (G_OBJECT (device), "gsd-wacom-calibration-data");
-
-        if (data)
-                return data;
-
-        data = g_new0 (GsdWacomDeviceCalibration, 1);
-        data->device = device;
-
-        g_object_set_data_full (G_OBJECT (device),
-                                "gsd-wacom-calibration-data", data,
-                                (GDestroyNotify) wacom_device_calibration_data_free);
-        return data;
-}
-
-static gboolean
-notify_need_for_calibration (gpointer user_data)
-{
-        GsdWacomDeviceCalibration *data = user_data;
-
-        notify_notification_show (data->calibration_notification, NULL);
-        data->notification_timeout_id = 0;
-
-        return G_SOURCE_REMOVE;
-}
-
-static void
-wacom_device_calibration_check (GsdWacomDevice  *device)
-{
-        if (check_need_for_calibration (device)) {
-                GsdWacomDeviceCalibration *data;
-
-                data = wacom_device_calibration_data_get (device);
-                wacom_device_calibration_data_update (data);
-
-                if (data->notification_timeout_id == 0) {
-                        data->notification_timeout_id = g_timeout_add (SHOW_CALIBRATION_TIMEOUT,
-                                                                       notify_need_for_calibration,
-                                                                       data);
-                        g_source_set_name_by_id (data->notification_timeout_id, "[gnome-settings-daemon] notify_need_for_calibration");
-                }
-        } else {
-                wacom_device_calibration_data_unset (device);
-        }
-}
-
 /*
  * The monitors-changed signal is emitted when the number, size or
  * position of the monitors attached to the screen change.
@@ -1753,8 +1548,6 @@ on_screen_changed_cb (GnomeRRScreen *rr_screen,
 		if (type != WACOM_TYPE_TOUCH) {
 			if (gsd_wacom_device_is_screen_tablet (device) == FALSE) {
 				set_keep_aspect (device, g_settings_get_boolean (settings, KEY_KEEP_ASPECT));
-                        } else if (type == WACOM_TYPE_STYLUS) {
-                                wacom_device_calibration_check (device);
 			}
 
 			set_area (device, g_settings_get_value (settings, KEY_AREA));
