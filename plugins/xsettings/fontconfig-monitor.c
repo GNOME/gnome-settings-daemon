@@ -23,7 +23,7 @@
 #include <gio/gio.h>
 #include <fontconfig/fontconfig.h>
 
-#define TIMEOUT_SECONDS 2
+#define TIMEOUT_MILLISECONDS 200
 
 static void
 stuff_changed (GFileMonitor *monitor,
@@ -139,7 +139,7 @@ stuff_changed (GFileMonitor *monitor G_GNUC_UNUSED,
         if (handle->timeout)
                 g_source_remove (handle->timeout);
 
-        handle->timeout = g_timeout_add_seconds (TIMEOUT_SECONDS, update, data);
+        handle->timeout = g_timeout_add (TIMEOUT_MILLISECONDS, update, data);
         g_source_set_name_by_id (handle->timeout, "[gnome-settings-daemon] update");
 }
 
