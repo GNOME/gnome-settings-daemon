@@ -23,8 +23,6 @@
 #include <gio/gio.h>
 #include <fontconfig/fontconfig.h>
 
-#define TIMEOUT_MILLISECONDS 200
-
 static void
 stuff_changed (GFileMonitor *monitor,
                GFile *file,
@@ -76,8 +74,6 @@ monitor_files (GPtrArray *monitors,
 struct _fontconfig_monitor_handle {
         GPtrArray *monitors;
 
-        guint timeout;
-
         GFunc    notify_callback;
         gpointer notify_data;
 };
@@ -103,13 +99,16 @@ monitors_free (GPtrArray *monitors)
         g_ptr_array_free (monitors, TRUE);
 }
 
-static gboolean
-update (gpointer data)
+static void
+stuff_changed (GFileMonitor *monitor G_GNUC_UNUSED,
+               GFile *file G_GNUC_UNUSED,
+               GFile *other_file G_GNUC_UNUSED,
+               GFileMonitorEvent event_type G_GNUC_UNUSED,
+               gpointer data)
 {
         fontconfig_monitor_handle_t *handle = data;
-        gboolean notify = FALSE;
 
-        handle->timeout = 0;
+        gboolean notify = FALSE;
 
         if (fontconfig_cache_update ()) {
                 notify = TRUE;
@@ -122,27 +121,7 @@ update (gpointer data)
 
         if (notify && handle->notify_callback)
                 handle->notify_callback (data, handle->notify_data);
-
-        return FALSE;
 }
-
-static void
-stuff_changed (GFileMonitor *monitor G_GNUC_UNUSED,
-               GFile *file G_GNUC_UNUSED,
-               GFile *other_file G_GNUC_UNUSED,
-               GFileMonitorEvent event_type G_GNUC_UNUSED,
-               gpointer data)
-{
-        fontconfig_monitor_handle_t *handle = data;
-
-        /* wait for quiescence */
-        if (handle->timeout)
-                g_source_remove (handle->timeout);
-
-        handle->timeout = g_timeout_add (TIMEOUT_MILLISECONDS, update, data);
-        g_source_set_name_by_id (handle->timeout, "[gnome-settings-daemon] update");
-}
-
 
 fontconfig_monitor_handle_t *
 fontconfig_monitor_start (GFunc    notify_callback,
@@ -160,10 +139,6 @@ fontconfig_monitor_start (GFunc    notify_callback,
 void
 fontconfig_monitor_stop  (fontconfig_monitor_handle_t *handle)
 {
-        if (handle->timeout)
-          g_source_remove (handle->timeout);
-        handle->timeout = 0;
-
         monitors_free (handle->monitors);
         handle->monitors = NULL;
 }
