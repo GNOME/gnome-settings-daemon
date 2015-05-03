@@ -2028,9 +2028,10 @@ static void
 idle_set_mode_no_temp (GsdPowerManager  *manager,
                        GsdPowerIdleMode  mode)
 {
-        if (manager->priv->temporary_unidle_on_ac_id != 0 &&
-            manager->priv->previous_idle_mode == mode)
+        if (manager->priv->temporary_unidle_on_ac_id != 0) {
+                manager->priv->previous_idle_mode = mode;
                 return;
+        }
 
         idle_set_mode (manager, mode);
 }
