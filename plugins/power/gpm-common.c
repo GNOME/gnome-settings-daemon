@@ -392,6 +392,18 @@ backlight_available (GnomeRRScreen *rr_screen)
         return TRUE;
 }
 
+static gchar **
+get_backlight_helper_environ (void)
+{
+        static gchar **environ = NULL;
+
+        if (environ)
+                return environ;
+
+        environ = g_environ_unsetenv (g_get_environ (), "SHELL");
+        return environ;
+}
+
 static gboolean
 run_backlight_helper (enum BacklightHelperCommand   command,
                       gchar                        *value,
@@ -413,7 +425,7 @@ run_backlight_helper (enum BacklightHelperCommand   command,
 
         return g_spawn_sync (NULL,
                              command == BACKLIGHT_HELPER_SET ? argv : &argv[1],
-                             NULL,
+                             get_backlight_helper_environ (),
                              G_SPAWN_SEARCH_PATH,
                              NULL,
                              NULL,
