@@ -121,8 +121,6 @@ stuff_changed (GFileMonitor *monitor G_GNUC_UNUSED,
 
         if (notify && handle->notify_callback)
                 handle->notify_callback (data, handle->notify_data);
-
-        return FALSE;
 }
 
 fontconfig_monitor_handle_t *
