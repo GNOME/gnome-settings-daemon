@@ -1,4 +1,35 @@
 ==============
+Version 3.16.2
+==============
+
+Media keys:
+- Don't crash when toggling the touchpad enabled button
+
+Mouse:
+- Fix scroll methods settings for multiple devices
+- Enable tap to click on devices without hw buttons
+- Don't disable soft buttons when disabling the touchpad on devices
+  without hw buttons
+
+Power:
+- Avoid screen being left ON indefinitely after waking from sleep if
+  there's a notification when we wake up
+- Fix backlight adjustment not working under gdm in some
+  configurations
+
+Print Notifications:
+- Do not block because of authentication
+
+Wacom:
+- Remove calibration notification
+
+XSettings:
+- Export cursor size to X resources
+- Update fonts immediately as they are added/removed/changed
+
+- Updated translations
+
+==============
 Version 3.16.1
 ==============
 
