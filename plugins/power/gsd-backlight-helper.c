@@ -89,6 +89,9 @@ gsd_backlight_helper_read_value (const gchar *filename, GError **error)
 		value = -1;
 	g_free (contents);
 
+	if (value < 0 && *error == NULL)
+		g_set_error (error, 1, 0, "got invalid backlight value from %s", filename);
+
 	return value;
 }
 
