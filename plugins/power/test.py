@@ -86,6 +86,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # start power plugin
         self.settings_gsd_power['active'] = False
         # As hibernate is not available, suspend by default on critical
+        # FIXME
         self.settings_gsd_power['critical-battery-action'] = 'suspend'
         Gio.Settings.sync()
         self.plugin_log_write = open(os.path.join(self.workdir, 'plugin_power.log'), 'wb')
@@ -501,6 +502,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.settings_session['idle-delay'] = 2
         self.settings_gsd_power['sleep-inactive-battery-timeout'] = 5
         # Hibernate isn't possible, so it should end up suspending
+        # FIXME
         self.settings_gsd_power['critical-battery-action'] = 'hibernate'
 
         # wait for idle delay; should not yet hibernate
