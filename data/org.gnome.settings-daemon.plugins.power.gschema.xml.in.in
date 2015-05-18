@@ -66,5 +66,18 @@
       <summary>Battery critical low action</summary>
       <description>The action to take when the battery is critically low.</description>
     </key>
+
+    <!-- ambient light sensor -->
+    <key name="ambient-enabled" type="b">
+      <default>true</default>
+      <summary>Enable the ALS sensor</summary>
+      <description>If the ambient light sensor functionality is enabled.</description>
+    </key>
+    <key name="ambient-smooth" type="d">
+      <default>0.3</default>
+      <summary>Backlight smoothing factor for the ambient light sensor</summary>
+      <description>The amount of backlight smoothing for ambient light changes.</description>
+    </key>
+
   </schema>
 </schemalist>

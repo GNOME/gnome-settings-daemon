@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2007 William Jon McCann <mccann@jhu.edu>
- * Copyright (C) 2011-2012 Richard Hughes <richard@hughsie.com>
+ * Copyright (C) 2011-2015 Richard Hughes <richard@hughsie.com>
  * Copyright (C) 2011 Ritesh Khadgaray <khadgaray@gmail.com>
  * Copyright (C) 2012-2013 Red Hat Inc.
  *
@@ -156,6 +156,14 @@ struct GsdPowerManagerPrivate
         gint                     kbd_brightness_max;
         gint                     kbd_brightness_old;
         gint                     kbd_brightness_pre_dim;
+
+        /* Ambient */
+        GDBusProxy              *iio_proxy;
+        gboolean                 ambient_norm_required;
+        gdouble                  ambient_accumulator;
+        gdouble                  ambient_norm_value;
+        gdouble                  ambient_percentage_old;
+        gdouble                  ambient_last_absolute;
 
         /* Sound */
         guint32                  critical_alert_timeout_id;
@@ -2079,6 +2087,19 @@ idle_became_active_cb (GnomeIdleMonitor *monitor,
 }
 
 static void
+ch_backlight_renormalize (GsdPowerManager *manager)
+{
+        if (manager->priv->ambient_percentage_old < 0)
+                return;
+        if (manager->priv->ambient_last_absolute < 0)
+                return;
+        manager->priv->ambient_norm_value = manager->priv->ambient_last_absolute /
+                                        (gdouble) manager->priv->ambient_percentage_old;
+        manager->priv->ambient_norm_value *= 100.f;
+        manager->priv->ambient_norm_required = FALSE;
+}
+
+static void
 engine_settings_key_changed_cb (GSettings *settings,
                                 const gchar *key,
                                 GsdPowerManager *manager)
@@ -2420,13 +2441,79 @@ on_rr_screen_acquired (GObject      *object,
         /* queue a signal in case the proxy from gnome-shell was created before we got here
            (likely, considering that to get here we need a reply from gnome-shell)
         */
-        if (manager->priv->backlight_available)
+        if (manager->priv->backlight_available) {
+                manager->priv->ambient_percentage_old = backlight_get_percentage (manager->priv->rr_screen, NULL);
                 backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN,
-                                              backlight_get_percentage (manager->priv->rr_screen, NULL));
-        else
+                                              manager->priv->ambient_percentage_old);
+        } else {
                 backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN, -1);
+        }
 
         gnome_settings_profile_end (NULL);
+}
+
+static void
+iio_proxy_changed_cb (GDBusProxy *proxy,
+                      GVariant   *changed_properties,
+                      GStrv       invalidated_properties,
+                      gpointer    user_data)
+{
+        GsdPowerManager *manager = (GsdPowerManager *) user_data;
+        GError *error = NULL;
+        GVariant *val_has = NULL;
+        GVariant *val_lux = NULL;
+        gdouble alpha;
+        gdouble brightness;
+        gint pc;
+
+        /* no display hardware */
+        if (!manager->priv->backlight_available)
+                return;
+
+        /* disabled */
+        if (!g_settings_get_boolean (manager->priv->settings, "ambient-enabled"))
+                return;
+
+        /* get latest results, which do not have to be Lux */
+        val_has = g_dbus_proxy_get_cached_property (proxy, "HasAmbientLight");
+        if (val_has == NULL || !g_variant_get_boolean (val_has))
+                goto out;
+        val_lux = g_dbus_proxy_get_cached_property (proxy, "LightLevel");
+        if (val_lux == NULL)
+                goto out;
+        manager->priv->ambient_last_absolute = g_variant_get_double (val_lux);
+
+        /* the user has asked to renormalize */
+        if (manager->priv->ambient_norm_required) {
+                manager->priv->ambient_accumulator = manager->priv->ambient_percentage_old;
+                ch_backlight_renormalize (manager);
+        }
+
+        /* calculate exponential moving average */
+        alpha = g_settings_get_double (manager->priv->settings, "ambient-smooth");
+        brightness = manager->priv->ambient_last_absolute * 100.f / manager->priv->ambient_norm_value;
+        brightness = MIN (brightness, 100.f);
+        brightness = MAX (brightness, 0.f);
+        manager->priv->ambient_accumulator = (alpha * brightness) + (1.0 - alpha) * manager->priv->ambient_accumulator;
+
+        /* no valid readings yet */
+        if (manager->priv->ambient_accumulator < 0.f)
+                goto out;
+
+        /* set new value */
+        g_debug ("set brightness from ambient %.1f%%",
+                 manager->priv->ambient_accumulator);
+        pc = manager->priv->ambient_accumulator;
+        if (!backlight_set_percentage (manager->priv->rr_screen, &pc, &error)) {
+                g_warning ("failed to set brightness: %s", error->message);
+                g_error_free (error);
+        }
+        manager->priv->ambient_percentage_old = pc;
+out:
+        if (val_has != NULL)
+                g_variant_unref (val_has);
+        if (val_lux != NULL)
+                g_variant_unref (val_lux);
 }
 
 gboolean
@@ -2472,6 +2559,26 @@ gsd_power_manager_start (GsdPowerManager *manager,
         manager->priv->settings_bus = g_settings_new ("org.gnome.desktop.session");
         manager->priv->settings_xrandr = g_settings_new (GSD_XRANDR_SETTINGS_SCHEMA);
 
+        /* setup ambient light support */
+        manager->priv->iio_proxy =
+                g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                               0,
+                                               NULL,
+                                               "net.hadess.SensorProxy",
+                                               "/net/hadess/SensorProxy",
+                                               "net.hadess.SensorProxy",
+                                               NULL,
+                                               error);
+        if (manager->priv->iio_proxy != NULL) {
+                g_signal_connect (manager->priv->iio_proxy, "g-properties-changed",
+                                  G_CALLBACK (iio_proxy_changed_cb), manager);
+        }
+        manager->priv->ambient_norm_required = TRUE;
+        manager->priv->ambient_accumulator = -1.f;
+        manager->priv->ambient_norm_value = -1.f;
+        manager->priv->ambient_percentage_old = -1.f;
+        manager->priv->ambient_last_absolute = -1.f;
+
         gnome_settings_profile_end (NULL);
         return TRUE;
 }
@@ -2507,6 +2614,7 @@ gsd_power_manager_stop (GsdPowerManager *manager)
         g_clear_object (&manager->priv->settings_screensaver);
         g_clear_object (&manager->priv->settings_bus);
         g_clear_object (&manager->priv->up_client);
+        g_clear_object (&manager->priv->iio_proxy);
 
         if (manager->priv->inhibit_lid_switch_fd != -1) {
                 close (manager->priv->inhibit_lid_switch_fd);
@@ -2628,6 +2736,10 @@ handle_method_call_screen (GsdPowerManager *manager,
         } else {
                 g_assert_not_reached ();
         }
+
+        /* ambient brightness no longer valid */
+        manager->priv->ambient_percentage_old = value;
+        manager->priv->ambient_norm_required = TRUE;
 
 out:
         /* return value */
@@ -2755,6 +2867,10 @@ handle_set_property_other (GsdPowerManager *manager,
                 g_variant_get (value, "i", &brightness_value);
                 if (backlight_set_percentage (manager->priv->rr_screen, &brightness_value, error)) {
                         backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN, brightness_value);
+
+                        /* ambient brightness no longer valid */
+                        manager->priv->ambient_percentage_old = brightness_value;
+                        manager->priv->ambient_norm_required = TRUE;
                         return TRUE;
                 } else {
                         g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
