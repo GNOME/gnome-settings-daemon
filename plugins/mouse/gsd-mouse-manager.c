@@ -552,7 +552,10 @@ syndaemon_died (GPid pid, gint status, gpointer user_data)
 static int
 set_disable_w_typing (GsdMouseManager *manager, gboolean state)
 {
-        if (state && touchpad_is_present ()) {
+        gboolean touchpad_enabled;
+
+        touchpad_enabled = g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED);
+        if (state && touchpad_enabled && touchpad_is_present ()) {
                 GError *error = NULL;
                 GPtrArray *args;
 
@@ -814,7 +817,7 @@ set_touchpad_disabled (GdkDevice *device)
                 return;
         }
 
-        if (set_device_enabled (id, FALSE) == FALSE)
+        if (set_touchpad_device_enabled (id, FALSE) == FALSE)
                 g_warning ("Error disabling device \"%s\" (%d)", gdk_device_get_name (device), id);
         else
                 g_debug ("Disabled device \"%s\" (%d)", gdk_device_get_name (device), id);
@@ -839,7 +842,7 @@ set_touchpad_enabled (int id)
                 return;
         }
 
-        if (set_device_enabled (id, TRUE) == FALSE)
+        if (set_touchpad_device_enabled (id, TRUE) == FALSE)
                 g_warning ("Error enabling device \"%d\"", id);
         else
                 g_debug ("Enabled device %d", id);
@@ -948,6 +951,8 @@ set_mouse_settings (GsdMouseManager *manager,
         set_natural_scroll (manager, device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_NATURAL_SCROLL_ENABLED));
         if (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED) == FALSE)
                 set_touchpad_disabled (device);
+        else
+                set_touchpad_enabled (gdk_x11_device_get_id (device));
 }
 
 static void
@@ -1063,6 +1068,9 @@ touchpad_callback (GSettings       *settings,
                 return;
         }
 
+        if (g_str_equal (key, KEY_TOUCHPAD_ENABLED))
+                set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
+
         devices = gdk_device_manager_list_devices (manager->priv->device_manager, GDK_DEVICE_TYPE_SLAVE);
 
         for (l = devices; l != NULL; l = l->next) {
@@ -1098,18 +1106,6 @@ touchpad_callback (GSettings       *settings,
                 }
         }
         g_list_free (devices);
-
-        if (g_str_equal (key, KEY_TOUCHPAD_ENABLED) &&
-            g_settings_get_boolean (settings, key)) {
-                devices = get_disabled_devices (manager->priv->device_manager);
-                for (l = devices; l != NULL; l = l->next) {
-                        int device_id;
-
-                        device_id = GPOINTER_TO_INT (l->data);
-                        set_touchpad_enabled (device_id);
-                }
-                g_list_free (devices);
-        }
 }
 
 /* Re-enable touchpad when any other pointing device isn't present. */
@@ -1232,17 +1228,6 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
         g_list_free (devices);
 
         ensure_touchpad_active (manager);
-
-        if (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED)) {
-                devices = get_disabled_devices (manager->priv->device_manager);
-                for (l = devices; l != NULL; l = l->next) {
-                        int device_id;
-
-                        device_id = GPOINTER_TO_INT (l->data);
-                        set_touchpad_enabled (device_id);
-                }
-                g_list_free (devices);
-        }
 
         gnome_settings_profile_end (NULL);
 

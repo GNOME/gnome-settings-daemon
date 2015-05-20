@@ -464,6 +464,29 @@ set_device_enabled (int device_id,
         return TRUE;
 }
 
+gboolean
+set_touchpad_device_enabled (int device_id,
+                             gboolean enabled)
+{
+        Atom prop;
+        guchar value;
+
+        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Off", False);
+        if (!prop)
+                return FALSE;
+
+        gdk_error_trap_push ();
+
+        value = enabled ? 0 : 1;
+        XIChangeProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                          device_id, prop, XA_INTEGER, 8, PropModeReplace, &value, 1);
+
+        if (gdk_error_trap_pop ())
+                return FALSE;
+
+        return TRUE;
+}
+
 static const char *
 custom_command_to_string (CustomCommand command)
 {

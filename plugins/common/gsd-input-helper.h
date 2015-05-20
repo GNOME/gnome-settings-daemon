@@ -57,6 +57,9 @@ gboolean  supports_xtest           (void);
 gboolean set_device_enabled       (int device_id,
                                    gboolean enabled);
 
+gboolean  set_touchpad_device_enabled (int device_id,
+                                       gboolean enabled);
+
 gboolean  device_is_touchpad       (XDevice                *xdevice);
 
 gboolean  device_info_is_touchpad    (XDeviceInfo         *device_info);
