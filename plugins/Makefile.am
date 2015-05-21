@@ -12,6 +12,7 @@ enabled_plugins =	\
 	keyboard	\
 	media-keys	\
 	mouse		\
+	orientation	\
 	screensaver-proxy \
 	sharing		\
 	sound		\
@@ -25,12 +26,6 @@ if SMARTCARD_SUPPORT
 enabled_plugins += smartcard
 else
 disabled_plugins += smartcard
-endif
-
-if HAVE_GUDEV
-enabled_plugins += orientation
-else
-disabled_plugins += orientation
 endif
 
 if HAVE_WACOM
