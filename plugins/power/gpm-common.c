@@ -338,7 +338,7 @@ backlight_set_mock_value (gint value)
 
 	filename = "GSD_MOCK_brightness";
 	contents = g_strdup_printf ("%d", value);
-	if (!g_file_set_contents (filename, contents, -1, NULL))
+	if (!g_file_set_contents (filename, contents, -1, &error))
 		g_warning ("Setting mock brightness failed: %s", error->message);
 	g_clear_error (&error);
 	g_free (contents);
