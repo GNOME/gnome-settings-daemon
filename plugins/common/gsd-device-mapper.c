@@ -369,25 +369,28 @@ settings_set_display (GSettings	    *settings,
 	GVariant *value;
 	gsize nvalues;
 
-	prev = g_settings_get_strv (settings, KEY_DISPLAY);
-	nvalues = g_strv_length (prev);
+	if (output) {
+		prev = g_settings_get_strv (settings, KEY_DISPLAY);
+		nvalues = g_strv_length (prev);
 
-	if (output)
 		gnome_rr_output_get_ids_from_edid (output, &edid[0],
 						   &edid[1], &edid[2]);
 
-	if (nvalues != 3 ||
-	    g_strcmp0 (prev[0], edid[0]) != 0 ||
-	    g_strcmp0 (prev[1], edid[1]) != 0 ||
-	    g_strcmp0 (prev[2], edid[2]) != 0) {
-		value = g_variant_new_strv ((const gchar * const *) &edid, 3);
-		g_settings_set_value (settings, KEY_DISPLAY, value);
-	}
+		if (nvalues != 3 ||
+		    strcmp (prev[0], edid[0]) != 0 ||
+		    strcmp (prev[1], edid[1]) != 0 ||
+		    strcmp (prev[2], edid[2]) != 0) {
+			value = g_variant_new_strv ((const gchar * const *) &edid, 3);
+			g_settings_set_value (settings, KEY_DISPLAY, value);
+		}
 
-	g_free (edid[0]);
-	g_free (edid[1]);
-	g_free (edid[2]);
-	g_strfreev (prev);
+		g_free (edid[0]);
+		g_free (edid[1]);
+		g_free (edid[2]);
+		g_strfreev (prev);
+	} else {
+		g_settings_reset (settings, KEY_DISPLAY);
+	}
 }
 
 static void
