@@ -339,7 +339,7 @@ int main (int argc, char **argv)
 	GsdWacomOledType type;
 
 	char *path = NULL;
-	char *buffer = "";
+	char *buffer = NULL;
 	int button_num = -1;
 
 	const GOptionEntry options[] = {
@@ -363,7 +363,8 @@ int main (int argc, char **argv)
 	g_option_context_parse (context, &argc, &argv, NULL);
 
 	if (path == NULL ||
-	    button_num < 0) {
+	    button_num < 0 ||
+	    buffer == NULL) {
 		char *txt;
 
 		txt = g_option_context_get_help (context, FALSE, NULL);
