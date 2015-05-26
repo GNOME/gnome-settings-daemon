@@ -103,6 +103,7 @@ get_led_sys_path (GUdevClient *client,
 			goto no_parent;
 		status = g_strdup_printf ("status_led%d_select", group_num);
 		filename = g_build_filename (g_udev_device_get_sysfs_path (parent), "wacom_led", status, NULL);
+		g_free (status);
 
 		*write_value = led_num;
 	 } else {
@@ -119,6 +120,7 @@ get_led_sys_path (GUdevClient *client,
 			if (g_strrstr (dev_uniq, dev_hid_uniq)){
 				status = g_strdup_printf ("/leds/%s:selector:%i/brightness", g_udev_device_get_name (hid_dev), led_num);
 				filename = g_build_filename (g_udev_device_get_sysfs_path (hid_dev), status, NULL);
+				g_free (status);
 				break;
 			}
 			element = g_list_next(element);
@@ -127,7 +129,6 @@ get_led_sys_path (GUdevClient *client,
 
 		*write_value = LED_BRIGHTNESS;
 	}
-	g_free (status);
 
 	g_object_unref (parent);
 
