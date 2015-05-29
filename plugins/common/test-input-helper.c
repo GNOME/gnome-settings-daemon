@@ -27,31 +27,14 @@
 #include <X11/Xatom.h>
 
 #include "gsd-input-helper.h"
+#include "gsd-device-manager.h"
 
 int main (int argc, char **argv)
 {
-	gboolean supports_xinput;
+        GList *devices, *l;
 	gboolean has_touchpad, has_touchscreen, has_trackball;
-        XDeviceInfo *device_info;
-        gint n_devices, opcode;
-        guint i;
 
 	gtk_init (&argc, &argv);
-
-	supports_xinput = supports_xinput_devices ();
-	if (supports_xinput) {
-		g_print ("Supports XInput:\t\t\tyes\n");
-	} else {
-		g_print ("Supports XInput:\t\t\tno\n");
-		return 0;
-	}
-	supports_xinput = supports_xinput2_devices (&opcode);
-	if (supports_xinput) {
-		g_print ("Supports XInput2:\t\t\tyes (opcode: %d)\n", opcode);
-	} else {
-		g_print ("Supports XInput2:\t\t\tno\n");
-		return 0;
-	}
 
 	has_touchpad = touchpad_is_present ();
 	g_print ("Has touchpad:\t\t\t\t%s\n", has_touchpad ? "yes" : "no");
@@ -62,48 +45,30 @@ int main (int argc, char **argv)
 	has_trackball = trackball_is_present ();
 	g_print ("Has trackball:\t\t\t\t%s\n", has_trackball ? "yes" : "no");
 
-        device_info = XListInputDevices (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &n_devices);
-        if (device_info == NULL) {
-		g_warning ("Has no input devices");
-                return 1;
-	}
+        devices = gsd_device_manager_list_devices (gsd_device_manager_get (), GSD_DEVICE_TYPE_MOUSE);
+        for (l = devices; l != NULL; l = l->next)
+                g_print ("Device '%s' is a mouse\n", gsd_device_get_name (l->data));
+        g_list_free (devices);
 
-        for (i = 0; i < n_devices; i++) {
-                XDevice *device;
+        devices = gsd_device_manager_list_devices (gsd_device_manager_get (), GSD_DEVICE_TYPE_KEYBOARD);
+        for (l = devices; l != NULL; l = l->next)
+                g_print ("Device '%s' is a keyboard\n", gsd_device_get_name (l->data));
+        g_list_free (devices);
 
-		if (device_info_is_touchscreen (&device_info[i])) {
-			g_print ("Device %d is touchscreen:\t\t%s\n", (int) device_info[i].id, "yes");
-			continue;
-		}
-		if (device_info_is_trackball (&device_info[i])) {
-			g_print ("Device %d is trackball:\t\t\t%s\n", (int) device_info[i].id, "yes");
-			continue;
-		}
-		if (device_info_is_tablet (&device_info[i])) {
-			g_print ("Device %d is tablet:\t\t\t%s\n", (int) device_info[i].id, "yes");
-			continue;
-		}
+        devices = gsd_device_manager_list_devices (gsd_device_manager_get (), GSD_DEVICE_TYPE_TOUCHPAD);
+        for (l = devices; l != NULL; l = l->next)
+                g_print ("Device '%s' is a touchpad\n", gsd_device_get_name (l->data));
+        g_list_free (devices);
 
-                gdk_error_trap_push ();
-                device = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device_info[i].id);
-                if (gdk_error_trap_pop () || (device == NULL))
-                        continue;
+        devices = gsd_device_manager_list_devices (gsd_device_manager_get (), GSD_DEVICE_TYPE_TABLET);
+        for (l = devices; l != NULL; l = l->next)
+                g_print ("Device '%s' is a tablet\n", gsd_device_get_name (l->data));
+        g_list_free (devices);
 
-                if (device_is_touchpad (device))
-			g_print ("Device %d is touchpad:\t\t%s\n", (int) device_info[i].id, "yes");
-		else {
-			int tool_id;
-
-			tool_id = xdevice_get_last_tool_id (device_info[i].id);
-			if (tool_id >= 0x0)
-				g_print ("Device %d is touchpad/touchscreen:\t%s (tool ID: 0x%x)\n", (int) device_info[i].id, "no", tool_id);
-			else
-				g_print ("Device %d is touchpad/touchscreen:\t%s\n", (int) device_info[i].id, "no");
-		}
-
-                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
-        }
-        XFreeDeviceList (device_info);
+        devices = gsd_device_manager_list_devices (gsd_device_manager_get (), GSD_DEVICE_TYPE_TOUCHSCREEN);
+        for (l = devices; l != NULL; l = l->next)
+                g_print ("Device '%s' is a touchscreen\n", gsd_device_get_name (l->data));
+        g_list_free (devices);
 
 	return 0;
 }
