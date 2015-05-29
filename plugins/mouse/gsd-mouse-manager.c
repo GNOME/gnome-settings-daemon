@@ -144,6 +144,24 @@ open_gdk_device (GdkDevice *device)
 }
 
 static gboolean
+device_info_is_trackball (XDeviceInfo *device_info)
+{
+        gboolean retval;
+
+        retval = (device_info->type == XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), XI_TRACKBALL, False));
+        if (retval == FALSE &&
+            device_info->name != NULL) {
+                char *lowercase;
+
+                lowercase = g_ascii_strdown (device_info->name, -1);
+                retval = strstr (lowercase, "trackball") != NULL;
+                g_free (lowercase);
+        }
+
+        return retval;
+}
+
+static gboolean
 device_is_trackball (GdkDevice *device)
 {
         XDeviceInfo *device_info;
@@ -375,7 +393,7 @@ set_left_handed (GsdMouseManager *manager,
 
         /* If the device is a touchpad, swap tap buttons
          * around too, otherwise a tap would be a right-click */
-        if (device_is_touchpad (xdevice)) {
+        if (xdevice_is_synaptics (xdevice)) {
                 gboolean tap = g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK);
                 gboolean single_button = touchpad_has_single_button (xdevice);
 
@@ -440,7 +458,7 @@ set_motion (GsdMouseManager *manager,
 
 	g_debug ("setting motion on %s", gdk_device_get_name (device));
 
-        if (device_is_touchpad (xdevice))
+        if (xdevice_is_synaptics (xdevice))
                 settings = manager->priv->touchpad_settings;
         else
                 settings = manager->priv->mouse_settings;
@@ -551,7 +569,7 @@ syndaemon_died (GPid pid, gint status, gpointer user_data)
 static int
 set_disable_w_typing (GsdMouseManager *manager, gboolean state)
 {
-        if (state && touchpad_is_present ()) {
+        if (state && synaptics_is_present ()) {
                 GError *error = NULL;
                 GPtrArray *args;
 
@@ -622,7 +640,7 @@ set_tap_to_click (GdkDevice *device,
         if (xdevice == NULL)
                 return;
 
-        if (!device_is_touchpad (xdevice)) {
+        if (!xdevice_is_synaptics (xdevice)) {
                 xdevice_close (xdevice);
                 return;
         }
@@ -687,7 +705,7 @@ set_horiz_scroll (GdkDevice *device,
         if (xdevice == NULL)
                 return;
 
-        if (!device_is_touchpad (xdevice)) {
+        if (!xdevice_is_synaptics (xdevice)) {
                 xdevice_close (xdevice);
                 return;
         }
@@ -757,7 +775,7 @@ set_scroll_method (GsdMouseManager         *manager,
         if (xdevice == NULL)
                 return;
 
-        if (!device_is_touchpad (xdevice)) {
+        if (!xdevice_is_synaptics (xdevice)) {
                 xdevice_close (xdevice);
                 return;
         }
@@ -830,7 +848,7 @@ set_touchpad_disabled (GdkDevice *device)
         if (xdevice == NULL)
                 return;
 
-        if (!device_is_touchpad (xdevice)) {
+        if (!xdevice_is_synaptics (xdevice)) {
                 xdevice_close (xdevice);
                 return;
         }
@@ -858,7 +876,7 @@ set_touchpad_enabled (int id)
         if (gdk_error_trap_pop () != 0)
                 return;
 
-        if (!device_is_touchpad (xdevice)) {
+        if (!xdevice_is_synaptics (xdevice)) {
                 xdevice_close (xdevice);
                 return;
         }
@@ -969,7 +987,7 @@ set_natural_scroll (GsdMouseManager *manager,
         if (xdevice == NULL)
                 return;
 
-        if (!device_is_touchpad (xdevice)) {
+        if (!xdevice_is_synaptics (xdevice)) {
                 xdevice_close (xdevice);
                 return;
         }
