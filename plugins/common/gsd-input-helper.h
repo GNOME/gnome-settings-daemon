@@ -60,14 +60,9 @@ gboolean set_device_enabled       (int device_id,
 gboolean  set_touchpad_device_enabled (int device_id,
                                        gboolean enabled);
 
-gboolean  device_is_touchpad       (XDevice                *xdevice);
+gboolean  xdevice_is_synaptics       (XDevice                *xdevice);
 
-gboolean  device_info_is_touchpad    (XDeviceInfo         *device_info);
-gboolean  device_info_is_touchscreen (XDeviceInfo         *device_info);
-gboolean  device_info_is_tablet (XDeviceInfo         *device_info);
-gboolean  device_info_is_mouse       (XDeviceInfo         *device_info);
-gboolean  device_info_is_trackball   (XDeviceInfo         *device_info);
-
+gboolean  synaptics_is_present    (void);
 gboolean  touchpad_is_present     (void);
 gboolean  touchscreen_is_present  (void);
 gboolean  mouse_is_present        (void);
