@@ -1,4 +1,23 @@
 ==============
+Version 3.17.2
+==============
+
+Orientation:
+- Get accelerometer information from iio-sensor-proxy
+
+Power:
+- Add automatic screen brightness support, using iio-sensor-proxy
+- Remove critical-battery-action key as it's not used anymore with UPower 1.0
+- Fix a crash when reading invalid backlight values
+
+Print notifications:
+- Don't show error for job in progress
+
+Wacom:
+- Fix possible crash when Bamboo tablet is plugged at login time
+- Fix possible double-frees
+
+==============
 Version 3.16.2
 ==============
 
