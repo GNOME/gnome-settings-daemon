@@ -54,7 +54,7 @@ struct GsdSmartcardManagerPrivate
 
         GSettings *settings;
 
-        guint32 nss_is_loaded : 1;
+        NSSInitContext *nss_context;
 };
 
 #define CONF_SCHEMA "org.gnome.settings-daemon.peripherals.smartcard"
@@ -93,7 +93,14 @@ static void
 load_nss (GsdSmartcardManager *self)
 {
         GsdSmartcardManagerPrivate *priv = self->priv;
-        SECStatus status = SECSuccess;
+        NSSInitContext *context = NULL;
+
+        /* The first field in the NSSInitParameters structure
+         * is the size of the structure. NSS requires this, so
+         * that it can change the size of the structure in future
+         * versions of NSS in a detectable way
+         */
+        NSSInitParameters parameters = { sizeof (parameters), };
         static const guint32 flags = NSS_INIT_READONLY
                                    | NSS_INIT_FORCEOPEN
                                    | NSS_INIT_NOROOTINIT
@@ -105,10 +112,10 @@ load_nss (GsdSmartcardManager *self)
 
         PR_Init (PR_USER_THREAD, PR_PRIORITY_NORMAL, 0);
 
-        status = NSS_Initialize (GSD_SMARTCARD_MANAGER_NSS_DB,
-                                 "", "", SECMOD_DB, flags);
+        context = NSS_InitContext (GSD_SMARTCARD_MANAGER_NSS_DB,
+                                   "", "", SECMOD_DB, &parameters, flags);
 
-        if (status != SECSuccess) {
+        if (context == NULL) {
                 gsize error_message_size;
                 char *error_message;
 
@@ -123,13 +130,14 @@ load_nss (GsdSmartcardManager *self)
                         g_debug ("NSS security system could not be initialized - %s",
                                  error_message);
                 }
-                priv->nss_is_loaded = FALSE;
+
+                priv->nss_context = NULL;
                 return;
 
         }
 
         g_debug ("NSS database '%s' loaded", GSD_SMARTCARD_MANAGER_NSS_DB);
-        priv->nss_is_loaded = TRUE;
+        priv->nss_context = context;
 }
 
 static void
@@ -138,9 +146,9 @@ unload_nss (GsdSmartcardManager *self)
         g_debug ("attempting to unload NSS security system with database '%s'",
                  GSD_SMARTCARD_MANAGER_NSS_DB);
 
-        if (self->priv->nss_is_loaded) {
-                NSS_Shutdown ();
-                self->priv->nss_is_loaded = FALSE;
+        if (self->priv->nss_context != NULL) {
+                g_clear_pointer (&self->priv->nss_context,
+                                 NSS_ShutdownContext);
                 g_debug ("NSS database '%s' unloaded", GSD_SMARTCARD_MANAGER_NSS_DB);
         } else {
                 g_debug ("NSS database '%s' already not loaded", GSD_SMARTCARD_MANAGER_NSS_DB);
