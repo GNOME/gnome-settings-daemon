@@ -22,7 +22,6 @@
 
 #include "config.h"
 
-#include <glib.h>
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 
@@ -55,7 +54,9 @@ struct GsdOrientationManagerPrivate
         OrientationUp  prev_orientation;
 
         /* DBus */
-        GDBusProxy      *xrandr_proxy;
+        guint            xrandr_watch_id;
+        gboolean         has_xrandr;
+        GDBusConnection *session_connection;
         GCancellable    *cancellable;
 
         /* Notifications */
@@ -168,12 +169,13 @@ on_xrandr_action_call_finished (GObject               *source_object,
         GError *error = NULL;
         GVariant *variant;
 
-        variant = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object), res, &error);
+        variant = g_dbus_connection_call_finish (G_DBUS_CONNECTION (source_object), res, &error);
 
         g_clear_object (&manager->priv->cancellable);
 
         if (variant == NULL) {
-                g_warning ("Unable to call 'RotateTo': %s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Unable to call 'RotateTo': %s", error->message);
                 g_error_free (error);
         } else {
                 g_variant_unref (variant);
@@ -188,11 +190,6 @@ do_xrandr_action (GsdOrientationManager *manager,
         GTimeVal tv;
         gint64 timestamp;
 
-        if (priv->xrandr_proxy == NULL) {
-                g_warning ("No existing D-Bus connection trying to handle XRANDR keys");
-                return;
-        }
-
         if (priv->cancellable != NULL) {
                 g_debug ("xrandr action already in flight");
                 return;
@@ -203,14 +200,18 @@ do_xrandr_action (GsdOrientationManager *manager,
 
         priv->cancellable = g_cancellable_new ();
 
-        g_dbus_proxy_call (priv->xrandr_proxy,
-                           "RotateTo",
-                           g_variant_new ("(ix)", rotation, timestamp),
-                           G_DBUS_CALL_FLAGS_NONE,
-                           -1,
-                           priv->cancellable,
-                           (GAsyncReadyCallback) on_xrandr_action_call_finished,
-                           manager);
+        g_dbus_connection_call (priv->session_connection,
+                                GSD_DBUS_NAME ".XRANDR",
+                                GSD_DBUS_PATH "/XRANDR",
+                                GSD_DBUS_BASE_INTERFACE ".XRANDR_2",
+                                "RotateTo",
+                                g_variant_new ("(ix)", rotation, timestamp),
+                                NULL,
+                                G_DBUS_CALL_FLAGS_NONE,
+                                -1,
+                                priv->cancellable,
+                                (GAsyncReadyCallback) on_xrandr_action_call_finished,
+                                manager);
 }
 
 static void
@@ -245,7 +246,9 @@ orientation_lock_changed_cb (GSettings             *settings,
 
         manager->priv->orientation_lock = new;
 
-        if (new == FALSE) {
+        if (new == FALSE &&
+            manager->priv->iio_proxy != NULL &&
+            manager->priv->has_xrandr) {
                 /* Handle the rotations that could have occurred while
                  * we were locked */
                 do_rotation (manager);
@@ -263,7 +266,8 @@ properties_changed (GDBusProxy *proxy,
         GVariant *v;
         GVariantDict dict;
 
-        if (manager->priv->xrandr_proxy == NULL)
+        if (manager->priv->iio_proxy == NULL ||
+            manager->priv->has_xrandr == FALSE)
                 return;
 
         if (changed_properties)
@@ -297,26 +301,6 @@ properties_changed (GDBusProxy *proxy,
                         }
                 }
         }
-}
-
-static void
-xrandr_ready_cb (GObject               *source_object,
-                 GAsyncResult          *res,
-                 GsdOrientationManager *manager)
-{
-        GsdOrientationManagerPrivate *p = manager->priv;
-        GError *error = NULL;
-
-        manager->priv->xrandr_proxy = g_dbus_proxy_new_finish (res, &error);
-        if (manager->priv->xrandr_proxy == NULL) {
-                g_warning ("Failed to get proxy for XRandR operations: %s", error->message);
-                g_error_free (error);
-        }
-
-        if (p->iio_proxy == NULL)
-                return;
-
-        properties_changed (manager->priv->iio_proxy, NULL, NULL, manager);
 }
 
 static void
@@ -368,6 +352,28 @@ iio_sensor_vanished_cb (GDBusConnection *connection,
         manager->priv->prev_orientation = ORIENTATION_UNDEFINED;
 }
 
+static void
+xrandr_appeared_cb (GDBusConnection *connection,
+                    const gchar     *name,
+                    const gchar     *name_owner,
+                    gpointer         user_data)
+{
+        GsdOrientationManager *manager = user_data;
+
+        manager->priv->has_xrandr = TRUE;
+
+        properties_changed (manager->priv->iio_proxy, NULL, NULL, manager);
+}
+
+static void
+xrandr_vanished_cb (GDBusConnection *connection,
+                    const gchar     *name,
+                    gpointer         user_data)
+{
+        GsdOrientationManager *manager = user_data;
+        manager->priv->has_xrandr = FALSE;
+}
+
 gboolean
 gsd_orientation_manager_start (GsdOrientationManager  *manager,
                                GError                **error)
@@ -379,15 +385,15 @@ gsd_orientation_manager_start (GsdOrientationManager  *manager,
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed::orientation-lock",
                           G_CALLBACK (orientation_lock_changed_cb), manager);
 
-        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
-                                  G_DBUS_PROXY_FLAGS_NONE,
-                                  NULL,
-                                  GSD_DBUS_NAME ".XRANDR",
-                                  GSD_DBUS_PATH "/XRANDR",
-                                  GSD_DBUS_BASE_INTERFACE ".XRANDR_2",
-                                  NULL,
-                                  (GAsyncReadyCallback) xrandr_ready_cb,
-                                  manager);
+        manager->priv->session_connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
+
+        manager->priv->xrandr_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
+                                                           GSD_DBUS_NAME ".XRANDR",
+                                                           G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                                           xrandr_appeared_cb,
+                                                           xrandr_vanished_cb,
+                                                           manager,
+                                                           NULL);
 
         manager->priv->watch_id = g_bus_watch_name (G_BUS_TYPE_SYSTEM,
                                                     "net.hadess.SensorProxy",
@@ -417,6 +423,11 @@ gsd_orientation_manager_stop (GsdOrientationManager *manager)
                 p->watch_id = 0;
         }
 
+        if (p->xrandr_watch_id > 0) {
+                g_bus_unwatch_name (p->xrandr_watch_id);
+                p->xrandr_watch_id = 0;
+        }
+
         if (p->iio_proxy) {
                 g_dbus_proxy_call_sync (p->iio_proxy,
                                         "ReleaseAccelerometer",
@@ -427,7 +438,7 @@ gsd_orientation_manager_stop (GsdOrientationManager *manager)
                 g_clear_object (&p->iio_proxy);
         }
 
-	g_clear_object (&p->xrandr_proxy);
+        g_clear_object (&p->session_connection);
         g_clear_object (&p->settings);
         p->has_accel = FALSE;
 
