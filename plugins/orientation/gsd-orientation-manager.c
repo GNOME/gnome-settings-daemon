@@ -369,8 +369,8 @@ iio_sensor_vanished_cb (GDBusConnection *connection,
 }
 
 gboolean
-gsd_orientation_manager_start (GsdOrientationManager *manager,
-                         GError         **error)
+gsd_orientation_manager_start (GsdOrientationManager  *manager,
+                               GError                **error)
 {
         gnome_settings_profile_start (NULL);
 
