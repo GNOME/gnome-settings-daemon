@@ -853,7 +853,7 @@ set_touchpad_disabled (GdkDevice *device)
                 return;
         }
 
-        if (set_touchpad_device_enabled (id, FALSE) == FALSE)
+        if (set_synaptics_device_enabled (id, FALSE) == FALSE)
                 g_warning ("Error disabling device \"%s\" (%d)", gdk_device_get_name (device), id);
         else
                 g_debug ("Disabled device \"%s\" (%d)", gdk_device_get_name (device), id);
@@ -881,7 +881,7 @@ set_touchpad_enabled (int id)
                 return;
         }
 
-        if (set_touchpad_device_enabled (id, TRUE) == FALSE)
+        if (set_synaptics_device_enabled (id, TRUE) == FALSE)
                 g_warning ("Error enabling device \"%d\"", id);
         else
                 g_debug ("Enabled device %d", id);
@@ -1268,7 +1268,7 @@ ensure_touchpad_active (GsdMouseManager *manager)
 
         state = get_touchpad_enabled (manager);
         if (state) {
-                devices = get_disabled_touchpads (manager->priv->device_manager);
+                devices = get_disabled_synaptics ();
                 for (l = devices; l != NULL; l = l->next) {
                         int device_id;
 

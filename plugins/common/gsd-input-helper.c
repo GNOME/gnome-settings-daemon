@@ -432,8 +432,8 @@ set_device_enabled (int device_id,
 }
 
 gboolean
-set_touchpad_device_enabled (int device_id,
-                             gboolean enabled)
+set_synaptics_device_enabled (int device_id,
+                              gboolean enabled)
 {
         Atom prop;
         guchar value;
@@ -545,7 +545,7 @@ run_custom_command (GdkDevice              *device,
 }
 
 GList *
-get_disabled_touchpads (GdkDeviceManager *manager)
+get_disabled_synaptics (void)
 {
         GdkDisplay *display;
         XDeviceInfo *device_info;
