@@ -240,7 +240,7 @@ orientation_lock_changed_cb (GSettings             *settings,
 {
         gboolean new;
 
-        new = g_settings_get_boolean (settings, key);
+        new = g_settings_get_boolean (settings, ORIENTATION_LOCK_KEY);
         if (new == manager->priv->orientation_lock)
                 return;
 
@@ -382,7 +382,7 @@ gsd_orientation_manager_start (GsdOrientationManager  *manager,
 
         manager->priv->settings = g_settings_new (CONF_SCHEMA);
         manager->priv->orientation_lock = g_settings_get_boolean (manager->priv->settings, ORIENTATION_LOCK_KEY);
-        g_signal_connect (G_OBJECT (manager->priv->settings), "changed::orientation-lock",
+        g_signal_connect (G_OBJECT (manager->priv->settings), "changed::" ORIENTATION_LOCK_KEY,
                           G_CALLBACK (orientation_lock_changed_cb), manager);
 
         manager->priv->session_connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
