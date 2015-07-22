@@ -143,7 +143,7 @@ foreach i : [ 1, 2, 3, 4, 5, 6, 7, 8 ]
     test_py,
     args: [ 'PowerPluginTest@0@'.format(i) ],
     env: envs,
-    timeout: 100
+    timeout: 120
   )
 endforeach
 

@@ -18,7 +18,7 @@
  */
 
 /* The blank delay when the screensaver is active */
-#define SCREENSAVER_TIMEOUT_BLANK                       15 /* seconds */
+#define SCREENSAVER_TIMEOUT_BLANK                       30 /* seconds */
 
 /* The dim delay when dimming on idle is requested but idle-delay
  * is set to "Never" */
