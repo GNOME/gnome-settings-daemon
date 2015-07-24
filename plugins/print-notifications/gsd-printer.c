@@ -741,23 +741,23 @@ printer_autoconfigure (gchar *printer_name)
         g_free (commands_lowercase);
 }
 
-/* Return default media size for current locale */
+/* Returns default page size for current locale */
 static const gchar *
-get_paper_size_from_locale ()
+get_page_size_from_locale (void)
 {
   if (g_str_equal (gtk_paper_size_get_default (), GTK_PAPER_NAME_LETTER))
-    return "na-letter";
+    return "Letter";
   else
-    return "iso-a4";
+    return "A4";
 }
 
 static void
 set_default_paper_size (const gchar *printer_name,
                         const gchar *ppd_file_name)
 {
-        GDBusProxy  *proxy;
-        GVariant    *output;
-        GError      *error = NULL;
+        GDBusProxy      *proxy;
+        GVariant        *output;
+        GError          *error = NULL;
         GVariantBuilder *builder;
 
         proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
@@ -779,13 +779,13 @@ set_default_paper_size (const gchar *printer_name,
          * FIXME: Handle more than A4 and Letter:
          * https://bugzilla.gnome.org/show_bug.cgi?id=660769 */
         builder = g_variant_builder_new (G_VARIANT_TYPE ("as"));
-        g_variant_builder_add (builder, "s", get_paper_size_from_locale ());
+        g_variant_builder_add (builder, "s", get_page_size_from_locale ());
 
         output = g_dbus_proxy_call_sync (proxy,
                                          "PrinterAddOption",
                                          g_variant_new ("(ssas)",
                                                         printer_name ? printer_name : "",
-                                                        "media",
+                                                        "PageSize",
                                                         builder),
                                          G_DBUS_CALL_FLAGS_NONE,
                                          DBUS_TIMEOUT,
