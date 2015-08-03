@@ -791,10 +791,6 @@ set_wacom_settings (GsdWacomManager *manager,
 	if (type == WACOM_TYPE_PAD) {
 		int id;
 
-		id = get_device_id (device);
-		reset_pad_buttons (device);
-		grab_button (id, TRUE, manager->priv->screen);
-
 		buttons = gsd_wacom_device_get_buttons (device);
 		for (l = buttons; l != NULL; l = l->next) {
 			GsdWacomTabletButton *button = l->data;
@@ -805,6 +801,10 @@ set_wacom_settings (GsdWacomManager *manager,
 			}
 		}
 		g_list_free (buttons);
+
+		id = get_device_id (device);
+		reset_pad_buttons (device);
+		grab_button (id, TRUE, manager->priv->screen);
 
 		return;
 	}
