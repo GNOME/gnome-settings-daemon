@@ -807,7 +807,7 @@ set_wacom_settings (GsdWacomManager *manager,
 		for (l = buttons; l != NULL; l = l->next) {
 			GsdWacomTabletButton *button = l->data;
 			if (button->has_oled) {
-				g_signal_connect (G_OBJECT (button->settings), "changed::oled-label",
+				g_signal_connect (G_OBJECT (button->settings), "changed::" OLED_LABEL,
 						  G_CALLBACK (gsettings_oled_changed), button);
 				g_object_set_data (G_OBJECT (button->settings), "parent-device", device);
 			}
