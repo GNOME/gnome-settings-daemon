@@ -173,9 +173,9 @@ gsd_datetime_manager_start (GsdDatetimeManager *self,
 
         self->priv->settings = g_settings_new (DATETIME_SCHEMA);
 
-        auto_timezone_settings_changed_cb (self->priv->settings, AUTO_TIMEZONE_KEY, self);
         g_signal_connect (self->priv->settings, "changed::" AUTO_TIMEZONE_KEY,
                           G_CALLBACK (auto_timezone_settings_changed_cb), self);
+        auto_timezone_settings_changed_cb (self->priv->settings, AUTO_TIMEZONE_KEY, self);
 
         gnome_settings_profile_end (NULL);
 
