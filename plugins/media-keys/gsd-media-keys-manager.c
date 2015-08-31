@@ -1802,13 +1802,9 @@ power_action (GsdMediaKeysManager *manager,
 
 static void
 do_config_power_action (GsdMediaKeysManager *manager,
-                        const gchar *config_key,
-                        gboolean in_lock_screen)
+                        GsdPowerActionType   action_type,
+                        gboolean             in_lock_screen)
 {
-        GsdPowerActionType action_type;
-
-        action_type = g_settings_get_enum (manager->priv->power_settings,
-                                           config_key);
         switch (action_type) {
         case GSD_POWER_ACTION_SUSPEND:
                 power_action (manager, "Suspend", !in_lock_screen);
@@ -2155,16 +2151,16 @@ do_action (GsdMediaKeysManager *manager,
 		do_toggle_contrast_action (manager);
 		break;
         case POWER_KEY:
-                do_config_power_action (manager, "button-power", power_action_noninteractive);
+                do_config_power_action (manager, GSD_POWER_ACTION_SUSPEND, power_action_noninteractive);
                 break;
         case SLEEP_KEY:
-                do_config_power_action (manager, "button-sleep", power_action_noninteractive);
+                do_config_power_action (manager, GSD_POWER_ACTION_HIBERNATE, power_action_noninteractive);
                 break;
         case SUSPEND_KEY:
-                do_config_power_action (manager, "button-suspend", power_action_noninteractive);
+                do_config_power_action (manager, GSD_POWER_ACTION_SUSPEND, power_action_noninteractive);
                 break;
         case HIBERNATE_KEY:
-                do_config_power_action (manager, "button-hibernate", power_action_noninteractive);
+                do_config_power_action (manager, GSD_POWER_ACTION_HIBERNATE, power_action_noninteractive);
                 break;
         case SCREEN_BRIGHTNESS_UP_KEY:
         case SCREEN_BRIGHTNESS_DOWN_KEY:
