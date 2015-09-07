@@ -122,24 +122,12 @@ init_builder_with_sources (GVariantBuilder *builder,
 }
 
 static gboolean
-contained (char       **items,
-           const char  *item)
-{
-        while (*items) {
-                if (g_strcmp0 (*items++, item) == 0) {
-                        return TRUE;
-                }
-        }
-
-        return FALSE;
-}
-
-static gboolean
 schema_is_installed (const char *schema)
 {
         GSettingsSchemaSource *source = NULL;
         gchar **non_relocatable = NULL;
         gchar **relocatable = NULL;
+        gboolean installed = FALSE;
 
         source = g_settings_schema_source_get_default ();
         if (!source)
@@ -147,8 +135,13 @@ schema_is_installed (const char *schema)
 
         g_settings_schema_source_list_schemas (source, TRUE, &non_relocatable, &relocatable);
 
-        return (contained (non_relocatable, schema) ||
-                contained (relocatable, schema));
+        if (g_strv_contains ((const gchar * const *)non_relocatable, schema) ||
+            g_strv_contains ((const gchar * const *)relocatable, schema))
+                installed = TRUE;
+
+        g_strfreev (non_relocatable);
+        g_strfreev (relocatable);
+        return installed;
 }
 
 static gboolean
