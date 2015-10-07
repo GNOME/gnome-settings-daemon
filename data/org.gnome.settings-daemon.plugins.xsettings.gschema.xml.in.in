@@ -11,9 +11,9 @@
       <_description>The type of antialiasing to use when rendering fonts. Possible values are: "none" for no antialiasing, "grayscale" for standard grayscale antialiasing, and "rgba" for subpixel antialiasing (LCD screens only).</_description>
     </key>
     <key name="hinting" enum="org.gnome.settings-daemon.GsdFontHinting">
-      <default>'medium'</default>
+      <default>'slight'</default>
       <_summary>Hinting</_summary>
-      <_description>The type of hinting to use when rendering fonts. Possible values are: "none" for no hinting, "slight" for basic, "medium" for moderate, and "full" for maximum hinting (may cause distortion of letter forms).</_description>
+      <_description>The type of hinting to use when rendering fonts. Possible values are: "none" for no hinting and "slight" for fitting only to the Y-axis like Microsoft's ClearType, DirectWrite and Adobe's proprietary font rendering engine. Ignores native hinting within the font, generates hints algorithmically. Used on Ubuntu by default. Recommended. The meaning of "medium" and "full" depends on the font format (.ttf, .otf, .pfa/.pfb) and the installed version of FreeType. They usually try to fit glyphs to both the X and the Y axis (except for .otf: Y-only). This can lead to distortion and/or inconsistent rendering depending on the quality of the font, the font format and the state of FreeType's font engines.</_description>
     </key>
     <key name="priority" type="i">
       <default>0</default>
