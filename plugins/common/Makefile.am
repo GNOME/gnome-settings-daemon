@@ -3,6 +3,7 @@ plugin_name = common
 noinst_LTLIBRARIES = libcommon.la
 
 GSD_COMMON_ENUM_FILES = gsd-common-enums.c gsd-common-enums.h
+BUILT_SOURCES = $(GSD_COMMON_ENUM_FILES)
 
 gsd-common-enums.h: gsd-device-manager.h Makefile
 	$(AM_V_GEN)($(GLIB_MKENUMS) \
