@@ -100,6 +100,7 @@ struct GsdWacomManagerPrivate
         guint start_idle_id;
         GsdDeviceManager *device_manager;
         guint device_added_id;
+        guint device_changed_id;
         guint device_removed_id;
         GHashTable *devices; /* key = GdkDevice, value = GsdWacomDevice */
         GnomeRRScreen *rr_screen;
@@ -1129,6 +1130,28 @@ device_added_cb (GsdDeviceManager *device_manager,
 }
 
 static void
+device_changed_cb (GsdDeviceManager *device_manager,
+		   GsdDevice	    *gsd_device,
+		   GsdWacomManager  *manager)
+{
+	GdkDevice **devices;
+	guint i, n_gdk_devices;
+
+	if (gnome_settings_is_wayland ())
+		return;
+
+	devices = gsd_x11_device_manager_get_gdk_devices (GSD_X11_DEVICE_MANAGER (device_manager),
+							  gsd_device, &n_gdk_devices);
+
+	for (i = 0; i < n_gdk_devices; i++) {
+		if (!g_hash_table_lookup (manager->priv->devices, devices[i]))
+			gsd_wacom_manager_add_gdk_device (manager, devices[i]);
+	}
+
+	g_free (devices);
+}
+
+static void
 gsd_wacom_manager_remove_gdk_device (GsdWacomManager *manager,
                                      GdkDevice       *gdk_device)
 {
@@ -1535,6 +1558,8 @@ set_devicepresence_handler (GsdWacomManager *manager)
         device_manager = gsd_device_manager_get ();
         manager->priv->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
                                                            G_CALLBACK (device_added_cb), manager);
+        manager->priv->device_changed_id = g_signal_connect (G_OBJECT (device_manager), "device-changed",
+                                                             G_CALLBACK (device_changed_cb), manager);
         manager->priv->device_removed_id = g_signal_connect (G_OBJECT (device_manager), "device-removed",
                                                              G_CALLBACK (device_removed_cb), manager);
         manager->priv->device_manager = device_manager;
@@ -1764,6 +1789,7 @@ gsd_wacom_manager_stop (GsdWacomManager *manager)
 
         if (p->device_manager != NULL) {
                 g_signal_handler_disconnect (p->device_manager, p->device_added_id);
+                g_signal_handler_disconnect (p->device_manager, p->device_changed_id);
                 g_signal_handler_disconnect (p->device_manager, p->device_removed_id);
                 p->device_manager = NULL;
         }
