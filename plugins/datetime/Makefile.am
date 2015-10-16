@@ -1,13 +1,5 @@
 plugin_name = datetime
 
-geoclue.c: geoclue.h
-geoclue.h: Makefile.am $(GEOCLUE_DBUS_INTERFACE_XML)
-	gdbus-codegen						\
-		--interface-prefix org.freedesktop.GeoClue2	\
-		--generate-c-code geoclue			\
-		--c-namespace Geoclue				\
-		$(GEOCLUE_DBUS_INTERFACE_XML)
-
 timedated.c: timedated.h
 timedated.h: Makefile.am timedated1-interface.xml
 	gdbus-codegen						\
@@ -16,8 +8,6 @@ timedated.h: Makefile.am timedated1-interface.xml
 		$(srcdir)/timedated1-interface.xml
 
 BUILT_SOURCES =			\
-	geoclue.c		\
-	geoclue.h		\
 	timedated.c		\
 	timedated.h
 

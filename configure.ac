@@ -58,7 +58,7 @@ POLKIT_REQUIRED_VERSION=0.103
 UPOWER_REQUIRED_VERSION=0.99.0
 GSETTINGS_DESKTOP_SCHEMAS_REQUIRED_VERSION=3.15.4
 GEOCODE_GLIB_REQUIRED_VERSION=3.10.0
-GEOCLUE_REQUIRED_VERSION=2.1.2
+GEOCLUE_REQUIRED_VERSION=2.3.1
 NM_REQUIRED_VERSION=0.9.9.1
 
 EXTRA_COMPILE_WARNINGS(yes)
@@ -244,17 +244,11 @@ AC_CHECK_LIBM
 AC_SUBST(LIBM)
 
 PKG_CHECK_MODULES(DATETIME,
-        geoclue-2.0 >= $GEOCLUE_REQUIRED_VERSION
+        libgeoclue-2.0 >= $GEOCLUE_REQUIRED_VERSION
 	geocode-glib-1.0 >= $GEOCODE_GLIB_REQUIRED_VERSION
 	gweather-3.0 >= $LIBGWEATHER_REQUIRED_VERSION
 	polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION
 )
-
-GEOCLUE_DBUS_INTERFACE_XML=`pkg-config --variable=dbus_interface geoclue-2.0`
-if test "x$GEOCLUE_DBUS_INTERFACE_XML" = "x"; then
-	AC_MSG_ERROR([Cannot find dbus_interface variable in geoclue-2.0.pc])
-fi
-AC_SUBST(GEOCLUE_DBUS_INTERFACE_XML)
 
 dnl ---------------------------------------------------------------------------
 dnl - wacom (disabled for s390/s390x and non Linux platforms)

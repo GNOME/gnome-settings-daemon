@@ -21,19 +21,16 @@
 
 #include "gsd-timezone-monitor.h"
 
-#include "geoclue.h"
 #include "timedated.h"
 #include "tz.h"
 #include "weather-tz.h"
 
+#include <geoclue.h>
 #include <geocode-glib/geocode-glib.h>
 #include <polkit/polkit.h>
 
 #define DESKTOP_ID "gnome-datetime-panel"
 #define SET_TIMEZONE_PERMISSION "org.freedesktop.timedate1.set-timezone"
-
-/* Defines from geoclue private header src/public-api/gclue-enums.h */
-#define GCLUE_ACCURACY_LEVEL_CITY 4
 
 enum {
         TIMEZONE_CHANGED,
@@ -46,8 +43,8 @@ typedef struct
 {
         GCancellable *cancellable;
         GPermission *permission;
-        GeoclueClient *geoclue_client;
-        GeoclueManager *geoclue_manager;
+        GClueClient *geoclue_client;
+        GClueSimple *geoclue_simple;
         Timedate1 *dtm;
 
         TzDB *tzdb;
@@ -268,144 +265,46 @@ start_reverse_geocoding (GsdTimezoneMonitor *self,
 }
 
 static void
-on_location_proxy_ready (GObject      *source_object,
+on_location_notify (GClueSimple *simple,
+                    GParamSpec  *pspec,
+                    gpointer     user_data)
+{
+        GsdTimezoneMonitor *self = user_data;
+        GClueLocation *location;
+        gdouble latitude, longitude;
+
+        location = gclue_simple_get_location (simple);
+
+        latitude = gclue_location_get_latitude (location);
+        longitude = gclue_location_get_longitude (location);
+
+        start_reverse_geocoding (self, latitude, longitude);
+}
+
+static void
+on_geoclue_simple_ready (GObject      *source_object,
                          GAsyncResult *res,
                          gpointer      user_data)
 {
-        GeoclueLocation *location;
-        gdouble latitude, longitude;
         GError *error = NULL;
         GsdTimezoneMonitor *self = user_data;
+        GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
 
-        location = geoclue_location_proxy_new_for_bus_finish (res, &error);
+        priv->geoclue_simple = gclue_simple_new_finish (res, &error);
         if (error != NULL) {
                 g_critical ("Failed to connect to GeoClue2 service: %s", error->message);
                 g_error_free (error);
                 return;
         }
 
-        latitude = geoclue_location_get_latitude (location);
-        longitude = geoclue_location_get_longitude (location);
+        priv->geoclue_client = gclue_simple_get_client (priv->geoclue_simple);
+        gclue_client_set_distance_threshold (priv->geoclue_client,
+                                             GEOCODE_LOCATION_ACCURACY_CITY);
 
-        start_reverse_geocoding (self, latitude, longitude);
+        g_signal_connect (priv->geoclue_simple, "notify::location",
+                          G_CALLBACK (on_location_notify), self);
 
-        g_object_unref (location);
-}
-
-static void
-on_location_updated (GDBusProxy *client,
-                     gchar      *location_path_old,
-                     gchar      *location_path_new,
-                     gpointer    user_data)
-{
-        GsdTimezoneMonitor *self = user_data;
-        GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
-
-        geoclue_location_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
-                                            G_DBUS_PROXY_FLAGS_NONE,
-                                            "org.freedesktop.GeoClue2",
-                                            location_path_new,
-                                            priv->cancellable,
-                                            on_location_proxy_ready,
-                                            self);
-}
-
-static void
-on_start_ready (GObject      *source_object,
-                GAsyncResult *res,
-                gpointer      user_data)
-{
-        GError *error = NULL;
-
-        if (!geoclue_client_call_start_finish (GEOCLUE_CLIENT (source_object),
-                                               res,
-                                               &error)) {
-                g_critical ("Failed to start GeoClue2 client: %s", error->message);
-                g_error_free (error);
-                return;
-        }
-}
-
-static void
-on_client_proxy_ready (GObject      *source_object,
-                       GAsyncResult *res,
-                       gpointer      user_data)
-{
-        GError *error = NULL;
-        GsdTimezoneMonitor *self = user_data;
-        GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
-
-        priv->geoclue_client = geoclue_client_proxy_new_for_bus_finish (res, &error);
-        if (error != NULL) {
-                g_critical ("Failed to connect to GeoClue2 service: %s", error->message);
-                g_error_free (error);
-                return;
-        }
-
-        geoclue_client_set_desktop_id (priv->geoclue_client, DESKTOP_ID);
-        geoclue_client_set_distance_threshold (priv->geoclue_client,
-                                               GEOCODE_LOCATION_ACCURACY_CITY);
-        geoclue_client_set_requested_accuracy_level (priv->geoclue_client,
-                                                     GCLUE_ACCURACY_LEVEL_CITY);
-
-        g_signal_connect (priv->geoclue_client, "location-updated",
-                          G_CALLBACK (on_location_updated), self);
-
-        geoclue_client_call_start (priv->geoclue_client,
-                                   priv->cancellable,
-                                   on_start_ready,
-                                   self);
-}
-
-static void
-on_get_client_ready (GObject      *source_object,
-                     GAsyncResult *res,
-                     gpointer      user_data)
-{
-        gchar *client_path;
-        GError *error = NULL;
-        GsdTimezoneMonitor *self = user_data;
-        GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
-
-        if (!geoclue_manager_call_get_client_finish (GEOCLUE_MANAGER (source_object),
-                                                     &client_path,
-                                                     res,
-                                                     &error)) {
-                g_critical ("Failed to connect to GeoClue2 service: %s", error->message);
-                g_error_free (error);
-                return;
-        }
-
-        geoclue_client_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
-                                          G_DBUS_PROXY_FLAGS_NONE,
-                                          "org.freedesktop.GeoClue2",
-                                          client_path,
-                                          priv->cancellable,
-                                          on_client_proxy_ready,
-                                          self);
-}
-
-static void
-on_manager_proxy_ready (GObject      *source_object,
-                        GAsyncResult *res,
-                        gpointer      user_data)
-{
-
-        GError *error = NULL;
-        GsdTimezoneMonitor *self = user_data;
-        GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
-
-        priv->geoclue_manager = geoclue_manager_proxy_new_for_bus_finish (res, &error);
-        if (error != NULL) {
-                g_critical ("Failed to connect to GeoClue2 service: %s", error->message);
-                g_error_free (error);
-                return;
-        }
-
-        geoclue_manager_call_get_client (priv->geoclue_manager,
-                                         priv->cancellable,
-                                         on_get_client_ready,
-                                         self);
+        on_location_notify (priv->geoclue_simple, NULL, self);
 }
 
 static void
@@ -413,13 +312,12 @@ register_geoclue (GsdTimezoneMonitor *self)
 {
         GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
 
-        geoclue_manager_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
-                                           G_DBUS_PROXY_FLAGS_NONE,
-                                           "org.freedesktop.GeoClue2",
-                                           "/org/freedesktop/GeoClue2/Manager",
-                                           priv->cancellable,
-                                           on_manager_proxy_ready,
-                                           self);
+        gclue_simple_new (DESKTOP_ID,
+                          GCLUE_ACCURACY_LEVEL_CITY,
+                          priv->cancellable,
+                          on_geoclue_simple_ready,
+                          self);
+
 }
 
 GsdTimezoneMonitor *
@@ -442,12 +340,12 @@ gsd_timezone_monitor_finalize (GObject *obj)
         }
 
         if (priv->geoclue_client) {
-                geoclue_client_call_stop (priv->geoclue_client, NULL, NULL, NULL);
+                gclue_client_call_stop (priv->geoclue_client, NULL, NULL, NULL);
                 g_clear_object (&priv->geoclue_client);
         }
 
         g_clear_object (&priv->dtm);
-        g_clear_object (&priv->geoclue_manager);
+        g_clear_object (&priv->geoclue_simple);
         g_clear_object (&priv->permission);
         g_clear_pointer (&priv->current_timezone, g_free);
         g_clear_pointer (&priv->tzdb, tz_db_free);
