@@ -262,6 +262,22 @@ wacom_set_property (GsdWacomDevice *device,
 }
 
 static void
+set_rotation (GsdWacomDevice   *device,
+	      GsdWacomRotation	rotation)
+{
+	gchar rot = rotation;
+	PropertyHelper property = {
+		.name = "Wacom Rotation",
+		.nitems = 1,
+		.format = 8,
+		.type = XA_INTEGER,
+		.data.c = &rot
+	};
+
+	wacom_set_property (device, &property);
+}
+
+static void
 set_pressurecurve (GsdWacomDevice *device,
                    GVariant       *value)
 {
@@ -815,6 +831,8 @@ set_wacom_settings (GsdWacomManager *manager,
 		grab_button (id, TRUE, manager->priv->screen);
 
 		return;
+	} else {
+		set_rotation (device, g_settings_get_enum (settings, KEY_ROTATION));
 	}
 
 	set_absolute (device, g_settings_get_boolean (settings, KEY_IS_ABSOLUTE));
@@ -843,9 +861,10 @@ wacom_settings_changed (GSettings      *settings,
 	type = gsd_wacom_device_get_device_type (device);
 
 	if (g_str_equal (key, KEY_ROTATION)) {
-                /* Real device rotation is handled in GsdDeviceMapper */
 		if (type == WACOM_TYPE_PAD)
 			update_pad_leds (device);
+                else
+                        set_rotation (device, g_settings_get_enum (settings, key));
 	} else if (g_str_equal (key, KEY_TOUCH)) {
 	        if (type == WACOM_TYPE_TOUCH)
 			set_touch (device, g_settings_get_boolean (settings, key));
