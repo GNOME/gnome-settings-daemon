@@ -253,7 +253,7 @@ mouse_is_present (void)
 gboolean
 trackball_is_present (void)
 {
-        gboolean retval;
+        gboolean retval = FALSE;
         GList *l, *mice = gsd_device_manager_list_devices (gsd_device_manager_get (),
                                                            GSD_DEVICE_TYPE_MOUSE);
         if (mice == NULL)
