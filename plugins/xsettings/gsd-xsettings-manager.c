@@ -1334,6 +1334,7 @@ gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
         }
 
         if (p->plugin_settings != NULL) {
+                g_signal_handlers_disconnect_by_data (p->plugin_settings, manager);
                 g_object_unref (p->plugin_settings);
                 p->plugin_settings = NULL;
         }
