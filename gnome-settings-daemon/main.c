@@ -255,9 +255,16 @@ is_program_in_path (const char *binary)
 static void
 set_legacy_ibus_env_vars (GDBusProxy *proxy)
 {
+	const char *p;
         if (is_program_in_path ("ibus-daemon")) {
-                set_session_env (proxy, "QT_IM_MODULE", "ibus");
-                set_session_env (proxy, "XMODIFIERS", "@im=ibus");
+                p = getenv ("QT_IM_MODULE");
+                if (!p || !*p)
+                        p = "ibus";
+                set_session_env (proxy, "QT_IM_MODULE", p);
+                p = getenv ("XMODIFIERS");
+                if (!p || !*p)
+                        p = "@im=ibus";
+                set_session_env (proxy, "XMODIFIERS", p);
         }
 }
 

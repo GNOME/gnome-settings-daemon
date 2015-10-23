@@ -13,8 +13,8 @@ if [ -n "$REGION" ]; then
 fi
 
 if [ -x @prefix@/bin/ibus-daemon ]; then
-  export QT_IM_MODULE=ibus
-  export XMODIFIERS=@im=ibus
+  test -z "$QT_IM_MODULE" && export QT_IM_MODULE=ibus
+  test -z "$XMODIFIERS" && export XMODIFIERS=@im=ibus
 fi
 
 exec @libexecdir@/gnome-settings-daemon
