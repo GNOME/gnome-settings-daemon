@@ -109,6 +109,7 @@ struct GsdWacomManagerPrivate
         GsdShell *shell_proxy;
 
         GsdDeviceMapper *device_mapper;
+        guint mapping_changed_id;
 
         /* button capture */
         GdkScreen *screen;
@@ -1571,6 +1572,40 @@ gsd_wacom_manager_init (GsdWacomManager *manager)
         manager->priv = GSD_WACOM_MANAGER_GET_PRIVATE (manager);
 }
 
+static void
+device_mapping_changed (GsdDeviceMapper *mapper,
+                        GsdDevice       *gsd_device,
+                        GsdWacomManager *manager)
+{
+	guint i, n_gdk_devices;
+	GdkDevice **devices;
+
+	if (gnome_settings_is_wayland ())
+		return;
+
+	devices = gsd_x11_device_manager_get_gdk_devices (GSD_X11_DEVICE_MANAGER (manager->priv->device_manager),
+							  gsd_device, &n_gdk_devices);
+
+	for (i = 0; i < n_gdk_devices; i++) {
+                GsdWacomDevice *wacom_device;
+                GsdWacomDeviceType type;
+                GSettings *settings;
+
+                wacom_device = g_hash_table_lookup (manager->priv->devices, devices[i]);
+
+                if (!wacom_device)
+                        continue;
+
+                settings = gsd_wacom_device_get_settings (wacom_device);
+                type = gsd_wacom_device_get_device_type (wacom_device);
+
+                if (type != WACOM_TYPE_TOUCH && type != WACOM_TYPE_PAD)
+                        set_keep_aspect (wacom_device, g_settings_get_boolean (settings, KEY_KEEP_ASPECT));
+        }
+
+        g_free (devices);
+}
+
 static gboolean
 gsd_wacom_manager_idle_cb (GsdWacomManager *manager)
 {
@@ -1579,6 +1614,10 @@ gsd_wacom_manager_idle_cb (GsdWacomManager *manager)
         gnome_settings_profile_start (NULL);
 
         manager->priv->device_mapper = gsd_device_mapper_get ();
+
+        manager->priv->mapping_changed_id =
+                g_signal_connect (manager->priv->device_mapper, "device-changed",
+                                  G_CALLBACK (device_mapping_changed), manager);
 
         manager->priv->warned_devices = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
@@ -1831,6 +1870,11 @@ gsd_wacom_manager_finalize (GObject *object)
         g_return_if_fail (wacom_manager->priv != NULL);
 
         gsd_wacom_manager_stop (wacom_manager);
+
+        if (wacom_manager->priv->mapping_changed_id) {
+                g_signal_handler_disconnect (wacom_manager->priv->device_mapper,
+                                             wacom_manager->priv->mapping_changed_id);
+        }
 
         if (wacom_manager->priv->warned_devices) {
                 g_hash_table_destroy (wacom_manager->priv->warned_devices);
