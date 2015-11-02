@@ -1105,6 +1105,8 @@ device_added_cb (GsdDeviceManager *device_manager,
 
 	for (i = 0; i < n_gdk_devices; i++)
 		gsd_wacom_manager_add_gdk_device (manager, devices[i]);
+
+	g_free (devices);
 }
 
 static void
@@ -1142,6 +1144,8 @@ device_removed_cb (GsdDeviceManager *device_manager,
 
 	for (i = 0; i < n_gdk_devices; i++)
 		gsd_wacom_manager_remove_gdk_device (manager, devices[i]);
+
+	g_free (devices);
 }
 
 static GsdWacomDevice *
