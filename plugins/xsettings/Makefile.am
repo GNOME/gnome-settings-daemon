@@ -27,6 +27,28 @@ test_gtk_modules_CPPFLAGS =				\
 	-DGTK_MODULES_DIRECTORY=\""$(libdir)/gnome-settings-daemon-@GSD_API_VERSION@/gtk-modules/"\" \
 	$(AM_CPPFLAGS)
 
+noinst_PROGRAMS += test-fontconfig-monitor
+
+test_fontconfig_monitor_SOURCES =	\
+	fontconfig-monitor.c		\
+	fontconfig-monitor.h
+
+test_fontconfig_monitor_CFLAGS =	\
+	$(PLUGIN_CFLAGS)		\
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(AM_CFLAGS)
+
+test_fontconfig_monitor_LDADD =					\
+	$(XSETTINGS_LIBS)					\
+	$(SETTINGS_PLUGIN_LIBS)
+
+test_fontconfig_monitor_CPPFLAGS =			\
+	-I$(top_srcdir)/gnome-settings-daemon		\
+	-I$(top_builddir)/gnome-settings-daemon		\
+	-I$(top_srcdir)/data/				\
+	-DFONTCONFIG_MONITOR_TEST			\
+	$(AM_CPPFLAGS)
+
 noinst_PROGRAMS += test-wm-button-layout-translations
 
 test_wm_button_layout_translations_SOURCES =	\
