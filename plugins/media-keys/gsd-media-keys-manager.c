@@ -1829,6 +1829,26 @@ do_config_power_action (GsdMediaKeysManager *manager,
 }
 
 static void
+do_config_power_button_action (GsdMediaKeysManager *manager,
+                               gboolean             in_lock_screen)
+{
+        GsdPowerButtonActionType action_type;
+
+        action_type = g_settings_get_enum (manager->priv->power_settings, "power-button-action");
+        switch (action_type) {
+        case GSD_POWER_BUTTON_ACTION_SUSPEND:
+                do_config_power_action (manager, GSD_POWER_ACTION_SUSPEND, in_lock_screen);
+                break;
+        case GSD_POWER_BUTTON_ACTION_HIBERNATE:
+                do_config_power_action (manager, GSD_POWER_ACTION_HIBERNATE, in_lock_screen);
+                break;
+        case GSD_POWER_BUTTON_ACTION_NOTHING:
+                /* do nothing */
+                break;
+        }
+}
+
+static void
 update_brightness_cb (GObject             *source_object,
                       GAsyncResult        *res,
                       gpointer             user_data)
@@ -2151,7 +2171,7 @@ do_action (GsdMediaKeysManager *manager,
 		do_toggle_contrast_action (manager);
 		break;
         case POWER_KEY:
-                do_config_power_action (manager, GSD_POWER_ACTION_SUSPEND, power_action_noninteractive);
+                do_config_power_button_action (manager, power_action_noninteractive);
                 break;
         case SLEEP_KEY:
                 do_config_power_action (manager, GSD_POWER_ACTION_HIBERNATE, power_action_noninteractive);
