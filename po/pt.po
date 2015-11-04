@@ -4,22 +4,22 @@
 # Duarte Loreto <happyguy_pt@hotmail.com>, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013.
 # Nuno Ferreira <nmrf@rnl.ist.utl.pt>, 1999.
 # Tiago S. <almosthumane@portugalmail.pt>, 2015.
-# Pedro Albuquerque <palbuquerque73o@gmail.com>, 2015.
+# Pedro Albuquerque <palbuquerque73@gmail.com>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 3.10\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-07-15 08:04+0000\n"
-"PO-Revision-Date: 2015-07-15 10:10+0100\n"
-"Last-Translator: Pedro Albuquerque <palbuquerque73o@gmail.com>\n"
-"Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
+"POT-Creation-Date: 2015-11-03 22:09+0000\n"
+"PO-Revision-Date: 2015-11-04 07:40+0000\n"
+"Last-Translator: Pedro Albuquerque <palbuquerque73@gmail.com>\n"
+"Language-Team: Português <palbuquerque73@gmail.com>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\\n\n"
 "X-Generator: Gtranslator 2.91.6\n"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
@@ -755,12 +755,26 @@ msgstr "Dicas de letras"
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
-"\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
-"\" for maximum hinting (may cause distortion of letter forms)."
+"\" for no hinting and \"slight\" for fitting only to the Y-axis like "
+"Microsoft's ClearType, DirectWrite and Adobe's proprietary font rendering "
+"engine. Ignores native hinting within the font, generates hints "
+"algorithmically. Used on Ubuntu by default. Recommended. The meaning of "
+"\"medium\" and \"full\" depends on the font format (.ttf, .otf, .pfa/.pfb) "
+"and the installed version of FreeType. They usually try to fit glyphs to "
+"both the X and the Y axis (except for .otf: Y-only). This can lead to "
+"distortion and/or inconsistent rendering depending on the quality of the "
+"font, the font format and the state of FreeType's font engines."
 msgstr ""
-"O tipo de dicas a utilizar ao desenhar letras. Valores possíveis são: \"none"
-"\" para nenhumas dicas, \"slight\" para básicas, \"medium\" para moderadas, "
-"e \"full\" para dicas máximas (poderá causar distorção na forma das letras)."
+"O tipo de dicas a usar ao desenhar letras. Valores possíveis são: \"none\" "
+"para nenhumas dicas \"slight\" para ajustar só ao eixo Y tal como ClearType "
+"da Microsoft, DirectWrite e o motor da Adobe para desenho de letras. Ignora "
+"dicas nativas da letra, gera dicas algoritmicamente. Usado no Ubuntu por "
+"predefinição. Recomendado. O significado de \"medium\" e \"full\" depende do "
+"formato da letra (.ttf, .otf, .pfa/.pfb) e da versão instalada do FreeType. "
+"Habitualmente tentam ajustar glifos tanto no eixo X como no Y (exceto para ."
+"otf: só Y). Isto pode levar a distorção e/ou desenho inconsistente, "
+"dependendo da qualidade da letra, do formato da letra e do estado dos "
+"motores de letra do FreeType."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "RGBA order"
@@ -960,7 +974,6 @@ msgid "Date and Time"
 msgstr "Data e hora"
 
 #: ../plugins/datetime/datetime.gnome-settings-plugin.in.h:3
-#| msgid "Automatically update timezone and display notifications"
 msgid "Automatically update timezone"
 msgstr "Atualizar automaticamente o fuso horário"
 
@@ -1064,7 +1077,7 @@ msgstr "Teclado"
 msgid "Keyboard plugin"
 msgstr "Extensão de teclado"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:1989
+#: ../plugins/media-keys/gsd-media-keys-manager.c:1985
 msgid "Screencast from %d %t.webm"
 msgstr "Emissão de vídeo de %d %t.webm"
 
@@ -2051,16 +2064,16 @@ msgstr "Botão de fundo nº%d"
 msgid "New shortcut…"
 msgstr "Novo atalho…"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1010
+#: ../plugins/wacom/gsd-wacom-manager.c:1031
 #, c-format
 msgid "The \"%s\" tablet may not work as expected."
 msgstr "A tablet \"%s\" poderá não funcionar como esperado."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1011
+#: ../plugins/wacom/gsd-wacom-manager.c:1032
 msgid "Unknown Tablet Connected"
 msgstr "Tablet desconhecida ligada"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1015
+#: ../plugins/wacom/gsd-wacom-manager.c:1036
 msgid "Wacom Settings"
 msgstr "Definições Wacom"
 
@@ -2150,6 +2163,16 @@ msgstr "Definições X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Gerir as definições X"
+
+#~ msgid ""
+#~ "The type of hinting to use when rendering fonts. Possible values are: "
+#~ "\"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, "
+#~ "and \"full\" for maximum hinting (may cause distortion of letter forms)."
+#~ msgstr ""
+#~ "O tipo de dicas a utilizar ao desenhar letras. Valores possíveis são: "
+#~ "\"none\" para nenhumas dicas, \"slight\" para básicas, \"medium\" para "
+#~ "moderadas, e \"full\" para dicas máximas (poderá causar distorção na "
+#~ "forma das letras)."
 
 #~ msgid "Disable touchpad while typing"
 #~ msgstr "Desativar o touchpad enquanto utiliza o teclado"
