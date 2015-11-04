@@ -165,6 +165,7 @@ struct GsdMediaKeysManagerPrivate
         GDBusProxy      *power_screen_proxy;
         GDBusProxy      *power_keyboard_proxy;
         UpDevice        *composite_device;
+        char            *chassis_type;
 
         /* Shell stuff */
         GsdShell        *shell_proxy;
@@ -1834,6 +1835,12 @@ do_config_power_button_action (GsdMediaKeysManager *manager,
 {
         GsdPowerButtonActionType action_type;
 
+        /* Always power off VMs when power off is pressed in the menus */
+        if (g_strcmp0 (manager->priv->chassis_type, "vm") == 0) {
+                power_action (manager, "PowerOff", !in_lock_screen);
+                return;
+        }
+
         action_type = g_settings_get_enum (manager->priv->power_settings, "power-button-action");
         switch (action_type) {
         case GSD_POWER_BUTTON_ACTION_SUSPEND:
@@ -2375,6 +2382,7 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 
         /* for the power plugin interface code */
         manager->priv->power_settings = g_settings_new (SETTINGS_POWER_DIR);
+        manager->priv->chassis_type = gnome_settings_get_chassis_type ();
 
         /* Logic from http://git.gnome.org/browse/gnome-shell/tree/js/ui/status/accessibility.js#n163 */
         manager->priv->interface_settings = g_settings_new (SETTINGS_INTERFACE_DIR);
@@ -2483,6 +2491,7 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         g_clear_object (&priv->composite_device);
         g_clear_object (&priv->mpris_controller);
         g_clear_object (&priv->screencast_proxy);
+        g_clear_pointer (&priv->chassis_type, g_free);
 
         if (priv->cancellable != NULL) {
                 g_cancellable_cancel (priv->cancellable);
