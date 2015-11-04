@@ -45,5 +45,10 @@
       <summary>Enable the ALS sensor</summary>
       <description>If the ambient light sensor functionality is enabled.</description>
     </key>
+    <key name="power-button-action" enum="org.gnome.settings-daemon.GsdPowerButtonActionType">
+      <default>'suspend'</default>
+      <summary>Power button action</summary>
+      <description>The action to take when the system power button is pressed. This action is hard-coded (and the setting ignored) on virtual machines (power off) and tablets (suspend).</description>
+    </key>
   </schema>
 </schemalist>
