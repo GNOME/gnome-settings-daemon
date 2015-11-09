@@ -14,15 +14,15 @@
 # Petr Kovar <pknbe@volny.cz>, 2008, 2009, 2010, 2011.
 # Ondřej Kopka <ondrej.kopka@gmail.com>, 2011.
 # Adam Matoušek <adydas95@gmail.com>, 2012.
-# Marek Černocký <marek@manet.cz>, 2011, 2012, 2013, 2014. 2015.
+# Marek Černocký <marek@manet.cz>, 2011, 2012, 2013, 2014. 2015, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-07-24 08:05+0000\n"
-"PO-Revision-Date: 2015-07-24 15:25+0200\n"
+"POT-Creation-Date: 2015-11-09 10:11+0000\n"
+"PO-Revision-Date: 2015-11-09 16:04+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -773,12 +773,25 @@ msgstr "Hinting"
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
-"\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
-"\" for maximum hinting (may cause distortion of letter forms)."
+"\" for no hinting and \"slight\" for fitting only to the Y-axis like "
+"Microsoft's ClearType, DirectWrite and Adobe's proprietary font rendering "
+"engine. Ignores native hinting within the font, generates hints "
+"algorithmically. Used on Ubuntu by default. Recommended. The meaning of "
+"\"medium\" and \"full\" depends on the font format (.ttf, .otf, .pfa/.pfb) "
+"and the installed version of FreeType. They usually try to fit glyphs to "
+"both the X and the Y axis (except for .otf: Y-only). This can lead to "
+"distortion and/or inconsistent rendering depending on the quality of the "
+"font, the font format and the state of FreeType's font engines."
 msgstr ""
-"Typ hintingu užitý při vykreslování písem. Možnými hodnotami jsou: „none“ "
-"značí žádný hinting, „slight“ značí základní, „medium“ značí střední a "
-"„full“ značí maximální hinting (může způsobit zkreslení jednotlivých písmen)."
+"Typ hintingu, který se má použít při vykreslování písem. Možné hodnoty jsou: "
+"„none“ pro žádný a „slight“ pro přizpůsobení jen v ose Y, podobně jako u "
+"ClearType a DirectWrite firmy Microsoft a u vykreslovacích programů firmy "
+"Adobe. Ignoruje hinting vložený v písmu a generuje jej algoritmicky. V "
+"Ubuntu se používá jako výchozí. Doporučeno. Význam hodnot „medium“ a „full“ "
+"závisí na formátu písma (.ttf, .otf, .pfa/.pfb) a nainstalované verzi "
+"FreeType. Obvykle se pokusí o přizpůsobení v ose X i Y (vyjma .otf: jen Y). "
+"To může vést k deformaci a/nebo nekonzistentnímu vykreslení v závislosti na "
+"kvalitě písma, formátu písma a stavu vykreslovacího programu FreeType."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "RGBA order"
@@ -1080,7 +1093,7 @@ msgstr "Klávesnice"
 msgid "Keyboard plugin"
 msgstr "Zásuvný modul klávesnice"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:1989
+#: ../plugins/media-keys/gsd-media-keys-manager.c:1985
 msgid "Screencast from %d %t.webm"
 msgstr "Nahrávka obrazovky z %d %t.webm"
 
@@ -1126,7 +1139,7 @@ msgstr[0] "%u vstup"
 msgstr[1] "%u vstupy"
 msgstr[2] "%u vstupů"
 
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:2373
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:2371
 msgid "System Sounds"
 msgstr "Systémové zvuky"
 
@@ -2072,16 +2085,16 @@ msgstr "Dolní tlačítko č. %d"
 msgid "New shortcut…"
 msgstr "Nová klávesová zkratka…"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1010
+#: ../plugins/wacom/gsd-wacom-manager.c:1031
 #, c-format
 msgid "The \"%s\" tablet may not work as expected."
 msgstr "Tablet „%s“ nemusí pracovat podle očekávání."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1011
+#: ../plugins/wacom/gsd-wacom-manager.c:1032
 msgid "Unknown Tablet Connected"
 msgstr "Připojen neznámý tablet"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1015
+#: ../plugins/wacom/gsd-wacom-manager.c:1036
 msgid "Wacom Settings"
 msgstr "Nastavení tabletu Wacom"
 
@@ -2171,3 +2184,13 @@ msgstr "Nastavení X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Spravovat nastavení X"
+
+#~ msgid ""
+#~ "The type of hinting to use when rendering fonts. Possible values are: "
+#~ "\"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, "
+#~ "and \"full\" for maximum hinting (may cause distortion of letter forms)."
+#~ msgstr ""
+#~ "Typ hintingu užitý při vykreslování písem. Možnými hodnotami jsou: „none“ "
+#~ "značí žádný hinting, „slight“ značí základní, „medium“ značí střední a "
+#~ "„full“ značí maximální hinting (může způsobit zkreslení jednotlivých "
+#~ "písmen)."
