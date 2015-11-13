@@ -19,21 +19,23 @@
 # YunQiang Su <wzssyqa@gmail.com>, 2011, 2012.
 # Tong Hui <tonghuix@gmail.com>, 2014.
 # Bin Li <binli@gnome.org>, 2015.
+# Mingye Wang <arthur2e5@aosc.xyz>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-11-03 13:17+0000\n"
-"PO-Revision-Date: 2015-11-09 21:20+0800\n"
-"Last-Translator: Aron Xu <happyaron.xu@gmail.com>\n"
+"POT-Creation-Date: 2015-11-10 22:06+0000\n"
+"PO-Revision-Date: 2015-11-10 22:22-0500\n"
+"Last-Translator: Mingye Wang (Arthur2e5) <arthur200126@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.8.6\n"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -739,6 +741,13 @@ msgid ""
 "distortion and/or inconsistent rendering depending on the quality of the "
 "font, the font format and the state of FreeType's font engines."
 msgstr ""
+"渲染字体时所使用的字形微调设置。可能的数值有：none 表示无微调。slight 表示仅"
+"将字形对齐到 Y 轴，就像微软 ClearType、DirectWrite 和 Adobe 的专有渲染引擎一"
+"样。这将忽略字体内部的微调信息，直接使用自动算法进行微调。Ubuntu 默认使用这个"
+"设置，推荐。medium 和 full 的含义取决于字体格式 (.ttf, .otf, .pfa/.pfb) 和已"
+"安装的 FreeType 版本。这两者一般尝试将字符图形同时对齐到 X Y 两个方向（otf 只"
+"对齐到 Y）。这可能会导致混乱和/或不一致的渲染，取决于字体质量、字体格式和 "
+"FreeType 引擎的状态。"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "RGBA order"
@@ -1028,7 +1037,7 @@ msgstr "键盘"
 msgid "Keyboard plugin"
 msgstr "键盘插件"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:1985
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2018
 msgid "Screencast from %d %t.webm"
 msgstr "%d 屏幕视频 %t.webm"
 
