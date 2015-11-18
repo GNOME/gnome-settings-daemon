@@ -53,6 +53,7 @@
 #ifdef HAVE_PULSE
 #include <canberra-gtk.h>
 #include "gvc-mixer-control.h"
+#include "gvc-mixer-sink.h"
 #endif /* HAVE_PULSE */
 
 #define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
@@ -87,7 +88,8 @@ struct GsdMediaKeysManagerPrivate
 #ifdef HAVE_PULSE
         /* Volume bits */
         GvcMixerControl *volume;
-        GvcMixerStream  *stream;
+        GvcMixerStream  *sink;
+        GvcMixerStream  *source;
 #endif /* HAVE_PULSE */
         GtkWidget       *dialog;
         GConfClient     *conf_client;
@@ -625,18 +627,24 @@ do_eject_action (GsdMediaKeysManager *manager)
 #ifdef HAVE_PULSE
 static void
 update_dialog (GsdMediaKeysManager *manager,
+               GvcMixerStream *stream,
                guint vol,
                gboolean muted)
 {
+        GsdMediaKeysWindowAction action;
+
+        action = GVC_IS_MIXER_SINK (stream) ? GSD_MEDIA_KEYS_WINDOW_ACTION_VOLUME : GSD_MEDIA_KEYS_WINDOW_ACTION_MIC_VOLUME;
+
         vol = (int) (100 * (double) vol / PA_VOLUME_NORM);
         vol = CLAMP (vol, 0, 100);
 
         dialog_init (manager);
-        gsd_media_keys_window_set_volume_muted (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
-                                                muted);
+        if (action == GSD_MEDIA_KEYS_WINDOW_ACTION_VOLUME)
+                gsd_media_keys_window_set_volume_muted (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog), muted);
+        else
+                gsd_media_keys_window_set_mic_volume_muted (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog), muted);
         gsd_media_keys_window_set_volume_level (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog), vol);
-        gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog),
-                                          GSD_MEDIA_KEYS_WINDOW_ACTION_VOLUME);
+        gsd_media_keys_window_set_action (GSD_MEDIA_KEYS_WINDOW (manager->priv->dialog), action);
         dialog_show (manager);
 
         ca_gtk_play_for_widget (manager->priv->dialog, 0,
@@ -648,13 +656,14 @@ update_dialog (GsdMediaKeysManager *manager,
 
 static void
 do_sound_action (GsdMediaKeysManager *manager,
+                 GvcMixerStream      *stream,
                  int                  type)
 {
         gboolean muted;
         guint vol, norm_vol_step;
         int vol_step;
 
-        if (manager->priv->stream == NULL)
+        if (stream == NULL)
                 return;
 
         vol_step = gconf_client_get_int (manager->priv->conf_client,
@@ -667,25 +676,26 @@ do_sound_action (GsdMediaKeysManager *manager,
         norm_vol_step = PA_VOLUME_NORM * vol_step / 100;
 
         /* FIXME: this is racy */
-        vol = gvc_mixer_stream_get_volume (manager->priv->stream);
-        muted = gvc_mixer_stream_get_is_muted (manager->priv->stream);
+        vol = gvc_mixer_stream_get_volume (stream);
+        muted = gvc_mixer_stream_get_is_muted (stream);
 
         switch (type) {
         case MUTE_KEY:
+        case MIC_MUTE_KEY:
                 muted = !muted;
-                gvc_mixer_stream_change_is_muted (manager->priv->stream, muted);
+                gvc_mixer_stream_change_is_muted (stream, muted);
                 break;
         case VOLUME_DOWN_KEY:
                 if (!muted && (vol <= norm_vol_step)) {
                         muted = !muted;
                         vol = 0;
-                        gvc_mixer_stream_change_is_muted (manager->priv->stream, muted);
-                        if (gvc_mixer_stream_set_volume (manager->priv->stream, vol) != FALSE)
-                                gvc_mixer_stream_push_volume (manager->priv->stream);
+                        gvc_mixer_stream_change_is_muted (stream, muted);
+                        if (gvc_mixer_stream_set_volume (stream, vol) != FALSE)
+                                gvc_mixer_stream_push_volume (stream);
                 } else if (!muted) {
                         vol = vol - norm_vol_step;
-                        if (gvc_mixer_stream_set_volume (manager->priv->stream, vol) != FALSE)
-                                gvc_mixer_stream_push_volume (manager->priv->stream);
+                        if (gvc_mixer_stream_set_volume (stream, vol) != FALSE)
+                                gvc_mixer_stream_push_volume (stream);
                 }
                 break;
         case VOLUME_UP_KEY:
@@ -693,11 +703,11 @@ do_sound_action (GsdMediaKeysManager *manager,
                         muted = !muted;
                         if (vol == 0) {
                                vol = vol + norm_vol_step;
-                               gvc_mixer_stream_change_is_muted (manager->priv->stream, muted);
-                               if (gvc_mixer_stream_set_volume (manager->priv->stream, vol) != FALSE)
-                                        gvc_mixer_stream_push_volume (manager->priv->stream);
+                               gvc_mixer_stream_change_is_muted (stream, muted);
+                               if (gvc_mixer_stream_set_volume (stream, vol) != FALSE)
+                                        gvc_mixer_stream_push_volume (stream);
                         } else {
-                                gvc_mixer_stream_change_is_muted (manager->priv->stream, muted);
+                                gvc_mixer_stream_change_is_muted (stream, muted);
                         }
                 } else {
                         if (vol < MAX_VOLUME) {
@@ -706,14 +716,35 @@ do_sound_action (GsdMediaKeysManager *manager,
                                 } else {
                                         vol = vol + norm_vol_step;
                                 }
-                                if (gvc_mixer_stream_set_volume (manager->priv->stream, vol) != FALSE)
-                                        gvc_mixer_stream_push_volume (manager->priv->stream);
+                                if (gvc_mixer_stream_set_volume (stream, vol) != FALSE)
+                                        gvc_mixer_stream_push_volume (stream);
                         }
                 }
                 break;
         }
 
-        update_dialog (manager, vol, muted);
+        update_dialog (manager, stream, vol, muted);
+}
+
+static void
+update_default_source (GsdMediaKeysManager *manager)
+{
+        GvcMixerStream *stream;
+
+        stream = gvc_mixer_control_get_default_source (manager->priv->volume);
+        if (stream == manager->priv->source)
+                return;
+
+        if (manager->priv->source != NULL) {
+                g_object_unref (manager->priv->source);
+                manager->priv->source = NULL;
+        }
+
+        if (stream != NULL) {
+                manager->priv->source = g_object_ref (stream);
+        } else {
+                g_warning ("Unable to get default sink");
+        }
 }
 
 static void
@@ -722,16 +753,16 @@ update_default_sink (GsdMediaKeysManager *manager)
         GvcMixerStream *stream;
 
         stream = gvc_mixer_control_get_default_sink (manager->priv->volume);
-        if (stream == manager->priv->stream)
+        if (stream == manager->priv->sink)
                 return;
 
-        if (manager->priv->stream != NULL) {
-                g_object_unref (manager->priv->stream);
-                manager->priv->stream = NULL;
+        if (manager->priv->sink != NULL) {
+                g_object_unref (manager->priv->sink);
+                manager->priv->sink = NULL;
         }
 
         if (stream != NULL) {
-                manager->priv->stream = g_object_ref (stream);
+                manager->priv->sink = g_object_ref (stream);
         } else {
                 g_warning ("Unable to get default sink");
         }
@@ -750,6 +781,14 @@ on_control_default_sink_changed (GvcMixerControl     *control,
                                  GsdMediaKeysManager *manager)
 {
         update_default_sink (manager);
+}
+
+static void
+on_control_default_source_changed (GvcMixerControl     *control,
+                                   guint                id,
+                                   GsdMediaKeysManager *manager)
+{
+        update_default_source (manager);
 }
 
 #endif /* HAVE_PULSE */
@@ -953,8 +992,13 @@ do_action (GsdMediaKeysManager *manager,
         case VOLUME_DOWN_KEY:
         case VOLUME_UP_KEY:
 #ifdef HAVE_PULSE
-                do_sound_action (manager, type);
+                do_sound_action (manager, manager->priv->sink, type);
 #endif /* HAVE_PULSE */
+                break;
+        case MIC_MUTE_KEY:
+#ifdef HAVE_PULSE
+                do_sound_action (manager, manager->priv->source, type);
+#endif
                 break;
         case POWER_KEY:
                 do_exit_action (manager);
@@ -1161,6 +1205,10 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
                           "default-sink-changed",
                           G_CALLBACK (on_control_default_sink_changed),
                           manager);
+        g_signal_connect (manager->priv->volume,
+                          "default-source-changed",
+                          G_CALLBACK (on_control_default_source_changed),
+                          manager);
 
         gvc_mixer_control_open (manager->priv->volume);
 
@@ -1233,9 +1281,14 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         priv->screens = NULL;
 
 #ifdef HAVE_PULSE
-        if (priv->stream) {
-                g_object_unref (priv->stream);
-                priv->stream = NULL;
+        if (priv->sink) {
+                g_object_unref (priv->sink);
+                priv->sink = NULL;
+        }
+
+        if (priv->source) {
+                g_object_unref (priv->source);
+                priv->source = NULL;
         }
 
         if (priv->volume) {

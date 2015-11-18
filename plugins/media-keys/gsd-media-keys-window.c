@@ -49,6 +49,7 @@ struct GsdMediaKeysWindowPrivate
         double                   fade_out_alpha;
         GsdMediaKeysWindowAction action;
 
+        guint                    mic_volume_muted : 1;
         guint                    volume_muted : 1;
         int                      volume_level;
 
@@ -189,6 +190,16 @@ action_changed (GsdMediaKeysWindow *window)
                         volume_controls_set_visible (window, FALSE);
                         window_set_icon_name (window, "media-eject");
                         break;
+                case GSD_MEDIA_KEYS_WINDOW_ACTION_MIC_VOLUME:
+                        volume_controls_set_visible (window, TRUE);
+
+                        if (window->priv->volume_muted) {
+                                window_set_icon_name (window, "microphone-sensitivity-muted");
+                        } else {
+                                window_set_icon_name (window, "microphone-sensitivity-high");
+                        }
+
+                        break;
                 default:
                         break;
                 }
@@ -226,6 +237,20 @@ volume_muted_changed (GsdMediaKeysWindow *window)
         }
 }
 
+static void
+mic_volume_muted_changed (GsdMediaKeysWindow *window)
+{
+        update_window (window);
+
+        if (! window->priv->is_composited) {
+                if (window->priv->mic_volume_muted) {
+                        window_set_icon_name (window, "microphone-sensitivity-muted");
+                } else {
+                        window_set_icon_name (window, "microphone-sensitivity-high");
+                }
+        }
+}
+
 void
 gsd_media_keys_window_set_action (GsdMediaKeysWindow      *window,
                                   GsdMediaKeysWindowAction action)
@@ -247,6 +272,18 @@ gsd_media_keys_window_set_volume_muted (GsdMediaKeysWindow *window,
         if (window->priv->volume_muted != muted) {
                 window->priv->volume_muted = muted;
                 volume_muted_changed (window);
+        }
+}
+
+void
+gsd_media_keys_window_set_mic_volume_muted (GsdMediaKeysWindow *window,
+                                            gboolean            muted)
+{
+        g_return_if_fail (GSD_IS_MEDIA_KEYS_WINDOW (window));
+
+        if (window->priv->volume_muted != muted) {
+                window->priv->mic_volume_muted = muted;
+                mic_volume_muted_changed (window);
         }
 }
 

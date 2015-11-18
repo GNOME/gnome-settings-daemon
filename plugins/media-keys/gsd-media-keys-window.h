@@ -49,7 +49,8 @@ struct GsdMediaKeysWindowClass {
 
 typedef enum {
         GSD_MEDIA_KEYS_WINDOW_ACTION_VOLUME,
-        GSD_MEDIA_KEYS_WINDOW_ACTION_EJECT
+        GSD_MEDIA_KEYS_WINDOW_ACTION_EJECT,
+        GSD_MEDIA_KEYS_WINDOW_ACTION_MIC_VOLUME
 } GsdMediaKeysWindowAction;
 
 GType                 gsd_media_keys_window_get_type          (void);
@@ -61,6 +62,8 @@ void                  gsd_media_keys_window_set_volume_muted  (GsdMediaKeysWindo
                                                                gboolean                 muted);
 void                  gsd_media_keys_window_set_volume_level  (GsdMediaKeysWindow      *window,
                                                                int                      level);
+void                  gsd_media_keys_window_set_mic_volume_muted  (GsdMediaKeysWindow      *window,
+                                                                   gboolean                 muted);
 gboolean              gsd_media_keys_window_is_valid          (GsdMediaKeysWindow      *window);
 
 G_END_DECLS
