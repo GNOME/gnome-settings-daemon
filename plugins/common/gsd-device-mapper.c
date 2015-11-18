@@ -20,7 +20,6 @@
 #include "config.h"
 
 #include <string.h>
-#include <gtk/gtkx.h>
 #include <X11/Xatom.h>
 
 #if HAVE_WACOM

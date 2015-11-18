@@ -21,10 +21,8 @@
 
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
-#include <gdk/gdkx.h>
 
 #include <sys/types.h>
-#include <X11/Xatom.h>
 
 #include "gsd-input-helper.h"
 #include "gsd-device-manager.h"
