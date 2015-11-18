@@ -412,6 +412,8 @@ static gboolean
 gsd_xrandr_manager_apply_configuration (GsdXrandrManager *manager,
                                         GError          **error)
 {
+        if (manager->priv->rw_screen == NULL)
+                return FALSE;
         return try_to_apply_intended_configuration (manager, NULL, GDK_CURRENT_TIME, error);
 }
 
@@ -424,6 +426,9 @@ gsd_xrandr_manager_2_apply_configuration (GsdXrandrManager *manager,
 {
         GdkWindow *parent_window;
         gboolean result;
+
+        if (manager->priv->rw_screen == NULL)
+                return FALSE;
 
         if (parent_window_id != 0)
                 parent_window = gdk_window_foreign_new_for_display (gdk_display_get_default (), (GdkNativeWindow) parent_window_id);
@@ -444,6 +449,8 @@ gsd_xrandr_manager_2_video_mode_switch (GsdXrandrManager *manager,
                                         guint32           timestamp,
                                         GError          **error)
 {
+        if (manager->priv->rw_screen == NULL)
+                return FALSE;
         handle_fn_f7 (manager, timestamp);
         return TRUE;
 }
@@ -454,6 +461,8 @@ gsd_xrandr_manager_2_rotate (GsdXrandrManager *manager,
                              guint32           timestamp,
                              GError          **error)
 {
+        if (manager->priv->rw_screen == NULL)
+                return FALSE;
         //handle_rotate_windows (manager, timestamp);
         return TRUE;
 }
