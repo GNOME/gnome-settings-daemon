@@ -1,7 +1,7 @@
 # translation of gnome-settings-daemon.master.po to Español
 # Copyright © 1999-2002, 2006, 2007, 2008 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-control-center package.
-#
+# 
 # Pablo Saratxaga <srtxg@chanae.alphanet.ch>, 1998-2001.
 # Carlos Perelló Marín <carlos@gnome-db.org>, 2001.
 # Héctor García Álvarez <hector@scouts-es.org>, 2001.
@@ -12,15 +12,16 @@
 # Claudio Saavedra <csaavedra@alumnos.utalca.cl>, 2007.
 # Sebi Kul <sebikul@gmail.com>, 2011.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011, 2012, 2013, 2014, 2015.
+# 
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011, 2012, 2013, 2014, 2015., 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-07-12 20:02+0000\n"
-"PO-Revision-Date: 2015-07-13 \n"
+"POT-Creation-Date: 2015-11-15 22:04+0000\n"
+"PO-Revision-Date: 2015-11-23 10:18+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -774,13 +775,27 @@ msgstr "Contorno"
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
-"\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
-"\" for maximum hinting (may cause distortion of letter forms)."
+"\" for no hinting and \"slight\" for fitting only to the Y-axis like "
+"Microsoft's ClearType, DirectWrite and Adobe's proprietary font rendering "
+"engine. Ignores native hinting within the font, generates hints "
+"algorithmically. Used on Ubuntu by default. Recommended. The meaning of "
+"\"medium\" and \"full\" depends on the font format (.ttf, .otf, .pfa/.pfb) "
+"and the installed version of FreeType. They usually try to fit glyphs to "
+"both the X and the Y axis (except for .otf: Y-only). This can lead to "
+"distortion and/or inconsistent rendering depending on the quality of the "
+"font, the font format and the state of FreeType's font engines."
 msgstr ""
-"El tipo de contorno que usar cuando se renderizen las tipografías. Los "
-"valores posibles son: \"none\" sin contorno, \"slight\" para un contorno "
-"básico, \"medium\" para un contorno moderado y \"full\" para un contorno "
-"máximo (puede distorsionar las formas de las letras)."
+"El tipo de «hinting» que usar al renderizar tipografías. Los valores "
+"posibles son «none» para desactivarlo y «slight» para ajustarse solo al eje "
+"Y, igual que ClearType de Microsoft, DirectWrite y que el motor de "
+"renderizado de tipografías propietario de Adobe. Ignora el «hinting» nativo "
+"de la tipografía, y lo genera algorítimicamente. Ubuntu lo usa de manera "
+"predeterminada. Recomendado. El significado de «medium» y «full» depende del "
+"formato de la tipografía(.ttf, .otf, .pfa/.pfb) y de la versión de FreeType "
+"instalada. Normalmente tratan de ajustarse a los glifos de los ejes X e Y "
+"(excepto para .otf: sólo al Y). Esto puede causar distorsión y/"
+"inconsistencia en el renderizado, dependiendo de la calidad de la "
+"tipografía, su formato y el estado de los motores de tipografías de FreeType."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "RGBA order"
@@ -898,8 +913,8 @@ msgid ""
 "the Sticky Keys feature, which affects the way your keyboard works."
 msgstr ""
 "Acaba de pulsar la tecla «Mayúsculas» 5 veces. Este es el acceso rápido para "
-"la característica «Teclas persistentes», que afecta la manera en que funciona "
-"el teclado."
+"la característica «Teclas persistentes», que afecta la manera en que "
+"funciona el teclado."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:468
 msgid ""
@@ -908,8 +923,8 @@ msgid ""
 "keyboard works."
 msgstr ""
 "Acaba de pulsar dos teclas a la vez, o ha pulsado la tecla «Mayúsculas» 5 "
-"veces seguidas. Esto desactiva la característica de «Teclas persistentes», lo "
-"cual afecta a la forma en que funciona su teclado."
+"veces seguidas. Esto desactiva la característica de «Teclas persistentes», "
+"lo cual afecta a la forma en que funciona su teclado."
 
 #: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
 msgid "Accessibility settings"
@@ -980,7 +995,6 @@ msgid "Date and Time"
 msgstr "Fecha y hora"
 
 #: ../plugins/datetime/datetime.gnome-settings-plugin.in.h:3
-#| msgid "Automatically update timezone and display notifications"
 msgid "Automatically update timezone"
 msgstr "Actualizar la zona horaria automática"
 
@@ -1084,7 +1098,7 @@ msgstr "Teclado"
 msgid "Keyboard plugin"
 msgstr "Complemento de teclado"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:1989
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2018
 msgid "Screencast from %d %t.webm"
 msgstr "Captura del escritorio de %d %t.webm"
 
@@ -2071,16 +2085,16 @@ msgstr "Botón inferior nº %d"
 msgid "New shortcut…"
 msgstr "Atajo nuevo..."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1010
+#: ../plugins/wacom/gsd-wacom-manager.c:1031
 #, c-format
 msgid "The \"%s\" tablet may not work as expected."
 msgstr "La tableta «%s» puede no funcionar como se espera."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1011
+#: ../plugins/wacom/gsd-wacom-manager.c:1032
 msgid "Unknown Tablet Connected"
 msgstr "Tableta desconocida conectada"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1015
+#: ../plugins/wacom/gsd-wacom-manager.c:1036
 msgid "Wacom Settings"
 msgstr "Configuración de Wacom"
 
@@ -2173,6 +2187,16 @@ msgstr "Ajustes de las X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Gestionar los ajustes de las X"
+
+#~ msgid ""
+#~ "The type of hinting to use when rendering fonts. Possible values are: "
+#~ "\"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, "
+#~ "and \"full\" for maximum hinting (may cause distortion of letter forms)."
+#~ msgstr ""
+#~ "El tipo de contorno que usar cuando se renderizen las tipografías. Los "
+#~ "valores posibles son: \"none\" sin contorno, \"slight\" para un contorno "
+#~ "básico, \"medium\" para un contorno moderado y \"full\" para un contorno "
+#~ "máximo (puede distorsionar las formas de las letras)."
 
 #~ msgid "Wacom last calibrated resolution"
 #~ msgstr "Última resolución Wacom calibrada"
@@ -2271,8 +2295,9 @@ msgstr "Gestionar los ajustes de las X"
 #~ "\"edge-scrolling\", \"two-finger-scrolling\"."
 #~ msgstr ""
 #~ "Seleccionar el método de desplazamiento del «touchpad». Los valores "
-#~ "soportados son: «disabled» (desactivado), «edge-scrolling» (desplazamiento "
-#~ "en el borde) y «two-finger-scrolling» (desplazamiento con dos dedos)."
+#~ "soportados son: «disabled» (desactivado), «edge-"
+#~ "scrolling» (desplazamiento en el borde) y «two-finger-"
+#~ "scrolling» (desplazamiento con dos dedos)."
 
 #~ msgid "Enable mouse clicks with touchpad"
 #~ msgstr "Activar pulsaciones del ratón con el touchpad"
@@ -3245,8 +3270,8 @@ msgstr "Gestionar los ajustes de las X"
 #~ "Select how to open \"%s\" and whether to perform this action in the "
 #~ "future for other media of type \"%s\"."
 #~ msgstr ""
-#~ "Seleccione cómo abrir «%s» y si se realizará esta acción en el futuro para "
-#~ "otros soportes del tipo «%s»."
+#~ "Seleccione cómo abrir «%s» y si se realizará esta acción en el futuro "
+#~ "para otros soportes del tipo «%s»."
 
 #~ msgid "_Always perform this action"
 #~ msgstr "_Siempre realizar esta acción"
