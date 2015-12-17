@@ -32,7 +32,7 @@
 int main (int argc, char **argv)
 {
         GList *devices, *l;
-	gboolean has_touchpad, has_touchscreen, has_trackball;
+	gboolean has_touchpad, has_touchscreen;
 
 	gtk_init (&argc, &argv);
 
@@ -41,9 +41,6 @@ int main (int argc, char **argv)
 
 	has_touchscreen = touchscreen_is_present ();
 	g_print ("Has touchscreen:\t\t\t%s\n", has_touchscreen ? "yes" : "no");
-
-	has_trackball = trackball_is_present ();
-	g_print ("Has trackball:\t\t\t\t%s\n", has_trackball ? "yes" : "no");
 
         devices = gsd_device_manager_list_devices (gsd_device_manager_get (), GSD_DEVICE_TYPE_MOUSE);
         for (l = devices; l != NULL; l = l->next)
