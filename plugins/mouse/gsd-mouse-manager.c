@@ -67,7 +67,7 @@
 #define KEY_SPEED               "speed"
 
 /* Touchpad settings */
-#define KEY_SCROLL_METHOD                "scroll-method"
+#define KEY_EDGE_SCROLLING_ENABLED       "edge-scrolling-enabled"
 #define KEY_TAP_TO_CLICK                 "tap-to-click"
 #define KEY_SEND_EVENTS                  "send-events"
 #define KEY_NATURAL_SCROLL_ENABLED       "natural-scroll"
@@ -750,9 +750,9 @@ set_horiz_scroll (GdkDevice *device,
 }
 
 static void
-set_scroll_method (GsdMouseManager         *manager,
-                   GdkDevice               *device,
-                   GsdTouchpadScrollMethod  method)
+set_edge_scrolling_enabled (GsdMouseManager         *manager,
+                            GdkDevice               *device,
+                            gboolean                 enabled)
 {
         int rc;
         XDevice *xdevice;
@@ -760,6 +760,7 @@ set_scroll_method (GsdMouseManager         *manager,
         int act_format;
         unsigned long nitems, bytes_after;
         unsigned char *data;
+        GsdTouchpadScrollMethod method;
 
         if (xdevice_is_libinput (gdk_x11_device_get_id (device)))
                 return;
@@ -788,13 +789,17 @@ set_scroll_method (GsdMouseManager         *manager,
                                  XA_INTEGER, &act_type, &act_format, &nitems,
                                  &bytes_after, &data);
         if (rc == Success && act_type != None) {
-                if (!(data[3]) && method == GSD_TOUCHPAD_SCROLL_METHOD_TWO_FINGER_SCROLLING) {
-                        g_warning ("Two finger scroll is not supported by %s", gdk_device_get_name (device));
-                        method = GSD_TOUCHPAD_SCROLL_METHOD_EDGE_SCROLLING;
-                }
+                /* Two-finger scrolling is supported, so enable it */
+                if (data[3])
+                        method = GSD_TOUCHPAD_SCROLL_METHOD_TWO_FINGER_SCROLLING;
 
                 XFree (data);
         }
+
+        if (enabled && method != GSD_TOUCHPAD_SCROLL_METHOD_TWO_FINGER_SCROLLING)
+                method = GSD_TOUCHPAD_SCROLL_METHOD_EDGE_SCROLLING;
+        else
+                method = GSD_TOUCHPAD_SCROLL_METHOD_DISABLED;
 
         rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
                                  prop_edge, 0, 1, False,
@@ -1146,7 +1151,7 @@ set_mouse_settings (GsdMouseManager *manager,
         set_motion (manager, device);
 
         set_tap_to_click (device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK), touchpad_left_handed);
-        set_scroll_method (manager, device, g_settings_get_enum (manager->priv->touchpad_settings, KEY_SCROLL_METHOD));
+        set_edge_scrolling_enabled (manager, device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_EDGE_SCROLLING_ENABLED));
         set_horiz_scroll (device, TRUE);
         set_natural_scroll (manager, device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_NATURAL_SCROLL_ENABLED));
 
@@ -1216,8 +1221,8 @@ touchpad_callback (GSettings       *settings,
                         mouse_left_handed = g_settings_get_boolean (manager->priv->mouse_settings, KEY_LEFT_HANDED);
                         set_tap_to_click (device, g_settings_get_boolean (settings, key),
                                           get_touchpad_handedness (manager, mouse_left_handed));
-                } else if (g_str_equal (key, KEY_SCROLL_METHOD)) {
-                        set_scroll_method (manager, device, g_settings_get_enum (settings, key));
+                } else if (g_str_equal (key, KEY_EDGE_SCROLLING_ENABLED)) {
+                        set_edge_scrolling_enabled (manager, device, g_settings_get_boolean (settings, key));
                         set_horiz_scroll (device, TRUE);
                 } else if (g_str_equal (key, KEY_SPEED)) {
                         set_motion (manager, device);
