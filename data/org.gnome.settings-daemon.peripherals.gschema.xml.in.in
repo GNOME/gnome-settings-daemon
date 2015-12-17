@@ -4,7 +4,6 @@
     <child name="keyboard" schema="org.gnome.settings-daemon.peripherals.keyboard"/>
     <child name="mouse" schema="org.gnome.settings-daemon.peripherals.mouse"/>
     <child name="touchscreen" schema="org.gnome.settings-daemon.peripherals.touchscreen"/>
-    <child name="input-devices" schema="org.gnome.settings-daemon.peripherals.input-devices"/>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.smartcard" path="/org/gnome/settings-daemon/peripherals/smartcard/">
     <key name="removal-action" enum="org.gnome.settings-daemon.GsdSmartcardRemovalAction">
@@ -66,13 +65,6 @@
     <key name="orientation-lock" type="b">
       <default>false</default>
       <_summary>Whether the tablet's orientation is locked, or rotated automatically.</_summary>
-    </key>
-  </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.input-devices" path="/org/gnome/settings-daemon/peripherals/input-devices/">
-    <key name="hotplug-command" type="s">
-      <default>''</default>
-      <_summary>Device hotplug custom command</_summary>
-      <_description>Command to be run when a device is added or removed. An exit value of 1 means that the device will not be handled further by gnome-settings-daemon.</_description>
     </key>
   </schema>
 

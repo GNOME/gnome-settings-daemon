@@ -82,9 +82,6 @@ test_egg_key_parsing_SOURCES = test-egg-key-parsing.c
 test_egg_key_parsing_LDADD = libcommon.la $(COMMON_LIBS)
 test_egg_key_parsing_CFLAGS = $(libcommon_la_CFLAGS)
 
-scriptsdir = $(datadir)/gnome-settings-daemon-@GSD_API_VERSION@
-scripts_DATA = input-device-example.sh
-
 EXTRA_DIST = $(scripts_DATA) test-plugin.h
 
 CLEANFILES = \

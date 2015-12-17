@@ -31,9 +31,6 @@
 #include "gsd-input-helper.h"
 #include "gsd-device-manager.h"
 
-#define INPUT_DEVICES_SCHEMA "org.gnome.settings-daemon.peripherals.input-devices"
-#define KEY_HOTPLUG_COMMAND  "hotplug-command"
-
 #define ABS_MT_X "Abs MT Position X"
 #define ABS_MT_Y "Abs MT Position Y"
 #define ABS_X "Abs X"
@@ -340,96 +337,6 @@ set_device_enabled (int device_id,
                 return FALSE;
 
         return TRUE;
-}
-
-static const char *
-custom_command_to_string (CustomCommand command)
-{
-        switch (command) {
-        case COMMAND_DEVICE_ADDED:
-                return "added";
-        case COMMAND_DEVICE_REMOVED:
-                return "removed";
-        case COMMAND_DEVICE_PRESENT:
-                return "present";
-        default:
-                g_assert_not_reached ();
-        }
-}
-
-/* Run a custom command on device presence events. Parameters passed into
- * the custom command are:
- * command -t [added|removed|present] -i <device ID> <device name>
- * Type 'added' and 'removed' signal 'device added' and 'device removed',
- * respectively. Type 'present' signals 'device present at
- * gnome-settings-daemon init'.
- *
- * The script is expected to run synchronously, and an exit value
- * of "1" means that no other settings will be applied to this
- * particular device.
- *
- * More options may be added in the future.
- *
- * This function returns TRUE if we should not apply any more settings
- * to the device.
- */
-gboolean
-run_custom_command (GdkDevice              *device,
-                    CustomCommand           command)
-{
-        GSettings *settings;
-        GError *error = NULL;
-        char *cmd;
-        char *argv[7];
-        int exit_status;
-        gboolean rc;
-        int id;
-        char *out;
-
-        settings = g_settings_new (INPUT_DEVICES_SCHEMA);
-        cmd = g_settings_get_string (settings, KEY_HOTPLUG_COMMAND);
-        g_object_unref (settings);
-
-        if (!cmd || cmd[0] == '\0') {
-                g_free (cmd);
-                return FALSE;
-        }
-
-        /* Easter egg! */
-        g_object_get (device, "device-id", &id, NULL);
-
-        argv[0] = cmd;
-        argv[1] = "-t";
-        argv[2] = (char *) custom_command_to_string (command);
-        argv[3] = "-i";
-        argv[4] = g_strdup_printf ("%d", id);
-        argv[5] = (char*) gdk_device_get_name (device);
-        argv[6] = NULL;
-
-        out = g_strjoinv (" ", argv);
-        g_debug ("About to launch command: %s", out);
-        g_free (out);
-
-        rc = g_spawn_sync (g_get_home_dir (), argv, NULL, G_SPAWN_SEARCH_PATH,
-                           NULL, NULL, NULL, NULL, &exit_status, &error);
-
-        if (rc == FALSE) {
-                g_warning ("Couldn't execute command '%s', verify that this is a valid command: %s", cmd, error->message);
-                g_clear_error (&error);
-        }
-
-        g_free (argv[0]);
-        g_free (argv[4]);
-
-        if (!g_spawn_check_exit_status (exit_status, &error)) {
-                if (g_error_matches (error, G_SPAWN_EXIT_ERROR, 1)) {
-                        g_clear_error (&error);
-                        return TRUE;
-                }
-                g_clear_error (&error);
-        }
-
-        return FALSE;
 }
 
 const char *

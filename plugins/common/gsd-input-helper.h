@@ -28,12 +28,6 @@ G_BEGIN_DECLS
 
 #define WACOM_SERIAL_IDS_PROP "Wacom Serial IDs"
 
-typedef enum {
-        COMMAND_DEVICE_ADDED,
-        COMMAND_DEVICE_REMOVED,
-        COMMAND_DEVICE_PRESENT
-} CustomCommand;
-
 /* Generic property setting code. Fill up the struct property with the property
  * data and pass it into device_set_property together with the device to be
  * changed.  Note: doesn't cater for non-zero offsets yet, but we don't have
@@ -63,9 +57,6 @@ gboolean  mouse_is_present        (void);
 gboolean  device_set_property     (XDevice                *xdevice,
                                    const char             *device_name,
                                    PropertyHelper         *property);
-
-gboolean  run_custom_command      (GdkDevice              *device,
-                                   CustomCommand           command);
 
 char *    xdevice_get_device_node  (int                     deviceid);
 int       xdevice_get_last_tool_id (int                     deviceid);

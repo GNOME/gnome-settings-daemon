@@ -90,7 +90,6 @@ struct GsdKeyboardManagerPrivate
         GsdNumLockState old_state;
         GdkDeviceManager *device_manager;
         guint device_added_id;
-        guint device_removed_id;
 };
 
 static void     gsd_keyboard_manager_class_init  (GsdKeyboardManagerClass *klass);
@@ -364,20 +363,6 @@ device_added_cb (GdkDeviceManager   *device_manager,
         if (source == GDK_SOURCE_KEYBOARD) {
                 g_debug ("New keyboard plugged in, applying all settings");
                 apply_numlock (manager);
-                run_custom_command (device, COMMAND_DEVICE_ADDED);
-        }
-}
-
-static void
-device_removed_cb (GdkDeviceManager   *device_manager,
-                   GdkDevice          *device,
-                   GsdKeyboardManager *manager)
-{
-        GdkInputSource source;
-
-        source = gdk_device_get_source (device);
-        if (source == GDK_SOURCE_KEYBOARD) {
-                run_custom_command (device, COMMAND_DEVICE_REMOVED);
         }
 }
 
@@ -393,8 +378,6 @@ set_devicepresence_handler (GsdKeyboardManager *manager)
 
         manager->priv->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
                                                            G_CALLBACK (device_added_cb), manager);
-        manager->priv->device_removed_id = g_signal_connect (G_OBJECT (device_manager), "device-removed",
-                                                             G_CALLBACK (device_removed_cb), manager);
         manager->priv->device_manager = device_manager;
 }
 
@@ -775,7 +758,6 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
 
         if (p->device_manager != NULL) {
                 g_signal_handler_disconnect (p->device_manager, p->device_added_id);
-                g_signal_handler_disconnect (p->device_manager, p->device_removed_id);
                 p->device_manager = NULL;
         }
 
