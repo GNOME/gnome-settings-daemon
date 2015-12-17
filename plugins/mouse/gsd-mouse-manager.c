@@ -114,6 +114,7 @@ G_DEFINE_TYPE (GsdMouseManager, gsd_mouse_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
+static void migrate_mouse_settings (void);
 
 static void
 gsd_mouse_manager_class_init (GsdMouseManagerClass *klass)
@@ -1433,6 +1434,8 @@ gsd_mouse_manager_start (GsdMouseManager *manager,
 {
         gnome_settings_profile_start (NULL);
 
+        migrate_mouse_settings ();
+
         if (!supports_xinput_devices ()) {
                 g_debug ("XInput is not supported, not applying any settings");
                 return TRUE;
@@ -1582,7 +1585,6 @@ gsd_mouse_manager_new (void)
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
-                migrate_mouse_settings ();
                 manager_object = g_object_new (GSD_TYPE_MOUSE_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
