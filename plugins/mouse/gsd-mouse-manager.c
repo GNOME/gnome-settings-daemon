@@ -1518,6 +1518,18 @@ map_send_events (GVariant *variant)
         }
 }
 
+static GVariant *
+map_edge_scrolling_enabled (GVariant *variant)
+{
+	GsdTouchpadScrollMethod  method;
+
+	method = g_variant_get_uint32 (variant);
+	if (method == GSD_TOUCHPAD_SCROLL_METHOD_EDGE_SCROLLING)
+		return g_variant_new_boolean (TRUE);
+	else
+		return g_variant_new_boolean (FALSE);
+}
+
 static void
 migrate_mouse_settings (void)
 {
@@ -1533,7 +1545,7 @@ migrate_mouse_settings (void)
         GsdSettingsMigrateEntry touchpad_entries[] = {
                 { "disable-while-typing", NULL,             NULL },
                 { "horiz-scroll-enabled", NULL,             NULL },
-                { "scroll-method",        "scroll-method",  NULL },
+                { "scroll-method",        "edge-scrolling-enabled", map_edge_scrolling_enabled },
                 { "tap-to-click",         "tap-to-click",   NULL },
                 { "touchpad-enabled",     "send-events",    map_send_events },
                 { "left-handed",          "left-handed",    NULL },
