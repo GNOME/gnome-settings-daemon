@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-09-02 08:06+0000\n"
-"PO-Revision-Date: 2015-09-02 21:31+0300\n"
+"POT-Creation-Date: 2015-12-17 11:32+0000\n"
+"PO-Revision-Date: 2015-12-20 15:31+0200\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -759,12 +759,27 @@ msgstr "Taškinė korekcija"
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
-"\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
-"\" for maximum hinting (may cause distortion of letter forms)."
+"\" for no hinting and \"slight\" for fitting only to the Y-axis like "
+"Microsoft's ClearType, DirectWrite and Adobe's proprietary font rendering "
+"engine. Ignores native hinting within the font, generates hints "
+"algorithmically. Used on Ubuntu by default. Recommended. The meaning of "
+"\"medium\" and \"full\" depends on the font format (.ttf, .otf, .pfa/.pfb) "
+"and the installed version of FreeType. They usually try to fit glyphs to "
+"both the X and the Y axis (except for .otf: Y-only). This can lead to "
+"distortion and/or inconsistent rendering depending on the quality of the "
+"font, the font format and the state of FreeType's font engines."
 msgstr ""
-"Taškinės korekcijos tipas šriftams atvaizduoti. Galimos vertės yra: „none“ – "
-"netaikyti taškinės korekcijos, „slight“ – bazinė, „medium“ – vidutinė ir "
-"„full“ – didžiausia galima (gali iškraipyti kai kurių raidžių formą)."
+"Taškinė korekcija, kuri bus naudojama atvaizduojant šriftus. Galimos vertės "
+"yra: „none“ jokiai taškinei korekcijai ir „slight“ talpinimui tik į Y-ašį, "
+"kaip tai daro Microsoft ClearType, DirectWrite ir Adobe nuosavybiniai šriftų "
+"atvaizdavimo moduliai. Nepaiso savos taškinės korekcijos šrifto viduje, "
+"algoritmiškai kuria taškines korekcijas. Numatytai naudojama Ubuntu "
+"sistemose. Rekomenduojama. „medium“ ir „full“ reikšmės priklauso nuo šrifto "
+"formato (.ttf, .otf, .pfa/.pfb) ir įdiegtos FreeType versijos. Jos "
+"dažniausiai bando patalpinti simbolinius ženklus į abi X ir Y ašis "
+"(išskyrus .otf: tik Y ašį). Tai, priklausomai nuo šrifto, šrifto formato ir "
+"FreeType šrifto modulių būsenos, gali privesti prie iškreipimų ir/arba "
+"prieštaringo atvaizdavimo."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "RGBA order"
@@ -962,7 +977,6 @@ msgid "Date and Time"
 msgstr "Data ir laikas"
 
 #: ../plugins/datetime/datetime.gnome-settings-plugin.in.h:3
-#| msgid "Automatically update timezone and display notifications"
 msgid "Automatically update timezone"
 msgstr "Automatiškai atnaujinti laiko juostą"
 
@@ -1066,7 +1080,7 @@ msgstr "Klaviatūra"
 msgid "Keyboard plugin"
 msgstr "Klaviatūros įskiepis"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:1985
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2018
 msgid "Screencast from %d %t.webm"
 msgstr "Ekrano filmukas iš %d %t.webm"
 
@@ -1290,35 +1304,31 @@ msgstr[1] "minutės"
 msgstr[2] "minučių"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:909 ../plugins/power/gsd-power-manager.c:685
-#: ../plugins/power/gsd-power-manager.c:785
+#: ../plugins/power/gpm-common.c:909 ../plugins/power/gsd-power-manager.c:679
+#: ../plugins/power/gsd-power-manager.c:776
 msgid "Battery is critically low"
 msgstr "Akumuliatoriaus energijos lygis kritiškai mažas"
 
+#. TRANSLATORS: this is the notification application name
+#: ../plugins/power/gsd-power-manager.c:317
+#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+msgid "Power"
+msgstr "Energija"
+
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:345
+#: ../plugins/power/gsd-power-manager.c:349
 msgid "UPS Discharging"
 msgstr "NSŠ iškraunamas"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:350
+#: ../plugins/power/gsd-power-manager.c:354
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "Liko %s NSŠ atsarginės energijos"
 
-#: ../plugins/power/gsd-power-manager.c:353
+#: ../plugins/power/gsd-power-manager.c:357
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "Liko nežinomas NSŠ atsarginės energijos kiekis"
-
-#. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:369
-#: ../plugins/power/gsd-power-manager.c:517
-#: ../plugins/power/gsd-power-manager.c:668
-#: ../plugins/power/gsd-power-manager.c:776
-#: ../plugins/power/gsd-power-manager.c:2063
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
-msgid "Power"
-msgstr "Energija"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
 #: ../plugins/power/gsd-power-manager.c:432
@@ -1350,7 +1360,7 @@ msgstr "NSŠ atsarginės energijos liko maždaug %s (%.0f%%)"
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
 #: ../plugins/power/gsd-power-manager.c:458
-#: ../plugins/power/gsd-power-manager.c:595
+#: ../plugins/power/gsd-power-manager.c:592
 msgid "Mouse battery low"
 msgstr "Senka pelės baterija"
 
@@ -1363,7 +1373,7 @@ msgstr "Baigiasi belaidės pelės energija (%.0f%%)"
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
 #: ../plugins/power/gsd-power-manager.c:465
-#: ../plugins/power/gsd-power-manager.c:603
+#: ../plugins/power/gsd-power-manager.c:600
 msgid "Keyboard battery low"
 msgstr "Senka klaviatūros energija"
 
@@ -1376,7 +1386,7 @@ msgstr "Baigiasi belaidės klaviatūros energija (%.0f%%)"
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
 #: ../plugins/power/gsd-power-manager.c:472
-#: ../plugins/power/gsd-power-manager.c:612
+#: ../plugins/power/gsd-power-manager.c:609
 msgid "PDA battery low"
 msgstr "Senka delninuko akumuliatorius"
 
@@ -1389,8 +1399,8 @@ msgstr "Baigiasi delninuko energija (%.0f%%)"
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
 #: ../plugins/power/gsd-power-manager.c:479
-#: ../plugins/power/gsd-power-manager.c:622
-#: ../plugins/power/gsd-power-manager.c:631
+#: ../plugins/power/gsd-power-manager.c:619
+#: ../plugins/power/gsd-power-manager.c:628
 msgid "Cell phone battery low"
 msgstr "Senka mobiliojo telefono akumuliatorius"
 
@@ -1414,7 +1424,7 @@ msgstr "Baigiasi grotuvo energija (%.0f%%)"
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
 #: ../plugins/power/gsd-power-manager.c:493
-#: ../plugins/power/gsd-power-manager.c:640
+#: ../plugins/power/gsd-power-manager.c:637
 msgid "Tablet battery low"
 msgstr "Senka planšetinio kompiuterio akumuliatorius"
 
@@ -1427,7 +1437,7 @@ msgstr "Baigiasi planšetinio kompiuterio energija (%.0f%%)"
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
 #: ../plugins/power/gsd-power-manager.c:500
-#: ../plugins/power/gsd-power-manager.c:649
+#: ../plugins/power/gsd-power-manager.c:646
 msgid "Attached computer battery low"
 msgstr "Senka prijungto kompiuterio akumuliatorius"
 
@@ -1438,24 +1448,24 @@ msgid "Attached computer is low in power (%.0f%%)"
 msgstr "Baigiasi prijungto kompiuterio akumuliatoriaus energija (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:527
+#: ../plugins/power/gsd-power-manager.c:524
 msgid "Battery is low"
 msgstr "Senka akumuliatorius"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:559
+#: ../plugins/power/gsd-power-manager.c:556
 msgid "Battery critically low"
 msgstr "Akumuliatoriaus įkrova kritiškai maža"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:562
-#: ../plugins/power/gsd-power-manager.c:712
+#: ../plugins/power/gsd-power-manager.c:559
+#: ../plugins/power/gsd-power-manager.c:706
 msgid "Laptop battery critically low"
 msgstr "Nešiojamojo kompiuterio akumuliatoriaus įkrova kritiškai maža"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:571
+#: ../plugins/power/gsd-power-manager.c:568
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr ""
@@ -1463,7 +1473,7 @@ msgstr ""
 "šaltinio."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:575
+#: ../plugins/power/gsd-power-manager.c:572
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr ""
@@ -1472,13 +1482,13 @@ msgstr ""
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:583
-#: ../plugins/power/gsd-power-manager.c:737
+#: ../plugins/power/gsd-power-manager.c:580
+#: ../plugins/power/gsd-power-manager.c:731
 msgid "UPS critically low"
 msgstr "NSŠ įkrovos lygis kritiškai mažas"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:589
+#: ../plugins/power/gsd-power-manager.c:586
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1488,7 +1498,7 @@ msgstr ""
 "kintamosios srovės, kad būtų išvengta duomenų praradimo."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:598
+#: ../plugins/power/gsd-power-manager.c:595
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1498,7 +1508,7 @@ msgstr ""
 "nebent bus įkrautas."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:606
+#: ../plugins/power/gsd-power-manager.c:603
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1508,7 +1518,7 @@ msgstr ""
 "nebent bus įkrautas."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:615
+#: ../plugins/power/gsd-power-manager.c:612
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1518,7 +1528,7 @@ msgstr ""
 "bus įkrautas."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:625
+#: ../plugins/power/gsd-power-manager.c:622
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -1528,7 +1538,7 @@ msgstr ""
 "veikti, nebent bus įkrautas."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:634
+#: ../plugins/power/gsd-power-manager.c:631
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -1538,7 +1548,7 @@ msgstr ""
 "bus įkrautas."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:643
+#: ../plugins/power/gsd-power-manager.c:640
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -1548,7 +1558,7 @@ msgstr ""
 "veikti, nebent bus įkrautas."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:652
+#: ../plugins/power/gsd-power-manager.c:649
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -1558,7 +1568,7 @@ msgstr ""
 "veikti, nebent bus įkrautas."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:720
+#: ../plugins/power/gsd-power-manager.c:714
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -1567,7 +1577,7 @@ msgstr ""
 "hibernuotas."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:725
+#: ../plugins/power/gsd-power-manager.c:719
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -1576,56 +1586,56 @@ msgstr ""
 "išjungtas."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:745
+#: ../plugins/power/gsd-power-manager.c:739
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
 "NSŠ įkrova yra žemiau kritinės ribos ir šis kompiuteris tuoj bus hibernuotas."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:750
+#: ../plugins/power/gsd-power-manager.c:744
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "NSŠ įkrova yra žemiau kritinės ribos ir šis kompiuteris tuoj bus išsijungtas."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1255
+#: ../plugins/power/gsd-power-manager.c:1246
 msgid "Lid has been opened"
 msgstr "Ekranas buvo atvožtas"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1293
+#: ../plugins/power/gsd-power-manager.c:1284
 msgid "Lid has been closed"
 msgstr "Ekranas buvo užvožtas"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1854
+#: ../plugins/power/gsd-power-manager.c:1845
 msgid "On battery power"
 msgstr "Naudojant baterijos energiją"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1859
+#: ../plugins/power/gsd-power-manager.c:1850
 msgid "On AC power"
 msgstr "Naudojant kintamosios srovės šaltinį"
 
-#: ../plugins/power/gsd-power-manager.c:2041
+#: ../plugins/power/gsd-power-manager.c:2032
 msgid "Automatic logout"
 msgstr "Automatinis atsijungimas"
 
-#: ../plugins/power/gsd-power-manager.c:2041
+#: ../plugins/power/gsd-power-manager.c:2032
 msgid "You will soon log out because of inactivity."
 msgstr "Netrukus būsite atjungtas dėl neaktyvumo."
 
-#: ../plugins/power/gsd-power-manager.c:2046
+#: ../plugins/power/gsd-power-manager.c:2037
 msgid "Automatic suspend"
 msgstr "Automatinis užmigdymas"
 
-#: ../plugins/power/gsd-power-manager.c:2046
-#: ../plugins/power/gsd-power-manager.c:2051
+#: ../plugins/power/gsd-power-manager.c:2037
+#: ../plugins/power/gsd-power-manager.c:2042
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Netrukus kompiuteris užmigs dėl neaktyvumo."
 
-#: ../plugins/power/gsd-power-manager.c:2051
+#: ../plugins/power/gsd-power-manager.c:2042
 msgid "Automatic hibernation"
 msgstr "Automatinis hibernavimas"
 
@@ -2064,16 +2074,16 @@ msgstr "Apatinis mygtukas #%d"
 msgid "New shortcut…"
 msgstr "Naujas trumpinys…"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1010
+#: ../plugins/wacom/gsd-wacom-manager.c:1031
 #, c-format
 msgid "The \"%s\" tablet may not work as expected."
 msgstr "„%s“ planšetė gali neveikti, kaip tikimasi."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1011
+#: ../plugins/wacom/gsd-wacom-manager.c:1032
 msgid "Unknown Tablet Connected"
 msgstr "Prijungta nežinoma planšetė"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1015
+#: ../plugins/wacom/gsd-wacom-manager.c:1036
 msgid "Wacom Settings"
 msgstr "Wacom nustatymai"
 
@@ -2167,6 +2177,16 @@ msgstr "X serverio nustatymai"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Tvarkyti X serverio nustatymus"
+
+#~ msgid ""
+#~ "The type of hinting to use when rendering fonts. Possible values are: "
+#~ "\"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, "
+#~ "and \"full\" for maximum hinting (may cause distortion of letter forms)."
+#~ msgstr ""
+#~ "Taškinės korekcijos tipas šriftams atvaizduoti. Galimos vertės yra: "
+#~ "„none“ – netaikyti taškinės korekcijos, „slight“ – bazinė, „medium“ – "
+#~ "vidutinė ir „full“ – didžiausia galima (gali iškraipyti kai kurių raidžių "
+#~ "formą)."
 
 #~ msgid "Wacom last calibrated resolution"
 #~ msgstr "Wacom paskutinė kalibruota raiška"
