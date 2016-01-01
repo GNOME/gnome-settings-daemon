@@ -30,16 +30,16 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-09-10 08:15+0000\n"
-"PO-Revision-Date: 2015-09-10 19:47+0200\n"
-"Last-Translator: Bernd Homuth <dev@hmt.im>\n"
+"POT-Creation-Date: 2015-12-28 10:10+0000\n"
+"PO-Revision-Date: 2015-12-28 18:19+0100\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Poedit 1.8.5\n"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -798,13 +798,27 @@ msgstr "Hinting"
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
-"\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
-"\" for maximum hinting (may cause distortion of letter forms)."
+"\" for no hinting and \"slight\" for fitting only to the Y-axis like "
+"Microsoft's ClearType, DirectWrite and Adobe's proprietary font rendering "
+"engine. Ignores native hinting within the font, generates hints "
+"algorithmically. Used on Ubuntu by default. Recommended. The meaning of "
+"\"medium\" and \"full\" depends on the font format (.ttf, .otf, .pfa/.pfb) "
+"and the installed version of FreeType. They usually try to fit glyphs to "
+"both the X and the Y axis (except for .otf: Y-only). This can lead to "
+"distortion and/or inconsistent rendering depending on the quality of the "
+"font, the font format and the state of FreeType's font engines."
 msgstr ""
-"Die Art des Hinting, welches beim Darstellen von Schriften verwendet wird. "
-"Mögliche Werte sind: »none« für kein Hinting, »slight« für minimales, "
-"»medium« für normales und »full« für maximales Hinting (letzteres kann zum "
-"Entstellen der Buchstabenformen führen),"
+"Typ des Hintings bei der Darstellung von Schriften. Mögliche Werte sind "
+"»none« (kein Hinting) und »slight« für Einpassen in die X-Achse wie bei "
+"ClearType (Microsoft), DirectWrite und der proprietären Schriftdarstellungs-"
+"Engine von Adobe. Natives Hinting in der Schrift wird ignoriert, die Hinting "
+"wird algorithmisch erzeugt. Dies ist die Voreinstellung bei Ubuntu und wird "
+"generell empfohlen. Die Bedeutung von »medium« und »full« ist vom "
+"Schriftformat (.ttf, .otf, .pfa/.pfb) und der installierten Freetype-Version "
+"abhängig. Üblicherweise wird versucht, Glyphen in X- und Y-Achse einzupassen "
+"(Ausnahme: bei .otf nur die Y-Achse). Dies kann zu Verzerrungen und/oder "
+"inkonsistenter Darstellung führen, abhängig von der Qualität der Schrift, "
+"dem Schriftformat und dem Zustand der Freetype-Engines."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "RGBA order"
@@ -1006,7 +1020,6 @@ msgid "Date and Time"
 msgstr "Datum und Uhrzeit"
 
 #: ../plugins/datetime/datetime.gnome-settings-plugin.in.h:3
-#| msgid "Automatically update timezone and display notifications"
 msgid "Automatically update timezone"
 msgstr "Zeitzone automatisch aktualisieren"
 
@@ -1110,7 +1123,7 @@ msgstr "Tastatur"
 msgid "Keyboard plugin"
 msgstr "Tastaturmodul"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:1985
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2018
 msgid "Screencast from %d %t.webm"
 msgstr "Bildschirmvideo von %d %t.webm"
 
@@ -1329,35 +1342,31 @@ msgstr[0] "Minute"
 msgstr[1] "Minuten"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:909 ../plugins/power/gsd-power-manager.c:685
-#: ../plugins/power/gsd-power-manager.c:785
+#: ../plugins/power/gpm-common.c:909 ../plugins/power/gsd-power-manager.c:679
+#: ../plugins/power/gsd-power-manager.c:776
 msgid "Battery is critically low"
 msgstr "Kritischer Ladezustand des Akkus"
 
+#. TRANSLATORS: this is the notification application name
+#: ../plugins/power/gsd-power-manager.c:317
+#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+msgid "Power"
+msgstr "Energie"
+
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:345
+#: ../plugins/power/gsd-power-manager.c:349
 msgid "UPS Discharging"
 msgstr "USV wird entladen"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:350
+#: ../plugins/power/gsd-power-manager.c:354
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "%s der USV-Ladung verbleibend"
 
-#: ../plugins/power/gsd-power-manager.c:353
+#: ../plugins/power/gsd-power-manager.c:357
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "Es ist nicht bekannt, wie viel Leistung der USV noch vorhanden ist"
-
-#. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:369
-#: ../plugins/power/gsd-power-manager.c:517
-#: ../plugins/power/gsd-power-manager.c:668
-#: ../plugins/power/gsd-power-manager.c:776
-#: ../plugins/power/gsd-power-manager.c:2063
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
-msgid "Power"
-msgstr "Energie"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
 #: ../plugins/power/gsd-power-manager.c:432
@@ -1389,7 +1398,7 @@ msgstr "Ihnen verbleiben noch ca. %s im Notstrombetrieb (%.0f%%)"
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
 #: ../plugins/power/gsd-power-manager.c:458
-#: ../plugins/power/gsd-power-manager.c:595
+#: ../plugins/power/gsd-power-manager.c:592
 msgid "Mouse battery low"
 msgstr "Mausakku ist fast leer"
 
@@ -1402,7 +1411,7 @@ msgstr "Kabellose Maus hat nur noch wenig Energie (%.0f%%)"
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
 #: ../plugins/power/gsd-power-manager.c:465
-#: ../plugins/power/gsd-power-manager.c:603
+#: ../plugins/power/gsd-power-manager.c:600
 msgid "Keyboard battery low"
 msgstr "Tastaturakku ist fast leer"
 
@@ -1415,7 +1424,7 @@ msgstr "Kabellose Tastatur hat nur noch wenig Energie (%.0f%%)"
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
 #: ../plugins/power/gsd-power-manager.c:472
-#: ../plugins/power/gsd-power-manager.c:612
+#: ../plugins/power/gsd-power-manager.c:609
 msgid "PDA battery low"
 msgstr "PDA-Akku ist fast leer"
 
@@ -1428,8 +1437,8 @@ msgstr "PDA hat nur noch wenig Energie (%.0f%%)"
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
 #: ../plugins/power/gsd-power-manager.c:479
-#: ../plugins/power/gsd-power-manager.c:622
-#: ../plugins/power/gsd-power-manager.c:631
+#: ../plugins/power/gsd-power-manager.c:619
+#: ../plugins/power/gsd-power-manager.c:628
 msgid "Cell phone battery low"
 msgstr "Mobiltelefon-Akku fast leer"
 
@@ -1453,7 +1462,7 @@ msgstr "Medien-Abspielgerät hat nur noch wenig Energie (%.0f%%)"
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
 #: ../plugins/power/gsd-power-manager.c:493
-#: ../plugins/power/gsd-power-manager.c:640
+#: ../plugins/power/gsd-power-manager.c:637
 msgid "Tablet battery low"
 msgstr "Tablet-Akku fast leer"
 
@@ -1466,7 +1475,7 @@ msgstr "Tablet hat nur noch wenig Energie (%.0f%%)"
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
 #: ../plugins/power/gsd-power-manager.c:500
-#: ../plugins/power/gsd-power-manager.c:649
+#: ../plugins/power/gsd-power-manager.c:646
 msgid "Attached computer battery low"
 msgstr "Akku des angeschlossenen Rechners ist fast leer"
 
@@ -1477,24 +1486,24 @@ msgid "Attached computer is low in power (%.0f%%)"
 msgstr "Der angeschlossene Rechner hat nur noch wenig Energie (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:527
+#: ../plugins/power/gsd-power-manager.c:524
 msgid "Battery is low"
 msgstr "Ladezustand des Akkus ist niedrig"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:559
+#: ../plugins/power/gsd-power-manager.c:556
 msgid "Battery critically low"
 msgstr "Ladezustand des Akkus ist kritisch"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:562
-#: ../plugins/power/gsd-power-manager.c:712
+#: ../plugins/power/gsd-power-manager.c:559
+#: ../plugins/power/gsd-power-manager.c:706
 msgid "Laptop battery critically low"
 msgstr "Kritischer Ladezustand des Laptop-Akkus"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:571
+#: ../plugins/power/gsd-power-manager.c:568
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr ""
@@ -1502,7 +1511,7 @@ msgstr ""
 "wird angeschlossen."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:575
+#: ../plugins/power/gsd-power-manager.c:572
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr ""
@@ -1511,13 +1520,13 @@ msgstr ""
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:583
-#: ../plugins/power/gsd-power-manager.c:737
+#: ../plugins/power/gsd-power-manager.c:580
+#: ../plugins/power/gsd-power-manager.c:731
 msgid "UPS critically low"
 msgstr "Kritischer Ladezustand der Notstromversorgung"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:589
+#: ../plugins/power/gsd-power-manager.c:586
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1527,7 +1536,7 @@ msgstr ""
 "Rechner an die Stromversorgung an, um Datenverlust zu verhindern."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:598
+#: ../plugins/power/gsd-power-manager.c:595
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1537,7 +1546,7 @@ msgstr ""
 "falls sie nicht bald aufgeladen wird."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:606
+#: ../plugins/power/gsd-power-manager.c:603
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1547,7 +1556,7 @@ msgstr ""
 "ausfallen, falls sie nicht bald aufgeladen wird."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:615
+#: ../plugins/power/gsd-power-manager.c:612
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1557,7 +1566,7 @@ msgstr ""
 "nicht bald aufgeladen wird."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:625
+#: ../plugins/power/gsd-power-manager.c:622
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -1567,7 +1576,7 @@ msgstr ""
 "falls es nicht bald aufgeladen wird."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:634
+#: ../plugins/power/gsd-power-manager.c:631
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -1577,7 +1586,7 @@ msgstr ""
 "ausfallen, falls es nicht bald aufgeladen wird."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:643
+#: ../plugins/power/gsd-power-manager.c:640
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -1587,7 +1596,7 @@ msgstr ""
 "nicht bald aufgeladen wird."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:652
+#: ../plugins/power/gsd-power-manager.c:649
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -1597,7 +1606,7 @@ msgstr ""
 "%%). Er wird herunterfahren, falls er nicht bald aufgeladen wird."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:720
+#: ../plugins/power/gsd-power-manager.c:714
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -1606,7 +1615,7 @@ msgstr ""
 "in den Ruhezustand versetzt."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:725
+#: ../plugins/power/gsd-power-manager.c:719
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -1615,7 +1624,7 @@ msgstr ""
 "heruntergefahren."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:745
+#: ../plugins/power/gsd-power-manager.c:739
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
@@ -1623,53 +1632,53 @@ msgstr ""
 "Rechner wird deshalb nun in den Ruhezustand versetzt."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:750
+#: ../plugins/power/gsd-power-manager.c:744
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "Der Ladezustand der Notstromversorgung ist im kritischen Bereich. Der "
 "Rechner wird deshalb nun heruntergefahren."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1255
+#: ../plugins/power/gsd-power-manager.c:1246
 msgid "Lid has been opened"
 msgstr "Klappe wurde geöffnet"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1293
+#: ../plugins/power/gsd-power-manager.c:1284
 msgid "Lid has been closed"
 msgstr "Klappe wurde geschlossen"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1854
+#: ../plugins/power/gsd-power-manager.c:1845
 msgid "On battery power"
 msgstr "Batteriebetrieb"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1859
+#: ../plugins/power/gsd-power-manager.c:1850
 msgid "On AC power"
 msgstr "Netzbetrieb"
 
-#: ../plugins/power/gsd-power-manager.c:2041
+#: ../plugins/power/gsd-power-manager.c:2032
 msgid "Automatic logout"
 msgstr "Automatisch abmelden"
 
-#: ../plugins/power/gsd-power-manager.c:2041
+#: ../plugins/power/gsd-power-manager.c:2032
 msgid "You will soon log out because of inactivity."
 msgstr "Aufgrund von Inaktivität werden Sie bald abgemeldet."
 
 # oder Automatischer Bereitschaftsmodus
-#: ../plugins/power/gsd-power-manager.c:2046
+#: ../plugins/power/gsd-power-manager.c:2037
 msgid "Automatic suspend"
 msgstr "Automatisch in den Bereitschaftsmodus wechseln"
 
-#: ../plugins/power/gsd-power-manager.c:2046
-#: ../plugins/power/gsd-power-manager.c:2051
+#: ../plugins/power/gsd-power-manager.c:2037
+#: ../plugins/power/gsd-power-manager.c:2042
 msgid "Computer will suspend very soon because of inactivity."
 msgstr ""
 "Aufgrund von Inaktivität wird der Rechner bald in Bereitschaft versetzt."
 
 # oder Automatischer Ruhezustand
-#: ../plugins/power/gsd-power-manager.c:2051
+#: ../plugins/power/gsd-power-manager.c:2042
 msgid "Automatic hibernation"
 msgstr "Automatisch in den Ruhezustand wechseln"
 
@@ -2109,16 +2118,16 @@ msgstr "Unterer Knopf #%d"
 msgid "New shortcut…"
 msgstr "Neuer Tastenkürzel …"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1010
+#: ../plugins/wacom/gsd-wacom-manager.c:1031
 #, c-format
 msgid "The \"%s\" tablet may not work as expected."
 msgstr "Das Tablett »%s« arbeitet eventuell nicht wie erwartet."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1011
+#: ../plugins/wacom/gsd-wacom-manager.c:1032
 msgid "Unknown Tablet Connected"
 msgstr "Unbekanntes Tablett verbunden"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1015
+#: ../plugins/wacom/gsd-wacom-manager.c:1036
 msgid "Wacom Settings"
 msgstr "Wacom-Einstellungen"
 
@@ -2209,6 +2218,16 @@ msgstr "X-Einstellungen"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "X-Einstellungen verwalten"
+
+#~ msgid ""
+#~ "The type of hinting to use when rendering fonts. Possible values are: "
+#~ "\"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, "
+#~ "and \"full\" for maximum hinting (may cause distortion of letter forms)."
+#~ msgstr ""
+#~ "Die Art des Hinting, welches beim Darstellen von Schriften verwendet "
+#~ "wird. Mögliche Werte sind: »none« für kein Hinting, »slight« für "
+#~ "minimales, »medium« für normales und »full« für maximales Hinting "
+#~ "(letzteres kann zum Entstellen der Buchstabenformen führen),"
 
 #~ msgid "Wacom last calibrated resolution"
 #~ msgstr "Zuletzt kalibrierte Auflösung des Wacom-Tabletts"
