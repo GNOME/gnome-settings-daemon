@@ -123,7 +123,7 @@ type_to_string (unsigned int type)
 	case RFKILL_TYPE_WLAN:
 		return "WLAN";
 	case RFKILL_TYPE_BLUETOOTH:
-		return "RFKILL";
+		return "BLUETOOTH";
 	case RFKILL_TYPE_UWB:
 		return "UWB";
 	case RFKILL_TYPE_WIMAX:
