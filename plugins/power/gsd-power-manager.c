@@ -213,6 +213,7 @@ static void      main_battery_or_ups_low_changed (GsdPowerManager *manager, gboo
 static gboolean  idle_is_session_inhibited (GsdPowerManager *manager, guint mask, gboolean *is_inhibited);
 static void      idle_triggered_idle_cb (GnomeIdleMonitor *monitor, guint watch_id, gpointer user_data);
 static void      idle_became_active_cb (GnomeIdleMonitor *monitor, guint watch_id, gpointer user_data);
+static void      iio_proxy_changed (GsdPowerManager *manager);
 
 G_DEFINE_TYPE (GsdPowerManager, gsd_power_manager, G_TYPE_OBJECT)
 
@@ -998,6 +999,9 @@ iio_proxy_claim_light (GsdPowerManager *manager, gboolean active)
                 g_warning ("Call to ii-proxy failed: %s", error->message);
                 g_error_free (error);
         }
+
+        if (active)
+                iio_proxy_changed (manager);
 }
 
 static void
@@ -2480,12 +2484,8 @@ on_rr_screen_acquired (GObject      *object,
 }
 
 static void
-iio_proxy_changed_cb (GDBusProxy *proxy,
-                      GVariant   *changed_properties,
-                      GStrv       invalidated_properties,
-                      gpointer    user_data)
+iio_proxy_changed (GsdPowerManager *manager)
 {
-        GsdPowerManager *manager = (GsdPowerManager *) user_data;
         GError *error = NULL;
         GVariant *val_has = NULL;
         GVariant *val_als = NULL;
@@ -2501,10 +2501,10 @@ iio_proxy_changed_cb (GDBusProxy *proxy,
                 return;
 
         /* get latest results, which do not have to be Lux */
-        val_has = g_dbus_proxy_get_cached_property (proxy, "HasAmbientLight");
+        val_has = g_dbus_proxy_get_cached_property (manager->priv->iio_proxy, "HasAmbientLight");
         if (val_has == NULL || !g_variant_get_boolean (val_has))
                 goto out;
-        val_als = g_dbus_proxy_get_cached_property (proxy, "LightLevel");
+        val_als = g_dbus_proxy_get_cached_property (manager->priv->iio_proxy, "LightLevel");
         if (val_als == NULL)
                 goto out;
         manager->priv->ambient_last_absolute = g_variant_get_double (val_als);
@@ -2540,6 +2540,15 @@ out:
                 g_variant_unref (val_has);
         if (val_als != NULL)
                 g_variant_unref (val_als);
+}
+
+static void
+iio_proxy_changed_cb (GDBusProxy *proxy,
+                      GVariant   *changed_properties,
+                      GStrv       invalidated_properties,
+                      gpointer    user_data)
+{
+        iio_proxy_changed ((GsdPowerManager *) user_data);
 }
 
 static void
