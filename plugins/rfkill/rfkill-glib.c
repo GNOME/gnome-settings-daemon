@@ -164,7 +164,7 @@ print_event (struct rfkill_event *event)
 
 static void
 emit_changed_signal_and_free (CcRfkillGlib *rfkill,
-			      GList      *events)
+			      GList        *events)
 {
 	if (events == NULL)
 		return;
