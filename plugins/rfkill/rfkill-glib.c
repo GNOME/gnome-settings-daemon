@@ -52,9 +52,19 @@ struct CcRfkillGlibPrivate {
 	GOutputStream *stream;
 	GIOChannel *channel;
 	guint watch_id;
+
+	/* Pending Bluetooth enablement */
+	guint change_all_timeout_id;
+	struct rfkill_event *event;
+	GSimpleAsyncResult *simple;
+	GCancellable *cancellable;
 };
 
 G_DEFINE_TYPE(CcRfkillGlib, cc_rfkill_glib, G_TYPE_OBJECT)
+
+#define CHANGE_ALL_TIMEOUT 500
+
+static const char *type_to_string (unsigned int type);
 
 gboolean
 cc_rfkill_glib_send_event_finish (CcRfkillGlib  *rfkill,
@@ -114,6 +124,139 @@ cc_rfkill_glib_send_event (CcRfkillGlib        *rfkill,
 				     cancellable, write_done_cb, simple);
 }
 
+gboolean
+cc_rfkill_glib_send_change_all_event_finish (CcRfkillGlib        *rfkill,
+					     GAsyncResult        *res,
+					     GError             **error)
+{
+	GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT (res);
+
+	g_return_val_if_fail (RFKILL_IS_GLIB (rfkill), FALSE);
+	g_warn_if_fail (g_simple_async_result_get_source_tag (simple) == cc_rfkill_glib_send_change_all_event);
+
+	if (g_simple_async_result_propagate_error (simple, error))
+		return FALSE;
+
+	return g_simple_async_result_get_op_res_gboolean (simple);
+}
+
+static void
+write_change_all_again_done_cb (GObject      *source_object,
+				GAsyncResult *res,
+				gpointer      user_data)
+{
+	CcRfkillGlib *rfkill = user_data;
+	GError *error = NULL;
+	gssize ret;
+
+	g_debug ("Finished writing second RFKILL_OP_CHANGE_ALL event");
+
+	ret = g_output_stream_write_finish (G_OUTPUT_STREAM (source_object), res, &error);
+	if (ret < 0)
+		g_simple_async_result_take_error (rfkill->priv->simple, error);
+	else
+		g_simple_async_result_set_op_res_gboolean (rfkill->priv->simple, ret >= 0);
+
+	g_simple_async_result_complete_in_idle (rfkill->priv->simple);
+	g_clear_object (&rfkill->priv->simple);
+	g_clear_pointer (&rfkill->priv->event, g_free);
+}
+
+static gboolean
+write_change_all_timeout_cb (CcRfkillGlib *rfkill)
+{
+	g_assert (rfkill->priv->event);
+
+	g_debug ("Sending second RFKILL_OP_CHANGE_ALL timed out");
+
+	g_simple_async_result_set_error (rfkill->priv->simple,
+					 G_IO_ERROR, G_IO_ERROR_TIMED_OUT,
+					 "Enabling rfkill for %s timed out",
+					 type_to_string (rfkill->priv->event->type));
+	g_simple_async_result_complete_in_idle (rfkill->priv->simple);
+
+	g_clear_object (&rfkill->priv->simple);
+	g_clear_pointer (&rfkill->priv->event, g_free);
+	g_clear_object (&rfkill->priv->cancellable);
+	rfkill->priv->change_all_timeout_id = 0;
+
+	return G_SOURCE_REMOVE;
+}
+
+static void
+write_change_all_done_cb (GObject      *source_object,
+			  GAsyncResult *res,
+			  gpointer      user_data)
+{
+	CcRfkillGlib *rfkill = user_data;
+	GError *error = NULL;
+	gssize ret;
+
+	g_debug ("Sending original RFKILL_OP_CHANGE_ALL event done");
+
+	ret = g_output_stream_write_finish (G_OUTPUT_STREAM (source_object), res, &error);
+	if (ret < 0) {
+		g_simple_async_result_take_error (rfkill->priv->simple, error);
+		goto bail;
+	} else if (rfkill->priv->event->soft == 1) {
+		g_simple_async_result_set_op_res_gboolean (rfkill->priv->simple, ret >= 0);
+		goto bail;
+	}
+
+	rfkill->priv->change_all_timeout_id = g_timeout_add (CHANGE_ALL_TIMEOUT,
+							     (GSourceFunc) write_change_all_timeout_cb,
+							     rfkill);
+
+	return;
+
+bail:
+	g_simple_async_result_complete_in_idle (rfkill->priv->simple);
+	g_clear_object (&rfkill->priv->simple);
+	g_clear_pointer (&rfkill->priv->event, g_free);
+	g_clear_object (&rfkill->priv->cancellable);
+}
+
+void
+cc_rfkill_glib_send_change_all_event (CcRfkillGlib        *rfkill,
+				      guint                rfkill_type,
+				      gboolean             enable,
+				      GCancellable        *cancellable,
+				      GAsyncReadyCallback  callback,
+				      gpointer             user_data)
+{
+	GSimpleAsyncResult *simple;
+	struct rfkill_event *event;
+
+	g_return_if_fail (RFKILL_IS_GLIB (rfkill));
+	g_return_if_fail (rfkill->priv->stream);
+
+	simple = g_simple_async_result_new (G_OBJECT (rfkill),
+					    callback,
+					    user_data,
+					    cc_rfkill_glib_send_change_all_event);
+
+	if (rfkill->priv->change_all_timeout_id > 0) {
+		g_source_remove (rfkill->priv->change_all_timeout_id);
+		rfkill->priv->change_all_timeout_id = 0;
+		write_change_all_timeout_cb (rfkill);
+	}
+
+	event = g_new0 (struct rfkill_event, 1);
+	event->op = RFKILL_OP_CHANGE_ALL;
+	event->type = rfkill_type;
+	event->soft = enable ? 1 : 0;
+
+	rfkill->priv->event = event;
+	rfkill->priv->simple = simple;
+	rfkill->priv->cancellable = cancellable ? g_object_ref (cancellable) : NULL;
+	rfkill->priv->change_all_timeout_id = 0;
+
+	g_output_stream_write_async (rfkill->priv->stream,
+				     event, sizeof(struct rfkill_event),
+				     G_PRIORITY_DEFAULT,
+				     cancellable, write_change_all_done_cb, rfkill);
+}
+
 static const char *
 type_to_string (unsigned int type)
 {
@@ -162,6 +305,23 @@ print_event (struct rfkill_event *event)
 		 event->soft, event->hard);
 }
 
+static gboolean
+got_change_event (GList *events)
+{
+	GList *l;
+
+	g_assert (events != NULL);
+
+	for (l = events ; l != NULL; l = l->next) {
+		struct rfkill_event *event = l->data;
+
+		if (event->op == RFKILL_OP_CHANGE)
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
 static void
 emit_changed_signal_and_free (CcRfkillGlib *rfkill,
 			      GList        *events)
@@ -172,6 +332,20 @@ emit_changed_signal_and_free (CcRfkillGlib *rfkill,
 	g_signal_emit (G_OBJECT (rfkill),
 		       signals[CHANGED],
 		       0, events);
+
+	if (rfkill->priv->change_all_timeout_id > 0 &&
+	    got_change_event (events)) {
+		g_debug ("Received a change event after a RFKILL_OP_CHANGE_ALL event, re-sending RFKILL_OP_CHANGE_ALL");
+
+		g_output_stream_write_async (rfkill->priv->stream,
+					     rfkill->priv->event, sizeof(struct rfkill_event),
+					     G_PRIORITY_DEFAULT,
+					     rfkill->priv->cancellable, write_change_all_again_done_cb, rfkill);
+
+		g_source_remove (rfkill->priv->change_all_timeout_id);
+		rfkill->priv->change_all_timeout_id = 0;
+	}
+
 	g_list_free_full (events, g_free);
 }
 
@@ -311,6 +485,9 @@ cc_rfkill_glib_finalize (GObject *object)
 
 	rfkill = CC_RFKILL_GLIB (object);
 	priv = rfkill->priv;
+
+	if (priv->change_all_timeout_id > 0)
+		write_change_all_timeout_cb (rfkill);
 
 	/* cleanup monitoring */
 	if (priv->watch_id > 0) {
