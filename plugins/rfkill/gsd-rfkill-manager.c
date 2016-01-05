@@ -301,9 +301,11 @@ rfkill_set_cb (GObject      *source_object,
 	gboolean ret;
 	GError *error = NULL;
 
-	ret = cc_rfkill_glib_send_event_finish (CC_RFKILL_GLIB (source_object), res, &error);
+	ret = cc_rfkill_glib_send_change_all_event_finish (CC_RFKILL_GLIB (source_object), res, &error);
 	if (!ret) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+		if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_TIMED_OUT))
+			g_debug ("Timed out waiting for blocked rfkills");
+		else if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
 			g_warning ("Failed to set RFKill: %s", error->message);
 		g_error_free (error);
 	}
@@ -334,30 +336,18 @@ static gboolean
 engine_set_bluetooth_airplane_mode (GsdRfkillManager *manager,
                                     gboolean          enable)
 {
-	struct rfkill_event event;
+        cc_rfkill_glib_send_change_all_event (manager->priv->rfkill, RFKILL_TYPE_BLUETOOTH,
+                                              enable, manager->priv->cancellable, rfkill_set_cb, manager);
 
-	memset (&event, 0, sizeof(event));
-	event.op = RFKILL_OP_CHANGE_ALL;
-	event.type = RFKILL_TYPE_BLUETOOTH;
-	event.soft = enable ? 1 : 0;
-	cc_rfkill_glib_send_event (manager->priv->rfkill, &event,
-				   manager->priv->cancellable, rfkill_set_cb, manager);
-
-	return TRUE;
+        return TRUE;
 }
 
 static gboolean
 engine_set_airplane_mode (GsdRfkillManager *manager,
                           gboolean          enable)
 {
-	struct rfkill_event event;
-
-	memset (&event, 0, sizeof(event));
-	event.op = RFKILL_OP_CHANGE_ALL;
-	event.type = RFKILL_TYPE_ALL;
-	event.soft = enable ? 1 : 0;
-	cc_rfkill_glib_send_event (manager->priv->rfkill, &event,
-				   manager->priv->cancellable, rfkill_set_cb, manager);
+        cc_rfkill_glib_send_change_all_event (manager->priv->rfkill, RFKILL_TYPE_ALL,
+                                              enable, manager->priv->cancellable, rfkill_set_cb, manager);
 
         /* Note: we set the the NM property even if there are no modems, so we don't
            need to resync when one is plugged in */
