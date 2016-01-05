@@ -211,7 +211,7 @@ event_cb (GIOChannel   *source,
 		}
 		events = g_list_reverse (events);
 	} else {
-		g_debug ("something else happened");
+		g_debug ("Something unexpected happened on rfkill fd");
 		return FALSE;
 	}
 
