@@ -69,6 +69,17 @@ gboolean      cc_rfkill_glib_send_event_finish (CcRfkillGlib        *rfkill,
 						GAsyncResult        *res,
 						GError             **error);
 
+void          cc_rfkill_glib_send_change_all_event        (CcRfkillGlib        *rfkill,
+							   guint                rfkill_type,
+							   gboolean             enable,
+							   GCancellable        *cancellable,
+							   GAsyncReadyCallback  callback,
+							   gpointer             user_data);
+
+gboolean      cc_rfkill_glib_send_change_all_event_finish (CcRfkillGlib        *rfkill,
+							   GAsyncResult        *res,
+							   GError             **error);
+
 G_END_DECLS
 
 #endif /* __CC_RFKILL_GLIB_H */
