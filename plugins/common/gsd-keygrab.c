@@ -55,6 +55,7 @@ grab_button (int        deviceid,
 		evmask.mask_len = sizeof (mask);
 		evmask.mask = mask;
 
+		gdk_error_trap_push();
 		XIGrabButton (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
 			      deviceid,
 			      XIAnyButton,
@@ -66,11 +67,14 @@ grab_button (int        deviceid,
 			      &evmask,
 			      1,
 			      &mods);
+		gdk_error_trap_pop_ignored ();
 	} else {
+		gdk_error_trap_push();
 		XIUngrabButton (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
 				deviceid,
 				XIAnyButton,
 		                GDK_WINDOW_XID (root),
 				1, &mods);
+		gdk_error_trap_pop_ignored ();
 	}
 }
