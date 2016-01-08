@@ -185,6 +185,11 @@ struct GsdMediaKeysManagerPrivate
         guint            orientation_watch_id;
         gboolean         orientation_available;
 
+        /* RFKill stuff */
+        guint            rfkill_watch_id;
+        GDBusProxy      *rfkill_proxy;
+        GCancellable    *rfkill_cancellable;
+
         /* systemd stuff */
         GDBusProxy      *logind_proxy;
         gint             inhibit_keys_fd;
@@ -1979,6 +1984,107 @@ do_battery_action (GsdMediaKeysManager *manager)
         g_free (icon_name);
 }
 
+static gboolean
+get_rfkill_property (GsdMediaKeysManager *manager,
+                     const char          *property)
+{
+        GVariant *v;
+        gboolean ret;
+
+        v = g_dbus_proxy_get_cached_property (manager->priv->rfkill_proxy, property);
+        if (!v)
+                return FALSE;
+        ret = g_variant_get_boolean (v);
+        g_variant_unref (v);
+
+        return ret;
+}
+
+typedef struct {
+        GsdMediaKeysManager *manager;
+        char *property;
+        gboolean bluetooth;
+        gboolean target_state;
+} RfkillData;
+
+static void
+set_rfkill_complete (GObject      *object,
+                     GAsyncResult *result,
+                     gpointer      user_data)
+{
+        GError *error = NULL;
+        GVariant *variant;
+        RfkillData *data = user_data;
+
+        variant = g_dbus_proxy_call_finish (G_DBUS_PROXY (object), result, &error);
+
+        if (variant == NULL) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to set '%s' property: %s", data->property, error->message);
+                g_error_free (error);
+                goto out;
+        }
+        g_variant_unref (variant);
+
+        g_debug ("Finished changing rfkill, property %s is now %s",
+                 data->property, data->target_state ? "true" : "false");
+
+        if (data->bluetooth)
+                show_osd (data->manager, data->target_state ? "bluetooth-disabled-symbolic"
+                          : "bluetooth-active-symbolic", NULL, -1, OSD_ALL_OUTPUTS);
+        else
+                show_osd (data->manager, data->target_state ? "airplane-mode-symbolic"
+                          : "network-wireless-signal-excellent-symbolic", NULL, -1, OSD_ALL_OUTPUTS);
+
+out:
+        g_free (data->property);
+        g_free (data);
+}
+
+static void
+do_rfkill_action (GsdMediaKeysManager *manager,
+                  gboolean             bluetooth)
+{
+        const char *has_mode, *hw_mode, *mode;
+        gboolean new_state;
+        RfkillData *data;
+
+        has_mode = bluetooth ? "BluetoothHasAirplaneMode" : "HasAirplaneMode";
+        hw_mode = bluetooth ? "BluetoothHardwareAirplaneMode" : "HardwareAirplaneMode";
+        mode = bluetooth ? "BluetoothAirplaneMode" : "AirplaneMode";
+
+        if (manager->priv->rfkill_proxy == NULL)
+                return;
+
+        if (get_rfkill_property (manager, has_mode) == FALSE)
+                return;
+
+        if (get_rfkill_property (manager, hw_mode)) {
+                show_osd (manager, "airplane-mode-symbolic",
+                          _("Hardware Airplane Mode"), -1, OSD_ALL_OUTPUTS);
+                return;
+        }
+
+        new_state = !get_rfkill_property (manager, mode);
+        data = g_new0 (RfkillData, 1);
+        data->manager = manager;
+        data->property = g_strdup (mode);
+        data->bluetooth = bluetooth;
+        data->target_state = new_state;
+        g_dbus_proxy_call (manager->priv->rfkill_proxy,
+                           "org.freedesktop.DBus.Properties.Set",
+                           g_variant_new ("(ssv)",
+                                          "org.gnome.SettingsDaemon.Rfkill",
+                                          data->property,
+                                          g_variant_new_boolean (new_state)),
+                           G_DBUS_CALL_FLAGS_NONE, -1,
+                           manager->priv->rfkill_cancellable,
+                           set_rfkill_complete, data);
+
+        g_debug ("Setting rfkill property %s to %s",
+                 data->property, new_state ? "true" : "false");
+}
+
 static void
 screencast_stop (GsdMediaKeysManager *manager)
 {
@@ -2205,6 +2311,12 @@ do_action (GsdMediaKeysManager *manager,
         case BATTERY_KEY:
                 do_battery_action (manager);
                 break;
+        case RFKILL_KEY:
+                do_rfkill_action (manager, FALSE);
+                break;
+        case BLUETOOTH_RFKILL_KEY:
+                do_rfkill_action (manager, TRUE);
+                break;
         /* Note, no default so compiler catches missing keys */
         case CUSTOM_KEY:
                 g_assert_not_reached ();
@@ -2366,6 +2478,34 @@ shell_presence_changed (GsdMediaKeysManager *manager)
         }
 }
 
+static void
+on_rfkill_proxy_ready (GObject      *source,
+                       GAsyncResult *result,
+                       gpointer      data)
+{
+        GsdMediaKeysManager *manager = data;
+
+        manager->priv->rfkill_proxy =
+                g_dbus_proxy_new_for_bus_finish (result, NULL);
+}
+
+static void
+rfkill_appeared_cb (GDBusConnection *connection,
+                    const gchar     *name,
+                    const gchar     *name_owner,
+                    gpointer         user_data)
+{
+        GsdMediaKeysManager *manager = user_data;
+
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
+                                  0, NULL,
+                                  "org.gnome.SettingsDaemon.Rfkill",
+                                  "/org/gnome/SettingsDaemon/Rfkill",
+                                  "org.gnome.SettingsDaemon.Rfkill",
+                                  manager->priv->rfkill_cancellable,
+                                  on_rfkill_proxy_ready, manager);
+}
+
 static gboolean
 start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 {
@@ -2405,11 +2545,19 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 
         ensure_cancellable (&manager->priv->grab_cancellable);
         ensure_cancellable (&manager->priv->screencast_cancellable);
+        ensure_cancellable (&manager->priv->rfkill_cancellable);
 
         manager->priv->shell_proxy = gnome_settings_bus_get_shell_proxy ();
         g_signal_connect_swapped (manager->priv->shell_proxy, "notify::g-name-owner",
                                   G_CALLBACK (shell_presence_changed), manager);
         shell_presence_changed (manager);
+
+        manager->priv->rfkill_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
+                                                           "org.gnome.SettingsDaemon.Rfkill",
+                                                           G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                                           rfkill_appeared_cb,
+                                                           NULL,
+                                                           manager, NULL);
 
         g_debug ("Starting mpris controller");
         manager->priv->mpris_controller = mpris_controller_new ();
@@ -2476,6 +2624,11 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 manager->priv->gtksettings = NULL;
         }
 
+        if (manager->priv->rfkill_watch_id > 0) {
+                g_bus_unwatch_name (manager->priv->rfkill_watch_id);
+                manager->priv->rfkill_watch_id = 0;
+        }
+
         if (manager->priv->orientation_watch_id > 0) {
                 g_bus_unwatch_name (manager->priv->orientation_watch_id);
                 manager->priv->orientation_watch_id = 0;
@@ -2528,6 +2681,11 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         if (priv->screencast_cancellable != NULL) {
                 g_cancellable_cancel (priv->screencast_cancellable);
                 g_clear_object (&priv->screencast_cancellable);
+        }
+
+        if (priv->rfkill_cancellable != NULL) {
+                g_cancellable_cancel (priv->rfkill_cancellable);
+                g_clear_object (&priv->rfkill_cancellable);
         }
 
         g_clear_object (&priv->sink);
