@@ -198,7 +198,8 @@ write_change_all_done_cb (GObject      *source_object,
 	if (ret < 0) {
 		g_simple_async_result_take_error (rfkill->priv->simple, error);
 		goto bail;
-	} else if (rfkill->priv->event->soft == 1) {
+	} else if (rfkill->priv->event->soft == 1 ||
+		   rfkill->priv->event->type != RFKILL_TYPE_BLUETOOTH) {
 		g_simple_async_result_set_op_res_gboolean (rfkill->priv->simple, ret >= 0);
 		goto bail;
 	}
