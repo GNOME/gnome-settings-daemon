@@ -2029,12 +2029,21 @@ set_rfkill_complete (GObject      *object,
         g_debug ("Finished changing rfkill, property %s is now %s",
                  data->property, data->target_state ? "true" : "false");
 
-        if (data->bluetooth)
-                show_osd (data->manager, data->target_state ? "bluetooth-disabled-symbolic"
-                          : "bluetooth-active-symbolic", NULL, -1, OSD_ALL_OUTPUTS);
-        else
-                show_osd (data->manager, data->target_state ? "airplane-mode-symbolic"
-                          : "network-wireless-signal-excellent-symbolic", NULL, -1, OSD_ALL_OUTPUTS);
+        if (data->bluetooth) {
+                if (data->target_state)
+                        show_osd (data->manager, "bluetooth-disabled-symbolic",
+                                  _("Bluetooth disabled"), -1, OSD_ALL_OUTPUTS);
+                else
+                        show_osd (data->manager, "bluetooth-active-symbolic",
+                                  _("Bluetooth enabled"), -1, OSD_ALL_OUTPUTS);
+        } else {
+                if (data->target_state)
+                        show_osd (data->manager, "airplane-mode-symbolic",
+                                  _("Aiplane mode enabled"), -1, OSD_ALL_OUTPUTS);
+                else
+                        show_osd (data->manager, "network-wireless-signal-excellent-symbolic",
+                                  _("Airplane mode disabled"), -1, OSD_ALL_OUTPUTS);
+        }
 
 out:
         g_free (data->property);
