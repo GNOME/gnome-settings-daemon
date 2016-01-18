@@ -39,6 +39,8 @@ struct _GsdSmartcardPrivate {
         GsdSmartcardState state;
 
         CK_SLOT_ID slot_id;
+        guint slot_id_set : 1;
+
         int slot_series;
 
         PK11SlotInfo *slot;
@@ -297,7 +299,7 @@ gsd_smartcard_set_name (GsdSmartcard *card,
                                 int slot_id, slot_series;
 
                                 slot_id = PK11_GetSlotID (card->priv->slot);
-                                if (slot_id != card->priv->slot_id) {
+                                if (!card->priv->slot_id_set || slot_id != card->priv->slot_id) {
                                         gsd_smartcard_set_slot_id (card, slot_id);
                                 }
 
@@ -320,7 +322,7 @@ static void
 gsd_smartcard_set_slot_id (GsdSmartcard *card,
                            int           slot_id)
 {
-        if (card->priv->slot_id != slot_id) {
+        if (!card->priv->slot_id_set || card->priv->slot_id != slot_id) {
                 card->priv->slot_id = slot_id;
 
                 if (card->priv->slot == NULL) {
@@ -344,6 +346,8 @@ gsd_smartcard_set_slot_id (GsdSmartcard *card,
                 }
 
                 g_object_notify (G_OBJECT (card), "slot-id");
+
+                card->priv->slot_id_set = TRUE;
         }
 }
 
@@ -435,7 +439,6 @@ _gsd_smartcard_new (SECMODModule *module,
         GsdSmartcard *card;
 
         g_return_val_if_fail (module != NULL, NULL);
-        g_return_val_if_fail (slot_id >= 1, NULL);
         g_return_val_if_fail (slot_series > 0, NULL);
         g_return_val_if_fail (sizeof (gulong) == sizeof (slot_id), NULL);
 
