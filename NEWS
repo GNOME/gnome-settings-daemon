@@ -1,4 +1,30 @@
 ==============
+Version 3.19.5
+==============
+
+- Remove "hotplug-command" helper
+- Updated translations
+
+Media keys:
+- Add support for Killswitch media keys
+- Add labels for the rfkill OSD
+
+Mouse:
+- Remove support for non-libinput mouse configurations
+
+Power:
+- Don't try to automatically set brightness on inactive sessions
+
+Rfkill:
+- Fix a problem when the system has a platform rfkill device for
+  Bluetooth and the Bluetooth adapter's rfkill support somehow got
+  blocked
+
+Sharing:
+- Port to the new libnm NetworkManager library - required NM version
+  bumped to 1.0
+
+==============
 Version 3.19.4
 ==============
 
