@@ -59,7 +59,7 @@ UPOWER_REQUIRED_VERSION=0.99.0
 GSETTINGS_DESKTOP_SCHEMAS_REQUIRED_VERSION=3.19.3
 GEOCODE_GLIB_REQUIRED_VERSION=3.10.0
 GEOCLUE_REQUIRED_VERSION=2.3.1
-NM_REQUIRED_VERSION=0.9.9.1
+NM_REQUIRED_VERSION=1.0
 
 EXTRA_COMPILE_WARNINGS(yes)
 
@@ -393,7 +393,7 @@ AC_ARG_ENABLE(network-manager,
         enable_network_manager=yes)
 
 if test "x$enable_network_manager" = "xyes" ; then
-        NM_MODULE="libnm-glib >= $NM_REQUIRED_VERSION libnm-util >= $NM_REQUIRED_VERSION"
+        NM_MODULE="libnm >= $NM_REQUIRED_VERSION"
         AC_DEFINE(HAVE_NETWORK_MANAGER, 1, [Defined if NetworkManager support is enabled])
 else
         NM_MODULE=

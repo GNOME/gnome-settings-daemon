@@ -26,9 +26,7 @@
 #include <glib/gstdio.h>
 
 #ifdef HAVE_NETWORK_MANAGER
-#include <nm-client.h>
-#include <nm-device.h>
-#include <nm-remote-settings.h>
+#include <NetworkManager.h>
 #endif /* HAVE_NETWORK_MANAGER */
 
 #include "gnome-settings-plugin.h"
@@ -54,7 +52,6 @@ struct GsdSharingManagerPrivate
         GCancellable            *cancellable;
 #ifdef HAVE_NETWORK_MANAGER
         NMClient                *client;
-        NMRemoteSettings        *remote_settings;
 #endif /* HAVE_NETWORK_MANAGER */
 
         GHashTable              *services;
@@ -369,10 +366,10 @@ get_type_and_name_for_connection_uuid (GsdSharingManager *manager,
         NMRemoteConnection *conn;
         const char *type;
 
-        if (!manager->priv->remote_settings)
+        if (!manager->priv->client)
                 return NULL;
 
-        conn = nm_remote_settings_get_connection_by_uuid (manager->priv->remote_settings, uuid);
+        conn = nm_client_get_connection_by_uuid (manager->priv->client, uuid);
         if (!conn)
                 return NULL;
         type = nm_connection_get_connection_type (NM_CONNECTION (conn));
@@ -397,10 +394,10 @@ connection_is_low_security (GsdSharingManager *manager,
 {
         NMRemoteConnection *conn;
 
-        if (!manager->priv->remote_settings)
+        if (!manager->priv->client)
                 return TRUE;
 
-        conn = nm_remote_settings_get_connection_by_uuid (manager->priv->remote_settings, uuid);
+        conn = nm_client_get_connection_by_uuid (manager->priv->client, uuid);
         if (!conn)
                 return TRUE;
 
@@ -423,7 +420,7 @@ gsd_sharing_manager_list_networks (GsdSharingManager  *manager,
                 return NULL;
 
 #ifdef HAVE_NETWORK_MANAGER
-        if (!manager->priv->remote_settings) {
+        if (!manager->priv->client) {
                 g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED, "Not ready yet");
                 return NULL;
         }
@@ -655,25 +652,6 @@ nm_client_ready (GObject      *source_object,
         primary_connection_changed (NULL, NULL, manager);
 }
 
-static void
-remote_settings_ready_cb (GObject      *source_object,
-                          GAsyncResult *res,
-                          gpointer      user_data)
-{
-        GError *error = NULL;
-        GsdSharingManager *manager = user_data;
-        NMRemoteSettings *remote_settings;
-
-        remote_settings = nm_remote_settings_new_finish (res, &error);
-        if (!remote_settings) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-                        g_warning ("Couldn't get remote settings: %s", error->message);
-                g_error_free (error);
-                return;
-        }
-
-        manager->priv->remote_settings = remote_settings;
-}
 #endif /* HAVE_NETWORK_MANAGER */
 
 #define RYGEL_BUS_NAME "org.gnome.Rygel1"
@@ -720,7 +698,6 @@ gsd_sharing_manager_start (GsdSharingManager *manager,
         manager->priv->cancellable = g_cancellable_new ();
 #ifdef HAVE_NETWORK_MANAGER
         nm_client_new_async (manager->priv->cancellable, nm_client_ready, manager);
-        nm_remote_settings_new_async (NULL, manager->priv->cancellable, remote_settings_ready_cb, manager);
 #endif /* HAVE_NETWORK_MANAGER */
 
         /* Start process of owning a D-Bus name */
@@ -748,7 +725,6 @@ gsd_sharing_manager_stop (GsdSharingManager *manager)
 
 #ifdef HAVE_NETWORK_MANAGER
         g_clear_object (&manager->priv->client);
-        g_clear_object (&manager->priv->remote_settings);
 #endif /* HAVE_NETWORK_MANAGER */
 
         if (manager->priv->name_id != 0) {
