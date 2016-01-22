@@ -794,6 +794,9 @@ output_info_free (GsdOutputInfo *info)
 			input_info_set_output (input, NULL, FALSE, FALSE);
 		if (input->guessed_output == info)
 			input_info_set_output (input, NULL, TRUE, FALSE);
+
+		info->input_devices = g_list_remove (info->input_devices,
+						     info->input_devices);
 	}
 
 	g_free (info);
