@@ -1512,9 +1512,12 @@ filter_button_events (XEvent          *xevent,
 
 		if (osd_window_device && device == osd_window_device && edition_mode) {
 			osd_window_update_viewable (manager, wbutton, dir, xiev);
+			g_object_unref (osd_window_device);
 
 			return GDK_FILTER_REMOVE;
 		}
+
+		g_object_unref (osd_window_device);
 	}
 
 	/* Update OSD window if shown */
