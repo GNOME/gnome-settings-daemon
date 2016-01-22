@@ -993,8 +993,6 @@ osd_window_toggle_visibility (GsdWacomManager *manager,
 
 	widget = gsd_wacom_osd_window_new (device, NULL);
 
-	g_object_add_weak_pointer (G_OBJECT (widget), (gpointer *) &manager->priv->osd_window);
-
 	g_signal_connect (widget, "focus-out-event",
 			  G_CALLBACK(osd_window_on_focus_out_event), manager);
 	g_object_add_weak_pointer (G_OBJECT (widget), (gpointer *) &manager->priv->osd_window);
