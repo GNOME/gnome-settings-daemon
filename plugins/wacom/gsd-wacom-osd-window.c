@@ -2086,6 +2086,13 @@ gsd_wacom_osd_window_finalize (GObject *object)
 	g_clear_pointer (&priv->message, g_free);
 	g_clear_pointer (&priv->regular_mode_message, g_free);
 	g_clear_pointer (&priv->edition_mode_message, g_free);
+
+	if (priv->pad) {
+		g_object_weak_unref (G_OBJECT(priv->pad),
+				     (GWeakNotify) gtk_widget_destroy,
+				     osd_window);
+	}
+
 	if (priv->buttons) {
 		g_list_free_full (priv->buttons, g_object_unref);
 		priv->buttons = NULL;
