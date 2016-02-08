@@ -182,8 +182,9 @@ struct GsdMediaKeysManagerPrivate
         GCancellable    *screencast_cancellable;
 
         /* Rotation */
-        guint            orientation_watch_id;
-        gboolean         orientation_available;
+        guint            iio_sensor_watch_id;
+        gboolean         has_accel;
+        GDBusProxy      *iio_sensor_proxy;
 
         /* RFKill stuff */
         guint            rfkill_watch_id;
@@ -1643,24 +1644,72 @@ do_video_rotate_action (GsdMediaKeysManager *manager,
 }
 
 static void
-orientation_appeared_cb (GDBusConnection *connection,
-                         const gchar     *name,
-                         const gchar     *name_owner,
-                         gpointer         user_data)
+sensor_properties_changed (GDBusProxy *proxy,
+                           GVariant   *changed_properties,
+                           GStrv       invalidated_properties,
+                           gpointer    user_data)
 {
         GsdMediaKeysManager *manager = user_data;
+        GVariant *v;
+        GVariantDict dict;
 
-        manager->priv->orientation_available = TRUE;
+        if (manager->priv->iio_sensor_proxy == NULL)
+                return;
+
+        if (changed_properties)
+                g_variant_dict_init (&dict, changed_properties);
+
+        if (changed_properties == NULL ||
+            g_variant_dict_contains (&dict, "HasAccelerometer")) {
+                v = g_dbus_proxy_get_cached_property (manager->priv->iio_sensor_proxy,
+                                                      "HasAccelerometer");
+                if (v == NULL) {
+                        g_debug ("Couldn't fetch HasAccelerometer property");
+                        return;
+                }
+                manager->priv->has_accel = g_variant_get_boolean (v);
+                g_variant_unref (v);
+        }
 }
 
 static void
-orientation_disappeared_cb (GDBusConnection *connection,
-                            const gchar     *name,
-                            gpointer         user_data)
+iio_sensor_appeared_cb (GDBusConnection *connection,
+                        const gchar     *name,
+                        const gchar     *name_owner,
+                        gpointer         user_data)
 {
         GsdMediaKeysManager *manager = user_data;
+        GError *error = NULL;
 
-        manager->priv->orientation_available = FALSE;
+        manager->priv->iio_sensor_proxy = g_dbus_proxy_new_sync (connection,
+                                              G_DBUS_PROXY_FLAGS_NONE,
+                                              NULL,
+                                              "net.hadess.SensorProxy",
+                                              "/net/hadess/SensorProxy",
+                                              "net.hadess.SensorProxy",
+                                              NULL,
+                                              &error);
+
+        if (manager->priv->iio_sensor_proxy == NULL) {
+                g_warning ("Failed to access net.hadess.SensorProxy after it appeared");
+                return;
+        }
+        g_signal_connect (G_OBJECT (manager->priv->iio_sensor_proxy),
+                          "g-properties-changed",
+                          G_CALLBACK (sensor_properties_changed), manager);
+
+        sensor_properties_changed (manager->priv->iio_sensor_proxy,
+                                   NULL, NULL, manager);
+}
+
+static void
+iio_sensor_disappeared_cb (GDBusConnection *connection,
+                           const gchar     *name,
+                           gpointer         user_data)
+{
+        GsdMediaKeysManager *manager = user_data;
+        g_clear_object (&manager->priv->iio_sensor_proxy);
+        manager->priv->has_accel = FALSE;
 }
 
 static void
@@ -1670,8 +1719,10 @@ do_video_rotate_lock_action (GsdMediaKeysManager *manager,
         GSettings *settings;
         gboolean locked;
 
-        if (!manager->priv->orientation_available)
+        if (!manager->priv->has_accel) {
+                g_debug ("Ignoring attempt to set orientation lock: no accelerometer");
                 return;
+        }
 
         settings = g_settings_new ("org.gnome.settings-daemon.peripherals.touchscreen");
         locked = !g_settings_get_boolean (settings, "orientation-lock");
@@ -2572,12 +2623,12 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
         manager->priv->mpris_controller = mpris_controller_new ();
 
         /* Rotation */
-        manager->priv->orientation_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
-                                                                "org.gnome.SettingsDaemon.Orientation",
-                                                                G_BUS_NAME_WATCHER_FLAGS_NONE,
-                                                                orientation_appeared_cb,
-                                                                orientation_disappeared_cb,
-                                                                manager, NULL);
+        manager->priv->iio_sensor_watch_id = g_bus_watch_name (G_BUS_TYPE_SYSTEM,
+                                                               "net.hadess.SensorProxy",
+                                                               G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                                               iio_sensor_appeared_cb,
+                                                               iio_sensor_disappeared_cb,
+                                                               manager, NULL);
 
         gnome_settings_profile_end (NULL);
 
@@ -2638,9 +2689,9 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 manager->priv->rfkill_watch_id = 0;
         }
 
-        if (manager->priv->orientation_watch_id > 0) {
-                g_bus_unwatch_name (manager->priv->orientation_watch_id);
-                manager->priv->orientation_watch_id = 0;
+        if (manager->priv->iio_sensor_watch_id > 0) {
+                g_bus_unwatch_name (manager->priv->iio_sensor_watch_id);
+                manager->priv->iio_sensor_watch_id = 0;
         }
 
         g_clear_pointer (&manager->priv->ca, ca_context_destroy);
@@ -2659,6 +2710,7 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         g_clear_object (&priv->composite_device);
         g_clear_object (&priv->mpris_controller);
         g_clear_object (&priv->screencast_proxy);
+        g_clear_object (&priv->iio_sensor_proxy);
         g_clear_pointer (&priv->chassis_type, g_free);
 
         if (priv->cancellable != NULL) {
