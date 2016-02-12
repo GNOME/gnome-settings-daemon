@@ -144,6 +144,26 @@ fi
 AM_CONDITIONAL(HAVE_GUDEV, test x$have_gudev = xyes)
 
 dnl ---------------------------------------------------------------------------
+dnl - ALSA integration (default enabled)
+dnl ---------------------------------------------------------------------------
+ALSA_PKG=""
+AC_ARG_ENABLE(alsa, AS_HELP_STRING([--disable-alsa],[Disable ALSA support (not optional on Linux platforms)]), enable_alsa=$enableval)
+if test x$enable_alsa != xno; then
+	PKG_CHECK_MODULES(ALSA, alsa, have_alsa="yes", have_alsa="no")
+	if test "x$have_alsa" = "xyes"; then
+		AC_DEFINE(HAVE_ALSA, 1, [define if ALSA is available])
+		ALSA_PKG="alsa"
+	else
+		if test x$enable_alsa = xyes; then
+			AC_MSG_ERROR([ALSA enabled but not found])
+		fi
+	fi
+else
+	have_alsa=no
+fi
+AM_CONDITIONAL(HAVE_ALSA, test x$have_alsa = xyes)
+
+dnl ---------------------------------------------------------------------------
 dnl - Check for libwayland-client
 dnl ---------------------------------------------------------------------------
 AC_ARG_ENABLE(wayland,
@@ -197,7 +217,7 @@ dnl - media-keys plugin stuff
 dnl ---------------------------------------------------------------------------
 
 PKG_CHECK_MODULES(MEDIA_KEYS, [gio-unix-2.0 libpulse >= $PA_REQUIRED_VERSION $GUDEV_PKG libpulse-mainloop-glib >= $PA_REQUIRED_VERSION libcanberra-gtk3 upower-glib >= $UPOWER_REQUIRED_VERSION])
-PKG_CHECK_MODULES(GVC, [gobject-2.0 libpulse >= $PA_REQUIRED_VERSION libpulse-mainloop-glib >= $PA_REQUIRED_VERSION])
+PKG_CHECK_MODULES(GVC, [gobject-2.0 libpulse >= $PA_REQUIRED_VERSION libpulse-mainloop-glib >= $PA_REQUIRED_VERSION $ALSA_PKG])
 AM_CONDITIONAL(HAVE_INTROSPECTION, false)
 
 dnl ---------------------------------------------------------------------------

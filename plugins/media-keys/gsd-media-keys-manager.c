@@ -112,6 +112,10 @@ static const gchar introspection_xml[] =
 #define SYSTEMD_DBUS_PATH                       "/org/freedesktop/login1"
 #define SYSTEMD_DBUS_INTERFACE                  "org.freedesktop.login1.Manager"
 
+#define AUDIO_SELECTION_DBUS_NAME               "org.gnome.Shell.AudioDeviceSelection"
+#define AUDIO_SELECTION_DBUS_PATH               "/org/gnome/Shell/AudioDeviceSelection"
+#define AUDIO_SELECTION_DBUS_INTERFACE          "org.gnome.Shell.AudioDeviceSelection"
+
 #define GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_MEDIA_KEYS_MANAGER, GsdMediaKeysManagerPrivate))
 
 typedef struct {
@@ -148,6 +152,11 @@ struct GsdMediaKeysManagerPrivate
         GHashTable      *streams; /* key = X device ID, value = stream id */
         GUdevClient     *udev_client;
 #endif /* HAVE_GUDEV */
+        guint            audio_selection_watch_id;
+        guint            audio_selection_signal_id;
+        GDBusConnection *audio_selection_conn;
+        gboolean         audio_selection_requested;
+        guint            audio_selection_device_id;
 
         GSettings       *settings;
         GHashTable      *custom_settings;
@@ -2443,6 +2452,140 @@ update_theme_settings (GSettings           *settings,
 	}
 }
 
+typedef struct {
+        GvcHeadsetPortChoice choice;
+        gchar *name;
+} AudioSelectionChoice;
+
+static AudioSelectionChoice audio_selection_choices[] = {
+        { GVC_HEADSET_PORT_CHOICE_HEADPHONES,   "headphones" },
+        { GVC_HEADSET_PORT_CHOICE_HEADSET,      "headset" },
+        { GVC_HEADSET_PORT_CHOICE_MIC,          "microphone" },
+};
+
+static void
+audio_selection_done (GDBusConnection *connection,
+                      const gchar     *sender_name,
+                      const gchar     *object_path,
+                      const gchar     *interface_name,
+                      const gchar     *signal_name,
+                      GVariant        *parameters,
+                      gpointer         data)
+{
+        GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER (data)->priv;
+        const gchar *choice;
+        guint i;
+
+        if (!priv->audio_selection_requested)
+                return;
+
+        choice = NULL;
+        g_variant_get_child (parameters, 0, "&s", &choice);
+        if (!choice)
+                return;
+
+        for (i = 0; i < G_N_ELEMENTS (audio_selection_choices); ++i) {
+                if (g_str_equal (choice, audio_selection_choices[i].name)) {
+                        gvc_mixer_control_set_headset_port (priv->volume,
+                                                            priv->audio_selection_device_id,
+                                                            audio_selection_choices[i].choice);
+                        break;
+                }
+        }
+
+        priv->audio_selection_requested = FALSE;
+}
+
+static void
+audio_selection_needed (GvcMixerControl      *control,
+                        guint                 id,
+                        gboolean              show_dialog,
+                        GvcHeadsetPortChoice  choices,
+                        GsdMediaKeysManager  *manager)
+{
+        GsdMediaKeysManagerPrivate *priv = manager->priv;
+        gchar *args[G_N_ELEMENTS (audio_selection_choices) + 1];
+        guint i, n;
+
+        if (!priv->audio_selection_conn)
+                return;
+
+        if (priv->audio_selection_requested) {
+                g_dbus_connection_call (priv->audio_selection_conn,
+                                        AUDIO_SELECTION_DBUS_NAME,
+                                        AUDIO_SELECTION_DBUS_PATH,
+                                        AUDIO_SELECTION_DBUS_INTERFACE,
+                                        "Close", NULL, NULL,
+                                        G_DBUS_CALL_FLAGS_NONE,
+                                        -1, NULL, NULL, NULL);
+                priv->audio_selection_requested = FALSE;
+        }
+
+        if (!show_dialog)
+                return;
+
+        n = 0;
+        for (i = 0; i < G_N_ELEMENTS (audio_selection_choices); ++i) {
+                if (choices & audio_selection_choices[i].choice)
+                        args[n++] = audio_selection_choices[i].name;
+        }
+        args[n] = NULL;
+
+        priv->audio_selection_requested = TRUE;
+        priv->audio_selection_device_id = id;
+        g_dbus_connection_call (priv->audio_selection_conn,
+                                AUDIO_SELECTION_DBUS_NAME,
+                                AUDIO_SELECTION_DBUS_PATH,
+                                AUDIO_SELECTION_DBUS_INTERFACE,
+                                "Open",
+                                g_variant_new ("(^as)", args),
+                                NULL,
+                                G_DBUS_CALL_FLAGS_NONE,
+                                -1, NULL, NULL, NULL);
+}
+
+static void
+audio_selection_appeared (GDBusConnection *connection,
+                          const gchar     *name,
+                          const gchar     *name_owner,
+                          gpointer         data)
+{
+        GsdMediaKeysManager *manager = data;
+        manager->priv->audio_selection_conn = connection;
+        manager->priv->audio_selection_signal_id =
+                g_dbus_connection_signal_subscribe (connection,
+                                                    AUDIO_SELECTION_DBUS_NAME,
+                                                    AUDIO_SELECTION_DBUS_INTERFACE,
+                                                    "DeviceSelected",
+                                                    AUDIO_SELECTION_DBUS_PATH,
+                                                    NULL,
+                                                    G_DBUS_SIGNAL_FLAGS_NONE,
+                                                    audio_selection_done,
+                                                    manager,
+                                                    NULL);
+}
+
+static void
+clear_audio_selection (GsdMediaKeysManager *manager)
+{
+        GsdMediaKeysManagerPrivate *priv = manager->priv;
+
+        if (priv->audio_selection_signal_id)
+                g_dbus_connection_signal_unsubscribe (priv->audio_selection_conn,
+                                                      priv->audio_selection_signal_id);
+        priv->audio_selection_signal_id = 0;
+        priv->audio_selection_conn = NULL;
+}
+
+static void
+audio_selection_vanished (GDBusConnection *connection,
+                          const gchar     *name,
+                          gpointer         data)
+{
+        if (connection)
+                clear_audio_selection (data);
+}
+
 static void
 initialize_volume_handler (GsdMediaKeysManager *manager)
 {
@@ -2472,8 +2615,21 @@ initialize_volume_handler (GsdMediaKeysManager *manager)
                           "stream-removed",
                           G_CALLBACK (on_control_stream_removed),
                           manager);
+        g_signal_connect (manager->priv->volume,
+                          "audio-device-selection-needed",
+                          G_CALLBACK (audio_selection_needed),
+                          manager);
 
         gvc_mixer_control_open (manager->priv->volume);
+
+        manager->priv->audio_selection_watch_id =
+                g_bus_watch_name (G_BUS_TYPE_SESSION,
+                                  AUDIO_SELECTION_DBUS_NAME,
+                                  G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                  audio_selection_appeared,
+                                  audio_selection_vanished,
+                                  manager,
+                                  NULL);
 
         gnome_settings_profile_end ("gvc_mixer_control_new");
 }
@@ -2759,6 +2915,11 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         }
 
         g_clear_object (&priv->shell_proxy);
+
+        if (priv->audio_selection_watch_id)
+                g_bus_unwatch_name (priv->audio_selection_watch_id);
+        priv->audio_selection_watch_id = 0;
+        clear_audio_selection (manager);
 }
 
 static void
