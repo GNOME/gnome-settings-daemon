@@ -2099,7 +2099,7 @@ set_rfkill_complete (GObject      *object,
         } else {
                 if (data->target_state)
                         show_osd (data->manager, "airplane-mode-symbolic",
-                                  _("Aiplane mode enabled"), -1, OSD_ALL_OUTPUTS);
+                                  _("Airplane mode enabled"), -1, OSD_ALL_OUTPUTS);
                 else
                         show_osd (data->manager, "network-wireless-signal-excellent-symbolic",
                                   _("Airplane mode disabled"), -1, OSD_ALL_OUTPUTS);
