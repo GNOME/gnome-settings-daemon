@@ -379,6 +379,7 @@ retry_grabs (gpointer data)
 {
         GsdMediaKeysManager *manager = data;
 
+        g_debug ("Retrying to grab accelerators");
         grab_media_keys (manager);
         return FALSE;
 }
@@ -399,7 +400,9 @@ grab_accelerators_complete (GObject      *object,
         if (error) {
                 retry = (error->code == G_DBUS_ERROR_UNKNOWN_METHOD);
                 if (!retry)
-                        g_warning ("%d: %s", error->code, error->message);
+                        g_warning ("Failed to grab accelerators: %s (%d)", error->message, error->code);
+                else
+                        g_debug ("Failed to grab accelerators, will retry: %s (%d)", error->message, error->code);
                 g_error_free (error);
         } else {
                 int i;
