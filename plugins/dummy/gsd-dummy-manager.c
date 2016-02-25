@@ -19,20 +19,12 @@
 
 #include "config.h"
 
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
 #include <string.h>
-#include <errno.h>
-
 #include <locale.h>
 
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gdk/gdk.h>
-#include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
 #include "gnome-settings-profile.h"
