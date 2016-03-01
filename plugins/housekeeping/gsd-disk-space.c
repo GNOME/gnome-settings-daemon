@@ -399,7 +399,6 @@ delete_subdir_check_symlink (GObject      *source,
         GFile *file = G_FILE (source);
         DeleteData *data = user_data;
         GFileInfo *info;
-        GFileType type;
 
         info = g_file_query_info_finish (file, res, NULL);
         if (!info) {
@@ -407,16 +406,15 @@ delete_subdir_check_symlink (GObject      *source,
                 return;
         }
 
-        type = g_file_info_get_file_type (info);
-        g_object_unref (info);
-
-        if (type == G_FILE_TYPE_SYMBOLIC_LINK) {
+        if (g_file_info_get_file_type (info) == G_FILE_TYPE_SYMBOLIC_LINK) {
                 if (should_purge_file (data->file, data->cancellable, data->old)) {
                         g_debug ("Purging %s leaf node", data->name);
                         if (!data->dry_run) {
                                 g_file_delete (data->file, data->cancellable, NULL);
                         }
                 }
+        } else if (g_strcmp0 (g_file_info_get_name (info), ".X11-unix") == 0) {
+                g_debug ("Skipping X11 socket directory");
         } else {
                 g_file_enumerate_children_async (data->file,
                                                  G_FILE_ATTRIBUTE_STANDARD_NAME ","
@@ -427,6 +425,7 @@ delete_subdir_check_symlink (GObject      *source,
                                                  delete_subdir,
                                                  delete_data_ref (data));
         }
+        g_object_unref (info);
         delete_data_unref (data);
 }
 
@@ -440,6 +439,7 @@ delete_recursively_by_age (DeleteData *data)
         }
 
         g_file_query_info_async (data->file,
+                                 G_FILE_ATTRIBUTE_STANDARD_NAME ","
                                  G_FILE_ATTRIBUTE_STANDARD_TYPE,
                                  G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
                                  0,
