@@ -399,9 +399,9 @@ grab_accelerators_complete (GObject      *object,
 
         if (error) {
                 retry = (error->code == G_DBUS_ERROR_UNKNOWN_METHOD);
-                if (!retry)
+                if (!retry && !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         g_warning ("Failed to grab accelerators: %s (%d)", error->message, error->code);
-                else
+                else if (retry)
                         g_debug ("Failed to grab accelerators, will retry: %s (%d)", error->message, error->code);
                 g_error_free (error);
         } else {
@@ -454,9 +454,14 @@ grab_accelerator_complete (GObject      *object,
 {
         GrabData *data = user_data;
         MediaKey *key = data->key;
+        GError *error = NULL;
 
-        shell_key_grabber_call_grab_accelerator_finish (SHELL_KEY_GRABBER (object),
-                                                        &key->accel_id, result, NULL);
+        if (!shell_key_grabber_call_grab_accelerator_finish (SHELL_KEY_GRABBER (object),
+                                                             &key->accel_id, result, &error)) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to grab accelerator: %s", error->message);
+                g_error_free (error);
+        }
 
         g_slice_free (GrabData, data);
 }
@@ -490,8 +495,14 @@ ungrab_accelerator_complete (GObject      *object,
                              GAsyncResult *result,
                              gpointer      user_data)
 {
-	shell_key_grabber_call_ungrab_accelerator_finish (SHELL_KEY_GRABBER (object),
-	                                                  NULL, result, NULL);
+        GError *error = NULL;
+
+        if (!shell_key_grabber_call_ungrab_accelerator_finish (SHELL_KEY_GRABBER (object),
+                                                               NULL, result, &error)) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to ungrab accelerator: %s", error->message);
+                g_error_free (error);
+        }
 }
 
 static void
@@ -1597,7 +1608,8 @@ on_xrandr_action_call_finished (GObject             *source_object,
         manager->priv->cancellable = NULL;
 
         if (error != NULL) {
-                g_warning ("Unable to call '%s': %s", action, error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to complete XRandR action: %s", error->message);
                 g_error_free (error);
         } else {
                 g_variant_unref (variant);
@@ -1950,8 +1962,9 @@ update_brightness_cb (GObject             *source_object,
         variant = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
                                         res, &error);
         if (variant == NULL) {
-                g_warning ("Failed to set new %s percentage: %s",
-                           debug, error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to set new %s percentage: %s",
+                                   debug, error->message);
                 g_error_free (error);
                 return;
         }
@@ -2643,9 +2656,16 @@ on_screencast_proxy_ready (GObject      *source,
                            gpointer      data)
 {
         GsdMediaKeysManager *manager = data;
+        GError *error = NULL;
 
         manager->priv->screencast_proxy =
-                g_dbus_proxy_new_for_bus_finish (result, NULL);
+                g_dbus_proxy_new_for_bus_finish (result, &error);
+
+        if (!manager->priv->screencast_proxy) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to create proxy for screencast: %s", error->message);
+                g_error_free (error);
+        }
 }
 
 static void
@@ -2654,12 +2674,17 @@ on_key_grabber_ready (GObject      *source,
                       gpointer      data)
 {
         GsdMediaKeysManager *manager = data;
+        GError *error = NULL;
 
         manager->priv->key_grabber =
-		shell_key_grabber_proxy_new_for_bus_finish (result, NULL);
+		shell_key_grabber_proxy_new_for_bus_finish (result, &error);
 
-        if (!manager->priv->key_grabber)
+        if (!manager->priv->key_grabber) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to create proxy for key grabber: %s", error->message);
+                g_error_free (error);
                 return;
+        }
 
         g_signal_connect (manager->priv->key_grabber, "accelerator-activated",
                           G_CALLBACK (on_accelerator_activated), manager);
