@@ -1,5 +1,5 @@
 # Hungarian translation of gnome-settings-daemon.
-# Copyright (C) 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012 Free Software Foundation, Inc.
+# Copyright (C) 1998-2016 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-settings-daemon package.
 #
 # Szabolcs Ban <shooby at gnome dot hu>, 1998, 1999, 2000.
@@ -10,22 +10,22 @@
 # Laszlo Dvornik <dvornik at gnome dot hu>, 2004.
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2016.
 # Mate ORY <orymate at gmail d0t com>, 2006.
-# Balázs Úr <urbalazs at gmail dot com>, 2013, 2014, 2015.
+# Balázs Úr <urbalazs at gmail dot com>, 2013, 2014, 2015, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-01-24 22:12+0000\n"
-"PO-Revision-Date: 2016-01-25 01:28+0100\n"
-"Last-Translator: Gabor Kelemen <kelemeng at ubuntu dot com>\n"
+"POT-Creation-Date: 2016-03-04 10:14+0000\n"
+"PO-Revision-Date: 2016-03-04 20:08+0100\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 1.2\n"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -750,18 +750,16 @@ msgid ""
 "font, the font format and the state of FreeType's font engines."
 msgstr ""
 "A szövegek renderelése során használt hinting típusa. A lehetséges értékek: "
-"„none” (nincs) a hinting elhagyásához, és „slight” (enyhe) a csak Y tengelyen "
-"történő "
-"feszítéshez, amit a Microsoft ClearType-ja, DirectWrite-ja és az Adobe zárt "
-"szövegrenderelési motorja is használ. Figyelmen kívül hagyja a "
-"betűkészletben lévő natív hintinget, algoritmikusan generálja őket. "
+"„none” (nincs) a hinting elhagyásához, és „slight” (enyhe) a csak Y "
+"tengelyen történő feszítéshez, amit a Microsoft ClearType-ja, DirectWrite-ja "
+"és az Adobe zárt szövegrenderelési motorja is használ. Figyelmen kívül "
+"hagyja a betűkészletben lévő natív hintinget, algoritmikusan generálja őket. "
 "Ubuntun alapértelmezett. Ajánlott. A „medium” (közepes) vagy „full” (teljes) "
-"a betűkészlet "
-"formátumától (.ttf, .otf, .pfa/.pfb) és a FreeType telepített változatától "
-"függ. Általában megpróbálják az X és Y tengelyeket is igazítani (kivéve .otf "
-"esetén: ott csak Y). Ez torzuláshoz vagy inkonzisztens rendereléshez "
-"vezethet a betűkészlet minőségétől, a betűkészlet formátumától, és a FreeType "
-"betűkészlet-motorjaitól függően."
+"a betűkészlet formátumától (.ttf, .otf, .pfa/.pfb) és a FreeType telepített "
+"változatától függ. Általában megpróbálják az X és Y tengelyeket is igazítani "
+"(kivéve .otf esetén: ott csak Y). Ez torzuláshoz vagy inkonzisztens "
+"rendereléshez vezethet a betűkészlet minőségétől, a betűkészlet "
+"formátumától, és a FreeType betűkészlet-motorjaitól függően."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "RGBA order"
@@ -1062,27 +1060,28 @@ msgstr "Billentyűzet"
 msgid "Keyboard plugin"
 msgstr "Billentyűzet bővítmény"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2035
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2111
 msgid "Bluetooth disabled"
 msgstr "Bluetooth letiltva"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2038
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2114
 msgid "Bluetooth enabled"
 msgstr "Bluetooth engedélyezve"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2042
-msgid "Aiplane mode enabled"
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2118
+#| msgid "Aiplane mode enabled"
+msgid "Airplane mode enabled"
 msgstr "Repülőgép üzemmód engedélyezve"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2045
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2121
 msgid "Airplane mode disabled"
 msgstr "Repülőgép üzemmód letiltva"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2073
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2149
 msgid "Hardware Airplane Mode"
 msgstr "Hardveres repülőgépmód"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2133
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2209
 msgid "Screencast from %d %t.webm"
 msgstr "Képernyővideó ekkor: %d %t.webm"
 
@@ -1104,13 +1103,13 @@ msgstr "Képernyőkép erről: %s"
 
 #. translators:
 #. * The device has been disabled
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1830
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1866
 msgid "Disabled"
 msgstr "Tiltva"
 
 #. translators:
 #. * The number of sound outputs on a particular device
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1837
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1873
 #, c-format
 msgid "%u Output"
 msgid_plural "%u Outputs"
@@ -1119,14 +1118,14 @@ msgstr[1] "%u kimenet"
 
 #. translators:
 #. * The number of sound inputs on a particular device
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1847
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1883
 #, c-format
 msgid "%u Input"
 msgid_plural "%u Inputs"
 msgstr[0] "%u bemenet"
 msgstr[1] "%u bemenet"
 
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:2371
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:2738
 msgid "System Sounds"
 msgstr "Rendszerhangok"
 
