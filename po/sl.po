@@ -5,15 +5,15 @@
 # Andraž Tori <andraz.tori1@guest.arnes.si>, 2002.
 # Matjaž Horvat <m@owca.info>, 2005-2006.
 # Matic Žgur <mr.zgur@gmail.com>, 2006-2007.
-# Matej Urbančič <mateju@svn.gnome.org>, 2007-2015.
+# Matej Urbančič <mateju@svn.gnome.org>, 2007-2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-deamon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-"
 "daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-09-08 20:08+0000\n"
-"PO-Revision-Date: 2015-09-08 22:12+0100\n"
+"POT-Creation-Date: 2016-03-03 21:33+0100\n"
+"PO-Revision-Date: 2016-03-03 21:35+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -67,18 +67,6 @@ msgstr "Razdalja preden se začne poteg miške."
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
 msgid "Whether the tablet's orientation is locked, or rotated automatically."
 msgstr "Ali je usmerjenost tablice zakljenjena oziroma samodejno obrnjena."
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
-msgid "Device hotplug custom command"
-msgstr "Ukaz po meri za hitro priklapljanje naprave"
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
-msgid ""
-"Command to be run when a device is added or removed. An exit value of 1 means that "
-"the device will not be handled further by gnome-settings-daemon."
-msgstr ""
-"Ukaz, ki naj se izvede, kadar je naprava dodana ali odstranjena. Izhodna vrednost 1 "
-"pomeni, da naprava ne bo več upravljana preko programa gnome-settings-deamon."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
@@ -730,12 +718,15 @@ msgstr "Prilagajanje pisave"
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none\" for "
-"no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full\" for maximum "
-"hinting (may cause distortion of letter forms)."
+"no hinting and \"slight\" for fitting only to the Y-axis like Microsoft's ClearType, "
+"DirectWrite and Adobe's proprietary font rendering engine. Ignores native hinting "
+"within the font, generates hints algorithmically. Used on Ubuntu by default. "
+"Recommended. The meaning of \"medium\" and \"full\" depends on the font format (."
+"ttf, .otf, .pfa/.pfb) and the installed version of FreeType. They usually try to fit "
+"glyphs to both the X and the Y axis (except for .otf: Y-only). This can lead to "
+"distortion and/or inconsistent rendering depending on the quality of the font, the "
+"font format and the state of FreeType's font engines."
 msgstr ""
-"Vrsta prilagoditve pisave uporabljena med izrisovanjem pisav. Mogoče vrednosti so  "
-"\"brez\" za prezrto prilagoditev, \"delno\" za osnovno, \"srednje\" za srednje in "
-"\"polno\" za napredno prilagajanje (lahko zamegli videz črk)."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "RGBA order"
@@ -1032,7 +1023,27 @@ msgstr "Tipkovnica"
 msgid "Keyboard plugin"
 msgstr "Vstavek tipkovnice"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:1985
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2111
+msgid "Bluetooth disabled"
+msgstr "Bluetooth je onemogočen"
+
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2114
+msgid "Bluetooth enabled"
+msgstr "Bluetooth je omogočen"
+
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2118
+msgid "Airplane mode enabled"
+msgstr "Letalski način je omogočen"
+
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2121
+msgid "Airplane mode disabled"
+msgstr "Letalski način je onemogočen"
+
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2149
+msgid "Hardware Airplane Mode"
+msgstr "Strojni letalski način"
+
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2209
 msgid "Screencast from %d %t.webm"
 msgstr "Zaslonski posnetek %d %t.webm"
 
@@ -1054,13 +1065,13 @@ msgstr "Zaslonska slika %s"
 
 #. translators:
 #. * The device has been disabled
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1830
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1866
 msgid "Disabled"
 msgstr "Onemogočeno"
 
 #. translators:
 #. * The number of sound outputs on a particular device
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1837
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1873
 #, c-format
 msgid "%u Output"
 msgid_plural "%u Outputs"
@@ -1071,7 +1082,7 @@ msgstr[3] "%u odvodi"
 
 #. translators:
 #. * The number of sound inputs on a particular device
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1847
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1883
 #, c-format
 msgid "%u Input"
 msgid_plural "%u Inputs"
@@ -1080,7 +1091,7 @@ msgstr[1] "%u dovod"
 msgstr[2] "%u dovoda"
 msgstr[3] "%u dovodi"
 
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:2371
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:2738
 msgid "System Sounds"
 msgstr "Sistemski zvoki"
 
@@ -1197,6 +1208,15 @@ msgstr "Preklopi svetlost tipkovnice"
 msgid "Battery Status"
 msgstr "Stanje baterije"
 
+#: ../plugins/media-keys/shortcuts-list.h:110
+#: ../plugins/media-keys/shortcuts-list.h:111
+msgid "Toggle Airplane Mode"
+msgstr "Preklopi letalski način"
+
+#: ../plugins/media-keys/shortcuts-list.h:112
+msgid "Toggle Bluetooth"
+msgstr "Preklopi bluetooth"
+
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
 msgid "Mouse"
 msgstr "Miška"
@@ -1260,163 +1280,161 @@ msgstr[2] "minuti"
 msgstr[3] "minute"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:909 ../plugins/power/gsd-power-manager.c:685
-#: ../plugins/power/gsd-power-manager.c:785
+#: ../plugins/power/gpm-common.c:909 ../plugins/power/gsd-power-manager.c:680
+#: ../plugins/power/gsd-power-manager.c:777
 msgid "Battery is critically low"
 msgstr "Napetost baterije je kritično nizka"
 
-#. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:345
-msgid "UPS Discharging"
-msgstr "Praznjenje UPS"
-
-#. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:350
-#, c-format
-msgid "%s of UPS backup power remaining"
-msgstr "%s preostale napetosti varovala UPS"
-
-#: ../plugins/power/gsd-power-manager.c:353
-msgid "Unknown amount of UPS backup power remaining"
-msgstr "Na voljo je še neznana vrednost varovala UPS"
-
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:369 ../plugins/power/gsd-power-manager.c:517
-#: ../plugins/power/gsd-power-manager.c:668 ../plugins/power/gsd-power-manager.c:776
-#: ../plugins/power/gsd-power-manager.c:2063
+#: ../plugins/power/gsd-power-manager.c:318
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Poraba"
 
+#. TRANSLATORS: UPS is now discharging
+#: ../plugins/power/gsd-power-manager.c:350
+msgid "UPS Discharging"
+msgstr "Praznjenje UPS"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:355
+#, c-format
+msgid "%s of UPS backup power remaining"
+msgstr "%s preostale napetosti varovala UPS"
+
+#: ../plugins/power/gsd-power-manager.c:358
+msgid "Unknown amount of UPS backup power remaining"
+msgstr "Na voljo je še neznana vrednost varovala UPS"
+
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:432
+#: ../plugins/power/gsd-power-manager.c:433
 msgid "Battery low"
 msgstr "Napetost baterije je nizka"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:435
+#: ../plugins/power/gsd-power-manager.c:436
 msgid "Laptop battery low"
 msgstr "Napetost baterije prenosnika je nizka"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:442
+#: ../plugins/power/gsd-power-manager.c:443
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "Na voljo je še približno %s delovanja (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:447
+#: ../plugins/power/gsd-power-manager.c:448
 msgid "UPS low"
 msgstr "Napetost UPS je nizka"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:453
+#: ../plugins/power/gsd-power-manager.c:454
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "Na voljo je še približno %s delovanja varovala UPS (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:458 ../plugins/power/gsd-power-manager.c:595
+#: ../plugins/power/gsd-power-manager.c:459 ../plugins/power/gsd-power-manager.c:593
 msgid "Mouse battery low"
 msgstr "Napetost baterije miške je nizka"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:461
+#: ../plugins/power/gsd-power-manager.c:462
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "Brezžična miška ima nizko napetost baterije (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:465 ../plugins/power/gsd-power-manager.c:603
+#: ../plugins/power/gsd-power-manager.c:466 ../plugins/power/gsd-power-manager.c:601
 msgid "Keyboard battery low"
 msgstr "Napetost baterije tipkovnice je nizka"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:468
+#: ../plugins/power/gsd-power-manager.c:469
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "Brezžična tipkovnica ima nizko napetost baterije (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:472 ../plugins/power/gsd-power-manager.c:612
+#: ../plugins/power/gsd-power-manager.c:473 ../plugins/power/gsd-power-manager.c:610
 msgid "PDA battery low"
 msgstr "Napetost baterije dlančnika je nizka"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:475
+#: ../plugins/power/gsd-power-manager.c:476
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "Dlančnik ima nizko napetost baterije (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:479 ../plugins/power/gsd-power-manager.c:622
-#: ../plugins/power/gsd-power-manager.c:631
+#: ../plugins/power/gsd-power-manager.c:480 ../plugins/power/gsd-power-manager.c:620
+#: ../plugins/power/gsd-power-manager.c:629
 msgid "Cell phone battery low"
 msgstr "Napetost baterije mobilnega telefona je nizka"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:482
+#: ../plugins/power/gsd-power-manager.c:483
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "Priključeni mobilni telefon ima nizko napetost baterije (%.0f%%)."
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:486
+#: ../plugins/power/gsd-power-manager.c:487
 msgid "Media player battery low"
 msgstr "Predstavni predvajalnik ima nizko napetost baterije"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:489
+#: ../plugins/power/gsd-power-manager.c:490
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "Predstavni predvajalnik ima nizko napetost baterije (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:493 ../plugins/power/gsd-power-manager.c:640
+#: ../plugins/power/gsd-power-manager.c:494 ../plugins/power/gsd-power-manager.c:638
 msgid "Tablet battery low"
 msgstr "Tablični računalnik ima nizko napetost baterije"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:496
+#: ../plugins/power/gsd-power-manager.c:497
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "Tablični računalnik ima nizko napetost baterije (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:500 ../plugins/power/gsd-power-manager.c:649
+#: ../plugins/power/gsd-power-manager.c:501 ../plugins/power/gsd-power-manager.c:647
 msgid "Attached computer battery low"
 msgstr "Priključen računalnik ima nizko napetost baterije"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:503
+#: ../plugins/power/gsd-power-manager.c:504
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "Priključen računalnik ima nizko napetost baterije (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:527
+#: ../plugins/power/gsd-power-manager.c:525
 msgid "Battery is low"
 msgstr "Napetost baterije je nizka"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:559
+#: ../plugins/power/gsd-power-manager.c:557
 msgid "Battery critically low"
 msgstr "Napetost baterije je kritično nizka"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:562 ../plugins/power/gsd-power-manager.c:712
+#: ../plugins/power/gsd-power-manager.c:560 ../plugins/power/gsd-power-manager.c:707
 msgid "Laptop battery critically low"
 msgstr "Napetost baterije prenosnika je kritično nizka"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:571
+#: ../plugins/power/gsd-power-manager.c:569
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr ""
@@ -1424,19 +1442,19 @@ msgstr ""
 "mirovanje."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:575
+#: ../plugins/power/gsd-power-manager.c:573
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "V kolikor računalnika ne priklopite na omrežno napetost, se bo kmalu izklopil."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:583 ../plugins/power/gsd-power-manager.c:737
+#: ../plugins/power/gsd-power-manager.c:581 ../plugins/power/gsd-power-manager.c:732
 msgid "UPS critically low"
 msgstr "Napetost UPS je kritično nizka"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:589
+#: ../plugins/power/gsd-power-manager.c:587
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your computer "
@@ -1446,7 +1464,7 @@ msgstr ""
 "priklopiti na električno omrežje, da preprečite izgubo podatkov."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:598
+#: ../plugins/power/gsd-power-manager.c:596
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop functioning "
@@ -1456,7 +1474,7 @@ msgstr ""
 "ne napolnite, prenehala delovati."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:606
+#: ../plugins/power/gsd-power-manager.c:604
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1466,7 +1484,7 @@ msgstr ""
 "kolikor je ne napolnite, prenehala delovati."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:615
+#: ../plugins/power/gsd-power-manager.c:613
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if not "
@@ -1476,7 +1494,7 @@ msgstr ""
 "napolnite, prenehala delovati."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:625
+#: ../plugins/power/gsd-power-manager.c:623
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1486,7 +1504,7 @@ msgstr ""
 "ne napolnite, prenehala delovati."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:634
+#: ../plugins/power/gsd-power-manager.c:632
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop functioning "
@@ -1496,7 +1514,7 @@ msgstr ""
 "kolikor je ne napolnite, prenehala delovati."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:643
+#: ../plugins/power/gsd-power-manager.c:641
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning if not "
@@ -1506,7 +1524,7 @@ msgstr ""
 "je ne napolnite, prenehala delovati."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:652
+#: ../plugins/power/gsd-power-manager.c:650
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon shutdown if "
@@ -1516,65 +1534,65 @@ msgstr ""
 "kolikor je ne napolnite, samodejno izklopila."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:720
+#: ../plugins/power/gsd-power-manager.c:715
 msgid ""
 "The battery is below the critical level and this computer is about to hibernate."
 msgstr ""
 "Napetost baterije je kritično nizka, zato bo računalnik postavljen v mirovanje."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:725
+#: ../plugins/power/gsd-power-manager.c:720
 msgid "The battery is below the critical level and this computer is about to shutdown."
 msgstr "Napetost baterije je kritično nizka, zato se bo računalnik izklopil."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:745
+#: ../plugins/power/gsd-power-manager.c:740
 msgid "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
 "Napetost UPS je pod kritično ravnjo, zato bo računalnik postavljen v mirovanje."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:750
+#: ../plugins/power/gsd-power-manager.c:745
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr "Napetost UPS je pod kritično ravnjo, zato se bo računalnik izklopil."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1255
+#: ../plugins/power/gsd-power-manager.c:1250
 msgid "Lid has been opened"
 msgstr "Pokrov računalnika je odprt"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1293
+#: ../plugins/power/gsd-power-manager.c:1288
 msgid "Lid has been closed"
 msgstr "Pokrov računalnika je zaprt"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1854
+#: ../plugins/power/gsd-power-manager.c:1849
 msgid "On battery power"
 msgstr "Napajanje iz baterije"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1859
+#: ../plugins/power/gsd-power-manager.c:1854
 msgid "On AC power"
 msgstr "Napajanje iz omrežja"
 
-#: ../plugins/power/gsd-power-manager.c:2041
+#: ../plugins/power/gsd-power-manager.c:2036
 msgid "Automatic logout"
 msgstr "Samodejna odjava"
 
-#: ../plugins/power/gsd-power-manager.c:2041
+#: ../plugins/power/gsd-power-manager.c:2036
 msgid "You will soon log out because of inactivity."
 msgstr "Zaradi nedejavnosti bo seja kmalu odjavljena."
 
-#: ../plugins/power/gsd-power-manager.c:2046
+#: ../plugins/power/gsd-power-manager.c:2041
 msgid "Automatic suspend"
 msgstr "Samodejna zaustavitev"
 
-#: ../plugins/power/gsd-power-manager.c:2046 ../plugins/power/gsd-power-manager.c:2051
+#: ../plugins/power/gsd-power-manager.c:2041 ../plugins/power/gsd-power-manager.c:2046
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Zaradi nedejavnosti bo računalnik kmalu zaustavljen."
 
-#: ../plugins/power/gsd-power-manager.c:2051
+#: ../plugins/power/gsd-power-manager.c:2046
 msgid "Automatic hibernation"
 msgstr "Samodejna hibernacija"
 
@@ -2011,16 +2029,16 @@ msgstr "Spodnji gumb #%d"
 msgid "New shortcut…"
 msgstr "_Nova tipkovna bližnjica ..."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1010
+#: ../plugins/wacom/gsd-wacom-manager.c:1029
 #, c-format
 msgid "The \"%s\" tablet may not work as expected."
 msgstr "Tablica \"%s\" morda ne bo delovala po pričakovanjih."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1011
+#: ../plugins/wacom/gsd-wacom-manager.c:1030
 msgid "Unknown Tablet Connected"
 msgstr "Povezana je neznana vrsta tablice"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1015
+#: ../plugins/wacom/gsd-wacom-manager.c:1034
 msgid "Wacom Settings"
 msgstr "Nastavitve Wacom"
 
@@ -2110,6 +2128,25 @@ msgstr "Nastavitve X"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Upravljanje nastavitev strežnika X"
+
+#~ msgid "Device hotplug custom command"
+#~ msgstr "Ukaz po meri za hitro priklapljanje naprave"
+
+#~ msgid ""
+#~ "Command to be run when a device is added or removed. An exit value of 1 means "
+#~ "that the device will not be handled further by gnome-settings-daemon."
+#~ msgstr ""
+#~ "Ukaz, ki naj se izvede, kadar je naprava dodana ali odstranjena. Izhodna vrednost "
+#~ "1 pomeni, da naprava ne bo več upravljana preko programa gnome-settings-deamon."
+
+#~ msgid ""
+#~ "The type of hinting to use when rendering fonts. Possible values are: \"none\" "
+#~ "for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full\" for "
+#~ "maximum hinting (may cause distortion of letter forms)."
+#~ msgstr ""
+#~ "Vrsta prilagoditve pisave uporabljena med izrisovanjem pisav. Mogoče vrednosti "
+#~ "so  \"brez\" za prezrto prilagoditev, \"delno\" za osnovno, \"srednje\" za "
+#~ "srednje in \"polno\" za napredno prilagajanje (lahko zamegli videz črk)."
 
 #~ msgid "Wacom last calibrated resolution"
 #~ msgstr "Zadnja umerjena ločljivost tablice Wacom"
