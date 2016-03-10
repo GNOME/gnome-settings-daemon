@@ -469,8 +469,12 @@ cc_rfkill_glib_open (CcRfkillGlib *rfkill)
 					 (GIOFunc) event_cb,
 					 rfkill);
 
-	events = g_list_reverse (events);
-	emit_changed_signal_and_free (rfkill, events);
+	if (events) {
+		events = g_list_reverse (events);
+		emit_changed_signal_and_free (rfkill, events);
+	} else {
+		g_debug ("No rfkill device available on startup");
+	}
 
 	/* Setup write stream */
 	priv->stream = g_unix_output_stream_new (fd, TRUE);

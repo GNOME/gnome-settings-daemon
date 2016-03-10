@@ -279,6 +279,10 @@ rfkill_changed (CcRfkillGlib     *rfkill,
 				g_hash_table_insert (manager->priv->bt_killswitches,
 						     GINT_TO_POINTER (event->idx),
 						     GINT_TO_POINTER (value));
+			g_debug ("%s %srfkill with ID %d",
+				 event->op == RFKILL_OP_ADD ? "Added" : "Changed",
+				 event->type == RFKILL_TYPE_BLUETOOTH ? "Bluetooth " : "",
+				 event->idx);
                         break;
                 case RFKILL_OP_DEL:
 			g_hash_table_remove (manager->priv->killswitches,
@@ -286,6 +290,8 @@ rfkill_changed (CcRfkillGlib     *rfkill,
 			if (event->type == RFKILL_TYPE_BLUETOOTH)
 				g_hash_table_remove (manager->priv->bt_killswitches,
 						     GINT_TO_POINTER (event->idx));
+			g_debug ("Removed %srfkill with ID %d", event->type == RFKILL_TYPE_BLUETOOTH ? "Bluetooth " : "",
+				 event->idx);
                         break;
                 }
 	}
