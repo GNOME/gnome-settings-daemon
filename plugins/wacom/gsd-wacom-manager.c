@@ -1821,6 +1821,11 @@ gsd_wacom_manager_stop (GsdWacomManager *manager)
 
         g_debug ("Stopping wacom manager");
 
+        if (manager->priv->name_id != 0) {
+                g_bus_unown_name (manager->priv->name_id);
+                manager->priv->name_id = 0;
+        }
+
         if (p->dbus_register_object_id) {
                 g_dbus_connection_unregister_object (p->dbus_connection,
                                                      p->dbus_register_object_id);
