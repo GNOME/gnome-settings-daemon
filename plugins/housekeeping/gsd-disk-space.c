@@ -367,7 +367,8 @@ delete_subdir (GObject      *source,
 
         enumerator = g_file_enumerate_children_finish (file, res, &error);
         if (error) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_DIRECTORY))
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_DIRECTORY) &&
+                    !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         g_warning ("Failed to enumerate children of %s: %s\n", data->name, error->message);
         }
         if (enumerator) {
