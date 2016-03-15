@@ -68,7 +68,8 @@ mpris_proxy_call_done (GObject      *object,
 
   if (!(ret = g_dbus_proxy_call_finish (G_DBUS_PROXY (object), res, &error)))
     {
-      g_warning ("Error calling method %s", error->message);
+      if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+        g_warning ("Error calling method %s", error->message);
       g_clear_error (&error);
       return;
     }
