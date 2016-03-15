@@ -85,7 +85,10 @@ out:
 void
 gsd_color_manager_stop (GsdColorManager *manager)
 {
+        GsdColorManagerPrivate *priv = manager->priv;
         g_debug ("Stopping color manager");
+        gsd_color_state_stop (priv->state);
+        gsd_color_profiles_stop (priv->profiles);
 }
 
 static void

@@ -48,6 +48,7 @@ GQuark                  gsd_color_profiles_error_quark          (void);
 GsdColorProfiles *      gsd_color_profiles_new                  (void);
 gboolean                gsd_color_profiles_start                (GsdColorProfiles *profiles,
                                                                  GError **error);
+void                    gsd_color_profiles_stop                 (GsdColorProfiles *profiles);
 
 G_END_DECLS
 
