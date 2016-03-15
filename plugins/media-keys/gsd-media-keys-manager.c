@@ -210,7 +210,7 @@ struct GsdMediaKeysManagerPrivate
         GDBusConnection *connection;
         GCancellable    *bus_cancellable;
         GDBusProxy      *xrandr_proxy;
-        GCancellable    *cancellable;
+        GCancellable    *cancellable; /* Only used for XRandR operations */
 
         guint            start_idle_id;
 
@@ -1008,7 +1008,7 @@ do_lock_screensaver (GsdMediaKeysManager *manager)
                 priv->screen_saver_proxy = gnome_settings_bus_get_screen_saver_proxy ();
 
         gsd_screen_saver_call_lock (priv->screen_saver_proxy,
-                                    priv->cancellable,
+                                    priv->bus_cancellable,
                                     (GAsyncReadyCallback) on_screen_locked,
                                     manager);
 }
