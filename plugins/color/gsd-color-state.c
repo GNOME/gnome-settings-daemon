@@ -673,8 +673,8 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
         /* get properties */
         ret = cd_profile_connect_finish (profile, res, &error);
         if (!ret) {
-                g_warning ("failed to connect to profile: %s",
-                           error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("failed to connect to profile: %s", error->message);
                 g_error_free (error);
                 goto out;
         }
@@ -796,8 +796,8 @@ gcm_session_device_assign_connect_cb (GObject *object,
         /* get properties */
         ret = cd_device_connect_finish (device, res, &error);
         if (!ret) {
-                g_warning ("failed to connect to device: %s",
-                           error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("failed to connect to device: %s", error->message);
                 g_error_free (error);
                 goto out;
         }
@@ -956,11 +956,9 @@ gcm_session_create_device_cb (GObject *object,
                                                  res,
                                                  &error);
         if (device == NULL) {
-                if (error->domain != CD_CLIENT_ERROR ||
-                    error->code != CD_CLIENT_ERROR_ALREADY_EXISTS) {
-                        g_warning ("failed to create device: %s",
-                                   error->message);
-                }
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED) &&
+                    !g_error_matches (error, CD_CLIENT_ERROR, CD_CLIENT_ERROR_ALREADY_EXISTS))
+                        g_warning ("failed to create device: %s", error->message);
                 g_error_free (error);
                 return;
         }
@@ -1091,8 +1089,8 @@ gcm_session_screen_removed_delete_device_cb (GObject *object, GAsyncResult *res,
                                               res,
                                               &error);
         if (!ret) {
-                g_warning ("failed to delete device: %s",
-                           error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("failed to delete device: %s", error->message);
                 g_error_free (error);
         }
 }
@@ -1108,8 +1106,8 @@ gcm_session_screen_removed_find_device_cb (GObject *object, GAsyncResult *res, g
                                                res,
                                                &error);
         if (device == NULL) {
-                g_warning ("failed to find device: %s",
-                           error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("failed to find device: %s", error->message);
                 g_error_free (error);
                 return;
         }
@@ -1151,8 +1149,8 @@ gcm_session_get_devices_cb (GObject *object, GAsyncResult *res, gpointer user_da
 
         array = cd_client_get_devices_finish (CD_CLIENT (object), res, &error);
         if (array == NULL) {
-                g_warning ("failed to get devices: %s",
-                           error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("failed to get devices: %s", error->message);
                 g_error_free (error);
                 goto out;
         }
@@ -1179,8 +1177,8 @@ gcm_session_profile_gamma_find_device_cb (GObject *object,
                                                            res,
                                                            &error);
         if (device == NULL) {
-                g_warning ("could not find device: %s",
-                           error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("could not find device: %s", error->message);
                 g_error_free (error);
                 goto out;
         }
@@ -1290,7 +1288,8 @@ gcm_session_client_connect_cb (GObject *source_object,
         /* connected */
         ret = cd_client_connect_finish (state->priv->client, res, &error);
         if (!ret) {
-                g_warning ("failed to connect to colord: %s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("failed to connect to colord: %s", error->message);
                 g_error_free (error);
                 return;
         }

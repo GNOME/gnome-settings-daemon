@@ -63,7 +63,8 @@ gcm_session_client_connect_cb (GObject *source_object,
         /* connected */
         ret = cd_client_connect_finish (profiles->priv->client, res, &error);
         if (!ret) {
-                g_warning ("failed to connect to colord: %s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("failed to connect to colord: %s", error->message);
                 g_error_free (error);
                 return;
         }
@@ -124,8 +125,8 @@ gcm_session_create_profile_cb (GObject *object,
 
         profile = cd_client_create_profile_finish (client, res, &error);
         if (profile == NULL) {
-                if (error->domain != CD_CLIENT_ERROR ||
-                    error->code != CD_CLIENT_ERROR_ALREADY_EXISTS)
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED) &&
+                    !g_error_matches (error, CD_CLIENT_ERROR, CD_CLIENT_ERROR_ALREADY_EXISTS))
                         g_warning ("%s", error->message);
                 g_error_free (error);
                 return;
@@ -190,7 +191,8 @@ gcm_session_delete_profile_cb (GObject *object,
 
         ret = cd_client_delete_profile_finish (client, res, &error);
         if (!ret) {
-                g_warning ("%s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("%s", error->message);
                 g_error_free (error);
         }
 }
@@ -207,7 +209,8 @@ gcm_session_find_profile_by_filename_cb (GObject *object,
 
         profile = cd_client_find_profile_by_filename_finish (client, res, &error);
         if (profile == NULL) {
-                g_warning ("%s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("%s", error->message);
                 g_error_free (error);
                 goto out;
         }
