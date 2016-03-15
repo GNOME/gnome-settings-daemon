@@ -57,11 +57,11 @@ gcm_session_client_connect_cb (GObject *source_object,
 {
         gboolean ret;
         GError *error = NULL;
-        GsdColorProfiles *profiles = GSD_COLOR_PROFILES (user_data);
-        GsdColorProfilesPrivate *priv = profiles->priv;
+        CdClient *client = CD_CLIENT (source_object);
+        GsdColorProfiles *profiles;
 
         /* connected */
-        ret = cd_client_connect_finish (profiles->priv->client, res, &error);
+        ret = cd_client_connect_finish (client, res, &error);
         if (!ret) {
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         g_warning ("failed to connect to colord: %s", error->message);
@@ -70,6 +70,7 @@ gcm_session_client_connect_cb (GObject *source_object,
         }
 
         /* is there an available colord instance? */
+        profiles = GSD_COLOR_PROFILES (user_data);
         ret = cd_client_get_has_server (profiles->priv->client);
         if (!ret) {
                 g_warning ("There is no colord server available");
