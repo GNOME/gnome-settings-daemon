@@ -1358,10 +1358,18 @@ on_rr_screen_acquired (GObject      *object,
         GsdColorState *state = data;
         GsdColorStatePrivate *priv = state->priv;
         GnomeRRScreen *screen;
+        GError *error = NULL;
 
-        screen = gnome_rr_screen_new_finish (result, NULL);
-        if (!screen)
-                return;
+        /* gnome_rr_screen_new_async() does not take a GCancellable */
+        if (g_cancellable_is_cancelled (priv->cancellable))
+                goto out;
+
+        screen = gnome_rr_screen_new_finish (result, &error);
+        if (screen == NULL) {
+                g_warning ("failed to get screens: %s", error->message);
+                g_error_free (error);
+                goto out;
+        }
 
         priv->state_screen = screen;
 
@@ -1369,6 +1377,9 @@ on_rr_screen_acquired (GObject      *object,
                            priv->cancellable,
                            gcm_session_client_connect_cb,
                            state);
+out:
+        /* manually added */
+        g_object_unref (state);
 }
 
 void
@@ -1384,7 +1395,7 @@ gsd_color_state_start (GsdColorState *state)
         /* coldplug the list of screens */
         gnome_rr_screen_new_async (gdk_screen_get_default (),
                                    on_rr_screen_acquired,
-                                   state);
+                                   g_object_ref (state));
 }
 
 void
