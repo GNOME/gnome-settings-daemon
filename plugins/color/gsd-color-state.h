@@ -47,6 +47,7 @@ GQuark                  gsd_color_state_error_quark     (void);
 
 GsdColorState *         gsd_color_state_new             (void);
 void                    gsd_color_state_start           (GsdColorState *state);
+void                    gsd_color_state_stop            (GsdColorState *state);
 
 G_END_DECLS
 
