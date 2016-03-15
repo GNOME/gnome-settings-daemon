@@ -59,19 +59,20 @@ set_timezone_cb (GObject      *source,
                  GAsyncResult *res,
                  gpointer      user_data)
 {
-        GsdTimezoneMonitor *self = user_data;
-        GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
+        GsdTimezoneMonitorPrivate *priv;
         GError *error = NULL;
 
-        if (!timedate1_call_set_timezone_finish (priv->dtm,
+        if (!timedate1_call_set_timezone_finish (TIMEDATE1 (source),
                                                  res,
                                                  &error)) {
-                g_warning ("Could not set system timezone: %s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Could not set system timezone: %s", error->message);
                 g_error_free (error);
                 return;
         }
 
-        g_signal_emit (G_OBJECT (self),
+        priv = gsd_timezone_monitor_get_instance_private (user_data);
+        g_signal_emit (G_OBJECT (user_data),
                        signals[TIMEZONE_CHANGED],
                        0, priv->current_timezone);
 }
@@ -224,20 +225,20 @@ on_reverse_geocoding_ready (GObject      *source_object,
 {
         GeocodePlace *place;
         GError *error = NULL;
-        GsdTimezoneMonitor *self = user_data;
 
         place = geocode_reverse_resolve_finish (GEOCODE_REVERSE (source_object),
                                                 res,
                                                 &error);
         if (error != NULL) {
-                g_debug ("Reverse geocoding failed: %s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_debug ("Reverse geocoding failed: %s", error->message);
                 g_error_free (error);
                 return;
         }
         g_debug ("Geocode lookup resolved country to '%s'",
                  geocode_place_get_country (place));
 
-        process_location (self, place);
+        process_location (user_data, place);
         g_object_unref (place);
 }
 
@@ -287,24 +288,25 @@ on_geoclue_simple_ready (GObject      *source_object,
                          gpointer      user_data)
 {
         GError *error = NULL;
-        GsdTimezoneMonitor *self = user_data;
-        GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
+        GsdTimezoneMonitorPrivate *priv;
 
         priv->geoclue_simple = gclue_simple_new_finish (res, &error);
         if (error != NULL) {
-                g_critical ("Failed to connect to GeoClue2 service: %s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to connect to GeoClue2 service: %s", error->message);
                 g_error_free (error);
                 return;
         }
 
+        priv = gsd_timezone_monitor_get_instance_private (user_data);
         priv->geoclue_client = gclue_simple_get_client (priv->geoclue_simple);
         gclue_client_set_distance_threshold (priv->geoclue_client,
                                              GEOCODE_LOCATION_ACCURACY_CITY);
 
         g_signal_connect (priv->geoclue_simple, "notify::location",
-                          G_CALLBACK (on_location_notify), self);
+                          G_CALLBACK (on_location_notify), user_data);
 
-        on_location_notify (priv->geoclue_simple, NULL, self);
+        on_location_notify (priv->geoclue_simple, NULL, user_data);
 }
 
 static void
