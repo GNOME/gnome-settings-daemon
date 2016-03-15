@@ -101,17 +101,23 @@ mpris_proxy_ready_cb (GObject      *object,
                       GAsyncResult *res,
                       gpointer      user_data)
 {
-  MprisControllerPrivate *priv = MPRIS_CONTROLLER (user_data)->priv;
+  MprisControllerPrivate *priv;
   GError *error = NULL;
+  GDBusProxy *proxy;
 
-  priv->mpris_client_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
+  proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
 
-  if (!priv->mpris_client_proxy)
-    g_warning ("Error connecting to mpris interface %s", error->message);
+  if (!proxy)
+    {
+      if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+        g_warning ("Error connecting to mpris interface %s", error->message);
+      g_clear_error (&error);
+      return;
+    }
 
+  priv = MPRIS_CONTROLLER (user_data)->priv;
+  priv->mpris_client_proxy = proxy;
   priv->connecting = FALSE;
-
-  g_clear_error (&error);
 }
 
 static void
