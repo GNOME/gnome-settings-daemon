@@ -62,17 +62,19 @@ set_timezone_cb (GObject      *source,
                  GAsyncResult *res,
                  gpointer      user_data)
 {
-        GsdTimezoneMonitor *self = user_data;
-        GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
+        GsdTimezoneMonitorPrivate *priv;
         GError *error = NULL;
 
-        if (!timedate1_call_set_timezone_finish (priv->dtm,
+        if (!timedate1_call_set_timezone_finish (TIMEDATE1 (source),
                                                  res,
                                                  &error)) {
-                g_warning ("Could not set system timezone: %s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Could not set system timezone: %s", error->message);
                 g_error_free (error);
                 return;
         }
+
+        priv = gsd_timezone_monitor_get_instance_private (user_data);
 
         g_signal_emit (G_OBJECT (self),
                        signals[TIMEZONE_CHANGED],
@@ -233,7 +235,8 @@ on_reverse_geocoding_ready (GObject      *source_object,
                                                 res,
                                                 &error);
         if (error != NULL) {
-                g_debug ("Reverse geocoding failed: %s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_debug ("Reverse geocoding failed: %s", error->message);
                 g_error_free (error);
                 return;
         }
@@ -279,7 +282,8 @@ on_location_proxy_ready (GObject      *source_object,
 
         location = geoclue_location_proxy_new_for_bus_finish (res, &error);
         if (error != NULL) {
-                g_critical ("Failed to connect to GeoClue2 service: %s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to connect to GeoClue2 service: %s", error->message);
                 g_error_free (error);
                 return;
         }
@@ -320,7 +324,8 @@ on_start_ready (GObject      *source_object,
         if (!geoclue_client_call_start_finish (GEOCLUE_CLIENT (source_object),
                                                res,
                                                &error)) {
-                g_critical ("Failed to start GeoClue2 client: %s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to start GeoClue2 client: %s", error->message);
                 g_error_free (error);
                 return;
         }
@@ -333,14 +338,17 @@ on_client_proxy_ready (GObject      *source_object,
 {
         GError *error = NULL;
         GsdTimezoneMonitor *self = user_data;
-        GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
+        GsdTimezoneMonitorPrivate *priv;
 
         priv->geoclue_client = geoclue_client_proxy_new_for_bus_finish (res, &error);
         if (error != NULL) {
-                g_critical ("Failed to connect to GeoClue2 service: %s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to connect to GeoClue2 service: %s", error->message);
                 g_error_free (error);
                 return;
         }
+
+        priv = gsd_timezone_monitor_get_instance_private (self);
 
         geoclue_client_set_desktop_id (priv->geoclue_client, DESKTOP_ID);
         geoclue_client_set_distance_threshold (priv->geoclue_client,
@@ -365,16 +373,19 @@ on_get_client_ready (GObject      *source_object,
         gchar *client_path;
         GError *error = NULL;
         GsdTimezoneMonitor *self = user_data;
-        GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
+        GsdTimezoneMonitorPrivate *priv;
 
         if (!geoclue_manager_call_get_client_finish (GEOCLUE_MANAGER (source_object),
                                                      &client_path,
                                                      res,
                                                      &error)) {
-                g_critical ("Failed to connect to GeoClue2 service: %s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to connect to GeoClue2 service: %s", error->message);
                 g_error_free (error);
                 return;
         }
+
+        priv = gsd_timezone_monitor_get_instance_private (self);
 
         geoclue_client_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
                                           G_DBUS_PROXY_FLAGS_NONE,
@@ -393,14 +404,17 @@ on_manager_proxy_ready (GObject      *source_object,
 
         GError *error = NULL;
         GsdTimezoneMonitor *self = user_data;
-        GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
+        GsdTimezoneMonitorPrivate *priv;
 
         priv->geoclue_manager = geoclue_manager_proxy_new_for_bus_finish (res, &error);
         if (error != NULL) {
-                g_critical ("Failed to connect to GeoClue2 service: %s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to connect to GeoClue2 service: %s", error->message);
                 g_error_free (error);
                 return;
         }
+
+        priv = gsd_timezone_monitor_get_instance_private (self);
 
         geoclue_manager_call_get_client (priv->geoclue_manager,
                                          priv->cancellable,
