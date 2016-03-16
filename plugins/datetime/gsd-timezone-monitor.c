@@ -289,9 +289,10 @@ on_geoclue_simple_ready (GObject      *source_object,
 {
         GError *error = NULL;
         GsdTimezoneMonitorPrivate *priv;
+        GClueSimple *geoclue_simple;
 
-        priv->geoclue_simple = gclue_simple_new_finish (res, &error);
-        if (error != NULL) {
+        geoclue_simple = gclue_simple_new_finish (res, &error);
+        if (geoclue_simple == NULL) {
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         g_warning ("Failed to connect to GeoClue2 service: %s", error->message);
                 g_error_free (error);
@@ -299,6 +300,7 @@ on_geoclue_simple_ready (GObject      *source_object,
         }
 
         priv = gsd_timezone_monitor_get_instance_private (user_data);
+        priv->geoclue_simple = geoclue_simple;
         priv->geoclue_client = gclue_simple_get_client (priv->geoclue_simple);
         gclue_client_set_distance_threshold (priv->geoclue_client,
                                              GEOCODE_LOCATION_ACCURACY_CITY);
