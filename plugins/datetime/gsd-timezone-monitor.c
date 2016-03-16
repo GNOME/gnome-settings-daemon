@@ -76,7 +76,7 @@ set_timezone_cb (GObject      *source,
 
         priv = gsd_timezone_monitor_get_instance_private (user_data);
 
-        g_signal_emit (G_OBJECT (self),
+        g_signal_emit (G_OBJECT (user_data),
                        signals[TIMEZONE_CHANGED],
                        0, priv->current_timezone);
 }
@@ -339,9 +339,10 @@ on_client_proxy_ready (GObject      *source_object,
         GError *error = NULL;
         GsdTimezoneMonitor *self = user_data;
         GsdTimezoneMonitorPrivate *priv;
+        GeoclueClient *client;
 
-        priv->geoclue_client = geoclue_client_proxy_new_for_bus_finish (res, &error);
-        if (error != NULL) {
+        client = geoclue_client_proxy_new_for_bus_finish (res, &error);
+        if (client == NULL) {
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         g_warning ("Failed to connect to GeoClue2 service: %s", error->message);
                 g_error_free (error);
@@ -349,6 +350,7 @@ on_client_proxy_ready (GObject      *source_object,
         }
 
         priv = gsd_timezone_monitor_get_instance_private (self);
+        priv->geoclue_client = client;
 
         geoclue_client_set_desktop_id (priv->geoclue_client, DESKTOP_ID);
         geoclue_client_set_distance_threshold (priv->geoclue_client,
@@ -405,9 +407,10 @@ on_manager_proxy_ready (GObject      *source_object,
         GError *error = NULL;
         GsdTimezoneMonitor *self = user_data;
         GsdTimezoneMonitorPrivate *priv;
+        GeoclueManager *manager;
 
-        priv->geoclue_manager = geoclue_manager_proxy_new_for_bus_finish (res, &error);
-        if (error != NULL) {
+        manager = geoclue_manager_proxy_new_for_bus_finish (res, &error);
+        if (manager == NULL) {
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         g_warning ("Failed to connect to GeoClue2 service: %s", error->message);
                 g_error_free (error);
@@ -415,6 +418,7 @@ on_manager_proxy_ready (GObject      *source_object,
         }
 
         priv = gsd_timezone_monitor_get_instance_private (self);
+        priv->geoclue_manager = manager;
 
         geoclue_manager_call_get_client (priv->geoclue_manager,
                                          priv->cancellable,
