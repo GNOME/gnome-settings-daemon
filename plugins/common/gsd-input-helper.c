@@ -164,31 +164,31 @@ supports_xinput2_devices (int *opcode)
 }
 
 gboolean
-xdevice_is_synaptics (XDevice *xdevice)
+device_is_synaptics (int deviceid)
 {
-        Atom realtype, prop;
+        GdkDisplay *display = gdk_display_get_default ();
+        Atom realtype;
         int realformat;
         unsigned long nitems, bytes_after;
         unsigned char *data;
+        gboolean rc;
 
         /* we don't check on the type being XI_TOUCHPAD here,
          * but having a "Synaptics Off" property should be enough */
 
-        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Off", False);
-        if (!prop)
-                return FALSE;
-
         gdk_error_trap_push ();
-        if ((XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop, 0, 1, False,
-                                XA_INTEGER, &realtype, &realformat, &nitems,
-                                &bytes_after, &data) == Success) && (realtype != None)) {
-                gdk_error_trap_pop_ignored ();
+
+        /* Lookup a synaptics driver specific property */
+        rc = XIGetProperty (GDK_DISPLAY_XDISPLAY (display), deviceid,
+                            gdk_x11_get_xatom_by_name ("Synaptics Off"),
+                            0, 1, False, XA_INTEGER, &realtype, &realformat, &nitems, &bytes_after, &data);
+
+        if (rc == Success)
                 XFree (data);
-                return TRUE;
-        }
+
         gdk_error_trap_pop_ignored ();
 
-        return FALSE;
+        return rc == Success && realtype != None;
 }
 
 gboolean
@@ -206,15 +206,7 @@ synaptics_is_present (void)
                 return FALSE;
 
         for (i = 0; i < n_devices; i++) {
-                XDevice *device;
-
-                gdk_error_trap_push ();
-                device = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device_info[i].id);
-                if (gdk_error_trap_pop () || (device == NULL))
-                        continue;
-
-                retval = xdevice_is_synaptics (device);
-                xdevice_close (device);
+                retval = device_is_synaptics (device_info[i].id);
                 if (retval)
                         break;
         }

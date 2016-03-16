@@ -60,7 +60,7 @@ gboolean set_device_enabled       (int device_id,
 gboolean  set_synaptics_device_enabled (int device_id,
                                         gboolean enabled);
 
-gboolean  xdevice_is_synaptics       (XDevice                *xdevice);
+gboolean  device_is_synaptics     (int deviceid);
 
 gboolean  synaptics_is_present    (void);
 gboolean  touchpad_is_present     (void);
