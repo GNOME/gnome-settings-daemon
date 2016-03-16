@@ -78,7 +78,7 @@ gcm_session_client_connect_cb (GObject *source_object,
         }
 
         /* add profiles */
-        ret = cd_icc_store_search_kind (priv->icc_store,
+        ret = cd_icc_store_search_kind (profiles->priv->icc_store,
                                         CD_ICC_STORE_SEARCH_KIND_USER,
                                         CD_ICC_STORE_SEARCH_FLAGS_CREATE_LOCATION,
                                         profiles->priv->cancellable,
