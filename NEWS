@@ -1,4 +1,26 @@
 ==============
+Version 3.18.3
+==============
+
+Plugins:
+- Make all D-Bus calls cancellable, and fix possible user-after-free crashers
+
+Housekeeping:
+- Don't remove X11's socket when cleaning tmp
+
+Power:
+- Don't change the brightness from a sensor when in another session
+
+Rfkill:
+- Make kernel calls cancellable
+- When turning off a platform rfkill, turn on Bluetooth in a second pass
+
+Wacom:
+- Fix Wacom buttons not working
+- Fix possible infinite loop when remapping outputs
+- Fix a memory leak
+
+==============
 Version 3.18.2
 ==============
 
