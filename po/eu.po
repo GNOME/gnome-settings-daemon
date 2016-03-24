@@ -5,21 +5,21 @@
 #
 # Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>, 2004, 2005.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2004, 2005, 2006, 2007, 2008, 2009, 2010.
-# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2011, 2012, 2013, 2014, 2015.
+# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2011, 2012, 2013, 2014, 2015, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-10-14 08:46+0000\n"
-"PO-Revision-Date: 2015-09-29 00:06+0200\n"
-"Last-Translator: Inaki Larranaga Murgoitio <dooteo@zundan.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-se"
+"ttings-daemon&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-03-24 10:27+0000\n"
+"PO-Revision-Date: 2016-03-24 19:41+0100\n"
+"Last-Translator: dooteo <dooteo@zundan.com>\n"
 "Language-Team: Basque <librezale@librezale.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 2.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
@@ -66,19 +66,6 @@ msgstr "Distantzia arrastatzen hasi aurretik."
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
 msgid "Whether the tablet's orientation is locked, or rotated automatically."
 msgstr "Taularen orientazio blokeatuta dagoen edo automatikoki biratuko den."
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
-msgid "Device hotplug custom command"
-msgstr "Gailuaren konexioarentzako komando pertsonalizatua"
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
-msgid ""
-"Command to be run when a device is added or removed. An exit value of 1 "
-"means that the device will not be handled further by gnome-settings-daemon."
-msgstr ""
-"Gailu bat gehitzean edo kentzean exekutatuko den komandoa. Irteerako 1 "
-"balioak zera adierazten du, 'gnome-settings-daemon'ek ez duela gailua "
-"gehiago kudeatzen jarraituko."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
@@ -759,13 +746,33 @@ msgstr "Hizkien tartea"
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
-"\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
-"\" for maximum hinting (may cause distortion of letter forms)."
+"\" for no hinting and \"slight\" for fitting only to the Y-axis like "
+"Microsoft's ClearType, DirectWrite and Adobe's proprietary font rendering "
+"engine. Ignores native hinting within the font, generates hints "
+"algorithmically. Used on Ubuntu by default. Recommended. The meaning of "
+"\"medium\" and \"full\" depends on the font format (.ttf, .otf, .pfa/.pfb) "
+"and the installed version of FreeType. They usually try to fit glyphs to "
+"both the X and the Y axis (except for .otf: Y-only). This can lead to "
+"distortion and/or inconsistent rendering depending on the quality of the "
+"font, the font format and the state of FreeType's font engines."
 msgstr ""
-"Hizkien arteko tarte mota letrak errendatzean erabiltzeko. Balio "
-"erabilgarriak: \"none\" (ezer ez), hizkien arteko tarterik ez; \"slight\", "
-"\"medium\" eta \"full\" ahalik eta hizkien arteko tarte handiena (letra-"
-"formak distortsionatzea eragin dezake)."
+"Hizkien tarte mota letra-tipoak errendatzean erabiltzeko. Balio "
+"erabilgarriak: "
+"\"none\" (bat ere ez) hizkien artean tarterik ez egoteko; "
+"\"slight\" Y ardatzean soilik sartzeko Microsoft-en ClearType, DirectWrite "
+"eta "
+"Adobe-ren letra-tipoak errendatzeko motor pribatuaren bezala. Letra-tipoaren "
+"hitzen arteko tarteei ez ikusi egiten die, tarteak algoritmo bidez sortuz. "
+"Ubuntun lehenetsi gisa erabiltzen da. Gomendatuta. "
+"\"medium\" (tartekoa) eta \"full\" (osoa) balioen esanahia letra-formatuaren "
+"(.ttf, .otf, .pfa/.pfb) "
+"eta instalatutako FreeType bertsioaren araberakoa da. Glifoak X eta Y "
+"ardatzean "
+"kokatzen saiatzen dira (.otf ezik: Y ardatza soilik). Distortsioa edo "
+"bateratasunik "
+"gabe errendatzea sor dezake, letra-tipoaren kalitatea, letra-formatua eta "
+"FreeType-ren "
+"letra motorren arabera."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "RGBA order"
@@ -993,12 +1000,12 @@ msgstr "Probakoa"
 msgid "Dummy plugin"
 msgstr "Probako plugina"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:587
+#: ../plugins/housekeeping/gsd-disk-space.c:588
 #, c-format
 msgid "Low Disk Space on “%s”"
 msgstr "Leku gutxi '%s' diskoan"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:589
+#: ../plugins/housekeeping/gsd-disk-space.c:590
 #, c-format
 msgid ""
 "The volume “%s” has only %s disk space remaining.  You may free up some "
@@ -1006,16 +1013,16 @@ msgid ""
 msgstr ""
 "'%s' bolumenaren leku librea: %s. Leku piskat egin zakarrontzia hustuz."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:593
+#: ../plugins/housekeeping/gsd-disk-space.c:594
 #, c-format
 msgid "The volume “%s” has only %s disk space remaining."
 msgstr "'%s' bolumenaren leku librea: %s."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:598
+#: ../plugins/housekeeping/gsd-disk-space.c:599
 msgid "Low Disk Space"
 msgstr "Leku baxuko diskoa"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:600
+#: ../plugins/housekeeping/gsd-disk-space.c:601
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1023,24 +1030,24 @@ msgid ""
 msgstr ""
 "Ordenagailu honen leku librea: %s. Leku piskat egin zakarrontzia hustuz."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:603
+#: ../plugins/housekeeping/gsd-disk-space.c:604
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "Ordenagailu honen leku librea: %s."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:618
+#: ../plugins/housekeeping/gsd-disk-space.c:619
 msgid "Disk space"
 msgstr "Diskoko lekua"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:625
+#: ../plugins/housekeeping/gsd-disk-space.c:626
 msgid "Examine"
 msgstr "Aztertu"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:633
+#: ../plugins/housekeeping/gsd-disk-space.c:634
 msgid "Empty Trash"
 msgstr "Hustu zakarrontzia"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:640
+#: ../plugins/housekeeping/gsd-disk-space.c:641
 msgid "Ignore"
 msgstr "Ez ikusi egin"
 
@@ -1064,7 +1071,27 @@ msgstr "Teklatua"
 msgid "Keyboard plugin"
 msgstr "Teklatuaren plugina"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:1985
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2111
+msgid "Bluetooth disabled"
+msgstr "Bluetooth-a desgaituta"
+
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2114
+msgid "Bluetooth enabled"
+msgstr "Bluetooth-a gaituta"
+
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2118
+msgid "Airplane mode enabled"
+msgstr "Hegazkin modua gaituta"
+
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2121
+msgid "Airplane mode disabled"
+msgstr "Hegazkin modua desgaituta"
+
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2149
+msgid "Hardware Airplane Mode"
+msgstr "Hardwarearen hegazkin modua"
+
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2209
 msgid "Screencast from %d %t.webm"
 msgstr "%d %t.webm-ren pantailaren bideoa"
 
@@ -1086,13 +1113,13 @@ msgstr "pantaila-argazkia '%s'(e)ndik"
 
 #. translators:
 #. * The device has been disabled
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1830
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1866
 msgid "Disabled"
 msgstr "Desgaituta"
 
 #. translators:
 #. * The number of sound outputs on a particular device
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1837
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1873
 #, c-format
 msgid "%u Output"
 msgid_plural "%u Outputs"
@@ -1101,14 +1128,14 @@ msgstr[1] "%u irteera"
 
 #. translators:
 #. * The number of sound inputs on a particular device
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1847
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1883
 #, c-format
 msgid "%u Input"
 msgid_plural "%u Inputs"
 msgstr[0] "Sarrera %u"
 msgstr[1] "%u sarrera"
 
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:2371
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:2738
 msgid "System Sounds"
 msgstr "Sistemaren soinuak"
 
@@ -1227,6 +1254,16 @@ msgstr "Txandakatu teklatuaren distira"
 msgid "Battery Status"
 msgstr "Bateriaren egoera"
 
+#: ../plugins/media-keys/shortcuts-list.h:110
+#: ../plugins/media-keys/shortcuts-list.h:111
+#| msgid "Toggle screen reader"
+msgid "Toggle Airplane Mode"
+msgstr "Txandakatu hegazkin modua"
+
+#: ../plugins/media-keys/shortcuts-list.h:112
+msgid "Toggle Bluetooth"
+msgstr "Txandakatu Bluetooth-a"
+
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
 msgid "Mouse"
 msgstr "Sagua"
@@ -1282,191 +1319,187 @@ msgstr[0] "minutu"
 msgstr[1] "minutu"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:909 ../plugins/power/gsd-power-manager.c:685
-#: ../plugins/power/gsd-power-manager.c:785
+#: ../plugins/power/gpm-common.c:909 ../plugins/power/gsd-power-manager.c:680
+#: ../plugins/power/gsd-power-manager.c:777
 msgid "Battery is critically low"
 msgstr "Bateria larriki baxua"
 
-#. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:345
-msgid "UPS Discharging"
-msgstr "UPS deskargatzen"
-
-#. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:350
-#, c-format
-msgid "%s of UPS backup power remaining"
-msgstr "UPS babeseko energiari %s geratzen zaio"
-
-#: ../plugins/power/gsd-power-manager.c:353
-msgid "Unknown amount of UPS backup power remaining"
-msgstr "UPS babeseko energiari kopuru ezezaguna geratzen zaio"
-
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:369
-#: ../plugins/power/gsd-power-manager.c:517
-#: ../plugins/power/gsd-power-manager.c:668
-#: ../plugins/power/gsd-power-manager.c:776
-#: ../plugins/power/gsd-power-manager.c:2063
+#: ../plugins/power/gsd-power-manager.c:318
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Energia"
 
+#. TRANSLATORS: UPS is now discharging
+#: ../plugins/power/gsd-power-manager.c:350
+msgid "UPS Discharging"
+msgstr "UPS deskargatzen"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:355
+#, c-format
+msgid "%s of UPS backup power remaining"
+msgstr "UPS babeseko energiari %s geratzen zaio"
+
+#: ../plugins/power/gsd-power-manager.c:358
+msgid "Unknown amount of UPS backup power remaining"
+msgstr "UPS babeseko energiari kopuru ezezaguna geratzen zaio"
+
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:432
+#: ../plugins/power/gsd-power-manager.c:433
 msgid "Battery low"
 msgstr "Bateria baxua"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:435
+#: ../plugins/power/gsd-power-manager.c:436
 msgid "Laptop battery low"
 msgstr "Eramangarriaren bateria baxua"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:442
+#: ../plugins/power/gsd-power-manager.c:443
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "Gutxi gorabehera gelditzen zaio: %s (%% %.0f)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:447
+#: ../plugins/power/gsd-power-manager.c:448
 msgid "UPS low"
 msgstr "UPS baxua"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:453
+#: ../plugins/power/gsd-power-manager.c:454
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "UPSri gelditzen zaion batez besteko denbora: %s (%% %.0f)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:458
-#: ../plugins/power/gsd-power-manager.c:595
+#: ../plugins/power/gsd-power-manager.c:459
+#: ../plugins/power/gsd-power-manager.c:593
 msgid "Mouse battery low"
 msgstr "Saguaren bateria baxua"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:461
+#: ../plugins/power/gsd-power-manager.c:462
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "Haririk gabeko saguak energia baxua du (%% %.0f)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:465
-#: ../plugins/power/gsd-power-manager.c:603
+#: ../plugins/power/gsd-power-manager.c:466
+#: ../plugins/power/gsd-power-manager.c:601
 msgid "Keyboard battery low"
 msgstr "Teklatuaren bateria baxua"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:468
+#: ../plugins/power/gsd-power-manager.c:469
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "Haririk gabeko teklatuak energia baxua du (%% %.1f)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:472
-#: ../plugins/power/gsd-power-manager.c:612
+#: ../plugins/power/gsd-power-manager.c:473
+#: ../plugins/power/gsd-power-manager.c:610
 msgid "PDA battery low"
 msgstr "PDAren bateria baxua"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:475
+#: ../plugins/power/gsd-power-manager.c:476
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "PDAk energia baxua du (%% %.0f)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:479
-#: ../plugins/power/gsd-power-manager.c:622
-#: ../plugins/power/gsd-power-manager.c:631
+#: ../plugins/power/gsd-power-manager.c:480
+#: ../plugins/power/gsd-power-manager.c:620
+#: ../plugins/power/gsd-power-manager.c:629
 msgid "Cell phone battery low"
 msgstr "Telefono mugikorraren bateria baxua"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:482
+#: ../plugins/power/gsd-power-manager.c:483
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "Telefono mugikorrak energia baxua du (%% %.0f)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:486
+#: ../plugins/power/gsd-power-manager.c:487
 msgid "Media player battery low"
 msgstr "Multimediaren erreproduzigailuak bateria baxua"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:489
+#: ../plugins/power/gsd-power-manager.c:490
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "Multimediaren erreproduzigailuak energia baxua du (%% %.0f)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:493
-#: ../plugins/power/gsd-power-manager.c:640
+#: ../plugins/power/gsd-power-manager.c:494
+#: ../plugins/power/gsd-power-manager.c:638
 msgid "Tablet battery low"
 msgstr "Taularen bateria baxua"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:496
+#: ../plugins/power/gsd-power-manager.c:497
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "Taulak energia baxua du (%% %.0f)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:500
-#: ../plugins/power/gsd-power-manager.c:649
+#: ../plugins/power/gsd-power-manager.c:501
+#: ../plugins/power/gsd-power-manager.c:647
 msgid "Attached computer battery low"
 msgstr "Konektatutako ordenagailuak bateria baxua"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:503
+#: ../plugins/power/gsd-power-manager.c:504
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "Konektatutako ordenagailuak energia baxua du (%% %.0f)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:527
+#: ../plugins/power/gsd-power-manager.c:525
 msgid "Battery is low"
 msgstr "Bateria baxua"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:559
+#: ../plugins/power/gsd-power-manager.c:557
 msgid "Battery critically low"
 msgstr "Bateria larriki baxua"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:562
-#: ../plugins/power/gsd-power-manager.c:712
+#: ../plugins/power/gsd-power-manager.c:560
+#: ../plugins/power/gsd-power-manager.c:707
 msgid "Laptop battery critically low"
 msgstr "Eramangarriaren bateria larriki baxua"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:571
+#: ../plugins/power/gsd-power-manager.c:569
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr "Ordenagailua berehala hibernatuko da, ez bada entxufatzen."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:575
+#: ../plugins/power/gsd-power-manager.c:573
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "Ordenagailua berehala itzaliko da, ez bada entxufatzen."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:583
-#: ../plugins/power/gsd-power-manager.c:737
+#: ../plugins/power/gsd-power-manager.c:581
+#: ../plugins/power/gsd-power-manager.c:732
 msgid "UPS critically low"
 msgstr "UPS larriki baxua"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:589
+#: ../plugins/power/gsd-power-manager.c:587
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1476,7 +1509,7 @@ msgstr ""
 "ez galtzeko."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:598
+#: ../plugins/power/gsd-power-manager.c:596
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1486,7 +1519,7 @@ msgstr ""
 "utzi egingo dio ez bada kargatzen."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:606
+#: ../plugins/power/gsd-power-manager.c:604
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1496,7 +1529,7 @@ msgstr ""
 "funtzionatzeari utzi egingo dio ez bada kargatzen."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:615
+#: ../plugins/power/gsd-power-manager.c:613
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1506,7 +1539,7 @@ msgstr ""
 "ez bada kargatzen."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:625
+#: ../plugins/power/gsd-power-manager.c:623
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -1516,7 +1549,7 @@ msgstr ""
 "utzi egingo dio ez bada kargatzen."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:634
+#: ../plugins/power/gsd-power-manager.c:632
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -1526,7 +1559,7 @@ msgstr ""
 "funtzionatzeari utzi egingo dio ez bada kargatzen."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:643
+#: ../plugins/power/gsd-power-manager.c:641
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -1536,7 +1569,7 @@ msgstr ""
 "dio ez bada kargatzen."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:652
+#: ../plugins/power/gsd-power-manager.c:650
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -1546,7 +1579,7 @@ msgstr ""
 "funtzionatzeari utzi egingo dio ez bada kargatzen."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:720
+#: ../plugins/power/gsd-power-manager.c:715
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -1554,7 +1587,7 @@ msgstr ""
 "Bateria maila larriaren azpitik dabil eta ordenagailua hibernatu egingo da."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:725
+#: ../plugins/power/gsd-power-manager.c:720
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -1562,55 +1595,55 @@ msgstr ""
 "Bateria maila larriaren azpitik dabil eta ordenagailua itzali egingo da."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:745
+#: ../plugins/power/gsd-power-manager.c:740
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
 "UPS maila larriaren azpitik dabil eta ordenagailua hibernatu egingo da."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:750
+#: ../plugins/power/gsd-power-manager.c:745
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr "UPS maila larriaren azpitik dabil eta ordenagailua itzali egingo da."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1255
+#: ../plugins/power/gsd-power-manager.c:1250
 msgid "Lid has been opened"
 msgstr "Tapa ireki egin da"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1293
+#: ../plugins/power/gsd-power-manager.c:1288
 msgid "Lid has been closed"
 msgstr "Tapa itxi egin da"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1854
+#: ../plugins/power/gsd-power-manager.c:1849
 msgid "On battery power"
 msgstr "Bateriaren energiarekin"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1859
+#: ../plugins/power/gsd-power-manager.c:1854
 msgid "On AC power"
 msgstr "Entxufatuta"
 
-#: ../plugins/power/gsd-power-manager.c:2041
+#: ../plugins/power/gsd-power-manager.c:2036
 msgid "Automatic logout"
 msgstr "Saio-amaiera automatikoa"
 
-#: ../plugins/power/gsd-power-manager.c:2041
+#: ../plugins/power/gsd-power-manager.c:2036
 msgid "You will soon log out because of inactivity."
 msgstr "Berehala saiotik irtengo zara inaktibitatea dela eta."
 
-#: ../plugins/power/gsd-power-manager.c:2046
+#: ../plugins/power/gsd-power-manager.c:2041
 msgid "Automatic suspend"
 msgstr "Esekitze automatikoa"
 
+#: ../plugins/power/gsd-power-manager.c:2041
 #: ../plugins/power/gsd-power-manager.c:2046
-#: ../plugins/power/gsd-power-manager.c:2051
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Ordenagailua berehala esekituko da inaktibitatea dela eta."
 
-#: ../plugins/power/gsd-power-manager.c:2051
+#: ../plugins/power/gsd-power-manager.c:2046
 msgid "Automatic hibernation"
 msgstr "Hibernatze automatikoa"
 
@@ -2046,16 +2079,16 @@ msgstr "%d. beheko botoia"
 msgid "New shortcut…"
 msgstr "Lasterbide berria…"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1010
+#: ../plugins/wacom/gsd-wacom-manager.c:1029
 #, c-format
 msgid "The \"%s\" tablet may not work as expected."
 msgstr "'%s' taula ez da uste bezala funtzionatzen ari."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1011
+#: ../plugins/wacom/gsd-wacom-manager.c:1030
 msgid "Unknown Tablet Connected"
 msgstr "Taula ezezaguna konektatuta"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1015
+#: ../plugins/wacom/gsd-wacom-manager.c:1034
 msgid "Wacom Settings"
 msgstr "Wacom-aren ezarpenak"
 
@@ -2145,6 +2178,28 @@ msgstr "Xen ezarpenak"
 #: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Kudeatu Xen ezarpenak"
+
+#~ msgid "Device hotplug custom command"
+#~ msgstr "Gailuaren konexioarentzako komando pertsonalizatua"
+
+#~ msgid ""
+#~ "Command to be run when a device is added or removed. An exit value of 1 "
+#~ "means that the device will not be handled further by gnome-settings-"
+#~ "daemon."
+#~ msgstr ""
+#~ "Gailu bat gehitzean edo kentzean exekutatuko den komandoa. Irteerako 1 "
+#~ "balioak zera adierazten du, 'gnome-settings-daemon'ek ez duela gailua "
+#~ "gehiago kudeatzen jarraituko."
+
+#~ msgid ""
+#~ "The type of hinting to use when rendering fonts. Possible values are: "
+#~ "\"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, "
+#~ "and \"full\" for maximum hinting (may cause distortion of letter forms)."
+#~ msgstr ""
+#~ "Hizkien arteko tarte mota letrak errendatzean erabiltzeko. Balio "
+#~ "erabilgarriak: \"none\" (ezer ez), hizkien arteko tarterik ez; \"slight"
+#~ "\", \"medium\" eta \"full\" ahalik eta hizkien arteko tarte handiena "
+#~ "(letra-formak distortsionatzea eragin dezake)."
 
 #~ msgid "Wacom last calibrated resolution"
 #~ msgstr "Wacom-en kalibratutako azken bereizmena"
