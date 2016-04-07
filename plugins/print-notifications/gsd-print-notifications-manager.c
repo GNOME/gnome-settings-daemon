@@ -338,6 +338,69 @@ on_cups_notification (GDBusConnection *connection,
         process_new_notifications (user_data);
 }
 
+static gchar *
+get_statuses_second (guint i,
+                     const gchar *printer_name)
+{
+        gchar *status;
+
+        switch (i) {
+                case 0:
+                        /* Translators: The printer is low on toner (same as in system-config-printer) */
+                        status = g_strdup_printf (_("Printer '%s' is low on toner."), printer_name);
+                        break;
+                case 1:
+                        /* Translators: The printer has no toner left (same as in system-config-printer) */
+                        status = g_strdup_printf (_("Printer '%s' has no toner left."), printer_name);
+                        break;
+                case 2:
+                        /* Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer) */
+                        status = g_strdup_printf (_("Printer '%s' may not be connected."), printer_name);
+                        break;
+                case 3:
+                        /* Translators: One or more covers on the printer are open (same as in system-config-printer) */
+                        status = g_strdup_printf (_("The cover is open on printer '%s'."), printer_name);
+                        break;
+                case 4:
+                        /* Translators: A filter or backend is not installed (same as in system-config-printer) */
+                        status = g_strdup_printf (_("There is a missing print filter for "
+                                                    "printer '%s'."), printer_name);
+                        break;
+                case 5:
+                        /* Translators: One or more doors on the printer are open (same as in system-config-printer) */
+                        status = g_strdup_printf (_("The door is open on printer '%s'."), printer_name);
+                        break;
+                case 6:
+                        /* Translators: "marker" is one color bin of the printer */
+                        status = g_strdup_printf (_("Printer '%s' is low on a marker supply."), printer_name);
+                        break;
+                case 7:
+                        /* Translators: "marker" is one color bin of the printer */
+                        status = g_strdup_printf (_("Printer '%s' is out of a marker supply."), printer_name);
+                        break;
+                case 8:
+                        /* Translators: At least one input tray is low on media (same as in system-config-printer) */
+                        status = g_strdup_printf (_("Printer '%s' is low on paper."), printer_name);
+                        break;
+                case 9:
+                        /* Translators: At least one input tray is empty (same as in system-config-printer) */
+                        status = g_strdup_printf (_("Printer '%s' is out of paper."), printer_name);
+                        break;
+                case 10:
+                        /* Translators: The printer is offline (same as in system-config-printer) */
+                        status = g_strdup_printf (_("Printer '%s' is currently off-line."), printer_name);
+                        break;
+                case 11:
+                        /* Translators: The printer has detected an error (same as in system-config-printer) */
+                        status = g_strdup_printf (_("There is a problem on printer '%s'."), printer_name);
+                        break;
+                default:
+                        g_assert_not_reached ();
+        }
+
+        return status;
+}
+
 static void
 process_cups_notification (GsdPrintNotificationsManager *manager,
                            const char                   *notify_subscribed_event,
@@ -400,33 +463,6 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                 N_("Printer off-line"),
                 /* Translators: The printer has detected an error (same as in system-config-printer) */
                 N_("Printer error") };
-
-        static const char * statuses_second[] = {
-                /* Translators: The printer is low on toner (same as in system-config-printer) */
-                N_("Printer '%s' is low on toner."),
-                /* Translators: The printer has no toner left (same as in system-config-printer) */
-                N_("Printer '%s' has no toner left."),
-                /* Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer) */
-                N_("Printer '%s' may not be connected."),
-                /* Translators: One or more covers on the printer are open (same as in system-config-printer) */
-                N_("The cover is open on printer '%s'."),
-                /* Translators: A filter or backend is not installed (same as in system-config-printer) */
-                N_("There is a missing print filter for "
-                   "printer '%s'."),
-                /* Translators: One or more doors on the printer are open (same as in system-config-printer) */
-                N_("The door is open on printer '%s'."),
-                /* Translators: "marker" is one color bin of the printer */
-                N_("Printer '%s' is low on a marker supply."),
-                /* Translators: "marker" is one color bin of the printer */
-                N_("Printer '%s' is out of a marker supply."),
-                /* Translators: At least one input tray is low on media (same as in system-config-printer) */
-                N_("Printer '%s' is low on paper."),
-                /* Translators: At least one input tray is empty (same as in system-config-printer) */
-                N_("Printer '%s' is out of paper."),
-                /* Translators: The printer is offline (same as in system-config-printer) */
-                N_("Printer '%s' is currently off-line."),
-                /* Translators: The printer has detected an error (same as in system-config-printer) */
-                N_("There is a problem on printer '%s'.") };
 
         if (g_strcmp0 (notify_subscribed_event, "printer-added") != 0 &&
             g_strcmp0 (notify_subscribed_event, "printer-deleted") != 0 &&
@@ -700,7 +736,7 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                                                         data = g_new0 (TimeoutData, 1);
                                                         data->printer_name = g_strdup (printer_name);
                                                         data->primary_text = g_strdup ( _(statuses_first[j]));
-                                                        data->secondary_text = g_strdup_printf ( _(statuses_second[j]), printer_name);
+                                                        data->secondary_text = get_statuses_second (j, printer_name);
                                                         data->manager = manager;
 
                                                         data->timeout_id = g_timeout_add_seconds (CONNECTING_TIMEOUT, show_notification, data);
@@ -708,7 +744,7 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                                                         manager->priv->timeouts = g_list_append (manager->priv->timeouts, data);
                                                 } else {
                                                         ReasonData *reason_data;
-                                                        gchar *second_row = g_strdup_printf ( _(statuses_second[j]), printer_name);
+                                                        gchar *second_row = get_statuses_second (j, printer_name);
 
                                                         notification = notify_notification_new ( _(statuses_first[j]),
                                                                                                 second_row,
