@@ -53,6 +53,17 @@
 
 #define CURSOR_HIDE_TIMEOUT	2 /* seconds */
 
+#define CSS_NORMAL_BUTTON	\
+	"%s.%s {\n"		\
+	"    opacity: %s\n"	\
+	"}\n"
+
+#define CSS_EDITING_BUTTON		\
+	"%s.%s {\n"			\
+	"    stroke: %s !important;\n"	\
+	"    fill: %s !important;\n"	\
+	"}\n"
+
 static struct {
 	const gchar     *color_name;
 	const gchar     *color_value;
@@ -847,7 +858,6 @@ gsd_wacom_osd_window_update (GsdWacomOSDWindow *osd_window)
 	buttons_section = g_strdup ("");
 	for (l = osd_window->priv->buttons; l != NULL; l = l->next) {
 		gchar *color_str;
-		const gchar *css;
 		GsdWacomOSDButton *osd_button = l->data;
 
 		if (osd_button->priv->visible == FALSE)
@@ -855,21 +865,13 @@ gsd_wacom_osd_window_update (GsdWacomOSDWindow *osd_window)
 
 		if (osd_window_editing_button (osd_window) &&
 		    osd_button != osd_window->priv->current_button) {
-			css = "%s.%s {\n"
-				"      opacity: %s\n"
-				"}\n";
-			buttons_section = g_strdup_printf (css,
+			buttons_section = g_strdup_printf (CSS_NORMAL_BUTTON,
 							   buttons_section,
 							   osd_button->priv->class,
-							   OPACITY_IN_EDITION,
-							   NULL);
+							   OPACITY_IN_EDITION);
 		} else {
 			color_str = gsd_wacom_osd_button_get_color_str (osd_button);
-			css = "%s.%s {\n"
-				"      stroke: %s !important;\n"
-				"      fill: %s !important;\n"
-				"}\n";
-			buttons_section = g_strdup_printf (css,
+			buttons_section = g_strdup_printf (CSS_EDITING_BUTTON,
 							   buttons_section,
 							   osd_button->priv->class,
 							   color_str,
