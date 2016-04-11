@@ -996,7 +996,7 @@ iio_proxy_claim_light (GsdPowerManager *manager, gboolean active)
                                      -1,
                                      NULL,
                                      &error)) {
-                g_warning ("Call to ii-proxy failed: %s", error->message);
+                g_warning ("Call to iio-proxy failed: %s", error->message);
                 g_error_free (error);
         }
 
