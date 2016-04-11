@@ -141,6 +141,7 @@ struct GsdPowerManagerPrivate
         /* State */
         gboolean                 lid_is_present;
         gboolean                 lid_is_closed;
+        gboolean                 session_is_active;
         UpClient                *up_client;
         GPtrArray               *devices_array;
         UpDevice                *device_composite;
@@ -988,6 +989,8 @@ iio_proxy_claim_light (GsdPowerManager *manager, gboolean active)
                 return;
         if (!manager->priv->backlight_available)
                 return;
+	if (active != manager->priv->session_is_active)
+		return;
 
         if (!g_dbus_proxy_call_sync (manager->priv->iio_proxy,
                                      active ? "ClaimLight" : "ReleaseLight",
@@ -1478,7 +1481,6 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
         GError *error = NULL;
         gint idle_percentage;
         GsdPowerActionType action_type;
-        gboolean is_active = FALSE;
 
         /* Ignore attempts to set "less idle" modes */
         if (mode <= manager->priv->current_idle_mode &&
@@ -1490,8 +1492,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
         }
 
         /* ensure we're still on an active console */
-        is_active = is_session_active (manager);
-        if (!is_active) {
+        if (!manager->priv->session_is_active) {
                 g_debug ("ignoring state transition to %s as inactive",
                          idle_mode_to_string (mode));
                 return;
@@ -1665,7 +1666,7 @@ idle_configure (GsdPowerManager *manager)
         }
 
         /* are we inhibited from going idle */
-        if (!is_session_active (manager) || is_idle_inhibited) {
+        if (!manager->priv->session_is_active || is_idle_inhibited) {
                 if (is_idle_inhibited)
                         g_debug ("inhibited, so using normal state");
                 else
@@ -2153,6 +2154,7 @@ engine_session_properties_changed_cb (GDBusProxy      *session,
 
                 active = g_variant_get_boolean (v);
                 g_debug ("Received session is active change: now %s", active ? "active" : "inactive");
+                manager->priv->session_is_active = active;
                 /* when doing the fast-user-switch into a new account,
                  * ensure the new account is undimmed and with the backlight on */
                 if (active) {
@@ -2413,6 +2415,7 @@ on_rr_screen_acquired (GObject      *object,
         g_signal_connect (manager->priv->session, "g-properties-changed",
                           G_CALLBACK (engine_session_properties_changed_cb),
                           manager);
+        manager->priv->session_is_active = is_session_active (manager);
 
         manager->priv->screensaver_proxy = gnome_settings_bus_get_screen_saver_proxy ();
 
