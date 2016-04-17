@@ -60,6 +60,7 @@
 #define SOUND_SETTINGS_SCHEMA     "org.gnome.desktop.sound"
 #define PRIVACY_SETTINGS_SCHEMA     "org.gnome.desktop.privacy"
 #define WM_SETTINGS_SCHEMA        "org.gnome.desktop.wm.preferences"
+#define A11Y_SCHEMA               "org.gnome.desktop.a11y"
 #define CLASSIC_WM_SETTINGS_SCHEMA "org.gnome.shell.extensions.classic-overrides"
 
 #define XSETTINGS_PLUGIN_SCHEMA "org.gnome.settings-daemon.plugins.xsettings"
@@ -1229,6 +1230,8 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                              PRIVACY_SETTINGS_SCHEMA, g_settings_new (PRIVACY_SETTINGS_SCHEMA));
         g_hash_table_insert (manager->priv->settings,
                              WM_SETTINGS_SCHEMA, g_settings_new (WM_SETTINGS_SCHEMA));
+        g_hash_table_insert (manager->priv->settings,
+                             A11Y_SCHEMA, g_settings_new (A11Y_SCHEMA));
 
         session = g_getenv ("XDG_CURRENT_DESKTOP");
         if (session && strstr (session, "GNOME-Classic")) {
