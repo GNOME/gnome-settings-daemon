@@ -587,6 +587,7 @@ on_main_thread_to_register_new_token (GTask *task)
         G_UNLOCK (gsd_smartcard_tokens);
 
         g_task_return_boolean (task, TRUE);
+        g_object_unref (task);
 
         return G_SOURCE_REMOVE;
 }
@@ -637,7 +638,7 @@ register_new_token_in_main_thread_finish (GsdSmartcardService  *self,
                                           GAsyncResult         *result,
                                           GError              **error)
 {
-        return gsd_smartcard_utils_finish_boolean_task (G_OBJECT (self), result, error);
+        return g_task_propagate_boolean (G_TASK (result), error);
 }
 
 static void
@@ -692,6 +693,7 @@ on_main_thread_to_synchronize_token (GTask *task)
         synchronize_token_now (self, operation->card_slot);
 
         g_task_return_boolean (task, TRUE);
+        g_object_unref (task);
 
         return G_SOURCE_REMOVE;
 }
@@ -701,7 +703,7 @@ synchronize_token_in_main_thread_finish (GsdSmartcardService  *self,
                                          GAsyncResult         *result,
                                          GError              **error)
 {
-        return gsd_smartcard_utils_finish_boolean_task (G_OBJECT (self), result, error);
+        return g_task_propagate_boolean (G_TASK (result), error);
 }
 
 static void

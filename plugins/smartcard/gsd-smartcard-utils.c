@@ -172,19 +172,3 @@ gsd_smartcard_utils_escape_object_path (const char *unescaped_string)
 
   return object_path;
 }
-
-gboolean
-gsd_smartcard_utils_finish_boolean_task (GObject       *object,
-                                         GAsyncResult  *result,
-                                         GError       **error)
-{
-        gboolean return_value;
-
-        g_return_val_if_fail (g_task_is_valid (result, object), FALSE);
-
-        return_value = g_task_propagate_boolean (G_TASK (result), error);
-
-        g_object_unref (G_OBJECT (result));
-
-        return return_value;
-}
