@@ -569,6 +569,8 @@ activate_all_drivers_async (GsdSmartcardManager *self,
 
         }
         SECMOD_ReleaseReadLock (lock);
+
+        try_to_complete_all_drivers_activation (task);
 }
 
 static gboolean
