@@ -28,10 +28,6 @@ void             gsd_smartcard_utils_register_error_domain             (GQuark e
                                                                         GType error_enum);
 char *           gsd_smartcard_utils_escape_object_path                (const char *unescaped_string);
 
-gboolean         gsd_smartcard_utils_finish_boolean_task               (GObject       *object,
-                                                                        GAsyncResult  *result,
-                                                                        GError       **error);
-
 G_END_DECLS
 
 #endif /* __GSD_SMARTCARD_MANAGER_H */

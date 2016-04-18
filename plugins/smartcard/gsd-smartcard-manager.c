@@ -344,8 +344,6 @@ watch_smartcards_from_driver_async (GsdSmartcardManager *self,
         G_UNLOCK (gsd_smartcards_watch_tasks);
 
         g_task_run_in_thread (task, (GTaskThreadFunc) watch_smartcards_from_driver);
-
-        g_object_unref (task);
 }
 
 static gboolean
@@ -353,7 +351,7 @@ register_driver_finish (GsdSmartcardManager  *self,
                         GAsyncResult         *result,
                         GError              **error)
 {
-        return gsd_smartcard_utils_finish_boolean_task (G_OBJECT (self), result, error);
+        return g_task_propagate_boolean (G_TASK (result), error);
 }
 
 static void
@@ -365,10 +363,13 @@ on_driver_registered (GsdSmartcardManager *self,
 
         if (!register_driver_finish (self, result, &error)) {
                 g_task_return_error (task, error);
+                g_object_unref (task);
                 return;
         }
 
         g_task_return_boolean (task, TRUE);
+
+        g_object_unref (task);
 }
 
 static void
@@ -487,7 +488,7 @@ activate_driver_async_finish (GsdSmartcardManager  *self,
                               GAsyncResult         *result,
                               GError              **error)
 {
-        return gsd_smartcard_utils_finish_boolean_task (G_OBJECT (self), result, error);
+        return g_task_propagate_boolean (G_TASK (result), error);
 }
 
 static void
@@ -578,7 +579,7 @@ activate_all_drivers_async_finish (GsdSmartcardManager  *self,
                                    GAsyncResult         *result,
                                    GError              **error)
 {
-        return gsd_smartcard_utils_finish_boolean_task (G_OBJECT (self), result, error);
+        return g_task_propagate_boolean (G_TASK (result), error);
 }
 
 static void
@@ -608,6 +609,7 @@ on_all_drivers_activated (GsdSmartcardManager *self,
         }
 
         g_task_return_boolean (task, TRUE);
+        g_object_unref (task);
 }
 
 static void
@@ -647,8 +649,6 @@ watch_smartcards_async (GsdSmartcardManager *self,
         task = g_task_new (self, cancellable, callback, user_data);
 
         g_task_run_in_thread (task, (GTaskThreadFunc) watch_smartcards);
-
-        g_object_unref (task);
 }
 
 static gboolean
@@ -656,7 +656,7 @@ watch_smartcards_async_finish (GsdSmartcardManager  *self,
                                GAsyncResult         *result,
                                GError              **error)
 {
-        return gsd_smartcard_utils_finish_boolean_task (G_OBJECT (self), result, error);
+        return g_task_propagate_boolean (G_TASK (result), error);
 }
 
 static void
