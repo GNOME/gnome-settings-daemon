@@ -2511,9 +2511,12 @@ iio_proxy_changed (GsdPowerManager *manager)
         if (val_als == NULL)
                 goto out;
         manager->priv->ambient_last_absolute = g_variant_get_double (val_als);
+        g_debug ("Read last absolute light level: %f", manager->priv->ambient_last_absolute);
 
         /* the user has asked to renormalize */
         if (manager->priv->ambient_norm_required) {
+                g_debug ("Renormalizing light level from old light percentage: %.1f%%",
+                         manager->priv->ambient_percentage_old);
                 manager->priv->ambient_accumulator = manager->priv->ambient_percentage_old;
                 ch_backlight_renormalize (manager);
         }
@@ -2530,7 +2533,7 @@ iio_proxy_changed (GsdPowerManager *manager)
                 goto out;
 
         /* set new value */
-        g_debug ("set brightness from ambient %.1f%%",
+        g_debug ("Setting brightness from ambient %.1f%%",
                  manager->priv->ambient_accumulator);
         pc = manager->priv->ambient_accumulator;
         if (!backlight_set_percentage (manager->priv->rr_screen, &pc, &error)) {
