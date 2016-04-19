@@ -2539,10 +2539,8 @@ iio_proxy_changed (GsdPowerManager *manager)
         }
         manager->priv->ambient_percentage_old = pc;
 out:
-        if (val_has != NULL)
-                g_variant_unref (val_has);
-        if (val_als != NULL)
-                g_variant_unref (val_als);
+        g_clear_pointer (&val_has, g_variant_unref);
+        g_clear_pointer (&val_als, g_variant_unref);
 }
 
 static void
