@@ -104,7 +104,7 @@ ldsm_get_fs_id_for_path (const gchar *path)
 }
 
 static gboolean
-ldsm_mount_has_trash (LdsmMountInfo *mount)
+ldsm_mount_has_trash (const char *path)
 {
         const gchar *user_data_dir;
         gchar *user_data_attr_id_fs;
@@ -113,12 +113,10 @@ ldsm_mount_has_trash (LdsmMountInfo *mount)
         gchar *trash_files_dir;
         gboolean has_trash = FALSE;
         GDir *dir;
-        const gchar *path;
 
         user_data_dir = g_get_user_data_dir ();
         user_data_attr_id_fs = ldsm_get_fs_id_for_path (user_data_dir);
 
-        path = g_unix_mount_get_mount_path (mount->mount);
         path_attr_id_fs = ldsm_get_fs_id_for_path (path);
 
         if (g_strcmp0 (user_data_attr_id_fs, path_attr_id_fs) == 0) {
@@ -555,31 +553,83 @@ on_notification_closed (NotifyNotification *n)
 }
 
 static void
-ldsm_notify_for_mount (LdsmMountInfo *mount,
-                       gboolean       multiple_volumes)
+ldsm_notify (const char *summary,
+             const char *body,
+             const char *mount_path)
 {
-        gchar  *name, *program;
-        gint64 free_space;
-        gboolean has_trash;
+        gchar *program;
         gboolean has_disk_analyzer;
-        gchar *path;
-        char *free_space_str;
-        char *summary;
-        char *body;
+        gboolean has_trash;
 
         /* Don't show a notice if one is already displayed */
         if (notification != NULL)
                 return;
 
-        name = g_unix_mount_guess_name (mount->mount);
-        free_space = (gint64) mount->buf.f_frsize * (gint64) mount->buf.f_bavail;
-        has_trash = ldsm_mount_has_trash (mount);
-        path = g_strdup (g_unix_mount_get_mount_path (mount->mount));
+        notification = notify_notification_new (summary, body, "drive-harddisk-symbolic");
+        g_signal_connect (notification,
+                          "closed",
+                          G_CALLBACK (on_notification_closed),
+                          NULL);
+
+        notify_notification_set_app_name (notification, _("Disk space"));
+        notify_notification_set_hint (notification, "transient", g_variant_new_boolean (TRUE));
+        notify_notification_set_urgency (notification, NOTIFY_URGENCY_CRITICAL);
+        notify_notification_set_timeout (notification, NOTIFY_EXPIRES_DEFAULT);
 
         program = g_find_program_in_path (DISK_SPACE_ANALYZER);
         has_disk_analyzer = (program != NULL);
         g_free (program);
 
+        if (has_disk_analyzer) {
+                notify_notification_add_action (notification,
+                                                "examine",
+                                                _("Examine"),
+                                                (NotifyActionCallback) examine_callback,
+                                                g_strdup (mount_path),
+                                                g_free);
+        }
+
+        has_trash = ldsm_mount_has_trash (mount_path);
+
+        if (has_trash) {
+                notify_notification_add_action (notification,
+                                                "empty-trash",
+                                                _("Empty Trash"),
+                                                (NotifyActionCallback) empty_trash_callback,
+                                                NULL,
+                                                NULL);
+        }
+
+        notify_notification_add_action (notification,
+                                        "ignore",
+                                        _("Ignore"),
+                                        (NotifyActionCallback) ignore_callback,
+                                        NULL,
+                                        NULL);
+        notify_notification_set_category (notification, "device");
+
+        if (!notify_notification_show (notification, NULL)) {
+                g_warning ("failed to send disk space notification\n");
+        }
+}
+
+static void
+ldsm_notify_for_mount (LdsmMountInfo *mount,
+                       gboolean       multiple_volumes)
+{
+        gboolean has_trash;
+        gchar  *name;
+        gint64 free_space;
+        const gchar *path;
+        char *free_space_str;
+        char *summary;
+        char *body;
+
+        name = g_unix_mount_guess_name (mount->mount);
+        path = g_unix_mount_get_mount_path (mount->mount);
+        has_trash = ldsm_mount_has_trash (path);
+
+        free_space = (gint64) mount->buf.f_frsize * (gint64) mount->buf.f_bavail;
         free_space_str = g_format_size (free_space);
 
         if (multiple_volumes) {
@@ -603,51 +653,13 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
                                                 free_space_str);
                 }
         }
-        g_free (free_space_str);
 
-        notification = notify_notification_new (summary, body, "drive-harddisk-symbolic");
+        ldsm_notify (summary, body, path);
+
+        g_free (free_space_str);
         g_free (summary);
         g_free (body);
-
-        g_signal_connect (notification,
-                          "closed",
-                          G_CALLBACK (on_notification_closed),
-                          NULL);
-
-        notify_notification_set_app_name (notification, _("Disk space"));
-        notify_notification_set_hint (notification, "transient", g_variant_new_boolean (TRUE));
-        notify_notification_set_urgency (notification, NOTIFY_URGENCY_CRITICAL);
-        notify_notification_set_timeout (notification, NOTIFY_EXPIRES_DEFAULT);
-        if (has_disk_analyzer) {
-                notify_notification_add_action (notification,
-                                                "examine",
-                                                _("Examine"),
-                                                (NotifyActionCallback) examine_callback,
-                                                g_strdup (path),
-                                                g_free);
-        }
-        if (has_trash) {
-                notify_notification_add_action (notification,
-                                                "empty-trash",
-                                                _("Empty Trash"),
-                                                (NotifyActionCallback) empty_trash_callback,
-                                                NULL,
-                                                NULL);
-        }
-        notify_notification_add_action (notification,
-                                        "ignore",
-                                        _("Ignore"),
-                                        (NotifyActionCallback) ignore_callback,
-                                        NULL,
-                                        NULL);
-        notify_notification_set_category (notification, "device");
-
-        if (!notify_notification_show (notification, NULL)) {
-                g_warning ("failed to send disk space notification\n");
-        }
-
         g_free (name);
-        g_free (path);
 }
 
 static gboolean
