@@ -82,6 +82,9 @@ static guint              purge_after;
 static guint              purge_trash_id = 0;
 static guint              purge_temp_id = 0;
 
+static GDBusConnection   *session_bus = NULL;
+static guint              dconf_error_id = 0;
+
 static gchar*
 ldsm_get_fs_id_for_path (const gchar *path)
 {
@@ -616,6 +619,38 @@ ldsm_notify (const char *summary,
 }
 
 static void
+ldsm_dconf_error_notification (GDBusConnection *connection,
+                               const gchar     *sender_name,
+                               const gchar     *object_path,
+                               const gchar     *interface_name,
+                               const gchar     *signal_name,
+                               GVariant        *parameters,
+                               gpointer         user_data)
+{
+        const char *dbus_error_name;
+        const char *summary, *body;
+        const char *home_dir;
+        gboolean has_trash;
+
+        g_variant_get (parameters, "(&s&s)", &dbus_error_name, NULL);
+
+        if (g_strcmp0 (dbus_error_name, "ca.desrt.dconf.Writer.Error.OutOfSpace") != 0) {
+                return;
+        }
+
+        home_dir = g_get_home_dir ();
+        has_trash = ldsm_mount_has_trash (path);
+
+        summary = _("Low Disk Space");
+        if (has_trash)
+                body = _("Your computer is out of space.  You may free up some space by emptying the trash.");
+        else
+                body = _("Your computer is out of space.");
+
+        ldsm_notify (summary, body, home_dir);
+}
+
+static void
 ldsm_notify_for_mount (LdsmMountInfo *mount,
                        gboolean       multiple_volumes)
 {
@@ -998,6 +1033,18 @@ gsd_ldsm_setup (gboolean check_now)
 
         purge_trash_id = g_timeout_add_seconds (3600, ldsm_purge_trash_and_temp, NULL);
         g_source_set_name_by_id (purge_trash_id, "[gnome-settings-daemon] ldsm_purge_trash_and_temp");
+
+        session_bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
+        if (session_bus)
+                dconf_error_id = g_dbus_connection_signal_subscribe (session_bus,
+                                                                     "ca.desrt.dconf",
+                                                                     "ca.desrt.dconf.Writer",
+                                                                     "Error",
+                                                                     NULL,
+                                                                     NULL,
+                                                                     G_DBUS_SIGNAL_FLAGS_NONE,
+                                                                     ldsm_dconf_error_notification,
+                                                                     NULL, NULL);
 }
 
 void
@@ -1015,7 +1062,12 @@ gsd_ldsm_clean (void)
                 g_source_remove (ldsm_timeout_id);
         ldsm_timeout_id = 0;
 
+        if (dconf_error_id)
+                g_dbus_connection_signal_unsubscribe (session_bus, dconf_error_id);
+        dconf_error_id = 0;
+
         g_clear_pointer (&ldsm_notified_hash, g_hash_table_destroy);
+        g_clear_object (&session_bus);
         g_clear_object (&ldsm_monitor);
         g_clear_object (&settings);
         g_clear_object (&privacy_settings);
