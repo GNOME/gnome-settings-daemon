@@ -556,8 +556,7 @@ on_notification_closed (NotifyNotification *n)
 
 static void
 ldsm_notify_for_mount (LdsmMountInfo *mount,
-                       gboolean       multiple_volumes,
-                       gboolean       other_usable_volumes)
+                       gboolean       multiple_volumes)
 {
         gchar  *name, *program;
         gint64 free_space;
@@ -709,8 +708,7 @@ ldsm_free_mount_info (gpointer data)
 
 static void
 ldsm_maybe_warn_mounts (GList *mounts,
-                        gboolean multiple_volumes,
-                        gboolean other_usable_volumes)
+                        gboolean multiple_volumes)
 {
         GList *l;
         gboolean done = FALSE;
@@ -767,7 +765,7 @@ ldsm_maybe_warn_mounts (GList *mounts,
                 }
 
                 if (show_notify) {
-                        ldsm_notify_for_mount (mount_info, multiple_volumes, other_usable_volumes);
+                        ldsm_notify_for_mount (mount_info, multiple_volumes);
                         done = TRUE;
                 }
         }
@@ -781,9 +779,7 @@ ldsm_check_all_mounts (gpointer data)
         GList *check_mounts = NULL;
         GList *full_mounts = NULL;
         guint number_of_mounts;
-        guint number_of_full_mounts;
         gboolean multiple_volumes = FALSE;
-        gboolean other_usable_volumes = FALSE;
 
         /* We iterate through the static mounts in /etc/fstab first, seeing if
          * they're mounted by checking if the GUnixMountPoint has a corresponding GUnixMountEntry.
@@ -855,12 +851,7 @@ ldsm_check_all_mounts (gpointer data)
                 }
         }
 
-        number_of_full_mounts = g_list_length (full_mounts);
-        if (number_of_mounts > number_of_full_mounts)
-                other_usable_volumes = TRUE;
-
-        ldsm_maybe_warn_mounts (full_mounts, multiple_volumes,
-                                other_usable_volumes);
+        ldsm_maybe_warn_mounts (full_mounts, multiple_volumes);
 
         g_list_free (check_mounts);
         g_list_free (full_mounts);
