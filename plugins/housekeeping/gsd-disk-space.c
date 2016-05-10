@@ -554,7 +554,7 @@ on_notification_closed (NotifyNotification *n)
         notification = NULL;
 }
 
-static gboolean
+static void
 ldsm_notify_for_mount (LdsmMountInfo *mount,
                        gboolean       multiple_volumes,
                        gboolean       other_usable_volumes)
@@ -563,7 +563,6 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
         gint64 free_space;
         gboolean has_trash;
         gboolean has_disk_analyzer;
-        gboolean retval = TRUE;
         gchar *path;
         char *free_space_str;
         char *summary;
@@ -571,7 +570,7 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
 
         /* Don't show a notice if one is already displayed */
         if (notification != NULL)
-                return retval;
+                return;
 
         name = g_unix_mount_guess_name (mount->mount);
         free_space = (gint64) mount->buf.f_frsize * (gint64) mount->buf.f_bavail;
@@ -650,8 +649,6 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
 
         g_free (name);
         g_free (path);
-
-        return retval;
 }
 
 static gboolean
@@ -770,8 +767,8 @@ ldsm_maybe_warn_mounts (GList *mounts,
                 }
 
                 if (show_notify) {
-                        if (ldsm_notify_for_mount (mount_info, multiple_volumes, other_usable_volumes))
-                                done = TRUE;
+                        ldsm_notify_for_mount (mount_info, multiple_volumes, other_usable_volumes);
+                        done = TRUE;
                 }
         }
 }
