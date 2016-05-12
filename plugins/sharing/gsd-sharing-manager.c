@@ -39,8 +39,6 @@
 typedef struct {
         const char  *name;
         GSettings   *settings;
-        gboolean     started;
-        GSubprocess *process;
 } ServiceInfo;
 
 struct GsdSharingManagerPrivate
@@ -102,48 +100,72 @@ static const char * const services[] = {
 };
 
 static void
+handle_unit_cb (GObject      *source_object,
+                GAsyncResult *res,
+                gpointer      user_data)
+{
+        GError *error = NULL;
+        GVariant *ret;
+        const char *operation = user_data;
+
+        ret = g_dbus_connection_call_finish (G_DBUS_CONNECTION (source_object),
+                                             res, &error);
+        if (!ret) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to %s service: %s", operation, error->message);
+                g_error_free (error);
+                return;
+        }
+
+        g_variant_unref (ret);
+
+}
+
+static void
+gsd_sharing_manager_handle_service (GsdSharingManager   *manager,
+                                    const char          *method,
+                                    GAsyncReadyCallback  callback,
+                                    ServiceInfo         *service)
+{
+        char *service_file;
+
+        service_file = g_strdup_printf ("%s.service", service->name);
+        g_dbus_connection_call (manager->priv->connection,
+                                "org.freedesktop.systemd1",
+                                "/org/freedesktop/systemd1",
+                                "org.freedesktop.systemd1.Manager",
+                                method,
+                                g_variant_new ("(ss)", service_file, "replace"),
+                                NULL,
+                                G_DBUS_CALL_FLAGS_NONE,
+                                -1,
+                                manager->priv->cancellable,
+                                callback,
+                                manager);
+        g_free (service_file);
+}
+
+static void
 gsd_sharing_manager_start_service (GsdSharingManager *manager,
                                    ServiceInfo       *service)
 {
-        GDesktopAppInfo *app;
-        const char *exec;
-        char *desktop, **argvp;
-        GError *error = NULL;
-
-        if (service->started)
-                return;
         g_debug ("About to start %s", service->name);
 
-        desktop = g_strdup_printf ("%s.desktop", service->name);
-        app = g_desktop_app_info_new (desktop);
-        g_free (desktop);
+        /* We use StartUnit, not StartUnitReplace, since the latter would
+         * cancel any pending start we already have going from an
+         * earlier _start_service() call */
+        gsd_sharing_manager_handle_service (manager, "StartUnit",
+                                            handle_unit_cb, "start");
+}
 
-        if (!app) {
-                g_warning ("Could not find desktop file for service '%s'", service->name);
-                return;
-        }
+static void
+gsd_sharing_manager_stop_service (GsdSharingManager *manager,
+                                  ServiceInfo       *service)
+{
+        g_debug ("About to stop %s", service->name);
 
-        exec = g_app_info_get_commandline (G_APP_INFO (app));
-
-        if (!g_shell_parse_argv (exec, NULL, &argvp, &error)) {
-                g_warning ("Could not parse command-line '%s': %s", exec, error->message);
-                g_error_free (error);
-                g_object_unref (app);
-                return;
-        }
-
-        service->process = g_subprocess_newv ((const gchar * const*) argvp, G_SUBPROCESS_FLAGS_NONE, &error);
-
-        if (!service->process) {
-                g_warning ("Could not start command-line '%s': %s", exec, error->message);
-                g_error_free (error);
-                service->started = FALSE;
-        } else {
-                service->started = TRUE;
-        }
-
-        g_strfreev (argvp);
-        g_object_unref (app);
+        gsd_sharing_manager_handle_service (manager, "StopUnit",
+                                            handle_unit_cb, "stop");
 }
 
 #ifdef HAVE_NETWORK_MANAGER
@@ -176,22 +198,6 @@ service_is_enabled_on_current_connection (GsdSharingManager *manager,
 #endif /* HAVE_NETWORK_MANAGER */
 
 static void
-gsd_sharing_manager_stop_service (GsdSharingManager *manager,
-                                  ServiceInfo       *service)
-{
-        if (!service->started ||
-            service->process == NULL) {
-                    return;
-        }
-
-        g_debug ("About to stop %s", service->name);
-
-        g_subprocess_send_signal (service->process, SIGTERM);
-        g_clear_object (&service->process);
-        service->started = FALSE;
-}
-
-static void
 gsd_sharing_manager_sync_services (GsdSharingManager *manager)
 {
         GList *services, *l;
@@ -206,12 +212,10 @@ gsd_sharing_manager_sync_services (GsdSharingManager *manager)
                     service_is_enabled_on_current_connection (manager, service))
                         should_be_started = TRUE;
 
-                if (service->started != should_be_started) {
-                        if (service->started)
-                                gsd_sharing_manager_stop_service (manager, service);
-                        else
-                                gsd_sharing_manager_start_service (manager, service);
-                }
+                if (should_be_started)
+                        gsd_sharing_manager_start_service (manager, service);
+                else
+                        gsd_sharing_manager_stop_service (manager, service);
         }
         g_list_free (services);
 }
