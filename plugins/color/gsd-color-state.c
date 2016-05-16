@@ -970,6 +970,7 @@ gcm_session_add_state_output (GsdColorState *state, GnomeRROutput *output)
 {
         const gchar *edid_checksum = NULL;
         const gchar *model = NULL;
+        const gchar *output_name = NULL;
         const gchar *serial = NULL;
         const gchar *vendor = NULL;
         gboolean ret;
@@ -978,6 +979,13 @@ gcm_session_add_state_output (GsdColorState *state, GnomeRROutput *output)
         GError *error = NULL;
         GHashTable *device_props = NULL;
         GsdColorStatePrivate *priv = state->priv;
+
+        /* VNC creates a fake device that cannot be color managed */
+        output_name = gnome_rr_output_get_name (output);
+        if (output_name != NULL && g_str_has_prefix (output_name, "VNC-")) {
+                g_debug ("ignoring %s as fake VNC device detected", output_name);
+                return;
+        }
 
         /* try to get edid */
         edid = gcm_session_get_output_edid (state, output, &error);
