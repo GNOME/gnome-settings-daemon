@@ -259,6 +259,8 @@ wacom_set_property (GsdWacomDevice *device,
 	XDevice *xdev;
 
 	xdev = open_device (device);
+	if (xdev == NULL)
+		return;
 	device_set_property (xdev, gsd_wacom_device_get_tool_name (device), property);
 	xdevice_close (xdev);
 }
@@ -376,6 +378,8 @@ set_absolute (GsdWacomDevice  *device,
 	XDevice *xdev;
 
 	xdev = open_device (device);
+	if (xdev == NULL)
+		return;
 	gdk_error_trap_push ();
 	XSetDeviceMode (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev, is_absolute ? Absolute : Relative);
 	if (gdk_error_trap_pop ())
@@ -514,6 +518,8 @@ set_device_buttonmap (GsdWacomDevice *device,
 	int i, j, rc;
 
 	xdev = open_device (device);
+	if (xdev == NULL)
+		return;
 
 	intmap = g_variant_get_fixed_array (value, &nmap, sizeof (gint32));
 	map = g_new0 (unsigned char, nmap);
@@ -740,6 +746,8 @@ reset_pad_buttons (GsdWacomDevice *device)
 
 	/* Normal buttons */
 	xdev = open_device (device);
+	if (xdev == NULL)
+		return;
 
 	gdk_error_trap_push ();
 
