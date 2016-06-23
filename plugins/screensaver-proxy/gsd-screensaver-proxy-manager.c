@@ -20,17 +20,20 @@
 #include "config.h"
 
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+#include <fcntl.h>
 #include <errno.h>
 
 #include <locale.h>
 
 #include <glib/gi18n.h>
 #include <gio/gio.h>
+#include <gio/gdesktopappinfo.h>
 
 #include "gnome-settings-bus.h"
 #include "gnome-settings-profile.h"
@@ -181,6 +184,164 @@ name_vanished_cb (GDBusConnection            *connection,
         g_hash_table_remove (manager->watch_ht, name);
 }
 
+/* Based on xdp_get_app_id_from_pid() from xdg-desktop-portal
+ * Returns NULL on failure, keyfile with name "" if not sandboxed, and full app-info otherwise */
+static GKeyFile *
+parse_app_info_from_fileinfo (int pid)
+{
+  g_autofree char *root_path = NULL;
+  g_autofree char *path = NULL;
+  g_autofree char *content = NULL;
+  g_autofree char *app_id = NULL;
+  int root_fd = -1;
+  int info_fd = -1;
+  struct stat stat_buf;
+  g_autoptr(GError) local_error = NULL;
+  g_autoptr(GMappedFile) mapped = NULL;
+  g_autoptr(GKeyFile) metadata = NULL;
+
+  root_path = g_strdup_printf ("/proc/%u/root", pid);
+  root_fd = openat (AT_FDCWD, root_path, O_RDONLY | O_NONBLOCK | O_DIRECTORY | O_CLOEXEC | O_NOCTTY);
+  if (root_fd == -1)
+    {
+      /* Not able to open the root dir shouldn't happen. Probably the app died and
+         we're failing due to /proc/$pid not existing. In that case fail instead
+         of treating this as privileged. */
+      return NULL;
+    }
+
+  metadata = g_key_file_new ();
+
+  info_fd = openat (root_fd, ".flatpak-info", O_RDONLY | O_CLOEXEC | O_NOCTTY);
+  close (root_fd);
+  if (info_fd == -1)
+    {
+      if (errno == ENOENT)
+        {
+          /* No file => on the host */
+          g_key_file_set_string (metadata, "Application", "name", "");
+          return g_steal_pointer (&metadata);
+        }
+
+      /* Some weird error => failure */
+      return NULL;
+    }
+
+  if (fstat (info_fd, &stat_buf) != 0 || !S_ISREG (stat_buf.st_mode))
+    {
+      /* Some weird fd => failure */
+      close (info_fd);
+      return NULL;
+    }
+
+  mapped = g_mapped_file_new_from_fd  (info_fd, FALSE, &local_error);
+  if (mapped == NULL)
+    {
+      close (info_fd);
+      return NULL;
+    }
+
+  if (!g_key_file_load_from_data (metadata,
+                                  g_mapped_file_get_contents (mapped),
+                                  g_mapped_file_get_length (mapped),
+                                  G_KEY_FILE_NONE, &local_error))
+    {
+      close (info_fd);
+      return NULL;
+    }
+
+  return g_steal_pointer (&metadata);
+}
+
+static char *
+get_xdg_id (guint32 pid)
+{
+  g_autoptr(GKeyFile) app_info = NULL;
+
+  app_info = parse_app_info_from_fileinfo (pid);
+  if (app_info == NULL)
+    return NULL;
+
+  return g_key_file_get_string (app_info, "Application", "name", NULL);
+}
+
+static char *
+get_app_id_from_flatpak (GDBusConnection *connection,
+                         GCancellable    *cancellable,
+                         const char      *sender)
+{
+        GVariant *ret;
+        guint32 pid;
+        GError *error = NULL;
+
+        ret = g_dbus_connection_call_sync (connection,
+                                           "org.freedesktop.DBus",
+                                           "/org/freedesktop/DBus",
+                                           "org.freedesktop.DBus",
+                                           "GetConnectionUnixProcessID",
+                                           g_variant_new ("(s)", sender),
+                                           G_VARIANT_TYPE ("(u)"),
+                                           G_DBUS_CALL_FLAGS_NO_AUTO_START,
+                                           -1,
+                                           cancellable,
+                                           NULL);
+        if (ret == NULL) {
+                g_debug ("Could not get PID for sender '%s': %s", sender, error->message);
+                g_error_free (error);
+                return NULL;
+        }
+
+        g_assert (g_variant_n_children (ret) > 0);
+        g_variant_get_child (ret, 0, "u", &pid);
+        g_variant_unref (ret);
+
+        return get_xdg_id (pid);
+}
+
+static void
+get_inhibit_args (GDBusConnection  *connection,
+                  GCancellable     *cancellable,
+                  GVariant         *parameters,
+                  const char       *sender,
+                  char            **app_id,
+                  char            **reason)
+{
+        const char *p_app_id;
+        const char *p_reason;
+
+        g_variant_get (parameters,
+                       "(ss)", &p_app_id, &p_reason);
+
+        /* Try to get useful app id and reason for SDL games:
+         * http://hg.libsdl.org/SDL/file/bc2aba33ae1f/src/core/linux/SDL_dbus.c#l315 */
+
+        if (g_strcmp0 (p_app_id, "My SDL application") != 0) {
+                *app_id = g_strdup (p_app_id);
+        } else {
+                *app_id = get_app_id_from_flatpak (connection, cancellable, sender);
+                if (*app_id == NULL)
+                        *app_id = g_strdup (p_app_id);
+        }
+
+        if (g_strcmp0 (p_reason, "Playing a game") != 0 ||
+            g_strcmp0 (*app_id, "My SDL application") == 0) {
+                *reason = g_strdup (p_reason);
+        } else {
+                GDesktopAppInfo *app_info;
+
+                app_info = g_desktop_app_info_new (*app_id);
+                if (app_info == NULL) {
+                        *reason = g_strdup (p_reason);
+                } else {
+                        /* Translators: This is the reason to disable the screensaver, for example:
+                         * Playing “Another World: 20th anniversary Edition” */
+                        *reason = g_strdup_printf (_("Playing “%s”"),
+                                                   g_app_info_get_name (G_APP_INFO (app_info)));
+                        g_object_unref (app_info);
+                }
+        }
+}
+
 static void
 handle_method_call (GDBusConnection       *connection,
                     const gchar           *sender,
@@ -204,12 +365,16 @@ handle_method_call (GDBusConnection       *connection,
 
         if (g_strcmp0 (method_name, "Inhibit") == 0) {
                 GVariant *ret;
-                const char *app_id;
-                const char *reason;
+                char *app_id;
+                char *reason;
                 guint cookie;
 
-                g_variant_get (parameters,
-                               "(ss)", &app_id, &reason);
+                get_inhibit_args (connection,
+                                  manager->bus_cancellable,
+                                  parameters,
+                                  sender,
+                                  &app_id,
+                                  &reason);
 
                 ret = g_dbus_proxy_call_sync (G_DBUS_PROXY (G_DBUS_PROXY (manager->session)),
                                               "Inhibit",
@@ -217,6 +382,8 @@ handle_method_call (GDBusConnection       *connection,
                                                              app_id, 0, reason, GSM_INHIBITOR_FLAG_IDLE),
                                               G_DBUS_CALL_FLAGS_NONE,
                                               -1, NULL, NULL);
+                g_free (reason);
+                g_free (app_id);
                 g_variant_get (ret, "(u)", &cookie);
                 g_hash_table_insert (manager->cookie_ht,
                                      GUINT_TO_POINTER (cookie),
