@@ -9,11 +9,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon gnome-3-20\n"
+"Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-05-17 13:26+0000\n"
-"PO-Revision-Date: 2016-06-24 16:55+0700\n"
+"POT-Creation-Date: 2016-06-24 09:58+0000\n"
+"PO-Revision-Date: 2016-06-24 16:59+0700\n"
 "Last-Translator: Andika Triwidada <atriwidada@gnome.org>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
@@ -992,12 +992,28 @@ msgstr "Dummy"
 msgid "Dummy plugin"
 msgstr "Pengaya dummy"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:588
+#: ../plugins/housekeeping/gsd-disk-space.c:574
+msgid "Disk space"
+msgstr "Ruang disk"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:586
+msgid "Examine"
+msgstr "Periksa"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:597
+msgid "Empty Trash"
+msgstr "Kosongkan Tempat Sampah"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:605
+msgid "Ignore"
+msgstr "Abaikan"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:636
 #, c-format
 msgid "Low Disk Space on “%s”"
 msgstr "Sisa Ruang Disk pada \"%s\" Sedikit"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:590
+#: ../plugins/housekeeping/gsd-disk-space.c:638
 #, c-format
 msgid ""
 "The volume “%s” has only %s disk space remaining.  You may free up some "
@@ -1006,16 +1022,16 @@ msgstr ""
 "Volume \"%s\" hanya memiliki %s ruang kosong. Anda dapat menambah ruang "
 "kosong dengan mengosongkan tempat sampah."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:594
+#: ../plugins/housekeeping/gsd-disk-space.c:642
 #, c-format
 msgid "The volume “%s” has only %s disk space remaining."
 msgstr "Volume \"%s\" hanya memiliki %s ruang kosong tersisa."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:599
+#: ../plugins/housekeeping/gsd-disk-space.c:647
 msgid "Low Disk Space"
 msgstr "Ruang Kosong Tinggal Sedikit"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:601
+#: ../plugins/housekeeping/gsd-disk-space.c:649
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1024,26 +1040,10 @@ msgstr ""
 "Komputer ini hanya memiliki %s ruang kosong pada diska. Anda dapat menambah "
 "ruang kosong tersebut dengan mengosongkan folder tempat sampah."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:604
+#: ../plugins/housekeeping/gsd-disk-space.c:652
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "Komputer ini hanya memiliki %s ruang kosong pada diska."
-
-#: ../plugins/housekeeping/gsd-disk-space.c:619
-msgid "Disk space"
-msgstr "Ruang disk"
-
-#: ../plugins/housekeeping/gsd-disk-space.c:626
-msgid "Examine"
-msgstr "Periksa"
-
-#: ../plugins/housekeeping/gsd-disk-space.c:634
-msgid "Empty Trash"
-msgstr "Kosongkan Tempat Sampah"
-
-#: ../plugins/housekeeping/gsd-disk-space.c:641
-msgid "Ignore"
-msgstr "Abaikan"
 
 #: ../plugins/housekeeping/housekeeping.gnome-settings-plugin.in.h:1
 msgid "Housekeeping"
@@ -1173,85 +1173,89 @@ msgstr "Besarkan Suara Hening"
 msgid "Lock Screen"
 msgstr "Kunci Layar"
 
-#: ../plugins/media-keys/shortcuts-list.h:80
+#: ../plugins/media-keys/shortcuts-list.h:67
+msgid "Help"
+msgstr "Bantuan"
+
+#: ../plugins/media-keys/shortcuts-list.h:81
 msgid "Rewind"
 msgstr "Putar Balik"
 
-#: ../plugins/media-keys/shortcuts-list.h:81
+#: ../plugins/media-keys/shortcuts-list.h:82
 msgid "Forward"
 msgstr "Maju"
 
-#: ../plugins/media-keys/shortcuts-list.h:82
+#: ../plugins/media-keys/shortcuts-list.h:83
 msgid "Repeat"
 msgstr "Ulangi"
 
-#: ../plugins/media-keys/shortcuts-list.h:83
+#: ../plugins/media-keys/shortcuts-list.h:84
 msgid "Random Play"
 msgstr "Putar Acak"
 
 #. Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.)
-#: ../plugins/media-keys/shortcuts-list.h:84
-#: ../plugins/media-keys/shortcuts-list.h:86
+#: ../plugins/media-keys/shortcuts-list.h:85
+#: ../plugins/media-keys/shortcuts-list.h:87
 msgid "Video Out"
 msgstr "Video Out"
 
 #. Key code of the XF86RotateWindows key (present on some tablets)
-#: ../plugins/media-keys/shortcuts-list.h:88
+#: ../plugins/media-keys/shortcuts-list.h:89
 msgid "Rotate Screen"
 msgstr "Putar Layar"
 
-#: ../plugins/media-keys/shortcuts-list.h:89
+#: ../plugins/media-keys/shortcuts-list.h:90
 msgid "Orientation Lock"
 msgstr "Kunci Orientasi"
 
-#: ../plugins/media-keys/shortcuts-list.h:98
+#: ../plugins/media-keys/shortcuts-list.h:99
 msgid "Power Off"
 msgstr "Matikan Daya"
 
 #. the kernel / Xorg names really are like this...
 #. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
-#: ../plugins/media-keys/shortcuts-list.h:101
+#: ../plugins/media-keys/shortcuts-list.h:102
 msgid "Sleep"
 msgstr "Tidur"
 
-#: ../plugins/media-keys/shortcuts-list.h:102
+#: ../plugins/media-keys/shortcuts-list.h:103
 msgid "Suspend"
 msgstr "Suspensi"
 
-#: ../plugins/media-keys/shortcuts-list.h:103
+#: ../plugins/media-keys/shortcuts-list.h:104
 msgid "Hibernate"
 msgstr "Hibernasi"
 
-#: ../plugins/media-keys/shortcuts-list.h:104
+#: ../plugins/media-keys/shortcuts-list.h:105
 msgid "Brightness Up"
 msgstr "Kecerahan Naik"
 
-#: ../plugins/media-keys/shortcuts-list.h:105
+#: ../plugins/media-keys/shortcuts-list.h:106
 msgid "Brightness Down"
 msgstr "Kecerahan Turun"
 
-#: ../plugins/media-keys/shortcuts-list.h:106
+#: ../plugins/media-keys/shortcuts-list.h:107
 msgid "Keyboard Brightness Up"
 msgstr "Kecerahan Papan Tik Naik"
 
-#: ../plugins/media-keys/shortcuts-list.h:107
+#: ../plugins/media-keys/shortcuts-list.h:108
 msgid "Keyboard Brightness Down"
 msgstr "Kecerahan Papan Tik Turun"
 
-#: ../plugins/media-keys/shortcuts-list.h:108
+#: ../plugins/media-keys/shortcuts-list.h:109
 msgid "Keyboard Brightness Toggle"
 msgstr "Jungkitkan Kecerahan Papan Tik"
 
-#: ../plugins/media-keys/shortcuts-list.h:109
+#: ../plugins/media-keys/shortcuts-list.h:110
 msgid "Battery Status"
 msgstr "Status Baterai"
 
-#: ../plugins/media-keys/shortcuts-list.h:110
 #: ../plugins/media-keys/shortcuts-list.h:111
+#: ../plugins/media-keys/shortcuts-list.h:112
 msgid "Toggle Airplane Mode"
 msgstr "Jungkitkan Mode Pesawat Terbang"
 
-#: ../plugins/media-keys/shortcuts-list.h:112
+#: ../plugins/media-keys/shortcuts-list.h:113
 msgid "Toggle Bluetooth"
 msgstr "Jungkitkan Bluetooth"
 
@@ -2064,16 +2068,16 @@ msgstr "Tombol Dasar #%d"
 msgid "New shortcut…"
 msgstr "Pintasan baru..."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1029
+#: ../plugins/wacom/gsd-wacom-manager.c:1037
 #, c-format
 msgid "The \"%s\" tablet may not work as expected."
 msgstr "Tablet \"%s\" mungkin tak bekerja seperti yang diharapkan."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1030
+#: ../plugins/wacom/gsd-wacom-manager.c:1038
 msgid "Unknown Tablet Connected"
 msgstr "Tablet Tak Dikenal Tersambung"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1034
+#: ../plugins/wacom/gsd-wacom-manager.c:1042
 msgid "Wacom Settings"
 msgstr "Pengaturan Wacom"
 
