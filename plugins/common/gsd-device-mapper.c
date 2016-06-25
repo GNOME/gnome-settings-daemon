@@ -703,6 +703,10 @@ input_info_update_settings_output (GsdInputInfo *info)
 	if (!info->settings || !info->mapper->rr_screen)
 		return;
 
+	if ((info->capabilities &
+	    (GSD_INPUT_IS_SCREEN_INTEGRATED | GSD_INPUT_IS_SYSTEM_INTEGRATED)) == 0)
+		return;
+
 	rr_output = settings_get_display (info->settings, info->mapper);
 
 	if (rr_output)
