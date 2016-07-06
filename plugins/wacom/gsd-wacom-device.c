@@ -1504,6 +1504,7 @@ gsd_wacom_device_constructor (GType                     type,
 			device->priv->type = WACOM_TYPE_INVALID;
 			goto end;
 		}
+		libwacom_error_free (&wacom_error);
 	}
 
 	gsd_wacom_device_update_from_db (device, wacom_device, device->priv->path);
