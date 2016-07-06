@@ -383,8 +383,8 @@ set_absolute (GsdWacomDevice  *device,
 	gdk_error_trap_push ();
 	XSetDeviceMode (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev, is_absolute ? Absolute : Relative);
 	if (gdk_error_trap_pop ())
-		g_error ("Failed to set mode \"%s\" for \"%s\".",
-			 is_absolute ? "Absolute" : "Relative", gsd_wacom_device_get_tool_name (device));
+		g_warning ("Failed to set mode \"%s\" for \"%s\".",
+			   is_absolute ? "Absolute" : "Relative", gsd_wacom_device_get_tool_name (device));
 	xdevice_close (xdev);
 }
 
