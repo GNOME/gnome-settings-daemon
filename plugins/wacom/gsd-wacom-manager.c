@@ -321,6 +321,7 @@ set_area (GsdWacomDevice  *device,
 
         if (nvalues != 4) {
                 g_error ("Area configuration requires 4 values.");
+                g_variant_unref (value);
                 return;
         }
 
@@ -333,6 +334,7 @@ set_area (GsdWacomDevice  *device,
 
                 if (!area) {
                         g_warning ("No default area could be obtained from the device");
+                        g_variant_unref (value);
                         return;
                 }
 
@@ -352,6 +354,7 @@ set_area (GsdWacomDevice  *device,
                          property.data.i[3]);
                 wacom_set_property (device, &property);
         }
+        g_variant_unref (value);
 }
 
 static void
@@ -366,7 +369,6 @@ reset_area (GsdWacomDevice *device)
         variant = g_variant_new_array (G_VARIANT_TYPE_INT32, values, G_N_ELEMENTS (values));
 
         set_area (device, variant);
-        g_variant_unref (variant);
 }
 
 static void
@@ -463,9 +465,9 @@ set_keep_aspect (GsdWacomDevice *device,
          */
 	if (!keep_aspect) {
 		g_settings_set_value (settings, KEY_AREA, variant);
-		g_variant_unref (variant);
 		return;
         }
+	g_variant_unref (variant);
 
         /* Reset the device area to get the default area */
 	reset_area (device);
@@ -514,6 +516,10 @@ set_device_buttonmap (GsdWacomDevice *device,
 	int i, j, rc;
 
 	xdev = open_device (device);
+	if (xdev == NULL) {
+	        g_variant_unref (value);
+		return;
+	}
 
 	intmap = g_variant_get_fixed_array (value, &nmap, sizeof (gint32));
 	map = g_new0 (unsigned char, nmap);
@@ -783,6 +789,7 @@ gsettings_oled_changed (GSettings *settings,
 	label = g_settings_get_string (settings, OLED_LABEL);
 	device = g_object_get_data (G_OBJECT (button->settings), "parent-device");
 	set_oled (device, button->id, label);
+	g_free (label);
 }
 
 static void
@@ -1156,8 +1163,32 @@ static void
 gsd_wacom_manager_remove_gdk_device (GsdWacomManager *manager,
                                      GdkDevice       *gdk_device)
 {
+	GsdWacomDevice *device;
+	GSettings *settings;
+	GsdWacomDeviceType type;
+
 	g_debug ("Removing device '%s' from known devices list",
 		 gdk_device_get_name (gdk_device));
+
+	device = g_hash_table_lookup (manager->priv->devices, gdk_device);
+	type = gsd_wacom_device_get_device_type (device);
+	settings = gsd_wacom_device_get_settings (device);
+
+	g_signal_handlers_disconnect_by_data (G_OBJECT (settings), device);
+
+	if (type == WACOM_TYPE_STYLUS || type == WACOM_TYPE_ERASER) {
+		GList *styli, *l;
+
+		styli = gsd_wacom_device_list_styli (device);
+
+		for (l = styli ; l ; l = l->next) {
+			settings = gsd_wacom_stylus_get_settings (l->data);
+			g_signal_handlers_disconnect_by_data (G_OBJECT (settings), l->data);
+		}
+
+		g_list_free (styli);
+	}
+
 	g_hash_table_remove (manager->priv->devices, gdk_device);
 
 	/* Enable this chunk of code if you want to valgrind
