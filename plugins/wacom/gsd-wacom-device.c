@@ -429,9 +429,12 @@ setup_property_notify (GsdWacomDevice *device)
 	XISetMask (evmask.mask, XI_PropertyEvent);
 
 	dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
-	XISelectEvents (dpy, DefaultRootWindow (dpy), &evmask, 1);
 
+	gdk_error_trap_push ();
+	XISelectEvents (dpy, DefaultRootWindow (dpy), &evmask, 1);
 	g_free (evmask.mask);
+	if (gdk_error_trap_pop ())
+		return TRUE;
 
 	gdk_window_add_filter (NULL,
 			       (GdkFilterFunc) filter_events,
