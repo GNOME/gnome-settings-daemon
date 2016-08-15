@@ -33,6 +33,7 @@ int main (int argc, char **argv)
 {
         GList *devices, *l;
 	gboolean has_touchpad, has_touchscreen;
+        gboolean has_mouse;
 
 	gtk_init (&argc, &argv);
 
