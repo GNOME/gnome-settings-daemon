@@ -38,7 +38,7 @@ int main (int argc, char **argv)
 	gtk_init (&argc, &argv);
 
 	has_mouse = mouse_is_present ();
-	g_printf ("Has mouse:\t\t\t\t%s\n", has_mouse ? "yes" : "no");
+	g_print ("Has mouse:\t\t\t\t%s\n", has_mouse ? "yes" : "no");
 
 	has_touchpad = touchpad_is_present ();
 	g_print ("Has touchpad:\t\t\t\t%s\n", has_touchpad ? "yes" : "no");
