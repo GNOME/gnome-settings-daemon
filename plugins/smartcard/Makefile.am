@@ -25,14 +25,16 @@ gsd-smartcard-enum-types.c: gsd-smartcard-enum-types.c.in $(libsmartcard_headers
 	$(AM_V_GEN) $(GLIB_MKENUMS) --template $^ > $@
 
 gsd_test_smartcard_SOURCES =        \
-	$(dbus_built_sources)   \
-	$(enum_built_sources)   \
 	gsd-smartcard-service.c \
 	gsd-smartcard-service.h \
 	gsd-smartcard-manager.c \
 	gsd-smartcard-utils.h \
 	gsd-smartcard-utils.c   \
 	test-smartcard.c
+
+nodist_gsd_test_smartcard_SOURCES = \
+	$(dbus_built_sources) \
+	$(enum_built_sources)
 
 gsd_test_smartcard_CPPFLAGS =                                   \
 	-I$(top_srcdir)/data/                                   \
@@ -62,14 +64,16 @@ gsd_test_smartcard_LDADD =                                      \
 
 libsmartcard_la_SOURCES = \
 	$(libsmartcard_headers) \
-	$(dbus_built_sources) \
-	$(enum_built_sources) \
 	gsd-smartcard-manager.c \
 	gsd-smartcard-plugin.c  \
 	gsd-smartcard-service.h \
 	gsd-smartcard-service.c \
 	gsd-smartcard-utils.h \
 	gsd-smartcard-utils.c
+
+nodist_libsmartcard_la_SOURCES = \
+	$(dbus_built_sources) \
+	$(enum_built_sources)
 
 libsmartcard_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon \
@@ -108,7 +112,9 @@ EXTRA_DIST = \
 	$(plugin_in_files)
 
 CLEANFILES = \
+	$(BUILT_SOURCES) \
 	$(plugin_DATA)
 
 DISTCLEANFILES = \
+	$(BUILT_SOURCES) \
 	$(plugin_DATA)
