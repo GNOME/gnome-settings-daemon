@@ -89,18 +89,14 @@ gnome_settings_manager_error_quark (void)
 }
 
 static void
-maybe_activate_plugin (GnomeSettingsPluginInfo *info, gpointer user_data)
+activate_plugin (GnomeSettingsPluginInfo *info, gpointer user_data)
 {
-        if (gnome_settings_plugin_info_get_enabled (info)) {
-                gboolean res;
-                res = gnome_settings_plugin_info_activate (info);
-                if (res) {
-                        g_debug ("Plugin %s: active", gnome_settings_plugin_info_get_location (info));
-                } else {
-                        g_debug ("Plugin %s: activation failed", gnome_settings_plugin_info_get_location (info));
-                }
+        gboolean res;
+        res = gnome_settings_plugin_info_activate (info);
+        if (res) {
+                g_debug ("Plugin %s: active", gnome_settings_plugin_info_get_location (info));
         } else {
-                g_debug ("Plugin %s: inactive", gnome_settings_plugin_info_get_location (info));
+                g_debug ("Plugin %s: activation failed", gnome_settings_plugin_info_get_location (info));
         }
 }
 
@@ -323,16 +319,14 @@ _load_all (GnomeSettingsManager *manager)
         _load_dir (manager, GNOME_SETTINGS_PLUGINDIR G_DIR_SEPARATOR_S);
 
         manager->priv->plugins = g_slist_sort (manager->priv->plugins, (GCompareFunc) compare_priority);
-        g_slist_foreach (manager->priv->plugins, (GFunc) maybe_activate_plugin, NULL);
+        g_slist_foreach (manager->priv->plugins, (GFunc) activate_plugin, NULL);
         gnome_settings_profile_end (NULL);
 }
 
 static void
 _unload_plugin (GnomeSettingsPluginInfo *info, gpointer user_data)
 {
-        if (gnome_settings_plugin_info_get_enabled (info)) {
-                gnome_settings_plugin_info_deactivate (info);
-        }
+        gnome_settings_plugin_info_deactivate (info);
         g_object_unref (info);
 }
 

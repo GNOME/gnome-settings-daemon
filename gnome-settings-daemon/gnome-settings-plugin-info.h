@@ -55,7 +55,6 @@ gboolean         gnome_settings_plugin_info_activate        (GnomeSettingsPlugin
 gboolean         gnome_settings_plugin_info_deactivate      (GnomeSettingsPluginInfo *info);
 
 gboolean         gnome_settings_plugin_info_is_active       (GnomeSettingsPluginInfo *info);
-gboolean         gnome_settings_plugin_info_get_enabled     (GnomeSettingsPluginInfo *info);
 gboolean         gnome_settings_plugin_info_is_available    (GnomeSettingsPluginInfo *info);
 
 const char      *gnome_settings_plugin_info_get_name        (GnomeSettingsPluginInfo *info);

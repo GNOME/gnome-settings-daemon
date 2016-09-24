@@ -53,7 +53,6 @@ struct GnomeSettingsPluginInfoPrivate
 
         GnomeSettingsPlugin     *plugin;
 
-        int                      enabled : 1;
         int                      active : 1;
 
         /* A plugin is unavailable if it is not possible to activate it
@@ -281,19 +280,6 @@ gnome_settings_plugin_info_new_from_file (const char *filename)
         return info;
 }
 
-static void
-plugin_enabled_cb (GSettings               *settings,
-                   const gchar             *key,
-                   GnomeSettingsPluginInfo *info)
-{
-        if (g_strcmp0 (key, "active") == 0) {
-                if (g_settings_get_boolean (settings, "active"))
-                        gnome_settings_plugin_info_activate (info);
-                else
-                        gnome_settings_plugin_info_deactivate (info);
-        }
-}
-
 void
 gnome_settings_plugin_info_set_settings_prefix (GnomeSettingsPluginInfo *info,
                                                 const char              *settings_prefix)
@@ -301,16 +287,10 @@ gnome_settings_plugin_info_set_settings_prefix (GnomeSettingsPluginInfo *info,
         int priority;
 
         info->priv->settings = g_settings_new (settings_prefix);
-        info->priv->enabled = g_settings_get_boolean (info->priv->settings, "active");
 
         priority = g_settings_get_int (info->priv->settings, "priority");
         if (priority > 0)
                 info->priv->priority = priority;
-
-        g_signal_connect (G_OBJECT (info->priv->settings),
-                          "changed",
-                          G_CALLBACK (plugin_enabled_cb),
-                          info);
 }
 
 static void
@@ -440,14 +420,6 @@ gnome_settings_plugin_info_is_active (GnomeSettingsPluginInfo *info)
         g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
 
         return (info->priv->available && info->priv->active);
-}
-
-gboolean
-gnome_settings_plugin_info_get_enabled (GnomeSettingsPluginInfo *info)
-{
-        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
-
-        return (info->priv->enabled);
 }
 
 gboolean
