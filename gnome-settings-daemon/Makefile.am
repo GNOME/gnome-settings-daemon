@@ -93,18 +93,11 @@ gsddir = $(libexecdir)
 gsd_PROGRAMS = \
 	gnome-settings-daemon
 
-gsd_SCRIPTS = \
-	gnome-settings-daemon-localeexec
-
 EXTRA_DIST = \
-	gnome-settings-daemon-localeexec.in \
 	org.gnome.SessionManager.xml        \
 	org.gnome.ScreenSaver.xml           \
 	org.gnome.Shell.xml                 \
 	$(NULL)
-
-gnome-settings-daemon-localeexec: gnome-settings-daemon-localeexec.in
-	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" -e "s|\@prefix\@|$(prefix)|"  $< > $@.tmp && mv $@.tmp $@
 
 apidir   = $(includedir)/gnome-settings-daemon-$(GSD_API_VERSION)/gnome-settings-daemon
 api_DATA = 				\
