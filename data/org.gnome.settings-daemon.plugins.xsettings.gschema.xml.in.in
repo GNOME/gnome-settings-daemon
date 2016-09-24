@@ -10,11 +10,6 @@
       <_summary>Hinting</_summary>
       <_description>The type of hinting to use when rendering fonts. Possible values are: "none" for no hinting and "slight" for fitting only to the Y-axis like Microsoft's ClearType, DirectWrite and Adobe's proprietary font rendering engine. Ignores native hinting within the font, generates hints algorithmically. Used on Ubuntu by default. Recommended. The meaning of "medium" and "full" depends on the font format (.ttf, .otf, .pfa/.pfb) and the installed version of FreeType. They usually try to fit glyphs to both the X and the Y axis (except for .otf: Y-only). This can lead to distortion and/or inconsistent rendering depending on the quality of the font, the font format and the state of FreeType's font engines.</_description>
     </key>
-    <key name="priority" type="i">
-      <default>0</default>
-      <_summary>Priority to use for this plugin</_summary>
-      <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
-    </key>
     <key name="rgba-order" enum="org.gnome.settings-daemon.GsdFontRgbaOrder">
       <default>'rgb'</default>
       <_summary>RGBA order</_summary>

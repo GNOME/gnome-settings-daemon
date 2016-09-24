@@ -178,29 +178,6 @@ on_plugin_deactivated (GnomeSettingsPluginInfo *info,
 }
 
 static gboolean
-is_schema (const char *schema)
-{
-        GSettingsSchemaSource *source = NULL;
-        gchar **non_relocatable = NULL;
-        gchar **relocatable = NULL;
-        gboolean installed = FALSE;
-
-        source = g_settings_schema_source_get_default ();
-        if (!source)
-                return FALSE;
-
-        g_settings_schema_source_list_schemas (source, TRUE, &non_relocatable, &relocatable);
-
-        if (g_strv_contains ((const gchar * const *)non_relocatable, schema) ||
-            g_strv_contains ((const gchar * const *)relocatable, schema))
-                installed = TRUE;
-
-        g_strfreev (non_relocatable);
-        g_strfreev (relocatable);
-        return installed;
-}
-
-static gboolean
 is_whitelisted (char       **whitelist,
                 const char  *plugin_name)
 {
@@ -247,19 +224,13 @@ _load_file (GnomeSettingsManager *manager,
                                     gnome_settings_plugin_info_get_location (info));
 
         /* Ignore unknown schemas or else we'll assert */
-        if (is_schema (key_name)) {
-                manager->priv->plugins = g_slist_prepend (manager->priv->plugins,
-                                                          g_object_ref (info));
+        manager->priv->plugins = g_slist_prepend (manager->priv->plugins,
+                                                  g_object_ref (info));
 
-                g_signal_connect (info, "activated",
-                                  G_CALLBACK (on_plugin_activated), manager);
-                g_signal_connect (info, "deactivated",
-                                  G_CALLBACK (on_plugin_deactivated), manager);
-
-                gnome_settings_plugin_info_set_settings_prefix (info, key_name);
-        } else {
-                g_warning ("Ignoring unknown module '%s'", key_name);
-        }
+        g_signal_connect (info, "activated",
+                          G_CALLBACK (on_plugin_activated), manager);
+        g_signal_connect (info, "deactivated",
+                          G_CALLBACK (on_plugin_deactivated), manager);
 
         /* Priority is set in the call above */
         g_free (key_name);
