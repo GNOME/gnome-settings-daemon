@@ -63,8 +63,8 @@ gsd_backlight_helper_SOURCES =				\
 	gsd-backlight-linux.h				\
 	gsd-backlight-helper.c
 
-noinst_PROGRAMS = gsd-test-power
-gsd_test_power_SOURCES =				\
+noinst_PROGRAMS = gsd-power
+gsd_power_SOURCES =				\
 	gpm-common.c					\
 	gpm-common.h					\
 	gsd-backlight-linux.c				\
@@ -77,9 +77,9 @@ gsd_test_power_SOURCES =				\
 	gsd-power-constants.h				\
 	test-power.c
 
-gsd_test_power_CFLAGS = $(libpower_la_CFLAGS)
-gsd_test_power_CPPFLAGS = $(libpower_la_CPPFLAGS)
-gsd_test_power_LDADD =					\
+gsd_power_CFLAGS = $(libpower_la_CFLAGS)
+gsd_power_CPPFLAGS = $(libpower_la_CPPFLAGS)
+gsd_power_LDADD =					\
 	-lm						\
 	$(top_builddir)/plugins/common/libcommon.la	\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la \
@@ -143,7 +143,7 @@ gsd_power_enums_update_LDFLAGS = $(POWER_LIBS)
 
 EXTRA_DIST += gsd-power-constants-update.pl gsdpowerconstants.py gsdpowerenums.py test.py
 
-check-local: $(top_builddir)/tests/shiftkey gsd-test-power test.py gsdpowerconstants.py gsdpowerenums.py
+check-local: $(top_builddir)/tests/shiftkey gsd-power test.py gsdpowerconstants.py gsdpowerenums.py
 # This is how you run a single test
 #	BUILDDIR=$(builddir) TOP_BUILDDIR=$(top_builddir) ${PYTHON} $(srcdir)/test.py PowerPluginTest.test_sleep_inactive_blank
 	BUILDDIR=$(builddir) TOP_BUILDDIR=$(top_builddir) ${PYTHON} $(srcdir)/test.py

@@ -65,8 +65,8 @@ gcm_self_test_LDADD =			\
 
 TESTS = gcm-self-test
 
-libexec_PROGRAMS = gsd-test-color
-gsd_test_color_SOURCES =		\
+libexec_PROGRAMS = gsd-color
+gsd_color_SOURCES =			\
 	test-color.c			\
 	gcm-edid.c			\
 	gcm-edid.h			\
@@ -80,9 +80,9 @@ gsd_test_color_SOURCES =		\
 	gsd-color-state.h		\
 	$(NULL)
 
-gsd_test_color_CFLAGS = $(libcolor_la_CFLAGS)
-gsd_test_color_CPPFLAGS = $(libcolor_la_CPPFLAGS)
-gsd_test_color_LDADD = $(libcolor_la_LIBADD) $(top_builddir)/gnome-settings-daemon/libgsd.la $(LIBM)
+gsd_color_CFLAGS = $(libcolor_la_CFLAGS)
+gsd_color_CPPFLAGS = $(libcolor_la_CPPFLAGS)
+gsd_color_LDADD = $(libcolor_la_LIBADD) $(top_builddir)/gnome-settings-daemon/libgsd.la $(LIBM)
 
 plugin_in_files = 			\
 	color.gnome-settings-plugin.in

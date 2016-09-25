@@ -1,8 +1,8 @@
 plugin_name = rfkill
 
-libexec_PROGRAMS = gsd-test-rfkill
+libexec_PROGRAMS = gsd-rfkill
 
-gsd_test_rfkill_SOURCES =		\
+gsd_rfkill_SOURCES =		\
 	gsd-rfkill-manager.h	\
 	gsd-rfkill-manager.c	\
 	rfkill-glib.c		\
@@ -10,7 +10,7 @@ gsd_test_rfkill_SOURCES =		\
 	rfkill.h		\
 	test-rfkill.c
 
-gsd_test_rfkill_CFLAGS =					\
+gsd_rfkill_CFLAGS =						\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_builddir)/gnome-settings-daemon		\
 	-I$(top_srcdir)/plugins/common				\
@@ -19,7 +19,7 @@ gsd_test_rfkill_CFLAGS =					\
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(AM_CFLAGS)
 
-gsd_test_rfkill_LDADD =					\
+gsd_rfkill_LDADD =						\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_PLUGIN_LIBS)

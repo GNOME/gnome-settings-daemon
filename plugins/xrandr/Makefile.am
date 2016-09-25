@@ -29,14 +29,14 @@ uninstall-local:
 	rm -f $(DESTDIR)$(icondir)/32x32/$(context)/gsd-xrandr.png
 	rm -f $(DESTDIR)$(icondir)/scalable/$(context)/gsd-xrandr.svg
 
-libexec_PROGRAMS = gsd-test-xrandr
+libexec_PROGRAMS = gsd-xrandr
 
-gsd_test_xrandr_SOURCES =		\
+gsd_xrandr_SOURCES =		\
 	test-xrandr.c			\
 	gsd-xrandr-manager.c		\
 	gsd-xrandr-manager.h
 
-gsd_test_xrandr_CPPFLAGS =					\
+gsd_xrandr_CPPFLAGS =					\
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_builddir)/gnome-settings-daemon			\
@@ -45,13 +45,13 @@ gsd_test_xrandr_CPPFLAGS =					\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	$(AM_CPPFLAGS)
 
-gsd_test_xrandr_CFLAGS =			\
+gsd_xrandr_CFLAGS =			\
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(XRANDR_CFLAGS)		\
 	$(AM_CFLAGS)
 
-gsd_test_xrandr_LDADD =						\
+gsd_xrandr_LDADD =						\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)			\

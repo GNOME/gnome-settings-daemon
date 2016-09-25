@@ -25,15 +25,15 @@ libsharing_la_LDFLAGS = $(GSD_PLUGIN_LDFLAGS)
 
 libsharing_la_LIBADD  = $(SETTINGS_PLUGIN_LIBS) $(SHARING_LIBS)
 
-noinst_PROGRAMS = gsd-test-sharing
-gsd_test_sharing_SOURCES =				\
+noinst_PROGRAMS = gsd-sharing
+gsd_sharing_SOURCES =					\
 	gsd-sharing-manager.c				\
 	gsd-sharing-manager.h				\
 	test-sharing.c
 
-gsd_test_sharing_CFLAGS = $(libsharing_la_CFLAGS)
-gsd_test_sharing_CPPFLAGS = $(libsharing_la_CPPFLAGS)
-gsd_test_sharing_LDADD =				\
+gsd_sharing_CFLAGS = $(libsharing_la_CFLAGS)
+gsd_sharing_CPPFLAGS = $(libsharing_la_CPPFLAGS)
+gsd_sharing_LDADD =					\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la \
 	$(SHARING_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)

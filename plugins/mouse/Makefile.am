@@ -52,14 +52,14 @@ gsd_locate_pointer_LDADD  = 		\
 	$(MOUSE_LIBS)			\
 	-lm
 
-libexec_PROGRAMS += gsd-test-mouse
+libexec_PROGRAMS += gsd-mouse
 
-gsd_test_mouse_SOURCES =		\
+gsd_mouse_SOURCES =			\
 	test-mouse.c			\
 	gsd-mouse-manager.c		\
 	gsd-mouse-manager.h
 
-gsd_test_mouse_CPPFLAGS =					\
+gsd_mouse_CPPFLAGS =						\
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_builddir)/gnome-settings-daemon			\
@@ -68,13 +68,13 @@ gsd_test_mouse_CPPFLAGS =					\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	$(AM_CPPFLAGS)
 
-gsd_test_mouse_CFLAGS =			\
+gsd_mouse_CFLAGS =			\
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(MOUSE_CFLAGS)		\
 	$(AM_CFLAGS)
 
-gsd_test_mouse_LDADD =						\
+gsd_mouse_LDADD =						\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)			\

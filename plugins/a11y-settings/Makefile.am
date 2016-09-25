@@ -1,13 +1,13 @@
 plugin_name = a11y-settings
 
-libexec_PROGRAMS = gsd-test-a11y-settings
+libexec_PROGRAMS = gsd-a11y-settings
 
-gsd_test_a11y_settings_SOURCES =	\
+gsd_a11y_settings_SOURCES =	\
 	gsd-a11y-settings-manager.h	\
 	gsd-a11y-settings-manager.c	\
 	test-a11y-settings.c
 
-gsd_test_a11y_settings_CFLAGS =					\
+gsd_a11y_settings_CFLAGS =					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_builddir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
@@ -16,7 +16,7 @@ gsd_test_a11y_settings_CFLAGS =					\
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(AM_CFLAGS)
 
-gsd_test_a11y_settings_LDADD =					\
+gsd_a11y_settings_LDADD =					\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_PLUGIN_LIBS)

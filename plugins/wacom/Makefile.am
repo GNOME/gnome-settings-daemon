@@ -87,9 +87,9 @@ endif
 
 EXTRA_DIST += org.gnome.settings-daemon.plugins.wacom.policy.in.in
 
-libexec_PROGRAMS += gsd-test-wacom gsd-list-wacom gsd-test-wacom-osd
+libexec_PROGRAMS += gsd-wacom gsd-list-wacom gsd-test-wacom-osd
 
-gsd_test_wacom_SOURCES =	\
+gsd_wacom_SOURCES =		\
 	test-wacom.c		\
 	gsd-wacom-manager.c	\
 	gsd-wacom-manager.h	\
@@ -105,7 +105,7 @@ gsd_test_wacom_SOURCES =	\
 	gsd-wacom-device.h	\
 	gsd-wacom-resources.c
 
-gsd_test_wacom_CPPFLAGS = \
+gsd_wacom_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_builddir)/gnome-settings-daemon		\
@@ -118,13 +118,13 @@ gsd_test_wacom_CPPFLAGS = \
 	-DSCHEMA_NAME=\""gsdwacom"\"				\
 	$(AM_CPPFLAGS)
 
-gsd_test_wacom_CFLAGS =			\
+gsd_wacom_CFLAGS =			\
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(WACOM_CFLAGS)			\
 	$(AM_CFLAGS)
 
-gsd_test_wacom_LDADD =						\
+gsd_wacom_LDADD =						\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)					\

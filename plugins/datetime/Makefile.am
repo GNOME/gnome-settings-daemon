@@ -14,9 +14,9 @@ BUILT_SOURCES =			\
 tzdatadir = $(pkgdatadir)/datetime
 dist_tzdata_DATA = backward
 
-libexec_PROGRAMS = gsd-test-datetime
+libexec_PROGRAMS = gsd-datetime
 
-gsd_test_datetime_SOURCES =	\
+gsd_datetime_SOURCES =	\
 	$(BUILT_SOURCES)	\
 	gsd-datetime-manager.c	\
 	gsd-datetime-manager.h	\
@@ -28,7 +28,7 @@ gsd_test_datetime_SOURCES =	\
 	weather-tz.c		\
 	weather-tz.h
 
-gsd_test_datetime_CFLAGS =					\
+gsd_datetime_CFLAGS =					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_builddir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
@@ -39,7 +39,7 @@ gsd_test_datetime_CFLAGS =					\
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(AM_CFLAGS)
 
-gsd_test_datetime_LDADD =					\
+gsd_datetime_LDADD =					\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(DATETIME_LIBS)					\

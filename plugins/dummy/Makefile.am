@@ -25,17 +25,17 @@ libdummy_la_LDFLAGS = 		\
 libdummy_la_LIBADD  = 		\
 	$(SETTINGS_PLUGIN_LIBS)
 
-libexec_PROGRAMS = gsd-test-dummy
-gsd_test_dummy_SOURCES =		\
+libexec_PROGRAMS = gsd-dummy
+gsd_dummy_SOURCES =			\
 	test-dummy.c			\
 	gsd-dummy-manager.c		\
 	gsd-dummy-manager.h
 
-gsd_test_dummy_CFLAGS = $(libdummy_la_CFLAGS)
-gsd_test_dummy_CPPFLAGS =		\
+gsd_dummy_CFLAGS = $(libdummy_la_CFLAGS)
+gsd_dummy_CPPFLAGS =			\
 	-I$(top_srcdir)/plugins/common	\
 	$(libdummy_la_CPPFLAGS)
-gsd_test_dummy_LDADD = $(libdummy_la_LIBADD) $(top_builddir)/gnome-settings-daemon/libgsd.la
+gsd_dummy_LDADD = $(libdummy_la_LIBADD) $(top_builddir)/gnome-settings-daemon/libgsd.la
 
 plugin_in_files = 		\
 	dummy.gnome-settings-plugin.in

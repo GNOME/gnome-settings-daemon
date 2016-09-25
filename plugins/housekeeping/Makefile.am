@@ -38,15 +38,15 @@ gsd_purge_temp_test_CFLAGS =		\
 	$(LIBNOTIFY_CFLAGS)		\
 	$(AM_CFLAGS)
 
-libexec_PROGRAMS = gsd-test-housekeeping
+libexec_PROGRAMS = gsd-housekeeping
 
-gsd_test_housekeeping_SOURCES =		\
+gsd_housekeeping_SOURCES =		\
 	test-housekeeping.c		\
 	gsd-housekeeping-manager.c	\
 	gsd-housekeeping-manager.h	\
 	$(COMMON_FILES)
 
-gsd_test_housekeeping_CPPFLAGS =				\
+gsd_housekeeping_CPPFLAGS =					\
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_builddir)/gnome-settings-daemon			\
@@ -55,13 +55,13 @@ gsd_test_housekeeping_CPPFLAGS =				\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	$(AM_CPPFLAGS)
 
-gsd_test_housekeeping_CFLAGS =		\
+gsd_housekeeping_CFLAGS =		\
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(MOUSE_CFLAGS)			\
 	$(AM_CFLAGS)
 
-gsd_test_housekeeping_LDADD =					\
+gsd_housekeeping_LDADD =					\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)					\

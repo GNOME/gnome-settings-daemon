@@ -66,9 +66,9 @@ test_wm_button_layout_translations_LDADD =	\
 	$(XSETTINGS_LIBS)			\
 	$(NULL)
 
-libexec_PROGRAMS = gsd-test-xsettings
+libexec_PROGRAMS = gsd-xsettings
 
-gsd_test_xsettings_SOURCES =	\
+gsd_xsettings_SOURCES =		\
 	gsd-xsettings-gtk.c	\
 	gsd-xsettings-gtk.h	\
 	gsd-xsettings-manager.c	\
@@ -85,9 +85,9 @@ gsd_test_xsettings_SOURCES =	\
 	wm-button-layout-translation.h	\
 	test-xsettings.c
 
-gsd_test_xsettings_CFLAGS = $(libxsettings_la_CFLAGS) $(PLUGIN_CFLAGS)
-gsd_test_xsettings_CPPFLAGS = $(libxsettings_la_CPPFLAGS) -I$(top_srcdir)/plugins/common
-gsd_test_xsettings_LDADD = $(libxsettings_la_LIBADD)
+gsd_xsettings_CFLAGS = $(libxsettings_la_CFLAGS) $(PLUGIN_CFLAGS)
+gsd_xsettings_CPPFLAGS = $(libxsettings_la_CPPFLAGS) -I$(top_srcdir)/plugins/common
+gsd_xsettings_LDADD = $(libxsettings_la_LIBADD)
 
 plugin_LTLIBRARIES = \
 	libxsettings.la		\

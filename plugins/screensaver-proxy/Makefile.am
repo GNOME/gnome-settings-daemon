@@ -22,14 +22,14 @@ libscreensaver_proxy_la_LDFLAGS = $(GSD_PLUGIN_LDFLAGS)
 
 libscreensaver_proxy_la_LIBADD  = $(SETTINGS_PLUGIN_LIBS)
 
-libexec_PROGRAMS = gsd-test-screensaver-proxy
+libexec_PROGRAMS = gsd-screensaver-proxy
 
-gsd_test_screensaver_proxy_SOURCES =		\
+gsd_screensaver_proxy_SOURCES =				\
 	test-screensaver-proxy.c			\
 	gsd-screensaver-proxy-manager.c		\
 	gsd-screensaver-proxy-manager.h
 
-gsd_test_screensaver_proxy_CPPFLAGS =					\
+gsd_screensaver_proxy_CPPFLAGS =				\
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_builddir)/gnome-settings-daemon		\
@@ -38,12 +38,12 @@ gsd_test_screensaver_proxy_CPPFLAGS =					\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	$(AM_CPPFLAGS)
 
-gsd_test_screensaver_proxy_CFLAGS =			\
+gsd_screensaver_proxy_CFLAGS =		\
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 
-gsd_test_screensaver_proxy_LDADD =						\
+gsd_screensaver_proxy_LDADD =					\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)			\
