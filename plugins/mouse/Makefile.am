@@ -34,6 +34,13 @@ plugin_in_files = mouse.gnome-settings-plugin.in
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = org.gnome.SettingsDaemon.Mouse.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+
+org.gnome.SettingsDaemon.Mouse.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
 libexec_PROGRAMS = gsd-locate-pointer
 
 gsd_locate_pointer_SOURCES = 	\
@@ -82,8 +89,8 @@ gsd_mouse_LDADD =						\
 	$(MOUSE_LIBS)			\
 	-lm
 
-EXTRA_DIST = $(plugin_in_files)
-CLEANFILES = $(plugin_DATA)
-DISTCLEANFILES = $(plugin_DATA)
+EXTRA_DIST = $(plugin_in_files) $(desktop_in_files)
+CLEANFILES = $(plugin_DATA) $(desktop_DATA)
+DISTCLEANFILES = $(plugin_DATA) $(desktop_DATA)
 
 @GSD_INTLTOOL_PLUGIN_RULE@

@@ -77,6 +77,13 @@ plugin_in_files = 		\
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = org.gnome.SettingsDaemon.MediaKeys.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+
+org.gnome.SettingsDaemon.MediaKeys.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
 libexec_PROGRAMS = gsd-media-keys
 
 gsd_media_keys_SOURCES =			\
@@ -123,13 +130,16 @@ EXTRA_DIST = 				\
 	gsd-marshal.list		\
 	README.media-keys-API		\
 	org.gnome.ShellKeyGrabber.xml	\
-	$(plugin_in_files)
+	$(plugin_in_files)		\
+	$(desktop_in_files)
 
 CLEANFILES = 			\
 	$(BUILT_SOURCES)	\
-	$(plugin_DATA)
+	$(plugin_DATA)		\
+	$(desktop_DATA)
 
 DISTCLEANFILES =		\
-	$(plugin_DATA)
+	$(plugin_DATA)		\
+	$(desktop_DATA)
 
 @GSD_INTLTOOL_PLUGIN_RULE@

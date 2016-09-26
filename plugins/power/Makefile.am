@@ -49,6 +49,13 @@ plugin_in_files = 					\
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = org.gnome.SettingsDaemon.Power.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+
+org.gnome.SettingsDaemon.Power.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
 org.gnome.settings-daemon.plugins.power.policy.in: org.gnome.settings-daemon.plugins.power.policy.in.in Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
@@ -88,6 +95,7 @@ gsd_power_LDADD =					\
 
 EXTRA_DIST = 						\
 	$(plugin_in_files)				\
+	$(desktop_in_files)				\
 	$(gsd_backlight_helper_SOURCES)			\
 	$(NULL)
 
@@ -153,6 +161,7 @@ clean-local:
 
 CLEANFILES = 							\
 	$(plugin_DATA)						\
+	$(desktop_DATA)						\
 	org.gnome.settings-daemon.plugins.power.policy		\
 	org.gnome.settings-daemon.plugins.power.policy.in	\
 	$(GSD_POWER_ENUM_FILES)					\

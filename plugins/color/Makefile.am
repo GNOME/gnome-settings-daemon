@@ -89,15 +89,25 @@ plugin_in_files = 			\
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = org.gnome.SettingsDaemon.Color.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+
+org.gnome.SettingsDaemon.Color.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
 EXTRA_DIST = 					\
 	$(plugin_in_files)			\
+	$(desktop_in_files)			\
 	test-data/Lenovo-T61-Internal.bin	\
 	test-data/LG-L225W-External.bin
 
 CLEANFILES = 				\
-	$(plugin_DATA)
+	$(plugin_DATA)			\
+	$(desktop_DATA)
 
 DISTCLEANFILES =			\
-	$(plugin_DATA)
+	$(plugin_DATA)			\
+	$(desktop_DATA)
 
 @GSD_INTLTOOL_PLUGIN_RULE@

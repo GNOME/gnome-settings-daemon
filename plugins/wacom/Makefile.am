@@ -202,9 +202,17 @@ plugin_in_files = wacom.gnome-settings-plugin.in
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
-EXTRA_DIST += $(plugin_in_files) README.config-storage
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = org.gnome.SettingsDaemon.Wacom.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+
+org.gnome.SettingsDaemon.Wacom.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
+EXTRA_DIST += $(plugin_in_files) $(desktop_in_files) README.config-storage
 CLEANFILES =						\
 	$(plugin_DATA)					\
+	$(desktop_DATA)					\
 	gsd-wacom-resources.c				\
 	org.gnome.settings-daemon.plugins.wacom.policy	\
 	org.gnome.settings-daemon.plugins.wacom.policy.in

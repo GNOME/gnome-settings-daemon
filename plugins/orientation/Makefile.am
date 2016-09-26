@@ -57,8 +57,15 @@ plugin_in_files = orientation.gnome-settings-plugin.in
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
-EXTRA_DIST = $(plugin_in_files)
-CLEANFILES = $(plugin_DATA)
-DISTCLEANFILES = $(plugin_DATA)
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = org.gnome.SettingsDaemon.Orientation.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+
+org.gnome.SettingsDaemon.Orientation.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
+EXTRA_DIST = $(plugin_in_files) $(desktop_in_files)
+CLEANFILES = $(plugin_DATA) $(desktop_DATA)
+DISTCLEANFILES = $(plugin_DATA) $(desktop_DATA)
 
 @GSD_INTLTOOL_PLUGIN_RULE@

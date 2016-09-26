@@ -105,16 +105,26 @@ plugin_in_files = \
 
 plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
 
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = org.gnome.SettingsDaemon.Smartcard.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+
+org.gnome.SettingsDaemon.Smartcard.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
 EXTRA_DIST = \
 	gsd-smartcard-enum-types.c.in \
 	gsd-smartcard-enum-types.h.in \
 	org.gnome.SettingsDaemon.Smartcard.xml \
-	$(plugin_in_files)
+	$(plugin_in_files) \
+	$(desktop_in_files)
 
 CLEANFILES = \
 	$(BUILT_SOURCES) \
-	$(plugin_DATA)
+	$(plugin_DATA) \
+	$(desktop_DATA)
 
 DISTCLEANFILES = \
 	$(BUILT_SOURCES) \
-	$(plugin_DATA)
+	$(plugin_DATA) \
+	$(desktop_DATA)
