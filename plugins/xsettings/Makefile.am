@@ -83,7 +83,7 @@ gsd_xsettings_SOURCES =		\
 	gsd-remote-display-manager.h \
 	wm-button-layout-translation.c	\
 	wm-button-layout-translation.h	\
-	test-xsettings.c
+	main.c
 
 gsd_xsettings_CFLAGS = $(libxsettings_la_CFLAGS) $(PLUGIN_CFLAGS)
 gsd_xsettings_CPPFLAGS = $(libxsettings_la_CPPFLAGS) -I$(top_srcdir)/plugins/common

@@ -4,4 +4,4 @@
 #define MANAGER GsdDatetimeManager
 #include "gsd-datetime-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

@@ -4,4 +4,4 @@
 #define MANAGER GsdPowerManager
 #include "gsd-power-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

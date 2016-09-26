@@ -4,4 +4,4 @@
 #define MANAGER GsdSmartcardManager
 #include "gsd-smartcard-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

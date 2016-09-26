@@ -4,4 +4,4 @@
 #define MANAGER GsdSharingManager
 #include "gsd-sharing-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

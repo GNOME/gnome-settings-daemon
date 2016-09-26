@@ -38,7 +38,7 @@ libclipboard_la_LIBADD  = 	\
 
 libexec_PROGRAMS = gsd-clipboard
 gsd_clipboard_SOURCES =	\
-	test-clipboard.c	\
+	main.c			\
 	gsd-clipboard-manager.h	\
 	gsd-clipboard-manager.c	\
 	xutils.h		\

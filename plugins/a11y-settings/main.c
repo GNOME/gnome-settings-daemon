@@ -4,4 +4,4 @@
 #define MANAGER GsdA11ySettingsManager
 #include "gsd-a11y-settings-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

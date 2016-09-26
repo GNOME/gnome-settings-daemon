@@ -38,7 +38,7 @@ libkeyboard_la_LIBADD  =				\
 
 libexec_PROGRAMS = gsd-keyboard
 gsd_keyboard_SOURCES =		\
-	test-keyboard.c		\
+	main.c			\
 	gsd-keyboard-manager.h	\
 	gsd-keyboard-manager.c	\
 	$(NULL)

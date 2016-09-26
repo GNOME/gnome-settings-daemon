@@ -22,7 +22,7 @@ gsd_datetime_SOURCES =	\
 	gsd-datetime-manager.h	\
 	gsd-timezone-monitor.c	\
 	gsd-timezone-monitor.h	\
-	test-datetime.c		\
+	main.c			\
 	tz.c			\
 	tz.h			\
 	weather-tz.c		\

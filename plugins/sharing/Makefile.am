@@ -29,7 +29,7 @@ noinst_PROGRAMS = gsd-sharing
 gsd_sharing_SOURCES =					\
 	gsd-sharing-manager.c				\
 	gsd-sharing-manager.h				\
-	test-sharing.c
+	main.c
 
 gsd_sharing_CFLAGS = $(libsharing_la_CFLAGS)
 gsd_sharing_CPPFLAGS = $(libsharing_la_CPPFLAGS)

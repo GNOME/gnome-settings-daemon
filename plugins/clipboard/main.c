@@ -4,4 +4,4 @@
 #define MANAGER GsdClipboardManager
 #include "gsd-clipboard-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

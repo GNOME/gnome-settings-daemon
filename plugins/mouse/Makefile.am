@@ -55,7 +55,7 @@ gsd_locate_pointer_LDADD  = 		\
 libexec_PROGRAMS += gsd-mouse
 
 gsd_mouse_SOURCES =			\
-	test-mouse.c			\
+	main.c				\
 	gsd-mouse-manager.c		\
 	gsd-mouse-manager.h
 

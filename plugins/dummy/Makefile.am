@@ -27,7 +27,7 @@ libdummy_la_LIBADD  = 		\
 
 libexec_PROGRAMS = gsd-dummy
 gsd_dummy_SOURCES =			\
-	test-dummy.c			\
+	main.c				\
 	gsd-dummy-manager.c		\
 	gsd-dummy-manager.h
 

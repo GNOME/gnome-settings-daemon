@@ -5,7 +5,7 @@ libexec_PROGRAMS = gsd-sound
 gsd_sound_SOURCES =		\
 	gsd-sound-manager.h	\
 	gsd-sound-manager.c	\
-	test-sound.c
+	main.c
 
 gsd_sound_CFLAGS =						\
 	-I$(top_srcdir)/gnome-settings-daemon			\

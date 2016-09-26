@@ -1,12 +1,12 @@
 /**
- * Create a test app for your plugin quickly.
+ * Create a gnome-settings-daemon helper easily
  *
  * #define NEW gsd_media_keys_manager_new
  * #define START gsd_media_keys_manager_start
  * #define MANAGER GsdMediaKeysManager
  * #include "gsd-media-keys-manager.h"
  *
- * #include "test-plugin.h"
+ * #include "daemon-skeleton.h"
  */
 
 #include "config.h"
@@ -22,7 +22,7 @@
 #endif
 
 #ifndef PLUGIN_NAME
-#error Include PLUGIN_CFLAGS in the test application s CFLAGS
+#error Include PLUGIN_CFLAGS in the daemon s CFLAGS
 #endif /* !PLUGIN_NAME */
 
 static MANAGER *manager = NULL;

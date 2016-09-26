@@ -30,7 +30,7 @@ gsd_smartcard_SOURCES =        \
 	gsd-smartcard-manager.c \
 	gsd-smartcard-utils.h \
 	gsd-smartcard-utils.c   \
-	test-smartcard.c
+	main.c
 
 nodist_gsd_smartcard_SOURCES = \
 	$(dbus_built_sources) \

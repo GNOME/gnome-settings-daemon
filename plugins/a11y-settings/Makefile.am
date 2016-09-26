@@ -5,7 +5,7 @@ libexec_PROGRAMS = gsd-a11y-settings
 gsd_a11y_settings_SOURCES =	\
 	gsd-a11y-settings-manager.h	\
 	gsd-a11y-settings-manager.c	\
-	test-a11y-settings.c
+	main.c
 
 gsd_a11y_settings_CFLAGS =					\
 	-I$(top_srcdir)/gnome-settings-daemon			\

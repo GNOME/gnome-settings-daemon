@@ -4,4 +4,4 @@
 #define MANAGER GsdSoundManager
 #include "gsd-sound-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

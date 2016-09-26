@@ -4,4 +4,4 @@
 #define MANAGER GsdOrientationManager
 #include "gsd-orientation-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

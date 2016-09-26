@@ -4,4 +4,4 @@
 #define MANAGER GsdMouseManager
 #include "gsd-mouse-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

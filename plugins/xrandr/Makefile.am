@@ -32,7 +32,7 @@ uninstall-local:
 libexec_PROGRAMS = gsd-xrandr
 
 gsd_xrandr_SOURCES =		\
-	test-xrandr.c			\
+	main.c				\
 	gsd-xrandr-manager.c		\
 	gsd-xrandr-manager.h
 

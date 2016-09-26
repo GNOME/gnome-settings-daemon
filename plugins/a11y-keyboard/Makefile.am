@@ -7,7 +7,7 @@ libexec_PROGRAMS = gsd-a11y-keyboard
 gsd_a11y_keyboard_SOURCES =			\
 	gsd-a11y-keyboard-manager.h		\
 	gsd-a11y-keyboard-manager.c		\
-	test-a11y-keyboard.c
+	main.c
 
 gsd_a11y_keyboard_CFLAGS =					\
 	-I$(top_srcdir)/gnome-settings-daemon			\

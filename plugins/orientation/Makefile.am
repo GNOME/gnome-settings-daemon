@@ -5,7 +5,7 @@ libexec_PROGRAMS = gsd-orientation
 gsd_orientation_SOURCES =		\
 	gsd-orientation-manager.h	\
 	gsd-orientation-manager.c	\
-	test-orientation.c
+	main.c
 
 gsd_orientation_CFLAGS =					\
 	-I$(top_srcdir)/gnome-settings-daemon			\

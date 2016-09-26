@@ -25,7 +25,7 @@ libscreensaver_proxy_la_LIBADD  = $(SETTINGS_PLUGIN_LIBS)
 libexec_PROGRAMS = gsd-screensaver-proxy
 
 gsd_screensaver_proxy_SOURCES =				\
-	test-screensaver-proxy.c			\
+	main.c						\
 	gsd-screensaver-proxy-manager.c		\
 	gsd-screensaver-proxy-manager.h
 

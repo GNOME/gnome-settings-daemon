@@ -8,7 +8,7 @@ gsd_rfkill_SOURCES =		\
 	rfkill-glib.c		\
 	rfkill-glib.h		\
 	rfkill.h		\
-	test-rfkill.c
+	main.c
 
 gsd_rfkill_CFLAGS =						\
 	-I$(top_srcdir)/gnome-settings-daemon			\

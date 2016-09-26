@@ -4,4 +4,4 @@
 #define MANAGER GsdRfkillManager
 #include "gsd-rfkill-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

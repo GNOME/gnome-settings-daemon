@@ -67,7 +67,7 @@ TESTS = gcm-self-test
 
 libexec_PROGRAMS = gsd-color
 gsd_color_SOURCES =			\
-	test-color.c			\
+	main.c				\
 	gcm-edid.c			\
 	gcm-edid.h			\
 	gsd-color-calibrate.c		\

@@ -4,4 +4,4 @@
 #define MANAGER GsdA11yKeyboardManager
 #include "gsd-a11y-keyboard-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

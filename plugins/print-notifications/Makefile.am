@@ -54,7 +54,7 @@ libexec_PROGRAMS += gsd-print-notifications
 gsd_print_notifications_SOURCES =		\
 	gsd-print-notifications-manager.c	\
 	gsd-print-notifications-manager.h	\
-	test-print-notifications.c
+	main.c
 
 gsd_print_notifications_CPPFLAGS =				\
 	-I$(top_srcdir)/gnome-settings-daemon			\

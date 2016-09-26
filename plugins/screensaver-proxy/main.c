@@ -4,4 +4,4 @@
 #define MANAGER GsdScreensaverProxyManager
 #include "gsd-screensaver-proxy-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

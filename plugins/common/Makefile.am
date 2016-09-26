@@ -76,7 +76,7 @@ gsd_test_input_helper_SOURCES = test-input-helper.c
 gsd_test_input_helper_LDADD = libcommon.la
 gsd_test_input_helper_CFLAGS = $(libcommon_la_CFLAGS)
 
-EXTRA_DIST = $(scripts_DATA) test-plugin.h
+EXTRA_DIST = $(scripts_DATA) daemon-skeleton.h
 
 CLEANFILES = \
 	$(GSD_COMMON_ENUM_FILES)

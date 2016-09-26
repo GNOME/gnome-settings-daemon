@@ -41,7 +41,7 @@ gsd_purge_temp_test_CFLAGS =		\
 libexec_PROGRAMS = gsd-housekeeping
 
 gsd_housekeeping_SOURCES =		\
-	test-housekeeping.c		\
+	main.c				\
 	gsd-housekeeping-manager.c	\
 	gsd-housekeeping-manager.h	\
 	$(COMMON_FILES)

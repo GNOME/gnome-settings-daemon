@@ -75,7 +75,7 @@ gsd_power_SOURCES =				\
 	gsm-presence-flag.h				\
 	gsm-manager-logout-mode.h			\
 	gsd-power-constants.h				\
-	test-power.c
+	main.c
 
 gsd_power_CFLAGS = $(libpower_la_CFLAGS)
 gsd_power_CPPFLAGS = $(libpower_la_CPPFLAGS)

@@ -90,7 +90,7 @@ EXTRA_DIST += org.gnome.settings-daemon.plugins.wacom.policy.in.in
 libexec_PROGRAMS += gsd-wacom gsd-list-wacom gsd-test-wacom-osd
 
 gsd_wacom_SOURCES =		\
-	test-wacom.c		\
+	main.c			\
 	gsd-wacom-manager.c	\
 	gsd-wacom-manager.h	\
 	gsd-wacom-key-shortcut-button.h	\
