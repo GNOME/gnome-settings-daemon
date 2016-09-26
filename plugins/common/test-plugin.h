@@ -27,9 +27,11 @@
 
 static MANAGER *manager = NULL;
 static int timeout = -1;
+static gboolean verbose = FALSE;
 
 static GOptionEntry entries[] = {
         { "exit-time", 0, 0, G_OPTION_ARG_INT, &timeout, "Exit after n seconds time", NULL },
+        { "verbose", 'v', 0, G_OPTION_ARG_NONE, &verbose, "Verbose", NULL },
         {NULL}
 };
 
@@ -82,8 +84,6 @@ main (int argc, char **argv)
         textdomain (GETTEXT_PACKAGE);
         notify_init ("gnome-settings-daemon");
 
-	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
-
 	gdk_set_allowed_backends ("x11");
 
         error = NULL;
@@ -92,6 +92,9 @@ main (int argc, char **argv)
                 g_error_free (error);
                 exit (1);
         }
+
+        if (verbose)
+                g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 
 	if (timeout > 0) {
 		guint id;
