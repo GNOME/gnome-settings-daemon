@@ -19,6 +19,7 @@ libcolor_la_SOURCES = 			\
 libcolor_la_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon		\
 	-I$(top_builddir)/gnome-settings-daemon		\
+	-I$(top_srcdir)/plugins/common			\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DBINDIR=\"$(bindir)\"				\
 	$(AM_CPPFLAGS)
@@ -63,6 +64,25 @@ gcm_self_test_LDADD =			\
 	-lm
 
 TESTS = gcm-self-test
+
+libexec_PROGRAMS = gsd-test-color
+gsd_test_color_SOURCES =		\
+	test-color.c			\
+	gcm-edid.c			\
+	gcm-edid.h			\
+	gsd-color-calibrate.c		\
+	gsd-color-calibrate.h		\
+	gsd-color-manager.c		\
+	gsd-color-manager.h		\
+	gsd-color-profiles.c		\
+	gsd-color-profiles.h		\
+	gsd-color-state.c		\
+	gsd-color-state.h		\
+	$(NULL)
+
+gsd_test_color_CFLAGS = $(libcolor_la_CFLAGS)
+gsd_test_color_CPPFLAGS = $(libcolor_la_CPPFLAGS)
+gsd_test_color_LDADD = $(libcolor_la_LIBADD) $(top_builddir)/gnome-settings-daemon/libgsd.la
 
 plugin_in_files = 			\
 	color.gnome-settings-plugin.in
