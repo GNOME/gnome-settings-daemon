@@ -29,6 +29,7 @@ libexec_PROGRAMS = gsd-sharing
 gsd_sharing_SOURCES =					\
 	gsd-sharing-manager.c				\
 	gsd-sharing-manager.h				\
+	gsd-sharing-enums.h				\
 	main.c
 
 gsd_sharing_CFLAGS = $(libsharing_la_CFLAGS)
