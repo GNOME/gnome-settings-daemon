@@ -6,7 +6,6 @@ plugin_name = media-keys
 NULL =
 
 SUBDIRS = gvc
-plugin_LTLIBRARIES = libmedia-keys.la
 
 BUILT_SOURCES = 			\
 	gsd-marshal.h			\
@@ -28,55 +27,6 @@ shell-key-grabber.h: Makefile.am org.gnome.ShellKeyGrabber.xml
 	              --c-namespace Shell			\
 	              $(srcdir)/org.gnome.ShellKeyGrabber.xml
 
-libmedia_keys_la_SOURCES = 		\
-	gsd-media-keys-plugin.c		\
-	gsd-media-keys-manager.h	\
-	gsd-media-keys-manager.c	\
-	gsd-screenshot-utils.h		\
-	gsd-screenshot-utils.c		\
-	shortcuts-list.h		\
-	media-keys.h			\
-	shell-action-modes.h		\
-	bus-watch-namespace.c		\
-	bus-watch-namespace.h		\
-	mpris-controller.c		\
-	mpris-controller.h		\
-	$(BUILT_SOURCES)		\
-	$(NULL)
-
-libmedia_keys_la_CPPFLAGS = \
-	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
-	-I$(top_builddir)/gnome-settings-daemon			\
-	-I$(top_srcdir)/plugins/common				\
-	-I$(top_srcdir)/plugins/media-keys/gvc			\
-	-DBINDIR=\"$(bindir)\"					\
-	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
-	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
-	$(AM_CPPFLAGS)
-
-libmedia_keys_la_CFLAGS = \
-	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(MEDIA_KEYS_CFLAGS)		\
-	$(AM_CFLAGS)
-
-libmedia_keys_la_LDFLAGS = 		\
-	$(GSD_PLUGIN_LDFLAGS)
-
-libmedia_keys_la_LIBADD  = 		\
-	$(top_builddir)/plugins/common/libcommon.la			\
-	$(top_builddir)/plugins/media-keys/gvc/libgvc.la		\
-	$(MEDIA_KEYS_LIBS)						\
-	$(SETTINGS_PLUGIN_LIBS)						\
-	-lm
-
-plugin_in_files = 		\
-	media-keys.gnome-settings-plugin.in
-
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
-
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.MediaKeys.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
@@ -95,6 +45,9 @@ gsd_media_keys_SOURCES =			\
 	bus-watch-namespace.h			\
 	mpris-controller.c			\
 	mpris-controller.h			\
+	media-keys.h				\
+	shell-action-modes.h			\
+	shortcuts-list.h			\
 	main.c					\
 	$(BUILT_SOURCES)			\
 	$(NULL)
@@ -135,11 +88,7 @@ EXTRA_DIST = 				\
 
 CLEANFILES = 			\
 	$(BUILT_SOURCES)	\
-	$(plugin_DATA)		\
 	$(desktop_DATA)
 
 DISTCLEANFILES =		\
-	$(plugin_DATA)		\
 	$(desktop_DATA)
-
-@GSD_INTLTOOL_PLUGIN_RULE@

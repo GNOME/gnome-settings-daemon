@@ -23,40 +23,6 @@ gsd_orientation_LDADD =						\
 	$(ORIENTATION_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)
 
-plugin_LTLIBRARIES = liborientation.la
-
-liborientation_la_SOURCES = 		\
-	gsd-orientation-plugin.c	\
-	gsd-orientation-manager.h	\
-	gsd-orientation-manager.c
-
-liborientation_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
-	-I$(top_builddir)/gnome-settings-daemon		\
-	-I$(top_srcdir)/plugins/common/			\
-	-I$(top_srcdir)/data/				\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	-DLIBEXECDIR=\""$(libexecdir)"\" 		\
-	$(AM_CPPFLAGS)
-
-liborientation_la_CFLAGS = \
-	$(PLUGIN_CFLAGS)		\
-	$(ORIENTATION_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(AM_CFLAGS)
-
-liborientation_la_LDFLAGS = 		\
-	$(GSD_PLUGIN_LDFLAGS)
-
-liborientation_la_LIBADD  =						\
-	$(top_builddir)/plugins/common/libcommon.la			\
-	$(ORIENTATION_LIBS)						\
-	$(SETTINGS_PLUGIN_LIBS)
-
-plugin_in_files = orientation.gnome-settings-plugin.in
-
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
-
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.Orientation.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
@@ -64,8 +30,6 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 org.gnome.SettingsDaemon.Orientation.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
-EXTRA_DIST = $(plugin_in_files) $(desktop_in_files)
-CLEANFILES = $(plugin_DATA) $(desktop_DATA)
-DISTCLEANFILES = $(plugin_DATA) $(desktop_DATA)
-
-@GSD_INTLTOOL_PLUGIN_RULE@
+EXTRA_DIST = $(desktop_in_files)
+CLEANFILES = $(desktop_DATA)
+DISTCLEANFILES = $(desktop_DATA)

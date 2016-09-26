@@ -72,6 +72,7 @@ gsd_xsettings_SOURCES =		\
 	gsd-xsettings-gtk.c	\
 	gsd-xsettings-gtk.h	\
 	gsd-xsettings-manager.c	\
+	gsd-xsettings-manager.h	\
 	gsd-xsettings-gtk.h	\
 	xsettings-common.c	\
 	xsettings-common.h	\
@@ -85,60 +86,25 @@ gsd_xsettings_SOURCES =		\
 	wm-button-layout-translation.h	\
 	main.c
 
-gsd_xsettings_CFLAGS = $(libxsettings_la_CFLAGS) $(PLUGIN_CFLAGS)
-gsd_xsettings_CPPFLAGS = $(libxsettings_la_CPPFLAGS) -I$(top_srcdir)/plugins/common
-gsd_xsettings_LDADD = $(libxsettings_la_LIBADD)
-
-plugin_LTLIBRARIES = \
-	libxsettings.la		\
-	$(NULL)
-
-libxsettings_la_SOURCES = 	\
-	gsd-xsettings-plugin.c	\
-	gsd-xsettings-manager.h	\
-	gsd-xsettings-manager.c	\
-	gsd-xsettings-gtk.c	\
-	gsd-xsettings-gtk.h	\
-	xsettings-common.h	\
-	xsettings-common.c	\
-	xsettings-manager.h	\
-	xsettings-manager.c	\
-	gsd-remote-display-manager.c \
-	gsd-remote-display-manager.h \
-	fontconfig-monitor.h	\
-	fontconfig-monitor.c	\
-	wm-button-layout-translation.c	\
-	wm-button-layout-translation.h	\
-	$(NULL)
-
-libxsettings_la_CPPFLAGS =					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
-	-I$(top_builddir)/gnome-settings-daemon			\
-	-I$(top_srcdir)/data/					\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
-	-DGTK_MODULES_DIRECTORY=\""$(libdir)/gnome-settings-daemon-@GSD_API_VERSION@/gtk-modules/"\" \
-	$(AM_CPPFLAGS)
-
-libxsettings_la_CFLAGS = \
+gsd_xsettings_CFLAGS =			\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(PLUGIN_CFLAGS)		\
 	$(XSETTINGS_CFLAGS)		\
 	$(AM_CFLAGS)
 
-libxsettings_la_LDFLAGS = 	\
-	$(GSD_PLUGIN_LDFLAGS)	\
-	$(NULL)
+gsd_xsettings_CPPFLAGS =										\
+	-I$(top_srcdir)/gnome-settings-daemon								\
+	-I$(top_builddir)/gnome-settings-daemon								\
+	-I$(top_srcdir)/plugins/common/									\
+	-I$(top_srcdir)/data/										\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"						\
+	-DGTK_MODULES_DIRECTORY=\""$(libdir)/gnome-settings-daemon-@GSD_API_VERSION@/gtk-modules/"\"	\
+	$(AM_CPPFLAGS)
 
-libxsettings_la_LIBADD  =					\
+gsd_xsettings_LDADD =						\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(SETTINGS_PLUGIN_LIBS)					\
-	$(XSETTINGS_LIBS)					\
-	$(NULL)
-
-plugin_in_files = 		\
-	xsettings.gnome-settings-plugin.in	\
-	$(NULL)
-
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+	$(XSETTINGS_LIBS)
 
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.XSettings.desktop.in
@@ -149,18 +115,13 @@ org.gnome.SettingsDaemon.XSettings.desktop: $(desktop_in_files) Makefile
 
 EXTRA_DIST = 			\
 	README.xsettings	\
-	$(plugin_in_files)	\
 	$(desktop_in_files)	\
 	$(NULL)
 
 CLEANFILES = 			\
-	$(plugin_DATA)		\
 	$(desktop_DATA)		\
 	$(NULL)
 
 DISTCLEANFILES =		\
-	$(plugin_DATA)		\
 	$(desktop_DATA)		\
 	$(NULL)
-
-@GSD_INTLTOOL_PLUGIN_RULE@

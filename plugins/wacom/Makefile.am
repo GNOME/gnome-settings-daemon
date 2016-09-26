@@ -1,47 +1,5 @@
 plugin_name = wacom
 
-plugin_LTLIBRARIES = libgsdwacom.la
-
-libgsdwacom_la_SOURCES =	\
-	gsd-wacom-plugin.c	\
-	gsd-wacom-manager.h	\
-	gsd-wacom-manager.c	\
-	gsd-wacom-key-shortcut-button.h	\
-	gsd-wacom-key-shortcut-button.c	\
-	gsd-wacom-button-editor.h	\
-	gsd-wacom-button-editor.c	\
-	gsd-wacom-osd-window.h	\
-	gsd-wacom-osd-window.c	\
-	gsd-wacom-oled.h	\
-	gsd-wacom-oled.c	\
-	gsd-wacom-oled-constants.h \
-	gsd-wacom-device.c	\
-	gsd-wacom-device.h	\
-	gsd-wacom-resources.c
-
-libgsdwacom_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
-	-I$(top_builddir)/gnome-settings-daemon		\
-	-I$(top_srcdir)/plugins/common/			\
-	-I$(top_srcdir)/data/				\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	-DLIBEXECDIR=\""$(libexecdir)"\" 		\
-	$(AM_CPPFLAGS)
-
-libgsdwacom_la_CFLAGS = \
-	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(WACOM_CFLAGS)			\
-	$(AM_CFLAGS)
-
-libgsdwacom_la_LDFLAGS =		\
-	$(GSD_PLUGIN_LDFLAGS)
-
-libgsdwacom_la_LIBADD  =						\
-	$(top_builddir)/plugins/common/libcommon.la			\
-	$(SETTINGS_PLUGIN_LIBS)						\
-	$(WACOM_LIBS)
-
 org.gnome.settings-daemon.plugins.wacom.policy.in: org.gnome.settings-daemon.plugins.wacom.policy.in.in Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
@@ -198,10 +156,6 @@ gsd_test_wacom_osd_LDADD = \
 	$(WACOM_LIBS)						\
 	-lm
 
-plugin_in_files = wacom.gnome-settings-plugin.in
-
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
-
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.Wacom.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
@@ -209,12 +163,9 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 org.gnome.SettingsDaemon.Wacom.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
-EXTRA_DIST += $(plugin_in_files) $(desktop_in_files) README.config-storage
+EXTRA_DIST += $(desktop_in_files) README.config-storage
 CLEANFILES =						\
-	$(plugin_DATA)					\
 	$(desktop_DATA)					\
 	gsd-wacom-resources.c				\
 	org.gnome.settings-daemon.plugins.wacom.policy	\
 	org.gnome.settings-daemon.plugins.wacom.policy.in
-
-@GSD_INTLTOOL_PLUGIN_RULE@

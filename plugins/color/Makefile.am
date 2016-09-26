@@ -1,45 +1,5 @@
 plugin_name = color
 
-plugin_LTLIBRARIES = \
-	libcolor.la
-
-libcolor_la_SOURCES = 			\
-	gcm-edid.c			\
-	gcm-edid.h			\
-	gsd-color-calibrate.c		\
-	gsd-color-calibrate.h		\
-	gsd-color-manager.c		\
-	gsd-color-manager.h		\
-	gsd-color-profiles.c		\
-	gsd-color-profiles.h		\
-	gsd-color-state.c		\
-	gsd-color-state.h		\
-	gsd-color-plugin.c
-
-libcolor_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
-	-I$(top_builddir)/gnome-settings-daemon		\
-	-I$(top_srcdir)/plugins/common			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	-DBINDIR=\"$(bindir)\"				\
-	$(AM_CPPFLAGS)
-
-libcolor_la_CFLAGS = \
-	$(PLUGIN_CFLAGS)		\
-	$(COLOR_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(LIBNOTIFY_CFLAGS)		\
-	$(AM_CFLAGS)
-
-libcolor_la_LDFLAGS = 			\
-	$(GSD_PLUGIN_LDFLAGS)
-
-libcolor_la_LIBADD  = 			\
-	$(top_builddir)/gnome-settings-daemon/libgsd.la	\
-	$(COLOR_LIBS)			\
-	$(SETTINGS_PLUGIN_LIBS)		\
-	$(LIBNOTIFY_LIBS)
-
 check_PROGRAMS =			\
 	gcm-self-test
 
@@ -80,14 +40,27 @@ gsd_color_SOURCES =			\
 	gsd-color-state.h		\
 	$(NULL)
 
-gsd_color_CFLAGS = $(libcolor_la_CFLAGS)
-gsd_color_CPPFLAGS = $(libcolor_la_CPPFLAGS)
-gsd_color_LDADD = $(libcolor_la_LIBADD) $(top_builddir)/gnome-settings-daemon/libgsd.la $(LIBM)
+gsd_color_CFLAGS =			\
+	$(PLUGIN_CFLAGS)		\
+	$(COLOR_CFLAGS)			\
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(LIBNOTIFY_CFLAGS)		\
+	$(AM_CFLAGS)
 
-plugin_in_files = 			\
-	color.gnome-settings-plugin.in
+gsd_color_CPPFLAGS =						\
+	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_builddir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/plugins/common				\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DBINDIR=\"$(bindir)\"					\
+	$(AM_CPPFLAGS)
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+gsd_color_LDADD =						\
+	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+	$(COLOR_LIBS)						\
+	$(SETTINGS_PLUGIN_LIBS)					\
+	$(LIBNOTIFY_LIBS)					\
+	$(LIBM)
 
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.Color.desktop.in
@@ -97,17 +70,12 @@ org.gnome.SettingsDaemon.Color.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 EXTRA_DIST = 					\
-	$(plugin_in_files)			\
 	$(desktop_in_files)			\
 	test-data/Lenovo-T61-Internal.bin	\
 	test-data/LG-L225W-External.bin
 
 CLEANFILES = 				\
-	$(plugin_DATA)			\
 	$(desktop_DATA)
 
 DISTCLEANFILES =			\
-	$(plugin_DATA)			\
 	$(desktop_DATA)
-
-@GSD_INTLTOOL_PLUGIN_RULE@

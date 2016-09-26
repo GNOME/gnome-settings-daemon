@@ -1,39 +1,5 @@
 plugin_name = mouse
 
-plugin_LTLIBRARIES = libmouse.la
-
-libmouse_la_SOURCES = 		\
-	gsd-mouse-plugin.c	\
-	gsd-mouse-manager.h	\
-	gsd-mouse-manager.c
-
-libmouse_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
-	-I$(top_builddir)/gnome-settings-daemon		\
-	-I$(top_srcdir)/plugins/common/			\
-	-I$(top_srcdir)/data/				\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	-DLIBEXECDIR=\""$(libexecdir)"\" \
-	$(AM_CPPFLAGS)
-
-libmouse_la_CFLAGS = \
-	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(MOUSE_CFLAGS)			\
-	$(AM_CFLAGS)
-
-libmouse_la_LDFLAGS = 		\
-	$(GSD_PLUGIN_LDFLAGS)
-
-libmouse_la_LIBADD  =							\
-	$(MOUSE_LIBS)							\
-	$(top_builddir)/plugins/common/libcommon.la			\
-	$(SETTINGS_PLUGIN_LIBS)
-
-plugin_in_files = mouse.gnome-settings-plugin.in
-
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
-
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.Mouse.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
@@ -89,8 +55,6 @@ gsd_mouse_LDADD =						\
 	$(MOUSE_LIBS)			\
 	-lm
 
-EXTRA_DIST = $(plugin_in_files) $(desktop_in_files)
-CLEANFILES = $(plugin_DATA) $(desktop_DATA)
-DISTCLEANFILES = $(plugin_DATA) $(desktop_DATA)
-
-@GSD_INTLTOOL_PLUGIN_RULE@
+EXTRA_DIST = $(desktop_in_files)
+CLEANFILES = $(desktop_DATA)
+DISTCLEANFILES = $(desktop_DATA)

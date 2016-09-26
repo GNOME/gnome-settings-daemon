@@ -2,40 +2,6 @@ NULL =
 
 plugin_name = keyboard
 
-plugin_LTLIBRARIES = \
-	libkeyboard.la		\
-	$(NULL)
-
-libkeyboard_la_SOURCES = 	\
-	gsd-keyboard-plugin.c	\
-	gsd-keyboard-manager.h	\
-	gsd-keyboard-manager.c	\
-	$(NULL)
-
-libkeyboard_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
-	-I$(top_builddir)/gnome-settings-daemon		\
-	-I$(top_srcdir)/data				\
-	-I$(top_srcdir)/plugins/common			\
-	-DDATADIR=\""$(pkgdatadir)"\"			\
-	-DLIBEXECDIR=\""$(libexecdir)"\"		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	$(AM_CPPFLAGS)
-
-libkeyboard_la_CFLAGS = \
-	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(AM_CFLAGS)
-
-libkeyboard_la_LDFLAGS = 	\
-	$(GSD_PLUGIN_LDFLAGS)	\
-	$(NULL)
-
-libkeyboard_la_LIBADD  =				\
-	$(top_builddir)/plugins/common/libcommon.la	\
-	$(SETTINGS_PLUGIN_LIBS)				\
-	$(NULL)
-
 libexec_PROGRAMS = gsd-keyboard
 gsd_keyboard_SOURCES =		\
 	main.c			\
@@ -43,15 +9,24 @@ gsd_keyboard_SOURCES =		\
 	gsd-keyboard-manager.c	\
 	$(NULL)
 
-gsd_keyboard_CFLAGS = $(libkeyboard_la_CFLAGS)
-gsd_keyboard_CPPFLAGS = $(libkeyboard_la_CPPFLAGS)
-gsd_keyboard_LDADD = $(libkeyboard_la_LIBADD) $(top_builddir)/gnome-settings-daemon/libgsd.la
+gsd_keyboard_CFLAGS =			\
+	$(PLUGIN_CFLAGS)		\
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(AM_CFLAGS)
 
-plugin_in_files = 		\
-	keyboard.gnome-settings-plugin.in	\
-	$(NULL)
+gsd_keyboard_CPPFLAGS =						\
+	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_builddir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/data					\
+	-I$(top_srcdir)/plugins/common				\
+	-DDATADIR=\""$(pkgdatadir)"\"				\
+	-DLIBEXECDIR=\""$(libexecdir)"\"			\
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	$(AM_CPPFLAGS)
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+gsd_keyboard_LDADD =					\
+	$(top_builddir)/plugins/common/libcommon.la	\
+	$(SETTINGS_PLUGIN_LIBS)
 
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.Keyboard.desktop.in
@@ -61,18 +36,13 @@ org.gnome.SettingsDaemon.Keyboard.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 EXTRA_DIST = 			\
-	$(plugin_in_files)	\
 	$(desktop_in_files)	\
 	$(NULL)
 
 CLEANFILES = 			\
-	$(plugin_DATA)		\
 	$(desktop_DATA)		\
 	$(NULL)
 
 DISTCLEANFILES =		\
-	$(plugin_DATA)		\
 	$(desktop_DATA)		\
 	$(NULL)
-
-@GSD_INTLTOOL_PLUGIN_RULE@

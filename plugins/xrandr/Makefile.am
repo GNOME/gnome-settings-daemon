@@ -58,44 +58,6 @@ gsd_xrandr_LDADD =						\
 	$(SETTINGS_PLUGIN_LIBS)			\
 	$(XRANDR_LIBS)
 
-plugin_LTLIBRARIES = \
-	libxrandr.la
-
-libxrandr_la_SOURCES = 		\
-	gsd-xrandr-plugin.c	\
-	gsd-xrandr-manager.h	\
-	gsd-xrandr-manager.c
-
-libxrandr_la_CPPFLAGS =						\
-	-I$(top_srcdir)/gnome-settings-daemon			\
-	-I$(top_builddir)/gnome-settings-daemon			\
-	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/plugins/common/				\
-	-DBINDIR=\"$(bindir)\"					\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
-	$(AM_CPPFLAGS)
-
-libxrandr_la_CFLAGS =			\
-	$(PLUGIN_CFLAGS)		\
-	$(XRANDR_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(WACOM_CFLAGS)			\
-	$(AM_CFLAGS)
-
-libxrandr_la_LDFLAGS = 			\
-	$(GSD_PLUGIN_LDFLAGS)
-
-libxrandr_la_LIBADD  =					\
-	$(top_builddir)/plugins/common/libcommon.la	\
-	$(XRANDR_LIBS)					\
-	$(WACOM_LIBS)					\
-	$(SETTINGS_PLUGIN_LIBS)
-
-plugin_in_files =			\
-	xrandr.gnome-settings-plugin.in
-
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
-
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.XRANDR.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
@@ -103,8 +65,6 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 org.gnome.SettingsDaemon.XRANDR.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
-EXTRA_DIST = $(plugin_in_files) $(desktop_in_files) $(ICON_FILES)
-CLEANFILES = $(plugin_DATA) $(desktop_DATA)
-DISTCLEANFILES = $(plugin_DATA) $(desktop_DATA)
-
-@GSD_INTLTOOL_PLUGIN_RULE@
+EXTRA_DIST = $(desktop_in_files) $(ICON_FILES)
+CLEANFILES = $(desktop_DATA)
+DISTCLEANFILES = $(desktop_DATA)

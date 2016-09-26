@@ -7,9 +7,6 @@ BUILT_SOURCES = $(dbus_built_sources) $(enum_built_sources)
 
 libexec_PROGRAMS = gsd-smartcard
 
-plugin_LTLIBRARIES = \
-	libsmartcard.la
-
 $(dbus_built_sources) : Makefile.am org.gnome.SettingsDaemon.Smartcard.xml
 	$(AM_V_GEN) gdbus-codegen \
 	--interface-prefix org.gnome.SettingsDaemon.Smartcard. \
@@ -28,6 +25,7 @@ gsd_smartcard_SOURCES =        \
 	gsd-smartcard-service.c \
 	gsd-smartcard-service.h \
 	gsd-smartcard-manager.c \
+	gsd-smartcard-manager.h \
 	gsd-smartcard-utils.h \
 	gsd-smartcard-utils.c   \
 	main.c
@@ -98,13 +96,6 @@ libsmartcard_la_LIBADD = \
 	$(SETTINGS_PLUGIN_LIBS)        \
 	$(NSS_LIBS)
 
-@GSD_INTLTOOL_PLUGIN_RULE@
-
-plugin_in_files = \
-	smartcard.gnome-settings-plugin.in
-
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
-
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.Smartcard.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
@@ -116,15 +107,12 @@ EXTRA_DIST = \
 	gsd-smartcard-enum-types.c.in \
 	gsd-smartcard-enum-types.h.in \
 	org.gnome.SettingsDaemon.Smartcard.xml \
-	$(plugin_in_files) \
 	$(desktop_in_files)
 
 CLEANFILES = \
 	$(BUILT_SOURCES) \
-	$(plugin_DATA) \
 	$(desktop_DATA)
 
 DISTCLEANFILES = \
 	$(BUILT_SOURCES) \
-	$(plugin_DATA) \
 	$(desktop_DATA)

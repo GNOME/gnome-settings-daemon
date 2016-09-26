@@ -23,38 +23,6 @@ gsd_sound_LDADD =						\
 	$(SOUND_LIBS)						\
 	$(SETTINGS_PLUGIN_LIBS)
 
-plugin_LTLIBRARIES = \
-	libsound.la
-
-libsound_la_SOURCES = \
-	gsd-sound-plugin.c \
-	gsd-sound-manager.h \
-	gsd-sound-manager.c
-
-libsound_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon \
-	-I$(top_builddir)/gnome-settings-daemon		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	$(AM_CPPFLAGS)
-
-libsound_la_CFLAGS = \
-	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS) \
-	$(SOUND_CFLAGS)	\
-	$(AM_CFLAGS)
-
-libsound_la_LDFLAGS = \
-	$(GSD_PLUGIN_LDFLAGS)
-
-libsound_la_LIBADD = \
-	$(SETTINGS_PLUGIN_LIBS)	\
-	$(SOUND_LIBS)
-
-plugin_in_files = \
-	sound.gnome-settings-plugin.in
-
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
-
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.Sound.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
@@ -63,15 +31,10 @@ org.gnome.SettingsDaemon.Sound.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 EXTRA_DIST = \
-	$(plugin_in_files) \
 	$(desktop_in_files)
 
 CLEANFILES = \
-	$(plugin_DATA) \
 	$(desktop_DATA)
 
 DISTCLEANFILES = \
-	$(plugin_DATA) \
 	$(desktop_DATA)
-
-@GSD_INTLTOOL_PLUGIN_RULE@

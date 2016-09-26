@@ -21,36 +21,6 @@ gsd_a11y_settings_LDADD =					\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_PLUGIN_LIBS)
 
-plugin_LTLIBRARIES = \
-	liba11y-settings.la
-
-liba11y_settings_la_SOURCES = 		\
-	gsd-a11y-settings-manager.c	\
-	gsd-a11y-settings-manager.h	\
-	gsd-a11y-settings-plugin.c
-
-liba11y_settings_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
-	-I$(top_builddir)/gnome-settings-daemon		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	$(AM_CPPFLAGS)
-
-liba11y_settings_la_CFLAGS = \
-	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(AM_CFLAGS)
-
-liba11y_settings_la_LDFLAGS = 		\
-	$(GSD_PLUGIN_LDFLAGS)
-
-liba11y_settings_la_LIBADD  = 		\
-	$(SETTINGS_PLUGIN_LIBS)
-
-plugin_in_files = 		\
-	a11y-settings.gnome-settings-plugin.in
-
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
-
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.A11ySettings.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
@@ -59,16 +29,10 @@ org.gnome.SettingsDaemon.A11ySettings.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 EXTRA_DIST = 			\
-	$(plugin_in_files)	\
 	$(desktop_in_files)
 
 CLEANFILES = 			\
-	$(plugin_DATA)		\
 	$(desktop_DATA)
 
 DISTCLEANFILES =		\
-	$(plugin_DATA)		\
 	$(desktop_DATA)
-
-@GSD_INTLTOOL_PLUGIN_RULE@
-

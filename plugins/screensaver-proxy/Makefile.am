@@ -1,27 +1,5 @@
 plugin_name = screensaver-proxy
 
-plugin_LTLIBRARIES = libscreensaver-proxy.la
-
-libscreensaver_proxy_la_SOURCES =	\
-	gsd-screensaver-proxy-manager.c	\
-	gsd-screensaver-proxy-manager.h	\
-	gsd-screensaver-proxy-plugin.c
-
-libscreensaver_proxy_la_CPPFLAGS =				\
-	-I$(top_srcdir)/gnome-settings-daemon			\
-	-I$(top_builddir)/gnome-settings-daemon		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
-	$(AM_CPPFLAGS)
-
-libscreensaver_proxy_la_CFLAGS =	\
-	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(AM_CFLAGS)
-
-libscreensaver_proxy_la_LDFLAGS = $(GSD_PLUGIN_LDFLAGS)
-
-libscreensaver_proxy_la_LIBADD  = $(SETTINGS_PLUGIN_LIBS)
-
 libexec_PROGRAMS = gsd-screensaver-proxy
 
 gsd_screensaver_proxy_SOURCES =				\
@@ -49,10 +27,6 @@ gsd_screensaver_proxy_LDADD =					\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)
 
-plugin_in_files = screensaver-proxy.gnome-settings-plugin.in
-
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
-
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.ScreensaverProxy.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
@@ -60,10 +34,8 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 org.gnome.SettingsDaemon.ScreensaverProxy.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
-EXTRA_DIST = $(plugin_in_files) $(desktop_in_files)
+EXTRA_DIST = $(desktop_in_files)
 
-CLEANFILES = $(plugin_DATA) $(desktop_DATA)
+CLEANFILES = $(desktop_DATA)
 
-DISTCLEANFILES = $(plugin_DATA) $(desktop_DATA)
-
-@GSD_INTLTOOL_PLUGIN_RULE@
+DISTCLEANFILES = $(desktop_DATA)

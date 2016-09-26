@@ -46,47 +46,6 @@ gsd_datetime_LDADD =					\
 	$(LIBM)							\
 	$(SETTINGS_PLUGIN_LIBS)
 
-plugin_LTLIBRARIES = \
-	libdatetime.la
-
-libdatetime_la_SOURCES =	\
-	$(BUILT_SOURCES)	\
-	gsd-datetime-plugin.c	\
-	gsd-datetime-manager.h	\
-	gsd-datetime-manager.c	\
-	gsd-timezone-monitor.h	\
-	gsd-timezone-monitor.c	\
-	tz.h			\
-	tz.c			\
-	weather-tz.c		\
-	weather-tz.h
-
-libdatetime_la_CPPFLAGS =					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
-	-I$(top_builddir)/gnome-settings-daemon			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
-	-DGNOMECC_DATA_DIR="\"$(pkgdatadir)\""			\
-	$(AM_CPPFLAGS)
-
-libdatetime_la_CFLAGS =			\
-	$(DATETIME_CFLAGS)		\
-	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(AM_CFLAGS)
-
-libdatetime_la_LDFLAGS = \
-	$(GSD_PLUGIN_LDFLAGS)
-
-libdatetime_la_LIBADD = \
-	$(DATETIME_LIBS)						\
-	$(LIBM) \
-	$(SETTINGS_PLUGIN_LIBS)
-
-plugin_in_files = \
-	datetime.gnome-settings-plugin.in
-
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
-
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.Datetime.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
@@ -96,15 +55,10 @@ org.gnome.SettingsDaemon.Datetime.desktop: $(desktop_in_files) Makefile
 
 EXTRA_DIST =				\
 	timedated1-interface.xml	\
-	$(plugin_in_files)		\
 	$(desktop_in_files)
 
 CLEANFILES = \
-	$(plugin_DATA) \
 	$(desktop_DATA)
 
 DISTCLEANFILES = \
-	$(plugin_DATA) \
 	$(desktop_DATA)
-
-@GSD_INTLTOOL_PLUGIN_RULE@
