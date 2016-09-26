@@ -25,14 +25,6 @@ gsettings_SCHEMAS =							\
 convertdir = $(datadir)/GConf/gsettings
 convert_DATA = gnome-settings-daemon.convert
 
-@INTLTOOL_DESKTOP_RULE@
-desktopdir = $(sysconfdir)/xdg/autostart
-desktop_in_files = gnome-settings-daemon.desktop.in.in
-desktop_DATA = $(desktop_in_files:.desktop.in.in=.desktop)
-
-gnome-settings-daemon.desktop.in: gnome-settings-daemon.desktop.in.in
-	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@.tmp && mv $@.tmp $@
-
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = gnome-settings-daemon.pc
 
@@ -41,7 +33,6 @@ pkgconfig_DATA = gnome-settings-daemon.pc
 EXTRA_DIST = 					\
 	$(convert_DATA)				\
 	$(gsettings_SCHEMAS:.xml=.xml.in.in)	\
-	$(desktop_in_files)			\
 	$(gsettings_ENUM_FILES)			\
 	gnome-settings-daemon.pc.in		\
 	$(api_DATA)				\
@@ -49,8 +40,6 @@ EXTRA_DIST = 					\
 
 DISTCLEANFILES = 			\
 	$(gsettings_SCHEMAS)		\
-	$(desktop_DATA)			\
-	gnome-settings-daemon.desktop.in \
 	$(NULL)
 
 MAINTAINERCLEANFILES =			\

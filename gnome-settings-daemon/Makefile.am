@@ -88,11 +88,6 @@ libgsd_la_LDFLAGS =		\
 	-no-undefined		\
 	$(NULL)
 
-gsddir = $(libexecdir)
-
-gsd_PROGRAMS = \
-	gnome-settings-daemon
-
 EXTRA_DIST = \
 	org.gnome.SessionManager.xml        \
 	org.gnome.ScreenSaver.xml           \
@@ -103,33 +98,7 @@ apidir   = $(includedir)/gnome-settings-daemon-$(GSD_API_VERSION)/gnome-settings
 api_DATA = 				\
 	gnome-settings-plugin.h
 
-gnome_settings_daemon_SOURCES =		\
-	main.c				\
-	gnome-settings-manager.c	\
-	gnome-settings-manager.h	\
-	gnome-settings-plugin.c		\
-	gnome-settings-plugin.h		\
-	gnome-settings-plugin-info.c	\
-	gnome-settings-plugin-info.h	\
-	gnome-settings-module.c		\
-	gnome-settings-module.h		\
-	$(NULL)
-
-gnome_settings_daemon_CPPFLAGS = \
-	$(AM_CPPFLAGS)
-
-gnome_settings_daemon_CFLAGS = 		\
-	$(AM_CFLAGS)
-
-gnome_settings_daemon_LDFLAGS = 	\
-	$(AM_LDFLAGS)
-
-gnome_settings_daemon_LDADD = 		\
-	libgsd.la		\
-	$(SETTINGS_DAEMON_LIBS)		\
-	$(LIBNOTIFY_LIBS)		\
-	$(GNOME_DESKTOP_LIBS)		\
-	$(NULL)
+EXTRA_DIST += $(api_DATA)
 
 CLEANFILES = $(gsd_SCRIPTS)
 

@@ -11,7 +11,7 @@ PKG_NAME="gnome-settings-daemon"
 
 (test -f $srcdir/configure.ac \
   && test -d $srcdir/gnome-settings-daemon \
-  && test -f $srcdir/gnome-settings-daemon/gnome-settings-manager.h) || {
+  && test -f $srcdir/gnome-settings-daemon/gnome-settings-bus.c) || {
     echo -n "**Error**: Directory "\`$srcdir\'" does not look like the"
     echo " top-level gnome-settings-daemon directory"
     exit 1
