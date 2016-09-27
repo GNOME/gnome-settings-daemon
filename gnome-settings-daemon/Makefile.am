@@ -7,7 +7,6 @@ AM_CPPFLAGS = \
 	-DLIBEXECDIR=\""$(libexecdir)"\" 			\
 	$(WARN_CFLAGS)						\
 	$(DISABLE_DEPRECATED_CFLAGS)				\
-	$(GNOME_DESKTOP_CFLAGS)					\
 	$(WAYLAND_CFLAGS)					\
 	$(NULL)
 
