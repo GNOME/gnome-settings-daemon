@@ -26,7 +26,6 @@ libcolor_la_CPPFLAGS = \
 libcolor_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(COLOR_CFLAGS)		\
-	$(LCMS_CFLAGS)			\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(LIBNOTIFY_CFLAGS)		\
 	$(AM_CFLAGS)
@@ -37,7 +36,6 @@ libcolor_la_LDFLAGS = 			\
 libcolor_la_LIBADD  = 			\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la	\
 	$(COLOR_LIBS)			\
-	$(LCMS_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)		\
 	$(LIBNOTIFY_LIBS)
 
@@ -61,7 +59,6 @@ gcm_self_test_SOURCES =			\
 
 gcm_self_test_LDADD =			\
 	$(COLOR_LIBS)			\
-	$(LCMS_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)		\
 	-lm
 
