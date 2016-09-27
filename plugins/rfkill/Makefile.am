@@ -12,17 +12,16 @@ gsd_rfkill_SOURCES =		\
 
 gsd_rfkill_CFLAGS =						\
 	-I$(top_srcdir)/gnome-settings-daemon			\
-	-I$(top_builddir)/gnome-settings-daemon		\
+	-I$(top_builddir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(PLUGIN_CFLAGS)					\
-	$(SETTINGS_PLUGIN_CFLAGS)				\
-	$(AM_CFLAGS)
+	$(RFKILL_CFLAGS)
 
 gsd_rfkill_LDADD =						\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
-	$(SETTINGS_PLUGIN_LIBS)
+	$(RFKILL_LIBS)
 
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.Rfkill.desktop.in

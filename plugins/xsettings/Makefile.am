@@ -9,23 +9,18 @@ test_gtk_modules_SOURCES =	\
 	gsd-xsettings-gtk.h	\
 	test-gtk-modules.c
 
-test_gtk_modules_CFLAGS =		\
-	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(AM_CFLAGS)
+test_gtk_modules_CFLAGS = $(PLUGIN_CFLAGS) $(XSETTINGS_CFLAGS)
 
 test_gtk_modules_LDADD =					\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
-	$(XSETTINGS_LIBS)					\
-	$(SETTINGS_PLUGIN_LIBS)
+	$(XSETTINGS_LIBS)
 
 test_gtk_modules_CPPFLAGS =				\
 	-I$(top_srcdir)/gnome-settings-daemon		\
 	-I$(top_builddir)/gnome-settings-daemon		\
 	-I$(top_srcdir)/data/				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	-DGTK_MODULES_DIRECTORY=\""$(libdir)/gnome-settings-daemon-@GSD_API_VERSION@/gtk-modules/"\" \
-	$(AM_CPPFLAGS)
+	-DGTK_MODULES_DIRECTORY=\""$(libdir)/gnome-settings-daemon-@GSD_API_VERSION@/gtk-modules/"\"
 
 noinst_PROGRAMS += test-fontconfig-monitor
 
@@ -33,38 +28,26 @@ test_fontconfig_monitor_SOURCES =	\
 	fontconfig-monitor.c		\
 	fontconfig-monitor.h
 
-test_fontconfig_monitor_CFLAGS =	\
-	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(AM_CFLAGS)
+test_fontconfig_monitor_CFLAGS = $(PLUGIN_CFLAGS) $(XSETTINGS_CFLAGS)
 
-test_fontconfig_monitor_LDADD =					\
-	$(XSETTINGS_LIBS)					\
-	$(SETTINGS_PLUGIN_LIBS)
+test_fontconfig_monitor_LDADD = $(XSETTINGS_LIBS)
 
 test_fontconfig_monitor_CPPFLAGS =			\
 	-I$(top_srcdir)/gnome-settings-daemon		\
 	-I$(top_builddir)/gnome-settings-daemon		\
 	-I$(top_srcdir)/data/				\
-	-DFONTCONFIG_MONITOR_TEST			\
-	$(AM_CPPFLAGS)
+	-DFONTCONFIG_MONITOR_TEST
 
 noinst_PROGRAMS += test-wm-button-layout-translations
 
 test_wm_button_layout_translations_SOURCES =	\
 	test-wm-button-layout-translations.c	\
 	wm-button-layout-translation.c		\
-	wm-button-layout-translation.h		\
-	$(NULL)
+	wm-button-layout-translation.h
 
-test_wm_button_layout_translations_CFLAGS =	\
-	$(XSETTINGS_CFLAGS)			\
-	$(AM_CFLAGS)				\
-	$(NULL)
+test_wm_button_layout_translations_CFLAGS = $(XSETTINGS_CFLAGS)
 
-test_wm_button_layout_translations_LDADD =	\
-	$(XSETTINGS_LIBS)			\
-	$(NULL)
+test_wm_button_layout_translations_LDADD = $(XSETTINGS_LIBS)
 
 libexec_PROGRAMS = gsd-xsettings
 
@@ -87,10 +70,8 @@ gsd_xsettings_SOURCES =		\
 	main.c
 
 gsd_xsettings_CFLAGS =			\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(PLUGIN_CFLAGS)		\
-	$(XSETTINGS_CFLAGS)		\
-	$(AM_CFLAGS)
+	$(XSETTINGS_CFLAGS)
 
 gsd_xsettings_CPPFLAGS =										\
 	-I$(top_srcdir)/gnome-settings-daemon								\
@@ -98,12 +79,10 @@ gsd_xsettings_CPPFLAGS =										\
 	-I$(top_srcdir)/plugins/common/									\
 	-I$(top_srcdir)/data/										\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"						\
-	-DGTK_MODULES_DIRECTORY=\""$(libdir)/gnome-settings-daemon-@GSD_API_VERSION@/gtk-modules/"\"	\
-	$(AM_CPPFLAGS)
+	-DGTK_MODULES_DIRECTORY=\""$(libdir)/gnome-settings-daemon-@GSD_API_VERSION@/gtk-modules/"\"
 
 gsd_xsettings_LDADD =						\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
-	$(SETTINGS_PLUGIN_LIBS)					\
 	$(XSETTINGS_LIBS)
 
 desktopdir = $(sysconfdir)/xdg/autostart

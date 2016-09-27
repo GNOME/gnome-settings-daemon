@@ -66,18 +66,13 @@ gsd_media_keys_CPPFLAGS = \
 
 gsd_media_keys_CFLAGS =			\
 	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(MEDIA_KEYS_CFLAGS)		\
-	$(AM_CFLAGS)
+	$(MEDIA_KEYS_CFLAGS)
 
 gsd_media_keys_LDADD = \
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(top_builddir)/plugins/media-keys/gvc/libgvc.la	\
-	$(SETTINGS_DAEMON_LIBS)			\
-	$(SETTINGS_PLUGIN_LIBS)			\
-	$(MEDIA_KEYS_LIBS)			\
-	-lm
+	$(MEDIA_KEYS_LIBS) -lm
 
 EXTRA_DIST = 				\
 	gsd-marshal.list		\

@@ -22,7 +22,6 @@
 
 #include "config.h"
 
-#include <gtk/gtk.h>
 #include <gdk/gdk.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API

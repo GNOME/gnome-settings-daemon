@@ -4,4 +4,4 @@
 #define MANAGER GsdXrandrManager
 #include "gsd-xrandr-manager.h"
 
-#include "daemon-skeleton.h"
+#include "daemon-skeleton-gtk.h"

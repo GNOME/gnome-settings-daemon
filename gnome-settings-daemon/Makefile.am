@@ -5,11 +5,8 @@ AM_CPPFLAGS = \
 	-DDATADIR=\""$(datadir)"\"				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\" 			\
-	-DGNOME_SETTINGS_PLUGINDIR=\""$(plugindir)"\"		\
 	$(WARN_CFLAGS)						\
 	$(DISABLE_DEPRECATED_CFLAGS)				\
-	$(SETTINGS_DAEMON_CFLAGS)				\
-	$(LIBNOTIFY_CFLAGS)					\
 	$(GNOME_DESKTOP_CFLAGS)					\
 	$(WAYLAND_CFLAGS)					\
 	$(NULL)
@@ -73,12 +70,10 @@ libgsd_la_CPPFLAGS = 		\
 	$(DISABLE_DEPRECATED_CFLAGS)	\
 	$(NULL)
 
-libgsd_la_CFLAGS =		\
-	$(NULL)
+libgsd_la_CFLAGS = $(HELPER_CFLAGS)
 
 libgsd_la_LIBADD =		\
-	$(SETTINGS_DAEMON_LIBS)		\
-	$(GIOUNIX_LIBS)		\
+	$(HELPER_LIBS)		\
 	$(WAYLAND_LIBS)		\
 	$(NULL)
 

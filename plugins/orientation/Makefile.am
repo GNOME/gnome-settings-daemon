@@ -13,15 +13,12 @@ gsd_orientation_CFLAGS =					\
 	-I$(top_srcdir)/plugins/common				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(ORIENTATION_CFLAGS)					\
-	$(PLUGIN_CFLAGS)					\
-	$(SETTINGS_PLUGIN_CFLAGS)				\
-	$(AM_CFLAGS)
+	$(PLUGIN_CFLAGS)
 
 gsd_orientation_LDADD =						\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
-	$(ORIENTATION_LIBS)					\
-	$(SETTINGS_PLUGIN_LIBS)
+	$(ORIENTATION_LIBS)
 
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.Orientation.desktop.in

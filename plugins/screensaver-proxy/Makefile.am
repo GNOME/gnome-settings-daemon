@@ -13,19 +13,17 @@ gsd_screensaver_proxy_CPPFLAGS =				\
 	-I$(top_builddir)/gnome-settings-daemon		\
 	-I$(top_srcdir)/plugins/common				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
-	-DLIBEXECDIR=\""$(libexecdir)"\"			\
-	$(AM_CPPFLAGS)
+	-DLIBEXECDIR=\""$(libexecdir)"\"
 
 gsd_screensaver_proxy_CFLAGS =		\
 	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(SCREENSAVER_PROXY_CFLAGS)	\
 	$(AM_CFLAGS)
 
 gsd_screensaver_proxy_LDADD =					\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
-	$(SETTINGS_DAEMON_LIBS)			\
-	$(SETTINGS_PLUGIN_LIBS)
+	$(SCREENSAVER_PROXY_LIBS)
 
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.ScreensaverProxy.desktop.in

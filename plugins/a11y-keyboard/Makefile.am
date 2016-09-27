@@ -14,17 +14,13 @@ gsd_a11y_keyboard_CFLAGS =					\
 	-I$(top_builddir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
-	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
 	$(PLUGIN_CFLAGS)					\
-	$(LIBNOTIFY_CFLAGS)					\
-	$(SETTINGS_PLUGIN_CFLAGS)				\
-	$(AM_CFLAGS)
+	$(A11Y_KEYBOARD_CFLAGS)
 
 gsd_a11y_keyboard_LDADD =					\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
-	$(LIBNOTIFY_LIBS)					\
-	$(SETTINGS_PLUGIN_LIBS)
+	$(A11Y_KEYBOARD_LIBS)
 
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.A11yKeyboard.desktop.in
@@ -34,7 +30,6 @@ org.gnome.SettingsDaemon.A11yKeyboard.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 EXTRA_DIST = 			\
-	$(gtkbuilder_DATA)	\
 	$(desktop_in_files)	\
 	$(NULL)
 

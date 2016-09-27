@@ -4,4 +4,4 @@
 #define MANAGER GsdPowerManager
 #include "gsd-power-manager.h"
 
-#include "daemon-skeleton.h"
+#include "daemon-skeleton-gtk.h"

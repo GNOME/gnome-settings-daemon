@@ -21,6 +21,7 @@
 #include <gio/gio.h>
 #include <glib/gstdio.h>
 #include <string.h>
+#include <libnotify/notify.h>
 
 #include "gnome-settings-profile.h"
 #include "gsd-housekeeping-manager.h"
@@ -453,6 +454,8 @@ gsd_housekeeping_manager_class_init (GsdHousekeepingManagerClass *klass)
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
         object_class->finalize = gsd_housekeeping_manager_finalize;
+
+        notify_init ("gnome-settings-daemon");
 
         g_type_class_add_private (klass, sizeof (GsdHousekeepingManagerPrivate));
 }

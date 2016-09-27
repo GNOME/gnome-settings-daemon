@@ -72,20 +72,15 @@ gsd_wacom_CPPFLAGS = \
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
-	-DLIBEXECDIR=\""$(libexecdir)"\"			\
-	$(AM_CPPFLAGS)
+	-DLIBEXECDIR=\""$(libexecdir)"\"
 
 gsd_wacom_CFLAGS =			\
 	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(WACOM_CFLAGS)			\
-	$(AM_CFLAGS)
+	$(WACOM_CFLAGS)
 
 gsd_wacom_LDADD =						\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
-	$(SETTINGS_DAEMON_LIBS)					\
-	$(SETTINGS_PLUGIN_LIBS)					\
 	$(WACOM_LIBS)						\
 	-lm
 
@@ -102,19 +97,13 @@ gsd_list_wacom_CPPFLAGS =					\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
-	$(AM_CPPFLAGS)
+	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"
 
-gsd_list_wacom_CFLAGS =			\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(WACOM_CFLAGS)			\
-	$(AM_CFLAGS)
+gsd_list_wacom_CFLAGS = $(WACOM_CFLAGS)
 
 gsd_list_wacom_LDADD =						\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
-	$(SETTINGS_DAEMON_LIBS)					\
-	$(SETTINGS_PLUGIN_LIBS)					\
 	$(WACOM_LIBS)						\
 	-lm
 
@@ -139,19 +128,14 @@ gsd_test_wacom_osd_CPPFLAGS = \
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
-	-DLIBEXECDIR=\""$(libexecdir)"\"			\
-	$(AM_CPPFLAGS)
+	-DLIBEXECDIR=\""$(libexecdir)"\"
 
 gsd_test_wacom_osd_CFLAGS =					\
-	$(SETTINGS_PLUGIN_CFLAGS)				\
-	$(WACOM_CFLAGS)						\
-	$(AM_CFLAGS)
+	$(WACOM_CFLAGS)
 
 gsd_test_wacom_osd_LDADD = \
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
-	$(SETTINGS_DAEMON_LIBS)					\
-	$(SETTINGS_PLUGIN_LIBS)					\
 	$(WACOM_LIBS)						\
 	-lm
 

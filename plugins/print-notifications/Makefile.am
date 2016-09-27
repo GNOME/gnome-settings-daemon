@@ -13,15 +13,13 @@ gsd_printer_SOURCES = 	\
 	gsd-printer.c
 
 gsd_printer_CFLAGS = \
-	$(SETTINGS_PLUGIN_CFLAGS)				\
-	$(LIBNOTIFY_CFLAGS)					\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	$(PRINT_NOTIFICATIONS_CFLAGS)				\
 	$(AM_CFLAGS)
 
-gsd_printer_LDADD  = 		\
-	$(SETTINGS_PLUGIN_LIBS)	\
-	$(CUPS_LIBS)		\
-	$(LIBNOTIFY_LIBS)
+gsd_printer_LDADD  =			\
+	$(PRINT_NOTIFICATIONS_LIBS)	\
+	$(CUPS_LIBS)
 
 libexec_PROGRAMS += gsd-print-notifications
 
@@ -39,17 +37,14 @@ gsd_print_notifications_CPPFLAGS =				\
 	$(AM_CPPFLAGS)						\
 	$(CUPS_CPPFLAGS)
 
-gsd_print_notifications_CFLAGS =	\
-	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(AM_CFLAGS)
+gsd_print_notifications_CFLAGS =			\
+	$(PLUGIN_CFLAGS)				\
+	$(PRINT_NOTIFICATIONS_CFLAGS)
 
 gsd_print_notifications_LDADD =				\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
-	$(SETTINGS_DAEMON_LIBS)					\
-	$(SETTINGS_PLUGIN_LIBS)					\
 	$(CUPS_LIBS)						\
-	$(LIBNOTIFY_LIBS)
+	$(PRINT_NOTIFICATIONS_LIBS)
 
 EXTRA_DIST = 			\
 	$(desktop_in_files)

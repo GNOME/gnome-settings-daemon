@@ -10,9 +10,7 @@ gsd_sharing_SOURCES =					\
 gsd_sharing_CFLAGS =			\
 	-I$(top_srcdir)/plugins/common	\
 	$(SHARING_CFLAGS)		\
-	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(AM_CFLAGS)
+	$(PLUGIN_CFLAGS)
 gsd_sharing_CPPFLAGS =						\
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_builddir)/gnome-settings-daemon			\
@@ -20,8 +18,7 @@ gsd_sharing_CPPFLAGS =						\
 	$(AM_CPPFLAGS)
 gsd_sharing_LDADD =					\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la \
-	$(SHARING_LIBS)					\
-	$(SETTINGS_PLUGIN_LIBS)
+	$(SHARING_LIBS)
 
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.Sharing.desktop.in

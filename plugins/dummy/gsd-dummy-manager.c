@@ -22,10 +22,7 @@
 #include <string.h>
 #include <locale.h>
 
-#include <glib.h>
-#include <glib/gi18n.h>
-#include <gdk/gdk.h>
-#include <gtk/gtk.h>
+#include <glib-object.h>
 
 #include "gnome-settings-profile.h"
 #include "gsd-dummy-manager.h"

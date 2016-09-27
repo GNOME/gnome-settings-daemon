@@ -35,16 +35,13 @@ gsd_datetime_CFLAGS =					\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DGNOMECC_DATA_DIR="\"$(pkgdatadir)\""			\
 	$(DATETIME_CFLAGS)					\
-	$(PLUGIN_CFLAGS)					\
-	$(SETTINGS_PLUGIN_CFLAGS)				\
-	$(AM_CFLAGS)
+	$(PLUGIN_CFLAGS)
 
 gsd_datetime_LDADD =					\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(DATETIME_LIBS)					\
-	$(LIBM)							\
-	$(SETTINGS_PLUGIN_LIBS)
+	$(LIBM)
 
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.Datetime.desktop.in

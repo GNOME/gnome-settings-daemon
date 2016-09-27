@@ -47,15 +47,11 @@ gsd_xrandr_CPPFLAGS =					\
 
 gsd_xrandr_CFLAGS =			\
 	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(XRANDR_CFLAGS)		\
-	$(AM_CFLAGS)
+	$(XRANDR_CFLAGS)
 
 gsd_xrandr_LDADD =						\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
-	$(SETTINGS_DAEMON_LIBS)			\
-	$(SETTINGS_PLUGIN_LIBS)			\
 	$(XRANDR_LIBS)
 
 desktopdir = $(sysconfdir)/xdg/autostart

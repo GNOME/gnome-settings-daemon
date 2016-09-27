@@ -8,8 +8,7 @@ gsd_dummy_SOURCES =			\
 
 gsd_dummy_CFLAGS =			\
 	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(AM_CFLAGS)
+	$(DUMMY_CFLAGS)
 
 gsd_dummy_CPPFLAGS =			\
 	-I$(top_srcdir)/gnome-settings-daemon		\
@@ -18,7 +17,7 @@ gsd_dummy_CPPFLAGS =			\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
-gsd_dummy_LDADD = $(SETTINGS_PLUGIN_LIBS) $(top_builddir)/gnome-settings-daemon/libgsd.la
+gsd_dummy_LDADD = $(DUMMY_LIBS) $(top_builddir)/gnome-settings-daemon/libgsd.la
 
 EXTRA_DIST = $(NULL)
 

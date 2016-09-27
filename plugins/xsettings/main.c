@@ -4,4 +4,4 @@
 #define MANAGER GnomeXSettingsManager
 #include "gsd-xsettings-manager.h"
 
-#include "daemon-skeleton.h"
+#include "daemon-skeleton-gtk.h"

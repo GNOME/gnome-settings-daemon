@@ -11,8 +11,7 @@ gsd_keyboard_SOURCES =		\
 
 gsd_keyboard_CFLAGS =			\
 	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(AM_CFLAGS)
+	$(KEYBOARD_CFLAGS)
 
 gsd_keyboard_CPPFLAGS =						\
 	-I$(top_srcdir)/gnome-settings-daemon			\
@@ -26,7 +25,7 @@ gsd_keyboard_CPPFLAGS =						\
 
 gsd_keyboard_LDADD =					\
 	$(top_builddir)/plugins/common/libcommon.la	\
-	$(SETTINGS_PLUGIN_LIBS)
+	$(KEYBOARD_LIBS)
 
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.Keyboard.desktop.in

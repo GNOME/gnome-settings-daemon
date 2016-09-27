@@ -13,15 +13,12 @@ gsd_sound_CFLAGS =						\
 	-I$(top_srcdir)/plugins/common				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(SOUND_CFLAGS)						\
-	$(PLUGIN_CFLAGS)					\
-	$(SETTINGS_PLUGIN_CFLAGS)				\
-	$(AM_CFLAGS)
+	$(PLUGIN_CFLAGS)
 
 gsd_sound_LDADD =						\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
-	$(SOUND_LIBS)						\
-	$(SETTINGS_PLUGIN_LIBS)
+	$(SOUND_LIBS)
 
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.Sound.desktop.in

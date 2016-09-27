@@ -15,15 +15,9 @@ gsd_locate_pointer_SOURCES = 	\
 	gsd-timeline.h		\
 	gsd-timeline.c
 
-gsd_locate_pointer_CFLAGS = \
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(MOUSE_CFLAGS)			\
-	$(AM_CFLAGS)
+gsd_locate_pointer_CFLAGS = $(MOUSE_LOCATE_POINTER_CFLAGS)
 
-gsd_locate_pointer_LDADD  = 		\
-	$(SETTINGS_PLUGIN_LIBS)		\
-	$(MOUSE_LIBS)			\
-	-lm
+gsd_locate_pointer_LDADD  = $(MOUSE_LOCATE_POINTER_LIBS) -lm
 
 libexec_PROGRAMS += gsd-mouse
 
@@ -41,19 +35,14 @@ gsd_mouse_CPPFLAGS =						\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	$(AM_CPPFLAGS)
 
-gsd_mouse_CFLAGS =			\
-	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(MOUSE_CFLAGS)		\
-	$(AM_CFLAGS)
+gsd_mouse_CFLAGS =		\
+	$(PLUGIN_CFLAGS)	\
+	$(MOUSE_CFLAGS)
 
 gsd_mouse_LDADD =						\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
-	$(SETTINGS_DAEMON_LIBS)			\
-	$(SETTINGS_PLUGIN_LIBS)			\
-	$(MOUSE_LIBS)			\
-	-lm
+	$(MOUSE_LIBS) -lm
 
 EXTRA_DIST = $(desktop_in_files)
 CLEANFILES = $(desktop_DATA)

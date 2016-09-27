@@ -796,6 +796,8 @@ gsd_a11y_keyboard_manager_class_init (GsdA11yKeyboardManagerClass *klass)
 
         object_class->finalize = gsd_a11y_keyboard_manager_finalize;
 
+        notify_init ("gnome-settings-daemon");
+
         g_type_class_add_private (klass, sizeof (GsdA11yKeyboardManagerPrivate));
 }
 

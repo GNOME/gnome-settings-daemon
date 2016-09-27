@@ -4,4 +4,4 @@
 #define MANAGER GsdColorManager
 #include "gsd-color-manager.h"
 
-#include "daemon-skeleton.h"
+#include "daemon-skeleton-gtk.h"

@@ -13,13 +13,12 @@ gsd_a11y_settings_CFLAGS =					\
 	-I$(top_srcdir)/plugins/common				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(PLUGIN_CFLAGS)					\
-	$(SETTINGS_PLUGIN_CFLAGS)				\
-	$(AM_CFLAGS)
+	$(A11Y_SETTINGS_CFLAGS)
 
 gsd_a11y_settings_LDADD =					\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
-	$(SETTINGS_PLUGIN_LIBS)
+	$(A11Y_SETTINGS_LIBS)
 
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.A11ySettings.desktop.in

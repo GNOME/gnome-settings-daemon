@@ -185,6 +185,8 @@ gsd_datetime_manager_class_init (GsdDatetimeManagerClass *klass)
 
         object_class->finalize = gsd_datetime_manager_finalize;
 
+        notify_init ("gnome-settings-daemon");
+
         g_type_class_add_private (klass, sizeof (GsdDatetimeManagerPrivate));
 }
 

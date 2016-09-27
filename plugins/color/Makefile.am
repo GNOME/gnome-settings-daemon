@@ -8,7 +8,6 @@ gcm_self_test_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
 gcm_self_test_CFLAGS =			\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(COLOR_CFLAGS)			\
 	$(PLUGIN_CFLAGS)		\
 	$(AM_CFLAGS)
@@ -42,10 +41,7 @@ gsd_color_SOURCES =			\
 
 gsd_color_CFLAGS =			\
 	$(PLUGIN_CFLAGS)		\
-	$(COLOR_CFLAGS)			\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(LIBNOTIFY_CFLAGS)		\
-	$(AM_CFLAGS)
+	$(COLOR_CFLAGS)
 
 gsd_color_CPPFLAGS =						\
 	-I$(top_srcdir)/gnome-settings-daemon			\
@@ -58,8 +54,6 @@ gsd_color_CPPFLAGS =						\
 gsd_color_LDADD =						\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(COLOR_LIBS)						\
-	$(SETTINGS_PLUGIN_LIBS)					\
-	$(LIBNOTIFY_LIBS)					\
 	$(LIBM)
 
 desktopdir = $(sysconfdir)/xdg/autostart

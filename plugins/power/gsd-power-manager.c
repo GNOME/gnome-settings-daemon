@@ -1894,6 +1894,8 @@ gsd_power_manager_class_init (GsdPowerManagerClass *klass)
 
         object_class->finalize = gsd_power_manager_finalize;
 
+        notify_init ("gnome-settings-daemon");
+
         g_type_class_add_private (klass, sizeof (GsdPowerManagerPrivate));
 }
 

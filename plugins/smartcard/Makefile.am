@@ -47,17 +47,13 @@ gsd_smartcard_CPPFLAGS =                                        \
 
 gsd_smartcard_CFLAGS =                                          \
 	 $(PLUGIN_CFLAGS)                                       \
-	 $(SETTINGS_PLUGIN_CFLAGS)                              \
-	 $(MEDIA_KEYS_CFLAGS)                                   \
-	 $(NSS_CFLAGS)                                          \
+	 $(SMARTCARD_CFLAGS)                                    \
 	 $(AM_CFLAGS)
 
 gsd_smartcard_LDADD =                                           \
 	$(top_builddir)/gnome-settings-daemon/libgsd.la         \
 	$(top_builddir)/plugins/common/libcommon.la             \
-	$(NSS_LIBS)                                             \
-	$(SETTINGS_DAEMON_LIBS)                                 \
-	$(SETTINGS_PLUGIN_LIBS)
+	$(SMARTCARD_LIBS)
 
 
 libsmartcard_la_SOURCES = \

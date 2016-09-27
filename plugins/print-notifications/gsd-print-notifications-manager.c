@@ -1473,6 +1473,8 @@ gsd_print_notifications_manager_class_init (GsdPrintNotificationsManagerClass *k
 
         object_class->finalize = gsd_print_notifications_manager_finalize;
 
+        notify_init ("gnome-settings-daemon");
+
         g_type_class_add_private (klass, sizeof (GsdPrintNotificationsManagerPrivate));
 }
 

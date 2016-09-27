@@ -39,9 +39,7 @@ gsd_power_SOURCES =				\
 
 gsd_power_CFLAGS =					\
 	$(PLUGIN_CFLAGS)				\
-	$(POWER_CFLAGS)					\
-	$(SETTINGS_PLUGIN_CFLAGS)			\
-	$(AM_CFLAGS)
+	$(POWER_CFLAGS)
 
 gsd_power_CPPFLAGS =					\
 	-I$(top_srcdir)/data/				\
@@ -58,8 +56,7 @@ gsd_power_LDADD =					\
 	-lm						\
 	$(top_builddir)/plugins/common/libcommon.la	\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la \
-	$(POWER_LIBS)					\
-	$(SETTINGS_PLUGIN_LIBS)
+	$(POWER_LIBS)
 
 EXTRA_DIST = 						\
 	$(desktop_in_files)				\
