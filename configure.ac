@@ -60,6 +60,7 @@ GSETTINGS_DESKTOP_SCHEMAS_REQUIRED_VERSION=3.20.0
 GEOCODE_GLIB_REQUIRED_VERSION=3.10.0
 GEOCLUE_REQUIRED_VERSION=2.3.1
 NM_REQUIRED_VERSION=1.0
+LCMS_REQUIRED_VERSION=2.2
 
 EXTRA_COMPILE_WARNINGS(yes)
 
@@ -100,16 +101,6 @@ dnl ---------------------------------------------------------------------------
 dnl - Check for gnome-desktop
 dnl ---------------------------------------------------------------------------
 PKG_CHECK_MODULES(GNOME_DESKTOP, gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
-
-dnl ---------------------------------------------------------------------------
-dnl - Check for LCMS2
-dnl ---------------------------------------------------------------------------
-PKG_CHECK_MODULES(LCMS, lcms2 >= 2.2, have_new_lcms=yes, have_new_lcms=no)
-if test x$have_new_lcms = xyes; then
-        AC_DEFINE(HAVE_NEW_LCMS,1,[Got new lcms2])
-else
-        PKG_CHECK_MODULES(LCMS, lcms2)
-fi
 
 dnl ---------------------------------------------------------------------------
 dnl - Check for libnotify
@@ -254,7 +245,7 @@ dnl ---------------------------------------------------------------------------
 dnl - color
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(COLOR, [colord >= 1.0.2 gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION libcanberra-gtk3])
+PKG_CHECK_MODULES(COLOR, [colord >= 1.0.2 gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION libcanberra-gtk3 lcms2 >= $LCMS_REQUIRED_VERSION])
 
 dnl ---------------------------------------------------------------------------
 dnl - datetime
@@ -590,7 +581,6 @@ echo "
         cflags:                   ${CFLAGS}
         Maintainer mode:          ${USE_MAINTAINER_MODE}
 
-        LCMS DICT support:        ${have_new_lcms}
         NetworkManager support:   ${enable_network_manager}
         Libnotify support:        ${have_libnotify}
         Smartcard support:        ${have_smartcard_support}
