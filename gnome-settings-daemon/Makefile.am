@@ -88,12 +88,6 @@ EXTRA_DIST = \
 	org.gnome.Shell.xml                 \
 	$(NULL)
 
-apidir   = $(includedir)/gnome-settings-daemon-$(GSD_API_VERSION)/gnome-settings-daemon
-api_DATA = 				\
-	gnome-settings-plugin.h
-
-EXTRA_DIST += $(api_DATA)
-
 CLEANFILES = $(gsd_SCRIPTS)
 
 # vim: ts=8

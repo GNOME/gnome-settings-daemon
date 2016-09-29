@@ -28,9 +28,12 @@
 #include <libgnome-desktop/gnome-rr.h>
 
 #include "gsd-input-helper.h"
-#include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
 #include "gsd-orientation-manager.h"
+
+#define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
+#define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
+#define GSD_DBUS_BASE_INTERFACE "org.gnome.SettingsDaemon"
 
 typedef enum {
         ORIENTATION_UNDEFINED,

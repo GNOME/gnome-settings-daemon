@@ -45,7 +45,6 @@
 #include "gsd-enums.h"
 #include "gsd-input-helper.h"
 #include "gsd-keygrab.h"
-#include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
 #include "gnome-settings-bus.h"
 #include "gsd-wacom-manager.h"
@@ -80,6 +79,10 @@
 #define DEFAULT_PRESSURE_THRESHOLD 27
 
 #define UNKNOWN_DEVICE_NOTIFICATION_TIMEOUT 15000
+
+#define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
+#define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
+#define GSD_DBUS_BASE_INTERFACE "org.gnome.SettingsDaemon"
 
 #define GSD_WACOM_DBUS_PATH GSD_DBUS_PATH "/Wacom"
 #define GSD_WACOM_DBUS_NAME GSD_DBUS_NAME ".Wacom"

@@ -25,7 +25,6 @@
 #include <gio/gio.h>
 #include <string.h>
 
-#include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
 #include "gsd-rfkill-manager.h"
 #include "rfkill-glib.h"
@@ -59,6 +58,10 @@ struct GsdRfkillManagerPrivate
 
         gchar                   *chassis_type;
 };
+
+#define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
+#define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
+#define GSD_DBUS_BASE_INTERFACE "org.gnome.SettingsDaemon"
 
 #define GSD_RFKILL_DBUS_NAME GSD_DBUS_NAME ".Rfkill"
 #define GSD_RFKILL_DBUS_PATH GSD_DBUS_PATH "/Rfkill"

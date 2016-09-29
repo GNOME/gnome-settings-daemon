@@ -26,8 +26,6 @@
 #include "gsd-smartcard-enum-types.h"
 #include "gsd-smartcard-utils.h"
 
-#include "gnome-settings-plugin.h"
-
 #include <glib/gi18n.h>
 #include <glib/gstdio.h>
 #include <gio/gio.h>
@@ -42,6 +40,10 @@ struct _GsdSmartcardServicePrivate
 
         guint name_id;
 };
+
+#define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
+#define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
+#define GSD_DBUS_BASE_INTERFACE "org.gnome.SettingsDaemon"
 
 #define GSD_SMARTCARD_DBUS_NAME GSD_DBUS_NAME ".Smartcard"
 #define GSD_SMARTCARD_DBUS_PATH GSD_DBUS_PATH "/Smartcard"

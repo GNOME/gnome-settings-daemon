@@ -46,7 +46,6 @@
 
 #include "gsd-enums.h"
 #include "gsd-input-helper.h"
-#include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
 #include "gnome-settings-bus.h"
 #include "gsd-device-mapper.h"
@@ -64,6 +63,10 @@
 
 /* name of the icon files (gsd-xrandr.svg, etc.) */
 #define GSD_XRANDR_ICON_NAME "gsd-xrandr"
+
+#define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
+#define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
+#define GSD_DBUS_BASE_INTERFACE "org.gnome.SettingsDaemon"
 
 #define GSD_XRANDR_DBUS_NAME GSD_DBUS_NAME ".XRANDR"
 #define GSD_XRANDR_DBUS_PATH GSD_DBUS_PATH "/XRANDR"

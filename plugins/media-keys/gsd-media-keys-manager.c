@@ -47,7 +47,6 @@
 #endif
 
 #include "mpris-controller.h"
-#include "gnome-settings-plugin.h"
 #include "gnome-settings-bus.h"
 #include "gnome-settings-profile.h"
 #include "gsd-marshal.h"
@@ -64,6 +63,10 @@
 #include <pulse/pulseaudio.h>
 #include "gvc-mixer-control.h"
 #include "gvc-mixer-sink.h"
+
+#define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
+#define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
+#define GSD_DBUS_BASE_INTERFACE "org.gnome.SettingsDaemon"
 
 #define GSD_MEDIA_KEYS_DBUS_PATH GSD_DBUS_PATH "/MediaKeys"
 #define GSD_MEDIA_KEYS_DBUS_NAME GSD_DBUS_NAME ".MediaKeys"

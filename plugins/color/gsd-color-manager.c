@@ -23,7 +23,6 @@
 #include <glib/gi18n.h>
 #include <gdk/gdk.h>
 
-#include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
 #include "gsd-color-calibrate.h"
 #include "gsd-color-manager.h"

@@ -23,7 +23,6 @@
 #include <glib.h>
 #include <gio/gio.h>
 
-#include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
 #include "gnome-settings-bus.h"
 #include "gsd-smartcard-manager.h"

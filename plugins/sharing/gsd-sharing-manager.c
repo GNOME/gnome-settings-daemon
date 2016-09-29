@@ -29,7 +29,6 @@
 #include <NetworkManager.h>
 #endif /* HAVE_NETWORK_MANAGER */
 
-#include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
 #include "gsd-sharing-manager.h"
 #include "gsd-sharing-enums.h"
@@ -59,6 +58,10 @@ struct GsdSharingManagerPrivate
         char                    *carrier_type;
         GsdSharingStatus         sharing_status;
 };
+
+#define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
+#define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
+#define GSD_DBUS_BASE_INTERFACE "org.gnome.SettingsDaemon"
 
 #define GSD_SHARING_DBUS_NAME GSD_DBUS_NAME ".Sharing"
 #define GSD_SHARING_DBUS_PATH GSD_DBUS_PATH "/Sharing"

@@ -35,13 +35,16 @@
 #endif
 
 #include "gnome-settings-bus.h"
-#include "gnome-settings-plugin.h"
 
 #include "gsd-color-manager.h"
 #include "gsd-color-state.h"
 #include "gcm-edid.h"
 
 #define GSD_COLOR_STATE_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_COLOR_STATE, GsdColorStatePrivate))
+
+#define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
+#define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
+#define GSD_DBUS_BASE_INTERFACE "org.gnome.SettingsDaemon"
 
 struct GsdColorStatePrivate
 {
