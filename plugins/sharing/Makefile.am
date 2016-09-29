@@ -25,7 +25,7 @@ libsharing_la_LDFLAGS = $(GSD_PLUGIN_LDFLAGS)
 
 libsharing_la_LIBADD  = $(SETTINGS_PLUGIN_LIBS) $(SHARING_LIBS)
 
-noinst_PROGRAMS = gsd-sharing
+libexec_PROGRAMS = gsd-sharing
 gsd_sharing_SOURCES =					\
 	gsd-sharing-manager.c				\
 	gsd-sharing-manager.h				\
