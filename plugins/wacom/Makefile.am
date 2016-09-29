@@ -28,11 +28,11 @@ libexec_PROGRAMS = gsd-wacom-led-helper gsd-wacom-oled-helper
 
 gsd_wacom_led_helper_LDFLAGS =				\
 	$(BACKLIGHT_HELPER_LIBS)			\
-	-lm
+	$(LIBM)
 
 gsd_wacom_oled_helper_LDFLAGS =				\
 	$(WACOM_OLED_LIBS)				\
-	-lm
+	$(LIBM)
 
 gsd_wacom_led_helper_CFLAGS =				\
 	$(BACKLIGHT_HELPER_CFLAGS)
@@ -82,7 +82,7 @@ gsd_wacom_LDADD =						\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(WACOM_LIBS)						\
-	-lm
+	$(LIBM)
 
 gsd_list_wacom_SOURCES =	\
 	list-wacom.c		\
@@ -105,7 +105,7 @@ gsd_list_wacom_LDADD =						\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(WACOM_LIBS)						\
-	-lm
+	$(LIBM)
 
 gsd_test_wacom_osd_SOURCES =					\
 	test-osd-window.c					\
@@ -137,7 +137,7 @@ gsd_test_wacom_osd_LDADD = \
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(WACOM_LIBS)						\
-	-lm
+	$(LIBM)
 
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.Wacom.desktop.in

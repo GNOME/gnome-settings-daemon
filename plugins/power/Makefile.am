@@ -53,10 +53,10 @@ gsd_power_CPPFLAGS =					\
 	$(AM_CPPFLAGS)
 
 gsd_power_LDADD =					\
-	-lm						\
 	$(top_builddir)/plugins/common/libcommon.la	\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la \
-	$(POWER_LIBS)
+	$(POWER_LIBS)					\
+	$(LIBM)
 
 EXTRA_DIST = 						\
 	$(desktop_in_files)				\
@@ -68,7 +68,7 @@ libexec_PROGRAMS = gsd-backlight-helper
 
 gsd_backlight_helper_LDFLAGS =				\
 	$(BACKLIGHT_HELPER_LIBS)			\
-	-lm
+	$(LIBM)
 
 gsd_backlight_helper_CFLAGS =				\
 	$(BACKLIGHT_HELPER_CFLAGS)

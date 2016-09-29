@@ -17,7 +17,7 @@ gsd_locate_pointer_SOURCES = 	\
 
 gsd_locate_pointer_CFLAGS = $(MOUSE_LOCATE_POINTER_CFLAGS)
 
-gsd_locate_pointer_LDADD  = $(MOUSE_LOCATE_POINTER_LIBS) -lm
+gsd_locate_pointer_LDADD  = $(MOUSE_LOCATE_POINTER_LIBS) $(LIBM)
 
 libexec_PROGRAMS += gsd-mouse
 
@@ -42,7 +42,8 @@ gsd_mouse_CFLAGS =		\
 gsd_mouse_LDADD =						\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
-	$(MOUSE_LIBS) -lm
+	$(MOUSE_LIBS)						\
+	$(LIBM)
 
 EXTRA_DIST = $(desktop_in_files)
 CLEANFILES = $(desktop_DATA)

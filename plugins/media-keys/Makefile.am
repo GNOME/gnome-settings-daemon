@@ -72,7 +72,8 @@ gsd_media_keys_LDADD = \
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(top_builddir)/plugins/media-keys/gvc/libgvc.la	\
-	$(MEDIA_KEYS_LIBS) -lm
+	$(MEDIA_KEYS_LIBS)					\
+	$(LIBM)
 
 EXTRA_DIST = 				\
 	gsd-marshal.list		\

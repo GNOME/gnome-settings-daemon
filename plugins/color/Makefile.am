@@ -20,7 +20,7 @@ gcm_self_test_SOURCES =			\
 gcm_self_test_LDADD =			\
 	$(COLOR_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)		\
-	-lm
+	$(LIBM)
 
 TESTS = gcm-self-test
 
