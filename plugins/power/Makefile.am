@@ -63,7 +63,7 @@ gsd_backlight_helper_SOURCES =				\
 	gsd-backlight-linux.h				\
 	gsd-backlight-helper.c
 
-noinst_PROGRAMS = gsd-power
+libexec_PROGRAMS = gsd-power
 gsd_power_SOURCES =				\
 	gpm-common.c					\
 	gpm-common.h					\
@@ -132,7 +132,7 @@ gsdpowerconstants.py: gsd-power-constants-update.pl gsd-power-constants.h
 gsdpowerenums.py: gsd-power-enums-update gsd-power-enums.h gsd-power-enums.c
 	$(AM_V_GEN) $(builddir)/gsd-power-enums-update > $@
 
-noinst_PROGRAMS += gsd-power-enums-update
+noinst_PROGRAMS = gsd-power-enums-update
 gsd_power_enums_update_SOURCES =		\
 	gsd-power-enums-update.c		\
 	gsd-power-enums.h			\
