@@ -1653,7 +1653,6 @@ idle_configure (GsdPowerManager *manager)
 {
         gboolean is_idle_inhibited;
         GsdPowerActionType action_type;
-        guint timeout_blank;
         guint timeout_sleep;
         guint timeout_dim;
         gboolean on_battery;
@@ -1665,6 +1664,22 @@ idle_configure (GsdPowerManager *manager)
                 return;
         }
 
+        /* set up blank callback only when the screensaver is on,
+         * as it's what will drive the blank */
+        clear_idle_watch (manager->priv->idle_monitor,
+                          &manager->priv->idle_blank_id);
+        if (manager->priv->screensaver_active) {
+                /* The tail is wagging the dog.
+                 * The screensaver coming on will blank the screen.
+                 * If an event occurs while the screensaver is on,
+                 * the aggressive idle watch will handle it */
+                guint timeout_blank = SCREENSAVER_TIMEOUT_BLANK;
+                g_debug ("setting up blank callback for %is", timeout_blank);
+                manager->priv->idle_blank_id = gnome_idle_monitor_add_idle_watch (manager->priv->idle_monitor,
+                                                                                  timeout_blank * 1000,
+                                                                                  idle_triggered_idle_cb, manager, NULL);
+        }
+
         /* are we inhibited from going idle */
         if (!manager->priv->session_is_active || is_idle_inhibited) {
                 if (is_idle_inhibited)
@@ -1674,8 +1689,6 @@ idle_configure (GsdPowerManager *manager)
                 idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
 
                 clear_idle_watch (manager->priv->idle_monitor,
-                                  &manager->priv->idle_blank_id);
-                clear_idle_watch (manager->priv->idle_monitor,
                                   &manager->priv->idle_sleep_id);
                 clear_idle_watch (manager->priv->idle_monitor,
                                   &manager->priv->idle_dim_id);
@@ -1683,28 +1696,6 @@ idle_configure (GsdPowerManager *manager)
                                   &manager->priv->idle_sleep_warning_id);
                 notify_close_if_showing (&manager->priv->notification_sleep_warning);
                 return;
-        }
-
-        /* set up blank callback only when the screensaver is on,
-         * as it's what will drive the blank */
-        timeout_blank = 0;
-        if (manager->priv->screensaver_active) {
-                /* The tail is wagging the dog.
-                 * The screensaver coming on will blank the screen.
-                 * If an event occurs while the screensaver is on,
-                 * the aggressive idle watch will handle it */
-                timeout_blank = SCREENSAVER_TIMEOUT_BLANK;
-        }
-
-        clear_idle_watch (manager->priv->idle_monitor,
-                          &manager->priv->idle_blank_id);
-
-        if (timeout_blank != 0) {
-                g_debug ("setting up blank callback for %is", timeout_blank);
-
-                manager->priv->idle_blank_id = gnome_idle_monitor_add_idle_watch (manager->priv->idle_monitor,
-                                                                                  timeout_blank * 1000,
-                                                                                  idle_triggered_idle_cb, manager, NULL);
         }
 
         /* only do the sleep timeout when the session is idle
