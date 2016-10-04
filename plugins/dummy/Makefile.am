@@ -19,7 +19,26 @@ gsd_dummy_CPPFLAGS =			\
 
 gsd_dummy_LDADD = $(DUMMY_LIBS) $(top_builddir)/gnome-settings-daemon/libgsd.la
 
-EXTRA_DIST = $(NULL)
+desktopdir = $(sysconfdir)/xdg/autostart
+
+desktop_DATA =
+if !SMARTCARD_SUPPORT
+desktop_DATA += org.gnome.SettingsDaemon.Smartcard.desktop
+endif
+if !HAVE_WACOM
+desktop_DATA += org.gnome.SettingsDaemon.Wacom.desktop
+endif
+if !BUILD_PRINT_NOTIFICATIONS
+desktop_DATA += org.gnome.SettingsDaemon.PrintNotifications.desktop
+endif
+if !BUILD_RFKILL
+desktop_DATA += org.gnome.SettingsDaemon.Rfkill.desktop
+endif
+
+%.desktop: org.gnome.SettingsDaemon.Dummy.desktop.in Makefile
+	$(AM_V_GEN) PLUGINNAME=`echo $@ | sed 's,.desktop,,'` && sed -e "s|\@pluginname\@|$$PLUGINNAME|" -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
+EXTRA_DIST = org.gnome.SettingsDaemon.Dummy.desktop.in
 
 CLEANFILES = $(NULL)
 

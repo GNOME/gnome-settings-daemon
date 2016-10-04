@@ -28,10 +28,12 @@
 
 static MANAGER *manager = NULL;
 static int timeout = -1;
+static char *dummy_name = NULL;
 static gboolean verbose = FALSE;
 
 static GOptionEntry entries[] = {
         { "exit-time", 0, 0, G_OPTION_ARG_INT, &timeout, "Exit after n seconds time", NULL },
+        { "dummy-name", 0, 0, G_OPTION_ARG_STRING, &dummy_name, "Name when using the dummy daemon", NULL },
         { "verbose", 'v', 0, G_OPTION_ARG_NONE, &verbose, "Verbose", NULL },
         {NULL}
 };
@@ -121,7 +123,7 @@ register_with_gnome_session (void)
 	startup_id = g_getenv ("DESKTOP_AUTOSTART_ID");
 	g_dbus_proxy_call (proxy,
 			   "RegisterClient",
-			   g_variant_new ("(ss)", PLUGIN_NAME, startup_id ? startup_id : ""),
+			   g_variant_new ("(ss)", dummy_name ? dummy_name : PLUGIN_NAME, startup_id ? startup_id : ""),
 			   G_DBUS_CALL_FLAGS_NONE,
 			   -1,
 			   NULL,
