@@ -1,4 +1,32 @@
 ==============
+Version 3.23.2
+==============
+
+- This update requires gnome-session 3.23.2. It splits up
+  gnome-settings-daemon into separate helper daemons, making it
+  easier to root cause possible problems, and paving the way
+  to using systemd to handle the session
+- Remove localeexec wrapper now that gnome-session implements
+  that work-around
+- Loads of build fixes
+
+Color:
+- Require lcms2 2.2
+
+Power:
+- Ensure we blank the screen when locked
+- Make power plugin "mock" support a run-time check
+
+Sharing:
+- Fix crash on exit
+
+Sound:
+- Rename the sound plugin for PulseAudio
+
+Wacom:
+- Avoid warnings when switching VTs
+
+==============
 Version 3.22.0
 ==============
 
