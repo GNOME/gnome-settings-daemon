@@ -17,9 +17,14 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
+#include "gnome-settings-bus.h"
+
 #ifndef PLUGIN_NAME
 #error Include PLUGIN_CFLAGS in the daemon s CFLAGS
 #endif /* !PLUGIN_NAME */
+
+#define GNOME_SESSION_DBUS_NAME                     "org.gnome.SessionManager"
+#define GNOME_SESSION_CLIENT_PRIVATE_DBUS_INTERFACE "org.gnome.SessionManager.ClientPrivate"
 
 static MANAGER *manager = NULL;
 static int timeout = -1;
@@ -30,6 +35,99 @@ static GOptionEntry entries[] = {
         { "verbose", 'v', 0, G_OPTION_ARG_NONE, &verbose, "Verbose", NULL },
         {NULL}
 };
+
+static void
+respond_to_end_session (GDBusProxy *proxy)
+{
+        /* we must answer with "EndSessionResponse" */
+        g_dbus_proxy_call (proxy, "EndSessionResponse",
+                           g_variant_new ("(bs)", TRUE, ""),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1, NULL, NULL, NULL);
+}
+
+static void
+do_stop (void)
+{
+        gtk_main_quit ();
+}
+
+static void
+client_proxy_signal_cb (GDBusProxy *proxy,
+                        gchar *sender_name,
+                        gchar *signal_name,
+                        GVariant *parameters,
+                        gpointer user_data)
+{
+        if (g_strcmp0 (signal_name, "QueryEndSession") == 0) {
+                g_debug ("Got QueryEndSession signal");
+                respond_to_end_session (proxy);
+        } else if (g_strcmp0 (signal_name, "EndSession") == 0) {
+                g_debug ("Got EndSession signal");
+                respond_to_end_session (proxy);
+        } else if (g_strcmp0 (signal_name, "Stop") == 0) {
+                g_debug ("Got Stop signal");
+                do_stop ();
+        }
+}
+
+static void
+on_client_registered (GObject             *source_object,
+                      GAsyncResult        *res,
+                      gpointer             user_data)
+{
+        GVariant *variant;
+        GDBusProxy *client_proxy;
+        GError *error = NULL;
+        gchar *object_path = NULL;
+
+        variant = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object), res, &error);
+        if (!variant) {
+                g_warning ("Unable to register client: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+
+        g_variant_get (variant, "(o)", &object_path);
+
+        g_debug ("Registered client at path %s", object_path);
+
+        client_proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION, 0, NULL,
+                                                      GNOME_SESSION_DBUS_NAME,
+                                                      object_path,
+                                                      GNOME_SESSION_CLIENT_PRIVATE_DBUS_INTERFACE,
+                                                      NULL,
+                                                      &error);
+        if (!client_proxy) {
+                g_warning ("Unable to get the session client proxy: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+
+        g_signal_connect (client_proxy, "g-signal",
+                          G_CALLBACK (client_proxy_signal_cb), NULL);
+
+        g_free (object_path);
+        g_variant_unref (variant);
+}
+
+static void
+register_with_gnome_session (void)
+{
+	GDBusProxy *proxy;
+	const char *startup_id;
+
+	proxy = G_DBUS_PROXY (gnome_settings_bus_get_session_proxy ());
+	startup_id = g_getenv ("DESKTOP_AUTOSTART_ID");
+	g_dbus_proxy_call (proxy,
+			   "RegisterClient",
+			   g_variant_new ("(ss)", PLUGIN_NAME, startup_id ? startup_id : ""),
+			   G_DBUS_CALL_FLAGS_NONE,
+			   -1,
+			   NULL,
+			   (GAsyncReadyCallback) on_client_registered,
+			   NULL);
+}
 
 int
 main (int argc, char **argv)
@@ -59,6 +157,7 @@ main (int argc, char **argv)
 	}
 
         manager = NEW ();
+	register_with_gnome_session ();
 
         error = NULL;
         if (!START (manager, &error)) {
