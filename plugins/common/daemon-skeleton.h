@@ -37,6 +37,38 @@ static GOptionEntry entries[] = {
         {NULL}
 };
 
+static const char *gdm_helpers[] = {
+	"gsd-a11y-keyboard",
+	"gsd-a11y-settings",
+	"gsd-clipboard",
+	"gsd-color",
+	"gsd-keyboard",
+	"gsd-media-keys",
+	"gsd-orientation",
+	"gsd-power",
+	"gsd-smartcard",
+	"gsd-sound",
+	"gsd-xrandr",
+	"gsd-xsettings"
+};
+
+static gboolean
+should_run (void)
+{
+	const char *session_mode;
+	guint i;
+
+	session_mode = g_getenv ("GNOME_SHELL_SESSION_MODE");
+	if (g_strcmp0 (session_mode, "gdm") != 0)
+		return TRUE;
+
+	for (i = 0; i < G_N_ELEMENTS (gdm_helpers); i++) {
+		if (g_str_equal (PLUGIN_NAME, gdm_helpers[i]))
+			return TRUE;
+	}
+	return FALSE;
+}
+
 static void
 respond_to_end_session (GDBusProxy *proxy)
 {
@@ -165,16 +197,19 @@ main (int argc, char **argv)
         manager = NEW ();
 	register_with_gnome_session (loop);
 
-        error = NULL;
-        if (!START (manager, &error)) {
-                fprintf (stderr, "Failed to start: %s\n", error->message);
-                g_error_free (error);
-                exit (1);
-        }
+	if (should_run ()) {
+		error = NULL;
+		if (!START (manager, &error)) {
+			fprintf (stderr, "Failed to start: %s\n", error->message);
+			g_error_free (error);
+			exit (1);
+		}
+	}
 
         g_main_loop_run (loop);
 
-        STOP (manager);
+	if (should_run ())
+		STOP (manager);
         g_object_unref (manager);
 
         return 0;
