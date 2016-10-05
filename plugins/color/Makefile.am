@@ -82,7 +82,7 @@ gsd_test_color_SOURCES =		\
 
 gsd_test_color_CFLAGS = $(libcolor_la_CFLAGS)
 gsd_test_color_CPPFLAGS = $(libcolor_la_CPPFLAGS)
-gsd_test_color_LDADD = $(libcolor_la_LIBADD) $(top_builddir)/gnome-settings-daemon/libgsd.la
+gsd_test_color_LDADD = $(libcolor_la_LIBADD) $(top_builddir)/gnome-settings-daemon/libgsd.la $(LIBM)
 
 plugin_in_files = 			\
 	color.gnome-settings-plugin.in
