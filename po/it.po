@@ -11,23 +11,24 @@
 #   critically low --> scarica
 # Luca Ferretti <lferrett@gnome.org>, 2003, 2004, 2005, 2007, 2008, 2009, 2010, 2011, 2012, 2013.
 # Milo Casagrande <milo@milo.name>, 2012, 2013, 2014, 2015, 2016.
+# Gianvito Cavasoli <gianvito@gmx.it>, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-02-18 10:13+0000\n"
-"PO-Revision-Date: 2016-02-18 13:36+0100\n"
-"Last-Translator: Milo Casagrande <milo@milo.name>\n"
-"Language-Team: Italian <tp@lists.linux.it>\n"
+"POT-Creation-Date: 2016-10-04 09:47+0000\n"
+"PO-Revision-Date: 2016-10-06 13:45+0200\n"
+"Last-Translator: Gianvito Cavasoli <gianvito@gmx.it>\n"
+"Language-Team: Italiano <gnome-it-list@gnome.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-DamnedLies-Scope: partial\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Gtranslator 2.91.7\n"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -1011,12 +1012,28 @@ msgstr "Fittizio"
 msgid "Dummy plugin"
 msgstr "Plugin fittizio"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:587
+#: ../plugins/housekeeping/gsd-disk-space.c:574
+msgid "Disk space"
+msgstr "Spazio disco"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:586
+msgid "Examine"
+msgstr "Esamina"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:597
+msgid "Empty Trash"
+msgstr "Svuota cestino"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:605
+msgid "Ignore"
+msgstr "Ignora"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:636
 #, c-format
 msgid "Low Disk Space on “%s”"
 msgstr "Spazio disco in esaurimento su «%s»"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:589
+#: ../plugins/housekeeping/gsd-disk-space.c:638
 #, c-format
 msgid ""
 "The volume “%s” has only %s disk space remaining.  You may free up some "
@@ -1025,16 +1042,16 @@ msgstr ""
 "Sul volume «%s» rimangono solo %s di spazio disco. È possibile liberare "
 "dello spazio svuotando il cestino."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:593
+#: ../plugins/housekeeping/gsd-disk-space.c:642
 #, c-format
 msgid "The volume “%s” has only %s disk space remaining."
 msgstr "Sul volume «%s» rimangono solo %s di spazio disco."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:598
+#: ../plugins/housekeeping/gsd-disk-space.c:647
 msgid "Low Disk Space"
 msgstr "Spazio disco in esaurimento"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:600
+#: ../plugins/housekeeping/gsd-disk-space.c:649
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1043,26 +1060,10 @@ msgstr ""
 "Su questo computer rimangono solo %s di spazio disco. È possibile liberare "
 "dello spazio svuotando il cestino."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:603
+#: ../plugins/housekeeping/gsd-disk-space.c:652
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "Su questo computer rimangono solo %s di spazio disco."
-
-#: ../plugins/housekeeping/gsd-disk-space.c:618
-msgid "Disk space"
-msgstr "Spazio disco"
-
-#: ../plugins/housekeeping/gsd-disk-space.c:625
-msgid "Examine"
-msgstr "Esamina"
-
-#: ../plugins/housekeeping/gsd-disk-space.c:633
-msgid "Empty Trash"
-msgstr "Svuota cestino"
-
-#: ../plugins/housekeeping/gsd-disk-space.c:640
-msgid "Ignore"
-msgstr "Ignora"
 
 #: ../plugins/housekeeping/housekeeping.gnome-settings-plugin.in.h:1
 msgid "Housekeeping"
@@ -1084,42 +1085,42 @@ msgstr "Tastiera"
 msgid "Keyboard plugin"
 msgstr "Plugin per la tastiera"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2095
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2111
 msgid "Bluetooth disabled"
 msgstr "Bluetooth disabilitato"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2098
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2114
 msgid "Bluetooth enabled"
 msgstr "Bluetooth abilitato"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2102
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2118
 msgid "Airplane mode enabled"
 msgstr "Modalità aereo abilitata"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2105
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2121
 msgid "Airplane mode disabled"
 msgstr "Modalità aereo disabilitata"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2133
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2149
 msgid "Hardware Airplane Mode"
 msgstr "Modalità aereo via hardware abilitata"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2193
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2209
 msgid "Screencast from %d %t.webm"
 msgstr "Screencast da %d %t.webm"
 
-#: ../plugins/media-keys/gsd-screenshot-utils.c:84
+#: ../plugins/media-keys/gsd-screenshot-utils.c:82
 msgid "Unable to capture a screenshot"
 msgstr "Impossibile catturare una schermata"
 
-#: ../plugins/media-keys/gsd-screenshot-utils.c:115
+#: ../plugins/media-keys/gsd-screenshot-utils.c:113
 #: ../plugins/media-keys/gsd-screenshot-utils.c:155
 msgid "Screenshot taken"
 msgstr "Schermata catturata"
 
 #. translators: this is the name of the file that gets made up
 #. * with the screenshot
-#: ../plugins/media-keys/gsd-screenshot-utils.c:304
+#: ../plugins/media-keys/gsd-screenshot-utils.c:306
 #, c-format
 msgid "Screenshot from %s"
 msgstr "Schermata da %s"
@@ -1148,7 +1149,7 @@ msgid_plural "%u Inputs"
 msgstr[0] "%u ingresso"
 msgstr[1] "%u ingressi"
 
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:2740
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:2738
 msgid "System Sounds"
 msgstr "Suoni di sistema"
 
@@ -1196,85 +1197,89 @@ msgstr "Volume giù silenzioso"
 msgid "Lock Screen"
 msgstr "Blocca schermo"
 
-#: ../plugins/media-keys/shortcuts-list.h:80
+#: ../plugins/media-keys/shortcuts-list.h:67
+msgid "Help"
+msgstr "Aiuto"
+
+#: ../plugins/media-keys/shortcuts-list.h:81
 msgid "Rewind"
 msgstr "Indietro"
 
-#: ../plugins/media-keys/shortcuts-list.h:81
+#: ../plugins/media-keys/shortcuts-list.h:82
 msgid "Forward"
 msgstr "Avanti"
 
-#: ../plugins/media-keys/shortcuts-list.h:82
+#: ../plugins/media-keys/shortcuts-list.h:83
 msgid "Repeat"
 msgstr "Ripeti"
 
-#: ../plugins/media-keys/shortcuts-list.h:83
+#: ../plugins/media-keys/shortcuts-list.h:84
 msgid "Random Play"
 msgstr "Riproduzione casuale"
 
 #. Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.)
-#: ../plugins/media-keys/shortcuts-list.h:84
-#: ../plugins/media-keys/shortcuts-list.h:86
+#: ../plugins/media-keys/shortcuts-list.h:85
+#: ../plugins/media-keys/shortcuts-list.h:87
 msgid "Video Out"
 msgstr "Uscita video"
 
 #. Key code of the XF86RotateWindows key (present on some tablets)
-#: ../plugins/media-keys/shortcuts-list.h:88
+#: ../plugins/media-keys/shortcuts-list.h:89
 msgid "Rotate Screen"
 msgstr "Ruota schermo"
 
-#: ../plugins/media-keys/shortcuts-list.h:89
+#: ../plugins/media-keys/shortcuts-list.h:90
 msgid "Orientation Lock"
 msgstr "Blocco orientazione"
 
-#: ../plugins/media-keys/shortcuts-list.h:98
+#: ../plugins/media-keys/shortcuts-list.h:99
 msgid "Power Off"
 msgstr "Spegni"
 
 #. the kernel / Xorg names really are like this...
 #. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
-#: ../plugins/media-keys/shortcuts-list.h:101
+#: ../plugins/media-keys/shortcuts-list.h:102
 msgid "Sleep"
 msgstr "Sleep"
 
-#: ../plugins/media-keys/shortcuts-list.h:102
+#: ../plugins/media-keys/shortcuts-list.h:103
 msgid "Suspend"
 msgstr "Sospendi"
 
-#: ../plugins/media-keys/shortcuts-list.h:103
+#: ../plugins/media-keys/shortcuts-list.h:104
 msgid "Hibernate"
 msgstr "Iberna"
 
-#: ../plugins/media-keys/shortcuts-list.h:104
+#: ../plugins/media-keys/shortcuts-list.h:105
 msgid "Brightness Up"
 msgstr "Aumenta luminosità"
 
-#: ../plugins/media-keys/shortcuts-list.h:105
+#: ../plugins/media-keys/shortcuts-list.h:106
 msgid "Brightness Down"
 msgstr "Diminuisci luminosità"
 
-#: ../plugins/media-keys/shortcuts-list.h:106
+#: ../plugins/media-keys/shortcuts-list.h:107
 msgid "Keyboard Brightness Up"
 msgstr "Aumento lumonosità tastiera"
 
-#: ../plugins/media-keys/shortcuts-list.h:107
+#: ../plugins/media-keys/shortcuts-list.h:108
 msgid "Keyboard Brightness Down"
 msgstr "Diminiusci luminosità tastiera"
 
-#: ../plugins/media-keys/shortcuts-list.h:108
+#: ../plugins/media-keys/shortcuts-list.h:109
 msgid "Keyboard Brightness Toggle"
 msgstr "Commuta luminosità tastiera"
 
-#: ../plugins/media-keys/shortcuts-list.h:109
+#: ../plugins/media-keys/shortcuts-list.h:110
 msgid "Battery Status"
 msgstr "Stato batteria"
 
-#: ../plugins/media-keys/shortcuts-list.h:110
 #: ../plugins/media-keys/shortcuts-list.h:111
+#: ../plugins/media-keys/shortcuts-list.h:112
 msgid "Toggle Airplane Mode"
 msgstr "Attiva/Disattiva la modalità aereo"
 
-#: ../plugins/media-keys/shortcuts-list.h:112
+#: ../plugins/media-keys/shortcuts-list.h:113
 msgid "Toggle Bluetooth"
 msgstr "Attiva/Disattiva il Bluetooth"
 
@@ -1333,55 +1338,55 @@ msgstr[0] "minuto"
 msgstr[1] "minuti"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:909 ../plugins/power/gsd-power-manager.c:680
-#: ../plugins/power/gsd-power-manager.c:777
+#: ../plugins/power/gpm-common.c:909 ../plugins/power/gsd-power-manager.c:681
+#: ../plugins/power/gsd-power-manager.c:778
 msgid "Battery is critically low"
 msgstr "La carica della batteria è quasi esaurita"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:318
+#: ../plugins/power/gsd-power-manager.c:319
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Alimentazione"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:350
+#: ../plugins/power/gsd-power-manager.c:351
 msgid "UPS Discharging"
 msgstr "UPS in fase di scarica"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:355
+#: ../plugins/power/gsd-power-manager.c:356
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "Rimangono %s di autonomia tramite alimentazione di emergenza con l'UPS"
 
-#: ../plugins/power/gsd-power-manager.c:358
+#: ../plugins/power/gsd-power-manager.c:359
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "Autonomia tramite alimentazione di emergenza con UPS sconosciuta"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:433
+#: ../plugins/power/gsd-power-manager.c:434
 msgid "Battery low"
 msgstr "Carica batteria bassa"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:436
+#: ../plugins/power/gsd-power-manager.c:437
 msgid "Laptop battery low"
 msgstr "Carica batteria del portatile bassa"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:443
+#: ../plugins/power/gsd-power-manager.c:444
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "Rimangono circa %s di autonomia (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:448
+#: ../plugins/power/gsd-power-manager.c:449
 msgid "UPS low"
 msgstr "Carica UPS bassa"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:454
+#: ../plugins/power/gsd-power-manager.c:455
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr ""
@@ -1390,113 +1395,113 @@ msgstr ""
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:459
-#: ../plugins/power/gsd-power-manager.c:593
+#: ../plugins/power/gsd-power-manager.c:460
+#: ../plugins/power/gsd-power-manager.c:594
 msgid "Mouse battery low"
 msgstr "Carica batteria mouse bassa"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:462
+#: ../plugins/power/gsd-power-manager.c:463
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "La carica della batteria del mouse wireless è bassa (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:466
-#: ../plugins/power/gsd-power-manager.c:601
+#: ../plugins/power/gsd-power-manager.c:467
+#: ../plugins/power/gsd-power-manager.c:602
 msgid "Keyboard battery low"
 msgstr "Carica batteria tastiera bassa"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:469
+#: ../plugins/power/gsd-power-manager.c:470
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "La carica della batteria della tastiera wireless è bassa (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:473
-#: ../plugins/power/gsd-power-manager.c:610
+#: ../plugins/power/gsd-power-manager.c:474
+#: ../plugins/power/gsd-power-manager.c:611
 msgid "PDA battery low"
 msgstr "Carica batteria palmare bassa"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:476
+#: ../plugins/power/gsd-power-manager.c:477
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "La carica della batteria del palmare è bassa (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:480
-#: ../plugins/power/gsd-power-manager.c:620
-#: ../plugins/power/gsd-power-manager.c:629
+#: ../plugins/power/gsd-power-manager.c:481
+#: ../plugins/power/gsd-power-manager.c:621
+#: ../plugins/power/gsd-power-manager.c:630
 msgid "Cell phone battery low"
 msgstr "Carica batteria cellulare bassa"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:483
+#: ../plugins/power/gsd-power-manager.c:484
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "La carica della batteria del telefono cellulare è bassa (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:487
+#: ../plugins/power/gsd-power-manager.c:488
 msgid "Media player battery low"
 msgstr "Carica batteria lettore multimediale bassa"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:490
+#: ../plugins/power/gsd-power-manager.c:491
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "La carica della batteria del lettore multimediale è bassa (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:494
-#: ../plugins/power/gsd-power-manager.c:638
+#: ../plugins/power/gsd-power-manager.c:495
+#: ../plugins/power/gsd-power-manager.c:639
 msgid "Tablet battery low"
 msgstr "Carica batteria tavoletta grafica bassa"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:497
+#: ../plugins/power/gsd-power-manager.c:498
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "La carica della batteria della tavoletta grafica è bassa (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:501
-#: ../plugins/power/gsd-power-manager.c:647
+#: ../plugins/power/gsd-power-manager.c:502
+#: ../plugins/power/gsd-power-manager.c:648
 msgid "Attached computer battery low"
 msgstr "Carica batteria computer collegato bassa"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:504
+#: ../plugins/power/gsd-power-manager.c:505
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "La carica della batteria del computer collegato è bassa (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:525
+#: ../plugins/power/gsd-power-manager.c:526
 msgid "Battery is low"
 msgstr "La carica della batteria è bassa"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:557
+#: ../plugins/power/gsd-power-manager.c:558
 msgid "Battery critically low"
 msgstr "Carica batteria quasi esaurita"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:560
-#: ../plugins/power/gsd-power-manager.c:707
+#: ../plugins/power/gsd-power-manager.c:561
+#: ../plugins/power/gsd-power-manager.c:708
 msgid "Laptop battery critically low"
 msgstr "Carica batteria del portatile quasi esaurita"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:569
+#: ../plugins/power/gsd-power-manager.c:570
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr ""
@@ -1504,7 +1509,7 @@ msgstr ""
 "in ibernazione."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:573
+#: ../plugins/power/gsd-power-manager.c:574
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr ""
@@ -1512,13 +1517,13 @@ msgstr ""
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:581
-#: ../plugins/power/gsd-power-manager.c:732
+#: ../plugins/power/gsd-power-manager.c:582
+#: ../plugins/power/gsd-power-manager.c:733
 msgid "UPS critically low"
 msgstr "Carica UPS quasi esaurita"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:587
+#: ../plugins/power/gsd-power-manager.c:588
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1529,7 +1534,7 @@ msgstr ""
 "perdita di dati."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:596
+#: ../plugins/power/gsd-power-manager.c:597
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1539,7 +1544,7 @@ msgstr ""
 "Se non viene ricaricato, il dispositivo smetterà di funzionare."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:604
+#: ../plugins/power/gsd-power-manager.c:605
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1549,7 +1554,7 @@ msgstr ""
 "%%) Se non viene ricaricato, il dispositivo smetterà di funzionare."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:613
+#: ../plugins/power/gsd-power-manager.c:614
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1559,7 +1564,7 @@ msgstr ""
 "viene ricaricato, il dispositivo smetterà di funzionare."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:623
+#: ../plugins/power/gsd-power-manager.c:624
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -1569,7 +1574,7 @@ msgstr ""
 "%%) Se non viene ricaricato, il dispositivo smetterà di funzionare."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:632
+#: ../plugins/power/gsd-power-manager.c:633
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -1579,7 +1584,7 @@ msgstr ""
 "%%) Se non viene ricaricato, il dispositivo smetterà di funzionare."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:641
+#: ../plugins/power/gsd-power-manager.c:642
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -1589,7 +1594,7 @@ msgstr ""
 "%%) Se non viene ricaricato, il dispositivo smetterà di funzionare."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:650
+#: ../plugins/power/gsd-power-manager.c:651
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -1599,7 +1604,7 @@ msgstr ""
 "%%) Se non viene ricaricato, il dispositivo smetterà di funzionare."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:715
+#: ../plugins/power/gsd-power-manager.c:716
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -1608,7 +1613,7 @@ msgstr ""
 "ibernato."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:720
+#: ../plugins/power/gsd-power-manager.c:721
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -1617,7 +1622,7 @@ msgstr ""
 "spento."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:740
+#: ../plugins/power/gsd-power-manager.c:741
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
@@ -1625,50 +1630,50 @@ msgstr ""
 "essere messo in ibernazione."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:745
+#: ../plugins/power/gsd-power-manager.c:746
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "La carica dell'UPS è sotto il livello critico e questo computer sta per "
 "essere spento."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1250
+#: ../plugins/power/gsd-power-manager.c:1253
 msgid "Lid has been opened"
 msgstr "Coperchio aperto"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1288
+#: ../plugins/power/gsd-power-manager.c:1291
 msgid "Lid has been closed"
 msgstr "Coperchio chiuso"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1849
+#: ../plugins/power/gsd-power-manager.c:1842
 msgid "On battery power"
 msgstr "Alimentazione da batteria"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1854
+#: ../plugins/power/gsd-power-manager.c:1847
 msgid "On AC power"
 msgstr "Alimentazione da alimentatore di corrente"
 
-#: ../plugins/power/gsd-power-manager.c:2036
+#: ../plugins/power/gsd-power-manager.c:2029
 msgid "Automatic logout"
 msgstr "Termine sessione automatico"
 
-#: ../plugins/power/gsd-power-manager.c:2036
+#: ../plugins/power/gsd-power-manager.c:2029
 msgid "You will soon log out because of inactivity."
 msgstr "Molto presto la sessione verrà terminata a causa dell'inattività."
 
-#: ../plugins/power/gsd-power-manager.c:2041
+#: ../plugins/power/gsd-power-manager.c:2034
 msgid "Automatic suspend"
 msgstr "Sospensione automatica"
 
-#: ../plugins/power/gsd-power-manager.c:2041
-#: ../plugins/power/gsd-power-manager.c:2046
+#: ../plugins/power/gsd-power-manager.c:2034
+#: ../plugins/power/gsd-power-manager.c:2039
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Molto presto il computer verrà sospeso a causa dell'inattività."
 
-#: ../plugins/power/gsd-power-manager.c:2046
+#: ../plugins/power/gsd-power-manager.c:2039
 msgid "Automatic hibernation"
 msgstr "Ibernazione automatica"
 
@@ -1716,216 +1721,216 @@ msgstr "Nessun driver per questa stampante."
 
 #: ../plugins/print-notifications/gsd-printer.c:1031
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:274
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:716
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:806
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:849
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:752
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:842
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:885
 msgid "Printers"
 msgstr "Stampanti"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:380
-msgid "Toner low"
-msgstr "Toner in esaurimento"
-
-#. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:382
-msgid "Toner empty"
-msgstr "Toner esaurito"
-
-#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:384
-msgid "Not connected?"
-msgstr "Non connessa?"
-
-#. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:386
-msgid "Cover open"
-msgstr "Coperchio aperto"
-
-#. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:388
-msgid "Printer configuration error"
-msgstr "Errore configurazione stampante"
-
-#. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:390
-msgid "Door open"
-msgstr "Sportello aperto"
-
-# marker-supply --> fornitura toner (da IBM)
-#. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:392
-msgid "Marker supply low"
-msgstr "Fornitura toner in esaurimento"
-
-#. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:394
-msgid "Out of a marker supply"
-msgstr "Fornitura toner esaurita"
-
-#. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:396
-msgid "Paper low"
-msgstr "Carta in esaurimento"
-
-#. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:398
-msgid "Out of paper"
-msgstr "Carta esaurita"
-
-#. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:400
-msgid "Printer off-line"
-msgstr "Stampante offline"
-
-#. Translators: The printer has detected an error (same as in system-config-printer)
-#. Translators: This is a title of an error notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:402
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:792
-msgid "Printer error"
-msgstr "Errore stampante"
-
-#. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:406
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
 #, c-format
 msgid "Printer '%s' is low on toner."
 msgstr "Toner in esaurimento sulla stampante «%s»"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:408
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
 #, c-format
 msgid "Printer '%s' has no toner left."
 msgstr "Toner esaurito sulla stampante «%s»."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:410
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
 #, c-format
 msgid "Printer '%s' may not be connected."
 msgstr "La stampante «%s» potrebbe non essere connessa."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:412
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
 #, c-format
 msgid "The cover is open on printer '%s'."
 msgstr "Il coperchio della stampante «%s» è aperto."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:414
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
 #, c-format
 msgid "There is a missing print filter for printer '%s'."
 msgstr "Manca un filtro di stampa per la stampante «%s»."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:417
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 #, c-format
 msgid "The door is open on printer '%s'."
 msgstr "Lo sportello della stampante «%s» è aperto."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:419
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
 #, c-format
 msgid "Printer '%s' is low on a marker supply."
 msgstr "Fornitura toner in esaurimento sulla stampante «%s»."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:421
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
 #, c-format
 msgid "Printer '%s' is out of a marker supply."
 msgstr "Fornitura toner esaurita sulla stampante «%s»."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:423
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
 #, c-format
 msgid "Printer '%s' is low on paper."
 msgstr "Carta in esaurimento sulla stampante «%s»."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:425
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
 #, c-format
 msgid "Printer '%s' is out of paper."
 msgstr "Carta esaurita sulla stampante «%s»."
 
 # non è detto che sia staccata dalla rete, potrebbe anche essere spenta, suppongo
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:427
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
 #, c-format
 msgid "Printer '%s' is currently off-line."
 msgstr "La stampante «%s» è attualmente offline."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:429
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:395
 #, c-format
 msgid "There is a problem on printer '%s'."
 msgstr "C'è un problema sulla stampante «%s»."
 
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:443
+msgid "Toner low"
+msgstr "Toner in esaurimento"
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:445
+msgid "Toner empty"
+msgstr "Toner esaurito"
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:447
+msgid "Not connected?"
+msgstr "Non connessa?"
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:449
+msgid "Cover open"
+msgstr "Coperchio aperto"
+
+#. Translators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:451
+msgid "Printer configuration error"
+msgstr "Errore configurazione stampante"
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:453
+msgid "Door open"
+msgstr "Sportello aperto"
+
+# marker-supply --> fornitura toner (da IBM)
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:455
+msgid "Marker supply low"
+msgstr "Fornitura toner in esaurimento"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:457
+msgid "Out of a marker supply"
+msgstr "Fornitura toner esaurita"
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:459
+msgid "Paper low"
+msgstr "Carta in esaurimento"
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:461
+msgid "Out of paper"
+msgstr "Carta esaurita"
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:463
+msgid "Printer off-line"
+msgstr "Stampante offline"
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#. Translators: This is a title of an error notification for a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:465
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:828
+msgid "Printer error"
+msgstr "Errore stampante"
+
 #. Translators: New printer has been added
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:477
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:513
 msgid "Printer added"
 msgstr "Stampante aggiunta"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:494
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:532
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:530
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:568
 msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "Stampa fermata"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:496
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:502
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:508
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:514
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:526
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:534
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:542
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:532
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:538
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:544
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:550
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:558
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:571
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:562
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:570
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:578
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:586
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:594
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:607
 #, c-format
 msgctxt "print job"
 msgid "\"%s\" on %s"
 msgstr "«%s» su %s"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:500
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:540
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:536
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:576
 msgctxt "print job state"
 msgid "Printing canceled"
 msgstr "Stampa annullata"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:506
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:548
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:542
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:584
 msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "Stampa interrotta"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:512
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:556
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:548
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:592
 msgctxt "print job state"
 msgid "Printing completed"
 msgstr "Stampa completata"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:524
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:569
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:560
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:605
 msgctxt "print job state"
 msgid "Printing"
 msgstr "In stampa"
 
 #. Translators: This is a title of a report notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:786
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:822
 msgid "Printer report"
 msgstr "Rapporto stampante"
 
 #. Translators: This is a title of a warning notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:789
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:825
 msgid "Printer warning"
 msgstr "Avvertimento stampante"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:799
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:835
 #, c-format
 msgid "Printer '%s': '%s'."
 msgstr "Stampante «%s»: «%s»."
@@ -1999,13 +2004,13 @@ msgid "Show On-Screen Help"
 msgstr "Mostra aiuto a schermo"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:154
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1096
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1098
 msgctxt "Action type"
 msgid "Show On-Screen Help"
 msgstr "Mostra aiuto a schermo"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:157
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1099
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1101
 msgctxt "Action type"
 msgid "Switch Monitor"
 msgstr "Cambia monitor"
@@ -2020,86 +2025,86 @@ msgid "Done"
 msgstr "Fatto"
 
 #. If no mode is available, we use "left-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1028
+#: ../plugins/wacom/gsd-wacom-device.c:1031
 msgid "Left Ring"
 msgstr "Ring sinistro"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1039
+#: ../plugins/wacom/gsd-wacom-device.c:1042
 #, c-format
 msgid "Left Ring Mode #%d"
 msgstr "Modalità Ring sinistro #%d"
 
 #. If no mode is available, we use "right-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1059
+#: ../plugins/wacom/gsd-wacom-device.c:1062
 msgid "Right Ring"
 msgstr "Ring destro"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1070
+#: ../plugins/wacom/gsd-wacom-device.c:1073
 #, c-format
 msgid "Right Ring Mode #%d"
 msgstr "Modalità Ring destro #%d"
 
 #. If no mode is available, we use "left-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1112
+#: ../plugins/wacom/gsd-wacom-device.c:1115
 msgid "Left Touchstrip"
 msgstr "Touch Strip sinistra"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1123
+#: ../plugins/wacom/gsd-wacom-device.c:1126
 #, c-format
 msgid "Left Touchstrip Mode #%d"
 msgstr "Modalità Touch Strip sinistra #%d"
 
 #. If no mode is available, we use "right-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1143
+#: ../plugins/wacom/gsd-wacom-device.c:1146
 msgid "Right Touchstrip"
 msgstr "Touch Strip destra"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1154
+#: ../plugins/wacom/gsd-wacom-device.c:1157
 #, c-format
 msgid "Right Touchstrip Mode #%d"
 msgstr "Modalità Touch Strip destra #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1180
+#: ../plugins/wacom/gsd-wacom-device.c:1183
 #, c-format
 msgid "Left Touchring Mode Switch"
 msgstr "Interruttore modalità Touch Ring sinistro"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1182
+#: ../plugins/wacom/gsd-wacom-device.c:1185
 #, c-format
 msgid "Right Touchring Mode Switch"
 msgstr "Interruttore modalità Touch Ring destro"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1185
+#: ../plugins/wacom/gsd-wacom-device.c:1188
 #, c-format
 msgid "Left Touchstrip Mode Switch"
 msgstr "Interruttore modalità Touch Strip sinistra"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1187
+#: ../plugins/wacom/gsd-wacom-device.c:1190
 #, c-format
 msgid "Right Touchstrip Mode Switch"
 msgstr "Interruttore modalità Touch Strip destra"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1192
+#: ../plugins/wacom/gsd-wacom-device.c:1195
 #, c-format
 msgid "Mode Switch #%d"
 msgstr "Interruttore modalità #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1300
+#: ../plugins/wacom/gsd-wacom-device.c:1241
 #, c-format
 msgid "Left Button #%d"
 msgstr "Pulsante sinistro #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1303
+#: ../plugins/wacom/gsd-wacom-device.c:1244
 #, c-format
 msgid "Right Button #%d"
 msgstr "Pulsante destro #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1306
+#: ../plugins/wacom/gsd-wacom-device.c:1247
 #, c-format
 msgid "Top Button #%d"
 msgstr "Pulsante superiore #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1309
+#: ../plugins/wacom/gsd-wacom-device.c:1250
 #, c-format
 msgid "Bottom Button #%d"
 msgstr "Pulsante inferiore #%d"
@@ -2108,50 +2113,50 @@ msgstr "Pulsante inferiore #%d"
 msgid "New shortcut…"
 msgstr "Nuova scorciatoia…"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1029
+#: ../plugins/wacom/gsd-wacom-manager.c:1042
 #, c-format
 msgid "The \"%s\" tablet may not work as expected."
 msgstr "La tavoletta «%s» potrebbe non funzionare correttamente."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1030
+#: ../plugins/wacom/gsd-wacom-manager.c:1043
 msgid "Unknown Tablet Connected"
 msgstr "Connessa tavoletta sconosciuta"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1034
+#: ../plugins/wacom/gsd-wacom-manager.c:1047
 msgid "Wacom Settings"
 msgstr "Impostazioni Wacom"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1073
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1093
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1104
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1075
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1095
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1106
 msgctxt "Action type"
 msgid "None"
 msgstr "Nessuna"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1078
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1080
 #, c-format
 msgctxt "Action type"
 msgid "Send Keystroke %s"
 msgstr "Invia pressione tasti %s"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1137
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1139
 #, c-format
 msgid "Mode %d: %s"
 msgstr "Modalità %d: %s"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1347
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1349
 msgid "(press any key to exit)"
 msgstr "(premere un tasto per uscire)"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1356
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1358
 msgid "Push a button to configure"
 msgstr "Premere un pulsante per configurare"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1356
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1358
 msgid "(Esc to cancel)"
 msgstr "(Esc per annullare)"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1983
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1985
 msgid "Edit"
 msgstr "Modifica"
 
