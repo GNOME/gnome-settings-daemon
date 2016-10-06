@@ -196,7 +196,7 @@ gcm_session_notify_device (GsdColorCalibrate *calibrate, CdDevice *device)
                                                  GCM_SETTINGS_RECALIBRATE_DISPLAY_THRESHOLD);
 
                 /* TRANSLATORS: this is when the display has not been recalibrated in a while */
-                message = g_strdup_printf (_("The display '%s' should be recalibrated soon."),
+                message = g_strdup_printf (_("The display “%s” should be recalibrated soon."),
                                            device_title);
         } else {
 
@@ -205,7 +205,7 @@ gcm_session_notify_device (GsdColorCalibrate *calibrate, CdDevice *device)
                                                  GCM_SETTINGS_RECALIBRATE_PRINTER_THRESHOLD);
 
                 /* TRANSLATORS: this is when the printer has not been recalibrated in a while */
-                message = g_strdup_printf (_("The printer '%s' should be recalibrated soon."),
+                message = g_strdup_printf (_("The printer “%s” should be recalibrated soon."),
                                            device_title);
         }
 
