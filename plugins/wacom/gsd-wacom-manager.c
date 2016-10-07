@@ -1171,6 +1171,9 @@ gsd_wacom_manager_remove_gdk_device (GsdWacomManager *manager,
 		 gdk_device_get_name (gdk_device));
 
 	device = g_hash_table_lookup (manager->priv->devices, gdk_device);
+	if (!device)
+		return;
+
 	type = gsd_wacom_device_get_device_type (device);
 	settings = gsd_wacom_device_get_settings (device);
 
