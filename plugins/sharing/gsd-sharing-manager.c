@@ -758,7 +758,6 @@ service_free (gpointer pointer)
         ServiceInfo *service = pointer;
 
         g_clear_object (&service->settings);
-        gsd_sharing_manager_stop_service (NULL, service);
         g_free (service);
 }
 
