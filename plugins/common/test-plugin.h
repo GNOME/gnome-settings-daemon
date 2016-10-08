@@ -84,6 +84,8 @@ main (int argc, char **argv)
 
 	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 
+	gdk_set_allowed_backends ("x11");
+
         error = NULL;
         if (! gtk_init_with_args (&argc, &argv, SCHEMA_NAME, entries, NULL, &error)) {
                 fprintf (stderr, "%s\n", error->message);
