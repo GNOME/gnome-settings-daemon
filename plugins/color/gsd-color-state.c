@@ -96,7 +96,7 @@ gcm_session_get_output_edid (GsdColorState *state, GnomeRROutput *output, GError
                                     gnome_rr_output_get_name (output));
         if (edid != NULL) {
                 g_object_ref (edid);
-                goto out;
+                return NULL;
         }
 
         /* parse edid */
@@ -106,21 +106,20 @@ gcm_session_get_output_edid (GsdColorState *state, GnomeRROutput *output, GError
                                      GNOME_RR_ERROR,
                                      GNOME_RR_ERROR_UNKNOWN,
                                      "unable to get EDID for output");
-                goto out;
+                return NULL;
         }
         edid = gcm_edid_new ();
         ret = gcm_edid_parse (edid, data, size, error);
         if (!ret) {
                 g_object_unref (edid);
-                edid = NULL;
-                goto out;
+                return NULL;
         }
 
         /* add to cache */
         g_hash_table_insert (state->priv->edid_cache,
                              g_strdup (gnome_rr_output_get_name (output)),
                              g_object_ref (edid));
-out:
+
         return edid;
 }
 
@@ -129,7 +128,6 @@ gcm_session_screen_set_icc_profile (GsdColorState *state,
                                     const gchar *filename,
                                     GError **error)
 {
-        gboolean ret = TRUE;
         gchar *data = NULL;
         gsize length;
         guint version_data;
@@ -140,15 +138,14 @@ gcm_session_screen_set_icc_profile (GsdColorState *state,
         /* wayland */
         if (priv->gdk_window == NULL) {
                 g_debug ("not setting atom as running under wayland");
-                goto out;
+                return TRUE;
         }
 
         g_debug ("setting root window ICC profile atom from %s", filename);
 
         /* get contents of file */
-        ret = g_file_get_contents (filename, &data, &length, error);
-        if (!ret)
-                goto out;
+        if (!g_file_get_contents (filename, &data, &length, error))
+                return FALSE;
 
         /* set profile property */
         gdk_property_change (priv->gdk_window,
@@ -167,9 +164,9 @@ gcm_session_screen_set_icc_profile (GsdColorState *state,
                              8,
                              GDK_PROP_MODE_REPLACE,
                              (const guchar *) &version_data, 1);
-out:
+
         g_free (data);
-        return ret;
+        return TRUE;
 }
 
 static gchar *
@@ -1163,13 +1160,13 @@ gcm_session_get_devices_cb (GObject *object, GAsyncResult *res, gpointer user_da
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         g_warning ("failed to get devices: %s", error->message);
                 g_error_free (error);
-                goto out;
+                return;
         }
         for (i = 0; i < array->len; i++) {
                 device = g_ptr_array_index (array, i);
                 gcm_session_device_assign (state, device);
         }
-out:
+
         if (array != NULL)
                 g_ptr_array_unref (array);
 }
@@ -1191,7 +1188,7 @@ gcm_session_profile_gamma_find_device_cb (GObject *object,
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         g_warning ("could not find device: %s", error->message);
                 g_error_free (error);
-                goto out;
+                return;
         }
 
         /* get properties */
@@ -1199,7 +1196,7 @@ gcm_session_profile_gamma_find_device_cb (GObject *object,
                            state->priv->cancellable,
                            gcm_session_device_assign_connect_cb,
                            state);
-out:
+
         if (device != NULL)
                 g_object_unref (device);
 }
@@ -1309,7 +1306,7 @@ gcm_session_client_connect_cb (GObject *source_object,
         ret = cd_client_get_has_server (state->priv->client);
         if (!ret) {
                 g_warning ("There is no colord server available");
-                goto out;
+                return;
         }
 
         /* watch if sessions change */
@@ -1321,14 +1318,14 @@ gcm_session_client_connect_cb (GObject *source_object,
         if (error != NULL) {
                 g_warning ("failed to refresh: %s", error->message);
                 g_error_free (error);
-                goto out;
+                return;
         }
 
         /* get STATE outputs */
         outputs = gnome_rr_screen_list_outputs (priv->state_screen);
         if (outputs == NULL) {
                 g_warning ("failed to get outputs");
-                goto out;
+                return;
         }
         for (i = 0; outputs[i] != NULL; i++) {
                 gcm_session_add_state_output (state, outputs[i]);
@@ -1357,8 +1354,6 @@ gcm_session_client_connect_cb (GObject *source_object,
                                priv->cancellable,
                                gcm_session_get_devices_cb,
                                state);
-out:
-        return;
 }
 
 static void
