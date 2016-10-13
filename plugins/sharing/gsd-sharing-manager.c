@@ -720,8 +720,11 @@ gsd_sharing_manager_stop (GsdSharingManager *manager)
 {
         g_debug ("Stopping sharing manager");
 
-        manager->priv->sharing_status = GSD_SHARING_STATUS_OFFLINE;
-        gsd_sharing_manager_sync_services (manager);
+        if (manager->priv->sharing_status == GSD_SHARING_STATUS_AVAILABLE &&
+            manager->priv->connection != NULL) {
+                manager->priv->sharing_status = GSD_SHARING_STATUS_OFFLINE;
+                gsd_sharing_manager_sync_services (manager);
+        }
 
         if (manager->priv->cancellable) {
                 g_cancellable_cancel (manager->priv->cancellable);
