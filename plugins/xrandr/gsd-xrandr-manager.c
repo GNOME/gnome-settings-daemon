@@ -1289,8 +1289,10 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
                 manager->priv->upower_client = NULL;
         }
 
-        if (manager->priv->name_id != 0)
+        if (manager->priv->name_id != 0) {
                 g_bus_unown_name (manager->priv->name_id);
+                manager->priv->name_id = 0;
+        }
 
         if (manager->priv->introspection_data) {
                 g_dbus_node_info_unref (manager->priv->introspection_data);
