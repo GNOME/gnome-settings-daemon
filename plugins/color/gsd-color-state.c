@@ -96,7 +96,7 @@ gcm_session_get_output_edid (GsdColorState *state, GnomeRROutput *output, GError
                                     gnome_rr_output_get_name (output));
         if (edid != NULL) {
                 g_object_ref (edid);
-                return NULL;
+                return edid;
         }
 
         /* parse edid */
