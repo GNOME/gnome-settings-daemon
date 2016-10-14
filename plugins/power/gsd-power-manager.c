@@ -160,7 +160,7 @@ struct GsdPowerManagerPrivate
         gint                     pre_dim_brightness; /* level, not percentage */
 
         /* Keyboard */
-        GDBusProxy              *upower_kdb_proxy;
+        GDBusProxy              *upower_kbd_proxy;
         gint                     kbd_brightness_now;
         gint                     kbd_brightness_max;
         gint                     kbd_brightness_old;
@@ -1128,11 +1128,11 @@ upower_kbd_set_brightness (GsdPowerManager *manager, guint value, GError **error
         /* same as before */
         if (manager->priv->kbd_brightness_now == value)
                 return TRUE;
-        if (manager->priv->upower_kdb_proxy == NULL)
+        if (manager->priv->upower_kbd_proxy == NULL)
                 return TRUE;
 
         /* update h/w value */
-        retval = g_dbus_proxy_call_sync (manager->priv->upower_kdb_proxy,
+        retval = g_dbus_proxy_call_sync (manager->priv->upower_kbd_proxy,
                                          "SetBrightness",
                                          g_variant_new ("(i)", (gint) value),
                                          G_DBUS_CALL_FLAGS_NONE,
@@ -1440,7 +1440,7 @@ kbd_backlight_dim (GsdPowerManager *manager,
         gint max;
         gint now;
 
-        if (manager->priv->upower_kdb_proxy == NULL)
+        if (manager->priv->upower_kbd_proxy == NULL)
                 return TRUE;
 
         now = manager->priv->kbd_brightness_now;
@@ -1548,7 +1548,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                 backlight_disable (manager);
 
                 /* only toggle keyboard if present and not already toggled */
-                if (manager->priv->upower_kdb_proxy &&
+                if (manager->priv->upower_kbd_proxy &&
                     manager->priv->kbd_brightness_old == -1) {
                         if (upower_kbd_toggle (manager, &error) < 0) {
                                 g_warning ("failed to turn the kbd backlight off: %s",
@@ -1590,7 +1590,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                 }
 
                 /* only toggle keyboard if present and already toggled off */
-                if (manager->priv->upower_kdb_proxy &&
+                if (manager->priv->upower_kbd_proxy &&
                     manager->priv->kbd_brightness_old != -1) {
                         if (upower_kbd_toggle (manager, &error) < 0) {
                                 g_warning ("failed to turn the kbd backlight on: %s",
@@ -1952,15 +1952,15 @@ power_keyboard_proxy_ready_cb (GObject             *source_object,
         GError *error = NULL;
         GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
 
-        manager->priv->upower_kdb_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
-        if (manager->priv->upower_kdb_proxy == NULL) {
+        manager->priv->upower_kbd_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
+        if (manager->priv->upower_kbd_proxy == NULL) {
                 g_warning ("Could not connect to UPower: %s",
                            error->message);
                 g_error_free (error);
                 goto out;
         }
 
-        k_now = g_dbus_proxy_call_sync (manager->priv->upower_kdb_proxy,
+        k_now = g_dbus_proxy_call_sync (manager->priv->upower_kbd_proxy,
                                         "GetBrightness",
                                         NULL,
                                         G_DBUS_CALL_FLAGS_NONE,
@@ -1974,13 +1974,13 @@ power_keyboard_proxy_ready_cb (GObject             *source_object,
                                    error->message);
                 } else {
                         /* Keyboard brightness is not available */
-                        g_clear_object (&manager->priv->upower_kdb_proxy);
+                        g_clear_object (&manager->priv->upower_kbd_proxy);
                 }
                 g_error_free (error);
                 goto out;
         }
 
-        k_max = g_dbus_proxy_call_sync (manager->priv->upower_kdb_proxy,
+        k_max = g_dbus_proxy_call_sync (manager->priv->upower_kbd_proxy,
                                         "GetMaxBrightness",
                                         NULL,
                                         G_DBUS_CALL_FLAGS_NONE,
