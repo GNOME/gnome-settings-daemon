@@ -2703,6 +2703,7 @@ gsd_power_manager_stop (GsdPowerManager *manager)
         play_loop_stop (&manager->priv->critical_alert_timeout_id);
 
         g_clear_object (&manager->priv->idle_monitor);
+        g_clear_object (&manager->priv->upower_kbd_proxy);
 
         if (manager->priv->xscreensaver_watchdog_timer_id > 0) {
                 g_source_remove (manager->priv->xscreensaver_watchdog_timer_id);
