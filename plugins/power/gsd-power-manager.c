@@ -1951,6 +1951,7 @@ power_keyboard_proxy_ready_cb (GObject             *source_object,
         GVariant *k_max = NULL;
         GError *error = NULL;
         GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
+        gint percentage;
 
         manager->priv->upower_kbd_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
         if (manager->priv->upower_kbd_proxy == NULL) {
@@ -2013,7 +2014,10 @@ power_keyboard_proxy_ready_cb (GObject             *source_object,
 
         /* Tell the front-end that the brightness changed from
          * its default "-1/no keyboard backlight available" default */
-        backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, manager->priv->kbd_brightness_now);
+        percentage = ABS_TO_PERCENTAGE (0,
+                                        manager->priv->kbd_brightness_max,
+                                        manager->priv->kbd_brightness_now);
+        backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, percentage);
 
 out:
         if (k_now != NULL)
@@ -2872,7 +2876,9 @@ handle_get_property_other (GsdPowerManager *manager,
                 value = backlight_get_percentage (manager->priv->rr_screen, NULL);
                 retval = g_variant_new_int32 (value);
         } else if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
-                value = manager->priv->kbd_brightness_now;
+                value = ABS_TO_PERCENTAGE (0,
+                                           manager->priv->kbd_brightness_max,
+                                           manager->priv->kbd_brightness_now);
                 retval =  g_variant_new_int32 (value);
         }
 
@@ -2945,6 +2951,9 @@ handle_set_property_other (GsdPowerManager *manager,
                 brightness_value = PERCENTAGE_TO_ABS (0, manager->priv->kbd_brightness_max,
                                                       brightness_value);
                 if (upower_kbd_set_brightness (manager, brightness_value, error)) {
+                        brightness_value = ABS_TO_PERCENTAGE (0,
+                                                              manager->priv->kbd_brightness_max,
+                                                              manager->priv->kbd_brightness_now);
                         backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, brightness_value);
                         return TRUE;
                 } else {
