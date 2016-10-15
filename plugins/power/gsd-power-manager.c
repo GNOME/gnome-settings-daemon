@@ -1461,6 +1461,35 @@ kbd_backlight_dim (GsdPowerManager *manager,
         return TRUE;
 }
 
+static void
+upower_kbd_proxy_signal_cb (GDBusProxy  *proxy,
+                            const gchar *sender_name,
+                            const gchar *signal_name,
+                            GVariant    *parameters,
+                            gpointer     user_data)
+{
+        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
+        gint brightness, percentage;
+        const gchar *source;
+
+        if (g_strcmp0 (signal_name, "BrightnessChangedWithSource") != 0)
+                return;
+
+        g_variant_get (parameters, "(i&s)", &brightness, &source);
+
+        /* Ignore changes caused by us calling UPower's SetBrightness method,
+         * we already call backlight_iface_emit_changed for these after the
+         * SetBrightness method call completes. */
+        if (g_strcmp0 (source, "external") == 0)
+                return;
+
+        manager->priv->kbd_brightness_now = brightness;
+        percentage = ABS_TO_PERCENTAGE (0,
+                                        manager->priv->kbd_brightness_max,
+                                        manager->priv->kbd_brightness_now);
+        backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, percentage);
+}
+
 static gboolean
 is_session_active (GsdPowerManager *manager)
 {
@@ -1961,6 +1990,10 @@ power_keyboard_proxy_ready_cb (GObject             *source_object,
                 g_error_free (error);
                 goto out;
         }
+
+        g_signal_connect (manager->priv->upower_kbd_proxy, "g-signal",
+                          G_CALLBACK (upower_kbd_proxy_signal_cb),
+                          manager);
 
         k_now = g_dbus_proxy_call_sync (manager->priv->upower_kbd_proxy,
                                         "GetBrightness",
