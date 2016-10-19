@@ -176,8 +176,10 @@ main (int argc, char **argv)
 
         error = NULL;
         if (! gtk_init_with_args (&argc, &argv, PLUGIN_NAME, entries, NULL, &error)) {
-                fprintf (stderr, "%s\n", error->message);
-                g_error_free (error);
+                if (error != NULL) {
+                        fprintf (stderr, "%s\n", error->message);
+                        g_error_free (error);
+                }
                 exit (1);
         }
 
