@@ -103,10 +103,17 @@ static void
 stuff_changed (GFileMonitor *monitor G_GNUC_UNUSED,
                GFile *file G_GNUC_UNUSED,
                GFile *other_file G_GNUC_UNUSED,
-               GFileMonitorEvent event_type G_GNUC_UNUSED,
+               GFileMonitorEvent event_type,
                gpointer data)
 {
         fontconfig_monitor_handle_t *handle = data;
+
+        /* Wait for G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT before notifying
+         * fontconfig.
+         */
+        if (event_type == G_FILE_MONITOR_EVENT_CHANGED ||
+            event_type == G_FILE_MONITOR_EVENT_CREATED)
+                return;
 
         gboolean notify = FALSE;
 
