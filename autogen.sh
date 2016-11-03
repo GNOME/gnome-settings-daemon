@@ -22,11 +22,15 @@ which gnome-autogen.sh || {
     exit 1
 }
 
+pushd "$srcdir"
+
 # Fetch submodules if needed
 if test ! -f plugins/media-keys/gvc/Makefile.am; then
   echo "+ Setting up submodules"
   git submodule init
 fi
 git submodule update
+
+popd
 
 . gnome-autogen.sh
