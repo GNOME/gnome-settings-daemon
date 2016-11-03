@@ -7,6 +7,8 @@ USE_GNOME2_MACROS=1
 srcdir=`dirname $0`
 test -z "$srcdir" && srcdir=.
 
+olddir="`pwd`"
+
 PKG_NAME="gnome-settings-daemon"
 
 (test -f $srcdir/configure.ac \
@@ -22,7 +24,7 @@ which gnome-autogen.sh || {
     exit 1
 }
 
-pushd "$srcdir"
+cd "$srcdir"
 
 # Fetch submodules if needed
 if test ! -f plugins/media-keys/gvc/Makefile.am; then
@@ -31,6 +33,6 @@ if test ! -f plugins/media-keys/gvc/Makefile.am; then
 fi
 git submodule update
 
-popd
+cd "$olddir"
 
 . gnome-autogen.sh
