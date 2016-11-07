@@ -9,16 +9,17 @@
 # Diesel <diesel594@gmail.com>, 2009.
 # Andrew Grigorev <andrew@ei-grad.ru>, 2009.
 # Alexandre Prokoudine <alexandre.prokoudine@gmail.com>, 2009.
+# Yulia <ypoyarko@redhat.com>, 2010.
 # Max Valianskiy <maxcom@vinchi.ru> 1998-99
 # Sergey Panov <sipan@mit.edu> 1999
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-04 06:07+0600\n"
-"PO-Revision-Date: 2009-11-17 13:23+0200\n"
-"Last-Translator: Leonid Kanter <leon@asplinux.ru>\n"
-"Language-Team: Russian <ru@li.org>\n"
+"POT-Creation-Date: 2010-04-26 12:18+0530\n"
+"PO-Revision-Date: 2010-04-27 11:46+1000\n"
+"Last-Translator: Yulia <ypoyarko@redhat.com>\n"
+"Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -72,13 +73,17 @@ msgstr ""
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
 "warning will be shown"
-msgstr "Укажите объем в ГБ. Если объем свободного места больше, то предупреждение не будет показано"
+msgstr ""
+"Укажите объем в ГБ. Если объем свободного места больше, то предупреждение не "
+"будет показано"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
 "issuing a subsequent warning"
-msgstr "Укажите процент свободного места, при преодолении которого нужно отобразить повторное предупреждение"
+msgstr ""
+"Укажите процент свободного места, при преодолении которого нужно отобразить "
+"повторное предупреждение"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
 msgid "Subsequent free percentage notify threshold"
@@ -151,8 +156,8 @@ msgstr "Комбинация клавиш для перехода к преды�
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:17
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr ""
-"Комбинация клавиш для запуска воспроизведения (или переключения воспроизведение/"
-"пауза)."
+"Комбинация клавиш для запуска воспроизведения (или переключения "
+"воспроизведение/пауза)."
 
 #: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:18
 msgid "Binding to stop playback."
@@ -439,42 +444,46 @@ msgid "Enable mouse plugin"
 msgstr "Включить модуль мыши"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:17
+msgid "Enable smartcard plugin"
+msgstr "Включить модуль смарт-карт"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable sound plugin"
 msgstr "Включить модуль звука"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable typing breaks plugin"
 msgstr "Включить модуль перерыва в работе"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Enable xrandr plugin"
 msgstr "Включить модуль xrandr"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Enable xrdb plugin"
 msgstr "Включить модуль xrdb"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Enable xsettings plugin"
 msgstr "Включить модуль xsettings"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:23
 msgid "Mouse keys"
 msgstr "Клавиши мыши"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:24
 msgid "On-screen keyboard"
 msgstr "Экранная клавиатура"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/gnome-settings-daemon.schemas.in.h:25
 msgid "Screen magnifier"
 msgstr "Увеличитель экрана"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid "Screen reader"
 msgstr "Чтение с экрана"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid ""
 "Set to True to enable the housekeeping plugin, to prune transient file "
 "caches."
@@ -482,41 +491,47 @@ msgstr ""
 "Установите в True, чтобы включить модуль периодического сброса файловых "
 "кэшей."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr ""
 "Установите в True, чтобы разрешить модулю управлять параметрами буфера "
 "обмена."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr ""
 "Установите в True, чтобы разрешить модулю управлять параметрами фона "
 "рабочего стола."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr "Установите в True, чтобы разрешить модулю управлять параметрами шрифта."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr "Установите в True, чтобы разрешить модулю управлять параметрами клавиатуры."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:31
+#: ../data/gnome-settings-daemon.schemas.in.h:32
+msgid ""
+"Set to True to enable the plugin to manage locking screen on smartcard "
+"removal."
+msgstr "Установите в True, чтобы разрешить модулю блокировать экран при удалении смарт-карты."
+
+#: ../data/gnome-settings-daemon.schemas.in.h:33
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr "Установите в True, чтобы разрешить модулю управлять параметрами мыши."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:32
+#: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 "Установите в True, чтобы разрешить модулю управлять параметрами "
 "мультимедийных клавиш."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:33
+#: ../data/gnome-settings-daemon.schemas.in.h:35
 msgid "Set to True to enable the plugin to manage sound sample caches."
 msgstr "Установите в True, чтобы включить модуль управления кэшированием звуков."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:34
+#: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
@@ -524,49 +539,49 @@ msgstr ""
 "Установите в True, чтобы включить модуль управления специальными "
 "возможностями клавиатуры."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:35
+#: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr ""
 "Установите в True, чтобы разрешить модулю управлять комбинациями клавиш "
 "клавиатуры."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:36
+#: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr "Установите в True, чтобы разрешить модулю управлять перерывами в работе."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:37
+#: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr "Установите в True, чтобы разрешить модулю управлять параметрами xrandr."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:38
+#: ../data/gnome-settings-daemon.schemas.in.h:40
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr "Установите в True, чтобы разрешить модулю управлять параметрами xrdb."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:39
+#: ../data/gnome-settings-daemon.schemas.in.h:41
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "Установите в True, чтобы разрешить модулю управлять параметрами xsettings."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:40
+#: ../data/gnome-settings-daemon.schemas.in.h:42
 msgid "Slow keys"
 msgstr "Медленные клавиши"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:41
+#: ../data/gnome-settings-daemon.schemas.in.h:43
 msgid "Sticky keys"
 msgstr "Залипающие клавиши"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:42
+#: ../data/gnome-settings-daemon.schemas.in.h:44
 msgid "The name of the keyboard shortcut to toggle the magnifier"
 msgstr "Комбинация клавиш для включения экранного увеличителя"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:43
+#: ../data/gnome-settings-daemon.schemas.in.h:45
 msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
 msgstr "Комбинация клавиш для включения экранной клавиатуры"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:44
+#: ../data/gnome-settings-daemon.schemas.in.h:46
 msgid "The name of the keyboard shortcut to toggle the screen reader"
 msgstr "Комбинация клавиш для включения системы чтения с экрана"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:45
+#: ../data/gnome-settings-daemon.schemas.in.h:47
 msgid ""
 "This is the name of the keyboard shortcut to toggle the magnifier. This name "
 "will be shown in the keyboard shortcut preferences dialog."
@@ -574,7 +589,7 @@ msgstr ""
 "Комбинация клавиш для включения увеличителя экрана.Она может быть изменена в "
 "диалоге настройки комбинаций клавиш."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:46
+#: ../data/gnome-settings-daemon.schemas.in.h:48
 msgid ""
 "This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
 "This name will be shown in the keyboard shortcut preferences dialog."
@@ -582,7 +597,7 @@ msgstr ""
 "Комбинация клавиш для включения экранной клавиатуры. Эта настройка может "
 "быть изменена в диалоге настройки комбинаций клавиш."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:47
+#: ../data/gnome-settings-daemon.schemas.in.h:49
 msgid ""
 "This is the name of the keyboard shortcut to toggle the screen reader. This "
 "name will be shown in the keyboard shortcut preferences dialog."
@@ -590,43 +605,43 @@ msgstr ""
 "Комбинация клавиш для включения системы чтения с экрана. Эта настройка может "
 "быть изменена в диалоге настройки комбинаций клавиш."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:48
+#: ../data/gnome-settings-daemon.schemas.in.h:50
 msgid "Toggle magnifier"
 msgstr "Включить экранный увеличитель"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:49
+#: ../data/gnome-settings-daemon.schemas.in.h:51
 msgid "Toggle on-screen keyboard"
 msgstr "Включить экранную клавиатуру"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:50
+#: ../data/gnome-settings-daemon.schemas.in.h:52
 msgid "Toggle screen reader"
 msgstr "Включить чтение с экрана"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:51
+#: ../data/gnome-settings-daemon.schemas.in.h:53
 msgid "Whether the bounce keys keyboard accessibility feature is turned on."
 msgstr "Включена ли поддержка скачущих клавиш системы вспомогательных технологий."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:52
+#: ../data/gnome-settings-daemon.schemas.in.h:54
 msgid "Whether the mouse keys keyboard accessibility feature is turned on."
 msgstr "Включена ли поддержка работы с мышью системы вспомогательных технологий."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:53
+#: ../data/gnome-settings-daemon.schemas.in.h:55
 msgid "Whether the on-screen keyboard is turned on."
 msgstr "Включена ли экранная клавиатура."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:54
+#: ../data/gnome-settings-daemon.schemas.in.h:56
 msgid "Whether the screen magnifier is turned on."
 msgstr "Включён ли увеличитель экрана."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:55
+#: ../data/gnome-settings-daemon.schemas.in.h:57
 msgid "Whether the screen reader is turned on."
 msgstr "Включена ли система чтения с экрана."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:56
+#: ../data/gnome-settings-daemon.schemas.in.h:58
 msgid "Whether the slow keys keyboard accessibility feature is turned on."
 msgstr "Включена ли поддержка медленных клавиш системы вспомогательных технологий."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:57
+#: ../data/gnome-settings-daemon.schemas.in.h:59
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr "Включена ли поддержка залипающих клавиш системы вспомогательных технологий."
 
@@ -1051,17 +1066,17 @@ msgstr "Мультимедийные клавиши"
 msgid "Media keys plugin"
 msgstr "Модуль мультимедийных клавиш"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:795
+#: ../plugins/mouse/gsd-mouse-manager.c:835
 msgid "Could not enable mouse accessibility features"
 msgstr "Не удаётся включить специальные возможности мыши"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:797
+#: ../plugins/mouse/gsd-mouse-manager.c:837
 msgid "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr ""
 "Чтобы активировать специальные возможности мыши, необходимо установить "
 "службу mousetweaks."
 
-#: ../plugins/mouse/gsd-mouse-manager.c:800
+#: ../plugins/mouse/gsd-mouse-manager.c:840
 msgid "Mouse Preferences"
 msgstr "Параметры мыши"
 
@@ -1121,53 +1136,53 @@ msgstr "_Применить текущую конфигурацию"
 msgid "The selected configuration for displays could not be applied"
 msgstr "Не удалось применить выбранную конфигурацию мониторов"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:945
+#: ../plugins/xrandr/gsd-xrandr-manager.c:937
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Не удалось обновить информацию об экране: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:948
+#: ../plugins/xrandr/gsd-xrandr-manager.c:940
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "Конфигурация мониторов применяется принудительно."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:982
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1148
+#: ../plugins/xrandr/gsd-xrandr-manager.c:974
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1140
 msgid "Could not switch the monitor configuration"
 msgstr "Не удалось изменить конфигурацию мониторов"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1541
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1533
 msgid "<i>Rotation not supported</i>"
 msgstr "<i>Поворот экрана не поддерживается</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1595
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1587
 msgid "Could not save monitor configuration"
 msgstr "Не удалось сохранить конфигурацию мониторов"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1613
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1605
 msgid "Normal"
 msgstr "Обычная"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1614
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1606
 msgid "Left"
 msgstr "Влево"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1615
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1607
 msgid "Right"
 msgstr "Вправо"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1616
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1608
 msgid "Upside Down"
 msgstr "Перевернуть"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1735
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1727
 msgid "_Configure Display Settings ..."
 msgstr "_Настроить параметры монитора ..."
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1776
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1768
 msgid "Configure display settings"
 msgstr "Настроить параметры "
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1830
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1825
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Не удалось применить сохранённую конфигурацию мониторов"
 

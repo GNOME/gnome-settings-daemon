@@ -7,13 +7,13 @@
 # Progga <progga@BengaLinux.Org>, 2003-2006.
 # Runa Bhattacharjee <runabh@gmail.com>, 2006, 2007.
 # Runa Bhattacharjee <runab@fedoraproject.org>, 2008.
-# Runa Bhattacharjee <runab@redhat.com>, 2008, 2009.
+# Runa Bhattacharjee <runab@redhat.com>, 2008, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: bn_IN\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&component=general\n"
-"POT-Creation-Date: 2009-08-18 13:03+0000\n"
-"PO-Revision-Date: 2009-08-28 12:01+0530\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-26 12:18+0530\n"
+"PO-Revision-Date: 2010-04-28 08:42+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
 "Language-Team: Bengali INDIA <anubad@lists.ankur.org.in>\n"
 "MIME-Version: 1.0\n"
@@ -47,7 +47,10 @@ msgstr "উপেক্ষা করার জন্য চিহ্নিত �
 msgid ""
 "Percentage free space threshold for initial warning of low disk space. If "
 "the percentage free space drops below this, a warning will be shown"
-msgstr "ডিস্কের স্থান হ্রাস হওয়ার প্রারম্ভিক সতর্কবার্তা প্রদর্শনের জন্য অবশিষ্ট ফাঁকা স্থানের প্রান্তিক পরিমান, শতাংশে ধার্য। ডিস্কের অবশিষ্ট স্থান (শতাংশে চিহ্নিত) এই পরিমাণের থেকে কম হয়ে গেলে একটি সতর্কবার্তা প্রদর্শন করা হবে।"
+msgstr ""
+"ডিস্কের স্থান হ্রাস হওয়ার প্রারম্ভিক সতর্কবার্তা প্রদর্শনের জন্য অবশিষ্ট ফাঁকা স্থানের "
+"প্রান্তিক পরিমান, শতাংশে ধার্য। ডিস্কের অবশিষ্ট স্থান (শতাংশে চিহ্নিত) এই পরিমাণের "
+"থেকে কম হয়ে গেলে একটি সতর্কবার্তা প্রদর্শন করা হবে।"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:6
 msgid "Specify a list of mount paths to ignore when they run low on space."
@@ -57,19 +60,25 @@ msgstr "অবশিষ্ট স্থান হ্রাস হলে, উপ�
 msgid ""
 "Specify a time in minutes. Subsequent warnings for a volume will not appear "
 "more often than this period."
-msgstr "মিনিট অনুযায়ী সময় ধার্য করুন। কোনো ভলিউম সম্পর্কে সতর্কতামূলক বার্তাগুলি প্রদর্শন এই সময়ের অবকাল অবধি সীমিত রাখা হবে।"
+msgstr ""
+"মিনিট অনুযায়ী সময় ধার্য করুন। কোনো ভলিউম সম্পর্কে সতর্কতামূলক বার্তাগুলি প্রদর্শন এই "
+"সময়ের অবকাল অবধি সীমিত রাখা হবে।"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
 "warning will be shown"
-msgstr "গিগাবাইট অনুযায়ী একটি পরিমাণ ধার্য করা হবে। এই পরিমাণের থেকে অবশিষ্ট স্থান উপস্থিত থাকলে কোনো সতর্কবার্তা প্রদর্শন করা হবে না।"
+msgstr ""
+"গিগাবাইট অনুযায়ী একটি পরিমাণ ধার্য করা হবে। এই পরিমাণের থেকে অবশিষ্ট স্থান "
+"উপস্থিত থাকলে কোনো সতর্কবার্তা প্রদর্শন করা হবে না।"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
 "issuing a subsequent warning"
-msgstr "পরবর্তী সতর্কবার্তা প্রদর্শনের পূর্বে ডিস্কের অবশিষ্ট স্থানের পরিমাণ কী শতাংশ হ্রাস হবে তা নির্ধারণ করুন"
+msgstr ""
+"পরবর্তী সতর্কবার্তা প্রদর্শনের পূর্বে ডিস্কের অবশিষ্ট স্থানের পরিমাণ কী শতাংশ হ্রাস হবে "
+"তা নির্ধারণ করুন"
 
 #: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
 msgid "Subsequent free percentage notify threshold"
@@ -325,7 +334,6 @@ msgid "Disable touchpad while typing"
 msgstr "টাইপ করার সময় টাচ-প্যাড নিষ্ক্রিয় করা হবে"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:2
-#| msgid "Enable font plugin"
 msgid "Enable horizontal scrolling"
 msgstr "অনুভূমিক দিশায় স্ক্রোলিং ব্যবস্থা সক্রিয় করুন"
 
@@ -342,24 +350,30 @@ msgid ""
 "Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - "
 "edge scrolling, 2 - two-finger scrolling"
 msgstr ""
-"টাচ-প্যাড স্ক্রোলের ব্যবস্থা নির্বাচন করা হবে। সমর্থিত মান হল: 0 (০) - নিষ্ক্রিয়, 1 (১) - "
-"প্রান্তে স্ক্রোলিং, 2 (২) - দুই আঙ্গুলের স্ক্রোলিং"
+"টাচ-প্যাড স্ক্রোলের ব্যবস্থা নির্বাচন করা হবে। সমর্থিত মান হল: 0 (০) - নিষ্ক্রিয়, 1 "
+"(১) - প্রান্তে স্ক্রোলিং, 2 (২) - দুই আঙ্গুলের স্ক্রোলিং"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
-msgstr "টাইপ করার সময় ভুলবসত টাচ-প্যাড ছুঁয়ে ফেলার সমস্যা থাকলে এই মান TRUE (সত্য) ধার্য করুন।"
+msgstr ""
+"টাইপ করার সময় ভুলবসত টাচ-প্যাড ছুঁয়ে ফেলার সমস্যা থাকলে এই মান TRUE (সত্য) ধার্য "
+"করুন।"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
-msgstr "scroll_method কি দ্বারা নির্বাচিত পদ্ধতি দ্বারা অনুভূমিক স্ক্রোলিং ব্যবস্থার অনুমতি প্রদান করার উদ্দেশ্যে এই মান TRUE (সত্য) ধার্য করুন।"
+msgstr ""
+"scroll_method কি দ্বারা নির্বাচিত পদ্ধতি দ্বারা অনুভূমিক স্ক্রোলিং ব্যবস্থার অনুমতি "
+"প্রদান করার উদ্দেশ্যে এই মান TRUE (সত্য) ধার্য করুন।"
 
 #: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:8
 msgid "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
-msgstr "টাচ-প্যাডের মধ্যে টোকা মেরে মাউসের ক্লিকের অনুকরণের জন্য এই মান TRUE (সত্য) ধার্য করুন।"
+msgstr ""
+"টাচ-প্যাডের মধ্যে টোকা মেরে মাউসের ক্লিকের অনুকরণের জন্য এই মান TRUE (সত্য) ধার্য "
+"করুন।"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -430,42 +444,46 @@ msgid "Enable mouse plugin"
 msgstr "মাউজ প্লাগ-ইন সক্রিয় করুন"
 
 #: ../data/gnome-settings-daemon.schemas.in.h:17
+msgid "Enable smartcard plugin"
+msgstr "স্মার্ট-কার্ড প্লাগ-ইন সক্রিয় করুন"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:18
 msgid "Enable sound plugin"
 msgstr "শব্দের প্লাগ-ইন সক্রিয় করুন"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/gnome-settings-daemon.schemas.in.h:19
 msgid "Enable typing breaks plugin"
 msgstr "টাইপিং বিরতির প্লাগ-ইন সক্রিয় করুন"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/gnome-settings-daemon.schemas.in.h:20
 msgid "Enable xrandr plugin"
 msgstr "xrandr প্লাগ-ইন সক্রিয় করুন"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/gnome-settings-daemon.schemas.in.h:21
 msgid "Enable xrdb plugin"
 msgstr "xrdb প্লাগ-ইন সক্রিয় করুন"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/gnome-settings-daemon.schemas.in.h:22
 msgid "Enable xsettings plugin"
 msgstr "xsettings প্লাগ-ইন সক্রিয় করুন"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/gnome-settings-daemon.schemas.in.h:23
 msgid "Mouse keys"
 msgstr "মাউস কি"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/gnome-settings-daemon.schemas.in.h:24
 msgid "On-screen keyboard"
 msgstr "পর্দার কি-বোর্ড"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/gnome-settings-daemon.schemas.in.h:25
 msgid "Screen magnifier"
 msgstr "পর্দা বিবর্ধক"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/gnome-settings-daemon.schemas.in.h:26
 msgid "Screen reader"
 msgstr "পর্দা পাঠের ব্যবস্থা"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/gnome-settings-daemon.schemas.in.h:27
 msgid ""
 "Set to True to enable the housekeeping plugin, to prune transient file "
 "caches."
@@ -473,39 +491,45 @@ msgstr ""
 "সাময়িক ফাইল ক্যাশে ছাঁটাই করার উদ্দেশ্যে housekeeping প্লাগ-ইন সক্রিয় করার জন্য মান "
 "True (সত্য) নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/gnome-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr "প্লাগ-ইন দ্বারা ক্লিপ-বোর্ডের বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/gnome-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr ""
 "প্লাগ-ইন দ্বারা ডেস্কটপের পটভূমির বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) নির্ধারণ "
 "করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/gnome-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr "প্লাগ-ইন দ্বারা ফন্টের বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/gnome-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr "প্লাগ-ইন দ্বারা কি-বোর্ডের বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:31
+#: ../data/gnome-settings-daemon.schemas.in.h:32
+msgid ""
+"Set to True to enable the plugin to manage locking screen on smartcard "
+"removal."
+msgstr "স্মার্ট-কার্ড অপসারণের সময় প্লাগ-ইন দ্বারা পর্দা লক করার ব্যবস্থা পরিচালনার উদ্দেশ্যে মান True (সত্য) নির্ধারণ করুন।"
+
+#: ../data/gnome-settings-daemon.schemas.in.h:33
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr "প্লাগ-ইন দ্বারা মাউজের বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:32
+#: ../data/gnome-settings-daemon.schemas.in.h:34
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 "প্লাগ-ইন দ্বারা মাল্টিমিডিয়া কি-র বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) নির্ধারণ "
 "করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:33
+#: ../data/gnome-settings-daemon.schemas.in.h:35
 msgid "Set to True to enable the plugin to manage sound sample caches."
 msgstr "প্লাগ-ইন দ্বারা শব্দের নমূনার ক্যাশে পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:34
+#: ../data/gnome-settings-daemon.schemas.in.h:36
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
@@ -513,48 +537,48 @@ msgstr ""
 "প্লাগ-ইন দ্বারা বিশেষ ব্যবহারের কি-বোর্ডের বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) "
 "নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:35
+#: ../data/gnome-settings-daemon.schemas.in.h:37
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr "প্লাগ-ইন দ্বারা কি-বাইন্ডিং পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:36
+#: ../data/gnome-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr "প্লাগ-ইন দ্বারা টাইপিং-বিরতি পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:37
+#: ../data/gnome-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr "প্লাগ-ইন দ্বারা xrandr-র বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:38
+#: ../data/gnome-settings-daemon.schemas.in.h:40
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr "প্লাগ-ইন দ্বারা xrdb-র বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:39
+#: ../data/gnome-settings-daemon.schemas.in.h:41
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "প্লাগ-ইন দ্বারা xsettings-র বৈশিষ্ট্য পরিচালনার জন্য মান True (সত্য) নির্ধারণ করুন।"
 
 # FIXME
-#: ../data/gnome-settings-daemon.schemas.in.h:40
+#: ../data/gnome-settings-daemon.schemas.in.h:42
 msgid "Slow keys"
 msgstr "ধীর গতির কি"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:41
+#: ../data/gnome-settings-daemon.schemas.in.h:43
 msgid "Sticky keys"
 msgstr "স্টিকি কি"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:42
+#: ../data/gnome-settings-daemon.schemas.in.h:44
 msgid "The name of the keyboard shortcut to toggle the magnifier"
 msgstr "বিবর্ধক টগল করার উদ্দেশ্যে ব্যবহৃত কি-বোর্ড শর্ট-কাটের নাম"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:43
+#: ../data/gnome-settings-daemon.schemas.in.h:45
 msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
 msgstr "পর্দার কি-বোর্ড টগল করার উদ্দেশ্যে ব্যবহৃত কি-বোর্ড শর্ট-কাটের নাম"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:44
+#: ../data/gnome-settings-daemon.schemas.in.h:46
 msgid "The name of the keyboard shortcut to toggle the screen reader"
 msgstr "পর্দা থেকে পাঠের ব্যবস্থা টগল করার উদ্দেশ্যে ব্যবহৃত কি-বোর্ড শর্ট-কাটের নাম"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:45
+#: ../data/gnome-settings-daemon.schemas.in.h:47
 msgid ""
 "This is the name of the keyboard shortcut to toggle the magnifier. This name "
 "will be shown in the keyboard shortcut preferences dialog."
@@ -562,7 +586,7 @@ msgstr ""
 "বিবর্ধক টগল করার উদ্দেশ্যে ব্যবহৃত কি-বোর্ড শর্ট-কাটের নাম। কি-বোর্ড শর্ট-কাট সংক্রান্ত "
 "পছন্দসই বৈশিষ্ট্যের ডায়লগ বক্সের মধ্যে এই নামটি প্রদর্শন করা হবে।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:46
+#: ../data/gnome-settings-daemon.schemas.in.h:48
 msgid ""
 "This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
 "This name will be shown in the keyboard shortcut preferences dialog."
@@ -570,7 +594,7 @@ msgstr ""
 "পর্দার কি-বোর্ড টগল করার উদ্দেশ্যে ব্যবহৃত কি-বোর্ড শর্ট-কাটের নাম। কি-বোর্ড শর্ট-কাট "
 "সংক্রান্ত পছন্দসই বৈশিষ্ট্যের ডায়লগ বক্সের মধ্যে এই নামটি প্রদর্শন করা হবে।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:47
+#: ../data/gnome-settings-daemon.schemas.in.h:49
 msgid ""
 "This is the name of the keyboard shortcut to toggle the screen reader. This "
 "name will be shown in the keyboard shortcut preferences dialog."
@@ -578,43 +602,43 @@ msgstr ""
 "পর্দা থেকে পাঠের ব্যবস্থা টগল করার উদ্দেশ্যে ব্যবহৃত কি-বোর্ড শর্ট-কাটের নাম। কি-বোর্ড "
 "শর্ট-কাট সংক্রান্ত পছন্দসই বৈশিষ্ট্যের ডায়লগ বক্সের মধ্যে এই নামটি প্রদর্শন করা হবে।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:48
+#: ../data/gnome-settings-daemon.schemas.in.h:50
 msgid "Toggle magnifier"
 msgstr "বিবর্ধক টগল করা হবে"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:49
+#: ../data/gnome-settings-daemon.schemas.in.h:51
 msgid "Toggle on-screen keyboard"
 msgstr "পর্দার কি-বোর্ড টগল করা হবে"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:50
+#: ../data/gnome-settings-daemon.schemas.in.h:52
 msgid "Toggle screen reader"
 msgstr "পর্দা পাঠের ব্যবস্থা টগল করা হবে"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:51
+#: ../data/gnome-settings-daemon.schemas.in.h:53
 msgid "Whether the bounce keys keyboard accessibility feature is turned on."
 msgstr "বাউন্স কি নামক কি-বোর্ডের সহায়ক প্রযুক্তি সক্রিয় করা হয়েছে কি না।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:52
+#: ../data/gnome-settings-daemon.schemas.in.h:54
 msgid "Whether the mouse keys keyboard accessibility feature is turned on."
 msgstr "মাউস কি-র কি-বোর্ডের সহায়ক প্রযুক্তি সক্রিয় করা হয়েছে কি না।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:53
+#: ../data/gnome-settings-daemon.schemas.in.h:55
 msgid "Whether the on-screen keyboard is turned on."
 msgstr "পর্দার কি-বোর্ড সক্রিয় করা হয়েছে কি না।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:54
+#: ../data/gnome-settings-daemon.schemas.in.h:56
 msgid "Whether the screen magnifier is turned on."
 msgstr "পর্দার বিবর্ধক সক্রিয় করা হয়েছে কি না।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:55
+#: ../data/gnome-settings-daemon.schemas.in.h:57
 msgid "Whether the screen reader is turned on."
 msgstr "পর্দা থেকে পাঠে ব্যবস্থা সক্রিয় করা হয়েছে কি না।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:56
+#: ../data/gnome-settings-daemon.schemas.in.h:58
 msgid "Whether the slow keys keyboard accessibility feature is turned on."
 msgstr "কি-বোর্ডের সহায়ক প্রযুক্তি ধীর গতির কি সক্রিয় করা হয়েছে কি না।"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:57
+#: ../data/gnome-settings-daemon.schemas.in.h:59
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr "কি-বোর্ডের সহায়ক প্রযুক্তি স্টিকি-কি সক্রিয় করা হয়েছে কি না।"
 
@@ -816,7 +840,6 @@ msgid "Don't show any warnings again for this filesystem"
 msgstr "এই ফাইল-সিস্টেমের জন্য কোনো সতর্তকবার্তা প্রদর্শন করা হবে না"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
-#| msgid "_Do not show this message again"
 msgid "Don't show any warnings again"
 msgstr "পুনরায় সতর্কবার্তা প্রদর্শন করা হবে না"
 
@@ -834,25 +857,34 @@ msgstr "এই কম্পিউটারের মধ্যে শুধুম
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to another disk or partition."
-msgstr "আবর্জনার বাক্স ফাঁকা করে আপনি ডিস্কের স্থান বৃদ্ধি করতে করতে পারেন। অব্যবহৃত প্রোগ্রাম, ফাইল মুছে ফেলে ও অন্য কোনো ডিস্ক অথবা পার্টিশনে ফাইল সরিয়েও ডিস্কের স্থান বৃদ্ধি করা যাবে।"
+msgstr ""
+"আবর্জনার বাক্স ফাঁকা করে আপনি ডিস্কের স্থান বৃদ্ধি করতে করতে পারেন। অব্যবহৃত প্রোগ্রাম, "
+"ফাইল মুছে ফেলে ও অন্য কোনো ডিস্ক অথবা পার্টিশনে ফাইল সরিয়েও ডিস্কের স্থান বৃদ্ধি করা "
+"যাবে।"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:101
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to another disk or partition."
-msgstr "অব্যবহৃত প্রোগ্রাম, ফাইল মুছে ফেলে ও অন্য কোনো ডিস্ক অথবা পার্টিশনে ফাইল সরিয়ে ডিস্কের স্থান বৃদ্ধি করা যাবে।"
+msgstr ""
+"অব্যবহৃত প্রোগ্রাম, ফাইল মুছে ফেলে ও অন্য কোনো ডিস্ক অথবা পার্টিশনে ফাইল সরিয়ে "
+"ডিস্কের স্থান বৃদ্ধি করা যাবে।"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:106
 msgid ""
 "You can free up disk space by emptying the Trash, removing unused programs "
 "or files, or moving files to an external disk."
-msgstr "আবর্জনার বাক্স ফাঁকা করে আপনি ডিস্কের স্থান বৃদ্ধি করতে করতে পারেন। অব্যবহৃত প্রোগ্রাম, ফাইল মুছে ফেলে ও কোনো বহিস্থিত ডিস্কে ফাইল সরিয়েও ডিস্কের স্থান বৃদ্ধি করা যাবে।"
+msgstr ""
+"আবর্জনার বাক্স ফাঁকা করে আপনি ডিস্কের স্থান বৃদ্ধি করতে করতে পারেন। অব্যবহৃত প্রোগ্রাম, "
+"ফাইল মুছে ফেলে ও কোনো বহিস্থিত ডিস্কে ফাইল সরিয়েও ডিস্কের স্থান বৃদ্ধি করা যাবে।"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:109
 msgid ""
 "You can free up disk space by removing unused programs or files, or by "
 "moving files to an external disk."
-msgstr "অব্যবহৃত প্রোগ্রাম, ফাইল মুছে ফেলে ও কোনো বহিস্থিত ডিস্কে ফাইল সরিয়ে ডিস্কের স্থান বৃদ্ধি করা যাবে।"
+msgstr ""
+"অব্যবহৃত প্রোগ্রাম, ফাইল মুছে ফেলে ও কোনো বহিস্থিত ডিস্কে ফাইল সরিয়ে ডিস্কের স্থান "
+"বৃদ্ধি করা যাবে।"
 
 #. Set up all the window stuff here
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
@@ -902,7 +934,9 @@ msgstr "আবর্জনার বাক্সে উপস্থিত সক
 msgid ""
 "If you choose to empty the trash, all items in it will be permanently lost. "
 "Please note that you can also delete them separately."
-msgstr "আবর্জনার বাক্স ফাঁকা করা হলে, এর মধ্যে বর্তমানে উপস্থিত সকল সামগ্রী স্থায়ীরূপে মুছে ফেলা হবে। উল্লেখ্য, এই সকল সামগ্রী পৃথকভাবেও মুছে ফেলা যাবে।"
+msgstr ""
+"আবর্জনার বাক্স ফাঁকা করা হলে, এর মধ্যে বর্তমানে উপস্থিত সকল সামগ্রী স্থায়ীরূপে মুছে "
+"ফেলা হবে। উল্লেখ্য, এই সকল সামগ্রী পৃথকভাবেও মুছে ফেলা যাবে।"
 
 #: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:366
 msgid "_Empty Trash"
@@ -967,7 +1001,7 @@ msgstr "লোড করো (_L)"
 msgid "_Loaded files:"
 msgstr "লোড করা ফাইল (_L):"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:203
+#: ../plugins/media-keys/gsd-media-keys-manager.c:204
 msgid ""
 "Could not get default terminal. Verify that your default terminal command is "
 "set and points to a valid application."
@@ -975,7 +1009,7 @@ msgstr ""
 "ডিফল্ট টার্মিনাল প্রাপ্ত করতে ব্যর্থ। অনুগ্রহ করে পরীক্ষা করুন যে ডিফল্ট টার্মিনালের "
 "কমান্ড ধার্য করে তা একটি বৈধ অ্যাপ্লিকেশনের প্রতি নির্দেশ করা হয়েছে কি না।"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:243
+#: ../plugins/media-keys/gsd-media-keys-manager.c:244
 #, c-format
 msgid ""
 "Couldn't execute command: %s\n"
@@ -984,7 +1018,7 @@ msgstr ""
 "চিহ্নিত কমান্ডটি চালানো যায়নি: %s\n"
 "কমান্ডের বৈধতা নিশ্চিত করুন।"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:259
+#: ../plugins/media-keys/gsd-media-keys-manager.c:260
 msgid ""
 "Couldn't put the machine to sleep.\n"
 "Verify that the machine is correctly configured."
@@ -1029,15 +1063,15 @@ msgstr "মিডিয়া কি"
 msgid "Media keys plugin"
 msgstr "মিডিয়া-কি প্লাগ-ইন"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:891
+#: ../plugins/mouse/gsd-mouse-manager.c:835
 msgid "Could not enable mouse accessibility features"
 msgstr "মাউস ব্যবহারের বিশেষ সহায়ক বৈশিষ্ট্য সক্রিয় করতে ব্যর্থ"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:893
+#: ../plugins/mouse/gsd-mouse-manager.c:837
 msgid "Mouse accessibility requires mousetweaks to be installed on your system."
 msgstr "মাউসের সহায়ক প্রযুক্তি ব্যবহারের জন্য সিস্টেমের মধ্যে mousetweaks ইনস্টল করা আবশ্যক।"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:896
+#: ../plugins/mouse/gsd-mouse-manager.c:840
 msgid "Mouse Preferences"
 msgstr "মাউস সম্পর্কিত পছন্দ"
 
@@ -1096,53 +1130,53 @@ msgstr "এই কনফিগারেশন প্রয়োগ করা হ�
 msgid "The selected configuration for displays could not be applied"
 msgstr "ডিসপ্লের জন্য নির্বাচিত কনফিগারেশন প্রয়োগ করতে ব্যর্থ"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:945
+#: ../plugins/xrandr/gsd-xrandr-manager.c:937
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "পর্দা সংক্রান্ত তথ্য নতুন করে প্রদর্শন করতে ব্যর্থ: %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:948
+#: ../plugins/xrandr/gsd-xrandr-manager.c:940
 msgid "Trying to switch the monitor configuration anyway."
 msgstr "তথাপি মনিটর সংক্রান্ত কনফিগারেশন পরিবর্তনের প্রয়াস করা হবে।"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:982
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1148
+#: ../plugins/xrandr/gsd-xrandr-manager.c:974
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1140
 msgid "Could not switch the monitor configuration"
 msgstr "মনিটরের কনফিগারেশন পরিবর্তন করতে ব্যর্থ"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1541
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1533
 msgid "<i>Rotation not supported</i>"
 msgstr "<i>আবর্তন সমর্থিত নয়</i>"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1595
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1587
 msgid "Could not save monitor configuration"
 msgstr "মনিটর সংক্রান্ত কনফিগারেশন সংরক্ষণ করতে ব্যর্থ"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1613
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1605
 msgid "Normal"
 msgstr "স্বাভাবিক"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1614
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1606
 msgid "Left"
 msgstr "বাঁদিকে"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1615
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1607
 msgid "Right"
 msgstr "ডানদিকে"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1616
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1608
 msgid "Upside Down"
 msgstr "উল্টো"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1735
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1727
 msgid "_Configure Display Settings ..."
 msgstr "পর্দা সংক্রান্ত বৈশিষ্ট্য পরিবর্তন করুন... (_C)"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1776
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1768
 msgid "Configure display settings"
 msgstr "পর্দা সংক্রান্ত বৈশিষ্ট্য পরিবর্তন করুন"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1830
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1825
 msgid "Could not apply the stored configuration for monitors"
 msgstr "মনিটরের জন্য সংরক্ষিত কনফিগারেশন প্রয়োগ করতে ব্যর্থ"
 
