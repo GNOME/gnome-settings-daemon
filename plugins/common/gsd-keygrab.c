@@ -41,6 +41,10 @@ static GdkModifierType gsd_ignored_mods = 0;
  * for these set */
 static GdkModifierType gsd_used_mods = 0;
 
+/* Taken from a comment in XF86keysym.h */
+static guint gsd_unmodified_keysym_min = 0x10080001;
+static guint gsd_unmodified_keysym_max = 0x1008FFFF;
+
 static void
 setup_modifiers (void)
 {
@@ -120,11 +124,42 @@ grab_key_unsafe (Key                 *key,
         int   bit;
         int   bits_set_cnt;
         int   uppervalue;
-        guint mask;
+        guint mask, modifiers;
 
         setup_modifiers ();
 
         mask = gsd_ignored_mods & ~key->state & GDK_MODIFIER_MASK;
+
+        /* XGrabKey requires real modifiers, not virtual ones */
+        egg_keymap_resolve_virtual_modifiers (gdk_keymap_get_default (),
+					      key->state, &modifiers);
+
+        /* If key doesn't have a usable modifier, we don't want
+         * to grab it, since the user might lose a useful key.
+         *
+         * The exception is the XFree86 keys (which are useful to grab without
+         * a modifier).
+         */
+        if ((modifiers & gsd_used_mods) == 0 &&
+            ((key->keysym < gsd_unmodified_keysym_min) ||
+             (key->keysym > gsd_unmodified_keysym_max))) {
+                GString *keycodes;
+
+                keycodes = g_string_new ("");
+                if (key->keycodes != NULL) {
+                        guint *c;
+
+                        for (c = key->keycodes; *c; ++c) {
+                                g_string_printf (keycodes, " %u", *c);
+                        }
+                }
+                g_warning ("Key 0x%x (keycodes: %s)  with state 0x%x (resolved to 0x%x) "
+                           " has no usable modifiers (usable modifiers are 0x%x)",
+                           key->keysym, keycodes->str, key->state, modifiers, gsd_used_mods);
+                g_string_free (keycodes, TRUE);
+
+                return;
+        }
 
         bit = 0;
         /* store the indexes of all set bits in mask in the array */
@@ -158,7 +193,7 @@ grab_key_unsafe (Key                 *key,
                                 grab_key_real (*code,
                                                gdk_screen_get_root_window (screen),
                                                grab,
-                                               result | key->state);
+                                               result | modifiers);
                         }
                 }
         }
@@ -226,6 +261,12 @@ match_key (Key *key, XEvent *event)
 					     event->xkey.state, group,
 					     &keyval, NULL, NULL, &consumed)) {
 		guint lower, upper;
+		guint mask;
+
+		/* The Key structure contains virtual modifiers, whereas
+		 * the XEvent will be using the real modifier, so translate those */
+		egg_keymap_resolve_virtual_modifiers (gdk_keymap_get_default (),
+						      key->state, &mask);
 
 		gdk_keyval_convert_case (keyval, &lower, &upper);
 
@@ -236,7 +277,7 @@ match_key (Key *key, XEvent *event)
 			consumed &= ~GDK_SHIFT_MASK;
 
 		return ((lower == key->keysym || upper == key->keysym)
-			&& (event->xkey.state & ~consumed & gsd_used_mods) == key->state);
+			&& (event->xkey.state & ~consumed & gsd_used_mods) == mask);
 	}
 
 	/* The key we passed doesn't have a keysym, so try with just the keycode */

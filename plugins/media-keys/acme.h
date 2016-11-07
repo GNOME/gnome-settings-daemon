@@ -77,7 +77,7 @@ static struct {
         { STOP_KEY, GCONF_BINDING_DIR "/stop", NULL },
         { PREVIOUS_KEY, GCONF_BINDING_DIR "/previous", NULL },
         { NEXT_KEY, GCONF_BINDING_DIR "/next", NULL },
-        { VIDEO_OUT_KEY, NULL, "<Mod4>p", NULL },
+        { VIDEO_OUT_KEY, NULL, "<Super>p", NULL },
         /* Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.) */
         { VIDEO_OUT2_KEY, NULL, "XF86Display", NULL },
         /* Key code of the XF86RotateWindows key (present on some tablets) */
