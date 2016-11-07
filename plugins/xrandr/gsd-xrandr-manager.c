@@ -588,6 +588,8 @@ make_clone_setup (GnomeRRScreen *screen)
                 }
         }
 
+        result->clone = TRUE;
+
         print_configuration (result, "clone setup");
 
         return result;
@@ -686,6 +688,8 @@ make_laptop_setup (GnomeRRScreen *screen)
                 }
         }
 
+        result->clone = FALSE;
+
         print_configuration (result, "Laptop setup");
 
         /* FIXME - Maybe we should return NULL if there is more than
@@ -729,6 +733,8 @@ make_xinerama_setup (GnomeRRScreen *screen)
                         x = turn_on_and_get_rightmost_offset (screen, info, x);
         }
 
+        result->clone = FALSE;
+
         print_configuration (result, "xinerama setup");
 
         return result;
@@ -755,6 +761,8 @@ make_other_setup (GnomeRRScreen *screen)
                                 turn_on (screen, info, 0, 0);
                }
         }
+
+        result->clone = FALSE;
 
         print_configuration (result, "other setup");
 
