@@ -183,8 +183,13 @@ static char*
 setup_dir (const char *font_dir_name, gboolean create)
 {
         char *font_dir;
+        const char *override;
 
-        font_dir = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir (), ".gnome2", "share", font_dir_name, NULL);
+        override = g_getenv ("GNOME22_USER_DIR");
+        if (override)
+                font_dir = g_build_path (G_DIR_SEPARATOR_S, override, "share", font_dir_name, NULL);
+        else
+                font_dir = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir (), ".gnome2", "share", font_dir_name, NULL);
 
         if (create) {
                 if (g_mkdir_with_parents (font_dir, 0755) != 0) {
