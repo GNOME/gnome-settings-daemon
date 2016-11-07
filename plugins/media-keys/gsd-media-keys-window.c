@@ -134,6 +134,9 @@ add_hide_timeout (GsdMediaKeysWindow *window)
 static void
 update_window (GsdMediaKeysWindow *window)
 {
+        if (!gtk_widget_is_drawable (GTK_WIDGET (window)))
+                return;
+
         remove_hide_timeout (window);
         add_hide_timeout (window);
 
