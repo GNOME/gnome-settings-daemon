@@ -18,13 +18,14 @@
  */
 
 #include "gsd-wacom-oled-constants.h"
+#include "gsd-device-manager.h"
 
 #ifndef __GSD_WACOM_OLED_H
 #define __GSD_WACOM_OLED_H
 
 G_BEGIN_DECLS
 
-void set_oled (GsdWacomDevice *device, char *button_id, char *label);
+gboolean set_oled (GsdDevice *device, guint button, char *label, GError **error);
 char *gsd_wacom_oled_gdkpixbuf_to_base64 (GdkPixbuf *pixbuf);
 
 G_END_DECLS

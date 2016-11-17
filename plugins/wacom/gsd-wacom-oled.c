@@ -29,12 +29,12 @@
 #include <libwacom/libwacom.h>
 
 #include <gtk/gtk.h>
-#include "gsd-wacom-device.h"
+#include "gsd-device-manager.h"
 #include "gsd-wacom-oled.h"
 
 #define MAGIC_BASE64		"base64:"		/*Label starting with base64: is treated as already encoded*/
 #define MAGIC_BASE64_LEN	strlen(MAGIC_BASE64)
-#define ROTATION_KEY		"rotation"
+#define LEFT_HANDED_KEY		"left-handed"
 
 static void
 oled_surface_to_image (guchar          *image,
@@ -100,7 +100,7 @@ oled_split_text (char *label,
 static void
 oled_render_text (char             *label,
 		  guchar	   *image,
-		  GsdWacomRotation  rotation)
+                  gboolean          left_handed)
 {
 	cairo_t *cr;
 	cairo_surface_t *surface;
@@ -122,8 +122,7 @@ oled_render_text (char             *label,
         /* Rotate text so it's seen correctly on the device, or at
          * least from top to bottom for LTR text in vertical modes.
          */
-        if (rotation == GSD_WACOM_ROTATION_HALF ||
-            rotation == GSD_WACOM_ROTATION_CCW) {
+        if (left_handed) {
 		cairo_translate (cr, OLED_WIDTH, OLED_HEIGHT);
 		cairo_scale (cr, -1, -1);
         }
@@ -209,66 +208,61 @@ gsd_wacom_oled_gdkpixbuf_to_base64 (GdkPixbuf *pixbuf)
 
 static char *
 oled_encode_image (char             *label,
-                   GsdWacomRotation  rotation)
+                   gboolean          left_handed)
 {
 	unsigned char *image;
 
 	image = g_malloc (MAX_IMAGE_SIZE);
 
 	/* convert label to image */
-	oled_render_text (label, image, rotation);
+	oled_render_text (label, image, left_handed);
 
 	return (g_base64_encode (image, MAX_IMAGE_SIZE));
 }
 
-void
-set_oled (GsdWacomDevice	*device,
-	  char			*button_id,
-	  char			*label)
+gboolean
+set_oled (GsdDevice	*device,
+          guint          button,
+	  char		*label,
+          GError       **error)
 {
-	GsdWacomRotation device_rotation;
-	GError *error = NULL;
+        gboolean left_handed = FALSE;
 	GSettings *settings;
 	const char *path;
 	char *command;
 	gboolean ret;
 	char *buffer;
+        gint status;
 
 #ifndef HAVE_GUDEV
 	/* Not implemented on non-Linux systems */
-	return;
+	return TRUE;
 #endif
-
-	char *button_id_1;
-	int button_id_short;
-	button_id_1 = g_strdup (button_id);
-	button_id_short = (int)button_id_1[6];
-	button_id_short = button_id_short - 'A' - 1;
 
 	if (g_str_has_prefix (label, MAGIC_BASE64)) {
 		buffer = g_strdup (label + MAGIC_BASE64_LEN);
         } else {
-		settings = gsd_wacom_device_get_settings (device);
-		device_rotation = g_settings_get_enum (settings, ROTATION_KEY);
-		buffer = oled_encode_image (label, device_rotation);
+                settings = gsd_device_get_settings (device);
+                left_handed = g_settings_get_boolean (settings, LEFT_HANDED_KEY);
+		buffer = oled_encode_image (label, left_handed);
 	}
 
-	path = gsd_wacom_device_get_path (device);
+	path = gsd_device_get_device_file (device);
 
-	g_debug ("Setting OLED label '%s' on button %d (device %s)", label, button_id_short, path);
+	g_debug ("Setting OLED label '%s' on button %d (device %s)", label, button, path);
 
 	command = g_strdup_printf ("pkexec " LIBEXECDIR "/gsd-wacom-oled-helper --path %s --button %d --buffer %s",
-				   path, button_id_short, buffer);
+				   path, button, buffer);
 	ret = g_spawn_command_line_sync (command,
 					 NULL,
 					 NULL,
-					 NULL,
-					 &error);
+					 &status,
+					 error);
 
-	if (ret == FALSE) {
-		g_debug ("Failed to launch '%s': %s", command, error->message);
-		g_error_free (error);
-	}
+        if (ret == TRUE && status != 0)
+                ret = FALSE;
 
 	g_free (command);
+
+        return ret;
 }
