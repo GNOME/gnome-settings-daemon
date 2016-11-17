@@ -781,26 +781,42 @@ do_media_action (GsdMediaKeysManager *manager,
 }
 
 static void
+gnome_session_shutdown_cb (GObject *source_object,
+                           GAsyncResult *res,
+                           gpointer user_data)
+{
+        GVariant *result;
+        GError *error = NULL;
+
+        result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
+                                           res,
+                                           &error);
+        if (result == NULL) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to call Shutdown on session manager: %s",
+                                   error->message);
+                g_error_free (error);
+        } else {
+                g_variant_unref (result);
+        }
+}
+
+static void
 gnome_session_shutdown (GsdMediaKeysManager *manager)
 {
-	GError *error = NULL;
-	GVariant *variant;
         GDBusProxy *proxy;
 
         proxy = G_DBUS_PROXY (gnome_settings_bus_get_session_proxy ());
-	variant = g_dbus_proxy_call_sync (proxy,
-					  "Shutdown",
-					  NULL,
-					  G_DBUS_CALL_FLAGS_NONE,
-					  -1,
-					  NULL,
-					  &error);
-	if (variant == NULL) {
-		g_warning ("Failed to call Shutdown on session manager: %s", error->message);
-		g_error_free (error);
-		return;
-	}
-	g_variant_unref (variant);
+
+        g_dbus_proxy_call (proxy,
+                           "Shutdown",
+                           NULL,
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1,
+                           manager->priv->bus_cancellable,
+                           gnome_session_shutdown_cb,
+                           NULL);
+
         g_object_unref (proxy);
 }
 
