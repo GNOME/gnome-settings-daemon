@@ -43,6 +43,8 @@
 #include "gsd-shell-helper.h"
 #include "gsd-device-mapper.h"
 #include "gsd-device-manager.h"
+#include "gsd-settings-migrate.h"
+
 
 #define GSD_WACOM_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_WACOM_MANAGER, GsdWacomManagerPrivate))
 
@@ -81,6 +83,8 @@ struct GsdWacomManagerPrivate
 
         GsdDeviceMapper *device_mapper;
 
+        gchar *machine_id;
+
         /* DBus */
         GDBusNodeInfo   *introspection_data;
         GDBusConnection *dbus_connection;
@@ -101,6 +105,51 @@ static gboolean set_led (GsdDevice  *device,
 G_DEFINE_TYPE (GsdWacomManager, gsd_wacom_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
+
+static GVariant *
+map_tablet_mapping (GVariant *value)
+{
+        const gchar *mapping;
+
+        mapping = g_variant_get_boolean (value) ? "absolute" : "relative";
+        return g_variant_new_string (mapping);
+}
+
+static GVariant *
+map_tablet_left_handed (GVariant *value)
+{
+        const gchar *rotation = g_variant_get_string (value, NULL);
+        return g_variant_new_boolean (g_strcmp0 (rotation, "half") == 0 ||
+                                      g_strcmp0 (rotation, "ccw") == 0);
+}
+
+static void
+migrate_tablet_settings (GsdWacomManager *manager,
+                         GsdDevice       *device)
+{
+        GsdSettingsMigrateEntry tablet_settings[] = {
+                { "is-absolute", "mapping", map_tablet_mapping },
+                { "keep-aspect", "keep-aspect", NULL },
+                { "rotation", "left-handed", map_tablet_left_handed },
+        };
+        gchar *old_path, *new_path;
+        const gchar *vendor, *product;
+
+        gsd_device_get_device_ids (device, &vendor, &product);
+
+        old_path = g_strdup_printf ("/org/gnome/settings-daemon/peripherals/wacom/%s-usb:%s:%s/",
+                                    manager->priv->machine_id, vendor, product);
+        new_path = g_strdup_printf ("/org/gnome/desktop/peripherals/tablets/%s:%s/",
+                                    vendor, product);
+
+        gsd_settings_migrate_check ("org.gnome.settings-daemon.peripherals.wacom.deprecated",
+                                    old_path,
+                                    "org.gnome.desktop.peripherals.tablet",
+                                    new_path,
+                                    tablet_settings, G_N_ELEMENTS (tablet_settings));
+        g_free (old_path);
+        g_free (new_path);
+}
 
 static void
 gsd_wacom_manager_class_init (GsdWacomManagerClass *klass)
@@ -236,6 +285,9 @@ device_added_cb (GsdDeviceManager *device_manager,
 
 	device_type = gsd_device_get_device_type (gsd_device);
 
+        if (device_type & GSD_DEVICE_TYPE_TABLET)
+                migrate_tablet_settings (manager, gsd_device);
+
 	if ((device_type & GSD_DEVICE_TYPE_TABLET) != 0 &&
             (device_type & GSD_DEVICE_TYPE_TOUCHPAD) == 0) {
 		gsd_device_mapper_add_input (manager->priv->device_mapper,
@@ -352,6 +404,27 @@ register_manager (GsdWacomManager *manager)
                    manager);
 }
 
+static gchar *
+get_machine_id (void)
+{
+        gchar *no_per_machine_file, *machine_id = NULL;
+        gboolean per_machine;
+        gsize len;
+
+        no_per_machine_file = g_build_filename (g_get_user_config_dir (), "gnome-settings-daemon", "no-per-machine-config", NULL);
+        per_machine = !g_file_test (no_per_machine_file, G_FILE_TEST_EXISTS);
+        g_free (no_per_machine_file);
+
+        if (!per_machine ||
+            (!g_file_get_contents ("/etc/machine-id", &machine_id, &len, NULL) &&
+             !g_file_get_contents ("/var/lib/dbus/machine-id", &machine_id, &len, NULL))) {
+                return g_strdup ("00000000000000000000000000000000");
+        }
+
+        machine_id[len - 1] = '\0';
+        return machine_id;
+}
+
 gboolean
 gsd_wacom_manager_start (GsdWacomManager *manager,
                          GError         **error)
@@ -359,6 +432,8 @@ gsd_wacom_manager_start (GsdWacomManager *manager,
         gnome_settings_profile_start (NULL);
 
         register_manager (manager_object);
+
+        manager->priv->machine_id = get_machine_id ();
 
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) gsd_wacom_manager_idle_cb, manager);
         g_source_set_name_by_id (manager->priv->start_idle_id, "[gnome-settings-daemon] gsd_wacom_manager_idle_cb");
@@ -374,6 +449,8 @@ gsd_wacom_manager_stop (GsdWacomManager *manager)
         GsdWacomManagerPrivate *p = manager->priv;
 
         g_debug ("Stopping wacom manager");
+
+        g_clear_pointer (&manager->priv->machine_id, g_free);
 
         if (manager->priv->name_id != 0) {
                 g_bus_unown_name (manager->priv->name_id);

@@ -1,7 +1,7 @@
 <schemalist>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.wacom">
-    <child name="stylus" schema="org.gnome.settings-daemon.peripherals.wacom.stylus"/>
-    <child name="eraser" schema="org.gnome.settings-daemon.peripherals.wacom.eraser"/>
+  <schema id="org.gnome.settings-daemon.peripherals.wacom.deprecated">
+    <child name="stylus" schema="org.gnome.settings-daemon.peripherals.wacom.stylus.deprecated"/>
+    <child name="eraser" schema="org.gnome.settings-daemon.peripherals.wacom.eraser.deprecated"/>
 
     <!-- is-absolute applies to all tools but PAD, CURSOR is hard-coded -->
     <key name="is-absolute" type="b">
@@ -30,7 +30,7 @@
       <_description>Enable this to move the cursor when the user touches the tablet.</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.wacom.stylus">
+  <schema id="org.gnome.settings-daemon.peripherals.wacom.stylus.deprecated">
     <key name="pressurecurve" type="ai">
       <default>[0, 0, 100, 100]</default>
       <_summary>Wacom stylus pressure curve</_summary>
@@ -47,7 +47,7 @@
       <_description>Set this to the pressure value at which a stylus click event is generated.</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.wacom.eraser">
+  <schema id="org.gnome.settings-daemon.peripherals.wacom.eraser.deprecated">
     <key name="pressurecurve" type="ai">
       <default>[0, 0, 100, 100]</default>
       <_summary>Wacom eraser pressure curve</_summary>
@@ -64,7 +64,7 @@
       <_description>Set this to the pressure value at which an eraser click event is generated.</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.wacom.tablet-button">
+  <schema id="org.gnome.settings-daemon.peripherals.wacom.tablet-button.deprecated">
     <key name="action-type" enum="org.gnome.settings-daemon.GsdWacomActionType">
       <default>'none'</default>
       <_summary>Wacom button action type</_summary>
