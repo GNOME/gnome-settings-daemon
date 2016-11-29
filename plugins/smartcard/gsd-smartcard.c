@@ -157,7 +157,7 @@ gsd_smartcard_class_install_properties (GsdSmartcardClass *card_class)
 
         param_spec = g_param_spec_ulong ("slot-id", _("Slot ID"),
                                    _("The slot the card is in"),
-                                   1, G_MAXULONG,
+                                   0, G_MAXULONG,
                                    GSD_SMARTCARD_DEFAULT_SLOT_ID,
                                    G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
         g_object_class_install_property (object_class, PROP_SLOT_ID, param_spec);
