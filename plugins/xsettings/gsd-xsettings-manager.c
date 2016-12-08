@@ -417,7 +417,6 @@ static FixedEntry fixed_entries [] = {
         { "Gtk/ShowInputMethodMenu", fixed_false_int },
         { "Gtk/ShowUnicodeMenu",     fixed_false_int },
         { "Gtk/AutoMnemonics",       fixed_true_int },
-        { "Gtk/EnablePrimaryPaste",  fixed_true_int },
         { "Gtk/DialogsUseHeader",    fixed_true_int },
         { "Gtk/SessionBusId",        fixed_bus_id },
 };
@@ -447,6 +446,7 @@ static TranslationEntry translations [] = {
         { "org.gnome.desktop.interface", "icon-theme",             "Net/IconThemeName",       translate_string_string },
         { "org.gnome.desktop.interface", "menubar-accel",          "Gtk/MenuBarAccel",        translate_string_string },
         { "org.gnome.desktop.interface", "cursor-theme",           "Gtk/CursorThemeName",     translate_string_string },
+        { "org.gnome.desktop.interface", "gtk-enable-primary-paste", "Gtk/EnablePrimaryPaste", translate_bool_int },
         /* cursor-size is handled via the Xft side as it needs the scaling factor */
 
         { "org.gnome.desktop.sound", "theme-name",                 "Net/SoundThemeName",            translate_string_string },
