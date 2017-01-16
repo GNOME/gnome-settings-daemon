@@ -20,7 +20,7 @@ try:
     import dbusmock
 except ImportError:
     sys.stderr.write('You need python-dbusmock (http://pypi.python.org/pypi/python-dbusmock) for this test suite.\n')
-    sys.exit(0)
+    sys.exit(1)
 
 try:
     from gi.repository import Gio
