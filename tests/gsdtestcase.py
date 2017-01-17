@@ -201,32 +201,17 @@ class GSDTestCase(dbusmock.DBusTestCase):
 
     @classmethod
     def start_xorg(klass):
-        '''start X.org server with dummy driver'''
+        '''start Xvfb server'''
 
-        conf = os.path.join(os.path.dirname(__file__), 'xorg-dummy.conf')
-
-        # some distros like Fedora install Xorg as suid root; copy it into our
-        # workdir to drop the suid bit and run it as user
-        if GLib.file_test('/usr/libexec/Xorg.bin', GLib.FileTest.IS_EXECUTABLE):
-            xorg = '/usr/libexec/Xorg.bin'
-        else:
-            out = GLib.find_program_in_path ('Xorg')
-            if not out:
-                sys.stderr.write('ERROR: Xorg not installed\n')
-                sys.exit(1)
-            xorg = os.path.join(klass.workdir, 'Xorg')
-            shutil.copy(out, xorg)
-
+        xorg = GLib.find_program_in_path ('Xvfb')
         display_num = 99
 
         if os.path.isfile('/tmp/.X%d-lock' % display_num):
             sys.stderr.write('Cannot start X.org, an instance already exists\n')
             sys.exit(1)
 
-        # You can rename the log file to *.log if you want to see it on test
-        # case failures
-        log = os.path.join(klass.workdir, 'Xorg.out')
-        klass.xorg = subprocess.Popen([xorg, '-config', conf, '-logfile', log, ':%d' % display_num],
+        # Composite extension won't load unless at least 24bpp is set
+        klass.xorg = subprocess.Popen([xorg, ':%d' % display_num, "-screen", "0", "1280x1024x24", "+extension", "GLX"],
                                       stderr=subprocess.PIPE)
         os.environ['DISPLAY'] = ':%d' % display_num
 
@@ -243,8 +228,7 @@ class GSDTestCase(dbusmock.DBusTestCase):
                                stderr=subprocess.PIPE) == 0:
                 break
         if timeout <= 0:
-            with open(log) as f:
-                sys.stderr.write('Cannot start X.org with dummy driver.  Log:\n%s\n--------' % f.read())
+            sys.stderr.write('Cannot start Xvfb.\n--------')
             sys.exit(1)
 
     @classmethod
