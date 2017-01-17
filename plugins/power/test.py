@@ -190,7 +190,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         path = new_path
         ldd = subprocess.Popen(['ldd', path], stdout=subprocess.PIPE)
         out = ldd.communicate()[0]
-        if not 'libsystemd-login.so.0' in out:
+        if not 'libsystemd.so.0' in out:
             self.fail('gnome-session is not built with logind support')
 
     def get_status(self):
