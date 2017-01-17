@@ -178,6 +178,16 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         path = GLib.find_program_in_path ('gnome-session')
         assert(path)
+        (success, data) = GLib.file_get_contents (path)
+        lines = data.split('\n')
+        new_path = None
+        for line in lines:
+            items = line.split()
+            if items and items[0] == 'exec':
+                new_path = items[1]
+        if not new_path:
+            self.fail("could not get gnome-session's real path from %s" % path)
+        path = new_path
         ldd = subprocess.Popen(['ldd', path], stdout=subprocess.PIPE)
         out = ldd.communicate()[0]
         if not 'libsystemd-login.so.0' in out:
