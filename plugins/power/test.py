@@ -59,7 +59,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # start mock upowerd
         (self.upowerd, self.obj_upower) = self.spawn_server_template(
-            'upower', {'OnBattery': True, 'LidIsClosed': False}, stdout=subprocess.PIPE)
+            'upower', {'DaemonVersion': '0.99', 'OnBattery': True, 'LidIsClosed': False}, stdout=subprocess.PIPE)
         gsdtestcase.set_nonblock(self.upowerd.stdout)
 
         # start mock gnome-shell screensaver
