@@ -511,7 +511,9 @@ try_to_complete_all_drivers_activation (GTask *task)
         if (operation->activated_drivers_count > 0)
                 g_task_return_boolean (task, TRUE);
         else
-                g_task_return_boolean (task, FALSE);
+                g_task_return_new_error (task, GSD_SMARTCARD_MANAGER_ERROR,
+                                         GSD_SMARTCARD_MANAGER_ERROR_NO_DRIVERS,
+                                         "No smartcards exist to be activated.");
 
         g_object_unref (task);
 }
@@ -581,6 +583,8 @@ activate_all_drivers_async (GsdSmartcardManager *self,
         try_to_complete_all_drivers_activation (task);
 }
 
+/* Will error with %GSD_SMARTCARD_MANAGER_ERROR_NO_DRIVERS if there were no
+ * drivers to activate.. */
 static gboolean
 activate_all_drivers_async_finish (GsdSmartcardManager  *self,
                                    GAsyncResult         *result,
