@@ -189,7 +189,7 @@ watch_one_event_from_driver (GsdSmartcardManager       *self,
 
         g_cancellable_disconnect (cancellable, handler_id);
 
-        if (g_cancellable_is_cancelled (cancellable)) {
+        if (g_cancellable_set_error_if_cancelled (cancellable, error)) {
                 g_warning ("smartcard event function cancelled");
                 return FALSE;
         }
