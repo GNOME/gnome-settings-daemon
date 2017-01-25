@@ -505,7 +505,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # delay + 1 s error margin
         self.check_for_suspend(7)
 
-    def test_suspend_no_hibernate(self):
+    def _test_suspend_no_hibernate(self):
         '''suspend-no-hibernate'''
 
         self.settings_session['idle-delay'] = 2
