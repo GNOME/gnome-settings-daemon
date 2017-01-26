@@ -61,6 +61,25 @@ gsd_power_backlight_abs_to_percentage (int min, int max, int value)
         return (((value - min) * 100) / (max - min));
 }
 
+/* take a percentage and convert to a discrete value with offset */
+int
+gsd_power_backlight_percentage_to_abs (int min, int max, int value)
+{
+        int steps, step_size;
+
+        g_return_val_if_fail (max > min, -1);
+        g_return_val_if_fail (value >= 0, -1);
+        g_return_val_if_fail (value <= 100, -1);
+
+        steps = max - min;
+        step_size = 100 / steps;
+
+        /* Round for better precision when steps is small */
+        value += step_size / 2;
+
+        return min + (steps * value) / 100;
+}
+
 #define GPM_UP_TIME_PRECISION                   5*60
 #define GPM_UP_TEXT_MIN_TIME                    120
 

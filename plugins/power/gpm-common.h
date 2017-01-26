@@ -42,9 +42,10 @@ void             reset_idletime                         (void);
 #define BRIGHTNESS_STEP_AMOUNT(max) ((max) < 20 ? 1 : (max) / 20)
 
 #define ABS_TO_PERCENTAGE(min, max, value) gsd_power_backlight_abs_to_percentage(min, max, value)
-#define PERCENTAGE_TO_ABS(min, max, value) (min + (((max - min) * value) / 100))
+#define PERCENTAGE_TO_ABS(min, max, value) gsd_power_backlight_percentage_to_abs(min, max, value)
 
 int              gsd_power_backlight_abs_to_percentage  (int min, int max, int value);
+int              gsd_power_backlight_percentage_to_abs  (int min, int max, int value);
 gboolean         backlight_available                    (GnomeRRScreen *rr_screen);
 int              backlight_get_output_id                (GnomeRRScreen *rr_screen);
 int              backlight_get_abs                      (GnomeRRScreen *rr_screen, GError **error);
