@@ -2220,11 +2220,11 @@ screencast_start (GsdMediaKeysManager *manager)
         guint max_length;
         g_dbus_proxy_call (manager->priv->screencast_proxy,
                            "Screencast",
-                           /* Translators: this is a filename used for screencast
-                            * recording, where "%d" and "%t" date and time, e.g.
-                            * "Screencast from 07-17-2013 10:00:46 PM.webm" */
-                           /* xgettext:no-c-format */
                            g_variant_new_parsed ("(%s, @a{sv} {})",
+                                                 /* Translators: this is a filename used for screencast
+                                                  * recording, where "%d" and "%t" date and time, e.g.
+                                                  * "Screencast from 07-17-2013 10:00:46 PM.webm" */
+                                                 /* xgettext:no-c-format */
                                                  _("Screencast from %d %t.webm")),
                            G_DBUS_CALL_FLAGS_NONE, -1,
                            manager->priv->screencast_cancellable,
