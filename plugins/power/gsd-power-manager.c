@@ -109,6 +109,10 @@ static const gchar introspection_xml[] =
 "    <method name='Toggle'>"
 "      <arg type='i' name='new_percentage' direction='out'/>"
 "    </method>"
+"    <signal name='BrightnessChanged'>"
+"      <arg name='brightness' type='i'/>"
+"      <arg name='source' type='s'/>"
+"    </signal>"
 "  </interface>"
 "</node>";
 
@@ -1364,7 +1368,8 @@ idle_watch_id_to_string (GsdPowerManager *manager, guint id)
 static void
 backlight_iface_emit_changed (GsdPowerManager *manager,
                               const char      *interface_name,
-                              gint32           value)
+                              gint32           value,
+                              const char      *source)
 {
         GVariant *params;
 
@@ -1380,6 +1385,17 @@ backlight_iface_emit_changed (GsdPowerManager *manager,
                                        "org.freedesktop.DBus.Properties",
                                        "PropertiesChanged",
                                        params, NULL);
+
+        if (!source)
+                return;
+
+        g_dbus_connection_emit_signal (manager->priv->connection,
+                                       NULL,
+                                       GSD_POWER_DBUS_PATH,
+                                       GSD_POWER_DBUS_INTERFACE_KEYBOARD,
+                                       "BrightnessChanged",
+                                       g_variant_new ("(is)", value, source),
+                                       NULL);
 }
 
 static gboolean
@@ -1487,7 +1503,7 @@ upower_kbd_proxy_signal_cb (GDBusProxy  *proxy,
         percentage = ABS_TO_PERCENTAGE (0,
                                         manager->priv->kbd_brightness_max,
                                         manager->priv->kbd_brightness_now);
-        backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, percentage);
+        backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, percentage, source);
 }
 
 static gboolean
@@ -2051,7 +2067,7 @@ power_keyboard_proxy_ready_cb (GObject             *source_object,
         percentage = ABS_TO_PERCENTAGE (0,
                                         manager->priv->kbd_brightness_max,
                                         manager->priv->kbd_brightness_now);
-        backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, percentage);
+        backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, percentage, "initial value");
 
 out:
         if (k_now != NULL)
@@ -2513,9 +2529,9 @@ on_rr_screen_acquired (GObject      *object,
         if (manager->priv->backlight_available) {
                 manager->priv->ambient_percentage_old = backlight_get_percentage (manager->priv->rr_screen, NULL);
                 backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN,
-                                              manager->priv->ambient_percentage_old);
+                                              manager->priv->ambient_percentage_old, NULL);
         } else {
-                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN, -1);
+                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN, -1, NULL);
         }
 
         gnome_settings_profile_end (NULL);
@@ -2790,7 +2806,7 @@ handle_method_call_keyboard (GsdPowerManager *manager,
         if (!ret) {
                 g_dbus_method_invocation_take_error (invocation,
                                                      error);
-                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, -1);
+                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, -1, method_name);
         } else {
                 percentage = ABS_TO_PERCENTAGE (0,
                                                 manager->priv->kbd_brightness_max,
@@ -2798,7 +2814,7 @@ handle_method_call_keyboard (GsdPowerManager *manager,
                 g_dbus_method_invocation_return_value (invocation,
                                                        g_variant_new ("(i)",
                                                                       percentage));
-                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, percentage);
+                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, percentage, method_name);
         }
 }
 
@@ -2822,11 +2838,11 @@ handle_method_call_screen (GsdPowerManager *manager,
         if (g_strcmp0 (method_name, "StepUp") == 0) {
                 g_debug ("screen step up");
                 value = backlight_step_up (manager->priv->rr_screen, &error);
-                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN, value);
+                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN, value, NULL);
         } else if (g_strcmp0 (method_name, "StepDown") == 0) {
                 g_debug ("screen step down");
                 value = backlight_step_down (manager->priv->rr_screen, &error);
-                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN, value);
+                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN, value, NULL);
         } else {
                 g_assert_not_reached ();
         }
@@ -2962,7 +2978,7 @@ handle_set_property_other (GsdPowerManager *manager,
         if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
                 g_variant_get (value, "i", &brightness_value);
                 if (backlight_set_percentage (manager->priv->rr_screen, &brightness_value, error)) {
-                        backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN, brightness_value);
+                        backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN, brightness_value, NULL);
 
                         /* ambient brightness no longer valid */
                         manager->priv->ambient_percentage_old = brightness_value;
@@ -2981,7 +2997,7 @@ handle_set_property_other (GsdPowerManager *manager,
                         brightness_value = ABS_TO_PERCENTAGE (0,
                                                               manager->priv->kbd_brightness_max,
                                                               manager->priv->kbd_brightness_now);
-                        backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, brightness_value);
+                        backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, brightness_value, "set property");
                         return TRUE;
                 } else {
                         g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
