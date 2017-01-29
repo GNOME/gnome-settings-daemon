@@ -3160,6 +3160,30 @@ xrandr_ready_cb (GObject             *source_object,
 }
 
 static void
+power_keyboard_proxy_signal_cb (GDBusProxy  *proxy,
+                       const gchar *sender_name,
+                       const gchar *signal_name,
+                       GVariant    *parameters,
+                       gpointer     user_data)
+{
+        GsdMediaKeysManager *manager = GSD_MEDIA_KEYS_MANAGER (user_data);
+        gint brightness;
+        const gchar *source;
+
+        if (g_strcmp0 (signal_name, "BrightnessChanged") != 0)
+                return;
+
+        g_variant_get (parameters, "(i&s)", &brightness, &source);
+
+        /* For non "internal" changes we already show the osd when handling
+         * the hotkey causing the change. */
+        if (g_strcmp0 (source, "internal") != 0)
+                return;
+
+        show_osd (manager, "keyboard-brightness-symbolic", NULL, brightness, -1);
+}
+
+static void
 power_ready_cb (GObject             *source_object,
                 GAsyncResult        *res,
                 GsdMediaKeysManager *manager)
@@ -3205,6 +3229,10 @@ power_keyboard_ready_cb (GObject             *source_object,
                                    error->message);
                 g_error_free (error);
         }
+
+        g_signal_connect (manager->priv->power_keyboard_proxy, "g-signal",
+                          G_CALLBACK (power_keyboard_proxy_signal_cb),
+                          manager);
 }
 
 static void
