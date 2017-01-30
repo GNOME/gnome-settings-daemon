@@ -1137,7 +1137,7 @@ upower_kbd_set_brightness (GsdPowerManager *manager, guint value, GError **error
                                          g_variant_new ("(i)", (gint) value),
                                          G_DBUS_CALL_FLAGS_NONE,
                                          -1,
-                                         NULL,
+                                         manager->priv->cancellable,
                                          error);
         if (retval == NULL)
                 return FALSE;
@@ -1966,7 +1966,7 @@ power_keyboard_proxy_ready_cb (GObject             *source_object,
                                         NULL,
                                         G_DBUS_CALL_FLAGS_NONE,
                                         -1,
-                                        NULL,
+                                        manager->priv->cancellable,
                                         &error);
         if (k_now == NULL) {
                 if (error->domain != G_DBUS_ERROR ||
@@ -1986,7 +1986,7 @@ power_keyboard_proxy_ready_cb (GObject             *source_object,
                                         NULL,
                                         G_DBUS_CALL_FLAGS_NONE,
                                         -1,
-                                        NULL,
+                                        manager->priv->cancellable,
                                         &error);
         if (k_max == NULL) {
                 g_warning ("Failed to get max brightness: %s", error->message);
