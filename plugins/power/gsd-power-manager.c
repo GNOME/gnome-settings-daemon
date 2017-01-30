@@ -128,7 +128,7 @@ struct GsdPowerManagerPrivate
         guint                    name_id;
         GDBusNodeInfo           *introspection_data;
         GDBusConnection         *connection;
-        GCancellable            *bus_cancellable;
+        GCancellable            *cancellable;
 
         /* Settings */
         GSettings               *settings;
@@ -2659,10 +2659,9 @@ gsd_power_manager_stop (GsdPowerManager *manager)
                 manager->priv->inhibit_lid_switch_timer_id = 0;
         }
 
-        if (manager->priv->bus_cancellable != NULL) {
-                g_cancellable_cancel (manager->priv->bus_cancellable);
-                g_object_unref (manager->priv->bus_cancellable);
-                manager->priv->bus_cancellable = NULL;
+        if (manager->priv->cancellable != NULL) {
+                g_cancellable_cancel (manager->priv->cancellable);
+                g_clear_object (&manager->priv->cancellable);
         }
 
         if (manager->priv->introspection_data) {
@@ -2721,7 +2720,7 @@ gsd_power_manager_init (GsdPowerManager *manager)
         manager->priv = GSD_POWER_MANAGER_GET_PRIVATE (manager);
         manager->priv->inhibit_lid_switch_fd = -1;
         manager->priv->inhibit_suspend_fd = -1;
-        manager->priv->bus_cancellable = g_cancellable_new ();
+        manager->priv->cancellable = g_cancellable_new ();
         manager->priv->disabled_devices = g_hash_table_new (g_direct_hash, g_direct_equal);
 }
 
@@ -3051,7 +3050,7 @@ register_manager_dbus (GsdPowerManager *manager)
         g_assert (manager->priv->introspection_data != NULL);
 
         g_bus_get (G_BUS_TYPE_SESSION,
-                   manager->priv->bus_cancellable,
+                   manager->priv->cancellable,
                    (GAsyncReadyCallback) on_bus_gotten,
                    manager);
 }
