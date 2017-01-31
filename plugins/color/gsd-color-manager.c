@@ -29,6 +29,7 @@
 #include "gsd-color-manager.h"
 #include "gsd-color-profiles.h"
 #include "gsd-color-state.h"
+#include "gsd-natural-light.h"
 
 #define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
 #define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
@@ -42,6 +43,9 @@ static const gchar introspection_xml[] =
 "<node>"
 "  <interface name='org.gnome.SettingsDaemon.Color'>"
 "    <property name='Temperature' type='u' access='readwrite'/>"
+"    <property name='DisabledUntilTomorrow' type='b' access='readwrite'/>"
+"    <property name='Sunrise' type='d' access='read'/>"
+"    <property name='Sunset' type='d' access='read'/>"
 "  </interface>"
 "</node>";
 
@@ -58,6 +62,7 @@ struct GsdColorManagerPrivate
         GsdColorCalibrate *calibrate;
         GsdColorProfiles  *profiles;
         GsdColorState     *state;
+        GsdNaturalLight   *nlight;
 };
 
 enum {
@@ -123,6 +128,86 @@ gsd_color_manager_class_init (GsdColorManagerClass *klass)
 }
 
 static void
+emit_property_changed (GsdColorManager *manager,
+                       const gchar *property_name,
+                       GVariant *property_value)
+{
+        GsdColorManagerPrivate *priv = manager->priv;
+        GVariantBuilder builder;
+        GVariantBuilder invalidated_builder;
+
+        /* not yet connected */
+        if (priv->connection == NULL)
+                return;
+
+        /* build the dict */
+        g_variant_builder_init (&invalidated_builder, G_VARIANT_TYPE ("as"));
+        g_variant_builder_init (&builder, G_VARIANT_TYPE_ARRAY);
+        g_variant_builder_add (&builder,
+                               "{sv}",
+                               property_name,
+                               property_value);
+        g_dbus_connection_emit_signal (priv->connection,
+                                       NULL,
+                                       GSD_COLOR_DBUS_PATH,
+                                       "org.freedesktop.DBus.Properties",
+                                       "PropertiesChanged",
+                                       g_variant_new ("(sa{sv}as)",
+                                       GSD_COLOR_DBUS_INTERFACE,
+                                       &builder,
+                                       &invalidated_builder),
+                                       NULL);
+        g_variant_builder_clear (&builder);
+        g_variant_builder_clear (&invalidated_builder);
+}
+
+static void
+on_sunset_notify (GsdNaturalLight *nlight,
+                  GParamSpec      *pspec,
+                  gpointer         user_data)
+{
+        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
+        GsdColorManagerPrivate *priv = manager->priv;
+        emit_property_changed (manager, "Sunset",
+                               g_variant_new_double (gsd_natural_light_get_sunset (priv->nlight)));
+}
+
+static void
+on_sunrise_notify (GsdNaturalLight *nlight,
+                   GParamSpec      *pspec,
+                   gpointer         user_data)
+{
+        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
+        GsdColorManagerPrivate *priv = manager->priv;
+        emit_property_changed (manager, "Sunrise",
+                               g_variant_new_double (gsd_natural_light_get_sunrise (priv->nlight)));
+}
+
+static void
+on_disabled_until_tmw_notify (GsdNaturalLight *nlight,
+                              GParamSpec      *pspec,
+                              gpointer         user_data)
+{
+        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
+        GsdColorManagerPrivate *priv = manager->priv;
+        emit_property_changed (manager, "DisabledUntilTomorrow",
+                               g_variant_new_boolean (gsd_natural_light_get_disabled_until_tmw (priv->nlight)));
+}
+
+static void
+on_tempertature_notify (GsdNaturalLight *nlight,
+                        GParamSpec      *pspec,
+                        gpointer         user_data)
+{
+        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
+        GsdColorManagerPrivate *priv = manager->priv;
+        gdouble temperature = gsd_natural_light_get_temperature (priv->nlight);
+        gsd_color_state_set_temperature (priv->state, temperature);
+        emit_property_changed (manager, "Temperature",
+                               g_variant_new_double (temperature));
+}
+
+static void
 gsd_color_manager_init (GsdColorManager *manager)
 {
         GsdColorManagerPrivate *priv;
@@ -132,6 +217,17 @@ gsd_color_manager_init (GsdColorManager *manager)
         priv->calibrate = gsd_color_calibrate_new ();
         priv->profiles = gsd_color_profiles_new ();
         priv->state = gsd_color_state_new ();
+
+        /* natural light features */
+        priv->nlight = gsd_natural_light_new ();
+        g_signal_connect (priv->nlight, "notify::sunset",
+                          G_CALLBACK (on_sunset_notify), manager);
+        g_signal_connect (priv->nlight, "notify::sunrise",
+                          G_CALLBACK (on_sunrise_notify), manager);
+        g_signal_connect (priv->nlight, "notify::temperature",
+                          G_CALLBACK (on_tempertature_notify), manager);
+        g_signal_connect (priv->nlight, "notify::disabled-until-tmw",
+                          G_CALLBACK (on_disabled_until_tmw_notify), manager);
 }
 
 static void
@@ -162,6 +258,7 @@ gsd_color_manager_finalize (GObject *object)
         g_clear_object (&manager->priv->calibrate);
         g_clear_object (&manager->priv->profiles);
         g_clear_object (&manager->priv->state);
+        g_clear_object (&manager->priv->nlight);
 
         G_OBJECT_CLASS (gsd_color_manager_parent_class)->finalize (object);
 }
@@ -174,7 +271,6 @@ handle_get_property (GDBusConnection *connection,
                      const gchar *property_name,
                      GError **error, gpointer user_data)
 {
-        GVariant *retval = NULL;
         GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
         GsdColorManagerPrivate *priv = manager->priv;
 
@@ -187,15 +283,21 @@ handle_get_property (GDBusConnection *connection,
         if (g_strcmp0 (property_name, "Temperature") == 0) {
                 guint temperature;
                 temperature = gsd_color_state_get_temperature (priv->state);
-                retval = g_variant_new_uint32 (temperature);
+                return g_variant_new_uint32 (temperature);
         }
 
-        if (retval == NULL) {
-                g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
-                             "Failed to get property: %s", property_name);
-        }
+        if (g_strcmp0 (property_name, "DisabledUntilTomorrow") == 0)
+                return g_variant_new_boolean (gsd_natural_light_get_disabled_until_tmw (priv->nlight));
 
-        return retval;
+        if (g_strcmp0 (property_name, "Sunrise") == 0)
+                return g_variant_new_double (gsd_natural_light_get_sunrise (priv->nlight));
+
+        if (g_strcmp0 (property_name, "Sunset") == 0)
+                return g_variant_new_double (gsd_natural_light_get_sunset (priv->nlight));
+
+        g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
+                     "Failed to get property: %s", property_name);
+        return NULL;
 }
 
 static gboolean
@@ -236,6 +338,12 @@ handle_set_property (GDBusConnection *connection,
                         return FALSE;
                 }
                 gsd_color_state_set_temperature (priv->state, temperature);
+                return TRUE;
+        }
+
+        if (g_strcmp0 (property_name, "DisabledUntilTomorrow") == 0) {
+                gsd_natural_light_set_disabled_until_tmw (priv->nlight,
+                                                          g_variant_get_boolean (value));
                 return TRUE;
         }
 
@@ -292,6 +400,12 @@ on_bus_gotten (GObject             *source_object,
                                                       name_lost_handler_cb,
                                                       manager,
                                                       NULL);
+
+        /* setup natural light module */
+        if (!gsd_natural_light_start (priv->nlight, &error)) {
+                g_warning ("Could not start natural light module: %s", error->message);
+                g_error_free (error);
+        }
 }
 
 static void

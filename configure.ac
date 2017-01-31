@@ -161,6 +161,7 @@ PKG_CHECK_MODULES(COLOR,
 		  colord >= 1.0.2
 		  gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION
 		  libcanberra-gtk3
+		  libgeoclue-2.0 >= $GEOCLUE_REQUIRED_VERSION
 		  lcms2 >= $LCMS_REQUIRED_VERSION
 		  libnotify)
 

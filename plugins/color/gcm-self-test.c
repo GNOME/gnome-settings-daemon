@@ -26,7 +26,118 @@
 #include <gtk/gtk.h>
 
 #include "gcm-edid.h"
+#include "gsd-color-state.h"
+#include "gsd-natural-light.h"
 #include "gsd-natural-light-common.h"
+
+static void
+on_notify (GsdNaturalLight *nlight,
+           GParamSpec      *pspec,
+           gpointer         user_data)
+{
+        guint *cnt = (guint *) user_data;
+        (*cnt)++;
+}
+
+static void
+gcm_test_natural_light (void)
+{
+        gboolean ret;
+        guint disabled_until_tmw_cnt = 0;
+        guint sunrise_cnt = 0;
+        guint sunset_cnt = 0;
+        guint temperature_cnt = 0;
+        g_autoptr(GDateTime) datetime_override = NULL;
+        g_autoptr(GError) error = NULL;
+        g_autoptr(GsdNaturalLight) nlight = NULL;
+        g_autoptr(GSettings) settings = NULL;
+
+        nlight = gsd_natural_light_new ();
+        g_assert (GSD_IS_NATURAL_LIGHT (nlight));
+        g_signal_connect (nlight, "notify::sunset",
+                          G_CALLBACK (on_notify), &sunset_cnt);
+        g_signal_connect (nlight, "notify::sunrise",
+                          G_CALLBACK (on_notify), &sunrise_cnt);
+        g_signal_connect (nlight, "notify::temperature",
+                          G_CALLBACK (on_notify), &temperature_cnt);
+        g_signal_connect (nlight, "notify::disabled-until-tmw",
+                          G_CALLBACK (on_notify), &disabled_until_tmw_cnt);
+
+        /* hardcode a specific date and time */
+        datetime_override = g_date_time_new_utc (2017, 2, 8, 20, 0, 0);
+        gsd_natural_light_set_date_time_now (nlight, datetime_override);
+
+        /* do not start geoclue */
+        gsd_natural_light_set_geoclue_enabled (nlight, FALSE);
+
+        /* switch off */
+        settings = g_settings_new ("org.gnome.settings-daemon.plugins.color");
+        g_settings_set_boolean (settings, "natural-light-enabled", FALSE);
+
+        /* check default values */
+        g_assert_cmpint ((gint) gsd_natural_light_get_sunrise (nlight), ==, -1);
+        g_assert_cmpint ((gint) gsd_natural_light_get_sunset (nlight), ==, -1);
+        g_assert_cmpint (gsd_natural_light_get_temperature (nlight), ==, GSD_COLOR_TEMPERATURE_DEFAULT);
+        g_assert (!gsd_natural_light_get_disabled_until_tmw (nlight));
+
+        /* start module, disabled */
+        ret = gsd_natural_light_start (nlight, &error);
+        g_assert_no_error (error);
+        g_assert (ret);
+        g_assert_cmpint (sunset_cnt, ==, 0);
+        g_assert_cmpint (sunrise_cnt, ==, 0);
+        g_assert_cmpint (temperature_cnt, ==, 0);
+        g_assert_cmpint (disabled_until_tmw_cnt, ==, 0);
+
+        /* enable automatic mode */
+        g_settings_set_value (settings, "natural-light-last-coordinates",
+                              g_variant_new ("(dd)", 51.5, -0.1278));
+        g_settings_set_boolean (settings, "natural-light-schedule-automatic", TRUE);
+        g_settings_set_boolean (settings, "natural-light-enabled", TRUE);
+        g_assert_cmpint (sunset_cnt, ==, 1);
+        g_assert_cmpint (sunrise_cnt, ==, 1);
+        g_assert_cmpint (temperature_cnt, ==, 1);
+        g_assert_cmpint (disabled_until_tmw_cnt, ==, 0);
+        g_assert_cmpint ((gint) gsd_natural_light_get_sunrise (nlight), ==, 7);
+        g_assert_cmpint ((gint) gsd_natural_light_get_sunset (nlight), ==, 17);
+        g_assert_cmpint (gsd_natural_light_get_temperature (nlight), ==, 4000);
+        g_assert (!gsd_natural_light_get_disabled_until_tmw (nlight));
+
+        /* disable for one day */
+        gsd_natural_light_set_disabled_until_tmw (nlight, TRUE);
+        gsd_natural_light_set_disabled_until_tmw (nlight, TRUE);
+        g_assert_cmpint (gsd_natural_light_get_temperature (nlight), ==, GSD_COLOR_TEMPERATURE_DEFAULT);
+        g_assert (gsd_natural_light_get_disabled_until_tmw (nlight));
+        g_assert_cmpint (temperature_cnt, ==, 2);
+        g_assert_cmpint (disabled_until_tmw_cnt, ==, 1);
+
+        /* change our mind */
+        gsd_natural_light_set_disabled_until_tmw (nlight, FALSE);
+        g_assert_cmpint (gsd_natural_light_get_temperature (nlight), ==, 4000);
+        g_assert (!gsd_natural_light_get_disabled_until_tmw (nlight));
+        g_assert_cmpint (temperature_cnt, ==, 3);
+        g_assert_cmpint (disabled_until_tmw_cnt, ==, 2);
+
+        /* enabled manual mode (night shift) */
+        g_settings_set_double (settings, "natural-light-schedule-from", 4.0);
+        g_settings_set_double (settings, "natural-light-schedule-to", 16.f);
+        g_settings_set_boolean (settings, "natural-light-schedule-automatic", FALSE);
+        g_assert_cmpint (sunset_cnt, ==, 1);
+        g_assert_cmpint (sunrise_cnt, ==, 1);
+        g_assert_cmpint (temperature_cnt, ==, 4);
+        g_assert_cmpint (disabled_until_tmw_cnt, ==, 2);
+        g_assert_cmpint ((gint) gsd_natural_light_get_sunrise (nlight), ==, 7);
+        g_assert_cmpint ((gint) gsd_natural_light_get_sunset (nlight), ==, 17);
+        g_assert_cmpint (gsd_natural_light_get_temperature (nlight), ==, GSD_COLOR_TEMPERATURE_DEFAULT);
+        g_assert (!gsd_natural_light_get_disabled_until_tmw (nlight));
+
+        /* finally disable, with no changes */
+        g_settings_set_boolean (settings, "natural-light-enabled", FALSE);
+        g_assert_cmpint (sunset_cnt, ==, 1);
+        g_assert_cmpint (sunrise_cnt, ==, 1);
+        g_assert_cmpint (temperature_cnt, ==, 4);
+        g_assert_cmpint (disabled_until_tmw_cnt, ==, 2);
+}
 
 static void
 gcm_test_edid_func (void)
@@ -131,12 +242,15 @@ gcm_test_frac_day (void)
 int
 main (int argc, char **argv)
 {
+        g_setenv ("GSETTINGS_BACKEND", "memory", TRUE);
+
         gtk_init (&argc, &argv);
         g_test_init (&argc, &argv, NULL);
 
         g_test_add_func ("/color/edid", gcm_test_edid_func);
         g_test_add_func ("/color/sunset-sunrise", gcm_test_sunset_sunrise);
         g_test_add_func ("/color/fractional-day", gcm_test_frac_day);
+        g_test_add_func ("/color/natural-light", gcm_test_natural_light);
 
         return g_test_run ();
 }
