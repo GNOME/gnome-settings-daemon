@@ -177,6 +177,10 @@ gsd_color_state_set_temperature (GsdColorState *state, guint temperature)
 {
         GsdColorStatePrivate *priv = state->priv;
         g_return_if_fail (GSD_IS_COLOR_STATE (state));
+
+        if (priv->color_temperature == temperature)
+                return;
+
         priv->color_temperature = temperature;
         gcm_session_set_gamma_for_all_devices (state);
 }
