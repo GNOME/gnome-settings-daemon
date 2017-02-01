@@ -1259,6 +1259,11 @@ gcm_session_set_gamma_for_all_devices (GsdColorState *state)
         GsdColorStatePrivate *priv = state->priv;
         guint i;
 
+        /* setting the temperature before we get the list of devices is fine,
+         * as we use the temperature in the calculation */
+        if (priv->state_screen == NULL)
+                return;
+
         /* get STATE outputs */
         outputs = gnome_rr_screen_list_outputs (priv->state_screen);
         if (outputs == NULL) {
