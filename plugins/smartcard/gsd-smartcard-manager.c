@@ -138,6 +138,9 @@ static gboolean read_bytes (int fd, gpointer bytes, gsize num_bytes);
 static gboolean write_bytes (int fd, gconstpointer bytes, gsize num_bytes);
 static GsdSmartcard *read_smartcard (int fd, SECMODModule *module);
 static gboolean write_smartcard (int fd, GsdSmartcard *card);
+static gboolean gsd_smartcard_manager_worker_emit_smartcard_inserted (GsdSmartcardManagerWorker  *worker,
+                                                                      GsdSmartcard               *card,
+                                                                      GError                    **error);
 
 enum {
         PROP_0 = 0,
@@ -856,6 +859,10 @@ gsd_smartcard_manager_get_all_cards (GsdSmartcardManager *manager)
 
                         g_hash_table_replace (manager->priv->smartcards,
                                               card_name, card);
+
+                        if (PK11_IsPresent (worker->module->slots[i])) {
+                                gsd_smartcard_manager_worker_emit_smartcard_inserted (worker, card, NULL);
+                        }
                 }
                 node = node->next;
         }
@@ -1306,29 +1313,36 @@ gsd_smartcard_manager_worker_watch_for_and_process_event (GsdSmartcardManagerWor
         }
 
         if (PK11_IsPresent (slot)) {
+                gboolean already_inserted = FALSE;
+
                 /* Now, check to see if their is a new card in the slot.
                  * If there was a different card in the slot now than
                  * there was before, then we need to emit a removed signal
                  * for the old card (we don't want unpaired insertion events).
                  */
-                if ((card != NULL) &&
-                    card_slot_series != slot_series) {
-                        if (!gsd_smartcard_manager_worker_emit_smartcard_removed (worker, card, &processing_error)) {
-                                g_propagate_error (error, processing_error);
-                                goto out;
+                if (card != NULL) {
+                        if (card_slot_series != slot_series) {
+                                if (!gsd_smartcard_manager_worker_emit_smartcard_removed (worker, card, &processing_error)) {
+                                        g_propagate_error (error, processing_error);
+                                        goto out;
+                                }
+                        } else {
+                                already_inserted = TRUE;
                         }
                 }
 
-                card = _gsd_smartcard_new (worker->module,
-                                           slot_id, slot_series);
+                if (!already_inserted) {
+                        card = _gsd_smartcard_new (worker->module,
+                                                   slot_id, slot_series);
 
-                g_hash_table_replace (worker->smartcards,
-                                      key, card);
-                key = NULL;
+                        g_hash_table_replace (worker->smartcards,
+                                              key, card);
+                        key = NULL;
 
-                if (!gsd_smartcard_manager_worker_emit_smartcard_inserted (worker, card, &processing_error)) {
-                        g_propagate_error (error, processing_error);
-                        goto out;
+                        if (!gsd_smartcard_manager_worker_emit_smartcard_inserted (worker, card, &processing_error)) {
+                                g_propagate_error (error, processing_error);
+                                goto out;
+                        }
                 }
         } else {
                 /* if we aren't tracking the card, just discard the event.
