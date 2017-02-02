@@ -29,6 +29,8 @@ TESTS = gcm-self-test
 libexec_PROGRAMS = gsd-color
 gsd_color_SOURCES =			\
 	main.c				\
+	gnome-datetime-source.c		\
+	gnome-datetime-source.h		\
 	gcm-edid.c			\
 	gcm-edid.h			\
 	gsd-color-calibrate.c		\
