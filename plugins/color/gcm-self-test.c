@@ -26,6 +26,7 @@
 #include <gtk/gtk.h>
 
 #include "gcm-edid.h"
+#include "gsd-natural-light-common.h"
 
 static void
 gcm_test_edid_func (void)
@@ -84,6 +85,46 @@ gcm_test_edid_func (void)
         g_object_unref (edid);
 }
 
+static void
+gcm_test_sunset_sunrise (void)
+{
+        gdouble sunrise;
+        gdouble sunrise_actual = 7.6;
+        gdouble sunset;
+        gdouble sunset_actual = 16.8;
+        g_autoptr(GDateTime) dt = g_date_time_new_utc (2007, 2, 1, 0, 0, 0);
+
+        /* get for London, today */
+        gsd_natural_light_get_sunrise_sunset (dt, 51.5, -0.1278, &sunrise, &sunset);
+        g_assert_cmpfloat (sunrise, <, sunrise_actual + 0.1);
+        g_assert_cmpfloat (sunrise, >, sunrise_actual - 0.1);
+        g_assert_cmpfloat (sunset, <, sunset_actual + 0.1);
+        g_assert_cmpfloat (sunset, >, sunset_actual - 0.1);
+}
+
+static void
+gcm_test_frac_day (void)
+{
+        g_autoptr(GDateTime) dt = g_date_time_new_utc (2007, 2, 1, 12, 59, 59);
+        gdouble fd;
+        gdouble fd_actual = 12.99;
+
+        /* test for 12:59:59 */
+        fd = gsd_natural_light_frac_day_from_dt (dt);
+        g_assert_cmpfloat (fd, >, fd_actual - 0.01);
+        g_assert_cmpfloat (fd, <, fd_actual + 0.01);
+
+        /* test same day */
+        g_assert (gsd_natural_light_frac_day_is_between (12, 6, 20));
+        g_assert (!gsd_natural_light_frac_day_is_between (5, 6, 20));
+        g_assert (gsd_natural_light_frac_day_is_between (12, 0, 24));
+        g_assert (gsd_natural_light_frac_day_is_between (12, -1, 25));
+
+        /* test rollover to next day */
+        g_assert (gsd_natural_light_frac_day_is_between (23, 20, 6));
+        g_assert (!gsd_natural_light_frac_day_is_between (12, 20, 6));
+}
+
 int
 main (int argc, char **argv)
 {
@@ -91,6 +132,8 @@ main (int argc, char **argv)
         g_test_init (&argc, &argv, NULL);
 
         g_test_add_func ("/color/edid", gcm_test_edid_func);
+        g_test_add_func ("/color/sunset-sunrise", gcm_test_sunset_sunrise);
+        g_test_add_func ("/color/fractional-day", gcm_test_frac_day);
 
         return g_test_run ();
 }
