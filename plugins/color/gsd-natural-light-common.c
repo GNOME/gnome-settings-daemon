@@ -121,6 +121,10 @@ gsd_natural_light_frac_day_is_between (gdouble value, gdouble start, gdouble end
         if (end < start)
                 end += 24;
 
+        /* wraparound to the previous day */
+        if (value < start && value < end)
+                value += 24;
+
         /* test limits */
-        return value > start && value < end;
+        return value > start && value <= end;
 }

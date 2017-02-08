@@ -123,6 +123,9 @@ gcm_test_frac_day (void)
         /* test rollover to next day */
         g_assert (gsd_natural_light_frac_day_is_between (23, 20, 6));
         g_assert (!gsd_natural_light_frac_day_is_between (12, 20, 6));
+
+        /* test rollover to the previous day */
+        g_assert (gsd_natural_light_frac_day_is_between (5, 16, 8));
 }
 
 int
