@@ -5,6 +5,7 @@ AC_INIT([gnome-settings-daemon],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon])
 
 AC_CONFIG_SRCDIR([gnome-settings-daemon/gnome-settings-bus.c])
+AC_CONFIG_MACRO_DIR([m4])
 
 AM_INIT_AUTOMAKE([1.9 tar-ustar dist-xz no-dist-gzip check-news])
 AM_MAINTAINER_MODE([enable])
