@@ -108,7 +108,7 @@ update_cached_sunrise_sunset (GsdNaturalLight *self)
         /* calculate the sunrise/sunset for the location */
         tmp = g_settings_get_value (self->settings, "natural-light-last-coordinates");
         g_variant_get (tmp, "(dd)", &latitude, &longitude);
-        if (latitude > 180.f || latitude < -180.f)
+        if (latitude > 90.f || latitude < -90.f)
                 return FALSE;
         if (longitude > 180.f || longitude < -180.f)
                 return FALSE;
