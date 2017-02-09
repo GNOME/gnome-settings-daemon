@@ -54,8 +54,8 @@ gsd_natural_light_get_sunrise_sunset (GDateTime *dt,
         g_autoptr(GDateTime) dt_zero = g_date_time_new_utc (1900, 1, 1, 0, 0, 0);
         GTimeSpan ts = g_date_time_difference (dt, dt_zero);
 
-        g_return_val_if_fail (pos_lat < 180.f && pos_lat > -180.f, FALSE);
-        g_return_val_if_fail (pos_long < 180.f && pos_long > -180.f, FALSE);
+        g_return_val_if_fail (pos_lat < 90.f && pos_lat > -90.f, FALSE);
+        g_return_val_if_fail (pos_long < 90.f && pos_long > -90.f, FALSE);
 
         gdouble tz_offset =  g_date_time_get_utc_offset (dt) / G_USEC_PER_SEC / 60 / 60; // B5
         gdouble date_as_number = ts / G_USEC_PER_SEC / 24 / 60 / 60 + 2;  // B7
