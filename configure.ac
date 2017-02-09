@@ -391,9 +391,11 @@ AM_CONDITIONAL(BUILD_PRINT_NOTIFICATIONS, [test x"$enable_cups" = x"yes"])
 # Rfkill
 # ---------------------------------------------------------------------------
 
-AC_ARG_ENABLE(rfkill,
-              AS_HELP_STRING([--disable-rfkill], [disable rfkill support (default: enabled)]),,
-              enable_rfkill=yes, enabled_rfkill=no)
+AC_ARG_ENABLE([rfkill],
+              [AS_HELP_STRING([--disable-rfkill],
+                              [Disable rfkill support (default: enabled)])],
+              [enable_rfkill=$enableval],
+              [enable_rfkill=yes])
 
 if test x"$enable_rfkill" != x"no" ; then
   AC_CHECK_HEADERS([linux/rfkill.h],,
