@@ -55,43 +55,6 @@ gsd_smartcard_LDADD =                                           \
 	$(top_builddir)/plugins/common/libcommon.la             \
 	$(SMARTCARD_LIBS)
 
-
-libsmartcard_la_SOURCES = \
-	$(libsmartcard_headers) \
-	gsd-smartcard-manager.c \
-	gsd-smartcard-plugin.c  \
-	gsd-smartcard-service.h \
-	gsd-smartcard-service.c \
-	gsd-smartcard-utils.h \
-	gsd-smartcard-utils.c
-
-nodist_libsmartcard_la_SOURCES = \
-	$(dbus_built_sources) \
-	$(enum_built_sources)
-
-libsmartcard_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon \
-	-I$(top_builddir)/gnome-settings-daemon		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	-I$(top_srcdir)/plugins/common \
-	-DSYSCONFDIR=\""$(sysconfdir)"\" \
-	-DLIBDIR=\""$(libdir)"\" \
-	-DGSD_SMARTCARD_MANAGER_NSS_DB=\""$(NSS_DATABASE)"\" \
-	$(AM_CPPFLAGS)
-
-libsmartcard_la_CFLAGS = \
-	$(PLUGIN_CFLAGS)        \
-	$(SETTINGS_PLUGIN_CFLAGS) \
-	$(NSS_CFLAGS)        \
-	$(AM_CFLAGS)
-
-libsmartcard_la_LDFLAGS = \
-	$(GSD_PLUGIN_LDFLAGS)
-
-libsmartcard_la_LIBADD = \
-	$(SETTINGS_PLUGIN_LIBS)        \
-	$(NSS_LIBS)
-
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.Smartcard.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
