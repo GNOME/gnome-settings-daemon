@@ -45,10 +45,9 @@ enum {
 
 static int signals[LAST_SIGNAL] = { 0 };
 
-#define CC_RFKILL_GLIB_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE((obj), \
-				CC_RFKILL_TYPE_GLIB, CcRfkillGlibPrivate))
+struct _CcRfkillGlib {
+	GObject parent;
 
-struct CcRfkillGlibPrivate {
 	GOutputStream *stream;
 	GIOChannel *channel;
 	guint watch_id;
@@ -60,7 +59,7 @@ struct CcRfkillGlibPrivate {
 	GCancellable *cancellable;
 };
 
-G_DEFINE_TYPE(CcRfkillGlib, cc_rfkill_glib, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CcRfkillGlib, cc_rfkill_glib, G_TYPE_OBJECT)
 
 #define CHANGE_ALL_TIMEOUT 500
 
@@ -72,7 +71,7 @@ cc_rfkill_glib_send_change_all_event_finish (CcRfkillGlib        *rfkill,
 					     GAsyncResult        *res,
 					     GError             **error)
 {
-	g_return_val_if_fail (RFKILL_IS_GLIB (rfkill), FALSE);
+	g_return_val_if_fail (CC_RFKILL_IS_GLIB (rfkill), FALSE);
 	g_return_val_if_fail (g_task_is_valid (res, rfkill), FALSE);
 	g_return_val_if_fail (g_async_result_is_tagged (res, cc_rfkill_glib_send_change_all_event), FALSE);
 
@@ -92,30 +91,30 @@ write_change_all_again_done_cb (GObject      *source_object,
 
 	ret = g_output_stream_write_finish (G_OUTPUT_STREAM (source_object), res, &error);
 	if (ret < 0)
-		g_task_return_error (rfkill->priv->task, g_steal_pointer (&error));
+		g_task_return_error (rfkill->task, g_steal_pointer (&error));
 	else
-		g_task_return_boolean (rfkill->priv->task, ret >= 0);
+		g_task_return_boolean (rfkill->task, ret >= 0);
 
-	g_clear_object (&rfkill->priv->task);
-	g_clear_pointer (&rfkill->priv->event, g_free);
+	g_clear_object (&rfkill->task);
+	g_clear_pointer (&rfkill->event, g_free);
 }
 
 static gboolean
 write_change_all_timeout_cb (CcRfkillGlib *rfkill)
 {
-	g_assert (rfkill->priv->event);
+	g_assert (rfkill->event);
 
 	g_debug ("Sending second RFKILL_OP_CHANGE_ALL timed out");
 
-	g_task_return_new_error (rfkill->priv->task,
+	g_task_return_new_error (rfkill->task,
 				 G_IO_ERROR, G_IO_ERROR_TIMED_OUT,
 				 "Enabling rfkill for %s timed out",
-				 type_to_string (rfkill->priv->event->type));
+				 type_to_string (rfkill->event->type));
 
-	g_clear_object (&rfkill->priv->task);
-	g_clear_pointer (&rfkill->priv->event, g_free);
-	g_clear_object (&rfkill->priv->cancellable);
-	rfkill->priv->change_all_timeout_id = 0;
+	g_clear_object (&rfkill->task);
+	g_clear_pointer (&rfkill->event, g_free);
+	g_clear_object (&rfkill->cancellable);
+	rfkill->change_all_timeout_id = 0;
 
 	return G_SOURCE_REMOVE;
 }
@@ -133,24 +132,24 @@ write_change_all_done_cb (GObject      *source_object,
 
 	ret = g_output_stream_write_finish (G_OUTPUT_STREAM (source_object), res, &error);
 	if (ret < 0) {
-		g_task_return_error (rfkill->priv->task, g_steal_pointer (&error));
+		g_task_return_error (rfkill->task, g_steal_pointer (&error));
 		goto bail;
-	} else if (rfkill->priv->event->soft == 1 ||
-		   rfkill->priv->event->type != RFKILL_TYPE_BLUETOOTH) {
-		g_task_return_boolean (rfkill->priv->task, ret >= 0);
+	} else if (rfkill->event->soft == 1 ||
+		   rfkill->event->type != RFKILL_TYPE_BLUETOOTH) {
+		g_task_return_boolean (rfkill->task, ret >= 0);
 		goto bail;
 	}
 
-	rfkill->priv->change_all_timeout_id = g_timeout_add (CHANGE_ALL_TIMEOUT,
-							     (GSourceFunc) write_change_all_timeout_cb,
-							     rfkill);
+	rfkill->change_all_timeout_id = g_timeout_add (CHANGE_ALL_TIMEOUT,
+						       (GSourceFunc) write_change_all_timeout_cb,
+						       rfkill);
 
 	return;
 
 bail:
-	g_clear_object (&rfkill->priv->task);
-	g_clear_pointer (&rfkill->priv->event, g_free);
-	g_clear_object (&rfkill->priv->cancellable);
+	g_clear_object (&rfkill->task);
+	g_clear_pointer (&rfkill->event, g_free);
+	g_clear_object (&rfkill->cancellable);
 }
 
 void
@@ -164,15 +163,15 @@ cc_rfkill_glib_send_change_all_event (CcRfkillGlib        *rfkill,
 	g_autoptr(GTask) task = NULL;
 	struct rfkill_event *event;
 
-	g_return_if_fail (RFKILL_IS_GLIB (rfkill));
-	g_return_if_fail (rfkill->priv->stream);
+	g_return_if_fail (CC_RFKILL_IS_GLIB (rfkill));
+	g_return_if_fail (rfkill->stream);
 
 	task = g_task_new (rfkill, cancellable, callback, user_data);
 	g_task_set_source_tag (task, cc_rfkill_glib_send_change_all_event);
 
-	if (rfkill->priv->change_all_timeout_id > 0) {
-		g_source_remove (rfkill->priv->change_all_timeout_id);
-		rfkill->priv->change_all_timeout_id = 0;
+	if (rfkill->change_all_timeout_id > 0) {
+		g_source_remove (rfkill->change_all_timeout_id);
+		rfkill->change_all_timeout_id = 0;
 		write_change_all_timeout_cb (rfkill);
 	}
 
@@ -181,12 +180,12 @@ cc_rfkill_glib_send_change_all_event (CcRfkillGlib        *rfkill,
 	event->type = rfkill_type;
 	event->soft = enable ? 1 : 0;
 
-	rfkill->priv->event = event;
-	rfkill->priv->task = g_object_ref (task);
-	rfkill->priv->cancellable = cancellable ? g_object_ref (cancellable) : NULL;
-	rfkill->priv->change_all_timeout_id = 0;
+	rfkill->event = event;
+	rfkill->task = g_object_ref (task);
+	rfkill->cancellable = cancellable ? g_object_ref (cancellable) : NULL;
+	rfkill->change_all_timeout_id = 0;
 
-	g_output_stream_write_async (rfkill->priv->stream,
+	g_output_stream_write_async (rfkill->stream,
 				     event, sizeof(struct rfkill_event),
 				     G_PRIORITY_DEFAULT,
 				     cancellable, write_change_all_done_cb, rfkill);
@@ -268,17 +267,17 @@ emit_changed_signal_and_free (CcRfkillGlib *rfkill,
 		       signals[CHANGED],
 		       0, events);
 
-	if (rfkill->priv->change_all_timeout_id > 0 &&
+	if (rfkill->change_all_timeout_id > 0 &&
 	    got_change_event (events)) {
 		g_debug ("Received a change event after a RFKILL_OP_CHANGE_ALL event, re-sending RFKILL_OP_CHANGE_ALL");
 
-		g_output_stream_write_async (rfkill->priv->stream,
-					     rfkill->priv->event, sizeof(struct rfkill_event),
+		g_output_stream_write_async (rfkill->stream,
+					     rfkill->event, sizeof(struct rfkill_event),
 					     G_PRIORITY_DEFAULT,
-					     rfkill->priv->cancellable, write_change_all_again_done_cb, rfkill);
+					     rfkill->cancellable, write_change_all_again_done_cb, rfkill);
 
-		g_source_remove (rfkill->priv->change_all_timeout_id);
-		rfkill->priv->change_all_timeout_id = 0;
+		g_source_remove (rfkill->change_all_timeout_id);
+		rfkill->change_all_timeout_id = 0;
 	}
 
 	g_list_free_full (events, g_free);
@@ -332,24 +331,17 @@ event_cb (GIOChannel   *source,
 static void
 cc_rfkill_glib_init (CcRfkillGlib *rfkill)
 {
-	CcRfkillGlibPrivate *priv;
-
-	priv = CC_RFKILL_GLIB_GET_PRIVATE (rfkill);
-	rfkill->priv = priv;
 }
 
 int
 cc_rfkill_glib_open (CcRfkillGlib *rfkill)
 {
-	CcRfkillGlibPrivate *priv;
 	int fd;
 	int ret;
 	GList *events;
 
-	g_return_val_if_fail (RFKILL_IS_GLIB (rfkill), -1);
-	g_return_val_if_fail (rfkill->priv->stream == NULL, -1);
-
-	priv = rfkill->priv;
+	g_return_val_if_fail (CC_RFKILL_IS_GLIB (rfkill), -1);
+	g_return_val_if_fail (rfkill->stream == NULL, -1);
 
 	fd = open("/dev/rfkill", O_RDWR);
 	if (fd < 0) {
@@ -397,11 +389,11 @@ cc_rfkill_glib_open (CcRfkillGlib *rfkill)
 	}
 
 	/* Setup monitoring */
-	priv->channel = g_io_channel_unix_new (fd);
-	priv->watch_id = g_io_add_watch (priv->channel,
-					 G_IO_IN | G_IO_HUP | G_IO_ERR,
-					 (GIOFunc) event_cb,
-					 rfkill);
+	rfkill->channel = g_io_channel_unix_new (fd);
+	rfkill->watch_id = g_io_add_watch (rfkill->channel,
+					   G_IO_IN | G_IO_HUP | G_IO_ERR,
+					   (GIOFunc) event_cb,
+					   rfkill);
 
 	if (events) {
 		events = g_list_reverse (events);
@@ -411,7 +403,7 @@ cc_rfkill_glib_open (CcRfkillGlib *rfkill)
 	}
 
 	/* Setup write stream */
-	priv->stream = g_unix_output_stream_new (fd, TRUE);
+	rfkill->stream = g_unix_output_stream_new (fd, TRUE);
 
 	return fd;
 }
@@ -419,23 +411,19 @@ cc_rfkill_glib_open (CcRfkillGlib *rfkill)
 static void
 cc_rfkill_glib_finalize (GObject *object)
 {
-	CcRfkillGlib *rfkill;
-	CcRfkillGlibPrivate *priv;
+	CcRfkillGlib *rfkill = CC_RFKILL_GLIB (object);
 
-	rfkill = CC_RFKILL_GLIB (object);
-	priv = rfkill->priv;
-
-	if (priv->change_all_timeout_id > 0)
+	if (rfkill->change_all_timeout_id > 0)
 		write_change_all_timeout_cb (rfkill);
 
 	/* cleanup monitoring */
-	if (priv->watch_id > 0) {
-		g_source_remove (priv->watch_id);
-		priv->watch_id = 0;
-		g_io_channel_shutdown (priv->channel, FALSE, NULL);
-		g_io_channel_unref (priv->channel);
+	if (rfkill->watch_id > 0) {
+		g_source_remove (rfkill->watch_id);
+		rfkill->watch_id = 0;
+		g_io_channel_shutdown (rfkill->channel, FALSE, NULL);
+		g_io_channel_unref (rfkill->channel);
 	}
-	g_clear_object (&priv->stream);
+	g_clear_object (&rfkill->stream);
 
 	G_OBJECT_CLASS(cc_rfkill_glib_parent_class)->finalize(object);
 }
@@ -445,14 +433,13 @@ cc_rfkill_glib_class_init(CcRfkillGlibClass *klass)
 {
 	GObjectClass *object_class = (GObjectClass *) klass;
 
-	g_type_class_add_private(klass, sizeof(CcRfkillGlibPrivate));
 	object_class->finalize = cc_rfkill_glib_finalize;
 
 	signals[CHANGED] =
 		g_signal_new ("changed",
 			      G_TYPE_FROM_CLASS (klass),
 			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (CcRfkillGlibClass, changed),
+			      0,
 			      NULL, NULL,
 			      NULL,
 			      G_TYPE_NONE, 1, G_TYPE_POINTER);

@@ -3,7 +3,7 @@
  *  gnome-bluetooth - Bluetooth integration for GNOME
  *
  *  Copyright (C) 2012  Bastien Nocera <hadess@hadess.net>
- *
+ *  Copyright © 2017  Endless Mobile, Inc.
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -30,32 +30,9 @@
 
 G_BEGIN_DECLS
 
-#define CC_RFKILL_TYPE_GLIB (cc_rfkill_glib_get_type())
-#define CC_RFKILL_GLIB(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), \
-		CC_RFKILL_TYPE_GLIB, CcRfkillGlib))
-#define CC_RFKILL_GLIB_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST((klass), \
-		CC_RFKILL_TYPE_GLIB, CcRfkillGlibClass))
-#define RFKILL_IS_GLIB(obj) (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
-		CC_RFKILL_TYPE_GLIB))
-#define RFKILL_IS_GLIB_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), \
-		CC_RFKILL_TYPE_GLIB))
-#define RFKILL_GET_GLIB_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS((obj), \
-		CC_RFKILL_TYPE_GLIB, CcRfkillGlibClass))
+#define CC_RFKILL_TYPE_GLIB cc_rfkill_glib_get_type ()
+G_DECLARE_FINAL_TYPE (CcRfkillGlib, cc_rfkill_glib, CC_RFKILL, GLIB, GObject)
 
-typedef struct CcRfkillGlibPrivate CcRfkillGlibPrivate;
-
-typedef struct _CcRfkillGlib {
-	GObject parent;
-	CcRfkillGlibPrivate *priv;
-} CcRfkillGlib;
-
-typedef struct _CcRfkillGlibClass {
-	GObjectClass parent_class;
-
-	void (*changed) (CcRfkillGlib *rfkill, GList *events);
-} CcRfkillGlibClass;
-
-GType         cc_rfkill_glib_get_type          (void);
 CcRfkillGlib *cc_rfkill_glib_new               (void);
 int           cc_rfkill_glib_open              (CcRfkillGlib *rfkill);
 
