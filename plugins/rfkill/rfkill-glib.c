@@ -68,57 +68,6 @@ static const char *type_to_string (unsigned int type);
 
 /* Note that this can return %FALSE without setting @error. */
 gboolean
-cc_rfkill_glib_send_event_finish (CcRfkillGlib  *rfkill,
-				  GAsyncResult  *res,
-				  GError       **error)
-{
-	g_return_val_if_fail (RFKILL_IS_GLIB (rfkill), FALSE);
-	g_return_val_if_fail (g_task_is_valid (res, rfkill), FALSE);
-	g_return_val_if_fail (g_async_result_is_tagged (res, cc_rfkill_glib_send_event), FALSE);
-
-	return (g_task_propagate_int (G_TASK (res), error) >= 0);
-}
-
-static void
-write_done_cb (GObject      *source_object,
-	       GAsyncResult *res,
-	       gpointer      user_data)
-{
-	g_autoptr(GTask) task = G_TASK (user_data);
-	g_autoptr(GError) error = NULL;
-	gssize ret;
-
-	ret = g_output_stream_write_finish (G_OUTPUT_STREAM (source_object), res, &error);
-	if (ret < 0)
-		g_task_return_error (task, g_steal_pointer (&error));
-	else
-		g_task_return_int (task, ret);
-}
-
-void
-cc_rfkill_glib_send_event (CcRfkillGlib        *rfkill,
-			   struct rfkill_event *event,
-			   GCancellable        *cancellable,
-			   GAsyncReadyCallback  callback,
-			   gpointer             user_data)
-{
-	g_autoptr(GTask) task = NULL;
-
-	g_return_if_fail (RFKILL_IS_GLIB (rfkill));
-	g_return_if_fail (rfkill->priv->stream);
-
-	task = g_task_new (rfkill, cancellable, callback, user_data);
-	g_task_set_source_tag (task, cc_rfkill_glib_send_event);
-
-	g_output_stream_write_async (rfkill->priv->stream,
-				     event, sizeof(struct rfkill_event),
-				     G_PRIORITY_DEFAULT,
-				     cancellable, write_done_cb,
-				     g_object_ref (task));
-}
-
-/* Note that this can return %FALSE without setting @error. */
-gboolean
 cc_rfkill_glib_send_change_all_event_finish (CcRfkillGlib        *rfkill,
 					     GAsyncResult        *res,
 					     GError             **error)

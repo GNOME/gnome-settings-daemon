@@ -59,16 +59,6 @@ GType         cc_rfkill_glib_get_type          (void);
 CcRfkillGlib *cc_rfkill_glib_new               (void);
 int           cc_rfkill_glib_open              (CcRfkillGlib *rfkill);
 
-void          cc_rfkill_glib_send_event        (CcRfkillGlib        *rfkill,
-						struct rfkill_event *event,
-						GCancellable        *cancellable,
-						GAsyncReadyCallback  callback,
-						gpointer             user_data);
-
-gboolean      cc_rfkill_glib_send_event_finish (CcRfkillGlib        *rfkill,
-						GAsyncResult        *res,
-						GError             **error);
-
 void          cc_rfkill_glib_send_change_all_event        (CcRfkillGlib        *rfkill,
 							   guint                rfkill_type,
 							   gboolean             enable,
