@@ -56,7 +56,6 @@ struct _CcRfkillGlib {
 	guint change_all_timeout_id;
 	struct rfkill_event *event;
 	GTask *task;
-	GCancellable *cancellable;
 };
 
 G_DEFINE_TYPE (CcRfkillGlib, cc_rfkill_glib, G_TYPE_OBJECT)
@@ -113,7 +112,6 @@ write_change_all_timeout_cb (CcRfkillGlib *rfkill)
 
 	g_clear_object (&rfkill->task);
 	g_clear_pointer (&rfkill->event, g_free);
-	g_clear_object (&rfkill->cancellable);
 	rfkill->change_all_timeout_id = 0;
 
 	return G_SOURCE_REMOVE;
@@ -149,7 +147,6 @@ write_change_all_done_cb (GObject      *source_object,
 bail:
 	g_clear_object (&rfkill->task);
 	g_clear_pointer (&rfkill->event, g_free);
-	g_clear_object (&rfkill->cancellable);
 }
 
 void
@@ -178,7 +175,6 @@ cc_rfkill_glib_send_change_all_event (CcRfkillGlib        *rfkill,
 
 	g_assert (rfkill->event == NULL);
 	g_assert (rfkill->task == NULL);
-	g_assert (rfkill->cancellable == NULL);
 
 	/* Start writing out a new event. */
 	event = g_new0 (struct rfkill_event, 1);
@@ -188,7 +184,6 @@ cc_rfkill_glib_send_change_all_event (CcRfkillGlib        *rfkill,
 
 	rfkill->event = event;
 	rfkill->task = g_object_ref (task);
-	rfkill->cancellable = cancellable ? g_object_ref (cancellable) : NULL;
 	rfkill->change_all_timeout_id = 0;
 
 	g_output_stream_write_async (rfkill->stream,
@@ -280,7 +275,8 @@ emit_changed_signal_and_free (CcRfkillGlib *rfkill,
 		g_output_stream_write_async (rfkill->stream,
 					     rfkill->event, sizeof(struct rfkill_event),
 					     G_PRIORITY_DEFAULT,
-					     rfkill->cancellable, write_change_all_again_done_cb, rfkill);
+					     g_task_get_cancellable (rfkill->task),
+					     write_change_all_again_done_cb, rfkill);
 
 		g_source_remove (rfkill->change_all_timeout_id);
 		rfkill->change_all_timeout_id = 0;
