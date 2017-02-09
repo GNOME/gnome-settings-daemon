@@ -82,7 +82,8 @@ write_change_all_again_done_cb (GObject      *source_object,
 				GAsyncResult *res,
 				gpointer      user_data)
 {
-	CcRfkillGlib *rfkill = user_data;
+	g_autoptr(GTask) task = G_TASK (user_data);
+	CcRfkillGlib *rfkill = g_task_get_source_object (task);
 	g_autoptr(GError) error = NULL;
 	gssize ret;
 
@@ -90,9 +91,9 @@ write_change_all_again_done_cb (GObject      *source_object,
 
 	ret = g_output_stream_write_finish (G_OUTPUT_STREAM (source_object), res, &error);
 	if (ret < 0)
-		g_task_return_error (rfkill->task, g_steal_pointer (&error));
+		g_task_return_error (task, g_steal_pointer (&error));
 	else
-		g_task_return_boolean (rfkill->task, ret >= 0);
+		g_task_return_boolean (task, ret >= 0);
 
 	g_clear_object (&rfkill->task);
 	g_clear_pointer (&rfkill->event, g_free);
@@ -122,7 +123,8 @@ write_change_all_done_cb (GObject      *source_object,
 			  GAsyncResult *res,
 			  gpointer      user_data)
 {
-	CcRfkillGlib *rfkill = user_data;
+	g_autoptr(GTask) task = G_TASK (user_data);
+	CcRfkillGlib *rfkill = g_task_get_source_object (task);
 	g_autoptr(GError) error = NULL;
 	gssize ret;
 
@@ -130,11 +132,11 @@ write_change_all_done_cb (GObject      *source_object,
 
 	ret = g_output_stream_write_finish (G_OUTPUT_STREAM (source_object), res, &error);
 	if (ret < 0) {
-		g_task_return_error (rfkill->task, g_steal_pointer (&error));
+		g_task_return_error (task, g_steal_pointer (&error));
 		goto bail;
 	} else if (rfkill->event->soft == 1 ||
 		   rfkill->event->type != RFKILL_TYPE_BLUETOOTH) {
-		g_task_return_boolean (rfkill->task, ret >= 0);
+		g_task_return_boolean (task, ret >= 0);
 		goto bail;
 	}
 
@@ -189,7 +191,8 @@ cc_rfkill_glib_send_change_all_event (CcRfkillGlib        *rfkill,
 	g_output_stream_write_async (rfkill->stream,
 				     event, sizeof(struct rfkill_event),
 				     G_PRIORITY_DEFAULT,
-				     cancellable, write_change_all_done_cb, rfkill);
+				     cancellable, write_change_all_done_cb,
+				     g_object_ref (task));
 }
 
 static const char *
@@ -276,7 +279,8 @@ emit_changed_signal_and_free (CcRfkillGlib *rfkill,
 					     rfkill->event, sizeof(struct rfkill_event),
 					     G_PRIORITY_DEFAULT,
 					     g_task_get_cancellable (rfkill->task),
-					     write_change_all_again_done_cb, rfkill);
+					     write_change_all_again_done_cb,
+					     g_object_ref (rfkill->task));
 
 		g_source_remove (rfkill->change_all_timeout_id);
 		rfkill->change_all_timeout_id = 0;
