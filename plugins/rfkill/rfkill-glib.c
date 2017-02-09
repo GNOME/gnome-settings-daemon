@@ -52,7 +52,9 @@ struct _CcRfkillGlib {
 	GIOChannel *channel;
 	guint watch_id;
 
-	/* Pending Bluetooth enablement */
+	/* Pending Bluetooth enablement.
+	 * If (@change_all_timeout_id != 0), then (task != NULL). The converse
+	 * does not necessarily hold. */
 	guint change_all_timeout_id;
 	GTask *task;
 };
@@ -62,6 +64,20 @@ G_DEFINE_TYPE (CcRfkillGlib, cc_rfkill_glib, G_TYPE_OBJECT)
 #define CHANGE_ALL_TIMEOUT 500
 
 static const char *type_to_string (unsigned int type);
+
+static void
+cancel_current_task (CcRfkillGlib *rfkill)
+{
+	if (rfkill->task != NULL) {
+		g_cancellable_cancel (g_task_get_cancellable (rfkill->task));
+		g_clear_object (&rfkill->task);
+	}
+
+	if (rfkill->change_all_timeout_id != 0) {
+		g_source_remove (rfkill->change_all_timeout_id);
+		rfkill->change_all_timeout_id = 0;
+	}
+}
 
 /* Note that this can return %FALSE without setting @error. */
 gboolean
@@ -94,7 +110,9 @@ write_change_all_again_done_cb (GObject      *source_object,
 	else
 		g_task_return_boolean (task, ret >= 0);
 
-	g_clear_object (&rfkill->task);
+	/* If this @task has been cancelled, it may have been superceded. */
+	if (rfkill->task == task)
+		g_clear_object (&rfkill->task);
 }
 
 static gboolean
@@ -142,6 +160,7 @@ write_change_all_done_cb (GObject      *source_object,
 		goto bail;
 	}
 
+	g_assert (rfkill->change_all_timeout_id == 0);
 	rfkill->change_all_timeout_id = g_timeout_add (CHANGE_ALL_TIMEOUT,
 						       (GSourceFunc) write_change_all_timeout_cb,
 						       rfkill);
@@ -149,7 +168,9 @@ write_change_all_done_cb (GObject      *source_object,
 	return;
 
 bail:
-	g_clear_object (&rfkill->task);
+	/* If this @task has been cancelled, it may have been superceded. */
+	if (rfkill->task == task)
+		g_clear_object (&rfkill->task);
 }
 
 void
@@ -170,12 +191,7 @@ cc_rfkill_glib_send_change_all_event (CcRfkillGlib        *rfkill,
 	g_task_set_source_tag (task, cc_rfkill_glib_send_change_all_event);
 
 	/* Clear any previous task. */
-	if (rfkill->change_all_timeout_id > 0) {
-		g_source_remove (rfkill->change_all_timeout_id);
-		rfkill->change_all_timeout_id = 0;
-		write_change_all_timeout_cb (rfkill);
-	}
-
+	cancel_current_task (rfkill);
 	g_assert (rfkill->task == NULL);
 
 	/* Start writing out a new event. */
@@ -422,8 +438,7 @@ cc_rfkill_glib_finalize (GObject *object)
 {
 	CcRfkillGlib *rfkill = CC_RFKILL_GLIB (object);
 
-	if (rfkill->change_all_timeout_id > 0)
-		write_change_all_timeout_cb (rfkill);
+	cancel_current_task (rfkill);
 
 	/* cleanup monitoring */
 	if (rfkill->watch_id > 0) {
