@@ -3,7 +3,7 @@
  *  gnome-bluetooth - Bluetooth integration for GNOME
  *
  *  Copyright (C) 2012  Bastien Nocera <hadess@hadess.net>
- *
+ *  Copyright © 2017 Endless Mobile, Inc.
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -56,7 +56,7 @@ struct CcRfkillGlibPrivate {
 	/* Pending Bluetooth enablement */
 	guint change_all_timeout_id;
 	struct rfkill_event *event;
-	GSimpleAsyncResult *simple;
+	GTask *task;
 	GCancellable *cancellable;
 };
 
@@ -66,20 +66,17 @@ G_DEFINE_TYPE(CcRfkillGlib, cc_rfkill_glib, G_TYPE_OBJECT)
 
 static const char *type_to_string (unsigned int type);
 
+/* Note that this can return %FALSE without setting @error. */
 gboolean
 cc_rfkill_glib_send_event_finish (CcRfkillGlib  *rfkill,
 				  GAsyncResult  *res,
 				  GError       **error)
 {
-	GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT (res);
-
 	g_return_val_if_fail (RFKILL_IS_GLIB (rfkill), FALSE);
-	g_warn_if_fail (g_simple_async_result_get_source_tag (simple) == cc_rfkill_glib_send_event);
+	g_return_val_if_fail (g_task_is_valid (res, rfkill), FALSE);
+	g_return_val_if_fail (g_async_result_is_tagged (res, cc_rfkill_glib_send_event), FALSE);
 
-	if (g_simple_async_result_propagate_error (simple, error))
-		return FALSE;
-
-	return (g_simple_async_result_get_op_res_gssize (simple) >= 0);
+	return (g_task_propagate_int (G_TASK (res), error) >= 0);
 }
 
 static void
@@ -87,18 +84,15 @@ write_done_cb (GObject      *source_object,
 	       GAsyncResult *res,
 	       gpointer      user_data)
 {
-	GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT (user_data);
-	GError *error = NULL;
+	g_autoptr(GTask) task = G_TASK (user_data);
+	g_autoptr(GError) error = NULL;
 	gssize ret;
 
 	ret = g_output_stream_write_finish (G_OUTPUT_STREAM (source_object), res, &error);
 	if (ret < 0)
-		g_simple_async_result_take_error (simple, error);
+		g_task_return_error (task, g_steal_pointer (&error));
 	else
-		g_simple_async_result_set_op_res_gssize (simple, ret);
-
-	g_simple_async_result_complete_in_idle (simple);
-	g_object_unref (simple);
+		g_task_return_int (task, ret);
 }
 
 void
@@ -108,36 +102,32 @@ cc_rfkill_glib_send_event (CcRfkillGlib        *rfkill,
 			   GAsyncReadyCallback  callback,
 			   gpointer             user_data)
 {
-	GSimpleAsyncResult *simple;
+	g_autoptr(GTask) task = NULL;
 
 	g_return_if_fail (RFKILL_IS_GLIB (rfkill));
 	g_return_if_fail (rfkill->priv->stream);
 
-	simple = g_simple_async_result_new (G_OBJECT (rfkill),
-					    callback,
-					    user_data,
-					    cc_rfkill_glib_send_event);
+	task = g_task_new (rfkill, cancellable, callback, user_data);
+	g_task_set_source_tag (task, cc_rfkill_glib_send_event);
 
 	g_output_stream_write_async (rfkill->priv->stream,
 				     event, sizeof(struct rfkill_event),
 				     G_PRIORITY_DEFAULT,
-				     cancellable, write_done_cb, simple);
+				     cancellable, write_done_cb,
+				     g_object_ref (task));
 }
 
+/* Note that this can return %FALSE without setting @error. */
 gboolean
 cc_rfkill_glib_send_change_all_event_finish (CcRfkillGlib        *rfkill,
 					     GAsyncResult        *res,
 					     GError             **error)
 {
-	GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT (res);
-
 	g_return_val_if_fail (RFKILL_IS_GLIB (rfkill), FALSE);
-	g_warn_if_fail (g_simple_async_result_get_source_tag (simple) == cc_rfkill_glib_send_change_all_event);
+	g_return_val_if_fail (g_task_is_valid (res, rfkill), FALSE);
+	g_return_val_if_fail (g_async_result_is_tagged (res, cc_rfkill_glib_send_change_all_event), FALSE);
 
-	if (g_simple_async_result_propagate_error (simple, error))
-		return FALSE;
-
-	return g_simple_async_result_get_op_res_gboolean (simple);
+	return g_task_propagate_boolean (G_TASK (res), error);
 }
 
 static void
@@ -146,19 +136,18 @@ write_change_all_again_done_cb (GObject      *source_object,
 				gpointer      user_data)
 {
 	CcRfkillGlib *rfkill = user_data;
-	GError *error = NULL;
+	g_autoptr(GError) error = NULL;
 	gssize ret;
 
 	g_debug ("Finished writing second RFKILL_OP_CHANGE_ALL event");
 
 	ret = g_output_stream_write_finish (G_OUTPUT_STREAM (source_object), res, &error);
 	if (ret < 0)
-		g_simple_async_result_take_error (rfkill->priv->simple, error);
+		g_task_return_error (rfkill->priv->task, g_steal_pointer (&error));
 	else
-		g_simple_async_result_set_op_res_gboolean (rfkill->priv->simple, ret >= 0);
+		g_task_return_boolean (rfkill->priv->task, ret >= 0);
 
-	g_simple_async_result_complete_in_idle (rfkill->priv->simple);
-	g_clear_object (&rfkill->priv->simple);
+	g_clear_object (&rfkill->priv->task);
 	g_clear_pointer (&rfkill->priv->event, g_free);
 }
 
@@ -169,13 +158,12 @@ write_change_all_timeout_cb (CcRfkillGlib *rfkill)
 
 	g_debug ("Sending second RFKILL_OP_CHANGE_ALL timed out");
 
-	g_simple_async_result_set_error (rfkill->priv->simple,
-					 G_IO_ERROR, G_IO_ERROR_TIMED_OUT,
-					 "Enabling rfkill for %s timed out",
-					 type_to_string (rfkill->priv->event->type));
-	g_simple_async_result_complete_in_idle (rfkill->priv->simple);
+	g_task_return_new_error (rfkill->priv->task,
+				 G_IO_ERROR, G_IO_ERROR_TIMED_OUT,
+				 "Enabling rfkill for %s timed out",
+				 type_to_string (rfkill->priv->event->type));
 
-	g_clear_object (&rfkill->priv->simple);
+	g_clear_object (&rfkill->priv->task);
 	g_clear_pointer (&rfkill->priv->event, g_free);
 	g_clear_object (&rfkill->priv->cancellable);
 	rfkill->priv->change_all_timeout_id = 0;
@@ -189,18 +177,18 @@ write_change_all_done_cb (GObject      *source_object,
 			  gpointer      user_data)
 {
 	CcRfkillGlib *rfkill = user_data;
-	GError *error = NULL;
+	g_autoptr(GError) error = NULL;
 	gssize ret;
 
 	g_debug ("Sending original RFKILL_OP_CHANGE_ALL event done");
 
 	ret = g_output_stream_write_finish (G_OUTPUT_STREAM (source_object), res, &error);
 	if (ret < 0) {
-		g_simple_async_result_take_error (rfkill->priv->simple, error);
+		g_task_return_error (rfkill->priv->task, g_steal_pointer (&error));
 		goto bail;
 	} else if (rfkill->priv->event->soft == 1 ||
 		   rfkill->priv->event->type != RFKILL_TYPE_BLUETOOTH) {
-		g_simple_async_result_set_op_res_gboolean (rfkill->priv->simple, ret >= 0);
+		g_task_return_boolean (rfkill->priv->task, ret >= 0);
 		goto bail;
 	}
 
@@ -211,8 +199,7 @@ write_change_all_done_cb (GObject      *source_object,
 	return;
 
 bail:
-	g_simple_async_result_complete_in_idle (rfkill->priv->simple);
-	g_clear_object (&rfkill->priv->simple);
+	g_clear_object (&rfkill->priv->task);
 	g_clear_pointer (&rfkill->priv->event, g_free);
 	g_clear_object (&rfkill->priv->cancellable);
 }
@@ -225,16 +212,14 @@ cc_rfkill_glib_send_change_all_event (CcRfkillGlib        *rfkill,
 				      GAsyncReadyCallback  callback,
 				      gpointer             user_data)
 {
-	GSimpleAsyncResult *simple;
+	g_autoptr(GTask) task = NULL;
 	struct rfkill_event *event;
 
 	g_return_if_fail (RFKILL_IS_GLIB (rfkill));
 	g_return_if_fail (rfkill->priv->stream);
 
-	simple = g_simple_async_result_new (G_OBJECT (rfkill),
-					    callback,
-					    user_data,
-					    cc_rfkill_glib_send_change_all_event);
+	task = g_task_new (rfkill, cancellable, callback, user_data);
+	g_task_set_source_tag (task, cc_rfkill_glib_send_change_all_event);
 
 	if (rfkill->priv->change_all_timeout_id > 0) {
 		g_source_remove (rfkill->priv->change_all_timeout_id);
@@ -248,7 +233,7 @@ cc_rfkill_glib_send_change_all_event (CcRfkillGlib        *rfkill,
 	event->soft = enable ? 1 : 0;
 
 	rfkill->priv->event = event;
-	rfkill->priv->simple = simple;
+	rfkill->priv->task = g_object_ref (task);
 	rfkill->priv->cancellable = cancellable ? g_object_ref (cancellable) : NULL;
 	rfkill->priv->change_all_timeout_id = 0;
 
