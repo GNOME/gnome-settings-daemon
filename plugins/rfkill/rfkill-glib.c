@@ -169,12 +169,18 @@ cc_rfkill_glib_send_change_all_event (CcRfkillGlib        *rfkill,
 	task = g_task_new (rfkill, cancellable, callback, user_data);
 	g_task_set_source_tag (task, cc_rfkill_glib_send_change_all_event);
 
+	/* Clear any previous task. */
 	if (rfkill->change_all_timeout_id > 0) {
 		g_source_remove (rfkill->change_all_timeout_id);
 		rfkill->change_all_timeout_id = 0;
 		write_change_all_timeout_cb (rfkill);
 	}
 
+	g_assert (rfkill->event == NULL);
+	g_assert (rfkill->task == NULL);
+	g_assert (rfkill->cancellable == NULL);
+
+	/* Start writing out a new event. */
 	event = g_new0 (struct rfkill_event, 1);
 	event->op = RFKILL_OP_CHANGE_ALL;
 	event->type = rfkill_type;
