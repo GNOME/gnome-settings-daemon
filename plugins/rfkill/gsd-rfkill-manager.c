@@ -20,6 +20,26 @@
  *
  */
 
+/* Test with:
+ *    gdbus call \
+ *        --session \
+ *        --dest org.gnome.SettingsDaemon.Rfkill \
+ *        --object-path /org/gnome/SettingsDaemon/Rfkill \
+ *        --method org.freedesktop.DBus.Properties.Set \
+ *        "org.gnome.SettingsDaemon.Rfkill" \
+ *        "AirplaneMode" \
+ *        "<true|false>"
+ * and
+ *    gdbus call \
+ *        --session \
+ *        --dest org.gnome.SettingsDaemon.Rfkill \
+ *        --object-path /org/gnome/SettingsDaemon/Rfkill \
+ *        --method org.freedesktop.DBus.Properties.Set \
+ *        "org.gnome.SettingsDaemon.Rfkill" \
+ *        "BluetoothAirplaneMode" \
+ *        "<true|false>"
+ */
+
 #include "config.h"
 
 #include <gio/gio.h>
