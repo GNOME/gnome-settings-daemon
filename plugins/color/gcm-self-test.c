@@ -43,6 +43,7 @@ static void
 gcm_test_natural_light (void)
 {
         gboolean ret;
+        guint active_cnt = 0;
         guint disabled_until_tmw_cnt = 0;
         guint sunrise_cnt = 0;
         guint sunset_cnt = 0;
@@ -54,6 +55,8 @@ gcm_test_natural_light (void)
 
         nlight = gsd_natural_light_new ();
         g_assert (GSD_IS_NATURAL_LIGHT (nlight));
+        g_signal_connect (nlight, "notify::active",
+                          G_CALLBACK (on_notify), &active_cnt);
         g_signal_connect (nlight, "notify::sunset",
                           G_CALLBACK (on_notify), &sunset_cnt);
         g_signal_connect (nlight, "notify::sunrise",
@@ -75,6 +78,7 @@ gcm_test_natural_light (void)
         g_settings_set_boolean (settings, "natural-light-enabled", FALSE);
 
         /* check default values */
+        g_assert (!gsd_natural_light_get_active (nlight));
         g_assert_cmpint ((gint) gsd_natural_light_get_sunrise (nlight), ==, -1);
         g_assert_cmpint ((gint) gsd_natural_light_get_sunset (nlight), ==, -1);
         g_assert_cmpint (gsd_natural_light_get_temperature (nlight), ==, GSD_COLOR_TEMPERATURE_DEFAULT);
@@ -84,6 +88,8 @@ gcm_test_natural_light (void)
         ret = gsd_natural_light_start (nlight, &error);
         g_assert_no_error (error);
         g_assert (ret);
+        g_assert (!gsd_natural_light_get_active (nlight));
+        g_assert_cmpint (active_cnt, ==, 0);
         g_assert_cmpint (sunset_cnt, ==, 0);
         g_assert_cmpint (sunrise_cnt, ==, 0);
         g_assert_cmpint (temperature_cnt, ==, 0);
@@ -94,6 +100,8 @@ gcm_test_natural_light (void)
                               g_variant_new ("(dd)", 51.5, -0.1278));
         g_settings_set_boolean (settings, "natural-light-schedule-automatic", TRUE);
         g_settings_set_boolean (settings, "natural-light-enabled", TRUE);
+        g_assert (gsd_natural_light_get_active (nlight));
+        g_assert_cmpint (active_cnt, ==, 1);
         g_assert_cmpint (sunset_cnt, ==, 1);
         g_assert_cmpint (sunrise_cnt, ==, 1);
         g_assert_cmpint (temperature_cnt, ==, 1);
@@ -107,6 +115,7 @@ gcm_test_natural_light (void)
         gsd_natural_light_set_disabled_until_tmw (nlight, TRUE);
         gsd_natural_light_set_disabled_until_tmw (nlight, TRUE);
         g_assert_cmpint (gsd_natural_light_get_temperature (nlight), ==, GSD_COLOR_TEMPERATURE_DEFAULT);
+        g_assert (gsd_natural_light_get_active (nlight));
         g_assert (gsd_natural_light_get_disabled_until_tmw (nlight));
         g_assert_cmpint (temperature_cnt, ==, 2);
         g_assert_cmpint (disabled_until_tmw_cnt, ==, 1);
@@ -114,7 +123,9 @@ gcm_test_natural_light (void)
         /* change our mind */
         gsd_natural_light_set_disabled_until_tmw (nlight, FALSE);
         g_assert_cmpint (gsd_natural_light_get_temperature (nlight), ==, 4000);
+        g_assert (gsd_natural_light_get_active (nlight));
         g_assert (!gsd_natural_light_get_disabled_until_tmw (nlight));
+        g_assert_cmpint (active_cnt, ==, 1);
         g_assert_cmpint (temperature_cnt, ==, 3);
         g_assert_cmpint (disabled_until_tmw_cnt, ==, 2);
 
@@ -122,10 +133,12 @@ gcm_test_natural_light (void)
         g_settings_set_double (settings, "natural-light-schedule-from", 4.0);
         g_settings_set_double (settings, "natural-light-schedule-to", 16.f);
         g_settings_set_boolean (settings, "natural-light-schedule-automatic", FALSE);
+        g_assert_cmpint (active_cnt, ==, 2);
         g_assert_cmpint (sunset_cnt, ==, 1);
         g_assert_cmpint (sunrise_cnt, ==, 1);
         g_assert_cmpint (temperature_cnt, ==, 4);
         g_assert_cmpint (disabled_until_tmw_cnt, ==, 2);
+        g_assert (!gsd_natural_light_get_active (nlight));
         g_assert_cmpint ((gint) gsd_natural_light_get_sunrise (nlight), ==, 7);
         g_assert_cmpint ((gint) gsd_natural_light_get_sunset (nlight), ==, 17);
         g_assert_cmpint (gsd_natural_light_get_temperature (nlight), ==, GSD_COLOR_TEMPERATURE_DEFAULT);
@@ -133,6 +146,8 @@ gcm_test_natural_light (void)
 
         /* finally disable, with no changes */
         g_settings_set_boolean (settings, "natural-light-enabled", FALSE);
+        g_assert (!gsd_natural_light_get_active (nlight));
+        g_assert_cmpint (active_cnt, ==, 2);
         g_assert_cmpint (sunset_cnt, ==, 1);
         g_assert_cmpint (sunrise_cnt, ==, 1);
         g_assert_cmpint (temperature_cnt, ==, 4);

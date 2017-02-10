@@ -43,12 +43,14 @@ struct _GsdNaturalLight {
         gdouble            cached_sunrise;
         gdouble            cached_sunset;
         gdouble            cached_temperature;
+        gboolean           cached_active;
         GCancellable      *cancellable;
         GDateTime         *datetime_override;
 };
 
 enum {
         PROP_0,
+        PROP_ACTIVE,
         PROP_SUNRISE,
         PROP_SUNSET,
         PROP_TEMPERATURE,
@@ -143,6 +145,20 @@ gsd_natural_light_set_temperature (GsdNaturalLight *self, gdouble temperature)
 }
 
 static void
+gsd_natural_light_set_active (GsdNaturalLight *self, gboolean active)
+{
+        if (self->cached_active == active)
+                return;
+        self->cached_active = active;
+
+        /* ensure set to unity temperature */
+        if (!active)
+                gsd_natural_light_set_temperature (self, GSD_COLOR_TEMPERATURE_DEFAULT);
+
+        g_object_notify (G_OBJECT (self), "active");
+}
+
+static void
 natural_light_recheck (GsdNaturalLight *self)
 {
         gdouble frac_day;
@@ -156,8 +172,7 @@ natural_light_recheck (GsdNaturalLight *self)
         /* enabled */
         if (!g_settings_get_boolean (self->settings, "natural-light-enabled")) {
                 g_debug ("natural light disabled, resetting");
-                gsd_natural_light_set_temperature (self,
-                                                   GSD_COLOR_TEMPERATURE_DEFAULT);
+                gsd_natural_light_set_active (self, FALSE);
                 return;
         }
 
@@ -202,8 +217,7 @@ natural_light_recheck (GsdNaturalLight *self)
                                                     schedule_from - smear,
                                                     schedule_to)) {
                 g_debug ("not time for natural-light");
-                gsd_natural_light_set_temperature (self,
-                                                 GSD_COLOR_TEMPERATURE_DEFAULT);
+                gsd_natural_light_set_active (self, FALSE);
                 return;
         }
 
@@ -235,6 +249,7 @@ natural_light_recheck (GsdNaturalLight *self)
         }
         g_debug ("natural light mode on, using temperature of %uK (aiming for %uK)",
                  temp_smeared, temperature);
+        gsd_natural_light_set_active (self, TRUE);
         gsd_natural_light_set_temperature (self, temp_smeared);
 }
 
@@ -393,6 +408,12 @@ gsd_natural_light_get_disabled_until_tmw (GsdNaturalLight *self)
         return self->disabled_until_tmw;
 }
 
+gboolean
+gsd_natural_light_get_active (GsdNaturalLight *self)
+{
+        return self->cached_active;
+}
+
 gdouble
 gsd_natural_light_get_sunrise (GsdNaturalLight *self)
 {
@@ -494,6 +515,9 @@ gsd_natural_light_get_property (GObject    *object,
         GsdNaturalLight *self = GSD_NATURAL_LIGHT (object);
 
         switch (prop_id) {
+        case PROP_ACTIVE:
+                g_value_set_boolean (value, self->cached_active);
+                break;
         case PROP_SUNRISE:
                 g_value_set_double (value, self->cached_sunrise);
                 break;
@@ -519,6 +543,14 @@ gsd_natural_light_class_init (GsdNaturalLightClass *klass)
 
         object_class->set_property = gsd_natural_light_set_property;
         object_class->get_property = gsd_natural_light_get_property;
+
+        g_object_class_install_property (object_class,
+                                         PROP_ACTIVE,
+                                         g_param_spec_boolean ("active",
+                                                               "Active",
+                                                               "If natural light functionality is active right now",
+                                                               FALSE,
+                                                               G_PARAM_READABLE));
 
         g_object_class_install_property (object_class,
                                          PROP_SUNRISE,

@@ -31,6 +31,8 @@ G_DECLARE_FINAL_TYPE (GsdNaturalLight, gsd_natural_light, GSD, NATURAL_LIGHT, GO
 GsdNaturalLight *gsd_natural_light_new                    (void);
 gboolean         gsd_natural_light_start                  (GsdNaturalLight *self,
                                                            GError         **error);
+
+gboolean         gsd_natural_light_get_active             (GsdNaturalLight *self);
 gdouble          gsd_natural_light_get_sunrise            (GsdNaturalLight *self);
 gdouble          gsd_natural_light_get_sunset             (GsdNaturalLight *self);
 gdouble          gsd_natural_light_get_temperature        (GsdNaturalLight *self);

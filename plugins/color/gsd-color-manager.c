@@ -42,6 +42,7 @@
 static const gchar introspection_xml[] =
 "<node>"
 "  <interface name='org.gnome.SettingsDaemon.Color'>"
+"    <property name='NaturalLightActive' type='b' access='read'/>"
 "    <property name='Temperature' type='u' access='readwrite'/>"
 "    <property name='DisabledUntilTomorrow' type='b' access='readwrite'/>"
 "    <property name='Sunrise' type='d' access='read'/>"
@@ -162,6 +163,17 @@ emit_property_changed (GsdColorManager *manager,
 }
 
 static void
+on_active_notify (GsdNaturalLight *nlight,
+                  GParamSpec      *pspec,
+                  gpointer         user_data)
+{
+        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
+        GsdColorManagerPrivate *priv = manager->priv;
+        emit_property_changed (manager, "NaturalLightActive",
+                               g_variant_new_boolean (gsd_natural_light_get_active (priv->nlight)));
+}
+
+static void
 on_sunset_notify (GsdNaturalLight *nlight,
                   GParamSpec      *pspec,
                   gpointer         user_data)
@@ -220,6 +232,8 @@ gsd_color_manager_init (GsdColorManager *manager)
 
         /* natural light features */
         priv->nlight = gsd_natural_light_new ();
+        g_signal_connect (priv->nlight, "notify::active",
+                          G_CALLBACK (on_active_notify), manager);
         g_signal_connect (priv->nlight, "notify::sunset",
                           G_CALLBACK (on_sunset_notify), manager);
         g_signal_connect (priv->nlight, "notify::sunrise",
@@ -279,6 +293,9 @@ handle_get_property (GDBusConnection *connection,
                              "No such interface: %s", interface_name);
                 return NULL;
         }
+
+        if (g_strcmp0 (property_name, "NaturalLightActive") == 0)
+                return g_variant_new_boolean (gsd_natural_light_get_active (priv->nlight));
 
         if (g_strcmp0 (property_name, "Temperature") == 0) {
                 guint temperature;
