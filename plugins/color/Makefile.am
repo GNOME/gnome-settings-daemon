@@ -15,10 +15,10 @@ gcm_self_test_CFLAGS =			\
 gcm_self_test_SOURCES =			\
 	gcm-edid.c			\
 	gcm-edid.h			\
-	gsd-natural-light.c		\
-	gsd-natural-light.h		\
-	gsd-natural-light-common.c	\
-	gsd-natural-light-common.h	\
+	gsd-night-light.c		\
+	gsd-night-light.h		\
+	gsd-night-light-common.c	\
+	gsd-night-light-common.h	\
 	gnome-datetime-source.c		\
 	gnome-datetime-source.h		\
 	gcm-self-test.c
@@ -45,10 +45,10 @@ gsd_color_SOURCES =			\
 	gsd-color-profiles.h		\
 	gsd-color-state.c		\
 	gsd-color-state.h		\
-	gsd-natural-light.c		\
-	gsd-natural-light.h		\
-	gsd-natural-light-common.c	\
-	gsd-natural-light-common.h	\
+	gsd-night-light.c		\
+	gsd-night-light.h		\
+	gsd-night-light-common.c	\
+	gsd-night-light-common.h	\
 	$(NULL)
 
 gsd_color_CFLAGS =			\

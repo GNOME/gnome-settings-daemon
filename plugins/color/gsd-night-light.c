@@ -27,16 +27,16 @@
 
 #include "gsd-color-state.h"
 
-#include "gsd-natural-light.h"
-#include "gsd-natural-light-common.h"
+#include "gsd-night-light.h"
+#include "gsd-night-light-common.h"
 
-struct _GsdNaturalLight {
+struct _GsdNightLight {
         GObject            parent;
         GSettings         *settings;
         gboolean           disabled_until_tmw;
         gboolean           geoclue_enabled;
-        GSource           *natural_light_source;
-        guint              natural_light_validate_id;
+        GSource           *source;
+        guint              validate_id;
         gint               disabled_day_of_month;
         GClueClient       *geoclue_client;
         GClueSimple       *geoclue_simple;
@@ -58,22 +58,22 @@ enum {
         PROP_LAST
 };
 
-#define GSD_NATURAL_LIGHT_SCHEDULE_TIMEOUT      5       /* seconds */
-#define GSD_NATURAL_LIGHT_POLL_TIMEOUT          60      /* seconds */
-#define GSD_NATURAL_LIGHT_POLL_SMEAR            1       /* hours */
+#define GSD_NIGHT_LIGHT_SCHEDULE_TIMEOUT      5       /* seconds */
+#define GSD_NIGHT_LIGHT_POLL_TIMEOUT          60      /* seconds */
+#define GSD_NIGHT_LIGHT_POLL_SMEAR            1       /* hours */
 
 #define GSD_FRAC_DAY_MAX_DELTA                  (1.f/60.f)     /* 1 minute */
 #define GSD_TEMPERATURE_MAX_DELTA               (10.f)          /* Kelvin */
 
 #define DESKTOP_ID "gnome-color-panel"
 
-static void poll_timeout_destroy (GsdNaturalLight *self);
-static void poll_timeout_create (GsdNaturalLight *self);
+static void poll_timeout_destroy (GsdNightLight *self);
+static void poll_timeout_create (GsdNightLight *self);
 
-G_DEFINE_TYPE (GsdNaturalLight, gsd_natural_light, G_TYPE_OBJECT);
+G_DEFINE_TYPE (GsdNightLight, gsd_night_light, G_TYPE_OBJECT);
 
 static GDateTime *
-gsd_natural_light_get_date_time_now (GsdNaturalLight *self)
+gsd_night_light_get_date_time_now (GsdNightLight *self)
 {
         if (self->datetime_override != NULL)
                 return g_date_time_ref (self->datetime_override);
@@ -81,7 +81,7 @@ gsd_natural_light_get_date_time_now (GsdNaturalLight *self)
 }
 
 void
-gsd_natural_light_set_date_time_now (GsdNaturalLight *self, GDateTime *datetime)
+gsd_night_light_set_date_time_now (GsdNightLight *self, GDateTime *datetime)
 {
         if (self->datetime_override != NULL)
                 g_date_time_unref (self->datetime_override);
@@ -97,7 +97,7 @@ linear_interpolate (gdouble val1, gdouble val2, gdouble factor)
 }
 
 static gboolean
-update_cached_sunrise_sunset (GsdNaturalLight *self)
+update_cached_sunrise_sunset (GsdNightLight *self)
 {
         gboolean ret = FALSE;
         gdouble latitude;
@@ -105,16 +105,16 @@ update_cached_sunrise_sunset (GsdNaturalLight *self)
         gdouble sunrise;
         gdouble sunset;
         g_autoptr(GVariant) tmp = NULL;
-        g_autoptr(GDateTime) dt_now = gsd_natural_light_get_date_time_now (self);
+        g_autoptr(GDateTime) dt_now = gsd_night_light_get_date_time_now (self);
 
         /* calculate the sunrise/sunset for the location */
-        tmp = g_settings_get_value (self->settings, "natural-light-last-coordinates");
+        tmp = g_settings_get_value (self->settings, "night-light-last-coordinates");
         g_variant_get (tmp, "(dd)", &latitude, &longitude);
         if (latitude > 90.f || latitude < -90.f)
                 return FALSE;
         if (longitude > 180.f || longitude < -180.f)
                 return FALSE;
-        if (!gsd_natural_light_get_sunrise_sunset (dt_now, latitude, longitude,
+        if (!gsd_night_light_get_sunrise_sunset (dt_now, latitude, longitude,
                                                    &sunrise, &sunset)) {
                 g_warning ("failed to get sunset/sunrise for %.3f,%.3f",
                            longitude, longitude);
@@ -136,7 +136,7 @@ update_cached_sunrise_sunset (GsdNaturalLight *self)
 }
 
 static void
-gsd_natural_light_set_temperature (GsdNaturalLight *self, gdouble temperature)
+gsd_night_light_set_temperature (GsdNightLight *self, gdouble temperature)
 {
         if (ABS (self->cached_temperature - temperature) > GSD_TEMPERATURE_MAX_DELTA) {
                 self->cached_temperature = temperature;
@@ -145,7 +145,7 @@ gsd_natural_light_set_temperature (GsdNaturalLight *self, gdouble temperature)
 }
 
 static void
-gsd_natural_light_set_active (GsdNaturalLight *self, gboolean active)
+gsd_night_light_set_active (GsdNightLight *self, gboolean active)
 {
         if (self->cached_active == active)
                 return;
@@ -153,26 +153,26 @@ gsd_natural_light_set_active (GsdNaturalLight *self, gboolean active)
 
         /* ensure set to unity temperature */
         if (!active)
-                gsd_natural_light_set_temperature (self, GSD_COLOR_TEMPERATURE_DEFAULT);
+                gsd_night_light_set_temperature (self, GSD_COLOR_TEMPERATURE_DEFAULT);
 
         g_object_notify (G_OBJECT (self), "active");
 }
 
 static void
-natural_light_recheck (GsdNaturalLight *self)
+night_light_recheck (GsdNightLight *self)
 {
         gdouble frac_day;
         gdouble schedule_from = -1.f;
         gdouble schedule_to = -1.f;
-        gdouble smear = GSD_NATURAL_LIGHT_POLL_SMEAR; /* hours */
+        gdouble smear = GSD_NIGHT_LIGHT_POLL_SMEAR; /* hours */
         guint temperature;
         guint temp_smeared;
-        g_autoptr(GDateTime) dt_now = gsd_natural_light_get_date_time_now (self);
+        g_autoptr(GDateTime) dt_now = gsd_night_light_get_date_time_now (self);
 
         /* enabled */
-        if (!g_settings_get_boolean (self->settings, "natural-light-enabled")) {
-                g_debug ("natural light disabled, resetting");
-                gsd_natural_light_set_active (self, FALSE);
+        if (!g_settings_get_boolean (self->settings, "night-light-enabled")) {
+                g_debug ("night light disabled, resetting");
+                gsd_night_light_set_active (self, FALSE);
                 return;
         }
 
@@ -180,8 +180,8 @@ natural_light_recheck (GsdNaturalLight *self)
         if (self->disabled_until_tmw) {
                 gint tmp_day_of_month = g_date_time_get_day_of_month (dt_now);
                 if (tmp_day_of_month == self->disabled_day_of_month) {
-                        g_debug ("natural light still day-disabled, resetting");
-                        gsd_natural_light_set_temperature (self,
+                        g_debug ("night light still day-disabled, resetting");
+                        gsd_night_light_set_temperature (self,
                                                          GSD_COLOR_TEMPERATURE_DEFAULT);
                         return;
                 }
@@ -193,7 +193,7 @@ natural_light_recheck (GsdNaturalLight *self)
         }
 
         /* calculate the position of the sun */
-        if (g_settings_get_boolean (self->settings, "natural-light-schedule-automatic")) {
+        if (g_settings_get_boolean (self->settings, "night-light-schedule-automatic")) {
                 update_cached_sunrise_sunset (self);
                 if (self->cached_sunrise > 0.f && self->cached_sunset > 0.f) {
                         schedule_to = self->cached_sunrise;
@@ -204,20 +204,20 @@ natural_light_recheck (GsdNaturalLight *self)
         /* fall back to manual settings */
         if (schedule_to <= 0.f || schedule_from <= 0.f) {
                 schedule_from = g_settings_get_double (self->settings,
-                                                       "natural-light-schedule-from");
+                                                       "night-light-schedule-from");
                 schedule_to = g_settings_get_double (self->settings,
-                                                     "natural-light-schedule-to");
+                                                     "night-light-schedule-to");
         }
 
         /* get the current hour of a day as a fraction */
-        frac_day = gsd_natural_light_frac_day_from_dt (dt_now);
+        frac_day = gsd_night_light_frac_day_from_dt (dt_now);
         g_debug ("fractional day = %.3f, limits = %.3f->%.3f",
                  frac_day, schedule_from, schedule_to);
-        if (!gsd_natural_light_frac_day_is_between (frac_day,
+        if (!gsd_night_light_frac_day_is_between (frac_day,
                                                     schedule_from - smear,
                                                     schedule_to)) {
-                g_debug ("not time for natural-light");
-                gsd_natural_light_set_active (self, FALSE);
+                g_debug ("not time for night-light");
+                gsd_night_light_set_active (self, FALSE);
                 return;
         }
 
@@ -231,14 +231,14 @@ natural_light_recheck (GsdNaturalLight *self)
          *  \                      /
          *   \--------------------/
          */
-        temperature = g_settings_get_uint (self->settings, "natural-light-temperature");
-        if (gsd_natural_light_frac_day_is_between (frac_day,
+        temperature = g_settings_get_uint (self->settings, "night-light-temperature");
+        if (gsd_night_light_frac_day_is_between (frac_day,
                                                    schedule_from - smear,
                                                    schedule_from)) {
                 gdouble factor = 1.f - ((frac_day - (schedule_from - smear)) / smear);
                 temp_smeared = linear_interpolate (GSD_COLOR_TEMPERATURE_DEFAULT,
                                                    temperature, factor);
-        } else if (gsd_natural_light_frac_day_is_between (frac_day,
+        } else if (gsd_night_light_frac_day_is_between (frac_day,
                                                           schedule_to - smear,
                                                           schedule_to)) {
                 gdouble factor = ((schedule_to - smear) - frac_day) / smear;
@@ -247,41 +247,41 @@ natural_light_recheck (GsdNaturalLight *self)
         } else {
                 temp_smeared = temperature;
         }
-        g_debug ("natural light mode on, using temperature of %uK (aiming for %uK)",
+        g_debug ("night light mode on, using temperature of %uK (aiming for %uK)",
                  temp_smeared, temperature);
-        gsd_natural_light_set_active (self, TRUE);
-        gsd_natural_light_set_temperature (self, temp_smeared);
+        gsd_night_light_set_active (self, TRUE);
+        gsd_night_light_set_temperature (self, temp_smeared);
 }
 
 static gboolean
-natural_light_recheck_schedule_cb (gpointer user_data)
+night_light_recheck_schedule_cb (gpointer user_data)
 {
-        GsdNaturalLight *self = GSD_NATURAL_LIGHT (user_data);
-        natural_light_recheck (self);
-        self->natural_light_validate_id = 0;
+        GsdNightLight *self = GSD_NIGHT_LIGHT (user_data);
+        night_light_recheck (self);
+        self->validate_id = 0;
         return G_SOURCE_REMOVE;
 }
 
 /* called when something changed */
 static void
-natural_light_recheck_schedule (GsdNaturalLight *self)
+night_light_recheck_schedule (GsdNightLight *self)
 {
-        if (self->natural_light_validate_id != 0)
-                g_source_remove (self->natural_light_validate_id);
-        self->natural_light_validate_id =
-                g_timeout_add_seconds (GSD_NATURAL_LIGHT_SCHEDULE_TIMEOUT,
-                                       natural_light_recheck_schedule_cb,
+        if (self->validate_id != 0)
+                g_source_remove (self->validate_id);
+        self->validate_id =
+                g_timeout_add_seconds (GSD_NIGHT_LIGHT_SCHEDULE_TIMEOUT,
+                                       night_light_recheck_schedule_cb,
                                        self);
 }
 
 /* called when the time may have changed */
 static gboolean
-natural_light_recheck_cb (gpointer user_data)
+night_light_recheck_cb (gpointer user_data)
 {
-        GsdNaturalLight *self = GSD_NATURAL_LIGHT (user_data);
+        GsdNightLight *self = GSD_NIGHT_LIGHT (user_data);
 
         /* recheck parameters, then reschedule a new timeout */
-        natural_light_recheck (self);
+        night_light_recheck (self);
         poll_timeout_destroy (self);
         poll_timeout_create (self);
 
@@ -290,42 +290,42 @@ natural_light_recheck_cb (gpointer user_data)
 }
 
 static void
-poll_timeout_create (GsdNaturalLight *self)
+poll_timeout_create (GsdNightLight *self)
 {
         g_autoptr(GDateTime) dt_now = NULL;
         g_autoptr(GDateTime) dt_expiry = NULL;
 
-        if (self->natural_light_source != NULL)
+        if (self->source != NULL)
                 return;
 
-        dt_now = gsd_natural_light_get_date_time_now (self);
-        dt_expiry = g_date_time_add_seconds (dt_now, GSD_NATURAL_LIGHT_POLL_TIMEOUT);
-        self->natural_light_source = _gnome_datetime_source_new (dt_now,
+        dt_now = gsd_night_light_get_date_time_now (self);
+        dt_expiry = g_date_time_add_seconds (dt_now, GSD_NIGHT_LIGHT_POLL_TIMEOUT);
+        self->source = _gnome_datetime_source_new (dt_now,
                                                                  dt_expiry,
                                                                  FALSE);
-        g_source_set_callback (self->natural_light_source,
-                               natural_light_recheck_cb,
+        g_source_set_callback (self->source,
+                               night_light_recheck_cb,
                                self, NULL);
-        g_source_attach (self->natural_light_source, NULL);
+        g_source_attach (self->source, NULL);
 }
 
 static void
-poll_timeout_destroy (GsdNaturalLight *self)
+poll_timeout_destroy (GsdNightLight *self)
 {
 
-        if (self->natural_light_source == NULL)
+        if (self->source == NULL)
                 return;
 
-        g_source_destroy (self->natural_light_source);
-        self->natural_light_source = NULL;
+        g_source_destroy (self->source);
+        self->source = NULL;
 }
 
 static void
 settings_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
-        GsdNaturalLight *self = GSD_NATURAL_LIGHT (user_data);
+        GsdNightLight *self = GSD_NIGHT_LIGHT (user_data);
         g_debug ("settings changed");
-        natural_light_recheck (self);
+        night_light_recheck (self);
 }
 
 static void
@@ -333,7 +333,7 @@ on_location_notify (GClueSimple *simple,
                     GParamSpec  *pspec,
                     gpointer     user_data)
 {
-        GsdNaturalLight *self = GSD_NATURAL_LIGHT (user_data);
+        GsdNightLight *self = GSD_NIGHT_LIGHT (user_data);
         GClueLocation *location;
         gdouble latitude, longitude;
 
@@ -342,14 +342,14 @@ on_location_notify (GClueSimple *simple,
         longitude = gclue_location_get_longitude (location);
 
         g_settings_set_value (self->settings,
-                              "natural-light-last-coordinates",
+                              "night-light-last-coordinates",
                               g_variant_new ("(dd)", latitude, longitude));
 
         g_debug ("got geoclue latitude %f, longitude %f", latitude, longitude);
 
         /* recheck the levels if the location changed significantly */
         if (update_cached_sunrise_sunset (self))
-                natural_light_recheck_schedule (self);
+                night_light_recheck_schedule (self);
 }
 
 static void
@@ -357,7 +357,7 @@ on_geoclue_simple_ready (GObject      *source_object,
                          GAsyncResult *res,
                          gpointer      user_data)
 {
-        GsdNaturalLight *self = GSD_NATURAL_LIGHT (user_data);
+        GsdNightLight *self = GSD_NIGHT_LIGHT (user_data);
         GClueSimple *geoclue_simple;
         g_autoptr(GError) error = NULL;
 
@@ -378,7 +378,7 @@ on_geoclue_simple_ready (GObject      *source_object,
 }
 
 static void
-register_geoclue (GsdNaturalLight *self)
+register_geoclue (GsdNightLight *self)
 {
         gclue_simple_new (DESKTOP_ID,
                           GCLUE_ACCURACY_LEVEL_CITY,
@@ -389,63 +389,63 @@ register_geoclue (GsdNaturalLight *self)
 }
 
 void
-gsd_natural_light_set_disabled_until_tmw (GsdNaturalLight *self, gboolean value)
+gsd_night_light_set_disabled_until_tmw (GsdNightLight *self, gboolean value)
 {
-        g_autoptr(GDateTime) dt = gsd_natural_light_get_date_time_now (self);
+        g_autoptr(GDateTime) dt = gsd_night_light_get_date_time_now (self);
 
         if (self->disabled_until_tmw == value)
                 return;
 
         self->disabled_until_tmw = value;
         self->disabled_day_of_month = g_date_time_get_day_of_month (dt);
-        natural_light_recheck (self);
+        night_light_recheck (self);
         g_object_notify (G_OBJECT (self), "disabled-until-tmw");
 }
 
 gboolean
-gsd_natural_light_get_disabled_until_tmw (GsdNaturalLight *self)
+gsd_night_light_get_disabled_until_tmw (GsdNightLight *self)
 {
         return self->disabled_until_tmw;
 }
 
 gboolean
-gsd_natural_light_get_active (GsdNaturalLight *self)
+gsd_night_light_get_active (GsdNightLight *self)
 {
         return self->cached_active;
 }
 
 gdouble
-gsd_natural_light_get_sunrise (GsdNaturalLight *self)
+gsd_night_light_get_sunrise (GsdNightLight *self)
 {
         return self->cached_sunrise;
 }
 
 gdouble
-gsd_natural_light_get_sunset (GsdNaturalLight *self)
+gsd_night_light_get_sunset (GsdNightLight *self)
 {
         return self->cached_sunset;
 }
 
 gdouble
-gsd_natural_light_get_temperature (GsdNaturalLight *self)
+gsd_night_light_get_temperature (GsdNightLight *self)
 {
         return self->cached_temperature;
 }
 
 void
-gsd_natural_light_set_geoclue_enabled (GsdNaturalLight *self, gboolean enabled)
+gsd_night_light_set_geoclue_enabled (GsdNightLight *self, gboolean enabled)
 {
         self->geoclue_enabled = enabled;
 }
 
 gboolean
-gsd_natural_light_start (GsdNaturalLight *self, GError **error)
+gsd_night_light_start (GsdNightLight *self, GError **error)
 {
 
         if (self->geoclue_enabled)
                 register_geoclue (self);
 
-        natural_light_recheck (self);
+        night_light_recheck (self);
         poll_timeout_create (self);
 
         /* care about changes */
@@ -455,9 +455,9 @@ gsd_natural_light_start (GsdNaturalLight *self, GError **error)
 }
 
 static void
-gsd_natural_light_finalize (GObject *object)
+gsd_night_light_finalize (GObject *object)
 {
-        GsdNaturalLight *self = GSD_NATURAL_LIGHT (object);
+        GsdNightLight *self = GSD_NIGHT_LIGHT (object);
 
         poll_timeout_destroy (self);
 
@@ -469,24 +469,24 @@ gsd_natural_light_finalize (GObject *object)
                 g_clear_object (&self->cancellable);
         }
 
-        if (self->natural_light_validate_id > 0) {
-                g_source_remove (self->natural_light_validate_id);
-                self->natural_light_validate_id = 0;
+        if (self->validate_id > 0) {
+                g_source_remove (self->validate_id);
+                self->validate_id = 0;
         }
 
         if (self->geoclue_client != NULL)
                 gclue_client_call_stop (self->geoclue_client, NULL, NULL, NULL);
         g_clear_object (&self->geoclue_simple);
-        G_OBJECT_CLASS (gsd_natural_light_parent_class)->finalize (object);
+        G_OBJECT_CLASS (gsd_night_light_parent_class)->finalize (object);
 }
 
 static void
-gsd_natural_light_set_property (GObject      *object,
+gsd_night_light_set_property (GObject      *object,
                                 guint         prop_id,
                                 const GValue *value,
                                 GParamSpec   *pspec)
 {
-        GsdNaturalLight *self = GSD_NATURAL_LIGHT (object);
+        GsdNightLight *self = GSD_NIGHT_LIGHT (object);
 
         switch (prop_id) {
         case PROP_SUNRISE:
@@ -507,12 +507,12 @@ gsd_natural_light_set_property (GObject      *object,
 }
 
 static void
-gsd_natural_light_get_property (GObject    *object,
+gsd_night_light_get_property (GObject    *object,
                                 guint       prop_id,
                                 GValue     *value,
                                 GParamSpec *pspec)
 {
-        GsdNaturalLight *self = GSD_NATURAL_LIGHT (object);
+        GsdNightLight *self = GSD_NIGHT_LIGHT (object);
 
         switch (prop_id) {
         case PROP_ACTIVE:
@@ -528,7 +528,7 @@ gsd_natural_light_get_property (GObject    *object,
                 g_value_set_double (value, self->cached_sunrise);
                 break;
         case PROP_DISABLED_UNTIL_TMW:
-                g_value_set_boolean (value, gsd_natural_light_get_disabled_until_tmw (self));
+                g_value_set_boolean (value, gsd_night_light_get_disabled_until_tmw (self));
                 break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -536,19 +536,19 @@ gsd_natural_light_get_property (GObject    *object,
 }
 
 static void
-gsd_natural_light_class_init (GsdNaturalLightClass *klass)
+gsd_night_light_class_init (GsdNightLightClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
-        object_class->finalize = gsd_natural_light_finalize;
+        object_class->finalize = gsd_night_light_finalize;
 
-        object_class->set_property = gsd_natural_light_set_property;
-        object_class->get_property = gsd_natural_light_get_property;
+        object_class->set_property = gsd_night_light_set_property;
+        object_class->get_property = gsd_night_light_get_property;
 
         g_object_class_install_property (object_class,
                                          PROP_ACTIVE,
                                          g_param_spec_boolean ("active",
                                                                "Active",
-                                                               "If natural light functionality is active right now",
+                                                               "If night light functionality is active right now",
                                                                FALSE,
                                                                G_PARAM_READABLE));
 
@@ -586,14 +586,14 @@ gsd_natural_light_class_init (GsdNaturalLightClass *klass)
                                          PROP_DISABLED_UNTIL_TMW,
                                          g_param_spec_boolean ("disabled-until-tmw",
                                                                "Disabled until tomorrow",
-                                                               "If the natural light is disabled until the next day",
+                                                               "If the night light is disabled until the next day",
                                                                FALSE,
                                                                G_PARAM_READWRITE));
 
 }
 
 static void
-gsd_natural_light_init (GsdNaturalLight *self)
+gsd_night_light_init (GsdNightLight *self)
 {
         self->cached_sunrise = -1.f;
         self->cached_sunset = -1.f;
@@ -602,8 +602,8 @@ gsd_natural_light_init (GsdNaturalLight *self)
         self->settings = g_settings_new ("org.gnome.settings-daemon.plugins.color");
 }
 
-GsdNaturalLight *
-gsd_natural_light_new (void)
+GsdNightLight *
+gsd_night_light_new (void)
 {
-        return g_object_new (GSD_TYPE_NATURAL_LIGHT, NULL);
+        return g_object_new (GSD_TYPE_NIGHT_LIGHT, NULL);
 }
