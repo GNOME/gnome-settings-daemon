@@ -8,8 +8,6 @@ polkit_policydir = $(datadir)/polkit-1/actions
 polkit_policy_in_files = org.gnome.settings-daemon.plugins.wacom.policy.in
 polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
 
-EXTRA_DIST = wacom.gresource.xml
-
 libexec_PROGRAMS = gsd-wacom
 
 if HAVE_GUDEV
@@ -32,12 +30,13 @@ else
 libexec_PROGRAMS =
 endif
 
-EXTRA_DIST += org.gnome.settings-daemon.plugins.wacom.policy.in.in
+EXTRA_DIST = org.gnome.settings-daemon.plugins.wacom.policy.in.in
 
 gsd_wacom_SOURCES =            \
 	main.c                  \
 	gsd-wacom-manager.c     \
 	gsd-wacom-manager.h     \
+	gsd-wacom-oled-constants.h \
 	gsd-wacom-oled.h        \
 	gsd-wacom-oled.c
 
