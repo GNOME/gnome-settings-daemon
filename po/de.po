@@ -17,7 +17,7 @@
 # Frank Arnold <frank@scirocco-5v-turbo.de>, 2005.
 # Jens Seidel <jseidel@cvs.gnome.org>, 2005.
 # Christian Kintner <ckintner@gnome-de.org>, 2007.
-# Mario Blättermann <mario.blaettermann@gmail.com>, 2009-2011, 2016.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2009-2011, 2016-2017.
 # Paul Seyfert <pseyfert@mathphys.fsk.uni-heidelberg.de>, 2010.
 # Wolfgang Stöggl <c72578@yahoo.de>, 2012, 2015.
 # Hedda Peters <hpeters@redhat.com>, 2012.
@@ -30,8 +30,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-10-12 04:56+0000\n"
-"PO-Revision-Date: 2016-11-15 11:08+0100\n"
+"POT-Creation-Date: 2017-02-10 16:35+0000\n"
+"PO-Revision-Date: 2017-02-10 19:07+0100\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -259,6 +259,81 @@ msgid ""
 msgstr ""
 "Die Anzahl der Tage, nachdem ein Drucker-Farbprofil als ungültig angesehen "
 "wird."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
+msgid "If the night night mode is enabled"
+msgstr "Gibt an, ob der Nachtmodus aktiviert ist"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
+msgid ""
+"Night light mode changes the color temperature of your display when the sun "
+"has gone down or at present times."
+msgstr ""
+"Der Nachtmodus ändert nach Sonnenuntergang oder zu bestimmten Zeiten die "
+"Farbtemperatur Ihres Bildschirms."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
+msgid "Temperature of the display when enabled"
+msgstr "Farbtemperatur des Bildschirms, wenn aktiviert"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
+msgid ""
+"This temperature in Kelvin is used to modify the screen tones when night "
+"light mode is enabled. Higher values are bluer, lower redder."
+msgstr ""
+"Wenn der Nachtmodus aktiviert ist, wird diese Temperatur in Kelvin für die "
+"Farbkorrektur des Bildschirms verwendet. Höhere Werte verursachen eine "
+"Blauverschiebung, niedrigere Werte eine Rotverschiebung im Farbspektrum."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:9
+msgid "Use the sunrise and sunset"
+msgstr "Sonnenaufgang und -untergang verwenden"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:10
+msgid ""
+"Calculate the sunrise and sunset times automatically, from the current "
+"location."
+msgstr ""
+"Die Zeiten für Sonnenaufgang und -untergang werden automatisch aus dem "
+"aktuellen Standort berechnet."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:11
+msgid "The start time"
+msgstr "Startzeit"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:12
+msgid ""
+"When “night-light-schedule-automatic” is disabled, use this start time in "
+"hours from midnight."
+msgstr ""
+"Wenn »night-light-schedule-automatic« deaktiviert ist, wird diese Startzeit "
+"verwendet, gerechnet ab Mitternacht."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:13
+msgid "The end time"
+msgstr "Endzeit"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:14
+msgid ""
+"When “night-light-schedule-automatic” is disabled, use this end time in "
+"hours from midnight."
+msgstr ""
+"Wenn »night-light-schedule-automatic« deaktiviert ist, wird diese Endzeit "
+"verwendet, gerechnet ab Mitternacht."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:15
+msgid "The last detected position"
+msgstr "Letzte erkannte Position"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:16
+msgid ""
+"When location services are available this represents the last detected "
+"location. The default value is an invalid value to ensure it is always "
+"updated at startup."
+msgstr ""
+"Wenn Ortungsdienste verfügbar sind, kennzeichnet dies die zuletzt "
+"festgestellte Position. Der Standardwert ist ein ungültiger Wert, um "
+"sicherzustellen, dass beim Start stets eine Aktualisierung erfolgt."
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 msgid "List of plugins that are allowed to be loaded"
@@ -846,6 +921,7 @@ msgstr ""
 msgid "Color"
 msgstr "Farbe"
 
+#. TRANSLATORS: button: this is to open GCM
 #: ../plugins/color/gsd-color-calibrate.c:144
 msgid "Recalibrate now"
 msgstr "Jetzt neu kalibrieren"
@@ -955,27 +1031,31 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Auf diesem Rechner ist nur noch %s Speicherplatz verfügbar."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2114
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2130
 msgid "Bluetooth disabled"
 msgstr "Bluetooth ist deaktiviert"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2117
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2133
 msgid "Bluetooth enabled"
 msgstr "Bluetooth ist aktiviert"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2121
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2137
 msgid "Airplane mode enabled"
 msgstr "Flugzeugmodus ist aktiviert"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2124
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2140
 msgid "Airplane mode disabled"
 msgstr "Flugzeugmodus ist deaktiviert"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2152
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2168
 msgid "Hardware Airplane Mode"
 msgstr "Hardware-Flugzeugmodus"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2212
+#. Translators: this is a filename used for screencast
+#. * recording, where "%d" and "%t" date and time, e.g.
+#. * "Screencast from 07-17-2013 10:00:46 PM.webm"
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2228
+#, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Bildschirmvideo von %d %t.webm"
 
@@ -1143,18 +1223,18 @@ msgstr "Flugzeugmodus ein- oder ausschalten"
 msgid "Toggle Bluetooth"
 msgstr "Bluetooth ein- oder ausschalten"
 
-#: ../plugins/power/gpm-common.c:81
+#: ../plugins/power/gpm-common.c:100
 msgid "Unknown time"
 msgstr "Unbekannte Zeit"
 
-#: ../plugins/power/gpm-common.c:86
+#: ../plugins/power/gpm-common.c:105
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i Minute"
 msgstr[1] "%i Minuten"
 
-#: ../plugins/power/gpm-common.c:96
+#: ../plugins/power/gpm-common.c:115
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1163,25 +1243,25 @@ msgstr[1] "%i Stunden"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: ../plugins/power/gpm-common.c:102
+#: ../plugins/power/gpm-common.c:121
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: ../plugins/power/gpm-common.c:103
+#: ../plugins/power/gpm-common.c:122
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "Stunde"
 msgstr[1] "Stunden"
 
-#: ../plugins/power/gpm-common.c:104
+#: ../plugins/power/gpm-common.c:123
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "Minute"
 msgstr[1] "Minuten"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:929 ../plugins/power/gsd-power-manager.c:684
+#: ../plugins/power/gpm-common.c:948 ../plugins/power/gsd-power-manager.c:684
 #: ../plugins/power/gsd-power-manager.c:781
 msgid "Battery is critically low"
 msgstr "Kritischer Ladezustand des Akkus"
@@ -1496,27 +1576,27 @@ msgstr "Batteriebetrieb"
 msgid "On AC power"
 msgstr "Netzbetrieb"
 
-#: ../plugins/power/gsd-power-manager.c:2034
+#: ../plugins/power/gsd-power-manager.c:2038
 msgid "Automatic logout"
 msgstr "Automatisch abmelden"
 
-#: ../plugins/power/gsd-power-manager.c:2034
+#: ../plugins/power/gsd-power-manager.c:2038
 msgid "You will soon log out because of inactivity."
 msgstr "Aufgrund von Inaktivität werden Sie bald abgemeldet."
 
 # oder Automatischer Bereitschaftsmodus
-#: ../plugins/power/gsd-power-manager.c:2039
+#: ../plugins/power/gsd-power-manager.c:2043
 msgid "Automatic suspend"
 msgstr "Automatisch in den Bereitschaftsmodus wechseln"
 
-#: ../plugins/power/gsd-power-manager.c:2039
-#: ../plugins/power/gsd-power-manager.c:2044
+#: ../plugins/power/gsd-power-manager.c:2043
+#: ../plugins/power/gsd-power-manager.c:2048
 msgid "Computer will suspend very soon because of inactivity."
 msgstr ""
 "Aufgrund von Inaktivität wird der Rechner bald in Bereitschaft versetzt."
 
 # oder Automatischer Ruhezustand
-#: ../plugins/power/gsd-power-manager.c:2044
+#: ../plugins/power/gsd-power-manager.c:2048
 msgid "Automatic hibernation"
 msgstr "Automatisch in den Ruhezustand wechseln"
 
