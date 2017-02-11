@@ -31,8 +31,6 @@ libcommon_la_SOURCES = \
 	gsd-device-manager-x11.h  \
 	gsd-device-mapper.c	\
 	gsd-device-mapper.h	\
-	gsd-keygrab.c		\
-	gsd-keygrab.h		\
 	gsd-input-helper.c	\
 	gsd-input-helper.h	\
 	gsd-settings-migrate.c	\
