@@ -27,6 +27,10 @@
 #include <libwacom/libwacom.h>
 #endif
 
+#define GNOME_DESKTOP_USE_UNSTABLE_API
+#include <libgnome-desktop/gnome-rr.h>
+#undef GNOME_DESKTOP_USE_UNSTABLE_API
+
 #include "gsd-device-manager.h"
 #include "gsd-device-mapper.h"
 #include "gsd-input-helper.h"
@@ -1015,81 +1019,4 @@ gsd_device_mapper_remove_input (GsdDeviceMapper *mapper,
 	g_return_if_fail (device != NULL);
 
 	g_hash_table_remove (mapper->input_devices, device);
-}
-
-GnomeRROutput *
-gsd_device_mapper_get_device_output (GsdDeviceMapper *mapper,
-				     GsdDevice	     *device)
-{
-	GsdOutputInfo *output;
-	GsdInputInfo *input;
-
-	g_return_val_if_fail (mapper != NULL, NULL);
-	g_return_val_if_fail (device != NULL, NULL);
-
-	input = g_hash_table_lookup (mapper->input_devices, device);
-	output = input_info_get_output (input);
-
-	if (!output)
-		return NULL;
-
-	return output->output;
-}
-
-gint
-gsd_device_mapper_get_device_monitor (GsdDeviceMapper *mapper,
-				      GsdDevice	      *device)
-{
-	GsdOutputInfo *output;
-	GsdInputInfo *input;
-
-	g_return_val_if_fail (GSD_IS_DEVICE_MAPPER (mapper), -1);
-	g_return_val_if_fail (GSD_IS_DEVICE (device), -1);
-
-	input = g_hash_table_lookup (mapper->input_devices, device);
-
-	if (!input)
-		return -1;
-
-	output = input_info_get_output (input);
-
-	if (!output)
-		return -1;
-
-	return monitor_for_output (output->output);
-}
-
-void
-gsd_device_mapper_set_device_output (GsdDeviceMapper *mapper,
-				     GsdDevice	     *device,
-				     GnomeRROutput   *output)
-{
-	GsdInputInfo *input_info;
-	GsdOutputInfo *output_info;
-
-	g_return_if_fail (mapper != NULL);
-	g_return_if_fail (GSD_IS_DEVICE (device));
-
-	input_info = g_hash_table_lookup (mapper->input_devices, device);
-	output_info = g_hash_table_lookup (mapper->output_devices, output);
-
-	if (!input_info || !output_info)
-		return;
-
-	input_info_set_output (input_info, output_info, FALSE, TRUE);
-	input_info_remap (input_info);
-}
-
-void
-gsd_device_mapper_set_device_monitor (GsdDeviceMapper *mapper,
-				      GsdDevice	      *device,
-				      gint	       monitor_num)
-{
-	GnomeRROutput *output;
-
-	g_return_if_fail (GSD_IS_DEVICE_MAPPER (mapper));
-	g_return_if_fail (GSD_IS_DEVICE (device));
-
-	output = monitor_to_output (mapper, monitor_num);
-	gsd_device_mapper_set_device_output (mapper, device, output);
 }

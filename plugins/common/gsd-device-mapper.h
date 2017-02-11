@@ -20,11 +20,6 @@
 #ifndef __GSD_DEVICE_MAPPER_H__
 #define __GSD_DEVICE_MAPPER_H__
 
-#define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-rr.h>
-#undef GNOME_DESKTOP_USE_UNSTABLE_API
-#include <gdk/gdk.h>
-
 #include "gsd-device-manager.h"
 
 G_BEGIN_DECLS
@@ -46,23 +41,6 @@ void		  gsd_device_mapper_add_input	      (GsdDeviceMapper *mapper,
 						       GsdDevice       *device);
 void		  gsd_device_mapper_remove_input      (GsdDeviceMapper *mapper,
 						       GsdDevice       *device);
-void		  gsd_device_mapper_add_output	      (GsdDeviceMapper *mapper,
-						       GnomeRROutput   *output);
-void		  gsd_device_mapper_remove_output     (GsdDeviceMapper *mapper,
-						       GnomeRROutput   *output);
-
-GnomeRROutput	* gsd_device_mapper_get_device_output (GsdDeviceMapper *mapper,
-						       GsdDevice       *device);
-
-void		  gsd_device_mapper_set_device_output (GsdDeviceMapper *mapper,
-						       GsdDevice       *device,
-						       GnomeRROutput   *output);
-
-gint		  gsd_device_mapper_get_device_monitor (GsdDeviceMapper *mapper,
-							GsdDevice	*device);
-void		  gsd_device_mapper_set_device_monitor (GsdDeviceMapper *mapper,
-							GsdDevice	*device,
-							gint		 monitor_num);
 
 G_END_DECLS
 
