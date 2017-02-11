@@ -32,8 +32,6 @@
 
 #include <glib.h>
 #include <glib/gi18n-lib.h>
-#include <gtk/gtk.h>
-#include <libnotify/notify.h>
 
 #include "gsd-enums.h"
 #include "gnome-settings-profile.h"
@@ -157,8 +155,6 @@ gsd_wacom_manager_class_init (GsdWacomManagerClass *klass)
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
         object_class->finalize = gsd_wacom_manager_finalize;
-
-        notify_init ("gnome-settings-daemon");
 
         g_type_class_add_private (klass, sizeof (GsdWacomManagerPrivate));
 }

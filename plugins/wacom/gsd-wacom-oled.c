@@ -26,9 +26,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <libwacom/libwacom.h>
 
-#include <gtk/gtk.h>
 #include "gsd-device-manager.h"
 #include "gsd-wacom-oled.h"
 

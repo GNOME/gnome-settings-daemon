@@ -20,6 +20,8 @@
 #include "gsd-wacom-oled-constants.h"
 #include "gsd-device-manager.h"
 
+#include <gdk-pixbuf/gdk-pixbuf.h>
+
 #ifndef __GSD_WACOM_OLED_H
 #define __GSD_WACOM_OLED_H
 
