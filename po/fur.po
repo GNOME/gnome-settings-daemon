@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-02-09 16:55+0000\n"
-"PO-Revision-Date: 2017-02-11 09:14+0100\n"
+"POT-Creation-Date: 2017-02-11 08:15+0000\n"
+"PO-Revision-Date: 2017-02-11 09:30+0100\n"
 "Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <fur@li.org>\n"
 "Language: fur\n"
@@ -229,19 +229,23 @@ msgstr ""
 "Chest al è il numar di dîs dopo dai cuâi il profîl di colôr de stampant al "
 "ven considerât no valit."
 
+# night night mode? o night light mode?
+# io ho usato night light mode
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
-msgid "If the natural night mode is enabled"
-msgstr "Se la modalitât gnot naturâl e je abilitade"
+msgid "If the night night mode is enabled"
+msgstr "Se la modalitât lûs noturne e je abilitade"
 
 # o aes oris atuâls???
+# tempi moderni???
+# WTF!
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
 #, fuzzy
 msgid ""
-"Natural light mode changes the color temperature of your display when the "
-"sun has gone down or at present times."
+"Night light mode changes the color temperature of your display when the sun "
+"has gone down or at present times."
 msgstr ""
-"La modalitât lûs naturâl e cambie la temperadure dal colôr dal to visôr "
-"cuant che il soreli al è lât ju o aes oris atuâls."
+"La modalitât lûs noturne e cambie la temperadure dal colôr dal to visôr "
+"cuant che il soreli al è lât ju o al dì di vuê."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
 msgid "Temperature of the display when enabled"
@@ -249,11 +253,11 @@ msgstr "Temperadure dal visôr cuant che e je abilitade"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
 msgid ""
-"This temperature in Kelvin is used to modify the screen tones when natural "
+"This temperature in Kelvin is used to modify the screen tones when night "
 "light mode is enabled. Higher values are bluer, lower redder."
 msgstr ""
 "Cheste temperadure in Kelvin e je doprade par modificâ i ats dal schermi "
-"cuant che la modalitât lûs naturâl e je abilitade. I valôrs plui alts a son "
+"cuant che la modalitât lûs noturne e je abilitade. I valôrs plui alts a son "
 "plui blu, i plui bas plui ros."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:9
@@ -274,10 +278,10 @@ msgstr "La ore di inizi"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:12
 msgid ""
-"When “natural-light-schedule-automatic” is disabled, use this start time in "
+"When “night-light-schedule-automatic” is disabled, use this start time in "
 "hours from midnight."
 msgstr ""
-"Cuant che “natural-light-schedule-automatic” al è disabilitât, dopre cheste "
+"Cuant che “night-light-schedule-automatic” al è disabilitât, dopre cheste "
 "ore di inizi (in oris) tacant di miezegnot."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:13
@@ -286,10 +290,10 @@ msgstr "La ore di fin"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:14
 msgid ""
-"When “natural-light-schedule-automatic” is disabled, use this end time in "
+"When “night-light-schedule-automatic” is disabled, use this end time in "
 "hours from midnight."
 msgstr ""
-"Cuant che “natural-light-schedule-automatic” al è disabilitât, dopre cheste "
+"Cuant che “night-light-schedule-automatic” al è disabilitât, dopre cheste "
 "ore di fin (in oris) tacant di miezegnot."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:15
@@ -1816,183 +1820,6 @@ msgstr "Stampant \"%s\": \"%s\"."
 msgid "User was not logged in with smartcard."
 msgstr "L'utent nol à eseguît l'acès cun la smartcard."
 
-#: ../plugins/wacom/gsd-wacom-button-editor.c:51
-msgctxt "Wacom action-type"
-msgid "None"
-msgstr "Nissune"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:52
-msgctxt "Wacom action-type"
-msgid "Send Keystroke"
-msgstr "Invie pression tascj"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:53
-msgctxt "Wacom action-type"
-msgid "Switch Monitor"
-msgstr "Cambie visôr"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:54
-msgctxt "Wacom action-type"
-msgid "Show On-Screen Help"
-msgstr "Mostre jutori a schermi"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:154
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1098
-msgctxt "Action type"
-msgid "Show On-Screen Help"
-msgstr "Mostre jutori a schermi"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:157
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1101
-msgctxt "Action type"
-msgid "Switch Monitor"
-msgstr "Cambie visôr"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:201
-msgctxt "keyboard shortcut"
-msgid "None"
-msgstr "Nissune"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:487
-msgid "Done"
-msgstr "Fat"
-
-#. If no mode is available, we use "left-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1031
-msgid "Left Ring"
-msgstr "Anel çampin"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1042
-#, c-format
-msgid "Left Ring Mode #%d"
-msgstr "Modalitât dal anel çampin #%d"
-
-#. If no mode is available, we use "right-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1062
-msgid "Right Ring"
-msgstr "Anel diestri"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1073
-#, c-format
-msgid "Right Ring Mode #%d"
-msgstr "Modalitât dal anel diestri #%d"
-
-#. If no mode is available, we use "left-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1115
-msgid "Left Touchstrip"
-msgstr "Bande tatil çampine"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1126
-#, c-format
-msgid "Left Touchstrip Mode #%d"
-msgstr "Modalitât bande tatil çampine #%d"
-
-#. If no mode is available, we use "right-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1146
-msgid "Right Touchstrip"
-msgstr "Bande tatil diestre"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1157
-#, c-format
-msgid "Right Touchstrip Mode #%d"
-msgstr "Modalitât bande tatil diestre #%d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1183
-#, c-format
-msgid "Left Touchring Mode Switch"
-msgstr "Interutôr modalitât anel tatil çampin"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1185
-#, c-format
-msgid "Right Touchring Mode Switch"
-msgstr "Interutôr modalitât anel tatil diestri"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1188
-#, c-format
-msgid "Left Touchstrip Mode Switch"
-msgstr "Interutôr modalitât bande tatil çampine"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1190
-#, c-format
-msgid "Right Touchstrip Mode Switch"
-msgstr "Interutôr modalitât bande tatil dietre"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1195
-#, c-format
-msgid "Mode Switch #%d"
-msgstr "Interutôr modalitât #%d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1241
-#, c-format
-msgid "Left Button #%d"
-msgstr "Boton çampin #%d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1244
-#, c-format
-msgid "Right Button #%d"
-msgstr "Boton diestri #%d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1247
-#, c-format
-msgid "Top Button #%d"
-msgstr "Boton superiôr #%d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1250
-#, c-format
-msgid "Bottom Button #%d"
-msgstr "Boton inferiôr #%d"
-
-#: ../plugins/wacom/gsd-wacom-key-shortcut-button.c:263
-msgid "New shortcut…"
-msgstr "Gnove scurte..."
-
-#: ../plugins/wacom/gsd-wacom-manager.c:1047
-#, c-format
-msgid "The \"%s\" tablet may not work as expected."
-msgstr "La taulute \"%s\" e podarès no lavorâ ben."
-
-#: ../plugins/wacom/gsd-wacom-manager.c:1048
-msgid "Unknown Tablet Connected"
-msgstr "Tacade taulute no cognossude"
-
-#: ../plugins/wacom/gsd-wacom-manager.c:1052
-msgid "Wacom Settings"
-msgstr "Impostazions Wacom"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1075
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1095
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1106
-msgctxt "Action type"
-msgid "None"
-msgstr "Nissune"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1080
-#, c-format
-msgctxt "Action type"
-msgid "Send Keystroke %s"
-msgstr "Invie pression tast %s"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1139
-#, c-format
-msgid "Mode %d: %s"
-msgstr "Modalitât %d: %s"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1349
-msgid "(press any key to exit)"
-msgstr "(fracâ un tast par jessî)"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1358
-msgid "Push a button to configure"
-msgstr "Frache un boton par configurâ"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1358
-msgid "(Esc to cancel)"
-msgstr "(Esc par anulâ)"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1985
-msgid "Edit"
-msgstr "Modifiche"
-
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
 #. to change the LED setting for a Wacom tablet
@@ -2023,6 +1850,123 @@ msgstr ""
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Impussibil inzornâ lis informazions dal schermi: %s"
+
+#~ msgctxt "Wacom action-type"
+#~ msgid "None"
+#~ msgstr "Nissune"
+
+#~ msgctxt "Wacom action-type"
+#~ msgid "Send Keystroke"
+#~ msgstr "Invie pression tascj"
+
+#~ msgctxt "Wacom action-type"
+#~ msgid "Switch Monitor"
+#~ msgstr "Cambie visôr"
+
+#~ msgctxt "Wacom action-type"
+#~ msgid "Show On-Screen Help"
+#~ msgstr "Mostre jutori a schermi"
+
+#~ msgctxt "Action type"
+#~ msgid "Show On-Screen Help"
+#~ msgstr "Mostre jutori a schermi"
+
+#~ msgctxt "Action type"
+#~ msgid "Switch Monitor"
+#~ msgstr "Cambie visôr"
+
+#~ msgctxt "keyboard shortcut"
+#~ msgid "None"
+#~ msgstr "Nissune"
+
+#~ msgid "Done"
+#~ msgstr "Fat"
+
+#~ msgid "Left Ring"
+#~ msgstr "Anel çampin"
+
+#~ msgid "Left Ring Mode #%d"
+#~ msgstr "Modalitât dal anel çampin #%d"
+
+#~ msgid "Right Ring"
+#~ msgstr "Anel diestri"
+
+#~ msgid "Right Ring Mode #%d"
+#~ msgstr "Modalitât dal anel diestri #%d"
+
+#~ msgid "Left Touchstrip"
+#~ msgstr "Bande tatil çampine"
+
+#~ msgid "Left Touchstrip Mode #%d"
+#~ msgstr "Modalitât bande tatil çampine #%d"
+
+#~ msgid "Right Touchstrip"
+#~ msgstr "Bande tatil diestre"
+
+#~ msgid "Right Touchstrip Mode #%d"
+#~ msgstr "Modalitât bande tatil diestre #%d"
+
+#~ msgid "Left Touchring Mode Switch"
+#~ msgstr "Interutôr modalitât anel tatil çampin"
+
+#~ msgid "Right Touchring Mode Switch"
+#~ msgstr "Interutôr modalitât anel tatil diestri"
+
+#~ msgid "Left Touchstrip Mode Switch"
+#~ msgstr "Interutôr modalitât bande tatil çampine"
+
+#~ msgid "Right Touchstrip Mode Switch"
+#~ msgstr "Interutôr modalitât bande tatil dietre"
+
+#~ msgid "Mode Switch #%d"
+#~ msgstr "Interutôr modalitât #%d"
+
+#~ msgid "Left Button #%d"
+#~ msgstr "Boton çampin #%d"
+
+#~ msgid "Right Button #%d"
+#~ msgstr "Boton diestri #%d"
+
+#~ msgid "Top Button #%d"
+#~ msgstr "Boton superiôr #%d"
+
+#~ msgid "Bottom Button #%d"
+#~ msgstr "Boton inferiôr #%d"
+
+#~ msgid "New shortcut…"
+#~ msgstr "Gnove scurte..."
+
+#~ msgid "The \"%s\" tablet may not work as expected."
+#~ msgstr "La taulute \"%s\" e podarès no lavorâ ben."
+
+#~ msgid "Unknown Tablet Connected"
+#~ msgstr "Tacade taulute no cognossude"
+
+#~ msgid "Wacom Settings"
+#~ msgstr "Impostazions Wacom"
+
+#~ msgctxt "Action type"
+#~ msgid "None"
+#~ msgstr "Nissune"
+
+#~ msgctxt "Action type"
+#~ msgid "Send Keystroke %s"
+#~ msgstr "Invie pression tast %s"
+
+#~ msgid "Mode %d: %s"
+#~ msgstr "Modalitât %d: %s"
+
+#~ msgid "(press any key to exit)"
+#~ msgstr "(fracâ un tast par jessî)"
+
+#~ msgid "Push a button to configure"
+#~ msgstr "Frache un boton par configurâ"
+
+#~ msgid "(Esc to cancel)"
+#~ msgstr "(Esc par anulâ)"
+
+#~ msgid "Edit"
+#~ msgstr "Modifiche"
 
 #~ msgid "GNOME Settings Daemon"
 #~ msgstr "Demoni di impostazions par GNOME"
