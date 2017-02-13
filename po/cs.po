@@ -14,15 +14,15 @@
 # Petr Kovar <pknbe@volny.cz>, 2008, 2009, 2010, 2011.
 # Ondřej Kopka <ondrej.kopka@gmail.com>, 2011.
 # Adam Matoušek <adydas95@gmail.com>, 2012.
-# Marek Černocký <marek@manet.cz>, 2011, 2012, 2013, 2014. 2015, 2016.
+# Marek Černocký <marek@manet.cz>, 2011, 2012, 2013, 2014. 2015, 2016, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-10-12 04:56+0000\n"
-"PO-Revision-Date: 2016-10-28 11:33+0200\n"
+"POT-Creation-Date: 2017-02-12 14:48+0000\n"
+"PO-Revision-Date: 2017-02-13 08:44+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -38,8 +38,8 @@ msgstr "Činnost při odstranění čipové karty"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
 msgid ""
-"Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
-"action will get performed when the smartcard used for log in is removed."
+"Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
+"get performed when the smartcard used for log in is removed."
 msgstr ""
 "Nastavte buď na „none“ (nic), „lock_screen“ (zamknout obrazovku) nebo "
 "„force_logout“ (bez ptaní odhlásit). Činnost bude vykonána při odstranění "
@@ -70,7 +70,7 @@ msgid "Distance before a drag is started."
 msgstr "Vzdálenost, při které započne tažení."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
-msgid "Whether the tablet's orientation is locked, or rotated automatically."
+msgid "Whether the tablet’s orientation is locked, or rotated automatically."
 msgstr "Zda je orientace tabletu zamčena nebo se má otáčet automaticky."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
@@ -108,8 +108,8 @@ msgstr "Otočení tabletu Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid ""
-"Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
-"'ccw' for 90 degree counterclockwise."
+"Set this to “none”, “cw” for 90 degree clockwise, “half” for 180 degree, and "
+"“ccw” for 90 degree counterclockwise."
 msgstr ""
 "Nastavte na „none“ (nic), „cw“ pro 90 stupňů po směru hodinových ručiček, "
 "„half“ pro 180 stupňů nebo „ccw“ pro 90 stupňů proti směru hodinových "
@@ -246,6 +246,80 @@ msgid ""
 msgstr ""
 "Jedná se o počet dní, po kterém je barevný profil tiskárny považován za "
 "neplatný."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
+msgid "If the night light mode is enabled"
+msgstr "Zda je zapnutý režim nočního světla"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
+msgid ""
+"Night light mode changes the color temperature of your display when the sun "
+"has gone down or at present times."
+msgstr ""
+"Režim nočního světla změní barevnou teplotu vašeho displeje ve chvíli, kdy "
+"zapadne slunce nebo v nastavený čas."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
+msgid "Temperature of the display when enabled"
+msgstr "Barevná teplota displeje, když je zapnuto"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
+msgid ""
+"This temperature in Kelvin is used to modify the screen tones when night "
+"light mode is enabled. Higher values are bluer, lower redder."
+msgstr ""
+"Tato teplota v Kelvinech se používá ke změně barevných tónů obrazovky, když "
+"je zapnutý režim nočního světla. Vyšší teploty jsou domodra, nižší dočervena."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:9
+msgid "Use the sunrise and sunset"
+msgstr "Používat od rozbřesku do soumraku"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:10
+msgid ""
+"Calculate the sunrise and sunset times automatically, from the current "
+"location."
+msgstr ""
+"Vypočítat čas východu a západu slunce automaticky podle aktuální zeměpisné "
+"polohy."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:11
+msgid "The start time"
+msgstr "Čas začátku"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:12
+msgid ""
+"When “night-light-schedule-automatic” is disabled, use this start time in "
+"hours from midnight."
+msgstr ""
+"Když je „night-light-schedule-automatic“, používat tento čas začátku, v "
+"hodinách od půlnoci."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:13
+msgid "The end time"
+msgstr "Čas konce"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:14
+msgid ""
+"When “night-light-schedule-automatic” is disabled, use this end time in "
+"hours from midnight."
+msgstr ""
+"Když je „night-light-schedule-automatic“, používat tento čas konce, v "
+"hodinách od půlnoci."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:15
+msgid "The last detected position"
+msgstr "Poslední zjištěná poloha"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:16
+msgid ""
+"When location services are available this represents the last detected "
+"location. The default value is an invalid value to ensure it is always "
+"updated at startup."
+msgstr ""
+"Když je dostupná služba určování zeměpisné polohy, je zde poslední zjištěný "
+"údaj. Výchozí hodnotou je neplatná hodnota, aby při prvním spuštění "
+"zajistila aktualizace."
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 msgid "List of plugins that are allowed to be loaded"
@@ -639,8 +713,8 @@ msgstr "Soubor výchozího nastavení RandR"
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
-"normally gets stored in users' home directories. If a user does not have "
-"such a file, or has one that does not match the user's setup of monitors, "
+"normally gets stored in users’ home directories. If a user does not have "
+"such a file, or has one that does not match the user’s setup of monitors, "
 "then the file specified by this key will be used instead."
 msgstr ""
 "Zásuvný modul XRandR bude hledat výchozí nastavení v souboru určeném tímto "
@@ -655,10 +729,10 @@ msgstr "Zda po zavedení systému vypnout uvedené monitory"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
 msgid ""
-"'clone' will display the same thing on all monitors, 'dock' will switch off "
-"the internal monitor, 'do-nothing' will use the default Xorg behaviour "
-"(extend the desktop in recent versions). The default, 'follow-lid', will "
-"choose between 'do-nothing' and 'dock' depending on whether the lid is "
+"“clone” will display the same thing on all monitors, “dock” will switch off "
+"the internal monitor, “do-nothing” will use the default Xorg behaviour "
+"(extend the desktop in recent versions). The default, “follow-lid”, will "
+"choose between “do-nothing” and “dock” depending on whether the lid is "
 "(respectively) open or closed."
 msgstr ""
 "„clone“ zobrazí ten samý obsah na všech monitorech, „dock“ vypne interní "
@@ -674,8 +748,8 @@ msgstr "Vyhlazování"
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
-"\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
-"antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
+"“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
+"and “rgba” for subpixel antialiasing (LCD screens only)."
 msgstr ""
 "Typ vyhlazování užitý při vykreslování písem. Možnými hodnotami jsou: „none“ "
 "značí žádné vyhlazování, „grayscale“ značí standardní vyhlazování v "
@@ -687,16 +761,16 @@ msgstr "Hinting"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
 msgid ""
-"The type of hinting to use when rendering fonts. Possible values are: \"none"
-"\" for no hinting and \"slight\" for fitting only to the Y-axis like "
-"Microsoft's ClearType, DirectWrite and Adobe's proprietary font rendering "
-"engine. Ignores native hinting within the font, generates hints "
-"algorithmically. Used on Ubuntu by default. Recommended. The meaning of "
-"\"medium\" and \"full\" depends on the font format (.ttf, .otf, .pfa/.pfb) "
-"and the installed version of FreeType. They usually try to fit glyphs to "
-"both the X and the Y axis (except for .otf: Y-only). This can lead to "
-"distortion and/or inconsistent rendering depending on the quality of the "
-"font, the font format and the state of FreeType's font engines."
+"The type of hinting to use when rendering fonts. Possible values are: “none” "
+"for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
+"ClearType, DirectWrite and Adobe’s proprietary font rendering engine. "
+"Ignores native hinting within the font, generates hints algorithmically. "
+"Used on Ubuntu by default. Recommended. The meaning of “medium” and “full” "
+"depends on the font format (.ttf, .otf, .pfa/.pfb) and the installed version "
+"of FreeType. They usually try to fit glyphs to both the X and the Y axis "
+"(except for .otf: Y-only). This can lead to distortion and/or inconsistent "
+"rendering depending on the quality of the font, the font format and the "
+"state of FreeType’s font engines."
 msgstr ""
 "Typ hintingu, který se má použít při vykreslování písem. Možné hodnoty jsou: "
 "„none“ pro žádný a „slight“ pro přizpůsobení jen v ose Y, podobně jako u "
@@ -715,9 +789,8 @@ msgstr "Pořadí RGBA"
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
-"is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
-"common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red "
-"on bottom."
+"is set to “rgba”. Possible values are: “rgb” for red on left (most common), "
+"“bgr” for blue on left, “vrgb” for red on top, “vbgr” for red on bottom."
 msgstr ""
 "Pořadí subpixelových prvků na obrazovce LCD; užito pouze při vyhlazování "
 "nastaveném na „rgba“. Možnými hodnotami jsou: „rgb“ značí červenou vlevo "
@@ -820,6 +893,7 @@ msgstr ""
 msgid "Color"
 msgstr "Barva"
 
+#. TRANSLATORS: button: this is to open GCM
 #: ../plugins/color/gsd-color-calibrate.c:144
 msgid "Recalibrate now"
 msgstr "Překalibrovat nyní"
@@ -832,13 +906,13 @@ msgstr "Vyžadováno překlalibrování"
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
 #: ../plugins/color/gsd-color-calibrate.c:199
 #, c-format
-msgid "The display '%s' should be recalibrated soon."
+msgid "The display “%s” should be recalibrated soon."
 msgstr "Obrazovka „%s“ by měla být v dohledné době překalibrována."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
 #: ../plugins/color/gsd-color-calibrate.c:208
 #, c-format
-msgid "The printer '%s' should be recalibrated soon."
+msgid "The printer “%s” should be recalibrated soon."
 msgstr "Tiskárna „%s“ by měla být v dohledné době překalibrována."
 
 #. TRANSLATORS: this is the application name
@@ -929,27 +1003,31 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "U tohoto počítače zbývá pouze %s volného místa na disku."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2114
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2130
 msgid "Bluetooth disabled"
 msgstr "Bluetooth je vypnuté"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2117
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2133
 msgid "Bluetooth enabled"
 msgstr "Bluetooth je zapnuté"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2121
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2137
 msgid "Airplane mode enabled"
 msgstr "Režim „letadlo“ je zapnutý"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2124
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2140
 msgid "Airplane mode disabled"
 msgstr "Režim „letadlo“ je vypnutý"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2152
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2168
 msgid "Hardware Airplane Mode"
 msgstr "Hardwarový režim „letadlo“"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2212
+#. Translators: this is a filename used for screencast
+#. * recording, where "%d" and "%t" date and time, e.g.
+#. * "Screencast from 07-17-2013 10:00:46 PM.webm"
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2228
+#, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Nahrávka obrazovky z %d %t.webm"
 
@@ -1118,11 +1196,11 @@ msgstr "Přepnout režim „letadlo“"
 msgid "Toggle Bluetooth"
 msgstr "Přepnout Bluetooth"
 
-#: ../plugins/power/gpm-common.c:81
+#: ../plugins/power/gpm-common.c:100
 msgid "Unknown time"
 msgstr "Neznámý čas"
 
-#: ../plugins/power/gpm-common.c:86
+#: ../plugins/power/gpm-common.c:105
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
@@ -1130,7 +1208,7 @@ msgstr[0] "%i minuta"
 msgstr[1] "%i minuty"
 msgstr[2] "%i minut"
 
-#: ../plugins/power/gpm-common.c:96
+#: ../plugins/power/gpm-common.c:115
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1140,19 +1218,19 @@ msgstr[2] "%i hodin"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: ../plugins/power/gpm-common.c:102
+#: ../plugins/power/gpm-common.c:121
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: ../plugins/power/gpm-common.c:103
+#: ../plugins/power/gpm-common.c:122
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "hodina"
 msgstr[1] "hodiny"
 msgstr[2] "hodin"
 
-#: ../plugins/power/gpm-common.c:104
+#: ../plugins/power/gpm-common.c:123
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minuta"
@@ -1160,7 +1238,7 @@ msgstr[1] "minuty"
 msgstr[2] "minut"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:929 ../plugins/power/gsd-power-manager.c:684
+#: ../plugins/power/gpm-common.c:948 ../plugins/power/gsd-power-manager.c:684
 #: ../plugins/power/gsd-power-manager.c:781
 msgid "Battery is critically low"
 msgstr "Úroveň nabití baterie je kritická"
@@ -1470,24 +1548,24 @@ msgstr "Napájení bylo přepnuto na baterii"
 msgid "On AC power"
 msgstr "Napájení bylo přepnuto na síť"
 
-#: ../plugins/power/gsd-power-manager.c:2034
+#: ../plugins/power/gsd-power-manager.c:2038
 msgid "Automatic logout"
 msgstr "Automatické odhlášení"
 
-#: ../plugins/power/gsd-power-manager.c:2034
+#: ../plugins/power/gsd-power-manager.c:2038
 msgid "You will soon log out because of inactivity."
 msgstr "Z důvodu neaktivity budete brzy odhlášeni."
 
-#: ../plugins/power/gsd-power-manager.c:2039
+#: ../plugins/power/gsd-power-manager.c:2043
 msgid "Automatic suspend"
 msgstr "Automatické uspání do paměti"
 
-#: ../plugins/power/gsd-power-manager.c:2039
-#: ../plugins/power/gsd-power-manager.c:2044
+#: ../plugins/power/gsd-power-manager.c:2043
+#: ../plugins/power/gsd-power-manager.c:2048
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Počítač bude z důvodu neaktivity velmi brzy uspán do paměti."
 
-#: ../plugins/power/gsd-power-manager.c:2044
+#: ../plugins/power/gsd-power-manager.c:2048
 msgid "Automatic hibernation"
 msgstr "Automatické uspání na disk"
 
@@ -1510,7 +1588,7 @@ msgstr "Nastavuje se nová tiskárna"
 
 #. Translators: Just wait
 #: ../plugins/print-notifications/gsd-printer.c:892
-msgid "Please wait..."
+msgid "Please wait…"
 msgstr "Čekejte prosím…"
 
 #. Translators: We have no driver installed for this printer
@@ -1540,73 +1618,73 @@ msgstr "Tiskárny"
 #. Translators: The printer is low on toner (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
 #, c-format
-msgid "Printer '%s' is low on toner."
+msgid "Printer “%s” is low on toner."
 msgstr "V tiskárně „%s“ dochází toner."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
 #, c-format
-msgid "Printer '%s' has no toner left."
+msgid "Printer “%s” has no toner left."
 msgstr "V tiskárně „%s“ došel toner."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
 #, c-format
-msgid "Printer '%s' may not be connected."
+msgid "Printer “%s” may not be connected."
 msgstr "Tiskárna „%s“ možná není připojená."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
 #, c-format
-msgid "The cover is open on printer '%s'."
+msgid "The cover is open on printer “%s”."
 msgstr "U tiskárny „%s“ je otevřený kryt."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
 #, c-format
-msgid "There is a missing print filter for printer '%s'."
+msgid "There is a missing print filter for printer “%s”."
 msgstr "Schází tiskový filtr pro tiskárnu „%s“."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 #, c-format
-msgid "The door is open on printer '%s'."
+msgid "The door is open on printer “%s”."
 msgstr "U tiskárny „%s“ jsou otevřená dvířka."
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
 #, c-format
-msgid "Printer '%s' is low on a marker supply."
+msgid "Printer “%s” is low on a marker supply."
 msgstr "V tiskárně „%s“ končí životnost zásobníku."
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
 #, c-format
-msgid "Printer '%s' is out of a marker supply."
+msgid "Printer “%s” is out of a marker supply."
 msgstr "V tiskárně „%s“ je opotřebovaný zásobník."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
 #, c-format
-msgid "Printer '%s' is low on paper."
+msgid "Printer “%s” is low on paper."
 msgstr "V tiskárně „%s“ dochází papír."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
 #, c-format
-msgid "Printer '%s' is out of paper."
+msgid "Printer “%s” is out of paper."
 msgstr "V tiskárně „%s“ došel papír."
 
 #. Translators: The printer is offline (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
 #, c-format
-msgid "Printer '%s' is currently off-line."
+msgid "Printer “%s” is currently off-line."
 msgstr "Tiskárna „%s“ je momentálně off-line."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:395
 #, c-format
-msgid "There is a problem on printer '%s'."
+msgid "There is a problem on printer “%s”."
 msgstr "U tiskárny „%s“ byl zjištěn problém."
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
@@ -1696,7 +1774,7 @@ msgstr "Tiskárna zastavena"
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:607
 #, c-format
 msgctxt "print job"
-msgid "\"%s\" on %s"
+msgid "“%s” on %s"
 msgstr "„%s“ na tiskárně „%s“"
 
 #. Translators: A print job has been canceled
@@ -1740,189 +1818,12 @@ msgstr "Varování tiskárny"
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:835
 #, c-format
-msgid "Printer '%s': '%s'."
+msgid "Printer “%s”: “%s”."
 msgstr "Tiskárna „%s“: „%s“."
 
 #: ../plugins/smartcard/gsd-smartcard-service.c:224
 msgid "User was not logged in with smartcard."
 msgstr "Uživatel nebyl pomocí čipové karty přihlášen."
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:51
-msgctxt "Wacom action-type"
-msgid "None"
-msgstr "Žádná"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:52
-msgctxt "Wacom action-type"
-msgid "Send Keystroke"
-msgstr "Vyvolat zmáčknutí klávesy"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:53
-msgctxt "Wacom action-type"
-msgid "Switch Monitor"
-msgstr "Přepnout monitor"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:54
-msgctxt "Wacom action-type"
-msgid "Show On-Screen Help"
-msgstr "Zobrazit nápovědu na obrazovce"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:154
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1098
-msgctxt "Action type"
-msgid "Show On-Screen Help"
-msgstr "Zobrazit nápovědu na obrazovce"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:157
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1101
-msgctxt "Action type"
-msgid "Switch Monitor"
-msgstr "Přepnout monitor"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:201
-msgctxt "keyboard shortcut"
-msgid "None"
-msgstr "žádná"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:487
-msgid "Done"
-msgstr "Hotovo"
-
-#. If no mode is available, we use "left-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1031
-msgid "Left Ring"
-msgstr "Levý dotykový prstenec č. %d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1042
-#, c-format
-msgid "Left Ring Mode #%d"
-msgstr "Režim levého dotykového prstence č. %d"
-
-#. If no mode is available, we use "right-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1062
-msgid "Right Ring"
-msgstr "Pravý dotykový prstenec"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1073
-#, c-format
-msgid "Right Ring Mode #%d"
-msgstr "Režim pravého dotykového prstence č. %d"
-
-#. If no mode is available, we use "left-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1115
-msgid "Left Touchstrip"
-msgstr "Levý dotykový pruh č. %d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1126
-#, c-format
-msgid "Left Touchstrip Mode #%d"
-msgstr "Režim levého dotykového pruhu č. %d"
-
-#. If no mode is available, we use "right-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1146
-msgid "Right Touchstrip"
-msgstr "Pravý dotykový pruh"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1157
-#, c-format
-msgid "Right Touchstrip Mode #%d"
-msgstr "Režim pravého dotykového pruhu č. %d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1183
-#, c-format
-msgid "Left Touchring Mode Switch"
-msgstr "Přepínač režimů levého dotykového prstence"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1185
-#, c-format
-msgid "Right Touchring Mode Switch"
-msgstr "Přepínač režimů pravého dotykového prstence"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1188
-#, c-format
-msgid "Left Touchstrip Mode Switch"
-msgstr "Přepínač režimů levého dotykového pruhu"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1190
-#, c-format
-msgid "Right Touchstrip Mode Switch"
-msgstr "Přepínač režimů pravého dotykového pruhu"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1195
-#, c-format
-msgid "Mode Switch #%d"
-msgstr "Přepínač režimů č. %d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1241
-#, c-format
-msgid "Left Button #%d"
-msgstr "Levé tlačítko č. %d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1244
-#, c-format
-msgid "Right Button #%d"
-msgstr "Pravé tlačítko č. %d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1247
-#, c-format
-msgid "Top Button #%d"
-msgstr "Horní tlačítko č. %d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1250
-#, c-format
-msgid "Bottom Button #%d"
-msgstr "Dolní tlačítko č. %d"
-
-#: ../plugins/wacom/gsd-wacom-key-shortcut-button.c:263
-msgid "New shortcut…"
-msgstr "Nová klávesová zkratka…"
-
-#: ../plugins/wacom/gsd-wacom-manager.c:1047
-#, c-format
-msgid "The \"%s\" tablet may not work as expected."
-msgstr "Tablet „%s“ nemusí pracovat podle očekávání."
-
-#: ../plugins/wacom/gsd-wacom-manager.c:1048
-msgid "Unknown Tablet Connected"
-msgstr "Připojen neznámý tablet"
-
-#: ../plugins/wacom/gsd-wacom-manager.c:1052
-msgid "Wacom Settings"
-msgstr "Nastavení tabletu Wacom"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1075
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1095
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1106
-msgctxt "Action type"
-msgid "None"
-msgstr "Žádná"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1080
-#, c-format
-msgctxt "Action type"
-msgid "Send Keystroke %s"
-msgstr "Poslat stisk klávesy %s"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1139
-#, c-format
-msgid "Mode %d: %s"
-msgstr "Režim %d: %s"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1349
-msgid "(press any key to exit)"
-msgstr "(libovolnou klávesou ukončíte)"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1358
-msgid "Push a button to configure"
-msgstr "Zmáčkněte tlačítko, které se má nastavit"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1358
-msgid "(Esc to cancel)"
-msgstr "(pomocí Esc zrušíte)"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1985
-msgid "Edit"
-msgstr "Upravit"
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
@@ -1952,4 +1853,3 @@ msgstr "Pro změnu obrázku OLED na tabletu Wacom je vyžadována autentizace"
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Nelze občerstvit informace o obrazovce: %s"
-
