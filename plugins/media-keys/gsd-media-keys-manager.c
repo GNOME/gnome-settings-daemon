@@ -135,6 +135,7 @@ typedef struct {
         char *custom_path;
         char *custom_command;
         guint accel_id;
+        gboolean ungrab_requested;
 } MediaKey;
 
 typedef struct {
@@ -472,6 +473,7 @@ grab_accelerator_complete (GObject      *object,
 {
         GrabData *data = user_data;
         MediaKey *key = data->key;
+        GsdMediaKeysManager *manager = data->manager;
         GError *error = NULL;
 
         if (!shell_key_grabber_call_grab_accelerator_finish (SHELL_KEY_GRABBER (object),
@@ -480,6 +482,9 @@ grab_accelerator_complete (GObject      *object,
                         g_warning ("Failed to grab accelerator: %s", error->message);
                 g_error_free (error);
         }
+
+        if (key->ungrab_requested)
+                ungrab_media_key (key, manager);
 
         media_key_unref (key);
         g_slice_free (GrabData, data);
@@ -491,8 +496,6 @@ grab_media_key (MediaKey            *key,
 {
 	GrabData *data;
 	char *tmp;
-
-	ungrab_media_key (key, manager);
 
 	tmp = get_key_string (manager, key);
 
@@ -528,8 +531,10 @@ static void
 ungrab_media_key (MediaKey            *key,
                   GsdMediaKeysManager *manager)
 {
-	if (key->accel_id == 0)
-		return;
+        if (key->accel_id == 0) {
+                key->ungrab_requested = TRUE;
+                return;
+        }
 
 	shell_key_grabber_call_ungrab_accelerator (manager->priv->key_grabber,
 	                                           key->accel_id,
@@ -575,6 +580,7 @@ gsettings_changed_cb (GSettings           *settings,
                 if (key->settings_key == NULL)
                         continue;
                 if (strcmp (settings_key, key->settings_key) == 0) {
+                        ungrab_media_key (key, manager);
                         grab_media_key (key, manager);
                         break;
                 }
