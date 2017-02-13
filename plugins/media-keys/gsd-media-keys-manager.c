@@ -579,7 +579,7 @@ media_key_new_for_path (GsdMediaKeysManager *manager,
 	if (settings == NULL) {
 		settings = g_settings_new_with_path (CUSTOM_BINDING_SCHEMA, path);
 
-		g_signal_connect (settings, "changed",
+		g_signal_connect (settings, "changed::binding",
 				  G_CALLBACK (custom_binding_changed), manager);
 		g_hash_table_insert (manager->priv->custom_settings,
 				     g_strdup (path), settings);
@@ -643,7 +643,7 @@ custom_binding_changed (GSettings           *settings,
 {
         char *path;
 
-        if (strcmp (settings_key, "name") == 0)
+        if (strcmp (settings_key, "binding") != 0)
                 return; /* we don't care */
 
         g_object_get (settings, "path", &path, NULL);
