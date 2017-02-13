@@ -129,6 +129,8 @@ typedef struct {
 } MediaPlayer;
 
 typedef struct {
+        gint ref_count;
+
         MediaKeyType key_type;
         ShellActionMode modes;
         const char *settings_key;
@@ -238,13 +240,29 @@ static gpointer manager_object = NULL;
 
 
 static void
-media_key_free (MediaKey *key)
+media_key_unref (MediaKey *key)
 {
         if (key == NULL)
+                return;
+        if (!g_atomic_int_dec_and_test (&key->ref_count))
                 return;
         g_free (key->custom_path);
         g_free (key->custom_command);
         g_free (key);
+}
+
+static MediaKey *
+media_key_ref (MediaKey *key)
+{
+        g_atomic_int_inc (&key->ref_count);
+        return key;
+}
+
+static MediaKey *
+media_key_new (void)
+{
+        MediaKey *key = g_new0 (MediaKey, 1);
+        return media_key_ref (key);
 }
 
 static void
@@ -596,7 +614,7 @@ media_key_new_for_path (GsdMediaKeysManager *manager,
         }
         g_free (binding);
 
-        key = g_new0 (MediaKey, 1);
+        key = media_key_new ();
         key->key_type = CUSTOM_KEY;
         key->modes = GSD_ACTION_MODE_LAUNCHER;
         key->custom_path = g_strdup (path);
@@ -697,7 +715,7 @@ add_key (GsdMediaKeysManager *manager, guint i)
 {
 	MediaKey *key;
 
-	key = g_new0 (MediaKey, 1);
+	key = media_key_new ();
 	key->key_type = media_keys[i].key_type;
 	key->settings_key = media_keys[i].settings_key;
 	key->hard_coded = media_keys[i].hard_coded;
@@ -2780,7 +2798,7 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
         g_debug ("Starting media_keys manager");
         gnome_settings_profile_start (NULL);
 
-        manager->priv->keys = g_ptr_array_new_with_free_func ((GDestroyNotify) media_key_free);
+        manager->priv->keys = g_ptr_array_new_with_free_func ((GDestroyNotify) media_key_unref);
 
         initialize_volume_handler (manager);
 
