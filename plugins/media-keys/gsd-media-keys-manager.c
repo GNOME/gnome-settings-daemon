@@ -484,6 +484,7 @@ grab_accelerator_complete (GObject      *object,
                 g_error_free (error);
         }
 
+        media_key_unref (key);
         g_slice_free (GrabData, data);
 }
 
@@ -500,7 +501,7 @@ grab_media_key (MediaKey            *key,
 
 	data = g_slice_new0 (GrabData);
 	data->manager = manager;
-	data->key = key;
+	data->key = media_key_ref (key);
 
 	shell_key_grabber_call_grab_accelerator (manager->priv->key_grabber,
 	                                         tmp, key->modes,
