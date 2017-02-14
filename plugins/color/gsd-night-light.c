@@ -595,6 +595,7 @@ gsd_night_light_class_init (GsdNightLightClass *klass)
 static void
 gsd_night_light_init (GsdNightLight *self)
 {
+        self->geoclue_enabled = TRUE;
         self->cached_sunrise = -1.f;
         self->cached_sunset = -1.f;
         self->cached_temperature = GSD_COLOR_TEMPERATURE_DEFAULT;
