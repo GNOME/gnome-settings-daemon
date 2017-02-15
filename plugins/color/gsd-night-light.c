@@ -44,6 +44,10 @@ struct _GsdNightLight {
         gdouble            cached_sunset;
         gdouble            cached_temperature;
         gboolean           cached_active;
+        gboolean           smooth_enabled;
+        GTimer            *smooth_timer;
+        guint              smooth_id;
+        gdouble            smooth_target_temperature;
         GCancellable      *cancellable;
         GDateTime         *datetime_override;
 };
@@ -61,6 +65,7 @@ enum {
 #define GSD_NIGHT_LIGHT_SCHEDULE_TIMEOUT      5       /* seconds */
 #define GSD_NIGHT_LIGHT_POLL_TIMEOUT          60      /* seconds */
 #define GSD_NIGHT_LIGHT_POLL_SMEAR            1       /* hours */
+#define GSD_NIGHT_LIGHT_SMOOTH_SMEAR          5.f     /* seconds */
 
 #define GSD_FRAC_DAY_MAX_DELTA                  (1.f/60.f)     /* 1 minute */
 #define GSD_TEMPERATURE_MAX_DELTA               (10.f)          /* Kelvin */
@@ -86,6 +91,27 @@ gsd_night_light_set_date_time_now (GsdNightLight *self, GDateTime *datetime)
         if (self->datetime_override != NULL)
                 g_date_time_unref (self->datetime_override);
         self->datetime_override = g_date_time_ref (datetime);
+}
+
+static void
+poll_smooth_destroy (GsdNightLight *self)
+{
+        if (self->smooth_id != 0) {
+                g_source_remove (self->smooth_id);
+                self->smooth_id = 0;
+        }
+        if (self->smooth_timer != NULL)
+                g_clear_pointer (&self->smooth_timer, g_timer_destroy);
+}
+
+void
+gsd_night_light_set_smooth_enabled (GsdNightLight *self,
+                                    gboolean smooth_enabled)
+{
+        /* ensure the timeout is stopped if called at runtime */
+        if (!smooth_enabled)
+                poll_smooth_destroy (self);
+        self->smooth_enabled = smooth_enabled;
 }
 
 static gdouble
@@ -136,12 +162,65 @@ update_cached_sunrise_sunset (GsdNightLight *self)
 }
 
 static void
+gsd_night_light_set_temperature_internal (GsdNightLight *self, gdouble temperature)
+{
+        if (ABS (self->cached_temperature - temperature) <= GSD_TEMPERATURE_MAX_DELTA)
+                return;
+        self->cached_temperature = temperature;
+        g_object_notify (G_OBJECT (self), "temperature");
+}
+
+static gboolean
+gsd_night_light_smooth_cb (gpointer user_data)
+{
+        GsdNightLight *self = GSD_NIGHT_LIGHT (user_data);
+        gdouble tmp;
+        gdouble frac;
+
+        /* find fraction */
+        frac = g_timer_elapsed (self->smooth_timer, NULL) / GSD_NIGHT_LIGHT_SMOOTH_SMEAR;
+        if (frac >= 1.f) {
+                gsd_night_light_set_temperature_internal (self,
+                                                          self->smooth_target_temperature);
+                self->smooth_id = 0;
+                return G_SOURCE_REMOVE;
+        }
+
+        /* set new temperature step using log curve */
+        tmp = self->smooth_target_temperature - self->cached_temperature;
+        tmp *= frac;
+        tmp += self->cached_temperature;
+        gsd_night_light_set_temperature_internal (self, tmp);
+
+        return G_SOURCE_CONTINUE;
+}
+
+static void
+poll_smooth_create (GsdNightLight *self, gdouble temperature)
+{
+        poll_smooth_destroy (self);
+        self->smooth_target_temperature = temperature;
+        self->smooth_timer = g_timer_new ();
+        self->smooth_id = g_timeout_add (50, gsd_night_light_smooth_cb, self);
+}
+
+static void
 gsd_night_light_set_temperature (GsdNightLight *self, gdouble temperature)
 {
-        if (ABS (self->cached_temperature - temperature) > GSD_TEMPERATURE_MAX_DELTA) {
-                self->cached_temperature = temperature;
-                g_object_notify (G_OBJECT (self), "temperature");
+        /* immediate */
+        if (!self->smooth_enabled) {
+                gsd_night_light_set_temperature_internal (self, temperature);
+                return;
         }
+
+        /* small jump */
+        if (ABS (temperature - self->cached_temperature) < GSD_TEMPERATURE_MAX_DELTA) {
+                gsd_night_light_set_temperature_internal (self, temperature);
+                return;
+        }
+
+        /* smooth out the transition */
+        poll_smooth_create (self, temperature);
 }
 
 static void
@@ -460,6 +539,7 @@ gsd_night_light_finalize (GObject *object)
         GsdNightLight *self = GSD_NIGHT_LIGHT (object);
 
         poll_timeout_destroy (self);
+        poll_smooth_destroy (self);
 
         g_clear_object (&self->settings);
         g_clear_pointer (&self->datetime_override, (GDestroyNotify) g_date_time_unref);
@@ -596,6 +676,7 @@ static void
 gsd_night_light_init (GsdNightLight *self)
 {
         self->geoclue_enabled = TRUE;
+        self->smooth_enabled = TRUE;
         self->cached_sunrise = -1.f;
         self->cached_sunset = -1.f;
         self->cached_temperature = GSD_COLOR_TEMPERATURE_DEFAULT;

@@ -73,6 +73,9 @@ gcm_test_night_light (void)
         /* do not start geoclue */
         gsd_night_light_set_geoclue_enabled (nlight, FALSE);
 
+        /* do not smooth the transition */
+        gsd_night_light_set_smooth_enabled (nlight, FALSE);
+
         /* switch off */
         settings = g_settings_new ("org.gnome.settings-daemon.plugins.color");
         g_settings_set_boolean (settings, "night-light-enabled", FALSE);

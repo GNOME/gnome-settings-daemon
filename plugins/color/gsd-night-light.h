@@ -46,6 +46,8 @@ void             gsd_night_light_set_geoclue_enabled    (GsdNightLight *self,
                                                          gboolean       enabled);
 void             gsd_night_light_set_date_time_now      (GsdNightLight *self,
                                                          GDateTime     *datetime);
+void             gsd_night_light_set_smooth_enabled     (GsdNightLight *self,
+                                                         gboolean       smooth_enabled);
 
 G_END_DECLS
 
