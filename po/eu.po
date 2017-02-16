@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-02-11 14:00+0000\n"
-"PO-Revision-Date: 2017-02-13 20:13+0100\n"
+"POT-Creation-Date: 2017-02-14 17:56+0000\n"
+"PO-Revision-Date: 2017-02-16 11:38+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -27,16 +27,13 @@ msgid "Smartcard removal action"
 msgstr "Txartela kentzearen ekintza"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
-#| msgid ""
-#| "Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
-#| "action will get performed when the smartcard used for log in is removed."
 msgid ""
 "Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
 "get performed when the smartcard used for log in is removed."
 msgstr ""
 "Ezarri hauetariko bat: “none“ (bat ere ez), “lock-screen“ (blokeatu "
-"pantaila), edo “force-logout“ (derrigortu saioaren amaiera). Saioa "
-"hasteko txartela kentzean landuko da ekintza."
+"pantaila), edo “force-logout“ (derrigortu saioaren amaiera). Saioa hasteko "
+"txartela kentzean landuko da ekintza."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
 msgid ""
@@ -63,8 +60,6 @@ msgid "Distance before a drag is started."
 msgstr "Distantzia arrastatzen hasi aurretik."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
-#| msgid ""
-#| "Whether the tablet's orientation is locked, or rotated automatically."
 msgid "Whether the tablet’s orientation is locked, or rotated automatically."
 msgstr "Taularen orientazio blokeatuta dagoen edo automatikoki biratuko den."
 
@@ -103,9 +98,6 @@ msgid "Wacom tablet rotation"
 msgstr "Wacom taularen biraketa"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
-#| msgid ""
-#| "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, "
-#| "and 'ccw' for 90 degree counterclockwise."
 msgid ""
 "Set this to “none”, “cw” for 90 degree clockwise, “half” for 180 degree, and "
 "“ccw” for 90 degree counterclockwise."
@@ -241,37 +233,43 @@ msgstr ""
 "baliogabetzat joko da."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
-msgid "If the night night mode is enabled"
-msgstr ""
+msgid "If the night light mode is enabled"
+msgstr "Gaueko argiak modua gaituta dagoen edo ez"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
 msgid ""
 "Night light mode changes the color temperature of your display when the sun "
 "has gone down or at present times."
 msgstr ""
+"“Gaueko argia“ moduak pantailaren kolore-tenperatura aldatzen du "
+"eguzkia ezkutatzean edo zehaztutako orduetan."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
 msgid "Temperature of the display when enabled"
-msgstr ""
+msgstr "Pantailaren tenperatura gaitutakoan"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
 msgid ""
 "This temperature in Kelvin is used to modify the screen tones when night "
 "light mode is enabled. Higher values are bluer, lower redder."
 msgstr ""
+"Tenperatura hau (Kelvin unitatean) pantailaren tonua aldatzeko "
+"erabiltzen da “gaueko argia“ modua gaituta dagoenean. Balio altuak "
+"urdinagoak dira, baxuagoak gorriak."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:9
 msgid "Use the sunrise and sunset"
-msgstr ""
+msgstr "Erabili eguna argitzea eta eguzki-sartzea"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:10
 msgid ""
 "Calculate the sunrise and sunset times automatically, from the current "
 "location."
 msgstr ""
+"Kalkulatu egun-argitzea eta eguzki-sartzearen orduak automatikoki, "
+"uneko kokalekuaren arabera."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:11
-#| msgid "Charge time:"
 msgid "The start time"
 msgstr "Hasierako ordua"
 
@@ -280,19 +278,24 @@ msgid ""
 "When “night-light-schedule-automatic” is disabled, use this start time in "
 "hours from midnight."
 msgstr ""
+"“night-light-schedule-automatic” desgaitzen denean, erabili hasierako denbora "
+"hau "
+"(ordutan) gauerditik zenbatuz."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:13
 msgid "The end time"
-msgstr ""
+msgstr "Amaierako denbora"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:14
 msgid ""
 "When “night-light-schedule-automatic” is disabled, use this end time in "
 "hours from midnight."
 msgstr ""
+"“night-light-schedule-automatic” desgaitzen denean, erabili amaierako denbora "
+"hau "
+"(ordutan) gauerditik zenbatuz."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:15
-#| msgid "The slot the card is in"
 msgid "The last detected position"
 msgstr "Detektatutako azken posizioa"
 
@@ -302,6 +305,9 @@ msgid ""
 "location. The default value is an invalid value to ensure it is always "
 "updated at startup."
 msgstr ""
+"Kokapenerako zerbitzuak erabilgarri daudenean, honek "
+"hautemandako azken kokalekua adierazten du. Balio lehenetsia baliogabea da, "
+"abioan beti eguneratuko dela ziurtatzeko."
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 msgid "List of plugins that are allowed to be loaded"
@@ -310,11 +316,10 @@ msgstr "Kargatzea baimenduta dauden pluginen zerrenda "
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
 #| msgid ""
 #| "A list of strings representing the plugins that are allowed to be loaded "
-#| "(default: 'all'). The plugins still need to be marked as active to get "
-#| "loaded. This is only evaluated on startup."
+#| "(default: 'all'). This is only evaluated on startup."
 msgid ""
 "A list of strings representing the plugins that are allowed to be loaded "
-"(default: 'all'). This is only evaluated on startup."
+"(default: “all”). This is only evaluated on startup."
 msgstr ""
 "Kargatzea baimenduta dauden pluginak adierazten dituzten kateen zerrenda "
 "(lehenetsia: “all“). Abioan soilik ebaluatzen da hau."
@@ -696,12 +701,6 @@ msgid "File for default configuration for RandR"
 msgstr "RandR-ren konfigurazioko fitxategi lehenetsia"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
-#| msgid ""
-#| "The XRandR plugin will look for a default configuration in the file "
-#| "specified by this key. This is similar to the ~/.config/monitors.xml that "
-#| "normally gets stored in users' home directories. If a user does not have "
-#| "such a file, or has one that does not match the user's setup of monitors, "
-#| "then the file specified by this key will be used instead."
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
@@ -720,12 +719,6 @@ msgid "Whether to turn off specific monitors after boot"
 msgstr "Abiatu ondoren monitore zehatzak itzali edo ez"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
-#| msgid ""
-#| "'clone' will display the same thing on all monitors, 'dock' will switch "
-#| "off the internal monitor, 'do-nothing' will use the default Xorg "
-#| "behaviour (extend the desktop in recent versions). The default, 'follow-"
-#| "lid', will choose between 'do-nothing' and 'dock' depending on whether "
-#| "the lid is (respectively) open or closed."
 msgid ""
 "“clone” will display the same thing on all monitors, “dock” will switch off "
 "the internal monitor, “do-nothing” will use the default Xorg behaviour "
@@ -736,8 +729,8 @@ msgstr ""
 "“clone“ (klona) gakoak gauza berdina pantaila guztietan bistaratuko du. "
 "“dock“ (atrakagarria) barneko pantaila itzaliko du, “do-nothing“ (ezer ez "
 "egin) Xorg-en portaera lehenetsia erabiliko du (mahaigaina zabalduko du "
-"bertsio berrietan). Lehenetsiak, “follow-lid“ (jarraitu tapari), "
-"“do-nothing“ eta “dock“ artean aukeratuko du tapa irekita edo itxita dagoen "
+"bertsio berrietan). Lehenetsiak, “follow-lid“ (jarraitu tapari), “do-"
+"nothing“ eta “dock“ artean aukeratuko du tapa irekita edo itxita dagoen "
 "arabera (urrenez urren)."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
@@ -745,36 +738,21 @@ msgid "Antialiasing"
 msgstr "Antialiasing-a"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-#| msgid ""
-#| "The type of antialiasing to use when rendering fonts. Possible values "
-#| "are: \"none\" for no antialiasing, \"grayscale\" for standard grayscale "
-#| "antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
 "and “rgba” for subpixel antialiasing (LCD screens only)."
 msgstr ""
 "Antialiasing mota letrak errendatzean erabiltzeko. Balio erabilgarriak: "
-"“none“ (ezer ez), antialiasing gabe; “grayscale“ (gris-eskala), gris-"
-"eskala estandarreko antialiasing-a; “rgba“ (gbua), azpipixeleko "
-"antialiasing-a (LCD pantailetan bakarrik)."
+"“none“ (ezer ez), antialiasing gabe; “grayscale“ (gris-eskala), gris-eskala "
+"estandarreko antialiasing-a; “rgba“ (gbua), azpipixeleko antialiasing-a (LCD "
+"pantailetan bakarrik)."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
 msgid "Hinting"
 msgstr "Hizkien tartea"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
-#| msgid ""
-#| "The type of hinting to use when rendering fonts. Possible values are: "
-#| "\"none\" for no hinting and \"slight\" for fitting only to the Y-axis "
-#| "like Microsoft's ClearType, DirectWrite and Adobe's proprietary font "
-#| "rendering engine. Ignores native hinting within the font, generates hints "
-#| "algorithmically. Used on Ubuntu by default. Recommended. The meaning of "
-#| "\"medium\" and \"full\" depends on the font format (.ttf, .otf, .pfa/."
-#| "pfb) and the installed version of FreeType. They usually try to fit "
-#| "glyphs to both the X and the Y axis (except for .otf: Y-only). This can "
-#| "lead to distortion and/or inconsistent rendering depending on the quality "
-#| "of the font, the font format and the state of FreeType's font engines."
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: “none” "
 "for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
@@ -789,35 +767,28 @@ msgid ""
 msgstr ""
 "Hizkien tarte mota letra-tipoak errendatzean erabiltzeko. Balio "
 "erabilgarriak: “none“ (bat ere ez) hizkien artean tarterik ez egoteko; "
-"“slight“ Y ardatzean soilik sartzeko Microsoft-en ClearType, DirectWrite "
-"eta Adobe-ren letra-tipoak errendatzeko motor pribatuaren bezala. Letra-"
-"tipoaren hitzen arteko tarteei ez ikusi egiten die, tarteak algoritmo bidez "
-"sortuz. Ubuntun lehenetsi gisa erabiltzen da. Gomendatuta. "
-"“medium“ (tartekoa) eta “full“ (osoa) balioen esanahia letra-formatuaren "
-"(.ttf, ."
-"otf, .pfa/.pfb) eta instalatutako FreeType bertsioaren araberakoa da. "
-"Glifoak X eta Y ardatzean kokatzen saiatzen dira (.otf ezik: Y ardatza "
-"soilik). Distortsioa edo bateratasunik gabe errendatzea sor dezake, letra-"
-"tipoaren kalitatea, letra-formatua eta FreeType-ren letra motorren arabera."
+"“slight“ Y ardatzean soilik sartzeko Microsoft-en ClearType, DirectWrite eta "
+"Adobe-ren letra-tipoak errendatzeko motor pribatuaren bezala. Letra-tipoaren "
+"hitzen arteko tarteei ez ikusi egiten die, tarteak algoritmo bidez sortuz. "
+"Ubuntun lehenetsi gisa erabiltzen da. Gomendatuta. “medium“ (tartekoa) eta "
+"“full“ (osoa) balioen esanahia letra-formatuaren (.ttf, .otf, .pfa/.pfb) eta "
+"instalatutako FreeType bertsioaren araberakoa da. Glifoak X eta Y ardatzean "
+"kokatzen saiatzen dira (.otf ezik: Y ardatza soilik). Distortsioa edo "
+"bateratasunik gabe errendatzea sor dezake, letra-tipoaren kalitatea, letra-"
+"formatua eta FreeType-ren letra motorren arabera."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
 msgid "RGBA order"
 msgstr "GBUA ordena"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
-#| msgid ""
-#| "The order of subpixel elements on an LCD screen; only used when "
-#| "antialiasing is set to \"rgba\". Possible values are: \"rgb\" for red on "
-#| "left (most common), \"bgr\" for blue on left, \"vrgb\" for red on top, "
-#| "\"vbgr\" for red on bottom."
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to “rgba”. Possible values are: “rgb” for red on left (most common), "
 "“bgr” for blue on left, “vrgb” for red on top, “vbgr” for red on bottom."
 msgstr ""
-"LCD pantailako azpipixel elementuen ordena, antialiasing-a "
-"“rgba“ (gbua) balioarekin ezartzean bakarrik erabiltzen da. Balio "
-"erabilgarriak: "
+"LCD pantailako azpipixel elementuen ordena, antialiasing-a “rgba“ (gbua) "
+"balioarekin ezartzean bakarrik erabiltzen da. Balio erabilgarriak: "
 "“rgb“ (gbu) - gorrian ezkerrean (erabiliena); “bgr“ (ubg) - urdina "
 "ezkerrean; “vrgb“ (bgbu) gorrian goian; “vbgr“ (bubg) - gorria behean."
 
@@ -929,14 +900,12 @@ msgstr "Berriro kalibratu behar da"
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
 #: ../plugins/color/gsd-color-calibrate.c:199
 #, c-format
-#| msgid "The display '%s' should be recalibrated soon."
 msgid "The display “%s” should be recalibrated soon."
 msgstr "“%s“ pantaila laster berriro kalibratu beharko da."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
 #: ../plugins/color/gsd-color-calibrate.c:208
 #, c-format
-#| msgid "The printer '%s' should be recalibrated soon."
 msgid "The printer “%s” should be recalibrated soon."
 msgstr "“%s“ inprimagailua laster berriro kalibratu beharko da."
 
@@ -1026,30 +995,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Ordenagailu honen leku librea: %s."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2130
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2173
 msgid "Bluetooth disabled"
 msgstr "Bluetooth-a desgaituta"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2133
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2176
 msgid "Bluetooth enabled"
 msgstr "Bluetooth-a gaituta"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2137
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2180
 msgid "Airplane mode enabled"
 msgstr "Hegazkin modua gaituta"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2140
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2183
 msgid "Airplane mode disabled"
 msgstr "Hegazkin modua desgaituta"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2168
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2211
 msgid "Hardware Airplane Mode"
 msgstr "Hardwarearen hegazkin modua"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2228
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2271
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "%d %t.webm-ren pantailaren bideoa"
@@ -1601,7 +1570,6 @@ msgstr "Inprimagailu berria konfiguratzen"
 
 #. Translators: Just wait
 #: ../plugins/print-notifications/gsd-printer.c:892
-#| msgid "Please wait..."
 msgid "Please wait…"
 msgstr "Itxaron…"
 
@@ -1632,84 +1600,72 @@ msgstr "Inprimagailuak"
 #. Translators: The printer is low on toner (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
 #, c-format
-#| msgid "Printer '%s' is low on toner."
 msgid "Printer “%s” is low on toner."
 msgstr "“%s“ inprimagailuak toner baxua du."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
 #, c-format
-#| msgid "Printer '%s' has no toner left."
 msgid "Printer “%s” has no toner left."
 msgstr "“%s“ inprimagailuak ez du tonerrik."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
 #, c-format
-#| msgid "Printer '%s' may not be connected."
 msgid "Printer “%s” may not be connected."
 msgstr "Baliteke “%s“ inprimagailua konektatuta ez egotea."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
 #, c-format
-#| msgid "The cover is open on printer '%s'."
 msgid "The cover is open on printer “%s”."
 msgstr "“%s“ inprimagailuaren estalkia irekita dago."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
 #, c-format
-#| msgid "There is a missing print filter for printer '%s'."
 msgid "There is a missing print filter for printer “%s”."
 msgstr "“%s“ inprimagailuaren inprimatzeko iragazkia falta da."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 #, c-format
-#| msgid "The door is open on printer '%s'."
 msgid "The door is open on printer “%s”."
 msgstr "“%s“ inprimagailuaren atea irekita dago."
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
 #, c-format
-#| msgid "Printer '%s' is low on a marker supply."
 msgid "Printer “%s” is low on a marker supply."
 msgstr "“%s“ inprimagailuaren kartutxoak tinta gutxi du."
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
 #, c-format
-#| msgid "Printer '%s' is out of a marker supply."
 msgid "Printer “%s” is out of a marker supply."
 msgstr "“%s“ inprimagailuaren kartutxoak ez du tintarik."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
 #, c-format
-#| msgid "Printer '%s' is low on paper."
 msgid "Printer “%s” is low on paper."
 msgstr "“%s“ inprimagailuan paper gutxi dago."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
 #, c-format
-#| msgid "Printer '%s' is out of paper."
 msgid "Printer “%s” is out of paper."
 msgstr "“%s“ inprimagailuan ez dago paperik."
 
 #. Translators: The printer is offline (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
 #, c-format
-#| msgid "Printer '%s' is currently off-line."
 msgid "Printer “%s” is currently off-line."
 msgstr "“%s“ inprimagailua unean deskonektatuta dago."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:395
 #, c-format
-#| msgid "There is a problem on printer '%s'."
 msgid "There is a problem on printer “%s”."
 msgstr "Arazo bat dago “%s“ inprimagailuan."
 
@@ -1799,8 +1755,6 @@ msgstr "Inprimatzea geldituta"
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:594
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:607
 #, c-format
-#| msgctxt "print job"
-#| msgid "\"%s\" on %s"
 msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "“%s“ -- %s"
@@ -1846,7 +1800,6 @@ msgstr "Inprimagailuaren abisua"
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:835
 #, c-format
-#| msgid "Printer '%s': '%s'."
 msgid "Printer “%s”: “%s”."
 msgstr "“%s“ inprimagailua: “%s“."
 
