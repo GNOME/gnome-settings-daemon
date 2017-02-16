@@ -207,9 +207,9 @@ on_disabled_until_tmw_notify (GsdNightLight *nlight,
 }
 
 static void
-on_tempertature_notify (GsdNightLight *nlight,
-                        GParamSpec      *pspec,
-                        gpointer         user_data)
+on_temperature_notify (GsdNightLight *nlight,
+                       GParamSpec      *pspec,
+                       gpointer         user_data)
 {
         GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
         GsdColorManagerPrivate *priv = manager->priv;
@@ -239,7 +239,7 @@ gsd_color_manager_init (GsdColorManager *manager)
         g_signal_connect (priv->nlight, "notify::sunrise",
                           G_CALLBACK (on_sunrise_notify), manager);
         g_signal_connect (priv->nlight, "notify::temperature",
-                          G_CALLBACK (on_tempertature_notify), manager);
+                          G_CALLBACK (on_temperature_notify), manager);
         g_signal_connect (priv->nlight, "notify::disabled-until-tmw",
                           G_CALLBACK (on_disabled_until_tmw_notify), manager);
 }
