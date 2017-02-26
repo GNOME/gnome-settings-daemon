@@ -8,24 +8,24 @@
 # Andras Timar <timar at gnome dot hu>, 2001, 2002, 2003.
 # Gabor Sari <saga at gnome dot hu>, 2003.
 # Laszlo Dvornik <dvornik at gnome dot hu>, 2004.
-# Gabor Kelemen <kelemeng at gnome dot hu>, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2016.
+# Gabor Kelemen <kelemeng at gnome dot hu>, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2016, 2017.
 # Mate ORY <orymate at gmail d0t com>, 2006.
 # Balázs Úr <urbalazs at gmail dot com>, 2013, 2014, 2015, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-10-12 04:56+0000\n"
-"PO-Revision-Date: 2016-11-03 15:23+0100\n"
-"Last-Translator: Meskó Balázs <meskobalazs@gmail.com>\n"
+"POT-Creation-Date: 2017-02-21 22:14+0000\n"
+"PO-Revision-Date: 2017-02-26 13:54+0100\n"
+"Last-Translator: Gabor Kelemen <kelemeng at ubuntu dot com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Smartcard removal action"
@@ -33,8 +33,8 @@ msgstr "Intelligenskártya-eltávolítási művelet"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
 msgid ""
-"Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
-"action will get performed when the smartcard used for log in is removed."
+"Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
+"get performed when the smartcard used for log in is removed."
 msgstr ""
 "Állítsa a „none” (semmi), „lock-screen” (képernyő zárolása) vagy „force-"
 "logout” (kijelentkeztetés) egyikére. A művelet a bejelentkezéshez használt "
@@ -65,7 +65,7 @@ msgid "Distance before a drag is started."
 msgstr "Húzás indítása előtti távolság."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
-msgid "Whether the tablet's orientation is locked, or rotated automatically."
+msgid "Whether the tablet’s orientation is locked, or rotated automatically."
 msgstr "A táblagép tájolása zárolt-e, vagy automatikusan elforgatott."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
@@ -102,8 +102,8 @@ msgstr "Wacom táblagép forgatása"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid ""
-"Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
-"'ccw' for 90 degree counterclockwise."
+"Set this to “none”, “cw” for 90 degree clockwise, “half” for 180 degree, and "
+"“ccw” for 90 degree counterclockwise."
 msgstr ""
 "Lehetséges értékek: „none” (semmi), „cw” (90 fok órajárás irányában), "
 "„half” (180 fok), és „ccw” (90 fok órajárással ellentétes irányban)."
@@ -228,6 +228,81 @@ msgid ""
 "considered invalid."
 msgstr "A nyomtató színprofilja ennyi nap után érvénytelennek lesz tekintve."
 
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
+msgid "If the night light mode is enabled"
+msgstr "Az éjszakai fény mód engedélyezett-e"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
+msgid ""
+"Night light mode changes the color temperature of your display when the sun "
+"has gone down or at present times."
+msgstr ""
+"Az éjszakai fény mód megváltoztatja a kijelző színhőmérsékletét, amikor a nap "
+"lement vagy feljött."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
+msgid "Temperature of the display when enabled"
+msgstr "A kijelző színhőmérséklete engedélyezéskor"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
+msgid ""
+"This temperature in Kelvin is used to modify the screen tones when night "
+"light mode is enabled. Higher values are bluer, lower redder."
+msgstr ""
+"Ez a Kelvinben megadott hőmérséklet a szín tónusait változtatja meg, ha az "
+"éjszaki fény mód engedélyezett. A magasabb értékek kékebbek, az "
+"alacsonyabbak vörösebbek."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:9
+msgid "Use the sunrise and sunset"
+msgstr "Napkelte és napnyugta használata"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:10
+msgid ""
+"Calculate the sunrise and sunset times automatically, from the current "
+"location."
+msgstr ""
+"Automatikusan kiszámolja a napfelkelte és napnyugta időpontját a jelenlegi "
+"hely alapján."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:11
+msgid "The start time"
+msgstr "Kezdési idő"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:12
+msgid ""
+"When “night-light-schedule-automatic” is disabled, use this start time in "
+"hours from midnight."
+msgstr ""
+"Ha a „night-light-schedule-automatic” letiltott, akkor ezt használja kezdési "
+"időnek, órákban megadva, éjféltől számítva."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:13
+msgid "The end time"
+msgstr "Befejezési idő"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:14
+msgid ""
+"When “night-light-schedule-automatic” is disabled, use this end time in "
+"hours from midnight."
+msgstr ""
+"Ha a „night-light-schedule-automatic” letiltott, akkor ezt használja "
+"befejezési időnek, órákban megadva, éjféltől számítva."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:15
+msgid "The last detected position"
+msgstr "Legutóbb észlelt pozíció"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:16
+msgid ""
+"When location services are available this represents the last detected "
+"location. The default value is an invalid value to ensure it is always "
+"updated at startup."
+msgstr ""
+"Ha a helymeghatározási szolgáltatások elérhetőek, akkor ez képviseli a "
+"legutóbb észlelt helyet. Az alapértelmezés egy érvénytelen érték, hogy "
+"indításkor biztosan frissítve legyen."
+
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 msgid "List of plugins that are allowed to be loaded"
 msgstr "Betölthető bővítmények listája"
@@ -235,7 +310,7 @@ msgstr "Betölthető bővítmények listája"
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
 msgid ""
 "A list of strings representing the plugins that are allowed to be loaded "
-"(default: 'all'). This is only evaluated on startup."
+"(default: “all”). This is only evaluated on startup."
 msgstr ""
 "A betöltendő bővítményeket képviselő karakterláncok listája "
 "(alapértelmezett: „all”). Ez csak indításkor kerül kiértékelésre."
@@ -620,8 +695,8 @@ msgstr "A RandR alapértelmezett beállításához használt fájl"
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
-"normally gets stored in users' home directories. If a user does not have "
-"such a file, or has one that does not match the user's setup of monitors, "
+"normally gets stored in users’ home directories. If a user does not have "
+"such a file, or has one that does not match the user’s setup of monitors, "
 "then the file specified by this key will be used instead."
 msgstr ""
 "Az XRandR bővítmény az itt megadott fájlban keresi az alapértelmezett "
@@ -636,10 +711,10 @@ msgstr "Egyes monitorok kikapcsolandók-e rendszerindítás után"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
 msgid ""
-"'clone' will display the same thing on all monitors, 'dock' will switch off "
-"the internal monitor, 'do-nothing' will use the default Xorg behaviour "
-"(extend the desktop in recent versions). The default, 'follow-lid', will "
-"choose between 'do-nothing' and 'dock' depending on whether the lid is "
+"“clone” will display the same thing on all monitors, “dock” will switch off "
+"the internal monitor, “do-nothing” will use the default Xorg behaviour "
+"(extend the desktop in recent versions). The default, “follow-lid”, will "
+"choose between “do-nothing” and “dock” depending on whether the lid is "
 "(respectively) open or closed."
 msgstr ""
 "A „clone” (klónozás) hatására minden monitor képe azonos lesz, a "
@@ -655,8 +730,8 @@ msgstr "Élsimítás"
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
-"\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
-"antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
+"“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
+"and “rgba” for subpixel antialiasing (LCD screens only)."
 msgstr ""
 "A betűkészletek megjelenítéséhez használandó élsimítás típusa. A lehetséges "
 "értékek: „none” (élsimítás kikapcsolása), „grayscale” (szürkeárnyalatos "
@@ -668,16 +743,16 @@ msgstr "Hinting"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
 msgid ""
-"The type of hinting to use when rendering fonts. Possible values are: \"none"
-"\" for no hinting and \"slight\" for fitting only to the Y-axis like "
-"Microsoft's ClearType, DirectWrite and Adobe's proprietary font rendering "
-"engine. Ignores native hinting within the font, generates hints "
-"algorithmically. Used on Ubuntu by default. Recommended. The meaning of "
-"\"medium\" and \"full\" depends on the font format (.ttf, .otf, .pfa/.pfb) "
-"and the installed version of FreeType. They usually try to fit glyphs to "
-"both the X and the Y axis (except for .otf: Y-only). This can lead to "
-"distortion and/or inconsistent rendering depending on the quality of the "
-"font, the font format and the state of FreeType's font engines."
+"The type of hinting to use when rendering fonts. Possible values are: “none” "
+"for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
+"ClearType, DirectWrite and Adobe’s proprietary font rendering engine. "
+"Ignores native hinting within the font, generates hints algorithmically. "
+"Used on Ubuntu by default. Recommended. The meaning of “medium” and “full” "
+"depends on the font format (.ttf, .otf, .pfa/.pfb) and the installed version "
+"of FreeType. They usually try to fit glyphs to both the X and the Y axis "
+"(except for .otf: Y-only). This can lead to distortion and/or inconsistent "
+"rendering depending on the quality of the font, the font format and the "
+"state of FreeType’s font engines."
 msgstr ""
 "A szövegek renderelése során használt hinting típusa. A lehetséges értékek: "
 "„none” (nincs) a hinting elhagyásához, és „slight” (enyhe) a csak Y "
@@ -698,9 +773,8 @@ msgstr "RGBA sorrend"
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
-"is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
-"common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red "
-"on bottom."
+"is set to “rgba”. Possible values are: “rgb” for red on left (most common), "
+"“bgr” for blue on left, “vrgb” for red on top, “vbgr” for red on bottom."
 msgstr ""
 "Az LCD képernyő alképpont-elemeinek sorrendje; csak akkor kerül "
 "felhasználásra, ha az élsimítás típusa „rgba”. A lehetséges értékek: "
@@ -802,6 +876,7 @@ msgstr ""
 msgid "Color"
 msgstr "Színek"
 
+#. TRANSLATORS: button: this is to open GCM
 #: ../plugins/color/gsd-color-calibrate.c:144
 msgid "Recalibrate now"
 msgstr "Újrakalibrálás most"
@@ -814,13 +889,13 @@ msgstr "Újrakalibrálás szükséges"
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
 #: ../plugins/color/gsd-color-calibrate.c:199
 #, c-format
-msgid "The display '%s' should be recalibrated soon."
+msgid "The display “%s” should be recalibrated soon."
 msgstr "A(z) „%s” kijelzőt hamarosan újra kell kalibrálni."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
 #: ../plugins/color/gsd-color-calibrate.c:208
 #, c-format
-msgid "The printer '%s' should be recalibrated soon."
+msgid "The printer “%s” should be recalibrated soon."
 msgstr "A(z) „%s” nyomtatót hamarosan újra kell kalibrálni."
 
 #. TRANSLATORS: this is the application name
@@ -911,27 +986,31 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "A számítógépen már csak %s lemezhely maradt."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2114
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2173
 msgid "Bluetooth disabled"
 msgstr "Bluetooth letiltva"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2117
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2176
 msgid "Bluetooth enabled"
 msgstr "Bluetooth engedélyezve"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2121
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2180
 msgid "Airplane mode enabled"
 msgstr "Repülőgép üzemmód engedélyezve"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2124
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2183
 msgid "Airplane mode disabled"
 msgstr "Repülőgép üzemmód letiltva"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2152
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2211
 msgid "Hardware Airplane Mode"
 msgstr "Hardveres repülőgépmód"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2212
+#. Translators: this is a filename used for screencast
+#. * recording, where "%d" and "%t" date and time, e.g.
+#. * "Screencast from 07-17-2013 10:00:46 PM.webm"
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2271
+#, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Képernyővideó ekkor: %d %t.webm"
 
@@ -1098,18 +1177,18 @@ msgstr "Repülőgép üzemmód be/ki"
 msgid "Toggle Bluetooth"
 msgstr "Bluetooth be/ki"
 
-#: ../plugins/power/gpm-common.c:81
+#: ../plugins/power/gpm-common.c:100
 msgid "Unknown time"
 msgstr "Ismeretlen idő"
 
-#: ../plugins/power/gpm-common.c:86
+#: ../plugins/power/gpm-common.c:105
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i perc"
 msgstr[1] "%i perc"
 
-#: ../plugins/power/gpm-common.c:96
+#: ../plugins/power/gpm-common.c:115
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1118,25 +1197,25 @@ msgstr[1] "%i óra"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: ../plugins/power/gpm-common.c:102
+#: ../plugins/power/gpm-common.c:121
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s, %i %s"
 
-#: ../plugins/power/gpm-common.c:103
+#: ../plugins/power/gpm-common.c:122
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "óra"
 msgstr[1] "óra"
 
-#: ../plugins/power/gpm-common.c:104
+#: ../plugins/power/gpm-common.c:123
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "perc"
 msgstr[1] "perc"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:929 ../plugins/power/gsd-power-manager.c:684
+#: ../plugins/power/gpm-common.c:948 ../plugins/power/gsd-power-manager.c:684
 #: ../plugins/power/gsd-power-manager.c:781
 msgid "Battery is critically low"
 msgstr "Az akkumulátor kritikusan gyenge"
@@ -1450,24 +1529,24 @@ msgstr "Akkumulátoron"
 msgid "On AC power"
 msgstr "Hálózaton"
 
-#: ../plugins/power/gsd-power-manager.c:2034
+#: ../plugins/power/gsd-power-manager.c:2038
 msgid "Automatic logout"
 msgstr "Automatikus kijelentkezés"
 
-#: ../plugins/power/gsd-power-manager.c:2034
+#: ../plugins/power/gsd-power-manager.c:2038
 msgid "You will soon log out because of inactivity."
 msgstr "Hamarosan kijelentkezik inaktivitás miatt."
 
-#: ../plugins/power/gsd-power-manager.c:2039
+#: ../plugins/power/gsd-power-manager.c:2043
 msgid "Automatic suspend"
 msgstr "Automatikus felfüggesztés"
 
-#: ../plugins/power/gsd-power-manager.c:2039
-#: ../plugins/power/gsd-power-manager.c:2044
+#: ../plugins/power/gsd-power-manager.c:2043
+#: ../plugins/power/gsd-power-manager.c:2048
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "A számítógép inaktivitás miatt hamarosan fel lesz függesztve."
 
-#: ../plugins/power/gsd-power-manager.c:2044
+#: ../plugins/power/gsd-power-manager.c:2048
 msgid "Automatic hibernation"
 msgstr "Automatikus hibernálás"
 
@@ -1490,7 +1569,7 @@ msgstr "Új nyomtató beállítása"
 
 #. Translators: Just wait
 #: ../plugins/print-notifications/gsd-printer.c:892
-msgid "Please wait..."
+msgid "Please wait…"
 msgstr "Kis türelmet…"
 
 #. Translators: We have no driver installed for this printer
@@ -1520,74 +1599,74 @@ msgstr "Nyomtatók"
 #. Translators: The printer is low on toner (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
 #, c-format
-msgid "Printer '%s' is low on toner."
-msgstr "A nyomtatóban („%s”) kevés a festék."
+msgid "Printer “%s” is low on toner."
+msgstr "A(z) „%s” nyomtatóban kevés a festék."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
 #, c-format
-msgid "Printer '%s' has no toner left."
-msgstr "A nyomtatóból („%s”) kifogyott a festék."
+msgid "Printer “%s” has no toner left."
+msgstr "A(z) „%s” nyomtatóból kifogyott a festék."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
 #, c-format
-msgid "Printer '%s' may not be connected."
-msgstr "Lehet, hogy a nyomtató („%s”) nincs csatlakoztatva."
+msgid "Printer “%s” may not be connected."
+msgstr "Lehet, hogy a(z) „%s” nyomtató nincs csatlakoztatva."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
 #, c-format
-msgid "The cover is open on printer '%s'."
-msgstr "A nyomtató („%s”) fedele nyitva van."
+msgid "The cover is open on printer “%s”."
+msgstr "A(z) „%s” nyomtató fedele nyitva van."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
 #, c-format
-msgid "There is a missing print filter for printer '%s'."
-msgstr "Hiányzik a nyomtatószűrő a következő nyomtatóhoz: „%s”."
+msgid "There is a missing print filter for printer “%s”."
+msgstr "Hiányzik a nyomtatószűrő a(z) „%s” nyomtatóhoz."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 #, c-format
-msgid "The door is open on printer '%s'."
-msgstr "A nyomtató („%s”) ajtaja nyitva van."
+msgid "The door is open on printer “%s”."
+msgstr "A(z) „%s” nyomtató ajtaja nyitva van."
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
 #, c-format
-msgid "Printer '%s' is low on a marker supply."
-msgstr "A nyomtató („%s”) tintapatronja kifogyóban van."
+msgid "Printer “%s” is low on a marker supply."
+msgstr "A(z) „%s” nyomtató tintapatronja kifogyóban van."
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
 #, c-format
-msgid "Printer '%s' is out of a marker supply."
-msgstr "A nyomtató („%s”) tintapatronja kifogyott."
+msgid "Printer “%s” is out of a marker supply."
+msgstr "A(z) „%s” nyomtató tintapatronja kifogyott."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
 #, c-format
-msgid "Printer '%s' is low on paper."
-msgstr "A nyomtatóban („%s”) kevés a papír."
+msgid "Printer “%s” is low on paper."
+msgstr "A(z) „%s” nyomtatóban kevés a papír."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
 #, c-format
-msgid "Printer '%s' is out of paper."
-msgstr "A nyomtatóból („%s”) kifogyott a papír."
+msgid "Printer “%s” is out of paper."
+msgstr "A(z) „%s” nyomtatóból kifogyott a papír."
 
 #. Translators: The printer is offline (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
 #, c-format
-msgid "Printer '%s' is currently off-line."
-msgstr "A nyomtató („%s”) nem érhető el."
+msgid "Printer “%s” is currently off-line."
+msgstr "A(z)„%s” nyomtató nem érhető el."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:395
 #, c-format
-msgid "There is a problem on printer '%s'."
-msgstr "A nyomtató („%s”) problémát észlelt."
+msgid "There is a problem on printer “%s”."
+msgstr "A(z) „%s” nyomtató problémát észlelt."
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:443
@@ -1676,7 +1755,7 @@ msgstr "Nyomtatás leállítva"
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:607
 #, c-format
 msgctxt "print job"
-msgid "\"%s\" on %s"
+msgid "“%s” on %s"
 msgstr "„%s” ezen: %s"
 
 #. Translators: A print job has been canceled
@@ -1720,189 +1799,12 @@ msgstr "Nyomtatófigyelmeztetés"
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:835
 #, c-format
-msgid "Printer '%s': '%s'."
+msgid "Printer “%s”: “%s”."
 msgstr "„%s” nyomtató: „%s”."
 
 #: ../plugins/smartcard/gsd-smartcard-service.c:224
 msgid "User was not logged in with smartcard."
 msgstr "A felhasználó nem intelligens kártyával jelentkezett be."
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:51
-msgctxt "Wacom action-type"
-msgid "None"
-msgstr "Nincs"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:52
-msgctxt "Wacom action-type"
-msgid "Send Keystroke"
-msgstr "Billentyűleütés küldése"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:53
-msgctxt "Wacom action-type"
-msgid "Switch Monitor"
-msgstr "Monitorváltás"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:54
-msgctxt "Wacom action-type"
-msgid "Show On-Screen Help"
-msgstr "Súgó megjelenítése"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:154
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1098
-msgctxt "Action type"
-msgid "Show On-Screen Help"
-msgstr "Súgó megjelenítése"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:157
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1101
-msgctxt "Action type"
-msgid "Switch Monitor"
-msgstr "Monitorváltás"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:201
-msgctxt "keyboard shortcut"
-msgid "None"
-msgstr "Nincs"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:487
-msgid "Done"
-msgstr "Kész"
-
-#. If no mode is available, we use "left-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1031
-msgid "Left Ring"
-msgstr "Bal gyűrű"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1042
-#, c-format
-msgid "Left Ring Mode #%d"
-msgstr "Bal gyűrű %d. módja "
-
-#. If no mode is available, we use "right-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1062
-msgid "Right Ring"
-msgstr "Jobb gyűrű"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1073
-#, c-format
-msgid "Right Ring Mode #%d"
-msgstr "Jobb gyűrű %d. módja "
-
-#. If no mode is available, we use "left-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1115
-msgid "Left Touchstrip"
-msgstr "Bal érintősáv"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1126
-#, c-format
-msgid "Left Touchstrip Mode #%d"
-msgstr "Bal érintősáv %d. módja"
-
-#. If no mode is available, we use "right-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1146
-msgid "Right Touchstrip"
-msgstr "Jobb érintősáv"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1157
-#, c-format
-msgid "Right Touchstrip Mode #%d"
-msgstr "Jobb érintősáv %d. módja"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1183
-#, c-format
-msgid "Left Touchring Mode Switch"
-msgstr "Bal érintőgyűrű módkapcsolója"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1185
-#, c-format
-msgid "Right Touchring Mode Switch"
-msgstr "Jobb érintőgyűrű módkapcsolója"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1188
-#, c-format
-msgid "Left Touchstrip Mode Switch"
-msgstr "Bal érintősáv módkapcsolója"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1190
-#, c-format
-msgid "Right Touchstrip Mode Switch"
-msgstr "Jobb érintősáv módkapcsolója"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1195
-#, c-format
-msgid "Mode Switch #%d"
-msgstr "%d. módkapcsoló"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1241
-#, c-format
-msgid "Left Button #%d"
-msgstr "%d. bal gomb"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1244
-#, c-format
-msgid "Right Button #%d"
-msgstr "%d. jobb gomb"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1247
-#, c-format
-msgid "Top Button #%d"
-msgstr "%d. felső gomb"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1250
-#, c-format
-msgid "Bottom Button #%d"
-msgstr "%d. alsó gomb"
-
-#: ../plugins/wacom/gsd-wacom-key-shortcut-button.c:263
-msgid "New shortcut…"
-msgstr "Új gyorsbillentyű…"
-
-#: ../plugins/wacom/gsd-wacom-manager.c:1047
-#, c-format
-msgid "The \"%s\" tablet may not work as expected."
-msgstr "A(z) „%s” táblagép nem biztos, hogy a várt módon működik majd."
-
-#: ../plugins/wacom/gsd-wacom-manager.c:1048
-msgid "Unknown Tablet Connected"
-msgstr "Ismeretlen táblagép csatlakoztatva"
-
-#: ../plugins/wacom/gsd-wacom-manager.c:1052
-msgid "Wacom Settings"
-msgstr "Wacom beállítások"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1075
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1095
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1106
-msgctxt "Action type"
-msgid "None"
-msgstr "Nincs"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1080
-#, c-format
-msgctxt "Action type"
-msgid "Send Keystroke %s"
-msgstr "%s billentyűleütés küldése"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1139
-#, c-format
-msgid "Mode %d: %s"
-msgstr "%d. mód: %s"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1349
-msgid "(press any key to exit)"
-msgstr "(üssön le egy billentyűt a kilépéshez)"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1358
-msgid "Push a button to configure"
-msgstr "Nyomjon meg egy gombot a konfiguráláshoz"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1358
-msgid "(Esc to cancel)"
-msgstr "(Esc a megszakításhoz)"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1985
-msgid "Edit"
-msgstr "Szerkesztés"
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
@@ -1933,6 +1835,123 @@ msgstr "Hitelesítés szükséges a Wacom táblagép OLED képének módosítás
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "A kijelzőinformációk nem frissíthetők: %s"
+
+#~ msgctxt "Wacom action-type"
+#~ msgid "None"
+#~ msgstr "Nincs"
+
+#~ msgctxt "Wacom action-type"
+#~ msgid "Send Keystroke"
+#~ msgstr "Billentyűleütés küldése"
+
+#~ msgctxt "Wacom action-type"
+#~ msgid "Switch Monitor"
+#~ msgstr "Monitorváltás"
+
+#~ msgctxt "Wacom action-type"
+#~ msgid "Show On-Screen Help"
+#~ msgstr "Súgó megjelenítése"
+
+#~ msgctxt "Action type"
+#~ msgid "Show On-Screen Help"
+#~ msgstr "Súgó megjelenítése"
+
+#~ msgctxt "Action type"
+#~ msgid "Switch Monitor"
+#~ msgstr "Monitorváltás"
+
+#~ msgctxt "keyboard shortcut"
+#~ msgid "None"
+#~ msgstr "Nincs"
+
+#~ msgid "Done"
+#~ msgstr "Kész"
+
+#~ msgid "Left Ring"
+#~ msgstr "Bal gyűrű"
+
+#~ msgid "Left Ring Mode #%d"
+#~ msgstr "Bal gyűrű %d. módja "
+
+#~ msgid "Right Ring"
+#~ msgstr "Jobb gyűrű"
+
+#~ msgid "Right Ring Mode #%d"
+#~ msgstr "Jobb gyűrű %d. módja "
+
+#~ msgid "Left Touchstrip"
+#~ msgstr "Bal érintősáv"
+
+#~ msgid "Left Touchstrip Mode #%d"
+#~ msgstr "Bal érintősáv %d. módja"
+
+#~ msgid "Right Touchstrip"
+#~ msgstr "Jobb érintősáv"
+
+#~ msgid "Right Touchstrip Mode #%d"
+#~ msgstr "Jobb érintősáv %d. módja"
+
+#~ msgid "Left Touchring Mode Switch"
+#~ msgstr "Bal érintőgyűrű módkapcsolója"
+
+#~ msgid "Right Touchring Mode Switch"
+#~ msgstr "Jobb érintőgyűrű módkapcsolója"
+
+#~ msgid "Left Touchstrip Mode Switch"
+#~ msgstr "Bal érintősáv módkapcsolója"
+
+#~ msgid "Right Touchstrip Mode Switch"
+#~ msgstr "Jobb érintősáv módkapcsolója"
+
+#~ msgid "Mode Switch #%d"
+#~ msgstr "%d. módkapcsoló"
+
+#~ msgid "Left Button #%d"
+#~ msgstr "%d. bal gomb"
+
+#~ msgid "Right Button #%d"
+#~ msgstr "%d. jobb gomb"
+
+#~ msgid "Top Button #%d"
+#~ msgstr "%d. felső gomb"
+
+#~ msgid "Bottom Button #%d"
+#~ msgstr "%d. alsó gomb"
+
+#~ msgid "New shortcut…"
+#~ msgstr "Új gyorsbillentyű…"
+
+#~ msgid "The \"%s\" tablet may not work as expected."
+#~ msgstr "A(z) „%s” táblagép nem biztos, hogy a várt módon működik majd."
+
+#~ msgid "Unknown Tablet Connected"
+#~ msgstr "Ismeretlen táblagép csatlakoztatva"
+
+#~ msgid "Wacom Settings"
+#~ msgstr "Wacom beállítások"
+
+#~ msgctxt "Action type"
+#~ msgid "None"
+#~ msgstr "Nincs"
+
+#~ msgctxt "Action type"
+#~ msgid "Send Keystroke %s"
+#~ msgstr "%s billentyűleütés küldése"
+
+#~ msgid "Mode %d: %s"
+#~ msgstr "%d. mód: %s"
+
+#~ msgid "(press any key to exit)"
+#~ msgstr "(üssön le egy billentyűt a kilépéshez)"
+
+#~ msgid "Push a button to configure"
+#~ msgstr "Nyomjon meg egy gombot a konfiguráláshoz"
+
+#~ msgid "(Esc to cancel)"
+#~ msgstr "(Esc a megszakításhoz)"
+
+#~ msgid "Edit"
+#~ msgstr "Szerkesztés"
 
 #~ msgid "GNOME Settings Daemon"
 #~ msgstr "GNOME beállításdémon"
@@ -2661,9 +2680,6 @@ msgstr "A kijelzőinformációk nem frissíthetők: %s"
 
 #~ msgid "Model:"
 #~ msgstr "Modell:"
-
-#~ msgid "Charge time:"
-#~ msgstr "Töltési idő:"
 
 #~ msgid "Discharge time:"
 #~ msgstr "Kisülési idő:"
@@ -3430,9 +3446,6 @@ msgstr "A kijelzőinformációk nem frissíthetők: %s"
 
 #~ msgid "Slot ID"
 #~ msgstr "Nyílásazonosító"
-
-#~ msgid "The slot the card is in"
-#~ msgstr "A kártyát tartalmazó nyílás"
 
 #~ msgid "Slot Series"
 #~ msgstr "Nyílássorozatok"
