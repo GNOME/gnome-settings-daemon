@@ -18,10 +18,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-02-12 14:48+0000\n"
-"PO-Revision-Date: 2017-02-13 09:54+0100\n"
+"POT-Creation-Date: 2017-02-24 21:09+0000\n"
+"PO-Revision-Date: 2017-02-27 10:03+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -36,9 +36,6 @@ msgid "Smartcard removal action"
 msgstr "Acción al quitar la tarjeta inteligente"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
-#| msgid ""
-#| "Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
-#| "action will get performed when the smartcard used for log in is removed."
 msgid ""
 "Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
 "get performed when the smartcard used for log in is removed."
@@ -73,8 +70,6 @@ msgid "Distance before a drag is started."
 msgstr "Distancia antes de iniciar un arrastre."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
-#| msgid ""
-#| "Whether the tablet's orientation is locked, or rotated automatically."
 msgid "Whether the tablet’s orientation is locked, or rotated automatically."
 msgstr ""
 "Indica si la orientación de la tableta está bloqueada, o si se rota "
@@ -114,9 +109,6 @@ msgid "Wacom tablet rotation"
 msgstr "Wacom: rotación de la tableta"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
-#| msgid ""
-#| "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, "
-#| "and 'ccw' for 90 degree counterclockwise."
 msgid ""
 "Set this to “none”, “cw” for 90 degree clockwise, “half” for 180 degree, and "
 "“ccw” for 90 degree counterclockwise."
@@ -290,7 +282,6 @@ msgstr ""
 "la ubicación actual."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:11
-#| msgid "Charge time:"
 msgid "The start time"
 msgstr "El tiempo de inicio"
 
@@ -315,7 +306,6 @@ msgstr ""
 "de fin en horas desde la medianoche."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:15
-#| msgid "The slot the card is in"
 msgid "The last detected position"
 msgstr "La última posición detectada"
 
@@ -334,9 +324,12 @@ msgid "List of plugins that are allowed to be loaded"
 msgstr "Lista de complementos que se pueden cargar"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
+#| msgid ""
+#| "A list of strings representing the plugins that are allowed to be loaded "
+#| "(default: 'all'). This is only evaluated on startup."
 msgid ""
 "A list of strings representing the plugins that are allowed to be loaded "
-"(default: 'all'). This is only evaluated on startup."
+"(default: “all”). This is only evaluated on startup."
 msgstr ""
 "Una lista de cadenas que representan los complementos que se pueden cargar "
 "(predeterminado: «all»). Esto sólo se evalúa al inicio."
@@ -720,12 +713,6 @@ msgid "File for default configuration for RandR"
 msgstr "Archivo para la configuración predeterminada de RandR"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
-#| msgid ""
-#| "The XRandR plugin will look for a default configuration in the file "
-#| "specified by this key. This is similar to the ~/.config/monitors.xml that "
-#| "normally gets stored in users' home directories. If a user does not have "
-#| "such a file, or has one that does not match the user's setup of monitors, "
-#| "then the file specified by this key will be used instead."
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
@@ -745,12 +732,6 @@ msgid "Whether to turn off specific monitors after boot"
 msgstr "Indica si apagar determinados monitores después de iniciar el equipo"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
-#| msgid ""
-#| "'clone' will display the same thing on all monitors, 'dock' will switch "
-#| "off the internal monitor, 'do-nothing' will use the default Xorg "
-#| "behaviour (extend the desktop in recent versions). The default, 'follow-"
-#| "lid', will choose between 'do-nothing' and 'dock' depending on whether "
-#| "the lid is (respectively) open or closed."
 msgid ""
 "“clone” will display the same thing on all monitors, “dock” will switch off "
 "the internal monitor, “do-nothing” will use the default Xorg behaviour "
@@ -770,10 +751,6 @@ msgid "Antialiasing"
 msgstr "Antialias"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-#| msgid ""
-#| "The type of antialiasing to use when rendering fonts. Possible values "
-#| "are: \"none\" for no antialiasing, \"grayscale\" for standard grayscale "
-#| "antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
@@ -789,17 +766,6 @@ msgid "Hinting"
 msgstr "Contorno"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
-#| msgid ""
-#| "The type of hinting to use when rendering fonts. Possible values are: "
-#| "\"none\" for no hinting and \"slight\" for fitting only to the Y-axis "
-#| "like Microsoft's ClearType, DirectWrite and Adobe's proprietary font "
-#| "rendering engine. Ignores native hinting within the font, generates hints "
-#| "algorithmically. Used on Ubuntu by default. Recommended. The meaning of "
-#| "\"medium\" and \"full\" depends on the font format (.ttf, .otf, .pfa/."
-#| "pfb) and the installed version of FreeType. They usually try to fit "
-#| "glyphs to both the X and the Y axis (except for .otf: Y-only). This can "
-#| "lead to distortion and/or inconsistent rendering depending on the quality "
-#| "of the font, the font format and the state of FreeType's font engines."
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: “none” "
 "for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
@@ -829,11 +795,6 @@ msgid "RGBA order"
 msgstr "Orden RGBA"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
-#| msgid ""
-#| "The order of subpixel elements on an LCD screen; only used when "
-#| "antialiasing is set to \"rgba\". Possible values are: \"rgb\" for red on "
-#| "left (most common), \"bgr\" for blue on left, \"vrgb\" for red on top, "
-#| "\"vbgr\" for red on bottom."
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to “rgba”. Possible values are: “rgb” for red on left (most common), "
@@ -954,14 +915,12 @@ msgstr "Se necesita recalibrar"
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
 #: ../plugins/color/gsd-color-calibrate.c:199
 #, c-format
-#| msgid "The display '%s' should be recalibrated soon."
 msgid "The display “%s” should be recalibrated soon."
 msgstr "La pantalla «%s» se debería recalibrar pronto."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
 #: ../plugins/color/gsd-color-calibrate.c:208
 #, c-format
-#| msgid "The printer '%s' should be recalibrated soon."
 msgid "The printer “%s” should be recalibrated soon."
 msgstr "La impresora «%s» se debería recalibrar pronto."
 
@@ -1053,30 +1012,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Este equipo sólo tiene %s de espacio en disco libre."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2130
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2173
 msgid "Bluetooth disabled"
 msgstr "Bluetooth desactivado"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2133
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2176
 msgid "Bluetooth enabled"
 msgstr "Bluetooth activado"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2137
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2180
 msgid "Airplane mode enabled"
 msgstr "Modo avión activado"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2140
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2183
 msgid "Airplane mode disabled"
 msgstr "Modo avión desactivado"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2168
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2211
 msgid "Hardware Airplane Mode"
 msgstr "Modo avión hardware"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2228
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2271
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Captura del escritorio de %d %t.webm"
@@ -1633,7 +1592,6 @@ msgstr "Configurando la impresora nueva"
 
 #. Translators: Just wait
 #: ../plugins/print-notifications/gsd-printer.c:892
-#| msgid "Please wait..."
 msgid "Please wait…"
 msgstr "Espere…"
 
@@ -1664,84 +1622,72 @@ msgstr "Impresoras"
 #. Translators: The printer is low on toner (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
 #, c-format
-#| msgid "Printer '%s' is low on toner."
 msgid "Printer “%s” is low on toner."
 msgstr "A la impresora «%s» le queda poco tóner."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
 #, c-format
-#| msgid "Printer '%s' has no toner left."
 msgid "Printer “%s” has no toner left."
 msgstr "A la impresora «%s» no le queda tóner."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
 #, c-format
-#| msgid "Printer '%s' may not be connected."
 msgid "Printer “%s” may not be connected."
 msgstr "Puede que la impresora «%s» no esté conectada."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
 #, c-format
-#| msgid "The cover is open on printer '%s'."
 msgid "The cover is open on printer “%s”."
 msgstr "La tapa de la impresora «%s» está abierta."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
 #, c-format
-#| msgid "There is a missing print filter for printer '%s'."
 msgid "There is a missing print filter for printer “%s”."
 msgstr "Falta un filtro para la impresora «%s»."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 #, c-format
-#| msgid "The door is open on printer '%s'."
 msgid "The door is open on printer “%s”."
 msgstr "La puerta de la impresora «%s» está abierta."
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
 #, c-format
-#| msgid "Printer '%s' is low on a marker supply."
 msgid "Printer “%s” is low on a marker supply."
 msgstr "La impresora «%s» tiene poco marcador."
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
 #, c-format
-#| msgid "Printer '%s' is out of a marker supply."
 msgid "Printer “%s” is out of a marker supply."
 msgstr "La impresora «%s» no tiene marcador."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
 #, c-format
-#| msgid "Printer '%s' is low on paper."
 msgid "Printer “%s” is low on paper."
 msgstr "La impresora «%s» tiene poco papel."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
 #, c-format
-#| msgid "Printer '%s' is out of paper."
 msgid "Printer “%s” is out of paper."
 msgstr "La impresora «%s» no tiene papel."
 
 #. Translators: The printer is offline (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
 #, c-format
-#| msgid "Printer '%s' is currently off-line."
 msgid "Printer “%s” is currently off-line."
 msgstr "La impresora «%s» está actualmente desconectada."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:395
 #, c-format
-#| msgid "There is a problem on printer '%s'."
 msgid "There is a problem on printer “%s”."
 msgstr "Existe un problema con la impresora «%s»."
 
@@ -1831,8 +1777,6 @@ msgstr "Impresión detenida"
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:594
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:607
 #, c-format
-#| msgctxt "print job"
-#| msgid "\"%s\" on %s"
 msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "«%s» en %s"
@@ -1878,7 +1822,6 @@ msgstr "Advertencia de la impresora"
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:835
 #, c-format
-#| msgid "Printer '%s': '%s'."
 msgid "Printer “%s”: “%s”."
 msgstr "Impresora «%s»: «%s»."
 
