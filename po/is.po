@@ -2,16 +2,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Áki G. Karlsson  <aki@akademia.is>, 2003.
-# Sveinn í Felli <sv1@fellsnet.is>, 2015.
+# Sveinn í Felli <sv1@fellsnet.is>, 2015, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: Gnome Control Center\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-09-02 08:06+0000\n"
-"PO-Revision-Date: 2015-09-04 10:01+0000\n"
+"POT-Creation-Date: 2016-10-10 14:32+0000\n"
+"PO-Revision-Date: 2017-03-03 15:32+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
-"Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
+"Language-Team: Icelandic <translation-team-is@lists.sourceforge.org>\n"
 "Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,6 +38,8 @@ msgid ""
 "Highlights the current location of the pointer when the Control key is "
 "pressed and released."
 msgstr ""
+"Lýsir upp núverandi staðsetningu músarbendilsins þegar ýtt er snöggt á Ctrl-"
+"takkann."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
 msgid "Double click time"
@@ -48,7 +50,6 @@ msgid "Length of a double click in milliseconds."
 msgstr "Lengd tvísmells í millísekúndum."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
-#| msgid "_Threshold:"
 msgid "Drag threshold"
 msgstr "Skynjunarmörk dreginna hluta"
 
@@ -58,16 +59,6 @@ msgstr "Viðnám áður en að dráttur hefst."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
 msgid "Whether the tablet's orientation is locked, or rotated automatically."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
-msgid "Device hotplug custom command"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
-msgid ""
-"Command to be run when a device is added or removed. An exit value of 1 "
-"means that the device will not be handled further by gnome-settings-daemon."
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
@@ -556,7 +547,6 @@ msgid "Binding to launch the web browser."
 msgstr "Flýtilykill til að ræsa netvafra."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
-#| msgid "_Magnifier"
 msgid "Toggle magnifier"
 msgstr "Víxla skjástækkun"
 
@@ -565,7 +555,6 @@ msgid "Binding to show the screen magnifier"
 msgstr "Flýtilykill til að birta skjástækkunartólið"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
-#| msgid "_Screenreader"
 msgid "Toggle screen reader"
 msgstr "Víxla skjálesara"
 
@@ -574,7 +563,6 @@ msgid "Binding to start the screen reader"
 msgstr "Flýtilykill til að birta skjálesarann"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
-#| msgid "_On-screen keyboard"
 msgid "Toggle on-screen keyboard"
 msgstr "Víxla skjályklaborði"
 
@@ -599,7 +587,6 @@ msgid "Binding to decrease the text size"
 msgstr "Flýtilykill til að minnka stærð texta"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
-#| msgid "Best co_ntrast"
 msgid "Toggle contrast"
 msgstr "Víxla birtuskilum"
 
@@ -608,7 +595,6 @@ msgid "Binding to toggle the interface contrast"
 msgstr "Flýtilykill til að víxla birtuskilum viðmótsins"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
-#| msgid "_Magnifier"
 msgid "Magnifier zoom in"
 msgstr "Skjástækkun inn"
 
@@ -617,7 +603,6 @@ msgid "Binding for the magnifier to zoom in"
 msgstr "Flýtilykill fyrir aðdrátt í skjástækkunartólinu"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
-#| msgid "_Magnifier"
 msgid "Magnifier zoom out"
 msgstr "Skjástækkun út"
 
@@ -626,7 +611,6 @@ msgid "Binding for the magnifier to zoom out"
 msgstr "Flýtilykill fyrir að draga út í skjástækkunartólinu"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
-#| msgid "Name:"
 msgid "Name"
 msgstr "Heiti"
 
@@ -704,8 +688,15 @@ msgstr "Hnikun"
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
-"\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
-"\" for maximum hinting (may cause distortion of letter forms)."
+"\" for no hinting and \"slight\" for fitting only to the Y-axis like "
+"Microsoft's ClearType, DirectWrite and Adobe's proprietary font rendering "
+"engine. Ignores native hinting within the font, generates hints "
+"algorithmically. Used on Ubuntu by default. Recommended. The meaning of "
+"\"medium\" and \"full\" depends on the font format (.ttf, .otf, .pfa/.pfb) "
+"and the installed version of FreeType. They usually try to fit glyphs to "
+"both the X and the Y axis (except for .otf: Y-only). This can lead to "
+"distortion and/or inconsistent rendering depending on the quality of the "
+"font, the font format and the state of FreeType's font engines."
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
@@ -908,7 +899,6 @@ msgid "Settings"
 msgstr "Stillingar"
 
 #: ../plugins/datetime/gsd-datetime-manager.c:118
-#| msgid "Default Settings"
 msgid "Date & Time Settings"
 msgstr "Dagsetninga- og tímastillingar"
 
@@ -920,12 +910,28 @@ msgstr "Sýnishorn"
 msgid "Dummy plugin"
 msgstr "Tilraunaviðbót"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:587
+#: ../plugins/housekeeping/gsd-disk-space.c:574
+msgid "Disk space"
+msgstr "Diskapláss"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:586
+msgid "Examine"
+msgstr "Athuga"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:597
+msgid "Empty Trash"
+msgstr "Tæma rusl"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:605
+msgid "Ignore"
+msgstr "Hunsa"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:636
 #, c-format
 msgid "Low Disk Space on “%s”"
 msgstr "Lítið diskapláss á “%s”"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:589
+#: ../plugins/housekeeping/gsd-disk-space.c:638
 #, c-format
 msgid ""
 "The volume “%s” has only %s disk space remaining.  You may free up some "
@@ -934,16 +940,16 @@ msgstr ""
 "Gagnahirslan “%s” á einungis %s diskapláss eftir. Þú gætir losað eitthvað "
 "meira pláss með því að tæma ruslið."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:593
+#: ../plugins/housekeeping/gsd-disk-space.c:642
 #, c-format
 msgid "The volume “%s” has only %s disk space remaining."
 msgstr "Gagnahirslan “%s” á einungis %s diskapláss eftir."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:598
+#: ../plugins/housekeeping/gsd-disk-space.c:647
 msgid "Low Disk Space"
 msgstr "Lítið diskapláss"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:600
+#: ../plugins/housekeeping/gsd-disk-space.c:649
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -952,26 +958,10 @@ msgstr ""
 "Þessi tölva á einungis %s diskapláss eftir. Þú gætir losað eitthvað meira "
 "pláss með því að tæma ruslið."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:603
+#: ../plugins/housekeeping/gsd-disk-space.c:652
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "Þessi tölva á einungis %s diskapláss eftir."
-
-#: ../plugins/housekeeping/gsd-disk-space.c:618
-msgid "Disk space"
-msgstr "Diskapláss"
-
-#: ../plugins/housekeeping/gsd-disk-space.c:625
-msgid "Examine"
-msgstr "Athuga"
-
-#: ../plugins/housekeeping/gsd-disk-space.c:633
-msgid "Empty Trash"
-msgstr "Tæma rusl"
-
-#: ../plugins/housekeeping/gsd-disk-space.c:640
-msgid "Ignore"
-msgstr "Hunsa"
 
 #: ../plugins/housekeeping/housekeeping.gnome-settings-plugin.in.h:1
 msgid "Housekeeping"
@@ -993,35 +983,55 @@ msgstr "Lyklaborð"
 msgid "Keyboard plugin"
 msgstr "Lyklaborðsviðbót"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:1985
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2111
+msgid "Bluetooth disabled"
+msgstr "Bluetooth óvirkt"
+
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2114
+msgid "Bluetooth enabled"
+msgstr "Bluetooth virkt"
+
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2118
+msgid "Airplane mode enabled"
+msgstr "Flugvélahamur virkur"
+
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2121
+msgid "Airplane mode disabled"
+msgstr "Flugvélahamur óvirkur"
+
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2149
+msgid "Hardware Airplane Mode"
+msgstr "Vélbúnaðarstuddur flugvélahamur"
+
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2209
 msgid "Screencast from %d %t.webm"
 msgstr "Skjámyndskeið frá %d %t.webm"
 
-#: ../plugins/media-keys/gsd-screenshot-utils.c:84
+#: ../plugins/media-keys/gsd-screenshot-utils.c:82
 msgid "Unable to capture a screenshot"
 msgstr "Gat ekki tekið skjámynd"
 
-#: ../plugins/media-keys/gsd-screenshot-utils.c:115
+#: ../plugins/media-keys/gsd-screenshot-utils.c:113
 #: ../plugins/media-keys/gsd-screenshot-utils.c:155
 msgid "Screenshot taken"
 msgstr "Skjámynd tekin"
 
 #. translators: this is the name of the file that gets made up
 #. * with the screenshot
-#: ../plugins/media-keys/gsd-screenshot-utils.c:304
+#: ../plugins/media-keys/gsd-screenshot-utils.c:306
 #, c-format
 msgid "Screenshot from %s"
 msgstr "Skjámynd frá %s"
 
 #. translators:
 #. * The device has been disabled
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1830
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1866
 msgid "Disabled"
 msgstr "Óvirkt"
 
 #. translators:
 #. * The number of sound outputs on a particular device
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1837
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1873
 #, c-format
 msgid "%u Output"
 msgid_plural "%u Outputs"
@@ -1030,14 +1040,14 @@ msgstr[1] "%u úttök"
 
 #. translators:
 #. * The number of sound inputs on a particular device
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1847
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1883
 #, c-format
 msgid "%u Input"
 msgid_plural "%u Inputs"
 msgstr[0] "%u inntak"
 msgstr[1] "%u inntök"
 
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:2371
+#: ../plugins/media-keys/gvc/gvc-mixer-control.c:2738
 msgid "System Sounds"
 msgstr "Kerfishljóð"
 
@@ -1068,17 +1078,14 @@ msgid "Microphone Mute"
 msgstr "Þagga í hljóðnema"
 
 #: ../plugins/media-keys/shortcuts-list.h:53
-#| msgid "Volume step"
 msgid "Quiet Volume Mute"
 msgstr "Þagga hljóð (hljóðlega)"
 
 #: ../plugins/media-keys/shortcuts-list.h:54
-#| msgid "Volume down"
 msgid "Quiet Volume Down"
 msgstr "Lækka hljóðstyrk (hljóðlega)"
 
 #: ../plugins/media-keys/shortcuts-list.h:55
-#| msgid "Volume up"
 msgid "Quiet Volume Up"
 msgstr "Hækka hljóðstyrk (hljóðlega)"
 
@@ -1086,82 +1093,92 @@ msgstr "Hækka hljóðstyrk (hljóðlega)"
 msgid "Lock Screen"
 msgstr "Læsa skjá"
 
-#: ../plugins/media-keys/shortcuts-list.h:80
+#: ../plugins/media-keys/shortcuts-list.h:67
+msgid "Help"
+msgstr "Hjálp"
+
+#: ../plugins/media-keys/shortcuts-list.h:81
 msgid "Rewind"
 msgstr "Spóla til baka"
 
-#: ../plugins/media-keys/shortcuts-list.h:81
+#: ../plugins/media-keys/shortcuts-list.h:82
 msgid "Forward"
 msgstr "Áfram"
 
-#: ../plugins/media-keys/shortcuts-list.h:82
+#: ../plugins/media-keys/shortcuts-list.h:83
 msgid "Repeat"
 msgstr "Endurtaka"
 
-#: ../plugins/media-keys/shortcuts-list.h:83
+#: ../plugins/media-keys/shortcuts-list.h:84
 msgid "Random Play"
 msgstr "Spila slembið"
 
 #. Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.)
-#: ../plugins/media-keys/shortcuts-list.h:84
-#: ../plugins/media-keys/shortcuts-list.h:86
+#: ../plugins/media-keys/shortcuts-list.h:85
+#: ../plugins/media-keys/shortcuts-list.h:87
 msgid "Video Out"
 msgstr "Myndmerki út"
 
 #. Key code of the XF86RotateWindows key (present on some tablets)
-#: ../plugins/media-keys/shortcuts-list.h:88
+#: ../plugins/media-keys/shortcuts-list.h:89
 msgid "Rotate Screen"
 msgstr "Snúa skjánum"
 
-#: ../plugins/media-keys/shortcuts-list.h:89
+#: ../plugins/media-keys/shortcuts-list.h:90
 msgid "Orientation Lock"
 msgstr "Stefnulás"
 
-#: ../plugins/media-keys/shortcuts-list.h:98
+#: ../plugins/media-keys/shortcuts-list.h:99
 msgid "Power Off"
 msgstr "Slökkva"
 
 #. the kernel / Xorg names really are like this...
 #. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
-#: ../plugins/media-keys/shortcuts-list.h:101
+#: ../plugins/media-keys/shortcuts-list.h:102
 msgid "Sleep"
 msgstr "Svæfa"
 
-#: ../plugins/media-keys/shortcuts-list.h:102
+#: ../plugins/media-keys/shortcuts-list.h:103
 msgid "Suspend"
 msgstr "Setja í bið"
 
-#: ../plugins/media-keys/shortcuts-list.h:103
+#: ../plugins/media-keys/shortcuts-list.h:104
 msgid "Hibernate"
 msgstr "Leggja í dvala"
 
-#: ../plugins/media-keys/shortcuts-list.h:104
-#| msgid "Brightness up"
+#: ../plugins/media-keys/shortcuts-list.h:105
 msgid "Brightness Up"
 msgstr "Auka birtustig"
 
-#: ../plugins/media-keys/shortcuts-list.h:105
-#| msgid "Brightness down"
+#: ../plugins/media-keys/shortcuts-list.h:106
 msgid "Brightness Down"
 msgstr "Minnka birtustig"
 
-#: ../plugins/media-keys/shortcuts-list.h:106
-#| msgid "Brightness up"
+#: ../plugins/media-keys/shortcuts-list.h:107
 msgid "Keyboard Brightness Up"
 msgstr "Auka birtustig lyklaborðs"
 
-#: ../plugins/media-keys/shortcuts-list.h:107
-#| msgid "Brightness down"
+#: ../plugins/media-keys/shortcuts-list.h:108
 msgid "Keyboard Brightness Down"
 msgstr "Minnka birtustig lyklaborðs"
 
-#: ../plugins/media-keys/shortcuts-list.h:108
+#: ../plugins/media-keys/shortcuts-list.h:109
 msgid "Keyboard Brightness Toggle"
 msgstr "Víxla birtustigi lyklaborðs"
 
-#: ../plugins/media-keys/shortcuts-list.h:109
+#: ../plugins/media-keys/shortcuts-list.h:110
 msgid "Battery Status"
 msgstr "Staða rafhlöðu"
+
+#: ../plugins/media-keys/shortcuts-list.h:111
+#: ../plugins/media-keys/shortcuts-list.h:112
+#| msgid "Toggle screen reader"
+msgid "Toggle Airplane Mode"
+msgstr "Víxla flugvélaham af/á"
+
+#: ../plugins/media-keys/shortcuts-list.h:113
+msgid "Toggle Bluetooth"
+msgstr "Víxla Bluetooth af/á"
 
 #: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
 msgid "Mouse"
@@ -1173,7 +1190,6 @@ msgstr "Músarviðbót"
 
 #. Priority=100
 #: ../plugins/orientation/orientation.gnome-settings-plugin.in.h:2
-#| msgid "<b>Mouse Orientation</b>"
 msgid "Orientation"
 msgstr "Stefna"
 
@@ -1187,7 +1203,6 @@ msgstr "Óþekktur tími"
 
 #: ../plugins/power/gpm-common.c:86
 #, c-format
-#| msgid "minutes"
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i mínúta"
@@ -1214,179 +1229,174 @@ msgstr[0] "klukkustund"
 msgstr[1] "%'d klukkustundir"
 
 #: ../plugins/power/gpm-common.c:104
-#| msgid "minutes"
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "mínúta"
 msgstr[1] "%'d mínútur"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:909 ../plugins/power/gsd-power-manager.c:685
-#: ../plugins/power/gsd-power-manager.c:785
+#: ../plugins/power/gpm-common.c:909 ../plugins/power/gsd-power-manager.c:681
+#: ../plugins/power/gsd-power-manager.c:778
 msgid "Battery is critically low"
 msgstr "Varhugavert lág hleðsla á rafhlöðu"
 
-#. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:345
-msgid "UPS Discharging"
-msgstr "UPS varaaflgjafi afhleðst"
-
-#. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:350
-#, c-format
-msgid "%s of UPS backup power remaining"
-msgstr "%s eftir af varaafli frá UPS"
-
-#: ../plugins/power/gsd-power-manager.c:353
-msgid "Unknown amount of UPS backup power remaining"
-msgstr "Óþekkt magn eftir af varaafli á UPS"
-
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:369
-#: ../plugins/power/gsd-power-manager.c:517
-#: ../plugins/power/gsd-power-manager.c:668
-#: ../plugins/power/gsd-power-manager.c:776
-#: ../plugins/power/gsd-power-manager.c:2063
+#: ../plugins/power/gsd-power-manager.c:319
 #: ../plugins/power/power.gnome-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Orka"
 
+#. TRANSLATORS: UPS is now discharging
+#: ../plugins/power/gsd-power-manager.c:351
+msgid "UPS Discharging"
+msgstr "UPS varaaflgjafi afhleðst"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:356
+#, c-format
+msgid "%s of UPS backup power remaining"
+msgstr "%s eftir af varaafli frá UPS"
+
+#: ../plugins/power/gsd-power-manager.c:359
+msgid "Unknown amount of UPS backup power remaining"
+msgstr "Óþekkt magn eftir af varaafli á UPS"
+
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:432
+#: ../plugins/power/gsd-power-manager.c:434
 msgid "Battery low"
 msgstr "Lítil hleðsla á rafhlöðu"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:435
+#: ../plugins/power/gsd-power-manager.c:437
 msgid "Laptop battery low"
 msgstr "Lítil hleðsla á fartölvurafhlöðu"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:442
+#: ../plugins/power/gsd-power-manager.c:444
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "Um það bil %s eftir (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:447
+#: ../plugins/power/gsd-power-manager.c:449
 msgid "UPS low"
 msgstr "Lítil hleðsla á UPS"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:453
+#: ../plugins/power/gsd-power-manager.c:455
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "Það eru um það bil %s eftir á USP-varaaflgjafanum (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:458
-#: ../plugins/power/gsd-power-manager.c:595
+#: ../plugins/power/gsd-power-manager.c:460
+#: ../plugins/power/gsd-power-manager.c:594
 msgid "Mouse battery low"
 msgstr "Músin fer að verða rafmagnslaus"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:461
+#: ../plugins/power/gsd-power-manager.c:463
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "Lítil hleðsla eftir í þráðlausu músinni (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:465
-#: ../plugins/power/gsd-power-manager.c:603
+#: ../plugins/power/gsd-power-manager.c:467
+#: ../plugins/power/gsd-power-manager.c:602
 msgid "Keyboard battery low"
 msgstr "Lyklaborðið fer að verða rafmagnslaust"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:468
+#: ../plugins/power/gsd-power-manager.c:470
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "Lítil hleðsla eftir í þráðlausa lyklaborðinu (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:472
-#: ../plugins/power/gsd-power-manager.c:612
+#: ../plugins/power/gsd-power-manager.c:474
+#: ../plugins/power/gsd-power-manager.c:611
 msgid "PDA battery low"
 msgstr "Lítil hleðsla á PDA-lófatölvunni"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:475
+#: ../plugins/power/gsd-power-manager.c:477
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "Lítið rafmagn eftir á lófatölvunni (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:479
-#: ../plugins/power/gsd-power-manager.c:622
-#: ../plugins/power/gsd-power-manager.c:631
+#: ../plugins/power/gsd-power-manager.c:481
+#: ../plugins/power/gsd-power-manager.c:621
+#: ../plugins/power/gsd-power-manager.c:630
 msgid "Cell phone battery low"
 msgstr "Farsíminn fer að verða rafmagnslaus"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:482
+#: ../plugins/power/gsd-power-manager.c:484
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "Lítil hleðsla eftir á farsímanum (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:486
+#: ../plugins/power/gsd-power-manager.c:488
 msgid "Media player battery low"
 msgstr "Lítil hleðsla á margmiðlunarspilaranum"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:489
+#: ../plugins/power/gsd-power-manager.c:491
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "Lítil hleðsla eftir á margmiðlunarspilaranum (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:493
-#: ../plugins/power/gsd-power-manager.c:640
+#: ../plugins/power/gsd-power-manager.c:495
+#: ../plugins/power/gsd-power-manager.c:639
 msgid "Tablet battery low"
 msgstr "Lítil hleðsla á teiknitöflu"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:496
+#: ../plugins/power/gsd-power-manager.c:498
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "Lítil hleðsla eftir á teiknitöflunni (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:500
-#: ../plugins/power/gsd-power-manager.c:649
+#: ../plugins/power/gsd-power-manager.c:502
+#: ../plugins/power/gsd-power-manager.c:648
 msgid "Attached computer battery low"
 msgstr "Lítil hleðsla á tengdu tölvunni"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:503
+#: ../plugins/power/gsd-power-manager.c:505
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "Lítið rafmagn eftir á tölvunni sem er tengd tölvunni (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:527
+#: ../plugins/power/gsd-power-manager.c:526
 msgid "Battery is low"
 msgstr "Rafhlaðan er að verða tóm"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:559
+#: ../plugins/power/gsd-power-manager.c:558
 msgid "Battery critically low"
 msgstr "Varhugavert lág hleðsla rafhlöðu"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:562
-#: ../plugins/power/gsd-power-manager.c:712
+#: ../plugins/power/gsd-power-manager.c:561
+#: ../plugins/power/gsd-power-manager.c:708
 msgid "Laptop battery critically low"
 msgstr "Varhugavert lág hleðsla fartölvurafhlöðu"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:571
+#: ../plugins/power/gsd-power-manager.c:570
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr ""
@@ -1394,7 +1404,7 @@ msgstr ""
 "rafmagn."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:575
+#: ../plugins/power/gsd-power-manager.c:574
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr ""
@@ -1403,13 +1413,13 @@ msgstr ""
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:583
-#: ../plugins/power/gsd-power-manager.c:737
+#: ../plugins/power/gsd-power-manager.c:582
+#: ../plugins/power/gsd-power-manager.c:733
 msgid "UPS critically low"
 msgstr "Mjög lítið eftir á varaaflgjafanum"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:589
+#: ../plugins/power/gsd-power-manager.c:588
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1419,17 +1429,17 @@ msgstr ""
 "rafmagn til að forðast gagnatap."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:598
+#: ../plugins/power/gsd-power-manager.c:597
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
-"Þráðlausa músin fer að verða rafmagnslaus (%.0f%%). Hún mun hætta að virka ef "
-"hún verður ekki sett í hleðslu."
+"Þráðlausa músin fer að verða rafmagnslaus (%.0f%%). Hún mun hætta að virka "
+"ef hún verður ekki sett í hleðslu."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:606
+#: ../plugins/power/gsd-power-manager.c:605
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1439,7 +1449,7 @@ msgstr ""
 "virka ef það verður ekki sett í hleðslu."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:615
+#: ../plugins/power/gsd-power-manager.c:614
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1449,17 +1459,17 @@ msgstr ""
 "hún verður ekki sett í hleðslu."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:625
+#: ../plugins/power/gsd-power-manager.c:624
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
-"Farsíminn fer að verða rafmagnslaus (%.0f%%). Hann mun hætta að virka ef hann "
-"verður ekki settur í hleðslu."
+"Farsíminn fer að verða rafmagnslaus (%.0f%%). Hann mun hætta að virka ef "
+"hann verður ekki settur í hleðslu."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:634
+#: ../plugins/power/gsd-power-manager.c:633
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -1469,7 +1479,7 @@ msgstr ""
 "virka ef hann verður ekki settur í hleðslu."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:643
+#: ../plugins/power/gsd-power-manager.c:642
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -1479,18 +1489,17 @@ msgstr ""
 "hún verður ekki sett í hleðslu."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:652
+#: ../plugins/power/gsd-power-manager.c:651
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
 "shutdown if not charged."
 msgstr ""
 "Tengda tölvan fer að verða rafmagnslaus (%.0f%%). Hún mun hætta að virka ef "
-"hún "
-"verður ekki sett í hleðslu."
+"hún verður ekki sett í hleðslu."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:720
+#: ../plugins/power/gsd-power-manager.c:716
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -1499,7 +1508,7 @@ msgstr ""
 "fara að leggjast í dvala."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:725
+#: ../plugins/power/gsd-power-manager.c:721
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -1508,58 +1517,58 @@ msgstr ""
 "fara að slökkva á sér."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:745
+#: ../plugins/power/gsd-power-manager.c:741
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
-"Hleðsla UPS búnaðarins er fyrir neðan varhugaverð lægri mörk og tölvan er við "
-"það að leggjast í dvala."
+"Hleðsla UPS búnaðarins er fyrir neðan varhugaverð lægri mörk og tölvan er "
+"við það að leggjast í dvala."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:750
+#: ../plugins/power/gsd-power-manager.c:746
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "Hleðsla UPS búnaðarins er fyrir neðan varhugaverð lægri mörk og tölvan er að "
 "fara að slökkva á sér."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1255
+#: ../plugins/power/gsd-power-manager.c:1253
 msgid "Lid has been opened"
 msgstr "Fartölvulok hefur verið opnað"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1293
+#: ../plugins/power/gsd-power-manager.c:1291
 msgid "Lid has been closed"
 msgstr "Fartölvuloki hefur verið lokað"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1854
+#: ../plugins/power/gsd-power-manager.c:1842
 msgid "On battery power"
 msgstr "Nota afl frá rafhlöðum"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1859
+#: ../plugins/power/gsd-power-manager.c:1847
 msgid "On AC power"
 msgstr "Tengt við rafmagn"
 
-#: ../plugins/power/gsd-power-manager.c:2041
+#: ../plugins/power/gsd-power-manager.c:2029
 msgid "Automatic logout"
 msgstr "Sjálfvirk útskráning"
 
-#: ../plugins/power/gsd-power-manager.c:2041
+#: ../plugins/power/gsd-power-manager.c:2029
 msgid "You will soon log out because of inactivity."
 msgstr "Þú verður fljótlega skráður út vegna langs iðjuleysis."
 
-#: ../plugins/power/gsd-power-manager.c:2046
+#: ../plugins/power/gsd-power-manager.c:2034
 msgid "Automatic suspend"
 msgstr "Setja sjálfvirkt í bið"
 
-#: ../plugins/power/gsd-power-manager.c:2046
-#: ../plugins/power/gsd-power-manager.c:2051
+#: ../plugins/power/gsd-power-manager.c:2034
+#: ../plugins/power/gsd-power-manager.c:2039
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Tölvan verður fljótlega sett í bið vegna langs iðjuleysis."
 
-#: ../plugins/power/gsd-power-manager.c:2051
+#: ../plugins/power/gsd-power-manager.c:2039
 msgid "Automatic hibernation"
 msgstr "Leggja sjálfvirkt í dvala"
 
@@ -1607,214 +1616,214 @@ msgstr "Enginn rekill fyrir þennan prentara"
 
 #: ../plugins/print-notifications/gsd-printer.c:1031
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:274
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:716
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:806
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:849
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:752
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:842
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:885
 msgid "Printers"
 msgstr "Prentarar"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:380
-msgid "Toner low"
-msgstr "Lítið prentduft"
-
-#. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:382
-msgid "Toner empty"
-msgstr "Prentduft búið"
-
-#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:384
-msgid "Not connected?"
-msgstr "Ekki tengdur?"
-
-#. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:386
-msgid "Cover open"
-msgstr "Lokið opið"
-
-#. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:388
-msgid "Printer configuration error"
-msgstr "Stillingarvilla prentara"
-
-#. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:390
-msgid "Door open"
-msgstr "Hurðin opin"
-
-#. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:392
-msgid "Marker supply low"
-msgstr "Búinn með fyllingu"
-
-#. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:394
-msgid "Out of a marker supply"
-msgstr "Búinn með fyllingu"
-
-#. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:396
-msgid "Paper low"
-msgstr "Lítill pappír"
-
-#. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:398
-msgid "Out of paper"
-msgstr "Pappírslaus"
-
-#. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:400
-msgid "Printer off-line"
-msgstr "Prentarinn er ekki tengdur"
-
-#. Translators: The printer has detected an error (same as in system-config-printer)
-#. Translators: This is a title of an error notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:402
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:792
-msgid "Printer error"
-msgstr "Villa í prentara"
-
-#. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:406
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
 #, c-format
 msgid "Printer '%s' is low on toner."
 msgstr "Prentarinn '%s' er að verða búinn með prentduft."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:408
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
 #, c-format
 msgid "Printer '%s' has no toner left."
 msgstr "Prentarinn '%s' hefur klárað prentduftið."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:410
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
 #, c-format
 msgid "Printer '%s' may not be connected."
 msgstr "Prentarinn '%s' er kannski ekki tengdur."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:412
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
 #, c-format
 msgid "The cover is open on printer '%s'."
 msgstr "Lokið er opið á prentaranum '%s'."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:414
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
 #, c-format
 msgid "There is a missing print filter for printer '%s'."
 msgstr "Það vantart prentsíur fyrir prentarann '%s'."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:417
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 #, c-format
 msgid "The door is open on printer '%s'."
 msgstr "Hurðin er opin á prentaranum '%s'."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:419
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
 #, c-format
 msgid "Printer '%s' is low on a marker supply."
 msgstr "Prentarinn '%s‘ er að fara að klára fyllingu."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:421
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
 #, c-format
 msgid "Printer '%s' is out of a marker supply."
 msgstr "Prentarinn '%s‘ er búinn með fyllingu."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:423
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
 #, c-format
 msgid "Printer '%s' is low on paper."
 msgstr "Prentarinn '%s' er að verða pappírslaus."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:425
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
 #, c-format
 msgid "Printer '%s' is out of paper."
 msgstr "Prentarinn '%s' er pappírslaus."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:427
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
 #, c-format
 msgid "Printer '%s' is currently off-line."
 msgstr "Prentarinn ‚%s‘ er ekki tengdur."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:429
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:395
 #, c-format
 msgid "There is a problem on printer '%s'."
 msgstr "Það er vandamál með prentarann '%s'."
 
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:443
+msgid "Toner low"
+msgstr "Lítið prentduft"
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:445
+msgid "Toner empty"
+msgstr "Prentduft búið"
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:447
+msgid "Not connected?"
+msgstr "Ekki tengdur?"
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:449
+msgid "Cover open"
+msgstr "Lokið opið"
+
+#. Translators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:451
+msgid "Printer configuration error"
+msgstr "Stillingarvilla prentara"
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:453
+msgid "Door open"
+msgstr "Hurðin opin"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:455
+msgid "Marker supply low"
+msgstr "Búinn með fyllingu"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:457
+msgid "Out of a marker supply"
+msgstr "Búinn með fyllingu"
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:459
+msgid "Paper low"
+msgstr "Lítill pappír"
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:461
+msgid "Out of paper"
+msgstr "Pappírslaus"
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:463
+msgid "Printer off-line"
+msgstr "Prentarinn er ekki tengdur"
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#. Translators: This is a title of an error notification for a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:465
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:828
+msgid "Printer error"
+msgstr "Villa í prentara"
+
 #. Translators: New printer has been added
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:477
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:513
 msgid "Printer added"
 msgstr "Prentara bætt við"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:494
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:532
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:530
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:568
 msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "Prentun stöðvuð"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:496
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:502
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:508
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:514
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:526
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:534
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:542
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:532
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:538
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:544
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:550
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:558
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:571
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:562
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:570
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:578
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:586
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:594
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:607
 #, c-format
 msgctxt "print job"
 msgid "\"%s\" on %s"
 msgstr "\"%s\" á %s"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:500
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:540
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:536
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:576
 msgctxt "print job state"
 msgid "Printing canceled"
 msgstr "Hætt við prentun"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:506
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:548
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:542
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:584
 msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "Prentun stöðvuð"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:512
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:556
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:548
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:592
 msgctxt "print job state"
 msgid "Printing completed"
 msgstr "Prentun lokið"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:524
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:569
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:560
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:605
 msgctxt "print job state"
 msgid "Printing"
 msgstr "Prentun"
 
 #. Translators: This is a title of a report notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:786
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:822
 msgid "Printer report"
 msgstr "Prentaraskýrsla"
 
 #. Translators: This is a title of a warning notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:789
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:825
 msgid "Printer warning"
 msgstr "Prentaraaðvörun"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:799
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:835
 #, c-format
 msgid "Printer '%s': '%s'."
 msgstr "Prentari '%s': '%s'."
@@ -1862,9 +1871,8 @@ msgid "Sound"
 msgstr "Hljóð"
 
 #: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
-#, fuzzy
 msgid "Sound Sample Cache plugin"
-msgstr "Hljóðskrá"
+msgstr "Viðbót fyrir biðminni hljóðsýna"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:51
 msgctxt "Wacom action-type"
@@ -1887,13 +1895,13 @@ msgid "Show On-Screen Help"
 msgstr "Sýna upplýsingar á skjá"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:154
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1096
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1098
 msgctxt "Action type"
 msgid "Show On-Screen Help"
 msgstr "Sýna upplýsingar á skjá"
 
 #: ../plugins/wacom/gsd-wacom-button-editor.c:157
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1099
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1101
 msgctxt "Action type"
 msgid "Switch Monitor"
 msgstr "Skipta um skjá"
@@ -1908,86 +1916,86 @@ msgid "Done"
 msgstr "Lokið"
 
 #. If no mode is available, we use "left-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1028
+#: ../plugins/wacom/gsd-wacom-device.c:1031
 msgid "Left Ring"
 msgstr "Vinstri hringur"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1039
+#: ../plugins/wacom/gsd-wacom-device.c:1042
 #, c-format
 msgid "Left Ring Mode #%d"
 msgstr "Hamur vinstri hrings #%d"
 
 #. If no mode is available, we use "right-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1059
+#: ../plugins/wacom/gsd-wacom-device.c:1062
 msgid "Right Ring"
 msgstr "Hægri hringur"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1070
+#: ../plugins/wacom/gsd-wacom-device.c:1073
 #, c-format
 msgid "Right Ring Mode #%d"
 msgstr "Hamur hægri hrings #%d"
 
 #. If no mode is available, we use "left-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1112
+#: ../plugins/wacom/gsd-wacom-device.c:1115
 msgid "Left Touchstrip"
 msgstr "Vinstri snertiborði"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1123
+#: ../plugins/wacom/gsd-wacom-device.c:1126
 #, c-format
 msgid "Left Touchstrip Mode #%d"
 msgstr "Hamur vinstri snertiborða #%d"
 
 #. If no mode is available, we use "right-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1143
+#: ../plugins/wacom/gsd-wacom-device.c:1146
 msgid "Right Touchstrip"
 msgstr "Hægri snertiborði"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1154
+#: ../plugins/wacom/gsd-wacom-device.c:1157
 #, c-format
 msgid "Right Touchstrip Mode #%d"
 msgstr "Hamur hægri snertiborða #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1180
+#: ../plugins/wacom/gsd-wacom-device.c:1183
 #, c-format
 msgid "Left Touchring Mode Switch"
 msgstr "Hamskipti vinstri snertihrings"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1182
+#: ../plugins/wacom/gsd-wacom-device.c:1185
 #, c-format
 msgid "Right Touchring Mode Switch"
 msgstr "Hamskipti hægri snertihrings"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1185
+#: ../plugins/wacom/gsd-wacom-device.c:1188
 #, c-format
 msgid "Left Touchstrip Mode Switch"
 msgstr "Hamskipti vinstri snertiborða"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1187
+#: ../plugins/wacom/gsd-wacom-device.c:1190
 #, c-format
 msgid "Right Touchstrip Mode Switch"
 msgstr "Hamskipti hægri snertiborða"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1192
+#: ../plugins/wacom/gsd-wacom-device.c:1195
 #, c-format
 msgid "Mode Switch #%d"
 msgstr "Hamskipti #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1300
+#: ../plugins/wacom/gsd-wacom-device.c:1241
 #, c-format
 msgid "Left Button #%d"
 msgstr "Vinstri hnappur  #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1303
+#: ../plugins/wacom/gsd-wacom-device.c:1244
 #, c-format
 msgid "Right Button #%d"
 msgstr "Hægri hnappur  #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1306
+#: ../plugins/wacom/gsd-wacom-device.c:1247
 #, c-format
 msgid "Top Button #%d"
 msgstr "Efsti hnappur #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1309
+#: ../plugins/wacom/gsd-wacom-device.c:1250
 #, c-format
 msgid "Bottom Button #%d"
 msgstr "Neðsti hnappur #%d"
@@ -1996,50 +2004,50 @@ msgstr "Neðsti hnappur #%d"
 msgid "New shortcut…"
 msgstr "Nýr flýtilykill..."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1010
+#: ../plugins/wacom/gsd-wacom-manager.c:1042
 #, c-format
 msgid "The \"%s\" tablet may not work as expected."
 msgstr "\"%s\" teiknitaflan gæti virkað ekki eins og búist var við."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1011
+#: ../plugins/wacom/gsd-wacom-manager.c:1043
 msgid "Unknown Tablet Connected"
 msgstr "Óþekkt teiknitafla tengd"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1015
+#: ../plugins/wacom/gsd-wacom-manager.c:1047
 msgid "Wacom Settings"
 msgstr "Wacom stillingar"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1073
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1093
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1104
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1075
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1095
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1106
 msgctxt "Action type"
 msgid "None"
 msgstr "Ekkert"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1078
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1080
 #, c-format
 msgctxt "Action type"
 msgid "Send Keystroke %s"
 msgstr "Senda lyklaslátt %s"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1137
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1139
 #, c-format
 msgid "Mode %d: %s"
 msgstr "Hamur %d: %s"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1347
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1349
 msgid "(press any key to exit)"
 msgstr "(ýttu á einhvern lykil til að hætta)"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1356
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1358
 msgid "Push a button to configure"
 msgstr "Smelltu á hnapp til að stilla"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1356
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1358
 msgid "(Esc to cancel)"
 msgstr "(ESC til að hætta við)"
 
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1983
+#: ../plugins/wacom/gsd-wacom-osd-window.c:1985
 msgid "Edit"
 msgstr "Breyta"
 
@@ -2049,11 +2057,11 @@ msgstr "Breyta"
 #.
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:5
 msgid "Modify the lit LED for a Wacom tablet"
-msgstr ""
+msgstr "Breyta LED-ljósi á Wacom-teiknitöflu"
 
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:6
 msgid "Authentication is required to modify the lit LED for a Wacom tablet"
-msgstr ""
+msgstr "Auðkenningar er krafist til að breyta LED-ljósi á Wacom-teiknitöflu"
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
@@ -2061,11 +2069,11 @@ msgstr ""
 #.
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:11
 msgid "Modify the OLED image for a Wacom tablet"
-msgstr ""
+msgstr "Breyta OLED-mynd á Wacom-teiknitöflu"
 
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:12
 msgid "Authentication is required to modify the OLED image for a Wacom tablet"
-msgstr ""
+msgstr "Auðkenningar er krafist til að breyta OLED-mynd á Wacom-teiknitöflu"
 
 #: ../plugins/wacom/wacom.gnome-settings-plugin.in.h:1
 msgid "Wacom"
