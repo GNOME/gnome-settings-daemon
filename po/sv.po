@@ -1,20 +1,20 @@
 # Swedish messages for gnome-settings-daemon
-# Copyright © 1998-2016 Free Software Foundation, Inc.
+# Copyright © 1998-2017 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-settings-daemon package.
 #
 # Martin Wahlen <mva@sbbs.se>, 1998, 1999.
 # Christian Rose <menthos@menthos.com>, 2000, 2001, 2002, 2003, 2004, 2005.
 # Daniel Nylander <po@danielnylander.se>, 2006, 2007, 2008, 2009, 2010, 2011, 2012.
 # Josef Andersson <josef.andersson@fripost.org>, 2014.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2015, 2016.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2015, 2016, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-10-12 04:56+0000\n"
-"PO-Revision-Date: 2016-11-28 19:37+0100\n"
+"POT-Creation-Date: 2017-02-27 17:48+0000\n"
+"PO-Revision-Date: 2017-02-27 22:08+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -30,10 +30,10 @@ msgstr "Borttagningsåtgärd för smartkort"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
 msgid ""
-"Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
-"action will get performed when the smartcard used for log in is removed."
+"Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
+"get performed when the smartcard used for log in is removed."
 msgstr ""
-"Ställ in denna till en av \"none\", \"lock-screen\" eller \"force-logout\". "
+"Ställ in denna till en av ”none”, ”lock-screen” eller ”force-logout”. "
 "Åtgärden kommer att genomföras när det smartkort som används för inloggning "
 "tas bort."
 
@@ -62,7 +62,7 @@ msgid "Distance before a drag is started."
 msgstr "Avstånd innan en dragning påbörjas."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
-msgid "Whether the tablet's orientation is locked, or rotated automatically."
+msgid "Whether the tablet’s orientation is locked, or rotated automatically."
 msgstr "Huruvida ritplattans orientering är låst eller roteras automatiskt."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
@@ -93,7 +93,7 @@ msgid ""
 "the output."
 msgstr ""
 "Aktivera denna för att begränsa Wacom-plattans area till att matcha "
-"utmatningens bildförhållande"
+"utmatningens bildförhållande."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
 msgid "Wacom tablet rotation"
@@ -101,11 +101,11 @@ msgstr "Rotation för Wacom-ritplatta"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid ""
-"Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
-"'ccw' for 90 degree counterclockwise."
+"Set this to “none”, “cw” for 90 degree clockwise, “half” for 180 degree, and "
+"“ccw” for 90 degree counterclockwise."
 msgstr ""
-"Ställ in denna till \"none\", \"cw\" för 90 grader medsols, \"half\" för 180 "
-"grader, samt \"ccw\" för 90 grader motsols."
+"Ställ in denna till ”none”, ”cw” för 90 grader medsols, ”half” för 180 "
+"grader, samt ”ccw” för 90 grader motsols."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
 msgid "Wacom touch feature"
@@ -235,6 +235,80 @@ msgid ""
 msgstr ""
 "Detta är antalet dagar efter vilken skrivarens färgprofil anses vara ogiltig."
 
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
+msgid "If the night light mode is enabled"
+msgstr "Om nattljusläge är aktiverat"
+
+# TODO: present times -> preset times?
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
+msgid ""
+"Night light mode changes the color temperature of your display when the sun "
+"has gone down or at present times."
+msgstr ""
+"Nattljusläge ändrar färgtemperaturen för din skärm då solen har gått ner "
+"eller vid förinställda tider."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
+msgid "Temperature of the display when enabled"
+msgstr "Temperatur för skärmen då aktiverat"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
+msgid ""
+"This temperature in Kelvin is used to modify the screen tones when night "
+"light mode is enabled. Higher values are bluer, lower redder."
+msgstr ""
+"Denna temperatur i Kelvin används för att ändra skärmtonerna då nattljusläge "
+"är aktiverat. Högre värden är mer blå, lägre värden mer röda."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:9
+msgid "Use the sunrise and sunset"
+msgstr "Använd soluppgång och solnedgång"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:10
+msgid ""
+"Calculate the sunrise and sunset times automatically, from the current "
+"location."
+msgstr ""
+"Beräkna tider för soluppgång och solnedgång automatiskt från aktuell plats."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:11
+msgid "The start time"
+msgstr "Starttiden"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:12
+msgid ""
+"When “night-light-schedule-automatic” is disabled, use this start time in "
+"hours from midnight."
+msgstr ""
+"Då ”night-light-schedule-automatic” är inaktiverat, använd denna starttid i "
+"timmar från midnatt."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:13
+msgid "The end time"
+msgstr "Sluttiden"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:14
+msgid ""
+"When “night-light-schedule-automatic” is disabled, use this end time in "
+"hours from midnight."
+msgstr ""
+"Då ”night-light-schedule-automatic” är inaktiverat, använd denna sluttid i "
+"timmar från midnatt."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:15
+msgid "The last detected position"
+msgstr "Den senast upptäckta platsen"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:16
+msgid ""
+"When location services are available this represents the last detected "
+"location. The default value is an invalid value to ensure it is always "
+"updated at startup."
+msgstr ""
+"Då platstjänster är tillgängliga representerar detta den senaste upptäckta "
+"platsen. Standardvärdet är ett ogiltigt värde för att säkerställa att det "
+"alltid uppdateras vid uppstart."
+
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 msgid "List of plugins that are allowed to be loaded"
 msgstr "Lista över tillåtna laddningsbara insticksmoduler"
@@ -242,10 +316,10 @@ msgstr "Lista över tillåtna laddningsbara insticksmoduler"
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
 msgid ""
 "A list of strings representing the plugins that are allowed to be loaded "
-"(default: 'all'). This is only evaluated on startup."
+"(default: “all”). This is only evaluated on startup."
 msgstr ""
 "En lista av strängar vilka representerar vilka insticksmoduler som tillåts "
-"läsas in (standard: \"all\"). Detta utvärderas bara vid uppstart."
+"läsas in (standard: ”all”). Detta utvärderas bara vid uppstart."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
 msgid "Mount paths to ignore"
@@ -548,7 +622,7 @@ msgstr "Öka textstorleken"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
 msgid "Binding to increase the text size"
-msgstr "Bindning för att öka textstorleken."
+msgstr "Bindning för att öka textstorleken"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
 msgid "Decrease text size"
@@ -626,8 +700,8 @@ msgstr "Fil för standardkonfiguration för RandR"
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
-"normally gets stored in users' home directories. If a user does not have "
-"such a file, or has one that does not match the user's setup of monitors, "
+"normally gets stored in users’ home directories. If a user does not have "
+"such a file, or has one that does not match the user’s setup of monitors, "
 "then the file specified by this key will be used instead."
 msgstr ""
 "Insticksmodulen XRandR kommer att leta efter en standardkonfiguration i "
@@ -642,17 +716,17 @@ msgstr "Huruvida specifika skärmar ska stängas av efter uppstart"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
 msgid ""
-"'clone' will display the same thing on all monitors, 'dock' will switch off "
-"the internal monitor, 'do-nothing' will use the default Xorg behaviour "
-"(extend the desktop in recent versions). The default, 'follow-lid', will "
-"choose between 'do-nothing' and 'dock' depending on whether the lid is "
+"“clone” will display the same thing on all monitors, “dock” will switch off "
+"the internal monitor, “do-nothing” will use the default Xorg behaviour "
+"(extend the desktop in recent versions). The default, “follow-lid”, will "
+"choose between “do-nothing” and “dock” depending on whether the lid is "
 "(respectively) open or closed."
 msgstr ""
-"\"clone\" kommer att visa samma sak på alla skärmar, \"dock\" kommer att "
-"stänga av den interna skärmen, \"do-nothing\" kommer att använda "
-"standardbeteendet för Xorg (utöka skrivbordet i senare versioner). Standard, "
-"\"follow-lid\", kommer att välja mellan \"do-nothing\" och \"dock\" beroende "
-"på om locket är öppet eller stängt."
+"”clone” kommer att visa samma sak på alla skärmar, ”dock” kommer att stänga "
+"av den interna skärmen, ”do-nothing” kommer att använda standardbeteendet "
+"för Xorg (utöka skrivbordet i senare versioner). Standard, ”follow-lid”, "
+"kommer att välja mellan ”do-nothing” och ”dock” beroende på om locket är "
+"öppet eller stängt."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid "Antialiasing"
@@ -661,12 +735,12 @@ msgstr "Kantutjämning"
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
-"\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
-"antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
+"“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
+"and “rgba” for subpixel antialiasing (LCD screens only)."
 msgstr ""
 "Typen av kantutjämning att använda när typsnitt ritas ut. Möjliga värden är: "
-"\"none\" för ingen kantutjämning, \"grayscale\" för standardkantutjämning "
-"med gråskala samt \"rgba\" för underbildpunktsutjämning (endast LCD-skärmar)."
+"”none” för ingen kantutjämning, ”grayscale” för standardkantutjämning med "
+"gråskala samt ”rgba” för underbildpunktsutjämning (endast LCD-skärmar)."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
 msgid "Hinting"
@@ -674,23 +748,23 @@ msgstr "Hintning"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
 msgid ""
-"The type of hinting to use when rendering fonts. Possible values are: \"none"
-"\" for no hinting and \"slight\" for fitting only to the Y-axis like "
-"Microsoft's ClearType, DirectWrite and Adobe's proprietary font rendering "
-"engine. Ignores native hinting within the font, generates hints "
-"algorithmically. Used on Ubuntu by default. Recommended. The meaning of "
-"\"medium\" and \"full\" depends on the font format (.ttf, .otf, .pfa/.pfb) "
-"and the installed version of FreeType. They usually try to fit glyphs to "
-"both the X and the Y axis (except for .otf: Y-only). This can lead to "
-"distortion and/or inconsistent rendering depending on the quality of the "
-"font, the font format and the state of FreeType's font engines."
+"The type of hinting to use when rendering fonts. Possible values are: “none” "
+"for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
+"ClearType, DirectWrite and Adobe’s proprietary font rendering engine. "
+"Ignores native hinting within the font, generates hints algorithmically. "
+"Used on Ubuntu by default. Recommended. The meaning of “medium” and “full” "
+"depends on the font format (.ttf, .otf, .pfa/.pfb) and the installed version "
+"of FreeType. They usually try to fit glyphs to both the X and the Y axis "
+"(except for .otf: Y-only). This can lead to distortion and/or inconsistent "
+"rendering depending on the quality of the font, the font format and the "
+"state of FreeType’s font engines."
 msgstr ""
-"Typen av hintning att använda då typsnitt renderas. Möjliga värden är: \"none"
-"\" för ingen hintning och \"slight\" för att anpassa endast till Y-axeln som "
-"Microsofts ClearType, DirectWrite och Adobes proprietära renderingsmotor för "
-"typsnitt. Ignorerar inbyggd hintning i typsnittet, genererar hintning enligt "
-"en algoritm. Används i Ubuntu som standard. Rekommenderas. Betydelsen av "
-"\"medium\" och \"full\" beror på typsnittsformatet (.ttf, .otf, .pfa/.pfb) "
+"Typen av hintning att använda då typsnitt renderas. Möjliga värden är: "
+"”none” för ingen hintning och ”slight” för att anpassa endast till Y-axeln "
+"som Microsofts ClearType, DirectWrite och Adobes proprietära renderingsmotor "
+"för typsnitt. Ignorerar inbyggd hintning i typsnittet, genererar hintning "
+"enligt en algoritm. Används i Ubuntu som standard. Rekommenderas. Betydelsen "
+"av ”medium” och ”full” beror på typsnittsformatet (.ttf, .otf, .pfa/.pfb) "
 "och den installerade versionen av FreeType. De försöker vanligen anpassa "
 "glyfer till både X- och Y-axeln (förutom för .otf: endast Y). Detta kan leda "
 "till förvrängning och/eller inkonsekvent rendering beroende på kvaliteten på "
@@ -703,14 +777,13 @@ msgstr "RGBA-ordning"
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
-"is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
-"common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red "
-"on bottom."
+"is set to “rgba”. Possible values are: “rgb” for red on left (most common), "
+"“bgr” for blue on left, “vrgb” for red on top, “vbgr” for red on bottom."
 msgstr ""
 "Ordningen för underbildpunktselementen på en LCD-skärm; används endast när "
-"kantutjämning är inställd till \"rgba\". Möjliga värden är: \"rgb\" - röd "
-"till vänster (vanligast), \"bgr\" - blå till vänster. \"vrgb\" - röd överst. "
-"\"vbgr\" - röd nederst."
+"kantutjämning är inställd till ”rgba”. Möjliga värden är: ”rgb” - röd till "
+"vänster (vanligast), ”bgr” - blå till vänster. ”vrgb” - röd överst. ”vbgr” - "
+"röd nederst."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
 msgid "List of explicitly disabled GTK+ modules"
@@ -807,6 +880,7 @@ msgstr ""
 msgid "Color"
 msgstr "Färg"
 
+#. TRANSLATORS: button: this is to open GCM
 #: ../plugins/color/gsd-color-calibrate.c:144
 msgid "Recalibrate now"
 msgstr "Kalibrera om nu"
@@ -819,13 +893,13 @@ msgstr "Omkalibrering krävs"
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
 #: ../plugins/color/gsd-color-calibrate.c:199
 #, c-format
-msgid "The display '%s' should be recalibrated soon."
+msgid "The display “%s” should be recalibrated soon."
 msgstr "Skärmen ”%s” bör kalibreras om snart."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
 #: ../plugins/color/gsd-color-calibrate.c:208
 #, c-format
-msgid "The printer '%s' should be recalibrated soon."
+msgid "The printer “%s” should be recalibrated soon."
 msgstr "Skrivaren ”%s” bör kalibreras om snart."
 
 #. TRANSLATORS: this is the application name
@@ -916,27 +990,31 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Denna dator har endast %s diskutrymme kvar."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2114
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2173
 msgid "Bluetooth disabled"
 msgstr "Bluetooth inaktiverat"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2117
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2176
 msgid "Bluetooth enabled"
 msgstr "Bluetooth aktiverat"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2121
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2180
 msgid "Airplane mode enabled"
 msgstr "Flygplansläge aktiverat"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2124
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2183
 msgid "Airplane mode disabled"
 msgstr "Flygplansläge inaktiverat"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2152
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2211
 msgid "Hardware Airplane Mode"
 msgstr "Flygplansläge i hårdvaran"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2212
+#. Translators: this is a filename used for screencast
+#. * recording, where "%d" and "%t" date and time, e.g.
+#. * "Screencast from 07-17-2013 10:00:46 PM.webm"
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2271
+#, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Skärminspelning från %d %t.webm"
 
@@ -1103,18 +1181,18 @@ msgstr "Växla flygplansläge"
 msgid "Toggle Bluetooth"
 msgstr "Växla Bluetooth"
 
-#: ../plugins/power/gpm-common.c:81
+#: ../plugins/power/gpm-common.c:100
 msgid "Unknown time"
 msgstr "Okänd tid"
 
-#: ../plugins/power/gpm-common.c:86
+#: ../plugins/power/gpm-common.c:105
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i minut"
 msgstr[1] "%i minuter"
 
-#: ../plugins/power/gpm-common.c:96
+#: ../plugins/power/gpm-common.c:115
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1123,25 +1201,25 @@ msgstr[1] "%i timmar"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: ../plugins/power/gpm-common.c:102
+#: ../plugins/power/gpm-common.c:121
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: ../plugins/power/gpm-common.c:103
+#: ../plugins/power/gpm-common.c:122
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "timme"
 msgstr[1] "timmar"
 
-#: ../plugins/power/gpm-common.c:104
+#: ../plugins/power/gpm-common.c:123
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minut"
 msgstr[1] "minuter"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:929 ../plugins/power/gsd-power-manager.c:684
+#: ../plugins/power/gpm-common.c:948 ../plugins/power/gsd-power-manager.c:684
 #: ../plugins/power/gsd-power-manager.c:781
 msgid "Battery is critically low"
 msgstr "Batteriet har kritiskt låg nivå"
@@ -1457,24 +1535,24 @@ msgstr "Batteridrift"
 msgid "On AC power"
 msgstr "Går på ström"
 
-#: ../plugins/power/gsd-power-manager.c:2034
+#: ../plugins/power/gsd-power-manager.c:2038
 msgid "Automatic logout"
 msgstr "Automatisk utloggning"
 
-#: ../plugins/power/gsd-power-manager.c:2034
+#: ../plugins/power/gsd-power-manager.c:2038
 msgid "You will soon log out because of inactivity."
 msgstr "Du kommer snart att loggas ut på grund av inaktivitet."
 
-#: ../plugins/power/gsd-power-manager.c:2039
+#: ../plugins/power/gsd-power-manager.c:2043
 msgid "Automatic suspend"
 msgstr "Automatiskt vänteläge"
 
-#: ../plugins/power/gsd-power-manager.c:2039
-#: ../plugins/power/gsd-power-manager.c:2044
+#: ../plugins/power/gsd-power-manager.c:2043
+#: ../plugins/power/gsd-power-manager.c:2048
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Datorn försätts i vänteläge snart på grund av inaktivitet."
 
-#: ../plugins/power/gsd-power-manager.c:2044
+#: ../plugins/power/gsd-power-manager.c:2048
 msgid "Automatic hibernation"
 msgstr "Automatiskt viloläge"
 
@@ -1497,7 +1575,7 @@ msgstr "Konfigurerar ny skrivare"
 
 #. Translators: Just wait
 #: ../plugins/print-notifications/gsd-printer.c:892
-msgid "Please wait..."
+msgid "Please wait…"
 msgstr "Vänta…"
 
 #. Translators: We have no driver installed for this printer
@@ -1527,73 +1605,73 @@ msgstr "Skrivare"
 #. Translators: The printer is low on toner (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
 #, c-format
-msgid "Printer '%s' is low on toner."
+msgid "Printer “%s” is low on toner."
 msgstr "Skrivaren ”%s” har nästan slut på toner."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
 #, c-format
-msgid "Printer '%s' has no toner left."
+msgid "Printer “%s” has no toner left."
 msgstr "Skrivaren ”%s” har slut på toner."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
 #, c-format
-msgid "Printer '%s' may not be connected."
+msgid "Printer “%s” may not be connected."
 msgstr "Skrivaren ”%s” kanske inte är ansluten."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
 #, c-format
-msgid "The cover is open on printer '%s'."
+msgid "The cover is open on printer “%s”."
 msgstr "Luckan är öppnad på skrivaren ”%s”."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
 #, c-format
-msgid "There is a missing print filter for printer '%s'."
+msgid "There is a missing print filter for printer “%s”."
 msgstr "Det saknas ett utskriftsfilter för skrivaren ”%s”."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 #, c-format
-msgid "The door is open on printer '%s'."
+msgid "The door is open on printer “%s”."
 msgstr "Dörren är öppen på skrivaren ”%s”."
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
 #, c-format
-msgid "Printer '%s' is low on a marker supply."
+msgid "Printer “%s” is low on a marker supply."
 msgstr "Skrivaren ”%s” har nästan slut på en färg."
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
 #, c-format
-msgid "Printer '%s' is out of a marker supply."
+msgid "Printer “%s” is out of a marker supply."
 msgstr "Skrivaren ”%s” har slut på en färg."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
 #, c-format
-msgid "Printer '%s' is low on paper."
+msgid "Printer “%s” is low on paper."
 msgstr "Skrivaren ”%s” har nästan slut på papper."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
 #, c-format
-msgid "Printer '%s' is out of paper."
+msgid "Printer “%s” is out of paper."
 msgstr "Skrivaren ”%s” har slut på papper."
 
 #. Translators: The printer is offline (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
 #, c-format
-msgid "Printer '%s' is currently off-line."
+msgid "Printer “%s” is currently off-line."
 msgstr "Skrivaren ”%s” är för närvarande frånkopplad."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:395
 #, c-format
-msgid "There is a problem on printer '%s'."
+msgid "There is a problem on printer “%s”."
 msgstr "Det har uppstått ett problem på skrivaren ”%s”."
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
@@ -1683,8 +1761,8 @@ msgstr "Utskrifter har stoppats"
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:607
 #, c-format
 msgctxt "print job"
-msgid "\"%s\" on %s"
-msgstr "\"%s\" på %s"
+msgid "“%s” on %s"
+msgstr "”%s” på %s"
 
 #. Translators: A print job has been canceled
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:536
@@ -1727,189 +1805,12 @@ msgstr "Skrivarvarning"
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:835
 #, c-format
-msgid "Printer '%s': '%s'."
+msgid "Printer “%s”: “%s”."
 msgstr "Skrivaren ”%s”: ”%s”."
 
 #: ../plugins/smartcard/gsd-smartcard-service.c:224
 msgid "User was not logged in with smartcard."
 msgstr "Användare var inte inloggad med smartkort."
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:51
-msgctxt "Wacom action-type"
-msgid "None"
-msgstr "Ingen"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:52
-msgctxt "Wacom action-type"
-msgid "Send Keystroke"
-msgstr "Skicka tangenttryckning"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:53
-msgctxt "Wacom action-type"
-msgid "Switch Monitor"
-msgstr "Växla skärm"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:54
-msgctxt "Wacom action-type"
-msgid "Show On-Screen Help"
-msgstr "Visa hjälp på skärmen"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:154
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1098
-msgctxt "Action type"
-msgid "Show On-Screen Help"
-msgstr "Visa hjälp på skärmen"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:157
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1101
-msgctxt "Action type"
-msgid "Switch Monitor"
-msgstr "Växla skärm"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:201
-msgctxt "keyboard shortcut"
-msgid "None"
-msgstr "Ingen"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:487
-msgid "Done"
-msgstr "Klar"
-
-#. If no mode is available, we use "left-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1031
-msgid "Left Ring"
-msgstr "Vänster ring"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1042
-#, c-format
-msgid "Left Ring Mode #%d"
-msgstr "Vänster ringläge #%d"
-
-#. If no mode is available, we use "right-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1062
-msgid "Right Ring"
-msgstr "Höger ring"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1073
-#, c-format
-msgid "Right Ring Mode #%d"
-msgstr "Höger ringläge #%d"
-
-#. If no mode is available, we use "left-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1115
-msgid "Left Touchstrip"
-msgstr "Vänster Touchstrip"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1126
-#, c-format
-msgid "Left Touchstrip Mode #%d"
-msgstr "Vänster Touchstrip-läge #%d"
-
-#. If no mode is available, we use "right-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1146
-msgid "Right Touchstrip"
-msgstr "Höger Touchstrip"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1157
-#, c-format
-msgid "Right Touchstrip Mode #%d"
-msgstr "Höger Touchstrip-läge #%d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1183
-#, c-format
-msgid "Left Touchring Mode Switch"
-msgstr "Lägesväxel för vänster Touchring"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1185
-#, c-format
-msgid "Right Touchring Mode Switch"
-msgstr "Lägesväxel för höger Touchring"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1188
-#, c-format
-msgid "Left Touchstrip Mode Switch"
-msgstr "Lägesväxel för vänster Touchstrip"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1190
-#, c-format
-msgid "Right Touchstrip Mode Switch"
-msgstr "Lägesväxel för höger Touchstrip"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1195
-#, c-format
-msgid "Mode Switch #%d"
-msgstr "Lägesväxel nr. %d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1241
-#, c-format
-msgid "Left Button #%d"
-msgstr "Vänsterknapp nr. %d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1244
-#, c-format
-msgid "Right Button #%d"
-msgstr "Högerknapp nr. %d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1247
-#, c-format
-msgid "Top Button #%d"
-msgstr "Övre knapp nr. %d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1250
-#, c-format
-msgid "Bottom Button #%d"
-msgstr "Nedre knapp nr. %d"
-
-#: ../plugins/wacom/gsd-wacom-key-shortcut-button.c:263
-msgid "New shortcut…"
-msgstr "Ny genväg…"
-
-#: ../plugins/wacom/gsd-wacom-manager.c:1047
-#, c-format
-msgid "The \"%s\" tablet may not work as expected."
-msgstr "”%s”-plattan kanske inte fungerar såsom förväntat."
-
-#: ../plugins/wacom/gsd-wacom-manager.c:1048
-msgid "Unknown Tablet Connected"
-msgstr "Okänd platta ansluten"
-
-#: ../plugins/wacom/gsd-wacom-manager.c:1052
-msgid "Wacom Settings"
-msgstr "Wacom-inställningar"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1075
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1095
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1106
-msgctxt "Action type"
-msgid "None"
-msgstr "Inga"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1080
-#, c-format
-msgctxt "Action type"
-msgid "Send Keystroke %s"
-msgstr "Sänd tangenttryckning %s"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1139
-#, c-format
-msgid "Mode %d: %s"
-msgstr "Läge %d: %s"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1349
-msgid "(press any key to exit)"
-msgstr "(tryck på valfri tangent för att avsluta)"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1358
-msgid "Push a button to configure"
-msgstr "Tryck på en knapp för att konfigurera"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1358
-msgid "(Esc to cancel)"
-msgstr "(Esc för att avbryta)"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1985
-msgid "Edit"
-msgstr "Redigera"
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
@@ -1939,6 +1840,123 @@ msgstr "Autentisering krävs för att ändra tänd LED-lampa för en Wacom-platt
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Kunde inte uppdatera skärminformationen: %s"
+
+#~ msgctxt "Wacom action-type"
+#~ msgid "None"
+#~ msgstr "Ingen"
+
+#~ msgctxt "Wacom action-type"
+#~ msgid "Send Keystroke"
+#~ msgstr "Skicka tangenttryckning"
+
+#~ msgctxt "Wacom action-type"
+#~ msgid "Switch Monitor"
+#~ msgstr "Växla skärm"
+
+#~ msgctxt "Wacom action-type"
+#~ msgid "Show On-Screen Help"
+#~ msgstr "Visa hjälp på skärmen"
+
+#~ msgctxt "Action type"
+#~ msgid "Show On-Screen Help"
+#~ msgstr "Visa hjälp på skärmen"
+
+#~ msgctxt "Action type"
+#~ msgid "Switch Monitor"
+#~ msgstr "Växla skärm"
+
+#~ msgctxt "keyboard shortcut"
+#~ msgid "None"
+#~ msgstr "Ingen"
+
+#~ msgid "Done"
+#~ msgstr "Klar"
+
+#~ msgid "Left Ring"
+#~ msgstr "Vänster ring"
+
+#~ msgid "Left Ring Mode #%d"
+#~ msgstr "Vänster ringläge #%d"
+
+#~ msgid "Right Ring"
+#~ msgstr "Höger ring"
+
+#~ msgid "Right Ring Mode #%d"
+#~ msgstr "Höger ringläge #%d"
+
+#~ msgid "Left Touchstrip"
+#~ msgstr "Vänster Touchstrip"
+
+#~ msgid "Left Touchstrip Mode #%d"
+#~ msgstr "Vänster Touchstrip-läge #%d"
+
+#~ msgid "Right Touchstrip"
+#~ msgstr "Höger Touchstrip"
+
+#~ msgid "Right Touchstrip Mode #%d"
+#~ msgstr "Höger Touchstrip-läge #%d"
+
+#~ msgid "Left Touchring Mode Switch"
+#~ msgstr "Lägesväxel för vänster Touchring"
+
+#~ msgid "Right Touchring Mode Switch"
+#~ msgstr "Lägesväxel för höger Touchring"
+
+#~ msgid "Left Touchstrip Mode Switch"
+#~ msgstr "Lägesväxel för vänster Touchstrip"
+
+#~ msgid "Right Touchstrip Mode Switch"
+#~ msgstr "Lägesväxel för höger Touchstrip"
+
+#~ msgid "Mode Switch #%d"
+#~ msgstr "Lägesväxel nr. %d"
+
+#~ msgid "Left Button #%d"
+#~ msgstr "Vänsterknapp nr. %d"
+
+#~ msgid "Right Button #%d"
+#~ msgstr "Högerknapp nr. %d"
+
+#~ msgid "Top Button #%d"
+#~ msgstr "Övre knapp nr. %d"
+
+#~ msgid "Bottom Button #%d"
+#~ msgstr "Nedre knapp nr. %d"
+
+#~ msgid "New shortcut…"
+#~ msgstr "Ny genväg…"
+
+#~ msgid "The \"%s\" tablet may not work as expected."
+#~ msgstr "”%s”-plattan kanske inte fungerar såsom förväntat."
+
+#~ msgid "Unknown Tablet Connected"
+#~ msgstr "Okänd platta ansluten"
+
+#~ msgid "Wacom Settings"
+#~ msgstr "Wacom-inställningar"
+
+#~ msgctxt "Action type"
+#~ msgid "None"
+#~ msgstr "Inga"
+
+#~ msgctxt "Action type"
+#~ msgid "Send Keystroke %s"
+#~ msgstr "Sänd tangenttryckning %s"
+
+#~ msgid "Mode %d: %s"
+#~ msgstr "Läge %d: %s"
+
+#~ msgid "(press any key to exit)"
+#~ msgstr "(tryck på valfri tangent för att avsluta)"
+
+#~ msgid "Push a button to configure"
+#~ msgstr "Tryck på en knapp för att konfigurera"
+
+#~ msgid "(Esc to cancel)"
+#~ msgstr "(Esc för att avbryta)"
+
+#~ msgid "Edit"
+#~ msgstr "Redigera"
 
 #~ msgid "GNOME Settings Daemon"
 #~ msgstr "GNOME-inställningsdemon"
