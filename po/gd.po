@@ -2,14 +2,14 @@
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the unity-settings-daemon package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
-# GunChleoc <fios@foramnagaidhlig.net>, 2014, 2016.
+# GunChleoc <fios@foramnagaidhlig.net>, 2014, 2016, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: unity-settings-daemon\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-05-05 09:49+0000\n"
-"PO-Revision-Date: 2016-06-11 08:35+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product"
+"=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2017-03-03 15:35+0000\n"
+"PO-Revision-Date: 2017-03-07 13:37+0100\n"
 "Last-Translator: GunChleoc <fios@foramnagaidhlig.net>\n"
 "Language-Team: Fòram na Gàidhlig\n"
 "Language: gd\n"
@@ -22,6 +22,7 @@ msgstr ""
 "(n > 2 && n < 20) ? 2: 3;\n"
 "X-Launchpad-Export-Date: 2014-09-30 15:41+0000\n"
 "X-Project-Style: gnome\n"
+"(N > 2 && N < 20) ? 2: 3;\n"
 
 #: ../data/gnome-settings-daemon.desktop.in.in.h:1
 msgid "GNOME Settings Daemon"
@@ -47,9 +48,51 @@ msgstr "Gnìomh gluasad a-mach a' smartcard"
 msgid "Activation of this plugin"
 msgstr "Gnìomhachadh a' phlugain seo"
 
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.datetime.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+#| msgid "Activation of this plugin"
+msgid "Priority to use for this plugin"
+msgstr "Prìomhachas a' phlugain seo"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
+#| msgid "Wacom Settings"
+msgid "Wacom tablet rotation"
+msgstr "Roghainnean cuairteachadh Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+#| msgid "Wacom display mapping"
+msgid "Wacom stylus button mapping"
+msgstr "Mapadh air putan peann Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+#| msgid "Wacom display mapping"
+msgid "Wacom eraser button mapping"
+msgstr "Mapadh air putan suathan Wacom"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+#| msgid "Launch media player"
+msgid "Launch calculator"
+msgstr "Cuir gu dol an t-àireamhair"
+
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
 msgid "Launch settings"
 msgstr "Tòisich na roghainnean"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+#| msgid "Launch media player"
+msgid "Launch email client"
+msgstr "Cuir gu dol cliant a' phuist-d"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Eject"
@@ -62,6 +105,11 @@ msgstr "Pasgan dachaigh"
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Launch media player"
 msgstr "Tòisich cluicheadair mheadhanan"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+#| msgid "Launch media player"
+msgid "Binding to launch the media player."
+msgstr "Nasgadh gus an cluicheadair mheadhanan a chur gu dol."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Lock screen"
@@ -82,6 +130,32 @@ msgstr "Cuir an fhuaim an àirde"
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
 msgid "Take a screenshot"
 msgstr "Tog glacadh-sgrìn"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+#| msgid "Take a screenshot"
+msgid "Binding to take a screenshot."
+msgstr "Nasgadh gus glacadh-sgrìn a thogail."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+#| msgid "Take a screenshot"
+msgid "Take a screenshot of a window"
+msgstr "Tog glacadh-sgrìn de dh'uinneag"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#| msgid "Take a screenshot"
+msgid "Take a screenshot of an area"
+msgstr "Tog glacadh-sgrìn de raon"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#| msgid "Toggle Airplane Mode"
+msgid "Toggle screen reader"
+msgstr "Toglaich an leughadair sgrìn"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
+#| msgctxt "print job state"
+#| msgid "Printing"
+msgid "Hinting"
+msgstr "Oidheaman"
 
 #: ../gnome-settings-daemon/main.c:53
 msgid "Enable debugging code"
@@ -244,7 +318,6 @@ msgid "Date and Time"
 msgstr "Ceann-là 's àm"
 
 #: ../plugins/datetime/datetime.gnome-settings-plugin.in.h:3
-#| msgid "Automatic suspend"
 msgid "Automatically update timezone"
 msgstr "Ùraich an roinn-tìde gu fèin-obrachail"
 
@@ -275,35 +348,46 @@ msgstr "Dumaidh"
 msgid "Dummy plugin"
 msgstr "Plugan dumaidh"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:588
+#: ../plugins/housekeeping/gsd-disk-space.c:574
+msgid "Disk space"
+msgstr "Rum air an diosg"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:586
+msgid "Examine"
+msgstr "Sgrùd"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:597
+msgid "Empty Trash"
+msgstr "Falamhaich an sgudal"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:605
+msgid "Ignore"
+msgstr "Leig seachad"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:636
 #, c-format
-#| msgid "Low Disk Space on \"%s\""
 msgid "Low Disk Space on “%s”"
 msgstr "Tha an rum gu bhith ruith air an diosga \"%s\""
 
-#: ../plugins/housekeeping/gsd-disk-space.c:590
+#: ../plugins/housekeeping/gsd-disk-space.c:638
 #, c-format
-#| msgid ""
-#| "The volume \"%s\" has only %s disk space remaining.  You may free up some "
-#| "space by emptying the trash."
 msgid ""
 "The volume “%s” has only %s disk space remaining.  You may free up some "
 "space by emptying the trash."
 msgstr ""
-"Air an draibh \"%s\", chan eil ach %s a rum air fhàgail. Dh'fhaoidte gum faigh "
-"thu barrachd rum a dh'fhalamhaicheas tu an sgudal."
+"Air an draibh \"%s\", chan eil ach %s a rum air fhàgail. Dh'fhaoidte gum "
+"faigh thu barrachd rum a dh'fhalamhaicheas tu an sgudal."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:594
+#: ../plugins/housekeeping/gsd-disk-space.c:642
 #, c-format
-#| msgid "The volume \"%s\" has only %s disk space remaining."
 msgid "The volume “%s” has only %s disk space remaining."
 msgstr "Air an draibh \"%s\", chan eil ach %s a rum air fhàgail."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:599
+#: ../plugins/housekeeping/gsd-disk-space.c:647
 msgid "Low Disk Space"
 msgstr "Rum air an diosg a dhìth"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:601
+#: ../plugins/housekeeping/gsd-disk-space.c:649
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -312,26 +396,10 @@ msgstr ""
 "Chan eil ach %s a rum air fhàgail air a' choimpiutair agad. Dh'fhaoidte gum "
 "faigh thu barrachd rum a dh'fhalamhaicheas tu an sgudal."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:604
+#: ../plugins/housekeeping/gsd-disk-space.c:652
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "Chan eil ach %s a rum air fhàgail air a' choimpiutair agad."
-
-#: ../plugins/housekeeping/gsd-disk-space.c:619
-msgid "Disk space"
-msgstr "Rum air an diosg"
-
-#: ../plugins/housekeeping/gsd-disk-space.c:626
-msgid "Examine"
-msgstr "Sgrùd"
-
-#: ../plugins/housekeeping/gsd-disk-space.c:634
-msgid "Empty Trash"
-msgstr "Falamhaich an sgudal"
-
-#: ../plugins/housekeeping/gsd-disk-space.c:641
-msgid "Ignore"
-msgstr "Leig seachad"
 
 #: ../plugins/housekeeping/housekeeping.gnome-settings-plugin.in.h:1
 msgid "Housekeeping"
@@ -353,27 +421,27 @@ msgstr "Meur-chlàr"
 msgid "Keyboard plugin"
 msgstr "Plugan nam meur-chlàr"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2111
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2170
 msgid "Bluetooth disabled"
 msgstr "Tha Bluetooth à comas"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2114
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2173
 msgid "Bluetooth enabled"
 msgstr "Tha Bluetooth an comas"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2118
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2177
 msgid "Airplane mode enabled"
 msgstr "Tha am modh itealain an comas"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2121
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2180
 msgid "Airplane mode disabled"
 msgstr "Tha am modh itealain à comas"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2149
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2208
 msgid "Hardware Airplane Mode"
 msgstr "Modh itealain a' bhathair-chruaidh"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2209
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2268
 msgid "Screencast from %d %t.webm"
 msgstr "Craoladh-sgrìn o %d %t.webm"
 
@@ -923,34 +991,34 @@ msgid "Lid has been closed"
 msgstr "Chaidh am mullach a dhùnadh"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1850
+#: ../plugins/power/gsd-power-manager.c:1842
 msgid "On battery power"
 msgstr "Air cumhachd a' bhataraidh"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1855
+#: ../plugins/power/gsd-power-manager.c:1847
 msgid "On AC power"
 msgstr "Air cumhachd AC"
 
-#: ../plugins/power/gsd-power-manager.c:2037
+#: ../plugins/power/gsd-power-manager.c:2029
 msgid "Automatic logout"
 msgstr "Logadh a-mach fèin-obrachail"
 
-#: ../plugins/power/gsd-power-manager.c:2037
+#: ../plugins/power/gsd-power-manager.c:2029
 msgid "You will soon log out because of inactivity."
 msgstr "Thèid do logadh a-mach a dh'aithghearr o nach do rinn thu dad."
 
-#: ../plugins/power/gsd-power-manager.c:2042
+#: ../plugins/power/gsd-power-manager.c:2034
 msgid "Automatic suspend"
 msgstr "Cur 'na dhàil fèin-obrachail"
 
-#: ../plugins/power/gsd-power-manager.c:2042
-#: ../plugins/power/gsd-power-manager.c:2047
+#: ../plugins/power/gsd-power-manager.c:2034
+#: ../plugins/power/gsd-power-manager.c:2039
 msgid "Computer will suspend very soon because of inactivity."
 msgstr ""
 "Thèid an coimpiutair a chur 'na dhàil a dh'aithghearr o nach do rinn thu dad."
 
-#: ../plugins/power/gsd-power-manager.c:2047
+#: ../plugins/power/gsd-power-manager.c:2039
 msgid "Automatic hibernation"
 msgstr "Cadal-geamhraidh fèin-obrachail"
 
@@ -1299,86 +1367,86 @@ msgid "Done"
 msgstr "Dèanta"
 
 #. If no mode is available, we use "left-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1028
+#: ../plugins/wacom/gsd-wacom-device.c:1031
 msgid "Left Ring"
 msgstr "Fàinneach clì"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1039
+#: ../plugins/wacom/gsd-wacom-device.c:1042
 #, c-format
 msgid "Left Ring Mode #%d"
 msgstr "Am modh fàinneach clì #%d"
 
 #. If no mode is available, we use "right-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1059
+#: ../plugins/wacom/gsd-wacom-device.c:1062
 msgid "Right Ring"
 msgstr "Fàinneach deas"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1070
+#: ../plugins/wacom/gsd-wacom-device.c:1073
 #, c-format
 msgid "Right Ring Mode #%d"
 msgstr "Am modh fàinneach deas #%d"
 
 #. If no mode is available, we use "left-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1112
+#: ../plugins/wacom/gsd-wacom-device.c:1115
 msgid "Left Touchstrip"
 msgstr "Touchstrip clì"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1123
+#: ../plugins/wacom/gsd-wacom-device.c:1126
 #, c-format
 msgid "Left Touchstrip Mode #%d"
 msgstr "Am modh touchstrip clì #%d"
 
 #. If no mode is available, we use "right-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1143
+#: ../plugins/wacom/gsd-wacom-device.c:1146
 msgid "Right Touchstrip"
 msgstr "Touchstrip deas"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1154
+#: ../plugins/wacom/gsd-wacom-device.c:1157
 #, c-format
 msgid "Right Touchstrip Mode #%d"
 msgstr "Am modh touchstrip deas #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1180
+#: ../plugins/wacom/gsd-wacom-device.c:1183
 #, c-format
 msgid "Left Touchring Mode Switch"
 msgstr "Suidse a' mhodh touchring clì"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1182
+#: ../plugins/wacom/gsd-wacom-device.c:1185
 #, c-format
 msgid "Right Touchring Mode Switch"
 msgstr "Suidse a' mhodh touchring deas"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1185
+#: ../plugins/wacom/gsd-wacom-device.c:1188
 #, c-format
 msgid "Left Touchstrip Mode Switch"
 msgstr "Suidse a' mhodh touchstrip chlì"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1187
+#: ../plugins/wacom/gsd-wacom-device.c:1190
 #, c-format
 msgid "Right Touchstrip Mode Switch"
 msgstr "Suidse a' mhodh touchstrip deas"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1192
+#: ../plugins/wacom/gsd-wacom-device.c:1195
 #, c-format
 msgid "Mode Switch #%d"
 msgstr "Suidse nam modh #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1238
+#: ../plugins/wacom/gsd-wacom-device.c:1241
 #, c-format
 msgid "Left Button #%d"
 msgstr "Am putan clì #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1241
+#: ../plugins/wacom/gsd-wacom-device.c:1244
 #, c-format
 msgid "Right Button #%d"
 msgstr "Am putan deas #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1244
+#: ../plugins/wacom/gsd-wacom-device.c:1247
 #, c-format
 msgid "Top Button #%d"
 msgstr "Am putan aig a' bharr #%d"
 
-#: ../plugins/wacom/gsd-wacom-device.c:1247
+#: ../plugins/wacom/gsd-wacom-device.c:1250
 #, c-format
 msgid "Bottom Button #%d"
 msgstr "Am putan aig a' bhonn #%d"
@@ -1387,16 +1455,16 @@ msgstr "Am putan aig a' bhonn #%d"
 msgid "New shortcut…"
 msgstr "Ath-ghoirid ùr…"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1029
+#: ../plugins/wacom/gsd-wacom-manager.c:1042
 #, c-format
 msgid "The \"%s\" tablet may not work as expected."
 msgstr "'s dòcha nach obraich tablaid \"%s\" mar an robhar an dùil."
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1030
+#: ../plugins/wacom/gsd-wacom-manager.c:1043
 msgid "Unknown Tablet Connected"
 msgstr "Chaidh tablaid nach aithne dhuinn a cheangal"
 
-#: ../plugins/wacom/gsd-wacom-manager.c:1034
+#: ../plugins/wacom/gsd-wacom-manager.c:1047
 msgid "Wacom Settings"
 msgstr "Roghainnean Wacom"
 
@@ -1493,9 +1561,6 @@ msgstr "Stiùirich na roghainnean X"
 
 #~ msgid "Enable touchpad"
 #~ msgstr "Cuir am pada-suathaidh an comas"
-
-#~ msgid "Wacom display mapping"
-#~ msgstr "Mapadh air taisbeanadh Wacom"
 
 #~ msgid "Cursor"
 #~ msgstr "Cùrsair"
