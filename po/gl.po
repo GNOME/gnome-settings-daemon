@@ -17,9 +17,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-27 00:28+0100\n"
-"PO-Revision-Date: 2017-02-27 00:32+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"settings-daemon&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2017-03-07 13:39+0000\n"
+"PO-Revision-Date: 2017-03-11 02:55+0100\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
 "Language: gl\n"
@@ -710,7 +711,6 @@ msgid "File for default configuration for RandR"
 msgstr "Ficheiro de configuración predeterminado para RandR"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
-#, fuzzy
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
@@ -729,7 +729,6 @@ msgid "Whether to turn off specific monitors after boot"
 msgstr "Indica se apagar determinados monitores despois de iniciar o equipo"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
-#, fuzzy
 msgid ""
 "“clone” will display the same thing on all monitors, “dock” will switch off "
 "the internal monitor, “do-nothing” will use the default Xorg behaviour "
@@ -748,15 +747,14 @@ msgid "Antialiasing"
 msgstr "Suavizado"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-#, fuzzy
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
 "and “rgba” for subpixel antialiasing (LCD screens only)."
 msgstr ""
 "O tipo de suavizado que usar ao renderizar os tipos de letra. Os valores "
-"posíbeis son: \"none\" para usar ningún suavizado, \"grayscale\" para o "
-"suavizado estándar de escala de grises e \"rgba\" para o suavizado de "
+"posíbeis son: «none» para usar ningún suavizado, «grayscale» para o "
+"suavizado estándar de escala de grises e «rgba» para o suavizado de "
 "subpíxeles (só para pantallas LCD)."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
@@ -764,7 +762,6 @@ msgid "Hinting"
 msgstr "Optimización"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
-#, fuzzy
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: “none” "
 "for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
@@ -794,7 +791,6 @@ msgid "RGBA order"
 msgstr "Orde RGBA"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
-#, fuzzy
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to “rgba”. Possible values are: “rgb” for red on left (most common), "
@@ -914,15 +910,15 @@ msgstr "É preciso recalibrar"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
 #: ../plugins/color/gsd-color-calibrate.c:199
-#, fuzzy, c-format
+#, c-format
 msgid "The display “%s” should be recalibrated soon."
-msgstr "A pantalla «%s» deberíase recalibrar pronto."
+msgstr "A pantalla «%s» debería recalibrarse pronto."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
 #: ../plugins/color/gsd-color-calibrate.c:208
-#, fuzzy, c-format
+#, c-format
 msgid "The printer “%s” should be recalibrated soon."
-msgstr "A impresora «%s» deberíase recalibrar pronto."
+msgstr "A impresora «%s» debería recalibrarse pronto."
 
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-calibrate.c:346
@@ -1592,9 +1588,8 @@ msgstr "Configurando a nova impresora"
 
 #. Translators: Just wait
 #: ../plugins/print-notifications/gsd-printer.c:892
-#, fuzzy
 msgid "Please wait…"
-msgstr "Agarde..."
+msgstr "Agarde…"
 
 #. Translators: We have no driver installed for this printer
 #: ../plugins/print-notifications/gsd-printer.c:919
@@ -1622,73 +1617,73 @@ msgstr "Impresoras"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
-#, fuzzy, c-format
+#, c-format
 msgid "Printer “%s” is low on toner."
 msgstr "Á impresora «%s» quédalle pouco tóner."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
-#, fuzzy, c-format
+#, c-format
 msgid "Printer “%s” has no toner left."
 msgstr "Á impresora «%s» non lle queda tóner."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
-#, fuzzy, c-format
+#, c-format
 msgid "Printer “%s” may not be connected."
 msgstr "Pode que a impresora «%s» non estea conectada."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
-#, fuzzy, c-format
+#, c-format
 msgid "The cover is open on printer “%s”."
 msgstr "A tapa da impresora «%s» está aberta."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
-#, fuzzy, c-format
+#, c-format
 msgid "There is a missing print filter for printer “%s”."
 msgstr "Non foi posíbel atopar un filtro para impresora «%s»."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
-#, fuzzy, c-format
+#, c-format
 msgid "The door is open on printer “%s”."
 msgstr "A porta da impresora «%s» está aberta."
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
-#, fuzzy, c-format
+#, c-format
 msgid "Printer “%s” is low on a marker supply."
 msgstr "A impresora «%s» ten pouca tinta nos cartuchos."
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
-#, fuzzy, c-format
+#, c-format
 msgid "Printer “%s” is out of a marker supply."
 msgstr "A impresora «%s» non ten tinta nos cartuchos."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
-#, fuzzy, c-format
+#, c-format
 msgid "Printer “%s” is low on paper."
 msgstr "A impresora «%s» ten pouco papel."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
-#, fuzzy, c-format
+#, c-format
 msgid "Printer “%s” is out of paper."
 msgstr "A impresora «%s» non ten papel."
 
 #. Translators: The printer is offline (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
-#, fuzzy, c-format
+#, c-format
 msgid "Printer “%s” is currently off-line."
 msgstr "A impresora «%s» está actualmente desconectada."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:395
-#, fuzzy, c-format
+#, c-format
 msgid "There is a problem on printer “%s”."
 msgstr "Hai un problema coa impresora «%s»."
 
@@ -1777,7 +1772,7 @@ msgstr "Impresión detida"
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:586
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:594
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:607
-#, fuzzy, c-format
+#, c-format
 msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "«%s» en %s"
@@ -1822,7 +1817,7 @@ msgstr "Aviso da impresora"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:835
-#, fuzzy, c-format
+#, c-format
 msgid "Printer “%s”: “%s”."
 msgstr "Impresora «%s»: «%s»."
 
