@@ -10,18 +10,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-01-12 16:44+0000\n"
-"PO-Revision-Date: 2017-01-24 13:38+0700\n"
-"Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
+"POT-Creation-Date: 2017-03-05 22:29+0000\n"
+"PO-Revision-Date: 2017-03-16 09:34+0700\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 1.8.12\n"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Smartcard removal action"
@@ -29,12 +29,12 @@ msgstr "Aksi ketika kartu cerdas dicabut"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
 msgid ""
-"Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
-"action will get performed when the smartcard used for log in is removed."
+"Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
+"get performed when the smartcard used for log in is removed."
 msgstr ""
-"Berikan salah satu nilai \"none\", \"lock-screen\", atau \"force-logout\". "
-"Salah satu aksi tersebut akan dilakukan apabila kartu cerdas yang dipakai "
-"untuk log masuk dicabut."
+"Isi dengan salah satu dari \"none\", \"lock-screen\", atau \"force-logout\". "
+"Aksi tersebut akan dilakukan apabila smartcard yang dipakai untuk log masuk "
+"dicabut."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
 msgid ""
@@ -61,8 +61,8 @@ msgid "Distance before a drag is started."
 msgstr "Jarak sebelum penyeretan (drag) dimulai."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
-msgid "Whether the tablet's orientation is locked, or rotated automatically."
-msgstr "Apakah orientasi tablet dikunci atau diputar secara otomatis."
+msgid "Whether the tablet’s orientation is locked, or rotated automatically."
+msgstr "Apakah orientasi tablet dikunci, atau diputar secara otomatis."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 msgid "Wacom stylus absolute mode"
@@ -99,11 +99,11 @@ msgstr "Rotasi tablet Wacom"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid ""
-"Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
-"'ccw' for 90 degree counterclockwise."
+"Set this to “none”, “cw” for 90 degree clockwise, “half” for 180 degree, and "
+"“ccw” for 90 degree counterclockwise."
 msgstr ""
-"Tata ini ke 'none', 'cw' untuk 90 derajat searah jarum jam, 'half' untuk 180 "
-"derajat, dan 'ccw' untuk 90 derajat melawan arah jarum jam."
+"Tata ini ke \"none\", \"cw\" untuk 90 derajat searah jarum jam, \"half\" "
+"untuk 180 derajat, dan \"ccw\" untuk 90 derajat melawan arah jarum jam."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
 msgid "Wacom touch feature"
@@ -228,6 +228,81 @@ msgid ""
 msgstr ""
 "Cacah hari dimana setelahnya suatu profil warna pencetak dianggap tak valid."
 
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
+msgid "If the night light mode is enabled"
+msgstr "Bila mode cahaya malam difungsikan"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
+msgid ""
+"Night light mode changes the color temperature of your display when the sun "
+"has gone down or at present times."
+msgstr ""
+"Mode cahaya malam mengubah temperatur warna tampilan Anda ketika matahari "
+"telah terbenam atau pada waktu ini."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
+msgid "Temperature of the display when enabled"
+msgstr "Temperatur tampilan ketika difungsikan"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
+msgid ""
+"This temperature in Kelvin is used to modify the screen tones when night "
+"light mode is enabled. Higher values are bluer, lower redder."
+msgstr ""
+"Temperatur dalam Kelvin dipakai untuk mengubah nada layar ketika mode cahaya "
+"malam difungsikan. Nilai yang lebih tinggi lebih biru, lebih rendah lebih "
+"merah."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:9
+msgid "Use the sunrise and sunset"
+msgstr "Gunakan matahari terbit dan terbenam"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:10
+msgid ""
+"Calculate the sunrise and sunset times automatically, from the current "
+"location."
+msgstr ""
+"Menghitung waktu matahari terbit dan terbenam secara otomatis, dari lokasi "
+"saat ini."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:11
+msgid "The start time"
+msgstr "Waktu mulai"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:12
+msgid ""
+"When “night-light-schedule-automatic” is disabled, use this start time in "
+"hours from midnight."
+msgstr ""
+"Ketika \"night-light-schedule-automatic\" dinonaktifkan, gunakan waktu mulai "
+"ini dalam jam sejak tengah malam."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:13
+msgid "The end time"
+msgstr "Waktu berakhir"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:14
+msgid ""
+"When “night-light-schedule-automatic” is disabled, use this end time in "
+"hours from midnight."
+msgstr ""
+"Ketika \"night-light-schedule-automatic\" dinonaktifkan, gunakan waktu "
+"berakhir ini dalam jam sejak tengah malam."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:15
+msgid "The last detected position"
+msgstr "Posisi terdeteksi terakhir"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:16
+msgid ""
+"When location services are available this represents the last detected "
+"location. The default value is an invalid value to ensure it is always "
+"updated at startup."
+msgstr ""
+"Ketika layanan lokasi tersedia ini menyatakan lokasi terdeteksi terakhir. "
+"Nilai bakunya adalah nilai yang tidak valid untuk memastikan bahwa ini "
+"selalu dimutakhirkan saat awal mula."
+
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 msgid "List of plugins that are allowed to be loaded"
 msgstr "Daftar pengaya yang diijinkan dimuat"
@@ -235,10 +310,10 @@ msgstr "Daftar pengaya yang diijinkan dimuat"
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
 msgid ""
 "A list of strings representing the plugins that are allowed to be loaded "
-"(default: 'all'). This is only evaluated on startup."
+"(default: “all”). This is only evaluated on startup."
 msgstr ""
-"Suatu daftar kalimat yang mewakili pengaya yang diijinkan dimuat (baku: "
-"'all' (semua)). Ini hanya dievaluasi pada awal mulai."
+"Suatu daftar kalimat yang mewakili pengaya yang diijinkan dimuat (baku: \"all"
+"\" (semua)). Ini hanya dievaluasi pada awal mula."
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
 msgid "Mount paths to ignore"
@@ -618,8 +693,8 @@ msgstr "Berkas konfigurasi bawaan bagi RandR"
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
-"normally gets stored in users' home directories. If a user does not have "
-"such a file, or has one that does not match the user's setup of monitors, "
+"normally gets stored in users’ home directories. If a user does not have "
+"such a file, or has one that does not match the user’s setup of monitors, "
 "then the file specified by this key will be used instead."
 msgstr ""
 "Plugin XRandR akan mencari konfigurasi bawaan di dalam berkas yang "
@@ -635,17 +710,17 @@ msgstr "Apakah mematikan monitor tertentu setelah boot"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
 msgid ""
-"'clone' will display the same thing on all monitors, 'dock' will switch off "
-"the internal monitor, 'do-nothing' will use the default Xorg behaviour "
-"(extend the desktop in recent versions). The default, 'follow-lid', will "
-"choose between 'do-nothing' and 'dock' depending on whether the lid is "
+"“clone” will display the same thing on all monitors, “dock” will switch off "
+"the internal monitor, “do-nothing” will use the default Xorg behaviour "
+"(extend the desktop in recent versions). The default, “follow-lid”, will "
+"choose between “do-nothing” and “dock” depending on whether the lid is "
 "(respectively) open or closed."
 msgstr ""
-"'clone' akan menampilkan hal yang sama pada semua monitor, 'dock' akan "
-"mematikan monitor internal, 'do-nothing' akan memakai perilaku bawaan Xorg "
-"(memperluas desktop pada versi baru-baru ini). Bawaannya, 'follow-lid', akan "
-"memilih antara 'do-nothing' dan 'dock' bergantung kepada apakan lid (masing-"
-"masing) dibuka atau ditutup."
+"\"clone\" akan menampilkan hal yang sama pada semua monitor, \"dock\" akan "
+"mematikan monitor internal, \"do-nothing\" akan memakai perilaku bawaan Xorg "
+"(memperluas desktop pada versi baru-baru ini). Bawaannya, \"follow-lid\", "
+"akan memilih antara \"do-nothing\" dan \"dock\" bergantung kepada apakah lid "
+"(masing-masing) terbuka atau tertutup."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid "Antialiasing"
@@ -654,8 +729,8 @@ msgstr "Antialiasing"
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
-"\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
-"antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
+"“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
+"and “rgba” for subpixel antialiasing (LCD screens only)."
 msgstr ""
 "Jenis antialias yang dipakai untuk merender fonta. Nilai yang mungkin "
 "adalah: \"none\" untuk tanpa antialias, \"grayscale\" untuk antialias skala "
@@ -667,22 +742,22 @@ msgstr "Hinting"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
 msgid ""
-"The type of hinting to use when rendering fonts. Possible values are: \"none"
-"\" for no hinting and \"slight\" for fitting only to the Y-axis like "
-"Microsoft's ClearType, DirectWrite and Adobe's proprietary font rendering "
-"engine. Ignores native hinting within the font, generates hints "
-"algorithmically. Used on Ubuntu by default. Recommended. The meaning of "
-"\"medium\" and \"full\" depends on the font format (.ttf, .otf, .pfa/.pfb) "
-"and the installed version of FreeType. They usually try to fit glyphs to "
-"both the X and the Y axis (except for .otf: Y-only). This can lead to "
-"distortion and/or inconsistent rendering depending on the quality of the "
-"font, the font format and the state of FreeType's font engines."
+"The type of hinting to use when rendering fonts. Possible values are: “none” "
+"for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
+"ClearType, DirectWrite and Adobe’s proprietary font rendering engine. "
+"Ignores native hinting within the font, generates hints algorithmically. "
+"Used on Ubuntu by default. Recommended. The meaning of “medium” and “full” "
+"depends on the font format (.ttf, .otf, .pfa/.pfb) and the installed version "
+"of FreeType. They usually try to fit glyphs to both the X and the Y axis "
+"(except for .otf: Y-only). This can lead to distortion and/or inconsistent "
+"rendering depending on the quality of the font, the font format and the "
+"state of FreeType’s font engines."
 msgstr ""
-"Tipe hint yang dipakai ketika merender fonta. Nilai yang mungkin adalah: "
-"\"none\" (nihil) untuk tanpa hintm dan \"slight\" (sedikit) untuk "
-"mengepaskan hanya ke sumbu-Y seperti Microsoft CelarType, DirectWrite, dan "
-"mesin render fonta proprietari Adobe. Mengabaikan hint native dari dalam "
-"fonta, membangkitkan hint secara algoritmis. Dipakai pada Ubuntu secara "
+"Tipe petunjuk yang dipakai ketika merender fonta. Nilai yang mungkin adalah: "
+"\"none\" (nihil) untuk tanpa petunjuk dan \"slight\" (sedikit) untuk "
+"mengepaskan hanya ke sumbu-Y seperti Microsoft ClearType, DirectWrite, dan "
+"mesin render fonta proprietari Adobe. Mengabaikan petunjuk native dari dalam "
+"fonta, membangkitkan petunjuk secara algoritmis. Dipakai pada Ubuntu secara "
 "baku. Disarankan. Arti dari \"medium\" (sedang) dan \"full\" (penuh) "
 "bergantung kepada format fonta (.ttf, .otf, .pfa/.pfb) dan versi FreeType "
 "yang dipasang. Mereka biasanya mencoba mengepaskan glyph ke sumbu X dan Y "
@@ -697,9 +772,8 @@ msgstr "Urutan RGBA"
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
-"is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
-"common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red "
-"on bottom."
+"is set to “rgba”. Possible values are: “rgb” for red on left (most common), "
+"“bgr” for blue on left, “vrgb” for red on top, “vbgr” for red on bottom."
 msgstr ""
 "Urutan elemen sub piksel pada layar LCD; hanya dipakai ketika antialias "
 "ditata ke \"rgba\". Nilai yang mungkin adalah: \"rgb\" untuk merah di kiri "
@@ -803,6 +877,7 @@ msgstr ""
 msgid "Color"
 msgstr "Warna"
 
+#. TRANSLATORS: button: this is to open GCM
 #: ../plugins/color/gsd-color-calibrate.c:144
 msgid "Recalibrate now"
 msgstr "Kalibrasi ulang sekarang"
@@ -815,14 +890,14 @@ msgstr "Perlu kalibrasi ulang"
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
 #: ../plugins/color/gsd-color-calibrate.c:199
 #, c-format
-msgid "The display '%s' should be recalibrated soon."
-msgstr "Tampilan '%s' mesti segera dikalibrasi ulang."
+msgid "The display “%s” should be recalibrated soon."
+msgstr "Tampilan \"%s\" mesti segera dikalibrasi ulang."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
 #: ../plugins/color/gsd-color-calibrate.c:208
 #, c-format
-msgid "The printer '%s' should be recalibrated soon."
-msgstr "Pencetak '%s' mesti segera dikalibrasi ulang."
+msgid "The printer “%s” should be recalibrated soon."
+msgstr "Pencetak \"%s\" mesti segera dikalibrasi ulang."
 
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-calibrate.c:346
@@ -912,27 +987,31 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Komputer ini hanya memiliki %s ruang kosong pada diska."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2130
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2173
 msgid "Bluetooth disabled"
 msgstr "Bluetooth dimatikan"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2133
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2176
 msgid "Bluetooth enabled"
 msgstr "Bluetooth diaktifkan"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2137
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2180
 msgid "Airplane mode enabled"
 msgstr "Mode pesawat terbang diaktifkan"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2140
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2183
 msgid "Airplane mode disabled"
 msgstr "Mode pesawat terbang dimatikan"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2168
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2211
 msgid "Hardware Airplane Mode"
 msgstr "Mode Pesawat Terbang Perangkat Keras"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2228
+#. Translators: this is a filename used for screencast
+#. * recording, where "%d" and "%t" date and time, e.g.
+#. * "Screencast from 07-17-2013 10:00:46 PM.webm"
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2271
+#, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Screencast dari %d %t.webm"
 
@@ -1097,17 +1176,17 @@ msgstr "Jungkitkan Mode Pesawat Terbang"
 msgid "Toggle Bluetooth"
 msgstr "Jungkitkan Bluetooth"
 
-#: ../plugins/power/gpm-common.c:81
+#: ../plugins/power/gpm-common.c:100
 msgid "Unknown time"
 msgstr "Waktu tak diketahui"
 
-#: ../plugins/power/gpm-common.c:86
+#: ../plugins/power/gpm-common.c:105
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i menit"
 
-#: ../plugins/power/gpm-common.c:96
+#: ../plugins/power/gpm-common.c:115
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1115,23 +1194,23 @@ msgstr[0] "%i jam"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: ../plugins/power/gpm-common.c:102
+#: ../plugins/power/gpm-common.c:121
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: ../plugins/power/gpm-common.c:103
+#: ../plugins/power/gpm-common.c:122
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "jam"
 
-#: ../plugins/power/gpm-common.c:104
+#: ../plugins/power/gpm-common.c:123
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "menit"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:929 ../plugins/power/gsd-power-manager.c:684
+#: ../plugins/power/gpm-common.c:948 ../plugins/power/gsd-power-manager.c:684
 #: ../plugins/power/gsd-power-manager.c:781
 msgid "Battery is critically low"
 msgstr "Baterai nyaris habis"
@@ -1435,24 +1514,24 @@ msgstr "Memakai baterai"
 msgid "On AC power"
 msgstr "Memakai daya listrik"
 
-#: ../plugins/power/gsd-power-manager.c:2034
+#: ../plugins/power/gsd-power-manager.c:2038
 msgid "Automatic logout"
 msgstr "Otomatis log keluar"
 
-#: ../plugins/power/gsd-power-manager.c:2034
+#: ../plugins/power/gsd-power-manager.c:2038
 msgid "You will soon log out because of inactivity."
 msgstr "Anda akan segera log keluar karena tiada aktivitas."
 
-#: ../plugins/power/gsd-power-manager.c:2039
+#: ../plugins/power/gsd-power-manager.c:2043
 msgid "Automatic suspend"
 msgstr "Otomatis suspensi"
 
-#: ../plugins/power/gsd-power-manager.c:2039
-#: ../plugins/power/gsd-power-manager.c:2044
+#: ../plugins/power/gsd-power-manager.c:2043
+#: ../plugins/power/gsd-power-manager.c:2048
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Komputer akan segera disuspensi karena ketiadaan aktivitas."
 
-#: ../plugins/power/gsd-power-manager.c:2044
+#: ../plugins/power/gsd-power-manager.c:2048
 msgid "Automatic hibernation"
 msgstr "Otomatis hibernasi"
 
@@ -1475,7 +1554,7 @@ msgstr "Mengonfigurasi pencetak baru"
 
 #. Translators: Just wait
 #: ../plugins/print-notifications/gsd-printer.c:892
-msgid "Please wait..."
+msgid "Please wait…"
 msgstr "Mohon tunggu..."
 
 #. Translators: We have no driver installed for this printer
@@ -1505,74 +1584,74 @@ msgstr "Pencetak"
 #. Translators: The printer is low on toner (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
 #, c-format
-msgid "Printer '%s' is low on toner."
-msgstr "Toner pencetak '%s' tinggal sedikit."
+msgid "Printer “%s” is low on toner."
+msgstr "Toner pencetak \"%s\" tinggal sedikit."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
 #, c-format
-msgid "Printer '%s' has no toner left."
-msgstr "Toner pencetak '%s' telah habis."
+msgid "Printer “%s” has no toner left."
+msgstr "Toner pencetak \"%s\" telah habis."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
 #, c-format
-msgid "Printer '%s' may not be connected."
-msgstr "Pencetak '%s' mungkin tidak terhubung."
+msgid "Printer “%s” may not be connected."
+msgstr "Pencetak \"%s\" mungkin tidak terhubung."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
 #, c-format
-msgid "The cover is open on printer '%s'."
-msgstr "Pencetak '%s' kovernya terbuka."
+msgid "The cover is open on printer “%s”."
+msgstr "Penutup pada pencetak '%s' terbuka."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
 #, c-format
-msgid "There is a missing print filter for printer '%s'."
-msgstr "Kehilangan penyaring untuk pencetak '%s'."
+msgid "There is a missing print filter for printer “%s”."
+msgstr "Ada penyaring cetak yang kurang untuk pencetak \"%s\"."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 #, c-format
-msgid "The door is open on printer '%s'."
-msgstr "Pencetak '%s' pintunya terbuka."
+msgid "The door is open on printer “%s”."
+msgstr "Pintu pada pencetak \"%s\" terbuka."
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
 #, c-format
-msgid "Printer '%s' is low on a marker supply."
-msgstr "Pencetak '%s' kekurangan tinta."
+msgid "Printer “%s” is low on a marker supply."
+msgstr "Tinta pencetak \"%s\" hampir habis."
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
 #, c-format
-msgid "Printer '%s' is out of a marker supply."
-msgstr "Pencetak '%s' kehabisan tinta."
+msgid "Printer “%s” is out of a marker supply."
+msgstr "Pencetak \"%s\" kehabisan tinta."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
 #, c-format
-msgid "Printer '%s' is low on paper."
-msgstr "Kertas pencetak '%s' tinggal sedikit."
+msgid "Printer “%s” is low on paper."
+msgstr "Kertas pencetak \"%s\" tinggal sedikit."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
 #, c-format
-msgid "Printer '%s' is out of paper."
-msgstr "Pencetak '%s' kehabisan kertas."
+msgid "Printer “%s” is out of paper."
+msgstr "Pencetak \"%s\" kehabisan kertas."
 
 #. Translators: The printer is offline (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
 #, c-format
-msgid "Printer '%s' is currently off-line."
-msgstr "Pencetak '%s' sedang luring."
+msgid "Printer “%s” is currently off-line."
+msgstr "Pencetak \"%s\" sedang luring."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:395
 #, c-format
-msgid "There is a problem on printer '%s'."
-msgstr "Terjadi masalah pada pencetak '%s'."
+msgid "There is a problem on printer “%s”."
+msgstr "Ada masalah pada pencetak \"%s\"."
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:443
@@ -1661,7 +1740,7 @@ msgstr "Mencetak dihentikan"
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:607
 #, c-format
 msgctxt "print job"
-msgid "\"%s\" on %s"
+msgid "“%s” on %s"
 msgstr "\"%s\" pada %s"
 
 #. Translators: A print job has been canceled
@@ -1705,189 +1784,12 @@ msgstr "Peringatan pencetak"
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:835
 #, c-format
-msgid "Printer '%s': '%s'."
-msgstr "Pencetak '%s': '%s'."
+msgid "Printer “%s”: “%s”."
+msgstr "Pencetak \"%s\": \"%s\"."
 
 #: ../plugins/smartcard/gsd-smartcard-service.c:224
 msgid "User was not logged in with smartcard."
 msgstr "Pengguna tidak log masuk dengan smartcard."
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:51
-msgctxt "Wacom action-type"
-msgid "None"
-msgstr "Nihil"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:52
-msgctxt "Wacom action-type"
-msgid "Send Keystroke"
-msgstr "Kirim Ketukan Tombol"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:53
-msgctxt "Wacom action-type"
-msgid "Switch Monitor"
-msgstr "Tukar Monitor"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:54
-msgctxt "Wacom action-type"
-msgid "Show On-Screen Help"
-msgstr "Tampilkan Bantuan Pada Layar"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:154
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1098
-msgctxt "Action type"
-msgid "Show On-Screen Help"
-msgstr "Tampilkan Bantuan Pada Layar"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:157
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1101
-msgctxt "Action type"
-msgid "Switch Monitor"
-msgstr "Tukar Monitor"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:201
-msgctxt "keyboard shortcut"
-msgid "None"
-msgstr "Nihil"
-
-#: ../plugins/wacom/gsd-wacom-button-editor.c:487
-msgid "Done"
-msgstr "Selesai"
-
-#. If no mode is available, we use "left-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1031
-msgid "Left Ring"
-msgstr "Cincin Kiri"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1042
-#, c-format
-msgid "Left Ring Mode #%d"
-msgstr "Mode Ring Kiri #%d"
-
-#. If no mode is available, we use "right-ring-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1062
-msgid "Right Ring"
-msgstr "Cincin Kanan"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1073
-#, c-format
-msgid "Right Ring Mode #%d"
-msgstr "Mode Ring Kanan #%d"
-
-#. If no mode is available, we use "left-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1115
-msgid "Left Touchstrip"
-msgstr "Strip Sentuh Kiri"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1126
-#, c-format
-msgid "Left Touchstrip Mode #%d"
-msgstr "Mode Touchstrip Kiri #%d"
-
-#. If no mode is available, we use "right-strip-mode-1" for backward compat
-#: ../plugins/wacom/gsd-wacom-device.c:1146
-msgid "Right Touchstrip"
-msgstr "Strip Sentuh Kanan"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1157
-#, c-format
-msgid "Right Touchstrip Mode #%d"
-msgstr "Mode Touchstrip Kanan #%d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1183
-#, c-format
-msgid "Left Touchring Mode Switch"
-msgstr "Penukaran Mode Touchring Kiri"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1185
-#, c-format
-msgid "Right Touchring Mode Switch"
-msgstr "Penukaran Mode Touchring Kanan"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1188
-#, c-format
-msgid "Left Touchstrip Mode Switch"
-msgstr "Penukaran Mode Touchstrip Kiri"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1190
-#, c-format
-msgid "Right Touchstrip Mode Switch"
-msgstr "Penukaran Mode Touchstrip Kanan"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1195
-#, c-format
-msgid "Mode Switch #%d"
-msgstr "Penukaran Mode #%d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1241
-#, c-format
-msgid "Left Button #%d"
-msgstr "Tombol Kiri #%d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1244
-#, c-format
-msgid "Right Button #%d"
-msgstr "Tombol Kanan #%d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1247
-#, c-format
-msgid "Top Button #%d"
-msgstr "Tombol Puncak #%d"
-
-#: ../plugins/wacom/gsd-wacom-device.c:1250
-#, c-format
-msgid "Bottom Button #%d"
-msgstr "Tombol Dasar #%d"
-
-#: ../plugins/wacom/gsd-wacom-key-shortcut-button.c:263
-msgid "New shortcut…"
-msgstr "Pintasan baru..."
-
-#: ../plugins/wacom/gsd-wacom-manager.c:1047
-#, c-format
-msgid "The \"%s\" tablet may not work as expected."
-msgstr "Tablet \"%s\" mungkin tak bekerja seperti yang diharapkan."
-
-#: ../plugins/wacom/gsd-wacom-manager.c:1048
-msgid "Unknown Tablet Connected"
-msgstr "Tablet Tak Dikenal Tersambung"
-
-#: ../plugins/wacom/gsd-wacom-manager.c:1052
-msgid "Wacom Settings"
-msgstr "Pengaturan Wacom"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1075
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1095
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1106
-msgctxt "Action type"
-msgid "None"
-msgstr "Nihil"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1080
-#, c-format
-msgctxt "Action type"
-msgid "Send Keystroke %s"
-msgstr "Kirim Ketukan Tombol %s"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1139
-#, c-format
-msgid "Mode %d: %s"
-msgstr "Mode %d: %s"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1349
-msgid "(press any key to exit)"
-msgstr "(tekan sebarang tombol untuk keluar)"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1358
-msgid "Push a button to configure"
-msgstr "Tekan tombol untuk menata"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1358
-msgid "(Esc to cancel)"
-msgstr "(Esc untuk batal)"
-
-#: ../plugins/wacom/gsd-wacom-osd-window.c:1985
-msgid "Edit"
-msgstr "Sunting"
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
@@ -1917,151 +1819,3 @@ msgstr "Perlu otentikasi untuk mengubah gambar OLED bagi suatu tablet Wacom"
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr "Tak bisa menyegarkan informasi layar: %s"
-
-#~ msgid "GNOME Settings Daemon"
-#~ msgstr "Daemon Pengaturan GNOME"
-
-#~ msgid "Activation of this plugin"
-#~ msgstr "Aktivasi pengaya ini"
-
-#~ msgid ""
-#~ "Whether this plugin would be activated by gnome-settings-daemon or not"
-#~ msgstr ""
-#~ "Menentukan apakah pengaya ini diaktifkan oleh gnome-settings-daemon atau "
-#~ "tidak"
-
-#~ msgid "Priority to use for this plugin"
-#~ msgstr "Prioritas untuk menggunakan pengaya ini"
-
-#~ msgid ""
-#~ "Priority to use for this plugin in gnome-settings-daemon startup queue"
-#~ msgstr ""
-#~ "Prioritas untuk menggunakan pengaya ini dalam antrian gnome-settings-"
-#~ "daemon saat mulai berjalan"
-
-#~ msgid "Enable debugging code"
-#~ msgstr "Aktifkan kode pengawakutuan"
-
-#~ msgid "Replace existing daemon"
-#~ msgstr "Gantikan daemon yang ada"
-
-#~ msgid "Exit after a time (for debugging)"
-#~ msgstr "Keluar setelah tundaan sejenak (untuk pengawakutuan)"
-
-#~ msgid "Accessibility Keyboard"
-#~ msgstr "Aksesibilitas Papan Ketik"
-
-#~ msgid "Accessibility keyboard plugin"
-#~ msgstr "Pengaya papan tik kemudahan akses"
-
-#~ msgid "Accessibility settings"
-#~ msgstr "Pengaturan aksesibilitas"
-
-#~ msgid "Accessibility settings plugin"
-#~ msgstr "Pengaya pengaturan aksesibilitas"
-
-#~ msgid "Clipboard"
-#~ msgstr "Papan klip"
-
-#~ msgid "Clipboard plugin"
-#~ msgstr "Pengaya papan klip"
-
-#~ msgid "Color plugin"
-#~ msgstr "Pengaya warna"
-
-#~ msgid "Date and Time"
-#~ msgstr "Tanggal dan Waktu"
-
-#~ msgid "Automatically update timezone"
-#~ msgstr "Otomatis memutakhirkan zona waktu"
-
-#~ msgid "Dummy"
-#~ msgstr "Dummy"
-
-#~ msgid "Dummy plugin"
-#~ msgstr "Pengaya dummy"
-
-#~ msgid "Housekeeping"
-#~ msgstr "Housekeeping"
-
-#~ msgid ""
-#~ "Automatically prunes thumbnail caches and other transient files, and "
-#~ "warns about low disk space"
-#~ msgstr ""
-#~ "Otomatis memangkas singgahan gambar mini dan berkas transien lain, serta "
-#~ "mengingatkan tentang sisa ruang disk yang sedikit"
-
-#~ msgid "Keyboard"
-#~ msgstr "Papan tik"
-
-#~ msgid "Keyboard plugin"
-#~ msgstr "Pengaya papan tik"
-
-#~ msgid "Media keys"
-#~ msgstr "Tombol media"
-
-#~ msgid "Media keys plugin"
-#~ msgstr "Pengaya tombol media"
-
-#~ msgid "Mouse"
-#~ msgstr "Tetikus"
-
-#~ msgid "Mouse plugin"
-#~ msgstr "Pengaya tetikus"
-
-#~ msgid "Orientation"
-#~ msgstr "Orientasi"
-
-#~ msgid "Orientation plugin"
-#~ msgstr "Pengaya orientasi"
-
-#~ msgid "Power plugin"
-#~ msgstr "Pengaya daya"
-
-#~ msgid "Print-notifications"
-#~ msgstr "Pemberitahuan cetak"
-
-#~ msgid "Print-notifications plugin"
-#~ msgstr "Pengaya pemberitahuan cetak"
-
-#~ msgid "Rfkill"
-#~ msgstr "Rfkill"
-
-#~ msgid "Rfkill plugin"
-#~ msgstr "Pengaya Rfkill"
-
-#~ msgid "Screensaver Proxy"
-#~ msgstr "Proksi Pengaman Layar"
-
-#~ msgid "Proxy FreeDesktop screensaver inhibition to gnome-session"
-#~ msgstr "Proksikan pelarangan pengaman layar FreeDesktop ke gnome-session"
-
-#~ msgid "Smartcard"
-#~ msgstr "Smartcard"
-
-#~ msgid "Smartcard plugin"
-#~ msgstr "Pengaya smartcard"
-
-#~ msgid "Sound"
-#~ msgstr "Suara"
-
-#~ msgid "Sound Sample Cache plugin"
-#~ msgstr "Pengaya Singgahan Cuplikan Suara"
-
-#~ msgid "Wacom"
-#~ msgstr "Wacom"
-
-#~ msgid "Wacom plugin"
-#~ msgstr "Pengaya Wacom"
-
-#~ msgid "XRandR"
-#~ msgstr "XRandR"
-
-#~ msgid "Set up screen size and rotation settings"
-#~ msgstr "Atur tatanan ukuran dan rotasi layar"
-
-#~ msgid "X Settings"
-#~ msgstr "Pengaturan X"
-
-#~ msgid "Manage X Settings"
-#~ msgstr "Kelola Tatanan X"
