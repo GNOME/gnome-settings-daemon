@@ -2384,7 +2384,7 @@ do_action (GsdMediaKeysManager *manager,
                 do_media_action (manager, timestamp);
                 break;
         case CALCULATOR_KEY:
-                do_execute_desktop_or_desktop (manager, "gcalctool.desktop", "gnome-calculator.desktop", timestamp);
+                do_execute_desktop_or_desktop (manager, "org.gnome.Calculator.desktop", "gnome-calculator.desktop", timestamp);
                 break;
         case CONTROL_CENTER_KEY:
                 do_execute_desktop_or_desktop (manager, "gnome-control-center.desktop", NULL, timestamp);
