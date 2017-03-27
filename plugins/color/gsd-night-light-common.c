@@ -57,7 +57,7 @@ gsd_night_light_get_sunrise_sunset (GDateTime *dt,
         g_return_val_if_fail (pos_lat <= 90.f && pos_lat >= -90.f, FALSE);
         g_return_val_if_fail (pos_long <= 180.f && pos_long >= -180.f, FALSE);
 
-        gdouble tz_offset =  g_date_time_get_utc_offset (dt) / G_USEC_PER_SEC / 60 / 60; // B5
+        gdouble tz_offset = (gdouble) g_date_time_get_utc_offset (dt) / G_USEC_PER_SEC / 60 / 60; // B5
         gdouble date_as_number = ts / G_USEC_PER_SEC / 24 / 60 / 60 + 2;  // B7
         gdouble time_past_local_midnight = 0;  // E2, unused in this calculation
         gdouble julian_day = date_as_number + 2415018.5 +

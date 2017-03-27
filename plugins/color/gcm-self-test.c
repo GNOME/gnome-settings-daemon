@@ -232,6 +232,27 @@ gcm_test_sunset_sunrise (void)
 }
 
 static void
+gcm_test_sunset_sunrise_fractional_timezone (void)
+{
+        gdouble sunrise;
+        gdouble sunrise_actual = 7.6 + 1.5;
+        gdouble sunset;
+        gdouble sunset_actual = 16.8 + 1.5;
+        g_autoptr(GTimeZone) tz = NULL;
+        g_autoptr(GDateTime) dt = NULL;
+
+        tz = g_time_zone_new ("+01:30");
+        dt = g_date_time_new (tz, 2007, 2, 1, 0, 0, 0);
+
+        /* get for our made up timezone, today */
+        gsd_night_light_get_sunrise_sunset (dt, 51.5, -0.1278, &sunrise, &sunset);
+        g_assert_cmpfloat (sunrise, <, sunrise_actual + 0.1);
+        g_assert_cmpfloat (sunrise, >, sunrise_actual - 0.1);
+        g_assert_cmpfloat (sunset, <, sunset_actual + 0.1);
+        g_assert_cmpfloat (sunset, >, sunset_actual - 0.1);
+}
+
+static void
 gcm_test_frac_day (void)
 {
         g_autoptr(GDateTime) dt = g_date_time_new_utc (2007, 2, 1, 12, 59, 59);
@@ -267,6 +288,7 @@ main (int argc, char **argv)
 
         g_test_add_func ("/color/edid", gcm_test_edid_func);
         g_test_add_func ("/color/sunset-sunrise", gcm_test_sunset_sunrise);
+        g_test_add_func ("/color/sunset-sunrise/fractional-timezone", gcm_test_sunset_sunrise_fractional_timezone);
         g_test_add_func ("/color/fractional-day", gcm_test_frac_day);
         g_test_add_func ("/color/night-light", gcm_test_night_light);
 
