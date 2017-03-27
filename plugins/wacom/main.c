@@ -4,4 +4,4 @@
 #define MANAGER GsdWacomManager
 #include "gsd-wacom-manager.h"
 
-#include "daemon-skeleton-gtk.h"
+#include "daemon-skeleton.h"
