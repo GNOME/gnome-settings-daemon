@@ -4,4 +4,4 @@
 #define MANAGER GsdPrintNotificationsManager
 #include "gsd-print-notifications-manager.h"
 
-#include "daemon-skeleton-gtk.h"
+#include "daemon-skeleton.h"
