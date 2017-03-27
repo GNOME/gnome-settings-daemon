@@ -358,28 +358,30 @@ cc_rfkill_glib_init (CcRfkillGlib *rfkill)
 {
 }
 
-int
-cc_rfkill_glib_open (CcRfkillGlib *rfkill)
+gboolean
+cc_rfkill_glib_open (CcRfkillGlib  *rfkill,
+                     GError       **error)
 {
 	int fd;
 	int ret;
 	GList *events;
 
-	g_return_val_if_fail (CC_RFKILL_IS_GLIB (rfkill), -1);
-	g_return_val_if_fail (rfkill->stream == NULL, -1);
+	g_return_val_if_fail (CC_RFKILL_IS_GLIB (rfkill), FALSE);
+	g_return_val_if_fail (rfkill->stream == NULL, FALSE);
 
 	fd = open("/dev/rfkill", O_RDWR);
 	if (fd < 0) {
-		if (errno == EACCES)
-			g_warning ("Could not open RFKILL control device, please verify your installation");
-		return fd;
+		g_set_error_literal (error, G_IO_ERROR, g_io_error_from_errno (errno),
+		                     "Could not open RFKILL control device, please verify your installation");
+		return FALSE;
 	}
 
 	ret = fcntl(fd, F_SETFL, O_NONBLOCK);
 	if (ret < 0) {
-		g_debug ("Can't set RFKILL control device to non-blocking");
+		g_set_error_literal (error, G_IO_ERROR, g_io_error_from_errno (errno),
+		                     "Can't set RFKILL control device to non-blocking");
 		close(fd);
-		return ret;
+		return FALSE;
 	}
 
 	events = NULL;
@@ -430,7 +432,7 @@ cc_rfkill_glib_open (CcRfkillGlib *rfkill)
 	/* Setup write stream */
 	rfkill->stream = g_unix_output_stream_new (fd, TRUE);
 
-	return fd;
+	return TRUE;
 }
 
 static void

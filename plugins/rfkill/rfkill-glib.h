@@ -34,7 +34,8 @@ G_BEGIN_DECLS
 G_DECLARE_FINAL_TYPE (CcRfkillGlib, cc_rfkill_glib, CC_RFKILL, GLIB, GObject)
 
 CcRfkillGlib *cc_rfkill_glib_new               (void);
-int           cc_rfkill_glib_open              (CcRfkillGlib *rfkill);
+gboolean      cc_rfkill_glib_open              (CcRfkillGlib  *rfkill,
+                                                GError       **error);
 
 void          cc_rfkill_glib_send_change_all_event        (CcRfkillGlib        *rfkill,
 							   guint                rfkill_type,

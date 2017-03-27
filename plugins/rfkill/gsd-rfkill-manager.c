@@ -652,6 +652,8 @@ gboolean
 gsd_rfkill_manager_start (GsdRfkillManager *manager,
                          GError         **error)
 {
+        g_autoptr(GError) local_error = NULL;
+
         gnome_settings_profile_start (NULL);
 
         manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
@@ -662,7 +664,11 @@ gsd_rfkill_manager_start (GsdRfkillManager *manager,
         manager->priv->rfkill = cc_rfkill_glib_new ();
         g_signal_connect (G_OBJECT (manager->priv->rfkill), "changed",
                           G_CALLBACK (rfkill_changed), manager);
-        cc_rfkill_glib_open (manager->priv->rfkill);
+
+        if (!cc_rfkill_glib_open (manager->priv->rfkill, &local_error)) {
+                g_warning ("Error setting up rfkill: %s", local_error->message);
+                g_clear_error (&local_error);
+        }
 
         manager->priv->cancellable = g_cancellable_new ();
 
