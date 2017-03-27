@@ -4,4 +4,4 @@
 #define MANAGER GsdHousekeepingManager
 #include "gsd-housekeeping-manager.h"
 
-#include "daemon-skeleton-gtk.h"
+#include "daemon-skeleton.h"
