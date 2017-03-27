@@ -1708,9 +1708,10 @@ idle_configure (GsdPowerManager *manager)
                                            "sleep-inactive-battery-type" : "sleep-inactive-ac-type");
         timeout_sleep = 0;
         if (!is_action_inhibited (manager, action_type)) {
-                timeout_sleep = g_settings_get_int (manager->priv->settings, on_battery ?
-                                                    "sleep-inactive-battery-timeout" : "sleep-inactive-ac-timeout");
-                timeout_sleep = CLAMP(timeout_sleep, 0, G_MAXINT);
+                gint timeout_sleep_;
+                timeout_sleep_ = g_settings_get_int (manager->priv->settings, on_battery ?
+                                                     "sleep-inactive-battery-timeout" : "sleep-inactive-ac-timeout");
+                timeout_sleep = CLAMP (timeout_sleep_, 0, G_MAXINT);
         }
 
         clear_idle_watch (manager->priv->idle_monitor,
