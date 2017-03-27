@@ -33,6 +33,8 @@ libcommon_la_SOURCES = \
 	gsd-device-mapper.h	\
 	gsd-input-helper.c	\
 	gsd-input-helper.h	\
+	gsd-resources.c		\
+	gsd-resources.h		\
 	gsd-settings-migrate.c	\
 	gsd-settings-migrate.h	\
 	gsd-shell-helper.c	\
@@ -68,3 +70,11 @@ EXTRA_DIST = $(scripts_DATA) daemon-skeleton.h daemon-skeleton-gtk.h
 
 CLEANFILES = \
 	$(GSD_COMMON_ENUM_FILES)
+
+DISTCLEANFILES =
+
+glib_resources_c = gsd-resources.c
+glib_resources_h = gsd-resources.h
+glib_resources_xml = gsd.gresources.xml
+glib_resources_namespace = gsd
+include Makefile.am.gresources

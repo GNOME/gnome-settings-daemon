@@ -163,6 +163,30 @@ register_with_gnome_session (void)
 			   NULL);
 }
 
+static void
+set_empty_gtk_theme (gboolean set)
+{
+	static char *old_gtk_theme = NULL;
+
+	if (set) {
+		/* Override GTK_THEME to reduce overhead of CSS engine. By using
+		 * GTK_THEME environment variable, GtkSettings is not allowed to
+		 * initially parse the Adwaita theme.
+		 *
+		 * https://bugzilla.gnome.org/show_bug.cgi?id=780555 */
+		old_gtk_theme = g_strdup (g_getenv ("GTK_THEME"));
+		g_setenv ("GTK_THEME", "Disabled", TRUE);
+	} else {
+		/* GtkSettings has loaded, so we can drop GTK_THEME used to initialize
+		 * our internal theme. Only the main thread accesses the GTK_THEME
+		 * environment variable, so this is safe to release. */
+		if (old_gtk_theme != NULL)
+			g_setenv ("GTK_THEME", old_gtk_theme, TRUE);
+		else
+			g_unsetenv ("GTK_THEME");
+	}
+}
+
 int
 main (int argc, char **argv)
 {
@@ -171,6 +195,8 @@ main (int argc, char **argv)
         bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
         textdomain (GETTEXT_PACKAGE);
+
+        set_empty_gtk_theme (TRUE);
 
         /* Work around https://bugzilla.gnome.org/show_bug.cgi?id=674885 */
         g_type_ensure (G_TYPE_DBUS_CONNECTION);
@@ -186,6 +212,8 @@ main (int argc, char **argv)
                 }
                 exit (1);
         }
+
+        set_empty_gtk_theme (FALSE);
 
         if (verbose)
                 g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
