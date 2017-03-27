@@ -93,10 +93,6 @@ struct GsdPrintNotificationsManagerPrivate
         guint                         start_idle_id;
 };
 
-enum {
-        PROP_0,
-};
-
 static void     gsd_print_notifications_manager_class_init  (GsdPrintNotificationsManagerClass *klass);
 static void     gsd_print_notifications_manager_init        (GsdPrintNotificationsManager      *print_notifications_manager);
 static void     gsd_print_notifications_manager_finalize    (GObject                           *object);
