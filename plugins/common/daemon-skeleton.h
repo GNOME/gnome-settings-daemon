@@ -174,10 +174,6 @@ main (int argc, char **argv)
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
         textdomain (GETTEXT_PACKAGE);
 
-        /* Work around https://bugzilla.gnome.org/show_bug.cgi?id=674885 */
-        g_type_ensure (G_TYPE_DBUS_CONNECTION);
-        g_type_ensure (G_TYPE_DBUS_PROXY);
-
         context = g_option_context_new (NULL);
         g_option_context_add_main_entries (context, entries, GETTEXT_PACKAGE);
         if (!g_option_context_parse (context, &argc, &argv, &error)) {
