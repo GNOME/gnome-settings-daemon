@@ -898,8 +898,7 @@ plugin_callback (GSettings             *settings,
                  GnomeXSettingsManager *manager)
 {
         if (g_str_equal (key, GTK_MODULES_DISABLED_KEY) ||
-            g_str_equal (key, GTK_MODULES_ENABLED_KEY) ||
-            g_str_equal (key, "active")) {
+            g_str_equal (key, GTK_MODULES_ENABLED_KEY)) {
                 /* Do nothing, as GsdXsettingsGtk will handle it */
         } else if (g_str_equal (key, XSETTINGS_OVERRIDE_KEY)) {
                 override_callback (settings, key, manager);
