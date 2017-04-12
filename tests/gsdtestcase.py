@@ -151,26 +151,12 @@ class GSDTestCase(dbusmock.DBusTestCase):
         klass.monitor_log.flush()
         klass.monitor_log.close()
 
-    def start_logind(self):
+    def start_logind(self, parameters=None):
         '''start mock logind'''
 
-        self.logind = self.spawn_server('org.freedesktop.login1',
-                                        '/org/freedesktop/login1',
-                                        'org.freedesktop.login1.Manager',
-                                        system_bus=True,
-                                        stdout=subprocess.PIPE)
-        self.obj_logind = self.system_bus_con.get_object(
-            'org.freedesktop.login1', '/org/freedesktop/login1')
-
-        self.obj_logind.AddMethods('',
-            [
-                ('PowerOff', 'b', '', ''),
-                ('Suspend', 'b', '', ''),
-                ('Hibernate', 'b', '', ''),
-                ('Inhibit', 'ssss', 'h', 'ret = 5'),
-                ('CanSuspend', '', 's', "ret = 'yes'"),
-                ('CanHibernate', '', 's', "ret = 'no'")
-            ], dbus_interface='org.freedesktop.DBus.Mock')
+        self.logind, self.logind_obj = self.spawn_server_template('logind',
+                                                                  parameters or {},
+                                                                  stdout=subprocess.PIPE)
 
         # set log to nonblocking
         set_nonblock(self.logind.stdout)
