@@ -31,6 +31,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
+#include <sys/ioctl.h>
 
 #include <glib.h>
 #include <gio/gio.h>
@@ -43,6 +44,10 @@ enum {
 	LAST_SIGNAL
 };
 
+enum {
+	PROP_RFKILL_INPUT_INHIBITED = 1
+};
+
 static int signals[LAST_SIGNAL] = { 0 };
 
 struct _CcRfkillGlib {
@@ -51,6 +56,9 @@ struct _CcRfkillGlib {
 	GOutputStream *stream;
 	GIOChannel *channel;
 	guint watch_id;
+
+	/* rfkill-input inhibitor */
+	int noinput_fd;
 
 	/* Pending Bluetooth enablement.
 	 * If (@change_all_timeout_id != 0), then (task != NULL). The converse
@@ -356,6 +364,7 @@ event_cb (GIOChannel   *source,
 static void
 cc_rfkill_glib_init (CcRfkillGlib *rfkill)
 {
+	rfkill->noinput_fd = -1;
 }
 
 gboolean
@@ -435,6 +444,96 @@ cc_rfkill_glib_open (CcRfkillGlib  *rfkill,
 	return TRUE;
 }
 
+#define RFKILL_INPUT_INHIBITED(rfkill) (rfkill->noinput_fd >= 0)
+
+gboolean
+cc_rfkill_glib_get_rfkill_input_inhibited (CcRfkillGlib        *rfkill)
+{
+	g_return_val_if_fail (CC_RFKILL_IS_GLIB (rfkill), FALSE);
+
+	return RFKILL_INPUT_INHIBITED(rfkill);
+}
+
+void
+cc_rfkill_glib_set_rfkill_input_inhibited (CcRfkillGlib *rfkill,
+					   gboolean      inhibit)
+{
+	g_return_if_fail (CC_RFKILL_IS_GLIB (rfkill));
+
+	/* Nothing to do if the states already match. */
+	if (RFKILL_INPUT_INHIBITED(rfkill) == inhibit)
+		return;
+
+	if (!inhibit && RFKILL_INPUT_INHIBITED(rfkill)) {
+		close (rfkill->noinput_fd);
+		rfkill->noinput_fd = -1;
+
+		g_debug ("Closed rfkill noinput FD.");
+	}
+
+	if (inhibit && !RFKILL_INPUT_INHIBITED(rfkill)) {
+		int fd, res;
+		/* Open write only as we don't want to do any IO to it ever. */
+		fd = open ("/dev/rfkill", O_WRONLY);
+		if (fd < 0) {
+			if (errno == EACCES)
+				g_warning ("Could not open RFKILL control device, please verify your installation");
+			else
+				g_debug ("Could not open RFKILL control device: %s", g_strerror (errno));
+			return;
+		}
+
+		res = ioctl (fd, RFKILL_IOCTL_NOINPUT, (long) 0);
+		if (res != 0) {
+			g_warning ("Could not disable kernel handling of RFKILL related keys: %s", g_strerror (errno));
+			close (fd);
+			return;
+		}
+
+		g_debug ("Opened rfkill-input inhibitor.");
+
+		rfkill->noinput_fd = fd;
+	}
+
+	g_object_notify (G_OBJECT (rfkill), "kernel-noinput");
+}
+
+static void
+cc_rfkill_glib_set_property (GObject      *object,
+			 guint	       prop_id,
+			 const GValue *value,
+			 GParamSpec   *pspec)
+{
+	CcRfkillGlib *rfkill = CC_RFKILL_GLIB (object);
+
+	switch (prop_id) {
+	case PROP_RFKILL_INPUT_INHIBITED:
+		cc_rfkill_glib_set_rfkill_input_inhibited (rfkill, g_value_get_boolean (value));
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+		break;
+	}
+}
+
+static void
+cc_rfkill_glib_get_property (GObject    *object,
+			 guint	     prop_id,
+			 GValue	    *value,
+			 GParamSpec *pspec)
+{
+	CcRfkillGlib *rfkill = CC_RFKILL_GLIB (object);
+
+	switch (prop_id) {
+	case PROP_RFKILL_INPUT_INHIBITED:
+		g_value_set_boolean (value, RFKILL_INPUT_INHIBITED(rfkill));
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+		break;
+	}
+}
+
 static void
 cc_rfkill_glib_finalize (GObject *object)
 {
@@ -451,6 +550,11 @@ cc_rfkill_glib_finalize (GObject *object)
 	}
 	g_clear_object (&rfkill->stream);
 
+	if (RFKILL_INPUT_INHIBITED(rfkill)) {
+		close (rfkill->noinput_fd);
+		rfkill->noinput_fd = -1;
+	}
+
 	G_OBJECT_CLASS(cc_rfkill_glib_parent_class)->finalize(object);
 }
 
@@ -459,7 +563,17 @@ cc_rfkill_glib_class_init(CcRfkillGlibClass *klass)
 {
 	GObjectClass *object_class = (GObjectClass *) klass;
 
+	object_class->set_property = cc_rfkill_glib_set_property;
+	object_class->get_property = cc_rfkill_glib_get_property;
 	object_class->finalize = cc_rfkill_glib_finalize;
+
+	g_object_class_install_property (object_class,
+					 PROP_RFKILL_INPUT_INHIBITED,
+					 g_param_spec_boolean ("rfkill-input-inhibited",
+							       "Rfkill input inhibited",
+							       "Whether to prevent the kernel from handling RFKILL related key events.",
+							       FALSE,
+							       G_PARAM_READWRITE));
 
 	signals[CHANGED] =
 		g_signal_new ("changed",

@@ -37,6 +37,10 @@ CcRfkillGlib *cc_rfkill_glib_new               (void);
 gboolean      cc_rfkill_glib_open              (CcRfkillGlib  *rfkill,
                                                 GError       **error);
 
+gboolean      cc_rfkill_glib_get_rfkill_input_inhibited (CcRfkillGlib        *rfkill);
+void          cc_rfkill_glib_set_rfkill_input_inhibited (CcRfkillGlib        *rfkill,
+							 gboolean             noinput);
+
 void          cc_rfkill_glib_send_change_all_event        (CcRfkillGlib        *rfkill,
 							   guint                rfkill_type,
 							   gboolean             enable,
