@@ -76,6 +76,9 @@ struct GsdRfkillManagerPrivate
         GDBusObjectManager      *mm_client;
         gboolean                 wwan_interesting;
 
+        GsdSessionManager       *session;
+        GBinding                *rfkill_input_inhibit_binding;
+
         gchar                   *chassis_type;
 };
 
@@ -522,6 +525,11 @@ on_bus_gotten (GObject               *source_object,
                                                                NULL,
                                                                NULL,
                                                                NULL);
+
+        manager->priv->session = gnome_settings_bus_get_session_proxy ();
+        manager->priv->rfkill_input_inhibit_binding = g_object_bind_property (manager->priv->session, "session-is-active",
+                                                                              manager->priv->rfkill, "rfkill-input-inhibited",
+                                                                              G_BINDING_SYNC_CREATE);
 }
 
 static void
@@ -716,6 +724,8 @@ gsd_rfkill_manager_stop (GsdRfkillManager *manager)
 
         g_clear_pointer (&p->introspection_data, g_dbus_node_info_unref);
         g_clear_object (&p->connection);
+        g_clear_object (&p->rfkill_input_inhibit_binding);
+        g_clear_object (&p->session);
         g_clear_object (&p->rfkill);
         g_clear_pointer (&p->killswitches, g_hash_table_destroy);
         g_clear_pointer (&p->bt_killswitches, g_hash_table_destroy);
