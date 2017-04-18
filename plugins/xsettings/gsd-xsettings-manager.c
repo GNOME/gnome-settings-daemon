@@ -78,6 +78,11 @@
 #define FONT_HINTING_KEY      "hinting"
 #define FONT_RGBA_ORDER_KEY   "rgba-order"
 
+typedef enum _DisplayLayoutMode {
+        DISPLAY_LAYOUT_MODE_LOGICAL = 1,
+        DISPLAY_LAYOUT_MODE_PHYSICAL = 2
+} DisplayLayoutMode;
+
 /* As we cannot rely on the X server giving us good DPI information, and
  * that we don't want multi-monitor screens to have different DPIs (thus
  * different text sizes), we'll hard-code the value of the DPI
@@ -283,6 +288,8 @@ struct GnomeXSettingsManagerPrivate
         gboolean           have_shell;
 
         guint              notify_idle_id;
+
+        GDBusConnection   *dbus_connection;
 };
 
 #define GSD_XSETTINGS_ERROR gsd_xsettings_error_quark ()
@@ -593,6 +600,154 @@ get_dimensions_gdk (int *width,
         *height_mm = gdk_screen_get_monitor_height_mm (screen, primary);
 }
 
+static gboolean
+is_experimental_display_config_api_enabled (GnomeXSettingsManager *manager)
+{
+        GVariant *property_variant;
+        GVariant *property_value_variant;
+        GError *error = NULL;
+        gboolean is_experimental_api_enabled;
+
+        property_variant =
+                g_dbus_connection_call_sync (manager->priv->dbus_connection,
+                                             "org.gnome.Mutter.DisplayConfig",
+                                             "/org/gnome/Mutter/DisplayConfig",
+                                             "org.freedesktop.DBus.Properties",
+                                             "Get",
+                                             g_variant_new ("(ss)",
+                                                            "org.gnome.Mutter.DisplayConfig",
+                                                            "IsExperimentalApiEnabled"),
+                                             NULL,
+                                             G_DBUS_CALL_FLAGS_NO_AUTO_START,
+                                             -1,
+                                             NULL,
+                                             &error);
+        if (!property_variant) {
+                g_warning ("Failed to check API availability: %s",
+                           error->message);
+                g_error_free (error);
+                return FALSE;
+        }
+
+        g_variant_get_child (property_variant, 0, "v", &property_value_variant);
+        is_experimental_api_enabled = g_variant_get_boolean (property_value_variant);
+
+        g_variant_unref (property_variant);
+        g_variant_unref (property_value_variant);
+
+        return is_experimental_api_enabled;
+}
+
+static gboolean
+is_layout_mode_logical (GVariantIter *properties)
+{
+        DisplayLayoutMode layout_mode = DISPLAY_LAYOUT_MODE_LOGICAL;
+        const char *key;
+        GVariant *value;
+
+        while (g_variant_iter_next (properties, "{&sv}", &key, &value)) {
+                DisplayLayoutMode layout_mode_value;
+
+                if (!g_str_equal (key, "layout-mode")) {
+                        g_variant_unref (value);
+                        continue;
+                }
+
+                layout_mode_value = g_variant_get_uint32 (value);
+                g_variant_unref (value);
+
+                if (layout_mode_value < DISPLAY_LAYOUT_MODE_LOGICAL ||
+                    layout_mode_value > DISPLAY_LAYOUT_MODE_PHYSICAL)
+                        g_warning ("Unknown layout mode %u", layout_mode_value);
+                else
+                        layout_mode = layout_mode_value;
+
+                break;
+        }
+
+        return layout_mode == DISPLAY_LAYOUT_MODE_LOGICAL;
+}
+
+#define MODE_FORMAT "(siiddada{sv})"
+#define MODES_FORMAT "a" MODE_FORMAT
+
+#define MONITOR_SPEC_FORMAT "(ssss)"
+#define MONITOR_FORMAT "(" MONITOR_SPEC_FORMAT MODES_FORMAT "a{sv})"
+#define MONITORS_FORMAT "a" MONITOR_FORMAT
+
+#define LOGICAL_MONITOR_FORMAT "(iiduba" MONITOR_SPEC_FORMAT "a{sv})"
+#define LOGICAL_MONITORS_FORMAT "a" LOGICAL_MONITOR_FORMAT
+
+#define CURRENT_STATE_FORMAT "(u" MONITORS_FORMAT LOGICAL_MONITORS_FORMAT "a{sv})"
+
+static int
+get_window_scale_experimental (GnomeXSettingsManager *manager)
+{
+        GError *error = NULL;
+        GVariant *current_state;
+        GVariantIter *logical_monitors;
+        GVariant *logical_monitor_variant;
+        GVariantIter *properties;
+        int scale = 1;
+
+        current_state =
+                g_dbus_connection_call_sync (manager->priv->dbus_connection,
+                                             "org.gnome.Mutter.DisplayConfig",
+                                             "/org/gnome/Mutter/DisplayConfig",
+                                             "org.gnome.Mutter.DisplayConfig",
+                                             "GetCurrentState",
+                                             NULL,
+                                             NULL,
+                                             G_DBUS_CALL_FLAGS_NO_AUTO_START,
+                                             -1,
+                                             NULL,
+                                             &error);
+        if (!current_state) {
+                g_warning ("Failed to get current display configuration state: %s",
+                           error->message);
+                g_error_free (error);
+                return 1;
+        }
+
+        g_variant_get (current_state,
+                       CURRENT_STATE_FORMAT,
+                       NULL,
+                       NULL,
+                       &logical_monitors,
+                       &properties);
+
+        if (is_layout_mode_logical (properties))
+                goto out;
+
+        while (g_variant_iter_next (logical_monitors, "@"LOGICAL_MONITOR_FORMAT,
+                                    &logical_monitor_variant)) {
+                gboolean is_primary;
+                double logical_monitor_scale;
+
+                g_variant_get (logical_monitor_variant,
+                               LOGICAL_MONITOR_FORMAT,
+                               NULL, NULL,
+                               &logical_monitor_scale,
+                               NULL,
+                               &is_primary,
+                               NULL, NULL);
+
+                if (is_primary) {
+                        scale = (int) logical_monitor_scale;
+                        break;
+                }
+
+                g_variant_unref (logical_monitor_variant);
+        }
+
+out:
+        g_variant_unref (current_state);
+        g_variant_iter_free (properties);
+        g_variant_iter_free (logical_monitors);
+
+        return scale;
+}
+
 static int
 get_window_scale (GnomeXSettingsManager *manager)
 {
@@ -601,6 +756,9 @@ get_window_scale (GnomeXSettingsManager *manager)
         int width, height;
         int width_mm, height_mm;
         double dpi_x, dpi_y;
+
+        if (is_experimental_display_config_api_enabled (manager))
+                return get_window_scale_experimental (manager);
 
 	interface_settings = g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA);
         window_scale =
@@ -1369,7 +1527,14 @@ gnome_xsettings_manager_class_init (GnomeXSettingsManagerClass *klass)
 static void
 gnome_xsettings_manager_init (GnomeXSettingsManager *manager)
 {
+        GError *error = NULL;
+
         manager->priv = GNOME_XSETTINGS_MANAGER_GET_PRIVATE (manager);
+
+        manager->priv->dbus_connection = g_bus_get_sync (G_BUS_TYPE_SESSION,
+                                                         NULL, &error);
+        if (!manager->priv->dbus_connection)
+                g_error ("Failed to get session bus: %s", error->message);
 }
 
 static void
@@ -1388,6 +1553,8 @@ gnome_xsettings_manager_finalize (GObject *object)
 
         if (xsettings_manager->priv->start_idle_id != 0)
                 g_source_remove (xsettings_manager->priv->start_idle_id);
+
+        g_clear_object (&xsettings_manager->priv->dbus_connection);
 
         G_OBJECT_CLASS (gnome_xsettings_manager_parent_class)->finalize (object);
 }
