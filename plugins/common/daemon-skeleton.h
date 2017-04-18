@@ -38,18 +38,18 @@ static GOptionEntry entries[] = {
 };
 
 static const char *gdm_helpers[] = {
-	"gsd-a11y-keyboard",
-	"gsd-a11y-settings",
-	"gsd-clipboard",
-	"gsd-color",
-	"gsd-keyboard",
-	"gsd-media-keys",
-	"gsd-orientation",
-	"gsd-power",
-	"gsd-smartcard",
-	"gsd-sound",
-	"gsd-xrandr",
-	"gsd-xsettings"
+	"a11y-keyboard",
+	"a11y-settings",
+	"clipboard",
+	"color",
+	"keyboard",
+	"media-keys",
+	"orientation",
+	"power",
+	"smartcard",
+	"sound",
+	"xrandr",
+	"xsettings"
 };
 
 static gboolean
