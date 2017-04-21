@@ -222,6 +222,8 @@ struct GsdMediaKeysManagerPrivate
 
         guint            start_idle_id;
 
+        /* Multimedia keys */
+        guint            mmkeys_name_id;
         MprisController *mpris_controller;
 };
 
@@ -2925,6 +2927,11 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 priv->start_idle_id = 0;
         }
 
+        if (priv->mmkeys_name_id > 0) {
+                g_bus_unown_name (priv->mmkeys_name_id);
+                priv->mmkeys_name_id = 0;
+        }
+
         if (priv->bus_cancellable != NULL) {
                 g_cancellable_cancel (priv->bus_cancellable);
                 g_object_unref (priv->bus_cancellable);
@@ -3225,6 +3232,11 @@ on_bus_gotten (GObject             *source_object,
                                            manager,
                                            NULL,
                                            NULL);
+
+        manager->priv->mmkeys_name_id = g_bus_own_name_on_connection (manager->priv->connection,
+                                                                      "org.gnome.SettingsDaemon.MediaKeys",
+                                                                      G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                                      NULL, NULL, NULL, NULL);
 
         g_dbus_proxy_new (manager->priv->connection,
                           G_DBUS_PROXY_FLAGS_NONE,
