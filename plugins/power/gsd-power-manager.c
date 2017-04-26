@@ -37,7 +37,6 @@
 #include <libgnome-desktop/gnome-idle-monitor.h>
 
 #include <gsd-input-helper.h>
-#include <gsd-device-mapper.h>
 
 #include "gsd-power-constants.h"
 #include "gsm-inhibitor-flag.h"
