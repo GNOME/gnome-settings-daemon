@@ -288,6 +288,9 @@ device_added_cb (GsdDeviceManager *device_manager,
             (device_type & GSD_DEVICE_TYPE_TOUCHPAD) == 0) {
 		gsd_device_mapper_add_input (manager->priv->device_mapper,
 					     gsd_device);
+	} else if ((device_type & GSD_DEVICE_TYPE_TOUCHSCREEN) != 0) {
+		gsd_device_mapper_add_input (manager->priv->device_mapper,
+					     gsd_device);
 	}
 }
 

@@ -45,10 +45,8 @@
 #include <libgnome-desktop/gnome-pnp-ids.h>
 
 #include "gsd-enums.h"
-#include "gsd-input-helper.h"
 #include "gnome-settings-profile.h"
 #include "gnome-settings-bus.h"
-#include "gsd-device-mapper.h"
 #include "gsd-xrandr-manager.h"
 
 #define GSD_XRANDR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_XRANDR_MANAGER, GsdXrandrManagerPrivate))
@@ -102,11 +100,6 @@ struct GsdXrandrManagerPrivate {
         guint            name_id;
         GDBusConnection *connection;
         GCancellable    *bus_cancellable;
-
-        GsdDeviceMapper  *device_mapper;
-        GsdDeviceManager *device_manager;
-        guint             device_added_id;
-        guint             device_removed_id;
 
         /* fn-F7 status */
         int             current_fn_f7_config;             /* -1 if no configs */
@@ -1160,57 +1153,6 @@ get_allowed_rotations_for_output (GnomeRRConfig *config,
 }
 
 static void
-manager_device_added (GsdXrandrManager *manager,
-                      GsdDevice        *device)
-{
-        GsdDeviceType type;
-
-        type = gsd_device_get_device_type (device);
-
-        if ((type & GSD_DEVICE_TYPE_TOUCHSCREEN) == 0)
-                return;
-
-        gsd_device_mapper_add_input (manager->priv->device_mapper, device);
-}
-
-static void
-manager_device_removed (GsdXrandrManager *manager,
-                        GsdDevice        *device)
-{
-        GsdDeviceType type;
-
-        type = gsd_device_get_device_type (device);
-
-        if ((type & GSD_DEVICE_TYPE_TOUCHSCREEN) == 0)
-                return;
-
-        gsd_device_mapper_remove_input (manager->priv->device_mapper, device);
-}
-
-static void
-manager_init_devices (GsdXrandrManager *manager)
-{
-        GList *devices, *d;
-
-        manager->priv->device_mapper = gsd_device_mapper_get ();
-        manager->priv->device_manager = gsd_device_manager_get ();
-        manager->priv->device_added_id =
-                g_signal_connect_swapped (manager->priv->device_manager, "device-added",
-                                          G_CALLBACK (manager_device_added), manager);
-        manager->priv->device_removed_id =
-                g_signal_connect_swapped (manager->priv->device_manager, "device-removed",
-                                  G_CALLBACK (manager_device_removed), manager);
-
-        devices = gsd_device_manager_list_devices (manager->priv->device_manager,
-                                                   GSD_DEVICE_TYPE_TOUCHSCREEN);
-
-        for (d = devices; d; d = d->next)
-                manager_device_added (manager, d->data);
-
-        g_list_free (devices);
-}
-
-static void
 on_rr_screen_acquired (GObject      *object,
                        GAsyncResult *result,
                        gpointer      user_data)
@@ -1236,7 +1178,6 @@ on_rr_screen_acquired (GObject      *object,
         manager->priv->running = TRUE;
         manager->priv->settings = g_settings_new (CONF_SCHEMA);
 
-        manager_init_devices (manager);
         register_manager_dbus (manager);
 
         log_close ();
@@ -1302,14 +1243,6 @@ gsd_xrandr_manager_stop (GsdXrandrManager *manager)
         if (manager->priv->connection != NULL) {
                 g_object_unref (manager->priv->connection);
                 manager->priv->connection = NULL;
-        }
-
-        if (manager->priv->device_manager != NULL) {
-                g_signal_handler_disconnect (manager->priv->device_manager,
-                                             manager->priv->device_added_id);
-                g_signal_handler_disconnect (manager->priv->device_manager,
-                                             manager->priv->device_removed_id);
-                manager->priv->device_manager = NULL;
         }
 
         free_fn_f7_configs (manager);
