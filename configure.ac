@@ -209,9 +209,6 @@ PKG_CHECK_MODULES(MOUSE_LOCATE_POINTER,
 		  gtk+-3.0
 		  x11)
 
-PKG_CHECK_MODULES(ORIENTATION,
-		  gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
-
 PKG_CHECK_MODULES(POWER,
 		  libnotify >= $LIBNOTIFY_REQUIRED_VERSION
 		  upower-glib >= $UPOWER_REQUIRED_VERSION
@@ -525,7 +522,6 @@ plugins/keyboard/Makefile
 plugins/media-keys/Makefile
 plugins/media-keys/gvc/Makefile
 plugins/mouse/Makefile
-plugins/orientation/Makefile
 plugins/print-notifications/Makefile
 plugins/rfkill/Makefile
 plugins/screensaver-proxy/Makefile

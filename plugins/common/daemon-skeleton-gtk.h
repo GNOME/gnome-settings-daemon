@@ -45,7 +45,6 @@ static const char *gdm_helpers[] = {
 	"color",
 	"keyboard",
 	"media-keys",
-	"orientation",
 	"power",
 	"smartcard",
 	"sound",
