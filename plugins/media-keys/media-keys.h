@@ -59,8 +59,6 @@ typedef enum {
         FORWARD_KEY,
         REPEAT_KEY,
         RANDOM_KEY,
-        VIDEO_OUT_KEY,
-        ROTATE_VIDEO_KEY,
         ROTATE_VIDEO_LOCK_KEY,
         MAGNIFIER_KEY,
         SCREENREADER_KEY,

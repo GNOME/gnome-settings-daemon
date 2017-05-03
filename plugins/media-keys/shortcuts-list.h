@@ -84,11 +84,6 @@ static struct {
         { FORWARD_KEY, NULL, N_("Forward"), "XF86AudioForward", SHELL_ACTION_MODE_ALL },
         { REPEAT_KEY, NULL, N_("Repeat"), "XF86AudioRepeat", SHELL_ACTION_MODE_ALL },
         { RANDOM_KEY, NULL, N_("Random Play"), "XF86AudioRandomPlay", SHELL_ACTION_MODE_ALL },
-        { VIDEO_OUT_KEY, NULL, N_("Video Out"), "<Super>p", SHELL_ACTION_MODE_ALL },
-        /* Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.) */
-        { VIDEO_OUT_KEY, NULL, N_("Video Out"), "XF86Display", SHELL_ACTION_MODE_ALL },
-        /* Key code of the XF86RotateWindows key (present on some tablets) */
-        { ROTATE_VIDEO_KEY, NULL, N_("Rotate Screen"), "XF86RotateWindows", SHELL_ACTION_MODE_NORMAL },
         { ROTATE_VIDEO_LOCK_KEY, NULL, N_("Orientation Lock"), "<Super>o", SHELL_ACTION_MODE_ALL },
         { MAGNIFIER_KEY, "magnifier", NULL, NULL, SHELL_ACTION_MODE_ALL },
         { SCREENREADER_KEY, "screenreader", NULL, NULL, SHELL_ACTION_MODE_ALL },
