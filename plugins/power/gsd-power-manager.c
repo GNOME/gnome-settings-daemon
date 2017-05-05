@@ -59,7 +59,6 @@
 #define UPOWER_DBUS_INTERFACE_KBDBACKLIGHT      "org.freedesktop.UPower.KbdBacklight"
 
 #define GSD_POWER_SETTINGS_SCHEMA               "org.gnome.settings-daemon.plugins.power"
-#define GSD_XRANDR_SETTINGS_SCHEMA              "org.gnome.settings-daemon.plugins.xrandr"
 
 #define GSD_POWER_DBUS_NAME                     GSD_DBUS_NAME ".Power"
 #define GSD_POWER_DBUS_PATH                     GSD_DBUS_PATH "/Power"
@@ -137,7 +136,6 @@ struct GsdPowerManagerPrivate
         GSettings               *settings;
         GSettings               *settings_bus;
         GSettings               *settings_screensaver;
-        GSettings               *settings_xrandr;
 
         /* Screensaver */
         GsdScreenSaver          *screensaver_proxy;
@@ -1189,13 +1187,7 @@ upower_kbd_toggle (GsdPowerManager *manager,
 static gboolean
 suspend_on_lid_close (GsdPowerManager *manager)
 {
-        GsdXrandrBootBehaviour val;
-
-        if (!external_monitor_is_connected (manager->priv->rr_screen))
-                return TRUE;
-
-        val = g_settings_get_enum (manager->priv->settings_xrandr, "default-monitors-setup");
-        return val == GSD_XRANDR_BOOT_BEHAVIOUR_DO_NOTHING;
+        return !external_monitor_is_connected (manager->priv->rr_screen);
 }
 
 static gboolean
@@ -2676,7 +2668,6 @@ gsd_power_manager_start (GsdPowerManager *manager,
         manager->priv->settings = g_settings_new (GSD_POWER_SETTINGS_SCHEMA);
         manager->priv->settings_screensaver = g_settings_new ("org.gnome.desktop.screensaver");
         manager->priv->settings_bus = g_settings_new ("org.gnome.desktop.session");
-        manager->priv->settings_xrandr = g_settings_new (GSD_XRANDR_SETTINGS_SCHEMA);
 
         /* setup ambient light support */
         manager->priv->iio_proxy_watch_id =
