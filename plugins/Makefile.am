@@ -15,7 +15,6 @@ enabled_plugins =	\
 	screensaver-proxy \
 	sharing		\
 	sound		\
-	xrandr		\
 	xsettings	\
 	$(NULL)
 

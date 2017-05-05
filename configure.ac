@@ -244,10 +244,6 @@ PKG_CHECK_MODULES(XSETTINGS,
 		  gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION
 		  x11)
 
-PKG_CHECK_MODULES(XRANDR,
-		  gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION
-		  upower-glib >= $UPOWER_REQUIRED_VERSION)
-
 dnl ---------------------------------------------------------------------------
 dnl - XTest
 dnl ---------------------------------------------------------------------------
@@ -529,7 +525,6 @@ plugins/sharing/Makefile
 plugins/smartcard/Makefile
 plugins/sound/Makefile
 plugins/wacom/Makefile
-plugins/xrandr/Makefile
 plugins/xsettings/Makefile
 data/Makefile
 data/gnome-settings-daemon.pc
@@ -541,7 +536,6 @@ data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in
 data/org.gnome.settings-daemon.peripherals.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in
-data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in
 data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in
 po/Makefile.in
 tests/Makefile

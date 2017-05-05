@@ -47,7 +47,6 @@ static const char *gdm_helpers[] = {
 	"power",
 	"smartcard",
 	"sound",
-	"xrandr",
 	"xsettings"
 };
 
