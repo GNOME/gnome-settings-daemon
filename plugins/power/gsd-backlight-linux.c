@@ -43,6 +43,40 @@ gsd_backlight_helper_get_type (GList *devices, const gchar *type)
 	}
 	return NULL;
 }
+
+/*
+ * Search for a raw backlight interface, raw backlight interfaces registered
+ * by the drm driver will have the drm-connector as their parent, check the
+ * drm-connector's enabled sysfs attribute so that we pick the right LCD-panel
+ * connector on laptops with hybrid-gfx. Fall back to just picking the first
+ * raw backlight interface if no enabled interface is found.
+ */
+static gchar *
+gsd_backlight_helper_get_raw (GList *devices)
+{
+	GUdevDevice *parent;
+	const gchar *attr;
+	GList *d;
+
+	for (d = devices; d != NULL; d = d->next) {
+		attr = g_udev_device_get_sysfs_attr (d->data, "type");
+		if (g_strcmp0 (attr, "raw") != 0)
+			continue;
+
+		parent = g_udev_device_get_parent (d->data);
+		if (!parent)
+			continue;
+
+		attr = g_udev_device_get_sysfs_attr (parent, "enabled");
+		if (!attr || g_strcmp0 (attr, "enabled") != 0)
+			continue;
+
+		return g_strdup (g_udev_device_get_sysfs_path (d->data));
+	}
+
+	return gsd_backlight_helper_get_type (devices, "raw");
+}
+
 #endif /* HAVE_GUDEV */
 
 char *
@@ -72,7 +106,7 @@ gsd_backlight_helper_get_best_backlight (GsdBacklightType *type)
 			*type = GSD_BACKLIGHT_TYPE_PLATFORM;
 		goto out;
 	}
-	path = gsd_backlight_helper_get_type (devices, "raw");
+	path = gsd_backlight_helper_get_raw (devices);
 	if (path != NULL) {
 		if (type)
 			*type = GSD_BACKLIGHT_TYPE_RAW;
