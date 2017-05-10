@@ -110,6 +110,7 @@ static struct {
         { BATTERY_KEY, NULL, N_("Battery Status"), "XF86Battery", GSD_ACTION_MODE_LAUNCHER },
         { RFKILL_KEY, NULL, N_("Toggle Airplane Mode"), "XF86WLAN", GSD_ACTION_MODE_LAUNCHER },
         { RFKILL_KEY, NULL, N_("Toggle Airplane Mode"), "XF86UWB", GSD_ACTION_MODE_LAUNCHER },
+        { RFKILL_KEY, NULL, N_("Toggle Airplane Mode"), "XF86RFKill", GSD_ACTION_MODE_LAUNCHER },
         { BLUETOOTH_RFKILL_KEY, NULL, N_("Toggle Bluetooth"), "XF86Bluetooth", GSD_ACTION_MODE_LAUNCHER }
 };
 
