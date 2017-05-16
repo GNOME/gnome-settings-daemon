@@ -69,7 +69,7 @@ struct _CcRfkillGlib {
 
 G_DEFINE_TYPE (CcRfkillGlib, cc_rfkill_glib, G_TYPE_OBJECT)
 
-#define CHANGE_ALL_TIMEOUT 500
+#define CHANGE_ALL_TIMEOUT 1000
 
 static const char *type_to_string (unsigned int type);
 
