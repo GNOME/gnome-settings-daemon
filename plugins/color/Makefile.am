@@ -30,6 +30,15 @@ gcm_self_test_LDADD =			\
 
 TESTS = gcm-self-test
 
+BUILT_SOURCES = gschemas.compiled
+
+CLEANFILES = gschemas.compiled
+
+gschemas.compiled: $(top_builddir)/data/org.gnome.settings-daemon.plugins.color.gschema.xml
+	$(AM_V_GEN) $(GLIB_COMPILE_SCHEMAS) --schema-file=$< --targetdir=$(builddir)
+
+all-am: gschemas.compiled
+
 libexec_PROGRAMS = gsd-color
 gsd_color_SOURCES =			\
 	main.c				\
@@ -80,7 +89,7 @@ EXTRA_DIST = 					\
 	test-data/Lenovo-T61-Internal.bin	\
 	test-data/LG-L225W-External.bin
 
-CLEANFILES = 				\
+CLEANFILES += 				\
 	$(desktop_DATA)
 
 DISTCLEANFILES =			\
