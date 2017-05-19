@@ -2,8 +2,8 @@ NULL =
 
 SUBDIRS = 			\
 	gnome-settings-daemon	\
-	plugins			\
 	data			\
+	plugins			\
 	po 			\
 	tests 			\
 	$(NULL)
