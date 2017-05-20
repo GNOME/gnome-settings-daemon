@@ -10,18 +10,18 @@
 # Osman Karagöz <osmank3@gmail.com>, 2013.
 # Gökhan Gurbetoğlu <ggurbet@gmail.com>, 2013.
 # Necdet Yücel <necdetyucel@gmail.com>, 2014.
-# Muhammet Kara <muhammetk@gmail.com>, 2011, 2015.
 # Emin Tufan Çetin <etcetin@gmail.com>, 2017.
+# Muhammet Kara <muhammetk@gmail.com>, 2011, 2015, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-03-28 09:57+0000\n"
-"PO-Revision-Date: 2017-04-14 12:23+0300\n"
-"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
-"Language-Team: Türkçe <>\n"
+"POT-Creation-Date: 2017-05-09 16:29+0000\n"
+"PO-Revision-Date: 2017-05-20 11:36+0300\n"
+"Last-Translator: Muhammet Kara <muhammetk@gmail.com>\n"
+"Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,9 +35,6 @@ msgid "Smartcard removal action"
 msgstr "Akıllı kart çıkartıldığında uygulanacak eylem"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
-#| msgid ""
-#| "Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
-#| "action will get performed when the smartcard used for log in is removed."
 msgid ""
 "Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
 "get performed when the smartcard used for log in is removed."
@@ -69,8 +66,6 @@ msgid "Distance before a drag is started."
 msgstr "Bir sürükleme başlamadan önceki mesafe."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
-#| msgid ""
-#| "Whether the tablet's orientation is locked, or rotated automatically."
 msgid "Whether the tablet’s orientation is locked, or rotated automatically."
 msgstr "Tabletin ekran yönlendirmesinin kilitli veya otomatik döndürme olması."
 
@@ -109,9 +104,6 @@ msgid "Wacom tablet rotation"
 msgstr "Wacom tablet rotasyonu"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
-#| msgid ""
-#| "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, "
-#| "and 'ccw' for 90 degree counterclockwise."
 msgid ""
 "Set this to “none”, “cw” for 90 degree clockwise, “half” for 180 degree, and "
 "“ccw” for 90 degree counterclockwise."
@@ -287,7 +279,6 @@ msgstr ""
 "Geçerli konumdan gün doğum ve gün batış zamanlarını kendiliğinden hesapla."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:11
-#| msgid "Charge time:"
 msgid "The start time"
 msgstr "Başlangıç zamanı"
 
@@ -296,6 +287,8 @@ msgid ""
 "When “night-light-schedule-automatic” is disabled, use this start time in "
 "hours from midnight."
 msgstr ""
+"“night-light-schedule-automatic” devre dışı bırakıldığında, gece yarısından "
+"itibaren saat cinsinden bu başlangıç zamanını kullan."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:13
 msgid "The end time"
@@ -306,9 +299,10 @@ msgid ""
 "When “night-light-schedule-automatic” is disabled, use this end time in "
 "hours from midnight."
 msgstr ""
+"“night-light-schedule-automatic” devre dışı bırakıldığında, gece yarısından "
+"itibaren saat cinsinden bu bitiş zamanını kullan."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:15
-#| msgid "The slot the card is in"
 msgid "The last detected position"
 msgstr "Saptanan son konum"
 
@@ -327,10 +321,6 @@ msgid "List of plugins that are allowed to be loaded"
 msgstr "Yüklenmesine izin verilmiş eklentilerin listesi"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
-#| msgid ""
-#| "A list of strings representing the plugins that are allowed to be loaded "
-#| "(default: 'all'). The plugins still need to be marked as active to get "
-#| "loaded. This is only evaluated on startup."
 msgid ""
 "A list of strings representing the plugins that are allowed to be loaded "
 "(default: “all”). This is only evaluated on startup."
@@ -713,12 +703,6 @@ msgid "File for default configuration for RandR"
 msgstr "RandR için öntanımlı yapılandırma dosyası"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
-#| msgid ""
-#| "The XRandR plugin will look for a default configuration in the file "
-#| "specified by this key. This is similar to the ~/.config/monitors.xml that "
-#| "normally gets stored in users' home directories. If a user does not have "
-#| "such a file, or has one that does not match the user's setup of monitors, "
-#| "then the file specified by this key will be used instead."
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
@@ -738,12 +722,6 @@ msgstr ""
 "Sistemi başlattıktan sonra belirli monitörlerin kapatılıp kapatılmayacağı"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
-#| msgid ""
-#| "'clone' will display the same thing on all monitors, 'dock' will switch "
-#| "off the internal monitor, 'do-nothing' will use the default Xorg "
-#| "behaviour (extend the desktop in recent versions). The default, 'follow-"
-#| "lid', will choose between 'do-nothing' and 'dock' depending on whether "
-#| "the lid is (respectively) open or closed."
 msgid ""
 "“clone” will display the same thing on all monitors, “dock” will switch off "
 "the internal monitor, “do-nothing” will use the default Xorg behaviour "
@@ -761,10 +739,6 @@ msgid "Antialiasing"
 msgstr "Yumuşatma"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-#| msgid ""
-#| "The type of antialiasing to use when rendering fonts. Possible values "
-#| "are: \"none\" for no antialiasing, \"grayscale\" for standard grayscale "
-#| "antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
@@ -797,11 +771,6 @@ msgid "RGBA order"
 msgstr "RGBA sırası"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
-#| msgid ""
-#| "The order of subpixel elements on an LCD screen; only used when "
-#| "antialiasing is set to \"rgba\". Possible values are: \"rgb\" for red on "
-#| "left (most common), \"bgr\" for blue on left, \"vrgb\" for red on top, "
-#| "\"vbgr\" for red on bottom."
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to “rgba”. Possible values are: “rgb” for red on left (most common), "
@@ -920,14 +889,12 @@ msgstr "Yeniden düzeltme gerekiyor"
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
 #: ../plugins/color/gsd-color-calibrate.c:199
 #, c-format
-#| msgid "The display '%s' should be recalibrated soon."
 msgid "The display “%s” should be recalibrated soon."
 msgstr "“%s” ekranının yakında yeniden düzeltilmesi gerekiyor."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
 #: ../plugins/color/gsd-color-calibrate.c:208
 #, c-format
-#| msgid "The printer '%s' should be recalibrated soon."
 msgid "The printer “%s” should be recalibrated soon."
 msgstr "“%s” yazıcısının yakında yeniden düzeltilmesi gerekiyor."
 
@@ -1019,30 +986,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Bu bilgisayarda yalnızca %s disk alanı kaldı."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2173
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2171
 msgid "Bluetooth disabled"
 msgstr "Bluetooth devre dışı"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2176
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2174
 msgid "Bluetooth enabled"
 msgstr "Bluetooth etkin"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2180
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2178
 msgid "Airplane mode enabled"
 msgstr "Uçak kipi etkin"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2183
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2181
 msgid "Airplane mode disabled"
 msgstr "Uçak kipi devre dışı"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2211
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2209
 msgid "Hardware Airplane Mode"
 msgstr "Donanımsal Uçak Kipi"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2271
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2269
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "%d %t.webm ekran görüntüsü"
@@ -1201,7 +1168,6 @@ msgstr "Pil Durumu"
 
 #: ../plugins/media-keys/shortcuts-list.h:111
 #: ../plugins/media-keys/shortcuts-list.h:112
-#| msgid "Toggle screen reader"
 msgid "Toggle Airplane Mode"
 msgstr "Uçak Kipini Aç/Kapat"
 
@@ -1542,34 +1508,34 @@ msgid "Lid has been closed"
 msgstr "Kapak kapatıldı"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1845
+#: ../plugins/power/gsd-power-manager.c:1846
 msgid "On battery power"
 msgstr "Pille çalışıyor"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1850
+#: ../plugins/power/gsd-power-manager.c:1851
 msgid "On AC power"
 msgstr "Adaptör ile çalışıyor"
 
-#: ../plugins/power/gsd-power-manager.c:2038
+#: ../plugins/power/gsd-power-manager.c:2039
 msgid "Automatic logout"
 msgstr "Otomatik oturum kapatma"
 
-#: ../plugins/power/gsd-power-manager.c:2038
+#: ../plugins/power/gsd-power-manager.c:2039
 msgid "You will soon log out because of inactivity."
 msgstr "Hareketsizlikten dolayı oturumunuz kısa süre içinde kapatılacak"
 
-#: ../plugins/power/gsd-power-manager.c:2043
+#: ../plugins/power/gsd-power-manager.c:2044
 msgid "Automatic suspend"
 msgstr "Otomatik bekleme"
 
-#: ../plugins/power/gsd-power-manager.c:2043
-#: ../plugins/power/gsd-power-manager.c:2048
+#: ../plugins/power/gsd-power-manager.c:2044
+#: ../plugins/power/gsd-power-manager.c:2049
 msgid "Computer will suspend very soon because of inactivity."
 msgstr ""
 "Hareketsizlikten dolayı oturumunuz kısa süre içinde beklemeye alınacak."
 
-#: ../plugins/power/gsd-power-manager.c:2048
+#: ../plugins/power/gsd-power-manager.c:2049
 msgid "Automatic hibernation"
 msgstr "Otomatik derin uyku"
 
@@ -1592,7 +1558,6 @@ msgstr "Yeni yazıcı yapılandırılıyor"
 
 #. Translators: Just wait
 #: ../plugins/print-notifications/gsd-printer.c:892
-#| msgid "Please wait..."
 msgid "Please wait…"
 msgstr "Lütfen bekleyiniz…"
 
@@ -1613,231 +1578,216 @@ msgid "No driver for this printer."
 msgstr "Bu yazıcı için yazıcı sürücüsü yok."
 
 #: ../plugins/print-notifications/gsd-printer.c:1031
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:274
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:752
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:842
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:885
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:270
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:748
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:838
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:881
 msgid "Printers"
 msgstr "Yazıcılar"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:346
 #, c-format
-#| msgid "Printer '%s' is low on toner."
 msgid "Printer “%s” is low on toner."
 msgstr "“%s” yazıcısında toner az."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
 #, c-format
-#| msgid "Printer '%s' has no toner left."
 msgid "Printer “%s” has no toner left."
 msgstr "“%s” yazıcısının toneri tükenmiş."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
 #, c-format
-#| msgid "Printer '%s' may not be connected."
 msgid "Printer “%s” may not be connected."
 msgstr "“%s” yazıcısı bağlı olmayabilir."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
 #, c-format
-#| msgid "The cover is open on printer '%s'."
 msgid "The cover is open on printer “%s”."
 msgstr "“%s” yazıcısının kapağı açık. "
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
 #, c-format
-#| msgid "There is a missing print filter for printer '%s'."
 msgid "There is a missing print filter for printer “%s”."
 msgstr "“%s” yazıcısı için bir yazdırma süzgeci eksik."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:367
 #, c-format
-#| msgid "The door is open on printer '%s'."
 msgid "The door is open on printer “%s”."
 msgstr "“%s” yazıcısının kapısı açık."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 #, c-format
-#| msgid "Printer '%s' is low on a marker supply."
 msgid "Printer “%s” is low on a marker supply."
 msgstr "“%s” yazıcısının marker kaynaklarından biri azalmış."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
 #, c-format
-#| msgid "Printer '%s' is out of a marker supply."
 msgid "Printer “%s” is out of a marker supply."
 msgstr "“%s” yazıcısının marker kaynaklarından biri tükenmiş."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
 #, c-format
-#| msgid "Printer '%s' is low on paper."
 msgid "Printer “%s” is low on paper."
 msgstr "“%s” yazıcısında kağıt azalmış."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
 #, c-format
-#| msgid "Printer '%s' is out of paper."
 msgid "Printer “%s” is out of paper."
 msgstr "“%s” yazıcısında kağıt tükenmiş"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
 #, c-format
-#| msgid "Printer '%s' is currently off-line."
 msgid "Printer “%s” is currently off-line."
 msgstr "“%s” yazıcısı şu anda çevrim dışı."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:395
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
 #, c-format
-#| msgid "There is a problem on printer '%s'."
 msgid "There is a problem on printer “%s”."
 msgstr "“%s” yazıcısında bir sorun var."
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:443
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:439
 msgid "Toner low"
 msgstr "Düşük toner"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:445
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:441
 msgid "Toner empty"
 msgstr "Toner boş"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:447
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:443
 msgid "Not connected?"
 msgstr "Bağlanmadı mı?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:449
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:445
 msgid "Cover open"
 msgstr "Kapak açık"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:451
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:447
 msgid "Printer configuration error"
 msgstr "Yazıcı yapılandırma hatası"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:453
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:449
 msgid "Door open"
 msgstr "Kapı açık"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:455
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:451
 msgid "Marker supply low"
 msgstr "Marker kaynağı az"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:457
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:453
 msgid "Out of a marker supply"
 msgstr "Marker kaynağı tükenmiş"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:459
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:455
 msgid "Paper low"
 msgstr "Kağıt az"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:461
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:457
 msgid "Out of paper"
 msgstr "Kağıt tükenmiş"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:463
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:459
 msgid "Printer off-line"
 msgstr "Yazıcı çevrim dışı"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:465
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:828
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:461
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:824
 msgid "Printer error"
 msgstr "Yazıcı hatası"
 
 #. Translators: New printer has been added
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:513
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:509
 msgid "Printer added"
 msgstr "Yazıcı eklendi"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:530
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:568
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:526
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:564
 msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "Yazdırma durduruldu"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:532
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:538
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:544
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:550
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:562
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:570
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:578
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:586
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:594
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:607
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:528
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:534
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:540
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:546
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:558
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:566
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:574
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:582
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:590
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:603
 #, c-format
-#| msgctxt "print job"
-#| msgid "\"%s\" on %s"
 msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "“%s”, %s yazıcısında"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:536
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:576
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:532
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:572
 msgctxt "print job state"
 msgid "Printing canceled"
 msgstr "Yazdırma iptal edildi"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:542
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:584
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:538
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:580
 msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "Yazdırma durduruldu"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:548
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:592
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:544
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:588
 msgctxt "print job state"
 msgid "Printing completed"
 msgstr "Yazdırma tamamlandı"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:560
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:605
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:556
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:601
 msgctxt "print job state"
 msgid "Printing"
 msgstr "Yazdırılıyor"
 
 #. Translators: This is a title of a report notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:822
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:818
 msgid "Printer report"
 msgstr "Yazıcı raporu"
 
 #. Translators: This is a title of a warning notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:825
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:821
 msgid "Printer warning"
 msgstr "Yazıcı uyarısı"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:835
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:831
 #, c-format
-#| msgid "Printer '%s': '%s'."
 msgid "Printer “%s”: “%s”."
 msgstr "“%s” yazıcısı: “%s”."
 
