@@ -1,6 +1,35 @@
 ==============
+Version 3.25.2
+==============
+
+- Avoid initializing gtk+ on plugins that don't need it
+- Avoid loading gtk+ css theme since we don't have UI
+- Several correctness fixes pointed by Coverity
+- Fix for no plugins getting loaded under GDM
+- Mark forgotten strings in gschema files for translation
+- Translation updates
+
+Housekeeping:
+- Ignore GPFS and rootfs mounts
+
+Media-keys:
+- Make calculator key work again
+- Fix a few memory leaks
+- Changed MediaKeys D-Bus API to match API docs
+- Add support for new XF86RFKill keysym
+- Show OSD on hardware keyboard brightness changes
+
+Power:
+- Choose correct backlight device on laptops with hybrid graphics
+- Handle hardware keyboard brightness changes
+
+RFKill:
+- Disable the kernel's handling of rfkill events when the session is active
+
+==============
 Version 3.24.0
 ==============
+
 - Work-around possible deadlocks on startup
 - Translation updates
 
