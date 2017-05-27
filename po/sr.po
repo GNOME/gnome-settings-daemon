@@ -9,28 +9,26 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-02-14 17:56+0000\n"
-"PO-Revision-Date: 2017-02-25 19:51+0200\n"
-"Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
+"POT-Creation-Date: 2017-05-09 16:27+0000\n"
+"PO-Revision-Date: 2017-05-20 17:16+0200\n"
+"Last-Translator: Марко М. Костић <marko.m.kostic@gmail.com>\n"
 "Language-Team: Serbian <(nothing)>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
-"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Project-Style: gnome\n"
+"X-Generator: Poedit 2.0.2\n"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Smartcard removal action"
 msgstr "Радња уклањања паметне картице"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
-#| msgid ""
-#| "Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
-#| "action will get performed when the smartcard used for log in is removed."
 msgid ""
 "Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
 "get performed when the smartcard used for log in is removed."
@@ -63,8 +61,6 @@ msgid "Distance before a drag is started."
 msgstr "Растојање пре почетка превлачења."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
-#| msgid ""
-#| "Whether the tablet's orientation is locked, or rotated automatically."
 msgid "Whether the tablet’s orientation is locked, or rotated automatically."
 msgstr "Да ли је усмерење таблице закључано, или самостално окренуто."
 
@@ -101,15 +97,13 @@ msgid "Wacom tablet rotation"
 msgstr "Ротација Ваком таблице"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
-#| msgid ""
-#| "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, "
-#| "and 'ccw' for 90 degree counterclockwise."
 msgid ""
 "Set this to “none”, “cw” for 90 degree clockwise, “half” for 180 degree, and "
 "“ccw” for 90 degree counterclockwise."
 msgstr ""
-"Поставите ово на „none“, „cw“ — за 90 степени у смеру казаљке на сату, „half“"
-" — за 180 степени и „ccw“ — за 90 степени супротно смеру казаљке на сату."
+"Поставите ово на „none“, „cw“ — за 90 степени у смеру казаљке на сату, "
+"„half“ — за 180 степени и „ccw“ — за 90 степени супротно смеру казаљке на "
+"сату."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
 msgid "Wacom touch feature"
@@ -272,7 +266,6 @@ msgid ""
 msgstr "Сам израчунава времена изласка и заласка Сунца, из текућег места."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:11
-#| msgid "Charge time:"
 msgid "The start time"
 msgstr "Време покретања"
 
@@ -315,10 +308,6 @@ msgid "List of plugins that are allowed to be loaded"
 msgstr "Списак прикључака који могу бити учитани"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
-#| msgid ""
-#| "A list of strings representing the plugins that are allowed to be loaded "
-#| "(default: 'all'). The plugins still need to be marked as active to get "
-#| "loaded. This is only evaluated on startup."
 msgid ""
 "A list of strings representing the plugins that are allowed to be loaded "
 "(default: “all”). This is only evaluated on startup."
@@ -706,12 +695,6 @@ msgid "File for default configuration for RandR"
 msgstr "Датотека за подразумевана РандР подешавања"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
-#| msgid ""
-#| "The XRandR plugin will look for a default configuration in the file "
-#| "specified by this key. This is similar to the ~/.config/monitors.xml that "
-#| "normally gets stored in users' home directories. If a user does not have "
-#| "such a file, or has one that does not match the user's setup of monitors, "
-#| "then the file specified by this key will be used instead."
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
@@ -729,12 +712,6 @@ msgid "Whether to turn off specific monitors after boot"
 msgstr "Да ли ће искључити одређене мониторе након покретања система"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
-#| msgid ""
-#| "'clone' will display the same thing on all monitors, 'dock' will switch "
-#| "off the internal monitor, 'do-nothing' will use the default Xorg "
-#| "behaviour (extend the desktop in recent versions). The default, 'follow-"
-#| "lid', will choose between 'do-nothing' and 'dock' depending on whether "
-#| "the lid is (respectively) open or closed."
 msgid ""
 "“clone” will display the same thing on all monitors, “dock” will switch off "
 "the internal monitor, “do-nothing” will use the default Xorg behaviour "
@@ -743,8 +720,8 @@ msgid ""
 "(respectively) open or closed."
 msgstr ""
 "„clone“ ће приказивати исте ствари на свим мониторима, „dock“ ће искључити "
-"унутрашњи монитор, „do-nothing“ ће користити основно понашање Икс-орг-а ("
-"прошириће радну површ у новијим верзијама). Основно, „follow-lid“ ће "
+"унутрашњи монитор, „do-nothing“ ће користити основно понашање Икс-орг-а "
+"(прошириће радну површ у новијим верзијама). Основно, „follow-lid“ ће "
 "изабрати између „do-nothing“ и „dock“ у зависности од тога да ли је либ "
 "отворен или затворен."
 
@@ -753,10 +730,6 @@ msgid "Antialiasing"
 msgstr "Умекшавање ивица"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-#| msgid ""
-#| "The type of antialiasing to use when rendering fonts. Possible values "
-#| "are: \"none\" for no antialiasing, \"grayscale\" for standard grayscale "
-#| "antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
@@ -776,17 +749,6 @@ msgid "Hinting"
 msgstr "Дотеривање"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
-#| msgid ""
-#| "The type of hinting to use when rendering fonts. Possible values are: "
-#| "\"none\" for no hinting and \"slight\" for fitting only to the Y-axis "
-#| "like Microsoft's ClearType, DirectWrite and Adobe's proprietary font "
-#| "rendering engine. Ignores native hinting within the font, generates hints "
-#| "algorithmically. Used on Ubuntu by default. Recommended. The meaning of "
-#| "\"medium\" and \"full\" depends on the font format (.ttf, .otf, .pfa/."
-#| "pfb) and the installed version of FreeType. They usually try to fit "
-#| "glyphs to both the X and the Y axis (except for .otf: Y-only). This can "
-#| "lead to distortion and/or inconsistent rendering depending on the quality "
-#| "of the font, the font format and the state of FreeType's font engines."
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: “none” "
 "for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
@@ -804,8 +766,8 @@ msgstr ""
 "Мајкрософтов „ClearType“, „DirectWrite“ и Адобов погон исцртавања власничког "
 "словног лика. Занемарује изворно наговештавање унутар словног лика, "
 "стварајући наговештаје алгоритамски. На Убунтуу се користи по основи. "
-"Препоручено. Значење за „medium“ и „full“ зависи од записа словног лика ("
-".ttf, .otf, .pfa/.pfb) и инсталираног издања „FreeType“-а. Обично покушавају "
+"Препоручено. Значење за „medium“ и „full“ зависи од записа словног лика (."
+"ttf, .otf, .pfa/.pfb) и инсталираног издања „FreeType“-а. Обично покушавају "
 "да испуне глифове и до X и до Y осе (изузев за „.otf“: само Y). Ово може "
 "довести до изобличења и/или непостојности исцртавања у зависности од "
 "квалитета словног лика, записа словног лика и стања погона словног лика "
@@ -816,11 +778,6 @@ msgid "RGBA order"
 msgstr "Редослед РГБА"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
-#| msgid ""
-#| "The order of subpixel elements on an LCD screen; only used when "
-#| "antialiasing is set to \"rgba\". Possible values are: \"rgb\" for red on "
-#| "left (most common), \"bgr\" for blue on left, \"vrgb\" for red on top, "
-#| "\"vbgr\" for red on bottom."
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to “rgba”. Possible values are: “rgb” for red on left (most common), "
@@ -868,7 +825,7 @@ msgid ""
 "You just held down the Shift key for 8 seconds.  This is the shortcut for "
 "the Slow Keys feature, which affects the way your keyboard works."
 msgstr ""
-"Управо сте држали тастер Шифт притиснут 8 секунди.  Ово је пречица за "
+"Управо сте држали тастер Shift притиснут 8 секунди.  Ово је пречица за "
 "могућност спорих тастера, која утиче на то како ради ваша тастатура."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:410
@@ -909,7 +866,7 @@ msgid ""
 "You just pressed the Shift key 5 times in a row.  This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
 msgstr ""
-"Управо сте притиснули тастер Шифт пет пута заредом.  Ово је пречица за "
+"Управо сте притиснули тастер Shift пет пута заредом.  Ово је пречица за "
 "могућност лепљивих тастера, која утиче на начин рада ваше тастатуре."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:468
@@ -918,7 +875,7 @@ msgid ""
 "row.  This turns off the Sticky Keys feature, which affects the way your "
 "keyboard works."
 msgstr ""
-"Управо сте притиснули два тастера истовремено, или сте притиснули Шифт 5 "
+"Управо сте притиснули два тастера истовремено, или сте притиснули Shift 5 "
 "пута заредом.  Ово искључује могућност лепљивих тастера, што утиче на то "
 "како ваша тастатура ради."
 
@@ -939,14 +896,12 @@ msgstr "Потребно је поновно подешавање"
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
 #: ../plugins/color/gsd-color-calibrate.c:199
 #, c-format
-#| msgid "The display '%s' should be recalibrated soon."
 msgid "The display “%s” should be recalibrated soon."
 msgstr "Екран „%s“ треба бити ускоро поново подешен."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
 #: ../plugins/color/gsd-color-calibrate.c:208
 #, c-format
-#| msgid "The printer '%s' should be recalibrated soon."
 msgid "The printer “%s” should be recalibrated soon."
 msgstr "Штампач „%s“ треба бити ускоро поново подешен."
 
@@ -1038,30 +993,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Овај рачунар има само %s преосталог простора."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2173
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2176
 msgid "Bluetooth disabled"
 msgstr "Блутут је искључен"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2176
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2179
 msgid "Bluetooth enabled"
 msgstr "Блутут је укључен"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2180
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2183
 msgid "Airplane mode enabled"
 msgstr "Режим у авиону је укључен"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2183
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2186
 msgid "Airplane mode disabled"
 msgstr "Режим у авиону је искључен"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2211
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2214
 msgid "Hardware Airplane Mode"
 msgstr "Хардверски режим у авиону"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2271
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2274
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Запис екрана са %d %t.webm"
@@ -1224,12 +1179,12 @@ msgstr "Окидач осветљаја тастатуре"
 msgid "Battery Status"
 msgstr "Стање батерије"
 
-#: ../plugins/media-keys/shortcuts-list.h:111
-#: ../plugins/media-keys/shortcuts-list.h:112
+#: ../plugins/media-keys/shortcuts-list.h:113
+#: ../plugins/media-keys/shortcuts-list.h:114
 msgid "Toggle Airplane Mode"
 msgstr "Окини режим у авиону"
 
-#: ../plugins/media-keys/shortcuts-list.h:113
+#: ../plugins/media-keys/shortcuts-list.h:115
 msgid "Toggle Bluetooth"
 msgstr "Окини блутут"
 
@@ -1630,7 +1585,6 @@ msgstr "Подешавам нов штампач"
 
 #. Translators: Just wait
 #: ../plugins/print-notifications/gsd-printer.c:892
-#| msgid "Please wait..."
 msgid "Please wait…"
 msgstr "Молим сачекајте…"
 
@@ -1661,84 +1615,72 @@ msgstr "Штампачи"
 #. Translators: The printer is low on toner (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
 #, c-format
-#| msgid "Printer '%s' is low on toner."
 msgid "Printer “%s” is low on toner."
 msgstr "Тонер је скоро празан у штампачу „%s“."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
 #, c-format
-#| msgid "Printer '%s' has no toner left."
 msgid "Printer “%s” has no toner left."
 msgstr "Нема више тонера у штампачу „%s“."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
 #, c-format
-#| msgid "Printer '%s' may not be connected."
 msgid "Printer “%s” may not be connected."
 msgstr "Штампач „%s“ можда није повезан."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
 #, c-format
-#| msgid "The cover is open on printer '%s'."
 msgid "The cover is open on printer “%s”."
 msgstr "Отворен је поклопац на штампачу „%s“."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
 #, c-format
-#| msgid "There is a missing print filter for printer '%s'."
 msgid "There is a missing print filter for printer “%s”."
 msgstr "Недостаје филтер штампе за штампач „%s“."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 #, c-format
-#| msgid "The door is open on printer '%s'."
 msgid "The door is open on printer “%s”."
 msgstr "Вратанца су отворена на штампачу „%s“."
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
 #, c-format
-#| msgid "Printer '%s' is low on a marker supply."
 msgid "Printer “%s” is low on a marker supply."
 msgstr "Преостало је мало мастила у штампачу „%s“."
 
 #. Translators: "marker" is one color bin of the printer
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
 #, c-format
-#| msgid "Printer '%s' is out of a marker supply."
 msgid "Printer “%s” is out of a marker supply."
 msgstr "Нема више мастила у штампачу „%s“."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
 #, c-format
-#| msgid "Printer '%s' is low on paper."
 msgid "Printer “%s” is low on paper."
 msgstr "Преостало је мало папира у штампачу „%s“."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
 #, c-format
-#| msgid "Printer '%s' is out of paper."
 msgid "Printer “%s” is out of paper."
 msgstr "Нема више папира у штампачу „%s“."
 
 #. Translators: The printer is offline (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
 #, c-format
-#| msgid "Printer '%s' is currently off-line."
 msgid "Printer “%s” is currently off-line."
 msgstr "Штампач „%s“ је тренутно ван мреже."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:395
 #, c-format
-#| msgid "There is a problem on printer '%s'."
 msgid "There is a problem on printer “%s”."
 msgstr "Дошло је до проблема на штампачу „%s“."
 
@@ -1828,8 +1770,6 @@ msgstr "Штампање је заустављено"
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:594
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:607
 #, c-format
-#| msgctxt "print job"
-#| msgid "\"%s\" on %s"
 msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "Посао „%s“ на штампачу „%s“"
@@ -1883,7 +1823,6 @@ msgstr "Упозорење штампача"
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:835
 #, c-format
-#| msgid "Printer '%s': '%s'."
 msgid "Printer “%s”: “%s”."
 msgstr "Штампач „%s“: „%s“."
 
