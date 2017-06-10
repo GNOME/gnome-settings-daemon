@@ -29,6 +29,7 @@
 #include <time.h>
 #include <math.h>
 #include <string.h>
+#include <ctype.h>
 #include "tz.h"
 
 
