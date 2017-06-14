@@ -6,11 +6,10 @@
 # Torstein Adolf Winterseth <kvikende@fsfe.org>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon 3.23.x\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-02-12 14:48+0000\n"
-"PO-Revision-Date: 2017-02-13 20:14+0100\n"
+"Project-Id-Version: gnome-settings-daemon 3.26.x\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2017-05-24 15:51+0000\n"
+"PO-Revision-Date: 2017-06-14 07:50+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: nb\n"
@@ -18,42 +17,40 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-DamnedLies-Scope: partial\n"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Smartcard removal action"
 msgstr "Handling når smartkort fjernes"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
-msgid ""
-"Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
-"get performed when the smartcard used for log in is removed."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
-msgid ""
-"Highlights the current location of the pointer when the Control key is "
-"pressed and released."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
 msgid "Double click time"
 msgstr "Tid for dobbeltklikk"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
 msgid "Length of a double click in milliseconds."
 msgstr "Lengde på dobbeltklikk i millisekunder."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
 msgid "Drag threshold"
 msgstr "Terskel for dra-operasjon"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
 msgid "Distance before a drag is started."
 msgstr "Avstand før dra-operasjon startes."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
 msgid "Whether the tablet’s orientation is locked, or rotated automatically."
 msgstr "Hvorvidt tegnebrettets orientering er låst eller roteres automatisk."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
+msgid "Motion Threshold"
+msgstr "Terskel for bevegelse"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:27
+#, fuzzy
+msgid "Initial key repeat delay in milliseconds."
+msgstr "Lengde på dobbeltklikk i millisekunder."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 msgid "Wacom stylus absolute mode"
@@ -66,10 +63,6 @@ msgstr "Slå på dette for å sette tegnebrettet til absolutt modus."
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 msgid "Wacom tablet area"
 msgstr "Område for Wacom tegnebrett"
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
-msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
-msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom tablet aspect ratio"
@@ -87,75 +80,13 @@ msgstr ""
 msgid "Wacom tablet rotation"
 msgstr "Rotering for Wacom tegnebrett"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
-msgid ""
-"Set this to “none”, “cw” for 90 degree clockwise, “half” for 180 degree, and "
-"“ccw” for 90 degree counterclockwise."
-msgstr ""
-
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
 msgid "Wacom touch feature"
 msgstr "Wacom berøringsfunksjon"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
-msgid "Enable this to move the cursor when the user touches the tablet."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
-msgid "Wacom stylus pressure curve"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
-msgid ""
-"Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
-msgid "Wacom stylus button mapping"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
-msgid "Set this to the logical button mapping."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
-msgid "Wacom stylus pressure threshold"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
-msgid ""
-"Set this to the pressure value at which a stylus click event is generated."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
-msgid "Wacom eraser pressure curve"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
-msgid ""
-"Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
-msgid "Wacom eraser button mapping"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
-msgid "Wacom eraser pressure threshold"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
-msgid ""
-"Set this to the pressure value at which an eraser click event is generated."
-msgstr ""
-
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
 msgid "Wacom button action type"
 msgstr "Type handling for knapp på Wacom tegnebrett"
-
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
-msgid "The type of action triggered by the button being pressed."
-msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
 msgid "Key combination for the custom action"
@@ -189,10 +120,6 @@ msgstr ""
 msgid "Button label for OLED display."
 msgstr "Knappeetikett for OLED-skjerm."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
-msgid "Label will be rendered to OLED display belonging to the button"
-msgstr ""
-
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
 msgid "The duration a display profile is valid"
 msgstr "Hvor lenge en skjermprofil er gyldig"
@@ -213,124 +140,29 @@ msgid ""
 "considered invalid."
 msgstr "Antall dager før fargeprofil for skriver betraktes som ugyldig."
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
-msgid "If the night light mode is enabled"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
-msgid ""
-"Night light mode changes the color temperature of your display when the sun "
-"has gone down or at present times."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
-msgid "Temperature of the display when enabled"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
-msgid ""
-"This temperature in Kelvin is used to modify the screen tones when night "
-"light mode is enabled. Higher values are bluer, lower redder."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:9
-msgid "Use the sunrise and sunset"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:10
-msgid ""
-"Calculate the sunrise and sunset times automatically, from the current "
-"location."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:11
-msgid "The start time"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:12
-msgid ""
-"When “night-light-schedule-automatic” is disabled, use this start time in "
-"hours from midnight."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:13
-msgid "The end time"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:14
-msgid ""
-"When “night-light-schedule-automatic” is disabled, use this end time in "
-"hours from midnight."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:15
-msgid "The last detected position"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:16
-msgid ""
-"When location services are available this represents the last detected "
-"location. The default value is an invalid value to ensure it is always "
-"updated at startup."
-msgstr ""
-
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 msgid "List of plugins that are allowed to be loaded"
 msgstr "Liste med tillegg som er tillatt å laste"
-
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
-msgid ""
-"A list of strings representing the plugins that are allowed to be loaded "
-"(default: 'all'). This is only evaluated on startup."
-msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
 msgid "Mount paths to ignore"
 msgstr "Monteringsstier som skal ignoreres"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
-msgid "Specify a list of mount paths to ignore when they run low on space."
-msgstr ""
-
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
 msgid "Free percentage notify threshold"
 msgstr "Terskel for varsling av ledig plass"
-
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
-msgid ""
-"Percentage free space threshold for initial warning of low disk space. If "
-"the percentage free space drops below this, a warning will be shown."
-msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
 msgid "Subsequent free space percentage notify threshold"
 msgstr "Terskel for ny varsling av ledig plass"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
-msgid ""
-"Specify the percentage that the free disk space should reduce by before "
-"issuing a subsequent warning."
-msgstr ""
-
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 msgid "Free space notify threshold"
 msgstr "Terskel varsling om ledig plass"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
-msgid ""
-"Specify an amount in GB. If the amount of free space is more than this, no "
-"warning will be shown."
-msgstr ""
-
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
 msgid "Minimum notify period for repeated warnings"
 msgstr "Minste varslingsperiode for gjentatte advarsler"
-
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
-msgid ""
-"Specify a time in minutes. Subsequent warnings for a volume will not appear "
-"more often than this period."
-msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
 msgid "Custom keybindings"
@@ -537,136 +369,114 @@ msgid "Record a short video of the screen"
 msgstr "Ta opp en kort video av skjermen"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+#, fuzzy
+#| msgid "Record a short video of the screen"
+msgid "Binding to record a short video of the screen"
+msgstr "Ta opp en kort video av skjermen"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Launch web browser"
 msgstr "Start nettleser"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Binding to launch the web browser."
 msgstr "Binding for å starte nettleser."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Toggle magnifier"
 msgstr "Slå av/på forstørrelsesglass"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Binding to show the screen magnifier"
 msgstr "Binding for å vise forstørrelsesglass"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Toggle screen reader"
 msgstr "Slå av/på skjermleser"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 msgid "Binding to start the screen reader"
 msgstr "Binding for å slå på skjermleser"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
 msgid "Toggle on-screen keyboard"
 msgstr "Slå av/på tastatur på skjermen"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
 msgid "Binding to show the on-screen keyboard"
 msgstr "Binding for å vise tastatur på skjermen."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
 msgid "Increase text size"
 msgstr "Større tekststørrelse"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
 msgid "Binding to increase the text size"
 msgstr "Binding for å øke tekststørrelsen"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
 msgid "Decrease text size"
 msgstr "Mindre tekststørrelse"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
 msgid "Binding to decrease the text size"
 msgstr "Binding for å minske tekststørrelsen"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
 msgid "Toggle contrast"
 msgstr "Slå av/på kontrast"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
 msgid "Binding to toggle the interface contrast"
 msgstr "Binding for å slå av/på kontrast i brukergrensesnittet"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
 msgid "Magnifier zoom in"
 msgstr "Zoom inn med forstørrelsesglass"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
 msgid "Binding for the magnifier to zoom in"
 msgstr "Binding for å zoome inn med forstørrelsesglass"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
 msgid "Magnifier zoom out"
 msgstr "Zoom ut med forstørrelsesglass"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
 msgid "Binding for the magnifier to zoom out"
 msgstr "Binding for å zoome ut med forstørrelsesglass"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
 msgid "Name"
 msgstr "Navn"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
 msgid "Name of the custom binding"
 msgstr "Navn på egendefinert binding"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
 msgid "Binding"
 msgstr "Binding"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
 msgid "Binding for the custom binding"
 msgstr "Binding for egendefinert binding"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:77
 msgid "Command"
 msgstr "Kommando"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:78
 msgid "Command to run when the binding is invoked"
 msgstr "Kommando som skal kjøres når bindingen aktiveres"
 
-#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:1
-msgid "On which connections the service is enabled"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:2
-msgid ""
-"The list of NetworkManager connections (each one represented with its UUID) "
-"on which this service is enabled and started."
-msgstr ""
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
+msgid "Power button action"
+msgstr "Handling for strømknapp"
 
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
 msgid "File for default configuration for RandR"
 msgstr "Forvalgt konfigurasjonsfil for RandR"
-
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
-msgid ""
-"The XRandR plugin will look for a default configuration in the file "
-"specified by this key. This is similar to the ~/.config/monitors.xml that "
-"normally gets stored in users’ home directories. If a user does not have "
-"such a file, or has one that does not match the user’s setup of monitors, "
-"then the file specified by this key will be used instead."
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
-msgid "Whether to turn off specific monitors after boot"
-msgstr ""
-
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
-msgid ""
-"“clone” will display the same thing on all monitors, “dock” will switch off "
-"the internal monitor, “do-nothing” will use the default Xorg behaviour "
-"(extend the desktop in recent versions). The default, “follow-lid”, will "
-"choose between “do-nothing” and “dock” depending on whether the lid is "
-"(respectively) open or closed."
-msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid "Antialiasing"
@@ -677,25 +487,14 @@ msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
 "and “rgba” for subpixel antialiasing (LCD screens only)."
-msgstr "Type utjevning som skal brukes ved tegning av skrifter. Mulige verdier er: «none» for ingen utjevning, «grayscale» for vanlig gråtoneutjevning og «rgba» for underpikselutjevning (kun LCD-skjermer)."
+msgstr ""
+"Type utjevning som skal brukes ved tegning av skrifter. Mulige verdier er: "
+"«none» for ingen utjevning, «grayscale» for vanlig gråtoneutjevning og "
+"«rgba» for underpikselutjevning (kun LCD-skjermer)."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
 msgid "Hinting"
 msgstr "Hinting"
-
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
-msgid ""
-"The type of hinting to use when rendering fonts. Possible values are: “none” "
-"for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
-"ClearType, DirectWrite and Adobe’s proprietary font rendering engine. "
-"Ignores native hinting within the font, generates hints algorithmically. "
-"Used on Ubuntu by default. Recommended. The meaning of “medium” and “full” "
-"depends on the font format (.ttf, .otf, .pfa/.pfb) and the installed version "
-"of FreeType. They usually try to fit glyphs to both the X and the Y axis "
-"(except for .otf: Y-only). This can lead to distortion and/or inconsistent "
-"rendering depending on the quality of the font, the font format and the "
-"state of FreeType’s font engines."
-msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
 msgid "RGBA order"
@@ -722,21 +521,9 @@ msgstr ""
 msgid "List of explicitly disabled GTK+ modules"
 msgstr "Liste med GTK+-moduler som er eksplisitt slått av"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid ""
-"A list of strings representing the GTK+ modules that will not be loaded, "
-"even if enabled by default in their configuration."
-msgstr ""
-
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "List of explicitly enabled GTK+ modules"
 msgstr "Liste med GTK+-moduler som er eksplisitt slått på"
-
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
-msgid ""
-"A list of strings representing the GTK+ modules that will be loaded, usually "
-"in addition to conditional and forcibly disabled ones."
-msgstr ""
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:398
 msgid "Slow Keys Turned On"
@@ -919,30 +706,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Denne datamaskinen har kun %s gjenværende diskplass."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2130
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2171
 msgid "Bluetooth disabled"
 msgstr "Bluetooth slått av"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2133
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2174
 msgid "Bluetooth enabled"
 msgstr "Bluetooth slått på"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2137
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2178
 msgid "Airplane mode enabled"
 msgstr "Flymodus slått på"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2140
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2181
 msgid "Airplane mode disabled"
 msgstr "Flymodus slått av"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2168
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2209
 msgid "Hardware Airplane Mode"
 msgstr "Flymodus i maskinvare"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2228
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2269
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Skjermvideo fra %d %t.webm"
@@ -1103,10 +890,11 @@ msgstr "Batteristatus"
 
 #: ../plugins/media-keys/shortcuts-list.h:111
 #: ../plugins/media-keys/shortcuts-list.h:112
+#: ../plugins/media-keys/shortcuts-list.h:113
 msgid "Toggle Airplane Mode"
 msgstr "Slå av/på flymodus"
 
-#: ../plugins/media-keys/shortcuts-list.h:113
+#: ../plugins/media-keys/shortcuts-list.h:114
 msgid "Toggle Bluetooth"
 msgstr "Slå av/på Bluetooth"
 
@@ -1450,33 +1238,33 @@ msgid "Lid has been closed"
 msgstr "Lokket ble lukket"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1845
+#: ../plugins/power/gsd-power-manager.c:1846
 msgid "On battery power"
 msgstr "På batteristrøm"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1850
+#: ../plugins/power/gsd-power-manager.c:1851
 msgid "On AC power"
 msgstr "På nettstrøm"
 
-#: ../plugins/power/gsd-power-manager.c:2038
+#: ../plugins/power/gsd-power-manager.c:2039
 msgid "Automatic logout"
 msgstr "Automatisk utlogging"
 
-#: ../plugins/power/gsd-power-manager.c:2038
+#: ../plugins/power/gsd-power-manager.c:2039
 msgid "You will soon log out because of inactivity."
 msgstr "Du vil snart bli logget ut pga inaktivitet."
 
-#: ../plugins/power/gsd-power-manager.c:2043
+#: ../plugins/power/gsd-power-manager.c:2044
 msgid "Automatic suspend"
 msgstr "Automatisk hvilemodus"
 
-#: ../plugins/power/gsd-power-manager.c:2043
-#: ../plugins/power/gsd-power-manager.c:2048
+#: ../plugins/power/gsd-power-manager.c:2044
+#: ../plugins/power/gsd-power-manager.c:2049
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Datamaskinen vil gå i hvilemodus meget snart pga inaktivitet."
 
-#: ../plugins/power/gsd-power-manager.c:2048
+#: ../plugins/power/gsd-power-manager.c:2049
 msgid "Automatic hibernation"
 msgstr "Automatisk dvalemodus"
 
@@ -1519,215 +1307,215 @@ msgid "No driver for this printer."
 msgstr "Ingen driver for denne skriveren."
 
 #: ../plugins/print-notifications/gsd-printer.c:1031
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:274
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:752
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:842
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:885
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:270
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:748
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:838
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:881
 msgid "Printers"
 msgstr "Skrivere"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:346
 #, c-format
 msgid "Printer “%s” is low on toner."
 msgstr "Skriver «%s» har lite toner."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
 #, c-format
 msgid "Printer “%s” has no toner left."
 msgstr "Skriver «%s» har ikke mer toner."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
 #, c-format
 msgid "Printer “%s” may not be connected."
 msgstr "Skriver «%s» er kanskje ikke koblet til."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
 #, c-format
 msgid "The cover is open on printer “%s”."
 msgstr "Lokket er åpent på skriver «%s»."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
 #, c-format
 msgid "There is a missing print filter for printer “%s”."
 msgstr "Det mangler et utskriftsfilter for skriver «%s»."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:367
 #, c-format
 msgid "The door is open on printer “%s”."
 msgstr "Døren er åpen på skriver «%s»."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 #, c-format
 msgid "Printer “%s” is low on a marker supply."
 msgstr "Skriver «%s» har lite farge."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
 #, c-format
 msgid "Printer “%s” is out of a marker supply."
 msgstr "Skriver «%s» har ikke mer farge."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
 #, c-format
 msgid "Printer “%s” is low on paper."
 msgstr "Skriver «%s» har lite papir."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
 #, c-format
 msgid "Printer “%s” is out of paper."
 msgstr "Skriver «%s» har ikke mer papir."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
 #, c-format
 msgid "Printer “%s” is currently off-line."
 msgstr "Skriver «%s» er ikke tilkoblet."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:395
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
 #, c-format
 msgid "There is a problem on printer “%s”."
 msgstr "Det er et problem med skriver «%s»."
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:443
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:439
 msgid "Toner low"
 msgstr "Lite toner"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:445
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:441
 msgid "Toner empty"
 msgstr "Ikke mer toner"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:447
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:443
 msgid "Not connected?"
 msgstr "Ikke koblet til?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:449
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:445
 msgid "Cover open"
 msgstr "Lokket er åpent"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:451
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:447
 msgid "Printer configuration error"
 msgstr "Feil med konfigurasjon av skriver"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:453
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:449
 msgid "Door open"
 msgstr "Dør åpen"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:455
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:451
 msgid "Marker supply low"
 msgstr "Lite farge"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:457
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:453
 msgid "Out of a marker supply"
 msgstr "Ikke mer farge"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:459
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:455
 msgid "Paper low"
 msgstr "Lite papir"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:461
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:457
 msgid "Out of paper"
 msgstr "Ikke mer papir"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:463
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:459
 msgid "Printer off-line"
 msgstr "Skriver frakoblet"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:465
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:828
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:461
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:824
 msgid "Printer error"
 msgstr "Feil med skriver"
 
 #. Translators: New printer has been added
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:513
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:509
 msgid "Printer added"
 msgstr "Skriver lagt til"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:530
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:568
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:526
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:564
 msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "Utskrift stoppet"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:532
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:538
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:544
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:550
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:562
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:570
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:578
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:586
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:594
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:607
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:528
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:534
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:540
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:546
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:558
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:566
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:574
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:582
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:590
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:603
 #, c-format
 msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "«%s» på %s"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:536
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:576
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:532
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:572
 msgctxt "print job state"
 msgid "Printing canceled"
 msgstr "Utskrift avbrutt"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:542
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:584
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:538
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:580
 msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "Utskrift terminert"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:548
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:592
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:544
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:588
 msgctxt "print job state"
 msgid "Printing completed"
 msgstr "Utskrift fullført"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:560
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:605
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:556
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:601
 msgctxt "print job state"
 msgid "Printing"
 msgstr "Skriver ut"
 
 #. Translators: This is a title of a report notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:822
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:818
 msgid "Printer report"
 msgstr "Skriverrapport"
 
 #. Translators: This is a title of a warning notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:825
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:821
 msgid "Printer warning"
 msgstr "Skriveradvarsel"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:835
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:831
 #, c-format
 msgid "Printer “%s”: “%s”."
 msgstr "Skriver «%s»: «%s»."
