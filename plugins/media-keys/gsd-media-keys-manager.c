@@ -109,6 +109,7 @@ static const gchar introspection_xml[] =
 #define HIGH_CONTRAST "HighContrast"
 
 #define VOLUME_STEP 6           /* percents for one volume button press */
+#define VOLUME_STEP_PRECISE 2
 #define MAX_VOLUME 65536.0
 
 #define SYSTEMD_DBUS_NAME                       "org.freedesktop.login1"
@@ -1264,6 +1265,7 @@ get_stream_for_device_id (GsdMediaKeysManager *manager,
 typedef enum {
 	SOUND_ACTION_FLAG_IS_OUTPUT  = 1 << 0,
 	SOUND_ACTION_FLAG_IS_QUIET   = 1 << 1,
+	SOUND_ACTION_FLAG_IS_PRECISE = 1 << 2,
 } SoundActionFlags;
 
 static void
@@ -1295,7 +1297,10 @@ do_sound_action (GsdMediaKeysManager *manager,
         if (stream == NULL)
                 return;
 
-        norm_vol_step = PA_VOLUME_NORM * VOLUME_STEP / 100;
+        if (flags & SOUND_ACTION_FLAG_IS_PRECISE)
+                norm_vol_step = PA_VOLUME_NORM * VOLUME_STEP_PRECISE / 100;
+        else
+                norm_vol_step = PA_VOLUME_NORM * VOLUME_STEP / 100;
 
         /* FIXME: this is racy */
         new_vol = old_vol = gvc_mixer_stream_get_volume (stream);
@@ -2352,6 +2357,14 @@ do_action (GsdMediaKeysManager *manager,
         case VOLUME_UP_QUIET_KEY:
                 do_sound_action (manager, deviceid, VOLUME_UP_KEY,
                                  SOUND_ACTION_FLAG_IS_OUTPUT | SOUND_ACTION_FLAG_IS_QUIET);
+                break;
+        case VOLUME_DOWN_PRECISE_KEY:
+                do_sound_action (manager, deviceid, VOLUME_DOWN_KEY,
+                                 SOUND_ACTION_FLAG_IS_OUTPUT | SOUND_ACTION_FLAG_IS_PRECISE);
+                break;
+        case VOLUME_UP_PRECISE_KEY:
+                do_sound_action (manager, deviceid, VOLUME_UP_KEY,
+                                 SOUND_ACTION_FLAG_IS_OUTPUT | SOUND_ACTION_FLAG_IS_PRECISE);
                 break;
         case LOGOUT_KEY:
                 gnome_session_shutdown (manager);

@@ -53,6 +53,8 @@ static struct {
         { MUTE_QUIET_KEY, NULL, N_("Quiet Volume Mute"), "<Alt>XF86AudioMute", SHELL_ACTION_MODE_ALL },
         { VOLUME_DOWN_QUIET_KEY, NULL, N_("Quiet Volume Down"), "<Alt>XF86AudioLowerVolume", SHELL_ACTION_MODE_ALL },
         { VOLUME_UP_QUIET_KEY, NULL, N_("Quiet Volume Up"), "<Alt>XF86AudioRaiseVolume", SHELL_ACTION_MODE_ALL },
+        { VOLUME_DOWN_PRECISE_KEY, NULL, N_("Precise Volume Down"), "<Shift>XF86AudioLowerVolume", SHELL_ACTION_MODE_ALL },
+        { VOLUME_UP_PRECISE_KEY, NULL, N_("Precise Volume Up"), "<Shift>XF86AudioRaiseVolume", SHELL_ACTION_MODE_ALL },
         { LOGOUT_KEY, "logout", NULL, NULL, GSD_ACTION_MODE_LAUNCHER },
         { EJECT_KEY, "eject", NULL, NULL, SHELL_ACTION_MODE_ALL },
         { HOME_KEY, "home", NULL, NULL, GSD_ACTION_MODE_LAUNCHER },

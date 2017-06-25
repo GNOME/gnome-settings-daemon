@@ -30,6 +30,8 @@ typedef enum {
         MUTE_QUIET_KEY,
         VOLUME_DOWN_QUIET_KEY,
         VOLUME_UP_QUIET_KEY,
+        VOLUME_DOWN_PRECISE_KEY,
+        VOLUME_UP_PRECISE_KEY,
         LOGOUT_KEY,
         EJECT_KEY,
         HOME_KEY,
