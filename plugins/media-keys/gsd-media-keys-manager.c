@@ -1261,12 +1261,16 @@ get_stream_for_device_id (GsdMediaKeysManager *manager,
 }
 #endif /* HAVE_GUDEV */
 
+typedef enum {
+	SOUND_ACTION_FLAG_IS_OUTPUT  = 1 << 0,
+	SOUND_ACTION_FLAG_IS_QUIET   = 1 << 1,
+} SoundActionFlags;
+
 static void
 do_sound_action (GsdMediaKeysManager *manager,
 		 guint                deviceid,
                  int                  type,
-                 gboolean             is_output,
-                 gboolean             quiet)
+                 SoundActionFlags     flags)
 {
 	GvcMixerStream *stream;
         gboolean old_muted, new_muted;
@@ -1276,11 +1280,13 @@ do_sound_action (GsdMediaKeysManager *manager,
         /* Find the stream that corresponds to the device, if any */
         stream = NULL;
 #ifdef HAVE_GUDEV
-        stream = get_stream_for_device_id (manager, is_output, deviceid);
+        stream = get_stream_for_device_id (manager,
+                                           flags & SOUND_ACTION_FLAG_IS_OUTPUT,
+                                           deviceid);
 #endif /* HAVE_GUDEV */
 
         if (stream == NULL) {
-                if (is_output)
+                if (flags & SOUND_ACTION_FLAG_IS_OUTPUT)
                         stream = manager->priv->sink;
                 else
                         stream = manager->priv->source;
@@ -1328,7 +1334,8 @@ do_sound_action (GsdMediaKeysManager *manager,
                 }
         }
 
-        update_dialog (manager, stream, new_vol, new_muted, sound_changed, quiet);
+        update_dialog (manager, stream, new_vol, new_muted, sound_changed,
+                       flags & SOUND_ACTION_FLAG_IS_QUIET);
 }
 
 static void
@@ -2329,19 +2336,22 @@ do_action (GsdMediaKeysManager *manager,
         case MUTE_KEY:
         case VOLUME_DOWN_KEY:
         case VOLUME_UP_KEY:
-                do_sound_action (manager, deviceid, type, TRUE, FALSE);
+                do_sound_action (manager, deviceid, type, SOUND_ACTION_FLAG_IS_OUTPUT);
                 break;
         case MIC_MUTE_KEY:
-                do_sound_action (manager, deviceid, MUTE_KEY, FALSE, TRUE);
+                do_sound_action (manager, deviceid, MUTE_KEY, SOUND_ACTION_FLAG_IS_QUIET);
                 break;
         case MUTE_QUIET_KEY:
-                do_sound_action (manager, deviceid, MUTE_KEY, TRUE, TRUE);
+                do_sound_action (manager, deviceid, MUTE_KEY,
+                                 SOUND_ACTION_FLAG_IS_OUTPUT | SOUND_ACTION_FLAG_IS_QUIET);
                 break;
         case VOLUME_DOWN_QUIET_KEY:
-                do_sound_action (manager, deviceid, VOLUME_DOWN_KEY, TRUE, TRUE);
+                do_sound_action (manager, deviceid, VOLUME_DOWN_KEY,
+                                 SOUND_ACTION_FLAG_IS_OUTPUT | SOUND_ACTION_FLAG_IS_QUIET);
                 break;
         case VOLUME_UP_QUIET_KEY:
-                do_sound_action (manager, deviceid, VOLUME_UP_KEY, TRUE, TRUE);
+                do_sound_action (manager, deviceid, VOLUME_UP_KEY,
+                                 SOUND_ACTION_FLAG_IS_OUTPUT | SOUND_ACTION_FLAG_IS_QUIET);
                 break;
         case LOGOUT_KEY:
                 gnome_session_shutdown (manager);
