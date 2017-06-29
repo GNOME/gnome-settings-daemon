@@ -91,7 +91,7 @@ create_device (GUdevDevice *udev_device)
 	vendor = g_udev_device_get_property (udev_device, "ID_VENDOR_ID");
 	product = g_udev_device_get_property (udev_device, "ID_MODEL_ID");
 	width = g_udev_device_get_property_as_int (udev_device, "ID_INPUT_WIDTH_MM");
-	height = g_udev_device_get_property_as_int (udev_device, "ID_INPUT_WIDTH_MM");
+	height = g_udev_device_get_property_as_int (udev_device, "ID_INPUT_HEIGHT_MM");
 
 	device = g_object_new (GSD_TYPE_DEVICE,
 			       "name", name,
