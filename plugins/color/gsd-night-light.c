@@ -320,7 +320,7 @@ night_light_recheck (GsdNightLight *self)
         } else if (gsd_night_light_frac_day_is_between (frac_day,
                                                           schedule_to - smear,
                                                           schedule_to)) {
-                gdouble factor = ((schedule_to - smear) - frac_day) / smear;
+                gdouble factor = (frac_day - (schedule_to - smear)) / smear;
                 temp_smeared = linear_interpolate (GSD_COLOR_TEMPERATURE_DEFAULT,
                                                    temperature, factor);
         } else {
