@@ -503,11 +503,12 @@ grab_accelerator_complete (GObject      *object,
                 g_error_free (error);
         }
 
+        keyname = get_key_string (key);
+        g_hash_table_remove (manager->priv->keys_pending_grab, keyname);
+
         if (key->ungrab_requested)
                 ungrab_media_key (key, manager);
 
-        keyname = get_key_string (key);
-        g_hash_table_remove (manager->priv->keys_pending_grab, keyname);
         media_key_unref (key);
         g_slice_free (GrabData, data);
 
@@ -564,12 +565,27 @@ ungrab_accelerator_complete (GObject      *object,
         }
 }
 
+static gboolean
+is_pending_grab (MediaKey            *key,
+                 GsdMediaKeysManager *manager)
+{
+	char *keyname = get_key_string (key);
+	const char *val;
+	gboolean pending_grab;
+
+	val = g_hash_table_lookup (manager->priv->keys_pending_grab, keyname);
+	pending_grab = val != NULL;
+	g_free (keyname);
+
+	return pending_grab;
+}
+
 static void
 ungrab_media_key (MediaKey            *key,
                   GsdMediaKeysManager *manager)
 {
         if (key->accel_id == 0) {
-                key->ungrab_requested = TRUE;
+                key->ungrab_requested = is_pending_grab (key, manager);
                 return;
         }
 
