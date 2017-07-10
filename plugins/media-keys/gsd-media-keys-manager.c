@@ -317,8 +317,21 @@ set_launch_context_env (GsdMediaKeysManager *manager,
 }
 
 static char *
-get_key_string (GsdMediaKeysManager *manager,
-		MediaKey            *key)
+get_key_string (MediaKey *key)
+{
+	if (key->settings_key != NULL)
+		return g_strdup_printf ("settings:%s", key->settings_key);
+	else if (key->hard_coded != NULL)
+		return g_strdup_printf ("fixed:%s", key->hard_coded);
+	else if (key->custom_path != NULL)
+		return g_strdup_printf ("custom:%s", key->custom_path);
+	else
+		g_assert_not_reached ();
+}
+
+static char *
+get_binding (GsdMediaKeysManager *manager,
+	     MediaKey            *key)
 {
 	if (key->settings_key != NULL)
 		return g_settings_get_string (manager->priv->settings, key->settings_key);
@@ -460,7 +473,7 @@ grab_media_keys (GsdMediaKeysManager *manager)
                 char *tmp;
 
                 key = g_ptr_array_index (manager->priv->keys, i);
-                tmp = get_key_string (manager, key);
+                tmp = get_binding (manager, key);
                 g_variant_builder_add (&builder, "(su)", tmp, key->modes);
                 g_free (tmp);
         }
@@ -477,7 +490,7 @@ grab_accelerator_complete (GObject      *object,
                            GAsyncResult *result,
                            gpointer      user_data)
 {
-        char *binding;
+        char *keyname;
         GrabData *data = user_data;
         MediaKey *key = data->key;
         GsdMediaKeysManager *manager = data->manager;
@@ -493,16 +506,16 @@ grab_accelerator_complete (GObject      *object,
         if (key->ungrab_requested)
                 ungrab_media_key (key, manager);
 
-        binding = get_key_string (manager, key);
-        g_hash_table_remove (manager->priv->keys_pending_grab, binding);
+        keyname = get_key_string (key);
+        g_hash_table_remove (manager->priv->keys_pending_grab, keyname);
         media_key_unref (key);
         g_slice_free (GrabData, data);
 
-        if ((key = g_hash_table_lookup (manager->priv->keys_to_grab, binding)) != NULL) {
+        if ((key = g_hash_table_lookup (manager->priv->keys_to_grab, keyname)) != NULL) {
                 grab_media_key (key, manager);
-                g_hash_table_remove (manager->priv->keys_to_grab, binding);
+                g_hash_table_remove (manager->priv->keys_to_grab, keyname);
         }
-        g_free (binding);
+        g_free (keyname);
 
 }
 
@@ -511,12 +524,13 @@ grab_media_key (MediaKey            *key,
 		GsdMediaKeysManager *manager)
 {
 	GrabData *data;
-	char *binding;
+	char *binding, *keyname;
 
-	binding = get_key_string (manager, key);
-        if (g_hash_table_lookup (manager->priv->keys_pending_grab, binding)) {
+	keyname = get_key_string (key);
+	binding = get_binding (manager, key);
+        if (g_hash_table_lookup (manager->priv->keys_pending_grab, keyname)) {
                 g_hash_table_insert (manager->priv->keys_to_grab,
-                                     g_strdup (binding), media_key_ref (key));
+                                     g_strdup (keyname), media_key_ref (key));
                 goto out;
         }
 
@@ -529,8 +543,9 @@ grab_media_key (MediaKey            *key,
 	                                         manager->priv->grab_cancellable,
 	                                         grab_accelerator_complete,
 	                                         data);
-        g_hash_table_add (manager->priv->keys_pending_grab, g_strdup (binding));
+        g_hash_table_add (manager->priv->keys_pending_grab, g_strdup (keyname));
  out:
+	g_free (keyname);
 	g_free (binding);
 }
 
