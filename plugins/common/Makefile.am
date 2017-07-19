@@ -40,7 +40,7 @@ libcommon_la_SOURCES = \
 	gsd-shell-helper.c	\
 	gsd-shell-helper.h
 
-if HAVE_GUDEV
+if HAVE_WAYLAND
 libcommon_la_SOURCES += \
 	gsd-device-manager-udev.c \
 	gsd-device-manager-udev.h
