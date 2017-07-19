@@ -140,6 +140,7 @@ if test x$enable_wayland != xno; then
                 fi
         fi
 fi
+AM_CONDITIONAL(HAVE_WAYLAND, test x$have_wayland = xyes)
 
 dnl ================================================================
 dnl Plugins
