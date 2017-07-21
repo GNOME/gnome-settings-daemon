@@ -559,6 +559,9 @@ input_info_remap (GsdInputInfo *input)
 
 	if (input->capabilities & GSD_INPUT_IS_PAD)
 		return;
+	if ((input->capabilities &
+	    (GSD_INPUT_IS_SCREEN_INTEGRATED | GSD_INPUT_IS_SYSTEM_INTEGRATED)) == 0)
+		return;
 
 	output = input_info_get_output (input);
 	settings_set_display (gsd_device_get_settings (input->device),
