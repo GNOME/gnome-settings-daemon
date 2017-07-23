@@ -449,6 +449,8 @@ on_geoclue_simple_ready (GObject      *source_object,
 
         self->geoclue_simple = geoclue_simple;
         self->geoclue_client = gclue_simple_get_client (self->geoclue_simple);
+        g_object_set (G_OBJECT (self->geoclue_client),
+                      "time-threshold", 60*60, NULL); /* 1 hour */
 
         g_signal_connect (self->geoclue_simple, "notify::location",
                           G_CALLBACK (on_location_notify), user_data);
