@@ -40,6 +40,7 @@ struct _GsdNightLight {
         gint               disabled_day_of_month;
         GClueClient       *geoclue_client;
         GClueSimple       *geoclue_simple;
+        GSettings         *location_settings;
         gdouble            cached_sunrise;
         gdouble            cached_sunset;
         gdouble            cached_temperature;
@@ -459,14 +460,37 @@ on_geoclue_simple_ready (GObject      *source_object,
 }
 
 static void
-register_geoclue (GsdNightLight *self)
+start_geoclue (GsdNightLight *self)
 {
+        self->cancellable = g_cancellable_new ();
         gclue_simple_new (DESKTOP_ID,
                           GCLUE_ACCURACY_LEVEL_CITY,
                           self->cancellable,
                           on_geoclue_simple_ready,
                           self);
 
+}
+
+static void
+stop_geoclue (GsdNightLight *self)
+{
+        g_cancellable_cancel (self->cancellable);
+        g_clear_object (&self->cancellable);
+
+        if (self->geoclue_client != NULL) {
+                gclue_client_call_stop (self->geoclue_client, NULL, NULL, NULL);
+                self->geoclue_client = NULL;
+        }
+        g_clear_object (&self->geoclue_simple);
+}
+
+static void
+check_location_settings (GsdNightLight *self)
+{
+        if (g_settings_get_boolean (self->location_settings, "enabled") && self->geoclue_enabled)
+                start_geoclue (self);
+        else
+                stop_geoclue (self);
 }
 
 void
@@ -522,16 +546,17 @@ gsd_night_light_set_geoclue_enabled (GsdNightLight *self, gboolean enabled)
 gboolean
 gsd_night_light_start (GsdNightLight *self, GError **error)
 {
-
-        if (self->geoclue_enabled)
-                register_geoclue (self);
-
         night_light_recheck (self);
         poll_timeout_create (self);
 
         /* care about changes */
         g_signal_connect (self->settings, "changed",
                           G_CALLBACK (settings_changed_cb), self);
+
+        g_signal_connect_swapped (self->location_settings, "changed::enabled",
+                                  G_CALLBACK (check_location_settings), self);
+        check_location_settings (self);
+
         return TRUE;
 }
 
@@ -540,25 +565,20 @@ gsd_night_light_finalize (GObject *object)
 {
         GsdNightLight *self = GSD_NIGHT_LIGHT (object);
 
+        stop_geoclue (self);
+
         poll_timeout_destroy (self);
         poll_smooth_destroy (self);
 
         g_clear_object (&self->settings);
         g_clear_pointer (&self->datetime_override, (GDestroyNotify) g_date_time_unref);
 
-        if (self->cancellable != NULL) {
-                g_cancellable_cancel (self->cancellable);
-                g_clear_object (&self->cancellable);
-        }
-
         if (self->validate_id > 0) {
                 g_source_remove (self->validate_id);
                 self->validate_id = 0;
         }
 
-        if (self->geoclue_client != NULL)
-                gclue_client_call_stop (self->geoclue_client, NULL, NULL, NULL);
-        g_clear_object (&self->geoclue_simple);
+        g_clear_object (&self->location_settings);
         G_OBJECT_CLASS (gsd_night_light_parent_class)->finalize (object);
 }
 
@@ -682,8 +702,8 @@ gsd_night_light_init (GsdNightLight *self)
         self->cached_sunrise = -1.f;
         self->cached_sunset = -1.f;
         self->cached_temperature = GSD_COLOR_TEMPERATURE_DEFAULT;
-        self->cancellable = g_cancellable_new ();
         self->settings = g_settings_new ("org.gnome.settings-daemon.plugins.color");
+        self->location_settings = g_settings_new ("org.gnome.system.location");
 }
 
 GsdNightLight *
