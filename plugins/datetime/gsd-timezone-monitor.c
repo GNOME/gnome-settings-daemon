@@ -43,13 +43,17 @@ typedef struct
 {
         GCancellable *cancellable;
         GPermission *permission;
+        Timedate1 *dtm;
+
         GClueClient *geoclue_client;
         GClueSimple *geoclue_simple;
-        Timedate1 *dtm;
+        GCancellable *geoclue_cancellable;
 
         TzDB *tzdb;
         WeatherTzDB *weather_tzdb;
         gchar *current_timezone;
+
+        GSettings *location_settings;
 } GsdTimezoneMonitorPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GsdTimezoneMonitor, gsd_timezone_monitor, G_TYPE_OBJECT)
@@ -257,7 +261,7 @@ start_reverse_geocoding (GsdTimezoneMonitor *self,
 
         reverse = geocode_reverse_new_for_location (location);
         geocode_reverse_resolve_async (reverse,
-                                       priv->cancellable,
+                                       priv->geoclue_cancellable,
                                        on_reverse_geocoding_ready,
                                        self);
 
@@ -312,16 +316,33 @@ on_geoclue_simple_ready (GObject      *source_object,
 }
 
 static void
-register_geoclue (GsdTimezoneMonitor *self)
+start_geoclue (GsdTimezoneMonitor *self)
 {
         GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
 
+        priv->geoclue_cancellable = g_cancellable_new ();
         gclue_simple_new (DESKTOP_ID,
                           GCLUE_ACCURACY_LEVEL_CITY,
-                          priv->cancellable,
+                          priv->geoclue_cancellable,
                           on_geoclue_simple_ready,
                           self);
 
+}
+
+static void
+stop_geoclue (GsdTimezoneMonitor *self)
+{
+        GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
+
+        g_cancellable_cancel (priv->geoclue_cancellable);
+        g_clear_object (&priv->geoclue_cancellable);
+
+        if (priv->geoclue_client) {
+                gclue_client_call_stop (priv->geoclue_client, NULL, NULL, NULL);
+                priv->geoclue_client = NULL;
+        }
+
+        g_clear_object (&priv->geoclue_simple);
 }
 
 GsdTimezoneMonitor *
@@ -338,20 +359,20 @@ gsd_timezone_monitor_finalize (GObject *obj)
 
         g_debug ("Stopping timezone monitor");
 
+        stop_geoclue (monitor);
+
         if (priv->cancellable) {
                 g_cancellable_cancel (priv->cancellable);
                 g_clear_object (&priv->cancellable);
         }
 
-        if (priv->geoclue_client)
-                gclue_client_call_stop (priv->geoclue_client, NULL, NULL, NULL);
-
         g_clear_object (&priv->dtm);
-        g_clear_object (&priv->geoclue_simple);
         g_clear_object (&priv->permission);
         g_clear_pointer (&priv->current_timezone, g_free);
         g_clear_pointer (&priv->tzdb, tz_db_free);
         g_clear_pointer (&priv->weather_tzdb, weather_tz_db_free);
+
+        g_clear_object (&priv->location_settings);
 
         G_OBJECT_CLASS (gsd_timezone_monitor_parent_class)->finalize (obj);
 }
@@ -371,6 +392,16 @@ gsd_timezone_monitor_class_init (GsdTimezoneMonitorClass *klass)
                               NULL, NULL,
                               NULL,
                               G_TYPE_NONE, 1, G_TYPE_POINTER);
+}
+
+static void
+check_location_settings (GsdTimezoneMonitor *self)
+{
+        GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
+        if (g_settings_get_boolean (priv->location_settings, "enabled"))
+                start_geoclue (self);
+        else
+                stop_geoclue (self);
 }
 
 static void
@@ -414,5 +445,8 @@ gsd_timezone_monitor_init (GsdTimezoneMonitor *self)
         priv->tzdb = tz_load_db ();
         priv->weather_tzdb = weather_tz_db_new ();
 
-        register_geoclue (self);
+        priv->location_settings = g_settings_new ("org.gnome.system.location");
+        g_signal_connect_swapped (priv->location_settings, "changed::enabled",
+                                  G_CALLBACK (check_location_settings), self);
+        check_location_settings (self);
 }
