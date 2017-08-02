@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: gnome-control-center 0\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-07-19 09:35+0000\n"
-"PO-Revision-Date: 2017-07-25 19:38+0200\n"
+"POT-Creation-Date: 2017-07-25 17:39+0000\n"
+"PO-Revision-Date: 2017-08-02 21:46+0200\n"
 "Last-Translator: gogo <trebelnik2@gmail.com>\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
 "Language: hr\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "4 && (n%100<10 || n%100>=20) ? 1: 2;\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 2.0.3\n"
 "X-Launchpad-Export-Date: 2017-03-15 15:24+0000\n"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -26,8 +26,40 @@ msgid ""
 "Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
 "get performed when the smartcard used for log in is removed."
 msgstr ""
-"Postavite ovo na jednu od mogućnosti  “none”, “lock-screen”, ili “force-"
+"Postavite ovo na jednu od mogućnosti “none”, “lock-screen”, ili “force-"
 "logout”. Aktivacija će se obaviti kada se pametna kartica za prijavu ukloni."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+msgid "Possible values are “on”, “off”, and “custom”."
+msgstr "Moguće vrijednosti su “on”, “off”, and “custom”."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+msgid "Keyboard Bell Custom Filename"
+msgstr "Priagođeni naziv datoteke zvona tipkovnice"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+msgid "File name of the bell sound to be played."
+msgstr "Naziv datoteke zvuka zvona."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+msgid "Remember NumLock state"
+msgstr "Zapamti NumLock stanje"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+msgid ""
+"When set to true, GNOME will remember the state of the NumLock LED between "
+"sessions."
+msgstr ""
+"Kada je odabrano, GNOME će zapamtiti stanje NumLock LED-a između dviju "
+"sesija."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+msgid "NumLock state"
+msgstr "NumLock stanje"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+msgid "The remembered state of the NumLock LED."
+msgstr "Zapamćeno stanje NumLock LED-a."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
 msgid ""
@@ -58,13 +90,140 @@ msgid "Whether the tablet’s orientation is locked, or rotated automatically."
 msgstr ""
 "Treba li orijentacija tableta biti zaključana ili zakrenuta automatski."
 
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+msgid "Mouse button orientation"
+msgstr "Orijentacija tipke miša"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+msgid "Swap left and right mouse buttons for left-handed mice."
+msgstr "Zamijeni lijeve i desne tipke miše za ljevoruki miš."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+msgid "Single Click"
+msgstr "Jednostruki klik"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+msgid ""
+"Acceleration multiplier for mouse motion. A value of -1 is the system "
+"default."
+msgstr "Množitelj ubrzanja za gibanje miša. Vrijednost -1 je zadana sustavom."
+
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
 msgid "Motion Threshold"
 msgstr "Prag gibanja"
 
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
+msgid ""
+"Distance in pixels the pointer must move before accelerated mouse motion is "
+"activated. A value of -1 is the system default."
+msgstr ""
+"Udaljenost u pikselima, pokazivač se mora pomaknuti prije nego se aktivira "
+"ubrzano gibanje miša. Vrijednost -1 je zadana sustavom."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
+msgid "Middle button emulation"
+msgstr "Emulacija srednje tipke"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:23
+msgid ""
+"Enables middle mouse button emulation through simultaneous left and right "
+"button click."
+msgstr ""
+"Omogućuje emulaciju srednje tipke miša pri istovremenom kliku lijeve i desne "
+"tipke."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:24
+msgid "Key Repeat Interval"
+msgstr "Razdoblje ponavljanja tipke"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:25
+msgid "Delay between repeats in milliseconds."
+msgstr "Odgoda između ponavljanja u milisekundama."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:26
+msgid "Initial Key Repeat Delay"
+msgstr "Početna odgoda ponavljanja tipke"
+
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:27
 msgid "Initial key repeat delay in milliseconds."
-msgstr "Odgoda ponavljanja pokretanja tipke u milisekundama."
+msgstr "Početna odgoda ponavljanja pokretanja tipke u milisekundama."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:28
+msgid "Disable touchpad while typing"
+msgstr "Onemogući touchpad tijekom tipkanja"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:29
+msgid ""
+"Set this to TRUE if you have problems with accidentally hitting the touchpad "
+"while typing."
+msgstr ""
+"Odaberite ovo ako imate problema sa slučajnim dodirivanjem touchpada tijekom "
+"tipkanja."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:30
+msgid "Enable horizontal scrolling"
+msgstr "Omogući vodoravno pomicanje"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:31
+msgid ""
+"Set this to TRUE to allow horizontal scrolling by the same method selected "
+"with the scroll_method key."
+msgstr ""
+"Odaberite ovo za omogućavanje vodoravnog pomicanja istim načinom odabira kao "
+"sa scroll_method tipkom."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:32
+msgid "Select the touchpad scroll method"
+msgstr "Odaberi način pomicanja touchpadom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:33
+msgid ""
+"Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
+"scrolling”, “two-finger-scrolling”."
+msgstr ""
+"Odaberite način pomicanja touchpadom. Podržane vrijednosti su: “disabled”, "
+"“edge-scrolling”, “two-finger-scrolling”."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:34
+msgid "Enable mouse clicks with touchpad"
+msgstr "Omogući klik miša s touchpadom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:35
+msgid ""
+"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr "Odaberite ovo za omogućavanje klika miša putem dodira touchpada."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:36
+msgid "Enable touchpad"
+msgstr "Omogući touchpad"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:37
+msgid "Set this to TRUE to enable all touchpads."
+msgstr "Odaberite za omogućavanje touchpada."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:38
+msgid "Touchpad button orientation"
+msgstr "Orijentacija tipke touchpada"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:39
+msgid ""
+"Swap left and right mouse buttons for left-handed mice with “left”, “right” "
+"for right-handed, “mouse” to follow the mouse setting."
+msgstr ""
+"Zamijeni lijevu i desnu tipku miša za ljevoruki miš sa “left”, “right” za "
+"ljevoruki, “mouse” kako bi slijedili postavke miša."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:40
+msgid "Natural scrolling"
+msgstr "Prirodno pomicanje"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:41
+msgid "Set this to TRUE to enable natural (reverse) scrolling for touchpads."
+msgstr "Odaberite ovo za prirodno (obrnuto) pomicanje (reverse) touchpada."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:42
+msgid "Mouse wheel emulation button. 0 to disable the feature."
+msgstr "Emulacija kotačića miša. 0 za onemogućavanje ove značajke."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 msgid "Wacom stylus absolute mode"
@@ -657,6 +816,16 @@ msgstr "Udalji povećalom"
 msgid "Binding for the magnifier to zoom out"
 msgstr "Prečac tipkovnice za udaljenje povećalom"
 
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
+msgid "Maximum length of screen recordings"
+msgstr "Najveće trajanje snimanja zaslona"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
+msgid ""
+"The maximum length of single screen cast recordings in seconds or 0 for "
+"unlimited"
+msgstr "Najveće trajanje snimanja zaslona u sekundama, 0 je za neograničeno"
+
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
 msgid "Name"
 msgstr "Naziv"
@@ -681,13 +850,82 @@ msgstr "Naredba"
 msgid "Command to run when the binding is invoked"
 msgstr "Naredba koja će se pokrenuti kada je prečac pokrenut"
 
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
+msgid "The brightness of the screen when idle"
+msgstr "Svjetlina zaslona kada je u mirovanju"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+msgid ""
+"This is the laptop panel screen brightness used when the session is idle."
+msgstr ""
+"Ovo je svjetlina panela zaslona prijenosnika kada je sesija u mirovanju."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+msgid "Dim the screen after a period of inactivity"
+msgstr "Zatamni zaslon nakon razdoblja neaktivnosti"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+msgid "If the screen should be dimmed to save power when the computer is idle."
+msgstr ""
+"Treba li zaslon biti zatamnjen kako bi štedio energiju kada je računalo u "
+"mirovanju."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+msgid "Sleep timeout computer when on AC"
+msgstr "Čekanje spavanja kada je računalo na napajanju"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
+msgid ""
+"The amount of time in seconds the computer on AC power needs to be inactive "
+"before it goes to sleep. A value of 0 means never."
+msgstr ""
+"Vrijeme u sekundama koliko računalo na napajanju mora biti neaktivno prije "
+"nego ode na spavanje. Vrijednost 0 znači nikada."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
+msgid "Whether to hibernate, suspend or do nothing when inactive"
+msgstr ""
+"Treba li hibernirati, suspendirati ili učiniti ništa kada je računalo "
+"neaktivno"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
+msgid ""
+"The type of sleeping that should be performed when the computer is inactive."
+msgstr "Vrsta spavanja koja se treba pokrenuti kada je računalo neaktivno."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
+msgid "Sleep timeout computer when on battery"
+msgstr "Čekanje spavanja kada je računalo na bateriji"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
+msgid ""
+"The amount of time in seconds the computer on battery power needs to be "
+"inactive before it goes to sleep. A value of 0 means never."
+msgstr ""
+"Vrijeme u sekundama koliko računalo na bateriji mora biti neaktivno prije "
+"nego ode na spavanje. Vrijednost 0 znači nikada."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
+msgid "Enable the ALS sensor"
+msgstr "Omogući ALS senzor"
+
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
 msgid "If the ambient light sensor functionality is enabled."
-msgstr "Ako je omogućena funkcija senzora ambijetalnog svjetla."
+msgstr "Treba li omogućiti funkciju senzora ambijentalnog svjetla."
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
 msgid "Power button action"
 msgstr "Radnje tipke isključivanja"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
+msgid ""
+"The action to take when the system power button is pressed. This action is "
+"hard-coded (and the setting ignored) on virtual machines (power off) and "
+"tablets (suspend)."
+msgstr ""
+"Radnja koju treba poduzeti kada je pritisnuta tipka isključivanja sustava. "
+"Ova radnja je ugrađena na virtualnim strojevima (isključivanje) i tabletima "
+"(suspenzija)."
 
 #: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:1
 msgid "On which connections the service is enabled"
@@ -781,6 +1019,20 @@ msgid ""
 msgstr ""
 "Nizovi znakova koji predstavljaju GTK+ module koji če se učitati obično uz "
 "uvjetne module i prisilno onemogućene."
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+msgid "A dictionary of XSETTINGS to override"
+msgstr "XSETTINGS rječnik za zaobilaženje"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
+msgid ""
+"This dictionary maps XSETTINGS names to overrides values. The values must be "
+"either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
+"(red, green, blue, alpha; 65535 is fully opaque)."
+msgstr ""
+"Ovaj rječnik mapira XSETTINGS nazive da zaobilaze vrijednosti. Vrijednosti "
+"moraju biti ili nizovi, potpisani int32s ili (u slučaju boja), 4-tuples od "
+"16 jedinice (crvena, zelena, plava, alfa; 65535 je u potpunosti neprozirno."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:398
 msgid "Slow Keys Turned On"
@@ -963,30 +1215,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Ovom računalu je preostalo samo %s slobodnog diskovnog prostora."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2104
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2135
 msgid "Bluetooth disabled"
 msgstr "Bluetooth onemogućen"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2107
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2138
 msgid "Bluetooth enabled"
 msgstr "Bluetooth omogućen"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2111
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2142
 msgid "Airplane mode enabled"
 msgstr "Zrakoplovni način rada omogućen"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2114
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2145
 msgid "Airplane mode disabled"
 msgstr "Zrakoplovni način rada onemogućen"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2142
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2173
 msgid "Hardware Airplane Mode"
 msgstr "Hardverski zrakoplovni način rada"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2202
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2233
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Snimak zaslona od %d %t.webm"
@@ -1219,7 +1471,7 @@ msgstr "Preostalo je %s rezerve energije neprekidnog napajanja (UPS)"
 
 #: ../plugins/power/gsd-power-manager.c:363
 msgid "Unknown amount of UPS backup power remaining"
-msgstr "Preostala nepoznata razina pričuvne energije UPS-a."
+msgstr "Preostala nepoznata razina pričuvne energije UPS-a"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
 #: ../plugins/power/gsd-power-manager.c:438
@@ -1546,7 +1798,7 @@ msgstr "Podešavanje novog pisača"
 #. Translators: Just wait
 #: ../plugins/print-notifications/gsd-printer.c:892
 msgid "Please wait…"
-msgstr "Molim pričekajte..."
+msgstr "Molim pričekajte…"
 
 #. Translators: We have no driver installed for this printer
 #: ../plugins/print-notifications/gsd-printer.c:919
@@ -1792,7 +2044,7 @@ msgstr "Promijeni LED svjetlo na Wacom tabletu"
 
 #: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:6
 msgid "Authentication is required to modify the lit LED for a Wacom tablet"
-msgstr "Potrebna je ovjera za mijenjanje LED svjetla na Wacom tabletu."
+msgstr "Potrebna je ovjera za mijenjanje LED svjetla na Wacom tabletu"
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
