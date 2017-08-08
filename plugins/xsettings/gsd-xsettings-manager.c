@@ -48,7 +48,7 @@
 #include "gsd-xsettings-manager.h"
 #include "gsd-xsettings-gtk.h"
 #include "xsettings-manager.h"
-#include "fontconfig-monitor.h"
+#include "fc-monitor.h"
 #include "gsd-remote-display-manager.h"
 #include "wm-button-layout-translation.h"
 
@@ -276,7 +276,7 @@ struct GnomeXSettingsManagerPrivate
         GHashTable        *settings;
 
         GSettings         *plugin_settings;
-        fontconfig_monitor_handle_t *fontconfig_handle;
+        FcMonitor         *fontconfig_monitor;
 
         GsdXSettingsGtk   *gtk;
 
@@ -1085,8 +1085,8 @@ gtk_modules_callback (GsdXSettingsGtk       *gtk,
 }
 
 static void
-fontconfig_callback (fontconfig_monitor_handle_t *handle,
-                     GnomeXSettingsManager       *manager)
+fontconfig_callback (FcMonitor              *monitor,
+                     GnomeXSettingsManager  *manager)
 {
         int timestamp = time (NULL);
 
@@ -1102,7 +1102,7 @@ start_fontconfig_monitor_idle_cb (GnomeXSettingsManager *manager)
 {
         gnome_settings_profile_start (NULL);
 
-        manager->priv->fontconfig_handle = fontconfig_monitor_start ((GFunc) fontconfig_callback, manager);
+        fc_monitor_start (manager->priv->fontconfig_monitor);
 
         gnome_settings_profile_end (NULL);
 
@@ -1116,21 +1116,13 @@ start_fontconfig_monitor (GnomeXSettingsManager  *manager)
 {
         gnome_settings_profile_start (NULL);
 
-        fontconfig_cache_init ();
+        manager->priv->fontconfig_monitor = fc_monitor_new ();
+        g_signal_connect (manager->priv->fontconfig_monitor, "updated", G_CALLBACK (fontconfig_callback), manager);
 
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_fontconfig_monitor_idle_cb, manager);
         g_source_set_name_by_id (manager->priv->start_idle_id, "[gnome-settings-daemon] start_fontconfig_monitor_idle_cb");
 
         gnome_settings_profile_end (NULL);
-}
-
-static void
-stop_fontconfig_monitor (GnomeXSettingsManager  *manager)
-{
-        if (manager->priv->fontconfig_handle) {
-                fontconfig_monitor_stop (manager->priv->fontconfig_handle);
-                manager->priv->fontconfig_handle = NULL;
-        }
 }
 
 static void
@@ -1501,7 +1493,12 @@ gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
                 p->plugin_settings = NULL;
         }
 
-        stop_fontconfig_monitor (manager);
+        if (p->fontconfig_monitor != NULL) {
+                g_signal_handlers_disconnect_by_data (p->fontconfig_monitor, manager);
+                fc_monitor_stop (p->fontconfig_monitor);
+                g_object_unref (p->fontconfig_monitor);
+                p->fontconfig_monitor = NULL;
+        }
 
         if (p->settings != NULL) {
                 g_hash_table_destroy (p->settings);

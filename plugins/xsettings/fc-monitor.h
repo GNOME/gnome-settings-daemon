@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2008 Red Hat, Inc.
+ * Copyright (C) 2017 Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,25 +15,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
- * Author:  Behdad Esfahbod, Red Hat, Inc.
  */
-#ifndef __FONTCONFIG_MONITOR_H
-#define __FONTCONFIG_MONITOR_H
+#ifndef FC_MONITOR_H
+#define FC_MONITOR_H
 
-#include <glib.h>
+#include <glib-object.h>
 
 G_BEGIN_DECLS
 
-void fontconfig_cache_init (void);
-gboolean fontconfig_cache_update (void);
+#define FC_TYPE_MONITOR (fc_monitor_get_type ())
+G_DECLARE_FINAL_TYPE (FcMonitor, fc_monitor, FC, MONITOR, GObject)
 
-typedef struct _fontconfig_monitor_handle fontconfig_monitor_handle_t;
+FcMonitor *fc_monitor_new (void);
 
-fontconfig_monitor_handle_t *
-fontconfig_monitor_start (GFunc    notify_callback,
-                          gpointer notify_data);
-void fontconfig_monitor_stop  (fontconfig_monitor_handle_t *handle);
+void fc_monitor_start (FcMonitor *monitor);
+void fc_monitor_stop  (FcMonitor *monitor);
 
 G_END_DECLS
 
-#endif /* __FONTCONFIG_MONITOR_H */
+#endif /* FC_MONITOR_H */

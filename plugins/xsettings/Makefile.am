@@ -25,8 +25,8 @@ test_gtk_modules_CPPFLAGS =				\
 noinst_PROGRAMS += test-fontconfig-monitor
 
 test_fontconfig_monitor_SOURCES =	\
-	fontconfig-monitor.c		\
-	fontconfig-monitor.h
+	fc-monitor.c			\
+	fc-monitor.h
 
 test_fontconfig_monitor_CFLAGS = $(PLUGIN_CFLAGS) $(XSETTINGS_CFLAGS)
 
@@ -61,8 +61,8 @@ gsd_xsettings_SOURCES =		\
 	xsettings-common.h	\
 	xsettings-manager.c	\
 	xsettings-manager.h	\
-	fontconfig-monitor.c	\
-	fontconfig-monitor.h	\
+	fc-monitor.c	\
+	fc-monitor.h	\
 	gsd-remote-display-manager.c \
 	gsd-remote-display-manager.h \
 	wm-button-layout-translation.c	\
