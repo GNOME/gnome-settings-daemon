@@ -2443,9 +2443,6 @@ on_rr_screen_acquired (GObject      *object,
         /* check whether a backlight is available */
         manager->priv->backlight_available = backlight_available (manager->priv->rr_screen);
 
-        /* ensure the default dpms timeouts are cleared */
-        backlight_enable (manager);
-
         /* Set up a delay inhibitor to be informed about suspend attempts */
         g_signal_connect (manager->priv->logind_proxy, "g-signal",
                           G_CALLBACK (logind_proxy_signal_cb),
@@ -2505,6 +2502,9 @@ on_rr_screen_acquired (GObject      *object,
         /* coldplug the engine */
         engine_coldplug (manager);
         idle_configure (manager);
+
+        /* ensure the default dpms timeouts are cleared */
+        backlight_enable (manager);
 
         manager->priv->xscreensaver_watchdog_timer_id = gsd_power_enable_screensaver_watchdog ();
 
