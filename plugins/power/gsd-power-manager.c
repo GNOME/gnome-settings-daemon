@@ -2396,10 +2396,10 @@ on_rr_screen_acquired (GObject      *object,
         /* ensure the default dpms timeouts are cleared */
         backlight_enable (manager);
 
+        /* Set up a delay inhibitor to be informed about suspend attempts */
         g_signal_connect (manager->priv->logind_proxy, "g-signal",
                           G_CALLBACK (logind_proxy_signal_cb),
                           manager);
-        /* Set up a delay inhibitor to be informed about suspend attempts */
         inhibit_suspend (manager);
 
         /* track the active session */
