@@ -992,7 +992,7 @@ iio_proxy_claim_light (GsdPowerManager *manager, gboolean active)
                 return;
         if (!manager->priv->backlight_available)
                 return;
-	if (active != manager->priv->session_is_active)
+	if (active && !manager->priv->session_is_active) {
 		return;
 
         if (!g_dbus_proxy_call_sync (manager->priv->iio_proxy,
