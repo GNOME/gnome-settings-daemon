@@ -5,24 +5,23 @@
 # Данило Шеган <danilo@gnome.org>, 2005.
 # Слободан Д. Средојевић <slobo@akrep.be>, 2006.
 # Мирослав Николић <miroslavnikolic@rocketmail.com>, 2011—2017.
-# Милош Поповић <gpopac@gmail.com>, 2010, 2015.
+# Милош Поповић <gpopac@gmail.com>, 2010—2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-05-09 16:27+0000\n"
-"PO-Revision-Date: 2017-05-20 17:16+0200\n"
-"Last-Translator: Марко М. Костић <marko.m.kostic@gmail.com>\n"
-"Language-Team: Serbian <(nothing)>\n"
+"POT-Creation-Date: 2017-07-19 09:35+0000\n"
+"PO-Revision-Date: 2017-08-16 17:36+0200\n"
+"Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
+"Language-Team: српски <gnome-sr@googlegroups.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
+"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Project-Style: gnome\n"
-"X-Generator: Poedit 2.0.2\n"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Smartcard removal action"
@@ -38,31 +37,213 @@ msgstr ""
 "коришћена за пријављивање буде уклоњена."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+msgid "Possible values are “on”, “off”, and “custom”."
+msgstr ""
+"Могуће вредности су „on“ (укључено), „off“ (искључено), и „custom“ "
+"(произвољно)."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+msgid "Keyboard Bell Custom Filename"
+msgstr "Произвољни назив датотеке звона тастатуре"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+msgid "File name of the bell sound to be played."
+msgstr "Назив датотеке звука звона за пуштање."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+msgid "Remember NumLock state"
+msgstr "Памти стање за „NumLock“"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+msgid ""
+"When set to true, GNOME will remember the state of the NumLock LED between "
+"sessions."
+msgstr ""
+"Када је изабрано, Гном ће памтити стање лампице „NumLock“ између сесија."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+msgid "NumLock state"
+msgstr "Стање за „NumLock“"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+msgid "The remembered state of the NumLock LED."
+msgstr "Запамћено стање лампице „NumLock“"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
 msgid ""
 "Highlights the current location of the pointer when the Control key is "
 "pressed and released."
 msgstr ""
 "Истиче тренутну локацију показивача када се притисне и пусти тастер Контрол."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
 msgid "Double click time"
 msgstr "Време дуплог клика"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
 msgid "Length of a double click in milliseconds."
 msgstr "Трајање дуплог клика у милисекундама."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
 msgid "Drag threshold"
 msgstr "Праг превлачења"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
 msgid "Distance before a drag is started."
 msgstr "Растојање пре почетка превлачења."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
 msgid "Whether the tablet’s orientation is locked, or rotated automatically."
 msgstr "Да ли је усмерење таблице закључано, или самостално окренуто."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+#| msgid "Middle button emulation"
+msgid "Mouse button orientation"
+msgstr "Усмерење дугмета миша"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+msgid "Swap left and right mouse buttons for left-handed mice."
+msgstr "Размењује лево и десно дугме миша за мишеве намењене леворукима."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+msgid "Single Click"
+msgstr "Један клик"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+msgid ""
+"Acceleration multiplier for mouse motion. A value of -1 is the system "
+"default."
+msgstr ""
+"Множилац убрзања за покрет миша. Вредност „-1“ је системски подразумевана."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
+#| msgid "Drag threshold"
+msgid "Motion Threshold"
+msgstr "Осетљивост покрета"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
+msgid ""
+"Distance in pixels the pointer must move before accelerated mouse motion is "
+"activated. A value of -1 is the system default."
+msgstr ""
+"Растојање у пикселима које показивач мора да пређе пре него се активира "
+"убрзани покрет миша. Вредност „-1“ је системски подразумевана."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
+msgid "Middle button emulation"
+msgstr "Емулација средњег дугмета"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:23
+msgid ""
+"Enables middle mouse button emulation through simultaneous left and right "
+"button click."
+msgstr ""
+"Омогућава емулацију средњег тастера миша кроз истовремени клик левог и "
+"десног тастера."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:24
+msgid "Key Repeat Interval"
+msgstr "Интервал понављања тастера"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:25
+msgid "Delay between repeats in milliseconds."
+msgstr "Застој између понављања у милисекундама."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:26
+msgid "Initial Key Repeat Delay"
+msgstr "Почетни застој понављања тастера"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:27
+#| msgid "Length of a double click in milliseconds."
+msgid "Initial key repeat delay in milliseconds."
+msgstr "Почетни застој понављања тастера у милисекундама."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:28
+msgid "Disable touchpad while typing"
+msgstr "Искључивање додирне табле приликом куцања"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:29
+msgid ""
+"Set this to TRUE if you have problems with accidentally hitting the touchpad "
+"while typing."
+msgstr ""
+"Штиклирајте ово ако имате проблема са случајним дотицањем додирне табле "
+"приликом куцања."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:30
+msgid "Enable horizontal scrolling"
+msgstr "Укључивање хоризонталног клизања"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:31
+msgid ""
+"Set this to TRUE to allow horizontal scrolling by the same method selected "
+"with the scroll_method key."
+msgstr ""
+"Штиклирајте ово да дозволите хоризонтално клизање на исти начин као што је "
+"изабрано кључем „scroll_method“."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:32
+msgid "Select the touchpad scroll method"
+msgstr "Бирање режима клизања по додирној табли"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:33
+#| msgid ""
+#| "Select the touchpad scroll method. Supported values are: \"disabled\", "
+#| "\"edge-scrolling\", \"two-finger-scrolling\"."
+msgid ""
+"Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
+"scrolling”, “two-finger-scrolling”."
+msgstr ""
+"Изаберите режим клизања по додирној табли. Дозвољене вредности су: „disabled“"
+" (искључено клизање), „edge-scrolling“ (клизање ивицом додирне табле) и „two-"
+"finger-scrolling“ (клизање са два прста)."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:34
+msgid "Enable mouse clicks with touchpad"
+msgstr "Укључивање клика на додирној табли"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:35
+msgid ""
+"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr ""
+"Штиклирајте ово да бисте били у могућности да извршавате кликове миша на "
+"додирној табли."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:36
+msgid "Enable touchpad"
+msgstr "Укључивање додирне табле"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:37
+msgid "Set this to TRUE to enable all touchpads."
+msgstr "Штиклирајте ово да укључите све додирне табле."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:38
+#| msgid "Middle button emulation"
+msgid "Touchpad button orientation"
+msgstr "Усмерење дугмета додирне табле"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:39
+msgid ""
+"Swap left and right mouse buttons for left-handed mice with “left”, “right” "
+"for right-handed, “mouse” to follow the mouse setting."
+msgstr ""
+"Размењује лево и десно дугме миша за мишеве намењене леворукима са „left“, "
+"„right“ за десноруке, „mouse“ за праћење подешавања миша."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:40
+#| msgid "Enable horizontal scrolling"
+msgid "Natural scrolling"
+msgstr "Природно клизање"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:41
+#| msgid "Set this to TRUE to enable all touchpads."
+msgid "Set this to TRUE to enable natural (reverse) scrolling for touchpads."
+msgstr ""
+"Штиклирајте ово да укључите природно (обрнуто) премицање за додирне табле."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:42
+msgid "Mouse wheel emulation button. 0 to disable the feature."
+msgstr "Дугме емулације точкића миша. 0 за искључивање функције."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 msgid "Wacom stylus absolute mode"
@@ -579,82 +760,99 @@ msgid "Record a short video of the screen"
 msgstr "Бележи кратак снимак екрана"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+#| msgid "Record a short video of the screen"
+msgid "Binding to record a short video of the screen"
+msgstr "Свеза за бележење кратког снимка екрана"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Launch web browser"
 msgstr "Покретање Интернет прегледника"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Binding to launch the web browser."
 msgstr "Пречица за покретање интернет претраживача."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Toggle magnifier"
 msgstr "Укључивање лупе"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Binding to show the screen magnifier"
 msgstr "Пречица за приказивање лупе"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Toggle screen reader"
 msgstr "Укључивање читача екрана"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 msgid "Binding to start the screen reader"
 msgstr "Пречица за укључивање читача екрана"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
 msgid "Toggle on-screen keyboard"
 msgstr "Укључивање тастатуре на екрану"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
 msgid "Binding to show the on-screen keyboard"
 msgstr "Пречица за приказивање тастатуре на екрану"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
 msgid "Increase text size"
 msgstr "Увећавање величине текста"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
 msgid "Binding to increase the text size"
 msgstr "Пречица за увећавање величине текста"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
 msgid "Decrease text size"
 msgstr "Смањивање величине текста"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
 msgid "Binding to decrease the text size"
 msgstr "Пречица за смањивање величине текста"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
 msgid "Toggle contrast"
 msgstr "Укључивање контраста"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
 msgid "Binding to toggle the interface contrast"
 msgstr "Пречица за укључивање контраста сучеља"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
 msgid "Magnifier zoom in"
 msgstr "Увећавање лупе"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
 msgid "Binding for the magnifier to zoom in"
 msgstr "Пречица за укључивање лупе"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
 msgid "Magnifier zoom out"
 msgstr "Умањивање лупе"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
 msgid "Binding for the magnifier to zoom out"
 msgstr "Пречица за искључивање лупе"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
+msgid "Maximum length of screen recordings"
+msgstr "Најдуже трајање снимања екрана"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
+msgid ""
+"The maximum length of single screen cast recordings in seconds or 0 for "
+"unlimited"
+msgstr ""
+"Највећа дужина једног снимљеног снимка екрана у секундама или 0 за "
+"неограничено"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
 msgid "Name"
 msgstr "Назив"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
 msgid "Name of the custom binding"
 msgstr "Назив произвољног увезивања"
 
@@ -662,21 +860,99 @@ msgstr "Назив произвољног увезивања"
 #
 # Ух, ух, ово се односи на дотеривање фонтова него на савете
 # ~Милош
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
 msgid "Binding"
 msgstr "Увезивање"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
 msgid "Binding for the custom binding"
 msgstr "Пречица произвољног увезивања"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:77
 msgid "Command"
 msgstr "Наредба"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:78
 msgid "Command to run when the binding is invoked"
 msgstr "Наредба која ће бити покренута приликом позивања пречице"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
+msgid "The brightness of the screen when idle"
+msgstr "Осветљеност екрана када мирује"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+msgid ""
+"This is the laptop panel screen brightness used when the session is idle."
+msgstr ""
+"Ово је осветљеност екрана преносног рачунара која се користи када је сесија "
+"у мировању."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+msgid "Dim the screen after a period of inactivity"
+msgstr "Затамњење екрана након периода неактивности"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+msgid "If the screen should be dimmed to save power when the computer is idle."
+msgstr ""
+"Да ли екран треба да се затамни како би се сачувала енергија приликом "
+"мировања рачунара."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+msgid "Sleep timeout computer when on AC"
+msgstr "Временски рок за успављивање рачунара прикљученог на мрежу"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
+msgid ""
+"The amount of time in seconds the computer on AC power needs to be inactive "
+"before it goes to sleep. A value of 0 means never."
+msgstr ""
+"Колико времена у секундама треба да буде неактиван рачунар повезан на ел. "
+"мрежу пре него што се успава. 0 значи никада."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
+msgid "Whether to hibernate, suspend or do nothing when inactive"
+msgstr "Да ли да се замрзне, обустави или ништа када је неактиван"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
+msgid ""
+"The type of sleeping that should be performed when the computer is inactive."
+msgstr "Врста спавања која треба да се обави када је рачунар неактиван."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
+msgid "Sleep timeout computer when on battery"
+msgstr "Временски рок за успављивање рачунара када ради на батерији"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
+msgid ""
+"The amount of time in seconds the computer on battery power needs to be "
+"inactive before it goes to sleep. A value of 0 means never."
+msgstr ""
+"Колико времена у секундама треба да буде неактиван рачунар који се напаја из "
+"батерије пре него што се успава. 0 значи никада."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
+msgid "Enable the ALS sensor"
+msgstr "Укљученост АЛС сензора"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
+#| msgid "If the night light mode is enabled"
+msgid "If the ambient light sensor functionality is enabled."
+msgstr "ДА ли је укључена функција сензора светла окружења."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
+#| msgid "Wacom button action type"
+msgid "Power button action"
+msgstr "Радња дугмета напајања"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
+msgid ""
+"The action to take when the system power button is pressed. This action is "
+"hard-coded (and the setting ignored) on virtual machines (power off) and "
+"tablets (suspend)."
+msgstr ""
+"Радња која ће се обавити приликом притиска на системско дугме напајања. Ова "
+"радња је укодирана (а подеђавање се занемарује) на виртуелним машинама "
+"(искључивање) и табличним уређајима (обустављање)."
 
 #: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:1
 msgid "On which connections the service is enabled"
@@ -689,41 +965,6 @@ msgid ""
 msgstr ""
 "Списак веза Управника мреже (свака представљена својим УЈИБ-ом) на којима је "
 "ова услуга укључена и покренута."
-
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
-msgid "File for default configuration for RandR"
-msgstr "Датотека за подразумевана РандР подешавања"
-
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
-msgid ""
-"The XRandR plugin will look for a default configuration in the file "
-"specified by this key. This is similar to the ~/.config/monitors.xml that "
-"normally gets stored in users’ home directories. If a user does not have "
-"such a file, or has one that does not match the user’s setup of monitors, "
-"then the file specified by this key will be used instead."
-msgstr ""
-"ХРандР додатак ће тражити подразумевана подешавања у датотеци из овог кључа. "
-"Ово је слично као „~/.config/monitors.xml“ која се обично чува у личном "
-"директоријуму корисника. Датотека из овог кључа се користи уколико нема "
-"такве датотеке, или се она не поклапа са подешавањима екрана."
-
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
-msgid "Whether to turn off specific monitors after boot"
-msgstr "Да ли ће искључити одређене мониторе након покретања система"
-
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
-msgid ""
-"“clone” will display the same thing on all monitors, “dock” will switch off "
-"the internal monitor, “do-nothing” will use the default Xorg behaviour "
-"(extend the desktop in recent versions). The default, “follow-lid”, will "
-"choose between “do-nothing” and “dock” depending on whether the lid is "
-"(respectively) open or closed."
-msgstr ""
-"„clone“ ће приказивати исте ствари на свим мониторима, „dock“ ће искључити "
-"унутрашњи монитор, „do-nothing“ ће користити основно понашање Икс-орг-а "
-"(прошириће радну површ у новијим верзијама). Основно, „follow-lid“ ће "
-"изабрати између „do-nothing“ и „dock“ у зависности од тога да ли је либ "
-"отворен или затворен."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid "Antialiasing"
@@ -811,6 +1052,20 @@ msgid ""
 msgstr ""
 "Списак ниски које представљају ГТК+ модуле који ће бити учитани, обично као "
 "додатак онима који су условно и насилно онемогућени."
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+msgid "A dictionary of XSETTINGS to override"
+msgstr "Речник „XSETTINGS“ за преписивање"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
+msgid ""
+"This dictionary maps XSETTINGS names to overrides values. The values must be "
+"either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
+"(red, green, blue, alpha; 65535 is fully opaque)."
+msgstr ""
+"Овај речник мапира „XSETTINGS“ називе за преписивање вредности. Вредности "
+"морају бити или ниске, потписане „int32s“ или (у случају боја), 4-торке "
+"„uint16“ (црвена, зелена, плава, алфа; 65535 је потпуно непрозирно)."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:398
 msgid "Slow Keys Turned On"
@@ -993,30 +1248,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Овај рачунар има само %s преосталог простора."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2176
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2104
 msgid "Bluetooth disabled"
 msgstr "Блутут је искључен"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2179
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2107
 msgid "Bluetooth enabled"
 msgstr "Блутут је укључен"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2183
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2111
 msgid "Airplane mode enabled"
 msgstr "Режим у авиону је укључен"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2186
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2114
 msgid "Airplane mode disabled"
 msgstr "Режим у авиону је искључен"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2214
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2142
 msgid "Hardware Airplane Mode"
 msgstr "Хардверски режим у авиону"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2274
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2202
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Запис екрана са %d %t.webm"
@@ -1098,93 +1353,93 @@ msgstr "Тихо утишавање звука"
 msgid "Quiet Volume Up"
 msgstr "Тихо појачавање звука"
 
-#: ../plugins/media-keys/shortcuts-list.h:65
+#: ../plugins/media-keys/shortcuts-list.h:56
+#| msgid "Quiet Volume Down"
+msgid "Precise Volume Down"
+msgstr "Тачно утишавање звука"
+
+#: ../plugins/media-keys/shortcuts-list.h:57
+#| msgid "Quiet Volume Up"
+msgid "Precise Volume Up"
+msgstr "Тачно појачавање звука"
+
+#: ../plugins/media-keys/shortcuts-list.h:67
 msgid "Lock Screen"
 msgstr "Закључавање екрана"
 
-#: ../plugins/media-keys/shortcuts-list.h:67
+#: ../plugins/media-keys/shortcuts-list.h:69
 msgid "Help"
 msgstr "Помоћ"
 
-#: ../plugins/media-keys/shortcuts-list.h:81
+#: ../plugins/media-keys/shortcuts-list.h:83
 msgid "Rewind"
 msgstr "Уназад"
 
-#: ../plugins/media-keys/shortcuts-list.h:82
+#: ../plugins/media-keys/shortcuts-list.h:84
 msgid "Forward"
 msgstr "Унапред"
 
-#: ../plugins/media-keys/shortcuts-list.h:83
+#: ../plugins/media-keys/shortcuts-list.h:85
 msgid "Repeat"
 msgstr "Понови"
 
-#: ../plugins/media-keys/shortcuts-list.h:84
+#: ../plugins/media-keys/shortcuts-list.h:86
 msgid "Random Play"
 msgstr "Насумично пуштање"
 
-#. Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.)
-#: ../plugins/media-keys/shortcuts-list.h:85
 #: ../plugins/media-keys/shortcuts-list.h:87
-msgid "Video Out"
-msgstr "Видео излаз"
-
-#. Key code of the XF86RotateWindows key (present on some tablets)
-#: ../plugins/media-keys/shortcuts-list.h:89
-msgid "Rotate Screen"
-msgstr "Заокрени екран"
-
-#: ../plugins/media-keys/shortcuts-list.h:90
 msgid "Orientation Lock"
 msgstr "Катанац усмерења"
 
-#: ../plugins/media-keys/shortcuts-list.h:99
+#: ../plugins/media-keys/shortcuts-list.h:96
 msgid "Power Off"
 msgstr "Искључи"
 
 #. the kernel / Xorg names really are like this...
 #. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
-#: ../plugins/media-keys/shortcuts-list.h:102
+#: ../plugins/media-keys/shortcuts-list.h:99
 msgid "Sleep"
 msgstr "Спавај"
 
-#: ../plugins/media-keys/shortcuts-list.h:103
+#: ../plugins/media-keys/shortcuts-list.h:100
 msgid "Suspend"
 msgstr "Обустави"
 
-#: ../plugins/media-keys/shortcuts-list.h:104
+#: ../plugins/media-keys/shortcuts-list.h:101
 msgid "Hibernate"
 msgstr "Замрзни"
 
-#: ../plugins/media-keys/shortcuts-list.h:105
+#: ../plugins/media-keys/shortcuts-list.h:102
 msgid "Brightness Up"
 msgstr "Повећај осветљеност"
 
-#: ../plugins/media-keys/shortcuts-list.h:106
+#: ../plugins/media-keys/shortcuts-list.h:103
 msgid "Brightness Down"
 msgstr "Смањи осветљеност"
 
-#: ../plugins/media-keys/shortcuts-list.h:107
+#: ../plugins/media-keys/shortcuts-list.h:104
 msgid "Keyboard Brightness Up"
 msgstr "Повећај осветљај тастатуре"
 
-#: ../plugins/media-keys/shortcuts-list.h:108
+#: ../plugins/media-keys/shortcuts-list.h:105
 msgid "Keyboard Brightness Down"
 msgstr "Смањи осветљај тастатуре"
 
-#: ../plugins/media-keys/shortcuts-list.h:109
+#: ../plugins/media-keys/shortcuts-list.h:106
 msgid "Keyboard Brightness Toggle"
 msgstr "Окидач осветљаја тастатуре"
 
-#: ../plugins/media-keys/shortcuts-list.h:110
+#: ../plugins/media-keys/shortcuts-list.h:107
 msgid "Battery Status"
 msgstr "Стање батерије"
 
-#: ../plugins/media-keys/shortcuts-list.h:113
-#: ../plugins/media-keys/shortcuts-list.h:114
+#: ../plugins/media-keys/shortcuts-list.h:108
+#: ../plugins/media-keys/shortcuts-list.h:109
+#: ../plugins/media-keys/shortcuts-list.h:110
 msgid "Toggle Airplane Mode"
 msgstr "Окини режим у авиону"
 
-#: ../plugins/media-keys/shortcuts-list.h:115
+#: ../plugins/media-keys/shortcuts-list.h:111
 msgid "Toggle Bluetooth"
 msgstr "Окини блутут"
 
@@ -1234,174 +1489,174 @@ msgstr[2] "минута"
 msgstr[3] "минут"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:948 ../plugins/power/gsd-power-manager.c:684
-#: ../plugins/power/gsd-power-manager.c:781
+#: ../plugins/power/gpm-common.c:948 ../plugins/power/gsd-power-manager.c:685
+#: ../plugins/power/gsd-power-manager.c:782
 msgid "Battery is critically low"
 msgstr "Батерија је критично празна"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:322
+#: ../plugins/power/gsd-power-manager.c:323
 msgid "Power"
 msgstr "Напајање"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:354
+#: ../plugins/power/gsd-power-manager.c:355
 msgid "UPS Discharging"
 msgstr "Пражњење резервног напајања"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:359
+#: ../plugins/power/gsd-power-manager.c:360
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "Преостало је још %s резервног напајања"
 
-#: ../plugins/power/gsd-power-manager.c:362
+#: ../plugins/power/gsd-power-manager.c:363
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "Преостала је непозната количина резервног напајања"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:437
+#: ../plugins/power/gsd-power-manager.c:438
 msgid "Battery low"
 msgstr "Батерија је скоро празна"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:440
+#: ../plugins/power/gsd-power-manager.c:441
 msgid "Laptop battery low"
 msgstr "Батерија преносног рачунара је скоро празна"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:447
+#: ../plugins/power/gsd-power-manager.c:448
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "Преостаје вам приближно још %s (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:452
+#: ../plugins/power/gsd-power-manager.c:453
 msgid "UPS low"
 msgstr "Резервно напајање је скоро празно"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:458
+#: ../plugins/power/gsd-power-manager.c:459
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "Преостаје вам приближно још %s капацитета резервног напајања (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:463
-#: ../plugins/power/gsd-power-manager.c:597
+#: ../plugins/power/gsd-power-manager.c:464
+#: ../plugins/power/gsd-power-manager.c:598
 msgid "Mouse battery low"
 msgstr "Батерија миша је скоро празна"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:466
+#: ../plugins/power/gsd-power-manager.c:467
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "Бежичном мишу су ослабиле батерије (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:470
-#: ../plugins/power/gsd-power-manager.c:605
+#: ../plugins/power/gsd-power-manager.c:471
+#: ../plugins/power/gsd-power-manager.c:606
 msgid "Keyboard battery low"
 msgstr "Батерија тастатуре је скоро празна"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:473
+#: ../plugins/power/gsd-power-manager.c:474
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "Бежичној тастатури су ослабиле батерије (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:477
-#: ../plugins/power/gsd-power-manager.c:614
+#: ../plugins/power/gsd-power-manager.c:478
+#: ../plugins/power/gsd-power-manager.c:615
 msgid "PDA battery low"
 msgstr "Батерија ПДА уређаја је скоро празна"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:480
+#: ../plugins/power/gsd-power-manager.c:481
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "ПДА уређају су ослабиле батерије (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:484
-#: ../plugins/power/gsd-power-manager.c:624
-#: ../plugins/power/gsd-power-manager.c:633
+#: ../plugins/power/gsd-power-manager.c:485
+#: ../plugins/power/gsd-power-manager.c:625
+#: ../plugins/power/gsd-power-manager.c:634
 msgid "Cell phone battery low"
 msgstr "Батерија мобилног телефона је скоро празна"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:487
+#: ../plugins/power/gsd-power-manager.c:488
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "Мобилном телефону су ослабиле батерије (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:491
+#: ../plugins/power/gsd-power-manager.c:492
 msgid "Media player battery low"
 msgstr "Батерија медијског уређаја је скоро празна"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:494
+#: ../plugins/power/gsd-power-manager.c:495
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "Медијском уређају су ослабиле батерије (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:498
-#: ../plugins/power/gsd-power-manager.c:642
+#: ../plugins/power/gsd-power-manager.c:499
+#: ../plugins/power/gsd-power-manager.c:643
 msgid "Tablet battery low"
 msgstr "Батерија таблице је скоро празна"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:501
+#: ../plugins/power/gsd-power-manager.c:502
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "Таблици су ослабиле батерије (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:505
-#: ../plugins/power/gsd-power-manager.c:651
+#: ../plugins/power/gsd-power-manager.c:506
+#: ../plugins/power/gsd-power-manager.c:652
 msgid "Attached computer battery low"
 msgstr "Батерија прикљученог рачунара је скоро празна"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:508
+#: ../plugins/power/gsd-power-manager.c:509
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "Прикљученом рачунару је ослабила батерија (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:529
+#: ../plugins/power/gsd-power-manager.c:530
 msgid "Battery is low"
 msgstr "Батерија је скоро празна"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:561
+#: ../plugins/power/gsd-power-manager.c:562
 msgid "Battery critically low"
 msgstr "Батерија је критично празна"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:564
-#: ../plugins/power/gsd-power-manager.c:711
+#: ../plugins/power/gsd-power-manager.c:565
+#: ../plugins/power/gsd-power-manager.c:712
 msgid "Laptop battery critically low"
 msgstr "Батерија преносног рачунара је скоро празна"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:573
+#: ../plugins/power/gsd-power-manager.c:574
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr ""
 "Рачунар ће се убрзо замрзнути уколико га не прикључите на мрежно напајање."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:577
+#: ../plugins/power/gsd-power-manager.c:578
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr ""
@@ -1409,13 +1664,13 @@ msgstr ""
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:585
-#: ../plugins/power/gsd-power-manager.c:736
+#: ../plugins/power/gsd-power-manager.c:586
+#: ../plugins/power/gsd-power-manager.c:737
 msgid "UPS critically low"
 msgstr "Резервно напајање је критично празно"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:591
+#: ../plugins/power/gsd-power-manager.c:592
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1425,7 +1680,7 @@ msgstr ""
 "Укључите рачунар на мрежно напајање да избегнете губитак података."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:600
+#: ../plugins/power/gsd-power-manager.c:601
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1435,7 +1690,7 @@ msgstr ""
 "ради ако му не допуните батерије."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:608
+#: ../plugins/power/gsd-power-manager.c:609
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1445,7 +1700,7 @@ msgstr ""
 "престати да ради ако јој не допуните батерије."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:617
+#: ../plugins/power/gsd-power-manager.c:618
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1455,7 +1710,7 @@ msgstr ""
 "ради ако му не допуните батерије."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:627
+#: ../plugins/power/gsd-power-manager.c:628
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -1465,7 +1720,7 @@ msgstr ""
 "да ради ако му не допуните батерије."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:636
+#: ../plugins/power/gsd-power-manager.c:637
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -1475,7 +1730,7 @@ msgstr ""
 "да ради ако му не допуните батерије."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:645
+#: ../plugins/power/gsd-power-manager.c:646
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -1485,7 +1740,7 @@ msgstr ""
 "ако јој не допуните батерије."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:654
+#: ../plugins/power/gsd-power-manager.c:655
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -1495,7 +1750,7 @@ msgstr ""
 "угасити ако не допуните батерије."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:719
+#: ../plugins/power/gsd-power-manager.c:720
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -1503,14 +1758,14 @@ msgstr ""
 "Стање батерије је испод критичног нивоа и зато ће рачунар бити замрзнут."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:724
+#: ../plugins/power/gsd-power-manager.c:725
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
 msgstr "Стање батерије је испод критичног нивоа и зато ће рачунар бити угашен."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:744
+#: ../plugins/power/gsd-power-manager.c:745
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
@@ -1518,50 +1773,50 @@ msgstr ""
 "замрзнут."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:749
+#: ../plugins/power/gsd-power-manager.c:750
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "Стање резервног напајања је испод критичног нивоа и зато ће рачунар бити "
 "угашен."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1256
+#: ../plugins/power/gsd-power-manager.c:1251
 msgid "Lid has been opened"
 msgstr "Поклопац је подигнут"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1294
+#: ../plugins/power/gsd-power-manager.c:1289
 msgid "Lid has been closed"
 msgstr "Поклопац је спуштен"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1845
+#: ../plugins/power/gsd-power-manager.c:1882
 msgid "On battery power"
 msgstr "Напајање са батерије"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1850
+#: ../plugins/power/gsd-power-manager.c:1887
 msgid "On AC power"
 msgstr "Напајање са мреже"
 
-#: ../plugins/power/gsd-power-manager.c:2038
+#: ../plugins/power/gsd-power-manager.c:2079
 msgid "Automatic logout"
 msgstr "Самостално одјављивање"
 
-#: ../plugins/power/gsd-power-manager.c:2038
+#: ../plugins/power/gsd-power-manager.c:2079
 msgid "You will soon log out because of inactivity."
 msgstr "Ускоро ћете бити одјављени због нерада."
 
-#: ../plugins/power/gsd-power-manager.c:2043
+#: ../plugins/power/gsd-power-manager.c:2084
 msgid "Automatic suspend"
 msgstr "Самостално обустављање"
 
-#: ../plugins/power/gsd-power-manager.c:2043
-#: ../plugins/power/gsd-power-manager.c:2048
+#: ../plugins/power/gsd-power-manager.c:2084
+#: ../plugins/power/gsd-power-manager.c:2089
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Рачунар ће убрзо обуставити рад због нерада."
 
-#: ../plugins/power/gsd-power-manager.c:2048
+#: ../plugins/power/gsd-power-manager.c:2089
 msgid "Automatic hibernation"
 msgstr "Самостално замрзавање"
 
@@ -1605,192 +1860,192 @@ msgid "No driver for this printer."
 msgstr "Нема управљачког програма за овај штампач."
 
 #: ../plugins/print-notifications/gsd-printer.c:1031
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:274
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:752
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:842
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:885
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:270
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:748
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:838
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:881
 msgid "Printers"
 msgstr "Штампачи"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:346
 #, c-format
 msgid "Printer “%s” is low on toner."
 msgstr "Тонер је скоро празан у штампачу „%s“."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
 #, c-format
 msgid "Printer “%s” has no toner left."
 msgstr "Нема више тонера у штампачу „%s“."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
 #, c-format
 msgid "Printer “%s” may not be connected."
 msgstr "Штампач „%s“ можда није повезан."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
 #, c-format
 msgid "The cover is open on printer “%s”."
 msgstr "Отворен је поклопац на штампачу „%s“."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:366
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
 #, c-format
 msgid "There is a missing print filter for printer “%s”."
 msgstr "Недостаје филтер штампе за штампач „%s“."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:367
 #, c-format
 msgid "The door is open on printer “%s”."
 msgstr "Вратанца су отворена на штампачу „%s“."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
 #, c-format
 msgid "Printer “%s” is low on a marker supply."
 msgstr "Преостало је мало мастила у штампачу „%s“."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
 #, c-format
 msgid "Printer “%s” is out of a marker supply."
 msgstr "Нема више мастила у штампачу „%s“."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
 #, c-format
 msgid "Printer “%s” is low on paper."
 msgstr "Преостало је мало папира у штампачу „%s“."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
 #, c-format
 msgid "Printer “%s” is out of paper."
 msgstr "Нема више папира у штампачу „%s“."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
 #, c-format
 msgid "Printer “%s” is currently off-line."
 msgstr "Штампач „%s“ је тренутно ван мреже."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:395
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
 #, c-format
 msgid "There is a problem on printer “%s”."
 msgstr "Дошло је до проблема на штампачу „%s“."
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:443
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:439
 msgid "Toner low"
 msgstr "Тонер је скоро празан"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:445
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:441
 msgid "Toner empty"
 msgstr "Нема више тонера"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:447
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:443
 msgid "Not connected?"
 msgstr "Није повезан?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:449
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:445
 msgid "Cover open"
 msgstr "Отворен је поклопац"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:451
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:447
 msgid "Printer configuration error"
 msgstr "Грешка у подешавању штампача"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:453
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:449
 msgid "Door open"
 msgstr "Отворена су вратанца"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:455
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:451
 msgid "Marker supply low"
 msgstr "Понестаје мастила"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:457
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:453
 msgid "Out of a marker supply"
 msgstr "Нема више мастила"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:459
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:455
 msgid "Paper low"
 msgstr "Понестаје папира"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:461
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:457
 msgid "Out of paper"
 msgstr "Нема више папира"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:463
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:459
 msgid "Printer off-line"
 msgstr "Штампач је ван мреже"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:465
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:828
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:461
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:824
 msgid "Printer error"
 msgstr "Грешка штампача"
 
 #. Translators: New printer has been added
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:513
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:509
 msgid "Printer added"
 msgstr "Штампач је додат"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:530
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:568
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:526
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:564
 msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "Штампање је заустављено"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:532
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:538
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:544
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:550
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:562
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:570
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:578
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:586
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:594
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:607
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:528
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:534
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:540
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:546
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:558
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:566
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:574
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:582
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:590
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:603
 #, c-format
 msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "Посао „%s“ на штампачу „%s“"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:536
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:576
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:532
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:572
 msgctxt "print job state"
 msgid "Printing canceled"
 msgstr "Штампање је отказано"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:542
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:584
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:538
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:580
 msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "Штампање је прекинуто"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:548
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:592
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:544
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:588
 msgctxt "print job state"
 msgid "Printing completed"
 msgstr "Штампање је завршено"
@@ -1800,14 +2055,14 @@ msgstr "Штампање је завршено"
 # Ух, ух, ово се односи на дотеривање фонтова него на савете
 # ~Милош
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:560
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:605
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:556
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:601
 msgctxt "print job state"
 msgid "Printing"
 msgstr "Штампам"
 
 #. Translators: This is a title of a report notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:822
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:818
 msgid "Printer report"
 msgstr "Извештај штампача"
 
@@ -1816,12 +2071,12 @@ msgstr "Извештај штампача"
 # Ух, ух, ово се односи на дотеривање фонтова него на савете
 # ~Милош
 #. Translators: This is a title of a warning notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:825
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:821
 msgid "Printer warning"
 msgstr "Упозорење штампача"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:835
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:831
 #, c-format
 msgid "Printer “%s”: “%s”."
 msgstr "Штампач „%s“: „%s“."
@@ -1856,10 +2111,45 @@ msgid "Authentication is required to modify the OLED image for a Wacom tablet"
 msgstr ""
 "Потребно је потврђивање идентитета за промену ОЛЕД слике за Ваком таблицу"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:968
-#, c-format
-msgid "Could not refresh the screen information: %s"
-msgstr "Не могу да освежим податке о екрану: %s"
+#~ msgid "File for default configuration for RandR"
+#~ msgstr "Датотека за подразумевана РандР подешавања"
+
+#~ msgid ""
+#~ "The XRandR plugin will look for a default configuration in the file "
+#~ "specified by this key. This is similar to the ~/.config/monitors.xml that "
+#~ "normally gets stored in users’ home directories. If a user does not have "
+#~ "such a file, or has one that does not match the user’s setup of monitors, "
+#~ "then the file specified by this key will be used instead."
+#~ msgstr ""
+#~ "ХРандР додатак ће тражити подразумевана подешавања у датотеци из овог "
+#~ "кључа. Ово је слично као „~/.config/monitors.xml“ која се обично чува у "
+#~ "личном директоријуму корисника. Датотека из овог кључа се користи уколико "
+#~ "нема такве датотеке, или се она не поклапа са подешавањима екрана."
+
+#~ msgid "Whether to turn off specific monitors after boot"
+#~ msgstr "Да ли ће искључити одређене мониторе након покретања система"
+
+#~ msgid ""
+#~ "“clone” will display the same thing on all monitors, “dock” will switch "
+#~ "off the internal monitor, “do-nothing” will use the default Xorg "
+#~ "behaviour (extend the desktop in recent versions). The default, “follow-"
+#~ "lid”, will choose between “do-nothing” and “dock” depending on whether "
+#~ "the lid is (respectively) open or closed."
+#~ msgstr ""
+#~ "„clone“ ће приказивати исте ствари на свим мониторима, „dock“ ће "
+#~ "искључити унутрашњи монитор, „do-nothing“ ће користити основно понашање "
+#~ "Икс-орг-а (прошириће радну површ у новијим верзијама). Основно, „follow-"
+#~ "lid“ ће изабрати између „do-nothing“ и „dock“ у зависности од тога да ли "
+#~ "је либ отворен или затворен."
+
+#~ msgid "Video Out"
+#~ msgstr "Видео излаз"
+
+#~ msgid "Rotate Screen"
+#~ msgstr "Заокрени екран"
+
+#~ msgid "Could not refresh the screen information: %s"
+#~ msgstr "Не могу да освежим податке о екрану: %s"
 
 #~ msgid "GNOME Settings Daemon"
 #~ msgstr "Гномов услужник подешавања"
@@ -2222,63 +2512,6 @@ msgstr "Не могу да освежим податке о екрану: %s"
 
 #~ msgid "Calibrate"
 #~ msgstr "Калибриши"
-
-#~ msgid "Disable touchpad while typing"
-#~ msgstr "Искључивање додирне табле приликом куцања"
-
-#~ msgid ""
-#~ "Set this to TRUE if you have problems with accidentally hitting the "
-#~ "touchpad while typing."
-#~ msgstr ""
-#~ "Поставите на ТАЧНО уколико имате проблема са случајним дотицањем додирне "
-#~ "табле приликом куцања."
-
-#~ msgid "Enable horizontal scrolling"
-#~ msgstr "Укључивање хоризонталног клизања"
-
-#~ msgid ""
-#~ "Set this to TRUE to allow horizontal scrolling by the same method "
-#~ "selected with the scroll_method key."
-#~ msgstr ""
-#~ "Поставите на ТАЧНО да дозволите хоризонтално клизање на исти начин као "
-#~ "што је изабрано кључем „scroll_method“."
-
-#~ msgid "Select the touchpad scroll method"
-#~ msgstr "Бирање режима клизања по додирној табли"
-
-#~ msgid ""
-#~ "Select the touchpad scroll method. Supported values are: \"disabled\", "
-#~ "\"edge-scrolling\", \"two-finger-scrolling\"."
-#~ msgstr ""
-#~ "Изаберите режим клизања по додирној табли. Дозвољене вредности су: "
-#~ "„disabled“ (искључено клизање), „edge-scrolling“ (клизање ивицом додирне "
-#~ "табле) и „two-finger-scrolling“ (клизање са два прста)."
-
-#~ msgid "Enable mouse clicks with touchpad"
-#~ msgstr "Укључивање клика на додирној табли"
-
-#~ msgid ""
-#~ "Set this to TRUE to be able to send mouse clicks by tapping on the "
-#~ "touchpad."
-#~ msgstr ""
-#~ "Поставите на ТАЧНО да бисте били у могућности да извршавате кликове миша "
-#~ "на додирној табли."
-
-#~ msgid "Enable touchpad"
-#~ msgstr "Укључивање додирне табле"
-
-#~ msgid "Set this to TRUE to enable all touchpads."
-#~ msgstr "Поставите на ТАЧНО да укључите све додирне табле."
-
-#~ msgid "Middle button emulation"
-#~ msgstr "Емулација средњег дугмета"
-
-#~ msgid ""
-#~ "Enables middle mouse button emulation through simultaneous left and right "
-#~ "button click."
-#~ msgstr ""
-#~ "Омогућава емулацију средњег тастера миша кроз истовремени клик левог и "
-#~ "десног тастера."
 
 #~ msgid "Wacom display mapping"
 #~ msgstr "Мапирање Ваком приказа"
