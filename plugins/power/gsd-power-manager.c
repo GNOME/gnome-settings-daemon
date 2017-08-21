@@ -992,7 +992,7 @@ iio_proxy_claim_light (GsdPowerManager *manager, gboolean active)
                 return;
         if (!manager->priv->backlight_available)
                 return;
-	if (active && !manager->priv->session_is_active) {
+	if (active && !manager->priv->session_is_active)
 		return;
 
         if (!g_dbus_proxy_call_sync (manager->priv->iio_proxy,
@@ -2509,7 +2509,7 @@ iio_proxy_changed (GsdPowerManager *manager)
         if (val_has == NULL || !g_variant_get_boolean (val_has))
                 goto out;
         val_als = g_dbus_proxy_get_cached_property (manager->priv->iio_proxy, "LightLevel");
-        if (val_als == NULL || g_variant_get_double (val_als) == 0.0) {
+        if (val_als == NULL || g_variant_get_double (val_als) == 0.0)
                 goto out;
         manager->priv->ambient_last_absolute = g_variant_get_double (val_als);
         g_debug ("Read last absolute light level: %f", manager->priv->ambient_last_absolute);
