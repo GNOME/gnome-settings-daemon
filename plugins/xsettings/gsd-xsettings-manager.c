@@ -37,12 +37,6 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
-#define GNOME_DESKTOP_USE_UNSTABLE_API
-
-#include <libgnome-desktop/gnome-rr-config.h>
-#include <libgnome-desktop/gnome-rr.h>
-#include <libgnome-desktop/gnome-pnp-ids.h>
-
 #include "gnome-settings-profile.h"
 #include "gsd-enums.h"
 #include "gsd-xsettings-manager.h"
@@ -282,7 +276,7 @@ struct GnomeXSettingsManagerPrivate
 
         GsdRemoteDisplayManager *remote_display;
 
-        GnomeRRScreen     *rr_screen;
+        guint              monitors_changed_id;
 
         guint              shell_name_watch_id;
         gboolean           have_shell;
@@ -1108,30 +1102,23 @@ enable_animations_changed_cb (GSettings             *settings,
 }
 
 static void
-on_rr_screen_changed (GnomeRRScreen         *screen,
-                      GnomeXSettingsManager *manager)
+monitors_changed (GnomeXSettingsManager *manager)
 {
         update_xft_settings (manager);
         queue_notify (manager);
 }
 
 static void
-on_rr_screen_acquired (GObject      *object,
-                       GAsyncResult *result,
-                       gpointer      data)
+on_monitors_changed (GDBusConnection *connection,
+                     const gchar     *sender_name,
+                     const gchar     *object_path,
+                     const gchar     *interface_name,
+                     const gchar     *signal_name,
+                     GVariant        *parameters,
+                     gpointer         data)
 {
         GnomeXSettingsManager *manager = data;
-        GnomeRRScreen *rr_screen;
-
-        rr_screen = gnome_rr_screen_new_finish (result, NULL);
-        if (!rr_screen)
-                return;
-
-        manager->priv->rr_screen = rr_screen;
-        g_signal_connect (rr_screen, "changed",
-                          G_CALLBACK (on_rr_screen_changed), manager);
-
-        on_rr_screen_changed (rr_screen, manager);
+        monitors_changed (manager);
 }
 
 gboolean
@@ -1157,9 +1144,17 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
         g_signal_connect (G_OBJECT (manager->priv->remote_display), "notify::force-disable-animations",
                           G_CALLBACK (force_disable_animation_changed), manager);
 
-        gnome_rr_screen_new_async (gdk_screen_get_default (),
-                                   on_rr_screen_acquired,
-                                   manager);
+        manager->priv->monitors_changed_id =
+                g_dbus_connection_signal_subscribe (manager->priv->dbus_connection,
+                                                    "org.gnome.Mutter.DisplayConfig",
+                                                    "org.gnome.Mutter.DisplayConfig",
+                                                    "MonitorsChanged",
+                                                    "/org/gnome/Mutter/DisplayConfig",
+                                                    NULL,
+                                                    G_DBUS_SIGNAL_FLAGS_NONE,
+                                                    on_monitors_changed,
+                                                    manager,
+                                                    NULL);
 
         manager->priv->settings = g_hash_table_new_full (g_str_hash, g_str_equal,
                                                          NULL, (GDestroyNotify) g_object_unref);
@@ -1267,11 +1262,10 @@ gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
 
         g_clear_object (&manager->priv->remote_display);
 
-        if (manager->priv->rr_screen != NULL) {
-                g_signal_handlers_disconnect_by_func (manager->priv->rr_screen,
-                                                      (gpointer) on_rr_screen_changed,
-                                                      manager);
-                g_clear_object (&manager->priv->rr_screen);
+        if (p->monitors_changed_id) {
+                g_dbus_connection_signal_unsubscribe (p->dbus_connection,
+                                                      p->monitors_changed_id);
+                p->monitors_changed_id = 0;
         }
 
         if (p->shell_name_watch_id > 0) {

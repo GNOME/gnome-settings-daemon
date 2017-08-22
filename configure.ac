@@ -241,7 +241,7 @@ PKG_CHECK_MODULES(SOUND,
 
 PKG_CHECK_MODULES(XSETTINGS,
 		  fontconfig
-		  gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION
+		  gtk+-3.0
 		  x11)
 
 dnl ---------------------------------------------------------------------------
