@@ -114,6 +114,7 @@ gsd_should_ignore_unix_mount (GUnixMountEntry *mount)
         return FALSE;
 }
 
+/* Used in gnome-control-center's info panel */
 gboolean
 gsd_is_removable_mount (GUnixMountEntry *mount)
 {
