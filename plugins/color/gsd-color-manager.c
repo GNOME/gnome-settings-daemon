@@ -432,6 +432,7 @@ register_manager_dbus (GsdColorManager *manager)
 
         priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
         g_assert (priv->introspection_data != NULL);
+        priv->bus_cancellable = g_cancellable_new ();
 
         g_bus_get (G_BUS_TYPE_SESSION,
                    priv->bus_cancellable,
