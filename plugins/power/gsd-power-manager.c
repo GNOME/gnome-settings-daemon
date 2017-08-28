@@ -1438,16 +1438,32 @@ upower_kbd_proxy_signal_cb (GDBusProxy  *proxy,
         gint brightness, percentage;
         const gchar *source;
 
-        if (g_strcmp0 (signal_name, "BrightnessChangedWithSource") != 0)
-                return;
+        if (g_strcmp0 (signal_name, "BrightnessChangedWithSource") == 0) {
+	        g_variant_get (parameters, "(i&s)", &brightness, &source);
 
-        g_variant_get (parameters, "(i&s)", &brightness, &source);
+	        /* Ignore changes caused by us calling UPower's SetBrightness method,
+	         * we already call backlight_iface_emit_changed for these after the
+	         * SetBrightness method call completes. */
+	        if (g_strcmp0 (source, "external") == 0)
+	                return;
 
-        /* Ignore changes caused by us calling UPower's SetBrightness method,
-         * we already call backlight_iface_emit_changed for these after the
-         * SetBrightness method call completes. */
-        if (g_strcmp0 (source, "external") == 0)
+        } else if (g_strcmp0 (signal_name, "KbdParamsChanged") == 0) {
+                g_autoptr(GVariant) kbd_parameters = NULL;
+                g_autoptr(GVariant) kbd_br_parameters = NULL;
+
+                g_variant_get (parameters, "(o@a{sa{sv}})", NULL, &kbd_parameters);
+                kbd_br_parameters = g_variant_lookup_value (kbd_parameters, "brightness", G_VARIANT_TYPE_VARDICT);
+                if (kbd_br_parameters == NULL) {
+                        g_debug ("%s: No brightness parameters provided; ignoring %s signal.", G_STRFUNC, signal_name);
+                        return;
+                }
+
+                source = "internal";
+                g_variant_lookup (kbd_br_parameters, "value", "i", &brightness);
+                g_variant_lookup (kbd_br_parameters, "max", "i", &manager->priv->kbd_brightness_max);
+        } else {
                 return;
+        }
 
         manager->priv->kbd_brightness_now = brightness;
         percentage = ABS_TO_PERCENTAGE (0,
