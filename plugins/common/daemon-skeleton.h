@@ -173,6 +173,7 @@ main (int argc, char **argv)
         bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
         textdomain (GETTEXT_PACKAGE);
+        setlocale (LC_ALL, "");
 
         /* Work around https://bugzilla.gnome.org/show_bug.cgi?id=674885 */
         g_type_ensure (G_TYPE_DBUS_CONNECTION);
