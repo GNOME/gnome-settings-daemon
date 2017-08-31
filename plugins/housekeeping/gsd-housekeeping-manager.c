@@ -26,6 +26,7 @@
 #include "gnome-settings-profile.h"
 #include "gsd-housekeeping-manager.h"
 #include "gsd-disk-space.h"
+#include "gsd-gpu-mem.h"
 
 
 /* General */
@@ -57,6 +58,8 @@ struct GsdHousekeepingManagerPrivate {
         GDBusConnection *connection;
         GCancellable    *bus_cancellable;
         guint            name_id;
+
+        GsdGpuMem *gpu_mem_notifier;
 };
 
 #define GSD_HOUSEKEEPING_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_HOUSEKEEPING_MANAGER, GsdHousekeepingManagerPrivate))
@@ -411,6 +414,8 @@ gsd_housekeeping_manager_start (GsdHousekeepingManager *manager,
                                       manager);
         g_source_set_name_by_id (manager->priv->long_term_cb, "[gnome-settings-daemon] do_cleanup");
 
+        manager->priv->gpu_mem_notifier = g_object_new (GSD_TYPE_GPU_MEM, NULL);
+
         gnome_settings_profile_end (NULL);
 
         return TRUE;
@@ -452,6 +457,8 @@ gsd_housekeeping_manager_stop (GsdHousekeepingManager *manager)
 
         g_clear_object (&p->settings);
         gsd_ldsm_clean ();
+
+        g_clear_object (&p->gpu_mem_notifier);
 }
 
 static void

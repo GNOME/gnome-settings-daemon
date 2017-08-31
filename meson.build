@@ -103,6 +103,7 @@ upower_glib_dep = dependency('upower-glib', version: '>= 0.99.0')
 x11_dep = dependency('x11')
 
 m_dep = cc.find_library('m')
+dl_dep = cc.find_library('dl')
 
 # ALSA integration (default enabled)
 enable_alsa = get_option('alsa')

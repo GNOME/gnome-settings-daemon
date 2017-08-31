@@ -1,6 +1,7 @@
 common_files = files(
   'gsd-disk-space.c',
-  'gsd-disk-space-helper.c'
+  'gsd-disk-space-helper.c',
+  'gsd-gpu-mem.c'
 )
 
 sources = common_files + files(
@@ -11,7 +12,9 @@ sources = common_files + files(
 deps = plugins_deps + [
   gio_unix_dep,
   gtk_dep,
-  libnotify_dep
+  libnotify_dep,
+  m_dep,
+  dl_dep
 ]
 
 executable(
