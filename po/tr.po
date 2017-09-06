@@ -10,19 +10,19 @@
 # Osman Karagöz <osmank3@gmail.com>, 2013.
 # Gökhan Gurbetoğlu <ggurbet@gmail.com>, 2013.
 # Necdet Yücel <necdetyucel@gmail.com>, 2014.
-# Emin Tufan Çetin <etcetin@gmail.com>, 2017.
 # Berkay Aktunç <berkay.aktunc@gmail.com>, 2017.
 # Muhammet Kara <muhammetk@gmail.com>, 2011, 2015, 2017.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-08-08 17:42+0000\n"
-"PO-Revision-Date: 2017-08-27 21:04+0300\n"
-"Last-Translator: Muhammet Kara <muhammetk@gmail.com>\n"
-"Language-Team: Turkish <gnometurk@gnome.org>\n"
+"POT-Creation-Date: 2017-09-03 16:46+0000\n"
+"PO-Revision-Date: 2017-09-06 12:31+0300\n"
+"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
+"Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,7 +49,6 @@ msgid "Possible values are “on”, “off”, and “custom”."
 msgstr "Olası değerler ”açık”, ”kapalı” ve ”özel”"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
-#, fuzzy
 msgid "Keyboard Bell Custom Filename"
 msgstr "Klavye Çanı Özel Dosya Adı"
 
@@ -99,13 +98,11 @@ msgstr "Bir sürükleme başlamadan önceki mesafe."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
 msgid "Whether the tablet’s orientation is locked, or rotated automatically."
-msgstr "Tabletin ekran yönlendirmesinin kilitli veya otomatik döndürme olması."
+msgstr "Tabletin ekran yöneliminin kilitli veya kendiliğinden döndürme olması."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
-#, fuzzy
-#| msgid "Middle button emulation"
 msgid "Mouse button orientation"
-msgstr "Orta tık öykünümü"
+msgstr "Fare düğmesi yönelimi"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
 msgid "Swap left and right mouse buttons for left-handed mice."
@@ -122,16 +119,16 @@ msgid ""
 msgstr "Fare hareketi için hız çarpanı. Öntanımlı sistem değeri -1 dir."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
-#, fuzzy
-#| msgid "Drag threshold"
 msgid "Motion Threshold"
-msgstr "Sürükleme eşiği"
+msgstr "Hareket Eşiği"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
 msgid ""
 "Distance in pixels the pointer must move before accelerated mouse motion is "
 "activated. A value of -1 is the system default."
 msgstr ""
+"Hızlandırılmış fare hareketi aktifleşmeden önce imlecin sürüklenmesi gereken "
+"piksel uzaklığı. -1 değeri sistem öntanımlısıdır."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
 msgid "Middle button emulation"
@@ -142,26 +139,23 @@ msgid ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
 msgstr ""
-"Hızlı sol ve sağ tıklama ile orta tıklanmış gibi davranmayı aktif hale "
-"getirir"
+"Hızlı sol ve sağ tıklama ile orta tıklanmış gibi davranmayı etkinleştirir"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:24
 msgid "Key Repeat Interval"
-msgstr ""
+msgstr "Tuş Yineleme Aralığı"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:25
 msgid "Delay between repeats in milliseconds."
-msgstr "Milisaniye cinsinden tekrarlar arası gecikme."
+msgstr "Milisaniye türünden yinelemeler arası gecikme."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:26
 msgid "Initial Key Repeat Delay"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:27
-#, fuzzy
-#| msgid "Length of a double click in milliseconds."
 msgid "Initial key repeat delay in milliseconds."
-msgstr "Milisaniye türünden çift tıklama süresi."
+msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:28
 msgid "Disable touchpad while typing"
@@ -192,60 +186,55 @@ msgid "Select the touchpad scroll method"
 msgstr "Dokunmatik yüzey kaydırma yöntemini seçin"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:33
-#, fuzzy
-#| msgid ""
-#| "Select the touchpad scroll method. Supported values are: \"disabled\", "
-#| "\"edge-scrolling\", \"two-finger-scrolling\"."
 msgid ""
 "Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
 "scrolling”, “two-finger-scrolling”."
 msgstr ""
-"Touchpad kaydırma yöntemini seçin. Desteklenen değerler: \"disabled"
-"\" (kapalı), \"edge-scrolling\" (kenar kaydırması), \"two-finger-scrolling"
-"\" (iki parmak kaydırması)."
+"Dokunmatik yüzey kaydırma yöntemini seç. Desteklenen değerler: "
+"“disabled” (kapalı), “edge-scrolling” (kenar kaydırması), “two-finger-"
+"scrolling” (iki parmak kaydırması)."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:34
 msgid "Enable mouse clicks with touchpad"
-msgstr "Touchpad ile fare tıklamasını etkinleştir"
+msgstr "Dokunmatik yüzey ile fare tıklamasını etkinleştir"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:35
 msgid ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr ""
-"Touchpad üzerine vurarak fare tıklamaları göndermek istiyorsanız bunu doğru "
-"olarak atayın."
+"Dokunmatik yüzey üzerine vurarak fare tıklamaları göndermek istiyorsanız "
+"bunu TRUE olarak atayın."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:36
 msgid "Enable touchpad"
-msgstr "Touchpad'i etkinleştir"
+msgstr "Dokunmatik yüzeyi etkinleştir"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:37
 msgid "Set this to TRUE to enable all touchpads."
-msgstr "Tüm touchpadleri etkinleştirmek için bunu TRUE olarak ayarlayın."
+msgstr ""
+"Tüm dokunmatik yüzeyleri etkinleştirmek için bunu TRUE olarak ayarlayın."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:38
-#, fuzzy
-#| msgid "Middle button emulation"
 msgid "Touchpad button orientation"
-msgstr "Orta tık öykünümü"
+msgstr "Dokunmatik yüzey düğmesi yönelimi"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:39
 msgid ""
 "Swap left and right mouse buttons for left-handed mice with “left”, “right” "
 "for right-handed, “mouse” to follow the mouse setting."
 msgstr ""
+"“left” ile solak fareler için sağ ve sol fare düğmelerini değiştir,  sağ "
+"elli için “right”, fare ayarını takip etmek için “mouse”"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:40
-#, fuzzy
-#| msgid "Enable horizontal scrolling"
 msgid "Natural scrolling"
-msgstr "Yatay kaydırmayı etkinleştir"
+msgstr "Doğal kaydırma"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:41
-#, fuzzy
-#| msgid "Set this to TRUE to enable all touchpads."
 msgid "Set this to TRUE to enable natural (reverse) scrolling for touchpads."
-msgstr "Tüm touchpadleri etkinleştirmek için bunu TRUE olarak ayarlayın."
+msgstr ""
+"Dokunmatik yüzeyler için doğal (ters) kaydırmayı etkinleştirmek için bunu "
+"TRUE olarak ayarlayın."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:42
 msgid "Mouse wheel emulation button. 0 to disable the feature."
@@ -470,7 +459,7 @@ msgid ""
 "hours from midnight."
 msgstr ""
 "“night-light-schedule-automatic” devre dışı bırakıldığında, gece yarısından "
-"itibaren saat cinsinden bu başlangıç zamanını kullan."
+"itibaren saat türünden bu başlangıç zamanını kullan."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:13
 msgid "The end time"
@@ -482,7 +471,7 @@ msgid ""
 "hours from midnight."
 msgstr ""
 "“night-light-schedule-automatic” devre dışı bırakıldığında, gece yarısından "
-"itibaren saat cinsinden bu bitiş zamanını kullan."
+"itibaren saat türünden bu bitiş zamanını kullan."
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:15
 msgid "The last detected position"
@@ -773,10 +762,8 @@ msgid "Record a short video of the screen"
 msgstr "Ekranın kısa bir videosunu kaydet"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
-#, fuzzy
-#| msgid "Record a short video of the screen"
 msgid "Binding to record a short video of the screen"
-msgstr "Ekranın kısa bir videosunu kaydet"
+msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Launch web browser"
@@ -859,15 +846,15 @@ msgid ""
 "The maximum length of single screen cast recordings in seconds or 0 for "
 "unlimited"
 msgstr ""
-"Tek ekran kayıdının saniye cinsinden en yüksek uzunluğu veya sınırsız için 0"
+"Tek ekran kayıdının saniye türünden en yüksek uzunluğu veya sınırsız için 0"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
 msgid "Name"
-msgstr "İsim"
+msgstr "Ad"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
 msgid "Name of the custom binding"
-msgstr "Özel kısayolun ismi"
+msgstr "Özel kısayolun adı"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
 msgid "Binding"
@@ -911,16 +898,17 @@ msgid ""
 "The amount of time in seconds the computer on AC power needs to be inactive "
 "before it goes to sleep. A value of 0 means never."
 msgstr ""
+"AC güçte olan bilgisayarın uykuya geçmeden önce hareketsiz olması gereken "
+"sürenin saniye türünden değeri. 0 değeri asla demektir."
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
-#, fuzzy
 msgid "Whether to hibernate, suspend or do nothing when inactive"
-msgstr "Aktif değilken hazırda bekleme, bekletme ya da hiçbirşey yapmama"
+msgstr "Aktif değilken hazırda bekleme, bekletme ya da hiçbir şey yapmama"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
 msgid ""
 "The type of sleeping that should be performed when the computer is inactive."
-msgstr "Aktif değilken "
+msgstr "Bilgisayar aktif değilken gerçekleştirilmesi gereken uykunun türü."
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
 msgid "Sleep timeout computer when on battery"
@@ -931,30 +919,29 @@ msgid ""
 "The amount of time in seconds the computer on battery power needs to be "
 "inactive before it goes to sleep. A value of 0 means never."
 msgstr ""
-"Prize bağlı aktif olmayan bilgisayarın uykuya geçmeden önce saniye cinsinden "
-"bekleme süresi. 0'ın anlamı asla."
+"Prize bağlı aktif olmayan bilgisayarın uykuya geçmeden önce saniye türünden "
+"bekleme süresi. 0’ın anlamı asladır."
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
 msgid "Enable the ALS sensor"
-msgstr "ALS alıcısını aktif et"
+msgstr "ALS algılayıcısını etkinleştir"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
-#, fuzzy
-#| msgid "If the night light mode is enabled"
 msgid "If the ambient light sensor functionality is enabled."
-msgstr "Eğer gece lambası kipi etkinse"
+msgstr "Ortam ışığı algılayıcısı işlevselliği etkinse."
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
 msgid "Power button action"
 msgstr "Güç düğmesi eylemi türü"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
-#, fuzzy
 msgid ""
 "The action to take when the system power button is pressed. This action is "
 "hard-coded (and the setting ignored) on virtual machines (power off) and "
 "tablets (suspend)."
-msgstr "Güç düğmesi basıldığında yapılacaklar. "
+msgstr ""
+"Sistem güç düğmesi basıldığında yapılacak eylem. Bu eylem sanal makinelerde "
+"(gücü kapat) ve tabletlerde (beklet) doğrudan kodlanmıştır."
 
 #: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:1
 msgid "On which connections the service is enabled"
@@ -999,6 +986,17 @@ msgid ""
 "rendering depending on the quality of the font, the font format and the "
 "state of FreeType’s font engines."
 msgstr ""
+"Yazı tipleri işlenirken kullanılacak düzeltmenin türü. Olası değerler "
+"şunlardır: düzeltme olmaması için “none”, Microsoft’un ClearType’ı, "
+"DirectWrite ve Adobe’un sahipli yazı tipi işleme motoru gibi yalnızca Y "
+"eksenine sığdırmak için “slight”. Yazı tipindeki yerli düzeltmeyi göz ardı "
+"eder, düzeltmeleri algoritmik olarak oluşturur. Ubuntu’da öntanımlı olarak "
+"kullanılır. Önerilir. “medium” ve “full”ün anlamı, yazı tipi biçimine (."
+"ttf, .otf, .pfa/.pfb) ve kurulu FreeType sürümüne bağlıdır. Onlar genellikle "
+"glifleri X ve Y eksenlerinin ikisine de sığdırmayı denerler (.otf dışında: "
+"yalnızca Y). Bu; yazı tipinin niteliğine, yazı tipi biçimine ve FreeType’ın "
+"yazı tipi motorlarının durumuna bağlı olarak bozulmaya ve/veya tutarsız "
+"işlemeye yol açabilir."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
 msgid "RGBA order"
@@ -1496,7 +1494,7 @@ msgstr "Dizüstü pili zayıf"
 #: ../plugins/power/gsd-power-manager.c:448
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
-msgstr "Yaklaşık %s kaldı (%.0f%%)"
+msgstr "Yaklaşık %s kaldı (%%%.0f)"
 
 #. TRANSLATORS: UPS is starting to get a little low
 #: ../plugins/power/gsd-power-manager.c:453
@@ -1507,7 +1505,7 @@ msgstr "UPS zayıf"
 #: ../plugins/power/gsd-power-manager.c:459
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
-msgstr "Yaklaşık %s UPS güç beslemesi kaldı (%.0f%%)"
+msgstr "Yaklaşık %s UPS güç beslemesi kaldı (%%%.0f)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
@@ -1520,7 +1518,7 @@ msgstr "Fare pili zayıf"
 #: ../plugins/power/gsd-power-manager.c:467
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
-msgstr "Kablosuz farenin güç düzeyi düşük (%.0f%%)"
+msgstr "Kablosuz farenin güç düzeyi düşük (%%%.0f)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
@@ -1533,7 +1531,7 @@ msgstr "Klavye pili zayıf"
 #: ../plugins/power/gsd-power-manager.c:474
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
-msgstr "Kablosuz klavyenin güç düzeyi düşük (%.0f%%)"
+msgstr "Kablosuz klavyenin güç düzeyi düşük (%%%.0f)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
@@ -1546,7 +1544,7 @@ msgstr "PDA pili zayıf"
 #: ../plugins/power/gsd-power-manager.c:481
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
-msgstr "PDA’nın güç düzeyi düşük (%.0f%%)"
+msgstr "PDA’nın güç düzeyi düşük (%%%.0f)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
@@ -1560,7 +1558,7 @@ msgstr "Cep telefonu pili zayıf"
 #: ../plugins/power/gsd-power-manager.c:488
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
-msgstr "Cep telefonunun güç düzeyi düşük (%.0f%%)"
+msgstr "Cep telefonunun güç düzeyi düşük (%%%.0f)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
 #: ../plugins/power/gsd-power-manager.c:492
@@ -1571,7 +1569,7 @@ msgstr "Ortam oynatıcısı pili zayıf"
 #: ../plugins/power/gsd-power-manager.c:495
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
-msgstr "Ortam yürütücünün güç düzeyi düşük (%.0f%%)"
+msgstr "Ortam yürütücünün güç düzeyi düşük (%%%.0f)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
@@ -1584,7 +1582,7 @@ msgstr "Tablet pili zayıf"
 #: ../plugins/power/gsd-power-manager.c:502
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
-msgstr "Tablet’in güç düzeyi düşük (%.0f%%)"
+msgstr "Tablet’in güç düzeyi düşük (%%%.0f)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
@@ -1597,7 +1595,7 @@ msgstr "Bağlanmış bilgisayar pili zayıf"
 #: ../plugins/power/gsd-power-manager.c:509
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
-msgstr "Bağlanmış bilgisayarın güç düzeyi düşük (%.0f%%)"
+msgstr "Bağlanmış bilgisayarın güç düzeyi düşük (%%%.0f)"
 
 #. TRANSLATORS: this is the sound description
 #: ../plugins/power/gsd-power-manager.c:530
@@ -1645,7 +1643,7 @@ msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
 "computer to avoid losing data."
 msgstr ""
-"Yaklaşık %s UPS gücü kaldı (%.0f%%). Veri kaybetmemek için bilgisayarınızı "
+"Yaklaşık %s UPS gücü kaldı (%%%.0f). Veri kaybetmemek için bilgisayarınızı "
 "prize yeniden bağlayın."
 
 #. TRANSLATORS: the device is just going to stop working
@@ -1655,7 +1653,7 @@ msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
-"Kablosuz farenin güç düzeyi çok düşük (%.0f%%). Eğer şarj edilmezse, bu "
+"Kablosuz farenin güç düzeyi çok düşük (%%%.0f). Eğer şarj edilmezse, bu "
 "aygıt yakında işlevselliğini yitirecek."
 
 #. TRANSLATORS: the device is just going to stop working
@@ -1665,7 +1663,7 @@ msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
-"Kablosuz klavyenin güç düzeyi çok düşük (%.0f%%). Eğer şarj edilmezse, bu "
+"Kablosuz klavyenin güç düzeyi çok düşük (%%%.0f). Eğer şarj edilmezse, bu "
 "aygıt yakında işlevselliğini yitirecek."
 
 #. TRANSLATORS: the device is just going to stop working
@@ -1675,7 +1673,7 @@ msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
 "not charged."
 msgstr ""
-"PDA’nın güç düzeyi çok düşük (%.0f%%). Eğer şarj edilmezse, bu aygıt yakında "
+"PDA’nın güç düzeyi çok düşük (%%%.0f). Eğer şarj edilmezse, bu aygıt yakında "
 "işlevselliğini yitirecek."
 
 #. TRANSLATORS: the device is just going to stop working
@@ -1685,7 +1683,7 @@ msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
-"Cep telefonunun güç düzeyi çok düşük (%.0f%%). Eğer şarj edilmezse, bu aygıt "
+"Cep telefonunun güç düzeyi çok düşük (%%%.0f). Eğer şarj edilmezse, bu aygıt "
 "yakında işlevselliğini yitirecek."
 
 #. TRANSLATORS: the device is just going to stop working
@@ -1695,7 +1693,7 @@ msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
-"Ortam yürütücünün güç düzeyi çok düşük (%.0f%%). Eğer şarj edilmezse, bu "
+"Ortam yürütücünün güç düzeyi çok düşük (%%%.0f). Eğer şarj edilmezse, bu "
 "aygıt yakında işlevselliğini yitirecek."
 
 #. TRANSLATORS: the device is just going to stop working
@@ -1705,7 +1703,7 @@ msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
 "if not charged."
 msgstr ""
-"Tablet bilgisayarın güç düzeyi çok düşük (%.0f%%). Eğer şarj edilmezse, bu "
+"Tablet bilgisayarın güç düzeyi çok düşük (%%%.0f). Eğer şarj edilmezse, bu "
 "aygıt yakında işlevselliğini yitirecek."
 
 #. TRANSLATORS: the device is just going to stop working
@@ -1715,7 +1713,7 @@ msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
 "shutdown if not charged."
 msgstr ""
-"Bağlanmış bilgisayarın güç düzeyi çok düşük (%.0f%%). Eğer şarj edilmezse, "
+"Bağlanmış bilgisayarın güç düzeyi çok düşük (%%%.0f). Eğer şarj edilmezse, "
 "bu aygıt yakında işlevselliğini yitirecek."
 
 #. TRANSLATORS: computer will hibernate
@@ -1767,7 +1765,7 @@ msgstr "Adaptör ile çalışıyor"
 
 #: ../plugins/power/gsd-power-manager.c:2079
 msgid "Automatic logout"
-msgstr "Otomatik oturum kapatma"
+msgstr "Kendiliğinden oturum kapatma"
 
 #: ../plugins/power/gsd-power-manager.c:2079
 msgid "You will soon log out because of inactivity."
@@ -1775,7 +1773,7 @@ msgstr "Hareketsizlikten dolayı oturumunuz kısa süre içinde kapatılacak"
 
 #: ../plugins/power/gsd-power-manager.c:2084
 msgid "Automatic suspend"
-msgstr "Otomatik bekleme"
+msgstr "Kendiliğinden bekleme"
 
 #: ../plugins/power/gsd-power-manager.c:2084
 #: ../plugins/power/gsd-power-manager.c:2089
@@ -1785,7 +1783,7 @@ msgstr ""
 
 #: ../plugins/power/gsd-power-manager.c:2089
 msgid "Automatic hibernation"
-msgstr "Otomatik derin uyku"
+msgstr "Kendiliğinden derin uyku"
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
@@ -1908,7 +1906,7 @@ msgstr "“%s” yazıcısında bir sorun var."
 #. Translators: The printer is low on toner (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:439
 msgid "Toner low"
-msgstr "Düşük toner"
+msgstr "Toner az"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:441
