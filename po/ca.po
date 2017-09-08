@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-09-02 03:53+0000\n"
-"PO-Revision-Date: 2017-09-03 11:18+0200\n"
+"POT-Creation-Date: 2017-09-06 09:35+0000\n"
+"PO-Revision-Date: 2017-09-07 17:35+0200\n"
 "Last-Translator: Carles Ferrando Garcia <carles.ferrando@gmail.com>\n"
 "Language-Team: Catalan <info@softcatala.org>\n"
 "Language: ca\n"
@@ -41,6 +41,38 @@ msgstr ""
 "Establiu-ho a «none» (cap), «lock-screen» (bloqueja la pantalla) o «force-"
 "logout» (força la sortida). L'acció es realitzarà quan s'extregui la targeta "
 "intel·ligent utilitzada per entrar."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+msgid "Possible values are “on”, “off”, and “custom”."
+msgstr "El valor possibles són «activat», «desactivat» i «personalitzat»."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+msgid "Keyboard Bell Custom Filename"
+msgstr "Nom de fitxer personalitzat del teclat Bell"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+msgid "File name of the bell sound to be played."
+msgstr "Non del fitxer del só Bell per reproduir."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+msgid "Remember NumLock state"
+msgstr "Recorda l'estat de Bloq Núm"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+msgid ""
+"When set to true, GNOME will remember the state of the NumLock LED between "
+"sessions."
+msgstr ""
+"Quan es configura com cert, GNOME recordarà l'estat del LED Bloq Núm entre "
+"sessions."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+msgid "NumLock state"
+msgstr "Estat de Bloq Núm"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+msgid "The remembered state of the NumLock LED."
+msgstr "L'estat recordat del LED Bloq Núm."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
 msgid ""
@@ -76,9 +108,34 @@ msgstr ""
 msgid "Mouse button orientation"
 msgstr "Orientació del botó del ratolí"
 
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+msgid "Swap left and right mouse buttons for left-handed mice."
+msgstr ""
+"Canvieu els botons esquerre i dret del ratolí per als ratolins esquerrans."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+msgid "Single Click"
+msgstr "Clic senzill"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+msgid ""
+"Acceleration multiplier for mouse motion. A value of -1 is the system "
+"default."
+msgstr ""
+"Multiplicador d'acceleració per al moviment del ratolí. Un valor de -1 és el "
+"valor predeterminat del sistema."
+
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
 msgid "Motion Threshold"
 msgstr "Llindar de moviment"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
+msgid ""
+"Distance in pixels the pointer must move before accelerated mouse motion is "
+"activated. A value of -1 is the system default."
+msgstr ""
+"Distància en píxels que el punter s'ha de moure abans d'activar el moviment "
+"accelerat del ratolí. Un valor de -1 és el valor predeterminat del sistema."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
 msgid "Middle button emulation"
@@ -91,6 +148,10 @@ msgid ""
 msgstr ""
 "Habilita l'emulació del botó del mig del ratolí mitjançant el clic simultani "
 "dels botons esquerra i dreta."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:24
+msgid "Key Repeat Interval"
+msgstr "Interval de repetició de tecla"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:25
 msgid "Delay between repeats in milliseconds."
@@ -164,6 +225,15 @@ msgstr "Establiu-ho a «True» (cert) per habilitar tots els ratolins tàctils."
 msgid "Touchpad button orientation"
 msgstr "Orientació del botó del ratolí tàctil"
 
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:39
+msgid ""
+"Swap left and right mouse buttons for left-handed mice with “left”, “right” "
+"for right-handed, “mouse” to follow the mouse setting."
+msgstr ""
+"Canvieu els botons esquerre i dret del ratolí per als ratolins esquerrans "
+"amb «esquerra», «dreta» per a les dretans, «ratolí» per seguir la "
+"configuració del ratolí."
+
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:40
 msgid "Natural scrolling"
 msgstr "Desplaçament natural"
@@ -173,6 +243,10 @@ msgid "Set this to TRUE to enable natural (reverse) scrolling for touchpads."
 msgstr ""
 "Establiu-ho a «True» (cert) per habilitar el desplaçament natural (revers) "
 "per als ratolins tàctils."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:42
+msgid "Mouse wheel emulation button. 0 to disable the feature."
+msgstr "Botó d'emulació de la roda del ratolí. 0 per desactivar la funció."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 msgid "Wacom stylus absolute mode"
@@ -779,6 +853,18 @@ msgstr "Reducció de l'ampliador"
 msgid "Binding for the magnifier to zoom out"
 msgstr "Vinculació perquè l'ampliador redueixi"
 
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
+msgid "Maximum length of screen recordings"
+msgstr "Longitud màxima dels enregistraments digitals de la pantalla"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
+msgid ""
+"The maximum length of single screen cast recordings in seconds or 0 for "
+"unlimited"
+msgstr ""
+"La longitud màxima del enregistrament digital de la pantalla en segons o 0 "
+"per sense límit"
+
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
 msgid "Name"
 msgstr "Nom"
@@ -804,6 +890,66 @@ msgstr "Ordre"
 msgid "Command to run when the binding is invoked"
 msgstr "Ordre a executar quan s'invoqui la vinculació"
 
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
+msgid "The brightness of the screen when idle"
+msgstr "La brillantor de la pantalla quan estigui inactiva"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+msgid ""
+"This is the laptop panel screen brightness used when the session is idle."
+msgstr ""
+"Aquesta és la brillantor de la pantalla de l'ordinador portàtil al panell "
+"que s'utilitza quan la sessió està inactiva."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+msgid "Dim the screen after a period of inactivity"
+msgstr "Atenua la pantalla després d'un període d'inactivitat"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+msgid "If the screen should be dimmed to save power when the computer is idle."
+msgstr ""
+"Si la pantalla ha de ser atenuada per estalviar energia quan l'ordinador "
+"està inactiu."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+msgid "Sleep timeout computer when on AC"
+msgstr ""
+"Temps d'espera per dormir de l'ordinador quan està engegat a la xarxa "
+"elèctrica"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
+msgid ""
+"The amount of time in seconds the computer on AC power needs to be inactive "
+"before it goes to sleep. A value of 0 means never."
+msgstr ""
+"La quantitat de temps en segons que un ordinador connectat a la xarxa "
+"elèctrica necessita per passar a inactiu. Un valor de 0 vol dir mai."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
+msgid "Whether to hibernate, suspend or do nothing when inactive"
+msgstr "Si hibernar, suspendre o no fer res quan està inactiu"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
+msgid ""
+"The type of sleeping that should be performed when the computer is inactive."
+msgstr "El tipus de descans que ha de fer l'ordinador quan està inactiu."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
+msgid "Sleep timeout computer when on battery"
+msgstr "Temps d'espera per dormir de l'ordinador quan està amb bateria"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
+msgid ""
+"The amount of time in seconds the computer on battery power needs to be "
+"inactive before it goes to sleep. A value of 0 means never."
+msgstr ""
+"La quantitat de temps en segons que un ordinador connectat a la bateria "
+"necessita per passar a inactiu. Un valor de 0 vol dir mai."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
+msgid "Enable the ALS sensor"
+msgstr "Habilita el sensor de llums ambientals"
+
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
 msgid "If the ambient light sensor functionality is enabled."
 msgstr "Si la funcionalitat del sensor de llum ambiental està habilitada."
@@ -811,6 +957,16 @@ msgstr "Si la funcionalitat del sensor de llum ambiental està habilitada."
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
 msgid "Power button action"
 msgstr "Acció del botó d'arrencada"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
+msgid ""
+"The action to take when the system power button is pressed. This action is "
+"hard-coded (and the setting ignored) on virtual machines (power off) and "
+"tablets (suspend)."
+msgstr ""
+"L'acció a realitzar quan es pressiona el botó d'engegada del sistema. "
+"Aquesta acció està codificada en el codi font (i la configuració ignorada) "
+"en màquines virtuals (apagat) i tauletes (suspensió)."
 
 #: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:1
 msgid "On which connections the service is enabled"
@@ -843,6 +999,31 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
 msgid "Hinting"
 msgstr "Contorn"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
+msgid ""
+"The type of hinting to use when rendering fonts. Possible values are: “none” "
+"for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
+"ClearType, DirectWrite and Adobe’s proprietary font rendering engine. "
+"Ignores native hinting within the font, generates hints algorithmically. "
+"Used on Ubuntu by default. Recommended. The meaning of “medium” and “full” "
+"depends on the font format (.ttf, .otf, .pfa/.pfb) and the installed version "
+"of FreeType. They usually try to fit glyphs to both the X and the Y axis "
+"(except for .otf: Y-only). This can lead to distortion and/or inconsistent "
+"rendering depending on the quality of the font, the font format and the "
+"state of FreeType’s font engines."
+msgstr ""
+"El tipus d'optimització a usar quan es representen els tipus de lletres. Els "
+"valors possibles són: «cap» per cap optimització i «lleuger» per ajustar-se "
+"només a l'eix Y, com  ClearType, DirectWrite i el motor de renderitzat "
+"propietari de fonts d'Adobe. Ignora l'optimitzat natiu dins de la font, "
+"genera optimitzats algorítmics. Usat a Ubuntu per defecte. Recomanat. El "
+"significat de \"mitjà\" i \"complet\" depèn del format de lletra (.ttf, ."
+"otf, .pfa / .pfb) i la versió instal·lada de FreeType. Aquests solen tractar "
+"d'ajustar glifs tant a l'eix X com a l'eix Y (excepte per .otf: Y-only). "
+"Això pot provocar una distorsió i / o una renderització incoherent en funció "
+"de la qualitat de la font, el format de la font i l'estat dels motors de "
+"fonts de FreeType."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
 msgid "RGBA order"
@@ -883,6 +1064,21 @@ msgid ""
 msgstr ""
 "Una llista de cadenes que representen els mòduls de la GTK+ que es "
 "carregaran, normalment a més dels condicionals i dels inhabilitats per força."
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+msgid "A dictionary of XSETTINGS to override"
+msgstr "Un diccionari de XSETTINGS per sobreescriure"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
+msgid ""
+"This dictionary maps XSETTINGS names to overrides values. The values must be "
+"either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
+"(red, green, blue, alpha; 65535 is fully opaque)."
+msgstr ""
+"Aquest diccionari assigna els noms de XSETTINGS per sobreescriure els "
+"valors. Els valors han de ser cadenes, int32s signades o (en el cas dels "
+"colors), 4-tuples de uint16 (vermell, verd, blau, alfa; 65535 és totalment "
+"opac)."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:398
 msgid "Slow Keys Turned On"
