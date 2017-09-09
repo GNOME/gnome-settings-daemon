@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-s"
 "ettings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-09-08 09:42+0000\n"
-"PO-Revision-Date: 2017-09-08 11:47+0100\n"
+"POT-Creation-Date: 2017-09-08 09:59+0000\n"
+"PO-Revision-Date: 2017-09-09 12:10+0100\n"
 "Last-Translator: Hannie Dumoleyn <hannie@ubuntu-nl.org>\n"
 "Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
 "Language: nl\n"
@@ -47,6 +47,38 @@ msgstr ""
 "Stel dit in op ‘none’, ‘lock-screen’ of ‘force-logout’. De actie zal "
 "uitgevoerd worden wanneer de smartcard die voor het aanmelden gebruikt is "
 "verwijderd wordt."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+msgid "Possible values are “on”, “off”, and “custom”."
+msgstr "Mogelijke waarden zijn ‘aan’, ‘uit’ en ‘aangepast’."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+msgid "Keyboard Bell Custom Filename"
+msgstr "Aangepaste bestandsnaam toetsenbordbelgeluid "
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+msgid "File name of the bell sound to be played."
+msgstr "Bestandsnaam van het belgeluid dat wordt afgespeeld."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+msgid "Remember NumLock state"
+msgstr "Status NumLock onthouden"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+msgid ""
+"When set to true, GNOME will remember the state of the NumLock LED between "
+"sessions."
+msgstr ""
+"Indien ingesteld op ‘true’, zal Gnome de status van het NumLock-led tussen"
+" sessies onthouden."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+msgid "NumLock state"
+msgstr "Status NumLock"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+msgid "The remembered state of the NumLock LED."
+msgstr "De onthouden status van het NumLock-led."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
 msgid ""
@@ -80,16 +112,47 @@ msgstr "Of de oriëntatie van de tablet vast staat of automatisch roteert."
 msgid "Mouse button orientation"
 msgstr "Oriëntatie muisknop"
 
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+msgid "Swap left and right mouse buttons for left-handed mice."
+msgstr ""
+"Linker- en rechtermuisknoppen verwisselen voor muis voor linkshandigen."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+msgid "Single Click"
+msgstr "Enkele muisklik"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+msgid ""
+"Acceleration multiplier for mouse motion. A value of -1 is the system "
+"default."
+msgstr ""
+"Versnellingsvermenigvuldiger voor muisbeweging. De waarde -1 is de standaard."
+
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
 msgid "Motion Threshold"
 msgstr "Sleepdrempel"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
+msgid ""
+"Distance in pixels the pointer must move before accelerated mouse motion is "
+"activated. A value of -1 is the system default."
+msgstr ""
+"Afstand in beeldpunten die de aanwijzer moet bewegen voordat de versnelde"
+" muisbeweging geactiveerd wordt. De waarde -1 is de standaard."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
 msgid "Middle button emulation"
 msgstr "Emulatie middelste knop"
 
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:23
+msgid ""
+"Enables middle mouse button emulation through simultaneous left and right "
+"button click."
+msgstr ""
+"Schakelt emulatie van middelste muisknop in door gelijktijdig met de linker-"
+" en rechtermuisknop te klikken."
+
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:24
-#| msgid "Initial Key Repeat Delay"
 msgid "Key Repeat Interval"
 msgstr "Interval toetsherhaling"
 
@@ -105,9 +168,86 @@ msgstr "Vertraging toetsherhaling in milliseconden."
 msgid "Initial key repeat delay in milliseconds."
 msgstr "Vertraging toetsherhaling in milliseconden."
 
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:28
+msgid "Disable touchpad while typing"
+msgstr "Touchpad uitschakelen tijdens het typen"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:29
+msgid ""
+"Set this to TRUE if you have problems with accidentally hitting the touchpad "
+"while typing."
+msgstr ""
+"Stel dit in op ‘true’ als u problemen heeft met het per ongeluk aanraken van"
+" het touchpad tijdens het typen."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:30
+msgid "Enable horizontal scrolling"
+msgstr "Horizontaal scrollen inschakelen"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:31
+msgid ""
+"Set this to TRUE to allow horizontal scrolling by the same method selected "
+"with the scroll_method key."
+msgstr ""
+"Stel dit in op ‘true’ om horizontaal scrollen mogelijk te maken via dezelfde"
+" methode die is geselecteerd met de scroll_method-toets."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:32
+msgid "Select the touchpad scroll method"
+msgstr "Wijze van scrollen via touchpad selecteren"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:33
+msgid ""
+"Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
+"scrolling”, “two-finger-scrolling”."
+msgstr ""
+"Kies de wijze van scrollen via het touchpad. Ondersteunde methoden zijn:"
+" ‘uitgeschakeld’, ‘rand-scrollen’, ‘twee-vinger-scrollen’."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:34
+msgid "Enable mouse clicks with touchpad"
+msgstr "Muisklikken via touchpad inschakelen"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:35
+msgid ""
+"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr ""
+"Stel dit in op ‘true’ om te kunnen muisklikken door op het touchpad te tikken."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:36
+msgid "Enable touchpad"
+msgstr "Touchpad inschakelen"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:37
+msgid "Set this to TRUE to enable all touchpads."
+msgstr "Stel dit in op ‘true’ om alle touchpads in te schakelen."
+
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:38
 msgid "Touchpad button orientation"
 msgstr "Oriëntatie touchpadknop"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:39
+msgid ""
+"Swap left and right mouse buttons for left-handed mice with “left”, “right” "
+"for right-handed, “mouse” to follow the mouse setting."
+msgstr ""
+"Linker- en rechtermuisknoppen verwisselen voor muis voor linkshandigen met"
+" ‘links’, ‘rechts’ voor rechtshandigen, ‘muis’ om de muisinstellingen te"
+" volgen."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:40
+msgid "Natural scrolling"
+msgstr "Natuurlijk scrollen"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:41
+msgid "Set this to TRUE to enable natural (reverse) scrolling for touchpads."
+msgstr ""
+"Stel dit in op ‘true’ om natuurlijk (omgekeerd) scrollen via touchpads in te"
+" schakelen."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:42
+msgid "Mouse wheel emulation button. 0 to disable the feature."
+msgstr "Knop voor emulatie van muiswiel. 0 om de functie uit te schakelen."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 msgid "Wacom stylus absolute mode"
@@ -278,6 +418,81 @@ msgid ""
 "This is the number of days after which the printer color profile is "
 "considered invalid."
 msgstr "Het aantal dagen waarna een printer-color-profile niet meer geldig is."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
+msgid "If the night light mode is enabled"
+msgstr "Indien de modus nachtlicht is ingeschakeld"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
+msgid ""
+"Night light mode changes the color temperature of your display when the sun "
+"has gone down or at present times."
+msgstr ""
+"De nachtlichtmodus wijzigt de kleurtemperatuur van uw scherm wanneer de zon"
+" is ondergegaan of op dit moment."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
+msgid "Temperature of the display when enabled"
+msgstr "Temperatuur van het scherm indien ingeschakeld"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
+msgid ""
+"This temperature in Kelvin is used to modify the screen tones when night "
+"light mode is enabled. Higher values are bluer, lower redder."
+msgstr ""
+"Deze Kelvin-temperatuur wordt gebruikt om de schermkleuren te wijzigen"
+" wanneer de nachtlichtmodus is ingeschakeld. Hogere waarden zijn blauwer,"
+" lagere roder."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:9
+msgid "Use the sunrise and sunset"
+msgstr "Zonsopgang en zonsondergang gebruiken"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:10
+msgid ""
+"Calculate the sunrise and sunset times automatically, from the current "
+"location."
+msgstr ""
+"Automatisch de tijden van  zonsopgang en zonsondergang berekenen vanuit de"
+" huidige locatie."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:11
+msgid "The start time"
+msgstr "Begintijd"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:12
+msgid ""
+"When “night-light-schedule-automatic” is disabled, use this start time in "
+"hours from midnight."
+msgstr ""
+"Wanneer ‘night-light-schedule-automatic’ is uitgeschakeld, gebruik deze"
+" begintijd in uren vanaf middernacht."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:13
+msgid "The end time"
+msgstr "Eindtijd"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:14
+msgid ""
+"When “night-light-schedule-automatic” is disabled, use this end time in "
+"hours from midnight."
+msgstr ""
+"Wanneer ‘night-light-schedule-automatic’ is uitgeschakeld, gebruik deze"
+" eindtijd in uren vanaf middernacht."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:15
+msgid "The last detected position"
+msgstr "De laatst gedetecteerde positie"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:16
+msgid ""
+"When location services are available this represents the last detected "
+"location. The default value is an invalid value to ensure it is always "
+"updated at startup."
+msgstr ""
+"Wanneer locatiediensten beschikbaar zijn,staat dit voor de laatst"
+" gedetecteerde locatie. De standaardwaarde is een ongeldige waarde om er"
+" zeker van te zijn dat deze altijd wordt bijgewerkt bij opstarten."
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 msgid "List of plugins that are allowed to be loaded"
@@ -636,6 +851,18 @@ msgstr "Uitzoomen met vergrootglas"
 msgid "Binding for the magnifier to zoom out"
 msgstr "Sneltoets om het vergrootglas aan of uit te zetten"
 
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
+msgid "Maximum length of screen recordings"
+msgstr "Maximumlengte van schermopnamen"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
+msgid ""
+"The maximum length of single screen cast recordings in seconds or 0 for "
+"unlimited"
+msgstr ""
+"Maximumlengte van schermopnamen van een enkel scherm in seconden of 0 voor"
+" oneindig"
+
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
 msgid "Name"
 msgstr "Naam"
@@ -660,9 +887,82 @@ msgstr "Opdracht"
 msgid "Command to run when the binding is invoked"
 msgstr "Uit te voeren opdracht wanneer de sneltoets wordt aangeroepen"
 
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
+msgid "The brightness of the screen when idle"
+msgstr "De helderheid van het scherm wanneer het inactief is"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+msgid ""
+"This is the laptop panel screen brightness used when the session is idle."
+msgstr ""
+"Dit is de helderheid van het laptopscherm wanneer de sessie inactief is."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+msgid "Dim the screen after a period of inactivity"
+msgstr "Het scherm dimmen nadat het een poosje niet actief is"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+msgid "If the screen should be dimmed to save power when the computer is idle."
+msgstr ""
+"Of het scherm gedimd moet worden om energie te sparen wanneer de computer"
+" inactief is."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+msgid "Sleep timeout computer when on AC"
+msgstr "Slaapstand time-out wanneer de computer op netstroom werkt"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
+msgid ""
+"The amount of time in seconds the computer on AC power needs to be inactive "
+"before it goes to sleep. A value of 0 means never."
+msgstr ""
+"De tijd in seconden die de computer met netstroom inactief moet zijn voordat"
+" deze in de slaapstand wordt gezet. Een waarde van 0 betekent nooit."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
+msgid "Whether to hibernate, suspend or do nothing when inactive"
+msgstr ""
+"Of het de slaapstand, pauzestand of niets doen moet zijn wanneer inactief"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
+msgid ""
+"The type of sleeping that should be performed when the computer is inactive."
+msgstr ""
+"Het type slaap dat moet worden uitgevoerd wanneer de computer inactief is."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
+msgid "Sleep timeout computer when on battery"
+msgstr "Slaapstand time-out wanneer de computer op accustroom werkt"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
+msgid ""
+"The amount of time in seconds the computer on battery power needs to be "
+"inactive before it goes to sleep. A value of 0 means never."
+msgstr ""
+"De tijd in seconden die de computer met accustroom inactief moet zijn voordat"
+" deze in de slaapstand wordt gezet. Een waarde van 0 betekent nooit."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
+msgid "Enable the ALS sensor"
+msgstr "De omgevingslichtsensor inschakelen"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
+msgid "If the ambient light sensor functionality is enabled."
+msgstr "Als de functie omgevingslichtsensor ingeschakeld is."
+
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
 msgid "Power button action"
 msgstr "aan-/uitknopactie"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
+msgid ""
+"The action to take when the system power button is pressed. This action is "
+"hard-coded (and the setting ignored) on virtual machines (power off) and "
+"tablets (suspend)."
+msgstr ""
+"De actie die moet worden ondernomen wanneer op de aan-/uitknop wordt gedrukt."
+" Deze actie is hardgecodeerd (de instelling wordt genegeerd) op virtuele"
+" machines (uitzetten) en tablets (pauzestand)."
 
 #: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:1
 msgid "On which connections the service is enabled"
@@ -695,6 +995,33 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
 msgid "Hinting"
 msgstr "Hinten"
+
+# Het is me niet duidelijk wat hier met ‘hinting’ bedoeld wordt. Hannie
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
+msgid ""
+"The type of hinting to use when rendering fonts. Possible values are: “none” "
+"for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
+"ClearType, DirectWrite and Adobe’s proprietary font rendering engine. "
+"Ignores native hinting within the font, generates hints algorithmically. "
+"Used on Ubuntu by default. Recommended. The meaning of “medium” and “full” "
+"depends on the font format (.ttf, .otf, .pfa/.pfb) and the installed version "
+"of FreeType. They usually try to fit glyphs to both the X and the Y axis "
+"(except for .otf: Y-only). This can lead to distortion and/or inconsistent "
+"rendering depending on the quality of the font, the font format and the "
+"state of FreeType’s font engines."
+msgstr ""
+"Het type aanpassing dat moet worden gebruikt bij het renderen van"
+" lettertypes. Mogelijke waarden zijn: ‘geen’ voor geen aanpassing en ‘gering’"
+" voor alleen op de Y-as zoals Microsoft’s ClearType, DirectWrite en de eigen"
+" engine voor renderen van lettertypen van Adobe. Negeert aanpassing van"
+" binnen het lettertype en genereert aanpassingen algoritmisch. Wordt"
+" standaard in Ubuntu gebruikt. Aanbevolen. De betekenis van ‘medium’ en"
+" ‘volledig’ hangt af van het lettertypeformaat (.ttf, .otf, .pfa/.pfb) en de"
+" geïnstalleerde versie van FreeType. Ze proberen meestal tekens op zowel de"
+" X- als de Y-as te passen (met uitzondering van .otf: alleen Y-as). Dit kan"
+" leiden tot vervorming en/of incontistent renderen afhankelijk van de"
+" kwaliteit van het lettertype, het lettertypeformaat en de status van de"
+" lettertype-engines van FreeType."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
 msgid "RGBA order"
@@ -734,6 +1061,21 @@ msgid ""
 msgstr ""
 "Een lijst van strings die weergeeft welke GTK+-modules geladen zullen "
 "worden, naast voorwaardelijke en expliciet uitgeschakelde modules."
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+msgid "A dictionary of XSETTINGS to override"
+msgstr "Een lijst met bepaalde XSETTINGS"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
+msgid ""
+"This dictionary maps XSETTINGS names to overrides values. The values must be "
+"either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
+"(red, green, blue, alpha; 65535 is fully opaque)."
+msgstr ""
+"Deze lijst brengt de namen van bepaalde XSETTINGS in kaart. De waarden moeten"
+" bestaan uit tekenreeksen, getekende int32's of (in het geval van kleuren),"
+" 4-tuples of uint16 (rood, groen, blauw, alpha; 65535 is volledig"
+" ondoorzichtig)."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:398
 msgid "Slow Keys Turned On"
