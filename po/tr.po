@@ -13,15 +13,16 @@
 # Berkay Aktunç <berkay.aktunc@gmail.com>, 2017.
 # Muhammet Kara <muhammetk@gmail.com>, 2011, 2015, 2017.
 # Emin Tufan Çetin <etcetin@gmail.com>, 2017.
+# Furkan Ahmet Kara <furkanahmetkara.fk@gmail.com>, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-09-03 16:46+0000\n"
-"PO-Revision-Date: 2017-09-06 12:31+0300\n"
-"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
+"POT-Creation-Date: 2017-09-10 06:44+0000\n"
+"PO-Revision-Date: 2017-09-10 15:32+0300\n"
+"Last-Translator: Furkan Ahmet Kara <furkanahmetkara.fk@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -151,11 +152,11 @@ msgstr "Milisaniye türünden yinelemeler arası gecikme."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:26
 msgid "Initial Key Repeat Delay"
-msgstr ""
+msgstr "İlk Tuş Yineleme Gecikmesi"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:27
 msgid "Initial key repeat delay in milliseconds."
-msgstr ""
+msgstr "Milisaniye cinsinden ilk tuş yineleme gecikmesi."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:28
 msgid "Disable touchpad while typing"
@@ -763,7 +764,7 @@ msgstr "Ekranın kısa bir videosunu kaydet"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
 msgid "Binding to record a short video of the screen"
-msgstr ""
+msgstr "Kısa bir ekran videosu kaydetmek için kısayol"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Launch web browser"
@@ -1039,9 +1040,8 @@ msgstr ""
 "Genellikle ek olarak durumsal veya zorla kapatılmış olanları."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
-#, fuzzy
 msgid "A dictionary of XSETTINGS to override"
-msgstr "Üzerine yazılacak XSETTİNGS sözlüğü"
+msgstr "Geçersiz kılınacak XSETTINGS sözlüğü"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
@@ -1049,6 +1049,9 @@ msgid ""
 "either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
 "(red, green, blue, alpha; 65535 is fully opaque)."
 msgstr ""
+"Bu sözlük, XSETTINGS adlarını geçersiz kılma değerleriyle eşleştirir. "
+"Değerler dizge, işaretli (signed) int32 ya da (renkler için) uint16 4'lü "
+"demeti (kırmızı, yeşil, mavi, alfa; 65535 tamamen ışıkgeçirmezdir) olabilir."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:398
 msgid "Slow Keys Turned On"
@@ -1330,16 +1333,12 @@ msgid "Quiet Volume Up"
 msgstr "Yavaşça Sesi Artır"
 
 #: ../plugins/media-keys/shortcuts-list.h:56
-#, fuzzy
-#| msgid "Quiet Volume Down"
 msgid "Precise Volume Down"
-msgstr "Yavaşça Sesi Azalt"
+msgstr "Hassas Ses Azaltma"
 
 #: ../plugins/media-keys/shortcuts-list.h:57
-#, fuzzy
-#| msgid "Quiet Volume Up"
 msgid "Precise Volume Up"
-msgstr "Yavaşça Sesi Artır"
+msgstr "Hassas Ses Arttırma"
 
 #: ../plugins/media-keys/shortcuts-list.h:67
 msgid "Lock Screen"
