@@ -304,6 +304,19 @@ device_removed_cb (GsdDeviceManager *device_manager,
 }
 
 static void
+add_devices (GsdWacomManager *manager,
+             GsdDeviceType    device_type)
+{
+        GList *devices, *l;
+
+        devices = gsd_device_manager_list_devices (manager->priv->device_manager,
+                                                   device_type);
+        for (l = devices; l ; l = l->next)
+		device_added_cb (manager->priv->device_manager, l->data, manager);
+        g_list_free (devices);
+}
+
+static void
 set_devicepresence_handler (GsdWacomManager *manager)
 {
         GsdDeviceManager *device_manager;
@@ -325,19 +338,14 @@ gsd_wacom_manager_init (GsdWacomManager *manager)
 static gboolean
 gsd_wacom_manager_idle_cb (GsdWacomManager *manager)
 {
-	GList *devices, *l;
-
         gnome_settings_profile_start (NULL);
 
         manager->priv->device_mapper = gsd_device_mapper_get ();
 
         set_devicepresence_handler (manager);
 
-        devices = gsd_device_manager_list_devices (manager->priv->device_manager,
-                                                   GSD_DEVICE_TYPE_TABLET);
-        for (l = devices; l ; l = l->next)
-		device_added_cb (manager->priv->device_manager, l->data, manager);
-        g_list_free (devices);
+        add_devices (manager, GSD_DEVICE_TYPE_TABLET);
+        add_devices (manager, GSD_DEVICE_TYPE_TOUCHSCREEN);
 
         gnome_settings_profile_end (NULL);
 
