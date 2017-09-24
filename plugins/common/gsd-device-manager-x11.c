@@ -110,6 +110,8 @@ add_device (GsdX11DeviceManager *manager,
 
 	if (gdk_device_get_device_type (gdk_device) == GDK_DEVICE_TYPE_MASTER)
 		return;
+	if (gdk_device_get_source (gdk_device) == GDK_SOURCE_KEYBOARD)
+		return;
 
 	id = gdk_x11_device_get_id (gdk_device);
 	device_file = xdevice_get_device_node (id);

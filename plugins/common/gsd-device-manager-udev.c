@@ -85,6 +85,14 @@ create_device (GUdevDevice *udev_device)
 	guint width, height;
 	GUdevDevice *parent;
 	GsdDevice *device;
+	GsdDeviceType device_type;
+
+	/* Ignore pure keyboard devices, if the device type mask
+	 * contains anything else, we still do need to handle it.
+	 */
+	device_type = udev_device_get_device_type (udev_device);
+	if (device_type == GSD_DEVICE_TYPE_KEYBOARD)
+		return NULL;
 
 	parent = g_udev_device_get_parent (udev_device);
 	g_assert (parent != NULL);
@@ -104,7 +112,7 @@ create_device (GUdevDevice *udev_device)
 	device = g_object_new (GSD_TYPE_DEVICE,
 			       "name", name,
 			       "device-file", g_udev_device_get_device_file (udev_device),
-			       "type", udev_device_get_device_type (udev_device),
+			       "type", device_type,
 			       "vendor-id", vendor,
 			       "product-id", product,
 			       "width", width,
@@ -129,6 +137,9 @@ add_device (GsdUdevDeviceManager *manager,
 		return;
 
 	device = create_device (udev_device);
+	if (!device)
+		return;
+
 	g_hash_table_insert (manager->devices, g_object_ref (udev_device), device);
 	g_signal_emit_by_name (manager, "device-added", device);
 }
