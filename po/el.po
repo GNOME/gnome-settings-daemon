@@ -43,16 +43,16 @@ msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-03-29 09:27+0000\n"
-"PO-Revision-Date: 2017-04-08 22:28+0300\n"
-"Last-Translator: Tom Tryfonidis <tomtryf@gnome.org>\n"
+"POT-Creation-Date: 2017-09-12 07:31+0000\n"
+"PO-Revision-Date: 2017-09-25 16:46+0200\n"
+"Last-Translator: Efstathios Iosifidis <iosifidis@opensuse.org>\n"
 "Language-Team: Greek, Modern (1453-) <opensuse-translation-el@opensuse.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 1.5.7\n"
 "X-Project-Style: gnome\n"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -69,6 +69,38 @@ msgstr ""
 "χρησιμοποιείται για σύνδεση."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+msgid "Possible values are “on”, “off”, and “custom”."
+msgstr "Πιθανές τιμές είναι «on», «off», και «custom»."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+msgid "Keyboard Bell Custom Filename"
+msgstr "Προσαρμοσμένο όνομα αρχείου ήχου κουδουνιού για το πληκτρολόγιο"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+msgid "File name of the bell sound to be played."
+msgstr "Το όνομα αρχείου του ήχου κουδουνιού που θα αναπαραχθεί."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+msgid "Remember NumLock state"
+msgstr "Απομνημόνευση κατάστασης NumLock"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+msgid ""
+"When set to true, GNOME will remember the state of the NumLock LED between "
+"sessions."
+msgstr ""
+"Όταν έχει οριστεί αληθές, το GNOME θα θυμάται την κατάσταση του LED NumLock "
+"μεταξύ των συνεδριών."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+msgid "NumLock state"
+msgstr "Κατάσταση NumLock"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+msgid "The remembered state of the NumLock LED."
+msgstr "Η κατάσταση απομνημόνευσης του LED του NumLock."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
 msgid ""
 "Highlights the current location of the pointer when the Control key is "
 "pressed and released."
@@ -76,26 +108,171 @@ msgstr ""
 "Επισημαίνει την τρέχουσα θέση του δρομέα όταν έχει πατηθεί και απελευθερωθεί "
 "το πλήκτρο Control."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
 msgid "Double click time"
 msgstr "Χρόνος διπλού κλικ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
 msgid "Length of a double click in milliseconds."
 msgstr "Διάρκεια του διπλού κλικ σε χιλιοστά δευτερολέπτου."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
 msgid "Drag threshold"
 msgstr "Κατώφλι συρόμενων"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
 msgid "Distance before a drag is started."
 msgstr "Απόσταση πριν από την έναρξη συρσίματος."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
 msgid "Whether the tablet’s orientation is locked, or rotated automatically."
 msgstr ""
 "Αν ο προσανατολισμός του tablet είναι κλειδωμένος, ή περιστρέφεται αυτόματα."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+msgid "Mouse button orientation"
+msgstr "Προσανατολισμός κουμπιών ποντικιού"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+msgid "Swap left and right mouse buttons for left-handed mice."
+msgstr ""
+"Αλλάξτε τα αριστερά και δεξιά κουμπιά του ποντικιού για αριστερόχειρες."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+msgid "Single Click"
+msgstr "Απλό κλικ"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+msgid ""
+"Acceleration multiplier for mouse motion. A value of -1 is the system "
+"default."
+msgstr ""
+"Πολλαπλασιαστής επιτάχυνσης για κίνηση του ποντικιού. Μια τιμή -1 είναι η "
+"προεπιλογή του συστήματος."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
+msgid "Motion Threshold"
+msgstr "Κατώφλι κίνησης"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
+msgid ""
+"Distance in pixels the pointer must move before accelerated mouse motion is "
+"activated. A value of -1 is the system default."
+msgstr ""
+"Απόσταση σε pixels που ο δείκτης πρέπει να κινηθεί πριν ενεργοποιηθεί η "
+"επιταχυνόμενη κίνηση του ποντικιού. Μια τιμή -1 είναι η προεπιλογή του "
+"συστήματος."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
+msgid "Middle button emulation"
+msgstr "Εξομοίωση μεσαίου κουμπιού"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:23
+msgid ""
+"Enables middle mouse button emulation through simultaneous left and right "
+"button click."
+msgstr ""
+"Ενεργοποιεί την εξομοίωση μεσαίου πλήκτρου του ποντικιού με ταυτόχρονο κλικ "
+"του αριστερού και δεξιού κουμπιού."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:24
+msgid "Key Repeat Interval"
+msgstr "Μεσοδιάστημα επανάλληψης κλειδιού"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:25
+msgid "Delay between repeats in milliseconds."
+msgstr "Καθυστέρηση μεταξύ επαναλήψεων σε χιλιοστά του δευτερολέπτου."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:26
+msgid "Initial Key Repeat Delay"
+msgstr "Καθυστέρηση επανάληψης του αρχικού κλειδιού"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:27
+msgid "Initial key repeat delay in milliseconds."
+msgstr "Αρχική καθυστέρηση επανάληψης κλειδιών σε χιλιοστά του δευτερολέπτου."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:28
+msgid "Disable touchpad while typing"
+msgstr "Απενεργοποίηση πινακίδας αφής κατά την πληκτρολόγηση"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:29
+msgid ""
+"Set this to TRUE if you have problems with accidentally hitting the touchpad "
+"while typing."
+msgstr ""
+"Ορισμός αυτού σε ΑΛΗΘΕΣ αν πατάτε κατά λάθος την πινακίδα αφής κατά την "
+"πληκτρολόγηση."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:30
+msgid "Enable horizontal scrolling"
+msgstr "Ενεργοποίηση οριζόντιας κύλισης"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:31
+msgid ""
+"Set this to TRUE to allow horizontal scrolling by the same method selected "
+"with the scroll_method key."
+msgstr ""
+"Ορισμός αυτού σε ΑΛΗΘΕΣ για να επιτρέπεται η οριζόντια κύλιση με την ίδια "
+"μέθοδο που επιλέχθηκε στο κλειδί scroll_method."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:32
+msgid "Select the touchpad scroll method"
+msgstr "Επιλέξτε την μέθοδο κύλισης της πινακίδας αφής"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:33
+msgid ""
+"Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
+"scrolling”, “two-finger-scrolling”."
+msgstr ""
+"Επιλέξτε την μέθοδο κύλισης της πινακίδας αφής. Οι υποστηριζόμενες τιμές "
+"είναι: «disabled», «edge-scrolling», «two-finger-scrolling»."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:34
+msgid "Enable mouse clicks with touchpad"
+msgstr "Ενεργοποίηση κλικ ποντικιού με την πινακίδα αφής"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:35
+msgid ""
+"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr ""
+"Ορισμός αυτού σε ΑΛΗΘΕΣ για να μπορείτε να κάνετε κλικ μέσω της πινακίδας "
+"αφής."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:36
+msgid "Enable touchpad"
+msgstr "Ενεργοποιήση πινακίδας αφής"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:37
+msgid "Set this to TRUE to enable all touchpads."
+msgstr "Ορισμός αυτού σε ΑΛΗΘΕΣ για να ενεργοποιήσετε όλες τις πινακίδες αφής."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:38
+msgid "Touchpad button orientation"
+msgstr "Πρσανατολισμός κουμπιών επιφάνειας αφής"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:39
+msgid ""
+"Swap left and right mouse buttons for left-handed mice with “left”, “right” "
+"for right-handed, “mouse” to follow the mouse setting."
+msgstr ""
+"Αντικαταστήστε τα αριστερά και δεξιά κουμπιά του ποντικιού για τα ποντίκια "
+"για αριστερόχειρες με «αριστερό», «δεξί» για δεξιόχειρες, «ποντίκι» για να "
+"ακολουθήσετε τη ρύθμιση του ποντικιού."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:40
+msgid "Natural scrolling"
+msgstr "Φυσική κύλιση"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:41
+msgid "Set this to TRUE to enable natural (reverse) scrolling for touchpads."
+msgstr ""
+"Ορισμός αυτού σε TRUE για να ενεργοποιήσετε την φυσική (αντίστροφη) κύλιση "
+"για τις πινακίδες αφής."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:42
+msgid "Mouse wheel emulation button. 0 to disable the feature."
+msgstr ""
+"Κουμπί εξομοίωσης ροδέλας ποντικιού. 0 για να απενεργοποιήσετε τη λειτουργία."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 msgid "Wacom stylus absolute mode"
@@ -630,100 +807,200 @@ msgid "Record a short video of the screen"
 msgstr "Εγγραφή σύντομου βίντεο της οθόνης"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+msgid "Binding to record a short video of the screen"
+msgstr "Συνδυασμός για την εγγραφή ενός σύντομου βίντεο της οθόνης"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Launch web browser"
 msgstr "Εκκίνηση περιηγητή ιστοσελίδων"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Binding to launch the web browser."
 msgstr "Συνδυασμός για εκκίνηση περιηγητή ιστοσελίδων."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Toggle magnifier"
 msgstr "Εναλλαγή μεγεθυντή"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Binding to show the screen magnifier"
 msgstr "Συνδυασμός πλήκτρων για την εμφάνιση του μεγεθυντικού φακού οθόνης"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Toggle screen reader"
 msgstr "Εναλλαγή αναγνώστη οθόνης"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 msgid "Binding to start the screen reader"
 msgstr "Συνδυασμός πλήκτρων για την εκκίνηση του αναγνώστη οθόνης"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
 msgid "Toggle on-screen keyboard"
 msgstr "Εναλλαγή πληκτρολογίου οθόνης"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
 msgid "Binding to show the on-screen keyboard"
 msgstr "Συνδυασμός πλήκτρων για την εμφάνιση του πληκτρολογίου οθόνης"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
 msgid "Increase text size"
 msgstr "Μεγέθυνση κειμένου"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
 msgid "Binding to increase the text size"
 msgstr "Συνδυασμός πλήκτρων για την μεγέθυνση κειμένου"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
 msgid "Decrease text size"
 msgstr "Σμίκρυνση κειμένου"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
 msgid "Binding to decrease the text size"
 msgstr "Συνδυασμός πλήκτρων για την σμίκρυνση κειμένου"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
 msgid "Toggle contrast"
 msgstr "Εναλλαγή αντίθεσης"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
 msgid "Binding to toggle the interface contrast"
 msgstr "Συνδυασμός πλήκτρων για την ενεργοποίησης διεπαφής αντίθεσης"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
 msgid "Magnifier zoom in"
 msgstr "Μεγέθυνση μεγεθυντικού φακού"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
 msgid "Binding for the magnifier to zoom in"
 msgstr "Συνδυασμός πλήκτρων για τη μεγέθυνση του μεγεθυντικού φακού"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
 msgid "Magnifier zoom out"
 msgstr "Σμίκρυνση μεγεθυντικού φακού"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
 msgid "Binding for the magnifier to zoom out"
 msgstr "Συνδυασμός πλήκτρων για τη σμίκρυνση του μεγεθυντικού φακού"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
+msgid "Maximum length of screen recordings"
+msgstr "Μέγιστο μήκος εγγραφών οθόνης"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
+msgid ""
+"The maximum length of single screen cast recordings in seconds or 0 for "
+"unlimited"
+msgstr ""
+"Το μέγιστο μήκος εγγραφών μίας απλής οθόνης σε δευτερόλεπτα ή 0 για "
+"απεριόριστο"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
 msgid "Name"
 msgstr "Όνομα"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
 msgid "Name of the custom binding"
 msgstr "Όνομα του συνδυασμού πλήκτρων"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
 msgid "Binding"
 msgstr "Συνδυασμός"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
 msgid "Binding for the custom binding"
 msgstr "Συνδυασμός πλήκτρων για τον προσαρμοσμένο συνδιασμό"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:77
 msgid "Command"
 msgstr "Εντολή"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:78
 msgid "Command to run when the binding is invoked"
 msgstr "Εντολή που θα εκτελεστεί όταν επικληθεί ο συνδυασμός"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
+msgid "The brightness of the screen when idle"
+msgstr "Η φωτεινότητα της οθόνης όταν είναι αδρανής"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+msgid ""
+"This is the laptop panel screen brightness used when the session is idle."
+msgstr ""
+"Αυτή είναι η φωτεινότητα της οθόνης του φορητού υπολογιστή που "
+"χρησιμοποιείται όταν η συνεδρία είναι αδρανής."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+msgid "Dim the screen after a period of inactivity"
+msgstr "Απενεργοποίηση οθόνης μετά από μια περίοδο αδράνειας"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+msgid "If the screen should be dimmed to save power when the computer is idle."
+msgstr ""
+"Εάν η οθόνη πρέπει να απενεργοποιηθεί για εξοικονόμηση ενέργειας όταν ο "
+"υπολογιστής είναι αδρανής."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+msgid "Sleep timeout computer when on AC"
+msgstr ""
+"Λήξη χρόνου αναστολής υπολογιστή όταν είναι με τροφοδοσία εναλλασσόμενου "
+"ρεύματος"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
+msgid ""
+"The amount of time in seconds the computer on AC power needs to be inactive "
+"before it goes to sleep. A value of 0 means never."
+msgstr ""
+"Ο χρόνος σε δευτερόλεπτα, που ο υπολογιστής με τροφοδοσία εναλλασσόμενου "
+"ρεύματος πρέπει να είναι ανενεργός πριν περάσει σε λειτουργία αναστολής. Μια "
+"τιμή 0 σημαίνει ποτέ."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
+msgid "Whether to hibernate, suspend or do nothing when inactive"
+msgstr ""
+"Εάν πρόκειται να περάσει σε λειτουργία αδρανοποίησης, αναστολής ή να μην "
+"γίνει τίποτα όταν είστε ανενεργός"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
+msgid ""
+"The type of sleeping that should be performed when the computer is inactive."
+msgstr ""
+"Ο τύπος της αναστολής που πρέπει να εκτελεστεί όταν ο υπολογιστής είναι "
+"ανενεργός."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
+msgid "Sleep timeout computer when on battery"
+msgstr "Λήξη χρόνου αναστολής υπολογιστή όταν είναι με τροφοδοσία μπαταρίας"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
+msgid ""
+"The amount of time in seconds the computer on battery power needs to be "
+"inactive before it goes to sleep. A value of 0 means never."
+msgstr ""
+"Ο χρόνος σε δευτερόλεπτα, στον οποίο ο υπολογιστής που τροφοδοτείται από την "
+"μπαταρία πρέπει να είναι ανενεργός πριν περάσει σε λειτουργία αναστολής. Μια "
+"τιμή 0 σημαίνει ποτέ."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
+msgid "Enable the ALS sensor"
+msgstr "Ενεργοποίηση αισθηατήρα ALS"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
+msgid "If the ambient light sensor functionality is enabled."
+msgstr "Εάν είναι ενεργοποιημένη η λειτουργία αισθητήρα περιβάλλοντος φωτός."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
+msgid "Power button action"
+msgstr "Ενέργεια του κουμπιού ρεύματος"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
+msgid ""
+"The action to take when the system power button is pressed. This action is "
+"hard-coded (and the setting ignored) on virtual machines (power off) and "
+"tablets (suspend)."
+msgstr ""
+"Η ενέργεια που πρέπει να ακολουθήσετε όταν πιέσετε το κουμπί ρεύματος του "
+"συστήματος. Αυτή η ενέργεια είναι κωδικοποιημένη (και η ρύθμιση αγνοείται) "
+"σε εικονικές μηχανές (απενεργοποίηση) και tablets (αναστολή)."
 
 #: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:1
 msgid "On which connections the service is enabled"
@@ -736,44 +1013,6 @@ msgid ""
 msgstr ""
 "Η λίστα των συνδέσεων του NetworkManager (καθεμία αντιπροσωπεύεται με το "
 "UUID της) στις οποίες αυτή η υπηρεσία είναι ενεργοποιημένη και ξεκίνησε."
-
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
-msgid "File for default configuration for RandR"
-msgstr "Αρχείο προεπιλεγμένης διαμόρφωσης του RandR"
-
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
-msgid ""
-"The XRandR plugin will look for a default configuration in the file "
-"specified by this key. This is similar to the ~/.config/monitors.xml that "
-"normally gets stored in users’ home directories. If a user does not have "
-"such a file, or has one that does not match the user’s setup of monitors, "
-"then the file specified by this key will be used instead."
-msgstr ""
-"Το πρόσθετο XRandR θα ψάξει για προεπιλεγμνη διαμόρφωση στο αρχείο που "
-"καθορίζεται σε αυτό το κλειδί. Αυτό είναι παρόμοιο με το ~/.config/monitors."
-"xml που κανονικά είναι αποθηκευμένο στους προσωπικούς καταλόγους του χρήστη. "
-"Αν κάποιος χρήστης δεν έχει τέτοιο αρχείο ή έχει ένα που δεν ταιριάζει με τη "
-"διαμόρφωση των οθονών του, τότε θα χρησιμοποιηθεί το αρχείο που καθορίζεται "
-"σε αυτό το κλειδί."
-
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
-msgid "Whether to turn off specific monitors after boot"
-msgstr "Εάν θα απενεργοποιούνται συγκεκριμένες οθόνες μετά την εκκίνηση"
-
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
-msgid ""
-"“clone” will display the same thing on all monitors, “dock” will switch off "
-"the internal monitor, “do-nothing” will use the default Xorg behaviour "
-"(extend the desktop in recent versions). The default, “follow-lid”, will "
-"choose between “do-nothing” and “dock” depending on whether the lid is "
-"(respectively) open or closed."
-msgstr ""
-"Η επιλογή 'clone' θα εμφανίσει τα ίδια πράγματα σε όλες τις οθόνες,το 'dock' "
-"θα σβήσει την εσωτερική οθόνη, το 'do-nothing' θα χρησιμοποιήσει την "
-"προεπιλεγμένη συμπεριφορά του Xorg (επέκταση της επιφάνειας εργασίας στις "
-"πρόσφατες εκδόσεις). Η προεπιλογή, 'follow-lid' θα επιλέξει μεταξύ 'do-"
-"nothing' και 'dock' ανάλογα με το εάν το καπάκι είναι (αντίστοιχα) ανοικτό ή "
-"κλειστό."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid "Antialiasing"
@@ -859,6 +1098,21 @@ msgid ""
 msgstr ""
 "Μια λίστα συμβολοσειρών που αντιπροσωπεύουν τα αρθρώματα GTK+ που δεν θα "
 "φορτωθούν, συνήθως ως αντικαταστάτες των απενεργοποιημένων."
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+msgid "A dictionary of XSETTINGS to override"
+msgstr "Ένα λεξικό XSETTINGS για να αντικατάσταση"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
+msgid ""
+"This dictionary maps XSETTINGS names to overrides values. The values must be "
+"either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
+"(red, green, blue, alpha; 65535 is fully opaque)."
+msgstr ""
+"Αυτό το λεξικό χαρτογραφεί τα ονόματα XSETTINGS στις τιμές αντικατάστασης. "
+"Οι τιμές πρέπει να είναι είτε strings, υπογεγραμένη int32s ή (στην περίπτωση "
+"χρωμάτων), 4-πλειάδες uint16 (κόκκινο, πράσινο, μπλε, άλφα, 65535 είναι "
+"πλήρως αδιαφανές)."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:398
 msgid "Slow Keys Turned On"
@@ -1043,30 +1297,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Αυτός ο υπολογιστής έχει μόνο %s ελεύθερο χώρο στο δίσκο."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2173
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2138
 msgid "Bluetooth disabled"
 msgstr "Το Bluetooth απενεργοποιήθηκε"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2176
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2141
 msgid "Bluetooth enabled"
 msgstr "Το Bluetooth ενεργοποιήθηκε"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2180
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2145
 msgid "Airplane mode enabled"
 msgstr "Η λειτουργία αεροπλάνου ενεργοποιήθηκε"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2183
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2148
 msgid "Airplane mode disabled"
 msgstr "Η λειτουργία αεροπλάνου απενεργοποιήθηκε"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2211
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2176
 msgid "Hardware Airplane Mode"
 msgstr "Λειτουργία αεροπλάνου από το υλικό μέσω του διακόπτη"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2271
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2236
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Στιγμιότυπο από %d %t.webm"
@@ -1144,93 +1398,91 @@ msgstr "Μείωση αθόρυβης έντασης"
 msgid "Quiet Volume Up"
 msgstr "Αύξηση αθόρυβης έντασης"
 
-#: ../plugins/media-keys/shortcuts-list.h:65
+#: ../plugins/media-keys/shortcuts-list.h:56
+msgid "Precise Volume Down"
+msgstr "Μείωση έντασης με ακρίβεια"
+
+#: ../plugins/media-keys/shortcuts-list.h:57
+msgid "Precise Volume Up"
+msgstr "Αύξηση έντασης με ακρίβεια"
+
+#: ../plugins/media-keys/shortcuts-list.h:67
 msgid "Lock Screen"
 msgstr "Κλείδωμα οθόνης"
 
-#: ../plugins/media-keys/shortcuts-list.h:67
+#: ../plugins/media-keys/shortcuts-list.h:69
 msgid "Help"
 msgstr "Βοήθεια"
 
-#: ../plugins/media-keys/shortcuts-list.h:81
+#: ../plugins/media-keys/shortcuts-list.h:83
 msgid "Rewind"
 msgstr "Πισωγύρισμα"
 
-#: ../plugins/media-keys/shortcuts-list.h:82
+#: ../plugins/media-keys/shortcuts-list.h:84
 msgid "Forward"
 msgstr "Προώθηση"
 
-#: ../plugins/media-keys/shortcuts-list.h:83
+#: ../plugins/media-keys/shortcuts-list.h:85
 msgid "Repeat"
 msgstr "Επανάληψη"
 
-#: ../plugins/media-keys/shortcuts-list.h:84
+#: ../plugins/media-keys/shortcuts-list.h:86
 msgid "Random Play"
 msgstr "Τυχαία αναπαραγωγή"
 
-#. Key code of the XF86Display key (Fn-F7 on Thinkpads, Fn-F4 on HP machines, etc.)
-#: ../plugins/media-keys/shortcuts-list.h:85
 #: ../plugins/media-keys/shortcuts-list.h:87
-msgid "Video Out"
-msgstr "Έξοδος βίντεο"
-
-#. Key code of the XF86RotateWindows key (present on some tablets)
-#: ../plugins/media-keys/shortcuts-list.h:89
-msgid "Rotate Screen"
-msgstr "Περιστροφή οθόνης"
-
-#: ../plugins/media-keys/shortcuts-list.h:90
 msgid "Orientation Lock"
 msgstr "Κλείδωμα προσανατολισμού"
 
-#: ../plugins/media-keys/shortcuts-list.h:99
+#: ../plugins/media-keys/shortcuts-list.h:96
 msgid "Power Off"
 msgstr "Τερματισμός"
 
 #. the kernel / Xorg names really are like this...
 #. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
-#: ../plugins/media-keys/shortcuts-list.h:102
+#: ../plugins/media-keys/shortcuts-list.h:99
 msgid "Sleep"
 msgstr "Ύπνωση"
 
-#: ../plugins/media-keys/shortcuts-list.h:103
+#: ../plugins/media-keys/shortcuts-list.h:100
 msgid "Suspend"
 msgstr "Αναστολή"
 
-#: ../plugins/media-keys/shortcuts-list.h:104
+#: ../plugins/media-keys/shortcuts-list.h:101
 msgid "Hibernate"
 msgstr "Αδρανοποίηση"
 
-#: ../plugins/media-keys/shortcuts-list.h:105
+#: ../plugins/media-keys/shortcuts-list.h:102
 msgid "Brightness Up"
 msgstr "Αύξηση φωτεινότητας"
 
-#: ../plugins/media-keys/shortcuts-list.h:106
+#: ../plugins/media-keys/shortcuts-list.h:103
 msgid "Brightness Down"
 msgstr "Μείωση φωτεινότητας"
 
-#: ../plugins/media-keys/shortcuts-list.h:107
+#: ../plugins/media-keys/shortcuts-list.h:104
 msgid "Keyboard Brightness Up"
 msgstr "Αύξηση φωτεινότητας πληκτρολογίου"
 
-#: ../plugins/media-keys/shortcuts-list.h:108
+#: ../plugins/media-keys/shortcuts-list.h:105
 msgid "Keyboard Brightness Down"
 msgstr "Μείωση φωτεινότητας πληκτρολογίου"
 
-#: ../plugins/media-keys/shortcuts-list.h:109
+#: ../plugins/media-keys/shortcuts-list.h:106
 msgid "Keyboard Brightness Toggle"
 msgstr "Εναλλαγή φωτεινότητας πληκτρολογίου"
 
-#: ../plugins/media-keys/shortcuts-list.h:110
+#: ../plugins/media-keys/shortcuts-list.h:107
 msgid "Battery Status"
 msgstr "Κατάσταση μπαταρίας"
 
-#: ../plugins/media-keys/shortcuts-list.h:111
-#: ../plugins/media-keys/shortcuts-list.h:112
+#: ../plugins/media-keys/shortcuts-list.h:108
+#: ../plugins/media-keys/shortcuts-list.h:109
+#: ../plugins/media-keys/shortcuts-list.h:110
 msgid "Toggle Airplane Mode"
 msgstr "Εναλλαγή λειτουργίας αεροπλάνου"
 
-#: ../plugins/media-keys/shortcuts-list.h:113
+#: ../plugins/media-keys/shortcuts-list.h:111
 msgid "Toggle Bluetooth"
 msgstr "Εναλλαγή Bluetooth"
 
@@ -1272,80 +1524,80 @@ msgstr[0] "λεπτό"
 msgstr[1] "λεπτά"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:948 ../plugins/power/gsd-power-manager.c:684
-#: ../plugins/power/gsd-power-manager.c:781
+#: ../plugins/power/gpm-common.c:948 ../plugins/power/gsd-power-manager.c:685
+#: ../plugins/power/gsd-power-manager.c:782
 msgid "Battery is critically low"
 msgstr "Το φορτίο της μπαταρίας είναι εξαιρετικά χαμηλό"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:322
+#: ../plugins/power/gsd-power-manager.c:323
 msgid "Power"
 msgstr "Ενέργεια"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:354
+#: ../plugins/power/gsd-power-manager.c:355
 msgid "UPS Discharging"
 msgstr "Γίνεται αποφόρτιση του UPS"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:359
+#: ../plugins/power/gsd-power-manager.c:360
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "%s λειτουργίας απομένουν μέσω του UPS"
 
-#: ../plugins/power/gsd-power-manager.c:362
+#: ../plugins/power/gsd-power-manager.c:363
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "Απομένει άγνωστη εφεδρική ισχύς του UPS"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:437
+#: ../plugins/power/gsd-power-manager.c:438
 msgid "Battery low"
 msgstr "Το φορτίο της μπαταρίας είναι χαμηλό"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:440
+#: ../plugins/power/gsd-power-manager.c:441
 msgid "Laptop battery low"
 msgstr "Το φορτίο της μπαταρίας του φορητού υπολογιστή είναι χαμηλό"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:447
+#: ../plugins/power/gsd-power-manager.c:448
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "Απομένουν %s περίπου (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:452
+#: ../plugins/power/gsd-power-manager.c:453
 msgid "UPS low"
 msgstr "Το φορτίο του UPS είναι χαμηλό"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:458
+#: ../plugins/power/gsd-power-manager.c:459
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "Απομένουν περίπου %s λειτουργίας μέσω του UPS (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:463
-#: ../plugins/power/gsd-power-manager.c:597
+#: ../plugins/power/gsd-power-manager.c:464
+#: ../plugins/power/gsd-power-manager.c:598
 msgid "Mouse battery low"
 msgstr "Το φορτίο της μπαταρίας του ποντικιού είναι χαμηλό"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:466
+#: ../plugins/power/gsd-power-manager.c:467
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "Το επίπεδο φόρτισης του ασύρματου ποντικιού σας είναι χαμηλό (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:470
-#: ../plugins/power/gsd-power-manager.c:605
+#: ../plugins/power/gsd-power-manager.c:471
+#: ../plugins/power/gsd-power-manager.c:606
 msgid "Keyboard battery low"
 msgstr "Το φορτίο της μπαταρίας του πληκτρολογίου είναι χαμηλό"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:473
+#: ../plugins/power/gsd-power-manager.c:474
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr ""
@@ -1353,40 +1605,40 @@ msgstr ""
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:477
-#: ../plugins/power/gsd-power-manager.c:614
+#: ../plugins/power/gsd-power-manager.c:478
+#: ../plugins/power/gsd-power-manager.c:615
 msgid "PDA battery low"
 msgstr "Το φορτίο της μπαταρίας του PDA είναι χαμηλό"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:480
+#: ../plugins/power/gsd-power-manager.c:481
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "Το επίπεδο φόρτισης του PDA σας είναι χαμηλό (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:484
-#: ../plugins/power/gsd-power-manager.c:624
-#: ../plugins/power/gsd-power-manager.c:633
+#: ../plugins/power/gsd-power-manager.c:485
+#: ../plugins/power/gsd-power-manager.c:625
+#: ../plugins/power/gsd-power-manager.c:634
 msgid "Cell phone battery low"
 msgstr "Το φορτίο της μπαταρίας του κινητού είναι χαμηλό"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:487
+#: ../plugins/power/gsd-power-manager.c:488
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "Το επίπεδο φόρτισης του κινητού σας είναι χαμηλό (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:491
+#: ../plugins/power/gsd-power-manager.c:492
 msgid "Media player battery low"
 msgstr ""
 "Το επίπεδο φόρτισης της μπαταρίας της συσκευής αναπαραγωγής πολυμέσων είναι "
 "χαμηλό"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:494
+#: ../plugins/power/gsd-power-manager.c:495
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr ""
@@ -1395,50 +1647,50 @@ msgstr ""
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:498
-#: ../plugins/power/gsd-power-manager.c:642
+#: ../plugins/power/gsd-power-manager.c:499
+#: ../plugins/power/gsd-power-manager.c:643
 msgid "Tablet battery low"
 msgstr "Το επίπεδο φόρτισης του tablet είναι χαμηλό"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:501
+#: ../plugins/power/gsd-power-manager.c:502
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "Το επίπεδο φόρτισης του tablet σας είναι χαμηλό (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:505
-#: ../plugins/power/gsd-power-manager.c:651
+#: ../plugins/power/gsd-power-manager.c:506
+#: ../plugins/power/gsd-power-manager.c:652
 msgid "Attached computer battery low"
 msgstr ""
 "Το επίπεδο φόρτισης της μπαταρίας του συνδεδεμένου υπολογιστή είναι χαμηλό"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:508
+#: ../plugins/power/gsd-power-manager.c:509
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "Το επίπεδο φόρτισης του συνδεδεμένου υπολογιστή είναι χαμηλό (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:529
+#: ../plugins/power/gsd-power-manager.c:530
 msgid "Battery is low"
 msgstr "Το φορτίο της μπαταρίας είναι χαμηλό"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:561
+#: ../plugins/power/gsd-power-manager.c:562
 msgid "Battery critically low"
 msgstr "Το φορτίο της μπαταρίας είναι εξαιρετικά χαμηλό"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:564
-#: ../plugins/power/gsd-power-manager.c:711
+#: ../plugins/power/gsd-power-manager.c:565
+#: ../plugins/power/gsd-power-manager.c:712
 msgid "Laptop battery critically low"
 msgstr "Το φορτίο μίας μπαταρίας του φορητού είναι εξαιρετικά χαμηλό"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:573
+#: ../plugins/power/gsd-power-manager.c:574
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr ""
@@ -1446,7 +1698,7 @@ msgstr ""
 "συνδεθεί σε πηγή ηλεκτρικού ρεύματος."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:577
+#: ../plugins/power/gsd-power-manager.c:578
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr ""
@@ -1455,13 +1707,13 @@ msgstr ""
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:585
-#: ../plugins/power/gsd-power-manager.c:736
+#: ../plugins/power/gsd-power-manager.c:586
+#: ../plugins/power/gsd-power-manager.c:737
 msgid "UPS critically low"
 msgstr "Το φορτίο του UPS είναι εξαιρετικά χαμηλό"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:591
+#: ../plugins/power/gsd-power-manager.c:592
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1471,7 +1723,7 @@ msgstr ""
 "πρίζα ρεύματος AC για να μη χάσετε δεδομένα."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:600
+#: ../plugins/power/gsd-power-manager.c:601
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1481,7 +1733,7 @@ msgstr ""
 "%%). Σύντομα, η συσκευή θα σταματήσει να λειτουργεί, εκτός αν φορτιστεί."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:608
+#: ../plugins/power/gsd-power-manager.c:609
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1491,7 +1743,7 @@ msgstr ""
 "(%.0f%%). Σύντομα, η συσκευή θα σταματήσει να λειτουργεί, εκτός αν φορτιστεί."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:617
+#: ../plugins/power/gsd-power-manager.c:618
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1501,7 +1753,7 @@ msgstr ""
 "συσκευή θα σταματήσει να λειτουργεί, εκτός αν φορτιστεί."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:627
+#: ../plugins/power/gsd-power-manager.c:628
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -1511,7 +1763,7 @@ msgstr ""
 "Σύντομα, η συσκευή θα σταματήσει να λειτουργεί, εκτός αν φορτιστεί."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:636
+#: ../plugins/power/gsd-power-manager.c:637
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -1522,7 +1774,7 @@ msgstr ""
 "φορτιστεί."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:645
+#: ../plugins/power/gsd-power-manager.c:646
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -1532,7 +1784,7 @@ msgstr ""
 "Σύντομα, η συσκευή θα σταματήσει να λειτουργεί, εκτός αν φορτιστεί."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:654
+#: ../plugins/power/gsd-power-manager.c:655
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -1542,7 +1794,7 @@ msgstr ""
 "%%). Σύντομα, η συσκευή θα σταματήσει να λειτουργεί αν δεν φορτιστεί."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:719
+#: ../plugins/power/gsd-power-manager.c:720
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -1551,7 +1803,7 @@ msgstr ""
 "αδρανοποιηθεί."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:724
+#: ../plugins/power/gsd-power-manager.c:725
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -1559,7 +1811,7 @@ msgstr ""
 "Το φορτίο της μπαταρίας είναι εξαιρετικά χαμηλό και ο υπολογιστής θα κλείσει."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:744
+#: ../plugins/power/gsd-power-manager.c:745
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
@@ -1567,50 +1819,50 @@ msgstr ""
 "πρόκειται να αδρανοποιηθεί."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:749
+#: ../plugins/power/gsd-power-manager.c:750
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "Το UPS είναι σε εξαιρετικά χαμηλό επίπεδο φορτίου και ο υπολογιστής θα "
 "κλείσει."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1256
+#: ../plugins/power/gsd-power-manager.c:1251
 msgid "Lid has been opened"
 msgstr "Το καπάκι έχει ανοίξει"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1294
+#: ../plugins/power/gsd-power-manager.c:1289
 msgid "Lid has been closed"
 msgstr "Το καπάκι έχει κλείσει"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1846
+#: ../plugins/power/gsd-power-manager.c:1882
 msgid "On battery power"
 msgstr "Με τροφοδοσία μπαταρίας"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1851
+#: ../plugins/power/gsd-power-manager.c:1887
 msgid "On AC power"
 msgstr "Με εναλλασσόμενο ρεύμα"
 
-#: ../plugins/power/gsd-power-manager.c:2039
+#: ../plugins/power/gsd-power-manager.c:2079
 msgid "Automatic logout"
 msgstr "Αυτόματη αποσύνδεση"
 
-#: ../plugins/power/gsd-power-manager.c:2039
+#: ../plugins/power/gsd-power-manager.c:2079
 msgid "You will soon log out because of inactivity."
 msgstr "Θα αποσυνδεθείτε σύντομα λόγω αδράνειας."
 
-#: ../plugins/power/gsd-power-manager.c:2044
+#: ../plugins/power/gsd-power-manager.c:2084
 msgid "Automatic suspend"
 msgstr "Αυτόματη αναστολή"
 
-#: ../plugins/power/gsd-power-manager.c:2044
-#: ../plugins/power/gsd-power-manager.c:2049
+#: ../plugins/power/gsd-power-manager.c:2084
+#: ../plugins/power/gsd-power-manager.c:2089
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Αναστολή υπολογιστή πολύ σύντομα λόγω αδράνειας."
 
-#: ../plugins/power/gsd-power-manager.c:2049
+#: ../plugins/power/gsd-power-manager.c:2089
 msgid "Automatic hibernation"
 msgstr "Αυτόματη αδρανοποίηση"
 
@@ -1900,10 +2152,48 @@ msgstr ""
 "Απαιτείται πιστοποίηση για την τροποποίηση της εικόνας OLED για ένα tablet "
 "Wacom"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:968
-#, c-format
-msgid "Could not refresh the screen information: %s"
-msgstr "Αδυναμία ανανέωσης των πληροφοριών οθόνης: %s"
+#~ msgid "File for default configuration for RandR"
+#~ msgstr "Αρχείο προεπιλεγμένης διαμόρφωσης του RandR"
+
+#~ msgid ""
+#~ "The XRandR plugin will look for a default configuration in the file "
+#~ "specified by this key. This is similar to the ~/.config/monitors.xml that "
+#~ "normally gets stored in users’ home directories. If a user does not have "
+#~ "such a file, or has one that does not match the user’s setup of monitors, "
+#~ "then the file specified by this key will be used instead."
+#~ msgstr ""
+#~ "Το πρόσθετο XRandR θα ψάξει για προεπιλεγμνη διαμόρφωση στο αρχείο που "
+#~ "καθορίζεται σε αυτό το κλειδί. Αυτό είναι παρόμοιο με το ~/.config/"
+#~ "monitors.xml που κανονικά είναι αποθηκευμένο στους προσωπικούς καταλόγους "
+#~ "του χρήστη. Αν κάποιος χρήστης δεν έχει τέτοιο αρχείο ή έχει ένα που δεν "
+#~ "ταιριάζει με τη διαμόρφωση των οθονών του, τότε θα χρησιμοποιηθεί το "
+#~ "αρχείο που καθορίζεται σε αυτό το κλειδί."
+
+#~ msgid "Whether to turn off specific monitors after boot"
+#~ msgstr "Εάν θα απενεργοποιούνται συγκεκριμένες οθόνες μετά την εκκίνηση"
+
+#~ msgid ""
+#~ "“clone” will display the same thing on all monitors, “dock” will switch "
+#~ "off the internal monitor, “do-nothing” will use the default Xorg "
+#~ "behaviour (extend the desktop in recent versions). The default, “follow-"
+#~ "lid”, will choose between “do-nothing” and “dock” depending on whether "
+#~ "the lid is (respectively) open or closed."
+#~ msgstr ""
+#~ "Η επιλογή 'clone' θα εμφανίσει τα ίδια πράγματα σε όλες τις οθόνες,το "
+#~ "'dock' θα σβήσει την εσωτερική οθόνη, το 'do-nothing' θα χρησιμοποιήσει "
+#~ "την προεπιλεγμένη συμπεριφορά του Xorg (επέκταση της επιφάνειας εργασίας "
+#~ "στις πρόσφατες εκδόσεις). Η προεπιλογή, 'follow-lid' θα επιλέξει μεταξύ "
+#~ "'do-nothing' και 'dock' ανάλογα με το εάν το καπάκι είναι (αντίστοιχα) "
+#~ "ανοικτό ή κλειστό."
+
+#~ msgid "Video Out"
+#~ msgstr "Έξοδος βίντεο"
+
+#~ msgid "Rotate Screen"
+#~ msgstr "Περιστροφή οθόνης"
+
+#~ msgid "Could not refresh the screen information: %s"
+#~ msgstr "Αδυναμία ανανέωσης των πληροφοριών οθόνης: %s"
 
 #~ msgid "GNOME Settings Daemon"
 #~ msgstr "Υπηρεσία ρυθμίσεων GNOME"
@@ -2265,63 +2555,6 @@ msgstr "Αδυναμία ανανέωσης των πληροφοριών οθό
 
 #~ msgid "Calibrate"
 #~ msgstr "Βαθμονόμηση"
-
-#~ msgid "Disable touchpad while typing"
-#~ msgstr "Απενεργοποίηση πινακίδας αφής κατά την πληκτρολόγηση"
-
-#~ msgid ""
-#~ "Set this to TRUE if you have problems with accidentally hitting the "
-#~ "touchpad while typing."
-#~ msgstr ""
-#~ "Ορισμός αυτού σε ΑΛΗΘΕΣ αν πατάτε κατά λάθος την πινακίδα αφής κατά την "
-#~ "πληκτρολόγηση."
-
-#~ msgid "Enable horizontal scrolling"
-#~ msgstr "Ενεργοποίηση οριζόντιας κύλισης"
-
-#~ msgid ""
-#~ "Set this to TRUE to allow horizontal scrolling by the same method "
-#~ "selected with the scroll_method key."
-#~ msgstr ""
-#~ "Ορισμός αυτού σε ΑΛΗΘΕΣ για να επιτρέπεται η οριζόντια κύλιση με την ίδια "
-#~ "μέθοδο που επιλέχθηκε στο κλειδί scroll_method."
-
-#~ msgid "Select the touchpad scroll method"
-#~ msgstr "Επιλέξτε την μέθοδο κύλισης της πινακίδας αφής"
-
-#~ msgid ""
-#~ "Select the touchpad scroll method. Supported values are: \"disabled\", "
-#~ "\"edge-scrolling\", \"two-finger-scrolling\"."
-#~ msgstr ""
-#~ "Επιλέξτε την μέθοδο κύλισης της πινακίδας αφής. Οι υποστηριζόμενες τιμές "
-#~ "είναι: \"disabled\", \"edge-scrolling\", \"two-finger-scrolling\"."
-
-#~ msgid "Enable mouse clicks with touchpad"
-#~ msgstr "Ενεργοποίηση κλικ ποντικιού με την πινακίδα αφής"
-
-#~ msgid ""
-#~ "Set this to TRUE to be able to send mouse clicks by tapping on the "
-#~ "touchpad."
-#~ msgstr ""
-#~ "Ορισμός αυτού σε ΑΛΗΘΕΣ για να μπορείτε να κάνετε κλικ μέσω της πινακίδας "
-#~ "αφής."
-
-#~ msgid "Enable touchpad"
-#~ msgstr "Ενεργοποιήση πινακίδας αφής"
-
-#~ msgid "Set this to TRUE to enable all touchpads."
-#~ msgstr ""
-#~ "Ορισμός αυτού σε ΑΛΗΘΕΣ για να ενεργοποιήσετε όλες τις πινακίδες αφής."
-
-#~ msgid "Middle button emulation"
-#~ msgstr "Εξομοίωση μεσαίου κουμπιού"
-
-#~ msgid ""
-#~ "Enables middle mouse button emulation through simultaneous left and right "
-#~ "button click."
-#~ msgstr ""
-#~ "Ενεργοποιεί την εξομοίωση μεσαίου πλήκτρου του ποντικιού με ταυτόχρονο "
-#~ "κλικ του αριστερού και δεξιού κουμπιού."
 
 #~ msgid "Wacom display mapping"
 #~ msgstr "Χαρτογράφηση οθόνης Wacom"
@@ -4530,9 +4763,6 @@ msgstr "Αδυναμία ανανέωσης των πληροφοριών οθό
 
 #~ msgid "Del_ay:"
 #~ msgstr "Καθυ_στέρηση:"
-
-#~ msgid "Delay between keypress and pointer mo_vement:"
-#~ msgstr "Καθυστέρηση μεταξύ πατήματος πλήκτρου και κίν_ησης δείκτη:"
 
 #~ msgid "Disa_ble if two keys pressed together"
 #~ msgstr "Απενερ_γοποίηση αν δύο πλήκτρα πατηθούν ταυτόχρονα"
