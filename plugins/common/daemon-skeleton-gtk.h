@@ -49,7 +49,8 @@ static const char *gdm_helpers[] = {
 	"power",
 	"smartcard",
 	"sound",
-	"xsettings"
+	"xsettings",
+	"wacom",
 };
 
 static gboolean
