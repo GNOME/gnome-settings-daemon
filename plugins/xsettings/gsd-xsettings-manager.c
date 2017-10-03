@@ -276,6 +276,7 @@ struct GnomeXSettingsManagerPrivate
 
         GsdRemoteDisplayManager *remote_display;
 
+        guint              display_config_watch_id;
         guint              monitors_changed_id;
 
         guint              shell_name_watch_id;
@@ -1121,6 +1122,16 @@ on_monitors_changed (GDBusConnection *connection,
         monitors_changed (manager);
 }
 
+static void
+on_display_config_name_appeared_handler (GDBusConnection *connection,
+                                         const gchar     *name,
+                                         const gchar     *name_owner,
+                                         gpointer         data)
+{
+        GnomeXSettingsManager *manager = data;
+        monitors_changed (manager);
+}
+
 gboolean
 gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                                GError               **error)
@@ -1155,6 +1166,14 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
                                                     on_monitors_changed,
                                                     manager,
                                                     NULL);
+        manager->priv->display_config_watch_id =
+                g_bus_watch_name_on_connection (manager->priv->dbus_connection,
+                                                "org.gnome.Mutter.DisplayConfig",
+                                                G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                                on_display_config_name_appeared_handler,
+                                                NULL,
+                                                manager,
+                                                NULL);
 
         manager->priv->settings = g_hash_table_new_full (g_str_hash, g_str_equal,
                                                          NULL, (GDestroyNotify) g_object_unref);
@@ -1266,6 +1285,11 @@ gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
                 g_dbus_connection_signal_unsubscribe (p->dbus_connection,
                                                       p->monitors_changed_id);
                 p->monitors_changed_id = 0;
+        }
+
+        if (p->display_config_watch_id) {
+                g_bus_unwatch_name (p->display_config_watch_id);
+                p->display_config_watch_id = 0;
         }
 
         if (p->shell_name_watch_id > 0) {
