@@ -3,6 +3,11 @@ context = actions
 
 plugin_name = media-keys
 
+noinst_PROGRAMS = audio-selection-test
+
+audio_selection_test_CFLAGS = $(MEDIA_KEYS_CFLAGS)
+audio_selection_test_LDADD = $(MEDIA_KEYS_LIBS)
+
 NULL =
 
 SUBDIRS = gvc
