@@ -64,7 +64,6 @@
 #define GTK_MODULES_ENABLED_KEY  "enabled-gtk-modules"
 
 #define TEXT_SCALING_FACTOR_KEY "text-scaling-factor"
-#define SCALING_FACTOR_KEY "scaling-factor"
 #define CURSOR_SIZE_KEY "cursor-size"
 #define CURSOR_THEME_KEY "cursor-theme"
 
@@ -990,7 +989,6 @@ xsettings_callback (GSettings             *settings,
         GVariant         *value;
 
         if (g_str_equal (key, TEXT_SCALING_FACTOR_KEY) ||
-            g_str_equal (key, SCALING_FACTOR_KEY) ||
             g_str_equal (key, CURSOR_SIZE_KEY) ||
             g_str_equal (key, CURSOR_THEME_KEY)) {
         	xft_callback (NULL, key, manager);
