@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2017-09-25 21:03+0200\n"
-"PO-Revision-Date: 2017-09-25 21:08+0200\n"
+"PO-Revision-Date: 2017-10-09 21:10+0200\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 2.0.1\n"
+"X-Generator: Poedit 2.0.4\n"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Smartcard removal action"
@@ -40,33 +40,35 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
 msgid "Possible values are “on”, “off”, and “custom”."
-msgstr ""
+msgstr "Mogoče vrednosti so »vklopljeno«, »izklopljeno« in »po meri«."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
 msgid "Keyboard Bell Custom Filename"
-msgstr ""
+msgstr "Ime datoteke tipkovničnega zvoka po meri"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
 msgid "File name of the bell sound to be played."
-msgstr ""
+msgstr "Ime datoteke zvoka zvonca, ki naj se predvaja."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
 msgid "Remember NumLock state"
-msgstr ""
+msgstr "Zapomni si stanje številčnice na tipkovnici"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
 msgid ""
 "When set to true, GNOME will remember the state of the NumLock LED between "
 "sessions."
 msgstr ""
+"Izbrana možnost določi, da bo sistem ohranil nastavitev stanja zaklepa "
+"številčnice med sejami."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
 msgid "NumLock state"
-msgstr ""
+msgstr "Stanje številčnice na tipkovnici"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
 msgid "The remembered state of the NumLock LED."
-msgstr ""
+msgstr "Pomnjeno stanje številčnice na tipkovnici."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
 msgid ""
@@ -113,6 +115,7 @@ msgid ""
 "Acceleration multiplier for mouse motion. A value of -1 is the system "
 "default."
 msgstr ""
+"Množilnik hitrosti določa hitrost gibanja miške. Privzeta vrednost je -1."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
 msgid "Motion Threshold"
@@ -123,6 +126,9 @@ msgid ""
 "Distance in pixels the pointer must move before accelerated mouse motion is "
 "activated. A value of -1 is the system default."
 msgstr ""
+"Razdalja v slikovnih točkah, ki jo mora opraviti kazalnik, preden se zažene "
+"možnost pospešenega gibanja miške. Vrednost -1 je privzeta sistemska "
+"vrednost."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
 msgid "Middle button emulation"
@@ -142,7 +148,7 @@ msgstr "Razmik ponovitve tipke"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:25
 msgid "Delay between repeats in milliseconds."
-msgstr "Zakasnitev med ponovitvami tipke v milisekundah"
+msgstr "Zakasnitev med ponovitvami tipke v milisekundah."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:26
 msgid "Initial Key Repeat Delay"
@@ -154,7 +160,7 @@ msgstr "Začetni zamik tipke v milisekundah."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:28
 msgid "Disable touchpad while typing"
-msgstr "Onemogoči sledilno ploščico med tipkanjem."
+msgstr "Onemogoči sledilno ploščico med tipkanjem"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:29
 msgid ""
@@ -178,7 +184,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:32
 msgid "Select the touchpad scroll method"
-msgstr "Izbor načina drsenja sledilne ploščice."
+msgstr "Izbor načina drsenja sledilne ploščice"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:33
 msgid ""
@@ -214,6 +220,8 @@ msgid ""
 "Swap left and right mouse buttons for left-handed mice with “left”, “right” "
 "for right-handed, “mouse” to follow the mouse setting."
 msgstr ""
+"Zamenjava levega in desnega gumba miške za levoročno rabo z »levo«, "
+"desnoročno z »desno« in »miška« za privzete nastavitve miške."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:40
 msgid "Natural scrolling"
@@ -284,8 +292,8 @@ msgstr "Krivulja pritiska palčke Wacom"
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
 msgstr ""
-"Nastavite to na x1, y1 in x2, y2 krivulje pritiska, ki je uveljavljena na "
-"palčki"
+"Nastavitev koordinat x1, y1 in x2, y2 krivulje pritiska, ki je uveljavljena "
+"na pisalu."
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
 msgid "Wacom stylus button mapping"
@@ -355,7 +363,7 @@ msgstr ""
 msgid "Key combinations for a touchring or touchstrip custom action"
 msgstr ""
 "Tipkovna kombinacija za dejanja po meri na sledilni ploščici ali sledilnem "
-"obroču."
+"obroču"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
 msgid ""
@@ -531,7 +539,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
 msgid "Minimum notify period for repeated warnings"
-msgstr "Najkrajši čas ponovnega obveščanja ponavljajočih se opozoril."
+msgstr "Najkrajši čas ponovnega obveščanja ponavljajočih se opozoril"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
 msgid ""
@@ -585,7 +593,7 @@ msgstr "Zaženi brskalnik pomoči"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the help browser."
-msgstr "Bližnjica za zagon brskalnika pomoči"
+msgstr "Bližnjica za zagon brskalnika pomoči."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Home folder"
@@ -609,7 +617,7 @@ msgstr "Naslednja sled"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to skip to next track."
-msgstr "Bližnjica za skok na naslednjo sled"
+msgstr "Bližnjica za skok na naslednjo sled."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Pause playback"
@@ -642,7 +650,7 @@ msgstr "Predhodna sled"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to skip to previous track."
-msgstr "Bližnjica za skok na predhodno sled"
+msgstr "Bližnjica za skok na predhodno sled."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
 msgid "Lock screen"
@@ -666,7 +674,7 @@ msgstr "Zaustavi predvajanje"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid "Binding to stop playback."
-msgstr "Bližnjica za zaustavitev predvajanja"
+msgstr "Bližnjica za zaustavitev predvajanja."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
 msgid "Volume down"
@@ -718,7 +726,7 @@ msgstr "Tipkovna bližnjica za zajem zaslonske slike področja."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Copy a screenshot to clipboard"
-msgstr " Kopiraj zaslonsko sliko v odložišče"
+msgstr "Kopiraj zaslonsko sliko v odložišče"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Binding to copy a screenshot to clipboard."
@@ -726,7 +734,7 @@ msgstr "Tipkovna bližnjica za kopiranje zaslonske slike v odložišče."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 msgid "Copy a screenshot of a window to clipboard"
-msgstr "Kopiraj zaslonsko sliko okna v odložišče."
+msgstr "Kopiraj zaslonsko sliko okna v odložišče"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
 msgid "Binding to copy a screenshot of a window to clipboard."
@@ -745,8 +753,6 @@ msgid "Record a short video of the screen"
 msgstr "Snemanje posnetka zaslona namizne seje"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
-#, fuzzy
-#| msgid "Record a short video of the screen"
 msgid "Binding to record a short video of the screen"
 msgstr "Snemanje posnetka zaslona namizne seje"
 
@@ -756,7 +762,7 @@ msgstr "Zaženi spletni brskalnik"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Binding to launch the web browser."
-msgstr "Bližnjica za zagon spletnega brskalnika"
+msgstr "Bližnjica za zagon spletnega brskalnika."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Toggle magnifier"
@@ -772,7 +778,7 @@ msgstr "Preklopi zaslonski bralnik"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 msgid "Binding to start the screen reader"
-msgstr "Bližnjica za zagon zaslonskega bralnika."
+msgstr "Bližnjica za zagon zaslonskega bralnika"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
 msgid "Toggle on-screen keyboard"
@@ -780,7 +786,7 @@ msgstr "Preklopi zaslonsko tipkovnico"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
 msgid "Binding to show the on-screen keyboard"
-msgstr "Bližnjica za prikaz zaslonske tipkovnice."
+msgstr "Bližnjica za prikaz zaslonske tipkovnice"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
 msgid "Increase text size"
@@ -812,7 +818,7 @@ msgstr "Približaj vsebino"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
 msgid "Binding for the magnifier to zoom in"
-msgstr "Bližnjica za približanje povečevala."
+msgstr "Bližnjica za približanje povečevala"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
 msgid "Magnifier zoom out"
@@ -820,17 +826,18 @@ msgstr "Oddalji vsebino"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
 msgid "Binding for the magnifier to zoom out"
-msgstr "Bližnjica za oddaljevanje povečevala."
+msgstr "Bližnjica za oddaljevanje povečevala"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
 msgid "Maximum length of screen recordings"
-msgstr ""
+msgstr "Najdaljši čas trajanja posnetka zaslona"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
 msgid ""
 "The maximum length of single screen cast recordings in seconds or 0 for "
 "unlimited"
 msgstr ""
+"Največja dolžina posnetka zaslona v sekundah. Vrednost 0 določa neomejen čas."
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
 msgid "Name"
@@ -858,12 +865,12 @@ msgstr "Ukaz, ki naj se izvede, po pritisku tipkovne bližnjice"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
 msgid "The brightness of the screen when idle"
-msgstr ""
+msgstr "Svetlost zaslona, kadar je sistem nedejaven"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
 msgid ""
 "This is the laptop panel screen brightness used when the session is idle."
-msgstr ""
+msgstr "Nastavitev določa osvetljenost zaslona, ko seja ni dejavna."
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
 msgid "Dim the screen after a period of inactivity"
@@ -877,12 +884,16 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
 msgid "Sleep timeout computer when on AC"
 msgstr ""
+"Časovni zamik postavljanja v mirovanje, ko je naprava priklopljena na "
+"omrežno napetost."
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
 msgid ""
 "The amount of time in seconds the computer on AC power needs to be inactive "
 "before it goes to sleep. A value of 0 means never."
 msgstr ""
+"Čas v sekundah, po katerem se naprava postavi v mirovanje, kadar je "
+"priključena na zunanji vir napetosti. Vrednost 0 pomeni nikoli."
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
 msgid "Whether to hibernate, suspend or do nothing when inactive"
@@ -905,19 +916,15 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
 msgid "Enable the ALS sensor"
-msgstr ""
+msgstr "Omogoči tipala ALS"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
-#, fuzzy
-#| msgid "If the night light mode is enabled"
 msgid "If the ambient light sensor functionality is enabled."
-msgstr "Ali naj bo omogočen način nočne osvetlitve"
+msgstr "Če je omogočena možnost tipal ambientnega osvetljevanja."
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
-#, fuzzy
-#| msgid "Wacom button action type"
 msgid "Power button action"
-msgstr "Vrsta dejanja gumbov Wacom"
+msgstr "Dejanje ob pritisku gumba za priklop"
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
 msgid ""
@@ -936,7 +943,7 @@ msgid ""
 "on which this service is enabled and started."
 msgstr ""
 "Seznam povezav programa NetworkManager (vsaka je predstavljena z lastnim "
-"UUID), na katerem je storitev omogočena in  začeta."
+"UUID), na katerem je storitev omogočena in začeta."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid "Antialiasing"
@@ -991,9 +998,9 @@ msgid ""
 "“bgr” for blue on left, “vrgb” for red on top, “vbgr” for red on bottom."
 msgstr ""
 "Vrstni red točkovnih elementov na LCD zaslonu: uporabno le kadar je glajenje "
-"nastavljeno kot  »rgba«. Mogoče vrednosti so: »rgb« za rdeče na levi "
-"(običajno), »bgr« za modro na levi, »vrgb« za rdečo na vrhu, »vbgr«  za "
-"rdečo na dnu."
+"nastavljeno kot »rgba«. Mogoče vrednosti so: »rgb« za rdeče na levi "
+"(običajno), »bgr« za modro na levi, »vrgb« za rdečo na vrhu, »vbgr« za rdečo "
+"na dnu."
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
 msgid "List of explicitly disabled GTK+ modules"
@@ -1021,7 +1028,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
 msgid "A dictionary of XSETTINGS to override"
-msgstr ""
+msgstr "Seznam nastavitev XSettings za prepis"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
@@ -1177,7 +1184,7 @@ msgstr "Prezri"
 #: ../plugins/housekeeping/gsd-disk-space.c:636
 #, c-format
 msgid "Low Disk Space on “%s”"
-msgstr "Zmanjkuje prostora na disku “%s”"
+msgstr "Zmanjkuje prostora na disku »%s«"
 
 #: ../plugins/housekeeping/gsd-disk-space.c:638
 #, c-format
@@ -1185,13 +1192,13 @@ msgid ""
 "The volume “%s” has only %s disk space remaining.  You may free up some "
 "space by emptying the trash."
 msgstr ""
-"Na nosilcu “%s” je le še %s prostora na disku. Prostor je mogoče povečati z "
+"Na nosilcu »%s« je le še %s prostora na disku. Prostor je mogoče povečati z "
 "rednim praznjenjem smeti."
 
 #: ../plugins/housekeeping/gsd-disk-space.c:642
 #, c-format
 msgid "The volume “%s” has only %s disk space remaining."
-msgstr "Na nosilcu “%s” je le še %s prostora na disku. "
+msgstr "Na nosilcu »%s« je le še %s prostora na disku."
 
 #: ../plugins/housekeeping/gsd-disk-space.c:647
 msgid "Low Disk Space"
@@ -1317,16 +1324,12 @@ msgid "Quiet Volume Up"
 msgstr "Povečaj tiho glasnost"
 
 #: ../plugins/media-keys/shortcuts-list.h:56
-#, fuzzy
-#| msgid "Quiet Volume Down"
 msgid "Precise Volume Down"
-msgstr "Zmanjšaj tiho glasnost"
+msgstr "Natančno zmanjšanje glasnosti"
 
 #: ../plugins/media-keys/shortcuts-list.h:57
-#, fuzzy
-#| msgid "Quiet Volume Up"
 msgid "Precise Volume Up"
-msgstr "Povečaj tiho glasnost"
+msgstr "Natančno povečanje glasnosti"
 
 #: ../plugins/media-keys/shortcuts-list.h:67
 msgid "Lock Screen"
@@ -1970,7 +1973,7 @@ msgstr "Napaka tiskalnika"
 #. Translators: New printer has been added
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:509
 msgid "Printer added"
-msgstr "Dodan je tiskalnik."
+msgstr "Tiskalnik je dodan."
 
 #. Translators: A print job has been stopped
 #: ../plugins/print-notifications/gsd-print-notifications-manager.c:526
