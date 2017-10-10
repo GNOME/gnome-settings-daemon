@@ -56,6 +56,7 @@ struct GsdHousekeepingManagerPrivate {
         GDBusNodeInfo   *introspection_data;
         GDBusConnection *connection;
         GCancellable    *bus_cancellable;
+        guint            name_id;
 };
 
 #define GSD_HOUSEKEEPING_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_HOUSEKEEPING_MANAGER, GsdHousekeepingManagerPrivate))
@@ -354,6 +355,14 @@ on_bus_gotten (GObject                *source_object,
                                                    NULL,
                                                    NULL);
         }
+
+        manager->priv->name_id = g_bus_own_name_on_connection (connection,
+                                                               "org.gnome.SettingsDaemon.Housekeeping",
+                                                               G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL);
 }
 
 static void
@@ -413,6 +422,11 @@ gsd_housekeeping_manager_stop (GsdHousekeepingManager *manager)
         GsdHousekeepingManagerPrivate *p = manager->priv;
 
         g_debug ("Stopping housekeeping manager");
+
+        if (manager->priv->name_id != 0) {
+                g_bus_unown_name (manager->priv->name_id);
+                manager->priv->name_id = 0;
+        }
 
         g_clear_object (&p->bus_cancellable);
         g_clear_pointer (&p->introspection_data, g_dbus_node_info_unref);
