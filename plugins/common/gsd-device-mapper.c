@@ -187,33 +187,6 @@ find_builtin_output (GnomeRRScreen *rr_screen)
 	return NULL;
 }
 
-static GnomeRROutput *
-monitor_to_output (GsdDeviceMapper *mapper,
-		   gint		    monitor_num)
-{
-	GnomeRROutput **outputs;
-	guint i;
-
-	g_return_val_if_fail (mapper->rr_screen != NULL, NULL);
-
-	outputs = gnome_rr_screen_list_outputs (mapper->rr_screen);
-
-	for (i = 0; outputs[i] != NULL; i++) {
-		GnomeRRCrtc *crtc = gnome_rr_output_get_crtc (outputs[i]);
-		gint x, y;
-
-		if (!crtc)
-			continue;
-
-		gnome_rr_crtc_get_position (crtc, &x, &y);
-
-		if (monitor_num == gdk_screen_get_monitor_at_point (mapper->screen, x, y))
-			return outputs[i];
-	}
-
-	return NULL;
-}
-
 static MappingHelper *
 mapping_helper_new (void)
 {
