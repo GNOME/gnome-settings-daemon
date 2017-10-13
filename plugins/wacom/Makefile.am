@@ -26,8 +26,6 @@ gsd_wacom_led_helper_CFLAGS =				\
 
 gsd_wacom_oled_helper_CFLAGS =				\
 	$(WACOM_OLED_CFLAGS)
-else
-libexec_PROGRAMS =
 endif
 
 EXTRA_DIST = org.gnome.settings-daemon.plugins.wacom.policy.in.in
