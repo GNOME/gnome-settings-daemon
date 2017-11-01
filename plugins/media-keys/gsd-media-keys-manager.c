@@ -650,7 +650,7 @@ media_key_new_for_path (GsdMediaKeysManager *manager,
 	if (settings == NULL) {
 		settings = g_settings_new_with_path (CUSTOM_BINDING_SCHEMA, path);
 
-		g_signal_connect (settings, "changed::binding",
+		g_signal_connect (settings, "changed",
 				  G_CALLBACK (custom_binding_changed), manager);
 		g_hash_table_insert (manager->priv->custom_settings,
 				     g_strdup (path), settings);
@@ -708,17 +708,40 @@ update_custom_binding (GsdMediaKeysManager *manager,
 }
 
 static void
+update_custom_binding_command (GsdMediaKeysManager *manager,
+                               GSettings           *settings,
+                               char                *path)
+{
+        MediaKey *key;
+        int i;
+
+        for (i = 0; i < manager->priv->keys->len; i++) {
+                key = g_ptr_array_index (manager->priv->keys, i);
+
+                if (key->custom_path == NULL)
+                        continue;
+                if (strcmp (key->custom_path, path) == 0) {
+                        g_free (key->custom_command);
+                        key->custom_command = g_settings_get_string (settings, "command");
+                        break;
+                }
+        }
+}
+
+static void
 custom_binding_changed (GSettings           *settings,
                         const char          *settings_key,
                         GsdMediaKeysManager *manager)
 {
         char *path;
 
-        if (strcmp (settings_key, "binding") != 0)
-                return; /* we don't care */
-
         g_object_get (settings, "path", &path, NULL);
-        update_custom_binding (manager, path);
+
+        if (strcmp (settings_key, "binding") == 0)
+                update_custom_binding (manager, path);
+        else if (strcmp (settings_key, "command") == 0)
+                update_custom_binding_command (manager, settings, path);
+
         g_free (path);
 }
 
