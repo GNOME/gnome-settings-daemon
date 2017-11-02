@@ -284,6 +284,7 @@ input_info_guess_candidates (GsdInputInfo  *input,
 
 	if (input->capabilities & GSD_INPUT_IS_SCREEN_INTEGRATED) {
 		outputs[GSD_PRIO_MATCH_SIZE] = input_info_find_size_match (input, input->mapper->rr_screen);
+		found |= outputs[GSD_PRIO_MATCH_SIZE] != NULL;
 	}
 
 	split = g_strsplit (name, " ", -1);
