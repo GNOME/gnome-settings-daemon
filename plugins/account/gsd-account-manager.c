@@ -47,6 +47,8 @@
 
 struct GsdAccountManagerPrivate
 {
+        GSettings            *settings;
+
         GsdAccounts          *accounts_proxy;
         GsdAccountsUser      *accounts_user_proxy;
         GCancellable         *cancellable;
@@ -61,11 +63,16 @@ struct GsdAccountManagerPrivate
         gint64                days_after_expiration_until_lock;
 
         NotifyNotification   *notification;
+
+        gint64                last_notify_time;
+        int                   notify_period;
+        guint                 notify_period_timeout_id;
 };
 
 static void     gsd_account_manager_class_init  (GsdAccountManagerClass *klass);
 static void     gsd_account_manager_init        (GsdAccountManager      *account_manager);
 static void     gsd_account_manager_finalize    (GObject                *object);
+static void     fetch_password_expiration_policy (GsdAccountManager *manager);
 
 G_DEFINE_TYPE (GsdAccountManager, gsd_account_manager, G_TYPE_OBJECT)
 
@@ -113,6 +120,8 @@ show_notification (GsdAccountManager *manager,
                           manager);
 
         notify_notification_show (manager->priv->notification, NULL);
+
+        manager->priv->last_notify_time = g_get_monotonic_time ();
 }
 
 static void
@@ -208,6 +217,33 @@ set_policy_number (gint64 *destination,
         return TRUE;
 }
 
+static gboolean
+on_notify_period_elapsed (GsdAccountManager *manager)
+{
+        manager->priv->notify_period_timeout_id = 0;
+        fetch_password_expiration_policy (manager);
+        return G_SOURCE_REMOVE;
+}
+
+static void
+queue_periodic_timeout (GsdAccountManager *manager)
+{
+        if (manager->priv->notify_period_timeout_id != 0) {
+                g_source_remove (manager->priv->notify_period_timeout_id);
+                manager->priv->notify_period_timeout_id = 0;
+        }
+
+        if (manager->priv->notify_period > 0) {
+                gint64 already_elapsed_time;
+
+                already_elapsed_time = MAX (0, (g_get_monotonic_time () - manager->priv->last_notify_time) / G_USEC_PER_SEC);
+
+                manager->priv->notify_period_timeout_id = g_timeout_add_seconds (MAX (0, manager->priv->notify_period * 60 - already_elapsed_time),
+                                                                                 (GSourceFunc) on_notify_period_elapsed,
+                                                                                 manager);
+        }
+}
+
 static void
 on_got_password_expiration_policy (GsdAccountsUser *accounts_user_proxy,
                                    GAsyncResult    *res,
@@ -247,6 +283,7 @@ on_got_password_expiration_policy (GsdAccountsUser *accounts_user_proxy,
         set_policy_number (&manager->priv->days_after_expiration_until_lock, days_after_expiration_until_lock);
 
         update_password_notification (manager);
+        queue_periodic_timeout (manager);
 out:
         gnome_settings_profile_end (NULL);
 }
@@ -373,6 +410,14 @@ on_got_accounts_proxy (GObject      *source_object,
         gnome_settings_profile_end (NULL);
 }
 
+static void
+on_notify_period_changed (GsdAccountManager *manager)
+{
+        manager->priv->notify_period = g_settings_get_int (manager->priv->settings, "notify-period");
+
+        queue_periodic_timeout (manager);
+}
+
 gboolean
 gsd_account_manager_start (GsdAccountManager  *manager,
                            GError            **error)
@@ -381,6 +426,15 @@ gsd_account_manager_start (GsdAccountManager  *manager,
 
         gnome_settings_profile_start (NULL);
         manager->priv->cancellable = g_cancellable_new ();
+        manager->priv->settings = g_settings_new ("org.gnome.settings-daemon.plugins.account");
+
+        manager->priv->notify_period = g_settings_get_int (manager->priv->settings, "notify-period");
+        g_signal_connect_object (G_OBJECT (manager->priv->settings),
+                          "changed::notify-period",
+                          G_CALLBACK (on_notify_period_changed),
+                          manager,
+                          G_CONNECT_SWAPPED);
+
         gsd_accounts_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
                                         G_DBUS_PROXY_FLAGS_NONE,
                                         "org.freedesktop.Accounts",
@@ -404,6 +458,7 @@ gsd_account_manager_stop (GsdAccountManager *manager)
                 g_clear_object (&manager->priv->cancellable);
         }
 
+        g_clear_object (&manager->priv->settings);
         g_clear_object (&manager->priv->accounts_proxy);
         g_clear_object (&manager->priv->accounts_user_proxy);
         g_clear_object (&manager->priv->notification);

@@ -1,0 +1,9 @@
+<schemalist>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.account" path="/org/gnome/settings-daemon/plugins/account/">
+    <key name="notify-period" type="i">
+      <default>1440</default>
+      <summary>Time before repeated warning about account password expiration</summary>
+      <description>If a user's account is expiring, a notification will get displayed periodically after the specified number of minutes</description>
+    </key>
+  </schema>
+</schemalist>

@@ -4,6 +4,7 @@ schemas = [
   'org.gnome.settings-daemon.peripherals.gschema.xml',
   'org.gnome.settings-daemon.peripherals.wacom.gschema.xml',
   'org.gnome.settings-daemon.plugins.gschema.xml',
+  'org.gnome.settings-daemon.plugins.account.gschema.xml',
   'org.gnome.settings-daemon.plugins.color.gschema.xml',
   'org.gnome.settings-daemon.plugins.housekeeping.gschema.xml',
   'org.gnome.settings-daemon.plugins.media-keys.gschema.xml',
