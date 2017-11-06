@@ -38,6 +38,7 @@
 #include <libnotify/notify.h>
 
 #include "gnome-settings-profile.h"
+#include "gnome-settings-bus.h"
 #include "gsd-account-manager.h"
 #include "org.freedesktop.Accounts.h"
 #include "org.freedesktop.Accounts.User.h"
@@ -49,6 +50,8 @@ struct GsdAccountManagerPrivate
         GsdAccounts          *accounts_proxy;
         GsdAccountsUser      *accounts_user_proxy;
         GCancellable         *cancellable;
+
+        GsdScreenSaver       *screensaver_proxy;
 
         gint64                expiration_time;
         gint64                last_change_time;
@@ -249,6 +252,36 @@ out:
 }
 
 static void
+fetch_password_expiration_policy (GsdAccountManager *manager)
+{
+        gsd_accounts_user_call_get_password_expiration_policy (manager->priv->accounts_user_proxy,
+                                                               manager->priv->cancellable,
+                                                               (GAsyncReadyCallback)
+                                                               on_got_password_expiration_policy,
+                                                               manager);
+}
+
+static void
+on_screensaver_signal (GDBusProxy  *proxy,
+                       const gchar *sender_name,
+                       const gchar *signal_name,
+                       GVariant    *parameters,
+                       gpointer     user_data)
+{
+        GsdAccountManager *manager = user_data;
+
+        if (g_strcmp0 (signal_name, "ActiveChanged") == 0) {
+                gboolean active;
+
+                g_variant_get (parameters, "(b)", &active);
+
+                if (!active) {
+                        fetch_password_expiration_policy (manager);
+                }
+        }
+}
+
+static void
 on_got_accounts_user_proxy (GObject      *source_object,
                             GAsyncResult *res,
                             gpointer      user_data)
@@ -260,11 +293,15 @@ on_got_accounts_user_proxy (GObject      *source_object,
         manager->priv->accounts_user_proxy = gsd_accounts_user_proxy_new_finish (res, &error);
 
         if (manager->priv->accounts_user_proxy != NULL) {
-                gsd_accounts_user_call_get_password_expiration_policy (manager->priv->accounts_user_proxy,
-                                                                       manager->priv->cancellable,
-                                                                       (GAsyncReadyCallback)
-                                                                       on_got_password_expiration_policy,
-                                                                       manager);
+                fetch_password_expiration_policy (manager);
+
+                manager->priv->screensaver_proxy = gnome_settings_bus_get_screen_saver_proxy ();
+
+                g_signal_connect (manager->priv->screensaver_proxy,
+                                  "g-signal",
+                                  G_CALLBACK (on_screensaver_signal),
+                                  manager);
+
         } else {
                 g_warning ("Failed to get user proxy to accounts service: %s", error->message);
                 goto out;
@@ -370,6 +407,7 @@ gsd_account_manager_stop (GsdAccountManager *manager)
         g_clear_object (&manager->priv->accounts_proxy);
         g_clear_object (&manager->priv->accounts_user_proxy);
         g_clear_object (&manager->priv->notification);
+        g_clear_object (&manager->priv->screensaver_proxy);
 }
 
 static void
