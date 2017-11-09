@@ -146,12 +146,6 @@ dnl ================================================================
 dnl Plugins
 dnl ================================================================
 
-PKG_CHECK_MODULES(A11Y_KEYBOARD,
-		  gtk+-3.0
-		  libnotify >= $LIBNOTIFY_REQUIRED_VERSION
-		  gsettings-desktop-schemas >= $GSETTINGS_DESKTOP_SCHEMAS_REQUIRED_VERSION
-		  x11)
-
 PKG_CHECK_MODULES(A11Y_SETTINGS,
 		  gio-2.0
 		  gsettings-desktop-schemas >= $GSETTINGS_DESKTOP_SCHEMAS_REQUIRED_VERSION)
@@ -506,7 +500,6 @@ AC_CONFIG_FILES([
 Makefile
 gnome-settings-daemon/Makefile
 plugins/Makefile
-plugins/a11y-keyboard/Makefile
 plugins/a11y-settings/Makefile
 plugins/clipboard/Makefile
 plugins/color/Makefile
