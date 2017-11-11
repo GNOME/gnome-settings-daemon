@@ -195,6 +195,14 @@ clipboard_bytes_per_item (int format)
 }
 
 static void
+free_contents (GsdClipboardManager *manager)
+{
+        list_foreach (manager->priv->contents, (Callback)target_data_unref, NULL);
+        list_free (manager->priv->contents);
+        manager->priv->contents = NULL;
+}
+
+static void
 save_targets (GsdClipboardManager *manager,
               Atom                *save_targets,
               int                  nitems)
@@ -694,9 +702,7 @@ clipboard_manager_process_event (GsdClipboardManager *manager,
         switch (xev->xany.type) {
         case DestroyNotify:
                 if (xev->xdestroywindow.window == manager->priv->requestor) {
-                        list_foreach (manager->priv->contents, (Callback)target_data_unref, NULL);
-                        list_free (manager->priv->contents);
-                        manager->priv->contents = NULL;
+                        free_contents (manager);
 
                         clipboard_manager_watch_cb (manager,
                                                     manager->priv->requestor,
@@ -720,9 +726,7 @@ clipboard_manager_process_event (GsdClipboardManager *manager,
                 if (xev->xselectionclear.selection == XA_CLIPBOARD_MANAGER) {
                         /* We lost the manager selection */
                         if (manager->priv->contents) {
-                                list_foreach (manager->priv->contents, (Callback)target_data_unref, NULL);
-                                list_free (manager->priv->contents);
-                                manager->priv->contents = NULL;
+                                free_contents (manager);
 
                                 XSetSelectionOwner (manager->priv->display,
                                                     XA_CLIPBOARD,
@@ -733,9 +737,7 @@ clipboard_manager_process_event (GsdClipboardManager *manager,
                 }
                 if (xev->xselectionclear.selection == XA_CLIPBOARD) {
                         /* We lost the clipboard selection */
-                        list_foreach (manager->priv->contents, (Callback)target_data_unref, NULL);
-                        list_free (manager->priv->contents);
-                        manager->priv->contents = NULL;
+                        free_contents (manager);
                         clipboard_manager_watch_cb (manager,
                                                     manager->priv->requestor,
                                                     False,
@@ -984,11 +986,7 @@ gsd_clipboard_manager_stop (GsdClipboardManager *manager)
                 manager->priv->conversions = NULL;
         }
 
-        if (manager->priv->contents != NULL) {
-                list_foreach (manager->priv->contents, (Callback) target_data_unref, NULL);
-                list_free (manager->priv->contents);
-                manager->priv->contents = NULL;
-        }
+        free_contents (manager);
 }
 
 static void
