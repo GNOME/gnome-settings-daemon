@@ -80,6 +80,9 @@
 
 #define CUSTOM_BINDING_SCHEMA SETTINGS_BINDING_DIR ".custom-keybinding"
 
+#define SETTINGS_SOUND_DIR "org.gnome.desktop.sound"
+#define ALLOW_VOLUME_ABOVE_100_PERCENT_KEY "allow-volume-above-100-percent"
+
 #define SHELL_GRABBER_CALL_TIMEOUT G_MAXINT
 #define SHELL_GRABBER_RETRY_INTERVAL 1
 #define OSD_ALL_OUTPUTS -1
@@ -159,6 +162,8 @@ struct GsdMediaKeysManagerPrivate
         GvcMixerStream  *sink;
         GvcMixerStream  *source;
         ca_context      *ca;
+        GSettings       *sound_settings;
+        pa_volume_t      max_volume;
         GtkSettings     *gtksettings;
 #ifdef HAVE_GUDEV
         GHashTable      *streams; /* key = X device ID, value = stream id */
@@ -1154,6 +1159,19 @@ sound_theme_changed (GtkSettings         *settings,
 }
 
 static void
+allow_volume_above_100_percent_changed_cb (GSettings           *settings,
+                                           const char          *settings_key,
+                                           GsdMediaKeysManager *manager)
+{
+        gboolean allow_volume_above_100_percent;
+
+        g_assert (g_str_equal (settings_key, ALLOW_VOLUME_ABOVE_100_PERCENT_KEY));
+
+        allow_volume_above_100_percent = g_settings_get_boolean (settings, settings_key);
+        manager->priv->max_volume = allow_volume_above_100_percent ? PA_VOLUME_UI_MAX : PA_VOLUME_NORM;
+}
+
+static void
 ensure_canberra (GsdMediaKeysManager *manager)
 {
 	char *theme_name;
@@ -1189,7 +1207,7 @@ update_dialog (GsdMediaKeysManager *manager,
 
         if (!muted) {
                 vol = (int) (100 * (double) vol / PA_VOLUME_NORM);
-                vol = CLAMP (vol, 0, 100);
+                vol = CLAMP (vol, 0, (int) (100 * (double) manager->priv->max_volume / PA_VOLUME_NORM));
         } else {
                 vol = 0.0;
         }
@@ -1389,7 +1407,7 @@ do_sound_action (GsdMediaKeysManager *manager,
                 new_muted = FALSE;
                 /* When coming out of mute only increase the volume if it was 0 */
                 if (!old_muted || old_vol == 0)
-                        new_vol = MIN (old_vol + norm_vol_step, MAX_VOLUME);
+                        new_vol = MIN (old_vol + norm_vol_step, manager->priv->max_volume);
                 break;
         }
 
@@ -2886,6 +2904,12 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
           g_hash_table_new_full (g_str_hash, g_str_equal,
                                  g_free, g_object_unref);
 
+        manager->priv->sound_settings = g_settings_new (SETTINGS_SOUND_DIR);
+        g_signal_connect (G_OBJECT (manager->priv->sound_settings), "changed::" ALLOW_VOLUME_ABOVE_100_PERCENT_KEY,
+                          G_CALLBACK (allow_volume_above_100_percent_changed_cb), manager);
+        allow_volume_above_100_percent_changed_cb (manager->priv->sound_settings,
+                                                   ALLOW_VOLUME_ABOVE_100_PERCENT_KEY, manager);
+
         /* for the power plugin interface code */
         manager->priv->power_settings = g_settings_new (SETTINGS_POWER_DIR);
         manager->priv->chassis_type = gnome_settings_get_chassis_type ();
@@ -3019,6 +3043,7 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
 
         g_clear_object (&priv->logind_proxy);
         g_clear_object (&priv->settings);
+        g_clear_object (&priv->sound_settings);
         g_clear_object (&priv->power_settings);
         g_clear_object (&priv->power_proxy);
         g_clear_object (&priv->power_screen_proxy);
