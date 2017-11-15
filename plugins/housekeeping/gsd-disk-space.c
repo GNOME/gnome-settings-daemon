@@ -790,7 +790,7 @@ ldsm_check_all_mounts (gpointer data)
         GList *l;
         GList *check_mounts = NULL;
         GList *full_mounts = NULL;
-        guint number_of_mounts;
+        guint number_of_mounts = 0;
         gboolean multiple_volumes = FALSE;
 
         /* We iterate through the static mounts in /etc/fstab first, seeing if
@@ -844,11 +844,11 @@ ldsm_check_all_mounts (gpointer data)
                 }
 
                 check_mounts = g_list_prepend (check_mounts, mount_info);
+                number_of_mounts += 1;
         }
 
         g_list_free (mounts);
 
-        number_of_mounts = g_list_length (check_mounts);
         if (number_of_mounts > 1)
                 multiple_volumes = TRUE;
 
