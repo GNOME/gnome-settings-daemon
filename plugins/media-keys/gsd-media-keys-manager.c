@@ -409,6 +409,7 @@ get_icon_name_for_volume (gboolean is_mic,
                 "audio-volume-low-symbolic",
                 "audio-volume-medium-symbolic",
                 "audio-volume-high-symbolic",
+                "audio-volume-overamplified-symbolic",
                 NULL
         };
         static const char *mic_icon_names[] = {
@@ -424,12 +425,14 @@ get_icon_name_for_volume (gboolean is_mic,
                 n = 0;
         } else {
                 /* select image */
-                n = 3 * volume / 100 + 1;
-                if (n < 1) {
+                n = ceill (3.0 * volume / 100);
+                if (n < 1)
                         n = 1;
-                } else if (n > 3) {
+                /* output volume above 100% */
+                else if (n > 3 && !is_mic)
+                        n = 4;
+                else if (n > 3)
                         n = 3;
-                }
         }
 
 	if (is_mic)
