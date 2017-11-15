@@ -374,17 +374,29 @@ ensure_cancellable (GCancellable **cancellable)
 }
 
 static void
+show_osd_with_max_level (GsdMediaKeysManager *manager,
+                         const char          *icon,
+                         const char          *label,
+                         int                  level,
+                         int                  max_level,
+                         int                  output_id)
+{
+        if (manager->priv->shell_proxy == NULL)
+                return;
+
+        shell_show_osd_with_max_level (manager->priv->shell_proxy,
+                                       icon, label, level, max_level, output_id);
+}
+
+static void
 show_osd (GsdMediaKeysManager *manager,
           const char          *icon,
           const char          *label,
           int                  level,
           int                  output_id)
 {
-        if (manager->priv->shell_proxy == NULL)
-                return;
-
-        shell_show_osd (manager->priv->shell_proxy,
-                        icon, label, level, output_id);
+        show_osd_with_max_level(manager,
+                                icon, label, level, -1, output_id);
 }
 
 static const char *
@@ -1204,10 +1216,13 @@ update_dialog (GsdMediaKeysManager *manager,
         GvcMixerUIDevice *device;
         const GvcMixerStreamPort *port;
         const char *icon;
+        int max_volume_pct;
+
+        max_volume_pct = (int) (100 * (double) manager->priv->max_volume / PA_VOLUME_NORM);
 
         if (!muted) {
                 vol = (int) (100 * (double) vol / PA_VOLUME_NORM);
-                vol = CLAMP (vol, 0, (int) (100 * (double) manager->priv->max_volume / PA_VOLUME_NORM));
+                vol = CLAMP (vol, 0, max_volume_pct);
         } else {
                 vol = 0.0;
         }
@@ -1219,10 +1234,11 @@ update_dialog (GsdMediaKeysManager *manager,
              g_strcmp0 (port->port, "analog-output-speaker") != 0 &&
              g_strcmp0 (port->port, "analog-output") != 0)) {
                 device = gvc_mixer_control_lookup_device_from_stream (manager->priv->volume, stream);
-                show_osd (manager, icon,
-                          gvc_mixer_ui_device_get_description (device), vol, OSD_ALL_OUTPUTS);
+                show_osd_with_max_level (manager, icon,
+                                         gvc_mixer_ui_device_get_description (device),
+                                         vol, max_volume_pct, OSD_ALL_OUTPUTS);
         } else {
-                show_osd (manager, icon, NULL, vol, OSD_ALL_OUTPUTS);
+                show_osd_with_max_level (manager, icon, NULL, vol, max_volume_pct, OSD_ALL_OUTPUTS);
         }
 
         if (quiet == FALSE && sound_changed != FALSE && muted == FALSE) {

@@ -30,6 +30,13 @@ void shell_show_osd (GsdShell    *shell,
 		     gint         level,
 		     gint         monitor);
 
+void shell_show_osd_with_max_level (GsdShell    *shell,
+                                    const gchar *icon_name,
+                                    const gchar *label,
+                                    gint         level,
+                                    gint         max_level,
+                                    gint         monitor);
+
 G_END_DECLS
 
 #endif /* __GSD_SHELL_HELPER_H__ */
