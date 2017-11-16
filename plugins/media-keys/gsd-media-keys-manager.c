@@ -83,6 +83,10 @@
 #define SHELL_GRABBER_RETRY_INTERVAL 1
 #define OSD_ALL_OUTPUTS -1
 
+/* How long to suppress power-button presses after resume,
+ * 1 second is the minimum necessary to make resume reliable */
+#define GSD_REENABLE_POWER_BUTTON_DELAY                 1000 /* ms */
+
 static const gchar introspection_xml[] =
 "<node name='/org/gnome/SettingsDaemon/MediaKeys'>"
 "  <interface name='org.gnome.SettingsDaemon.MediaKeys'>"
@@ -182,6 +186,8 @@ struct GsdMediaKeysManagerPrivate
         GDBusProxy      *power_keyboard_proxy;
         UpDevice        *composite_device;
         char            *chassis_type;
+        gboolean         power_button_disabled;
+        guint            reenable_power_button_timer_id;
 
         /* Shell stuff */
         GsdShell        *shell_proxy;
@@ -212,6 +218,8 @@ struct GsdMediaKeysManagerPrivate
         /* systemd stuff */
         GDBusProxy      *logind_proxy;
         gint             inhibit_keys_fd;
+        gint             inhibit_suspend_fd;
+        gboolean         inhibit_suspend_taken;
 
         GList           *media_players;
 
@@ -1962,6 +1970,9 @@ do_config_power_button_action (GsdMediaKeysManager *manager,
 {
         GsdPowerButtonActionType action_type;
 
+        if (manager->priv->power_button_disabled)
+                return;
+
         /* Always power off VMs when power off is pressed in the menus */
         if (g_strcmp0 (manager->priv->chassis_type, "vm") == 0) {
                 power_action (manager, "PowerOff", !in_lock_screen);
@@ -2948,6 +2959,17 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 manager->priv->iio_sensor_watch_id = 0;
         }
 
+        if (priv->inhibit_suspend_fd != -1) {
+                close (priv->inhibit_suspend_fd);
+                priv->inhibit_suspend_fd = -1;
+                priv->inhibit_suspend_taken = FALSE;
+        }
+
+        if (priv->reenable_power_button_timer_id) {
+                g_source_remove (priv->reenable_power_button_timer_id);
+                priv->reenable_power_button_timer_id = 0;
+        }
+
         g_clear_pointer (&manager->priv->ca, ca_context_destroy);
 
 #ifdef HAVE_GUDEV
@@ -3016,6 +3038,136 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
                 g_bus_unwatch_name (priv->audio_selection_watch_id);
         priv->audio_selection_watch_id = 0;
         clear_audio_selection (manager);
+}
+
+static void
+inhibit_suspend_done (GObject      *source,
+                      GAsyncResult *result,
+                      gpointer      user_data)
+{
+        GDBusProxy *proxy = G_DBUS_PROXY (source);
+        GsdMediaKeysManager *manager = GSD_MEDIA_KEYS_MANAGER (user_data);
+        GError *error = NULL;
+        GVariant *res;
+        GUnixFDList *fd_list = NULL;
+        gint idx;
+
+        res = g_dbus_proxy_call_with_unix_fd_list_finish (proxy, &fd_list, result, &error);
+        if (res == NULL) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Unable to inhibit suspend: %s", error->message);
+                g_error_free (error);
+        } else {
+                g_variant_get (res, "(h)", &idx);
+                manager->priv->inhibit_suspend_fd = g_unix_fd_list_get (fd_list, idx, &error);
+                if (manager->priv->inhibit_suspend_fd == -1) {
+                        g_warning ("Failed to receive system suspend inhibitor fd: %s", error->message);
+                        g_error_free (error);
+                }
+                g_debug ("System suspend inhibitor fd is %d", manager->priv->inhibit_suspend_fd);
+                g_object_unref (fd_list);
+                g_variant_unref (res);
+        }
+}
+
+/* We take a delay inhibitor here, which causes logind to send a PrepareForSleep
+ * signal, so that we can set power_button_disabled on suspend.
+ */
+static void
+inhibit_suspend (GsdMediaKeysManager *manager)
+{
+        if (manager->priv->inhibit_suspend_taken) {
+                g_debug ("already inhibited suspend");
+                return;
+        }
+        g_debug ("Adding suspend delay inhibitor");
+        manager->priv->inhibit_suspend_taken = TRUE;
+        g_dbus_proxy_call_with_unix_fd_list (manager->priv->logind_proxy,
+                                             "Inhibit",
+                                             g_variant_new ("(ssss)",
+                                                            "sleep",
+                                                            g_get_user_name (),
+                                                            "GNOME handling keypresses",
+                                                            "delay"),
+                                             0,
+                                             G_MAXINT,
+                                             NULL,
+                                             NULL,
+                                             inhibit_suspend_done,
+                                             manager);
+}
+
+static void
+uninhibit_suspend (GsdMediaKeysManager *manager)
+{
+        if (manager->priv->inhibit_suspend_fd == -1) {
+                g_debug ("no suspend delay inhibitor");
+                return;
+        }
+        g_debug ("Removing suspend delay inhibitor");
+        close (manager->priv->inhibit_suspend_fd);
+        manager->priv->inhibit_suspend_fd = -1;
+        manager->priv->inhibit_suspend_taken = FALSE;
+}
+
+static gboolean
+reenable_power_button_timer_cb (GsdMediaKeysManager *manager)
+{
+        manager->priv->power_button_disabled = FALSE;
+        /* This is a one shot timer. */
+        manager->priv->reenable_power_button_timer_id = 0;
+        return G_SOURCE_REMOVE;
+}
+
+static void
+setup_reenable_power_button_timer (GsdMediaKeysManager *manager)
+{
+        if (manager->priv->reenable_power_button_timer_id != 0)
+                return;
+
+        manager->priv->reenable_power_button_timer_id =
+                g_timeout_add (GSD_REENABLE_POWER_BUTTON_DELAY,
+                               (GSourceFunc) reenable_power_button_timer_cb,
+                               manager);
+        g_source_set_name_by_id (manager->priv->reenable_power_button_timer_id,
+                                 "[GsdMediaKeysManager] Reenable power button timer");
+}
+
+static void
+stop_reenable_power_button_timer (GsdMediaKeysManager *manager)
+{
+        if (manager->priv->reenable_power_button_timer_id == 0)
+                return;
+
+        g_source_remove (manager->priv->reenable_power_button_timer_id);
+        manager->priv->reenable_power_button_timer_id = 0;
+}
+
+static void
+logind_proxy_signal_cb (GDBusProxy  *proxy,
+                        const gchar *sender_name,
+                        const gchar *signal_name,
+                        GVariant    *parameters,
+                        gpointer     user_data)
+{
+        GsdMediaKeysManager *manager = GSD_MEDIA_KEYS_MANAGER (user_data);
+        gboolean is_about_to_suspend;
+
+        if (g_strcmp0 (signal_name, "PrepareForSleep") != 0)
+                return;
+        g_variant_get (parameters, "(b)", &is_about_to_suspend);
+        if (is_about_to_suspend) {
+                /* Some devices send a power-button press on resume when woken
+                 * up with the power-button, suppress this, to avoid immediate
+                 * re-suspend. */
+                stop_reenable_power_button_timer (manager);
+                manager->priv->power_button_disabled = TRUE;
+                uninhibit_suspend (manager);
+        } else {
+                inhibit_suspend (manager);
+                /* Re-enable power-button handling (after a small delay) */
+                setup_reenable_power_button_timer (manager);
+        }
 }
 
 static void
@@ -3109,6 +3261,12 @@ gsd_media_keys_manager_init (GsdMediaKeysManager *manager)
                                              inhibit_done,
                                              manager);
 
+        g_debug ("Adding delay inhibitor for suspend");
+        manager->priv->inhibit_suspend_fd = -1;
+        g_signal_connect (manager->priv->logind_proxy, "g-signal",
+                          G_CALLBACK (logind_proxy_signal_cb),
+                          manager);
+        inhibit_suspend (manager);
 }
 
 static void
