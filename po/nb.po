@@ -6,11 +6,10 @@
 # Torstein Adolf Winterseth <kvikende@fsfe.org>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon 3.26.x\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-11-01 16:55+0000\n"
-"PO-Revision-Date: 2017-11-06 11:38+0100\n"
+"Project-Id-Version: gnome-settings-daemon 3.27.x\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2017-11-06 10:39+0000\n"
+"PO-Revision-Date: 2017-11-20 19:08+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: nb\n"
@@ -126,12 +125,11 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:24
 msgid "Key Repeat Interval"
-msgstr ""
+msgstr "Tastaturgjentakelsesintervall"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:25
-#, fuzzy
 msgid "Delay between repeats in milliseconds."
-msgstr "Lengde på dobbeltklikk i millisekunder."
+msgstr "Pause mellom gjentakelse i millisekunder."
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:26
 #, fuzzy
@@ -191,10 +189,8 @@ msgid "Set this to TRUE to enable all touchpads."
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:38
-#, fuzzy
-#| msgid "Power button action"
 msgid "Touchpad button orientation"
-msgstr "Handling for strømknapp"
+msgstr "Orientering for knapp på pekeplaten"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:39
 msgid ""
@@ -402,7 +398,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:9
 msgid "Use the sunrise and sunset"
-msgstr ""
+msgstr "Bruk soloppgang og solnedgang"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:10
 msgid ""
@@ -412,7 +408,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:11
 msgid "The start time"
-msgstr ""
+msgstr "Starttid"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:12
 msgid ""
@@ -422,7 +418,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:13
 msgid "The end time"
-msgstr ""
+msgstr "Sluttid"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:14
 msgid ""
@@ -432,7 +428,7 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:15
 msgid "The last detected position"
-msgstr ""
+msgstr "Sist gjenkjente posisjon"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:16
 msgid ""
@@ -704,10 +700,8 @@ msgid "Record a short video of the screen"
 msgstr "Ta opp en kort video av skjermen"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
-#, fuzzy
-#| msgid "Record a short video of the screen"
 msgid "Binding to record a short video of the screen"
-msgstr "Ta opp en kort video av skjermen"
+msgstr "Binding for å ta opp en kort video av skjermen"
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Launch web browser"
@@ -927,12 +921,6 @@ msgid "RGBA order"
 msgstr "RGBA-rekkefølge"
 
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
-#, fuzzy
-#| msgid ""
-#| "The order of subpixel elements on an LCD screen; only used when "
-#| "antialiasing is set to \"rgba\". Possible values are: \"rgb\" for red on "
-#| "left (most common), \"bgr\" for blue on left, \"vrgb\" for red on top, "
-#| "\"vbgr\" for red on bottom."
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to “rgba”. Possible values are: “rgb” for red on left (most common), "
@@ -1155,30 +1143,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Denne datamaskinen har kun %s gjenværende diskplass."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2138
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2161
 msgid "Bluetooth disabled"
 msgstr "Bluetooth slått av"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2141
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2164
 msgid "Bluetooth enabled"
 msgstr "Bluetooth slått på"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2145
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2168
 msgid "Airplane mode enabled"
 msgstr "Flymodus slått på"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2148
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2171
 msgid "Airplane mode disabled"
 msgstr "Flymodus slått av"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2176
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2199
 msgid "Hardware Airplane Mode"
 msgstr "Flymodus i maskinvare"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2236
+#: ../plugins/media-keys/gsd-media-keys-manager.c:2259
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Skjermvideo fra %d %t.webm"
