@@ -495,7 +495,7 @@ cc_rfkill_glib_set_rfkill_input_inhibited (CcRfkillGlib *rfkill,
 		rfkill->noinput_fd = fd;
 	}
 
-	g_object_notify (G_OBJECT (rfkill), "kernel-noinput");
+	g_object_notify (G_OBJECT (rfkill), "rfkill-input-inhibited");
 }
 
 static void
