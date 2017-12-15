@@ -23,6 +23,10 @@
 #error Include PLUGIN_CFLAGS in the daemon s CFLAGS
 #endif /* !PLUGIN_NAME */
 
+#ifndef PLUGIN_DBUS_NAME
+#error Include PLUGIN_DBUS_NAME in the daemon s CFLAGS
+#endif /* !PLUGIN_DBUS_NAME */
+
 #define GNOME_SESSION_DBUS_NAME                     "org.gnome.SessionManager"
 #define GNOME_SESSION_CLIENT_PRIVATE_DBUS_INTERFACE "org.gnome.SessionManager.ClientPrivate"
 
@@ -168,6 +172,7 @@ main (int argc, char **argv)
         GError *error = NULL;
         GOptionContext *context;
         GMainLoop *loop;
+        guint name_own_id;
 
         bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -214,12 +219,23 @@ main (int argc, char **argv)
 			g_error_free (error);
 			exit (1);
 		}
+
+		name_own_id = g_bus_own_name (G_BUS_TYPE_SYSTEM,
+					      PLUGIN_DBUS_NAME,
+					      G_BUS_NAME_OWNER_FLAGS_DO_NOT_QUEUE,
+					      NULL, /* bus_acquired_handler */
+					      NULL, /* name_acquired_handler */
+					      NULL, /* name_lost_handler */
+					      NULL, /* user_data */
+					      NULL /* user_data_free_func */);
 	}
 
         g_main_loop_run (loop);
 
-	if (should_run ())
+	if (should_run ()) {
 		STOP (manager);
+		g_bus_unown_name (name_own_id);
+	}
         g_object_unref (manager);
 
         return 0;
