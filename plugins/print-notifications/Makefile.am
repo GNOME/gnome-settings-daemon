@@ -43,6 +43,7 @@ gsd_print_notifications_CFLAGS =			\
 
 gsd_print_notifications_LDADD =				\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+	$(top_builddir)/plugins/common/libcommon.la	\
 	$(CUPS_LIBS)						\
 	$(PRINT_NOTIFICATIONS_LIBS)
 

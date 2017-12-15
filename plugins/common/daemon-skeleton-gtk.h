@@ -18,6 +18,8 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
+#include <systemd/sd-daemon.h>
+
 #include "gnome-settings-bus.h"
 
 #ifndef PLUGIN_NAME
@@ -83,6 +85,7 @@ respond_to_end_session (GDBusProxy *proxy)
 static void
 do_stop (void)
 {
+        sd_notify (FALSE, "STOPPING=1");
         gtk_main_quit ();
 }
 
@@ -223,6 +226,7 @@ main (int argc, char **argv)
 
         manager = NEW ();
 	register_with_gnome_session ();
+	sd_notify (FALSE, "READY=1");
 
 	if (should_run ()) {
 		error = NULL;

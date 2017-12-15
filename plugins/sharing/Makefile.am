@@ -18,6 +18,7 @@ gsd_sharing_CPPFLAGS =						\
 	$(AM_CPPFLAGS)
 gsd_sharing_LDADD =					\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+	$(top_builddir)/plugins/common/libcommon.la	\
 	$(SHARING_LIBS)
 
 desktopdir = $(sysconfdir)/xdg/autostart

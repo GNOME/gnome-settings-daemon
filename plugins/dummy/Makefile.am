@@ -17,7 +17,10 @@ gsd_dummy_CPPFLAGS =			\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
-gsd_dummy_LDADD = $(DUMMY_LIBS) $(top_builddir)/gnome-settings-daemon/libgsd.la
+gsd_dummy_LDADD = 					\
+	$(top_builddir)/gnome-settings-daemon/libgsd.la	\
+	$(top_builddir)/plugins/common/libcommon.la	\
+	$(DUMMY_LIBS)
 
 desktopdir = $(sysconfdir)/xdg/autostart
 

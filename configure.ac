@@ -290,6 +290,7 @@ PKG_CHECK_MODULES(COMMON,
 		  x11
 		  kbproto
 		  xi
+		  libsystemd
 		  $GUDEV_PKG
 		  $LIBWACOM_PKG)
 PKG_CHECK_MODULES(HELPER, gio-unix-2.0)

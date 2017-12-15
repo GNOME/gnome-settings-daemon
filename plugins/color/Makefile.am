@@ -73,6 +73,7 @@ gsd_color_CPPFLAGS =						\
 	$(AM_CPPFLAGS)
 
 gsd_color_LDADD =						\
+	$(top_builddir)/plugins/common/libcommon.la		\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(COLOR_LIBS)						\
 	$(LIBM)

@@ -24,7 +24,10 @@ gsd_clipboard_CPPFLAGS =					\
 	-I$(top_srcdir)/plugins/common				\
 	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"
 
-gsd_clipboard_LDADD = $(CLIPBOARD_LIBS) $(top_builddir)/gnome-settings-daemon/libgsd.la
+gsd_clipboard_LDADD = 						\
+	$(top_builddir)/plugins/common/libcommon.la		\
+	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+	$(CLIPBOARD_LIBS)
 
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = org.gnome.SettingsDaemon.Clipboard.desktop.in

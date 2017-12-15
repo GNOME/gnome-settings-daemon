@@ -82,6 +82,7 @@ gsd_xsettings_CPPFLAGS =										\
 	-DGTK_MODULES_DIRECTORY=\""$(libdir)/gnome-settings-daemon-@GSD_API_VERSION@/gtk-modules/"\"
 
 gsd_xsettings_LDADD =						\
+	$(top_builddir)/plugins/common/libcommon.la		\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(XSETTINGS_LIBS)
 
