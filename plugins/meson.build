@@ -40,10 +40,12 @@ plugins_cflags = ['-DGNOME_SETTINGS_LOCALEDIR="@0@"'.format(gsd_localedir)]
 
 foreach plugin: [['common', '']] + enabled_plugins
   plugin_name = plugin[0]
+  plugin_dbus_name = plugin[1]
 
   cflags = [
     '-DG_LOG_DOMAIN="@0@-plugin"'.format(plugin_name),
     '-DPLUGIN_NAME="@0@"'.format(plugin_name),
+    '-DPLUGIN_DBUS_NAME="org.gnome.SettingsDaemon.Notify.@0@"'.format(plugin_dbus_name),
   ] + plugins_cflags
 
   if not ['common', 'dummy'].contains(plugin_name)
