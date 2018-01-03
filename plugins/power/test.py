@@ -389,6 +389,15 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         log = self.plugin_log.read()
         self.assertFalse('TESTSUITE: Blanked screen' in log, 'unexpected blank request')
 
+    def check_no_unblank(self, seconds):
+        '''Check that no unblank is requested in the given time'''
+
+        # wait for specified time to ensure it didn't unblank
+        time.sleep(seconds)
+        # check that it did not unblank
+        log = self.plugin_log.read()
+        self.assertFalse('TESTSUITE: Unblanked screen' in log, 'unexpected unblank request')
+
     def test_screensaver(self):
         # Note that the screensaver mock object
         # doesn't know how to get out of being active,
@@ -458,6 +467,33 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # Drop inhibitor
         self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id),
                 dbus_interface='org.gnome.SessionManager')
+
+    def test_screensaver_no_unblank(self):
+        '''Ensure the screensaver is not unblanked for new inhibitors.'''
+
+        # Lower idle delay a lot
+        self.settings_session['idle-delay'] = 1
+
+        # Bring down the screensaver
+        self.obj_screensaver.SetActive(True)
+        self.assertTrue(self.obj_screensaver.GetActive(), 'screensaver not turned on')
+
+        # Check that we blank
+        self.check_blank(2)
+
+        # Create the different possible inhibitors
+        inhibit_id = self.obj_session_mgr.Inhibit(
+            'testsuite', dbus.UInt32(0), 'for testing',
+            dbus.UInt32(gsdpowerenums.GSM_INHIBITOR_FLAG_IDLE | gsdpowerenums.GSM_INHIBITOR_FLAG_SUSPEND | gsdpowerenums.GSM_INHIBITOR_FLAG_LOGOUT),
+            dbus_interface='org.gnome.SessionManager')
+
+        self.check_no_unblank(2)
+
+        # Drop inhibitor
+        self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id),
+                dbus_interface='org.gnome.SessionManager')
+
+        self.check_no_unblank(2)
 
     def test_session_idle_delay(self):
         '''verify that session idle delay works as expected when changed'''
