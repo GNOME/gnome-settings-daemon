@@ -1733,9 +1733,10 @@ idle_configure (GsdPowerManager *manager)
         }
 
         /* are we inhibited from going idle */
-        if (!manager->priv->session_is_active || is_idle_inhibited) {
-                if (is_idle_inhibited)
-                        g_debug ("inhibited, so using normal state");
+        if (!manager->priv->session_is_active ||
+            (is_idle_inhibited && !manager->priv->screensaver_active)) {
+                if (is_idle_inhibited && !manager->priv->screensaver_active)
+                        g_debug ("inhibited and screensaver not active, so using normal state");
                 else
                         g_debug ("inactive, so using normal state");
                 idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
