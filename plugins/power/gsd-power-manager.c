@@ -1547,10 +1547,12 @@ upower_kbd_proxy_signal_cb (GDBusProxy  *proxy,
                 return;
 
         manager->kbd_brightness_now = brightness;
-        percentage = ABS_TO_PERCENTAGE (0,
-                                        manager->kbd_brightness_max,
-                                        manager->kbd_brightness_now);
-        backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, percentage, source);
+        if (brightness != -1) {
+                percentage = ABS_TO_PERCENTAGE (0,
+                                                manager->kbd_brightness_max,
+                                                manager->kbd_brightness_now);
+                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, percentage, source);
+        }
 }
 
 static gboolean
