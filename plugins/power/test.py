@@ -436,8 +436,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # blank is supposed to happen straight away
         self.check_blank(2)
 
-        # wiggle the mouse now and check for unblank; this is expected to pop up
-        # the locked screen saver
+        # Wait a bit for the active watch to be registered through dbus, then
+        # fake user activity and check that the screen is unblanked.
+        time.sleep(0.5)
         self.reset_idle_timer()
         self.check_unblank(2)
 
@@ -448,9 +449,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # and check for blank after the blank timeout
         self.check_blank(10)
 
-        # and do it again
-
-        # wiggle
+        # Wait a bit for the active watch to be registered through dbus, then
+        # fake user activity and check that the screen is unblanked.
+        time.sleep(0.5)
         self.reset_idle_timer()
         self.check_unblank(2)
 
@@ -474,8 +475,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # blank is supposed to happen straight away
         self.check_blank(2)
 
-        # wiggle the mouse now and check for unblank; this is expected to pop up
-        # the locked screen saver
+        # Wait a bit for the active watch to be registered through dbus, then
+        # fake user activity and check that the screen is unblanked.
+        time.sleep(0.5)
         self.reset_idle_timer()
         self.check_unblank(2)
         self.assertTrue(self.get_brightness() == gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS , 'incorrect unblanked brightness (%d != %d)' % (self.get_brightness(), gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS))
