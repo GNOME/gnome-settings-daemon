@@ -24,8 +24,12 @@ import gsdpowerenums
 
 import dbus
 
+import gi
+gi.require_version('UPowerGlib', '1.0')
+
 from gi.repository import Gio
 from gi.repository import GLib
+from gi.repository import UPowerGlib
 
 class PowerPluginTest(gsdtestcase.GSDTestCase):
     '''Test the power plugin'''
@@ -206,6 +210,26 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         else:
             val = '0'
         GLib.file_set_contents ('GSD_MOCK_EXTERNAL_MONITOR', val)
+
+    def set_composite_battery_discharging(self, icon='battery-good-symbolic'):
+        self.obj_upower.SetupDisplayDevice(
+            UPowerGlib.DeviceKind.BATTERY,
+            UPowerGlib.DeviceState.DISCHARGING,
+            50., 50., 100., # 50%, charge 50 of 100
+            0.01, 600, 0, # Discharge rate 0.01 with 600 seconds remaining, 0 time to full
+            True, # present
+            icon, UPowerGlib.DeviceLevel.NONE
+        )
+
+    def set_composite_battery_critical(self, icon='battery-caution-symbolic'):
+        self.obj_upower.SetupDisplayDevice(
+            UPowerGlib.DeviceKind.BATTERY,
+            UPowerGlib.DeviceState.DISCHARGING,
+            2., 2., 100., # 2%, charge 2 of 100
+            0.01, 60, 0, # Discharge rate 0.01 with 60 seconds remaining, 0 time to full
+            True, # present
+            icon, UPowerGlib.DeviceLevel.CRITICAL
+        )
 
     def check_for_logout(self, timeout):
         '''Check that logout is requested.
@@ -705,105 +729,49 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # Check that we're uninhibited
         self.check_for_uninhibited()
 
-    def test_action_critical_battery(self):
+    def test_notify_critical_battery(self):
         '''action on critical battery'''
 
-        # add a fake battery with 30%/2 hours charge to upower
-        bat_path = self.obj_upower.AddDischargingBattery('mock_BAT', 'Mock Bat', 30.0, 1200)
-        obj_bat = self.system_bus_con.get_object('org.freedesktop.UPower', bat_path)
-        self.obj_upower.EmitSignal('', 'DeviceAdded', 'o', [bat_path],
-                                   dbus_interface='org.freedesktop.DBus.Mock')
+        self.set_composite_battery_discharging()
 
-        time.sleep(1)
+        time.sleep(2)
 
-        # now change battery to critical charge
-        obj_bat.Set('org.freedesktop.UPower.Device', 'TimeToEmpty',
-                    dbus.Int64(30, variant_level=1),
-                    dbus_interface=dbus.PROPERTIES_IFACE)
-        obj_bat.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
-        self.obj_upower.EmitSignal('', 'DeviceChanged', 'o', [obj_bat.object_path],
-                                   dbus_interface='org.freedesktop.DBus.Mock')
+        self.set_composite_battery_critical()
 
+        # Check that it was picked up
+        self.check_plugin_log('EMIT: charge-critical', 2)
+
+        # Wait a bit longer to ensure event has been fired
         time.sleep(0.5)
         # we should have gotten a notification now
         notify_log = self.p_notify.stdout.read()
 
-        self.check_for_suspend(5)
-
         # verify notification
-        self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" 0 "battery-.*" ".*battery critical.*"')
+        self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" 0 "battery-caution-symbolic" ".*battery critical.*"')
 
-    def test_action_critical_battery_on_start(self):
+    def test_notify_critical_battery_on_start(self):
         '''action on critical battery on startup'''
 
-        # add a fake battery with 2%/1 minute charge to upower
-        bat_path = self.obj_upower.AddDischargingBattery('mock_BAT', 'Mock Bat', 2.0, 60)
-        obj_bat = self.system_bus_con.get_object('org.freedesktop.UPower', bat_path)
-        self.obj_upower.EmitSignal('', 'DeviceAdded', 'o', [bat_path],
-                                   dbus_interface='org.freedesktop.DBus.Mock')
+        self.set_composite_battery_critical()
 
-        time.sleep(5)
+        # Check that it was picked up
+        self.check_plugin_log('EMIT: charge-critical', 2)
 
-        # we should have gotten a notification now
+        time.sleep(0.5)
+
+        # we should have gotten a notification by now
         notify_log = self.p_notify.stdout.read()
 
-        self.check_for_suspend(5)
-
         # verify notification
-        self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" 0 "battery-.*" ".*battery critical.*"')
+        self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" 0 "battery-caution-symbolic" ".*battery critical.*"')
 
-    def test_action_multiple_batteries(self):
-        '''critical actions for multiple batteries'''
+    def test_notify_device_battery(self):
+        '''critical power level notification for device batteries'''
 
-        # add two fake batteries to upower
-        bat1_path = self.obj_upower.AddDischargingBattery('mock_BAT1', 'Bat0', 30.0, 1200)
-        obj_bat1 = self.system_bus_con.get_object('org.freedesktop.UPower', bat1_path)
-        self.obj_upower.EmitSignal('', 'DeviceAdded', 'o', [bat1_path],
-                                   dbus_interface='org.freedesktop.DBus.Mock')
+        # Set internal battery to discharging
+        self.set_composite_battery_discharging()
 
-        bat2_path = self.obj_upower.AddDischargingBattery('mock_BAT2', 'Bat2', 40.0, 1600)
-        obj_bat2 = self.system_bus_con.get_object('org.freedesktop.UPower', bat2_path)
-        self.obj_upower.EmitSignal('', 'DeviceAdded', 'o', [bat2_path],
-                                   dbus_interface='org.freedesktop.DBus.Mock')
-        time.sleep(1)
-
-        # now change one battery to critical charge
-        obj_bat1.Set('org.freedesktop.UPower.Device', 'TimeToEmpty',
-                     dbus.Int64(30, variant_level=1),
-                     dbus_interface=dbus.PROPERTIES_IFACE)
-        obj_bat1.Set('org.freedesktop.UPower.Device', 'Energy',
-                     dbus.Double(0.5, variant_level=1),
-                     dbus_interface=dbus.PROPERTIES_IFACE)
-        obj_bat1.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
-        self.obj_upower.EmitSignal('', 'DeviceChanged', 'o', [bat1_path],
-                                   dbus_interface='org.freedesktop.DBus.Mock')
-
-        # wait long enough to ensure it didn't do anything (as we still have
-        # the second battery)
-        self.check_no_suspend(5)
-
-        # now change the other battery to critical charge as well
-        obj_bat2.Set('org.freedesktop.UPower.Device', 'TimeToEmpty',
-                     dbus.Int64(25, variant_level=1),
-                     dbus_interface=dbus.PROPERTIES_IFACE)
-        obj_bat2.Set('org.freedesktop.UPower.Device', 'Energy',
-                     dbus.Double(0.4, variant_level=1),
-                     dbus_interface=dbus.PROPERTIES_IFACE)
-        obj_bat2.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
-        self.obj_upower.EmitSignal('', 'DeviceChanged', 'o', [bat2_path],
-                                   dbus_interface='org.freedesktop.DBus.Mock')
-
-        self.check_for_suspend(5)
-
-    def test_action_multiple_device_batteries(self):
-        '''critical actions for multiple device batteries'''
-
-        # add a fake battery to upower
-        bat1_path = self.obj_upower.AddDischargingBattery('mock_BAT1', 'Bat0', 30.0, 1200)
-        obj_bat1 = self.system_bus_con.get_object('org.freedesktop.UPower', bat1_path)
-        self.obj_upower.EmitSignal('', 'DeviceAdded', 'o', [bat1_path],
-                                   dbus_interface='org.freedesktop.DBus.Mock')
-
+        # Add a device battery
         bat2_path = '/org/freedesktop/UPower/devices/' + 'mock_MOUSE_BAT1'
         self.obj_upower.AddObject(bat2_path,
                                   'org.freedesktop.UPower.Device',
@@ -815,10 +783,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
                                       'TimeToEmpty': dbus.Int64(1600, variant_level=1),
                                       'EnergyFull': dbus.Double(100.0, variant_level=1),
                                       'Energy': dbus.Double(40.0, variant_level=1),
-                                      # UP_DEVICE_STATE_DISCHARGING
-                                      'State': dbus.UInt32(2, variant_level=1),
-                                      # UP_DEVICE_KIND_BATTERY
-                                      'Type': dbus.UInt32(2, variant_level=1),
+                                      'State': dbus.UInt32(UPowerGlib.DeviceState.DISCHARGING, variant_level=1),
+                                      'Type': dbus.UInt32(UPowerGlib.DeviceKind.MOUSE, variant_level=1),
+                                      'WarningLevel': dbus.UInt32(UPowerGlib.DeviceLevel.NONE, variant_level=1),
                                    }, dbus.Array([], signature='(ssss)'))
 
         obj_bat2 = self.system_bus_con.get_object('org.freedesktop.UPower', bat2_path)
@@ -833,26 +800,21 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         obj_bat2.Set('org.freedesktop.UPower.Device', 'Energy',
                      dbus.Double(0.5, variant_level=1),
                      dbus_interface=dbus.PROPERTIES_IFACE)
+        obj_bat2.Set('org.freedesktop.UPower.Device', 'WarningLevel',
+                     dbus.UInt32(UPowerGlib.DeviceLevel.CRITICAL, variant_level=1),
+                     dbus_interface=dbus.PROPERTIES_IFACE)
         obj_bat2.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
         self.obj_upower.EmitSignal('', 'DeviceChanged', 'o', [bat2_path],
                                    dbus_interface='org.freedesktop.DBus.Mock')
 
-        # wait long enough to ensure it didn't do anything (as we still have
-        # the second battery)
-        self.check_no_suspend(5)
+        self.check_plugin_log('EMIT: charge-critical', 2)
+        time.sleep(0.5)
 
-        # now change the main battery to critical charge as well
-        obj_bat1.Set('org.freedesktop.UPower.Device', 'TimeToEmpty',
-                     dbus.Int64(25, variant_level=1),
-                     dbus_interface=dbus.PROPERTIES_IFACE)
-        obj_bat1.Set('org.freedesktop.UPower.Device', 'Energy',
-                     dbus.Double(0.4, variant_level=1),
-                     dbus_interface=dbus.PROPERTIES_IFACE)
-        obj_bat1.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
-        self.obj_upower.EmitSignal('', 'DeviceChanged', 'o', [bat1_path],
-                                   dbus_interface='org.freedesktop.DBus.Mock')
+        # we should have gotten a notification by now
+        notify_log = self.p_notify.stdout.read()
 
-        self.check_for_suspend(5)
+        # verify notification
+        self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" 0 ".*" ".*Wireless mouse .*low.* power.*"')
 
     def test_forced_logout(self):
         '''Test forced logout'''
