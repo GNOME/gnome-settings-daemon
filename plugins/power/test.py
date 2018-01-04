@@ -603,6 +603,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             dbus.UInt32(gsdpowerenums.GSM_INHIBITOR_FLAG_SUSPEND),
             dbus_interface='org.gnome.SessionManager')
 
+        time.sleep (gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT)
+
         # Close the lid
         self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', True)
         self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
@@ -627,6 +629,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             dbus.UInt32(gsdpowerenums.GSM_INHIBITOR_FLAG_SUSPEND),
             dbus_interface='org.gnome.SessionManager')
 
+        time.sleep (gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT)
+
         # Close the lid
         self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', True)
         self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
@@ -647,6 +651,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             'testsuite', dbus.UInt32(0), 'for testing',
             dbus.UInt32(gsdpowerenums.GSM_INHIBITOR_FLAG_SUSPEND),
             dbus_interface='org.gnome.SessionManager')
+
+        time.sleep (gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT)
 
         # Close the lid
         self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', True)
@@ -712,7 +718,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # Add an external monitor
         self.set_has_external_monitor(True)
-        time.sleep (1)
+        time.sleep (gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 1)
 
         # Close the lid
         self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', True)
