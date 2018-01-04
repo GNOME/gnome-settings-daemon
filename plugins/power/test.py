@@ -31,7 +31,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
     '''Test the power plugin'''
 
     def setUp(self):
-        os.environ['GSD_MOCK']='1'
+        os.environ['GSD_MOCKED']='1'
         self.check_logind_gnome_session()
         self.start_logind()
         self.daemon_death_expected = False
