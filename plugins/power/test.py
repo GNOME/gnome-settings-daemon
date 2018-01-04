@@ -480,11 +480,11 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_IDLE)
 
         # Go to sleep
-        self.obj_logind.EmitSignal('', 'PrepareForSleep', 'b', [True], dbus_interface='org.freedesktop.DBus.Mock')
+        self.logind_obj.EmitSignal('', 'PrepareForSleep', 'b', [True], dbus_interface='org.freedesktop.DBus.Mock')
         time.sleep(1)
 
         # Wake up
-        self.obj_logind.EmitSignal('', 'PrepareForSleep', 'b', [False], dbus_interface='org.freedesktop.DBus.Mock')
+        self.logind_obj.EmitSignal('', 'PrepareForSleep', 'b', [False], dbus_interface='org.freedesktop.DBus.Mock')
         time.sleep(1)
 
         # And check we're not idle
@@ -648,11 +648,11 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.check_blank(2)
 
         # Go to sleep
-        self.obj_logind.EmitSignal('', 'PrepareForSleep', 'b', [True], dbus_interface='org.freedesktop.DBus.Mock')
+        self.logind_obj.EmitSignal('', 'PrepareForSleep', 'b', [True], dbus_interface='org.freedesktop.DBus.Mock')
         time.sleep(1)
 
         # Wake up
-        self.obj_logind.EmitSignal('', 'PrepareForSleep', 'b', [False], dbus_interface='org.freedesktop.DBus.Mock')
+        self.logind_obj.EmitSignal('', 'PrepareForSleep', 'b', [False], dbus_interface='org.freedesktop.DBus.Mock')
         time.sleep(1)
 
         # And check that we have the pre-dim brightness
