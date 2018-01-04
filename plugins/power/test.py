@@ -94,7 +94,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         env['CANBERRA_DRIVER'] = 'null'
 
         self.daemon = subprocess.Popen(
-            [os.path.join(builddir, 'gsd-power')],
+            [os.path.join(builddir, 'gsd-power'), '--verbose'],
             # comment out this line if you want to see the logs in real time
             stdout=self.plugin_log_write,
             stderr=subprocess.STDOUT,
