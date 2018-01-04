@@ -291,6 +291,31 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             self.assertTrue(b' Suspend' in log, 'missing Suspend request')
             self.assertFalse(b' Hibernate' in log, 'unexpected Hibernate request')
 
+    def check_plugin_log(self, needle, timeout=0, failmsg=None):
+        '''Check that needle is found in the log within the given timeout.
+        Returns immediately when found.
+
+        Fail after the given timeout.
+        '''
+        # Fast path if the message was already logged
+        log = self.plugin_log.read()
+        if needle in log:
+            return
+
+        while timeout > 0:
+            time.sleep(0.5)
+            timeout -= 0.5
+
+            # read new data (lines) from the log
+            log = self.plugin_log.read()
+            if needle in log:
+                break
+        else:
+            if failmsg is not None:
+                self.fail(failmsg)
+            else:
+                self.fail('timed out waiting for needle "%s"' % needle)
+
     def check_no_dim(self, seconds):
         '''Check that mode is not set to dim in the given time'''
 
