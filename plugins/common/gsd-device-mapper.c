@@ -603,10 +603,15 @@ mapper_recalculate_candidates (GsdDeviceMapper *mapper)
 
 		input_info_update_settings_output (input);
 
-		/* Device has an output from settings */
-		if (input->output)
+		/* Avoid opaque device with an output from settings and
+		 * system-integrated devices that won't get remapped anyway
+		 */
+		if (input->output &&
+                    (input->capabilities & GSD_INPUT_IS_SCREEN_INTEGRATED) == 0)
 			continue;
 
+		/* reset the current output */
+		input_info_set_output (input, NULL, FALSE, FALSE);
 		input_info_guess_candidates (input, outputs);
 		mapping_helper_add (helper, input, outputs);
 	}
