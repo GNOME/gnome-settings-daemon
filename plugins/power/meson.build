@@ -78,12 +78,9 @@ if enable_gudev
 
   sources = files(
     'gsd-backlight-helper.c',
-    'gsd-backlight-linux.c'
   )
 
   deps = [
-    gudev_dep,
-    m_dep
   ]
 
   executable(
