@@ -334,7 +334,7 @@ gsd_backlight_run_set_helper (GsdBacklight *backlight, GTask *task)
                                  &error,
                                  "pkexec", 
                                  LIBEXECDIR "/gsd-backlight-helper",
-                                 "--set-brightness",
+                                 g_udev_device_get_sysfs_path (backlight->udev_device),
                                  data->value_str, NULL);
 
         if (proc == NULL) {
