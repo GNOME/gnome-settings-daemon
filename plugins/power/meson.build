@@ -1,6 +1,6 @@
 sources = files(
   'gpm-common.c',
-  'gsd-backlight-linux.c',
+  'gsd-backlight.c',
   'gsd-power-manager.c',
   'main.c'
 )
