@@ -219,6 +219,7 @@ static gboolean  idle_is_session_inhibited (GsdPowerManager *manager, guint mask
 static void      idle_triggered_idle_cb (GnomeIdleMonitor *monitor, guint watch_id, gpointer user_data);
 static void      idle_became_active_cb (GnomeIdleMonitor *monitor, guint watch_id, gpointer user_data);
 static void      iio_proxy_changed (GsdPowerManager *manager);
+static void      iio_proxy_changed_cb (GDBusProxy *proxy, GVariant *changed_properties, GStrv invalidated_properties, gpointer user_data);
 
 G_DEFINE_TYPE (GsdPowerManager, gsd_power_manager, G_TYPE_OBJECT)
 
@@ -995,6 +996,18 @@ iio_proxy_claim_light (GsdPowerManager *manager, gboolean active)
                 return;
 	if (active && !manager->priv->session_is_active)
 		return;
+
+        /* FIXME:
+         * Remove when iio-sensor-proxy sends events only to clients instead
+         * of all listeners:
+         * https://github.com/hadess/iio-sensor-proxy/issues/210 */
+        if (active)
+                g_signal_connect (manager->priv->iio_proxy, "g-properties-changed",
+                                  G_CALLBACK (iio_proxy_changed_cb), manager);
+        else
+                g_signal_handlers_disconnect_by_func (manager->priv->iio_proxy,
+                                                      G_CALLBACK (iio_proxy_changed_cb),
+                                                      manager);
 
         if (!g_dbus_proxy_call_sync (manager->priv->iio_proxy,
                                      active ? "ClaimLight" : "ReleaseLight",
@@ -2613,8 +2626,6 @@ iio_proxy_appeared_cb (GDBusConnection *connection,
                                                "net.hadess.SensorProxy",
                                                NULL,
                                                NULL);
-        g_signal_connect (manager->priv->iio_proxy, "g-properties-changed",
-                          G_CALLBACK (iio_proxy_changed_cb), manager);
         iio_proxy_claim_light (manager, TRUE);
 }
 
