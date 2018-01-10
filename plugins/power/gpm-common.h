@@ -36,6 +36,8 @@ gboolean         gsd_power_is_hardware_a_tablet         (void);
 guint            gsd_power_enable_screensaver_watchdog  (void);
 void             reset_idletime                         (void);
 
+gboolean        is_mocked (void);
+
 /* Backlight helpers */
 
 /* on ACPI machines we have 4-16 levels, on others it's ~150 */
@@ -46,20 +48,6 @@ void             reset_idletime                         (void);
 
 int              gsd_power_backlight_abs_to_percentage  (int min, int max, int value);
 int              gsd_power_backlight_percentage_to_abs  (int min, int max, int value);
-gboolean         backlight_available                    (GnomeRRScreen *rr_screen);
-int              backlight_get_output_id                (GnomeRRScreen *rr_screen);
-int              backlight_get_abs                      (GnomeRRScreen *rr_screen, GError **error);
-int              backlight_get_percentage               (GnomeRRScreen *rr_screen, GError **error);
-int              backlight_get_min                      (GnomeRRScreen *rr_screen);
-int              backlight_get_max                      (GnomeRRScreen *rr_screen, GError **error);
-gboolean         backlight_set_percentage               (GnomeRRScreen *rr_screen,
-                                                         gint *value,
-                                                         GError **error);
-int              backlight_step_up                      (GnomeRRScreen *rr_screen, GError **error);
-int              backlight_step_down                    (GnomeRRScreen *rr_screen, GError **error);
-int              backlight_set_abs                      (GnomeRRScreen *rr_screen,
-                                                         guint value,
-                                                         GError **error);
 
 /* RandR helpers */
 void             watch_external_monitor                 (GnomeRRScreen *screen);
