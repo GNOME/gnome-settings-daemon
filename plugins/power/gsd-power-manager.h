@@ -47,7 +47,8 @@ typedef struct
 
 enum
 {
-        GSD_POWER_MANAGER_ERROR_FAILED
+        GSD_POWER_MANAGER_ERROR_FAILED,
+        GSD_POWER_MANAGER_ERROR_NO_BACKLIGHT,
 };
 
 GType                   gsd_power_manager_get_type            (void);
