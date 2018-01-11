@@ -185,8 +185,18 @@ main (int argc, char **argv)
 
 	loop = g_main_loop_new (NULL, FALSE);
 
-        if (verbose)
+        if (verbose) {
                 g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
+                /* Work around GLib not flushing the output for us by explicitly
+                 * setting buffering to a sane behaviour. This is important
+                 * during testing when the output is not going to a TTY and
+                 * we are reading messages from g_debug on stdout.
+                 *
+                 * See also
+                 *  https://bugzilla.gnome.org/show_bug.cgi?id=792432
+                 */
+                setlinebuf (stdout);
+        }
 
 	if (timeout > 0) {
 		guint id;
