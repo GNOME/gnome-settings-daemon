@@ -353,66 +353,32 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
     def check_dim(self, timeout):
         '''Check that mode is set to dim in the given time'''
 
-        # wait for specified time to ensure it didn't do anything
-        while timeout > 0:
-            time.sleep(1)
-            timeout -= 1
-            # check that it requested dim
-            log = self.plugin_log.read()
-
-            if 'Doing a state transition: dim' in log:
-                break
-        else:
-            self.fail('timed out waiting for dim')
+        self.check_plugin_log('Doing a state transition: dim', timeout,
+                              'timed out waiting for dim')
 
     def check_undim(self, timeout):
         '''Check that mode is set to normal in the given time'''
 
-        # wait for specified time to ensure it didn't do anything
-        while timeout > 0:
-            time.sleep(1)
-            timeout -= 1
-            # check that it requested normal
-            log = self.plugin_log.read()
-
-            if 'Doing a state transition: normal' in log:
-                break
-        else:
-            self.fail('timed out waiting for normal mode')
+        self.check_plugin_log('Doing a state transition: normal', timeout,
+                              'timed out waiting for normal mode')
 
     def check_blank(self, timeout):
         '''Check that blank is requested.
 
         Fail after the given timeout.
         '''
-        # check that it request blank
-        while timeout > 0:
-            time.sleep(1)
-            timeout -= 1
-            # check that it requested blank
-            log = self.plugin_log.read()
 
-            if 'TESTSUITE: Blanked screen' in log:
-                break
-        else:
-            self.fail('timed out waiting for blank')
+        self.check_plugin_log('TESTSUITE: Blanked screen', timeout,
+                              'timed out waiting for blank')
 
     def check_unblank(self, timeout):
         '''Check that unblank is requested.
 
         Fail after the given timeout.
         '''
-        # check that it request blank
-        while timeout > 0:
-            time.sleep(1)
-            timeout -= 1
-            # check that it requested unblank
-            log = self.plugin_log.read()
 
-            if 'TESTSUITE: Unblanked screen' in log:
-                break
-        else:
-            self.fail('timed out waiting for unblank')
+        self.check_plugin_log('TESTSUITE: Unblanked screen', timeout,
+                              'timed out waiting for unblank')
 
     def check_no_blank(self, seconds):
         '''Check that no blank is requested in the given time'''
