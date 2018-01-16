@@ -51,6 +51,11 @@ install_data(
   install_dir: join_paths(gsd_datadir, 'GConf', 'gsettings')
 )
 
+install_data(
+  'gnome-settings-daemon.target',
+  install_dir: systemduserunitdir
+)
+
 pkg.generate(
   version: gsd_version,
   name: meson.project_name(),
