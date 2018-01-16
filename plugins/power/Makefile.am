@@ -9,6 +9,13 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 org.gnome.SettingsDaemon.Power.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
+unitdir = $(systemduserunitdir)
+unit_in_files = gsd-power.service.in
+unit_DATA = gsd-power.service
+
+gsd-power.service: $(unit_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
 org.gnome.settings-daemon.plugins.power.policy.in: org.gnome.settings-daemon.plugins.power.policy.in.in Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
@@ -60,6 +67,7 @@ gsd_power_LDADD =					\
 
 EXTRA_DIST = 						\
 	$(desktop_in_files)				\
+	$(unit_in_files)				\
 	$(gsd_backlight_helper_SOURCES)			\
 	$(NULL)
 
@@ -125,6 +133,7 @@ clean-local:
 
 CLEANFILES = 							\
 	$(desktop_DATA)						\
+	$(unit_DATA)						\
 	org.gnome.settings-daemon.plugins.power.policy		\
 	org.gnome.settings-daemon.plugins.power.policy.in	\
 	$(GSD_POWER_ENUM_FILES)					\

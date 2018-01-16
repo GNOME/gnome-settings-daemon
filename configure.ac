@@ -104,6 +104,17 @@ else
 fi
 AM_CONDITIONAL(HAVE_GUDEV, test x$have_gudev = xyes)
 
+dnl ==========================================================================
+dnl systemd user unit directory
+PKG_CHECK_EXISTS([systemd],, [AC_MSG_ERROR([systemd development headers not found])])
+AC_ARG_WITH([systemduserunitdir],
+	    AS_HELP_STRING([--with-systemduserunitdir=DIR], [Directory for systemd user service files]),
+	    [],
+	    [with_systemduserunitdir=$($PKG_CONFIG --variable=systemduserunitdir systemd)])
+if test x$with_systemduserunitdir != xno; then
+	AC_SUBST([systemduserunitdir], [$with_systemduserunitdir])
+fi
+
 dnl ---------------------------------------------------------------------------
 dnl - ALSA integration (default enabled)
 dnl ---------------------------------------------------------------------------

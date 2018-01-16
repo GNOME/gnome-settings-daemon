@@ -7,6 +7,13 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 org.gnome.SettingsDaemon.Mouse.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
+unitdir = $(systemduserunitdir)
+unit_in_files = gsd-mouse.service.in
+unit_DATA = gsd-mouse.service
+
+gsd-mouse.service: $(unit_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
 libexec_PROGRAMS = gsd-locate-pointer
 
 gsd_locate_pointer_SOURCES = 	\
@@ -45,6 +52,6 @@ gsd_mouse_LDADD =						\
 	$(MOUSE_LIBS)						\
 	$(LIBM)
 
-EXTRA_DIST = $(desktop_in_files)
-CLEANFILES = $(desktop_DATA)
-DISTCLEANFILES = $(desktop_DATA)
+EXTRA_DIST = $(desktop_in_files) $(unit_in_files)
+CLEANFILES = $(desktop_DATA) $(unit_DATA)
+DISTCLEANFILES = $(desktop_DATA) $(unit_DATA)

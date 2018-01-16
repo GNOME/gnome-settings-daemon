@@ -28,6 +28,13 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 org.gnome.SettingsDaemon.Sharing.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
-EXTRA_DIST = $(desktop_in_files)
-CLEANFILES = $(desktop_DATA)
-DISTCLEANFILES = $(desktop_DATA)
+unitdir = $(systemduserunitdir)
+unit_in_files = gsd-sharing.service.in
+unit_DATA = gsd-sharing.service
+
+gsd-sharing.service: $(unit_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
+EXTRA_DIST = $(desktop_in_files) $(unit_in_files)
+CLEANFILES = $(desktop_DATA) $(unit_DATA)
+DISTCLEANFILES = $(desktop_DATA) $(unit_DATA)

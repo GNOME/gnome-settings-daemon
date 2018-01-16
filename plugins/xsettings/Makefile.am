@@ -93,15 +93,25 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 org.gnome.SettingsDaemon.XSettings.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
+unitdir = $(systemduserunitdir)
+unit_in_files = gsd-xsettings.service.in
+unit_DATA = gsd-xsettings.service
+
+gsd-xsettings.service: $(unit_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
 EXTRA_DIST = 			\
 	README.xsettings	\
 	$(desktop_in_files)	\
+	$(unit_in_Files)	\
 	$(NULL)
 
 CLEANFILES = 			\
 	$(desktop_DATA)		\
+	$(unit_DATA)		\
 	$(NULL)
 
 DISTCLEANFILES =		\
 	$(desktop_DATA)		\
+	$(unit_DATA)		\
 	$(NULL)

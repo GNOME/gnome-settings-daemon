@@ -1,0 +1,13 @@
+[Unit]
+Description=Mouse handling
+PartOf=graphical-session.target
+After=gnome-session.service graphical-session-pre.service
+
+[Service]
+Type=notify
+NotifyAccess=main
+ExecStart=@libexecdir@/gsd-mouse
+Restart=on-failure
+
+[Install]
+WantedBy=gnome-settings-daemon.target

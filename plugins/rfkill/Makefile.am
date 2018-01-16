@@ -33,6 +33,13 @@ org.gnome.SettingsDaemon.Rfkill.desktop: $(desktop_in_files) Makefile
 udevrulesdir = $(prefix)/lib/udev/rules.d
 udevrules_DATA = 61-gnome-settings-daemon-rfkill.rules
 
-EXTRA_DIST = $(udevrules_DATA) $(desktop_in_files)
-CLEANFILES = $(desktop_DATA)
-DISTCLEANFILES = $(desktop_DATA)
+unitdir = $(systemduserunitdir)
+unit_in_files = gsd-rfkill.service.in
+unit_DATA = gsd-rfkill.service
+
+gsd-rfkill.service: $(unit_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
+EXTRA_DIST = $(udevrules_DATA) $(desktop_in_files) $(unit_in_files)
+CLEANFILES = $(desktop_DATA) $(unit_DATA)
+DISTCLEANFILES = $(desktop_DATA) $(unit_DATA)

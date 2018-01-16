@@ -27,11 +27,21 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 org.gnome.SettingsDaemon.A11ySettings.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
+unitdir = $(systemduserunitdir)
+unit_in_files = gsd-a11y-settings.service.in
+unit_DATA = gsd-a11y-settings.service
+
+gsd-a11y-settings.service: $(unit_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
 EXTRA_DIST = 			\
-	$(desktop_in_files)
+	$(desktop_in_files)	\
+	$(unit_in_files)
 
 CLEANFILES = 			\
-	$(desktop_DATA)
+	$(desktop_DATA)		\
+	$(unit_DATA)
 
 DISTCLEANFILES =		\
-	$(desktop_DATA)
+	$(desktop_DATA)		\
+	$(unit_DATA)

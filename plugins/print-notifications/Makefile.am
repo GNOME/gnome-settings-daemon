@@ -7,6 +7,13 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 org.gnome.SettingsDaemon.PrintNotifications.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
+unitdir = $(systemduserunitdir)
+unit_in_files = gsd-print-notifications.service.in
+unit_DATA = gsd-print-notifications.service
+
+gsd-print-notifications.service: $(unit_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
 libexec_PROGRAMS = gsd-printer
 
 gsd_printer_SOURCES = 	\
@@ -48,10 +55,13 @@ gsd_print_notifications_LDADD =				\
 	$(PRINT_NOTIFICATIONS_LIBS)
 
 EXTRA_DIST = 			\
-	$(desktop_in_files)
+	$(desktop_in_files)	\
+	$(unit_in_files)
 
 CLEANFILES = 			\
-	$(desktop_DATA)
+	$(desktop_DATA)		\
+	$(unit_DATA)
 
 DISTCLEANFILES =		\
-	$(desktop_DATA)
+	$(desktop_DATA)		\
+	$(unit_DATA)

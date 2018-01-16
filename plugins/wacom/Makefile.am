@@ -66,8 +66,16 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 org.gnome.SettingsDaemon.Wacom.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
-EXTRA_DIST += $(desktop_in_files)
+unitdir = $(systemduserunitdir)
+unit_in_files = gsd-wacom.service.in
+unit_DATA = gsd-wacom.service
+
+gsd-wacom.service: $(unit_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
+EXTRA_DIST += $(desktop_in_files) $(unit_in_files)
 CLEANFILES =						\
 	$(desktop_DATA)					\
+	$(unit_DATA)					\
 	org.gnome.settings-daemon.plugins.wacom.policy	\
 	org.gnome.settings-daemon.plugins.wacom.policy.in

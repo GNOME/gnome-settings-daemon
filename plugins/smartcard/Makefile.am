@@ -62,16 +62,26 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 org.gnome.SettingsDaemon.Smartcard.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
+unitdir = $(systemduserunitdir)
+unit_in_files = gsd-smartcard.service.in
+unit_DATA = gsd-smartcard.service
+
+gsd-smartcard.service: $(unit_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
 EXTRA_DIST = \
 	gsd-smartcard-enum-types.c.in \
 	gsd-smartcard-enum-types.h.in \
 	org.gnome.SettingsDaemon.Smartcard.xml \
-	$(desktop_in_files)
+	$(desktop_in_files) \
+	$(unit_in_files)
 
 CLEANFILES = \
 	$(BUILT_SOURCES) \
-	$(desktop_DATA)
+	$(desktop_DATA) \
+	$(unit_DATA)
 
 DISTCLEANFILES = \
 	$(BUILT_SOURCES) \
-	$(desktop_DATA)
+	$(desktop_DATA) \
+	$(unit_DATA)

@@ -34,6 +34,13 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 org.gnome.SettingsDaemon.MediaKeys.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
+unitdir = $(systemduserunitdir)
+unit_in_files = gsd-media-keys.service.in
+unit_DATA = gsd-media-keys.service
+
+gsd-media-keys.service: $(unit_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
 libexec_PROGRAMS = gsd-media-keys
 
 gsd_media_keys_SOURCES =			\
@@ -80,11 +87,14 @@ EXTRA_DIST = 				\
 	README.media-keys-API		\
 	org.gnome.ShellKeyGrabber.xml	\
 	$(plugin_in_files)		\
-	$(desktop_in_files)
+	$(desktop_in_files)		\
+	$(unit_in_files)
 
 CLEANFILES = 			\
 	$(BUILT_SOURCES)	\
-	$(desktop_DATA)
+	$(desktop_DATA)		\
+	$(unit_DATA)
 
 DISTCLEANFILES =		\
-	$(desktop_DATA)
+	$(desktop_DATA)		\
+	$(unit_DATA)

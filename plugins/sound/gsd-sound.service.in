@@ -1,0 +1,14 @@
+[Unit]
+Description=Sound sample caching handling
+PartOf=graphical-session.target
+After=gnome-session.service graphical-session-pre.service
+Requires=pulseaudio.service
+
+[Service]
+Type=notify
+NotifyAccess=main
+ExecStart=@libexecdir@/gsd-sound
+Restart=on-failure
+
+[Install]
+WantedBy=gnome-settings-daemon.target

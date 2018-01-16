@@ -50,12 +50,22 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 org.gnome.SettingsDaemon.Datetime.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
+unitdir = $(systemduserunitdir)
+unit_in_files = gsd-datetime.service.in
+unit_DATA = gsd-datetime.service
+
+gsd-datetime.service: $(unit_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
 EXTRA_DIST =				\
 	timedated1-interface.xml	\
-	$(desktop_in_files)
+	$(desktop_in_files)		\
+	$(unit_in_files)
 
 CLEANFILES = \
-	$(desktop_DATA)
+	$(desktop_DATA) \
+	$(unit_DATA)
 
 DISTCLEANFILES = \
-	$(desktop_DATA)
+	$(desktop_DATA) \
+	$(unit_DATA)

@@ -29,12 +29,16 @@ pkgconfig_DATA = gnome-settings-daemon.pc
 
 @INTLTOOL_XML_NOMERGE_RULE@
 
+unitdir = $(systemduserunitdir)
+unit_DATA = gnome-settings-daemon.target
+
 EXTRA_DIST = 					\
 	$(convert_DATA)				\
 	$(gsettings_SCHEMAS:.xml=.xml.in.in)	\
 	$(gsettings_ENUM_FILES)			\
 	gnome-settings-daemon.pc.in		\
 	$(api_DATA)				\
+	$(unit_DATA)				\
 	$(NULL)
 
 DISTCLEANFILES = 			\

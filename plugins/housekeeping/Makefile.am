@@ -60,8 +60,20 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 org.gnome.SettingsDaemon.Housekeeping.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
-EXTRA_DIST = $(desktop_in_files)
+unitdir = $(systemduserunitdir)
+unit_in_files = gsd-housekeeping.service.in
+unit_DATA = gsd-housekeeping.service
 
-CLEANFILES = $(desktop_DATA)
+gsd-housekeeping.service: $(unit_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
-DISTCLEANFILES = $(desktop_DATA)
+EXTRA_DIST = 			\
+	$(desktop_in_files)	\
+	$(unit_in_files)
+CLEANFILES =		\
+	$(desktop_DATA)	\
+	$(unit_DATA)
+
+DISTCLEANFILES =	\
+	$(desktop_DATA)	\
+	$(unit_DATA)

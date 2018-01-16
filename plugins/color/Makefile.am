@@ -85,13 +85,23 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 org.gnome.SettingsDaemon.Color.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
+unitdir = $(systemduserunitdir)
+unit_in_files = gsd-color.service.in
+unit_DATA = gsd-color.service
+
+gsd-color.service: $(unit_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
 EXTRA_DIST = 					\
 	$(desktop_in_files)			\
+	$(unit_in_files)			\
 	test-data/Lenovo-T61-Internal.bin	\
 	test-data/LG-L225W-External.bin
 
 CLEANFILES += 				\
+	$(unit_DATA)			\
 	$(desktop_DATA)
 
 DISTCLEANFILES =			\
+	$(unit_DATA)			\
 	$(desktop_DATA)
