@@ -1,0 +1,14 @@
+[Unit]
+Description=Sound sample caching handling
+PartOf=graphical-session.target
+After=gnome-session-bus.target graphical-session-pre.target gnome-shell-wayland.target pulseaudio.service
+Requires=pulseaudio.service
+
+[Service]
+Type=dbus
+ExecStart=@libexecdir@/gsd-sound
+Restart=on-failure
+BusName=@plugin_dbus_name@
+
+[Install]
+WantedBy=gnome-settings-daemon.target gnome-settings-daemon-gdm.target
