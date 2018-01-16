@@ -1,0 +1,13 @@
+[Unit]
+Description=Power management handling
+PartOf=graphical-session.target
+After=@default_after@
+
+[Service]
+Type=dbus
+ExecStart=@libexecdir@/gsd-power
+Restart=on-failure
+BusName=@plugin_dbus_name@
+
+[Install]
+WantedBy=gnome-settings-daemon.target gnome-settings-daemon-gdm.target

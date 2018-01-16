@@ -40,16 +40,23 @@ plugins_cflags = ['-DGNOME_SETTINGS_LOCALEDIR="@0@"'.format(gsd_localedir)]
 
 foreach plugin: [['common', '']] + enabled_plugins
   plugin_name = plugin[0]
-  plugin_dbus_name = plugin[1]
+  plugin_name_case = plugin[1]
+  plugin_dbus_name='org.gnome.SettingsDaemon.Notify.@0@'.format(plugin_name_case)
 
   cflags = [
     '-DG_LOG_DOMAIN="@0@-plugin"'.format(plugin_name),
     '-DPLUGIN_NAME="@0@"'.format(plugin_name),
-    '-DPLUGIN_DBUS_NAME="org.gnome.SettingsDaemon.Notify.@0@"'.format(plugin_dbus_name),
+    '-DPLUGIN_DBUS_NAME="@0@"'.format(plugin_dbus_name),
   ] + plugins_cflags
 
   if not ['common', 'dummy'].contains(plugin_name)
     desktop = 'org.gnome.SettingsDaemon.@0@.desktop'.format(plugin[1])
+    user_unit = 'gsd-@0@.service'.format(plugin_name)
+
+    unit_conf = configuration_data()
+    unit_conf.set('default_after', 'gnome-session-bus.target graphical-session-pre.target gnome-settings-daemon.target gnome-settings-daemon-gdm.target gnome-shell-wayland.target')
+    unit_conf.set('libexecdir', gsd_libexecdir)
+    unit_conf.set('plugin_dbus_name', plugin_dbus_name)
 
     configure_file(
       input: join_paths(plugin_name, desktop + '.in'),
@@ -58,6 +65,13 @@ foreach plugin: [['common', '']] + enabled_plugins
       install: true,
       install_dir: gsd_xdg_autostart
     )
+    configure_file(
+      input: join_paths(plugin_name, user_unit + '.in'),
+      output: user_unit,
+      configuration: unit_conf,
+      install: true,
+      install_dir: systemduserunitdir
+   )
   endif
 
   subdir(plugin_name)

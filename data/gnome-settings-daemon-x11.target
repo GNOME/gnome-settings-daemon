@@ -1,0 +1,6 @@
+[Unit]
+Description=GNOME Settings daemon (x11)
+StopWhenUnneeded=yes
+Before=gnome-settings-daemon.target
+Requires=gnome-settings-daemon.target
+Conflicts=gnome-settings-daemon-wayland.target gnome-settings-daemon-gdm.target
