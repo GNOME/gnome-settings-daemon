@@ -51,6 +51,18 @@ install_data(
   install_dir: join_paths(gsd_datadir, 'GConf', 'gsettings')
 )
 
+units = files('gnome-settings-daemon.target',
+              'gnome-settings-daemon-wayland.target',
+              'gnome-settings-daemon-x11.target',
+              'gnome-settings-daemon-gdm.target',
+              'gnome-settings-daemon-gdm-wayland.target',
+              'gnome-settings-daemon-gdm-x11.target')
+
+install_data(
+  units,
+  install_dir: systemduserunitdir
+)
+
 pkg.generate(
   version: gsd_version,
   name: meson.project_name(),
