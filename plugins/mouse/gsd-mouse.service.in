@@ -1,0 +1,13 @@
+[Unit]
+Description=Mouse handling
+PartOf=graphical-session.target
+After=@default_after@
+
+[Service]
+Type=dbus
+ExecStart=@libexecdir@/gsd-mouse
+Restart=on-failure
+BusName=@plugin_dbus_name@
+
+[Install]
+WantedBy=gnome-settings-daemon.target

@@ -1,0 +1,14 @@
+[Unit]
+Description=Media keys handling
+PartOf=graphical-session.target
+After=@default_after@ pulseaudio.service
+Requires=pulseaudio.service
+
+[Service]
+Type=dbus
+ExecStart=@libexecdir@/gsd-media-keys
+Restart=on-failure
+BusName=@plugin_dbus_name@
+
+[Install]
+WantedBy=gnome-settings-daemon.target gnome-settings-daemon-gdm.target

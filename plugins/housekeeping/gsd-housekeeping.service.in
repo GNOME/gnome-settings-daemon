@@ -1,0 +1,13 @@
+[Unit]
+Description=Housekeeping
+PartOf=graphical-session.target
+After=@default_after@
+
+[Service]
+Type=dbus
+ExecStart=@libexecdir@/gsd-housekeeping
+Restart=on-failure
+BusName=@plugin_dbus_name@
+
+[Install]
+WantedBy=gnome-settings-daemon.target
