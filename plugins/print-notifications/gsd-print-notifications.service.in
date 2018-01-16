@@ -1,0 +1,13 @@
+[Unit]
+Description=Print dbus
+After=gnome-session.service graphical-session-pre.service
+
+BusName=@plugin_dbus_name@[Service]
+
+Type=notify
+NotifyAccess=main
+ExecStart=@libexecdir@/gsd-print-notifications
+Restart=on-failure
+
+[Install]
+WantedBy=gnome-settings-daemon.target

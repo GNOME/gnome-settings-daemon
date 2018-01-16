@@ -98,9 +98,18 @@ libnotify_dep = dependency('libnotify', version: '>= 0.7.3')
 libpulse_mainloop_glib_dep = dependency('libpulse-mainloop-glib', version: '>= 2.0')
 pango_dep = dependency('pango', version: '>= 1.20.0')
 polkit_gobject_dep = dependency('polkit-gobject-1', version: '>= 0.103')
+systemd_dep = dependency('systemd', required: false)
 upower_glib_dep = dependency('upower-glib', version: '>= 0.99.0')
 x11_dep = dependency('x11')
 xtst_dep = dependency('xtst')
+
+if systemd_dep.found()
+  systemduserunitdir = systemd_dep.get_pkgconfig_variable(
+    'systemduserunitdir',
+    define_variable: ['prefix', gsd_prefix])
+else
+  systemduserunitdir = join_paths(gsd_prefix, 'lib', 'systemd', 'user')
+endif
 
 m_dep = cc.find_library('m')
 

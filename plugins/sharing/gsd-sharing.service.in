@@ -1,0 +1,13 @@
+[Unit]
+Description=Sharing handling
+PartOf=graphical-session.target
+After=gnome-session.service graphical-session-pre.service
+
+[Service]
+Type=dbus
+ExecStart=@libexecdir@/gsd-rfkill
+Restart=on-failure
+BusName=@plugin_dbus_name@
+
+[Install]
+WantedBy=gnome-settings-daemon.target
