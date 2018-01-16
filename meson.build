@@ -103,6 +103,8 @@ upower_glib_dep = dependency('upower-glib', version: '>= 0.99.0')
 x11_dep = dependency('x11')
 xtst_dep = dependency('xtst')
 
+systemduserunitdir = join_paths(gsd_prefix, 'lib', 'systemd', 'user')
+
 m_dep = cc.find_library('m')
 
 # ALSA integration (default enabled)

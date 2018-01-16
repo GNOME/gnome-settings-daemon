@@ -1,0 +1,7 @@
+[Unit]
+Description=GNOME Settings daemon (wayland GDM)
+StopWhenUnneeded=yes
+BindsTo=gnome-settings-daemon-gdm.target
+After=gnome-settings-daemon-gdm.target
+Conflicts=gnome-settings-daemon-gdm-x11.target
+RefuseManualStart=yes
