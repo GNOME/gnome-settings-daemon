@@ -281,17 +281,33 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         else:
             self.fail('timed out waiting for logind Suspend() call')
 
-    def check_for_uninhibited(self):
+    def check_for_lid_inhibited(self, timeout=0):
+        '''Check that the lid inhibitor has been added.
+
+        Fail after the given timeout.
+        '''
+        self.check_plugin_log('Adding lid switch system inhibitor', timeout,
+                              'Timed out waiting for lid inhibitor')
+
+    def check_for_lid_uninhibited(self, timeout=0):
         '''Check that the lid inhibitor has been dropped.
 
         Fail after the given timeout.
         '''
+        self.check_plugin_log('uninhibiting lid close', timeout,
+                              'Timed out waiting for lid uninhibition')
+
+    def check_no_lid_uninhibited(self, timeout=0):
+        '''Check that the lid inhibitor has been dropped.
+
+        Fail after the given timeout.
+        '''
+        time.sleep(timeout)
         # check that it requested uninhibition
         log = self.plugin_log.read()
 
         if 'uninhibiting lid close' in log:
-            return
-        self.fail('timed out waiting for lid uninhibition')
+            self.fail('lid uninhibit should not have happened')
 
     def check_no_suspend(self, seconds):
         '''Check that no Suspend or Hibernate is requested in the given time'''
@@ -717,27 +733,32 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # And check that we have the pre-dim brightness
         self.assertTrue(self.get_brightness() == gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS , 'incorrect unblanked brightness (%d != %d)' % (self.get_brightness(), gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS))
 
-    def test_no_suspend_lid_close(self):
-        '''Check that we don't suspend on lid close with an external monitor'''
+    def test_lid_close_inhibition(self):
+        '''Check that we correctly inhibit suspend with an external monitor'''
+
+        # Wait and flush log
+        time.sleep (gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 1)
+        self.plugin_log.read()
 
         # Add an external monitor
         self.set_has_external_monitor(True)
-        time.sleep (gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 1)
+        self.check_for_lid_inhibited(1)
+
+        # Check that we do not uninhibit with the external monitor attached
+        self.check_no_lid_uninhibited(gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 1)
 
         # Close the lid
         self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', True)
         self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
-
-        # Check for no suspend, and for no screen blanking
-        self.check_no_suspend (10)
-        self.check_no_blank(0)
+        time.sleep(0.5)
 
         # Unplug the external monitor
         self.set_has_external_monitor(False)
-        # Wait for the safety timer + 3 seconds
-        time.sleep (gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 3)
-        # Check that we're uninhibited
-        self.check_for_uninhibited()
+
+        # Check that no action happens during the safety time minus 1 second
+        self.check_no_lid_uninhibited(gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT - 1)
+        # Check that we're uninhibited after the safety time
+        self.check_for_lid_uninhibited(4)
 
     def test_notify_critical_battery(self):
         '''action on critical battery'''
