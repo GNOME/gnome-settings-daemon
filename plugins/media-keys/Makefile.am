@@ -27,13 +27,6 @@ shell-key-grabber.h: Makefile.am org.gnome.ShellKeyGrabber.xml
 	              --c-namespace Shell			\
 	              $(srcdir)/org.gnome.ShellKeyGrabber.xml
 
-desktopdir = $(sysconfdir)/xdg/autostart
-desktop_in_files = org.gnome.SettingsDaemon.MediaKeys.desktop.in
-desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
-
-org.gnome.SettingsDaemon.MediaKeys.desktop: $(desktop_in_files) Makefile
-	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
-
 unitdir = $(systemduserunitdir)
 unit_in_files = gsd-media-keys.service.in
 unit_DATA = gsd-media-keys.service
@@ -87,14 +80,11 @@ EXTRA_DIST = 				\
 	README.media-keys-API		\
 	org.gnome.ShellKeyGrabber.xml	\
 	$(plugin_in_files)		\
-	$(desktop_in_files)		\
 	$(unit_in_files)
 
 CLEANFILES = 			\
 	$(BUILT_SOURCES)	\
-	$(desktop_DATA)		\
 	$(unit_DATA)
 
 DISTCLEANFILES =		\
-	$(desktop_DATA)		\
 	$(unit_DATA)

@@ -2,13 +2,6 @@ BUILT_SOURCES =
 
 plugin_name = power
 
-desktopdir = $(sysconfdir)/xdg/autostart
-desktop_in_files = org.gnome.SettingsDaemon.Power.desktop.in
-desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
-
-org.gnome.SettingsDaemon.Power.desktop: $(desktop_in_files) Makefile
-	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
-
 unitdir = $(systemduserunitdir)
 unit_in_files = gsd-power.service.in
 unit_DATA = gsd-power.service
@@ -66,7 +59,6 @@ gsd_power_LDADD =					\
 	$(LIBM)
 
 EXTRA_DIST = 						\
-	$(desktop_in_files)				\
 	$(unit_in_files)				\
 	$(gsd_backlight_helper_SOURCES)			\
 	$(NULL)
@@ -132,7 +124,6 @@ clean-local:
 	rm -f *~
 
 CLEANFILES = 							\
-	$(desktop_DATA)						\
 	$(unit_DATA)						\
 	org.gnome.settings-daemon.plugins.power.policy		\
 	org.gnome.settings-daemon.plugins.power.policy.in	\

@@ -29,13 +29,6 @@ gsd_clipboard_LDADD = 						\
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(CLIPBOARD_LIBS)
 
-desktopdir = $(sysconfdir)/xdg/autostart
-desktop_in_files = org.gnome.SettingsDaemon.Clipboard.desktop.in
-desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
-
-org.gnome.SettingsDaemon.Clipboard.desktop: $(desktop_in_files) Makefile
-	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
-
 unitdir = $(systemduserunitdir)
 unit_in_files = gsd-clipboard.service.in
 unit_DATA = gsd-clipboard.service
@@ -44,16 +37,13 @@ gsd-clipboard.service: $(unit_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 EXTRA_DIST = 			\
-	$(desktop_in_files)	\
 	$(unit_in_files)	\
 	$(NULL)
 
 CLEANFILES = 			\
-	$(desktop_DATA)		\
 	$(unit_DATA)		\
 	$(NULL)
 
 DISTCLEANFILES =		\
-	$(desktop_DATA)		\
 	$(unit_DATA)		\
 	$(NULL)

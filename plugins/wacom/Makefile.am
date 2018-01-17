@@ -59,13 +59,6 @@ gsd_wacom_LDADD =                                              \
 	$(WACOM_LIBS)                                           \
 	$(LIBM)
 
-desktopdir = $(sysconfdir)/xdg/autostart
-desktop_in_files = org.gnome.SettingsDaemon.Wacom.desktop.in
-desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
-
-org.gnome.SettingsDaemon.Wacom.desktop: $(desktop_in_files) Makefile
-	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
-
 unitdir = $(systemduserunitdir)
 unit_in_files = gsd-wacom.service.in
 unit_DATA = gsd-wacom.service
@@ -73,9 +66,8 @@ unit_DATA = gsd-wacom.service
 gsd-wacom.service: $(unit_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
-EXTRA_DIST += $(desktop_in_files) $(unit_in_files)
+EXTRA_DIST += $(unit_in_files)
 CLEANFILES =						\
-	$(desktop_DATA)					\
 	$(unit_DATA)					\
 	org.gnome.settings-daemon.plugins.wacom.policy	\
 	org.gnome.settings-daemon.plugins.wacom.policy.in

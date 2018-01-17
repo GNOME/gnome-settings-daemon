@@ -23,13 +23,6 @@ gsd_rfkill_LDADD =						\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(RFKILL_LIBS)
 
-desktopdir = $(sysconfdir)/xdg/autostart
-desktop_in_files = org.gnome.SettingsDaemon.Rfkill.desktop.in
-desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
-
-org.gnome.SettingsDaemon.Rfkill.desktop: $(desktop_in_files) Makefile
-	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
-
 udevrulesdir = $(prefix)/lib/udev/rules.d
 udevrules_DATA = 61-gnome-settings-daemon-rfkill.rules
 
@@ -40,6 +33,6 @@ unit_DATA = gsd-rfkill.service
 gsd-rfkill.service: $(unit_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
-EXTRA_DIST = $(udevrules_DATA) $(desktop_in_files) $(unit_in_files)
-CLEANFILES = $(desktop_DATA) $(unit_DATA)
-DISTCLEANFILES = $(desktop_DATA) $(unit_DATA)
+EXTRA_DIST = $(udevrules_DATA) $(unit_in_files)
+CLEANFILES = $(unit_DATA)
+DISTCLEANFILES = $(unit_DATA)

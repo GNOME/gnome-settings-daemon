@@ -55,13 +55,6 @@ gsd_smartcard_LDADD =                                           \
 	$(top_builddir)/plugins/common/libcommon.la             \
 	$(SMARTCARD_LIBS)
 
-desktopdir = $(sysconfdir)/xdg/autostart
-desktop_in_files = org.gnome.SettingsDaemon.Smartcard.desktop.in
-desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
-
-org.gnome.SettingsDaemon.Smartcard.desktop: $(desktop_in_files) Makefile
-	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
-
 unitdir = $(systemduserunitdir)
 unit_in_files = gsd-smartcard.service.in
 unit_DATA = gsd-smartcard.service
@@ -73,15 +66,12 @@ EXTRA_DIST = \
 	gsd-smartcard-enum-types.c.in \
 	gsd-smartcard-enum-types.h.in \
 	org.gnome.SettingsDaemon.Smartcard.xml \
-	$(desktop_in_files) \
 	$(unit_in_files)
 
 CLEANFILES = \
 	$(BUILT_SOURCES) \
-	$(desktop_DATA) \
 	$(unit_DATA)
 
 DISTCLEANFILES = \
 	$(BUILT_SOURCES) \
-	$(desktop_DATA) \
 	$(unit_DATA)

@@ -20,13 +20,6 @@ gsd_a11y_settings_LDADD =					\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(A11Y_SETTINGS_LIBS)
 
-desktopdir = $(sysconfdir)/xdg/autostart
-desktop_in_files = org.gnome.SettingsDaemon.A11ySettings.desktop.in
-desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
-
-org.gnome.SettingsDaemon.A11ySettings.desktop: $(desktop_in_files) Makefile
-	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
-
 unitdir = $(systemduserunitdir)
 unit_in_files = gsd-a11y-settings.service.in
 unit_DATA = gsd-a11y-settings.service
@@ -35,13 +28,10 @@ gsd-a11y-settings.service: $(unit_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 EXTRA_DIST = 			\
-	$(desktop_in_files)	\
 	$(unit_in_files)
 
 CLEANFILES = 			\
-	$(desktop_DATA)		\
 	$(unit_DATA)
 
 DISTCLEANFILES =		\
-	$(desktop_DATA)		\
 	$(unit_DATA)

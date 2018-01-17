@@ -22,13 +22,6 @@ gsd_a11y_keyboard_LDADD =					\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(A11Y_KEYBOARD_LIBS)
 
-desktopdir = $(sysconfdir)/xdg/autostart
-desktop_in_files = org.gnome.SettingsDaemon.A11yKeyboard.desktop.in
-desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
-
-org.gnome.SettingsDaemon.A11yKeyboard.desktop: $(desktop_in_files) Makefile
-	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
-
 unitdir = $(systemduserunitdir)
 unit_in_files = gsd-a11y-keyboard.service.in
 unit_DATA = gsd-a11y-keyboard.service
@@ -37,16 +30,13 @@ gsd-a11y-keyboard.service: $(unit_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 EXTRA_DIST = 			\
-	$(desktop_in_files)	\
 	$(unit_in_files)	\
 	$(NULL)
 
 CLEANFILES = 			\
-	$(desktop_DATA)		\
 	$(unit_DATA)		\
 	$(NULL)
 
 DISTCLEANFILES =		\
-	$(desktop_DATA)		\
 	$(unit_DATA)		\
 	$(NULL)

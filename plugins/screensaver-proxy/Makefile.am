@@ -25,13 +25,6 @@ gsd_screensaver_proxy_LDADD =					\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SCREENSAVER_PROXY_LIBS)
 
-desktopdir = $(sysconfdir)/xdg/autostart
-desktop_in_files = org.gnome.SettingsDaemon.ScreensaverProxy.desktop.in
-desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
-
-org.gnome.SettingsDaemon.ScreensaverProxy.desktop: $(desktop_in_files) Makefile
-	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
-
 unitdir = $(systemduserunitdir)
 unit_in_files = gsd-screensaver-proxy.service.in
 unit_DATA = gsd-screensaver-proxy.service
@@ -39,8 +32,8 @@ unit_DATA = gsd-screensaver-proxy.service
 gsd-screensaver-proxy.service: $(unit_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
-EXTRA_DIST = $(desktop_in_files) $(unit_in_files)
+EXTRA_DIST = $(unit_in_files)
 
-CLEANFILES = $(desktop_DATA) $(unit_DATA)
+CLEANFILES = $(unit_DATA)
 
-DISTCLEANFILES = $(desktop_DATA) $(unit_DATA)
+DISTCLEANFILES = $(unit_DATA)

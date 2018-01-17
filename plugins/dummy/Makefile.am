@@ -22,35 +22,26 @@ gsd_dummy_LDADD = 					\
 	$(top_builddir)/plugins/common/libcommon.la	\
 	$(DUMMY_LIBS)
 
-desktopdir = $(sysconfdir)/xdg/autostart
 unitdir = $(systemduserunitdir)
 
-desktop_DATA =
 unit_DATA =
 if !SMARTCARD_SUPPORT
-desktop_DATA += org.gnome.SettingsDaemon.Smartcard.desktop
 unit_DATA += gsd-smartcard.service
 endif
 if !HAVE_WACOM
-desktop_DATA += org.gnome.SettingsDaemon.Wacom.desktop
 unit_DATA += gsd-wacom.service
 endif
 if !BUILD_PRINT_NOTIFICATIONS
-desktop_DATA += org.gnome.SettingsDaemon.PrintNotifications.desktop
 unit_DATA += gsd-print-notifications.service
 endif
 if !BUILD_RFKILL
-desktop_DATA += org.gnome.SettingsDaemon.Rfkill.desktop
 unit_DATA += gsd-rfkill.service
 endif
 
-%.desktop: org.gnome.SettingsDaemon.Dummy.desktop.in Makefile
-	$(AM_V_GEN) PLUGINNAME=`echo $@ | sed 's,.desktop,,'` && sed -e "s|\@pluginname\@|$$PLUGINNAME|" -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
-
 %.service: gsd-dummy.service.in Makefile
-       $(AM_V_GEN) PLUGINNAME=`echo $@ | sed 's,.service,,'` && sed -e "s|\@pluginname\@|$$PLUGINNAME|" -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+	$(AM_V_GEN) PLUGINNAME=`echo $@ | sed 's,.service,,'` && sed -e "s|\@pluginname\@|$$PLUGINNAME|" -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
-EXTRA_DIST = org.gnome.SettingsDaemon.Dummy.desktop.in gsd-dummy.service.in
+EXTRA_DIST = gsd-dummy.service.in
 
 CLEANFILES = $(NULL)
 

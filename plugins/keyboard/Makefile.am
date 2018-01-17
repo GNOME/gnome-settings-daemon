@@ -27,13 +27,6 @@ gsd_keyboard_LDADD =					\
 	$(top_builddir)/plugins/common/libcommon.la	\
 	$(KEYBOARD_LIBS)
 
-desktopdir = $(sysconfdir)/xdg/autostart
-desktop_in_files = org.gnome.SettingsDaemon.Keyboard.desktop.in
-desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
-
-org.gnome.SettingsDaemon.Keyboard.desktop: $(desktop_in_files) Makefile
-	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
-
 unitdir = $(systemduserunitdir)
 unit_in_files = gsd-keyboard.service.in
 unit_DATA = gsd-keyboard.service
@@ -42,16 +35,13 @@ gsd-keyboard.service: $(unit_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 EXTRA_DIST = 			\
-	$(desktop_in_files)	\
 	$(unit_in_files)	\
 	$(NULL)
 
 CLEANFILES = 			\
-	$(desktop_DATA)		\
 	$(unit_DATA)		\
 	$(NULL)
 
 DISTCLEANFILES =		\
-	$(desktop_DATA)		\
 	$(unit_DATA)		\
 	$(NULL)
