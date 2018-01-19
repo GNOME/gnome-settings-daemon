@@ -70,7 +70,7 @@ class GSDTestCase(dbusmock.DBusTestCase):
 
         # work around https://bugzilla.gnome.org/show_bug.cgi?id=689136
         os.makedirs(os.path.join(os.environ['XDG_CONFIG_HOME'], 'dconf'))
-        os.makedirs(os.environ['XDG_RUNTIME_DIR'])
+        os.makedirs(os.environ['XDG_RUNTIME_DIR'], mode=0o700)
 
         klass.start_system_bus()
         klass.start_session_bus()
