@@ -93,12 +93,12 @@ static struct {
         { TOGGLE_CONTRAST_KEY, "toggle-contrast", NULL, NULL, SHELL_ACTION_MODE_ALL },
         { MAGNIFIER_ZOOM_IN_KEY, "magnifier-zoom-in", NULL, NULL, SHELL_ACTION_MODE_ALL },
         { MAGNIFIER_ZOOM_OUT_KEY, "magnifier-zoom-out", NULL, NULL, SHELL_ACTION_MODE_ALL },
-        { POWER_KEY, NULL, N_("Power Off"), "XF86PowerOff", POWER_KEYS_MODE },
+        { POWER_KEY, "power-key", NULL, NULL, POWER_KEYS_MODE },
         /* the kernel / Xorg names really are like this... */
         /* translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend */
-        { SLEEP_KEY, NULL, N_("Sleep"), "XF86Suspend", POWER_KEYS_MODE },
-        { SUSPEND_KEY, NULL, N_("Suspend"), "XF86Sleep", POWER_KEYS_MODE },
-        { HIBERNATE_KEY, NULL, N_("Hibernate"), "XF86Hibernate", POWER_KEYS_MODE },
+        { SLEEP_KEY, "sleep-key", NULL, NULL, POWER_KEYS_MODE },
+        { SUSPEND_KEY, "suspend-key", NULL, NULL, POWER_KEYS_MODE },
+        { HIBERNATE_KEY, "hibernate-key", NULL, NULL, POWER_KEYS_MODE },
         { SCREEN_BRIGHTNESS_UP_KEY, NULL, N_("Brightness Up"), "XF86MonBrightnessUp", SHELL_ACTION_MODE_ALL },
         { SCREEN_BRIGHTNESS_DOWN_KEY, NULL, N_("Brightness Down"), "XF86MonBrightnessDown", SHELL_ACTION_MODE_ALL },
         { KEYBOARD_BRIGHTNESS_UP_KEY, NULL, N_("Keyboard Brightness Up"), "XF86KbdBrightnessUp", SHELL_ACTION_MODE_ALL },

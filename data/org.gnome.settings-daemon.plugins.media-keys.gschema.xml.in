@@ -186,6 +186,26 @@
       <summary>Maximum length of screen recordings</summary>
       <description>The maximum length of single screen cast recordings in seconds or 0 for unlimited</description>
     </key>
+    <key name="power-key" type="s">
+      <default>'XF86PowerOff'</default>
+      <summary>Power off</summary>
+      <description>Binding for the system power-off action</description>
+    </key>
+    <key name="sleep-key" type="s">
+      <default>'XF86Suspend'</default>
+      <summary>Sleep</summary>
+      <description>Binding for the system sleep action</description>
+    </key>
+    <key name="suspend-key" type="s">
+      <default>'XF86Sleep'</default>
+      <summary>Suspend</summary>
+      <description>Binding for the system suspend action</description>
+    </key>
+    <key name="hibernate-key" type="s">
+      <default>'XF86Hibernate'</default>
+      <summary>Hibernate</summary>
+      <description>Binding for the system hibernate action</description>
+    </key>
   </schema>
 
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.media-keys.custom-keybinding">
