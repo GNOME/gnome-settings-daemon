@@ -1651,13 +1651,17 @@ gsd_media_player_key_pressed (GsdMediaKeysManager *manager,
 
         g_debug ("Media key '%s' pressed", key);
 
+        /* Prefer MPRIS players to those using the native API */
+        if (mpris_controller_get_has_active_player (manager->priv->mpris_controller)) {
+                if (mpris_controller_key (manager->priv->mpris_controller, key))
+                        return TRUE;
+        }
+
         have_listeners = (manager->priv->media_players != NULL);
 
         if (!have_listeners) {
-                if (!mpris_controller_key (manager->priv->mpris_controller, key)) {
-                        /* Popup a dialog with an (/) icon */
-                        show_osd (manager, "action-unavailable-symbolic", NULL, -1, OSD_ALL_OUTPUTS);
-                }
+                /* Popup a dialog with an (/) icon */
+                show_osd (manager, "action-unavailable-symbolic", NULL, -1, OSD_ALL_OUTPUTS);
 		return TRUE;
         }
 
