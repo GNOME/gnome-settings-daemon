@@ -50,6 +50,7 @@ GType mpris_controller_get_type (void) G_GNUC_CONST;
 
 MprisController *mpris_controller_new (void);
 gboolean         mpris_controller_key (MprisController *self, const gchar *key);
+gboolean         mpris_controller_get_has_active_player (MprisController *controller);
 
 G_END_DECLS
 

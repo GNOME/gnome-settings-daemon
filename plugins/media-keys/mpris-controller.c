@@ -25,6 +25,11 @@ G_DEFINE_TYPE (MprisController, mpris_controller, G_TYPE_OBJECT)
 #define CONTROLLER_PRIVATE(o) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((o), MPRIS_TYPE_CONTROLLER, MprisControllerPrivate))
 
+enum {
+  PROP_0,
+  PROP_HAS_ACTIVE_PLAYER
+};
+
 struct _MprisControllerPrivate
 {
   GCancellable *cancellable;
@@ -118,6 +123,8 @@ mpris_proxy_ready_cb (GObject      *object,
   priv = MPRIS_CONTROLLER (user_data)->priv;
   priv->mpris_client_proxy = proxy;
   priv->connecting = FALSE;
+
+  g_object_notify (user_data, "has-active-player");
 }
 
 static void
@@ -165,6 +172,7 @@ mpris_player_vanished (GDBusConnection *connection,
       g_strcmp0 (name, g_dbus_proxy_get_name (priv->mpris_client_proxy)) == 0)
     {
       g_clear_object (&priv->mpris_client_proxy);
+      g_object_notify (user_data, "has-active-player");
 
       /* take the next one if there's one */
       if (self->priv->other_players && !priv->connecting)
@@ -198,6 +206,25 @@ mpris_controller_constructed (GObject *object)
 }
 
 static void
+mpris_controller_get_property (GObject    *object,
+                               guint       prop_id,
+                               GValue     *value,
+                               GParamSpec *pspec)
+{
+  MprisController *self = MPRIS_CONTROLLER (object);
+
+  switch (prop_id) {
+  case PROP_HAS_ACTIVE_PLAYER:
+    g_value_set_boolean (value,
+                         mpris_controller_get_has_active_player (self));
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+    break;
+  }
+}
+
+static void
 mpris_controller_class_init (MprisControllerClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -206,12 +233,29 @@ mpris_controller_class_init (MprisControllerClass *klass)
 
   object_class->constructed = mpris_controller_constructed;
   object_class->dispose = mpris_controller_dispose;
+  object_class->get_property = mpris_controller_get_property;
+
+  g_object_class_install_property (object_class,
+                                   PROP_HAS_ACTIVE_PLAYER,
+                                   g_param_spec_boolean ("has-active-player",
+                                                         NULL,
+                                                         NULL,
+                                                         FALSE,
+                                                         G_PARAM_READABLE));
 }
 
 static void
 mpris_controller_init (MprisController *self)
 {
   self->priv = CONTROLLER_PRIVATE (self);
+}
+
+gboolean
+mpris_controller_get_has_active_player (MprisController *controller)
+{
+  g_return_val_if_fail (MPRIS_IS_CONTROLLER (controller), FALSE);
+
+  return (controller->priv->mpris_client_proxy != NULL);
 }
 
 MprisController *
