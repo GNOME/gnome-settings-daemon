@@ -1554,7 +1554,7 @@ name_vanished_handler (GDBusConnection     *connection,
  * this with time = GDK_CURRENT_TIME. This way, the last registered
  * player will receive media events. In some cases, applications
  * may want to register with a lower priority (usually 1), to grab
- * events only nobody is interested.
+ * events only nobody else is interested in.
  */
 static void
 gsd_media_keys_manager_grab_media_player_keys (GsdMediaKeysManager *manager,
