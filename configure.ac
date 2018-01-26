@@ -510,7 +510,6 @@ plugins/power/Makefile
 plugins/housekeeping/Makefile
 plugins/keyboard/Makefile
 plugins/media-keys/Makefile
-plugins/media-keys/gvc/Makefile
 plugins/mouse/Makefile
 plugins/print-notifications/Makefile
 plugins/rfkill/Makefile
@@ -520,6 +519,7 @@ plugins/smartcard/Makefile
 plugins/sound/Makefile
 plugins/wacom/Makefile
 plugins/xsettings/Makefile
+subprojects/gvc/Makefile
 data/Makefile
 data/gnome-settings-daemon.pc
 data/org.gnome.settings-daemon.plugins.gschema.xml.in

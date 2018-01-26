@@ -2,6 +2,7 @@ NULL =
 
 SUBDIRS = 			\
 	gnome-settings-daemon	\
+	subprojects/gvc		\
 	data			\
 	plugins			\
 	po 			\

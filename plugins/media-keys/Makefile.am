@@ -10,7 +10,7 @@ audio_selection_test_LDADD = $(MEDIA_KEYS_LIBS)
 
 NULL =
 
-SUBDIRS = gvc
+SUBDIRS =
 
 BUILT_SOURCES = 			\
 	gsd-marshal.h			\
@@ -62,7 +62,7 @@ gsd_media_keys_CPPFLAGS = \
 	-I$(top_srcdir)/gnome-settings-daemon			\
 	-I$(top_builddir)/gnome-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
-	-I$(top_srcdir)/plugins/media-keys/gvc			\
+	-I$(top_srcdir)/subprojects/gvc				\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
@@ -76,7 +76,7 @@ gsd_media_keys_CFLAGS =			\
 gsd_media_keys_LDADD = \
 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
-	$(top_builddir)/plugins/media-keys/gvc/libgvc.la	\
+	$(top_builddir)/subprojects/gvc/libgvc.la		\
 	$(MEDIA_KEYS_LIBS)					\
 	$(LIBM)
 
