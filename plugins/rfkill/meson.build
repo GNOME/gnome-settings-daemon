@@ -1,0 +1,32 @@
+desktop = 'org.gnome.SettingsDaemon.Rfkill.desktop'
+
+configure_file(
+  input: desktop + '.in',
+  output: desktop,
+  configuration: plugins_conf,
+  install: true,
+  install_dir: gsd_xdg_autostart
+)
+
+install_data(
+  '61-gnome-settings-daemon-rfkill.rules',
+  install_dir: join_paths(udev_dir, 'rules.d')
+)
+
+sources = files(
+  'gsd-rfkill-manager.c',
+  'rfkill-glib.c',
+  'main.c'
+)
+
+deps = plugins_deps + [gio_unix_dep]
+
+executable(
+  'gsd-' + plugin_name,
+  sources,
+  include_directories: [top_inc, common_inc],
+  dependencies: deps,
+  c_args: cflags,
+  install: true,
+  install_dir: gsd_libexecdir
+)

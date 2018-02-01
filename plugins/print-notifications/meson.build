@@ -1,0 +1,44 @@
+desktop = 'org.gnome.SettingsDaemon.PrintNotifications.desktop'
+
+configure_file(
+  input: desktop + '.in',
+  output: desktop,
+  configuration: plugins_conf,
+  install: true,
+  install_dir: gsd_xdg_autostart
+)
+
+sources = files(
+  'gsd-print-notifications-manager.c',
+  'main.c'
+)
+
+deps = plugins_deps + [
+  cups_dep,
+  gtk_dep,
+  libnotify_dep
+]
+
+cflags += ['-DLIBEXECDIR="@0@"'.format(gsd_libexecdir)]
+
+executable(
+  'gsd-' + plugin_name,
+  sources,
+  include_directories: [top_inc, common_inc],
+  dependencies: deps,
+  c_args: cflags,
+  install: true,
+  install_dir: gsd_libexecdir
+)
+
+program = 'gsd-printer'
+
+executable(
+  program,
+  program + '.c',
+  include_directories: top_inc,
+  dependencies: deps,
+  c_args: '-DGNOME_SETTINGS_LOCALEDIR="@0@"'.format(gsd_localedir),
+  install: true,
+  install_dir: gsd_libexecdir
+)

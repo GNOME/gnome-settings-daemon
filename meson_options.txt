@@ -1,0 +1,10 @@
+option('nssdb_dir', type: 'string', value: '', description: 'Absolute path to the system NSS database directory')
+option('udev_dir', type: 'string', value: '', description: 'Absolute path of the udev base directory')
+
+option('alsa', type: 'boolean', value: true, description: 'build with ALSA support (not optional on Linux platforms)')
+option('gudev', type: 'boolean', value: true, description: 'build with gudev device support (not optional on Linux platforms)')
+option('cups', type: 'boolean', value: true, description: 'build with CUPS support')
+option('network_manager', type: 'boolean', value: true, description: 'build with NetworkManager support (not optional on Linux platforms)')
+option('rfkill', type: 'boolean', value: true, description: 'build with rfkill support (not optional on Linux platforms)')
+option('smartcard', type: 'boolean', value: true, description: 'build with smartcard support')
+option('wayland', type: 'boolean', value: true, description: 'build with Wayland support')

@@ -1,0 +1,154 @@
+desktop = 'org.gnome.SettingsDaemon.Power.desktop'
+
+configure_file(
+  input: desktop + '.in',
+  output: desktop,
+  configuration: plugins_conf,
+  install: true,
+  install_dir: gsd_xdg_autostart
+)
+
+sources = files(
+  'gpm-common.c',
+  'gsd-backlight-linux.c',
+  'gsd-power-manager.c',
+  'main.c'
+)
+
+deps = plugins_deps + [
+  libcanberra_gtk_dep,
+  libcommon_dep,
+  libnotify_dep,
+  gnome_desktop_dep,
+  m_dep,
+  upower_glib_dep,
+  x11_dep,
+  xtst_dep,
+  dependency('xext')
+]
+
+if enable_gudev
+  deps += gudev_dep
+endif
+
+cflags += ['-DLIBEXECDIR="@0@"'.format(gsd_libexecdir)]
+
+gsd_power = executable(
+  'gsd-' + plugin_name,
+  sources,
+  include_directories: [top_inc, data_inc],
+  dependencies: deps,
+  c_args: cflags,
+  install: true,
+  install_dir: gsd_libexecdir
+)
+
+sources = files('gsd-power-enums-update.c')
+
+enums_headers = files(
+  'gsm-inhibitor-flag.h',
+  'gsm-presence-flag.h'
+)
+
+enums = 'gsd-power-enums'
+
+sources += gnome.mkenums(
+  enums + '.h',
+  sources: enums_headers,
+  fhead: '#ifndef GSD_POWER_ENUMS_H\n#define GSD_POWER_ENUMS_H\n\n#include <glib-object.h>\n\nG_BEGIN_DECLS\n',
+  fprod: '/* enumerations from "@filename@" */\n',
+  vhead: 'GType @enum_name@_get_type (void) G_GNUC_CONST;\n#define GSD_POWER_TYPE_@ENUMSHORT@ (@enum_name@_get_type())\n',
+  ftail: 'G_END_DECLS\n\n#endif /* !GSD_POWER_ENUMS_H */'
+)
+
+sources += gnome.mkenums(
+  enums + '.c',
+  sources: enums_headers,
+  fhead: '#include "gsm-inhibitor-flag.h"\n#include "gsm-presence-flag.h"\n#include "gsd-power-enums.h"',
+  fprod: '\n/* enumerations from "@filename@" */',
+  vhead: 'GType\n@enum_name@_get_type (void)\n{\n  static GType etype = 0;\n  if (etype == 0) {\n    static const G@Type@Value values[] = {',
+  vprod: '      { @VALUENAME@, "@VALUENAME@", "@valuenick@" },',
+  vtail: '      { 0, NULL, NULL }\n    };\n    etype = g_@type@_register_static ("@EnumName@", values);\n  }\n  return etype;\n}\n'
+)
+
+gsd_power_enums_update = executable(
+  'gsd-power-enums-update',
+  sources,
+  include_directories: top_inc,
+  dependencies: deps,
+  c_args: cflags
+)
+
+if enable_gudev
+  policy = 'org.gnome.settings-daemon.plugins.power.policy'
+
+  policy_in = configure_file(
+    input: policy + '.in.in',
+    output: policy + '.in',
+    configuration: plugins_conf
+  )
+
+  custom_target(
+    policy,
+    input: policy_in,
+    output: policy,
+    command: intltool_xml_cmd,
+    install: true,
+    install_dir: join_paths(gsd_datadir, 'polkit-1', 'actions')
+  )
+
+  sources = files(
+    'gsd-backlight-helper.c',
+    'gsd-backlight-linux.c'
+  )
+
+  deps = [
+    gudev_dep,
+    m_dep
+  ]
+
+  executable(
+    'gsd-backlight-helper',
+    sources,
+    include_directories: top_inc,
+    dependencies: deps,
+    install: true,
+    install_dir: gsd_libexecdir
+  )
+endif
+
+output = 'gsdpowerconstants.py'
+
+gsdpowerconstants_py = custom_target(
+  output,
+  input: 'gsd-power-constants.h',
+  output: output,
+  build_by_default: true,
+  command: [join_paths(meson.current_source_dir(), 'gsd-power-constants-update.pl'), '@INPUT@', '@OUTPUT@']
+)
+
+output = 'gsdpowerenums.py'
+
+gsdpowerenums_py = custom_target(
+  output,
+  output: output,
+  capture: true,
+  build_by_default: true,
+  command: [gsd_power_enums_update]
+)
+
+test_py = find_program('test.py')
+
+envs = [
+  'BUILDDIR=' + meson.current_build_dir(),
+  'TOP_BUILDDIR=' + meson.build_root()
+]
+
+test(
+  'test-power',
+  test_py,
+#  args: 'PowerPluginTest.test_sleep_inactive_blank',
+  env: envs,
+  timeout: 300
+)
+
