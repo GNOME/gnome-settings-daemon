@@ -99,7 +99,7 @@ gsd-power-enums.c: gsd-power-constants.h gsm-inhibitor-flag.h gsm-presence-flag.
 BUILT_SOURCES += $(GSD_POWER_ENUM_FILES)
 
 gsdpowerconstants.py: gsd-power-constants-update.pl gsd-power-constants.h
-	$(AM_V_GEN) $(srcdir)/gsd-power-constants-update.pl
+	$(AM_V_GEN) $(srcdir)/gsd-power-constants-update.pl gsd-power-constants.h $@
 
 gsdpowerenums.py: gsd-power-enums-update gsd-power-enums.h gsd-power-enums.c
 	$(AM_V_GEN) $(builddir)/gsd-power-enums-update > $@

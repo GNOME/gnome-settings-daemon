@@ -12,10 +12,13 @@ use strict;
 # Used for reading the keysymdef symbols.
 my @constantselements;
 
-die "Could not open file gsd-power-constants.h: $!\n" unless open(IN_CONSTANTS, "<:utf8", "gsd-power-constants.h");
+(scalar @ARGV >= 2) or die "Usage: $0 <input> <output>\n";
+my ($input, $output) = @ARGV;
+
+die "Could not open file gsd-power-constants.h: $!\n" unless open(IN_CONSTANTS, "<:utf8", $input);
 
 # Output: gtk+/gdk/gdkkeysyms.h
-die "Could not open file gsdpowerconstants.py: $!\n" unless open(OUT_CONSTANTS, ">:utf8", "gsdpowerconstants.py");
+die "Could not open file gsdpowerconstants.py: $!\n" unless open(OUT_CONSTANTS, ">:utf8", $output);
 
 print OUT_CONSTANTS<<EOF;
 
@@ -43,4 +46,4 @@ while (<IN_CONSTANTS>)
 
 close IN_CONSTANTS;
 
-printf "We just finished converting gsd-power-constants.h to gsdpowerconstants.py\nThank you\n";
+printf "We just finished converting $input to $output\nThank you\n";
