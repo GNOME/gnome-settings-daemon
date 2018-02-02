@@ -1,12 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins" path="/org/gnome/settings-daemon/plugins/">
     <key name="whitelisted-plugins" type="as">
       <default>['all']</default>
-      <_summary>List of plugins that are allowed to be loaded</_summary>
-      <_description>
+      <summary>List of plugins that are allowed to be loaded</summary>
+      <description>
         A list of strings representing the plugins that are allowed to be loaded (default: “all”).
         This is only evaluated on startup.
-      </_description>
+      </description>
     </key>
     <child name="color" schema="org.gnome.settings-daemon.plugins.color"/>
     <child name="housekeeping" schema="org.gnome.settings-daemon.plugins.housekeeping"/>

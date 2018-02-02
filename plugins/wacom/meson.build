@@ -16,11 +16,11 @@ policy_in = configure_file(
   configuration: plugins_conf
 )
 
-custom_target(
+i18n.merge_file(
   policy,
   input: policy_in,
   output: policy,
-  command: intltool_xml_cmd,
+  po_dir: po_dir,
   install: true,
   install_dir: join_paths(gsd_datadir, 'polkit-1', 'actions')
 )

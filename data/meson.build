@@ -16,17 +16,10 @@ schema_conf = configuration_data()
 schema_conf.set('GETTEXT_PACKAGE', meson.project_name())
 
 foreach schema: schemas
-  schema_in = configure_file(
-    input: schema + '.in.in',
-    output: schema + '.in',
-    configuration: schema_conf
-  )
-
-  custom_target(
-    schema,
-    input: schema_in,
+  configure_file(
+    input: schema + '.in',
     output: schema,
-    command: [intltool_merge, '-x', '-u', '--no-translations', '@INPUT@', '@OUTPUT@'],
+    configuration: schema_conf,
     install: true,
     install_dir: gsd_schemadir
   )
