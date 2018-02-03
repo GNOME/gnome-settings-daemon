@@ -1,13 +1,3 @@
-desktop = 'org.gnome.SettingsDaemon.Datetime.desktop'
-
-configure_file(
-  input: desktop + '.in',
-  output: desktop,
-  configuration: plugins_conf,
-  install: true,
-  install_dir: gsd_xdg_autostart
-)
-
 install_data(
   'backward',
   install_dir: join_paths(gsd_pkgdatadir, 'datetime')

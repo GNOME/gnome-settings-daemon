@@ -1,13 +1,3 @@
-desktop = 'org.gnome.SettingsDaemon.Sound.desktop'
-
-configure_file(
-  input: desktop + '.in',
-  output: desktop,
-  configuration: plugins_conf,
-  install: true,
-  install_dir: gsd_xdg_autostart
-)
-
 sources = files(
   'gsd-sound-manager.c',
   'main.c'

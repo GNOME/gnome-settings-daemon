@@ -1,13 +1,3 @@
-desktop = 'org.gnome.SettingsDaemon.Wacom.desktop'
-
-configure_file(
-  input: desktop + '.in',
-  output: desktop,
-  configuration: plugins_conf,
-  install: true,
-  install_dir: gsd_xdg_autostart
-)
-
 policy = 'org.gnome.settings-daemon.plugins.wacom.policy'
 
 policy_in = configure_file(

@@ -1,13 +1,3 @@
-desktop = 'org.gnome.SettingsDaemon.PrintNotifications.desktop'
-
-configure_file(
-  input: desktop + '.in',
-  output: desktop,
-  configuration: plugins_conf,
-  install: true,
-  install_dir: gsd_xdg_autostart
-)
-
 sources = files(
   'gsd-print-notifications-manager.c',
   'main.c'

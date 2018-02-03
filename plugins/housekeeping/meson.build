@@ -1,13 +1,3 @@
-desktop = 'org.gnome.SettingsDaemon.Housekeeping.desktop'
-
-configure_file(
-  input: desktop + '.in',
-  output: desktop,
-  configuration: plugins_conf,
-  install: true,
-  install_dir: gsd_xdg_autostart
-)
-
 common_files = files(
   'gsd-disk-space.c',
   'gsd-disk-space-helper.c'

@@ -1,13 +1,3 @@
-desktop = 'org.gnome.SettingsDaemon.XSettings.desktop'
-
-configure_file(
-  input: desktop + '.in',
-  output: desktop,
-  configuration: plugins_conf,
-  install: true,
-  install_dir: gsd_xdg_autostart
-)
-
 gsd_xsettings_gtk = files('gsd-xsettings-gtk.c')
 
 fc_monitor = files('fc-monitor.c')
