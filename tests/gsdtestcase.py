@@ -54,6 +54,7 @@ class GSDTestCase(dbusmock.DBusTestCase):
     @classmethod
     def setUpClass(klass):
         os.environ['GIO_USE_VFS'] = 'local'
+        os.environ['GVFS_DISABLE_FUSE'] = '1'
         # we do some string checks, disable translations
         os.environ['LC_MESSAGES'] = 'C'
         klass.workdir = tempfile.mkdtemp(prefix='gsd-power-test')
