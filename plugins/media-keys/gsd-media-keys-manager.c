@@ -80,6 +80,7 @@
 
 #define CUSTOM_BINDING_SCHEMA SETTINGS_BINDING_DIR ".custom-keybinding"
 
+#define SHELL_GRABBER_CALL_TIMEOUT G_MAXINT
 #define SHELL_GRABBER_RETRY_INTERVAL 1
 #define OSD_ALL_OUTPUTS -1
 
@@ -444,7 +445,7 @@ grab_accelerators_complete (GObject      *object,
                                                          &actions, result, &error);
 
         if (error) {
-                retry = (error->code == G_DBUS_ERROR_UNKNOWN_METHOD);
+                retry = g_error_matches (error, G_DBUS_ERROR, G_DBUS_ERROR_UNKNOWN_METHOD);
                 if (!retry && !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         g_warning ("Failed to grab accelerators: %s (%d)", error->message, error->code);
                 else if (retry)
@@ -486,11 +487,15 @@ grab_media_keys (GsdMediaKeysManager *manager)
                 g_free (tmp);
         }
 
-	shell_key_grabber_call_grab_accelerators (manager->priv->key_grabber,
-	                                          g_variant_builder_end (&builder),
-	                                          manager->priv->grab_cancellable,
-	                                          grab_accelerators_complete,
-	                                          manager);
+        g_dbus_proxy_call (G_DBUS_PROXY (manager->priv->key_grabber),
+                           "GrabAccelerators",
+                           g_variant_new ("(@a(su))",
+                                          g_variant_builder_end (&builder)),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           SHELL_GRABBER_CALL_TIMEOUT,
+                           manager->priv->grab_cancellable,
+                           grab_accelerators_complete,
+                           manager);
 }
 
 static void
@@ -2501,7 +2506,7 @@ on_accelerator_activated (ShellKeyGrabber     *grabber,
         if (!g_variant_dict_lookup (&dict, "action-mode", "u", &mode))
               mode = 0;
 
-        g_debug ("Received accel id %u (device-id: %u, timestamp: %u, mode: 0x%X",
+        g_debug ("Received accel id %u (device-id: %u, timestamp: %u, mode: 0x%X)",
                  accel_id, deviceid, timestamp, mode);
 
         for (i = 0; i < manager->priv->keys->len; i++) {
