@@ -444,7 +444,7 @@ grab_accelerators_complete (GObject      *object,
                                                          &actions, result, &error);
 
         if (error) {
-                retry = (error->code == G_DBUS_ERROR_UNKNOWN_METHOD);
+                retry = g_error_matches (error, G_DBUS_ERROR, G_DBUS_ERROR_UNKNOWN_METHOD);
                 if (!retry && !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         g_warning ("Failed to grab accelerators: %s (%d)", error->message, error->code);
                 else if (retry)
