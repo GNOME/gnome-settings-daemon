@@ -80,6 +80,7 @@
 
 #define CUSTOM_BINDING_SCHEMA SETTINGS_BINDING_DIR ".custom-keybinding"
 
+#define SHELL_GRABBER_CALL_TIMEOUT G_MAXINT
 #define SHELL_GRABBER_RETRY_INTERVAL 1
 #define OSD_ALL_OUTPUTS -1
 
@@ -486,11 +487,15 @@ grab_media_keys (GsdMediaKeysManager *manager)
                 g_free (tmp);
         }
 
-	shell_key_grabber_call_grab_accelerators (manager->priv->key_grabber,
-	                                          g_variant_builder_end (&builder),
-	                                          manager->priv->grab_cancellable,
-	                                          grab_accelerators_complete,
-	                                          manager);
+        g_dbus_proxy_call (G_DBUS_PROXY (manager->priv->key_grabber),
+                           "GrabAccelerators",
+                           g_variant_new ("(@a(su))",
+                                          g_variant_builder_end (&builder)),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           SHELL_GRABBER_CALL_TIMEOUT,
+                           manager->priv->grab_cancellable,
+                           grab_accelerators_complete,
+                           manager);
 }
 
 static void
