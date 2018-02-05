@@ -2501,7 +2501,7 @@ on_accelerator_activated (ShellKeyGrabber     *grabber,
         if (!g_variant_dict_lookup (&dict, "action-mode", "u", &mode))
               mode = 0;
 
-        g_debug ("Received accel id %u (device-id: %u, timestamp: %u, mode: 0x%X",
+        g_debug ("Received accel id %u (device-id: %u, timestamp: %u, mode: 0x%X)",
                  accel_id, deviceid, timestamp, mode);
 
         for (i = 0; i < manager->priv->keys->len; i++) {
