@@ -58,9 +58,6 @@ class GSDTestCase(dbusmock.DBusTestCase):
         os.environ['LC_MESSAGES'] = 'C'
         klass.workdir = tempfile.mkdtemp(prefix='gsd-power-test')
 
-        # start X.org server with dummy driver; this is needed until Xvfb
-        # supports XRandR:
-        # http://lists.x.org/archives/xorg-devel/2013-January/035114.html
         klass.start_xorg()
 
         # tell dconf and friends to use our config/runtime directories
@@ -191,6 +188,10 @@ class GSDTestCase(dbusmock.DBusTestCase):
         '''start Xvfb server'''
 
         xorg = GLib.find_program_in_path ('Xvfb')
+        if not xorg:
+            sys.stderr.write('Cannot start X.org, Xvfb binary not found\n')
+            sys.exit(1)
+
         display_num = 99
 
         if os.path.isfile('/tmp/.X%d-lock' % display_num):
