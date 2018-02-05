@@ -1,3 +1,30 @@
+===============
+Version 3.27.90
+===============
+
+- Remove a11y-keyboard plugin, the functionality was merged into mutter
+- Port to meson
+
+Clipboard:
+- Fix memory leak
+
+Media-keys:
+- Suppress power-button presses during suspend
+- Prefer MPRIS clients to g-s-d ones
+
+Power:
+- Don't react to light changes if not at console
+- Many regression test suite fixes
+- Default to suspend after 20 minutes of inactivity
+  (see https://bugzilla.gnome.org/show_bug.cgi?id=681869 for details)
+
+Rfkill:
+- Fix property notification warning for rfkill-input-inhibited
+
+Wacom:
+- Ensure screen integrated devices get remapped on hotplug
+- Fix screen mapping for Cintiqs and others
+
 ==============
 Version 3.26.2
 ==============
