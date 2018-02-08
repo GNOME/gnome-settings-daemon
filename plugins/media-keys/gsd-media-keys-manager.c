@@ -1174,19 +1174,6 @@ sound_theme_changed (GtkSettings         *settings,
 }
 
 static void
-allow_volume_above_100_percent_changed_cb (GSettings           *settings,
-                                           const char          *settings_key,
-                                           GsdMediaKeysManager *manager)
-{
-        gboolean allow_volume_above_100_percent;
-
-        g_assert (g_str_equal (settings_key, ALLOW_VOLUME_ABOVE_100_PERCENT_KEY));
-
-        allow_volume_above_100_percent = g_settings_get_boolean (settings, settings_key);
-        manager->priv->max_volume = allow_volume_above_100_percent ? PA_VOLUME_UI_MAX : PA_VOLUME_NORM;
-}
-
-static void
 ensure_canberra (GsdMediaKeysManager *manager)
 {
 	char *theme_name;
@@ -1370,6 +1357,54 @@ typedef enum {
 	SOUND_ACTION_FLAG_IS_QUIET   = 1 << 1,
 	SOUND_ACTION_FLAG_IS_PRECISE = 1 << 2,
 } SoundActionFlags;
+
+static void
+allow_volume_above_100_percent_changed_cb (GSettings           *settings,
+                                           const char          *settings_key,
+                                           GsdMediaKeysManager *manager)
+{
+        gboolean allow_volume_above_100_percent;
+        GvcMixerStream *stream;
+        gboolean muted;
+        guint old_vol, new_vol;
+        gboolean sound_changed;
+
+        g_assert (g_str_equal (settings_key, ALLOW_VOLUME_ABOVE_100_PERCENT_KEY));
+
+        allow_volume_above_100_percent = g_settings_get_boolean (settings, settings_key);
+        manager->priv->max_volume = allow_volume_above_100_percent ? PA_VOLUME_UI_MAX : PA_VOLUME_NORM;
+
+        if (!allow_volume_above_100_percent) {
+
+                /* Find the stream that corresponds to the device, if any */
+                stream = NULL;
+#ifdef HAVE_GUDEV
+                stream = get_stream_for_device_id (manager,
+                                                   SOUND_ACTION_FLAG_IS_OUTPUT,
+                                                   0);
+#endif /* HAVE_GUDEV */
+
+                if (stream == NULL)
+                        stream = manager->priv->sink;
+
+                if (stream == NULL)
+                        return;
+
+                new_vol = manager->priv->max_volume;
+                old_vol = gvc_mixer_stream_get_volume (stream);
+                muted = gvc_mixer_stream_get_is_muted (stream);
+                sound_changed = FALSE;
+
+                if (old_vol > new_vol) {
+                        if (gvc_mixer_stream_set_volume (stream, new_vol) != FALSE) {
+                                gvc_mixer_stream_push_volume (stream);
+                                sound_changed = TRUE;
+                        }
+                        update_dialog (manager, stream, new_vol, muted, sound_changed,
+                                       SOUND_ACTION_FLAG_IS_OUTPUT & SOUND_ACTION_FLAG_IS_QUIET);
+                }
+        }
+}
 
 static void
 do_sound_action (GsdMediaKeysManager *manager,
