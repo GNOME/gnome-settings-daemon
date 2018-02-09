@@ -37,7 +37,7 @@ struct _GsdNightLight {
         gboolean           geoclue_enabled;
         GSource           *source;
         guint              validate_id;
-        gint               disabled_day_of_month;
+        GDateTime         *disabled_until_day;
         GClueClient       *geoclue_client;
         GClueSimple       *geoclue_simple;
         GSettings         *location_settings;
@@ -256,22 +256,6 @@ night_light_recheck (GsdNightLight *self)
                 return;
         }
 
-        /* disabled until tomorrow */
-        if (self->disabled_until_tmw) {
-                gint tmp_day_of_month = g_date_time_get_day_of_month (dt_now);
-                if (tmp_day_of_month == self->disabled_day_of_month) {
-                        g_debug ("night light still day-disabled, resetting");
-                        gsd_night_light_set_temperature (self,
-                                                         GSD_COLOR_TEMPERATURE_DEFAULT);
-                        return;
-                }
-
-                /* no longer valid */
-                self->disabled_day_of_month = 0;
-                self->disabled_until_tmw = FALSE;
-                g_object_notify (G_OBJECT (self), "disabled-until-tmw");
-        }
-
         /* calculate the position of the sun */
         if (g_settings_get_boolean (self->settings, "night-light-schedule-automatic")) {
                 update_cached_sunrise_sunset (self);
@@ -299,6 +283,24 @@ night_light_recheck (GsdNightLight *self)
                 g_debug ("not time for night-light");
                 gsd_night_light_set_active (self, FALSE);
                 return;
+        }
+
+        /* disabled until tomorrow, where "tomorrow" is defined as sunrise */
+        if (self->disabled_until_tmw && self->disabled_until_day) {
+                GTimeSpan diff = g_date_time_difference (self->disabled_until_day, dt_now);
+
+                /* it's either before midnight, or between midnight and sunrise */
+                if (diff > 0 || diff < (schedule_to * G_TIME_SPAN_HOUR)) {
+                        g_debug ("night light still day-disabled, resetting");
+                        gsd_night_light_set_temperature (self,
+                                                         GSD_COLOR_TEMPERATURE_DEFAULT);
+                        return;
+                }
+
+                /* no longer valid */
+                self->disabled_until_tmw = FALSE;
+                g_clear_pointer (&self->disabled_until_day, (GDestroyNotify) g_date_time_unref);
+                g_object_notify (G_OBJECT (self), "disabled-until-tmw");
         }
 
         /* smear the temperature for a short duration before the set limits
@@ -496,13 +498,21 @@ check_location_settings (GsdNightLight *self)
 void
 gsd_night_light_set_disabled_until_tmw (GsdNightLight *self, gboolean value)
 {
+        gint year, month, day;
         g_autoptr(GDateTime) dt = gsd_night_light_get_date_time_now (self);
+        g_autoptr(GDateTime) dt_tmrw = g_date_time_add_days (dt, 1);
 
         if (self->disabled_until_tmw == value)
                 return;
 
         self->disabled_until_tmw = value;
-        self->disabled_day_of_month = g_date_time_get_day_of_month (dt);
+        g_clear_pointer (&self->disabled_until_day, (GDestroyNotify) g_date_time_unref);
+
+        if (self->disabled_until_tmw) {
+          g_date_time_get_ymd (dt_tmrw, &year, &month, &day);
+          self->disabled_until_day = g_date_time_new_local (year, month, day, 0, 0, 0);
+        }
+
         night_light_recheck (self);
         g_object_notify (G_OBJECT (self), "disabled-until-tmw");
 }
@@ -572,6 +582,7 @@ gsd_night_light_finalize (GObject *object)
 
         g_clear_object (&self->settings);
         g_clear_pointer (&self->datetime_override, (GDestroyNotify) g_date_time_unref);
+        g_clear_pointer (&self->disabled_until_day, (GDestroyNotify) g_date_time_unref);
 
         if (self->validate_id > 0) {
                 g_source_remove (self->validate_id);
