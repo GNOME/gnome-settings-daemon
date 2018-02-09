@@ -38,6 +38,7 @@ struct _GsdSmartcardServicePrivate
         GCancellable               *cancellable;
         GHashTable                 *tokens;
 
+        gboolean                    login_token_bound;
         guint name_id;
 };
 
@@ -110,6 +111,49 @@ register_object_manager (GsdSmartcardService *self)
                                                      self->priv->bus_connection);
 }
 
+static const char *
+get_login_token_object_path (GsdSmartcardService *self)
+{
+        return GSD_SMARTCARD_MANAGER_TOKENS_DBUS_PATH "/login_token";
+}
+
+static void
+register_login_token_alias (GsdSmartcardService *self)
+{
+        GsdSmartcardServicePrivate *priv;
+        GDBusObjectSkeleton *object;
+        GDBusInterfaceSkeleton *interface;
+        const char *object_path;
+        const char *token_name;
+
+        token_name = g_getenv ("PKCS11_LOGIN_TOKEN_NAME");
+
+        if (token_name == NULL)
+                return;
+
+        priv = self->priv;
+
+        object_path = get_login_token_object_path (self);
+        object = G_DBUS_OBJECT_SKELETON (gsd_smartcard_service_object_skeleton_new (object_path));
+        interface = G_DBUS_INTERFACE_SKELETON (gsd_smartcard_service_token_skeleton_new ());
+
+        g_dbus_object_skeleton_add_interface (object, interface);
+        g_object_unref (interface);
+
+        g_object_set (G_OBJECT (interface),
+                      "name", token_name,
+                      "used-to-login", TRUE,
+                      "is-inserted", FALSE,
+                      NULL);
+
+        g_dbus_object_manager_server_export (self->priv->object_manager_server,
+                                             object);
+
+        G_LOCK (gsd_smartcard_tokens);
+        g_hash_table_insert (priv->tokens, g_strdup (object_path), interface);
+        G_UNLOCK (gsd_smartcard_tokens);
+}
+
 static void
 on_bus_gotten (GObject      *source_object,
                GAsyncResult *result,
@@ -141,6 +185,11 @@ on_bus_gotten (GObject      *source_object,
                                                       NULL,
                                                       NULL,
                                                       NULL);
+
+        /* In case the login token is removed at start up, register an
+         * an alias interface that's always around
+         */
+        register_login_token_alias (self);
         g_task_return_boolean (task, TRUE);
 
 out:
@@ -218,6 +267,21 @@ gsd_smartcard_service_handle_get_login_token (GsdSmartcardServiceManager *manage
         card_slot = gsd_smartcard_manager_get_login_token (priv->smartcard_manager);
 
         if (card_slot == NULL) {
+                const char *login_token_object_path;
+
+                /* If we know there's a login token but it was removed before the
+                 * smartcard manager could examine it, just return the generic login
+                 * token object path
+                 */
+                login_token_object_path = get_login_token_object_path (self);
+
+                if (g_hash_table_contains (priv->tokens, login_token_object_path)) {
+                        gsd_smartcard_service_manager_complete_get_login_token (manager,
+                                                                                invocation,
+                                                                                login_token_object_path);
+                        return TRUE;
+                }
+
                 g_dbus_method_invocation_return_error (invocation,
                                                        GSD_SMARTCARD_MANAGER_ERROR,
                                                        GSD_SMARTCARD_MANAGER_ERROR_FINDING_SMARTCARD,
@@ -524,6 +588,24 @@ synchronize_token_now (GsdSmartcardService *self,
                       "used-to-login", &is_login_card,
                       "is-inserted", &is_present,
                       NULL);
+
+        if (is_login_card && !priv->login_token_bound) {
+                const char *login_token_path;
+                GDBusInterfaceSkeleton *login_token_interface;
+
+                login_token_path = get_login_token_object_path (self);
+                login_token_interface = g_hash_table_lookup (priv->tokens, login_token_path);
+
+                if (login_token_interface != NULL) {
+                        g_object_bind_property (interface, "driver",
+                                                login_token_interface, "driver",
+                                                G_BINDING_SYNC_CREATE);
+                        g_object_bind_property (interface, "is-inserted",
+                                                login_token_interface, "is-inserted",
+                                                G_BINDING_SYNC_CREATE);
+                        priv->login_token_bound = TRUE;
+                }
+        }
 
 out:
         G_UNLOCK (gsd_smartcard_tokens);
