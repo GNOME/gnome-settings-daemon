@@ -64,9 +64,18 @@ static void     gsd_smartcard_manager_init        (GsdSmartcardManager      *sel
 static void     gsd_smartcard_manager_finalize    (GObject                  *object);
 static void     lock_screen                       (GsdSmartcardManager *self);
 static void     log_out                           (GsdSmartcardManager *self);
+static void     on_smartcards_from_driver_watched (GsdSmartcardManager *self,
+                                                   GAsyncResult        *result,
+                                                   GTask               *task);
 G_DEFINE_TYPE (GsdSmartcardManager, gsd_smartcard_manager, G_TYPE_OBJECT)
 G_DEFINE_QUARK (gsd-smartcard-manager-error, gsd_smartcard_manager_error)
 G_LOCK_DEFINE_STATIC (gsd_smartcards_watch_tasks);
+
+typedef struct {
+        SECMODModule *driver;
+        guint         idle_id;
+        GError       *error;
+} DriverRegistrationOperation;
 
 static gpointer manager_object = NULL;
 
@@ -319,6 +328,34 @@ on_smartcards_watch_task_destroyed (GsdSmartcardManager *self,
 }
 
 static void
+sync_initial_tokens_from_driver (GsdSmartcardManager *self,
+                                 SECMODModule        *driver,
+                                 GHashTable          *smartcards,
+                                 GCancellable        *cancellable)
+{
+        GsdSmartcardManagerPrivate *priv = self->priv;
+        int i;
+
+        for (i = 0; i < driver->slotCount; i++) {
+                PK11SlotInfo *card;
+
+                card = driver->slots[i];
+
+                if (PK11_IsPresent (card)) {
+                        CK_SLOT_ID slot_id;
+                        slot_id = PK11_GetSlotID (card);
+
+                        g_debug ("Detected smartcard in slot %d at start up", (int) slot_id);
+
+                        g_hash_table_replace (smartcards,
+                                              GINT_TO_POINTER ((int) slot_id),
+                                              PK11_ReferenceSlot (card));
+                        gsd_smartcard_service_sync_token (priv->service, card, cancellable);
+                }
+        }
+}
+
+static void
 watch_smartcards_from_driver_async (GsdSmartcardManager *self,
                                     SECMODModule        *driver,
                                     GCancellable        *cancellable,
@@ -350,6 +387,8 @@ watch_smartcards_from_driver_async (GsdSmartcardManager *self,
                            self);
         G_UNLOCK (gsd_smartcards_watch_tasks);
 
+        sync_initial_tokens_from_driver (self, driver, operation->smartcards, cancellable);
+
         g_task_run_in_thread (task, (GTaskThreadFunc) watch_smartcards_from_driver);
 }
 
@@ -367,6 +406,10 @@ on_driver_registered (GsdSmartcardManager *self,
                       GTask               *task)
 {
         GError *error = NULL;
+        DriverRegistrationOperation *operation;
+        GsdSmartcardManagerPrivate *priv = self->priv;
+
+        operation = g_task_get_task_data (G_TASK (result));
 
         if (!register_driver_finish (self, result, &error)) {
                 g_task_return_error (task, error);
@@ -374,8 +417,13 @@ on_driver_registered (GsdSmartcardManager *self,
                 return;
         }
 
-        g_task_return_boolean (task, TRUE);
+        watch_smartcards_from_driver_async (self,
+                                            operation->driver,
+                                            priv->cancellable,
+                                            (GAsyncReadyCallback) on_smartcards_from_driver_watched,
+                                            task);
 
+        g_task_return_boolean (task, TRUE);
         g_object_unref (task);
 }
 
@@ -386,12 +434,6 @@ on_smartcards_from_driver_watched (GsdSmartcardManager *self,
 {
         g_debug ("Done watching smartcards from driver");
 }
-
-typedef struct {
-        SECMODModule *driver;
-        guint         idle_id;
-        GError       *error;
-} DriverRegistrationOperation;
 
 static void
 destroy_driver_registration_operation (DriverRegistrationOperation *operation)
@@ -477,11 +519,6 @@ activate_driver (GsdSmartcardManager *self,
                          cancellable,
                          (GAsyncReadyCallback) on_driver_registered,
                          task);
-        watch_smartcards_from_driver_async (self,
-                                            driver,
-                                            cancellable,
-                                            (GAsyncReadyCallback) on_smartcards_from_driver_watched,
-                                            task);
 }
 
 typedef struct
