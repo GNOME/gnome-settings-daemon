@@ -52,12 +52,14 @@ if enable_wacom
   deps += libwacom_dep
 endif
 
-libcommon = shared_module(
+libcommon = shared_library(
   plugin_name,
   sources: sources,
   include_directories: [top_inc, data_inc],
   dependencies: deps,
   c_args: cflags,
+  install: true,
+  install_dir: gsd_pkglibdir,
   link_args: ldflags
 )
 
@@ -73,5 +75,6 @@ executable(
   dependencies: gtk_dep,
   link_with: libcommon,
   install: true,
+  install_rpath: gsd_pkglibdir,
   install_dir: gsd_libexecdir
 )

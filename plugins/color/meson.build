@@ -29,6 +29,7 @@ executable(
   dependencies: deps,
   c_args: cflags,
   install: true,
+  install_rpath: gsd_pkglibdir,
   install_dir: gsd_libexecdir
 )
 
