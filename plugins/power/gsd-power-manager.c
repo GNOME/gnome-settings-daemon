@@ -2920,7 +2920,8 @@ handle_get_property_other (GsdPowerManager *manager,
         if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
                 value = backlight_get_percentage (manager->priv->rr_screen, NULL);
                 retval = g_variant_new_int32 (value);
-        } else if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
+        } else if (manager->priv->upower_kbd_proxy &&
+                   g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
                 value = ABS_TO_PERCENTAGE (0,
                                            manager->priv->kbd_brightness_max,
                                            manager->priv->kbd_brightness_now);
