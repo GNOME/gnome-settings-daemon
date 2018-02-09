@@ -37,6 +37,7 @@ executable(
   dependencies: deps,
   c_args: cflags,
   install: true,
+  install_rpath: gsd_pkglibdir,
   install_dir: gsd_libexecdir
 )
 
@@ -58,6 +59,7 @@ if enable_gudev
       include_directories: top_inc,
       dependencies: deps,
       install: true,
+      install_rpath: gsd_pkglibdir,
       install_dir: gsd_libexecdir
     )
   endforeach

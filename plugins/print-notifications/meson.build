@@ -18,6 +18,7 @@ executable(
   dependencies: deps,
   c_args: cflags,
   install: true,
+  install_rpath: gsd_pkglibdir,
   install_dir: gsd_libexecdir
 )
 
@@ -30,5 +31,6 @@ executable(
   dependencies: deps,
   c_args: '-DGNOME_SETTINGS_LOCALEDIR="@0@"'.format(gsd_localedir),
   install: true,
+  install_rpath: gsd_pkglibdir,
   install_dir: gsd_libexecdir
 )
