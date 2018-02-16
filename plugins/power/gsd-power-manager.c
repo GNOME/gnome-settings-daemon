@@ -3024,6 +3024,9 @@ handle_set_property_other (GsdPowerManager *manager,
                         manager->priv->ambient_norm_required = TRUE;
                         return TRUE;
                 } else {
+                        if (error && *error) {
+                            return FALSE;
+                        }
                         g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
                                      "Setting %s.%s failed", interface_name, property_name);
                         return FALSE;
