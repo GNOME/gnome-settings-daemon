@@ -43,6 +43,7 @@ static struct {
         ShellActionMode modes;
 } media_keys[] = {
         { TOUCHPAD_KEY, NULL, N_("Touchpad toggle") ,"XF86TouchpadToggle", SHELL_ACTION_MODE_ALL },
+        { TOUCHPAD_KEY, NULL, N_("Touchpad toggle") ,"<Ctrl><Super>XF86TouchpadToggle", SHELL_ACTION_MODE_ALL },
         { TOUCHPAD_ON_KEY, NULL, N_("Touchpad On"), "XF86TouchpadOn", SHELL_ACTION_MODE_ALL },
         { TOUCHPAD_OFF_KEY, NULL, N_("Touchpad Off"), "XF86TouchpadOff", SHELL_ACTION_MODE_ALL },
         { MUTE_KEY, "volume-mute", NULL, NULL, SHELL_ACTION_MODE_ALL },
