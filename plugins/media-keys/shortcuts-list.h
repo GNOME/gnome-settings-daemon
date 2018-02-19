@@ -48,7 +48,7 @@ static struct {
         { MUTE_KEY, "volume-mute", NULL, NULL, SHELL_ACTION_MODE_ALL },
         { VOLUME_DOWN_KEY, "volume-down", NULL, NULL, SHELL_ACTION_MODE_ALL },
         { VOLUME_UP_KEY, "volume-up", NULL, NULL, SHELL_ACTION_MODE_ALL },
-        { MIC_MUTE_KEY, NULL, N_("Microphone Mute"), "XF86AudioMicMute", SHELL_ACTION_MODE_ALL },
+        { MIC_MUTE_KEY, "mic-mute", NULL, NULL, SHELL_ACTION_MODE_ALL },
         { MUTE_QUIET_KEY, NULL, N_("Quiet Volume Mute"), "<Alt>XF86AudioMute", SHELL_ACTION_MODE_ALL },
         { VOLUME_DOWN_QUIET_KEY, NULL, N_("Quiet Volume Down"), "<Alt>XF86AudioLowerVolume", SHELL_ACTION_MODE_ALL },
         { VOLUME_UP_QUIET_KEY, NULL, N_("Quiet Volume Up"), "<Alt>XF86AudioRaiseVolume", SHELL_ACTION_MODE_ALL },
