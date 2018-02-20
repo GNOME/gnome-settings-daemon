@@ -289,6 +289,10 @@ night_light_recheck (GsdNightLight *self)
                                                      "night-light-schedule-to");
         }
 
+        /* disable smearing if to and from are too close together */
+        if (ABS (schedule_from - schedule_to) <= smear)
+          smear = 0;
+
         /* get the current hour of a day as a fraction */
         frac_day = gsd_night_light_frac_day_from_dt (dt_now);
         g_debug ("fractional day = %.3f, limits = %.3f->%.3f",
