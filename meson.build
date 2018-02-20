@@ -74,7 +74,7 @@ endif
 
 # Workaround for meson's bug
 # https://github.com/mesonbuild/meson/pull/1896
-if get_option('b_ndebug') == false
+if get_option('b_ndebug') == true
   common_flags += ['-DG_DISABLE_ASSERT']
 endif
 
