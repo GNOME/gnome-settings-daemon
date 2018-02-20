@@ -68,14 +68,16 @@ if get_option('buildtype').contains('debug')
 
   compiler_flags = cc.get_supported_arguments(test_cflags)
 else
-  common_flags += ['-DG_DISABLE_CHECKS']
   compiler_flags = []
 endif
 
 # Workaround for meson's bug
 # https://github.com/mesonbuild/meson/pull/1896
 if get_option('b_ndebug') == true
-  common_flags += ['-DG_DISABLE_ASSERT']
+  common_flags += [
+    '-DG_DISABLE_ASSERT',
+    '-DG_DISABLE_CHECKS'
+  ]
 endif
 
 add_project_arguments(common_flags + compiler_flags, language: 'c')
