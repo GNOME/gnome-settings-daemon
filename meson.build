@@ -68,8 +68,11 @@ if get_option('buildtype').contains('debug')
 
   compiler_flags = cc.get_supported_arguments(test_cflags)
 else
-  common_flags += ['-DG_DISABLE_CHECKS']
   compiler_flags = []
+endif
+
+if not get_option('checks')
+  common_flags += ['-DG_DISABLE_CHECKS']
 endif
 
 # Workaround for meson's bug
