@@ -230,17 +230,6 @@ typedef enum _DisplayLayoutMode {
  */
 #define DPI_FALLBACK 96
 
-/* The minimum resolution at which we turn on a window-scale of 2 */
-#define HIDPI_LIMIT (DPI_FALLBACK * 2)
-
-/* The minimum screen height at which we turn on a window-scale of 2;
- * below this there just isn't enough vertical real estate for GNOME
- * apps to work, and it's better to just be tiny */
-#define HIDPI_MIN_HEIGHT 1200
-
-/* From http://en.wikipedia.org/wiki/4K_resolution#Resolutions_of_common_formats */
-#define SMALLEST_4K_WIDTH 3656
-
 typedef struct _TranslationEntry TranslationEntry;
 typedef void (* TranslationFunc) (GnomeXSettingsManager *manager,
                                   TranslationEntry      *trans,
