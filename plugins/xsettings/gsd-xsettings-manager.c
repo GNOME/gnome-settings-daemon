@@ -246,9 +246,15 @@ struct _TranslationEntry {
 typedef struct _FixedEntry FixedEntry;
 typedef void (* FixedFunc) (GnomeXSettingsManager *manager,
                             FixedEntry            *fixed);
+typedef union {
+        const char *str;
+        int num;
+} FixedEntryValue;
+
 struct _FixedEntry {
         const char     *xsetting_name;
         FixedFunc       func;
+        FixedEntryValue val;
 };
 
 struct GnomeXSettingsManagerPrivate
@@ -401,6 +407,26 @@ fixed_bus_id (GnomeXSettingsManager *manager,
         g_object_unref (bus);
 }
 
+static void
+fixed_string (GnomeXSettingsManager *manager,
+              FixedEntry            *fixed)
+{
+        xsettings_manager_set_string (manager->priv->manager,
+                                      fixed->xsetting_name,
+                                      fixed->val.str);
+}
+
+static void
+fixed_int (GnomeXSettingsManager *manager,
+           FixedEntry            *fixed)
+{
+        xsettings_manager_set_int (manager->priv->manager,
+                                   fixed->xsetting_name,
+                                   fixed->val.num);
+}
+
+#define DEFAULT_COLOR_PALETTE "black:white:gray50:red:purple:blue:light blue:green:yellow:orange:lavender:brown:goldenrod4:dodger blue:pink:light green:gray10:gray30:gray75:gray90"
+
 static FixedEntry fixed_entries [] = {
         { "Gtk/MenuImages",          fixed_false_int },
         { "Gtk/ButtonImages",        fixed_false_int },
@@ -409,6 +435,17 @@ static FixedEntry fixed_entries [] = {
         { "Gtk/AutoMnemonics",       fixed_true_int },
         { "Gtk/DialogsUseHeader",    fixed_true_int },
         { "Gtk/SessionBusId",        fixed_bus_id },
+        { "Gtk/ColorPalette",        fixed_string,      { .str = DEFAULT_COLOR_PALETTE } },
+        { "Net/FallbackIconTheme",   fixed_string,      { .str = "gnome" } },
+        { "Gtk/ToolbarStyle",        fixed_string,      { .str =  "both-horiz" } },
+        { "Gtk/ToolbarIconSize",     fixed_string,      { .str = "large" } },
+        { "Gtk/CanChangeAccels",     fixed_false_int },
+        { "Gtk/TimeoutInitial",      fixed_int,         { .num = 200 } },
+        { "Gtk/TimeoutRepeat",       fixed_int,         { .num = 20 } },
+        { "Gtk/ColorScheme",         fixed_string,      { .str = "" } },
+        { "Gtk/IMPreeditStyle",      fixed_string,      { .str = "callback" } },
+        { "Gtk/IMStatusStyle",       fixed_string,      { .str = "callback" } },
+        { "Gtk/MenuBarAccel",        fixed_string,      { .str = "F10" } }
 };
 
 static TranslationEntry translations [] = {
@@ -417,24 +454,14 @@ static TranslationEntry translations [] = {
 
         { "org.gnome.desktop.background", "show-desktop-icons",    "Gtk/ShellShowsDesktop",   translate_bool_int },
 
-        { "org.gnome.desktop.interface", "gtk-color-palette",      "Gtk/ColorPalette",        translate_string_string },
         { "org.gnome.desktop.interface", "font-name",              "Gtk/FontName",            translate_string_string },
         { "org.gnome.desktop.interface", "gtk-key-theme",          "Gtk/KeyThemeName",        translate_string_string },
-        { "org.gnome.desktop.interface", "toolbar-style",          "Gtk/ToolbarStyle",        translate_string_string },
-        { "org.gnome.desktop.interface", "toolbar-icons-size",     "Gtk/ToolbarIconSize",     translate_string_string },
-        { "org.gnome.desktop.interface", "can-change-accels",      "Gtk/CanChangeAccels",     translate_bool_int },
         { "org.gnome.desktop.interface", "cursor-blink",           "Net/CursorBlink",         translate_bool_int },
         { "org.gnome.desktop.interface", "cursor-blink-time",      "Net/CursorBlinkTime",     translate_int_int },
         { "org.gnome.desktop.interface", "cursor-blink-timeout",   "Gtk/CursorBlinkTimeout",  translate_int_int },
         { "org.gnome.desktop.interface", "gtk-theme",              "Net/ThemeName",           translate_string_string },
-        { "org.gnome.desktop.interface", "gtk-timeout-initial",    "Gtk/TimeoutInitial",      translate_int_int },
-        { "org.gnome.desktop.interface", "gtk-timeout-repeat",     "Gtk/TimeoutRepeat",       translate_int_int },
-        { "org.gnome.desktop.interface", "gtk-color-scheme",       "Gtk/ColorScheme",         translate_string_string },
-        { "org.gnome.desktop.interface", "gtk-im-preedit-style",   "Gtk/IMPreeditStyle",      translate_string_string },
-        { "org.gnome.desktop.interface", "gtk-im-status-style",    "Gtk/IMStatusStyle",       translate_string_string },
         { "org.gnome.desktop.interface", "gtk-im-module",          "Gtk/IMModule",            translate_string_string },
         { "org.gnome.desktop.interface", "icon-theme",             "Net/IconThemeName",       translate_string_string },
-        { "org.gnome.desktop.interface", "menubar-accel",          "Gtk/MenuBarAccel",        translate_string_string },
         { "org.gnome.desktop.interface", "cursor-theme",           "Gtk/CursorThemeName",     translate_string_string },
         { "org.gnome.desktop.interface", "gtk-enable-primary-paste", "Gtk/EnablePrimaryPaste", translate_bool_int },
         /* cursor-size is handled via the Xft side as it needs the scaling factor */
@@ -995,9 +1022,6 @@ xsettings_callback (GSettings             *settings,
 
         g_variant_unref (value);
 
-        xsettings_manager_set_string (manager->priv->manager,
-                                      "Net/FallbackIconTheme",
-                                      "gnome");
         queue_notify (manager);
 }
 
@@ -1243,10 +1267,6 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
         start_fontconfig_monitor (manager);
 
         start_shell_monitor (manager);
-
-        xsettings_manager_set_string (manager->priv->manager,
-                                      "Net/FallbackIconTheme",
-                                      "gnome");
 
         overrides = g_settings_get_value (manager->priv->plugin_settings, XSETTINGS_OVERRIDE_KEY);
         xsettings_manager_set_overrides (manager->priv->manager, overrides);
