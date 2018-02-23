@@ -290,7 +290,9 @@ gsd_xsettings_gtk_init (GsdXSettingsGtk *gtk)
 
         gtk->priv->settings = g_settings_new (XSETTINGS_PLUGIN_SCHEMA);
 
-        modules_path = GTK_MODULES_DIRECTORY;
+        modules_path = g_getenv ("GSD_gtk_modules_dir");
+        if (modules_path == NULL)
+                modules_path = GTK_MODULES_DIRECTORY;
 
         get_gtk_modules_from_dir (gtk);
 
