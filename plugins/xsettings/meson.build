@@ -46,3 +46,17 @@ foreach program: programs
     c_args: program[2]
   )
 endforeach
+
+test_py = find_program('test.py')
+
+envs = [
+  'BUILDDIR=' + meson.current_build_dir(),
+  'TOP_BUILDDIR=' + meson.build_root()
+]
+
+test(
+  'test-xsettings',
+  test_py,
+  env: envs,
+  timeout: 300
+)
