@@ -29,6 +29,8 @@
 #define GTK_MODULES_DISABLED_KEY "disabled-gtk-modules"
 #define GTK_MODULES_ENABLED_KEY  "enabled-gtk-modules"
 
+static const char *modules_path = NULL;
+
 enum {
         PROP_0,
         PROP_GTK_MODULES
@@ -153,7 +155,7 @@ get_gtk_modules_from_dir (GsdXSettingsGtk *gtk)
         GFileInfo *info;
         GHashTable *ht;
 
-        file = g_file_new_for_path (GTK_MODULES_DIRECTORY);
+        file = g_file_new_for_path (modules_path);
         info = g_file_query_info (file,
                                   G_FILE_ATTRIBUTE_TIME_MODIFIED,
                                   G_FILE_QUERY_INFO_NONE,
@@ -177,7 +179,7 @@ get_gtk_modules_from_dir (GsdXSettingsGtk *gtk)
                                 gtk->priv->dir_modules = NULL;
                         }
 
-                        dir = g_dir_open (GTK_MODULES_DIRECTORY, 0, NULL);
+                        dir = g_dir_open (modules_path, 0, NULL);
                         if (dir == NULL)
                                 goto bail;
 
@@ -187,7 +189,7 @@ get_gtk_modules_from_dir (GsdXSettingsGtk *gtk)
                                 char *path;
                                 char *module;
 
-                                path = g_build_filename (GTK_MODULES_DIRECTORY, name, NULL);
+                                path = g_build_filename (modules_path, name, NULL);
                                 module = process_desktop_file (path, gtk);
                                 if (module != NULL)
                                         g_hash_table_insert (ht, module, NULL);
@@ -288,9 +290,11 @@ gsd_xsettings_gtk_init (GsdXSettingsGtk *gtk)
 
         gtk->priv->settings = g_settings_new (XSETTINGS_PLUGIN_SCHEMA);
 
+        modules_path = GTK_MODULES_DIRECTORY;
+
         get_gtk_modules_from_dir (gtk);
 
-        file = g_file_new_for_path (GTK_MODULES_DIRECTORY);
+        file = g_file_new_for_path (modules_path);
         gtk->priv->monitor = g_file_monitor (file,
                                              G_FILE_MONITOR_NONE,
                                              NULL,
