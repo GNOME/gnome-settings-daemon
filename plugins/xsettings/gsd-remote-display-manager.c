@@ -184,6 +184,9 @@ gsd_display_has_llvmpipe (void)
         guchar *data;
         GdkDisplay *display;
 
+        if (g_getenv ("GSD_ignore_llvmpipe") != NULL)
+                return FALSE;
+
         display = gdk_display_get_default ();
         is_software_rendering_atom = gdk_x11_get_xatom_by_name_for_display (display, "_GNOME_IS_SOFTWARE_RENDERING");
         gdk_x11_display_error_trap_push (display);
