@@ -57,7 +57,7 @@ class GSDTestCase(dbusmock.DBusTestCase):
         os.environ['GVFS_DISABLE_FUSE'] = '1'
         # we do some string checks, disable translations
         os.environ['LC_MESSAGES'] = 'C'
-        klass.workdir = tempfile.mkdtemp(prefix='gsd-power-test')
+        klass.workdir = tempfile.mkdtemp(prefix='gsd-plugin-test')
 
         klass.start_xorg()
 
