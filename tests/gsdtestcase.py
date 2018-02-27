@@ -186,24 +186,14 @@ class GSDTestCase(dbusmock.DBusTestCase):
         klass.mutter_log.flush()
         klass.mutter_log.close()
 
-    @classmethod
-    def start_xorg(klass):
-        '''start Xvfb server'''
-
-        xorg = GLib.find_program_in_path ('Xvfb')
-        if not xorg:
-            sys.stderr.write('Cannot start X.org, Xvfb binary not found\n')
-            sys.exit(1)
-
-        display_num = 99
-
-        if os.path.isfile('/tmp/.X%d-lock' % display_num):
-            sys.stderr.write('Cannot start X.org, an instance already exists\n')
-            sys.exit(1)
+    # Return the display num, -1 on hard failure, 0 on failure but to try again
+    @staticmethod
+    def launch_xorg_with_display_num(klass, xorg, display_num):
+        xorg_log_write = open(os.path.join(klass.workdir, 'xorg.log'), 'wb')
 
         # Composite extension won't load unless at least 24bpp is set
         klass.xorg = subprocess.Popen([xorg, ':%d' % display_num, "-screen", "0", "1280x1024x24", "+extension", "GLX"],
-                                      stderr=subprocess.PIPE)
+                stdout=xorg_log_write, stderr=subprocess.STDOUT)
         os.environ['DISPLAY'] = ':%d' % display_num
 
         # wait until the server is ready
@@ -213,13 +203,58 @@ class GSDTestCase(dbusmock.DBusTestCase):
             timeout -= 1
             if klass.xorg.poll():
                 # ended prematurely
-                timeout = -1
-                break
+                try:
+                    log = xorg_log_write.read()
+                except IOError:
+                    return -1
+
+                if log and (b'Server is already active for display'):
+                    return 0
+
+                return -1
             if subprocess.call(['xprop', '-root'], stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE) == 0:
                 break
         if timeout <= 0:
             sys.stderr.write('Cannot start Xvfb.\n--------')
+            return -1
+
+        return display_num
+
+    @staticmethod
+    def launch_xorg(klass, xorg):
+        display_num = 99
+
+        while os.path.isfile('/tmp/.X%d-lock' % display_num) and display_num >= 0:
+            display_num = display_num - 1
+
+        if display_num == 0:
+            return 0
+
+        ret = klass.launch_xorg_with_display_num(klass, xorg, display_num)
+        while ret == 0:
+            display_num = display_num - 1
+            ret = klass.launch_xorg_with_display_num(klass, xorg, display_num)
+
+        if ret == -1:
+            sys.stderr.write('Cannot start Xvfb.\n--------')
+            return 0
+
+        return display_num
+
+    @classmethod
+    def start_xorg(klass):
+        '''start Xvfb server'''
+
+        xorg = GLib.find_program_in_path ('Xvfb')
+        if not xorg:
+            sys.stderr.write('Cannot start X.org, Xvfb binary not found\n')
+            sys.exit(1)
+
+        display_num = klass.launch_xorg(klass, xorg)
+
+        if display_num == 0:
+            sys.stderr.write('Cannot start X.org, /tmp/.X*-lock all used\n')
             sys.exit(1)
 
     @classmethod
