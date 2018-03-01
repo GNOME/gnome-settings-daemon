@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2018-02-13 14:00+0000\n"
-"PO-Revision-Date: 2018-02-16 02:01+0100\n"
+"POT-Creation-Date: 2018-03-01 15:24+0000\n"
+"PO-Revision-Date: 2018-03-01 17:25+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -1758,215 +1758,228 @@ msgid "No driver for this printer."
 msgstr "Brak sterownika dla tej drukarki."
 
 #: plugins/print-notifications/gsd-printer.c:1031
-#: plugins/print-notifications/gsd-print-notifications-manager.c:270
-#: plugins/print-notifications/gsd-print-notifications-manager.c:748
-#: plugins/print-notifications/gsd-print-notifications-manager.c:838
-#: plugins/print-notifications/gsd-print-notifications-manager.c:881
+#: plugins/print-notifications/gsd-print-notifications-manager.c:290
+#: plugins/print-notifications/gsd-print-notifications-manager.c:530
+#: plugins/print-notifications/gsd-print-notifications-manager.c:911
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1001
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1044
 msgid "Printers"
 msgstr "Drukarki"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:346
+#: plugins/print-notifications/gsd-print-notifications-manager.c:366
 #, c-format
 msgid "Printer “%s” is low on toner."
 msgstr "Drukarka „%s” ma mało tonera."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:350
+#: plugins/print-notifications/gsd-print-notifications-manager.c:370
 #, c-format
 msgid "Printer “%s” has no toner left."
 msgstr "Drukarka „%s” nie ma tonera."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:354
+#: plugins/print-notifications/gsd-print-notifications-manager.c:374
 #, c-format
 msgid "Printer “%s” may not be connected."
 msgstr "Drukarka „%s” nie jest podłączona."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:358
+#: plugins/print-notifications/gsd-print-notifications-manager.c:378
 #, c-format
 msgid "The cover is open on printer “%s”."
 msgstr "Pokrywa drukarki „%s” jest otwarta."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:362
+#: plugins/print-notifications/gsd-print-notifications-manager.c:382
 #, c-format
 msgid "There is a missing print filter for printer “%s”."
 msgstr "Brak filtru drukowania dla drukarki „%s”."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:367
+#: plugins/print-notifications/gsd-print-notifications-manager.c:387
 #, c-format
 msgid "The door is open on printer “%s”."
 msgstr "Drzwiczki drukarki „%s” są otwarte."
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:371
+#: plugins/print-notifications/gsd-print-notifications-manager.c:391
 #, c-format
 msgid "Printer “%s” is low on a marker supply."
 msgstr "Drukarka „%s” ma mało atramentu."
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:375
+#: plugins/print-notifications/gsd-print-notifications-manager.c:395
 #, c-format
 msgid "Printer “%s” is out of a marker supply."
 msgstr "Drukarka „%s” nie ma atramentu."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:379
+#: plugins/print-notifications/gsd-print-notifications-manager.c:399
 #, c-format
 msgid "Printer “%s” is low on paper."
 msgstr "Drukarka „%s” ma mało papieru."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:383
+#: plugins/print-notifications/gsd-print-notifications-manager.c:403
 #, c-format
 msgid "Printer “%s” is out of paper."
 msgstr "Drukarka „%s” nie ma papieru."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:387
+#: plugins/print-notifications/gsd-print-notifications-manager.c:407
 #, c-format
 msgid "Printer “%s” is currently off-line."
 msgstr "Drukarka „%s” jest obecnie offline."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:391
+#: plugins/print-notifications/gsd-print-notifications-manager.c:411
 #, c-format
 msgid "There is a problem on printer “%s”."
 msgstr "Wystąpił problem drukarki „%s”."
 
+#. Translators: The printer has a job to print but the printer needs authentication to continue with the print
+#: plugins/print-notifications/gsd-print-notifications-manager.c:523
+#, c-format
+msgid "%s Requires Authentication"
+msgstr "„%s” wymaga uwierzytelnienia"
+
+#. Translators: A printer needs credentials to continue printing a job
+#: plugins/print-notifications/gsd-print-notifications-manager.c:525
+#, c-format
+msgid "Credentials required in order to print"
+msgstr "Wymagane jest uwierzytelnienie, aby wydrukować"
+
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:439
+#: plugins/print-notifications/gsd-print-notifications-manager.c:591
 msgid "Toner low"
 msgstr "Mało tonera"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:441
+#: plugins/print-notifications/gsd-print-notifications-manager.c:593
 msgid "Toner empty"
 msgstr "Brak tonera"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:443
+#: plugins/print-notifications/gsd-print-notifications-manager.c:595
 msgid "Not connected?"
 msgstr "Nie podłączono?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:445
+#: plugins/print-notifications/gsd-print-notifications-manager.c:597
 msgid "Cover open"
 msgstr "Otwarta pokrywa"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:447
+#: plugins/print-notifications/gsd-print-notifications-manager.c:599
 msgid "Printer configuration error"
 msgstr "Błąd konfiguracji drukarki"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:449
+#: plugins/print-notifications/gsd-print-notifications-manager.c:601
 msgid "Door open"
 msgstr "Otwarte drzwiczki"
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:451
+#: plugins/print-notifications/gsd-print-notifications-manager.c:603
 msgid "Marker supply low"
 msgstr "Mało atramentu"
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:453
+#: plugins/print-notifications/gsd-print-notifications-manager.c:605
 msgid "Out of a marker supply"
 msgstr "Brak atramentu"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:455
+#: plugins/print-notifications/gsd-print-notifications-manager.c:607
 msgid "Paper low"
 msgstr "Mało papieru"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:457
+#: plugins/print-notifications/gsd-print-notifications-manager.c:609
 msgid "Out of paper"
 msgstr "Brak papieru"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:459
+#: plugins/print-notifications/gsd-print-notifications-manager.c:611
 msgid "Printer off-line"
 msgstr "Drukarka jest offline"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:461
-#: plugins/print-notifications/gsd-print-notifications-manager.c:824
+#: plugins/print-notifications/gsd-print-notifications-manager.c:613
+#: plugins/print-notifications/gsd-print-notifications-manager.c:987
 msgid "Printer error"
 msgstr "Błąd drukarki"
 
 #. Translators: New printer has been added
-#: plugins/print-notifications/gsd-print-notifications-manager.c:509
+#: plugins/print-notifications/gsd-print-notifications-manager.c:661
 msgid "Printer added"
 msgstr "Dodano drukarkę"
 
 #. Translators: A print job has been stopped
-#: plugins/print-notifications/gsd-print-notifications-manager.c:526
-#: plugins/print-notifications/gsd-print-notifications-manager.c:564
+#: plugins/print-notifications/gsd-print-notifications-manager.c:678
+#: plugins/print-notifications/gsd-print-notifications-manager.c:716
 msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "Zatrzymano drukowanie"
 
 #. Translators: "print-job xy" on a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:528
-#: plugins/print-notifications/gsd-print-notifications-manager.c:534
-#: plugins/print-notifications/gsd-print-notifications-manager.c:540
-#: plugins/print-notifications/gsd-print-notifications-manager.c:546
-#: plugins/print-notifications/gsd-print-notifications-manager.c:558
-#: plugins/print-notifications/gsd-print-notifications-manager.c:566
-#: plugins/print-notifications/gsd-print-notifications-manager.c:574
-#: plugins/print-notifications/gsd-print-notifications-manager.c:582
-#: plugins/print-notifications/gsd-print-notifications-manager.c:590
-#: plugins/print-notifications/gsd-print-notifications-manager.c:603
+#: plugins/print-notifications/gsd-print-notifications-manager.c:680
+#: plugins/print-notifications/gsd-print-notifications-manager.c:686
+#: plugins/print-notifications/gsd-print-notifications-manager.c:692
+#: plugins/print-notifications/gsd-print-notifications-manager.c:698
+#: plugins/print-notifications/gsd-print-notifications-manager.c:710
+#: plugins/print-notifications/gsd-print-notifications-manager.c:718
+#: plugins/print-notifications/gsd-print-notifications-manager.c:726
+#: plugins/print-notifications/gsd-print-notifications-manager.c:734
+#: plugins/print-notifications/gsd-print-notifications-manager.c:742
+#: plugins/print-notifications/gsd-print-notifications-manager.c:766
 #, c-format
 msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "„%s” w %s"
 
 #. Translators: A print job has been canceled
-#: plugins/print-notifications/gsd-print-notifications-manager.c:532
-#: plugins/print-notifications/gsd-print-notifications-manager.c:572
+#: plugins/print-notifications/gsd-print-notifications-manager.c:684
+#: plugins/print-notifications/gsd-print-notifications-manager.c:724
 msgctxt "print job state"
 msgid "Printing canceled"
 msgstr "Anulowano drukowanie"
 
 #. Translators: A print job has been aborted
-#: plugins/print-notifications/gsd-print-notifications-manager.c:538
-#: plugins/print-notifications/gsd-print-notifications-manager.c:580
+#: plugins/print-notifications/gsd-print-notifications-manager.c:690
+#: plugins/print-notifications/gsd-print-notifications-manager.c:732
 msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "Przerwano drukowanie"
 
 #. Translators: A print job has been completed
-#: plugins/print-notifications/gsd-print-notifications-manager.c:544
-#: plugins/print-notifications/gsd-print-notifications-manager.c:588
+#: plugins/print-notifications/gsd-print-notifications-manager.c:696
+#: plugins/print-notifications/gsd-print-notifications-manager.c:740
 msgctxt "print job state"
 msgid "Printing completed"
 msgstr "Ukończono drukowanie"
 
 #. Translators: A job is printing
-#: plugins/print-notifications/gsd-print-notifications-manager.c:556
-#: plugins/print-notifications/gsd-print-notifications-manager.c:601
+#: plugins/print-notifications/gsd-print-notifications-manager.c:708
+#: plugins/print-notifications/gsd-print-notifications-manager.c:764
 msgctxt "print job state"
 msgid "Printing"
 msgstr "Drukowanie"
 
 #. Translators: This is a title of a report notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:818
+#: plugins/print-notifications/gsd-print-notifications-manager.c:981
 msgid "Printer report"
 msgstr "Zgłoszenie drukarki"
 
 #. Translators: This is a title of a warning notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:821
+#: plugins/print-notifications/gsd-print-notifications-manager.c:984
 msgid "Printer warning"
 msgstr "Ostrzeżenie drukarki"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: plugins/print-notifications/gsd-print-notifications-manager.c:831
+#: plugins/print-notifications/gsd-print-notifications-manager.c:994
 #, c-format
 msgid "Printer “%s”: “%s”."
 msgstr "Drukarka „%s”: „%s”."
