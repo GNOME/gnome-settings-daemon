@@ -10,6 +10,7 @@ deps = plugins_deps + [
 ]
 
 cflags += ['-DLIBEXECDIR="@0@"'.format(gsd_libexecdir)]
+cflags += ['-DBINDIR="@0@"'.format(gsd_bindir)]
 
 executable(
   'gsd-' + plugin_name,

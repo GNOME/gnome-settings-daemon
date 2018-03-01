@@ -52,6 +52,7 @@
 #define REASON_TIMEOUT                   15000
 #define CUPS_CONNECTION_TEST_INTERVAL    300
 #define CHECK_INTERVAL                   60 /* secs */
+#define AUTHENTICATION_CHECK_TIMEOUT     3
 
 #if (CUPS_VERSION_MAJOR > 1) || (CUPS_VERSION_MINOR > 5)
 #define HAVE_CUPS_1_6 1
@@ -91,6 +92,7 @@ struct GsdPrintNotificationsManagerPrivate
         guint                         renew_source_id;
         gint                          last_notify_sequence_number;
         guint                         start_idle_id;
+        GList                        *held_jobs;
 };
 
 static void     gsd_print_notifications_manager_class_init  (GsdPrintNotificationsManagerClass *klass);
@@ -205,6 +207,13 @@ struct
         GsdPrintNotificationsManager *manager;
 } typedef ReasonData;
 
+struct
+{
+        guint  job_id;
+        gchar *printer_name;
+        guint  timeout_id;
+} typedef HeldJob;
+
 static void
 free_timeout_data (gpointer user_data)
 {
@@ -235,6 +244,17 @@ free_reason_data (gpointer user_data)
                 g_free (data->reason);
 
                 g_free (data);
+        }
+}
+
+static void
+free_held_job (gpointer user_data)
+{
+        HeldJob *job = (HeldJob *) user_data;
+
+        if (job != NULL) {
+                g_free (job->printer_name);
+                g_free (job);
         }
 }
 
@@ -398,6 +418,137 @@ get_statuses_second (guint i,
 }
 
 static void
+authenticate_cb (NotifyNotification *notification,
+                 gchar              *action,
+                 gpointer            user_data)
+{
+        GAppInfo *app_info;
+        gboolean  ret;
+        GError   *error = NULL;
+        gchar    *commandline;
+        gchar    *printer_name = user_data;
+
+        if (g_strcmp0 (action, "default") == 0) {
+                notify_notification_close (notification, NULL);
+
+                commandline = g_strdup_printf (BINDIR "/gnome-control-center printers show-jobs %s", printer_name);
+                app_info = g_app_info_create_from_commandline (commandline,
+                                                               "gnome-control-center",
+                                                               G_APP_INFO_CREATE_SUPPORTS_STARTUP_NOTIFICATION,
+                                                               &error);
+                g_free (commandline);
+
+                if (app_info != NULL) {
+                        ret = g_app_info_launch (app_info,
+                                                 NULL,
+                                                 NULL,
+                                                 &error);
+
+                        if (!ret) {
+                                g_warning ("failed to launch gnome-control-center: %s", error->message);
+                                g_error_free (error);
+                        }
+
+                        g_object_unref (app_info);
+                } else {
+                        g_warning ("failed to create application info: %s", error->message);
+                        g_error_free (error);
+                }
+        }
+}
+
+static void
+unref_notification (NotifyNotification *notification,
+                    gpointer            data)
+{
+        g_object_unref (notification);
+}
+
+static gint
+check_job_for_authentication (gpointer userdata)
+{
+        GsdPrintNotificationsManager *manager = userdata;
+        ipp_attribute_t              *attr;
+        static gchar                 *requested_attributes[] = { "job-state-reasons", "job-hold-until", NULL };
+        gboolean                      needs_authentication = FALSE;
+        HeldJob                      *job;
+        gchar                        *primary_text;
+        gchar                        *secondary_text;
+        gchar                        *job_uri;
+        ipp_t                        *request, *response;
+        gint                          i;
+
+        if (manager->priv->held_jobs != NULL) {
+                job = (HeldJob *) manager->priv->held_jobs->data;
+
+                manager->priv->held_jobs = g_list_delete_link (manager->priv->held_jobs,
+                                                               manager->priv->held_jobs);
+
+                request = ippNewRequest (IPP_GET_JOB_ATTRIBUTES);
+
+                job_uri = g_strdup_printf ("ipp://localhost/jobs/%u", job->job_id);
+                ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_URI,
+                              "job-uri", NULL, job_uri);
+                g_free (job_uri);
+                ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_NAME,
+                              "requesting-user-name", NULL, cupsUser ());
+                ippAddStrings (request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
+                               "requested-attributes", 2, NULL, (const char **) requested_attributes);
+
+                response = cupsDoRequest (CUPS_HTTP_DEFAULT, request, "/");
+                if (response != NULL) {
+                        if (ippGetStatusCode (response) <= IPP_OK_CONFLICT) {
+                                if ((attr = ippFindAttribute (response, "job-state-reasons", IPP_TAG_ZERO)) != NULL) {
+                                        for (i = 0; i < ippGetCount (attr); i++) {
+                                                if (g_strcmp0 (ippGetString (attr, i, NULL), "cups-held-for-authentication") == 0) {
+                                                        needs_authentication = TRUE;
+                                                        break;
+                                                }
+                                        }
+                                }
+
+                                if (!needs_authentication && (attr = ippFindAttribute (response, "job-hold-until", IPP_TAG_ZERO)) != NULL) {
+                                        if (g_strcmp0 (ippGetString (attr, 0, NULL), "auth-info-required") == 0)
+                                                needs_authentication = TRUE;
+                                }
+                        }
+
+                        ippDelete (response);
+                }
+
+                if (needs_authentication) {
+                        NotifyNotification *notification;
+
+                        /* Translators: The printer has a job to print but the printer needs authentication to continue with the print */
+                        primary_text = g_strdup_printf (_("%s Requires Authentication"), job->printer_name);
+                        /* Translators: A printer needs credentials to continue printing a job */
+                        secondary_text = g_strdup_printf (_("Credentials required in order to print"));
+
+                        notification = notify_notification_new (primary_text,
+                                                                secondary_text,
+                                                                "printer-symbolic");
+                        notify_notification_set_app_name (notification, _("Printers"));
+                        notify_notification_add_action (notification,
+                                                        "default",
+                                                        /* This is a default action so the label won't be shown */
+                                                        "Authenticate",
+                                                        authenticate_cb,
+                                                        g_strdup (job->printer_name), g_free);
+                        g_signal_connect (notification, "closed", G_CALLBACK (unref_notification), NULL);
+
+                        notify_notification_show (notification, NULL);
+
+                        g_free (primary_text);
+                        g_free (secondary_text);
+                }
+
+                free_held_job (job);
+        }
+
+        return G_SOURCE_REMOVE;
+}
+
+static void
 process_cups_notification (GsdPrintNotificationsManager *manager,
                            const char                   *notify_subscribed_event,
                            const char                   *notify_text,
@@ -415,6 +566,7 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
         ipp_attribute_t *attr;
         gboolean         my_job = FALSE;
         gboolean         known_reason;
+        HeldJob         *held_job;
         http_t          *http;
         gchar           *primary_text = NULL;
         gchar           *secondary_text = NULL;
@@ -588,6 +740,17 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                                 primary_text = g_strdup (C_("print job state", "Printing completed"));
                                 /* Translators: "print-job xy" on a printer */
                                 secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                break;
+                        case IPP_JOB_HELD:
+                                held_job = g_new (HeldJob, 1);
+                                held_job->job_id = notify_job_id;
+                                held_job->printer_name = g_strdup (printer_name);
+                                /* CUPS takes sometime to change the "job-state-reasons" to "cups-held-for-authentication"
+                                   after the job changes job-state to "held" state but this change is not signalized
+                                   by any event so we just check the job-state-reason (or job-hold-until) after some timeout */
+                                held_job->timeout_id = g_timeout_add_seconds (AUTHENTICATION_CHECK_TIMEOUT, check_job_for_authentication, manager);
+
+                                manager->priv->held_jobs = g_list_append (manager->priv->held_jobs, held_job);
                                 break;
                         default:
                                 break;
@@ -1393,6 +1556,7 @@ gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
         manager->priv->cups_bus_connection = NULL;
         manager->priv->cups_connection_timeout_id = 0;
         manager->priv->last_notify_sequence_number = -1;
+        manager->priv->held_jobs = NULL;
 
         manager->priv->start_idle_id = g_idle_add (gsd_print_notifications_manager_start_idle, manager);
         g_source_set_name_by_id (manager->priv->start_idle_id, "[gnome-settings-daemon] gsd_print_notifications_manager_start_idle");
@@ -1407,6 +1571,7 @@ gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
 {
         TimeoutData *data;
         ReasonData  *reason_data;
+        HeldJob     *job;
         GList       *tmp;
 
         g_debug ("Stopping print-notifications manager");
@@ -1458,6 +1623,12 @@ gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
                 }
         }
         g_list_free_full (manager->priv->active_notifications, free_reason_data);
+
+        for (tmp = manager->priv->held_jobs; tmp; tmp = g_list_next (tmp)) {
+                job = (HeldJob *) tmp->data;
+                g_source_remove (job->timeout_id);
+        }
+        g_list_free_full (manager->priv->held_jobs, free_held_job);
 
         scp_handler (manager, FALSE);
 }
