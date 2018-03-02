@@ -1781,17 +1781,19 @@ idle_configure (GsdPowerManager *manager)
                 if (action_type == GSD_POWER_ACTION_LOGOUT ||
                     action_type == GSD_POWER_ACTION_SUSPEND ||
                     action_type == GSD_POWER_ACTION_HIBERNATE) {
-                        guint timeout_sleep_warning;
+                        guint timeout_sleep_warning_msec;
 
                         manager->priv->sleep_action_type = action_type;
-                        timeout_sleep_warning = timeout_sleep * IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER;
-                        if (timeout_sleep_warning < MINIMUM_IDLE_DIM_DELAY)
-                                timeout_sleep_warning = 0;
+                        timeout_sleep_warning_msec = timeout_sleep * IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER * 1000;
+                        if (timeout_sleep_warning_msec * 1000 < MINIMUM_IDLE_DIM_DELAY) {
+                                /* 0 is not a valid idle timeout */
+                                timeout_sleep_warning_msec = 1;
+                        }
 
-                        g_debug ("setting up sleep warning callback %is", timeout_sleep_warning);
+                        g_debug ("setting up sleep warning callback %i msec", timeout_sleep_warning_msec);
 
                         manager->priv->idle_sleep_warning_id = gnome_idle_monitor_add_idle_watch (manager->priv->idle_monitor,
-                                                                                                  timeout_sleep_warning * 1000,
+                                                                                                  timeout_sleep_warning_msec,
                                                                                                   idle_triggered_idle_cb, manager, NULL);
                 }
         }
