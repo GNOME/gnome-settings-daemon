@@ -173,7 +173,7 @@ class GSDTestCase(dbusmock.DBusTestCase):
         # See https://gitlab.gnome.org/GNOME/mutter/merge_requests/15
         os.environ['XDG_SESSION_TYPE'] = 'x11'
         klass.mutter = subprocess.Popen(['mutter', '--x11'],
-                                         stdout=klass.monitor_log,
+                                         stdout=klass.mutter_log,
                                          stderr=subprocess.STDOUT)
 
     def stop_mutter(klass):
