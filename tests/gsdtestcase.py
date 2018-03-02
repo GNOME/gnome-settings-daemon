@@ -189,7 +189,11 @@ class GSDTestCase(dbusmock.DBusTestCase):
     # Return the display num, -1 on hard failure, 0 on failure but to try again
     @staticmethod
     def launch_xorg_with_display_num(klass, xorg, display_num):
-        xorg_log_write = open(os.path.join(klass.workdir, 'xorg.log'), 'wb')
+        if os.path.isfile('/tmp/.X%d-lock' % display_num):
+            # Already a lock file for this display_num
+            return 0
+
+        xorg_log_write = open(os.path.join(klass.workdir, 'xorg-%d.log' % display_num), 'wb')
 
         # Composite extension won't load unless at least 24bpp is set
         klass.xorg = subprocess.Popen([xorg, ':%d' % display_num, "-screen", "0", "1280x1024x24", "+extension", "GLX"],
@@ -225,18 +229,12 @@ class GSDTestCase(dbusmock.DBusTestCase):
     def launch_xorg(klass, xorg):
         display_num = 99
 
-        while os.path.isfile('/tmp/.X%d-lock' % display_num) and display_num >= 0:
-            display_num = display_num - 1
-
-        if display_num == 0:
-            return 0
-
         ret = klass.launch_xorg_with_display_num(klass, xorg, display_num)
-        while ret == 0:
+        while ret == 0 and display_num > 0:
             display_num = display_num - 1
             ret = klass.launch_xorg_with_display_num(klass, xorg, display_num)
 
-        if ret == -1:
+        if ret == -1 or ret == 0:
             sys.stderr.write('Cannot start Xvfb.\n--------')
             return 0
 
