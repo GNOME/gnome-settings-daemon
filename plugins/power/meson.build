@@ -120,6 +120,7 @@ gsdpowerenums_py = custom_target(
 test_py = find_program('test.py')
 
 envs = [
+#  'G_DEBUG=fatal_warnings',
   'BUILDDIR=' + meson.current_build_dir(),
   'TOP_BUILDDIR=' + meson.build_root()
 ]
