@@ -884,6 +884,18 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id),
                 dbus_interface='org.gnome.SessionManager')
 
+    def test_check_missing_kbd_brightness(self):
+        ''' https://bugzilla.gnome.org/show_bug.cgi?id=793512 '''
+
+        obj_gsd_power_kbd = self.session_bus_con.get_object(
+            'org.gnome.SettingsDaemon.Power', '/org/gnome/SettingsDaemon/Power')
+        obj_gsd_power_kbd_props = dbus.Interface(obj_gsd_power_kbd, dbus.PROPERTIES_IFACE)
+
+        # This would cause:
+        # DBusException: org.freedesktop.DBus.Error.Failed: Failed to get property: Brightness
+        # if gsd-power crashed
+        kbd_brightness = obj_gsd_power_kbd_props.Get('org.gnome.SettingsDaemon.Power.Keyboard', 'Brightness')
+
     def disabled_test_unindle_on_ac_plug(self):
         idle_delay = round(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY / gsdpowerconstants.IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER)
         self.settings_session['idle-delay'] = idle_delay
