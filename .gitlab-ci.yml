@@ -1,0 +1,63 @@
+image: fedora:rawhide
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  DEPENDENCIES: alsa-lib-devel colord-devel cups-devel fontconfig-devel geoclue2-devel geocode-glib-devel
+                gettext git glib2-devel gnome-desktop3-devel gnome-session gobject-introspection
+                gsettings-desktop-schemas-devel gtk3-devel lcms2-devel libcanberra-devel libgtop2-devel
+                libgudev-devel libgweather-devel libnotify-devel librsvg2-devel libX11-devel libXi-devel
+                libXtst-devel libwacom-devel meson NetworkManager-libnm-devel nss-devel perl-interpreter
+                polkit-devel pulseaudio-libs-devel pygobject3 python-dbusmock upower-devel wayland-devel
+                which xorg-x11-drv-wacom-devel xorg-x11-server-Xvfb
+
+
+before_script:
+  - dnf update -y --nogpgcheck && dnf install -y --nogpgcheck $DEPENDENCIES
+
+
+##
+# Stage: Build
+#
+# Checks if GNOME Settings Daemon is properly building and installing. This is the
+# most important stage of the CI, and no MR should ever be merged if it breaks
+# any of them.
+##
+build:
+  stage: build
+  script:
+    - meson . _build
+    - ninja -C _build
+    - ninja -C _build install
+
+
+##
+# Stage: Test
+#
+# Runs the unit tests.
+##
+test:
+  stage: test
+  script:
+    - meson . _build
+    - ninja -C _build
+    - ninja -C _build install
+    - meson test -C _build --verbose --no-stdsplit
+
+
+##
+# Stage: Deploy
+#
+# Checks if the released version is in a good shape.
+##
+deploy:
+  stage: deploy
+  script:
+    - meson . _build
+    - ninja -C _build
+    - meson test -C _build
+    - ninja dist -C _build
+  only:
+    - tags
