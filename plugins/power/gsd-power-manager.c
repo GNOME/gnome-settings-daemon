@@ -2932,7 +2932,8 @@ handle_get_property_other (GsdPowerManager *manager,
 
         if (retval == NULL) {
                 g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
-                             "Failed to get property: %s", property_name);
+                             "Failed to get property %s on interface %s",
+                             property_name, interface_name);
         }
         return retval;
 }
