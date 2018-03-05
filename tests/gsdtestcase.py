@@ -208,7 +208,7 @@ class GSDTestCase(dbusmock.DBusTestCase):
             if klass.xorg.poll():
                 # ended prematurely
                 try:
-                    log = xorg_log_write.read()
+                    log = open(xorg_log_write.name).read()
                 except IOError:
                     return -1
 
