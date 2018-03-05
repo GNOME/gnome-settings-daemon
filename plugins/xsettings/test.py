@@ -188,12 +188,11 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
 
         time.sleep(0.1)
 
-        ''' gdbus debug output
-        gdbus_log_write = open(os.path.join(self.workdir, 'gdbus.log'), 'wb')
-        process = subprocess.Popen(['gdbus', 'introspect', '--session', '--dest', 'org.gnome.Vino', '--object-path', '/org/gnome/vino/screens/0'],
-                stdout=gdbus_log_write, stderr=subprocess.STDOUT)
-        time.sleep(1)
-        '''
+        # gdbus debug output
+        # gdbus_log_write = open(os.path.join(self.workdir, 'gdbus.log'), 'wb')
+        # process = subprocess.Popen(['gdbus', 'introspect', '--session', '--dest', 'org.gnome.Vino', '--object-path', '/org/gnome/vino/screens/0'],
+        #         stdout=gdbus_log_write, stderr=subprocess.STDOUT)
+        # time.sleep(1)
 
         # Check that "Enable animations" is off
         self.assertEqual(self.obj_xsettings_props.Get('org.gtk.Settings', 'EnableAnimations'),
@@ -208,10 +207,10 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
                 dbus.Boolean(True, variant_level=1))
 
     def test_fontconfig_timestamp(self):
-        ''' gdbus_log_write = open(os.path.join(self.workdir, 'gdbus.log'), 'wb')
-        process = subprocess.Popen(['gdbus', 'introspect', '--session', '--dest', 'org.gtk.Settings', '--object-path', '/org/gtk/Settings'],
-                stdout=gdbus_log_write, stderr=subprocess.STDOUT)
-        time.sleep(1) '''
+        # gdbus_log_write = open(os.path.join(self.workdir, 'gdbus.log'), 'wb')
+        # process = subprocess.Popen(['gdbus', 'introspect', '--session', '--dest', 'org.gtk.Settings', '--object-path', '/org/gtk/Settings'],
+        #        stdout=gdbus_log_write, stderr=subprocess.STDOUT)
+        # time.sleep(1)
 
         before = self.obj_xsettings_props.Get('org.gtk.Settings', 'FontconfigTimestamp')
         self.assertEqual(before, 0)
@@ -221,9 +220,9 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
                 os.path.join(self.fc_dir, 'fonts.conf'))
         time.sleep(1)
 
-        ''' gdbus_log_write = open(os.path.join(self.workdir, 'gdbus-after.log'), 'wb')
-        process = subprocess.Popen(['gdbus', 'introspect', '--session', '--dest', 'org.gtk.Settings', '--object-path', '/org/gtk/Settings'],
-                stdout=gdbus_log_write, stderr=subprocess.STDOUT) '''
+        # gdbus_log_write = open(os.path.join(self.workdir, 'gdbus-after.log'), 'wb')
+        # process = subprocess.Popen(['gdbus', 'introspect', '--session', '--dest', 'org.gtk.Settings', '--object-path', '/org/gtk/Settings'],
+        #         stdout=gdbus_log_write, stderr=subprocess.STDOUT)
         time.sleep(1)
 
         after = self.obj_xsettings_props.Get('org.gtk.Settings', 'FontconfigTimestamp')
