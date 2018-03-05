@@ -892,10 +892,14 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             'org.gnome.SettingsDaemon.Power', '/org/gnome/SettingsDaemon/Power')
         obj_gsd_power_kbd_props = dbus.Interface(obj_gsd_power_kbd, dbus.PROPERTIES_IFACE)
 
-        # This would cause:
-        # DBusException: org.freedesktop.DBus.Error.Failed: Failed to get property: Brightness
-        # if gsd-power crashed
-        kbd_brightness = obj_gsd_power_kbd_props.Get('org.gnome.SettingsDaemon.Power.Keyboard', 'Brightness')
+        # Will return -1 if gsd-power crashed, and an exception if the code caught the problem
+        with self.assertRaises(dbus.DBusException) as exc:
+            kbd_brightness = obj_gsd_power_kbd_props.Get('org.gnome.SettingsDaemon.Power.Keyboard', 'Brightness')
+
+            # We should not have arrived here, if we did then the test failed, let's print this to help debugging
+            print('Got keyboard brightness: {}'.format(kbd_brightness))
+
+        self.assertEqual(exc.exception.get_dbus_message(), 'Failed to get property Brightness on interface org.gnome.SettingsDaemon.Power.Keyboard')
 
     def disabled_test_unindle_on_ac_plug(self):
         idle_delay = round(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY / gsdpowerconstants.IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER)
