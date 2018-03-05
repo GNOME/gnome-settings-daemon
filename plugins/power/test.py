@@ -39,6 +39,17 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.check_logind_gnome_session()
         self.start_logind()
         self.daemon_death_expected = False
+
+        # start mock upowerd
+        (self.upowerd, self.obj_upower) = self.spawn_server_template(
+            'upower', {'DaemonVersion': '0.99', 'OnBattery': True, 'LidIsClosed': False}, stdout=subprocess.PIPE)
+        gsdtestcase.set_nonblock(self.upowerd.stdout)
+
+        # start mock gnome-shell screensaver
+        (self.screensaver, self.obj_screensaver) = self.spawn_server_template(
+            'gnome_screensaver', stdout=subprocess.PIPE)
+        gsdtestcase.set_nonblock(self.screensaver.stdout)
+
         self.session_log_write = open(os.path.join(self.workdir, 'gnome-session.log'), 'wb')
         self.session = subprocess.Popen(['gnome-session', '-f',
                                          '-a', os.path.join(self.workdir, 'autostart'),
@@ -60,16 +71,6 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         self.obj_session_mgr = self.session_bus_con.get_object(
             'org.gnome.SessionManager', '/org/gnome/SessionManager')
-
-        # start mock upowerd
-        (self.upowerd, self.obj_upower) = self.spawn_server_template(
-            'upower', {'DaemonVersion': '0.99', 'OnBattery': True, 'LidIsClosed': False}, stdout=subprocess.PIPE)
-        gsdtestcase.set_nonblock(self.upowerd.stdout)
-
-        # start mock gnome-shell screensaver
-        (self.screensaver, self.obj_screensaver) = self.spawn_server_template(
-            'gnome_screensaver', stdout=subprocess.PIPE)
-        gsdtestcase.set_nonblock(self.screensaver.stdout)
 
         self.start_mutter()
 
