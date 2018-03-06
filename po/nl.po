@@ -15,31 +15,31 @@
 # Redmar <redmar@ubuntu-nl.org>, 2011.
 # Hannie Dumoleyn <hannie@ubuntu-nl.org>, 2010–2012, 2013, 2017.
 # Nathan Follens <nthn@unseen.is>, 2015-2016.
-# Justin van Steijn <justin50@live.nl>, 2016.
+# Justin van Steijn <jvs@fsfe.org>, 2016, 2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-s"
-"ettings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-09-08 09:59+0000\n"
-"PO-Revision-Date: 2017-09-09 12:10+0100\n"
-"Last-Translator: Hannie Dumoleyn <hannie@ubuntu-nl.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
+"issues\n"
+"POT-Creation-Date: 2018-03-01 15:24+0000\n"
+"PO-Revision-Date: 2018-03-01 19:54+0100\n"
+"Last-Translator: Justin van Steijn <jvs@fsfe.org>\n"
 "Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Poedit 1.8.11\n"
 "X-Launchpad-Export-Date: 2011-09-24 06:48+0000\n"
 "X-DamnedLies-Scope: partial\n"
 "X-Project-Style: gnome\n"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
 msgid "Smartcard removal action"
 msgstr "Actie bij verwijderen smartcard"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:13
 msgid ""
 "Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
 "get performed when the smartcard used for log in is removed."
@@ -48,39 +48,39 @@ msgstr ""
 "uitgevoerd worden wanneer de smartcard die voor het aanmelden gebruikt is "
 "verwijderd wordt."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:25
 msgid "Possible values are “on”, “off”, and “custom”."
 msgstr "Mogelijke waarden zijn ‘aan’, ‘uit’ en ‘aangepast’."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:35
 msgid "Keyboard Bell Custom Filename"
 msgstr "Aangepaste bestandsnaam toetsenbordbelgeluid "
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:36
 msgid "File name of the bell sound to be played."
 msgstr "Bestandsnaam van het belgeluid dat wordt afgespeeld."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:40
 msgid "Remember NumLock state"
 msgstr "Status NumLock onthouden"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:41
 msgid ""
 "When set to true, GNOME will remember the state of the NumLock LED between "
 "sessions."
 msgstr ""
-"Indien ingesteld op ‘true’, zal Gnome de status van het NumLock-led tussen"
-" sessies onthouden."
+"Indien ingesteld op ‘true’, zal Gnome de status van het NumLock-led tussen "
+"sessies onthouden."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:45
 msgid "NumLock state"
 msgstr "Status NumLock"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:46
 msgid "The remembered state of the NumLock LED."
 msgstr "De onthouden status van het NumLock-led."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:52
 msgid ""
 "Highlights the current location of the pointer when the Control key is "
 "pressed and released."
@@ -88,190 +88,195 @@ msgstr ""
 "Geeft aan waar de muisaanwijzer zich bevindt wanneer de CTRL-toets wordt "
 "ingedrukt en losgelaten."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:56
 msgid "Double click time"
 msgstr "Dubbelklik-tijd"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:57
 msgid "Length of a double click in milliseconds."
 msgstr "Duur van dubbel klikken in milliseconden."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:61
 msgid "Drag threshold"
 msgstr "Sleepdrempel"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:62
 msgid "Distance before a drag is started."
 msgstr "Afstand voordat slepen wordt gestart."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:68
 msgid "Whether the tablet’s orientation is locked, or rotated automatically."
 msgstr "Of de oriëntatie van de tablet vast staat of automatisch roteert."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:76
 msgid "Mouse button orientation"
 msgstr "Oriëntatie muisknop"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:77
 msgid "Swap left and right mouse buttons for left-handed mice."
 msgstr ""
 "Linker- en rechtermuisknoppen verwisselen voor muis voor linkshandigen."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:81
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:143
 msgid "Single Click"
 msgstr "Enkele muisklik"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:82
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:144
 msgid ""
 "Acceleration multiplier for mouse motion. A value of -1 is the system "
 "default."
 msgstr ""
 "Versnellingsvermenigvuldiger voor muisbeweging. De waarde -1 is de standaard."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:86
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:148
 msgid "Motion Threshold"
 msgstr "Sleepdrempel"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:87
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:149
 msgid ""
 "Distance in pixels the pointer must move before accelerated mouse motion is "
 "activated. A value of -1 is the system default."
 msgstr ""
-"Afstand in beeldpunten die de aanwijzer moet bewegen voordat de versnelde"
-" muisbeweging geactiveerd wordt. De waarde -1 is de standaard."
+"Afstand in beeldpunten die de aanwijzer moet bewegen voordat de versnelde "
+"muisbeweging geactiveerd wordt. De waarde -1 is de standaard."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:91
 msgid "Middle button emulation"
 msgstr "Emulatie middelste knop"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:23
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:92
 msgid ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
 msgstr ""
-"Schakelt emulatie van middelste muisknop in door gelijktijdig met de linker-"
-" en rechtermuisknop te klikken."
+"Schakelt emulatie van middelste muisknop in door gelijktijdig met de linker- "
+"en rechtermuisknop te klikken."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:24
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:101
 msgid "Key Repeat Interval"
 msgstr "Interval toetsherhaling"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:25
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:102
 msgid "Delay between repeats in milliseconds."
 msgstr "Vertraging toetsherhaling in milliseconden."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:26
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:106
 msgid "Initial Key Repeat Delay"
 msgstr "Vertraging toetsherhaling in milliseconden."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:27
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:107
 msgid "Initial key repeat delay in milliseconds."
 msgstr "Vertraging toetsherhaling in milliseconden."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:28
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:113
 msgid "Disable touchpad while typing"
 msgstr "Touchpad uitschakelen tijdens het typen"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:29
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:114
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
 msgstr ""
-"Stel dit in op ‘true’ als u problemen heeft met het per ongeluk aanraken van"
-" het touchpad tijdens het typen."
+"Stel dit in op ‘true’ als u problemen heeft met het per ongeluk aanraken van "
+"het touchpad tijdens het typen."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:30
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:118
 msgid "Enable horizontal scrolling"
 msgstr "Horizontaal scrollen inschakelen"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:31
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:119
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
 msgstr ""
-"Stel dit in op ‘true’ om horizontaal scrollen mogelijk te maken via dezelfde"
-" methode die is geselecteerd met de scroll_method-toets."
+"Stel dit in op ‘true’ om horizontaal scrollen mogelijk te maken via dezelfde "
+"methode die is geselecteerd met de scroll_method-toets."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:32
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:123
 msgid "Select the touchpad scroll method"
 msgstr "Wijze van scrollen via touchpad selecteren"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:33
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:124
 msgid ""
 "Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
 "scrolling”, “two-finger-scrolling”."
 msgstr ""
-"Kies de wijze van scrollen via het touchpad. Ondersteunde methoden zijn:"
-" ‘uitgeschakeld’, ‘rand-scrollen’, ‘twee-vinger-scrollen’."
+"Kies de wijze van scrollen via het touchpad. Ondersteunde methoden zijn: "
+"‘uitgeschakeld’, ‘rand-scrollen’, ‘twee-vinger-scrollen’."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:34
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:128
 msgid "Enable mouse clicks with touchpad"
 msgstr "Muisklikken via touchpad inschakelen"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:35
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:129
 msgid ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr ""
-"Stel dit in op ‘true’ om te kunnen muisklikken door op het touchpad te tikken."
+"Stel dit in op ‘true’ om te kunnen muisklikken door op het touchpad te "
+"tikken."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:36
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:133
 msgid "Enable touchpad"
 msgstr "Touchpad inschakelen"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:37
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:134
 msgid "Set this to TRUE to enable all touchpads."
 msgstr "Stel dit in op ‘true’ om alle touchpads in te schakelen."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:38
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:138
 msgid "Touchpad button orientation"
 msgstr "Oriëntatie touchpadknop"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:39
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:139
 msgid ""
 "Swap left and right mouse buttons for left-handed mice with “left”, “right” "
 "for right-handed, “mouse” to follow the mouse setting."
 msgstr ""
-"Linker- en rechtermuisknoppen verwisselen voor muis voor linkshandigen met"
-" ‘links’, ‘rechts’ voor rechtshandigen, ‘muis’ om de muisinstellingen te"
-" volgen."
+"Linker- en rechtermuisknoppen verwisselen voor muis voor linkshandigen met "
+"‘links’, ‘rechts’ voor rechtshandigen, ‘muis’ om de muisinstellingen te "
+"volgen."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:40
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:153
 msgid "Natural scrolling"
 msgstr "Natuurlijk scrollen"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:41
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:154
 msgid "Set this to TRUE to enable natural (reverse) scrolling for touchpads."
 msgstr ""
-"Stel dit in op ‘true’ om natuurlijk (omgekeerd) scrollen via touchpads in te"
-" schakelen."
+"Stel dit in op ‘true’ om natuurlijk (omgekeerd) scrollen via touchpads in te "
+"schakelen."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:42
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:161
 msgid "Mouse wheel emulation button. 0 to disable the feature."
 msgstr "Knop voor emulatie van muiswiel. 0 om de functie uit te schakelen."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:10
 msgid "Wacom stylus absolute mode"
 msgstr "Absolute modus Wacom-pen"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:11
 msgid "Enable this to set the tablet to absolute mode."
 msgstr "Schakel dit in om de tablet in de absolute modus te zetten."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:15
 msgid "Wacom tablet area"
 msgstr "Wacom tabletgebied"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:16
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
 msgstr ""
 "Stel dit in op de x1, y1 en x2, y2 van het gebied dat door de hulpmiddelen "
 "gebruikt kan worden."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:20
 msgid "Wacom tablet aspect ratio"
 msgstr "Beeldverhouding Wacom tablet"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:21
 msgid ""
 "Enable this to restrict the Wacom tablet area to match the aspect ratio of "
 "the output."
@@ -279,11 +284,11 @@ msgstr ""
 "Schakel dit in om te zorgen dat het Wacom tabletgebied overeenkomt met de "
 "beeldverhouding van de uitvoer."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:25
 msgid "Wacom tablet rotation"
 msgstr "Wacom tablet-rotatie"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:26
 msgid ""
 "Set this to “none”, “cw” for 90 degree clockwise, “half” for 180 degree, and "
 "“ccw” for 90 degree counterclockwise."
@@ -291,82 +296,83 @@ msgstr ""
 "Stel dit in op 'none', 'cw' voor 90 graden met de klok mee, 'half' voor 180 "
 "graden en 'ccw' voor 90 graden tegen de klok in."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:30
 msgid "Wacom touch feature"
 msgstr "Wacom aanraakopties"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:31
 msgid "Enable this to move the cursor when the user touches the tablet."
 msgstr ""
 "Stel dit in om de cursor te bewegen als de gebruiker de tablet aanraakt."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:37
 msgid "Wacom stylus pressure curve"
 msgstr "Wacom stylus pressure curve"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:38
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
 msgstr ""
 "Stel dit in op de x1, y1 en x2, y2 van de pressure-curve die op de stylus "
 "toegepast wordt."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:42
 msgid "Wacom stylus button mapping"
 msgstr "Wacom stylus button mapping"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:43
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:60
 msgid "Set this to the logical button mapping."
 msgstr "Stel dit in op de logical button mapping."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:47
 msgid "Wacom stylus pressure threshold"
 msgstr "Wacom stylus pressure-drempelwaarde"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:48
 msgid ""
 "Set this to the pressure value at which a stylus click event is generated."
 msgstr ""
 "Stel dit in op de drukwaarde waarbij een stylus-click-event gegeneerd wordt."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:54
 msgid "Wacom eraser pressure curve"
 msgstr "Wacom eraser pressure-curve"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:55
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
 msgstr ""
 "Stel dit in op de x1, y1 en x2, y2 van de pressure-curve die op de eraser "
 "toegepast wordt."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:59
 msgid "Wacom eraser button mapping"
 msgstr "Wacom eraser button mapping"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:64
 msgid "Wacom eraser pressure threshold"
 msgstr "Wacom eraser pressure-drempelwaarde"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:65
 msgid ""
 "Set this to the pressure value at which an eraser click event is generated."
 msgstr ""
 "Stel dit in op de drukwaarde waarbij een eraser-click-event gegeneerd wordt."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:71
 msgid "Wacom button action type"
 msgstr "Wacom type knopactie"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:72
 msgid "The type of action triggered by the button being pressed."
 msgstr "De actie die wordt ingezet wanneer de knop wordt ingedrukt."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:76
 msgid "Key combination for the custom action"
 msgstr "Toetscombinatie voor de aangepaste actie"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:77
 msgid ""
 "The keyboard shortcut generated when the button is pressed for custom "
 "actions."
@@ -374,13 +380,13 @@ msgstr ""
 "De sneltoets die gegenereerd wordt wanneer de knop wordt ingedrukt voor "
 "aangepaste acties."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:81
 msgid "Key combinations for a touchring or touchstrip custom action"
 msgstr ""
 "Toetscombinaties voor een aangepaste actie voor een aanraakring of "
 "aanraakstrook"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:82
 msgid ""
 "The keyboard shortcuts generated when a touchring or touchstrip is used for "
 "custom actions (up followed by down)."
@@ -391,114 +397,114 @@ msgstr ""
 
 #. Translators: This is the OLED display on an Intuos4 tablet:
 #. http://eu.shop.wacom.eu/images/articles/d9abd9f2d4d88aa0649cda97a8077e2b_8.jpg
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:88
 msgid "Button label for OLED display."
 msgstr "Knoplabel voor OLED-display."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:89
 msgid "Label will be rendered to OLED display belonging to the button"
 msgstr "Het label wordt weergegeven op het OLED-display behorend bij de knop"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:6
 msgid "The duration a display profile is valid"
 msgstr "De tijd dat een displayprofiel geldig is"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:7
 msgid ""
 "This is the number of days after which the display color profile is "
 "considered invalid."
 msgstr "Het aantal dagen waarna een display-color-profile niet meer geldig is."
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:11
 msgid "The duration a printer profile is valid"
 msgstr "De tijd dat een printerprofiel geldig is"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:12
 msgid ""
 "This is the number of days after which the printer color profile is "
 "considered invalid."
 msgstr "Het aantal dagen waarna een printer-color-profile niet meer geldig is."
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:16
 msgid "If the night light mode is enabled"
 msgstr "Indien de modus nachtlicht is ingeschakeld"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:17
 msgid ""
 "Night light mode changes the color temperature of your display when the sun "
 "has gone down or at present times."
 msgstr ""
-"De nachtlichtmodus wijzigt de kleurtemperatuur van uw scherm wanneer de zon"
-" is ondergegaan of op dit moment."
+"De nachtlichtmodus wijzigt de kleurtemperatuur van uw scherm wanneer de zon "
+"is ondergegaan of op dit moment."
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:21
 msgid "Temperature of the display when enabled"
 msgstr "Temperatuur van het scherm indien ingeschakeld"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:22
 msgid ""
 "This temperature in Kelvin is used to modify the screen tones when night "
 "light mode is enabled. Higher values are bluer, lower redder."
 msgstr ""
-"Deze Kelvin-temperatuur wordt gebruikt om de schermkleuren te wijzigen"
-" wanneer de nachtlichtmodus is ingeschakeld. Hogere waarden zijn blauwer,"
-" lagere roder."
+"Deze Kelvin-temperatuur wordt gebruikt om de schermkleuren te wijzigen "
+"wanneer de nachtlichtmodus is ingeschakeld. Hogere waarden zijn blauwer, "
+"lagere roder."
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:9
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:26
 msgid "Use the sunrise and sunset"
 msgstr "Zonsopgang en zonsondergang gebruiken"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:10
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:27
 msgid ""
 "Calculate the sunrise and sunset times automatically, from the current "
 "location."
 msgstr ""
-"Automatisch de tijden van  zonsopgang en zonsondergang berekenen vanuit de"
-" huidige locatie."
+"Automatisch de tijden van  zonsopgang en zonsondergang berekenen vanuit de "
+"huidige locatie."
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:11
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:31
 msgid "The start time"
 msgstr "Begintijd"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:12
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:32
 msgid ""
 "When “night-light-schedule-automatic” is disabled, use this start time in "
 "hours from midnight."
 msgstr ""
-"Wanneer ‘night-light-schedule-automatic’ is uitgeschakeld, gebruik deze"
-" begintijd in uren vanaf middernacht."
+"Wanneer ‘night-light-schedule-automatic’ is uitgeschakeld, gebruik deze "
+"begintijd in uren vanaf middernacht."
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:13
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:36
 msgid "The end time"
 msgstr "Eindtijd"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:14
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:37
 msgid ""
 "When “night-light-schedule-automatic” is disabled, use this end time in "
 "hours from midnight."
 msgstr ""
-"Wanneer ‘night-light-schedule-automatic’ is uitgeschakeld, gebruik deze"
-" eindtijd in uren vanaf middernacht."
+"Wanneer ‘night-light-schedule-automatic’ is uitgeschakeld, gebruik deze "
+"eindtijd in uren vanaf middernacht."
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:15
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:41
 msgid "The last detected position"
 msgstr "De laatst gedetecteerde positie"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:16
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:42
 msgid ""
 "When location services are available this represents the last detected "
 "location. The default value is an invalid value to ensure it is always "
 "updated at startup."
 msgstr ""
-"Wanneer locatiediensten beschikbaar zijn,staat dit voor de laatst"
-" gedetecteerde locatie. De standaardwaarde is een ongeldige waarde om er"
-" zeker van te zijn dat deze altijd wordt bijgewerkt bij opstarten."
+"Wanneer locatiediensten beschikbaar zijn,staat dit voor de laatst "
+"gedetecteerde locatie. De standaardwaarde is een ongeldige waarde om er "
+"zeker van te zijn dat deze altijd wordt bijgewerkt bij opstarten."
 
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
+#: data/org.gnome.settings-daemon.plugins.gschema.xml.in:6
 msgid "List of plugins that are allowed to be loaded"
 msgstr "De lijst van toegestane plug-ins"
 
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
+#: data/org.gnome.settings-daemon.plugins.gschema.xml.in:7
 msgid ""
 "A list of strings representing the plugins that are allowed to be loaded "
 "(default: “all”). This is only evaluated on startup."
@@ -507,20 +513,20 @@ msgstr ""
 "mogen worden (standaard: ‘all’). Dit wordt alleen geëvalueerd bij het "
 "opstarten."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:6
 msgid "Mount paths to ignore"
 msgstr "Te negeren aankoppelpaden"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:7
 msgid "Specify a list of mount paths to ignore when they run low on space."
 msgstr ""
 "Specificeer een lijst met te negeren aankoppelpaden bij weinig schijfruimte."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:12
 msgid "Free percentage notify threshold"
 msgstr "Vrije ruimte percentagenotificatiedrempel"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:13
 msgid ""
 "Percentage free space threshold for initial warning of low disk space. If "
 "the percentage free space drops below this, a warning will be shown."
@@ -529,11 +535,11 @@ msgstr ""
 "schijfruimte. Indien het percentage vrije ruimte hieronder zakt, zal er een "
 "waarschuwing gegeven worden."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:18
 msgid "Subsequent free space percentage notify threshold"
 msgstr "Volgende vrije ruimte percentagenotificatiedrempel"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:19
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
 "issuing a subsequent warning."
@@ -541,11 +547,11 @@ msgstr ""
 "Specificeer het percentage dat de vrije schijfruimte af moet nemen voordat "
 "er een volgende waarschuwing gegeven wordt."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:23
 msgid "Free space notify threshold"
 msgstr "Notificatiedrempel voor gebrek aan vrije ruimte"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:24
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
 "warning will be shown."
@@ -553,11 +559,11 @@ msgstr ""
 "Specificeer een hoeveelheid in GB. Indien de vrije ruimte groter is dan dit, "
 "zal er geen waarschuwing getoond worden."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:28
 msgid "Minimum notify period for repeated warnings"
 msgstr "Minimum notificatieperiode voor herhaalde waarschuwingen"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:29
 msgid ""
 "Specify a time in minutes. Subsequent warnings for a volume will not appear "
 "more often than this period."
@@ -565,410 +571,412 @@ msgstr ""
 "Specificeer een tijd in minuten, zodat waarschuwingen voor een volume niet "
 "vaker zullen verschijnen dan deze periode."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:6
 msgid "Custom keybindings"
 msgstr "Aangepaste toetsbindingen"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:7
 msgid "List of custom keybindings"
 msgstr "Lijst van aangepaste toetsbindingen"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:11
 msgid "Launch calculator"
 msgstr "Rekenmachine starten"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:12
 msgid "Binding to launch the calculator."
 msgstr "Sneltoets om de rekenmachine te starten."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:16
 msgid "Launch settings"
 msgstr "Start instellingen"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:17
 msgid "Binding to launch GNOME settings."
 msgstr "Sneltoets om de GNOME instellingen te starten."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:21
 msgid "Launch email client"
 msgstr "E-mailprogramma starten"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:22
 msgid "Binding to launch the email client."
 msgstr "Sneltoets om het e-mailprogramma te starten."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:26
 msgid "Eject"
 msgstr "Uitwerpen"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:27
 msgid "Binding to eject an optical disc."
 msgstr "Sneltoets voor het uitwerpen van een optische schijf."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:31
 msgid "Launch help browser"
 msgstr "Hulp openen"
 
 # openen/tonen
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:32
 msgid "Binding to launch the help browser."
 msgstr "Sneltoets om de hulp te openen."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:36
 msgid "Home folder"
 msgstr "Persoonlijke map"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:37
 msgid "Binding to open the Home folder."
 msgstr "Sneltoets om de persoonlijke map te openen."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:41
 msgid "Launch media player"
 msgstr "Mediaspeler starten"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:42
 msgid "Binding to launch the media player."
 msgstr "Sneltoets om de mediaspeler te starten."
 
 # naar volgende nummer/volgende nummer
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:46
 msgid "Next track"
 msgstr "Volgende nummer"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:47
 msgid "Binding to skip to next track."
 msgstr "Sneltoets om naar het volgende nummer te gaan."
 
 # pauzeren/afspelen pauzeren
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:51
 msgid "Pause playback"
 msgstr "Afspelen pauzeren"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:52
 msgid "Binding to pause playback."
 msgstr "Sneltoets om afspelen te pauzeren."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:56
 msgid "Play (or play/pause)"
 msgstr "Afspelen (of afspelen/pauzeren)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:57
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "Sneltoets om af te spelen (of te schakelen tussen afspelen/pauzeren)."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:61
 msgid "Log out"
 msgstr "Afmelden"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:62
 msgid "Binding to log out."
 msgstr "Sneltoets om af te melden."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:66
 msgid "Previous track"
 msgstr "Vorige nummer"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:67
 msgid "Binding to skip to previous track."
 msgstr "Sneltoets om naar het vorige nummer te gaan."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:71
 msgid "Lock screen"
 msgstr "Scherm vergrendelen"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:72
 msgid "Binding to lock the screen."
 msgstr "Sneltoets om het scherm te vergrendelen."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:76
 msgid "Search"
 msgstr "Zoeken"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:77
 msgid "Binding to launch the search tool."
 msgstr "Sneltoets om het zoekprogramma te starten."
 
 # stoppen/afspelen stoppen
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:81
 msgid "Stop playback"
 msgstr "Afspelen stoppen"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:82
 msgid "Binding to stop playback."
 msgstr "Sneltoets om afspelen te stoppen."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:86
 msgid "Volume down"
 msgstr "Geluid zachter"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:87
 msgid "Binding to lower the system volume."
 msgstr "Sneltoets om het geluid zachter te zetten."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:91
 msgid "Volume mute"
 msgstr "Geluid dempen"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:92
 msgid "Binding to mute the system volume."
 msgstr "Sneltoets om het geluid te dempen."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:96
 msgid "Volume up"
 msgstr "Geluid harder"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:97
 msgid "Binding to raise the system volume."
 msgstr "Sneltoets om het geluid harder te zetten."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:101
 msgid "Take a screenshot"
 msgstr "Een schermafdruk maken"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:102
 msgid "Binding to take a screenshot."
 msgstr "Sneltoets om een schermafdruk te maken."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:106
 msgid "Take a screenshot of a window"
 msgstr "Een schermafdruk van een venster maken"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:107
 msgid "Binding to take a screenshot of a window."
 msgstr "Sneltoets om een schermafdruk van een venster te maken."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:111
 msgid "Take a screenshot of an area"
 msgstr "Een schermafdruk van een gebied maken"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:112
 msgid "Binding to take a screenshot of an area."
 msgstr "Sneltoets om een schermafdruk van een gebied te maken."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:116
 msgid "Copy a screenshot to clipboard"
 msgstr "Een schermafdruk naar het klembord kopiëren"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:117
 msgid "Binding to copy a screenshot to clipboard."
 msgstr "Sneltoets om een schermafdruk naar het klembord te kopiëren."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:121
 msgid "Copy a screenshot of a window to clipboard"
 msgstr "Een schermafdruk van een venster naar het klembord kopiëren"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:122
 msgid "Binding to copy a screenshot of a window to clipboard."
 msgstr ""
 "Sneltoets om een schermafdruk van een venster naar het klembord te kopiëren."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:126
 msgid "Copy a screenshot of an area to clipboard"
 msgstr "Een schermafdruk van een gebied naar het klembord kopiëren"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:127
 msgid "Binding to copy a screenshot of an area to clipboard."
 msgstr ""
 "Sneltoets om een schermafdruk van een gebied naar het klembord te kopiëren."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:131
 msgid "Record a short video of the screen"
 msgstr "Een korte video-opname van het scherm maken"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:132
 msgid "Binding to record a short video of the screen"
 msgstr "Een korte video-opname van het scherm maken"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:136
 msgid "Launch web browser"
 msgstr "Webbrowser starten"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:137
 msgid "Binding to launch the web browser."
 msgstr "Sneltoets om de webbrowser te starten."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:141
 msgid "Toggle magnifier"
 msgstr "Vergrootglas aan- of uitzetten"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:142
 msgid "Binding to show the screen magnifier"
 msgstr "Sneltoets om het vergrootglas aan of uit te zetten"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:146
 msgid "Toggle screen reader"
 msgstr "Schermle_zer aan- of uitzetten"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:147
 msgid "Binding to start the screen reader"
 msgstr "Sneltoets om de schermlezer aan of uit te zetten"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:151
 msgid "Toggle on-screen keyboard"
 msgstr "Toetsen_bord-op-scherm aan- of uitzetten"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:152
 msgid "Binding to show the on-screen keyboard"
 msgstr "Sneltoets om het schermtoetsenbord op het scherm aan of uit te zetten"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:156
 msgid "Increase text size"
 msgstr "Grotere tekst"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:157
 msgid "Binding to increase the text size"
 msgstr "Sneltoets om de tekst te vergroten"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:161
 msgid "Decrease text size"
 msgstr "Kleinere tekst"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:162
 msgid "Binding to decrease the text size"
 msgstr "Sneltoets om de tekst te verkleinen"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:166
 msgid "Toggle contrast"
 msgstr "Contrast aan- of uitzetten"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:167
 msgid "Binding to toggle the interface contrast"
 msgstr "Sneltoets om het contrast van de interface aan of uit te zetten"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:171
 msgid "Magnifier zoom in"
 msgstr "Inzoomen met vergrootglas"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:172
 msgid "Binding for the magnifier to zoom in"
 msgstr "Sneltoets om het vergrootglas aan of uit te zetten"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:176
 msgid "Magnifier zoom out"
 msgstr "Uitzoomen met vergrootglas"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:177
 msgid "Binding for the magnifier to zoom out"
 msgstr "Sneltoets om het vergrootglas aan of uit te zetten"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:181
 msgid "Maximum length of screen recordings"
 msgstr "Maximumlengte van schermopnamen"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:182
 msgid ""
 "The maximum length of single screen cast recordings in seconds or 0 for "
 "unlimited"
 msgstr ""
-"Maximumlengte van schermopnamen van een enkel scherm in seconden of 0 voor"
-" oneindig"
+"Maximumlengte van schermopnamen van een enkel scherm in seconden of 0 voor "
+"oneindig"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:189
 msgid "Name"
 msgstr "Naam"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:190
 msgid "Name of the custom binding"
 msgstr "Naam van de aangepaste sneltoets"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:194
 msgid "Binding"
 msgstr "Binding"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:195
 msgid "Binding for the custom binding"
 msgstr "Binding voor de aangepaste sneltoets"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:77
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:199
 msgid "Command"
 msgstr "Opdracht"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:78
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:200
 msgid "Command to run when the binding is invoked"
 msgstr "Uit te voeren opdracht wanneer de sneltoets wordt aangeroepen"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:6
 msgid "The brightness of the screen when idle"
 msgstr "De helderheid van het scherm wanneer het inactief is"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:7
 msgid ""
 "This is the laptop panel screen brightness used when the session is idle."
 msgstr ""
 "Dit is de helderheid van het laptopscherm wanneer de sessie inactief is."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:11
 msgid "Dim the screen after a period of inactivity"
 msgstr "Het scherm dimmen nadat het een poosje niet actief is"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:12
 msgid "If the screen should be dimmed to save power when the computer is idle."
 msgstr ""
-"Of het scherm gedimd moet worden om energie te sparen wanneer de computer"
-" inactief is."
+"Of het scherm gedimd moet worden om energie te sparen wanneer de computer "
+"inactief is."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:16
 msgid "Sleep timeout computer when on AC"
 msgstr "Slaapstand time-out wanneer de computer op netstroom werkt"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:17
 msgid ""
 "The amount of time in seconds the computer on AC power needs to be inactive "
 "before it goes to sleep. A value of 0 means never."
 msgstr ""
-"De tijd in seconden die de computer met netstroom inactief moet zijn voordat"
-" deze in de slaapstand wordt gezet. Een waarde van 0 betekent nooit."
+"De tijd in seconden die de computer met netstroom inactief moet zijn voordat "
+"deze in de slaapstand wordt gezet. Een waarde van 0 betekent nooit."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:21
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:31
 msgid "Whether to hibernate, suspend or do nothing when inactive"
 msgstr ""
 "Of het de slaapstand, pauzestand of niets doen moet zijn wanneer inactief"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:22
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:32
 msgid ""
 "The type of sleeping that should be performed when the computer is inactive."
 msgstr ""
 "Het type slaap dat moet worden uitgevoerd wanneer de computer inactief is."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:26
 msgid "Sleep timeout computer when on battery"
 msgstr "Slaapstand time-out wanneer de computer op accustroom werkt"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:27
 msgid ""
 "The amount of time in seconds the computer on battery power needs to be "
 "inactive before it goes to sleep. A value of 0 means never."
 msgstr ""
-"De tijd in seconden die de computer met accustroom inactief moet zijn voordat"
-" deze in de slaapstand wordt gezet. Een waarde van 0 betekent nooit."
+"De tijd in seconden die de computer met accustroom inactief moet zijn "
+"voordat deze in de slaapstand wordt gezet. Een waarde van 0 betekent nooit."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:36
 msgid "Enable the ALS sensor"
 msgstr "De omgevingslichtsensor inschakelen"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:37
 msgid "If the ambient light sensor functionality is enabled."
 msgstr "Als de functie omgevingslichtsensor ingeschakeld is."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:41
 msgid "Power button action"
 msgstr "aan-/uitknopactie"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:42
 msgid ""
 "The action to take when the system power button is pressed. This action is "
 "hard-coded (and the setting ignored) on virtual machines (power off) and "
 "tablets (suspend)."
 msgstr ""
-"De actie die moet worden ondernomen wanneer op de aan-/uitknop wordt gedrukt."
-" Deze actie is hardgecodeerd (de instelling wordt genegeerd) op virtuele"
-" machines (uitzetten) en tablets (pauzestand)."
+"De actie die moet worden ondernomen wanneer op de aan-/uitknop wordt "
+"gedrukt. Deze actie is hardgecodeerd (de instelling wordt genegeerd) op "
+"virtuele machines (uitzetten) en tablets (pauzestand)."
 
-#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:1
+#: data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in:6
 msgid "On which connections the service is enabled"
 msgstr "Verbindingen waarop de dienst is ingeschakeld"
 
-#: ../data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in.in.h:2
+#: data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in:7
 msgid ""
 "The list of NetworkManager connections (each one represented with its UUID) "
 "on which this service is enabled and started."
@@ -977,11 +985,11 @@ msgstr ""
 "waarop deze dienst is ingeschakeld en gestart."
 
 # gladmaken/wazig maken/afronden/rond maken/bijvijlen
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:6
 msgid "Antialiasing"
 msgstr "Gladmaken"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:7
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
@@ -992,12 +1000,12 @@ msgstr ""
 "‘grayscale’ voor standaard gladmaken met grijswaarden, en ‘rgba’ voor "
 "subpixel gladmaken (alleen bij LCD-schermen)."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:11
 msgid "Hinting"
 msgstr "Hinten"
 
 # Het is me niet duidelijk wat hier met ‘hinting’ bedoeld wordt. Hannie
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:12
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: “none” "
 "for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
@@ -1010,24 +1018,24 @@ msgid ""
 "rendering depending on the quality of the font, the font format and the "
 "state of FreeType’s font engines."
 msgstr ""
-"Het type aanpassing dat moet worden gebruikt bij het renderen van"
-" lettertypes. Mogelijke waarden zijn: ‘geen’ voor geen aanpassing en ‘gering’"
-" voor alleen op de Y-as zoals Microsoft’s ClearType, DirectWrite en de eigen"
-" engine voor renderen van lettertypen van Adobe. Negeert aanpassing van"
-" binnen het lettertype en genereert aanpassingen algoritmisch. Wordt"
-" standaard in Ubuntu gebruikt. Aanbevolen. De betekenis van ‘medium’ en"
-" ‘volledig’ hangt af van het lettertypeformaat (.ttf, .otf, .pfa/.pfb) en de"
-" geïnstalleerde versie van FreeType. Ze proberen meestal tekens op zowel de"
-" X- als de Y-as te passen (met uitzondering van .otf: alleen Y-as). Dit kan"
-" leiden tot vervorming en/of incontistent renderen afhankelijk van de"
-" kwaliteit van het lettertype, het lettertypeformaat en de status van de"
-" lettertype-engines van FreeType."
+"Het type aanpassing dat moet worden gebruikt bij het renderen van "
+"lettertypes. Mogelijke waarden zijn: ‘geen’ voor geen aanpassing en ‘gering’ "
+"voor alleen op de Y-as zoals Microsoft’s ClearType, DirectWrite en de eigen "
+"engine voor renderen van lettertypen van Adobe. Negeert aanpassing van "
+"binnen het lettertype en genereert aanpassingen algoritmisch. Wordt "
+"standaard in Ubuntu gebruikt. Aanbevolen. De betekenis van ‘medium’ en "
+"‘volledig’ hangt af van het lettertypeformaat (.ttf, .otf, .pfa/.pfb) en de "
+"geïnstalleerde versie van FreeType. Ze proberen meestal tekens op zowel de "
+"X- als de Y-as te passen (met uitzondering van .otf: alleen Y-as). Dit kan "
+"leiden tot vervorming en/of incontistent renderen afhankelijk van de "
+"kwaliteit van het lettertype, het lettertypeformaat en de status van de "
+"lettertype-engines van FreeType."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:16
 msgid "RGBA order"
 msgstr "RGBA-volgorde"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:17
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to “rgba”. Possible values are: “rgb” for red on left (most common), "
@@ -1038,11 +1046,11 @@ msgstr ""
 "zijn: ‘rgb’ voor rood op links (meest voorkomend), ‘bgr’ voor blauw op "
 "links, ‘vrgb’ voor rood bovenop, ‘vbgr’ voor rood onderop."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:21
 msgid "List of explicitly disabled GTK+ modules"
 msgstr "Lijst van expliciet uitgeschakelde GTK+-modules"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:22
 msgid ""
 "A list of strings representing the GTK+ modules that will not be loaded, "
 "even if enabled by default in their configuration."
@@ -1050,11 +1058,11 @@ msgstr ""
 "Een lijst van strings die weergeeft welke GTK+-modules niet geladen zullen "
 "worden, zelfs als dit standaard wel ingesteld is."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:26
 msgid "List of explicitly enabled GTK+ modules"
 msgstr "Lijst van expliciet ingeschakelde GTK+-modules"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:27
 msgid ""
 "A list of strings representing the GTK+ modules that will be loaded, usually "
 "in addition to conditional and forcibly disabled ones."
@@ -1062,174 +1070,105 @@ msgstr ""
 "Een lijst van strings die weergeeft welke GTK+-modules geladen zullen "
 "worden, naast voorwaardelijke en expliciet uitgeschakelde modules."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:31
 msgid "A dictionary of XSETTINGS to override"
 msgstr "Een lijst met bepaalde XSETTINGS"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:32
 msgid ""
 "This dictionary maps XSETTINGS names to overrides values. The values must be "
 "either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
 "(red, green, blue, alpha; 65535 is fully opaque)."
 msgstr ""
-"Deze lijst brengt de namen van bepaalde XSETTINGS in kaart. De waarden moeten"
-" bestaan uit tekenreeksen, getekende int32's of (in het geval van kleuren),"
-" 4-tuples of uint16 (rood, groen, blauw, alpha; 65535 is volledig"
-" ondoorzichtig)."
+"Deze lijst brengt de namen van bepaalde XSETTINGS in kaart. De waarden "
+"moeten bestaan uit tekenreeksen, getekende int32's of (in het geval van "
+"kleuren), 4-tuples of uint16 (rood, groen, blauw, alpha; 65535 is volledig "
+"ondoorzichtig)."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:398
-msgid "Slow Keys Turned On"
-msgstr "Trage toetsen aan"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:399
-msgid "Slow Keys Turned Off"
-msgstr "Trage toetsen uit"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:400
-msgid ""
-"You just held down the Shift key for 8 seconds.  This is the shortcut for "
-"the Slow Keys feature, which affects the way your keyboard works."
-msgstr ""
-"U heeft zojuit de Shift toets gedurende 8 seconden ingedrukt gehouden.  Dat "
-"is de sneltoets voor de langzame toetsen modus hetgeen invloed heeft op de "
-"manier waarop het toetsenbord functioneert."
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:410
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:478
-msgid "Universal Access"
-msgstr "Universele toegang-voorkeuren"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:416
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:484
-msgid "Turn Off"
-msgstr "Uitschakelen"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:416
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:484
-msgid "Turn On"
-msgstr "Inschakelen"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:422
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:490
-msgid "Leave On"
-msgstr "Aan laten"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:422
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:490
-msgid "Leave Off"
-msgstr "Uit laten"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:463
-msgid "Sticky Keys Turned On"
-msgstr "Plaktoetsen ingeschakeld"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:464
-msgid "Sticky Keys Turned Off"
-msgstr "Plaktoetsen uitgeschakeld"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:466
-msgid ""
-"You just pressed the Shift key 5 times in a row.  This is the shortcut for "
-"the Sticky Keys feature, which affects the way your keyboard works."
-msgstr ""
-"U heeft zojuist de Shift toets 5 keer op een rij ingedrukt.  Dat is de "
-"sneltoets voor de plaktoetsen modus, hetgeen invloed heeft op de manier "
-"waarop uw toetsenbord functioneert."
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:468
-msgid ""
-"You just pressed two keys at once, or pressed the Shift key 5 times in a "
-"row.  This turns off the Sticky Keys feature, which affects the way your "
-"keyboard works."
-msgstr ""
-"U heeft zojuist twee toetsen tegelijk ingedrukt of de Shift toets 5 keer op "
-"een rij.  Dat zet de plaktoetsen-modus uit, hetgeen invloed heeft op de "
-"manier waarop uw toetsenbord functioneert."
-
-#: ../plugins/color/gsd-color-calibrate.c:139
+#: plugins/color/gsd-color-calibrate.c:139
 msgid "Color"
 msgstr "Kleur"
 
 #. TRANSLATORS: button: this is to open GCM
-#: ../plugins/color/gsd-color-calibrate.c:144
+#: plugins/color/gsd-color-calibrate.c:144
 msgid "Recalibrate now"
 msgstr "Nu herkalibreren"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: ../plugins/color/gsd-color-calibrate.c:187
+#: plugins/color/gsd-color-calibrate.c:187
 msgid "Recalibration required"
 msgstr "Herkalibratie vereist"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: ../plugins/color/gsd-color-calibrate.c:199
+#: plugins/color/gsd-color-calibrate.c:199
 #, c-format
 msgid "The display “%s” should be recalibrated soon."
 msgstr "Het beeldscherm ‘%s’ moet binnenkort gekalibreerd worden."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: ../plugins/color/gsd-color-calibrate.c:208
+#: plugins/color/gsd-color-calibrate.c:208
 #, c-format
 msgid "The printer “%s” should be recalibrated soon."
 msgstr "De printer ‘%s’ moet binnenkort gekalibreerd worden."
 
 # behouden/gebruiken
 #. TRANSLATORS: this is the application name
-#: ../plugins/color/gsd-color-calibrate.c:346
-#: ../plugins/color/gsd-color-calibrate.c:362
+#: plugins/color/gsd-color-calibrate.c:346
+#: plugins/color/gsd-color-calibrate.c:362
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "Gnome Settings Daemon kleur-plug-in"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-calibrate.c:348
+#: plugins/color/gsd-color-calibrate.c:348
 msgid "Color calibration device added"
 msgstr "Kleur-kalibratieapparaat toegevoegd"
 
 #. TRANSLATORS: this is a sound description
-#: ../plugins/color/gsd-color-calibrate.c:364
+#: plugins/color/gsd-color-calibrate.c:364
 msgid "Color calibration device removed"
 msgstr "Kleur-kalibratieapparaat verwijderd"
 
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
-#: ../plugins/datetime/gsd-datetime-manager.c:88
+#: plugins/datetime/gsd-datetime-manager.c:88
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
-#: ../plugins/datetime/gsd-datetime-manager.c:92
+#: plugins/datetime/gsd-datetime-manager.c:92
 #, c-format
 msgid "Time Zone Updated to %s (%s)"
 msgstr "Tijdzone bijgewerkt tot %s (%s)"
 
-#: ../plugins/datetime/gsd-datetime-manager.c:108
+#: plugins/datetime/gsd-datetime-manager.c:108
 msgid "Settings"
 msgstr "Instellingen"
 
-#: ../plugins/datetime/gsd-datetime-manager.c:118
+#: plugins/datetime/gsd-datetime-manager.c:118
 msgid "Date & Time Settings"
 msgstr "Datum- en tijdsinstellingen"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:574
+#: plugins/housekeeping/gsd-disk-space.c:574
 msgid "Disk space"
 msgstr "Schijfruimte"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:586
+#: plugins/housekeeping/gsd-disk-space.c:586
 msgid "Examine"
 msgstr "Onderzoeken"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:597
+#: plugins/housekeeping/gsd-disk-space.c:597
 msgid "Empty Trash"
 msgstr "Prullenbak legen"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:605
+#: plugins/housekeeping/gsd-disk-space.c:605
 msgid "Ignore"
 msgstr "Negeren"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:636
+#: plugins/housekeeping/gsd-disk-space.c:636
 #, c-format
 msgid "Low Disk Space on “%s”"
 msgstr "Weinig schijfruimte op “%s”"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:638
+#: plugins/housekeeping/gsd-disk-space.c:638
 #, c-format
 msgid ""
 "The volume “%s” has only %s disk space remaining.  You may free up some "
@@ -1238,16 +1177,16 @@ msgstr ""
 "Het volume “%s” heeft nog maar %s schijfruimte over. U zou wat schijfruimte "
 "kunnen vrijmaken door de prullenbak te legen."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:642
+#: plugins/housekeeping/gsd-disk-space.c:642
 #, c-format
 msgid "The volume “%s” has only %s disk space remaining."
 msgstr "Het volume “%s” heeft nog maar %s schijfruimte over."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:647
+#: plugins/housekeeping/gsd-disk-space.c:647
 msgid "Low Disk Space"
 msgstr "Weinig schijfruimte"
 
-#: ../plugins/housekeeping/gsd-disk-space.c:649
+#: plugins/housekeeping/gsd-disk-space.c:649
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1256,213 +1195,185 @@ msgstr ""
 "Deze computer heeft nog maar %s schijfruimte over. U zou wat schijfruimte "
 "kunnen vrijmaken door de prullenbak te legen."
 
-#: ../plugins/housekeeping/gsd-disk-space.c:652
+#: plugins/housekeeping/gsd-disk-space.c:652
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "Deze computer heeft nog maar %s schijfruimte over."
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2138
+#: plugins/media-keys/gsd-media-keys-manager.c:2176
 msgid "Bluetooth disabled"
 msgstr "Bluetooth uitgeschakeld"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2141
+#: plugins/media-keys/gsd-media-keys-manager.c:2179
 msgid "Bluetooth enabled"
 msgstr "Bluetooth ingeschakeld"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2145
+#: plugins/media-keys/gsd-media-keys-manager.c:2183
 msgid "Airplane mode enabled"
 msgstr "Vliegtuigstand ingeschakeld"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2148
+#: plugins/media-keys/gsd-media-keys-manager.c:2186
 msgid "Airplane mode disabled"
 msgstr "Vliegtuigstand uitgeschakeld"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2176
+#: plugins/media-keys/gsd-media-keys-manager.c:2214
 msgid "Hardware Airplane Mode"
 msgstr "Hardware-vliegtuigstand"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: ../plugins/media-keys/gsd-media-keys-manager.c:2236
+#: plugins/media-keys/gsd-media-keys-manager.c:2274
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Schermfilm van %d %t.webm"
 
-#: ../plugins/media-keys/gsd-screenshot-utils.c:82
+#: plugins/media-keys/gsd-screenshot-utils.c:82
 msgid "Unable to capture a screenshot"
 msgstr "Niet in staat om een schermafdruk te maken"
 
-#: ../plugins/media-keys/gsd-screenshot-utils.c:113
-#: ../plugins/media-keys/gsd-screenshot-utils.c:155
+#: plugins/media-keys/gsd-screenshot-utils.c:113
+#: plugins/media-keys/gsd-screenshot-utils.c:155
 msgid "Screenshot taken"
 msgstr "Schermafdruk gemaakt"
 
 #. translators: this is the name of the file that gets made up
 #. * with the screenshot
-#: ../plugins/media-keys/gsd-screenshot-utils.c:306
+#: plugins/media-keys/gsd-screenshot-utils.c:306
 #, c-format
 msgid "Screenshot from %s"
 msgstr "Schermafdruk van %s"
 
-#. translators:
-#. * The device has been disabled
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1866
-msgid "Disabled"
-msgstr "Uitgeschakeld"
-
-#. translators:
-#. * The number of sound outputs on a particular device
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1873
-#, c-format
-msgid "%u Output"
-msgid_plural "%u Outputs"
-msgstr[0] "%u audio-uitvoerkanaal"
-msgstr[1] "%u audio-uitvoerkanalen"
-
-#. translators:
-#. * The number of sound inputs on a particular device
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:1883
-#, c-format
-msgid "%u Input"
-msgid_plural "%u Inputs"
-msgstr[0] "%u audio-invoerkanaal"
-msgstr[1] "%u audio-invoerkanalen"
-
-#: ../plugins/media-keys/gvc/gvc-mixer-control.c:2738
-msgid "System Sounds"
-msgstr "Systeemgeluiden"
-
-#: ../plugins/media-keys/shortcuts-list.h:45
+#: plugins/media-keys/shortcuts-list.h:45
 msgid "Touchpad toggle"
 msgstr "Touchpad-schakelaar"
 
-#: ../plugins/media-keys/shortcuts-list.h:46
+#: plugins/media-keys/shortcuts-list.h:46
 msgid "Touchpad On"
 msgstr "Touchpad inschakelen"
 
-#: ../plugins/media-keys/shortcuts-list.h:47
+#: plugins/media-keys/shortcuts-list.h:47
 msgid "Touchpad Off"
 msgstr "Touchpad uitschakelen"
 
-#: ../plugins/media-keys/shortcuts-list.h:51
-#: ../plugins/media-keys/shortcuts-list.h:52
+#: plugins/media-keys/shortcuts-list.h:51
+#: plugins/media-keys/shortcuts-list.h:52
 msgid "Microphone Mute"
 msgstr "Microfoon gedempt"
 
-#: ../plugins/media-keys/shortcuts-list.h:53
+#: plugins/media-keys/shortcuts-list.h:53
 msgid "Quiet Volume Mute"
 msgstr "Stil geluid dempen"
 
-#: ../plugins/media-keys/shortcuts-list.h:54
+#: plugins/media-keys/shortcuts-list.h:54
 msgid "Quiet Volume Down"
 msgstr "Stil geluid zachter"
 
-#: ../plugins/media-keys/shortcuts-list.h:55
+#: plugins/media-keys/shortcuts-list.h:55
 msgid "Quiet Volume Up"
 msgstr "Stil geluid harder"
 
-#: ../plugins/media-keys/shortcuts-list.h:56
+#: plugins/media-keys/shortcuts-list.h:56
 msgid "Precise Volume Down"
 msgstr "Geluid zachter"
 
-#: ../plugins/media-keys/shortcuts-list.h:57
+#: plugins/media-keys/shortcuts-list.h:57
 msgid "Precise Volume Up"
 msgstr "Geluid harder"
 
-#: ../plugins/media-keys/shortcuts-list.h:67
+#: plugins/media-keys/shortcuts-list.h:67
 msgid "Lock Screen"
 msgstr "Scherm vergrendelen"
 
-#: ../plugins/media-keys/shortcuts-list.h:69
+#: plugins/media-keys/shortcuts-list.h:69
 msgid "Help"
 msgstr "Hulp"
 
-#: ../plugins/media-keys/shortcuts-list.h:83
+#: plugins/media-keys/shortcuts-list.h:83
 msgid "Rewind"
 msgstr "Terugspoelen"
 
-#: ../plugins/media-keys/shortcuts-list.h:84
+#: plugins/media-keys/shortcuts-list.h:84
 msgid "Forward"
 msgstr "Vooruit"
 
-#: ../plugins/media-keys/shortcuts-list.h:85
+#: plugins/media-keys/shortcuts-list.h:85
 msgid "Repeat"
 msgstr "Herhalen"
 
-#: ../plugins/media-keys/shortcuts-list.h:86
+#: plugins/media-keys/shortcuts-list.h:86
 msgid "Random Play"
 msgstr "Willekeurig afspelen"
 
-#: ../plugins/media-keys/shortcuts-list.h:87
+#: plugins/media-keys/shortcuts-list.h:87
 msgid "Orientation Lock"
 msgstr "Oriëntatie vergrendelen"
 
-#: ../plugins/media-keys/shortcuts-list.h:96
+#: plugins/media-keys/shortcuts-list.h:96
 msgid "Power Off"
 msgstr "Uitzetten"
 
 # Ik kan geen algemene term verzinnen die op een begrijpelijke manier zowel pauzeren als slaapstand dekt. (RvS)
 #. the kernel / Xorg names really are like this...
 #. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
-#: ../plugins/media-keys/shortcuts-list.h:99
+#: plugins/media-keys/shortcuts-list.h:99
 msgid "Sleep"
 msgstr "Slaapstand"
 
-#: ../plugins/media-keys/shortcuts-list.h:100
+#: plugins/media-keys/shortcuts-list.h:100
 msgid "Suspend"
 msgstr "Pauzeren"
 
-#: ../plugins/media-keys/shortcuts-list.h:101
+#: plugins/media-keys/shortcuts-list.h:101
 msgid "Hibernate"
 msgstr "Slaapstand"
 
-#: ../plugins/media-keys/shortcuts-list.h:102
+#: plugins/media-keys/shortcuts-list.h:102
 msgid "Brightness Up"
 msgstr "Helderheid hoger"
 
-#: ../plugins/media-keys/shortcuts-list.h:103
+#: plugins/media-keys/shortcuts-list.h:103
 msgid "Brightness Down"
 msgstr "Helderheid lager"
 
-#: ../plugins/media-keys/shortcuts-list.h:104
+#: plugins/media-keys/shortcuts-list.h:104
 msgid "Keyboard Brightness Up"
 msgstr "Helderheid toetsenbord omhoog"
 
-#: ../plugins/media-keys/shortcuts-list.h:105
+#: plugins/media-keys/shortcuts-list.h:105
 msgid "Keyboard Brightness Down"
 msgstr "Helderheid toetsenbord omlaag"
 
-#: ../plugins/media-keys/shortcuts-list.h:106
+#: plugins/media-keys/shortcuts-list.h:106
 msgid "Keyboard Brightness Toggle"
 msgstr "Toetsenbordhelderheidsschakelaar"
 
-#: ../plugins/media-keys/shortcuts-list.h:107
+#: plugins/media-keys/shortcuts-list.h:107
 msgid "Battery Status"
 msgstr "Accustatus"
 
-#: ../plugins/media-keys/shortcuts-list.h:108
-#: ../plugins/media-keys/shortcuts-list.h:109
-#: ../plugins/media-keys/shortcuts-list.h:110
+#: plugins/media-keys/shortcuts-list.h:108
+#: plugins/media-keys/shortcuts-list.h:109
+#: plugins/media-keys/shortcuts-list.h:110
 msgid "Toggle Airplane Mode"
 msgstr "Vliegtuigstand in/uitschakelen"
 
-#: ../plugins/media-keys/shortcuts-list.h:111
+#: plugins/media-keys/shortcuts-list.h:111
 msgid "Toggle Bluetooth"
 msgstr "Bluetooth in/uitschakelen"
 
-#: ../plugins/power/gpm-common.c:100
+#: plugins/power/gpm-common.c:100
 msgid "Unknown time"
 msgstr "Onbekende tijd"
 
-#: ../plugins/power/gpm-common.c:105
+#: plugins/power/gpm-common.c:105
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i minuut"
 msgstr[1] "%i minuten"
 
-#: ../plugins/power/gpm-common.c:115
+#: plugins/power/gpm-common.c:115
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1471,185 +1382,178 @@ msgstr[1] "%i uur"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: ../plugins/power/gpm-common.c:121
+#: plugins/power/gpm-common.c:121
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: ../plugins/power/gpm-common.c:122
+#: plugins/power/gpm-common.c:122
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "uur"
 msgstr[1] "uur"
 
-#: ../plugins/power/gpm-common.c:123
+#: plugins/power/gpm-common.c:123
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minuut"
 msgstr[1] "minuten"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gpm-common.c:948 ../plugins/power/gsd-power-manager.c:685
-#: ../plugins/power/gsd-power-manager.c:782
+#: plugins/power/gpm-common.c:948 plugins/power/gsd-power-manager.c:686
+#: plugins/power/gsd-power-manager.c:783
 msgid "Battery is critically low"
 msgstr "Acculading kritiek laag"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/gsd-power-manager.c:323
+#: plugins/power/gsd-power-manager.c:324
 msgid "Power"
 msgstr "Energie"
 
 #. TRANSLATORS: UPS is now discharging
-#: ../plugins/power/gsd-power-manager.c:355
+#: plugins/power/gsd-power-manager.c:356
 msgid "UPS Discharging"
 msgstr "UPS is nu in gebruik"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:360
+#: plugins/power/gsd-power-manager.c:361
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "%s backup-stroom beschikbaar"
 
-#: ../plugins/power/gsd-power-manager.c:363
+#: plugins/power/gsd-power-manager.c:364
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "Onbekende hoeveelheid UPS backup-stroom resterend"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: ../plugins/power/gsd-power-manager.c:438
+#: plugins/power/gsd-power-manager.c:439
 msgid "Battery low"
 msgstr "Accu bijna leeg"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: ../plugins/power/gsd-power-manager.c:441
+#: plugins/power/gsd-power-manager.c:442
 msgid "Laptop battery low"
 msgstr "Laptopaccu bijna leeg"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:448
+#: plugins/power/gsd-power-manager.c:449
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "Ongeveer %s resterend (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: ../plugins/power/gsd-power-manager.c:453
+#: plugins/power/gsd-power-manager.c:454
 msgid "UPS low"
 msgstr "UPS bijna leeg"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: ../plugins/power/gsd-power-manager.c:459
+#: plugins/power/gsd-power-manager.c:460
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "Ongeveer %s van de UPS backup-stroom resterend (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: ../plugins/power/gsd-power-manager.c:464
-#: ../plugins/power/gsd-power-manager.c:598
+#: plugins/power/gsd-power-manager.c:465 plugins/power/gsd-power-manager.c:599
 msgid "Mouse battery low"
 msgstr "Accu muis bijna leeg"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:467
+#: plugins/power/gsd-power-manager.c:468
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "De accu van de draadloze muis is bijna leeg (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: ../plugins/power/gsd-power-manager.c:471
-#: ../plugins/power/gsd-power-manager.c:606
+#: plugins/power/gsd-power-manager.c:472 plugins/power/gsd-power-manager.c:607
 msgid "Keyboard battery low"
 msgstr "Accu van toetsenbord bijna leeg"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:474
+#: plugins/power/gsd-power-manager.c:475
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "De accu van het draadloze toetsenbord is bijna leeg (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: ../plugins/power/gsd-power-manager.c:478
-#: ../plugins/power/gsd-power-manager.c:615
+#: plugins/power/gsd-power-manager.c:479 plugins/power/gsd-power-manager.c:616
 msgid "PDA battery low"
 msgstr "Accu PDA bijna leeg"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:481
+#: plugins/power/gsd-power-manager.c:482
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "De accu van de PDA is bijna leeg (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:485
-#: ../plugins/power/gsd-power-manager.c:625
-#: ../plugins/power/gsd-power-manager.c:634
+#: plugins/power/gsd-power-manager.c:486 plugins/power/gsd-power-manager.c:626
+#: plugins/power/gsd-power-manager.c:635
 msgid "Cell phone battery low"
 msgstr "Accu mobiele telefoon bijna leeg"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:488
+#: plugins/power/gsd-power-manager.c:489
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "De accu van de mobiele telefon is bijna leeg (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: ../plugins/power/gsd-power-manager.c:492
+#: plugins/power/gsd-power-manager.c:493
 msgid "Media player battery low"
 msgstr "Accu MP3-speler bijna leeg"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:495
+#: plugins/power/gsd-power-manager.c:496
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "De accu van de MP3-speler is bijna leeg (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:499
-#: ../plugins/power/gsd-power-manager.c:643
+#: plugins/power/gsd-power-manager.c:500 plugins/power/gsd-power-manager.c:644
 msgid "Tablet battery low"
 msgstr "Accu tablet bijna leeg"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:502
+#: plugins/power/gsd-power-manager.c:503
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "De accu van de tablet is bijna leeg (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: ../plugins/power/gsd-power-manager.c:506
-#: ../plugins/power/gsd-power-manager.c:652
+#: plugins/power/gsd-power-manager.c:507 plugins/power/gsd-power-manager.c:653
 msgid "Attached computer battery low"
 msgstr "Accu aangekoppelde computer bijna leeg"
 
 #. TRANSLATORS: tell user more details
-#: ../plugins/power/gsd-power-manager.c:509
+#: plugins/power/gsd-power-manager.c:510
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "De accu van de aangekoppelde computer is bijna leeg (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:530
+#: plugins/power/gsd-power-manager.c:531
 msgid "Battery is low"
 msgstr "Accu bijna leeg"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: ../plugins/power/gsd-power-manager.c:562
+#: plugins/power/gsd-power-manager.c:563
 msgid "Battery critically low"
 msgstr "Acculading kritiek laag"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: ../plugins/power/gsd-power-manager.c:565
-#: ../plugins/power/gsd-power-manager.c:712
+#: plugins/power/gsd-power-manager.c:566 plugins/power/gsd-power-manager.c:713
 msgid "Laptop battery critically low"
 msgstr "Laptopaccu kritiek laag"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:574
+#: plugins/power/gsd-power-manager.c:575
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr ""
@@ -1657,7 +1561,7 @@ msgstr ""
 "aangesloten wordt."
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:578
+#: plugins/power/gsd-power-manager.c:579
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr ""
@@ -1666,13 +1570,12 @@ msgstr ""
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: ../plugins/power/gsd-power-manager.c:586
-#: ../plugins/power/gsd-power-manager.c:737
+#: plugins/power/gsd-power-manager.c:587 plugins/power/gsd-power-manager.c:738
 msgid "UPS critically low"
 msgstr "UPS-lading kritiek laag"
 
 #. TRANSLATORS: give the user a ultimatum
-#: ../plugins/power/gsd-power-manager.c:592
+#: plugins/power/gsd-power-manager.c:593
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1682,7 +1585,7 @@ msgstr ""
 "van uw computer om dataverlies te voorkomen."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:601
+#: plugins/power/gsd-power-manager.c:602
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1692,7 +1595,7 @@ msgstr ""
 "binnenkort met functioneren als het niet opgeladen wordt."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:609
+#: plugins/power/gsd-power-manager.c:610
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1702,7 +1605,7 @@ msgstr ""
 "binnenkort met functioneren als het niet opgeladen wordt."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:618
+#: plugins/power/gsd-power-manager.c:619
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1712,7 +1615,7 @@ msgstr ""
 "functioneren als het niet opgeladen wordt."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:628
+#: plugins/power/gsd-power-manager.c:629
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -1722,7 +1625,7 @@ msgstr ""
 "binnenkort met functioneren als het niet opgeladen wordt."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:637
+#: plugins/power/gsd-power-manager.c:638
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -1732,7 +1635,7 @@ msgstr ""
 "met functioneren als het niet opgeladen wordt."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:646
+#: plugins/power/gsd-power-manager.c:647
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -1742,7 +1645,7 @@ msgstr ""
 "functioneren als het niet opgeladen wordt."
 
 #. TRANSLATORS: the device is just going to stop working
-#: ../plugins/power/gsd-power-manager.c:655
+#: plugins/power/gsd-power-manager.c:656
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -1752,7 +1655,7 @@ msgstr ""
 "binnenkort met functioneren als het niet opgeladen wordt."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:720
+#: plugins/power/gsd-power-manager.c:721
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -1761,7 +1664,7 @@ msgstr ""
 "gaan."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:725
+#: plugins/power/gsd-power-manager.c:726
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -1769,7 +1672,7 @@ msgstr ""
 "De acculading is onder het kritieke niveau. De computer zal uitschakelen."
 
 #. TRANSLATORS: computer will hibernate
-#: ../plugins/power/gsd-power-manager.c:745
+#: plugins/power/gsd-power-manager.c:746
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
@@ -1777,318 +1680,329 @@ msgstr ""
 "slaapstand gaan."
 
 #. TRANSLATORS: computer will just shutdown
-#: ../plugins/power/gsd-power-manager.c:750
+#: plugins/power/gsd-power-manager.c:751
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "De lading van de UPS is onder het kritieke niveau. De computer zal "
 "uitschakelen."
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1251
+#: plugins/power/gsd-power-manager.c:1264
 msgid "Lid has been opened"
 msgstr "Laptop is geopend"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1289
+#: plugins/power/gsd-power-manager.c:1302
 msgid "Lid has been closed"
 msgstr "Laptop is gesloten"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1882
+#: plugins/power/gsd-power-manager.c:1896
 msgid "On battery power"
 msgstr "Op batterij"
 
 #. TRANSLATORS: this is the sound description
-#: ../plugins/power/gsd-power-manager.c:1887
+#: plugins/power/gsd-power-manager.c:1901
 msgid "On AC power"
 msgstr "Op netstroom"
 
-#: ../plugins/power/gsd-power-manager.c:2079
+#: plugins/power/gsd-power-manager.c:2093
 msgid "Automatic logout"
 msgstr "Automatisch afmelden"
 
-#: ../plugins/power/gsd-power-manager.c:2079
+#: plugins/power/gsd-power-manager.c:2093
 msgid "You will soon log out because of inactivity."
 msgstr "U wordt binnenkort afgemeld wegens inactiviteit."
 
-#: ../plugins/power/gsd-power-manager.c:2084
+#: plugins/power/gsd-power-manager.c:2098
 msgid "Automatic suspend"
 msgstr "Automatische pauzestand"
 
-#: ../plugins/power/gsd-power-manager.c:2084
-#: ../plugins/power/gsd-power-manager.c:2089
+#: plugins/power/gsd-power-manager.c:2098
+#: plugins/power/gsd-power-manager.c:2103
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "De computer zal binnenkort in pauzestand gaan wegens inactiviteit."
 
-#: ../plugins/power/gsd-power-manager.c:2089
+#: plugins/power/gsd-power-manager.c:2103
 msgid "Automatic hibernation"
 msgstr "Automatische slaapstand"
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
 #. to change the backlight brightness.
-#.
-#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:5
+#: plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in:21
 msgid "Modify the laptop brightness"
 msgstr "Helderheid aanpassen"
 
-#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:6
+#: plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in:22
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "Authenticatie is vereist om de helderheid van de laptop aan te passen"
 
 #. Translators: We are configuring new printer
-#: ../plugins/print-notifications/gsd-printer.c:890
+#: plugins/print-notifications/gsd-printer.c:890
 msgid "Configuring new printer"
 msgstr "Nieuwe printer configureren"
 
 #. Translators: Just wait
-#: ../plugins/print-notifications/gsd-printer.c:892
+#: plugins/print-notifications/gsd-printer.c:892
 msgid "Please wait…"
 msgstr "Even geduld…"
 
 #. Translators: We have no driver installed for this printer
-#: ../plugins/print-notifications/gsd-printer.c:919
+#: plugins/print-notifications/gsd-printer.c:919
 msgid "Missing printer driver"
 msgstr "Printer-driver ontbreekt"
 
 #. Translators: We have no driver installed for the device
-#: ../plugins/print-notifications/gsd-printer.c:928
+#: plugins/print-notifications/gsd-printer.c:928
 #, c-format
 msgid "No printer driver for %s."
 msgstr "Geen printer-driver voor %s."
 
 #. Translators: We have no driver installed for this printer
-#: ../plugins/print-notifications/gsd-printer.c:933
+#: plugins/print-notifications/gsd-printer.c:933
 msgid "No driver for this printer."
 msgstr "Geen driver voor deze printer."
 
-#: ../plugins/print-notifications/gsd-printer.c:1031
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:270
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:748
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:838
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:881
+#: plugins/print-notifications/gsd-printer.c:1031
+#: plugins/print-notifications/gsd-print-notifications-manager.c:290
+#: plugins/print-notifications/gsd-print-notifications-manager.c:530
+#: plugins/print-notifications/gsd-print-notifications-manager.c:911
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1001
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1044
 msgid "Printers"
 msgstr "Printers"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:346
+#: plugins/print-notifications/gsd-print-notifications-manager.c:366
 #, c-format
 msgid "Printer “%s” is low on toner."
 msgstr "De printer ‘%s’ heeft nog maar weinig toner."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
+#: plugins/print-notifications/gsd-print-notifications-manager.c:370
 #, c-format
 msgid "Printer “%s” has no toner left."
 msgstr "De printer ‘%s’ heeft geen toner meer."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
+#: plugins/print-notifications/gsd-print-notifications-manager.c:374
 #, c-format
 msgid "Printer “%s” may not be connected."
 msgstr "De printer ‘%s’ is mogelijk niet aangesloten."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
+#: plugins/print-notifications/gsd-print-notifications-manager.c:378
 #, c-format
 msgid "The cover is open on printer “%s”."
 msgstr "De klep van de printer ‘%s’ is open."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:362
+#: plugins/print-notifications/gsd-print-notifications-manager.c:382
 #, c-format
 msgid "There is a missing print filter for printer “%s”."
 msgstr "Er ontbreekt een printfilter voor de printer ‘%s’."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:367
+#: plugins/print-notifications/gsd-print-notifications-manager.c:387
 #, c-format
 msgid "The door is open on printer “%s”."
 msgstr "De deur van de printer ‘%s’ staat open."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:371
+#: plugins/print-notifications/gsd-print-notifications-manager.c:391
 #, c-format
 msgid "Printer “%s” is low on a marker supply."
 msgstr "De inktvoorraad van printer ‘%s’ is laag."
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:375
+#: plugins/print-notifications/gsd-print-notifications-manager.c:395
 #, c-format
 msgid "Printer “%s” is out of a marker supply."
 msgstr "Een inktpatroon van printer ‘%s’ is leeg."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:379
+#: plugins/print-notifications/gsd-print-notifications-manager.c:399
 #, c-format
 msgid "Printer “%s” is low on paper."
 msgstr "De printer ‘%s’ heeft weinig papier."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:383
+#: plugins/print-notifications/gsd-print-notifications-manager.c:403
 #, c-format
 msgid "Printer “%s” is out of paper."
 msgstr "De printer ‘%s’ heeft geen papier meer."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:387
+#: plugins/print-notifications/gsd-print-notifications-manager.c:407
 #, c-format
 msgid "Printer “%s” is currently off-line."
 msgstr "De printer ‘%s’ is momenteel off-line."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:391
+#: plugins/print-notifications/gsd-print-notifications-manager.c:411
 #, c-format
 msgid "There is a problem on printer “%s”."
 msgstr "Er is een probleem met de printer ‘%s’."
 
+#. Translators: The printer has a job to print but the printer needs authentication to continue with the print
+#: plugins/print-notifications/gsd-print-notifications-manager.c:523
+#, c-format
+msgid "%s Requires Authentication"
+msgstr "%s vereist authenticatie"
+
+#. Translators: A printer needs credentials to continue printing a job
+#: plugins/print-notifications/gsd-print-notifications-manager.c:525
+#, c-format
+msgid "Credentials required in order to print"
+msgstr "Voer uw aanmeldgegevens in om af te drukken"
+
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:439
+#: plugins/print-notifications/gsd-print-notifications-manager.c:591
 msgid "Toner low"
 msgstr "Toner bijna leeg"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:441
+#: plugins/print-notifications/gsd-print-notifications-manager.c:593
 msgid "Toner empty"
 msgstr "Toner leeg"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:443
+#: plugins/print-notifications/gsd-print-notifications-manager.c:595
 msgid "Not connected?"
 msgstr "Niet verbonden?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:445
+#: plugins/print-notifications/gsd-print-notifications-manager.c:597
 msgid "Cover open"
 msgstr "Klep open"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:447
+#: plugins/print-notifications/gsd-print-notifications-manager.c:599
 msgid "Printer configuration error"
 msgstr "Fout in printerconfiguratie"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:449
+#: plugins/print-notifications/gsd-print-notifications-manager.c:601
 msgid "Door open"
 msgstr "Deur open"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:451
+#: plugins/print-notifications/gsd-print-notifications-manager.c:603
 msgid "Marker supply low"
 msgstr "Inktvoorraad laag"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:453
+#: plugins/print-notifications/gsd-print-notifications-manager.c:605
 msgid "Out of a marker supply"
 msgstr "Een inktpatroon is leeg"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:455
+#: plugins/print-notifications/gsd-print-notifications-manager.c:607
 msgid "Paper low"
 msgstr "Weinig papier"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:457
+#: plugins/print-notifications/gsd-print-notifications-manager.c:609
 msgid "Out of paper"
 msgstr "Geen papier meer"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:459
+#: plugins/print-notifications/gsd-print-notifications-manager.c:611
 msgid "Printer off-line"
 msgstr "Printer off-line"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:461
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:824
+#: plugins/print-notifications/gsd-print-notifications-manager.c:613
+#: plugins/print-notifications/gsd-print-notifications-manager.c:987
 msgid "Printer error"
 msgstr "Printerfout"
 
 #. Translators: New printer has been added
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:509
+#: plugins/print-notifications/gsd-print-notifications-manager.c:661
 msgid "Printer added"
 msgstr "Printer toegevoegd"
 
 #. Translators: A print job has been stopped
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:526
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:564
+#: plugins/print-notifications/gsd-print-notifications-manager.c:678
+#: plugins/print-notifications/gsd-print-notifications-manager.c:716
 msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "Afdrukken gestopt"
 
 #. Translators: "print-job xy" on a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:528
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:534
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:540
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:546
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:558
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:566
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:574
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:582
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:590
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:603
+#: plugins/print-notifications/gsd-print-notifications-manager.c:680
+#: plugins/print-notifications/gsd-print-notifications-manager.c:686
+#: plugins/print-notifications/gsd-print-notifications-manager.c:692
+#: plugins/print-notifications/gsd-print-notifications-manager.c:698
+#: plugins/print-notifications/gsd-print-notifications-manager.c:710
+#: plugins/print-notifications/gsd-print-notifications-manager.c:718
+#: plugins/print-notifications/gsd-print-notifications-manager.c:726
+#: plugins/print-notifications/gsd-print-notifications-manager.c:734
+#: plugins/print-notifications/gsd-print-notifications-manager.c:742
+#: plugins/print-notifications/gsd-print-notifications-manager.c:766
 #, c-format
 msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "‘%s’ op %s"
 
 #. Translators: A print job has been canceled
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:532
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:572
+#: plugins/print-notifications/gsd-print-notifications-manager.c:684
+#: plugins/print-notifications/gsd-print-notifications-manager.c:724
 msgctxt "print job state"
 msgid "Printing canceled"
 msgstr "Afdrukken geannuleerd"
 
 #. Translators: A print job has been aborted
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:538
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:580
+#: plugins/print-notifications/gsd-print-notifications-manager.c:690
+#: plugins/print-notifications/gsd-print-notifications-manager.c:732
 msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "Afdrukken afgebroken"
 
 #. Translators: A print job has been completed
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:544
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:588
+#: plugins/print-notifications/gsd-print-notifications-manager.c:696
+#: plugins/print-notifications/gsd-print-notifications-manager.c:740
 msgctxt "print job state"
 msgid "Printing completed"
 msgstr "Afdrukken voltooid"
 
 #. Translators: A job is printing
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:556
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:601
+#: plugins/print-notifications/gsd-print-notifications-manager.c:708
+#: plugins/print-notifications/gsd-print-notifications-manager.c:764
 msgctxt "print job state"
 msgid "Printing"
 msgstr "Afdrukken"
 
 #. Translators: This is a title of a report notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:818
+#: plugins/print-notifications/gsd-print-notifications-manager.c:981
 msgid "Printer report"
 msgstr "Printerrapport"
 
 #. Translators: This is a title of a warning notification for a printer
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:821
+#: plugins/print-notifications/gsd-print-notifications-manager.c:984
 msgid "Printer warning"
 msgstr "Printerwaarschuwing"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: ../plugins/print-notifications/gsd-print-notifications-manager.c:831
+#: plugins/print-notifications/gsd-print-notifications-manager.c:994
 #, c-format
 msgid "Printer “%s”: “%s”."
 msgstr "Printer ‘%s’: ‘%s’."
 
-#: ../plugins/smartcard/gsd-smartcard-service.c:224
+#: plugins/smartcard/gsd-smartcard-service.c:224
 msgid "User was not logged in with smartcard."
 msgstr "Gebruiker is niet aangemeld met smartcard."
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
 #. to change the LED setting for a Wacom tablet
-#.
-#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:5
+#: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:20
 msgid "Modify the lit LED for a Wacom tablet"
 msgstr "Verlichte led voor een Wacom tablet wijzigen"
 
-#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:6
+#: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:21
 msgid "Authentication is required to modify the lit LED for a Wacom tablet"
 msgstr ""
 "Authenticatie is vereist om de verlichte led voor een Wacom tablet te "
@@ -2097,16 +2011,83 @@ msgstr ""
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
 #. to change the OLED images for a Wacom tablet
-#.
-#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:11
+#: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:35
 msgid "Modify the OLED image for a Wacom tablet"
 msgstr "OLED-afbeelding voor een Wacom-tablet wijzigen"
 
-#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:12
+#: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:36
 msgid "Authentication is required to modify the OLED image for a Wacom tablet"
 msgstr ""
 "Authenticatie is vereist om de OLED-afbeelding voor een Wacom tablet te "
 "wijzigen"
+
+#~ msgid "Slow Keys Turned On"
+#~ msgstr "Trage toetsen aan"
+
+#~ msgid "Slow Keys Turned Off"
+#~ msgstr "Trage toetsen uit"
+
+#~ msgid ""
+#~ "You just held down the Shift key for 8 seconds.  This is the shortcut for "
+#~ "the Slow Keys feature, which affects the way your keyboard works."
+#~ msgstr ""
+#~ "U heeft zojuit de Shift toets gedurende 8 seconden ingedrukt gehouden.  "
+#~ "Dat is de sneltoets voor de langzame toetsen modus hetgeen invloed heeft "
+#~ "op de manier waarop het toetsenbord functioneert."
+
+#~ msgid "Universal Access"
+#~ msgstr "Universele toegang-voorkeuren"
+
+#~ msgid "Turn Off"
+#~ msgstr "Uitschakelen"
+
+#~ msgid "Turn On"
+#~ msgstr "Inschakelen"
+
+#~ msgid "Leave On"
+#~ msgstr "Aan laten"
+
+#~ msgid "Leave Off"
+#~ msgstr "Uit laten"
+
+#~ msgid "Sticky Keys Turned On"
+#~ msgstr "Plaktoetsen ingeschakeld"
+
+#~ msgid "Sticky Keys Turned Off"
+#~ msgstr "Plaktoetsen uitgeschakeld"
+
+#~ msgid ""
+#~ "You just pressed the Shift key 5 times in a row.  This is the shortcut "
+#~ "for the Sticky Keys feature, which affects the way your keyboard works."
+#~ msgstr ""
+#~ "U heeft zojuist de Shift toets 5 keer op een rij ingedrukt.  Dat is de "
+#~ "sneltoets voor de plaktoetsen modus, hetgeen invloed heeft op de manier "
+#~ "waarop uw toetsenbord functioneert."
+
+#~ msgid ""
+#~ "You just pressed two keys at once, or pressed the Shift key 5 times in a "
+#~ "row.  This turns off the Sticky Keys feature, which affects the way your "
+#~ "keyboard works."
+#~ msgstr ""
+#~ "U heeft zojuist twee toetsen tegelijk ingedrukt of de Shift toets 5 keer "
+#~ "op een rij.  Dat zet de plaktoetsen-modus uit, hetgeen invloed heeft op "
+#~ "de manier waarop uw toetsenbord functioneert."
+
+#~ msgid "Disabled"
+#~ msgstr "Uitgeschakeld"
+
+#~ msgid "%u Output"
+#~ msgid_plural "%u Outputs"
+#~ msgstr[0] "%u audio-uitvoerkanaal"
+#~ msgstr[1] "%u audio-uitvoerkanalen"
+
+#~ msgid "%u Input"
+#~ msgid_plural "%u Inputs"
+#~ msgstr[0] "%u audio-invoerkanaal"
+#~ msgstr[1] "%u audio-invoerkanalen"
+
+#~ msgid "System Sounds"
+#~ msgstr "Systeemgeluiden"
 
 # behouden/gebruiken
 #~ msgid "GNOME Settings Daemon"
