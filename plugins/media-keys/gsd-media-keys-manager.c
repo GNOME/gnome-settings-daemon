@@ -1959,6 +1959,9 @@ do_config_power_action (GsdMediaKeysManager *manager,
         case GSD_POWER_ACTION_HIBERNATE:
                 power_action (manager, "Hibernate", !in_lock_screen);
                 break;
+        case GSD_POWER_ACTION_SUSPEND_TO_HIBERNATE:
+                power_action (manager, "SuspendToHibernate", !in_lock_screen);
+                break;
         case GSD_POWER_ACTION_BLANK:
         case GSD_POWER_ACTION_LOGOUT:
         case GSD_POWER_ACTION_NOTHING:
