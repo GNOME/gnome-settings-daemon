@@ -1941,13 +1941,39 @@ power_action (GsdMediaKeysManager *manager,
 }
 
 static void
+suspend_action (GsdMediaKeysManager *manager,
+                gboolean             allow_interaction)
+{
+        const gchar *action;
+        GVariant *retval;
+        gboolean s2h = FALSE;
+        GError *error = NULL;
+
+        retval = g_dbus_proxy_call_sync (manager->priv->logind_proxy,
+                                         "CanSuspendThenHibernate",
+                                         NULL,
+                                         G_DBUS_CALL_FLAGS_NONE,
+                                         -1,
+                                         NULL,
+                                         &error);
+        if (retval == NULL) {
+                g_debug ("Can't SuspendThenHibernate: %s", error->message);
+                g_error_free (error);
+        } else
+                g_variant_get (retval, "(b)", &s2h);
+
+        action = s2h ? "SuspendThenHibernate" : "Suspend";
+        power_action (manager, action, allow_interaction);
+}
+
+static void
 do_config_power_action (GsdMediaKeysManager *manager,
                         GsdPowerActionType   action_type,
                         gboolean             in_lock_screen)
 {
         switch (action_type) {
         case GSD_POWER_ACTION_SUSPEND:
-                power_action (manager, "Suspend", !in_lock_screen);
+                suspend_action (manager, !in_lock_screen);
                 break;
         case GSD_POWER_ACTION_INTERACTIVE:
                 if (!in_lock_screen)
@@ -1985,7 +2011,7 @@ do_config_power_button_action (GsdMediaKeysManager *manager,
 
         /* Always suspend tablets */
         if (g_strcmp0 (manager->priv->chassis_type, "tablet") == 0) {
-                power_action (manager, "Suspend", !in_lock_screen);
+                suspend_action (manager, !in_lock_screen);
                 return;
         }
 

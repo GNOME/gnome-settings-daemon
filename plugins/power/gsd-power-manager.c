@@ -900,12 +900,30 @@ action_poweroff (GsdPowerManager *manager)
 static void
 action_suspend (GsdPowerManager *manager)
 {
+        GVariant *retval;
+        gboolean s2h = FALSE;
+        GError *error = NULL;
+
         if (manager->priv->logind_proxy == NULL) {
                 g_warning ("no systemd support");
                 return;
         }
+
+        retval = g_dbus_proxy_call_sync (manager->priv->logind_proxy,
+                                         "CanSuspendThenHibernate",
+                                         NULL,
+                                         G_DBUS_CALL_FLAGS_NONE,
+                                         -1,
+                                         manager->priv->cancellable,
+                                         &error);
+        if (retval == NULL) {
+                g_debug ("Can't SuspendThenHibernate: %s", error->message);
+                g_error_free (error);
+        } else
+                g_variant_get (retval, "(b)", &s2h);
+
         g_dbus_proxy_call (manager->priv->logind_proxy,
-                           "Suspend",
+                           s2h ? "SuspendThenHibernate" : "Suspend",
                            g_variant_new ("(b)", FALSE),
                            G_DBUS_CALL_FLAGS_NONE,
                            G_MAXINT,

@@ -277,7 +277,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             except IOError:
                 continue
 
-            if log and (b' Suspend ' in log or b' Hibernate ' in log):
+            if log and (b' Suspend ' in log or b' Hibernate ' or in log or b' SuspendThenHibernate ' in log):
                 break
         else:
             self.fail('timed out waiting for logind Suspend() call')
@@ -319,6 +319,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         log = self.logind.stdout.read()
         if log:
             self.assertFalse(b' Suspend' in log, 'unexpected Suspend request')
+            self.assertFalse(b' SuspendThenHibernate' in log, 'unexpected SuspendThenHibernate request')
             self.assertFalse(b' Hibernate' in log, 'unexpected Hibernate request')
 
     def check_suspend_no_hibernate(self, seconds):
@@ -330,6 +331,18 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         log = self.logind.stdout.read()
         if log:
             self.assertTrue(b' Suspend' in log, 'missing Suspend request')
+            self.assertFalse(b' Hibernate' in log, 'unexpected Hibernate request')
+
+    def check_suspend_then_hibernate(self, seconds):
+        '''Check that SuspendThenHibernate was requested in the given time'''
+
+        # wait for specified time to ensure it didn't do anything
+        time.sleep(seconds)
+        # check that it did suspend and didn't hibernate
+        log = self.logind.stdout.read()
+        if log:
+            self.assertTrue(b' SuspendThenHibernate' in log, 'missing SuspendThenHibernate request')
+            self.assertFalse(b' Suspend' in log, 'unexpected Suspend request')
             self.assertFalse(b' Hibernate' in log, 'unexpected Hibernate request')
 
     def check_plugin_log(self, needle, timeout=0, failmsg=None):
@@ -589,6 +602,22 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # suspend should happen after inactive sleep timeout + 1 s notification
         # delay + 1 s error margin
         self.check_suspend_no_hibernate(7)
+
+    def _test_suspend_then_hibernate(self):
+        '''suspend-then-hibernate'''
+
+        self.settings_session['idle-delay'] = 2
+        self.settings_gsd_power['sleep-inactive-battery-timeout'] = 5
+        # Hibernate isn't possible, so it should end up suspending
+        # FIXME
+        self.settings_gsd_power['critical-battery-action'] = 'suspend-then-hibernate'
+
+        # wait for idle delay; should not yet hibernate
+        self.check_no_suspend(2)
+
+        # suspend should happen after inactive sleep timeout + 1 s notification
+        # delay + 1 s error margin
+        self.check_suspend_then_hibernate(7)
 
     def test_sleep_inhibition(self):
         '''Does not sleep under idle inhibition'''
