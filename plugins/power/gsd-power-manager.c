@@ -932,6 +932,23 @@ action_hibernate (GsdPowerManager *manager)
 }
 
 static void
+action_suspend_to_hibernate (GsdPowerManager *manager)
+{
+        if (manager->priv->logind_proxy == NULL) {
+                g_warning ("no systemd support");
+                return;
+        }
+        g_dbus_proxy_call (manager->priv->logind_proxy,
+                           "SuspendToHibernate",
+                           g_variant_new ("(b)", FALSE),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           G_MAXINT,
+                           NULL,
+                           NULL,
+                           NULL);
+}
+
+static void
 screen_devices_disable (GsdPowerManager *manager)
 {
         GdkDeviceManager *device_manager;
@@ -1083,6 +1100,9 @@ do_power_action_type (GsdPowerManager *manager,
         case GSD_POWER_ACTION_HIBERNATE:
                 action_hibernate (manager);
                 break;
+        case GSD_POWER_ACTION_SUSPEND_TO_HIBERNATE:
+                action_suspend_to_hibernate (manager);
+                break;
         case GSD_POWER_ACTION_SHUTDOWN:
                 /* this is only used on critically low battery where
                  * hibernate is not available and is marginally better
@@ -1108,6 +1128,7 @@ get_idle_inhibitors_for_action (GsdPowerActionType action_type)
         case GSD_POWER_ACTION_SHUTDOWN:
         case GSD_POWER_ACTION_INTERACTIVE:
                 return GSM_INHIBITOR_FLAG_IDLE;
+        case GSD_POWER_ACTION_SUSPEND_TO_HIBERNATE:
         case GSD_POWER_ACTION_HIBERNATE:
         case GSD_POWER_ACTION_SUSPEND:
                 return GSM_INHIBITOR_FLAG_SUSPEND; /* in addition to idle */
@@ -1779,6 +1800,7 @@ idle_configure (GsdPowerManager *manager)
                 }
 
                 if (action_type == GSD_POWER_ACTION_LOGOUT ||
+                    action_type == GSD_POWER_ACTION_SUSPEND_TO_HIBERNATE ||
                     action_type == GSD_POWER_ACTION_SUSPEND ||
                     action_type == GSD_POWER_ACTION_HIBERNATE) {
                         guint timeout_sleep_warning_msec;
@@ -2096,6 +2118,7 @@ show_sleep_warning (GsdPowerManager *manager)
                                      NULL,
                                      &manager->priv->notification_sleep_warning);
                 break;
+        case GSD_POWER_ACTION_SUSPEND_TO_HIBERNATE:
         case GSD_POWER_ACTION_SUSPEND:
                 create_notification (_("Automatic suspend"), _("Computer will suspend very soon because of inactivity."),
                                      NULL,
