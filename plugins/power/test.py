@@ -277,7 +277,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             except IOError:
                 continue
 
-            if log and (b' Suspend ' in log or b' Hibernate ' in log):
+            if log and (b' Suspend ' in log or b' Hibernate ' in log or b' SuspendThenHibernate ' in log):
                 break
         else:
             self.fail('timed out waiting for logind Suspend() call')
@@ -319,6 +319,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         log = self.logind.stdout.read()
         if log:
             self.assertFalse(b' Suspend' in log, 'unexpected Suspend request')
+            self.assertFalse(b' SuspendThenHibernate' in log, 'unexpected SuspendThenHibernate request')
             self.assertFalse(b' Hibernate' in log, 'unexpected Hibernate request')
 
     def check_suspend_no_hibernate(self, seconds):
