@@ -900,12 +900,35 @@ action_poweroff (GsdPowerManager *manager)
 static void
 action_suspend (GsdPowerManager *manager)
 {
+        const gchar *action = "Suspend";
+        g_autoptr(GVariant) retval = NULL;
+        g_autoptr(GError) error = NULL;
+
         if (manager->priv->logind_proxy == NULL) {
                 g_warning ("no systemd support");
                 return;
         }
+
+        retval = g_dbus_proxy_call_sync (manager->priv->logind_proxy,
+                                         "CanSuspendThenHibernate",
+                                         NULL,
+                                         G_DBUS_CALL_FLAGS_NONE,
+                                         -1,
+                                         manager->priv->cancellable,
+                                         &error);
+        if (retval == NULL) {
+                g_warning ("Failed to query CanSuspendThenHibernate: %s", error->message);
+        } else {
+                const gchar *s2h = NULL;
+
+                g_variant_get (retval, "(s)", &s2h);
+                if (g_strcmp0 (s2h, "yes") == 0)
+                        action = "SuspendThenHibernate";
+        }
+        g_debug ("Choosing suspend action: %s", action);
+
         g_dbus_proxy_call (manager->priv->logind_proxy,
-                           "Suspend",
+                           action,
                            g_variant_new ("(b)", FALSE),
                            G_DBUS_CALL_FLAGS_NONE,
                            G_MAXINT,
@@ -1061,6 +1084,7 @@ backlight_disable (GsdPowerManager *manager)
                 g_error_free (error);
         }
 
+        g_debug("Is tablet: %d", manager->priv->is_tablet);
         if (manager->priv->is_tablet)
                 action_suspend (manager);
         else
@@ -1073,6 +1097,7 @@ static void
 do_power_action_type (GsdPowerManager *manager,
                       GsdPowerActionType action_type)
 {
+        g_debug("Running power action type %d", action_type);
         switch (action_type) {
         case GSD_POWER_ACTION_SUSPEND:
                 action_suspend (manager);
