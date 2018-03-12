@@ -15,77 +15,63 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNOME Settings Daemon MASTER\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"settings-daemon&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-11-13 10:48+0000\n"
-"PO-Revision-Date: 2012-12-18 18:47+0300\n"
-"Last-Translator: Mattias Põldaru <mahfiaz@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
+"issues\n"
+"POT-Creation-Date: 2018-02-09 14:02+0000\n"
+"PO-Revision-Date: 2018-02-16 04:54+0200\n"
+"Last-Translator: Mart Raudsepp <leio@gentoo.org>\n"
 "Language-Team: Estonian <>\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Generator: Poedit 2.0.6\n"
 
-msgid "GNOME Settings Daemon"
-msgstr "GNOME sätetedeemon"
-
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
 msgid "Smartcard removal action"
 msgstr "Smartcardi eemaldamise tegevus"
 
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:13
 msgid ""
-"Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
-"action will get performed when the smartcard used for log in is removed."
+"Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
+"get performed when the smartcard used for log in is removed."
 msgstr ""
-"Määra selle väärtuseks \"none\" (puudub), \"lock-screen\" (lukustatakse "
-"ekraan) või \"force-logout\" (väljalogimise nõudmine). See tegevus "
-"käivitatakse sisselogimiseks kasutatud smartcardi eemaldamisel."
+"Määra selle väärtuseks „none“ (puudub), „lock-screen“ (lukustatakse ekraan) "
+"või „force-logout“ (väljalogimise sundimine). See tegevus käivitatakse "
+"sisselogimiseks kasutatud smartcardi eemaldamisel."
 
-msgid "Disable touchpad while typing"
-msgstr "Puuteplaadi keelamine tippimise ajaks"
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:25
+msgid "Possible values are “on”, “off”, and “custom”."
+msgstr ""
 
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:35
+msgid "Keyboard Bell Custom Filename"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:36
+msgid "File name of the bell sound to be played."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:40
+msgid "Remember NumLock state"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:41
 msgid ""
-"Set this to TRUE if you have problems with accidentally hitting the touchpad "
-"while typing."
+"When set to true, GNOME will remember the state of the NumLock LED between "
+"sessions."
 msgstr ""
-"Märgi see väärtus juhul, kui sind segab, et sa tippimise ajal kogemata "
-"puuteplaati puudutad."
 
-msgid "Enable horizontal scrolling"
-msgstr "Rõhtsa kerimise lubamine"
-
-msgid ""
-"Set this to TRUE to allow horizontal scrolling by the same method selected "
-"with the scroll_method key."
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:45
+msgid "NumLock state"
 msgstr ""
-"Kui märgitud, siis on rõhtne kerimine lubatud scroll_method võtmega määratud "
-"moel."
 
-msgid "Select the touchpad scroll method"
-msgstr "Puuteplaadi kerimismeetodi valimine"
-
-msgid ""
-"Select the touchpad scroll method. Supported values are: \"disabled\", "
-"\"edge-scrolling\", \"two-finger-scrolling\"."
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:46
+msgid "The remembered state of the NumLock LED."
 msgstr ""
-"Puuteplaadi kerimismeetod. Võimalikud väärtused on \"disabled\" (keelatud), "
-"\"edge-scrolling\" (kerimine servalt) ja \"two-finger-scrolling\" (kahe "
-"sõrmega kerimine)."
 
-msgid "Enable mouse clicks with touchpad"
-msgstr "Hiireklõpsude lubamine puuteplaadilt"
-
-msgid ""
-"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
-msgstr ""
-"Kui märgitud, siis tõlgendatakse puuteplaadil toksimist hiireklõpsudena."
-
-msgid "Enable touchpad"
-msgstr "Puuteplaadi lubamine"
-
-msgid "Set this to TRUE to enable all touchpads."
-msgstr "Kui märgitud, siis on kõik puuteplaadid lubatud."
-
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:52
 msgid ""
 "Highlights the current location of the pointer when the Control key is "
 "pressed and released."
@@ -93,21 +79,67 @@ msgstr ""
 "Näitab hiirekursori asukohta, kui Control klahv alla vajutatakse ning "
 "vabastatakse."
 
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:56
 msgid "Double click time"
 msgstr "Topeltklõpsu kestus"
 
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:57
 msgid "Length of a double click in milliseconds."
 msgstr "Topeltklõpsu kestus millisekundites."
 
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:61
 msgid "Drag threshold"
 msgstr "Lohistamise lävi"
 
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:62
 msgid "Distance before a drag is started."
 msgstr "Lohistamise alustamiseks vajalik vahemaa."
 
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:68
+msgid "Whether the tablet’s orientation is locked, or rotated automatically."
+msgstr "Kas tahvelarvuti suund on lukus või pöördub automaatselt."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:76
+#, fuzzy
+#| msgid "Middle button emulation"
+msgid "Mouse button orientation"
+msgstr "Keskmise nupu emulatsioon"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:77
+msgid "Swap left and right mouse buttons for left-handed mice."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:81
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:143
+msgid "Single Click"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:82
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:144
+msgid ""
+"Acceleration multiplier for mouse motion. A value of -1 is the system "
+"default."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:86
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:148
+#, fuzzy
+#| msgid "Drag threshold"
+msgid "Motion Threshold"
+msgstr "Lohistamise lävi"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:87
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:149
+msgid ""
+"Distance in pixels the pointer must move before accelerated mouse motion is "
+"activated. A value of -1 is the system default."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:91
 msgid "Middle button emulation"
 msgstr "Keskmise nupu emulatsioon"
 
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:92
 msgid ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
@@ -115,48 +147,130 @@ msgstr ""
 "Keskmise nupu emulatsiooni lubamine samaaegsel vasaku ja parema nupu "
 "vajutamisel."
 
-msgid "Whether the tablet's orientation is locked, or rotated automatically."
-msgstr "Kas tahvelarvuti suund on lukus või pöördub automaatselt."
-
-msgid "Device hotplug custom command"
-msgstr "Kohandatud käsk seadme ühendamisel"
-
-msgid ""
-"Command to be run when a device is added or removed. An exit value of 1 "
-"means that the device will not be handled further by gnome-settings-daemon."
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:101
+msgid "Key Repeat Interval"
 msgstr ""
-"Käsk, mis tuleb käivitada seadme lisamisel või eemaldamisel. Väljumise kood "
-"1 tähendab, et gnome-settings-daemon ei pea seadet haldama."
 
-msgid "Activation of this plugin"
-msgstr "Selle plugina aktiveerimine"
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:102
+msgid "Delay between repeats in milliseconds."
+msgstr ""
 
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "Kas see plugin aktiveeritakse GNOME sätetedeemoni poolt või mitte"
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:106
+msgid "Initial Key Repeat Delay"
+msgstr ""
 
-msgid "Priority to use for this plugin"
-msgstr "Selle plugina kasutamise prioriteet"
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:107
+#, fuzzy
+#| msgid "Length of a double click in milliseconds."
+msgid "Initial key repeat delay in milliseconds."
+msgstr "Topeltklõpsu kestus millisekundites."
 
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr "Selle plugina olulisus gnome-settings-daemon'i käivitusjärjekorras"
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:113
+msgid "Disable touchpad while typing"
+msgstr "Puuteplaadi keelamine tippimise ajaks"
 
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:114
+msgid ""
+"Set this to TRUE if you have problems with accidentally hitting the touchpad "
+"while typing."
+msgstr ""
+"Märgi see väärtus juhul, kui sind segab, et sa tippimise ajal kogemata "
+"puuteplaati puudutad."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:118
+msgid "Enable horizontal scrolling"
+msgstr "Rõhtsa kerimise lubamine"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:119
+msgid ""
+"Set this to TRUE to allow horizontal scrolling by the same method selected "
+"with the scroll_method key."
+msgstr ""
+"Kui märgitud, siis on rõhtne kerimine lubatud scroll_method võtmega määratud "
+"moel."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:123
+msgid "Select the touchpad scroll method"
+msgstr "Puuteplaadi kerimismeetodi valimine"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:124
+msgid ""
+"Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
+"scrolling”, “two-finger-scrolling”."
+msgstr ""
+"Puuteplaadi kerimismeetod. Võimalikud väärtused on „disabled“ (keelatud), "
+"„edge-scrolling“ (kerimine servalt) ja „two-finger-scrolling“ (kahe sõrmega "
+"kerimine)."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:128
+msgid "Enable mouse clicks with touchpad"
+msgstr "Hiireklõpsude lubamine puuteplaadilt"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:129
+msgid ""
+"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr ""
+"Kui märgitud, siis tõlgendatakse puuteplaadil toksimist hiireklõpsudena."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:133
+msgid "Enable touchpad"
+msgstr "Puuteplaadi lubamine"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:134
+msgid "Set this to TRUE to enable all touchpads."
+msgstr "Kui märgitud, siis on kõik puuteplaadid lubatud."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:138
+#, fuzzy
+#| msgid "Middle button emulation"
+msgid "Touchpad button orientation"
+msgstr "Keskmise nupu emulatsioon"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:139
+msgid ""
+"Swap left and right mouse buttons for left-handed mice with “left”, “right” "
+"for right-handed, “mouse” to follow the mouse setting."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:153
+#, fuzzy
+#| msgid "Enable horizontal scrolling"
+msgid "Natural scrolling"
+msgstr "Rõhtsa kerimise lubamine"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:154
+#, fuzzy
+#| msgid "Set this to TRUE to enable all touchpads."
+msgid "Set this to TRUE to enable natural (reverse) scrolling for touchpads."
+msgstr "Kui märgitud, siis on kõik puuteplaadid lubatud."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:161
+msgid "Mouse wheel emulation button. 0 to disable the feature."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:10
 msgid "Wacom stylus absolute mode"
 msgstr "Wacomi krihvli absoluutrežiim"
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:11
 msgid "Enable this to set the tablet to absolute mode."
 msgstr "Märgi see, et määrata digitaallaud absoluutrežiimi."
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:15
 msgid "Wacom tablet area"
 msgstr "Wacomi digitaallaua ala"
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:16
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
 msgstr ""
 "Määra selle väärtuseks tööriistade kasutatava ala x1, y1 ja x2, y2 "
 "koordinaadid."
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:20
 msgid "Wacom tablet aspect ratio"
 msgstr "Wacom digitaallaua külgede suhe"
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:21
 msgid ""
 "Enable this to restrict the Wacom tablet area to match the aspect ratio of "
 "the output."
@@ -164,90 +278,93 @@ msgstr ""
 "Märgi see, et määrata Wacomi digitaallaua ala kattuma väljundseadme külgede "
 "suhtega."
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:25
 msgid "Wacom tablet rotation"
 msgstr "Wacom digitaallaua pööramine"
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:26
 msgid ""
-"Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
-"'ccw' for 90 degree counterclockwise."
+"Set this to “none”, “cw” for 90 degree clockwise, “half” for 180 degree, and "
+"“ccw” for 90 degree counterclockwise."
 msgstr ""
-"Määra väärtuseks kas 'none', 'cw' (90 kraadi päripäeva), 'half' (180 kraadi) "
-"või 'ccw' (90 kraadi vastupäeva)."
+"Määra väärtuseks kas „none“, „cw“ (90 kraadi päripäeva), „half“ (180 kraadi) "
+"või „ccw“ (90 kraadi vastupäeva)."
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:30
 msgid "Wacom touch feature"
 msgstr "Wacomi puutevõimalused"
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:31
 msgid "Enable this to move the cursor when the user touches the tablet."
 msgstr ""
 "Märgi see, et kursor liiguks ainult siis, kui kasutaja puudutab "
 "digitaallauda."
 
-msgid "Wacom tablet PC feature"
-msgstr "Wacomi tahvelarvuti võimalused"
-
-msgid "Enable this to only report stylus events when the tip is pressed."
-msgstr ""
-"See võib saata krihvlilt sündmuseid ainult siis, kui ots on sisse vajutatud."
-
-msgid "Wacom display mapping"
-msgstr "Wacomi kuva paigutus"
-
-msgid ""
-"EDID information of monitor to map tablet to. Must be in the format [vendor, "
-"product, serial]. [\"\",\"\",\"\"] disables mapping."
-msgstr ""
-"Monitori EDID info, millega digitaallaud siduda. Peab olema kujul [tootja, "
-"toode, seerianumber]. [\"\",\"\",\"\"] keelab seose."
-
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:37
 msgid "Wacom stylus pressure curve"
 msgstr "Wacomi krihvli tugevuskõver"
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:38
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
 msgstr ""
 "Määra selle väärtuseks krihvli tugevuskõvera x1, y1 ja x2, y2 koordinaadid."
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:42
 msgid "Wacom stylus button mapping"
 msgstr "Wacomi krihvli nuppude paigutus"
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:43
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:60
 msgid "Set this to the logical button mapping."
 msgstr "Selle määramine loogilisele nupupaigutusele."
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:47
 msgid "Wacom stylus pressure threshold"
 msgstr "Wacomi krihvli tugevuse lävi"
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:48
 msgid ""
 "Set this to the pressure value at which a stylus click event is generated."
 msgstr "Vajutuse tugevuse määramine, mille juures krihvel teeb hiireklõpsu."
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:54
 msgid "Wacom eraser pressure curve"
 msgstr "Wacomi kustukummi tugevuskõver"
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:55
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
 msgstr ""
 "Määra selle väärtuseks kustukummi tugevuskõvera x1, y1 ja x2, y2 "
 "koordinaadid."
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:59
 msgid "Wacom eraser button mapping"
 msgstr "Wacomi kustukummi nuppude paigutus"
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:64
 msgid "Wacom eraser pressure threshold"
 msgstr "Wacomi kustukummi tugevuse lävi"
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:65
 msgid ""
 "Set this to the pressure value at which an eraser click event is generated."
 msgstr "Vajutuse tugevuse määramine, mille juures kustukumm teeb hiireklõpsu."
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:71
 msgid "Wacom button action type"
 msgstr "Wacomi nupu tegevuse liik"
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:72
 msgid "The type of action triggered by the button being pressed."
 msgstr "Mis liiki tegevus käivitatakse nupu vajutamisel."
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:76
 msgid "Key combination for the custom action"
 msgstr "Kohandatud seose klahviseos"
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:77
 msgid ""
 "The keyboard shortcut generated when the button is pressed for custom "
 "actions."
@@ -255,9 +372,11 @@ msgstr ""
 "Klaviatuuri klahviseos, mis genereeritakse kohandatud tegevuse nupu "
 "vajutamisel."
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:81
 msgid "Key combinations for a touchring or touchstrip custom action"
 msgstr "Klahviseosed puuteringi ja puuteriba kohandatud tegevuste jaoks"
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:82
 msgid ""
 "The keyboard shortcuts generated when a touchring or touchstrip is used for "
 "custom actions (up followed by down)."
@@ -265,31 +384,128 @@ msgstr ""
 "Klaviatuuri klahviseos, mis genereeritakse, kui puuteringi või puuteriba "
 "kasutatakse kohandatud tegevuste jaoks (üles, siis alla)."
 
+#. Translators: This is the OLED display on an Intuos4 tablet:
+#. http://eu.shop.wacom.eu/images/articles/d9abd9f2d4d88aa0649cda97a8077e2b_8.jpg
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:88
+msgid "Button label for OLED display."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:89
+msgid "Label will be rendered to OLED display belonging to the button"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:6
 msgid "The duration a display profile is valid"
 msgstr "Kui kaua monitori profiil kehtib"
 
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:7
 msgid ""
 "This is the number of days after which the display color profile is "
 "considered invalid."
 msgstr "Nii mitme päeva pärast loetakse monitori profiil aegunuks."
 
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:11
 msgid "The duration a printer profile is valid"
 msgstr "Kui kaua printeri profiil kehtib"
 
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:12
 msgid ""
 "This is the number of days after which the printer color profile is "
 "considered invalid."
 msgstr "Nii mitme päeva pärast loetakse printeri profiil aegunuks."
 
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:16
+msgid "If the night light mode is enabled"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:17
+msgid ""
+"Night light mode changes the color temperature of your display when the sun "
+"has gone down or at present times."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:21
+msgid "Temperature of the display when enabled"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:22
+msgid ""
+"This temperature in Kelvin is used to modify the screen tones when night "
+"light mode is enabled. Higher values are bluer, lower redder."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:26
+msgid "Use the sunrise and sunset"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:27
+msgid ""
+"Calculate the sunrise and sunset times automatically, from the current "
+"location."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:31
+#, fuzzy
+#| msgid "Charge time:"
+msgid "The start time"
+msgstr "Laadimise aeg:"
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:32
+msgid ""
+"When “night-light-schedule-automatic” is disabled, use this start time in "
+"hours from midnight."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:36
+msgid "The end time"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:37
+msgid ""
+"When “night-light-schedule-automatic” is disabled, use this end time in "
+"hours from midnight."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:41
+msgid "The last detected position"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:42
+msgid ""
+"When location services are available this represents the last detected "
+"location. The default value is an invalid value to ensure it is always "
+"updated at startup."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.gschema.xml.in:6
+msgid "List of plugins that are allowed to be loaded"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.gschema.xml.in:7
+#, fuzzy
+#| msgid ""
+#| "A list of strings representing the GTK+ modules that will not be loaded, "
+#| "even if enabled by default in their configuration."
+msgid ""
+"A list of strings representing the plugins that are allowed to be loaded "
+"(default: “all”). This is only evaluated on startup."
+msgstr ""
+"Sõnede loend GTK+ moodulitest, mida ei laadita, isegi kui need on "
+"seadistuses vaikimisi lubatud."
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:6
 msgid "Mount paths to ignore"
 msgstr "Eiratavad haakepunktid"
 
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:7
 msgid "Specify a list of mount paths to ignore when they run low on space."
 msgstr "Määra haakepunktid, mille kettaruumi vähesust eiratakse."
 
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:12
 msgid "Free percentage notify threshold"
 msgstr "Vaba kettaruumi protsendi teavituslävi"
 
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:13
 msgid ""
 "Percentage free space threshold for initial warning of low disk space. If "
 "the percentage free space drops below this, a warning will be shown."
@@ -297,18 +513,22 @@ msgstr ""
 "Vaba kettaruumi lävi protsentides, mil kuvatakse esimene hoiatus. Kui vaba "
 "kettaruumi jääb määratud protsendist vähem, kuvatakse hoiatus."
 
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:18
 msgid "Subsequent free space percentage notify threshold"
 msgstr "Vaba kettaruumi protsendi muutus enne kordushoiatust"
 
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:19
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
 "issuing a subsequent warning."
 msgstr ""
 "Mitme protsendini peab vaba kettaruum enne kordushoiatuse näitamist kahanema."
 
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:23
 msgid "Free space notify threshold"
 msgstr "Vaba kettaruumi teavituslävi"
 
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:24
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
 "warning will be shown."
@@ -316,9 +536,11 @@ msgstr ""
 "Määra maht GB-des. Kui vaba ruumi on rohkem, kui see väärtus, ei näidata "
 "mingit hoiatust."
 
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:28
 msgid "Minimum notify period for repeated warnings"
 msgstr "Kordushoiatuste intervall"
 
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:29
 msgid ""
 "Specify a time in minutes. Subsequent warnings for a volume will not appear "
 "more often than this period."
@@ -326,505 +548,458 @@ msgstr ""
 "Määra aeg minutites. Kordushoiatused sama köite kohta ei ilmu tihedamini kui "
 "määratud vahemik."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:6
 msgid "Custom keybindings"
 msgstr "Kohandatud kiirklahvid"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:7
 msgid "List of custom keybindings"
 msgstr "Kohandatud kiirklahvide loend"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:11
 msgid "Launch calculator"
 msgstr "Kalkulaatori käivitamine"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:12
 msgid "Binding to launch the calculator."
 msgstr "Klahviseos kalkulaatori käivitamiseks."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:16
+#, fuzzy
+#| msgid "X Settings"
+msgid "Launch settings"
+msgstr "X'i sätted"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:17
+#, fuzzy
+#| msgid "Binding to launch the search tool."
+msgid "Binding to launch GNOME settings."
+msgstr "Klahviseos otsinguvahendi käivitamiseks."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:21
 msgid "Launch email client"
 msgstr "E-posti kliendi käivitamine"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:22
 msgid "Binding to launch the email client."
 msgstr "Klahviseos e-posti kliendi käivitamiseks."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:26
 msgid "Eject"
 msgstr "Sahtli lahtilükkamine"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:27
 msgid "Binding to eject an optical disc."
 msgstr "Klahviseos optilise ketta väljastamiseks."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:31
 msgid "Launch help browser"
 msgstr "Abiteabe sirvija käivitamine"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:32
 msgid "Binding to launch the help browser."
 msgstr "Klahviseos abiteabe sirvija käivitamiseks."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:36
 msgid "Home folder"
 msgstr "Kodukataloog"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:37
 msgid "Binding to open the Home folder."
 msgstr "Klahviseos kodukataloogi avamiseks."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:41
 msgid "Launch media player"
 msgstr "Meediaesitaja käivitamine"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:42
 msgid "Binding to launch the media player."
 msgstr "Klahviseos meediaesitaja käivitamiseks."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:46
 msgid "Next track"
 msgstr "Järgmisele loole hüppamine"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:47
 msgid "Binding to skip to next track."
 msgstr "Klahviseos järgmise loo peale hüppamiseks."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:51
 msgid "Pause playback"
 msgstr "Esitamise paus"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:52
 msgid "Binding to pause playback."
 msgstr "Klahviseos meediaesituse pausimiseks."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:56
 msgid "Play (or play/pause)"
 msgstr "Esitamine (või esitamine/paus)"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:57
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "Klahviseos esitamise alustamiseks (või esitamiseks/pausimiseks)"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:61
 msgid "Log out"
 msgstr "Väljalogimine"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:62
 msgid "Binding to log out."
 msgstr "Klahviseos väljalogimiseks."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:66
 msgid "Previous track"
 msgstr "Eelmisele loole hüppamine"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:67
 msgid "Binding to skip to previous track."
 msgstr "Klahviseos eelmise loo peale hüppamiseks."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:71
 msgid "Lock screen"
 msgstr "Ekraani lukustamine"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:72
 msgid "Binding to lock the screen."
 msgstr "Klahviseos ekraani lukustamiseks."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:76
 msgid "Search"
 msgstr "Otsing"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:77
 msgid "Binding to launch the search tool."
 msgstr "Klahviseos otsinguvahendi käivitamiseks."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:81
 msgid "Stop playback"
 msgstr "Esitamise lõpetamine"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:82
 msgid "Binding to stop playback."
 msgstr "Klahviseos meediaesituse seiskamiseks."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:86
 msgid "Volume down"
 msgstr "Heli vaiksemaks"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:87
 msgid "Binding to lower the system volume."
 msgstr "Klahviseos süsteemi helivaljuse vähendamiseks."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:91
 msgid "Volume mute"
 msgstr "Heli tummaks"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:92
 msgid "Binding to mute the system volume."
 msgstr "Klahviseos süsteemi helivaljuse nullimiseks."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:96
 msgid "Volume up"
 msgstr "Heli valjemaks"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:97
 msgid "Binding to raise the system volume."
 msgstr "Klahviseos süsteemi helivaljuse suurendamiseks."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:101
 msgid "Take a screenshot"
 msgstr "Ekraanipildi võtmine"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:102
 msgid "Binding to take a screenshot."
 msgstr "Klahviseos ekraanipildi võtmiseks."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:106
 msgid "Take a screenshot of a window"
 msgstr "Ekraanipildi võtmine aknast"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:107
 msgid "Binding to take a screenshot of a window."
 msgstr "Klahviseos aknast ekraanipildi võtmiseks."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:111
 msgid "Take a screenshot of an area"
 msgstr "Ekraanipildi võtmine alast"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:112
 msgid "Binding to take a screenshot of an area."
 msgstr "Klahviseos alast ekraanipildi võtmiseks."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:116
 msgid "Copy a screenshot to clipboard"
 msgstr "Ekraanipildi kopeerimine lõikepuhvrisse"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:117
 msgid "Binding to copy a screenshot to clipboard."
 msgstr "Klahviseos ekraanipildi kopeerimiseks lõikepuhvrisse."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:121
 msgid "Copy a screenshot of a window to clipboard"
 msgstr "Akna ekraanipildi kopeerimine lõikepuhvrisse"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:122
 msgid "Binding to copy a screenshot of a window to clipboard."
 msgstr "Klahviseos akna ekraanipildi kopeerimiseks lõikepuhvrisse."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:126
 msgid "Copy a screenshot of an area to clipboard"
 msgstr "Ala ekraanipildi kopeerimine lõikepuhvrisse"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:127
 msgid "Binding to copy a screenshot of an area to clipboard."
 msgstr "Klahviseos ala ekraanipildi kopeerimiseks lõikepuhvrisse."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:131
+msgid "Record a short video of the screen"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:132
+#, fuzzy
+#| msgid "Binding to lock the screen."
+msgid "Binding to record a short video of the screen"
+msgstr "Klahviseos ekraani lukustamiseks."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:136
 msgid "Launch web browser"
 msgstr "Veebisirvija käivitamine"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:137
 msgid "Binding to launch the web browser."
 msgstr "Klahviseos veebisirvija käivitamiseks."
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:141
 msgid "Toggle magnifier"
 msgstr "Ekraaniluup sisse/välja"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:142
 msgid "Binding to show the screen magnifier"
 msgstr "Klahviseos ekraaniluubi näitamiseks"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:146
 msgid "Toggle screen reader"
 msgstr "Ekraanilugeja sisse/välja"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:147
 msgid "Binding to start the screen reader"
 msgstr "Klahviseos ekraanilugeja käivitamiseks"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:151
 msgid "Toggle on-screen keyboard"
 msgstr "Ekraaniklaviatuur sisse/välja"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:152
 msgid "Binding to show the on-screen keyboard"
 msgstr "Klahviseos ekraaniklaviatuuri näitamiseks"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:156
 msgid "Increase text size"
 msgstr "Teksti suurendamine"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:157
 msgid "Binding to increase the text size"
 msgstr "Klahviseos teksti suuruse suurendamiseks"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:161
 msgid "Decrease text size"
 msgstr "Teksti vähendamine"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:162
 msgid "Binding to decrease the text size"
 msgstr "Klahviseos teksti suuruse vähendamiseks"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:166
 msgid "Toggle contrast"
 msgstr "Kontrastsuse lülitamine"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:167
 msgid "Binding to toggle the interface contrast"
 msgstr "Klahviseos kasutajaliidese kontrastsuse lülitamiseks"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:171
 msgid "Magnifier zoom in"
 msgstr "Luubi suurendus suuremaks"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:172
 msgid "Binding for the magnifier to zoom in"
 msgstr "Klahviseos ekraaniluubi suurenduse suurendamiseks"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:176
 msgid "Magnifier zoom out"
 msgstr "Luubi suurendus väiksemaks"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:177
 msgid "Binding for the magnifier to zoom out"
 msgstr "Klahviseos ekraaniluubi suurenduse vähendamiseks"
 
-msgid "Switch input source"
-msgstr "Vaheta sisendseadet"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:181
+msgid "Maximum length of screen recordings"
+msgstr ""
 
-msgid "Binding to select the next input source"
-msgstr "Klahviseos järgmisele sisendseadmele hüppamiseks"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:182
+msgid ""
+"The maximum length of single screen cast recordings in seconds or 0 for "
+"unlimited"
+msgstr ""
 
-msgid "Switch input source backward"
-msgstr "Vaheta eelmisele sisendseadmele"
-
-msgid "Binding to select the previous input source"
-msgstr "Klahviseos eelmisele sisendseadmele hüppamiseks"
-
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:189
 msgid "Name"
 msgstr "Nimi"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:190
 msgid "Name of the custom binding"
 msgstr "Kohandatud kiirklahvi nimi"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:194
 msgid "Binding"
 msgstr "Seos"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:195
 msgid "Binding for the custom binding"
 msgstr "Kohandatud seose klahviseos"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:199
 msgid "Command"
 msgstr "Käsk"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:200
 msgid "Command to run when the binding is invoked"
 msgstr "Klahvikombinatsiooni vajutamisel käivitatav käsk"
 
-msgid "Percentage considered low"
-msgstr "Otsakorral täituvuse tase protsentides"
-
-msgid ""
-"The percentage of the battery when it is considered low. Only valid when use-"
-"time-for-policy is false."
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:6
+msgid "The brightness of the screen when idle"
 msgstr ""
-"Aku täituvuse protsent, mis loetakse otsakorral olemsieks. Kehtib ainult "
-"siis, kui use-time-for-policy pole märgitud."
 
-msgid "Percentage considered critical"
-msgstr "Kriitilise täituvuse tase protsentides"
-
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:7
 msgid ""
-"The percentage of the battery when it is considered critical. Only valid "
-"when use-time-for-policy is false."
+"This is the laptop panel screen brightness used when the session is idle."
 msgstr ""
-"Aku täituvuse protsent, mis loetakse kriitiliseks. Kehtib ainult siis, kui "
-"use-time-for-policy pole märgitud."
 
-msgid "Percentage action is taken"
-msgstr "Protsent, mille juures käivitatakse tegevus"
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:11
+msgid "Dim the screen after a period of inactivity"
+msgstr ""
 
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:12
+msgid "If the screen should be dimmed to save power when the computer is idle."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:16
+msgid "Sleep timeout computer when on AC"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:17
 msgid ""
-"The percentage of the battery when the critical action is performed. Only "
-"valid when use-time-for-policy is false."
+"The amount of time in seconds the computer on AC power needs to be inactive "
+"before it goes to sleep. A value of 0 means never."
 msgstr ""
-"Aku täituvuse protsent, mille korral käivitatakse tegevus. Kehtib ainult "
-"siis, kui use-time-for-policy pole märgitud."
 
-msgid "The time remaining when low"
-msgstr "Aega jäänud, kui see loetakse otsakorral olemiseks"
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:21
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:31
+msgid "Whether to hibernate, suspend or do nothing when inactive"
+msgstr ""
 
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:22
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:32
 msgid ""
-"The time remaining in seconds of the battery when it is considered low. Only "
-"valid when use-time-for-policy is true."
+"The type of sleeping that should be performed when the computer is inactive."
 msgstr ""
-"Kui kaua on akut jäänud, kui see loetakse otsakorral olemiseks, sekundites. "
-"Kehtib ainult siis, kui use-time-for-policy on märgitud."
 
-msgid "The time remaining when critical"
-msgstr "Aega jäänud, kui see loetakse kriitiliseks"
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:26
+msgid "Sleep timeout computer when on battery"
+msgstr ""
 
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:27
 msgid ""
-"The time remaining in seconds of the battery when it is considered critical. "
-"Only valid when use-time-for-policy is true."
+"The amount of time in seconds the computer on battery power needs to be "
+"inactive before it goes to sleep. A value of 0 means never."
 msgstr ""
-"Kui kaua on akut jäänud, kui see loetakse kriitiliseks, sekundites. Kehtib "
-"ainult siis, kui use-time-for-policy on märgitud."
 
-msgid "The time remaining when action is taken"
-msgstr "Aega jäänud, kui käivitatakse tegevus"
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:36
+msgid "Enable the ALS sensor"
+msgstr ""
 
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:37
+msgid "If the ambient light sensor functionality is enabled."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:41
+#, fuzzy
+#| msgid "Wacom button action type"
+msgid "Power button action"
+msgstr "Wacomi nupu tegevuse liik"
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:42
 msgid ""
-"The time remaining in seconds of the battery when critical action is taken. "
-"Only valid when use-time-for-policy is true."
+"The action to take when the system power button is pressed. This action is "
+"hard-coded (and the setting ignored) on virtual machines (power off) and "
+"tablets (suspend)."
 msgstr ""
-"Kui kaua on akut jäänud, kui kriitilise täituvuse tegevus käivitatakse, "
-"sekundites. Kehtib ainult siis, kui use-time-for-policy on märgitud."
 
-msgid "Whether to use time-based notifications"
-msgstr "Kas kasutatakse aja-järgseid teateid"
+#: data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in:6
+msgid "On which connections the service is enabled"
+msgstr ""
 
+#: data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in:7
 msgid ""
-"If time based notifications should be used. If set to false, then the "
-"percentage change is used instead, which may fix a broken ACPI BIOS."
+"The list of NetworkManager connections (each one represented with its UUID) "
+"on which this service is enabled and started."
 msgstr ""
-"Kas teated peaksid olema aja järgi. Kui pole märgitud, kasutatakse täituvuse "
-"protsendi järgi teateid, see aitab vigase ACPI BIOSi puhul."
 
-msgid "If we should show the recalled battery warning for a broken battery"
-msgstr "Kas rikkis aku teadet tuleks kuvada tagasi kutsutud aku korral"
-
-msgid ""
-"If we should show the recalled battery warning for a broken battery. Set "
-"this to false only if you know your battery is okay."
-msgstr ""
-"Kas rikkis aku teadet tuleks kuvada tagasi kutsutud aku korral. Eemalda "
-"märge ainult siis, kui oled kindel, et sinu aku on korras."
-
-msgid "Use mobile broadband connections"
-msgstr "Kasutatakse mobiiliühendusi"
-
-msgid ""
-"Use mobile broadband connections such as GSM and CDMA to check for updates."
-msgstr "Uuendamiseks kasutatakse mobiiliühendusi nagu näiteks GSM ja CDMA."
-
-msgid "Automatically download updates in the background without confirmation"
-msgstr "Uuendused laaditakse alla taustal ilma küsimata"
-
-msgid ""
-"Automatically download updates in the background without confirmation. "
-"Updates will be auto-downloaded when using wired network connnections, and "
-"mobile broadband if 'connection-use-mobile' is enabled."
-msgstr ""
-"Uuendused laaditakse alla taustal ilma küsimata. Uuendusi laaditakse alla "
-"juhtmega ühenduse kaudu ning mobiiliühenduse kaudu, kui 'connection-use-"
-"mobile' on märgitud."
-
-msgid "How often to check for updates"
-msgstr "Kui tihti kontrollitakse uuendusi"
-
-msgid ""
-"How often to check for updates. Value is in seconds. This is a maximum "
-"amount of time that can pass between a security update being published, and "
-"the update being automatically installed or the user notified."
-msgstr ""
-"Kui tihti kontrollitakse uuendusi. Väärtus sekundites. See on suurim "
-"ajavahemik, mis võib mööduda turvauuenduse avaldamisest selle paigaldamiseni "
-"või kasutajale teatamiseni."
-
-msgid "How often to notify the user that non-critical updates are available"
-msgstr ""
-"Kui tihti teatatakse kasutajale saadaolevatest mittekriitilistest uuendustest"
-
-msgid ""
-"How often to tell the user there are non-critical updates. Value is in "
-"seconds. Security update notifications are always shown after the check for "
-"updates, but non-critical notifications should be shown a lot less "
-"frequently."
-msgstr ""
-"Kui tihti kasutajale teatatakse mittekriitilistest uuendustest. Väärtus on "
-"sekundites. Turvauuendusi näidatakse alati pärast uuenduste kontrollimist, "
-"kuid mittekriitilistest uuendustest teatatakse harvem."
-
-msgid "The last time we told the user about non-critical notifications"
-msgstr "Viimane kord, kui kasutajale edastati mittekriitiline teade"
-
-msgid ""
-"The last time we notified the user about non-critical updates. Value is in "
-"seconds since the epoch, or zero for never."
-msgstr ""
-"Viimane kord, kui kasutajat teavitati mittekriitilistest uuendustest. "
-"Väärtus sekundites alates epohhist, 0 on mitte kunagi."
-
-msgid "How often to check for distribution upgrades"
-msgstr "Kui tihti kontrollitakse distributsiooniuuendusi"
-
-msgid "How often to check for distribution upgrades. Value is in seconds."
-msgstr "Kui tihti kontrollitakse distributsiooniuuendusi. Väärtus sekundites."
-
-msgid "How often to refresh the package cache"
-msgstr "Kui tihti värskendatakse pakipuhvrit"
-
-msgid "How often to refresh the package cache. Value is in seconds."
-msgstr "Kui tihti värskendatakse pakipuhvrit. Väärtus sekundites."
-
-msgid "Check for updates when running on battery power"
-msgstr "Uuendusi kontrollitakse ka akutoitel töötades"
-
-msgid "Check for updates when running on battery power."
-msgstr "Uuenduste kontrollimine ka akutoitel."
-
-msgid "Notify the user when distribution upgrades are available"
-msgstr "Kasutajale teatakse saadaolevatest distributsiooniuuendustest"
-
-msgid "Notify the user when distribution upgrades are available."
-msgstr "Kasutajale teatakse saadaolevatest distributsiooniuuendustest."
-
-msgid "Ask the user if additional firmware should be installed"
-msgstr "Küsi kasutajalt, kas paigaldada lisapüsivara"
-
-msgid ""
-"Ask the user if additional firmware should be installed if it is available."
-msgstr "Küsi kasutajalt, kas paigaldada lisapüsivara, kui see on saadaval."
-
-msgid "Firmware files that should not be searched for"
-msgstr "Püsivara failid, mida ei otsita"
-
-msgid ""
-"Firmware files that should not be searched for, separated by commas. These "
-"can include '*' and '?' characters."
-msgstr ""
-"Püsivara failid, mida ei otsita, komadega eraldatult. Võivad sisaldada '*' "
-"ja '?' märke."
-
-msgid "Devices that should be ignored"
-msgstr "Seadmed, mida eiratakse"
-
-msgid ""
-"Devices that should be ignored, separated by commas. These can include '*' "
-"and '?' characters."
-msgstr ""
-"Seadmed, mida eiratakse, komadega eraldatult. Võivad sisaldada '*' ja '?' "
-"märke."
-
-msgid "The filenames on removable media that designate it a software source."
-msgstr ""
-"Failinimed eemaldatavatel andmekandjatel, mis teevad sellest tarkvaraallika."
-
-msgid ""
-"When removable media is inserted, it is checked to see if it contains any "
-"important filenames in the root directory. If the filename matches, then an "
-"updates check is performed. This allows post-install disks to be used to "
-"update running systems."
-msgstr ""
-"Kui sisestatakse eemaldatav andmekandja, kontrollitakse, kas selle "
-"juurkataloogis leidub olulisi failinimesid. Kui mõni failinimi sobib, "
-"kontrollitakse uuendusi. See võimaldab pärast-paigaldust ketastega uuendada "
-"töötavaid süsteeme."
-
-msgid "File for default configuration for RandR"
-msgstr "RandR vaikesätete fail"
-
-msgid ""
-"The XRandR plugin will look for a default configuration in the file "
-"specified by this key. This is similar to the ~/.config/monitors.xml that "
-"normally gets stored in users' home directories. If a user does not have "
-"such a file, or has one that does not match the user's setup of monitors, "
-"then the file specified by this key will be used instead."
-msgstr ""
-"XRandR plugin otsib vaikesätteid failist, mis määratakse selle võtmega. See "
-"on samasugune fail, nagu ~/.config/monitors.xml kasutaja kodukataloogis. Kui "
-"kasutajal pole mainitud faili, või see fail ei sobi kasutaja monitoride "
-"arvuga, kasutatakse hoopis käesoleva võtmega määratud faili."
-
-msgid "Whether to turn off specific monitors after boot"
-msgstr "Kas pärast alglaadimist lülitada välja mõned monitorid"
-
-msgid ""
-"'clone' will display the same thing on all monitors, 'dock' will switch off "
-"the internal monitor, 'do-nothing' will use the default Xorg behaviour "
-"(extend the desktop in recent versions)"
-msgstr ""
-"'clone' kuvab sama pilti kõigil monitoridel, 'dock' lülitab välja sisemise "
-"monitori, 'do-nothing' tähendab Xorg-i vaikimisi käitumist (viimastes "
-"versioonides laiendab töölauda)"
-
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:6
 msgid "Antialiasing"
 msgstr "Sakisilumine"
 
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:7
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
-"\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
-"antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
+"“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
+"and “rgba” for subpixel antialiasing (LCD screens only)."
 msgstr ""
 "Kirjatüüpide renderdamisel kasutatav sakisilumise meetod. Võimalikud "
-"väärtused on: \"none\" sakisilumise keelamiseks, \"grayscale\" standardseks "
-"halltoonides sakisilumiseks ja \"rgba\" alampiksli sakisilumiseks (ainult "
-"LCD ekraanidel)."
+"väärtused on: „none“ sakisilumise keelamiseks, „grayscale“ standardseks "
+"halltoonides sakisilumiseks ja „rgba“ alampiksli sakisilumiseks (ainult LCD "
+"ekraanidel)."
 
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:11
 msgid "Hinting"
 msgstr "Varjundamine"
 
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:12
 msgid ""
-"The type of hinting to use when rendering fonts. Possible values are: \"none"
-"\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
-"\" for maximum hinting (may cause distortion of letter forms)."
+"The type of hinting to use when rendering fonts. Possible values are: “none” "
+"for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
+"ClearType, DirectWrite and Adobe’s proprietary font rendering engine. "
+"Ignores native hinting within the font, generates hints algorithmically. "
+"Used on Ubuntu by default. Recommended. The meaning of “medium” and “full” "
+"depends on the font format (.ttf, .otf, .pfa/.pfb) and the installed version "
+"of FreeType. They usually try to fit glyphs to both the X and the Y axis "
+"(except for .otf: Y-only). This can lead to distortion and/or inconsistent "
+"rendering depending on the quality of the font, the font format and the "
+"state of FreeType’s font engines."
 msgstr ""
-"Fontide renderdamisel kasutatav varjundamise tüüp. Võimaliku väärtused on "
-"\"none\" varjundamise keelamiseks, \"slight\" lihtsa, \"medium\" keskmise ja "
-"\"full\" maksimaalse varjundamise jaoks (võib põhjustada tähekujude "
-"moondumist)."
 
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:16
 msgid "RGBA order"
 msgstr "RGBA järjestus"
 
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:17
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
-"is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
-"common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red "
-"on bottom."
+"is set to “rgba”. Possible values are: “rgb” for red on left (most common), "
+"“bgr” for blue on left, “vrgb” for red on top, “vbgr” for red on bottom."
 msgstr ""
 "Alampikslite elementide järjestus LCD-ekraanil. Kasutatakse ainult juhul, "
-"kui sakisilumise väärtuseks on määratud \"rgba\". Võimalikud väärtused: \"rgb"
-"\" - punane on vasakul (enimkasutatav), \"bgr\" - sinine on vasakul, \"vrgb"
-"\" - punane on üleval, \"vbgr\" - punane on all."
+"kui sakisilumise väärtuseks on määratud „rgba“. Võimalikud väärtused: „rgb“ "
+"- punane on vasakul (enimkasutatav), „bgr“ - sinine on vasakul, „vrgb“ - "
+"punane on üleval, „vbgr“ - punane on all."
 
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:21
 msgid "List of explicitly disabled GTK+ modules"
 msgstr "Loend selgesõnaliselt keelatud GTK+ moodulitest"
 
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:22
 msgid ""
 "A list of strings representing the GTK+ modules that will not be loaded, "
 "even if enabled by default in their configuration."
@@ -832,9 +1007,11 @@ msgstr ""
 "Sõnede loend GTK+ moodulitest, mida ei laadita, isegi kui need on "
 "seadistuses vaikimisi lubatud."
 
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:26
 msgid "List of explicitly enabled GTK+ modules"
 msgstr "Loend selgesõnaliselt lubatud GTK+ moodulitest"
 
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:27
 msgid ""
 "A list of strings representing the GTK+ modules that will be loaded, usually "
 "in addition to conditional and forcibly disabled ones."
@@ -842,165 +1019,122 @@ msgstr ""
 "Sõnede loend GTK+ laaditavatest moodulitest. Tavaliselt lisaks "
 "tingimuslikult ning selgesõnaliselt keelatud moodulitele."
 
-msgid "Enable debugging code"
-msgstr "Silumiskoodi lubamine"
-
-msgid "Exit after a time (for debugging)"
-msgstr "Lõpetamine teatud aja möödudes (silumiseks)"
-
-msgid "Accessibility Keyboard"
-msgstr "Hõlbustustega klaviatuur"
-
-msgid "Accessibility keyboard plugin"
-msgstr "Hõlbustustega klaviatuuri plugin"
-
-#, c-format
-msgid "There was an error displaying help: %s"
-msgstr "Abiteabe kuvamisel tekkis viga: %s"
-
-msgid "Slow Keys Turned On"
-msgstr "Aeglased klahvide on sees"
-
-msgid "Slow Keys Turned Off"
-msgstr "Aeglased klahvid on väljas"
-
-msgid ""
-"You just held down the Shift key for 8 seconds.  This is the shortcut for "
-"the Slow Keys feature, which affects the way your keyboard works."
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:31
+msgid "A dictionary of XSETTINGS to override"
 msgstr ""
-"Sa hoidsid Shift klahvi all 8 sekundi vältel.  See on kiirklahv, mis lülitab "
-"sisse aeglaste klahvide funktsionaalsuse ja seetõttu muudab ka Sinu "
-"klaviatuuri käitumist."
 
-msgid "Universal Access"
-msgstr "Universaalne ligipääs"
-
-msgid "Turn Off"
-msgstr "Välja lülitamine"
-
-msgid "Turn On"
-msgstr "Sisse lülitamine"
-
-msgid "Leave On"
-msgstr "Sisse jätmine"
-
-msgid "Leave Off"
-msgstr "Välja jätmine"
-
-msgid "_Turn Off"
-msgstr "_Lülita välja"
-
-msgid "_Turn On"
-msgstr "_Lülita sisse"
-
-msgid "_Leave On"
-msgstr "_Jäta sisse"
-
-msgid "_Leave Off"
-msgstr "_Jäta välja"
-
-msgid "Sticky Keys Turned On"
-msgstr "Kleepuvate klahvid on sees"
-
-msgid "Sticky Keys Turned Off"
-msgstr "Kleepuvate klahvid on väljas"
-
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:32
 msgid ""
-"You just pressed the Shift key 5 times in a row.  This is the shortcut for "
-"the Sticky Keys feature, which affects the way your keyboard works."
+"This dictionary maps XSETTINGS names to overrides values. The values must be "
+"either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
+"(red, green, blue, alpha; 65535 is fully opaque)."
 msgstr ""
-"Sa vajutasid Shift klahvi 5 korda järjest.  See on kiirklahv, mis lülitab "
-"sisse kleepuvate klahvide funktsionaalsuse ja seetõttu muudab ka Sinu "
-"klaviatuuri käitumist."
 
-msgid ""
-"You just pressed two keys at once, or pressed the Shift key 5 times in a "
-"row.  This turns off the Sticky Keys feature, which affects the way your "
-"keyboard works."
-msgstr ""
-"Sa vajutasid korraga kahte klahvi või vajutasid Shift klahvi 5 korda "
-"järjest. See lülitab sisse kleepuvate klahvide funktsionaalsuse ja seetõttu "
-"muudab ka Sinu klaviatuuri käitumist."
-
-msgid "Accessibility settings"
-msgstr "Hõlbustuste sätted"
-
-msgid "Accessibility settings plugin"
-msgstr "Hõlbustuste sätete plugin"
-
-msgid "Background"
-msgstr "Taust"
-
-msgid "Background plugin"
-msgstr "Taustaplugin"
-
-msgid "Clipboard"
-msgstr "Lõikepuhver"
-
-msgid "Clipboard plugin"
-msgstr "Lõikepuhvri plugin"
-
+#: plugins/color/gsd-color-calibrate.c:139
 msgid "Color"
 msgstr "Värv"
 
-msgid "Color plugin"
-msgstr "Värvi plugin"
-
+#. TRANSLATORS: button: this is to open GCM
+#: plugins/color/gsd-color-calibrate.c:144
 msgid "Recalibrate now"
 msgstr "Kalibreeri kohe uuesti"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
+#: plugins/color/gsd-color-calibrate.c:187
 msgid "Recalibration required"
 msgstr "Vajalik on uuesti kalibreerimine"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
+#: plugins/color/gsd-color-calibrate.c:199
 #, c-format
-msgid "The display '%s' should be recalibrated soon."
-msgstr "Kuva '%s' tuleks varsti uuesti kalibreerida."
+msgid "The display “%s” should be recalibrated soon."
+msgstr "Kuva „%s“ tuleks varsti uuesti kalibreerida."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
+#: plugins/color/gsd-color-calibrate.c:208
 #, c-format
-msgid "The printer '%s' should be recalibrated soon."
-msgstr "Printerit '%s' tuleks varsti uuesti kalibreerida."
+msgid "The printer “%s” should be recalibrated soon."
+msgstr "Printerit „%s“ tuleks varsti uuesti kalibreerida."
 
 #. TRANSLATORS: this is the application name
+#: plugins/color/gsd-color-calibrate.c:346
+#: plugins/color/gsd-color-calibrate.c:362
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "GNOME sätetedeemoni värviplugin"
 
 #. TRANSLATORS: this is a sound description
+#: plugins/color/gsd-color-calibrate.c:348
 msgid "Color calibration device added"
 msgstr "Värvide kalibreerimise seade lisatud"
 
 #. TRANSLATORS: this is a sound description
+#: plugins/color/gsd-color-calibrate.c:364
 msgid "Color calibration device removed"
 msgstr "Värvide kalibreerimise seade eemaldatud"
 
-msgid "Dummy"
-msgstr "Liba"
+#. Translators: UTC here means the Coordinated Universal Time.
+#. * %:::z will be replaced by the offset from UTC e.g. UTC+02
+#: plugins/datetime/gsd-datetime-manager.c:88
+msgid "UTC%:::z"
+msgstr ""
 
-msgid "Dummy plugin"
-msgstr "Libaplugin"
-
+#: plugins/datetime/gsd-datetime-manager.c:92
 #, c-format
-msgid "Low Disk Space on \"%s\""
-msgstr "Kettal \"%s\" on vähe ruumi"
+msgid "Time Zone Updated to %s (%s)"
+msgstr ""
 
+#: plugins/datetime/gsd-datetime-manager.c:108
+#, fuzzy
+#| msgid "X Settings"
+msgid "Settings"
+msgstr "X'i sätted"
+
+#: plugins/datetime/gsd-datetime-manager.c:118
+#, fuzzy
+#| msgid "Manage X Settings"
+msgid "Date & Time Settings"
+msgstr "X'i seadistuste haldamine"
+
+#: plugins/housekeeping/gsd-disk-space.c:574
+msgid "Disk space"
+msgstr "Kettaruum"
+
+#: plugins/housekeeping/gsd-disk-space.c:586
+msgid "Examine"
+msgstr "Uuri olukorda"
+
+#: plugins/housekeeping/gsd-disk-space.c:597
+msgid "Empty Trash"
+msgstr "Tühjenda prügikast"
+
+#: plugins/housekeeping/gsd-disk-space.c:605
+msgid "Ignore"
+msgstr "Eira"
+
+#: plugins/housekeeping/gsd-disk-space.c:636
+#, c-format
+msgid "Low Disk Space on “%s”"
+msgstr "Kettal „%s“ on vähe ruumi"
+
+#: plugins/housekeeping/gsd-disk-space.c:638
 #, c-format
 msgid ""
-"The volume \"%s\" has only %s disk space remaining.  You may free up some "
+"The volume “%s” has only %s disk space remaining.  You may free up some "
 "space by emptying the trash."
 msgstr ""
-"Köitel \"%s\" on ainult %s vaba kettaruumi.  Prügikasti tühjendamisega on "
+"Köitel „%s“ on ainult %s vaba kettaruumi.  Prügikasti tühjendamisega on "
 "võimalik veidi vaba ruumi juurde tekitada."
 
+#: plugins/housekeeping/gsd-disk-space.c:642
 #, c-format
-msgid "The volume \"%s\" has only %s disk space remaining."
-msgstr "Köitel \"%s\" on ainult %s vaba kettaruumi."
+msgid "The volume “%s” has only %s disk space remaining."
+msgstr "Köitel „%s“ on ainult %s vaba kettaruumi."
 
-#. Set up all the window stuff here
+#: plugins/housekeeping/gsd-disk-space.c:647
 msgid "Low Disk Space"
 msgstr "Kettal on vähe ruumi"
 
+#: plugins/housekeeping/gsd-disk-space.c:649
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1009,126 +1143,210 @@ msgstr ""
 "Sellel arvutil on ainult %s vaba kettaruumi.  Prügikasti tühjendamisega on "
 "võimalik veidi vaba ruumi juurde tekitada."
 
+#: plugins/housekeeping/gsd-disk-space.c:652
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "Sellel arvutil on ainult %s vaba kettaruumi."
 
-msgid "Disk space"
-msgstr "Kettaruum"
-
-msgid "Examine"
-msgstr "Uuri olukorda"
-
-msgid "Empty Trash"
-msgstr "Tühjenda prügikast"
-
-msgid "Ignore"
-msgstr "Eira"
-
-msgid "Don't show any warnings again for this file system"
-msgstr "Selle failisüsteemi kohta ei pea enam mingeid hoiatusi näitama"
-
-msgid "Don't show any warnings again"
-msgstr "_Tulevikus ei kuvata enam ühtegi hoiatust"
-
-msgid ""
-"You can free up disk space by emptying the Trash, removing unused programs "
-"or files, or moving files to another disk or partition."
+#: plugins/media-keys/gsd-media-keys-manager.c:2176
+msgid "Bluetooth disabled"
 msgstr ""
-"Kettaruumi on võimalik vabastada prügikasti tühjendamisega, kasutusel "
-"mitteolevate failide või programmide eemaldamisega või failide "
-"ümbertõstmisega teisele kettale või partitsioonile."
 
-msgid ""
-"You can free up disk space by removing unused programs or files, or by "
-"moving files to another disk or partition."
+#: plugins/media-keys/gsd-media-keys-manager.c:2179
+msgid "Bluetooth enabled"
 msgstr ""
-"Kettaruumi on võimalik vabastada kasutusel mitteolevate failide või "
-"programmide eemaldamisega või failide ümbertõstmisega teisele kettale või "
-"partitsioonile."
 
-msgid ""
-"You can free up disk space by emptying the Trash, removing unused programs "
-"or files, or moving files to an external disk."
+#: plugins/media-keys/gsd-media-keys-manager.c:2183
+msgid "Airplane mode enabled"
 msgstr ""
-"Kettaruumi on võimalik vabastada prügikasti tühjendamisega, kasutusel "
-"mitteolevate failide või programmide eemaldamisega või failide "
-"ümbertõstmisega välisele kettale."
 
-msgid ""
-"You can free up disk space by removing unused programs or files, or by "
-"moving files to an external disk."
+#: plugins/media-keys/gsd-media-keys-manager.c:2186
+msgid "Airplane mode disabled"
 msgstr ""
-"Kettaruumi on võimalik vabastada kasutusel mitteolevate failide või "
-"programmide eemaldamisega või failide ümbertõstmisega välisele kettale."
 
-msgid "Examine…"
-msgstr "Uuri olukorda…"
+#: plugins/media-keys/gsd-media-keys-manager.c:2214
+msgid "Hardware Airplane Mode"
+msgstr ""
 
-#. TRANSLATORS: wireless keyboard with internal battery
-msgid "Keyboard"
-msgid_plural "Keyboards"
-msgstr[0] "Klaviatuur"
-msgstr[1] "Klaviatuurid"
+#. Translators: this is a filename used for screencast
+#. * recording, where "%d" and "%t" date and time, e.g.
+#. * "Screencast from 07-17-2013 10:00:46 PM.webm"
+#: plugins/media-keys/gsd-media-keys-manager.c:2274
+#, no-c-format
+msgid "Screencast from %d %t.webm"
+msgstr ""
 
-msgid "Keyboard plugin"
-msgstr "Klaviatuuriplugin"
+#: plugins/media-keys/gsd-screenshot-utils.c:82
+#, fuzzy
+#| msgid "Binding to take a screenshot."
+msgid "Unable to capture a screenshot"
+msgstr "Klahviseos ekraanipildi võtmiseks."
 
-#. translators:
-#. * The device has been disabled
-msgid "Disabled"
-msgstr "Keelatud"
+#: plugins/media-keys/gsd-screenshot-utils.c:113
+#: plugins/media-keys/gsd-screenshot-utils.c:155
+msgid "Screenshot taken"
+msgstr ""
 
-#. translators:
-#. * The number of sound outputs on a particular device
+#. translators: this is the name of the file that gets made up
+#. * with the screenshot
+#: plugins/media-keys/gsd-screenshot-utils.c:306
 #, c-format
-msgid "%u Output"
-msgid_plural "%u Outputs"
-msgstr[0] "%u väljund"
-msgstr[1] "%u väljundit"
+msgid "Screenshot from %s"
+msgstr ""
 
-#. translators:
-#. * The number of sound inputs on a particular device
-#, c-format
-msgid "%u Input"
-msgid_plural "%u Inputs"
-msgstr[0] "%u sisend"
-msgstr[1] "%u sisendit"
+#: plugins/media-keys/shortcuts-list.h:45
+msgid "Touchpad toggle"
+msgstr ""
 
-msgid "System Sounds"
-msgstr "Süsteemsed helid"
+#: plugins/media-keys/shortcuts-list.h:46
+msgid "Touchpad On"
+msgstr ""
 
-msgid "Media keys"
-msgstr "Meediaklahvid"
+#: plugins/media-keys/shortcuts-list.h:47
+#, fuzzy
+#| msgid "Turn Off"
+msgid "Touchpad Off"
+msgstr "Välja lülitamine"
 
-msgid "Media keys plugin"
-msgstr "Meediaklahvide plugin"
+#: plugins/media-keys/shortcuts-list.h:51
+#: plugins/media-keys/shortcuts-list.h:52
+msgid "Microphone Mute"
+msgstr ""
 
-msgid "Could not enable mouse accessibility features"
-msgstr "Hiirehõlbustuste võimalusi pole võimalik lubada"
+#: plugins/media-keys/shortcuts-list.h:53
+#, fuzzy
+#| msgid "Volume mute"
+msgid "Quiet Volume Mute"
+msgstr "Heli tummaks"
 
-msgid ""
-"Mouse accessibility requires Mousetweaks to be installed on your system."
-msgstr "Hiirehõlbustuste kasutamiseks peab Mousetweaks olema paigaldatud."
+#: plugins/media-keys/shortcuts-list.h:54
+#, fuzzy
+#| msgid "Volume down"
+msgid "Quiet Volume Down"
+msgstr "Heli vaiksemaks"
 
-#. TRANSLATORS: wireless mice with internal batteries
-msgid "Mouse"
-msgid_plural "Mice"
-msgstr[0] "Hiir"
-msgstr[1] "Hiired"
+#: plugins/media-keys/shortcuts-list.h:55
+#, fuzzy
+#| msgid "Volume up"
+msgid "Quiet Volume Up"
+msgstr "Heli valjemaks"
 
-msgid "Mouse plugin"
-msgstr "Hiireplugin"
+#: plugins/media-keys/shortcuts-list.h:56
+#, fuzzy
+#| msgid "Volume down"
+msgid "Precise Volume Down"
+msgstr "Heli vaiksemaks"
 
+#: plugins/media-keys/shortcuts-list.h:57
+#, fuzzy
+#| msgid "Volume up"
+msgid "Precise Volume Up"
+msgstr "Heli valjemaks"
+
+#: plugins/media-keys/shortcuts-list.h:67
+msgid "Lock Screen"
+msgstr "Ekraani lukustamine"
+
+#: plugins/media-keys/shortcuts-list.h:69
+msgid "Help"
+msgstr ""
+
+#: plugins/media-keys/shortcuts-list.h:83
+msgid "Rewind"
+msgstr ""
+
+#: plugins/media-keys/shortcuts-list.h:84
+msgid "Forward"
+msgstr ""
+
+#: plugins/media-keys/shortcuts-list.h:85
+msgid "Repeat"
+msgstr ""
+
+#: plugins/media-keys/shortcuts-list.h:86
+msgid "Random Play"
+msgstr ""
+
+#: plugins/media-keys/shortcuts-list.h:87
+msgid "Orientation Lock"
+msgstr ""
+
+#: plugins/media-keys/shortcuts-list.h:96
+#, fuzzy
+#| msgid "Power"
+msgid "Power Off"
+msgstr "Vool"
+
+#. the kernel / Xorg names really are like this...
+#. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
+#: plugins/media-keys/shortcuts-list.h:99
+msgid "Sleep"
+msgstr ""
+
+#: plugins/media-keys/shortcuts-list.h:100
+msgid "Suspend"
+msgstr "Uinak"
+
+#: plugins/media-keys/shortcuts-list.h:101
+msgid "Hibernate"
+msgstr "Talveuni"
+
+#: plugins/media-keys/shortcuts-list.h:102
+msgid "Brightness Up"
+msgstr ""
+
+#: plugins/media-keys/shortcuts-list.h:103
+msgid "Brightness Down"
+msgstr ""
+
+#: plugins/media-keys/shortcuts-list.h:104
+#, fuzzy
+#| msgid "Keyboard is empty"
+msgid "Keyboard Brightness Up"
+msgstr "Klaviatuur on tühi"
+
+#: plugins/media-keys/shortcuts-list.h:105
+#, fuzzy
+#| msgid "Keyboard battery low"
+msgid "Keyboard Brightness Down"
+msgstr "Klaviatuuri aku on otsakorral"
+
+#: plugins/media-keys/shortcuts-list.h:106
+#, fuzzy
+#| msgid "Keyboard is charged"
+msgid "Keyboard Brightness Toggle"
+msgstr "Klaviatuur on laetud"
+
+#: plugins/media-keys/shortcuts-list.h:107
+#, fuzzy
+#| msgid "Battery is low"
+msgid "Battery Status"
+msgstr "Aku on tühi"
+
+#: plugins/media-keys/shortcuts-list.h:108
+#: plugins/media-keys/shortcuts-list.h:109
+#: plugins/media-keys/shortcuts-list.h:110
+#, fuzzy
+#| msgid "Toggle screen reader"
+msgid "Toggle Airplane Mode"
+msgstr "Ekraanilugeja sisse/välja"
+
+#: plugins/media-keys/shortcuts-list.h:111
+msgid "Toggle Bluetooth"
+msgstr ""
+
+#: plugins/power/gpm-common.c:100
 msgid "Unknown time"
 msgstr "Aeg pole teada"
 
+#: plugins/power/gpm-common.c:105
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i minut"
 msgstr[1] "%i minutit"
 
+#: plugins/power/gpm-common.c:115
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1137,536 +1355,186 @@ msgstr[1] "%i tundi"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
+#: plugins/power/gpm-common.c:121
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
+#: plugins/power/gpm-common.c:122
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "tund"
 msgstr[1] "tundi"
 
+#: plugins/power/gpm-common.c:123
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minut"
 msgstr[1] "minutit"
 
-#. TRANSLATORS: The laptop battery is charged, and we know a time.
-#. * The parameter is the time, e.g. 7 hours 6 minutes
-#, c-format
-msgid "provides %s laptop runtime"
-msgstr "tagab süleri tööajaks %s"
-
-#. TRANSLATORS: the device is discharging, and we have a time remaining
-#. * The first parameter is the device type, e.g. "Laptop battery" and
-#. * the second is the time, e.g. 7 hours 6 minutes
-#, c-format
-msgid "%s %s remaining"
-msgstr "%s - %s jäänud"
-
-#. TRANSLATORS: device is charging, and we have a time to full and a percentage
-#. * The first parameter is the device type, e.g. "Laptop battery" and
-#. * the second is the time, e.g. "7 hours 6 minutes"
-#. TRANSLATORS: device is charging, and we have a time to full and a percentage.
-#. * The first parameter is the device type, e.g. "Laptop battery" and
-#. * the second is the time, e.g. "7 hours 6 minutes"
-#, c-format
-msgid "%s %s until charged"
-msgstr "%s - %s täislaadimiseni"
-
-#. TRANSLATORS: the device is charging, and we have a time to full and empty.
-#. * The parameter is a time string, e.g. "7 hours 6 minutes"
-#, c-format
-msgid "provides %s battery runtime"
-msgstr "annab aku tööajaks %s"
-
-#. TRANSLATORS: the type of data, e.g. Laptop battery
-msgid "Product:"
-msgstr "Toode:"
-
-#. TRANSLATORS: device is missing
-#. TRANSLATORS: device is charged
-#. TRANSLATORS: device is charging
-#. TRANSLATORS: device is discharging
-msgid "Status:"
-msgstr "Olek:"
-
-msgid "Missing"
-msgstr "Puudub"
-
-#. TRANSLATORS: battery state
-msgid "Charged"
-msgstr "Laetud"
-
-#. TRANSLATORS: battery state
-msgid "Charging"
-msgstr "Laeb"
-
-#. TRANSLATORS: battery state
-msgid "Discharging"
-msgstr "Tühjeneb"
-
-#. TRANSLATORS: percentage
-msgid "Percentage charge:"
-msgstr "Täituvus:"
-
-#. TRANSLATORS: manufacturer
-msgid "Vendor:"
-msgstr "Tootja:"
-
-#. TRANSLATORS: how the battery is made, e.g. Lithium Ion
-msgid "Technology:"
-msgstr "Tehnoloogia:"
-
-#. TRANSLATORS: serial number of the battery
-msgid "Serial number:"
-msgstr "Seerianumber:"
-
-#. TRANSLATORS: model number of the battery
-msgid "Model:"
-msgstr "Mudel:"
-
-#. TRANSLATORS: time to fully charged
-msgid "Charge time:"
-msgstr "Laadimise aeg:"
-
-#. TRANSLATORS: time to empty
-msgid "Discharge time:"
-msgstr "Tühjenemise aeg:"
-
-#. TRANSLATORS: Excellent, Good, Fair and Poor are all related to battery Capacity
-msgid "Excellent"
-msgstr "Suurepärane"
-
-msgid "Good"
-msgstr "Hea"
-
-msgid "Fair"
-msgstr "Rahuldav"
-
-msgid "Poor"
-msgstr "Kehv"
-
-msgid "Capacity:"
-msgstr "Mahtuvus:"
-
-msgid "Current charge:"
-msgstr "Praegune laetus:"
-
-msgid "Last full charge:"
-msgstr "Viimati täislaadimine:"
-
-msgid "Design charge:"
-msgstr "Tehaselaetus:"
-
-msgid "Charge rate:"
-msgstr "Laadimise kiirus:"
-
-#. TRANSLATORS: system power cord
-msgid "AC adapter"
-msgid_plural "AC adapters"
-msgstr[0] "Vooluadapter"
-msgstr[1] "Vooluadapterid"
-
-#. TRANSLATORS: laptop primary battery
-msgid "Laptop battery"
-msgid_plural "Laptop batteries"
-msgstr[0] "Sülearvuti aku"
-msgstr[1] "Sülearvuti akud"
-
-#. TRANSLATORS: battery-backed AC power source
-msgid "UPS"
-msgid_plural "UPSs"
-msgstr[0] "UPS"
-msgstr[1] "UPSid"
-
-#. TRANSLATORS: a monitor is a device to measure voltage and current
-msgid "Monitor"
-msgid_plural "Monitors"
-msgstr[0] "Monitor"
-msgstr[1] "Monitorid"
-
-#. TRANSLATORS: portable device
-msgid "PDA"
-msgid_plural "PDAs"
-msgstr[0] "PDA"
-msgstr[1] "PDAd"
-
-#. TRANSLATORS: cell phone (mobile...)
-msgid "Cell phone"
-msgid_plural "Cell phones"
-msgstr[0] "Mobiil"
-msgstr[1] "Mobiilid"
-
-#. TRANSLATORS: media player, mp3 etc
-msgid "Media player"
-msgid_plural "Media players"
-msgstr[0] "Meediaesitaja"
-msgstr[1] "Meediaesitajad"
-
-#. TRANSLATORS: tablet device
-msgid "Tablet"
-msgid_plural "Tablets"
-msgstr[0] "Tahvelarvuti"
-msgstr[1] "Tahvelarvutid"
-
-#. TRANSLATORS: tablet device
-msgid "Computer"
-msgid_plural "Computers"
-msgstr[0] "Arvuti"
-msgstr[1] "Arvutid"
-
-#. TRANSLATORS: battery technology
-msgid "Lithium Ion"
-msgstr "Liitium-ioon"
-
-#. TRANSLATORS: battery technology
-msgid "Lithium Polymer"
-msgstr "Liitiumpolümeer"
-
-#. TRANSLATORS: battery technology
-msgid "Lithium Iron Phosphate"
-msgstr "Liitium-raudfosfaat"
-
-#. TRANSLATORS: battery technology
-msgid "Lead acid"
-msgstr "Pliihape"
-
-#. TRANSLATORS: battery technology
-msgid "Nickel Cadmium"
-msgstr "Nikkel-kaadium"
-
-#. TRANSLATORS: battery technology
-msgid "Nickel metal hydride"
-msgstr "Nikkel-metallhüdriid"
-
-#. TRANSLATORS: battery technology
-msgid "Unknown technology"
-msgstr "Tundmatu tehnoloogia"
-
-#. TRANSLATORS: battery state
-msgid "Empty"
-msgstr "Tühi"
-
-#. TRANSLATORS: battery state
-msgid "Waiting to charge"
-msgstr "Ootab laadimist"
-
-#. TRANSLATORS: battery state
-msgid "Waiting to discharge"
-msgstr "Ootab tühjenemist"
-
-#. TRANSLATORS: device not present
-msgid "Laptop battery not present"
-msgstr "Sülearvuti aku pole küljes"
-
-#. TRANSLATORS: battery state
-msgid "Laptop battery is charging"
-msgstr "Sülearvuti aku laeb"
-
-#. TRANSLATORS: battery state
-msgid "Laptop battery is discharging"
-msgstr "Sülearvuti aku tühjeneb"
-
-#. TRANSLATORS: battery state
-msgid "Laptop battery is empty"
-msgstr "Sülearvuti aku on tühi"
-
-#. TRANSLATORS: battery state
-msgid "Laptop battery is charged"
-msgstr "Sülearvuti aku on täis"
-
-#. TRANSLATORS: battery state
-msgid "Laptop battery is waiting to charge"
-msgstr "Sülearvuti aku ootab laadimist"
-
-#. TRANSLATORS: battery state
-msgid "Laptop battery is waiting to discharge"
-msgstr "Sülearvuti aku ootab tühjenemist"
-
-#. TRANSLATORS: battery state
-msgid "UPS is charging"
-msgstr "UPS laeb"
-
-#. TRANSLATORS: battery state
-msgid "UPS is discharging"
-msgstr "UPS tühjeneb"
-
-#. TRANSLATORS: battery state
-msgid "UPS is empty"
-msgstr "UPS on tühi"
-
-#. TRANSLATORS: battery state
-msgid "UPS is charged"
-msgstr "UPS on täis laetud"
-
-#. TRANSLATORS: battery state
-msgid "Mouse is charging"
-msgstr "Hiir laeb"
-
-#. TRANSLATORS: battery state
-msgid "Mouse is discharging"
-msgstr "Hiir tühjeneb"
-
-#. TRANSLATORS: battery state
-msgid "Mouse is empty"
-msgstr "Hiir on tühi"
-
-#. TRANSLATORS: battery state
-msgid "Mouse is charged"
-msgstr "Hiir on täis laetud"
-
-#. TRANSLATORS: battery state
-msgid "Keyboard is charging"
-msgstr "Klaviatuur laeb"
-
-#. TRANSLATORS: battery state
-msgid "Keyboard is discharging"
-msgstr "Klaviatuur tühjeneb"
-
-#. TRANSLATORS: battery state
-msgid "Keyboard is empty"
-msgstr "Klaviatuur on tühi"
-
-#. TRANSLATORS: battery state
-msgid "Keyboard is charged"
-msgstr "Klaviatuur on laetud"
-
-#. TRANSLATORS: battery state
-msgid "PDA is charging"
-msgstr "PDA laeb"
-
-#. TRANSLATORS: battery state
-msgid "PDA is discharging"
-msgstr "PDA tühjeneb"
-
-#. TRANSLATORS: battery state
-msgid "PDA is empty"
-msgstr "PDA on tühi"
-
-#. TRANSLATORS: battery state
-msgid "PDA is charged"
-msgstr "PDA on laetud"
-
-#. TRANSLATORS: battery state
-msgid "Cell phone is charging"
-msgstr "Mobiil laeb"
-
-#. TRANSLATORS: battery state
-msgid "Cell phone is discharging"
-msgstr "Mobiil tühjeneb"
-
-#. TRANSLATORS: battery state
-msgid "Cell phone is empty"
-msgstr "Mobiil on tühi"
-
-#. TRANSLATORS: battery state
-msgid "Cell phone is charged"
-msgstr "Mobiil on täis laetud"
-
-#. TRANSLATORS: battery state
-msgid "Media player is charging"
-msgstr "Meediaesitaja laeb"
-
-#. TRANSLATORS: battery state
-msgid "Media player is discharging"
-msgstr "Meediaesitaja tühjeneb"
-
-#. TRANSLATORS: battery state
-msgid "Media player is empty"
-msgstr "Meediaesitaja on tühi"
-
-#. TRANSLATORS: battery state
-msgid "Media player is charged"
-msgstr "Meediaesitaja on täis laetud"
-
-#. TRANSLATORS: battery state
-msgid "Tablet is charging"
-msgstr "Tahvelarvuti laeb"
-
-#. TRANSLATORS: battery state
-msgid "Tablet is discharging"
-msgstr "Tahvelarvuti tühjeneb"
-
-#. TRANSLATORS: battery state
-msgid "Tablet is empty"
-msgstr "Tahvelarvuti on tühi"
-
-#. TRANSLATORS: battery state
-msgid "Tablet is charged"
-msgstr "Tahvelarvuti on täis laetud"
-
-#. TRANSLATORS: battery state
-msgid "Computer is charging"
-msgstr "Arvuti laeb"
-
-#. TRANSLATORS: battery state
-msgid "Computer is discharging"
-msgstr "Arvuti tühjeneb"
-
-#. TRANSLATORS: battery state
-msgid "Computer is empty"
-msgstr "Arvuti on tühi"
-
-#. TRANSLATORS: battery state
-msgid "Computer is charged"
-msgstr "Arvuti on täis laetud"
-
-#. TRANSLATORS: the battery may be recalled by its vendor
-msgid "Battery may be recalled"
-msgstr "Aku võib olla tagasi kutsutud"
-
-#, c-format
-msgid ""
-"A battery in your computer may have been recalled by %s and you may be at "
-"risk."
-msgstr ""
-"%s võib olla tagasi kutsunud sinu arvutis oleva aku. See võib suurendada "
-"riski."
-
-msgid "For more information visit the battery recall website."
-msgstr "Rohkem infot leiad aku tagasikutsumise veebilehelt."
-
-#. TRANSLATORS: button text, visit the manufacturers recall website
-msgid "Visit recall website"
-msgstr "Külasta tagasikutsumise veebilehte"
-
-#. TRANSLATORS: button text, do not show this bubble again
-msgid "Do not show me this again"
-msgstr "Seda teadet enam ei näidata"
+#. TRANSLATORS: this is the sound description
+#: plugins/power/gpm-common.c:948 plugins/power/gsd-power-manager.c:686
+#: plugins/power/gsd-power-manager.c:783
+msgid "Battery is critically low"
+msgstr "Aku on kriitiliselt tühi"
+
+#. TRANSLATORS: this is the notification application name
+#: plugins/power/gsd-power-manager.c:324
+msgid "Power"
+msgstr "Vool"
 
 #. TRANSLATORS: UPS is now discharging
+#: plugins/power/gsd-power-manager.c:356
 msgid "UPS Discharging"
 msgstr "UPS tühjeneb"
 
 #. TRANSLATORS: tell the user how much time they have got
+#: plugins/power/gsd-power-manager.c:361
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "UPSis on jäänud veel %s"
 
-#. TRANSLATORS: this is the notification application name
-msgid "Power"
-msgstr "Vool"
+#: plugins/power/gsd-power-manager.c:364
+#, fuzzy
+#| msgid "%s of UPS backup power remaining"
+msgid "Unknown amount of UPS backup power remaining"
+msgstr "UPSis on jäänud veel %s"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
+#: plugins/power/gsd-power-manager.c:439
 msgid "Battery low"
 msgstr "Aku on tühi"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
+#: plugins/power/gsd-power-manager.c:442
 msgid "Laptop battery low"
 msgstr "Süleri aku on tühi"
 
 #. TRANSLATORS: tell the user how much time they have got
+#: plugins/power/gsd-power-manager.c:449
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "Umbes %s jäänud (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
+#: plugins/power/gsd-power-manager.c:454
 msgid "UPS low"
 msgstr "UPS on tühi"
 
 #. TRANSLATORS: tell the user how much time they have got
+#: plugins/power/gsd-power-manager.c:460
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "Umbes %s jätkub veel UPSil voolu (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
+#: plugins/power/gsd-power-manager.c:465 plugins/power/gsd-power-manager.c:599
 msgid "Mouse battery low"
 msgstr "Hiire aku on tühi"
 
 #. TRANSLATORS: tell user more details
+#: plugins/power/gsd-power-manager.c:468
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "Juhtmeta hiire aku on otsakorral (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
+#: plugins/power/gsd-power-manager.c:472 plugins/power/gsd-power-manager.c:607
 msgid "Keyboard battery low"
 msgstr "Klaviatuuri aku on otsakorral"
 
 #. TRANSLATORS: tell user more details
+#: plugins/power/gsd-power-manager.c:475
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "Juhtmeta klaviatuuri aku on otsakorral (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
+#: plugins/power/gsd-power-manager.c:479 plugins/power/gsd-power-manager.c:616
 msgid "PDA battery low"
 msgstr "PDA aku on tühi"
 
 #. TRANSLATORS: tell user more details
+#: plugins/power/gsd-power-manager.c:482
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "PDA aku on otsakorral (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
+#: plugins/power/gsd-power-manager.c:486 plugins/power/gsd-power-manager.c:626
+#: plugins/power/gsd-power-manager.c:635
 msgid "Cell phone battery low"
 msgstr "Mobiili aku on otsakorral"
 
 #. TRANSLATORS: tell user more details
+#: plugins/power/gsd-power-manager.c:489
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "Mobiili aku on otsakorral (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
+#: plugins/power/gsd-power-manager.c:493
 msgid "Media player battery low"
 msgstr "Meediaesitaja aku on otsakorral"
 
 #. TRANSLATORS: tell user more details
+#: plugins/power/gsd-power-manager.c:496
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "Meediaesitaja aku on otsakorral (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
+#: plugins/power/gsd-power-manager.c:500 plugins/power/gsd-power-manager.c:644
 msgid "Tablet battery low"
 msgstr "Tahvelarvuti aku on otsakorral"
 
 #. TRANSLATORS: tell user more details
+#: plugins/power/gsd-power-manager.c:503
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "Tahvelarvuti aku on otsakorral (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
+#: plugins/power/gsd-power-manager.c:507 plugins/power/gsd-power-manager.c:653
 msgid "Attached computer battery low"
 msgstr "Ühendatud arvuti aku on otsakorral"
 
 #. TRANSLATORS: tell user more details
+#: plugins/power/gsd-power-manager.c:510
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "Ühendatud arvuti aku on otsakorral (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
+#: plugins/power/gsd-power-manager.c:531
 msgid "Battery is low"
 msgstr "Aku on tühi"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
+#: plugins/power/gsd-power-manager.c:563
 msgid "Battery critically low"
 msgstr "Aku on kriitiliselt tühi"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
+#: plugins/power/gsd-power-manager.c:566 plugins/power/gsd-power-manager.c:713
 msgid "Laptop battery critically low"
 msgstr "Süleri aku on kriitiliselt tühi"
 
-#. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
-msgid "Plug in your AC adapter to avoid losing data."
-msgstr "Ühenda toitejuhe, et vältida andmete kaotamist."
-
 #. TRANSLATORS: give the user a ultimatum
-#, c-format
-msgid "Computer will suspend very soon unless it is plugged in."
-msgstr "Arvuti alustab üsna varsti uinakut, kui seda vooluvõrku ei ühendata."
-
-#. TRANSLATORS: give the user a ultimatum
+#: plugins/power/gsd-power-manager.c:575
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr "Arvuti läheb üsna varsti talveunne, kui seda vooluvõrku ei ühendata."
 
 #. TRANSLATORS: give the user a ultimatum
+#: plugins/power/gsd-power-manager.c:579
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr ""
@@ -1674,10 +1542,12 @@ msgstr ""
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
+#: plugins/power/gsd-power-manager.c:587 plugins/power/gsd-power-manager.c:738
 msgid "UPS critically low"
 msgstr "UPS on kriitiliselt tühi"
 
 #. TRANSLATORS: give the user a ultimatum
+#: plugins/power/gsd-power-manager.c:593
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1687,6 +1557,7 @@ msgstr ""
 "vältida andmete kaotamist."
 
 #. TRANSLATORS: the device is just going to stop working
+#: plugins/power/gsd-power-manager.c:602
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1696,6 +1567,7 @@ msgstr ""
 "seda ei laadita."
 
 #. TRANSLATORS: the device is just going to stop working
+#: plugins/power/gsd-power-manager.c:610
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1705,6 +1577,7 @@ msgstr ""
 "kui seda ei laadita."
 
 #. TRANSLATORS: the device is just going to stop working
+#: plugins/power/gsd-power-manager.c:619
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1714,6 +1587,7 @@ msgstr ""
 "laadita."
 
 #. TRANSLATORS: the device is just going to stop working
+#: plugins/power/gsd-power-manager.c:629
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -1723,6 +1597,7 @@ msgstr ""
 "laadita."
 
 #. TRANSLATORS: the device is just going to stop working
+#: plugins/power/gsd-power-manager.c:638
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -1732,6 +1607,7 @@ msgstr ""
 "seda ei laadita."
 
 #. TRANSLATORS: the device is just going to stop working
+#: plugins/power/gsd-power-manager.c:647
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -1741,6 +1617,7 @@ msgstr ""
 "ei laadita."
 
 #. TRANSLATORS: the device is just going to stop working
+#: plugins/power/gsd-power-manager.c:656
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -1749,594 +1626,1406 @@ msgstr ""
 "Ühendatud arvuti aku on kohe tühi (%.0f%%). See seade lakkab töötamast, kui "
 "seda ei laadita."
 
-#. TRANSLATORS: this is the sound description
-msgid "Battery is critically low"
-msgstr "Aku on kriitiliselt tühi"
-
-#. TRANSLATORS: computer will shutdown without saving data
-msgid ""
-"The battery is below the critical level and this computer will <b>power-off</"
-"b> when the battery becomes completely empty."
-msgstr ""
-"Aku täituvus on allpool kriitilist taset ja arvuti <b>lülitub välja</b>, kui "
-"aku saab täiesti tühjaks."
-
-#. TRANSLATORS: computer will suspend
-msgid ""
-"The battery is below the critical level and this computer is about to "
-"suspend.\n"
-"<b>NOTE:</b> A small amount of power is required to keep your computer in a "
-"suspended state."
-msgstr ""
-"Aku täituvus on allpool kriitilist taset ja arvuti alustab varsti uinakut.\n"
-"<b>Märkus:</b> uinakurežiimis vajab arvuti natukene voolu."
-
 #. TRANSLATORS: computer will hibernate
+#: plugins/power/gsd-power-manager.c:721
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
 msgstr "Aku täituvus on allpool kriitilist taset ja arvuti läheb talveunne."
 
 #. TRANSLATORS: computer will just shutdown
+#: plugins/power/gsd-power-manager.c:726
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
 msgstr ""
 "Aku täituvus on allpool kriitilist taset ja arvuti lülitab ennast välja."
 
-#. TRANSLATORS: computer will shutdown without saving data
-msgid ""
-"UPS is below the critical level and this computer will <b>power-off</b> when "
-"the UPS becomes completely empty."
-msgstr ""
-"UPSi täituvus on allpool kriitilist taset ja arvuti <b>lülitub välja</b>, "
-"kui UPS saab täiesti tühjaks."
-
 #. TRANSLATORS: computer will hibernate
+#: plugins/power/gsd-power-manager.c:746
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr "UPSi täituvus on allpool kriitilist taset ja arvuti läheb talveunne."
 
 #. TRANSLATORS: computer will just shutdown
+#: plugins/power/gsd-power-manager.c:751
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "UPSi täituvus on allpool kriitilist taset ja arvuti lülitab ennast välja."
 
 #. TRANSLATORS: this is the sound description
+#: plugins/power/gsd-power-manager.c:1264
 msgid "Lid has been opened"
 msgstr "Ekraan avati"
 
 #. TRANSLATORS: this is the sound description
+#: plugins/power/gsd-power-manager.c:1302
 msgid "Lid has been closed"
 msgstr "Ekraan suleti"
+
+#. TRANSLATORS: this is the sound description
+#: plugins/power/gsd-power-manager.c:1896
+#, fuzzy
+#| msgid "PDA battery low"
+msgid "On battery power"
+msgstr "PDA aku on tühi"
+
+#. TRANSLATORS: this is the sound description
+#: plugins/power/gsd-power-manager.c:1901
+msgid "On AC power"
+msgstr ""
+
+#: plugins/power/gsd-power-manager.c:2093
+msgid "Automatic logout"
+msgstr "Automaatne väljalogimine"
+
+#: plugins/power/gsd-power-manager.c:2093
+msgid "You will soon log out because of inactivity."
+msgstr ""
+
+#: plugins/power/gsd-power-manager.c:2098
+msgid "Automatic suspend"
+msgstr "Automaatne uinumine"
+
+#: plugins/power/gsd-power-manager.c:2098
+#: plugins/power/gsd-power-manager.c:2103
+#, fuzzy
+#| msgid "Computer will suspend very soon unless it is plugged in."
+msgid "Computer will suspend very soon because of inactivity."
+msgstr "Arvuti alustab üsna varsti uinakut, kui seda vooluvõrku ei ühendata."
+
+#: plugins/power/gsd-power-manager.c:2103
+msgid "Automatic hibernation"
+msgstr "Automaatne talveuni"
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
 #. to change the backlight brightness.
-#.
+#: plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in:21
 msgid "Modify the laptop brightness"
 msgstr "Sülearvuti ekraani heleduse muutmine"
 
+#: plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in:22
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "Sülearvuti ekraani heleduse muutmiseks on vajalik autentimine"
 
-msgid "Power plugin"
-msgstr "Vooluplugin"
-
 #. Translators: We are configuring new printer
+#: plugins/print-notifications/gsd-printer.c:890
 msgid "Configuring new printer"
 msgstr "Uue printeri seadistamine"
 
 #. Translators: Just wait
-msgid "Please wait..."
-msgstr "Palun oota..."
+#: plugins/print-notifications/gsd-printer.c:892
+msgid "Please wait…"
+msgstr "Palun oota…"
 
 #. Translators: We have no driver installed for this printer
+#: plugins/print-notifications/gsd-printer.c:919
 msgid "Missing printer driver"
 msgstr "Puudub printeri draiver"
 
 #. Translators: We have no driver installed for the device
+#: plugins/print-notifications/gsd-printer.c:928
 #, c-format
 msgid "No printer driver for %s."
 msgstr "%s jaoks pole printeri draiverit."
 
 #. Translators: We have no driver installed for this printer
+#: plugins/print-notifications/gsd-printer.c:933
 msgid "No driver for this printer."
 msgstr "Selle printeri jaoks puudub draiver."
 
+#: plugins/print-notifications/gsd-printer.c:1031
+#: plugins/print-notifications/gsd-print-notifications-manager.c:270
+#: plugins/print-notifications/gsd-print-notifications-manager.c:748
+#: plugins/print-notifications/gsd-print-notifications-manager.c:838
+#: plugins/print-notifications/gsd-print-notifications-manager.c:881
 msgid "Printers"
 msgstr "Printerid"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:346
+#, c-format
+msgid "Printer “%s” is low on toner."
+msgstr "Printeril „%s“ on tooner otsakorral."
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:350
+#, c-format
+msgid "Printer “%s” has no toner left."
+msgstr "Printeril „%s“ on tooner otsas."
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:354
+#, c-format
+msgid "Printer “%s” may not be connected."
+msgstr "Võib-olla pole printer „%s“ ühendatud."
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:358
+#, c-format
+msgid "The cover is open on printer “%s”."
+msgstr "Printeri „%s“ kaas on lahti."
+
+#. Translators: A filter or backend is not installed (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:362
+#, c-format
+msgid "There is a missing print filter for printer “%s”."
+msgstr "Printeril „%s“ puudub printimisfilter."
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:367
+#, c-format
+msgid "The door is open on printer “%s”."
+msgstr "Printeri „%s“ uks on lahti."
+
+#. Translators: "marker" is one color bin of the printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:371
+#, c-format
+msgid "Printer “%s” is low on a marker supply."
+msgstr "Printeril „%s“ on üks värv otsakorral."
+
+#. Translators: "marker" is one color bin of the printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:375
+#, c-format
+msgid "Printer “%s” is out of a marker supply."
+msgstr "Printeril „%s“ on üks värv otsas."
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:379
+#, c-format
+msgid "Printer “%s” is low on paper."
+msgstr "Printeril „%s“ on paber otsakorral."
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:383
+#, c-format
+msgid "Printer “%s” is out of paper."
+msgstr "Printeril „%s“ on paber otsas."
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:387
+#, c-format
+msgid "Printer “%s” is currently off-line."
+msgstr "Printer „%s“ pole praegu võrgus."
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:391
+#, c-format
+msgid "There is a problem on printer “%s”."
+msgstr "Printeriga „%s“ on probleem."
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:439
 msgid "Toner low"
 msgstr "Tooner on otsakorral"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:441
 msgid "Toner empty"
 msgstr "Tooner on otsas"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:443
 msgid "Not connected?"
 msgstr "Pole ühendatud?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:445
 msgid "Cover open"
 msgstr "Kaas on lahti"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:447
 msgid "Printer configuration error"
 msgstr "Printeri seadistuse viga"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:449
 msgid "Door open"
 msgstr "Uks on lahti"
 
 #. Translators: "marker" is one color bin of the printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:451
 msgid "Marker supply low"
 msgstr "Värv on otsakorral"
 
 #. Translators: "marker" is one color bin of the printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:453
 msgid "Out of a marker supply"
 msgstr "Värv on otsas"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:455
 msgid "Paper low"
 msgstr "Paber on otsakorral"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:457
 msgid "Out of paper"
 msgstr "Paber on otsas"
 
 #. Translators: The printer is offline (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:459
 msgid "Printer off-line"
 msgstr "Printer pole võrgus"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:461
+#: plugins/print-notifications/gsd-print-notifications-manager.c:824
 msgid "Printer error"
 msgstr "Printeri viga"
 
-#. Translators: The printer is low on toner (same as in system-config-printer)
-#, c-format
-msgid "Printer '%s' is low on toner."
-msgstr "Printeril '%s' on tooner otsakorral."
-
-#. Translators: The printer has no toner left (same as in system-config-printer)
-#, c-format
-msgid "Printer '%s' has no toner left."
-msgstr "Printeril '%s' on tooner otsas."
-
-#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#, c-format
-msgid "Printer '%s' may not be connected."
-msgstr "Võib-olla pole printer '%s' ühendatud."
-
-#. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#, c-format
-msgid "The cover is open on printer '%s'."
-msgstr "Printeri '%s' kaas on lahti."
-
-#. Translators: A filter or backend is not installed (same as in system-config-printer)
-#, c-format
-msgid "There is a missing print filter for printer '%s'."
-msgstr "Printeril '%s' puudub printimisfilter."
-
-#. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#, c-format
-msgid "The door is open on printer '%s'."
-msgstr "Printeri '%s' uks on lahti."
-
-#. Translators: "marker" is one color bin of the printer
-#, c-format
-msgid "Printer '%s' is low on a marker supply."
-msgstr "Printeril '%s' on üks värv otsakorral."
-
-#. Translators: "marker" is one color bin of the printer
-#, c-format
-msgid "Printer '%s' is out of a marker supply."
-msgstr "Printeril '%s' on üks värv otsas."
-
-#. Translators: At least one input tray is low on media (same as in system-config-printer)
-#, c-format
-msgid "Printer '%s' is low on paper."
-msgstr "Printeril '%s' on paber otsakorral."
-
-#. Translators: At least one input tray is empty (same as in system-config-printer)
-#, c-format
-msgid "Printer '%s' is out of paper."
-msgstr "Printeril '%s' on paber otsas."
-
-#. Translators: The printer is offline (same as in system-config-printer)
-#, c-format
-msgid "Printer '%s' is currently off-line."
-msgstr "Printer '%s' pole praegu võrgus."
-
-#. Translators: The printer has detected an error (same as in system-config-printer)
-#, c-format
-msgid "There is a problem on printer '%s'."
-msgstr "Printeriga '%s' on probleem."
-
+#. Translators: New printer has been added
+#: plugins/print-notifications/gsd-print-notifications-manager.c:509
 msgid "Printer added"
 msgstr "Printer lisati"
 
-msgid "Printer removed"
-msgstr "Printer eemaldati"
-
 #. Translators: A print job has been stopped
+#: plugins/print-notifications/gsd-print-notifications-manager.c:526
+#: plugins/print-notifications/gsd-print-notifications-manager.c:564
 msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "Printer on peatatud"
 
 #. Translators: "print-job xy" on a printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:528
+#: plugins/print-notifications/gsd-print-notifications-manager.c:534
+#: plugins/print-notifications/gsd-print-notifications-manager.c:540
+#: plugins/print-notifications/gsd-print-notifications-manager.c:546
+#: plugins/print-notifications/gsd-print-notifications-manager.c:558
+#: plugins/print-notifications/gsd-print-notifications-manager.c:566
+#: plugins/print-notifications/gsd-print-notifications-manager.c:574
+#: plugins/print-notifications/gsd-print-notifications-manager.c:582
+#: plugins/print-notifications/gsd-print-notifications-manager.c:590
+#: plugins/print-notifications/gsd-print-notifications-manager.c:603
 #, c-format
 msgctxt "print job"
-msgid "\"%s\" on %s"
-msgstr "\"%s\" printeris %s"
+msgid "“%s” on %s"
+msgstr "„%s“ printeris %s"
 
 #. Translators: A print job has been canceled
+#: plugins/print-notifications/gsd-print-notifications-manager.c:532
+#: plugins/print-notifications/gsd-print-notifications-manager.c:572
 msgctxt "print job state"
 msgid "Printing canceled"
 msgstr "Printimisest loobuti"
 
 #. Translators: A print job has been aborted
+#: plugins/print-notifications/gsd-print-notifications-manager.c:538
+#: plugins/print-notifications/gsd-print-notifications-manager.c:580
 msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "Printimine katkestati"
 
 #. Translators: A print job has been completed
+#: plugins/print-notifications/gsd-print-notifications-manager.c:544
+#: plugins/print-notifications/gsd-print-notifications-manager.c:588
 msgctxt "print job state"
 msgid "Printing completed"
 msgstr "Printimine lõpetatud"
 
 #. Translators: A job is printing
+#: plugins/print-notifications/gsd-print-notifications-manager.c:556
+#: plugins/print-notifications/gsd-print-notifications-manager.c:601
 msgctxt "print job state"
 msgid "Printing"
 msgstr "Printimine"
 
 #. Translators: This is a title of a report notification for a printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:818
 msgid "Printer report"
 msgstr "Printeri raport"
 
 #. Translators: This is a title of a warning notification for a printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:821
 msgid "Printer warning"
 msgstr "Printeri hoiatus"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
+#: plugins/print-notifications/gsd-print-notifications-manager.c:831
 #, c-format
-msgid "Printer '%s': '%s'."
-msgstr "Printer '%s': '%s'."
+msgid "Printer “%s”: “%s”."
+msgstr "Printer „%s“: „%s“."
 
-msgid "Print-notifications"
-msgstr "Printimise teated"
-
-msgid "Print-notifications plugin"
-msgstr "Printimise teadete plugin"
-
-msgid "received error or hang up from event source"
-msgstr "sündmuste allikast saadi viga või katkestus "
-
-#, c-format
-msgid "NSS security system could not be initialized"
-msgstr "NSS turvasüsteemi pole võimalik lähtestada"
-
-#, c-format
-msgid "no suitable smartcard driver could be found"
-msgstr "sobivat smartcardi draiverit ei leitud"
-
-#, c-format
-msgid "smartcard driver '%s' could not be loaded"
-msgstr "smartcardi draiverit '%s' pole võimalik laadida"
-
-#, c-format
-msgid "could not watch for incoming card events - %s"
-msgstr "sissetulevaid kaardisündmuseid ei suudetud jälgida - %s"
-
-#, c-format
-msgid "encountered unexpected error while waiting for smartcard events"
-msgstr "esines ootamatu viga, kui oodati smartcardi sündmuseid"
-
-#. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
-msgid ""
-"You will need to restart this computer before the hardware will work "
-"correctly."
-msgstr "Seadme toimimiseks tuleb see arvuti taaskäivitada."
-
-#. TRANSLATORS: title of libnotify bubble
-msgid "Additional software was installed"
-msgstr "Paigaldati lisatarkvara"
-
-msgid "Software Updates"
-msgstr "Tarkvarauuendused"
-
-#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
-msgid ""
-"You will need to remove and then reinsert the hardware before it will work "
-"correctly."
-msgstr "Et seade tööle hakkaks, pead selle eemaldama ja uuesti ühendama."
-
-#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
-msgid "Your hardware has been set up and is now ready to use."
-msgstr "Sinu seade on häälestatud ning kasutamiseks valmis."
-
-#. TRANSLATORS: we need another package to keep udev quiet
-msgid ""
-"Additional firmware is required to make hardware in this computer function "
-"correctly."
+#: plugins/smartcard/gsd-smartcard-service.c:224
+msgid "User was not logged in with smartcard."
 msgstr ""
-"Selle arvuti riistvara õigeks toimimiseks läheb tarvis täiendavat püsivara."
-
-#. TRANSLATORS: title of libnotify bubble
-msgid "Additional firmware required"
-msgstr "Vajadus täiendava püsivara järele"
-
-#. TRANSLATORS: button label
-msgid "Install firmware"
-msgstr "Paigalda püsivara"
-
-#. TRANSLATORS: we should ignore this device and not ask anymore
-msgid "Ignore devices"
-msgstr "Eira seadmeid"
-
-#. TRANSLATORS: this is when the offline update failed
-msgid "Failed To Update"
-msgstr "Uuendamine nurjus"
-
-#. TRANSLATORS: the transaction could not be completed
-#. * as a previous transaction was unfinished
-msgid "A previous update was unfinished."
-msgstr "Eelmine uuendus jäi lõpetamata."
-
-#. TRANSLATORS: the package manager needed to download
-#. * something with no network available
-msgid "Network access was required but not available."
-msgstr "Vajalik oli võrguühendus, aga see polnud saadaval."
-
-#. TRANSLATORS: if the package is not signed correctly
-#. *
-msgid "An update was not signed in the correct way."
-msgstr "Uuendus polnud korrektselt allkirjastatud."
-
-#. TRANSLATORS: the transaction failed in a way the user
-#. * probably cannot comprehend. Package management systems
-#. * really are teh suck.
-msgid "The update could not be completed."
-msgstr "Uuendamist polnud võimalik lõpule viia."
-
-#. TRANSLATORS: the user aborted the update manually
-msgid "The update was cancelled."
-msgstr "Uuendamine katkestati."
-
-#. TRANSLATORS: the user must have updated manually after
-#. * the updates were prepared
-msgid "An offline update was requested but no packages required updating."
-msgstr "Nõuti võrguühenduseta uuendust, kuid ükski pakk ei vajanud uuendamist."
-
-#. TRANSLATORS: we ran out of disk space
-msgid "No space was left on the drive."
-msgstr "Kettal pole enam vaba ruumi."
-
-#. TRANSLATORS: the update process failed in a general
-#. * way, usually this message will come from source distros
-#. * like gentoo
-msgid "An update failed to install correctly."
-msgstr "Uuenduse paigaldamine nurjus."
-
-#. TRANSLATORS: We didn't handle the error type
-msgid "The offline update failed in an unexpected way."
-msgstr "Võrguühenduseta uuendus nurjus ootamatul viisil."
-
-#. TRANSLATORS: these are geeky messages from the
-#. * package manager no mortal is supposed to understand,
-#. * but google might know what they mean
-msgid "Detailed errors from the package manager follow:"
-msgstr "Üksikasjaline veateade pakihaldurilt:"
-
-#. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
-msgid "Distribution upgrades available"
-msgstr "Saadaval on distributsiooniuuendused"
-
-#. TRANSLATORS: provides more information about the upgrade
-msgid "More information"
-msgstr "Lähem teave"
-
-#. TRANSLATORS: title in the libnotify popup
-msgid "Update"
-msgid_plural "Updates"
-msgstr[0] "Uuendus"
-msgstr[1] "Uuendused"
-
-#. TRANSLATORS: message when there are security updates
-msgid "An important software update is available"
-msgid_plural "Important software updates are available"
-msgstr[0] "Saadaval on oluline tarkvarauuendus"
-msgstr[1] "Saadaval on olulised tarkvarauuendused"
-
-#. TRANSLATORS: button: open the update viewer to install updates
-msgid "Install updates"
-msgstr "Paigalda uuendused"
-
-#. TRANSLATORS: message when there are non-security updates
-msgid "A software update is available."
-msgid_plural "Software updates are available."
-msgstr[0] "Saadaval on tarkvarauuendus."
-msgstr[1] "Saadaval on tarkvarauuendused."
-
-#. TRANSLATORS: the updates mechanism
-msgid "Updates"
-msgstr "Uuendused"
-
-#. TRANSLATORS: we failed to get the updates multiple times,
-#. * and now we need to inform the user that something might be wrong
-msgid "Unable to access software updates"
-msgstr "Tarkvarauuendustele puudub ligipääs"
-
-#. TRANSLATORS: try again, this time launching the update viewer
-msgid "Try again"
-msgstr "Proovi uuesti"
-
-#. TRANSLATORS: the reason why we've inhibited it
-msgid "A transaction that cannot be interrupted is running"
-msgstr "Transaktsioon, mida pole võimalik katkestada"
-
-#. TRANSLATORS: title in the libnotify popup
-msgid "Software Update Installed"
-msgid_plural "Software Updates Installed"
-msgstr[0] "Tarkvarauuendus paigaldatud"
-msgstr[1] "Tarkvarauuendused paigaldatud"
-
-#. TRANSLATORS: message when we've done offline updates
-msgid "An important OS update has been installed."
-msgid_plural "Important OS updates have been installed."
-msgstr[0] "Oluline tarkvarauuendus paigaldatud."
-msgstr[1] "Olulised tarkvarauuendused paigaldatud."
-
-#. TRANSLATORS: title in the libnotify popup
-msgid "Software Updates Failed"
-msgstr "Tarkvara uuendamine nurjus"
-
-#. TRANSLATORS: message when we've not done offline updates
-msgid "An important OS update failed to be installed."
-msgstr "Oluline tarkvarauuendus nurjus."
-
-#. TRANSLATORS: button: review the offline update changes
-msgid "Review"
-msgstr "Ülevaade"
-
-#. TRANSLATORS: button: review the offline update changes
-msgid "Show details"
-msgstr "Näita üksikasju"
-
-#. TRANSLATORS: button: clear notification
-msgid "OK"
-msgstr "Olgu"
-
-#. If no mode is available, we use "left-ring-mode-1" for backward compat
-msgid "Left Ring"
-msgstr "Vasak ratas"
-
-#, c-format
-msgid "Left Ring Mode #%d"
-msgstr "Vasaku ratta režiim nr %d"
-
-#. If no mode is available, we use "right-ring-mode-1" for backward compat
-msgid "Right Ring"
-msgstr "Parem ratas"
-
-#, c-format
-msgid "Right Ring Mode #%d"
-msgstr "Parema ratta režiim nr %d"
-
-#. If no mode is available, we use "left-strip-mode-1" for backward compat
-msgid "Left Touchstrip"
-msgstr "Vasak puuteriba"
-
-#, c-format
-msgid "Left Touchstrip Mode #%d"
-msgstr "Vasaku puuteringi režiim %d"
-
-#. If no mode is available, we use "right-strip-mode-1" for backward compat
-msgid "Right Touchstrip"
-msgstr "Parem puuteriba"
-
-#, c-format
-msgid "Right Touchstrip Mode #%d"
-msgstr "Parema puuteringi režiim %d"
-
-#, c-format
-msgid "Left Touchring Mode Switch"
-msgstr "Vasaku puuteringi režiimi lüliti"
-
-#, c-format
-msgid "Right Touchring Mode Switch"
-msgstr "Parema puuteringi režiimi lüliti"
-
-#, c-format
-msgid "Left Touchstrip Mode Switch"
-msgstr "Vasaku puuteriba režiimi lüliti"
-
-#, c-format
-msgid "Right Touchstrip Mode Switch"
-msgstr "Parema puuteriba režiimi lüliti"
-
-#, c-format
-msgid "Mode Switch #%d"
-msgstr "Režiimi lüliti %d"
-
-#, c-format
-msgid "Left Button #%d"
-msgstr "Vasak nupp %d"
-
-#, c-format
-msgid "Right Button #%d"
-msgstr "Parem nupp %d"
-
-#, c-format
-msgid "Top Button #%d"
-msgstr "Ülemine nupp %d"
-
-#, c-format
-msgid "Bottom Button #%d"
-msgstr "Alumine nupp %d"
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
 #. to change the LED setting for a Wacom tablet
-#.
+#: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:20
 msgid "Modify the lit LED for a Wacom tablet"
 msgstr "Wacomi digitaallaua LED-tule muutmine"
 
+#: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:21
 msgid "Authentication is required to modify the lit LED for a Wacom tablet"
 msgstr "Wacomi digitaallaua LED-tule muutmiseks on vajalik autentimine"
 
-msgid "Could not switch the monitor configuration"
-msgstr "Kuvari häälestust pole võimalik muuta"
+#. SECURITY:
+#. - A normal active user on the local machine does not need permission
+#. to change the OLED images for a Wacom tablet
+#: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:35
+msgid "Modify the OLED image for a Wacom tablet"
+msgstr "Wacomi digitaallaua OLED pildi muutmine"
 
-msgid "Could not restore the display's configuration"
-msgstr "Kuva sätteid pole võimalik taastada"
+#: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:36
+msgid "Authentication is required to modify the OLED image for a Wacom tablet"
+msgstr "Wacomi digitaallaua OLED pildi muutmiseks on vajalik autentimine"
 
-msgid "Could not restore the display's configuration from a backup"
-msgstr "Kuva sätteid pole võimalik varukoopiast taastada"
+#~ msgid "GNOME Settings Daemon"
+#~ msgstr "GNOME sätetedeemon"
 
-#, c-format
-msgid "The display will be reset to its previous configuration in %d second"
-msgid_plural ""
-"The display will be reset to its previous configuration in %d seconds"
-msgstr[0] "Kuva eelmised sätted taastatakse %d sekundi pärast"
-msgstr[1] "Kuva eelmised sätted taastatakse %d sekundi pärast"
+#~ msgid "Device hotplug custom command"
+#~ msgstr "Kohandatud käsk seadme ühendamisel"
 
-msgid "Does the display look OK?"
-msgstr "Kas kuva paistab korras olevat?"
+#~ msgid ""
+#~ "Command to be run when a device is added or removed. An exit value of 1 "
+#~ "means that the device will not be handled further by gnome-settings-"
+#~ "daemon."
+#~ msgstr ""
+#~ "Käsk, mis tuleb käivitada seadme lisamisel või eemaldamisel. Väljumise "
+#~ "kood 1 tähendab, et gnome-settings-daemon ei pea seadet haldama."
 
-msgid "_Restore Previous Configuration"
-msgstr "_Taasta eelmised sätted"
+#~ msgid "Activation of this plugin"
+#~ msgstr "Selle plugina aktiveerimine"
 
-msgid "_Keep This Configuration"
-msgstr "_Jäta need sätted alles"
+#~ msgid ""
+#~ "Whether this plugin would be activated by gnome-settings-daemon or not"
+#~ msgstr "Kas see plugin aktiveeritakse GNOME sätetedeemoni poolt või mitte"
 
-msgid "The selected configuration for displays could not be applied"
-msgstr "Valitud kuvasätteid pole võimalik rakendada"
+#~ msgid "Priority to use for this plugin"
+#~ msgstr "Selle plugina kasutamise prioriteet"
 
-#, c-format
-msgid "Could not refresh the screen information: %s"
-msgstr "Ekraaniteavet pole võimalik värskendada: %s"
+#~ msgid ""
+#~ "Priority to use for this plugin in gnome-settings-daemon startup queue"
+#~ msgstr "Selle plugina olulisus gnome-settings-daemon'i käivitusjärjekorras"
 
-msgid "Trying to switch the monitor configuration anyway."
-msgstr "Sellest hoolimata proovitakse kuvari häälestust muuta."
+#~ msgid "Wacom tablet PC feature"
+#~ msgstr "Wacomi tahvelarvuti võimalused"
 
-msgid "Could not apply the stored configuration for monitors"
-msgstr "Kuvarite jaoks salvestatud häälestust pole võimalik rakendada"
+#~ msgid "Enable this to only report stylus events when the tip is pressed."
+#~ msgstr ""
+#~ "See võib saata krihvlilt sündmuseid ainult siis, kui ots on sisse "
+#~ "vajutatud."
 
-msgid "XRandR"
-msgstr "XRandR"
+#~ msgid "Wacom display mapping"
+#~ msgstr "Wacomi kuva paigutus"
 
-msgid "Set up screen size and rotation settings"
-msgstr "Ekraani suuruse ja pööramise sätete määramine"
+#~ msgid ""
+#~ "EDID information of monitor to map tablet to. Must be in the format "
+#~ "[vendor, product, serial]. [\"\",\"\",\"\"] disables mapping."
+#~ msgstr ""
+#~ "Monitori EDID info, millega digitaallaud siduda. Peab olema kujul "
+#~ "[tootja, toode, seerianumber]. [\"\",\"\",\"\"] keelab seose."
 
-msgid "X Settings"
-msgstr "X'i sätted"
+#~ msgid "Switch input source"
+#~ msgstr "Vaheta sisendseadet"
 
-msgid "Manage X Settings"
-msgstr "X'i seadistuste haldamine"
+#~ msgid "Binding to select the next input source"
+#~ msgstr "Klahviseos järgmisele sisendseadmele hüppamiseks"
+
+#~ msgid "Switch input source backward"
+#~ msgstr "Vaheta eelmisele sisendseadmele"
+
+#~ msgid "Binding to select the previous input source"
+#~ msgstr "Klahviseos eelmisele sisendseadmele hüppamiseks"
+
+#~ msgid "Percentage considered low"
+#~ msgstr "Otsakorral täituvuse tase protsentides"
+
+#~ msgid ""
+#~ "The percentage of the battery when it is considered low. Only valid when "
+#~ "use-time-for-policy is false."
+#~ msgstr ""
+#~ "Aku täituvuse protsent, mis loetakse otsakorral olemsieks. Kehtib ainult "
+#~ "siis, kui use-time-for-policy pole märgitud."
+
+#~ msgid "Percentage considered critical"
+#~ msgstr "Kriitilise täituvuse tase protsentides"
+
+#~ msgid ""
+#~ "The percentage of the battery when it is considered critical. Only valid "
+#~ "when use-time-for-policy is false."
+#~ msgstr ""
+#~ "Aku täituvuse protsent, mis loetakse kriitiliseks. Kehtib ainult siis, "
+#~ "kui use-time-for-policy pole märgitud."
+
+#~ msgid "Percentage action is taken"
+#~ msgstr "Protsent, mille juures käivitatakse tegevus"
+
+#~ msgid ""
+#~ "The percentage of the battery when the critical action is performed. Only "
+#~ "valid when use-time-for-policy is false."
+#~ msgstr ""
+#~ "Aku täituvuse protsent, mille korral käivitatakse tegevus. Kehtib ainult "
+#~ "siis, kui use-time-for-policy pole märgitud."
+
+#~ msgid "The time remaining when low"
+#~ msgstr "Aega jäänud, kui see loetakse otsakorral olemiseks"
+
+#~ msgid ""
+#~ "The time remaining in seconds of the battery when it is considered low. "
+#~ "Only valid when use-time-for-policy is true."
+#~ msgstr ""
+#~ "Kui kaua on akut jäänud, kui see loetakse otsakorral olemiseks, "
+#~ "sekundites. Kehtib ainult siis, kui use-time-for-policy on märgitud."
+
+#~ msgid "The time remaining when critical"
+#~ msgstr "Aega jäänud, kui see loetakse kriitiliseks"
+
+#~ msgid ""
+#~ "The time remaining in seconds of the battery when it is considered "
+#~ "critical. Only valid when use-time-for-policy is true."
+#~ msgstr ""
+#~ "Kui kaua on akut jäänud, kui see loetakse kriitiliseks, sekundites. "
+#~ "Kehtib ainult siis, kui use-time-for-policy on märgitud."
+
+#~ msgid "The time remaining when action is taken"
+#~ msgstr "Aega jäänud, kui käivitatakse tegevus"
+
+#~ msgid ""
+#~ "The time remaining in seconds of the battery when critical action is "
+#~ "taken. Only valid when use-time-for-policy is true."
+#~ msgstr ""
+#~ "Kui kaua on akut jäänud, kui kriitilise täituvuse tegevus käivitatakse, "
+#~ "sekundites. Kehtib ainult siis, kui use-time-for-policy on märgitud."
+
+#~ msgid "Whether to use time-based notifications"
+#~ msgstr "Kas kasutatakse aja-järgseid teateid"
+
+#~ msgid ""
+#~ "If time based notifications should be used. If set to false, then the "
+#~ "percentage change is used instead, which may fix a broken ACPI BIOS."
+#~ msgstr ""
+#~ "Kas teated peaksid olema aja järgi. Kui pole märgitud, kasutatakse "
+#~ "täituvuse protsendi järgi teateid, see aitab vigase ACPI BIOSi puhul."
+
+#~ msgid "If we should show the recalled battery warning for a broken battery"
+#~ msgstr "Kas rikkis aku teadet tuleks kuvada tagasi kutsutud aku korral"
+
+#~ msgid ""
+#~ "If we should show the recalled battery warning for a broken battery. Set "
+#~ "this to false only if you know your battery is okay."
+#~ msgstr ""
+#~ "Kas rikkis aku teadet tuleks kuvada tagasi kutsutud aku korral. Eemalda "
+#~ "märge ainult siis, kui oled kindel, et sinu aku on korras."
+
+#~ msgid "Use mobile broadband connections"
+#~ msgstr "Kasutatakse mobiiliühendusi"
+
+#~ msgid ""
+#~ "Use mobile broadband connections such as GSM and CDMA to check for "
+#~ "updates."
+#~ msgstr "Uuendamiseks kasutatakse mobiiliühendusi nagu näiteks GSM ja CDMA."
+
+#~ msgid ""
+#~ "Automatically download updates in the background without confirmation"
+#~ msgstr "Uuendused laaditakse alla taustal ilma küsimata"
+
+#~ msgid ""
+#~ "Automatically download updates in the background without confirmation. "
+#~ "Updates will be auto-downloaded when using wired network connnections, "
+#~ "and mobile broadband if 'connection-use-mobile' is enabled."
+#~ msgstr ""
+#~ "Uuendused laaditakse alla taustal ilma küsimata. Uuendusi laaditakse alla "
+#~ "juhtmega ühenduse kaudu ning mobiiliühenduse kaudu, kui 'connection-use-"
+#~ "mobile' on märgitud."
+
+#~ msgid "How often to check for updates"
+#~ msgstr "Kui tihti kontrollitakse uuendusi"
+
+#~ msgid ""
+#~ "How often to check for updates. Value is in seconds. This is a maximum "
+#~ "amount of time that can pass between a security update being published, "
+#~ "and the update being automatically installed or the user notified."
+#~ msgstr ""
+#~ "Kui tihti kontrollitakse uuendusi. Väärtus sekundites. See on suurim "
+#~ "ajavahemik, mis võib mööduda turvauuenduse avaldamisest selle "
+#~ "paigaldamiseni või kasutajale teatamiseni."
+
+#~ msgid "How often to notify the user that non-critical updates are available"
+#~ msgstr ""
+#~ "Kui tihti teatatakse kasutajale saadaolevatest mittekriitilistest "
+#~ "uuendustest"
+
+#~ msgid ""
+#~ "How often to tell the user there are non-critical updates. Value is in "
+#~ "seconds. Security update notifications are always shown after the check "
+#~ "for updates, but non-critical notifications should be shown a lot less "
+#~ "frequently."
+#~ msgstr ""
+#~ "Kui tihti kasutajale teatatakse mittekriitilistest uuendustest. Väärtus "
+#~ "on sekundites. Turvauuendusi näidatakse alati pärast uuenduste "
+#~ "kontrollimist, kuid mittekriitilistest uuendustest teatatakse harvem."
+
+#~ msgid "The last time we told the user about non-critical notifications"
+#~ msgstr "Viimane kord, kui kasutajale edastati mittekriitiline teade"
+
+#~ msgid ""
+#~ "The last time we notified the user about non-critical updates. Value is "
+#~ "in seconds since the epoch, or zero for never."
+#~ msgstr ""
+#~ "Viimane kord, kui kasutajat teavitati mittekriitilistest uuendustest. "
+#~ "Väärtus sekundites alates epohhist, 0 on mitte kunagi."
+
+#~ msgid "How often to check for distribution upgrades"
+#~ msgstr "Kui tihti kontrollitakse distributsiooniuuendusi"
+
+#~ msgid "How often to check for distribution upgrades. Value is in seconds."
+#~ msgstr ""
+#~ "Kui tihti kontrollitakse distributsiooniuuendusi. Väärtus sekundites."
+
+#~ msgid "How often to refresh the package cache"
+#~ msgstr "Kui tihti värskendatakse pakipuhvrit"
+
+#~ msgid "How often to refresh the package cache. Value is in seconds."
+#~ msgstr "Kui tihti värskendatakse pakipuhvrit. Väärtus sekundites."
+
+#~ msgid "Check for updates when running on battery power"
+#~ msgstr "Uuendusi kontrollitakse ka akutoitel töötades"
+
+#~ msgid "Check for updates when running on battery power."
+#~ msgstr "Uuenduste kontrollimine ka akutoitel."
+
+#~ msgid "Notify the user when distribution upgrades are available"
+#~ msgstr "Kasutajale teatakse saadaolevatest distributsiooniuuendustest"
+
+#~ msgid "Notify the user when distribution upgrades are available."
+#~ msgstr "Kasutajale teatakse saadaolevatest distributsiooniuuendustest."
+
+#~ msgid "Ask the user if additional firmware should be installed"
+#~ msgstr "Küsi kasutajalt, kas paigaldada lisapüsivara"
+
+#~ msgid ""
+#~ "Ask the user if additional firmware should be installed if it is "
+#~ "available."
+#~ msgstr "Küsi kasutajalt, kas paigaldada lisapüsivara, kui see on saadaval."
+
+#~ msgid "Firmware files that should not be searched for"
+#~ msgstr "Püsivara failid, mida ei otsita"
+
+#~ msgid ""
+#~ "Firmware files that should not be searched for, separated by commas. "
+#~ "These can include '*' and '?' characters."
+#~ msgstr ""
+#~ "Püsivara failid, mida ei otsita, komadega eraldatult. Võivad sisaldada "
+#~ "'*' ja '?' märke."
+
+#~ msgid "Devices that should be ignored"
+#~ msgstr "Seadmed, mida eiratakse"
+
+#~ msgid ""
+#~ "Devices that should be ignored, separated by commas. These can include "
+#~ "'*' and '?' characters."
+#~ msgstr ""
+#~ "Seadmed, mida eiratakse, komadega eraldatult. Võivad sisaldada '*' ja '?' "
+#~ "märke."
+
+#~ msgid ""
+#~ "The filenames on removable media that designate it a software source."
+#~ msgstr ""
+#~ "Failinimed eemaldatavatel andmekandjatel, mis teevad sellest "
+#~ "tarkvaraallika."
+
+#~ msgid ""
+#~ "When removable media is inserted, it is checked to see if it contains any "
+#~ "important filenames in the root directory. If the filename matches, then "
+#~ "an updates check is performed. This allows post-install disks to be used "
+#~ "to update running systems."
+#~ msgstr ""
+#~ "Kui sisestatakse eemaldatav andmekandja, kontrollitakse, kas selle "
+#~ "juurkataloogis leidub olulisi failinimesid. Kui mõni failinimi sobib, "
+#~ "kontrollitakse uuendusi. See võimaldab pärast-paigaldust ketastega "
+#~ "uuendada töötavaid süsteeme."
+
+#~ msgid "File for default configuration for RandR"
+#~ msgstr "RandR vaikesätete fail"
+
+#~ msgid ""
+#~ "The XRandR plugin will look for a default configuration in the file "
+#~ "specified by this key. This is similar to the ~/.config/monitors.xml that "
+#~ "normally gets stored in users' home directories. If a user does not have "
+#~ "such a file, or has one that does not match the user's setup of monitors, "
+#~ "then the file specified by this key will be used instead."
+#~ msgstr ""
+#~ "XRandR plugin otsib vaikesätteid failist, mis määratakse selle võtmega. "
+#~ "See on samasugune fail, nagu ~/.config/monitors.xml kasutaja "
+#~ "kodukataloogis. Kui kasutajal pole mainitud faili, või see fail ei sobi "
+#~ "kasutaja monitoride arvuga, kasutatakse hoopis käesoleva võtmega määratud "
+#~ "faili."
+
+#~ msgid "Whether to turn off specific monitors after boot"
+#~ msgstr "Kas pärast alglaadimist lülitada välja mõned monitorid"
+
+#~ msgid ""
+#~ "'clone' will display the same thing on all monitors, 'dock' will switch "
+#~ "off the internal monitor, 'do-nothing' will use the default Xorg "
+#~ "behaviour (extend the desktop in recent versions)"
+#~ msgstr ""
+#~ "'clone' kuvab sama pilti kõigil monitoridel, 'dock' lülitab välja "
+#~ "sisemise monitori, 'do-nothing' tähendab Xorg-i vaikimisi käitumist "
+#~ "(viimastes versioonides laiendab töölauda)"
+
+#~ msgid ""
+#~ "The type of hinting to use when rendering fonts. Possible values are: "
+#~ "\"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, "
+#~ "and \"full\" for maximum hinting (may cause distortion of letter forms)."
+#~ msgstr ""
+#~ "Fontide renderdamisel kasutatav varjundamise tüüp. Võimaliku väärtused on "
+#~ "\"none\" varjundamise keelamiseks, \"slight\" lihtsa, \"medium\" keskmise "
+#~ "ja \"full\" maksimaalse varjundamise jaoks (võib põhjustada tähekujude "
+#~ "moondumist)."
+
+#~ msgid "Enable debugging code"
+#~ msgstr "Silumiskoodi lubamine"
+
+#~ msgid "Exit after a time (for debugging)"
+#~ msgstr "Lõpetamine teatud aja möödudes (silumiseks)"
+
+#~ msgid "Accessibility Keyboard"
+#~ msgstr "Hõlbustustega klaviatuur"
+
+#~ msgid "Accessibility keyboard plugin"
+#~ msgstr "Hõlbustustega klaviatuuri plugin"
+
+#~ msgid "There was an error displaying help: %s"
+#~ msgstr "Abiteabe kuvamisel tekkis viga: %s"
+
+#~ msgid "Slow Keys Turned On"
+#~ msgstr "Aeglased klahvide on sees"
+
+#~ msgid "Slow Keys Turned Off"
+#~ msgstr "Aeglased klahvid on väljas"
+
+#~ msgid ""
+#~ "You just held down the Shift key for 8 seconds.  This is the shortcut for "
+#~ "the Slow Keys feature, which affects the way your keyboard works."
+#~ msgstr ""
+#~ "Sa hoidsid Shift klahvi all 8 sekundi vältel.  See on kiirklahv, mis "
+#~ "lülitab sisse aeglaste klahvide funktsionaalsuse ja seetõttu muudab ka "
+#~ "Sinu klaviatuuri käitumist."
+
+#~ msgid "Universal Access"
+#~ msgstr "Universaalne ligipääs"
+
+#~ msgid "Turn On"
+#~ msgstr "Sisse lülitamine"
+
+#~ msgid "Leave On"
+#~ msgstr "Sisse jätmine"
+
+#~ msgid "Leave Off"
+#~ msgstr "Välja jätmine"
+
+#~ msgid "_Turn Off"
+#~ msgstr "_Lülita välja"
+
+#~ msgid "_Turn On"
+#~ msgstr "_Lülita sisse"
+
+#~ msgid "_Leave On"
+#~ msgstr "_Jäta sisse"
+
+#~ msgid "_Leave Off"
+#~ msgstr "_Jäta välja"
+
+#~ msgid "Sticky Keys Turned On"
+#~ msgstr "Kleepuvate klahvid on sees"
+
+#~ msgid "Sticky Keys Turned Off"
+#~ msgstr "Kleepuvate klahvid on väljas"
+
+#~ msgid ""
+#~ "You just pressed the Shift key 5 times in a row.  This is the shortcut "
+#~ "for the Sticky Keys feature, which affects the way your keyboard works."
+#~ msgstr ""
+#~ "Sa vajutasid Shift klahvi 5 korda järjest.  See on kiirklahv, mis lülitab "
+#~ "sisse kleepuvate klahvide funktsionaalsuse ja seetõttu muudab ka Sinu "
+#~ "klaviatuuri käitumist."
+
+#~ msgid ""
+#~ "You just pressed two keys at once, or pressed the Shift key 5 times in a "
+#~ "row.  This turns off the Sticky Keys feature, which affects the way your "
+#~ "keyboard works."
+#~ msgstr ""
+#~ "Sa vajutasid korraga kahte klahvi või vajutasid Shift klahvi 5 korda "
+#~ "järjest. See lülitab sisse kleepuvate klahvide funktsionaalsuse ja "
+#~ "seetõttu muudab ka Sinu klaviatuuri käitumist."
+
+#~ msgid "Accessibility settings"
+#~ msgstr "Hõlbustuste sätted"
+
+#~ msgid "Accessibility settings plugin"
+#~ msgstr "Hõlbustuste sätete plugin"
+
+#~ msgid "Background"
+#~ msgstr "Taust"
+
+#~ msgid "Background plugin"
+#~ msgstr "Taustaplugin"
+
+#~ msgid "Clipboard"
+#~ msgstr "Lõikepuhver"
+
+#~ msgid "Clipboard plugin"
+#~ msgstr "Lõikepuhvri plugin"
+
+#~ msgid "Color plugin"
+#~ msgstr "Värvi plugin"
+
+#~ msgid "Dummy"
+#~ msgstr "Liba"
+
+#~ msgid "Dummy plugin"
+#~ msgstr "Libaplugin"
+
+#~ msgid "Don't show any warnings again for this file system"
+#~ msgstr "Selle failisüsteemi kohta ei pea enam mingeid hoiatusi näitama"
+
+#~ msgid "Don't show any warnings again"
+#~ msgstr "_Tulevikus ei kuvata enam ühtegi hoiatust"
+
+#~ msgid ""
+#~ "You can free up disk space by emptying the Trash, removing unused "
+#~ "programs or files, or moving files to another disk or partition."
+#~ msgstr ""
+#~ "Kettaruumi on võimalik vabastada prügikasti tühjendamisega, kasutusel "
+#~ "mitteolevate failide või programmide eemaldamisega või failide "
+#~ "ümbertõstmisega teisele kettale või partitsioonile."
+
+#~ msgid ""
+#~ "You can free up disk space by removing unused programs or files, or by "
+#~ "moving files to another disk or partition."
+#~ msgstr ""
+#~ "Kettaruumi on võimalik vabastada kasutusel mitteolevate failide või "
+#~ "programmide eemaldamisega või failide ümbertõstmisega teisele kettale või "
+#~ "partitsioonile."
+
+#~ msgid ""
+#~ "You can free up disk space by emptying the Trash, removing unused "
+#~ "programs or files, or moving files to an external disk."
+#~ msgstr ""
+#~ "Kettaruumi on võimalik vabastada prügikasti tühjendamisega, kasutusel "
+#~ "mitteolevate failide või programmide eemaldamisega või failide "
+#~ "ümbertõstmisega välisele kettale."
+
+#~ msgid ""
+#~ "You can free up disk space by removing unused programs or files, or by "
+#~ "moving files to an external disk."
+#~ msgstr ""
+#~ "Kettaruumi on võimalik vabastada kasutusel mitteolevate failide või "
+#~ "programmide eemaldamisega või failide ümbertõstmisega välisele kettale."
+
+#~ msgid "Examine…"
+#~ msgstr "Uuri olukorda…"
+
+#~ msgid "Keyboard"
+#~ msgid_plural "Keyboards"
+#~ msgstr[0] "Klaviatuur"
+#~ msgstr[1] "Klaviatuurid"
+
+#~ msgid "Keyboard plugin"
+#~ msgstr "Klaviatuuriplugin"
+
+#~ msgid "Disabled"
+#~ msgstr "Keelatud"
+
+#~ msgid "%u Output"
+#~ msgid_plural "%u Outputs"
+#~ msgstr[0] "%u väljund"
+#~ msgstr[1] "%u väljundit"
+
+#~ msgid "%u Input"
+#~ msgid_plural "%u Inputs"
+#~ msgstr[0] "%u sisend"
+#~ msgstr[1] "%u sisendit"
+
+#~ msgid "System Sounds"
+#~ msgstr "Süsteemsed helid"
+
+#~ msgid "Media keys"
+#~ msgstr "Meediaklahvid"
+
+#~ msgid "Media keys plugin"
+#~ msgstr "Meediaklahvide plugin"
+
+#~ msgid "Could not enable mouse accessibility features"
+#~ msgstr "Hiirehõlbustuste võimalusi pole võimalik lubada"
+
+#~ msgid ""
+#~ "Mouse accessibility requires Mousetweaks to be installed on your system."
+#~ msgstr "Hiirehõlbustuste kasutamiseks peab Mousetweaks olema paigaldatud."
+
+#~ msgid "Mouse"
+#~ msgid_plural "Mice"
+#~ msgstr[0] "Hiir"
+#~ msgstr[1] "Hiired"
+
+#~ msgid "Mouse plugin"
+#~ msgstr "Hiireplugin"
+
+#~ msgid "provides %s laptop runtime"
+#~ msgstr "tagab süleri tööajaks %s"
+
+#~ msgid "%s %s remaining"
+#~ msgstr "%s - %s jäänud"
+
+#~ msgid "%s %s until charged"
+#~ msgstr "%s - %s täislaadimiseni"
+
+#~ msgid "provides %s battery runtime"
+#~ msgstr "annab aku tööajaks %s"
+
+#~ msgid "Product:"
+#~ msgstr "Toode:"
+
+#~ msgid "Status:"
+#~ msgstr "Olek:"
+
+#~ msgid "Missing"
+#~ msgstr "Puudub"
+
+#~ msgid "Charged"
+#~ msgstr "Laetud"
+
+#~ msgid "Charging"
+#~ msgstr "Laeb"
+
+#~ msgid "Discharging"
+#~ msgstr "Tühjeneb"
+
+#~ msgid "Percentage charge:"
+#~ msgstr "Täituvus:"
+
+#~ msgid "Vendor:"
+#~ msgstr "Tootja:"
+
+#~ msgid "Technology:"
+#~ msgstr "Tehnoloogia:"
+
+#~ msgid "Serial number:"
+#~ msgstr "Seerianumber:"
+
+#~ msgid "Model:"
+#~ msgstr "Mudel:"
+
+#~ msgid "Discharge time:"
+#~ msgstr "Tühjenemise aeg:"
+
+#~ msgid "Excellent"
+#~ msgstr "Suurepärane"
+
+#~ msgid "Good"
+#~ msgstr "Hea"
+
+#~ msgid "Fair"
+#~ msgstr "Rahuldav"
+
+#~ msgid "Poor"
+#~ msgstr "Kehv"
+
+#~ msgid "Capacity:"
+#~ msgstr "Mahtuvus:"
+
+#~ msgid "Current charge:"
+#~ msgstr "Praegune laetus:"
+
+#~ msgid "Last full charge:"
+#~ msgstr "Viimati täislaadimine:"
+
+#~ msgid "Design charge:"
+#~ msgstr "Tehaselaetus:"
+
+#~ msgid "Charge rate:"
+#~ msgstr "Laadimise kiirus:"
+
+#~ msgid "AC adapter"
+#~ msgid_plural "AC adapters"
+#~ msgstr[0] "Vooluadapter"
+#~ msgstr[1] "Vooluadapterid"
+
+#~ msgid "Laptop battery"
+#~ msgid_plural "Laptop batteries"
+#~ msgstr[0] "Sülearvuti aku"
+#~ msgstr[1] "Sülearvuti akud"
+
+#~ msgid "UPS"
+#~ msgid_plural "UPSs"
+#~ msgstr[0] "UPS"
+#~ msgstr[1] "UPSid"
+
+#~ msgid "Monitor"
+#~ msgid_plural "Monitors"
+#~ msgstr[0] "Monitor"
+#~ msgstr[1] "Monitorid"
+
+#~ msgid "PDA"
+#~ msgid_plural "PDAs"
+#~ msgstr[0] "PDA"
+#~ msgstr[1] "PDAd"
+
+#~ msgid "Cell phone"
+#~ msgid_plural "Cell phones"
+#~ msgstr[0] "Mobiil"
+#~ msgstr[1] "Mobiilid"
+
+#~ msgid "Media player"
+#~ msgid_plural "Media players"
+#~ msgstr[0] "Meediaesitaja"
+#~ msgstr[1] "Meediaesitajad"
+
+#~ msgid "Tablet"
+#~ msgid_plural "Tablets"
+#~ msgstr[0] "Tahvelarvuti"
+#~ msgstr[1] "Tahvelarvutid"
+
+#~ msgid "Computer"
+#~ msgid_plural "Computers"
+#~ msgstr[0] "Arvuti"
+#~ msgstr[1] "Arvutid"
+
+#~ msgid "Lithium Ion"
+#~ msgstr "Liitium-ioon"
+
+#~ msgid "Lithium Polymer"
+#~ msgstr "Liitiumpolümeer"
+
+#~ msgid "Lithium Iron Phosphate"
+#~ msgstr "Liitium-raudfosfaat"
+
+#~ msgid "Lead acid"
+#~ msgstr "Pliihape"
+
+#~ msgid "Nickel Cadmium"
+#~ msgstr "Nikkel-kaadium"
+
+#~ msgid "Nickel metal hydride"
+#~ msgstr "Nikkel-metallhüdriid"
+
+#~ msgid "Unknown technology"
+#~ msgstr "Tundmatu tehnoloogia"
+
+#~ msgid "Empty"
+#~ msgstr "Tühi"
+
+#~ msgid "Waiting to charge"
+#~ msgstr "Ootab laadimist"
+
+#~ msgid "Waiting to discharge"
+#~ msgstr "Ootab tühjenemist"
+
+#~ msgid "Laptop battery not present"
+#~ msgstr "Sülearvuti aku pole küljes"
+
+#~ msgid "Laptop battery is charging"
+#~ msgstr "Sülearvuti aku laeb"
+
+#~ msgid "Laptop battery is discharging"
+#~ msgstr "Sülearvuti aku tühjeneb"
+
+#~ msgid "Laptop battery is empty"
+#~ msgstr "Sülearvuti aku on tühi"
+
+#~ msgid "Laptop battery is charged"
+#~ msgstr "Sülearvuti aku on täis"
+
+#~ msgid "Laptop battery is waiting to charge"
+#~ msgstr "Sülearvuti aku ootab laadimist"
+
+#~ msgid "Laptop battery is waiting to discharge"
+#~ msgstr "Sülearvuti aku ootab tühjenemist"
+
+#~ msgid "UPS is charging"
+#~ msgstr "UPS laeb"
+
+#~ msgid "UPS is discharging"
+#~ msgstr "UPS tühjeneb"
+
+#~ msgid "UPS is empty"
+#~ msgstr "UPS on tühi"
+
+#~ msgid "UPS is charged"
+#~ msgstr "UPS on täis laetud"
+
+#~ msgid "Mouse is charging"
+#~ msgstr "Hiir laeb"
+
+#~ msgid "Mouse is discharging"
+#~ msgstr "Hiir tühjeneb"
+
+#~ msgid "Mouse is empty"
+#~ msgstr "Hiir on tühi"
+
+#~ msgid "Mouse is charged"
+#~ msgstr "Hiir on täis laetud"
+
+#~ msgid "Keyboard is charging"
+#~ msgstr "Klaviatuur laeb"
+
+#~ msgid "Keyboard is discharging"
+#~ msgstr "Klaviatuur tühjeneb"
+
+#~ msgid "PDA is charging"
+#~ msgstr "PDA laeb"
+
+#~ msgid "PDA is discharging"
+#~ msgstr "PDA tühjeneb"
+
+#~ msgid "PDA is empty"
+#~ msgstr "PDA on tühi"
+
+#~ msgid "PDA is charged"
+#~ msgstr "PDA on laetud"
+
+#~ msgid "Cell phone is charging"
+#~ msgstr "Mobiil laeb"
+
+#~ msgid "Cell phone is discharging"
+#~ msgstr "Mobiil tühjeneb"
+
+#~ msgid "Cell phone is empty"
+#~ msgstr "Mobiil on tühi"
+
+#~ msgid "Cell phone is charged"
+#~ msgstr "Mobiil on täis laetud"
+
+#~ msgid "Media player is charging"
+#~ msgstr "Meediaesitaja laeb"
+
+#~ msgid "Media player is discharging"
+#~ msgstr "Meediaesitaja tühjeneb"
+
+#~ msgid "Media player is empty"
+#~ msgstr "Meediaesitaja on tühi"
+
+#~ msgid "Media player is charged"
+#~ msgstr "Meediaesitaja on täis laetud"
+
+#~ msgid "Tablet is charging"
+#~ msgstr "Tahvelarvuti laeb"
+
+#~ msgid "Tablet is discharging"
+#~ msgstr "Tahvelarvuti tühjeneb"
+
+#~ msgid "Tablet is empty"
+#~ msgstr "Tahvelarvuti on tühi"
+
+#~ msgid "Tablet is charged"
+#~ msgstr "Tahvelarvuti on täis laetud"
+
+#~ msgid "Computer is charging"
+#~ msgstr "Arvuti laeb"
+
+#~ msgid "Computer is discharging"
+#~ msgstr "Arvuti tühjeneb"
+
+#~ msgid "Computer is empty"
+#~ msgstr "Arvuti on tühi"
+
+#~ msgid "Computer is charged"
+#~ msgstr "Arvuti on täis laetud"
+
+#~ msgid "Battery may be recalled"
+#~ msgstr "Aku võib olla tagasi kutsutud"
+
+#~ msgid ""
+#~ "A battery in your computer may have been recalled by %s and you may be at "
+#~ "risk."
+#~ msgstr ""
+#~ "%s võib olla tagasi kutsunud sinu arvutis oleva aku. See võib suurendada "
+#~ "riski."
+
+#~ msgid "For more information visit the battery recall website."
+#~ msgstr "Rohkem infot leiad aku tagasikutsumise veebilehelt."
+
+#~ msgid "Visit recall website"
+#~ msgstr "Külasta tagasikutsumise veebilehte"
+
+#~ msgid "Do not show me this again"
+#~ msgstr "Seda teadet enam ei näidata"
+
+#~ msgid "Plug in your AC adapter to avoid losing data."
+#~ msgstr "Ühenda toitejuhe, et vältida andmete kaotamist."
+
+#~ msgid ""
+#~ "The battery is below the critical level and this computer will <b>power-"
+#~ "off</b> when the battery becomes completely empty."
+#~ msgstr ""
+#~ "Aku täituvus on allpool kriitilist taset ja arvuti <b>lülitub välja</b>, "
+#~ "kui aku saab täiesti tühjaks."
+
+#~ msgid ""
+#~ "The battery is below the critical level and this computer is about to "
+#~ "suspend.\n"
+#~ "<b>NOTE:</b> A small amount of power is required to keep your computer in "
+#~ "a suspended state."
+#~ msgstr ""
+#~ "Aku täituvus on allpool kriitilist taset ja arvuti alustab varsti "
+#~ "uinakut.\n"
+#~ "<b>Märkus:</b> uinakurežiimis vajab arvuti natukene voolu."
+
+#~ msgid ""
+#~ "UPS is below the critical level and this computer will <b>power-off</b> "
+#~ "when the UPS becomes completely empty."
+#~ msgstr ""
+#~ "UPSi täituvus on allpool kriitilist taset ja arvuti <b>lülitub välja</b>, "
+#~ "kui UPS saab täiesti tühjaks."
+
+#~ msgid "Power plugin"
+#~ msgstr "Vooluplugin"
+
+#~ msgid "Printer removed"
+#~ msgstr "Printer eemaldati"
+
+#~ msgid "Print-notifications"
+#~ msgstr "Printimise teated"
+
+#~ msgid "Print-notifications plugin"
+#~ msgstr "Printimise teadete plugin"
+
+#~ msgid "received error or hang up from event source"
+#~ msgstr "sündmuste allikast saadi viga või katkestus "
+
+#~ msgid "NSS security system could not be initialized"
+#~ msgstr "NSS turvasüsteemi pole võimalik lähtestada"
+
+#~ msgid "no suitable smartcard driver could be found"
+#~ msgstr "sobivat smartcardi draiverit ei leitud"
+
+#~ msgid "smartcard driver '%s' could not be loaded"
+#~ msgstr "smartcardi draiverit '%s' pole võimalik laadida"
+
+#~ msgid "could not watch for incoming card events - %s"
+#~ msgstr "sissetulevaid kaardisündmuseid ei suudetud jälgida - %s"
+
+#~ msgid "encountered unexpected error while waiting for smartcard events"
+#~ msgstr "esines ootamatu viga, kui oodati smartcardi sündmuseid"
+
+#~ msgid ""
+#~ "You will need to restart this computer before the hardware will work "
+#~ "correctly."
+#~ msgstr "Seadme toimimiseks tuleb see arvuti taaskäivitada."
+
+#~ msgid "Additional software was installed"
+#~ msgstr "Paigaldati lisatarkvara"
+
+#~ msgid "Software Updates"
+#~ msgstr "Tarkvarauuendused"
+
+#~ msgid ""
+#~ "You will need to remove and then reinsert the hardware before it will "
+#~ "work correctly."
+#~ msgstr "Et seade tööle hakkaks, pead selle eemaldama ja uuesti ühendama."
+
+#~ msgid "Your hardware has been set up and is now ready to use."
+#~ msgstr "Sinu seade on häälestatud ning kasutamiseks valmis."
+
+#~ msgid ""
+#~ "Additional firmware is required to make hardware in this computer "
+#~ "function correctly."
+#~ msgstr ""
+#~ "Selle arvuti riistvara õigeks toimimiseks läheb tarvis täiendavat "
+#~ "püsivara."
+
+#~ msgid "Additional firmware required"
+#~ msgstr "Vajadus täiendava püsivara järele"
+
+#~ msgid "Install firmware"
+#~ msgstr "Paigalda püsivara"
+
+#~ msgid "Ignore devices"
+#~ msgstr "Eira seadmeid"
+
+#~ msgid "Failed To Update"
+#~ msgstr "Uuendamine nurjus"
+
+#~ msgid "A previous update was unfinished."
+#~ msgstr "Eelmine uuendus jäi lõpetamata."
+
+#~ msgid "Network access was required but not available."
+#~ msgstr "Vajalik oli võrguühendus, aga see polnud saadaval."
+
+#~ msgid "An update was not signed in the correct way."
+#~ msgstr "Uuendus polnud korrektselt allkirjastatud."
+
+#~ msgid "The update could not be completed."
+#~ msgstr "Uuendamist polnud võimalik lõpule viia."
+
+#~ msgid "The update was cancelled."
+#~ msgstr "Uuendamine katkestati."
+
+#~ msgid "An offline update was requested but no packages required updating."
+#~ msgstr ""
+#~ "Nõuti võrguühenduseta uuendust, kuid ükski pakk ei vajanud uuendamist."
+
+#~ msgid "No space was left on the drive."
+#~ msgstr "Kettal pole enam vaba ruumi."
+
+#~ msgid "An update failed to install correctly."
+#~ msgstr "Uuenduse paigaldamine nurjus."
+
+#~ msgid "The offline update failed in an unexpected way."
+#~ msgstr "Võrguühenduseta uuendus nurjus ootamatul viisil."
+
+#~ msgid "Detailed errors from the package manager follow:"
+#~ msgstr "Üksikasjaline veateade pakihaldurilt:"
+
+#~ msgid "Distribution upgrades available"
+#~ msgstr "Saadaval on distributsiooniuuendused"
+
+#~ msgid "More information"
+#~ msgstr "Lähem teave"
+
+#~ msgid "Update"
+#~ msgid_plural "Updates"
+#~ msgstr[0] "Uuendus"
+#~ msgstr[1] "Uuendused"
+
+#~ msgid "An important software update is available"
+#~ msgid_plural "Important software updates are available"
+#~ msgstr[0] "Saadaval on oluline tarkvarauuendus"
+#~ msgstr[1] "Saadaval on olulised tarkvarauuendused"
+
+#~ msgid "Install updates"
+#~ msgstr "Paigalda uuendused"
+
+#~ msgid "A software update is available."
+#~ msgid_plural "Software updates are available."
+#~ msgstr[0] "Saadaval on tarkvarauuendus."
+#~ msgstr[1] "Saadaval on tarkvarauuendused."
+
+#~ msgid "Updates"
+#~ msgstr "Uuendused"
+
+#~ msgid "Unable to access software updates"
+#~ msgstr "Tarkvarauuendustele puudub ligipääs"
+
+#~ msgid "Try again"
+#~ msgstr "Proovi uuesti"
+
+#~ msgid "A transaction that cannot be interrupted is running"
+#~ msgstr "Transaktsioon, mida pole võimalik katkestada"
+
+#~ msgid "Software Update Installed"
+#~ msgid_plural "Software Updates Installed"
+#~ msgstr[0] "Tarkvarauuendus paigaldatud"
+#~ msgstr[1] "Tarkvarauuendused paigaldatud"
+
+#~ msgid "An important OS update has been installed."
+#~ msgid_plural "Important OS updates have been installed."
+#~ msgstr[0] "Oluline tarkvarauuendus paigaldatud."
+#~ msgstr[1] "Olulised tarkvarauuendused paigaldatud."
+
+#~ msgid "Software Updates Failed"
+#~ msgstr "Tarkvara uuendamine nurjus"
+
+#~ msgid "An important OS update failed to be installed."
+#~ msgstr "Oluline tarkvarauuendus nurjus."
+
+#~ msgid "Review"
+#~ msgstr "Ülevaade"
+
+#~ msgid "Show details"
+#~ msgstr "Näita üksikasju"
+
+#~ msgid "OK"
+#~ msgstr "Olgu"
+
+#~ msgid "Left Ring"
+#~ msgstr "Vasak ratas"
+
+#~ msgid "Left Ring Mode #%d"
+#~ msgstr "Vasaku ratta režiim nr %d"
+
+#~ msgid "Right Ring"
+#~ msgstr "Parem ratas"
+
+#~ msgid "Right Ring Mode #%d"
+#~ msgstr "Parema ratta režiim nr %d"
+
+#~ msgid "Left Touchstrip"
+#~ msgstr "Vasak puuteriba"
+
+#~ msgid "Left Touchstrip Mode #%d"
+#~ msgstr "Vasaku puuteringi režiim %d"
+
+#~ msgid "Right Touchstrip"
+#~ msgstr "Parem puuteriba"
+
+#~ msgid "Right Touchstrip Mode #%d"
+#~ msgstr "Parema puuteringi režiim %d"
+
+#~ msgid "Left Touchring Mode Switch"
+#~ msgstr "Vasaku puuteringi režiimi lüliti"
+
+#~ msgid "Right Touchring Mode Switch"
+#~ msgstr "Parema puuteringi režiimi lüliti"
+
+#~ msgid "Left Touchstrip Mode Switch"
+#~ msgstr "Vasaku puuteriba režiimi lüliti"
+
+#~ msgid "Right Touchstrip Mode Switch"
+#~ msgstr "Parema puuteriba režiimi lüliti"
+
+#~ msgid "Mode Switch #%d"
+#~ msgstr "Režiimi lüliti %d"
+
+#~ msgid "Left Button #%d"
+#~ msgstr "Vasak nupp %d"
+
+#~ msgid "Right Button #%d"
+#~ msgstr "Parem nupp %d"
+
+#~ msgid "Top Button #%d"
+#~ msgstr "Ülemine nupp %d"
+
+#~ msgid "Bottom Button #%d"
+#~ msgstr "Alumine nupp %d"
+
+#~ msgid "Could not switch the monitor configuration"
+#~ msgstr "Kuvari häälestust pole võimalik muuta"
+
+#~ msgid "Could not restore the display's configuration"
+#~ msgstr "Kuva sätteid pole võimalik taastada"
+
+#~ msgid "Could not restore the display's configuration from a backup"
+#~ msgstr "Kuva sätteid pole võimalik varukoopiast taastada"
+
+#~ msgid "The display will be reset to its previous configuration in %d second"
+#~ msgid_plural ""
+#~ "The display will be reset to its previous configuration in %d seconds"
+#~ msgstr[0] "Kuva eelmised sätted taastatakse %d sekundi pärast"
+#~ msgstr[1] "Kuva eelmised sätted taastatakse %d sekundi pärast"
+
+#~ msgid "Does the display look OK?"
+#~ msgstr "Kas kuva paistab korras olevat?"
+
+#~ msgid "_Restore Previous Configuration"
+#~ msgstr "_Taasta eelmised sätted"
+
+#~ msgid "_Keep This Configuration"
+#~ msgstr "_Jäta need sätted alles"
+
+#~ msgid "The selected configuration for displays could not be applied"
+#~ msgstr "Valitud kuvasätteid pole võimalik rakendada"
+
+#~ msgid "Could not refresh the screen information: %s"
+#~ msgstr "Ekraaniteavet pole võimalik värskendada: %s"
+
+#~ msgid "Trying to switch the monitor configuration anyway."
+#~ msgstr "Sellest hoolimata proovitakse kuvari häälestust muuta."
+
+#~ msgid "Could not apply the stored configuration for monitors"
+#~ msgstr "Kuvarite jaoks salvestatud häälestust pole võimalik rakendada"
+
+#~ msgid "XRandR"
+#~ msgstr "XRandR"
+
+#~ msgid "Set up screen size and rotation settings"
+#~ msgstr "Ekraani suuruse ja pööramise sätete määramine"
 
 #~ msgid "Command to be run when a device is added or removed."
 #~ msgstr "Seadme lisamisel või eemaldamisel käivitatav käsk."
