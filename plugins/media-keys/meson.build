@@ -23,6 +23,7 @@ sources += gnome.gdbus_codegen(
 )
 
 deps = plugins_deps + [
+  gio_unix_dep,
   gsettings_desktop_dep,
   libcanberra_gtk_dep,
   libcommon_dep,
