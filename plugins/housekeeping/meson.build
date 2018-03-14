@@ -9,6 +9,7 @@ sources = common_files + files(
 )
 
 deps = plugins_deps + [
+  gio_unix_dep,
   gtk_dep,
   libnotify_dep
 ]

@@ -9,6 +9,7 @@ deps = plugins_deps + [
   libcanberra_gtk_dep,
   libcommon_dep,
   libnotify_dep,
+  gio_unix_dep,
   gnome_desktop_dep,
   m_dep,
   upower_glib_dep,
