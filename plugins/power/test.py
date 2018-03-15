@@ -50,7 +50,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             'gnome_screensaver', stdout=subprocess.PIPE)
         gsdtestcase.set_nonblock(self.screensaver.stdout)
 
-        self.session_log_write = open(os.path.join(self.workdir, 'gnome-session.log'), 'wb')
+        self.session_log_write = open(os.path.join(self.workdir, 'gnome-session.log'), 'wb', buffering=0)
         self.session = subprocess.Popen(['gnome-session', '-f',
                                          '-a', os.path.join(self.workdir, 'autostart'),
                                          '--session=dummy', '--debug'],
@@ -67,7 +67,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
                 print('----- session log -----\n%s\n------' % f.read())
             raise
 
-        self.session_log = open(self.session_log_write.name)
+        self.session_log = open(self.session_log_write.name, buffering=0)
 
         self.obj_session_mgr = self.session_bus_con.get_object(
             'org.gnome.SessionManager', '/org/gnome/SessionManager')
@@ -90,7 +90,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.settings_gsd_power = Gio.Settings('org.gnome.settings-daemon.plugins.power')
 
         Gio.Settings.sync()
-        self.plugin_log_write = open(os.path.join(self.workdir, 'plugin_power.log'), 'wb')
+        self.plugin_log_write = open(os.path.join(self.workdir, 'plugin_power.log'), 'wb', buffering=0)
         # avoid painfully long delays of actions for tests
         env = os.environ.copy()
         # Disable the use of the PolicyKit helper for brightness
@@ -106,7 +106,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             env=env)
 
         # you can use this for reading the current daemon log in tests
-        self.plugin_log = open(self.plugin_log_write.name)
+        self.plugin_log = open(self.plugin_log_write.name, buffering=0)
 
         # wait until plugin is ready
         timeout = 100
