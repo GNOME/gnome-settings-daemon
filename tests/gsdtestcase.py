@@ -253,8 +253,9 @@ class GSDTestCase(dbusmock.DBusTestCase):
         '''start Xvfb server'''
 
         xorg = GLib.find_program_in_path ('Xvfb')
-        if not xorg:
-            sys.stderr.write('Cannot start X.org, Xvfb binary not found\n')
+        xprop = GLib.find_program_in_path ('xprop')
+        if not xorg or not xprop:
+            sys.stderr.write('Cannot start X.org, Xvfb or xprop binary not found\n')
             sys.exit(1)
 
         display_num = klass.launch_xorg(klass, xorg)
