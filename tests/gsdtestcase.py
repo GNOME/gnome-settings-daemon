@@ -221,6 +221,9 @@ class GSDTestCase(dbusmock.DBusTestCase):
                 break
         if timeout <= 0:
             sys.stderr.write('Cannot start Xvfb.\n--------')
+
+            # Ensure xorg process is really dead
+            self.stop_xorg()
             return -1
 
         return display_num
