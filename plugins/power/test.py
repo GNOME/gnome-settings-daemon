@@ -57,6 +57,14 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
                                         stdout=self.session_log_write,
                                         stderr=subprocess.STDOUT)
 
+        environ = "/proc/%d/environ" % self.session.pid
+        environ = open(environ).read()
+        environ = environ.split(b'\0')
+        print('gnome-session environment:')
+        for e in environ:
+            print(e)
+        print('----')
+
         # wait until the daemon is on the bus
         try:
             self.wait_for_bus_object('org.gnome.SessionManager',
