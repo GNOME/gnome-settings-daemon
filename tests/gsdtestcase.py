@@ -137,7 +137,7 @@ class GSDTestCase(X11SessionTestCase):
 
         # You can rename the log file to *.log if you want to see it on test
         # case failures
-        klass.monitor_log = open(os.path.join(klass.workdir, 'dbus-monitor.out'), 'wb')
+        klass.monitor_log = open(os.path.join(klass.workdir, 'dbus-monitor.out'), 'wb', buffering=0)
         klass.monitor = subprocess.Popen(['dbus-monitor', '--monitor'],
                                          stdout=klass.monitor_log,
                                          stderr=subprocess.STDOUT)
@@ -172,7 +172,7 @@ class GSDTestCase(X11SessionTestCase):
     def start_mutter(klass):
         ''' start mutter '''
 
-        klass.mutter_log = open(os.path.join(klass.workdir, 'mutter.log'), 'wb')
+        klass.mutter_log = open(os.path.join(klass.workdir, 'mutter.log'), 'wb', buffering=0)
         # See https://gitlab.gnome.org/GNOME/mutter/merge_requests/15
         klass.mutter = subprocess.Popen(['mutter', '--x11'],
                                          stdout=klass.mutter_log,
