@@ -59,6 +59,9 @@ class GSDTestCase(dbusmock.DBusTestCase):
         os.environ['LC_MESSAGES'] = 'C'
         klass.workdir = tempfile.mkdtemp(prefix='gsd-plugin-test')
 
+        # Signal to mutter and gnome-session that we are using X11
+        os.environ['XDG_SESSION_TYPE'] = 'x11'
+
         klass.start_xorg()
 
         # tell dconf and friends to use our config/runtime directories
@@ -171,7 +174,6 @@ class GSDTestCase(dbusmock.DBusTestCase):
 
         klass.mutter_log = open(os.path.join(klass.workdir, 'mutter.log'), 'wb')
         # See https://gitlab.gnome.org/GNOME/mutter/merge_requests/15
-        os.environ['XDG_SESSION_TYPE'] = 'x11'
         klass.mutter = subprocess.Popen(['mutter', '--x11'],
                                          stdout=klass.mutter_log,
                                          stderr=subprocess.STDOUT)
