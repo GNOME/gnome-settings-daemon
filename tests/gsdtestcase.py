@@ -59,6 +59,10 @@ class GSDTestCase(dbusmock.DBusTestCase):
         os.environ['LC_MESSAGES'] = 'C'
         klass.workdir = tempfile.mkdtemp(prefix='gsd-plugin-test')
 
+        # Force usage of X11
+        os.environ['GDK_BACKEND'] = 'x11'
+        os.environ['WAYLAND_DISPLAY'] = ''
+
         klass.start_xorg()
 
         # tell dconf and friends to use our config/runtime directories
