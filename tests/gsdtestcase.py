@@ -215,6 +215,7 @@ class GSDTestCase(dbusmock.DBusTestCase):
                     return -1
 
                 if log and (b'Server is already active for display'):
+                    sys.stderr.write('Server already active for display :%d.\n--------\n' % display_num)
                     return 0
 
                 return -1
@@ -222,7 +223,7 @@ class GSDTestCase(dbusmock.DBusTestCase):
                                stderr=subprocess.PIPE) == 0:
                 break
         if timeout <= 0:
-            sys.stderr.write('Cannot start Xvfb.\n--------')
+            sys.stderr.write('Timeout waiting for Xvfb to start.\n--------\n')
 
             # Ensure xorg process is really dead
             self.stop_xorg()
@@ -240,7 +241,7 @@ class GSDTestCase(dbusmock.DBusTestCase):
             ret = klass.launch_xorg_with_display_num(klass, xorg, display_num)
 
         if ret == -1 or ret == 0:
-            sys.stderr.write('Cannot start Xvfb.\n--------')
+            sys.stderr.write('Cannot start Xvfb.\n--------\n')
             return 0
 
         return display_num
