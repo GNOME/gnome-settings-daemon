@@ -23,7 +23,6 @@
 
 #include <glib-object.h>
 #include <stdlib.h>
-#include <gtk/gtk.h>
 
 #include "gcm-edid.h"
 #include "gsd-color-state.h"
@@ -285,7 +284,6 @@ main (int argc, char **argv)
 
         g_setenv ("GSETTINGS_BACKEND", "memory", TRUE);
 
-        gtk_init (&argc, &argv);
         g_test_init (&argc, &argv, NULL);
 
         schema_dir = g_test_build_filename (G_TEST_BUILT, "", NULL);
