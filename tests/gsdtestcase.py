@@ -203,30 +203,28 @@ class GSDTestCase(dbusmock.DBusTestCase):
                 stdout=xorg_log_write, stderr=subprocess.STDOUT)
         os.environ['DISPLAY'] = ':%d' % display_num
 
-        # wait until the server is ready
-        timeout = 50
-        while timeout > 0:
-            time.sleep(0.1)
-            timeout -= 1
-            if klass.xorg.poll():
-                # ended prematurely
-                try:
-                    log = open(xorg_log).read()
-                except IOError:
-                    sys.stderr.write('Could not read server log after Xvfb died!\n--------\n')
-                    return -1
-
-                if b'Server is already active for display' in log:
-                    sys.stderr.write('Server already active for display :%d.\n--------\n' % display_num)
-                    # No use in keeping that log
-                    os.unlink(xorg_log)
-                    return 0
-
+        # Note that we used to loop here, but that gives us a race condition
+        # where xprop would connect to an Xvfb instance spawned by another
+        # process.
+        # So for now, just sleep for a few seconds instead
+        time.sleep(5)
+        if klass.xorg.poll():
+            # ended prematurely
+            try:
+                log = open(xorg_log).read()
+            except IOError:
+                sys.stderr.write('Could not read server log after Xvfb died!\n--------\n')
                 return -1
-            if subprocess.call(['xprop', '-root'], stdout=subprocess.PIPE,
+
+            if b'Server is already active for display' in log:
+                sys.stderr.write('Server already active for display :%d.\n--------\n' % display_num)
+                # No use in keeping that log
+                os.unlink(xorg_log)
+                return 0
+
+            return -1
+        if not subprocess.call(['xprop', '-root'], stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE) == 0:
-                break
-        if timeout <= 0:
             sys.stderr.write('Timeout waiting for Xvfb to start.\n--------\n')
 
             # Ensure xorg process is really dead
