@@ -193,7 +193,8 @@ class GSDTestCase(dbusmock.DBusTestCase):
             # Already a lock file for this display_num
             return 0
 
-        xorg_log_write = open(os.path.join(klass.workdir, 'xorg-%d.log' % display_num), 'wb')
+        xorg_log = os.path.join(klass.workdir, 'xorg-%d.log' % display_num)
+        xorg_log_write = open(xorg_log, 'wb', buffering=0)
 
         # Composite extension won't load unless at least 24bpp is set
         klass.xorg = subprocess.Popen([xorg, ':%d' % display_num, "-screen", "0", "1280x1024x24", "+extension", "GLX"],
@@ -208,8 +209,9 @@ class GSDTestCase(dbusmock.DBusTestCase):
             if klass.xorg.poll():
                 # ended prematurely
                 try:
-                    log = xorg_log_write.read()
+                    log = open(xorg_log).read()
                 except IOError:
+                    sys.stderr.write('Could not read server log after Xvfb died!\n--------\n')
                     return -1
 
                 if log and (b'Server is already active for display'):
