@@ -239,9 +239,9 @@ class GSDTestCase(dbusmock.DBusTestCase):
 
     @staticmethod
     def launch_xorg(klass, xorg):
-        display_num = 99
+        display_num = 100
+        ret = 0
 
-        ret = klass.launch_xorg_with_display_num(klass, xorg, display_num)
         while ret == 0 and display_num > 0:
             display_num = display_num - 1
             ret = klass.launch_xorg_with_display_num(klass, xorg, display_num)
