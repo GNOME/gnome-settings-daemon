@@ -199,7 +199,7 @@ gsd_night_light_smooth_cb (gpointer user_data)
 static void
 poll_smooth_create (GsdNightLight *self, gdouble temperature)
 {
-        poll_smooth_destroy (self);
+        g_assert (self->smooth_id == 0);
         self->smooth_target_temperature = temperature;
         self->smooth_timer = g_timer_new ();
         self->smooth_id = g_timeout_add (50, gsd_night_light_smooth_cb, self);
@@ -213,6 +213,9 @@ gsd_night_light_set_temperature (GsdNightLight *self, gdouble temperature)
                 gsd_night_light_set_temperature_internal (self, temperature);
                 return;
         }
+
+        /* Destroy any smooth transition, it will be recreated if neccessary */
+        poll_smooth_destroy (self);
 
         /* small jump */
         if (ABS (temperature - self->cached_temperature) < GSD_TEMPERATURE_MAX_DELTA) {
