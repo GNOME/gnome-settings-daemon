@@ -216,6 +216,7 @@ gsd_night_light_set_temperature (GsdNightLight *self, gdouble temperature)
 
         /* small jump */
         if (ABS (temperature - self->cached_temperature) < GSD_TEMPERATURE_MAX_DELTA) {
+                poll_smooth_destroy (self);
                 gsd_night_light_set_temperature_internal (self, temperature);
                 return;
         }
