@@ -201,7 +201,6 @@ po_dir = join_paths(meson.source_root(), 'po')
 
 top_inc = include_directories('.')
 
-subdir('tests')
 subdir('gnome-settings-daemon')
 subdir('data')
 subdir('plugins')

@@ -184,6 +184,7 @@ class GSDTestCase(X11SessionTestCase):
     def start_mutter(klass):
         ''' start mutter '''
 
+        os.environ['MUTTER_DEBUG_RESET_IDLETIME']='1'
         klass.mutter_log = open(os.path.join(klass.workdir, 'mutter.log'), 'wb', buffering=0)
         # See https://gitlab.gnome.org/GNOME/mutter/merge_requests/15
         klass.mutter = subprocess.Popen(['mutter', '--x11'],
@@ -204,4 +205,7 @@ class GSDTestCase(X11SessionTestCase):
     def reset_idle_timer(klass):
         '''trigger activity to reset idle timer'''
 
-        subprocess.check_call([os.path.join(top_builddir, 'tests', 'shiftkey')])
+        obj_mutter_idlemonitor = klass.session_bus_con.get_object(
+            'org.gnome.Mutter.IdleMonitor', '/org/gnome/Mutter/IdleMonitor/Core')
+
+        obj_mutter_idlemonitor.ResetIdletime(dbus_interface='org.gnome.Mutter.IdleMonitor')
