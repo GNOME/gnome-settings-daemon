@@ -28,7 +28,6 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gdk/gdkx.h>
-#include <X11/extensions/XTest.h>
 #include <X11/extensions/dpms.h>
 #include <canberra-gtk.h>
 
@@ -827,24 +826,6 @@ backlight_set_abs (GnomeRRScreen *rr_screen,
 
         return ret;
 #endif
-}
-
-void
-reset_idletime (void)
-{
-        static KeyCode keycode;
-
-        if (keycode == 0) {
-                keycode = XKeysymToKeycode (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), GDK_KEY_WakeUp);
-                if (keycode == 0)
-                        keycode = XKeysymToKeycode (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), GDK_KEY_Alt_L);
-        }
-
-        gdk_error_trap_push ();
-        /* send a wakeup or left alt key; first press, then release */
-        XTestFakeKeyEvent (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), keycode, True, CurrentTime);
-        XTestFakeKeyEvent (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), keycode, False, CurrentTime);
-        gdk_error_trap_pop_ignored ();
 }
 
 static gboolean

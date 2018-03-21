@@ -1304,10 +1304,6 @@ do_lid_open_action (GsdPowerManager *manager)
                          /* TRANSLATORS: this is the sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Lid has been opened"),
                          NULL);
-
-        /* This might already have happened when resuming, but
-         * if we didn't sleep, we'll need to wake it up */
-        reset_idletime ();
 }
 
 static void
@@ -2441,10 +2437,6 @@ handle_resume_actions (GsdPowerManager *manager)
 {
         /* ensure we turn the panel back on after resume */
         backlight_enable (manager);
-
-        /* And work-around Xorg bug:
-         * https://bugs.freedesktop.org/show_bug.cgi?id=59576 */
-        reset_idletime ();
 
         /* set up the delay again */
         inhibit_suspend (manager);
