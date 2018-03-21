@@ -940,6 +940,36 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         self.assertEqual(exc.exception.get_dbus_message(), 'Failed to get property Brightness on interface org.gnome.SettingsDaemon.Power.Keyboard')
 
+    def test_inhibitor_idletime(self):
+        ''' https://bugzilla.gnome.org/show_bug.cgi?id=705942 '''
+
+        idle_delay = round(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY / gsdpowerconstants.IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER)
+
+        self.settings_session['idle-delay'] = idle_delay
+        self.settings_gsd_power['sleep-inactive-battery-timeout'] = 5
+        self.settings_gsd_power['sleep-inactive-battery-type'] = 'suspend'
+
+        # create inhibitor
+        inhibit_id = self.obj_session_mgr.Inhibit(
+            'testsuite', dbus.UInt32(0), 'for testing',
+            dbus.UInt32(gsdpowerenums.GSM_INHIBITOR_FLAG_IDLE),
+            dbus_interface='org.gnome.SessionManager')
+        self.check_no_suspend(idle_delay + 2)
+        self.check_no_dim(0)
+
+        # Check that we didn't go to idle either
+        self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
+
+        self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id),
+                dbus_interface='org.gnome.SessionManager')
+
+        self.check_no_suspend(2)
+        self.check_no_dim(0)
+
+        time.sleep(5)
+
+        self.check_suspend_no_hibernate(7)
+
     def disabled_test_unindle_on_ac_plug(self):
         idle_delay = round(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY / gsdpowerconstants.IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER)
         self.settings_session['idle-delay'] = idle_delay
