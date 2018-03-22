@@ -79,6 +79,9 @@ set_timezone_cb (GObject      *source,
         g_signal_emit (G_OBJECT (user_data),
                        signals[TIMEZONE_CHANGED],
                        0, priv->current_timezone);
+
+        g_debug ("Successfully changed timezone to '%s'",
+                 priv->current_timezone);
 }
 
 static void
@@ -218,8 +221,14 @@ process_location (GsdTimezoneMonitor *self,
 
         new_timezone = find_timezone (self, location, country_code);
 
-        if (g_strcmp0 (priv->current_timezone, new_timezone) != 0)
+        if (g_strcmp0 (priv->current_timezone, new_timezone) != 0) {
+                g_debug ("Found updated timezone '%s' for country '%s'",
+                         new_timezone, country_code);
                 queue_set_timezone (self, new_timezone);
+        } else {
+                g_debug ("Timezone didn't change from '%s' for country '%s'",
+                         new_timezone, country_code);
+        }
 }
 
 static void
@@ -283,6 +292,8 @@ on_location_notify (GClueSimple *simple,
         latitude = gclue_location_get_latitude (location);
         longitude = gclue_location_get_longitude (location);
 
+        g_debug ("Got location %lf,%lf", latitude, longitude);
+
         start_reverse_geocoding (self, latitude, longitude);
 }
 
@@ -303,6 +314,8 @@ on_geoclue_simple_ready (GObject      *source_object,
                 return;
         }
 
+        g_debug ("Geoclue now available");
+
         priv = gsd_timezone_monitor_get_instance_private (user_data);
         priv->geoclue_simple = geoclue_simple;
         priv->geoclue_client = gclue_simple_get_client (priv->geoclue_simple);
@@ -320,6 +333,8 @@ start_geoclue (GsdTimezoneMonitor *self)
 {
         GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
 
+        g_debug ("Timezone monitor enabled, starting geoclue");
+
         priv->geoclue_cancellable = g_cancellable_new ();
         gclue_simple_new (DESKTOP_ID,
                           GCLUE_ACCURACY_LEVEL_CITY,
@@ -333,6 +348,8 @@ static void
 stop_geoclue (GsdTimezoneMonitor *self)
 {
         GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
+
+        g_debug ("Timezone monitor disabled, stopping geoclue");
 
         g_cancellable_cancel (priv->geoclue_cancellable);
         g_clear_object (&priv->geoclue_cancellable);
