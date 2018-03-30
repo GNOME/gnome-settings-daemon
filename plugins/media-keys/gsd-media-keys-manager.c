@@ -436,13 +436,14 @@ grab_accelerators_complete (GObject      *object,
                             GAsyncResult *result,
                             gpointer      user_data)
 {
-        GVariant *actions;
+        GVariant *ret, *actions;
         gboolean retry = FALSE;
         GError *error = NULL;
         GsdMediaKeysManager *manager = user_data;
 
-        shell_key_grabber_call_grab_accelerators_finish (SHELL_KEY_GRABBER (object),
-                                                         &actions, result, &error);
+        ret = g_dbus_proxy_call_finish (G_DBUS_PROXY (object), result, &error);
+        g_variant_get(ret, "(@au)", &actions);
+        g_variant_unref(ret);
 
         if (error) {
                 retry = g_error_matches (error, G_DBUS_ERROR, G_DBUS_ERROR_UNKNOWN_METHOD);
