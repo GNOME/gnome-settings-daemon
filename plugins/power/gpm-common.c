@@ -225,7 +225,9 @@ gsd_power_is_hardware_a_tablet (void)
         gboolean ret = FALSE;
 
         type = gnome_settings_get_chassis_type ();
-        ret = (g_strcmp0 (type, "tablet") == 0);
+        ret = (g_strcmp0 (type, "tablet") == 0) || \
+		(g_strcmp0 (type, "convertible") == 0) || \
+		(g_strcmp0 (type, "detachable") == 0);
         g_free (type);
 
         return ret;
