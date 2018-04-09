@@ -937,6 +937,9 @@ screen_devices_disable (GsdPowerManager *manager)
         GdkDeviceManager *device_manager;
         GList *devices, *l;
 
+        if (!g_settings_get_boolean (manager->priv->settings, "disable-touch-screen"))
+                return;
+
         /* This will be managed by the compositor eventually on X11 too:
          * https://bugzilla.gnome.org/show_bug.cgi?id=742598
          */
@@ -974,6 +977,9 @@ static void
 screen_devices_enable (GsdPowerManager *manager)
 {
         GList *l, *disabled_devices;
+
+        if (!g_settings_get_boolean (manager->priv->settings, "disable-touch-screen"))
+                return;
 
         if (gnome_settings_is_wayland ())
                 return;
