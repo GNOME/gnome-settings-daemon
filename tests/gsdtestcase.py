@@ -22,6 +22,8 @@ except ImportError:
     sys.stderr.write('You need python-dbusmock (http://pypi.python.org/pypi/python-dbusmock) for this test suite.\n')
     sys.exit(1)
 
+import x11session
+
 try:
     from gi.repository import Gio
 except ImportError:
@@ -43,7 +45,7 @@ def set_nonblock(fd):
     fcntl.fcntl(fd, fcntl.F_SETFL, flags | os.O_NONBLOCK)
 
 
-class GSDTestCase(dbusmock.DBusTestCase):
+class GSDTestCase(X11SessionTestCase):
     '''Base class for settings daemon tests
 
     This redirects the XDG directories to temporary directories, and runs local
@@ -62,8 +64,6 @@ class GSDTestCase(dbusmock.DBusTestCase):
         # Signal to mutter and gnome-session that we are using X11
         os.environ['XDG_SESSION_TYPE'] = 'x11'
 
-        klass.start_xorg()
-
         # tell dconf and friends to use our config/runtime directories
         os.environ['XDG_CONFIG_HOME'] = os.path.join(klass.workdir, 'config')
         os.environ['XDG_DATA_HOME'] = os.path.join(klass.workdir, 'data')
@@ -73,8 +73,9 @@ class GSDTestCase(dbusmock.DBusTestCase):
         os.makedirs(os.path.join(os.environ['XDG_CONFIG_HOME'], 'dconf'))
         os.makedirs(os.environ['XDG_RUNTIME_DIR'], mode=0o700)
 
-        klass.start_system_bus()
-        klass.start_session_bus()
+        # Starts Xvfb and dbus busses
+        X11SessionTestCase.setUpClass()
+
         klass.system_bus_con = klass.get_dbus(True)
         klass.session_bus_con = klass.get_dbus(False)
 
@@ -93,8 +94,7 @@ class GSDTestCase(dbusmock.DBusTestCase):
         klass.p_notify.terminate()
         klass.p_notify.wait()
         klass.stop_monitor()
-        dbusmock.DBusTestCase.tearDownClass()
-        klass.stop_xorg()
+        X11SessionTestCase.tearDownClass()
         shutil.rmtree(klass.workdir)
 
     def run(self, result=None):
@@ -187,82 +187,6 @@ class GSDTestCase(dbusmock.DBusTestCase):
 
         klass.mutter_log.flush()
         klass.mutter_log.close()
-
-    # Return the display num, -1 on hard failure, 0 on failure but to try again
-    @staticmethod
-    def launch_xorg_with_display_num(klass, xorg, display_num):
-        if os.path.isfile('/tmp/.X%d-lock' % display_num):
-            # Already a lock file for this display_num
-            return 0
-
-        xorg_log_write = open(os.path.join(klass.workdir, 'xorg-%d.log' % display_num), 'wb')
-
-        # Composite extension won't load unless at least 24bpp is set
-        klass.xorg = subprocess.Popen([xorg, ':%d' % display_num, "-screen", "0", "1280x1024x24", "+extension", "GLX"],
-                stdout=xorg_log_write, stderr=subprocess.STDOUT)
-        os.environ['DISPLAY'] = ':%d' % display_num
-
-        # wait until the server is ready
-        timeout = 50
-        while timeout > 0:
-            time.sleep(0.1)
-            timeout -= 1
-            if klass.xorg.poll():
-                # ended prematurely
-                try:
-                    log = open(xorg_log_write.name).read()
-                except IOError:
-                    return -1
-
-                if log and (b'Server is already active for display'):
-                    return 0
-
-                return -1
-            if subprocess.call(['xprop', '-root'], stdout=subprocess.PIPE,
-                               stderr=subprocess.PIPE) == 0:
-                break
-        if timeout <= 0:
-            sys.stderr.write('Cannot start Xvfb.\n--------')
-            return -1
-
-        return display_num
-
-    @staticmethod
-    def launch_xorg(klass, xorg):
-        display_num = 99
-
-        ret = klass.launch_xorg_with_display_num(klass, xorg, display_num)
-        while ret == 0 and display_num > 0:
-            display_num = display_num - 1
-            ret = klass.launch_xorg_with_display_num(klass, xorg, display_num)
-
-        if ret == -1 or ret == 0:
-            sys.stderr.write('Cannot start Xvfb.\n--------')
-            return 0
-
-        return display_num
-
-    @classmethod
-    def start_xorg(klass):
-        '''start Xvfb server'''
-
-        xorg = GLib.find_program_in_path ('Xvfb')
-        if not xorg:
-            sys.stderr.write('Cannot start X.org, Xvfb binary not found\n')
-            sys.exit(1)
-
-        display_num = klass.launch_xorg(klass, xorg)
-
-        if display_num == 0:
-            sys.stderr.write('Cannot start X.org, /tmp/.X*-lock all used\n')
-            sys.exit(1)
-
-    @classmethod
-    def stop_xorg(klass):
-        '''stop X.org server with dummy driver'''
-
-        klass.xorg.terminate()
-        klass.xorg.wait()
 
     @classmethod
     def reset_idle_timer(klass):
