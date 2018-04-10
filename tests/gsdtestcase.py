@@ -69,6 +69,11 @@ class GSDTestCase(X11SessionTestCase):
         os.environ['XDG_DATA_HOME'] = os.path.join(klass.workdir, 'data')
         os.environ['XDG_RUNTIME_DIR'] = os.path.join(klass.workdir, 'runtime')
 
+        # Copy gschema file into XDG_DATA_HOME
+        gschema_dir = os.path.join(os.environ['XDG_DATA_HOME'], 'glib-2.0', 'schemas')
+        os.makedirs(gschema_dir)
+        shutil.copy(os.path.join(top_builddir, 'data', 'gschemas.compiled'), gschema_dir)
+
         # work around https://bugzilla.gnome.org/show_bug.cgi?id=689136
         os.makedirs(os.path.join(os.environ['XDG_CONFIG_HOME'], 'dconf'))
         os.makedirs(os.environ['XDG_RUNTIME_DIR'], mode=0o700)
