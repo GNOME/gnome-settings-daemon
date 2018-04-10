@@ -281,16 +281,10 @@ gcm_test_frac_day (void)
 int
 main (int argc, char **argv)
 {
-        char *schema_dir;
-
         g_setenv ("GSETTINGS_BACKEND", "memory", TRUE);
 
         gtk_init (&argc, &argv);
         g_test_init (&argc, &argv, NULL);
-
-        schema_dir = g_test_build_filename (G_TEST_BUILT, "", NULL);
-        g_setenv("GSETTINGS_SCHEMA_DIR", schema_dir, TRUE);
-        g_free (schema_dir);
 
         g_test_add_func ("/color/edid", gcm_test_edid_func);
         g_test_add_func ("/color/sunset-sunrise", gcm_test_sunset_sunrise);
