@@ -51,4 +51,5 @@ exe = executable(
   c_args: '-DTESTDATADIR="@0@"'.format(join_paths(meson.current_source_dir(), 'test-data'))
 )
 
-test(test_unit, exe)
+envs = ['GSETTINGS_SCHEMA_DIR=@0@'.format(join_paths(meson.build_root(), 'data'))]
+test(test_unit, exe, env: envs)
