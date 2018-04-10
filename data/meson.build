@@ -15,19 +15,20 @@ schemas = [
 schema_conf = configuration_data()
 schema_conf.set('GETTEXT_PACKAGE', meson.project_name())
 
+schemas_xml = []
 foreach schema: schemas
-  configure_file(
+  schemas_xml += [configure_file(
     input: schema + '.in',
     output: schema,
     configuration: schema_conf,
     install: true,
     install_dir: gsd_schemadir
-  )
+  )]
 endforeach
 
 enums_header = files('gsd-enums.h')
 
-gnome.mkenums(
+mkenums = gnome.mkenums(
   'org.gnome.settings-daemon.enums.xml',
   sources: enums_header,
   comments: '<!-- @comment@ -->',
@@ -57,3 +58,12 @@ pkg.generate(
   filebase: meson.project_name(),
   subdirs: gsd_api_name
 )
+
+
+# for unit tests - gnome.compile_schemas() only looks in srcdir
+custom_target('compile-schemas',
+  input: schemas_xml,
+  depends: mkenums,
+  output: 'gschemas.compiled',
+  command: [find_program('glib-compile-schemas'), meson.current_build_dir()],
+  build_by_default: true)
