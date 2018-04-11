@@ -524,6 +524,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # Raise the idle delay, and see that we stop being idle
         # and get idle again after the timeout
         self.settings_session['idle-delay'] = 10
+        # Resolve possible race condition, see also https://gitlab.gnome.org/GNOME/mutter/issues/113
+        time.sleep(0.2)
         self.reset_idle_timer()
         time.sleep(5)
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
@@ -532,6 +534,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # Lower the delay again, and see that we get idle as we should
         self.settings_session['idle-delay'] = 5
+        # Resolve possible race condition, see also https://gitlab.gnome.org/GNOME/mutter/issues/113
+        time.sleep(0.2)
         self.reset_idle_timer()
         time.sleep(2)
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
