@@ -1951,8 +1951,8 @@ suspend_action (GsdMediaKeysManager *manager,
                 gboolean             allow_interaction)
 {
         const gchar *action = "Suspend";
-        GVariant *retval;
-        GError *error = NULL;
+        g_autoptr(GVariant) retval = NULL;
+        g_autoptr(GError) error = NULL;
 
         retval = g_dbus_proxy_call_sync (manager->priv->logind_proxy,
                                          "CanSuspendThenHibernate",
@@ -1962,16 +1962,17 @@ suspend_action (GsdMediaKeysManager *manager,
                                          NULL,
                                          &error);
         if (retval == NULL) {
-                g_debug ("Can't SuspendThenHibernate: %s", error->message);
+                g_warning ("Failed to query CanSuspendThenHibernate: %s", error->message);
                 g_error_free (error);
         } else {
-                GString *s2h = NULL;
+                const gchar *s2h = NULL;
+
                 g_variant_get (retval, "(s)", &s2h);
-               if (gstrcmp0(s2h, "yes") == 0)
-                       action = "SuspendThenHibernate";
-               g_free (s2h);
+                if (g_strcmp0 (s2h, "yes") == 0)
+                        action = "SuspendThenHibernate";
         }
         g_debug ("Choosing suspend action: %s", action);
+
         power_action (manager, action, allow_interaction);
 }
 

@@ -900,9 +900,9 @@ action_poweroff (GsdPowerManager *manager)
 static void
 action_suspend (GsdPowerManager *manager)
 {
-        GVariant *retval;
-        GError *error = NULL;
         const gchar *action = "Suspend";
+        g_autoptr(GVariant) retval = NULL;
+        g_autoptr(GError) error = NULL;
 
         if (manager->priv->logind_proxy == NULL) {
                 g_warning ("no systemd support");
@@ -917,14 +917,13 @@ action_suspend (GsdPowerManager *manager)
                                          manager->priv->cancellable,
                                          &error);
         if (retval == NULL) {
-                g_debug ("Can't SuspendThenHibernate: %s", error->message);
-                g_error_free (error);
+                g_warning ("Failed to query CanSuspendThenHibernate: %s", error->message);
         } else {
-	        GString *s2h = NULL;
+                const gchar *s2h = NULL;
+
                 g_variant_get (retval, "(s)", &s2h);
-                if (gstrcmp0(s2h, "yes") == 0)
+                if (g_strcmp0 (s2h, "yes") == 0)
                         action = "SuspendThenHibernate";
-                g_free (s2h);
         }
         g_debug ("Choosing suspend action: %s", action);
 
