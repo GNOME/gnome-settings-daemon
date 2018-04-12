@@ -34,6 +34,8 @@ from gi.repository import UPowerGlib
 class PowerPluginTest(gsdtestcase.GSDTestCase):
     '''Test the power plugin'''
 
+    COMMON_SUSPEND_METHODS=['Suspend', 'Hibernate', 'SuspendThenHibernate']
+
     def setUp(self):
         os.environ['GSD_MOCKED']='1'
         self.check_logind_gnome_session()
@@ -262,11 +264,19 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         if log:
             self.assertFalse(b'GsmManager: requesting logout' in log, 'unexpected logout request')
 
-    def check_for_suspend(self, timeout):
-        '''Check that Suspend() or Hibernate() is requested.
+    def check_for_suspend(self, timeout, methods=COMMON_SUSPEND_METHODS):
+        '''Check that one of the given suspend methods are requested. Default
+        methods are Suspend() or Hibernate() but also HibernateThenSuspend()
+        is valid.
 
         Fail after the given timeout.
         '''
+
+        # Create a list of byte string needles to search for
+        needles = [b' {} '.format(m) for m in methods]
+
+        suspended = False
+
         # check that it request suspend
         while timeout > 0:
             time.sleep(1)
@@ -277,10 +287,16 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             except IOError:
                 continue
 
-            if log and (b' Suspend ' in log or b' Hibernate ' in log):
+            for n in needles:
+                if n in log:
+                    suspended = True
+                    break
+
+            if suspended:
                 break
-        else:
-            self.fail('timed out waiting for logind Suspend() call')
+
+        if not suspended:
+            self.fail('timed out waiting for logind suspend call, methods: %s' % ', '.join(methods))
 
     def check_for_lid_inhibited(self, timeout=0):
         '''Check that the lid inhibitor has been added.
@@ -310,16 +326,17 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         if 'uninhibiting lid close' in log:
             self.fail('lid uninhibit should not have happened')
 
-    def check_no_suspend(self, seconds):
+    def check_no_suspend(self, seconds, methods=COMMON_SUSPEND_METHODS):
         '''Check that no Suspend or Hibernate is requested in the given time'''
 
         # wait for specified time to ensure it didn't do anything
         time.sleep(seconds)
         # check that it did not suspend or hibernate
         log = self.logind.stdout.read()
-        if log:
-            self.assertFalse(b' Suspend' in log, 'unexpected Suspend request')
-            self.assertFalse(b' Hibernate' in log, 'unexpected Hibernate request')
+        for m in methods:
+            needle = b' {} '.format(m)
+
+            self.assertFalse(needle in log, 'unexpected %s request' % m)
 
     def check_suspend_no_hibernate(self, seconds):
         '''Check that Suspend was requested and not Hibernate, in the given time'''

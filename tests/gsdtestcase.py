@@ -161,9 +161,16 @@ class GSDTestCase(X11SessionTestCase):
     def start_logind(self, parameters=None):
         '''start mock logind'''
 
+        if parameters is None:
+            parameters = {}
         self.logind, self.logind_obj = self.spawn_server_template('logind',
-                                                                  parameters or {},
+                                                                  parameters,
                                                                   stdout=subprocess.PIPE)
+
+        # Monkey patch SuspendThenHibernate functions in for dbusmock <= 0.17.2
+        # This should be removed once we can depend on dbusmock 0.17.3
+        self.logind_obj.AddMethod('org.freedesktop.login1.Manager', 'SuspendThenHibernate', 'b', '', '')
+        self.logind_obj.AddMethod('org.freedesktop.login1.Manager', 'CanSuspendThenHibernate', '', 's', 'ret = "%s"' % parameters.get('CanSuspendThenHibernate', 'yes'))
 
         # set log to nonblocking
         set_nonblock(self.logind.stdout)
