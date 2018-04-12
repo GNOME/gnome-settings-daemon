@@ -581,8 +581,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # And check we're not idle
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
 
-    def test_sleep_inactive_battery(self):
-        '''sleep-inactive-battery-timeout'''
+    def test_sleep_inactive_battery_hibernate_then_suspend(self):
+        '''Verify we SuspendThenHibernate on sleep-inactive-battery-timeout when SuspendThenHibernate is available'''
+        # Hibernate then suspend is the default
 
         self.settings_session['idle-delay'] = 2
         self.settings_gsd_power['sleep-inactive-battery-timeout'] = 5
@@ -593,7 +594,24 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # suspend should happen after inactive sleep timeout + 1 s notification
         # delay + 1 s error margin
-        self.check_for_suspend(7)
+        self.check_for_suspend(7, methods=['SuspendThenHibernate'])
+
+    def test_sleep_inactive_battery_no_hibernate_then_suspend(self):
+        '''Verify we Suspend on sleep-inactive-battery-timeout when SuspendThenHibernate is unavailable'''
+
+        # Patch up logind_ctl to not return "yes" for CanSuspendThenHibernate
+        self.logind_obj.AddMethod('org.freedesktop.login1.Manager', 'CanSuspendThenHibernate', '', 's', 'ret = "no"')
+
+        self.settings_session['idle-delay'] = 2
+        self.settings_gsd_power['sleep-inactive-battery-timeout'] = 5
+        self.settings_gsd_power['sleep-inactive-battery-type'] = 'suspend'
+
+        # wait for idle delay; should not yet suspend
+        self.check_no_suspend(2)
+
+        # suspend should happen after inactive sleep timeout + 1 s notification
+        # delay + 1 s error margin
+        self.check_for_suspend(7, methods=["Suspend"])
 
     def _test_suspend_no_hibernate(self):
         '''suspend-no-hibernate'''
