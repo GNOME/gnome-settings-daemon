@@ -881,6 +881,22 @@ gnome_session_logout (GsdPowerManager *manager,
 }
 
 static void
+dbus_call_log_error (GObject *source_object,
+                     GAsyncResult *res,
+                     gpointer user_data)
+{
+        g_autoptr(GVariant) result;
+        g_autoptr(GError) error = NULL;
+        const gchar *msg = user_data;
+
+        result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
+                                           res,
+                                           &error);
+        if (result == NULL)
+                g_warning ("%s: %s", msg, error->message);
+}
+
+static void
 action_poweroff (GsdPowerManager *manager)
 {
         if (manager->priv->logind_proxy == NULL) {
@@ -893,8 +909,8 @@ action_poweroff (GsdPowerManager *manager)
                            G_DBUS_CALL_FLAGS_NONE,
                            G_MAXINT,
                            NULL,
-                           NULL,
-                           NULL);
+                           dbus_call_log_error,
+                           "Error calling PowerOff");
 }
 
 static void
@@ -933,8 +949,8 @@ action_suspend (GsdPowerManager *manager)
                            G_DBUS_CALL_FLAGS_NONE,
                            G_MAXINT,
                            NULL,
-                           NULL,
-                           NULL);
+                           dbus_call_log_error,
+                           "Error calling suspend action");
 }
 
 static void
@@ -950,8 +966,8 @@ action_hibernate (GsdPowerManager *manager)
                            G_DBUS_CALL_FLAGS_NONE,
                            G_MAXINT,
                            NULL,
-                           NULL,
-                           NULL);
+                           dbus_call_log_error,
+                           "Error calling Hibernate");
 }
 
 static void
