@@ -23,6 +23,9 @@ import gsdpowerconstants
 import gsdpowerenums
 
 import dbus
+from dbus.mainloop.glib import DBusGMainLoop
+
+DBusGMainLoop(set_as_default=True)
 
 import gi
 gi.require_version('UPowerGlib', '1.0')
@@ -954,6 +957,85 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # And wait a little more to see us dim again
         self.check_dim(idle_delay + 2)
+
+    def test_brightness_stepping(self):
+        '''Check that stepping the backlight works as expected'''
+
+        obj_gsd_power = self.session_bus_con.get_object(
+            'org.gnome.SettingsDaemon.Power', '/org/gnome/SettingsDaemon/Power')
+        obj_gsd_power_screen_iface = dbus.Interface(obj_gsd_power, 'org.gnome.SettingsDaemon.Power.Screen')
+
+        # Each of the step calls will only return when the value was written
+        start = time.time()
+        # We start at 50% and step by 5% each time
+        obj_gsd_power_screen_iface.StepUp()
+        self.assertEqual(self.get_brightness(), 55)
+        obj_gsd_power_screen_iface.StepUp()
+        self.assertEqual(self.get_brightness(), 60)
+        obj_gsd_power_screen_iface.StepUp()
+        self.assertEqual(self.get_brightness(), 65)
+        obj_gsd_power_screen_iface.StepUp()
+        self.assertEqual(self.get_brightness(), 70)
+        stop = time.time()
+        # This needs to take more than 0.4 seconds as each write is delayed by
+        # 0.1 seconds by the test backlight helper
+        self.assertGreater(stop - start, 0.4)
+
+        # Now, the same thing should work fine if we step multiple times,
+        # even if we are so quick that compression will happen.
+        # Use a list to keep rack of replies (as integer is immutable and would
+        # not be modified in the outer scope)
+        replies = [0]
+
+        def handle_reply(*args):
+            replies[0] += 1
+
+        def last_reply(*args):
+            replies[0] += 1
+            loop.quit()
+
+        def error_handler(*args):
+            loop.quit()
+
+        start = time.time()
+        obj_gsd_power_screen_iface.StepDown(reply_handler=handle_reply, error_handler=error_handler)
+        obj_gsd_power_screen_iface.StepDown(reply_handler=handle_reply, error_handler=error_handler)
+        obj_gsd_power_screen_iface.StepDown(reply_handler=handle_reply, error_handler=error_handler)
+        obj_gsd_power_screen_iface.StepDown(reply_handler=last_reply, error_handler=error_handler)
+        loop = GLib.MainLoop()
+        loop.run()
+        stop = time.time()
+
+        # The calls need to be returned in order. As we got the last reply, all
+        # others must have been received too.
+        self.assertEqual(replies[0], 4)
+        # Four steps down, so back at 50%
+        self.assertEqual(self.get_brightness(), 50)
+        # And compression must have happened, so it should take less than 0.4s
+        self.assertLess(stop - start, 0.4)
+
+    def test_brightness_compression(self):
+        '''Check that compression also happens when setting the property'''
+        # Now test that the compression works correctly.
+        # NOTE: Relies on the implementation detail, that the property setter
+        #       returns immediately rather than waiting for the brightness to
+        #       be updated.
+        # Should this ever be fixed, then this will need to be changed to use
+        # async dbus calls similar to the stepping code
+
+        obj_gsd_power = self.session_bus_con.get_object(
+            'org.gnome.SettingsDaemon.Power', '/org/gnome/SettingsDaemon/Power')
+        obj_gsd_power_prop_iface = dbus.Interface(obj_gsd_power, dbus.PROPERTIES_IFACE)
+
+        # Quickly ramp the brightness up
+        for brightness in range(70, 91):
+            obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', brightness)
+
+        # The brightness of 80 should be in effect after slightly more than
+        # 0.2 seconds. If compression does not work as expected, this would take
+        # more than 2 seconds for the 20 steps.
+        time.sleep(1.0)
+        self.assertEqual(self.get_brightness(), 90)
 
 # avoid writing to stderr
 unittest.main(testRunner=unittest.TextTestRunner(stream=sys.stdout, verbosity=2))
