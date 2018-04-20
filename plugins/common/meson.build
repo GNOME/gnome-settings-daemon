@@ -1,22 +1,9 @@
 common_inc = include_directories('.')
 
 sources = files(
-  'gsd-device-manager.c',
-  'gsd-device-manager-x11.c',
   'gsd-input-helper.c',
   'gsd-settings-migrate.c',
   'gsd-shell-helper.c'
-)
-
-enums_header = 'gsd-device-manager.h'
-
-enums = 'gsd-common-enums'
-
-sources += gnome.mkenums(
-  enums,
-  sources: enums_header,
-  c_template: enums + '.c.in',
-  h_template: enums + '.h.in'
 )
 
 resource_data = files('gtk.css')
@@ -39,12 +26,6 @@ deps = plugins_deps + [
 ldflags = []
 if host_is_darwin
   ldflags += ['-Wl,-bundle_loader,@0@'.format(join_paths(), meson.build_root(), meson.project_name(), meson.project_name())]
-endif
-
-if enable_wayland
-  sources += files('gsd-device-manager-udev.c')
-
-  deps += [wayland_gdk_dep, gudev_dep]
 endif
 
 if enable_wacom
