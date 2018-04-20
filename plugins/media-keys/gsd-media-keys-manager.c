@@ -1128,11 +1128,6 @@ do_touchpad_action (GsdMediaKeysManager *manager)
         GSettings *settings;
         gboolean state;
 
-        if (touchpad_is_present () == FALSE) {
-                do_touchpad_osd_action (manager, FALSE);
-                return;
-        }
-
         settings = g_settings_new (SETTINGS_TOUCHPAD_DIR);
         state = (g_settings_get_enum (settings, TOUCHPAD_ENABLED_KEY) ==
                  G_DESKTOP_DEVICE_SEND_EVENTS_ENABLED);
