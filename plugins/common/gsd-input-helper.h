@@ -50,10 +50,6 @@ gboolean  supports_xtest           (void);
 gboolean set_device_enabled       (int device_id,
                                    gboolean enabled);
 
-gboolean  touchpad_is_present     (void);
-gboolean  touchscreen_is_present  (void);
-gboolean  mouse_is_present        (void);
-
 gboolean  device_set_property     (XDevice                *xdevice,
                                    const char             *device_name,
                                    PropertyHelper         *property);
