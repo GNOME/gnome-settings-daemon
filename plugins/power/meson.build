@@ -119,7 +119,8 @@ test_py = find_program('test.py')
 envs = [
 #  'G_DEBUG=fatal_warnings',
   'BUILDDIR=' + meson.current_build_dir(),
-  'TOP_BUILDDIR=' + meson.build_root()
+  'TOP_BUILDDIR=' + meson.build_root(),
+  'LD_PRELOAD=libumockdev-preload.so.0',
 ]
 
 test(
