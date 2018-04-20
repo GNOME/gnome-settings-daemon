@@ -52,6 +52,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         os.environ['LD_PRELOAD'] = 'libumockdev-preload.so.0'
 
         # Create a mock backlight device
+        # Note that this function creates a different backlight device based on
+        # the name of the test.
         self.add_backlight()
 
         # start mock upowerd
@@ -210,7 +212,17 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
     def get_status(self):
         return self.obj_session_presence_props.Get('org.gnome.SessionManager.Presence', 'status')
 
-    def add_backlight(self, _type="raw", brightness=50, max_brightness=100, enabled="enabled"):
+    def backlight_defaults(self):
+        # Hack to modify the brightness defaults before starting gsd-power.
+        # The alternative would be to create two separate test files.
+        if 'legacy_brightness' in self.id():
+            return 15, 15
+        else:
+            return 100, 50
+
+    def add_backlight(self, _type="raw", enabled="enabled"):
+        max_brightness, brightness = self.backlight_defaults()
+
         # Undo mangling done in GSD
         if max_brightness >= 99:
             max_brightness += 1
@@ -223,7 +235,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
                                                   'brightness', str(brightness)],
                                                  [])
 
-    def get_brightness(self, max_brightness=100):
+    def get_brightness(self):
+        max_brightness = int(open(os.path.join(self.testbed.get_root_dir() + self.backlight, 'max_brightness')).read())
+
         # self.backlight contains the leading slash, so os.path.join doesn't quite work
         res = int(open(os.path.join(self.testbed.get_root_dir() + self.backlight, 'brightness')).read())
         # Undo mangling done in GSD
@@ -1036,6 +1050,51 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # more than 2 seconds for the 20 steps.
         time.sleep(1.0)
         self.assertEqual(self.get_brightness(), 90)
+
+    def test_brightness_step(self):
+        # We cannot use check_plugin_log here because the startup check already
+        # read the relevant message.
+        log = open(self.plugin_log_write.name, 'rb').read()
+        self.assertIn('Step size for backlight is 5.', log)
+
+    def test_legacy_brightness_step(self):
+        # We cannot use check_plugin_log here because the startup check already
+        # read the relevant message.
+        log = open(self.plugin_log_write.name, 'rb').read()
+        self.assertIn('Step size for backlight is 1.', log)
+
+    def test_legacy_brightness_rounding(self):
+        obj_gsd_power = self.session_bus_con.get_object(
+            'org.gnome.SettingsDaemon.Power', '/org/gnome/SettingsDaemon/Power')
+        obj_gsd_power_prop_iface = dbus.Interface(obj_gsd_power, dbus.PROPERTIES_IFACE)
+
+        obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 0)
+        time.sleep(0.2)
+        self.assertEqual(self.get_brightness(), 0)
+        obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 10)
+        time.sleep(0.2)
+        self.assertEqual(self.get_brightness(), 1)
+        obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 20)
+        time.sleep(0.2)
+        self.assertEqual(self.get_brightness(), 3)
+        obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 25)
+        time.sleep(0.2)
+        self.assertEqual(self.get_brightness(), 4)
+        obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 50)
+        time.sleep(0.2)
+        self.assertEqual(self.get_brightness(), 7)
+        obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 52)
+        time.sleep(0.2)
+        self.assertEqual(self.get_brightness(), 8)
+        obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 56)
+        time.sleep(0.2)
+        self.assertEqual(self.get_brightness(), 8)
+        obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 57)
+        time.sleep(0.2)
+        self.assertEqual(self.get_brightness(), 9)
+        obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 98)
+        time.sleep(0.2)
+        self.assertEqual(self.get_brightness(), 15)
 
 # avoid writing to stderr
 unittest.main(testRunner=unittest.TextTestRunner(stream=sys.stdout, verbosity=2))
