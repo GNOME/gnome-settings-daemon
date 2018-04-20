@@ -659,6 +659,8 @@ gsd_backlight_constructed (GObject *object)
 done:
         backlight->brightness_target = backlight->brightness_val;
         backlight->brightness_step = MAX(backlight->brightness_step, BRIGHTNESS_STEP_AMOUNT(backlight->brightness_max - backlight->brightness_min + 1));
+
+        g_debug ("Step size for backlight is %i.", backlight->brightness_step);
 }
 
 static void
