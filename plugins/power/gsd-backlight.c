@@ -25,8 +25,6 @@
 #include "gsd-power-constants.h"
 #include "gsd-power-manager.h"
 
-#define MOCK_BRIGHTNESS_FILE "GSD_MOCK_brightness"
-
 #ifdef HAVE_GUDEV
 #include <gudev/gudev.h>
 #endif /* HAVE_GUDEV */
@@ -341,6 +339,7 @@ gsd_backlight_run_set_helper (GsdBacklight *backlight, GTask *task)
 {
         GSubprocess *proc = NULL;
         BacklightHelperData *data = g_task_get_task_data (task);
+        const gchar *gsd_backlight_helper = NULL;
         GError *error = NULL;
 
         g_assert (backlight->active_task == NULL);
@@ -349,12 +348,23 @@ gsd_backlight_run_set_helper (GsdBacklight *backlight, GTask *task)
         if (data->value_str == NULL)
                 data->value_str = g_strdup_printf ("%d", data->value);
 
-        proc = g_subprocess_new (G_SUBPROCESS_FLAGS_STDOUT_SILENCE,
-                                 &error,
-                                 "pkexec", 
-                                 LIBEXECDIR "/gsd-backlight-helper",
-                                 g_udev_device_get_sysfs_path (backlight->udev_device),
-                                 data->value_str, NULL);
+        /* This is solely for use by the test environment. If given, execute
+         * this helper instead of the internal helper using pkexec */
+        gsd_backlight_helper = g_getenv ("GSD_BACKLIGHT_HELPER");
+        if (!gsd_backlight_helper) {
+                proc = g_subprocess_new (G_SUBPROCESS_FLAGS_STDOUT_SILENCE,
+                                         &error,
+                                         "pkexec",
+                                         LIBEXECDIR "/gsd-backlight-helper",
+                                         g_udev_device_get_sysfs_path (backlight->udev_device),
+                                         data->value_str, NULL);
+        } else {
+                proc = g_subprocess_new (G_SUBPROCESS_FLAGS_STDOUT_SILENCE,
+                                         &error,
+                                         gsd_backlight_helper,
+                                         g_udev_device_get_sysfs_path (backlight->udev_device),
+                                         data->value_str, NULL);
+        }
 
         if (proc == NULL) {
                 gsd_backlight_set_helper_return (backlight, task, -1, error);
@@ -451,22 +461,6 @@ gsd_backlight_set_brightness_val_async (GsdBacklight *backlight,
         backlight->brightness_target = value;
 
         task = g_task_new (backlight, cancellable, callback, user_data);
-
-        if (is_mocked ()) {
-                g_autofree gchar *contents = NULL;
-                g_debug ("Setting mock brightness: %d", value);
-
-                contents = g_strdup_printf ("%d", value);
-                if (!g_file_set_contents (MOCK_BRIGHTNESS_FILE, contents, -1, &error)) {
-                        g_warning ("Setting mock brightness failed: %s", error->message);
-                        g_task_return_error (task, error);
-                }
-                priv->brightness_val = priv->brightness_target;
-                g_object_notify_by_pspec (G_OBJECT (backlight), props[PROP_BRIGHTNESS]);
-                g_task_return_int (task, gsd_backlight_get_brightness (backlight, NULL));
-
-                return;
-        }
 
 #ifdef HAVE_GUDEV
         if (backlight->udev_device != NULL) {
@@ -718,19 +712,6 @@ gsd_backlight_initable_init (GInitable       *initable,
                 g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
                                      "GsdBacklight does not support cancelling initialization.");
                 return FALSE;
-        }
-
-        /* If mocked, set as available and set the brightness (which will also
-         * create the file for the test environment). */
-        if (is_mocked ()) {
-                g_debug ("Using mock for backlight.");
-                priv->available = TRUE;
-                priv->brightness_min = 0;
-                priv->brightness_max = 100;
-
-                gsd_backlight_set_brightness_async (backlight, GSD_MOCK_DEFAULT_BRIGHTNESS, NULL, NULL, NULL);
-
-                goto done;
         }
 
 #ifdef HAVE_GUDEV
