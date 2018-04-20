@@ -27,10 +27,12 @@ import dbus
 
 import gi
 gi.require_version('UPowerGlib', '1.0')
+gi.require_version('UMockdev', '1.0')
 
 from gi.repository import Gio
 from gi.repository import GLib
 from gi.repository import UPowerGlib
+from gi.repository import UMockdev
 
 class PowerPluginTest(gsdtestcase.GSDTestCase):
     '''Test the power plugin'''
@@ -42,6 +44,14 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.check_logind_gnome_session()
         self.start_logind()
         self.daemon_death_expected = False
+
+
+        # Setup umockdev testbed
+        self.testbed = UMockdev.Testbed.new()
+        os.environ['UMOCKDEV_DIR'] = self.testbed.get_root_dir()
+
+        # Create a mock backlight device
+        self.add_backlight()
 
         # start mock upowerd
         (self.upowerd, self.obj_upower) = self.spawn_server_template(
@@ -96,10 +106,11 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.plugin_log_write = open(os.path.join(self.workdir, 'plugin_power.log'), 'wb', buffering=0)
         # avoid painfully long delays of actions for tests
         env = os.environ.copy()
-        # Disable the use of the PolicyKit helper for brightness
-        env['GSD_DISABLE_BACKLIGHT_HELPER'] = '1'
         # Disable PulseAudio output from libcanberra
         env['CANBERRA_DRIVER'] = 'null'
+
+        # Use dummy script as testing backlight helper
+        env['GSD_BACKLIGHT_HELPER'] = os.path.join (project_root, 'plugins', 'power', 'test-backlight-helper')
 
         self.daemon = subprocess.Popen(
             [os.path.join(builddir, 'gsd-power'), '--verbose'],
@@ -156,10 +167,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         except OSError:
             pass
 
-        try:
-            os.unlink('GSD_MOCK_brightness')
-        except OSError:
-            pass
+        del self.testbed
 
         # we check this at the end so that the other cleanup always happens
         self.assertTrue(daemon_running or self.daemon_death_expected, 'daemon died during the test')
@@ -198,12 +206,26 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
     def get_status(self):
         return self.obj_session_presence_props.Get('org.gnome.SessionManager.Presence', 'status')
 
-    def get_brightness(self):
-        try:
-            (success, ret) = GLib.file_get_contents ('GSD_MOCK_brightness')
-        except:
-            return gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS
-        return int(ret)
+    def add_backlight(self, _type="raw", brightness=50, max_brightness=100):
+        # Undo mangling done in GSD
+        if max_brightness >= 99:
+            max_brightness += 1
+            brightness += 1
+
+        # This needs to be done before starting gsd-power!
+        self.backlight = self.testbed.add_device('backlight', 'mock_backlight', None,
+                                                 ['type', _type,
+                                                  'max_brightness', str(max_brightness),
+                                                  'brightness', str(brightness)],
+                                                 [])
+
+    def get_brightness(self, max_brightness=100):
+        # self.backlight contains the leading slash, so os.path.join doesn't quite work
+        res = int(open(os.path.join(self.testbed.get_root_dir() + self.backlight, 'brightness')).read())
+        # Undo mangling done in GSD
+        if max_brightness >= 99:
+            res -= 1
+        return res
 
     def set_has_external_monitor(self, external):
         if external:
