@@ -27,12 +27,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "gsd-device-manager.h"
 #include "gsd-wacom-oled.h"
 
 #define MAGIC_BASE64		"base64:"		/*Label starting with base64: is treated as already encoded*/
 #define MAGIC_BASE64_LEN	strlen(MAGIC_BASE64)
-#define LEFT_HANDED_KEY		"left-handed"
 
 static void
 oled_surface_to_image (guchar          *image,
@@ -219,14 +217,12 @@ oled_encode_image (char             *label,
 }
 
 gboolean
-set_oled (GsdDevice	*device,
-          guint          button,
-	  char		*label,
-          GError       **error)
+set_oled (const gchar  *device_path,
+          gboolean      left_handed,
+          guint         button,
+          char	       *label,
+          GError      **error)
 {
-        gboolean left_handed = FALSE;
-	GSettings *settings;
-	const char *path;
 	char *command;
 	gboolean ret;
 	char *buffer;
@@ -240,17 +236,13 @@ set_oled (GsdDevice	*device,
 	if (g_str_has_prefix (label, MAGIC_BASE64)) {
 		buffer = g_strdup (label + MAGIC_BASE64_LEN);
         } else {
-                settings = gsd_device_get_settings (device);
-                left_handed = g_settings_get_boolean (settings, LEFT_HANDED_KEY);
 		buffer = oled_encode_image (label, left_handed);
 	}
 
-	path = gsd_device_get_device_file (device);
-
-	g_debug ("Setting OLED label '%s' on button %d (device %s)", label, button, path);
+	g_debug ("Setting OLED label '%s' on button %d (device %s)", label, button, device_path);
 
 	command = g_strdup_printf ("pkexec " LIBEXECDIR "/gsd-wacom-oled-helper --path %s --button %d --buffer %s",
-				   path, button, buffer);
+				   device_path, button, buffer);
 	ret = g_spawn_command_line_sync (command,
 					 NULL,
 					 NULL,
