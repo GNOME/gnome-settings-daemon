@@ -165,6 +165,7 @@ gsd_backlight_udev_idle_update_cb (GsdBacklight *backlight)
                 return FALSE;
         }
         brightness = atoi(contents);
+        g_debug ("GsdBacklight: New brightness value after uevent is %d", brightness);
 
         /* Only notify if brightness has changed. */
         if (brightness == priv->brightness_val)
