@@ -204,6 +204,8 @@ gsd_backlight_udev_uevent (GUdevClient *client, const gchar *action, GUdevDevice
                        g_udev_device_get_sysfs_path (backlight->udev_device)) != 0)
                 return;
 
+        g_debug ("GsdBacklight: Got uevent");
+
         gsd_backlight_udev_idle_update (backlight);
 }
 
