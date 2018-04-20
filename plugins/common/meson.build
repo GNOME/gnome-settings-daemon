@@ -64,14 +64,3 @@ libcommon_dep = declare_dependency(
   include_directories: common_inc,
   link_with: libcommon
 )
-
-executable(
-  'gsd-test-input-helper',
-  'test-input-helper.c',
-  include_directories: top_inc,
-  dependencies: gtk_dep,
-  link_with: libcommon,
-  install: true,
-  install_rpath: gsd_pkglibdir,
-  install_dir: gsd_libexecdir
-)
