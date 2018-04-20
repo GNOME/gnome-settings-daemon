@@ -3,7 +3,6 @@ common_inc = include_directories('.')
 sources = files(
   'gsd-device-manager.c',
   'gsd-device-manager-x11.c',
-  'gsd-device-mapper.c',
   'gsd-input-helper.c',
   'gsd-settings-migrate.c',
   'gsd-shell-helper.c'
