@@ -1085,6 +1085,26 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         time.sleep(1.0)
         self.assertEqual(self.get_brightness(), 90)
 
+    def test_brightness_uevent(self):
+        obj_gsd_power = self.session_bus_con.get_object(
+            'org.gnome.SettingsDaemon.Power', '/org/gnome/SettingsDaemon/Power')
+        obj_gsd_power_prop_iface = dbus.Interface(obj_gsd_power, dbus.PROPERTIES_IFACE)
+
+        brightness = obj_gsd_power_prop_iface.Get('org.gnome.SettingsDaemon.Power.Screen', 'Brightness')
+        self.assertEqual(50, brightness)
+
+        # Check that the brightness is updated if it was changed through some
+        # other mechanism (e.g. firmware).
+        # Set to 80+1 because of the GSD offset (see add_backlight).
+        self.testbed.set_attribute(self.backlight, 'brightness', '81')
+        self.testbed.uevent(self.backlight, 'change')
+
+        self.check_plugin_log('GsdBacklight: Got uevent', 1, 'gsd-power did not process uevent')
+        time.sleep(0.1)
+
+        brightness = obj_gsd_power_prop_iface.Get('org.gnome.SettingsDaemon.Power.Screen', 'Brightness')
+        self.assertEqual(80, brightness)
+
     def test_brightness_step(self):
         # We cannot use check_plugin_log here because the startup check already
         # read the relevant message.

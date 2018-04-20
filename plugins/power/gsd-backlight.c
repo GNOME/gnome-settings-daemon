@@ -201,6 +201,8 @@ gsd_backlight_udev_uevent (GUdevClient *client, gchar *action, GUdevDevice *devi
         if (priv->tasks)
                 return;
 
+        g_debug ("GsdBacklight: Got uevent");
+
         gsd_backlight_udev_idle_update (backlight);
 }
 
