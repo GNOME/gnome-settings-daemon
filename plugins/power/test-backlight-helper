@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Simulate a slow call and just write the given brightness value to the device
+sleep 0.1
+echo "$2" >"$1/brightness"
