@@ -39,7 +39,6 @@
 #include "gsd-wacom-manager.h"
 #include "gsd-wacom-oled.h"
 #include "gsd-shell-helper.h"
-#include "gsd-device-mapper.h"
 #include "gsd-device-manager.h"
 #include "gsd-settings-migrate.h"
 
@@ -75,11 +74,8 @@ struct GsdWacomManagerPrivate
         guint start_idle_id;
         GsdDeviceManager *device_manager;
         guint device_added_id;
-        guint device_removed_id;
 
         GsdShell *shell_proxy;
-
-        GsdDeviceMapper *device_mapper;
 
         gchar *machine_id;
 
@@ -283,24 +279,6 @@ device_added_cb (GsdDeviceManager *device_manager,
 
         if (device_type & GSD_DEVICE_TYPE_TABLET)
                 migrate_tablet_settings (manager, gsd_device);
-
-	if ((device_type & GSD_DEVICE_TYPE_TABLET) != 0 &&
-            (device_type & GSD_DEVICE_TYPE_TOUCHPAD) == 0) {
-		gsd_device_mapper_add_input (manager->priv->device_mapper,
-					     gsd_device);
-	} else if ((device_type & GSD_DEVICE_TYPE_TOUCHSCREEN) != 0) {
-		gsd_device_mapper_add_input (manager->priv->device_mapper,
-					     gsd_device);
-	}
-}
-
-static void
-device_removed_cb (GsdDeviceManager *device_manager,
-                   GsdDevice        *gsd_device,
-                   GsdWacomManager  *manager)
-{
-	gsd_device_mapper_remove_input (manager->priv->device_mapper,
-					gsd_device);
 }
 
 static void
@@ -324,8 +302,6 @@ set_devicepresence_handler (GsdWacomManager *manager)
         device_manager = gsd_device_manager_get ();
         manager->priv->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
                                                            G_CALLBACK (device_added_cb), manager);
-        manager->priv->device_removed_id = g_signal_connect (G_OBJECT (device_manager), "device-removed",
-                                                             G_CALLBACK (device_removed_cb), manager);
         manager->priv->device_manager = device_manager;
 }
 
@@ -340,12 +316,9 @@ gsd_wacom_manager_idle_cb (GsdWacomManager *manager)
 {
         gnome_settings_profile_start (NULL);
 
-        manager->priv->device_mapper = gsd_device_mapper_get ();
-
         set_devicepresence_handler (manager);
 
         add_devices (manager, GSD_DEVICE_TYPE_TABLET);
-        add_devices (manager, GSD_DEVICE_TYPE_TOUCHSCREEN);
 
         gnome_settings_profile_end (NULL);
 
@@ -472,7 +445,6 @@ gsd_wacom_manager_stop (GsdWacomManager *manager)
 
         if (p->device_manager != NULL) {
                 g_signal_handler_disconnect (p->device_manager, p->device_added_id);
-                g_signal_handler_disconnect (p->device_manager, p->device_removed_id);
                 p->device_manager = NULL;
         }
 }
