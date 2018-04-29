@@ -246,10 +246,10 @@ out:
 }
 
 typedef struct {
-        GsdColorState         *state;
+        GsdColorState           *state;
         CdProfile               *profile;
         CdDevice                *device;
-        guint32                  output_id;
+        GArray                  *output_ids;
 } GcmSessionAsyncHelper;
 
 static void
@@ -261,6 +261,8 @@ gcm_session_async_helper_free (GcmSessionAsyncHelper *helper)
                 g_object_unref (helper->profile);
         if (helper->device != NULL)
                 g_object_unref (helper->device);
+        if (helper->output_ids != NULL)
+                g_array_free (helper->output_ids, TRUE);
         g_free (helper);
 }
 
@@ -513,7 +515,7 @@ out:
 }
 
 static gboolean
-gcm_session_device_set_gamma (GnomeRROutput *output,
+gcm_session_device_set_gamma (GPtrArray *outputs,
                               CdProfile *profile,
                               guint color_temperature,
                               GError **error)
@@ -521,9 +523,10 @@ gcm_session_device_set_gamma (GnomeRROutput *output,
         gboolean ret = FALSE;
         guint size;
         GPtrArray *clut = NULL;
+        gint i;
 
         /* create a lookup table */
-        size = gnome_rr_output_get_gamma_size (output);
+        size = gnome_rr_output_get_gamma_size (g_ptr_array_index (outputs, 0));
         if (size == 0) {
                 ret = TRUE;
                 goto out;
@@ -538,9 +541,11 @@ gcm_session_device_set_gamma (GnomeRROutput *output,
         }
 
         /* apply the vcgt to this output */
-        ret = gcm_session_output_set_gamma (output, clut, error);
-        if (!ret)
-                goto out;
+        for (i = 0; i < outputs->len; i++) {
+                ret = gcm_session_output_set_gamma (g_ptr_array_index (outputs, i), clut, error);
+                if (!ret)
+                        goto out;
+        }
 out:
         if (clut != NULL)
                 g_ptr_array_unref (clut);
@@ -548,7 +553,7 @@ out:
 }
 
 static gboolean
-gcm_session_device_reset_gamma (GnomeRROutput *output,
+gcm_session_device_reset_gamma (GPtrArray *outputs,
                                 guint color_temperature,
                                 GError **error)
 {
@@ -563,7 +568,7 @@ gcm_session_device_reset_gamma (GnomeRROutput *output,
         /* create a linear ramp */
         g_debug ("falling back to dummy ramp");
         clut = g_ptr_array_new_with_free_func (g_free);
-        size = gnome_rr_output_get_gamma_size (output);
+        size = gnome_rr_output_get_gamma_size (g_ptr_array_index (outputs, 0));
         if (size == 0) {
                 ret = TRUE;
                 goto out;
@@ -588,21 +593,23 @@ gcm_session_device_reset_gamma (GnomeRROutput *output,
         }
 
         /* apply the vcgt to this output */
-        ret = gcm_session_output_set_gamma (output, clut, error);
-        if (!ret)
-                goto out;
+        for (i = 0; i < outputs->len; i++) {
+                ret = gcm_session_output_set_gamma (g_ptr_array_index (outputs, i), clut, error);
+                if (!ret)
+                        goto out;
+        }
 out:
         g_ptr_array_unref (clut);
         return ret;
 }
 
-static GnomeRROutput *
-gcm_session_get_state_output_by_id (GsdColorState *state,
-                                  const gchar *device_id,
-                                  GError **error)
+static GPtrArray *
+gcm_session_get_state_outputs_by_id (GsdColorState *state,
+                                     const gchar *device_id,
+                                     GError **error)
 {
         gchar *output_id;
-        GnomeRROutput *output = NULL;
+        GPtrArray *result = NULL;
         GnomeRROutput **outputs = NULL;
         guint i;
         GsdColorStatePrivate *priv = state->priv;
@@ -616,13 +623,17 @@ gcm_session_get_state_output_by_id (GsdColorState *state,
                                      "Failed to get outputs");
                 goto out;
         }
-        for (i = 0; outputs[i] != NULL && output == NULL; i++) {
+        for (i = 0; outputs[i] != NULL; i++) {
                 output_id = gcm_session_get_output_id (state, outputs[i]);
-                if (g_strcmp0 (output_id, device_id) == 0)
-                        output = outputs[i];
+                if (g_strcmp0 (output_id, device_id) == 0) {
+                        if (result == NULL) {
+                                result = g_ptr_array_new ();
+                        }
+                        g_ptr_array_add (result, outputs[i]);
+                }
                 g_free (output_id);
         }
-        if (output == NULL) {
+        if (result == NULL) {
                 g_set_error (error,
                              GSD_COLOR_MANAGER_ERROR,
                              GSD_COLOR_MANAGER_ERROR_FAILED,
@@ -630,7 +641,7 @@ gcm_session_get_state_output_by_id (GsdColorState *state,
                              device_id);
         }
 out:
-        return output;
+        return result;
 }
 
 /* this function is more complicated than it should be, due to the
@@ -719,10 +730,12 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
         gboolean ret;
         GError *error = NULL;
         GnomeRROutput *output;
+        GPtrArray *outputs = NULL;
         guint brightness_percentage;
         GcmSessionAsyncHelper *helper = (GcmSessionAsyncHelper *) user_data;
         GsdColorState *state = GSD_COLOR_STATE (helper->state);
         GsdColorStatePrivate *priv = state->priv;
+        gint i;
 
         /* get properties */
         ret = cd_profile_connect_finish (profile, res, &error);
@@ -737,18 +750,21 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
         filename = cd_profile_get_filename (profile);
         g_assert (filename != NULL);
 
-        /* get the output (can't save in helper as GnomeRROutput isn't
-         * a GObject, just a pointer */
-        output = gnome_rr_screen_get_output_by_id (state->priv->state_screen,
-                                                   helper->output_id);
-        if (output == NULL)
-                goto out;
+        outputs = g_ptr_array_new ();
+        for (i = 0; i < helper->output_ids->len; i++) {
+                output = gnome_rr_screen_get_output_by_id (state->priv->state_screen,
+                                                           g_array_index (helper->output_ids, gint, i));
+                if (output == NULL)
+                        goto out;
+
+                g_ptr_array_add (outputs, output);
+        }
 
         /* if output is a laptop screen and the profile has a
          * calibration brightness then set this new brightness */
         brightness_profile = cd_profile_get_metadata_item (profile,
                                                            CD_PROFILE_METADATA_SCREEN_BRIGHTNESS);
-        if (gnome_rr_output_is_builtin_display (output) &&
+        if (gnome_rr_output_is_builtin_display (g_ptr_array_index (outputs, 0)) &&
             brightness_profile != NULL) {
                 /* the percentage is stored in the profile metadata as
                  * a string, not ideal, but it's all we have... */
@@ -757,7 +773,7 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
         }
 
         /* set the _ICC_PROFILE atom */
-        ret = gcm_session_use_output_profile_for_screen (state, output);
+        ret = gcm_session_use_output_profile_for_screen (state, g_ptr_array_index (outputs, 0));
         if (ret) {
                 ret = gcm_session_screen_set_icc_profile (state,
                                                           filename,
@@ -772,7 +788,7 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
         /* create a vcgt for this icc file */
         ret = cd_profile_get_has_vcgt (profile);
         if (ret) {
-                ret = gcm_session_device_set_gamma (output,
+                ret = gcm_session_device_set_gamma (outputs,
                                                     profile,
                                                     priv->color_temperature,
                                                     &error);
@@ -784,7 +800,7 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
                         goto out;
                 }
         } else {
-                ret = gcm_session_device_reset_gamma (output,
+                ret = gcm_session_device_reset_gamma (outputs,
                                                       priv->color_temperature,
                                                       &error);
                 if (!ret) {
@@ -796,6 +812,9 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
                 }
         }
 out:
+        if (outputs != NULL)
+                g_ptr_array_free (outputs, TRUE);
+
         gcm_session_async_helper_free (helper);
 }
 
@@ -836,7 +855,7 @@ gcm_session_device_assign_connect_cb (GObject *object,
         gchar *autogen_filename = NULL;
         gchar *autogen_path = NULL;
         GcmEdid *edid = NULL;
-        GnomeRROutput *output = NULL;
+        GPtrArray *outputs = NULL;
         GError *error = NULL;
         GFile *file = NULL;
         const gchar *xrandr_id;
@@ -844,6 +863,7 @@ gcm_session_device_assign_connect_cb (GObject *object,
         CdDevice *device = CD_DEVICE (object);
         GsdColorState *state = GSD_COLOR_STATE (user_data);
         GsdColorStatePrivate *priv = state->priv;
+        guint i;
 
         /* remove from assign array */
         g_hash_table_remove (state->priv->device_assign_hash,
@@ -868,10 +888,10 @@ gcm_session_device_assign_connect_cb (GObject *object,
 
         /* get the GnomeRROutput for the device id */
         xrandr_id = cd_device_get_id (device);
-        output = gcm_session_get_state_output_by_id (state,
-                                                   xrandr_id,
-                                                   &error);
-        if (output == NULL) {
+        outputs = gcm_session_get_state_outputs_by_id (state,
+                                                       xrandr_id,
+                                                       &error);
+        if (outputs == NULL) {
                 g_warning ("no %s device found: %s",
                            cd_device_get_id (device),
                            error->message);
@@ -880,7 +900,7 @@ gcm_session_device_assign_connect_cb (GObject *object,
         }
 
         /* create profile from device edid if it exists */
-        edid = gcm_session_get_output_edid (state, output, &error);
+        edid = gcm_session_get_output_edid (state, g_ptr_array_index (outputs, 0), &error);
         if (edid == NULL) {
                 g_warning ("unable to get EDID for %s: %s",
                            cd_device_get_id (device),
@@ -920,7 +940,7 @@ gcm_session_device_assign_connect_cb (GObject *object,
                          cd_device_get_id (device));
 
                 /* the default output? */
-                if (gnome_rr_output_get_is_primary (output) &&
+                if (gnome_rr_output_get_is_primary (g_ptr_array_index (outputs, 0)) &&
                     priv->gdk_window != NULL) {
                         gdk_property_delete (priv->gdk_window,
                                              gdk_atom_intern_static_string ("_ICC_PROFILE"));
@@ -929,7 +949,7 @@ gcm_session_device_assign_connect_cb (GObject *object,
                 }
 
                 /* reset, as we want linear profiles for profiling */
-                ret = gcm_session_device_reset_gamma (output,
+                ret = gcm_session_device_reset_gamma (outputs,
                                                       priv->color_temperature,
                                                       &error);
                 if (!ret) {
@@ -944,7 +964,11 @@ gcm_session_device_assign_connect_cb (GObject *object,
 
         /* get properties */
         helper = g_new0 (GcmSessionAsyncHelper, 1);
-        helper->output_id = gnome_rr_output_get_id (output);
+        helper->output_ids = g_array_new (FALSE, FALSE, sizeof (gint));
+        for (i = 0; i < outputs->len; i++) {
+                gint rr_id = gnome_rr_output_get_id (g_ptr_array_index (outputs, i));
+                g_array_append_val (helper->output_ids, rr_id);
+        }
         helper->state = g_object_ref (state);
         helper->device = g_object_ref (device);
         cd_profile_connect (profile,
@@ -960,6 +984,8 @@ out:
                 g_object_unref (edid);
         if (profile != NULL)
                 g_object_unref (profile);
+        if (outputs != NULL)
+                g_ptr_array_free (outputs, TRUE);
 }
 
 static void
