@@ -751,7 +751,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
 
         # Wait and check we're not idle, but dimmed
-        self.check_dim(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY)
+        self.check_dim(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY + 1)
         # Give time for the brightness to change
         time.sleep(2)
         level = self.get_brightness();
