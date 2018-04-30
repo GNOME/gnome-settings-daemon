@@ -739,7 +739,12 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
     def test_dim(self):
         '''Check that we do go to dim'''
 
+        # Wait and flush log
+        time.sleep (gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 1)
+        self.plugin_log.read()
+
         idle_delay = round(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY / gsdpowerconstants.IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER)
+        self.reset_idle_timer()
 
         self.settings_session['idle-delay'] = idle_delay
         self.settings_gsd_power['sleep-inactive-battery-timeout'] = idle_delay + 1
@@ -751,7 +756,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
 
         # Wait and check we're not idle, but dimmed
-        self.check_dim(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY)
+        self.check_dim(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY + 1)
         # Give time for the brightness to change
         time.sleep(2)
         level = self.get_brightness();
