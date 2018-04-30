@@ -1067,9 +1067,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         obj_gsd_power_screen_iface.StepUp()
         self.assertEqual(self.get_brightness(), 70)
         stop = time.time()
-        # This needs to take more than 0.4 seconds as each write is delayed by
-        # 0.1 seconds by the test backlight helper
-        self.assertGreater(stop - start, 0.4)
+        # This needs to take more than 0.8 seconds as each write is delayed by
+        # 0.2 seconds by the test backlight helper
+        self.assertGreater(stop - start, 0.8)
 
         # Now, the same thing should work fine if we step multiple times,
         # even if we are so quick that compression will happen.
@@ -1101,8 +1101,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.assertEqual(replies[0], 4)
         # Four steps down, so back at 50%
         self.assertEqual(self.get_brightness(), 50)
-        # And compression must have happened, so it should take less than 0.4s
-        self.assertLess(stop - start, 0.4)
+        # And compression must have happened, so it should take less than 0.8s
+        self.assertLess(stop - start, 0.8)
 
     def test_brightness_compression(self):
         '''Check that compression also happens when setting the property'''
@@ -1122,9 +1122,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', brightness)
 
         # The brightness of 80 should be in effect after slightly more than
-        # 0.2 seconds. If compression does not work as expected, this would take
-        # more than 2 seconds for the 20 steps.
-        time.sleep(1.0)
+        # 0.4 seconds. If compression does not work as expected, this would take
+        # more than 5 seconds for the 20 steps.
+        time.sleep(2.0)
         self.assertEqual(self.get_brightness(), 90)
 
     def test_brightness_uevent(self):
@@ -1142,7 +1142,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         self.testbed.uevent(self.backlight, 'change')
 
         self.check_plugin_log('GsdBacklight: Got uevent', 1, 'gsd-power did not process uevent')
-        time.sleep(0.1)
+        time.sleep(0.2)
 
         brightness = obj_gsd_power_prop_iface.Get('org.gnome.SettingsDaemon.Power.Screen', 'Brightness')
         self.assertEqual(80, brightness)
@@ -1165,31 +1165,31 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         obj_gsd_power_prop_iface = dbus.Interface(obj_gsd_power, dbus.PROPERTIES_IFACE)
 
         obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 0)
-        time.sleep(0.2)
+        time.sleep(0.4)
         self.assertEqual(self.get_brightness(), 0)
         obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 10)
-        time.sleep(0.2)
+        time.sleep(0.4)
         self.assertEqual(self.get_brightness(), 1)
         obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 20)
-        time.sleep(0.2)
+        time.sleep(0.4)
         self.assertEqual(self.get_brightness(), 3)
         obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 25)
-        time.sleep(0.2)
+        time.sleep(0.4)
         self.assertEqual(self.get_brightness(), 4)
         obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 50)
-        time.sleep(0.2)
+        time.sleep(0.4)
         self.assertEqual(self.get_brightness(), 7)
         obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 52)
-        time.sleep(0.2)
+        time.sleep(0.4)
         self.assertEqual(self.get_brightness(), 8)
         obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 56)
-        time.sleep(0.2)
+        time.sleep(0.4)
         self.assertEqual(self.get_brightness(), 8)
         obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 57)
-        time.sleep(0.2)
+        time.sleep(0.4)
         self.assertEqual(self.get_brightness(), 9)
         obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 98)
-        time.sleep(0.2)
+        time.sleep(0.4)
         self.assertEqual(self.get_brightness(), 15)
 
     def test_no_backlight(self):
