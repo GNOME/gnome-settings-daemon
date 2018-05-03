@@ -332,7 +332,11 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # wait for specified time to ensure it didn't do anything
         time.sleep(seconds)
         # check that it did not suspend or hibernate
-        log = self.logind.stdout.read()
+        try:
+            log = self.logind.stdout.read()
+        except IOError:
+            return
+
         for m in methods:
             needle = b' {} '.format(m)
 
