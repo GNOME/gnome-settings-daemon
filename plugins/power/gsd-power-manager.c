@@ -1197,6 +1197,8 @@ upower_kbd_set_brightness (GsdPowerManager *manager, guint value, GError **error
         if (retval == NULL)
                 return FALSE;
 
+        /* save old brightness */
+        manager->priv->kbd_brightness_old = manager->priv->kbd_brightness_now;
         /* save new value */
         manager->priv->kbd_brightness_now = value;
         g_variant_unref (retval);
@@ -1210,20 +1212,27 @@ upower_kbd_toggle (GsdPowerManager *manager,
         gboolean ret;
         int value = -1;
 
-        if (manager->priv->kbd_brightness_old >= 0) {
-                g_debug ("keyboard toggle off");
+        if (manager->priv->kbd_brightness_now == 0 &&
+            manager->priv->kbd_brightness_old > 0) {
+                g_debug ("keyboard toggle off to old brightness");
                 ret = upower_kbd_set_brightness (manager,
                                                  manager->priv->kbd_brightness_old,
                                                  error);
-                if (ret) {
-                        /* succeeded, set to -1 since now no old value */
+                if (ret)
+                        value = 0;
+        } else if (manager->priv->kbd_brightness_now == 0) {
+                g_debug ("keyboard toggle off to max brightness");
+                ret = upower_kbd_set_brightness (manager,
+                                                 manager->priv->kbd_brightness_max,
+                                                 error);
+                if (!ret) {
+                        /* failed, reset back to -1 */
                         manager->priv->kbd_brightness_old = -1;
+                } else {
                         value = 0;
                 }
-        } else {
-                g_debug ("keyboard toggle on");
-                /* save the current value to restore later when untoggling */
-                manager->priv->kbd_brightness_old = manager->priv->kbd_brightness_now;
+	} else {
+                g_debug ("keyboard toggle on to off");
                 ret = upower_kbd_set_brightness (manager, 0, error);
                 if (!ret) {
                         /* failed, reset back to -1 */
@@ -1635,7 +1644,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
 
                 /* only toggle keyboard if present and not already toggled */
                 if (manager->priv->upower_kbd_proxy &&
-                    manager->priv->kbd_brightness_old == -1) {
+                    manager->priv->kbd_brightness_now > 0) {
                         if (upower_kbd_toggle (manager, &error) < 0) {
                                 g_warning ("failed to turn the kbd backlight off: %s",
                                            error->message);
@@ -1677,7 +1686,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
 
                 /* only toggle keyboard if present and already toggled off */
                 if (manager->priv->upower_kbd_proxy &&
-                    manager->priv->kbd_brightness_old != -1) {
+                    manager->priv->kbd_brightness_now == 0) {
                         if (upower_kbd_toggle (manager, &error) < 0) {
                                 g_warning ("failed to turn the kbd backlight on: %s",
                                            error->message);
