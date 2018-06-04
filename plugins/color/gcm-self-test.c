@@ -189,6 +189,33 @@ gcm_test_night_light (void)
 
         /* Ensure that the color temperature is still the default one.*/
         g_assert_cmpint (gsd_night_light_get_temperature (nlight), ==, GSD_COLOR_TEMPERATURE_DEFAULT);
+
+
+        /* Check that disabled until tomorrow resets again correctly. */
+        g_settings_set_double (settings, "night-light-schedule-from", 17.0);
+        g_settings_set_double (settings, "night-light-schedule-to", 7.f);
+        g_settings_set_boolean (settings, "night-light-enabled", TRUE);
+        gsd_night_light_set_disabled_until_tmw (nlight, TRUE);
+
+        /* Move time past midnight */
+        g_clear_pointer (&datetime_override, g_date_time_unref);
+        datetime_override = g_date_time_new_utc (2017, 2, 9, 1, 0, 0);
+        gsd_night_light_set_date_time_now (nlight, datetime_override);
+        g_assert_true (gsd_night_light_get_disabled_until_tmw (nlight));
+
+        /* Move past sunrise */
+        g_clear_pointer (&datetime_override, g_date_time_unref);
+        datetime_override = g_date_time_new_utc (2017, 2, 9, 8, 0, 0);
+        gsd_night_light_set_date_time_now (nlight, datetime_override);
+        g_assert_false (gsd_night_light_get_disabled_until_tmw (nlight));
+
+        gsd_night_light_set_disabled_until_tmw (nlight, TRUE);
+
+        /* Move into night more than 24h in the future */
+        g_clear_pointer (&datetime_override, g_date_time_unref);
+        datetime_override = g_date_time_new_utc (2017, 2, 10, 20, 0, 0);
+        gsd_night_light_set_date_time_now (nlight, datetime_override);
+        g_assert_false (gsd_night_light_get_disabled_until_tmw (nlight));
 }
 
 static void
