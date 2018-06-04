@@ -75,6 +75,7 @@ enum {
 
 static void poll_timeout_destroy (GsdNightLight *self);
 static void poll_timeout_create (GsdNightLight *self);
+static void night_light_recheck (GsdNightLight *self);
 
 G_DEFINE_TYPE (GsdNightLight, gsd_night_light, G_TYPE_OBJECT);
 
@@ -92,6 +93,8 @@ gsd_night_light_set_date_time_now (GsdNightLight *self, GDateTime *datetime)
         if (self->datetime_override != NULL)
                 g_date_time_unref (self->datetime_override);
         self->datetime_override = g_date_time_ref (datetime);
+
+        night_light_recheck (self);
 }
 
 static void
