@@ -407,8 +407,8 @@ poll_timeout_create (GsdNightLight *self)
         dt_now = gsd_night_light_get_date_time_now (self);
         dt_expiry = g_date_time_add_seconds (dt_now, GSD_NIGHT_LIGHT_POLL_TIMEOUT);
         self->source = _gnome_datetime_source_new (dt_now,
-                                                                 dt_expiry,
-                                                                 FALSE);
+                                                   dt_expiry,
+                                                   TRUE);
         g_source_set_callback (self->source,
                                night_light_recheck_cb,
                                self, NULL);
