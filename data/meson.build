@@ -51,10 +51,12 @@ install_data(
   install_dir: join_paths(gsd_datadir, 'GConf', 'gsettings')
 )
 
-install_data(
-  'gnome-settings-daemon.target',
-  install_dir: systemduserunitdir
-)
+foreach unit: ['gnome-settings-daemon.target', 'gnome-settings-daemon-gdm.target']
+  install_data(
+    unit,
+    install_dir: systemduserunitdir
+  )
+endforeach
 
 pkg.generate(
   version: gsd_version,

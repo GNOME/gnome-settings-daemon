@@ -1,0 +1,8 @@
+[Unit]
+Description=GNOME Settings daemon (GDM)
+StopWhenUnneeded=yes
+Conflicts=gnome-settings-daemon.target
+Before=gnome-shell.service
+
+[Install]
+WantedBy=gnome-session@gnome-login.service
