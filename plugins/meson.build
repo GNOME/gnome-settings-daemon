@@ -57,13 +57,13 @@ foreach plugin: [['common', '']] + enabled_plugins
     unit_conf.set('libexecdir', gsd_libexecdir)
     unit_conf.set('plugin_dbus_name', plugin_dbus_name)
 
-    configure_file(
-      input: join_paths(plugin_name, desktop + '.in'),
-      output: desktop,
-      configuration: plugins_conf,
-      install: true,
-      install_dir: gsd_xdg_autostart
-    )
+#    configure_file(
+#      input: join_paths(plugin_name, desktop + '.in'),
+#      output: desktop,
+#      configuration: plugins_conf,
+#      install: true,
+#      install_dir: gsd_xdg_autostart
+#    )
     configure_file(
       input: join_paths(plugin_name, user_unit + '.in'),
       output: user_unit,
