@@ -33,12 +33,28 @@ endif
 
 plugins_conf = configuration_data()
 plugins_conf.set('libexecdir', gsd_libexecdir)
+plugins_conf.set('hidden', '')
 
 plugins_deps = [libgsd_dep]
 
 plugins_cflags = ['-DGNOME_SETTINGS_LOCALEDIR="@0@"'.format(gsd_localedir)]
 
+enabled_plugins_file = []
+
 foreach plugin: [['common', '']] + enabled_plugins
+  plugin_name = plugin[0]
+  desktop = 'org.gnome.SettingsDaemon.@0@.desktop'.format(plugin[1])
+
+  if plugin[1] == '' # common or dummy
+    desktop_in_file = ''
+  else
+    desktop_in_file = files(join_paths(plugin_name, desktop + '.in'))
+  endif
+
+  enabled_plugins_file += [[plugin_name, plugin[1], desktop_in_file]]
+endforeach
+
+foreach plugin: enabled_plugins_file
   plugin_name = plugin[0]
   plugin_name_case = plugin[1]
   plugin_dbus_name='org.gnome.SettingsDaemon.Notify.@0@'.format(plugin_name_case)
@@ -51,6 +67,7 @@ foreach plugin: [['common', '']] + enabled_plugins
 
   if not ['common', 'dummy'].contains(plugin_name)
     desktop = 'org.gnome.SettingsDaemon.@0@.desktop'.format(plugin[1])
+    desktop_in_file = plugin[2]
     user_unit = 'gsd-@0@.service'.format(plugin_name)
 
     unit_conf = configuration_data()
@@ -59,7 +76,7 @@ foreach plugin: [['common', '']] + enabled_plugins
     unit_conf.set('plugin_dbus_name', plugin_dbus_name)
 
     configure_file(
-      input: join_paths(plugin_name, desktop + '.in'),
+      input: desktop_in_file,
       output: desktop,
       configuration: plugins_conf,
       install: true,
