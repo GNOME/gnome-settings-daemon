@@ -76,3 +76,29 @@ executable(
   install_rpath: gsd_pkglibdir,
   install_dir: gsd_libexecdir
 )
+
+# this doesn't really belong here, but we can't configure_file the same file
+# twice so it can't go in ../meson.build
+# https://github.com/mesonbuild/meson/issues/3714
+
+plugins_conf_hidden = configuration_data()
+plugins_conf_hidden.set('libexecdir', gsd_libexecdir)
+plugins_conf_hidden.set('hidden', 'Hidden=true')
+
+foreach plugin: enabled_plugins
+  plugin_name = plugin[0]
+
+  desktop = 'org.gnome.SettingsDaemon.@0@.desktop'.format(plugin[1])
+
+  message(plugin)
+
+  if plugin[0] != 'dummy'
+    configure_file(
+      input: join_paths('..', plugin_name, desktop + '.in'),
+      output: desktop,
+      configuration: plugins_conf_hidden,
+      install: true,
+      install_dir: join_paths(gsd_datadir, 'gnome-session', 'systemd-user')
+    )
+  endif
+endforeach
