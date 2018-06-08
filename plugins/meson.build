@@ -33,6 +33,7 @@ endif
 
 plugins_conf = configuration_data()
 plugins_conf.set('libexecdir', gsd_libexecdir)
+plugins_conf.set('hidden', '')
 
 plugins_deps = [libgsd_dep]
 
