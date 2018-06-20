@@ -43,7 +43,7 @@ gsd_should_ignore_unix_mount (GUnixMountEntry *mount)
          */
 
          /* We also ignore network filesystems */
-
+#if !GLIB_CHECK_VERSION(2, 56, 0)
         const gchar *ignore_fs[] = {
                 "adfs",
                 "afs",
@@ -51,7 +51,6 @@ gsd_should_ignore_unix_mount (GUnixMountEntry *mount)
                 "autofs",
                 "autofs4",
                 "cgroup",
-                "cifs",
                 "configfs",
                 "cxfs",
                 "debugfs",
@@ -73,8 +72,6 @@ gsd_should_ignore_unix_mount (GUnixMountEntry *mount)
                 "mfs",
                 "mqueue",
                 "ncpfs",
-                "nfs",
-                "nfs4",
                 "nfsd",
                 "nullfs",
                 "ocfs2",
@@ -87,11 +84,18 @@ gsd_should_ignore_unix_mount (GUnixMountEntry *mount)
                 "rpc_pipefs",
                 "securityfs",
                 "selinuxfs",
-                "smbfs",
                 "sysfs",
                 "tmpfs",
                 "usbfs",
                 "zfs",
+                NULL
+        };
+#endif  /* GLIB < 2.56.0 */
+        const gchar *ignore_network_fs[] = {
+                "cifs",
+                "nfs",
+                "nfs4",
+                "smbfs",
                 NULL
         };
         const gchar *ignore_devices[] = {
@@ -109,8 +113,16 @@ gsd_should_ignore_unix_mount (GUnixMountEntry *mount)
         };
 
         fs = g_unix_mount_get_fs_type (mount);
+#if GLIB_CHECK_VERSION(2, 56, 0)
+        if (g_unix_is_system_fs_type (fs))
+                return TRUE;
+#else
         for (i = 0; ignore_fs[i] != NULL; i++)
                 if (g_str_equal (ignore_fs[i], fs))
+                        return TRUE;
+#endif
+        for (i = 0; ignore_network_fs[i] != NULL; i++)
+                if (g_str_equal (ignore_network_fs[i], fs))
                         return TRUE;
 
         device = g_unix_mount_get_device_path (mount);
