@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2018-04-06 23:21+0000\n"
-"PO-Revision-Date: 2018-04-25 12:54+0200\n"
+"POT-Creation-Date: 2018-06-20 14:52+0000\n"
+"PO-Revision-Date: 2018-06-21 09:58+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -432,9 +432,12 @@ msgid "If the night light mode is enabled"
 msgstr "Si el modo de luz nocturna está activado"
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:17
+#| msgid ""
+#| "Night light mode changes the color temperature of your display when the "
+#| "sun has gone down or at present times."
 msgid ""
 "Night light mode changes the color temperature of your display when the sun "
-"has gone down or at present times."
+"has gone down or at preset times."
 msgstr ""
 "El modo de luz nocturna cambia la temperatura del color de su pantalla "
 "cuando se pone el sol o en las horas indicadas."
@@ -707,17 +710,14 @@ msgid "Volume down"
 msgstr "Bajar volumen"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:87
-#| msgid "Binding to lower the system volume."
 msgid "Binding to lower the volume."
 msgstr "Vínculo para bajar el volumen."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:91
-#| msgid "Volume mute"
 msgid "Volume mute/unmute"
 msgstr "Silenciar o no el volumen"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:92
-#| msgid "Binding to mute the system volume."
 msgid "Binding to mute/unmute the volume."
 msgstr "Vínculo para silenciar o no el volumen."
 
@@ -726,17 +726,14 @@ msgid "Volume up"
 msgstr "Subir volumen"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:97
-#| msgid "Binding to raise the system volume."
 msgid "Binding to raise the volume."
 msgstr "Vínculo para subir el volumen."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:101
-#| msgid "Microphone Mute"
 msgid "Microphone mute/unmute"
 msgstr "Silenciar o no el micrófono"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:102
-#| msgid "Binding to suspend the computer."
 msgid "Binding to mute/unmute the microphone."
 msgstr "Vínculo para silenciar o no el micrófono."
 
@@ -1210,30 +1207,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Este equipo sólo tiene %s de espacio en disco libre."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2182
+#: plugins/media-keys/gsd-media-keys-manager.c:2212
 msgid "Bluetooth disabled"
 msgstr "Bluetooth desactivado"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2185
+#: plugins/media-keys/gsd-media-keys-manager.c:2215
 msgid "Bluetooth enabled"
 msgstr "Bluetooth activado"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2189
+#: plugins/media-keys/gsd-media-keys-manager.c:2219
 msgid "Airplane mode enabled"
 msgstr "Modo avión activado"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2192
+#: plugins/media-keys/gsd-media-keys-manager.c:2222
 msgid "Airplane mode disabled"
 msgstr "Modo avión desactivado"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2220
+#: plugins/media-keys/gsd-media-keys-manager.c:2250
 msgid "Hardware Airplane Mode"
 msgstr "Modo avión hardware"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2280
+#: plugins/media-keys/gsd-media-keys-manager.c:2310
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Captura del escritorio de %d %t.webm"
@@ -1367,18 +1364,18 @@ msgstr "Conmutar modo avión"
 msgid "Toggle Bluetooth"
 msgstr "Conmutar Bluetooth"
 
-#: plugins/power/gpm-common.c:100
+#: plugins/power/gpm-common.c:99
 msgid "Unknown time"
 msgstr "Tiempo desconocido"
 
-#: plugins/power/gpm-common.c:105
+#: plugins/power/gpm-common.c:104
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i minuto"
 msgstr[1] "%i minutos"
 
-#: plugins/power/gpm-common.c:115
+#: plugins/power/gpm-common.c:114
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1387,25 +1384,25 @@ msgstr[1] "%i horas"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: plugins/power/gpm-common.c:121
+#: plugins/power/gpm-common.c:120
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: plugins/power/gpm-common.c:122
+#: plugins/power/gpm-common.c:121
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "hora"
 msgstr[1] "horas"
 
-#: plugins/power/gpm-common.c:123
+#: plugins/power/gpm-common.c:122
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minuto"
 msgstr[1] "minutos"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:948 plugins/power/gsd-power-manager.c:686
+#: plugins/power/gpm-common.c:929 plugins/power/gsd-power-manager.c:686
 #: plugins/power/gsd-power-manager.c:783
 msgid "Battery is critically low"
 msgstr "La batería está críticamente baja"
@@ -1689,43 +1686,43 @@ msgstr ""
 "apagarse."
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1264
+#: plugins/power/gsd-power-manager.c:1305
 msgid "Lid has been opened"
 msgstr "La tapa se ha abierto"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1302
+#: plugins/power/gsd-power-manager.c:1339
 msgid "Lid has been closed"
 msgstr "La tapa se ha cerrado"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1898
+#: plugins/power/gsd-power-manager.c:1935
 msgid "On battery power"
 msgstr "Con batería"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1903
+#: plugins/power/gsd-power-manager.c:1940
 msgid "On AC power"
 msgstr "Con adaptador de corriente"
 
-#: plugins/power/gsd-power-manager.c:2095
+#: plugins/power/gsd-power-manager.c:2132
 msgid "Automatic logout"
 msgstr "Cierre de sesión automático"
 
-#: plugins/power/gsd-power-manager.c:2095
+#: plugins/power/gsd-power-manager.c:2132
 msgid "You will soon log out because of inactivity."
 msgstr "Pronto se cerrará su sesión por inactividad."
 
-#: plugins/power/gsd-power-manager.c:2100
+#: plugins/power/gsd-power-manager.c:2137
 msgid "Automatic suspend"
 msgstr "Suspensión automática"
 
-#: plugins/power/gsd-power-manager.c:2100
-#: plugins/power/gsd-power-manager.c:2105
+#: plugins/power/gsd-power-manager.c:2137
+#: plugins/power/gsd-power-manager.c:2142
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "El equipo se suspenderá pronto se cerrará su sesión por inactividad."
 
-#: plugins/power/gsd-power-manager.c:2105
+#: plugins/power/gsd-power-manager.c:2142
 msgid "Automatic hibernation"
 msgstr "Hibernación automática"
 
