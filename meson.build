@@ -131,7 +131,7 @@ if enable_wayland
   assert(enable_gudev, 'GUDev support is required for wayland support.')
   wayland_client_dep = dependency('wayland-client')
 endif
-config_h.set10('HAVE_WAYLAND', enable_wayland)
+config_h.set('HAVE_WAYLAND', enable_wayland)
 
 # wacom (disabled for s390/s390x and non Linux platforms)
 enable_wacom = host_is_linux_not_s390
@@ -139,7 +139,7 @@ if enable_wacom
   assert(enable_gudev, 'GUDev support is required for wacom support.')
   libwacom_dep = dependency('libwacom', version: '>= 0.7')
 endif
-config_h.set10('HAVE_WACOM', enable_wacom)
+config_h.set('HAVE_WACOM', enable_wacom)
 
 # smartcard section
 enable_smartcard = get_option('smartcard')

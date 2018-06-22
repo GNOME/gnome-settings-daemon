@@ -27,7 +27,7 @@
 #include <glib.h>
 #include <gio/gio.h>
 
-#if HAVE_WAYLAND
+#ifdef HAVE_WAYLAND
 #include <wayland-client.h>
 #endif
 
@@ -171,7 +171,7 @@ out:
 static gpointer
 is_wayland_session (gpointer user_data)
 {
-#if HAVE_WAYLAND
+#ifdef HAVE_WAYLAND
         struct wl_display *display;
 
         display = wl_display_connect (NULL);

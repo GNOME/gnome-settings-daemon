@@ -23,7 +23,7 @@
 #include <gtk/gtkx.h>
 #include <X11/Xatom.h>
 
-#if HAVE_WACOM
+#ifdef HAVE_WACOM
 #include <libwacom/libwacom.h>
 #endif
 
@@ -94,7 +94,7 @@ struct _GsdDeviceMapper {
 	GnomeRRScreen *rr_screen;
 	GHashTable *input_devices; /* GsdDevice -> GsdInputInfo */
 	GHashTable *output_devices; /* GnomeRROutput -> GsdOutputInfo */
-#if HAVE_WACOM
+#ifdef HAVE_WACOM
 	WacomDeviceDatabase *wacom_db;
 #endif
 };
@@ -645,7 +645,7 @@ input_info_update_capabilities (GsdInputInfo *info)
 {
 	GsdDeviceType type;
 
-#if HAVE_WACOM
+#ifdef HAVE_WACOM
 	WacomDevice *wacom_device;
 	const gchar *devpath;
 
@@ -802,7 +802,7 @@ gsd_device_mapper_finalize (GObject *object)
 	if (mapper->output_devices)
 		g_hash_table_unref (mapper->output_devices);
 
-#if HAVE_WACOM
+#ifdef HAVE_WACOM
 	libwacom_database_destroy (mapper->wacom_db);
 #endif
 
@@ -952,7 +952,7 @@ gsd_device_mapper_init (GsdDeviceMapper *mapper)
 {
 	mapper->input_devices = g_hash_table_new_full (NULL, NULL, NULL,
 						       (GDestroyNotify) input_info_free);
-#if HAVE_WACOM
+#ifdef HAVE_WACOM
 	mapper->wacom_db = libwacom_database_new ();
 #endif
 }
