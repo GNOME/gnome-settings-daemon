@@ -123,7 +123,7 @@ if enable_gudev
   assert(enable_gudev, 'GUdev is not optional on Linux platforms')
   gudev_dep = dependency('gudev-1.0')
 endif
-config_h.set('HAVE_GUDEV', enable_gudev)
+config_h.set10('HAVE_GUDEV', enable_gudev)
 
 # Check for libwayland-client
 enable_wayland = get_option('wayland')
@@ -191,7 +191,7 @@ if enable_network_manager
   # network manager
   libnm_dep = dependency('libnm', version: '>= 1.0')
 endif
-config_h.set('HAVE_NETWORK_MANAGER', enable_network_manager)
+config_h.set10('HAVE_NETWORK_MANAGER', enable_network_manager)
 
 gnome = import('gnome')
 i18n = import('i18n')

@@ -42,7 +42,7 @@
 #include <libupower-glib/upower.h>
 #include <gdesktop-enums.h>
 
-#ifdef HAVE_GUDEV
+#if HAVE_GUDEV
 #include <gudev/gudev.h>
 #endif
 
@@ -165,7 +165,7 @@ struct GsdMediaKeysManagerPrivate
         GSettings       *sound_settings;
         pa_volume_t      max_volume;
         GtkSettings     *gtksettings;
-#ifdef HAVE_GUDEV
+#if HAVE_GUDEV
         GHashTable      *streams; /* key = X device ID, value = stream id */
         GUdevClient     *udev_client;
 #endif /* HAVE_GUDEV */
@@ -1273,7 +1273,7 @@ update_dialog (GsdMediaKeysManager *manager,
         }
 }
 
-#ifdef HAVE_GUDEV
+#if HAVE_GUDEV
 /* PulseAudio gives us /devices/... paths, when udev
  * expects /sys/devices/... paths. */
 static GUdevDevice *
@@ -1401,7 +1401,7 @@ do_sound_action (GsdMediaKeysManager *manager,
 
         /* Find the stream that corresponds to the device, if any */
         stream = NULL;
-#ifdef HAVE_GUDEV
+#if HAVE_GUDEV
         stream = get_stream_for_device_id (manager,
                                            flags & SOUND_ACTION_FLAG_IS_OUTPUT,
                                            deviceid);
@@ -1524,7 +1524,7 @@ on_control_default_source_changed (GvcMixerControl     *control,
         update_default_source (manager);
 }
 
-#ifdef HAVE_GUDEV
+#if HAVE_GUDEV
 static gboolean
 remove_stream (gpointer key,
 	       gpointer value,
@@ -1550,7 +1550,7 @@ on_control_stream_removed (GvcMixerControl     *control,
 			g_clear_object (&manager->priv->source);
         }
 
-#ifdef HAVE_GUDEV
+#if HAVE_GUDEV
 	g_hash_table_foreach_remove (manager->priv->streams, (GHRFunc) remove_stream, GUINT_TO_POINTER (id));
 #endif
 }
@@ -3006,7 +3006,7 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
 
         gnome_settings_profile_start (NULL);
 
-#ifdef HAVE_GUDEV
+#if HAVE_GUDEV
         manager->priv->streams = g_hash_table_new (g_direct_hash, g_direct_equal);
         manager->priv->udev_client = g_udev_client_new (subsystems);
 #endif
@@ -3073,7 +3073,7 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
 
         g_clear_pointer (&manager->priv->ca, ca_context_destroy);
 
-#ifdef HAVE_GUDEV
+#if HAVE_GUDEV
         g_clear_pointer (&priv->streams, g_hash_table_destroy);
         g_clear_object (&priv->udev_client);
 #endif /* HAVE_GUDEV */
