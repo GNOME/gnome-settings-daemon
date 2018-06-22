@@ -125,11 +125,12 @@ if enable_gudev
 endif
 config_h.set10('HAVE_GUDEV', enable_gudev)
 
-# Check for libwayland-client
+# Check for wayland dependencies
 enable_wayland = get_option('wayland')
 if enable_wayland
   assert(enable_gudev, 'GUDev support is required for wayland support.')
   wayland_client_dep = dependency('wayland-client')
+  wayland_gdk_dep = dependency('gdk-wayland-3.0')
 endif
 config_h.set10('HAVE_WAYLAND', enable_wayland)
 
