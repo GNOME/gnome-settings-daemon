@@ -25,7 +25,7 @@
 #include <gio/gdesktopappinfo.h>
 #include <glib/gstdio.h>
 
-#ifdef HAVE_NETWORK_MANAGER
+#if HAVE_NETWORK_MANAGER
 #include <NetworkManager.h>
 #endif /* HAVE_NETWORK_MANAGER */
 
@@ -47,7 +47,7 @@ struct GsdSharingManagerPrivate
         GDBusConnection         *connection;
 
         GCancellable            *cancellable;
-#ifdef HAVE_NETWORK_MANAGER
+#if HAVE_NETWORK_MANAGER
         NMClient                *client;
 #endif /* HAVE_NETWORK_MANAGER */
 
@@ -169,7 +169,7 @@ gsd_sharing_manager_stop_service (GsdSharingManager *manager,
         gsd_sharing_manager_handle_service (manager, "StopUnit", service);
 }
 
-#ifdef HAVE_NETWORK_MANAGER
+#if HAVE_NETWORK_MANAGER
 static gboolean
 service_is_enabled_on_current_connection (GsdSharingManager *manager,
                                           ServiceInfo       *service)
@@ -221,7 +221,7 @@ gsd_sharing_manager_sync_services (GsdSharingManager *manager)
         g_list_free (services);
 }
 
-#ifdef HAVE_NETWORK_MANAGER
+#if HAVE_NETWORK_MANAGER
 static void
 properties_changed (GsdSharingManager *manager)
 {
@@ -362,7 +362,7 @@ gsd_sharing_manager_disable_service (GsdSharingManager  *manager,
         return TRUE;
 }
 
-#ifdef HAVE_NETWORK_MANAGER
+#if HAVE_NETWORK_MANAGER
 static const char *
 get_type_and_name_for_connection_uuid (GsdSharingManager *manager,
                                        const char        *uuid,
@@ -392,7 +392,7 @@ get_type_and_name_for_connection_uuid (GsdSharingManager *manager,
 }
 #endif /* HAVE_NETWORK_MANAGER */
 
-#ifdef HAVE_NETWORK_MANAGER
+#if HAVE_NETWORK_MANAGER
 static gboolean
 connection_is_low_security (GsdSharingManager *manager,
                             const char        *uuid)
@@ -424,7 +424,7 @@ gsd_sharing_manager_list_networks (GsdSharingManager  *manager,
         if (!check_service (manager, service_name, error))
                 return NULL;
 
-#ifdef HAVE_NETWORK_MANAGER
+#if HAVE_NETWORK_MANAGER
         if (!manager->priv->client) {
                 g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED, "Not ready yet");
                 return NULL;
@@ -580,7 +580,7 @@ on_bus_gotten (GObject               *source_object,
                                                                NULL);
 }
 
-#ifdef HAVE_NETWORK_MANAGER
+#if HAVE_NETWORK_MANAGER
 static void
 primary_connection_changed (GObject    *gobject,
                             GParamSpec *pspec,
@@ -702,7 +702,7 @@ gsd_sharing_manager_start (GsdSharingManager *manager,
         gsd_sharing_manager_disable_rygel ();
 
         manager->priv->cancellable = g_cancellable_new ();
-#ifdef HAVE_NETWORK_MANAGER
+#if HAVE_NETWORK_MANAGER
         nm_client_new_async (manager->priv->cancellable, nm_client_ready, manager);
 #endif /* HAVE_NETWORK_MANAGER */
 
@@ -732,7 +732,7 @@ gsd_sharing_manager_stop (GsdSharingManager *manager)
                 g_clear_object (&manager->priv->cancellable);
         }
 
-#ifdef HAVE_NETWORK_MANAGER
+#if HAVE_NETWORK_MANAGER
         g_clear_object (&manager->priv->client);
 #endif /* HAVE_NETWORK_MANAGER */
 

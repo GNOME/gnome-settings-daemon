@@ -27,7 +27,7 @@
 
 #include <stdlib.h>
 
-#ifdef HAVE_GUDEV
+#if HAVE_GUDEV
 #include <gudev/gudev.h>
 
 static gchar *
@@ -82,7 +82,7 @@ gsd_backlight_helper_get_raw (GList *devices)
 char *
 gsd_backlight_helper_get_best_backlight (GsdBacklightType *type)
 {
-#ifdef HAVE_GUDEV
+#if HAVE_GUDEV
 	gchar *path = NULL;
 	GList *devices;
 	GUdevClient *client;
