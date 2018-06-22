@@ -903,8 +903,25 @@ execute (GsdMediaKeysManager *manager,
          gint64               timestamp)
 {
 	GAppInfo *app_info;
+	g_autofree gchar *escaped = NULL;
+	gchar *p;
 
-	app_info = g_app_info_create_from_commandline (cmd, NULL, G_APP_INFO_CREATE_NONE, NULL);
+	/* Escape all % characters as g_app_info_create_from_commandline will
+	 * try to interpret them otherwise. */
+	escaped = g_malloc (strlen (cmd) * 2 + 1);
+	p = escaped;
+	while (*cmd) {
+		*p = *cmd;
+		p++;
+		if (*cmd == '%') {
+			*p = '%';
+			p++;
+		}
+		cmd++;
+	}
+	*p = '\0';
+
+	app_info = g_app_info_create_from_commandline (escaped, NULL, G_APP_INFO_CREATE_NONE, NULL);
 	launch_app (manager, app_info, timestamp);
 	g_object_unref (app_info);
 }
