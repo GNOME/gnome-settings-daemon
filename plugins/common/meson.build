@@ -42,10 +42,10 @@ if host_is_darwin
   ldflags += ['-Wl,-bundle_loader,@0@'.format(join_paths(), meson.build_root(), meson.project_name(), meson.project_name())]
 endif
 
-if enable_gudev
+if enable_wayland
   sources += files('gsd-device-manager-udev.c')
 
-  deps += gudev_dep
+  deps += [wayland_gdk_dep, gudev_dep]
 endif
 
 if enable_wacom
