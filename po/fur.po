@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2018-03-05 15:46+0000\n"
-"PO-Revision-Date: 2018-03-09 21:48+0100\n"
+"POT-Creation-Date: 2018-06-20 14:52+0000\n"
+"PO-Revision-Date: 2018-06-27 09:48+0200\n"
 "Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <fur@li.org>\n"
 "Language: fur\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.0.7\n"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
 msgid "Smartcard removal action"
@@ -415,10 +415,10 @@ msgstr "Se la modalitât lûs noturne e je abilitade"
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:17
 msgid ""
 "Night light mode changes the color temperature of your display when the sun "
-"has gone down or at present times."
+"has gone down or at preset times."
 msgstr ""
 "La modalitât lûs noturne e cambie la temperadure dal colôr dal to visôr "
-"cuant che il soreli al è lât ju o cuant che e ven abilitade."
+"cuant che il soreli al è lât ju o a oraris prestabilîts."
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:21
 msgid "Temperature of the display when enabled"
@@ -688,158 +688,166 @@ msgid "Volume down"
 msgstr "Sbasse volum"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:87
-msgid "Binding to lower the system volume."
-msgstr "Associazion par sbassâ il volum di sisteme."
+msgid "Binding to lower the volume."
+msgstr "Associazion par sbassâ il volum."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:91
-msgid "Volume mute"
-msgstr "Cidinâ il volum"
+msgid "Volume mute/unmute"
+msgstr "Cidinâ/Impiâ il volum"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:92
-msgid "Binding to mute the system volume."
-msgstr "Associazion par cidinâ il volum di sisteme."
+msgid "Binding to mute/unmute the volume."
+msgstr "Associazion par cidinâ/impiâ il volum."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:96
 msgid "Volume up"
 msgstr "Alce il volum"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:97
-msgid "Binding to raise the system volume."
-msgstr "Associazion par alçâ il volum di sisteme."
+msgid "Binding to raise the volume."
+msgstr "Associazion par alçâ il volum."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:101
+msgid "Microphone mute/unmute"
+msgstr "Cidinâ/Impiâ il microfon"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:102
+msgid "Binding to mute/unmute the microphone."
+msgstr "Associazion par cidinâ/impiâ il microfon."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:106
 msgid "Take a screenshot"
 msgstr "Cature di schermi"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:102
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:107
 msgid "Binding to take a screenshot."
 msgstr "Associazion par fâ une cature di schermi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:106
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:111
 msgid "Take a screenshot of a window"
 msgstr "Fâs une cature di un barcon"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:107
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:112
 msgid "Binding to take a screenshot of a window."
 msgstr "Associazion par fâ une cature di un barcon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:111
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:116
 msgid "Take a screenshot of an area"
 msgstr "Fâs une cature di une aree"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:112
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:117
 msgid "Binding to take a screenshot of an area."
 msgstr "Associazion par fâ une cature di une aree."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:116
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:121
 msgid "Copy a screenshot to clipboard"
 msgstr "Copie une cature di schermi tes notis"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:117
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:122
 msgid "Binding to copy a screenshot to clipboard."
 msgstr "Associazion par copiâ une cature di schermi intes notis."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:121
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:126
 msgid "Copy a screenshot of a window to clipboard"
 msgstr "Copie une cature di un barcon intes notis"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:122
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:127
 msgid "Binding to copy a screenshot of a window to clipboard."
 msgstr "Associazion par copiâ une cature di un barcon intes notis."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:126
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:131
 msgid "Copy a screenshot of an area to clipboard"
 msgstr "Copie une cature di une aree intes notis"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:127
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:132
 msgid "Binding to copy a screenshot of an area to clipboard."
 msgstr "Associazion par copiâ une cature di une aree intes notis."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:131
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:136
 msgid "Record a short video of the screen"
 msgstr "Regjistre un piçul filmât dal schermi"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:132
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:137
 msgid "Binding to record a short video of the screen"
 msgstr "Associazion par regjistrâ un piçul filmât dal schermi"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:136
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:141
 msgid "Launch web browser"
 msgstr "Invie il navigadôr web"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:137
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:142
 msgid "Binding to launch the web browser."
 msgstr "Associazion par inviâ il navigadôr web."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:141
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:146
 msgid "Toggle magnifier"
 msgstr "Comutâ ingranditôr di schermi"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:142
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:147
 msgid "Binding to show the screen magnifier"
 msgstr "Associazion par mostrâ l'ingranditôr di schermi"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:146
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:151
 msgid "Toggle screen reader"
 msgstr "Comutâ il letôr di schermi"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:147
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:152
 msgid "Binding to start the screen reader"
 msgstr "Associazion par inviâ il letôr di schermi"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:151
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:156
 msgid "Toggle on-screen keyboard"
 msgstr "Comutâ tastiere a visôr"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:152
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:157
 msgid "Binding to show the on-screen keyboard"
 msgstr "Associazion par mostrâ la tastiere a visôr"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:156
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:161
 msgid "Increase text size"
 msgstr "Aumente dimension dal test"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:157
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:162
 msgid "Binding to increase the text size"
 msgstr "Associazion par aumentâ la dimension dal test"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:161
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:166
 msgid "Decrease text size"
 msgstr "Diminuìs dimension dal test"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:162
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:167
 msgid "Binding to decrease the text size"
 msgstr "Associazion par diminuî la dimension dal test"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:166
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:171
 msgid "Toggle contrast"
 msgstr "Comutâ il contrast"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:167
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:172
 msgid "Binding to toggle the interface contrast"
 msgstr "Associazion par comutâ il contrast de interface"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:171
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:176
 msgid "Magnifier zoom in"
 msgstr "Aumente zoom ingranditôr"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:172
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:177
 msgid "Binding for the magnifier to zoom in"
 msgstr "Associazion par aumentâ il zoom dal ingranditôr di schermi"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:176
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:181
 msgid "Magnifier zoom out"
 msgstr "Diminuìs zoom ingranditôr"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:177
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:182
 msgid "Binding for the magnifier to zoom out"
 msgstr "Associazion par diminuî il zoom dal ingranditôr di schermi"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:181
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:186
 msgid "Maximum length of screen recordings"
 msgstr "Massime lungjece des regjistrazions dal schermi"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:182
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:187
 msgid ""
 "The maximum length of single screen cast recordings in seconds or 0 for "
 "unlimited"
@@ -847,27 +855,27 @@ msgstr ""
 "La massime lungjece des regjistrazions dal singul schermi in seconts o 0 par "
 "ilimitât"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:189
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:194
 msgid "Name"
 msgstr "Non"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:190
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:195
 msgid "Name of the custom binding"
 msgstr "Non de associazion personalizade"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:194
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:199
 msgid "Binding"
 msgstr "Associazion"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:195
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:200
 msgid "Binding for the custom binding"
 msgstr "Associazion pe associazion personalizade"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:199
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:204
 msgid "Command"
 msgstr "Comant"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:200
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:205
 msgid "Command to run when the binding is invoked"
 msgstr "Comant di inviâ cuant che e ven invocade la associazion"
 
@@ -1176,30 +1184,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Su chest computer a restin nome %s di spazi disc."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2176
+#: plugins/media-keys/gsd-media-keys-manager.c:2212
 msgid "Bluetooth disabled"
 msgstr "Bluetooth disabilitât"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2179
+#: plugins/media-keys/gsd-media-keys-manager.c:2215
 msgid "Bluetooth enabled"
 msgstr "Bluetooth abilitât"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2183
+#: plugins/media-keys/gsd-media-keys-manager.c:2219
 msgid "Airplane mode enabled"
 msgstr "Modalitât avion abilitade"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2186
+#: plugins/media-keys/gsd-media-keys-manager.c:2222
 msgid "Airplane mode disabled"
 msgstr "Modalitât avion disabilitade"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2214
+#: plugins/media-keys/gsd-media-keys-manager.c:2250
 msgid "Hardware Airplane Mode"
 msgstr "Modalitât avion vie hardware abilitade"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2274
+#: plugins/media-keys/gsd-media-keys-manager.c:2310
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Cature dal scritori di %d %t.webm"
@@ -1221,21 +1229,17 @@ msgid "Screenshot from %s"
 msgstr "Schermade di %s"
 
 #: plugins/media-keys/shortcuts-list.h:45
+#: plugins/media-keys/shortcuts-list.h:46
 msgid "Touchpad toggle"
 msgstr "Comutâ touchpad"
 
-#: plugins/media-keys/shortcuts-list.h:46
+#: plugins/media-keys/shortcuts-list.h:47
 msgid "Touchpad On"
 msgstr "Ative touchpad"
 
-#: plugins/media-keys/shortcuts-list.h:47
+#: plugins/media-keys/shortcuts-list.h:48
 msgid "Touchpad Off"
 msgstr "Disative touchpad"
-
-#: plugins/media-keys/shortcuts-list.h:51
-#: plugins/media-keys/shortcuts-list.h:52
-msgid "Microphone Mute"
-msgstr "Microfon cidinât"
 
 #: plugins/media-keys/shortcuts-list.h:53
 msgid "Quiet Volume Mute"
@@ -1337,18 +1341,18 @@ msgstr "Ative/Disative la modalitât avion"
 msgid "Toggle Bluetooth"
 msgstr "Ative/Disative il bluetooth"
 
-#: plugins/power/gpm-common.c:100
+#: plugins/power/gpm-common.c:99
 msgid "Unknown time"
 msgstr "Timp no cognossût"
 
-#: plugins/power/gpm-common.c:105
+#: plugins/power/gpm-common.c:104
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i minût"
 msgstr[1] "%i minûts"
 
-#: plugins/power/gpm-common.c:115
+#: plugins/power/gpm-common.c:114
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1357,25 +1361,25 @@ msgstr[1] "%i oris"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: plugins/power/gpm-common.c:121
+#: plugins/power/gpm-common.c:120
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s e %i %s"
 
-#: plugins/power/gpm-common.c:122
+#: plugins/power/gpm-common.c:121
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "ore"
 msgstr[1] "oris"
 
-#: plugins/power/gpm-common.c:123
+#: plugins/power/gpm-common.c:122
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minût"
 msgstr[1] "minûts"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:948 plugins/power/gsd-power-manager.c:686
+#: plugins/power/gpm-common.c:929 plugins/power/gsd-power-manager.c:686
 #: plugins/power/gsd-power-manager.c:783
 msgid "Battery is critically low"
 msgstr "La batarie e je cuasi esauride"
@@ -1666,43 +1670,43 @@ msgstr ""
 "distudât."
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1264
+#: plugins/power/gsd-power-manager.c:1305
 msgid "Lid has been opened"
 msgstr "Tapon vierzût"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1302
+#: plugins/power/gsd-power-manager.c:1339
 msgid "Lid has been closed"
 msgstr "Tapon sierât"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1898
+#: plugins/power/gsd-power-manager.c:1935
 msgid "On battery power"
 msgstr "Alimentazion vie batarie"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1903
+#: plugins/power/gsd-power-manager.c:1940
 msgid "On AC power"
 msgstr "Alimentazion vie prese di curint"
 
-#: plugins/power/gsd-power-manager.c:2095
+#: plugins/power/gsd-power-manager.c:2132
 msgid "Automatic logout"
 msgstr "Tiermin session automatic"
 
-#: plugins/power/gsd-power-manager.c:2095
+#: plugins/power/gsd-power-manager.c:2132
 msgid "You will soon log out because of inactivity."
 msgstr "Chi di pôc la session e vegnarà terminade par vie de inativitât."
 
-#: plugins/power/gsd-power-manager.c:2100
+#: plugins/power/gsd-power-manager.c:2137
 msgid "Automatic suspend"
 msgstr "Sospension automatiche"
 
-#: plugins/power/gsd-power-manager.c:2100
-#: plugins/power/gsd-power-manager.c:2105
+#: plugins/power/gsd-power-manager.c:2137
+#: plugins/power/gsd-power-manager.c:2142
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Chi di pôc il computer al vegnarà sospindût par vie de inativitât."
 
-#: plugins/power/gsd-power-manager.c:2105
+#: plugins/power/gsd-power-manager.c:2142
 msgid "Automatic hibernation"
 msgstr "Ibernazion automatiche"
 
