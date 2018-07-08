@@ -254,6 +254,7 @@ night_light_recheck (GsdNightLight *self)
         guint temperature;
         guint temp_smeared;
         g_autoptr(GDateTime) dt_now = gsd_night_light_get_date_time_now (self);
+        gboolean animate = TRUE;
 
         /* enabled */
         if (!g_settings_get_boolean (self->settings, "night-light-enabled")) {
@@ -280,8 +281,10 @@ night_light_recheck (GsdNightLight *self)
         }
 
         /* disable smearing if to and from are too close together */
-        if (ABS (schedule_from - schedule_to) <= smear)
-          smear = 0;
+        if (ABS (schedule_from - schedule_to) <= smear) {
+                smear = 0;
+                animate = FALSE;
+        }
 
         /* get the current hour of a day as a fraction */
         frac_day = gsd_night_light_frac_day_from_dt (dt_now);
@@ -342,15 +345,15 @@ night_light_recheck (GsdNightLight *self)
          *   \--------------------/
          */
         temperature = g_settings_get_uint (self->settings, "night-light-temperature");
-        if (smear > 0 && gsd_night_light_frac_day_is_between (frac_day,
-                                                              schedule_from - smear,
-                                                              schedule_from)) {
+        if (animate && gsd_night_light_frac_day_is_between (frac_day,
+                                                            schedule_from - smear,
+                                                            schedule_from)) {
                 gdouble factor = 1.f - ((frac_day - (schedule_from - smear)) / smear);
                 temp_smeared = linear_interpolate (GSD_COLOR_TEMPERATURE_DEFAULT,
                                                    temperature, factor);
-        } else if (smear > 0 && gsd_night_light_frac_day_is_between (frac_day,
-                                                                     schedule_to - smear,
-                                                                     schedule_to)) {
+        } else if (animate && gsd_night_light_frac_day_is_between (frac_day,
+                                                                   schedule_to - smear,
+                                                                   schedule_to)) {
                 gdouble factor = (frac_day - (schedule_to - smear)) / smear;
                 temp_smeared = linear_interpolate (GSD_COLOR_TEMPERATURE_DEFAULT,
                                                    temperature, factor);
