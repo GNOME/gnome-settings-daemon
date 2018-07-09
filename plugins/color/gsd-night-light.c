@@ -306,9 +306,9 @@ night_light_recheck (GsdNightLight *self)
                         /* Or if a sunrise lies between the time it was disabled and now. */
                         gdouble frac_disabled;
                         frac_disabled = gsd_night_light_frac_day_from_dt (self->disabled_until_tmw_dt);
-                        if (gsd_night_light_frac_day_is_between (schedule_to,
-                                                                 frac_disabled,
-                                                                 frac_day)) {
+                        if (time_span > 0 && gsd_night_light_frac_day_is_between (schedule_to,
+                                                                                  frac_disabled,
+                                                                                  frac_day)) {
                                 g_debug ("night light sun rise happened, resetting disabled until tomorrow");
                                 reset = TRUE;
                         }
