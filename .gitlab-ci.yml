@@ -2,6 +2,7 @@ image: registry.gitlab.gnome.org/gnome/gnome-settings-daemon:fedora.dev
 stages:
   - build
   - test
+  - manual
 
 .Log files: &log_files  [./*.log, _build/meson-logs/]
 
@@ -80,3 +81,34 @@ test:
         echo "== Testing =="
         meson test -C _build --verbose --no-stdsplit
       fi
+
+# Runs the sanitizers [address, thread, undefined, and memory].
+.sanitizer: &sanitizer
+  <<: *save_build_logs
+  stage: manual
+  when: manual
+  script:
+    - *environment_information
+    - *build_procedure
+    - *run_tests
+
+asan:
+  <<: *sanitizer
+  variables:
+    BUILD_OPTS: "-Db_sanitize=address"
+
+tsan:
+  <<: *sanitizer
+  variables:
+    BUILD_OPTS: "-Db_sanitize=thread"
+
+ubsan:
+  <<: *sanitizer
+  variables:
+    BUILD_OPTS: "-Db_sanitize=undefined"
+
+msan:
+  <<: *sanitizer
+  variables:
+    BUILD_OPTS: "-Db_sanitize=memory"
+    CC: "clang"
