@@ -3,6 +3,7 @@ stages:
   - build
   - test
   - manual
+  - delivery
 
 .Log files: &log_files  [./*.log, _build/meson-logs/]
 
@@ -82,7 +83,50 @@ test:
         meson test -C _build --verbose --no-stdsplit
       fi
 
+# Runs the coverage test.
+coverage:
+  <<: *save_build_logs
+  stage: test
+  variables:
+    BUILD_OPTS: "-Db_coverage=true"
+    coverage: '/^Lines:.\d+.\d+.(\d+\.\d+\%)/'
+  only:
+    - master@GNOME/gnome-settings-daemon
+
+  script:
+    - *environment_information
+    - *build_procedure
+    - *run_tests
+
+    - ninja -C _build coverage-html
+
+    # Parse the report to get the coverage result
+    - |
+      echo == Coverage ==
+      sed -e 's/<[^>]*>//g' _build/meson-logs/coveragereport/index.html | tr -d ' \t' | grep -A3 -P '^Lines:$'  | tr '\n' ' '; echo
+
+##
+# Stage: Delivery
+#
+# Publishes the Coverage Report generated above
+##
+pages:
+  stage: delivery
+  dependencies:
+    - coverage
+  script:
+    - mv _build/meson-logs/coveragereport/ public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - master@GNOME/gnome-settings-daemon
+
+##
+# Stage: Manual
+#
 # Runs the sanitizers [address, thread, undefined, and memory].
+##
 .sanitizer: &sanitizer
   <<: *save_build_logs
   stage: manual
