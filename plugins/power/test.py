@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 '''GNOME settings daemon tests for power plugin.'''
 
 __author__ = 'Martin Pitt <martin.pitt@ubuntu.com>'
@@ -9,6 +9,7 @@ import unittest
 import subprocess
 import sys
 import time
+import math
 import os
 import os.path
 import signal
@@ -69,7 +70,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
                 print('----- session log -----\n%s\n------' % f.read())
             raise
 
-        self.session_log = open(self.session_log_write.name, buffering=0)
+        self.session_log = open(self.session_log_write.name, 'rb', buffering=0)
 
         self.obj_session_mgr = self.session_bus_con.get_object(
             'org.gnome.SessionManager', '/org/gnome/SessionManager')
@@ -83,13 +84,13 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # ensure that our tests don't lock the screen when the screensaver
         # gets active
-        self.settings_screensaver = Gio.Settings('org.gnome.desktop.screensaver')
+        self.settings_screensaver = Gio.Settings(schema_id='org.gnome.desktop.screensaver')
         self.settings_screensaver['lock-enabled'] = False
 
         # Ensure we set up the external monitor state
         self.set_has_external_monitor(False)
 
-        self.settings_gsd_power = Gio.Settings('org.gnome.settings-daemon.plugins.power')
+        self.settings_gsd_power = Gio.Settings(schema_id='org.gnome.settings-daemon.plugins.power')
 
         Gio.Settings.sync()
         self.plugin_log_write = open(os.path.join(self.workdir, 'plugin_power.log'), 'wb', buffering=0)
@@ -108,7 +109,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             env=env)
 
         # you can use this for reading the current daemon log in tests
-        self.plugin_log = open(self.plugin_log_write.name, buffering=0)
+        self.plugin_log = open(self.plugin_log_write.name, 'rb', buffering=0)
 
         # wait until plugin is ready
         timeout = 100
@@ -116,17 +117,14 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             time.sleep(0.1)
             timeout -= 1
             log = self.plugin_log.read()
-            if 'System inhibitor fd is' in log:
+            if b'System inhibitor fd is' in log:
                 break
 
         # always start with zero idle time
         self.reset_idle_timer()
 
         # flush notification log
-        try:
-            self.p_notify.stdout.read()
-        except IOError:
-            pass
+        self.p_notify.stdout.read()
 
     def tearDown(self):
 
@@ -183,18 +181,18 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         path = GLib.find_program_in_path ('gnome-session')
         assert(path)
         (success, data) = GLib.file_get_contents (path)
-        lines = data.split('\n')
+        lines = data.split(b'\n')
         new_path = None
         for line in lines:
             items = line.split()
-            if items and items[0] == 'exec':
+            if items and items[0] == b'exec':
                 new_path = items[1]
         if not new_path:
             self.fail("could not get gnome-session's real path from %s" % path)
         path = new_path
         ldd = subprocess.Popen(['ldd', path], stdout=subprocess.PIPE)
         out = ldd.communicate()[0]
-        if not 'libsystemd.so.0' in out:
+        if not b'libsystemd.so.0' in out:
             self.fail('gnome-session is not built with logind support')
 
     def get_status(self):
@@ -209,9 +207,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
     def set_has_external_monitor(self, external):
         if external:
-            val = '1'
+            val = b'1'
         else:
-            val = '0'
+            val = b'0'
         GLib.file_set_contents ('GSD_MOCK_EXTERNAL_MONITOR', val)
 
     def set_composite_battery_discharging(self, icon='battery-good-symbolic'):
@@ -244,9 +242,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             time.sleep(1)
             timeout -= 1
             # check that it requested logout
-            try:
-                log = self.session_log.read()
-            except IOError:
+            log = self.session_log.read()
+            if log is None:
                 continue
 
             if log and (b'GsmManager: requesting logout' in log):
@@ -273,7 +270,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         '''
 
         # Create a list of byte string needles to search for
-        needles = [b' {} '.format(m) for m in methods]
+        needles = [' {} '.format(m).encode('ascii') for m in methods]
 
         suspended = False
 
@@ -282,9 +279,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             time.sleep(1)
             timeout -= 1
             # check that it requested suspend
-            try:
-                log = self.logind.stdout.read()
-            except IOError:
+            log = self.logind.stdout.read()
+            if log is None:
                 continue
 
             for n in needles:
@@ -323,7 +319,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # check that it requested uninhibition
         log = self.plugin_log.read()
 
-        if 'uninhibiting lid close' in log:
+        if b'uninhibiting lid close' in log:
             self.fail('lid uninhibit should not have happened')
 
     def check_no_suspend(self, seconds, methods=COMMON_SUSPEND_METHODS):
@@ -332,13 +328,12 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # wait for specified time to ensure it didn't do anything
         time.sleep(seconds)
         # check that it did not suspend or hibernate
-        try:
-            log = self.logind.stdout.read()
-        except IOError:
+        log = self.logind.stdout.read()
+        if log is None:
             return
 
         for m in methods:
-            needle = b' {} '.format(m)
+            needle = ' {} '.format(m).encode('ascii')
 
             self.assertFalse(needle in log, 'unexpected %s request' % m)
 
@@ -359,6 +354,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         Fail after the given timeout.
         '''
+        if type(needle) == str:
+            needle = needle.encode('ascii')
         # Fast path if the message was already logged
         log = self.plugin_log.read()
         if needle in log:
@@ -425,7 +422,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         time.sleep(seconds)
         # check that it did not blank
         log = self.plugin_log.read()
-        self.assertFalse('TESTSUITE: Blanked screen' in log, 'unexpected blank request')
+        self.assertFalse(b'TESTSUITE: Blanked screen' in log, 'unexpected blank request')
 
     def check_no_unblank(self, seconds):
         '''Check that no unblank is requested in the given time'''
@@ -434,7 +431,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         time.sleep(seconds)
         # check that it did not unblank
         log = self.plugin_log.read()
-        self.assertFalse('TESTSUITE: Unblanked screen' in log, 'unexpected unblank request')
+        self.assertFalse(b'TESTSUITE: Unblanked screen' in log, 'unexpected unblank request')
 
     def test_screensaver(self):
         # Note that the screensaver mock object
@@ -743,7 +740,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         time.sleep (gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 1)
         self.plugin_log.read()
 
-        idle_delay = round(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY / gsdpowerconstants.IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER)
+        idle_delay = math.ceil(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY / gsdpowerconstants.IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER)
         self.reset_idle_timer()
 
         self.settings_session['idle-delay'] = idle_delay
