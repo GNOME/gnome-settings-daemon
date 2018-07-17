@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 '''GNOME settings daemon tests for xsettings plugin.'''
 
 __author__ = 'Bastien Nocera <hadess@hadess.net>'
