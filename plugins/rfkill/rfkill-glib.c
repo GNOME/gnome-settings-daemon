@@ -191,11 +191,21 @@ cc_rfkill_glib_send_change_all_event (CcRfkillGlib        *rfkill,
 {
 	g_autoptr(GTask) task = NULL;
 	struct rfkill_event *event;
+	g_autoptr(GCancellable) task_cancellable = NULL;
 
 	g_return_if_fail (CC_RFKILL_IS_GLIB (rfkill));
 	g_return_if_fail (rfkill->stream);
 
-	task = g_task_new (rfkill, cancellable, callback, user_data);
+	task_cancellable = g_cancellable_new ();
+	g_signal_connect_object (cancellable, "cancelled",
+				 (GCallback) g_cancellable_cancel,
+				 task_cancellable,
+				 G_CONNECT_SWAPPED);
+	/* Now check if it is cancelled already */
+	if (g_cancellable_is_cancelled (cancellable))
+		g_cancellable_cancel (task_cancellable);
+
+	task = g_task_new (rfkill, task_cancellable, callback, user_data);
 	g_task_set_source_tag (task, cc_rfkill_glib_send_change_all_event);
 
 	/* Clear any previous task. */
@@ -215,7 +225,7 @@ cc_rfkill_glib_send_change_all_event (CcRfkillGlib        *rfkill,
 	g_output_stream_write_async (rfkill->stream,
 				     event, sizeof(struct rfkill_event),
 				     G_PRIORITY_DEFAULT,
-				     cancellable, write_change_all_done_cb,
+				     task_cancellable, write_change_all_done_cb,
 				     g_object_ref (task));
 }
 
