@@ -3,7 +3,8 @@
     <annotation name="org.gtk.GDBus.C.Name" value="KeyGrabber"/>
     <method name="GrabAccelerator">
       <arg type="s" direction="in" name="accelerator"/>
-      <arg type="u" direction="in" name="flags"/>
+      <arg type="u" direction="in" name="modeFlags"/>
+      <arg type="u" direction="in" name="grabFlags"/>
       <arg type="u" direction="out" name="action"/>
     </method>
     <method name="UngrabAccelerator">
