@@ -32,4 +32,3 @@ typedef enum {
 
   SHELL_ACTION_MODE_ALL = ~0,
 } ShellActionMode;
-
