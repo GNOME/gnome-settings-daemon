@@ -41,6 +41,7 @@ static struct {
         const char *key_name;
         const char *hard_coded;
         ShellActionMode modes;
+        MetaKeyBindingFlags grab_flags;
 } media_keys[] = {
         { TOUCHPAD_KEY, NULL, N_("Touchpad toggle") ,"XF86TouchpadToggle", SHELL_ACTION_MODE_ALL },
         { TOUCHPAD_KEY, NULL, N_("Touchpad toggle") ,"<Ctrl><Super>XF86TouchpadToggle", SHELL_ACTION_MODE_ALL },
