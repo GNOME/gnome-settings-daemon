@@ -142,6 +142,7 @@ typedef struct {
 
         MediaKeyType key_type;
         ShellActionMode modes;
+        MetaKeyBindingFlags grab_flags;
         const char *settings_key;
         const char *hard_coded;
         char *custom_path;
@@ -496,7 +497,7 @@ grab_media_keys (GsdMediaKeysManager *manager)
         GVariantBuilder builder;
         int i;
 
-        g_variant_builder_init (&builder, G_VARIANT_TYPE ("a(su)"));
+        g_variant_builder_init (&builder, G_VARIANT_TYPE ("a(suu)"));
 
         for (i = 0; i < manager->priv->keys->len; i++) {
                 MediaKey *key;
@@ -504,13 +505,13 @@ grab_media_keys (GsdMediaKeysManager *manager)
 
                 key = g_ptr_array_index (manager->priv->keys, i);
                 tmp = get_binding (manager, key);
-                g_variant_builder_add (&builder, "(su)", tmp, key->modes);
+                g_variant_builder_add (&builder, "(suu)", tmp, key->modes, key->grab_flags);
                 g_free (tmp);
         }
 
         g_dbus_proxy_call (G_DBUS_PROXY (manager->priv->key_grabber),
                            "GrabAccelerators",
-                           g_variant_new ("(@a(su))",
+                           g_variant_new ("(@a(suu))",
                                           g_variant_builder_end (&builder)),
                            G_DBUS_CALL_FLAGS_NONE,
                            SHELL_GRABBER_CALL_TIMEOUT,
@@ -574,7 +575,7 @@ grab_media_key (MediaKey            *key,
 	data->key = media_key_ref (key);
 
 	shell_key_grabber_call_grab_accelerator (manager->priv->key_grabber,
-	                                         binding, key->modes,
+	                                         binding, key->modes, key->grab_flags,
 	                                         manager->priv->grab_cancellable,
 	                                         grab_accelerator_complete,
 	                                         data);
@@ -706,6 +707,7 @@ media_key_new_for_path (GsdMediaKeysManager *manager,
         key->modes = GSD_ACTION_MODE_LAUNCHER;
         key->custom_path = g_strdup (path);
         key->custom_command = command;
+        key->grab_flags = META_KEY_BINDING_NONE;
 
         return key;
 }
@@ -830,6 +832,7 @@ add_key (GsdMediaKeysManager *manager, guint i)
 	key->settings_key = media_keys[i].settings_key;
 	key->hard_coded = media_keys[i].hard_coded;
 	key->modes = media_keys[i].modes;
+	key->grab_flags = media_keys[i].grab_flags;
 
 	g_ptr_array_add (manager->priv->keys, key);
 }

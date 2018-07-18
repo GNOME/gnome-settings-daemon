@@ -33,3 +33,21 @@ typedef enum {
   SHELL_ACTION_MODE_ALL = ~0,
 } ShellActionMode;
 
+/**
+ * MetaKeyBindingFlags:
+ * @META_KEY_BINDING_NONE: none
+ * @META_KEY_BINDING_PER_WINDOW: per-window
+ * @META_KEY_BINDING_BUILTIN: built-in
+ * @META_KEY_BINDING_IS_REVERSED: is reversed
+ * @META_KEY_BINDING_NON_MASKABLE: always active
+ * @META_KEY_BINDING_IGNORE_AUTOREPEAT: ignore key autorepeat
+ */
+typedef enum
+{
+  META_KEY_BINDING_NONE,
+  META_KEY_BINDING_PER_WINDOW   = 1 << 0,
+  META_KEY_BINDING_BUILTIN      = 1 << 1,
+  META_KEY_BINDING_IS_REVERSED  = 1 << 2,
+  META_KEY_BINDING_NON_MASKABLE = 1 << 3,
+  META_KEY_BINDING_IGNORE_AUTOREPEAT = 1 << 4,
+} MetaKeyBindingFlags;
