@@ -4,6 +4,7 @@
     <method name="GrabAccelerator">
       <arg type="s" direction="in" name="accelerator"/>
       <arg type="u" direction="in" name="flags"/>
+      <arg type="b" direction="in" name="ignore_key_repeat"/>
       <arg type="u" direction="out" name="action"/>
     </method>
     <method name="UngrabAccelerator">
