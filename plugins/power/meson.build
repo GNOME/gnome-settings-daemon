@@ -23,6 +23,14 @@ endif
 
 cflags += ['-DLIBEXECDIR="@0@"'.format(gsd_libexecdir)]
 
+configure_file(
+  input: 'gsd-power.desktop.in',
+  output: 'gsd-power.desktop',
+  configuration: plugins_conf,
+  install: true,
+  install_dir: join_paths(get_option('datadir'), 'applications')
+)
+
 gsd_power = executable(
   'gsd-' + plugin_name,
   sources,

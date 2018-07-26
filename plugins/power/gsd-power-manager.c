@@ -322,6 +322,7 @@ create_notification (const char *summary,
         notification = notify_notification_new (summary, body, icon_name);
         /* TRANSLATORS: this is the notification application name */
         notify_notification_set_app_name (notification, _("Power"));
+        notify_notification_set_hint (notification, "desktop-entry", g_variant_new_string ("gsd-power"));
         notify_notification_set_urgency (notification,
                                          NOTIFY_URGENCY_CRITICAL);
         *weak_pointer_location = notification;
