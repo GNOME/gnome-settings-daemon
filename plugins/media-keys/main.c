@@ -2,6 +2,7 @@
 #define START gsd_media_keys_manager_start
 #define STOP gsd_media_keys_manager_stop
 #define MANAGER GsdMediaKeysManager
+#define GDK_BACKEND "x11"
 #include "gsd-media-keys-manager.h"
 
 #include "daemon-skeleton-gtk.h"
