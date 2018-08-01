@@ -39,6 +39,10 @@
 #include <gdk/gdkx.h>
 #endif
 
+#if HAVE_WACOM
+#include <libwacom/libwacom.h>
+#endif
+
 #include "gsd-enums.h"
 #include "gnome-settings-profile.h"
 #include "gnome-settings-bus.h"
@@ -86,6 +90,10 @@ struct GsdWacomManagerPrivate
 
         gchar *machine_id;
 
+#if HAVE_WACOM
+        WacomDeviceDatabase *wacom_db;
+#endif
+
         /* DBus */
         GDBusNodeInfo   *introspection_data;
         GDBusConnection *dbus_connection;
@@ -102,6 +110,8 @@ static gboolean set_led (const gchar  *device_path,
                          guint         group,
                          guint         index,
                          GError      **error);
+static gboolean is_opaque_tablet (GsdWacomManager *manager,
+                                  GdkDevice       *device);
 
 G_DEFINE_TYPE (GsdWacomManager, gsd_wacom_manager, G_TYPE_OBJECT)
 
@@ -149,6 +159,22 @@ migrate_tablet_settings (GsdWacomManager *manager,
                                     "org.gnome.desktop.peripherals.tablet",
                                     new_path,
                                     tablet_settings, G_N_ELEMENTS (tablet_settings));
+
+        /* Opaque tablets' mapping may be modified by users, so only these
+         * need migration of settings.
+         */
+        if (is_opaque_tablet (manager, device)) {
+                GsdSettingsMigrateEntry display_setting[] = {
+                        { "display", "output", NULL },
+                };
+
+                gsd_settings_migrate_check ("org.gnome.desktop.peripherals.tablet.deprecated",
+                                            new_path,
+                                            "org.gnome.desktop.peripherals.tablet",
+                                            new_path,
+                                            display_setting, G_N_ELEMENTS (display_setting));
+        }
+
         g_free (old_path);
         g_free (new_path);
 }
@@ -166,12 +192,38 @@ gsd_wacom_manager_class_init (GsdWacomManagerClass *klass)
 static gchar *
 get_device_path (GdkDevice *device)
 {
+        g_print ("OOOO %s\n", G_OBJECT_TYPE_NAME (device));
 #ifdef HAVE_WAYLAND
         if (gnome_settings_is_wayland ())
                 return g_strdup (gdk_wayland_device_get_node_path (device));
         else
 #endif
                 return xdevice_get_device_node (gdk_x11_device_get_id (device));
+}
+
+static gboolean
+is_opaque_tablet (GsdWacomManager *manager,
+                  GdkDevice       *device)
+{
+        gboolean is_opaque = FALSE;
+#if HAVE_WACOM
+        WacomDevice *wacom_device;
+        gchar *devpath;
+
+        devpath = get_device_path (device);
+        wacom_device = libwacom_new_from_path (manager->priv->wacom_db, devpath,
+                                               WFALLBACK_GENERIC, NULL);
+        if (wacom_device) {
+                WacomIntegrationFlags integration_flags;
+
+                integration_flags = libwacom_get_integration_flags (wacom_device);
+                is_opaque = (integration_flags &
+                             (WACOM_DEVICE_INTEGRATED_DISPLAY | WACOM_DEVICE_INTEGRATED_SYSTEM)) == 0;
+                libwacom_destroy (wacom_device);
+        }
+
+#endif
+        return is_opaque;
 }
 
 static GdkDevice *
@@ -353,6 +405,9 @@ static void
 gsd_wacom_manager_init (GsdWacomManager *manager)
 {
         manager->priv = GSD_WACOM_MANAGER_GET_PRIVATE (manager);
+#if HAVE_WACOM
+        manager->priv->wacom_db = libwacom_database_new ();
+#endif
 }
 
 static gboolean
@@ -511,6 +566,10 @@ gsd_wacom_manager_finalize (GObject *object)
                 g_source_remove (wacom_manager->priv->start_idle_id);
 
         g_clear_object (&wacom_manager->priv->shell_proxy);
+
+#if HAVE_WACOM
+        libwacom_database_destroy (wacom_manager->priv->wacom_db);
+#endif
 
         G_OBJECT_CLASS (gsd_wacom_manager_parent_class)->finalize (object);
 }
