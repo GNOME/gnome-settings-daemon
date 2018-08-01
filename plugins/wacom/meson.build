@@ -28,6 +28,10 @@ deps = plugins_deps + [
   pango_dep
 ]
 
+if enable_wacom
+  deps += libwacom_dep
+endif
+
 cflags += ['-DLIBEXECDIR="@0@"'.format(gsd_libexecdir)]
 
 executable(

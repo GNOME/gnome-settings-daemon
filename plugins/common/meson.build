@@ -28,10 +28,6 @@ if host_is_darwin
   ldflags += ['-Wl,-bundle_loader,@0@'.format(join_paths(), meson.build_root(), meson.project_name(), meson.project_name())]
 endif
 
-if enable_wacom
-  deps += libwacom_dep
-endif
-
 libcommon = static_library(
   plugin_name,
   sources: sources,
