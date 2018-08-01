@@ -199,7 +199,9 @@ main (int argc, char **argv)
 
         set_empty_gtk_theme (TRUE);
 
-        gdk_set_allowed_backends ("x11");
+#ifdef GDK_BACKEND
+        gdk_set_allowed_backends (GDK_BACKEND);
+#endif
 
         error = NULL;
         if (! gtk_init_with_args (&argc, &argv, PLUGIN_NAME, entries, NULL, &error)) {
