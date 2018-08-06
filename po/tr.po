@@ -20,8 +20,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2018-03-05 15:46+0000\n"
-"PO-Revision-Date: 2018-03-11 00:06+0300\n"
+"POT-Creation-Date: 2018-06-20 14:52+0000\n"
+"PO-Revision-Date: 2018-08-05 21:00+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -66,7 +66,7 @@ msgstr "NumLock durumunu hatırla"
 msgid ""
 "When set to true, GNOME will remember the state of the NumLock LED between "
 "sessions."
-msgstr "Ayarlanmış ise GNOME oturumlar arası NumLock LED durumunu hatırlayacak"
+msgstr "Ayarlanmış ise GNOME oturumlar arası NumLock LED durumunu anımsayacak."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:45
 msgid "NumLock state"
@@ -80,7 +80,7 @@ msgstr "NumLock LED’in hatırlanan durumu."
 msgid ""
 "Highlights the current location of the pointer when the Control key is "
 "pressed and released."
-msgstr "Ctrl tuşuna basılıp bırakıldığında imlecin yerini gösterir"
+msgstr "Ctrl tuşuna basılıp bırakıldığında imlecin geçerli yerini vurgular."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:56
 msgid "Double click time"
@@ -145,7 +145,8 @@ msgid ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
 msgstr ""
-"Hızlı sol ve sağ tıklama ile orta tıklanmış gibi davranmayı etkinleştirir"
+"Aynı anda sol ve sağ tıklama ile orta tıklanmış gibi davranmayı "
+"etkinleştirir."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:101
 msgid "Key Repeat Interval"
@@ -425,9 +426,12 @@ msgid "If the night light mode is enabled"
 msgstr "Eğer gece lambası kipi etkinse"
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:17
+#| msgid ""
+#| "Night light mode changes the color temperature of your display when the "
+#| "sun has gone down or at present times."
 msgid ""
 "Night light mode changes the color temperature of your display when the sun "
-"has gone down or at present times."
+"has gone down or at preset times."
 msgstr ""
 "Gece lambası kipi, güneş battığında ya da belirlenen zamanlarda ekranınızın "
 "renk sıcaklığını değiştirir."
@@ -697,185 +701,199 @@ msgid "Volume down"
 msgstr "Sesi azalt"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:87
-msgid "Binding to lower the system volume."
-msgstr "Sistem sesini azaltmak için kısayol."
+#| msgid "Binding to lower the system volume."
+msgid "Binding to lower the volume."
+msgstr "Sesi azaltmak için kısayol."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:91
-msgid "Volume mute"
-msgstr "Sesi kapat"
+#| msgid "Volume mute"
+msgid "Volume mute/unmute"
+msgstr "Sesi kapat/aç"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:92
-msgid "Binding to mute the system volume."
-msgstr "Sistem sesini kapatmak için kısayol."
+#| msgid "Binding to mute the system volume."
+msgid "Binding to mute/unmute the volume."
+msgstr "Sesi kapatmak/açmak için kısayol."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:96
 msgid "Volume up"
 msgstr "Sesi arttır"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:97
-msgid "Binding to raise the system volume."
-msgstr "Sistem sesini arttırmak için kısayol."
+#| msgid "Binding to raise the system volume."
+msgid "Binding to raise the volume."
+msgstr "Sesi arttırmak için kısayol."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:101
+#| msgid "Microphone Mute"
+msgid "Microphone mute/unmute"
+msgstr "Mikrofonu kapat/aç"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:102
+#| msgid "Binding to mute the system volume."
+msgid "Binding to mute/unmute the microphone."
+msgstr "Mikrofonu kapatmak/açmak için kısayol."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:106
 msgid "Take a screenshot"
 msgstr "Ekran görüntüsü al"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:102
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:107
 msgid "Binding to take a screenshot."
 msgstr "Ekranı görüntüsü almak için kısayol."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:106
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:111
 msgid "Take a screenshot of a window"
 msgstr "Bir pencerenin ekran görüntüsünü al"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:107
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:112
 msgid "Binding to take a screenshot of a window."
 msgstr "Bir pencerenin ekran görüntüsünü almak için kısayol."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:111
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:116
 msgid "Take a screenshot of an area"
 msgstr "Bir alanın ekran görüntüsünü al"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:112
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:117
 msgid "Binding to take a screenshot of an area."
 msgstr "Bir alanın ekran görüntüsünü almak için kısayol."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:116
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:121
 msgid "Copy a screenshot to clipboard"
 msgstr "Ekran görüntüsünü panoya kopyala"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:117
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:122
 msgid "Binding to copy a screenshot to clipboard."
 msgstr "Ekran görüntüsünü panoya kopyalamak için kısayol."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:121
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:126
 msgid "Copy a screenshot of a window to clipboard"
 msgstr "Bir pencerenin ekran görüntüsünü panoya kopyala"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:122
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:127
 msgid "Binding to copy a screenshot of a window to clipboard."
 msgstr "Bir pencerenin ekran görüntüsünü panoya kopyalamak için kısayol."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:126
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:131
 msgid "Copy a screenshot of an area to clipboard"
 msgstr "Bir alanın ekran görüntüsünü panoya kopyala"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:127
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:132
 msgid "Binding to copy a screenshot of an area to clipboard."
 msgstr "Bir alanın ekran görüntüsünü panoya kopyalamak için kısayol."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:131
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:136
 msgid "Record a short video of the screen"
 msgstr "Ekranın kısa bir videosunu kaydet"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:132
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:137
 msgid "Binding to record a short video of the screen"
 msgstr "Kısa bir ekran videosu kaydetmek için kısayol"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:136
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:141
 msgid "Launch web browser"
 msgstr "Web tarayıcıyı başlat"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:137
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:142
 msgid "Binding to launch the web browser."
 msgstr "Web tarayıcıyı başlatmak için kısayol."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:141
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:146
 msgid "Toggle magnifier"
 msgstr "Büyüteci aç veya kapat"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:142
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:147
 msgid "Binding to show the screen magnifier"
 msgstr "Ekran büyütecini göstermek için kısayol"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:146
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:151
 msgid "Toggle screen reader"
 msgstr "Ekran okuyucusunu aç veya kapat"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:147
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:152
 msgid "Binding to start the screen reader"
 msgstr "Ekran okuyucusunu başlatmak için kısayol"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:151
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:156
 msgid "Toggle on-screen keyboard"
 msgstr "Ekran klavyesini aç veya kapat"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:152
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:157
 msgid "Binding to show the on-screen keyboard"
 msgstr "Ekran klavyesini göstermek için kısayol"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:156
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:161
 msgid "Increase text size"
 msgstr "Metin boyutunu büyüt"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:157
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:162
 msgid "Binding to increase the text size"
 msgstr "Metin boyutunu büyütmek için kısayol"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:161
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:166
 msgid "Decrease text size"
 msgstr "Metin boyutunu küçült"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:162
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:167
 msgid "Binding to decrease the text size"
 msgstr "Metin boyutunu küçültmek için kısayol"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:166
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:171
 msgid "Toggle contrast"
 msgstr "Karşıtlığı aç veya kapat"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:167
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:172
 msgid "Binding to toggle the interface contrast"
 msgstr "Arayüz karşıtlığını açıp kapatmak için kısayol"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:171
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:176
 msgid "Magnifier zoom in"
 msgstr "Büyüteci yakınlaştır"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:172
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:177
 msgid "Binding for the magnifier to zoom in"
 msgstr "Büyüteci yakınlaştırmak için kısayol"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:176
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:181
 msgid "Magnifier zoom out"
 msgstr "Büyüteci uzaklaştır"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:177
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:182
 msgid "Binding for the magnifier to zoom out"
 msgstr "Büyüteci uzaklaştırmak için kısayol"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:181
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:186
 msgid "Maximum length of screen recordings"
 msgstr "En fazla ekran kayıt süresi"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:182
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:187
 msgid ""
 "The maximum length of single screen cast recordings in seconds or 0 for "
 "unlimited"
 msgstr ""
 "Tek ekran kayıdının saniye türünden en yüksek uzunluğu veya sınırsız için 0"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:189
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:194
 msgid "Name"
 msgstr "Ad"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:190
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:195
 msgid "Name of the custom binding"
 msgstr "Özel kısayolun adı"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:194
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:199
 msgid "Binding"
 msgstr "Kısayol"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:195
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:200
 msgid "Binding for the custom binding"
-msgstr "Özel kısayol için kısayol."
+msgstr "Özel kısayol için kısayol"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:199
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:204
 msgid "Command"
 msgstr "Komut"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:200
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:205
 msgid "Command to run when the binding is invoked"
 msgstr "Kısayol çağrıldığında çalıştırılacak komut"
 
@@ -886,7 +904,7 @@ msgstr "İşlem yapmıyorken ekran parlaklığı"
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:7
 msgid ""
 "This is the laptop panel screen brightness used when the session is idle."
-msgstr "İşlem yapmıyorken laptop ekran parlaklığı"
+msgstr "Oturum boştayken dizüstü ekranının parlaklığı."
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:11
 msgid "Dim the screen after a period of inactivity"
@@ -1141,7 +1159,7 @@ msgstr "Yoksay"
 #: plugins/housekeeping/gsd-disk-space.c:636
 #, c-format
 msgid "Low Disk Space on “%s”"
-msgstr "“%s” üzerinde Düşük Disk Alanı"
+msgstr "“%s” Üzerinde Düşük Disk Alanı"
 
 #: plugins/housekeeping/gsd-disk-space.c:638
 #, c-format
@@ -1175,30 +1193,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Bu bilgisayarda yalnızca %s disk alanı kaldı."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2176
+#: plugins/media-keys/gsd-media-keys-manager.c:2212
 msgid "Bluetooth disabled"
 msgstr "Bluetooth devre dışı"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2179
+#: plugins/media-keys/gsd-media-keys-manager.c:2215
 msgid "Bluetooth enabled"
 msgstr "Bluetooth etkin"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2183
+#: plugins/media-keys/gsd-media-keys-manager.c:2219
 msgid "Airplane mode enabled"
 msgstr "Uçak kipi etkin"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2186
+#: plugins/media-keys/gsd-media-keys-manager.c:2222
 msgid "Airplane mode disabled"
 msgstr "Uçak kipi devre dışı"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2214
+#: plugins/media-keys/gsd-media-keys-manager.c:2250
 msgid "Hardware Airplane Mode"
 msgstr "Donanımsal Uçak Kipi"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2274
+#: plugins/media-keys/gsd-media-keys-manager.c:2310
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "%d %t.webm ekran görüntüsü"
@@ -1220,21 +1238,17 @@ msgid "Screenshot from %s"
 msgstr "%s ekran görüntüsü"
 
 #: plugins/media-keys/shortcuts-list.h:45
+#: plugins/media-keys/shortcuts-list.h:46
 msgid "Touchpad toggle"
 msgstr "Dokunmatik yüzeyi açıp kapatma"
 
-#: plugins/media-keys/shortcuts-list.h:46
+#: plugins/media-keys/shortcuts-list.h:47
 msgid "Touchpad On"
 msgstr "Dokunmatik Yüzeyi Aç"
 
-#: plugins/media-keys/shortcuts-list.h:47
+#: plugins/media-keys/shortcuts-list.h:48
 msgid "Touchpad Off"
 msgstr "Dokunmatik Yüzeyi Kapat"
-
-#: plugins/media-keys/shortcuts-list.h:51
-#: plugins/media-keys/shortcuts-list.h:52
-msgid "Microphone Mute"
-msgstr "Mikrofonu Kapat"
 
 #: plugins/media-keys/shortcuts-list.h:53
 msgid "Quiet Volume Mute"
@@ -1336,17 +1350,17 @@ msgstr "Uçak Kipini Aç/Kapat"
 msgid "Toggle Bluetooth"
 msgstr "Bluetooth’u Aç/Kapat"
 
-#: plugins/power/gpm-common.c:100
+#: plugins/power/gpm-common.c:99
 msgid "Unknown time"
 msgstr "Bilinmeyen süre"
 
-#: plugins/power/gpm-common.c:105
+#: plugins/power/gpm-common.c:104
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i dakika"
 
-#: plugins/power/gpm-common.c:115
+#: plugins/power/gpm-common.c:114
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1354,23 +1368,23 @@ msgstr[0] "%i saat"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: plugins/power/gpm-common.c:121
+#: plugins/power/gpm-common.c:120
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: plugins/power/gpm-common.c:122
+#: plugins/power/gpm-common.c:121
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "saat"
 
-#: plugins/power/gpm-common.c:123
+#: plugins/power/gpm-common.c:122
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "dakika"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:948 plugins/power/gsd-power-manager.c:686
+#: plugins/power/gpm-common.c:929 plugins/power/gsd-power-manager.c:686
 #: plugins/power/gsd-power-manager.c:783
 msgid "Battery is critically low"
 msgstr "Pil gücü tehlikeli biçimde düşük"
@@ -1526,16 +1540,13 @@ msgstr "Dizüstü pil gücü tehlikeli biçimde düşük"
 #: plugins/power/gsd-power-manager.c:575
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
-msgstr ""
-"Bilgisayarınız fişe takılmadığı taktirde çok kısa bir süre içinde beklemeye "
-"alınacak."
+msgstr "Bilgisayarınız fişe takılmazsa çok kısa sürede beklemeye alınacak."
 
 #. TRANSLATORS: give the user a ultimatum
 #: plugins/power/gsd-power-manager.c:579
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
-msgstr ""
-"Bilgisayarınız fişe takılmadığı taktirde çok kısa bir süre içinde kapanacak."
+msgstr "Bilgisayarınız fişe takılmazsa çok kısa sürede kapanacak."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
@@ -1550,8 +1561,8 @@ msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
 "computer to avoid losing data."
 msgstr ""
-"Yaklaşık %s UPS gücü kaldı (%%%.0f). Veri kaybetmemek için bilgisayarınızı "
-"prize yeniden bağlayın."
+"Yaklaşık %s UPS gücü kaldı (%%%.0f). Veri kaybetmemek için AC gücü "
+"bilgisayarınıza yeniden sağlayın."
 
 #. TRANSLATORS: the device is just going to stop working
 #: plugins/power/gsd-power-manager.c:602
@@ -1560,8 +1571,8 @@ msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
-"Kablosuz farenin güç düzeyi çok düşük (%%%.0f). Eğer şarj edilmezse, bu "
-"aygıt yakında işlevselliğini yitirecek."
+"Kablosuz farenin güç düzeyi çok düşük (%%%.0f). Eğer bu aygıt şarj edilmezse "
+"yakında işlevselliğini yitirecek."
 
 #. TRANSLATORS: the device is just going to stop working
 #: plugins/power/gsd-power-manager.c:610
@@ -1570,8 +1581,8 @@ msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
-"Kablosuz klavyenin güç düzeyi çok düşük (%%%.0f). Eğer şarj edilmezse, bu "
-"aygıt yakında işlevselliğini yitirecek."
+"Kablosuz klavyenin güç düzeyi çok düşük (%%%.0f). Eğer bu aygıt şarj "
+"edilmezse yakında işlevselliğini yitirecek."
 
 #. TRANSLATORS: the device is just going to stop working
 #: plugins/power/gsd-power-manager.c:619
@@ -1580,7 +1591,7 @@ msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
 "not charged."
 msgstr ""
-"PDA’nın güç düzeyi çok düşük (%%%.0f). Eğer şarj edilmezse, bu aygıt yakında "
+"PDA’nın güç düzeyi çok düşük (%%%.0f). Eğer bu aygıt şarj edilmezse yakında "
 "işlevselliğini yitirecek."
 
 #. TRANSLATORS: the device is just going to stop working
@@ -1590,7 +1601,7 @@ msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
-"Cep telefonunun güç düzeyi çok düşük (%%%.0f). Eğer şarj edilmezse, bu aygıt "
+"Cep telefonunun güç düzeyi çok düşük (%%%.0f). Eğer bu aygıt şarj edilmezse "
 "yakında işlevselliğini yitirecek."
 
 #. TRANSLATORS: the device is just going to stop working
@@ -1600,8 +1611,8 @@ msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
-"Ortam yürütücünün güç düzeyi çok düşük (%%%.0f). Eğer şarj edilmezse, bu "
-"aygıt yakında işlevselliğini yitirecek."
+"Ortam yürütücünün güç düzeyi çok düşük (%%%.0f). Eğer bu aygıt şarj "
+"edilmezse yakında işlevselliğini yitirecek."
 
 #. TRANSLATORS: the device is just going to stop working
 #: plugins/power/gsd-power-manager.c:647
@@ -1610,8 +1621,8 @@ msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
 "if not charged."
 msgstr ""
-"Tablet bilgisayarın güç düzeyi çok düşük (%%%.0f). Eğer şarj edilmezse, bu "
-"aygıt yakında işlevselliğini yitirecek."
+"Tablet bilgisayarın güç düzeyi çok düşük (%%%.0f). Eğer bu aygıt şarj "
+"edilmezse yakında işlevselliğini yitirecek."
 
 #. TRANSLATORS: the device is just going to stop working
 #: plugins/power/gsd-power-manager.c:656
@@ -1620,8 +1631,8 @@ msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
 "shutdown if not charged."
 msgstr ""
-"Bağlanmış bilgisayarın güç düzeyi çok düşük (%%%.0f). Eğer şarj edilmezse, "
-"bu aygıt yakında işlevselliğini yitirecek."
+"Bağlanmış bilgisayarın güç düzeyi çok düşük (%%%.0f). Eğer bu aygıt şarj "
+"edilmezse yakında işlevselliğini yitirecek."
 
 #. TRANSLATORS: computer will hibernate
 #: plugins/power/gsd-power-manager.c:721
@@ -1651,44 +1662,44 @@ msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr "UPS gücü tehlikeli sınırın altında ve bu bilgisayar kapatılmak üzere."
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1264
+#: plugins/power/gsd-power-manager.c:1305
 msgid "Lid has been opened"
 msgstr "Kapak açıldı"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1302
+#: plugins/power/gsd-power-manager.c:1339
 msgid "Lid has been closed"
 msgstr "Kapak kapatıldı"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1898
+#: plugins/power/gsd-power-manager.c:1935
 msgid "On battery power"
 msgstr "Pille çalışıyor"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1903
+#: plugins/power/gsd-power-manager.c:1940
 msgid "On AC power"
 msgstr "Adaptör ile çalışıyor"
 
-#: plugins/power/gsd-power-manager.c:2095
+#: plugins/power/gsd-power-manager.c:2132
 msgid "Automatic logout"
 msgstr "Kendiliğinden oturum kapatma"
 
-#: plugins/power/gsd-power-manager.c:2095
+#: plugins/power/gsd-power-manager.c:2132
 msgid "You will soon log out because of inactivity."
-msgstr "Hareketsizlikten dolayı oturumunuz kısa süre içinde kapatılacak"
+msgstr "Hareketsizlikten dolayı oturumunuz kısa süre içinde kapatılacak."
 
-#: plugins/power/gsd-power-manager.c:2100
+#: plugins/power/gsd-power-manager.c:2137
 msgid "Automatic suspend"
 msgstr "Kendiliğinden bekleme"
 
-#: plugins/power/gsd-power-manager.c:2100
-#: plugins/power/gsd-power-manager.c:2105
+#: plugins/power/gsd-power-manager.c:2137
+#: plugins/power/gsd-power-manager.c:2142
 msgid "Computer will suspend very soon because of inactivity."
 msgstr ""
 "Hareketsizlikten dolayı oturumunuz kısa süre içinde beklemeye alınacak."
 
-#: plugins/power/gsd-power-manager.c:2105
+#: plugins/power/gsd-power-manager.c:2142
 msgid "Automatic hibernation"
 msgstr "Kendiliğinden derin uyku"
 
@@ -1760,7 +1771,7 @@ msgstr "“%s” yazıcısı bağlı olmayabilir."
 #: plugins/print-notifications/gsd-print-notifications-manager.c:378
 #, c-format
 msgid "The cover is open on printer “%s”."
-msgstr "“%s” yazıcısının kapağı açık. "
+msgstr "“%s” yazıcısının kapağı açık."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
 #: plugins/print-notifications/gsd-print-notifications-manager.c:382
@@ -1796,7 +1807,7 @@ msgstr "“%s” yazıcısında kağıt azalmış."
 #: plugins/print-notifications/gsd-print-notifications-manager.c:403
 #, c-format
 msgid "Printer “%s” is out of paper."
-msgstr "“%s” yazıcısında kağıt tükenmiş"
+msgstr "“%s” yazıcısında kağıt tükenmiş."
 
 #. Translators: The printer is offline (same as in system-config-printer)
 #: plugins/print-notifications/gsd-print-notifications-manager.c:407
