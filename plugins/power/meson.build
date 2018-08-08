@@ -6,6 +6,7 @@ sources = files(
 )
 
 deps = plugins_deps + [
+  atk_dep,
   libcanberra_gtk_dep,
   libcommon_dep,
   libnotify_dep,

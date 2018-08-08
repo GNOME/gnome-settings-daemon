@@ -82,6 +82,7 @@ endif
 
 add_project_arguments(common_flags + compiler_flags, language: 'c')
 
+atk_dep = dependency('atk')
 colord_dep = dependency('colord', version: '>= 1.0.2')
 geocode_glib_dep = dependency('geocode-glib-1.0', version: '>= 3.10.0')
 gio_dep = dependency('gio-2.0', version: '>= 2.53.0')
