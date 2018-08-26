@@ -12,9 +12,9 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2018-03-01 15:24+0000\n"
-"PO-Revision-Date: 2018-03-05 13:40+0700\n"
-"Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
+"POT-Creation-Date: 2018-06-20 14:52+0000\n"
+"PO-Revision-Date: 2018-06-26 16:47+0700\n"
+"Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
@@ -411,10 +411,10 @@ msgstr "Bila mode cahaya malam difungsikan"
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:17
 msgid ""
 "Night light mode changes the color temperature of your display when the sun "
-"has gone down or at present times."
+"has gone down or at preset times."
 msgstr ""
 "Mode cahaya malam mengubah temperatur warna tampilan Anda ketika matahari "
-"telah terbenam atau pada waktu ini."
+"telah terbenam atau pada waktu yang ditentukan sebelumnya."
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:21
 msgid "Temperature of the display when enabled"
@@ -682,158 +682,166 @@ msgid "Volume down"
 msgstr "Kecilkan suara"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:87
-msgid "Binding to lower the system volume."
-msgstr "Ikatan ke memperkecil keras suara sistem."
+msgid "Binding to lower the volume."
+msgstr "Ikatan ke memperkecil keras suara."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:91
-msgid "Volume mute"
-msgstr "Volume bisu"
+msgid "Volume mute/unmute"
+msgstr "Volume bisu/suarakan"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:92
-msgid "Binding to mute the system volume."
-msgstr "Ikatan ke membisukan suara sistem."
+msgid "Binding to mute/unmute the volume."
+msgstr "Ikatan ke membisukan suara."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:96
 msgid "Volume up"
 msgstr "Besarkan suara"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:97
-msgid "Binding to raise the system volume."
-msgstr "Ikatan ke memperbesar keras suara sistem."
+msgid "Binding to raise the volume."
+msgstr "Ikatan ke memperbesar keras suara."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:101
+msgid "Microphone mute/unmute"
+msgstr "Mikrofon bisu/suarakan"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:102
+msgid "Binding to mute/unmute the microphone."
+msgstr "Ikatan ke bisu/suarakan mikrofon."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:106
 msgid "Take a screenshot"
 msgstr "Ambil cuplikan layar"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:102
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:107
 msgid "Binding to take a screenshot."
 msgstr "Pengaitan ke mengambil cuplikan layar."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:106
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:111
 msgid "Take a screenshot of a window"
 msgstr "Ambil cuplikan layar dari suatu jendela"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:107
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:112
 msgid "Binding to take a screenshot of a window."
 msgstr "Pengaitan ke mengambil cuplikan layar dari suatu jendela."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:111
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:116
 msgid "Take a screenshot of an area"
 msgstr "Ambil cuplikan layar dari suatu daerah"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:112
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:117
 msgid "Binding to take a screenshot of an area."
 msgstr "Pengaitan ke mengambil cuplikan layar dari suatu wilayah."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:116
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:121
 msgid "Copy a screenshot to clipboard"
 msgstr "Salin cuplikan layar ke papan klip"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:117
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:122
 msgid "Binding to copy a screenshot to clipboard."
 msgstr "Pengaitan ke menyalin cuplikan layar ke papan klip."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:121
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:126
 msgid "Copy a screenshot of a window to clipboard"
 msgstr "Salin cuplikan layar dari suatu jendela ke papan klip"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:122
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:127
 msgid "Binding to copy a screenshot of a window to clipboard."
 msgstr "Pengaitan ke menyalin cuplikan layar dari suatu jendela ke papan klip."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:126
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:131
 msgid "Copy a screenshot of an area to clipboard"
 msgstr "Salin cuplikan layar dari suatu daerah ke papan klip"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:127
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:132
 msgid "Binding to copy a screenshot of an area to clipboard."
 msgstr "Pengaitan ke menyalin cuplikan layar dari suatu wilayah ke papan klip."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:131
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:136
 msgid "Record a short video of the screen"
 msgstr "Rekam video pendek atas layar"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:132
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:137
 msgid "Binding to record a short video of the screen"
 msgstr "Mengikat untuk merekam video singkat layar"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:136
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:141
 msgid "Launch web browser"
 msgstr "Tampilkan perambah web"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:137
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:142
 msgid "Binding to launch the web browser."
 msgstr "Ikatan ke meluncurkan peramban web."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:141
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:146
 msgid "Toggle magnifier"
 msgstr "Jungkitkan pembesar"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:142
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:147
 msgid "Binding to show the screen magnifier"
 msgstr "Ikatan ke menampilkan pembesar layar"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:146
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:151
 msgid "Toggle screen reader"
 msgstr "Jungkitkan pembaca layar"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:147
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:152
 msgid "Binding to start the screen reader"
 msgstr "Ikatan ke memulai pembaca layar"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:151
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:156
 msgid "Toggle on-screen keyboard"
 msgstr "Jungkitkan papan tik pada layar"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:152
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:157
 msgid "Binding to show the on-screen keyboard"
 msgstr "Ikatan ke menampilkan papan tik pada layar"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:156
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:161
 msgid "Increase text size"
 msgstr "Perbesar ukuran teks"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:157
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:162
 msgid "Binding to increase the text size"
 msgstr "Ikatan ke memperbesar ukuran teks"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:161
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:166
 msgid "Decrease text size"
 msgstr "Perkecil ukuran teks"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:162
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:167
 msgid "Binding to decrease the text size"
 msgstr "Ikatan ke memperkecil ukuran teks"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:166
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:171
 msgid "Toggle contrast"
 msgstr "Jungkitkan kontras"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:167
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:172
 msgid "Binding to toggle the interface contrast"
 msgstr "Ikatan ke menjungkitkan kontras antar muka"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:171
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:176
 msgid "Magnifier zoom in"
 msgstr "Pembesar memperbesar"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:172
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:177
 msgid "Binding for the magnifier to zoom in"
 msgstr "Ikatan untuk pembesar memperbesar"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:176
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:181
 msgid "Magnifier zoom out"
 msgstr "Pembesar memperkecil"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:177
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:182
 msgid "Binding for the magnifier to zoom out"
 msgstr "Ikatan untuk pembesar memperkecil"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:181
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:186
 msgid "Maximum length of screen recordings"
 msgstr "Panjang maksimal rekaman layar"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:182
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:187
 msgid ""
 "The maximum length of single screen cast recordings in seconds or 0 for "
 "unlimited"
@@ -841,27 +849,27 @@ msgstr ""
 "Panjang maksimum rekaman pemotretan satu layar dalam hitungan detik atau 0 "
 "untuk tidak terbatas"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:189
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:194
 msgid "Name"
 msgstr "Nama"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:190
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:195
 msgid "Name of the custom binding"
 msgstr "Nama dari pengaitan gubahan"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:194
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:199
 msgid "Binding"
 msgstr "Pengaitan"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:195
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:200
 msgid "Binding for the custom binding"
 msgstr "Pengaitan (binding) untuk pengaitan gubahan"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:199
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:204
 msgid "Command"
 msgstr "Perintah"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:200
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:205
 msgid "Command to run when the binding is invoked"
 msgstr "Perintah yang akan dijalankan ketika pengaitan dijalankan"
 
@@ -1166,30 +1174,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Komputer ini hanya memiliki %s ruang kosong pada diska."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2176
+#: plugins/media-keys/gsd-media-keys-manager.c:2212
 msgid "Bluetooth disabled"
 msgstr "Bluetooth dimatikan"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2179
+#: plugins/media-keys/gsd-media-keys-manager.c:2215
 msgid "Bluetooth enabled"
 msgstr "Bluetooth diaktifkan"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2183
+#: plugins/media-keys/gsd-media-keys-manager.c:2219
 msgid "Airplane mode enabled"
 msgstr "Mode pesawat terbang diaktifkan"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2186
+#: plugins/media-keys/gsd-media-keys-manager.c:2222
 msgid "Airplane mode disabled"
 msgstr "Mode pesawat terbang dimatikan"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2214
+#: plugins/media-keys/gsd-media-keys-manager.c:2250
 msgid "Hardware Airplane Mode"
 msgstr "Mode Pesawat Terbang Perangkat Keras"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2274
+#: plugins/media-keys/gsd-media-keys-manager.c:2310
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Screencast dari %d %t.webm"
@@ -1211,21 +1219,17 @@ msgid "Screenshot from %s"
 msgstr "Cuplikan layar dari %s"
 
 #: plugins/media-keys/shortcuts-list.h:45
+#: plugins/media-keys/shortcuts-list.h:46
 msgid "Touchpad toggle"
 msgstr "Jungkitkan touchpad"
 
-#: plugins/media-keys/shortcuts-list.h:46
+#: plugins/media-keys/shortcuts-list.h:47
 msgid "Touchpad On"
 msgstr "Touchpad Nyala"
 
-#: plugins/media-keys/shortcuts-list.h:47
+#: plugins/media-keys/shortcuts-list.h:48
 msgid "Touchpad Off"
 msgstr "Touchpad Mati"
-
-#: plugins/media-keys/shortcuts-list.h:51
-#: plugins/media-keys/shortcuts-list.h:52
-msgid "Microphone Mute"
-msgstr "Mikrofon Bisu"
 
 #: plugins/media-keys/shortcuts-list.h:53
 msgid "Quiet Volume Mute"
@@ -1327,17 +1331,17 @@ msgstr "Jungkitkan Mode Pesawat Terbang"
 msgid "Toggle Bluetooth"
 msgstr "Jungkitkan Bluetooth"
 
-#: plugins/power/gpm-common.c:100
+#: plugins/power/gpm-common.c:99
 msgid "Unknown time"
 msgstr "Waktu tak diketahui"
 
-#: plugins/power/gpm-common.c:105
+#: plugins/power/gpm-common.c:104
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i menit"
 
-#: plugins/power/gpm-common.c:115
+#: plugins/power/gpm-common.c:114
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1345,23 +1349,23 @@ msgstr[0] "%i jam"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: plugins/power/gpm-common.c:121
+#: plugins/power/gpm-common.c:120
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: plugins/power/gpm-common.c:122
+#: plugins/power/gpm-common.c:121
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "jam"
 
-#: plugins/power/gpm-common.c:123
+#: plugins/power/gpm-common.c:122
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "menit"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:948 plugins/power/gsd-power-manager.c:686
+#: plugins/power/gpm-common.c:929 plugins/power/gsd-power-manager.c:686
 #: plugins/power/gsd-power-manager.c:783
 msgid "Battery is critically low"
 msgstr "Baterai nyaris habis"
@@ -1638,43 +1642,43 @@ msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr "Baterai UPS di bawah tingkat kritis dan komputer ini akan dimatikan."
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1264
+#: plugins/power/gsd-power-manager.c:1305
 msgid "Lid has been opened"
 msgstr "Lid telah dibuka"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1302
+#: plugins/power/gsd-power-manager.c:1339
 msgid "Lid has been closed"
 msgstr "Lid telah ditutup"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1896
+#: plugins/power/gsd-power-manager.c:1935
 msgid "On battery power"
 msgstr "Memakai baterai"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1901
+#: plugins/power/gsd-power-manager.c:1940
 msgid "On AC power"
 msgstr "Memakai daya listrik"
 
-#: plugins/power/gsd-power-manager.c:2093
+#: plugins/power/gsd-power-manager.c:2132
 msgid "Automatic logout"
 msgstr "Otomatis log keluar"
 
-#: plugins/power/gsd-power-manager.c:2093
+#: plugins/power/gsd-power-manager.c:2132
 msgid "You will soon log out because of inactivity."
 msgstr "Anda akan segera log keluar karena tiada aktivitas."
 
-#: plugins/power/gsd-power-manager.c:2098
+#: plugins/power/gsd-power-manager.c:2137
 msgid "Automatic suspend"
 msgstr "Otomatis suspensi"
 
-#: plugins/power/gsd-power-manager.c:2098
-#: plugins/power/gsd-power-manager.c:2103
+#: plugins/power/gsd-power-manager.c:2137
+#: plugins/power/gsd-power-manager.c:2142
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Komputer akan segera disuspensi karena ketiadaan aktivitas."
 
-#: plugins/power/gsd-power-manager.c:2103
+#: plugins/power/gsd-power-manager.c:2142
 msgid "Automatic hibernation"
 msgstr "Otomatis hibernasi"
 
