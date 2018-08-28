@@ -11,13 +11,6 @@ sources = files(
 
 deps = plugins_deps + [gio_unix_dep]
 
-if enable_gudev
-  deps += [
-    gudev_dep,
-    m_dep
-  ]
-endif
-
 executable(
   'gsd-' + plugin_name,
   sources,
