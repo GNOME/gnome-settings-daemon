@@ -38,6 +38,7 @@
 #include <gio/gunixoutputstream.h>
 
 #include "rfkill-glib.h"
+#include <gudev/gudev.h>
 
 enum {
 	CHANGED,
@@ -53,11 +54,15 @@ static int signals[LAST_SIGNAL] = { 0 };
 struct _CcRfkillGlib {
 	GObject parent;
 
+	GUdevClient *udev;
+	gchar *device_file;
+
 	GOutputStream *stream;
 	GIOChannel *channel;
 	guint watch_id;
 
 	/* rfkill-input inhibitor */
+	gboolean noinput;
 	int noinput_fd;
 
 	/* Pending Bluetooth enablement.
@@ -374,12 +379,13 @@ event_cb (GIOChannel   *source,
 static void
 cc_rfkill_glib_init (CcRfkillGlib *rfkill)
 {
+	rfkill->device_file = NULL;
 	rfkill->noinput_fd = -1;
 }
 
-gboolean
-cc_rfkill_glib_open (CcRfkillGlib  *rfkill,
-                     GError       **error)
+static gboolean
+_cc_rfkill_glib_open (CcRfkillGlib  *rfkill,
+                      GError       **error)
 {
 	int fd;
 	int ret;
@@ -387,8 +393,10 @@ cc_rfkill_glib_open (CcRfkillGlib  *rfkill,
 
 	g_return_val_if_fail (CC_RFKILL_IS_GLIB (rfkill), FALSE);
 	g_return_val_if_fail (rfkill->stream == NULL, FALSE);
+	g_assert (rfkill->device_file);
 
-	fd = open("/dev/rfkill", O_RDWR);
+	fd = open (rfkill->device_file, O_RDWR);
+
 	if (fd < 0) {
 		g_set_error_literal (error, G_IO_ERROR, g_io_error_from_errno (errno),
 		                     "Could not open RFKILL control device, please verify your installation");
@@ -455,6 +463,60 @@ cc_rfkill_glib_open (CcRfkillGlib  *rfkill,
 	return TRUE;
 }
 
+static void
+uevent_cb (GUdevClient *client,
+           gchar       *action,
+           GUdevDevice *device,
+           gpointer     user_data)
+{
+	CcRfkillGlib  *rfkill = CC_RFKILL_GLIB (user_data);
+
+	if (g_strcmp0 (action, "add") != 0)
+		return;
+
+	if (g_strcmp0 (g_udev_device_get_name (device), "rfkill") == 0) {
+		g_autoptr(GError) error = NULL;
+
+		g_debug ("Rfkill device has been created");
+
+		if (g_udev_device_get_device_file (device)) {
+			g_clear_pointer (&rfkill->device_file, g_free);
+			rfkill->device_file = g_strdup (g_udev_device_get_device_file (device));
+		} else {
+			g_warning ("rfkill udev device does not have a device file!");
+		}
+
+		if (!_cc_rfkill_glib_open (rfkill, &error))
+			g_warning ("Could not open rfkill device: %s", error->message);
+		else
+			g_debug ("Opened rfkill device after uevent");
+
+		g_clear_object (&rfkill->udev);
+
+		/* Sync rfkill input inhibition state*/
+		cc_rfkill_glib_set_rfkill_input_inhibited (rfkill, rfkill->noinput);
+	}
+}
+
+gboolean
+cc_rfkill_glib_open (CcRfkillGlib  *rfkill,
+                     GError       **error)
+{
+	const char * const subsystems[] = { "misc", NULL };
+	GUdevDevice *device;
+
+	rfkill->udev = g_udev_client_new (subsystems);
+	g_debug ("Setting up uevent listener");
+	g_signal_connect (rfkill->udev, "uevent", G_CALLBACK (uevent_cb), rfkill);
+
+	/* Simulate uevent if device already exists. */
+	device = g_udev_client_query_by_subsystem_and_name (rfkill->udev, "misc", "rfkill");
+	if (device)
+		uevent_cb (rfkill->udev, "add", device, rfkill);
+
+	return TRUE;
+}
+
 #define RFKILL_INPUT_INHIBITED(rfkill) (rfkill->noinput_fd >= 0)
 
 gboolean
@@ -462,7 +524,7 @@ cc_rfkill_glib_get_rfkill_input_inhibited (CcRfkillGlib        *rfkill)
 {
 	g_return_val_if_fail (CC_RFKILL_IS_GLIB (rfkill), FALSE);
 
-	return RFKILL_INPUT_INHIBITED(rfkill);
+	return rfkill->noinput;
 }
 
 void
@@ -471,21 +533,28 @@ cc_rfkill_glib_set_rfkill_input_inhibited (CcRfkillGlib *rfkill,
 {
 	g_return_if_fail (CC_RFKILL_IS_GLIB (rfkill));
 
-	/* Nothing to do if the states already match. */
-	if (RFKILL_INPUT_INHIBITED(rfkill) == inhibit)
+	/* Shortcut in case we don't have an rfkill device */
+	if (!rfkill->stream) {
+		if (rfkill->noinput == inhibit)
+			return;
+
+		rfkill->noinput = inhibit;
+		g_object_notify (G_OBJECT (rfkill), "rfkill-input-inhibited");
+
 		return;
+	}
 
 	if (!inhibit && RFKILL_INPUT_INHIBITED(rfkill)) {
 		close (rfkill->noinput_fd);
-		rfkill->noinput_fd = -1;
-
 		g_debug ("Closed rfkill noinput FD.");
+
+		rfkill->noinput_fd = -1;
 	}
 
 	if (inhibit && !RFKILL_INPUT_INHIBITED(rfkill)) {
 		int fd, res;
 		/* Open write only as we don't want to do any IO to it ever. */
-		fd = open ("/dev/rfkill", O_WRONLY);
+		fd = open (rfkill->device_file, O_WRONLY);
 		if (fd < 0) {
 			if (errno == EACCES)
 				g_warning ("Could not open RFKILL control device, please verify your installation");
@@ -506,7 +575,10 @@ cc_rfkill_glib_set_rfkill_input_inhibited (CcRfkillGlib *rfkill,
 		rfkill->noinput_fd = fd;
 	}
 
-	g_object_notify (G_OBJECT (rfkill), "rfkill-input-inhibited");
+	if (rfkill->noinput != RFKILL_INPUT_INHIBITED(rfkill)) {
+		rfkill->noinput = RFKILL_INPUT_INHIBITED(rfkill);
+		g_object_notify (G_OBJECT (rfkill), "rfkill-input-inhibited");
+	}
 }
 
 static void
@@ -537,7 +609,7 @@ cc_rfkill_glib_get_property (GObject    *object,
 
 	switch (prop_id) {
 	case PROP_RFKILL_INPUT_INHIBITED:
-		g_value_set_boolean (value, RFKILL_INPUT_INHIBITED(rfkill));
+		g_value_set_boolean (value, rfkill->noinput);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -565,6 +637,9 @@ cc_rfkill_glib_finalize (GObject *object)
 		close (rfkill->noinput_fd);
 		rfkill->noinput_fd = -1;
 	}
+
+	g_clear_pointer (&rfkill->device_file, g_free);
+	g_clear_object (&rfkill->udev);
 
 	G_OBJECT_CLASS(cc_rfkill_glib_parent_class)->finalize(object);
 }
