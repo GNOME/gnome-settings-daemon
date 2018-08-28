@@ -383,7 +383,6 @@ cc_rfkill_glib_open (CcRfkillGlib  *rfkill,
 {
 	int fd;
 	int ret;
-	GList *events;
 
 	g_return_val_if_fail (CC_RFKILL_IS_GLIB (rfkill), FALSE);
 	g_return_val_if_fail (rfkill->stream == NULL, FALSE);
@@ -403,50 +402,12 @@ cc_rfkill_glib_open (CcRfkillGlib  *rfkill,
 		return FALSE;
 	}
 
-	events = NULL;
-
-	while (1) {
-		struct rfkill_event event;
-		struct rfkill_event *event_ptr;
-		ssize_t len;
-
-		len = read(fd, &event, sizeof(event));
-		if (len < 0) {
-			if (errno == EAGAIN)
-				break;
-			g_debug ("Reading of RFKILL events failed");
-			break;
-		}
-
-		if (len != RFKILL_EVENT_SIZE_V1) {
-			g_warning ("Wrong size of RFKILL event\n");
-			continue;
-		}
-
-		if (event.op != RFKILL_OP_ADD)
-			continue;
-
-		g_debug ("Read killswitch of type '%s' (idx=%d): soft %d hard %d",
-			 type_to_string (event.type),
-			 event.idx, event.soft, event.hard);
-
-		event_ptr = g_memdup (&event, sizeof(event));
-		events = g_list_prepend (events, event_ptr);
-	}
-
 	/* Setup monitoring */
 	rfkill->channel = g_io_channel_unix_new (fd);
 	rfkill->watch_id = g_io_add_watch (rfkill->channel,
 					   G_IO_IN | G_IO_HUP | G_IO_ERR,
 					   (GIOFunc) event_cb,
 					   rfkill);
-
-	if (events) {
-		events = g_list_reverse (events);
-		emit_changed_signal_and_free (rfkill, events);
-	} else {
-		g_debug ("No rfkill device available on startup");
-	}
 
 	/* Setup write stream */
 	rfkill->stream = g_unix_output_stream_new (fd, TRUE);
