@@ -182,6 +182,7 @@ enable_rfkill = get_option('rfkill')
 assert(enable_rfkill or not host_is_linux, 'rfkill is not optional on Linux platforms')
 if enable_rfkill
   assert(cc.has_header('linux/rfkill.h'), 'rfkill support requested but RFKill headers not found')
+  assert(enable_gudev, 'GUdev is required for rfkill support')
 
   udev_dir = get_option('udev_dir')
   if udev_dir == ''

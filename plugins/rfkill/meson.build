@@ -9,7 +9,12 @@ sources = files(
   'main.c'
 )
 
-deps = plugins_deps + [gio_unix_dep]
+deps = plugins_deps
+deps += [
+  gio_unix_dep,
+  gudev_dep,
+  m_dep
+]
 
 executable(
   'gsd-' + plugin_name,
