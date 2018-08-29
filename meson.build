@@ -191,6 +191,13 @@ if enable_rfkill
   endif
 endif
 
+# wwan
+enable_wwan = get_option('wwan')
+if enable_wwan
+  gcr_base_dep = dependency('gcr-base-3', version: '>= 3.7.5')
+  mm_glib_dep = dependency('mm-glib', version: '>= 1.0')
+endif
+
 # Sharing plugin
 enable_network_manager = get_option('network_manager')
 assert(enable_network_manager or not host_is_linux, 'NetworkManager support is not optional on Linux platforms')

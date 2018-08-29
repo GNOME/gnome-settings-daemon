@@ -9,6 +9,7 @@ schemas = [
   'org.gnome.settings-daemon.plugins.media-keys.gschema.xml',
   'org.gnome.settings-daemon.plugins.power.gschema.xml',
   'org.gnome.settings-daemon.plugins.sharing.gschema.xml',
+  'org.gnome.settings-daemon.plugins.wwan.gschema.xml',
   'org.gnome.settings-daemon.plugins.xsettings.gschema.xml'
 ]
 
