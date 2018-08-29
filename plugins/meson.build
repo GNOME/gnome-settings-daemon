@@ -12,6 +12,7 @@ enabled_plugins = [
   ['screensaver-proxy', 'ScreensaverProxy'],
   ['sharing', 'Sharing'],
   ['sound', 'Sound'],
+  ['wwan', 'Wwan'],
   ['xsettings', 'XSettings']
 ]
 
