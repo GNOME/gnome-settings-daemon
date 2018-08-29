@@ -12,6 +12,10 @@ schemas = [
   'org.gnome.settings-daemon.plugins.xsettings.gschema.xml'
 ]
 
+if enable_wwan
+  schemas += 'org.gnome.settings-daemon.plugins.wwan.gschema.xml'
+endif
+
 schema_conf = configuration_data()
 schema_conf.set('GETTEXT_PACKAGE', meson.project_name())
 
