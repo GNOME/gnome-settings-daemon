@@ -185,6 +185,7 @@ msan:
   services:
     - docker:dind
   only:
+<<<<<<< HEAD
     variables:
       - $CRON_TASK == "BUILD_CI_IMAGES"
 
@@ -239,3 +240,6 @@ fedora.ppc64le:
     DOCKERFILE: "build-aux/ci/Dockerfile.ppc64le.fedora.rawhide"
     NAME: "fedora.ppc64le"
     TARGET_ARCH: "ppc64le"
+=======
+    - tags
+>>>>>>> Initial wwan plugin
