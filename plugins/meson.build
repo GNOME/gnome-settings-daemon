@@ -31,6 +31,10 @@ if enable_rfkill
   enabled_plugins += [['rfkill', 'Rfkill']]
 endif
 
+if enable_wwan
+  enabled_plugins += [['wwan', 'Wwan']]
+endif
+
 plugins_conf = configuration_data()
 plugins_conf.set('libexecdir', gsd_libexecdir)
 
