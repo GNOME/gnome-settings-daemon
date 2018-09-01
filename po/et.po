@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: GNOME Settings Daemon MASTER\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2018-02-09 14:02+0000\n"
-"PO-Revision-Date: 2018-02-16 04:54+0200\n"
+"POT-Creation-Date: 2018-05-28 08:16+0000\n"
+"PO-Revision-Date: 2018-06-09 13:33+0300\n"
 "Last-Translator: Mart Raudsepp <leio@gentoo.org>\n"
 "Language-Team: Estonian <>\n"
 "Language: et\n"
@@ -26,7 +26,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.0.7\n"
+"X-DamnedLies-Scope: partial\n"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
 msgid "Smartcard removal action"
@@ -40,36 +41,6 @@ msgstr ""
 "Määra selle väärtuseks „none“ (puudub), „lock-screen“ (lukustatakse ekraan) "
 "või „force-logout“ (väljalogimise sundimine). See tegevus käivitatakse "
 "sisselogimiseks kasutatud smartcardi eemaldamisel."
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:25
-msgid "Possible values are “on”, “off”, and “custom”."
-msgstr ""
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:35
-msgid "Keyboard Bell Custom Filename"
-msgstr ""
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:36
-msgid "File name of the bell sound to be played."
-msgstr ""
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:40
-msgid "Remember NumLock state"
-msgstr ""
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:41
-msgid ""
-"When set to true, GNOME will remember the state of the NumLock LED between "
-"sessions."
-msgstr ""
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:45
-msgid "NumLock state"
-msgstr ""
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:46
-msgid "The remembered state of the NumLock LED."
-msgstr ""
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:52
 msgid ""
@@ -100,40 +71,13 @@ msgid "Whether the tablet’s orientation is locked, or rotated automatically."
 msgstr "Kas tahvelarvuti suund on lukus või pöördub automaatselt."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:76
-#, fuzzy
-#| msgid "Middle button emulation"
 msgid "Mouse button orientation"
-msgstr "Keskmise nupu emulatsioon"
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:77
-msgid "Swap left and right mouse buttons for left-handed mice."
-msgstr ""
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:81
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:143
-msgid "Single Click"
-msgstr ""
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:82
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:144
-msgid ""
-"Acceleration multiplier for mouse motion. A value of -1 is the system "
-"default."
-msgstr ""
+msgstr "Hiireklahvi orientatsioon"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:86
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:148
-#, fuzzy
-#| msgid "Drag threshold"
 msgid "Motion Threshold"
-msgstr "Lohistamise lävi"
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:87
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:149
-msgid ""
-"Distance in pixels the pointer must move before accelerated mouse motion is "
-"activated. A value of -1 is the system default."
-msgstr ""
+msgstr "Liikumise lävi"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:91
 msgid "Middle button emulation"
@@ -148,22 +92,22 @@ msgstr ""
 "vajutamisel."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:101
+#, fuzzy
+#| msgid "Initial Key Repeat Delay"
 msgid "Key Repeat Interval"
-msgstr ""
+msgstr "Esialgne klahvikorduse viide"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:102
 msgid "Delay between repeats in milliseconds."
-msgstr ""
+msgstr "Korduste viide millisekundites."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:106
 msgid "Initial Key Repeat Delay"
-msgstr ""
+msgstr "Esialgne klahvikorduse viide"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:107
-#, fuzzy
-#| msgid "Length of a double click in milliseconds."
 msgid "Initial key repeat delay in milliseconds."
-msgstr "Topeltklõpsu kestus millisekundites."
+msgstr "Esialgne klahvikorduse viide millisekundites."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:113
 msgid "Disable touchpad while typing"
@@ -221,32 +165,17 @@ msgid "Set this to TRUE to enable all touchpads."
 msgstr "Kui märgitud, siis on kõik puuteplaadid lubatud."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:138
-#, fuzzy
-#| msgid "Middle button emulation"
 msgid "Touchpad button orientation"
-msgstr "Keskmise nupu emulatsioon"
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:139
-msgid ""
-"Swap left and right mouse buttons for left-handed mice with “left”, “right” "
-"for right-handed, “mouse” to follow the mouse setting."
-msgstr ""
+msgstr "Puuteplaadi nupu orientatsioon"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:153
-#, fuzzy
-#| msgid "Enable horizontal scrolling"
 msgid "Natural scrolling"
-msgstr "Rõhtsa kerimise lubamine"
+msgstr "Loomulik kerimine"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:154
-#, fuzzy
-#| msgid "Set this to TRUE to enable all touchpads."
 msgid "Set this to TRUE to enable natural (reverse) scrolling for touchpads."
-msgstr "Kui märgitud, siis on kõik puuteplaadid lubatud."
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:161
-msgid "Mouse wheel emulation button. 0 to disable the feature."
 msgstr ""
+"Kui märgitud, siis on loomulik (pööratud) kerimine puuteplaatidel lubatud."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:10
 msgid "Wacom stylus absolute mode"
@@ -384,16 +313,6 @@ msgstr ""
 "Klaviatuuri klahviseos, mis genereeritakse, kui puuteringi või puuteriba "
 "kasutatakse kohandatud tegevuste jaoks (üles, siis alla)."
 
-#. Translators: This is the OLED display on an Intuos4 tablet:
-#. http://eu.shop.wacom.eu/images/articles/d9abd9f2d4d88aa0649cda97a8077e2b_8.jpg
-#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:88
-msgid "Button label for OLED display."
-msgstr ""
-
-#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:89
-msgid "Label will be rendered to OLED display belonging to the button"
-msgstr ""
-
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:6
 msgid "The duration a display profile is valid"
 msgstr "Kui kaua monitori profiil kehtib"
@@ -414,84 +333,21 @@ msgid ""
 "considered invalid."
 msgstr "Nii mitme päeva pärast loetakse printeri profiil aegunuks."
 
-#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:16
-msgid "If the night light mode is enabled"
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:17
-msgid ""
-"Night light mode changes the color temperature of your display when the sun "
-"has gone down or at present times."
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:21
-msgid "Temperature of the display when enabled"
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:22
-msgid ""
-"This temperature in Kelvin is used to modify the screen tones when night "
-"light mode is enabled. Higher values are bluer, lower redder."
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:26
-msgid "Use the sunrise and sunset"
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:27
-msgid ""
-"Calculate the sunrise and sunset times automatically, from the current "
-"location."
-msgstr ""
-
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:31
-#, fuzzy
-#| msgid "Charge time:"
 msgid "The start time"
-msgstr "Laadimise aeg:"
-
-#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:32
-msgid ""
-"When “night-light-schedule-automatic” is disabled, use this start time in "
-"hours from midnight."
-msgstr ""
+msgstr "Käivitusaeg"
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:36
 msgid "The end time"
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:37
-msgid ""
-"When “night-light-schedule-automatic” is disabled, use this end time in "
-"hours from midnight."
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:41
-msgid "The last detected position"
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:42
-msgid ""
-"When location services are available this represents the last detected "
-"location. The default value is an invalid value to ensure it is always "
-"updated at startup."
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.gschema.xml.in:6
-msgid "List of plugins that are allowed to be loaded"
-msgstr ""
+msgstr "Lõpuaeg"
 
 #: data/org.gnome.settings-daemon.plugins.gschema.xml.in:7
-#, fuzzy
-#| msgid ""
-#| "A list of strings representing the GTK+ modules that will not be loaded, "
-#| "even if enabled by default in their configuration."
 msgid ""
 "A list of strings representing the plugins that are allowed to be loaded "
 "(default: “all”). This is only evaluated on startup."
 msgstr ""
-"Sõnede loend GTK+ moodulitest, mida ei laadita, isegi kui need on "
-"seadistuses vaikimisi lubatud."
+"Sõnede loend moodulitest, mille laadimist lubatakse (vaikimisi: „kõik“). "
+"Seda hinnatakse ainult käivitusel."
 
 #: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:6
 msgid "Mount paths to ignore"
@@ -565,16 +421,12 @@ msgid "Binding to launch the calculator."
 msgstr "Klahviseos kalkulaatori käivitamiseks."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:16
-#, fuzzy
-#| msgid "X Settings"
 msgid "Launch settings"
-msgstr "X'i sätted"
+msgstr "Käivituse sätted"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:17
-#, fuzzy
-#| msgid "Binding to launch the search tool."
 msgid "Binding to launch GNOME settings."
-msgstr "Klahviseos otsinguvahendi käivitamiseks."
+msgstr "Klahviseos GNOME seadete käivitamiseks."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:21
 msgid "Launch email client"
@@ -685,267 +537,188 @@ msgid "Volume down"
 msgstr "Heli vaiksemaks"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:87
-msgid "Binding to lower the system volume."
-msgstr "Klahviseos süsteemi helivaljuse vähendamiseks."
+msgid "Binding to lower the volume."
+msgstr "Klahviseos helivaljuse vähendamiseks."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:91
-msgid "Volume mute"
-msgstr "Heli tummaks"
+msgid "Volume mute/unmute"
+msgstr "Heli tummaks/kuuldavaks"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:92
-msgid "Binding to mute the system volume."
-msgstr "Klahviseos süsteemi helivaljuse nullimiseks."
+msgid "Binding to mute/unmute the volume."
+msgstr "Klahviseos tummaks/kuuldavaks tegemiseks."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:96
 msgid "Volume up"
 msgstr "Heli valjemaks"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:97
-msgid "Binding to raise the system volume."
-msgstr "Klahviseos süsteemi helivaljuse suurendamiseks."
+msgid "Binding to raise the volume."
+msgstr "Klahviseos helivaljuse suurendamiseks."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:101
-msgid "Take a screenshot"
-msgstr "Ekraanipildi võtmine"
+msgid "Microphone mute/unmute"
+msgstr "Mikrofon tummaks/kuuldavaks"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:102
-msgid "Binding to take a screenshot."
-msgstr "Klahviseos ekraanipildi võtmiseks."
+msgid "Binding to mute/unmute the microphone."
+msgstr "Klahviseos mikrofoni tummaks/kuuldavaks tegemiseks."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:106
-msgid "Take a screenshot of a window"
-msgstr "Ekraanipildi võtmine aknast"
+msgid "Take a screenshot"
+msgstr "Kuvatõmmise võtmine"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:107
-msgid "Binding to take a screenshot of a window."
-msgstr "Klahviseos aknast ekraanipildi võtmiseks."
+msgid "Binding to take a screenshot."
+msgstr "Klahviseos kuvatõmmise võtmiseks."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:111
-msgid "Take a screenshot of an area"
-msgstr "Ekraanipildi võtmine alast"
+msgid "Take a screenshot of a window"
+msgstr "Kuvatõmmise aknast"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:112
-msgid "Binding to take a screenshot of an area."
-msgstr "Klahviseos alast ekraanipildi võtmiseks."
+msgid "Binding to take a screenshot of a window."
+msgstr "Klahviseos aknast kuvatõmmise võtmiseks."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:116
-msgid "Copy a screenshot to clipboard"
-msgstr "Ekraanipildi kopeerimine lõikepuhvrisse"
+msgid "Take a screenshot of an area"
+msgstr "Kuvatõmmise võtmine alast"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:117
-msgid "Binding to copy a screenshot to clipboard."
-msgstr "Klahviseos ekraanipildi kopeerimiseks lõikepuhvrisse."
+msgid "Binding to take a screenshot of an area."
+msgstr "Klahviseos alast kuvatõmmise võtmiseks."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:121
-msgid "Copy a screenshot of a window to clipboard"
-msgstr "Akna ekraanipildi kopeerimine lõikepuhvrisse"
+msgid "Copy a screenshot to clipboard"
+msgstr "Kuvatõmmise kopeerimine lõikepuhvrisse"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:122
-msgid "Binding to copy a screenshot of a window to clipboard."
-msgstr "Klahviseos akna ekraanipildi kopeerimiseks lõikepuhvrisse."
+msgid "Binding to copy a screenshot to clipboard."
+msgstr "Klahviseos kuvatõmmise kopeerimiseks lõikepuhvrisse."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:126
-msgid "Copy a screenshot of an area to clipboard"
-msgstr "Ala ekraanipildi kopeerimine lõikepuhvrisse"
+msgid "Copy a screenshot of a window to clipboard"
+msgstr "Akna kuvatõmmise kopeerimine lõikepuhvrisse"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:127
-msgid "Binding to copy a screenshot of an area to clipboard."
-msgstr "Klahviseos ala ekraanipildi kopeerimiseks lõikepuhvrisse."
+msgid "Binding to copy a screenshot of a window to clipboard."
+msgstr "Klahviseos akna kuvatõmmise kopeerimiseks lõikepuhvrisse."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:131
-msgid "Record a short video of the screen"
-msgstr ""
+msgid "Copy a screenshot of an area to clipboard"
+msgstr "Ala kuvatõmmise kopeerimine lõikepuhvrisse"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:132
-#, fuzzy
-#| msgid "Binding to lock the screen."
-msgid "Binding to record a short video of the screen"
-msgstr "Klahviseos ekraani lukustamiseks."
+msgid "Binding to copy a screenshot of an area to clipboard."
+msgstr "Klahviseos ala kuvatõmmise kopeerimiseks lõikepuhvrisse."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:136
+msgid "Record a short video of the screen"
+msgstr "Lindista ekraanist lühike video"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:137
+msgid "Binding to record a short video of the screen"
+msgstr "Klahviseos ekraanist lühikese video salvestamiseks"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:141
 msgid "Launch web browser"
 msgstr "Veebisirvija käivitamine"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:137
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:142
 msgid "Binding to launch the web browser."
 msgstr "Klahviseos veebisirvija käivitamiseks."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:141
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:146
 msgid "Toggle magnifier"
 msgstr "Ekraaniluup sisse/välja"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:142
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:147
 msgid "Binding to show the screen magnifier"
 msgstr "Klahviseos ekraaniluubi näitamiseks"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:146
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:151
 msgid "Toggle screen reader"
 msgstr "Ekraanilugeja sisse/välja"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:147
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:152
 msgid "Binding to start the screen reader"
 msgstr "Klahviseos ekraanilugeja käivitamiseks"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:151
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:156
 msgid "Toggle on-screen keyboard"
 msgstr "Ekraaniklaviatuur sisse/välja"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:152
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:157
 msgid "Binding to show the on-screen keyboard"
 msgstr "Klahviseos ekraaniklaviatuuri näitamiseks"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:156
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:161
 msgid "Increase text size"
 msgstr "Teksti suurendamine"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:157
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:162
 msgid "Binding to increase the text size"
 msgstr "Klahviseos teksti suuruse suurendamiseks"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:161
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:166
 msgid "Decrease text size"
 msgstr "Teksti vähendamine"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:162
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:167
 msgid "Binding to decrease the text size"
 msgstr "Klahviseos teksti suuruse vähendamiseks"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:166
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:171
 msgid "Toggle contrast"
 msgstr "Kontrastsuse lülitamine"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:167
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:172
 msgid "Binding to toggle the interface contrast"
 msgstr "Klahviseos kasutajaliidese kontrastsuse lülitamiseks"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:171
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:176
 msgid "Magnifier zoom in"
 msgstr "Luubi suurendus suuremaks"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:172
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:177
 msgid "Binding for the magnifier to zoom in"
 msgstr "Klahviseos ekraaniluubi suurenduse suurendamiseks"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:176
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:181
 msgid "Magnifier zoom out"
 msgstr "Luubi suurendus väiksemaks"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:177
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:182
 msgid "Binding for the magnifier to zoom out"
 msgstr "Klahviseos ekraaniluubi suurenduse vähendamiseks"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:181
-msgid "Maximum length of screen recordings"
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:182
-msgid ""
-"The maximum length of single screen cast recordings in seconds or 0 for "
-"unlimited"
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:189
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:194
 msgid "Name"
 msgstr "Nimi"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:190
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:195
 msgid "Name of the custom binding"
 msgstr "Kohandatud kiirklahvi nimi"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:194
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:199
 msgid "Binding"
 msgstr "Seos"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:195
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:200
 msgid "Binding for the custom binding"
 msgstr "Kohandatud seose klahviseos"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:199
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:204
 msgid "Command"
 msgstr "Käsk"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:200
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:205
 msgid "Command to run when the binding is invoked"
 msgstr "Klahvikombinatsiooni vajutamisel käivitatav käsk"
 
-#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:6
-msgid "The brightness of the screen when idle"
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:7
-msgid ""
-"This is the laptop panel screen brightness used when the session is idle."
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:11
-msgid "Dim the screen after a period of inactivity"
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:12
-msgid "If the screen should be dimmed to save power when the computer is idle."
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:16
-msgid "Sleep timeout computer when on AC"
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:17
-msgid ""
-"The amount of time in seconds the computer on AC power needs to be inactive "
-"before it goes to sleep. A value of 0 means never."
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:21
-#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:31
-msgid "Whether to hibernate, suspend or do nothing when inactive"
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:22
-#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:32
-msgid ""
-"The type of sleeping that should be performed when the computer is inactive."
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:26
-msgid "Sleep timeout computer when on battery"
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:27
-msgid ""
-"The amount of time in seconds the computer on battery power needs to be "
-"inactive before it goes to sleep. A value of 0 means never."
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:36
-msgid "Enable the ALS sensor"
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:37
-msgid "If the ambient light sensor functionality is enabled."
-msgstr ""
-
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:41
-#, fuzzy
-#| msgid "Wacom button action type"
 msgid "Power button action"
-msgstr "Wacomi nupu tegevuse liik"
-
-#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:42
-msgid ""
-"The action to take when the system power button is pressed. This action is "
-"hard-coded (and the setting ignored) on virtual machines (power off) and "
-"tablets (suspend)."
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in:6
-msgid "On which connections the service is enabled"
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in:7
-msgid ""
-"The list of NetworkManager connections (each one represented with its UUID) "
-"on which this service is enabled and started."
-msgstr ""
+msgstr "Jõudenupu tegevus"
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:6
 msgid "Antialiasing"
@@ -965,20 +738,6 @@ msgstr ""
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:11
 msgid "Hinting"
 msgstr "Varjundamine"
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:12
-msgid ""
-"The type of hinting to use when rendering fonts. Possible values are: “none” "
-"for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
-"ClearType, DirectWrite and Adobe’s proprietary font rendering engine. "
-"Ignores native hinting within the font, generates hints algorithmically. "
-"Used on Ubuntu by default. Recommended. The meaning of “medium” and “full” "
-"depends on the font format (.ttf, .otf, .pfa/.pfb) and the installed version "
-"of FreeType. They usually try to fit glyphs to both the X and the Y axis "
-"(except for .otf: Y-only). This can lead to distortion and/or inconsistent "
-"rendering depending on the quality of the font, the font format and the "
-"state of FreeType’s font engines."
-msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:16
 msgid "RGBA order"
@@ -1018,17 +777,6 @@ msgid ""
 msgstr ""
 "Sõnede loend GTK+ laaditavatest moodulitest. Tavaliselt lisaks "
 "tingimuslikult ning selgesõnaliselt keelatud moodulitele."
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:31
-msgid "A dictionary of XSETTINGS to override"
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:32
-msgid ""
-"This dictionary maps XSETTINGS names to overrides values. The values must be "
-"either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
-"(red, green, blue, alpha; 65535 is fully opaque)."
-msgstr ""
 
 #: plugins/color/gsd-color-calibrate.c:139
 msgid "Color"
@@ -1076,24 +824,20 @@ msgstr "Värvide kalibreerimise seade eemaldatud"
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #: plugins/datetime/gsd-datetime-manager.c:88
 msgid "UTC%:::z"
-msgstr ""
+msgstr "UTC%:::z"
 
 #: plugins/datetime/gsd-datetime-manager.c:92
 #, c-format
 msgid "Time Zone Updated to %s (%s)"
-msgstr ""
+msgstr "Ajatsoon uuendatud väärtuseks %s (%s)"
 
 #: plugins/datetime/gsd-datetime-manager.c:108
-#, fuzzy
-#| msgid "X Settings"
 msgid "Settings"
-msgstr "X'i sätted"
+msgstr "Seaded"
 
 #: plugins/datetime/gsd-datetime-manager.c:118
-#, fuzzy
-#| msgid "Manage X Settings"
 msgid "Date & Time Settings"
-msgstr "X'i seadistuste haldamine"
+msgstr "Kuupäeva ja kellaaja seaded"
 
 #: plugins/housekeeping/gsd-disk-space.c:574
 msgid "Disk space"
@@ -1148,100 +892,82 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Sellel arvutil on ainult %s vaba kettaruumi."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2176
+#: plugins/media-keys/gsd-media-keys-manager.c:2212
 msgid "Bluetooth disabled"
-msgstr ""
+msgstr "Bluetooth keelatud"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2179
+#: plugins/media-keys/gsd-media-keys-manager.c:2215
 msgid "Bluetooth enabled"
-msgstr ""
+msgstr "Bluetooth lubatud"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2183
+#: plugins/media-keys/gsd-media-keys-manager.c:2219
 msgid "Airplane mode enabled"
-msgstr ""
+msgstr "Lennurežiim lubatud"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2186
+#: plugins/media-keys/gsd-media-keys-manager.c:2222
 msgid "Airplane mode disabled"
-msgstr ""
+msgstr "Lennurežiim keelatud"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2214
+#: plugins/media-keys/gsd-media-keys-manager.c:2250
 msgid "Hardware Airplane Mode"
-msgstr ""
+msgstr "Riistvaraline lennurežiim"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2274
+#: plugins/media-keys/gsd-media-keys-manager.c:2310
 #, no-c-format
 msgid "Screencast from %d %t.webm"
-msgstr ""
+msgstr "Ekraanivideo %d %t.webm"
 
 #: plugins/media-keys/gsd-screenshot-utils.c:82
-#, fuzzy
-#| msgid "Binding to take a screenshot."
 msgid "Unable to capture a screenshot"
-msgstr "Klahviseos ekraanipildi võtmiseks."
+msgstr "Kuvatõmmist ei saadud võtta"
 
 #: plugins/media-keys/gsd-screenshot-utils.c:113
 #: plugins/media-keys/gsd-screenshot-utils.c:155
 msgid "Screenshot taken"
-msgstr ""
+msgstr "Kuvatõmmis tehtud"
 
 #. translators: this is the name of the file that gets made up
 #. * with the screenshot
 #: plugins/media-keys/gsd-screenshot-utils.c:306
 #, c-format
 msgid "Screenshot from %s"
-msgstr ""
+msgstr "Kuvatõmmis %s"
 
 #: plugins/media-keys/shortcuts-list.h:45
-msgid "Touchpad toggle"
-msgstr ""
-
 #: plugins/media-keys/shortcuts-list.h:46
-msgid "Touchpad On"
-msgstr ""
+msgid "Touchpad toggle"
+msgstr "Puuteplaadi lülitus"
 
 #: plugins/media-keys/shortcuts-list.h:47
-#, fuzzy
-#| msgid "Turn Off"
-msgid "Touchpad Off"
-msgstr "Välja lülitamine"
+msgid "Touchpad On"
+msgstr "Puuteplaat sees"
 
-#: plugins/media-keys/shortcuts-list.h:51
-#: plugins/media-keys/shortcuts-list.h:52
-msgid "Microphone Mute"
-msgstr ""
+#: plugins/media-keys/shortcuts-list.h:48
+msgid "Touchpad Off"
+msgstr "Puuteplaat välja"
 
 #: plugins/media-keys/shortcuts-list.h:53
-#, fuzzy
-#| msgid "Volume mute"
 msgid "Quiet Volume Mute"
-msgstr "Heli tummaks"
+msgstr "Vaikne heli tummaks"
 
 #: plugins/media-keys/shortcuts-list.h:54
-#, fuzzy
-#| msgid "Volume down"
 msgid "Quiet Volume Down"
-msgstr "Heli vaiksemaks"
+msgstr "Vaikne heli vaiksemaks"
 
 #: plugins/media-keys/shortcuts-list.h:55
-#, fuzzy
-#| msgid "Volume up"
 msgid "Quiet Volume Up"
-msgstr "Heli valjemaks"
+msgstr "Vaikne heli valjemaks"
 
 #: plugins/media-keys/shortcuts-list.h:56
-#, fuzzy
-#| msgid "Volume down"
 msgid "Precise Volume Down"
-msgstr "Heli vaiksemaks"
+msgstr "Täpne heli vaiksemaks"
 
 #: plugins/media-keys/shortcuts-list.h:57
-#, fuzzy
-#| msgid "Volume up"
 msgid "Precise Volume Up"
-msgstr "Heli valjemaks"
+msgstr "Täpne heli valjemaks"
 
 #: plugins/media-keys/shortcuts-list.h:67
 msgid "Lock Screen"
@@ -1249,39 +975,37 @@ msgstr "Ekraani lukustamine"
 
 #: plugins/media-keys/shortcuts-list.h:69
 msgid "Help"
-msgstr ""
+msgstr "Abi"
 
 #: plugins/media-keys/shortcuts-list.h:83
 msgid "Rewind"
-msgstr ""
+msgstr "Keri tagasi"
 
 #: plugins/media-keys/shortcuts-list.h:84
 msgid "Forward"
-msgstr ""
+msgstr "Keri edasi"
 
 #: plugins/media-keys/shortcuts-list.h:85
 msgid "Repeat"
-msgstr ""
+msgstr "Korda"
 
 #: plugins/media-keys/shortcuts-list.h:86
 msgid "Random Play"
-msgstr ""
+msgstr "Juhuesitus"
 
 #: plugins/media-keys/shortcuts-list.h:87
 msgid "Orientation Lock"
-msgstr ""
+msgstr "Orientatsioonilukk"
 
 #: plugins/media-keys/shortcuts-list.h:96
-#, fuzzy
-#| msgid "Power"
 msgid "Power Off"
-msgstr "Vool"
+msgstr "Lülita välja"
 
 #. the kernel / Xorg names really are like this...
 #. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
 #: plugins/media-keys/shortcuts-list.h:99
 msgid "Sleep"
-msgstr ""
+msgstr "Unerežiim"
 
 #: plugins/media-keys/shortcuts-list.h:100
 msgid "Suspend"
@@ -1293,60 +1017,50 @@ msgstr "Talveuni"
 
 #: plugins/media-keys/shortcuts-list.h:102
 msgid "Brightness Up"
-msgstr ""
+msgstr "Suurenda heledust"
 
 #: plugins/media-keys/shortcuts-list.h:103
 msgid "Brightness Down"
-msgstr ""
+msgstr "Vähenda heledust"
 
 #: plugins/media-keys/shortcuts-list.h:104
-#, fuzzy
-#| msgid "Keyboard is empty"
 msgid "Keyboard Brightness Up"
-msgstr "Klaviatuur on tühi"
+msgstr "Klaviatuuri heledus suuremaks"
 
 #: plugins/media-keys/shortcuts-list.h:105
-#, fuzzy
-#| msgid "Keyboard battery low"
 msgid "Keyboard Brightness Down"
-msgstr "Klaviatuuri aku on otsakorral"
+msgstr "Klaviatuuri heledus madalamaks"
 
 #: plugins/media-keys/shortcuts-list.h:106
-#, fuzzy
-#| msgid "Keyboard is charged"
 msgid "Keyboard Brightness Toggle"
-msgstr "Klaviatuur on laetud"
+msgstr "Klaviatuuri heleduse lülitamine"
 
 #: plugins/media-keys/shortcuts-list.h:107
-#, fuzzy
-#| msgid "Battery is low"
 msgid "Battery Status"
-msgstr "Aku on tühi"
+msgstr "Aku olek"
 
 #: plugins/media-keys/shortcuts-list.h:108
 #: plugins/media-keys/shortcuts-list.h:109
 #: plugins/media-keys/shortcuts-list.h:110
-#, fuzzy
-#| msgid "Toggle screen reader"
 msgid "Toggle Airplane Mode"
-msgstr "Ekraanilugeja sisse/välja"
+msgstr "Lülita lennurežiimi"
 
 #: plugins/media-keys/shortcuts-list.h:111
 msgid "Toggle Bluetooth"
-msgstr ""
+msgstr "Lülita Bluetoothi"
 
-#: plugins/power/gpm-common.c:100
+#: plugins/power/gpm-common.c:99
 msgid "Unknown time"
 msgstr "Aeg pole teada"
 
-#: plugins/power/gpm-common.c:105
+#: plugins/power/gpm-common.c:104
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i minut"
 msgstr[1] "%i minutit"
 
-#: plugins/power/gpm-common.c:115
+#: plugins/power/gpm-common.c:114
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1355,25 +1069,25 @@ msgstr[1] "%i tundi"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: plugins/power/gpm-common.c:121
+#: plugins/power/gpm-common.c:120
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: plugins/power/gpm-common.c:122
+#: plugins/power/gpm-common.c:121
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "tund"
 msgstr[1] "tundi"
 
-#: plugins/power/gpm-common.c:123
+#: plugins/power/gpm-common.c:122
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minut"
 msgstr[1] "minutit"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:948 plugins/power/gsd-power-manager.c:686
+#: plugins/power/gpm-common.c:929 plugins/power/gsd-power-manager.c:686
 #: plugins/power/gsd-power-manager.c:783
 msgid "Battery is critically low"
 msgstr "Aku on kriitiliselt tühi"
@@ -1395,10 +1109,8 @@ msgid "%s of UPS backup power remaining"
 msgstr "UPSis on jäänud veel %s"
 
 #: plugins/power/gsd-power-manager.c:364
-#, fuzzy
-#| msgid "%s of UPS backup power remaining"
 msgid "Unknown amount of UPS backup power remaining"
-msgstr "UPSis on jäänud veel %s"
+msgstr "UPSis on tundmatu kogus varuvoolu"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
 #: plugins/power/gsd-power-manager.c:439
@@ -1414,7 +1126,7 @@ msgstr "Süleri aku on tühi"
 #: plugins/power/gsd-power-manager.c:449
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
-msgstr "Umbes %s jäänud (%.0f%%)"
+msgstr "Jäänud umbes %s (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
 #: plugins/power/gsd-power-manager.c:454
@@ -1425,7 +1137,7 @@ msgstr "UPS on tühi"
 #: plugins/power/gsd-power-manager.c:460
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
-msgstr "Umbes %s jätkub veel UPSil voolu (%.0f%%)"
+msgstr "Umbes %s saadaolevast UPS varuvoolust (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
@@ -1455,13 +1167,13 @@ msgstr "Juhtmeta klaviatuuri aku on otsakorral (%.0f%%)"
 #. TRANSLATORS: the PDA battery is very low
 #: plugins/power/gsd-power-manager.c:479 plugins/power/gsd-power-manager.c:616
 msgid "PDA battery low"
-msgstr "PDA aku on tühi"
+msgstr "Pihuarvuti aku on tühi"
 
 #. TRANSLATORS: tell user more details
 #: plugins/power/gsd-power-manager.c:482
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
-msgstr "PDA aku on otsakorral (%.0f%%)"
+msgstr "Pihuarvuti aku on otsakorral (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
@@ -1583,8 +1295,8 @@ msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
 "not charged."
 msgstr ""
-"PDA aku on kohe tühi (%.0f%%). See seade lakkab töötamast, kui seda ei "
-"laadita."
+"Pihuarvuti aku on kohe tühi (%.0f%%). See seade lakkab töötamast, kui seda "
+"ei laadita."
 
 #. TRANSLATORS: the device is just going to stop working
 #: plugins/power/gsd-power-manager.c:629
@@ -1654,47 +1366,43 @@ msgstr ""
 "UPSi täituvus on allpool kriitilist taset ja arvuti lülitab ennast välja."
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1264
+#: plugins/power/gsd-power-manager.c:1305
 msgid "Lid has been opened"
-msgstr "Ekraan avati"
+msgstr "Ekraanikaas avati"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1302
+#: plugins/power/gsd-power-manager.c:1339
 msgid "Lid has been closed"
-msgstr "Ekraan suleti"
+msgstr "Ekraanikaas suleti"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1896
-#, fuzzy
-#| msgid "PDA battery low"
+#: plugins/power/gsd-power-manager.c:1935
 msgid "On battery power"
-msgstr "PDA aku on tühi"
+msgstr "Aku peal"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1901
+#: plugins/power/gsd-power-manager.c:1940
 msgid "On AC power"
-msgstr ""
+msgstr "Vooluvõrgus"
 
-#: plugins/power/gsd-power-manager.c:2093
+#: plugins/power/gsd-power-manager.c:2132
 msgid "Automatic logout"
 msgstr "Automaatne väljalogimine"
 
-#: plugins/power/gsd-power-manager.c:2093
+#: plugins/power/gsd-power-manager.c:2132
 msgid "You will soon log out because of inactivity."
-msgstr ""
+msgstr "Sind logitakse varsti välja ebaaktiivsuse tõttu."
 
-#: plugins/power/gsd-power-manager.c:2098
+#: plugins/power/gsd-power-manager.c:2137
 msgid "Automatic suspend"
 msgstr "Automaatne uinumine"
 
-#: plugins/power/gsd-power-manager.c:2098
-#: plugins/power/gsd-power-manager.c:2103
-#, fuzzy
-#| msgid "Computer will suspend very soon unless it is plugged in."
+#: plugins/power/gsd-power-manager.c:2137
+#: plugins/power/gsd-power-manager.c:2142
 msgid "Computer will suspend very soon because of inactivity."
-msgstr "Arvuti alustab üsna varsti uinakut, kui seda vooluvõrku ei ühendata."
+msgstr "Arvuti alustab üsna varsti uinakut ebaaktiivsuse tõttu."
 
-#: plugins/power/gsd-power-manager.c:2103
+#: plugins/power/gsd-power-manager.c:2142
 msgid "Automatic hibernation"
 msgstr "Automaatne talveuni"
 
@@ -1736,222 +1444,235 @@ msgid "No driver for this printer."
 msgstr "Selle printeri jaoks puudub draiver."
 
 #: plugins/print-notifications/gsd-printer.c:1031
-#: plugins/print-notifications/gsd-print-notifications-manager.c:270
-#: plugins/print-notifications/gsd-print-notifications-manager.c:748
-#: plugins/print-notifications/gsd-print-notifications-manager.c:838
-#: plugins/print-notifications/gsd-print-notifications-manager.c:881
+#: plugins/print-notifications/gsd-print-notifications-manager.c:290
+#: plugins/print-notifications/gsd-print-notifications-manager.c:530
+#: plugins/print-notifications/gsd-print-notifications-manager.c:911
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1001
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1044
 msgid "Printers"
 msgstr "Printerid"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:346
+#: plugins/print-notifications/gsd-print-notifications-manager.c:366
 #, c-format
 msgid "Printer “%s” is low on toner."
 msgstr "Printeril „%s“ on tooner otsakorral."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:350
+#: plugins/print-notifications/gsd-print-notifications-manager.c:370
 #, c-format
 msgid "Printer “%s” has no toner left."
 msgstr "Printeril „%s“ on tooner otsas."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:354
+#: plugins/print-notifications/gsd-print-notifications-manager.c:374
 #, c-format
 msgid "Printer “%s” may not be connected."
 msgstr "Võib-olla pole printer „%s“ ühendatud."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:358
+#: plugins/print-notifications/gsd-print-notifications-manager.c:378
 #, c-format
 msgid "The cover is open on printer “%s”."
 msgstr "Printeri „%s“ kaas on lahti."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:362
+#: plugins/print-notifications/gsd-print-notifications-manager.c:382
 #, c-format
 msgid "There is a missing print filter for printer “%s”."
 msgstr "Printeril „%s“ puudub printimisfilter."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:367
+#: plugins/print-notifications/gsd-print-notifications-manager.c:387
 #, c-format
 msgid "The door is open on printer “%s”."
 msgstr "Printeri „%s“ uks on lahti."
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:371
+#: plugins/print-notifications/gsd-print-notifications-manager.c:391
 #, c-format
 msgid "Printer “%s” is low on a marker supply."
 msgstr "Printeril „%s“ on üks värv otsakorral."
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:375
+#: plugins/print-notifications/gsd-print-notifications-manager.c:395
 #, c-format
 msgid "Printer “%s” is out of a marker supply."
 msgstr "Printeril „%s“ on üks värv otsas."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:379
+#: plugins/print-notifications/gsd-print-notifications-manager.c:399
 #, c-format
 msgid "Printer “%s” is low on paper."
 msgstr "Printeril „%s“ on paber otsakorral."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:383
+#: plugins/print-notifications/gsd-print-notifications-manager.c:403
 #, c-format
 msgid "Printer “%s” is out of paper."
 msgstr "Printeril „%s“ on paber otsas."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:387
+#: plugins/print-notifications/gsd-print-notifications-manager.c:407
 #, c-format
 msgid "Printer “%s” is currently off-line."
 msgstr "Printer „%s“ pole praegu võrgus."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:391
+#: plugins/print-notifications/gsd-print-notifications-manager.c:411
 #, c-format
 msgid "There is a problem on printer “%s”."
 msgstr "Printeriga „%s“ on probleem."
 
+#. Translators: The printer has a job to print but the printer needs authentication to continue with the print
+#: plugins/print-notifications/gsd-print-notifications-manager.c:523
+#, c-format
+msgid "%s Requires Authentication"
+msgstr "%s vajab autentimist"
+
+#. Translators: A printer needs credentials to continue printing a job
+#: plugins/print-notifications/gsd-print-notifications-manager.c:525
+#, c-format
+msgid "Credentials required in order to print"
+msgstr "Printimiseks on vajalik autentimine"
+
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:439
+#: plugins/print-notifications/gsd-print-notifications-manager.c:591
 msgid "Toner low"
 msgstr "Tooner on otsakorral"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:441
+#: plugins/print-notifications/gsd-print-notifications-manager.c:593
 msgid "Toner empty"
 msgstr "Tooner on otsas"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:443
+#: plugins/print-notifications/gsd-print-notifications-manager.c:595
 msgid "Not connected?"
 msgstr "Pole ühendatud?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:445
+#: plugins/print-notifications/gsd-print-notifications-manager.c:597
 msgid "Cover open"
 msgstr "Kaas on lahti"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:447
+#: plugins/print-notifications/gsd-print-notifications-manager.c:599
 msgid "Printer configuration error"
 msgstr "Printeri seadistuse viga"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:449
+#: plugins/print-notifications/gsd-print-notifications-manager.c:601
 msgid "Door open"
 msgstr "Uks on lahti"
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:451
+#: plugins/print-notifications/gsd-print-notifications-manager.c:603
 msgid "Marker supply low"
 msgstr "Värv on otsakorral"
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:453
+#: plugins/print-notifications/gsd-print-notifications-manager.c:605
 msgid "Out of a marker supply"
 msgstr "Värv on otsas"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:455
+#: plugins/print-notifications/gsd-print-notifications-manager.c:607
 msgid "Paper low"
 msgstr "Paber on otsakorral"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:457
+#: plugins/print-notifications/gsd-print-notifications-manager.c:609
 msgid "Out of paper"
 msgstr "Paber on otsas"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:459
+#: plugins/print-notifications/gsd-print-notifications-manager.c:611
 msgid "Printer off-line"
 msgstr "Printer pole võrgus"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:461
-#: plugins/print-notifications/gsd-print-notifications-manager.c:824
+#: plugins/print-notifications/gsd-print-notifications-manager.c:613
+#: plugins/print-notifications/gsd-print-notifications-manager.c:987
 msgid "Printer error"
 msgstr "Printeri viga"
 
 #. Translators: New printer has been added
-#: plugins/print-notifications/gsd-print-notifications-manager.c:509
+#: plugins/print-notifications/gsd-print-notifications-manager.c:661
 msgid "Printer added"
 msgstr "Printer lisati"
 
 #. Translators: A print job has been stopped
-#: plugins/print-notifications/gsd-print-notifications-manager.c:526
-#: plugins/print-notifications/gsd-print-notifications-manager.c:564
+#: plugins/print-notifications/gsd-print-notifications-manager.c:678
+#: plugins/print-notifications/gsd-print-notifications-manager.c:716
 msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "Printer on peatatud"
 
 #. Translators: "print-job xy" on a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:528
-#: plugins/print-notifications/gsd-print-notifications-manager.c:534
-#: plugins/print-notifications/gsd-print-notifications-manager.c:540
-#: plugins/print-notifications/gsd-print-notifications-manager.c:546
-#: plugins/print-notifications/gsd-print-notifications-manager.c:558
-#: plugins/print-notifications/gsd-print-notifications-manager.c:566
-#: plugins/print-notifications/gsd-print-notifications-manager.c:574
-#: plugins/print-notifications/gsd-print-notifications-manager.c:582
-#: plugins/print-notifications/gsd-print-notifications-manager.c:590
-#: plugins/print-notifications/gsd-print-notifications-manager.c:603
+#: plugins/print-notifications/gsd-print-notifications-manager.c:680
+#: plugins/print-notifications/gsd-print-notifications-manager.c:686
+#: plugins/print-notifications/gsd-print-notifications-manager.c:692
+#: plugins/print-notifications/gsd-print-notifications-manager.c:698
+#: plugins/print-notifications/gsd-print-notifications-manager.c:710
+#: plugins/print-notifications/gsd-print-notifications-manager.c:718
+#: plugins/print-notifications/gsd-print-notifications-manager.c:726
+#: plugins/print-notifications/gsd-print-notifications-manager.c:734
+#: plugins/print-notifications/gsd-print-notifications-manager.c:742
+#: plugins/print-notifications/gsd-print-notifications-manager.c:766
 #, c-format
 msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "„%s“ printeris %s"
 
 #. Translators: A print job has been canceled
-#: plugins/print-notifications/gsd-print-notifications-manager.c:532
-#: plugins/print-notifications/gsd-print-notifications-manager.c:572
+#: plugins/print-notifications/gsd-print-notifications-manager.c:684
+#: plugins/print-notifications/gsd-print-notifications-manager.c:724
 msgctxt "print job state"
 msgid "Printing canceled"
 msgstr "Printimisest loobuti"
 
 #. Translators: A print job has been aborted
-#: plugins/print-notifications/gsd-print-notifications-manager.c:538
-#: plugins/print-notifications/gsd-print-notifications-manager.c:580
+#: plugins/print-notifications/gsd-print-notifications-manager.c:690
+#: plugins/print-notifications/gsd-print-notifications-manager.c:732
 msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "Printimine katkestati"
 
 #. Translators: A print job has been completed
-#: plugins/print-notifications/gsd-print-notifications-manager.c:544
-#: plugins/print-notifications/gsd-print-notifications-manager.c:588
+#: plugins/print-notifications/gsd-print-notifications-manager.c:696
+#: plugins/print-notifications/gsd-print-notifications-manager.c:740
 msgctxt "print job state"
 msgid "Printing completed"
 msgstr "Printimine lõpetatud"
 
 #. Translators: A job is printing
-#: plugins/print-notifications/gsd-print-notifications-manager.c:556
-#: plugins/print-notifications/gsd-print-notifications-manager.c:601
+#: plugins/print-notifications/gsd-print-notifications-manager.c:708
+#: plugins/print-notifications/gsd-print-notifications-manager.c:764
 msgctxt "print job state"
 msgid "Printing"
 msgstr "Printimine"
 
 #. Translators: This is a title of a report notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:818
+#: plugins/print-notifications/gsd-print-notifications-manager.c:981
 msgid "Printer report"
 msgstr "Printeri raport"
 
 #. Translators: This is a title of a warning notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:821
+#: plugins/print-notifications/gsd-print-notifications-manager.c:984
 msgid "Printer warning"
 msgstr "Printeri hoiatus"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: plugins/print-notifications/gsd-print-notifications-manager.c:831
+#: plugins/print-notifications/gsd-print-notifications-manager.c:994
 #, c-format
 msgid "Printer “%s”: “%s”."
 msgstr "Printer „%s“: „%s“."
 
 #: plugins/smartcard/gsd-smartcard-service.c:224
 msgid "User was not logged in with smartcard."
-msgstr ""
+msgstr "Kasutaja ei loginud smartcardiga sisse."
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
