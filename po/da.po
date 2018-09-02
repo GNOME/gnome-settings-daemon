@@ -21,7 +21,7 @@
 #   typing break -> tastepause
 #   plugin -> modul
 #   tablet -> tavle-pc
-#   binding -> binding (ikke genvej, for at undgå problemer med "binding to shortcut")
+#   binding -> genvej
 #
 # Specielt:
 #   volume -> diskenhed.  Dette diskuteres i øjeblikket; det vil måske være nødvendigt at ændre det senere
@@ -33,8 +33,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2018-03-05 15:46+0000\n"
-"PO-Revision-Date: 2018-03-06 23:49+0100\n"
+"POT-Creation-Date: 2018-06-20 14:52+0000\n"
+"PO-Revision-Date: 2018-09-02 21:23+0200\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -437,10 +437,8 @@ msgstr "Om nattelystilstand er slået til"
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:17
 msgid ""
 "Night light mode changes the color temperature of your display when the sun "
-"has gone down or at present times."
-msgstr ""
-"Nattelystilstand ændrer farvetemperaturen for din skærm, når solen er gået "
-"ned eller på givne tidspunkter."
+"has gone down or at preset times."
+msgstr "Nattelystilstand ændrer din skærms farvetemperatur, når solen er gået ned eller på bestemte tidspunkter."
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:21
 msgid "Temperature of the display when enabled"
@@ -577,11 +575,11 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:6
 msgid "Custom keybindings"
-msgstr "Tilpasset tastebindinger"
+msgstr "Tilpassede tastegenveje"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:7
 msgid "List of custom keybindings"
-msgstr "Liste af tilpassede tastebindinger"
+msgstr "Liste af tilpassede tastegenveje"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:11
 msgid "Launch calculator"
@@ -705,163 +703,171 @@ msgstr "Genvej til at stoppe afspilning."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:86
 msgid "Volume down"
-msgstr "Dæmpning af lydstyrken"
+msgstr "Dæmp lydstyrken"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:87
-msgid "Binding to lower the system volume."
-msgstr "Genvej til at skrue systemlydstyrken ned."
+msgid "Binding to lower the volume."
+msgstr "Genvej til at skrue lydstyrken ned."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:91
-msgid "Volume mute"
-msgstr "Slå lyden fra"
+msgid "Volume mute/unmute"
+msgstr "Slå lyden til/fra"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:92
-msgid "Binding to mute the system volume."
-msgstr "Genvej til at slå lyden fra."
+msgid "Binding to mute/unmute the volume."
+msgstr "Genvej til at slå lyden til/fra."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:96
 msgid "Volume up"
 msgstr "Forøg lydstyrken"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:97
-msgid "Binding to raise the system volume."
-msgstr "Genvej til at skrue systemlydstyrken op."
+msgid "Binding to raise the volume."
+msgstr "Genvej til at skrue lydstyrken op."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:101
+msgid "Microphone mute/unmute"
+msgstr "Slå mikrofon til/fra"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:102
+msgid "Binding to mute/unmute the microphone."
+msgstr "Genvej til at slå mikrofonen til/fra."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:106
 msgid "Take a screenshot"
 msgstr "Tag et skærmbillede"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:102
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:107
 msgid "Binding to take a screenshot."
 msgstr "Genvej til at tage et skærmbillede."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:106
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:111
 msgid "Take a screenshot of a window"
 msgstr "Tag et skærmbillede af vinduet"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:107
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:112
 msgid "Binding to take a screenshot of a window."
 msgstr "Genvej til at tage et skærmbillede af et vindue."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:111
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:116
 msgid "Take a screenshot of an area"
 msgstr "Tag et skærmbillede af et område"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:112
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:117
 msgid "Binding to take a screenshot of an area."
 msgstr "Genvej til at tage et skærmbillede af et område."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:116
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:121
 msgid "Copy a screenshot to clipboard"
 msgstr "Kopier et skærmbillede til udklipsholderen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:117
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:122
 msgid "Binding to copy a screenshot to clipboard."
 msgstr "Genvej til at kopiere et skærmbillede til udklipsholderen."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:121
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:126
 msgid "Copy a screenshot of a window to clipboard"
 msgstr "Kopiér et skærmbillede af et vindue til udklipsholderen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:122
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:127
 msgid "Binding to copy a screenshot of a window to clipboard."
 msgstr ""
 "Genvej til at kopiere et skærmbillede af et vindue til udklipsholderen."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:126
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:131
 msgid "Copy a screenshot of an area to clipboard"
 msgstr "Kopiér et skærmbillede af et område til udklipsholderen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:127
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:132
 msgid "Binding to copy a screenshot of an area to clipboard."
 msgstr ""
 "Genvej til at kopiere et skærmbillede af et område til udklipsholderen."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:131
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:136
 msgid "Record a short video of the screen"
 msgstr "Optag en kort video af skærmen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:132
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:137
 msgid "Binding to record a short video of the screen"
 msgstr "Genvej til at optage en kort video af skærmen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:136
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:141
 msgid "Launch web browser"
 msgstr "Start webbrowser"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:137
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:142
 msgid "Binding to launch the web browser."
 msgstr "Genvej til at starte webbrowseren."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:141
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:146
 msgid "Toggle magnifier"
 msgstr "Slå skærmforstørrelse til/fra"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:142
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:147
 msgid "Binding to show the screen magnifier"
 msgstr "Genvej til at vise skærmforstørrelsesglasset"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:146
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:151
 msgid "Toggle screen reader"
 msgstr "Slå skærmoplæser til/fra"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:147
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:152
 msgid "Binding to start the screen reader"
 msgstr "Genvej til at starte skærmoplæseren"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:151
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:156
 msgid "Toggle on-screen keyboard"
 msgstr "Slå skærmtastatur til/fra"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:152
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:157
 msgid "Binding to show the on-screen keyboard"
 msgstr "Genvej til at vise skærmtastaturet"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:156
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:161
 msgid "Increase text size"
 msgstr "Forstør tekst"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:157
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:162
 msgid "Binding to increase the text size"
 msgstr "Genvej til at forstørre teksten"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:161
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:166
 msgid "Decrease text size"
 msgstr "Formindsk teksten"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:162
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:167
 msgid "Binding to decrease the text size"
 msgstr "Genvej til at formindske teksten"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:166
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:171
 msgid "Toggle contrast"
 msgstr "Slå kontrast til/fra"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:167
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:172
 msgid "Binding to toggle the interface contrast"
 msgstr "Genvej til at slå kontrast for brugerfladen til/fra"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:171
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:176
 msgid "Magnifier zoom in"
 msgstr "Zoom ind med forstørrelsesglas"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:172
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:177
 msgid "Binding for the magnifier to zoom in"
 msgstr "Genvej til at zoome ind med skærmforstørrelse"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:176
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:181
 msgid "Magnifier zoom out"
 msgstr "Zoom ud med forstørrelsesglas"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:177
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:182
 msgid "Binding for the magnifier to zoom out"
 msgstr "Genvej til at zoome ud med skærmforstørrelse"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:181
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:186
 msgid "Maximum length of screen recordings"
 msgstr "Maksimal varighed af skærmoptagelser"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:182
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:187
 msgid ""
 "The maximum length of single screen cast recordings in seconds or 0 for "
 "unlimited"
@@ -869,27 +875,27 @@ msgstr ""
 "Den maksimale varighed af en enkelt skærmoptagelse i sekunder, eller 0 for "
 "ubegrænset"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:189
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:194
 msgid "Name"
 msgstr "Navn"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:190
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:195
 msgid "Name of the custom binding"
 msgstr "Navn på den tilpassede genvej"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:194
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:199
 msgid "Binding"
 msgstr "Genvej"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:195
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:200
 msgid "Binding for the custom binding"
 msgstr "Genvej til den tilpassede genvej"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:199
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:204
 msgid "Command"
 msgstr "Kommando"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:200
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:205
 msgid "Command to run when the binding is invoked"
 msgstr "Kommando der skal køres, når genvejen aktiveres"
 
@@ -1197,30 +1203,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Denne computer har kun %s resterende diskplads."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2176
+#: plugins/media-keys/gsd-media-keys-manager.c:2212
 msgid "Bluetooth disabled"
 msgstr "Bluetooth deaktiveret"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2179
+#: plugins/media-keys/gsd-media-keys-manager.c:2215
 msgid "Bluetooth enabled"
 msgstr "Bluetooth aktiveret"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2183
+#: plugins/media-keys/gsd-media-keys-manager.c:2219
 msgid "Airplane mode enabled"
 msgstr "Flytilstand aktiveret"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2186
+#: plugins/media-keys/gsd-media-keys-manager.c:2222
 msgid "Airplane mode disabled"
 msgstr "Flytilstand deaktiveret"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2214
+#: plugins/media-keys/gsd-media-keys-manager.c:2250
 msgid "Hardware Airplane Mode"
 msgstr "Hardwareflytilstand"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2274
+#: plugins/media-keys/gsd-media-keys-manager.c:2310
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Skærmoptagelse fra %d %t.webm"
@@ -1242,21 +1248,17 @@ msgid "Screenshot from %s"
 msgstr "Skærmbillede fra %s"
 
 #: plugins/media-keys/shortcuts-list.h:45
+#: plugins/media-keys/shortcuts-list.h:46
 msgid "Touchpad toggle"
 msgstr "Slå pegeplade til/fra"
 
-#: plugins/media-keys/shortcuts-list.h:46
+#: plugins/media-keys/shortcuts-list.h:47
 msgid "Touchpad On"
 msgstr "Pegeplade slået til"
 
-#: plugins/media-keys/shortcuts-list.h:47
+#: plugins/media-keys/shortcuts-list.h:48
 msgid "Touchpad Off"
 msgstr "Pegeplade slået fra"
-
-#: plugins/media-keys/shortcuts-list.h:51
-#: plugins/media-keys/shortcuts-list.h:52
-msgid "Microphone Mute"
-msgstr "Slå mikrofon fra"
 
 #: plugins/media-keys/shortcuts-list.h:53
 msgid "Quiet Volume Mute"
@@ -1358,18 +1360,18 @@ msgstr "Slå flytilstand til/fra"
 msgid "Toggle Bluetooth"
 msgstr "Slå Bluetooth til/fra"
 
-#: plugins/power/gpm-common.c:100
+#: plugins/power/gpm-common.c:99
 msgid "Unknown time"
 msgstr "Ukendt tid"
 
-#: plugins/power/gpm-common.c:105
+#: plugins/power/gpm-common.c:104
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i minut"
 msgstr[1] "%i minutter"
 
-#: plugins/power/gpm-common.c:115
+#: plugins/power/gpm-common.c:114
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1378,25 +1380,25 @@ msgstr[1] "%i timer"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: plugins/power/gpm-common.c:121
+#: plugins/power/gpm-common.c:120
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: plugins/power/gpm-common.c:122
+#: plugins/power/gpm-common.c:121
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "time"
 msgstr[1] "timer"
 
-#: plugins/power/gpm-common.c:123
+#: plugins/power/gpm-common.c:122
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minut"
 msgstr[1] "minutter"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:948 plugins/power/gsd-power-manager.c:686
+#: plugins/power/gpm-common.c:929 plugins/power/gsd-power-manager.c:686
 #: plugins/power/gsd-power-manager.c:783
 msgid "Battery is critically low"
 msgstr "Batteristanden er kritisk lav"
@@ -1680,43 +1682,43 @@ msgstr ""
 "snart lukke ned."
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1264
+#: plugins/power/gsd-power-manager.c:1305
 msgid "Lid has been opened"
 msgstr "Låget er blevet åbnet"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1302
+#: plugins/power/gsd-power-manager.c:1339
 msgid "Lid has been closed"
 msgstr "Låget er blevet lukket"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1898
+#: plugins/power/gsd-power-manager.c:1935
 msgid "On battery power"
 msgstr "På batteristrøm"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1903
+#: plugins/power/gsd-power-manager.c:1940
 msgid "On AC power"
 msgstr "På netstrøm"
 
-#: plugins/power/gsd-power-manager.c:2095
+#: plugins/power/gsd-power-manager.c:2132
 msgid "Automatic logout"
 msgstr "Automatisk udlogning"
 
-#: plugins/power/gsd-power-manager.c:2095
+#: plugins/power/gsd-power-manager.c:2132
 msgid "You will soon log out because of inactivity."
 msgstr "Du vil snart blive logget ud på grund af inaktivitet."
 
-#: plugins/power/gsd-power-manager.c:2100
+#: plugins/power/gsd-power-manager.c:2137
 msgid "Automatic suspend"
 msgstr "Automatisk hvile"
 
-#: plugins/power/gsd-power-manager.c:2100
-#: plugins/power/gsd-power-manager.c:2105
+#: plugins/power/gsd-power-manager.c:2137
+#: plugins/power/gsd-power-manager.c:2142
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Computeren vil gå i hviletilstand meget snart på grund af inaktivitet."
 
-#: plugins/power/gsd-power-manager.c:2105
+#: plugins/power/gsd-power-manager.c:2142
 msgid "Automatic hibernation"
 msgstr "Automatisk dvale"
 
@@ -3267,14 +3269,8 @@ msgstr ""
 #~ msgid "Command to be run when a device is added or removed."
 #~ msgstr "Kommando, der skal køres når en enhed tilføjes eller fjernes."
 
-#~ msgid "Binding to select the next input source"
-#~ msgstr "Genvej til at vælge næste inputkilde"
-
 #~ msgid "Switch input source backward"
 #~ msgstr "Skift inputkilde baglæns"
-
-#~ msgid "Binding to select the previous input source"
-#~ msgstr "Genvej til at vælge forrige inputkilde"
 
 #~ msgid "There was an error displaying help: %s"
 #~ msgstr "Der opstod en fejl ved visningen af hjælp: %s"
@@ -3732,9 +3728,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Om dette udvidelsesmodul vil blive aktiveret af gnome-settings-daemon."
 
-#~ msgid "Binding to enable or disable the touchpad."
-#~ msgstr "Genvej til at slå pegepladen til eller fra."
-
 #~ msgid "Automounter plugin"
 #~ msgstr "Udvidelsesmodul til automatisk montering"
 
@@ -4148,9 +4141,6 @@ msgstr ""
 #~ msgid "_Groups"
 #~ msgstr "_Grupper"
 
-#~ msgid "Binding to suspend the computer."
-#~ msgstr "Genvej til at sætte computeren i hviletilstand."
-
 #~ msgid ""
 #~ "Couldn't put the machine to sleep.\n"
 #~ "Verify that the machine is correctly configured."
@@ -4268,12 +4258,6 @@ msgstr ""
 
 #~ msgid "An error occurred while configuring the screen"
 #~ msgstr "Der opstod en fejl under konfiguration af skærmen"
-
-#~ msgid "Key Binding (%s) has its action defined multiple times\n"
-#~ msgstr "Tastegenvejen %s har sin handling defineret flere gange\n"
-
-#~ msgid "Key Binding (%s) has its binding defined multiple times\n"
-#~ msgstr "Tastegenvejen %s har sin binding defineret flere gange\n"
 
 #~ msgid "It seems that another application already has access to key '%u'."
 #~ msgstr ""
