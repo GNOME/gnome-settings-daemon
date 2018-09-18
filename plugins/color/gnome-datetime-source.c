@@ -26,7 +26,7 @@
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include "gnome-datetime-source.h"
 
-#ifdef HAVE_TIMERFD
+#if HAVE_TIMERFD
 #include <sys/timerfd.h>
 #include <unistd.h>
 #include <string.h>
@@ -88,7 +88,7 @@ g_datetime_source_prepare (GSource *source,
 	GDateTimeSource *datetime_source = (GDateTimeSource*)source;
 	gint64 monotonic_now;
 
-#ifdef HAVE_TIMERFD
+#if HAVE_TIMERFD
 	if (datetime_source->pollfd.fd != -1) {
 		*timeout = -1;
 		return datetime_source->initially_expired;  /* Should be TRUE at most one time, FALSE forever after */
@@ -114,7 +114,7 @@ g_datetime_source_check (GSource  *source)
 {
 	GDateTimeSource *datetime_source = (GDateTimeSource*)source;
 
-#ifdef HAVE_TIMERFD
+#if HAVE_TIMERFD
 	if (datetime_source->pollfd.fd != -1)
 		return datetime_source->pollfd.revents != 0;
 #endif
@@ -151,7 +151,7 @@ g_datetime_source_dispatch (GSource    *source,
 static void
 g_datetime_source_finalize (GSource *source)
 {
-#ifdef HAVE_TIMERFD
+#if HAVE_TIMERFD
 	GDateTimeSource *datetime_source = (GDateTimeSource*)source;
 	if (datetime_source->pollfd.fd != -1)
 		close (datetime_source->pollfd.fd);
@@ -165,7 +165,7 @@ static GSourceFuncs g_datetime_source_funcs = {
 	g_datetime_source_finalize
 };
 
-#ifdef HAVE_TIMERFD
+#if HAVE_TIMERFD
 static gboolean
 g_datetime_source_init_timerfd (GDateTimeSource *datetime_source,
 				gint64           expected_now_seconds,
@@ -269,7 +269,7 @@ _gnome_datetime_source_new (GDateTime  *now,
 
 	datetime_source->cancel_on_set = cancel_on_set;
 
-#ifdef HAVE_TIMERFD
+#if HAVE_TIMERFD
 	{
 		gint64 expected_now_seconds = g_date_time_to_unix (now);
 		if (g_datetime_source_init_timerfd (datetime_source, expected_now_seconds, unix_seconds))

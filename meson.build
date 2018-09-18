@@ -125,6 +125,9 @@ if enable_gudev
 endif
 config_h.set('HAVE_GUDEV', enable_gudev)
 
+has_timerfd_create = cc.has_function('timerfd_create')
+config_h.set10('HAVE_TIMERFD', has_timerfd_create)
+
 # Check for libwayland-client
 enable_wayland = get_option('wayland')
 if enable_wayland
