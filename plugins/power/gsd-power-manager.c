@@ -819,8 +819,10 @@ engine_device_warning_changed_cb (UpDevice *device, GParamSpec *pspec, GsdPowerM
                  * for the whole system, instead of one per device */
                 g_debug ("fully charged or charging, hiding notifications if any");
                 play_loop_stop (&manager->priv->critical_alert_timeout_id);
-                notify_close_if_showing (&manager->priv->notification_low);
-                notify_close_if_showing (&manager->priv->notification_ups_discharging);
+                if (kind != UP_DEVICE_KIND_UPS) {
+                        notify_close_if_showing (&manager->priv->notification_low);
+                else
+                        notify_close_if_showing (&manager->priv->notification_ups_discharging);
         }
 
         if (kind == UP_DEVICE_KIND_BATTERY ||
