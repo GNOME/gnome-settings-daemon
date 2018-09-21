@@ -18,6 +18,13 @@ deps = plugins_deps + [
   dependency('xext')
 ]
 
+# required for gsd-power-enums-update, which we have
+# to compile natively
+native_deps = [
+  dependency('glib-2.0', native: true),
+  dependency('gio-2.0', native:true)
+]
+
 if enable_gudev
   deps += gudev_dep
 endif
@@ -55,8 +62,9 @@ gsd_power_enums_update = executable(
   'gsd-power-enums-update',
   sources,
   include_directories: top_inc,
-  dependencies: deps,
-  c_args: cflags
+  dependencies: native_deps,
+  c_args: cflags,
+  native: true
 )
 
 if enable_gudev
