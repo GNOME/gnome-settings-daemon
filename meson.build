@@ -123,16 +123,17 @@ if enable_gudev
   assert(enable_gudev, 'GUdev is not optional on Linux platforms')
   gudev_dep = dependency('gudev-1.0')
 endif
-config_h.set('HAVE_GUDEV', enable_gudev)
+config_h.set10('HAVE_GUDEV', enable_gudev)
 
 has_timerfd_create = cc.has_function('timerfd_create')
 config_h.set10('HAVE_TIMERFD', has_timerfd_create)
 
-# Check for libwayland-client
+# Check for wayland dependencies
 enable_wayland = get_option('wayland')
 if enable_wayland
   assert(enable_gudev, 'GUDev support is required for wayland support.')
   wayland_client_dep = dependency('wayland-client')
+  wayland_gdk_dep = dependency('gdk-wayland-3.0')
 endif
 config_h.set10('HAVE_WAYLAND', enable_wayland)
 
@@ -194,7 +195,7 @@ if enable_network_manager
   # network manager
   libnm_dep = dependency('libnm', version: '>= 1.0')
 endif
-config_h.set('HAVE_NETWORK_MANAGER', enable_network_manager)
+config_h.set10('HAVE_NETWORK_MANAGER', enable_network_manager)
 
 gnome = import('gnome')
 i18n = import('i18n')
