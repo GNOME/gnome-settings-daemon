@@ -54,8 +54,8 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         os.environ['UMOCKDEV_DIR'] = self.testbed.get_root_dir()
 
         # Create a mock backlight device
-        # Note that this function creates a different backlight device based on
-        # the name of the test.
+        # Note that this function creates a different or even no backlight
+        # device based on the name of the test.
         self.add_backlight()
 
         # start mock upowerd
@@ -214,13 +214,19 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
     def backlight_defaults(self):
         # Hack to modify the brightness defaults before starting gsd-power.
         # The alternative would be to create two separate test files.
-        if 'legacy_brightness' in self.id():
+        if 'no_backlight' in self.id():
+            return None, None
+        elif 'legacy_brightness' in self.id():
             return 15, 15
         else:
             return 100, 50
 
     def add_backlight(self, _type="raw"):
         max_brightness, brightness = self.backlight_defaults()
+
+        if max_brightness is None:
+            self.backlight = None
+            return
 
         # Undo mangling done in GSD
         if max_brightness >= 99:
@@ -1185,6 +1191,34 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 98)
         time.sleep(0.2)
         self.assertEqual(self.get_brightness(), 15)
+
+    def test_no_backlight(self):
+        '''Check that backlight brightness DBus api without a backlight'''
+
+        obj_gsd_power = self.session_bus_con.get_object(
+            'org.gnome.SettingsDaemon.Power', '/org/gnome/SettingsDaemon/Power')
+        obj_gsd_power_props = dbus.Interface(obj_gsd_power, dbus.PROPERTIES_IFACE)
+        obj_gsd_power_screen = dbus.Interface(obj_gsd_power, 'org.gnome.SettingsDaemon.Power.Screen')
+
+        # We expect -1 to be returned
+        brightness = obj_gsd_power_props.Get('org.gnome.SettingsDaemon.Power.Screen', 'Brightness')
+        self.assertEqual(brightness, -1)
+
+        # Trying to set the brightness
+        with self.assertRaises(dbus.DBusException) as exc:
+            obj_gsd_power_props.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 1)
+
+        self.assertEqual(exc.exception.get_dbus_message(), 'No usable backlight could be found!')
+
+        with self.assertRaises(dbus.DBusException) as exc:
+            obj_gsd_power_screen.StepUp()
+
+        self.assertEqual(exc.exception.get_dbus_message(), 'No usable backlight could be found!')
+
+        with self.assertRaises(dbus.DBusException) as exc:
+            obj_gsd_power_screen.StepDown()
+
+        self.assertEqual(exc.exception.get_dbus_message(), 'No usable backlight could be found!')
 
 # avoid writing to stderr
 unittest.main(testRunner=unittest.TextTestRunner(stream=sys.stdout, verbosity=2))
