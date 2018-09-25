@@ -39,6 +39,7 @@
 
 #include <X11/XKBlib.h>
 #include <X11/keysym.h>
+#include <X11/extensions/XInput2.h>
 
 #include "gnome-settings-bus.h"
 #include "gnome-settings-profile.h"
@@ -78,6 +79,11 @@
 
 #define DEFAULT_LAYOUT "us"
 
+#define GNOME_A11Y_APPLICATIONS_INTERFACE_DIR "org.gnome.desktop.a11y.applications"
+#define KEY_OSK_ENABLED "screen-keyboard-enabled"
+
+#define CORE_POINTER 2
+
 struct GsdKeyboardManagerPrivate
 {
 	guint      start_idle_id;
@@ -90,6 +96,8 @@ struct GsdKeyboardManagerPrivate
         GsdNumLockState old_state;
         GdkDeviceManager *device_manager;
         guint device_added_id;
+
+        GdkDevice *last_device;
 };
 
 static void     gsd_keyboard_manager_class_init  (GsdKeyboardManagerClass *klass);
@@ -239,6 +247,41 @@ xkb_events_filter (GdkXEvent *xev_,
         return GDK_FILTER_CONTINUE;
 }
 
+static GdkFilterReturn
+xi_events_filter (GdkXEvent *xev_,
+                  GdkEvent  *gdkev_,
+                  gpointer   user_data)
+{
+        GsdKeyboardManager *manager = (GsdKeyboardManager *) user_data;
+        XEvent *xev = (XEvent *) xev_;
+        XGenericEventCookie *xge = (XGenericEventCookie *) xev_;
+        XIEvent *xievent;
+        XIDeviceChangedEvent *xidevicechanged;
+        GdkDeviceManager *device_manager;
+        int opcode;
+
+        if (xev->type != GenericEvent)
+                return GDK_FILTER_CONTINUE;
+        if (!supports_xinput2_devices (&opcode))
+                return GDK_FILTER_CONTINUE;
+        if (xge->extension != opcode)
+                return GDK_FILTER_CONTINUE;
+
+        xievent = (XIEvent *) xge->data;
+
+        if (xievent->evtype != XI_DeviceChanged)
+                return GDK_FILTER_CONTINUE;
+
+        xidevicechanged = (XIDeviceChangedEvent *) xievent;
+        if (xidevicechanged->deviceid != CORE_POINTER)
+                return GDK_FILTER_CONTINUE;
+
+        device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
+        manager->priv->last_device = gdk_x11_device_manager_lookup (device_manager,
+                                                                    xidevicechanged->sourceid);
+        return GDK_FILTER_CONTINUE;
+}
+
 static void
 install_xkb_filter (GsdKeyboardManager *manager)
 {
@@ -252,6 +295,22 @@ remove_xkb_filter (GsdKeyboardManager *manager)
 {
         gdk_window_remove_filter (NULL,
                                   xkb_events_filter,
+                                  manager);
+}
+
+static void
+install_xi_filter (GsdKeyboardManager *manager)
+{
+        gdk_window_add_filter (NULL,
+                               xi_events_filter,
+                               manager);
+}
+
+static void
+remove_xi_filter (GsdKeyboardManager *manager)
+{
+        gdk_window_remove_filter (NULL,
+                                  xi_events_filter,
                                   manager);
 }
 
@@ -395,14 +454,35 @@ need_ibus (GVariant *sources)
         return FALSE;
 }
 
+static gboolean
+need_osk (GsdKeyboardManager *manager)
+{
+        GSettings *a11y_settings;
+        gboolean enabled = FALSE;
+
+        if (manager->priv->last_device &&
+            gdk_device_get_device_type (manager->priv->last_device) == GDK_SOURCE_TOUCHSCREEN)
+                return TRUE;
+
+        a11y_settings = g_settings_new (GNOME_A11Y_APPLICATIONS_INTERFACE_DIR);
+        enabled = g_settings_get_boolean (a11y_settings, KEY_OSK_ENABLED);
+        g_object_unref (a11y_settings);
+
+        if (enabled)
+                return TRUE;
+
+        return FALSE;
+}
+
 static void
-set_gtk_im_module (GSettings *settings,
-                   GVariant  *sources)
+set_gtk_im_module (GsdKeyboardManager *manager,
+                   GSettings          *settings,
+                   GVariant           *sources)
 {
         const gchar *new_module;
         gchar *current_module;
 
-        if (need_ibus (sources))
+        if (need_ibus (sources) || need_osk (manager))
                 new_module = GTK_IM_MODULE_IBUS;
         else
                 new_module = GTK_IM_MODULE_SIMPLE;
@@ -427,7 +507,7 @@ input_sources_changed (GSettings          *settings,
          */
         sources = g_settings_get_value (settings, KEY_INPUT_SOURCES);
         interface_settings = g_settings_new (GNOME_DESKTOP_INTERFACE_DIR);
-        set_gtk_im_module (interface_settings, sources);
+        set_gtk_im_module (manager, interface_settings, sources);
         g_object_unref (interface_settings);
         g_variant_unref (sources);
 }
@@ -711,6 +791,7 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
         }
 
 	install_xkb_filter (manager);
+        install_xi_filter (manager);
 
         gnome_settings_profile_end (NULL);
 
@@ -757,6 +838,7 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
                 p->device_manager = NULL;
         }
 
+        remove_xi_filter (manager);
 	remove_xkb_filter (manager);
 }
 
