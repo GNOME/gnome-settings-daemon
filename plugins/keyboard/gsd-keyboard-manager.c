@@ -78,11 +78,15 @@
 
 #define DEFAULT_LAYOUT "us"
 
+#define GNOME_A11Y_APPLICATIONS_INTERFACE_DIR "org.gnome.desktop.a11y.applications"
+#define KEY_OSK_ENABLED "screen-keyboard-enabled"
+
 struct GsdKeyboardManagerPrivate
 {
 	guint      start_idle_id;
         GSettings *settings;
         GSettings *input_sources_settings;
+        GSettings *a11y_settings;
         GDBusProxy *localed;
         GCancellable *cancellable;
 
@@ -90,11 +94,14 @@ struct GsdKeyboardManagerPrivate
         GsdNumLockState old_state;
         GdkDeviceManager *device_manager;
         guint device_added_id;
+        guint device_removed_id;
 };
 
 static void     gsd_keyboard_manager_class_init  (GsdKeyboardManagerClass *klass);
 static void     gsd_keyboard_manager_init        (GsdKeyboardManager      *keyboard_manager);
 static void     gsd_keyboard_manager_finalize    (GObject                 *object);
+
+static void     update_gtk_im_module (GsdKeyboardManager *manager);
 
 G_DEFINE_TYPE (GsdKeyboardManager, gsd_keyboard_manager, G_TYPE_OBJECT)
 
@@ -363,7 +370,21 @@ device_added_cb (GdkDeviceManager   *device_manager,
         if (source == GDK_SOURCE_KEYBOARD) {
                 g_debug ("New keyboard plugged in, applying all settings");
                 apply_numlock (manager);
+        } else if (source == GDK_SOURCE_TOUCHSCREEN) {
+                update_gtk_im_module (manager);
         }
+}
+
+static void
+device_removed_cb (GdkDeviceManager   *device_manager,
+                   GdkDevice          *device,
+                   GsdKeyboardManager *manager)
+{
+        GdkInputSource source;
+
+        source = gdk_device_get_source (device);
+        if (source == GDK_SOURCE_TOUCHSCREEN)
+                update_gtk_im_module (manager);
 }
 
 static void
@@ -378,6 +399,8 @@ set_devicepresence_handler (GsdKeyboardManager *manager)
 
         manager->priv->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
                                                            G_CALLBACK (device_added_cb), manager);
+        manager->priv->device_removed_id = g_signal_connect (G_OBJECT (device_manager), "device-removed",
+                                                             G_CALLBACK (device_removed_cb), manager);
         manager->priv->device_manager = device_manager;
 }
 
@@ -395,14 +418,37 @@ need_ibus (GVariant *sources)
         return FALSE;
 }
 
+static gboolean
+need_osk (GsdKeyboardManager *manager)
+{
+        GSettings *a11y_settings;
+        gboolean has_touchscreen = FALSE;
+        GList *devices, *l;
+        GdkSeat *seat;
+
+        if (g_settings_get_boolean (manager->priv->a11y_settings,
+                                    KEY_OSK_ENABLED))
+                return TRUE;
+
+        seat = gdk_display_get_default_seat (gdk_display_get_default ());
+        devices = gdk_seat_get_slaves (seat, GDK_SEAT_CAPABILITY_TOUCH);
+
+        has_touchscreen = devices != NULL;
+
+        g_list_free (devices);
+
+        return has_touchscreen;
+}
+
 static void
-set_gtk_im_module (GSettings *settings,
-                   GVariant  *sources)
+set_gtk_im_module (GsdKeyboardManager *manager,
+                   GSettings          *settings,
+                   GVariant           *sources)
 {
         const gchar *new_module;
         gchar *current_module;
 
-        if (need_ibus (sources))
+        if (need_ibus (sources) || need_osk (manager))
                 new_module = GTK_IM_MODULE_IBUS;
         else
                 new_module = GTK_IM_MODULE_SIMPLE;
@@ -414,20 +460,20 @@ set_gtk_im_module (GSettings *settings,
 }
 
 static void
-input_sources_changed (GSettings          *settings,
-                       const char         *key,
-                       GsdKeyboardManager *manager)
+update_gtk_im_module (GsdKeyboardManager *manager)
 {
         GSettings *interface_settings;
         GVariant *sources;
+
         /* Gtk+ uses the IM module advertised in XSETTINGS so, if we
          * have IBus input sources, we want it to load that
          * module. Otherwise we can use the default "simple" module
          * which is builtin gtk+
          */
-        sources = g_settings_get_value (settings, KEY_INPUT_SOURCES);
         interface_settings = g_settings_new (GNOME_DESKTOP_INTERFACE_DIR);
-        set_gtk_im_module (interface_settings, sources);
+        sources = g_settings_get_value (manager->priv->input_sources_settings,
+                                        KEY_INPUT_SOURCES);
+        set_gtk_im_module (manager, interface_settings, sources);
         g_object_unref (interface_settings);
         g_variant_unref (sources);
 }
@@ -686,8 +732,15 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
 	set_devicepresence_handler (manager);
 
         manager->priv->input_sources_settings = g_settings_new (GNOME_DESKTOP_INPUT_SOURCES_DIR);
-        g_signal_connect (manager->priv->input_sources_settings, "changed::"KEY_INPUT_SOURCES,
-                          G_CALLBACK (input_sources_changed), manager);
+        g_signal_connect_swapped (manager->priv->input_sources_settings,
+                                  "changed::" KEY_INPUT_SOURCES,
+                                  G_CALLBACK (update_gtk_im_module), manager);
+
+        manager->priv->a11y_settings = g_settings_new (GNOME_A11Y_APPLICATIONS_INTERFACE_DIR);
+        g_signal_connect_swapped (manager->priv->a11y_settings,
+                                  "changed::" KEY_OSK_ENABLED,
+                                  G_CALLBACK (update_gtk_im_module), manager);
+        update_gtk_im_module (manager);
 
         manager->priv->cancellable = g_cancellable_new ();
 
@@ -750,10 +803,12 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
 
         g_clear_object (&p->settings);
         g_clear_object (&p->input_sources_settings);
+        g_clear_object (&p->a11y_settings);
         g_clear_object (&p->localed);
 
         if (p->device_manager != NULL) {
                 g_signal_handler_disconnect (p->device_manager, p->device_added_id);
+                g_signal_handler_disconnect (p->device_manager, p->device_removed_id);
                 p->device_manager = NULL;
         }
 
