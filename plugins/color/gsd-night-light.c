@@ -423,6 +423,7 @@ poll_timeout_destroy (GsdNightLight *self)
                 return;
 
         g_source_destroy (self->source);
+        g_source_unref (self->source);
         self->source = NULL;
 }
 
