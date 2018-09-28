@@ -132,11 +132,13 @@ envs = [
   'LD_PRELOAD=libumockdev-preload.so.0',
 ]
 
-test(
-  'test-power',
-  test_py,
-#  args: 'PowerPluginTest.test_sleep_inactive_blank',
-  env: envs,
-  timeout: 500
-)
+foreach i : [ 1, 2, 3, 4, 5, 6, 7, 8 ]
+  test(
+    'test-power @0@/8'.format(i),
+    test_py,
+    args: [ 'PowerPluginTest@0@'.format(i) ],
+    env: envs,
+    timeout: 100
+  )
+endforeach
 
