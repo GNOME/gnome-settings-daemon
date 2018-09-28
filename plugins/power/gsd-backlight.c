@@ -50,6 +50,7 @@ struct _GsdBacklight
 #endif
 
         GnomeRRScreen *rr_screen;
+        gboolean builtin_display_disabled;
 };
 
 enum {
@@ -435,11 +436,17 @@ out:
  * of the async brightness setter. This happens when another set operation was
  * queued after it was already running.
  *
- * Returns: The last stable backlight value.
+ * If the internal display is detected as disabled, then the function will
+ * instead return -1.
+ *
+ * Returns: The last stable backlight value or -1 if the internal display is disabled.
  **/
 gint
 gsd_backlight_get_brightness (GsdBacklight *backlight, gint *target)
 {
+        if (backlight->builtin_display_disabled)
+                return -1;
+
         if (target)
                 *target = ABS_TO_PERCENTAGE (backlight->brightness_min, backlight->brightness_max, backlight->brightness_target);
 
@@ -661,6 +668,29 @@ gsd_backlight_get_output_id (GsdBacklight *backlight)
 }
 
 static void
+gsd_backlight_rr_screen_changed_cb (GnomeRRScreen *screen,
+                                    gpointer data)
+{
+        GsdBacklight *backlight = GSD_BACKLIGHT (data);
+        GnomeRROutput *output;
+        gboolean builtin_display_disabled = FALSE;
+
+        /* NOTE: Err on the side of assuming the backlight controlls something
+         *       even if we cannot find the output that belongs to it.
+         *       This might backfire on us obviously if the hardware claims it
+         *       can control a non-existing screen.
+         */
+        output = gsd_backlight_rr_find_output (backlight, FALSE);
+        if (output)
+                builtin_display_disabled = !gnome_rr_output_get_crtc (output);
+
+        if (builtin_display_disabled != backlight->builtin_display_disabled) {
+                backlight->builtin_display_disabled = builtin_display_disabled;
+                g_object_notify_by_pspec (G_OBJECT (backlight), props[PROP_BRIGHTNESS]);
+        }
+}
+
+static void
 gsd_backlight_get_property (GObject    *object,
                             guint       prop_id,
                             GValue     *value,
@@ -694,6 +724,12 @@ gsd_backlight_set_property (GObject      *object,
         switch (prop_id) {
         case PROP_RR_SCREEN:
                 backlight->rr_screen = g_value_dup_object (value);
+
+                g_signal_connect_object (backlight->rr_screen, "changed",
+                                         G_CALLBACK (gsd_backlight_rr_screen_changed_cb),
+                                         object, 0);
+                gsd_backlight_rr_screen_changed_cb (backlight->rr_screen, object);
+
                 break;
 
         default:
