@@ -43,7 +43,9 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
     COMMON_SUSPEND_METHODS=['Suspend', 'Hibernate', 'SuspendThenHibernate']
 
     def setUp(self):
-        os.environ['GSD_MOCKED']='1'
+        self.mock_external_monitor_file = os.path.join(self.workdir, 'GSD_MOCK_EXTERNAL_MONITOR')
+        os.environ['GSD_MOCK_EXTERNAL_MONITOR_FILE'] = self.mock_external_monitor_file
+
         self.check_logind_gnome_session()
         self.start_logind()
         self.daemon_death_expected = False
@@ -168,7 +170,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         Gio.Settings.sync()
 
         try:
-            os.unlink('GSD_MOCK_EXTERNAL_MONITOR')
+            os.unlink(self.mock_external_monitor_file)
         except OSError:
             pass
 
@@ -255,7 +257,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
             val = b'1'
         else:
             val = b'0'
-        GLib.file_set_contents ('GSD_MOCK_EXTERNAL_MONITOR', val)
+        GLib.file_set_contents (self.mock_external_monitor_file, val)
 
     def set_composite_battery_discharging(self, icon='battery-good-symbolic'):
         self.obj_upower.SetupDisplayDevice(
