@@ -351,6 +351,13 @@ on_cups_notification (GDBusConnection *connection,
                       GVariant        *parameters,
                       gpointer         user_data)
 {
+        /* Ignore any signal starting with Server*. This has caused a message
+         * storm through ServerAudit messages in the past, see
+         *  https://gitlab.gnome.org/GNOME/gnome-settings-daemon/issues/62
+         */
+        if (!signal_name || (strncmp (signal_name, "Server", 6) == 0))
+                return;
+
         process_new_notifications (user_data);
 }
 
