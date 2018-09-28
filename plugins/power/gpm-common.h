@@ -36,8 +36,6 @@ gboolean         gsd_power_is_hardware_a_tablet         (void);
 guint            gsd_power_enable_screensaver_watchdog  (void);
 void             reset_idletime                         (void);
 
-gboolean        is_mocked (void);
-
 /* Backlight helpers */
 
 /* on ACPI machines we have 4-16 levels, on others it's ~150 */
