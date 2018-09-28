@@ -221,9 +221,9 @@ gsd_backlight_udev_init (GsdBacklight *backlight)
         if (backlight->udev_device == NULL)
                 return FALSE;
 
-        backlight->brightness_min = 1;
         backlight->brightness_max = g_udev_device_get_sysfs_attr_as_int (backlight->udev_device,
                                                                          "max_brightness");
+        backlight->brightness_min = MAX (1, backlight->brightness_max * 0.01);
 
         /* If the interface has less than 100 possible values, and it is of type
          * raw, then assume that 0 does not turn off the backlight completely. */
@@ -726,7 +726,7 @@ gsd_backlight_initable_init (GInitable       *initable,
         output = gsd_backlight_rr_find_output (backlight, TRUE);
         if (output) {
                 g_debug ("Using GNOME RR (mutter) for backlight.");
-                backlight->brightness_min = 0;
+                backlight->brightness_min = 1;
                 backlight->brightness_max = 100;
                 backlight->brightness_val = gnome_rr_output_get_backlight (output);
                 backlight->brightness_step = gnome_rr_output_get_min_backlight_step (output);
