@@ -121,8 +121,8 @@ gsd_night_light_set_smooth_enabled (GsdNightLight *self,
 static gdouble
 linear_interpolate (gdouble val1, gdouble val2, gdouble factor)
 {
-        g_return_val_if_fail (factor > 0.f, -1.f);
-        g_return_val_if_fail (factor < 1.f, -1.f);
+        g_return_val_if_fail (factor >= 0.f, -1.f);
+        g_return_val_if_fail (factor <= 1.f, -1.f);
         return ((val1 - val2) * factor) + val2;
 }
 
