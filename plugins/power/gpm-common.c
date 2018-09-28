@@ -315,21 +315,20 @@ gsd_power_enable_screensaver_watchdog (void)
 }
 
 static gpointer
-parse_mocked (gpointer data)
+parse_mock_mock_external_monitor (gpointer data)
 {
-	const char *mocked;
-	mocked = g_getenv ("GSD_MOCKED");
-	if (!mocked)
-		return GINT_TO_POINTER (FALSE);
-	return GINT_TO_POINTER (TRUE);
+	const char *mocked_file;
+	mocked_file = g_getenv ("GSD_MOCK_EXTERNAL_MONITOR_FILE");
+
+	return g_strdup (mocked_file);
 }
 
-gboolean
-is_mocked (void)
+static const gchar *
+get_mock_external_monitor_file (void)
 {
 	  static GOnce mocked_once = G_ONCE_INIT;
-	  g_once (&mocked_once, parse_mocked, NULL);
-	  return GPOINTER_TO_INT (mocked_once.retval);
+	  g_once (&mocked_once, parse_mock_mock_external_monitor, NULL);
+	  return mocked_once.retval;
 }
 
 static gboolean
@@ -366,13 +365,15 @@ screen_destroyed (gpointer  user_data,
 void
 watch_external_monitor (GnomeRRScreen *screen)
 {
+	const gchar *filename;
 	GFile *file;
 	GFileMonitor *monitor;
 
-	if (!is_mocked ())
+	filename = get_mock_external_monitor_file ();
+	if (!filename)
 		return;
 
-	file = g_file_new_for_commandline_arg ("GSD_MOCK_EXTERNAL_MONITOR");
+	file = g_file_new_for_commandline_arg (filename);
 	monitor = g_file_monitor (file, G_FILE_MONITOR_NONE, NULL, NULL);
 	g_object_unref (file);
 	g_signal_connect (monitor, "changed",
@@ -384,8 +385,12 @@ static gboolean
 mock_external_monitor_is_connected (GnomeRRScreen *screen)
 {
 	char *mock_external_monitor_contents;
+	const gchar *filename;
 
-	if (g_file_get_contents ("GSD_MOCK_EXTERNAL_MONITOR", &mock_external_monitor_contents, NULL, NULL)) {
+	filename = get_mock_external_monitor_file ();
+	g_assert (filename);
+
+	if (g_file_get_contents (filename, &mock_external_monitor_contents, NULL, NULL)) {
 		if (mock_external_monitor_contents[0] == '1') {
 			g_free (mock_external_monitor_contents);
 			g_debug ("Mock external monitor is on");
@@ -409,7 +414,7 @@ external_monitor_is_connected (GnomeRRScreen *screen)
         GnomeRROutput **outputs;
         guint i;
 
-        if (is_mocked ())
+        if (get_mock_external_monitor_file ())
                 return mock_external_monitor_is_connected (screen);
 
 	g_assert (screen != NULL);
