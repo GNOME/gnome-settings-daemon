@@ -126,6 +126,14 @@ if enable_gudev
 endif
 config_h.set10('HAVE_GUDEV', enable_gudev)
 
+# Linux sysfs backlight support (default enabled)
+enable_sysfs_backlight = get_option('sysfs_backlight')
+if enable_sysfs_backlight
+  assert(enable_gudev, 'GUDev support is required for sysfs backlight support.')
+endif
+config_h.set10('HAVE_SYSFS_BACKLIGHT', enable_sysfs_backlight)
+
+# Timer FD checking
 has_timerfd_create = cc.has_function('timerfd_create')
 config_h.set10('HAVE_TIMERFD', has_timerfd_create)
 
@@ -240,6 +248,7 @@ output += '        Cups support:             ' + enable_cups.to_string() + '\n'
 output += '        Wayland support:          ' + enable_wayland.to_string() + '\n'
 output += '        Wacom support:            ' + enable_wacom.to_string() + '\n'
 output += '        RFKill support:           ' + enable_rfkill.to_string() + '\n'
+output += '        Sysfs backlight support:  ' + enable_sysfs_backlight.to_string() + '\n'
 if enable_smartcard
   output += '        System nssdb:             ' + system_nssdb_dir + '\n'
 endif
