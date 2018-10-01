@@ -18,7 +18,7 @@ deps = plugins_deps + [
   dependency('xext')
 ]
 
-if enable_gudev
+if enable_sysfs_backlight
   deps += gudev_dep
 endif
 
@@ -59,7 +59,7 @@ gsd_power_enums_update = executable(
   c_args: cflags
 )
 
-if enable_gudev
+if enable_sysfs_backlight
   policy = 'org.gnome.settings-daemon.plugins.power.policy'
 
   policy_in = configure_file(
