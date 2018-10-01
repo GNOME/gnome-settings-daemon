@@ -126,6 +126,14 @@ if enable_gudev
 endif
 config_h.set10('HAVE_GUDEV', enable_gudev)
 
+# Linux sysfs backlight support (default enabled)
+enable_sysfs_backlight = get_option('sysfs_backlight')
+if enable_sysfs_backlight and not enable_gudev
+  assert(enable_gudev, 'GUDev support is required for sysfs backlight support.')
+endif
+config_h.set10('HAVE_SYSFS_BACKLIGHT', enable_sysfs_backlight)
+
+# Timer FD checking
 has_timerfd_create = cc.has_function('timerfd_create')
 config_h.set10('HAVE_TIMERFD', has_timerfd_create)
 
