@@ -117,6 +117,10 @@ libgvc = subproject(
 )
 libgvc_dep = libgvc.get_variable('libgvc_dep')
 
+# Suspend-then-hibernate kill switch
+use_suspend_then_hibernate = get_option('experimental_suspend_then_hibernate')
+config_h.set10('USE_SUSPEND_THEN_HIBERNATE', use_suspend_then_hibernate)
+
 # GUdev integration (default enabled)
 enable_gudev = get_option('gudev')
 if enable_gudev
@@ -239,6 +243,7 @@ output += '        Cups support:             ' + enable_cups.to_string() + '\n'
 output += '        Wayland support:          ' + enable_wayland.to_string() + '\n'
 output += '        Wacom support:            ' + enable_wacom.to_string() + '\n'
 output += '        RFKill support:           ' + enable_rfkill.to_string() + '\n'
+output += '        Suspend-then-hibernate:   ' + use_suspend_then_hibernate.to_string() + '\n'
 if enable_smartcard
   output += '        System nssdb:             ' + system_nssdb_dir + '\n'
 endif

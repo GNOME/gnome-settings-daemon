@@ -123,7 +123,8 @@ test_py = find_program('test.py')
 envs = [
 #  'G_DEBUG=fatal_warnings',
   'BUILDDIR=' + meson.current_build_dir(),
-  'TOP_BUILDDIR=' + meson.build_root()
+  'TOP_BUILDDIR=' + meson.build_root(),
+  'USE_SUSPEND_THEN_HIBERNATE=' + (use_suspend_then_hibernate ? '1' : '0'),
 ]
 
 test(
