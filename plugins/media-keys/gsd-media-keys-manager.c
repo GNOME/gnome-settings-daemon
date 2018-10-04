@@ -2008,6 +2008,7 @@ suspend_action (GsdMediaKeysManager *manager,
         g_autoptr(GVariant) retval = NULL;
         g_autoptr(GError) error = NULL;
 
+#if USE_SUSPEND_THEN_HIBERNATE
         retval = g_dbus_proxy_call_sync (manager->priv->logind_proxy,
                                          "CanSuspendThenHibernate",
                                          NULL,
@@ -2025,6 +2026,7 @@ suspend_action (GsdMediaKeysManager *manager,
                 if (g_strcmp0 (s2h, "yes") == 0)
                         action = "SuspendThenHibernate";
         }
+#endif /* USE_SUSPEND_THEN_HIBERNATE */
         g_debug ("Choosing suspend action: %s", action);
 
         power_action (manager, action, allow_interaction);

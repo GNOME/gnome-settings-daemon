@@ -582,6 +582,7 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
         # And check we're not idle
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
 
+    @unittest.skipIf(os.getenv('USE_SUSPEND_THEN_HIBERNATE') is None, "Please set USE_SUSPEND_THEN_HIBERNATE to indicate how g-s-d was compiled")
     def test_sleep_inactive_battery_hibernate_then_suspend(self):
         '''Verify we SuspendThenHibernate on sleep-inactive-battery-timeout when SuspendThenHibernate is available'''
         # Hibernate then suspend is the default
@@ -595,7 +596,10 @@ class PowerPluginTest(gsdtestcase.GSDTestCase):
 
         # suspend should happen after inactive sleep timeout + 1 s notification
         # delay + 1 s error margin
-        self.check_for_suspend(7, methods=['SuspendThenHibernate'])
+        if os.getenv('USE_SUSPEND_THEN_HIBERNATE') == '1':
+            self.check_for_suspend(7, methods=['SuspendThenHibernate'])
+        else:
+            self.check_for_suspend(7, methods=['Suspend'])
 
     def test_sleep_inactive_battery_no_hibernate_then_suspend(self):
         '''Verify we Suspend on sleep-inactive-battery-timeout when SuspendThenHibernate is unavailable'''
