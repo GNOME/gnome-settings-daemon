@@ -1,4 +1,32 @@
 ================
+Version 3.30.1.2
+================
+
+This release by default *removes* the new feature that was added in 3.29.0 to
+use SuspendAndHibernate when available. You can re-enable the feature using the
+"experimental_suspend_then_hibernate" meson option again.
+
+There are two major issues with the new feature in the current form, and fixing
+it will require more changes that are not feasible in the stable release cycle.
+
+The two main issues are:
+ * Hibernation is often not properly supported. The reasons range from it being
+   simply impossible (secure boot), to driver and firmware issues when resuming
+   and also distribution issues where the system is not correctly set-up and
+   we cannot detect the issue.
+ * It was missed that the support added into g-s-d is incomplete and therefore
+   creates an inconsistent user experience. In particular, we have four major
+   methods to suspend the machine, but only two are affected:
+    - hardware power button: will use suspend-then-hibernate if enabled and available
+    - idle suspend: will use suspend-then-hibernate if enabled and available
+    - suspend in gnome-shell: always suspends
+    - lid closing: always suspends (systemd)
+
+Also relevant in this discussion is the proposed change in upstream systemd to
+allow disabling hibernation even if it is detected to work:
+  https://github.com/systemd/systemd/pull/10262
+
+================
 Version 3.30.1.1
 ================
 

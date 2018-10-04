@@ -938,6 +938,7 @@ action_suspend (GsdPowerManager *manager)
                 return;
         }
 
+#if USE_SUSPEND_THEN_HIBERNATE
         retval = g_dbus_proxy_call_sync (manager->priv->logind_proxy,
                                          "CanSuspendThenHibernate",
                                          NULL,
@@ -954,6 +955,7 @@ action_suspend (GsdPowerManager *manager)
                 if (g_strcmp0 (s2h, "yes") == 0)
                         action = "SuspendThenHibernate";
         }
+#endif /* USE_SUSPEND_THEN_HIBERNATE */
         g_debug ("Choosing suspend action: %s", action);
 
         g_dbus_proxy_call (manager->priv->logind_proxy,
