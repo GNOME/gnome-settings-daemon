@@ -453,6 +453,7 @@ static FixedEntry fixed_entries [] = {
         { "Gtk/AutoMnemonics",       fixed_true_int },
         { "Gtk/DialogsUseHeader",    fixed_true_int },
         { "Gtk/SessionBusId",        fixed_bus_id },
+        { "Gtk/ShellShowsAppMenu",   fixed_false_int },
         { "Gtk/ColorPalette",        fixed_string,      { .str = DEFAULT_COLOR_PALETTE } },
         { "Net/FallbackIconTheme",   fixed_string,      { .str = "gnome" } },
         { "Gtk/ToolbarStyle",        fixed_string,      { .str =  "both-horiz" } },
@@ -1002,36 +1003,6 @@ start_fontconfig_monitor (GnomeXSettingsManager  *manager)
 }
 
 static void
-notify_have_shell (GnomeXSettingsManager   *manager,
-                   gboolean                 have_shell)
-{
-        gnome_settings_profile_start (NULL);
-        if (manager->priv->have_shell == have_shell)
-                return;
-        manager->priv->have_shell = have_shell;
-        xsettings_manager_set_int (manager->priv->manager, "Gtk/ShellShowsAppMenu", have_shell);
-        queue_notify (manager);
-        gnome_settings_profile_end (NULL);
-}
-
-static void
-on_shell_appeared (GDBusConnection *connection,
-                   const gchar     *name,
-                   const gchar     *name_owner,
-                   gpointer         user_data)
-{
-        notify_have_shell (user_data, TRUE);
-}
-
-static void
-on_shell_disappeared (GDBusConnection *connection,
-                      const gchar     *name,
-                      gpointer         user_data)
-{
-        notify_have_shell (user_data, FALSE);
-}
-
-static void
 process_value (GnomeXSettingsManager *manager,
                TranslationEntry      *trans,
                GVariant              *value)
@@ -1136,20 +1107,6 @@ setup_xsettings_managers (GnomeXSettingsManager *manager)
         }
 
         return TRUE;
-}
-
-static void
-start_shell_monitor (GnomeXSettingsManager *manager)
-{
-        notify_have_shell (manager, TRUE);
-        manager->priv->have_shell = TRUE;
-        manager->priv->shell_name_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
-                                                               "org.gnome.Shell",
-                                                               0,
-                                                               on_shell_appeared,
-                                                               on_shell_disappeared,
-                                                               manager,
-                                                               NULL);
 }
 
 static void
@@ -1338,8 +1295,6 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
         register_manager_dbus (manager);
 
         start_fontconfig_monitor (manager);
-
-        start_shell_monitor (manager);
 
         overrides = g_settings_get_value (manager->priv->plugin_settings, XSETTINGS_OVERRIDE_KEY);
         xsettings_manager_set_overrides (manager->priv->manager, overrides);
