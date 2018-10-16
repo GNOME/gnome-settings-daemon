@@ -88,8 +88,8 @@
 #define OSD_ALL_OUTPUTS -1
 
 /* How long to suppress power-button presses after resume,
- * 1 second is the minimum necessary to make resume reliable */
-#define GSD_REENABLE_POWER_BUTTON_DELAY                 1000 /* ms */
+ * 3 seconds is the minimum necessary to make resume reliable */
+#define GSD_REENABLE_POWER_BUTTON_DELAY                 3000 /* ms */
 
 static const gchar introspection_xml[] =
 "<node name='/org/gnome/SettingsDaemon/MediaKeys'>"
