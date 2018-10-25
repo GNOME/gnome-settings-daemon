@@ -97,21 +97,6 @@ device_set_property (XDevice        *xdevice,
         return TRUE;
 }
 
-gboolean
-supports_xtest (void)
-{
-        gint op_code, event, error;
-        gboolean retval;
-
-        retval = XQueryExtension (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-				  "XTEST",
-				  &op_code,
-				  &event,
-				  &error);
-
-	return retval;
-}
-
 static gboolean
 device_type_is_present (GsdDeviceType type)
 {

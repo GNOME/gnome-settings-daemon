@@ -44,8 +44,6 @@ typedef struct {
         } data;
 } PropertyHelper;
 
-gboolean  supports_xtest           (void);
-
 gboolean  touchpad_is_present     (void);
 gboolean  touchscreen_is_present  (void);
 gboolean  mouse_is_present        (void);
