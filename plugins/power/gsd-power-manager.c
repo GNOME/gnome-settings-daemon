@@ -141,7 +141,6 @@ struct GsdPowerManagerPrivate
         /* Screensaver */
         GsdScreenSaver          *screensaver_proxy;
         gboolean                 screensaver_active;
-        GHashTable              *disabled_devices;
 
         /* State */
         gboolean                 lid_is_present;
@@ -985,61 +984,6 @@ action_hibernate (GsdPowerManager *manager)
 }
 
 static void
-screen_devices_disable (GsdPowerManager *manager)
-{
-        GdkDeviceManager *device_manager;
-        GList *devices, *l;
-
-        /* This will be managed by the compositor eventually on X11 too:
-         * https://bugzilla.gnome.org/show_bug.cgi?id=742598
-         */
-        if (gnome_settings_is_wayland ())
-                return;
-
-        device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
-        devices = gdk_device_manager_list_devices (device_manager, GDK_DEVICE_TYPE_SLAVE);
-        for (l = devices; l != NULL; l = l->next ) {
-                GdkDevice *device = l->data;
-                GdkInputSource source;
-
-                source = gdk_device_get_source (device);
-
-                if (source == GDK_SOURCE_PEN ||
-                    source == GDK_SOURCE_ERASER ||
-                    source == GDK_SOURCE_TOUCHSCREEN) {
-                        int device_id;
-
-                        g_object_get (device, "device-id", &device_id, NULL);
-                        g_hash_table_insert (manager->priv->disabled_devices,
-                                             GINT_TO_POINTER (device_id),
-                                             GINT_TO_POINTER (TRUE));
-                }
-        }
-        g_list_free (devices);
-
-        devices = g_hash_table_get_keys (manager->priv->disabled_devices);
-        for (l = devices; l != NULL; l = l->next)
-                set_device_enabled (GPOINTER_TO_INT (l->data), FALSE);
-        g_list_free (devices);
-}
-
-static void
-screen_devices_enable (GsdPowerManager *manager)
-{
-        GList *l, *disabled_devices;
-
-        if (gnome_settings_is_wayland ())
-                return;
-
-        disabled_devices = g_hash_table_get_keys (manager->priv->disabled_devices);
-        for (l = disabled_devices; l != NULL; l = l->next)
-                set_device_enabled (GPOINTER_TO_INT (l->data), TRUE);
-        g_list_free (disabled_devices);
-
-        g_hash_table_remove_all (manager->priv->disabled_devices);
-}
-
-static void
 iio_proxy_claim_light (GsdPowerManager *manager, gboolean active)
 {
         GError *error = NULL;
@@ -1093,8 +1037,6 @@ backlight_enable (GsdPowerManager *manager)
                 g_error_free (error);
         }
 
-        screen_devices_enable (manager);
-
         g_debug ("TESTSUITE: Unblanked screen");
 }
 
@@ -1117,8 +1059,6 @@ backlight_disable (GsdPowerManager *manager)
         g_debug("Is tablet: %d", manager->priv->is_tablet);
         if (manager->priv->is_tablet)
                 action_suspend (manager);
-        else
-                screen_devices_disable (manager);
 
         g_debug ("TESTSUITE: Blanked screen");
 }
@@ -1946,8 +1886,6 @@ gsd_power_manager_finalize (GObject *object)
 
         gsd_power_manager_stop (manager);
 
-        g_clear_pointer (&manager->priv->disabled_devices, g_hash_table_unref);
-
         g_clear_object (&manager->priv->connection);
 
         if (manager->priv->name_id != 0)
@@ -2725,8 +2663,6 @@ gsd_power_manager_stop (GsdPowerManager *manager)
 {
         g_debug ("Stopping power manager");
 
-        screen_devices_enable (manager);
-
         if (manager->priv->inhibit_lid_switch_timer_id != 0) {
                 g_source_remove (manager->priv->inhibit_lid_switch_timer_id);
                 manager->priv->inhibit_lid_switch_timer_id = 0;
@@ -2788,7 +2724,6 @@ gsd_power_manager_init (GsdPowerManager *manager)
         manager->priv->inhibit_lid_switch_fd = -1;
         manager->priv->inhibit_suspend_fd = -1;
         manager->priv->cancellable = g_cancellable_new ();
-        manager->priv->disabled_devices = g_hash_table_new (g_direct_hash, g_direct_equal);
 }
 
 /* returns new level */

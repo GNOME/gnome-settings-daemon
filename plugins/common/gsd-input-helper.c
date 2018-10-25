@@ -316,29 +316,6 @@ out:
         return id;
 }
 
-gboolean
-set_device_enabled (int device_id,
-                    gboolean enabled)
-{
-        Atom prop;
-        guchar value;
-
-        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Device Enabled", False);
-        if (!prop)
-                return FALSE;
-
-        gdk_error_trap_push ();
-
-        value = enabled ? 1 : 0;
-        XIChangeProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                          device_id, prop, XA_INTEGER, 8, PropModeReplace, &value, 1);
-
-        if (gdk_error_trap_pop ())
-                return FALSE;
-
-        return TRUE;
-}
-
 const char *
 xdevice_get_wacom_tool_type (int deviceid)
 {
