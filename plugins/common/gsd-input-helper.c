@@ -30,21 +30,6 @@
 
 #include "gsd-input-helper.h"
 
-gboolean
-supports_xtest (void)
-{
-        gint op_code, event, error;
-        gboolean retval;
-
-        retval = XQueryExtension (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-				  "XTEST",
-				  &op_code,
-				  &event,
-				  &error);
-
-	return retval;
-}
-
 char *
 xdevice_get_device_node (int deviceid)
 {
