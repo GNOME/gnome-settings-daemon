@@ -141,7 +141,6 @@ struct GsdPowerManagerPrivate
         /* Screensaver */
         GsdScreenSaver          *screensaver_proxy;
         gboolean                 screensaver_active;
-        GHashTable              *disabled_devices;
 
         /* State */
         gboolean                 lid_is_present;
@@ -1888,8 +1887,6 @@ gsd_power_manager_finalize (GObject *object)
 
         gsd_power_manager_stop (manager);
 
-        g_clear_pointer (&manager->priv->disabled_devices, g_hash_table_unref);
-
         g_clear_object (&manager->priv->connection);
 
         if (manager->priv->name_id != 0)
@@ -2722,7 +2719,6 @@ gsd_power_manager_init (GsdPowerManager *manager)
         manager->priv->inhibit_lid_switch_fd = -1;
         manager->priv->inhibit_suspend_fd = -1;
         manager->priv->cancellable = g_cancellable_new ();
-        manager->priv->disabled_devices = g_hash_table_new (g_direct_hash, g_direct_equal);
 }
 
 /* returns new level */
