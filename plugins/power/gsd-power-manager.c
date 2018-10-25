@@ -2626,12 +2626,6 @@ gsd_power_manager_start (GsdPowerManager *manager,
                 return FALSE;
         }
 
-        /* Check for XTEST support */
-        if (supports_xtest () == FALSE) {
-                g_debug ("XTEST extension required, disabling plugin");
-                return FALSE;
-        }
-
         /* coldplug the list of screens */
         gnome_rr_screen_new_async (gdk_screen_get_default (),
                                    on_rr_screen_acquired, manager);
