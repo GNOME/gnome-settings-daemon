@@ -97,23 +97,6 @@ device_set_property (XDevice        *xdevice,
         return TRUE;
 }
 
-static gboolean
-supports_xinput_devices_with_opcode (int *opcode)
-{
-        gint op_code, event, error;
-        gboolean retval;
-
-        retval = XQueryExtension (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-				  "XInputExtension",
-				  &op_code,
-				  &event,
-				  &error);
-	if (opcode)
-		*opcode = op_code;
-
-	return retval;
-}
-
 gboolean
 supports_xtest (void)
 {
@@ -127,31 +110,6 @@ supports_xtest (void)
 				  &error);
 
 	return retval;
-}
-
-gboolean
-supports_xinput2_devices (int *opcode)
-{
-        int major, minor;
-
-        if (supports_xinput_devices_with_opcode (opcode) == FALSE)
-                return FALSE;
-
-        gdk_error_trap_push ();
-
-        major = 2;
-        minor = 3;
-
-        if (XIQueryVersion (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &major, &minor) != Success) {
-                gdk_error_trap_pop_ignored ();
-                    return FALSE;
-        }
-        gdk_error_trap_pop_ignored ();
-
-        if ((major * 1000 + minor) < (2000))
-                return FALSE;
-
-        return TRUE;
 }
 
 static gboolean

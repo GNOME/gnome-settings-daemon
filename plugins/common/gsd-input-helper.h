@@ -44,7 +44,6 @@ typedef struct {
         } data;
 } PropertyHelper;
 
-gboolean  supports_xinput2_devices (int *opcode);
 gboolean  supports_xtest           (void);
 
 gboolean  touchpad_is_present     (void);
