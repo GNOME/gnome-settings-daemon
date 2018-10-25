@@ -14,7 +14,6 @@ deps = plugins_deps + [
   m_dep,
   upower_glib_dep,
   x11_dep,
-  xtst_dep,
   dependency('xext')
 ]
 
