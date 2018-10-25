@@ -26,8 +26,6 @@ G_BEGIN_DECLS
 #include <X11/extensions/XInput.h>
 #include <X11/extensions/XIproto.h>
 
-gboolean  supports_xtest           (void);
-
 char *    xdevice_get_device_node  (int                     deviceid);
 
 G_END_DECLS
