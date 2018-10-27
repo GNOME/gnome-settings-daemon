@@ -58,6 +58,7 @@ struct GsdColorStatePrivate
         GdkWindow       *gdk_window;
         gboolean         session_is_active;
         GHashTable      *device_assign_hash;
+        GHashTable      *atom_ids;
         guint            color_temperature;
 };
 
@@ -126,15 +127,93 @@ gcm_session_get_output_edid (GsdColorState *state, GnomeRROutput *output, GError
         return edid;
 }
 
+/* this function is more complicated than it should be, due to the
+ * fact that XOrg sometimes assigns no primary devices when using
+ * "xrandr --auto" or when the version of RANDR is < 1.3 */
+static gchar *
+gcm_session_get_output_atom_id (GsdColorState *state,
+                                GnomeRROutput *output)
+{
+        guint primary = -1;
+        guint laptop = -1;
+        GnomeRROutput **outputs;
+        guint i;
+        guint output_id;
+        guint atom_id = 0;
+
+        if (gnome_rr_output_get_is_primary (output))
+                return g_strdup ("_ICC_PROFILE");
+
+        outputs = gnome_rr_screen_list_outputs (state->priv->state_screen);
+        if (outputs == NULL) {
+                g_warning ("failed to get outputs");
+                return NULL;
+        }
+
+        output_id = gnome_rr_output_get_id (output);
+
+        for (i = 0; outputs[i] != NULL; i++) {
+                if (gnome_rr_output_get_is_primary (outputs[i]))
+                        primary = i;
+                if (gnome_rr_output_is_builtin_display (outputs[i]))
+                        laptop = i;
+                if (gnome_rr_output_get_id (outputs[i]) == output_id)
+                        atom_id = i;
+        }
+
+        // if there is no primary screen on a laptop, choose the builtin screen
+        if (primary < 0 && laptop >= 0)
+                primary = laptop;
+
+        // count as if the primary screen was the first screen
+        if (primary > 0 && atom_id < primary)
+                atom_id++;
+
+        g_debug ("screen '%s' is X atom number %d", gnome_rr_output_get_name (output), atom_id);
+
+        if (atom_id == 0)
+                return g_strdup ("_ICC_PROFILE");
+        else
+                return g_strdup_printf ("_ICC_PROFILE_%d", atom_id);
+}
+
+static void
+gcm_session_output_remove_atom_profile (GsdColorState *state,
+                                        GnomeRROutput *output)
+{
+        gchar *atom_id = NULL;
+
+        if (state->priv->gdk_window == NULL)
+                return;
+
+        atom_id = g_hash_table_lookup (state->priv->atom_ids, gnome_rr_output_get_name (output));
+        if (atom_id == NULL)
+                return;
+
+        gdk_property_delete (state->priv->gdk_window,
+                             gdk_atom_intern_static_string (atom_id));
+        g_free (atom_id);
+
+        g_hash_table_remove (state->priv->atom_ids,
+                             gnome_rr_output_get_name (output));
+
+        if (g_hash_table_size (state->priv->atom_ids) == 0) {
+                gdk_property_delete (state->priv->gdk_window,
+                gdk_atom_intern_static_string ("_ICC_PROFILE_IN_X_VERSION"));
+        }
+}
+
 static gboolean
 gcm_session_screen_set_icc_profile (GsdColorState *state,
                                     const gchar *filename,
+                                    GnomeRROutput *output,
                                     GError **error)
 {
         gchar *data = NULL;
         gsize length;
         guint version_data;
         GsdColorStatePrivate *priv = state->priv;
+        gchar *atom_id = NULL;
 
         g_return_val_if_fail (filename != NULL, FALSE);
 
@@ -150,24 +229,31 @@ gcm_session_screen_set_icc_profile (GsdColorState *state,
         if (!g_file_get_contents (filename, &data, &length, error))
                 return FALSE;
 
-        /* set profile property */
-        gdk_property_change (priv->gdk_window,
-                             gdk_atom_intern_static_string ("_ICC_PROFILE"),
-                             gdk_atom_intern_static_string ("CARDINAL"),
-                             8,
-                             GDK_PROP_MODE_REPLACE,
-                             (const guchar *) data, length);
+        atom_id = gcm_session_get_output_atom_id (state, output);
+        if (atom_id != NULL) {
+                /* set profile property */
+                gdk_property_change (priv->gdk_window,
+                                     gdk_atom_intern_static_string (atom_id),
+                                     gdk_atom_intern_static_string ("CARDINAL"),
+                                     8,
+                                     GDK_PROP_MODE_REPLACE,
+                                     (const guchar *) data, length);
 
-        /* set version property */
-        version_data = GCM_ICC_PROFILE_IN_X_VERSION_MAJOR * 100 +
-                        GCM_ICC_PROFILE_IN_X_VERSION_MINOR * 1;
-        gdk_property_change (priv->gdk_window,
-                             gdk_atom_intern_static_string ("_ICC_PROFILE_IN_X_VERSION"),
-                             gdk_atom_intern_static_string ("CARDINAL"),
-                             8,
-                             GDK_PROP_MODE_REPLACE,
-                             (const guchar *) &version_data, 1);
+                /* set version property */
+                version_data = GCM_ICC_PROFILE_IN_X_VERSION_MAJOR * 100 +
+                               GCM_ICC_PROFILE_IN_X_VERSION_MINOR * 1;
+                gdk_property_change (priv->gdk_window,
+                                     gdk_atom_intern_static_string ("_ICC_PROFILE_IN_X_VERSION"),
+                                     gdk_atom_intern_static_string ("CARDINAL"),
+                                     8,
+                                     GDK_PROP_MODE_REPLACE,
+                                     (const guchar *) &version_data, 1);
 
+                g_hash_table_insert (priv->atom_ids,
+                                     g_strdup (gnome_rr_output_get_name (output)),
+                                     g_strdup (atom_id));
+                g_free (atom_id);
+        }
         g_free (data);
         return TRUE;
 }
@@ -633,50 +719,6 @@ out:
         return output;
 }
 
-/* this function is more complicated than it should be, due to the
- * fact that XOrg sometimes assigns no primary devices when using
- * "xrandr --auto" or when the version of RANDR is < 1.3 */
-static gboolean
-gcm_session_use_output_profile_for_screen (GsdColorState *state,
-                                           GnomeRROutput *output)
-{
-        gboolean has_laptop = FALSE;
-        gboolean has_primary = FALSE;
-        GnomeRROutput **outputs;
-        GnomeRROutput *connected = NULL;
-        guint i;
-
-        /* do we have any screens marked as primary */
-        outputs = gnome_rr_screen_list_outputs (state->priv->state_screen);
-        if (outputs == NULL || outputs[0] == NULL) {
-                g_warning ("failed to get outputs");
-                return FALSE;
-        }
-        for (i = 0; outputs[i] != NULL; i++) {
-                if (connected == NULL)
-                        connected = outputs[i];
-                if (gnome_rr_output_get_is_primary (outputs[i]))
-                        has_primary = TRUE;
-                if (gnome_rr_output_is_builtin_display (outputs[i]))
-                        has_laptop = TRUE;
-        }
-
-        /* we have an assigned primary device, are we that? */
-        if (has_primary)
-                return gnome_rr_output_get_is_primary (output);
-
-        /* choosing the internal panel is probably sane */
-        if (has_laptop)
-                return gnome_rr_output_is_builtin_display (output);
-
-        /* we have to choose one, so go for the first connected device */
-        if (connected != NULL)
-                return gnome_rr_output_get_id (connected) == gnome_rr_output_get_id (output);
-
-        return FALSE;
-}
-
-/* TODO: remove when we can dep on a released version of colord */
 #ifndef CD_PROFILE_METADATA_SCREEN_BRIGHTNESS
 #define CD_PROFILE_METADATA_SCREEN_BRIGHTNESS		"SCREEN_brightness"
 #endif
@@ -757,16 +799,14 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
         }
 
         /* set the _ICC_PROFILE atom */
-        ret = gcm_session_use_output_profile_for_screen (state, output);
-        if (ret) {
-                ret = gcm_session_screen_set_icc_profile (state,
-                                                          filename,
-                                                          &error);
-                if (!ret) {
-                        g_warning ("failed to set screen _ICC_PROFILE: %s",
-                                   error->message);
-                        g_clear_error (&error);
-                }
+        ret = gcm_session_screen_set_icc_profile (state,
+                                                  filename,
+                                                  output,
+                                                  &error);
+        if (!ret) {
+                g_warning ("failed to set screen _ICC_PROFILE: %s",
+                           error->message);
+                g_clear_error (&error);
         }
 
         /* create a vcgt for this icc file */
@@ -919,14 +959,7 @@ gcm_session_device_assign_connect_cb (GObject *object,
                 g_debug ("%s has no default profile to set",
                          cd_device_get_id (device));
 
-                /* the default output? */
-                if (gnome_rr_output_get_is_primary (output) &&
-                    priv->gdk_window != NULL) {
-                        gdk_property_delete (priv->gdk_window,
-                                             gdk_atom_intern_static_string ("_ICC_PROFILE"));
-                        gdk_property_delete (priv->gdk_window,
-                                             gdk_atom_intern_static_string ("_ICC_PROFILE_IN_X_VERSION"));
-                }
+                gcm_session_output_remove_atom_profile (state, output);
 
                 /* reset, as we want linear profiles for profiling */
                 ret = gcm_session_device_reset_gamma (output,
@@ -1193,6 +1226,8 @@ gnome_rr_screen_output_removed_cb (GnomeRRScreen *screen,
 {
         g_debug ("output %s removed",
                  gnome_rr_output_get_name (output));
+
+        gcm_session_output_remove_atom_profile (state, output);
         g_hash_table_remove (state->priv->edid_cache,
                              gnome_rr_output_get_name (output));
         cd_client_find_device_by_property (state->priv->client,
@@ -1515,6 +1550,12 @@ gsd_color_state_init (GsdColorState *state)
                                                           g_free,
                                                           NULL);
 
+        /* keep the _ICC_PROFILE atoms */
+        priv->atom_ids = g_hash_table_new_full (g_str_hash,
+                                                g_str_equal,
+                                                g_free,
+                                                NULL);
+
         /* default color temperature */
         priv->color_temperature = GSD_COLOR_TEMPERATURE_DEFAULT;
 
@@ -1537,6 +1578,7 @@ gsd_color_state_finalize (GObject *object)
         g_clear_object (&state->priv->session);
         g_clear_pointer (&state->priv->edid_cache, g_hash_table_destroy);
         g_clear_pointer (&state->priv->device_assign_hash, g_hash_table_destroy);
+        g_clear_pointer (&state->priv->atom_ids, g_hash_table_destroy);
         g_clear_object (&state->priv->state_screen);
 
         G_OBJECT_CLASS (gsd_color_state_parent_class)->finalize (object);
