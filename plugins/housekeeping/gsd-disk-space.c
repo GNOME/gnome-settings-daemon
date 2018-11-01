@@ -575,6 +575,7 @@ ldsm_notify (const char *summary,
         notify_notification_set_hint (notification, "transient", g_variant_new_boolean (TRUE));
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_CRITICAL);
         notify_notification_set_timeout (notification, NOTIFY_EXPIRES_DEFAULT);
+        notify_notification_set_hint_string (notification, "desktop-entry", "org.gnome.baobab");
 
         program = g_find_program_in_path (DISK_SPACE_ANALYZER);
         has_disk_analyzer = (program != NULL);
