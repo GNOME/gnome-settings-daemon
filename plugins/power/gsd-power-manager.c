@@ -323,6 +323,7 @@ create_notification (const char *summary,
         notification = notify_notification_new (summary, body, icon_name);
         /* TRANSLATORS: this is the notification application name */
         notify_notification_set_app_name (notification, _("Power"));
+        notify_notification_set_hint_string (notification, "desktop-entry", "gnome-power-panel");
         notify_notification_set_urgency (notification,
                                          NOTIFY_URGENCY_CRITICAL);
         *weak_pointer_location = notification;

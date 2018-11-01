@@ -116,6 +116,7 @@ timezone_changed_cb (GsdTimezoneMonitor *timezone_monitor,
         g_free (notification_summary);
 
         notify_notification_set_app_name (self->priv->notification, _("Date & Time Settings"));
+        notify_notification_set_hint_string (self->priv->notification, "desktop-entry", "gnome-datetime-panel");
         notify_notification_set_urgency (self->priv->notification, NOTIFY_URGENCY_NORMAL);
         notify_notification_set_timeout (self->priv->notification, NOTIFY_EXPIRES_NEVER);
 
