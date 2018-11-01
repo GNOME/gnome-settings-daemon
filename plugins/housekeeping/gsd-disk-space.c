@@ -571,7 +571,7 @@ ldsm_notify (const char *summary,
                           G_CALLBACK (on_notification_closed),
                           NULL);
 
-        notify_notification_set_app_name (notification, _("Disk space"));
+        notify_notification_set_app_name (notification, _("Disk Space"));
         notify_notification_set_hint (notification, "transient", g_variant_new_boolean (TRUE));
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_CRITICAL);
         notify_notification_set_timeout (notification, NOTIFY_EXPIRES_DEFAULT);
