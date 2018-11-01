@@ -137,6 +137,7 @@ gcm_session_notify_recalibrate (GsdColorCalibrate *calibrate,
         notify_notification_set_timeout (notification, GCM_SESSION_NOTIFY_TIMEOUT);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_LOW);
         notify_notification_set_app_name (notification, _("Color"));
+        notify_notification_set_hint_string (notification, "desktop-entry", "gnome-color-panel");
 
         notify_notification_add_action (notification,
                                         "recalibrate",

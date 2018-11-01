@@ -1029,6 +1029,7 @@ handle_method_call (GDBusConnection       *connection,
                                                         secondary_text,
                                                         "printer-symbolic");
                 notify_notification_set_app_name (notification, _("Printers"));
+                notify_notification_set_hint_string (notification, "desktop-entry", "gnome-printers-panel");
                 notify_notification_set_hint (notification, "transient", g_variant_new_boolean (TRUE));
 
                 notify_notification_show (notification, NULL);
