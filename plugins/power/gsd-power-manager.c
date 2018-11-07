@@ -312,10 +312,33 @@ on_notification_closed (NotifyNotification *notification, gpointer data)
     g_object_unref (notification);
 }
 
+/* See PrivacyScope in messageTray.js in gnome-shell. A notification with
+ * ‘system’ scope has its detailed description shown in the lock screen. ‘user’
+ * scope notifications don’t (because they could contain private information). */
+typedef enum
+{
+        NOTIFICATION_PRIVACY_USER,
+        NOTIFICATION_PRIVACY_SYSTEM,
+} NotificationPrivacyScope;
+
+static const gchar *
+notification_privacy_scope_to_string (NotificationPrivacyScope scope)
+{
+        switch (scope) {
+        case NOTIFICATION_PRIVACY_USER:
+                return "user";
+        case NOTIFICATION_PRIVACY_SYSTEM:
+                return "system";
+        default:
+                g_assert_not_reached ();
+        }
+}
+
 static void
 create_notification (const char *summary,
                      const char *body,
                      const char *icon_name,
+                     NotificationPrivacyScope privacy_scope,
                      NotifyNotification **weak_pointer_location)
 {
         NotifyNotification *notification;
@@ -324,6 +347,8 @@ create_notification (const char *summary,
         /* TRANSLATORS: this is the notification application name */
         notify_notification_set_app_name (notification, _("Power"));
         notify_notification_set_hint_string (notification, "desktop-entry", "gnome-power-panel");
+        notify_notification_set_hint_string (notification, "x-gnome-privacy-scope",
+                                             notification_privacy_scope_to_string (privacy_scope));
         notify_notification_set_urgency (notification,
                                          NOTIFY_URGENCY_CRITICAL);
         *weak_pointer_location = notification;
@@ -377,7 +402,7 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
 
         /* create a new notification */
         create_notification (title, message->str,
-                             icon_name,
+                             icon_name, NOTIFICATION_PRIVACY_SYSTEM,
                              &manager->priv->notification_ups_discharging);
         notify_notification_set_timeout (manager->priv->notification_ups_discharging,
                                          GSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG);
@@ -522,7 +547,7 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
 
         /* create a new notification */
         create_notification (title, message,
-                             icon_name,
+                             icon_name, NOTIFICATION_PRIVACY_SYSTEM,
                              &manager->priv->notification_low);
         notify_notification_set_timeout (manager->priv->notification_low,
                                          GSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG);
@@ -670,7 +695,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
 
         /* create a new notification */
         create_notification (title, message,
-                             icon_name,
+                             icon_name, NOTIFICATION_PRIVACY_SYSTEM,
                              &manager->priv->notification_low);
         notify_notification_set_timeout (manager->priv->notification_low,
                                          NOTIFY_EXPIRES_NEVER);
@@ -775,7 +800,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
 
         /* create a new notification */
         create_notification (title, message,
-                             icon_name,
+                             icon_name, NOTIFICATION_PRIVACY_SYSTEM,
                              &manager->priv->notification_low);
         notify_notification_set_timeout (manager->priv->notification_low,
                                          NOTIFY_EXPIRES_NEVER);
@@ -2027,17 +2052,17 @@ show_sleep_warning (GsdPowerManager *manager)
         switch (manager->priv->sleep_action_type) {
         case GSD_POWER_ACTION_LOGOUT:
                 create_notification (_("Automatic logout"), _("You will soon log out because of inactivity."),
-                                     NULL,
+                                     NULL, NOTIFICATION_PRIVACY_USER,
                                      &manager->priv->notification_sleep_warning);
                 break;
         case GSD_POWER_ACTION_SUSPEND:
                 create_notification (_("Automatic suspend"), _("Computer will suspend very soon because of inactivity."),
-                                     NULL,
+                                     NULL, NOTIFICATION_PRIVACY_SYSTEM,
                                      &manager->priv->notification_sleep_warning);
                 break;
         case GSD_POWER_ACTION_HIBERNATE:
                 create_notification (_("Automatic hibernation"), _("Computer will suspend very soon because of inactivity."),
-                                     NULL,
+                                     NULL, NOTIFICATION_PRIVACY_SYSTEM,
                                      &manager->priv->notification_sleep_warning);
                 break;
         default:
