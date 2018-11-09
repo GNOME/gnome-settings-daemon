@@ -234,11 +234,19 @@ queue_periodic_timeout (GsdAccountManager *manager)
         }
 
         if (manager->priv->notify_period > 0) {
-                gint64 already_elapsed_time;
+                gint64 seconds_since_last_notification;
+                guint seconds_between_notifications;
+                guint seconds_until_next_notification;
 
-                already_elapsed_time = MAX (0, (g_get_monotonic_time () - manager->priv->last_notify_time) / G_USEC_PER_SEC);
+                seconds_since_last_notification = MAX (0, (g_get_monotonic_time () - manager->priv->last_notify_time) / G_USEC_PER_SEC);
+                seconds_between_notifications = manager->priv->notify_period * 60;
 
-                manager->priv->notify_period_timeout_id = g_timeout_add_seconds (MAX (0, manager->priv->notify_period * 60 - already_elapsed_time),
+                if (seconds_since_last_notification > seconds_between_notifications)
+                        seconds_until_next_notification = seconds_between_notifications;
+                else
+                        seconds_until_next_notification = seconds_between_notifications - seconds_since_last_notification;
+
+                manager->priv->notify_period_timeout_id = g_timeout_add_seconds (seconds_until_next_notification,
                                                                                  (GSourceFunc) on_notify_period_elapsed,
                                                                                  manager);
         }
