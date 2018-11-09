@@ -169,11 +169,14 @@ struct GsdMediaKeysManagerPrivate
         GHashTable      *streams; /* key = X device ID, value = stream id */
         GUdevClient     *udev_client;
 #endif /* HAVE_GUDEV */
-        guint            audio_selection_watch_id;
-        guint            audio_selection_signal_id;
-        GDBusConnection *audio_selection_conn;
-        gboolean         audio_selection_requested;
-        guint            audio_selection_device_id;
+
+        guint                 audio_selection_watch_id;
+        guint                 audio_selection_signal_id;
+        GDBusConnection      *audio_selection_conn;
+        gboolean              audio_selection_requested;
+        gboolean              audio_selection_pending;
+        guint                 audio_selection_device_id;
+        GvcHeadsetPortChoice  audio_selection_choices;
 
         GSettings       *settings;
         GHashTable      *custom_settings;
@@ -2688,8 +2691,12 @@ audio_selection_needed (GvcMixerControl      *control,
         gchar *args[G_N_ELEMENTS (audio_selection_choices) + 1];
         guint i, n;
 
-        if (!priv->audio_selection_conn)
+        if (!priv->audio_selection_conn) {
+                priv->audio_selection_pending = show_dialog;
+                priv->audio_selection_device_id = id;
+                priv->audio_selection_choices = choices;
                 return;
+        }
 
         if (priv->audio_selection_requested) {
                 g_dbus_connection_call (priv->audio_selection_conn,
@@ -2744,6 +2751,16 @@ audio_selection_appeared (GDBusConnection *connection,
                                                     audio_selection_done,
                                                     manager,
                                                     NULL);
+
+        if (manager->priv->audio_selection_pending) {
+                manager->priv->audio_selection_pending = FALSE;
+                /* Emulate audio_selection_needed call */
+                audio_selection_needed (manager->priv->volume,
+                                        manager->priv->audio_selection_device_id,
+                                        TRUE,
+                                        manager->priv->audio_selection_choices,
+                                        manager);
+       }
 }
 
 static void
