@@ -81,7 +81,7 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
         shutil.copy(os.path.join(os.path.dirname(__file__), 'gtk-modules-test/pk-gtk-module.desktop'),
                 os.path.join(modules_dir, 'pk-gtk-module.desktop'))
 
-        self.settings_sound = Gio.Settings('org.gnome.desktop.sound')
+        self.settings_sound = Gio.Settings.new('org.gnome.desktop.sound')
 
         env = os.environ.copy()
         self.daemon = subprocess.Popen(
