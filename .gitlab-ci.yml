@@ -57,7 +57,7 @@ deploy:
   script:
     - meson . _build
     - ninja -C _build
-    - meson test -C _build
+    - meson test -C _build --verbose
     - ninja dist -C _build
   only:
     - tags
