@@ -136,6 +136,6 @@ test(
   test_py,
 #  args: 'PowerPluginTest.test_sleep_inactive_blank',
   env: envs,
-  timeout: 500
+  timeout: 1500
 )
 
