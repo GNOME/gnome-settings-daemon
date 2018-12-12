@@ -33,6 +33,7 @@
 struct _GsdNightLight {
         GObject            parent;
         GSettings         *settings;
+        gboolean           forced;
         gboolean           disabled_until_tmw;
         GDateTime         *disabled_until_tmw_dt;
         gboolean           geoclue_enabled;
@@ -60,6 +61,7 @@ enum {
         PROP_SUNSET,
         PROP_TEMPERATURE,
         PROP_DISABLED_UNTIL_TMW,
+        PROP_FORCED,
         PROP_LAST
 };
 
@@ -254,6 +256,14 @@ night_light_recheck (GsdNightLight *self)
         guint temperature;
         guint temp_smeared;
         g_autoptr(GDateTime) dt_now = gsd_night_light_get_date_time_now (self);
+
+        /* Forced mode, just set the temperature to night light.
+         * Proper rechecking will happen once forced mode is disabled again */
+        if (self->forced) {
+                temperature = g_settings_get_uint (self->settings, "night-light-temperature");
+                gsd_night_light_set_temperature (self, temperature);
+                return;
+        }
 
         /* enabled */
         if (!g_settings_get_boolean (self->settings, "night-light-enabled")) {
@@ -542,6 +552,29 @@ gsd_night_light_get_disabled_until_tmw (GsdNightLight *self)
         return self->disabled_until_tmw;
 }
 
+void
+gsd_night_light_set_forced (GsdNightLight *self, gboolean value)
+{
+        if (self->forced == value)
+                return;
+
+        self->forced = value;
+        g_object_notify (G_OBJECT (self), "forced");
+
+        /* A simple recheck might not reset the temperature if
+         * night light is currently disabled. */
+        if (!self->forced && !self->cached_active)
+                gsd_night_light_set_temperature (self, GSD_COLOR_TEMPERATURE_DEFAULT);
+
+        night_light_recheck (self);
+}
+
+gboolean
+gsd_night_light_get_forced (GsdNightLight *self)
+{
+        return self->forced;
+}
+
 gboolean
 gsd_night_light_get_active (GsdNightLight *self)
 {
@@ -633,6 +666,9 @@ gsd_night_light_set_property (GObject      *object,
         case PROP_DISABLED_UNTIL_TMW:
                 gsd_night_light_set_disabled_until_tmw (self, g_value_get_boolean (value));
                 break;
+        case PROP_FORCED:
+                gsd_night_light_set_forced (self, g_value_get_boolean (value));
+                break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
         }
@@ -661,6 +697,9 @@ gsd_night_light_get_property (GObject    *object,
                 break;
         case PROP_DISABLED_UNTIL_TMW:
                 g_value_set_boolean (value, gsd_night_light_get_disabled_until_tmw (self));
+                break;
+        case PROP_FORCED:
+                g_value_set_boolean (value, gsd_night_light_get_forced (self));
                 break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -719,6 +758,14 @@ gsd_night_light_class_init (GsdNightLightClass *klass)
                                          g_param_spec_boolean ("disabled-until-tmw",
                                                                "Disabled until tomorrow",
                                                                "If the night light is disabled until the next day",
+                                                               FALSE,
+                                                               G_PARAM_READWRITE));
+
+        g_object_class_install_property (object_class,
+                                         PROP_FORCED,
+                                         g_param_spec_boolean ("forced",
+                                                               "Forced",
+                                                               "Whether night light should be forced on, useful for previewing",
                                                                FALSE,
                                                                G_PARAM_READWRITE));
 
