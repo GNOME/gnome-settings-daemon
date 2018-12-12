@@ -42,6 +42,9 @@
 static const gchar introspection_xml[] =
 "<node>"
 "  <interface name='org.gnome.SettingsDaemon.Color'>"
+"    <method name='NightLightPreview'>"
+"      <arg type='u' name='duration' direction='in'/>"
+"    </method>"
 "    <property name='NightLightActive' type='b' access='read'/>"
 "    <property name='Temperature' type='u' access='readwrite'/>"
 "    <property name='DisabledUntilTomorrow' type='b' access='readwrite'/>"
@@ -64,6 +67,8 @@ struct GsdColorManagerPrivate
         GsdColorProfiles  *profiles;
         GsdColorState     *state;
         GsdNightLight   *nlight;
+
+        guint            nlight_forced_timeout_id;
 };
 
 enum {
@@ -269,12 +274,73 @@ gsd_color_manager_finalize (GObject *object)
                 manager->priv->name_id = 0;
         }
 
+        if (manager->priv->nlight_forced_timeout_id)
+                g_source_remove (manager->priv->nlight_forced_timeout_id);
+
         g_clear_object (&manager->priv->calibrate);
         g_clear_object (&manager->priv->profiles);
         g_clear_object (&manager->priv->state);
         g_clear_object (&manager->priv->nlight);
 
         G_OBJECT_CLASS (gsd_color_manager_parent_class)->finalize (object);
+}
+
+static gboolean
+nlight_forced_timeout_cb (gpointer user_data)
+{
+        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
+        GsdColorManagerPrivate *priv = manager->priv;
+
+        priv->nlight_forced_timeout_id = 0;
+        gsd_night_light_set_forced (priv->nlight, FALSE);
+
+        return G_SOURCE_REMOVE;
+}
+
+static void
+handle_method_call (GDBusConnection       *connection,
+                    const gchar           *sender,
+                    const gchar           *object_path,
+                    const gchar           *interface_name,
+                    const gchar           *method_name,
+                    GVariant              *parameters,
+                    GDBusMethodInvocation *invocation,
+                    gpointer               user_data)
+{
+        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
+        GsdColorManagerPrivate *priv = manager->priv;
+
+        if (g_strcmp0 (method_name, "NightLightPreview") == 0) {
+                guint32 duration = 0;
+
+                if (!priv->nlight) {
+                        g_dbus_method_invocation_return_error_literal (invocation,
+                                                                       G_IO_ERROR, G_IO_ERROR_NOT_INITIALIZED,
+                                                                       "Night-light is currently unavailable");
+
+                        return;
+                }
+
+                g_variant_get (parameters, "(u)", &duration);
+
+                if (duration == 0 || duration > 120) {
+                        g_dbus_method_invocation_return_error_literal (invocation,
+                                                                       G_IO_ERROR, G_IO_ERROR_INVALID_ARGUMENT,
+                                                                       "Duration is out of the range (0-120].");
+
+                        return;
+                }
+
+                if (priv->nlight_forced_timeout_id)
+                        g_source_remove (priv->nlight_forced_timeout_id);
+                priv->nlight_forced_timeout_id = g_timeout_add_seconds (duration, nlight_forced_timeout_cb, manager);
+
+                gsd_night_light_set_forced (priv->nlight, TRUE);
+
+                g_dbus_method_invocation_return_value (invocation, NULL);
+        } else {
+                g_assert_not_reached ();
+        }
 }
 
 static GVariant *
@@ -371,7 +437,7 @@ handle_set_property (GDBusConnection *connection,
 
 static const GDBusInterfaceVTable interface_vtable =
 {
-        NULL,
+        handle_method_call,
         handle_get_property,
         handle_set_property
 };

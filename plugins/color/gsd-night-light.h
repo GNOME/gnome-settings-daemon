@@ -41,6 +41,10 @@ gboolean         gsd_night_light_get_disabled_until_tmw (GsdNightLight *self);
 void             gsd_night_light_set_disabled_until_tmw (GsdNightLight *self,
                                                          gboolean       value);
 
+gboolean         gsd_night_light_get_forced             (GsdNightLight *self);
+void             gsd_night_light_set_forced             (GsdNightLight *self,
+                                                         gboolean       value);
+
 /* only for the self test program */
 void             gsd_night_light_set_geoclue_enabled    (GsdNightLight *self,
                                                          gboolean       enabled);
