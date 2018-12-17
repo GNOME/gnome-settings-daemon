@@ -2980,8 +2980,6 @@ handle_set_property_other (GsdPowerManager *manager,
                         backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, brightness_value, "set property");
                         return TRUE;
                 } else {
-                        g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
-                                     "Setting %s.%s failed", interface_name, property_name);
                         return FALSE;
                 }
         }
