@@ -48,7 +48,7 @@ GType                       gsd_usbprotection_manager_get_type        (void);
 
 GsdUSBProtectionManager *   gsd_usbprotection_manager_new             (void);
 gboolean                    gsd_usbprotection_manager_start           (GsdUSBProtectionManager *manager,
-                                                               GError         **error);
+                                                                       GError                 **error);
 void                        gsd_usbprotection_manager_stop            (GsdUSBProtectionManager *manager);
 
 G_END_DECLS
