@@ -29,8 +29,8 @@
 #include "gsd-usbprotection-manager.h"
 
 #define PRIVACY_SETTINGS "org.gnome.desktop.privacy"
-#define USBGUARD "usbguard"
-#define USBGUARD_CONTROL "usbguard-control"
+#define USB_PROTECTION "usb-protection"
+#define USB_PROTECTION_LEVEL "usb-protection-level"
 
 #define USBGUARD_DBUS_NAME "org.usbguard"
 #define USBGUARD_DBUS_PATH "/org/usbguard"
@@ -142,11 +142,11 @@ settings_changed_callback (GSettings               *settings,
         GDBusConnection *bus;
 
         /* We react only if one of the two USB related properties has been changed */
-        if (g_strcmp0 (key, USBGUARD_CONTROL) != 0 && g_strcmp0 (key, USBGUARD) != 0)
+        if (g_strcmp0 (key, USB_PROTECTION) != 0 && g_strcmp0 (key, USB_PROTECTION_LEVEL) != 0)
                 return;
 
-        usbguard_controlled = g_settings_get_boolean (settings, USBGUARD_CONTROL);
-        settings_usb_value = g_settings_get_uint (settings, USBGUARD);
+        usbguard_controlled = g_settings_get_boolean (settings, USB_PROTECTION);
+        settings_usb_value = g_settings_get_uint (settings, USB_PROTECTION_LEVEL);
         g_debug ("USBGuard control is currently %i with a protection level of %i",
                  usbguard_controlled, settings_usb_value);
 
@@ -191,18 +191,18 @@ static void update_usbprotection_store (GsdUSBProtectionManager *manager,
         guint settings_usb;
         GSettings *settings = manager->priv->settings;
 
-        usbguard_controlled = g_settings_get_boolean (settings, USBGUARD_CONTROL);
+        usbguard_controlled = g_settings_get_boolean (settings, USB_PROTECTION);
         /* If we are not handling USBGuard configuration (e.g. the user is using
          * a third party program) we do nothing when the config changes. */
         if (usbguard_controlled) {
                 g_variant_get (parameter, "s", &key);
-                settings_usb = g_settings_get_uint (settings, USBGUARD);
+                settings_usb = g_settings_get_uint (settings, USB_PROTECTION_LEVEL);
                 /* If the USBGuard configuration has been changed and doesn't match
                  * our internal state, most likely means that the user externally
                  * changed it. When this happens we set to false the control value. */
                 if ((g_strcmp0 (key, APPLY_POLICY) == 0 && settings_usb == ALWAYS) ||
                     (g_strcmp0 (key, APPLY_POLICY) != 0 && settings_usb == NEVER)) {
-                        g_settings_set (settings, USBGUARD_CONTROL, "b", FALSE);
+                        g_settings_set (settings, USB_PROTECTION, "b", FALSE);
                 }
         }
 }
@@ -257,7 +257,7 @@ on_getparameter_done (GObject      *source_object,
 
         parameter = g_variant_get_child_value (result, 0);
         g_variant_get (parameter, "s", &key);
-        settings_usb = g_settings_get_uint (settings, USBGUARD);
+        settings_usb = g_settings_get_uint (settings, USB_PROTECTION_LEVEL);
 
         if (settings_usb == ALWAYS) {
                 if (g_strcmp0 (key, BLOCK) != 0) {
@@ -311,7 +311,7 @@ sync_usbprotection (GDBusProxy              *proxy,
         gboolean usbguard_controlled;
         GSettings *settings = manager->priv->settings;
 
-        usbguard_controlled = g_settings_get_boolean (settings, USBGUARD_CONTROL);
+        usbguard_controlled = g_settings_get_boolean (settings, USB_PROTECTION);
 
         if (!usbguard_controlled)
                 return;
