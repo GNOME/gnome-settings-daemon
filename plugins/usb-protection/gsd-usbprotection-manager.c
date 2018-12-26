@@ -112,7 +112,7 @@ usbguard_listrules_cb (GObject      *source_object,
         GVariant *result, *rules;
         g_autoptr(GError) error = NULL;
 
-        result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
+        result = g_dbus_connection_call_finish (G_DBUS_CONNECTION (source_object),
                                            res,
                                            &error);
         g_object_unref(source_object);
@@ -328,12 +328,36 @@ sync_usbprotection (GDBusProxy              *proxy,
 }
 
 static void
+on_usbprotection_owner_changed_cb (GObject    *object,
+                                   GParamSpec *pspec,
+                                   gpointer    user_data)
+{
+        GsdUSBProtectionManager *manager = user_data;
+        //GDBusProxy *proxy = manager->priv->usbprotection;
+        GDBusProxy *proxy = G_DBUS_PROXY(object);
+        char *name_owner;
+
+        name_owner = g_dbus_proxy_get_name_owner (proxy);
+        g_debug("hey hey, the owner changed!");
+        if (name_owner) {
+                g_debug("%s", name_owner);
+                //TODO: if USBGuard is installed while g-s-d is running we notice it here,
+                // but the proxy is unusable.
+                // GDBus.Error:org.freedesktop.DBus.Error.NoServer: USBGuard DBus
+                // service is not connected to the daemon
+                sync_usbprotection (proxy, manager);
+                g_free(name_owner);
+        }
+}
+
+static void
 usbprotection_proxy_ready (GObject      *source_object,
                            GAsyncResult *res,
                            gpointer      user_data)
 {
         GsdUSBProtectionManager *manager = user_data;
         GDBusProxy *proxy;
+        const char *name_owner;
         g_autoptr(GError) error = NULL;
 
         proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
@@ -347,7 +371,19 @@ usbprotection_proxy_ready (GObject      *source_object,
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
                           G_CALLBACK (settings_changed_callback), manager);
 
-        sync_usbprotection (proxy, manager);
+        name_owner = g_dbus_proxy_get_name_owner (G_DBUS_PROXY (proxy));
+
+        if (name_owner == NULL) {
+                g_debug("Probably USBGuard is not currently installed.");
+        } else {
+                sync_usbprotection (proxy, manager);
+        }
+
+        g_signal_connect_object (source_object,
+                                 "notify::g-name-owner",
+                                 G_CALLBACK (on_usbprotection_owner_changed_cb),
+                                 user_data,
+                                 0);
 
         g_signal_connect_object (source_object,
                                  "g-signal",
