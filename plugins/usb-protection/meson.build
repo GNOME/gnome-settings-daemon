@@ -12,6 +12,7 @@ sources = files(
 deps = plugins_deps + [
   gtk_dep,
   libcommon_dep,
+  libnotify_dep,
   x11_dep
 
 #  gtk_x11_dep,
