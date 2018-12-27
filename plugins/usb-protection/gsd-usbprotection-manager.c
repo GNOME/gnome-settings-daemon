@@ -20,13 +20,15 @@
 #include "config.h"
 
 #include <gio/gio.h>
-#include <string.h>
-#include <locale.h>
-
 #include <glib-object.h>
+#include <glib/gi18n.h>
+#include <libnotify/notify.h>
+#include <locale.h>
+#include <string.h>
 
 #include "gnome-settings-profile.h"
 #include "gsd-usbprotection-manager.h"
+#include "gnome-settings-bus.h"
 
 #define PRIVACY_SETTINGS "org.gnome.desktop.privacy"
 #define USB_PROTECTION "usb-protection"
@@ -39,26 +41,56 @@
 #define USBGUARD_DBUS_PATH_POLICY USBGUARD_DBUS_PATH "/Policy"
 #define USBGUARD_DBUS_INTERFACE_POLICY USBGUARD_DBUS_INTERFACE ".Policy"
 
+#define USBGUARD_DBUS_PATH_DEVICES USBGUARD_DBUS_PATH "/Devices"
+#define USBGUARD_DBUS_INTERFACE_DEVICES USBGUARD_DBUS_INTERFACE ".Devices"
+
 #define APPLY_POLICY "apply-policy"
 #define BLOCK "block"
 #define REJECT "reject"
 
+#define APPLY_DEVICE_POLICY "applyDevicePolicy"
+#define DEVICE_PRESENCE_CHANGED "DevicePresenceChanged"
 #define INSERTED_DEVICE_POLICY "InsertedDevicePolicy"
 #define APPEND_RULE "appendRule"
 #define ALLOW_ALL "allow id *:*"
 
 struct GsdUSBProtectionManagerPrivate
 {
-        guint         start_idle_id;
-        GSettings    *settings;
-        GDBusProxy   *usbprotection;
-        GCancellable *cancellable;
+        guint               start_idle_id;
+        GSettings          *settings;
+        GDBusProxy         *usbprotection;
+        GDBusProxy         *usbprotection_devices;
+        GCancellable       *cancellable;
+        GsdScreenSaver     *screensaver_proxy;
+        gboolean            screensaver_active;
+        NotifyNotification *notification;
 };
 
 enum {
         NEVER,
         WITH_LOCKSCREEN,
         ALWAYS
+};
+
+enum {
+        PRESENT,
+        INSERT,
+        UPDATE,
+        REMOVE
+};
+
+enum {
+        TARGET_ALLOW,
+        TARGET_BLOCK,
+        TARGET_REJECT
+};
+
+enum {
+        DEVICE_ID,
+        DEVICE_EVENT,
+        TARGET,
+        DEV_RULE,
+        ATTRIBUTES
 };
 
 static void gsd_usbprotection_manager_class_init (GsdUSBProtectionManagerClass *klass);
@@ -207,6 +239,129 @@ static void update_usbprotection_store (GsdUSBProtectionManager *manager,
         }
 }
 
+static gboolean
+is_protection_active (GsdUSBProtectionManager *manager)
+{
+        gboolean usbguard_controlled;
+        guint protection_lvl;
+        GSettings *settings = manager->priv->settings;
+
+        usbguard_controlled = g_settings_get_boolean (settings, USB_PROTECTION);
+        protection_lvl = g_settings_get_uint (settings, USB_PROTECTION_LEVEL);
+
+        /* If we are in the option "never block" the authorization is already
+         * handled with an "allow" in the rule file, so we don't need to manually
+         * authorize new USB devices. */
+        return usbguard_controlled && (protection_lvl != NEVER);
+}
+
+static void
+on_notification_closed (NotifyNotification *n,
+                        GsdUSBProtectionManager *manager)
+{
+        g_clear_object (&manager->priv->notification);
+}
+
+static void
+show_notification (GsdUSBProtectionManager *manager,
+                   const char              *summary,
+                   const char              *body)
+{
+        /* Don't show a notice if one is already displayed */
+        if (manager->priv->notification != NULL)
+                return;
+
+        manager->priv->notification = notify_notification_new (summary, body, "drive-removable-media-symbolic");
+        notify_notification_set_app_name (manager->priv->notification, _("USB Protection"));
+        notify_notification_set_hint (manager->priv->notification, "transient", g_variant_new_boolean (TRUE));
+        notify_notification_set_timeout (manager->priv->notification, NOTIFY_EXPIRES_DEFAULT);
+        notify_notification_set_urgency (manager->priv->notification, NOTIFY_URGENCY_CRITICAL);
+        g_signal_connect (manager->priv->notification,
+                          "closed",
+                          G_CALLBACK (on_notification_closed),
+                          manager);
+        if (!notify_notification_show (manager->priv->notification, NULL)) {
+                g_warning ("Failed to send USB protection notification");
+        }
+}
+
+static void authorize_device (GDBusProxy              *proxy,
+                              GsdUSBProtectionManager *manager,
+                              guint                    device_id,
+                              guint                    target,
+                              gboolean                 permanent)
+{
+        GVariant *params;
+
+        params = g_variant_new ("(uub)", device_id, target, permanent);
+        g_dbus_proxy_call (manager->priv->usbprotection_devices,
+                           APPLY_DEVICE_POLICY,
+                           params,
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1,
+                           manager->priv->cancellable,
+                           NULL, NULL);
+}
+
+static void
+on_device_presence_signal (GDBusProxy *proxy,
+                           gchar      *sender_name,
+                           gchar      *signal_name,
+                           GVariant   *parameters,
+                           gpointer    user_data)
+{
+        GVariant *ev, *ta, *d_id;
+        guint device_event;
+        guint target;
+        guint device_id;
+        guint protection_lvl;
+        GsdUSBProtectionManager *manager = user_data;
+
+        g_debug ("new device!");
+        g_debug ("%s", signal_name);
+        /* We do nothing if we receive a different signal from DevicePresenceChanged */
+        if (g_strcmp0 (signal_name, DEVICE_PRESENCE_CHANGED) != 0)
+                return;
+
+        ev = g_variant_get_child_value (parameters, DEVICE_EVENT);
+        device_event = g_variant_get_uint32 (ev);
+        g_variant_unref (ev);
+
+        g_debug ("Event: %i", device_event);
+        if (device_event != INSERT)
+                return;
+
+        ta = g_variant_get_child_value (parameters, TARGET);
+        target = g_variant_get_uint32 (ta);
+        g_variant_unref (ta);
+
+        g_debug ("Target: %i", target);
+        /* If the device is already authorized we do nothing */
+        if (target == TARGET_ALLOW)
+            return;
+
+        /* If the USB protection is disabled we do nothing */
+        if (!is_protection_active (manager))
+                return;
+
+        g_debug("protection is active");
+        if (manager->priv->screensaver_active) {
+                show_notification (manager,
+                                   _("Unknown USB device"),
+                                   _("New device has been detected while you were away. "
+                                     "Please disconnect and reconnect the device to start using it."));
+                return;
+        }
+
+        protection_lvl = g_settings_get_uint (manager->priv->settings, USB_PROTECTION_LEVEL);
+        if (protection_lvl == WITH_LOCKSCREEN) {
+                d_id = g_variant_get_child_value (parameters, DEVICE_ID);
+                device_id = g_variant_get_uint32 (d_id);
+                g_variant_unref (d_id);
+                authorize_device(proxy, manager, device_id, TARGET_ALLOW, FALSE);
+        }
+}
+
 static void
 on_usbprotection_signal (GDBusProxy *proxy,
                          gchar      *sender_name,
@@ -215,11 +370,11 @@ on_usbprotection_signal (GDBusProxy *proxy,
                          gpointer    user_data)
 {
         GVariant *parameter, *policy;
+        gchar *policy_name;
 
         if (g_strcmp0 (signal_name, "PropertyParameterChanged") != 0)
                 return;
 
-        gchar *policy_name;
         policy = g_variant_get_child_value (parameters, 0);
         g_variant_get (policy, "s", &policy_name);
 
@@ -259,7 +414,7 @@ on_getparameter_done (GObject      *source_object,
         g_variant_get (parameter, "s", &key);
         settings_usb = g_settings_get_uint (settings, USB_PROTECTION_LEVEL);
 
-        if (settings_usb == ALWAYS) {
+        if (settings_usb == ALWAYS || settings_usb == WITH_LOCKSCREEN) {
                 if (g_strcmp0 (key, BLOCK) != 0) {
                         out_of_sync = TRUE;
                         params = g_variant_new ("(ss)",
@@ -351,6 +506,61 @@ on_usbprotection_owner_changed_cb (GObject    *object,
 }
 
 static void
+handle_screensaver_active (GsdUSBProtectionManager *manager,
+                           GVariant                *parameters)
+{
+        gboolean active;
+
+        g_variant_get (parameters, "(b)", &active);
+        g_debug ("Received screensaver ActiveChanged signal: %d (old: %d)", active, manager->priv->screensaver_active);
+        if (manager->priv->screensaver_active != active) {
+                manager->priv->screensaver_active = active;
+
+                /* probably we don't need to do anything more here */
+                if (active)
+                        g_debug("active");
+        }
+}
+
+static void
+screensaver_signal_cb (GDBusProxy *proxy,
+                       const gchar *sender_name,
+                       const gchar *signal_name,
+                       GVariant *parameters,
+                       gpointer user_data)
+{
+        if (g_strcmp0 (signal_name, "ActiveChanged") == 0)
+                handle_screensaver_active (GSD_USBPROTECTION_MANAGER (user_data), parameters);
+}
+
+static void
+usbprotection_devices_proxy_ready (GObject      *source_object,
+                                   GAsyncResult *res,
+                                   gpointer      user_data)
+{
+        GsdUSBProtectionManager *manager = user_data;
+        GDBusProxy *proxy;
+        g_autoptr(GError) error = NULL;
+
+        g_debug("devices ready");
+        proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
+        if (!proxy) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to contact USBGuard: %s", error->message);
+                return;
+        }
+        manager->priv->usbprotection_devices = proxy;
+
+        //TODO: investigate what to do with the name-owner
+
+        g_signal_connect_object (source_object,
+                                 "g-signal",
+                                 G_CALLBACK (on_device_presence_signal),
+                                 user_data,
+                                 0);
+}
+
+static void
 usbprotection_proxy_ready (GObject      *source_object,
                            GAsyncResult *res,
                            gpointer      user_data)
@@ -371,6 +581,11 @@ usbprotection_proxy_ready (GObject      *source_object,
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
                           G_CALLBACK (settings_changed_callback), manager);
 
+        manager->priv->screensaver_proxy = gnome_settings_bus_get_screen_saver_proxy ();
+
+        g_signal_connect (manager->priv->screensaver_proxy, "g-signal",
+                          G_CALLBACK (screensaver_signal_cb), manager);
+
         name_owner = g_dbus_proxy_get_name_owner (G_DBUS_PROXY (proxy));
 
         if (name_owner == NULL) {
@@ -390,6 +605,16 @@ usbprotection_proxy_ready (GObject      *source_object,
                                  G_CALLBACK (on_usbprotection_signal),
                                  user_data,
                                  0);
+
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+                                  G_DBUS_PROXY_FLAGS_NONE,
+                                  NULL,
+                                  USBGUARD_DBUS_NAME,
+                                  USBGUARD_DBUS_PATH_DEVICES,
+                                  USBGUARD_DBUS_INTERFACE_DEVICES,
+                                  manager->priv->cancellable,
+                                  usbprotection_devices_proxy_ready,
+                                  manager);
 }
 
 static gboolean
@@ -409,6 +634,8 @@ start_usbprotection_idle_cb (GsdUSBProtectionManager *manager)
                                   manager->priv->cancellable,
                                   usbprotection_proxy_ready,
                                   manager);
+
+        notify_init ("gnome-settings-daemon");
 
         manager->priv->start_idle_id = 0;
 
