@@ -49,10 +49,13 @@
 #define REJECT "reject"
 
 #define APPLY_DEVICE_POLICY "applyDevicePolicy"
+#define LIST_DEVICES "listDevices"
+#define ALLOW "allow"
 #define DEVICE_PRESENCE_CHANGED "DevicePresenceChanged"
 #define INSERTED_DEVICE_POLICY "InsertedDevicePolicy"
 #define APPEND_RULE "appendRule"
 #define ALLOW_ALL "allow id *:*"
+#define WITH_INTERFACE "with-interface"
 
 struct GsdUSBProtectionManagerPrivate
 {
@@ -303,6 +306,111 @@ static void authorize_device (GDBusProxy              *proxy,
                            NULL, NULL);
 }
 
+static gboolean
+is_only_hid (GVariant *device)
+{
+        GVariant *dev;
+        GVariantIter *iter = NULL;
+        gchar *name, *value;
+        gchar **interfaces_splitted;
+        guint i;
+        gboolean only_hid = TRUE;
+
+        dev = g_variant_get_child_value (device, ATTRIBUTES);
+        g_variant_get (dev, "a{ss}", &iter);
+        g_variant_unref (dev);
+        while (g_variant_iter_loop (iter, "{ss}", &name, &value)) {
+                if (g_strcmp0 (name, WITH_INTERFACE) == 0) {
+                        interfaces_splitted = g_strsplit (value, " ", -1);
+                        if (interfaces_splitted) {
+                                for (i = 0; i < g_strv_length (interfaces_splitted); i++)
+                                        if (g_strstr_len (interfaces_splitted[i], -1, "03:") != interfaces_splitted[i])
+                                                only_hid = FALSE;
+
+                                g_strfreev (interfaces_splitted);
+                        }
+                }
+        }
+        return only_hid;
+}
+
+static gboolean
+is_keyboard (GVariant *device)
+{
+        GVariant *dev;
+        GVariantIter *iter = NULL;
+        gchar *name, *value;
+
+        dev = g_variant_get_child_value (device, ATTRIBUTES);
+        g_variant_get (dev, "a{ss}", &iter);
+        g_variant_unref (dev);
+        while (g_variant_iter_loop (iter, "{ss}", &name, &value)) {
+                if (g_strcmp0 (name, WITH_INTERFACE) == 0) {
+                        return g_strrstr (value, "03:00:01") != NULL ||
+                               g_strrstr (value, "03:01:01") != NULL;
+                }
+        }
+        return FALSE;
+}
+
+static gboolean
+auth_one_keyboard (GsdUSBProtectionManager *manager,
+                   GVariant *device)
+{
+        GVariant *ret, *d_id;
+        GVariantIter *iter = NULL;
+        guint attr_len, dev_id, device_id;
+        gchar *attr;
+        gchar **attr_splitted;
+        gboolean keyboard_found = FALSE;
+        g_autoptr(GError) error = NULL;
+
+        /* If this HID advertises also interfaces outside the HID class it is suspect.
+         * It could be a false positive because this can be a "smart" keyboard, but at
+         * this stage is better be safe.*/
+        if (!is_only_hid (device))
+                return FALSE;
+
+        ret = g_dbus_proxy_call_sync (manager->priv->usbprotection_devices,
+                                      LIST_DEVICES,
+                                      g_variant_new ("(s)", ALLOW),
+                                      G_DBUS_CALL_FLAGS_NONE,
+                                      -1,
+                                      manager->priv->cancellable,
+                                      &error);
+        if (ret == NULL) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to contact USBGuard: %s", error->message);
+                return FALSE;
+        }
+        g_variant_get (ret, "(a(us))", &iter);
+        g_variant_unref (ret);
+        while (g_variant_iter_loop (iter, "(us)", &dev_id, &attr)) {
+                g_debug ("%s", attr);
+                attr_splitted = g_strsplit (attr, WITH_INTERFACE, -1);
+                if (attr_splitted) {
+                        attr_len = g_strv_length (attr_splitted);
+                        if (attr_len > 0)
+                                if (g_strrstr (attr_splitted[attr_len - 1], "03:00:01") != NULL ||
+                                    g_strrstr (attr_splitted[attr_len - 1], "03:01:01") != NULL)
+                                        keyboard_found = TRUE;
+
+                        g_strfreev (attr_splitted);
+                }
+        }
+        if (!keyboard_found) {
+                d_id = g_variant_get_child_value (device, DEVICE_ID);
+                device_id = g_variant_get_uint32 (d_id);
+                g_variant_unref (d_id);
+                authorize_device(manager->priv->usbprotection_devices,
+                                 manager,
+                                 device_id,
+                                 TARGET_ALLOW,
+                                 FALSE);
+        }
+        return TRUE;
+}
+
 static void
 on_device_presence_signal (GDBusProxy *proxy,
                            gchar      *sender_name,
@@ -346,6 +454,12 @@ on_device_presence_signal (GDBusProxy *proxy,
 
         g_debug("protection is active");
         if (manager->priv->screensaver_active) {
+                /* If the session is locked we check if the inserted device is a keyboard.
+                 * If this new device is the only available keyboard we authorize it. */
+                if (is_keyboard (parameters))
+                        if (auth_one_keyboard (manager, parameters))
+                                return;
+
                 show_notification (manager,
                                    _("Unknown USB device"),
                                    _("New device has been detected while you were away. "
@@ -355,6 +469,7 @@ on_device_presence_signal (GDBusProxy *proxy,
 
         protection_lvl = g_settings_get_uint (manager->priv->settings, USB_PROTECTION_LEVEL);
         if (protection_lvl == WITH_LOCKSCREEN) {
+                /* We need to authorize the device. */
                 d_id = g_variant_get_child_value (parameters, DEVICE_ID);
                 device_id = g_variant_get_uint32 (d_id);
                 g_variant_unref (d_id);
@@ -377,6 +492,7 @@ on_usbprotection_signal (GDBusProxy *proxy,
 
         policy = g_variant_get_child_value (parameters, 0);
         g_variant_get (policy, "s", &policy_name);
+        g_variant_unref (policy);
 
         // Right now we just care about the InsertedDevicePolicy value
         if (g_strcmp0 (policy_name, INSERTED_DEVICE_POLICY) != 0)
@@ -412,6 +528,8 @@ on_getparameter_done (GObject      *source_object,
 
         parameter = g_variant_get_child_value (result, 0);
         g_variant_get (parameter, "s", &key);
+        g_variant_unref (parameter);
+        g_variant_unref (result);
         settings_usb = g_settings_get_uint (settings, USB_PROTECTION_LEVEL);
 
         if (settings_usb == ALWAYS || settings_usb == WITH_LOCKSCREEN) {
@@ -438,19 +556,19 @@ on_getparameter_done (GObject      *source_object,
                                    -1,
                                    manager->priv->cancellable,
                                    NULL, NULL);
+                g_variant_unref (params);
         }
 
         /* If we are in "Never" or "When lockscreen is active" we also check
          * if the "always allow" rule is present. */
         if (settings_usb != ALWAYS) {
-                params = g_variant_new ("(s)", "");
                 bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
                 g_dbus_connection_call (bus,
                                         USBGUARD_DBUS_NAME,
                                         USBGUARD_DBUS_PATH_POLICY,
                                         USBGUARD_DBUS_INTERFACE_POLICY,
                                         "listRules",
-                                        params,
+                                        g_variant_new ("(s)", ""),
                                         NULL, 0, -1,
                                         manager->priv->cancellable,
                                         usbguard_listrules_cb,
@@ -663,6 +781,13 @@ gsd_usbprotection_manager_stop (GsdUSBProtectionManager *manager)
         if (manager->priv->cancellable != NULL) {
                 g_cancellable_cancel (manager->priv->cancellable);
                 g_clear_object (&manager->priv->cancellable);
+        }
+
+        if (manager->priv->notification != NULL) {
+                g_signal_handlers_disconnect_by_func (manager->priv->notification,
+                                                      G_CALLBACK (on_notification_closed),
+                                                      manager);
+                g_clear_object (&manager->priv->notification);
         }
 
         g_clear_object (&manager->priv->settings);
