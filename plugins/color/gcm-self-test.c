@@ -218,6 +218,18 @@ gcm_test_night_light (void)
         g_assert_false (gsd_night_light_get_disabled_until_tmw (nlight));
 }
 
+static const gboolean
+gcm_vendor_is_goldstar (const char * const vendor) {
+        if (g_strcmp0 (vendor, "Goldstar Company Ltd") == 0)
+                return TRUE;
+        /* Goldstar was changed to LG in hwdb (systemd) 240.
+         * https://github.com/systemd/systemd/commit/c6d7a5e9a3836f8
+         */
+        if (g_strcmp0 (vendor, "LG Electronics") == 0)
+                return TRUE;
+        return FALSE;
+}
+
 static void
 gcm_test_edid_func (void)
 {
@@ -240,7 +252,7 @@ gcm_test_edid_func (void)
         g_assert (ret);
 
         g_assert_cmpstr (gcm_edid_get_monitor_name (edid), ==, "L225W");
-        g_assert_cmpstr (gcm_edid_get_vendor_name (edid), ==, "Goldstar Company Ltd");
+        g_assert_true (gcm_vendor_is_goldstar (gcm_edid_get_vendor_name (edid)));
         g_assert_cmpstr (gcm_edid_get_serial_number (edid), ==, "34398");
         g_assert_cmpstr (gcm_edid_get_eisa_id (edid), ==, NULL);
         g_assert_cmpstr (gcm_edid_get_checksum (edid), ==, "0bb44865bb29984a4bae620656c31368");
