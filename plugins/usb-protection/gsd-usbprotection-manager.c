@@ -407,12 +407,29 @@ auth_one_keyboard (GsdUSBProtectionManager *manager,
                                  device_id,
                                  TARGET_ALLOW,
                                  FALSE);
-                show_notification (manager,
-                                   _("New keyboard detected"),
-                                   _("Either your keyboard has been reconnected or a new one has been plugged in. "
-                                     "If you did not do it, check your system for any suspicious device."));
         }
         return TRUE;
+}
+
+static void
+on_screen_locked (GsdScreenSaver          *screen_saver,
+                  GAsyncResult            *result,
+                  GsdUSBProtectionManager *manager)
+{
+        gboolean is_locked;
+        g_autoptr(GError) error = NULL;
+
+        is_locked = gsd_screen_saver_call_lock_finish (screen_saver, result, &error);
+
+        show_notification (manager,
+                           _("New USB device"),
+                           _("New device has been detected while the session was not locked. "
+                             "If you did not plug anything, check your system for any suspicious device."));
+
+        if (!is_locked) {
+                g_warning ("Couldn't lock screen: %s", error->message);
+                return;
+        }
 }
 
 static void
@@ -461,8 +478,13 @@ on_device_presence_signal (GDBusProxy *proxy,
                 /* If the session is locked we check if the inserted device is a keyboard.
                  * If this new device is the only available keyboard we authorize it. */
                 if (is_keyboard (parameters))
-                        if (auth_one_keyboard (manager, parameters))
+                        if (auth_one_keyboard (manager, parameters)) {
+                                show_notification (manager,
+                                                   _("New keyboard detected"),
+                                                   _("Either your keyboard has been reconnected or a new one has been plugged in. "
+                                                     "If you did not do it, check your system for any suspicious device."));
                                 return;
+                        }
 
                 show_notification (manager,
                                    _("Unknown USB device"),
@@ -478,6 +500,16 @@ on_device_presence_signal (GDBusProxy *proxy,
                 device_id = g_variant_get_uint32 (d_id);
                 g_variant_unref (d_id);
                 authorize_device(proxy, manager, device_id, TARGET_ALLOW, FALSE);
+        } else if (protection_lvl == ALWAYS) {
+                /* We authorize the device if this is the only available keyboard.
+                 * We also lock the screen to prevent an attacker to plug malicious
+                 * devices if the legitimate user forgot to lock his session. */
+                if (is_keyboard (parameters))
+                        if (auth_one_keyboard (manager, parameters))
+                                gsd_screen_saver_call_lock (manager->priv->screensaver_proxy,
+                                                            manager->priv->cancellable,
+                                                            (GAsyncReadyCallback) on_screen_locked,
+                                                            manager);
         }
 }
 
