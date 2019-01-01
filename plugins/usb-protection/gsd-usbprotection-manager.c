@@ -148,8 +148,8 @@ usbguard_listrules_cb (GObject      *source_object,
         g_autoptr(GError) error = NULL;
 
         result = g_dbus_connection_call_finish (G_DBUS_CONNECTION (source_object),
-                                           res,
-                                           &error);
+                                                res,
+                                                &error);
         g_object_unref(source_object);
 
         if (!result) {
@@ -407,6 +407,10 @@ auth_one_keyboard (GsdUSBProtectionManager *manager,
                                  device_id,
                                  TARGET_ALLOW,
                                  FALSE);
+                show_notification (manager,
+                                   _("New keyboard detected"),
+                                   _("Either your keyboard has been reconnected or a new one has been plugged in. "
+                                     "If you did not do it, check your system for any suspicious device."));
         }
         return TRUE;
 }
