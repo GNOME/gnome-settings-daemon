@@ -19,6 +19,8 @@
 
 #include "config.h"
 
+#include <gdk/gdkx.h>
+#include <gtk/gtk.h>
 #include <gio/gio.h>
 #include <glib-object.h>
 #include <glib/gi18n.h>
@@ -66,6 +68,7 @@ struct GsdUSBProtectionManagerPrivate
         GCancellable       *cancellable;
         GsdScreenSaver     *screensaver_proxy;
         gboolean            screensaver_active;
+        gboolean            touchscreen_available;
         NotifyNotification *notification;
 };
 
@@ -476,8 +479,11 @@ on_device_presence_signal (GDBusProxy *proxy,
         g_debug("protection is active");
         if (manager->priv->screensaver_active) {
                 /* If the session is locked we check if the inserted device is a keyboard.
-                 * If this new device is the only available keyboard we authorize it. */
-                if (is_keyboard (parameters))
+                 * If this new device is the only available keyboard we authorize it.
+                 * Also, if the device has touchscreen capabilities we never authorize
+                 * keyboards in this stage. Because the user can very well use the
+                 * on-screen virtual keyboard. */
+                if (!manager->priv->touchscreen_available && is_keyboard (parameters))
                         if (auth_one_keyboard (manager, parameters)) {
                                 show_notification (manager,
                                                    _("New keyboard detected"),
@@ -503,8 +509,10 @@ on_device_presence_signal (GDBusProxy *proxy,
         } else if (protection_lvl == ALWAYS) {
                 /* We authorize the device if this is the only available keyboard.
                  * We also lock the screen to prevent an attacker to plug malicious
-                 * devices if the legitimate user forgot to lock his session. */
-                if (is_keyboard (parameters))
+                 * devices if the legitimate user forgot to lock his session.
+                 * As before, if there is the touchscreen we don't authorize
+                 * keyboards because the user can never be locked out. */
+                if (!manager->priv->touchscreen_available && is_keyboard (parameters))
                         if (auth_one_keyboard (manager, parameters))
                                 gsd_screen_saver_call_lock (manager->priv->screensaver_proxy,
                                                             manager->priv->cancellable,
@@ -677,6 +685,36 @@ handle_screensaver_active (GsdUSBProtectionManager *manager,
 }
 
 static void
+initialize_touchscreen_search (GsdUSBProtectionManager *manager)
+{
+        GdkDisplay *display;
+        GdkSeat *seat;
+        GList *devices;
+
+        /* If we don't initialize gtk we will get NULL from
+         * gdk_display_get_default () */
+        gtk_init(NULL, NULL);
+        display = gdk_display_get_default ();
+        seat = gdk_display_get_default_seat (display);
+        devices = NULL;
+
+        /* Adding a touchscreen at runtime is even a thing??
+         * Probably we don't need to worry about that. */
+        //g_signal_connect_object (seat, "device-added", G_CALLBACK (on_device_added), backend, 0);
+        //g_signal_connect_object (seat, "device-removed", G_CALLBACK (on_device_removed), backend, 0);
+
+        devices = g_list_append (devices, gdk_seat_get_pointer (seat));
+        devices = g_list_append (devices, gdk_seat_get_keyboard (seat));
+        /* Probably GDK_SEAT_CAPABILITY_TOUCH should be enough here. We need
+         * someone with a touch enabled device to test it and report back. */
+        devices = g_list_concat (devices, gdk_seat_get_slaves (seat, GDK_SEAT_CAPABILITY_ALL));
+
+        for (; devices != NULL; devices = devices->next)
+                if (gdk_device_get_source (devices->data) == GDK_SOURCE_TOUCHSCREEN)
+                        manager->priv->touchscreen_available = TRUE;
+}
+
+static void
 screensaver_signal_cb (GDBusProxy *proxy,
                        const gchar *sender_name,
                        const gchar *signal_name,
@@ -747,6 +785,8 @@ usbprotection_proxy_ready (GObject      *source_object,
         } else {
                 sync_usbprotection (proxy, manager);
         }
+
+        initialize_touchscreen_search (manager);
 
         g_signal_connect_object (source_object,
                                  "notify::g-name-owner",
