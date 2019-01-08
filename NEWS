@@ -1,4 +1,26 @@
 ==============
+Version 3.31.2
+==============
+- Translation updates
+
+Color:
+- Add DBus API to preview Night Light for a few seconds
+
+Media-keys:
+- Default to interactive shutdown action for power button if
+  the action is not supported.
+
+Power:
+- Avoid setting GError twice
+- Speed up tests by splitting into chunks
+
+Print-notification:
+- Ignore Server* messages from CUPS not meant to us
+
+Rfkill:
+- Use GUdev to monitor rfkill device pressence
+
+==============
 Version 3.31.1
 ==============
 - Translation updates
