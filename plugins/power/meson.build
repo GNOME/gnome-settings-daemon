@@ -25,7 +25,7 @@ native_deps = [
   dependency('gio-2.0', native:true)
 ]
 
-if enable_gudev
+if host_is_linux
   deps += gudev_dep
 endif
 
@@ -67,7 +67,7 @@ gsd_power_enums_update = executable(
   native: true
 )
 
-if enable_gudev
+if host_is_linux
   policy = 'org.gnome.settings-daemon.plugins.power.policy'
 
   policy_in = configure_file(
@@ -130,6 +130,7 @@ envs = [
   'BUILDDIR=' + meson.current_build_dir(),
   'TOP_BUILDDIR=' + meson.build_root(),
   'LD_PRELOAD=libumockdev-preload.so.0',
+  'HAVE_SYSFS_BACKLIGHT=' + (host_is_linux ? '1' : '0')
 ]
 
 foreach i : [ 1, 2, 3, 4, 5, 6, 7, 8 ]
