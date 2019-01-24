@@ -43,16 +43,16 @@ msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2018-03-05 15:46+0000\n"
-"PO-Revision-Date: 2018-03-10 20:02+0200\n"
-"Last-Translator: Efstathios Iosifidis <eiosifidis@gnome.org>\n"
+"POT-Creation-Date: 2018-11-06 15:48+0000\n"
+"PO-Revision-Date: 2019-01-24 03:07+0200\n"
+"Last-Translator: Efstathios Iosifidis <iosifidis@opensuse.org>\n"
 "Language-Team: Greek, Modern (1453-) <opensuse-translation-el@opensuse.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 1.5.7\n"
 "X-Project-Style: gnome\n"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
@@ -459,9 +459,12 @@ msgid "If the night light mode is enabled"
 msgstr "Εάν η λειτουργία νυχτός είναι ενεργοποιημένη"
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:17
+#| msgid ""
+#| "Night light mode changes the color temperature of your display when the "
+#| "sun has gone down or at present times."
 msgid ""
 "Night light mode changes the color temperature of your display when the sun "
-"has gone down or at present times."
+"has gone down or at preset times."
 msgstr ""
 "Η λειτουργία νυχτός αλλάζει τη θερμοκρασία χρώματος της οθόνης σας, όταν ο "
 "ήλιος έχει δύσει ή την παρούσα στιγμή."
@@ -735,163 +738,177 @@ msgid "Volume down"
 msgstr "Μείωση έντασης"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:87
-msgid "Binding to lower the system volume."
-msgstr "Συνδυασμός για την μείωση του ήχου συστήματος."
+#| msgid "Binding to lower the system volume."
+msgid "Binding to lower the volume."
+msgstr "Συνδυασμός για την μείωση του ήχου."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:91
-msgid "Volume mute"
-msgstr "Σίγαση ήχου"
+#| msgid "Volume mute"
+msgid "Volume mute/unmute"
+msgstr "Σίγαση/αναίρεση σίγασης έντασης"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:92
-msgid "Binding to mute the system volume."
-msgstr "Συνδυασμός για την σίγαση του ήχου συστήματος."
+#| msgid "Binding to mute the system volume."
+msgid "Binding to mute/unmute the volume."
+msgstr "Συνδυασμός για την σίγαση/αναίρεση σίγασης του ήχου."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:96
 msgid "Volume up"
 msgstr "Αύξηση έντασης"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:97
-msgid "Binding to raise the system volume."
-msgstr "Συνδυασμός για την αύξηση της έντασης του ήχου συστήματος."
+#| msgid "Binding to raise the system volume."
+msgid "Binding to raise the volume."
+msgstr "Συνδυασμός για την αύξηση της έντασης του ήχου."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:101
+#| msgid "Microphone Mute"
+msgid "Microphone mute/unmute"
+msgstr "Σίγαση/αναίρεση σίγασης μικροφώνου"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:102
+#| msgid "Binding to suspend the computer."
+msgid "Binding to mute/unmute the microphone."
+msgstr "Συνδυασμός για σίγαση/αναίρεση σίγασης του μικροφώνου."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:106
 msgid "Take a screenshot"
 msgstr "Λήψη στιγμιότυπου οθόνης"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:102
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:107
 msgid "Binding to take a screenshot."
 msgstr "Συνδιασμός πλήκτρων για τη λήψη ενός στιγμιότυπου οθόνης."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:106
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:111
 msgid "Take a screenshot of a window"
 msgstr "Λήψη στιγμιότυπου ενός παραθύρου"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:107
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:112
 msgid "Binding to take a screenshot of a window."
 msgstr "Συνδιασμός πλήκτρων για τη λήψη στιγμιότυπου ενός παραθύρου."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:111
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:116
 msgid "Take a screenshot of an area"
 msgstr "Λήψη στιγμιότυπου μίας περιοχής της οθόνης"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:112
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:117
 msgid "Binding to take a screenshot of an area."
 msgstr "Συνδιασμός πλήκτρων για τη λήψη στιγμιότυπου μιας περιοχής."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:116
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:121
 msgid "Copy a screenshot to clipboard"
 msgstr "Αντιγραφή στιγμιότυπου οθόνης στο πρόχειρο"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:117
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:122
 msgid "Binding to copy a screenshot to clipboard."
 msgstr ""
 "Συνδυασμός πλήκτρων για την αντιγραφή στιγμιότυπου οθόνης στο πρόχειρο."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:121
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:126
 msgid "Copy a screenshot of a window to clipboard"
 msgstr "Αντιγραφή στιγμιότυπου ενός παραθύρου στο πρόχειρο"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:122
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:127
 msgid "Binding to copy a screenshot of a window to clipboard."
 msgstr ""
 "Συνδυασμός πλήκτρων για την αντιγραφή στιγμιότυπου ενός παραθύρου στο "
 "πρόχειρο."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:126
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:131
 msgid "Copy a screenshot of an area to clipboard"
 msgstr "Αντιγραφή στιγμιότυπου μιας περιοχής στο πρόχειρο"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:127
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:132
 msgid "Binding to copy a screenshot of an area to clipboard."
 msgstr ""
 "Συνδυασμός πλήκτρων για την αντιγραφή στιγμιότυπου μιας περιοχής στο "
 "πρόχειρο."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:131
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:136
 msgid "Record a short video of the screen"
 msgstr "Εγγραφή σύντομου βίντεο της οθόνης"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:132
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:137
 msgid "Binding to record a short video of the screen"
 msgstr "Συνδυασμός για την εγγραφή ενός σύντομου βίντεο της οθόνης"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:136
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:141
 msgid "Launch web browser"
 msgstr "Εκκίνηση περιηγητή ιστοσελίδων"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:137
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:142
 msgid "Binding to launch the web browser."
 msgstr "Συνδυασμός για εκκίνηση περιηγητή ιστοσελίδων."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:141
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:146
 msgid "Toggle magnifier"
 msgstr "Εναλλαγή μεγεθυντή"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:142
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:147
 msgid "Binding to show the screen magnifier"
 msgstr "Συνδυασμός πλήκτρων για την εμφάνιση του μεγεθυντικού φακού οθόνης"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:146
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:151
 msgid "Toggle screen reader"
 msgstr "Εναλλαγή αναγνώστη οθόνης"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:147
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:152
 msgid "Binding to start the screen reader"
 msgstr "Συνδυασμός πλήκτρων για την εκκίνηση του αναγνώστη οθόνης"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:151
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:156
 msgid "Toggle on-screen keyboard"
 msgstr "Εναλλαγή πληκτρολογίου οθόνης"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:152
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:157
 msgid "Binding to show the on-screen keyboard"
 msgstr "Συνδυασμός πλήκτρων για την εμφάνιση του πληκτρολογίου οθόνης"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:156
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:161
 msgid "Increase text size"
 msgstr "Μεγέθυνση κειμένου"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:157
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:162
 msgid "Binding to increase the text size"
 msgstr "Συνδυασμός πλήκτρων για την μεγέθυνση κειμένου"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:161
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:166
 msgid "Decrease text size"
 msgstr "Σμίκρυνση κειμένου"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:162
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:167
 msgid "Binding to decrease the text size"
 msgstr "Συνδυασμός πλήκτρων για την σμίκρυνση κειμένου"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:166
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:171
 msgid "Toggle contrast"
 msgstr "Εναλλαγή αντίθεσης"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:167
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:172
 msgid "Binding to toggle the interface contrast"
 msgstr "Συνδυασμός πλήκτρων για την ενεργοποίησης διεπαφής αντίθεσης"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:171
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:176
 msgid "Magnifier zoom in"
 msgstr "Μεγέθυνση μεγεθυντικού φακού"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:172
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:177
 msgid "Binding for the magnifier to zoom in"
 msgstr "Συνδυασμός πλήκτρων για τη μεγέθυνση του μεγεθυντικού φακού"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:176
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:181
 msgid "Magnifier zoom out"
 msgstr "Σμίκρυνση μεγεθυντικού φακού"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:177
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:182
 msgid "Binding for the magnifier to zoom out"
 msgstr "Συνδυασμός πλήκτρων για τη σμίκρυνση του μεγεθυντικού φακού"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:181
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:186
 msgid "Maximum length of screen recordings"
 msgstr "Μέγιστο μήκος εγγραφών οθόνης"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:182
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:187
 msgid ""
 "The maximum length of single screen cast recordings in seconds or 0 for "
 "unlimited"
@@ -899,27 +916,27 @@ msgstr ""
 "Το μέγιστο μήκος εγγραφών μίας απλής οθόνης σε δευτερόλεπτα ή 0 για "
 "απεριόριστο"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:189
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:194
 msgid "Name"
 msgstr "Όνομα"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:190
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:195
 msgid "Name of the custom binding"
 msgstr "Όνομα του συνδυασμού πλήκτρων"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:194
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:199
 msgid "Binding"
 msgstr "Συνδυασμός"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:195
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:200
 msgid "Binding for the custom binding"
 msgstr "Συνδυασμός πλήκτρων για τον προσαρμοσμένο συνδιασμό"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:199
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:204
 msgid "Command"
 msgstr "Εντολή"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:200
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:205
 msgid "Command to run when the binding is invoked"
 msgstr "Εντολή που θα εκτελεστεί όταν επικληθεί ο συνδυασμός"
 
@@ -1126,40 +1143,40 @@ msgid "Color"
 msgstr "Χρώμα"
 
 #. TRANSLATORS: button: this is to open GCM
-#: plugins/color/gsd-color-calibrate.c:144
+#: plugins/color/gsd-color-calibrate.c:145
 msgid "Recalibrate now"
 msgstr "Επανάληψη βαθμονόμησης"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: plugins/color/gsd-color-calibrate.c:187
+#: plugins/color/gsd-color-calibrate.c:188
 msgid "Recalibration required"
 msgstr "Απαιτείται επανάληψη βαθμονόμησης"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: plugins/color/gsd-color-calibrate.c:199
+#: plugins/color/gsd-color-calibrate.c:200
 #, c-format
 msgid "The display “%s” should be recalibrated soon."
 msgstr "Η οθόνη '%s' θα πρέπει να βαθμονομηθεί ξανά, σύντομα."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: plugins/color/gsd-color-calibrate.c:208
+#: plugins/color/gsd-color-calibrate.c:209
 #, c-format
 msgid "The printer “%s” should be recalibrated soon."
 msgstr "Ο εκτυπωτής '%s' πρέπει να βαθμονομηθεί ξανά σύντομα."
 
 #. TRANSLATORS: this is the application name
-#: plugins/color/gsd-color-calibrate.c:346
-#: plugins/color/gsd-color-calibrate.c:362
+#: plugins/color/gsd-color-calibrate.c:347
+#: plugins/color/gsd-color-calibrate.c:363
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "Υπηρεσία ρυθμίσεων χρωμάτων του GNOME"
 
 #. TRANSLATORS: this is a sound description
-#: plugins/color/gsd-color-calibrate.c:348
+#: plugins/color/gsd-color-calibrate.c:349
 msgid "Color calibration device added"
 msgstr "Προστέθηκε συσκευή για βαθμονόμηση χρωμάτων"
 
 #. TRANSLATORS: this is a sound description
-#: plugins/color/gsd-color-calibrate.c:364
+#: plugins/color/gsd-color-calibrate.c:365
 msgid "Color calibration device removed"
 msgstr "Αφαιρέθηκε συσκευή για βαθμονόμηση χρωμάτων"
 
@@ -1183,27 +1200,28 @@ msgid "Date & Time Settings"
 msgstr "Ρυθμίσεις ημερομηνίας & ώρας"
 
 #: plugins/housekeeping/gsd-disk-space.c:574
-msgid "Disk space"
+#| msgid "Disk space"
+msgid "Disk Space"
 msgstr "Χώρος δίσκου"
 
-#: plugins/housekeeping/gsd-disk-space.c:586
+#: plugins/housekeeping/gsd-disk-space.c:587
 msgid "Examine"
 msgstr "Εξέταση"
 
-#: plugins/housekeeping/gsd-disk-space.c:597
+#: plugins/housekeeping/gsd-disk-space.c:598
 msgid "Empty Trash"
 msgstr "Άδειασμα απορριμάτων"
 
-#: plugins/housekeeping/gsd-disk-space.c:605
+#: plugins/housekeeping/gsd-disk-space.c:606
 msgid "Ignore"
 msgstr "Αγνόηση"
 
-#: plugins/housekeeping/gsd-disk-space.c:636
+#: plugins/housekeeping/gsd-disk-space.c:637
 #, c-format
 msgid "Low Disk Space on “%s”"
 msgstr "Λίγος χώρος στο δίσκο \"%s\""
 
-#: plugins/housekeeping/gsd-disk-space.c:638
+#: plugins/housekeeping/gsd-disk-space.c:639
 #, c-format
 msgid ""
 "The volume “%s” has only %s disk space remaining.  You may free up some "
@@ -1212,16 +1230,16 @@ msgstr ""
 "Ο τόμος \"%s\" έχει μόνο %s ελεύθερο χώρο.  Μπορείτε να ελευθερώσετε λίγο "
 "χώρο αδειάζοντας τον κάδο απορριμμάτων."
 
-#: plugins/housekeeping/gsd-disk-space.c:642
+#: plugins/housekeeping/gsd-disk-space.c:643
 #, c-format
 msgid "The volume “%s” has only %s disk space remaining."
 msgstr "Ο τόμος \"%s\" έχει μόνο %s ελεύθερο χώρο."
 
-#: plugins/housekeeping/gsd-disk-space.c:647
+#: plugins/housekeeping/gsd-disk-space.c:648
 msgid "Low Disk Space"
 msgstr "Λίγος χώρος στο δίσκο"
 
-#: plugins/housekeeping/gsd-disk-space.c:649
+#: plugins/housekeeping/gsd-disk-space.c:650
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1230,35 +1248,35 @@ msgstr ""
 "Αυτός ο υπολογιστής έχει μόνο %s ελεύθερο χώρο στο δίσκο.  Μπορείτε να "
 "ελευθερώσετε λίγο χώρο με το άδειασμα του κάδου απορριμμάτων."
 
-#: plugins/housekeeping/gsd-disk-space.c:652
+#: plugins/housekeeping/gsd-disk-space.c:653
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "Αυτός ο υπολογιστής έχει μόνο %s ελεύθερο χώρο στο δίσκο."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2176
+#: plugins/media-keys/gsd-media-keys-manager.c:2266
 msgid "Bluetooth disabled"
 msgstr "Το Bluetooth απενεργοποιήθηκε"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2179
+#: plugins/media-keys/gsd-media-keys-manager.c:2269
 msgid "Bluetooth enabled"
 msgstr "Το Bluetooth ενεργοποιήθηκε"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2183
+#: plugins/media-keys/gsd-media-keys-manager.c:2273
 msgid "Airplane mode enabled"
 msgstr "Η λειτουργία αεροπλάνου ενεργοποιήθηκε"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2186
+#: plugins/media-keys/gsd-media-keys-manager.c:2276
 msgid "Airplane mode disabled"
 msgstr "Η λειτουργία αεροπλάνου απενεργοποιήθηκε"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2214
+#: plugins/media-keys/gsd-media-keys-manager.c:2304
 msgid "Hardware Airplane Mode"
 msgstr "Λειτουργία αεροπλάνου από το υλικό μέσω του διακόπτη"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2274
+#: plugins/media-keys/gsd-media-keys-manager.c:2364
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Στιγμιότυπο από %d %t.webm"
@@ -1280,134 +1298,130 @@ msgid "Screenshot from %s"
 msgstr "Στιγμιότυπο από %s"
 
 #: plugins/media-keys/shortcuts-list.h:45
+#: plugins/media-keys/shortcuts-list.h:46
 msgid "Touchpad toggle"
 msgstr "Εναλλαγή πινακίδας αφής"
 
-#: plugins/media-keys/shortcuts-list.h:46
+#: plugins/media-keys/shortcuts-list.h:47
 msgid "Touchpad On"
 msgstr "Ενεργή πινακίδα αφής"
 
-#: plugins/media-keys/shortcuts-list.h:47
+#: plugins/media-keys/shortcuts-list.h:48
 msgid "Touchpad Off"
 msgstr "Ανενεργή πινακίδα αφής"
 
-#: plugins/media-keys/shortcuts-list.h:51
-#: plugins/media-keys/shortcuts-list.h:52
-msgid "Microphone Mute"
-msgstr "Σίγαση μικροφώνου"
-
-#: plugins/media-keys/shortcuts-list.h:53
+#: plugins/media-keys/shortcuts-list.h:55
 msgid "Quiet Volume Mute"
 msgstr "Σίγαση αθόρυβης έντασης"
 
-#: plugins/media-keys/shortcuts-list.h:54
+#: plugins/media-keys/shortcuts-list.h:56
 msgid "Quiet Volume Down"
 msgstr "Μείωση αθόρυβης έντασης"
 
-#: plugins/media-keys/shortcuts-list.h:55
+#: plugins/media-keys/shortcuts-list.h:57
 msgid "Quiet Volume Up"
 msgstr "Αύξηση αθόρυβης έντασης"
 
-#: plugins/media-keys/shortcuts-list.h:56
+#: plugins/media-keys/shortcuts-list.h:58
 msgid "Precise Volume Down"
 msgstr "Μείωση έντασης με ακρίβεια"
 
-#: plugins/media-keys/shortcuts-list.h:57
+#: plugins/media-keys/shortcuts-list.h:59
 msgid "Precise Volume Up"
 msgstr "Αύξηση έντασης με ακρίβεια"
 
-#: plugins/media-keys/shortcuts-list.h:67
+#: plugins/media-keys/shortcuts-list.h:69
 msgid "Lock Screen"
 msgstr "Κλείδωμα οθόνης"
 
-#: plugins/media-keys/shortcuts-list.h:69
+#: plugins/media-keys/shortcuts-list.h:71
 msgid "Help"
 msgstr "Βοήθεια"
 
-#: plugins/media-keys/shortcuts-list.h:83
+#: plugins/media-keys/shortcuts-list.h:88
 msgid "Rewind"
 msgstr "Πισωγύρισμα"
 
-#: plugins/media-keys/shortcuts-list.h:84
+#: plugins/media-keys/shortcuts-list.h:89
 msgid "Forward"
 msgstr "Προώθηση"
 
-#: plugins/media-keys/shortcuts-list.h:85
+#: plugins/media-keys/shortcuts-list.h:90
 msgid "Repeat"
 msgstr "Επανάληψη"
 
-#: plugins/media-keys/shortcuts-list.h:86
+#: plugins/media-keys/shortcuts-list.h:91
 msgid "Random Play"
 msgstr "Τυχαία αναπαραγωγή"
 
-#: plugins/media-keys/shortcuts-list.h:87
+#: plugins/media-keys/shortcuts-list.h:92
 msgid "Orientation Lock"
 msgstr "Κλείδωμα προσανατολισμού"
 
-#: plugins/media-keys/shortcuts-list.h:96
+#: plugins/media-keys/shortcuts-list.h:101
 msgid "Power Off"
 msgstr "Τερματισμός"
 
 #. the kernel / Xorg names really are like this...
 #. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
-#: plugins/media-keys/shortcuts-list.h:99
+#: plugins/media-keys/shortcuts-list.h:104
 msgid "Sleep"
 msgstr "Ύπνωση"
 
-#: plugins/media-keys/shortcuts-list.h:100
+#: plugins/media-keys/shortcuts-list.h:105
 msgid "Suspend"
 msgstr "Αναστολή"
 
-#: plugins/media-keys/shortcuts-list.h:101
+#: plugins/media-keys/shortcuts-list.h:106
 msgid "Hibernate"
 msgstr "Αδρανοποίηση"
 
-#: plugins/media-keys/shortcuts-list.h:102
+#: plugins/media-keys/shortcuts-list.h:107
 msgid "Brightness Up"
 msgstr "Αύξηση φωτεινότητας"
 
-#: plugins/media-keys/shortcuts-list.h:103
+#: plugins/media-keys/shortcuts-list.h:108
 msgid "Brightness Down"
 msgstr "Μείωση φωτεινότητας"
 
-#: plugins/media-keys/shortcuts-list.h:104
+#: plugins/media-keys/shortcuts-list.h:109
 msgid "Keyboard Brightness Up"
 msgstr "Αύξηση φωτεινότητας πληκτρολογίου"
 
-#: plugins/media-keys/shortcuts-list.h:105
+#: plugins/media-keys/shortcuts-list.h:110
 msgid "Keyboard Brightness Down"
 msgstr "Μείωση φωτεινότητας πληκτρολογίου"
 
-#: plugins/media-keys/shortcuts-list.h:106
+#: plugins/media-keys/shortcuts-list.h:111
 msgid "Keyboard Brightness Toggle"
 msgstr "Εναλλαγή φωτεινότητας πληκτρολογίου"
 
-#: plugins/media-keys/shortcuts-list.h:107
+#: plugins/media-keys/shortcuts-list.h:112
 msgid "Battery Status"
 msgstr "Κατάσταση μπαταρίας"
 
-#: plugins/media-keys/shortcuts-list.h:108
-#: plugins/media-keys/shortcuts-list.h:109
-#: plugins/media-keys/shortcuts-list.h:110
+#: plugins/media-keys/shortcuts-list.h:113
+#: plugins/media-keys/shortcuts-list.h:114
+#: plugins/media-keys/shortcuts-list.h:115
 msgid "Toggle Airplane Mode"
 msgstr "Εναλλαγή λειτουργίας αεροπλάνου"
 
-#: plugins/media-keys/shortcuts-list.h:111
+#: plugins/media-keys/shortcuts-list.h:116
 msgid "Toggle Bluetooth"
 msgstr "Εναλλαγή Bluetooth"
 
-#: plugins/power/gpm-common.c:100
+#: plugins/power/gpm-common.c:92
 msgid "Unknown time"
 msgstr "Άγνωστος χρόνος"
 
-#: plugins/power/gpm-common.c:105
+#: plugins/power/gpm-common.c:97
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i λεπτό"
 msgstr[1] "%i λεπτά"
 
-#: plugins/power/gpm-common.c:115
+#: plugins/power/gpm-common.c:107
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1416,96 +1430,96 @@ msgstr[1] "%i ώρες"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: plugins/power/gpm-common.c:121
+#: plugins/power/gpm-common.c:113
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: plugins/power/gpm-common.c:122
+#: plugins/power/gpm-common.c:114
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "ώρα"
 msgstr[1] "ώρες"
 
-#: plugins/power/gpm-common.c:123
+#: plugins/power/gpm-common.c:115
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "λεπτό"
 msgstr[1] "λεπτά"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:948 plugins/power/gsd-power-manager.c:686
-#: plugins/power/gsd-power-manager.c:783
+#: plugins/power/gpm-common.c:433 plugins/power/gsd-power-manager.c:693
+#: plugins/power/gsd-power-manager.c:790
 msgid "Battery is critically low"
 msgstr "Το φορτίο της μπαταρίας είναι εξαιρετικά χαμηλό"
 
 #. TRANSLATORS: this is the notification application name
-#: plugins/power/gsd-power-manager.c:324
+#: plugins/power/gsd-power-manager.c:325
 msgid "Power"
 msgstr "Ενέργεια"
 
 #. TRANSLATORS: UPS is now discharging
-#: plugins/power/gsd-power-manager.c:356
+#: plugins/power/gsd-power-manager.c:363
 msgid "UPS Discharging"
 msgstr "Γίνεται αποφόρτιση του UPS"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:361
+#: plugins/power/gsd-power-manager.c:368
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "%s λειτουργίας απομένουν μέσω του UPS"
 
-#: plugins/power/gsd-power-manager.c:364
+#: plugins/power/gsd-power-manager.c:371
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "Απομένει άγνωστη εφεδρική ισχύς του UPS"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: plugins/power/gsd-power-manager.c:439
+#: plugins/power/gsd-power-manager.c:446
 msgid "Battery low"
 msgstr "Το φορτίο της μπαταρίας είναι χαμηλό"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: plugins/power/gsd-power-manager.c:442
+#: plugins/power/gsd-power-manager.c:449
 msgid "Laptop battery low"
 msgstr "Το φορτίο της μπαταρίας του φορητού υπολογιστή είναι χαμηλό"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:449
+#: plugins/power/gsd-power-manager.c:456
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "Απομένουν %s περίπου (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: plugins/power/gsd-power-manager.c:454
+#: plugins/power/gsd-power-manager.c:461
 msgid "UPS low"
 msgstr "Το φορτίο του UPS είναι χαμηλό"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:460
+#: plugins/power/gsd-power-manager.c:467
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "Απομένουν περίπου %s λειτουργίας μέσω του UPS (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: plugins/power/gsd-power-manager.c:465 plugins/power/gsd-power-manager.c:599
+#: plugins/power/gsd-power-manager.c:472 plugins/power/gsd-power-manager.c:606
 msgid "Mouse battery low"
 msgstr "Το φορτίο της μπαταρίας του ποντικιού είναι χαμηλό"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:468
+#: plugins/power/gsd-power-manager.c:475
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "Το επίπεδο φόρτισης του ασύρματου ποντικιού σας είναι χαμηλό (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: plugins/power/gsd-power-manager.c:472 plugins/power/gsd-power-manager.c:607
+#: plugins/power/gsd-power-manager.c:479 plugins/power/gsd-power-manager.c:614
 msgid "Keyboard battery low"
 msgstr "Το φορτίο της μπαταρίας του πληκτρολογίου είναι χαμηλό"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:475
+#: plugins/power/gsd-power-manager.c:482
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr ""
@@ -1513,38 +1527,38 @@ msgstr ""
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: plugins/power/gsd-power-manager.c:479 plugins/power/gsd-power-manager.c:616
+#: plugins/power/gsd-power-manager.c:486 plugins/power/gsd-power-manager.c:623
 msgid "PDA battery low"
 msgstr "Το φορτίο της μπαταρίας του PDA είναι χαμηλό"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:482
+#: plugins/power/gsd-power-manager.c:489
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "Το επίπεδο φόρτισης του PDA σας είναι χαμηλό (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:486 plugins/power/gsd-power-manager.c:626
-#: plugins/power/gsd-power-manager.c:635
+#: plugins/power/gsd-power-manager.c:493 plugins/power/gsd-power-manager.c:633
+#: plugins/power/gsd-power-manager.c:642
 msgid "Cell phone battery low"
 msgstr "Το φορτίο της μπαταρίας του κινητού είναι χαμηλό"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:489
+#: plugins/power/gsd-power-manager.c:496
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "Το επίπεδο φόρτισης του κινητού σας είναι χαμηλό (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: plugins/power/gsd-power-manager.c:493
+#: plugins/power/gsd-power-manager.c:500
 msgid "Media player battery low"
 msgstr ""
 "Το επίπεδο φόρτισης της μπαταρίας της συσκευής αναπαραγωγής πολυμέσων είναι "
 "χαμηλό"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:496
+#: plugins/power/gsd-power-manager.c:503
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr ""
@@ -1553,47 +1567,47 @@ msgstr ""
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:500 plugins/power/gsd-power-manager.c:644
+#: plugins/power/gsd-power-manager.c:507 plugins/power/gsd-power-manager.c:651
 msgid "Tablet battery low"
 msgstr "Το επίπεδο φόρτισης του tablet είναι χαμηλό"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:503
+#: plugins/power/gsd-power-manager.c:510
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "Το επίπεδο φόρτισης του tablet σας είναι χαμηλό (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:507 plugins/power/gsd-power-manager.c:653
+#: plugins/power/gsd-power-manager.c:514 plugins/power/gsd-power-manager.c:660
 msgid "Attached computer battery low"
 msgstr ""
 "Το επίπεδο φόρτισης της μπαταρίας του συνδεδεμένου υπολογιστή είναι χαμηλό"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:510
+#: plugins/power/gsd-power-manager.c:517
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "Το επίπεδο φόρτισης του συνδεδεμένου υπολογιστή είναι χαμηλό (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:531
+#: plugins/power/gsd-power-manager.c:538
 msgid "Battery is low"
 msgstr "Το φορτίο της μπαταρίας είναι χαμηλό"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: plugins/power/gsd-power-manager.c:563
+#: plugins/power/gsd-power-manager.c:570
 msgid "Battery critically low"
 msgstr "Το φορτίο της μπαταρίας είναι εξαιρετικά χαμηλό"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: plugins/power/gsd-power-manager.c:566 plugins/power/gsd-power-manager.c:713
+#: plugins/power/gsd-power-manager.c:573 plugins/power/gsd-power-manager.c:720
 msgid "Laptop battery critically low"
 msgstr "Το φορτίο μίας μπαταρίας του φορητού είναι εξαιρετικά χαμηλό"
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:575
+#: plugins/power/gsd-power-manager.c:582
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr ""
@@ -1601,7 +1615,7 @@ msgstr ""
 "συνδεθεί σε πηγή ηλεκτρικού ρεύματος."
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:579
+#: plugins/power/gsd-power-manager.c:586
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr ""
@@ -1610,12 +1624,12 @@ msgstr ""
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: plugins/power/gsd-power-manager.c:587 plugins/power/gsd-power-manager.c:738
+#: plugins/power/gsd-power-manager.c:594 plugins/power/gsd-power-manager.c:745
 msgid "UPS critically low"
 msgstr "Το φορτίο του UPS είναι εξαιρετικά χαμηλό"
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:593
+#: plugins/power/gsd-power-manager.c:600
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1625,7 +1639,7 @@ msgstr ""
 "πρίζα ρεύματος AC για να μη χάσετε δεδομένα."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:602
+#: plugins/power/gsd-power-manager.c:609
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1635,7 +1649,7 @@ msgstr ""
 "%%). Σύντομα, η συσκευή θα σταματήσει να λειτουργεί, εκτός αν φορτιστεί."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:610
+#: plugins/power/gsd-power-manager.c:617
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1645,7 +1659,7 @@ msgstr ""
 "(%.0f%%). Σύντομα, η συσκευή θα σταματήσει να λειτουργεί, εκτός αν φορτιστεί."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:619
+#: plugins/power/gsd-power-manager.c:626
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1655,7 +1669,7 @@ msgstr ""
 "συσκευή θα σταματήσει να λειτουργεί, εκτός αν φορτιστεί."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:629
+#: plugins/power/gsd-power-manager.c:636
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -1665,7 +1679,7 @@ msgstr ""
 "Σύντομα, η συσκευή θα σταματήσει να λειτουργεί, εκτός αν φορτιστεί."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:638
+#: plugins/power/gsd-power-manager.c:645
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -1676,7 +1690,7 @@ msgstr ""
 "φορτιστεί."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:647
+#: plugins/power/gsd-power-manager.c:654
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -1686,7 +1700,7 @@ msgstr ""
 "Σύντομα, η συσκευή θα σταματήσει να λειτουργεί, εκτός αν φορτιστεί."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:656
+#: plugins/power/gsd-power-manager.c:663
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -1696,7 +1710,7 @@ msgstr ""
 "%%). Σύντομα, η συσκευή θα σταματήσει να λειτουργεί αν δεν φορτιστεί."
 
 #. TRANSLATORS: computer will hibernate
-#: plugins/power/gsd-power-manager.c:721
+#: plugins/power/gsd-power-manager.c:728
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -1705,7 +1719,7 @@ msgstr ""
 "αδρανοποιηθεί."
 
 #. TRANSLATORS: computer will just shutdown
-#: plugins/power/gsd-power-manager.c:726
+#: plugins/power/gsd-power-manager.c:733
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -1713,7 +1727,7 @@ msgstr ""
 "Το φορτίο της μπαταρίας είναι εξαιρετικά χαμηλό και ο υπολογιστής θα κλείσει."
 
 #. TRANSLATORS: computer will hibernate
-#: plugins/power/gsd-power-manager.c:746
+#: plugins/power/gsd-power-manager.c:753
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
@@ -1721,50 +1735,50 @@ msgstr ""
 "πρόκειται να αδρανοποιηθεί."
 
 #. TRANSLATORS: computer will just shutdown
-#: plugins/power/gsd-power-manager.c:751
+#: plugins/power/gsd-power-manager.c:758
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "Το UPS είναι σε εξαιρετικά χαμηλό επίπεδο φορτίου και ο υπολογιστής θα "
 "κλείσει."
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1264
+#: plugins/power/gsd-power-manager.c:1320
 msgid "Lid has been opened"
 msgstr "Το καπάκι έχει ανοίξει"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1302
+#: plugins/power/gsd-power-manager.c:1354
 msgid "Lid has been closed"
 msgstr "Το καπάκι έχει κλείσει"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1898
+#: plugins/power/gsd-power-manager.c:1916
 msgid "On battery power"
 msgstr "Με τροφοδοσία μπαταρίας"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1903
+#: plugins/power/gsd-power-manager.c:1921
 msgid "On AC power"
 msgstr "Με εναλλασσόμενο ρεύμα"
 
-#: plugins/power/gsd-power-manager.c:2095
+#: plugins/power/gsd-power-manager.c:2113
 msgid "Automatic logout"
 msgstr "Αυτόματη αποσύνδεση"
 
-#: plugins/power/gsd-power-manager.c:2095
+#: plugins/power/gsd-power-manager.c:2113
 msgid "You will soon log out because of inactivity."
 msgstr "Θα αποσυνδεθείτε σύντομα λόγω αδράνειας."
 
-#: plugins/power/gsd-power-manager.c:2100
+#: plugins/power/gsd-power-manager.c:2118
 msgid "Automatic suspend"
 msgstr "Αυτόματη αναστολή"
 
-#: plugins/power/gsd-power-manager.c:2100
-#: plugins/power/gsd-power-manager.c:2105
+#: plugins/power/gsd-power-manager.c:2118
+#: plugins/power/gsd-power-manager.c:2123
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Αναστολή υπολογιστή πολύ σύντομα λόγω αδράνειας."
 
-#: plugins/power/gsd-power-manager.c:2105
+#: plugins/power/gsd-power-manager.c:2123
 msgid "Automatic hibernation"
 msgstr "Αυτόματη αδρανοποίηση"
 
@@ -1809,227 +1823,227 @@ msgstr "Δεν υπάρχει οδηγός για αυτόν τον εκτυπω
 
 #: plugins/print-notifications/gsd-printer.c:1031
 #: plugins/print-notifications/gsd-print-notifications-manager.c:290
-#: plugins/print-notifications/gsd-print-notifications-manager.c:530
-#: plugins/print-notifications/gsd-print-notifications-manager.c:911
-#: plugins/print-notifications/gsd-print-notifications-manager.c:1001
-#: plugins/print-notifications/gsd-print-notifications-manager.c:1044
+#: plugins/print-notifications/gsd-print-notifications-manager.c:531
+#: plugins/print-notifications/gsd-print-notifications-manager.c:913
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1004
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1048
 msgid "Printers"
 msgstr "Εκτυπωτές"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:366
+#: plugins/print-notifications/gsd-print-notifications-manager.c:367
 #, c-format
 msgid "Printer “%s” is low on toner."
 msgstr "Τελειώνει ο γραφίτης στον εκτυπωτή '%s'."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:370
+#: plugins/print-notifications/gsd-print-notifications-manager.c:371
 #, c-format
 msgid "Printer “%s” has no toner left."
 msgstr "Τελείωσε ο γραφίτης στον εκτυπωτή '%s'."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:374
+#: plugins/print-notifications/gsd-print-notifications-manager.c:375
 #, c-format
 msgid "Printer “%s” may not be connected."
 msgstr "Ο εκτυπωτής '%s' μπορεί να μην είναι συνδεδεμένος."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:378
+#: plugins/print-notifications/gsd-print-notifications-manager.c:379
 #, c-format
 msgid "The cover is open on printer “%s”."
 msgstr "Είναι ανοιχτό το κάλυμμα του εκτυπωτή «%s»."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:382
+#: plugins/print-notifications/gsd-print-notifications-manager.c:383
 #, c-format
 msgid "There is a missing print filter for printer “%s”."
 msgstr "Λείπει ένα φίλτρο εκτύπωσης στον εκτυπωτή '%s'."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:387
+#: plugins/print-notifications/gsd-print-notifications-manager.c:388
 #, c-format
 msgid "The door is open on printer “%s”."
 msgstr "Είναι ανοιχτή η θύρα του εκτυπωτή «%s»."
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:391
+#: plugins/print-notifications/gsd-print-notifications-manager.c:392
 #, c-format
 msgid "Printer “%s” is low on a marker supply."
 msgstr "Τελείωσε τουλάχιστον ένα δοχείο έγχρωμου μελανιού στον εκτυπωτή '%s'."
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:395
+#: plugins/print-notifications/gsd-print-notifications-manager.c:396
 #, c-format
 msgid "Printer “%s” is out of a marker supply."
 msgstr "Ένα δοχείο χρώματος του εκτυπωτή '%s' έχει τελειώσει."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:399
+#: plugins/print-notifications/gsd-print-notifications-manager.c:400
 #, c-format
 msgid "Printer “%s” is low on paper."
 msgstr "Τελειώνει το χαρτί στον εκτυπωτή «%s»."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:403
+#: plugins/print-notifications/gsd-print-notifications-manager.c:404
 #, c-format
 msgid "Printer “%s” is out of paper."
 msgstr "Τελείωσε το χαρτί στον εκτυπωτή «%s»."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:407
+#: plugins/print-notifications/gsd-print-notifications-manager.c:408
 #, c-format
 msgid "Printer “%s” is currently off-line."
 msgstr "Ο εκτυπωτής '%s' είναι απενεργοποιημένος."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:411
+#: plugins/print-notifications/gsd-print-notifications-manager.c:412
 #, c-format
 msgid "There is a problem on printer “%s”."
 msgstr "Υπάρχει πρόβλημα στον εκτυπωτή '%s'."
 
 #. Translators: The printer has a job to print but the printer needs authentication to continue with the print
-#: plugins/print-notifications/gsd-print-notifications-manager.c:523
+#: plugins/print-notifications/gsd-print-notifications-manager.c:524
 #, c-format
 msgid "%s Requires Authentication"
 msgstr "Ο %s απαιτεί πιστοποίηση"
 
 #. Translators: A printer needs credentials to continue printing a job
-#: plugins/print-notifications/gsd-print-notifications-manager.c:525
+#: plugins/print-notifications/gsd-print-notifications-manager.c:526
 #, c-format
 msgid "Credentials required in order to print"
 msgstr "Απαιτούνται διαπιστευτήρια για εκτύπωση"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:591
+#: plugins/print-notifications/gsd-print-notifications-manager.c:593
 msgid "Toner low"
 msgstr "Τελειώνει ο γραφίτης"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:593
+#: plugins/print-notifications/gsd-print-notifications-manager.c:595
 msgid "Toner empty"
 msgstr "Άδειος γραφίτης"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:595
+#: plugins/print-notifications/gsd-print-notifications-manager.c:597
 msgid "Not connected?"
 msgstr "Δε συνδέθηκε;"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:597
+#: plugins/print-notifications/gsd-print-notifications-manager.c:599
 msgid "Cover open"
 msgstr "Κάλυμμα ανοικτό"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:599
+#: plugins/print-notifications/gsd-print-notifications-manager.c:601
 msgid "Printer configuration error"
 msgstr "Σφάλμα ρύθμισης εκτυπωτή"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:601
+#: plugins/print-notifications/gsd-print-notifications-manager.c:603
 msgid "Door open"
 msgstr "Πορτάκι ανοικτό"
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:603
+#: plugins/print-notifications/gsd-print-notifications-manager.c:605
 msgid "Marker supply low"
 msgstr "Τελειώνει ένα από τα χρώματα"
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:605
+#: plugins/print-notifications/gsd-print-notifications-manager.c:607
 msgid "Out of a marker supply"
 msgstr "Τελείωσε ένα από τα χρώματα"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:607
+#: plugins/print-notifications/gsd-print-notifications-manager.c:609
 msgid "Paper low"
 msgstr "Τελειώνει το χαρτί"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:609
+#: plugins/print-notifications/gsd-print-notifications-manager.c:611
 msgid "Out of paper"
 msgstr "Τελείωσε το χαρτί"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:611
+#: plugins/print-notifications/gsd-print-notifications-manager.c:613
 msgid "Printer off-line"
 msgstr "Εκτυπωτής εκτός σύνδεσης"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:613
-#: plugins/print-notifications/gsd-print-notifications-manager.c:987
+#: plugins/print-notifications/gsd-print-notifications-manager.c:615
+#: plugins/print-notifications/gsd-print-notifications-manager.c:990
 msgid "Printer error"
 msgstr "Σφάλμα εκτυπωτή"
 
 #. Translators: New printer has been added
-#: plugins/print-notifications/gsd-print-notifications-manager.c:661
+#: plugins/print-notifications/gsd-print-notifications-manager.c:663
 msgid "Printer added"
 msgstr "Προστέθηκε ο εκτυπωτής"
 
 #. Translators: A print job has been stopped
-#: plugins/print-notifications/gsd-print-notifications-manager.c:678
-#: plugins/print-notifications/gsd-print-notifications-manager.c:716
+#: plugins/print-notifications/gsd-print-notifications-manager.c:680
+#: plugins/print-notifications/gsd-print-notifications-manager.c:718
 msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "Η εκτύπωση σταμάτησε"
 
 #. Translators: "print-job xy" on a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:680
-#: plugins/print-notifications/gsd-print-notifications-manager.c:686
-#: plugins/print-notifications/gsd-print-notifications-manager.c:692
-#: plugins/print-notifications/gsd-print-notifications-manager.c:698
-#: plugins/print-notifications/gsd-print-notifications-manager.c:710
-#: plugins/print-notifications/gsd-print-notifications-manager.c:718
-#: plugins/print-notifications/gsd-print-notifications-manager.c:726
-#: plugins/print-notifications/gsd-print-notifications-manager.c:734
-#: plugins/print-notifications/gsd-print-notifications-manager.c:742
-#: plugins/print-notifications/gsd-print-notifications-manager.c:766
+#: plugins/print-notifications/gsd-print-notifications-manager.c:682
+#: plugins/print-notifications/gsd-print-notifications-manager.c:688
+#: plugins/print-notifications/gsd-print-notifications-manager.c:694
+#: plugins/print-notifications/gsd-print-notifications-manager.c:700
+#: plugins/print-notifications/gsd-print-notifications-manager.c:712
+#: plugins/print-notifications/gsd-print-notifications-manager.c:720
+#: plugins/print-notifications/gsd-print-notifications-manager.c:728
+#: plugins/print-notifications/gsd-print-notifications-manager.c:736
+#: plugins/print-notifications/gsd-print-notifications-manager.c:744
+#: plugins/print-notifications/gsd-print-notifications-manager.c:768
 #, c-format
 msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "\"%s\" στο %s"
 
 #. Translators: A print job has been canceled
-#: plugins/print-notifications/gsd-print-notifications-manager.c:684
-#: plugins/print-notifications/gsd-print-notifications-manager.c:724
+#: plugins/print-notifications/gsd-print-notifications-manager.c:686
+#: plugins/print-notifications/gsd-print-notifications-manager.c:726
 msgctxt "print job state"
 msgid "Printing canceled"
 msgstr "Η εκτύπωση ακυρώθηκε"
 
 #. Translators: A print job has been aborted
-#: plugins/print-notifications/gsd-print-notifications-manager.c:690
-#: plugins/print-notifications/gsd-print-notifications-manager.c:732
+#: plugins/print-notifications/gsd-print-notifications-manager.c:692
+#: plugins/print-notifications/gsd-print-notifications-manager.c:734
 msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "Η εκτύπωση ματαιώθηκε"
 
 #. Translators: A print job has been completed
-#: plugins/print-notifications/gsd-print-notifications-manager.c:696
-#: plugins/print-notifications/gsd-print-notifications-manager.c:740
+#: plugins/print-notifications/gsd-print-notifications-manager.c:698
+#: plugins/print-notifications/gsd-print-notifications-manager.c:742
 msgctxt "print job state"
 msgid "Printing completed"
 msgstr "Η εκτύπωση ολοκληρώθηκε"
 
 #. Translators: A job is printing
-#: plugins/print-notifications/gsd-print-notifications-manager.c:708
-#: plugins/print-notifications/gsd-print-notifications-manager.c:764
+#: plugins/print-notifications/gsd-print-notifications-manager.c:710
+#: plugins/print-notifications/gsd-print-notifications-manager.c:766
 msgctxt "print job state"
 msgid "Printing"
 msgstr "Εκτύπωση"
 
 #. Translators: This is a title of a report notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:981
+#: plugins/print-notifications/gsd-print-notifications-manager.c:984
 msgid "Printer report"
 msgstr "Αναφορά εκτυπωτή"
 
 #. Translators: This is a title of a warning notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:984
+#: plugins/print-notifications/gsd-print-notifications-manager.c:987
 msgid "Printer warning"
 msgstr "Προειδοποίηση εκτυπωτή"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: plugins/print-notifications/gsd-print-notifications-manager.c:994
+#: plugins/print-notifications/gsd-print-notifications-manager.c:997
 #, c-format
 msgid "Printer “%s”: “%s”."
 msgstr "Εκτυπωτής '%s': '%s'."
@@ -4219,9 +4233,6 @@ msgstr ""
 
 #~ msgid "_Groups"
 #~ msgstr "_Ομάδες"
-
-#~ msgid "Binding to suspend the computer."
-#~ msgstr "Συνδυασμός για την αναστολή του υπολογιστή"
 
 #~ msgid ""
 #~ "Couldn't put the machine to sleep.\n"
