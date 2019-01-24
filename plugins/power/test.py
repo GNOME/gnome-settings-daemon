@@ -60,6 +60,11 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
         # device based on the name of the test.
         self.add_backlight()
 
+        if 'HAVE_SYSFS_BACKLIGHT' in os.environ and os.environ['HAVE_SYSFS_BACKLIGHT'] == 1:
+            self.skip_sysfs_backlight = False
+        else:
+            self.skip_sysfs_backlight = True
+
         # start mock upowerd
         (self.upowerd, self.obj_upower) = self.spawn_server_template(
             'upower', {'DaemonVersion': '0.99', 'OnBattery': True, 'LidIsClosed': False}, stdout=subprocess.PIPE)
@@ -544,7 +549,8 @@ class PowerPluginTest1(PowerPluginBase):
         time.sleep(0.5)
         self.reset_idle_timer()
         self.check_unblank(2)
-        self.assertTrue(self.get_brightness() == gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS , 'incorrect unblanked brightness (%d != %d)' % (self.get_brightness(), gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS))
+        if not self.skip_sysfs_backlight:
+            self.assertTrue(self.get_brightness() == gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS , 'incorrect unblanked brightness (%d != %d)' % (self.get_brightness(), gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS))
 
         # Check for no blank before the normal blank timeout
         self.check_no_blank(gsdpowerconstants.SCREENSAVER_TIMEOUT_BLANK - 4)
@@ -796,8 +802,9 @@ class PowerPluginTest5(PowerPluginBase):
         self.check_dim(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY + 1)
         # Give time for the brightness to change
         time.sleep(2)
-        level = self.get_brightness();
-        self.assertTrue(level == dim_level, 'incorrect dim brightness (%d != %d)' % (level, dim_level))
+        if not self.skip_sysfs_backlight:
+            level = self.get_brightness();
+            self.assertTrue(level == dim_level, 'incorrect dim brightness (%d != %d)' % (level, dim_level))
 
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
 
@@ -817,7 +824,8 @@ class PowerPluginTest5(PowerPluginBase):
         time.sleep(1)
 
         # And check that we have the pre-dim brightness
-        self.assertTrue(self.get_brightness() == gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS , 'incorrect unblanked brightness (%d != %d)' % (self.get_brightness(), gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS))
+        if not self.skip_sysfs_backlight:
+            self.assertTrue(self.get_brightness() == gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS , 'incorrect unblanked brightness (%d != %d)' % (self.get_brightness(), gsdpowerconstants.GSD_MOCK_DEFAULT_BRIGHTNESS))
 
     def test_lid_close_inhibition(self):
         '''Check that we correctly inhibit suspend with an external monitor'''
@@ -1049,6 +1057,9 @@ class PowerPluginTest8(PowerPluginBase):
     def test_brightness_stepping(self):
         '''Check that stepping the backlight works as expected'''
 
+        if self.skip_sysfs_backlight:
+            self.skipTest("sysfs backlight support required for test")
+
         obj_gsd_power = self.session_bus_con.get_object(
             'org.gnome.SettingsDaemon.Power', '/org/gnome/SettingsDaemon/Power')
         obj_gsd_power_screen_iface = dbus.Interface(obj_gsd_power, 'org.gnome.SettingsDaemon.Power.Screen')
@@ -1104,6 +1115,10 @@ class PowerPluginTest8(PowerPluginBase):
 
     def test_brightness_compression(self):
         '''Check that compression also happens when setting the property'''
+
+        if self.skip_sysfs_backlight:
+            self.skipTest("sysfs backlight support required for test")
+
         # Now test that the compression works correctly.
         # NOTE: Relies on the implementation detail, that the property setter
         #       returns immediately rather than waiting for the brightness to
@@ -1126,6 +1141,9 @@ class PowerPluginTest8(PowerPluginBase):
         self.assertEqual(self.get_brightness(), 90)
 
     def test_brightness_uevent(self):
+        if self.skip_sysfs_backlight:
+            self.skipTest("sysfs backlight support required for test")
+
         obj_gsd_power = self.session_bus_con.get_object(
             'org.gnome.SettingsDaemon.Power', '/org/gnome/SettingsDaemon/Power')
         obj_gsd_power_prop_iface = dbus.Interface(obj_gsd_power, dbus.PROPERTIES_IFACE)
@@ -1146,18 +1164,27 @@ class PowerPluginTest8(PowerPluginBase):
         self.assertEqual(80, brightness)
 
     def test_brightness_step(self):
+        if self.skip_sysfs_backlight:
+            self.skipTest("sysfs backlight support required for test")
+
         # We cannot use check_plugin_log here because the startup check already
         # read the relevant message.
         log = open(self.plugin_log_write.name, 'rb').read()
         self.assertIn(b'Step size for backlight is 5.', log)
 
     def test_legacy_brightness_step(self):
+        if self.skip_sysfs_backlight:
+            self.skipTest("sysfs backlight support required for test")
+
         # We cannot use check_plugin_log here because the startup check already
         # read the relevant message.
         log = open(self.plugin_log_write.name, 'rb').read()
         self.assertIn(b'Step size for backlight is 1.', log)
 
     def test_legacy_brightness_rounding(self):
+        if self.skip_sysfs_backlight:
+            self.skipTest("sysfs backlight support required for test")
+
         obj_gsd_power = self.session_bus_con.get_object(
             'org.gnome.SettingsDaemon.Power', '/org/gnome/SettingsDaemon/Power')
         obj_gsd_power_prop_iface = dbus.Interface(obj_gsd_power, dbus.PROPERTIES_IFACE)
