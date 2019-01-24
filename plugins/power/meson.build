@@ -24,7 +24,7 @@ native_deps = [
   dependency('gio-2.0', native:true)
 ]
 
-if enable_gudev
+if host_is_linux
   deps += gudev_dep
 endif
 
@@ -66,7 +66,7 @@ gsd_power_enums_update = executable(
   native: true
 )
 
-if enable_gudev
+if host_is_linux
   policy = 'org.gnome.settings-daemon.plugins.power.policy'
 
   policy_in = configure_file(
@@ -130,6 +130,7 @@ envs.set('BUILDDIR', meson.current_build_dir())
 envs.set('TOP_BUILDDIR', meson.build_root())
 envs.set('LD_PRELOAD', 'libumockdev-preload.so.0')
 envs.set('NO_AT_BRIDGE', '1')
+envs.set('HAVE_SYSFS_BACKLIGHT', host_is_linux ? '1' : '0')
 
 if get_option('b_sanitize').split(',').contains('address')
   # libasan needs to be loaded first; so we need to explicitly preload it

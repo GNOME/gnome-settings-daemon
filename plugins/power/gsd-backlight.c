@@ -25,9 +25,9 @@
 #include "gsd-power-constants.h"
 #include "gsd-power-manager.h"
 
-#ifdef HAVE_GUDEV
+#ifdef __linux__
 #include <gudev/gudev.h>
-#endif /* HAVE_GUDEV */
+#endif /* __linux__ */
 
 struct _GsdBacklight
 {
@@ -39,7 +39,7 @@ struct _GsdBacklight
         gint brightness_target;
         gint brightness_step;
 
-#ifdef HAVE_GUDEV
+#ifdef __linux__
         GUdevClient *udev;
         GUdevDevice *udev_device;
 
@@ -47,7 +47,7 @@ struct _GsdBacklight
         GQueue tasks;
 
         gint idle_update;
-#endif
+#endif /* __linux__ */
 
         GnomeRRScreen *rr_screen;
         gboolean builtin_display_disabled;
@@ -71,7 +71,7 @@ G_DEFINE_TYPE_EXTENDED (GsdBacklight, gsd_backlight, G_TYPE_OBJECT, 0,
                         G_IMPLEMENT_INTERFACE (G_TYPE_INITABLE,
                                                gsd_backlight_initable_iface_init);)
 
-#ifdef HAVE_GUDEV
+#ifdef __linux__
 static GUdevDevice*
 gsd_backlight_udev_get_type (GList *devices, const gchar *type)
 {
@@ -396,7 +396,7 @@ gsd_backlight_process_taskqueue (GsdBacklight *backlight)
         /* And run it! */
         gsd_backlight_run_set_helper (backlight, to_run);
 }
-#endif /* HAVE_GUDEV */
+#endif /* __linux__ */
 
 static GnomeRROutput*
 gsd_backlight_rr_find_output (GsdBacklight *backlight, gboolean controllable)
@@ -471,7 +471,7 @@ gsd_backlight_set_brightness_val_async (GsdBacklight *backlight,
 
         task = g_task_new (backlight, cancellable, callback, user_data);
 
-#ifdef HAVE_GUDEV
+#ifdef __linux__
         if (backlight->udev_device != NULL) {
                 BacklightHelperData *task_data;
 
@@ -485,7 +485,7 @@ gsd_backlight_set_brightness_val_async (GsdBacklight *backlight,
 
                 return;
         }
-#endif /* HAVE_GUDEV */
+#endif /* __linux__ */
 
         /* Fallback to setting via GNOME RR/X11 */
         output = gsd_backlight_rr_find_output (backlight, TRUE);
@@ -752,11 +752,11 @@ gsd_backlight_initable_init (GInitable       *initable,
                 return FALSE;
         }
 
-#ifdef HAVE_GUDEV
+#ifdef __linux__
         /* Try finding a udev device. */
         if (gsd_backlight_udev_init (backlight))
                 goto found;
-#endif /* HAVE_GUDEV */
+#endif /* __linux__ */
 
         /* Try GNOME RR as a fallback. */
         output = gsd_backlight_rr_find_output (backlight, TRUE);
@@ -791,7 +791,7 @@ gsd_backlight_finalize (GObject *object)
 {
         GsdBacklight *backlight = GSD_BACKLIGHT (object);
 
-#ifdef HAVE_GUDEV
+#ifdef __linux__
         g_assert (backlight->active_task == NULL);
         g_assert (g_queue_is_empty (&backlight->tasks));
         g_clear_object (&backlight->udev);
@@ -800,7 +800,7 @@ gsd_backlight_finalize (GObject *object)
                 g_source_remove (backlight->idle_update);
                 backlight->idle_update = 0;
         }
-#endif /* HAVE_GUDEV */
+#endif /* __linux__ */
 
         g_clear_object (&backlight->rr_screen);
 }
@@ -843,10 +843,10 @@ gsd_backlight_init (GsdBacklight *backlight)
         backlight->brightness_val = -1;
         backlight->brightness_step = 1;
 
-#ifdef HAVE_GUDEV
+#ifdef __linux__
         backlight->active_task = NULL;
         g_queue_init (&backlight->tasks);
-#endif /* HAVE_GUDEV */
+#endif /* __linux__ */
 }
 
 GsdBacklight *
