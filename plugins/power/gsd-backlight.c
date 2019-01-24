@@ -641,6 +641,25 @@ gsd_backlight_step_down_finish (GsdBacklight *backlight,
         return g_task_propagate_int (G_TASK (res), error);
 }
 
+void
+gsd_backlight_cycle_up_async (GsdBacklight *backlight,
+                              GCancellable *cancellable,
+                              GAsyncReadyCallback callback,
+                              gpointer user_data)
+{
+        if (backlight->brightness_target < backlight->brightness_max)
+                gsd_backlight_step_up_async (backlight,
+                                             cancellable,
+                                             callback,
+                                             user_data);
+        else
+                gsd_backlight_set_brightness_val_async (backlight,
+                                                        0,
+                                                        cancellable,
+                                                        callback,
+                                                        user_data);
+}
+
 /**
  * gsd_backlight_get_output_id
  * @backlight: a #GsdBacklight
