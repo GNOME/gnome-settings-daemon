@@ -120,10 +120,12 @@ libgvc_dep = libgvc.get_variable('libgvc_dep')
 # GUdev integration (default enabled)
 enable_gudev = get_option('gudev')
 if enable_gudev
-  assert(enable_gudev, 'GUdev is not optional on Linux platforms')
   gudev_dep = dependency('gudev-1.0')
 endif
 config_h.set10('HAVE_GUDEV', enable_gudev)
+if host_is_linux
+  assert(enable_gudev, 'GUdev is not optional on Linux platforms')
+endif
 
 has_timerfd_create = cc.has_function('timerfd_create')
 config_h.set10('HAVE_TIMERFD', has_timerfd_create)
