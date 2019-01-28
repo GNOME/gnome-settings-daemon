@@ -449,9 +449,7 @@ on_device_presence_signal (GDBusProxy *proxy,
         guint protection_lvl;
         GsdUSBProtectionManager *manager = user_data;
 
-        g_debug ("new device!");
-        g_debug ("%s", signal_name);
-        /* We do nothing if we receive a different signal from DevicePresenceChanged */
+        /* We act only if we receive a signal from DevicePresenceChanged */
         if (g_strcmp0 (signal_name, DEVICE_PRESENCE_CHANGED) != 0)
                 return;
 
@@ -459,7 +457,7 @@ on_device_presence_signal (GDBusProxy *proxy,
         device_event = g_variant_get_uint32 (ev);
         g_variant_unref (ev);
 
-        g_debug ("Event: %i", device_event);
+        /* If this is not an insert event we do nothing */
         if (device_event != INSERT)
                 return;
 
@@ -467,7 +465,6 @@ on_device_presence_signal (GDBusProxy *proxy,
         target = g_variant_get_uint32 (ta);
         g_variant_unref (ta);
 
-        g_debug ("Target: %i", target);
         /* If the device is already authorized we do nothing */
         if (target == TARGET_ALLOW)
             return;
@@ -476,7 +473,6 @@ on_device_presence_signal (GDBusProxy *proxy,
         if (!is_protection_active (manager))
                 return;
 
-        g_debug("protection is active");
         if (manager->priv->screensaver_active) {
                 /* If the session is locked we check if the inserted device is a keyboard.
                  * If this new device is the only available keyboard we authorize it.
@@ -538,7 +534,7 @@ on_usbprotection_signal (GDBusProxy *proxy,
         g_variant_get (policy, "s", &policy_name);
         g_variant_unref (policy);
 
-        // Right now we just care about the InsertedDevicePolicy value
+        /* Right now we just care about the InsertedDevicePolicy value */
         if (g_strcmp0 (policy_name, INSERTED_DEVICE_POLICY) != 0)
                 return;
 
@@ -650,18 +646,11 @@ on_usbprotection_owner_changed_cb (GObject    *object,
                                    gpointer    user_data)
 {
         GsdUSBProtectionManager *manager = user_data;
-        //GDBusProxy *proxy = manager->priv->usbprotection;
         GDBusProxy *proxy = G_DBUS_PROXY(object);
         char *name_owner;
 
         name_owner = g_dbus_proxy_get_name_owner (proxy);
-        g_debug("hey hey, the owner changed!");
         if (name_owner) {
-                g_debug("%s", name_owner);
-                //TODO: if USBGuard is installed while g-s-d is running we notice it here,
-                // but the proxy is unusable.
-                // GDBus.Error:org.freedesktop.DBus.Error.NoServer: USBGuard DBus
-                // service is not connected to the daemon
                 sync_usbprotection (proxy, manager);
                 g_free(name_owner);
         }
@@ -675,13 +664,8 @@ handle_screensaver_active (GsdUSBProtectionManager *manager,
 
         g_variant_get (parameters, "(b)", &active);
         g_debug ("Received screensaver ActiveChanged signal: %d (old: %d)", active, manager->priv->screensaver_active);
-        if (manager->priv->screensaver_active != active) {
+        if (manager->priv->screensaver_active != active)
                 manager->priv->screensaver_active = active;
-
-                /* probably we don't need to do anything more here */
-                if (active)
-                        g_debug("active");
-        }
 }
 
 static void
@@ -698,10 +682,8 @@ initialize_touchscreen_search (GsdUSBProtectionManager *manager)
         seat = gdk_display_get_default_seat (display);
         devices = NULL;
 
-        /* Adding a touchscreen at runtime is even a thing??
-         * Probably we don't need to worry about that. */
-        //g_signal_connect_object (seat, "device-added", G_CALLBACK (on_device_added), backend, 0);
-        //g_signal_connect_object (seat, "device-removed", G_CALLBACK (on_device_removed), backend, 0);
+        /* We don't add signals to device-added and device-removed because it's
+         * highly unlikely to add touchscreen capabilities at runtime. */
 
         devices = g_list_append (devices, gdk_seat_get_pointer (seat));
         devices = g_list_append (devices, gdk_seat_get_keyboard (seat));
@@ -734,7 +716,6 @@ usbprotection_devices_proxy_ready (GObject      *source_object,
         GDBusProxy *proxy;
         g_autoptr(GError) error = NULL;
 
-        g_debug("devices ready");
         proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
         if (!proxy) {
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
@@ -742,8 +723,6 @@ usbprotection_devices_proxy_ready (GObject      *source_object,
                 return;
         }
         manager->priv->usbprotection_devices = proxy;
-
-        //TODO: investigate what to do with the name-owner
 
         g_signal_connect_object (source_object,
                                  "g-signal",
@@ -759,7 +738,7 @@ usbprotection_proxy_ready (GObject      *source_object,
 {
         GsdUSBProtectionManager *manager = user_data;
         GDBusProxy *proxy;
-        const char *name_owner;
+        char *name_owner;
         g_autoptr(GError) error = NULL;
 
         proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
@@ -784,6 +763,7 @@ usbprotection_proxy_ready (GObject      *source_object,
                 g_debug("Probably USBGuard is not currently installed.");
         } else {
                 sync_usbprotection (proxy, manager);
+                g_free (name_owner);
         }
 
         initialize_touchscreen_search (manager);
@@ -816,7 +796,7 @@ start_usbprotection_idle_cb (GsdUSBProtectionManager *manager)
 {
         g_debug ("Starting usbprotection manager");
 
-        manager->priv->settings = g_settings_new(PRIVACY_SETTINGS);
+        manager->priv->settings = g_settings_new (PRIVACY_SETTINGS);
         manager->priv->cancellable = g_cancellable_new ();
 
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
