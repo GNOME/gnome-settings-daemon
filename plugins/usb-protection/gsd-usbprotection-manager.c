@@ -473,6 +473,8 @@ on_device_presence_signal (GDBusProxy *proxy,
         if (!is_protection_active (manager))
                 return;
 
+        protection_lvl = g_settings_get_uint (manager->priv->settings, USB_PROTECTION_LEVEL);
+
         if (manager->priv->screensaver_active) {
                 /* If the session is locked we check if the inserted device is a keyboard.
                  * If this new device is the only available keyboard we authorize it.
@@ -487,15 +489,19 @@ on_device_presence_signal (GDBusProxy *proxy,
                                                      "If you did not do it, check your system for any suspicious device."));
                                 return;
                         }
-
-                show_notification (manager,
-                                   _("Unknown USB device"),
-                                   _("New device has been detected while you were away. "
-                                     "Please disconnect and reconnect the device to start using it."));
+                if (protection_lvl == WITH_LOCKSCREEN)
+                        show_notification (manager,
+                                           _("Unknown USB device"),
+                                           _("New device has been detected while you were away. "
+                                             "Please disconnect and reconnect the device to start using it."));
+                else
+                        show_notification (manager,
+                                           _("Unknown USB device"),
+                                           _("New device has been detected while you were away. "
+                                             "It has blocked because the USB protection is active."));
                 return;
         }
 
-        protection_lvl = g_settings_get_uint (manager->priv->settings, USB_PROTECTION_LEVEL);
         if (protection_lvl == WITH_LOCKSCREEN) {
                 /* We need to authorize the device. */
                 d_id = g_variant_get_child_value (parameters, DEVICE_ID);
@@ -509,11 +515,16 @@ on_device_presence_signal (GDBusProxy *proxy,
                  * As before, if there is the touchscreen we don't authorize
                  * keyboards because the user can never be locked out. */
                 if (!manager->priv->touchscreen_available && is_keyboard (parameters))
-                        if (auth_one_keyboard (manager, parameters))
+                        if (auth_one_keyboard (manager, parameters)) {
                                 gsd_screen_saver_call_lock (manager->priv->screensaver_proxy,
                                                             manager->priv->cancellable,
                                                             (GAsyncReadyCallback) on_screen_locked,
                                                             manager);
+                                return;
+                        }
+                show_notification (manager,
+                                   _("Unknown USB device"),
+                                   _("The new inserted device has blocked because the USB protection is active."));
         }
 }
 
