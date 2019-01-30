@@ -29,7 +29,7 @@
 #include <string.h>
 
 #include "gnome-settings-profile.h"
-#include "gsd-usbprotection-manager.h"
+#include "gsd-usb-protection-manager.h"
 #include "gnome-settings-bus.h"
 
 #define PRIVACY_SETTINGS "org.gnome.desktop.privacy"
@@ -59,12 +59,12 @@
 #define ALLOW_ALL "allow id *:*"
 #define WITH_INTERFACE "with-interface"
 
-struct GsdUSBProtectionManagerPrivate
+struct GsdUsbProtectionManagerPrivate
 {
         guint               start_idle_id;
         GSettings          *settings;
-        GDBusProxy         *usbprotection;
-        GDBusProxy         *usbprotection_devices;
+        GDBusProxy         *usb_protection;
+        GDBusProxy         *usb_protection_devices;
         GCancellable       *cancellable;
         GsdScreenSaver     *screensaver_proxy;
         gboolean            screensaver_active;
@@ -99,11 +99,11 @@ enum {
         ATTRIBUTES
 };
 
-static void gsd_usbprotection_manager_class_init (GsdUSBProtectionManagerClass *klass);
-static void gsd_usbprotection_manager_init       (GsdUSBProtectionManager      *usbprotection_manager);
-static void gsd_usbprotection_manager_finalize   (GObject                      *object);
+static void gsd_usb_protection_manager_class_init (GsdUsbProtectionManagerClass *klass);
+static void gsd_usb_protection_manager_init       (GsdUsbProtectionManager      *usb_protection_manager);
+static void gsd_usb_protection_manager_finalize   (GObject                      *object);
 
-G_DEFINE_TYPE_WITH_PRIVATE (GsdUSBProtectionManager, gsd_usbprotection_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE (GsdUsbProtectionManager, gsd_usb_protection_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
@@ -171,7 +171,7 @@ usbguard_listrules_cb (GObject      *source_object,
 static void
 settings_changed_callback (GSettings               *settings,
                            const char              *key,
-                           GsdUSBProtectionManager *manager)
+                           GsdUsbProtectionManager *manager)
 {
         gchar *value_usbguard;
         guint settings_usb_value;
@@ -195,7 +195,7 @@ settings_changed_callback (GSettings               *settings,
                                         INSERTED_DEVICE_POLICY,
                                         value_usbguard);
 
-                g_dbus_proxy_call (manager->priv->usbprotection,
+                g_dbus_proxy_call (manager->priv->usb_protection,
                                    "setParameter",
                                    params,
                                    G_DBUS_CALL_FLAGS_NONE,
@@ -221,7 +221,7 @@ settings_changed_callback (GSettings               *settings,
         }
 }
 
-static void update_usbprotection_store (GsdUSBProtectionManager *manager,
+static void update_usb_protection_store (GsdUsbProtectionManager *manager,
                                         GVariant                *parameter)
 {
         gchar *key;
@@ -246,7 +246,7 @@ static void update_usbprotection_store (GsdUSBProtectionManager *manager,
 }
 
 static gboolean
-is_protection_active (GsdUSBProtectionManager *manager)
+is_protection_active (GsdUsbProtectionManager *manager)
 {
         gboolean usbguard_controlled;
         guint protection_lvl;
@@ -263,13 +263,13 @@ is_protection_active (GsdUSBProtectionManager *manager)
 
 static void
 on_notification_closed (NotifyNotification *n,
-                        GsdUSBProtectionManager *manager)
+                        GsdUsbProtectionManager *manager)
 {
         g_clear_object (&manager->priv->notification);
 }
 
 static void
-show_notification (GsdUSBProtectionManager *manager,
+show_notification (GsdUsbProtectionManager *manager,
                    const char              *summary,
                    const char              *body)
 {
@@ -292,7 +292,7 @@ show_notification (GsdUSBProtectionManager *manager,
 }
 
 static void authorize_device (GDBusProxy              *proxy,
-                              GsdUSBProtectionManager *manager,
+                              GsdUsbProtectionManager *manager,
                               guint                    device_id,
                               guint                    target,
                               gboolean                 permanent)
@@ -300,7 +300,7 @@ static void authorize_device (GDBusProxy              *proxy,
         GVariant *params;
 
         params = g_variant_new ("(uub)", device_id, target, permanent);
-        g_dbus_proxy_call (manager->priv->usbprotection_devices,
+        g_dbus_proxy_call (manager->priv->usb_protection_devices,
                            APPLY_DEVICE_POLICY,
                            params,
                            G_DBUS_CALL_FLAGS_NONE,
@@ -357,7 +357,7 @@ is_keyboard (GVariant *device)
 }
 
 static gboolean
-auth_one_keyboard (GsdUSBProtectionManager *manager,
+auth_one_keyboard (GsdUsbProtectionManager *manager,
                    GVariant *device)
 {
         GVariant *ret, *d_id;
@@ -374,7 +374,7 @@ auth_one_keyboard (GsdUSBProtectionManager *manager,
         if (!is_only_hid (device))
                 return FALSE;
 
-        ret = g_dbus_proxy_call_sync (manager->priv->usbprotection_devices,
+        ret = g_dbus_proxy_call_sync (manager->priv->usb_protection_devices,
                                       LIST_DEVICES,
                                       g_variant_new ("(s)", ALLOW),
                                       G_DBUS_CALL_FLAGS_NONE,
@@ -405,7 +405,7 @@ auth_one_keyboard (GsdUSBProtectionManager *manager,
                 d_id = g_variant_get_child_value (device, DEVICE_ID);
                 device_id = g_variant_get_uint32 (d_id);
                 g_variant_unref (d_id);
-                authorize_device(manager->priv->usbprotection_devices,
+                authorize_device(manager->priv->usb_protection_devices,
                                  manager,
                                  device_id,
                                  TARGET_ALLOW,
@@ -417,7 +417,7 @@ auth_one_keyboard (GsdUSBProtectionManager *manager,
 static void
 on_screen_locked (GsdScreenSaver          *screen_saver,
                   GAsyncResult            *result,
-                  GsdUSBProtectionManager *manager)
+                  GsdUsbProtectionManager *manager)
 {
         gboolean is_locked;
         g_autoptr(GError) error = NULL;
@@ -447,7 +447,7 @@ on_device_presence_signal (GDBusProxy *proxy,
         guint target;
         guint device_id;
         guint protection_lvl;
-        GsdUSBProtectionManager *manager = user_data;
+        GsdUsbProtectionManager *manager = user_data;
 
         /* We act only if we receive a signal from DevicePresenceChanged */
         if (g_strcmp0 (signal_name, DEVICE_PRESENCE_CHANGED) != 0)
@@ -529,7 +529,7 @@ on_device_presence_signal (GDBusProxy *proxy,
 }
 
 static void
-on_usbprotection_signal (GDBusProxy *proxy,
+on_usb_protection_signal (GDBusProxy *proxy,
                          gchar      *sender_name,
                          gchar      *signal_name,
                          GVariant   *parameters,
@@ -550,7 +550,7 @@ on_usbprotection_signal (GDBusProxy *proxy,
                 return;
 
         parameter = g_variant_get_child_value (parameters, 2);
-        update_usbprotection_store (user_data, parameter);
+        update_usb_protection_store (user_data, parameter);
 
 }
 
@@ -564,7 +564,7 @@ on_getparameter_done (GObject      *source_object,
         guint settings_usb;
         gboolean out_of_sync = FALSE;
         GDBusConnection *bus;
-        GsdUSBProtectionManager *manager = user_data;
+        GsdUsbProtectionManager *manager = user_data;
         GSettings *settings = manager->priv->settings;
         g_autoptr(GError) error = NULL;
 
@@ -600,7 +600,7 @@ on_getparameter_done (GObject      *source_object,
         }
 
         if (out_of_sync) {
-                g_dbus_proxy_call (manager->priv->usbprotection,
+                g_dbus_proxy_call (manager->priv->usb_protection,
                                    "setParameter",
                                    params,
                                    G_DBUS_CALL_FLAGS_NONE,
@@ -628,8 +628,8 @@ on_getparameter_done (GObject      *source_object,
 }
 
 static void
-sync_usbprotection (GDBusProxy              *proxy,
-                    GsdUSBProtectionManager *manager)
+sync_usb_protection (GDBusProxy              *proxy,
+                    GsdUsbProtectionManager *manager)
 {
         GVariant *params;
         gboolean usbguard_controlled;
@@ -652,23 +652,23 @@ sync_usbprotection (GDBusProxy              *proxy,
 }
 
 static void
-on_usbprotection_owner_changed_cb (GObject    *object,
+on_usb_protection_owner_changed_cb (GObject    *object,
                                    GParamSpec *pspec,
                                    gpointer    user_data)
 {
-        GsdUSBProtectionManager *manager = user_data;
+        GsdUsbProtectionManager *manager = user_data;
         GDBusProxy *proxy = G_DBUS_PROXY(object);
         char *name_owner;
 
         name_owner = g_dbus_proxy_get_name_owner (proxy);
         if (name_owner) {
-                sync_usbprotection (proxy, manager);
+                sync_usb_protection (proxy, manager);
                 g_free(name_owner);
         }
 }
 
 static void
-handle_screensaver_active (GsdUSBProtectionManager *manager,
+handle_screensaver_active (GsdUsbProtectionManager *manager,
                            GVariant                *parameters)
 {
         gboolean active;
@@ -680,7 +680,7 @@ handle_screensaver_active (GsdUSBProtectionManager *manager,
 }
 
 static void
-initialize_touchscreen_search (GsdUSBProtectionManager *manager)
+initialize_touchscreen_search (GsdUsbProtectionManager *manager)
 {
         GdkDisplay *display;
         GdkSeat *seat;
@@ -715,15 +715,15 @@ screensaver_signal_cb (GDBusProxy *proxy,
                        gpointer user_data)
 {
         if (g_strcmp0 (signal_name, "ActiveChanged") == 0)
-                handle_screensaver_active (GSD_USBPROTECTION_MANAGER (user_data), parameters);
+                handle_screensaver_active (GSD_USB_PROTECTION_MANAGER (user_data), parameters);
 }
 
 static void
-usbprotection_devices_proxy_ready (GObject      *source_object,
+usb_protection_devices_proxy_ready (GObject      *source_object,
                                    GAsyncResult *res,
                                    gpointer      user_data)
 {
-        GsdUSBProtectionManager *manager = user_data;
+        GsdUsbProtectionManager *manager = user_data;
         GDBusProxy *proxy;
         g_autoptr(GError) error = NULL;
 
@@ -733,7 +733,7 @@ usbprotection_devices_proxy_ready (GObject      *source_object,
                         g_warning ("Failed to contact USBGuard: %s", error->message);
                 return;
         }
-        manager->priv->usbprotection_devices = proxy;
+        manager->priv->usb_protection_devices = proxy;
 
         g_signal_connect_object (source_object,
                                  "g-signal",
@@ -743,11 +743,11 @@ usbprotection_devices_proxy_ready (GObject      *source_object,
 }
 
 static void
-usbprotection_proxy_ready (GObject      *source_object,
+usb_protection_proxy_ready (GObject      *source_object,
                            GAsyncResult *res,
                            gpointer      user_data)
 {
-        GsdUSBProtectionManager *manager = user_data;
+        GsdUsbProtectionManager *manager = user_data;
         GDBusProxy *proxy;
         char *name_owner;
         g_autoptr(GError) error = NULL;
@@ -758,7 +758,7 @@ usbprotection_proxy_ready (GObject      *source_object,
                         g_warning ("Failed to contact USBGuard: %s", error->message);
                 return;
         }
-        manager->priv->usbprotection = proxy;
+        manager->priv->usb_protection = proxy;
 
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
                           G_CALLBACK (settings_changed_callback), manager);
@@ -773,7 +773,7 @@ usbprotection_proxy_ready (GObject      *source_object,
         if (name_owner == NULL) {
                 g_debug("Probably USBGuard is not currently installed.");
         } else {
-                sync_usbprotection (proxy, manager);
+                sync_usb_protection (proxy, manager);
                 g_free (name_owner);
         }
 
@@ -781,13 +781,13 @@ usbprotection_proxy_ready (GObject      *source_object,
 
         g_signal_connect_object (source_object,
                                  "notify::g-name-owner",
-                                 G_CALLBACK (on_usbprotection_owner_changed_cb),
+                                 G_CALLBACK (on_usb_protection_owner_changed_cb),
                                  user_data,
                                  0);
 
         g_signal_connect_object (source_object,
                                  "g-signal",
-                                 G_CALLBACK (on_usbprotection_signal),
+                                 G_CALLBACK (on_usb_protection_signal),
                                  user_data,
                                  0);
 
@@ -798,14 +798,14 @@ usbprotection_proxy_ready (GObject      *source_object,
                                   USBGUARD_DBUS_PATH_DEVICES,
                                   USBGUARD_DBUS_INTERFACE_DEVICES,
                                   manager->priv->cancellable,
-                                  usbprotection_devices_proxy_ready,
+                                  usb_protection_devices_proxy_ready,
                                   manager);
 }
 
 static gboolean
-start_usbprotection_idle_cb (GsdUSBProtectionManager *manager)
+start_usb_protection_idle_cb (GsdUsbProtectionManager *manager)
 {
-        g_debug ("Starting usbprotection manager");
+        g_debug ("Starting USB protection manager");
 
         manager->priv->settings = g_settings_new (PRIVACY_SETTINGS);
         manager->priv->cancellable = g_cancellable_new ();
@@ -817,7 +817,7 @@ start_usbprotection_idle_cb (GsdUSBProtectionManager *manager)
                                   USBGUARD_DBUS_PATH,
                                   USBGUARD_DBUS_INTERFACE,
                                   manager->priv->cancellable,
-                                  usbprotection_proxy_ready,
+                                  usb_protection_proxy_ready,
                                   manager);
 
         notify_init ("gnome-settings-daemon");
@@ -828,12 +828,12 @@ start_usbprotection_idle_cb (GsdUSBProtectionManager *manager)
 }
 
 gboolean
-gsd_usbprotection_manager_start (GsdUSBProtectionManager *manager,
+gsd_usb_protection_manager_start (GsdUsbProtectionManager *manager,
                                  GError                 **error)
 {
         gnome_settings_profile_start (NULL);
 
-        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_usbprotection_idle_cb, manager);
+        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_usb_protection_idle_cb, manager);
         g_source_set_name_by_id (manager->priv->start_idle_id, "[gnome-settings-daemon] start_usbguard_idle_cb");
 
         gnome_settings_profile_end (NULL);
@@ -841,9 +841,9 @@ gsd_usbprotection_manager_start (GsdUSBProtectionManager *manager,
 }
 
 void
-gsd_usbprotection_manager_stop (GsdUSBProtectionManager *manager)
+gsd_usb_protection_manager_stop (GsdUsbProtectionManager *manager)
 {
-        g_debug ("Stopping usbprotection manager");
+        g_debug ("Stopping USB protection manager");
 
         if (manager->priv->cancellable != NULL) {
                 g_cancellable_cancel (manager->priv->cancellable);
@@ -858,71 +858,71 @@ gsd_usbprotection_manager_stop (GsdUSBProtectionManager *manager)
         }
 
         g_clear_object (&manager->priv->settings);
-        g_clear_object (&manager->priv->usbprotection);
+        g_clear_object (&manager->priv->usb_protection);
 }
 
 static GObject *
-gsd_usbprotection_manager_constructor (GType                  type,
+gsd_usb_protection_manager_constructor (GType                  type,
                                        guint                  n_construct_properties,
                                        GObjectConstructParam *construct_properties)
 {
-        GsdUSBProtectionManager *usbprotection_manager;
+        GsdUsbProtectionManager *usb_protection_manager;
 
-        usbprotection_manager = GSD_USBPROTECTION_MANAGER (G_OBJECT_CLASS (gsd_usbprotection_manager_parent_class)->constructor (type,
+        usb_protection_manager = GSD_USB_PROTECTION_MANAGER (G_OBJECT_CLASS (gsd_usb_protection_manager_parent_class)->constructor (type,
                                                                                                                                  n_construct_properties,
                                                                                                                                  construct_properties));
 
-        return G_OBJECT (usbprotection_manager);
+        return G_OBJECT (usb_protection_manager);
 }
 
 static void
-gsd_usbprotection_manager_dispose (GObject *object)
+gsd_usb_protection_manager_dispose (GObject *object)
 {
-        G_OBJECT_CLASS (gsd_usbprotection_manager_parent_class)->dispose (object);
+        G_OBJECT_CLASS (gsd_usb_protection_manager_parent_class)->dispose (object);
 }
 
 static void
-gsd_usbprotection_manager_class_init (GsdUSBProtectionManagerClass *klass)
+gsd_usb_protection_manager_class_init (GsdUsbProtectionManagerClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_usbprotection_manager_constructor;
-        object_class->dispose = gsd_usbprotection_manager_dispose;
-        object_class->finalize = gsd_usbprotection_manager_finalize;
+        object_class->constructor = gsd_usb_protection_manager_constructor;
+        object_class->dispose = gsd_usb_protection_manager_dispose;
+        object_class->finalize = gsd_usb_protection_manager_finalize;
 }
 
 static void
-gsd_usbprotection_manager_init (GsdUSBProtectionManager *manager)
+gsd_usb_protection_manager_init (GsdUsbProtectionManager *manager)
 {
-        manager->priv = gsd_usbprotection_manager_get_instance_private (manager);
+        manager->priv = gsd_usb_protection_manager_get_instance_private (manager);
 
 }
 
 static void
-gsd_usbprotection_manager_finalize (GObject *object)
+gsd_usb_protection_manager_finalize (GObject *object)
 {
-        GsdUSBProtectionManager *usbprotection_manager;
+        GsdUsbProtectionManager *usb_protection_manager;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_USBPROTECTION_MANAGER (object));
+        g_return_if_fail (GSD_IS_USB_PROTECTION_MANAGER (object));
 
-        usbprotection_manager = GSD_USBPROTECTION_MANAGER (object);
+        usb_protection_manager = GSD_USB_PROTECTION_MANAGER (object);
 
-        g_return_if_fail (usbprotection_manager->priv != NULL);
+        g_return_if_fail (usb_protection_manager->priv != NULL);
 
-        G_OBJECT_CLASS (gsd_usbprotection_manager_parent_class)->finalize (object);
+        G_OBJECT_CLASS (gsd_usb_protection_manager_parent_class)->finalize (object);
 }
 
-GsdUSBProtectionManager *
-gsd_usbprotection_manager_new (void)
+GsdUsbProtectionManager *
+gsd_usb_protection_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
-                manager_object = g_object_new (GSD_TYPE_USBPROTECTION_MANAGER, NULL);
+                manager_object = g_object_new (GSD_TYPE_USB_PROTECTION_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
         }
 
-        return GSD_USBPROTECTION_MANAGER (manager_object);
+        return GSD_USB_PROTECTION_MANAGER (manager_object);
 }
