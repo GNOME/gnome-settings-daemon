@@ -222,7 +222,7 @@ settings_changed_callback (GSettings               *settings,
 }
 
 static void update_usb_protection_store (GsdUsbProtectionManager *manager,
-                                        GVariant                *parameter)
+                                         GVariant                *parameter)
 {
         gchar *key;
         gboolean usbguard_controlled;
@@ -610,7 +610,7 @@ on_getparameter_done (GObject      *source_object,
 
 static void
 sync_usb_protection (GDBusProxy              *proxy,
-                    GsdUsbProtectionManager *manager)
+                     GsdUsbProtectionManager *manager)
 {
         GVariant *params;
         gboolean usbguard_controlled;
@@ -634,8 +634,8 @@ sync_usb_protection (GDBusProxy              *proxy,
 
 static void
 on_usb_protection_owner_changed_cb (GObject    *object,
-                                   GParamSpec *pspec,
-                                   gpointer    user_data)
+                                    GParamSpec *pspec,
+                                    gpointer    user_data)
 {
         GsdUsbProtectionManager *manager = user_data;
         GDBusProxy *proxy = G_DBUS_PROXY(object);
@@ -701,8 +701,8 @@ screensaver_signal_cb (GDBusProxy *proxy,
 
 static void
 usb_protection_devices_proxy_ready (GObject      *source_object,
-                                   GAsyncResult *res,
-                                   gpointer      user_data)
+                                    GAsyncResult *res,
+                                    gpointer      user_data)
 {
         GsdUsbProtectionManager *manager = user_data;
         GDBusProxy *proxy;
@@ -725,8 +725,8 @@ usb_protection_devices_proxy_ready (GObject      *source_object,
 
 static void
 usb_protection_proxy_ready (GObject      *source_object,
-                           GAsyncResult *res,
-                           gpointer      user_data)
+                            GAsyncResult *res,
+                            gpointer      user_data)
 {
         GsdUsbProtectionManager *manager = user_data;
         GDBusProxy *proxy;
@@ -810,7 +810,7 @@ start_usb_protection_idle_cb (GsdUsbProtectionManager *manager)
 
 gboolean
 gsd_usb_protection_manager_start (GsdUsbProtectionManager *manager,
-                                 GError                 **error)
+                                  GError                 **error)
 {
         gnome_settings_profile_start (NULL);
 
