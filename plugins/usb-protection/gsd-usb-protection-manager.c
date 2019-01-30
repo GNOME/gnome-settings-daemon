@@ -834,28 +834,15 @@ gsd_usb_protection_manager_stop (GsdUsbProtectionManager *manager)
                 g_clear_object (&manager->priv->notification);
         }
 
+        if (manager->priv->start_idle_id != 0) {
+                g_source_remove (manager->priv->start_idle_id);
+                manager->priv->start_idle_id = 0;
+        }
+
         g_clear_object (&manager->priv->settings);
         g_clear_object (&manager->priv->usb_protection);
-}
-
-static GObject *
-gsd_usb_protection_manager_constructor (GType                  type,
-                                       guint                  n_construct_properties,
-                                       GObjectConstructParam *construct_properties)
-{
-        GsdUsbProtectionManager *usb_protection_manager;
-
-        usb_protection_manager = GSD_USB_PROTECTION_MANAGER (G_OBJECT_CLASS (gsd_usb_protection_manager_parent_class)->constructor (type,
-                                                                                                                                 n_construct_properties,
-                                                                                                                                 construct_properties));
-
-        return G_OBJECT (usb_protection_manager);
-}
-
-static void
-gsd_usb_protection_manager_dispose (GObject *object)
-{
-        G_OBJECT_CLASS (gsd_usb_protection_manager_parent_class)->dispose (object);
+        g_clear_object (&manager->priv->usb_protection_devices);
+        g_clear_object (&manager->priv->screensaver_proxy);
 }
 
 static void
@@ -863,8 +850,6 @@ gsd_usb_protection_manager_class_init (GsdUsbProtectionManagerClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_usb_protection_manager_constructor;
-        object_class->dispose = gsd_usb_protection_manager_dispose;
         object_class->finalize = gsd_usb_protection_manager_finalize;
 }
 
@@ -880,12 +865,13 @@ gsd_usb_protection_manager_finalize (GObject *object)
 {
         GsdUsbProtectionManager *usb_protection_manager;
 
-        g_return_if_fail (object != NULL);
         g_return_if_fail (GSD_IS_USB_PROTECTION_MANAGER (object));
 
         usb_protection_manager = GSD_USB_PROTECTION_MANAGER (object);
 
         g_return_if_fail (usb_protection_manager->priv != NULL);
+
+        gsd_usb_protection_manager_stop (usb_protection_manager);
 
         G_OBJECT_CLASS (gsd_usb_protection_manager_parent_class)->finalize (object);
 }
