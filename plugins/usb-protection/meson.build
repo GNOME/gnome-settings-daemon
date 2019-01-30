@@ -1,5 +1,5 @@
 sources = files(
-  'gsd-usbprotection-manager.c',
+  'gsd-usb-protection-manager.c',
   'main.c'
 )
 
