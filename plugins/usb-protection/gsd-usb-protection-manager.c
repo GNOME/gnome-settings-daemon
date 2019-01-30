@@ -639,13 +639,11 @@ on_usb_protection_owner_changed_cb (GObject    *object,
 {
         GsdUsbProtectionManager *manager = user_data;
         GDBusProxy *proxy = G_DBUS_PROXY(object);
-        char *name_owner;
+        g_autofree gchar *name_owner = NULL;
 
         name_owner = g_dbus_proxy_get_name_owner (proxy);
-        if (name_owner) {
+        if (name_owner)
                 sync_usb_protection (proxy, manager);
-                g_free(name_owner);
-        }
 }
 
 static void
@@ -730,7 +728,7 @@ usb_protection_proxy_ready (GObject      *source_object,
 {
         GsdUsbProtectionManager *manager = user_data;
         GDBusProxy *proxy;
-        char *name_owner;
+        g_autofree gchar *name_owner = NULL;
         g_autoptr(GError) error = NULL;
 
         proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
@@ -751,12 +749,10 @@ usb_protection_proxy_ready (GObject      *source_object,
 
         name_owner = g_dbus_proxy_get_name_owner (G_DBUS_PROXY (proxy));
 
-        if (name_owner == NULL) {
+        if (name_owner == NULL)
                 g_debug("Probably USBGuard is not currently installed.");
-        } else {
+        else
                 sync_usb_protection (proxy, manager);
-                g_free (name_owner);
-        }
 
         initialize_touchscreen_search (manager);
 
