@@ -74,6 +74,23 @@
 #define SYSTEMD_DBUS_PATH                       "/org/freedesktop/login1"
 #define SYSTEMD_DBUS_INTERFACE                  "org.freedesktop.login1.Manager"
 
+#define MUTTER_DISPLAYCONFIG_DBUS_NAME         "org.gnome.Mutter.DisplayConfig"
+#define MUTTER_DISPLAYCONFIG_DBUS_PATH         "/org/gnome/Mutter/DisplayConfig"
+#define MUTTER_DISPLAYCONFIG_DBUS_INTERFACE    "org.gnome.Mutter.DisplayConfig"
+
+#define MODE_BASE_FORMAT "siiddad"
+#define MODE_FORMAT "(" MODE_BASE_FORMAT "a{sv})"
+#define MODES_FORMAT "a" MODE_FORMAT
+#define MONITOR_SPEC_FORMAT "(ssss)"
+#define MONITOR_FORMAT "(" MONITOR_SPEC_FORMAT MODES_FORMAT "a{sv})"
+#define MONITORS_FORMAT "a" MONITOR_FORMAT
+
+#define LOGICAL_MONITOR_MONITORS_FORMAT "a" MONITOR_SPEC_FORMAT
+#define LOGICAL_MONITOR_FORMAT "(iidub" LOGICAL_MONITOR_MONITORS_FORMAT "a{sv})"
+#define LOGICAL_MONITORS_FORMAT "a" LOGICAL_MONITOR_FORMAT
+
+#define CURRENT_STATE_FORMAT "(u" MONITORS_FORMAT LOGICAL_MONITORS_FORMAT "a{sv})"
+
 /* Time between notifying the user about a critical action and the action itself in UPower. */
 #define GSD_ACTION_DELAY 20
 /* And the time before we stop the warning sound */
@@ -155,6 +172,9 @@ struct GsdPowerManagerPrivate
         NotifyNotification      *notification_sleep_warning;
         GsdPowerActionType       sleep_action_type;
         gboolean                 battery_is_low; /* laptop battery low, or UPS discharging */
+
+        /* Mutter */
+        GDBusProxy              *mutter_displayconfig_proxy;
 
         /* Brightness */
         GsdBacklight            *backlight;
@@ -1024,6 +1044,33 @@ iio_proxy_claim_light (GsdPowerManager *manager, gboolean active)
                 iio_proxy_changed (manager);
 }
 
+static int
+mutter_displayconfig_set_powersave (GsdPowerManager *manager,
+                                    gboolean enable,
+                                    GError **error)
+{
+        GVariant *retval;
+
+        retval = g_dbus_proxy_call_sync (manager->priv->mutter_displayconfig_proxy,
+                                         "org.freedesktop.DBus.Properties.Set",
+                                         g_variant_new ("(ssv)",
+                                                        "org.gnome.Mutter.DisplayConfig",
+                                                        "PowerSaveMode",
+                                                        g_variant_new_int32 (enable ?
+                                                                             GSD_POWER_IDLE_MODE_NORMAL :
+                                                                             GSD_POWER_IDLE_MODE_SLEEP)),
+                                         G_DBUS_CALL_FLAGS_NONE,
+                                         -1,
+                                         manager->priv->cancellable,
+                                         error);
+
+        if (retval == NULL)
+                return FALSE;
+
+        g_variant_unref (retval);
+        return TRUE;
+}
+
 static void
 backlight_enable (GsdPowerManager *manager)
 {
@@ -1031,9 +1078,9 @@ backlight_enable (GsdPowerManager *manager)
         GError *error = NULL;
 
         iio_proxy_claim_light (manager, TRUE);
-        ret = gnome_rr_screen_set_dpms_mode (manager->priv->rr_screen,
-                                             GNOME_RR_DPMS_ON,
-                                             &error);
+        ret = mutter_displayconfig_set_powersave (manager,
+                                                  TRUE,
+                                                  &error);
         if (!ret) {
                 g_warning ("failed to turn the panel on: %s",
                            error->message);
@@ -1050,9 +1097,9 @@ backlight_disable (GsdPowerManager *manager)
         GError *error = NULL;
 
         iio_proxy_claim_light (manager, FALSE);
-        ret = gnome_rr_screen_set_dpms_mode (manager->priv->rr_screen,
-                                             GNOME_RR_DPMS_OFF,
-                                             &error);
+        ret = mutter_displayconfig_set_powersave (manager,
+                                                  FALSE,
+                                                  &error);
         if (!ret) {
                 g_warning ("failed to turn the panel off: %s",
                            error->message);
@@ -1193,10 +1240,144 @@ upower_kbd_toggle (GsdPowerManager *manager,
         return -1;
 }
 
+static gpointer
+parse_mock_mock_external_monitor (gpointer data)
+{
+	const char *mocked_file;
+	mocked_file = g_getenv ("GSD_MOCK_EXTERNAL_MONITOR_FILE");
+
+	return g_strdup (mocked_file);
+}
+
+static const gchar *
+get_mock_external_monitor_file (void)
+{
+	  static GOnce mocked_once = G_ONCE_INIT;
+	  g_once (&mocked_once, parse_mock_mock_external_monitor, NULL);
+	  return mocked_once.retval;
+}
+
+static void
+mock_monitor_changed (GFileMonitor     *monitor,
+		      GFile            *file,
+		      GFile            *other_file,
+		      GFileMonitorEvent event_type,
+		      gpointer          user_data)
+{
+	GnomeRRScreen *screen = (GnomeRRScreen *) user_data;
+
+	g_debug ("Mock screen configuration changed");
+	g_signal_emit_by_name (G_OBJECT (screen), "changed");
+}
+
+static void
+screen_destroyed (gpointer  user_data,
+		  GObject  *where_the_object_was)
+{
+	g_object_unref (G_OBJECT (user_data));
+}
+
+static void
+watch_external_monitor (GnomeRRScreen *screen)
+{
+	const gchar *filename;
+	GFile *file;
+	GFileMonitor *monitor;
+
+	filename = get_mock_external_monitor_file ();
+	if (!filename)
+		return;
+
+	file = g_file_new_for_commandline_arg (filename);
+	monitor = g_file_monitor (file, G_FILE_MONITOR_NONE, NULL, NULL);
+	g_object_unref (file);
+	g_signal_connect (monitor, "changed",
+			  G_CALLBACK (mock_monitor_changed), screen);
+	g_object_weak_ref (G_OBJECT (screen), screen_destroyed, monitor);
+}
+
+static gboolean
+mock_external_monitor_is_connected (void)
+{
+	char *mock_external_monitor_contents;
+	const gchar *filename;
+
+	filename = get_mock_external_monitor_file ();
+	g_assert (filename);
+
+	if (g_file_get_contents (filename, &mock_external_monitor_contents, NULL, NULL)) {
+		if (mock_external_monitor_contents[0] == '1') {
+			g_free (mock_external_monitor_contents);
+			g_debug ("Mock external monitor is on");
+			return TRUE;
+		} else if (mock_external_monitor_contents[0] == '0') {
+			g_free (mock_external_monitor_contents);
+			g_debug ("Mock external monitor is off");
+			return FALSE;
+		}
+
+		g_error ("Unhandled value for GSD_MOCK_EXTERNAL_MONITOR contents: %s", mock_external_monitor_contents);
+		g_free (mock_external_monitor_contents);
+	}
+
+	return FALSE;
+}
+
+static gboolean
+external_monitor_is_connected (GsdPowerManager *manager)
+{
+        g_autoptr (GVariant) state = NULL;
+        g_autoptr (GVariantIter) monitors_iter = NULL;
+        g_autoptr (GVariant) variant = NULL;
+        g_autoptr (GVariantIter) properties_iter = NULL;
+        gchar *key;
+        g_autoptr (GVariant) value = NULL;
+        GError *error = NULL;
+        gboolean is_builtin;
+
+        if (get_mock_external_monitor_file ())
+                return mock_external_monitor_is_connected ();
+
+        state = g_dbus_proxy_call_sync (manager->priv->mutter_displayconfig_proxy,
+                                        "GetCurrentState",
+                                        NULL,
+                                        G_DBUS_CALL_FLAGS_NONE,
+                                        -1,
+                                        manager->priv->cancellable,
+                                        &error);
+        /* Avoid surprising suspend */
+        if (state == NULL)
+                return TRUE;
+
+        g_variant_get (state, CURRENT_STATE_FORMAT,
+                       NULL,
+                       &monitors_iter,
+                       NULL,
+                       NULL);
+
+        while (g_variant_iter_next (monitors_iter, "@"MONITOR_FORMAT, &variant))
+        {
+            g_variant_get (variant, MONITOR_FORMAT, NULL, NULL, NULL, NULL, NULL, &properties_iter);
+
+            while (g_variant_iter_next (properties_iter, "{&sv}", &key, &value))
+            {
+                if (g_str_equal (key, "is-builtin")) {
+                    g_variant_get (value, "b", &is_builtin);
+                    if (!is_builtin)
+                        return TRUE;
+
+                    break;
+                }
+            }
+        }
+
+        return FALSE;
+}
+
 static gboolean
 suspend_on_lid_close (GsdPowerManager *manager)
 {
-        return !external_monitor_is_connected (manager->priv->rr_screen);
+        return !external_monitor_is_connected (manager);
 }
 
 static gboolean
@@ -2599,6 +2780,24 @@ iio_proxy_vanished_cb (GDBusConnection *connection,
         g_clear_object (&manager->priv->iio_proxy);
 }
 
+static void
+mutter_displayconfig_proxy_ready_cb (GObject *source_object,
+                                     GAsyncResult *res,
+                                     gpointer user_data)
+{
+        GError *error = NULL;
+        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
+
+        manager->priv->mutter_displayconfig_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
+
+        if (manager->priv->mutter_displayconfig_proxy == NULL) {
+                g_warning ("Could not connect to Mutter.DisplayConfig: %s",
+                           error->message);
+                g_error_free (error);
+                return;
+        }
+}
+
 gboolean
 gsd_power_manager_start (GsdPowerManager *manager,
                          GError **error)
@@ -2630,6 +2829,16 @@ gsd_power_manager_start (GsdPowerManager *manager,
         /* coldplug the list of screens */
         gnome_rr_screen_new_async (gdk_screen_get_default (),
                                    on_rr_screen_acquired, manager);
+
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
+                                  G_DBUS_PROXY_FLAGS_NONE,
+                                  NULL,
+                                  MUTTER_DISPLAYCONFIG_DBUS_NAME,
+                                  MUTTER_DISPLAYCONFIG_DBUS_PATH,
+                                  MUTTER_DISPLAYCONFIG_DBUS_INTERFACE,
+                                  NULL,
+                                  mutter_displayconfig_proxy_ready_cb,
+                                  manager);
 
         manager->priv->settings = g_settings_new (GSD_POWER_SETTINGS_SCHEMA);
         manager->priv->settings_screensaver = g_settings_new ("org.gnome.desktop.screensaver");

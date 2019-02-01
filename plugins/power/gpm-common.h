@@ -47,10 +47,6 @@ void             reset_idletime                         (void);
 int              gsd_power_backlight_abs_to_percentage  (int min, int max, int value);
 int              gsd_power_backlight_percentage_to_abs  (int min, int max, int value);
 
-/* RandR helpers */
-void             watch_external_monitor                 (GnomeRRScreen *screen);
-gboolean         external_monitor_is_connected          (GnomeRRScreen *screen);
-
 /* Sound helpers */
 void             play_loop_start                        (guint *id);
 void             play_loop_stop                         (guint *id);
