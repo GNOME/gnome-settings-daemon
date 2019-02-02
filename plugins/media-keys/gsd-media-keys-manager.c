@@ -1221,12 +1221,12 @@ ensure_canberra (GsdMediaKeysManager *manager)
 }
 
 static void
-update_dialog (GsdMediaKeysManager *manager,
-               GvcMixerStream      *stream,
-               guint                vol,
-               gboolean             muted,
-               gboolean             sound_changed,
-               gboolean             quiet)
+volume_changed (GsdMediaKeysManager *manager,
+                GvcMixerStream      *stream,
+                guint                vol,
+                gboolean             muted,
+                gboolean             sound_changed,
+                gboolean             quiet)
 {
         GvcMixerUIDevice *device;
         const GvcMixerStreamPort *port;
@@ -1454,8 +1454,8 @@ do_sound_action (GsdMediaKeysManager *manager,
                 }
         }
 
-        update_dialog (manager, stream, new_vol, new_muted, sound_changed,
-                       flags & SOUND_ACTION_FLAG_IS_QUIET);
+        volume_changed (manager, stream, new_vol, new_muted, sound_changed,
+                        flags & SOUND_ACTION_FLAG_IS_QUIET);
 }
 
 static void
