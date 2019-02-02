@@ -377,8 +377,8 @@ static void
 show_osd_with_max_level (GsdMediaKeysManager *manager,
                          const char          *icon,
                          const char          *label,
-                         int                  level,
-                         int                  max_level,
+                         double               level,
+                         double               max_level,
                          int                  output_id)
 {
         if (manager->priv->shell_proxy == NULL)
@@ -392,17 +392,16 @@ static void
 show_osd (GsdMediaKeysManager *manager,
           const char          *icon,
           const char          *label,
-          int                  level,
+          double               level,
           int                  output_id)
 {
-        show_osd_with_max_level(manager,
-                                icon, label, level, -1, output_id);
+        show_osd_with_max_level(manager, icon, label, level, -1, output_id);
 }
 
 static const char *
 get_icon_name_for_volume (gboolean is_mic,
                           gboolean muted,
-                          int volume)
+                          double volume)
 {
         static const char *icon_names[] = {
                 "audio-volume-muted-symbolic",
@@ -425,7 +424,7 @@ get_icon_name_for_volume (gboolean is_mic,
                 n = 0;
         } else {
                 /* select image */
-                n = ceill (3.0 * (double) volume / 100);
+                n = ceill (3.0 * volume);
                 if (n < 1)
                         n = 1;
                 /* output volume above 100% */
@@ -1231,18 +1230,17 @@ update_dialog (GsdMediaKeysManager *manager,
         GvcMixerUIDevice *device;
         const GvcMixerStreamPort *port;
         const char *icon;
-        int max_volume_pct;
+        double new_vol;
+        double max_volume;
 
-        max_volume_pct = (int) (100 * (double) manager->priv->max_volume / PA_VOLUME_NORM);
-
+        max_volume = (double) manager->priv->max_volume / PA_VOLUME_NORM;
         if (!muted) {
-                vol = (int) (100 * (double) vol / PA_VOLUME_NORM);
-                vol = CLAMP (vol, 0, max_volume_pct);
+                new_vol = (double) vol / PA_VOLUME_NORM;
+                new_vol = CLAMP (new_vol, 0, max_volume);
         } else {
-                vol = 0.0;
+                new_vol = 0.0;
         }
-
-        icon = get_icon_name_for_volume (!GVC_IS_MIXER_SINK (stream), muted, vol);
+        icon = get_icon_name_for_volume (!GVC_IS_MIXER_SINK (stream), muted, new_vol);
         port = gvc_mixer_stream_get_port (stream);
         if (g_strcmp0 (gvc_mixer_stream_get_form_factor (stream), "internal") != 0 ||
             (port != NULL &&
@@ -1251,9 +1249,9 @@ update_dialog (GsdMediaKeysManager *manager,
                 device = gvc_mixer_control_lookup_device_from_stream (manager->priv->volume, stream);
                 show_osd_with_max_level (manager, icon,
                                          gvc_mixer_ui_device_get_description (device),
-                                         vol, max_volume_pct, OSD_ALL_OUTPUTS);
+                                         new_vol, max_volume, OSD_ALL_OUTPUTS);
         } else {
-                show_osd_with_max_level (manager, icon, NULL, vol, max_volume_pct, OSD_ALL_OUTPUTS);
+                show_osd_with_max_level (manager, icon, NULL, new_vol, max_volume, OSD_ALL_OUTPUTS);
         }
 
         if (quiet == FALSE && sound_changed != FALSE && muted == FALSE) {
@@ -2152,7 +2150,7 @@ update_brightness_cb (GObject             *source_object,
                 g_variant_get (variant, "(ii)", &percentage, &output_id);
         }
 
-        show_osd (manager, icon, NULL, percentage, output_id);
+        show_osd (manager, icon, NULL, (double) percentage / 100.0, output_id);
         g_variant_unref (variant);
 }
 
@@ -2227,7 +2225,7 @@ do_battery_action (GsdMediaKeysManager *manager)
 
         if (kind == UP_DEVICE_KIND_UPS || kind == UP_DEVICE_KIND_BATTERY) {
                 g_debug ("showing battery level OSD");
-                show_osd (manager, icon_name, NULL, percentage, OSD_ALL_OUTPUTS);
+                show_osd (manager, icon_name, NULL, (double) percentage / 100.0, OSD_ALL_OUTPUTS);
         }
 
         g_free (icon_name);
