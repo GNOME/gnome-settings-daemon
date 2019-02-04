@@ -7,7 +7,7 @@ LABEL description="Docker image to run CI for GNOME Settings Daemon."
 
 ADD x86_64_qemu-ppc64le-static.tar.gz /usr/bin
 
-RUN dnf -y --nogpgcheck upgrade && \
+RUN dnf -y upgrade && \
     dnf -y install \
                    @c-development @development-tools clang \
                    alsa-lib-devel colord-devel cups-devel fontconfig-devel geoclue2-devel geocode-glib-devel \
