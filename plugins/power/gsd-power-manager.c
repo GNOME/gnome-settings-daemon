@@ -1438,16 +1438,17 @@ upower_kbd_proxy_signal_cb (GDBusProxy  *proxy,
         gint brightness, percentage;
         const gchar *source;
 
-        if (g_strcmp0 (signal_name, "BrightnessChangedWithSource") != 0)
-                return;
+        if (g_strcmp0 (signal_name, "BrightnessChangedWithSource") == 0) {
+                g_variant_get (parameters, "(i&s)", &brightness, &source);
 
-        g_variant_get (parameters, "(i&s)", &brightness, &source);
-
-        /* Ignore changes caused by us calling UPower's SetBrightness method,
-         * we already call backlight_iface_emit_changed for these after the
-         * SetBrightness method call completes. */
-        if (g_strcmp0 (source, "external") == 0)
+                /* Ignore changes caused by us calling UPower's SetBrightness method,
+                 * we already call backlight_iface_emit_changed for these after the
+                 * SetBrightness method call completes. */
+                if (g_strcmp0 (source, "external") == 0)
+                        return;
+        } else {
                 return;
+        }
 
         manager->priv->kbd_brightness_now = brightness;
         percentage = ABS_TO_PERCENTAGE (0,
