@@ -186,7 +186,7 @@ msan:
   script:
     # Skip the build (if requested)
     - |
-      if [[ -z "${CI_COMMIT_MESSAGE##*[skip images]*}" && -z "${CI_COMMIT_MESSAGE##*[$NAME]*}" ]]; then
+      if [[ -z "${CI_COMMIT_MESSAGE##*'[skip images]'*}" ]]; then
         echo "message: $CI_COMMIT_MESSAGE"
         echo "== Nothing to do =="
         exit 0
