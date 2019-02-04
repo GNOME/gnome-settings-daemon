@@ -99,12 +99,14 @@ coverage:
   variables:
     BUILD_OPTS: "-Db_coverage=true"
     coverage: '/^Lines:.\d+.\d+.(\d+\.\d+\%)/'
-  only:
-    - master@GNOME/gnome-settings-daemon
+#  only:
+#    - master@GNOME/gnome-settings-daemon
 
   script:
     - *environment_information
     - *build_procedure
+    - |
+      export MESON_TESTTHREADS=1
     - *run_tests
 
     - ninja -C _build coverage-html
