@@ -1,6 +1,11 @@
 #include <glib-object.h>
 #include <gsd-power-enums.h>
 
+/* XXX: The following functions use printf, because otherwise there were
+ *      build failures when the building with the memory sanitizer enabled.
+ *      These may be false positives though.
+ */
+
 static void
 output_enum_values (GType class_type)
 {
@@ -10,7 +15,7 @@ output_enum_values (GType class_type)
 	eclass = G_ENUM_CLASS (g_type_class_peek (class_type));
 	for (i = 0; i < eclass->n_values; i++) {
 		GEnumValue *value = &(eclass->values[i]);
-		g_print ("%s = %d;\n", value->value_name, value->value);
+		printf ("%s = %d;\n", value->value_name, value->value);
 	}
 }
 
@@ -23,7 +28,7 @@ output_flags_values (GType class_type)
 	fclass = G_FLAGS_CLASS (g_type_class_peek (class_type));
 	for (i = 0; i < fclass->n_values; i++) {
 		GFlagsValue *value = &(fclass->values[i]);
-		g_print ("%s = %d;\n", value->value_name, value->value);
+		printf ("%s = %d;\n", value->value_name, value->value);
 	}
 }
 
