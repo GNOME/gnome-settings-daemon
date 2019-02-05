@@ -118,6 +118,11 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
 
         # Use dummy script as testing backlight helper
         env['GSD_BACKLIGHT_HELPER'] = os.path.join (project_root, 'plugins', 'power', 'test-backlight-helper')
+        if 'POWER_LD_PRELOAD' in env:
+            if 'LD_PRELOAD' in env and env['LD_PRELOAD']:
+                env['LD_PRELOAD'] = ':'.join((env['POWER_LD_PRELOAD'], env['LD_PRELOAD']))
+            else:
+                env['LD_PRELOAD'] = env['POWER_LD_PRELOAD']
 
         self.daemon = subprocess.Popen(
             [os.path.join(builddir, 'gsd-power'), '--verbose'],

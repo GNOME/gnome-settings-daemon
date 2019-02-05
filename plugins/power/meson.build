@@ -124,12 +124,16 @@ gsdpowerenums_py = custom_target(
 
 test_py = find_program('test.py')
 
-envs = [
-#  'G_DEBUG=fatal_warnings',
-  'BUILDDIR=' + meson.current_build_dir(),
-  'TOP_BUILDDIR=' + meson.build_root(),
-  'LD_PRELOAD=libumockdev-preload.so.0',
-]
+envs = environment()
+#envs.prepend('G_DEBUG', 'fatal-warnings')
+envs.set('BUILDDIR', meson.current_build_dir())
+envs.set('TOP_BUILDDIR', meson.build_root())
+envs.set('LD_PRELOAD', 'libumockdev-preload.so.0')
+
+if get_option('b_sanitize').split(',').contains('address')
+  # libasan needs to be loaded first; so we need to explicitly preload it
+  envs.set('POWER_LD_PRELOAD', 'libasan.so.5')
+endif
 
 foreach i : [ 1, 2, 3, 4, 5, 6, 7, 8 ]
   test(
