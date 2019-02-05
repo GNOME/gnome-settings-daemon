@@ -61,6 +61,9 @@ class GSDTestCase(X11SessionTestCase):
         os.environ['LC_MESSAGES'] = 'C'
         klass.workdir = tempfile.mkdtemp(prefix='gsd-plugin-test')
 
+        # Prevent applications from accessing an outside session manager
+        os.environ['SESSION_MANAGER'] = ''
+
         # Signal to mutter and gnome-session that we are using X11
         os.environ['XDG_SESSION_TYPE'] = 'x11'
 
