@@ -129,6 +129,7 @@ envs = environment()
 envs.set('BUILDDIR', meson.current_build_dir())
 envs.set('TOP_BUILDDIR', meson.build_root())
 envs.set('LD_PRELOAD', 'libumockdev-preload.so.0')
+envs.set('NO_AT_BRIDGE', '1')
 
 if get_option('b_sanitize').split(',').contains('address')
   # libasan needs to be loaded first; so we need to explicitly preload it
