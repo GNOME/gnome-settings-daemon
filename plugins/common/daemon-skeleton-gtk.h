@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <locale.h>
 
+#include <glib-unix.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
@@ -187,6 +188,28 @@ set_empty_gtk_theme (gboolean set)
 	}
 }
 
+static gboolean
+handle_sigterm (gpointer user_data)
+{
+  g_debug ("Got SIGTERM; shutting down ...");
+
+  if (gtk_main_level () > 0)
+    gtk_main_quit ();
+
+  return G_SOURCE_REMOVE;
+}
+
+static void
+install_signal_handler (void)
+{
+  g_autoptr(GSource) source = NULL;
+
+  source = g_unix_signal_source_new (SIGTERM);
+
+  g_source_set_callback (source, handle_sigterm, NULL, NULL);
+  g_source_attach (source, NULL);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -232,6 +255,8 @@ main (int argc, char **argv)
 		id = g_timeout_add_seconds (timeout, (GSourceFunc) gtk_main_quit, NULL);
 		g_source_set_name_by_id (id, "[gnome-settings-daemon] gtk_main_quit");
 	}
+
+        install_signal_handler ();
 
         manager = NEW ();
 	register_with_gnome_session ();

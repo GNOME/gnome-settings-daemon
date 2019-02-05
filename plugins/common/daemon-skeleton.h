@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <locale.h>
 
+#include <glib-unix.h>
 #include <glib/gi18n.h>
 
 #include "gnome-settings-bus.h"
@@ -162,6 +163,30 @@ register_with_gnome_session (GMainLoop *loop)
 			   loop);
 }
 
+static gboolean
+handle_sigterm (gpointer user_data)
+{
+  GMainLoop *main_loop = user_data;
+
+  g_debug ("Got SIGTERM; shutting down ...");
+
+  if (g_main_loop_is_running (main_loop))
+    g_main_loop_quit (main_loop);
+
+  return G_SOURCE_REMOVE;
+}
+
+static void
+install_signal_handler (GMainLoop *loop)
+{
+  g_autoptr(GSource) source = NULL;
+
+  source = g_unix_signal_source_new (SIGTERM);
+
+  g_source_set_callback (source, handle_sigterm, loop, NULL);
+  g_source_attach (source, NULL);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -203,6 +228,8 @@ main (int argc, char **argv)
 		id = g_timeout_add_seconds (timeout, (GSourceFunc) g_main_loop_quit, loop);
 		g_source_set_name_by_id (id, "[gnome-settings-daemon] g_main_loop_quit");
 	}
+
+        install_signal_handler (loop);
 
         manager = NEW ();
 	register_with_gnome_session (loop);
