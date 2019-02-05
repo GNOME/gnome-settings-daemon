@@ -10,7 +10,7 @@ output_enum_values (GType class_type)
 	eclass = G_ENUM_CLASS (g_type_class_peek (class_type));
 	for (i = 0; i < eclass->n_values; i++) {
 		GEnumValue *value = &(eclass->values[i]);
-		g_print ("%s = %d;\n", value->value_name, value->value);
+		printf ("%s = %d;\n", value->value_name, value->value);
 	}
 }
 
@@ -23,7 +23,7 @@ output_flags_values (GType class_type)
 	fclass = G_FLAGS_CLASS (g_type_class_peek (class_type));
 	for (i = 0; i < fclass->n_values; i++) {
 		GFlagsValue *value = &(fclass->values[i]);
-		g_print ("%s = %d;\n", value->value_name, value->value);
+		printf ("%s = %d;\n", value->value_name, value->value);
 	}
 }
 
@@ -34,7 +34,7 @@ main (int argc, char **argv)
 	 *      cause some checks to fail when running the clang memory
 	 *      sanitizer.
 	 */
-	g_setenv ("CHARSET", "UTF-8", TRUE);
+	//g_setenv ("CHARSET", "UTF-8", TRUE);
 
 	g_type_class_ref (GSD_POWER_TYPE_INHIBITOR_FLAG);
 	g_type_class_ref (GSD_POWER_TYPE_PRESENCE_STATUS);
