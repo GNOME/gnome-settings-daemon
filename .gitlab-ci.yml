@@ -16,6 +16,7 @@ stages:
 .Git Untracked files: &save_untracked_files
   artifacts:
     name: untracked
+    when: always
     paths: [$(pwd)]
     expire_in: 3h30min
 
