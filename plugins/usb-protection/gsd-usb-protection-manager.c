@@ -91,7 +91,7 @@ typedef enum {
         TARGET_REJECT
 } UsbGuardTarget;
 
-enum {
+typedef enum {
         POLICY_DEVICE_ID,
         POLICY_DEVICE_EVENT,
         POLICY_TARGET,
@@ -140,7 +140,6 @@ is_usbguard_allow_rule_present (GVariant *rules)
         }
         return FALSE;
 }
-
 
 static void
 usbguard_listrules_cb (GObject      *source_object,
@@ -588,7 +587,6 @@ on_getparameter_done (GObject      *source_object,
                                    -1,
                                    manager->priv->cancellable,
                                    NULL, NULL);
-                g_variant_unref (params);
         }
 
         /* If we are in "Never" or "When lockscreen is active" we also check
