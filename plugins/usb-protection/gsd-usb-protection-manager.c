@@ -130,7 +130,7 @@ static gboolean
 is_usbguard_allow_rule_present (GVariant *rules)
 {
         GVariantIter *iter = NULL;
-        gchar *value;
+        g_autofree gchar *value = NULL;
         guint number = 0;
 
         g_variant_get (rules, "a(us)", &iter);
@@ -160,6 +160,7 @@ usbguard_listrules_cb (GObject      *source_object,
         }
 
         rules = g_variant_get_child_value (result, 0);
+        g_variant_unref (result);
         if (!is_usbguard_allow_rule_present (rules))
                 add_usbguard_allow_rule (user_data);
 
@@ -236,6 +237,7 @@ static void update_usb_protection_store (GsdUsbProtectionManager *manager,
                     (g_strcmp0 (key, APPLY_POLICY) != 0 && protection_lvl == LEVEL_NEVER)) {
                         g_settings_set (settings, USB_PROTECTION, "b", FALSE);
                 }
+                g_free (key);
         }
 }
 
@@ -308,7 +310,8 @@ static gboolean
 is_only_hid (GVariant *device)
 {
         GVariantIter *iter = NULL;
-        gchar *name, *value;
+        g_autofree gchar *name = NULL;
+        g_autofree gchar *value = NULL;
         gchar **interfaces_splitted;
         guint i;
         gboolean only_hid = TRUE;
@@ -333,7 +336,8 @@ static gboolean
 is_keyboard (GVariant *device)
 {
         GVariantIter *iter = NULL;
-        gchar *name, *value;
+        g_autofree gchar *name = NULL;
+        g_autofree gchar *value = NULL;
 
         g_variant_get_child (device, POLICY_ATTRIBUTES, "a{ss}", &iter);
         while (g_variant_iter_loop (iter, "{ss}", &name, &value)) {
@@ -518,8 +522,8 @@ on_usb_protection_signal (GDBusProxy *proxy,
                           GVariant   *parameters,
                           gpointer    user_data)
 {
-        GVariant *parameter;
-        gchar *policy_name;
+        g_autoptr(GVariant) parameter = NULL;
+        g_autofree gchar *policy_name = NULL;
 
         if (g_strcmp0 (signal_name, "PropertyParameterChanged") != 0)
                 return;
@@ -541,7 +545,7 @@ on_getparameter_done (GObject      *source_object,
                       gpointer      user_data)
 {
         GVariant *result, *params;
-        gchar *key;
+        g_autofree gchar *key = NULL;
         UsbProtectionLevel protection_lvl;
         gboolean out_of_sync = FALSE;
         GsdUsbProtectionManager *manager = user_data;
@@ -862,9 +866,18 @@ gsd_usb_protection_manager_stop (GsdUsbProtectionManager *manager)
         }
 
         g_clear_object (&manager->priv->settings);
-        g_clear_object (&manager->priv->usb_protection);
-        g_clear_object (&manager->priv->usb_protection_devices);
-        g_clear_object (&manager->priv->screensaver_proxy);
+
+        if (manager->priv->usb_protection != NULL)
+                g_clear_object (&manager->priv->usb_protection);
+
+        if (manager->priv->usb_protection_devices != NULL)
+                g_clear_object (&manager->priv->usb_protection_devices);
+
+        if (manager->priv->usb_protection_policy != NULL)
+                g_clear_object (&manager->priv->usb_protection_policy);
+
+        if (manager->priv->screensaver_proxy != NULL)
+                g_clear_object (&manager->priv->screensaver_proxy);
 }
 
 static void
