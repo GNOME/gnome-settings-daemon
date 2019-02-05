@@ -94,7 +94,7 @@ test:
 
 # Runs the coverage test.
 coverage:
-  <<: *save_build_logs
+  <<: *save_untracked_files
   stage: test
   variables:
     BUILD_OPTS: "-Db_coverage=true"
