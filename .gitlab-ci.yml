@@ -171,7 +171,9 @@ ubsan:
 msan:
   <<: *sanitizer
   variables:
-    BUILD_OPTS: "-Db_sanitize=memory"
+    BUILD_OPTS:
+     - "-Db_sanitize=memory"
+     - "-Db_lundef=false"
     CC: "clang"
 
 #############################################
