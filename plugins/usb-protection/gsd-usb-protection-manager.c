@@ -738,6 +738,27 @@ usb_protection_devices_proxy_ready (GObject      *source_object,
 }
 
 static void
+get_current_screen_saver_status (GsdUsbProtectionManager *manager)
+{
+        g_autoptr(GVariant) ret = NULL;
+        g_autoptr(GError) error = NULL;
+
+        ret = g_dbus_proxy_call_sync (G_DBUS_PROXY (manager->priv->screensaver_proxy),
+                                      "GetActive",
+                                      NULL,
+                                      G_DBUS_CALL_FLAGS_NONE,
+                                      -1,
+                                      manager->priv->cancellable,
+                                      &error);
+        if (ret == NULL) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to get screen saver status: %s", error->message);
+                return;
+        }
+        handle_screensaver_active (manager, ret);
+}
+
+static void
 usb_protection_proxy_ready (GObject      *source_object,
                             GAsyncResult *res,
                             gpointer      user_data)
@@ -759,6 +780,8 @@ usb_protection_proxy_ready (GObject      *source_object,
                           G_CALLBACK (settings_changed_callback), manager);
 
         manager->priv->screensaver_proxy = gnome_settings_bus_get_screen_saver_proxy ();
+
+        get_current_screen_saver_status (manager);
 
         g_signal_connect (manager->priv->screensaver_proxy, "g-signal",
                           G_CALLBACK (screensaver_signal_cb), manager);
