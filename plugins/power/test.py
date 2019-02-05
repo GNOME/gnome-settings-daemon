@@ -124,11 +124,12 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
             else:
                 env['LD_PRELOAD'] = env['POWER_LD_PRELOAD']
 
+        # We need to redirect stdout to grab the debug messages.
+        # stderr is not needed by the testing infrastructure but is useful to
+        # see warnings and errors.
         self.daemon = subprocess.Popen(
             [os.path.join(builddir, 'gsd-power'), '--verbose'],
-            # comment out this line if you want to see the logs in real time
             stdout=self.plugin_log_write,
-            stderr=subprocess.STDOUT,
             env=env)
 
         # you can use this for reading the current daemon log in tests
