@@ -30,6 +30,12 @@ output_flags_values (GType class_type)
 int
 main (int argc, char **argv)
 {
+	/* XXX: This is a bad workaround for the fact that the g_print calls
+	 *      cause some checks to fail when running the clang memory
+	 *      sanitizer.
+	 */
+	g_setenv ("CHARSET", "UTF-8", TRUE);
+
 	g_type_class_ref (GSD_POWER_TYPE_INHIBITOR_FLAG);
 	g_type_class_ref (GSD_POWER_TYPE_PRESENCE_STATUS);
 	output_flags_values (GSD_POWER_TYPE_INHIBITOR_FLAG);
