@@ -124,6 +124,8 @@ coverage:
 ##
 pages:
   stage: delivery
+  # Don't error in case coverage failed
+  allow_failure: true
   dependencies:
     - coverage
   script:
