@@ -9,7 +9,7 @@ ADD x86_64_qemu-ppc64le-static.tar.gz /usr/bin
 
 RUN dnf -y upgrade && \
     dnf -y install --setopt=install_weak_deps=False \
-                   @c-development git lcov gcovr clang \
+                   @c-development git lcov gcovr clang libasan libubsan libtsan \
                    alsa-lib-devel colord-devel cups-devel fontconfig-devel geoclue2-devel geocode-glib-devel \
                    gettext git glib2-devel gnome-desktop3-devel gnome-session gobject-introspection \
                    gsettings-desktop-schemas-devel gtk3-devel lcms2-devel libcanberra-devel libgtop2-devel \
