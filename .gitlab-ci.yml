@@ -97,6 +97,8 @@ test:
 coverage:
   <<: *save_build_logs
   stage: test
+  # Appears to be broken on Fedora Rawhide as of 2018-02-05
+  allow_failure: true
   variables:
     BUILD_OPTS: "-Db_coverage=true"
     coverage: '/^Lines:.\d+.\d+.(\d+\.\d+\%)/'
