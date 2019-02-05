@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <locale.h>
-#include <errno.h>
 
 #include <glib-unix.h>
 #include <glib/gi18n.h>
@@ -183,12 +182,6 @@ install_signal_handler (GMainLoop *loop)
   g_autoptr(GSource) source = NULL;
 
   source = g_unix_signal_source_new (SIGTERM);
-
-  if (source == NULL)
-    {
-      g_warning ("Failed installing SIGTERM handler: %s", g_strerror (errno));
-      return;
-    }
 
   g_source_set_callback (source, handle_sigterm, loop, NULL);
   g_source_attach (source, NULL);
