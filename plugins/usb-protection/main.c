@@ -4,4 +4,4 @@
 #define MANAGER GsdUsbProtectionManager
 #include "gsd-usb-protection-manager.h"
 
-#include "daemon-skeleton.h"
+#include "daemon-skeleton-gtk.h"

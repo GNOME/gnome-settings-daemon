@@ -666,9 +666,6 @@ initialize_touchscreen_search (GsdUsbProtectionManager *manager)
         GdkSeat *seat;
         GList *devices;
 
-        /* If we don't initialize gtk we will get NULL from
-         * gdk_display_get_default () */
-        gtk_init(NULL, NULL);
         display = gdk_display_get_default ();
         seat = gdk_display_get_default_seat (display);
         devices = NULL;
