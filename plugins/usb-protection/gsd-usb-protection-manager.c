@@ -548,8 +548,8 @@ on_getparameter_done (GObject      *source_object,
         g_autofree gchar *key = NULL;
         UsbProtectionLevel protection_lvl;
         gboolean out_of_sync = FALSE;
-        GsdUsbProtectionManager *manager = user_data;
-        GSettings *settings = manager->priv->settings;
+        GsdUsbProtectionManager *manager;
+        GSettings *settings;
         g_autoptr(GError) error = NULL;
 
         result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
@@ -560,6 +560,9 @@ on_getparameter_done (GObject      *source_object,
                         g_warning ("Failed fetch USBGuard parameters: %s", error->message);
                 return;
         }
+
+        manager = GSD_USB_PROTECTION_MANAGER (user_data);
+        settings = manager->priv->settings;
 
         g_variant_get_child (result, 0, "s", &key);
         g_variant_unref (result);
@@ -700,7 +703,7 @@ usb_protection_policy_proxy_ready (GObject      *source_object,
                                    GAsyncResult *res,
                                    gpointer      user_data)
 {
-        GsdUsbProtectionManager *manager = user_data;
+        GsdUsbProtectionManager *manager;
         GDBusProxy *proxy;
         g_autoptr(GError) error = NULL;
 
@@ -710,6 +713,7 @@ usb_protection_policy_proxy_ready (GObject      *source_object,
                         g_warning ("Failed to contact USBGuard: %s", error->message);
                 return;
         }
+        manager = GSD_USB_PROTECTION_MANAGER (user_data);
         manager->priv->usb_protection_policy = proxy;
 }
 
@@ -718,7 +722,7 @@ usb_protection_devices_proxy_ready (GObject      *source_object,
                                     GAsyncResult *res,
                                     gpointer      user_data)
 {
-        GsdUsbProtectionManager *manager = user_data;
+        GsdUsbProtectionManager *manager;
         GDBusProxy *proxy;
         g_autoptr(GError) error = NULL;
 
@@ -728,6 +732,7 @@ usb_protection_devices_proxy_ready (GObject      *source_object,
                         g_warning ("Failed to contact USBGuard: %s", error->message);
                 return;
         }
+        manager = GSD_USB_PROTECTION_MANAGER (user_data);
         manager->priv->usb_protection_devices = proxy;
 
         g_signal_connect_object (source_object,
@@ -763,7 +768,7 @@ usb_protection_proxy_ready (GObject      *source_object,
                             GAsyncResult *res,
                             gpointer      user_data)
 {
-        GsdUsbProtectionManager *manager = user_data;
+        GsdUsbProtectionManager *manager;
         GDBusProxy *proxy;
         g_autofree gchar *name_owner = NULL;
         g_autoptr(GError) error = NULL;
@@ -774,6 +779,7 @@ usb_protection_proxy_ready (GObject      *source_object,
                         g_warning ("Failed to contact USBGuard: %s", error->message);
                 return;
         }
+        manager = GSD_USB_PROTECTION_MANAGER (user_data);
         manager->priv->usb_protection = proxy;
 
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
