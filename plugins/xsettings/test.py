@@ -150,13 +150,12 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
 
         # Turn on sounds
         self.settings_sound['event-sounds'] = True
-        time.sleep(1)
+        time.sleep(2)
 
         # Check that both PK and canberra plugin are enabled
         retval = self.obj_xsettings_props.Get('org.gtk.Settings', 'Modules')
         values = sorted(str(retval).split(':'))
-        self.assertEqual(values[0], 'canberra-gtk-module')
-        self.assertEqual(values[1], 'pk-gtk-module')
+        self.assertEqual(values, ['canberra-gtk-module', 'pk-gtk-module'])
 
     def test_enable_animations(self):
         # Check that "Enable animations" is off
