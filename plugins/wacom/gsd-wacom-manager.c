@@ -118,7 +118,7 @@ G_DEFINE_TYPE (GsdWacomManager, gsd_wacom_manager, G_TYPE_OBJECT)
 static gpointer manager_object = NULL;
 
 static GVariant *
-map_tablet_mapping (GVariant *value)
+map_tablet_mapping (GVariant *value, GVariant *new_default)
 {
         const gchar *mapping;
 
@@ -127,7 +127,7 @@ map_tablet_mapping (GVariant *value)
 }
 
 static GVariant *
-map_tablet_left_handed (GVariant *value)
+map_tablet_left_handed (GVariant *value, GVariant *new_default)
 {
         const gchar *rotation = g_variant_get_string (value, NULL);
         return g_variant_new_boolean (g_strcmp0 (rotation, "half") == 0 ||
