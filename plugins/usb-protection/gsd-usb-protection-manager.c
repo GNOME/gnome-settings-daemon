@@ -60,8 +60,9 @@
 #define ALLOW_ALL "allow id *:*"
 #define WITH_INTERFACE "with-interface"
 
-struct GsdUsbProtectionManagerPrivate
+struct _GsdUsbProtectionManager
 {
+        GObject             parent;
         guint               start_idle_id;
         GSettings          *settings;
         GDBusProxy         *usb_protection;
@@ -105,7 +106,7 @@ static void gsd_usb_protection_manager_class_init (GsdUsbProtectionManagerClass 
 static void gsd_usb_protection_manager_init       (GsdUsbProtectionManager      *usb_protection_manager);
 static void gsd_usb_protection_manager_finalize   (GObject                      *object);
 
-G_DEFINE_TYPE_WITH_PRIVATE (GsdUsbProtectionManager, gsd_usb_protection_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (GsdUsbProtectionManager, gsd_usb_protection_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
@@ -123,13 +124,13 @@ add_usbguard_allow_rule (GsdUsbProtectionManager *manager)
 
         GVariant *params;
         params = g_variant_new ("(su)", ALLOW_ALL, 0);
-        if (manager->priv->usb_protection_policy != NULL)
-                g_dbus_proxy_call (manager->priv->usb_protection_policy,
+        if (manager->usb_protection_policy != NULL)
+                g_dbus_proxy_call (manager->usb_protection_policy,
                                    APPEND_RULE,
                                    params,
                                    G_DBUS_CALL_FLAGS_NONE,
                                    -1,
-                                   manager->priv->cancellable,
+                                   manager->cancellable,
                                    NULL, NULL);
 }
 
@@ -193,30 +194,30 @@ settings_changed_callback (GSettings               *settings,
                  usbguard_controlled, protection_lvl);
 
         /* Only if we are entitled to handle USBGuard */
-        if (usbguard_controlled && manager->priv->usb_protection != NULL) {
+        if (usbguard_controlled && manager->usb_protection != NULL) {
                 value_usbguard = (protection_lvl == LEVEL_ALWAYS) ? BLOCK : APPLY_POLICY;
                 params = g_variant_new ("(ss)",
                                         INSERTED_DEVICE_POLICY,
                                         value_usbguard);
 
-                g_dbus_proxy_call (manager->priv->usb_protection,
+                g_dbus_proxy_call (manager->usb_protection,
                                    "setParameter",
                                    params,
                                    G_DBUS_CALL_FLAGS_NONE,
                                    -1,
-                                   manager->priv->cancellable,
+                                   manager->cancellable,
                                    NULL, NULL);
 
                 /* If we are in "Never" or "When lockscreen is active" */
                 if (protection_lvl != LEVEL_ALWAYS &&
-                    manager->priv->usb_protection_policy != NULL) {
+                    manager->usb_protection_policy != NULL) {
                         params = g_variant_new ("(s)", "");
-                        g_dbus_proxy_call (manager->priv->usb_protection_policy,
+                        g_dbus_proxy_call (manager->usb_protection_policy,
                                            LIST_RULES,
                                            params,
                                            G_DBUS_CALL_FLAGS_NONE,
                                            -1,
-                                           manager->priv->cancellable,
+                                           manager->cancellable,
                                            usbguard_listrules_cb,
                                            manager);
                 }
@@ -229,7 +230,7 @@ static void update_usb_protection_store (GsdUsbProtectionManager *manager,
         gchar *key;
         gboolean usbguard_controlled;
         UsbProtectionLevel protection_lvl;
-        GSettings *settings = manager->priv->settings;
+        GSettings *settings = manager->settings;
 
         usbguard_controlled = g_settings_get_boolean (settings, USB_PROTECTION);
         /* If we are not handling USBGuard configuration (e.g. the user is using
@@ -253,7 +254,7 @@ is_protection_active (GsdUsbProtectionManager *manager)
 {
         gboolean usbguard_controlled;
         UsbProtectionLevel protection_lvl;
-        GSettings *settings = manager->priv->settings;
+        GSettings *settings = manager->settings;
 
         usbguard_controlled = g_settings_get_boolean (settings, USB_PROTECTION);
         protection_lvl = g_settings_get_uint (settings, USB_PROTECTION_LEVEL);
@@ -268,7 +269,7 @@ static void
 on_notification_closed (NotifyNotification *n,
                         GsdUsbProtectionManager *manager)
 {
-        g_clear_object (&manager->priv->notification);
+        g_clear_object (&manager->notification);
 }
 
 static void
@@ -277,19 +278,19 @@ show_notification (GsdUsbProtectionManager *manager,
                    const char              *body)
 {
         /* Don't show a notice if one is already displayed */
-        if (manager->priv->notification != NULL)
+        if (manager->notification != NULL)
                 return;
 
-        manager->priv->notification = notify_notification_new (summary, body, "drive-removable-media-symbolic");
-        notify_notification_set_app_name (manager->priv->notification, _("USB Protection"));
-        notify_notification_set_hint (manager->priv->notification, "transient", g_variant_new_boolean (TRUE));
-        notify_notification_set_timeout (manager->priv->notification, NOTIFY_EXPIRES_DEFAULT);
-        notify_notification_set_urgency (manager->priv->notification, NOTIFY_URGENCY_CRITICAL);
-        g_signal_connect (manager->priv->notification,
+        manager->notification = notify_notification_new (summary, body, "drive-removable-media-symbolic");
+        notify_notification_set_app_name (manager->notification, _("USB Protection"));
+        notify_notification_set_hint (manager->notification, "transient", g_variant_new_boolean (TRUE));
+        notify_notification_set_timeout (manager->notification, NOTIFY_EXPIRES_DEFAULT);
+        notify_notification_set_urgency (manager->notification, NOTIFY_URGENCY_CRITICAL);
+        g_signal_connect (manager->notification,
                           "closed",
                           G_CALLBACK (on_notification_closed),
                           manager);
-        if (!notify_notification_show (manager->priv->notification, NULL)) {
+        if (!notify_notification_show (manager->notification, NULL)) {
                 g_warning ("Failed to send USB protection notification");
         }
 }
@@ -303,13 +304,13 @@ static void authorize_device (GDBusProxy              *proxy,
         GVariant *params;
 
         params = g_variant_new ("(uub)", device_id, target, permanent);
-        if (manager->priv->usb_protection_devices != NULL)
-                g_dbus_proxy_call (manager->priv->usb_protection_devices,
+        if (manager->usb_protection_devices != NULL)
+                g_dbus_proxy_call (manager->usb_protection_devices,
                                    APPLY_DEVICE_POLICY,
                                    params,
                                    G_DBUS_CALL_FLAGS_NONE,
                                    -1,
-                                   manager->priv->cancellable,
+                                   manager->cancellable,
                                    NULL, NULL);
 }
 
@@ -374,15 +375,15 @@ auth_one_keyboard (GsdUsbProtectionManager *manager,
         if (!is_only_hid (device))
                 return FALSE;
 
-        if (manager->priv->usb_protection_devices == NULL)
+        if (manager->usb_protection_devices == NULL)
                 return FALSE;
 
-        ret = g_dbus_proxy_call_sync (manager->priv->usb_protection_devices,
+        ret = g_dbus_proxy_call_sync (manager->usb_protection_devices,
                                       LIST_DEVICES,
                                       g_variant_new ("(s)", ALLOW),
                                       G_DBUS_CALL_FLAGS_NONE,
                                       -1,
-                                      manager->priv->cancellable,
+                                      manager->cancellable,
                                       &error);
         if (ret == NULL) {
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
@@ -406,7 +407,7 @@ auth_one_keyboard (GsdUsbProtectionManager *manager,
         }
         if (!keyboard_found) {
                 g_variant_get_child (device, POLICY_DEVICE_ID, "u", &device_id);
-                authorize_device(manager->priv->usb_protection_devices,
+                authorize_device(manager->usb_protection_devices,
                                  manager,
                                  device_id,
                                  TARGET_ALLOW,
@@ -469,15 +470,15 @@ on_device_presence_signal (GDBusProxy *proxy,
         if (!is_protection_active (manager))
                 return;
 
-        protection_lvl = g_settings_get_uint (manager->priv->settings, USB_PROTECTION_LEVEL);
+        protection_lvl = g_settings_get_uint (manager->settings, USB_PROTECTION_LEVEL);
 
-        if (manager->priv->screensaver_active) {
+        if (manager->screensaver_active) {
                 /* If the session is locked we check if the inserted device is a keyboard.
                  * If this new device is the only available keyboard we authorize it.
                  * Also, if the device has touchscreen capabilities we never authorize
                  * keyboards in this stage. Because the user can very well use the
                  * on-screen virtual keyboard. */
-                if (!manager->priv->touchscreen_available && is_keyboard (parameters))
+                if (!manager->touchscreen_available && is_keyboard (parameters))
                         if (auth_one_keyboard (manager, parameters)) {
                                 show_notification (manager,
                                                    _("New keyboard detected"),
@@ -508,10 +509,10 @@ on_device_presence_signal (GDBusProxy *proxy,
                  * devices if the legitimate user forgot to lock his session.
                  * As before, if there is the touchscreen we don't authorize
                  * keyboards because the user can never be locked out. */
-                if (!manager->priv->touchscreen_available && is_keyboard (parameters))
+                if (!manager->touchscreen_available && is_keyboard (parameters))
                         if (auth_one_keyboard (manager, parameters)) {
-                                gsd_screen_saver_call_lock (manager->priv->screensaver_proxy,
-                                                            manager->priv->cancellable,
+                                gsd_screen_saver_call_lock (manager->screensaver_proxy,
+                                                            manager->cancellable,
                                                             (GAsyncReadyCallback) on_screen_locked,
                                                             manager);
                                 return;
@@ -569,7 +570,7 @@ on_getparameter_done (GObject      *source_object,
         }
 
         manager = GSD_USB_PROTECTION_MANAGER (user_data);
-        settings = manager->priv->settings;
+        settings = manager->settings;
 
         g_variant_get_child (result, 0, "s", &key);
         g_variant_unref (result);
@@ -591,26 +592,26 @@ on_getparameter_done (GObject      *source_object,
                 }
         }
 
-        if (out_of_sync && manager->priv->usb_protection != NULL) {
-                g_dbus_proxy_call (manager->priv->usb_protection,
+        if (out_of_sync && manager->usb_protection != NULL) {
+                g_dbus_proxy_call (manager->usb_protection,
                                    "setParameter",
                                    params,
                                    G_DBUS_CALL_FLAGS_NONE,
                                    -1,
-                                   manager->priv->cancellable,
+                                   manager->cancellable,
                                    NULL, NULL);
         }
 
         /* If we are in "Never" or "When lockscreen is active" we also check
          * if the "always allow" rule is present. */
         if (protection_lvl != LEVEL_ALWAYS &&
-            manager->priv->usb_protection_policy != NULL) {
-                g_dbus_proxy_call (manager->priv->usb_protection_policy,
+            manager->usb_protection_policy != NULL) {
+                g_dbus_proxy_call (manager->usb_protection_policy,
                                    LIST_RULES,
                                    g_variant_new ("(s)", ""),
                                    G_DBUS_CALL_FLAGS_NONE,
                                    -1,
-                                   manager->priv->cancellable,
+                                   manager->cancellable,
                                    usbguard_listrules_cb,
                                    manager);
         }
@@ -622,7 +623,7 @@ sync_usb_protection (GDBusProxy              *proxy,
 {
         GVariant *params;
         gboolean usbguard_controlled;
-        GSettings *settings = manager->priv->settings;
+        GSettings *settings = manager->settings;
 
         usbguard_controlled = g_settings_get_boolean (settings, USB_PROTECTION);
 
@@ -635,7 +636,7 @@ sync_usb_protection (GDBusProxy              *proxy,
                            params,
                            G_DBUS_CALL_FLAGS_NONE,
                            -1,
-                           manager->priv->cancellable,
+                           manager->cancellable,
                            on_getparameter_done,
                            manager);
 }
@@ -661,9 +662,9 @@ handle_screensaver_active (GsdUsbProtectionManager *manager,
         gboolean active;
 
         g_variant_get (parameters, "(b)", &active);
-        g_debug ("Received screensaver ActiveChanged signal: %d (old: %d)", active, manager->priv->screensaver_active);
-        if (manager->priv->screensaver_active != active)
-                manager->priv->screensaver_active = active;
+        g_debug ("Received screensaver ActiveChanged signal: %d (old: %d)", active, manager->screensaver_active);
+        if (manager->screensaver_active != active)
+                manager->screensaver_active = active;
 }
 
 static void
@@ -688,7 +689,7 @@ initialize_touchscreen_search (GsdUsbProtectionManager *manager)
 
         for (; devices != NULL; devices = devices->next)
                 if (gdk_device_get_source (devices->data) == GDK_SOURCE_TOUCHSCREEN)
-                        manager->priv->touchscreen_available = TRUE;
+                        manager->touchscreen_available = TRUE;
 }
 
 static void
@@ -718,7 +719,7 @@ usb_protection_policy_proxy_ready (GObject      *source_object,
                 return;
         }
         manager = GSD_USB_PROTECTION_MANAGER (user_data);
-        manager->priv->usb_protection_policy = proxy;
+        manager->usb_protection_policy = proxy;
 }
 
 static void
@@ -737,7 +738,7 @@ usb_protection_devices_proxy_ready (GObject      *source_object,
                 return;
         }
         manager = GSD_USB_PROTECTION_MANAGER (user_data);
-        manager->priv->usb_protection_devices = proxy;
+        manager->usb_protection_devices = proxy;
 
         /* We don't care about already plugged in devices because they'll be
          * already autorized by the "allow all" rule in USBGuard. */
@@ -754,12 +755,12 @@ get_current_screen_saver_status (GsdUsbProtectionManager *manager)
         g_autoptr(GVariant) ret = NULL;
         g_autoptr(GError) error = NULL;
 
-        ret = g_dbus_proxy_call_sync (G_DBUS_PROXY (manager->priv->screensaver_proxy),
+        ret = g_dbus_proxy_call_sync (G_DBUS_PROXY (manager->screensaver_proxy),
                                       "GetActive",
                                       NULL,
                                       G_DBUS_CALL_FLAGS_NONE,
                                       -1,
-                                      manager->priv->cancellable,
+                                      manager->cancellable,
                                       &error);
         if (ret == NULL) {
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
@@ -786,16 +787,16 @@ usb_protection_proxy_ready (GObject      *source_object,
                 return;
         }
         manager = GSD_USB_PROTECTION_MANAGER (user_data);
-        manager->priv->usb_protection = proxy;
+        manager->usb_protection = proxy;
 
-        g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
+        g_signal_connect (G_OBJECT (manager->settings), "changed",
                           G_CALLBACK (settings_changed_callback), manager);
 
-        manager->priv->screensaver_proxy = gnome_settings_bus_get_screen_saver_proxy ();
+        manager->screensaver_proxy = gnome_settings_bus_get_screen_saver_proxy ();
 
         get_current_screen_saver_status (manager);
 
-        g_signal_connect (manager->priv->screensaver_proxy, "g-signal",
+        g_signal_connect (manager->screensaver_proxy, "g-signal",
                           G_CALLBACK (screensaver_signal_cb), manager);
 
         name_owner = g_dbus_proxy_get_name_owner (G_DBUS_PROXY (proxy));
@@ -825,7 +826,7 @@ usb_protection_proxy_ready (GObject      *source_object,
                                   USBGUARD_DBUS_NAME,
                                   USBGUARD_DBUS_PATH_DEVICES,
                                   USBGUARD_DBUS_INTERFACE_DEVICES,
-                                  manager->priv->cancellable,
+                                  manager->cancellable,
                                   usb_protection_devices_proxy_ready,
                                   manager);
 
@@ -835,7 +836,7 @@ usb_protection_proxy_ready (GObject      *source_object,
                                   USBGUARD_DBUS_NAME,
                                   USBGUARD_DBUS_PATH_POLICY,
                                   USBGUARD_DBUS_INTERFACE_POLICY,
-                                  manager->priv->cancellable,
+                                  manager->cancellable,
                                   usb_protection_policy_proxy_ready,
                                   manager);
 }
@@ -845,8 +846,8 @@ start_usb_protection_idle_cb (GsdUsbProtectionManager *manager)
 {
         g_debug ("Starting USB protection manager");
 
-        manager->priv->settings = g_settings_new (PRIVACY_SETTINGS);
-        manager->priv->cancellable = g_cancellable_new ();
+        manager->settings = g_settings_new (PRIVACY_SETTINGS);
+        manager->cancellable = g_cancellable_new ();
 
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
                                   G_DBUS_PROXY_FLAGS_NONE,
@@ -854,13 +855,13 @@ start_usb_protection_idle_cb (GsdUsbProtectionManager *manager)
                                   USBGUARD_DBUS_NAME,
                                   USBGUARD_DBUS_PATH,
                                   USBGUARD_DBUS_INTERFACE,
-                                  manager->priv->cancellable,
+                                  manager->cancellable,
                                   usb_protection_proxy_ready,
                                   manager);
 
         notify_init ("gnome-settings-daemon");
 
-        manager->priv->start_idle_id = 0;
+        manager->start_idle_id = 0;
 
         return FALSE;
 }
@@ -871,8 +872,8 @@ gsd_usb_protection_manager_start (GsdUsbProtectionManager *manager,
 {
         gnome_settings_profile_start (NULL);
 
-        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_usb_protection_idle_cb, manager);
-        g_source_set_name_by_id (manager->priv->start_idle_id, "[gnome-settings-daemon] start_usbguard_idle_cb");
+        manager->start_idle_id = g_idle_add ((GSourceFunc) start_usb_protection_idle_cb, manager);
+        g_source_set_name_by_id (manager->start_idle_id, "[gnome-settings-daemon] start_usbguard_idle_cb");
 
         gnome_settings_profile_end (NULL);
         return TRUE;
@@ -883,36 +884,36 @@ gsd_usb_protection_manager_stop (GsdUsbProtectionManager *manager)
 {
         g_debug ("Stopping USB protection manager");
 
-        if (manager->priv->cancellable != NULL) {
-                g_cancellable_cancel (manager->priv->cancellable);
-                g_clear_object (&manager->priv->cancellable);
+        if (manager->cancellable != NULL) {
+                g_cancellable_cancel (manager->cancellable);
+                g_clear_object (&manager->cancellable);
         }
 
-        if (manager->priv->notification != NULL) {
-                g_signal_handlers_disconnect_by_func (manager->priv->notification,
+        if (manager->notification != NULL) {
+                g_signal_handlers_disconnect_by_func (manager->notification,
                                                       G_CALLBACK (on_notification_closed),
                                                       manager);
-                g_clear_object (&manager->priv->notification);
+                g_clear_object (&manager->notification);
         }
 
-        if (manager->priv->start_idle_id != 0) {
-                g_source_remove (manager->priv->start_idle_id);
-                manager->priv->start_idle_id = 0;
+        if (manager->start_idle_id != 0) {
+                g_source_remove (manager->start_idle_id);
+                manager->start_idle_id = 0;
         }
 
-        g_clear_object (&manager->priv->settings);
+        g_clear_object (&manager->settings);
 
-        if (manager->priv->usb_protection != NULL)
-                g_clear_object (&manager->priv->usb_protection);
+        if (manager->usb_protection != NULL)
+                g_clear_object (&manager->usb_protection);
 
-        if (manager->priv->usb_protection_devices != NULL)
-                g_clear_object (&manager->priv->usb_protection_devices);
+        if (manager->usb_protection_devices != NULL)
+                g_clear_object (&manager->usb_protection_devices);
 
-        if (manager->priv->usb_protection_policy != NULL)
-                g_clear_object (&manager->priv->usb_protection_policy);
+        if (manager->usb_protection_policy != NULL)
+                g_clear_object (&manager->usb_protection_policy);
 
-        if (manager->priv->screensaver_proxy != NULL)
-                g_clear_object (&manager->priv->screensaver_proxy);
+        if (manager->screensaver_proxy != NULL)
+                g_clear_object (&manager->screensaver_proxy);
 }
 
 static void
@@ -926,8 +927,6 @@ gsd_usb_protection_manager_class_init (GsdUsbProtectionManagerClass *klass)
 static void
 gsd_usb_protection_manager_init (GsdUsbProtectionManager *manager)
 {
-        manager->priv = gsd_usb_protection_manager_get_instance_private (manager);
-
 }
 
 static void
@@ -939,7 +938,7 @@ gsd_usb_protection_manager_finalize (GObject *object)
 
         usb_protection_manager = GSD_USB_PROTECTION_MANAGER (object);
 
-        g_return_if_fail (usb_protection_manager->priv != NULL);
+        g_return_if_fail (usb_protection_manager != NULL);
 
         gsd_usb_protection_manager_stop (usb_protection_manager);
 
