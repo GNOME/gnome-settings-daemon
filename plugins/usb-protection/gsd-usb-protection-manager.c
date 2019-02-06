@@ -112,9 +112,16 @@ static gpointer manager_object = NULL;
 static void
 add_usbguard_allow_rule (GsdUsbProtectionManager *manager)
 {
-        GVariant *params;
+        /* This prepends an "allow all" rule.
+         * It has a double purpose. If we are in the protection level
+         * "never block" it is used to automatically authorize new devices.
+         * On top of that it is also used as an anti lockout precaution.
+         * If something unexpected happens and the user is unable to authorize
+         * his main keyboard he can reboot the system and, thanks to
+         * this "allow all" rule, every already plugged in devices at boot time
+         * will be automatically authorized. */
 
-        /* This prepends an "allow all" rule */
+        GVariant *params;
         params = g_variant_new ("(su)", ALLOW_ALL, 0);
         if (manager->priv->usb_protection_policy != NULL)
                 g_dbus_proxy_call (manager->priv->usb_protection_policy,
@@ -732,6 +739,8 @@ usb_protection_devices_proxy_ready (GObject      *source_object,
         manager = GSD_USB_PROTECTION_MANAGER (user_data);
         manager->priv->usb_protection_devices = proxy;
 
+        /* We don't care about already plugged in devices because they'll be
+         * already autorized by the "allow all" rule in USBGuard. */
         g_signal_connect_object (source_object,
                                  "g-signal",
                                  G_CALLBACK (on_device_presence_signal),
