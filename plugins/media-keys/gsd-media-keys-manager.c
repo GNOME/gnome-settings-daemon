@@ -46,6 +46,8 @@
 #include <gudev/gudev.h>
 #endif
 
+#include "gsd-settings-migrate.h"
+
 #include "mpris-controller.h"
 #include "gnome-settings-bus.h"
 #include "gnome-settings-profile.h"
@@ -146,7 +148,7 @@ typedef struct {
         const char *hard_coded;
         char *custom_path;
         char *custom_command;
-        guint accel_id;
+        GArray *accel_ids;
 } MediaKey;
 
 typedef struct {
@@ -270,6 +272,7 @@ media_key_unref (MediaKey *key)
                 return;
         if (!g_atomic_int_dec_and_test (&key->ref_count))
                 return;
+        g_clear_pointer (&key->accel_ids, g_array_unref);
         g_free (key->custom_path);
         g_free (key->custom_command);
         g_free (key);
@@ -286,6 +289,9 @@ static MediaKey *
 media_key_new (void)
 {
         MediaKey *key = g_new0 (MediaKey, 1);
+
+        key->accel_ids = g_array_new (FALSE, TRUE, sizeof(guint));
+
         return media_key_ref (key);
 }
 
@@ -370,24 +376,33 @@ get_key_string (MediaKey *key)
 		g_assert_not_reached ();
 }
 
-static char *
-get_binding (GsdMediaKeysManager *manager,
-	     MediaKey            *key)
+static GStrv
+get_bindings (GsdMediaKeysManager *manager,
+	      MediaKey            *key)
 {
 	GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
+	GPtrArray *array;
+	gchar *binding;
 
 	if (key->settings_key != NULL)
-		return g_settings_get_string (priv->settings, key->settings_key);
-	else if (key->hard_coded != NULL)
-		return g_strdup (key->hard_coded);
+		return g_settings_get_strv (priv->settings, key->settings_key);
+
+	if (key->hard_coded != NULL)
+		binding = g_strdup (key->hard_coded);
 	else if (key->custom_path != NULL) {
                 GSettings *settings;
 
                 settings = g_hash_table_lookup (priv->custom_settings,
                                                 key->custom_path);
-		return g_settings_get_string (settings, "binding");
+		binding = g_settings_get_string (settings, "binding");
 	} else
 		g_assert_not_reached ();
+
+        array = g_ptr_array_new ();
+        g_ptr_array_add (array, binding);
+        g_ptr_array_add (array, NULL);
+
+        return (GStrv) g_ptr_array_free (array, FALSE);
 }
 
 static void
@@ -497,7 +512,7 @@ ungrab_accelerators_complete (GObject      *object,
                 key = g_ptr_array_index (data->keys, i);
 
                 /* Always clear, as it would just fail again the next time. */
-                key->accel_id = 0;
+                g_array_set_size (key->accel_ids, 0);
         }
 
         /* Nothing left to do if the operation was cancelled */
@@ -555,10 +570,15 @@ grab_accelerators_complete (GObject      *object,
         /* We need to stow away the accel_ids that have been registered successfully. */
         for (i = 0; i < data->keys->len; i++) {
                 MediaKey *key;
+
+                key = g_ptr_array_index (data->keys, i);
+                g_assert (key->accel_ids->len == 0);
+        }
+        for (i = 0; i < data->keys->len; i++) {
+                MediaKey *key;
                 guint accel_id;
 
                 key = g_ptr_array_index (data->keys, i);
-                g_assert (key->accel_id == 0);
 
                 g_variant_get_child (actions, i, "u", &accel_id);
                 if (accel_id == 0) {
@@ -566,7 +586,7 @@ grab_accelerators_complete (GObject      *object,
                         tmp = get_key_string (key);
                         g_warning ("Failed to grab accelerator for keybinding %s", tmp);
                 } else {
-                        key->accel_id = accel_id;
+                        g_array_append_val (key->accel_ids, accel_id);
                 }
         }
 
@@ -603,10 +623,12 @@ keys_sync_continue (GsdMediaKeysManager *manager)
 
         g_hash_table_iter_init (&iter, priv->keys_to_sync);
         while (g_hash_table_iter_next (&iter, (gpointer*) &key, NULL)) {
-                g_autofree gchar *tmp = NULL;
+                g_auto(GStrv) bindings = NULL;
+                gchar **pos = NULL;
+                gint i;
 
-                if (key->accel_id > 0) {
-                        g_variant_builder_add (&ungrab_builder, "u", key->accel_id);
+                for (i = 0; i < key->accel_ids->len; i++) {
+                        g_variant_builder_add (&ungrab_builder, "u", g_array_index (key->accel_ids, guint, i));
                         g_ptr_array_add (keys_being_ungrabbed, media_key_ref (key));
 
                         need_ungrab = TRUE;
@@ -616,11 +638,15 @@ keys_sync_continue (GsdMediaKeysManager *manager)
                 if (!g_ptr_array_find (priv->keys, key, NULL))
                         continue;
 
-                tmp = get_binding (manager, key);
-                /* The key might not have a keybinding. */
-                if (tmp && strlen (tmp) > 0) {
-                        g_variant_builder_add (&grab_builder, "(suu)", tmp, key->modes, key->grab_flags);
-                        g_ptr_array_add (keys_being_grabbed, media_key_ref (key));
+                bindings = get_bindings (manager, key);
+                pos = bindings;
+                while (*pos) {
+                        /* Do not try to register empty keybindings. */
+                        if (strlen (*pos) > 0) {
+                                g_variant_builder_add (&grab_builder, "(suu)", *pos, key->modes, key->grab_flags);
+                                g_ptr_array_add (keys_being_grabbed, media_key_ref (key));
+                        }
+                        pos++;
                 }
         }
 
@@ -2728,10 +2754,15 @@ on_accelerator_activated (ShellKeyGrabber     *grabber,
 
         for (i = 0; i < priv->keys->len; i++) {
                 MediaKey *key;
+                guint j;
 
                 key = g_ptr_array_index (priv->keys, i);
 
-                if (key->accel_id != accel_id)
+                for (j = 0; j < key->accel_ids->len; j++) {
+                        if (g_array_index (key->accel_ids, guint, j) == accel_id)
+                                break;
+                }
+                if (j >= key->accel_ids->len)
                         continue;
 
                 if (key->key_type == CUSTOM_KEY)
@@ -3141,6 +3172,84 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
         return FALSE;
 }
 
+static GVariant *
+map_keybinding (GVariant *variant, GVariant *new_default)
+{
+        g_autoptr(GPtrArray) array = g_ptr_array_new ();
+        g_autofree const gchar **defaults = NULL;
+        const gchar **pos;
+        const gchar *value;
+
+        defaults = g_variant_get_strv (new_default, NULL);
+        pos = defaults;
+
+        value = g_variant_get_string (variant, NULL);
+
+        /* If the user has a custom value that is not in the list, then
+         * insert it instead of the first default entry. */
+        if (!g_strv_contains (defaults, value)) {
+                g_ptr_array_add (array, (gpointer) value);
+                if (*pos)
+                        pos++;
+        }
+
+        /* Add all remaining default values */
+        while (*pos)
+              g_ptr_array_add (array, (gpointer) *pos);
+
+        g_ptr_array_add (array, NULL);
+
+        return g_variant_new_strv ((const gchar * const *) array->pdata, -1);
+}
+
+static void
+migrate_keybinding_settings (void)
+{
+        GsdSettingsMigrateEntry binding_entries[] = {
+                { "calculator",                 "calculator",                   map_keybinding },
+                { "control-center",             "control-center",               map_keybinding },
+                { "email",                      "email",                        map_keybinding },
+                { "eject",                      "eject",                        map_keybinding },
+                { "help",                       "help",                         map_keybinding },
+                { "home",                       "home",                         map_keybinding },
+                { "media",                      "media",                        map_keybinding },
+                { "next",                       "next",                         map_keybinding },
+                { "pause",                      "pause",                        map_keybinding },
+                { "play",                       "play",                         map_keybinding },
+                { "logout",                     "logout",                       map_keybinding },
+                { "previous",                   "previous",                     map_keybinding },
+                { "screensaver",                "screensaver",                  map_keybinding },
+                { "search",                     "search",                       map_keybinding },
+                { "stop",                       "stop",                         map_keybinding },
+                { "volume-down",                "volume-down",                  map_keybinding },
+                { "volume-mute",                "volume-mute",                  map_keybinding },
+                { "volume-up",                  "volume-up",                    map_keybinding },
+                { "mic-mute",                   "mic-mute",                     map_keybinding },
+                { "screenshot",                 "screenshot",                   map_keybinding },
+                { "window-screenshot",          "window-screenshot",            map_keybinding },
+                { "area-screenshot",            "area-screenshot",              map_keybinding },
+                { "screenshot-clip",            "screenshot-clip",              map_keybinding },
+                { "window-screenshot-clip",     "window-screenshot-clip",       map_keybinding },
+                { "area-screenshot-clip",       "area-screenshot-clip",         map_keybinding },
+                { "screencast",                 "screencast",                   map_keybinding },
+                { "www",                        "www",                          map_keybinding },
+                { "magnifier",                  "magnifier",                    map_keybinding },
+                { "screenreader",               "screenreader",                 map_keybinding },
+                { "on-screen-keyboard",         "on-screen-keyboard",           map_keybinding },
+                { "increase-text-size",         "increase-text-size",           map_keybinding },
+                { "decrease-text-size",         "decrease-text-size",           map_keybinding },
+                { "toggle-contrast",            "toggle-contrast",              map_keybinding },
+                { "magnifier-zoom-in",          "magnifier-zoom-in",            map_keybinding },
+                { "magnifier-zoom-out",         "magnifier-zoom-out",           map_keybinding },
+        };
+
+        gsd_settings_migrate_check ("org.gnome.settings-daemon.plugins.media-keys.deprecated",
+                                    "/org/gnome/settings-daemon/plugins/media-keys/",
+                                    "org.gnome.settings-daemon.plugins.media-keys",
+                                    "/org/gnome/settings-daemon/plugins/media-keys/",
+                                    binding_entries, G_N_ELEMENTS (binding_entries));
+}
+
 gboolean
 gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
                               GError             **error)
@@ -3149,6 +3258,8 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
         const char * const subsystems[] = { "input", "usb", "sound", NULL };
 
         gnome_settings_profile_start (NULL);
+
+        migrate_keybinding_settings ();
 
 #if HAVE_GUDEV
         priv->streams = g_hash_table_new (g_direct_hash, g_direct_equal);
