@@ -24,6 +24,8 @@
 
 G_BEGIN_DECLS
 
+G_DECLARE_FINAL_TYPE (GsdUsbProtectionManager, gsd_usb_protection_manager, GSD, GSD_USB_PROTECTION_MANAGER, GObject);
+
 #define GSD_TYPE_USB_PROTECTION_MANAGER         (gsd_usb_protection_manager_get_type ())
 #define GSD_USB_PROTECTION_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_USB_PROTECTION_MANAGER, GsdUsbProtectionManager))
 #define GSD_USB_PROTECTION_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_USB_PROTECTION_MANAGER, GsdUsbProtectionManagerClass))
@@ -33,16 +35,16 @@ G_BEGIN_DECLS
 
 typedef struct GsdUsbProtectionManagerPrivate GsdUsbProtectionManagerPrivate;
 
-typedef struct
+struct _GsdUsbProtectionManager
 {
         GObject                         parent;
         GsdUsbProtectionManagerPrivate *priv;
-} GsdUsbProtectionManager;
+};
 
 typedef struct
 {
         GObjectClass   parent_class;
-} GsdUsbProtectionManagerClass;
+} _GsdUsbProtectionManagerClass;
 
 GType                       gsd_usb_protection_manager_get_type        (void);
 
