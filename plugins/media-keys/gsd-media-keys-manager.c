@@ -362,18 +362,6 @@ get_binding (GsdMediaKeysManager *manager,
 }
 
 static void
-ensure_cancellable (GCancellable **cancellable)
-{
-        if (*cancellable == NULL) {
-                *cancellable = g_cancellable_new ();
-                g_object_add_weak_pointer (G_OBJECT (*cancellable),
-                                           (gpointer *)cancellable);
-        } else {
-                g_object_ref (*cancellable);
-        }
-}
-
-static void
 show_osd_with_max_level (GsdMediaKeysManager *manager,
                          const char          *icon,
                          const char          *label,
@@ -2982,9 +2970,9 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 	}
 	manager->priv->icon_theme = g_settings_get_string (manager->priv->interface_settings, "icon-theme");
 
-        ensure_cancellable (&manager->priv->grab_cancellable);
-        ensure_cancellable (&manager->priv->screencast_cancellable);
-        ensure_cancellable (&manager->priv->rfkill_cancellable);
+        manager->priv->grab_cancellable = g_cancellable_new ();
+        manager->priv->screencast_cancellable = g_cancellable_new ();
+        manager->priv->rfkill_cancellable = g_cancellable_new ();
 
         manager->priv->shell_proxy = gnome_settings_bus_get_shell_proxy ();
         g_signal_connect_swapped (manager->priv->shell_proxy, "notify::g-name-owner",
