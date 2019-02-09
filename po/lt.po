@@ -7,15 +7,15 @@
 # Gintautas Miliauskas <gintautas@miliauskas.lt>, 2006, 2007, 2008, 2009.
 # Vytautas Liuolia <vytautas.liuolia@gmail.com>, 2008.
 # Algimantas Margevičius <gymka@mail.ru>, 2011.
-# Aurimas Černius <aurisc4@gmail.com>, 2013, 2014, 2015, 2016, 2017, 2018.
+# Aurimas Černius <aurisc4@gmail.com>, 2013-2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2018-06-20 14:52+0000\n"
-"PO-Revision-Date: 2018-07-29 13:19+0300\n"
+"POT-Creation-Date: 2018-11-06 15:48+0000\n"
+"PO-Revision-Date: 2019-02-09 23:04+0200\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Generator: Gtranslator 3.30.1\n"
 "X-Project-Style: gnome\n"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
@@ -416,9 +416,6 @@ msgid "If the night light mode is enabled"
 msgstr "Jei naktinio apšvietimo veiksena yra įjungta"
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:17
-#| msgid ""
-#| "Night light mode changes the color temperature of your display when the "
-#| "sun has gone down or at present times."
 msgid ""
 "Night light mode changes the color temperature of your display when the sun "
 "has gone down or at preset times."
@@ -691,17 +688,14 @@ msgid "Volume down"
 msgstr "Sumažinti garsumą"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:87
-#| msgid "Binding to lower the system volume."
 msgid "Binding to lower the volume."
 msgstr "Priskyrimas sistemos garsų garsumui sumažinti."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:91
-#| msgid "Volume mute"
 msgid "Volume mute/unmute"
 msgstr "Garso nutildymas/grąžinimas"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:92
-#| msgid "Binding to mute the system volume."
 msgid "Binding to mute/unmute the volume."
 msgstr "Priskyrimas sistemos garsams nutildyti/atstatyti."
 
@@ -710,17 +704,14 @@ msgid "Volume up"
 msgstr "Padidinti garsumą"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:97
-#| msgid "Binding to raise the system volume."
 msgid "Binding to raise the volume."
 msgstr "Priskyrimas garsumui padidinti."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:101
-#| msgid "Microphone Mute"
 msgid "Microphone mute/unmute"
 msgstr "Mikrofono nutildymas/atstatymas"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:102
-#| msgid "Binding to mute the system volume."
 msgid "Binding to mute/unmute the microphone."
 msgstr "Priskyrimas mikrofonui nutildyti/atstatyti."
 
@@ -1076,40 +1067,40 @@ msgid "Color"
 msgstr "Spalva"
 
 #. TRANSLATORS: button: this is to open GCM
-#: plugins/color/gsd-color-calibrate.c:144
+#: plugins/color/gsd-color-calibrate.c:145
 msgid "Recalibrate now"
 msgstr "Per-kalibruoti dabar"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: plugins/color/gsd-color-calibrate.c:187
+#: plugins/color/gsd-color-calibrate.c:188
 msgid "Recalibration required"
 msgstr "Reikia per-kalibruoti"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: plugins/color/gsd-color-calibrate.c:199
+#: plugins/color/gsd-color-calibrate.c:200
 #, c-format
 msgid "The display “%s” should be recalibrated soon."
 msgstr "Vaizduoklis „%s“ greitai turėtų būti perkalibruotas."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: plugins/color/gsd-color-calibrate.c:208
+#: plugins/color/gsd-color-calibrate.c:209
 #, c-format
 msgid "The printer “%s” should be recalibrated soon."
 msgstr "Spausdintuvas „%s“ greitai turėtų būti perkalibruotas."
 
 #. TRANSLATORS: this is the application name
-#: plugins/color/gsd-color-calibrate.c:346
-#: plugins/color/gsd-color-calibrate.c:362
+#: plugins/color/gsd-color-calibrate.c:347
+#: plugins/color/gsd-color-calibrate.c:363
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "GNOME nustatymų tarnybos spalvos įskiepis"
 
 #. TRANSLATORS: this is a sound description
-#: plugins/color/gsd-color-calibrate.c:348
+#: plugins/color/gsd-color-calibrate.c:349
 msgid "Color calibration device added"
 msgstr "Pridėtas spalvų kalibravimo prietaisas"
 
 #. TRANSLATORS: this is a sound description
-#: plugins/color/gsd-color-calibrate.c:364
+#: plugins/color/gsd-color-calibrate.c:365
 msgid "Color calibration device removed"
 msgstr "Pašalintas spalvų kalibravimo prietaisas"
 
@@ -1133,27 +1124,28 @@ msgid "Date & Time Settings"
 msgstr "Datos ir laiko nustatymai"
 
 #: plugins/housekeeping/gsd-disk-space.c:574
-msgid "Disk space"
+#| msgid "Disk space"
+msgid "Disk Space"
 msgstr "Vieta diske"
 
-#: plugins/housekeeping/gsd-disk-space.c:586
+#: plugins/housekeeping/gsd-disk-space.c:587
 msgid "Examine"
 msgstr "Ištirti"
 
-#: plugins/housekeeping/gsd-disk-space.c:597
+#: plugins/housekeeping/gsd-disk-space.c:598
 msgid "Empty Trash"
 msgstr "Išvalyti šiukšlinę"
 
-#: plugins/housekeeping/gsd-disk-space.c:605
+#: plugins/housekeeping/gsd-disk-space.c:606
 msgid "Ignore"
 msgstr "Nepaisyti"
 
-#: plugins/housekeeping/gsd-disk-space.c:636
+#: plugins/housekeeping/gsd-disk-space.c:637
 #, c-format
 msgid "Low Disk Space on “%s”"
 msgstr "Baigiasi vieta diske „%s“"
 
-#: plugins/housekeeping/gsd-disk-space.c:638
+#: plugins/housekeeping/gsd-disk-space.c:639
 #, c-format
 msgid ""
 "The volume “%s” has only %s disk space remaining.  You may free up some "
@@ -1162,16 +1154,16 @@ msgstr ""
 "Tome „%s“ liko tik %s vietos. Galite atlaisvinti šiek tiek vietos išvalydami "
 "šiukšlinę."
 
-#: plugins/housekeeping/gsd-disk-space.c:642
+#: plugins/housekeeping/gsd-disk-space.c:643
 #, c-format
 msgid "The volume “%s” has only %s disk space remaining."
 msgstr "Tome „%s“ liko tik %s vietos."
 
-#: plugins/housekeeping/gsd-disk-space.c:647
+#: plugins/housekeeping/gsd-disk-space.c:648
 msgid "Low Disk Space"
 msgstr "Baigiasi vieta diske"
 
-#: plugins/housekeeping/gsd-disk-space.c:649
+#: plugins/housekeeping/gsd-disk-space.c:650
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1180,35 +1172,35 @@ msgstr ""
 "Kompiuteryje liko tik %s vietos diske. Galite atlaisvinti šiek tiek vietos "
 "išvalydami šiukšlinę."
 
-#: plugins/housekeeping/gsd-disk-space.c:652
+#: plugins/housekeeping/gsd-disk-space.c:653
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "Kompiuteryje liko tik %s vietos."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2212
+#: plugins/media-keys/gsd-media-keys-manager.c:2266
 msgid "Bluetooth disabled"
 msgstr "Bluetooth išjungtas"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2215
+#: plugins/media-keys/gsd-media-keys-manager.c:2269
 msgid "Bluetooth enabled"
 msgstr "Bluetooth įjungtas"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2219
+#: plugins/media-keys/gsd-media-keys-manager.c:2273
 msgid "Airplane mode enabled"
 msgstr "Skrydžio veiksena įjungta"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2222
+#: plugins/media-keys/gsd-media-keys-manager.c:2276
 msgid "Airplane mode disabled"
 msgstr "Skrydžio veiksena išjungta"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2250
+#: plugins/media-keys/gsd-media-keys-manager.c:2304
 msgid "Hardware Airplane Mode"
 msgstr "Aparatinė skrydžio veiksena"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2310
+#: plugins/media-keys/gsd-media-keys-manager.c:2364
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Ekrano filmukas iš %d %t.webm"
@@ -1242,111 +1234,111 @@ msgstr "Jutiklinis kilimėlis įjungtas"
 msgid "Touchpad Off"
 msgstr "Jutiklinis kilimėlis išjungtas"
 
-#: plugins/media-keys/shortcuts-list.h:53
+#: plugins/media-keys/shortcuts-list.h:55
 msgid "Quiet Volume Mute"
 msgstr "Tylaus garso išjungimas"
 
-#: plugins/media-keys/shortcuts-list.h:54
+#: plugins/media-keys/shortcuts-list.h:56
 msgid "Quiet Volume Down"
 msgstr "Tylaus garso sumažinimas"
 
-#: plugins/media-keys/shortcuts-list.h:55
+#: plugins/media-keys/shortcuts-list.h:57
 msgid "Quiet Volume Up"
 msgstr "Tylaus garso padidinimas"
 
-#: plugins/media-keys/shortcuts-list.h:56
+#: plugins/media-keys/shortcuts-list.h:58
 msgid "Precise Volume Down"
 msgstr "Tikslus garso sumažinimas"
 
-#: plugins/media-keys/shortcuts-list.h:57
+#: plugins/media-keys/shortcuts-list.h:59
 msgid "Precise Volume Up"
 msgstr "Tikslus garso padidinimas"
 
-#: plugins/media-keys/shortcuts-list.h:67
+#: plugins/media-keys/shortcuts-list.h:69
 msgid "Lock Screen"
 msgstr "Užrakinti ekraną"
 
-#: plugins/media-keys/shortcuts-list.h:69
+#: plugins/media-keys/shortcuts-list.h:71
 msgid "Help"
 msgstr "Žinynas"
 
-#: plugins/media-keys/shortcuts-list.h:83
+#: plugins/media-keys/shortcuts-list.h:88
 msgid "Rewind"
 msgstr "Atsukti"
 
-#: plugins/media-keys/shortcuts-list.h:84
+#: plugins/media-keys/shortcuts-list.h:89
 msgid "Forward"
 msgstr "Pirmyn"
 
-#: plugins/media-keys/shortcuts-list.h:85
+#: plugins/media-keys/shortcuts-list.h:90
 msgid "Repeat"
 msgstr "Pakartoti"
 
-#: plugins/media-keys/shortcuts-list.h:86
+#: plugins/media-keys/shortcuts-list.h:91
 msgid "Random Play"
 msgstr "Atsitiktinė grojimo tvarka"
 
-#: plugins/media-keys/shortcuts-list.h:87
+#: plugins/media-keys/shortcuts-list.h:92
 msgid "Orientation Lock"
 msgstr "Padėties užrakinimas"
 
-#: plugins/media-keys/shortcuts-list.h:96
+#: plugins/media-keys/shortcuts-list.h:101
 msgid "Power Off"
 msgstr "Išjungti"
 
 #. the kernel / Xorg names really are like this...
 #. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
-#: plugins/media-keys/shortcuts-list.h:99
+#: plugins/media-keys/shortcuts-list.h:104
 msgid "Sleep"
 msgstr "Užmigdyti"
 
-#: plugins/media-keys/shortcuts-list.h:100
+#: plugins/media-keys/shortcuts-list.h:105
 msgid "Suspend"
 msgstr "Pristabdyti"
 
-#: plugins/media-keys/shortcuts-list.h:101
+#: plugins/media-keys/shortcuts-list.h:106
 msgid "Hibernate"
 msgstr "Užmigdyti"
 
-#: plugins/media-keys/shortcuts-list.h:102
+#: plugins/media-keys/shortcuts-list.h:107
 msgid "Brightness Up"
 msgstr "Padidinti ryškumą"
 
-#: plugins/media-keys/shortcuts-list.h:103
+#: plugins/media-keys/shortcuts-list.h:108
 msgid "Brightness Down"
 msgstr "Sumažinti ryškumą"
 
-#: plugins/media-keys/shortcuts-list.h:104
+#: plugins/media-keys/shortcuts-list.h:109
 msgid "Keyboard Brightness Up"
 msgstr "Padidinti klaviatūros ryškumą"
 
-#: plugins/media-keys/shortcuts-list.h:105
+#: plugins/media-keys/shortcuts-list.h:110
 msgid "Keyboard Brightness Down"
 msgstr "Sumažinti klaviatūros ryškumą"
 
-#: plugins/media-keys/shortcuts-list.h:106
+#: plugins/media-keys/shortcuts-list.h:111
 msgid "Keyboard Brightness Toggle"
 msgstr "Perjungti klaviatūros ryškumą"
 
-#: plugins/media-keys/shortcuts-list.h:107
+#: plugins/media-keys/shortcuts-list.h:112
 msgid "Battery Status"
 msgstr "Baterijos būsena"
 
-#: plugins/media-keys/shortcuts-list.h:108
-#: plugins/media-keys/shortcuts-list.h:109
-#: plugins/media-keys/shortcuts-list.h:110
+#: plugins/media-keys/shortcuts-list.h:113
+#: plugins/media-keys/shortcuts-list.h:114
+#: plugins/media-keys/shortcuts-list.h:115
 msgid "Toggle Airplane Mode"
 msgstr "Perjungti skrydžio veikseną"
 
-#: plugins/media-keys/shortcuts-list.h:111
+#: plugins/media-keys/shortcuts-list.h:116
 msgid "Toggle Bluetooth"
 msgstr "Perjungti Bluetooth"
 
-#: plugins/power/gpm-common.c:99
+#: plugins/power/gpm-common.c:92
 msgid "Unknown time"
 msgstr "Nežinomas laikas"
 
-#: plugins/power/gpm-common.c:104
+#: plugins/power/gpm-common.c:97
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
@@ -1354,7 +1346,7 @@ msgstr[0] "%i minutė"
 msgstr[1] "%i minutės"
 msgstr[2] "%i minučių"
 
-#: plugins/power/gpm-common.c:114
+#: plugins/power/gpm-common.c:107
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1364,19 +1356,19 @@ msgstr[2] "%i valandų"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: plugins/power/gpm-common.c:120
+#: plugins/power/gpm-common.c:113
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: plugins/power/gpm-common.c:121
+#: plugins/power/gpm-common.c:114
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "valanda"
 msgstr[1] "valandos"
 msgstr[2] "valandų"
 
-#: plugins/power/gpm-common.c:122
+#: plugins/power/gpm-common.c:115
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minutė"
@@ -1384,160 +1376,160 @@ msgstr[1] "minutės"
 msgstr[2] "minučių"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:929 plugins/power/gsd-power-manager.c:686
-#: plugins/power/gsd-power-manager.c:783
+#: plugins/power/gpm-common.c:433 plugins/power/gsd-power-manager.c:693
+#: plugins/power/gsd-power-manager.c:790
 msgid "Battery is critically low"
 msgstr "Akumuliatoriaus energijos lygis kritiškai mažas"
 
 #. TRANSLATORS: this is the notification application name
-#: plugins/power/gsd-power-manager.c:324
+#: plugins/power/gsd-power-manager.c:325
 msgid "Power"
 msgstr "Energija"
 
 #. TRANSLATORS: UPS is now discharging
-#: plugins/power/gsd-power-manager.c:356
+#: plugins/power/gsd-power-manager.c:363
 msgid "UPS Discharging"
 msgstr "NSŠ iškraunamas"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:361
+#: plugins/power/gsd-power-manager.c:368
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "Liko %s NSŠ atsarginės energijos"
 
-#: plugins/power/gsd-power-manager.c:364
+#: plugins/power/gsd-power-manager.c:371
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "Liko nežinomas NSŠ atsarginės energijos kiekis"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: plugins/power/gsd-power-manager.c:439
+#: plugins/power/gsd-power-manager.c:446
 msgid "Battery low"
 msgstr "Senka akumuliatorius"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: plugins/power/gsd-power-manager.c:442
+#: plugins/power/gsd-power-manager.c:449
 msgid "Laptop battery low"
 msgstr "Nešiojamojo kompiuterio akumuliatorius išsikrauna"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:449
+#: plugins/power/gsd-power-manager.c:456
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "Liko maždaug %s (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: plugins/power/gsd-power-manager.c:454
+#: plugins/power/gsd-power-manager.c:461
 msgid "UPS low"
 msgstr "Senka NSŠ"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:460
+#: plugins/power/gsd-power-manager.c:467
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "NSŠ atsarginės energijos liko maždaug %s (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: plugins/power/gsd-power-manager.c:465 plugins/power/gsd-power-manager.c:599
+#: plugins/power/gsd-power-manager.c:472 plugins/power/gsd-power-manager.c:606
 msgid "Mouse battery low"
 msgstr "Senka pelės baterija"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:468
+#: plugins/power/gsd-power-manager.c:475
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "Baigiasi belaidės pelės energija (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: plugins/power/gsd-power-manager.c:472 plugins/power/gsd-power-manager.c:607
+#: plugins/power/gsd-power-manager.c:479 plugins/power/gsd-power-manager.c:614
 msgid "Keyboard battery low"
 msgstr "Senka klaviatūros energija"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:475
+#: plugins/power/gsd-power-manager.c:482
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "Baigiasi belaidės klaviatūros energija (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: plugins/power/gsd-power-manager.c:479 plugins/power/gsd-power-manager.c:616
+#: plugins/power/gsd-power-manager.c:486 plugins/power/gsd-power-manager.c:623
 msgid "PDA battery low"
 msgstr "Senka delninuko akumuliatorius"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:482
+#: plugins/power/gsd-power-manager.c:489
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "Baigiasi delninuko energija (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:486 plugins/power/gsd-power-manager.c:626
-#: plugins/power/gsd-power-manager.c:635
+#: plugins/power/gsd-power-manager.c:493 plugins/power/gsd-power-manager.c:633
+#: plugins/power/gsd-power-manager.c:642
 msgid "Cell phone battery low"
 msgstr "Senka mobiliojo telefono akumuliatorius"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:489
+#: plugins/power/gsd-power-manager.c:496
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "Baigiasi mobiliojo telefono energija (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: plugins/power/gsd-power-manager.c:493
+#: plugins/power/gsd-power-manager.c:500
 msgid "Media player battery low"
 msgstr "Senka grotuvo akumuliatorius"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:496
+#: plugins/power/gsd-power-manager.c:503
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "Baigiasi grotuvo energija (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:500 plugins/power/gsd-power-manager.c:644
+#: plugins/power/gsd-power-manager.c:507 plugins/power/gsd-power-manager.c:651
 msgid "Tablet battery low"
 msgstr "Senka planšetinio kompiuterio akumuliatorius"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:503
+#: plugins/power/gsd-power-manager.c:510
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "Baigiasi planšetinio kompiuterio energija (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:507 plugins/power/gsd-power-manager.c:653
+#: plugins/power/gsd-power-manager.c:514 plugins/power/gsd-power-manager.c:660
 msgid "Attached computer battery low"
 msgstr "Senka prijungto kompiuterio akumuliatorius"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:510
+#: plugins/power/gsd-power-manager.c:517
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "Baigiasi prijungto kompiuterio akumuliatoriaus energija (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:531
+#: plugins/power/gsd-power-manager.c:538
 msgid "Battery is low"
 msgstr "Senka akumuliatorius"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: plugins/power/gsd-power-manager.c:563
+#: plugins/power/gsd-power-manager.c:570
 msgid "Battery critically low"
 msgstr "Akumuliatoriaus įkrova kritiškai maža"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: plugins/power/gsd-power-manager.c:566 plugins/power/gsd-power-manager.c:713
+#: plugins/power/gsd-power-manager.c:573 plugins/power/gsd-power-manager.c:720
 msgid "Laptop battery critically low"
 msgstr "Nešiojamojo kompiuterio akumuliatoriaus įkrova kritiškai maža"
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:575
+#: plugins/power/gsd-power-manager.c:582
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr ""
@@ -1545,7 +1537,7 @@ msgstr ""
 "šaltinio."
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:579
+#: plugins/power/gsd-power-manager.c:586
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr ""
@@ -1554,12 +1546,12 @@ msgstr ""
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: plugins/power/gsd-power-manager.c:587 plugins/power/gsd-power-manager.c:738
+#: plugins/power/gsd-power-manager.c:594 plugins/power/gsd-power-manager.c:745
 msgid "UPS critically low"
 msgstr "NSŠ įkrovos lygis kritiškai mažas"
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:593
+#: plugins/power/gsd-power-manager.c:600
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1569,7 +1561,7 @@ msgstr ""
 "kintamosios srovės, kad būtų išvengta duomenų praradimo."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:602
+#: plugins/power/gsd-power-manager.c:609
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1579,7 +1571,7 @@ msgstr ""
 "nebent bus įkrautas."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:610
+#: plugins/power/gsd-power-manager.c:617
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1589,7 +1581,7 @@ msgstr ""
 "nebent bus įkrautas."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:619
+#: plugins/power/gsd-power-manager.c:626
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1599,7 +1591,7 @@ msgstr ""
 "bus įkrautas."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:629
+#: plugins/power/gsd-power-manager.c:636
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -1609,7 +1601,7 @@ msgstr ""
 "veikti, nebent bus įkrautas."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:638
+#: plugins/power/gsd-power-manager.c:645
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -1619,7 +1611,7 @@ msgstr ""
 "bus įkrautas."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:647
+#: plugins/power/gsd-power-manager.c:654
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -1629,7 +1621,7 @@ msgstr ""
 "veikti, nebent bus įkrautas."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:656
+#: plugins/power/gsd-power-manager.c:663
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -1639,7 +1631,7 @@ msgstr ""
 "veikti, nebent bus įkrautas."
 
 #. TRANSLATORS: computer will hibernate
-#: plugins/power/gsd-power-manager.c:721
+#: plugins/power/gsd-power-manager.c:728
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -1648,7 +1640,7 @@ msgstr ""
 "užmigdytas."
 
 #. TRANSLATORS: computer will just shutdown
-#: plugins/power/gsd-power-manager.c:726
+#: plugins/power/gsd-power-manager.c:733
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -1657,56 +1649,56 @@ msgstr ""
 "išjungtas."
 
 #. TRANSLATORS: computer will hibernate
-#: plugins/power/gsd-power-manager.c:746
+#: plugins/power/gsd-power-manager.c:753
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
 "NSŠ įkrova yra žemiau kritinės ribos ir šis kompiuteris tuoj bus užmigdytas."
 
 #. TRANSLATORS: computer will just shutdown
-#: plugins/power/gsd-power-manager.c:751
+#: plugins/power/gsd-power-manager.c:758
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "NSŠ įkrova yra žemiau kritinės ribos ir šis kompiuteris tuoj bus išsijungtas."
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1305
+#: plugins/power/gsd-power-manager.c:1320
 msgid "Lid has been opened"
 msgstr "Ekranas buvo atvožtas"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1339
+#: plugins/power/gsd-power-manager.c:1354
 msgid "Lid has been closed"
 msgstr "Ekranas buvo užvožtas"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1935
+#: plugins/power/gsd-power-manager.c:1916
 msgid "On battery power"
 msgstr "Naudojant baterijos energiją"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1940
+#: plugins/power/gsd-power-manager.c:1921
 msgid "On AC power"
 msgstr "Naudojant kintamosios srovės šaltinį"
 
-#: plugins/power/gsd-power-manager.c:2132
+#: plugins/power/gsd-power-manager.c:2113
 msgid "Automatic logout"
 msgstr "Automatinis atsijungimas"
 
-#: plugins/power/gsd-power-manager.c:2132
+#: plugins/power/gsd-power-manager.c:2113
 msgid "You will soon log out because of inactivity."
 msgstr "Netrukus būsite atjungtas dėl neaktyvumo."
 
-#: plugins/power/gsd-power-manager.c:2137
+#: plugins/power/gsd-power-manager.c:2118
 msgid "Automatic suspend"
 msgstr "Automatinis pristabdymas"
 
-#: plugins/power/gsd-power-manager.c:2137
-#: plugins/power/gsd-power-manager.c:2142
+#: plugins/power/gsd-power-manager.c:2118
+#: plugins/power/gsd-power-manager.c:2123
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Netrukus kompiuteris bus pristabdytas dėl neaktyvumo."
 
-#: plugins/power/gsd-power-manager.c:2142
+#: plugins/power/gsd-power-manager.c:2123
 msgid "Automatic hibernation"
 msgstr "Automatinis užmigdymas"
 
@@ -1751,227 +1743,227 @@ msgstr "Nėra tvarkyklės šiam spausdintuvui."
 
 #: plugins/print-notifications/gsd-printer.c:1031
 #: plugins/print-notifications/gsd-print-notifications-manager.c:290
-#: plugins/print-notifications/gsd-print-notifications-manager.c:530
-#: plugins/print-notifications/gsd-print-notifications-manager.c:911
-#: plugins/print-notifications/gsd-print-notifications-manager.c:1001
-#: plugins/print-notifications/gsd-print-notifications-manager.c:1044
+#: plugins/print-notifications/gsd-print-notifications-manager.c:531
+#: plugins/print-notifications/gsd-print-notifications-manager.c:913
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1004
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1048
 msgid "Printers"
 msgstr "Spausdintuvai"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:366
+#: plugins/print-notifications/gsd-print-notifications-manager.c:367
 #, c-format
 msgid "Printer “%s” is low on toner."
 msgstr "Spausdintuvui „%s“ baigiasi dažai."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:370
+#: plugins/print-notifications/gsd-print-notifications-manager.c:371
 #, c-format
 msgid "Printer “%s” has no toner left."
 msgstr "Spausdintuvui „%s“ baigėsi dažai."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:374
+#: plugins/print-notifications/gsd-print-notifications-manager.c:375
 #, c-format
 msgid "Printer “%s” may not be connected."
 msgstr "Spausdintuvas „%s“ gali būti neprijungtas."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:378
+#: plugins/print-notifications/gsd-print-notifications-manager.c:379
 #, c-format
 msgid "The cover is open on printer “%s”."
 msgstr "Atvertas spausdintuvo „%s“ dangtis."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:382
+#: plugins/print-notifications/gsd-print-notifications-manager.c:383
 #, c-format
 msgid "There is a missing print filter for printer “%s”."
 msgstr "Trūksta spausdinimo filtro spausdintuvui „%s“."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:387
+#: plugins/print-notifications/gsd-print-notifications-manager.c:388
 #, c-format
 msgid "The door is open on printer “%s”."
 msgstr "Atvertos spausdintuvo „%s“ durys."
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:391
+#: plugins/print-notifications/gsd-print-notifications-manager.c:392
 #, c-format
 msgid "Printer “%s” is low on a marker supply."
 msgstr "Spausdintuvui „%s“ baigiasi spalvos tiekimas."
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:395
+#: plugins/print-notifications/gsd-print-notifications-manager.c:396
 #, c-format
 msgid "Printer “%s” is out of a marker supply."
 msgstr "Spausdintuvui „%s“ baigėsi spalvos tiekimas."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:399
+#: plugins/print-notifications/gsd-print-notifications-manager.c:400
 #, c-format
 msgid "Printer “%s” is low on paper."
 msgstr "Spausdintuvui „%s“ baigiasi popierius."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:403
+#: plugins/print-notifications/gsd-print-notifications-manager.c:404
 #, c-format
 msgid "Printer “%s” is out of paper."
 msgstr "Spausdintuvui „%s“ baigėsi popierius."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:407
+#: plugins/print-notifications/gsd-print-notifications-manager.c:408
 #, c-format
 msgid "Printer “%s” is currently off-line."
 msgstr "Spausdintuvas „%s“ nepasiekiamas."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:411
+#: plugins/print-notifications/gsd-print-notifications-manager.c:412
 #, c-format
 msgid "There is a problem on printer “%s”."
 msgstr "Yra problema spausdintuve „%s“."
 
 #. Translators: The printer has a job to print but the printer needs authentication to continue with the print
-#: plugins/print-notifications/gsd-print-notifications-manager.c:523
+#: plugins/print-notifications/gsd-print-notifications-manager.c:524
 #, c-format
 msgid "%s Requires Authentication"
 msgstr "%s reikalauja patvirtinti tapatybę"
 
 #. Translators: A printer needs credentials to continue printing a job
-#: plugins/print-notifications/gsd-print-notifications-manager.c:525
+#: plugins/print-notifications/gsd-print-notifications-manager.c:526
 #, c-format
 msgid "Credentials required in order to print"
 msgstr "Norint spausdinti, reikalingi prisijungimo duomenys"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:591
+#: plugins/print-notifications/gsd-print-notifications-manager.c:593
 msgid "Toner low"
 msgstr "Baigiasi dažai"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:593
+#: plugins/print-notifications/gsd-print-notifications-manager.c:595
 msgid "Toner empty"
 msgstr "Nebėra dažų"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:595
+#: plugins/print-notifications/gsd-print-notifications-manager.c:597
 msgid "Not connected?"
 msgstr "Neprijungtas?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:597
+#: plugins/print-notifications/gsd-print-notifications-manager.c:599
 msgid "Cover open"
 msgstr "Atvertas dangtis"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:599
+#: plugins/print-notifications/gsd-print-notifications-manager.c:601
 msgid "Printer configuration error"
 msgstr "Spausdintuvo konfigūracijos klaida"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:601
+#: plugins/print-notifications/gsd-print-notifications-manager.c:603
 msgid "Door open"
 msgstr "Atvertos durys"
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:603
+#: plugins/print-notifications/gsd-print-notifications-manager.c:605
 msgid "Marker supply low"
 msgstr "Silpnas spalvos tiekimas"
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:605
+#: plugins/print-notifications/gsd-print-notifications-manager.c:607
 msgid "Out of a marker supply"
 msgstr "Baigėsi spalvos tiekimas"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:607
+#: plugins/print-notifications/gsd-print-notifications-manager.c:609
 msgid "Paper low"
 msgstr "Baigiasi popierius"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:609
+#: plugins/print-notifications/gsd-print-notifications-manager.c:611
 msgid "Out of paper"
 msgstr "Baigėsi popierius"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:611
+#: plugins/print-notifications/gsd-print-notifications-manager.c:613
 msgid "Printer off-line"
 msgstr "Spausdintuvas nepasiekiamas"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:613
-#: plugins/print-notifications/gsd-print-notifications-manager.c:987
+#: plugins/print-notifications/gsd-print-notifications-manager.c:615
+#: plugins/print-notifications/gsd-print-notifications-manager.c:990
 msgid "Printer error"
 msgstr "Spausdintuvo klaida"
 
 #. Translators: New printer has been added
-#: plugins/print-notifications/gsd-print-notifications-manager.c:661
+#: plugins/print-notifications/gsd-print-notifications-manager.c:663
 msgid "Printer added"
 msgstr "Spausdintuvas pridėtas"
 
 #. Translators: A print job has been stopped
-#: plugins/print-notifications/gsd-print-notifications-manager.c:678
-#: plugins/print-notifications/gsd-print-notifications-manager.c:716
+#: plugins/print-notifications/gsd-print-notifications-manager.c:680
+#: plugins/print-notifications/gsd-print-notifications-manager.c:718
 msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "Spausdinimas sustabdytas"
 
 #. Translators: "print-job xy" on a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:680
-#: plugins/print-notifications/gsd-print-notifications-manager.c:686
-#: plugins/print-notifications/gsd-print-notifications-manager.c:692
-#: plugins/print-notifications/gsd-print-notifications-manager.c:698
-#: plugins/print-notifications/gsd-print-notifications-manager.c:710
-#: plugins/print-notifications/gsd-print-notifications-manager.c:718
-#: plugins/print-notifications/gsd-print-notifications-manager.c:726
-#: plugins/print-notifications/gsd-print-notifications-manager.c:734
-#: plugins/print-notifications/gsd-print-notifications-manager.c:742
-#: plugins/print-notifications/gsd-print-notifications-manager.c:766
+#: plugins/print-notifications/gsd-print-notifications-manager.c:682
+#: plugins/print-notifications/gsd-print-notifications-manager.c:688
+#: plugins/print-notifications/gsd-print-notifications-manager.c:694
+#: plugins/print-notifications/gsd-print-notifications-manager.c:700
+#: plugins/print-notifications/gsd-print-notifications-manager.c:712
+#: plugins/print-notifications/gsd-print-notifications-manager.c:720
+#: plugins/print-notifications/gsd-print-notifications-manager.c:728
+#: plugins/print-notifications/gsd-print-notifications-manager.c:736
+#: plugins/print-notifications/gsd-print-notifications-manager.c:744
+#: plugins/print-notifications/gsd-print-notifications-manager.c:768
 #, c-format
 msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "„%s“ spausdintuve %s"
 
 #. Translators: A print job has been canceled
-#: plugins/print-notifications/gsd-print-notifications-manager.c:684
-#: plugins/print-notifications/gsd-print-notifications-manager.c:724
+#: plugins/print-notifications/gsd-print-notifications-manager.c:686
+#: plugins/print-notifications/gsd-print-notifications-manager.c:726
 msgctxt "print job state"
 msgid "Printing canceled"
 msgstr "Spausdinimo atsisakyta"
 
 #. Translators: A print job has been aborted
-#: plugins/print-notifications/gsd-print-notifications-manager.c:690
-#: plugins/print-notifications/gsd-print-notifications-manager.c:732
+#: plugins/print-notifications/gsd-print-notifications-manager.c:692
+#: plugins/print-notifications/gsd-print-notifications-manager.c:734
 msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "Spausdinimas nutrauktas"
 
 #. Translators: A print job has been completed
-#: plugins/print-notifications/gsd-print-notifications-manager.c:696
-#: plugins/print-notifications/gsd-print-notifications-manager.c:740
+#: plugins/print-notifications/gsd-print-notifications-manager.c:698
+#: plugins/print-notifications/gsd-print-notifications-manager.c:742
 msgctxt "print job state"
 msgid "Printing completed"
 msgstr "Spausdinimas baigtas"
 
 #. Translators: A job is printing
-#: plugins/print-notifications/gsd-print-notifications-manager.c:708
-#: plugins/print-notifications/gsd-print-notifications-manager.c:764
+#: plugins/print-notifications/gsd-print-notifications-manager.c:710
+#: plugins/print-notifications/gsd-print-notifications-manager.c:766
 msgctxt "print job state"
 msgid "Printing"
 msgstr "Spausdinimas"
 
 #. Translators: This is a title of a report notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:981
+#: plugins/print-notifications/gsd-print-notifications-manager.c:984
 msgid "Printer report"
 msgstr "Spausdintuvo ataskaita"
 
 #. Translators: This is a title of a warning notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:984
+#: plugins/print-notifications/gsd-print-notifications-manager.c:987
 msgid "Printer warning"
 msgstr "Spausdintuvo perspėjimas"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: plugins/print-notifications/gsd-print-notifications-manager.c:994
+#: plugins/print-notifications/gsd-print-notifications-manager.c:997
 #, c-format
 msgid "Printer “%s”: “%s”."
 msgstr "Spausdintuvas „%s“: „%s“."
