@@ -115,16 +115,23 @@ gsd_night_light_frac_day_from_dt (GDateTime *dt)
 }
 
 gboolean
-gsd_night_light_frac_day_is_between (gdouble value, gdouble start, gdouble end)
+gsd_night_light_frac_day_is_between (gdouble  value,
+                                     gdouble  start,
+                                     gdouble  end)
 {
-        /* wraparound to the next day */
-        if (end < start)
+        /* wrap end to the next day if it is before start,
+         * considering equal values as a full 24h period
+         */
+        if (end <= start)
                 end += 24;
 
-        /* wraparound to the previous day */
+        /* wrap value to the next day if it is before the range */
         if (value < start && value < end)
                 value += 24;
 
-        /* test limits */
-        return value > start && value <= end;
+        /* Check whether value falls into range; together with the 24h
+         * wrap around above this means that TRUE is always returned when
+         * start == end.
+         */
+        return value >= start && value < end;
 }
