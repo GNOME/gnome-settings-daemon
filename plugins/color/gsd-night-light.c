@@ -305,13 +305,14 @@ night_light_recheck (GsdNightLight *self)
                 if (time_span > (GTimeSpan) 24 * 60 * 60 * 1000000) {
                         g_debug ("night light disabled until tomorrow is older than 24h, resetting disabled until tomorrow");
                         reset = TRUE;
-                } else {
+                } else if (time_span > 0) {
                         /* Or if a sunrise lies between the time it was disabled and now. */
                         gdouble frac_disabled;
                         frac_disabled = gsd_night_light_frac_day_from_dt (self->disabled_until_tmw_dt);
                         if (gsd_night_light_frac_day_is_between (schedule_to,
                                                                  frac_disabled,
-                                                                 frac_day)) {
+                                                                 frac_day,
+                                                                 TRUE)) {
                                 g_debug ("night light sun rise happened, resetting disabled until tomorrow");
                                 reset = TRUE;
                         }
@@ -329,9 +330,15 @@ night_light_recheck (GsdNightLight *self)
                 }
         }
 
+        /* lower smearing period to be smaller than the time between start/stop */
+        smear = MIN (smear,
+                     MIN (     ABS (schedule_to - schedule_from),
+                          24 - ABS (schedule_to - schedule_from)));
+
         if (!gsd_night_light_frac_day_is_between (frac_day,
-                                                    schedule_from - smear,
-                                                    schedule_to)) {
+                                                  schedule_from - smear,
+                                                  schedule_to,
+                                                  TRUE)) {
                 g_debug ("not time for night-light");
                 gsd_night_light_set_active (self, FALSE);
                 return;
@@ -349,14 +356,16 @@ night_light_recheck (GsdNightLight *self)
          */
         temperature = g_settings_get_uint (self->settings, "night-light-temperature");
         if (gsd_night_light_frac_day_is_between (frac_day,
-                                                   schedule_from - smear,
-                                                   schedule_from)) {
+                                                 schedule_from - smear,
+                                                 schedule_from,
+                                                 FALSE)) {
                 gdouble factor = 1.f - ((frac_day - (schedule_from - smear)) / smear);
                 temp_smeared = linear_interpolate (GSD_COLOR_TEMPERATURE_DEFAULT,
                                                    temperature, factor);
         } else if (gsd_night_light_frac_day_is_between (frac_day,
-                                                          schedule_to - smear,
-                                                          schedule_to)) {
+                                                        schedule_to - smear,
+                                                        schedule_to,
+                                                        FALSE)) {
                 gdouble factor = (frac_day - (schedule_to - smear)) / smear;
                 temp_smeared = linear_interpolate (GSD_COLOR_TEMPERATURE_DEFAULT,
                                                    temperature, factor);

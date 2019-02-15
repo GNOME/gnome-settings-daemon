@@ -115,8 +115,14 @@ gsd_night_light_frac_day_from_dt (GDateTime *dt)
 }
 
 gboolean
-gsd_night_light_frac_day_is_between (gdouble value, gdouble start, gdouble end)
+gsd_night_light_frac_day_is_between (gdouble  value,
+                                     gdouble  start,
+                                     gdouble  end,
+                                     gboolean on_equal)
 {
+        if (start == end)
+                return on_equal;
+
         /* wraparound to the next day */
         if (end < start)
                 end += 24;
