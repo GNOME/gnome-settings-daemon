@@ -226,8 +226,8 @@ purge_thumbnail_cache (GsdHousekeepingManager *manager)
 
         g_debug ("housekeeping: checking thumbnail cache size and freshness");
 
-        purge_data.max_age = g_settings_get_int (manager->priv->settings, THUMB_AGE_KEY) * 24 * 60 * 60;
-        purge_data.max_size = g_settings_get_int (manager->priv->settings, THUMB_SIZE_KEY) * 1024 * 1024;
+        purge_data.max_age = (glong) g_settings_get_int (manager->priv->settings, THUMB_AGE_KEY) * 24 * 60 * 60;
+        purge_data.max_size = (goffset) g_settings_get_int (manager->priv->settings, THUMB_SIZE_KEY) * 1024 * 1024;
 
         /* if both are set to -1, we don't need to read anything */
         if ((purge_data.max_age < 0) && (purge_data.max_size < 0))
