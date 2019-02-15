@@ -216,6 +216,61 @@ gcm_test_night_light (void)
         datetime_override = g_date_time_new_utc (2017, 2, 10, 20, 0, 0);
         gsd_night_light_set_date_time_now (nlight, datetime_override);
         g_assert_false (gsd_night_light_get_disabled_until_tmw (nlight));
+
+
+        /* Check that we are always in night mode if from/to are equal. */
+        gsd_night_light_set_smooth_enabled (nlight, FALSE);
+        g_settings_set_double (settings, "night-light-schedule-from", 6.0);
+        g_settings_set_double (settings, "night-light-schedule-to", 6.0);
+        g_settings_set_boolean (settings, "night-light-enabled", TRUE);
+
+        datetime_override = g_date_time_new_utc (2017, 2, 10, 5, 50, 0);
+        gsd_night_light_set_date_time_now (nlight, datetime_override);
+        g_assert (gsd_night_light_get_active (nlight));
+        g_assert_cmpint (gsd_night_light_get_temperature (nlight), ==, 4000);
+
+        datetime_override = g_date_time_new_utc (2017, 2, 10, 6, 0, 0);
+        gsd_night_light_set_date_time_now (nlight, datetime_override);
+        g_assert (gsd_night_light_get_active (nlight));
+        g_assert_cmpint (gsd_night_light_get_temperature (nlight), ==, 4000);
+
+        datetime_override = g_date_time_new_utc (2017, 2, 10, 6, 10, 0);
+        gsd_night_light_set_date_time_now (nlight, datetime_override);
+        g_assert (gsd_night_light_get_active (nlight));
+        g_assert_cmpint (gsd_night_light_get_temperature (nlight), ==, 4000);
+
+
+        /* Check that the smearing time is lowered correctly when the times are close. */
+        g_settings_set_double (settings, "night-light-schedule-from", 6.0);
+        g_settings_set_double (settings, "night-light-schedule-to", 6.1);
+
+        /* Not enabled 10 minutes before sunset */
+        datetime_override = g_date_time_new_utc (2017, 2, 10, 5, 50, 0);
+        gsd_night_light_set_date_time_now (nlight, datetime_override);
+        g_assert_false (gsd_night_light_get_active (nlight));
+        g_assert_cmpint (gsd_night_light_get_temperature (nlight), ==, GSD_COLOR_TEMPERATURE_DEFAULT);
+
+        /* Not enabled >10 minutes after sunrise */
+        datetime_override = g_date_time_new_utc (2017, 2, 10, 6, 20, 0);
+        gsd_night_light_set_date_time_now (nlight, datetime_override);
+        g_assert_false (gsd_night_light_get_active (nlight));
+        g_assert_cmpint (gsd_night_light_get_temperature (nlight), ==, GSD_COLOR_TEMPERATURE_DEFAULT);
+
+        /* ~50% smeared 3 min before sunrise (sunrise at 6 past) */
+        datetime_override = g_date_time_new_utc (2017, 2, 10, 6, 3, 0);
+        gsd_night_light_set_date_time_now (nlight, datetime_override);
+        g_assert_true (gsd_night_light_get_active (nlight));
+        g_assert_cmpint (gsd_night_light_get_temperature (nlight), <=, (GSD_COLOR_TEMPERATURE_DEFAULT + 4000) / 2 + 20);
+        g_assert_cmpint (gsd_night_light_get_temperature (nlight), >=, (GSD_COLOR_TEMPERATURE_DEFAULT + 4000) / 2 - 20);
+
+        /* ~50% smeared 3 min before sunset (sunset at 6 past) */
+        g_settings_set_double (settings, "night-light-schedule-from", 6.1);
+        g_settings_set_double (settings, "night-light-schedule-to", 6.0);
+        datetime_override = g_date_time_new_utc (2017, 2, 10, 6, 3, 0);
+        gsd_night_light_set_date_time_now (nlight, datetime_override);
+        g_assert_true (gsd_night_light_get_active (nlight));
+        g_assert_cmpint (gsd_night_light_get_temperature (nlight), <=, (GSD_COLOR_TEMPERATURE_DEFAULT + 4000) / 2 + 20);
+        g_assert_cmpint (gsd_night_light_get_temperature (nlight), >=, (GSD_COLOR_TEMPERATURE_DEFAULT + 4000) / 2 - 20);
 }
 
 static const gboolean
