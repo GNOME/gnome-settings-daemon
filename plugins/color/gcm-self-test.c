@@ -338,17 +338,21 @@ gcm_test_frac_day (void)
         g_assert_cmpfloat (fd, <, fd_actual + 0.01);
 
         /* test same day */
-        g_assert (gsd_night_light_frac_day_is_between (12, 6, 20));
-        g_assert (!gsd_night_light_frac_day_is_between (5, 6, 20));
-        g_assert (gsd_night_light_frac_day_is_between (12, 0, 24));
-        g_assert (gsd_night_light_frac_day_is_between (12, -1, 25));
+        g_assert_true (gsd_night_light_frac_day_is_between (12, 6, 20, FALSE));
+        g_assert_false (gsd_night_light_frac_day_is_between (5, 6, 20, FALSE));
+        g_assert_true (gsd_night_light_frac_day_is_between (12, 0, 24, FALSE));
+        g_assert_true (gsd_night_light_frac_day_is_between (12, -1, 25, FALSE));
 
         /* test rollover to next day */
-        g_assert (gsd_night_light_frac_day_is_between (23, 20, 6));
-        g_assert (!gsd_night_light_frac_day_is_between (12, 20, 6));
+        g_assert_true (gsd_night_light_frac_day_is_between (23, 20, 6, FALSE));
+        g_assert_false (gsd_night_light_frac_day_is_between (12, 20, 6, TRUE));
 
         /* test rollover to the previous day */
-        g_assert (gsd_night_light_frac_day_is_between (5, 16, 8));
+        g_assert_true (gsd_night_light_frac_day_is_between (5, 16, 8, FALSE));
+
+        /* test equality parameter */
+        g_assert_false (gsd_night_light_frac_day_is_between (12, 0.5, 0.5, FALSE));
+        g_assert_true (gsd_night_light_frac_day_is_between (12, 0.5, 0.5, TRUE));
 }
 
 int
