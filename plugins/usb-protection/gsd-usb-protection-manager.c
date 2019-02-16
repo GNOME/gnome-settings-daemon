@@ -76,9 +76,8 @@ struct _GsdUsbProtectionManager
 };
 
 typedef enum {
-        LEVEL_NEVER,
-        LEVEL_WITH_LOCKSCREEN,
-        LEVEL_ALWAYS
+        LEVEL_WITH_LOCKSCREEN = 1,
+        LEVEL_ALWAYS = 2
 } UsbProtectionLevel;
 
 typedef enum {
@@ -114,8 +113,8 @@ static void
 add_usbguard_allow_rule (GsdUsbProtectionManager *manager)
 {
         /* This prepends an "allow all" rule.
-         * It has a double purpose. If we are in the protection level
-         * "never block" it is used to automatically authorize new devices.
+         * It has a double purpose. If the protection is disabled it is used
+         * to ensure that new devices gets automatically authorized.
          * On top of that it is also used as an anti lockout precaution.
          * If something unexpected happens and the user is unable to authorize
          * his main keyboard he can reboot the system and, thanks to
@@ -175,6 +174,23 @@ usbguard_listrules_cb (GObject      *source_object,
 }
 
 static void
+usbguard_ensure_allow_rule (GsdUsbProtectionManager *manager)
+{
+        g_autoptr(GVariant) params = NULL;
+        if (manager->usb_protection_policy != NULL) {
+                params = g_variant_new ("(s)", "");
+                g_dbus_proxy_call (manager->usb_protection_policy,
+                                   LIST_RULES,
+                                   params,
+                                   G_DBUS_CALL_FLAGS_NONE,
+                                   -1,
+                                   manager->cancellable,
+                                   usbguard_listrules_cb,
+                                   manager);
+        }
+}
+
+static void
 settings_changed_callback (GSettings               *settings,
                            const char              *key,
                            GsdUsbProtectionManager *manager)
@@ -193,6 +209,30 @@ settings_changed_callback (GSettings               *settings,
         g_debug ("USBGuard control is currently %i with a protection level of %i",
                  usbguard_controlled, protection_lvl);
 
+        /* If previously we were controlling USBGuard and now we are not,
+         * we leave the USBGuard configuration in a clean state. I.e. we set
+         * "InsertedDevicePolicy" to "apply-policy" and we ensure that
+         * there is an always allow rule. In this way even if USBGuard daemon
+         * is running every USB devices will be automatically authorized. */
+        if (g_strcmp0 (key, USB_PROTECTION) == 0 && !usbguard_controlled) {
+                g_debug ("let's clean usbguard config state");
+                params = g_variant_new ("(ss)",
+                                        INSERTED_DEVICE_POLICY,
+                                        APPLY_POLICY);
+
+                if (manager->usb_protection != NULL) {
+                        g_dbus_proxy_call (manager->usb_protection,
+                                           "setParameter",
+                                           params,
+                                           G_DBUS_CALL_FLAGS_NONE,
+                                           -1,
+                                           manager->cancellable,
+                                           NULL, NULL);
+                }
+
+                usbguard_ensure_allow_rule (manager);
+        }
+
         /* Only if we are entitled to handle USBGuard */
         if (usbguard_controlled && manager->usb_protection != NULL) {
                 value_usbguard = (protection_lvl == LEVEL_ALWAYS) ? BLOCK : APPLY_POLICY;
@@ -208,19 +248,10 @@ settings_changed_callback (GSettings               *settings,
                                    manager->cancellable,
                                    NULL, NULL);
 
-                /* If we are in "Never" or "When lockscreen is active" */
-                if (protection_lvl != LEVEL_ALWAYS &&
-                    manager->usb_protection_policy != NULL) {
-                        params = g_variant_new ("(s)", "");
-                        g_dbus_proxy_call (manager->usb_protection_policy,
-                                           LIST_RULES,
-                                           params,
-                                           G_DBUS_CALL_FLAGS_NONE,
-                                           -1,
-                                           manager->cancellable,
-                                           usbguard_listrules_cb,
-                                           manager);
-                }
+                /* If we are in "When lockscreen is active" we also check if the
+                 * always allow rule is present. */
+                if (protection_lvl == LEVEL_WITH_LOCKSCREEN)
+                        usbguard_ensure_allow_rule (manager);
         }
 }
 
@@ -241,10 +272,9 @@ static void update_usb_protection_store (GsdUsbProtectionManager *manager,
                 /* If the USBGuard configuration has been changed and doesn't match
                  * our internal state, most likely means that the user externally
                  * changed it. When this happens we set to false the control value. */
-                if ((g_strcmp0 (key, APPLY_POLICY) == 0 && protection_lvl == LEVEL_ALWAYS) ||
-                    (g_strcmp0 (key, APPLY_POLICY) != 0 && protection_lvl == LEVEL_NEVER)) {
+                if ((g_strcmp0 (key, APPLY_POLICY) == 0 && protection_lvl == LEVEL_ALWAYS))
                         g_settings_set (settings, USB_PROTECTION, "b", FALSE);
-                }
+                
                 g_free (key);
         }
 }
@@ -252,17 +282,9 @@ static void update_usb_protection_store (GsdUsbProtectionManager *manager,
 static gboolean
 is_protection_active (GsdUsbProtectionManager *manager)
 {
-        gboolean usbguard_controlled;
-        UsbProtectionLevel protection_lvl;
         GSettings *settings = manager->settings;
 
-        usbguard_controlled = g_settings_get_boolean (settings, USB_PROTECTION);
-        protection_lvl = g_settings_get_uint (settings, USB_PROTECTION_LEVEL);
-
-        /* If we are in the option "never block" the authorization is already
-         * handled with an "allow" in the rule file, so we don't need to manually
-         * authorize new USB devices. */
-        return usbguard_controlled && (protection_lvl != LEVEL_NEVER);
+        return g_settings_get_boolean (settings, USB_PROTECTION);
 }
 
 static void
@@ -476,7 +498,7 @@ on_device_presence_signal (GDBusProxy *proxy,
                 /* If the session is locked we check if the inserted device is a keyboard.
                  * If this new device is the only available keyboard we authorize it.
                  * Also, if the device has touchscreen capabilities we never authorize
-                 * keyboards in this stage. Because the user can very well use the
+                 * keyboards in this stage because the user can very well use the
                  * on-screen virtual keyboard. */
                 if (!manager->touchscreen_available && is_keyboard (parameters))
                         if (auth_one_keyboard (manager, parameters)) {
@@ -583,13 +605,6 @@ on_getparameter_done (GObject      *source_object,
                                                 INSERTED_DEVICE_POLICY,
                                                 BLOCK);
                 }
-        } else if (protection_lvl == LEVEL_NEVER) {
-                if (g_strcmp0 (key, APPLY_POLICY) != 0) {
-                        out_of_sync = TRUE;
-                        params = g_variant_new ("(ss)",
-                                                INSERTED_DEVICE_POLICY,
-                                                APPLY_POLICY);
-                }
         }
 
         if (out_of_sync && manager->usb_protection != NULL) {
@@ -602,19 +617,10 @@ on_getparameter_done (GObject      *source_object,
                                    NULL, NULL);
         }
 
-        /* If we are in "Never" or "When lockscreen is active" we also check
+        /* If we are in "When lockscreen is active" we also check
          * if the "always allow" rule is present. */
-        if (protection_lvl != LEVEL_ALWAYS &&
-            manager->usb_protection_policy != NULL) {
-                g_dbus_proxy_call (manager->usb_protection_policy,
-                                   LIST_RULES,
-                                   g_variant_new ("(s)", ""),
-                                   G_DBUS_CALL_FLAGS_NONE,
-                                   -1,
-                                   manager->cancellable,
-                                   usbguard_listrules_cb,
-                                   manager);
-        }
+        if (protection_lvl == LEVEL_WITH_LOCKSCREEN)
+                usbguard_ensure_allow_rule (manager);
 }
 
 static void
