@@ -25,26 +25,8 @@
 G_BEGIN_DECLS
 
 #define GSD_TYPE_MOUSE_MANAGER         (gsd_mouse_manager_get_type ())
-#define GSD_MOUSE_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_MOUSE_MANAGER, GsdMouseManager))
-#define GSD_MOUSE_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_MOUSE_MANAGER, GsdMouseManagerClass))
-#define GSD_IS_MOUSE_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_MOUSE_MANAGER))
-#define GSD_IS_MOUSE_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_MOUSE_MANAGER))
-#define GSD_MOUSE_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_MOUSE_MANAGER, GsdMouseManagerClass))
 
-typedef struct GsdMouseManagerPrivate GsdMouseManagerPrivate;
-
-typedef struct
-{
-        GObject                     parent;
-        GsdMouseManagerPrivate *priv;
-} GsdMouseManager;
-
-typedef struct
-{
-        GObjectClass   parent_class;
-} GsdMouseManagerClass;
-
-GType                   gsd_mouse_manager_get_type            (void);
+G_DECLARE_FINAL_TYPE (GsdMouseManager, gsd_mouse_manager, GSD, MOUSE_MANAGER, GObject)
 
 GsdMouseManager *       gsd_mouse_manager_new                 (void);
 gboolean                gsd_mouse_manager_start               (GsdMouseManager *manager,
