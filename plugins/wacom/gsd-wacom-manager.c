@@ -52,8 +52,6 @@
 #include "gsd-input-helper.h"
 
 
-#define GSD_WACOM_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_WACOM_MANAGER, GsdWacomManagerPrivate))
-
 #define UNKNOWN_DEVICE_NOTIFICATION_TIMEOUT 15000
 
 #define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
@@ -80,8 +78,10 @@ static const gchar introspection_xml[] =
 "  </interface>"
 "</node>";
 
-struct GsdWacomManagerPrivate
+struct _GsdWacomManager
 {
+        GObject parent;
+
         guint start_idle_id;
         GdkSeat *seat;
         guint device_added_id;
@@ -150,7 +150,7 @@ migrate_tablet_settings (GsdWacomManager *manager,
         product = gdk_device_get_product_id (device);
 
         old_path = g_strdup_printf ("/org/gnome/settings-daemon/peripherals/wacom/%s-usb:%s:%s/",
-                                    manager->priv->machine_id, vendor, product);
+                                    manager->machine_id, vendor, product);
         new_path = g_strdup_printf ("/org/gnome/desktop/peripherals/tablets/%s:%s/",
                                     vendor, product);
 
@@ -185,8 +185,6 @@ gsd_wacom_manager_class_init (GsdWacomManagerClass *klass)
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
         object_class->finalize = gsd_wacom_manager_finalize;
-
-        g_type_class_add_private (klass, sizeof (GsdWacomManagerPrivate));
 }
 
 static gchar *
@@ -210,7 +208,7 @@ is_opaque_tablet (GsdWacomManager *manager,
         gchar *devpath;
 
         devpath = get_device_path (device);
-        wacom_device = libwacom_new_from_path (manager->priv->wacom_db, devpath,
+        wacom_device = libwacom_new_from_path (manager->wacom_db, devpath,
                                                WFALLBACK_GENERIC, NULL);
         if (wacom_device) {
                 WacomIntegrationFlags integration_flags;
@@ -231,7 +229,7 @@ lookup_device_by_path (GsdWacomManager *manager,
 {
         GList *devices, *l;
 
-        devices = gdk_seat_get_slaves (manager->priv->seat,
+        devices = gdk_seat_get_slaves (manager->seat,
                                        GDK_SEAT_CAPABILITY_ALL);
 
         for (l = devices; l; l = l->next) {
@@ -383,9 +381,9 @@ add_devices (GsdWacomManager     *manager,
 {
         GList *devices, *l;
 
-        devices = gdk_seat_get_slaves (manager->priv->seat, capabilities);
+        devices = gdk_seat_get_slaves (manager->seat, capabilities);
         for (l = devices; l ; l = l->next)
-		device_added_cb (manager->priv->seat, l->data, manager);
+		device_added_cb (manager->seat, l->data, manager);
         g_list_free (devices);
 }
 
@@ -395,17 +393,16 @@ set_devicepresence_handler (GsdWacomManager *manager)
         GdkSeat *seat;
 
         seat = gdk_display_get_default_seat (gdk_display_get_default ());
-        manager->priv->device_added_id = g_signal_connect (seat, "device-added",
+        manager->device_added_id = g_signal_connect (seat, "device-added",
                                                            G_CALLBACK (device_added_cb), manager);
-        manager->priv->seat = seat;
+        manager->seat = seat;
 }
 
 static void
 gsd_wacom_manager_init (GsdWacomManager *manager)
 {
-        manager->priv = GSD_WACOM_MANAGER_GET_PRIVATE (manager);
 #if HAVE_WACOM
-        manager->priv->wacom_db = libwacom_database_new ();
+        manager->wacom_db = libwacom_database_new ();
 #endif
 }
 
@@ -420,7 +417,7 @@ gsd_wacom_manager_idle_cb (GsdWacomManager *manager)
 
         gnome_settings_profile_end (NULL);
 
-        manager->priv->start_idle_id = 0;
+        manager->start_idle_id = 0;
 
         return FALSE;
 }
@@ -432,9 +429,6 @@ on_bus_gotten (GObject		   *source_object,
 {
 	GDBusConnection	       *connection;
 	GError		       *error = NULL;
-	GsdWacomManagerPrivate *priv;
-
-	priv = manager->priv;
 
 	connection = g_bus_get_finish (res, &error);
 
@@ -445,39 +439,39 @@ on_bus_gotten (GObject		   *source_object,
 		return;
 	}
 
-	priv->dbus_connection = connection;
-	priv->dbus_register_object_id = g_dbus_connection_register_object (connection,
-									   GSD_WACOM_DBUS_PATH,
-									   priv->introspection_data->interfaces[0],
-									   &interface_vtable,
-									   manager,
-									   NULL,
-									   &error);
+	manager->dbus_connection = connection;
+	manager->dbus_register_object_id = g_dbus_connection_register_object (connection,
+									      GSD_WACOM_DBUS_PATH,
+									      manager->introspection_data->interfaces[0],
+									      &interface_vtable,
+									      manager,
+									      NULL,
+									      &error);
 
-	if (priv->dbus_register_object_id == 0) {
+	if (manager->dbus_register_object_id == 0) {
 		g_warning ("Error registering object: %s", error->message);
 		g_error_free (error);
 		return;
 	}
 
-        manager->priv->name_id = g_bus_own_name_on_connection (connection,
-                                                               GSD_WACOM_DBUS_NAME,
-                                                               G_BUS_NAME_OWNER_FLAGS_NONE,
-                                                               NULL,
-                                                               NULL,
-                                                               NULL,
-                                                               NULL);
+        manager->name_id = g_bus_own_name_on_connection (connection,
+                                                         GSD_WACOM_DBUS_NAME,
+                                                         G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                         NULL,
+                                                         NULL,
+                                                         NULL,
+                                                         NULL);
 }
 
 static void
 register_manager (GsdWacomManager *manager)
 {
-        manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
-        manager->priv->dbus_cancellable = g_cancellable_new ();
-        g_assert (manager->priv->introspection_data != NULL);
+        manager->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        manager->dbus_cancellable = g_cancellable_new ();
+        g_assert (manager->introspection_data != NULL);
 
         g_bus_get (G_BUS_TYPE_SESSION,
-                   manager->priv->dbus_cancellable,
+                   manager->dbus_cancellable,
                    (GAsyncReadyCallback) on_bus_gotten,
                    manager);
 }
@@ -511,10 +505,10 @@ gsd_wacom_manager_start (GsdWacomManager *manager,
 
         register_manager (manager_object);
 
-        manager->priv->machine_id = get_machine_id ();
+        manager->machine_id = get_machine_id ();
 
-        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) gsd_wacom_manager_idle_cb, manager);
-        g_source_set_name_by_id (manager->priv->start_idle_id, "[gnome-settings-daemon] gsd_wacom_manager_idle_cb");
+        manager->start_idle_id = g_idle_add ((GSourceFunc) gsd_wacom_manager_idle_cb, manager);
+        g_source_set_name_by_id (manager->start_idle_id, "[gnome-settings-daemon] gsd_wacom_manager_idle_cb");
 
         gnome_settings_profile_end (NULL);
 
@@ -524,26 +518,24 @@ gsd_wacom_manager_start (GsdWacomManager *manager,
 void
 gsd_wacom_manager_stop (GsdWacomManager *manager)
 {
-        GsdWacomManagerPrivate *p = manager->priv;
-
         g_debug ("Stopping wacom manager");
 
-        g_clear_pointer (&manager->priv->machine_id, g_free);
+        g_clear_pointer (&manager->machine_id, g_free);
 
-        if (manager->priv->name_id != 0) {
-                g_bus_unown_name (manager->priv->name_id);
-                manager->priv->name_id = 0;
+        if (manager->name_id != 0) {
+                g_bus_unown_name (manager->name_id);
+                manager->name_id = 0;
         }
 
-        if (p->dbus_register_object_id) {
-                g_dbus_connection_unregister_object (p->dbus_connection,
-                                                     p->dbus_register_object_id);
-                p->dbus_register_object_id = 0;
+        if (manager->dbus_register_object_id) {
+                g_dbus_connection_unregister_object (manager->dbus_connection,
+                                                     manager->dbus_register_object_id);
+                manager->dbus_register_object_id = 0;
         }
 
-        if (p->seat != NULL) {
-                g_signal_handler_disconnect (p->seat, p->device_added_id);
-                p->seat = NULL;
+        if (manager->seat != NULL) {
+                g_signal_handler_disconnect (manager->seat, manager->device_added_id);
+                manager->seat = NULL;
         }
 }
 
@@ -557,17 +549,17 @@ gsd_wacom_manager_finalize (GObject *object)
 
         wacom_manager = GSD_WACOM_MANAGER (object);
 
-        g_return_if_fail (wacom_manager->priv != NULL);
+        g_return_if_fail (wacom_manager != NULL);
 
         gsd_wacom_manager_stop (wacom_manager);
 
-        if (wacom_manager->priv->start_idle_id != 0)
-                g_source_remove (wacom_manager->priv->start_idle_id);
+        if (wacom_manager->start_idle_id != 0)
+                g_source_remove (wacom_manager->start_idle_id);
 
-        g_clear_object (&wacom_manager->priv->shell_proxy);
+        g_clear_object (&wacom_manager->shell_proxy);
 
 #if HAVE_WACOM
-        libwacom_database_destroy (wacom_manager->priv->wacom_db);
+        libwacom_database_destroy (wacom_manager->wacom_db);
 #endif
 
         G_OBJECT_CLASS (gsd_wacom_manager_parent_class)->finalize (object);
