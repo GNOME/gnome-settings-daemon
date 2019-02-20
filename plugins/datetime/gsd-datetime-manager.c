@@ -27,13 +27,13 @@
 #include "gsd-timezone-monitor.h"
 #include "gnome-settings-profile.h"
 
-#define GSD_DATETIME_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_DATETIME_MANAGER, GsdDatetimeManagerPrivate))
-
 #define DATETIME_SCHEMA "org.gnome.desktop.datetime"
 #define AUTO_TIMEZONE_KEY "automatic-timezone"
 
-struct GsdDatetimeManagerPrivate
+struct _GsdDatetimeManager
 {
+        GObject parent;
+
         GSettings *settings;
         GsdTimezoneMonitor *timezone_monitor;
         NotifyNotification *notification;
@@ -51,7 +51,7 @@ static void
 notification_closed_cb (NotifyNotification *n,
                         GsdDatetimeManager *self)
 {
-        g_clear_object (&self->priv->notification);
+        g_clear_object (&self->notification);
 }
 
 static void
@@ -95,32 +95,32 @@ timezone_changed_cb (GsdTimezoneMonitor *timezone_monitor,
         g_free (timezone_name);
         g_free (utc_offset);
 
-        if (self->priv->notification == NULL) {
-                self->priv->notification = notify_notification_new (notification_summary, NULL,
+        if (self->notification == NULL) {
+                self->notification = notify_notification_new (notification_summary, NULL,
                                                                     "preferences-system-time-symbolic");
-                g_signal_connect (self->priv->notification,
+                g_signal_connect (self->notification,
                                   "closed",
                                   G_CALLBACK (notification_closed_cb),
                                   self);
 
-                notify_notification_add_action (self->priv->notification,
+                notify_notification_add_action (self->notification,
                                                 "settings",
                                                 _("Settings"),
                                                 (NotifyActionCallback) open_settings_cb,
                                                 NULL, NULL);
         } else {
-                notify_notification_update (self->priv->notification,
+                notify_notification_update (self->notification,
                                             notification_summary, NULL,
                                             "preferences-system-time-symbolic");
         }
         g_free (notification_summary);
 
-        notify_notification_set_app_name (self->priv->notification, _("Date & Time Settings"));
-        notify_notification_set_hint_string (self->priv->notification, "desktop-entry", "gnome-datetime-panel");
-        notify_notification_set_urgency (self->priv->notification, NOTIFY_URGENCY_NORMAL);
-        notify_notification_set_timeout (self->priv->notification, NOTIFY_EXPIRES_NEVER);
+        notify_notification_set_app_name (self->notification, _("Date & Time Settings"));
+        notify_notification_set_hint_string (self->notification, "desktop-entry", "gnome-datetime-panel");
+        notify_notification_set_urgency (self->notification, NOTIFY_URGENCY_NORMAL);
+        notify_notification_set_timeout (self->notification, NOTIFY_EXPIRES_NEVER);
 
-        if (!notify_notification_show (self->priv->notification, NULL)) {
+        if (!notify_notification_show (self->notification, NULL)) {
                 g_warning ("Failed to send timezone notification");
         }
 }
@@ -133,15 +133,15 @@ auto_timezone_settings_changed_cb (GSettings          *settings,
         gboolean enabled;
 
         enabled = g_settings_get_boolean (settings, key);
-        if (enabled && self->priv->timezone_monitor == NULL) {
+        if (enabled && self->timezone_monitor == NULL) {
                 g_debug ("Automatic timezone enabled");
-                self->priv->timezone_monitor = gsd_timezone_monitor_new ();
+                self->timezone_monitor = gsd_timezone_monitor_new ();
 
-                g_signal_connect (self->priv->timezone_monitor, "timezone-changed",
+                g_signal_connect (self->timezone_monitor, "timezone-changed",
                                   G_CALLBACK (timezone_changed_cb), self);
         } else {
                 g_debug ("Automatic timezone disabled");
-                g_clear_object (&self->priv->timezone_monitor);
+                g_clear_object (&self->timezone_monitor);
         }
 }
 
@@ -152,11 +152,11 @@ gsd_datetime_manager_start (GsdDatetimeManager *self,
         g_debug ("Starting datetime manager");
         gnome_settings_profile_start (NULL);
 
-        self->priv->settings = g_settings_new (DATETIME_SCHEMA);
+        self->settings = g_settings_new (DATETIME_SCHEMA);
 
-        g_signal_connect (self->priv->settings, "changed::" AUTO_TIMEZONE_KEY,
+        g_signal_connect (self->settings, "changed::" AUTO_TIMEZONE_KEY,
                           G_CALLBACK (auto_timezone_settings_changed_cb), self);
-        auto_timezone_settings_changed_cb (self->priv->settings, AUTO_TIMEZONE_KEY, self);
+        auto_timezone_settings_changed_cb (self->settings, AUTO_TIMEZONE_KEY, self);
 
         gnome_settings_profile_end (NULL);
 
@@ -168,14 +168,14 @@ gsd_datetime_manager_stop (GsdDatetimeManager *self)
 {
         g_debug ("Stopping datetime manager");
 
-        g_clear_object (&self->priv->settings);
-        g_clear_object (&self->priv->timezone_monitor);
+        g_clear_object (&self->settings);
+        g_clear_object (&self->timezone_monitor);
 
-        if (self->priv->notification != NULL) {
-                g_signal_handlers_disconnect_by_func (self->priv->notification,
+        if (self->notification != NULL) {
+                g_signal_handlers_disconnect_by_func (self->notification,
                                                       G_CALLBACK (notification_closed_cb),
                                                       self);
-                g_clear_object (&self->priv->notification);
+                g_clear_object (&self->notification);
         }
 }
 
@@ -187,14 +187,11 @@ gsd_datetime_manager_class_init (GsdDatetimeManagerClass *klass)
         object_class->finalize = gsd_datetime_manager_finalize;
 
         notify_init ("gnome-settings-daemon");
-
-        g_type_class_add_private (klass, sizeof (GsdDatetimeManagerPrivate));
 }
 
 static void
 gsd_datetime_manager_init (GsdDatetimeManager *manager)
 {
-        manager->priv = GSD_DATETIME_MANAGER_GET_PRIVATE (manager);
 }
 
 static void
@@ -207,7 +204,7 @@ gsd_datetime_manager_finalize (GObject *object)
 
         manager = GSD_DATETIME_MANAGER (object);
 
-        g_return_if_fail (manager->priv != NULL);
+        g_return_if_fail (manager != NULL);
 
         gsd_datetime_manager_stop (manager);
 

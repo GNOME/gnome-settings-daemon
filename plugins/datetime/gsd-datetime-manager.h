@@ -26,26 +26,7 @@
 G_BEGIN_DECLS
 
 #define GSD_TYPE_DATETIME_MANAGER         (gsd_datetime_manager_get_type ())
-#define GSD_DATETIME_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_DATETIME_MANAGER, GsdDatetimeManager))
-#define GSD_DATETIME_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), GSD_TYPE_DATETIME_MANAGER, GsdDatetimeManagerClass))
-#define GSD_IS_DATETIME_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_DATETIME_MANAGER))
-#define GSD_IS_DATETIME_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_DATETIME_MANAGER))
-#define GSD_DATETIME_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_DATETIME_MANAGER, GsdDatetimeManagerClass))
-
-typedef struct GsdDatetimeManagerPrivate GsdDatetimeManagerPrivate;
-
-typedef struct
-{
-        GObject parent;
-        GsdDatetimeManagerPrivate *priv;
-} GsdDatetimeManager;
-
-typedef struct
-{
-        GObjectClass parent_class;
-} GsdDatetimeManagerClass;
-
-GType gsd_datetime_manager_get_type (void) G_GNUC_CONST;
+G_DECLARE_FINAL_TYPE (GsdDatetimeManager, gsd_datetime_manager, GSD, DATETIME_MANAGER, GObject)
 
 GsdDatetimeManager *gsd_datetime_manager_new (void);
 gboolean gsd_datetime_manager_start (GsdDatetimeManager *manager, GError **error);
