@@ -26,26 +26,8 @@
 G_BEGIN_DECLS
 
 #define GSD_TYPE_RFKILL_MANAGER         (gsd_rfkill_manager_get_type ())
-#define GSD_RFKILL_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_RFKILL_MANAGER, GsdRfkillManager))
-#define GSD_RFKILL_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_RFKILL_MANAGER, GsdRfkillManagerClass))
-#define GSD_IS_RFKILL_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_RFKILL_MANAGER))
-#define GSD_IS_RFKILL_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_RFKILL_MANAGER))
-#define GSD_RFKILL_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_RFKILL_MANAGER, GsdRfkillManagerClass))
 
-typedef struct GsdRfkillManagerPrivate GsdRfkillManagerPrivate;
-
-typedef struct
-{
-        GObject                     parent;
-        GsdRfkillManagerPrivate *priv;
-} GsdRfkillManager;
-
-typedef struct
-{
-        GObjectClass   parent_class;
-} GsdRfkillManagerClass;
-
-GType                   gsd_rfkill_manager_get_type            (void);
+G_DECLARE_FINAL_TYPE (GsdRfkillManager, gsd_rfkill_manager, GSD, RFKILL_MANAGER, GObject)
 
 GsdRfkillManager *       gsd_rfkill_manager_new                 (void);
 gboolean                gsd_rfkill_manager_start               (GsdRfkillManager *manager,
