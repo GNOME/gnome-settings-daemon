@@ -27,26 +27,8 @@
 G_BEGIN_DECLS
 
 #define GSD_TYPE_XSETTINGS_GTK                (gsd_xsettings_gtk_get_type ())
-#define GSD_XSETTINGS_GTK(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_XSETTINGS_GTK, GsdXSettingsGtk))
-#define GSD_XSETTINGS_GTK_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_XSETTINGS_GTK, GsdXSettingsGtkClass))
-#define GSD_IS_XSETTINGS_GTK(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_XSETTINGS_GTK))
-#define GSD_IS_XSETTINGS_GTK_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_XSETTINGS_GTK))
-#define GSD_XSETTINGS_GTK_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_XSETTINGS_GTK, GsdXSettingsGtkClass))
 
-typedef struct GsdXSettingsGtkPrivate GsdXSettingsGtkPrivate;
-
-typedef struct
-{
-        GObject                   parent;
-        GsdXSettingsGtkPrivate *priv;
-} GsdXSettingsGtk;
-
-typedef struct
-{
-        GObjectClass parent_class;
-} GsdXSettingsGtkClass;
-
-GType   gsd_xsettings_gtk_get_type            (void) G_GNUC_CONST;
+G_DECLARE_FINAL_TYPE (GsdXSettingsGtk, gsd_xsettings_gtk, GSD, XSETTINGS_GTK, GObject)
 
 GsdXSettingsGtk *gsd_xsettings_gtk_new        (void);
 
