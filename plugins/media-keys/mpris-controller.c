@@ -20,18 +20,15 @@
 #include "bus-watch-namespace.h"
 #include <gio/gio.h>
 
-G_DEFINE_TYPE (MprisController, mpris_controller, G_TYPE_OBJECT)
-
-#define CONTROLLER_PRIVATE(o) \
-  (G_TYPE_INSTANCE_GET_PRIVATE ((o), MPRIS_TYPE_CONTROLLER, MprisControllerPrivate))
-
 enum {
   PROP_0,
   PROP_HAS_ACTIVE_PLAYER
 };
 
-struct _MprisControllerPrivate
+struct _MprisController
 {
+  GObject parent;
+
   GCancellable *cancellable;
   GDBusProxy *mpris_client_proxy;
   guint namespace_watcher_id;
@@ -39,25 +36,26 @@ struct _MprisControllerPrivate
   gboolean connecting;
 };
 
+G_DEFINE_TYPE (MprisController, mpris_controller, G_TYPE_OBJECT)
 
 static void
 mpris_controller_dispose (GObject *object)
 {
-  MprisControllerPrivate *priv = MPRIS_CONTROLLER (object)->priv;
+  MprisController *self = MPRIS_CONTROLLER (object);
 
-  g_clear_object (&priv->cancellable);
-  g_clear_object (&priv->mpris_client_proxy);
+  g_clear_object (&self->cancellable);
+  g_clear_object (&self->mpris_client_proxy);
 
-  if (priv->namespace_watcher_id)
+  if (self->namespace_watcher_id)
     {
-      bus_unwatch_namespace (priv->namespace_watcher_id);
-      priv->namespace_watcher_id = 0;
+      bus_unwatch_namespace (self->namespace_watcher_id);
+      self->namespace_watcher_id = 0;
     }
 
-  if (priv->other_players)
+  if (self->other_players)
     {
-      g_slist_free_full (priv->other_players, g_free);
-      priv->other_players = NULL;
+      g_slist_free_full (self->other_players, g_free);
+      self->other_players = NULL;
     }
 
   G_OBJECT_CLASS (mpris_controller_parent_class)->dispose (object);
@@ -84,18 +82,16 @@ mpris_proxy_call_done (GObject      *object,
 gboolean
 mpris_controller_key (MprisController *self, const gchar *key)
 {
-  MprisControllerPrivate *priv = MPRIS_CONTROLLER (self)->priv;
-
-  if (!priv->mpris_client_proxy)
+  if (!self->mpris_client_proxy)
     return FALSE;
 
   if (g_strcmp0 (key, "Play") == 0)
     key = "PlayPause";
 
   g_debug ("calling %s over dbus to mpris client %s",
-           key, g_dbus_proxy_get_name (priv->mpris_client_proxy));
-  g_dbus_proxy_call (priv->mpris_client_proxy,
-                     key, NULL, 0, -1, priv->cancellable,
+           key, g_dbus_proxy_get_name (self->mpris_client_proxy));
+  g_dbus_proxy_call (self->mpris_client_proxy,
+                     key, NULL, 0, -1, self->cancellable,
                      mpris_proxy_call_done,
                      NULL);
   return TRUE;
@@ -106,7 +102,7 @@ mpris_proxy_ready_cb (GObject      *object,
                       GAsyncResult *res,
                       gpointer      user_data)
 {
-  MprisControllerPrivate *priv;
+  MprisController *self = MPRIS_CONTROLLER (object);
   GError *error = NULL;
   GDBusProxy *proxy;
 
@@ -120,9 +116,8 @@ mpris_proxy_ready_cb (GObject      *object,
       return;
     }
 
-  priv = MPRIS_CONTROLLER (user_data)->priv;
-  priv->mpris_client_proxy = proxy;
-  priv->connecting = FALSE;
+  self->mpris_client_proxy = proxy;
+  self->connecting = FALSE;
 
   g_object_notify (user_data, "has-active-player");
 }
@@ -130,8 +125,6 @@ mpris_proxy_ready_cb (GObject      *object,
 static void
 start_mpris_proxy (MprisController *self, const gchar *name)
 {
-  MprisControllerPrivate *priv = MPRIS_CONTROLLER (self)->priv;
-
   g_debug ("Creating proxy for for %s", name);
   g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
                             0,
@@ -139,10 +132,10 @@ start_mpris_proxy (MprisController *self, const gchar *name)
                             name,
                             "/org/mpris/MediaPlayer2",
                             "org.mpris.MediaPlayer2.Player",
-                            priv->cancellable,
+                            self->cancellable,
                             mpris_proxy_ready_cb,
                             self);
-  priv->connecting = TRUE;
+  self->connecting = TRUE;
 }
 
 static void
@@ -152,12 +145,11 @@ mpris_player_appeared (GDBusConnection *connection,
                        gpointer         user_data)
 {
   MprisController *self = user_data;
-  MprisControllerPrivate *priv = MPRIS_CONTROLLER (self)->priv;
 
-  if (priv->mpris_client_proxy == NULL && !priv->connecting)
+  if (self->mpris_client_proxy == NULL && !self->connecting)
     start_mpris_proxy (self, name);
   else
-    self->priv->other_players = g_slist_prepend (self->priv->other_players, g_strdup (name));
+    self->other_players = g_slist_prepend (self->other_players, g_strdup (name));
 }
 
 static void
@@ -166,26 +158,25 @@ mpris_player_vanished (GDBusConnection *connection,
                        gpointer         user_data)
 {
   MprisController *self = user_data;
-  MprisControllerPrivate *priv = MPRIS_CONTROLLER (self)->priv;
 
-  if (priv->mpris_client_proxy &&
-      g_strcmp0 (name, g_dbus_proxy_get_name (priv->mpris_client_proxy)) == 0)
+  if (self->mpris_client_proxy &&
+      g_strcmp0 (name, g_dbus_proxy_get_name (self->mpris_client_proxy)) == 0)
     {
-      g_clear_object (&priv->mpris_client_proxy);
+      g_clear_object (&self->mpris_client_proxy);
       g_object_notify (user_data, "has-active-player");
 
       /* take the next one if there's one */
-      if (self->priv->other_players && !priv->connecting)
+      if (self->other_players && !self->connecting)
         {
           GSList *first;
           gchar *name;
 
-          first = self->priv->other_players;
+          first = self->other_players;
           name = first->data;
 
           start_mpris_proxy (self, name);
 
-          self->priv->other_players = self->priv->other_players->next;
+          self->other_players = self->other_players->next;
           g_free (name);
           g_slist_free_1 (first);
         }
@@ -195,9 +186,9 @@ mpris_player_vanished (GDBusConnection *connection,
 static void
 mpris_controller_constructed (GObject *object)
 {
-  MprisControllerPrivate *priv = MPRIS_CONTROLLER (object)->priv;
+  MprisController *self = MPRIS_CONTROLLER (object);
 
-  priv->namespace_watcher_id = bus_watch_namespace (G_BUS_TYPE_SESSION,
+  self->namespace_watcher_id = bus_watch_namespace (G_BUS_TYPE_SESSION,
                                                     "org.mpris.MediaPlayer2",
                                                     mpris_player_appeared,
                                                     mpris_player_vanished,
@@ -229,8 +220,6 @@ mpris_controller_class_init (MprisControllerClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-  g_type_class_add_private (klass, sizeof (MprisControllerPrivate));
-
   object_class->constructed = mpris_controller_constructed;
   object_class->dispose = mpris_controller_dispose;
   object_class->get_property = mpris_controller_get_property;
@@ -247,7 +236,6 @@ mpris_controller_class_init (MprisControllerClass *klass)
 static void
 mpris_controller_init (MprisController *self)
 {
-  self->priv = CONTROLLER_PRIVATE (self);
 }
 
 gboolean
@@ -255,7 +243,7 @@ mpris_controller_get_has_active_player (MprisController *controller)
 {
   g_return_val_if_fail (MPRIS_IS_CONTROLLER (controller), FALSE);
 
-  return (controller->priv->mpris_client_proxy != NULL);
+  return (controller->mpris_client_proxy != NULL);
 }
 
 MprisController *
