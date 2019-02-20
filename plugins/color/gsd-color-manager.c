@@ -53,10 +53,10 @@ static const gchar introspection_xml[] =
 "  </interface>"
 "</node>";
 
-#define GSD_COLOR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_COLOR_MANAGER, GsdColorManagerPrivate))
-
-struct GsdColorManagerPrivate
+struct _GsdColorManager
 {
+        GObject            parent;
+
         /* D-Bus */
         guint              name_id;
         GDBusNodeInfo     *introspection_data;
@@ -96,17 +96,16 @@ gboolean
 gsd_color_manager_start (GsdColorManager *manager,
                          GError          **error)
 {
-        GsdColorManagerPrivate *priv = manager->priv;
         gboolean ret;
 
         g_debug ("Starting color manager");
         gnome_settings_profile_start (NULL);
 
         /* start the device probing */
-        gsd_color_state_start (priv->state);
+        gsd_color_state_start (manager->state);
 
         /* start the profiles collection */
-        ret = gsd_color_profiles_start (priv->profiles, error);
+        ret = gsd_color_profiles_start (manager->profiles, error);
         if (!ret)
                 goto out;
 out:
@@ -117,10 +116,9 @@ out:
 void
 gsd_color_manager_stop (GsdColorManager *manager)
 {
-        GsdColorManagerPrivate *priv = manager->priv;
         g_debug ("Stopping color manager");
-        gsd_color_state_stop (priv->state);
-        gsd_color_profiles_stop (priv->profiles);
+        gsd_color_state_stop (manager->state);
+        gsd_color_profiles_stop (manager->profiles);
 }
 
 static void
@@ -129,8 +127,6 @@ gsd_color_manager_class_init (GsdColorManagerClass *klass)
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
         object_class->finalize = gsd_color_manager_finalize;
-
-        g_type_class_add_private (klass, sizeof (GsdColorManagerPrivate));
 }
 
 static void
@@ -138,12 +134,11 @@ emit_property_changed (GsdColorManager *manager,
                        const gchar *property_name,
                        GVariant *property_value)
 {
-        GsdColorManagerPrivate *priv = manager->priv;
         GVariantBuilder builder;
         GVariantBuilder invalidated_builder;
 
         /* not yet connected */
-        if (priv->connection == NULL)
+        if (manager->connection == NULL)
                 return;
 
         /* build the dict */
@@ -153,7 +148,7 @@ emit_property_changed (GsdColorManager *manager,
                                "{sv}",
                                property_name,
                                property_value);
-        g_dbus_connection_emit_signal (priv->connection,
+        g_dbus_connection_emit_signal (manager->connection,
                                        NULL,
                                        GSD_COLOR_DBUS_PATH,
                                        "org.freedesktop.DBus.Properties",
@@ -173,9 +168,8 @@ on_active_notify (GsdNightLight *nlight,
                   gpointer         user_data)
 {
         GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
-        GsdColorManagerPrivate *priv = manager->priv;
         emit_property_changed (manager, "NightLightActive",
-                               g_variant_new_boolean (gsd_night_light_get_active (priv->nlight)));
+                               g_variant_new_boolean (gsd_night_light_get_active (manager->nlight)));
 }
 
 static void
@@ -184,9 +178,8 @@ on_sunset_notify (GsdNightLight *nlight,
                   gpointer         user_data)
 {
         GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
-        GsdColorManagerPrivate *priv = manager->priv;
         emit_property_changed (manager, "Sunset",
-                               g_variant_new_double (gsd_night_light_get_sunset (priv->nlight)));
+                               g_variant_new_double (gsd_night_light_get_sunset (manager->nlight)));
 }
 
 static void
@@ -195,9 +188,8 @@ on_sunrise_notify (GsdNightLight *nlight,
                    gpointer         user_data)
 {
         GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
-        GsdColorManagerPrivate *priv = manager->priv;
         emit_property_changed (manager, "Sunrise",
-                               g_variant_new_double (gsd_night_light_get_sunrise (priv->nlight)));
+                               g_variant_new_double (gsd_night_light_get_sunrise (manager->nlight)));
 }
 
 static void
@@ -206,9 +198,8 @@ on_disabled_until_tmw_notify (GsdNightLight *nlight,
                               gpointer         user_data)
 {
         GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
-        GsdColorManagerPrivate *priv = manager->priv;
         emit_property_changed (manager, "DisabledUntilTomorrow",
-                               g_variant_new_boolean (gsd_night_light_get_disabled_until_tmw (priv->nlight)));
+                               g_variant_new_boolean (gsd_night_light_get_disabled_until_tmw (manager->nlight)));
 }
 
 static void
@@ -217,9 +208,8 @@ on_temperature_notify (GsdNightLight *nlight,
                        gpointer         user_data)
 {
         GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
-        GsdColorManagerPrivate *priv = manager->priv;
-        gdouble temperature = gsd_night_light_get_temperature (priv->nlight);
-        gsd_color_state_set_temperature (priv->state, temperature);
+        gdouble temperature = gsd_night_light_get_temperature (manager->nlight);
+        gsd_color_state_set_temperature (manager->state, temperature);
         emit_property_changed (manager, "Temperature",
                                g_variant_new_double (temperature));
 }
@@ -227,25 +217,22 @@ on_temperature_notify (GsdNightLight *nlight,
 static void
 gsd_color_manager_init (GsdColorManager *manager)
 {
-        GsdColorManagerPrivate *priv;
-        priv = manager->priv = GSD_COLOR_MANAGER_GET_PRIVATE (manager);
-
         /* setup calibration features */
-        priv->calibrate = gsd_color_calibrate_new ();
-        priv->profiles = gsd_color_profiles_new ();
-        priv->state = gsd_color_state_new ();
+        manager->calibrate = gsd_color_calibrate_new ();
+        manager->profiles = gsd_color_profiles_new ();
+        manager->state = gsd_color_state_new ();
 
         /* night light features */
-        priv->nlight = gsd_night_light_new ();
-        g_signal_connect (priv->nlight, "notify::active",
+        manager->nlight = gsd_night_light_new ();
+        g_signal_connect (manager->nlight, "notify::active",
                           G_CALLBACK (on_active_notify), manager);
-        g_signal_connect (priv->nlight, "notify::sunset",
+        g_signal_connect (manager->nlight, "notify::sunset",
                           G_CALLBACK (on_sunset_notify), manager);
-        g_signal_connect (priv->nlight, "notify::sunrise",
+        g_signal_connect (manager->nlight, "notify::sunrise",
                           G_CALLBACK (on_sunrise_notify), manager);
-        g_signal_connect (priv->nlight, "notify::temperature",
+        g_signal_connect (manager->nlight, "notify::temperature",
                           G_CALLBACK (on_temperature_notify), manager);
-        g_signal_connect (priv->nlight, "notify::disabled-until-tmw",
+        g_signal_connect (manager->nlight, "notify::disabled-until-tmw",
                           G_CALLBACK (on_disabled_until_tmw_notify), manager);
 }
 
@@ -261,26 +248,26 @@ gsd_color_manager_finalize (GObject *object)
 
         gsd_color_manager_stop (manager);
 
-        if (manager->priv->bus_cancellable != NULL) {
-                g_cancellable_cancel (manager->priv->bus_cancellable);
-                g_clear_object (&manager->priv->bus_cancellable);
+        if (manager->bus_cancellable != NULL) {
+                g_cancellable_cancel (manager->bus_cancellable);
+                g_clear_object (&manager->bus_cancellable);
         }
 
-        g_clear_pointer (&manager->priv->introspection_data, g_dbus_node_info_unref);
-        g_clear_object (&manager->priv->connection);
+        g_clear_pointer (&manager->introspection_data, g_dbus_node_info_unref);
+        g_clear_object (&manager->connection);
 
-        if (manager->priv->name_id != 0) {
-                g_bus_unown_name (manager->priv->name_id);
-                manager->priv->name_id = 0;
+        if (manager->name_id != 0) {
+                g_bus_unown_name (manager->name_id);
+                manager->name_id = 0;
         }
 
-        if (manager->priv->nlight_forced_timeout_id)
-                g_source_remove (manager->priv->nlight_forced_timeout_id);
+        if (manager->nlight_forced_timeout_id)
+                g_source_remove (manager->nlight_forced_timeout_id);
 
-        g_clear_object (&manager->priv->calibrate);
-        g_clear_object (&manager->priv->profiles);
-        g_clear_object (&manager->priv->state);
-        g_clear_object (&manager->priv->nlight);
+        g_clear_object (&manager->calibrate);
+        g_clear_object (&manager->profiles);
+        g_clear_object (&manager->state);
+        g_clear_object (&manager->nlight);
 
         G_OBJECT_CLASS (gsd_color_manager_parent_class)->finalize (object);
 }
@@ -289,10 +276,9 @@ static gboolean
 nlight_forced_timeout_cb (gpointer user_data)
 {
         GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
-        GsdColorManagerPrivate *priv = manager->priv;
 
-        priv->nlight_forced_timeout_id = 0;
-        gsd_night_light_set_forced (priv->nlight, FALSE);
+        manager->nlight_forced_timeout_id = 0;
+        gsd_night_light_set_forced (manager->nlight, FALSE);
 
         return G_SOURCE_REMOVE;
 }
@@ -308,12 +294,11 @@ handle_method_call (GDBusConnection       *connection,
                     gpointer               user_data)
 {
         GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
-        GsdColorManagerPrivate *priv = manager->priv;
 
         if (g_strcmp0 (method_name, "NightLightPreview") == 0) {
                 guint32 duration = 0;
 
-                if (!priv->nlight) {
+                if (!manager->nlight) {
                         g_dbus_method_invocation_return_error_literal (invocation,
                                                                        G_IO_ERROR, G_IO_ERROR_NOT_INITIALIZED,
                                                                        "Night-light is currently unavailable");
@@ -331,11 +316,11 @@ handle_method_call (GDBusConnection       *connection,
                         return;
                 }
 
-                if (priv->nlight_forced_timeout_id)
-                        g_source_remove (priv->nlight_forced_timeout_id);
-                priv->nlight_forced_timeout_id = g_timeout_add_seconds (duration, nlight_forced_timeout_cb, manager);
+                if (manager->nlight_forced_timeout_id)
+                        g_source_remove (manager->nlight_forced_timeout_id);
+                manager->nlight_forced_timeout_id = g_timeout_add_seconds (duration, nlight_forced_timeout_cb, manager);
 
-                gsd_night_light_set_forced (priv->nlight, TRUE);
+                gsd_night_light_set_forced (manager->nlight, TRUE);
 
                 g_dbus_method_invocation_return_value (invocation, NULL);
         } else {
@@ -352,7 +337,6 @@ handle_get_property (GDBusConnection *connection,
                      GError **error, gpointer user_data)
 {
         GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
-        GsdColorManagerPrivate *priv = manager->priv;
 
         if (g_strcmp0 (interface_name, GSD_COLOR_DBUS_INTERFACE) != 0) {
                 g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
@@ -361,22 +345,22 @@ handle_get_property (GDBusConnection *connection,
         }
 
         if (g_strcmp0 (property_name, "NightLightActive") == 0)
-                return g_variant_new_boolean (gsd_night_light_get_active (priv->nlight));
+                return g_variant_new_boolean (gsd_night_light_get_active (manager->nlight));
 
         if (g_strcmp0 (property_name, "Temperature") == 0) {
                 guint temperature;
-                temperature = gsd_color_state_get_temperature (priv->state);
+                temperature = gsd_color_state_get_temperature (manager->state);
                 return g_variant_new_uint32 (temperature);
         }
 
         if (g_strcmp0 (property_name, "DisabledUntilTomorrow") == 0)
-                return g_variant_new_boolean (gsd_night_light_get_disabled_until_tmw (priv->nlight));
+                return g_variant_new_boolean (gsd_night_light_get_disabled_until_tmw (manager->nlight));
 
         if (g_strcmp0 (property_name, "Sunrise") == 0)
-                return g_variant_new_double (gsd_night_light_get_sunrise (priv->nlight));
+                return g_variant_new_double (gsd_night_light_get_sunrise (manager->nlight));
 
         if (g_strcmp0 (property_name, "Sunset") == 0)
-                return g_variant_new_double (gsd_night_light_get_sunset (priv->nlight));
+                return g_variant_new_double (gsd_night_light_get_sunset (manager->nlight));
 
         g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
                      "Failed to get property: %s", property_name);
@@ -393,7 +377,6 @@ handle_set_property (GDBusConnection *connection,
                      GError **error, gpointer user_data)
 {
         GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
-        GsdColorManagerPrivate *priv = manager->priv;
 
         if (g_strcmp0 (interface_name, GSD_COLOR_DBUS_INTERFACE) != 0) {
                 g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
@@ -420,12 +403,12 @@ handle_set_property (GDBusConnection *connection,
                                      temperature, GSD_COLOR_TEMPERATURE_MAX);
                         return FALSE;
                 }
-                gsd_color_state_set_temperature (priv->state, temperature);
+                gsd_color_state_set_temperature (manager->state, temperature);
                 return TRUE;
         }
 
         if (g_strcmp0 (property_name, "DisabledUntilTomorrow") == 0) {
-                gsd_night_light_set_disabled_until_tmw (priv->nlight,
+                gsd_night_light_set_disabled_until_tmw (manager->nlight,
                                                         g_variant_get_boolean (value));
                 return TRUE;
         }
@@ -454,7 +437,6 @@ on_bus_gotten (GObject             *source_object,
                GAsyncResult        *res,
                GsdColorManager     *manager)
 {
-        GsdColorManagerPrivate *priv = manager->priv;
         GDBusConnection *connection;
         GError *error = NULL;
 
@@ -466,17 +448,17 @@ on_bus_gotten (GObject             *source_object,
                 return;
         }
 
-        priv->connection = connection;
+        manager->connection = connection;
 
         g_dbus_connection_register_object (connection,
                                            GSD_COLOR_DBUS_PATH,
-                                           priv->introspection_data->interfaces[0],
+                                           manager->introspection_data->interfaces[0],
                                            &interface_vtable,
                                            manager,
                                            NULL,
                                            NULL);
 
-        priv->name_id = g_bus_own_name_on_connection (connection,
+        manager->name_id = g_bus_own_name_on_connection (connection,
                                                       GSD_COLOR_DBUS_NAME,
                                                       G_BUS_NAME_OWNER_FLAGS_NONE,
                                                       NULL,
@@ -485,7 +467,7 @@ on_bus_gotten (GObject             *source_object,
                                                       NULL);
 
         /* setup night light module */
-        if (!gsd_night_light_start (priv->nlight, &error)) {
+        if (!gsd_night_light_start (manager->nlight, &error)) {
                 g_warning ("Could not start night light module: %s", error->message);
                 g_error_free (error);
         }
@@ -494,14 +476,12 @@ on_bus_gotten (GObject             *source_object,
 static void
 register_manager_dbus (GsdColorManager *manager)
 {
-        GsdColorManagerPrivate *priv = manager->priv;
-
-        priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
-        g_assert (priv->introspection_data != NULL);
-        priv->bus_cancellable = g_cancellable_new ();
+        manager->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        g_assert (manager->introspection_data != NULL);
+        manager->bus_cancellable = g_cancellable_new ();
 
         g_bus_get (G_BUS_TYPE_SESSION,
-                   priv->bus_cancellable,
+                   manager->bus_cancellable,
                    (GAsyncReadyCallback) on_bus_gotten,
                    manager);
 }
