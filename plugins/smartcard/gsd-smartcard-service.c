@@ -607,7 +607,7 @@ static void
 destroy_register_new_token_operation (RegisterNewTokenOperation *operation)
 {
         g_clear_pointer (&operation->main_thread_source,
-                         (GDestroyNotify) g_source_destroy);
+                         g_source_destroy);
         PK11_FreeSlot (operation->card_slot);
         g_free (operation->object_path);
         g_free (operation);
@@ -740,7 +740,6 @@ static void
 destroy_synchronize_token_operation (SynchronizeTokenOperation *operation)
 {
         g_clear_pointer (&operation->main_thread_source,
-                         (GDestroyNotify)
                          g_source_destroy);
         PK11_FreeSlot (operation->card_slot);
         g_free (operation);
