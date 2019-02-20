@@ -37,10 +37,10 @@
 #include "gsd-sound-manager.h"
 #include "gnome-settings-profile.h"
 
-#define GSD_SOUND_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_SOUND_MANAGER, GsdSoundManagerPrivate))
-
-struct GsdSoundManagerPrivate
+struct _GsdSoundManager
 {
+        GObject    parent;
+
         GSettings *settings;
         GList     *monitors;
         guint      timeout;
@@ -178,7 +178,7 @@ static gboolean
 flush_cb (GsdSoundManager *manager)
 {
         flush_cache ();
-        manager->priv->timeout = 0;
+        manager->timeout = 0;
         return FALSE;
 }
 
@@ -186,13 +186,13 @@ static void
 trigger_flush (GsdSoundManager *manager)
 {
 
-        if (manager->priv->timeout)
-                g_source_remove (manager->priv->timeout);
+        if (manager->timeout)
+                g_source_remove (manager->timeout);
 
         /* We delay the flushing a bit so that we can coalesce
          * multiple changes into a single cache flush */
-        manager->priv->timeout = g_timeout_add (500, (GSourceFunc) flush_cb, manager);
-        g_source_set_name_by_id (manager->priv->timeout, "[gnome-settings-daemon] flush_cb");
+        manager->timeout = g_timeout_add (500, (GSourceFunc) flush_cb, manager);
+        g_source_set_name_by_id (manager->timeout, "[gnome-settings-daemon] flush_cb");
 }
 
 static void
@@ -206,8 +206,8 @@ settings_changed_cb (GSettings       *settings,
 static void
 register_config_callback (GsdSoundManager *manager)
 {
-	manager->priv->settings = g_settings_new ("org.gnome.desktop.sound");
-	g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
+	manager->settings = g_settings_new ("org.gnome.desktop.sound");
+	g_signal_connect (G_OBJECT (manager->settings), "changed",
 			  G_CALLBACK (settings_changed_cb), manager);
 }
 
@@ -240,7 +240,7 @@ register_directory_callback (GsdSoundManager *manager,
         if (m != NULL) {
                 g_signal_connect (m, "changed", G_CALLBACK (file_monitor_changed_cb), manager);
 
-                manager->priv->monitors = g_list_prepend (manager->priv->monitors, m);
+                manager->monitors = g_list_prepend (manager->monitors, m);
 
                 succ = TRUE;
         }
@@ -290,20 +290,20 @@ gsd_sound_manager_stop (GsdSoundManager *manager)
 {
         g_debug ("Stopping sound manager");
 
-        if (manager->priv->settings != NULL) {
-                g_object_unref (manager->priv->settings);
-                manager->priv->settings = NULL;
+        if (manager->settings != NULL) {
+                g_object_unref (manager->settings);
+                manager->settings = NULL;
         }
 
-        if (manager->priv->timeout) {
-                g_source_remove (manager->priv->timeout);
-                manager->priv->timeout = 0;
+        if (manager->timeout) {
+                g_source_remove (manager->timeout);
+                manager->timeout = 0;
         }
 
-        while (manager->priv->monitors) {
-                g_file_monitor_cancel (G_FILE_MONITOR (manager->priv->monitors->data));
-                g_object_unref (manager->priv->monitors->data);
-                manager->priv->monitors = g_list_delete_link (manager->priv->monitors, manager->priv->monitors);
+        while (manager->monitors) {
+                g_file_monitor_cancel (G_FILE_MONITOR (manager->monitors->data));
+                g_object_unref (manager->monitors->data);
+                manager->monitors = g_list_delete_link (manager->monitors, manager->monitors);
         }
 }
 
@@ -326,14 +326,11 @@ gsd_sound_manager_class_init (GsdSoundManagerClass *klass)
 
         object_class->dispose = gsd_sound_manager_dispose;
         object_class->finalize = gsd_sound_manager_finalize;
-
-        g_type_class_add_private (klass, sizeof (GsdSoundManagerPrivate));
 }
 
 static void
 gsd_sound_manager_init (GsdSoundManager *manager)
 {
-        manager->priv = GSD_SOUND_MANAGER_GET_PRIVATE (manager);
 }
 
 static void
@@ -346,7 +343,7 @@ gsd_sound_manager_finalize (GObject *object)
 
         sound_manager = GSD_SOUND_MANAGER (object);
 
-        g_return_if_fail (sound_manager->priv);
+        g_return_if_fail (sound_manager);
 
         G_OBJECT_CLASS (gsd_sound_manager_parent_class)->finalize (object);
 }
