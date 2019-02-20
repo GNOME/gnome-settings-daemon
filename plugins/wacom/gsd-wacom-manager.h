@@ -26,26 +26,8 @@
 G_BEGIN_DECLS
 
 #define GSD_TYPE_WACOM_MANAGER         (gsd_wacom_manager_get_type ())
-#define GSD_WACOM_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_WACOM_MANAGER, GsdWacomManager))
-#define GSD_WACOM_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_WACOM_MANAGER, GsdWacomManagerClass))
-#define GSD_IS_WACOM_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_WACOM_MANAGER))
-#define GSD_IS_WACOM_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_WACOM_MANAGER))
-#define GSD_WACOM_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_WACOM_MANAGER, GsdWacomManagerClass))
 
-typedef struct GsdWacomManagerPrivate GsdWacomManagerPrivate;
-
-typedef struct
-{
-        GObject                     parent;
-        GsdWacomManagerPrivate *priv;
-} GsdWacomManager;
-
-typedef struct
-{
-        GObjectClass   parent_class;
-} GsdWacomManagerClass;
-
-GType                   gsd_wacom_manager_get_type            (void);
+G_DECLARE_FINAL_TYPE (GsdWacomManager, gsd_wacom_manager, GSD, WACOM_MANAGER, GObject)
 
 GsdWacomManager *       gsd_wacom_manager_new                 (void);
 gboolean                gsd_wacom_manager_start               (GsdWacomManager *manager,
