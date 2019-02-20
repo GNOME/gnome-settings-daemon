@@ -26,32 +26,14 @@
 G_BEGIN_DECLS
 
 #define GSD_TYPE_COLOR_MANAGER         (gsd_color_manager_get_type ())
-#define GSD_COLOR_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_COLOR_MANAGER, GsdColorManager))
-#define GSD_COLOR_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_COLOR_MANAGER, GsdColorManagerClass))
-#define GSD_IS_COLOR_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_COLOR_MANAGER))
-#define GSD_IS_COLOR_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_COLOR_MANAGER))
-#define GSD_COLOR_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_COLOR_MANAGER, GsdColorManagerClass))
 #define GSD_COLOR_MANAGER_ERROR        (gsd_color_manager_error_quark ())
-
-typedef struct GsdColorManagerPrivate GsdColorManagerPrivate;
-
-typedef struct
-{
-        GObject                     parent;
-        GsdColorManagerPrivate *priv;
-} GsdColorManager;
-
-typedef struct
-{
-        GObjectClass   parent_class;
-} GsdColorManagerClass;
+G_DECLARE_FINAL_TYPE (GsdColorManager, gsd_color_manager, GSD, COLOR_MANAGER, GObject)
 
 enum
 {
         GSD_COLOR_MANAGER_ERROR_FAILED
 };
 
-GType                   gsd_color_manager_get_type            (void);
 GQuark                  gsd_color_manager_error_quark         (void);
 
 GsdColorManager *       gsd_color_manager_new                 (void);
