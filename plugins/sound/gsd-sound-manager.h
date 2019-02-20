@@ -26,26 +26,8 @@
 G_BEGIN_DECLS
 
 #define GSD_TYPE_SOUND_MANAGER         (gsd_sound_manager_get_type ())
-#define GSD_SOUND_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_SOUND_MANAGER, GsdSoundManager))
-#define GSD_SOUND_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), GSD_TYPE_SOUND_MANAGER, GsdSoundManagerClass))
-#define GSD_IS_SOUND_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_SOUND_MANAGER))
-#define GSD_IS_SOUND_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_SOUND_MANAGER))
-#define GSD_SOUND_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_SOUND_MANAGER, GsdSoundManagerClass))
 
-typedef struct GsdSoundManagerPrivate GsdSoundManagerPrivate;
-
-typedef struct
-{
-        GObject parent;
-        GsdSoundManagerPrivate *priv;
-} GsdSoundManager;
-
-typedef struct
-{
-        GObjectClass parent_class;
-} GsdSoundManagerClass;
-
-GType gsd_sound_manager_get_type (void) G_GNUC_CONST;
+G_DECLARE_FINAL_TYPE (GsdSoundManager, gsd_sound_manager, GSD, SOUND_MANAGER, GObject)
 
 GsdSoundManager *gsd_sound_manager_new (void);
 gboolean gsd_sound_manager_start (GsdSoundManager *manager, GError **error);
