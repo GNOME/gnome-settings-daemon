@@ -47,8 +47,6 @@
 #include "gsd-enums.h"
 #include "gsd-settings-migrate.h"
 
-#define GSD_KEYBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_KEYBOARD_MANAGER, GsdKeyboardManagerPrivate))
-
 #define GSD_KEYBOARD_DIR "org.gnome.settings-daemon.peripherals.keyboard"
 
 #define KEY_CLICK          "click"
@@ -81,9 +79,11 @@
 #define GNOME_A11Y_APPLICATIONS_INTERFACE_DIR "org.gnome.desktop.a11y.applications"
 #define KEY_OSK_ENABLED "screen-keyboard-enabled"
 
-struct GsdKeyboardManagerPrivate
+struct _GsdKeyboardManager
 {
-	guint      start_idle_id;
+        GObject    parent;
+
+        guint      start_idle_id;
         GSettings *settings;
         GSettings *input_sources_settings;
         GSettings *a11y_settings;
@@ -159,7 +159,7 @@ check_xkb_extension (GsdKeyboardManager *manager)
 
         have_xkb = XkbQueryExtension (dpy,
                                       &opcode,
-                                      &manager->priv->xkb_event_base,
+                                      &manager->xkb_event_base,
                                       &error_base,
                                       &major,
                                       &minor);
@@ -221,7 +221,7 @@ xkb_events_filter (GdkXEvent *xev_,
 	XkbEvent *xkbev = (XkbEvent *) xev;
         GsdKeyboardManager *manager = (GsdKeyboardManager *) user_data;
 
-        if (xev->type != manager->priv->xkb_event_base ||
+        if (xev->type != manager->xkb_event_base ||
             xkbev->any.xkb_type != XkbStateNotify)
 		return GDK_FILTER_CONTINUE;
 
@@ -232,14 +232,14 @@ xkb_events_filter (GdkXEvent *xev_,
 
 		numlock_state = (num_mask & locked_mods) ? GSD_NUM_LOCK_STATE_ON : GSD_NUM_LOCK_STATE_OFF;
 
-		if (numlock_state != manager->priv->old_state) {
+		if (numlock_state != manager->old_state) {
 			g_debug ("New num-lock state '%s' != Old num-lock state '%s'",
 				 num_lock_state_to_string (numlock_state),
-				 num_lock_state_to_string (manager->priv->old_state));
-			g_settings_set_enum (manager->priv->settings,
+				 num_lock_state_to_string (manager->old_state));
+			g_settings_set_enum (manager->settings,
 					     KEY_NUMLOCK_STATE,
 					     numlock_state);
-			manager->priv->old_state = numlock_state;
+			manager->old_state = numlock_state;
 		}
 	}
 
@@ -275,7 +275,7 @@ apply_bell (GsdKeyboardManager *manager)
         int              click_volume;
 
         g_debug ("Applying the bell settings");
-        settings      = manager->priv->settings;
+        settings      = manager->settings;
         click         = g_settings_get_boolean  (settings, KEY_CLICK);
         click_volume  = g_settings_get_int   (settings, KEY_CLICK_VOLUME);
 
@@ -312,15 +312,15 @@ apply_numlock (GsdKeyboardManager *manager)
         gboolean rnumlock;
 
         g_debug ("Applying the num-lock settings");
-        settings = manager->priv->settings;
+        settings = manager->settings;
         rnumlock = g_settings_get_boolean  (settings, KEY_REMEMBER_NUMLOCK_STATE);
-        manager->priv->old_state = g_settings_get_enum (manager->priv->settings, KEY_NUMLOCK_STATE);
+        manager->old_state = g_settings_get_enum (manager->settings, KEY_NUMLOCK_STATE);
 
         gdk_error_trap_push ();
         if (rnumlock) {
                 g_debug ("Remember num-lock is set, so applying setting '%s'",
-                         num_lock_state_to_string (manager->priv->old_state));
-                numlock_set_xkb_state (manager->priv->old_state);
+                         num_lock_state_to_string (manager->old_state));
+                numlock_set_xkb_state (manager->old_state);
         }
 
         XSync (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), FALSE);
@@ -397,11 +397,11 @@ set_devicepresence_handler (GsdKeyboardManager *manager)
 
         device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
 
-        manager->priv->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
+        manager->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
                                                            G_CALLBACK (device_added_cb), manager);
-        manager->priv->device_removed_id = g_signal_connect (G_OBJECT (device_manager), "device-removed",
+        manager->device_removed_id = g_signal_connect (G_OBJECT (device_manager), "device-removed",
                                                              G_CALLBACK (device_removed_cb), manager);
-        manager->priv->device_manager = device_manager;
+        manager->device_manager = device_manager;
 }
 
 static gboolean
@@ -426,7 +426,7 @@ need_osk (GsdKeyboardManager *manager)
         GList *devices, *l;
         GdkSeat *seat;
 
-        if (g_settings_get_boolean (manager->priv->a11y_settings,
+        if (g_settings_get_boolean (manager->a11y_settings,
                                     KEY_OSK_ENABLED))
                 return TRUE;
 
@@ -471,7 +471,7 @@ update_gtk_im_module (GsdKeyboardManager *manager)
          * which is builtin gtk+
          */
         interface_settings = g_settings_new (GNOME_DESKTOP_INTERFACE_DIR);
-        sources = g_settings_get_value (manager->priv->input_sources_settings,
+        sources = g_settings_get_value (manager->input_sources_settings,
                                         KEY_INPUT_SOURCES);
         set_gtk_im_module (manager, interface_settings, sources);
         g_object_unref (interface_settings);
@@ -481,14 +481,13 @@ update_gtk_im_module (GsdKeyboardManager *manager)
 static void
 get_sources_from_xkb_config (GsdKeyboardManager *manager)
 {
-        GsdKeyboardManagerPrivate *priv = manager->priv;
         GVariantBuilder builder;
         GVariant *v;
         gint i, n;
         gchar **layouts = NULL;
         gchar **variants = NULL;
 
-        v = g_dbus_proxy_get_cached_property (priv->localed, "X11Layout");
+        v = g_dbus_proxy_get_cached_property (manager->localed, "X11Layout");
         if (v) {
                 const gchar *s = g_variant_get_string (v, NULL);
                 if (*s)
@@ -496,14 +495,14 @@ get_sources_from_xkb_config (GsdKeyboardManager *manager)
                 g_variant_unref (v);
         }
 
-        init_builder_with_sources (&builder, priv->input_sources_settings);
+        init_builder_with_sources (&builder, manager->input_sources_settings);
 
         if (!layouts) {
                 g_variant_builder_add (&builder, "(ss)", INPUT_SOURCE_TYPE_XKB, DEFAULT_LAYOUT);
                 goto out;
 	}
 
-        v = g_dbus_proxy_get_cached_property (priv->localed, "X11Variant");
+        v = g_dbus_proxy_get_cached_property (manager->localed, "X11Variant");
         if (v) {
                 const gchar *s = g_variant_get_string (v, NULL);
                 if (*s)
@@ -529,7 +528,7 @@ get_sources_from_xkb_config (GsdKeyboardManager *manager)
         }
 
 out:
-        g_settings_set_value (priv->input_sources_settings, KEY_INPUT_SOURCES, g_variant_builder_end (&builder));
+        g_settings_set_value (manager->input_sources_settings, KEY_INPUT_SOURCES, g_variant_builder_end (&builder));
 
         g_strfreev (layouts);
         g_strfreev (variants);
@@ -538,11 +537,10 @@ out:
 static void
 get_options_from_xkb_config (GsdKeyboardManager *manager)
 {
-        GsdKeyboardManagerPrivate *priv = manager->priv;
         GVariant *v;
         gchar **options = NULL;
 
-        v = g_dbus_proxy_get_cached_property (priv->localed, "X11Options");
+        v = g_dbus_proxy_get_cached_property (manager->localed, "X11Options");
         if (v) {
                 const gchar *s = g_variant_get_string (v, NULL);
                 if (*s)
@@ -553,7 +551,7 @@ get_options_from_xkb_config (GsdKeyboardManager *manager)
         if (!options)
                 return;
 
-        g_settings_set_strv (priv->input_sources_settings, KEY_KEYBOARD_OPTIONS, (const gchar * const*) options);
+        g_settings_set_strv (manager->input_sources_settings, KEY_KEYBOARD_OPTIONS, (const gchar * const*) options);
 
         g_strfreev (options);
 }
@@ -676,7 +674,7 @@ maybe_create_initial_settings (GsdKeyboardManager *manager)
         GVariant *sources;
         gchar **options;
 
-        settings = manager->priv->input_sources_settings;
+        settings = manager->input_sources_settings;
 
         if (g_getenv ("RUNNING_UNDER_GDM"))
                 return;
@@ -714,7 +712,7 @@ localed_proxy_ready (GObject      *source,
                 g_error_free (error);
         }
 
-        manager->priv->localed = proxy;
+        manager->localed = proxy;
         maybe_create_initial_settings (manager);
 }
 
@@ -725,24 +723,24 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
 
         g_debug ("Starting keyboard manager");
 
-        manager->priv->settings = g_settings_new (GSD_KEYBOARD_DIR);
+        manager->settings = g_settings_new (GSD_KEYBOARD_DIR);
 
 	xkb_init (manager);
 
 	set_devicepresence_handler (manager);
 
-        manager->priv->input_sources_settings = g_settings_new (GNOME_DESKTOP_INPUT_SOURCES_DIR);
-        g_signal_connect_swapped (manager->priv->input_sources_settings,
+        manager->input_sources_settings = g_settings_new (GNOME_DESKTOP_INPUT_SOURCES_DIR);
+        g_signal_connect_swapped (manager->input_sources_settings,
                                   "changed::" KEY_INPUT_SOURCES,
                                   G_CALLBACK (update_gtk_im_module), manager);
 
-        manager->priv->a11y_settings = g_settings_new (GNOME_A11Y_APPLICATIONS_INTERFACE_DIR);
-        g_signal_connect_swapped (manager->priv->a11y_settings,
+        manager->a11y_settings = g_settings_new (GNOME_A11Y_APPLICATIONS_INTERFACE_DIR);
+        g_signal_connect_swapped (manager->a11y_settings,
                                   "changed::" KEY_OSK_ENABLED,
                                   G_CALLBACK (update_gtk_im_module), manager);
         update_gtk_im_module (manager);
 
-        manager->priv->cancellable = g_cancellable_new ();
+        manager->cancellable = g_cancellable_new ();
 
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
                                   G_DBUS_PROXY_FLAGS_NONE,
@@ -750,7 +748,7 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
                                   "org.freedesktop.locale1",
                                   "/org/freedesktop/locale1",
                                   "org.freedesktop.locale1",
-                                  manager->priv->cancellable,
+                                  manager->cancellable,
                                   localed_proxy_ready,
                                   manager);
 
@@ -759,7 +757,7 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
                 g_debug ("Started the keyboard plugin, applying all settings");
                 apply_all_settings (manager);
 
-                g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
+                g_signal_connect (G_OBJECT (manager->settings), "changed",
                                   G_CALLBACK (settings_changed), manager);
         }
 
@@ -767,7 +765,7 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
 
         gnome_settings_profile_end (NULL);
 
-        manager->priv->start_idle_id = 0;
+        manager->start_idle_id = 0;
 
         return FALSE;
 }
@@ -783,8 +781,8 @@ gsd_keyboard_manager_start (GsdKeyboardManager *manager,
 		return TRUE;
 	}
 
-        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_keyboard_idle_cb, manager);
-        g_source_set_name_by_id (manager->priv->start_idle_id, "[gnome-settings-daemon] start_keyboard_idle_cb");
+        manager->start_idle_id = g_idle_add ((GSourceFunc) start_keyboard_idle_cb, manager);
+        g_source_set_name_by_id (manager->start_idle_id, "[gnome-settings-daemon] start_keyboard_idle_cb");
 
         gnome_settings_profile_end (NULL);
 
@@ -794,22 +792,20 @@ gsd_keyboard_manager_start (GsdKeyboardManager *manager,
 void
 gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
 {
-        GsdKeyboardManagerPrivate *p = manager->priv;
-
         g_debug ("Stopping keyboard manager");
 
-        g_cancellable_cancel (p->cancellable);
-        g_clear_object (&p->cancellable);
+        g_cancellable_cancel (manager->cancellable);
+        g_clear_object (&manager->cancellable);
 
-        g_clear_object (&p->settings);
-        g_clear_object (&p->input_sources_settings);
-        g_clear_object (&p->a11y_settings);
-        g_clear_object (&p->localed);
+        g_clear_object (&manager->settings);
+        g_clear_object (&manager->input_sources_settings);
+        g_clear_object (&manager->a11y_settings);
+        g_clear_object (&manager->localed);
 
-        if (p->device_manager != NULL) {
-                g_signal_handler_disconnect (p->device_manager, p->device_added_id);
-                g_signal_handler_disconnect (p->device_manager, p->device_removed_id);
-                p->device_manager = NULL;
+        if (manager->device_manager != NULL) {
+                g_signal_handler_disconnect (manager->device_manager, manager->device_added_id);
+                g_signal_handler_disconnect (manager->device_manager, manager->device_removed_id);
+                manager->device_manager = NULL;
         }
 
 	remove_xkb_filter (manager);
@@ -821,14 +817,11 @@ gsd_keyboard_manager_class_init (GsdKeyboardManagerClass *klass)
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
         object_class->finalize = gsd_keyboard_manager_finalize;
-
-        g_type_class_add_private (klass, sizeof (GsdKeyboardManagerPrivate));
 }
 
 static void
 gsd_keyboard_manager_init (GsdKeyboardManager *manager)
 {
-        manager->priv = GSD_KEYBOARD_MANAGER_GET_PRIVATE (manager);
 }
 
 static void
@@ -841,12 +834,12 @@ gsd_keyboard_manager_finalize (GObject *object)
 
         keyboard_manager = GSD_KEYBOARD_MANAGER (object);
 
-        g_return_if_fail (keyboard_manager->priv != NULL);
+        g_return_if_fail (keyboard_manager != NULL);
 
         gsd_keyboard_manager_stop (keyboard_manager);
 
-        if (keyboard_manager->priv->start_idle_id != 0)
-                g_source_remove (keyboard_manager->priv->start_idle_id);
+        if (keyboard_manager->start_idle_id != 0)
+                g_source_remove (keyboard_manager->start_idle_id);
 
         G_OBJECT_CLASS (gsd_keyboard_manager_parent_class)->finalize (object);
 }

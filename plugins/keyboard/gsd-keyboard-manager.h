@@ -25,26 +25,8 @@
 G_BEGIN_DECLS
 
 #define GSD_TYPE_KEYBOARD_MANAGER         (gsd_keyboard_manager_get_type ())
-#define GSD_KEYBOARD_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_KEYBOARD_MANAGER, GsdKeyboardManager))
-#define GSD_KEYBOARD_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_KEYBOARD_MANAGER, GsdKeyboardManagerClass))
-#define GSD_IS_KEYBOARD_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_KEYBOARD_MANAGER))
-#define GSD_IS_KEYBOARD_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_KEYBOARD_MANAGER))
-#define GSD_KEYBOARD_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_KEYBOARD_MANAGER, GsdKeyboardManagerClass))
 
-typedef struct GsdKeyboardManagerPrivate GsdKeyboardManagerPrivate;
-
-typedef struct
-{
-        GObject                     parent;
-        GsdKeyboardManagerPrivate *priv;
-} GsdKeyboardManager;
-
-typedef struct
-{
-        GObjectClass   parent_class;
-} GsdKeyboardManagerClass;
-
-GType                   gsd_keyboard_manager_get_type            (void);
+G_DECLARE_FINAL_TYPE (GsdKeyboardManager, gsd_keyboard_manager, GSD, KEYBOARD_MANAGER, GObject)
 
 GsdKeyboardManager *       gsd_keyboard_manager_new                 (void);
 gboolean                gsd_keyboard_manager_start               (GsdKeyboardManager *manager,
