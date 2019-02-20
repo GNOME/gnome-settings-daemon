@@ -25,26 +25,7 @@
 G_BEGIN_DECLS
 
 #define GSD_TYPE_DUMMY_MANAGER         (gsd_dummy_manager_get_type ())
-#define GSD_DUMMY_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_DUMMY_MANAGER, GsdDummyManager))
-#define GSD_DUMMY_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_DUMMY_MANAGER, GsdDummyManagerClass))
-#define GSD_IS_DUMMY_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_DUMMY_MANAGER))
-#define GSD_IS_DUMMY_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_DUMMY_MANAGER))
-#define GSD_DUMMY_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_DUMMY_MANAGER, GsdDummyManagerClass))
-
-typedef struct GsdDummyManagerPrivate GsdDummyManagerPrivate;
-
-typedef struct
-{
-        GObject                     parent;
-        GsdDummyManagerPrivate *priv;
-} GsdDummyManager;
-
-typedef struct
-{
-        GObjectClass   parent_class;
-} GsdDummyManagerClass;
-
-GType                   gsd_dummy_manager_get_type            (void);
+G_DECLARE_FINAL_TYPE (GsdDummyManager, gsd_dummy_manager, GSD, DUMMY_MANAGER, GObject)
 
 GsdDummyManager *       gsd_dummy_manager_new                 (void);
 gboolean                gsd_dummy_manager_start               (GsdDummyManager *manager,
