@@ -38,28 +38,9 @@
 G_BEGIN_DECLS
 
 #define GSD_TYPE_SMARTCARD_SERVICE (gsd_smartcard_service_get_type ())
-#define GSD_SMARTCARD_SERVICE(obj) (G_TYPE_CHECK_INSTANCE_CAST (obj, GSD_TYPE_SMARTCARD_SERVICE, GsdSmartcardService))
-#define GSD_SMARTCARD_SERVICE_CLASS(cls) (G_TYPE_CHECK_CLASS_CAST (cls, GSD_TYPE_SMARTCARD_SERVICE, GsdSmartcardServiceClass))
-#define GSD_IS_SMARTCARD_SERVICE(obj) (G_TYPE_CHECK_INSTANCE_TYPE (obj, GSD_TYPE_SMARTCARD_SERVICE))
-#define GSD_IS_SMARTCARD_SERVICE_CLASS(obj) (G_TYPE_CHECK_CLASS_TYPE (obj, GSD_TYPE_SMARTCARD_SERVICE))
-#define GSD_SMARTCARD_SERVICE_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), GSD_TYPE_SMARTCARD_SERVICE, GsdSmartcardServiceClass))
 
-typedef struct _GsdSmartcardService GsdSmartcardService;
-typedef struct _GsdSmartcardServiceClass GsdSmartcardServiceClass;
-typedef struct _GsdSmartcardServicePrivate GsdSmartcardServicePrivate;
+G_DECLARE_FINAL_TYPE (GsdSmartcardService, gsd_smartcard_service, GSD, SMARTCARD_SERVICE, GObject)
 
-struct _GsdSmartcardService
-{
-        GsdSmartcardServiceManagerSkeleton parent_instance;
-        GsdSmartcardServicePrivate *priv;
-};
-
-struct _GsdSmartcardServiceClass
-{
-        GsdSmartcardServiceManagerSkeletonClass parent_class;
-};
-
-GType gsd_smartcard_service_get_type (void);
 void  gsd_smartcard_service_new_async (GsdSmartcardManager  *manager,
                                        GCancellable         *cancellable,
                                        GAsyncReadyCallback   callback,
