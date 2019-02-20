@@ -25,26 +25,8 @@
 G_BEGIN_DECLS
 
 #define GSD_TYPE_SCREENSAVER_PROXY_MANAGER         (gsd_screensaver_proxy_manager_get_type ())
-#define GSD_SCREENSAVER_PROXY_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_SCREENSAVER_PROXY_MANAGER, GsdScreensaverProxyManager))
-#define GSD_SCREENSAVER_PROXY_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_SCREENSAVER_PROXY_MANAGER, GsdScreensaverProxyManagerClass))
-#define GSD_IS_SCREENSAVER_PROXY_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_SCREENSAVER_PROXY_MANAGER))
-#define GSD_IS_SCREENSAVER_PROXY_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_SCREENSAVER_PROXY_MANAGER))
-#define GSD_SCREENSAVER_PROXY_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_SCREENSAVER_PROXY_MANAGER, GsdScreensaverProxyManagerClass))
 
-typedef struct GsdScreensaverProxyManagerPrivate GsdScreensaverProxyManagerPrivate;
-
-typedef struct
-{
-        GObject                     parent;
-        GsdScreensaverProxyManagerPrivate *priv;
-} GsdScreensaverProxyManager;
-
-typedef struct
-{
-        GObjectClass   parent_class;
-} GsdScreensaverProxyManagerClass;
-
-GType                       gsd_screensaver_proxy_manager_get_type            (void);
+G_DECLARE_FINAL_TYPE (GsdScreensaverProxyManager, gsd_screensaver_proxy_manager, GSD, SCREENSAVER_PROXY_MANAGER, GObject)
 
 GsdScreensaverProxyManager *gsd_screensaver_proxy_manager_new                 (void);
 gboolean                    gsd_screensaver_proxy_manager_start               (GsdScreensaverProxyManager  *manager,
