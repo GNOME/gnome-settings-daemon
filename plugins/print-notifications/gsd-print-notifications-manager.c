@@ -40,8 +40,6 @@
 #include "gnome-settings-profile.h"
 #include "gsd-print-notifications-manager.h"
 
-#define GSD_PRINT_NOTIFICATIONS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_PRINT_NOTIFICATIONS_MANAGER, GsdPrintNotificationsManagerPrivate))
-
 #define CUPS_DBUS_NAME      "org.cups.cupsd.Notifier"
 #define CUPS_DBUS_PATH      "/org/cups/cupsd/Notifier"
 #define CUPS_DBUS_INTERFACE "org.cups.cupsd.Notifier"
@@ -75,8 +73,10 @@ ippNextAttribute (ipp_t *ipp)
 }
 #endif
 
-struct GsdPrintNotificationsManagerPrivate
+struct _GsdPrintNotificationsManager
 {
+        GObject                       parent;
+
         GDBusConnection              *cups_bus_connection;
         gint                          subscription_id;
         cups_dest_t                  *dests;
@@ -265,8 +265,8 @@ notification_closed_cb (NotifyNotification *notification,
         ReasonData *data = (ReasonData *) user_data;
 
         if (data) {
-                data->manager->priv->active_notifications =
-                        g_list_remove (data->manager->priv->active_notifications, data);
+                data->manager->active_notifications =
+                        g_list_remove (data->manager->active_notifications, data);
 
                 free_reason_data (data);
         }
@@ -306,14 +306,14 @@ show_notification (gpointer user_data)
                                   G_CALLBACK (notification_closed_cb),
                                   reason_data);
 
-        reason_data->manager->priv->active_notifications =
-                g_list_append (reason_data->manager->priv->active_notifications, reason_data);
+        reason_data->manager->active_notifications =
+                g_list_append (reason_data->manager->active_notifications, reason_data);
 
         notify_notification_show (notification, NULL);
 
-        tmp = g_list_find (data->manager->priv->timeouts, data);
+        tmp = g_list_find (data->manager->timeouts, data);
         if (tmp) {
-                data->manager->priv->timeouts = g_list_remove_link (data->manager->priv->timeouts, tmp);
+                data->manager->timeouts = g_list_remove_link (data->manager->timeouts, tmp);
                 g_list_free_full (tmp, free_timeout_data);
         }
 
@@ -486,11 +486,11 @@ check_job_for_authentication (gpointer userdata)
         ipp_t                        *request, *response;
         gint                          i;
 
-        if (manager->priv->held_jobs != NULL) {
-                job = (HeldJob *) manager->priv->held_jobs->data;
+        if (manager->held_jobs != NULL) {
+                job = (HeldJob *) manager->held_jobs->data;
 
-                manager->priv->held_jobs = g_list_delete_link (manager->priv->held_jobs,
-                                                               manager->priv->held_jobs);
+                manager->held_jobs = g_list_delete_link (manager->held_jobs,
+                                                               manager->held_jobs);
 
                 request = ippNewRequest (IPP_GET_JOB_ATTRIBUTES);
 
@@ -660,21 +660,21 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
         }
 
         if (g_strcmp0 (notify_subscribed_event, "printer-added") == 0) {
-                cupsFreeDests (manager->priv->num_dests, manager->priv->dests);
-                manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
+                cupsFreeDests (manager->num_dests, manager->dests);
+                manager->num_dests = cupsGetDests (&manager->dests);
 
                 if (is_local_dest (printer_name,
-                                   manager->priv->dests,
-                                   manager->priv->num_dests)) {
+                                   manager->dests,
+                                   manager->num_dests)) {
                         /* Translators: New printer has been added */
                         primary_text = g_strdup (_("Printer added"));
                         secondary_text = g_strdup (printer_name);
                 }
         } else if (g_strcmp0 (notify_subscribed_event, "printer-deleted") == 0) {
-                cupsFreeDests (manager->priv->num_dests, manager->priv->dests);
-                manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
+                cupsFreeDests (manager->num_dests, manager->dests);
+                manager->num_dests = cupsGetDests (&manager->dests);
         } else if (g_strcmp0 (notify_subscribed_event, "job-completed") == 0 && my_job) {
-                g_hash_table_remove (manager->priv->printing_printers,
+                g_hash_table_remove (manager->printing_printers,
                                      printer_name);
 
                 switch (job_state) {
@@ -710,7 +710,7 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
         } else if (g_strcmp0 (notify_subscribed_event, "job-state-changed") == 0 && my_job) {
                 switch (job_state) {
                         case IPP_JOB_PROCESSING:
-                                g_hash_table_insert (manager->priv->printing_printers,
+                                g_hash_table_insert (manager->printing_printers,
                                                      g_strdup (printer_name), NULL);
 
                                 /* Translators: A job is printing */
@@ -719,7 +719,7 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                                 secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
                                 break;
                         case IPP_JOB_STOPPED:
-                                g_hash_table_remove (manager->priv->printing_printers,
+                                g_hash_table_remove (manager->printing_printers,
                                                      printer_name);
                                 /* Translators: A print job has been stopped */
                                 primary_text = g_strdup (C_("print job state", "Printing stopped"));
@@ -727,7 +727,7 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                                 secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
                                 break;
                         case IPP_JOB_CANCELED:
-                                g_hash_table_remove (manager->priv->printing_printers,
+                                g_hash_table_remove (manager->printing_printers,
                                                      printer_name);
                                 /* Translators: A print job has been canceled */
                                 primary_text = g_strdup (C_("print job state", "Printing canceled"));
@@ -735,7 +735,7 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                                 secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
                                 break;
                         case IPP_JOB_ABORTED:
-                                g_hash_table_remove (manager->priv->printing_printers,
+                                g_hash_table_remove (manager->printing_printers,
                                                      printer_name);
                                 /* Translators: A print job has been aborted */
                                 primary_text = g_strdup (C_("print job state", "Printing aborted"));
@@ -743,7 +743,7 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                                 secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
                                 break;
                         case IPP_JOB_COMPLETED:
-                                g_hash_table_remove (manager->priv->printing_printers,
+                                g_hash_table_remove (manager->printing_printers,
                                                      printer_name);
                                 /* Translators: A print job has been completed */
                                 primary_text = g_strdup (C_("print job state", "Printing completed"));
@@ -759,14 +759,14 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                                    by any event so we just check the job-state-reason (or job-hold-until) after some timeout */
                                 held_job->timeout_id = g_timeout_add_seconds (AUTHENTICATION_CHECK_TIMEOUT, check_job_for_authentication, manager);
 
-                                manager->priv->held_jobs = g_list_append (manager->priv->held_jobs, held_job);
+                                manager->held_jobs = g_list_append (manager->held_jobs, held_job);
                                 break;
                         default:
                                 break;
                 }
         } else if (g_strcmp0 (notify_subscribed_event, "job-created") == 0 && my_job) {
                 if (job_state == IPP_JOB_PROCESSING) {
-                        g_hash_table_insert (manager->priv->printing_printers,
+                        g_hash_table_insert (manager->printing_printers,
                                              g_strdup (printer_name), NULL);
 
                         /* Translators: A job is printing */
@@ -791,18 +791,18 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                     g_strrstr (printer_state_reasons, "connecting-to-device") == NULL) {
                         TimeoutData *data;
 
-                        for (tmp = manager->priv->timeouts; tmp; tmp = g_list_next (tmp)) {
+                        for (tmp = manager->timeouts; tmp; tmp = g_list_next (tmp)) {
                                 data = (TimeoutData *) tmp->data;
                                 if (g_strcmp0 (printer_name, data->printer_name) == 0) {
                                         g_source_remove (data->timeout_id);
-                                        manager->priv->timeouts = g_list_remove_link (manager->priv->timeouts, tmp);
+                                        manager->timeouts = g_list_remove_link (manager->timeouts, tmp);
                                         g_list_free_full (tmp, free_timeout_data);
                                         break;
                                 }
                         }
                 }
 
-                for (tmp = manager->priv->active_notifications; tmp; tmp = g_list_next (tmp)) {
+                for (tmp = manager->active_notifications; tmp; tmp = g_list_next (tmp)) {
                         ReasonData *reason_data = (ReasonData *) tmp->data;
                         GList      *remove_list;
 
@@ -822,19 +822,19 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
 
                                 remove_list = tmp;
                                 tmp = g_list_next (tmp);
-                                manager->priv->active_notifications =
-                                        g_list_remove_link (manager->priv->active_notifications, remove_list);
+                                manager->active_notifications =
+                                        g_list_remove_link (manager->active_notifications, remove_list);
 
                                 g_list_free_full (remove_list, free_reason_data);
                         }
                 }
 
                 /* Check whether we are printing on this printer right now. */
-                if (g_hash_table_lookup_extended (manager->priv->printing_printers, printer_name, NULL, NULL)) {
+                if (g_hash_table_lookup_extended (manager->printing_printers, printer_name, NULL, NULL)) {
                         dest = cupsGetDest (printer_name,
                                             NULL,
-                                            manager->priv->num_dests,
-                                            manager->priv->dests);
+                                            manager->num_dests,
+                                            manager->dests);
                         if (dest)
                                 tmp_printer_state_reasons = cupsGetOption ("printer-state-reasons",
                                                                            dest->num_options,
@@ -843,13 +843,13 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                         if (tmp_printer_state_reasons)
                                 old_state_reasons = g_strsplit (tmp_printer_state_reasons, ",", -1);
 
-                        cupsFreeDests (manager->priv->num_dests, manager->priv->dests);
-                        manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
+                        cupsFreeDests (manager->num_dests, manager->dests);
+                        manager->num_dests = cupsGetDests (&manager->dests);
 
                         dest = cupsGetDest (printer_name,
                                             NULL,
-                                            manager->priv->num_dests,
-                                            manager->priv->dests);
+                                            manager->num_dests,
+                                            manager->dests);
                         if (dest)
                                 tmp_printer_state_reasons = cupsGetOption ("printer-state-reasons",
                                                                            dest->num_options,
@@ -909,7 +909,7 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
 
                                                         data->timeout_id = g_timeout_add_seconds (CONNECTING_TIMEOUT, show_notification, data);
                                                         g_source_set_name_by_id (data->timeout_id, "[gnome-settings-daemon] show_notification");
-                                                        manager->priv->timeouts = g_list_append (manager->priv->timeouts, data);
+                                                        manager->timeouts = g_list_append (manager->timeouts, data);
                                                 } else {
                                                         ReasonData *reason_data;
                                                         gchar *second_row = get_statuses_second (j, printer_name);
@@ -936,8 +936,8 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                                                                                   G_CALLBACK (notification_closed_cb),
                                                                                   reason_data);
 
-                                                        manager->priv->active_notifications =
-                                                                g_list_append (manager->priv->active_notifications, reason_data);
+                                                        manager->active_notifications =
+                                                                g_list_append (manager->active_notifications, reason_data);
 
                                                         notify_notification_show (notification, NULL);
 
@@ -1027,8 +1027,8 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                                                                   G_CALLBACK (notification_closed_cb),
                                                                   reason_data);
 
-                                        manager->priv->active_notifications =
-                                                g_list_append (manager->priv->active_notifications, reason_data);
+                                        manager->active_notifications =
+                                                g_list_append (manager->active_notifications, reason_data);
 
                                         notify_notification_show (notification, NULL);
 
@@ -1092,7 +1092,7 @@ process_new_notifications (gpointer user_data)
                       "requesting-user-name", NULL, cupsUser ());
 
         ippAddInteger (request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
-                       "notify-subscription-ids", manager->priv->subscription_id);
+                       "notify-subscription-ids", manager->subscription_id);
 
         ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL,
                       "/printers/");
@@ -1102,7 +1102,7 @@ process_new_notifications (gpointer user_data)
 
         ippAddInteger (request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
                        "notify-sequence-numbers",
-                       manager->priv->last_notify_sequence_number + 1);
+                       manager->last_notify_sequence_number + 1);
 
 
         response = cupsDoRequest (CUPS_HTTP_DEFAULT, request, "/");
@@ -1116,8 +1116,8 @@ process_new_notifications (gpointer user_data)
                 if (g_strcmp0 (attr_name, "notify-sequence-number") == 0) {
                         notify_sequence_number = ippGetInteger (attr, 0);
 
-                        if (notify_sequence_number > manager->priv->last_notify_sequence_number)
-                                manager->priv->last_notify_sequence_number = notify_sequence_number;
+                        if (notify_sequence_number > manager->last_notify_sequence_number)
+                                manager->last_notify_sequence_number = notify_sequence_number;
 
                         if (notify_subscribed_event != NULL) {
                                 process_cups_notification (manager,
@@ -1218,7 +1218,7 @@ scp_handler (GsdPrintNotificationsManager *manager,
                 GError *error = NULL;
                 char *args[2];
 
-                if (manager->priv->scp_handler_spawned)
+                if (manager->scp_handler_spawned)
                         return;
 
                 args[0] = LIBEXECDIR "/gsd-printer";
@@ -1226,19 +1226,19 @@ scp_handler (GsdPrintNotificationsManager *manager,
 
                 g_spawn_async (NULL, args, NULL,
                                0, NULL, NULL,
-                               &manager->priv->scp_handler_pid, &error);
+                               &manager->scp_handler_pid, &error);
 
-                manager->priv->scp_handler_spawned = (error == NULL);
+                manager->scp_handler_spawned = (error == NULL);
 
                 if (error) {
                         g_warning ("Could not execute system-config-printer-udev handler: %s",
                                    error->message);
                         g_error_free (error);
                 }
-        } else if (manager->priv->scp_handler_spawned) {
-                kill (manager->priv->scp_handler_pid, SIGHUP);
-                g_spawn_close_pid (manager->priv->scp_handler_pid);
-                manager->priv->scp_handler_spawned = FALSE;
+        } else if (manager->scp_handler_spawned) {
+                kill (manager->scp_handler_pid, SIGHUP);
+                g_spawn_close_pid (manager->scp_handler_pid);
+                manager->scp_handler_spawned = FALSE;
         }
 }
 
@@ -1285,14 +1285,14 @@ renew_subscription (gpointer data)
                                         cupsEncryption ())) == NULL) {
                 g_debug ("Connection to CUPS server \'%s\' failed.", cupsServer ());
         } else {
-                if (manager->priv->subscription_id >= 0) {
+                if (manager->subscription_id >= 0) {
                         request = ippNewRequest (IPP_RENEW_SUBSCRIPTION);
                         ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_URI,
                                      "printer-uri", NULL, "/");
                         ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_NAME,
                                      "requesting-user-name", NULL, cupsUser ());
                         ippAddInteger (request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
-                                      "notify-subscription-id", manager->priv->subscription_id);
+                                      "notify-subscription-id", manager->subscription_id);
                         ippAddInteger (request, IPP_TAG_SUBSCRIPTION, IPP_TAG_INTEGER,
                                       "notify-lease-duration", SUBSCRIPTION_DURATION);
                         ippDelete (cupsDoRequest (http, request, "/"));
@@ -1320,7 +1320,7 @@ renew_subscription (gpointer data)
                                                               IPP_TAG_INTEGER)) == NULL)
                                         g_debug ("No notify-subscription-id in response!\n");
                                 else
-                                        manager->priv->subscription_id = ippGetInteger (attr, 0);
+                                        manager->subscription_id = ippGetInteger (attr, 0);
                         }
 
                         if (response)
@@ -1393,26 +1393,26 @@ renew_subscription_timeout_enable (GsdPrintNotificationsManager *manager,
                                    gboolean                      enable,
                                    gboolean                      with_connection_test)
 {
-        if (manager->priv->renew_source_id > 0)
-                g_source_remove (manager->priv->renew_source_id);
+        if (manager->renew_source_id > 0)
+                g_source_remove (manager->renew_source_id);
 
         if (enable) {
                 renew_subscription (manager);
                 if (with_connection_test) {
-                        manager->priv->renew_source_id =
+                        manager->renew_source_id =
                                 g_timeout_add_seconds (RENEW_INTERVAL,
                                                        renew_subscription_with_connection_test,
                                                        manager);
-                        g_source_set_name_by_id (manager->priv->renew_source_id, "[gnome-settings-daemon] renew_subscription_with_connection_test");
+                        g_source_set_name_by_id (manager->renew_source_id, "[gnome-settings-daemon] renew_subscription_with_connection_test");
                 } else {
-                        manager->priv->renew_source_id =
+                        manager->renew_source_id =
                                 g_timeout_add_seconds (RENEW_INTERVAL,
                                                        renew_subscription,
                                                        manager);
-                        g_source_set_name_by_id (manager->priv->renew_source_id, "[gnome-settings-daemon] renew_subscription");
+                        g_source_set_name_by_id (manager->renew_source_id, "[gnome-settings-daemon] renew_subscription");
                 }
         } else {
-                manager->priv->renew_source_id = 0;
+                manager->renew_source_id = 0;
         }
 }
 
@@ -1435,18 +1435,18 @@ cups_connection_test_cb (GObject      *source_object,
                 g_io_stream_close (G_IO_STREAM (connection), NULL, NULL);
                 g_object_unref (connection);
 
-                manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
+                manager->num_dests = cupsGetDests (&manager->dests);
                 g_debug ("Got dests from remote CUPS server.");
 
                 renew_subscription_timeout_enable (manager, TRUE, TRUE);
-                manager->priv->check_source_id = g_timeout_add_seconds (CHECK_INTERVAL, process_new_notifications, manager);
-                g_source_set_name_by_id (manager->priv->check_source_id, "[gnome-settings-daemon] process_new_notifications");
+                manager->check_source_id = g_timeout_add_seconds (CHECK_INTERVAL, process_new_notifications, manager);
+                g_source_set_name_by_id (manager->check_source_id, "[gnome-settings-daemon] process_new_notifications");
         } else {
                 g_debug ("Test connection to CUPS server \'%s:%d\' failed.", cupsServer (), ippPort ());
-                if (manager->priv->cups_connection_timeout_id == 0) {
-                        manager->priv->cups_connection_timeout_id =
+                if (manager->cups_connection_timeout_id == 0) {
+                        manager->cups_connection_timeout_id =
                                 g_timeout_add_seconds (CUPS_CONNECTION_TEST_INTERVAL, cups_connection_test, manager);
-                        g_source_set_name_by_id (manager->priv->cups_connection_timeout_id, "[gnome-settings-daemon] cups_connection_test");
+                        g_source_set_name_by_id (manager->cups_connection_timeout_id, "[gnome-settings-daemon] cups_connection_test");
                 }
         }
 }
@@ -1459,7 +1459,7 @@ cups_connection_test (gpointer user_data)
         gchar                        *address;
         int                           port = ippPort ();
 
-        if (!manager->priv->dests) {
+        if (!manager->dests) {
                 address = g_strdup_printf ("%s:%d", cupsServer (), port);
 
                 client = g_socket_client_new ();
@@ -1477,8 +1477,8 @@ cups_connection_test (gpointer user_data)
                 g_free (address);
         }
 
-        if (manager->priv->dests) {
-                manager->priv->cups_connection_timeout_id = 0;
+        if (manager->dests) {
+                manager->cups_connection_timeout_id = 0;
 
                 return FALSE;
         } else {
@@ -1494,11 +1494,11 @@ gsd_print_notifications_manager_got_dbus_connection (GObject      *source_object
         GsdPrintNotificationsManager *manager = (GsdPrintNotificationsManager *) user_data;
         GError                       *error = NULL;
 
-        manager->priv->cups_bus_connection = g_bus_get_finish (res, &error);
+        manager->cups_bus_connection = g_bus_get_finish (res, &error);
 
-        if (manager->priv->cups_bus_connection != NULL) {
-                manager->priv->cups_dbus_subscription_id =
-                        g_dbus_connection_signal_subscribe (manager->priv->cups_bus_connection,
+        if (manager->cups_bus_connection != NULL) {
+                manager->cups_dbus_subscription_id =
+                        g_dbus_connection_signal_subscribe (manager->cups_bus_connection,
                                                             NULL,
                                                             CUPS_DBUS_INTERFACE,
                                                             NULL,
@@ -1521,7 +1521,7 @@ gsd_print_notifications_manager_start_idle (gpointer data)
 
         gnome_settings_profile_start (NULL);
 
-        manager->priv->printing_printers = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+        manager->printing_printers = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
         /*
          * Set a password callback which cancels authentication
@@ -1530,7 +1530,7 @@ gsd_print_notifications_manager_start_idle (gpointer data)
         cupsSetPasswordCB2 (password_cb, NULL);
 
         if (server_is_local (cupsServer ())) {
-                manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
+                manager->num_dests = cupsGetDests (&manager->dests);
                 g_debug ("Got dests from local CUPS server.");
 
                 renew_subscription_timeout_enable (manager, TRUE, FALSE);
@@ -1558,20 +1558,20 @@ gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
 
         gnome_settings_profile_start (NULL);
 
-        manager->priv->subscription_id = -1;
-        manager->priv->dests = NULL;
-        manager->priv->num_dests = 0;
-        manager->priv->scp_handler_spawned = FALSE;
-        manager->priv->timeouts = NULL;
-        manager->priv->printing_printers = NULL;
-        manager->priv->active_notifications = NULL;
-        manager->priv->cups_bus_connection = NULL;
-        manager->priv->cups_connection_timeout_id = 0;
-        manager->priv->last_notify_sequence_number = -1;
-        manager->priv->held_jobs = NULL;
+        manager->subscription_id = -1;
+        manager->dests = NULL;
+        manager->num_dests = 0;
+        manager->scp_handler_spawned = FALSE;
+        manager->timeouts = NULL;
+        manager->printing_printers = NULL;
+        manager->active_notifications = NULL;
+        manager->cups_bus_connection = NULL;
+        manager->cups_connection_timeout_id = 0;
+        manager->last_notify_sequence_number = -1;
+        manager->held_jobs = NULL;
 
-        manager->priv->start_idle_id = g_idle_add (gsd_print_notifications_manager_start_idle, manager);
-        g_source_set_name_by_id (manager->priv->start_idle_id, "[gnome-settings-daemon] gsd_print_notifications_manager_start_idle");
+        manager->start_idle_id = g_idle_add (gsd_print_notifications_manager_start_idle, manager);
+        g_source_set_name_by_id (manager->start_idle_id, "[gnome-settings-daemon] gsd_print_notifications_manager_start_idle");
 
         gnome_settings_profile_end (NULL);
 
@@ -1588,39 +1588,39 @@ gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
 
         g_debug ("Stopping print-notifications manager");
 
-        cupsFreeDests (manager->priv->num_dests, manager->priv->dests);
-        manager->priv->num_dests = 0;
-        manager->priv->dests = NULL;
+        cupsFreeDests (manager->num_dests, manager->dests);
+        manager->num_dests = 0;
+        manager->dests = NULL;
 
-        if (manager->priv->cups_dbus_subscription_id > 0 &&
-            manager->priv->cups_bus_connection != NULL) {
-                g_dbus_connection_signal_unsubscribe (manager->priv->cups_bus_connection,
-                                                      manager->priv->cups_dbus_subscription_id);
-                manager->priv->cups_dbus_subscription_id = 0;
+        if (manager->cups_dbus_subscription_id > 0 &&
+            manager->cups_bus_connection != NULL) {
+                g_dbus_connection_signal_unsubscribe (manager->cups_bus_connection,
+                                                      manager->cups_dbus_subscription_id);
+                manager->cups_dbus_subscription_id = 0;
         }
 
         renew_subscription_timeout_enable (manager, FALSE, FALSE);
 
-        if (manager->priv->check_source_id > 0) {
-                g_source_remove (manager->priv->check_source_id);
-                manager->priv->check_source_id = 0;
+        if (manager->check_source_id > 0) {
+                g_source_remove (manager->check_source_id);
+                manager->check_source_id = 0;
         }
 
-        if (manager->priv->subscription_id >= 0)
-                cancel_subscription (manager->priv->subscription_id);
+        if (manager->subscription_id >= 0)
+                cancel_subscription (manager->subscription_id);
 
-        g_clear_pointer (&manager->priv->printing_printers, g_hash_table_destroy);
+        g_clear_pointer (&manager->printing_printers, g_hash_table_destroy);
 
-        g_clear_object (&manager->priv->cups_bus_connection);
+        g_clear_object (&manager->cups_bus_connection);
 
-        for (tmp = manager->priv->timeouts; tmp; tmp = g_list_next (tmp)) {
+        for (tmp = manager->timeouts; tmp; tmp = g_list_next (tmp)) {
                 data = (TimeoutData *) tmp->data;
                 if (data)
                         g_source_remove (data->timeout_id);
         }
-        g_list_free_full (manager->priv->timeouts, free_timeout_data);
+        g_list_free_full (manager->timeouts, free_timeout_data);
 
-        for (tmp = manager->priv->active_notifications; tmp; tmp = g_list_next (tmp)) {
+        for (tmp = manager->active_notifications; tmp; tmp = g_list_next (tmp)) {
                 reason_data = (ReasonData *) tmp->data;
                 if (reason_data) {
                         if (reason_data->notification_close_id > 0 &&
@@ -1634,13 +1634,13 @@ gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
                         notify_notification_close (reason_data->notification, NULL);
                 }
         }
-        g_list_free_full (manager->priv->active_notifications, free_reason_data);
+        g_list_free_full (manager->active_notifications, free_reason_data);
 
-        for (tmp = manager->priv->held_jobs; tmp; tmp = g_list_next (tmp)) {
+        for (tmp = manager->held_jobs; tmp; tmp = g_list_next (tmp)) {
                 job = (HeldJob *) tmp->data;
                 g_source_remove (job->timeout_id);
         }
-        g_list_free_full (manager->priv->held_jobs, free_held_job);
+        g_list_free_full (manager->held_jobs, free_held_job);
 
         scp_handler (manager, FALSE);
 }
@@ -1653,15 +1653,11 @@ gsd_print_notifications_manager_class_init (GsdPrintNotificationsManagerClass *k
         object_class->finalize = gsd_print_notifications_manager_finalize;
 
         notify_init ("gnome-settings-daemon");
-
-        g_type_class_add_private (klass, sizeof (GsdPrintNotificationsManagerPrivate));
 }
 
 static void
 gsd_print_notifications_manager_init (GsdPrintNotificationsManager *manager)
 {
-        manager->priv = GSD_PRINT_NOTIFICATIONS_MANAGER_GET_PRIVATE (manager);
-
 }
 
 static void
@@ -1674,12 +1670,12 @@ gsd_print_notifications_manager_finalize (GObject *object)
 
         manager = GSD_PRINT_NOTIFICATIONS_MANAGER (object);
 
-        g_return_if_fail (manager->priv != NULL);
+        g_return_if_fail (manager != NULL);
 
         gsd_print_notifications_manager_stop (manager);
 
-        if (manager->priv->start_idle_id != 0)
-                g_source_remove (manager->priv->start_idle_id);
+        if (manager->start_idle_id != 0)
+                g_source_remove (manager->start_idle_id);
 
         G_OBJECT_CLASS (gsd_print_notifications_manager_parent_class)->finalize (object);
 }
