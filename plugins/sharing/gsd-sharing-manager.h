@@ -25,28 +25,10 @@
 G_BEGIN_DECLS
 
 #define GSD_TYPE_SHARING_MANAGER         (gsd_sharing_manager_get_type ())
-#define GSD_SHARING_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_SHARING_MANAGER, GsdSharingManager))
-#define GSD_SHARING_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_SHARING_MANAGER, GsdSharingManagerClass))
-#define GSD_IS_SHARING_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_SHARING_MANAGER))
-#define GSD_IS_SHARING_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_SHARING_MANAGER))
-#define GSD_SHARING_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_SHARING_MANAGER, GsdSharingManagerClass))
 
-typedef struct GsdSharingManagerPrivate GsdSharingManagerPrivate;
+G_DECLARE_FINAL_TYPE (GsdSharingManager, gsd_sharing_manager, GSD, SHARING_MANAGER, GObject)
 
-typedef struct
-{
-        GObject                     parent;
-        GsdSharingManagerPrivate *priv;
-} GsdSharingManager;
-
-typedef struct
-{
-        GObjectClass   parent_class;
-} GsdSharingManagerClass;
-
-GType                   gsd_sharing_manager_get_type            (void);
-
-GsdSharingManager *       gsd_sharing_manager_new                 (void);
+GsdSharingManager *     gsd_sharing_manager_new                 (void);
 gboolean                gsd_sharing_manager_start               (GsdSharingManager *manager,
                                                                GError         **error);
 void                    gsd_sharing_manager_stop                (GsdSharingManager *manager);
