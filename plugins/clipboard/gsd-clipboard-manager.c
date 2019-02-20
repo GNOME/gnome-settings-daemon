@@ -46,10 +46,10 @@
 #include "gnome-settings-profile.h"
 #include "gsd-clipboard-manager.h"
 
-#define GSD_CLIPBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_CLIPBOARD_MANAGER, GsdClipboardManagerPrivate))
-
-struct GsdClipboardManagerPrivate
+struct _GsdClipboardManager
 {
+        GObject  parent;
+
         guint    start_idle_id;
         Display *display;
         Window   window;
@@ -135,21 +135,21 @@ send_selection_notify (GsdClipboardManager *manager,
         notify.type = SelectionNotify;
         notify.serial = 0;
         notify.send_event = True;
-        notify.display = manager->priv->display;
-        notify.requestor = manager->priv->requestor;
+        notify.display = manager->display;
+        notify.requestor = manager->requestor;
         notify.selection = XA_CLIPBOARD_MANAGER;
         notify.target = XA_SAVE_TARGETS;
-        notify.property = success ? manager->priv->property : None;
-        notify.time = manager->priv->time;
+        notify.property = success ? manager->property : None;
+        notify.time = manager->time;
 
         gdk_error_trap_push ();
 
-        XSendEvent (manager->priv->display,
-                    manager->priv->requestor,
+        XSendEvent (manager->display,
+                    manager->requestor,
                     False,
                     NoEventMask,
                     (XEvent *)&notify);
-        XSync (manager->priv->display, False);
+        XSync (manager->display, False);
 
         gdk_error_trap_pop_ignored ();
 }
@@ -176,7 +176,7 @@ finish_selection_request (GsdClipboardManager *manager,
         XSendEvent (xev->xselectionrequest.display,
                     xev->xselectionrequest.requestor,
                     False, NoEventMask, (XEvent *) &notify);
-        XSync (manager->priv->display, False);
+        XSync (manager->display, False);
 
         gdk_error_trap_pop_ignored ();
 }
@@ -197,9 +197,9 @@ clipboard_bytes_per_item (int format)
 static void
 free_contents (GsdClipboardManager *manager)
 {
-        list_foreach (manager->priv->contents, (Callback)target_data_unref, NULL);
-        list_free (manager->priv->contents);
-        manager->priv->contents = NULL;
+        list_foreach (manager->contents, (Callback)target_data_unref, NULL);
+        list_free (manager->contents);
+        manager->contents = NULL;
 }
 
 static void
@@ -228,7 +228,7 @@ save_targets (GsdClipboardManager *manager,
                         tdata->type = None;
                         tdata->format = 0;
                         tdata->refcount = 1;
-                        manager->priv->contents = list_prepend (manager->priv->contents, tdata);
+                        manager->contents = list_prepend (manager->contents, tdata);
 
                         multiple[nout++] = save_targets[i];
                         multiple[nout++] = save_targets[i];
@@ -237,14 +237,14 @@ save_targets (GsdClipboardManager *manager,
 
         XFree (save_targets);
 
-        XChangeProperty (manager->priv->display, manager->priv->window,
+        XChangeProperty (manager->display, manager->window,
                          XA_MULTIPLE, XA_ATOM_PAIR,
                          32, PropModeReplace, (const unsigned char *) multiple, nout);
         free (multiple);
 
-        XConvertSelection (manager->priv->display, XA_CLIPBOARD,
+        XConvertSelection (manager->display, XA_CLIPBOARD,
                            XA_MULTIPLE, XA_MULTIPLE,
-                           manager->priv->window, manager->priv->time);
+                           manager->window, manager->time);
 }
 
 static int
@@ -279,8 +279,8 @@ get_property (TargetData          *tdata,
         unsigned long  remaining;
         unsigned char *data;
 
-        XGetWindowProperty (manager->priv->display,
-                            manager->priv->window,
+        XGetWindowProperty (manager->display,
+                            manager->window,
                             tdata->target,
                             0,
                             0x1FFFFFFF,
@@ -293,7 +293,7 @@ get_property (TargetData          *tdata,
                             &data);
 
         if (type == None) {
-                manager->priv->contents = list_remove (manager->priv->contents, tdata);
+                manager->contents = list_remove (manager->contents, tdata);
                 free (tdata);
         } else if (type == XA_INCR) {
                 tdata->type = type;
@@ -318,10 +318,10 @@ receive_incrementally (GsdClipboardManager *manager,
         unsigned long  length, nitems, remaining;
         unsigned char *data;
 
-        if (xev->xproperty.window != manager->priv->window)
+        if (xev->xproperty.window != manager->window)
                 return False;
 
-        list = list_find (manager->priv->contents,
+        list = list_find (manager->contents,
                           (ListFindFunc) find_content_target, (void *) xev->xproperty.atom);
 
         if (!list)
@@ -343,11 +343,11 @@ receive_incrementally (GsdClipboardManager *manager,
                 tdata->type = type;
                 tdata->format = format;
 
-                if (!list_find (manager->priv->contents,
+                if (!list_find (manager->contents,
                                 (ListFindFunc) find_content_type, (void *)XA_INCR)) {
                         /* all incremental transfers done */
                         send_selection_notify (manager, True);
-                        manager->priv->requestor = None;
+                        manager->requestor = None;
                 }
 
                 XFree (data);
@@ -377,7 +377,7 @@ send_incrementally (GsdClipboardManager *manager,
         unsigned char  *data;
         gsize           bytes_per_item;
 
-        list = list_find (manager->priv->conversions,
+        list = list_find (manager->conversions,
                           (ListFindFunc) find_conversion_requestor, xev);
         if (list == NULL)
                 return False;
@@ -396,7 +396,7 @@ send_incrementally (GsdClipboardManager *manager,
         rdata->offset += length;
 
         items = length / bytes_per_item;
-        XChangeProperty (manager->priv->display, rdata->requestor,
+        XChangeProperty (manager->display, rdata->requestor,
                          rdata->property, rdata->data->type,
                          rdata->data->format, PropModeAppend,
                          data, items);
@@ -408,7 +408,7 @@ send_incrementally (GsdClipboardManager *manager,
                                             PropertyChangeMask,
                                             NULL);
 
-                manager->priv->conversions = list_remove (manager->priv->conversions, rdata);
+                manager->conversions = list_remove (manager->conversions, rdata);
                 conversion_free (rdata);
         }
 
@@ -426,7 +426,7 @@ convert_clipboard_manager (GsdClipboardManager *manager,
         Atom         *targets = NULL;
 
         if (xev->xselectionrequest.target == XA_SAVE_TARGETS) {
-                if (manager->priv->requestor != None || manager->priv->contents != NULL) {
+                if (manager->requestor != None || manager->contents != NULL) {
                         /* We're in the middle of a conversion request, or own
                          * the CLIPBOARD already
                          */
@@ -439,10 +439,10 @@ convert_clipboard_manager (GsdClipboardManager *manager,
                                                     True,
                                                     StructureNotifyMask,
                                                     NULL);
-                        XSelectInput (manager->priv->display,
+                        XSelectInput (manager->display,
                                       xev->xselectionrequest.requestor,
                                       StructureNotifyMask);
-                        XSync (manager->priv->display, False);
+                        XSync (manager->display, False);
 
                         if (gdk_error_trap_pop () != Success)
                                 return;
@@ -450,7 +450,7 @@ convert_clipboard_manager (GsdClipboardManager *manager,
                         gdk_error_trap_push ();
 
                         if (xev->xselectionrequest.property != None) {
-                                XGetWindowProperty (manager->priv->display,
+                                XGetWindowProperty (manager->display,
                                                     xev->xselectionrequest.requestor,
                                                     xev->xselectionrequest.property,
                                                     0, 0x1FFFFFFF, False, XA_ATOM,
@@ -465,23 +465,23 @@ convert_clipboard_manager (GsdClipboardManager *manager,
                                 }
                         }
 
-                        manager->priv->requestor = xev->xselectionrequest.requestor;
-                        manager->priv->property = xev->xselectionrequest.property;
-                        manager->priv->time = xev->xselectionrequest.time;
+                        manager->requestor = xev->xselectionrequest.requestor;
+                        manager->property = xev->xselectionrequest.property;
+                        manager->time = xev->xselectionrequest.time;
 
                         if (type == None)
-                                XConvertSelection (manager->priv->display, XA_CLIPBOARD,
+                                XConvertSelection (manager->display, XA_CLIPBOARD,
                                                    XA_TARGETS, XA_TARGETS,
-                                                   manager->priv->window, manager->priv->time);
+                                                   manager->window, manager->time);
                         else
                                 save_targets (manager, targets, nitems);
                 }
         } else if (xev->xselectionrequest.target == XA_TIMESTAMP) {
-                XChangeProperty (manager->priv->display,
+                XChangeProperty (manager->display,
                                  xev->xselectionrequest.requestor,
                                  xev->xselectionrequest.property,
                                  XA_INTEGER, 32, PropModeReplace,
-                                 (unsigned char *) &manager->priv->timestamp, 1);
+                                 (unsigned char *) &manager->timestamp, 1);
 
                 finish_selection_request (manager, xev, True);
         } else if (xev->xselectionrequest.target == XA_TARGETS) {
@@ -492,7 +492,7 @@ convert_clipboard_manager (GsdClipboardManager *manager,
                 targets[n_targets++] = XA_TIMESTAMP;
                 targets[n_targets++] = XA_SAVE_TARGETS;
 
-                XChangeProperty (manager->priv->display,
+                XChangeProperty (manager->display,
                                  xev->xselectionrequest.requestor,
                                  xev->xselectionrequest.property,
                                  XA_ATOM, 32, PropModeReplace,
@@ -515,7 +515,7 @@ convert_clipboard_target (IncrConversion      *rdata,
         XWindowAttributes atts;
 
         if (rdata->target == XA_TARGETS) {
-                n_targets = list_length (manager->priv->contents) + 2;
+                n_targets = list_length (manager->contents) + 2;
                 targets = (Atom *) malloc (n_targets * sizeof (Atom));
 
                 n_targets = 0;
@@ -523,12 +523,12 @@ convert_clipboard_target (IncrConversion      *rdata,
                 targets[n_targets++] = XA_TARGETS;
                 targets[n_targets++] = XA_MULTIPLE;
 
-                for (list = manager->priv->contents; list; list = list->next) {
+                for (list = manager->contents; list; list = list->next) {
                         tdata = (TargetData *) list->data;
                         targets[n_targets++] = tdata->target;
                 }
 
-                XChangeProperty (manager->priv->display, rdata->requestor,
+                XChangeProperty (manager->display, rdata->requestor,
                                  rdata->property,
                                  XA_ATOM, 32, PropModeReplace,
                                  (unsigned char *) targets, n_targets);
@@ -537,7 +537,7 @@ convert_clipboard_target (IncrConversion      *rdata,
                 gsize bytes_per_item;
 
                 /* Convert from stored CLIPBOARD data */
-                list = list_find (manager->priv->contents,
+                list = list_find (manager->contents,
                                   (ListFindFunc) find_content_target, (void *) rdata->target);
 
                 /* We got a target that we don't support */
@@ -558,7 +558,7 @@ convert_clipboard_target (IncrConversion      *rdata,
                 rdata->data = target_data_ref (tdata);
                 items = tdata->length / bytes_per_item;
                 if (tdata->length <= SELECTION_MAX_SIZE)
-                        XChangeProperty (manager->priv->display, rdata->requestor,
+                        XChangeProperty (manager->display, rdata->requestor,
                                          rdata->property,
                                          tdata->type, tdata->format, PropModeReplace,
                                          tdata->data, items);
@@ -568,7 +568,7 @@ convert_clipboard_target (IncrConversion      *rdata,
 
                         gdk_error_trap_push ();
 
-                        XGetWindowAttributes (manager->priv->display, rdata->requestor, &atts);
+                        XGetWindowAttributes (manager->display, rdata->requestor, &atts);
 
                         clipboard_manager_watch_cb (manager,
                                                     rdata->requestor,
@@ -576,15 +576,15 @@ convert_clipboard_target (IncrConversion      *rdata,
                                                     PropertyChangeMask,
                                                     NULL);
 
-                        XSelectInput (manager->priv->display, rdata->requestor,
+                        XSelectInput (manager->display, rdata->requestor,
                                       atts.your_event_mask | PropertyChangeMask);
 
-                        XChangeProperty (manager->priv->display, rdata->requestor,
+                        XChangeProperty (manager->display, rdata->requestor,
                                          rdata->property,
                                          XA_INCR, 32, PropModeReplace,
                                          (unsigned char *) &items, 1);
 
-                        XSync (manager->priv->display, False);
+                        XSync (manager->display, False);
 
                         gdk_error_trap_pop_ignored ();
                 }
@@ -596,7 +596,7 @@ collect_incremental (IncrConversion      *rdata,
                      GsdClipboardManager *manager)
 {
         if (rdata->offset >= 0)
-                manager->priv->conversions = list_prepend (manager->priv->conversions, rdata);
+                manager->conversions = list_prepend (manager->conversions, rdata);
         else {
                 if (rdata->data) {
                         target_data_unref (rdata->data);
@@ -701,15 +701,15 @@ clipboard_manager_process_event (GsdClipboardManager *manager,
 
         switch (xev->xany.type) {
         case DestroyNotify:
-                if (xev->xdestroywindow.window == manager->priv->requestor) {
+                if (xev->xdestroywindow.window == manager->requestor) {
                         free_contents (manager);
 
                         clipboard_manager_watch_cb (manager,
-                                                    manager->priv->requestor,
+                                                    manager->requestor,
                                                     False,
                                                     0,
                                                     NULL);
-                        manager->priv->requestor = None;
+                        manager->requestor = None;
                 }
                 break;
         case PropertyNotify:
@@ -720,17 +720,17 @@ clipboard_manager_process_event (GsdClipboardManager *manager,
                 }
 
         case SelectionClear:
-                if (xev->xany.window != manager->priv->window)
+                if (xev->xany.window != manager->window)
                         return False;
 
                 if (xev->xselectionclear.selection == XA_CLIPBOARD_MANAGER) {
                         /* We lost the manager selection */
-                        if (manager->priv->contents) {
+                        if (manager->contents) {
                                 free_contents (manager);
 
-                                XSetSelectionOwner (manager->priv->display,
+                                XSetSelectionOwner (manager->display,
                                                     XA_CLIPBOARD,
-                                                    None, manager->priv->time);
+                                                    None, manager->time);
                         }
 
                         return True;
@@ -739,18 +739,18 @@ clipboard_manager_process_event (GsdClipboardManager *manager,
                         /* We lost the clipboard selection */
                         free_contents (manager);
                         clipboard_manager_watch_cb (manager,
-                                                    manager->priv->requestor,
+                                                    manager->requestor,
                                                     False,
                                                     0,
                                                     NULL);
-                        manager->priv->requestor = None;
+                        manager->requestor = None;
 
                         return True;
                 }
                 break;
 
         case SelectionNotify:
-                if (xev->xany.window != manager->priv->window)
+                if (xev->xany.window != manager->window)
                         return False;
 
                 if (xev->xselection.selection == XA_CLIPBOARD) {
@@ -767,31 +767,31 @@ clipboard_manager_process_event (GsdClipboardManager *manager,
                         } else if (xev->xselection.property == XA_MULTIPLE) {
                                 List *tmp;
 
-                                tmp = list_copy (manager->priv->contents);
+                                tmp = list_copy (manager->contents);
                                 list_foreach (tmp, (Callback) get_property, manager);
                                 list_free (tmp);
 
-                                manager->priv->time = xev->xselection.time;
-                                XSetSelectionOwner (manager->priv->display, XA_CLIPBOARD,
-                                                    manager->priv->window, manager->priv->time);
+                                manager->time = xev->xselection.time;
+                                XSetSelectionOwner (manager->display, XA_CLIPBOARD,
+                                                    manager->window, manager->time);
 
-                                if (manager->priv->property != None)
-                                        XChangeProperty (manager->priv->display,
-                                                         manager->priv->requestor,
-                                                         manager->priv->property,
+                                if (manager->property != None)
+                                        XChangeProperty (manager->display,
+                                                         manager->requestor,
+                                                         manager->property,
                                                          XA_ATOM, 32, PropModeReplace,
                                                          (unsigned char *)&XA_NULL, 1);
 
-                                if (!list_find (manager->priv->contents,
+                                if (!list_find (manager->contents,
                                                 (ListFindFunc)find_content_type, (void *)XA_INCR)) {
                                         /* all transfers done */
                                         send_selection_notify (manager, True);
                                         clipboard_manager_watch_cb (manager,
-                                                                    manager->priv->requestor,
+                                                                    manager->requestor,
                                                                     False,
                                                                     0,
                                                                     NULL);
-                                        manager->priv->requestor = None;
+                                        manager->requestor = None;
                                 }
                         }
                         else if (xev->xselection.property == None) {
@@ -799,11 +799,11 @@ clipboard_manager_process_event (GsdClipboardManager *manager,
 
                                 free_contents (manager);
                                 clipboard_manager_watch_cb (manager,
-                                                            manager->priv->requestor,
+                                                            manager->requestor,
                                                             False,
                                                             0,
                                                             NULL);
-                                manager->priv->requestor = None;
+                                manager->requestor = None;
                         }
 
                         return True;
@@ -811,7 +811,7 @@ clipboard_manager_process_event (GsdClipboardManager *manager,
                 break;
 
         case SelectionRequest:
-                if (xev->xany.window != manager->priv->window) {
+                if (xev->xany.window != manager->window) {
                         return False;
                 }
 
@@ -884,71 +884,71 @@ start_clipboard_idle_cb (GsdClipboardManager *manager)
 
         gnome_settings_profile_start (NULL);
 
-        init_atoms (manager->priv->display);
+        init_atoms (manager->display);
 
         /* check if there is a clipboard manager running */
-        if (XGetSelectionOwner (manager->priv->display, XA_CLIPBOARD_MANAGER)) {
+        if (XGetSelectionOwner (manager->display, XA_CLIPBOARD_MANAGER)) {
                 g_warning ("Clipboard manager is already running.");
                 return FALSE;
         }
 
-        manager->priv->contents = NULL;
-        manager->priv->conversions = NULL;
-        manager->priv->requestor = None;
+        manager->contents = NULL;
+        manager->conversions = NULL;
+        manager->requestor = None;
 
-        manager->priv->window = XCreateSimpleWindow (manager->priv->display,
-                                                     DefaultRootWindow (manager->priv->display),
+        manager->window = XCreateSimpleWindow (manager->display,
+                                                     DefaultRootWindow (manager->display),
                                                      0, 0, 10, 10, 0,
-                                                     WhitePixel (manager->priv->display,
-                                                                 DefaultScreen (manager->priv->display)),
-                                                     WhitePixel (manager->priv->display,
-                                                                 DefaultScreen (manager->priv->display)));
+                                                     WhitePixel (manager->display,
+                                                                 DefaultScreen (manager->display)),
+                                                     WhitePixel (manager->display,
+                                                                 DefaultScreen (manager->display)));
         clipboard_manager_watch_cb (manager,
-                                    manager->priv->window,
+                                    manager->window,
                                     True,
                                     PropertyChangeMask,
                                     NULL);
-        XSelectInput (manager->priv->display,
-                      manager->priv->window,
+        XSelectInput (manager->display,
+                      manager->window,
                       PropertyChangeMask);
-        manager->priv->timestamp = get_server_time (manager->priv->display, manager->priv->window);
+        manager->timestamp = get_server_time (manager->display, manager->window);
 
-        XSetSelectionOwner (manager->priv->display,
+        XSetSelectionOwner (manager->display,
                             XA_CLIPBOARD_MANAGER,
-                            manager->priv->window,
-                            manager->priv->timestamp);
+                            manager->window,
+                            manager->timestamp);
 
         /* Check to see if we managed to claim the selection. If not,
          * we treat it as if we got it then immediately lost it
          */
-        if (XGetSelectionOwner (manager->priv->display, XA_CLIPBOARD_MANAGER) == manager->priv->window) {
+        if (XGetSelectionOwner (manager->display, XA_CLIPBOARD_MANAGER) == manager->window) {
                 xev.type = ClientMessage;
-                xev.window = DefaultRootWindow (manager->priv->display);
+                xev.window = DefaultRootWindow (manager->display);
                 xev.message_type = XA_MANAGER;
                 xev.format = 32;
-                xev.data.l[0] = manager->priv->timestamp;
+                xev.data.l[0] = manager->timestamp;
                 xev.data.l[1] = XA_CLIPBOARD_MANAGER;
-                xev.data.l[2] = manager->priv->window;
+                xev.data.l[2] = manager->window;
                 xev.data.l[3] = 0;      /* manager specific data */
                 xev.data.l[4] = 0;      /* manager specific data */
 
-                XSendEvent (manager->priv->display,
-                            DefaultRootWindow (manager->priv->display),
+                XSendEvent (manager->display,
+                            DefaultRootWindow (manager->display),
                             False,
                             StructureNotifyMask,
                             (XEvent *)&xev);
         } else {
                 clipboard_manager_watch_cb (manager,
-                                            manager->priv->window,
+                                            manager->window,
                                             False,
                                             0,
                                             NULL);
-                /* FIXME: manager->priv->terminate (manager->priv->cb_data); */
+                /* FIXME: manager->terminate (manager->cb_data); */
         }
 
         gnome_settings_profile_end (NULL);
 
-        manager->priv->start_idle_id = 0;
+        manager->start_idle_id = 0;
 
         return FALSE;
 }
@@ -959,8 +959,8 @@ gsd_clipboard_manager_start (GsdClipboardManager *manager,
 {
         gnome_settings_profile_start (NULL);
 
-        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_clipboard_idle_cb, manager);
-        g_source_set_name_by_id (manager->priv->start_idle_id, "[gnome-settings-daemon] start_clipboard_idle_cb");
+        manager->start_idle_id = g_idle_add ((GSourceFunc) start_clipboard_idle_cb, manager);
+        g_source_set_name_by_id (manager->start_idle_id, "[gnome-settings-daemon] start_clipboard_idle_cb");
 
         gnome_settings_profile_end (NULL);
 
@@ -972,20 +972,20 @@ gsd_clipboard_manager_stop (GsdClipboardManager *manager)
 {
         g_debug ("Stopping clipboard manager");
 
-        if (manager->priv->window != None) {
+        if (manager->window != None) {
                 clipboard_manager_watch_cb (manager,
-                                            manager->priv->window,
+                                            manager->window,
                                             FALSE,
                                             0,
                                             NULL);
-                XDestroyWindow (manager->priv->display, manager->priv->window);
-                manager->priv->window = None;
+                XDestroyWindow (manager->display, manager->window);
+                manager->window = None;
         }
 
-        if (manager->priv->conversions != NULL) {
-                list_foreach (manager->priv->conversions, (Callback) conversion_free, NULL);
-                list_free (manager->priv->conversions);
-                manager->priv->conversions = NULL;
+        if (manager->conversions != NULL) {
+                list_foreach (manager->conversions, (Callback) conversion_free, NULL);
+                list_free (manager->conversions);
+                manager->conversions = NULL;
         }
 
         free_contents (manager);
@@ -997,16 +997,12 @@ gsd_clipboard_manager_class_init (GsdClipboardManagerClass *klass)
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
         object_class->finalize = gsd_clipboard_manager_finalize;
-
-        g_type_class_add_private (klass, sizeof (GsdClipboardManagerPrivate));
 }
 
 static void
 gsd_clipboard_manager_init (GsdClipboardManager *manager)
 {
-        manager->priv = GSD_CLIPBOARD_MANAGER_GET_PRIVATE (manager);
-
-        manager->priv->display = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
+        manager->display = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
 
 }
 
@@ -1020,12 +1016,10 @@ gsd_clipboard_manager_finalize (GObject *object)
 
         clipboard_manager = GSD_CLIPBOARD_MANAGER (object);
 
-        g_return_if_fail (clipboard_manager->priv != NULL);
-
         gsd_clipboard_manager_stop (clipboard_manager);
 
-        if (clipboard_manager->priv->start_idle_id !=0)
-                g_source_remove (clipboard_manager->priv->start_idle_id);
+        if (clipboard_manager->start_idle_id !=0)
+                g_source_remove (clipboard_manager->start_idle_id);
 
         G_OBJECT_CLASS (gsd_clipboard_manager_parent_class)->finalize (object);
 }
