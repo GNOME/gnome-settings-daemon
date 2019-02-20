@@ -36,7 +36,9 @@ enum {
         PROP_GTK_MODULES
 };
 
-struct GsdXSettingsGtkPrivate {
+struct _GsdXSettingsGtk {
+        GObject            parent;
+
         char              *modules;
         GHashTable        *dir_modules;
 
@@ -47,8 +49,6 @@ struct GsdXSettingsGtkPrivate {
         GList             *cond_settings;
 };
 
-#define GSD_XSETTINGS_GTK_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GSD_TYPE_XSETTINGS_GTK, GsdXSettingsGtkPrivate))
-
 G_DEFINE_TYPE(GsdXSettingsGtk, gsd_xsettings_gtk, G_TYPE_OBJECT)
 
 static void update_gtk_modules (GsdXSettingsGtk *gtk);
@@ -56,13 +56,13 @@ static void update_gtk_modules (GsdXSettingsGtk *gtk);
 static void
 empty_cond_settings_list (GsdXSettingsGtk *gtk)
 {
-        if (gtk->priv->cond_settings == NULL)
+        if (gtk->cond_settings == NULL)
                 return;
 
         /* Empty the list of settings */
-        g_list_foreach (gtk->priv->cond_settings, (GFunc) g_object_unref, NULL);
-        g_list_free (gtk->priv->cond_settings);
-        gtk->priv->cond_settings = NULL;
+        g_list_foreach (gtk->cond_settings, (GFunc) g_object_unref, NULL);
+        g_list_free (gtk->cond_settings);
+        gtk->cond_settings = NULL;
 }
 
 static void
@@ -77,11 +77,11 @@ cond_setting_changed (GSettings       *settings,
 
         enabled = g_settings_get_boolean (settings, key);
         if (enabled != FALSE) {
-                if (gtk->priv->dir_modules == NULL)
-                        gtk->priv->dir_modules = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
-                g_hash_table_insert (gtk->priv->dir_modules, g_strdup (module_name), NULL);
-        } else if (gtk->priv->dir_modules != NULL) {
-                g_hash_table_remove (gtk->priv->dir_modules, module_name);
+                if (gtk->dir_modules == NULL)
+                        gtk->dir_modules = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+                g_hash_table_insert (gtk->dir_modules, g_strdup (module_name), NULL);
+        } else if (gtk->dir_modules != NULL) {
+                g_hash_table_remove (gtk->dir_modules, module_name);
         }
 
         update_gtk_modules (gtk);
@@ -124,7 +124,7 @@ process_desktop_file (const char      *path,
 
                 settings = g_settings_new (schema);
 
-                gtk->priv->cond_settings = g_list_prepend (gtk->priv->cond_settings, settings);
+                gtk->cond_settings = g_list_prepend (gtk->cond_settings, settings);
 
                 g_object_set_data_full (G_OBJECT (settings), "module-name", g_strdup (module_name), (GDestroyNotify) g_free);
 
@@ -165,18 +165,18 @@ get_gtk_modules_from_dir (GsdXSettingsGtk *gtk)
                 guint64 dir_mtime;
 
                 dir_mtime = g_file_info_get_attribute_uint64 (info, G_FILE_ATTRIBUTE_TIME_MODIFIED);
-                if (gtk->priv->dir_mtime == 0 ||
-                    dir_mtime > gtk->priv->dir_mtime) {
+                if (gtk->dir_mtime == 0 ||
+                    dir_mtime > gtk->dir_mtime) {
                         GDir *dir;
                         const char *name;
 
                         empty_cond_settings_list (gtk);
 
-                        gtk->priv->dir_mtime = dir_mtime;
+                        gtk->dir_mtime = dir_mtime;
 
-                        if (gtk->priv->dir_modules != NULL) {
-                                g_hash_table_destroy (gtk->priv->dir_modules);
-                                gtk->priv->dir_modules = NULL;
+                        if (gtk->dir_modules != NULL) {
+                                g_hash_table_destroy (gtk->dir_modules);
+                                gtk->dir_modules = NULL;
                         }
 
                         dir = g_dir_open (modules_path, 0, NULL);
@@ -197,7 +197,7 @@ get_gtk_modules_from_dir (GsdXSettingsGtk *gtk)
                         }
                         g_dir_close (dir);
 
-                        gtk->priv->dir_modules = ht;
+                        gtk->dir_modules = ht;
                 }
                 g_object_unref (info);
         } else {
@@ -227,15 +227,15 @@ update_gtk_modules (GsdXSettingsGtk *gtk)
         GString *str;
         char *modules;
 
-        enabled = g_settings_get_strv (gtk->priv->settings, GTK_MODULES_ENABLED_KEY);
-        disabled = g_settings_get_strv (gtk->priv->settings, GTK_MODULES_DISABLED_KEY);
+        enabled = g_settings_get_strv (gtk->settings, GTK_MODULES_ENABLED_KEY);
+        disabled = g_settings_get_strv (gtk->settings, GTK_MODULES_DISABLED_KEY);
 
         ht = g_hash_table_new (g_str_hash, g_str_equal);
 
-        if (gtk->priv->dir_modules != NULL) {
+        if (gtk->dir_modules != NULL) {
                 GList *list, *l;
 
-                list = g_hash_table_get_keys (gtk->priv->dir_modules);
+                list = g_hash_table_get_keys (gtk->dir_modules);
                 for (l = list; l != NULL; l = l->next) {
                         g_hash_table_insert (ht, l->data, NULL);
                 }
@@ -255,10 +255,10 @@ update_gtk_modules (GsdXSettingsGtk *gtk)
         modules = g_string_free (str, FALSE);
 
         if (modules == NULL ||
-            gtk->priv->modules == NULL ||
-            g_str_equal (modules, gtk->priv->modules) == FALSE) {
-                g_free (gtk->priv->modules);
-                gtk->priv->modules = modules;
+            gtk->modules == NULL ||
+            g_str_equal (modules, gtk->modules) == FALSE) {
+                g_free (gtk->modules);
+                gtk->modules = modules;
                 g_object_notify (G_OBJECT (gtk), "gtk-modules");
         } else {
                 g_free (modules);
@@ -284,11 +284,9 @@ gsd_xsettings_gtk_init (GsdXSettingsGtk *gtk)
 {
         GFile *file;
 
-        gtk->priv = GSD_XSETTINGS_GTK_GET_PRIVATE (gtk);
-
         g_debug ("GsdXSettingsGtk initializing");
 
-        gtk->priv->settings = g_settings_new (XSETTINGS_PLUGIN_SCHEMA);
+        gtk->settings = g_settings_new (XSETTINGS_PLUGIN_SCHEMA);
 
         modules_path = g_getenv ("GSD_gtk_modules_dir");
         if (modules_path == NULL)
@@ -297,11 +295,11 @@ gsd_xsettings_gtk_init (GsdXSettingsGtk *gtk)
         get_gtk_modules_from_dir (gtk);
 
         file = g_file_new_for_path (modules_path);
-        gtk->priv->monitor = g_file_monitor (file,
+        gtk->monitor = g_file_monitor (file,
                                              G_FILE_MONITOR_NONE,
                                              NULL,
                                              NULL);
-        g_signal_connect (G_OBJECT (gtk->priv->monitor), "changed",
+        g_signal_connect (G_OBJECT (gtk->monitor), "changed",
                           G_CALLBACK (gtk_modules_dir_changed_cb), gtk);
         g_object_unref (file);
 
@@ -320,20 +318,20 @@ gsd_xsettings_gtk_finalize (GObject *object)
 
         gtk = GSD_XSETTINGS_GTK (object);
 
-        g_return_if_fail (gtk->priv != NULL);
+        g_return_if_fail (gtk != NULL);
 
-        g_free (gtk->priv->modules);
-        gtk->priv->modules = NULL;
+        g_free (gtk->modules);
+        gtk->modules = NULL;
 
-        if (gtk->priv->dir_modules != NULL) {
-                g_hash_table_destroy (gtk->priv->dir_modules);
-                gtk->priv->dir_modules = NULL;
+        if (gtk->dir_modules != NULL) {
+                g_hash_table_destroy (gtk->dir_modules);
+                gtk->dir_modules = NULL;
         }
 
-        g_object_unref (gtk->priv->settings);
+        g_object_unref (gtk->settings);
 
-        if (gtk->priv->monitor != NULL)
-                g_object_unref (gtk->priv->monitor);
+        if (gtk->monitor != NULL)
+                g_object_unref (gtk->monitor);
 
         empty_cond_settings_list (gtk);
 
@@ -352,7 +350,7 @@ gsd_xsettings_gtk_get_property (GObject        *object,
 
         switch (prop_id) {
         case PROP_GTK_MODULES:
-                g_value_set_string (value, self->priv->modules);
+                g_value_set_string (value, self->modules);
                 break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -371,8 +369,6 @@ gsd_xsettings_gtk_class_init (GsdXSettingsGtkClass *klass)
         g_object_class_install_property (object_class, PROP_GTK_MODULES,
                                          g_param_spec_string ("gtk-modules", NULL, NULL,
                                                               NULL, G_PARAM_READABLE));
-
-        g_type_class_add_private (klass, sizeof (GsdXSettingsGtkPrivate));
 }
 
 GsdXSettingsGtk *
@@ -384,5 +380,5 @@ gsd_xsettings_gtk_new (void)
 const char *
 gsd_xsettings_gtk_get_modules (GsdXSettingsGtk *gtk)
 {
-        return gtk->priv->modules;
+        return gtk->modules;
 }
