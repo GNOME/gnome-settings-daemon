@@ -1087,7 +1087,7 @@ do_home_key_action (GsdMediaKeysManager *manager,
 	uri = g_file_get_uri (file);
 	g_object_unref (file);
 
-	if (gtk_show_uri (NULL, uri, timestamp, &error) == FALSE) {
+	if (gtk_show_uri_on_window (NULL, uri, timestamp, &error) == FALSE) {
 		g_warning ("Failed to launch '%s': %s", uri, error->message);
 		g_error_free (error);
 	}
