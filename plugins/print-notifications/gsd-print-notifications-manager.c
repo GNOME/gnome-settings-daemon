@@ -1071,7 +1071,7 @@ process_new_notifications (gpointer user_data)
         const gchar                   *printer_name = NULL;
         const gchar                   *notify_text = NULL;
         const gchar                   *notify_printer_uri = NULL;
-        const gchar                   *job_state_reasons = NULL;
+        gchar                         *job_state_reasons = NULL;
         const gchar                   *job_name = NULL;
         const char                    *attr_name;
         gboolean                       printer_is_accepting_jobs = FALSE;
