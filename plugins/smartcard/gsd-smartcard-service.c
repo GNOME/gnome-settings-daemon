@@ -30,8 +30,10 @@
 #include <glib/gstdio.h>
 #include <gio/gio.h>
 
-struct _GsdSmartcardServicePrivate
+struct _GsdSmartcardService
 {
+        GObject                     parent;
+
         GDBusConnection            *bus_connection;
         GDBusObjectManagerServer   *object_manager_server;
         GsdSmartcardManager        *smartcard_manager;
@@ -83,11 +85,9 @@ static void
 set_bus_connection (GsdSmartcardService  *self,
                     GDBusConnection      *connection)
 {
-        GsdSmartcardServicePrivate *priv = self->priv;
-
-        if (priv->bus_connection != connection) {
-                g_clear_object (&priv->bus_connection);
-                priv->bus_connection = g_object_ref (connection);
+        if (self->bus_connection != connection) {
+                g_clear_object (&self->bus_connection);
+                self->bus_connection = g_object_ref (connection);
                 g_object_notify (G_OBJECT (self), "bus-connection");
         }
 }
@@ -97,18 +97,18 @@ register_object_manager (GsdSmartcardService *self)
 {
         GsdSmartcardServiceObjectSkeleton *object;
 
-        self->priv->object_manager_server = g_dbus_object_manager_server_new (GSD_SMARTCARD_DBUS_PATH);
+        self->object_manager_server = g_dbus_object_manager_server_new (GSD_SMARTCARD_DBUS_PATH);
 
         object = gsd_smartcard_service_object_skeleton_new (GSD_SMARTCARD_MANAGER_DBUS_PATH);
         gsd_smartcard_service_object_skeleton_set_manager (object,
                                                            GSD_SMARTCARD_SERVICE_MANAGER (self));
 
-        g_dbus_object_manager_server_export (self->priv->object_manager_server,
+        g_dbus_object_manager_server_export (self->object_manager_server,
                                              G_DBUS_OBJECT_SKELETON (object));
         g_object_unref (object);
 
-        g_dbus_object_manager_server_set_connection (self->priv->object_manager_server,
-                                                     self->priv->bus_connection);
+        g_dbus_object_manager_server_set_connection (self->object_manager_server,
+                                                     self->bus_connection);
 }
 
 static const char *
@@ -120,7 +120,6 @@ get_login_token_object_path (GsdSmartcardService *self)
 static void
 register_login_token_alias (GsdSmartcardService *self)
 {
-        GsdSmartcardServicePrivate *priv;
         GDBusObjectSkeleton *object;
         GDBusInterfaceSkeleton *interface;
         const char *object_path;
@@ -130,8 +129,6 @@ register_login_token_alias (GsdSmartcardService *self)
 
         if (token_name == NULL)
                 return;
-
-        priv = self->priv;
 
         object_path = get_login_token_object_path (self);
         object = G_DBUS_OBJECT_SKELETON (gsd_smartcard_service_object_skeleton_new (object_path));
@@ -146,11 +143,11 @@ register_login_token_alias (GsdSmartcardService *self)
                       "is-inserted", FALSE,
                       NULL);
 
-        g_dbus_object_manager_server_export (self->priv->object_manager_server,
+        g_dbus_object_manager_server_export (self->object_manager_server,
                                              object);
 
         G_LOCK (gsd_smartcard_tokens);
-        g_hash_table_insert (priv->tokens, g_strdup (object_path), interface);
+        g_hash_table_insert (self->tokens, g_strdup (object_path), interface);
         G_UNLOCK (gsd_smartcard_tokens);
 }
 
@@ -160,7 +157,6 @@ on_bus_gotten (GObject      *source_object,
                GTask        *task)
 {
         GsdSmartcardService *self;
-        GsdSmartcardServicePrivate *priv;
         GDBusConnection *connection;
         GError *error = NULL;
 
@@ -173,12 +169,11 @@ on_bus_gotten (GObject      *source_object,
         g_debug ("taking name %s on session bus", GSD_SMARTCARD_DBUS_NAME);
 
         self = g_task_get_source_object (task);
-        priv = self->priv;
 
         set_bus_connection (self, connection);
 
         register_object_manager (self);
-        priv->name_id = g_bus_own_name_on_connection (connection,
+        self->name_id = g_bus_own_name_on_connection (connection,
                                                       GSD_SMARTCARD_DBUS_NAME,
                                                       G_BUS_NAME_OWNER_FLAGS_NONE,
                                                       NULL,
@@ -260,11 +255,10 @@ gsd_smartcard_service_handle_get_login_token (GsdSmartcardServiceManager *manage
                                               GDBusMethodInvocation      *invocation)
 {
         GsdSmartcardService *self = GSD_SMARTCARD_SERVICE (manager);
-        GsdSmartcardServicePrivate *priv = self->priv;
         PK11SlotInfo *card_slot;
         char *object_path;
 
-        card_slot = gsd_smartcard_manager_get_login_token (priv->smartcard_manager);
+        card_slot = gsd_smartcard_manager_get_login_token (self->smartcard_manager);
 
         if (card_slot == NULL) {
                 const char *login_token_object_path;
@@ -275,7 +269,7 @@ gsd_smartcard_service_handle_get_login_token (GsdSmartcardServiceManager *manage
                  */
                 login_token_object_path = get_login_token_object_path (self);
 
-                if (g_hash_table_contains (priv->tokens, login_token_object_path)) {
+                if (g_hash_table_contains (self->tokens, login_token_object_path)) {
                         gsd_smartcard_service_manager_complete_get_login_token (manager,
                                                                                 invocation,
                                                                                 login_token_object_path);
@@ -304,11 +298,10 @@ gsd_smartcard_service_handle_get_inserted_tokens (GsdSmartcardServiceManager *ma
                                                   GDBusMethodInvocation      *invocation)
 {
         GsdSmartcardService *self = GSD_SMARTCARD_SERVICE (manager);
-        GsdSmartcardServicePrivate *priv = self->priv;
         GList *inserted_tokens, *node;
         GPtrArray *object_paths;
 
-        inserted_tokens = gsd_smartcard_manager_get_inserted_tokens (priv->smartcard_manager,
+        inserted_tokens = gsd_smartcard_manager_get_inserted_tokens (self->smartcard_manager,
                                                                      NULL);
 
         object_paths = g_ptr_array_new ();
@@ -341,13 +334,10 @@ smartcard_service_manager_interface_init (GsdSmartcardServiceManagerIface *inter
 static void
 gsd_smartcard_service_init (GsdSmartcardService *self)
 {
-        self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self,
-                                                  GSD_TYPE_SMARTCARD_SERVICE,
-                                                  GsdSmartcardServicePrivate);
-        self->priv->tokens = g_hash_table_new_full (g_str_hash,
-                                                    g_str_equal,
-                                                    (GDestroyNotify) g_free,
-                                                    NULL);
+        self->tokens = g_hash_table_new_full (g_str_hash,
+                                              g_str_equal,
+                                              (GDestroyNotify) g_free,
+                                              NULL);
 }
 
 static void
@@ -355,13 +345,13 @@ gsd_smartcard_service_dispose (GObject *object)
 {
         GsdSmartcardService *self = GSD_SMARTCARD_SERVICE (object);
 
-        g_clear_object (&self->priv->bus_connection);
-        g_clear_object (&self->priv->object_manager_server);
-        g_clear_object (&self->priv->smartcard_manager);
+        g_clear_object (&self->bus_connection);
+        g_clear_object (&self->object_manager_server);
+        g_clear_object (&self->smartcard_manager);
 
-        g_cancellable_cancel (self->priv->cancellable);
-        g_clear_object (&self->priv->cancellable);
-        g_clear_pointer (&self->priv->tokens, g_hash_table_unref);
+        g_cancellable_cancel (self->cancellable);
+        g_clear_object (&self->cancellable);
+        g_clear_pointer (&self->tokens, g_hash_table_unref);
 
         G_OBJECT_CLASS (gsd_smartcard_service_parent_class)->dispose (object);
 }
@@ -373,11 +363,10 @@ gsd_smartcard_service_set_property (GObject      *object,
                                     GParamSpec   *param_spec)
 {
         GsdSmartcardService *self = GSD_SMARTCARD_SERVICE (object);
-        GsdSmartcardServicePrivate *priv = self->priv;
 
         switch (property_id) {
                 case PROP_MANAGER:
-                        priv->smartcard_manager = g_value_dup_object (value);
+                        self->smartcard_manager = g_value_dup_object (value);
                         break;
                 default:
                         G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, param_spec);
@@ -392,14 +381,13 @@ gsd_smartcard_service_get_property (GObject    *object,
                                     GParamSpec *param_spec)
 {
         GsdSmartcardService *self = GSD_SMARTCARD_SERVICE (object);
-        GsdSmartcardServicePrivate *priv = self->priv;
 
         switch (property_id) {
                 case PROP_MANAGER:
-                        g_value_set_object (value, priv->smartcard_manager);
+                        g_value_set_object (value, self->smartcard_manager);
                         break;
                 case PROP_BUS_CONNECTION:
-                        g_value_set_object (value, priv->bus_connection);
+                        g_value_set_object (value, self->bus_connection);
                         break;
                 default:
                         G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, param_spec);
@@ -429,8 +417,6 @@ gsd_smartcard_service_class_init (GsdSmartcardServiceClass *service_class)
                                           G_TYPE_DBUS_CONNECTION,
                                           G_PARAM_READABLE);
         g_object_class_install_property (object_class, PROP_BUS_CONNECTION, param_spec);
-
-        g_type_class_add_private (service_class, sizeof (GsdSmartcardServicePrivate));
 }
 
 static void
@@ -531,7 +517,7 @@ gsd_smartcard_service_register_driver (GsdSmartcardService  *self,
                       "library", driver->dllName,
                       "description", driver->commonName,
                       NULL);
-        g_dbus_object_manager_server_export (self->priv->object_manager_server,
+        g_dbus_object_manager_server_export (self->object_manager_server,
                                              object);
         g_object_unref (object);
 }
@@ -540,7 +526,6 @@ static void
 synchronize_token_now (GsdSmartcardService *self,
                        PK11SlotInfo        *card_slot)
 {
-        GsdSmartcardServicePrivate *priv = self->priv;
         GDBusInterfaceSkeleton *interface;
         char *object_path;
         const char *token_name;
@@ -549,7 +534,7 @@ synchronize_token_now (GsdSmartcardService *self,
         object_path = get_object_path_for_token (self, card_slot);
 
         G_LOCK (gsd_smartcard_tokens);
-        interface = g_hash_table_lookup (priv->tokens, object_path);
+        interface = g_hash_table_lookup (self->tokens, object_path);
         g_free (object_path);
 
         if (interface == NULL)
@@ -577,7 +562,7 @@ synchronize_token_now (GsdSmartcardService *self,
                               NULL);
 
                 if (was_present)
-                        gsd_smartcard_manager_do_remove_action (priv->smartcard_manager);
+                        gsd_smartcard_manager_do_remove_action (self->smartcard_manager);
         }
 
         g_object_set (G_OBJECT (interface),
@@ -589,12 +574,12 @@ synchronize_token_now (GsdSmartcardService *self,
                       "is-inserted", &is_present,
                       NULL);
 
-        if (is_login_card && !priv->login_token_bound) {
+        if (is_login_card && !self->login_token_bound) {
                 const char *login_token_path;
                 GDBusInterfaceSkeleton *login_token_interface;
 
                 login_token_path = get_login_token_object_path (self);
-                login_token_interface = g_hash_table_lookup (priv->tokens, login_token_path);
+                login_token_interface = g_hash_table_lookup (self->tokens, login_token_path);
 
                 if (login_token_interface != NULL) {
                         g_object_bind_property (interface, "driver",
@@ -603,7 +588,7 @@ synchronize_token_now (GsdSmartcardService *self,
                         g_object_bind_property (interface, "is-inserted",
                                                 login_token_interface, "is-inserted",
                                                 G_BINDING_SYNC_CREATE);
-                        priv->login_token_bound = TRUE;
+                        self->login_token_bound = TRUE;
                 }
         }
 
@@ -632,7 +617,6 @@ static gboolean
 on_main_thread_to_register_new_token (GTask *task)
 {
         GsdSmartcardService *self;
-        GsdSmartcardServicePrivate *priv;
         GDBusObjectSkeleton *object;
         GDBusInterfaceSkeleton *interface;
         RegisterNewTokenOperation *operation;
@@ -641,7 +625,6 @@ on_main_thread_to_register_new_token (GTask *task)
         const char *token_name;
 
         self = g_task_get_source_object (task);
-        priv = self->priv;
 
         operation = g_task_get_task_data (task);
         operation->main_thread_source = NULL;
@@ -663,11 +646,11 @@ on_main_thread_to_register_new_token (GTask *task)
                       NULL);
         g_free (driver_object_path);
 
-        g_dbus_object_manager_server_export (self->priv->object_manager_server,
+        g_dbus_object_manager_server_export (self->object_manager_server,
                                              object);
 
         G_LOCK (gsd_smartcard_tokens);
-        g_hash_table_insert (priv->tokens, g_strdup (operation->object_path), interface);
+        g_hash_table_insert (self->tokens, g_strdup (operation->object_path), interface);
         G_UNLOCK (gsd_smartcard_tokens);
 
         g_task_return_boolean (task, TRUE);
@@ -837,14 +820,13 @@ gsd_smartcard_service_sync_token (GsdSmartcardService *self,
                                   PK11SlotInfo        *card_slot,
                                   GCancellable        *cancellable)
 {
-        GsdSmartcardServicePrivate *priv = self->priv;
         char *object_path;
         GDBusInterfaceSkeleton *interface;
 
         object_path = get_object_path_for_token (self, card_slot);
 
         G_LOCK (gsd_smartcard_tokens);
-        interface = g_hash_table_lookup (priv->tokens, object_path);
+        interface = g_hash_table_lookup (self->tokens, object_path);
         G_UNLOCK (gsd_smartcard_tokens);
 
         if (interface == NULL)
