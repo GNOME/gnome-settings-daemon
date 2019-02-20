@@ -27,11 +27,6 @@ G_BEGIN_DECLS
 #define GSD_TYPE_TIMELINE_DIRECTION       (gsd_timeline_direction_get_type ())
 #define GSD_TYPE_TIMELINE_PROGRESS_TYPE   (gsd_timeline_progress_type_get_type ())
 #define GSD_TYPE_TIMELINE                 (gsd_timeline_get_type ())
-#define GSD_TIMELINE(obj)                 (G_TYPE_CHECK_INSTANCE_CAST ((obj), GSD_TYPE_TIMELINE, GsdTimeline))
-#define GSD_TIMELINE_CLASS(klass)         (G_TYPE_CHECK_CLASS_CAST ((klass),  GSD_TYPE_TIMELINE, GsdTimelineClass))
-#define GSD_IS_TIMELINE(obj)              (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GSD_TYPE_TIMELINE))
-#define GSD_IS_TIMELINE_CLASS(klass)      (G_TYPE_CHECK_CLASS_TYPE ((klass),  GSD_TYPE_TIMELINE))
-#define GSD_TIMELINE_GET_CLASS(obj)       (G_TYPE_INSTANCE_GET_CLASS ((obj),  GSD_TYPE_TIMELINE, GsdTimelineClass))
 
 typedef enum {
   GSD_TIMELINE_DIRECTION_FORWARD,
@@ -44,15 +39,9 @@ typedef enum {
   GSD_TIMELINE_PROGRESS_EXPONENTIAL
 } GsdTimelineProgressType;
 
-typedef struct GsdTimeline      GsdTimeline;
-typedef struct GsdTimelineClass GsdTimelineClass;
+G_DECLARE_DERIVABLE_TYPE (GsdTimeline, gsd_timeline, GSD, TIMELINE, GObject)
 
-struct GsdTimeline
-{
-  GObject parent_instance;
-};
-
-struct GsdTimelineClass
+struct _GsdTimelineClass
 {
   GObjectClass parent_class;
 
@@ -72,7 +61,6 @@ struct GsdTimelineClass
 typedef gdouble (*GsdTimelineProgressFunc) (gdouble progress);
 
 
-GType                   gsd_timeline_get_type           (void) G_GNUC_CONST;
 GType                   gsd_timeline_direction_get_type (void) G_GNUC_CONST;
 GType                   gsd_timeline_progress_type_get_type (void) G_GNUC_CONST;
 
