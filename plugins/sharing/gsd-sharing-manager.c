@@ -33,15 +33,15 @@
 #include "gsd-sharing-manager.h"
 #include "gsd-sharing-enums.h"
 
-#define GSD_SHARING_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_SHARING_MANAGER, GsdSharingManagerPrivate))
-
 typedef struct {
         const char  *name;
         GSettings   *settings;
 } ServiceInfo;
 
-struct GsdSharingManagerPrivate
+struct _GsdSharingManager
 {
+        GObject                  parent;
+
         GDBusNodeInfo           *introspection_data;
         guint                    name_id;
         GDBusConnection         *connection;
@@ -133,7 +133,7 @@ gsd_sharing_manager_handle_service (GsdSharingManager   *manager,
         char *service_file;
 
         service_file = g_strdup_printf ("%s.service", service->name);
-        g_dbus_connection_call (manager->priv->connection,
+        g_dbus_connection_call (manager->connection,
                                 "org.freedesktop.systemd1",
                                 "/org/freedesktop/systemd1",
                                 "org.freedesktop.systemd1.Manager",
@@ -142,7 +142,7 @@ gsd_sharing_manager_handle_service (GsdSharingManager   *manager,
                                 NULL,
                                 G_DBUS_CALL_FLAGS_NONE,
                                 -1,
-                                manager->priv->cancellable,
+                                manager->cancellable,
                                 handle_unit_cb,
                                 (gpointer) method);
         g_free (service_file);
@@ -180,7 +180,7 @@ service_is_enabled_on_current_connection (GsdSharingManager *manager,
         connections = g_settings_get_strv (service->settings, "enabled-connections");
         ret = FALSE;
         for (j = 0; connections[j] != NULL; j++) {
-                if (g_strcmp0 (connections[j], manager->priv->current_network) == 0) {
+                if (g_strcmp0 (connections[j], manager->current_network) == 0) {
                         ret = TRUE;
                         break;
                 }
@@ -203,13 +203,13 @@ gsd_sharing_manager_sync_services (GsdSharingManager *manager)
 {
         GList *services, *l;
 
-        services = g_hash_table_get_values (manager->priv->services);
+        services = g_hash_table_get_values (manager->services);
 
         for (l = services; l != NULL; l = l->next) {
                 ServiceInfo *service = l->data;
                 gboolean should_be_started = FALSE;
 
-                if (manager->priv->sharing_status == GSD_SHARING_STATUS_AVAILABLE &&
+                if (manager->sharing_status == GSD_SHARING_STATUS_AVAILABLE &&
                     service_is_enabled_on_current_connection (manager, service))
                         should_be_started = TRUE;
 
@@ -229,25 +229,25 @@ properties_changed (GsdSharingManager *manager)
         GVariant *props_changed = NULL;
 
         /* not yet connected to the session bus */
-        if (manager->priv->connection == NULL)
+        if (manager->connection == NULL)
                 return;
 
         g_variant_builder_init (&props_builder, G_VARIANT_TYPE ("a{sv}"));
 
         g_variant_builder_add (&props_builder, "{sv}", "CurrentNetwork",
-                               g_variant_new_string (manager->priv->current_network));
+                               g_variant_new_string (manager->current_network));
         g_variant_builder_add (&props_builder, "{sv}", "CurrentNetworkName",
-                               g_variant_new_string (manager->priv->current_network_name));
+                               g_variant_new_string (manager->current_network_name));
         g_variant_builder_add (&props_builder, "{sv}", "CarrierType",
-                               g_variant_new_string (manager->priv->carrier_type));
+                               g_variant_new_string (manager->carrier_type));
         g_variant_builder_add (&props_builder, "{sv}", "SharingStatus",
-                               g_variant_new_uint32 (manager->priv->sharing_status));
+                               g_variant_new_uint32 (manager->sharing_status));
 
         props_changed = g_variant_new ("(s@a{sv}@as)", GSD_SHARING_DBUS_NAME,
                                        g_variant_builder_end (&props_builder),
                                        g_variant_new_strv (NULL, 0));
 
-        g_dbus_connection_emit_signal (manager->priv->connection,
+        g_dbus_connection_emit_signal (manager->connection,
                                        NULL,
                                        GSD_SHARING_DBUS_PATH,
                                        "org.freedesktop.DBus.Properties",
@@ -261,7 +261,7 @@ get_connections_for_service (GsdSharingManager *manager,
 {
         ServiceInfo *service;
 
-        service = g_hash_table_lookup (manager->priv->services, service_name);
+        service = g_hash_table_lookup (manager->services, service_name);
         return g_settings_get_strv (service->settings, "enabled-connections");
 }
 #else
@@ -279,7 +279,7 @@ check_service (GsdSharingManager  *manager,
                const char         *service_name,
                GError            **error)
 {
-        if (g_hash_table_lookup (manager->priv->services, service_name))
+        if (g_hash_table_lookup (manager->services, service_name))
                 return TRUE;
 
         g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_INVALID_ARGS,
@@ -300,21 +300,21 @@ gsd_sharing_manager_enable_service (GsdSharingManager  *manager,
         if (!check_service (manager, service_name, error))
                 return FALSE;
 
-        if (manager->priv->sharing_status != GSD_SHARING_STATUS_AVAILABLE) {
+        if (manager->sharing_status != GSD_SHARING_STATUS_AVAILABLE) {
                 g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_INVALID_ARGS,
-                             "Sharing cannot be enabled on this network, status is '%d'", manager->priv->sharing_status);
+                             "Sharing cannot be enabled on this network, status is '%d'", manager->sharing_status);
                 return FALSE;
         }
 
-        service = g_hash_table_lookup (manager->priv->services, service_name);
+        service = g_hash_table_lookup (manager->services, service_name);
         connections = g_settings_get_strv (service->settings, "enabled-connections");
         array = g_ptr_array_new ();
         for (i = 0; connections[i] != NULL; i++) {
-                if (g_strcmp0 (connections[i], manager->priv->current_network) == 0)
+                if (g_strcmp0 (connections[i], manager->current_network) == 0)
                         goto bail;
                 g_ptr_array_add (array, connections[i]);
         }
-        g_ptr_array_add (array, manager->priv->current_network);
+        g_ptr_array_add (array, manager->current_network);
         g_ptr_array_add (array, NULL);
 
         g_settings_set_strv (service->settings, "enabled-connections", (const gchar *const *) array->pdata);
@@ -343,7 +343,7 @@ gsd_sharing_manager_disable_service (GsdSharingManager  *manager,
         if (!check_service (manager, service_name, error))
                 return FALSE;
 
-        service = g_hash_table_lookup (manager->priv->services, service_name);
+        service = g_hash_table_lookup (manager->services, service_name);
         connections = g_settings_get_strv (service->settings, "enabled-connections");
         array = g_ptr_array_new ();
         for (i = 0; connections[i] != NULL; i++) {
@@ -356,7 +356,7 @@ gsd_sharing_manager_disable_service (GsdSharingManager  *manager,
         g_ptr_array_unref (array);
         g_strfreev (connections);
 
-        if (g_str_equal (network_name, manager->priv->current_network))
+        if (g_str_equal (network_name, manager->current_network))
                 gsd_sharing_manager_stop_service (manager, service);
 
         return TRUE;
@@ -371,10 +371,10 @@ get_type_and_name_for_connection_uuid (GsdSharingManager *manager,
         NMRemoteConnection *conn;
         const char *type;
 
-        if (!manager->priv->client)
+        if (!manager->client)
                 return NULL;
 
-        conn = nm_client_get_connection_by_uuid (manager->priv->client, uuid);
+        conn = nm_client_get_connection_by_uuid (manager->client, uuid);
         if (!conn)
                 return NULL;
         type = nm_connection_get_connection_type (NM_CONNECTION (conn));
@@ -399,10 +399,10 @@ connection_is_low_security (GsdSharingManager *manager,
 {
         NMRemoteConnection *conn;
 
-        if (!manager->priv->client)
+        if (!manager->client)
                 return TRUE;
 
-        conn = nm_client_get_connection_by_uuid (manager->priv->client, uuid);
+        conn = nm_client_get_connection_by_uuid (manager->client, uuid);
         if (!conn)
                 return TRUE;
 
@@ -425,7 +425,7 @@ gsd_sharing_manager_list_networks (GsdSharingManager  *manager,
                 return NULL;
 
 #if HAVE_NETWORK_MANAGER
-        if (!manager->priv->client) {
+        if (!manager->client) {
                 g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED, "Not ready yet");
                 return NULL;
         }
@@ -465,23 +465,23 @@ handle_get_property (GDBusConnection *connection,
 
         /* Check session pointer as a proxy for whether the manager is in the
            start or stop state */
-        if (manager->priv->connection == NULL)
+        if (manager->connection == NULL)
                 return NULL;
 
         if (g_strcmp0 (property_name, "CurrentNetwork") == 0) {
-                return g_variant_new_string (manager->priv->current_network);
+                return g_variant_new_string (manager->current_network);
         }
 
         if (g_strcmp0 (property_name, "CurrentNetworkName") == 0) {
-                return g_variant_new_string (manager->priv->current_network_name);
+                return g_variant_new_string (manager->current_network_name);
         }
 
         if (g_strcmp0 (property_name, "CarrierType") == 0) {
-                return g_variant_new_string (manager->priv->carrier_type);
+                return g_variant_new_string (manager->carrier_type);
         }
 
         if (g_strcmp0 (property_name, "SharingStatus") == 0) {
-                return g_variant_new_uint32 (manager->priv->sharing_status);
+                return g_variant_new_uint32 (manager->sharing_status);
         }
 
         return NULL;
@@ -503,7 +503,7 @@ handle_method_call (GDBusConnection       *connection,
 
         /* Check session pointer as a proxy for whether the manager is in the
            start or stop state */
-        if (manager->priv->connection == NULL)
+        if (manager->connection == NULL)
                 return;
 
         if (g_strcmp0 (method_name, "EnableService") == 0) {
@@ -561,17 +561,17 @@ on_bus_gotten (GObject               *source_object,
                 g_error_free (error);
                 return;
         }
-        manager->priv->connection = connection;
+        manager->connection = connection;
 
         g_dbus_connection_register_object (connection,
                                            GSD_SHARING_DBUS_PATH,
-                                           manager->priv->introspection_data->interfaces[0],
+                                           manager->introspection_data->interfaces[0],
                                            &interface_vtable,
                                            manager,
                                            NULL,
                                            NULL);
 
-        manager->priv->name_id = g_bus_own_name_on_connection (connection,
+        manager->name_id = g_bus_own_name_on_connection (connection,
                                                                GSD_SHARING_DBUS_NAME,
                                                                G_BUS_NAME_OWNER_FLAGS_NONE,
                                                                NULL,
@@ -589,46 +589,46 @@ primary_connection_changed (GObject    *gobject,
         GsdSharingManager *manager = user_data;
         NMActiveConnection *a_con;
 
-        a_con = nm_client_get_primary_connection (manager->priv->client);
+        a_con = nm_client_get_primary_connection (manager->client);
 
-        g_clear_pointer (&manager->priv->current_network, g_free);
-        g_clear_pointer (&manager->priv->current_network_name, g_free);
-        g_clear_pointer (&manager->priv->carrier_type, g_free);
+        g_clear_pointer (&manager->current_network, g_free);
+        g_clear_pointer (&manager->current_network_name, g_free);
+        g_clear_pointer (&manager->carrier_type, g_free);
 
         if (a_con) {
-                manager->priv->current_network = g_strdup (nm_active_connection_get_uuid (a_con));
-                manager->priv->current_network_name = g_strdup (nm_active_connection_get_id (a_con));
-                manager->priv->carrier_type = g_strdup (nm_active_connection_get_connection_type (a_con));
-                if (manager->priv->carrier_type == NULL)
-                        manager->priv->carrier_type = g_strdup ("");
+                manager->current_network = g_strdup (nm_active_connection_get_uuid (a_con));
+                manager->current_network_name = g_strdup (nm_active_connection_get_id (a_con));
+                manager->carrier_type = g_strdup (nm_active_connection_get_connection_type (a_con));
+                if (manager->carrier_type == NULL)
+                        manager->carrier_type = g_strdup ("");
         } else {
-                manager->priv->current_network = g_strdup ("");
-                manager->priv->current_network_name = g_strdup ("");
-                manager->priv->carrier_type = g_strdup ("");
+                manager->current_network = g_strdup ("");
+                manager->current_network_name = g_strdup ("");
+                manager->carrier_type = g_strdup ("");
         }
 
         if (!a_con) {
-                manager->priv->sharing_status = GSD_SHARING_STATUS_OFFLINE;
-        } else if (*(manager->priv->carrier_type) == '\0') {
+                manager->sharing_status = GSD_SHARING_STATUS_OFFLINE;
+        } else if (*(manager->carrier_type) == '\0') {
                 /* Missing carrier type information? */
-                manager->priv->sharing_status = GSD_SHARING_STATUS_OFFLINE;
-        } else if (g_str_equal (manager->priv->carrier_type, "bluetooth") ||
-                   g_str_equal (manager->priv->carrier_type, "gsm") ||
-                   g_str_equal (manager->priv->carrier_type, "cdma")) {
-                manager->priv->sharing_status = GSD_SHARING_STATUS_DISABLED_MOBILE_BROADBAND;
-        } else if (g_str_equal (manager->priv->carrier_type, "802-11-wireless")) {
-                if (connection_is_low_security (manager, manager->priv->current_network))
-                        manager->priv->sharing_status = GSD_SHARING_STATUS_DISABLED_LOW_SECURITY;
+                manager->sharing_status = GSD_SHARING_STATUS_OFFLINE;
+        } else if (g_str_equal (manager->carrier_type, "bluetooth") ||
+                   g_str_equal (manager->carrier_type, "gsm") ||
+                   g_str_equal (manager->carrier_type, "cdma")) {
+                manager->sharing_status = GSD_SHARING_STATUS_DISABLED_MOBILE_BROADBAND;
+        } else if (g_str_equal (manager->carrier_type, "802-11-wireless")) {
+                if (connection_is_low_security (manager, manager->current_network))
+                        manager->sharing_status = GSD_SHARING_STATUS_DISABLED_LOW_SECURITY;
                 else
-                        manager->priv->sharing_status = GSD_SHARING_STATUS_AVAILABLE;
+                        manager->sharing_status = GSD_SHARING_STATUS_AVAILABLE;
         } else {
-                manager->priv->sharing_status = GSD_SHARING_STATUS_AVAILABLE;
+                manager->sharing_status = GSD_SHARING_STATUS_AVAILABLE;
         }
 
-        g_debug ("current network: %s", manager->priv->current_network);
-        g_debug ("current network name: %s", manager->priv->current_network_name);
-        g_debug ("conn type: %s", manager->priv->carrier_type);
-        g_debug ("status: %d", manager->priv->sharing_status);
+        g_debug ("current network: %s", manager->current_network);
+        g_debug ("current network name: %s", manager->current_network_name);
+        g_debug ("conn type: %s", manager->carrier_type);
+        g_debug ("status: %d", manager->sharing_status);
 
         properties_changed (manager);
         gsd_sharing_manager_sync_services (manager);
@@ -650,7 +650,7 @@ nm_client_ready (GObject      *source_object,
                 g_error_free (error);
                 return;
         }
-        manager->priv->client = client;
+        manager->client = client;
 
         g_signal_connect (G_OBJECT (client), "notify::primary-connection",
                           G_CALLBACK (primary_connection_changed), manager);
@@ -696,19 +696,19 @@ gsd_sharing_manager_start (GsdSharingManager *manager,
         g_debug ("Starting sharing manager");
         gnome_settings_profile_start (NULL);
 
-        manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
-        g_assert (manager->priv->introspection_data != NULL);
+        manager->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        g_assert (manager->introspection_data != NULL);
 
         gsd_sharing_manager_disable_rygel ();
 
-        manager->priv->cancellable = g_cancellable_new ();
+        manager->cancellable = g_cancellable_new ();
 #if HAVE_NETWORK_MANAGER
-        nm_client_new_async (manager->priv->cancellable, nm_client_ready, manager);
+        nm_client_new_async (manager->cancellable, nm_client_ready, manager);
 #endif /* HAVE_NETWORK_MANAGER */
 
         /* Start process of owning a D-Bus name */
         g_bus_get (G_BUS_TYPE_SESSION,
-                   manager->priv->cancellable,
+                   manager->cancellable,
                    (GAsyncReadyCallback) on_bus_gotten,
                    manager);
 
@@ -721,32 +721,32 @@ gsd_sharing_manager_stop (GsdSharingManager *manager)
 {
         g_debug ("Stopping sharing manager");
 
-        if (manager->priv->sharing_status == GSD_SHARING_STATUS_AVAILABLE &&
-            manager->priv->connection != NULL) {
-                manager->priv->sharing_status = GSD_SHARING_STATUS_OFFLINE;
+        if (manager->sharing_status == GSD_SHARING_STATUS_AVAILABLE &&
+            manager->connection != NULL) {
+                manager->sharing_status = GSD_SHARING_STATUS_OFFLINE;
                 gsd_sharing_manager_sync_services (manager);
         }
 
-        if (manager->priv->cancellable) {
-                g_cancellable_cancel (manager->priv->cancellable);
-                g_clear_object (&manager->priv->cancellable);
+        if (manager->cancellable) {
+                g_cancellable_cancel (manager->cancellable);
+                g_clear_object (&manager->cancellable);
         }
 
 #if HAVE_NETWORK_MANAGER
-        g_clear_object (&manager->priv->client);
+        g_clear_object (&manager->client);
 #endif /* HAVE_NETWORK_MANAGER */
 
-        if (manager->priv->name_id != 0) {
-                g_bus_unown_name (manager->priv->name_id);
-                manager->priv->name_id = 0;
+        if (manager->name_id != 0) {
+                g_bus_unown_name (manager->name_id);
+                manager->name_id = 0;
         }
 
-        g_clear_pointer (&manager->priv->introspection_data, g_dbus_node_info_unref);
-        g_clear_object (&manager->priv->connection);
+        g_clear_pointer (&manager->introspection_data, g_dbus_node_info_unref);
+        g_clear_object (&manager->connection);
 
-        g_clear_pointer (&manager->priv->current_network, g_free);
-        g_clear_pointer (&manager->priv->current_network_name, g_free);
-        g_clear_pointer (&manager->priv->carrier_type, g_free);
+        g_clear_pointer (&manager->current_network, g_free);
+        g_clear_pointer (&manager->current_network_name, g_free);
+        g_clear_pointer (&manager->carrier_type, g_free);
 }
 
 static void
@@ -755,8 +755,6 @@ gsd_sharing_manager_class_init (GsdSharingManagerClass *klass)
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
         object_class->finalize = gsd_sharing_manager_finalize;
-
-        g_type_class_add_private (klass, sizeof (GsdSharingManagerPrivate));
 }
 
 static void
@@ -773,14 +771,13 @@ gsd_sharing_manager_init (GsdSharingManager *manager)
 {
         guint i;
 
-        manager->priv = GSD_SHARING_MANAGER_GET_PRIVATE (manager);
-        manager->priv->services = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, service_free);
+        manager->services = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, service_free);
 
         /* Default state */
-        manager->priv->current_network = g_strdup ("");
-        manager->priv->current_network_name = g_strdup ("");
-        manager->priv->carrier_type = g_strdup ("");
-        manager->priv->sharing_status = GSD_SHARING_STATUS_OFFLINE;
+        manager->current_network = g_strdup ("");
+        manager->current_network_name = g_strdup ("");
+        manager->carrier_type = g_strdup ("");
+        manager->sharing_status = GSD_SHARING_STATUS_OFFLINE;
 
         for (i = 0; i < G_N_ELEMENTS (services); i++) {
                 ServiceInfo *service;
@@ -792,7 +789,7 @@ gsd_sharing_manager_init (GsdSharingManager *manager)
                 service->settings = g_settings_new_with_path ("org.gnome.settings-daemon.plugins.sharing.service", path);
                 g_free (path);
 
-                g_hash_table_insert (manager->priv->services, (gpointer) services[i], service);
+                g_hash_table_insert (manager->services, (gpointer) services[i], service);
         }
 }
 
@@ -806,11 +803,11 @@ gsd_sharing_manager_finalize (GObject *object)
 
         manager = GSD_SHARING_MANAGER (object);
 
-        g_return_if_fail (manager->priv != NULL);
+        g_return_if_fail (manager != NULL);
 
         gsd_sharing_manager_stop (manager);
 
-        g_hash_table_unref (manager->priv->services);
+        g_hash_table_unref (manager->services);
 
         G_OBJECT_CLASS (gsd_sharing_manager_parent_class)->finalize (object);
 }
