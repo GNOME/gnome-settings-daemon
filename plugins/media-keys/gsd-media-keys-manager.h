@@ -25,29 +25,16 @@
 G_BEGIN_DECLS
 
 #define GSD_TYPE_MEDIA_KEYS_MANAGER         (gsd_media_keys_manager_get_type ())
-#define GSD_MEDIA_KEYS_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_MEDIA_KEYS_MANAGER, GsdMediaKeysManager))
-#define GSD_MEDIA_KEYS_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_MEDIA_KEYS_MANAGER, GsdMediaKeysManagerClass))
-#define GSD_IS_MEDIA_KEYS_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_MEDIA_KEYS_MANAGER))
-#define GSD_IS_MEDIA_KEYS_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_MEDIA_KEYS_MANAGER))
-#define GSD_MEDIA_KEYS_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_MEDIA_KEYS_MANAGER, GsdMediaKeysManagerClass))
 
-typedef struct GsdMediaKeysManagerPrivate GsdMediaKeysManagerPrivate;
+G_DECLARE_DERIVABLE_TYPE (GsdMediaKeysManager, gsd_media_keys_manager, GSD, MEDIA_KEYS_MANAGER, GObject)
 
-typedef struct
-{
-        GObject                     parent;
-        GsdMediaKeysManagerPrivate *priv;
-} GsdMediaKeysManager;
-
-typedef struct
+struct _GsdMediaKeysManagerClass
 {
         GObjectClass   parent_class;
         void          (* media_player_key_pressed) (GsdMediaKeysManager *manager,
                                                     const char          *application,
                                                     const char          *key);
-} GsdMediaKeysManagerClass;
-
-GType                 gsd_media_keys_manager_get_type                  (void);
+};
 
 GsdMediaKeysManager * gsd_media_keys_manager_new                       (void);
 gboolean              gsd_media_keys_manager_start                     (GsdMediaKeysManager *manager,
