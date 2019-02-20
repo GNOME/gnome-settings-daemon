@@ -17,39 +17,21 @@
  *
  */
 
-#ifndef __GNOME_XSETTINGS_MANAGER_H
-#define __GNOME_XSETTINGS_MANAGER_H
+#ifndef __GSD_XSETTINGS_MANAGER_H
+#define __GSD_XSETTINGS_MANAGER_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GNOME_TYPE_XSETTINGS_MANAGER         (gnome_xsettings_manager_get_type ())
-#define GNOME_XSETTINGS_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GNOME_TYPE_XSETTINGS_MANAGER, GnomeXSettingsManager))
-#define GNOME_XSETTINGS_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GNOME_TYPE_XSETTINGS_MANAGER, GnomeXSettingsManagerClass))
-#define GNOME_IS_XSETTINGS_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GNOME_TYPE_XSETTINGS_MANAGER))
-#define GNOME_IS_XSETTINGS_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GNOME_TYPE_XSETTINGS_MANAGER))
-#define GNOME_XSETTINGS_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GNOME_TYPE_XSETTINGS_MANAGER, GnomeXSettingsManagerClass))
+#define GSD_TYPE_XSETTINGS_MANAGER         (gsd_xsettings_manager_get_type ())
 
-typedef struct GnomeXSettingsManagerPrivate GnomeXSettingsManagerPrivate;
+G_DECLARE_FINAL_TYPE (GsdXSettingsManager, gsd_xsettings_manager, GSD, XSETTINGS_MANAGER, GObject)
 
-typedef struct
-{
-        GObject                     parent;
-        GnomeXSettingsManagerPrivate *priv;
-} GnomeXSettingsManager;
-
-typedef struct
-{
-        GObjectClass   parent_class;
-} GnomeXSettingsManagerClass;
-
-GType                   gnome_xsettings_manager_get_type            (void);
-
-GnomeXSettingsManager * gnome_xsettings_manager_new                 (void);
-gboolean                gnome_xsettings_manager_start               (GnomeXSettingsManager *manager,
-                                                                     GError               **error);
-void                    gnome_xsettings_manager_stop                (GnomeXSettingsManager *manager);
+GsdXSettingsManager   * gsd_xsettings_manager_new                 (void);
+gboolean                gsd_xsettings_manager_start               (GsdXSettingsManager *manager,
+                                                                   GError             **error);
+void                    gsd_xsettings_manager_stop                (GsdXSettingsManager *manager);
 
 G_END_DECLS
 
