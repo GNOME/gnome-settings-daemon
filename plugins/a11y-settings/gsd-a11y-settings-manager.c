@@ -35,10 +35,10 @@
 #include "gnome-settings-profile.h"
 #include "gsd-a11y-settings-manager.h"
 
-#define GSD_A11Y_SETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_A11Y_SETTINGS_MANAGER, GsdA11ySettingsManagerPrivate))
-
-struct GsdA11ySettingsManagerPrivate
+struct _GsdA11ySettingsManager
 {
+        GObject    parent;
+
         GSettings *interface_settings;
         GSettings *a11y_apps_settings;
 };
@@ -68,15 +68,15 @@ apps_settings_changed (GSettings              *settings,
 
 	g_debug ("screen reader or OSK enablement changed");
 
-	screen_reader = g_settings_get_boolean (manager->priv->a11y_apps_settings, "screen-reader-enabled");
-	keyboard = g_settings_get_boolean (manager->priv->a11y_apps_settings, "screen-keyboard-enabled");
+	screen_reader = g_settings_get_boolean (manager->a11y_apps_settings, "screen-reader-enabled");
+	keyboard = g_settings_get_boolean (manager->a11y_apps_settings, "screen-keyboard-enabled");
 
 	if (screen_reader || keyboard) {
 		g_debug ("Enabling toolkit-accessibility, screen reader or OSK enabled");
-		g_settings_set_boolean (manager->priv->interface_settings, "toolkit-accessibility", TRUE);
+		g_settings_set_boolean (manager->interface_settings, "toolkit-accessibility", TRUE);
 	} else if (screen_reader == FALSE && keyboard == FALSE) {
 		g_debug ("Disabling toolkit-accessibility, screen reader and OSK disabled");
-		g_settings_set_boolean (manager->priv->interface_settings, "toolkit-accessibility", FALSE);
+		g_settings_set_boolean (manager->interface_settings, "toolkit-accessibility", FALSE);
 	}
 }
 
@@ -87,19 +87,19 @@ gsd_a11y_settings_manager_start (GsdA11ySettingsManager *manager,
         g_debug ("Starting a11y_settings manager");
         gnome_settings_profile_start (NULL);
 
-	manager->priv->interface_settings = g_settings_new ("org.gnome.desktop.interface");
-	manager->priv->a11y_apps_settings = g_settings_new ("org.gnome.desktop.a11y.applications");
+	manager->interface_settings = g_settings_new ("org.gnome.desktop.interface");
+	manager->a11y_apps_settings = g_settings_new ("org.gnome.desktop.a11y.applications");
 
-	g_signal_connect (G_OBJECT (manager->priv->a11y_apps_settings), "changed",
+	g_signal_connect (G_OBJECT (manager->a11y_apps_settings), "changed",
 			  G_CALLBACK (apps_settings_changed), manager);
 
 	/* If any of the screen reader or on-screen keyboard are enabled,
 	 * make sure a11y is enabled for the toolkits.
 	 * We don't do the same thing for the reverse so it's possible to
 	 * enable AT-SPI for the toolkits without using an a11y app */
-	if (g_settings_get_boolean (manager->priv->a11y_apps_settings, "screen-keyboard-enabled") ||
-	    g_settings_get_boolean (manager->priv->a11y_apps_settings, "screen-reader-enabled"))
-		g_settings_set_boolean (manager->priv->interface_settings, "toolkit-accessibility", TRUE);
+	if (g_settings_get_boolean (manager->a11y_apps_settings, "screen-keyboard-enabled") ||
+	    g_settings_get_boolean (manager->a11y_apps_settings, "screen-reader-enabled"))
+		g_settings_set_boolean (manager->interface_settings, "toolkit-accessibility", TRUE);
 
         gnome_settings_profile_end (NULL);
         return TRUE;
@@ -108,13 +108,13 @@ gsd_a11y_settings_manager_start (GsdA11ySettingsManager *manager,
 void
 gsd_a11y_settings_manager_stop (GsdA11ySettingsManager *manager)
 {
-	if (manager->priv->interface_settings) {
-		g_object_unref (manager->priv->interface_settings);
-		manager->priv->interface_settings = NULL;
+	if (manager->interface_settings) {
+		g_object_unref (manager->interface_settings);
+		manager->interface_settings = NULL;
 	}
-	if (manager->priv->a11y_apps_settings) {
-		g_object_unref (manager->priv->a11y_apps_settings);
-		manager->priv->a11y_apps_settings = NULL;
+	if (manager->a11y_apps_settings) {
+		g_object_unref (manager->a11y_apps_settings);
+		manager->a11y_apps_settings = NULL;
 	}
         g_debug ("Stopping a11y_settings manager");
 }
@@ -125,15 +125,11 @@ gsd_a11y_settings_manager_class_init (GsdA11ySettingsManagerClass *klass)
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
         object_class->finalize = gsd_a11y_settings_manager_finalize;
-
-        g_type_class_add_private (klass, sizeof (GsdA11ySettingsManagerPrivate));
 }
 
 static void
 gsd_a11y_settings_manager_init (GsdA11ySettingsManager *manager)
 {
-        manager->priv = GSD_A11Y_SETTINGS_MANAGER_GET_PRIVATE (manager);
-
 }
 
 static void
@@ -145,8 +141,6 @@ gsd_a11y_settings_manager_finalize (GObject *object)
         g_return_if_fail (GSD_IS_A11Y_SETTINGS_MANAGER (object));
 
         a11y_settings_manager = GSD_A11Y_SETTINGS_MANAGER (object);
-
-        g_return_if_fail (a11y_settings_manager->priv != NULL);
 
         gsd_a11y_settings_manager_stop (a11y_settings_manager);
 

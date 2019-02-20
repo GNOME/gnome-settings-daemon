@@ -24,27 +24,8 @@
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_A11Y_SETTINGS_MANAGER         (gsd_a11y_settings_manager_get_type ())
-#define GSD_A11Y_SETTINGS_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_A11Y_SETTINGS_MANAGER, GsdA11ySettingsManager))
-#define GSD_A11Y_SETTINGS_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_A11Y_SETTINGS_MANAGER, GsdA11ySettingsManagerClass))
-#define GSD_IS_A11Y_SETTINGS_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_A11Y_SETTINGS_MANAGER))
-#define GSD_IS_A11Y_SETTINGS_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_A11Y_SETTINGS_MANAGER))
-#define GSD_A11Y_SETTINGS_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_A11Y_SETTINGS_MANAGER, GsdA11ySettingsManagerClass))
-
-typedef struct GsdA11ySettingsManagerPrivate GsdA11ySettingsManagerPrivate;
-
-typedef struct
-{
-        GObject                        parent;
-        GsdA11ySettingsManagerPrivate *priv;
-} GsdA11ySettingsManager;
-
-typedef struct
-{
-        GObjectClass   parent_class;
-} GsdA11ySettingsManagerClass;
-
-GType                   gsd_a11y_settings_manager_get_type            (void);
+#define GSD_TYPE_A11Y_SETTINGS_MANAGER gsd_a11y_settings_manager_get_type ()
+G_DECLARE_FINAL_TYPE (GsdA11ySettingsManager, gsd_a11y_settings_manager, GSD, A11Y_SETTINGS_MANAGER, GObject)
 
 GsdA11ySettingsManager *gsd_a11y_settings_manager_new                 (void);
 gboolean                gsd_a11y_settings_manager_start               (GsdA11ySettingsManager *manager,
