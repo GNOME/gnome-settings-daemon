@@ -33,25 +33,9 @@
 G_BEGIN_DECLS
 
 #define GSD_TYPE_SMARTCARD_MANAGER         (gsd_smartcard_manager_get_type ())
-#define GSD_SMARTCARD_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_SMARTCARD_MANAGER, GsdSmartcardManager))
-#define GSD_SMARTCARD_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_SMARTCARD_MANAGER, GsdSmartcardManagerClass))
-#define GSD_IS_SMARTCARD_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_SMARTCARD_MANAGER))
-#define GSD_IS_SMARTCARD_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_SMARTCARD_MANAGER))
-#define GSD_SMARTCARD_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_SMARTCARD_MANAGER, GsdSmartcardManagerClass))
 #define GSD_SMARTCARD_MANAGER_ERROR        (gsd_smartcard_manager_error_quark ())
 
-typedef struct GsdSmartcardManagerPrivate GsdSmartcardManagerPrivate;
-
-typedef struct
-{
-        GObject                     parent;
-        GsdSmartcardManagerPrivate *priv;
-} GsdSmartcardManager;
-
-typedef struct
-{
-        GObjectClass   parent_class;
-} GsdSmartcardManagerClass;
+G_DECLARE_FINAL_TYPE (GsdSmartcardManager, gsd_smartcard_manager, GSD, SMARTCARD_MANAGER, GObject)
 
 typedef enum
 {
@@ -64,7 +48,6 @@ typedef enum
          GSD_SMARTCARD_MANAGER_ERROR_NO_DRIVERS,
 } GsdSmartcardManagerError;
 
-GType                   gsd_smartcard_manager_get_type    (void);
 GQuark                  gsd_smartcard_manager_error_quark (void);
 
 
