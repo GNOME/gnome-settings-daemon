@@ -27,14 +27,14 @@
 
 #include "gsd-color-calibrate.h"
 
-#define GSD_COLOR_CALIBRATE_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_COLOR_CALIBRATE, GsdColorCalibratePrivate))
-
 #define GCM_SESSION_NOTIFY_TIMEOUT                      30000 /* ms */
 #define GCM_SETTINGS_RECALIBRATE_PRINTER_THRESHOLD      "recalibrate-printer-threshold"
 #define GCM_SETTINGS_RECALIBRATE_DISPLAY_THRESHOLD      "recalibrate-display-threshold"
 
-struct GsdColorCalibratePrivate
+struct _GsdColorCalibrate
 {
+        GObject          parent;
+
         CdClient        *client;
         GSettings       *settings;
 };
@@ -130,7 +130,6 @@ gcm_session_notify_recalibrate (GsdColorCalibrate *calibrate,
         gboolean ret;
         GError *error = NULL;
         NotifyNotification *notification;
-        GsdColorCalibratePrivate *priv = calibrate->priv;
 
         /* show a bubble */
         notification = notify_notification_new (title, message, "preferences-color");
@@ -144,7 +143,7 @@ gcm_session_notify_recalibrate (GsdColorCalibrate *calibrate,
                                         /* TRANSLATORS: button: this is to open GCM */
                                         _("Recalibrate now"),
                                         gcm_session_notify_cb,
-                                        priv, NULL);
+                                        calibrate, NULL);
 
         g_signal_connect (notification, "closed", G_CALLBACK (closed_cb), NULL);
         ret = notify_notification_show (notification, &error);
@@ -182,7 +181,6 @@ gcm_session_notify_device (GsdColorCalibrate *calibrate, CdDevice *device)
         gchar *message;
         guint threshold;
         glong since;
-        GsdColorCalibratePrivate *priv = calibrate->priv;
 
         /* TRANSLATORS: this is when the device has not been recalibrated in a while */
         title = _("Recalibration required");
@@ -193,7 +191,7 @@ gcm_session_notify_device (GsdColorCalibrate *calibrate, CdDevice *device)
         if (kind == CD_DEVICE_KIND_DISPLAY) {
 
                 /* get from GSettings */
-                threshold = g_settings_get_uint (priv->settings,
+                threshold = g_settings_get_uint (calibrate->settings,
                                                  GCM_SETTINGS_RECALIBRATE_DISPLAY_THRESHOLD);
 
                 /* TRANSLATORS: this is when the display has not been recalibrated in a while */
@@ -202,7 +200,7 @@ gcm_session_notify_device (GsdColorCalibrate *calibrate, CdDevice *device)
         } else {
 
                 /* get from GSettings */
-                threshold = g_settings_get_uint (priv->settings,
+                threshold = g_settings_get_uint (calibrate->settings,
                                                  GCM_SETTINGS_RECALIBRATE_PRINTER_THRESHOLD);
 
                 /* TRANSLATORS: this is when the printer has not been recalibrated in a while */
@@ -371,25 +369,20 @@ gsd_color_calibrate_class_init (GsdColorCalibrateClass *klass)
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
         object_class->finalize = gsd_color_calibrate_finalize;
-
-        g_type_class_add_private (klass, sizeof (GsdColorCalibratePrivate));
 }
 
 static void
 gsd_color_calibrate_init (GsdColorCalibrate *calibrate)
 {
-        GsdColorCalibratePrivate *priv;
-        priv = calibrate->priv = GSD_COLOR_CALIBRATE_GET_PRIVATE (calibrate);
-
-        priv->settings = g_settings_new ("org.gnome.settings-daemon.plugins.color");
-        priv->client = cd_client_new ();
-        g_signal_connect (priv->client, "device-added",
+        calibrate->settings = g_settings_new ("org.gnome.settings-daemon.plugins.color");
+        calibrate->client = cd_client_new ();
+        g_signal_connect (calibrate->client, "device-added",
                           G_CALLBACK (gcm_session_device_added_notify_cb),
                           calibrate);
-        g_signal_connect (priv->client, "sensor-added",
+        g_signal_connect (calibrate->client, "sensor-added",
                           G_CALLBACK (gcm_session_sensor_added_cb),
                           calibrate);
-        g_signal_connect (priv->client, "sensor-removed",
+        g_signal_connect (calibrate->client, "sensor-removed",
                           G_CALLBACK (gcm_session_sensor_removed_cb),
                           calibrate);
 }
@@ -404,8 +397,8 @@ gsd_color_calibrate_finalize (GObject *object)
 
         calibrate = GSD_COLOR_CALIBRATE (object);
 
-        g_clear_object (&calibrate->priv->settings);
-        g_clear_object (&calibrate->priv->client);
+        g_clear_object (&calibrate->settings);
+        g_clear_object (&calibrate->client);
 
         G_OBJECT_CLASS (gsd_color_calibrate_parent_class)->finalize (object);
 }
