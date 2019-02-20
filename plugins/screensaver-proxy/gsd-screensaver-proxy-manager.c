@@ -36,8 +36,6 @@
 #include "gnome-settings-profile.h"
 #include "gsd-screensaver-proxy-manager.h"
 
-#define GSD_SCREENSAVER_PROXY_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_SCREENSAVER_PROXY_MANAGER, GsdScreensaverProxyManagerPrivate))
-
 /* As available in:
  * https://projects.kde.org/projects/kde/kde-workspace/repository/revisions/master/entry/ksmserver/screenlocker/dbus/org.freedesktop.ScreenSaver.xml
  * and documented in:
@@ -130,8 +128,10 @@ static const gchar introspection_xml2[] =
 
 #define GSM_INHIBITOR_FLAG_IDLE 1 << 3
 
-struct GsdScreensaverProxyManagerPrivate
+struct _GsdScreensaverProxyManager
 {
+        GObject                  parent;
+
         GsdSessionManager       *session;
         GDBusConnection         *connection;
         GCancellable            *bus_cancellable;
@@ -162,12 +162,12 @@ name_vanished_cb (GDBusConnection            *connection,
 
         /* Look for all the cookies under that name,
          * and call uninhibit for them */
-        g_hash_table_iter_init (&iter, manager->priv->cookie_ht);
+        g_hash_table_iter_init (&iter, manager->cookie_ht);
         while (g_hash_table_iter_next (&iter, &cookie_ptr, (gpointer *) &sender)) {
                 if (g_strcmp0 (sender, name) == 0) {
                         guint cookie = GPOINTER_TO_UINT (cookie_ptr);
 
-                        g_dbus_proxy_call_sync (G_DBUS_PROXY (manager->priv->session),
+                        g_dbus_proxy_call_sync (G_DBUS_PROXY (manager->session),
                                                 "Uninhibit",
                                                 g_variant_new ("(u)", cookie),
                                                 G_DBUS_CALL_FLAGS_NONE,
@@ -178,7 +178,7 @@ name_vanished_cb (GDBusConnection            *connection,
                 }
         }
 
-        g_hash_table_remove (manager->priv->watch_ht, name);
+        g_hash_table_remove (manager->watch_ht, name);
 }
 
 static void
@@ -195,7 +195,7 @@ handle_method_call (GDBusConnection       *connection,
 
         /* Check session pointer as a proxy for whether the manager is in the
            start or stop state */
-        if (manager->priv->session == NULL) {
+        if (manager->session == NULL) {
                 return;
         }
 
@@ -211,27 +211,27 @@ handle_method_call (GDBusConnection       *connection,
                 g_variant_get (parameters,
                                "(ss)", &app_id, &reason);
 
-                ret = g_dbus_proxy_call_sync (G_DBUS_PROXY (G_DBUS_PROXY (manager->priv->session)),
+                ret = g_dbus_proxy_call_sync (G_DBUS_PROXY (G_DBUS_PROXY (manager->session)),
                                               "Inhibit",
                                               g_variant_new ("(susu)",
                                                              app_id, 0, reason, GSM_INHIBITOR_FLAG_IDLE),
                                               G_DBUS_CALL_FLAGS_NONE,
                                               -1, NULL, NULL);
                 g_variant_get (ret, "(u)", &cookie);
-                g_hash_table_insert (manager->priv->cookie_ht,
+                g_hash_table_insert (manager->cookie_ht,
                                      GUINT_TO_POINTER (cookie),
                                      g_strdup (sender));
-                if (g_hash_table_lookup (manager->priv->watch_ht, sender) == NULL) {
+                if (g_hash_table_lookup (manager->watch_ht, sender) == NULL) {
                         guint watch_id;
 
-                        watch_id = g_bus_watch_name_on_connection (manager->priv->connection,
+                        watch_id = g_bus_watch_name_on_connection (manager->connection,
                                                                    sender,
                                                                    G_BUS_NAME_WATCHER_FLAGS_NONE,
                                                                    NULL,
                                                                    (GBusNameVanishedCallback) name_vanished_cb,
                                                                    manager,
                                                                    NULL);
-                        g_hash_table_insert (manager->priv->watch_ht,
+                        g_hash_table_insert (manager->watch_ht,
                                              g_strdup (sender),
                                              GUINT_TO_POINTER (watch_id));
                 }
@@ -240,13 +240,13 @@ handle_method_call (GDBusConnection       *connection,
                 guint cookie;
 
                 g_variant_get (parameters, "(u)", &cookie);
-                g_dbus_proxy_call_sync (G_DBUS_PROXY (manager->priv->session),
+                g_dbus_proxy_call_sync (G_DBUS_PROXY (manager->session),
                                         "Uninhibit",
                                         parameters,
                                         G_DBUS_CALL_FLAGS_NONE,
                                         -1, NULL, NULL);
                 g_debug ("Removing cookie %u from the list for %s", cookie, sender);
-                g_hash_table_remove (manager->priv->cookie_ht, GUINT_TO_POINTER (cookie));
+                g_hash_table_remove (manager->cookie_ht, GUINT_TO_POINTER (cookie));
                 g_dbus_method_invocation_return_value (invocation, NULL);
         } else if (g_strcmp0 (method_name, "Throttle") == 0) {
                 g_dbus_method_invocation_return_value (invocation, NULL);
@@ -290,8 +290,8 @@ on_bus_gotten (GObject                    *source_object,
         GDBusInterfaceInfo **infos;
         GError *error = NULL;
 
-        if (manager->priv->bus_cancellable == NULL ||
-            g_cancellable_is_cancelled (manager->priv->bus_cancellable)) {
+        if (manager->bus_cancellable == NULL ||
+            g_cancellable_is_cancelled (manager->bus_cancellable)) {
                 g_warning ("Operation has been cancelled, so not retrieving session bus");
                 return;
         }
@@ -302,8 +302,8 @@ on_bus_gotten (GObject                    *source_object,
                 g_error_free (error);
                 return;
         }
-        manager->priv->connection = connection;
-        infos = manager->priv->introspection_data->interfaces;
+        manager->connection = connection;
+        infos = manager->introspection_data->interfaces;
         g_dbus_connection_register_object (connection,
                                            GSD_SCREENSAVER_PROXY_DBUS_PATH,
                                            infos[0],
@@ -311,7 +311,7 @@ on_bus_gotten (GObject                    *source_object,
                                            manager,
                                            NULL,
                                            NULL);
-        infos = manager->priv->introspection_data2->interfaces;
+        infos = manager->introspection_data2->interfaces;
         g_dbus_connection_register_object (connection,
                                            GSD_SCREENSAVER_PROXY_DBUS_PATH2,
                                            infos[0],
@@ -320,7 +320,7 @@ on_bus_gotten (GObject                    *source_object,
                                            NULL,
                                            NULL);
 
-        manager->priv->name_id = g_bus_own_name_on_connection (manager->priv->connection,
+        manager->name_id = g_bus_own_name_on_connection (manager->connection,
                                                                GSD_SCREENSAVER_PROXY_DBUS_SERVICE,
                                                                G_BUS_NAME_OWNER_FLAGS_NONE,
                                                                NULL,
@@ -332,14 +332,14 @@ on_bus_gotten (GObject                    *source_object,
 static void
 register_manager_dbus (GsdScreensaverProxyManager *manager)
 {
-        manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
-        manager->priv->introspection_data2 = g_dbus_node_info_new_for_xml (introspection_xml2, NULL);
-        manager->priv->bus_cancellable = g_cancellable_new ();
-        g_assert (manager->priv->introspection_data != NULL);
-        g_assert (manager->priv->introspection_data2 != NULL);
+        manager->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        manager->introspection_data2 = g_dbus_node_info_new_for_xml (introspection_xml2, NULL);
+        manager->bus_cancellable = g_cancellable_new ();
+        g_assert (manager->introspection_data != NULL);
+        g_assert (manager->introspection_data2 != NULL);
 
         g_bus_get (G_BUS_TYPE_SESSION,
-                   manager->priv->bus_cancellable,
+                   manager->bus_cancellable,
                    (GAsyncReadyCallback) on_bus_gotten,
                    manager);
 }
@@ -350,13 +350,13 @@ gsd_screensaver_proxy_manager_start (GsdScreensaverProxyManager *manager,
 {
         g_debug ("Starting screensaver-proxy manager");
         gnome_settings_profile_start (NULL);
-        manager->priv->session =
+        manager->session =
                 gnome_settings_bus_get_session_proxy ();
-        manager->priv->watch_ht = g_hash_table_new_full (g_str_hash,
+        manager->watch_ht = g_hash_table_new_full (g_str_hash,
                                                          g_str_equal,
                                                          (GDestroyNotify) g_free,
                                                          (GDestroyNotify) g_bus_unwatch_name);
-        manager->priv->cookie_ht = g_hash_table_new_full (g_direct_hash,
+        manager->cookie_ht = g_hash_table_new_full (g_direct_hash,
                                                           g_direct_equal,
                                                           NULL,
                                                           (GDestroyNotify) g_free);
@@ -368,9 +368,9 @@ void
 gsd_screensaver_proxy_manager_stop (GsdScreensaverProxyManager *manager)
 {
         g_debug ("Stopping screensaver_proxy manager");
-        g_clear_object (&manager->priv->session);
-        g_clear_pointer (&manager->priv->watch_ht, g_hash_table_destroy);
-        g_clear_pointer (&manager->priv->cookie_ht, g_hash_table_destroy);
+        g_clear_object (&manager->session);
+        g_clear_pointer (&manager->watch_ht, g_hash_table_destroy);
+        g_clear_pointer (&manager->cookie_ht, g_hash_table_destroy);
 }
 
 static void
@@ -379,14 +379,11 @@ gsd_screensaver_proxy_manager_class_init (GsdScreensaverProxyManagerClass *klass
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
         object_class->finalize = gsd_screensaver_proxy_manager_finalize;
-
-        g_type_class_add_private (klass, sizeof (GsdScreensaverProxyManagerPrivate));
 }
 
 static void
 gsd_screensaver_proxy_manager_init (GsdScreensaverProxyManager *manager)
 {
-        manager->priv = GSD_SCREENSAVER_PROXY_MANAGER_GET_PRIVATE (manager);
 }
 
 static void
@@ -399,18 +396,18 @@ gsd_screensaver_proxy_manager_finalize (GObject *object)
 
         manager = GSD_SCREENSAVER_PROXY_MANAGER (object);
 
-        g_return_if_fail (manager->priv != NULL);
+        g_return_if_fail (manager != NULL);
 
         gsd_screensaver_proxy_manager_stop (manager);
 
-        if (manager->priv->name_id != 0) {
-                g_bus_unown_name (manager->priv->name_id);
-                manager->priv->name_id = 0;
+        if (manager->name_id != 0) {
+                g_bus_unown_name (manager->name_id);
+                manager->name_id = 0;
         }
-        g_clear_object (&manager->priv->connection);
-        g_clear_object (&manager->priv->bus_cancellable);
-        g_clear_pointer (&manager->priv->introspection_data, g_dbus_node_info_unref);
-        g_clear_pointer (&manager->priv->introspection_data2, g_dbus_node_info_unref);
+        g_clear_object (&manager->connection);
+        g_clear_object (&manager->bus_cancellable);
+        g_clear_pointer (&manager->introspection_data, g_dbus_node_info_unref);
+        g_clear_pointer (&manager->introspection_data2, g_dbus_node_info_unref);
 
         G_OBJECT_CLASS (gsd_screensaver_proxy_manager_parent_class)->finalize (object);
 }
