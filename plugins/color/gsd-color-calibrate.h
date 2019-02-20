@@ -26,21 +26,7 @@
 G_BEGIN_DECLS
 
 #define GSD_TYPE_COLOR_CALIBRATE         (gsd_color_calibrate_get_type ())
-#define GSD_COLOR_CALIBRATE(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_COLOR_CALIBRATE, GsdColorCalibrate))
-#define GSD_IS_COLOR_CALIBRATE(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_COLOR_CALIBRATE))
-
-typedef struct GsdColorCalibratePrivate GsdColorCalibratePrivate;
-
-typedef struct
-{
-        GObject                   parent;
-        GsdColorCalibratePrivate *priv;
-} GsdColorCalibrate;
-
-typedef struct
-{
-        GObjectClass    parent_class;
-} GsdColorCalibrateClass;
+G_DECLARE_FINAL_TYPE (GsdColorCalibrate, gsd_color_calibrate, GSD, COLOR_CALIBRATE, GObject)
 
 GType                   gsd_color_calibrate_get_type            (void);
 GQuark                  gsd_color_calibrate_error_quark         (void);
