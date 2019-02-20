@@ -1194,7 +1194,7 @@ upower_kbd_toggle (GsdPowerManager *manager,
 }
 
 static gboolean
-suspend_on_lid_close (GsdPowerManager *manager)
+have_external_monitor (GsdPowerManager *manager)
 {
         return !external_monitor_is_connected (manager->priv->rr_screen);
 }
@@ -1204,7 +1204,7 @@ inhibit_lid_switch_timer_cb (GsdPowerManager *manager)
 {
         stop_inhibit_lid_switch_timer (manager);
 
-        if (suspend_on_lid_close (manager)) {
+        if (have_external_monitor (manager)) {
                 g_debug ("no external monitors for a while; uninhibiting lid close");
                 uninhibit_lid_switch (manager);
         }
@@ -1297,18 +1297,16 @@ do_lid_closed_action (GsdPowerManager *manager)
         /* refresh RANDR so we get an accurate view of what monitors are plugged in when the lid is closed */
         gnome_rr_screen_refresh (manager->priv->rr_screen, NULL); /* NULL-GError */
 
-        if (suspend_on_lid_close (manager)) {
+        /* In this case, systemd-logind will suspend the machine
+         * for us (see also https://gitlab.gnome.org/GNOME/gnome-settings-daemon/issues/88).
+         * However, GNOME Tweaks may inhibit this suspend mechanism, so we
+         * unconditionally lock the screen even though that would happen implicitly on
+         * suspend. */
+        if (have_external_monitor (manager)) {
                 gboolean is_inhibited;
 
-                idle_is_session_inhibited (manager,
-                                           GSM_INHIBITOR_FLAG_SUSPEND,
-                                           &is_inhibited);
-                if (is_inhibited) {
-                        g_debug ("Suspend is inhibited but lid is closed, locking the screen");
-                        /* We put the screensaver on * as we're not suspending,
-                         * but the lid is closed */
-                        lock_screensaver (manager);
-                }
+                g_debug ("Lid was closed without an external monitor, locking screen");
+                lock_screensaver (manager);
         }
 }
 
