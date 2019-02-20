@@ -33,10 +33,10 @@
 
 static void     gcm_edid_finalize       (GObject     *object);
 
-#define GCM_EDID_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GCM_TYPE_EDID, GcmEdidPrivate))
-
-struct _GcmEdidPrivate
+struct _GcmEdid
 {
+        GObject                          parent;
+
         gchar                           *monitor_name;
         gchar                           *vendor_name;
         gchar                           *serial_number;
@@ -82,123 +82,120 @@ const gchar *
 gcm_edid_get_monitor_name (GcmEdid *edid)
 {
         g_return_val_if_fail (GCM_IS_EDID (edid), NULL);
-        return edid->priv->monitor_name;
+        return edid->monitor_name;
 }
 
 const gchar *
 gcm_edid_get_vendor_name (GcmEdid *edid)
 {
-        GcmEdidPrivate *priv = edid->priv;
         g_return_val_if_fail (GCM_IS_EDID (edid), NULL);
 
-        if (priv->vendor_name == NULL)
-                priv->vendor_name = gnome_pnp_ids_get_pnp_id (priv->pnp_ids, priv->pnp_id);
-        return priv->vendor_name;
+        if (edid->vendor_name == NULL)
+                edid->vendor_name = gnome_pnp_ids_get_pnp_id (edid->pnp_ids, edid->pnp_id);
+        return edid->vendor_name;
 }
 
 const gchar *
 gcm_edid_get_serial_number (GcmEdid *edid)
 {
         g_return_val_if_fail (GCM_IS_EDID (edid), NULL);
-        return edid->priv->serial_number;
+        return edid->serial_number;
 }
 
 const gchar *
 gcm_edid_get_eisa_id (GcmEdid *edid)
 {
         g_return_val_if_fail (GCM_IS_EDID (edid), NULL);
-        return edid->priv->eisa_id;
+        return edid->eisa_id;
 }
 
 const gchar *
 gcm_edid_get_checksum (GcmEdid *edid)
 {
         g_return_val_if_fail (GCM_IS_EDID (edid), NULL);
-        return edid->priv->checksum;
+        return edid->checksum;
 }
 
 const gchar *
 gcm_edid_get_pnp_id (GcmEdid *edid)
 {
         g_return_val_if_fail (GCM_IS_EDID (edid), NULL);
-        return edid->priv->pnp_id;
+        return edid->pnp_id;
 }
 
 guint
 gcm_edid_get_width (GcmEdid *edid)
 {
         g_return_val_if_fail (GCM_IS_EDID (edid), 0);
-        return edid->priv->width;
+        return edid->width;
 }
 
 guint
 gcm_edid_get_height (GcmEdid *edid)
 {
         g_return_val_if_fail (GCM_IS_EDID (edid), 0);
-        return edid->priv->height;
+        return edid->height;
 }
 
 gfloat
 gcm_edid_get_gamma (GcmEdid *edid)
 {
         g_return_val_if_fail (GCM_IS_EDID (edid), 0.0f);
-        return edid->priv->gamma;
+        return edid->gamma;
 }
 
 const CdColorYxy *
 gcm_edid_get_red (GcmEdid *edid)
 {
         g_return_val_if_fail (GCM_IS_EDID (edid), NULL);
-        return edid->priv->red;
+        return edid->red;
 }
 
 const CdColorYxy *
 gcm_edid_get_green (GcmEdid *edid)
 {
         g_return_val_if_fail (GCM_IS_EDID (edid), NULL);
-        return edid->priv->green;
+        return edid->green;
 }
 
 const CdColorYxy *
 gcm_edid_get_blue (GcmEdid *edid)
 {
         g_return_val_if_fail (GCM_IS_EDID (edid), NULL);
-        return edid->priv->blue;
+        return edid->blue;
 }
 
 const CdColorYxy *
 gcm_edid_get_white (GcmEdid *edid)
 {
         g_return_val_if_fail (GCM_IS_EDID (edid), NULL);
-        return edid->priv->white;
+        return edid->white;
 }
 
 void
 gcm_edid_reset (GcmEdid *edid)
 {
-        GcmEdidPrivate *priv = edid->priv;
-
         g_return_if_fail (GCM_IS_EDID (edid));
 
         /* free old data */
-        g_free (priv->monitor_name);
-        g_free (priv->vendor_name);
-        g_free (priv->serial_number);
-        g_free (priv->eisa_id);
-        g_free (priv->checksum);
+        g_free (edid->monitor_name);
+        g_free (edid->vendor_name);
+        g_free (edid->serial_number);
+        g_free (edid->eisa_id);
+        g_free (edid->checksum);
 
         /* do not deallocate, just blank */
-        priv->pnp_id[0] = '\0';
+        edid->pnp_id[0] = '\0';
 
         /* set to default values */
-        priv->monitor_name = NULL;
-        priv->vendor_name = NULL;
-        priv->serial_number = NULL;
-        priv->eisa_id = NULL;
-        priv->checksum = NULL;
-        priv->width = 0;
-        priv->height = 0;
-        priv->gamma = 0.0f;
+        edid->monitor_name = NULL;
+        edid->vendor_name = NULL;
+        edid->serial_number = NULL;
+        edid->eisa_id = NULL;
+        edid->checksum = NULL;
+        edid->width = 0;
+        edid->height = 0;
+        edid->gamma = 0.0f;
 }
 
 static gint
@@ -280,7 +277,6 @@ gcm_edid_parse (GcmEdid *edid, const guint8 *data, gsize length, GError **error)
 {
         gboolean ret = TRUE;
         guint i;
-        GcmEdidPrivate *priv = edid->priv;
         guint32 serial;
         gchar *tmp;
 
@@ -310,9 +306,9 @@ gcm_edid_parse (GcmEdid *edid, const guint8 *data, gsize length, GError **error)
          * 7654321076543210
          * |\---/\---/\---/
          * R  C1   C2   C3 */
-        priv->pnp_id[0] = 'A' + ((data[GCM_EDID_OFFSET_PNPID+0] & 0x7c) / 4) - 1;
-        priv->pnp_id[1] = 'A' + ((data[GCM_EDID_OFFSET_PNPID+0] & 0x3) * 8) + ((data[GCM_EDID_OFFSET_PNPID+1] & 0xe0) / 32) - 1;
-        priv->pnp_id[2] = 'A' + (data[GCM_EDID_OFFSET_PNPID+1] & 0x1f) - 1;
+        edid->pnp_id[0] = 'A' + ((data[GCM_EDID_OFFSET_PNPID+0] & 0x7c) / 4) - 1;
+        edid->pnp_id[1] = 'A' + ((data[GCM_EDID_OFFSET_PNPID+0] & 0x3) * 8) + ((data[GCM_EDID_OFFSET_PNPID+1] & 0xe0) / 32) - 1;
+        edid->pnp_id[2] = 'A' + (data[GCM_EDID_OFFSET_PNPID+1] & 0x1f) - 1;
 
         /* maybe there isn't a ASCII serial number descriptor, so use this instead */
         serial = (guint32) data[GCM_EDID_OFFSET_SERIAL+0];
@@ -320,40 +316,40 @@ gcm_edid_parse (GcmEdid *edid, const guint8 *data, gsize length, GError **error)
         serial += (guint32) data[GCM_EDID_OFFSET_SERIAL+2] * 0x10000;
         serial += (guint32) data[GCM_EDID_OFFSET_SERIAL+3] * 0x1000000;
         if (serial > 0)
-                priv->serial_number = g_strdup_printf ("%" G_GUINT32_FORMAT, serial);
+                edid->serial_number = g_strdup_printf ("%" G_GUINT32_FORMAT, serial);
 
         /* get the size */
-        priv->width = data[GCM_EDID_OFFSET_SIZE+0];
-        priv->height = data[GCM_EDID_OFFSET_SIZE+1];
+        edid->width = data[GCM_EDID_OFFSET_SIZE+0];
+        edid->height = data[GCM_EDID_OFFSET_SIZE+1];
 
         /* we don't care about aspect */
-        if (priv->width == 0 || priv->height == 0) {
-                priv->width = 0;
-                priv->height = 0;
+        if (edid->width == 0 || edid->height == 0) {
+                edid->width = 0;
+                edid->height = 0;
         }
 
         /* get gamma */
         if (data[GCM_EDID_OFFSET_GAMMA] == 0xff) {
-                priv->gamma = 1.0f;
+                edid->gamma = 1.0f;
         } else {
-                priv->gamma = ((gfloat) data[GCM_EDID_OFFSET_GAMMA] / 100) + 1;
+                edid->gamma = ((gfloat) data[GCM_EDID_OFFSET_GAMMA] / 100) + 1;
         }
 
         /* get color red */
-        priv->red->x = gcm_edid_decode_fraction (data[0x1b], gcm_edid_get_bits (data[0x19], 6, 7));
-        priv->red->y = gcm_edid_decode_fraction (data[0x1c], gcm_edid_get_bits (data[0x19], 4, 5));
+        edid->red->x = gcm_edid_decode_fraction (data[0x1b], gcm_edid_get_bits (data[0x19], 6, 7));
+        edid->red->y = gcm_edid_decode_fraction (data[0x1c], gcm_edid_get_bits (data[0x19], 4, 5));
 
         /* get color green */
-        priv->green->x = gcm_edid_decode_fraction (data[0x1d], gcm_edid_get_bits (data[0x19], 2, 3));
-        priv->green->y = gcm_edid_decode_fraction (data[0x1e], gcm_edid_get_bits (data[0x19], 0, 1));
+        edid->green->x = gcm_edid_decode_fraction (data[0x1d], gcm_edid_get_bits (data[0x19], 2, 3));
+        edid->green->y = gcm_edid_decode_fraction (data[0x1e], gcm_edid_get_bits (data[0x19], 0, 1));
 
         /* get color blue */
-        priv->blue->x = gcm_edid_decode_fraction (data[0x1f], gcm_edid_get_bits (data[0x1a], 6, 7));
-        priv->blue->y = gcm_edid_decode_fraction (data[0x20], gcm_edid_get_bits (data[0x1a], 4, 5));
+        edid->blue->x = gcm_edid_decode_fraction (data[0x1f], gcm_edid_get_bits (data[0x1a], 6, 7));
+        edid->blue->y = gcm_edid_decode_fraction (data[0x20], gcm_edid_get_bits (data[0x1a], 4, 5));
 
         /* get color white */
-        priv->white->x = gcm_edid_decode_fraction (data[0x21], gcm_edid_get_bits (data[0x1a], 2, 3));
-        priv->white->y = gcm_edid_decode_fraction (data[0x22], gcm_edid_get_bits (data[0x1a], 0, 1));
+        edid->white->x = gcm_edid_decode_fraction (data[0x21], gcm_edid_get_bits (data[0x1a], 2, 3));
+        edid->white->y = gcm_edid_decode_fraction (data[0x22], gcm_edid_get_bits (data[0x1a], 0, 1));
 
         /* parse EDID data */
         for (i = GCM_EDID_OFFSET_DATA_BLOCKS;
@@ -369,39 +365,39 @@ gcm_edid_parse (GcmEdid *edid, const guint8 *data, gsize length, GError **error)
                 if (data[i+3] == GCM_DESCRIPTOR_DISPLAY_PRODUCT_NAME) {
                         tmp = gcm_edid_parse_string (&data[i+5]);
                         if (tmp != NULL) {
-                                g_free (priv->monitor_name);
-                                priv->monitor_name = tmp;
+                                g_free (edid->monitor_name);
+                                edid->monitor_name = tmp;
                         }
                 } else if (data[i+3] == GCM_DESCRIPTOR_DISPLAY_PRODUCT_SERIAL_NUMBER) {
                         tmp = gcm_edid_parse_string (&data[i+5]);
                         if (tmp != NULL) {
-                                g_free (priv->serial_number);
-                                priv->serial_number = tmp;
+                                g_free (edid->serial_number);
+                                edid->serial_number = tmp;
                         }
                 } else if (data[i+3] == GCM_DESCRIPTOR_COLOR_MANAGEMENT_DATA) {
                         g_warning ("failing to parse color management data");
                 } else if (data[i+3] == GCM_DESCRIPTOR_ALPHANUMERIC_DATA_STRING) {
                         tmp = gcm_edid_parse_string (&data[i+5]);
                         if (tmp != NULL) {
-                                g_free (priv->eisa_id);
-                                priv->eisa_id = tmp;
+                                g_free (edid->eisa_id);
+                                edid->eisa_id = tmp;
                         }
                 } else if (data[i+3] == GCM_DESCRIPTOR_COLOR_POINT) {
                         if (data[i+3+9] != 0xff) {
                                 /* extended EDID block(1) which contains
                                  * a better gamma value */
-                                priv->gamma = ((gfloat) data[i+3+9] / 100) + 1;
+                                edid->gamma = ((gfloat) data[i+3+9] / 100) + 1;
                         }
                         if (data[i+3+14] != 0xff) {
                                 /* extended EDID block(2) which contains
                                  * a better gamma value */
-                                priv->gamma = ((gfloat) data[i+3+9] / 100) + 1;
+                                edid->gamma = ((gfloat) data[i+3+9] / 100) + 1;
                         }
                 }
         }
 
         /* calculate checksum */
-        priv->checksum = g_compute_checksum_for_data (G_CHECKSUM_MD5, data, length);
+        edid->checksum = g_compute_checksum_for_data (G_CHECKSUM_MD5, data, length);
 out:
         return ret;
 }
@@ -411,38 +407,35 @@ gcm_edid_class_init (GcmEdidClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
         object_class->finalize = gcm_edid_finalize;
-        g_type_class_add_private (klass, sizeof (GcmEdidPrivate));
 }
 
 static void
 gcm_edid_init (GcmEdid *edid)
 {
-        edid->priv = GCM_EDID_GET_PRIVATE (edid);
-        edid->priv->pnp_ids = gnome_pnp_ids_new ();
-        edid->priv->pnp_id = g_new0 (gchar, 4);
-        edid->priv->red = cd_color_yxy_new ();
-        edid->priv->green = cd_color_yxy_new ();
-        edid->priv->blue = cd_color_yxy_new ();
-        edid->priv->white = cd_color_yxy_new ();
+        edid->pnp_ids = gnome_pnp_ids_new ();
+        edid->pnp_id = g_new0 (gchar, 4);
+        edid->red = cd_color_yxy_new ();
+        edid->green = cd_color_yxy_new ();
+        edid->blue = cd_color_yxy_new ();
+        edid->white = cd_color_yxy_new ();
 }
 
 static void
 gcm_edid_finalize (GObject *object)
 {
         GcmEdid *edid = GCM_EDID (object);
-        GcmEdidPrivate *priv = edid->priv;
 
-        g_free (priv->monitor_name);
-        g_free (priv->vendor_name);
-        g_free (priv->serial_number);
-        g_free (priv->eisa_id);
-        g_free (priv->checksum);
-        g_free (priv->pnp_id);
-        cd_color_yxy_free (priv->white);
-        cd_color_yxy_free (priv->red);
-        cd_color_yxy_free (priv->green);
-        cd_color_yxy_free (priv->blue);
-        g_object_unref (priv->pnp_ids);
+        g_free (edid->monitor_name);
+        g_free (edid->vendor_name);
+        g_free (edid->serial_number);
+        g_free (edid->eisa_id);
+        g_free (edid->checksum);
+        g_free (edid->pnp_id);
+        cd_color_yxy_free (edid->white);
+        cd_color_yxy_free (edid->red);
+        cd_color_yxy_free (edid->green);
+        cd_color_yxy_free (edid->blue);
+        g_object_unref (edid->pnp_ids);
 
         G_OBJECT_CLASS (gcm_edid_parent_class)->finalize (object);
 }
