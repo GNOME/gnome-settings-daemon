@@ -33,8 +33,6 @@
 #include "gsd-enums.h"
 #include "gsd-settings-migrate.h"
 
-#define GSD_MOUSE_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_MOUSE_MANAGER, GsdMouseManagerPrivate))
-
 #define GSD_SETTINGS_MOUSE_SCHEMA  "org.gnome.settings-daemon.peripherals.mouse"
 #define GSETTINGS_MOUSE_SCHEMA     "org.gnome.desktop.peripherals.mouse"
 #define GSETTINGS_TOUCHPAD_SCHEMA  "org.gnome.desktop.peripherals.touchpad"
@@ -44,8 +42,10 @@
 #define KEY_DWELL_CLICK_ENABLED          "dwell-click-enabled"
 #define KEY_SECONDARY_CLICK_ENABLED      "secondary-click-enabled"
 
-struct GsdMouseManagerPrivate
+struct _GsdMouseManager
 {
+        GObject parent;
+
         guint start_idle_id;
         GSettings *touchpad_settings;
         GSettings *mouse_a11y_settings;
@@ -72,8 +72,6 @@ gsd_mouse_manager_class_init (GsdMouseManagerClass *klass)
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
         object_class->finalize = gsd_mouse_manager_finalize;
-
-        g_type_class_add_private (klass, sizeof (GsdMouseManagerPrivate));
 }
 
 static void
@@ -84,7 +82,7 @@ set_locate_pointer (GsdMouseManager *manager,
                 GError *error = NULL;
                 char *args[2];
 
-                if (manager->priv->locate_pointer_spawned)
+                if (manager->locate_pointer_spawned)
                         return;
 
                 args[0] = LIBEXECDIR "/gsd-locate-pointer";
@@ -92,19 +90,19 @@ set_locate_pointer (GsdMouseManager *manager,
 
                 g_spawn_async (NULL, args, NULL,
                                0, NULL, NULL,
-                               &manager->priv->locate_pointer_pid, &error);
+                               &manager->locate_pointer_pid, &error);
 
-                manager->priv->locate_pointer_spawned = (error == NULL);
+                manager->locate_pointer_spawned = (error == NULL);
 
                 if (error) {
-                        g_settings_set_boolean (manager->priv->gsd_mouse_settings, KEY_LOCATE_POINTER, FALSE);
+                        g_settings_set_boolean (manager->gsd_mouse_settings, KEY_LOCATE_POINTER, FALSE);
                         g_error_free (error);
                 }
 
-        } else if (manager->priv->locate_pointer_spawned) {
-                kill (manager->priv->locate_pointer_pid, SIGHUP);
-                g_spawn_close_pid (manager->priv->locate_pointer_pid);
-                manager->priv->locate_pointer_spawned = FALSE;
+        } else if (manager->locate_pointer_spawned) {
+                kill (manager->locate_pointer_pid, SIGHUP);
+                g_spawn_close_pid (manager->locate_pointer_pid);
+                manager->locate_pointer_spawned = FALSE;
         }
 }
 
@@ -117,22 +115,22 @@ set_mousetweaks_daemon (GsdMouseManager *manager,
         gchar *comm;
         gboolean run_daemon = dwell_click_enabled || secondary_click_enabled;
 
-        if (run_daemon || manager->priv->mousetweaks_daemon_running)
+        if (run_daemon || manager->mousetweaks_daemon_running)
                 comm = g_strdup_printf ("mousetweaks %s",
                                         run_daemon ? "" : "-s");
         else
                 return;
 
         if (run_daemon)
-                manager->priv->mousetweaks_daemon_running = TRUE;
+                manager->mousetweaks_daemon_running = TRUE;
 
         if (! g_spawn_command_line_async (comm, &error)) {
                 if (error->code == G_SPAWN_ERROR_NOENT && run_daemon) {
                         if (dwell_click_enabled) {
-                                g_settings_set_boolean (manager->priv->mouse_a11y_settings,
+                                g_settings_set_boolean (manager->mouse_a11y_settings,
                                                         KEY_DWELL_CLICK_ENABLED, FALSE);
                         } else if (secondary_click_enabled) {
-                                g_settings_set_boolean (manager->priv->mouse_a11y_settings,
+                                g_settings_set_boolean (manager->mouse_a11y_settings,
                                                         KEY_SECONDARY_CLICK_ENABLED, FALSE);
                         }
 
@@ -161,7 +159,6 @@ mouse_callback (GSettings       *settings,
 static void
 gsd_mouse_manager_init (GsdMouseManager *manager)
 {
-        manager->priv = GSD_MOUSE_MANAGER_GET_PRIVATE (manager);
 }
 
 static gboolean
@@ -169,27 +166,27 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
 {
         gnome_settings_profile_start (NULL);
 
-        manager->priv->gsd_mouse_settings = g_settings_new (GSD_SETTINGS_MOUSE_SCHEMA);
-        g_signal_connect (manager->priv->gsd_mouse_settings, "changed",
+        manager->gsd_mouse_settings = g_settings_new (GSD_SETTINGS_MOUSE_SCHEMA);
+        g_signal_connect (manager->gsd_mouse_settings, "changed",
                           G_CALLBACK (mouse_callback), manager);
 
-        manager->priv->mouse_a11y_settings = g_settings_new ("org.gnome.desktop.a11y.mouse");
-        g_signal_connect (manager->priv->mouse_a11y_settings, "changed",
+        manager->mouse_a11y_settings = g_settings_new ("org.gnome.desktop.a11y.mouse");
+        g_signal_connect (manager->mouse_a11y_settings, "changed",
                           G_CALLBACK (mouse_callback), manager);
 #if 0
-        manager->priv->mouse_settings = g_settings_new (GSETTINGS_MOUSE_SCHEMA);
-        g_signal_connect (manager->priv->mouse_settings, "changed",
+        manager->mouse_settings = g_settings_new (GSETTINGS_MOUSE_SCHEMA);
+        g_signal_connect (manager->mouse_settings, "changed",
                           G_CALLBACK (mouse_callback), manager);
 #endif
 
-        set_locate_pointer (manager, g_settings_get_boolean (manager->priv->gsd_mouse_settings, KEY_LOCATE_POINTER));
+        set_locate_pointer (manager, g_settings_get_boolean (manager->gsd_mouse_settings, KEY_LOCATE_POINTER));
         set_mousetweaks_daemon (manager,
-                                g_settings_get_boolean (manager->priv->mouse_a11y_settings, KEY_DWELL_CLICK_ENABLED),
-                                g_settings_get_boolean (manager->priv->mouse_a11y_settings, KEY_SECONDARY_CLICK_ENABLED));
+                                g_settings_get_boolean (manager->mouse_a11y_settings, KEY_DWELL_CLICK_ENABLED),
+                                g_settings_get_boolean (manager->mouse_a11y_settings, KEY_SECONDARY_CLICK_ENABLED));
 
         gnome_settings_profile_end (NULL);
 
-        manager->priv->start_idle_id = 0;
+        manager->start_idle_id = 0;
 
         return FALSE;
 }
@@ -205,8 +202,8 @@ gsd_mouse_manager_start (GsdMouseManager *manager,
         if (gnome_settings_is_wayland ())
                 return TRUE;
 
-        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) gsd_mouse_manager_idle_cb, manager);
-        g_source_set_name_by_id (manager->priv->start_idle_id, "[gnome-settings-daemon] gsd_mouse_manager_idle_cb");
+        manager->start_idle_id = g_idle_add ((GSourceFunc) gsd_mouse_manager_idle_cb, manager);
+        g_source_set_name_by_id (manager->start_idle_id, "[gnome-settings-daemon] gsd_mouse_manager_idle_cb");
 
         gnome_settings_profile_end (NULL);
 
@@ -216,19 +213,17 @@ gsd_mouse_manager_start (GsdMouseManager *manager,
 void
 gsd_mouse_manager_stop (GsdMouseManager *manager)
 {
-        GsdMouseManagerPrivate *p = manager->priv;
-
         g_debug ("Stopping mouse manager");
 
-        if (manager->priv->start_idle_id != 0) {
-                g_source_remove (manager->priv->start_idle_id);
-                manager->priv->start_idle_id = 0;
+        if (manager->start_idle_id != 0) {
+                g_source_remove (manager->start_idle_id);
+                manager->start_idle_id = 0;
         }
 
-        g_clear_object (&p->mouse_a11y_settings);
-        g_clear_object (&p->mouse_settings);
-        g_clear_object (&p->touchpad_settings);
-        g_clear_object (&p->gsd_mouse_settings);
+        g_clear_object (&manager->mouse_a11y_settings);
+        g_clear_object (&manager->mouse_settings);
+        g_clear_object (&manager->touchpad_settings);
+        g_clear_object (&manager->gsd_mouse_settings);
 
         set_locate_pointer (manager, FALSE);
 }
@@ -243,7 +238,7 @@ gsd_mouse_manager_finalize (GObject *object)
 
         mouse_manager = GSD_MOUSE_MANAGER (object);
 
-        g_return_if_fail (mouse_manager->priv != NULL);
+        g_return_if_fail (mouse_manager != NULL);
 
         gsd_mouse_manager_stop (mouse_manager);
 
