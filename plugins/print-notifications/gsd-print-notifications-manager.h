@@ -25,26 +25,8 @@
 G_BEGIN_DECLS
 
 #define GSD_TYPE_PRINT_NOTIFICATIONS_MANAGER         (gsd_print_notifications_manager_get_type ())
-#define GSD_PRINT_NOTIFICATIONS_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_PRINT_NOTIFICATIONS_MANAGER, GsdPrintNotificationsManager))
-#define GSD_PRINT_NOTIFICATIONS_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_PRINT_NOTIFICATIONS_MANAGER, GsdPrintNotificationsManagerClass))
-#define GSD_IS_PRINT_NOTIFICATIONS_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_PRINT_NOTIFICATIONS_MANAGER))
-#define GSD_IS_PRINT_NOTIFICATIONS_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_PRINT_NOTIFICATIONS_MANAGER))
-#define GSD_PRINT_NOTIFICATIONS_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_PRINT_NOTIFICATIONS_MANAGER, GsdPrintNotificationsManagerClass))
 
-typedef struct GsdPrintNotificationsManagerPrivate GsdPrintNotificationsManagerPrivate;
-
-typedef struct
-{
-        GObject                              parent;
-        GsdPrintNotificationsManagerPrivate *priv;
-} GsdPrintNotificationsManager;
-
-typedef struct
-{
-        GObjectClass   parent_class;
-} GsdPrintNotificationsManagerClass;
-
-GType                         gsd_print_notifications_manager_get_type (void);
+G_DECLARE_FINAL_TYPE (GsdPrintNotificationsManager, gsd_print_notifications_manager, GSD, PRINT_NOTIFICATIONS_MANAGER, GObject)
 
 GsdPrintNotificationsManager *gsd_print_notifications_manager_new      (void);
 gboolean                      gsd_print_notifications_manager_start    (GsdPrintNotificationsManager *manager,
