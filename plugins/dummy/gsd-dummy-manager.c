@@ -27,11 +27,9 @@
 #include "gnome-settings-profile.h"
 #include "gsd-dummy-manager.h"
 
-#define GSD_DUMMY_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_DUMMY_MANAGER, GsdDummyManagerPrivate))
-
-struct GsdDummyManagerPrivate
+struct _GsdDummyManager
 {
-        gboolean padding;
+        GObject         parent;
 };
 
 enum {
@@ -118,28 +116,18 @@ gsd_dummy_manager_class_init (GsdDummyManagerClass *klass)
         object_class->constructor = gsd_dummy_manager_constructor;
         object_class->dispose = gsd_dummy_manager_dispose;
         object_class->finalize = gsd_dummy_manager_finalize;
-
-        g_type_class_add_private (klass, sizeof (GsdDummyManagerPrivate));
 }
 
 static void
 gsd_dummy_manager_init (GsdDummyManager *manager)
 {
-        manager->priv = GSD_DUMMY_MANAGER_GET_PRIVATE (manager);
-
 }
 
 static void
 gsd_dummy_manager_finalize (GObject *object)
 {
-        GsdDummyManager *dummy_manager;
-
         g_return_if_fail (object != NULL);
         g_return_if_fail (GSD_IS_DUMMY_MANAGER (object));
-
-        dummy_manager = GSD_DUMMY_MANAGER (object);
-
-        g_return_if_fail (dummy_manager->priv != NULL);
 
         G_OBJECT_CLASS (gsd_dummy_manager_parent_class)->finalize (object);
 }
