@@ -421,9 +421,8 @@ need_ibus (GVariant *sources)
 static gboolean
 need_osk (GsdKeyboardManager *manager)
 {
-        GSettings *a11y_settings;
         gboolean has_touchscreen = FALSE;
-        GList *devices, *l;
+        GList *devices;
         GdkSeat *seat;
 
         if (g_settings_get_boolean (manager->a11y_settings,
