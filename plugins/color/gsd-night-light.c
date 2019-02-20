@@ -633,7 +633,7 @@ gsd_night_light_finalize (GObject *object)
         poll_smooth_destroy (self);
 
         g_clear_object (&self->settings);
-        g_clear_pointer (&self->datetime_override, (GDestroyNotify) g_date_time_unref);
+        g_clear_pointer (&self->datetime_override, g_date_time_unref);
         g_clear_pointer (&self->disabled_until_tmw_dt, g_date_time_unref);
 
         if (self->validate_id > 0) {
