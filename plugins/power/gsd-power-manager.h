@@ -25,25 +25,9 @@
 G_BEGIN_DECLS
 
 #define GSD_TYPE_POWER_MANAGER         (gsd_power_manager_get_type ())
-#define GSD_POWER_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_POWER_MANAGER, GsdPowerManager))
-#define GSD_POWER_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_POWER_MANAGER, GsdPowerManagerClass))
-#define GSD_IS_POWER_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_POWER_MANAGER))
-#define GSD_IS_POWER_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_POWER_MANAGER))
-#define GSD_POWER_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_POWER_MANAGER, GsdPowerManagerClass))
 #define GSD_POWER_MANAGER_ERROR        (gsd_power_manager_error_quark ())
 
-typedef struct GsdPowerManagerPrivate GsdPowerManagerPrivate;
-
-typedef struct
-{
-        GObject                     parent;
-        GsdPowerManagerPrivate *priv;
-} GsdPowerManager;
-
-typedef struct
-{
-        GObjectClass   parent_class;
-} GsdPowerManagerClass;
+G_DECLARE_FINAL_TYPE (GsdPowerManager, gsd_power_manager, GSD, POWER_MANAGER, GObject)
 
 enum
 {
@@ -51,7 +35,6 @@ enum
         GSD_POWER_MANAGER_ERROR_NO_BACKLIGHT,
 };
 
-GType                   gsd_power_manager_get_type            (void);
 GQuark                  gsd_power_manager_error_quark         (void);
 
 GsdPowerManager *       gsd_power_manager_new                 (void);
