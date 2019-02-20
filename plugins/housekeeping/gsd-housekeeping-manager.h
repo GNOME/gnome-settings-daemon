@@ -25,24 +25,8 @@
 G_BEGIN_DECLS
 
 #define GSD_TYPE_HOUSEKEEPING_MANAGER         (gsd_housekeeping_manager_get_type ())
-#define GSD_HOUSEKEEPING_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_HOUSEKEEPING_MANAGER, GsdHousekeepingManager))
-#define GSD_HOUSEKEEPING_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_HOUSEKEEPING_MANAGER, GsdHousekeepingManagerClass))
-#define GSD_IS_HOUSEKEEPING_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_HOUSEKEEPING_MANAGER))
-#define GSD_IS_HOUSEKEEPING_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_HOUSEKEEPING_MANAGER))
-#define GSD_HOUSEKEEPING_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_HOUSEKEEPING_MANAGER, GsdHousekeepingManagerClass))
 
-typedef struct GsdHousekeepingManagerPrivate GsdHousekeepingManagerPrivate;
-
-typedef struct {
-        GObject                        parent;
-        GsdHousekeepingManagerPrivate *priv;
-} GsdHousekeepingManager;
-
-typedef struct {
-        GObjectClass   parent_class;
-} GsdHousekeepingManagerClass;
-
-GType                    gsd_housekeeping_manager_get_type      (void);
+G_DECLARE_FINAL_TYPE (GsdHousekeepingManager, gsd_housekeeping_manager, GSD, HOUSEKEEPING_MANAGER, GObject)
 
 GsdHousekeepingManager * gsd_housekeeping_manager_new           (void);
 gboolean                 gsd_housekeeping_manager_start         (GsdHousekeepingManager  *manager,
