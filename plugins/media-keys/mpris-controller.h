@@ -24,29 +24,8 @@
 G_BEGIN_DECLS
 
 #define MPRIS_TYPE_CONTROLLER mpris_controller_get_type()
-#define MPRIS_CONTROLLER(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), MPRIS_TYPE_CONTROLLER, MprisController))
-#define MPRIS_CONTROLLER_CLASS(klass)  (G_TYPE_CHECK_CLASS_CAST ((klass), MPRIS_TYPE_CONTROLLER, MprisControllerClass))
-#define MPRIS_IS_CONTROLLER(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), MPRIS_TYPE_CONTROLLER))
-#define MPRIS_IS_CONTROLLER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), MPRIS_TYPE_CONTROLLER))
-#define MPRIS_CONTROLLER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), MPRIS_TYPE_CONTROLLER, MprisControllerClass))
 
-typedef struct _MprisController MprisController;
-typedef struct _MprisControllerClass MprisControllerClass;
-typedef struct _MprisControllerPrivate MprisControllerPrivate;
-
-struct _MprisController
-{
-  GObject parent;
-
-  MprisControllerPrivate *priv;
-};
-
-struct _MprisControllerClass
-{
-  GObjectClass parent_class;
-};
-
-GType mpris_controller_get_type (void) G_GNUC_CONST;
+G_DECLARE_FINAL_TYPE (MprisController, mpris_controller, MPRIS, CONTROLLER, GObject)
 
 MprisController *mpris_controller_new (void);
 gboolean         mpris_controller_key (MprisController *self, const gchar *key);
