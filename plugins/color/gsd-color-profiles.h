@@ -26,23 +26,8 @@
 G_BEGIN_DECLS
 
 #define GSD_TYPE_COLOR_PROFILES         (gsd_color_profiles_get_type ())
-#define GSD_COLOR_PROFILES(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_COLOR_PROFILES, GsdColorProfiles))
-#define GSD_IS_COLOR_PROFILES(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_COLOR_PROFILES))
+G_DECLARE_FINAL_TYPE (GsdColorProfiles, gsd_color_profiles, GSD, COLOR_PROFILES, GObject)
 
-typedef struct GsdColorProfilesPrivate GsdColorProfilesPrivate;
-
-typedef struct
-{
-        GObject                   parent;
-        GsdColorProfilesPrivate *priv;
-} GsdColorProfiles;
-
-typedef struct
-{
-        GObjectClass    parent_class;
-} GsdColorProfilesClass;
-
-GType                   gsd_color_profiles_get_type             (void);
 GQuark                  gsd_color_profiles_error_quark          (void);
 
 GsdColorProfiles *      gsd_color_profiles_new                  (void);
