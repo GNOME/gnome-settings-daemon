@@ -26,27 +26,13 @@
 G_BEGIN_DECLS
 
 #define GSD_TYPE_COLOR_STATE         (gsd_color_state_get_type ())
-#define GSD_COLOR_STATE(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_COLOR_STATE, GsdColorState))
-#define GSD_IS_COLOR_STATE(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_COLOR_STATE))
+
+G_DECLARE_FINAL_TYPE (GsdColorState, gsd_color_state, GSD, COLOR_STATE, GObject)
 
 #define GSD_COLOR_TEMPERATURE_MIN               1000    /* Kelvin */
 #define GSD_COLOR_TEMPERATURE_DEFAULT           6500    /* Kelvin, is RGB [1.0,1.0,1.0] */
 #define GSD_COLOR_TEMPERATURE_MAX               10000   /* Kelvin */
 
-typedef struct GsdColorStatePrivate GsdColorStatePrivate;
-
-typedef struct
-{
-        GObject                  parent;
-        GsdColorStatePrivate    *priv;
-} GsdColorState;
-
-typedef struct
-{
-        GObjectClass             parent_class;
-} GsdColorStateClass;
-
-GType                   gsd_color_state_get_type        (void);
 GQuark                  gsd_color_state_error_quark     (void);
 
 GsdColorState *         gsd_color_state_new             (void);
