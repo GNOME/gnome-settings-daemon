@@ -39,27 +39,15 @@
 #include "gnome-settings-profile.h"
 #include "gsd-remote-display-manager.h"
 
-#define GSD_REMOTE_DISPLAY_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_REMOTE_DISPLAY_MANAGER, GsdRemoteDisplayManagerPrivate))
-
 enum
 {
     PROP_0,
     PROP_FORCE_DISABLE_ANIMATIONS
 };
 
-typedef struct GsdRemoteDisplayManagerPrivate GsdRemoteDisplayManagerPrivate;
-
-struct GsdRemoteDisplayManagerClass {
-        GObjectClass parent_class;
-};
-
-struct GsdRemoteDisplayManager {
+struct _GsdRemoteDisplayManager {
         GObject parent;
-        GsdRemoteDisplayManagerPrivate *priv;
-};
 
-struct GsdRemoteDisplayManagerPrivate
-{
         /* Proxy for the force-disable-animations property */
         gboolean      disabled;
 
@@ -78,12 +66,12 @@ static void
 update_property_from_variant (GsdRemoteDisplayManager *manager,
                               GVariant                *variant)
 {
-        manager->priv->vnc_in_use = g_variant_get_boolean (variant);
-        manager->priv->disabled = manager->priv->vnc_in_use;
+        manager->vnc_in_use = g_variant_get_boolean (variant);
+        manager->disabled = manager->vnc_in_use;
 
         g_debug ("%s because of remote display status (vnc: %d)",
-                 manager->priv->disabled ? "Disabling" : "Enabling",
-                 manager->priv->vnc_in_use);
+                 manager->disabled ? "Disabling" : "Enabling",
+                 manager->vnc_in_use);
         g_object_notify (G_OBJECT (manager), "force-disable-animations");
 }
 
@@ -111,17 +99,17 @@ got_vino_proxy (GObject                 *source_object,
         GError *error = NULL;
         GVariant *v;
 
-        manager->priv->vino_proxy = g_dbus_proxy_new_finish (res, &error);
-        if (manager->priv->vino_proxy == NULL) {
+        manager->vino_proxy = g_dbus_proxy_new_finish (res, &error);
+        if (manager->vino_proxy == NULL) {
                 g_warning ("Failed to get Vino's D-Bus proxy: %s", error->message);
                 g_error_free (error);
                 return;
         }
 
-        g_signal_connect (manager->priv->vino_proxy, "g-properties-changed",
+        g_signal_connect (manager->vino_proxy, "g-properties-changed",
                           G_CALLBACK (props_changed), manager);
 
-        v = g_dbus_proxy_get_cached_property (manager->priv->vino_proxy, "Connected");
+        v = g_dbus_proxy_get_cached_property (manager->vino_proxy, "Connected");
         if (v) {
                 g_debug ("Setting original state");
                 update_property_from_variant (manager, v);
@@ -142,7 +130,7 @@ vino_appeared_cb (GDBusConnection         *connection,
                           name,
                           "/org/gnome/vino/screens/0",
                           "org.gnome.VinoScreen",
-                          manager->priv->cancellable,
+                          manager->cancellable,
                           (GAsyncReadyCallback) got_vino_proxy,
                           manager);
 }
@@ -153,14 +141,14 @@ vino_vanished_cb (GDBusConnection         *connection,
                   GsdRemoteDisplayManager *manager)
 {
         g_debug ("Vino vanished");
-        if (manager->priv->cancellable != NULL) {
-                g_cancellable_cancel (manager->priv->cancellable);
-                g_clear_object (&manager->priv->cancellable);
+        if (manager->cancellable != NULL) {
+                g_cancellable_cancel (manager->cancellable);
+                g_clear_object (&manager->cancellable);
         }
-        g_clear_object (&manager->priv->vino_proxy);
+        g_clear_object (&manager->vino_proxy);
 
         /* And reset for us to have animations */
-        manager->priv->disabled = FALSE;
+        manager->disabled = FALSE;
         g_object_notify (G_OBJECT (manager), "force-disable-animations");
 }
 
@@ -217,7 +205,7 @@ gsd_remote_display_manager_get_property (GObject    *object,
 
         switch (prop_id) {
         case PROP_FORCE_DISABLE_ANIMATIONS:
-                g_value_set_boolean (value, manager->priv->disabled);
+                g_value_set_boolean (value, manager->disabled);
                 break;
 
         default:
@@ -232,16 +220,16 @@ gsd_remote_display_manager_panel_finalize (GObject *object)
         GsdRemoteDisplayManager *manager = GSD_REMOTE_DISPLAY_MANAGER (object);
         g_debug ("Stopping remote_display manager");
 
-        if (manager->priv->vino_watch_id > 0) {
-                g_bus_unwatch_name (manager->priv->vino_watch_id);
-                manager->priv->vino_watch_id = 0;
+        if (manager->vino_watch_id > 0) {
+                g_bus_unwatch_name (manager->vino_watch_id);
+                manager->vino_watch_id = 0;
         }
 
-        if (manager->priv->cancellable != NULL) {
-                g_cancellable_cancel (manager->priv->cancellable);
-                g_clear_object (&manager->priv->cancellable);
+        if (manager->cancellable != NULL) {
+                g_cancellable_cancel (manager->cancellable);
+                g_clear_object (&manager->cancellable);
         }
-        g_clear_object (&manager->priv->vino_proxy);
+        g_clear_object (&manager->vino_proxy);
 }
 
 static void
@@ -249,8 +237,6 @@ gsd_remote_display_manager_class_init (GsdRemoteDisplayManagerClass *klass)
 {
         GObjectClass    *object_class = G_OBJECT_CLASS (klass);
         GParamSpec      *pspec;
-
-        g_type_class_add_private (klass, sizeof (GsdRemoteDisplayManagerPrivate));
 
         object_class->get_property = gsd_remote_display_manager_get_property;
         object_class->finalize = gsd_remote_display_manager_panel_finalize;
@@ -267,15 +253,14 @@ static void
 gsd_remote_display_manager_init (GsdRemoteDisplayManager *manager)
 {
 
-        manager->priv = GSD_REMOTE_DISPLAY_MANAGER_GET_PRIVATE (manager);
-        manager->priv->cancellable = g_cancellable_new ();
+        manager->cancellable = g_cancellable_new ();
 
         g_debug ("Starting remote-display manager");
 
         /* Xvnc exposes an extension named VNC-EXTENSION */
         if (gsd_display_has_extension ("VNC-EXTENSION")) {
                 g_debug ("Disabling animations because VNC-EXTENSION was detected");
-                manager->priv->disabled = TRUE;
+                manager->disabled = TRUE;
                 g_object_notify (G_OBJECT (manager), "force-disable-animations");
                 return;
         }
@@ -283,18 +268,18 @@ gsd_remote_display_manager_init (GsdRemoteDisplayManager *manager)
 	/* disable animations if running under llvmpipe */
 	if (gsd_display_has_llvmpipe ()) {
 		g_debug ("Disabling animations because llvmpipe was detected");
-		manager->priv->disabled = TRUE;
+		manager->disabled = TRUE;
 		g_object_notify (G_OBJECT (manager), "force-disable-animations");
 		return;
 	}
 
         /* Monitor Vino's usage */
-        manager->priv->vino_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
-                                                         "org.gnome.Vino",
-                                                         G_BUS_NAME_WATCHER_FLAGS_NONE,
-                                                         (GBusNameAppearedCallback) vino_appeared_cb,
-                                                         (GBusNameVanishedCallback) vino_vanished_cb,
-                                                         manager, NULL);
+        manager->vino_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
+                                                   "org.gnome.Vino",
+                                                   G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                                   (GBusNameAppearedCallback) vino_appeared_cb,
+                                                   (GBusNameVanishedCallback) vino_vanished_cb,
+                                                   manager, NULL);
 }
 
 GsdRemoteDisplayManager *

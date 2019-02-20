@@ -22,15 +22,7 @@
 #include <glib-object.h>
 
 #define GSD_TYPE_REMOTE_DISPLAY_MANAGER            (gsd_remote_display_manager_get_type ())
-#define GSD_REMOTE_DISPLAY_MANAGER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GSD_TYPE_REMOTE_DISPLAY_MANAGER, GsdRemoteDisplayManager))
-#define GSD_IS_REMOTE_DISPLAY_MANAGER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GSD_TYPE_REMOTE_DISPLAY_MANAGER))
-#define GSD_REMOTE_DISPLAY_MANAGER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GSD_TYPE_REMOTE_DISPLAY_MANAGER, GsdRemoteDisplayManagerClass))
-#define GSD_IS_REMOTE_DISPLAY_MANAGER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GSD_TYPE_REMOTE_DISPLAY_MANAGER))
-#define GSD_REMOTE_DISPLAY_MANAGER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GSD_TYPE_REMOTE_DISPLAY_MANAGER, GsdRemoteDisplayManagerClass))
 
-typedef struct GsdRemoteDisplayManager GsdRemoteDisplayManager;
-typedef struct GsdRemoteDisplayManagerClass GsdRemoteDisplayManagerClass;
-
-GType gsd_remote_display_manager_get_type (void) G_GNUC_CONST;
+G_DECLARE_FINAL_TYPE (GsdRemoteDisplayManager, gsd_remote_display_manager, GSD, REMOTE_DISPLAY_MANAGER, GObject)
 
 GsdRemoteDisplayManager * gsd_remote_display_manager_new (void);
