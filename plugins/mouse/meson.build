@@ -23,23 +23,8 @@ executable(
   install_dir: gsd_libexecdir
 )
 
-sources = files(
-  'gsd-locate-pointer.c',
-  'gsd-timeline.c'
-)
-
 deps = [
   gtk_dep,
   m_dep,
   x11_dep
 ]
-
-executable(
-  'gsd-locate-pointer',
-  sources,
-  include_directories: top_inc,
-  dependencies: deps,
-  install: true,
-  install_rpath: gsd_pkglibdir,
-  install_dir: gsd_libexecdir
-)
