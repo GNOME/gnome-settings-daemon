@@ -447,9 +447,9 @@ convert_clipboard_manager (GsdClipboardManager *manager,
                         if (gdk_error_trap_pop () != Success)
                                 return;
 
-                        gdk_error_trap_push ();
-
                         if (xev->xselectionrequest.property != None) {
+                                gdk_error_trap_push ();
+
                                 XGetWindowProperty (manager->display,
                                                     xev->xselectionrequest.requestor,
                                                     xev->xselectionrequest.property,
