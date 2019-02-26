@@ -46,16 +46,16 @@ xdevice_get_device_node (int deviceid)
         if (!prop)
                 return NULL;
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
 
         if (!XIGetProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                             deviceid, prop, 0, 1000, False,
                             AnyPropertyType, &act_type, &act_format,
                             &nitems, &bytes_after, &data) == Success) {
-                gdk_error_trap_pop_ignored ();
+                gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
                 return NULL;
         }
-        if (gdk_error_trap_pop ())
+        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()))
                 goto out;
 
         if (nitems == 0)
