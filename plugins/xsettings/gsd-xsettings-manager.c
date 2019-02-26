@@ -1051,7 +1051,7 @@ setup_xsettings_managers (GsdXSettingsManager *manager)
         display = gdk_display_get_default ();
 
         res = xsettings_manager_check_running (gdk_x11_display_get_xdisplay (display),
-                                               gdk_screen_get_number (gdk_screen_get_default ()));
+                                               gdk_x11_screen_get_screen_number (gdk_screen_get_default ()));
 
         if (res) {
                 g_warning ("You can only run one xsettings manager at a time; exiting");
@@ -1060,7 +1060,7 @@ setup_xsettings_managers (GsdXSettingsManager *manager)
 
         terminated = FALSE;
         manager->manager = xsettings_manager_new (gdk_x11_display_get_xdisplay (display),
-                                                  gdk_screen_get_number (gdk_screen_get_default ()),
+                                                  gdk_x11_screen_get_screen_number (gdk_screen_get_default ()),
                                                   terminate_cb,
                                                   &terminated);
         if (! manager->manager) {
