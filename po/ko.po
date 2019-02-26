@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the gnome-settings-daemon package.
 #
 # Young-Ho Cha <ganadist@chollian.net>, 2002, 2006
-# Changwoo Ryu <cwryu@debian.org>, 2002-2006, 2007-2018.
+# Changwoo Ryu <cwryu@debian.org>, 2002-2006, 2007-2019.
 #
 # - 용어
 #   - UPS => 무정전 전원장치
@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2018-08-26 13:42+0000\n"
-"PO-Revision-Date: 2018-08-29 20:17+0900\n"
+"POT-Creation-Date: 2018-11-06 15:48+0000\n"
+"PO-Revision-Date: 2019-02-23 17:06+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
@@ -1033,40 +1033,40 @@ msgid "Color"
 msgstr "색"
 
 #. TRANSLATORS: button: this is to open GCM
-#: plugins/color/gsd-color-calibrate.c:144
+#: plugins/color/gsd-color-calibrate.c:145
 msgid "Recalibrate now"
 msgstr "지금 다시 보정"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: plugins/color/gsd-color-calibrate.c:187
+#: plugins/color/gsd-color-calibrate.c:188
 msgid "Recalibration required"
 msgstr "보정이 다시 필요합니다"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: plugins/color/gsd-color-calibrate.c:199
+#: plugins/color/gsd-color-calibrate.c:200
 #, c-format
 msgid "The display “%s” should be recalibrated soon."
 msgstr "곧 “%s” 디스플레이를 다시 보정해야 합니다."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: plugins/color/gsd-color-calibrate.c:208
+#: plugins/color/gsd-color-calibrate.c:209
 #, c-format
 msgid "The printer “%s” should be recalibrated soon."
 msgstr "곧 “%s” 프린터를 다시 보정해야 합니다."
 
 #. TRANSLATORS: this is the application name
-#: plugins/color/gsd-color-calibrate.c:346
-#: plugins/color/gsd-color-calibrate.c:362
+#: plugins/color/gsd-color-calibrate.c:347
+#: plugins/color/gsd-color-calibrate.c:363
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "그놈 설정 데몬 색 플러그인"
 
 #. TRANSLATORS: this is a sound description
-#: plugins/color/gsd-color-calibrate.c:348
+#: plugins/color/gsd-color-calibrate.c:349
 msgid "Color calibration device added"
 msgstr "색 보정 장치를 추가했습니다"
 
 #. TRANSLATORS: this is a sound description
-#: plugins/color/gsd-color-calibrate.c:364
+#: plugins/color/gsd-color-calibrate.c:365
 msgid "Color calibration device removed"
 msgstr "색 보정 장치를 제거했습니다"
 
@@ -1090,27 +1090,27 @@ msgid "Date & Time Settings"
 msgstr "날짜 및 시간 설정"
 
 #: plugins/housekeeping/gsd-disk-space.c:574
-msgid "Disk space"
+msgid "Disk Space"
 msgstr "디스크 공간"
 
-#: plugins/housekeeping/gsd-disk-space.c:586
+#: plugins/housekeeping/gsd-disk-space.c:587
 msgid "Examine"
 msgstr "검사"
 
-#: plugins/housekeeping/gsd-disk-space.c:597
+#: plugins/housekeeping/gsd-disk-space.c:598
 msgid "Empty Trash"
 msgstr "휴지통 비우기"
 
-#: plugins/housekeeping/gsd-disk-space.c:605
+#: plugins/housekeeping/gsd-disk-space.c:606
 msgid "Ignore"
 msgstr "무시"
 
-#: plugins/housekeeping/gsd-disk-space.c:636
+#: plugins/housekeeping/gsd-disk-space.c:637
 #, c-format
 msgid "Low Disk Space on “%s”"
 msgstr "디스크 공간 부족(“%s”)"
 
-#: plugins/housekeeping/gsd-disk-space.c:638
+#: plugins/housekeeping/gsd-disk-space.c:639
 #, c-format
 msgid ""
 "The volume “%s” has only %s disk space remaining.  You may free up some "
@@ -1119,16 +1119,16 @@ msgstr ""
 "“%s” 볼륨에 디스크 공간이 %s 밖에 남지 않았습니다. 휴지통을 비우면 공간을 확"
 "보할 수 있습니다."
 
-#: plugins/housekeeping/gsd-disk-space.c:642
+#: plugins/housekeeping/gsd-disk-space.c:643
 #, c-format
 msgid "The volume “%s” has only %s disk space remaining."
 msgstr "“%s” 볼륨에 디스크 공간이 %s 밖에 남지 않았습니다."
 
-#: plugins/housekeeping/gsd-disk-space.c:647
+#: plugins/housekeeping/gsd-disk-space.c:648
 msgid "Low Disk Space"
 msgstr "디스크 공간 부족"
 
-#: plugins/housekeeping/gsd-disk-space.c:649
+#: plugins/housekeeping/gsd-disk-space.c:650
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1137,7 +1137,7 @@ msgstr ""
 "이 컴퓨터에 디스크 공간이 %s 밖에 남지 않았습니다. 휴지통을 비우면 공간을 확"
 "보할 수 있습니다."
 
-#: plugins/housekeeping/gsd-disk-space.c:652
+#: plugins/housekeeping/gsd-disk-space.c:653
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "이 컴퓨터에 디스크 공간이 %s 밖에 남지 않았습니다."
@@ -1200,117 +1200,117 @@ msgstr "터치패드 켜기"
 msgid "Touchpad Off"
 msgstr "터치패드 끄기"
 
-#: plugins/media-keys/shortcuts-list.h:53
+#: plugins/media-keys/shortcuts-list.h:55
 msgid "Quiet Volume Mute"
 msgstr "조용히 묵음"
 
-#: plugins/media-keys/shortcuts-list.h:54
+#: plugins/media-keys/shortcuts-list.h:56
 msgid "Quiet Volume Down"
 msgstr "조용히 소리 낮춤"
 
-#: plugins/media-keys/shortcuts-list.h:55
+#: plugins/media-keys/shortcuts-list.h:57
 msgid "Quiet Volume Up"
 msgstr "조용히 소리 높임"
 
-#: plugins/media-keys/shortcuts-list.h:56
+#: plugins/media-keys/shortcuts-list.h:58
 msgid "Precise Volume Down"
 msgstr "정확히 소리 낮춤"
 
-#: plugins/media-keys/shortcuts-list.h:57
+#: plugins/media-keys/shortcuts-list.h:59
 msgid "Precise Volume Up"
 msgstr "정확히 소리 높임"
 
-#: plugins/media-keys/shortcuts-list.h:67
+#: plugins/media-keys/shortcuts-list.h:69
 msgid "Lock Screen"
 msgstr "화면 잠그기"
 
-#: plugins/media-keys/shortcuts-list.h:69
+#: plugins/media-keys/shortcuts-list.h:71
 msgid "Help"
 msgstr "도움말"
 
-#: plugins/media-keys/shortcuts-list.h:83
+#: plugins/media-keys/shortcuts-list.h:88
 msgid "Rewind"
 msgstr "되감기"
 
-#: plugins/media-keys/shortcuts-list.h:84
+#: plugins/media-keys/shortcuts-list.h:89
 msgid "Forward"
 msgstr "앞으로"
 
-#: plugins/media-keys/shortcuts-list.h:85
+#: plugins/media-keys/shortcuts-list.h:90
 msgid "Repeat"
 msgstr "반복"
 
-#: plugins/media-keys/shortcuts-list.h:86
+#: plugins/media-keys/shortcuts-list.h:91
 msgid "Random Play"
 msgstr "임의 재생"
 
-#: plugins/media-keys/shortcuts-list.h:87
+#: plugins/media-keys/shortcuts-list.h:92
 msgid "Orientation Lock"
 msgstr "방향 고정"
 
-#: plugins/media-keys/shortcuts-list.h:96
+#: plugins/media-keys/shortcuts-list.h:101
 msgid "Power Off"
 msgstr "전원 끄기"
 
 #. the kernel / Xorg names really are like this...
 #. translators: "Sleep" means putting the machine to sleep, either through hibernate or suspend
-#: plugins/media-keys/shortcuts-list.h:99
+#: plugins/media-keys/shortcuts-list.h:104
 msgid "Sleep"
 msgstr "절전"
 
-#: plugins/media-keys/shortcuts-list.h:100
+#: plugins/media-keys/shortcuts-list.h:105
 msgid "Suspend"
 msgstr "대기"
 
-#: plugins/media-keys/shortcuts-list.h:101
+#: plugins/media-keys/shortcuts-list.h:106
 msgid "Hibernate"
 msgstr "최대 절전"
 
-#: plugins/media-keys/shortcuts-list.h:102
+#: plugins/media-keys/shortcuts-list.h:107
 msgid "Brightness Up"
 msgstr "밝기 높이기"
 
-#: plugins/media-keys/shortcuts-list.h:103
+#: plugins/media-keys/shortcuts-list.h:108
 msgid "Brightness Down"
 msgstr "밝기 낮추기"
 
-#: plugins/media-keys/shortcuts-list.h:104
+#: plugins/media-keys/shortcuts-list.h:109
 msgid "Keyboard Brightness Up"
 msgstr "키보드 밝기 높이기"
 
-#: plugins/media-keys/shortcuts-list.h:105
+#: plugins/media-keys/shortcuts-list.h:110
 msgid "Keyboard Brightness Down"
 msgstr "키보드 밝기 낮추기"
 
-#: plugins/media-keys/shortcuts-list.h:106
+#: plugins/media-keys/shortcuts-list.h:111
 msgid "Keyboard Brightness Toggle"
 msgstr "키보드 밝기 토글"
 
-#: plugins/media-keys/shortcuts-list.h:107
+#: plugins/media-keys/shortcuts-list.h:112
 msgid "Battery Status"
 msgstr "배터리 상태"
 
-#: plugins/media-keys/shortcuts-list.h:108
-#: plugins/media-keys/shortcuts-list.h:109
-#: plugins/media-keys/shortcuts-list.h:110
+#: plugins/media-keys/shortcuts-list.h:113
+#: plugins/media-keys/shortcuts-list.h:114
+#: plugins/media-keys/shortcuts-list.h:115
 msgid "Toggle Airplane Mode"
 msgstr "비행기 모드 토글"
 
-#: plugins/media-keys/shortcuts-list.h:111
+#: plugins/media-keys/shortcuts-list.h:116
 msgid "Toggle Bluetooth"
 msgstr "블루투스 토글"
 
-#: plugins/power/gpm-common.c:99
+#: plugins/power/gpm-common.c:92
 msgid "Unknown time"
 msgstr "시간 알 수 없음"
 
-#: plugins/power/gpm-common.c:104
+#: plugins/power/gpm-common.c:97
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i분"
 
-#: plugins/power/gpm-common.c:114
+#: plugins/power/gpm-common.c:107
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1318,194 +1318,194 @@ msgstr[0] "%i시간"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: plugins/power/gpm-common.c:120
+#: plugins/power/gpm-common.c:113
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i%s %i%s"
 
-#: plugins/power/gpm-common.c:121
+#: plugins/power/gpm-common.c:114
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "시간"
 
-#: plugins/power/gpm-common.c:122
+#: plugins/power/gpm-common.c:115
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "분"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:929 plugins/power/gsd-power-manager.c:686
-#: plugins/power/gsd-power-manager.c:783
+#: plugins/power/gpm-common.c:433 plugins/power/gsd-power-manager.c:693
+#: plugins/power/gsd-power-manager.c:790
 msgid "Battery is critically low"
 msgstr "배터리가 전력이 위험 수준으로 부족합니다"
 
 #. TRANSLATORS: this is the notification application name
-#: plugins/power/gsd-power-manager.c:324
+#: plugins/power/gsd-power-manager.c:325
 msgid "Power"
 msgstr "전원"
 
 #. TRANSLATORS: UPS is now discharging
-#: plugins/power/gsd-power-manager.c:356
+#: plugins/power/gsd-power-manager.c:363
 msgid "UPS Discharging"
 msgstr "UPS 방전 중"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:361
+#: plugins/power/gsd-power-manager.c:368
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "UPS 비상 전원 %s 남음"
 
-#: plugins/power/gsd-power-manager.c:364
+#: plugins/power/gsd-power-manager.c:371
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "UPS 비상 전원 남은 양 알 수 없음"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: plugins/power/gsd-power-manager.c:439
+#: plugins/power/gsd-power-manager.c:446
 msgid "Battery low"
 msgstr "배터리 전원 부족"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: plugins/power/gsd-power-manager.c:442
+#: plugins/power/gsd-power-manager.c:449
 msgid "Laptop battery low"
 msgstr "노트북 배터리 부족"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:449
+#: plugins/power/gsd-power-manager.c:456
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "약 %s 남음(%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: plugins/power/gsd-power-manager.c:454
+#: plugins/power/gsd-power-manager.c:461
 msgid "UPS low"
 msgstr "UPS 전원 부족"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:460
+#: plugins/power/gsd-power-manager.c:467
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "무정전 전원장치 비상 전원 약 %s 남음(%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: plugins/power/gsd-power-manager.c:465 plugins/power/gsd-power-manager.c:599
+#: plugins/power/gsd-power-manager.c:472 plugins/power/gsd-power-manager.c:606
 msgid "Mouse battery low"
 msgstr "마우스 배터리 전원 부족"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:468
+#: plugins/power/gsd-power-manager.c:475
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "무선 마우스 전원이 부족합니다(%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: plugins/power/gsd-power-manager.c:472 plugins/power/gsd-power-manager.c:607
+#: plugins/power/gsd-power-manager.c:479 plugins/power/gsd-power-manager.c:614
 msgid "Keyboard battery low"
 msgstr "키보드 배터리 전원 부족"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:475
+#: plugins/power/gsd-power-manager.c:482
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "무선 키보드 전원이 부족합니다(%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: plugins/power/gsd-power-manager.c:479 plugins/power/gsd-power-manager.c:616
+#: plugins/power/gsd-power-manager.c:486 plugins/power/gsd-power-manager.c:623
 msgid "PDA battery low"
 msgstr "PDA 배터리 전원 부족"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:482
+#: plugins/power/gsd-power-manager.c:489
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "PDA 전원이 부족합니다(%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:486 plugins/power/gsd-power-manager.c:626
-#: plugins/power/gsd-power-manager.c:635
+#: plugins/power/gsd-power-manager.c:493 plugins/power/gsd-power-manager.c:633
+#: plugins/power/gsd-power-manager.c:642
 msgid "Cell phone battery low"
 msgstr "휴대전화 배터리 전원 부족"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:489
+#: plugins/power/gsd-power-manager.c:496
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "휴대전화 전원이 부족합니다(%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: plugins/power/gsd-power-manager.c:493
+#: plugins/power/gsd-power-manager.c:500
 msgid "Media player battery low"
 msgstr "미디어 플레이어 배터리 전원 부족"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:496
+#: plugins/power/gsd-power-manager.c:503
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "미디어 플레이어 전원이 부족합니다(%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:500 plugins/power/gsd-power-manager.c:644
+#: plugins/power/gsd-power-manager.c:507 plugins/power/gsd-power-manager.c:651
 msgid "Tablet battery low"
 msgstr "디지타이저 배터리 전원 부족"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:503
+#: plugins/power/gsd-power-manager.c:510
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "디지타이저 전원이 부족합니다(%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:507 plugins/power/gsd-power-manager.c:653
+#: plugins/power/gsd-power-manager.c:514 plugins/power/gsd-power-manager.c:660
 msgid "Attached computer battery low"
 msgstr "연결된 컴퓨터 배터리 전원 부족"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:510
+#: plugins/power/gsd-power-manager.c:517
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "연결된 컴퓨터의 전원이 부족합니다(%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:531
+#: plugins/power/gsd-power-manager.c:538
 msgid "Battery is low"
 msgstr "배터리 부족"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: plugins/power/gsd-power-manager.c:563
+#: plugins/power/gsd-power-manager.c:570
 msgid "Battery critically low"
 msgstr "배터리 위험 수준으로 부족"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: plugins/power/gsd-power-manager.c:566 plugins/power/gsd-power-manager.c:713
+#: plugins/power/gsd-power-manager.c:573 plugins/power/gsd-power-manager.c:720
 msgid "Laptop battery critically low"
 msgstr "노트북 배터리 위험 수준으로 부족"
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:575
+#: plugins/power/gsd-power-manager.c:582
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr "전원을 연결하지 않으면 곧 최대 절전 상태가 됩니다."
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:579
+#: plugins/power/gsd-power-manager.c:586
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "전원을 연결하지 않으면 곧 컴퓨터가 꺼집니다."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: plugins/power/gsd-power-manager.c:587 plugins/power/gsd-power-manager.c:738
+#: plugins/power/gsd-power-manager.c:594 plugins/power/gsd-power-manager.c:745
 msgid "UPS critically low"
 msgstr "UPS 전원 위험 수준으로 낮음"
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:593
+#: plugins/power/gsd-power-manager.c:600
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1515,7 +1515,7 @@ msgstr ""
 "면 AC 전원을 다시 연결하십시오."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:602
+#: plugins/power/gsd-power-manager.c:609
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1525,7 +1525,7 @@ msgstr ""
 "을 멈춥니다."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:610
+#: plugins/power/gsd-power-manager.c:617
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1535,7 +1535,7 @@ msgstr ""
 "을 멈춥니다."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:619
+#: plugins/power/gsd-power-manager.c:626
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1545,7 +1545,7 @@ msgstr ""
 "니다."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:629
+#: plugins/power/gsd-power-manager.c:636
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -1555,7 +1555,7 @@ msgstr ""
 "멈춥니다."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:638
+#: plugins/power/gsd-power-manager.c:645
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -1565,7 +1565,7 @@ msgstr ""
 "기능을 멈춥니다."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:647
+#: plugins/power/gsd-power-manager.c:654
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -1575,7 +1575,7 @@ msgstr ""
 "을 멈춥니다."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:656
+#: plugins/power/gsd-power-manager.c:663
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -1585,68 +1585,68 @@ msgstr ""
 "능을 멈춥니다."
 
 #. TRANSLATORS: computer will hibernate
-#: plugins/power/gsd-power-manager.c:721
+#: plugins/power/gsd-power-manager.c:728
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
 msgstr "배터리 전력이 위험 수준보다 낮고 이 컴퓨터는 최대절전이 됩니다."
 
 #. TRANSLATORS: computer will just shutdown
-#: plugins/power/gsd-power-manager.c:726
+#: plugins/power/gsd-power-manager.c:733
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
 msgstr "배터리 전력이 위험 수준보다 낮아 이 컴퓨터가 꺼질 예정입니다."
 
 #. TRANSLATORS: computer will hibernate
-#: plugins/power/gsd-power-manager.c:746
+#: plugins/power/gsd-power-manager.c:753
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr "UPS 전원이 위험 수준보다 낮아 이 컴퓨터는 꺼질 예정입니다."
 
 #. TRANSLATORS: computer will just shutdown
-#: plugins/power/gsd-power-manager.c:751
+#: plugins/power/gsd-power-manager.c:758
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr "UPS 전원이 위험 수준보다 낮아 이 컴퓨터는 꺼질 예정입니다."
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1305
+#: plugins/power/gsd-power-manager.c:1320
 msgid "Lid has been opened"
 msgstr "덮개를 열었습니다"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1339
+#: plugins/power/gsd-power-manager.c:1354
 msgid "Lid has been closed"
 msgstr "덮개를 닫았습니다"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1935
+#: plugins/power/gsd-power-manager.c:1916
 msgid "On battery power"
 msgstr "배터리 전원 사용"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1940
+#: plugins/power/gsd-power-manager.c:1921
 msgid "On AC power"
 msgstr "AC 전원 사용"
 
-#: plugins/power/gsd-power-manager.c:2132
+#: plugins/power/gsd-power-manager.c:2113
 msgid "Automatic logout"
 msgstr "자동 로그아웃"
 
-#: plugins/power/gsd-power-manager.c:2132
+#: plugins/power/gsd-power-manager.c:2113
 msgid "You will soon log out because of inactivity."
 msgstr "활동이 없어서 곧 로그아웃합니다."
 
-#: plugins/power/gsd-power-manager.c:2137
+#: plugins/power/gsd-power-manager.c:2118
 msgid "Automatic suspend"
 msgstr "자동 대기 모드"
 
-#: plugins/power/gsd-power-manager.c:2137
-#: plugins/power/gsd-power-manager.c:2142
+#: plugins/power/gsd-power-manager.c:2118
+#: plugins/power/gsd-power-manager.c:2123
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "활동이 없어서 곧 대기 모드로 들어갑니다."
 
-#: plugins/power/gsd-power-manager.c:2142
+#: plugins/power/gsd-power-manager.c:2123
 msgid "Automatic hibernation"
 msgstr "자동 최대 절전 모드"
 
@@ -1689,227 +1689,227 @@ msgstr "이 프린터의 드라이버가 없습니다."
 
 #: plugins/print-notifications/gsd-printer.c:1031
 #: plugins/print-notifications/gsd-print-notifications-manager.c:290
-#: plugins/print-notifications/gsd-print-notifications-manager.c:530
-#: plugins/print-notifications/gsd-print-notifications-manager.c:911
-#: plugins/print-notifications/gsd-print-notifications-manager.c:1001
-#: plugins/print-notifications/gsd-print-notifications-manager.c:1044
+#: plugins/print-notifications/gsd-print-notifications-manager.c:531
+#: plugins/print-notifications/gsd-print-notifications-manager.c:913
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1004
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1048
 msgid "Printers"
 msgstr "프린터"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:366
+#: plugins/print-notifications/gsd-print-notifications-manager.c:367
 #, c-format
 msgid "Printer “%s” is low on toner."
 msgstr "“%s” 프린터의 토너가 부족합니다."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:370
+#: plugins/print-notifications/gsd-print-notifications-manager.c:371
 #, c-format
 msgid "Printer “%s” has no toner left."
 msgstr "“%s” 프린터의 토너가 남아있지 않습니다."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:374
+#: plugins/print-notifications/gsd-print-notifications-manager.c:375
 #, c-format
 msgid "Printer “%s” may not be connected."
 msgstr "“%s” 프린터가 연결되지 않았을 수 있습니다."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:378
+#: plugins/print-notifications/gsd-print-notifications-manager.c:379
 #, c-format
 msgid "The cover is open on printer “%s”."
 msgstr "“%s” 프린터의 덮개가 열려 있습니다."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:382
+#: plugins/print-notifications/gsd-print-notifications-manager.c:383
 #, c-format
 msgid "There is a missing print filter for printer “%s”."
 msgstr "“%s” 프린터의 인쇄 필터가 없습니다."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:387
+#: plugins/print-notifications/gsd-print-notifications-manager.c:388
 #, c-format
 msgid "The door is open on printer “%s”."
 msgstr "“%s” 프린터의 문이 열려 있습니다."
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:391
+#: plugins/print-notifications/gsd-print-notifications-manager.c:392
 #, c-format
 msgid "Printer “%s” is low on a marker supply."
 msgstr "“%s” 프린터의 마커 보급이 부족합니다."
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:395
+#: plugins/print-notifications/gsd-print-notifications-manager.c:396
 #, c-format
 msgid "Printer “%s” is out of a marker supply."
 msgstr "“%s” 프린터의 마커 보급이 없습니다."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:399
+#: plugins/print-notifications/gsd-print-notifications-manager.c:400
 #, c-format
 msgid "Printer “%s” is low on paper."
 msgstr "“%s” 프린터의 용지가 부족합니다."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:403
+#: plugins/print-notifications/gsd-print-notifications-manager.c:404
 #, c-format
 msgid "Printer “%s” is out of paper."
 msgstr "“%s” 프린터의 용지가 없습니다."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:407
+#: plugins/print-notifications/gsd-print-notifications-manager.c:408
 #, c-format
 msgid "Printer “%s” is currently off-line."
 msgstr "“%s” 프린터가 연결 중지 상태입니다."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:411
+#: plugins/print-notifications/gsd-print-notifications-manager.c:412
 #, c-format
 msgid "There is a problem on printer “%s”."
 msgstr "“%s” 프린터에 문제가 있습니다."
 
 #. Translators: The printer has a job to print but the printer needs authentication to continue with the print
-#: plugins/print-notifications/gsd-print-notifications-manager.c:523
+#: plugins/print-notifications/gsd-print-notifications-manager.c:524
 #, c-format
 msgid "%s Requires Authentication"
 msgstr "%s 인증이 필요합니다"
 
 #. Translators: A printer needs credentials to continue printing a job
-#: plugins/print-notifications/gsd-print-notifications-manager.c:525
+#: plugins/print-notifications/gsd-print-notifications-manager.c:526
 #, c-format
 msgid "Credentials required in order to print"
 msgstr "인쇄하려면 인증 정보가 필요합니다"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:591
+#: plugins/print-notifications/gsd-print-notifications-manager.c:593
 msgid "Toner low"
 msgstr "토너 부족"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:593
+#: plugins/print-notifications/gsd-print-notifications-manager.c:595
 msgid "Toner empty"
 msgstr "토너 없음"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:595
+#: plugins/print-notifications/gsd-print-notifications-manager.c:597
 msgid "Not connected?"
 msgstr "연결되지 않음?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:597
+#: plugins/print-notifications/gsd-print-notifications-manager.c:599
 msgid "Cover open"
 msgstr "덮개 열림"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:599
+#: plugins/print-notifications/gsd-print-notifications-manager.c:601
 msgid "Printer configuration error"
 msgstr "프린터 설정 오류"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:601
+#: plugins/print-notifications/gsd-print-notifications-manager.c:603
 msgid "Door open"
 msgstr "문 열림"
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:603
+#: plugins/print-notifications/gsd-print-notifications-manager.c:605
 msgid "Marker supply low"
 msgstr "마커 보급 부족"
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:605
+#: plugins/print-notifications/gsd-print-notifications-manager.c:607
 msgid "Out of a marker supply"
 msgstr "마커 보급 없음"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:607
+#: plugins/print-notifications/gsd-print-notifications-manager.c:609
 msgid "Paper low"
 msgstr "용지 부족"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:609
+#: plugins/print-notifications/gsd-print-notifications-manager.c:611
 msgid "Out of paper"
 msgstr "용지 없음"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:611
+#: plugins/print-notifications/gsd-print-notifications-manager.c:613
 msgid "Printer off-line"
 msgstr "프린터 연결 끊김"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:613
-#: plugins/print-notifications/gsd-print-notifications-manager.c:987
+#: plugins/print-notifications/gsd-print-notifications-manager.c:615
+#: plugins/print-notifications/gsd-print-notifications-manager.c:990
 msgid "Printer error"
 msgstr "프린터 오류"
 
 #. Translators: New printer has been added
-#: plugins/print-notifications/gsd-print-notifications-manager.c:661
+#: plugins/print-notifications/gsd-print-notifications-manager.c:663
 msgid "Printer added"
 msgstr "프린터 추가"
 
 #. Translators: A print job has been stopped
-#: plugins/print-notifications/gsd-print-notifications-manager.c:678
-#: plugins/print-notifications/gsd-print-notifications-manager.c:716
+#: plugins/print-notifications/gsd-print-notifications-manager.c:680
+#: plugins/print-notifications/gsd-print-notifications-manager.c:718
 msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "프린터 중지"
 
 #. Translators: "print-job xy" on a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:680
-#: plugins/print-notifications/gsd-print-notifications-manager.c:686
-#: plugins/print-notifications/gsd-print-notifications-manager.c:692
-#: plugins/print-notifications/gsd-print-notifications-manager.c:698
-#: plugins/print-notifications/gsd-print-notifications-manager.c:710
-#: plugins/print-notifications/gsd-print-notifications-manager.c:718
-#: plugins/print-notifications/gsd-print-notifications-manager.c:726
-#: plugins/print-notifications/gsd-print-notifications-manager.c:734
-#: plugins/print-notifications/gsd-print-notifications-manager.c:742
-#: plugins/print-notifications/gsd-print-notifications-manager.c:766
+#: plugins/print-notifications/gsd-print-notifications-manager.c:682
+#: plugins/print-notifications/gsd-print-notifications-manager.c:688
+#: plugins/print-notifications/gsd-print-notifications-manager.c:694
+#: plugins/print-notifications/gsd-print-notifications-manager.c:700
+#: plugins/print-notifications/gsd-print-notifications-manager.c:712
+#: plugins/print-notifications/gsd-print-notifications-manager.c:720
+#: plugins/print-notifications/gsd-print-notifications-manager.c:728
+#: plugins/print-notifications/gsd-print-notifications-manager.c:736
+#: plugins/print-notifications/gsd-print-notifications-manager.c:744
+#: plugins/print-notifications/gsd-print-notifications-manager.c:768
 #, c-format
 msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "“%s” (프린터 %s)"
 
 #. Translators: A print job has been canceled
-#: plugins/print-notifications/gsd-print-notifications-manager.c:684
-#: plugins/print-notifications/gsd-print-notifications-manager.c:724
+#: plugins/print-notifications/gsd-print-notifications-manager.c:686
+#: plugins/print-notifications/gsd-print-notifications-manager.c:726
 msgctxt "print job state"
 msgid "Printing canceled"
 msgstr "인쇄 취소"
 
 #. Translators: A print job has been aborted
-#: plugins/print-notifications/gsd-print-notifications-manager.c:690
-#: plugins/print-notifications/gsd-print-notifications-manager.c:732
+#: plugins/print-notifications/gsd-print-notifications-manager.c:692
+#: plugins/print-notifications/gsd-print-notifications-manager.c:734
 msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "인쇄 강제 중지"
 
 #. Translators: A print job has been completed
-#: plugins/print-notifications/gsd-print-notifications-manager.c:696
-#: plugins/print-notifications/gsd-print-notifications-manager.c:740
+#: plugins/print-notifications/gsd-print-notifications-manager.c:698
+#: plugins/print-notifications/gsd-print-notifications-manager.c:742
 msgctxt "print job state"
 msgid "Printing completed"
 msgstr "인쇄 완료"
 
 #. Translators: A job is printing
-#: plugins/print-notifications/gsd-print-notifications-manager.c:708
-#: plugins/print-notifications/gsd-print-notifications-manager.c:764
+#: plugins/print-notifications/gsd-print-notifications-manager.c:710
+#: plugins/print-notifications/gsd-print-notifications-manager.c:766
 msgctxt "print job state"
 msgid "Printing"
 msgstr "인쇄 중"
 
 #. Translators: This is a title of a report notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:981
+#: plugins/print-notifications/gsd-print-notifications-manager.c:984
 msgid "Printer report"
 msgstr "프린터 보고"
 
 #. Translators: This is a title of a warning notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:984
+#: plugins/print-notifications/gsd-print-notifications-manager.c:987
 msgid "Printer warning"
 msgstr "프린터 경고"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: plugins/print-notifications/gsd-print-notifications-manager.c:994
+#: plugins/print-notifications/gsd-print-notifications-manager.c:997
 #, c-format
 msgid "Printer “%s”: “%s”."
 msgstr "프린터 “%s”: “%s”."
