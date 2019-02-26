@@ -1,5 +1,6 @@
 #include <glib-object.h>
 #include <gsd-power-enums.h>
+#include <stdio.h>
 
 /* XXX: The following functions use printf, because otherwise there were
  *      build failures when the building with the memory sanitizer enabled.
