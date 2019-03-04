@@ -84,7 +84,7 @@
 #define ALLOW_VOLUME_ABOVE_100_PERCENT_KEY "allow-volume-above-100-percent"
 
 #define SHELL_GRABBER_CALL_TIMEOUT G_MAXINT
-#define SHELL_GRABBER_RETRY_INTERVAL 1
+#define SHELL_GRABBER_RETRY_INTERVAL_MS 1000
 #define OSD_ALL_OUTPUTS -1
 
 /* How long to suppress power-button presses after resume,
@@ -148,13 +148,17 @@ typedef struct {
         char *custom_path;
         char *custom_command;
         guint accel_id;
-        gboolean ungrab_requested;
 } MediaKey;
 
 typedef struct {
         GsdMediaKeysManager *manager;
-        MediaKey *key;
-} GrabData;
+        GPtrArray *keys;
+
+        /* NOTE: This is to implement a custom cancellation handling where
+         *       we immediately emit an ungrab call if grabbing was cancelled.
+         */
+        gboolean cancelled;
+} GrabUngrabData;
 
 typedef struct
 {
@@ -200,8 +204,9 @@ typedef struct
         GsdShell        *shell_proxy;
         ShellKeyGrabber *key_grabber;
         GCancellable    *grab_cancellable;
-        GHashTable      *keys_pending_grab;
-        GHashTable      *keys_to_grab;
+        GHashTable      *keys_to_sync;
+        guint            keys_sync_source_id;
+        GrabUngrabData  *keys_sync_data;
 
         /* ScreenSaver stuff */
         GsdScreenSaver  *screen_saver_proxy;
@@ -248,11 +253,12 @@ static void     register_manager                   (GsdMediaKeysManager      *ma
 static void     custom_binding_changed             (GSettings           *settings,
                                                     const char          *settings_key,
                                                     GsdMediaKeysManager *manager);
-static void     grab_media_keys                    (GsdMediaKeysManager *manager);
-static void     grab_media_key                     (MediaKey            *key,
-                                                    GsdMediaKeysManager *manager);
-static void     ungrab_media_key                   (MediaKey            *key,
-                                                    GsdMediaKeysManager *manager);
+static void     keys_sync_queue                    (GsdMediaKeysManager *manager,
+                                                    gboolean             immediate,
+                                                    gboolean             retry);
+static void     keys_sync_continue                 (GsdMediaKeysManager *manager);
+
+
 G_DEFINE_TYPE_WITH_PRIVATE (GsdMediaKeysManager, gsd_media_keys_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
@@ -283,6 +289,26 @@ media_key_new (void)
         MediaKey *key = g_new0 (MediaKey, 1);
         return media_key_ref (key);
 }
+
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (MediaKey, media_key_unref)
+
+static void
+grab_ungrab_data_free (GrabUngrabData *data)
+{
+        /* NOTE: The manager pointer is not owned and is invalid if the
+         *       operation was cancelled.
+         *       Calculating the priv reference is always safe though. */
+        GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (data->manager);
+
+        if (!data->cancelled && priv->keys_sync_data == data)
+                priv->keys_sync_data = NULL;
+
+        data->manager = NULL;
+        g_clear_pointer (&data->keys, g_ptr_array_unref);
+        g_free (data);
+}
+
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GrabUngrabData, grab_ungrab_data_free)
 
 static void
 set_launch_context_env (GsdMediaKeysManager *manager,
@@ -435,14 +461,51 @@ get_icon_name_for_volume (gboolean is_mic,
 		return icon_names[n];
 }
 
-static gboolean
-retry_grabs (gpointer data)
+static void
+ungrab_accelerators_complete (GObject      *object,
+                              GAsyncResult *result,
+                              gpointer      user_data)
 {
-        GsdMediaKeysManager *manager = data;
+        g_autoptr(GrabUngrabData) data = user_data;
+        gboolean success = FALSE;
+        g_autoptr(GError) error = NULL;
+        gint i;
 
-        g_debug ("Retrying to grab accelerators");
-        grab_media_keys (manager);
-        return FALSE;
+        g_debug ("Ungrab call completed!");
+
+        if (!shell_key_grabber_call_ungrab_accelerators_finish (SHELL_KEY_GRABBER (object),
+                                                                &success, result, &error)) {
+                g_warning ("Failed to ungrab accelerators: %s", error->message);
+
+                if (g_error_matches (error, G_DBUS_ERROR, G_DBUS_ERROR_UNKNOWN_METHOD)) {
+                        keys_sync_queue (data->manager, FALSE, TRUE);
+                        return;
+                }
+
+                /* We are screwed at this point; we'll still keep going assuming that we don't
+                 * have the bindings registered anymore.
+                 * The only alternative would be to die and force cleanup of all registered
+                 * grabs that way.
+                 */
+        } else if (!success) {
+                g_warning ("Failed to ungrab some accelerators, they were probably not registered!");
+        }
+
+        /* Clear the accelerator IDs. */
+        for (i = 0; i < data->keys->len; i++) {
+                MediaKey *key;
+
+                key = g_ptr_array_index (data->keys, i);
+
+                /* Always clear, as it would just fail again the next time. */
+                key->accel_id = 0;
+        }
+
+        /* Nothing left to do if the operation was cancelled */
+        if (data->cancelled)
+                return;
+
+        keys_sync_continue (data->manager);
 }
 
 static void
@@ -450,186 +513,194 @@ grab_accelerators_complete (GObject      *object,
                             GAsyncResult *result,
                             gpointer      user_data)
 {
-        GsdMediaKeysManager *manager = user_data;
-        GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
-        GVariant *ret, *actions;
-        gboolean retry = FALSE;
-        GError *error = NULL;
+        g_autoptr(GrabUngrabData) data = user_data;
+        g_autoptr(GVariant) actions = NULL;
+        g_autoptr(GError) error = NULL;
+        gint i;
 
-        ret = g_dbus_proxy_call_finish (G_DBUS_PROXY (object), result, &error);
-        g_variant_get (ret, "(@au)", &actions);
-        g_variant_unref (ret);
+        g_debug ("Grab call completed!");
 
-        if (error) {
-                retry = g_error_matches (error, G_DBUS_ERROR, G_DBUS_ERROR_UNKNOWN_METHOD);
-                if (!retry && !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-                        g_warning ("Failed to grab accelerators: %s (%d)", error->message, error->code);
-                else if (retry)
-                        g_debug ("Failed to grab accelerators, will retry: %s (%d)", error->message, error->code);
-                g_error_free (error);
-        } else {
-                int i;
-                for (i = 0; i < priv->keys->len; i++) {
-                        MediaKey *key;
+        if (!shell_key_grabber_call_grab_accelerators_finish (SHELL_KEY_GRABBER (object),
+                                                              &actions, result, &error)) {
+                g_warning ("Failed to grab accelerators: %s", error->message);
 
-                        key = g_ptr_array_index (priv->keys, i);
-                        g_variant_get_child (actions, i, "u", &key->accel_id);
+                if (g_error_matches (error, G_DBUS_ERROR, G_DBUS_ERROR_UNKNOWN_METHOD)) {
+                        keys_sync_queue (data->manager, FALSE, TRUE);
+                        return;
+                }
+
+                /* We are screwed at this point as we can't grab the keys. Most likely
+                 * this means we are not running on GNOME, or ran into some other weird
+                 * error.
+                 * Either way, finish the operation as there is no way we can recover
+                 * from this.
+                 */
+                keys_sync_continue (data->manager);
+                return;
+        }
+
+        /* Do an immediate ungrab if the operation was cancelled.
+         * This may happen on daemon shutdown for example. */
+        if (data->cancelled) {
+                g_debug ("Doing an immediate ungrab on the grabbed accelerators!");
+
+                shell_key_grabber_call_ungrab_accelerators (SHELL_KEY_GRABBER (object),
+                                                            actions,
+                                                            NULL,
+                                                            ungrab_accelerators_complete,
+                                                            g_steal_pointer (&data));
+
+                return;
+        }
+
+        /* We need to stow away the accel_ids that have been registered successfully. */
+        for (i = 0; i < data->keys->len; i++) {
+                MediaKey *key;
+                guint accel_id;
+
+                key = g_ptr_array_index (data->keys, i);
+                g_assert (key->accel_id == 0);
+
+                g_variant_get_child (actions, i, "u", &accel_id);
+                if (accel_id == 0) {
+                        g_autofree gchar *tmp = NULL;
+                        tmp = get_key_string (key);
+                        g_warning ("Failed to grab accelerator for keybinding %s", tmp);
+                } else {
+                        key->accel_id = accel_id;
                 }
         }
 
-        if (retry) {
-                guint id;
-                id = g_timeout_add_seconds (SHELL_GRABBER_RETRY_INTERVAL,
-                                            retry_grabs, manager);
-                g_source_set_name_by_id (id, "[gnome-settings-daemon] retry_grabs");
-        }
+        keys_sync_continue (data->manager);
 }
 
 static void
-grab_media_keys (GsdMediaKeysManager *manager)
+keys_sync_continue (GsdMediaKeysManager *manager)
 {
-        GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
-        GVariantBuilder builder;
-        int i;
+	GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
+        g_auto(GVariantBuilder) ungrab_builder = G_VARIANT_BUILDER_INIT (G_VARIANT_TYPE ("au"));
+        g_auto(GVariantBuilder) grab_builder = G_VARIANT_BUILDER_INIT (G_VARIANT_TYPE ("a(suu)"));
+        g_autoptr(GPtrArray) keys_being_ungrabbed = NULL;
+        g_autoptr(GPtrArray) keys_being_grabbed = NULL;
+        g_autoptr(GrabUngrabData) data = NULL;
+        GHashTableIter iter;
+        MediaKey *key;
+        gboolean need_ungrab = FALSE;
 
-        g_variant_builder_init (&builder, G_VARIANT_TYPE ("a(suu)"));
+        /* Syncing keys is a two step process in principle, i.e. we first ungrab all keys
+         * and then grab the new ones.
+         * To make this work, this function will be called multiple times and it will
+         * either emit an ungrab or grab call or do nothing when done.
+         */
 
-        for (i = 0; i < priv->keys->len; i++) {
-                MediaKey *key;
-                char *tmp;
+        /* If the keys_to_sync hash table is empty at this point, then we are done.
+         * priv->keys_sync_data will be cleared automatically when it is unref'ed.
+         */
+        if (g_hash_table_size (priv->keys_to_sync) == 0)
+                return;
 
-                key = g_ptr_array_index (priv->keys, i);
+        keys_being_ungrabbed = g_ptr_array_new_with_free_func ((GDestroyNotify) media_key_unref);
+        keys_being_grabbed = g_ptr_array_new_with_free_func ((GDestroyNotify) media_key_unref);
+
+        g_hash_table_iter_init (&iter, priv->keys_to_sync);
+        while (g_hash_table_iter_next (&iter, (gpointer*) &key, NULL)) {
+                g_autofree gchar *tmp = NULL;
+
+                if (key->accel_id > 0) {
+                        g_variant_builder_add (&ungrab_builder, "u", key->accel_id);
+                        g_ptr_array_add (keys_being_ungrabbed, media_key_ref (key));
+
+                        need_ungrab = TRUE;
+                }
+
+                /* Keys that are synced but aren't in the internal list are being removed. */
+                if (!g_ptr_array_find (priv->keys, key, NULL))
+                        continue;
+
                 tmp = get_binding (manager, key);
-                g_variant_builder_add (&builder, "(suu)", tmp, key->modes, key->grab_flags);
-                g_free (tmp);
+                /* The key might not have a keybinding. */
+                if (tmp && strlen (tmp) > 0) {
+                        g_variant_builder_add (&grab_builder, "(suu)", tmp, key->modes, key->grab_flags);
+                        g_ptr_array_add (keys_being_grabbed, media_key_ref (key));
+                }
         }
 
-        g_dbus_proxy_call (G_DBUS_PROXY (priv->key_grabber),
-                           "GrabAccelerators",
-                           g_variant_new ("(@a(suu))",
-                                          g_variant_builder_end (&builder)),
-                           G_DBUS_CALL_FLAGS_NONE,
-                           SHELL_GRABBER_CALL_TIMEOUT,
-                           priv->grab_cancellable,
-                           grab_accelerators_complete,
-                           manager);
-}
+        data = g_new0 (GrabUngrabData, 1);
+        data->manager = manager;
 
-static void
-grab_accelerator_complete (GObject      *object,
-                           GAsyncResult *result,
-                           gpointer      user_data)
-{
-        char *keyname;
-        GrabData *data = user_data;
-        MediaKey *key = data->key;
-        GsdMediaKeysManager *manager = data->manager;
-	GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
-        GError *error = NULL;
+        /* These calls intentionally do not get a cancellable. See comment in
+         * GrabUngrabData.
+         */
+        priv->keys_sync_data = data;
 
-        if (!shell_key_grabber_call_grab_accelerator_finish (SHELL_KEY_GRABBER (object),
-                                                             &key->accel_id, result, &error)) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-                        g_warning ("Failed to grab accelerator: %s", error->message);
-                g_error_free (error);
-        }
+        if (need_ungrab) {
+                data->keys = g_steal_pointer (&keys_being_ungrabbed);
 
-        keyname = get_key_string (key);
-        g_hash_table_remove (priv->keys_pending_grab, keyname);
+                shell_key_grabber_call_ungrab_accelerators (priv->key_grabber,
+                                                            g_variant_builder_end (&ungrab_builder),
+                                                            NULL,
+                                                            ungrab_accelerators_complete,
+                                                            g_steal_pointer (&data));
+        } else {
+                data->keys = g_steal_pointer (&keys_being_grabbed);
 
-        if (key->ungrab_requested)
-                ungrab_media_key (key, manager);
+                g_hash_table_remove_all (priv->keys_to_sync);
 
-        media_key_unref (key);
-        g_slice_free (GrabData, data);
-
-        if ((key = g_hash_table_lookup (priv->keys_to_grab, keyname)) != NULL) {
-                grab_media_key (key, manager);
-                g_hash_table_remove (priv->keys_to_grab, keyname);
-        }
-        g_free (keyname);
-
-}
-
-static void
-grab_media_key (MediaKey            *key,
-		GsdMediaKeysManager *manager)
-{
-	GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
-	GrabData *data;
-	char *binding, *keyname;
-
-	keyname = get_key_string (key);
-	binding = get_binding (manager, key);
-        if (g_hash_table_lookup (priv->keys_pending_grab, keyname)) {
-                g_hash_table_insert (priv->keys_to_grab,
-                                     g_strdup (keyname), media_key_ref (key));
-                goto out;
-        }
-
-	data = g_slice_new0 (GrabData);
-	data->manager = manager;
-	data->key = media_key_ref (key);
-
-	shell_key_grabber_call_grab_accelerator (priv->key_grabber,
-	                                         binding, key->modes, key->grab_flags,
-	                                         priv->grab_cancellable,
-	                                         grab_accelerator_complete,
-	                                         data);
-        g_hash_table_add (priv->keys_pending_grab, g_strdup (keyname));
- out:
-	g_free (keyname);
-	g_free (binding);
-}
-
-static void
-ungrab_accelerator_complete (GObject      *object,
-                             GAsyncResult *result,
-                             gpointer      user_data)
-{
-        GError *error = NULL;
-
-        if (!shell_key_grabber_call_ungrab_accelerator_finish (SHELL_KEY_GRABBER (object),
-                                                               NULL, result, &error)) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-                        g_warning ("Failed to ungrab accelerator: %s", error->message);
-                g_error_free (error);
+                shell_key_grabber_call_grab_accelerators (priv->key_grabber,
+                                                          g_variant_builder_end (&grab_builder),
+                                                          NULL,
+                                                          grab_accelerators_complete,
+                                                          g_steal_pointer (&data));
         }
 }
 
 static gboolean
-is_pending_grab (MediaKey            *key,
-                 GsdMediaKeysManager *manager)
+keys_sync_start (gpointer user_data)
 {
-	GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
-	char *keyname = get_key_string (key);
-	const char *val;
-	gboolean pending_grab;
+        GsdMediaKeysManager *manager = GSD_MEDIA_KEYS_MANAGER (user_data);
+        GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
 
-	val = g_hash_table_lookup (priv->keys_pending_grab, keyname);
-	pending_grab = val != NULL;
-	g_free (keyname);
+        priv->keys_sync_source_id = 0;
+        g_assert (priv->keys_sync_data == NULL);
+        keys_sync_continue (manager);
 
-	return pending_grab;
+        return G_SOURCE_REMOVE;
 }
 
-static void
-ungrab_media_key (MediaKey            *key,
-                  GsdMediaKeysManager *manager)
+void
+keys_sync_queue (GsdMediaKeysManager *manager, gboolean immediate, gboolean retry)
 {
-	GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
+        GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
+        guint i;
 
-        if (key->accel_id == 0) {
-                key->ungrab_requested = is_pending_grab (key, manager);
+        if (priv->keys_sync_source_id)
+                g_source_remove (priv->keys_sync_source_id);
+
+        if (retry) {
+                /* Abort the currently running operation, and don't retry
+                 * immediately to avoid race condition if an operation was
+                 * already active. */
+                if (priv->keys_sync_data) {
+                        priv->keys_sync_data->cancelled = TRUE;
+                        priv->keys_sync_data = NULL;
+
+                        immediate = FALSE;
+                }
+
+                /* Mark all existing keys for sync. */
+                for (i = 0; i < priv->keys->len; i++) {
+                        MediaKey *key = g_ptr_array_index (priv->keys, i);
+                        g_hash_table_add (priv->keys_to_sync, media_key_ref (key));
+                }
+        } else if (priv->keys_sync_data) {
+                /* We are already actively syncing, no need to do anything. */
                 return;
         }
 
-	shell_key_grabber_call_ungrab_accelerator (priv->key_grabber,
-	                                           key->accel_id,
-	                                           priv->grab_cancellable,
-	                                           ungrab_accelerator_complete,
-	                                           manager);
-	key->accel_id = 0;
+        priv->keys_sync_source_id =
+                g_timeout_add (immediate ? 0 : (retry ? SHELL_GRABBER_RETRY_INTERVAL_MS : 50),
+                               keys_sync_start,
+                               manager);
 }
 
 static void
@@ -665,8 +736,8 @@ gsettings_changed_cb (GSettings           *settings,
                 if (key->settings_key == NULL)
                         continue;
                 if (strcmp (settings_key, key->settings_key) == 0) {
-                        ungrab_media_key (key, manager);
-                        grab_media_key (key, manager);
+                        g_hash_table_add (priv->keys_to_sync, media_key_ref (key));
+                        keys_sync_queue (manager, FALSE, FALSE);
                         break;
                 }
         }
@@ -730,7 +801,7 @@ update_custom_binding (GsdMediaKeysManager *manager,
                         continue;
                 if (strcmp (key->custom_path, path) == 0) {
                         g_debug ("Removing custom key binding %s", path);
-                        ungrab_media_key (key, manager);
+                        g_hash_table_add (priv->keys_to_sync, media_key_ref (key));
                         g_ptr_array_remove_index_fast (priv->keys, i);
                         break;
                 }
@@ -742,8 +813,10 @@ update_custom_binding (GsdMediaKeysManager *manager,
                 g_debug ("Adding new custom key binding %s", path);
                 g_ptr_array_add (priv->keys, key);
 
-                grab_media_key (key, manager);
+                g_hash_table_add (priv->keys_to_sync, media_key_ref (key));
         }
+
+        keys_sync_queue (manager, FALSE, FALSE);
 }
 
 static void
@@ -818,12 +891,13 @@ gsettings_custom_changed_cb (GSettings           *settings,
                 if (found)
                         continue;
 
-                ungrab_media_key (key, manager);
+                g_hash_table_add (priv->keys_to_sync, media_key_ref (key));
                 g_hash_table_remove (priv->custom_settings,
                                      key->custom_path);
                 g_ptr_array_remove_index_fast (priv->keys, i);
                 --i; /* make up for the removed key */
         }
+        keys_sync_queue (manager, FALSE, FALSE);
         g_strfreev (bindings);
 }
 
@@ -880,7 +954,7 @@ init_kbd (GsdMediaKeysManager *manager)
         }
         g_strfreev (custom_paths);
 
-        grab_media_keys (manager);
+        keys_sync_queue (manager, TRUE, TRUE);
 
         gnome_settings_profile_end (NULL);
 }
@@ -3002,11 +3076,7 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
         gnome_settings_profile_start (NULL);
 
         priv->keys = g_ptr_array_new_with_free_func ((GDestroyNotify) media_key_unref);
-
-        priv->keys_pending_grab = g_hash_table_new_full (g_str_hash, g_str_equal,
-                                                         g_free, NULL);
-        priv->keys_to_grab = g_hash_table_new_full (g_str_hash, g_str_equal,
-                                                    g_free, (GDestroyNotify) media_key_unref);
+        priv->keys_to_sync = g_hash_table_new_full (g_direct_hash, g_direct_equal, (GDestroyNotify) media_key_unref, NULL);
 
         initialize_volume_handler (manager);
 
@@ -3106,7 +3176,6 @@ void
 gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
 {
         GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
-        int i;
 
         g_debug ("Stopping media_keys manager");
 
@@ -3175,19 +3244,34 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         g_clear_pointer (&priv->introspection_data, g_dbus_node_info_unref);
         g_clear_object (&priv->connection);
 
-        if (priv->keys != NULL) {
-                for (i = 0; i < priv->keys->len; ++i) {
-                        MediaKey *key;
+        if (priv->keys_sync_data) {
+                /* Cancel ongoing sync. */
+                priv->keys_sync_data->cancelled = TRUE;
+                priv->keys_sync_data = NULL;
+        }
+        if (priv->keys_sync_source_id)
+                g_source_remove (priv->keys_sync_source_id);
+        priv->keys_sync_source_id = 0;
 
-                        key = g_ptr_array_index (priv->keys, i);
-                        ungrab_media_key (key, manager);
+        /* Remove all grabs; i.e.:
+         *  - add all keys to the sync queue
+         *  - remove all keys from the interal keys list
+         *  - call the function to start a sync
+         *  - "cancel" the sync operation as the manager will be gone
+         */
+        if (priv->keys != NULL) {
+                while (priv->keys->len) {
+                        MediaKey *key = g_ptr_array_index (priv->keys, 0);
+                        g_hash_table_add (priv->keys_to_sync, media_key_ref (key));
+                        g_ptr_array_remove_index_fast (priv->keys, 0);
                 }
-                g_ptr_array_free (priv->keys, TRUE);
-                priv->keys = NULL;
+
+                keys_sync_start (manager);
+
+                g_clear_pointer (&priv->keys, g_ptr_array_unref);
         }
 
-        g_clear_pointer (&priv->keys_pending_grab, g_hash_table_destroy);
-        g_clear_pointer (&priv->keys_to_grab, g_hash_table_destroy);
+        g_clear_pointer (&priv->keys_to_sync, g_hash_table_destroy);
 
         g_clear_object (&priv->key_grabber);
 
