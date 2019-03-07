@@ -246,7 +246,7 @@ gsd_mouse_manager_finalize (GObject *object)
 }
 
 static GVariant *
-map_speed (GVariant *variant, GVariant *new_default)
+map_speed (GVariant *variant, GVariant *old_default, GVariant *new_default)
 {
         gdouble value;
 
@@ -259,7 +259,7 @@ map_speed (GVariant *variant, GVariant *new_default)
 }
 
 static GVariant *
-map_send_events (GVariant *variant, GVariant *new_default)
+map_send_events (GVariant *variant, GVariant *old_default, GVariant *new_default)
 {
         gboolean enabled;
 
@@ -273,7 +273,7 @@ map_send_events (GVariant *variant, GVariant *new_default)
 }
 
 static GVariant *
-map_edge_scrolling_enabled (GVariant *variant, GVariant *new_default)
+map_edge_scrolling_enabled (GVariant *variant, GVariant *old_default, GVariant *new_default)
 {
 	GsdTouchpadScrollMethod  method;
 
