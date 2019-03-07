@@ -24,7 +24,7 @@
 
 typedef struct _GsdSettingsMigrateEntry GsdSettingsMigrateEntry;
 
-typedef GVariant * (* GsdSettingsMigrateFunc) (GVariant *variant, GVariant *new_default);
+typedef GVariant * (* GsdSettingsMigrateFunc) (GVariant *variant, GVariant *old_default, GVariant *new_default);
 
 struct _GsdSettingsMigrateEntry
 {
