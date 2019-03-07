@@ -51,17 +51,21 @@ gsd_settings_migrate_check (const gchar             *origin_schema,
 
                 if (entries[i].dest_key) {
                         if (entries[i].func) {
+                                g_autoptr(GVariant) old_default = NULL;
                                 g_autoptr(GVariant) new_default = NULL;
                                 GVariant *modified;
 
+                                old_default = g_settings_get_default_value (origin_settings, entries[i].origin_key);
                                 new_default = g_settings_get_default_value (dest_settings, entries[i].dest_key);
 
-                                modified = entries[i].func (variant, new_default);
-                                g_variant_unref (variant);
-                                variant = g_variant_ref_sink (modified);
+                                modified = entries[i].func (variant, old_default, new_default);
+                                g_clear_pointer (&variant, g_variant_unref);
+                                if (modified)
+                                        variant = g_variant_ref_sink (modified);
                         }
 
-                        g_settings_set_value (dest_settings, entries[i].dest_key, variant);
+                        if (variant)
+                                g_settings_set_value (dest_settings, entries[i].dest_key, variant);
                 }
         }
 

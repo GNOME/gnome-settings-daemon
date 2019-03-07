@@ -3173,7 +3173,7 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 }
 
 static GVariant *
-map_keybinding (GVariant *variant, GVariant *new_default)
+map_keybinding (GVariant *variant, GVariant *old_default, GVariant *new_default)
 {
         g_autoptr(GPtrArray) array = g_ptr_array_new ();
         g_autofree const gchar **defaults = NULL;
