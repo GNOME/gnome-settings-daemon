@@ -34,7 +34,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
 "POT-Creation-Date: 2018-11-06 15:48+0000\n"
-"PO-Revision-Date: 2019-02-12 19:32+0100\n"
+"PO-Revision-Date: 2019-03-13 20:21+0100\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -117,7 +117,7 @@ msgstr "Afstand før træk påbegyndes."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:68
 msgid "Whether the tablet’s orientation is locked, or rotated automatically."
-msgstr "Om tavle-pc'ens orientering er låst, eller om den roteres automatisk."
+msgstr "Om tegnepladens orientering er låst, eller om den roteres automatisk."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:76
 msgid "Mouse button orientation"
@@ -264,11 +264,11 @@ msgstr "Absolut tilstand for Wacom-pegepen"
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:11
 msgid "Enable this to set the tablet to absolute mode."
-msgstr "Slå dette til for at sætte tavle-pc'en til absolut tilstand."
+msgstr "Slå dette til for at sætte tegnepladen til absolut tilstand."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:15
 msgid "Wacom tablet area"
-msgstr "Tavleområde for Wacom-tavle-pc"
+msgstr "Wacom-tegnepladens område"
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:16
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
@@ -277,19 +277,19 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:20
 msgid "Wacom tablet aspect ratio"
-msgstr "Højde-/breddeforhold for Wacom-tavle-pc"
+msgstr "Højde-/breddeforhold for Wacom-tegnepladen"
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:21
 msgid ""
 "Enable this to restrict the Wacom tablet area to match the aspect ratio of "
 "the output."
 msgstr ""
-"Slå dette til for at begrænse Wacom-tavle-pc'ens område så det passer til "
+"Slå dette til for at begrænse Wacom-tegnepladens område, så det passer til "
 "outputtets højde-/breddeforhold."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:25
 msgid "Wacom tablet rotation"
-msgstr "Rotation for Wacom-tavle-pc"
+msgstr "Rotation for Wacom-tegneplade"
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:26
 msgid ""
@@ -305,7 +305,7 @@ msgstr "Wacom-berøringsfunktion"
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:31
 msgid "Enable this to move the cursor when the user touches the tablet."
-msgstr "Slå denne til for at flytte markøren, når brugeren berører tavle-pc'en."
+msgstr "Slå denne til for at flytte markøren, når brugeren berører tegnepladen."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:37
 msgid "Wacom stylus pressure curve"
@@ -923,8 +923,8 @@ msgid ""
 "The amount of time in seconds the computer on AC power needs to be inactive "
 "before it goes to sleep. A value of 0 means never."
 msgstr ""
-"Ventetiden i sekunder før maskinen går i hviletilstand, når maskinen er "
-"tilsluttet ekstern stømforsyning. Værdien 0 betyder aldrig."
+"The amount of time in seconds the computer on AC power needs to be inactive "
+"before it goes to sleep. A value of 0 means never."
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:21
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:31
@@ -969,9 +969,9 @@ msgid ""
 "hard-coded (and the setting ignored) on virtual machines (power off) and "
 "tablets (suspend)."
 msgstr ""
-"Handlingen som skal udføres når der trykkes på strømknappen. Denne handling "
+"Handlingen som skal udføres, når der trykkes på strømknappen. Denne handling "
 "er hard-codet (og indstillingen ignoreres) på virtuelle maskiner (sluk) og "
-"tavle-pc'er (hvile)."
+"tablets (hvile)."
 
 #: data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in:6
 msgid "On which connections the service is enabled"
@@ -1508,13 +1508,13 @@ msgstr "Medieafspiller har lavt batteriniveau (%.0f%%)"
 #. TRANSLATORS: the cell battery is very low
 #: plugins/power/gsd-power-manager.c:507 plugins/power/gsd-power-manager.c:651
 msgid "Tablet battery low"
-msgstr "Tavle-pc'en har lavt batteriniveau"
+msgstr "Tegnepladen har lavt batteriniveau"
 
 #. TRANSLATORS: tell user more details
 #: plugins/power/gsd-power-manager.c:510
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
-msgstr "Tavle-pc'en har lavt batteriniveau (%.0f%%)"
+msgstr "Tegnepladen har lavt batteriniveau (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
@@ -1629,7 +1629,7 @@ msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
 "if not charged."
 msgstr ""
-"Tavle-pc'en har meget lavt batteriniveau (%.0f%%). Den vil snart holde op med "
+"Tegnepladen har meget lavt batteriniveau (%.0f%%). Den vil snart holde op med "
 "at virke, hvis den ikke bliver opladet."
 
 #. TRANSLATORS: the device is just going to stop working
@@ -1989,22 +1989,23 @@ msgstr "Brugeren var ikke logget ind med smartcard."
 #. to change the LED setting for a Wacom tablet
 #: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:20
 msgid "Modify the lit LED for a Wacom tablet"
-msgstr "Modificér låg-LED'en på en Wacom-tavle-pc"
+msgstr "Modificér den tændte LED på en Wacom-tegneplade"
 
 #: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:21
 msgid "Authentication is required to modify the lit LED for a Wacom tablet"
-msgstr "Ændring af låg-LED'en på en Wacom-tavle-pc kræver godkendelse"
+msgstr "Ændring af den tændte LED på en Wacom-tegneplade kræver godkendelse"
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
 #. to change the OLED images for a Wacom tablet
 #: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:35
 msgid "Modify the OLED image for a Wacom tablet"
-msgstr "Ændr OLED-billedet for en Wacom-tavle-pc"
+msgstr "Ændr OLED-billedet for en Wacom-tegneplade"
 
 #: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:36
 msgid "Authentication is required to modify the OLED image for a Wacom tablet"
-msgstr "Der kræves godkendelse for at ændre OLED-billedet for en Wacom-tavle-pc"
+msgstr ""
+"Der kræves godkendelse for at ændre OLED-billedet for en Wacom-tegneplade"
 
 #~ msgid "Slow Keys Turned On"
 #~ msgstr "Langsomme taster slået til"
