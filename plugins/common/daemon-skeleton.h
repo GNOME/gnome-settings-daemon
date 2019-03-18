@@ -161,6 +161,13 @@ register_with_gnome_session (GMainLoop *loop)
 			   NULL,
 			   (GAsyncReadyCallback) on_client_registered,
 			   loop);
+
+	/* DESKTOP_AUTOSTART_ID must not leak into child processes, because
+	 * it can't be reused. Child processes will not know whether this is
+	 * a genuine value or erroneous already-used value. At the moment of
+	 * writing this, GTK applications started through media-keys failed
+	 * to register with session manager. */
+	g_unsetenv ("DESKTOP_AUTOSTART_ID");
 }
 
 static gboolean
