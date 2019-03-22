@@ -2231,7 +2231,7 @@ inhibit_lid_switch (GsdPowerManager *manager)
         params = g_variant_new ("(ssss)",
                                 "handle-lid-switch",
                                 g_get_user_name (),
-                                "Multiple displays attached",
+                                "External monitor attached or configuration changed recently",
                                 "block");
         g_dbus_proxy_call_with_unix_fd_list (manager->logind_proxy,
                                              "Inhibit",
