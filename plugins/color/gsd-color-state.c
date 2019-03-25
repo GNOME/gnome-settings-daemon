@@ -1366,8 +1366,9 @@ gcm_session_client_connect_cb (GObject *source_object,
         }
 
         /* watch if sessions change */
-        g_signal_connect (state->session, "g-properties-changed",
-                          G_CALLBACK (gcm_session_active_changed_cb), state);
+        g_signal_connect_object (state->session, "g-properties-changed",
+                                 G_CALLBACK (gcm_session_active_changed_cb),
+                                 state, 0);
 
         /* add screens */
         gnome_rr_screen_refresh (state->state_screen, &error);
