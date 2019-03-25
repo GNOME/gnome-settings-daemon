@@ -124,7 +124,7 @@ typedef enum {
 
 struct _GsdPowerManager
 {
-        GObject                 *parent;
+        GObject                  parent;
 
         /* D-Bus */
         GsdSessionManager       *session;
