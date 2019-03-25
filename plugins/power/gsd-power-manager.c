@@ -2799,8 +2799,6 @@ backlight_brightness_step_cb (GObject *object,
                                                                       brightness,
                                                                       gsd_backlight_get_connector (backlight)));
         }
-
-        g_object_unref (manager);
 }
 
 /* Callback */
@@ -2830,14 +2828,14 @@ handle_method_call_screen (GsdPowerManager *manager,
                            GVariant *parameters,
                            GDBusMethodInvocation *invocation)
 {
-        g_object_set_data (G_OBJECT (invocation), "gsd-power-manager", g_object_ref (manager));
-
         if (!manager->backlight) {
                 g_dbus_method_invocation_return_error_literal (invocation,
                                                                GSD_POWER_MANAGER_ERROR, GSD_POWER_MANAGER_ERROR_NO_BACKLIGHT,
                                                                "No usable backlight could be found!");
                 return;
         }
+
+        g_object_set_data_full (G_OBJECT (invocation), "gsd-power-manager", g_object_ref (manager), g_object_unref);
 
         if (g_strcmp0 (method_name, "StepUp") == 0) {
                 g_debug ("screen step up");
