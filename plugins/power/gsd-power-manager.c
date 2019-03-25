@@ -2427,9 +2427,9 @@ on_rr_screen_acquired (GObject      *object,
 
         /* track the active session */
         manager->session = gnome_settings_bus_get_session_proxy ();
-        g_signal_connect (manager->session, "g-properties-changed",
-                          G_CALLBACK (engine_session_properties_changed_cb),
-                          manager);
+        g_signal_connect_object (manager->session, "g-properties-changed",
+                                 G_CALLBACK (engine_session_properties_changed_cb),
+                                 manager, 0);
         manager->session_is_active = is_session_active (manager);
 
         manager->screensaver_proxy = gnome_settings_bus_get_screen_saver_proxy ();
