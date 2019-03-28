@@ -107,6 +107,7 @@ static struct {
         { HIBERNATE_KEY, NULL, N_("Hibernate"), "XF86Hibernate", POWER_KEYS_MODE, META_KEY_BINDING_IGNORE_AUTOREPEAT },
         { SCREEN_BRIGHTNESS_UP_KEY, NULL, N_("Brightness Up"), "XF86MonBrightnessUp", SHELL_ACTION_MODE_ALL },
         { SCREEN_BRIGHTNESS_DOWN_KEY, NULL, N_("Brightness Down"), "XF86MonBrightnessDown", SHELL_ACTION_MODE_ALL },
+        { SCREEN_BRIGHTNESS_CYCLE_KEY, NULL, N_("Brightness Cycle"), "XF86MonBrightnessCycle", SHELL_ACTION_MODE_ALL },
         { KEYBOARD_BRIGHTNESS_UP_KEY, NULL, N_("Keyboard Brightness Up"), "XF86KbdBrightnessUp", SHELL_ACTION_MODE_ALL },
         { KEYBOARD_BRIGHTNESS_DOWN_KEY, NULL, N_("Keyboard Brightness Down"), "XF86KbdBrightnessDown", SHELL_ACTION_MODE_ALL },
         { KEYBOARD_BRIGHTNESS_TOGGLE_KEY, NULL, N_("Keyboard Brightness Toggle"), "XF86KbdLightOnOff", SHELL_ACTION_MODE_ALL, META_KEY_BINDING_IGNORE_AUTOREPEAT },

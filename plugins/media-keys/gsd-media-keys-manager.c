@@ -2212,6 +2212,7 @@ do_brightness_action (GsdMediaKeysManager *manager,
                 break;
         case SCREEN_BRIGHTNESS_UP_KEY:
         case SCREEN_BRIGHTNESS_DOWN_KEY:
+        case SCREEN_BRIGHTNESS_CYCLE_KEY:
                 proxy = priv->power_screen_proxy;
                 break;
         default:
@@ -2235,6 +2236,9 @@ do_brightness_action (GsdMediaKeysManager *manager,
                 break;
         case KEYBOARD_BRIGHTNESS_TOGGLE_KEY:
                 cmd = "Toggle";
+                break;
+        case SCREEN_BRIGHTNESS_CYCLE_KEY:
+                cmd = "Cycle";
                 break;
         default:
                 g_assert_not_reached ();
@@ -2615,6 +2619,7 @@ do_action (GsdMediaKeysManager *manager,
                 break;
         case SCREEN_BRIGHTNESS_UP_KEY:
         case SCREEN_BRIGHTNESS_DOWN_KEY:
+        case SCREEN_BRIGHTNESS_CYCLE_KEY:
         case KEYBOARD_BRIGHTNESS_UP_KEY:
         case KEYBOARD_BRIGHTNESS_DOWN_KEY:
         case KEYBOARD_BRIGHTNESS_TOGGLE_KEY:
