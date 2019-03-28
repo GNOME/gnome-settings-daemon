@@ -38,9 +38,6 @@
 #define GSETTINGS_TOUCHPAD_SCHEMA  "org.gnome.desktop.peripherals.touchpad"
 
 /* Mouse settings */
-#define KEY_DWELL_CLICK_ENABLED          "dwell-click-enabled"
-#define KEY_SECONDARY_CLICK_ENABLED      "secondary-click-enabled"
-
 struct _GsdMouseManager
 {
         GObject parent;
@@ -50,7 +47,6 @@ struct _GsdMouseManager
         GSettings *mouse_a11y_settings;
         GSettings *mouse_settings;
         GSettings *gsd_mouse_settings;
-        gboolean mousetweaks_daemon_running;
 };
 
 static void     gsd_mouse_manager_class_init  (GsdMouseManagerClass *klass);
@@ -72,54 +68,6 @@ gsd_mouse_manager_class_init (GsdMouseManagerClass *klass)
 }
 
 static void
-set_mousetweaks_daemon (GsdMouseManager *manager,
-                        gboolean         dwell_click_enabled,
-                        gboolean         secondary_click_enabled)
-{
-        GError *error = NULL;
-        gchar *comm;
-        gboolean run_daemon = dwell_click_enabled || secondary_click_enabled;
-
-        if (run_daemon || manager->mousetweaks_daemon_running)
-                comm = g_strdup_printf ("mousetweaks %s",
-                                        run_daemon ? "" : "-s");
-        else
-                return;
-
-        if (run_daemon)
-                manager->mousetweaks_daemon_running = TRUE;
-
-        if (! g_spawn_command_line_async (comm, &error)) {
-                if (error->code == G_SPAWN_ERROR_NOENT && run_daemon) {
-                        if (dwell_click_enabled) {
-                                g_settings_set_boolean (manager->mouse_a11y_settings,
-                                                        KEY_DWELL_CLICK_ENABLED, FALSE);
-                        } else if (secondary_click_enabled) {
-                                g_settings_set_boolean (manager->mouse_a11y_settings,
-                                                        KEY_SECONDARY_CLICK_ENABLED, FALSE);
-                        }
-
-                        g_warning ("Error enabling mouse accessibility features (mousetweaks is not installed)");
-                }
-                g_error_free (error);
-        }
-        g_free (comm);
-}
-
-static void
-mouse_callback (GSettings       *settings,
-                const gchar     *key,
-                GsdMouseManager *manager)
-{
-        if (g_str_equal (key, KEY_DWELL_CLICK_ENABLED) ||
-            g_str_equal (key, KEY_SECONDARY_CLICK_ENABLED)) {
-                set_mousetweaks_daemon (manager,
-                                        g_settings_get_boolean (settings, KEY_DWELL_CLICK_ENABLED),
-                                        g_settings_get_boolean (settings, KEY_SECONDARY_CLICK_ENABLED));
-        }
-}
-
-static void
 gsd_mouse_manager_init (GsdMouseManager *manager)
 {
 }
@@ -128,23 +76,6 @@ static gboolean
 gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
 {
         gnome_settings_profile_start (NULL);
-
-        manager->gsd_mouse_settings = g_settings_new (GSD_SETTINGS_MOUSE_SCHEMA);
-        g_signal_connect (manager->gsd_mouse_settings, "changed",
-                          G_CALLBACK (mouse_callback), manager);
-
-        manager->mouse_a11y_settings = g_settings_new ("org.gnome.desktop.a11y.mouse");
-        g_signal_connect (manager->mouse_a11y_settings, "changed",
-                          G_CALLBACK (mouse_callback), manager);
-#if 0
-        manager->mouse_settings = g_settings_new (GSETTINGS_MOUSE_SCHEMA);
-        g_signal_connect (manager->mouse_settings, "changed",
-                          G_CALLBACK (mouse_callback), manager);
-#endif
-
-        set_mousetweaks_daemon (manager,
-                                g_settings_get_boolean (manager->mouse_a11y_settings, KEY_DWELL_CLICK_ENABLED),
-                                g_settings_get_boolean (manager->mouse_a11y_settings, KEY_SECONDARY_CLICK_ENABLED));
 
         gnome_settings_profile_end (NULL);
 
