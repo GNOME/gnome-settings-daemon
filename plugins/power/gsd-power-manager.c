@@ -96,6 +96,10 @@ static const gchar introspection_xml[] =
 "      <arg type='i' name='new_percentage' direction='out'/>"
 "      <arg type='i' name='output_id' direction='out'/>"
 "    </method>"
+"    <method name='Cycle'>"
+"      <arg type='i' name='new_percentage' direction='out'/>"
+"      <arg type='i' name='output_id' direction='out'/>"
+"    </method>"
 "  </interface>"
 "  <interface name='org.gnome.SettingsDaemon.Power.Keyboard'>"
 "    <property name='Brightness' type='i' access='readwrite'/>"
@@ -2842,6 +2846,10 @@ handle_method_call_screen (GsdPowerManager *manager,
         } else if (g_strcmp0 (method_name, "StepDown") == 0) {
                 g_debug ("screen step down");
                 gsd_backlight_step_down_async (manager->backlight, NULL, backlight_brightness_step_cb, invocation);
+
+        } else if (g_strcmp0 (method_name, "Cycle") == 0) {
+                g_debug ("screen cycle up");
+                gsd_backlight_cycle_up_async (manager->backlight, NULL, backlight_brightness_step_cb, invocation);
 
         } else {
                 g_assert_not_reached ();
