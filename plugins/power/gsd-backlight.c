@@ -582,8 +582,8 @@ gsd_backlight_step_up_async (GsdBacklight *backlight,
  *
  * For simplicity it is also valid to call gsd_backlight_set_brightness_finish()
  * allowing sharing the callback routine for calls to
- * gsd_backlight_set_brightness_async(), gsd_backlight_step_up_async() and
- * gsd_backlight_step_down_async().
+ * gsd_backlight_set_brightness_async(), gsd_backlight_step_up_async(),
+ * gsd_backlight_step_down_async() and gsd_backlight_cycle_up_async().
  *
  * Returns: The brightness in percent that was set.
  **/
@@ -628,8 +628,8 @@ gsd_backlight_step_down_async (GsdBacklight *backlight,
  *
  * For simplicity it is also valid to call gsd_backlight_set_brightness_finish()
  * allowing sharing the callback routine for calls to
- * gsd_backlight_set_brightness_async(), gsd_backlight_step_up_async() and
- * gsd_backlight_step_down_async().
+ * gsd_backlight_set_brightness_async(), gsd_backlight_step_up_async(),
+ * gsd_backlight_step_down_async() and gsd_backlight_cycle_up_async().
  *
  * Returns: The brightness in percent that was set.
  **/
@@ -637,6 +637,53 @@ gint
 gsd_backlight_step_down_finish (GsdBacklight *backlight,
                                 GAsyncResult *res,
                                 GError **error)
+{
+        return g_task_propagate_int (G_TASK (res), error);
+}
+
+void
+gsd_backlight_cycle_up_async (GsdBacklight *backlight,
+                              GCancellable *cancellable,
+                              GAsyncReadyCallback callback,
+                              gpointer user_data)
+{
+        if (backlight->brightness_target < backlight->brightness_max)
+                gsd_backlight_step_up_async (backlight,
+                                             cancellable,
+                                             callback,
+                                             user_data);
+        else
+                gsd_backlight_set_brightness_val_async (backlight,
+                                                        backlight->brightness_min,
+                                                        cancellable,
+                                                        callback,
+                                                        user_data);
+}
+
+/**
+ * gsd_backlight_cycle_up_finish
+ * @backlight: a #GsdBacklight
+ * @res: the #GAsyncResult passed to the callback
+ * @error: #GError return address
+ *
+ * Finish an operation started by gsd_backlight_cycle_up_async(). Will return
+ * the value that was actually set (which may be different because of rounding
+ * or as multiple set actions were queued up).
+ *
+ * Please note that a call to gsd_backlight_get_brightness() may not in fact
+ * return the same value if further operations to set the value are pending.
+ *
+ * For simplicity it is also valid to call gsd_backlight_set_brightness_finish()
+ * allowing sharing the callback routine for calls to
+ * gsd_backlight_set_brightness_async(), gsd_backlight_step_up_async(),
+ * gsd_backlight_step_down_async() and gsd_backlight_cycle_up_async().
+ *
+ * Returns: The brightness in percent that was set.
+ **/
+gint
+gsd_backlight_cycle_up_finish (GsdBacklight *backlight,
+                               GAsyncResult *res,
+                               GError **error)
 {
         return g_task_propagate_int (G_TASK (res), error);
 }
