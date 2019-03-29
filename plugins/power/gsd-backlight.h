@@ -49,6 +49,10 @@ void gsd_backlight_step_down_async       (GsdBacklight         *backlight,
                                           GCancellable         *cancellable,
                                           GAsyncReadyCallback   callback,
                                           gpointer              user_data);
+void gsd_backlight_cycle_up_async        (GsdBacklight         *backlight,
+                                          GCancellable         *cancellable,
+                                          GAsyncReadyCallback   callback,
+                                          gpointer              user_data);
 
 gint gsd_backlight_set_brightness_finish (GsdBacklight         *backlight,
                                           GAsyncResult         *res,
@@ -62,6 +66,9 @@ gint gsd_backlight_step_down_finish      (GsdBacklight         *backlight,
                                           GAsyncResult         *res,
                                           GError              **error);
 
+gint gsd_backlight_cycle_up_finish       (GsdBacklight         *backlight,
+                                          GAsyncResult         *res,
+                                          GError              **error);
 
 gint gsd_backlight_get_output_id         (GsdBacklight         *backlight);
 GsdBacklight* gsd_backlight_new          (GnomeRRScreen        *screen,
