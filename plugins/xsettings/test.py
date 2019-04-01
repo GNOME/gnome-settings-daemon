@@ -142,7 +142,7 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
     def test_gtk_modules(self):
         # Turn off event sounds
         self.settings_sound['event-sounds'] = False
-        time.sleep(1)
+        time.sleep(2)
 
         # Verify that only the PackageKit plugin is enabled
         self.assertEqual(self.obj_xsettings_props.Get('org.gtk.Settings', 'Modules'),
