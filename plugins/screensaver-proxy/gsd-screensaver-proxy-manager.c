@@ -192,10 +192,14 @@ handle_method_call (GDBusConnection       *connection,
                     gpointer               user_data)
 {
         GsdScreensaverProxyManager *manager = GSD_SCREENSAVER_PROXY_MANAGER (user_data);
+        g_autoptr(GError) error = NULL;
 
         /* Check session pointer as a proxy for whether the manager is in the
            start or stop state */
         if (manager->session == NULL) {
+                g_dbus_method_invocation_return_dbus_error (invocation,
+                                                            "org.freedesktop.DBus.Error.NotSupported",
+                                                            "Session is unavailable");
                 return;
         }
 
@@ -216,7 +220,11 @@ handle_method_call (GDBusConnection       *connection,
                                               g_variant_new ("(susu)",
                                                              app_id, 0, reason, GSM_INHIBITOR_FLAG_IDLE),
                                               G_DBUS_CALL_FLAGS_NONE,
-                                              -1, NULL, NULL);
+                                              -1, NULL, &error);
+
+                if (!ret)
+                        goto error;
+
                 g_variant_get (ret, "(u)", &cookie);
                 g_hash_table_insert (manager->cookie_ht,
                                      GUINT_TO_POINTER (cookie),
@@ -237,14 +245,19 @@ handle_method_call (GDBusConnection       *connection,
                 }
                 g_dbus_method_invocation_return_value (invocation, ret);
         } else if (g_strcmp0 (method_name, "UnInhibit") == 0) {
+                GVariant *ret;
                 guint cookie;
 
                 g_variant_get (parameters, "(u)", &cookie);
-                g_dbus_proxy_call_sync (G_DBUS_PROXY (manager->session),
-                                        "Uninhibit",
-                                        parameters,
-                                        G_DBUS_CALL_FLAGS_NONE,
-                                        -1, NULL, NULL);
+                ret = g_dbus_proxy_call_sync (G_DBUS_PROXY (manager->session),
+                                              "Uninhibit",
+                                              parameters,
+                                              G_DBUS_CALL_FLAGS_NONE,
+                                              -1, NULL, &error);
+
+                if (!ret)
+                        goto error;
+
                 g_debug ("Removing cookie %u from the list for %s", cookie, sender);
                 g_hash_table_remove (manager->cookie_ht, GUINT_TO_POINTER (cookie));
                 g_dbus_method_invocation_return_value (invocation, NULL);
@@ -272,6 +285,9 @@ unimplemented:
         g_dbus_method_invocation_return_dbus_error (invocation,
                                                     "org.freedesktop.DBus.Error.NotSupported",
                                                     "This method is not implemented");
+        return;
+error:
+        g_dbus_method_invocation_return_gerror (invocation, error);
 }
 
 static const GDBusInterfaceVTable interface_vtable =
