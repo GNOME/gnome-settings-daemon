@@ -101,8 +101,6 @@ typedef enum {
         POLICY_ATTRIBUTES
 } UsbGuardPolicyChanged;
 
-static void gsd_usb_protection_manager_class_init (GsdUsbProtectionManagerClass *klass);
-static void gsd_usb_protection_manager_init       (GsdUsbProtectionManager      *usb_protection_manager);
 static void gsd_usb_protection_manager_finalize   (GObject                      *object);
 
 G_DEFINE_TYPE (GsdUsbProtectionManager, gsd_usb_protection_manager, G_TYPE_OBJECT)
