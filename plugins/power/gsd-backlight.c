@@ -645,26 +645,22 @@ gsd_backlight_step_down_finish (GsdBacklight *backlight,
  * gsd_backlight_get_output_id
  * @backlight: a #GsdBacklight
  *
- * Return the display ID for the display that is being controlled by the
- * #GsdBacklight object. This display ID can be passed to gnome-shell to show
+ * Return the connector for the display that is being controlled by the
+ * #GsdBacklight object. This connector can be passed to gnome-shell to show
  * the on screen display only on the affected screen.
  *
- * Returns: The ID for the controlled output or -1 if unknown.
+ * Returns: The connector of the controlled output or NULL if unknown.
  **/
-gint
-gsd_backlight_get_output_id (GsdBacklight *backlight)
+const char*
+gsd_backlight_get_connector (GsdBacklight *backlight)
 {
         GnomeRROutput *output;
 
         output = gsd_backlight_rr_find_output (backlight, FALSE);
         if (output == NULL)
-                return -1;
+                return NULL;
 
-        /* XXX: Is this really that simple? The old code did a lot more, but
-         * did not return anything sensible these days.
-         * The outputs need to be in the same order as the MetaScreen object
-         * returns to the shell. */
-        return gnome_rr_output_get_id (output);
+        return gnome_rr_output_get_name (output);
 }
 
 static void

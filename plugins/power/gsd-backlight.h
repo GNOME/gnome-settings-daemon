@@ -63,7 +63,8 @@ gint gsd_backlight_step_down_finish      (GsdBacklight         *backlight,
                                           GError              **error);
 
 
-gint gsd_backlight_get_output_id         (GsdBacklight         *backlight);
+const char*  gsd_backlight_get_connector (GsdBacklight         *backlight);
+
 GsdBacklight* gsd_backlight_new          (GnomeRRScreen        *screen,
                                           GError              **error);
 
