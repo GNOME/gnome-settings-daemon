@@ -85,7 +85,6 @@
 
 #define SHELL_GRABBER_CALL_TIMEOUT G_MAXINT
 #define SHELL_GRABBER_RETRY_INTERVAL 1
-#define OSD_ALL_OUTPUTS -1
 
 /* How long to suppress power-button presses after resume,
  * 3 seconds is the minimum necessary to make resume reliable */
@@ -371,7 +370,7 @@ show_osd_with_max_level (GsdMediaKeysManager *manager,
                          const char          *label,
                          int                  level,
                          int                  max_level,
-                         int                  output_id)
+                         const gchar         *connector)
 {
         GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
 
@@ -379,7 +378,7 @@ show_osd_with_max_level (GsdMediaKeysManager *manager,
                 return;
 
         shell_show_osd_with_max_level (priv->shell_proxy,
-                                       icon, label, level, max_level, output_id);
+                                       icon, label, level, max_level, connector);
 }
 
 static void
@@ -387,10 +386,10 @@ show_osd (GsdMediaKeysManager *manager,
           const char          *icon,
           const char          *label,
           int                  level,
-          int                  output_id)
+          const char          *connector)
 {
         show_osd_with_max_level(manager,
-                                icon, label, level, -1, output_id);
+                                icon, label, level, -1, connector);
 }
 
 static const char *
@@ -1055,7 +1054,7 @@ do_eject_action (GsdMediaKeysManager *manager)
         }
 
         /* Show OSD */
-        show_osd (manager, "media-eject-symbolic", NULL, -1, OSD_ALL_OUTPUTS);
+        show_osd (manager, "media-eject-symbolic", NULL, -1, NULL);
 
         /* Clean up the drive selection and exit if no suitable
          * drives are found */
@@ -1132,7 +1131,7 @@ static void
 do_touchpad_osd_action (GsdMediaKeysManager *manager, gboolean state)
 {
         show_osd (manager, state ? "input-touchpad-symbolic"
-                                 : "touchpad-disabled-symbolic", NULL, -1, OSD_ALL_OUTPUTS);
+                                 : "touchpad-disabled-symbolic", NULL, -1, NULL);
 }
 
 static void
@@ -1268,9 +1267,9 @@ update_dialog (GsdMediaKeysManager *manager,
                 device = gvc_mixer_control_lookup_device_from_stream (priv->volume, stream);
                 show_osd_with_max_level (manager, icon,
                                          gvc_mixer_ui_device_get_description (device),
-                                         vol, max_volume_pct, OSD_ALL_OUTPUTS);
+                                         vol, max_volume_pct, NULL);
         } else {
-                show_osd_with_max_level (manager, icon, NULL, vol, max_volume_pct, OSD_ALL_OUTPUTS);
+                show_osd_with_max_level (manager, icon, NULL, vol, max_volume_pct, NULL);
         }
 
         if (quiet == FALSE && sound_changed != FALSE && muted == FALSE) {
@@ -1744,7 +1743,7 @@ gsd_media_player_key_pressed (GsdMediaKeysManager *manager,
 
         if (!have_listeners) {
                 /* Popup a dialog with an (/) icon */
-                show_osd (manager, "action-unavailable-symbolic", NULL, -1, OSD_ALL_OUTPUTS);
+                show_osd (manager, "action-unavailable-symbolic", NULL, -1, NULL);
 		return TRUE;
         }
 
@@ -1901,7 +1900,7 @@ do_video_rotate_lock_action (GsdMediaKeysManager *manager,
         g_object_unref (settings);
 
         show_osd (manager, locked ? "rotation-locked-symbolic"
-                                  : "rotation-allowed-symbolic", NULL, -1, OSD_ALL_OUTPUTS);
+                                  : "rotation-allowed-symbolic", NULL, -1, NULL);
 }
 
 static void
@@ -2159,11 +2158,12 @@ update_brightness_cb (GObject             *source_object,
                       gpointer             user_data)
 {
         GError *error = NULL;
-        int percentage, output_id;
+        int percentage;
         GVariant *variant;
         GsdMediaKeysManager *manager = GSD_MEDIA_KEYS_MANAGER (user_data);
         GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
         const char *icon, *debug;
+        char *connector = NULL;
 
         /* update the dialog with the new value */
         if (G_DBUS_PROXY (source_object) == priv->power_keyboard_proxy) {
@@ -2185,14 +2185,13 @@ update_brightness_cb (GObject             *source_object,
         /* update the dialog with the new value */
         if (G_DBUS_PROXY (source_object) == priv->power_keyboard_proxy) {
                 icon = "keyboard-brightness-symbolic";
-                output_id = -1;
                 g_variant_get (variant, "(i)", &percentage);
         } else {
                 icon = "display-brightness-symbolic";
-                g_variant_get (variant, "(ii)", &percentage, &output_id);
+                g_variant_get (variant, "(i&s)", &percentage, &connector);
         }
 
-        show_osd (manager, icon, NULL, percentage, output_id);
+        show_osd (manager, icon, NULL, percentage, connector);
         g_variant_unref (variant);
 }
 
@@ -2273,7 +2272,7 @@ do_battery_action (GsdMediaKeysManager *manager)
 
         if (kind == UP_DEVICE_KIND_UPS || kind == UP_DEVICE_KIND_BATTERY) {
                 g_debug ("showing battery level OSD");
-                show_osd (manager, icon_name, NULL, percentage, OSD_ALL_OUTPUTS);
+                show_osd (manager, icon_name, NULL, percentage, NULL);
         }
 
         g_free (icon_name);
@@ -2328,17 +2327,17 @@ set_rfkill_complete (GObject      *object,
         if (data->bluetooth) {
                 if (data->target_state)
                         show_osd (data->manager, "bluetooth-disabled-symbolic",
-                                  _("Bluetooth disabled"), -1, OSD_ALL_OUTPUTS);
+                                  _("Bluetooth disabled"), -1, NULL);
                 else
                         show_osd (data->manager, "bluetooth-active-symbolic",
-                                  _("Bluetooth enabled"), -1, OSD_ALL_OUTPUTS);
+                                  _("Bluetooth enabled"), -1, NULL);
         } else {
                 if (data->target_state)
                         show_osd (data->manager, "airplane-mode-symbolic",
-                                  _("Airplane mode enabled"), -1, OSD_ALL_OUTPUTS);
+                                  _("Airplane mode enabled"), -1, NULL);
                 else
                         show_osd (data->manager, "network-wireless-signal-excellent-symbolic",
-                                  _("Airplane mode disabled"), -1, OSD_ALL_OUTPUTS);
+                                  _("Airplane mode disabled"), -1, NULL);
         }
 
 out:
@@ -2367,7 +2366,7 @@ do_rfkill_action (GsdMediaKeysManager *manager,
 
         if (get_rfkill_property (manager, hw_mode)) {
                 show_osd (manager, "airplane-mode-symbolic",
-                          _("Hardware Airplane Mode"), -1, OSD_ALL_OUTPUTS);
+                          _("Hardware Airplane Mode"), -1, NULL);
                 return;
         }
 
@@ -3507,7 +3506,7 @@ power_keyboard_proxy_signal_cb (GDBusProxy  *proxy,
         if (g_strcmp0 (source, "internal") != 0)
                 return;
 
-        show_osd (manager, "keyboard-brightness-symbolic", NULL, brightness, -1);
+        show_osd (manager, "keyboard-brightness-symbolic", NULL, brightness, NULL);
 }
 
 static void
