@@ -90,11 +90,11 @@ static const gchar introspection_xml[] =
 "    <property name='Brightness' type='i' access='readwrite'/>"
 "    <method name='StepUp'>"
 "      <arg type='i' name='new_percentage' direction='out'/>"
-"      <arg type='i' name='output_id' direction='out'/>"
+"      <arg type='s' name='connector' direction='out'/>"
 "    </method>"
 "    <method name='StepDown'>"
 "      <arg type='i' name='new_percentage' direction='out'/>"
-"      <arg type='i' name='output_id' direction='out'/>"
+"      <arg type='s' name='connector' direction='out'/>"
 "    </method>"
 "    <method name='Cycle'>"
 "      <arg type='i' name='new_percentage' direction='out'/>"
@@ -2795,9 +2795,9 @@ backlight_brightness_step_cb (GObject *object,
                                                      error);
         } else {
                 g_dbus_method_invocation_return_value (invocation,
-                                                       g_variant_new ("(ii)",
+                                                       g_variant_new ("(is)",
                                                                       brightness,
-                                                                      gsd_backlight_get_output_id (backlight)));
+                                                                      gsd_backlight_get_connector (backlight)));
         }
 
         g_object_unref (manager);

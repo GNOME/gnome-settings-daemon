@@ -25,9 +25,9 @@ shell_show_osd (GsdShell    *shell,
 		const gchar *icon_name,
 		const gchar *label,
 		gint         level,
-		gint         monitor)
+		const gchar *connector)
 {
-        shell_show_osd_with_max_level (shell, icon_name, label, level, -1, monitor);
+        shell_show_osd_with_max_level (shell, icon_name, label, level, -1, connector);
 }
 
 void
@@ -36,7 +36,7 @@ shell_show_osd_with_max_level (GsdShell    *shell,
                                const gchar *label,
                                gint         level,
                                gint         max_level,
-                               gint         monitor)
+                               const gchar *connector)
 {
 	GVariantBuilder builder;
 
@@ -56,9 +56,9 @@ shell_show_osd_with_max_level (GsdShell    *shell,
         if (max_level > 100)
                 g_variant_builder_add (&builder, "{sv}",
                                        "max_level", g_variant_new_int32 (max_level));
-        if (monitor >= 0)
+        if (connector)
                 g_variant_builder_add (&builder, "{sv}",
-                                       "monitor", g_variant_new_int32 (monitor));
+                                       "connector", g_variant_new_string (connector));
 
 	gsd_shell_call_show_osd (shell,
 				 g_variant_builder_end (&builder),
