@@ -108,6 +108,22 @@ G_DEFINE_TYPE (GsdUsbProtectionManager, gsd_usb_protection_manager, G_TYPE_OBJEC
 static gpointer manager_object = NULL;
 
 static void
+dbus_call_log_error (GObject      *source_object,
+                     GAsyncResult *res,
+                     gpointer      user_data)
+{
+        g_autoptr(GVariant) result;
+        g_autoptr(GError) error = NULL;
+        const gchar *msg = user_data;
+
+        result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
+                                           res,
+                                           &error);
+        if (result == NULL)
+                g_warning ("%s: %s", msg, error->message);
+}
+
+static void
 add_usbguard_allow_rule (GsdUsbProtectionManager *manager)
 {
         /* This prepends an "allow all" rule.
@@ -128,7 +144,8 @@ add_usbguard_allow_rule (GsdUsbProtectionManager *manager)
                                    G_DBUS_CALL_FLAGS_NONE,
                                    -1,
                                    manager->cancellable,
-                                   NULL, NULL);
+                                   dbus_call_log_error,
+                                   "Error appending USBGuard rule");
 }
 
 static gboolean
@@ -225,7 +242,8 @@ settings_changed_callback (GSettings               *settings,
                                            G_DBUS_CALL_FLAGS_NONE,
                                            -1,
                                            manager->cancellable,
-                                           NULL, NULL);
+                                           dbus_call_log_error,
+                                           "Error calling USBGuard DBus");
                 }
 
                 usbguard_ensure_allow_rule (manager);
@@ -244,7 +262,8 @@ settings_changed_callback (GSettings               *settings,
                                    G_DBUS_CALL_FLAGS_NONE,
                                    -1,
                                    manager->cancellable,
-                                   NULL, NULL);
+                                   dbus_call_log_error,
+                                   "Error calling USBGuard DBus");
 
                 /* If we are in "When lockscreen is active" we also check if the
                  * always allow rule is present. */
@@ -331,7 +350,8 @@ static void authorize_device (GDBusProxy              *proxy,
                                    G_DBUS_CALL_FLAGS_NONE,
                                    -1,
                                    manager->cancellable,
-                                   NULL, NULL);
+                                   dbus_call_log_error,
+                                   "Error calling USBGuard DBus");
 }
 
 static gboolean
@@ -612,7 +632,8 @@ on_getparameter_done (GObject      *source_object,
                                    G_DBUS_CALL_FLAGS_NONE,
                                    -1,
                                    manager->cancellable,
-                                   NULL, NULL);
+                                   dbus_call_log_error,
+                                   "Error calling USBGuard DBus");
         }
 
         /* If we are in "When lockscreen is active" we also check
