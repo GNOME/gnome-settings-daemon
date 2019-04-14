@@ -360,19 +360,17 @@ is_only_hid (GVariant *device)
         GVariantIter *iter = NULL;
         g_autofree gchar *name = NULL;
         g_autofree gchar *value = NULL;
-        gchar **interfaces_splitted;
         guint i;
         gboolean only_hid = TRUE;
 
         g_variant_get_child (device, POLICY_ATTRIBUTES, "a{ss}", &iter);
         while (g_variant_iter_loop (iter, "{ss}", &name, &value)) {
                 if (g_strcmp0 (name, WITH_INTERFACE) == 0) {
+                        g_auto(GStrv) interfaces_splitted = NULL;
                         interfaces_splitted = g_strsplit (value, " ", -1);
                         for (i = 0; i < g_strv_length (interfaces_splitted); i++)
                                 if (g_str_has_prefix (interfaces_splitted[i], "03:"))
                                         only_hid = FALSE;
-
-                        g_strfreev (interfaces_splitted);
                 }
         }
         return only_hid;
