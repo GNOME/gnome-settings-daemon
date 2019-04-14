@@ -370,7 +370,7 @@ is_only_hid (GVariant *device)
                         interfaces_splitted = g_strsplit (value, " ", -1);
                         if (interfaces_splitted) {
                                 for (i = 0; i < g_strv_length (interfaces_splitted); i++)
-                                        if (g_strstr_len (interfaces_splitted[i], -1, "03:") != interfaces_splitted[i])
+                                        if (g_str_has_prefix (interfaces_splitted[i], "03:"))
                                                 only_hid = FALSE;
 
                                 g_strfreev (interfaces_splitted);
