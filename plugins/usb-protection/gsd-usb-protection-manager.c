@@ -277,7 +277,7 @@ settings_changed_callback (GSettings               *settings,
 static void update_usb_protection_store (GsdUsbProtectionManager *manager,
                                          GVariant                *parameter)
 {
-        gchar *key;
+        const gchar *key;
         gboolean usbguard_controlled;
         UsbProtectionLevel protection_lvl;
         GSettings *settings = manager->settings;
@@ -286,15 +286,13 @@ static void update_usb_protection_store (GsdUsbProtectionManager *manager,
         /* If we are not handling USBGuard configuration (e.g. the user is using
          * a third party program) we do nothing when the config changes. */
         if (usbguard_controlled) {
-                g_variant_get (parameter, "s", &key);
+                key = g_variant_get_string (parameter, NULL);
                 protection_lvl = g_settings_get_uint (settings, USB_PROTECTION_LEVEL);
                 /* If the USBGuard configuration has been changed and doesn't match
                  * our internal state, most likely means that the user externally
                  * changed it. When this happens we set to false the control value. */
                 if ((g_strcmp0 (key, APPLY_POLICY) == 0 && protection_lvl == LEVEL_ALWAYS))
                         g_settings_set (settings, USB_PROTECTION, "b", FALSE);
-                
-                g_free (key);
         }
 }
 
