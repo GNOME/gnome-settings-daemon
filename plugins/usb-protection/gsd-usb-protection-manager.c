@@ -193,6 +193,8 @@ usbguard_ensure_allow_rule (GsdUsbProtectionManager *manager)
 {
         g_autoptr(GVariant) params = NULL;
         if (manager->usb_protection_policy != NULL) {
+                /* listRules parameter is a query for matching rules.
+                 * With an empty string we get all the available rules. */
                 params = g_variant_new ("(s)", "");
                 g_dbus_proxy_call (manager->usb_protection_policy,
                                    LIST_RULES,
