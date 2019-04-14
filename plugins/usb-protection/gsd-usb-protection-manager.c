@@ -368,13 +368,11 @@ is_only_hid (GVariant *device)
         while (g_variant_iter_loop (iter, "{ss}", &name, &value)) {
                 if (g_strcmp0 (name, WITH_INTERFACE) == 0) {
                         interfaces_splitted = g_strsplit (value, " ", -1);
-                        if (interfaces_splitted) {
-                                for (i = 0; i < g_strv_length (interfaces_splitted); i++)
-                                        if (g_str_has_prefix (interfaces_splitted[i], "03:"))
-                                                only_hid = FALSE;
+                        for (i = 0; i < g_strv_length (interfaces_splitted); i++)
+                                if (g_str_has_prefix (interfaces_splitted[i], "03:"))
+                                        only_hid = FALSE;
 
-                                g_strfreev (interfaces_splitted);
-                        }
+                        g_strfreev (interfaces_splitted);
                 }
         }
         return only_hid;
