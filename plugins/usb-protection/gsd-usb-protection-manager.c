@@ -191,7 +191,7 @@ usbguard_listrules_cb (GObject      *source_object,
 static void
 usbguard_ensure_allow_rule (GsdUsbProtectionManager *manager)
 {
-        g_autoptr(GVariant) params = NULL;
+        GVariant *params;
         if (manager->usb_protection_policy != NULL) {
                 /* listRules parameter is a query for matching rules.
                  * With an empty string we get all the available rules. */
