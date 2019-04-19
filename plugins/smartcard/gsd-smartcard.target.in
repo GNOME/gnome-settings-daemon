@@ -1,0 +1,17 @@
+[Unit]
+Description=GNOME Smartcard handling
+
+BindsTo=gsd-smartcard.service
+After=gsd-smartcard.service
+
+Requisite=gnome-session-initialized.target
+After=gnome-session-initialized.target
+PartOf=gnome-session-initialized.target
+Before=gnome-session.target
+
+# Start when smartcard hardware is present (requires systemd v234)
+# https://github.com/systemd/systemd/issues/12330
+#Requisite=smartcard.target
+#After=smartcard.target
+#PartOf=smartcard.target
+# When done, also add the target to the meson.build file!

@@ -1,0 +1,16 @@
+[Unit]
+Description=GNOME XSettings
+
+BindsTo=gsd-xsettings.service
+After=gsd-xsettings.service
+
+Requisite=gnome-session-initialized.target
+After=gnome-session-initialized.target
+PartOf=gnome-session-initialized.target
+Before=gnome-session.target
+
+# Use something similar once appropriate an appropriate target exists for X11
+#Requisite=gnome-session-x11.target
+#After=gnome-session-x11.target
+#PartOf=gnome-session-x11.target
+# When done, also add the target to the meson.build file!
