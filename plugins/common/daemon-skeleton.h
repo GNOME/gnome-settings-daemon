@@ -43,36 +43,6 @@ static GOptionEntry entries[] = {
         {NULL}
 };
 
-static const char *gdm_helpers[] = {
-	"a11y-keyboard",
-	"a11y-settings",
-	"clipboard",
-	"color",
-	"keyboard",
-	"media-keys",
-	"power",
-	"smartcard",
-	"sound",
-	"xsettings"
-};
-
-static gboolean
-should_run (void)
-{
-	const char *session_mode;
-	guint i;
-
-	session_mode = g_getenv ("GNOME_SHELL_SESSION_MODE");
-	if (g_strcmp0 (session_mode, "gdm") != 0)
-		return TRUE;
-
-	for (i = 0; i < G_N_ELEMENTS (gdm_helpers); i++) {
-		if (g_str_equal (PLUGIN_NAME, gdm_helpers[i]))
-			return TRUE;
-	}
-	return FALSE;
-}
-
 static void
 respond_to_end_session (GDBusProxy *proxy)
 {
@@ -268,14 +238,11 @@ main (int argc, char **argv)
         manager = NEW ();
 	register_with_gnome_session (loop);
 
-	if (should_run ()) {
-		error = NULL;
-		if (!START (manager, &error)) {
-			fprintf (stderr, "Failed to start: %s\n", error->message);
-			g_error_free (error);
-			exit (1);
-		}
-	}
+        if (!START (manager, &error)) {
+                fprintf (stderr, "Failed to start: %s\n", error->message);
+                g_error_free (error);
+                exit (1);
+        }
 
 	name_own_id = g_bus_own_name (G_BUS_TYPE_SESSION,
 				      PLUGIN_DBUS_NAME,
@@ -288,8 +255,7 @@ main (int argc, char **argv)
 
         g_main_loop_run (loop);
 
-	if (should_run ())
-		STOP (manager);
+        STOP (manager);
 
         g_object_unref (manager);
         g_bus_unown_name (name_own_id);

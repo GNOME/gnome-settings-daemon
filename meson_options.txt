@@ -1,5 +1,6 @@
 option('nssdb_dir', type: 'string', value: '', description: 'Absolute path to the system NSS database directory')
 option('udev_dir', type: 'string', value: '', description: 'Absolute path of the udev base directory')
+option('systemd', type: 'boolean', value: true, description: 'Enable systemd integration')
 
 option('alsa', type: 'boolean', value: true, description: 'build with ALSA support (not optional on Linux platforms)')
 option('gudev', type: 'boolean', value: true, description: 'build with gudev device support (not optional on Linux platforms)')

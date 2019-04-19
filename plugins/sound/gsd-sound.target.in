@@ -1,0 +1,16 @@
+[Unit]
+Description=GNOME Sound sample caching handling
+
+BindsTo=gsd-sound.service
+
+Requisite=gnome-session-initialized.target
+After=gnome-session-initialized.target
+PartOf=gnome-session-initialized.target
+Before=gnome-session.target
+
+Requires=pulseaudio.service
+After=pulseaudio.service
+# Keep running when pulseaudio.service stops
+
+[Install]
+WantedBy=gnome-session-initialized.target
