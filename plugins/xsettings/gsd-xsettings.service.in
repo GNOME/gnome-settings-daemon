@@ -1,0 +1,15 @@
+[Unit]
+Description=GNOME XSettings
+# Note that we do the shengians with having a target and a service solely
+# so that OnFailure is not called in case of a dependency failure.
+OnFailure=gnome-session-failed.target
+RefuseManualStart=true
+RefuseManualStop=true
+
+PartOf=gsd-xsettings.target
+
+[Service]
+Type=dbus
+ExecStart=@libexecdir@/gsd-xsettings
+Restart=on-failure
+BusName=@plugin_dbus_name@
