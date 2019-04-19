@@ -1,0 +1,23 @@
+[Unit]
+Description=GNOME Sound sample caching handling
+
+Requisite=gnome-session-initialized.target
+After=gnome-session-initialized.target
+PartOf=gnome-session-initialized.target
+Before=gnome-session.target
+
+Requires=pulseaudio.service
+After=pulseaudio.service
+# Keep running when pulseaudio.service stops
+
+[Service]
+Type=dbus
+ExecStart=@libexecdir@/gsd-sound
+Restart=on-failure
+BusName=@plugin_dbus_name@
+
+# We cannot use OnFailure as that may be called for dependency issues
+ExecStopPost=@libexecdir@/gnome-session-ctl --fail-if-start-limit-hit
+
+[Install]
+WantedBy=gnome-session-initialized.target
