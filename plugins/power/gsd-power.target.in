@@ -1,0 +1,10 @@
+[Unit]
+Description=GNOME Power management handling
+
+BindsTo=gsd-power.service
+After=gsd-power.service
+
+Requisite=gnome-session-initialized.target
+After=gnome-session-initialized.target
+PartOf=gnome-session-initialized.target
+Before=gnome-session.target
