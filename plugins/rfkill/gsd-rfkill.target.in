@@ -1,0 +1,10 @@
+[Unit]
+Description=GNOME RFKill handling
+
+BindsTo=gsd-rfkill.service
+After=gsd-rfkill.service
+
+Requisite=gnome-session-initialized.target
+After=gnome-session-initialized.target
+PartOf=gnome-session-initialized.target
+Before=gnome-session.target
