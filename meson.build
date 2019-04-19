@@ -102,6 +102,18 @@ polkit_gobject_dep = dependency('polkit-gobject-1', version: '>= 0.114')
 upower_glib_dep = dependency('upower-glib', version: '>= 0.99.8')
 x11_dep = dependency('x11')
 
+enable_systemd = get_option('systemd')
+if enable_systemd
+  systemd_dep = dependency('systemd', required: false)
+  assert(systemd_dep.found(), 'Systemd support explicitly required, but systemd not found')
+
+  # XXX: Once https://github.com/systemd/systemd/issues/9595 is fixed and we can
+  # depend on this version, replace with something like:
+  #  systemduserunitdir = systemd_dep.get_pkgconfig_variable('systemduserunitdir')
+  # and uncomment systemd_dep below
+  systemd_userunitdir = join_paths(gsd_prefix, 'lib', 'systemd', 'user')
+endif
+
 m_dep = cc.find_library('m')
 
 # ALSA integration (default enabled)
@@ -244,6 +256,9 @@ output += '        Wacom support:            ' + enable_wacom.to_string() + '\n'
 output += '        RFKill support:           ' + enable_rfkill.to_string() + '\n'
 if enable_smartcard
   output += '        System nssdb:             ' + system_nssdb_dir + '\n'
+endif
+if enable_systemd
+  output += '        Systemd user unit dir:    ' + systemd_userunitdir + '\n'
 endif
 if enable_rfkill
   output += '        udev dir:                 ' + udev_dir + '\n'
