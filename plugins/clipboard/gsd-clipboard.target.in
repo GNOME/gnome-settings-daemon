@@ -1,0 +1,10 @@
+[Unit]
+Description=GNOME Clipboard handler
+
+BindsTo=gsd-clipboard.service
+After=gsd-clipboard.service
+
+Requisite=gnome-session-initialized.target
+After=gnome-session-initialized.target
+PartOf=gnome-session-initialized.target
+Before=gnome-session.target
