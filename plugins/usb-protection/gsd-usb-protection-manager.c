@@ -291,8 +291,10 @@ static void update_usb_protection_store (GsdUsbProtectionManager *manager,
                 /* If the USBGuard configuration has been changed and doesn't match
                  * our internal state, most likely means that the user externally
                  * changed it. When this happens we set to false the control value. */
-                if ((g_strcmp0 (key, APPLY_POLICY) == 0 && protection_lvl == LEVEL_ALWAYS))
+                if ((g_strcmp0 (key, APPLY_POLICY) == 0 && protection_lvl == LEVEL_ALWAYS)) {
                         g_settings_set (settings, USB_PROTECTION, "b", FALSE);
+                        g_warning ("We don't control anymore USBGuard because the configuration changed externally.");
+                }
         }
 }
 
