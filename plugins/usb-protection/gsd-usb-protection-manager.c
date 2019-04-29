@@ -397,16 +397,11 @@ is_keyboard (GVariant *device)
 }
 
 static gboolean
-auth_one_keyboard (GsdUsbProtectionManager *manager,
-                   GVariant *device)
+auth_keyboard (GsdUsbProtectionManager *manager,
+               GVariant                *device)
 {
-        GVariant *ret;
-        GVariantIter *iter = NULL;
-        guint attr_len, dev_id, device_id;
-        gchar *attr;
-        gchar **attr_splitted;
+        guint device_id;
         gboolean keyboard_found = FALSE;
-        g_autoptr(GError) error = NULL;
 
         /* If this HID advertises also interfaces outside the HID class it is suspect.
          * It could be a false positive because this can be a "smart" keyboard, but at
@@ -417,33 +412,6 @@ auth_one_keyboard (GsdUsbProtectionManager *manager,
         if (manager->usb_protection_devices == NULL)
                 return FALSE;
 
-        ret = g_dbus_proxy_call_sync (manager->usb_protection_devices,
-                                      LIST_DEVICES,
-                                      g_variant_new ("(s)", ALLOW),
-                                      G_DBUS_CALL_FLAGS_NONE,
-                                      -1,
-                                      manager->cancellable,
-                                      &error);
-        if (ret == NULL) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-                        g_warning ("Failed to contact USBGuard: %s", error->message);
-                return FALSE;
-        }
-        g_variant_get (ret, "(a(us))", &iter);
-        g_variant_unref (ret);
-        while (g_variant_iter_loop (iter, "(us)", &dev_id, &attr)) {
-                g_debug ("%s", attr);
-                attr_splitted = g_strsplit (attr, WITH_INTERFACE, -1);
-                if (attr_splitted) {
-                        attr_len = g_strv_length (attr_splitted);
-                        if (attr_len > 0)
-                                if (g_strrstr (attr_splitted[attr_len - 1], "03:00:01") != NULL ||
-                                    g_strrstr (attr_splitted[attr_len - 1], "03:01:01") != NULL)
-                                        keyboard_found = TRUE;
-
-                        g_strfreev (attr_splitted);
-                }
-        }
         if (!keyboard_found) {
                 g_variant_get_child (device, POLICY_DEVICE_ID, "u", &device_id);
                 authorize_device(manager->usb_protection_devices,
@@ -513,12 +481,13 @@ on_device_presence_signal (GDBusProxy *proxy,
 
         if (manager->screensaver_active) {
                 /* If the session is locked we check if the inserted device is a keyboard.
-                 * If this new device is the only available keyboard we authorize it.
-                 * Also, if the device has touchscreen capabilities we never authorize
+                 * If the host has touchscreen capabilities we never authorize
                  * keyboards in this stage because the user can very well use the
-                 * on-screen virtual keyboard. */
+                 * on-screen virtual keyboard.
+                 * Otherwise we authorize the newly inserted keyboard as an anti
+                 * lockout policy. */
                 if (!manager->touchscreen_available && is_keyboard (parameters))
-                        if (auth_one_keyboard (manager, parameters)) {
+                        if (auth_keyboard (manager, parameters)) {
                                 show_notification (manager,
                                                    _("New keyboard detected"),
                                                    _("Either your keyboard has been reconnected or a new one has been plugged in. "
@@ -543,13 +512,13 @@ on_device_presence_signal (GDBusProxy *proxy,
                 g_variant_get_child (parameters, POLICY_DEVICE_ID, "u", &device_id);
                 authorize_device(proxy, manager, device_id, TARGET_ALLOW, FALSE);
         } else if (protection_lvl == LEVEL_ALWAYS) {
-                /* We authorize the device if this is the only available keyboard.
+                /* We authorize the device if this is a keyboard.
                  * We also lock the screen to prevent an attacker to plug malicious
                  * devices if the legitimate user forgot to lock his session.
                  * As before, if there is the touchscreen we don't authorize
                  * keyboards because the user can never be locked out. */
                 if (!manager->touchscreen_available && is_keyboard (parameters))
-                        if (auth_one_keyboard (manager, parameters)) {
+                        if (auth_keyboard (manager, parameters)) {
                                 gsd_screen_saver_call_lock (manager->screensaver_proxy,
                                                             manager->cancellable,
                                                             (GAsyncReadyCallback) on_screen_locked,
