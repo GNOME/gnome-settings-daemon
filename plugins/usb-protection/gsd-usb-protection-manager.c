@@ -594,7 +594,6 @@ on_getparameter_done (GObject      *source_object,
         GVariant *result, *params;
         g_autofree gchar *key = NULL;
         UsbProtectionLevel protection_lvl;
-        gboolean out_of_sync = FALSE;
         GsdUsbProtectionManager *manager;
         GSettings *settings;
         g_autoptr(GError) error = NULL;
@@ -617,22 +616,22 @@ on_getparameter_done (GObject      *source_object,
 
         if (protection_lvl == LEVEL_ALWAYS || protection_lvl == LEVEL_WITH_LOCKSCREEN) {
                 if (g_strcmp0 (key, BLOCK) != 0) {
-                        out_of_sync = TRUE;
-                        params = g_variant_new ("(ss)",
-                                                INSERTED_DEVICE_POLICY,
-                                                BLOCK);
-                }
-        }
+                        /* We are out of sync. We need to call setParameter to update USBGuard state */
+                        if (manager->usb_protection != NULL) {
+                                params = g_variant_new ("(ss)",
+                                                        INSERTED_DEVICE_POLICY,
+                                                        BLOCK);
+                                g_dbus_proxy_call (manager->usb_protection,
+                                                   "setParameter",
+                                                   params,
+                                                   G_DBUS_CALL_FLAGS_NONE,
+                                                   -1,
+                                                   manager->cancellable,
+                                                   dbus_call_log_error,
+                                                   "Error calling USBGuard DBus");
+                        }
 
-        if (out_of_sync && manager->usb_protection != NULL) {
-                g_dbus_proxy_call (manager->usb_protection,
-                                   "setParameter",
-                                   params,
-                                   G_DBUS_CALL_FLAGS_NONE,
-                                   -1,
-                                   manager->cancellable,
-                                   dbus_call_log_error,
-                                   "Error calling USBGuard DBus");
+                }
         }
 
         /* If we are in "When lockscreen is active" we also check
