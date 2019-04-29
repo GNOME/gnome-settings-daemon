@@ -325,6 +325,7 @@ show_notification (GsdUsbProtectionManager *manager,
         manager->notification = notify_notification_new (summary, body, "drive-removable-media-symbolic");
         notify_notification_set_app_name (manager->notification, _("USB Protection"));
         notify_notification_set_hint (manager->notification, "transient", g_variant_new_boolean (TRUE));
+        notify_notification_set_hint_string (manager->notification, "x-gnome-privacy-scope", "system");
         notify_notification_set_timeout (manager->notification, NOTIFY_EXPIRES_DEFAULT);
         notify_notification_set_urgency (manager->notification, NOTIFY_URGENCY_CRITICAL);
         g_signal_connect (manager->notification,
