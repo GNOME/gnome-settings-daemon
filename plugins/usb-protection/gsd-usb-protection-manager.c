@@ -925,18 +925,10 @@ gsd_usb_protection_manager_stop (GsdUsbProtectionManager *manager)
         }
 
         g_clear_object (&manager->settings);
-
-        if (manager->usb_protection != NULL)
-                g_clear_object (&manager->usb_protection);
-
-        if (manager->usb_protection_devices != NULL)
-                g_clear_object (&manager->usb_protection_devices);
-
-        if (manager->usb_protection_policy != NULL)
-                g_clear_object (&manager->usb_protection_policy);
-
-        if (manager->screensaver_proxy != NULL)
-                g_clear_object (&manager->screensaver_proxy);
+        g_clear_object (&manager->usb_protection);
+        g_clear_object (&manager->usb_protection_devices);
+        g_clear_object (&manager->usb_protection_policy);
+        g_clear_object (&manager->screensaver_proxy);
 }
 
 static void
