@@ -191,7 +191,6 @@ struct _GsdPowerManager
         gboolean                 inhibit_suspend_taken;
         guint                    inhibit_lid_switch_timer_id;
         gboolean                 is_virtual_machine;
-        gboolean                 is_tablet;
 
         /* Idles */
         GnomeIdleMonitor        *idle_monitor;
@@ -1062,9 +1061,6 @@ backlight_disable (GsdPowerManager *manager)
                            error->message);
                 g_error_free (error);
         }
-
-        if (manager->is_tablet)
-                action_suspend (manager);
 
         g_debug ("TESTSUITE: Blanked screen");
 }
@@ -2487,9 +2483,6 @@ on_rr_screen_acquired (GObject      *object,
 
         /* don't blank inside a VM */
         manager->is_virtual_machine = gsd_power_is_hardware_a_vm ();
-
-        /* Suspend when the screen is turned off on tablets */
-        manager->is_tablet = gsd_power_is_hardware_a_tablet ();
 
         /* queue a signal in case the proxy from gnome-shell was created before we got here
            (likely, considering that to get here we need a reply from gnome-shell)

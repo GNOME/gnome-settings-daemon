@@ -32,7 +32,6 @@ gchar           *gpm_get_timestring                     (guint           time);
 
 /* Power helpers */
 gboolean         gsd_power_is_hardware_a_vm             (void);
-gboolean         gsd_power_is_hardware_a_tablet         (void);
 guint            gsd_power_enable_screensaver_watchdog  (void);
 void             reset_idletime                         (void);
 
