@@ -2124,12 +2124,6 @@ do_config_power_button_action (GsdMediaKeysManager *manager,
                 return;
         }
 
-        /* Always suspend tablets */
-        if (g_strcmp0 (priv->chassis_type, "tablet") == 0) {
-                power_action (manager, "Suspend", !in_lock_screen);
-                return;
-        }
-
         action_type = g_settings_get_enum (priv->power_settings, "power-button-action");
         switch (action_type) {
         case GSD_POWER_BUTTON_ACTION_SUSPEND:
