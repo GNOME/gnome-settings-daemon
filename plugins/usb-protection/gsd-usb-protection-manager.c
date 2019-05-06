@@ -71,7 +71,6 @@ struct _GsdUsbProtectionManager
         GCancellable       *cancellable;
         GsdScreenSaver     *screensaver_proxy;
         gboolean            screensaver_active;
-        gboolean            touchscreen_available;
         NotifyNotification *notification;
 };
 
@@ -481,12 +480,9 @@ on_device_presence_signal (GDBusProxy *proxy,
 
         if (manager->screensaver_active) {
                 /* If the session is locked we check if the inserted device is a keyboard.
-                 * If the host has touchscreen capabilities we never authorize
-                 * keyboards in this stage because the user can very well use the
-                 * on-screen virtual keyboard.
-                 * Otherwise we authorize the newly inserted keyboard as an anti
-                 * lockout policy. */
-                if (!manager->touchscreen_available && is_keyboard (parameters))
+                 * If that is the case we authorize the newly inserted keyboard as an
+                 * antilockout policy. */
+                if (is_keyboard (parameters))
                         if (auth_keyboard (manager, parameters)) {
                                 show_notification (manager,
                                                    _("New keyboard detected"),
@@ -514,10 +510,8 @@ on_device_presence_signal (GDBusProxy *proxy,
         } else if (protection_lvl == LEVEL_ALWAYS) {
                 /* We authorize the device if this is a keyboard.
                  * We also lock the screen to prevent an attacker to plug malicious
-                 * devices if the legitimate user forgot to lock his session.
-                 * As before, if there is the touchscreen we don't authorize
-                 * keyboards because the user can never be locked out. */
-                if (!manager->touchscreen_available && is_keyboard (parameters))
+                 * devices if the legitimate user forgot to lock his session. */
+                if (is_keyboard (parameters))
                         if (auth_keyboard (manager, parameters)) {
                                 gsd_screen_saver_call_lock (manager->screensaver_proxy,
                                                             manager->cancellable,
@@ -660,31 +654,6 @@ handle_screensaver_active (GsdUsbProtectionManager *manager,
 }
 
 static void
-initialize_touchscreen_search (GsdUsbProtectionManager *manager)
-{
-        GdkDisplay *display;
-        GdkSeat *seat;
-        GList *devices;
-
-        display = gdk_display_get_default ();
-        seat = gdk_display_get_default_seat (display);
-        devices = NULL;
-
-        /* We don't add signals to device-added and device-removed because it's
-         * highly unlikely to add touchscreen capabilities at runtime. */
-
-        devices = g_list_append (devices, gdk_seat_get_pointer (seat));
-        devices = g_list_append (devices, gdk_seat_get_keyboard (seat));
-        /* Probably GDK_SEAT_CAPABILITY_TOUCH should be enough here. We need
-         * someone with a touch enabled device to test it and report back. */
-        devices = g_list_concat (devices, gdk_seat_get_slaves (seat, GDK_SEAT_CAPABILITY_ALL));
-
-        for (; devices != NULL; devices = devices->next)
-                if (gdk_device_get_source (devices->data) == GDK_SOURCE_TOUCHSCREEN)
-                        manager->touchscreen_available = TRUE;
-}
-
-static void
 screensaver_signal_cb (GDBusProxy *proxy,
                        const gchar *sender_name,
                        const gchar *signal_name,
@@ -797,8 +766,6 @@ usb_protection_proxy_ready (GObject      *source_object,
                 g_debug("Probably USBGuard is not currently installed.");
         else
                 sync_usb_protection (proxy, manager);
-
-        initialize_touchscreen_search (manager);
 
         g_signal_connect_object (source_object,
                                  "notify::g-name-owner",
