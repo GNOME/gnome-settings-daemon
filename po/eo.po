@@ -4,22 +4,23 @@
 # Aisano < >, 2011.
 # Michael MORONI < >, 2011.
 # Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2011, 2015, 2018.
-# Carmen Bianca BAKKER <carmen@carmenbianca.eu>, 2018.
+# Carmen Bianca BAKKER <carmen@carmenbianca.eu>, 2018-2019.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2019-03-22 16:32+0000\n"
-"PO-Revision-Date: 2019-04-04 19:52+0200\n"
+"POT-Creation-Date: 2019-04-06 00:57+0000\n"
+"PO-Revision-Date: 2019-05-09 20:18+0200\n"
 "Last-Translator: Carmen Bianca BAKKER <carmen@carmenbianca.eu>\n"
 "Language-Team: Esperanto <gnome-eo-list@gnome.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Generator: Gtranslator 3.32.0\n"
 "X-DamnedLies-Scope: partial\n"
 "X-Project-Style: gnome\n"
 
@@ -1047,45 +1048,45 @@ msgstr ""
 msgid "A dictionary of XSETTINGS to override"
 msgstr "Vortaro de XSETTINGS por transpasi"
 
-#: plugins/color/gsd-color-calibrate.c:139
+#: plugins/color/gsd-color-calibrate.c:138
 msgid "Color"
 msgstr "Koloro"
 
 #. TRANSLATORS: button: this is to open GCM
-#: plugins/color/gsd-color-calibrate.c:145
+#: plugins/color/gsd-color-calibrate.c:144
 msgid "Recalibrate now"
 msgstr "Laŭnormigi nun"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: plugins/color/gsd-color-calibrate.c:188
+#: plugins/color/gsd-color-calibrate.c:186
 msgid "Recalibration required"
 msgstr "Laŭnormigo necesas"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: plugins/color/gsd-color-calibrate.c:200
+#: plugins/color/gsd-color-calibrate.c:198
 #, c-format
 msgid "The display “%s” should be recalibrated soon."
 msgstr "Oni devus laŭnormigi la ekranon “%s” baldaŭ."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: plugins/color/gsd-color-calibrate.c:209
+#: plugins/color/gsd-color-calibrate.c:207
 #, c-format
 msgid "The printer “%s” should be recalibrated soon."
 msgstr "Oni devus laŭnormigi la presilon “%s” baldaŭ."
 
 #. TRANSLATORS: this is the application name
-#: plugins/color/gsd-color-calibrate.c:347
-#: plugins/color/gsd-color-calibrate.c:363
+#: plugins/color/gsd-color-calibrate.c:345
+#: plugins/color/gsd-color-calibrate.c:361
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "GNOME Agorda Demona Kolora Kromprogramo"
 
 #. TRANSLATORS: this is a sound description
-#: plugins/color/gsd-color-calibrate.c:349
+#: plugins/color/gsd-color-calibrate.c:347
 msgid "Color calibration device added"
 msgstr "Kolorlaŭnormiga aparato estas aldonita"
 
 #. TRANSLATORS: this is a sound description
-#: plugins/color/gsd-color-calibrate.c:365
+#: plugins/color/gsd-color-calibrate.c:363
 msgid "Color calibration device removed"
 msgstr "Kolorlaŭnormiga aparato estas forigita"
 
@@ -1161,30 +1162,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "En la komputilo restas nur %s da diska spaco."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2287
+#: plugins/media-keys/gsd-media-keys-manager.c:2331
 msgid "Bluetooth disabled"
 msgstr "Bludento malŝaltita"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2290
+#: plugins/media-keys/gsd-media-keys-manager.c:2334
 msgid "Bluetooth enabled"
 msgstr "Bludento ŝaltita"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2294
+#: plugins/media-keys/gsd-media-keys-manager.c:2338
 msgid "Airplane mode enabled"
 msgstr "Aviadila reĝimo ŝaltita"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2297
+#: plugins/media-keys/gsd-media-keys-manager.c:2341
 msgid "Airplane mode disabled"
 msgstr "Aviadila reĝimo malŝaltita"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2325
+#: plugins/media-keys/gsd-media-keys-manager.c:2370
 msgid "Hardware Airplane Mode"
 msgstr "Aparata aviadila reĝimo"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2385
+#: plugins/media-keys/gsd-media-keys-manager.c:2433
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Ekranreĝistraĵo de %d %t.webm"
@@ -1293,28 +1294,34 @@ msgid "Brightness Down"
 msgstr "Malaltigi helecon"
 
 #: plugins/media-keys/shortcuts-list.h:110
+#, fuzzy
+#| msgid "Brightness Up"
+msgid "Brightness Cycle"
+msgstr "Altigi helecon"
+
+#: plugins/media-keys/shortcuts-list.h:111
 msgid "Keyboard Brightness Up"
 msgstr "Altigi klavaran helecon"
 
-#: plugins/media-keys/shortcuts-list.h:111
+#: plugins/media-keys/shortcuts-list.h:112
 msgid "Keyboard Brightness Down"
 msgstr "Malaltigi klavaran helecon"
 
-#: plugins/media-keys/shortcuts-list.h:112
+#: plugins/media-keys/shortcuts-list.h:113
 msgid "Keyboard Brightness Toggle"
 msgstr "Baskuligi klavaran helecon"
 
-#: plugins/media-keys/shortcuts-list.h:113
+#: plugins/media-keys/shortcuts-list.h:114
 msgid "Battery Status"
 msgstr "Bateria stato"
 
-#: plugins/media-keys/shortcuts-list.h:114
 #: plugins/media-keys/shortcuts-list.h:115
 #: plugins/media-keys/shortcuts-list.h:116
+#: plugins/media-keys/shortcuts-list.h:117
 msgid "Toggle Airplane Mode"
 msgstr "Baskuligi aviadilan reĝimon"
 
-#: plugins/media-keys/shortcuts-list.h:117
+#: plugins/media-keys/shortcuts-list.h:118
 msgid "Toggle Bluetooth"
 msgstr "Baskuligi Bludenton"
 
@@ -1356,178 +1363,178 @@ msgstr[0] "minuto"
 msgstr[1] "minutoj"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:438 plugins/power/gsd-power-manager.c:717
-#: plugins/power/gsd-power-manager.c:814
+#: plugins/power/gpm-common.c:438 plugins/power/gsd-power-manager.c:721
+#: plugins/power/gsd-power-manager.c:818
 msgid "Battery is critically low"
 msgstr "Baterio estas danĝere malplena"
 
 #. TRANSLATORS: this is the notification application name
-#: plugins/power/gsd-power-manager.c:347
+#: plugins/power/gsd-power-manager.c:351
 msgid "Power"
 msgstr "Elektro"
 
 #. TRANSLATORS: UPS is now discharging
-#: plugins/power/gsd-power-manager.c:387
+#: plugins/power/gsd-power-manager.c:391
 msgid "UPS Discharging"
 msgstr "Malŝargante la vicnutrilon"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:392
+#: plugins/power/gsd-power-manager.c:396
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "Restas %s da vicnutrila rezerva elektro"
 
-#: plugins/power/gsd-power-manager.c:395
+#: plugins/power/gsd-power-manager.c:399
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "Restas nekonata sumo da vicnutrila rezerva elektro"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: plugins/power/gsd-power-manager.c:470
+#: plugins/power/gsd-power-manager.c:474
 msgid "Battery low"
 msgstr "Baterio estas preskaŭ malplena"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: plugins/power/gsd-power-manager.c:473
+#: plugins/power/gsd-power-manager.c:477
 msgid "Laptop battery low"
 msgstr "Baterio de la klapkomputilo estas preskaŭ malplena"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:480
+#: plugins/power/gsd-power-manager.c:484
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "Restas proksimume %s (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: plugins/power/gsd-power-manager.c:485
+#: plugins/power/gsd-power-manager.c:489
 msgid "UPS low"
 msgstr "Vicnutrilo estas preskaŭ malplena"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:491
+#: plugins/power/gsd-power-manager.c:495
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "Restas proksimume %s da vicnutrila rezerva elektro (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: plugins/power/gsd-power-manager.c:496 plugins/power/gsd-power-manager.c:630
+#: plugins/power/gsd-power-manager.c:500 plugins/power/gsd-power-manager.c:634
 msgid "Mouse battery low"
 msgstr "Baterio de la muso estas preskaŭ malplena"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:499
+#: plugins/power/gsd-power-manager.c:503
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "Sendrata muso havas malmulte da elektro (%.0f%%)"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: plugins/power/gsd-power-manager.c:503 plugins/power/gsd-power-manager.c:638
+#: plugins/power/gsd-power-manager.c:507 plugins/power/gsd-power-manager.c:642
 msgid "Keyboard battery low"
 msgstr "Baterio de la klavaro estas preskaŭ malplena"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:506
+#: plugins/power/gsd-power-manager.c:510
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "Sendrata klavaro havas malmulte da elektro (%.0f%%)"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: plugins/power/gsd-power-manager.c:510 plugins/power/gsd-power-manager.c:647
+#: plugins/power/gsd-power-manager.c:514 plugins/power/gsd-power-manager.c:651
 msgid "PDA battery low"
 msgstr "Poŝkomputila baterio preskaŭ malplenas"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:513
+#: plugins/power/gsd-power-manager.c:517
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "Poŝkomputilo havas malmulte da elektro (%.0f%%)"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:517 plugins/power/gsd-power-manager.c:657
-#: plugins/power/gsd-power-manager.c:666
+#: plugins/power/gsd-power-manager.c:521 plugins/power/gsd-power-manager.c:661
+#: plugins/power/gsd-power-manager.c:670
 msgid "Cell phone battery low"
 msgstr "Baterio de la poŝtelefono estas preskaŭ malplena"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:520
+#: plugins/power/gsd-power-manager.c:524
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "Poŝtelefono havas malmulte da elektro (%.0f%%)"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: plugins/power/gsd-power-manager.c:524
+#: plugins/power/gsd-power-manager.c:528
 msgid "Media player battery low"
 msgstr "Baterio de la medioludilo estas preskaŭ malplena"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:527
+#: plugins/power/gsd-power-manager.c:531
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "Medioludilo havas malmulte da elektro (%.0f%%)"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:531 plugins/power/gsd-power-manager.c:675
+#: plugins/power/gsd-power-manager.c:535 plugins/power/gsd-power-manager.c:679
 msgid "Tablet battery low"
 msgstr "Baterio de la tabulkomputilo estas preskaŭ malplena"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:534
+#: plugins/power/gsd-power-manager.c:538
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "Tabulkomputilo havas malmulte da elektro (%.0f%%)"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:538 plugins/power/gsd-power-manager.c:684
+#: plugins/power/gsd-power-manager.c:542 plugins/power/gsd-power-manager.c:688
 msgid "Attached computer battery low"
 msgstr "Baterio de alfiksita komputilo estas preskaŭ malplena"
 
 #. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:541
+#: plugins/power/gsd-power-manager.c:545
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "Alfiksita komputilo havas malmulte da elektro (%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:562
+#: plugins/power/gsd-power-manager.c:566
 msgid "Battery is low"
 msgstr "Baterio estas preskaŭ malplena"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: plugins/power/gsd-power-manager.c:594
+#: plugins/power/gsd-power-manager.c:598
 msgid "Battery critically low"
 msgstr "Baterio estas danĝere malplena"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: plugins/power/gsd-power-manager.c:597 plugins/power/gsd-power-manager.c:744
+#: plugins/power/gsd-power-manager.c:601 plugins/power/gsd-power-manager.c:748
 msgid "Laptop battery critically low"
 msgstr "Klapkomputila baterio estas danĝere malplena"
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:606
+#: plugins/power/gsd-power-manager.c:610
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr "Komputilo pasivumos tre baldaŭ krom se ĝi estas konektita."
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:610
+#: plugins/power/gsd-power-manager.c:614
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "Komputli malŝaltos tre baldaŭ krom se ĝi estas konektita."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: plugins/power/gsd-power-manager.c:618 plugins/power/gsd-power-manager.c:769
+#: plugins/power/gsd-power-manager.c:622 plugins/power/gsd-power-manager.c:773
 msgid "UPS critically low"
 msgstr "Vicnutrila baterio estas danĝere malplena"
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:624
+#: plugins/power/gsd-power-manager.c:628
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1537,7 +1544,7 @@ msgstr ""
 "komputilon al hejmelektra elektro por eviti perdon de datumoj."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:633
+#: plugins/power/gsd-power-manager.c:637
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1547,7 +1554,7 @@ msgstr ""
 "funkcii se ne ŝargata."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:641
+#: plugins/power/gsd-power-manager.c:645
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1557,7 +1564,7 @@ msgstr ""
 "ĉesos funkcii se ne ŝargata."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:650
+#: plugins/power/gsd-power-manager.c:654
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1567,7 +1574,7 @@ msgstr ""
 "funkcii se ne ŝargata."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:660
+#: plugins/power/gsd-power-manager.c:664
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -1577,7 +1584,7 @@ msgstr ""
 "funkcii se ne ŝargata."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:669
+#: plugins/power/gsd-power-manager.c:673
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -1587,7 +1594,7 @@ msgstr ""
 "funkcii se ne ŝargata."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:678
+#: plugins/power/gsd-power-manager.c:682
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -1597,7 +1604,7 @@ msgstr ""
 "funkcii se ne ŝargata."
 
 #. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:687
+#: plugins/power/gsd-power-manager.c:691
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -1607,7 +1614,7 @@ msgstr ""
 "ĉesos funkcii se ne ŝargata."
 
 #. TRANSLATORS: computer will hibernate
-#: plugins/power/gsd-power-manager.c:752
+#: plugins/power/gsd-power-manager.c:756
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -1616,7 +1623,7 @@ msgstr ""
 "pasivumonta."
 
 #. TRANSLATORS: computer will just shutdown
-#: plugins/power/gsd-power-manager.c:757
+#: plugins/power/gsd-power-manager.c:761
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -1625,7 +1632,7 @@ msgstr ""
 "malŝaltonta."
 
 #. TRANSLATORS: computer will hibernate
-#: plugins/power/gsd-power-manager.c:777
+#: plugins/power/gsd-power-manager.c:781
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
@@ -1633,50 +1640,50 @@ msgstr ""
 "pasivimugonta."
 
 #. TRANSLATORS: computer will just shutdown
-#: plugins/power/gsd-power-manager.c:782
+#: plugins/power/gsd-power-manager.c:786
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "La vicnutrilo estas sub la kritika nivelo kaj ĉi tiu komputilo estas "
 "malŝaltonta."
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1260
+#: plugins/power/gsd-power-manager.c:1264
 msgid "Lid has been opened"
 msgstr "Kovrilo malfermiĝis"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1294
+#: plugins/power/gsd-power-manager.c:1298
 msgid "Lid has been closed"
 msgstr "Kovrilo fermiĝis"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1856
+#: plugins/power/gsd-power-manager.c:1860
 msgid "On battery power"
 msgstr "Je bateria elektro"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1861
+#: plugins/power/gsd-power-manager.c:1865
 msgid "On AC power"
 msgstr "Je hejmelektra elektro"
 
-#: plugins/power/gsd-power-manager.c:2051
+#: plugins/power/gsd-power-manager.c:2053
 msgid "Automatic logout"
 msgstr "Aŭtomata adiaŭado"
 
-#: plugins/power/gsd-power-manager.c:2051
+#: plugins/power/gsd-power-manager.c:2053
 msgid "You will soon log out because of inactivity."
 msgstr "Vi baldaŭ adiaŭos pro senokupo."
 
-#: plugins/power/gsd-power-manager.c:2056
+#: plugins/power/gsd-power-manager.c:2058
 msgid "Automatic suspend"
 msgstr "Aŭtomata haltetado"
 
-#: plugins/power/gsd-power-manager.c:2056
-#: plugins/power/gsd-power-manager.c:2061
+#: plugins/power/gsd-power-manager.c:2058
+#: plugins/power/gsd-power-manager.c:2063
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Komputilo tre baldaŭ haltetos pro senokupo."
 
-#: plugins/power/gsd-power-manager.c:2061
+#: plugins/power/gsd-power-manager.c:2063
 msgid "Automatic hibernation"
 msgstr "Aŭtomata pasivumado"
 
@@ -1808,7 +1815,7 @@ msgstr "%s bezonas aŭtentigon"
 #: plugins/print-notifications/gsd-print-notifications-manager.c:533
 #, c-format
 msgid "Credentials required in order to print"
-msgstr "Akreditaĵo estas bezonata por presi"
+msgstr "Akreditaĵo necesas por presi"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
 #: plugins/print-notifications/gsd-print-notifications-manager.c:600
@@ -1944,7 +1951,7 @@ msgstr "Presila averto"
 msgid "Printer “%s”: “%s”."
 msgstr "Presilo “%s”: “%s”."
 
-#: plugins/smartcard/gsd-smartcard-service.c:288
+#: plugins/smartcard/gsd-smartcard-service.c:282
 msgid "User was not logged in with smartcard."
 msgstr "Uzanto ne salutis per inteligenta memorkarto."
 
