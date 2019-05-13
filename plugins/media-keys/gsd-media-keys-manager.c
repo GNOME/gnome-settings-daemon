@@ -2713,9 +2713,6 @@ do_action (GsdMediaKeysManager *manager,
         case POWER_KEY:
                 do_config_power_button_action (manager, power_action_noninteractive);
                 break;
-        case SLEEP_KEY:
-                do_config_power_action (manager, GSD_POWER_ACTION_HIBERNATE, power_action_noninteractive);
-                break;
         case SUSPEND_KEY:
                 do_config_power_action (manager, GSD_POWER_ACTION_SUSPEND, power_action_noninteractive);
                 break;
