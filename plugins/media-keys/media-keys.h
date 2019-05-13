@@ -69,7 +69,6 @@ typedef enum {
         MAGNIFIER_ZOOM_IN_KEY,
         MAGNIFIER_ZOOM_OUT_KEY,
         POWER_KEY,
-        SLEEP_KEY,
         SUSPEND_KEY,
         HIBERNATE_KEY,
         SCREEN_BRIGHTNESS_UP_KEY,
