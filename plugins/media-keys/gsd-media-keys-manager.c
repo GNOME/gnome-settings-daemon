@@ -145,7 +145,7 @@ typedef struct {
         ShellActionMode modes;
         MetaKeyBindingFlags grab_flags;
         const char *settings_key;
-        const char *hard_coded;
+        gboolean static_setting;
         char *custom_path;
         char *custom_command;
         GArray *accel_ids;
@@ -368,8 +368,6 @@ get_key_string (MediaKey *key)
 {
 	if (key->settings_key != NULL)
 		return g_strdup_printf ("settings:%s", key->settings_key);
-	else if (key->hard_coded != NULL)
-		return g_strdup_printf ("fixed:%s", key->hard_coded);
 	else if (key->custom_path != NULL)
 		return g_strdup_printf ("custom:%s", key->custom_path);
 	else
@@ -384,11 +382,30 @@ get_bindings (GsdMediaKeysManager *manager,
 	GPtrArray *array;
 	gchar *binding;
 
-	if (key->settings_key != NULL)
-		return g_settings_get_strv (priv->settings, key->settings_key);
+	if (key->settings_key != NULL) {
+		g_autofree gchar *static_settings_key = NULL;
+		g_autofree GStrv keys = NULL;
+		g_autofree GStrv static_keys = NULL;
+		gchar **item;
 
-	if (key->hard_coded != NULL)
-		binding = g_strdup (key->hard_coded);
+		if (!key->static_setting)
+			return g_settings_get_strv (priv->settings, key->settings_key);
+
+		static_settings_key = g_strconcat (key->settings_key, "-static", NULL);
+		keys = g_settings_get_strv (priv->settings, key->settings_key);
+		static_keys = g_settings_get_strv (priv->settings, static_settings_key);
+
+		array = g_ptr_array_new ();
+		/* Steals all strings from the settings */
+		for (item = keys; *item; item++)
+			g_ptr_array_add (array, *item);
+		for (item = static_keys; *item; item++)
+			g_ptr_array_add (array, *item);
+		g_ptr_array_add (array, NULL);
+
+		return (GStrv) g_ptr_array_free (array, FALSE);
+	}
+
 	else if (key->custom_path != NULL) {
                 GSettings *settings;
 
@@ -935,7 +952,7 @@ add_key (GsdMediaKeysManager *manager, guint i)
 	key = media_key_new ();
 	key->key_type = media_keys[i].key_type;
 	key->settings_key = media_keys[i].settings_key;
-	key->hard_coded = media_keys[i].hard_coded;
+	key->static_setting = media_keys[i].static_setting;
 	key->modes = media_keys[i].modes;
 	key->grab_flags = media_keys[i].grab_flags;
 
