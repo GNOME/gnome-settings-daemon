@@ -3180,6 +3180,7 @@ map_keybinding (GVariant *variant, GVariant *old_default, GVariant *new_default)
 {
         g_autoptr(GPtrArray) array = g_ptr_array_new ();
         g_autofree const gchar **defaults = NULL;
+        const gchar *old_default_value;
         const gchar **pos;
         const gchar *value;
 
@@ -3187,6 +3188,13 @@ map_keybinding (GVariant *variant, GVariant *old_default, GVariant *new_default)
         pos = defaults;
 
         value = g_variant_get_string (variant, NULL);
+        old_default_value = g_variant_get_string (old_default, NULL);
+
+        /* Reset the keybinding configuration even if the user has the default
+         * configured explicitly (as the key will be bound by the corresponding
+         * static binding now). */
+        if (g_strcmp0 (value, old_default_value) == 0)
+                return NULL;
 
         /* If the user has a custom value that is not in the list, then
          * insert it instead of the first default entry. */
