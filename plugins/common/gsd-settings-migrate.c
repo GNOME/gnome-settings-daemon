@@ -47,6 +47,8 @@ gsd_settings_migrate_check (const gchar             *origin_schema,
                 if (!variant)
                         continue;
 
+                g_settings_reset (origin_settings, entries[i].origin_key);
+
                 if (entries[i].dest_key) {
                         if (entries[i].func) {
                                 g_autoptr(GVariant) new_default = NULL;
@@ -61,8 +63,6 @@ gsd_settings_migrate_check (const gchar             *origin_schema,
 
                         g_settings_set_value (dest_settings, entries[i].dest_key, variant);
                 }
-
-                g_settings_reset (origin_settings, entries[i].origin_key);
         }
 
         g_object_unref (origin_settings);
