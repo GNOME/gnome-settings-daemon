@@ -2924,6 +2924,9 @@ on_key_grabber_ready (GObject      *source,
                 return;
         }
 
+        g_dbus_proxy_set_default_timeout (G_DBUS_PROXY (priv->key_grabber),
+                                          SHELL_GRABBER_CALL_TIMEOUT);
+
         g_signal_connect (priv->key_grabber, "accelerator-activated",
                           G_CALLBACK (on_accelerator_activated), manager);
 
