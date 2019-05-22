@@ -194,7 +194,8 @@ watch_one_event_from_driver (GsdSmartcardManager       *self,
                                             operation,
                                             NULL);
 
-        card = SECMOD_WaitForAnyTokenEvent (operation->driver, 0, PR_SecondsToInterval (1));
+        if (handler_id != 0)
+                card = SECMOD_WaitForAnyTokenEvent (operation->driver, 0, PR_SecondsToInterval (1));
 
         g_cancellable_disconnect (cancellable, handler_id);
 
@@ -790,6 +791,8 @@ gsd_smartcard_manager_stop (GsdSmartcardManager *self)
         GsdSmartcardManagerPrivate *priv = self->priv;
 
         g_debug ("Stopping smartcard manager");
+
+        g_cancellable_cancel (priv->cancellable);
 
         unload_nss (self);
 
