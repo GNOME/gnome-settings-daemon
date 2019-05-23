@@ -155,6 +155,9 @@ apply_bell (GsdKeyboardManager *manager)
         GsdBellMode      bell_mode;
         int              click_volume;
 
+        if (gnome_settings_is_wayland ())
+                return;
+
         g_debug ("Applying the bell settings");
         settings      = manager->settings;
         click         = g_settings_get_boolean  (settings, KEY_CLICK);
