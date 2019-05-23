@@ -2479,7 +2479,8 @@ on_rr_screen_acquired (GObject      *object,
         /* ensure the default dpms timeouts are cleared */
         backlight_enable (manager);
 
-        manager->xscreensaver_watchdog_timer_id = gsd_power_enable_screensaver_watchdog ();
+        if (!gnome_settings_is_wayland ())
+                manager->xscreensaver_watchdog_timer_id = gsd_power_enable_screensaver_watchdog ();
 
         /* don't blank inside a VM */
         manager->is_virtual_machine = gsd_power_is_hardware_a_vm ();
