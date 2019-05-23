@@ -37,9 +37,6 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
-#include <X11/XKBlib.h>
-#include <X11/keysym.h>
-
 #include "gnome-settings-bus.h"
 #include "gnome-settings-profile.h"
 #include "gsd-keyboard-manager.h"
@@ -51,8 +48,6 @@
 
 #define KEY_CLICK          "click"
 #define KEY_CLICK_VOLUME   "click-volume"
-#define KEY_REMEMBER_NUMLOCK_STATE "remember-numlock-state"
-#define KEY_NUMLOCK_STATE  "numlock-state"
 
 #define KEY_BELL_VOLUME    "bell-volume"
 #define KEY_BELL_PITCH     "bell-pitch"
@@ -90,8 +85,6 @@ struct _GsdKeyboardManager
         GDBusProxy *localed;
         GCancellable *cancellable;
 
-        gint       xkb_event_base;
-        GsdNumLockState old_state;
         GdkDeviceManager *device_manager;
         guint device_added_id;
         guint device_removed_id;
@@ -150,118 +143,6 @@ schema_is_installed (const char *schema)
         return installed;
 }
 
-static gboolean
-check_xkb_extension (GsdKeyboardManager *manager)
-{
-        Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
-        int opcode, error_base, major, minor;
-        gboolean have_xkb;
-
-        have_xkb = XkbQueryExtension (dpy,
-                                      &opcode,
-                                      &manager->xkb_event_base,
-                                      &error_base,
-                                      &major,
-                                      &minor);
-        return have_xkb;
-}
-
-static void
-xkb_init (GsdKeyboardManager *manager)
-{
-        Display *dpy;
-
-        dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
-        XkbSelectEventDetails (dpy,
-                               XkbUseCoreKbd,
-                               XkbStateNotify,
-                               XkbModifierLockMask,
-                               XkbModifierLockMask);
-}
-
-static unsigned
-numlock_NumLock_modifier_mask (void)
-{
-        Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
-        return XkbKeysymToModifiers (dpy, XK_Num_Lock);
-}
-
-static void
-numlock_set_xkb_state (GsdNumLockState new_state)
-{
-        unsigned int num_mask;
-        Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
-        if (new_state != GSD_NUM_LOCK_STATE_ON && new_state != GSD_NUM_LOCK_STATE_OFF)
-                return;
-        num_mask = numlock_NumLock_modifier_mask ();
-        XkbLockModifiers (dpy, XkbUseCoreKbd, num_mask, new_state == GSD_NUM_LOCK_STATE_ON ? num_mask : 0);
-}
-
-static const char *
-num_lock_state_to_string (GsdNumLockState numlock_state)
-{
-	switch (numlock_state) {
-	case GSD_NUM_LOCK_STATE_UNKNOWN:
-		return "GSD_NUM_LOCK_STATE_UNKNOWN";
-	case GSD_NUM_LOCK_STATE_ON:
-		return "GSD_NUM_LOCK_STATE_ON";
-	case GSD_NUM_LOCK_STATE_OFF:
-		return "GSD_NUM_LOCK_STATE_OFF";
-	default:
-		return "UNKNOWN";
-	}
-}
-
-static GdkFilterReturn
-xkb_events_filter (GdkXEvent *xev_,
-		   GdkEvent  *gdkev_,
-		   gpointer   user_data)
-{
-        XEvent *xev = (XEvent *) xev_;
-	XkbEvent *xkbev = (XkbEvent *) xev;
-        GsdKeyboardManager *manager = (GsdKeyboardManager *) user_data;
-
-        if (xev->type != manager->xkb_event_base ||
-            xkbev->any.xkb_type != XkbStateNotify)
-		return GDK_FILTER_CONTINUE;
-
-	if (xkbev->state.changed & XkbModifierLockMask) {
-		unsigned num_mask = numlock_NumLock_modifier_mask ();
-		unsigned locked_mods = xkbev->state.locked_mods;
-		GsdNumLockState numlock_state;
-
-		numlock_state = (num_mask & locked_mods) ? GSD_NUM_LOCK_STATE_ON : GSD_NUM_LOCK_STATE_OFF;
-
-		if (numlock_state != manager->old_state) {
-			g_debug ("New num-lock state '%s' != Old num-lock state '%s'",
-				 num_lock_state_to_string (numlock_state),
-				 num_lock_state_to_string (manager->old_state));
-			g_settings_set_enum (manager->settings,
-					     KEY_NUMLOCK_STATE,
-					     numlock_state);
-			manager->old_state = numlock_state;
-		}
-	}
-
-        return GDK_FILTER_CONTINUE;
-}
-
-static void
-install_xkb_filter (GsdKeyboardManager *manager)
-{
-        gdk_window_add_filter (NULL,
-                               xkb_events_filter,
-                               manager);
-}
-
-static void
-remove_xkb_filter (GsdKeyboardManager *manager)
-{
-        gdk_window_remove_filter (NULL,
-                                  xkb_events_filter,
-                                  manager);
-}
-
 static void
 apply_bell (GsdKeyboardManager *manager)
 {
@@ -306,32 +187,9 @@ apply_bell (GsdKeyboardManager *manager)
 }
 
 static void
-apply_numlock (GsdKeyboardManager *manager)
-{
-	GSettings *settings;
-        gboolean rnumlock;
-
-        g_debug ("Applying the num-lock settings");
-        settings = manager->settings;
-        rnumlock = g_settings_get_boolean  (settings, KEY_REMEMBER_NUMLOCK_STATE);
-        manager->old_state = g_settings_get_enum (manager->settings, KEY_NUMLOCK_STATE);
-
-        gdk_error_trap_push ();
-        if (rnumlock) {
-                g_debug ("Remember num-lock is set, so applying setting '%s'",
-                         num_lock_state_to_string (manager->old_state));
-                numlock_set_xkb_state (manager->old_state);
-        }
-
-        XSync (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), FALSE);
-        gdk_error_trap_pop_ignored ();
-}
-
-static void
 apply_all_settings (GsdKeyboardManager *manager)
 {
 	apply_bell (manager);
-	apply_numlock (manager);
 }
 
 static void
@@ -346,11 +204,6 @@ settings_changed (GSettings          *settings,
 	    g_strcmp0 (key, KEY_BELL_MODE) == 0) {
 		g_debug ("Bell setting '%s' changed, applying bell settings", key);
 		apply_bell (manager);
-	} else if (g_strcmp0 (key, KEY_REMEMBER_NUMLOCK_STATE) == 0) {
-		g_debug ("Remember Num-Lock state '%s' changed, applying num-lock settings", key);
-		apply_numlock (manager);
-	} else if (g_strcmp0 (key, KEY_NUMLOCK_STATE) == 0) {
-		g_debug ("Num-Lock state '%s' changed, will apply at next startup", key);
 	} else if (g_strcmp0 (key, KEY_BELL_CUSTOM_FILE) == 0){
 		g_debug ("Ignoring '%s' setting change", KEY_BELL_CUSTOM_FILE);
 	} else {
@@ -367,10 +220,7 @@ device_added_cb (GdkDeviceManager   *device_manager,
         GdkInputSource source;
 
         source = gdk_device_get_source (device);
-        if (source == GDK_SOURCE_KEYBOARD) {
-                g_debug ("New keyboard plugged in, applying all settings");
-                apply_numlock (manager);
-        } else if (source == GDK_SOURCE_TOUCHSCREEN) {
+        if (source == GDK_SOURCE_TOUCHSCREEN) {
                 update_gtk_im_module (manager);
         }
 }
@@ -724,8 +574,6 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
 
         manager->settings = g_settings_new (GSD_KEYBOARD_DIR);
 
-	xkb_init (manager);
-
 	set_devicepresence_handler (manager);
 
         manager->input_sources_settings = g_settings_new (GNOME_DESKTOP_INPUT_SOURCES_DIR);
@@ -760,8 +608,6 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
                                   G_CALLBACK (settings_changed), manager);
         }
 
-	install_xkb_filter (manager);
-
         gnome_settings_profile_end (NULL);
 
         manager->start_idle_id = 0;
@@ -774,11 +620,6 @@ gsd_keyboard_manager_start (GsdKeyboardManager *manager,
                             GError            **error)
 {
         gnome_settings_profile_start (NULL);
-
-	if (check_xkb_extension (manager) == FALSE) {
-		g_debug ("XKB is not supported, not applying any settings");
-		return TRUE;
-	}
 
         manager->start_idle_id = g_idle_add ((GSourceFunc) start_keyboard_idle_cb, manager);
         g_source_set_name_by_id (manager->start_idle_id, "[gnome-settings-daemon] start_keyboard_idle_cb");
@@ -806,8 +647,6 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
                 g_signal_handler_disconnect (manager->device_manager, manager->device_removed_id);
                 manager->device_manager = NULL;
         }
-
-	remove_xkb_filter (manager);
 }
 
 static void
@@ -847,9 +686,10 @@ static void
 migrate_keyboard_settings (void)
 {
         GsdSettingsMigrateEntry entries[] = {
-                { "repeat",          "repeat",          NULL },
-                { "repeat-interval", "repeat-interval", NULL },
-                { "delay",           "delay",           NULL }
+                { "repeat",                 "repeat",                 NULL },
+                { "repeat-interval",        "repeat-interval",        NULL },
+                { "delay",                  "delay",                  NULL },
+                { "remember-numlock-state", "remember-numlock-state", NULL },
         };
 
         gsd_settings_migrate_check ("org.gnome.settings-daemon.peripherals.keyboard.deprecated",

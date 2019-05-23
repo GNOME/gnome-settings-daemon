@@ -35,16 +35,6 @@
       <summary>Keyboard Bell Custom Filename</summary>
       <description>File name of the bell sound to be played.</description>
     </key>
-    <key name="remember-numlock-state" type="b">
-      <default>true</default>
-      <summary>Remember NumLock state</summary>
-      <description>When set to true, GNOME will remember the state of the NumLock LED between sessions.</description>
-    </key>
-    <key name="numlock-state" enum="org.gnome.settings-daemon.GsdNumLockState">
-      <default>'unknown'</default>
-      <summary>NumLock state</summary>
-      <description>The remembered state of the NumLock LED.</description>
-    </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.mouse" path="/org/gnome/settings-daemon/peripherals/mouse/">
     <key name="locate-pointer" type="b">
@@ -105,6 +95,11 @@
       <default>500</default>
       <summary>Initial Key Repeat Delay</summary>
       <description>Initial key repeat delay in milliseconds.</description>
+    </key>
+    <key name="remember-numlock-state" type="b">
+      <default>true</default>
+      <summary>Remember NumLock state</summary>
+      <description>When set to true, GNOME will remember the state of the NumLock LED between sessions.</description>
     </key>
   </schema>
   <schema id="org.gnome.settings-daemon.peripherals.touchpad.deprecated">
