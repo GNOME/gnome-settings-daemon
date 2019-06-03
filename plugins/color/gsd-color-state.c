@@ -411,7 +411,7 @@ gcm_session_generate_vcgt (CdProfile *profile, guint color_temperature, guint si
         /* get the color temperature */
         if (!cd_color_get_blackbody_rgb_full (color_temperature,
                                               &temp,
-                                              CD_COLOR_BLACKBODY_FLAG_NONE)) {
+                                              CD_COLOR_BLACKBODY_FLAG_USE_PLANCKIAN)) {
                 g_warning ("failed to get blackbody for %uK", color_temperature);
                 cd_color_rgb_set (&temp, 1.0, 1.0, 1.0);
         } else {
@@ -564,7 +564,7 @@ gcm_session_device_reset_gamma (GnomeRROutput *output,
         /* get the color temperature */
         if (!cd_color_get_blackbody_rgb_full (color_temperature,
                                               &temp,
-                                              CD_COLOR_BLACKBODY_FLAG_NONE)) {
+                                              CD_COLOR_BLACKBODY_FLAG_USE_PLANCKIAN)) {
                 g_warning ("failed to get blackbody for %uK", color_temperature);
                 cd_color_rgb_set (&temp, 1.0, 1.0, 1.0);
         } else {
