@@ -2,6 +2,7 @@ enabled_plugins = [
   ['a11y-settings', 'A11ySettings'],
   ['clipboard', 'Clipboard'],
   ['color', 'Color'],
+  ['subman', 'Subscription'],
   ['datetime', 'Datetime'],
   ['dummy', ''],
   ['power', 'Power'],
