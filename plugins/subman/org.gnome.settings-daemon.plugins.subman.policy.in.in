@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC
+ "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1.0/policyconfig.dtd">
+<policyconfig>
+
+  <!--
+    Policy definitions for gnome-settings-daemon system-wide actions.
+    Copyright (c) 2019 Richard Hughes <richard@hughsie.com>
+  -->
+
+  <vendor>GNOME Settings Daemon</vendor>
+  <vendor_url>http://git.gnome.org/browse/gnome-settings-daemon</vendor_url>
+  <icon_name>emblem-synchronizing</icon_name>
+
+  <action id="org.gnome.settings-daemon.plugins.subman.register">
+    <description>Register the system</description>
+    <message>Authentication is required to register the system</message>
+    <defaults>
+      <allow_any>no</allow_any>
+      <allow_inactive>no</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@libexecdir@/gsd-subman-helper</annotate>
+  </action>
+
+</policyconfig>
+
