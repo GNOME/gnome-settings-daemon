@@ -8,7 +8,6 @@ enabled_plugins = [
   ['housekeeping', 'Housekeeping'],
   ['keyboard', 'Keyboard'],
   ['media-keys', 'MediaKeys'],
-  ['mouse', 'Mouse'],
   ['screensaver-proxy', 'ScreensaverProxy'],
   ['sharing', 'Sharing'],
   ['sound', 'Sound'],
