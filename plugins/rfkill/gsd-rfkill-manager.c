@@ -62,6 +62,7 @@ struct _GsdRfkillManager
         CcRfkillGlib            *rfkill;
         GHashTable              *killswitches;
         GHashTable              *bt_killswitches;
+        GHashTable              *wwan_killswitches;
 
         /* In addition to using the rfkill kernel subsystem
            (which is exposed by wlan, wimax, bluetooth, nfc,
@@ -100,6 +101,9 @@ static const gchar introspection_xml[] =
 "    <property name='BluetoothAirplaneMode' type='b' access='readwrite'/>"
 "    <property name='BluetoothHardwareAirplaneMode' type='b' access='read'/>"
 "    <property name='BluetoothHasAirplaneMode' type='b' access='read'/>"
+"    <property name='WWANAirplaneMode' type='b' access='readwrite'/>"
+"    <property name='WWANHardwareAirplaneMode' type='b' access='read'/>"
+"    <property name='WWANHasAirplaneMode' type='b' access='read'/>"
 "  </interface>"
 "</node>";
 
@@ -185,6 +189,43 @@ engine_get_has_bluetooth_airplane_mode (GsdRfkillManager *manager)
 }
 
 static gboolean
+engine_get_wwan_airplane_mode (GsdRfkillManager *manager)
+{
+        return engine_get_airplane_mode_helper (manager->wwan_killswitches);
+}
+
+static gboolean
+engine_get_wwan_hardware_airplane_mode (GsdRfkillManager *manager)
+{
+        GHashTableIter iter;
+        gpointer key, value;
+
+        /* If we have no killswitches, hw airplane mode is off. */
+        if (g_hash_table_size (manager->wwan_killswitches) == 0)
+                return FALSE;
+
+        g_hash_table_iter_init (&iter, manager->wwan_killswitches);
+        while (g_hash_table_iter_next (&iter, &key, &value)) {
+                int state;
+
+                state = GPOINTER_TO_INT (value);
+
+                /* A single rfkill switch that's not hw blocked? Hw airplane mode is off */
+                if (state != RFKILL_STATE_HARD_BLOCKED) {
+                        return FALSE;
+                }
+        }
+
+        return TRUE;
+}
+
+static gboolean
+engine_get_has_wwan_airplane_mode (GsdRfkillManager *manager)
+{
+        return (g_hash_table_size (manager->wwan_killswitches) > 0);
+}
+
+static gboolean
 engine_get_airplane_mode (GsdRfkillManager *manager)
 {
 	if (!manager->wwan_interesting)
@@ -261,6 +302,12 @@ engine_properties_changed (GsdRfkillManager *manager)
                                g_variant_new_boolean (engine_get_bluetooth_hardware_airplane_mode (manager)));
         g_variant_builder_add (&props_builder, "{sv}", "BluetoothHasAirplaneMode",
                                g_variant_new_boolean (engine_get_has_bluetooth_airplane_mode (manager)));
+        g_variant_builder_add (&props_builder, "{sv}", "WWANAirplaneMode",
+                               g_variant_new_boolean (engine_get_wwan_airplane_mode (manager)));
+        g_variant_builder_add (&props_builder, "{sv}", "WWANHardwareAirplaneMode",
+                               g_variant_new_boolean (engine_get_wwan_hardware_airplane_mode (manager)));
+        g_variant_builder_add (&props_builder, "{sv}", "WWANHasAirplaneMode",
+                               g_variant_new_boolean (engine_get_has_wwan_airplane_mode (manager)));
 
         props_changed = g_variant_new ("(s@a{sv}@as)", GSD_RFKILL_DBUS_NAME,
                                        g_variant_builder_end (&props_builder),
@@ -302,10 +349,22 @@ rfkill_changed (CcRfkillGlib     *rfkill,
 				g_hash_table_insert (manager->bt_killswitches,
 						     GINT_TO_POINTER (event->idx),
 						     GINT_TO_POINTER (value));
-			g_debug ("%s %srfkill with ID %d",
-				 event->op == RFKILL_OP_ADD ? "Added" : "Changed",
-				 event->type == RFKILL_TYPE_BLUETOOTH ? "Bluetooth " : "",
-				 event->idx);
+                        else if (event->type == RFKILL_TYPE_WWAN)
+                                g_hash_table_insert (manager->wwan_killswitches,
+                                                     GINT_TO_POINTER (event->idx),
+                                                     GINT_TO_POINTER (value));
+                        {
+                                const gchar *type = "";
+
+                                if (event->type == RFKILL_TYPE_BLUETOOTH)
+                                        type = "Bluetooth";
+                                else if (event->type == RFKILL_TYPE_WWAN)
+                                        type = "WWAN";
+
+                                g_debug ("%s %srfkill with ID %d",
+                                         event->op == RFKILL_OP_ADD ? "Added" : "Changed",
+                                         type, event->idx);
+                        }
                         break;
                 case RFKILL_OP_DEL:
 			g_hash_table_remove (manager->killswitches,
@@ -313,8 +372,19 @@ rfkill_changed (CcRfkillGlib     *rfkill,
 			if (event->type == RFKILL_TYPE_BLUETOOTH)
 				g_hash_table_remove (manager->bt_killswitches,
 						     GINT_TO_POINTER (event->idx));
-			g_debug ("Removed %srfkill with ID %d", event->type == RFKILL_TYPE_BLUETOOTH ? "Bluetooth " : "",
-				 event->idx);
+                        else if (event->type == RFKILL_TYPE_WWAN)
+                                g_hash_table_remove (manager->wwan_killswitches,
+                                                     GINT_TO_POINTER (event->idx));
+                        {
+                                const gchar *type = "";
+
+                                if (event->type == RFKILL_TYPE_BLUETOOTH)
+                                        type = "Bluetooth";
+                                else if (event->type == RFKILL_TYPE_WWAN)
+                                        type = "WWAN";
+
+                                g_debug ("Removed %srfkill with ID %d", type, event->idx);
+                        }
                         break;
                 }
 	}
@@ -372,6 +442,16 @@ engine_set_bluetooth_airplane_mode (GsdRfkillManager *manager,
 }
 
 static gboolean
+engine_set_wwan_airplane_mode (GsdRfkillManager *manager,
+                               gboolean          enable)
+{
+        cc_rfkill_glib_send_change_all_event (manager->rfkill, RFKILL_TYPE_WWAN,
+                                              enable, manager->cancellable, rfkill_set_cb, manager);
+
+        return TRUE;
+}
+
+static gboolean
 engine_set_airplane_mode (GsdRfkillManager *manager,
                           gboolean          enable)
 {
@@ -416,6 +496,12 @@ handle_set_property (GDBusConnection *connection,
                 gboolean airplane_mode;
                 g_variant_get (value, "b", &airplane_mode);
                 return engine_set_bluetooth_airplane_mode (manager, airplane_mode);
+        }
+
+        if (g_strcmp0 (property_name, "WWANAirplaneMode") == 0) {
+                gboolean airplane_mode;
+                g_variant_get (value, "b", &airplane_mode);
+                return engine_set_wwan_airplane_mode (manager, airplane_mode);
         }
 
         return FALSE;
@@ -477,6 +563,24 @@ handle_get_property (GDBusConnection *connection,
         if (g_strcmp0 (property_name, "BluetoothHasAirplaneMode") == 0) {
                 gboolean has_airplane_mode;
                 has_airplane_mode = engine_get_has_bluetooth_airplane_mode (manager);
+                return g_variant_new_boolean (has_airplane_mode);
+        }
+
+        if (g_strcmp0 (property_name, "WWANAirplaneMode") == 0) {
+                gboolean airplane_mode;
+                airplane_mode = engine_get_wwan_airplane_mode (manager);
+                return g_variant_new_boolean (airplane_mode);
+        }
+
+        if (g_strcmp0 (property_name, "WWANHardwareAirplaneMode") == 0) {
+                gboolean hw_airplane_mode;
+                hw_airplane_mode = engine_get_wwan_hardware_airplane_mode (manager);
+                return g_variant_new_boolean (hw_airplane_mode);
+        }
+
+        if (g_strcmp0 (property_name, "WWANHasAirplaneMode") == 0) {
+                gboolean has_airplane_mode;
+                has_airplane_mode = engine_get_has_wwan_airplane_mode (manager);
                 return g_variant_new_boolean (has_airplane_mode);
         }
 
@@ -666,6 +770,7 @@ gsd_rfkill_manager_start (GsdRfkillManager *manager,
 
         manager->killswitches = g_hash_table_new (g_direct_hash, g_direct_equal);
         manager->bt_killswitches = g_hash_table_new (g_direct_hash, g_direct_equal);
+        manager->wwan_killswitches = g_hash_table_new (g_direct_hash, g_direct_equal);
         manager->rfkill = cc_rfkill_glib_new ();
         g_signal_connect (G_OBJECT (manager->rfkill), "changed",
                           G_CALLBACK (rfkill_changed), manager);
@@ -724,6 +829,7 @@ gsd_rfkill_manager_stop (GsdRfkillManager *manager)
         g_clear_object (&manager->rfkill);
         g_clear_pointer (&manager->killswitches, g_hash_table_destroy);
         g_clear_pointer (&manager->bt_killswitches, g_hash_table_destroy);
+        g_clear_pointer (&manager->wwan_killswitches, g_hash_table_destroy);
 
         if (manager->cancellable) {
                 g_cancellable_cancel (manager->cancellable);
