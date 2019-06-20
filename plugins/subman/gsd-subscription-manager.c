@@ -74,7 +74,6 @@ struct GsdSubscriptionManagerPrivate
 	GHashTable	*config; 	/* str:str */
 	gchar		*address;
 
-	guint		 check_registration_timeout_id;
 	GTimer		*timer_last_notified;
 	NotifyNotification	*notification_expired;
 	NotifyNotification	*notification_registered;
@@ -121,6 +120,40 @@ _client_subscription_status_from_text (const gchar *status_txt)
 	return GSD_SUBMAN_SUBSCRIPTION_STATUS_UNKNOWN;
 }
 
+static void
+_emit_property_changed (GsdSubscriptionManager *manager,
+		        const gchar *property_name,
+		        GVariant *property_value)
+{
+	GsdSubscriptionManagerPrivate *priv = manager->priv;
+	GVariantBuilder builder;
+	GVariantBuilder invalidated_builder;
+
+	/* not yet connected */
+	if (priv->connection == NULL)
+		return;
+
+	/* build the dict */
+	g_variant_builder_init (&invalidated_builder, G_VARIANT_TYPE ("as"));
+	g_variant_builder_init (&builder, G_VARIANT_TYPE_ARRAY);
+	g_variant_builder_add (&builder,
+			       "{sv}",
+			       property_name,
+			       property_value);
+	g_dbus_connection_emit_signal (priv->connection,
+				       NULL,
+				       GSD_SUBSCRIPTION_DBUS_PATH,
+				       "org.freedesktop.DBus.Properties",
+				       "PropertiesChanged",
+				       g_variant_new ("(sa{sv}as)",
+				       GSD_SUBSCRIPTION_DBUS_INTERFACE,
+				       &builder,
+				       &invalidated_builder),
+				       NULL);
+	g_variant_builder_clear (&builder);
+	g_variant_builder_clear (&invalidated_builder);
+}
+
 static gboolean
 _client_subscription_status_update (GsdSubscriptionManager *manager, GError **error)
 {
@@ -159,6 +192,13 @@ _client_subscription_status_update (GsdSubscriptionManager *manager, GError **er
 	status_txt = json_object_get_string_member (json_obj, "status");
 	g_debug ("Entitlement.GetStatus: %s", status_txt);
 	priv->subscription_status = _client_subscription_status_from_text (status_txt);
+
+	/* enit notification for g-c-c */
+	if (priv->subscription_status != priv->subscription_status_last) {
+		_emit_property_changed (manager, "SubscriptionStatus",
+				       g_variant_new_uint32 (priv->subscription_status));
+	}
+
 	return TRUE;
 }
 
@@ -636,40 +676,6 @@ gsd_subscription_manager_class_init (GsdSubscriptionManagerClass *klass)
 }
 
 static void
-emit_property_changed (GsdSubscriptionManager *manager,
-		       const gchar *property_name,
-		       GVariant *property_value)
-{
-	GsdSubscriptionManagerPrivate *priv = manager->priv;
-	GVariantBuilder builder;
-	GVariantBuilder invalidated_builder;
-
-	/* not yet connected */
-	if (priv->connection == NULL)
-		return;
-
-	/* build the dict */
-	g_variant_builder_init (&invalidated_builder, G_VARIANT_TYPE ("as"));
-	g_variant_builder_init (&builder, G_VARIANT_TYPE_ARRAY);
-	g_variant_builder_add (&builder,
-			       "{sv}",
-			       property_name,
-			       property_value);
-	g_dbus_connection_emit_signal (priv->connection,
-				       NULL,
-				       GSD_SUBSCRIPTION_DBUS_PATH,
-				       "org.freedesktop.DBus.Properties",
-				       "PropertiesChanged",
-				       g_variant_new ("(sa{sv}as)",
-				       GSD_SUBSCRIPTION_DBUS_INTERFACE,
-				       &builder,
-				       &invalidated_builder),
-				       NULL);
-	g_variant_builder_clear (&builder);
-	g_variant_builder_clear (&invalidated_builder);
-}
-
-static void
 _launch_info_overview (void)
 {
 	const gchar *argv[] = { "gnome-control-center", "info-overview", NULL };
@@ -772,23 +778,7 @@ gsd_subscription_manager_finalize (GObject *object)
 		manager->priv->name_id = 0;
 	}
 
-	if (manager->priv->check_registration_timeout_id)
-		g_source_remove (manager->priv->check_registration_timeout_id);
-
 	G_OBJECT_CLASS (gsd_subscription_manager_parent_class)->finalize (object);
-}
-
-static gboolean
-nlight_forced_timeout_cb (gpointer user_data)
-{
-	GsdSubscriptionManager *manager = GSD_SUBSCRIPTION_MANAGER (user_data);
-	GsdSubscriptionManagerPrivate *priv = manager->priv;
-
-	priv->check_registration_timeout_id = 0;
-	emit_property_changed (manager, "SubscriptionStatus",
-			       g_variant_new_boolean (TRUE));
-
-	return G_SOURCE_REMOVE;
 }
 
 static void
@@ -802,11 +792,9 @@ handle_method_call (GDBusConnection       *connection,
 		    gpointer               user_data)
 {
 	GsdSubscriptionManager *manager = GSD_SUBSCRIPTION_MANAGER (user_data);
-	GsdSubscriptionManagerPrivate *priv = manager->priv;
 	g_autoptr(GError) error = NULL;
 
 	if (g_strcmp0 (method_name, "Register") == 0) {
-		guint32 duration = 0;
 		const gchar *organisation = NULL;
 		const gchar *hostname = NULL;
 
@@ -864,10 +852,6 @@ handle_method_call (GDBusConnection       *connection,
 
 			return;
 		}
-		if (priv->check_registration_timeout_id)
-			g_source_remove (priv->check_registration_timeout_id);
-		priv->check_registration_timeout_id = g_timeout_add_seconds (duration, nlight_forced_timeout_cb, manager);
-
 		g_dbus_method_invocation_return_value (invocation, NULL);
 	} else if (g_strcmp0 (method_name, "Unregister") == 0) {
 		if (!_client_unregister (manager, &error)) {
