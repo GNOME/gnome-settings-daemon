@@ -13,7 +13,7 @@ deps = plugins_deps + [
 executable(
   'gsd-' + plugin_name,
   sources,
-  include_directories: [top_inc, common_inc],
+  include_directories: [top_inc, common_inc, data_inc],
   dependencies: deps,
   c_args: cflags,
   install: true,

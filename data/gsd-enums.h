@@ -124,4 +124,10 @@ typedef enum
   GSD_NUM_LOCK_STATE_OFF
 } GsdNumLockState;
 
+typedef enum
+{
+  GSD_USB_PROTECTION_LEVEL_LOCKSCREEN,
+  GSD_USB_PROTECTION_LEVEL_ALWAYS
+} GsdUsbProtectionLevel;
+
 #endif /* __gsd_enums_h__ */
