@@ -1,11 +1,34 @@
 ==============
 Version 3.33.0
 ==============
+- Translation updates
+- Compile warning fixes
 
 Media-keys:
 - Keygrabbing has been reworked. The new UngrabAccelerators DBus API on the
   shell is now required. Non-GNOME Desktops using g-s-d will need to be
   updated for this.
+- Add mapping for screen brightness cycle key
+- Fix launched clients inheriting DESKTOP_AUTOSTART_ID
+- Signal connector rather than output ID for OSD
+- Fix MPRIS issues with disconnecting clients
+- Allow mapping of hard-coded keys
+
+Power:
+- Fix memory leak
+- Signal connector rather than output ID for OSD
+- Only disable Suspend/Hibernate actions inside VM
+- Remove special handling of tablet devices
+
+Color:
+- Allow night light to be always on
+
+Mouse:
+- Remove locate-pointer, in favor of gnome-shell handling
+- Remove mousetweaks support, in favor of gnome-shell handling
+
+Keyboard:
+- Remove numlock persistence, in favor of gnome-shell handling
 
 ==============
 Version 3.32.0
