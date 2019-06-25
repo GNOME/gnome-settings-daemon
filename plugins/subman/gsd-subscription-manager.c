@@ -193,7 +193,7 @@ _client_subscription_status_update (GsdSubscriptionManager *manager, GError **er
 	g_debug ("Entitlement.GetStatus: %s", status_txt);
 	priv->subscription_status = _client_subscription_status_from_text (status_txt);
 
-	/* enit notification for g-c-c */
+	/* emit notification for g-c-c */
 	if (priv->subscription_status != priv->subscription_status_last) {
 		_emit_property_changed (manager, "SubscriptionStatus",
 				       g_variant_new_uint32 (priv->subscription_status));
