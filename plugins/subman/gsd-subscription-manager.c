@@ -1,6 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2019 Richard Hughes <richard@hughsie.com>
+ * Copyright (C) 2019 Kalev Lember <klember@redhat.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,6 +45,7 @@ static const gchar introspection_xml[] =
 "      <arg type='a{sv}' name='options' direction='in'/>"
 "    </method>"
 "    <method name='Unregister'/>"
+"    <property name='InstalledProducts' type='aa{sv}' access='read'/>"
 "    <property name='SubscriptionStatus' type='u' access='read'/>"
 "  </interface>"
 "</node>";
@@ -72,6 +74,7 @@ struct GsdSubscriptionManagerPrivate
 	GDBusProxy	*proxies[_RHSM_INTERFACE_LAST];
 	const gchar	*userlang;	/* owned by GLib internally */
 	GHashTable	*config; 	/* str:str */
+	GPtrArray	*installed_products;
 	gchar		*address;
 
 	GTimer		*timer_last_notified;
@@ -91,6 +94,32 @@ static void     gsd_subscription_manager_init        (GsdSubscriptionManager    
 static void     gsd_subscription_manager_finalize    (GObject             *object);
 
 G_DEFINE_TYPE (GsdSubscriptionManager, gsd_subscription_manager, G_TYPE_OBJECT)
+
+typedef struct
+{
+	gchar *product_name;
+	gchar *product_id;
+	gchar *version;
+	gchar *arch;
+	gchar *status;
+	gchar *starts;
+	gchar *ends;
+} ProductData;
+
+static void
+product_data_free (ProductData *product)
+{
+	g_free (product->product_name);
+	g_free (product->product_id);
+	g_free (product->version);
+	g_free (product->arch);
+	g_free (product->status);
+	g_free (product->starts);
+	g_free (product->ends);
+	g_free (product);
+}
+
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (ProductData, product_data_free);
 
 static gpointer manager_object = NULL;
 
@@ -118,6 +147,32 @@ _client_subscription_status_from_text (const gchar *status_txt)
 		return GSD_SUBMAN_SUBSCRIPTION_STATUS_PARTIALLY_VALID;
 	g_warning ("Unknown subscription status: %s", status_txt); // 'Current'?
 	return GSD_SUBMAN_SUBSCRIPTION_STATUS_UNKNOWN;
+}
+
+static GVariant *
+_make_installed_products_variant (GPtrArray *installed_products)
+{
+	GVariantBuilder builder;
+	g_variant_builder_init (&builder, G_VARIANT_TYPE ("aa{sv}"));
+
+	for (guint i = 0; i < installed_products->len; i++) {
+		ProductData *product = g_ptr_array_index (installed_products, i);
+		g_auto(GVariantDict) dict;
+
+		g_variant_dict_init (&dict, NULL);
+
+		g_variant_dict_insert (&dict, "product-name", "s", product->product_name);
+		g_variant_dict_insert (&dict, "product-id", "s", product->product_id);
+		g_variant_dict_insert (&dict, "version", "s", product->version);
+		g_variant_dict_insert (&dict, "arch", "s", product->arch);
+		g_variant_dict_insert (&dict, "status", "s", product->status);
+		g_variant_dict_insert (&dict, "starts", "s", product->starts);
+		g_variant_dict_insert (&dict, "ends", "s", product->ends);
+
+		g_variant_builder_add_value (&builder, g_variant_dict_end (&dict));
+	}
+
+	return g_variant_builder_end (&builder);
 }
 
 static void
@@ -152,6 +207,69 @@ _emit_property_changed (GsdSubscriptionManager *manager,
 				       NULL);
 	g_variant_builder_clear (&builder);
 	g_variant_builder_clear (&invalidated_builder);
+}
+
+static gboolean
+_client_installed_products_update (GsdSubscriptionManager *manager, GError **error)
+{
+	GsdSubscriptionManagerPrivate *priv = manager->priv;
+	JsonNode *json_root;
+	JsonArray *json_products_array;
+	const gchar *json_txt = NULL;
+	g_autoptr(GVariant) val = NULL;
+	g_autoptr(JsonParser) json_parser = json_parser_new ();
+
+	val = g_dbus_proxy_call_sync (priv->proxies[_RHSM_INTERFACE_PRODUCTS],
+				      "ListInstalledProducts",
+				      g_variant_new ("(sa{sv}s)",
+						     ""   /* filter_string */,
+						     NULL /* proxy_options */,
+						     priv->userlang),
+				      G_DBUS_CALL_FLAGS_NONE,
+				      -1, NULL, error);
+	if (val == NULL)
+		return FALSE;
+	g_variant_get (val, "(&s)", &json_txt);
+	g_debug ("Products.ListInstalledProducts JSON: %s", json_txt);
+	if (!json_parser_load_from_data (json_parser, json_txt, -1, error))
+		return FALSE;
+	json_root = json_parser_get_root (json_parser);
+	json_products_array = json_node_get_array (json_root);
+	if (json_products_array == NULL) {
+		g_set_error (error, G_IO_ERROR, G_IO_ERROR_INVALID_DATA,
+			     "no InstalledProducts array in %s", json_txt);
+		return FALSE;
+	}
+
+	g_ptr_array_set_size (priv->installed_products, 0);
+
+	for (guint i = 0; i < json_array_get_length (json_products_array); i++) {
+		JsonArray *json_product = json_array_get_array_element (json_products_array, i);
+		g_autoptr(ProductData) product = g_new0 (ProductData, 1);
+
+		if (json_product == NULL)
+			continue;
+		if (json_array_get_length (json_product) < 8) {
+			g_debug ("Unexpected number of array elements in InstalledProducts JSON");
+			continue;
+		}
+
+		product->product_name = g_strdup (json_array_get_string_element (json_product, 0));
+		product->product_id = g_strdup (json_array_get_string_element (json_product, 1));
+		product->version = g_strdup (json_array_get_string_element (json_product, 2));
+		product->arch = g_strdup (json_array_get_string_element (json_product, 3));
+		product->status = g_strdup (json_array_get_string_element (json_product, 4));
+		product->starts = g_strdup (json_array_get_string_element (json_product, 6));
+		product->ends = g_strdup (json_array_get_string_element (json_product, 7));
+
+		g_ptr_array_add (priv->installed_products, g_steal_pointer (&product));
+	}
+
+	/* emit notification for g-c-c */
+	_emit_property_changed (manager, "InstalledProducts",
+			       _make_installed_products_variant (priv->installed_products));
+
+	return TRUE;
 }
 
 static gboolean
@@ -450,6 +568,8 @@ _client_register_with_keys (GsdSubscriptionManager *manager,
 		return FALSE;
 	if (!_client_subscription_status_update (manager, error))
 		return FALSE;
+	if (!_client_installed_products_update (manager, error))
+		return FALSE;
 	_client_maybe__show_notification (manager);
 
 	/* success */
@@ -497,6 +617,8 @@ _client_register (GsdSubscriptionManager *manager,
 		return FALSE;
 	if (!_client_subscription_status_update (manager, error))
 		return FALSE;
+	if (!_client_installed_products_update (manager, error))
+		return FALSE;
 	_client_maybe__show_notification (manager);
 	return TRUE;
 }
@@ -522,6 +644,8 @@ _client_unregister (GsdSubscriptionManager *manager, GError **error)
 	if (!_client_subprocess_wait_check (subprocess, error))
 		return FALSE;
 	if (!_client_subscription_status_update (manager, error))
+		return FALSE;
+	if (!_client_installed_products_update (manager, error))
 		return FALSE;
 	_client_maybe__show_notification (manager);
 	return TRUE;
@@ -573,6 +697,10 @@ _subman_proxy_signal_cb (GDBusProxy *proxy,
 	}
 	if (!_client_subscription_status_update (manager, &error)) {
 		g_warning ("failed to update subscription status: %s", error->message);
+		g_clear_error (&error);
+	}
+	if (!_client_installed_products_update (manager, &error)) {
+		g_warning ("failed to update installed products: %s", error->message);
 		g_clear_error (&error);
 	}
 	_client_maybe__show_notification (manager);
@@ -640,6 +768,8 @@ _client_load (GsdSubscriptionManager *manager, GError **error)
 		return FALSE;
 	if (!_client_subscription_status_update (manager, error))
 		return FALSE;
+	if (!_client_installed_products_update (manager, error))
+		return FALSE;
 	if (!_client_syspurpose_update (manager, error))
 		return FALSE;
 
@@ -703,6 +833,7 @@ gsd_subscription_manager_init (GsdSubscriptionManager *manager)
 {
 	GsdSubscriptionManagerPrivate *priv = manager->priv = GSD_SUBSCRIPTION_MANAGER_GET_PRIVATE (manager);
 
+	priv->installed_products = g_ptr_array_new_with_free_func ((GDestroyNotify) product_data_free);
 	priv->timer_last_notified = g_timer_new ();
 
 	/* expired */
@@ -767,6 +898,7 @@ gsd_subscription_manager_finalize (GObject *object)
 		g_clear_object (&manager->priv->bus_cancellable);
 	}
 
+	g_clear_pointer (&manager->priv->installed_products, g_ptr_array_unref);
 	g_clear_pointer (&manager->priv->introspection_data, g_dbus_node_info_unref);
 	g_clear_object (&manager->priv->connection);
 	g_clear_object (&manager->priv->notification_expired);
@@ -883,6 +1015,9 @@ handle_get_property (GDBusConnection *connection,
 
 	if (g_strcmp0 (property_name, "SubscriptionStatus") == 0)
 		return g_variant_new_uint32 (priv->subscription_status);
+
+	if (g_strcmp0 (property_name, "InstalledProducts") == 0)
+		return _make_installed_products_variant (priv->installed_products);
 
 	g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
 		     "Failed to get property: %s", property_name);
