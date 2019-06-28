@@ -28,6 +28,8 @@
 #include <gio/gio.h>
 #include <json-glib/json-glib.h>
 
+#define DBUS_TIMEOUT 300000 /* 5 minutes */
+
 static void
 _helper_convert_error (const gchar *json_txt, GError **error)
 {
@@ -94,7 +96,8 @@ _helper_unregister (GError **error)
 						     proxy_options,
 						     ""), /* lang */
 				      G_DBUS_CALL_FLAGS_NONE,
-				      -1, NULL, error);
+				      DBUS_TIMEOUT,
+				      NULL, error);
 	return res != NULL;
 }
 
@@ -127,7 +130,8 @@ _helper_auto_attach (GError **error)
 						     proxy_options,
 						     ""), /* lang */
 				      G_DBUS_CALL_FLAGS_NONE,
-				      -1, NULL, error);
+				      DBUS_TIMEOUT,
+				      NULL, error);
 	if (res == NULL)
 		return FALSE;
 	g_variant_get (res, "(&s)", &str);
@@ -158,7 +162,8 @@ _helper_save_config (const gchar *key, const gchar *value, GError **error)
 						     g_variant_new_string (value),
 						     ""), /* lang */
 				      G_DBUS_CALL_FLAGS_NONE,
-				      -1, NULL, error);
+				      DBUS_TIMEOUT,
+				      NULL, error);
 	return res != NULL;
 }
 
@@ -305,7 +310,8 @@ main (int argc, char *argv[])
 							     subman_conopts,
 							     userlang),
 					      G_DBUS_CALL_FLAGS_NO_AUTO_START,
-					      -1, NULL, &error_local);
+					      DBUS_TIMEOUT,
+					      NULL, &error_local);
 		if (res == NULL) {
 			g_dbus_error_strip_remote_error (error_local);
 			_helper_convert_error (error_local->message, &error);
@@ -339,7 +345,8 @@ main (int argc, char *argv[])
 							     subman_conopts,
 							     userlang),
 					      G_DBUS_CALL_FLAGS_NO_AUTO_START,
-					      -1, NULL, &error_local);
+					      DBUS_TIMEOUT,
+					      NULL, &error_local);
 		if (res == NULL) {
 			g_dbus_error_strip_remote_error (error_local);
 			_helper_convert_error (error_local->message, &error);
