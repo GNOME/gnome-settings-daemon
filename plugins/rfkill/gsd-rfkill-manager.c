@@ -359,9 +359,9 @@ rfkill_changed (CcRfkillGlib     *rfkill,
                 const gchar *type = "";
 
                 if (event->type == RFKILL_TYPE_BLUETOOTH)
-                        type = "Bluetooth";
+                        type = "Bluetooth ";
                 else if (event->type == RFKILL_TYPE_WWAN)
-                        type = "WWAN";
+                        type = "WWAN ";
 
                 switch (event->op) {
                 case RFKILL_OP_ADD:
