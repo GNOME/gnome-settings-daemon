@@ -1415,18 +1415,17 @@ get_udev_device_for_sysfs_path (GsdMediaKeysManager *manager,
 }
 
 static GvcMixerStream *
-get_stream_for_device_id (GsdMediaKeysManager *manager,
-			  gboolean             is_output,
-			  guint                deviceid)
+get_stream_for_device_node (GsdMediaKeysManager *manager,
+                            gboolean             is_output,
+                            const gchar         *devnode)
 {
 	GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
-	char *devnode;
 	gpointer id_ptr;
 	GvcMixerStream *res;
 	GUdevDevice *dev, *parent;
 	GSList *streams, *l;
 
-	id_ptr = g_hash_table_lookup (priv->streams, GUINT_TO_POINTER (deviceid));
+	id_ptr = g_hash_table_lookup (priv->streams, devnode);
 	if (id_ptr != NULL) {
 		if (GPOINTER_TO_UINT (id_ptr) == (guint) -1)
 			return NULL;
@@ -1434,24 +1433,16 @@ get_stream_for_device_id (GsdMediaKeysManager *manager,
 			return gvc_mixer_control_lookup_stream_id (priv->volume, GPOINTER_TO_UINT (id_ptr));
 	}
 
-	devnode = xdevice_get_device_node (deviceid);
-	if (devnode == NULL) {
-		g_debug ("Could not find device node for XInput device %d", deviceid);
-		return NULL;
-	}
-
 	dev = g_udev_client_query_by_device_file (priv->udev_client, devnode);
 	if (dev == NULL) {
 		g_debug ("Could not find udev device for device path '%s'", devnode);
-		g_free (devnode);
 		return NULL;
 	}
-	g_free (devnode);
 
 	if (g_strcmp0 (g_udev_device_get_property (dev, "ID_BUS"), "usb") != 0) {
-		g_debug ("Not handling XInput device %d, not USB", deviceid);
+		g_debug ("Not handling XInput device %s, not USB", devnode);
 		g_hash_table_insert (priv->streams,
-				     GUINT_TO_POINTER (deviceid),
+				     g_strdup (devnode),
 				     GUINT_TO_POINTER ((guint) -1));
 		g_object_unref (dev);
 		return NULL;
@@ -1459,7 +1450,7 @@ get_stream_for_device_id (GsdMediaKeysManager *manager,
 
 	parent = g_udev_device_get_parent_with_subsystem (dev, "usb", "usb_device");
 	if (parent == NULL) {
-		g_warning ("No USB device parent for XInput device %d even though it's USB", deviceid);
+		g_warning ("No USB device parent for XInput device %s even though it's USB", devnode);
 		g_object_unref (dev);
 		return NULL;
 	}
@@ -1496,11 +1487,11 @@ get_stream_for_device_id (GsdMediaKeysManager *manager,
 
 	if (res)
 		g_hash_table_insert (priv->streams,
-				     GUINT_TO_POINTER (deviceid),
+				     g_strdup (devnode),
 				     GUINT_TO_POINTER (gvc_mixer_stream_get_id (res)));
 	else
 		g_hash_table_insert (priv->streams,
-				     GUINT_TO_POINTER (deviceid),
+				     g_strdup (devnode),
 				     GUINT_TO_POINTER ((guint) -1));
 
 	return res;
@@ -1515,12 +1506,12 @@ typedef enum {
 
 static void
 do_sound_action (GsdMediaKeysManager *manager,
-		 guint                deviceid,
+                 const gchar         *device_node,
                  int                  type,
                  SoundActionFlags     flags)
 {
 	GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
-	GvcMixerStream *stream;
+        GvcMixerStream *stream = NULL;
         gboolean old_muted, new_muted;
         guint old_vol, new_vol, norm_vol_step;
         gboolean sound_changed;
@@ -1528,9 +1519,11 @@ do_sound_action (GsdMediaKeysManager *manager,
         /* Find the stream that corresponds to the device, if any */
         stream = NULL;
 #if HAVE_GUDEV
-        stream = get_stream_for_device_id (manager,
-                                           flags & SOUND_ACTION_FLAG_IS_OUTPUT,
-                                           deviceid);
+        if (device_node) {
+                stream = get_stream_for_device_node (manager,
+                                                     flags & SOUND_ACTION_FLAG_IS_OUTPUT,
+                                                     device_node);
+        }
 #endif /* HAVE_GUDEV */
 
         if (stream == NULL) {
@@ -2567,23 +2560,23 @@ do_screencast_action (GsdMediaKeysManager *manager)
 
 static void
 do_custom_action (GsdMediaKeysManager *manager,
-                  guint                deviceid,
+                  const gchar         *device_node,
                   MediaKey            *key,
                   gint64               timestamp)
 {
-        g_debug ("Launching custom action for key (on device id %d)", deviceid);
+        g_debug ("Launching custom action for key (on device node %s)", device_node);
 
 	execute (manager, key->custom_command, timestamp);
 }
 
 static gboolean
 do_action (GsdMediaKeysManager *manager,
-           guint                deviceid,
+           const gchar         *device_node,
            guint                mode,
            MediaKeyType         type,
            gint64               timestamp)
 {
-        g_debug ("Launching action for key type '%d' (on device id %d)", type, deviceid);
+        g_debug ("Launching action for key type '%d' (on device node %s)", type, device_node);
 
         gboolean power_action_noninteractive = (POWER_KEYS_MODE_NO_DIALOG & mode);
 
@@ -2600,29 +2593,29 @@ do_action (GsdMediaKeysManager *manager,
         case MUTE_KEY:
         case VOLUME_DOWN_KEY:
         case VOLUME_UP_KEY:
-                do_sound_action (manager, deviceid, type, SOUND_ACTION_FLAG_IS_OUTPUT);
+                do_sound_action (manager, device_node, type, SOUND_ACTION_FLAG_IS_OUTPUT);
                 break;
         case MIC_MUTE_KEY:
-                do_sound_action (manager, deviceid, MUTE_KEY, SOUND_ACTION_FLAG_IS_QUIET);
+                do_sound_action (manager, device_node, MUTE_KEY, SOUND_ACTION_FLAG_IS_QUIET);
                 break;
         case MUTE_QUIET_KEY:
-                do_sound_action (manager, deviceid, MUTE_KEY,
+                do_sound_action (manager, device_node, MUTE_KEY,
                                  SOUND_ACTION_FLAG_IS_OUTPUT | SOUND_ACTION_FLAG_IS_QUIET);
                 break;
         case VOLUME_DOWN_QUIET_KEY:
-                do_sound_action (manager, deviceid, VOLUME_DOWN_KEY,
+                do_sound_action (manager, device_node, VOLUME_DOWN_KEY,
                                  SOUND_ACTION_FLAG_IS_OUTPUT | SOUND_ACTION_FLAG_IS_QUIET);
                 break;
         case VOLUME_UP_QUIET_KEY:
-                do_sound_action (manager, deviceid, VOLUME_UP_KEY,
+                do_sound_action (manager, device_node, VOLUME_UP_KEY,
                                  SOUND_ACTION_FLAG_IS_OUTPUT | SOUND_ACTION_FLAG_IS_QUIET);
                 break;
         case VOLUME_DOWN_PRECISE_KEY:
-                do_sound_action (manager, deviceid, VOLUME_DOWN_KEY,
+                do_sound_action (manager, device_node, VOLUME_DOWN_KEY,
                                  SOUND_ACTION_FLAG_IS_OUTPUT | SOUND_ACTION_FLAG_IS_PRECISE);
                 break;
         case VOLUME_UP_PRECISE_KEY:
-                do_sound_action (manager, deviceid, VOLUME_UP_KEY,
+                do_sound_action (manager, device_node, VOLUME_UP_KEY,
                                  SOUND_ACTION_FLAG_IS_OUTPUT | SOUND_ACTION_FLAG_IS_PRECISE);
                 break;
         case LOGOUT_KEY:
@@ -2754,6 +2747,7 @@ on_accelerator_activated (ShellKeyGrabber     *grabber,
         GVariantDict dict;
         guint i;
         guint deviceid;
+        gchar *device_node;
         guint timestamp;
         guint mode;
 
@@ -2761,10 +2755,15 @@ on_accelerator_activated (ShellKeyGrabber     *grabber,
 
         if (!g_variant_dict_lookup (&dict, "device-id", "u", &deviceid))
               deviceid = 0;
+        if (!g_variant_dict_lookup (&dict, "device-node", "s", &device_node))
+              device_node = NULL;
         if (!g_variant_dict_lookup (&dict, "timestamp", "u", &timestamp))
               timestamp = GDK_CURRENT_TIME;
         if (!g_variant_dict_lookup (&dict, "action-mode", "u", &mode))
               mode = 0;
+
+	if (!device_node && !gnome_settings_is_wayland ())
+              device_node = xdevice_get_device_node (deviceid);
 
         g_debug ("Received accel id %u (device-id: %u, timestamp: %u, mode: 0x%X)",
                  accel_id, deviceid, timestamp, mode);
@@ -2783,13 +2782,16 @@ on_accelerator_activated (ShellKeyGrabber     *grabber,
                         continue;
 
                 if (key->key_type == CUSTOM_KEY)
-                        do_custom_action (manager, deviceid, key, timestamp);
+                        do_custom_action (manager, device_node, key, timestamp);
                 else
-                        do_action (manager, deviceid, mode, key->key_type, timestamp);
+                        do_action (manager, device_node, mode, key->key_type, timestamp);
+
+                g_free (device_node);
                 return;
         }
 
         g_warning ("Could not find accelerator for accel id %u", accel_id);
+        g_free (device_node);
 }
 
 static void
@@ -3287,7 +3289,7 @@ gsd_media_keys_manager_start (GsdMediaKeysManager *manager,
         migrate_keybinding_settings ();
 
 #if HAVE_GUDEV
-        priv->streams = g_hash_table_new (g_direct_hash, g_direct_equal);
+        priv->streams = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
         priv->udev_client = g_udev_client_new (subsystems);
 #endif
 
