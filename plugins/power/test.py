@@ -638,7 +638,7 @@ class PowerPluginTest2(PowerPluginBase):
 
         # Wake up
         self.logind_obj.EmitSignal('', 'PrepareForSleep', 'b', [False], dbus_interface='org.freedesktop.DBus.Mock')
-        time.sleep(1)
+        time.sleep(10)
 
         # And check we're not idle
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
