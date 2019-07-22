@@ -1,0 +1,13 @@
+[Unit]
+Description=Accessibility settings
+PartOf=graphical-session.target
+After=gnome-session-bus.target graphical-session-pre.target gnome-shell-wayland.target
+
+[Service]
+Type=dbus
+ExecStart=@libexecdir@/gsd-a11y-settings
+Restart=on-failure
+BusName=@plugin_dbus_name@
+
+[Install]
+WantedBy=gnome-settings-daemon.target gnome-settings-daemon-gdm.target

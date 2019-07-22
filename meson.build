@@ -102,6 +102,8 @@ polkit_gobject_dep = dependency('polkit-gobject-1', version: '>= 0.114')
 upower_glib_dep = dependency('upower-glib', version: '>= 0.99.0')
 x11_dep = dependency('x11')
 
+systemduserunitdir = join_paths(gsd_prefix, 'lib', 'systemd', 'user')
+
 m_dep = cc.find_library('m')
 
 # ALSA integration (default enabled)
