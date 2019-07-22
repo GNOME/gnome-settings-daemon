@@ -117,7 +117,7 @@ static const gchar introspection_xml[] =
 #define TOUCHPAD_ENABLED_KEY "send-events"
 #define HIGH_CONTRAST "HighContrast"
 
-#define VOLUME_STEP 6           /* percents for one volume button press */
+#define VOLUME_STEP "volume-step"
 #define VOLUME_STEP_PRECISE 2
 #define MAX_VOLUME 65536.0
 
@@ -1512,7 +1512,7 @@ do_sound_action (GsdMediaKeysManager *manager,
 	GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
         GvcMixerStream *stream = NULL;
         gboolean old_muted, new_muted;
-        guint old_vol, new_vol, norm_vol_step;
+        guint old_vol, new_vol, norm_vol_step, vol_step;
         gboolean sound_changed;
 
         /* Find the stream that corresponds to the device, if any */
@@ -1535,11 +1535,13 @@ do_sound_action (GsdMediaKeysManager *manager,
         if (stream == NULL)
                 return;
 
-        if (flags & SOUND_ACTION_FLAG_IS_PRECISE)
+        if (flags & SOUND_ACTION_FLAG_IS_PRECISE) {
                 norm_vol_step = PA_VOLUME_NORM * VOLUME_STEP_PRECISE / 100;
-        else
-                norm_vol_step = PA_VOLUME_NORM * VOLUME_STEP / 100;
-
+        }
+        else {
+                vol_step = g_settings_get_int (priv->settings, VOLUME_STEP);
+                norm_vol_step = PA_VOLUME_NORM * vol_step / 100;
+        }
         /* FIXME: this is racy */
         new_vol = old_vol = gvc_mixer_stream_get_volume (stream);
         new_muted = old_muted = gvc_mixer_stream_get_is_muted (stream);
