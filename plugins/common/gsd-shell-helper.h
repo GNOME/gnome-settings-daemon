@@ -27,14 +27,14 @@ G_BEGIN_DECLS
 void shell_show_osd (GsdShell    *shell,
 		     const gchar *icon_name,
 		     const gchar *label,
-		     gint         level,
+		     double       level,
 		     const gchar *connector);
 
 void shell_show_osd_with_max_level (GsdShell    *shell,
                                     const gchar *icon_name,
                                     const gchar *label,
-                                    gint         level,
-                                    gint         max_level,
+                                    double       level,
+                                    double       max_level,
                                     const gchar *connector);
 
 G_END_DECLS
