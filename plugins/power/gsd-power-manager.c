@@ -274,7 +274,7 @@ engine_coldplug (GsdPowerManager *manager)
         UpDevice *device;
 
         /* add to database */
-        array = up_client_get_devices2 (manager->up_client);
+        array = up_client_get_devices (manager->up_client);
 
         for (i = 0 ; array != NULL && i < array->len ; i++) {
                 device = g_ptr_array_index (array, i);
