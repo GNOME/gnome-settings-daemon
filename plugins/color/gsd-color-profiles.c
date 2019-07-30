@@ -135,44 +135,12 @@ gcm_session_icc_store_added_cb (CdIccStore *icc_store,
                                 CdIcc *icc,
                                 GsdColorProfiles *profiles)
 {
-#if CD_CHECK_VERSION(1,1,1)
         cd_client_create_profile_for_icc (profiles->client,
                                           icc,
                                           CD_OBJECT_SCOPE_TEMP,
                                           profiles->cancellable,
                                           gcm_session_create_profile_cb,
                                           profiles);
-#else
-        const gchar *filename;
-        const gchar *checksum;
-        gchar *profile_id = NULL;
-        GHashTable *profile_props = NULL;
-
-        filename = cd_icc_get_filename (icc);
-        g_debug ("profile %s added", filename);
-
-        /* generate ID */
-        checksum = cd_icc_get_checksum (icc);
-        profile_id = g_strdup_printf ("icc-%s", checksum);
-        profile_props = g_hash_table_new_full (g_str_hash, g_str_equal,
-                                               NULL, NULL);
-        g_hash_table_insert (profile_props,
-                             CD_PROFILE_PROPERTY_FILENAME,
-                             (gpointer) filename);
-        g_hash_table_insert (profile_props,
-                             CD_PROFILE_METADATA_FILE_CHECKSUM,
-                             (gpointer) checksum);
-        cd_client_create_profile (profiles->client,
-                                  profile_id,
-                                  CD_OBJECT_SCOPE_TEMP,
-                                  profile_props,
-                                  profiles->cancellable,
-                                  gcm_session_create_profile_cb,
-                                  profiles);
-        g_free (profile_id);
-        if (profile_props != NULL)
-                g_hash_table_unref (profile_props);
-#endif
 }
 
 static void
