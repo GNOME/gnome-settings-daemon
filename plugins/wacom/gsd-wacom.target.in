@@ -1,0 +1,16 @@
+[Unit]
+Description=GNOME Wacom handling
+
+BindsTo=gsd-wacom.service
+After=gsd-wacom.service
+
+Requisite=gnome-session-initialized.target
+After=gnome-session-initialized.target
+PartOf=gnome-session-initialized.target
+Before=gnome-session.target
+
+# Use the following once wacom.target or similar exists
+#Requisite=wacom.target
+#After=wacom.target
+#PartOf=wacom.target
+# When done, also add the target to the meson.build file!
