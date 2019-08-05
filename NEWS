@@ -1,3 +1,33 @@
+===============
+Version 3.33.90
+===============
+- Translation updates
+- Add systemd user service files for all the plugins
+- With the exception of gsd-xsettings, daemons do not use the GDK X11
+  backend anymore
+
+WWAN:
+- New daemon, handles WWAN device settings
+
+Mouse:
+- Removed daemon, everything is now implemented in mutter
+
+Clipboard:
+- Removed daemon, everything is now implemented in mutter
+
+Color:
+- Use Planckian calculations on night light
+
+Rfkill:
+- Handle airplane mode for WWAN interfaces
+
+XSettings:
+- Round Xft.dpi setting to an integer
+- Add entry for overlay scrolling setting
+
+Media-keys:
+- Use device node from AcceleratorActivated arguments
+
 ==============
 Version 3.33.0
 ==============
