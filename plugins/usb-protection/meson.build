@@ -4,10 +4,9 @@ sources = files(
 )
 
 deps = plugins_deps + [
-  gtk_dep,
+  gsettings_desktop_dep,
   libcommon_dep,
   libnotify_dep,
-  x11_dep
 ]
 
 executable(

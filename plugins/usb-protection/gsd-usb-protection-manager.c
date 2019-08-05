@@ -19,14 +19,14 @@
 
 #include "config.h"
 
-#include <gdk/gdkx.h>
-#include <gtk/gtk.h>
 #include <gio/gio.h>
 #include <glib-object.h>
 #include <glib/gi18n.h>
 #include <libnotify/notify.h>
 #include <locale.h>
 #include <string.h>
+
+#include <gdesktop-enums.h>
 
 #include "gnome-settings-bus.h"
 #include "gnome-settings-profile.h"
@@ -131,8 +131,8 @@ add_usbguard_allow_rule (GsdUsbProtectionManager *manager)
          * will be automatically authorized. */
 
         GVariant *params;
-        params = g_variant_new ("(su)", ALLOW_ALL, 0);
-        if (manager->usb_protection_policy != NULL)
+        if (manager->usb_protection_policy != NULL) {
+                params = g_variant_new ("(su)", ALLOW_ALL, 0);
                 g_dbus_proxy_call (manager->usb_protection_policy,
                                    APPEND_RULE,
                                    params,
@@ -141,6 +141,7 @@ add_usbguard_allow_rule (GsdUsbProtectionManager *manager)
                                    manager->cancellable,
                                    dbus_call_log_error,
                                    "Error appending USBGuard rule");
+        }
 }
 
 static gboolean
@@ -210,16 +211,16 @@ settings_changed_callback (GSettings               *settings,
         gchar *value_usbguard;
         gboolean usbguard_controlled;
         GVariant *params;
-        GsdUsbProtectionLevel protection_lvl;
+        GDesktopUsbProtection protection_level;
 
         /* We react only if one of the two USB related properties has been changed */
         if (g_strcmp0 (key, USB_PROTECTION) != 0 && g_strcmp0 (key, USB_PROTECTION_LEVEL) != 0)
                 return;
 
         usbguard_controlled = g_settings_get_boolean (settings, USB_PROTECTION);
-        protection_lvl = g_settings_get_enum (settings, USB_PROTECTION_LEVEL);
+        protection_level = g_settings_get_enum (settings, USB_PROTECTION_LEVEL);
         g_debug ("USBGuard control is currently %i with a protection level of %i",
-                 usbguard_controlled, protection_lvl);
+                 usbguard_controlled, protection_level);
 
         /* If previously we were controlling USBGuard and now we are not,
          * we leave the USBGuard configuration in a clean state. I.e. we set
@@ -240,7 +241,7 @@ settings_changed_callback (GSettings               *settings,
                                            -1,
                                            manager->cancellable,
                                            dbus_call_log_error,
-                                           "Error calling USBGuard DBus");
+                                           "Error calling USBGuard DBus to set a clean configuration state");
                 }
 
                 usbguard_ensure_allow_rule (manager);
@@ -248,7 +249,7 @@ settings_changed_callback (GSettings               *settings,
 
         /* Only if we are entitled to handle USBGuard */
         if (usbguard_controlled && manager->usb_protection != NULL) {
-                value_usbguard = (protection_lvl == GSD_USB_PROTECTION_LEVEL_ALWAYS) ? BLOCK : APPLY_POLICY;
+                value_usbguard = (protection_level == G_DESKTOP_USB_PROTECTION_ALWAYS) ? BLOCK : APPLY_POLICY;
                 params = g_variant_new ("(ss)",
                                         INSERTED_DEVICE_POLICY,
                                         value_usbguard);
@@ -260,11 +261,11 @@ settings_changed_callback (GSettings               *settings,
                                    -1,
                                    manager->cancellable,
                                    dbus_call_log_error,
-                                   "Error calling USBGuard DBus");
+                                   "Error calling USBGuard DBus to set the desidered protection level");
 
                 /* If we are in "When lockscreen is active" we also check if the
                  * always allow rule is present. */
-                if (protection_lvl == GSD_USB_PROTECTION_LEVEL_LOCKSCREEN)
+                if (protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN)
                         usbguard_ensure_allow_rule (manager);
         }
 }
@@ -274,7 +275,7 @@ static void update_usb_protection_store (GsdUsbProtectionManager *manager,
 {
         const gchar *key;
         gboolean usbguard_controlled;
-        GsdUsbProtectionLevel protection_lvl;
+        GDesktopUsbProtection protection_level;
         GSettings *settings = manager->settings;
 
         usbguard_controlled = g_settings_get_boolean (settings, USB_PROTECTION);
@@ -282,11 +283,11 @@ static void update_usb_protection_store (GsdUsbProtectionManager *manager,
          * a third party program) we do nothing when the config changes. */
         if (usbguard_controlled) {
                 key = g_variant_get_string (parameter, NULL);
-                protection_lvl = g_settings_get_enum (settings, USB_PROTECTION_LEVEL);
+                protection_level = g_settings_get_enum (settings, USB_PROTECTION_LEVEL);
                 /* If the USBGuard configuration has been changed and doesn't match
                  * our internal state, most likely means that the user externally
                  * changed it. When this happens we set to false the control value. */
-                if ((g_strcmp0 (key, APPLY_POLICY) == 0 && protection_lvl == GSD_USB_PROTECTION_LEVEL_ALWAYS)) {
+                if ((g_strcmp0 (key, APPLY_POLICY) == 0 && protection_level == G_DESKTOP_USB_PROTECTION_ALWAYS)) {
                         g_settings_set (settings, USB_PROTECTION, "b", FALSE);
                         g_warning ("We don't control anymore USBGuard because the configuration changed externally.");
                 }
@@ -341,7 +342,7 @@ static void authorize_device (GDBusProxy              *proxy,
         GVariant *params;
 
         params = g_variant_new ("(uub)", device_id, target, permanent);
-        if (manager->usb_protection_devices != NULL)
+        if (manager->usb_protection_devices != NULL) {
                 g_dbus_proxy_call (manager->usb_protection_devices,
                                    APPLY_DEVICE_POLICY,
                                    params,
@@ -349,7 +350,8 @@ static void authorize_device (GDBusProxy              *proxy,
                                    -1,
                                    manager->cancellable,
                                    dbus_call_log_error,
-                                   "Error calling USBGuard DBus");
+                                   "Error calling USBGuard DBus to authorize a device");
+        }
 }
 
 static gboolean
@@ -448,7 +450,7 @@ on_device_presence_signal (GDBusProxy *proxy,
 {
         UsbGuardEvent device_event;
         UsbGuardTarget target;
-        GsdUsbProtectionLevel protection_lvl;
+        GDesktopUsbProtection protection_level;
         GsdUsbProtectionManager *manager = user_data;
 
         /* We act only if we receive a signal from DevicePresenceChanged */
@@ -465,13 +467,13 @@ on_device_presence_signal (GDBusProxy *proxy,
 
         /* If the device is already authorized we do nothing */
         if (target == TARGET_ALLOW)
-            return;
+                return;
 
         /* If the USB protection is disabled we do nothing */
         if (!is_protection_active (manager))
                 return;
 
-        protection_lvl = g_settings_get_enum (manager->settings, USB_PROTECTION_LEVEL);
+        protection_level = g_settings_get_enum (manager->settings, USB_PROTECTION_LEVEL);
 
         if (manager->screensaver_active) {
                 /* If the session is locked we check if the inserted device is a keyboard.
@@ -486,26 +488,27 @@ on_device_presence_signal (GDBusProxy *proxy,
                                 return;
                         }
                 }
-                if (protection_lvl == GSD_USB_PROTECTION_LEVEL_LOCKSCREEN)
+                if (protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN) {
                         show_notification (manager,
                                            _("Unknown USB device"),
                                            _("New device has been detected while you were away. "
                                              "Please disconnect and reconnect the device to start using it."));
-                else
+                } else {
                         show_notification (manager,
                                            _("Unknown USB device"),
                                            _("New device has been detected while you were away. "
                                              "It has blocked because the USB protection is active."));
+                }
                 return;
         }
 
         /* If the protection level is "lockscreen" the device will be automatically
          * authorized by usbguard. */
-        if (protection_lvl == GSD_USB_PROTECTION_LEVEL_ALWAYS) {
+        if (protection_level == G_DESKTOP_USB_PROTECTION_ALWAYS) {
                 /* We authorize the device if this is a keyboard.
                  * We also lock the screen to prevent an attacker to plug malicious
                  * devices if the legitimate user forgot to lock his session. */
-                if (is_keyboard (parameters))
+                if (is_keyboard (parameters)) {
                         if (auth_keyboard (manager, parameters)) {
                                 gsd_screen_saver_call_lock (manager->screensaver_proxy,
                                                             manager->cancellable,
@@ -513,6 +516,7 @@ on_device_presence_signal (GDBusProxy *proxy,
                                                             manager);
                                 return;
                         }
+                }
                 show_notification (manager,
                                    _("Unknown USB device"),
                                    _("The new inserted device has blocked because the USB protection is active."));
@@ -544,14 +548,14 @@ on_usb_protection_signal (GDBusProxy *proxy,
 }
 
 static void
-on_getparameter_done (GObject      *source_object,
-                      GAsyncResult *res,
-                      gpointer      user_data)
+get_parameter_cb (GObject      *source_object,
+                  GAsyncResult *res,
+                  gpointer      user_data)
 {
         GVariant *result;
         GVariant *params = NULL;
         g_autofree gchar *key = NULL;
-        GsdUsbProtectionLevel protection_lvl;
+        GDesktopUsbProtection protection_level;
         GsdUsbProtectionManager *manager;
         GSettings *settings;
         g_autoptr(GError) error = NULL;
@@ -570,16 +574,16 @@ on_getparameter_done (GObject      *source_object,
 
         g_variant_get_child (result, 0, "s", &key);
         g_variant_unref (result);
-        protection_lvl = g_settings_get_enum (settings, USB_PROTECTION_LEVEL);
+        protection_level = g_settings_get_enum (settings, USB_PROTECTION_LEVEL);
 
-        if (protection_lvl == GSD_USB_PROTECTION_LEVEL_LOCKSCREEN) {
+        if (protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN) {
                 if (g_strcmp0 (key, APPLY_POLICY) != 0) {
                         /* We are out of sync. */
                         params = g_variant_new ("(ss)",
                                                 INSERTED_DEVICE_POLICY,
                                                 APPLY_POLICY);
                 }
-        } else if (protection_lvl == GSD_USB_PROTECTION_LEVEL_ALWAYS) {
+        } else if (protection_level == G_DESKTOP_USB_PROTECTION_ALWAYS) {
                 if (g_strcmp0 (key, BLOCK) != 0) {
                         /* We are out of sync. */
                         params = g_variant_new ("(ss)",
@@ -598,14 +602,14 @@ on_getparameter_done (GObject      *source_object,
                                            -1,
                                            manager->cancellable,
                                            dbus_call_log_error,
-                                           "Error calling USBGuard DBus");
+                                           "Error calling USBGuard DBus while we were out of sync");
                 }
 
         }
 
         /* If we are in "When lockscreen is active" we also check
          * if the "always allow" rule is present. */
-        if (protection_lvl == GSD_USB_PROTECTION_LEVEL_LOCKSCREEN)
+        if (protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN)
                 usbguard_ensure_allow_rule (manager);
 }
 
@@ -629,7 +633,7 @@ sync_usb_protection (GDBusProxy              *proxy,
                            G_DBUS_CALL_FLAGS_NONE,
                            -1,
                            manager->cancellable,
-                           on_getparameter_done,
+                           get_parameter_cb,
                            manager);
 }
 
@@ -655,18 +659,18 @@ handle_screensaver_active (GsdUsbProtectionManager *manager,
         gchar *value_usbguard;
         gboolean usbguard_controlled;
         GVariant *params;
-        GsdUsbProtectionLevel protection_lvl;
+        GDesktopUsbProtection protection_level;
         GSettings *settings = manager->settings;
 
         usbguard_controlled = g_settings_get_boolean (settings, USB_PROTECTION);
-        protection_lvl = g_settings_get_enum (settings, USB_PROTECTION_LEVEL);
+        protection_level = g_settings_get_enum (settings, USB_PROTECTION_LEVEL);
 
         g_variant_get (parameters, "(b)", &active);
         g_debug ("Received screensaver ActiveChanged signal: %d (old: %d)", active, manager->screensaver_active);
         if (manager->screensaver_active != active) {
                 manager->screensaver_active = active;
-                if (usbguard_controlled && protection_lvl == GSD_USB_PROTECTION_LEVEL_LOCKSCREEN) {
-                        /* If we are in the "lockscreen protection level we change
+                if (usbguard_controlled && protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN) {
+                        /* If we are in the "lockscreen protection" level we change
                          * the usbguard config with apply-policy or block if the session
                          * is unlocked or locked, respectively. */
                         value_usbguard = active ? BLOCK : APPLY_POLICY;
@@ -681,7 +685,7 @@ handle_screensaver_active (GsdUsbProtectionManager *manager,
                                                    -1,
                                                    manager->cancellable,
                                                    dbus_call_log_error,
-                                                   "Error calling USBGuard DBus");
+                                                   "Error calling USBGuard DBus to change the protection after a screensaver event");
                         }
                 }
         }
@@ -919,12 +923,7 @@ gsd_usb_protection_manager_finalize (GObject *object)
 {
         GsdUsbProtectionManager *usb_protection_manager;
 
-        g_return_if_fail (GSD_IS_USB_PROTECTION_MANAGER (object));
-
         usb_protection_manager = GSD_USB_PROTECTION_MANAGER (object);
-
-        g_return_if_fail (usb_protection_manager != NULL);
-
         gsd_usb_protection_manager_stop (usb_protection_manager);
 
         G_OBJECT_CLASS (gsd_usb_protection_manager_parent_class)->finalize (object);
