@@ -122,7 +122,7 @@ mpris_proxy_ready_cb (GObject      *object,
                       GAsyncResult *res,
                       gpointer      user_data)
 {
-  MprisController *self = MPRIS_CONTROLLER (object);
+  MprisController *self = MPRIS_CONTROLLER (user_data);
   GError *error = NULL;
   GDBusProxy *proxy;
 
