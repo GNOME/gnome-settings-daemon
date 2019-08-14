@@ -11,8 +11,8 @@
 msgid ""
 msgstr "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/issues\n"
-"POT-Creation-Date: 2019-06-24 22:01+0000\n"
-"PO-Revision-Date: 2019-07-07 10:00+0100\n"
+"POT-Creation-Date: 2019-08-03 10:28+0000\n"
+"PO-Revision-Date: 2019-08-14 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asier.sarasua@gmail.com>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -234,7 +234,7 @@ msgstr "Wacom taularen biraketa"
 msgid ""
 "Set this to “none”, “cw” for 90 degree clockwise, “half” for 180 degree, and "
 "“ccw” for 90 degree counterclockwise."
-msgstr "Ezarri hau “none“ (bat ere ez), “cw“ 90 gradu erlojuaren norantzan, “half“ 180 graduentzako, eta “ccw“ 90 gradu erlojuaren aurkako norantzan."
+msgstr "Ezarri hau “none“ (bat ere ez), “cw“ 90 gradu erlojuaren noranzkoan, “half“ 180 graduentzako, eta “ccw“ 90 gradu erlojuaren aurkako noranzkoan."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:30
 msgid "Wacom touch feature"
@@ -1242,13 +1242,13 @@ msgstr "Lotura estatikoa bluetooth-aren hegazkin modua txandakatzeko."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:740
 msgid "Maximum length of screen recordings"
-msgstr "Gehienezko iraupena pantaila grabatzeko"
+msgstr "Gehieneko iraupena pantaila grabatzeko"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:741
 msgid ""
 "The maximum length of single screen cast recordings in seconds or 0 for "
 "unlimited"
-msgstr "Gehienezko iraupena pantaila baten grabazioa egiteko (segundotan), edo 0 balioarekin mugagabea."
+msgstr "Gehieneko iraupena pantaila baten grabazioa egiteko (segundotan), edo 0 balioarekin mugagabea."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:748
 msgid "Name"
@@ -1532,30 +1532,30 @@ msgstr "Ordenagailu honen leku librea: %s. Leku piskat egin zakarrontzia hustuz.
 msgid "This computer has only %s disk space remaining."
 msgstr "Ordenagailu honen leku librea: %s."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2436
+#: plugins/media-keys/gsd-media-keys-manager.c:2428
 msgid "Bluetooth disabled"
 msgstr "Bluetooth-a desgaituta"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2439
+#: plugins/media-keys/gsd-media-keys-manager.c:2431
 msgid "Bluetooth enabled"
 msgstr "Bluetooth-a gaituta"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2443
+#: plugins/media-keys/gsd-media-keys-manager.c:2435
 msgid "Airplane mode enabled"
 msgstr "Hegazkin modua gaituta"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2446
+#: plugins/media-keys/gsd-media-keys-manager.c:2438
 msgid "Airplane mode disabled"
 msgstr "Hegazkin modua desgaituta"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2475
+#: plugins/media-keys/gsd-media-keys-manager.c:2467
 msgid "Hardware Airplane Mode"
 msgstr "Hardwarearen hegazkin modua"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2538
+#: plugins/media-keys/gsd-media-keys-manager.c:2530
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "%d %t.webm-ren pantailaren bideoa"
@@ -2203,6 +2203,61 @@ msgstr "Aldatu Wacom taularen OLED irudia"
 #: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:36
 msgid "Authentication is required to modify the OLED image for a Wacom tablet"
 msgstr "Autentifikatu egin behar da Wacom taularen OLED irudia aldatzeko."
+
+#. Set up the dialog
+#: plugins/wwan/gsd-wwan-pinentry.c:89
+msgid "Unlock SIM card"
+msgstr "Desblokeatu SIM txartela"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:90
+msgid "Unlock"
+msgstr "Desblokeatu"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:91
+msgid "Cancel"
+msgstr "Utzi"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:95
+#, c-format
+msgid "Please provide the PIN for SIM card %s"
+msgstr "Sartu %s SIM txartelaren PINa"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:97
+msgid "Enter PIN to unlock your SIM card"
+msgstr "Sartu PINa zure SIM txartela desblokeatzeko"
+
+#. msg is already localised
+#: plugins/wwan/gsd-wwan-pinentry.c:123
+#, c-format
+msgid "%2$s You have %1$u try left"
+msgid_plural "%2$s You have %1$u tries left"
+msgstr[0] "%2$s Saialdi %1$u geratzen zaizu"
+msgstr[1] "%2$s %1$u saialdi geratzen zaizkizu"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:127
+#, c-format
+msgid "You have %u try left"
+msgid_plural "You have %u tries left"
+msgstr[0] "Saialdi %u geratzen zaizu"
+msgstr[1] "%u saialdi geratzen zaizkizu"
+
+#. Set up the dialog
+#: plugins/wwan/gsd-wwan-pinentry.c:173 plugins/wwan/gsd-wwan-pinentry.c:175
+msgid "SIM card unlock error"
+msgstr "Errorea SIM txartela desblokeatzean"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:174
+msgid "OK"
+msgstr "Ados"
+
+#. TODO: handle PUK as well
+#: plugins/wwan/gsd-wwan-pinentry.c:194
+msgid "Too many incorrect PINs."
+msgstr "PIN oker gehiegi."
+
+#: plugins/wwan/gsd-wwan-pinentry.c:200
+msgid "Wrong PIN code"
+msgstr "PIN kode okerra"
 
 #~ msgid "NumLock state"
 #~ msgstr "Blok.Zenb. egoera"
@@ -3005,9 +3060,6 @@ msgstr "Autentifikatu egin behar da Wacom taularen OLED irudia aldatzeko."
 
 #~ msgid "Show details"
 #~ msgstr "Erakutsi xehetasunak"
-
-#~ msgid "OK"
-#~ msgstr "Ados"
 
 #~ msgid "Updates plugin"
 #~ msgstr "Eguneraketen plugina"
