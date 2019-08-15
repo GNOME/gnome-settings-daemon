@@ -9,10 +9,9 @@ RefuseManualStart=true
 RefuseManualStop=true
 
 PartOf=gsd-xsettings.target
-After=gnome-session-initialized.target
 
 [Service]
 Type=dbus
 ExecStart=@libexecdir@/gsd-xsettings
-Restart=on-failure
+Restart=on-abnormal
 BusName=@plugin_dbus_name@

@@ -34,8 +34,8 @@ if enable_wwan
 endif
 
 plugin_install_extra_wants = {
+  'xsettings': ['gnome-session-x11-services.target.wants/'],
 #  'dummy': ['required-started.target.wants/'],
-#  'xsettings': ['gnome-session-x11.target.wants/'],
 #  'wacom': ['wacom.target.wants/'],
 #  'smartcard': ['smartcard.target.wants/'],
 }
@@ -107,7 +107,11 @@ foreach plugin: enabled_plugins_file
         install_dir: systemd_userunitdir
      )
 
-     wants = ['gnome-session-initialized.target.wants/']
+     wants = []
+     if plugin_name != 'xsettings'
+       wants += ['gnome-session-initialized.target.wants/']
+     endif
+
      if plugin_name in plugin_install_extra_wants
        wants += [plugin_install_extra_wants[plugin_name]]
      endif
