@@ -30,8 +30,6 @@
 #include "gnome-settings-plugin.h"
 #include "gnome-settings-profile.h"
 
-#define GNOME_SETTINGS_PLUGIN_INFO_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GNOME_TYPE_SETTINGS_PLUGIN_INFO, GnomeSettingsPluginInfoPrivate))
-
 #define PLUGIN_GROUP "GNOME Settings Plugin"
 
 #define PLUGIN_PRIORITY_MAX 1
@@ -74,7 +72,7 @@ enum {
 
 static guint signals [LAST_SIGNAL] = { 0, };
 
-G_DEFINE_TYPE (GnomeSettingsPluginInfo, gnome_settings_plugin_info, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE (GnomeSettingsPluginInfo, gnome_settings_plugin_info, G_TYPE_OBJECT)
 
 static void
 gnome_settings_plugin_info_finalize (GObject *object)
@@ -139,14 +137,12 @@ gnome_settings_plugin_info_class_init (GnomeSettingsPluginInfoClass *klass)
                               g_cclosure_marshal_VOID__VOID,
                               G_TYPE_NONE,
                               0);
-
-        g_type_class_add_private (klass, sizeof (GnomeSettingsPluginInfoPrivate));
 }
 
 static void
 gnome_settings_plugin_info_init (GnomeSettingsPluginInfo *info)
 {
-        info->priv = GNOME_SETTINGS_PLUGIN_INFO_GET_PRIVATE (info);
+        info->priv = gnome_settings_plugin_info_get_instance_private (info);
 }
 
 static void
