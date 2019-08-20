@@ -40,6 +40,11 @@ struct _GsdWwanManager
 {
         GObject parent;
 
+        GDBusNodeInfo   *introspection_data;
+        GDBusConnection *connection;
+        GCancellable    *cancellable;
+        guint            name_id;
+
         guint      start_idle_id;
         gboolean   unlock;
         GSettings *settings;
@@ -60,6 +65,22 @@ static GParamSpec *props[PROP_LAST_PROP];
 #define GSD_WWAN_SCHEMA_DIR "org.gnome.settings-daemon.plugins.wwan"
 #define GSD_WWAN_SCHEMA_UNLOCK_SIM "unlock-sim"
 
+#define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
+#define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
+#define GSD_DBUS_BASE_INTERFACE "org.gnome.SettingsDaemon"
+
+#define GSD_WWAN_DBUS_NAME GSD_DBUS_NAME ".Wwan"
+#define GSD_WWAN_DBUS_PATH GSD_DBUS_PATH "/Wwan"
+
+static const gchar introspection_xml[] =
+"<node>"
+"  <interface name='org.gnome.SettingsDaemon.Wwan'>"
+"    <method name='UnlockModem'>"
+"      <arg type='s' name='modem-path' direction='in'/>"
+"    </method>"
+"  </interface>"
+"</node>";
+
 G_DEFINE_TYPE (GsdWwanManager, gsd_wwan_manager, G_TYPE_OBJECT)
 
 /* The plugin's manager object */
@@ -78,6 +99,55 @@ unlock_sim_cb (GsdWwanManager *self, GsdWwanDevice *device)
         gsd_wwan_pinentry_unlock_sim (device, NULL);
 }
 
+
+static GsdWwanDevice *
+lookup_device_with_modem_path (GsdWwanManager *self,
+                               const gchar    *modem_path)
+{
+        GsdWwanDevice *device;
+        MMObject *mm_object;
+        guint i;
+
+        for (i = 0; i < self->devices->len; i++)
+                {
+                        device = self->devices->pdata[i];
+                        mm_object = gsd_wwan_device_get_mm_object (device);
+
+                        if (g_strcmp0 (modem_path, mm_object_get_path (mm_object)) == 0)
+                                return device;
+                }
+
+        return NULL;
+}
+
+static gboolean
+unlock_device_with_modem_path (GsdWwanManager  *self,
+                               const gchar     *modem_path,
+                               GError         **error)
+{
+        GsdWwanDevice *device;
+
+        g_return_val_if_fail (GSD_IS_WWAN_MANAGER (self), FALSE);
+        g_return_val_if_fail (modem_path || *modem_path, FALSE);
+
+        device = lookup_device_with_modem_path (self, modem_path);
+
+        if (!device)
+                {
+                        gchar *msg = g_strdup_printf ("No Modem with path '%s' found in cache", modem_path);
+                        *error = g_error_new_literal (G_IO_ERROR,
+                                                      G_IO_ERROR_NOT_FOUND,
+                                                      msg);
+                        g_free (msg);
+
+                        return FALSE;
+                }
+
+        if (gsd_wwan_device_needs_unlock (device))
+                gsd_wwan_pinentry_unlock_sim (device, NULL);
+
+        return TRUE;
+}
 
 static gboolean
 device_match_by_object (GsdWwanDevice *device, GDBusObject *object)
@@ -230,6 +300,69 @@ set_modem_manager (GsdWwanManager *self)
 }
 
 
+static void
+handle_method_call (GDBusConnection       *connection,
+                    const gchar           *sender,
+                    const gchar           *object_path,
+                    const gchar           *interface_name,
+                    const gchar           *method_name,
+                    GVariant              *parameters,
+                    GDBusMethodInvocation *invocation,
+                    gpointer               user_data)
+{
+        GsdWwanManager *self = (GsdWwanManager *)user_data;
+        GError *error = NULL;
+
+        if (g_strcmp0 (method_name, "UnlockModem") == 0) {
+                const char *modem_path;
+                g_variant_get (parameters, "(&s)", &modem_path);
+                if (!unlock_device_with_modem_path (self, modem_path, &error))
+                        g_dbus_method_invocation_take_error (invocation, error);
+                else
+                        g_dbus_method_invocation_return_value (invocation, NULL);
+        }
+}
+
+
+static const GDBusInterfaceVTable interface_vtable =
+{
+        handle_method_call,
+        NULL,
+        NULL
+};
+
+static void
+on_bus_gotten (GObject        *source_object,
+               GAsyncResult   *res,
+               GsdWwanManager *self)
+{
+        GError *error = NULL;
+
+        self->connection = g_bus_get_finish (res, &error);
+        if (self->connection == NULL) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Could not get session bus: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+
+        g_dbus_connection_register_object (self->connection,
+                                           GSD_WWAN_DBUS_PATH,
+                                           self->introspection_data->interfaces[0],
+                                           &interface_vtable,
+                                           self,
+                                           NULL,
+                                           NULL);
+
+        self->name_id = g_bus_own_name_on_connection (self->connection,
+                                                      GSD_WWAN_DBUS_NAME,
+                                                      G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                      NULL,
+                                                      NULL,
+                                                      NULL,
+                                                      NULL);
+}
+
 static gboolean
 start_wwan_idle_cb (GsdWwanManager *self)
 {
@@ -243,6 +376,15 @@ start_wwan_idle_cb (GsdWwanManager *self)
         set_modem_manager (self);
         gnome_settings_profile_end (NULL);
         self->start_idle_id = 0;
+
+        self->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        g_assert (self->introspection_data != NULL);
+
+        /* Start process of owning a D-Bus name */
+        g_bus_get (G_BUS_TYPE_SESSION,
+                   self->cancellable,
+                   (GAsyncReadyCallback) on_bus_gotten,
+                   self);
 
         return FALSE;
 }
@@ -266,6 +408,19 @@ void
 gsd_wwan_manager_stop (GsdWwanManager *self)
 {
         g_debug ("Stopping wwan manager");
+
+        if (self->name_id != 0) {
+                g_bus_unown_name (self->name_id);
+                self->name_id = 0;
+        }
+
+        g_clear_pointer (&self->introspection_data, g_dbus_node_info_unref);
+        g_clear_object (&self->connection);
+
+        if (self->cancellable) {
+                g_cancellable_cancel (self->cancellable);
+                g_clear_object (&self->cancellable);
+        }
 }
 
 
