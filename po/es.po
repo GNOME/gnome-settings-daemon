@@ -19,15 +19,15 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2019-06-24 22:01+0000\n"
-"PO-Revision-Date: 2019-06-26 10:52+0200\n"
+"POT-Creation-Date: 2019-08-16 09:33+0000\n"
+"PO-Revision-Date: 2019-08-20 10:22+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: es <gnome-es-list@gnome.org>\n"
-"Language: es\n"
+"Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Gtranslator 3.32.0\n"
+"X-Generator: Gtranslator 3.32.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
@@ -1023,7 +1023,6 @@ msgid "Skip forward in current track"
 msgstr "Avanzar en la pista actual"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:418
-#| msgid "Binding to skip forward in in current track."
 msgid "Binding to skip forward in current track."
 msgstr "Vínculo para adelantar en la pista actual."
 
@@ -1272,7 +1271,6 @@ msgid "Static binding to skip backward in current track."
 msgstr "Vínculo estático para retroceder en la pista actual."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:655
-#| msgid "Static binding to skip forward in in current track."
 msgid "Static binding to skip forward in current track."
 msgstr "Vínculo estático para adelantar en la pista actual."
 
@@ -1681,30 +1679,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Este equipo sólo tiene %s de espacio en disco libre."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2436
+#: plugins/media-keys/gsd-media-keys-manager.c:2428
 msgid "Bluetooth disabled"
 msgstr "Bluetooth desactivado"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2439
+#: plugins/media-keys/gsd-media-keys-manager.c:2431
 msgid "Bluetooth enabled"
 msgstr "Bluetooth activado"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2443
+#: plugins/media-keys/gsd-media-keys-manager.c:2435
 msgid "Airplane mode enabled"
 msgstr "Modo avión activado"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2446
+#: plugins/media-keys/gsd-media-keys-manager.c:2438
 msgid "Airplane mode disabled"
 msgstr "Modo avión desactivado"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2475
+#: plugins/media-keys/gsd-media-keys-manager.c:2467
 msgid "Hardware Airplane Mode"
 msgstr "Modo avión hardware"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2538
+#: plugins/media-keys/gsd-media-keys-manager.c:2530
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Captura del escritorio de %d %t.webm"
@@ -2379,6 +2377,62 @@ msgstr "Modificar la imagen OLED para una tableta Wacom"
 msgid "Authentication is required to modify the OLED image for a Wacom tablet"
 msgstr ""
 "Se requiere autenticación para modificar la imagen OLED de una tableta Wacom"
+
+#. Set up the dialog
+#: plugins/wwan/gsd-wwan-pinentry.c:89
+msgid "Unlock SIM card"
+msgstr "Desbloquear tarjeta SIM"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:90
+msgid "Unlock"
+msgstr "Desbloquear"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:91
+#| msgid "Cancel update"
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:95
+#, c-format
+msgid "Please provide the PIN for SIM card %s"
+msgstr "Proporcione su PIN para la tarjeta SIM %s"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:97
+msgid "Enter PIN to unlock your SIM card"
+msgstr "Introduzca el PIN para desbloquear su tarjeta SIM"
+
+#. msg is already localised
+#: plugins/wwan/gsd-wwan-pinentry.c:123
+#, c-format
+msgid "%2$s You have %1$u try left"
+msgid_plural "%2$s You have %1$u tries left"
+msgstr[0] "%2$s Le queda %1$u intento"
+msgstr[1] "%2$s Le quedan %1$u intentos"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:127
+#, c-format
+msgid "You have %u try left"
+msgid_plural "You have %u tries left"
+msgstr[0] "Le queda %u intento"
+msgstr[1] "Le quedan %u intentos"
+
+#. Set up the dialog
+#: plugins/wwan/gsd-wwan-pinentry.c:173 plugins/wwan/gsd-wwan-pinentry.c:175
+msgid "SIM card unlock error"
+msgstr "Error la desbloquear la tarjeta SIM"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:174
+msgid "OK"
+msgstr "Aceptar"
+
+#. TODO: handle PUK as well
+#: plugins/wwan/gsd-wwan-pinentry.c:194
+msgid "Too many incorrect PINs."
+msgstr "Demasiados PIN incorrectos."
+
+#: plugins/wwan/gsd-wwan-pinentry.c:200
+msgid "Wrong PIN code"
+msgstr "Código PIN incorrecto"
 
 #~ msgid "NumLock state"
 #~ msgstr "Estado del BloqNum"
@@ -3192,9 +3246,6 @@ msgstr ""
 
 #~ msgid "Show details"
 #~ msgstr "Mostrar detalles"
-
-#~ msgid "OK"
-#~ msgstr "Aceptar"
 
 #~ msgid "Updates plugin"
 #~ msgstr "Complemento de actualizaciones"
@@ -4230,9 +4281,6 @@ msgstr ""
 
 #~ msgid "Updates are being installed"
 #~ msgstr "Se están instalando las actualizaciones"
-
-#~ msgid "Cancel update"
-#~ msgstr "Cancelar actualización"
 
 #~ msgid ""
 #~ "Disable the keyboard layout indicator unconditionally, do not show it "
