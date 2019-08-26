@@ -475,7 +475,7 @@ get_icon_name_for_volume (gboolean is_mic,
         };
         int n;
 
-        if (muted) {
+        if (muted || volume == 0) {
                 n = 0;
         } else {
                 /* select image */
