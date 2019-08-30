@@ -37,15 +37,18 @@
 #define USB_PROTECTION "usb-protection"
 #define USB_PROTECTION_LEVEL "usb-protection-level"
 
-#define USBGUARD_DBUS_NAME "org.usbguard"
-#define USBGUARD_DBUS_PATH "/org/usbguard"
+#define DBUS_VERSION "1"
+
+#define USBGUARD_DBUS_NAME "org.usbguard" DBUS_VERSION
+#define USBGUARD_DBUS_PATH "/org/usbguard" DBUS_VERSION
 #define USBGUARD_DBUS_INTERFACE "org.usbguard"
+#define USBGUARD_DBUS_INTERFACE_VERSIONED USBGUARD_DBUS_INTERFACE DBUS_VERSION
 
 #define USBGUARD_DBUS_PATH_POLICY USBGUARD_DBUS_PATH "/Policy"
-#define USBGUARD_DBUS_INTERFACE_POLICY USBGUARD_DBUS_INTERFACE ".Policy"
+#define USBGUARD_DBUS_INTERFACE_POLICY USBGUARD_DBUS_INTERFACE ".Policy" DBUS_VERSION
 
 #define USBGUARD_DBUS_PATH_DEVICES USBGUARD_DBUS_PATH "/Devices"
-#define USBGUARD_DBUS_INTERFACE_DEVICES USBGUARD_DBUS_INTERFACE ".Devices"
+#define USBGUARD_DBUS_INTERFACE_DEVICES USBGUARD_DBUS_INTERFACE ".Devices" DBUS_VERSION
 
 #define APPLY_POLICY "apply-policy"
 #define BLOCK "block"
@@ -58,7 +61,7 @@
 #define DEVICE_PRESENCE_CHANGED "DevicePresenceChanged"
 #define INSERTED_DEVICE_POLICY "InsertedDevicePolicy"
 #define APPEND_RULE "appendRule"
-#define ALLOW_ALL "allow id *:*"
+#define ALLOW_ALL "allow id *:* label \"GNOME_SETTINGS_DAEMON_RULE\""
 #define WITH_INTERFACE "with-interface"
 
 struct _GsdUsbProtectionManager
@@ -150,7 +153,7 @@ add_usbguard_allow_rule (GsdUsbProtectionManager *manager)
 
         GVariant *params;
         if (manager->usb_protection_policy != NULL) {
-                params = g_variant_new ("(su)", ALLOW_ALL, 0);
+                params = g_variant_new ("(sub)", ALLOW_ALL, 0, FALSE);
                 g_dbus_proxy_call (manager->usb_protection_policy,
                                    APPEND_RULE,
                                    params,
@@ -207,8 +210,11 @@ usbguard_ensure_allow_rule (GsdUsbProtectionManager *manager)
 {
         GVariant *params;
         if (manager->usb_protection_policy != NULL) {
-                /* listRules parameter is a query for matching rules.
-                 * With an empty string we get all the available rules. */
+                /* listRules parameter is a label for matching rules.
+                 * Currently we are using an empty label to get all the
+                 * rules instead of just using "GNOME_SETTINGS_DAEMON_RULE"
+                 * until this bug gets solved:
+                 * https://github.com/USBGuard/usbguard/issues/328 */
                 params = g_variant_new ("(s)", "");
                 g_dbus_proxy_call (manager->usb_protection_policy,
                                    LIST_RULES,
@@ -823,7 +829,7 @@ usb_protection_proxy_ready (GObject      *source_object,
         name_owner = g_dbus_proxy_get_name_owner (G_DBUS_PROXY (proxy));
 
         if (name_owner == NULL) {
-                g_debug("Probably USBGuard is not currently installed.");
+                g_debug("Probably USBGuard >= 0.7.5 is not currently installed.");
                 manager->available = FALSE;
         } else {
                 manager->available = TRUE;
@@ -939,7 +945,7 @@ start_usb_protection_idle_cb (GsdUsbProtectionManager *manager)
                                   NULL,
                                   USBGUARD_DBUS_NAME,
                                   USBGUARD_DBUS_PATH,
-                                  USBGUARD_DBUS_INTERFACE,
+                                  USBGUARD_DBUS_INTERFACE_VERSIONED,
                                   manager->cancellable,
                                   usb_protection_proxy_ready,
                                   manager);
