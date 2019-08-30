@@ -65,7 +65,11 @@ struct _GsdUsbProtectionManager
 {
         GObject             parent;
         guint               start_idle_id;
+        GDBusNodeInfo      *introspection_data;
         GSettings          *settings;
+        guint               name_id;
+        GDBusConnection    *connection;
+        gboolean            available;
         GDBusProxy         *usb_protection;
         GDBusProxy         *usb_protection_devices;
         GDBusProxy         *usb_protection_policy;
@@ -101,6 +105,20 @@ static void gsd_usb_protection_manager_finalize (GObject *object);
 G_DEFINE_TYPE (GsdUsbProtectionManager, gsd_usb_protection_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
+
+#define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
+#define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
+#define GSD_DBUS_BASE_INTERFACE "org.gnome.SettingsDaemon"
+
+#define GSD_USB_PROTECTION_DBUS_NAME GSD_DBUS_NAME ".UsbProtection"
+#define GSD_USB_PROTECTION_DBUS_PATH GSD_DBUS_PATH "/UsbProtection"
+
+static const gchar introspection_xml[] =
+"<node>"
+"  <interface name='org.gnome.SettingsDaemon.UsbProtection'>"
+"    <property name='Available' type='b' access='read'/>"
+"  </interface>"
+"</node>";
 
 static void
 dbus_call_log_error (GObject      *source_object,
@@ -303,7 +321,7 @@ is_protection_active (GsdUsbProtectionManager *manager)
 }
 
 static void
-on_notification_closed (NotifyNotification *n,
+on_notification_closed (NotifyNotification      *n,
                         GsdUsbProtectionManager *manager)
 {
         g_clear_object (&manager->notification);
@@ -647,8 +665,12 @@ on_usb_protection_owner_changed_cb (GObject    *object,
         g_autofree gchar *name_owner = NULL;
 
         name_owner = g_dbus_proxy_get_name_owner (proxy);
-        if (name_owner)
+        if (name_owner) {
+                manager->available = TRUE;
                 sync_usb_protection (proxy, manager);
+        } else {
+                manager->available = FALSE;
+        }
 }
 
 static void
@@ -692,11 +714,11 @@ handle_screensaver_active (GsdUsbProtectionManager *manager,
 }
 
 static void
-screensaver_signal_cb (GDBusProxy *proxy,
+screensaver_signal_cb (GDBusProxy  *proxy,
                        const gchar *sender_name,
                        const gchar *signal_name,
-                       GVariant *parameters,
-                       gpointer user_data)
+                       GVariant    *parameters,
+                       gpointer     user_data)
 {
         if (g_strcmp0 (signal_name, "ActiveChanged") == 0)
                 handle_screensaver_active (GSD_USB_PROTECTION_MANAGER (user_data), parameters);
@@ -800,10 +822,13 @@ usb_protection_proxy_ready (GObject      *source_object,
 
         name_owner = g_dbus_proxy_get_name_owner (G_DBUS_PROXY (proxy));
 
-        if (name_owner == NULL)
+        if (name_owner == NULL) {
                 g_debug("Probably USBGuard is not currently installed.");
-        else
+                manager->available = FALSE;
+        } else {
+                manager->available = TRUE;
                 sync_usb_protection (proxy, manager);
+        }
 
         g_signal_connect_object (source_object,
                                  "notify::g-name-owner",
@@ -836,6 +861,69 @@ usb_protection_proxy_ready (GObject      *source_object,
                                   manager->cancellable,
                                   usb_protection_policy_proxy_ready,
                                   manager);
+}
+
+static GVariant *
+handle_get_property (GDBusConnection *connection,
+                     const gchar     *sender,
+                     const gchar     *object_path,
+                     const gchar     *interface_name,
+                     const gchar     *property_name,
+                     GError         **error,
+                     gpointer         user_data)
+{
+        GsdUsbProtectionManager *manager = GSD_USB_PROTECTION_MANAGER (user_data);
+
+        /* Check session pointer as a proxy for whether the manager is in the
+           start or stop state */
+        if (manager->connection == NULL)
+                return NULL;
+
+        if (g_strcmp0 (property_name, "Available") == 0)
+                return g_variant_new_boolean (manager->available);
+
+        return NULL;
+}
+
+static const GDBusInterfaceVTable interface_vtable =
+{
+        NULL,
+        handle_get_property,
+        NULL
+};
+
+static void
+on_bus_gotten (GObject                 *source_object,
+               GAsyncResult            *res,
+               GsdUsbProtectionManager *manager)
+{
+        GDBusConnection *connection;
+        GError *error = NULL;
+
+        connection = g_bus_get_finish (res, &error);
+        if (connection == NULL) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Could not get session bus: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+        manager->connection = connection;
+
+        g_dbus_connection_register_object (connection,
+                                           GSD_USB_PROTECTION_DBUS_PATH,
+                                           manager->introspection_data->interfaces[0],
+                                           &interface_vtable,
+                                           manager,
+                                           NULL,
+                                           NULL);
+
+        manager->name_id = g_bus_own_name_on_connection (connection,
+                                                         GSD_USB_PROTECTION_DBUS_NAME,
+                                                         G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                         NULL,
+                                                         NULL,
+                                                         NULL,
+                                                         NULL);
 }
 
 static gboolean
@@ -872,6 +960,15 @@ gsd_usb_protection_manager_start (GsdUsbProtectionManager *manager,
         manager->start_idle_id = g_idle_add ((GSourceFunc) start_usb_protection_idle_cb, manager);
         g_source_set_name_by_id (manager->start_idle_id, "[gnome-settings-daemon] start_usbguard_idle_cb");
 
+        manager->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        g_assert (manager->introspection_data != NULL);
+
+        /* Start process of owning a D-Bus name */
+        g_bus_get (G_BUS_TYPE_SESSION,
+                   manager->cancellable,
+                   (GAsyncReadyCallback) on_bus_gotten,
+                   manager);
+
         gnome_settings_profile_end (NULL);
         return TRUE;
 }
@@ -898,6 +995,13 @@ gsd_usb_protection_manager_stop (GsdUsbProtectionManager *manager)
                 manager->start_idle_id = 0;
         }
 
+        if (manager->name_id != 0) {
+                g_bus_unown_name (manager->name_id);
+                manager->name_id = 0;
+        }
+
+        g_clear_pointer (&manager->introspection_data, g_dbus_node_info_unref);
+        g_clear_object (&manager->connection);
         g_clear_object (&manager->settings);
         g_clear_object (&manager->usb_protection);
         g_clear_object (&manager->usb_protection_devices);
