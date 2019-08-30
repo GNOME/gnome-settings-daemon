@@ -662,6 +662,33 @@ sync_usb_protection (GDBusProxy              *proxy,
 }
 
 static void
+usb_protection_properties_changed (GsdUsbProtectionManager *manager)
+{
+        GVariantBuilder props_builder;
+        GVariant *props_changed = NULL;
+
+        /* not yet connected to the session bus */
+        if (manager->connection == NULL)
+                return;
+
+        g_variant_builder_init (&props_builder, G_VARIANT_TYPE ("a{sv}"));
+
+        g_variant_builder_add (&props_builder, "{sv}", "Available",
+                               g_variant_new_boolean (manager->available));
+
+        props_changed = g_variant_new ("(s@a{sv}@as)", GSD_USB_PROTECTION_DBUS_NAME,
+                                       g_variant_builder_end (&props_builder),
+                                       g_variant_new_strv (NULL, 0));
+
+        g_dbus_connection_emit_signal (manager->connection,
+                                       NULL,
+                                       GSD_USB_PROTECTION_DBUS_PATH,
+                                       "org.freedesktop.DBus.Properties",
+                                       "PropertiesChanged",
+                                       props_changed, NULL);
+}
+
+static void
 on_usb_protection_owner_changed_cb (GObject    *object,
                                     GParamSpec *pspec,
                                     gpointer    user_data)
@@ -677,6 +704,8 @@ on_usb_protection_owner_changed_cb (GObject    *object,
         } else {
                 manager->available = FALSE;
         }
+
+        usb_protection_properties_changed (manager);
 }
 
 static void
