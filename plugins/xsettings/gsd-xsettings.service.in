@@ -9,6 +9,7 @@ RefuseManualStart=true
 RefuseManualStop=true
 
 PartOf=gsd-xsettings.target
+After=gnome-session-initialized.target
 
 [Service]
 Type=dbus
