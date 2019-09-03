@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: gnome-control-center 0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2019-06-24 22:01+0000\n"
-"PO-Revision-Date: 2019-07-19 23:16+0200\n"
+"POT-Creation-Date: 2019-08-26 13:00+0000\n"
+"PO-Revision-Date: 2019-09-03 15:45+0200\n"
 "Last-Translator: gogo <linux.hr@protonmail.com>\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
 "Language: hr\n"
@@ -1658,30 +1658,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Ovom računalu je preostalo samo %s slobodnog diskovnog prostora."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2436
+#: plugins/media-keys/gsd-media-keys-manager.c:2428
 msgid "Bluetooth disabled"
 msgstr "Bluetooth onemogućen"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2439
+#: plugins/media-keys/gsd-media-keys-manager.c:2431
 msgid "Bluetooth enabled"
 msgstr "Bluetooth omogućen"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2443
+#: plugins/media-keys/gsd-media-keys-manager.c:2435
 msgid "Airplane mode enabled"
 msgstr "Zrakoplovni način rada omogućen"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2446
+#: plugins/media-keys/gsd-media-keys-manager.c:2438
 msgid "Airplane mode disabled"
 msgstr "Zrakoplovni način rada onemogućen"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2475
+#: plugins/media-keys/gsd-media-keys-manager.c:2467
 msgid "Hardware Airplane Mode"
 msgstr "Hardverski zrakoplovni način rada"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2538
+#: plugins/media-keys/gsd-media-keys-manager.c:2530
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Snimak zaslona od %d %t.webm"
@@ -2355,6 +2355,63 @@ msgstr "Prilagodi OLED sliku za Wacom tablet"
 #: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:36
 msgid "Authentication is required to modify the OLED image for a Wacom tablet"
 msgstr "Potrebna je ovjera za prilagodbu OLED slike za Wacom tablet"
+
+#. Set up the dialog
+#: plugins/wwan/gsd-wwan-pinentry.c:89
+msgid "Unlock SIM card"
+msgstr "Otključaj SIM karticu"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:90
+msgid "Unlock"
+msgstr "Otključaj"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:91
+msgid "Cancel"
+msgstr "Odustani"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:95
+#, c-format
+msgid "Please provide the PIN for SIM card %s"
+msgstr "Upišite PIN kôd za SIM karticu %s"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:97
+msgid "Enter PIN to unlock your SIM card"
+msgstr "Upišite PIN kôd za otključavanje SIM kartice"
+
+#. msg is already localised
+#: plugins/wwan/gsd-wwan-pinentry.c:123
+#, c-format
+msgid "%2$s You have %1$u try left"
+msgid_plural "%2$s You have %1$u tries left"
+msgstr[0] "%2$s Preostao vam je %1$u pokušaj"
+msgstr[1] "%2$s Preostala su vam %1$u pokušaja"
+msgstr[2] "%2$s Preostalo vam je %1$u pokušaja"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:127
+#, c-format
+msgid "You have %u try left"
+msgid_plural "You have %u tries left"
+msgstr[0] "Preostao vam je %u pokušaj"
+msgstr[1] "Preostala su vam %u pokušaja"
+msgstr[2] "Preostalo vam je %u pokušaja"
+
+#. Set up the dialog
+#: plugins/wwan/gsd-wwan-pinentry.c:173 plugins/wwan/gsd-wwan-pinentry.c:175
+msgid "SIM card unlock error"
+msgstr "Greška otključavanja SIM kartice"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:174
+msgid "OK"
+msgstr "U redu"
+
+#. TODO: handle PUK as well
+#: plugins/wwan/gsd-wwan-pinentry.c:194
+msgid "Too many incorrect PINs."
+msgstr "Previše netočnih PIN-ova."
+
+#: plugins/wwan/gsd-wwan-pinentry.c:200
+msgid "Wrong PIN code"
+msgstr "Pogrešan PIN kôd"
 
 #~ msgid "NumLock state"
 #~ msgstr "NumLock stanje"
