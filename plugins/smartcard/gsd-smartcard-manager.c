@@ -232,7 +232,7 @@ watch_one_event_from_driver (GsdSmartcardManager       *self,
 
                 g_warning ("Got potentially spurious smartcard event error: %x.", error_code);
 
-                g_usleep (0.5 * G_USEC_PER_SEC);
+                g_usleep (1 * G_USEC_PER_SEC);
                 return TRUE;
         }
         operation->number_of_consecutive_errors = 0;
