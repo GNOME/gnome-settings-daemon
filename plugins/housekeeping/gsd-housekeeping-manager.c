@@ -78,7 +78,7 @@ typedef struct {
 
 
 typedef struct {
-        time_t  mtime;
+        gint64  atime;
         char   *path;
         glong   size;
 } ThumbData;
@@ -104,7 +104,7 @@ read_dir_for_purge (const char *path, GList *files)
         read_path = g_file_new_for_path (path);
         enum_dir = g_file_enumerate_children (read_path,
                                               G_FILE_ATTRIBUTE_STANDARD_NAME ","
-                                              G_FILE_ATTRIBUTE_TIME_MODIFIED ","
+                                              G_FILE_ATTRIBUTE_TIME_ACCESS ","
                                               G_FILE_ATTRIBUTE_STANDARD_SIZE,
                                               G_FILE_QUERY_INFO_NONE,
                                               NULL,
@@ -120,17 +120,17 @@ read_dir_for_purge (const char *path, GList *files)
                                 ThumbData *td;
                                 GFile     *entry;
                                 char      *entry_path;
-                                GTimeVal   mod_time;
+                                GDateTime *atime;
 
                                 entry = g_file_get_child (read_path, name);
                                 entry_path = g_file_get_path (entry);
                                 g_object_unref (entry);
 
-                                g_file_info_get_modification_time (info, &mod_time);
+                                atime = g_file_info_get_access_date_time (info);
 
                                 td = g_new0 (ThumbData, 1);
                                 td->path = entry_path;
-                                td->mtime = mod_time.tv_sec;
+                                td->atime = atime == NULL ? 0 : g_date_time_to_unix (atime);
                                 td->size = g_file_info_get_size (info);
 
                                 files = g_list_prepend (files, td);
@@ -147,7 +147,7 @@ read_dir_for_purge (const char *path, GList *files)
 static void
 purge_old_thumbnails (ThumbData *info, PurgeData *purge_data)
 {
-        if ((purge_data->now - info->mtime) > purge_data->max_age) {
+        if ((purge_data->now - info->atime) > purge_data->max_age) {
                 g_unlink (info->path);
                 info->size = 0;
         } else {
@@ -156,9 +156,9 @@ purge_old_thumbnails (ThumbData *info, PurgeData *purge_data)
 }
 
 static int
-sort_file_mtime (ThumbData *file1, ThumbData *file2)
+sort_file_atime (ThumbData *file1, ThumbData *file2)
 {
-        return file1->mtime - file2->mtime;
+        return file1->atime - file2->atime;
 }
 
 static char **
@@ -249,7 +249,7 @@ purge_thumbnail_cache (GsdHousekeepingManager *manager)
 
         if ((purge_data.total_size > purge_data.max_size) && (purge_data.max_size >= 0)) {
                 GList *scan;
-                files = g_list_sort (files, (GCompareFunc) sort_file_mtime);
+                files = g_list_sort (files, (GCompareFunc) sort_file_atime);
                 for (scan = files; scan && (purge_data.total_size > purge_data.max_size); scan = scan->next) {
                         ThumbData *info = scan->data;
                         g_unlink (info->path);
