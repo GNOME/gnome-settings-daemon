@@ -873,7 +873,7 @@ class PowerPluginTest6(PowerPluginBase):
         notify_log = self.p_notify.stdout.read()
 
         # verify notification
-        self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" 0 "battery-caution-symbolic" ".*battery critical.*"')
+        self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" .* "battery-caution-symbolic" ".*battery critical.*"')
 
     def test_notify_critical_battery_on_start(self):
         '''action on critical battery on startup'''
@@ -889,7 +889,7 @@ class PowerPluginTest6(PowerPluginBase):
         notify_log = self.p_notify.stdout.read()
 
         # verify notification
-        self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" 0 "battery-caution-symbolic" ".*battery critical.*"')
+        self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" .* "battery-caution-symbolic" ".*battery critical.*"')
 
     def test_notify_device_battery(self):
         '''critical power level notification for device batteries'''
@@ -940,7 +940,7 @@ class PowerPluginTest6(PowerPluginBase):
         notify_log = self.p_notify.stdout.read()
 
         # verify notification
-        self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" 0 ".*" ".*Wireless mouse .*low.* power.*"')
+        self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" .* ".*" ".*Wireless mouse .*low.* power.*"')
 
     def test_forced_logout(self):
         '''Test forced logout'''
