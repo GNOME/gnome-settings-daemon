@@ -30,6 +30,8 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
     '''Test the xsettings plugin'''
 
     def setUp(self):
+        self.start_logind()
+
         self.daemon_death_expected = False
         self.session_log_write = open(os.path.join(self.workdir, 'gnome-session.log'), 'wb')
         self.session = subprocess.Popen(['gnome-session', '-f',
@@ -117,6 +119,7 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
 
         self.stop_session()
         self.stop_mutter()
+        self.stop_logind()
 
         # reset all changed gsettings, so that tests are independent from each
         # other
