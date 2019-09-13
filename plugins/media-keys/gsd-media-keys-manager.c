@@ -3716,7 +3716,7 @@ power_keyboard_proxy_signal_cb (GDBusProxy  *proxy,
         if (g_strcmp0 (source, "internal") != 0)
                 return;
 
-        show_osd (manager, "keyboard-brightness-symbolic", NULL, brightness, NULL);
+        show_osd (manager, "keyboard-brightness-symbolic", NULL, (double) brightness / 100.0, NULL);
 }
 
 static void
