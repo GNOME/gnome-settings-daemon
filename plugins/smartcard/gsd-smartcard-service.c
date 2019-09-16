@@ -32,7 +32,7 @@
 
 struct _GsdSmartcardService
 {
-        GObject                     parent;
+        GsdSmartcardServiceManagerSkeleton parent;
 
         GDBusConnection            *bus_connection;
         GDBusObjectManagerServer   *object_manager_server;

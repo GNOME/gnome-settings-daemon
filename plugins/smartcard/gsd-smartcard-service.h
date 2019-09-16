@@ -39,7 +39,7 @@ G_BEGIN_DECLS
 
 #define GSD_TYPE_SMARTCARD_SERVICE (gsd_smartcard_service_get_type ())
 
-G_DECLARE_FINAL_TYPE (GsdSmartcardService, gsd_smartcard_service, GSD, SMARTCARD_SERVICE, GObject)
+G_DECLARE_FINAL_TYPE (GsdSmartcardService, gsd_smartcard_service, GSD, SMARTCARD_SERVICE, GsdSmartcardServiceManagerSkeleton)
 
 void  gsd_smartcard_service_new_async (GsdSmartcardManager  *manager,
                                        GCancellable         *cancellable,
