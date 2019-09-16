@@ -190,8 +190,13 @@ watch_one_event_from_driver (GsdSmartcardManager       *self,
                                             operation,
                                             NULL);
 
-        if (handler_id != 0)
-                card = SECMOD_WaitForAnyTokenEvent (operation->driver, 0, PR_SecondsToInterval (1));
+        if (handler_id != 0) {
+                /* Use the non-blocking version of the call as p11-kit, which
+                 * is used on both Fedora and Ubuntu, doesn't support the
+                 * blocking version of the call.
+                 */
+                card = SECMOD_WaitForAnyTokenEvent (operation->driver, CKF_DONT_BLOCK, PR_SecondsToInterval (1));
+        }
 
         g_cancellable_disconnect (cancellable, handler_id);
 
@@ -204,6 +209,12 @@ watch_one_event_from_driver (GsdSmartcardManager       *self,
                 int error_code;
 
                 error_code = PORT_GetError ();
+
+                if (error_code == SEC_ERROR_NO_EVENT) {
+                    g_usleep (1 * G_USEC_PER_SEC);
+
+                    return TRUE;
+                }
 
                 operation->number_of_consecutive_errors++;
                 if (operation->number_of_consecutive_errors > 10) {
@@ -221,7 +232,7 @@ watch_one_event_from_driver (GsdSmartcardManager       *self,
 
                 g_warning ("Got potentially spurious smartcard event error: %x.", error_code);
 
-                g_usleep (0.5 * G_USEC_PER_SEC);
+                g_usleep (1 * G_USEC_PER_SEC);
                 return TRUE;
         }
         operation->number_of_consecutive_errors = 0;
