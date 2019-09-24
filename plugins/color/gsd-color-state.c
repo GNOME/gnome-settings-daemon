@@ -291,6 +291,59 @@ out:
 }
 
 static gboolean
+gcm_get_system_icc_profile (GsdColorState *state,
+                            GFile *file)
+{
+        const char efi_path[] = "/sys/firmware/efi/efivars/INTERNAL_PANEL_COLOR_INFO-01e1ada1-79f2-46b3-8d3e-71fc0996ca6b";
+        /* efi variables have a 4-byte header */
+        const int efi_var_header_length = 4;
+        g_autoptr(GFile) efi_file = g_file_new_for_path (efi_path);
+        gboolean ret;
+        g_autofree char *data = NULL;
+        gsize length;
+        g_autoptr(GError) error = NULL;
+
+        ret = g_file_query_exists (efi_file, NULL);
+        if (!ret)
+                return FALSE;
+
+        ret = g_file_load_contents (efi_file,
+                                    NULL /* cancellable */,
+                                    &data,
+                                    &length,
+                                    NULL /* etag_out */,
+                                    &error);
+
+        if (!ret) {
+                g_warning ("failed to read EFI system color profile: %s",
+                           error->message);
+                return FALSE;
+        }
+
+        if (length <= efi_var_header_length) {
+                g_warning ("EFI system color profile was too short");
+                return FALSE;
+        }
+
+        ret = g_file_replace_contents (file,
+                                       data + efi_var_header_length,
+                                       length - efi_var_header_length,
+                                       NULL /* etag */,
+                                       FALSE /* make_backup */,
+                                       G_FILE_CREATE_NONE,
+                                       NULL /* new_etag */,
+                                       NULL /* cancellable */,
+                                       &error);
+        if (!ret) {
+                g_warning ("failed to write system color profile: %s",
+                           error->message);
+                return FALSE;
+        }
+
+        return TRUE;
+}
+
+static gboolean
 gcm_apply_create_icc_profile_for_edid (GsdColorState *state,
                                        CdDevice *device,
                                        GcmEdid *edid,
@@ -891,11 +944,20 @@ gcm_session_device_assign_connect_cb (GObject *object,
                 } else {
                         g_debug ("auto-profile edid does not exist, creating as %s",
                                  autogen_path);
-                        ret = gcm_apply_create_icc_profile_for_edid (state,
-                                                                     device,
-                                                                     edid,
-                                                                     file,
-                                                                     &error);
+
+                        /* check if the system has a built-in profile */
+                        ret = gnome_rr_output_is_builtin_display (output) &&
+                              gcm_get_system_icc_profile (state, file);
+
+                        /* try creating one from the EDID */
+                        if (!ret) {
+                                ret = gcm_apply_create_icc_profile_for_edid (state,
+                                                                             device,
+                                                                             edid,
+                                                                             file,
+                                                                             &error);
+                        }
+
                         if (!ret) {
                                 g_warning ("failed to create profile from EDID data: %s",
                                              error->message);
