@@ -417,31 +417,21 @@ is_keyboard (GVariant *device)
         return FALSE;
 }
 
-static gboolean
+static void
 auth_keyboard (GsdUsbProtectionManager *manager,
                GVariant                *device)
 {
         guint device_id;
-        gboolean keyboard_found = FALSE;
-
-        /* If this HID advertises also interfaces outside the HID class it is suspect.
-         * It could be a false positive because this can be a "smart" keyboard, but at
-         * this stage is better be safe.*/
-        if (!is_only_hid (device))
-                return FALSE;
 
         if (manager->usb_protection_devices == NULL)
-                return FALSE;
+                return;
 
-        if (!keyboard_found) {
-                g_variant_get_child (device, POLICY_DEVICE_ID, "u", &device_id);
-                authorize_device(manager->usb_protection_devices,
-                                 manager,
-                                 device_id,
-                                 TARGET_ALLOW,
-                                 FALSE);
-        }
-        return TRUE;
+        g_variant_get_child (device, POLICY_DEVICE_ID, "u", &device_id);
+        authorize_device(manager->usb_protection_devices,
+                         manager,
+                         device_id,
+                         TARGET_ALLOW,
+                         FALSE);
 }
 
 static void
@@ -502,15 +492,18 @@ on_device_presence_signal (GDBusProxy *proxy,
         if (manager->screensaver_active) {
                 /* If the session is locked we check if the inserted device is a keyboard.
                  * If that is the case we authorize the newly inserted keyboard as an
-                 * antilockout policy. */
-                if (is_keyboard (parameters)) {
-                        if (auth_keyboard (manager, parameters)) {
-                                show_notification (manager,
-                                                   _("New keyboard detected"),
-                                                   _("Either your keyboard has been reconnected or a new one has been plugged in. "
-                                                     "If you did not do it, check your system for any suspicious device."));
-                                return;
-                        }
+                 * antilockout policy.
+                 *
+                 * If this keyboard advertises also interfaces outside the HID class it is suspect.
+                 * It could be a false positive because this could be a "smart" keyboard, but at
+                 * this stage is better be safe. */
+                if (is_keyboard (parameters) && is_only_hid (parameters)) {
+                        show_notification (manager,
+                                           _("New keyboard detected"),
+                                           _("Either your keyboard has been reconnected or a new one has been plugged in. "
+                                             "If you did not do it, check your system for any suspicious device."));
+                        auth_keyboard (manager, parameters);
+                        return;
                 }
                 if (protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN) {
                         show_notification (manager,
@@ -531,15 +524,18 @@ on_device_presence_signal (GDBusProxy *proxy,
         if (protection_level == G_DESKTOP_USB_PROTECTION_ALWAYS) {
                 /* We authorize the device if this is a keyboard.
                  * We also lock the screen to prevent an attacker to plug malicious
-                 * devices if the legitimate user forgot to lock his session. */
-                if (is_keyboard (parameters)) {
-                        if (auth_keyboard (manager, parameters)) {
-                                gsd_screen_saver_call_lock (manager->screensaver_proxy,
-                                                            manager->cancellable,
-                                                            (GAsyncReadyCallback) on_screen_locked,
-                                                            manager);
-                                return;
-                        }
+                 * devices if the legitimate user forgot to lock his session.
+                 *
+                 * If this keyboard advertises also interfaces outside the HID class it is suspect.
+                 * It could be a false positive because this could be a "smart" keyboard, but at
+                 * this stage is better be safe. */
+                if (is_keyboard (parameters) && is_only_hid (parameters)) {
+                        gsd_screen_saver_call_lock (manager->screensaver_proxy,
+                                                    manager->cancellable,
+                                                    (GAsyncReadyCallback) on_screen_locked,
+                                                    manager);
+                        auth_keyboard (manager, parameters);
+                        return;
                 }
                 show_notification (manager,
                                    _("Unknown USB device"),
