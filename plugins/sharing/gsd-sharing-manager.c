@@ -98,7 +98,6 @@ static gpointer manager_object = NULL;
 
 static const char * const services[] = {
         "rygel",
-        "vino-server",
         "gnome-remote-desktop",
         "gnome-user-share-webdav"
 };
