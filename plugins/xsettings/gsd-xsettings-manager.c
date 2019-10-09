@@ -276,7 +276,8 @@ struct _GsdXSettingsManager
 
         GsdXSettingsGtk   *gtk;
 
-        GsdRemoteDisplayManager *remote_display;
+        guint              introspect_properties_changed_id;
+        guint              shell_introspect_watch_id;
         gboolean           enable_animations;
 
         guint              display_config_watch_id;
@@ -1073,38 +1074,6 @@ setup_xsettings_managers (GsdXSettingsManager *manager)
 }
 
 static void
-force_disable_animation_changed (GObject    *gobject,
-                                 GParamSpec *pspec,
-                                 GsdXSettingsManager *manager)
-{
-        gboolean force_disable, value;
-
-        g_object_get (gobject, "force-disable-animations", &force_disable, NULL);
-        if (force_disable)
-                value = FALSE;
-        else {
-                GSettings *settings;
-
-                settings = g_hash_table_lookup (manager->settings, "org.gnome.desktop.interface");
-                value = g_settings_get_boolean (settings, "enable-animations");
-        }
-
-        manager->enable_animations = value;
-        xsettings_manager_set_int (manager->manager, "Gtk/EnableAnimations", value);
-
-        queue_notify (manager);
-        send_dbus_event (manager, GTK_SETTINGS_ENABLE_ANIMATIONS);
-}
-
-static void
-enable_animations_changed_cb (GSettings           *settings,
-                              gchar               *key,
-                              GsdXSettingsManager *manager)
-{
-        force_disable_animation_changed (G_OBJECT (manager->remote_display), NULL, manager);
-}
-
-static void
 monitors_changed (GsdXSettingsManager *manager)
 {
         update_xft_settings (manager);
@@ -1134,6 +1103,69 @@ on_display_config_name_appeared_handler (GDBusConnection *connection,
         monitors_changed (manager);
 }
 
+static void
+animations_enabled_changed (GsdXSettingsManager *manager)
+{
+        g_autoptr(GError) error = NULL;
+        g_autoptr(GVariant) res = NULL;
+        g_autoptr(GVariant) animations_enabled_variant = NULL;
+        gboolean animations_enabled;
+
+        res = g_dbus_connection_call_sync (manager->dbus_connection,
+                                           "org.gnome.Shell.Introspect",
+                                           "/org/gnome/Shell/Introspect",
+                                           "org.freedesktop.DBus.Properties",
+                                           "Get",
+                                           g_variant_new ("(ss)",
+                                                          "org.gnome.Shell.Introspect",
+                                                          "AnimationsEnabled"),
+                                           NULL,
+                                           G_DBUS_CALL_FLAGS_NONE,
+                                           -1,
+                                           NULL,
+                                           &error);
+        if (!res) {
+                g_warning ("Failed to get animations-enabled state: %s",
+                           error->message);
+                return;
+        }
+
+        g_variant_get (res, "(v)", &animations_enabled_variant);
+        g_variant_get (animations_enabled_variant, "b", &animations_enabled);
+
+        if (manager->enable_animations == animations_enabled)
+                return;
+
+        manager->enable_animations = animations_enabled;
+        xsettings_manager_set_int (manager->manager, "Gtk/EnableAnimations",
+                                   animations_enabled);
+        queue_notify (manager);
+        send_dbus_event (manager, GTK_SETTINGS_ENABLE_ANIMATIONS);
+}
+
+static void
+on_introspect_properties_changed (GDBusConnection *connection,
+                                  const gchar     *sender_name,
+                                  const gchar     *object_path,
+                                  const gchar     *interface_name,
+                                  const gchar     *signal_name,
+                                  GVariant        *parameters,
+                                  gpointer         data)
+{
+        GsdXSettingsManager *manager = data;
+        animations_enabled_changed (manager);
+}
+
+static void
+on_shell_introspect_name_appeared_handler (GDBusConnection *connection,
+                                           const gchar     *name,
+                                           const gchar     *name_owner,
+                                           gpointer         data)
+{
+        GsdXSettingsManager *manager = data;
+        animations_enabled_changed (manager);
+}
+
 gboolean
 gsd_xsettings_manager_start (GsdXSettingsManager *manager,
                              GError             **error)
@@ -1153,10 +1185,6 @@ gsd_xsettings_manager_start (GsdXSettingsManager *manager,
                 return FALSE;
         }
 
-        manager->remote_display = gsd_remote_display_manager_new ();
-        g_signal_connect (G_OBJECT (manager->remote_display), "notify::force-disable-animations",
-                          G_CALLBACK (force_disable_animation_changed), manager);
-
         manager->monitors_changed_id =
                 g_dbus_connection_signal_subscribe (manager->dbus_connection,
                                                     "org.gnome.Mutter.DisplayConfig",
@@ -1173,6 +1201,26 @@ gsd_xsettings_manager_start (GsdXSettingsManager *manager,
                                                 "org.gnome.Mutter.DisplayConfig",
                                                 G_BUS_NAME_WATCHER_FLAGS_NONE,
                                                 on_display_config_name_appeared_handler,
+                                                NULL,
+                                                manager,
+                                                NULL);
+
+        manager->introspect_properties_changed_id =
+                g_dbus_connection_signal_subscribe (manager->dbus_connection,
+                                                    "org.gnome.Shell.Introspect",
+                                                    "org.freedesktop.DBus.Properties",
+                                                    "PropertiesChanged",
+                                                    "/org/gnome/Shell/Introspect",
+                                                    NULL,
+                                                    G_DBUS_SIGNAL_FLAGS_NONE,
+                                                    on_introspect_properties_changed,
+                                                    manager,
+                                                    NULL);
+        manager->shell_introspect_watch_id =
+                g_bus_watch_name_on_connection (manager->dbus_connection,
+                                                "org.gnome.Shell.Introspect",
+                                                G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                                on_shell_introspect_name_appeared_handler,
                                                 NULL,
                                                 manager,
                                                 NULL);
@@ -1208,9 +1256,6 @@ gsd_xsettings_manager_start (GsdXSettingsManager *manager,
                         g_settings_schema_unref (schema);
                 }
         }
-
-        g_signal_connect (G_OBJECT (g_hash_table_lookup (manager->settings, INTERFACE_SETTINGS_SCHEMA)), "changed::enable-animations",
-                          G_CALLBACK (enable_animations_changed_cb), manager);
 
         for (i = 0; i < G_N_ELEMENTS (fixed_entries); i++) {
                 FixedEntry *fixed = &fixed_entries[i];
@@ -1249,9 +1294,6 @@ gsd_xsettings_manager_start (GsdXSettingsManager *manager,
                           G_CALLBACK (gtk_modules_callback), manager);
         gtk_modules_callback (manager->gtk, NULL, manager);
 
-        /* Animation settings */
-        force_disable_animation_changed (G_OBJECT (manager->remote_display), NULL, manager);
-
         /* Xft settings */
         update_xft_settings (manager);
 
@@ -1275,7 +1317,16 @@ gsd_xsettings_manager_stop (GsdXSettingsManager *manager)
 {
         g_debug ("Stopping xsettings manager");
 
-        g_clear_object (&manager->remote_display);
+        if (manager->introspect_properties_changed_id) {
+                g_dbus_connection_signal_unsubscribe (manager->dbus_connection,
+                                                      manager->introspect_properties_changed_id);
+                manager->introspect_properties_changed_id = 0;
+        }
+
+        if (manager->shell_introspect_watch_id) {
+                g_bus_unwatch_name (manager->shell_introspect_watch_id);
+                manager->shell_introspect_watch_id = 0;
+        }
 
         if (manager->monitors_changed_id) {
                 g_dbus_connection_signal_unsubscribe (manager->dbus_connection,
