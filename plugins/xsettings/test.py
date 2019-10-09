@@ -160,56 +160,6 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
         values = sorted(str(retval).split(':'))
         self.assertEqual(values, ['canberra-gtk-module', 'pk-gtk-module'])
 
-    def test_enable_animations(self):
-        # Check that "Enable animations" is off
-        self.assertEqual(self.obj_xsettings_props.Get('org.gtk.Settings', 'EnableAnimations'),
-                dbus.Boolean(True, variant_level=1))
-
-        # Make vino appear
-        vino = self.spawn_server('org.gnome.Vino',
-                '/org/gnome/vino/screens/0',
-                'org.gnome.VinoScreen')
-
-        dbus_con = self.get_dbus()
-        obj_vino = dbus_con.get_object('org.gnome.Vino', '/org/gnome/vino/screens/0')
-        mock_vino = dbus.Interface(obj_vino, dbusmock.MOCK_IFACE)
-        mock_vino.AddProperty('', 'Connected', dbus.Boolean(False, variant_level=1))
-
-        time.sleep(0.1)
-
-        # Check animations are still enabled
-        self.assertEqual(self.obj_xsettings_props.Get('org.gtk.Settings', 'EnableAnimations'),
-                dbus.Boolean(True, variant_level=1))
-
-        # Connect a remote user
-        mock_vino.EmitSignal('org.freedesktop.DBus.Properties',
-                             'PropertiesChanged',
-                            'sa{sv}as',
-                            ['org.gnome.VinoScreen',
-                            dbus.Dictionary({'Connected': dbus.Boolean(True, variant_level=1)}, signature='sv'),
-                            dbus.Array([], signature='s')
-                            ])
-
-        time.sleep(0.1)
-
-        # gdbus debug output
-        # gdbus_log_write = open(os.path.join(self.workdir, 'gdbus.log'), 'wb')
-        # process = subprocess.Popen(['gdbus', 'introspect', '--session', '--dest', 'org.gnome.Vino', '--object-path', '/org/gnome/vino/screens/0'],
-        #         stdout=gdbus_log_write, stderr=subprocess.STDOUT)
-        # time.sleep(1)
-
-        # Check that "Enable animations" is off
-        self.assertEqual(self.obj_xsettings_props.Get('org.gtk.Settings', 'EnableAnimations'),
-                dbus.Boolean(False, variant_level=1))
-
-        vino.terminate()
-        vino.wait()
-        time.sleep(0.1)
-
-        # Check animations are back enabled
-        self.assertEqual(self.obj_xsettings_props.Get('org.gtk.Settings', 'EnableAnimations'),
-                dbus.Boolean(True, variant_level=1))
-
     def test_fontconfig_timestamp(self):
         # gdbus_log_write = open(os.path.join(self.workdir, 'gdbus.log'), 'wb')
         # process = subprocess.Popen(['gdbus', 'introspect', '--session', '--dest', 'org.gtk.Settings', '--object-path', '/org/gtk/Settings'],
