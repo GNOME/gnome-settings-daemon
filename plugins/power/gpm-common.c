@@ -43,6 +43,13 @@
 #define UPS_SOUND_LOOP_ID                        99
 #define GSD_POWER_MANAGER_CRITICAL_ALERT_TIMEOUT  5 /* seconds */
 
+static int
+gsd_power_backlight_convert_safe (int value, int from_range, int to_range)
+{
+        /* round (value / from_range) * to_range */
+        return (value * to_range + from_range / 2) / from_range;
+}
+
 /* take a discrete value with offset and convert to percentage */
 int
 gsd_power_backlight_abs_to_percentage (int min, int max, int value)
@@ -50,26 +57,18 @@ gsd_power_backlight_abs_to_percentage (int min, int max, int value)
         g_return_val_if_fail (max > min, -1);
         g_return_val_if_fail (value >= min, -1);
         g_return_val_if_fail (value <= max, -1);
-        return (((value - min) * 100) / (max - min));
+        return gsd_power_backlight_convert_safe (value - min, max - min, 100);
 }
 
 /* take a percentage and convert to a discrete value with offset */
 int
 gsd_power_backlight_percentage_to_abs (int min, int max, int value)
 {
-        int steps, step_size;
-
         g_return_val_if_fail (max > min, -1);
         g_return_val_if_fail (value >= 0, -1);
         g_return_val_if_fail (value <= 100, -1);
 
-        steps = max - min;
-        step_size = 100 / steps;
-
-        /* Round for better precision when steps is small */
-        value += step_size / 2;
-
-        return min + (steps * value) / 100;
+        return min + gsd_power_backlight_convert_safe (value, 100, max - min);
 }
 
 #define GPM_UP_TIME_PRECISION                   5*60
