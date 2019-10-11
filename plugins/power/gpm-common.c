@@ -47,10 +47,15 @@
 int
 gsd_power_backlight_abs_to_percentage (int min, int max, int value)
 {
+        int steps;
+
         g_return_val_if_fail (max > min, -1);
         g_return_val_if_fail (value >= min, -1);
         g_return_val_if_fail (value <= max, -1);
-        return (((value - min) * 100) / (max - min));
+
+        steps = max - min;
+
+        return (((value - min) * 100 + steps / 2) / steps);
 }
 
 /* take a percentage and convert to a discrete value with offset */
