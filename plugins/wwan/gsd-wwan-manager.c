@@ -40,6 +40,11 @@ struct _GsdWwanManager
 {
         GObject parent;
 
+        GDBusNodeInfo   *introspection_data;
+        GDBusConnection *connection;
+        GCancellable    *cancellable;
+        guint            name_id;
+
         guint      start_idle_id;
         gboolean   unlock;
         GSettings *settings;
@@ -59,6 +64,20 @@ static GParamSpec *props[PROP_LAST_PROP];
 
 #define GSD_WWAN_SCHEMA_DIR "org.gnome.settings-daemon.plugins.wwan"
 #define GSD_WWAN_SCHEMA_UNLOCK_SIM "unlock-sim"
+
+#define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
+#define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
+#define GSD_DBUS_BASE_INTERFACE "org.gnome.SettingsDaemon"
+
+#define GSD_WWAN_DBUS_NAME GSD_DBUS_NAME ".Wwan"
+#define GSD_WWAN_DBUS_PATH GSD_DBUS_PATH "/Wwan"
+
+static const gchar introspection_xml[] =
+"<node>"
+"  <interface name='org.gnome.SettingsDaemon.Wwan'>"
+"    <property name='AutoUnlock' type='b' access='readwrite'/>"
+"  </interface>"
+"</node>";
 
 G_DEFINE_TYPE (GsdWwanManager, gsd_wwan_manager, G_TYPE_OBJECT)
 
@@ -230,45 +249,6 @@ set_modem_manager (GsdWwanManager *self)
 }
 
 
-static gboolean
-start_wwan_idle_cb (GsdWwanManager *self)
-{
-        g_debug ("Idle starting wwan manager");
-        gnome_settings_profile_start (NULL);
-
-        g_return_val_if_fail(GSD_IS_WWAN_MANAGER (self), FALSE);
-        self->settings = g_settings_new (GSD_WWAN_SCHEMA_DIR);
-        g_settings_bind (self->settings, "unlock-sim", self, "unlock-sim", G_SETTINGS_BIND_GET);
-
-        set_modem_manager (self);
-        gnome_settings_profile_end (NULL);
-        self->start_idle_id = 0;
-
-        return FALSE;
-}
-
-gboolean
-gsd_wwan_manager_start (GsdWwanManager *self,
-                        GError        **error)
-{
-        g_debug ("Starting wwan manager");
-        g_return_val_if_fail(GSD_IS_WWAN_MANAGER (self), FALSE);
-
-        gnome_settings_profile_start (NULL);
-        self->start_idle_id = g_idle_add ((GSourceFunc) start_wwan_idle_cb, self);
-        g_source_set_name_by_id (self->start_idle_id, "[gnome-settings-daemon] start_wwan_idle_cb");
-
-        gnome_settings_profile_end (NULL);
-        return TRUE;
-}
-
-void
-gsd_wwan_manager_stop (GsdWwanManager *self)
-{
-        g_debug ("Stopping wwan manager");
-}
-
-
 static void
 unlock_all (GsdWwanDevice *device, GsdWwanManager *self)
 {
@@ -292,6 +272,156 @@ gsd_wwan_manager_set_unlock_sim (GsdWwanManager *self, gboolean unlock)
         }
 
         g_object_notify_by_pspec (G_OBJECT (self), props[PROP_UNLOCK_SIM]);
+}
+
+
+static gboolean
+handle_set_property (GDBusConnection *connection,
+                     const gchar     *sender,
+                     const gchar     *object_path,
+                     const gchar     *interface_name,
+                     const gchar     *property_name,
+                     GVariant        *value,
+                     GError         **error,
+                     gpointer         user_data)
+{
+        GsdWwanManager *self = user_data;
+
+        if (g_strcmp0 (property_name, "AutoUnlock") == 0) {
+                gboolean unlock_on_boot;
+
+                g_variant_get (value, "b", &unlock_on_boot);
+                gsd_wwan_manager_set_unlock_sim (self, unlock_on_boot);
+
+                return TRUE;
+        }
+
+        return FALSE;
+}
+
+
+static GVariant *
+handle_get_property (GDBusConnection *connection,
+                     const gchar     *sender,
+                     const gchar     *object_path,
+                     const gchar     *interface_name,
+                     const gchar     *property_name,
+                     GError         **error,
+                     gpointer         user_data)
+{
+        GsdWwanManager *self = user_data;
+
+        /* Check session pointer as a proxy for whether the manager is in the
+           start or stop state */
+        if (self->connection == NULL) {
+                return NULL;
+        }
+
+        if (g_strcmp0 (property_name, "AutoUnlock") == 0) {
+                return g_variant_new_boolean (self->unlock);
+        }
+
+        return NULL;
+}
+
+
+static const GDBusInterfaceVTable interface_vtable =
+{
+        NULL,
+        handle_get_property,
+        handle_set_property
+};
+
+static void
+on_bus_gotten (GObject        *source_object,
+               GAsyncResult   *res,
+               GsdWwanManager *self)
+{
+        GError *error = NULL;
+
+        self->connection = g_bus_get_finish (res, &error);
+        if (self->connection == NULL) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Could not get session bus: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+
+        g_dbus_connection_register_object (self->connection,
+                                           GSD_WWAN_DBUS_PATH,
+                                           self->introspection_data->interfaces[0],
+                                           &interface_vtable,
+                                           self,
+                                           NULL,
+                                           NULL);
+
+        self->name_id = g_bus_own_name_on_connection (self->connection,
+                                                      GSD_WWAN_DBUS_NAME,
+                                                      G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                      NULL,
+                                                      NULL,
+                                                      NULL,
+                                                      NULL);
+}
+
+static gboolean
+start_wwan_idle_cb (GsdWwanManager *self)
+{
+        g_debug ("Idle starting wwan manager");
+        gnome_settings_profile_start (NULL);
+
+        g_return_val_if_fail(GSD_IS_WWAN_MANAGER (self), FALSE);
+        self->settings = g_settings_new (GSD_WWAN_SCHEMA_DIR);
+        g_settings_bind (self->settings, "unlock-sim", self, "unlock-sim", G_SETTINGS_BIND_DEFAULT);
+
+        set_modem_manager (self);
+        gnome_settings_profile_end (NULL);
+        self->start_idle_id = 0;
+
+        self->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        g_assert (self->introspection_data != NULL);
+
+        /* Start process of owning a D-Bus name */
+        g_bus_get (G_BUS_TYPE_SESSION,
+                   self->cancellable,
+                   (GAsyncReadyCallback) on_bus_gotten,
+                   self);
+
+        return FALSE;
+}
+
+gboolean
+gsd_wwan_manager_start (GsdWwanManager *self,
+                        GError        **error)
+{
+        g_debug ("Starting wwan manager");
+        g_return_val_if_fail(GSD_IS_WWAN_MANAGER (self), FALSE);
+
+        gnome_settings_profile_start (NULL);
+        self->start_idle_id = g_idle_add ((GSourceFunc) start_wwan_idle_cb, self);
+        g_source_set_name_by_id (self->start_idle_id, "[gnome-settings-daemon] start_wwan_idle_cb");
+
+        gnome_settings_profile_end (NULL);
+        return TRUE;
+}
+
+void
+gsd_wwan_manager_stop (GsdWwanManager *self)
+{
+        g_debug ("Stopping wwan manager");
+
+        if (self->name_id != 0) {
+                g_bus_unown_name (self->name_id);
+                self->name_id = 0;
+        }
+
+        g_clear_pointer (&self->introspection_data, g_dbus_node_info_unref);
+        g_clear_object (&self->connection);
+
+        if (self->cancellable) {
+                g_cancellable_cancel (self->cancellable);
+                g_clear_object (&self->cancellable);
+        }
 }
 
 
