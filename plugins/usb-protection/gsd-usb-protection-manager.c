@@ -63,6 +63,7 @@
 #define APPEND_RULE "appendRule"
 #define ALLOW_ALL "allow id *:* label \"GNOME_SETTINGS_DAEMON_RULE\""
 #define WITH_INTERFACE "with-interface"
+#define NAME "name"
 
 struct _GsdUsbProtectionManager
 {
@@ -194,7 +195,7 @@ usbguard_listrules_cb (GObject      *source_object,
 
         if (!result) {
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-                        g_warning ("Failed fetch USBGuard rules list: %s", error->message);
+                        g_warning ("Failed to fetch USBGuard rules list: %s", error->message);
                 return;
         }
 
@@ -466,6 +467,9 @@ on_device_presence_signal (GDBusProxy *proxy,
         UsbGuardTarget target;
         GDesktopUsbProtection protection_level;
         GsdUsbProtectionManager *manager = user_data;
+        GVariantIter *iter = NULL;
+        g_autofree gchar *name = NULL;
+        g_autofree gchar *device_name = NULL;
 
         /* We act only if we receive a signal from DevicePresenceChanged */
         if (g_strcmp0 (signal_name, DEVICE_PRESENCE_CHANGED) != 0)
@@ -486,6 +490,12 @@ on_device_presence_signal (GDBusProxy *proxy,
         /* If the USB protection is disabled we do nothing */
         if (!is_protection_active (manager))
                 return;
+
+        g_variant_get_child (parameters, POLICY_ATTRIBUTES, "a{ss}", &iter);
+        while (g_variant_iter_loop (iter, "{ss}", &name, &device_name)) {
+                if (g_strcmp0 (name, NAME) == 0)
+                        g_debug ("A new USB device has been connected: %s", device_name);
+        }
 
         protection_level = g_settings_get_enum (manager->settings, USB_PROTECTION_LEVEL);
 
