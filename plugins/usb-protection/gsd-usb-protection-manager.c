@@ -514,7 +514,7 @@ on_device_presence_signal (GDBusProxy *proxy,
                         show_notification (manager,
                                            _("Unknown USB device"),
                                            _("New device has been detected while you were away. "
-                                             "It has blocked because the USB protection is active."));
+                                             "It has been blocked because the USB protection is active."));
                 }
                 return;
         }
@@ -539,7 +539,7 @@ on_device_presence_signal (GDBusProxy *proxy,
                 }
                 show_notification (manager,
                                    _("Unknown USB device"),
-                                   _("The new inserted device has blocked because the USB protection is active."));
+                                   _("The new inserted device has been blocked because the USB protection is active."));
         }
 }
 
