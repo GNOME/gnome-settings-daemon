@@ -2224,8 +2224,9 @@ do_config_power_button_action (GsdMediaKeysManager *manager,
         if (priv->power_button_disabled)
                 return;
 
-        /* Always power off VMs when power off is pressed in the menus */
-        if (g_strcmp0 (priv->chassis_type, "vm") == 0) {
+        /* Always power off VMs or Kiosks when power off is pressed in the menus */
+        if ((g_strcmp0 (priv->chassis_type, "vm") == 0) ||
+            (g_strcmp0 (priv->chassis_type, "kiosk") == 0)) {
                 power_action (manager, "PowerOff", !in_lock_screen);
                 return;
         }
