@@ -23,7 +23,6 @@
  */
 
 #include <config.h>
-#include <canberra-gtk.h>
 #include <gtk/gtk.h>
 #include <gio/gio.h>
 #include <glib/gi18n.h>
@@ -54,32 +53,12 @@ typedef struct {
 } ScreenshotContext;
 
 static void
-screenshot_play_sound_effect (const gchar *event_id,
-                              const gchar *event_desc)
-{
-  ca_context *c;
-
-  c = ca_gtk_context_get ();
-  ca_context_play (c, 0,
-                   CA_PROP_EVENT_ID, event_id,
-                   CA_PROP_EVENT_DESCRIPTION, event_desc,
-                   CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
-                   NULL);
-}
-
-static void
 screenshot_context_free (ScreenshotContext *ctx)
 {
   g_free (ctx->save_filename);
   g_free (ctx->used_filename);
   g_clear_object (&ctx->connection);
   g_slice_free (ScreenshotContext, ctx);
-}
-
-static void
-screenshot_play_error_sound_effect (void)
-{
-  screenshot_play_sound_effect ("dialog-error", _("Unable to capture a screenshot"));
 }
 
 static void
@@ -104,13 +83,11 @@ screenshot_save_to_clipboard (ScreenshotContext *ctx)
   screenshot = gdk_pixbuf_new_from_file (ctx->used_filename, &error);
   if (error != NULL)
     {
-      screenshot_play_error_sound_effect ();
       g_warning ("Failed to save a screenshot to clipboard: %s\n", error->message);
       g_error_free (error);
       return;
     }
 
-  screenshot_play_sound_effect ("screen-capture", _("Screenshot taken"));
   clipboard = gtk_clipboard_get_for_display (gdk_display_get_default (),
                                              GDK_SELECTION_CLIPBOARD);
   gtk_clipboard_set_image (clipboard, screenshot);
@@ -134,7 +111,6 @@ bus_call_ready_cb (GObject *source,
 
   if (error != NULL)
     {
-      screenshot_play_error_sound_effect ();
       g_warning ("Failed to save a screenshot: %s\n", error->message);
       g_error_free (error);
       screenshot_context_free (ctx);
@@ -152,7 +128,6 @@ bus_call_ready_cb (GObject *source,
         }
       else
         {
-          screenshot_play_sound_effect ("screen-capture", _("Screenshot taken"));
           screenshot_save_to_recent (ctx);
         }
     }
@@ -248,7 +223,6 @@ bus_connection_ready_cb (GObject *source,
 
   if (error != NULL)
     {
-      screenshot_play_error_sound_effect ();
       g_warning ("Failed to save a screenshot: %s\n", error->message);
       g_error_free (error);
       screenshot_context_free (ctx);
