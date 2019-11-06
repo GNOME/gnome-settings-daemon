@@ -97,6 +97,7 @@ screenshot_save_to_recent (ScreenshotContext *ctx)
 static void
 screenshot_save_to_clipboard (ScreenshotContext *ctx)
 {
+  static GdkDisplay *x11_display = NULL;
   GdkPixbuf *screenshot;
   GtkClipboard *clipboard;
   GError *error = NULL;
@@ -111,8 +112,9 @@ screenshot_save_to_clipboard (ScreenshotContext *ctx)
     }
 
   screenshot_play_sound_effect ("screen-capture", _("Screenshot taken"));
-  clipboard = gtk_clipboard_get_for_display (gdk_display_get_default (),
-                                             GDK_SELECTION_CLIPBOARD);
+  if (!x11_display)
+    x11_display = gdk_display_open (g_getenv ("DISPLAY"));
+  clipboard = gtk_clipboard_get_for_display (x11_display, GDK_SELECTION_CLIPBOARD);
   gtk_clipboard_set_image (clipboard, screenshot);
 
   /* remove the temporary file created by the shell */
