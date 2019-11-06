@@ -1,4 +1,14 @@
 ==============
+Version 3.34.2
+==============
+Media-keys:
+- Fixed saving screenshots to clipboard on wayland.
+  For 3.34, this feature was fixed by using the X11 clipboard,
+  saving to clipboard will indefinitely raise Xwayland
+  if the Xwayland-on-demand experimental feature was enabled,
+  and will not work at all if --no-x11 is passed to gnome-shell.
+
+==============
 Version 3.34.1
 ==============
 - Translation updates
