@@ -250,18 +250,6 @@ screenshot_take (ScreenshotContext *ctx)
 }
 
 static gchar *
-screenshot_build_tmp_path (void)
-{
-  gchar *path;
-  gint fd;
-
-  fd = g_file_open_tmp ("gnome-settings-daemon-screenshot-XXXXXX", &path, NULL);
-  close (fd);
-
-  return path;
-}
-
-static gchar *
 screenshot_build_filename (void)
 {
   char *file_name, *origin;
