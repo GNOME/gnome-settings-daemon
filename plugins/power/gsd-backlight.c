@@ -40,6 +40,8 @@ struct _GsdBacklight
         gint brightness_step;
 
 #ifdef __linux__
+        GDBusProxy *logind_proxy;
+
         GUdevClient *udev;
         GUdevDevice *udev_device;
 
@@ -58,6 +60,10 @@ enum {
         PROP_BRIGHTNESS,
         PROP_LAST,
 };
+
+#define SYSTEMD_DBUS_NAME                       "org.freedesktop.login1"
+#define SYSTEMD_DBUS_PATH                       "/org/freedesktop/login1/session/auto"
+#define SYSTEMD_DBUS_INTERFACE                  "org.freedesktop.login1.Session"
 
 static GParamSpec *props[PROP_LAST];
 
@@ -475,13 +481,26 @@ gsd_backlight_set_brightness_val_async (GsdBacklight *backlight,
         if (backlight->udev_device != NULL) {
                 BacklightHelperData *task_data;
 
-                task_data = g_new0 (BacklightHelperData, 1);
-                task_data->value = backlight->brightness_target;
-                g_task_set_task_data (task, task_data, backlight_task_data_destroy);
+                if (backlight->logind_proxy) {
+                        g_dbus_proxy_call (backlight->logind_proxy,
+                                           "SetBrightness",
+                                           g_variant_new ("(ssu)",
+                                                          "backlight",
+                                                          g_udev_device_get_name (backlight->udev_device),
+                                                          backlight->brightness_target),
+                                           G_DBUS_CALL_FLAGS_NONE,
+                                           -1, NULL,
+                                           NULL, NULL);
+                        g_task_return_int (task, backlight->brightness_target);
+                } else {
+                        task_data = g_new0 (BacklightHelperData, 1);
+                        task_data->value = backlight->brightness_target;
+                        g_task_set_task_data (task, task_data, backlight_task_data_destroy);
 
-                /* Task is set up now. Queue it and ensure we are working something. */
-                g_queue_push_tail (&backlight->tasks, task);
-                gsd_backlight_process_taskqueue (backlight);
+                        /* Task is set up now. Queue it and ensure we are working something. */
+                        g_queue_push_tail (&backlight->tasks, task);
+                        gsd_backlight_process_taskqueue (backlight);
+                }
 
                 return;
         }
@@ -799,6 +818,7 @@ gsd_backlight_initable_init (GInitable       *initable,
 {
         GsdBacklight *backlight = GSD_BACKLIGHT (initable);
         GnomeRROutput* output = NULL;
+        GError *logind_error = NULL;
 
         if (cancellable != NULL) {
                 g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
@@ -807,6 +827,38 @@ gsd_backlight_initable_init (GInitable       *initable,
         }
 
 #ifdef __linux__
+        backlight->logind_proxy =
+                g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                               0,
+                                               NULL,
+                                               SYSTEMD_DBUS_NAME,
+                                               SYSTEMD_DBUS_PATH,
+                                               SYSTEMD_DBUS_INTERFACE,
+                                               NULL, &logind_error);
+        if (backlight->logind_proxy) {
+                /* Check that the SetBrightness method does exist */
+                g_dbus_proxy_call_sync (backlight->logind_proxy,
+                                        "SetBrightness", NULL,
+                                        G_DBUS_CALL_FLAGS_NONE, -1,
+                                        NULL, &logind_error);
+
+                if (g_error_matches (logind_error, G_DBUS_ERROR,
+                                     G_DBUS_ERROR_INVALID_ARGS)) {
+                        /* We are calling the method with no arguments, so
+                         * this is expected.
+                         */
+                        g_clear_error (&logind_error);
+                } else {
+                        /* Fail on anything else */
+                        g_clear_object (&backlight->logind_proxy);
+                }
+        }
+
+        if (logind_error) {
+                g_warning ("No logind found: %s", logind_error->message);
+                g_error_free (logind_error);
+        }
+
         /* Try finding a udev device. */
         if (gsd_backlight_udev_init (backlight))
                 goto found;
@@ -848,6 +900,7 @@ gsd_backlight_finalize (GObject *object)
 #ifdef __linux__
         g_assert (backlight->active_task == NULL);
         g_assert (g_queue_is_empty (&backlight->tasks));
+        g_clear_object (&backlight->logind_proxy);
         g_clear_object (&backlight->udev);
         g_clear_object (&backlight->udev_device);
         if (backlight->idle_update) {
