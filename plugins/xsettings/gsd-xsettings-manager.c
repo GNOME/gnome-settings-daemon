@@ -37,6 +37,7 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
+#include "gnome-settings-bus.h"
 #include "gnome-settings-profile.h"
 #include "gsd-enums.h"
 #include "gsd-xsettings-manager.h"
@@ -1104,66 +1105,100 @@ on_display_config_name_appeared_handler (GDBusConnection *connection,
 }
 
 static void
-animations_enabled_changed (GsdXSettingsManager *manager)
+launch_xwayland_services_on_dir (const gchar *path)
 {
-        g_autoptr(GError) error = NULL;
-        g_autoptr(GVariant) res = NULL;
-        g_autoptr(GVariant) animations_enabled_variant = NULL;
-        gboolean animations_enabled;
+        GFileEnumerator *enumerator;
+        GError *error = NULL;
+        GList *l, *scripts = NULL;
+        GFile *dir;
 
-        res = g_dbus_connection_call_sync (manager->dbus_connection,
-                                           "org.gnome.Shell.Introspect",
-                                           "/org/gnome/Shell/Introspect",
-                                           "org.freedesktop.DBus.Properties",
-                                           "Get",
-                                           g_variant_new ("(ss)",
-                                                          "org.gnome.Shell.Introspect",
-                                                          "AnimationsEnabled"),
-                                           NULL,
-                                           G_DBUS_CALL_FLAGS_NONE,
-                                           -1,
-                                           NULL,
-                                           &error);
-        if (!res) {
-                g_warning ("Failed to get animations-enabled state: %s",
-                           error->message);
+        g_debug ("launch_xwayland_services_on_dir: %s", path);
+
+        dir = g_file_new_for_path (path);
+        enumerator = g_file_enumerate_children (dir,
+                                                G_FILE_ATTRIBUTE_STANDARD_NAME ","
+                                                G_FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE ","
+                                                G_FILE_ATTRIBUTE_STANDARD_TYPE,
+                                                G_FILE_QUERY_INFO_NONE,
+                                                NULL, &error);
+        g_object_unref (dir);
+
+        if (!enumerator) {
+                if (!g_error_matches (error,
+                                      G_IO_ERROR,
+                                      G_IO_ERROR_NOT_FOUND)) {
+                        g_warning ("Error opening '%s': %s",
+                                   path, error->message);
+                }
+
+                g_error_free (error);
                 return;
         }
 
-        g_variant_get (res, "(v)", &animations_enabled_variant);
-        g_variant_get (animations_enabled_variant, "b", &animations_enabled);
+        while (TRUE) {
+                GFileInfo *info;
+                GFile *child;
 
-        if (manager->enable_animations == animations_enabled)
-                return;
+                if (!g_file_enumerator_iterate (enumerator,
+                                                &info, &child,
+                                                NULL, &error)) {
+                        g_warning ("Error iterating on '%s': %s",
+                                   path, error->message);
+                        g_error_free (error);
+                        break;
+                }
 
-        manager->enable_animations = animations_enabled;
-        xsettings_manager_set_int (manager->manager, "Gtk/EnableAnimations",
-                                   animations_enabled);
-        queue_notify (manager);
-        send_dbus_event (manager, GTK_SETTINGS_ENABLE_ANIMATIONS);
+                if (!info)
+                        break;
+
+                if (g_file_info_get_file_type (info) != G_FILE_TYPE_REGULAR ||
+                    !g_file_info_get_attribute_boolean (info, G_FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE))
+                        continue;
+
+                scripts = g_list_prepend (scripts, g_file_get_path (child));
+        }
+
+        scripts = g_list_sort (scripts, (GCompareFunc) strcmp);
+
+        for (l = scripts; l; l = l->next) {
+                gchar *args[2] = { l->data, NULL };
+
+                g_debug ("launch_xwayland_services_on_dir: Spawning '%s'", args[0]);
+                if (!g_spawn_sync (NULL, args, NULL,
+                                   G_SPAWN_DEFAULT,
+                                   NULL, NULL,
+                                   NULL, NULL, NULL,
+                                   &error)) {
+                        g_warning ("Error when spawning '%s': %s",
+                                   args[0], error->message);
+                        g_clear_error (&error);
+                }
+        }
+
+        g_object_unref (enumerator);
+        g_list_free_full (scripts, g_free);
 }
 
 static void
-on_introspect_properties_changed (GDBusConnection *connection,
-                                  const gchar     *sender_name,
-                                  const gchar     *object_path,
-                                  const gchar     *interface_name,
-                                  const gchar     *signal_name,
-                                  GVariant        *parameters,
-                                  gpointer         data)
+launch_xwayland_services (void)
 {
-        GsdXSettingsManager *manager = data;
-        animations_enabled_changed (manager);
-}
+        const gchar * const * config_dirs;
+        gint i;
 
-static void
-on_shell_introspect_name_appeared_handler (GDBusConnection *connection,
-                                           const gchar     *name,
-                                           const gchar     *name_owner,
-                                           gpointer         data)
-{
-        GsdXSettingsManager *manager = data;
-        animations_enabled_changed (manager);
+        config_dirs = g_get_system_config_dirs ();
+
+        for (i = 0; config_dirs[i] != NULL; i++) {
+                gchar *config_dir;
+
+                config_dir = g_build_filename (config_dirs[i],
+                                               "Xwayland-session.d",
+                                               NULL);
+
+                launch_xwayland_services_on_dir (config_dir);
+                g_free (config_dir);
+        }
+
+        launch_xwayland_services_on_dir ("/etc/xdg/Xwayland-session.d");
 }
 
 gboolean
@@ -1297,6 +1332,10 @@ gsd_xsettings_manager_start (GsdXSettingsManager *manager,
         /* Xft settings */
         update_xft_settings (manager);
 
+        /* Launch Xwayland services */
+        if (gnome_settings_is_wayland ())
+                launch_xwayland_services ();
+
         register_manager_dbus (manager);
 
         start_fontconfig_monitor (manager);
@@ -1305,7 +1344,6 @@ gsd_xsettings_manager_start (GsdXSettingsManager *manager,
         xsettings_manager_set_overrides (manager->manager, overrides);
         queue_notify (manager);
         g_variant_unref (overrides);
-
 
         gnome_settings_profile_end (NULL);
 
