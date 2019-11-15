@@ -1,0 +1,9 @@
+#!/bin/sh
+
+userresources=$HOME/.Xresources
+sysresources=/etc/X11/Xresources
+
+# merge in defaults
+[ -r "$sysresources" ] && xrdb -nocpp -merge "$sysresources"
+[ -r "$userresources" ] && xrdb -merge "$userresources"
+
