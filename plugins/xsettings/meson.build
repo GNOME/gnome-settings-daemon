@@ -47,6 +47,11 @@ foreach program: programs
   )
 endforeach
 
+install_data(
+  files('00-xrdb'),
+  install_dir: join_paths(gsd_sysconfdir, 'xdg/Xwayland-session.d')
+)
+
 test_py = find_program('test.py')
 
 envs = [
