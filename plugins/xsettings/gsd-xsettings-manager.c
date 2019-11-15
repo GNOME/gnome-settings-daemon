@@ -37,6 +37,7 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
+#include "gnome-settings-bus.h"
 #include "gnome-settings-profile.h"
 #include "gsd-enums.h"
 #include "gsd-xsettings-manager.h"
@@ -1134,6 +1135,103 @@ on_display_config_name_appeared_handler (GDBusConnection *connection,
         monitors_changed (manager);
 }
 
+static void
+launch_xwayland_services_on_dir (const gchar *path)
+{
+        GFileEnumerator *enumerator;
+        GError *error = NULL;
+        GList *l, *scripts = NULL;
+        GFile *dir;
+
+        g_debug ("launch_xwayland_services_on_dir: %s", path);
+
+        dir = g_file_new_for_path (path);
+        enumerator = g_file_enumerate_children (dir,
+                                                G_FILE_ATTRIBUTE_STANDARD_NAME ","
+                                                G_FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE ","
+                                                G_FILE_ATTRIBUTE_STANDARD_TYPE,
+                                                G_FILE_QUERY_INFO_NONE,
+                                                NULL, &error);
+        g_object_unref (dir);
+
+        if (!enumerator) {
+                if (!g_error_matches (error,
+                                      G_IO_ERROR,
+                                      G_IO_ERROR_NOT_FOUND)) {
+                        g_warning ("Error opening '%s': %s",
+                                   path, error->message);
+                }
+
+                g_error_free (error);
+                return;
+        }
+
+        while (TRUE) {
+                GFileInfo *info;
+                GFile *child;
+
+                if (!g_file_enumerator_iterate (enumerator,
+                                                &info, &child,
+                                                NULL, &error)) {
+                        g_warning ("Error iterating on '%s': %s",
+                                   path, error->message);
+                        g_error_free (error);
+                        break;
+                }
+
+                if (!info)
+                        break;
+
+                if (g_file_info_get_file_type (info) != G_FILE_TYPE_REGULAR ||
+                    !g_file_info_get_attribute_boolean (info, G_FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE))
+                        continue;
+
+                scripts = g_list_prepend (scripts, g_file_get_path (child));
+        }
+
+        scripts = g_list_sort (scripts, (GCompareFunc) strcmp);
+
+        for (l = scripts; l; l = l->next) {
+                gchar *args[2] = { l->data, NULL };
+
+                g_debug ("launch_xwayland_services_on_dir: Spawning '%s'", args[0]);
+                if (!g_spawn_sync (NULL, args, NULL,
+                                   G_SPAWN_DEFAULT,
+                                   NULL, NULL,
+                                   NULL, NULL, NULL,
+                                   &error)) {
+                        g_warning ("Error when spawning '%s': %s",
+                                   args[0], error->message);
+                        g_clear_error (&error);
+                }
+        }
+
+        g_object_unref (enumerator);
+        g_list_free_full (scripts, g_free);
+}
+
+static void
+launch_xwayland_services (void)
+{
+        const gchar * const * config_dirs;
+        gint i;
+
+        config_dirs = g_get_system_config_dirs ();
+
+        for (i = 0; config_dirs[i] != NULL; i++) {
+                gchar *config_dir;
+
+                config_dir = g_build_filename (config_dirs[i],
+                                               "Xwayland-session.d",
+                                               NULL);
+
+                launch_xwayland_services_on_dir (config_dir);
+                g_free (config_dir);
+        }
+
+        launch_xwayland_services_on_dir ("/etc/xdg/Xwayland-session.d");
+}
+
 gboolean
 gsd_xsettings_manager_start (GsdXSettingsManager *manager,
                              GError             **error)
@@ -1264,6 +1362,8 @@ gsd_xsettings_manager_start (GsdXSettingsManager *manager,
         queue_notify (manager);
         g_variant_unref (overrides);
 
+        if (gnome_settings_is_wayland ())
+                launch_xwayland_services ();
 
         gnome_settings_profile_end (NULL);
 
