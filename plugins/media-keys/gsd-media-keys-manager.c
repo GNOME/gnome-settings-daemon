@@ -3202,6 +3202,7 @@ map_keybinding (GVariant *variant, GVariant *old_default, GVariant *new_default)
         const gchar *value;
 
         defaults = g_variant_get_strv (new_default, NULL);
+        g_return_val_if_fail (defaults != NULL, NULL);
         pos = defaults;
 
         value = g_variant_get_string (variant, NULL);
