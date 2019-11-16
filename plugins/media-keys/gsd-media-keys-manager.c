@@ -3220,7 +3220,7 @@ map_keybinding (GVariant *variant, GVariant *old_default, GVariant *new_default)
         }
 
         /* Add all remaining default values */
-        while (*pos)
+        for (; *pos; pos++)
               g_ptr_array_add (array, (gpointer) *pos);
 
         g_ptr_array_add (array, NULL);
