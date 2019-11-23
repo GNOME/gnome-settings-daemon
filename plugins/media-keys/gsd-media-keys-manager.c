@@ -1359,6 +1359,7 @@ update_dialog (GsdMediaKeysManager *manager,
         GvcMixerUIDevice *device;
         const GvcMixerStreamPort *port;
         const char *icon;
+        gboolean playing;
         double new_vol;
         double max_volume;
 
@@ -1383,7 +1384,9 @@ update_dialog (GsdMediaKeysManager *manager,
                 show_osd_with_max_level (manager, icon, NULL, new_vol, max_volume, NULL);
         }
 
-        if (quiet == FALSE && sound_changed != FALSE && muted == FALSE) {
+        playing = gvc_mixer_stream_get_state (stream) == GVC_STREAM_STATE_RUNNING;
+
+        if (quiet == FALSE && sound_changed != FALSE && muted == FALSE && playing == FALSE) {
                 ensure_canberra (manager);
                 ca_context_change_device (priv->ca,
                                           gvc_mixer_stream_get_name (stream));
