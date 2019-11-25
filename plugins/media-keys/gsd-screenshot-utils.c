@@ -23,7 +23,6 @@
  */
 
 #include <config.h>
-#include <canberra-gtk.h>
 #include <gtk/gtk.h>
 #include <gio/gio.h>
 #include <glib/gi18n.h>
@@ -52,20 +51,6 @@ typedef struct {
 
   GDBusConnection *connection;
 } ScreenshotContext;
-
-static void
-screenshot_play_sound_effect (const gchar *event_id,
-                              const gchar *event_desc)
-{
-  ca_context *c;
-
-  c = ca_gtk_context_get ();
-  ca_context_play (c, 0,
-                   CA_PROP_EVENT_ID, event_id,
-                   CA_PROP_EVENT_DESCRIPTION, event_desc,
-                   CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
-                   NULL);
-}
 
 static void
 screenshot_context_free (ScreenshotContext *ctx)
@@ -115,7 +100,6 @@ bus_call_ready_cb (GObject *source,
     {
       if (!ctx->copy_to_clipboard)
         {
-          screenshot_play_sound_effect ("screen-capture", _("Screenshot taken"));
           screenshot_save_to_recent (ctx);
         }
     }
