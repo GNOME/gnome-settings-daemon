@@ -113,6 +113,7 @@ if enable_systemd
   # and uncomment systemd_dep below
   systemd_userunitdir = join_paths(gsd_prefix, 'lib', 'systemd', 'user')
 endif
+config_h.set10('HAVE_SYSTEMD', enable_systemd)
 
 m_dep = cc.find_library('m')
 

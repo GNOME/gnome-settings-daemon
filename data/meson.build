@@ -71,3 +71,11 @@ custom_target('compile-schemas',
   output: 'gschemas.compiled',
   command: [find_program('glib-compile-schemas'), meson.current_build_dir()],
   build_by_default: true)
+
+if enable_systemd
+  install_data(
+    'gsd-launched-override.scope.conf',
+    rename: 'override.conf',
+    install_dir : join_paths(systemd_userunitdir, 'gsd-launched-.scope.d')
+  )
+endif
