@@ -46,6 +46,10 @@
 #include <gudev/gudev.h>
 #endif
 
+#if HAVE_SYSTEMD
+#include <systemd/sd-login.h>
+#endif
+
 #include "gsd-settings-migrate.h"
 
 #include "mpris-controller.h"
@@ -264,6 +268,23 @@ G_DEFINE_TYPE_WITH_PRIVATE (GsdMediaKeysManager, gsd_media_keys_manager, G_TYPE_
 
 static gpointer manager_object = NULL;
 
+#if HAVE_SYSTEMD
+static void
+dbus_call_log_error (GObject *source_object,
+                     GAsyncResult *res,
+                     gpointer user_data)
+{
+        g_autoptr(GVariant) result;
+        g_autoptr(GError) error = NULL;
+        const gchar *msg = user_data;
+
+        result = g_dbus_connection_call_finish (G_DBUS_CONNECTION (source_object),
+                                                res,
+                                                &error);
+        if (error)
+                g_warning ("%s: %s", msg, error->message);
+}
+#endif
 
 static void
 media_key_unref (MediaKey *key)
@@ -996,6 +1017,93 @@ init_kbd (GsdMediaKeysManager *manager)
         gnome_settings_profile_end (NULL);
 }
 
+#if HAVE_SYSTEMD
+static void
+app_launched_cb (GAppLaunchContext *context,
+                 GAppInfo          *info,
+                 GVariant          *platform_data,
+                 gpointer           user_data)
+{
+        GsdMediaKeysManager *manager = GSD_MEDIA_KEYS_MANAGER (user_data);
+        GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
+        gint32 pid;
+        GVariantBuilder builder;
+        const gchar *app_id;
+        g_autofree gchar *unit_name = NULL;
+        g_autofree gchar *own_unit = NULL;
+        g_autoptr(GVariantDict) dict = NULL;
+        gint res;
+
+        g_return_if_fail (platform_data != NULL);
+
+        dict = g_variant_dict_new (platform_data);
+
+        g_return_if_fail (g_variant_dict_contains (dict, "pid"));
+
+        if (!g_variant_dict_lookup (dict, "pid", "i", &pid)) {
+                g_critical ("Could not unpack pid from platform data.");
+                return;
+        }
+
+        /* We cannot do anything if this process is not managed by the
+         * systemd user instance. */
+        res = sd_pid_get_user_unit (getpid (), &own_unit);
+        if (res == -ENODATA) {
+                g_debug ("Not systemd managed, will not move PID %d into transient scope\n", pid);
+                return;
+        }
+        if (res < 0) {
+                g_warning ("Error retrieving user unit for own PID: %i", -res);
+                return;
+        }
+
+        g_debug ("Trying to create transient scope for PID %d\n", pid);
+
+        g_assert (priv->connection);
+
+        /* Prepare some information */
+        app_id = g_app_info_get_id (info);
+        if (app_id == NULL)
+                app_id = "anonymous";
+
+        /* This needs to be unique, hopefully the pid will be enough. */
+        unit_name = g_strdup_printf ("gnome-launched-%s-%d.scope", app_id, pid);
+
+        /* Build arguments */
+        g_variant_builder_init (&builder, G_VARIANT_TYPE ("(ssa(sv)a(sa(sv)))"));
+        g_variant_builder_add (&builder, "s", unit_name);
+        g_variant_builder_add (&builder, "s", "fail");
+
+        g_variant_builder_open (&builder, G_VARIANT_TYPE ("a(sv)"));
+        g_variant_builder_add (&builder,
+                               "(sv)",
+                               "Description",
+                               g_variant_new_string ("Application launched by gsd-media-keys"));
+        g_variant_builder_add (&builder,
+                               "(sv)",
+                               "PIDs",
+                               g_variant_new_fixed_array (G_VARIANT_TYPE_UINT32, &pid, 1, 4));
+
+        g_variant_builder_close (&builder);
+
+        g_variant_builder_open (&builder, G_VARIANT_TYPE ("a(sa(sv))"));
+        g_variant_builder_close (&builder);
+
+        g_dbus_connection_call (priv->connection,
+                                "org.freedesktop.systemd1",
+                                "/org/freedesktop/systemd1",
+                                "org.freedesktop.systemd1.Manager",
+                                "StartTransientUnit",
+                                g_variant_builder_end (&builder),
+                                G_VARIANT_TYPE ("(o)"),
+                                G_DBUS_CALL_FLAGS_NO_AUTO_START,
+                                1000,
+                                NULL,
+                                dbus_call_log_error,
+                                "Failed to create transient unit");
+}
+#endif
+
 static void
 launch_app (GsdMediaKeysManager *manager,
 	    GAppInfo            *app_info,
@@ -1008,6 +1116,14 @@ launch_app (GsdMediaKeysManager *manager,
         launch_context = gdk_display_get_app_launch_context (gdk_display_get_default ());
         gdk_app_launch_context_set_timestamp (launch_context, timestamp);
         set_launch_context_env (manager, G_APP_LAUNCH_CONTEXT (launch_context));
+
+#if HAVE_SYSTEMD
+        g_signal_connect_object (launch_context,
+                                 "launched",
+                                 G_CALLBACK (app_launched_cb),
+                                 manager,
+                                 0);
+#endif
 
 	if (!g_app_info_launch (app_info, NULL, G_APP_LAUNCH_CONTEXT (launch_context), &error)) {
 		g_warning ("Could not launch '%s': %s",

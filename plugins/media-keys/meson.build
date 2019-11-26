@@ -30,7 +30,8 @@ deps = plugins_deps + [
   libgvc_dep,
   libpulse_mainloop_glib_dep,
   m_dep,
-  upower_glib_dep
+  upower_glib_dep,
+  libsystemd_dep
 ]
 
 if enable_gudev
