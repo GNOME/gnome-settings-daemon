@@ -452,6 +452,7 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
         gchar *tmp;
         gchar *remaining_text;
         gdouble percentage;
+        guint battery_level;
         char *icon_name;
         gint64 time_to_empty;
         UpDeviceKind kind;
@@ -461,8 +462,12 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
                       "kind", &kind,
                       "percentage", &percentage,
                       "time-to-empty", &time_to_empty,
+                      "battery-level", &battery_level,
                       "icon-name", &icon_name,
                       NULL);
+
+        if (battery_level == UP_DEVICE_LEVEL_UNKNOWN)
+                battery_level = UP_DEVICE_LEVEL_NONE;
 
         if (kind == UP_DEVICE_KIND_BATTERY) {
 
@@ -499,49 +504,70 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
                 title = _("Mouse battery low");
 
                 /* TRANSLATORS: tell user more details */
-                message = g_strdup_printf (_("Wireless mouse is low in power (%.0f%%)"), percentage);
+                if (battery_level == UP_DEVICE_LEVEL_NONE)
+                        message = g_strdup_printf (_("Wireless mouse is low in power (%.0f%%)"), percentage);
+                else
+                        message = g_strdup_printf (_("Wireless mouse is low in power"));
 
         } else if (kind == UP_DEVICE_KIND_KEYBOARD) {
                 /* TRANSLATORS: keyboard is getting a little low */
                 title = _("Keyboard battery low");
 
                 /* TRANSLATORS: tell user more details */
-                message = g_strdup_printf (_("Wireless keyboard is low in power (%.0f%%)"), percentage);
+                if (battery_level == UP_DEVICE_LEVEL_NONE)
+                        message = g_strdup_printf (_("Wireless keyboard is low in power (%.0f%%)"), percentage);
+                else
+                        message = g_strdup_printf (_("Wireless keyboard is low in power"));
 
         } else if (kind == UP_DEVICE_KIND_PDA) {
                 /* TRANSLATORS: PDA is getting a little low */
                 title = _("PDA battery low");
 
                 /* TRANSLATORS: tell user more details */
-                message = g_strdup_printf (_("PDA is low in power (%.0f%%)"), percentage);
+                if (battery_level == UP_DEVICE_LEVEL_NONE)
+                        message = g_strdup_printf (_("PDA is low in power (%.0f%%)"), percentage);
+                else
+                        message = g_strdup_printf (_("PDA is low in power"));
 
         } else if (kind == UP_DEVICE_KIND_PHONE) {
                 /* TRANSLATORS: cell phone (mobile) is getting a little low */
                 title = _("Cell phone battery low");
 
                 /* TRANSLATORS: tell user more details */
-                message = g_strdup_printf (_("Cell phone is low in power (%.0f%%)"), percentage);
+                if (battery_level == UP_DEVICE_LEVEL_NONE)
+                        message = g_strdup_printf (_("Cell phone is low in power (%.0f%%)"), percentage);
+                else
+                        message = g_strdup_printf (_("Cell phone is low in power"));
 
         } else if (kind == UP_DEVICE_KIND_MEDIA_PLAYER) {
                 /* TRANSLATORS: media player, e.g. mp3 is getting a little low */
                 title = _("Media player battery low");
 
                 /* TRANSLATORS: tell user more details */
-                message = g_strdup_printf (_("Media player is low in power (%.0f%%)"), percentage);
+                if (battery_level == UP_DEVICE_LEVEL_NONE)
+                        message = g_strdup_printf (_("Media player is low in power (%.0f%%)"), percentage);
+                else
+                        message = g_strdup_printf (_("Media player is low in power"));
 
         } else if (kind == UP_DEVICE_KIND_TABLET) {
                 /* TRANSLATORS: graphics tablet, e.g. wacom is getting a little low */
                 title = _("Tablet battery low");
 
                 /* TRANSLATORS: tell user more details */
-                message = g_strdup_printf (_("Tablet is low in power (%.0f%%)"), percentage);
+                if (battery_level == UP_DEVICE_LEVEL_NONE)
+                        message = g_strdup_printf (_("Tablet is low in power (%.0f%%)"), percentage);
+                else
+                        message = g_strdup_printf (_("Tablet is low in power"));
 
         } else if (kind == UP_DEVICE_KIND_COMPUTER) {
                 /* TRANSLATORS: computer, e.g. ipad is getting a little low */
                 title = _("Attached computer battery low");
 
                 /* TRANSLATORS: tell user more details */
-                message = g_strdup_printf (_("Attached computer is low in power (%.0f%%)"), percentage);
+                if (battery_level == UP_DEVICE_LEVEL_NONE)
+                        message = g_strdup_printf (_("Attached computer is low in power (%.0f%%)"), percentage);
+                else
+                        message = g_strdup_printf (_("Attached computer is low in power"));
         }
 
         /* close any existing notification of this class */
@@ -575,6 +601,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
         gboolean ret;
         gchar *message = NULL;
         gdouble percentage;
+        guint battery_level;
         char *icon_name;
         gint64 time_to_empty;
         GsdPowerActionType policy;
@@ -584,9 +611,13 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
         g_object_get (device,
                       "kind", &kind,
                       "percentage", &percentage,
+                      "battery-level", &battery_level,
                       "time-to-empty", &time_to_empty,
                       "icon-name", &icon_name,
                       NULL);
+
+        if (battery_level == UP_DEVICE_LEVEL_UNKNOWN)
+                battery_level = UP_DEVICE_LEVEL_NONE;
 
         if (kind == UP_DEVICE_KIND_BATTERY) {
 
@@ -633,26 +664,40 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
                 title = _("Mouse battery low");
 
                 /* TRANSLATORS: the device is just going to stop working */
-                message = g_strdup_printf (_("Wireless mouse is very low in power (%.0f%%). "
-                                             "This device will soon stop functioning if not charged."),
-                                           percentage);
+                if (battery_level == UP_DEVICE_LEVEL_NONE)
+                        message = g_strdup_printf (_("Wireless mouse is very low in power (%.0f%%). "
+                                                     "This device will soon stop functioning if not charged."),
+                                                   percentage);
+                else
+                        message = g_strdup_printf (_("Wireless mouse is very low in power. "
+                                                     "This device will soon stop functioning if not charged."));
+
         } else if (kind == UP_DEVICE_KIND_KEYBOARD) {
                 /* TRANSLATORS: the keyboard battery is very low */
                 title = _("Keyboard battery low");
 
                 /* TRANSLATORS: the device is just going to stop working */
-                message = g_strdup_printf (_("Wireless keyboard is very low in power (%.0f%%). "
-                                             "This device will soon stop functioning if not charged."),
-                                           percentage);
+                if (battery_level == UP_DEVICE_LEVEL_NONE)
+                        message = g_strdup_printf (_("Wireless keyboard is very low in power (%.0f%%). "
+                                                     "This device will soon stop functioning if not charged."),
+                                                   percentage);
+                else
+                        message = g_strdup_printf (_("Wireless keyboard is very low in power. "
+                                                     "This device will soon stop functioning if not charged."));
+
         } else if (kind == UP_DEVICE_KIND_PDA) {
 
                 /* TRANSLATORS: the PDA battery is very low */
                 title = _("PDA battery low");
 
                 /* TRANSLATORS: the device is just going to stop working */
-                message = g_strdup_printf (_("PDA is very low in power (%.0f%%). "
-                                             "This device will soon stop functioning if not charged."),
-                                           percentage);
+                if (battery_level == UP_DEVICE_LEVEL_NONE)
+                        message = g_strdup_printf (_("PDA is very low in power (%.0f%%). "
+                                                     "This device will soon stop functioning if not charged."),
+                                                   percentage);
+                else
+                        message = g_strdup_printf (_("PDA is very low in power. "
+                                                     "This device will soon stop functioning if not charged."));
 
         } else if (kind == UP_DEVICE_KIND_PHONE) {
 
@@ -660,36 +705,56 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
                 title = _("Cell phone battery low");
 
                 /* TRANSLATORS: the device is just going to stop working */
-                message = g_strdup_printf (_("Cell phone is very low in power (%.0f%%). "
-                                             "This device will soon stop functioning if not charged."),
-                                           percentage);
+                if (battery_level == UP_DEVICE_LEVEL_NONE)
+                        message = g_strdup_printf (_("Cell phone is very low in power (%.0f%%). "
+                                                     "This device will soon stop functioning if not charged."),
+                                                   percentage);
+                else
+                        message = g_strdup_printf (_("Cell phone is very low in power. "
+                                                     "This device will soon stop functioning if not charged."));
+
         } else if (kind == UP_DEVICE_KIND_MEDIA_PLAYER) {
 
                 /* TRANSLATORS: the cell battery is very low */
                 title = _("Cell phone battery low");
 
                 /* TRANSLATORS: the device is just going to stop working */
-                message = g_strdup_printf (_("Media player is very low in power (%.0f%%). "
-                                             "This device will soon stop functioning if not charged."),
-                                           percentage);
+                if (battery_level == UP_DEVICE_LEVEL_NONE)
+                        message = g_strdup_printf (_("Media player is very low in power (%.0f%%). "
+                                                     "This device will soon stop functioning if not charged."),
+                                                   percentage);
+                else
+                        message = g_strdup_printf (_("Media player is very low in power. "
+                                                     "This device will soon stop functioning if not charged."));
+
         } else if (kind == UP_DEVICE_KIND_TABLET) {
 
                 /* TRANSLATORS: the cell battery is very low */
                 title = _("Tablet battery low");
 
                 /* TRANSLATORS: the device is just going to stop working */
-                message = g_strdup_printf (_("Tablet is very low in power (%.0f%%). "
-                                             "This device will soon stop functioning if not charged."),
-                                           percentage);
+                if (battery_level == UP_DEVICE_LEVEL_NONE)
+                        message = g_strdup_printf (_("Tablet is very low in power (%.0f%%). "
+                                                     "This device will soon stop functioning if not charged."),
+                                                   percentage);
+                else
+                        message = g_strdup_printf (_("Tablet is very low in power. "
+                                                     "This device will soon stop functioning if not charged."));
+
         } else if (kind == UP_DEVICE_KIND_COMPUTER) {
 
                 /* TRANSLATORS: the cell battery is very low */
                 title = _("Attached computer battery low");
 
                 /* TRANSLATORS: the device is just going to stop working */
-                message = g_strdup_printf (_("Attached computer is very low in power (%.0f%%). "
-                                             "The device will soon shutdown if not charged."),
-                                           percentage);
+                if (battery_level == UP_DEVICE_LEVEL_NONE)
+                        message = g_strdup_printf (_("Attached computer is very low in power (%.0f%%). "
+                                                     "The device will soon shutdown if not charged."),
+                                                   percentage);
+                else
+                        message = g_strdup_printf (_("Attached computer is very low in power. "
+                                                     "The device will soon shutdown if not charged."));
+
         }
 
         /* close any existing notification of this class */
