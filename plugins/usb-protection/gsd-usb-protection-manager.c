@@ -513,44 +513,43 @@ on_device_presence_signal (GDBusProxy *proxy,
                                            _("Either your keyboard has been reconnected or a new one has been plugged in. "
                                              "If you did not do it, check your system for any suspicious device."));
                         auth_keyboard (manager, parameters);
-                        return;
-                }
-                if (protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN) {
-                        show_notification (manager,
-                                           _("Reconnect USB device"),
-                                           _("New device has been detected while you were away. "
-                                             "Please disconnect and reconnect the device to start using it."));
                 } else {
-                        show_notification (manager,
-                                           _("USB device blocked"),
-                                           _("New device has been detected while you were away. "
-                                             "It has been blocked because the USB protection is active."));
+                    if (protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN) {
+                            show_notification (manager,
+                                               _("Reconnect USB device"),
+                                               _("New device has been detected while you were away. "
+                                                 "Please disconnect and reconnect the device to start using it."));
+                    } else {
+                            show_notification (manager,
+                                               _("USB device blocked"),
+                                               _("New device has been detected while you were away. "
+                                                 "It has been blocked because the USB protection is active."));
+                    }
                 }
-                return;
-        }
-
-        /* If the protection level is "lockscreen" the device will be automatically
-         * authorized by usbguard. */
-        if (protection_level == G_DESKTOP_USB_PROTECTION_ALWAYS) {
-                /* We authorize the device if this is a keyboard.
-                 * We also lock the screen to prevent an attacker to plug malicious
-                 * devices if the legitimate user forgot to lock his session.
-                 *
-                 * If this keyboard advertises also interfaces outside the HID class it is suspect.
-                 * It could be a false positive because this could be a "smart" keyboard, but at
-                 * this stage is better be safe. */
-                if (is_keyboard (parameters) && is_only_hid (parameters)) {
-                        gsd_screen_saver_call_lock (manager->screensaver_proxy,
-                                                    manager->cancellable,
-                                                    (GAsyncReadyCallback) on_screen_locked,
-                                                    manager);
-                        auth_keyboard (manager, parameters);
-                } else {
-                        show_notification (manager,
-                                           _("USB device blocked"),
-                                           _("The new inserted device has been blocked because the USB protection is active."));
+        } else {
+                /* If the protection level is "lockscreen" the device will be automatically
+                 * authorized by usbguard. */
+                if (protection_level == G_DESKTOP_USB_PROTECTION_ALWAYS) {
+                        /* We authorize the device if this is a keyboard.
+                         * We also lock the screen to prevent an attacker to plug malicious
+                         * devices if the legitimate user forgot to lock his session.
+                         *
+                         * If this keyboard advertises also interfaces outside the HID class it is suspect.
+                         * It could be a false positive because this could be a "smart" keyboard, but at
+                         * this stage is better be safe. */
+                        if (is_keyboard (parameters) && is_only_hid (parameters)) {
+                                gsd_screen_saver_call_lock (manager->screensaver_proxy,
+                                                            manager->cancellable,
+                                                            (GAsyncReadyCallback) on_screen_locked,
+                                                            manager);
+                                auth_keyboard (manager, parameters);
+                        } else {
+                                show_notification (manager,
+                                                   _("USB device blocked"),
+                                                   _("The new inserted device has been blocked because the USB protection is active."));
+                        }
                 }
-        }
+            }
 }
 
 static void
