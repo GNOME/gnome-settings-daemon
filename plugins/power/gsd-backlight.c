@@ -848,6 +848,11 @@ gsd_backlight_initable_init (GInitable       *initable,
                          * this is expected.
                          */
                         g_clear_error (&logind_error);
+                } else if (g_error_matches (logind_error, G_DBUS_ERROR,
+                                            G_DBUS_ERROR_UNKNOWN_METHOD)) {
+                        /* systemd version is too old, so ignore.
+                         */
+                        g_clear_error (&logind_error);
                 } else {
                         /* Fail on anything else */
                         g_clear_object (&backlight->logind_proxy);
