@@ -517,12 +517,12 @@ on_device_presence_signal (GDBusProxy *proxy,
                 }
                 if (protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN) {
                         show_notification (manager,
-                                           _("Unknown USB device"),
+                                           _("Reconnect USB device"),
                                            _("New device has been detected while you were away. "
                                              "Please disconnect and reconnect the device to start using it."));
                 } else {
                         show_notification (manager,
-                                           _("Unknown USB device"),
+                                           _("USB device blocked"),
                                            _("New device has been detected while you were away. "
                                              "It has been blocked because the USB protection is active."));
                 }
@@ -545,11 +545,11 @@ on_device_presence_signal (GDBusProxy *proxy,
                                                     (GAsyncReadyCallback) on_screen_locked,
                                                     manager);
                         auth_keyboard (manager, parameters);
-                        return;
+                } else {
+                        show_notification (manager,
+                                           _("USB device blocked"),
+                                           _("The new inserted device has been blocked because the USB protection is active."));
                 }
-                show_notification (manager,
-                                   _("Unknown USB device"),
-                                   _("The new inserted device has been blocked because the USB protection is active."));
         }
 }
 
