@@ -183,7 +183,7 @@ msan:
   image: docker:latest
   stage: delivery
   services:
-    - docker:dind
+    - docker:stable-dind
   only:
     variables:
       - $CRON_TASK == "BUILD_CI_IMAGES"
