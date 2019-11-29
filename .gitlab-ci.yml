@@ -183,7 +183,7 @@ msan:
   image: docker:latest
   stage: delivery
   services:
-    - docker:dind
+    - docker:stable-dind
   variables:
     DOCKER_TLS_CERTDIR: ""
   only:
