@@ -184,7 +184,10 @@ msan:
   stage: delivery
   services:
     - docker:dind
+  variables:
+    DOCKER_TLS_CERTDIR: ""
   only:
+    # https://about.gitlab.com/blog/2019/07/31/docker-in-docker-with-docker-19-dot-03/
     variables:
       - $CRON_TASK == "BUILD_CI_IMAGES"
 
