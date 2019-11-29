@@ -183,9 +183,9 @@ msan:
   image: docker:latest
   stage: delivery
   services:
-    - docker:dind
+    - docker:stable-dind
   variables:
-    DOCKER_TLS_CERTDIR: ""
+    DOCKER_TLS_CERTDIR: ''
   only:
     # https://about.gitlab.com/blog/2019/07/31/docker-in-docker-with-docker-19-dot-03/
     variables:
@@ -207,6 +207,7 @@ msan:
       fi
 
     # Build using the Dockerfile
+    - env | grep DOCKER_TLS_CERTDIR
     - docker build -f "$DOCKERFILE" -t "$CI_REGISTRY_IMAGE:$NAME" .
 
     # Prepare to publish
