@@ -179,11 +179,16 @@ msan:
 #############################################
 #          Create CI Docker Images          #
 #############################################
+.Docker common variables: &docker_common_variables
+  # https://about.gitlab.com/blog/2019/07/31/docker-in-docker-with-docker-19-dot-03/
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_DRIVER: overlay
+
 .Docker image template: &create_docker_image
   image: docker:latest
   stage: delivery
   services:
-    - docker:dind
+    - docker:stable-dind
   only:
     variables:
       - $CRON_TASK == "BUILD_CI_IMAGES"
@@ -220,14 +225,14 @@ msan:
 fedora.dev:
   <<: *create_docker_image
   variables:
-    DOCKER_DRIVER: overlay
+    <<: *docker_common_variables
     DOCKERFILE: "build-aux/ci/Dockerfile.fedora.rawhide"
     NAME: "fedora.dev"
 
 fedora.aarch64:
   <<: *create_docker_image
   variables:
-    DOCKER_DRIVER: overlay
+    <<: *docker_common_variables
     DOCKERFILE: "build-aux/ci/Dockerfile.arm64v8.fedora.rawhide"
     NAME: "fedora.aarch64"
     TARGET_ARCH: "aarch64"
@@ -235,7 +240,7 @@ fedora.aarch64:
 fedora.ppc64le:
   <<: *create_docker_image
   variables:
-    DOCKER_DRIVER: overlay
+    <<: *docker_common_variables
     DOCKERFILE: "build-aux/ci/Dockerfile.ppc64le.fedora.rawhide"
     NAME: "fedora.ppc64le"
     TARGET_ARCH: "ppc64le"
