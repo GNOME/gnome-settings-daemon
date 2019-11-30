@@ -21,7 +21,11 @@ RUN dnf -y upgrade && \
      git clone https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas.git && \
      cd gsettings-desktop-schemas && \
      meson . _build --prefix=/usr && \
+     echo "building!" \
+     pwd && cat _build/build.ninja && \
      ninja -C _build && \
+     echo "installing!" \
+     pwd && cat _build/build.ninja && \
      ninja _C _build install && \
      cd ..
 
