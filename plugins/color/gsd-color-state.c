@@ -432,6 +432,126 @@ out:
         return ret;
 }
 
+static CdIcc*
+gcm_icc_load_file (GFile *file, GError **error)
+{
+    CdIcc *icc = cd_icc_new ();
+
+    if (!icc)
+        return NULL;
+
+    if (!cd_icc_load_file (icc,
+                           file,
+                           CD_ICC_LOAD_FLAGS_PRIMARIES,
+                           NULL,
+                           error)) {
+        g_object_unref (icc);
+        return NULL;
+    }
+
+    return icc;
+}
+
+static CdIcc*
+gcm_icc_load_srgb (GError **error)
+{
+    const char *path = "/usr/share/color/icc/colord/sRGB.icc";
+    g_autoptr(GFile) file = g_file_new_for_path (path);
+
+    return gcm_icc_load_file (file, error);
+}
+
+static CdMat3x3
+gcm_chroma_matrix_from_icc (CdIcc *icc)
+{
+    const CdColorXYZ *red = cd_icc_get_red (icc),
+                     *green = cd_icc_get_green (icc),
+                     *blue = cd_icc_get_blue (icc);
+    CdMat3x3 matrix = {
+        red->X, green->X, blue->X,
+        red->Y, green->Y, blue->Y,
+        red->Z, green->Z, blue->Z };
+
+    return matrix;
+}
+
+static CdMat3x3
+gcm_bradford_transform (const CdColorXYZ *reference,
+                        const CdColorXYZ *measured)
+{
+    // See https://onlinelibrary.wiley.com/doi/pdf/10.1002/9781119021780.app3
+    const CdMat3x3 bradford_response_matrix = {
+         0.8951,  0.2664, -0.1614,
+        -0.7502,  1.7135,  0.0367,
+         0.0389, -0.0685,  1.0296 };
+    CdMat3x3 bradford_inv, ratio, tmp, out;
+    CdVec3 ref_xyz = { reference->X / reference->Y,
+                       1.0,
+                       reference->Z / reference->Y };
+    CdVec3 meas_xyz = { measured->X / measured->Y,
+                        1.0,
+                        measured->Z / measured->Y };
+    CdVec3 ref_rgb, meas_rgb;
+
+    // Convert XYZ white point values to RGB.
+    cd_mat33_vector_multiply (&bradford_response_matrix, &ref_xyz, &ref_rgb);
+    cd_mat33_vector_multiply (&bradford_response_matrix, &meas_xyz, &meas_rgb);
+
+    // Construct a diagonal matrix D of the ratios between the RGB values.
+    cd_mat33_clear (&ratio);
+    ratio.m00 = meas_rgb.v0 / ref_rgb.v0;
+    ratio.m11 = meas_rgb.v1 / ref_rgb.v1;
+    ratio.m22 = meas_rgb.v2 / ref_rgb.v2;
+
+    // Transform is inv(B) * D * B
+    cd_mat33_reciprocal (&bradford_response_matrix, &bradford_inv);
+    cd_mat33_matrix_multiply (&bradford_inv, &ratio, &tmp);
+    cd_mat33_matrix_multiply (&tmp, &bradford_response_matrix, &out);
+
+    return out;
+}
+
+static gboolean
+gcm_set_csc_matrix (GnomeRROutput *output,
+                    CdProfile *profile,
+                    GError **error)
+{
+    g_autoptr(CdIcc) icc = NULL;
+    g_autoptr(CdIcc) srgb_icc = NULL;
+    CdMat3x3 srgb, measured_chroma, measured, measured_inv, bradford, csc;
+
+    /* open file */
+    icc = cd_profile_load_icc (profile, CD_ICC_LOAD_FLAGS_PRIMARIES, NULL, error);
+    if (icc == NULL)
+        return FALSE;
+
+    srgb_icc = gcm_icc_load_srgb (error);
+    if (!srgb_icc)
+        return FALSE;
+
+    srgb = gcm_chroma_matrix_from_icc (srgb_icc);
+    measured_chroma = gcm_chroma_matrix_from_icc (icc);
+
+    // Compute a Bradford color adaptation transform from the measured white
+    // point to the reference white point.
+    bradford = gcm_bradford_transform (cd_icc_get_white (srgb_icc),
+                                       cd_icc_get_white (icc));
+
+    // Use the Bradford transform to adjust the measured chroma values to match
+    // the reference luminance.
+    cd_mat33_matrix_multiply (&bradford, &measured_chroma, &measured);
+
+    // Invert the adjusted measured chroma matrix and multiply by the reference
+    // colors to compute the resulting CSC matrix.
+    cd_mat33_reciprocal (&measured, &measured_inv);
+    cd_mat33_matrix_multiply (&measured_inv,
+                              &srgb,
+                              &csc);
+
+    // TODO: Send the CSC matrix to libgnome-desktop
+    return TRUE;
+}
+
 static GPtrArray *
 gcm_session_generate_vcgt (CdProfile *profile, guint color_temperature, guint size)
 {
@@ -840,6 +960,18 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
                         goto out;
                 }
         }
+
+        ret = gcm_set_csc_matrix (output,
+                                  profile,
+                                  &error);
+        if (!ret) {
+            g_warning ("failed to set %s color transform matrix: %s",
+                       cd_device_get_id (helper->device),
+                       error->message);
+            g_error_free (error);
+            goto out;
+        }
+
 out:
         gcm_session_async_helper_free (helper);
 }
