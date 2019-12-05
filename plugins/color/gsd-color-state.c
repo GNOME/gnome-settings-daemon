@@ -2,6 +2,7 @@
  *
  * Copyright (C) 2007 William Jon McCann <mccann@jhu.edu>
  * Copyright (C) 2011-2013 Richard Hughes <richard@hughsie.com>
+ * Copyright (C) 2020 NVIDIA CORPORATION
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +27,7 @@
 #include <stdlib.h>
 #include <lcms2.h>
 #include <canberra-gtk.h>
+#include <math.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
@@ -126,8 +128,47 @@ gcm_session_get_output_edid (GsdColorState *state, GnomeRROutput *output, GError
         return edid;
 }
 
+static CdIcc *
+gcm_get_srgb_icc (GError **error)
+{
+        /* load the reference sRGB profile */
+        CdIcc *srgb_icc = cd_icc_new ();
+        if (!srgb_icc)
+                return NULL;
+
+        if (!cd_icc_create_default_full (srgb_icc,
+                                         CD_ICC_LOAD_FLAGS_PRIMARIES,
+                                         error)) {
+                g_object_unref (srgb_icc);
+                return NULL;
+        }
+
+        return srgb_icc;
+}
+
+static char *
+gcm_get_srgb_bytes (gsize *length,
+                    GError **error)
+{
+        g_autoptr(CdIcc) srgb_icc = NULL;
+        GBytes *bytes;
+
+        srgb_icc = gcm_get_srgb_icc (error);
+        if (srgb_icc == NULL)
+                return NULL;
+
+        bytes = cd_icc_save_data (srgb_icc,
+                                  CD_ICC_SAVE_FLAGS_NONE,
+                                  error);
+        if (bytes == NULL)
+                return NULL;
+
+        return g_bytes_unref_to_data (bytes, length);
+}
+
 static gboolean
 gcm_session_screen_set_icc_profile (GsdColorState *state,
+                                    GnomeRROutput *output,
                                     const gchar *filename,
                                     GError **error)
 {
@@ -145,9 +186,21 @@ gcm_session_screen_set_icc_profile (GsdColorState *state,
 
         g_debug ("setting root window ICC profile atom from %s", filename);
 
-        /* get contents of file */
-        if (!g_file_get_contents (filename, &data, &length, error))
-                return FALSE;
+        if (gnome_rr_output_supports_color_transform (output)) {
+                /*
+                 * If the window system supports color transforms, then
+                 * applications should use the standard sRGB color profile and
+                 * the window system will take care of converting colors to
+                 * match the output device's measured color profile.
+                 */
+                data = gcm_get_srgb_bytes (&length, error);
+                if (data == NULL)
+                        return FALSE;
+        } else {
+                /* get contents of file */
+                if (!g_file_get_contents (filename, &data, &length, error))
+                        return FALSE;
+        }
 
         /* set profile property */
         gdk_property_change (state->gdk_window,
@@ -430,6 +483,71 @@ out:
         if (icc != NULL)
                 g_object_unref (icc);
         return ret;
+}
+
+static uint64_t
+gcm_double_to_ctmval (double value)
+{
+        uint64_t sign = value < 0;
+        double integer, fractional;
+
+        if (sign)
+                value = -value;
+
+        fractional = modf (value, &integer);
+
+        return sign << 63 |
+               (uint64_t) integer << 32 |
+               (uint64_t) (fractional * 0xffffffffUL);
+}
+
+static GnomeRRCTM
+gcm_mat33_to_ctm (CdMat3x3 matrix)
+{
+        GnomeRRCTM ctm;
+
+        /*
+         * libcolord generates a matrix containing double values. RandR's CTM
+         * property expects values in S31.32 fixed-point sign-magnitude format
+         */
+        ctm.matrix[0] = gcm_double_to_ctmval (matrix.m00);
+        ctm.matrix[1] = gcm_double_to_ctmval (matrix.m01);
+        ctm.matrix[2] = gcm_double_to_ctmval (matrix.m02);
+        ctm.matrix[3] = gcm_double_to_ctmval (matrix.m10);
+        ctm.matrix[4] = gcm_double_to_ctmval (matrix.m11);
+        ctm.matrix[5] = gcm_double_to_ctmval (matrix.m12);
+        ctm.matrix[6] = gcm_double_to_ctmval (matrix.m20);
+        ctm.matrix[7] = gcm_double_to_ctmval (matrix.m21);
+        ctm.matrix[8] = gcm_double_to_ctmval (matrix.m22);
+
+        return ctm;
+}
+
+static gboolean
+gcm_set_csc_matrix (GnomeRROutput *output,
+                    CdProfile *profile,
+                    GError **error)
+{
+        g_autoptr(CdIcc) icc = NULL;
+        g_autoptr(CdIcc) srgb_icc = NULL;
+        CdMat3x3 csc;
+        GnomeRRCTM ctm;
+
+        /* open file */
+        icc = cd_profile_load_icc (profile, CD_ICC_LOAD_FLAGS_PRIMARIES, NULL,
+                                   error);
+        if (icc == NULL)
+                return FALSE;
+
+        srgb_icc = gcm_get_srgb_icc (error);
+        if (srgb_icc == NULL)
+                return FALSE;
+
+        if (!cd_icc_utils_get_adaptation_matrix (icc, srgb_icc, &csc, error))
+                return FALSE;
+
+        ctm = gcm_mat33_to_ctm (csc);
+        return gnome_rr_output_set_color_transform (output, ctm, error);
 }
 
 static GPtrArray *
@@ -805,6 +923,7 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
         ret = gcm_session_use_output_profile_for_screen (state, output);
         if (ret) {
                 ret = gcm_session_screen_set_icc_profile (state,
+                                                          output,
                                                           filename,
                                                           &error);
                 if (!ret) {
@@ -840,6 +959,20 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
                         goto out;
                 }
         }
+
+        if (gnome_rr_output_supports_color_transform (output)) {
+                ret = gcm_set_csc_matrix (output,
+                                          profile,
+                                          &error);
+                if (!ret) {
+                        g_warning ("failed to set %s color transform matrix: %s",
+                                   cd_device_get_id (helper->device),
+                                   error->message);
+                        g_error_free (error);
+                        goto out;
+                }
+        }
+
 out:
         gcm_session_async_helper_free (helper);
 }
