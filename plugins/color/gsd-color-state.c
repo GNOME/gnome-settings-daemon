@@ -26,6 +26,7 @@
 #include <stdlib.h>
 #include <lcms2.h>
 #include <canberra-gtk.h>
+#include <math.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
@@ -432,6 +433,74 @@ out:
         return ret;
 }
 
+static uint64_t
+gcm_double_to_ctmval (double value)
+{
+    uint64_t sign = value < 0;
+    double integer, fractional;
+
+    if (sign)
+        value = -value;
+
+    fractional = modf(value, &integer);
+
+    return sign << 63 |
+           (uint64_t)integer << 32 |
+           (uint64_t)(fractional * 0xffffffffUL);
+}
+
+static GnomeRRCTM
+gcm_mat33_to_ctm (CdMat3x3 matrix)
+{
+    GnomeRRCTM ctm;
+
+    /* libcolord generates a matrix containing double values. RandR's CTM
+     * property expects values in S31.32 fixed-point sign-magnitude format */
+    ctm.matrix[0] = gcm_double_to_ctmval(matrix.m00);
+    ctm.matrix[1] = gcm_double_to_ctmval(matrix.m01);
+    ctm.matrix[2] = gcm_double_to_ctmval(matrix.m02);
+    ctm.matrix[3] = gcm_double_to_ctmval(matrix.m10);
+    ctm.matrix[4] = gcm_double_to_ctmval(matrix.m11);
+    ctm.matrix[5] = gcm_double_to_ctmval(matrix.m12);
+    ctm.matrix[6] = gcm_double_to_ctmval(matrix.m20);
+    ctm.matrix[7] = gcm_double_to_ctmval(matrix.m21);
+    ctm.matrix[8] = gcm_double_to_ctmval(matrix.m22);
+
+    return ctm;
+}
+
+static gboolean
+gcm_set_csc_matrix (GnomeRROutput *output,
+                    CdProfile *profile,
+                    GError **error)
+{
+    g_autoptr(CdIcc) icc = NULL;
+    g_autoptr(CdIcc) srgb_icc = NULL;
+    CdMat3x3 csc;
+    GnomeRRCTM ctm;
+
+    /* open file */
+    icc = cd_profile_load_icc (profile, CD_ICC_LOAD_FLAGS_PRIMARIES, NULL, error);
+    if (icc == NULL)
+        return FALSE;
+
+    /* load the reference sRGB profile */
+    srgb_icc = cd_icc_new ();
+    if (!srgb_icc)
+        return FALSE;
+
+    if (!cd_icc_create_default_with_flags (srgb_icc,
+                                           CD_ICC_LOAD_FLAGS_PRIMARIES,
+                                           error))
+        return FALSE;
+
+    if (!cd_icc_utils_get_adaptation_matrix (icc, srgb_icc, &csc, error))
+        return FALSE;
+
+    ctm = gcm_mat33_to_ctm (csc);
+    return gnome_rr_output_set_color_transform (output, ctm, error);
+}
+
 static GPtrArray *
 gcm_session_generate_vcgt (CdProfile *profile, guint color_temperature, guint size)
 {
@@ -707,6 +776,14 @@ gcm_session_use_output_profile_for_screen (GsdColorState *state,
                         has_laptop = TRUE;
         }
 
+        /*
+         * Don't set _ICC_PROFILE if the window system is doing its own color
+         * transformation. Otherwise, color-aware applications will apply the
+         * same transform and produce incorrect colors.
+         */
+        if (gnome_rr_output_supports_color_transform (output))
+                return FALSE;
+
         /* we have an assigned primary device, are we that? */
         if (has_primary)
                 return gnome_rr_output_get_is_primary (output);
@@ -840,6 +917,20 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
                         goto out;
                 }
         }
+
+        if (gnome_rr_output_supports_color_transform (output)) {
+            ret = gcm_set_csc_matrix (output,
+                                      profile,
+                                      &error);
+            if (!ret) {
+                g_warning ("failed to set %s color transform matrix: %s",
+                           cd_device_get_id (helper->device),
+                           error->message);
+                g_error_free (error);
+                goto out;
+            }
+        }
+
 out:
         gcm_session_async_helper_free (helper);
 }
