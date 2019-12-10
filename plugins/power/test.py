@@ -1194,7 +1194,7 @@ class PowerPluginTest8(PowerPluginBase):
         self.assertEqual(self.get_brightness(), 0)
         obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 10)
         time.sleep(0.4)
-        self.assertEqual(self.get_brightness(), 1)
+        self.assertEqual(self.get_brightness(), 2)
         obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 20)
         time.sleep(0.4)
         self.assertEqual(self.get_brightness(), 3)
