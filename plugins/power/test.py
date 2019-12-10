@@ -60,7 +60,7 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
         # device based on the name of the test.
         self.add_backlight()
 
-        if 'HAVE_SYSFS_BACKLIGHT' in os.environ and os.environ['HAVE_SYSFS_BACKLIGHT'] == 1:
+        if 'HAVE_SYSFS_BACKLIGHT' in os.environ and os.environ['HAVE_SYSFS_BACKLIGHT'] == '1':
             self.skip_sysfs_backlight = False
         else:
             self.skip_sysfs_backlight = True
