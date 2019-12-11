@@ -111,14 +111,11 @@ x11_dep = dependency('x11')
 
 enable_systemd = get_option('systemd')
 if enable_systemd
-  systemd_dep = dependency('systemd', required: false)
+  systemd_dep = dependency('systemd', version: '>= 243', required: false)
   assert(systemd_dep.found(), 'Systemd support explicitly required, but systemd not found')
 
-  # XXX: Once https://github.com/systemd/systemd/issues/9595 is fixed and we can
-  # depend on this version, replace with something like:
-  #  systemduserunitdir = systemd_dep.get_pkgconfig_variable('systemduserunitdir')
-  # and uncomment systemd_dep below
-  systemd_userunitdir = join_paths(gsd_prefix, 'lib', 'systemd', 'user')
+   systemd_userunitdir = systemd_dep.get_pkgconfig_variable('systemduserunitdir',
+                                                            define_variable: ['prefix', gsd_prefix])
 endif
 
 m_dep = cc.find_library('m')
