@@ -51,11 +51,17 @@ plugins_cflags = ['-DGNOME_SETTINGS_LOCALEDIR="@0@"'.format(gsd_localedir)]
 
 enabled_plugins_file = []
 
-foreach plugin: [['common', '']] + enabled_plugins
+cflags = [
+  '-DG_LOG_DOMAIN="common"'
+] + plugins_cflags
+plugin_name = 'common'
+subdir('common')
+
+foreach plugin: enabled_plugins
   plugin_name = plugin[0]
   desktop = 'org.gnome.SettingsDaemon.@0@.desktop'.format(plugin[1])
 
-  if plugin[1] == '' # common or dummy
+  if plugin[1] == '' # dummy
     desktop_in_file = ''
   else
     desktop_in_file = files(join_paths(plugin_name, desktop + '.in'))
@@ -75,7 +81,7 @@ foreach plugin: enabled_plugins_file
     '-DPLUGIN_DBUS_NAME="@0@"'.format(plugin_dbus_name),
   ] + plugins_cflags
 
-  if not ['common', 'dummy'].contains(plugin_name)
+  if plugin_name != 'dummy'
     desktop = 'org.gnome.SettingsDaemon.@0@.desktop'.format(plugin[1])
     desktop_in_file = plugin[2]
     user_target = 'gsd-@0@.target'.format(plugin_name)
