@@ -1,10 +1,7 @@
 [Desktop Entry]
 Type=Application
-Name=GNOME Settings Daemon's @pluginname@ replacement plugin
-Exec=@libexecdir@/gsd-dummy --dummy-name=@pluginname@
+Name=GNOME Settings Daemon's @pluginname@ dummy autostart file
+Exec=/bin/false
 OnlyShowIn=GNOME;
 NoDisplay=true
-X-GNOME-Autostart-Phase=Initialization
-X-GNOME-Autostart-Notify=true
-X-GNOME-AutoRestart=true
-X-GNOME-HiddenUnderSystemd=@systemd_hidden@
+Hidden=true
