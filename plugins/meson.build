@@ -33,7 +33,7 @@ if enable_wwan
   enabled_plugins += [['wwan', 'Wwan']]
 endif
 
-plugin_install_extra_wants = {
+plugin_install_wants = {
   'xsettings': ['gnome-session-x11-services.target.wants/'],
 #  'dummy': ['required-started.target.wants/'],
 #  'wacom': ['wacom.target.wants/'],
@@ -107,18 +107,11 @@ foreach plugin: enabled_plugins_file
         install_dir: systemd_userunitdir
      )
 
-     wants = []
-     if plugin_name != 'xsettings'
-       wants += ['gnome-session-initialized.target.wants/']
+     if plugin_name in plugin_install_wants
+       foreach target: plugin_install_wants
+         meson.add_install_script('meson-add-wants.sh', systemd_userunitdir, target, user_target)
+       endforeach
      endif
-
-     if plugin_name in plugin_install_extra_wants
-       wants += [plugin_install_extra_wants[plugin_name]]
-     endif
-
-     foreach target: wants
-       meson.add_install_script('meson-add-wants.sh', systemd_userunitdir, target, user_target)
-     endforeach
    endif
   endif
 
