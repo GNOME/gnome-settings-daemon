@@ -1,8 +1,7 @@
-enabled_plugins = [
-  ['a11y-settings', 'A11ySettings', ''],
-  ['color', 'Color', ''],
+all_plugins = [
+  ['a11y-settings', 'A11ySettings'],
+  ['color', 'Color'],
   ['datetime', 'Datetime'],
-  ['dummy', ''],
   ['power', 'Power'],
   ['housekeeping', 'Housekeeping'],
   ['keyboard', 'Keyboard'],
@@ -11,27 +10,34 @@ enabled_plugins = [
   ['sharing', 'Sharing'],
   ['sound', 'Sound'],
   ['usb-protection', 'UsbProtection'],
-  ['xsettings', 'XSettings']
+  ['xsettings', 'XSettings'],
+  ['smartcard', 'Smartcard'],
+  ['wacom', 'Wacom'],
+  ['print-notifications', 'PrintNotifications'],
+  ['rfkill', 'Rfkill'],
+  ['wwan', 'Wwan'],
 ]
 
-if enable_smartcard
-  enabled_plugins += [['smartcard', 'Smartcard']]
+disabled_plugins = []
+
+if not enable_smartcard
+  disabled_plugins += ['smartcard']
 endif
 
-if enable_wacom
-  enabled_plugins += [['wacom', 'Wacom', 'wacom.target.wants/']]
+if not enable_wacom
+  disabled_plugins += ['wacom']
 endif
 
-if enable_cups
-  enabled_plugins += [['print-notifications', 'PrintNotifications']]
+if not enable_cups
+  disabled_plugins += ['cups']
 endif
 
-if enable_rfkill
-  enabled_plugins += [['rfkill', 'Rfkill']]
+if not enable_rfkill
+  disabled_plugins += ['rfkill']
 endif
 
-if enable_wwan
-  enabled_plugins += [['wwan', 'Wwan']]
+if not enable_wwan
+  disabled_plugins += ['wwan']
 endif
 
 plugin_install_wants = {
@@ -43,13 +49,12 @@ plugin_install_wants = {
 
 plugins_conf = configuration_data()
 plugins_conf.set('libexecdir', gsd_libexecdir)
-plugins_conf.set('systemd_hidden', enable_systemd ? 'true' : 'false')
 
 plugins_deps = [libgsd_dep]
 
 plugins_cflags = ['-DGNOME_SETTINGS_LOCALEDIR="@0@"'.format(gsd_localedir)]
 
-enabled_plugins_file = []
+all_plugins_file = []
 
 cflags = [
   '-DG_LOG_DOMAIN="common"'
@@ -57,23 +62,18 @@ cflags = [
 plugin_name = 'common'
 subdir('common')
 
-foreach plugin: enabled_plugins
-  plugin_name = plugin[0]
-  desktop = 'org.gnome.SettingsDaemon.@0@.desktop'.format(plugin[1])
-
-  if plugin[1] == '' # dummy
-    desktop_in_file = ''
-  else
-    desktop_in_file = files(join_paths(plugin_name, desktop + '.in'))
-  endif
-
-  enabled_plugins_file += [[plugin_name, plugin[1], desktop_in_file]]
-endforeach
-
-foreach plugin: enabled_plugins_file
+foreach plugin: all_plugins
   plugin_name = plugin[0]
   plugin_name_case = plugin[1]
   plugin_dbus_name='org.gnome.SettingsDaemon.@0@'.format(plugin_name_case)
+
+  desktop = 'org.gnome.SettingsDaemon.@0@.desktop'.format(plugin[1])
+
+  if disabled_plugins.contains(plugin_name)
+    desktop_in_file = files(join_paths('dummy', 'org.gnome.SettingsDaemon.Dummy.desktop.in'))
+  else
+    desktop_in_file = files(join_paths(plugin_name, desktop + '.in'))
+  endif
 
   cflags = [
     '-DG_LOG_DOMAIN="@0@-plugin"'.format(plugin_name),
@@ -81,9 +81,20 @@ foreach plugin: enabled_plugins_file
     '-DPLUGIN_DBUS_NAME="@0@"'.format(plugin_dbus_name),
   ] + plugins_cflags
 
-  if plugin_name != 'dummy'
-    desktop = 'org.gnome.SettingsDaemon.@0@.desktop'.format(plugin[1])
-    desktop_in_file = plugin[2]
+  desktop = 'org.gnome.SettingsDaemon.@0@.desktop'.format(plugin[1])
+  desktop_conf = configuration_data()
+  desktop_conf.set('libexecdir', gsd_libexecdir)
+  desktop_conf.set('systemd_hidden', enable_systemd ? 'true' : 'false')
+  desktop_conf.set('pluginname', plugin_name)
+  configure_file(
+    input: desktop_in_file,
+    output: desktop,
+    configuration: desktop_conf,
+    install: true,
+    install_dir: gsd_xdg_autostart
+  )
+
+  if not disabled_plugins.contains(plugin_name)
     user_target = 'gsd-@0@.target'.format(plugin_name)
     user_service = 'gsd-@0@.service'.format(plugin_name)
 
@@ -91,13 +102,6 @@ foreach plugin: enabled_plugins_file
     unit_conf.set('libexecdir', gsd_libexecdir)
     unit_conf.set('plugin_dbus_name', plugin_dbus_name)
 
-    configure_file(
-      input: desktop_in_file,
-      output: desktop,
-      configuration: plugins_conf,
-      install: true,
-      install_dir: gsd_xdg_autostart
-    )
     if enable_systemd
       configure_file(
         input: join_paths(plugin_name, user_service + '.in'),
@@ -120,7 +124,7 @@ foreach plugin: enabled_plugins_file
        endforeach
      endif
    endif
-  endif
 
-  subdir(plugin_name)
+    subdir(plugin_name)
+  endif
 endforeach
