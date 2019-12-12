@@ -65,6 +65,7 @@ subdir('common')
 foreach plugin: all_plugins
   plugin_name = plugin[0]
   plugin_name_case = plugin[1]
+  plugin_description = plugin[2]
   plugin_dbus_name='org.gnome.SettingsDaemon.@0@'.format(plugin_name_case)
 
   desktop = 'org.gnome.SettingsDaemon.@0@.desktop'.format(plugin[1])
@@ -86,6 +87,7 @@ foreach plugin: all_plugins
   desktop_conf.set('libexecdir', gsd_libexecdir)
   desktop_conf.set('systemd_hidden', enable_systemd ? 'true' : 'false')
   desktop_conf.set('pluginname', plugin_name)
+  desktop_conf.set('description', plugin_description)
   configure_file(
     input: desktop_in_file,
     output: desktop,
