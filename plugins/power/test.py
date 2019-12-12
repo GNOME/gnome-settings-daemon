@@ -60,7 +60,7 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
         # device based on the name of the test.
         self.add_backlight()
 
-        if 'HAVE_SYSFS_BACKLIGHT' in os.environ and os.environ['HAVE_SYSFS_BACKLIGHT'] == 1:
+        if 'HAVE_SYSFS_BACKLIGHT' in os.environ and os.environ['HAVE_SYSFS_BACKLIGHT'] == '1':
             self.skip_sysfs_backlight = False
         else:
             self.skip_sysfs_backlight = True
@@ -1194,17 +1194,17 @@ class PowerPluginTest8(PowerPluginBase):
         self.assertEqual(self.get_brightness(), 0)
         obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 10)
         time.sleep(0.4)
-        self.assertEqual(self.get_brightness(), 1)
+        self.assertEqual(self.get_brightness(), 2)
         obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 20)
         time.sleep(0.4)
         self.assertEqual(self.get_brightness(), 3)
         obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 25)
         time.sleep(0.4)
         self.assertEqual(self.get_brightness(), 4)
-        obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 50)
+        obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 49)
         time.sleep(0.4)
         self.assertEqual(self.get_brightness(), 7)
-        obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 52)
+        obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 50)
         time.sleep(0.4)
         self.assertEqual(self.get_brightness(), 8)
         obj_gsd_power_prop_iface.Set('org.gnome.SettingsDaemon.Power.Screen', 'Brightness', 56)
