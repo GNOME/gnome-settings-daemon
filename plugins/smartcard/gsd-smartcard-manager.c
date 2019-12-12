@@ -180,7 +180,7 @@ watch_one_event_from_driver (GsdSmartcardManager       *self,
                              GCancellable              *cancellable,
                              GError                   **error)
 {
-        PK11SlotInfo *card, *old_card;
+        PK11SlotInfo *card = NULL, *old_card;
         CK_SLOT_ID slot_id;
         gulong handler_id;
         int old_slot_series = -1, slot_series;
