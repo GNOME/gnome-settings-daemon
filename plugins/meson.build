@@ -69,9 +69,9 @@ foreach plugin: all_plugins
   desktop = 'org.gnome.SettingsDaemon.@0@.desktop'.format(plugin[1])
 
   if disabled_plugins.contains(plugin_name)
-    desktop_in_file = files(join_paths('dummy', 'org.gnome.SettingsDaemon.Dummy.desktop.in'))
+    desktop_in_file = files('org.gnome.SettingsDaemon.Dummy.desktop.in')
   else
-    desktop_in_file = files(join_paths(plugin_name, desktop + '.in'))
+    desktop_in_file = files('org.gnome.SettingsDaemon.Real.desktop.in')
   endif
 
   cflags = [
