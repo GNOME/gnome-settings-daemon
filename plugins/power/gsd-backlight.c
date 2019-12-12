@@ -469,6 +469,7 @@ gsd_backlight_set_brightness_val_async (GsdBacklight *backlight,
         GError *error = NULL;
         GTask *task = NULL;
         GnomeRROutput *output;
+        gint percent;
 
         value = MIN(backlight->brightness_max, value);
         value = MAX(backlight->brightness_min, value);
@@ -491,7 +492,11 @@ gsd_backlight_set_brightness_val_async (GsdBacklight *backlight,
                                            G_DBUS_CALL_FLAGS_NONE,
                                            -1, NULL,
                                            NULL, NULL);
-                        g_task_return_int (task, backlight->brightness_target);
+
+                        percent = ABS_TO_PERCENTAGE (backlight->brightness_min,
+                                                     backlight->brightness_max,
+                                                     backlight->brightness_target);
+                        g_task_return_int (task, percent);
                 } else {
                         task_data = g_new0 (BacklightHelperData, 1);
                         task_data->value = backlight->brightness_target;
