@@ -41,6 +41,10 @@
 
 #include <libupower-glib/upower.h>
 #include <gdesktop-enums.h>
+#ifdef HAVE_GNOME_SYSTEMD
+#define GNOME_DESKTOP_USE_UNSTABLE_API
+#include <libgnome-desktop/gnome-systemd.h>
+#endif
 
 #if HAVE_GUDEV
 #include <gudev/gudev.h>
@@ -263,7 +267,6 @@ static void     keys_sync_continue                 (GsdMediaKeysManager *manager
 G_DEFINE_TYPE_WITH_PRIVATE (GsdMediaKeysManager, gsd_media_keys_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
-
 
 static void
 media_key_unref (MediaKey *key)
@@ -996,6 +999,34 @@ init_kbd (GsdMediaKeysManager *manager)
         gnome_settings_profile_end (NULL);
 }
 
+#ifdef HAVE_GNOME_SYSTEMD
+static void
+app_launched_cb (GAppLaunchContext *context,
+                 GAppInfo          *info,
+                 GVariant          *platform_data,
+                 gpointer           user_data)
+{
+        GsdMediaKeysManager *manager = GSD_MEDIA_KEYS_MANAGER (user_data);
+        GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
+        gint32 pid;
+        const gchar *app_name;
+
+        if (!g_variant_lookup (platform_data, "pid", "i", &pid))
+                return;
+
+        app_name = g_app_info_get_id (info);
+        if (app_name == NULL)
+                app_name = g_app_info_get_executable (info);
+
+        /* Start async request; we don't care about the result */
+        gnome_start_systemd_scope (app_name,
+                                   pid,
+                                   NULL,
+                                   priv->connection,
+                                   NULL, NULL, NULL);
+}
+#endif
+
 static void
 launch_app (GsdMediaKeysManager *manager,
 	    GAppInfo            *app_info,
@@ -1008,6 +1039,14 @@ launch_app (GsdMediaKeysManager *manager,
         launch_context = gdk_display_get_app_launch_context (gdk_display_get_default ());
         gdk_app_launch_context_set_timestamp (launch_context, timestamp);
         set_launch_context_env (manager, G_APP_LAUNCH_CONTEXT (launch_context));
+
+#ifdef HAVE_GNOME_SYSTEMD
+        g_signal_connect_object (launch_context,
+                                 "launched",
+                                 G_CALLBACK (app_launched_cb),
+                                 manager,
+                                 0);
+#endif
 
 	if (!g_app_info_launch (app_info, NULL, G_APP_LAUNCH_CONTEXT (launch_context), &error)) {
 		g_warning ("Could not launch '%s': %s",
