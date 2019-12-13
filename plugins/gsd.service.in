@@ -1,0 +1,25 @@
+[Unit]
+Description=@description@ service
+CollectMode=inactive-or-failed
+RefuseManualStart=true
+RefuseManualStop=true
+
+After=gnome-session-initialized.target
+
+# Requisite/PartOf means the dependency is not loaded automatically.
+# The ordering here also implies Before=gnome-session.target
+Requisite=gsd-@plugin_name@.target
+PartOf=gsd-@plugin_name@.target
+Before=gsd-@plugin_name@.target
+
+@plugin_gate_units_section@
+
+[Service]
+Type=dbus
+ExecStart=@libexecdir@/gsd-@pluginname@
+Restart=@plugin_restart@
+BusName=@plugin_dbus_name@
+TimeoutStopSec=5
+# We cannot use OnFailure as e.g. dependency failures are normal
+# https://github.com/systemd/systemd/issues/12352
+ExecStopPost=@libexecdir@/gnome-session-ctl --exec-stop-check
