@@ -2,7 +2,7 @@ project(
   'gnome-settings-daemon', 'c',
   version: '3.35.0',
   license: [ 'GPL2+', 'LGPLv2+' ],
-  meson_version: '>= 0.44.0'
+  meson_version: '>= 0.47.0'
 )
 
 gsd_version = meson.project_version()
