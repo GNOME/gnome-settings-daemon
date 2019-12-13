@@ -39,11 +39,16 @@ if not enable_wwan
     disabled_plugins += ['wwan']
 endif
 
+# Specify futher required units, 'before' or 'after' may be specified if ordering is needed
 plugin_gate_units = {
-    'xsettings': ['gnome-session-x11-services.target'],
-#    'dummy': ['required-started.target.wants/'],
-#    'wacom': ['wacom.target.wants/'],
-#    'smartcard': ['smartcard.target.wants/'],
+    'xsettings': [['gnome-session-x11-services.target', 'before']],
+#    'wacom': [['wacom.target']],
+#    'smartcard': [['smartcard.target']],
+}
+
+# Restart=on-failure is the default
+plugin_restart_rule = {
+    'xsettings' : 'on-abnormal',
 }
 
 plugins_conf = configuration_data()
@@ -100,30 +105,60 @@ foreach plugin: all_plugins
         user_service = 'gsd-@0@.service'.format(plugin_name)
 
         unit_conf = configuration_data()
+        unit_conf.set('plugin_name', plugin_name)
+        unit_conf.set('description', plugin_description)
         unit_conf.set('libexecdir', gsd_libexecdir)
         unit_conf.set('plugin_dbus_name', plugin_dbus_name)
+        unit_conf.set('plugin_restart', plugin_restart_rule.get(plugin_name, 'on-failure'))
+
+        gates_all = []
+        gates_after = []
+        gates_before = []
+        foreach gate: plugin_gate_units.get(plugin_name, [])
+            gates_all += [gate[0]]
+            if gate.length() > 1
+                if gate[1] == 'before'
+                    gates_before += [gate[0]]
+                elif gate[1] == 'after'
+                    gates_after += [gate[0]]
+                else
+                    error('Ordering key must be either "before" or "after"')
+                endif
+            endif
+        endforeach
+        gate_unit_section = []
+        if gates_all.length() > 0
+            gate_unit_section += ['Requisite=' + ' '.join(gates_all)]
+            gate_unit_section += ['PartOf=' + ' '.join(gates_all)]
+
+            if gates_after.length() > 0
+                gate_unit_section += ['After=' + ' '.join(gates_after)]
+            endif
+            if gates_before.length() > 0
+                gate_unit_section += ['Before=' + ' '.join(gates_before)]
+            endif
+        endif
+        unit_conf.set('plugin_gate_units_section', '\n'.join(gate_unit_section))
 
         if enable_systemd
             configure_file(
-                input: join_paths(plugin_name, user_service + '.in'),
+                input: 'gsd.service.in',
                 output: user_service,
                 configuration: unit_conf,
                 install: true,
                 install_dir: systemd_userunitdir
             )
             configure_file(
-                input: join_paths(plugin_name, user_target + '.in'),
+                input: 'gsd.target.in',
                 output: user_target,
                 configuration: unit_conf,
                 install: true,
                 install_dir: systemd_userunitdir
             )
 
-            if plugin_name in plugin_gate_units
-                foreach target: plugin_gate_units[plugin_name]
-                    meson.add_install_script('meson-add-wants.sh', systemd_userunitdir, target, user_target)
-                endforeach
-            endif
+            foreach target: gates_all
+                meson.add_install_script('meson-add-wants.sh', systemd_userunitdir, target + '.wants/', user_target)
+            endforeach
         endif
 
         subdir(plugin_name)
