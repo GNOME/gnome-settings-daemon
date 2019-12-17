@@ -2,11 +2,18 @@
 Version 3.34.2
 ==============
 Media-keys:
+- Place spawned processes into a systemd scope.
+  For this to work, gnome-settings-daemon needs to be build with
+  libgnome-desktop >= 3.34.2.1, as the API was added in that release.
 - Fixed saving screenshots to clipboard on wayland.
   For 3.34, this feature was fixed by using the X11 clipboard,
   saving to clipboard will indefinitely raise Xwayland
   if the Xwayland-on-demand experimental feature was enabled,
   and will not work at all if --no-x11 is passed to gnome-shell.
+- Fix crash on keybinding migration
+
+Smartcard:
+- Initialize pointer before use
 
 ==============
 Version 3.34.1
