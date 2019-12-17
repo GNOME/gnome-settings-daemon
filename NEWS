@@ -1,3 +1,26 @@
+==============
+Version 3.35.0
+==============
+- Translation updates
+- Lower systemd stop timeout
+
+Media-keys:
+- Place spawned processes in a systemd scope
+- Add volume step configuration key
+- Make brightness a 0.0..1.0 float in DBus
+- Let the screenshot service handle saving to clipboard
+- Fix crash on old settings migration
+- Skip volume-change feedback while playing
+
+Power:
+- Fix rounding of brightness value
+- Use logind helper to change backlight brightness
+
+Smartcard:
+- Change manager to non-blocking
+- Use correct parent type for structs
+- Initialize pointer before use
+
 ===============
 Version 3.33.90
 ===============
