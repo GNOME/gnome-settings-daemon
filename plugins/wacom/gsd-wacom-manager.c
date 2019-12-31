@@ -190,7 +190,7 @@ gsd_wacom_manager_class_init (GsdWacomManagerClass *klass)
 static gchar *
 get_device_path (GdkDevice *device)
 {
-#ifdef HAVE_WAYLAND
+#if HAVE_WAYLAND
         if (gnome_settings_is_wayland ())
                 return g_strdup (gdk_wayland_device_get_node_path (device));
         else
