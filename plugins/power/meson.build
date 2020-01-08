@@ -143,7 +143,8 @@ foreach i : [ 1, 2, 3, 4, 5, 6, 7, 8 ]
     test_py,
     args: [ 'PowerPluginTest@0@'.format(i) ],
     env: envs,
-    timeout: 120
+    # The first set of tests takes very long because of SCREENSAVER_TIMEOUT_BLANK
+    timeout: i == 1 ? 180 : 120
   )
 endforeach
 
