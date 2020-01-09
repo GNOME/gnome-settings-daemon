@@ -152,6 +152,7 @@ add_usbguard_allow_rule (GsdUsbProtectionManager *manager)
          * this "allow all" rule, every already plugged in device at boot time
          * will be automatically authorized. This expects "PresentDevicePolicy"
          * to be set to "apply-policy".
+         * FIXME: This is not valid any more as we only allow hardwired devices for now.
          */
 
         GVariant *params;
