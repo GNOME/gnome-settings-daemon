@@ -145,12 +145,14 @@ add_usbguard_allow_rule (GsdUsbProtectionManager *manager)
 {
         /* This prepends an "allow all" rule.
          * It has a double purpose. If the protection is disabled it is used
-         * to ensure that new devices gets automatically authorized.
+         * to ensure that new devices get authorized automatically.
          * On top of that it is also used as an anti lockout precaution.
          * If something unexpected happens and the user is unable to authorize
          * his main keyboard he can reboot the system and, thanks to
-         * this "allow all" rule, every already plugged in devices at boot time
-         * will be automatically authorized. */
+         * this "allow all" rule, every already plugged in device at boot time
+         * will be automatically authorized. This expects "PresentDevicePolicy"
+         * to be set to "apply-policy".
+         */
 
         GVariant *params;
         if (manager->usb_protection_policy != NULL) {
