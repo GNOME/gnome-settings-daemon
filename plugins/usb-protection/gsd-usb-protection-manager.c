@@ -61,7 +61,7 @@
 #define DEVICE_PRESENCE_CHANGED "DevicePresenceChanged"
 #define INSERTED_DEVICE_POLICY "InsertedDevicePolicy"
 #define APPEND_RULE "appendRule"
-#define ALLOW_ALL "allow id *:* label \"GNOME_SETTINGS_DAEMON_RULE\""
+#define ALLOW_ALL "allow id *:* with-connect-type \"hardwired\" label \"GNOME_SETTINGS_DAEMON_RULE\" "
 #define WITH_INTERFACE "with-interface"
 #define NAME "name"
 
