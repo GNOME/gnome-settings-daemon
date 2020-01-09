@@ -736,6 +736,13 @@ handle_screensaver_active (GsdUsbProtectionManager *manager,
                          * the usbguard config with apply-policy or block if the session
                          * is unlocked or locked, respectively. */
                         value_usbguard = active ? BLOCK : APPLY_POLICY;
+                        /* It'd be good if this rule could be made temporary.
+                         * Then we could be safe from locking the user out when we crash.
+                         * Currently, we assume to have the PresentDevicePolicy set to "allow"
+                         * s.t. a reboot would help. But it would be nice if the blocking effect
+                         * would only last as long as our controller is alive and if the dependency
+                         * on other convoluted rules, i.e. the PresentDevicePolicy, is reduced.
+                         */
                         params = g_variant_new ("(ss)",
                                                 INSERTED_DEVICE_POLICY,
                                                 value_usbguard);
