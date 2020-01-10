@@ -611,8 +611,9 @@ get_parameter_cb (GObject      *source_object,
                                            res,
                                            &error);
         if (result == NULL) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-                        g_warning ("Failed fetch USBGuard parameters: %s", error->message);
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
+                        g_warning ("Failed to fetch USBGuard parameters: %s", error->message);
+                }
                 return;
         }
 
