@@ -437,7 +437,7 @@ is_keyboard (GVariant *device)
 }
 
 static void
-auth_keyboard (GsdUsbProtectionManager *manager,
+auth_device (GsdUsbProtectionManager *manager,
                GVariant                *device)
 {
         guint device_id;
@@ -511,7 +511,7 @@ on_device_presence_signal (GDBusProxy *proxy,
 
         if (is_hardwired (parameters)) {
             g_debug ("Device is hardwired, allowing it to be connected");
-            auth_keyboard (manager, parameters);
+            auth_device (manager, parameters);
             return;
         }
 
@@ -530,7 +530,7 @@ on_device_presence_signal (GDBusProxy *proxy,
                                            _("New keyboard detected"),
                                            _("Either your keyboard has been reconnected or a new one has been plugged in. "
                                              "If you did not do it, check your system for any suspicious device."));
-                        auth_keyboard (manager, parameters);
+                        auth_device (manager, parameters);
                 } else {
                     if (protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN) {
                             show_notification (manager,
@@ -560,7 +560,7 @@ on_device_presence_signal (GDBusProxy *proxy,
                                                             manager->cancellable,
                                                             (GAsyncReadyCallback) on_screen_locked,
                                                             manager);
-                                auth_keyboard (manager, parameters);
+                                auth_device (manager, parameters);
                         } else {
                                 show_notification (manager,
                                                    _("USB device blocked"),
