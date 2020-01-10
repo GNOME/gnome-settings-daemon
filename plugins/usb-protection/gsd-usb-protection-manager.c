@@ -475,7 +475,7 @@ on_screen_locked (GsdScreenSaver          *screen_saver,
 }
 
 static void
-on_device_presence_signal (GDBusProxy *proxy,
+on_usbguard_signal (GDBusProxy *proxy,
                            gchar      *sender_name,
                            gchar      *signal_name,
                            GVariant   *parameters,
@@ -824,7 +824,7 @@ usb_protection_devices_proxy_ready (GObject      *source_object,
          * already autorized by the "allow all" rule in USBGuard. */
         g_signal_connect_object (source_object,
                                  "g-signal",
-                                 G_CALLBACK (on_device_presence_signal),
+                                 G_CALLBACK (on_usbguard_signal),
                                  user_data,
                                  0);
 }
