@@ -58,7 +58,7 @@
 #define LIST_DEVICES "listDevices"
 #define LIST_RULES "listRules"
 #define ALLOW "allow"
-#define DEVICE_PRESENCE_CHANGED "DevicePresenceChanged"
+#define DEVICE_POLICY_CHANGED "DevicePolicyChanged"
 #define INSERTED_DEVICE_POLICY "InsertedDevicePolicy"
 #define APPEND_RULE "appendRule"
 #define ALLOW_ALL "allow id *:* label \"GNOME_SETTINGS_DAEMON_RULE\""
@@ -83,12 +83,6 @@ struct _GsdUsbProtectionManager
         NotifyNotification *notification;
 };
 
-typedef enum {
-        EVENT_PRESENT,
-        EVENT_INSERT,
-        EVENT_UPDATE,
-        EVENT_REMOVE
-} UsbGuardEvent;
 
 typedef enum {
         TARGET_ALLOW,
@@ -98,9 +92,15 @@ typedef enum {
 
 typedef enum {
         POLICY_DEVICE_ID,
-        POLICY_DEVICE_EVENT,
-        POLICY_TARGET,
+        POLICY_TARGET_OLD,
+        /* This is the rule that has been applied */
+        POLICY_TARGET_NEW,
         POLICY_DEV_RULE,
+        /* The ID of the rule that has been applied.
+         * uint32 - 1 is one of the implicit rules,
+         * e.g. ImplicitPolicyTarget or InsertedDevicePolicy.
+         */
+        POLICY_RULE_ID,
         POLICY_ATTRIBUTES
 } UsbGuardPolicyChanged;
 
@@ -464,25 +464,19 @@ on_device_presence_signal (GDBusProxy *proxy,
                            GVariant   *parameters,
                            gpointer    user_data)
 {
-        UsbGuardEvent device_event;
         UsbGuardTarget target;
         GDesktopUsbProtection protection_level;
         GsdUsbProtectionManager *manager = user_data;
-        GVariantIter *iter = NULL;
+        g_autoptr(GVariantIter) iter = NULL;
         g_autofree gchar *name = NULL;
         g_autofree gchar *device_name = NULL;
 
-        /* We act only if we receive a signal from DevicePresenceChanged */
-        if (g_strcmp0 (signal_name, DEVICE_PRESENCE_CHANGED) != 0)
+        /* We act only if we receive a signal indicating that a device has been inserted */
+        if (g_strcmp0 (signal_name, DEVICE_POLICY_CHANGED) != 0) {
                 return;
+        }
 
-        g_variant_get_child (parameters, POLICY_DEVICE_EVENT, "u", &device_event);
-
-        /* If this is not an insert event we do nothing */
-        if (device_event != EVENT_INSERT)
-                return;
-
-        g_variant_get_child (parameters, POLICY_TARGET, "u", &target);
+        g_variant_get_child (parameters, POLICY_TARGET_NEW, "u", &target);
 
         /* If the device is already authorized we do nothing */
         if (target == TARGET_ALLOW)
