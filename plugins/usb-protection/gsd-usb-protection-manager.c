@@ -194,8 +194,9 @@ usbguard_listrules_cb (GObject      *source_object,
                                            &error);
 
         if (!result) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
                         g_warning ("Failed to fetch USBGuard rules list: %s", error->message);
+                }
                 return;
         }
 
