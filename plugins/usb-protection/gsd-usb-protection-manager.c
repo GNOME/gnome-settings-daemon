@@ -62,6 +62,7 @@
 #define INSERTED_DEVICE_POLICY "InsertedDevicePolicy"
 #define APPEND_RULE "appendRule"
 #define ALLOW_ALL "allow id *:* label \"GNOME_SETTINGS_DAEMON_RULE\""
+#define WITH_CONNECT_TYPE "with-connect-type"
 #define WITH_INTERFACE "with-interface"
 #define NAME "name"
 
@@ -403,6 +404,22 @@ is_only_hid (GVariant *device)
 }
 
 static gboolean
+is_hardwired (GVariant *device)
+{
+        GVariantIter *iter = NULL;
+        g_autofree gchar *name = NULL;
+        g_autofree gchar *value = NULL;
+
+        g_variant_get_child (device, POLICY_ATTRIBUTES, "a{ss}", &iter);
+        while (g_variant_iter_loop (iter, "{ss}", &name, &value)) {
+                if (g_strcmp0 (name, WITH_CONNECT_TYPE) == 0) {
+                        return g_strcmp0 (value, "hardwired") == 0;
+                }
+        }
+        return FALSE;
+}
+
+static gboolean
 is_keyboard (GVariant *device)
 {
         GVariantIter *iter = NULL;
@@ -490,6 +507,12 @@ on_device_presence_signal (GDBusProxy *proxy,
         while (g_variant_iter_loop (iter, "{ss}", &name, &device_name)) {
                 if (g_strcmp0 (name, NAME) == 0)
                         g_debug ("A new USB device has been connected: %s", device_name);
+        }
+
+        if (is_hardwired (parameters)) {
+            g_debug ("Device is hardwired, allowing it to be connected");
+            auth_keyboard (manager, parameters);
+            return;
         }
 
         protection_level = g_settings_get_enum (manager->settings, USB_PROTECTION_LEVEL);
