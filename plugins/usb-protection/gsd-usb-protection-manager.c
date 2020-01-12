@@ -144,18 +144,14 @@ dbus_call_log_error (GObject      *source_object,
 static void
 add_usbguard_allow_rule (GsdUsbProtectionManager *manager)
 {
-        /* This prepends an "allow all" rule.
-         * It has a double purpose. If the protection is disabled it is used
-         * to ensure that new devices gets automatically authorized.
-         * On top of that it is also used as an anti lockout precaution.
-         * If something unexpected happens and the user is unable to authorize
-         * his main keyboard he can reboot the system and, thanks to
-         * this "allow all" rule, every already plugged in devices at boot time
-         * will be automatically authorized. */
+        /* This prepends a temporary "allow all" rule.
+         * It has the purpose of ensuring the authorization of new devices when
+         * the lockscreen is off. */
 
         GVariant *params;
         if (manager->usb_protection_policy != NULL) {
-                params = g_variant_new ("(sub)", ALLOW_ALL, 0, FALSE);
+                gboolean temporary = TRUE;
+                params = g_variant_new ("(sub)", ALLOW_ALL, 0, temporary);
                 g_dbus_proxy_call (manager->usb_protection_policy,
                                    APPEND_RULE,
                                    params,
