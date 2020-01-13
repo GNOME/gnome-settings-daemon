@@ -217,14 +217,18 @@ static void
 usbguard_ensure_allow_rule (GsdUsbProtectionManager *manager)
 {
         GVariant *params;
-        if (manager->usb_protection_policy != NULL) {
+        GDBusProxy *policy_proxy = manager->usb_protection_policy;
+
+        if (policy_proxy == NULL) {
+            g_warning ("Cannot list rules, because dbus proxy is missing");
+        } else {
                 /* listRules parameter is a label for matching rules.
                  * Currently we are using an empty label to get all the
                  * rules instead of just using "GNOME_SETTINGS_DAEMON_RULE"
                  * until this bug gets solved:
                  * https://github.com/USBGuard/usbguard/issues/328 */
                 params = g_variant_new ("(s)", "");
-                g_dbus_proxy_call (manager->usb_protection_policy,
+                g_dbus_proxy_call (policy_proxy,
                                    LIST_RULES,
                                    params,
                                    G_DBUS_CALL_FLAGS_NONE,
