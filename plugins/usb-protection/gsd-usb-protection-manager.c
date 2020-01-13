@@ -152,12 +152,16 @@ add_usbguard_allow_rule (GsdUsbProtectionManager *manager)
          */
 
         GVariant *params;
-        if (manager->usb_protection_policy != NULL) {
+        GDBusProxy *policy_proxy = manager->usb_protection_policy;
+
+        if (policy_proxy == NULL) {
+            g_warning ("Cannot add allow rule, because dbus proxy is missing");
+        } else {
                 gboolean temporary = TRUE;
                 /* This is USBGuard's Rule::LastID */
                 const guint32 last_rule_id = G_MAXUINT32 - 2;
                 params = g_variant_new ("(sub)", ALLOW_ALL, last_rule_id, temporary);
-                g_dbus_proxy_call (manager->usb_protection_policy,
+                g_dbus_proxy_call (policy_proxy,
                                    APPEND_RULE,
                                    params,
                                    G_DBUS_CALL_FLAGS_NONE,
