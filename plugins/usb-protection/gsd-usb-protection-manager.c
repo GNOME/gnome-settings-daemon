@@ -680,11 +680,14 @@ sync_usb_protection (GDBusProxy              *proxy,
 
         usbguard_controlled = g_settings_get_boolean (settings, USB_PROTECTION);
 
-        if (!usbguard_controlled || proxy == NULL)
+        g_debug ("Attempting to sync USB parameters: %d %p %p",
+            usbguard_controlled, proxy, manager->usb_protection);
+
+        if (!usbguard_controlled || manager->usb_protection == NULL)
                 return;
 
         params = g_variant_new ("(s)", INSERTED_DEVICE_POLICY);
-        g_dbus_proxy_call (proxy,
+        g_dbus_proxy_call (manager->usb_protection,
                            "getParameter",
                            params,
                            G_DBUS_CALL_FLAGS_NONE,
@@ -733,7 +736,6 @@ on_usb_protection_owner_changed_cb (GObject    *object,
         name_owner = g_dbus_proxy_get_name_owner (proxy);
         if (name_owner) {
                 manager->available = TRUE;
-                sync_usb_protection (proxy, manager);
         } else {
                 manager->available = FALSE;
         }
@@ -806,9 +808,11 @@ usb_protection_policy_proxy_ready (GObject      *source_object,
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         g_warning ("Failed to contact USBGuard: %s", error->message);
                 return;
+        } else {
+            manager = GSD_USB_PROTECTION_MANAGER (user_data);
+            manager->usb_protection_policy = proxy;
+            sync_usb_protection (proxy, manager);
         }
-        manager = GSD_USB_PROTECTION_MANAGER (user_data);
-        manager->usb_protection_policy = proxy;
 }
 
 static void
@@ -895,7 +899,6 @@ usb_protection_proxy_ready (GObject      *source_object,
                 manager->available = FALSE;
         } else {
                 manager->available = TRUE;
-                sync_usb_protection (proxy, manager);
         }
 
         g_signal_connect_object (source_object,
