@@ -186,10 +186,14 @@ is_usbguard_allow_rule_present (GVariant *rules)
         g_autofree gchar *value = NULL;
         guint number = 0;
 
+        g_debug ("Detecting rule...");
+
         g_variant_get (rules, "a(us)", &iter);
         while (g_variant_iter_loop (iter, "(us)", &number, &value)) {
-                if (g_strcmp0 (value, ALLOW_ALL) == 0)
+                if (g_strcmp0 (value, ALLOW_ALL) == 0) {
+                        g_debug ("Detected rule!");
                         return TRUE;
+                    }
         }
         return FALSE;
 }
@@ -640,6 +644,8 @@ get_parameter_cb (GObject      *source_object,
         g_variant_unref (result);
         protection_level = g_settings_get_enum (settings, USB_PROTECTION_LEVEL);
 
+        g_debug ("InsertedDevicePolicy is: %s", key);
+
         if (protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN) {
                 if (g_strcmp0 (key, APPLY_POLICY) != 0) {
                         /* We are out of sync. */
@@ -659,6 +665,7 @@ get_parameter_cb (GObject      *source_object,
         if (params != NULL) {
                 /* We are out of sync. We need to call setParameter to update USBGuard state */
                 if (manager->usb_protection != NULL) {
+                        g_debug ("Setting InsertedDevicePolicy");
                         g_dbus_proxy_call (manager->usb_protection,
                                            "setParameter",
                                            params,
@@ -673,8 +680,10 @@ get_parameter_cb (GObject      *source_object,
 
         /* If we are in "When lockscreen is active" we also check
          * if the "always allow" rule is present. */
-        if (protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN)
+        if (protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN) {
+                g_debug ("Ensuring allow all");
                 usbguard_ensure_allow_rule (manager);
+        }
 }
 
 static void
@@ -741,6 +750,8 @@ on_usb_protection_owner_changed_cb (GObject    *object,
         g_autofree gchar *name_owner = NULL;
 
         name_owner = g_dbus_proxy_get_name_owner (proxy);
+        g_debug ("Got owner change: %s", name_owner);
+
         if (name_owner) {
                 manager->available = TRUE;
         } else {
@@ -809,6 +820,7 @@ usb_protection_policy_proxy_ready (GObject      *source_object,
         GsdUsbProtectionManager *manager;
         GDBusProxy *proxy;
         g_autoptr(GError) error = NULL;
+        g_debug ("usb_protection_policy_proxy_ready");
 
         proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
         if (!proxy) {
@@ -818,6 +830,7 @@ usb_protection_policy_proxy_ready (GObject      *source_object,
         } else {
             manager = GSD_USB_PROTECTION_MANAGER (user_data);
             manager->usb_protection_policy = proxy;
+            g_debug ("Set protection policy proxy to %p", proxy);
             sync_usb_protection (proxy, manager);
         }
 }
