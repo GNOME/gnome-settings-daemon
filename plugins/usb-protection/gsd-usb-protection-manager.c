@@ -159,7 +159,14 @@ add_usbguard_allow_rule (GsdUsbProtectionManager *manager)
         } else {
                 gboolean temporary = TRUE;
                 /* This is USBGuard's Rule::LastID */
-                const guint32 last_rule_id = G_MAXUINT32 - 2;
+                /* const guint32 last_rule_id = G_MAXUINT32 - 2; */
+                /* We can't use Rule::LastID, due to a bug in USBGuard.
+                 * We cannot pick an arbitrary number, so we pick
+                 * "0" which means we prepend our rule.
+                 * https://github.com/USBGuard/usbguard/pull/355
+                 */
+                const guint32 last_rule_id = 0;
+                g_debug ("Adding rule %u", last_rule_id);
                 params = g_variant_new ("(sub)", ALLOW_ALL, last_rule_id, temporary);
                 g_dbus_proxy_call (policy_proxy,
                                    APPEND_RULE,
