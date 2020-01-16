@@ -526,6 +526,7 @@ on_usbguard_signal (GDBusProxy *proxy,
         g_autofree gchar *name = NULL;
         g_autofree gchar *device_name = NULL;
 
+        g_debug ("USBGuard signal: %s", signal_name);
 
         /* We act only if we receive a signal indicating that a device has been inserted */
         if (g_strcmp0 (signal_name, DEVICE_PRESENCE_CHANGED) != 0) {
@@ -573,6 +574,7 @@ on_usbguard_signal (GDBusProxy *proxy,
 
         protection_level = g_settings_get_enum (manager->settings, USB_PROTECTION_LEVEL);
 
+        g_debug ("Screensaver active: %d", manager->screensaver_active);
         if (manager->screensaver_active) {
                 /* If the session is locked we check if the inserted device is a keyboard.
                  * If that is the case we authorize the newly inserted keyboard as an
@@ -594,6 +596,8 @@ on_usbguard_signal (GDBusProxy *proxy,
                                                _("New device has been detected while you were away. "
                                                  "Please disconnect and reconnect the device to start using it."));
                     } else {
+                            const char* name_for_notification = device_name ? device_name : "unknown name";
+                            g_debug ("Showing notification for %s", name_for_notification);
                             show_notification (manager,
                                                _("USB device blocked"),
                                                _("New device has been detected while you were away. "
@@ -844,6 +848,7 @@ screensaver_signal_cb (GDBusProxy  *proxy,
                        GVariant    *parameters,
                        gpointer     user_data)
 {
+        g_debug ("ScreenSaver Signal: %s", signal_name);
         if (g_strcmp0 (signal_name, "ActiveChanged") == 0)
                 handle_screensaver_active (GSD_USB_PROTECTION_MANAGER (user_data), parameters);
 }
@@ -891,6 +896,7 @@ usb_protection_devices_proxy_ready (GObject      *source_object,
 
         /* We don't care about already plugged in devices because they'll be
          * already autorized by the "allow all" rule in USBGuard. */
+        g_debug ("Listening to signals");
         g_signal_connect_object (source_object,
                                  "g-signal",
                                  G_CALLBACK (on_usbguard_signal),
