@@ -1,0 +1,10 @@
+[Unit]
+Description=GNOME USB protection handling
+
+BindsTo=gsd-usb-protection.service
+After=gsd-usb-protection.service
+
+Requisite=gnome-session-initialized.target
+After=gnome-session-initialized.target
+PartOf=gnome-session-initialized.target
+Before=gnome-session.target
