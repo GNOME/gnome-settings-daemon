@@ -59,6 +59,7 @@
 #define LIST_RULES "listRules"
 #define ALLOW "allow"
 #define DEVICE_POLICY_CHANGED "DevicePolicyChanged"
+#define DEVICE_PRESENCE_CHANGED "DevicePresenceChanged"
 #define INSERTED_DEVICE_POLICY "InsertedDevicePolicy"
 #define APPEND_RULE "appendRule"
 #define ALLOW_ALL "allow id *:* label \"GNOME_SETTINGS_DAEMON_RULE\""
@@ -84,6 +85,13 @@ struct _GsdUsbProtectionManager
         NotifyNotification *notification;
 };
 
+typedef enum {
+        EVENT_PRESENT,
+        EVENT_INSERT,
+        EVENT_UPDATE,
+        EVENT_REMOVE
+} UsbGuardEvent;
+
 
 typedef enum {
         TARGET_ALLOW,
@@ -104,6 +112,15 @@ typedef enum {
         POLICY_RULE_ID,
         POLICY_ATTRIBUTES
 } UsbGuardPolicyChanged;
+
+typedef enum {
+        PRESENCE_DEVICE_ID,
+        PRESENCE_EVENT,
+        /* That does not reflect what USBGuard intends to do with the device :( */
+        PRESENCE_TARGET,
+        PRESENCE_DEV_RULE,
+        PRESENCE_ATTRIBUTES
+} UsbGuardPresenceChanged;
 
 static void gsd_usb_protection_manager_finalize (GObject *object);
 
@@ -430,7 +447,7 @@ is_hardwired (GVariant *device)
         g_autofree gchar *name = NULL;
         g_autofree gchar *value = NULL;
 
-        g_variant_get_child (device, POLICY_ATTRIBUTES, "a{ss}", &iter);
+        g_variant_get_child (device, PRESENCE_ATTRIBUTES, "a{ss}", &iter);
         while (g_variant_iter_loop (iter, "{ss}", &name, &value)) {
                 if (g_strcmp0 (name, WITH_CONNECT_TYPE) == 0) {
                         return g_strcmp0 (value, "hardwired") == 0;
@@ -446,7 +463,7 @@ is_keyboard (GVariant *device)
         g_autofree gchar *name = NULL;
         g_autofree gchar *value = NULL;
 
-        g_variant_get_child (device, POLICY_ATTRIBUTES, "a{ss}", &iter);
+        g_variant_get_child (device, PRESENCE_ATTRIBUTES, "a{ss}", &iter);
         while (g_variant_iter_loop (iter, "{ss}", &name, &value)) {
                 if (g_strcmp0 (name, WITH_INTERFACE) == 0) {
                         return g_strrstr (value, "03:00:01") != NULL ||
@@ -501,29 +518,48 @@ on_usbguard_signal (GDBusProxy *proxy,
                            GVariant   *parameters,
                            gpointer    user_data)
 {
-        UsbGuardTarget target;
+        UsbGuardTarget target = TARGET_BLOCK;
+        UsbGuardEvent device_event;
         GDesktopUsbProtection protection_level;
         GsdUsbProtectionManager *manager = user_data;
         g_autoptr(GVariantIter) iter = NULL;
         g_autofree gchar *name = NULL;
         g_autofree gchar *device_name = NULL;
 
+
         /* We act only if we receive a signal indicating that a device has been inserted */
-        if (g_strcmp0 (signal_name, DEVICE_POLICY_CHANGED) != 0) {
+        if (g_strcmp0 (signal_name, DEVICE_PRESENCE_CHANGED) != 0) {
                 return;
         }
 
-        g_variant_get_child (parameters, POLICY_TARGET_NEW, "u", &target);
+        g_variant_get_child (parameters, PRESENCE_EVENT, "u", &device_event);
+        if (device_event != EVENT_INSERT) {
+            g_debug ("Device hat not been inserted (%d); ignoring", device_event);
+            return;
+        }
+
+        /* We would like to show a notification for an inserted device that
+         * *has not been blocked*.  But USBGuard is not providing that information.
+         * So we have to work around that limitation and assume that any device plugged in
+         * during screensaver shall be blocked.
+         * https://github.com/USBGuard/usbguard/issues/353
+         
+           g_variant_get_child (parameters, POLICY_TARGET_NEW, "u", &target);
+        */
 
         /* If the device is already authorized we do nothing */
-        if (target == TARGET_ALLOW)
+        if (target == TARGET_ALLOW) {
+                g_debug ("Device will be allowed, we return");
                 return;
+        }
 
         /* If the USB protection is disabled we do nothing */
-        if (!is_protection_active (manager))
+        if (!is_protection_active (manager)) {
+                g_debug ("Protection is not active. Not acting on the device");
                 return;
+        }
 
-        g_variant_get_child (parameters, POLICY_ATTRIBUTES, "a{ss}", &iter);
+        g_variant_get_child (parameters, PRESENCE_ATTRIBUTES, "a{ss}", &iter);
         while (g_variant_iter_loop (iter, "{ss}", &name, &device_name)) {
                 if (g_strcmp0 (name, NAME) == 0)
                         g_debug ("A new USB device has been connected: %s", device_name);
