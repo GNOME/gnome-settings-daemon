@@ -199,7 +199,7 @@ add_usbguard_allow_rule (GsdUsbProtectionManager *manager)
 static gboolean
 is_usbguard_allow_rule_present (GVariant *rules)
 {
-        GVariantIter *iter = NULL;
+        g_autoptr(GVariantIter) *iter = NULL;
         g_autofree gchar *value = NULL;
         guint number = 0;
 
