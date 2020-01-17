@@ -403,18 +403,18 @@ static void authorize_device (GDBusProxy              *proxy,
                               guint                    target,
                               gboolean                 permanent)
 {
-        GVariant *params;
-
-        params = g_variant_new ("(uub)", device_id, target, permanent);
-        if (manager->usb_protection_devices != NULL) {
-                g_dbus_proxy_call (manager->usb_protection_devices,
-                                   APPLY_DEVICE_POLICY,
-                                   params,
-                                   G_DBUS_CALL_FLAGS_NONE,
-                                   -1,
-                                   manager->cancellable,
-                                   dbus_call_log_error,
-                                   "Error calling USBGuard DBus to authorize a device");
+        if (manager->usb_protection_devices == NULL) {
+            g_warning("Could not authorize device, because DBus is missing");
+        } else {
+            GVariant *params = g_variant_new ("(uub)", device_id, target, permanent);
+            g_dbus_proxy_call (manager->usb_protection_devices,
+                               APPLY_DEVICE_POLICY,
+                               params,
+                               G_DBUS_CALL_FLAGS_NONE,
+                               -1,
+                               manager->cancellable,
+                               dbus_call_log_error,
+                               "Error calling USBGuard DBus to authorize a device");
         }
 }
 
