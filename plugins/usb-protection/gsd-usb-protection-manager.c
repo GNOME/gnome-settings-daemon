@@ -388,10 +388,11 @@ show_notification (GsdUsbProtectionManager *manager,
         notify_notification_set_hint_string (manager->notification, "x-gnome-privacy-scope", "system");
         notify_notification_set_timeout (manager->notification, NOTIFY_EXPIRES_DEFAULT);
         notify_notification_set_urgency (manager->notification, NOTIFY_URGENCY_CRITICAL);
-        g_signal_connect (manager->notification,
-                          "closed",
-                          G_CALLBACK (on_notification_closed),
-                          manager);
+        g_signal_connect_object (manager->notification,
+                                 "closed",
+                                 G_CALLBACK (on_notification_closed),
+                                 manager,
+                                 0);
         if (!notify_notification_show (manager->notification, NULL)) {
                 g_warning ("Failed to send USB protection notification");
                 g_clear_object (&manager->notification);
@@ -1118,9 +1119,6 @@ gsd_usb_protection_manager_stop (GsdUsbProtectionManager *manager)
         }
 
         if (manager->notification != NULL) {
-                g_signal_handlers_disconnect_by_func (manager->notification,
-                                                      G_CALLBACK (on_notification_closed),
-                                                      manager);
                 g_clear_object (&manager->notification);
         }
 
