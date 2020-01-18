@@ -507,6 +507,8 @@ on_screen_locked (GsdScreenSaver          *screen_saver,
                            _("New device has been detected while the session was not locked. "
                              "If you did not plug anything, check your system for any suspicious device."));
 
+        auth_device (manager, parameters);
+
         if (!is_locked) {
                 g_warning ("Couldn't lock screen: %s", error->message);
                 return;
@@ -622,7 +624,6 @@ on_usbguard_signal (GDBusProxy *proxy,
                                                             manager->cancellable,
                                                             (GAsyncReadyCallback) on_screen_locked,
                                                             manager);
-                                auth_device (manager, parameters);
                         } else {
                                 show_notification (manager,
                                                    _("USB device blocked"),
