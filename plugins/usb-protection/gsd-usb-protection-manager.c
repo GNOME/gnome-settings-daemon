@@ -1118,9 +1118,7 @@ gsd_usb_protection_manager_stop (GsdUsbProtectionManager *manager)
                 g_clear_object (&manager->cancellable);
         }
 
-        if (manager->notification != NULL) {
-                g_clear_object (&manager->notification);
-        }
+        g_clear_object (&manager->notification);
 
         if (manager->start_idle_id != 0) {
                 g_source_remove (manager->start_idle_id);
