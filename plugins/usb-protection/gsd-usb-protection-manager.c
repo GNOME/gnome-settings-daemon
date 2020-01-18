@@ -199,7 +199,7 @@ add_usbguard_allow_rule (GsdUsbProtectionManager *manager)
 static gboolean
 is_usbguard_allow_rule_present (GVariant *rules)
 {
-        g_autoptr(GVariantIter) *iter = NULL;
+        g_autoptr(GVariantIter) iter = NULL;
         g_autofree gchar *value = NULL;
         guint number = 0;
 
@@ -421,7 +421,7 @@ static void authorize_device (GDBusProxy              *proxy,
 static gboolean
 is_only_hid (GVariant *device)
 {
-        GVariantIter *iter = NULL;
+        g_autoptr(GVariantIter) iter = NULL;
         g_autofree gchar *name = NULL;
         g_autofree gchar *value = NULL;
         guint i;
@@ -443,7 +443,7 @@ is_only_hid (GVariant *device)
 static gboolean
 is_hardwired (GVariant *device)
 {
-        GVariantIter *iter = NULL;
+        g_autoptr(GVariantIter) iter = NULL;
         g_autofree gchar *name = NULL;
         g_autofree gchar *value = NULL;
 
@@ -459,7 +459,7 @@ is_hardwired (GVariant *device)
 static gboolean
 is_keyboard (GVariant *device)
 {
-        GVariantIter *iter = NULL;
+        g_autoptr(GVariantIter) iter = NULL;
         g_autofree gchar *name = NULL;
         g_autofree gchar *value = NULL;
 
