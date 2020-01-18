@@ -394,6 +394,7 @@ show_notification (GsdUsbProtectionManager *manager,
                           manager);
         if (!notify_notification_show (manager->notification, NULL)) {
                 g_warning ("Failed to send USB protection notification");
+                g_clear_object (&manager->notification);
         }
 }
 
