@@ -502,15 +502,18 @@ on_screen_locked (GsdScreenSaver          *screen_saver,
 
         is_locked = gsd_screen_saver_call_lock_finish (screen_saver, result, &error);
 
+        if (error) {
+            g_warning ("Couldn't lock screen: %s", error->message);
+            if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
+                return;
+            }
+        }
+
         show_notification (manager,
                            _("New USB device"),
                            _("New device has been detected while the session was not locked. "
                              "If you did not plug anything, check your system for any suspicious device."));
 
-        if (!is_locked) {
-                g_warning ("Couldn't lock screen: %s", error->message);
-                return;
-        }
 }
 
 static void
