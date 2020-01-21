@@ -927,7 +927,7 @@ dbus_call_log_error (GObject *source_object,
                      GAsyncResult *res,
                      gpointer user_data)
 {
-        g_autoptr(GVariant) result;
+        g_autoptr(GVariant) result = NULL;
         g_autoptr(GError) error = NULL;
         const gchar *msg = user_data;
 
