@@ -12,15 +12,15 @@
 # Claudio Saavedra <csaavedra@alumnos.utalca.cl>, 2007.
 # Sebi Kul <sebikul@gmail.com>, 2011.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011 -2019.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011 -2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2019-10-06 21:38+0000\n"
-"PO-Revision-Date: 2019-10-10 12:15+0200\n"
+"POT-Creation-Date: 2020-01-18 23:53+0000\n"
+"PO-Revision-Date: 2020-01-21 11:32+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -576,7 +576,6 @@ msgstr "Lanzar configuración"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:12
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:195
-#| msgid "Binding to launch GNOME settings."
 msgid "Binding to launch GNOME Settings."
 msgstr "Asociación de teclas para lanzar la configuración de GNOME."
 
@@ -939,7 +938,6 @@ msgid "List of custom keybindings"
 msgstr "Lista de asociaciones de teclas personalizadas"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:282
-#| msgid "Volume step"
 msgid "Size of volume step"
 msgstr "Tamaño del paso del volumen"
 
@@ -1178,7 +1176,6 @@ msgid "Static binding to launch the calculator."
 msgstr "Vínculo estático para lanzar la calculadora."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:522
-#| msgid "Static binding to launch GNOME settings."
 msgid "Static binding to launch GNOME Settings."
 msgstr "Vínculo estático para lanzar la configuración de GNOME."
 
@@ -1690,30 +1687,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Este equipo sólo tiene %s de espacio en disco libre."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2430
+#: plugins/media-keys/gsd-media-keys-manager.c:2466
 msgid "Bluetooth disabled"
 msgstr "Bluetooth desactivado"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2433
+#: plugins/media-keys/gsd-media-keys-manager.c:2469
 msgid "Bluetooth enabled"
 msgstr "Bluetooth activado"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2437
+#: plugins/media-keys/gsd-media-keys-manager.c:2473
 msgid "Airplane mode enabled"
 msgstr "Modo avión activado"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2440
+#: plugins/media-keys/gsd-media-keys-manager.c:2476
 msgid "Airplane mode disabled"
 msgstr "Modo avión desactivado"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2469
+#: plugins/media-keys/gsd-media-keys-manager.c:2505
 msgid "Hardware Airplane Mode"
 msgstr "Modo avión hardware"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2532
+#: plugins/media-keys/gsd-media-keys-manager.c:2568
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Captura del escritorio de %d %t.webm"
@@ -1722,30 +1719,29 @@ msgstr "Captura del escritorio de %d %t.webm"
 msgid "Unable to capture a screenshot"
 msgstr "No se pudo hacer una captura de pantalla"
 
-#: plugins/media-keys/gsd-screenshot-utils.c:113
-#: plugins/media-keys/gsd-screenshot-utils.c:155
+#: plugins/media-keys/gsd-screenshot-utils.c:125
 msgid "Screenshot taken"
 msgstr "Captura de pantalla obtenida"
 
 #. translators: this is the name of the file that gets made up
 #. * with the screenshot
-#: plugins/media-keys/gsd-screenshot-utils.c:306
+#: plugins/media-keys/gsd-screenshot-utils.c:264
 #, c-format
 msgid "Screenshot from %s"
 msgstr "Captura de pantalla de %s"
 
-#: plugins/power/gpm-common.c:92
+#: plugins/power/gpm-common.c:91
 msgid "Unknown time"
 msgstr "Tiempo desconocido"
 
-#: plugins/power/gpm-common.c:97
+#: plugins/power/gpm-common.c:96
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i minuto"
 msgstr[1] "%i minutos"
 
-#: plugins/power/gpm-common.c:107
+#: plugins/power/gpm-common.c:106
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1754,25 +1750,25 @@ msgstr[1] "%i horas"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: plugins/power/gpm-common.c:113
+#: plugins/power/gpm-common.c:112
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: plugins/power/gpm-common.c:114
+#: plugins/power/gpm-common.c:113
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "hora"
 msgstr[1] "horas"
 
-#: plugins/power/gpm-common.c:115
+#: plugins/power/gpm-common.c:114
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minuto"
 msgstr[1] "minutos"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:425 plugins/power/gsd-power-manager.c:720
+#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:720
 #: plugins/power/gsd-power-manager.c:817
 msgid "Battery is critically low"
 msgstr "La batería está críticamente baja"
@@ -2363,6 +2359,68 @@ msgstr "Impresora «%s»: «%s»."
 #: plugins/smartcard/gsd-smartcard-service.c:282
 msgid "User was not logged in with smartcard."
 msgstr "El usuario no había iniciado sesión con una tarjeta inteligente."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:386
+msgid "USB Protection"
+msgstr "Protección de USB"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:513
+msgid "New USB device"
+msgstr "Nuevo dispositivo USB"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:514
+msgid ""
+"New device has been detected while the session was not locked. If you did "
+"not plug anything, check your system for any suspicious device."
+msgstr ""
+"Se ha detectado un dispositivo nuevo mientras la sesión no estaba bloqueada. "
+"Si no ha conectado nada revise su sistema en busca de algún dispositivo "
+"sospechoso."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:593
+msgid "New keyboard detected"
+msgstr "Nuevo teclado detectado"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:594
+msgid ""
+"Either your keyboard has been reconnected or a new one has been plugged in. "
+"If you did not do it, check your system for any suspicious device."
+msgstr ""
+"Su teclado se vuelto a conectar o se ha enchufado uno nuevo. Si no ha hecho "
+"esto revise su sistema en busca de algún dispositivo sospechoso."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:600
+msgid "Reconnect USB device"
+msgstr "Conectar de nuevo el dispositivo USB"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:601
+msgid ""
+"New device has been detected while you were away. Please disconnect and "
+"reconnect the device to start using it."
+msgstr ""
+"Se ha detectado un dispositivo nuevo mientras estaba fuera. Desconéctelo y "
+"vuélvalo a conectar para empezar a usarlo."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:607
+#: plugins/usb-protection/gsd-usb-protection-manager.c:631
+msgid "USB device blocked"
+msgstr "Dispositivo USB bloqueado"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:608
+msgid ""
+"New device has been detected while you were away. It has been blocked "
+"because the USB protection is active."
+msgstr ""
+"Se ha detectado un dispositivo nuevo mientras estaba fuera. Se ha bloqueado "
+"porque la protección de USB está activada."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:632
+msgid ""
+"The new inserted device has been blocked because the USB protection is "
+"active."
+msgstr ""
+"El nuevo dispositivo introducido se ha bloqueado porque la protección de USB "
+"está activa."
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
