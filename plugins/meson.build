@@ -24,6 +24,10 @@ if not enable_smartcard
     disabled_plugins += ['smartcard']
 endif
 
+if not enable_usb_protection
+    disabled_plugins += ['usb-protection']
+endif
+
 if not enable_wacom
     disabled_plugins += ['wacom']
 endif

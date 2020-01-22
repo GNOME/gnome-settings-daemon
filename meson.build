@@ -174,6 +174,8 @@ if enable_smartcard
   endif
 endif
 
+enable_usb_protection = get_option('usb-protection')
+
 # CUPS
 enable_cups = get_option('cups')
 if enable_cups
@@ -261,6 +263,7 @@ output += '        cflags:                   ' + ' '.join(compiler_flags) + '\n\
 output += '        ALSA support:             ' + enable_alsa.to_string() + '\n'
 output += '        NetworkManager support:   ' + enable_network_manager.to_string() + '\n'
 output += '        Smartcard support:        ' + enable_smartcard.to_string() + '\n'
+output += '        USB Protection support:   ' + enable_usb_protection.to_string() + '\n'
 output += '        Cups support:             ' + enable_cups.to_string() + '\n'
 output += '        Wayland support:          ' + enable_wayland.to_string() + '\n'
 output += '        Wacom support:            ' + enable_wacom.to_string() + '\n'
