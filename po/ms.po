@@ -4,833 +4,2752 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center HEAD\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-26 21:06-0500\n"
-"PO-Revision-Date: 2004-02-23 12:12+0730\n"
-"Last-Translator: Hasbullah Bin Pit <sebol@my-penguin.org>\n"
-"Language-Team: Projek Gabai <gabai-penyumbang@lists.sourceforge.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
+"issues\n"
+"POT-Creation-Date: 2020-01-18 13:37+0000\n"
+"PO-Revision-Date: 2020-01-25 00:39+0800\n"
+"Last-Translator: abuyop <abuyop@gmail.com>\n"
+"Language-Team: Pasukan Terjemahan GNOME Malaysia\n"
 "Language: ms\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.0.6\n"
 
-#: ../data/apps_gnome_settings_daemon_default_editor.schemas.in.h:1
-#, fuzzy
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
+msgid "Smartcard removal action"
+msgstr "Tindakan penanggalan kad pintar"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:13
 msgid ""
-"Set to True to keep the handlers for text/plain and text/* MIME types "
-"synchronized."
+"Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
+"get performed when the smartcard used for log in is removed."
 msgstr ""
-"Jika benar, pengendali mime bagi text/plain dan text/* akan kekal "
-"disinkronisasikan"
+"Tetapkan ini menjadi salah satu dari “none”, “lock-screen”, atau “force-"
+"logout”. Tindakan akan dilakukan bila kad pintar digunakan untuk daftar "
+"masuk dibuang."
 
-#: ../data/apps_gnome_settings_daemon_default_editor.schemas.in.h:2
-msgid "Sync text/plain and text/* handlers"
-msgstr "Sinkronisasi pengendali text/plain and text/*"
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:25
+msgid "Possible values are “on”, “off”, and “custom”."
+msgstr "Nilai yang mungkin adalah “on”, “off”, dan “custom”."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
-msgid "Binding to eject an optical disk."
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:35
+msgid "Keyboard Bell Custom Filename"
+msgstr "Nama Fail Suai Loceng Papan Kekunci"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:36
+msgid "File name of the bell sound to be played."
+msgstr "Nama fail bagi bunyi loceng untuk dimainkan."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:42
+#| msgid "<b>Double-Click Timeout </b>"
+msgid "Double click time"
+msgstr "Tempoh dwi-klik"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:43
+msgid "Length of a double click in milliseconds."
+msgstr "Panjang dwi-klik dalam milisaat."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:47
+#| msgid "_Threshold:"
+msgid "Drag threshold"
+msgstr "Ambang seret"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:48
+msgid "Distance before a drag is started."
+msgstr "Jarak sebelum seret dimulakan."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:54
+msgid "Whether the tablet’s orientation is locked, or rotated automatically."
+msgstr "Sama ada orientasi tablet dikunci, atau diputar secara automatik."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:62
+#| msgid "<b>Mouse Orientation</b>"
+msgid "Mouse button orientation"
+msgstr "Orientasi butang tetikus"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:63
+msgid "Swap left and right mouse buttons for left-handed mice."
+msgstr "Silih butang kiri dan kanan tetikus untuk tetikus kidal."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:67
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:134
+msgid "Single Click"
+msgstr "Klik Tunggal"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:68
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:135
+msgid ""
+"Acceleration multiplier for mouse motion. A value of -1 is the system "
+"default."
 msgstr ""
+"Pengganda pemecutan bagi gerakan tetikus. Nilai -1 adalah lalai sistem."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:2
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:72
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:139
+#| msgid "_Threshold:"
+msgid "Motion Threshold"
+msgstr "Ambang Gerakan"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:73
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:140
+msgid ""
+"Distance in pixels the pointer must move before accelerated mouse motion is "
+"activated. A value of -1 is the system default."
+msgstr ""
+"Jarak dalam piksel yang mana penuding mesti bergerak sebelum gerakan tetikus "
+"terpecut diaktifkan. Nilai -1 adalah lalai sistem."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:77
+msgid "Middle button emulation"
+msgstr "Emulasi butang tengah"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:78
+msgid ""
+"Enables middle mouse button emulation through simultaneous left and right "
+"button click."
+msgstr ""
+"Benarkan emulasi butang tetikus tengah melalui klik butang kiri dan kanan "
+"secara serentak."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:87
+msgid "Key Repeat Interval"
+msgstr "Sela Ulang Kekunci"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:88
+#| msgid "Delay between keypress and pointer mo_vement:"
+msgid "Delay between repeats in milliseconds."
+msgstr "Lengah antara ulang dalam milisaat."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:92
+msgid "Initial Key Repeat Delay"
+msgstr "Lengah Ulang Kekunci Awalan"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:93
+msgid "Initial key repeat delay in milliseconds."
+msgstr "Lengah ulang kekunci awal dalam milisaat."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:97
+msgid "Remember NumLock state"
+msgstr "Ingat keadaan NumLock"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:98
+msgid ""
+"When set to true, GNOME will remember the state of the NumLock LED between "
+"sessions."
+msgstr ""
+"Bila ditetapkan benar, GNOME akan mengingati keadaan LED NumLock antara sesi."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:104
+msgid "Disable touchpad while typing"
+msgstr "Lumpuhkan pad sentuh semasa menaip"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:105
+msgid ""
+"Set this to TRUE if you have problems with accidentally hitting the touchpad "
+"while typing."
+msgstr ""
+"Tetapkan ini pada BENAR jika anda mempunyai masalah dengan ketukan pada pad "
+"sesentuh secara tidak sengaja semasa menaip."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:109
+msgid "Enable horizontal scrolling"
+msgstr "Benarkan penatalan mengufuk"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:110
+msgid ""
+"Set this to TRUE to allow horizontal scrolling by the same method selected "
+"with the scroll_method key."
+msgstr ""
+"Tetapkan ini pada BENAR untuk membenarkan penatalan melintang dengan kaedah "
+"yang sama dipilih dengan kekunci scroll_method."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:114
+msgid "Select the touchpad scroll method"
+msgstr "Pilih kaedah tatal pad sentuh"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:115
+msgid ""
+"Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
+"scrolling”, “two-finger-scrolling”."
+msgstr ""
+"Pilih kaedah tatal pad sentuh. Nilai disokong adalah: “disabled”, “edge-"
+"scrolling”, “two-finger-scrolling”."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:119
+msgid "Enable mouse clicks with touchpad"
+msgstr "Benarkan klik tetikus melalui pad sentuh"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:120
+msgid ""
+"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr ""
+"Tetapkan ini kepada BENAR untuk benarkan penghantaran klik tetikus bila "
+"mengetuk pada pad sentuh."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:124
+msgid "Enable touchpad"
+msgstr "Benarkan pad sentuh"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:125
+msgid "Set this to TRUE to enable all touchpads."
+msgstr "Tetapkan ini pada BENAR untuk benarkan semua pad sentuh."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:129
+msgid "Touchpad button orientation"
+msgstr "Orientasi butang pad sentuh"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:130
+msgid ""
+"Swap left and right mouse buttons for left-handed mice with “left”, “right” "
+"for right-handed, “mouse” to follow the mouse setting."
+msgstr ""
+"Silih butang tetikus kiri dan kanan untuk tetikus kidal dengan “left”, "
+"“right” untuk tidak kidal, “mouse” untuk mengikuti tetapan tetikus."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:144
+msgid "Natural scrolling"
+msgstr "Penatalan tabii"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:145
+msgid "Set this to TRUE to enable natural (reverse) scrolling for touchpads."
+msgstr ""
+"Tetapkan ini pada BENAR untuk benarkan penatalan (songsang) tabii bagi pad "
+"sentuh."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:152
+msgid "Mouse wheel emulation button. 0 to disable the feature."
+msgstr "Butang emulasi roda tetikus. 0 untuk lumpuhkan fitur."
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:10
+msgid "Wacom stylus absolute mode"
+msgstr "Mod mutlak bagi stylus Wacom"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:11
+msgid "Enable this to set the tablet to absolute mode."
+msgstr "Benarkan ini untuk tetapkan tablet ke mod mutlak."
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:15
+msgid "Wacom tablet area"
+msgstr "Kawasan tablet Wacom"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:16
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
+msgstr ""
+"Tetapkan ini pada x1, y1 dan x2, y2 bagi kawasan boleh guna oleh alatan."
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:20
+msgid "Wacom tablet aspect ratio"
+msgstr "Nisbah bidang tablet Wacom"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:21
+msgid ""
+"Enable this to restrict the Wacom tablet area to match the aspect ratio of "
+"the output."
+msgstr ""
+"Benarkan ini untuk hadkan kawasan tablet Wacom untuk padankan nisbah bidang "
+"output."
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:25
+msgid "Wacom tablet rotation"
+msgstr "Putaran tablet Wacom"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:26
+msgid ""
+"Set this to “none”, “cw” for 90 degree clockwise, “half” for 180 degree, and "
+"“ccw” for 90 degree counterclockwise."
+msgstr ""
+"Tetapkan ini menjadi “none”, “cw” untuk 90 darjah ikut jam, “half” untuk180 "
+"darjah, dan “ccw” untuk 90 darjah lawan jam."
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:30
+msgid "Wacom touch feature"
+msgstr "Fitur sentuh Wacom"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:31
+msgid "Enable this to move the cursor when the user touches the tablet."
+msgstr "Benarkan in untuk mengalih kursor bila pengguna menyentuh tablet."
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:37
+msgid "Wacom stylus pressure curve"
+msgstr "Lengkung tekanan bagi stylus Wacom"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:38
+msgid ""
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
+msgstr ""
+"Tetapkan ini ke x1, y1 dan x2, y2 bagi lengkung tekanan yang dilaksanakan "
+"oleh stylus."
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:42
+msgid "Wacom stylus button mapping"
+msgstr "Pemetaan butang bagi stylus Wacom"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:43
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:60
+msgid "Set this to the logical button mapping."
+msgstr "Tetapkan ini kepada pemetaan butang logikal."
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:47
+msgid "Wacom stylus pressure threshold"
+msgstr "Ambang tekanan bagi stylus Wacom"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:48
+msgid ""
+"Set this to the pressure value at which a stylus click event is generated."
+msgstr ""
+"Tetapkan ini kepada nilai tekanan yang mana peristiwa klik stylus dijana."
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:54
+msgid "Wacom eraser pressure curve"
+msgstr "Lengkung tekanan bagi pemadam Wacom"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:55
+msgid ""
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
+msgstr ""
+"Tetapkan ini ke x1, y1 dan x2, y2 bagi lengkung tekanan yang dilaksanakan "
+"oleh pemadam."
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:59
+msgid "Wacom eraser button mapping"
+msgstr "Pemetaan butang bagi pemadam Wacom"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:64
+msgid "Wacom eraser pressure threshold"
+msgstr "Ambang tekanan bagi pemadam Wacom"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:65
+msgid ""
+"Set this to the pressure value at which an eraser click event is generated."
+msgstr ""
+"Tetapkan ini kepada nilai tekanan yang mana peristiwa klik pemadam dijana."
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:71
+msgid "Wacom button action type"
+msgstr "Jenis tindakan butang Wacom"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:72
+msgid "The type of action triggered by the button being pressed."
+msgstr "Jenis tindakan dipicu oleh butang bila ditekan."
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:76
+msgid "Key combination for the custom action"
+msgstr "Gabungan kekunci untuk tindakan suai"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:77
+msgid ""
+"The keyboard shortcut generated when the button is pressed for custom "
+"actions."
+msgstr ""
+"Pintasan papan kekunci dijanakan bila butang ditekan untuk tindakan suai."
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:81
+msgid "Key combinations for a touchring or touchstrip custom action"
+msgstr "Gabungan kekunci untuk tindakan suai gelang-sentuh atau jalur-sentuh"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:82
+msgid ""
+"The keyboard shortcuts generated when a touchring or touchstrip is used for "
+"custom actions (up followed by down)."
+msgstr ""
+"Pintasan papan kekunci dijana bila gelang-sentuh atau jalur-sentuh digunakan "
+"untuk tindakan suai."
+
+#. Translators: This is the OLED display on an Intuos4 tablet:
+#. http://eu.shop.wacom.eu/images/articles/d9abd9f2d4d88aa0649cda97a8077e2b_8.jpg
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:88
+msgid "Button label for OLED display."
+msgstr "Label butang untuk paparan OLED."
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:89
+msgid "Label will be rendered to OLED display belonging to the button"
+msgstr "Label akan diterap ke paparan OLED yang berasal dari butang"
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:6
+msgid "The duration a display profile is valid"
+msgstr "Jangka masa profil paparan adalah sah"
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:7
+msgid ""
+"This is the number of days after which the display color profile is "
+"considered invalid."
+msgstr ""
+"Ini adalah bilangan hari selepas profil warna paparan yang manakah dianggap "
+"tidak sah."
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:11
+msgid "The duration a printer profile is valid"
+msgstr "Jangka masa profil pencetak adalah sah"
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:12
+msgid ""
+"This is the number of days after which the printer color profile is "
+"considered invalid."
+msgstr ""
+"Ini adalah bilangan hari selepas profil warna pencetak yang manakah dianggap "
+"tidak sah."
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:16
+msgid "If the night light mode is enabled"
+msgstr "Jika mod cahaya malam dibenarkan"
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:17
+msgid ""
+"Night light mode changes the color temperature of your display when the sun "
+"has gone down or at preset times."
+msgstr ""
+"Mod cahaya malam mengubah suhu warna paparan anda ketika matahari sudah "
+"terbenam atau pada waktu praset."
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:21
+msgid "Temperature of the display when enabled"
+msgstr "Suhu paparan bila dibenarkan"
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:22
+msgid ""
+"This temperature in Kelvin is used to modify the screen tones when night "
+"light mode is enabled. Higher values are bluer, lower redder."
+msgstr ""
+"Suhu ini dalam Kelvin digunakan untuk mengubahsuai tona skrin bila mod "
+"cahaya malam dibenarkan. Nilai lebih tinggi adalah lebih kebiruan, kurang "
+"kemerahan."
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:26
+msgid "Use the sunrise and sunset"
+msgstr "Guna matahari terbit dan matahari terbenam"
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:27
+msgid ""
+"Calculate the sunrise and sunset times automatically, from the current "
+"location."
+msgstr ""
+"Kira waktu matahari terbit dan matahari terbenam secara automatik, dari "
+"lokasi semasa."
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:31
+msgid "The start time"
+msgstr "Waktu mula"
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:32
+msgid ""
+"When “night-light-schedule-automatic” is disabled, use this start time in "
+"hours from midnight."
+msgstr ""
+"Bila “night-light-schedule-automatic” dilumpuhkan, guna waktu mula ini dalam "
+"jam bermula tengah malam."
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:36
+msgid "The end time"
+msgstr "Waktu tamat"
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:37
+msgid ""
+"When “night-light-schedule-automatic” is disabled, use this end time in "
+"hours from midnight."
+msgstr ""
+"Bila “night-light-schedule-automatic” dilumpuhkan, guna waktu tamat ini "
+"dalam jam bermula tengah malam."
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:41
+msgid "The last detected position"
+msgstr "Kedudukan dikesan terakhir"
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:42
+msgid ""
+"When location services are available this represents the last detected "
+"location. The default value is an invalid value to ensure it is always "
+"updated at startup."
+msgstr ""
+"Bila perkhidmatan lokasi tersedia ia mewakili lokasi dikesan terakhir. Nilai "
+"lalai ialah nilai tidak sah untuk memastikan ia sentiasa dikemas kini pada "
+"permulaan."
+
+#: data/org.gnome.settings-daemon.plugins.gschema.xml.in:6
+msgid "List of plugins that are allowed to be loaded"
+msgstr "Senarai pemalam yang boleh dimuatkan"
+
+#: data/org.gnome.settings-daemon.plugins.gschema.xml.in:7
+msgid ""
+"A list of strings representing the plugins that are allowed to be loaded "
+"(default: “all”). This is only evaluated on startup."
+msgstr ""
+"Senarai rentetan yang mewakili pemalam yang boleh dimuatkan (lalai: \"all"
+"\"). Ia hanya dinilai ketika permulaan."
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:6
+msgid "Mount paths to ignore"
+msgstr "Laluan lekap yang diabaikan"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:7
+msgid "Specify a list of mount paths to ignore when they run low on space."
+msgstr ""
+"Tentukan senarai laluan lekapan untuk abaikan bila ia dijalankan dalam ruang "
+"cakera rendah."
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:12
+msgid "Free percentage notify threshold"
+msgstr "Ambang maklum peratus bebas"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:13
+msgid ""
+"Percentage free space threshold for initial warning of low disk space. If "
+"the percentage free space drops below this, a warning will be shown."
+msgstr ""
+"Ambang peratusan ruang bebas untuk amaran awalan bila ruang cakera rendah. "
+"Jika peratus ruang bebas jatuh di bawah aras ini, amaran akan ditunjukkan."
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:18
+msgid "Subsequent free space percentage notify threshold"
+msgstr "Ambang maklum peratus ruang bebas berturutan"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:19
+msgid ""
+"Specify the percentage that the free disk space should reduce by before "
+"issuing a subsequent warning."
+msgstr ""
+"Nyatakan peratus ruang cakera bebas patut dikurangkan sebelum isukan amaran "
+"berturutan."
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:23
+msgid "Free space notify threshold"
+msgstr "Ambang pemberitahu ruang bebas"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:24
+msgid ""
+"Specify an amount in GB. If the amount of free space is more than this, no "
+"warning will be shown."
+msgstr ""
+"Nyatakan jumlah dalam GB. Jika jumlah ruang bebas adalah lebih dari ini, "
+"tiada amaran akan ditunjukkan."
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:28
+msgid "Minimum notify period for repeated warnings"
+msgstr "Tempoh pemberitahu minimum bagi amaran berulang"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:29
+msgid ""
+"Specify a time in minutes. Subsequent warnings for a volume will not appear "
+"more often than this period."
+msgstr ""
+"Nyatakan masa dalam minit. Amaran berturut bagi volum tidak akan berlaku "
+"lebih kerap dari tempoh ini."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:6
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:189
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:516
+msgid "Launch calculator"
+msgstr "Lancar kalkulator"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:7
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:190
 msgid "Binding to launch the calculator."
-msgstr ""
+msgstr "Pengikatan untuk lancarkan kalkulator."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:3
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:11
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:194
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:521
+#| msgid "Default Settings"
+msgid "Launch settings"
+msgstr "Tetapan lancar"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:12
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:195
+msgid "Binding to launch GNOME Settings."
+msgstr "Mengikat untuk lancarkan tetapan GNOME."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:16
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:199
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:526
+msgid "Launch email client"
+msgstr "Lancar klien emel"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:17
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:200
 msgid "Binding to launch the email client."
-msgstr ""
+msgstr "Pengikatan untuk lancarkan klien emel."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:4
-#, fuzzy
-msgid "Binding to launch the help browser."
-msgstr "Lancar Pelungsur Bantuan"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:5
-msgid "Binding to launch the media player."
-msgstr ""
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:6
-msgid "Binding to launch the search tool."
-msgstr ""
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:7
-#, fuzzy
-msgid "Binding to launch the web browser."
-msgstr "Lancar Pelungsur Web"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:8
-msgid "Binding to lock the screen."
-msgstr ""
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:9
-msgid "Binding to log out."
-msgstr ""
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:10
-msgid "Binding to lower the system volume."
-msgstr ""
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:11
-msgid "Binding to mute the system volume."
-msgstr ""
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:12
-msgid "Binding to open the Home folder."
-msgstr ""
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:13
-msgid "Binding to pause playback."
-msgstr ""
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:14
-msgid "Binding to raise the system volume."
-msgstr ""
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:15
-#, fuzzy
-msgid "Binding to skip to next track."
-msgstr "Langkah ke trek Berikutnya"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:16
-#, fuzzy
-msgid "Binding to skip to previous track."
-msgstr "Langkah ke trek Terdahulu"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:17
-msgid "Binding to start playback (or toggle play/pause)."
-msgstr ""
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:18
-msgid "Binding to stop playback."
-msgstr ""
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:19
-msgid "Binding to suspend the computer."
-msgstr ""
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:20
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:21
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:204
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:531
 msgid "Eject"
 msgstr "Lenting"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:21
-#, fuzzy
-msgid "Home folder"
-msgstr "Folder Rumah"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:22
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:205
+msgid "Binding to eject an optical disc."
+msgstr "Pengikatan untuk lentingkan cakera optik."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:22
-msgid "Launch calculator"
-msgstr ""
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:23
-msgid "Launch email client"
-msgstr ""
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:24
-#, fuzzy
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:26
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:209
 msgid "Launch help browser"
-msgstr "Lancar Pelungsur Bantuan"
+msgstr "Lancar pelayar bantuan"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:25
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:27
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:210
+msgid "Binding to launch the help browser."
+msgstr "Pengikatan untuk lancarkan pelayar bantuan."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:31
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:214
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:536
+msgid "Home folder"
+msgstr "Folder rumah"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:32
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:215
+msgid "Binding to open the Home folder."
+msgstr "Pengikatan untuk membuka folder Rumah."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:36
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:219
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:541
 msgid "Launch media player"
-msgstr ""
+msgstr "Lancar pemain media"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:26
-#, fuzzy
-msgid "Launch web browser"
-msgstr "Lancar Pelungsur Web"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:37
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:220
+msgid "Binding to launch the media player."
+msgstr "Pengikatan untuk lancarkan pemain media."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:27
-#, fuzzy
-msgid "Lock screen"
-msgstr "Kunci Skrin"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:28
-#, fuzzy
-msgid "Log out"
-msgstr "Log Keluar"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:29
-#, fuzzy
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:41
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:224
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:546
 msgid "Next track"
-msgstr "Langkah ke trek Berikutnya"
+msgstr "Trek berikutnya"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:30
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:42
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:225
+msgid "Binding to skip to next track."
+msgstr "Pengikatan untuk langkau ke trek berikutnya."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:46
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:229
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:551
 msgid "Pause playback"
-msgstr ""
+msgstr "Jeda main balik"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:31
-#, fuzzy
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:47
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:230
+msgid "Binding to pause playback."
+msgstr "Pengikatan untuk menjeda main balik."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:51
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:234
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:556
 msgid "Play (or play/pause)"
-msgstr "Main (atau Main/Kaku)"
+msgstr "Main (atau main/jeda)"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:32
-#, fuzzy
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:52
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:235
+msgid "Binding to start playback (or toggle play/pause)."
+msgstr "Pengikatan untuk mulakan main balik (atau togol main/jeda)."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:56
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:239
+msgid "Log out"
+msgstr "Daftar keluar"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:57
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:240
+msgid "Binding to log out."
+msgstr "Pengikatan untuk mendaftar keluar."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:61
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:244
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:561
 msgid "Previous track"
-msgstr "Langkah ke trek Terdahulu"
+msgstr "Trek terdahulu"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:33
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:62
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:245
+msgid "Binding to skip to previous track."
+msgstr "Pengikatan untuk langkau ke trek terdahulu."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:66
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:249
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:566
+msgid "Lock screen"
+msgstr "Kunci skrin"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:67
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:250
+msgid "Binding to lock the screen."
+msgstr "Pengikatan untuk mengunci skrin."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:71
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:254
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:571
 msgid "Search"
-msgstr "Cari"
+msgstr "Gelintar"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:34
-#, fuzzy
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:72
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:255
+msgid "Binding to launch the search tool."
+msgstr "Pengikatan untuk lancarkan alat gelintar."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:76
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:259
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:576
 msgid "Stop playback"
-msgstr "Kekunci henti bermain"
+msgstr "Henti main balik"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:35
-#, fuzzy
-msgid "Suspend"
-msgstr "Bunyi"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:77
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:260
+msgid "Binding to stop playback."
+msgstr "Pengikatan untuk hentikan main semula."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:36
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:81
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:266
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:583
 msgid "Volume down"
 msgstr "Volum turun"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:37
-msgid "Volume mute"
-msgstr "Volume mute"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:82
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:267
+msgid "Binding to lower the volume."
+msgstr "Pengikatan untuk rendahkan volum."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:38
-msgid "Volume step"
-msgstr "Langkah volum"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:86
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:271
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:588
+#| msgid "Volume mute"
+msgid "Volume mute/unmute"
+msgstr "Volum senyap/suarakan"
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:39
-msgid "Volume step as percentage of volume."
-msgstr "Langkah volum sebagai peratusan volum."
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:87
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:272
+msgid "Binding to mute/unmute the volume."
+msgstr "Pengikatan untuk senyap/suarakan volum."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:40
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:91
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:276
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:593
 msgid "Volume up"
 msgstr "Volum naik"
 
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:1
-#, fuzzy
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:92
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:277
+msgid "Binding to raise the volume."
+msgstr "Pengikatan untuk naikkan volum."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:96
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:317
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:628
+msgid "Microphone mute/unmute"
+msgstr "Mikrofon senyap/suarakan"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:97
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:318
+msgid "Binding to mute/unmute the microphone."
+msgstr "Pengikatan untuk senyap/suarakan mikrofon."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:101
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:322
+msgid "Take a screenshot"
+msgstr "Ambil satu tangkap layar"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:102
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:323
+msgid "Binding to take a screenshot."
+msgstr "Pengikatan untuk ambil cekupan skrin."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:106
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:327
+msgid "Take a screenshot of a window"
+msgstr "Ambil satu tangkap layar tetingkap"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:107
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:328
+msgid "Binding to take a screenshot of a window."
+msgstr "Pengikatan untuk mengambil tangkap layar tetingkap."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:111
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:332
+msgid "Take a screenshot of an area"
+msgstr "Ambil satu tangkap layar kawasan"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:112
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:333
+msgid "Binding to take a screenshot of an area."
+msgstr "Pengikatan untuk ambil cekupan skrin bagi kawasan."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:116
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:337
+msgid "Copy a screenshot to clipboard"
+msgstr "Salin satu tangkap layar ke papan keratan"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:117
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:338
+msgid "Binding to copy a screenshot to clipboard."
+msgstr "Pengikatan untuk salin cekupan skrin ke papan keratan."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:121
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:342
+msgid "Copy a screenshot of a window to clipboard"
+msgstr "Salin satu tangkap layar tetingkap ke papan keratan"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:122
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:343
+msgid "Binding to copy a screenshot of a window to clipboard."
+msgstr ""
+"Pengikatan untuk menyalin satu tangkap layar tetingkap ke papan keratan."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:126
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:347
+msgid "Copy a screenshot of an area to clipboard"
+msgstr "Salin satu tangkap layar kawasan ke papan keratan"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:127
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:348
+msgid "Binding to copy a screenshot of an area to clipboard."
+msgstr "Pengikatan untuk menyalin satu tangkap layar kawasan ke papan keratan."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:131
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:352
+msgid "Record a short video of the screen"
+msgstr "Rakam satu video pendek skrin"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:132
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:353
+msgid "Binding to record a short video of the screen"
+msgstr "Pengikatan untuk merakam satu video pendek skrin"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:136
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:357
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:633
+msgid "Launch web browser"
+msgstr "Lancar pelayar sesawang"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:137
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:358
+msgid "Binding to launch the web browser."
+msgstr "Pengikatan untuk lancarkan pelayar sesawang."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:141
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:387
+#| msgid "_Magnifier"
+msgid "Toggle magnifier"
+msgstr "Togol pembesar"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:142
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:388
+msgid "Binding to show the screen magnifier"
+msgstr "Pengikatan untuk menunjukkan pembesar skrin"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:146
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:362
+#| msgid "_Screenreader"
+msgid "Toggle screen reader"
+msgstr "Togol pembaca skrin"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:147
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:363
+msgid "Binding to start the screen reader"
+msgstr "Pengikatan untuk memulakan pembaca skrin"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:151
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:367
+#| msgid "_On-screen keyboard"
+msgid "Toggle on-screen keyboard"
+msgstr "Togol papan kekunci atas-skrin"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:152
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:368
+msgid "Binding to show the on-screen keyboard"
+msgstr "Pengikatan untuk benarkan papan kekunci atas-skrin"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:156
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:372
+msgid "Increase text size"
+msgstr "Besarkan saiz teks"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:157
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:373
+msgid "Binding to increase the text size"
+msgstr "Pengikatan untuk besarkan saiz teks"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:161
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:377
+msgid "Decrease text size"
+msgstr "Kecilkan saiz teks"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:162
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:378
+msgid "Binding to decrease the text size"
+msgstr "Pengikatan untuk kecilkan saiz teks"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:166
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:382
+#| msgid "Best co_ntrast"
+msgid "Toggle contrast"
+msgstr "Togol beza jelas"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:167
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:383
+msgid "Binding to toggle the interface contrast"
+msgstr "Pengikatan untuk togol beza jelas antara muka"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:171
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:392
+#| msgid "_Magnifier"
+msgid "Magnifier zoom in"
+msgstr "Pembesar dizum masuk"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:172
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:393
+msgid "Binding for the magnifier to zoom in"
+msgstr "Pengikatan untuk mengezum masuk pembesar skrin"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:176
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:397
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:639
+#| msgid "_Magnifier"
+msgid "Magnifier zoom out"
+msgstr "Pembesar dizum keluar"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:177
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:398
+msgid "Binding for the magnifier to zoom out"
+msgstr "Pengikatan untuk mengezum keluar pembesar skrin"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:184
+msgid "Custom keybindings"
+msgstr "Pengikatan kekunci suai"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:185
+msgid "List of custom keybindings"
+msgstr "Senarai pengikatan kekunci suai"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:282
+#| msgid "Volume step"
+msgid "Size of volume step"
+msgstr "Saiz bagi langkah volum"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:283
+msgid "Size of the volume step for each volume change"
+msgstr "Saiz bagi langkah volum untuk setiap perubahan volum"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:289
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:600
+#| msgid "Volume down"
+msgid "Quiet volume down"
+msgstr "Volum senyap turun"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:290
+msgid "Binding to lower the volume without emitting a sound effect."
+msgstr "Pengikatan untuk rendahkan volum tanpa mengeluarkan kesan bunyi."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:294
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:605
+msgid "Quiet volume mute/unmute"
+msgstr "Volum senyap senyap/suarakan"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:295
+msgid "Binding to mute/unmute the volume without emitting a sound effect."
+msgstr "Pengikatan untuk senyap/suarakan volum tanpa mengeluarkan kesan bunyi."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:299
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:610
+#| msgid "Volume up"
+msgid "Quiet volume up"
+msgstr "Volum senyap naik"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:300
+msgid "Binding to raise the volume without emitting a sound effect."
+msgstr "Pengikatan untuk tingkatkan volum tanpa mengeluarkan kesan bunyi."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:306
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:617
+#| msgid "Volume down"
+msgid "Precise volume down"
+msgstr "Volum tepat turun"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:307
+msgid "Binding to lower the volume with higher precision."
+msgstr "Pengikatan untuk rendahkan volum dengan tepatan lebih tinggi."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:311
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:622
+#| msgid "Volume up"
+msgid "Precise volume up"
+msgstr "Volum tepat naik"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:312
+msgid "Binding to raise the volume with higher precision."
+msgstr "Pengikatan untuk naikkan volum dengan tepatan lebih tinggi."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:402
+msgid "Toggle touchpad on/off"
+msgstr "Togol pad sentuh hidup/mati"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:403
+msgid "Binding to toggle the touchpad on/off."
+msgstr "Pengikatan untuk togol pad sentuh hidup/mati."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:407
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:644
+msgid "Switch touchpad on"
+msgstr "Hidupkan pad sentuh"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:408
+msgid "Binding to switch the touchpad on."
+msgstr "Pengikatan untuk hidupkan pad sentuh."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:412
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:649
+msgid "Switch touchpad off"
+msgstr "Matikan pad sentuh"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:413
+msgid "Binding to switch the touchpad off."
+msgstr "Pengikatan untuk matikan pad sentuh."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:418
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:655
+msgid "Skip backward in current track"
+msgstr "Langkau undur pada trek semasa"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:419
+msgid "Binding to skip backward in current track."
+msgstr "Pengikatan untuk langkau undur ke trek semasa."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:423
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:660
+msgid "Skip forward in current track"
+msgstr "Langkau maju pada trek semasa"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:424
+msgid "Binding to skip forward in current track."
+msgstr "Pengikatan untuk langkau maju ke trek semasa."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:428
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:665
+msgid "Toggle repeat playback mode"
+msgstr "Togol ulang mod main balik"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:429
+msgid "Binding to toggle repeat mode in media player."
+msgstr "Pengikatan untuk togol mod ulang dalam pemain media."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:433
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:670
+msgid "Toggle random playback mode"
+msgstr "Togol mod main balik rawak"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:434
+msgid "Binding to toggle random playback mode in media player."
+msgstr "Pengikatan untuk togol mod main balik rawak dalam pemain media."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:439
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:676
+msgid "Toggle automatic screen orientation"
+msgstr "Togol orientasi skrin automatik"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:440
+msgid "Binding to toggle automatic screen orientation."
+msgstr "Pengikatan untuk togol orientasi skrin automatik."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:444
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:681
+msgid "Power button"
+msgstr "Butang kuasa"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:445
+msgid "Binding for power button."
+msgstr "Pengikatan untuk butang kuasa."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:449
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:686
+msgid "Hibernate button"
+msgstr "Butang hibernasi"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:450
+msgid "Binding to hibernate the machine."
+msgstr "Pengikatan untuk hibernasikan komputer."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:454
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:691
+msgid "Suspend button"
+msgstr "Butang tangguh"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:455
+msgid "Binding to suspend the machine."
+msgstr "Pengikatan untuk tangguh komputer."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:460
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:697
+#| msgid "Brightness up"
+msgid "Screen brightness up"
+msgstr "Kecerahan skrin naik"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:461
+msgid "Binding to increase the screen brightness."
+msgstr "Pengikatan untuk tingkatkan kecerahan skrin."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:465
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:702
+#| msgid "Brightness down"
+msgid "Screen brightness down"
+msgstr "Kecerahan skrin turun"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:466
+msgid "Binding to decrease the screen brightness."
+msgstr "Pengikatan untuk rendahkan kecerahan skrin."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:470
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:707
+msgid "Screen brightness cycle"
+msgstr "Kitar kecerahan skrin"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:471
+msgid "Binding to cycle the screen brightness."
+msgstr "Pengikatan untuk kitarkan kecerahan skrin."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:476
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:713
+#| msgid "Brightness up"
+msgid "Keyboard brightness up"
+msgstr "Kecerahan papan kekunci naik"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:477
+msgid "Binding to increase the keyboard brightness."
+msgstr "Pengikatan untuk tingkatkan kecerahan papan kekunci."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:481
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:718
+#| msgid "Brightness down"
+msgid "Keyboard brightness down"
+msgstr "Kecerahan papan kekunci turun"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:482
+msgid "Binding to decrease the keyboard brightness."
+msgstr "Pengikatan untuk rendahkan kecerahan papan kekunci."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:486
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:723
+msgid "Keyboard brightness toggle"
+msgstr "Togol kecerahan papan kekunci"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:487
+msgid "Binding to toggle the keyboard brightness."
+msgstr "Pengikatan untuk togol kecerahan papan kekunci."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:492
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:729
+msgid "Show battery status"
+msgstr "Tunjuk status bateri"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:493
+msgid "Binding to show current battery status."
+msgstr "Pengikatan untuk menunjuk status bateri semasa."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:498
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:735
+msgid "RF kill"
+msgstr "Matikan RF"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:499
+msgid "Binding to toggle airplane mode."
+msgstr "Pengikatan untuk togol mod kapal terbang."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:503
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:740
+msgid "Bluetooth RF kill"
+msgstr "Matikan RF Bluetooth"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:504
+msgid "Binding to toggle bluetooth airplane mode."
+msgstr "Pengikatan untuk togol mod kapal terbang bluetooth."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:517
+msgid "Static binding to launch the calculator."
+msgstr "Pengikatan statik untuk lancarkan kalkulator."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:522
+msgid "Static binding to launch GNOME Settings."
+msgstr "Pengikatan statik untuk melancarkan Tetapan GNOME."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:527
+msgid "Static binding to launch the email client."
+msgstr "Pengikatan statik untuk lancarkan klien emel."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:532
+msgid "Static binding to eject an optical disc."
+msgstr "Pengikatan statik untuk lentingkan cakera optik."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:537
+msgid "Static binding to open the Home folder."
+msgstr "Pengikatan statik untuk membuka folder Rumah."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:542
+msgid "Static binding to launch the media player."
+msgstr "Pengikatan statik untuk lancarkan pemain media."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:547
+msgid "Static binding to skip to next track."
+msgstr "Pengikatan statik untuk langkau trek berikutnya."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:552
+msgid "Static binding to pause playback."
+msgstr "Pengikatan statik untuk menjeda main balik."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:557
+msgid "Static binding to start playback (or toggle play/pause)."
+msgstr "Pengikatan statik untuk memulakan main balik (atau togol main/jeda)."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:562
+msgid "Static binding to skip to previous track."
+msgstr "Pengikatan statik untuk langkau ke trek terdahulu."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:567
+msgid "Static binding to lock the screen."
+msgstr "Pengikatan statik untuk mengunci skrin."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:572
+msgid "Static binding to launch the search tool."
+msgstr "Pengikatan statik untuk lancarkan alat gelintar."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:577
+msgid "Static binding to stop playback."
+msgstr "Pengikatan statik untuk menghentikan main balik."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:584
+msgid "Static binding to lower the volume."
+msgstr "Pengikatan statik untuk rendahkan volum."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:589
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:606
+msgid "Static binding to mute/unmute the volume."
+msgstr "Pengikatan statik untuk senyap/suarakan volum."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:594
+msgid "Static binding to raise the volume."
+msgstr "Pengikatan statik untuk naikkan volum."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:601
+msgid "Static binding to lower the volume without emitting a sound effect."
+msgstr ""
+"Pengikatan statik untuk rendahkan volum tanpa mengeluarkan kesan bunyi."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:611
+msgid "Static binding to raise the volume without emitting a sound effect."
+msgstr ""
+"Pengikatan statik untuk tingkatkan volum tanpa mengeluarkan kesan bunyi."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:618
+msgid "Static binding to lower the volume with higher precision."
+msgstr "Pengikatan statik untuk rendahkan volum dengan tepatan lebih tinggi."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:623
+msgid "Static binding to raise the volume with higher precision."
+msgstr "Pengikatan statik untuk naikkan volum dengan tepatan lebih tinggi."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:629
+msgid "Static binding to mute/unmute the microphone."
+msgstr "Pengikatan statik untuk senyap/suarakan mikrofon."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:634
+msgid "Static binding to launch the web browser."
+msgstr "Pengikatan statik untuk lancarkan pelayar sesawang."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:640
+msgid "Static binding to toggle the touchpad on/off."
+msgstr "Pengikatan statik untuk togol hidup/matikan pad sentuh."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:645
+msgid "Static binding to switch the touchpad on."
+msgstr "Pengikatan statik untuk hidupkan pad sentuh."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:650
+msgid "Static binding to switch the touchpad off."
+msgstr "Pengikatan statik untuk matikan pad sentuh."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:656
+msgid "Static binding to skip backward in current track."
+msgstr "Pengikatan statik untuk langkau undur dalam trek semasa."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:661
+msgid "Static binding to skip forward in current track."
+msgstr "Pengikatan statik untuk langkau maju dalam trek semasa."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:666
+msgid "Static binding to toggle repeat mode in media player."
+msgstr "Pengikatan statik untuk togol mod ulang dalam pemain media."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:671
+msgid "Static binding to toggle random playback mode in media player."
+msgstr "Pengikatan statik untuk togol mod main balik rawak dalam pemain media."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:677
+msgid "Static binding to toggle automatic screen orientation."
+msgstr "Pengikatan statik untuk togol orientasi skrin automatik."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:682
+msgid "Static binding for power button."
+msgstr "Pengikatan statik untuk butang kuasa."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:687
+msgid "Static binding to hibernate the machine."
+msgstr "Pengikatan statik untuk hibernasikan komputer."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:692
+msgid "Static binding to suspend the machine."
+msgstr "Pengikatan statik untuk tangguhkan komputer."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:698
+msgid "Static binding to increase the screen brightness."
+msgstr "Pengikatan statik untuk tingkatkan kecerahan skrin."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:703
+msgid "Static binding to decrease the screen brightness."
+msgstr "Pengikatan statik untuk rendahkan kecerahan skrin."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:708
+msgid "Static binding to cycle the screen brightness."
+msgstr "Pengikatan statik untuk kitarkan kecerahan skrin."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:714
+msgid "Static binding to increase the keyboard brightness."
+msgstr "Pengikatan statik untuk tingkatkan kecerahan papan kekunci."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:719
+msgid "Static binding to decrease the keyboard brightness."
+msgstr "Pengikatan statik untuk rendahkan kecerahan papan kekunci."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:724
+msgid "Static binding to toggle the keyboard brightness."
+msgstr "Pengikatan statik untuk togol kecerahan papan kekunci."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:730
+msgid "Static binding to show current battery status."
+msgstr "Pengikatan statik untuk menunjukkan status bateri semasa."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:736
+msgid "Static binding to toggle airplane mode."
+msgstr "Pengikatan statik untuk togol mod kapal terbang."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:741
+msgid "Static binding to toggle bluetooth airplane mode."
+msgstr "Pengikatan statik untuk togol mod kapal terbang bluetooth."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:746
+msgid "Maximum length of screen recordings"
+msgstr "Tempoh maksimum rakaman skrin"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:747
 msgid ""
-"Set to True to display a dialog when there are errors running the "
-"screensaver."
-msgstr "Papar dialog bila ralat melaksanakan XScreenSaver"
+"The maximum length of single screen cast recordings in seconds or 0 for "
+"unlimited"
+msgstr ""
+"Tempoh maksimum rakaman cast skrin tunggal dalam tempoh saat atau 0 untuk "
+"tanpa had"
 
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:2
-#, fuzzy
-msgid "Set to True to run the screensaver at login."
-msgstr "Laksana Xcreensaver pada logmasuk"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:754
+#| msgid "Name:"
+msgid "Name"
+msgstr "Nama"
 
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:3
-#, fuzzy
-msgid "Show startup errors"
-msgstr "Papar ralat permulaan"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:755
+msgid "Name of the custom binding"
+msgstr "Nama pengikatan suai"
 
-#: ../data/apps_gnome_settings_daemon_screensaver.schemas.in.h:4
-#, fuzzy
-msgid "Start screensaver"
-msgstr "Mula Xscreensaver"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:759
+msgid "Binding"
+msgstr "Pengikatan"
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:1
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:760
+msgid "Binding for the custom binding"
+msgstr "Pengikatan untuk pengikatan suai"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:764
+msgid "Command"
+msgstr "Perintah"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:765
+msgid "Command to run when the binding is invoked"
+msgstr "Perintah untuk dijalankan bila pengikatan diseru"
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:6
+msgid "The brightness of the screen when idle"
+msgstr "Kecerahan skrin bila melahu"
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:7
+msgid ""
+"This is the laptop panel screen brightness used when the session is idle."
+msgstr ""
+"Ini adalah kecerahan skrin panel komputer riba yang digunakan ketika sesi "
+"melahu."
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:11
+msgid "Dim the screen after a period of inactivity"
+msgstr "Malapkan skrin selepas satu tempoh ketidakaktifan"
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:12
+msgid "If the screen should be dimmed to save power when the computer is idle."
+msgstr ""
+"Jika skrin patut dimalapkan untuk menjimatkan kuasa ketika komputer melahu."
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:16
+msgid "Sleep timeout computer when on AC"
+msgstr "Had masa tamat tidur bagi komputer semasa mod AC"
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:17
+msgid ""
+"The amount of time in seconds the computer on AC power needs to be inactive "
+"before it goes to sleep. A value of 0 means never."
+msgstr ""
+"Amaun masa dalam saat komputer dalam kuasa AC yang perlu dinyahaktifkan "
+"sebelum ia ditidurkan. Nilai 0 bermaksud tidak sesekali."
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:21
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:31
+msgid "Whether to hibernate, suspend or do nothing when inactive"
+msgstr ""
+"Sama ada hendak dihibernasi, ditangguh atau tidak lakukan apa-apa bila tidak "
+"aktif"
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:22
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:32
+msgid ""
+"The type of sleeping that should be performed when the computer is inactive."
+msgstr "Jenis tidur yang patut dijalankan ketika komputer tidak aktif."
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:26
+msgid "Sleep timeout computer when on battery"
+msgstr "Had masa tamat tidur bagi komputer semasa mod bateri"
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:27
+msgid ""
+"The amount of time in seconds the computer on battery power needs to be "
+"inactive before it goes to sleep. A value of 0 means never."
+msgstr ""
+"Amaun masa dalam saat komputer dalam kuasa bateri yang perlu dinyahaktifkan "
+"sebelum ia ditidurkan. Nilai 0 bermaksud tidak sesekali."
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:36
+msgid "Enable the ALS sensor"
+msgstr "Benarkan penderia ALS"
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:37
+msgid "If the ambient light sensor functionality is enabled."
+msgstr "Jika kefungsian penderia cahaya ambien dibenarkan."
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:41
+msgid "Power button action"
+msgstr "Tindakan butang kuasa"
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:42
+msgid ""
+"The action to take when the system power button is pressed. This action is "
+"hard-coded (and the setting ignored) on virtual machines (power off) and "
+"tablets (suspend)."
+msgstr ""
+"Tindakan yang diambil ketika butang kuasa sistem ditekan. Tindakan ini telah "
+"dikodkan (dan tetapan diabaikan) pada mesin maya (matikan) dan tablet "
+"(tangguh)."
+
+#: data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in:6
+msgid "On which connections the service is enabled"
+msgstr "Sambungan perkhidmatan manakah dibenarkan"
+
+#: data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in:7
+msgid ""
+"The list of NetworkManager connections (each one represented with its UUID) "
+"on which this service is enabled and started."
+msgstr ""
+"Senarai sambungan Pengurus Rangkaian (setiap satu diwakili dengan UUIDnya) "
+"yang mana perkhidmatannya dibenarkan dan bermula."
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:6
 msgid "Antialiasing"
-msgstr ""
+msgstr "Antialias"
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:2
-msgid "DPI"
-msgstr ""
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:3
-#, fuzzy
-msgid "Hinting"
-msgstr "<b>Bayangang</b>:"
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:4
-msgid "RGBA order"
-msgstr ""
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:5
-msgid ""
-"The order of subpixel elements on an LCD screen; only used when antialiasing "
-"is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
-"common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red "
-"on bottom."
-msgstr ""
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:6
-msgid ""
-"The resolution used for converting font sizes to pixel sizes, in dots per "
-"inch."
-msgstr ""
-
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:7
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:7
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
-"\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
-"antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
+"“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
+"and “rgba” for subpixel antialiasing (LCD screens only)."
 msgstr ""
+"Jenis antialias yang digunakan bila menerap fon. Nilai yang mungkin adalah: "
+"“tiada” untuk tanpa antialias, “skala kelabu” untuk antialias skala kelabu "
+"piawai, dan “rgba” untuk antialias subpiksel (skrin LCD sahaja)."
 
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:8
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:11
+msgid "Hinting"
+msgstr "Pembayang"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:12
 msgid ""
-"The type of hinting to use when rendering fonts. Possible values are: \"none"
-"\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
-"\" for maximum hinting (may cause distortion of letter forms)."
+"The type of hinting to use when rendering fonts. Possible values are: “none” "
+"for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
+"ClearType, DirectWrite and Adobe’s proprietary font rendering engine. "
+"Ignores native hinting within the font, generates hints algorithmically. "
+"Used on Ubuntu by default. Recommended. The meaning of “medium” and “full” "
+"depends on the font format (.ttf, .otf, .pfa/.pfb) and the installed version "
+"of FreeType. They usually try to fit glyphs to both the X and the Y axis "
+"(except for .otf: Y-only). This can lead to distortion and/or inconsistent "
+"rendering depending on the quality of the font, the font format and the "
+"state of FreeType’s font engines."
 msgstr ""
+"Jenis pembayang yang digunakan ketika menerap fon. Nilai yang mungkin "
+"adalah: “none” untuk tiada pembayang dan “slight” untuk suai muat pada paksi-"
+"Y sahaja seperti enjin penerapan fon proprietari Microsoft’s ClearType, "
+"DirectWrite and Adobe. Abaikan pembayang tabii di dalam fon, jana pembayang "
+"secara algoritma. Digunakan pada Ubuntu secara lalai. Disarankan. Maksud "
+"“medium” dan “full” bergantung pada format fon (.ttf, .otf, .pfa/.pfb) dan "
+"versi terpasang FreeType. Ia biasanya cuba suai muatkan glif bagi kedua-dua "
+"paksi X dan Y (kecuali untuk .otf: Y-sahaja). Ia boleh menyebabkan herotan "
+"dan/atau penerapan tidak konsisten yang bergantung pada kualiti fon, format "
+"fon dan keadaan enjin fon FreeType."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:1
-#, fuzzy
-msgid "Enable accessibility keyboard plugin"
-msgstr "_Hidupkan ciri-ciri kebolehcapaian Papan Kekunci"
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:16
+msgid "RGBA order"
+msgstr "Tertib RGBA"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:2
-msgid "Enable background plugin"
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:3
-msgid "Enable clipboard plugin"
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:4
-msgid "Enable default editor plugin"
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:5
-msgid "Enable font plugin"
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:6
-msgid "Enable keybindings plugin"
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:7
-msgid "Enable keyboard plugin"
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:8
-msgid "Enable media keys plugin"
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:9
-msgid "Enable mouse plugin"
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:10
-#, fuzzy
-msgid "Enable screensaver plugin"
-msgstr "Laksana Xcreensaver pada logmasuk"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:11
-msgid "Enable sound plugin"
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:12
-msgid "Enable typing breaks plugin"
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:13
-msgid "Enable xrandr plugin"
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:14
-msgid "Enable xrdb plugin"
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:15
-msgid "Enable xsettings plugin"
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:16
-msgid "Set to True to enable the plugin to manage clipboard settings."
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:17
-msgid "Set to True to enable the plugin to manage desktop background settings."
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:18
-msgid "Set to True to enable the plugin to manage font settings."
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:19
-msgid "Set to True to enable the plugin to manage keyboard settings."
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:20
-msgid "Set to True to enable the plugin to manage mouse settings."
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:21
-msgid "Set to True to enable the plugin to manage multimedia keys settings."
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:22
-msgid "Set to True to enable the plugin to manage screensaver settings."
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:23
-msgid "Set to True to enable the plugin to manage sound settings."
-msgstr ""
-
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:17
 msgid ""
-"Set to True to enable the plugin to manage the accessibility keyboard "
-"settings."
+"The order of subpixel elements on an LCD screen; only used when antialiasing "
+"is set to “rgba”. Possible values are: “rgb” for red on left (most common), "
+"“bgr” for blue on left, “vrgb” for red on top, “vbgr” for red on bottom."
 msgstr ""
+"Tertib unsur subpiksel pada skrin LCD; hanya digunakan bila antialias "
+"ditetapkan ke “rgba”. Nilai yang mungkin adalah: “rgb” untuk merah di "
+"sebelah kiri (paling umum), “bgr” untuk biru di sebelah kiri, “vrgb” untuk "
+"merah di atas, “vbgr” untuk merah di bawah."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:21
+msgid "List of explicitly disabled GTK+ modules"
+msgstr "Senarai modul GTK+ yang dilumpuhkan"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:22
 msgid ""
-"Set to True to enable the plugin to manage the default text editor setting."
+"A list of strings representing the GTK+ modules that will not be loaded, "
+"even if enabled by default in their configuration."
 msgstr ""
+"Senarai rentetan yang mewakili modul GTK+ akan dimuatkan, walaupun jika "
+"dibenarkan secara lalai didalam konfigurasi mereka."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
-msgid "Set to True to enable the plugin to manage the keybindings."
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:26
+msgid "List of explicitly enabled GTK+ modules"
+msgstr "Senarai modul GTK+ yang dibenarkan"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:27
+msgid ""
+"A list of strings representing the GTK+ modules that will be loaded, usually "
+"in addition to conditional and forcibly disabled ones."
 msgstr ""
+"Satu senarai rentetan yang mewakili modul GTK+ akan dimuatkan, biasanya "
+"selain dari tambahan bersyarat dan paksa yang telah dilumpuhkan."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
-msgid "Set to True to enable the plugin to manage typing breaks."
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:31
+msgid "A dictionary of XSETTINGS to override"
+msgstr "Kamus XSETTINGS yang dibatalkan"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:32
+msgid ""
+"This dictionary maps XSETTINGS names to overrides values. The values must be "
+"either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
+"(red, green, blue, alpha; 65535 is fully opaque)."
 msgstr ""
+"Kamus ini memetakan nama XSETTING untuk batalkan nilai. Nilai mestilah sama "
+"ada rentetan, ditanda tangan int32s atau (jika berwarna), 4-jenis uint16 "
+"(merah, hijau, biru, alfa; 65535 ialah sepenuhnya legap)."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
-msgid "Set to True to enable the plugin to manage xrandr settings."
-msgstr ""
+#: plugins/color/gsd-color-calibrate.c:138
+#| msgid "Solid Color"
+msgid "Color"
+msgstr "Warna"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
-msgid "Set to True to enable the plugin to manage xrdb settings."
-msgstr ""
+#. TRANSLATORS: button: this is to open GCM
+#: plugins/color/gsd-color-calibrate.c:144
+msgid "Recalibrate now"
+msgstr "Tentukur semula sekarang"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
-msgid "Set to True to enable the plugin to manage xsettings."
-msgstr ""
+#. TRANSLATORS: this is when the device has not been recalibrated in a while
+#: plugins/color/gsd-color-calibrate.c:186
+msgid "Recalibration required"
+msgstr "Penentukuran semula diperlukan"
 
-#: ../gnome-settings-daemon/main.c:49
-msgid "Don't become a daemon"
-msgstr ""
-
-#: ../gnome-settings-daemon/main.c:50
-msgid "GConf prefix from which to load plugin settings"
-msgstr ""
-
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
-#, fuzzy
-msgid "Accessibility Keyboard"
-msgstr "Keboleh_capaikan"
-
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
-#, fuzzy
-msgid "Accessibility keyboard plugin"
-msgstr "Keboleh_capaikan"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:393
+#. TRANSLATORS: this is when the display has not been recalibrated in a while
+#: plugins/color/gsd-color-calibrate.c:198
 #, c-format
-msgid "There was an error displaying help: %s"
-msgstr "Terdapat ralat memapar bantuan: %s"
+msgid "The display “%s” should be recalibrated soon."
+msgstr "Paparan “%s” patut ditentukur semula kelak."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:445
-msgid "Do you want to activate Slow Keys?"
-msgstr "Adakah anda ingin mengaktifkan Kekunci Perlahan?"
+#. TRANSLATORS: this is when the printer has not been recalibrated in a while
+#: plugins/color/gsd-color-calibrate.c:207
+#, c-format
+msgid "The printer “%s” should be recalibrated soon."
+msgstr "Pencetak “%s” patut ditentukur semula kelak."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:446
-#, fuzzy
-msgid "Do you want to deactivate Slow Keys?"
-msgstr "Adakah anda ingin mengaktifkan Kekunci Perlahan?"
+#. TRANSLATORS: this is the application name
+#: plugins/color/gsd-color-calibrate.c:345
+#: plugins/color/gsd-color-calibrate.c:361
+msgid "GNOME Settings Daemon Color Plugin"
+msgstr "Pemalam Warna bagi Daemon Tetapan GNOME"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:449
-msgid ""
-"You just held down the Shift key for 8 seconds.  This is the shortcut for "
-"the Slow Keys feature, which affects the way your keyboard works."
-msgstr ""
+#. TRANSLATORS: this is a sound description
+#: plugins/color/gsd-color-calibrate.c:347
+msgid "Color calibration device added"
+msgstr "Peranti penentukuran warna ditambah"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:456
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
-msgid "Do_n't activate"
-msgstr ""
+#. TRANSLATORS: this is a sound description
+#: plugins/color/gsd-color-calibrate.c:363
+msgid "Color calibration device removed"
+msgstr "Peranti penentukuran warna dibuang"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:456
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
-msgid "Do_n't deactivate"
-msgstr ""
+#. Translators: UTC here means the Coordinated Universal Time.
+#. * %:::z will be replaced by the offset from UTC e.g. UTC+02
+#: plugins/datetime/gsd-datetime-manager.c:88
+msgid "UTC%:::z"
+msgstr "UTC%:::z"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:459
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:511
-msgid "_Activate"
-msgstr ""
+#: plugins/datetime/gsd-datetime-manager.c:92
+#, c-format
+msgid "Time Zone Updated to %s (%s)"
+msgstr "Zon Waktu Dikemas Kini ke %s (%s)"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:459
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:511
-msgid "_Deactivate"
-msgstr ""
+#: plugins/datetime/gsd-datetime-manager.c:108
+msgid "Settings"
+msgstr "Tetapan"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:463
-msgid "Slow Keys Alert"
-msgstr "Amaran Kekunci Perlahan"
+#: plugins/datetime/gsd-datetime-manager.c:118
+#| msgid "Default Settings"
+msgid "Date & Time Settings"
+msgstr "Tetapan Tarikh & Waktu"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:495
-msgid "Do you want to activate Sticky Keys?"
-msgstr "Adakah anda akan mengaktifkan Kekunci Lekat?"
+#: plugins/housekeeping/gsd-disk-space.c:575
+msgid "Disk Space"
+msgstr "Ruang Cakera"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:496
-msgid "Do you want to deactivate Sticky Keys?"
-msgstr "Adakah anda ingin mempasifkan Kekunci Lekat?"
+#: plugins/housekeeping/gsd-disk-space.c:588
+msgid "Examine"
+msgstr "Periksa"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:499
-msgid ""
-"You just pressed the Shift key 5 times in a row.  This is the shortcut for "
-"the Sticky Keys feature, which affects the way your keyboard works."
-msgstr ""
+#: plugins/housekeeping/gsd-disk-space.c:599
+msgid "Empty Trash"
+msgstr "Kosongkan Tong Sampah"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:501
-msgid ""
-"You just pressed two keys at once, or pressed the Shift key 5 times in a "
-"row.  This turns off the Sticky Keys feature, which affects the way your "
-"keyboard works."
-msgstr ""
+#: plugins/housekeeping/gsd-disk-space.c:607
+msgid "Ignore"
+msgstr "Abaikan"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:515
-msgid "Sticky Keys Alert"
-msgstr "Amaran Kekunci Lekat"
+#: plugins/housekeeping/gsd-disk-space.c:638
+#, c-format
+msgid "Low Disk Space on “%s”"
+msgstr "Ruang Cakera Rendah pada \"%s\""
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
-#, fuzzy
-msgid "Background"
-msgstr "Terapkan Latar _Belakang"
-
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
-msgid "Background plugin"
-msgstr ""
-
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
-msgid "Clipboard"
-msgstr ""
-
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
-msgid "Clipboard plugin"
-msgstr ""
-
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
-msgid "Dummy"
-msgstr ""
-
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
-msgid "Dummy plugin"
-msgstr ""
-
-#: ../plugins/font/font.gnome-settings-plugin.in.h:1
-msgid "Font"
-msgstr "Font"
-
-#: ../plugins/font/font.gnome-settings-plugin.in.h:2
-msgid "Font plugin"
-msgstr ""
-
-#: ../plugins/font/gsd-font-manager.c:208
-#, fuzzy, c-format
-msgid ""
-"Cannot create the directory \"%s\".\n"
-"This is needed to allow changing the mouse pointer theme."
-msgstr ""
-"Tak dapat mencipta direktori \"%s\".\n"
-"Ini diperlukan untuk membolehkan penukaran kursor."
-
-#: ../plugins/font/gsd-font-manager.c:231
+#: plugins/housekeeping/gsd-disk-space.c:640
 #, c-format
 msgid ""
-"Cannot create the directory \"%s\".\n"
-"This is needed to allow changing cursors."
+"The volume “%s” has only %s disk space remaining.  You may free up some "
+"space by emptying the trash."
 msgstr ""
-"Tak dapat mencipta direktori \"%s\".\n"
-"Ini diperlukan untuk membolehkan penukaran kursor."
+"Volum \"%s\" hanya meempunyai ruang cakera %s berbaki.  Anda boleh bebaskan "
+"sedikit ruang dengan mengosongkan tong sampah."
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:195
+#: plugins/housekeeping/gsd-disk-space.c:644
 #, c-format
-msgid "Key Binding (%s) has its action defined multiple times\n"
-msgstr "Ikatan Kekunci (%s) imempunyai aksi yang ditakrifkan beberapa kali\n"
+msgid "The volume “%s” has only %s disk space remaining."
+msgstr "Volum \"%s\" hanya mempunyai %s ruang cakera berbaki."
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:202
-#, c-format
-msgid "Key Binding (%s) has its binding defined multiple times\n"
-msgstr "Ikatan Kekunci (%s) mempunyai ikatan ditakrifkan banyak kali\n"
+#: plugins/housekeeping/gsd-disk-space.c:649
+msgid "Low Disk Space"
+msgstr "Ruang Cakera Rendah"
 
-#: ../plugins/keybindings/gsd-keybindings-manager.c:211
-#, c-format
-msgid "Key Binding (%s) is incomplete\n"
-msgstr "Ikatan kekunci (%s) tidak selesai\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:239
-#, c-format
-msgid "Key Binding (%s) is invalid\n"
-msgstr "Ikatan Kekunci (%s) tidak sah\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:292
-#, fuzzy, c-format
-msgid "It seems that another application already has access to key '%u'."
-msgstr "Nampaknya aplikasi lain sudah mempunyai akses ke kekunci'%d'."
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:365
-#, c-format
-msgid "Key Binding (%s) is already in use\n"
-msgstr "Ikatan Kekunci (%s) telah digunakan\n"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:502
+#: plugins/housekeeping/gsd-disk-space.c:651
 #, c-format
 msgid ""
-"Error while trying to run (%s)\n"
-"which is linked to the key (%s)"
+"This computer has only %s disk space remaining.  You may free up some space "
+"by emptying the trash."
 msgstr ""
-"Ralat bila cuba melaksanakan (%s)\n"
-"dimana ianya dipautkan ke kekunci (%s)"
+"Komputer ini hanya mempunyai %s ruang cakera berbaki. Anda boleh bebaskan "
+"ruang cakera dengan mengosongkan tong sampah."
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:1
-msgid "Keybindings"
-msgstr ""
+#: plugins/housekeeping/gsd-disk-space.c:654
+#, c-format
+msgid "This computer has only %s disk space remaining."
+msgstr "Komputer ini hanya mempunyai %s ruang cakera berbaki."
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:2
-msgid "Keybindings plugin"
-msgstr ""
+#: plugins/media-keys/gsd-media-keys-manager.c:2466
+msgid "Bluetooth disabled"
+msgstr "Bluetooth dilumpuhkan"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
-msgid "Keyboard"
-msgstr "Papan Kekunci"
+#: plugins/media-keys/gsd-media-keys-manager.c:2469
+msgid "Bluetooth enabled"
+msgstr "Bluetooth dibenarkan"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
-#, fuzzy
-msgid "Keyboard plugin"
-msgstr "Pintasan Papan Kekunci"
+#: plugins/media-keys/gsd-media-keys-manager.c:2473
+msgid "Airplane mode enabled"
+msgstr "Mod penerbangan dibenarkan"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:1
-#, fuzzy
-msgid "A_vailable files:"
-msgstr "Susunatur yg _ada::"
+#: plugins/media-keys/gsd-media-keys-manager.c:2476
+msgid "Airplane mode disabled"
+msgstr "Mod penerbangan dilumpuhkan"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:2
-#, fuzzy
-msgid "Do _not show this warning again."
-msgstr "_Jangan papar mesej ini lagi"
+#: plugins/media-keys/gsd-media-keys-manager.c:2505
+msgid "Hardware Airplane Mode"
+msgstr "Mod Penerbangan Perkakasan"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:3
-msgid "Load modmap files"
-msgstr ""
+#. Translators: this is a filename used for screencast
+#. * recording, where "%d" and "%t" date and time, e.g.
+#. * "Screencast from 07-17-2013 10:00:46 PM.webm"
+#: plugins/media-keys/gsd-media-keys-manager.c:2568
+#, no-c-format
+msgid "Screencast from %d %t.webm"
+msgstr "Screencast dari  %d %t.webm"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:4
-msgid "Would you like to load the modmap file(s)?"
-msgstr ""
+#: plugins/media-keys/gsd-screenshot-utils.c:82
+msgid "Unable to capture a screenshot"
+msgstr "Tidak boleh tangkap satu tangkap layar"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:5
-msgid "_Load"
-msgstr ""
+#: plugins/media-keys/gsd-screenshot-utils.c:125
+msgid "Screenshot taken"
+msgstr "Tangkap layar diambil"
 
-#: ../plugins/keyboard/modmap-dialog.glade.h:6
-#, fuzzy
-msgid "_Loaded files:"
-msgstr "Model"
+#. translators: this is the name of the file that gets made up
+#. * with the screenshot
+#: plugins/media-keys/gsd-screenshot-utils.c:264
+#, c-format
+msgid "Screenshot from %s"
+msgstr "Tangkap layar dari %s"
 
-#: ../plugins/media-keys/actions/acme.glade.h:1
-msgid "Volume"
-msgstr "Volum"
+#: plugins/power/gpm-common.c:91
+msgid "Unknown time"
+msgstr "Masa tidak diketahui"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:200
-msgid ""
-"Could not get default terminal. Verify that your default terminal command is "
-"set and points to a valid application."
-msgstr ""
+#: plugins/power/gpm-common.c:96
+#, c-format
+#| msgid "minutes"
+msgid "%i minute"
+msgid_plural "%i minutes"
+msgstr[0] "%i minit"
+msgstr[1] "%i minit"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:240
-#, fuzzy, c-format
-msgid ""
-"Couldn't execute command: %s\n"
-"Verify that this is a valid command."
-msgstr ""
-"Tak dapat melaksanakan arahan: %s\n"
-"Sila tentusahkan bahawa arahan ini wujud."
+#: plugins/power/gpm-common.c:106
+#, c-format
+msgid "%i hour"
+msgid_plural "%i hours"
+msgstr[0] "%i jam"
+msgstr[1] "%i jam"
 
-#: ../plugins/media-keys/gsd-media-keys-manager.c:256
-msgid ""
-"Couldn't put the machine to sleep.\n"
-"Verify that the machine is correctly configured."
-msgstr ""
-"Tak dapat meletakkan mesin kepada tidur.\n"
-"Pastikan mesin dikonfigurasikan dengan betul."
+#. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
+#. * Swap order with "%2$s %2$i %1$s %1$i if needed
+#: plugins/power/gpm-common.c:112
+#, c-format
+msgid "%i %s %i %s"
+msgstr "%i %s %i %s"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
-#, fuzzy
-msgid "Media keys"
-msgstr "kekunci Tetikus"
+#: plugins/power/gpm-common.c:113
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "jam"
+msgstr[1] "jam"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
-msgid "Media keys plugin"
-msgstr ""
+#: plugins/power/gpm-common.c:114
+#| msgid "minutes"
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "minit"
+msgstr[1] "minit"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:566
-#, fuzzy
-msgid "Could not enable mouse accessibility features"
-msgstr "_Hidupkan ciri-ciri kebolehcapaian Papan Kekunci"
+#. TRANSLATORS: this is the sound description
+#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:720
+#: plugins/power/gsd-power-manager.c:817
+msgid "Battery is critically low"
+msgstr "Kuasa bateri tersangat rendah"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:568
-msgid ""
-"Mouse accessibility requires the mousetweaks daemon to be installed on your "
-"system."
-msgstr ""
+#. TRANSLATORS: this is the notification application name
+#: plugins/power/gsd-power-manager.c:350
+msgid "Power"
+msgstr "Kuasa"
 
-#: ../plugins/mouse/gsd-mouse-manager.c:571
-msgid "Mouse Preferences"
-msgstr "Keutamaan Tetikus"
+#. TRANSLATORS: UPS is now discharging
+#: plugins/power/gsd-power-manager.c:390
+msgid "UPS Discharging"
+msgstr "UPS Dinyahcas"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
-msgid "Mouse"
-msgstr "Tetikus"
+#. TRANSLATORS: tell the user how much time they have got
+#: plugins/power/gsd-power-manager.c:395
+#, c-format
+msgid "%s of UPS backup power remaining"
+msgstr "%s kuasa sandar UPS berbaki"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
-msgid "Mouse plugin"
-msgstr ""
+#: plugins/power/gsd-power-manager.c:398
+msgid "Unknown amount of UPS backup power remaining"
+msgstr "Amaun kuasa sandar UPS berbaki tidak diketahui"
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:151
+#. TRANSLATORS: laptop battery low, and we only have one battery
+#: plugins/power/gsd-power-manager.c:473
+msgid "Battery low"
+msgstr "Kuasa bateri rendah"
+
+#. TRANSLATORS: laptop battery low, and we have more than one kind of battery
+#: plugins/power/gsd-power-manager.c:476
+msgid "Laptop battery low"
+msgstr "Kuasa bateri komputer riba rendah"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: plugins/power/gsd-power-manager.c:483
+#, c-format
+msgid "Approximately %s remaining (%.0f%%)"
+msgstr "Kira-kira %s berbaki (%.0f%%)"
+
+#. TRANSLATORS: UPS is starting to get a little low
+#: plugins/power/gsd-power-manager.c:488
+msgid "UPS low"
+msgstr "Kuasa UPS rendah"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: plugins/power/gsd-power-manager.c:494
+#, c-format
+msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
+msgstr "Kira-kira %s kuasa sandar UPS berbaki (%.0f%%)"
+
+#. TRANSLATORS: mouse is getting a little low
+#. TRANSLATORS: the mouse battery is very low
+#: plugins/power/gsd-power-manager.c:499 plugins/power/gsd-power-manager.c:633
+msgid "Mouse battery low"
+msgstr "Kuasa bateri tetikus rendah"
+
+#. TRANSLATORS: tell user more details
+#: plugins/power/gsd-power-manager.c:502
+#, c-format
+msgid "Wireless mouse is low in power (%.0f%%)"
+msgstr "Tetikus tanpa wayar kekurangan kuasa (%.0f%%)"
+
+#. TRANSLATORS: keyboard is getting a little low
+#. TRANSLATORS: the keyboard battery is very low
+#: plugins/power/gsd-power-manager.c:506 plugins/power/gsd-power-manager.c:641
+msgid "Keyboard battery low"
+msgstr "Kuasa bateri papan kekunci rendah"
+
+#. TRANSLATORS: tell user more details
+#: plugins/power/gsd-power-manager.c:509
+#, c-format
+msgid "Wireless keyboard is low in power (%.0f%%)"
+msgstr "Papan kekunci tanpa wayar kekurangan kuasa (%.0f%%)"
+
+#. TRANSLATORS: PDA is getting a little low
+#. TRANSLATORS: the PDA battery is very low
+#: plugins/power/gsd-power-manager.c:513 plugins/power/gsd-power-manager.c:650
+msgid "PDA battery low"
+msgstr "Kuasa bateri PDA rendah"
+
+#. TRANSLATORS: tell user more details
+#: plugins/power/gsd-power-manager.c:516
+#, c-format
+msgid "PDA is low in power (%.0f%%)"
+msgstr "PDA kekurangan kuasa (%.0f%%)"
+
+#. TRANSLATORS: cell phone (mobile) is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: plugins/power/gsd-power-manager.c:520 plugins/power/gsd-power-manager.c:660
+#: plugins/power/gsd-power-manager.c:669
+msgid "Cell phone battery low"
+msgstr "Kuasa bateri telefon bimbit rendah"
+
+#. TRANSLATORS: tell user more details
+#: plugins/power/gsd-power-manager.c:523
+#, c-format
+msgid "Cell phone is low in power (%.0f%%)"
+msgstr "Telefon bimbit kekurangan kuasa (%.0f%%)"
+
+#. TRANSLATORS: media player, e.g. mp3 is getting a little low
+#: plugins/power/gsd-power-manager.c:527
+msgid "Media player battery low"
+msgstr "Kuasa bateri pemain media rendah"
+
+#. TRANSLATORS: tell user more details
+#: plugins/power/gsd-power-manager.c:530
+#, c-format
+msgid "Media player is low in power (%.0f%%)"
+msgstr "Pemain media kekurangan kuasa (%.0f%%)"
+
+#. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: plugins/power/gsd-power-manager.c:534 plugins/power/gsd-power-manager.c:678
+msgid "Tablet battery low"
+msgstr "Kuasa bateri Tablet rendah"
+
+#. TRANSLATORS: tell user more details
+#: plugins/power/gsd-power-manager.c:537
+#, c-format
+msgid "Tablet is low in power (%.0f%%)"
+msgstr "Tablet kekurangan kuasa (%.0f%%)"
+
+#. TRANSLATORS: computer, e.g. ipad is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: plugins/power/gsd-power-manager.c:541 plugins/power/gsd-power-manager.c:687
+msgid "Attached computer battery low"
+msgstr "Kuasa bateri komputer bersambung rendah"
+
+#. TRANSLATORS: tell user more details
+#: plugins/power/gsd-power-manager.c:544
+#, c-format
+msgid "Attached computer is low in power (%.0f%%)"
+msgstr "Komputer bersambung kekurangan kuasa (%.0f%%)"
+
+#. TRANSLATORS: this is the sound description
+#: plugins/power/gsd-power-manager.c:565
+msgid "Battery is low"
+msgstr "Kuasa bateri rendah"
+
+#. TRANSLATORS: laptop battery critically low, and only have one kind of battery
+#: plugins/power/gsd-power-manager.c:597
+msgid "Battery critically low"
+msgstr "Kuasa bateri sangat rendah"
+
+#. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
+#. TRANSLATORS: laptop battery is really, really, low
+#: plugins/power/gsd-power-manager.c:600 plugins/power/gsd-power-manager.c:747
+msgid "Laptop battery critically low"
+msgstr "Bateri komputer riba sangat rendah"
+
+#. TRANSLATORS: give the user a ultimatum
+#: plugins/power/gsd-power-manager.c:609
+#, c-format
+msgid "Computer will hibernate very soon unless it is plugged in."
+msgstr "Komputer akan dihibernasi tidak lama lagi jika ia tidak dipalamkan."
+
+#. TRANSLATORS: give the user a ultimatum
+#: plugins/power/gsd-power-manager.c:613
+#, c-format
+msgid "Computer will shutdown very soon unless it is plugged in."
+msgstr "Komputer akan dimatikan tidak lama lagi jika ia tidak dipalamkan."
+
+#. TRANSLATORS: the UPS is very low
+#. TRANSLATORS: UPS is really, really, low
+#: plugins/power/gsd-power-manager.c:621 plugins/power/gsd-power-manager.c:772
+msgid "UPS critically low"
+msgstr "Kuasa UPS sangat rendah"
+
+#. TRANSLATORS: give the user a ultimatum
+#: plugins/power/gsd-power-manager.c:627
 #, c-format
 msgid ""
-"There was an error starting up the screensaver:\n"
-"\n"
-"%s\n"
-"\n"
-"Screensaver functionality will not work in this session."
+"Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
+"computer to avoid losing data."
 msgstr ""
-"Terdapat ralat memulakan screensaver:\n"
-"\n"
-"%s\n"
-"\n"
-"Fungsi screensaver tidak akan bekerja pada sessi ini."
+"Kira-kira %s kuasa sandar UPS berbaki (%.0f%%). Pulihkan kuasa AC kepada "
+"komputer anda untuk menghindari kehilangan data."
 
-#: ../plugins/screensaver/gsd-screensaver-manager.c:160
-msgid "_Do not show this message again"
-msgstr "_Jangan papar mesej ini lagi"
-
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
-#, fuzzy
-msgid "Screensaver"
-msgstr "Mula Xscreensaver"
-
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
-#, fuzzy
-msgid "Screensaver plugin"
-msgstr "Laksana Xcreensaver pada logmasuk"
-
-#: ../plugins/sound/gsd-sound-manager.c:164
+#. TRANSLATORS: the device is just going to stop working
+#: plugins/power/gsd-power-manager.c:636
 #, c-format
-msgid "Couldn't load sound file %s as sample %s"
-msgstr "Tak dapat memuatkan fail bunyi %s sebagai contoh %s"
-
-#: ../plugins/sound/libsounds/sound-view.c:44
-msgid "Login"
-msgstr ""
-
-#: ../plugins/sound/libsounds/sound-view.c:45
-#, fuzzy
-msgid "Logout"
-msgstr "Log Keluar"
-
-#: ../plugins/sound/libsounds/sound-view.c:46
-msgid "Boing"
-msgstr ""
-
-#: ../plugins/sound/libsounds/sound-view.c:47
-#, fuzzy
-msgid "Siren"
-msgstr "Skrin"
-
-#: ../plugins/sound/libsounds/sound-view.c:48
-msgid "Clink"
-msgstr ""
-
-#: ../plugins/sound/libsounds/sound-view.c:49
-#, fuzzy
-msgid "Beep"
-msgstr "Tidur"
-
-#: ../plugins/sound/libsounds/sound-view.c:50
-#, fuzzy
-msgid "No sound"
-msgstr "Bunyi"
-
-#: ../plugins/sound/libsounds/sound-view.c:132
-#, fuzzy
-msgid "Sound not set for this event."
-msgstr "_Bunyi bagi acara"
-
-#: ../plugins/sound/libsounds/sound-view.c:141
-#, fuzzy
 msgid ""
-"The sound file for this event does not exist.\n"
-"You may want to install the gnome-audio package for a set of default sounds."
+"Wireless mouse is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
 msgstr ""
-"Fail bunyi untuk acara ini tidak wujud.\n"
-"Anda juga boleh pasang pakej gnome-audio\n"
-"untuk menetapkan bunyi default."
+"Tetikus tanpa wayar sangat kekurangan kuasa (%.0f%%). Peranti ini akan "
+"berhenti berfungsi jika tidak dicaskan."
 
-#: ../plugins/sound/libsounds/sound-view.c:152
-msgid "The sound file for this event does not exist."
-msgstr "Fail bunyi untuk acara ini tidak wujud."
-
-#: ../plugins/sound/libsounds/sound-view.c:183
-msgid "Select Sound File"
-msgstr "Pilih Fail Bunyi"
-
-#: ../plugins/sound/libsounds/sound-view.c:210
+#. TRANSLATORS: the device is just going to stop working
+#: plugins/power/gsd-power-manager.c:644
 #, c-format
-msgid "The file %s is not a valid wav file"
-msgstr "Fail %s adalah fail wav yang tidak sah"
-
-#: ../plugins/sound/libsounds/sound-view.c:271
-#, fuzzy
-msgid "Select sound file..."
-msgstr "Pilih Fail Bunyi"
-
-#: ../plugins/sound/libsounds/sound-view.c:373
-#, fuzzy
-msgid "System Sounds"
-msgstr "saat"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
-msgid "Sound"
-msgstr "Bunyi"
-
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
-#, fuzzy
-msgid "Sound plugin"
-msgstr "Fail Bunyi"
-
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
-msgid "Typing Break"
-msgstr "Hentian Menaip"
-
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:2
-#, fuzzy
-msgid "Typing break plugin"
-msgstr "Hentian Menaip"
-
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
-msgid "Set up screen size and rotation settings"
+msgid ""
+"Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
 msgstr ""
+"Papan kekunci tanpa wayar sangat kekurangan kuasa (%.0f%%). Peranti ini akan "
+"berhenti berfungsi jika tidak dicaskan."
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
-msgid "XRandR"
-msgstr ""
-
-#: ../plugins/xrdb/gsd-xrdb-manager.c:258
-#: ../plugins/xrdb/gsd-xrdb-manager.c:327
-msgid "Cannot determine user's home directory"
-msgstr "Tak dapat menentukan direktori rumah pengguna"
-
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:1
-msgid "Manage the X resource database"
-msgstr ""
-
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:2
-msgid "X Resource Database"
-msgstr ""
-
-#: ../plugins/xsettings/gsd-xsettings-manager.c:551
+#. TRANSLATORS: the device is just going to stop working
+#: plugins/power/gsd-power-manager.c:653
 #, c-format
-msgid "GConf key %s set to type %s but its expected type was %s\n"
+msgid ""
+"PDA is very low in power (%.0f%%). This device will soon stop functioning if "
+"not charged."
 msgstr ""
-"Kekunci GConf %s ditetapkan ke jenis %s tapi ia menjangkakan jenis %s\n"
+"PDA sangat kekurangan kuasa (%.0f%%). Peranti ini akan berhenti berfungsi "
+"jika tidak dicaskan."
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
-#, fuzzy
-msgid "Manage X Settings"
-msgstr "Tetapan Skrin %d\n"
+#. TRANSLATORS: the device is just going to stop working
+#: plugins/power/gsd-power-manager.c:663
+#, c-format
+msgid ""
+"Cell phone is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"Telefon bimbit sangat kekurangan kuasa (%.0f%%). Peranti ini akan berhenti "
+"berfungsi jika tidak dicaskan."
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#. TRANSLATORS: the device is just going to stop working
+#: plugins/power/gsd-power-manager.c:672
+#, c-format
+msgid ""
+"Media player is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"Pemain media sangat kekurangan kuasa (%.0f%%). Peranti ini akan berhenti "
+"berfungsi jika tidak dicas."
+
+#. TRANSLATORS: the device is just going to stop working
+#: plugins/power/gsd-power-manager.c:681
+#, c-format
+msgid ""
+"Tablet is very low in power (%.0f%%). This device will soon stop functioning "
+"if not charged."
+msgstr ""
+"Tablet sangat kekurangan kuasa (%.0f%%). Peranti ini akan berhenti berfungsi "
+"jika tidak dicas."
+
+#. TRANSLATORS: the device is just going to stop working
+#: plugins/power/gsd-power-manager.c:690
+#, c-format
+msgid ""
+"Attached computer is very low in power (%.0f%%). The device will soon "
+"shutdown if not charged."
+msgstr ""
+"Komputer bersambung sangat kekurangan kuasa (%.0f%%). Peranti ini akan "
+"berhenti berfungsi jika tidak dicas."
+
+#. TRANSLATORS: computer will hibernate
+#: plugins/power/gsd-power-manager.c:755
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"hibernate."
+msgstr ""
+"Kuasa bateri berada di bawah aras kritikal dan komputer ini akan "
+"dihibernasikan."
+
+#. TRANSLATORS: computer will just shutdown
+#: plugins/power/gsd-power-manager.c:760
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"shutdown."
+msgstr ""
+"Kuasa bateri berada di bawah aras kritikal dan komputer ini akan dimatikan."
+
+#. TRANSLATORS: computer will hibernate
+#: plugins/power/gsd-power-manager.c:780
+msgid ""
+"UPS is below the critical level and this computer is about to hibernate."
+msgstr "Kuasa UPS di bawah aras kritikal dan komputer ini akan dihibernasikan."
+
+#. TRANSLATORS: computer will just shutdown
+#: plugins/power/gsd-power-manager.c:785
+msgid "UPS is below the critical level and this computer is about to shutdown."
+msgstr "Kuasa UPS di bawah aras kritikal dan komputer ini akan dimatikan."
+
+#. TRANSLATORS: this is the sound description
+#: plugins/power/gsd-power-manager.c:1260
+msgid "Lid has been opened"
+msgstr "Penutup telah dibuka"
+
+#. TRANSLATORS: this is the sound description
+#: plugins/power/gsd-power-manager.c:1294
+msgid "Lid has been closed"
+msgstr "Penutup ditutup"
+
+#. TRANSLATORS: this is the sound description
+#: plugins/power/gsd-power-manager.c:1857
+msgid "On battery power"
+msgstr "Kuasa bateri"
+
+#. TRANSLATORS: this is the sound description
+#: plugins/power/gsd-power-manager.c:1862
+msgid "On AC power"
+msgstr "Kuasa AC"
+
+#: plugins/power/gsd-power-manager.c:2050
+msgid "Automatic logout"
+msgstr "Daftar keluar automatik"
+
+#: plugins/power/gsd-power-manager.c:2050
+msgid "You will soon log out because of inactivity."
+msgstr "Akan akan didaftar keluarkan kerana tidak aktif."
+
+#: plugins/power/gsd-power-manager.c:2055
+msgid "Automatic suspend"
+msgstr "Tangguh automatik"
+
+#: plugins/power/gsd-power-manager.c:2055
+#: plugins/power/gsd-power-manager.c:2060
+msgid "Computer will suspend very soon because of inactivity."
+msgstr "Komputer akan ditangguh tidak lama lagi kerana ketidakaktifan."
+
+#: plugins/power/gsd-power-manager.c:2060
+msgid "Automatic hibernation"
+msgstr "Hibernasi automatik"
+
+#. SECURITY:
+#. - A normal active user on the local machine does not need permission
+#. to change the backlight brightness.
+#: plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in:21
+msgid "Modify the laptop brightness"
+msgstr "Ubah suai kecerahan komputer riba"
+
+#: plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in:22
+msgid "Authentication is required to modify the laptop brightness"
+msgstr "Pengesahihan diperlukan untuk mengubah suai kecerahan komputer riba"
+
+#. Translators: We are configuring new printer
+#: plugins/print-notifications/gsd-printer.c:890
+msgid "Configuring new printer"
+msgstr "Mengkonfigur pencetak baharu"
+
+#. Translators: Just wait
+#: plugins/print-notifications/gsd-printer.c:892
+msgid "Please wait…"
+msgstr "Tunggu sebentar…"
+
+#. Translators: We have no driver installed for this printer
+#: plugins/print-notifications/gsd-printer.c:919
+msgid "Missing printer driver"
+msgstr "Pemacu pencetak hilang"
+
+#. Translators: We have no driver installed for the device
+#: plugins/print-notifications/gsd-printer.c:928
+#, c-format
+msgid "No printer driver for %s."
+msgstr "Tiada pemacu pencetak untuk %s."
+
+#. Translators: We have no driver installed for this printer
+#: plugins/print-notifications/gsd-printer.c:933
+msgid "No driver for this printer."
+msgstr "Tiada pemacu untuk pencetak ini."
+
+#: plugins/print-notifications/gsd-printer.c:1031
+#: plugins/print-notifications/gsd-print-notifications-manager.c:290
+#: plugins/print-notifications/gsd-print-notifications-manager.c:538
+#: plugins/print-notifications/gsd-print-notifications-manager.c:920
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1011
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1055
+#| msgid "_Print"
+msgid "Printers"
+msgstr "Pencetak"
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:374
+#, c-format
+msgid "Printer “%s” is low on toner."
+msgstr "Toner pencetak \"%s\" semakin berkurangan."
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:378
+#, c-format
+msgid "Printer “%s” has no toner left."
+msgstr "Toner pencetak \"%s\" sudah habis."
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:382
+#, c-format
+msgid "Printer “%s” may not be connected."
+msgstr "Pencetak \"%s\" tidak bersambung."
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:386
+#, c-format
+msgid "The cover is open on printer “%s”."
+msgstr "Penutup pencetak \"%s\" terbuka."
+
+#. Translators: A filter or backend is not installed (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:390
+#, c-format
+msgid "There is a missing print filter for printer “%s”."
+msgstr "Terdapat penapis cetak hilang bagi pencetak “%s”."
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:395
+#, c-format
+msgid "The door is open on printer “%s”."
+msgstr "Pintu pencetak \"%s\" terbuka."
+
+#. Translators: "marker" is one color bin of the printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:399
+#, c-format
+msgid "Printer “%s” is low on a marker supply."
+msgstr "Pencetak “%s” kekurangan bekalan penanda."
+
+#. Translators: "marker" is one color bin of the printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:403
+#, c-format
+msgid "Printer “%s” is out of a marker supply."
+msgstr "Pencetak “%s” kehabisan bekalan penanda."
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:407
+#, c-format
+msgid "Printer “%s” is low on paper."
+msgstr "Kertas pada pencetak \"%s\" semakin berkurangan."
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:411
+#, c-format
+msgid "Printer “%s” is out of paper."
+msgstr "Kertas pada pencetak \"%s\" sudah habis."
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:415
+#, c-format
+msgid "Printer “%s” is currently off-line."
+msgstr "Pencetak “%s” buat masa ini di luar talian."
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:419
+#, c-format
+msgid "There is a problem on printer “%s”."
+msgstr "Terdapat masalah pada pencetak \"%s\"."
+
+#. Translators: The printer has a job to print but the printer needs authentication to continue with the print
+#: plugins/print-notifications/gsd-print-notifications-manager.c:531
+#, c-format
+#| msgid "<b>_Use authentication</b>"
+msgid "%s Requires Authentication"
+msgstr "%s Memerlukan Pengesahihan"
+
+#. Translators: A printer needs credentials to continue printing a job
+#: plugins/print-notifications/gsd-print-notifications-manager.c:533
+#, c-format
+msgid "Credentials required in order to print"
+msgstr "Kelayakan diperlukan untuk mencetak"
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:600
+msgid "Toner low"
+msgstr "Kekurangan toner"
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:602
+msgid "Toner empty"
+msgstr "Kehabisan toner"
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:604
+msgid "Not connected?"
+msgstr "Tidak bersambung?"
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:606
+msgid "Cover open"
+msgstr "Penutup terbuka"
+
+#. Translators: A filter or backend is not installed (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:608
+msgid "Printer configuration error"
+msgstr "Ralat konfigurasi pencetak"
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:610
+msgid "Door open"
+msgstr "Pintu terbuka"
+
+#. Translators: "marker" is one color bin of the printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:612
+msgid "Marker supply low"
+msgstr "Kekurangan bekalan penanda"
+
+#. Translators: "marker" is one color bin of the printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:614
+msgid "Out of a marker supply"
+msgstr "Kehabisan bekalan penanda"
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:616
+msgid "Paper low"
+msgstr "Kekurangan kertas"
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:618
+msgid "Out of paper"
+msgstr "Kehabisan kertas"
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:620
+msgid "Printer off-line"
+msgstr "Pencetak di luar talian"
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#. Translators: This is a title of an error notification for a printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:622
+#: plugins/print-notifications/gsd-print-notifications-manager.c:997
+msgid "Printer error"
+msgstr "Ralat pencetak"
+
+#. Translators: New printer has been added
+#: plugins/print-notifications/gsd-print-notifications-manager.c:670
+msgid "Printer added"
+msgstr "Pencetak ditambah"
+
+#. Translators: A print job has been stopped
+#: plugins/print-notifications/gsd-print-notifications-manager.c:687
+#: plugins/print-notifications/gsd-print-notifications-manager.c:725
+msgctxt "print job state"
+msgid "Printing stopped"
+msgstr "Percetakan dihentikan"
+
+#. Translators: "print-job xy" on a printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:689
+#: plugins/print-notifications/gsd-print-notifications-manager.c:695
+#: plugins/print-notifications/gsd-print-notifications-manager.c:701
+#: plugins/print-notifications/gsd-print-notifications-manager.c:707
+#: plugins/print-notifications/gsd-print-notifications-manager.c:719
+#: plugins/print-notifications/gsd-print-notifications-manager.c:727
+#: plugins/print-notifications/gsd-print-notifications-manager.c:735
+#: plugins/print-notifications/gsd-print-notifications-manager.c:743
+#: plugins/print-notifications/gsd-print-notifications-manager.c:751
+#: plugins/print-notifications/gsd-print-notifications-manager.c:775
+#, c-format
+msgctxt "print job"
+msgid "“%s” on %s"
+msgstr "“%s” pada %s"
+
+#. Translators: A print job has been canceled
+#: plugins/print-notifications/gsd-print-notifications-manager.c:693
+#: plugins/print-notifications/gsd-print-notifications-manager.c:733
+msgctxt "print job state"
+msgid "Printing canceled"
+msgstr "Percetakan dibatalkan"
+
+#. Translators: A print job has been aborted
+#: plugins/print-notifications/gsd-print-notifications-manager.c:699
+#: plugins/print-notifications/gsd-print-notifications-manager.c:741
+msgctxt "print job state"
+msgid "Printing aborted"
+msgstr "Percetakan dihenti paksa"
+
+#. Translators: A print job has been completed
+#: plugins/print-notifications/gsd-print-notifications-manager.c:705
+#: plugins/print-notifications/gsd-print-notifications-manager.c:749
+#| msgid "Fraction completed"
+msgctxt "print job state"
+msgid "Printing completed"
+msgstr "Percetakan selesai"
+
+#. Translators: A job is printing
+#: plugins/print-notifications/gsd-print-notifications-manager.c:717
+#: plugins/print-notifications/gsd-print-notifications-manager.c:773
+msgctxt "print job state"
+msgid "Printing"
+msgstr "Percetakan"
+
+#. Translators: This is a title of a report notification for a printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:991
+msgid "Printer report"
+msgstr "Laporan pencetak"
+
+#. Translators: This is a title of a warning notification for a printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:994
+msgid "Printer warning"
+msgstr "Amaran pencetak"
+
+#. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1004
+#, c-format
+msgid "Printer “%s”: “%s”."
+msgstr "Pencetak “%s”: “%s”."
+
+#: plugins/smartcard/gsd-smartcard-service.c:282
+msgid "User was not logged in with smartcard."
+msgstr "Pengguna tidak mendaftar masuk dengan kad pintar."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:386
+msgid "USB Protection"
+msgstr "Perlindungan USB"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:513
+msgid "New USB device"
+msgstr "Peranti USB baharu"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:514
+msgid ""
+"New device has been detected while the session was not locked. If you did "
+"not plug anything, check your system for any suspicious device."
+msgstr ""
+"Peranti baharu telah dikesan ketika sesi tidak berkunci. Jika anda tidak "
+"memalam apa-apa, periksa sistem anda jika ada peranti yang mencurigakan."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:593
+msgid "New keyboard detected"
+msgstr "Papan kekunci baharu dikesan"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:594
+msgid ""
+"Either your keyboard has been reconnected or a new one has been plugged in. "
+"If you did not do it, check your system for any suspicious device."
+msgstr ""
+"Sama ada papan kekunci anda telah disambung semula atau ada yang baharu "
+"dipalamkan. Jika anda tidak membuatnya, periksa sistem anda jika ada peranti "
+"yang mencurigakan."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:600
+msgid "Reconnect USB device"
+msgstr "Sambung semula peranti USB"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:601
+msgid ""
+"New device has been detected while you were away. Please disconnect and "
+"reconnect the device to start using it."
+msgstr ""
+"Peranti baharu telah dikesan ketika anda tiada. Sila putuskan dan sambung "
+"semula peranti tersebut untuk mula menggunakannya."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:607
+#: plugins/usb-protection/gsd-usb-protection-manager.c:631
+msgid "USB device blocked"
+msgstr "Peranti USB disekat"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:608
+msgid ""
+"New device has been detected while you were away. It has been blocked "
+"because the USB protection is active."
+msgstr ""
+"Peranti baharu telah dikesan ketika anda tiada. Ia telah dikunci kerana "
+"perlindungan USB aktif."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:632
+msgid ""
+"The new inserted device has been blocked because the USB protection is "
+"active."
+msgstr ""
+"Peranti baharu disisip telah disekat kerana perlindungan USB masih aktif."
+
+#. SECURITY:
+#. - A normal active user on the local machine does not need permission
+#. to change the LED setting for a Wacom tablet
+#: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:20
+msgid "Modify the lit LED for a Wacom tablet"
+msgstr "Ubah suai penutup LED untuk tablet Wacom"
+
+#: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:21
+msgid "Authentication is required to modify the lit LED for a Wacom tablet"
+msgstr ""
+"Pengesahihan diperlukan untuk mengubah suai penutup LED untuk tablet Wacom"
+
+#. SECURITY:
+#. - A normal active user on the local machine does not need permission
+#. to change the OLED images for a Wacom tablet
+#: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:35
+msgid "Modify the OLED image for a Wacom tablet"
+msgstr "Ubah suai imej OLED untuk tablet Wacom"
+
+#: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:36
+msgid "Authentication is required to modify the OLED image for a Wacom tablet"
+msgstr ""
+"Pengesahihan diperlukan untuk mengubah suai imej OLED untuk tablet Wacom"
+
+#. Set up the dialog
+#: plugins/wwan/gsd-wwan-pinentry.c:89
+msgid "Unlock SIM card"
+msgstr "Nyahkunci kad SIM"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:90
+msgid "Unlock"
+msgstr "Nyahkunci"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:91
+msgid "Cancel"
+msgstr "Batal"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:95
+#, c-format
+msgid "Please provide the PIN for SIM card %s"
+msgstr "Sila sediakan PIN untuk kad SIM %s"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:97
+msgid "Enter PIN to unlock your SIM card"
+msgstr "Masukkan PIN untuk menyahkunci kad SIM anda"
+
+#. msg is already localised
+#: plugins/wwan/gsd-wwan-pinentry.c:123
+#, c-format
+msgid "%2$s You have %1$u try left"
+msgid_plural "%2$s You have %1$u tries left"
+msgstr[0] "%2$s Anda masih ada %1$u percubaan lagi"
+msgstr[1] "%2$s Anda masih ada %1$u percubaan lagi"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:127
+#, c-format
+msgid "You have %u try left"
+msgid_plural "You have %u tries left"
+msgstr[0] "Anda masih ada %u percubaan lagi"
+msgstr[1] "Anda masih ada %u percubaan lagi"
+
+#. Set up the dialog
+#: plugins/wwan/gsd-wwan-pinentry.c:173 plugins/wwan/gsd-wwan-pinentry.c:175
+msgid "SIM card unlock error"
+msgstr "Ralat menyahkunci kad SIM"
+
+#: plugins/wwan/gsd-wwan-pinentry.c:174
+msgid "OK"
+msgstr "OK"
+
+#. TODO: handle PUK as well
+#: plugins/wwan/gsd-wwan-pinentry.c:194
+msgid "Too many incorrect PINs."
+msgstr "Terlalu banyak PIN salah."
+
+#: plugins/wwan/gsd-wwan-pinentry.c:200
+msgid "Wrong PIN code"
+msgstr "Kod PIN salah"
+
 #, fuzzy
-msgid "X Settings"
-msgstr "Tetapan Skrin %d\n"
+#~ msgid ""
+#~ "Set to True to keep the handlers for text/plain and text/* MIME types "
+#~ "synchronized."
+#~ msgstr ""
+#~ "Jika benar, pengendali mime bagi text/plain dan text/* akan kekal "
+#~ "disinkronisasikan"
+
+#~ msgid "Sync text/plain and text/* handlers"
+#~ msgstr "Sinkronisasi pengendali text/plain and text/*"
+
+#~ msgid "Volume step as percentage of volume."
+#~ msgstr "Langkah volum sebagai peratusan volum."
+
+#, fuzzy
+#~ msgid ""
+#~ "Set to True to display a dialog when there are errors running the "
+#~ "screensaver."
+#~ msgstr "Papar dialog bila ralat melaksanakan XScreenSaver"
+
+#, fuzzy
+#~ msgid "Set to True to run the screensaver at login."
+#~ msgstr "Laksana Xcreensaver pada logmasuk"
+
+#, fuzzy
+#~ msgid "Show startup errors"
+#~ msgstr "Papar ralat permulaan"
+
+#, fuzzy
+#~ msgid "Start screensaver"
+#~ msgstr "Mula Xscreensaver"
+
+#, fuzzy
+#~ msgid "Enable accessibility keyboard plugin"
+#~ msgstr "_Hidupkan ciri-ciri kebolehcapaian Papan Kekunci"
+
+#, fuzzy
+#~ msgid "Enable screensaver plugin"
+#~ msgstr "Laksana Xcreensaver pada logmasuk"
+
+#, fuzzy
+#~ msgid "Accessibility Keyboard"
+#~ msgstr "Keboleh_capaikan"
+
+#, fuzzy
+#~ msgid "Accessibility keyboard plugin"
+#~ msgstr "Keboleh_capaikan"
+
+#~ msgid "There was an error displaying help: %s"
+#~ msgstr "Terdapat ralat memapar bantuan: %s"
+
+#~ msgid "Do you want to activate Slow Keys?"
+#~ msgstr "Adakah anda ingin mengaktifkan Kekunci Perlahan?"
+
+#, fuzzy
+#~ msgid "Do you want to deactivate Slow Keys?"
+#~ msgstr "Adakah anda ingin mengaktifkan Kekunci Perlahan?"
+
+#~ msgid "Slow Keys Alert"
+#~ msgstr "Amaran Kekunci Perlahan"
+
+#~ msgid "Do you want to activate Sticky Keys?"
+#~ msgstr "Adakah anda akan mengaktifkan Kekunci Lekat?"
+
+#~ msgid "Do you want to deactivate Sticky Keys?"
+#~ msgstr "Adakah anda ingin mempasifkan Kekunci Lekat?"
+
+#~ msgid "Sticky Keys Alert"
+#~ msgstr "Amaran Kekunci Lekat"
+
+#, fuzzy
+#~ msgid "Background"
+#~ msgstr "Terapkan Latar _Belakang"
+
+#~ msgid "Font"
+#~ msgstr "Font"
+
+#, fuzzy
+#~ msgid ""
+#~ "Cannot create the directory \"%s\".\n"
+#~ "This is needed to allow changing the mouse pointer theme."
+#~ msgstr ""
+#~ "Tak dapat mencipta direktori \"%s\".\n"
+#~ "Ini diperlukan untuk membolehkan penukaran kursor."
+
+#~ msgid ""
+#~ "Cannot create the directory \"%s\".\n"
+#~ "This is needed to allow changing cursors."
+#~ msgstr ""
+#~ "Tak dapat mencipta direktori \"%s\".\n"
+#~ "Ini diperlukan untuk membolehkan penukaran kursor."
+
+#~ msgid "Key Binding (%s) has its action defined multiple times\n"
+#~ msgstr ""
+#~ "Ikatan Kekunci (%s) imempunyai aksi yang ditakrifkan beberapa kali\n"
+
+#~ msgid "Key Binding (%s) has its binding defined multiple times\n"
+#~ msgstr "Ikatan Kekunci (%s) mempunyai ikatan ditakrifkan banyak kali\n"
+
+#~ msgid "Key Binding (%s) is incomplete\n"
+#~ msgstr "Ikatan kekunci (%s) tidak selesai\n"
+
+#~ msgid "Key Binding (%s) is invalid\n"
+#~ msgstr "Ikatan Kekunci (%s) tidak sah\n"
+
+#, fuzzy
+#~ msgid "It seems that another application already has access to key '%u'."
+#~ msgstr "Nampaknya aplikasi lain sudah mempunyai akses ke kekunci'%d'."
+
+#~ msgid "Key Binding (%s) is already in use\n"
+#~ msgstr "Ikatan Kekunci (%s) telah digunakan\n"
+
+#~ msgid ""
+#~ "Error while trying to run (%s)\n"
+#~ "which is linked to the key (%s)"
+#~ msgstr ""
+#~ "Ralat bila cuba melaksanakan (%s)\n"
+#~ "dimana ianya dipautkan ke kekunci (%s)"
+
+#~ msgid "Keyboard"
+#~ msgstr "Papan Kekunci"
+
+#, fuzzy
+#~ msgid "Keyboard plugin"
+#~ msgstr "Pintasan Papan Kekunci"
+
+#, fuzzy
+#~ msgid "A_vailable files:"
+#~ msgstr "Susunatur yg _ada::"
+
+#, fuzzy
+#~ msgid "Do _not show this warning again."
+#~ msgstr "_Jangan papar mesej ini lagi"
+
+#, fuzzy
+#~ msgid "_Loaded files:"
+#~ msgstr "Model"
+
+#~ msgid "Volume"
+#~ msgstr "Volum"
+
+#, fuzzy
+#~ msgid ""
+#~ "Couldn't execute command: %s\n"
+#~ "Verify that this is a valid command."
+#~ msgstr ""
+#~ "Tak dapat melaksanakan arahan: %s\n"
+#~ "Sila tentusahkan bahawa arahan ini wujud."
+
+#~ msgid ""
+#~ "Couldn't put the machine to sleep.\n"
+#~ "Verify that the machine is correctly configured."
+#~ msgstr ""
+#~ "Tak dapat meletakkan mesin kepada tidur.\n"
+#~ "Pastikan mesin dikonfigurasikan dengan betul."
+
+#, fuzzy
+#~ msgid "Media keys"
+#~ msgstr "kekunci Tetikus"
+
+#, fuzzy
+#~ msgid "Could not enable mouse accessibility features"
+#~ msgstr "_Hidupkan ciri-ciri kebolehcapaian Papan Kekunci"
+
+#~ msgid "Mouse Preferences"
+#~ msgstr "Keutamaan Tetikus"
+
+#~ msgid "Mouse"
+#~ msgstr "Tetikus"
+
+#~ msgid ""
+#~ "There was an error starting up the screensaver:\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Screensaver functionality will not work in this session."
+#~ msgstr ""
+#~ "Terdapat ralat memulakan screensaver:\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Fungsi screensaver tidak akan bekerja pada sessi ini."
+
+#~ msgid "_Do not show this message again"
+#~ msgstr "_Jangan papar mesej ini lagi"
+
+#, fuzzy
+#~ msgid "Screensaver plugin"
+#~ msgstr "Laksana Xcreensaver pada logmasuk"
+
+#~ msgid "Couldn't load sound file %s as sample %s"
+#~ msgstr "Tak dapat memuatkan fail bunyi %s sebagai contoh %s"
+
+#, fuzzy
+#~ msgid "Logout"
+#~ msgstr "Log Keluar"
+
+#, fuzzy
+#~ msgid "Siren"
+#~ msgstr "Skrin"
+
+#, fuzzy
+#~ msgid "Beep"
+#~ msgstr "Tidur"
+
+#, fuzzy
+#~ msgid "No sound"
+#~ msgstr "Bunyi"
+
+#, fuzzy
+#~ msgid "Sound not set for this event."
+#~ msgstr "_Bunyi bagi acara"
+
+#, fuzzy
+#~ msgid ""
+#~ "The sound file for this event does not exist.\n"
+#~ "You may want to install the gnome-audio package for a set of default "
+#~ "sounds."
+#~ msgstr ""
+#~ "Fail bunyi untuk acara ini tidak wujud.\n"
+#~ "Anda juga boleh pasang pakej gnome-audio\n"
+#~ "untuk menetapkan bunyi default."
+
+#~ msgid "The sound file for this event does not exist."
+#~ msgstr "Fail bunyi untuk acara ini tidak wujud."
+
+#~ msgid "Select Sound File"
+#~ msgstr "Pilih Fail Bunyi"
+
+#~ msgid "The file %s is not a valid wav file"
+#~ msgstr "Fail %s adalah fail wav yang tidak sah"
+
+#, fuzzy
+#~ msgid "Select sound file..."
+#~ msgstr "Pilih Fail Bunyi"
+
+#, fuzzy
+#~ msgid "System Sounds"
+#~ msgstr "saat"
+
+#~ msgid "Sound"
+#~ msgstr "Bunyi"
+
+#, fuzzy
+#~ msgid "Sound plugin"
+#~ msgstr "Fail Bunyi"
+
+#~ msgid "Typing Break"
+#~ msgstr "Hentian Menaip"
+
+#, fuzzy
+#~ msgid "Typing break plugin"
+#~ msgstr "Hentian Menaip"
+
+#~ msgid "Cannot determine user's home directory"
+#~ msgstr "Tak dapat menentukan direktori rumah pengguna"
+
+#~ msgid "GConf key %s set to type %s but its expected type was %s\n"
+#~ msgstr ""
+#~ "Kekunci GConf %s ditetapkan ke jenis %s tapi ia menjangkakan jenis %s\n"
+
+#, fuzzy
+#~ msgid "Manage X Settings"
+#~ msgstr "Tetapan Skrin %d\n"
 
 #, fuzzy
 #~ msgid "Alert Type"
@@ -839,10 +2758,6 @@ msgstr "Tetapan Skrin %d\n"
 #, fuzzy
 #~ msgid "The type of alert"
 #~ msgstr "Jenis pemecut ."
-
-#, fuzzy
-#~ msgid "Alert Buttons"
-#~ msgstr "Butang"
 
 #, fuzzy
 #~ msgid "Show more _details"
@@ -1039,15 +2954,6 @@ msgstr "Tetapan Skrin %d\n"
 #~ msgid "_Enable assistive technologies"
 #~ msgstr "_Hidupkan teknologi pertolongan"
 
-#~ msgid "_Magnifier"
-#~ msgstr "Pem_besar"
-
-#~ msgid "_On-screen keyboard"
-#~ msgstr "Papan kekunci pada-_skrin"
-
-#~ msgid "_Screenreader"
-#~ msgstr "Pembaca _skrin"
-
 #~ msgid "Assistive Technology Support"
 #~ msgstr "Sokongan Teknologi Pertolongan"
 
@@ -1125,9 +3031,6 @@ msgstr "Tetapan Skrin %d\n"
 
 #~ msgid "Del_ay:"
 #~ msgstr "_Sela:"
-
-#~ msgid "Delay between keypress and pointer mo_vement:"
-#~ msgstr "Lengahan antara tekanan kekunci dengan per_gerakan penuding:"
 
 #~ msgid "E_nable Toggle Keys"
 #~ msgstr "Hidupkan Kekunci _Togol"
@@ -1227,9 +3130,6 @@ msgstr "Tetapan Skrin %d\n"
 #~ msgid "Tiled"
 #~ msgstr "_Fail"
 
-#~ msgid "Solid Color"
-#~ msgstr "Warna Tegar"
-
 #~ msgid "Horizontal Gradient"
 #~ msgstr "Gradien Mengufuk"
 
@@ -1277,9 +3177,6 @@ msgstr "Tetapan Skrin %d\n"
 
 #~ msgid "URI currently transferring to"
 #~ msgstr "URI sedang dipindahkan ke"
-
-#~ msgid "Fraction completed"
-#~ msgstr "Pecahan selesai"
 
 #~ msgid "Fraction of transfer currently completed"
 #~ msgstr "Pecahan pemindahan kini selesai"
@@ -1565,10 +3462,6 @@ msgstr "Tetapan Skrin %d\n"
 #~ msgid "Window Manager"
 #~ msgstr "Pengurus Tetingkap"
 
-#, fuzzy
-#~ msgid "_Command:"
-#~ msgstr "_Arahan:"
-
 #~ msgid "_Name:"
 #~ msgstr "_Nama:"
 
@@ -1593,9 +3486,6 @@ msgstr "Tetapan Skrin %d\n"
 
 #~ msgid "Re_fresh rate:"
 #~ msgstr "Kadar ke_segaran:"
-
-#~ msgid "Default Settings"
-#~ msgstr "Tetapan Default"
 
 #~ msgid "Screen %d Settings\n"
 #~ msgstr "Tetapan Skrin %d\n"
@@ -1651,9 +3541,6 @@ msgstr "Tetapan Skrin %d\n"
 
 #~ msgid "Best _shapes"
 #~ msgstr "_Bentuk terbaik"
-
-#~ msgid "Best co_ntrast"
-#~ msgstr "_Kontras terbaik"
 
 #, fuzzy
 #~ msgid "D_etails..."
@@ -1787,10 +3674,6 @@ msgstr "Tetapan Skrin %d\n"
 #~ msgid "Assign shortcut keys to commands"
 #~ msgstr "Umpuk kekunci pintasan pada arahan"
 
-#, fuzzy
-#~ msgid "Unknown"
-#~ msgstr "Kursor tidak diketahui"
-
 #~ msgid "Layout"
 #~ msgstr "Susunatur"
 
@@ -1921,9 +3804,6 @@ msgstr "Tetapan Skrin %d\n"
 #~ msgid "_Work interval lasts:"
 #~ msgstr "_Selangmasa kerja bertahan"
 
-#~ msgid "minutes"
-#~ msgstr "minit"
-
 #~ msgid "Set your keyboard preferences"
 #~ msgstr "Tetapkan keutamaan papan kekunci"
 
@@ -1969,17 +3849,11 @@ msgstr "Tetapan Skrin %d\n"
 #~ msgid "Cursor Theme"
 #~ msgstr "Tema Kursor"
 
-#~ msgid "<b>Double-Click Timeout </b>"
-#~ msgstr "<b>Hadmasa Dwi-Klik </b>"
-
 #~ msgid "<b>Drag and Drop</b>"
 #~ msgstr "<b>Heret dan Jatuh</b>"
 
 #~ msgid "<b>Locate Pointer</b>"
 #~ msgstr "<b>Cari Pointer</b>"
-
-#~ msgid "<b>Mouse Orientation</b>"
-#~ msgstr "<b>Orientasi Tetikus</b>"
 
 #~ msgid "<b>Speed</b>"
 #~ msgstr "<b>Kelajuan</b>"
@@ -2039,9 +3913,6 @@ msgstr "Tetapan Skrin %d\n"
 #~ msgid "_Sensitivity:"
 #~ msgstr "_Tahap sensitif:"
 
-#~ msgid "_Threshold:"
-#~ msgstr "_Treshold:"
-
 #~ msgid "_Timeout:"
 #~ msgstr "_Hadmasa:"
 
@@ -2068,9 +3939,6 @@ msgstr "Tetapan Skrin %d\n"
 #~ msgid "<b>_Manual proxy configuration</b>"
 #~ msgstr "<b>Konfigurasi proksi _manual</b>"
 
-#~ msgid "<b>_Use authentication</b>"
-#~ msgstr "<b>_Guna authentikasi</b>"
-
 #, fuzzy
 #~ msgid "Advanced Configuration"
 #~ msgstr "_URL Autokonfigurasi:"
@@ -2090,10 +3958,6 @@ msgstr "Tetapan Skrin %d\n"
 
 #~ msgid "Port:"
 #~ msgstr "Liang:"
-
-#, fuzzy
-#~ msgid "Proxy Configuration"
-#~ msgstr "Konfigurasi Proksi Rangkaian"
 
 #~ msgid "S_ocks host:"
 #~ msgstr "_Hos soket:"
@@ -2339,9 +4203,6 @@ msgstr "Tetapan Skrin %d\n"
 #~ msgid "_Paste"
 #~ msgstr "_Tepek"
 
-#~ msgid "_Print"
-#~ msgstr "_Cetak"
-
 #~ msgid "_Quit"
 #~ msgstr "_Keluar"
 
@@ -2503,14 +4364,8 @@ msgstr "Tetapan Skrin %d\n"
 #~ msgid "Roll up"
 #~ msgstr "Gulung"
 
-#~ msgid "Brightness down"
-#~ msgstr "Kecerahan turun"
-
 #~ msgid "Brightness down's shortcut."
 #~ msgstr "Pintasan bagi kecerahan turun"
-
-#~ msgid "Brightness up"
-#~ msgstr "Kecerahan naik"
 
 #~ msgid "Brightness up's shortcut."
 #~ msgstr "PIntasan bagi kecerahan naik"
@@ -2535,10 +4390,6 @@ msgstr "Tetapan Skrin %d\n"
 #, fuzzy
 #~ msgid "Launch web browser's shortcut."
 #~ msgstr "Pintasan bagi Melancar Pelungsur Web"
-
-#, fuzzy
-#~ msgid "Lock screen's shortcut."
-#~ msgstr "PIntasan bagi Kunci Skrin."
 
 #, fuzzy
 #~ msgid "Log out's shortcut."
@@ -2583,10 +4434,6 @@ msgstr "Tetapan Skrin %d\n"
 #~ msgstr "_Model papan kekunci:"
 
 #, fuzzy
-#~ msgid "Keyboard layout"
-#~ msgstr "Susunatur papan kekunci XKB"
-
-#, fuzzy
 #~ msgid "Keyboard model"
 #~ msgstr "_Model papan kekunci:"
 
@@ -2599,10 +4446,6 @@ msgstr "Tetapan Skrin %d\n"
 #, fuzzy
 #~ msgid "keyboard layout"
 #~ msgstr "Susunatur papan kekunci XKB"
-
-#, fuzzy
-#~ msgid "keyboard model"
-#~ msgstr "Model papan kekunci XKB"
 
 #~ msgid "_Postpone break"
 #~ msgstr "_Tangguh rehat"
@@ -2632,8 +4475,8 @@ msgstr "Tetapan Skrin %d\n"
 #~ "Unable to bring up the typing break properties dialog with the following "
 #~ "error: %s"
 #~ msgstr ""
-#~ "Tak dapat membuka dialog ciri-ciri hentian menatip kerana ralat berikut: %"
-#~ "s"
+#~ "Tak dapat membuka dialog ciri-ciri hentian menatip kerana ralat berikut: "
+#~ "%s"
 
 #~ msgid "About GNOME Typing Monitor"
 #~ msgstr "Perihal Monitor Menaip GNOME"
@@ -2655,9 +4498,6 @@ msgstr "Tetapan Skrin %d\n"
 
 #~ msgid "The quick brown fox jumps over the lazy dog. 0123456789"
 #~ msgstr "Seekor arnab memakan kangkung bersama tiong. 0123456789"
-
-#~ msgid "Name:"
-#~ msgstr "Nama:"
 
 #~ msgid "Style:"
 #~ msgstr "Gaya:"
