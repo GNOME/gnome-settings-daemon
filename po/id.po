@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2019-09-17 09:10+0000\n"
-"PO-Revision-Date: 2020-01-13 19:20+0700\n"
+"POT-Creation-Date: 2020-01-18 13:37+0000\n"
+"PO-Revision-Date: 2020-01-26 17:38+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
@@ -1650,30 +1650,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Komputer ini hanya memiliki %s ruang kosong pada diska."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2430
+#: plugins/media-keys/gsd-media-keys-manager.c:2466
 msgid "Bluetooth disabled"
 msgstr "Bluetooth dimatikan"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2433
+#: plugins/media-keys/gsd-media-keys-manager.c:2469
 msgid "Bluetooth enabled"
 msgstr "Bluetooth diaktifkan"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2437
+#: plugins/media-keys/gsd-media-keys-manager.c:2473
 msgid "Airplane mode enabled"
 msgstr "Mode pesawat terbang diaktifkan"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2440
+#: plugins/media-keys/gsd-media-keys-manager.c:2476
 msgid "Airplane mode disabled"
 msgstr "Mode pesawat terbang dimatikan"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2469
+#: plugins/media-keys/gsd-media-keys-manager.c:2505
 msgid "Hardware Airplane Mode"
 msgstr "Mode Pesawat Terbang Perangkat Keras"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2532
+#: plugins/media-keys/gsd-media-keys-manager.c:2568
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Screencast dari %d %t.webm"
@@ -1682,30 +1682,29 @@ msgstr "Screencast dari %d %t.webm"
 msgid "Unable to capture a screenshot"
 msgstr "Tak bisa menangkap cuplikan layar"
 
-#: plugins/media-keys/gsd-screenshot-utils.c:113
-#: plugins/media-keys/gsd-screenshot-utils.c:155
+#: plugins/media-keys/gsd-screenshot-utils.c:125
 msgid "Screenshot taken"
 msgstr "Cuplikan layar diambil"
 
 #. translators: this is the name of the file that gets made up
 #. * with the screenshot
-#: plugins/media-keys/gsd-screenshot-utils.c:306
+#: plugins/media-keys/gsd-screenshot-utils.c:264
 #, c-format
 msgid "Screenshot from %s"
 msgstr "Cuplikan layar dari %s"
 
-#: plugins/power/gpm-common.c:92
+#: plugins/power/gpm-common.c:91
 msgid "Unknown time"
 msgstr "Waktu tak diketahui"
 
-#: plugins/power/gpm-common.c:97
+#: plugins/power/gpm-common.c:96
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i menit"
 msgstr[1] "%i menit"
 
-#: plugins/power/gpm-common.c:107
+#: plugins/power/gpm-common.c:106
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1714,25 +1713,25 @@ msgstr[1] "%i jam"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: plugins/power/gpm-common.c:113
+#: plugins/power/gpm-common.c:112
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: plugins/power/gpm-common.c:114
+#: plugins/power/gpm-common.c:113
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "jam"
 msgstr[1] "jam"
 
-#: plugins/power/gpm-common.c:115
+#: plugins/power/gpm-common.c:114
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "menit"
 msgstr[1] "menit"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:425 plugins/power/gsd-power-manager.c:720
+#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:720
 #: plugins/power/gsd-power-manager.c:817
 msgid "Battery is critically low"
 msgstr "Baterai nyaris habis"
@@ -2316,6 +2315,68 @@ msgstr "Pencetak \"%s\": \"%s\"."
 #: plugins/smartcard/gsd-smartcard-service.c:282
 msgid "User was not logged in with smartcard."
 msgstr "Pengguna tidak log masuk dengan smartcard."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:386
+msgid "USB Protection"
+msgstr "Perlindungan USB"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:513
+msgid "New USB device"
+msgstr "Perangkat USB baru"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:514
+msgid ""
+"New device has been detected while the session was not locked. If you did "
+"not plug anything, check your system for any suspicious device."
+msgstr ""
+"Perangkat baru telah terdeteksi saat sesi tidak terkunci. Jika Anda tidak "
+"mencolokkan apa pun, periksa sistem Anda apakah ada perangkat yang "
+"mencurigakan."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:593
+msgid "New keyboard detected"
+msgstr "Papan tik baru terdeteksi"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:594
+msgid ""
+"Either your keyboard has been reconnected or a new one has been plugged in. "
+"If you did not do it, check your system for any suspicious device."
+msgstr ""
+"Entah papan tik Anda telah terhubung kembali atau yang baru telah "
+"dicolokkan. Jika Anda tidak melakukannya, periksa sistem Anda apakah ada "
+"perangkat yang mencurigakan."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:600
+msgid "Reconnect USB device"
+msgstr "Hubungkan kembali perangkat USB"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:601
+msgid ""
+"New device has been detected while you were away. Please disconnect and "
+"reconnect the device to start using it."
+msgstr ""
+"Perangkat baru telah terdeteksi saat Anda pergi. Silakan putuskan dan "
+"sambungkan kembali perangkat untuk mulai menggunakannya."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:607
+#: plugins/usb-protection/gsd-usb-protection-manager.c:631
+msgid "USB device blocked"
+msgstr "Perangkat USB diblokir"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:608
+msgid ""
+"New device has been detected while you were away. It has been blocked "
+"because the USB protection is active."
+msgstr ""
+"Perangkat baru telah terdeteksi saat Anda pergi. Telah diblokir karena "
+"perlindungan USB aktif."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:632
+msgid ""
+"The new inserted device has been blocked because the USB protection is "
+"active."
+msgstr ""
+"Perangkat baru yang dimasukkan telah diblokir karena perlindungan USB aktif."
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
