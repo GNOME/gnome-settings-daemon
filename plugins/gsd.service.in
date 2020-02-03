@@ -8,9 +8,9 @@ After=gnome-session-initialized.target
 
 # Requisite/PartOf means the dependency is not loaded automatically.
 # The ordering here also implies Before=gnome-session.target
-Requisite=gsd-@plugin_name@.target
-PartOf=gsd-@plugin_name@.target
-Before=gsd-@plugin_name@.target
+Requisite=@plugin_dbus_name@.target
+PartOf=@plugin_dbus_name@.target
+Before=@plugin_dbus_name@.target
 
 @plugin_gate_units_section@
 
