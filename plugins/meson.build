@@ -106,8 +106,8 @@ foreach plugin: all_plugins
     )
 
     if not disabled_plugins.contains(plugin_name)
-        user_target = 'gsd-@0@.target'.format(plugin_name)
-        user_service = 'gsd-@0@.service'.format(plugin_name)
+        user_target = 'org.gnome.SettingsDaemon.@0@.target'.format(plugin[1])
+        user_service = 'org.gnome.SettingsDaemon.@0@.service'.format(plugin[1])
 
         unit_conf = configuration_data()
         unit_conf.set('plugin_name', plugin_name)
