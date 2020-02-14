@@ -161,6 +161,14 @@ foreach plugin: all_plugins
                 install_dir: systemd_userunitdir
             )
 
+            # Wipe out old target names in non-release builds; this saves a lot
+            # of pain when running a new g-s-d inside jhbuild on an old host
+            # TODO: Should be deleted once we can assume developers have 3.38
+            #       installed on their machines.
+            if get_option('buildtype') != 'release'
+                meson.add_install_script('ln', '-vfs', '/dev/null', systemd_userunitdir / 'gsd-@0@.target'.format(plugin_name))
+            endif
+
             foreach target: gates_all
                 meson.add_install_script('meson-add-wants.sh', systemd_userunitdir, target + '.wants/', user_service)
             endforeach
