@@ -86,6 +86,11 @@ main (int argc, char *argv[])
 	}
 
 	device = realpath (argv[1], NULL);
+	if (device == NULL) {
+		fprintf (stderr, "Error: Could not canonicalize given path (%d: %s)\n", errno, strerror (errno));
+		result = GSD_BACKLIGHT_HELPER_EXIT_CODE_FAILED;
+		goto done;
+	}
 
 	dp = opendir ("/sys/class/backlight");
 	if (dp == NULL) {
