@@ -78,7 +78,7 @@ typedef struct {
 
 
 typedef struct {
-        time_t  mtime;
+        gint64  atime;
         char   *path;
         glong   size;
 } ThumbData;
@@ -104,7 +104,7 @@ read_dir_for_purge (const char *path, GList *files)
         read_path = g_file_new_for_path (path);
         enum_dir = g_file_enumerate_children (read_path,
                                               G_FILE_ATTRIBUTE_STANDARD_NAME ","
-                                              G_FILE_ATTRIBUTE_TIME_MODIFIED ","
+                                              G_FILE_ATTRIBUTE_TIME_ACCESS ","
                                               G_FILE_ATTRIBUTE_STANDARD_SIZE,
                                               G_FILE_QUERY_INFO_NONE,
                                               NULL,
@@ -120,17 +120,28 @@ read_dir_for_purge (const char *path, GList *files)
                                 ThumbData *td;
                                 GFile     *entry;
                                 char      *entry_path;
-                                GTimeVal   mod_time;
+                                gint64     atime;
 
                                 entry = g_file_get_child (read_path, name);
                                 entry_path = g_file_get_path (entry);
                                 g_object_unref (entry);
 
-                                g_file_info_get_modification_time (info, &mod_time);
+                                // Note that using atime here is no worse than using mtime.
+                                // - Even if the file system is mounted with noatime, the atime and
+                                //   mtime will be set to the same value on file creation.
+                                // - Since the thumbnailer never edits thumbnails, and instead swaps
+                                //   in newly created temp files, atime will always be >= mtime.
+                                // - atime should never be absent, which would cause
+                                //   g_file_info_get_attribute_int64 to return 0. The presence of
+                                //   atime is determined by the filters we pass to
+                                //   g_file_enumerate_children, not the file system atime settings.
+
+                                g_assert (g_file_info_has_attribute (info, G_FILE_ATTRIBUTE_TIME_ACCESS));
+                                atime = g_file_info_get_attribute_uint64 (info, G_FILE_ATTRIBUTE_TIME_ACCESS);
 
                                 td = g_new0 (ThumbData, 1);
                                 td->path = entry_path;
-                                td->mtime = mod_time.tv_sec;
+                                td->atime = atime;
                                 td->size = g_file_info_get_size (info);
 
                                 files = g_list_prepend (files, td);
@@ -147,7 +158,7 @@ read_dir_for_purge (const char *path, GList *files)
 static void
 purge_old_thumbnails (ThumbData *info, PurgeData *purge_data)
 {
-        if ((purge_data->now - info->mtime) > purge_data->max_age) {
+        if ((purge_data->now - info->atime) > purge_data->max_age) {
                 g_unlink (info->path);
                 info->size = 0;
         } else {
@@ -156,9 +167,9 @@ purge_old_thumbnails (ThumbData *info, PurgeData *purge_data)
 }
 
 static int
-sort_file_mtime (ThumbData *file1, ThumbData *file2)
+sort_file_atime (ThumbData *file1, ThumbData *file2)
 {
-        return file1->mtime - file2->mtime;
+        return file1->atime - file2->atime;
 }
 
 static char **
@@ -249,7 +260,7 @@ purge_thumbnail_cache (GsdHousekeepingManager *manager)
 
         if ((purge_data.total_size > purge_data.max_size) && (purge_data.max_size >= 0)) {
                 GList *scan;
-                files = g_list_sort (files, (GCompareFunc) sort_file_mtime);
+                files = g_list_sort (files, (GCompareFunc) sort_file_atime);
                 for (scan = files; scan && (purge_data.total_size > purge_data.max_size); scan = scan->next) {
                         ThumbData *info = scan->data;
                         g_unlink (info->path);
