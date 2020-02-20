@@ -467,6 +467,20 @@ gsd_ldsm_purge_temp_files (GDateTime *old)
         DeleteData *data;
         GFile *file;
 
+        /* Never clean temporary files on a sane (i.e. systemd managed)
+         * system. In that case systemd already ships
+         *   /usr/lib/tmpfiles.d/tmp.conf
+         * which does the trick in a much safer way.
+         * Ideally we can just drop this feature, I am not sure why it was
+         * added in the first place though, it does not really seem like a
+         * privacy feature (also, it was late in the release cycle).
+         *   https://en.wikipedia.org/wiki/Wikipedia:Chesterton%27s_fence
+         *
+         * This does the same as sd_booted without needing libsystemd.
+         */
+        if (g_file_test ("/run/systemd/system/", G_FILE_TEST_IS_DIR))
+                return;
+
         file = g_file_new_for_path (g_get_tmp_dir ());
         data = delete_data_new (file, NULL, old, FALSE, FALSE, 0);
         delete_recursively_by_age (data);
