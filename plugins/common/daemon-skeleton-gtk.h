@@ -222,6 +222,12 @@ main (int argc, char **argv)
         set_empty_gtk_theme (TRUE);
 
 #ifdef GDK_BACKEND
+	{
+		const gchar *setup_display = getenv ("GNOME_SETUP_DISPLAY");
+		if (setup_display)
+			g_setenv ("DISPLAY", setup_display, TRUE);
+	}
+
         gdk_set_allowed_backends (GDK_BACKEND);
 #endif
 
