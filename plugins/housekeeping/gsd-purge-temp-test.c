@@ -33,6 +33,7 @@ main (int    argc,
         DeleteData *data;
         GDateTime *old;
         GMainLoop *loop;
+        g_autofree char *filesystem = NULL;
 
         g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 
@@ -48,7 +49,8 @@ main (int    argc,
         }
 
         old = g_date_time_new_now_local ();
-        data = delete_data_new (file, NULL, old, FALSE, FALSE, 0);
+        filesystem = get_filesystem (file);
+        data = delete_data_new (file, NULL, old, FALSE, FALSE, 0, filesystem);
         delete_recursively_by_age (data);
         delete_data_unref (data);
         g_object_unref (file);

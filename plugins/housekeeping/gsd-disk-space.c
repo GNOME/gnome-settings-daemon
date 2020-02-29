@@ -251,13 +251,15 @@ delete_data_new (GFile        *file,
                  GDateTime    *old,
                  gboolean      dry_run,
                  gboolean      trash,
-                 gint          depth)
+                 gint          depth,
+                 const char   *filesystem)
 {
         DeleteData *data;
 
         data = g_new (DeleteData, 1);
         data->ref_count = 1;
         data->file = g_object_ref (file);
+        data->filesystem = g_strdup (filesystem);
         data->cancellable = cancellable ? g_object_ref (cancellable) : NULL;
         data->old = g_date_time_ref (old);
         data->dry_run = dry_run;
@@ -266,6 +268,21 @@ delete_data_new (GFile        *file,
         data->name = g_file_get_parse_name (data->file);
 
         return data;
+}
+
+char*
+get_filesystem (GFile *file)
+{
+        g_autoptr(GFileInfo) info = NULL;
+
+        info = g_file_query_info (file,
+                                  G_FILE_ATTRIBUTE_ID_FILESYSTEM,
+                                  G_FILE_QUERY_INFO_NONE,
+                                  NULL,
+                                  NULL);
+
+        return g_file_info_get_attribute_as_string (info,
+                                                    G_FILE_ATTRIBUTE_ID_FILESYSTEM);
 }
 
 static DeleteData *
@@ -287,6 +304,7 @@ delete_data_unref (DeleteData *data)
                 g_object_unref (data->cancellable);
         g_date_time_unref (data->old);
         g_free (data->name);
+        g_free (data->filesystem);
         g_free (data);
 }
 
@@ -297,6 +315,7 @@ delete_batch (GObject      *source,
 {
         GFileEnumerator *enumerator = G_FILE_ENUMERATOR (source);
         DeleteData *data = user_data;
+        const char *fs;
         GList *files, *f;
         GFile *child_file;
         DeleteData *child;
@@ -313,13 +332,26 @@ delete_batch (GObject      *source,
                                 break;
                         info = f->data;
 
+                        fs = g_file_info_get_attribute_string (info,
+                                                               G_FILE_ATTRIBUTE_ID_FILESYSTEM);
+
+                        /* Do not consider the file if it is on a different file system.
+                         * Ignore data->filesystem if it is NULL (this only happens if
+                         * it is the toplevel trash directory). */
+                        if (data->filesystem && g_strcmp0 (fs, data->filesystem) != 0) {
+                                g_debug ("GsdHousekeeping: skipping file \"%s\" as it is on a different file system",
+                                         g_file_info_get_name (info));
+                                continue;
+                        }
+
                         child_file = g_file_get_child (data->file, g_file_info_get_name (info));
                         child = delete_data_new (child_file,
                                                  data->cancellable,
                                                  data->old,
                                                  data->dry_run,
                                                  data->trash,
-                                                 data->depth + 1);
+                                                 data->depth + 1,
+                                                 fs);
                         delete_recursively_by_age (child);
                         delete_data_unref (child);
                         g_object_unref (child_file);
@@ -418,7 +450,8 @@ delete_subdir_check_symlink (GObject      *source,
         } else {
                 g_file_enumerate_children_async (data->file,
                                                  G_FILE_ATTRIBUTE_STANDARD_NAME ","
-                                                 G_FILE_ATTRIBUTE_STANDARD_TYPE,
+                                                 G_FILE_ATTRIBUTE_STANDARD_TYPE ","
+                                                 G_FILE_ATTRIBUTE_ID_FILESYSTEM,
                                                  G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
                                                  0,
                                                  data->cancellable,
@@ -455,7 +488,7 @@ gsd_ldsm_purge_trash (GDateTime *old)
         DeleteData *data;
 
         file = g_file_new_for_uri ("trash:");
-        data = delete_data_new (file, NULL, old, FALSE, TRUE, 0);
+        data = delete_data_new (file, NULL, old, FALSE, TRUE, 0, NULL);
         delete_recursively_by_age (data);
         delete_data_unref (data);
         g_object_unref (file);
@@ -466,16 +499,35 @@ gsd_ldsm_purge_temp_files (GDateTime *old)
 {
         DeleteData *data;
         GFile *file;
+        char *filesystem;
+
+        /* Never clean temporary files on a sane (i.e. systemd managed)
+         * system. In that case systemd already ships
+         *   /usr/lib/tmpfiles.d/tmp.conf
+         * which does the trick in a much safer way.
+         * Ideally we can just drop this feature, I am not sure why it was
+         * added in the first place though, it does not really seem like a
+         * privacy feature (also, it was late in the release cycle).
+         *   https://en.wikipedia.org/wiki/Wikipedia:Chesterton%27s_fence
+         *
+         * This does the same as sd_booted without needing libsystemd.
+         */
+        if (g_file_test ("/run/systemd/system/", G_FILE_TEST_IS_DIR))
+                return;
 
         file = g_file_new_for_path (g_get_tmp_dir ());
-        data = delete_data_new (file, NULL, old, FALSE, FALSE, 0);
+        filesystem = get_filesystem (file);
+        data = delete_data_new (file, NULL, old, FALSE, FALSE, 0, filesystem);
+        g_free (filesystem);
         delete_recursively_by_age (data);
         delete_data_unref (data);
         g_object_unref (file);
 
         if (g_strcmp0 (g_get_tmp_dir (), "/var/tmp") != 0) {
                 file = g_file_new_for_path ("/var/tmp");
-                data = delete_data_new (file, NULL, old, FALSE, FALSE, 0);
+                filesystem = get_filesystem (file);
+                data = delete_data_new (file, NULL, old, FALSE, FALSE, 0, filesystem);
+                g_free (filesystem);
                 delete_recursively_by_age (data);
                 delete_data_unref (data);
                 g_object_unref (file);
@@ -483,7 +535,9 @@ gsd_ldsm_purge_temp_files (GDateTime *old)
 
         if (g_strcmp0 (g_get_tmp_dir (), "/tmp") != 0) {
                 file = g_file_new_for_path ("/tmp");
-                data = delete_data_new (file, NULL, old, FALSE, FALSE, 0);
+                filesystem = get_filesystem (file);
+                data = delete_data_new (file, NULL, old, FALSE, FALSE, 0, filesystem);
+                g_free (filesystem);
                 delete_recursively_by_age (data);
                 delete_data_unref (data);
                 g_object_unref (file);
@@ -499,7 +553,7 @@ gsd_ldsm_show_empty_trash (void)
 
         old = g_date_time_new_now_local ();
         file = g_file_new_for_uri ("trash:");
-        data = delete_data_new (file, NULL, old, TRUE, TRUE, 0);
+        data = delete_data_new (file, NULL, old, TRUE, TRUE, 0, NULL);
         g_object_unref (file);
         g_date_time_unref (old);
 

@@ -35,6 +35,7 @@ typedef struct {
         gboolean         dry_run;
         gboolean         trash;
         gchar           *name;
+        gchar           *filesystem;
         gint             depth;
 } DeleteData;
 
@@ -44,7 +45,10 @@ DeleteData *delete_data_new (GFile        *file,
                              GDateTime    *old,
                              gboolean      dry_run,
                              gboolean      trash,
-                             gint          depth);
+                             gint          depth,
+                             const char   *filesystem);
+char* get_filesystem (GFile *file);
+
 void delete_recursively_by_age (DeleteData *data);
 
 void gsd_ldsm_setup (gboolean check_now);
