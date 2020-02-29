@@ -502,7 +502,7 @@ on_screen_locked (GsdScreenSaver          *screen_saver,
 
         is_locked = gsd_screen_saver_call_lock_finish (screen_saver, result, &error);
 
-        if (error) {
+        if (!is_locked) {
             g_warning ("Couldn't lock screen: %s", error->message);
             if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
                 return;
