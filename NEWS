@@ -1,4 +1,29 @@
 ===============
+Version 3.35.92
+===============
+- Translation updates
+- CI improvements
+
+Xsettings:
+- Load scripts from /etc/xdg/Xwayland-session.d in order to lazily set up
+  X11 sessions for wayland (e.g. Xwayland being raised on demand)
+- Delegate on gnome-shell to enable/disable animations
+
+Sharing:
+- Drop support for vino. It is replaced by the windowing agnostic
+  gnome-remote-desktop in other places of the stack.
+
+Wacom:
+- Fix build without wayland
+
+Housekeeping:
+- Use atime instead of mtime in thumbnail cleaner, if available
+- Avoid crossing into different filesystems in cleanup dirs (except trash:)
+
+Power:
+- Add missing error check to realpath call
+
+===============
 Version 3.35.91
 ===============
 - Translation updates
