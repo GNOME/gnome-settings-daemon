@@ -14,15 +14,15 @@
 # Petr Kovar <pknbe@volny.cz>, 2008, 2009, 2010, 2011.
 # Ondřej Kopka <ondrej.kopka@gmail.com>, 2011.
 # Adam Matoušek <adydas95@gmail.com>, 2012.
-# Marek Černocký <marek@manet.cz>, 2011, 2012, 2013, 2014. 2015, 2016, 2017, 2018, 2019.
+# Marek Černocký <marek@manet.cz>, 2011, 2012, 2013, 2014. 2015, 2016, 2017, 2018, 2019, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2019-08-26 12:20+0000\n"
-"PO-Revision-Date: 2019-09-03 15:33+0200\n"
+"POT-Creation-Date: 2020-01-26 12:00+0000\n"
+"PO-Revision-Date: 2020-03-03 12:24+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -1694,30 +1694,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "U tohoto počítače zbývá pouze %s volného místa na disku."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2430
+#: plugins/media-keys/gsd-media-keys-manager.c:2466
 msgid "Bluetooth disabled"
 msgstr "Bluetooth je vypnuté"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2433
+#: plugins/media-keys/gsd-media-keys-manager.c:2469
 msgid "Bluetooth enabled"
 msgstr "Bluetooth je zapnuté"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2437
+#: plugins/media-keys/gsd-media-keys-manager.c:2473
 msgid "Airplane mode enabled"
 msgstr "Režim „letadlo“ je zapnutý"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2440
+#: plugins/media-keys/gsd-media-keys-manager.c:2476
 msgid "Airplane mode disabled"
 msgstr "Režim „letadlo“ je vypnutý"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2469
+#: plugins/media-keys/gsd-media-keys-manager.c:2505
 msgid "Hardware Airplane Mode"
 msgstr "Hardwarový režim „letadlo“"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2532
+#: plugins/media-keys/gsd-media-keys-manager.c:2568
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Nahrávka obrazovky z %d %t.webm"
@@ -1726,23 +1726,22 @@ msgstr "Nahrávka obrazovky z %d %t.webm"
 msgid "Unable to capture a screenshot"
 msgstr "Nelze zachytit snímek obrazovky"
 
-#: plugins/media-keys/gsd-screenshot-utils.c:113
-#: plugins/media-keys/gsd-screenshot-utils.c:155
+#: plugins/media-keys/gsd-screenshot-utils.c:125
 msgid "Screenshot taken"
 msgstr "Snímek pořízen"
 
 #. translators: this is the name of the file that gets made up
 #. * with the screenshot
-#: plugins/media-keys/gsd-screenshot-utils.c:306
+#: plugins/media-keys/gsd-screenshot-utils.c:264
 #, c-format
 msgid "Screenshot from %s"
 msgstr "Snímek z %s"
 
-#: plugins/power/gpm-common.c:92
+#: plugins/power/gpm-common.c:91
 msgid "Unknown time"
 msgstr "Neznámý čas"
 
-#: plugins/power/gpm-common.c:97
+#: plugins/power/gpm-common.c:96
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
@@ -1750,7 +1749,7 @@ msgstr[0] "%i minuta"
 msgstr[1] "%i minuty"
 msgstr[2] "%i minut"
 
-#: plugins/power/gpm-common.c:107
+#: plugins/power/gpm-common.c:106
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1760,19 +1759,19 @@ msgstr[2] "%i hodin"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: plugins/power/gpm-common.c:113
+#: plugins/power/gpm-common.c:112
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: plugins/power/gpm-common.c:114
+#: plugins/power/gpm-common.c:113
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "hodina"
 msgstr[1] "hodiny"
 msgstr[2] "hodin"
 
-#: plugins/power/gpm-common.c:115
+#: plugins/power/gpm-common.c:114
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minuta"
@@ -1780,7 +1779,7 @@ msgstr[1] "minuty"
 msgstr[2] "minut"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:425 plugins/power/gsd-power-manager.c:720
+#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:720
 #: plugins/power/gsd-power-manager.c:817
 msgid "Battery is critically low"
 msgstr "Úroveň nabití baterie je kritická"
@@ -2370,6 +2369,68 @@ msgstr "Tiskárna „%s“: „%s“."
 #: plugins/smartcard/gsd-smartcard-service.c:282
 msgid "User was not logged in with smartcard."
 msgstr "Uživatel nebyl pomocí čipové karty přihlášen."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:386
+msgid "USB Protection"
+msgstr "Ochrana USB"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:513
+msgid "New USB device"
+msgstr "Nové zařízení USB"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:514
+msgid ""
+"New device has been detected while the session was not locked. If you did "
+"not plug anything, check your system for any suspicious device."
+msgstr ""
+"Zatímco bylo uzamknuté sezení, bylo zjištěno nové zařízení. Pokud jste to "
+"neprovedli vy, zkontrolujte si, jestli nemáte v systému nějaké podezřelé "
+"zařízení."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:593
+msgid "New keyboard detected"
+msgstr "Zjištěna nová klávesnice"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:594
+msgid ""
+"Either your keyboard has been reconnected or a new one has been plugged in. "
+"If you did not do it, check your system for any suspicious device."
+msgstr ""
+"Buďto byla stávající klávesnice odpojena a znovu připojena, nebo byla "
+"připojena nějaká jiná. Pokud jste to neprovedli vy, zkontrolujte si, jestli "
+"nemáte v systému nějaké podezřelé zařízení."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:600
+msgid "Reconnect USB device"
+msgstr "Připojte znovu zařízení USB"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:601
+msgid ""
+"New device has been detected while you were away. Please disconnect and "
+"reconnect the device to start using it."
+msgstr ""
+"Zatímco jste byli pryč, bylo zjištěno nové zařízení. Odpojte jej prosím a "
+"znovu připojte, abyste jej mohli používat."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:607
+#: plugins/usb-protection/gsd-usb-protection-manager.c:631
+msgid "USB device blocked"
+msgstr "Blokováno zařízení USB"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:608
+msgid ""
+"New device has been detected while you were away. It has been blocked "
+"because the USB protection is active."
+msgstr ""
+"Zatímco jste byli pryč, bylo zjištěno nové zařízení. Nyní je blokováno, "
+"protože je zapnutá ochrana USB."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:632
+msgid ""
+"The new inserted device has been blocked because the USB protection is "
+"active."
+msgstr ""
+"Bylo zablokováno nově vložené zařízení, protože je zapnutá ochrana USB."
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
