@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
 "POT-Creation-Date: 2020-02-08 20:45+0000\n"
-"PO-Revision-Date: 2020-02-08 20:00+0900\n"
+"PO-Revision-Date: 2020-03-03 20:10+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -2418,7 +2418,7 @@ msgstr "OK"
 #. TODO: handle PUK as well
 #: plugins/wwan/gsd-wwan-pinentry.c:194
 msgid "Too many incorrect PINs."
-msgstr "不正な PIN が多すぎます。"
+msgstr "PIN を間違えすぎています。"
 
 #: plugins/wwan/gsd-wwan-pinentry.c:200
 msgid "Wrong PIN code"
@@ -2479,7 +2479,7 @@ msgstr "PIN コードに問題があります"
 #~ "した時の解像度を保持します。"
 
 #~ msgid "Wacom display mapping"
-#~ msgstr "Wacom ディスプレイ・マッピング"
+#~ msgstr "Wacom ディスプレイマッピング"
 
 #~ msgid ""
 #~ "EDID information of monitor to map tablet to. Must be in the format "
@@ -2515,8 +2515,8 @@ msgstr "PIN コードに問題があります"
 #~ "The percentage of the battery when the critical action is performed. Only "
 #~ "valid when use-time-for-policy is false."
 #~ msgstr ""
-#~ "危険領域のアクションを実施するバッテリー残量のパーセンテージ。use-time-"
-#~ "for-policy が false のときだけ有効です。"
+#~ "危険領域のアクションを実施するバッテリー残量のパーセンテージです。"
+#~ "use-time-for-policy が false のときだけ有効です。"
 
 #~ msgid "The time remaining when low"
 #~ msgstr "残量低下時の残り時間"
@@ -2693,10 +2693,10 @@ msgstr "PIN コードに問題があります"
 #~ "an updates check is performed. This allows post-install disks to be used "
 #~ "to update running systems."
 #~ msgstr ""
-#~ "リムーバブルメディアが挿入された時、ルートディレクトリに重要なファイル名が"
-#~ "含まれていないかどうか調査します。ファイル名が一致した場合、更新の調査が実"
-#~ "行されます。これで、すでにインストールしたディスクで実行中のシステムを更新"
-#~ "することが可能になります。"
+#~ "リムーバブルメディアが挿入されたとき、ルートディレクトリに重要なファイル名"
+#~ "が含まれていないかどうか調査します。ファイル名が一致した場合、更新の調査が"
+#~ "実行されます。これで、すでにインストールしたディスクで実行中のシステムを更"
+#~ "新することが可能になります。"
 
 #~ msgid "File for default configuration for RandR"
 #~ msgstr "RandR の初期設定ファイル"
@@ -2735,10 +2735,10 @@ msgstr "PIN コードに問題があります"
 #~ "\"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, "
 #~ "and \"full\" for maximum hinting (may cause distortion of letter forms)."
 #~ msgstr ""
-#~ "フォントを描画する際に使用するヒンティング (線幅を補正する) の種類を指定し"
-#~ "ます。利用可能な値: \"none\" はヒンティングを無効にする、\"slight\" は基本"
-#~ "的なヒンティングのみ、\"medium\" は穏やかなヒンティング、\"full\" は最大限"
-#~ "のヒンティング (文字の形状に歪みが発生する可能性あり)"
+#~ "フォントを描画するときに使用するヒンティング (線幅を補正する) の種類を指定"
+#~ "します。利用可能な値: \"none\" はヒンティングを無効にする、\"slight\" は基"
+#~ "本的なヒンティングのみ、\"medium\" は穏やかなヒンティング、\"full\" は最大"
+#~ "限のヒンティング (文字の形状に歪みが発生する可能性あり)"
 
 #~ msgid "Enable debugging code"
 #~ msgstr "デバッグ情報を有効にする"
@@ -2755,122 +2755,17 @@ msgstr "PIN コードに問題があります"
 #~ msgid "Accessibility keyboard plugin"
 #~ msgstr "アクセシビリティ・キーボードのプラグイン"
 
-#~ msgid "Slow Keys Turned On"
-#~ msgstr "スローキーをオンにする"
-
-#~ msgid "Slow Keys Turned Off"
-#~ msgstr "スローキーをオフにする"
-
-#~ msgid ""
-#~ "You just held down the Shift key for 8 seconds.  This is the shortcut for "
-#~ "the Slow Keys feature, which affects the way your keyboard works."
-#~ msgstr ""
-#~ "[SHIFT] キーを8秒間押下しました。これはスローキー機能のショートカットとし"
-#~ "て、キーボード操作に影響を与えるものです。"
-
-#~ msgid "Universal Access"
-#~ msgstr "ユニバーサルアクセス"
-
-#~ msgid "Turn Off"
-#~ msgstr "オフにする"
-
-#~ msgid "Turn On"
-#~ msgstr "オンにする"
-
-#~ msgid "Leave On"
-#~ msgstr "オンのままにする"
-
-#~ msgid "Leave Off"
-#~ msgstr "オフのままにする"
-
-#~ msgid "Sticky Keys Turned On"
-#~ msgstr "固定キーをオンにする"
-
-#~ msgid "Sticky Keys Turned Off"
-#~ msgstr "固定キーをオフにする"
-
-#~ msgid ""
-#~ "You just pressed the Shift key 5 times in a row.  This is the shortcut "
-#~ "for the Sticky Keys feature, which affects the way your keyboard works."
-#~ msgstr ""
-#~ "[SHIFT] キーを連続して5回押下しました。これは固定キー機能のショートカット"
-#~ "として、キーボード操作に影響を与えるものです。"
-
-#~ msgid ""
-#~ "You just pressed two keys at once, or pressed the Shift key 5 times in a "
-#~ "row.  This turns off the Sticky Keys feature, which affects the way your "
-#~ "keyboard works."
-#~ msgstr ""
-#~ "同時に2つのキーを押下したか、あるいは [SHIFT] キーを連続して 5回押下しまし"
-#~ "た。これは固定キー機能を無効にし、キーボード操作に影響を与えるものです。"
-
-#~ msgid "Accessibility settings"
-#~ msgstr "アクセシビリティの設定"
-
 #~ msgid "Accessibility settings plugin"
 #~ msgstr "アクセシビリティの設定プラグイン"
 
-#~ msgid "Clipboard"
-#~ msgstr "クリップボード"
-
-#~ msgid "Clipboard plugin"
-#~ msgstr "クリップボードのプラグイン"
-
-#~ msgid "Color plugin"
-#~ msgstr "カラープラグイン"
-
-#~ msgid "Cursor"
-#~ msgstr "カーソル"
-
-#~ msgid "Show/hide cursor on tablet devices"
-#~ msgstr "タブレットデバイスでカーソルの表示/非表示を行います"
-
 #~ msgid "Date and Time"
 #~ msgstr "日付と時刻"
-
-#~ msgid "Automatically update timezone and display notifications"
-#~ msgstr "自動的にタイムゾーンを更新して通知を表示します"
-
-#~ msgid "Dummy"
-#~ msgstr "ダミー"
-
-#~ msgid "Dummy plugin"
-#~ msgstr "ダミーのプラグイン"
 
 #~ msgid "Don't show any warnings again for this file system"
 #~ msgstr "このファイルシステムの警告は一切表示しない"
 
 #~ msgid "Don't show any warnings again"
 #~ msgstr "警告を一切表示しない"
-
-#~ msgid ""
-#~ "You can free up disk space by emptying the Trash, removing unused "
-#~ "programs or files, or moving files to another disk or partition."
-#~ msgstr ""
-#~ "ゴミ箱を空にしたり、使っていないプログラムやファイルを削除したり、他のディ"
-#~ "スクやパーティションにファイルを移動することで、ディスクの空き容量を増やせ"
-#~ "ます。"
-
-#~ msgid ""
-#~ "You can free up disk space by removing unused programs or files, or by "
-#~ "moving files to another disk or partition."
-#~ msgstr ""
-#~ "使っていないプログラムやファイルを削除したり、他のディスクやパーティション"
-#~ "にファイルを移動することで、ディスク容量を増やせます。"
-
-#~ msgid ""
-#~ "You can free up disk space by emptying the Trash, removing unused "
-#~ "programs or files, or moving files to an external disk."
-#~ msgstr ""
-#~ "ゴミ箱を空にしたり、使っていないプログラムやファイルを削除したり、外付け"
-#~ "ディスクにファイルを移動することで、ディスクの空き容量を増やせます。"
-
-#~ msgid ""
-#~ "You can free up disk space by removing unused programs or files, or by "
-#~ "moving files to an external disk."
-#~ msgstr ""
-#~ "使っていないプログラムやファイルを削除したり、外付けディスクにファイルを移"
-#~ "動することで、ディスクの空き容量を増やせます。"
 
 #~ msgid "Examine…"
 #~ msgstr "調査中…"
@@ -2884,39 +2779,6 @@ msgstr "PIN コードに問題があります"
 #~ msgstr ""
 #~ "不要なサムネイルキャッシュやその他の一時ファイルを削除し、ディスクスペース"
 #~ "の容量が小さくなれば警告します"
-
-#~ msgid "Keyboard"
-#~ msgid_plural "Keyboards"
-#~ msgstr[0] "キーボード"
-
-#~ msgid "Keyboard plugin"
-#~ msgstr "キーボードプラグイン"
-
-#~ msgid "Disabled"
-#~ msgstr "無効"
-
-#~ msgid "%u Output"
-#~ msgid_plural "%u Outputs"
-#~ msgstr[0] "%u 出力"
-
-#~ msgid "%u Input"
-#~ msgid_plural "%u Inputs"
-#~ msgstr[0] "%u 入力"
-
-#~ msgid "System Sounds"
-#~ msgstr "システムの効果音"
-
-#~ msgid "Media keys"
-#~ msgstr "メディアキー"
-
-#~ msgid "Media keys plugin"
-#~ msgstr "メディアキーのプラグイン"
-
-#~ msgid "Touchpad toggle"
-#~ msgstr "タッチパッドの切り替え"
-
-#~ msgid "Lock Screen"
-#~ msgstr "画面をロックする"
 
 #~ msgid "Rewind"
 #~ msgstr "巻き戻し"
@@ -2938,19 +2800,6 @@ msgstr "PIN コードに問題があります"
 
 #~ msgid "Orientation Lock"
 #~ msgstr "画面方向ロック"
-
-#~ msgid "Power Off"
-#~ msgstr "電源オフ"
-
-#~ msgid "Sleep"
-#~ msgstr "スリープ"
-
-#~ msgid "Mouse"
-#~ msgid_plural "Mice"
-#~ msgstr[0] "マウス"
-
-#~ msgid "Mouse plugin"
-#~ msgstr "マウスプラグイン"
 
 #~ msgid "Orientation"
 #~ msgstr "画面の向き"
@@ -2976,9 +2825,6 @@ msgstr "PIN コードに問題があります"
 #~ msgid "Status:"
 #~ msgstr "状態:"
 
-#~ msgid "Missing"
-#~ msgstr "不明"
-
 #~ msgid "Charged"
 #~ msgstr "充電完了"
 
@@ -2990,9 +2836,6 @@ msgstr "PIN コードに問題があります"
 
 #~ msgid "Percentage charge:"
 #~ msgstr "充電率:"
-
-#~ msgid "Vendor:"
-#~ msgstr "ベンダー:"
 
 #~ msgid "Technology:"
 #~ msgstr "種別:"
@@ -3034,41 +2877,9 @@ msgstr "PIN コードに問題があります"
 #~ msgid "Charge rate:"
 #~ msgstr "充電率:"
 
-#~ msgid "AC adapter"
-#~ msgid_plural "AC adapters"
-#~ msgstr[0] "AC アダプター"
-
 #~ msgid "Laptop battery"
 #~ msgid_plural "Laptop batteries"
 #~ msgstr[0] "ノート PC のバッテリー"
-
-#~ msgid "UPS"
-#~ msgid_plural "UPSs"
-#~ msgstr[0] "UPS"
-
-#~ msgid "Monitor"
-#~ msgid_plural "Monitors"
-#~ msgstr[0] "モニター"
-
-#~ msgid "PDA"
-#~ msgid_plural "PDAs"
-#~ msgstr[0] "PDA"
-
-#~ msgid "Cell phone"
-#~ msgid_plural "Cell phones"
-#~ msgstr[0] "携帯電話"
-
-#~ msgid "Media player"
-#~ msgid_plural "Media players"
-#~ msgstr[0] "メディアプレーヤー"
-
-#~ msgid "Tablet"
-#~ msgid_plural "Tablets"
-#~ msgstr[0] "タブレット"
-
-#~ msgid "Computer"
-#~ msgid_plural "Computers"
-#~ msgstr[0] "コンピューター"
 
 #~ msgid "Lithium Ion"
 #~ msgstr "リチウムイオン"
@@ -3133,90 +2944,6 @@ msgstr "PIN コードに問題があります"
 #~ msgid "UPS is charged"
 #~ msgstr "UPS の充電完了"
 
-#~ msgid "Mouse is charging"
-#~ msgstr "マウスの充電中"
-
-#~ msgid "Mouse is discharging"
-#~ msgstr "マウスの放電中"
-
-#~ msgid "Mouse is empty"
-#~ msgstr "マウスのバッテリーが空です"
-
-#~ msgid "Mouse is charged"
-#~ msgstr "マウスの充電完了"
-
-#~ msgid "Keyboard is charging"
-#~ msgstr "キーボードの充電中"
-
-#~ msgid "Keyboard is discharging"
-#~ msgstr "キーボードの放電中"
-
-#~ msgid "Keyboard is empty"
-#~ msgstr "キーボードのバッテリーが空です"
-
-#~ msgid "Keyboard is charged"
-#~ msgstr "キーボードの充電完了"
-
-#~ msgid "PDA is charging"
-#~ msgstr "PDA の充電中"
-
-#~ msgid "PDA is discharging"
-#~ msgstr "PDA の放電中"
-
-#~ msgid "PDA is empty"
-#~ msgstr "PDA のバッテリーが空です"
-
-#~ msgid "PDA is charged"
-#~ msgstr "PDA の充電完了"
-
-#~ msgid "Cell phone is charging"
-#~ msgstr "携帯電話の充電中"
-
-#~ msgid "Cell phone is discharging"
-#~ msgstr "携帯電話の放電中"
-
-#~ msgid "Cell phone is empty"
-#~ msgstr "携帯電話のバッテリーが空です"
-
-#~ msgid "Cell phone is charged"
-#~ msgstr "携帯電話の充電完了"
-
-#~ msgid "Media player is charging"
-#~ msgstr "メディアプレーヤーの充電中"
-
-#~ msgid "Media player is discharging"
-#~ msgstr "メディアプレーヤーの放電中"
-
-#~ msgid "Media player is empty"
-#~ msgstr "メディアプレーヤーのバッテリーが空です"
-
-#~ msgid "Media player is charged"
-#~ msgstr "メディアプレーヤーの充電完了"
-
-#~ msgid "Tablet is charging"
-#~ msgstr "タブレットの充電中"
-
-#~ msgid "Tablet is discharging"
-#~ msgstr "タブレットの放電中"
-
-#~ msgid "Tablet is empty"
-#~ msgstr "タブレットのバッテリーが空です"
-
-#~ msgid "Tablet is charged"
-#~ msgstr "タブレットの充電完了"
-
-#~ msgid "Computer is charging"
-#~ msgstr "コンピューターの充電中"
-
-#~ msgid "Computer is discharging"
-#~ msgstr "コンピューターの放電中"
-
-#~ msgid "Computer is empty"
-#~ msgstr "コンピューターのバッテリーが空です"
-
-#~ msgid "Computer is charged"
-#~ msgstr "コンピューターの充電完了"
-
 #~ msgid "Battery may be recalled"
 #~ msgstr "バッテリーはリコール対象の可能性があります"
 
@@ -3280,30 +3007,12 @@ msgstr "PIN コードに問題があります"
 #~ msgid "Print-notifications plugin"
 #~ msgstr "印刷通知プラグイン"
 
-#~ msgid "Remote Display"
-#~ msgstr "リモートディスプレイ"
-
 #~ msgid "Disable animations on remote displays"
 #~ msgstr "リモートディスプレイでアニメーションを無効にする"
-
-#~ msgid "Rfkill plugin"
-#~ msgstr "Rfkill プラグイン"
-
-#~ msgid "Screensaver Proxy"
-#~ msgstr "スクリーンセーバープロキシ"
 
 #~ msgid "Proxy FreeDesktop screensaver inhibition to gnome-session"
 #~ msgstr ""
 #~ "gnome-session の機能を抑止する FreeDesktop スクリーンセーバープロキシ"
-
-#~ msgid "Smartcard"
-#~ msgstr "スマートカード"
-
-#~ msgid "Smartcard plugin"
-#~ msgstr "スマートカードプラグイン"
-
-#~ msgid "Sound"
-#~ msgstr "サウンド"
 
 #~ msgid "Sound Sample Cache plugin"
 #~ msgstr "サウンドサンプルキャッシュのプラグイン"
@@ -3314,12 +3023,6 @@ msgstr "PIN コードに問題があります"
 #~ msgstr ""
 #~ "ハードウェアを正しく動作させるには、コンピューターを再起動する必要がありま"
 #~ "す。"
-
-#~ msgid "Additional software was installed"
-#~ msgstr "追加のソフトウェアがインストールされました"
-
-#~ msgid "Software Updates"
-#~ msgstr "ソフトウェアの更新"
 
 #~ msgid ""
 #~ "You will need to remove and then reinsert the hardware before it will "
@@ -3341,123 +3044,23 @@ msgstr "PIN コードに問題があります"
 #~ msgid "Additional firmware required"
 #~ msgstr "追加のファームウェアの要求"
 
-#~ msgid "Install firmware"
-#~ msgstr "ファームウェアのインストール"
-
 #~ msgid "Ignore devices"
 #~ msgstr "デバイスを無視"
-
-#~ msgid "Failed To Update"
-#~ msgstr "更新の失敗"
-
-#~ msgid "A previous update was unfinished."
-#~ msgstr "前回の更新が完了していません。"
 
 #~ msgid "Network access was required but not available."
 #~ msgstr "ネットワークアクセスが必要ですが、利用できません。"
 
-#~ msgid "An update was not signed in the correct way."
-#~ msgstr "更新は正しい方法で署名されていません。"
-
-#~ msgid "The update could not be completed."
-#~ msgstr "更新を完了できませんでした。"
-
-#~ msgid "The update was cancelled."
-#~ msgstr "更新がキャンセルされました。"
-
-#~ msgid "An offline update was requested but no packages required updating."
-#~ msgstr ""
-#~ "オフラインの更新が要求されましたが、必要な更新パッケージはありません。"
-
 #~ msgid "No space was left on the drive."
 #~ msgstr "ドライブに空き領域がありません。"
-
-#~ msgid "An update failed to install correctly."
-#~ msgstr "更新のインストールが正常に終わりませんでした。"
-
-#~ msgid "The offline update failed in an unexpected way."
-#~ msgstr "オフラインの更新で予期せぬエラーが発生しました。"
 
 #~ msgid "Detailed errors from the package manager follow:"
 #~ msgstr "パッケージマネジャーからのエラーの詳細は次のとおり:"
 
-#~ msgid "Distribution upgrades available"
-#~ msgstr "ディストリビューションの更新が利用可能です。"
-
-#~ msgid "More information"
-#~ msgstr "更新の追加情報"
-
-#~ msgid "Update"
-#~ msgid_plural "Updates"
-#~ msgstr[0] "更新"
-
-#~ msgid "An important software update is available"
-#~ msgid_plural "Important software updates are available"
-#~ msgstr[0] "重要なソフトウェアの更新が利用可能です"
-
-#~ msgid "Install updates"
-#~ msgstr "更新のインストール"
-
-#~ msgid "A software update is available."
-#~ msgid_plural "Software updates are available."
-#~ msgstr[0] "ソフトウェアの更新が利用可能です。"
-
-#~ msgid "Updates"
-#~ msgstr "更新"
-
-#~ msgid "Unable to access software updates"
-#~ msgstr "ソフトウェアの更新にアクセスできません"
-
-#~ msgid "Try again"
-#~ msgstr "再試行"
-
 #~ msgid "A transaction that cannot be interrupted is running"
 #~ msgstr "実行時に中断できないトランザクションです"
 
-#~ msgid "Software Update Installed"
-#~ msgid_plural "Software Updates Installed"
-#~ msgstr[0] "更新されたソフトウェアがインストールされました"
-
-#~ msgid "An important OS update has been installed."
-#~ msgid_plural "Important OS updates have been installed."
-#~ msgstr[0] "重要な OS の更新がインストールされました。"
-
-#~ msgid "Software Updates Failed"
-#~ msgstr "ソフトウェアの更新に失敗しました"
-
-#~ msgid "An important OS update failed to be installed."
-#~ msgstr "重要な OS 更新のインストールに失敗しました。"
-
-#~ msgid "Review"
-#~ msgstr "確認"
-
-#~ msgid "Show details"
-#~ msgstr "詳細の表示"
-
-#~ msgid "Software Updates available"
-#~ msgstr "ソフトウェアの更新が利用可能"
-
-#~ msgid "Important OS and application updates are ready to be installed"
-#~ msgstr "OS とアプリケーションの重要な更新をインストールする準備ができました"
-
-#~ msgid "GNOME Software"
-#~ msgstr "GNOME ソフトウェア"
-
 #~ msgid "Not Now"
 #~ msgstr "あとで"
-
-#~ msgid "View"
-#~ msgstr "表示"
-
-#~ msgid "Restart & Install"
-#~ msgstr "再起動してインストール"
-
-#~ msgid "Updates plugin"
-#~ msgstr "更新プラグイン"
-
-#~ msgctxt "Wacom action-type"
-#~ msgid "None"
-#~ msgstr "なし"
 
 #~ msgctxt "Wacom action-type"
 #~ msgid "Send Keystroke"
@@ -3470,13 +3073,6 @@ msgstr "PIN コードに問題があります"
 #~ msgctxt "Wacom action-type"
 #~ msgid "Show On-Screen Help"
 #~ msgstr "オンスクリーンヘルプを表示"
-
-#~ msgctxt "keyboard shortcut"
-#~ msgid "None"
-#~ msgstr "なし"
-
-#~ msgid "Done"
-#~ msgstr "完了"
 
 #~ msgid "Left Ring"
 #~ msgstr "左タッチホイール"
@@ -3529,9 +3125,6 @@ msgstr "PIN コードに問題があります"
 #~ msgid "Bottom Button #%d"
 #~ msgstr "下ボタン #%d"
 
-#~ msgid "New shortcut…"
-#~ msgstr "新しいショートカット…"
-
 #~ msgid "The \"%s\" tablet may not work as expected."
 #~ msgstr "\"%s\" タブレットは期待通りに動作しない可能性があります。"
 
@@ -3555,52 +3148,14 @@ msgstr "PIN コードに問題があります"
 #~ msgid "Send Keystroke %s"
 #~ msgstr "キーストローク %s を送信"
 
-#~ msgctxt "Action type"
-#~ msgid "Show On-Screen Help"
-#~ msgstr "オンスクリーンヘルプを表示"
-
-#~ msgctxt "Action type"
-#~ msgid "Switch Monitor"
-#~ msgstr "モニターを切り替える"
-
-#~ msgid "Mode %d: %s"
-#~ msgstr "モード %d: %s"
-
-#~ msgid "(press any key to exit)"
-#~ msgstr "(何かキーを押して終了)"
-
 #~ msgid "Push a button to configure"
 #~ msgstr "設定するボタンを押してください"
-
-#~ msgid "(Esc to cancel)"
-#~ msgstr "(Esc でキャンセル)"
-
-#~ msgid "Edit"
-#~ msgstr "編集"
-
-#~ msgid "Wacom"
-#~ msgstr "Wacom"
-
-#~ msgid "Wacom plugin"
-#~ msgstr "Wacom プラグイン"
 
 #~ msgid "Could not refresh the screen information: %s"
 #~ msgstr "スクリーンの情報を更新できませんでした: %s"
 
-#~ msgid "XRandR"
-#~ msgstr "XRandR"
-
 #~ msgid "Set up screen size and rotation settings"
 #~ msgstr "画面の大きさや回転といった設定を管理します"
-
-#~ msgid "X Settings"
-#~ msgstr "X の設定"
-
-#~ msgid "Manage X Settings"
-#~ msgstr "X の設定を管理します"
-
-#~ msgid "Could not enable mouse accessibility features"
-#~ msgstr "マウスの操作性に関する機能を有効にできませんでした"
 
 #~ msgid ""
 #~ "Mouse accessibility requires Mousetweaks to be installed on your system."
@@ -3611,23 +3166,14 @@ msgstr "PIN コードに問題があります"
 #~ msgid "received error or hang up from event source"
 #~ msgstr "イベントの発生源からエラーを受け取ったか、ハングアップしました"
 
-#~ msgid "NSS security system could not be initialized"
-#~ msgstr "NSS セキュリティシステムをインストールできませんでした"
-
 #~ msgid "no suitable smartcard driver could be found"
 #~ msgstr "適切なスマートカードのドライバーを発見できませんでした"
-
-#~ msgid "smartcard driver '%s' could not be loaded"
-#~ msgstr "スマートカードのドライバー '%s' を読み込めませんでした"
 
 #~ msgid "could not watch for incoming card events - %s"
 #~ msgstr "カードから受け取ったイベントを確認できませんでした - %s"
 
 #~ msgid "encountered unexpected error while waiting for smartcard events"
 #~ msgstr "スマートカードのイベントを待機中に想定外のエラーに遭遇しました"
-
-#~ msgid "Could not switch the monitor configuration"
-#~ msgstr "モニターの設定に切り替えることができませんでした"
 
 #~ msgid "Could not restore the display's configuration"
 #~ msgstr "ディスプレイの設定を元に戻せませんでした"
@@ -3638,7 +3184,7 @@ msgstr "PIN コードに問題があります"
 #~ msgid "The display will be reset to its previous configuration in %d second"
 #~ msgid_plural ""
 #~ "The display will be reset to its previous configuration in %d seconds"
-#~ msgstr[0] " %d秒後に元のディスプレイの設定に戻ります"
+#~ msgstr[0] " %d 秒後に元のディスプレイの設定に戻ります"
 
 #~ msgid "Does the display look OK?"
 #~ msgstr "ディスプレイの設定に問題はありませんか?"
@@ -3649,32 +3195,14 @@ msgstr "PIN コードに問題があります"
 #~ msgid "_Keep This Configuration"
 #~ msgstr "この設定のままにする(_K)"
 
-#~ msgid "The selected configuration for displays could not be applied"
-#~ msgstr "選択したディスプレイの設定を適用できませんでした"
-
 #~ msgid "Trying to switch the monitor configuration anyway."
 #~ msgstr "いずれにせよ、モニターの設定を切り替えてみます"
 
 #~ msgid "Could not apply the stored configuration for monitors"
 #~ msgstr "保存したモニターの設定を適用できませんでした"
 
-#~ msgid "Background"
-#~ msgstr "背景"
-
-#~ msgid "Command to be run when a device is added or removed."
-#~ msgstr "デバイスが追加または削除された時に実行するコマンドです。"
-
 #~ msgid "Binding to select the next input source"
 #~ msgstr "次の入力ソースに切り替えるキーバインディングです。"
-
-#~ msgid "Switch input source backward"
-#~ msgstr "前の入力ソースに切り替え"
-
-#~ msgid "Binding to select the previous input source"
-#~ msgstr "前の入力ソースに切り替えるキーバインディングです"
-
-#~ msgid "There was an error displaying help: %s"
-#~ msgstr "ヘルプを表示する際にエラーが発生しました: %s"
 
 #~ msgid "_Turn Off"
 #~ msgstr "オフにする(_T)"
@@ -3688,23 +3216,14 @@ msgstr "PIN コードに問題があります"
 #~ msgid "_Leave Off"
 #~ msgstr "オフのままにする(_L)"
 
-#~ msgid "Universal Access Preferences"
-#~ msgstr "ユニバーサル・アクセスの設定"
+#~ msgid "Use screen magnifier"
+#~ msgstr "スクリーンの拡大鏡を使う"
 
-#~ msgid "Use on-screen _keyboard"
-#~ msgstr "オンスクリーン・キーボードを使う(_K)"
+#~ msgid "Enhance contrast in colors"
+#~ msgstr "色のコントラストを強調する"
 
-#~ msgid "Use screen _reader"
-#~ msgstr "スクリーンリーダを使う(_R)"
-
-#~ msgid "Use screen _magnifier"
-#~ msgstr "スクリーンの拡大鏡を使う(_M)"
-
-#~ msgid "Enhance _contrast in colors"
-#~ msgstr "色のコントラストを強調する(_C)"
-
-#~ msgid "Make _text larger and easier to read"
-#~ msgstr "文字を大きく表示して読みやすくする(_T)"
+#~ msgid "Make text larger and easier to read"
+#~ msgstr "文字を大きく表示して読みやすくする"
 
 #~ msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 #~ msgstr "固定キーを有効にする(_P)"
@@ -3712,20 +3231,14 @@ msgstr "PIN コードに問題があります"
 #~ msgid "_Ignore duplicate keypresses (Bounce Keys)"
 #~ msgstr "キーを素早く押下したり押し続けた場合は無視する(_I)"
 
-#~ msgid "Press and _hold keys to accept them (Slow Keys)"
-#~ msgstr "キーを押下したままにしてスローキーを有効にできる(_H)"
+#~ msgid "Press and hold keys to accept them (Slow Keys)"
+#~ msgstr "キーを押下したままにしてスローキーを有効にできる"
 
 #~ msgid "Mount Helper"
 #~ msgstr "マウント補助"
 
 #~ msgid "Automount and autorun plugged devices"
 #~ msgstr "自動マウントと接続時に自動実行されるデバイス"
-
-#~ msgid "Unable to mount %s"
-#~ msgstr "%s をマウントできません"
-
-#~ msgid "Unable to open a folder for %s"
-#~ msgstr "%s フォルダを書き込みモードで開けません"
 
 #~ msgid "Ask what to do"
 #~ msgstr "どうするか確認"
@@ -3735,12 +3248,6 @@ msgstr "PIN コードに問題があります"
 
 #~ msgid "Open Folder"
 #~ msgstr "フォルダーを開く"
-
-#~ msgid "Unable to eject %p"
-#~ msgstr "%p を取り出せません"
-
-#~ msgid "Unable to unmount %p"
-#~ msgstr "%p をアンマウントできません"
 
 #~ msgid "You have just inserted an Audio CD."
 #~ msgstr "オーディオ CD が挿入されました。"
@@ -3802,15 +3309,6 @@ msgstr "PIN コードに問題があります"
 #~ msgid "_Always perform this action"
 #~ msgstr "常にこの動作を実施する(_A)"
 
-#~ msgid "_Eject"
-#~ msgstr "取り出す(_E)"
-
-#~ msgid "_Unmount"
-#~ msgstr "アンマウント(_U)"
-
-#~ msgid "Power Manager"
-#~ msgstr "電源管理"
-
 #~ msgid "Allowed keys"
 #~ msgstr "利用可能なキーバインディング"
 
@@ -3822,10 +3320,10 @@ msgstr "PIN コードに問題があります"
 #~ "無視されます。これは主にロックダウンで有用です。"
 
 #~ msgid "Do you want to activate Slow Keys?"
-#~ msgstr "スロー・キーを有効にしますか?"
+#~ msgstr "スローキーを有効にしますか?"
 
 #~ msgid "Do you want to deactivate Slow Keys?"
-#~ msgstr "スロー・キーを無効にしますか?"
+#~ msgstr "スローキーを無効にしますか?"
 
 #~ msgid "Don't activate"
 #~ msgstr "有効にしない"
@@ -3839,24 +3337,6 @@ msgstr "PIN コードに問題があります"
 #~ msgid "Deactivate"
 #~ msgstr "無効にする"
 
-#~ msgid "Do_n't activate"
-#~ msgstr "有効にしない(_N)"
-
-#~ msgid "Do_n't deactivate"
-#~ msgstr "無効にしない(_N)"
-
-#~ msgid "_Activate"
-#~ msgstr "有効にする(_A)"
-
-#~ msgid "_Deactivate"
-#~ msgstr "無効にする(_D)"
-
-#~ msgid "Do you want to activate Sticky Keys?"
-#~ msgstr "固定キーを有効にしますか?"
-
-#~ msgid "Do you want to deactivate Sticky Keys?"
-#~ msgstr "固定キーを無効にしますか?"
-
 #~ msgid "Key binding (%s) is incomplete"
 #~ msgstr "キーバインディング (%s) が完了していません"
 
@@ -3864,33 +3344,8 @@ msgstr "PIN コードに問題があります"
 #~ "Error while trying to run (%s)\n"
 #~ "which is linked to the key (%s)"
 #~ msgstr ""
-#~ "(%s) を実行する際にエラーが発生しました。\n"
+#~ "(%s) を実行するときにエラーが発生しました。\n"
 #~ "これはキー (%s) にリンクしています。"
-
-#~ msgid "Keybindings plugin"
-#~ msgstr "キーバインディングのプラグイン"
-
-#~ msgid ""
-#~ "Error activating XKB configuration.\n"
-#~ "There can be various reasons for that.\n"
-#~ "\n"
-#~ "If you report this situation as a bug, include the results of\n"
-#~ " • <b>%s</b>\n"
-#~ " • <b>%s</b>\n"
-#~ " • <b>%s</b>\n"
-#~ " • <b>%s</b>"
-#~ msgstr ""
-#~ "XKB 設定を有効にする際にエラーが発生しました。\n"
-#~ "様々な理由で発生し得ます。\n"
-#~ "\n"
-#~ "この状況をバグとして報告する場合は、以下の結果を含めてください:\n"
-#~ "・<b>%s</b>\n"
-#~ "・<b>%s</b>\n"
-#~ "・<b>%s</b>\n"
-#~ "・<b>%s</b>"
-
-#~ msgid "_Layouts"
-#~ msgstr "レイアウト(_L)"
 
 #~ msgid ""
 #~ "Could not get default terminal. Verify that your default terminal command "
@@ -3900,21 +3355,8 @@ msgstr "PIN コードに問題があります"
 #~ "が指定され、それに対応するアプリケーションがインストールされているか確認し"
 #~ "てください。"
 
-#~ msgid ""
-#~ "Couldn't execute command: %s\n"
-#~ "Verify that this is a valid command."
-#~ msgstr ""
-#~ "コマンドを実行できませんでした: %s\n"
-#~ "このコマンドがインストールされているか確認してください。"
-
-#~ msgid "Module Path"
-#~ msgstr "モジュールのパス"
-
 #~ msgid "path to smartcard PKCS #11 driver"
 #~ msgstr "スマートカードの PKCS #11 ドライバーへのパス"
-
-#~ msgid "Slot ID"
-#~ msgstr "スロットID"
 
 #~ msgid "Slot Series"
 #~ msgstr "スロットシリーズ"
@@ -3922,39 +3364,21 @@ msgstr "PIN コードに問題があります"
 #~ msgid "per-slot card identifier"
 #~ msgstr "スロットごとのカードの識別子"
 
-#~ msgid "name"
-#~ msgstr "名前"
-
-#~ msgid "Module"
-#~ msgstr "モジュール"
-
-#~ msgid ""
-#~ "Priority to use for this plugin in gnome-settings-daemon startup queue."
-#~ msgstr ""
-#~ "gnome-settings-daemon の起動時のキューで、このプラグインが使用される優先"
-#~ "度。"
-
 #~ msgid ""
 #~ "Whether this plugin would be activated by gnome-settings-daemon or not."
 #~ msgstr ""
 #~ "このプラグインが gnome-settings-daemon でアクティベーションされるかどう"
 #~ "か。"
 
-#~ msgid "Keyboard _Preferences"
-#~ msgstr "キーボードの設定(_P)"
-
 #~ msgid ""
 #~ "Disable the keyboard layout indicator unconditionally, do not show it "
 #~ "even if number of layouts is more than one."
 #~ msgstr ""
-#~ "無条件にキーボードレイアウトの通知を無効にします。レイアウトの数が1より大"
+#~ "無条件にキーボードレイアウトの通知を無効にします。レイアウトの数が 1 より大"
 #~ "きくても表示しません。"
 
 #~ msgid "Never show layout indicator"
 #~ msgstr "レイアウトの通知を表示しない"
-
-#~ msgid "DPI"
-#~ msgstr "DPI"
 
 #~ msgid ""
 #~ "The resolution used for converting font sizes to pixel sizes, in dots per "
@@ -3963,34 +3387,6 @@ msgstr "PIN コードに問題があります"
 #~ "フォントの大きさをピクセル単位の大きさに変換する際に使用する解像度を、ドッ"
 #~ "ト/インチ (DPI) 単位で表したものです。0.0 DPI ならば、X サーバーの DPI が"
 #~ "使われます。"
-
-#~ msgid "Removing: %s"
-#~ msgstr "削除中: %s"
-
-#~ msgid "Emptying the trash"
-#~ msgstr "ゴミ箱を空にしています"
-
-#~ msgid "Preparing to empty trash…"
-#~ msgstr "ゴミ箱を空にする準備中…"
-
-#~ msgid "From: "
-#~ msgstr "From: "
-
-#~ msgid "Empty all of the items from the trash?"
-#~ msgstr "ゴミ箱の中のすべてのアイテムを空にしますか?"
-
-#~ msgid ""
-#~ "If you choose to empty the trash, all items in it will be permanently "
-#~ "lost. Please note that you can also delete them separately."
-#~ msgstr ""
-#~ "ゴミ箱を空にすることを選択すると、すべてのアイテムは永遠に失なわれます。別"
-#~ "途、それらを削除できることに留意してください。"
-
-#~ msgid "_Empty Trash"
-#~ msgstr "ゴミ箱を空にする(_E)"
-
-#~ msgid "Configure hardware clock"
-#~ msgstr "ハードウェアの時計の変更"
 
 #~ msgid "Privileges are required to change the system time zone."
 #~ msgstr "システムのタイムゾーンを変更するには権限が必要です。"
