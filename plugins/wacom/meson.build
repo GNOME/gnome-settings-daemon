@@ -51,20 +51,13 @@ if enable_gudev
     m_dep
   ]
 
-  programs = [
-    'gsd-wacom-led-helper',
+  executable(
     'gsd-wacom-oled-helper',
-  ]
-
-  foreach program: programs
-    executable(
-      program,
-      program + '.c',
-      include_directories: top_inc,
-      dependencies: deps,
-      install: true,
-      install_rpath: gsd_pkglibdir,
-      install_dir: gsd_libexecdir
-    )
-  endforeach
+    'gsd-wacom-oled-helper.c',
+    include_directories: top_inc,
+    dependencies: deps,
+    install: true,
+    install_rpath: gsd_pkglibdir,
+    install_dir: gsd_libexecdir
+  )
 endif
