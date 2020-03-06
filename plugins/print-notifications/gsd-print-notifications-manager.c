@@ -1547,6 +1547,7 @@ gsd_print_notifications_manager_start_idle (gpointer data)
 
         gnome_settings_profile_end (NULL);
 
+        manager->start_idle_id = 0;
         return G_SOURCE_REMOVE;
 }
 
