@@ -114,7 +114,10 @@ handle_unit_cb (GObject      *source_object,
         ret = g_dbus_connection_call_finish (G_DBUS_CONNECTION (source_object),
                                              res, &error);
         if (!ret) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                g_autofree gchar *remote_error = g_dbus_error_get_remote_error (error);
+
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED) &&
+                    g_strcmp0 (remote_error, "org.freedesktop.systemd1.NoSuchUnit") != 0)
                         g_warning ("Failed to %s service: %s", operation, error->message);
                 g_error_free (error);
                 return;
