@@ -104,8 +104,8 @@ queue_set_timezone (GsdTimezoneMonitor *self,
 }
 
 static gint
-compare_locations (TzLocation *a,
-                   TzLocation *b)
+compare_locations (const TzLocation *a,
+                   const TzLocation *b)
 {
         if (a->dist > b->dist)
                 return 1;
@@ -116,59 +116,21 @@ compare_locations (TzLocation *a,
         return 0;
 }
 
-static GList *
-sort_by_closest_to (GList           *locations,
+static void
+sort_by_closest_to (GArray          *locations,
                     GeocodeLocation *location)
 {
-        GList *l;
+        for (guint i = 0; i < locations->len; i++) {
+                TzLocation *tzloc = &g_array_index (locations, TzLocation, i);
+                g_autoptr(GeocodeLocation) loc = NULL;
 
-        for (l = locations; l; l = l->next) {
-                GeocodeLocation *loc;
-                TzLocation *tz_location = l->data;
-
-                loc = geocode_location_new (tz_location->latitude,
-                                            tz_location->longitude,
+                loc = geocode_location_new (tzloc->latitude,
+                                            tzloc->longitude,
                                             GEOCODE_LOCATION_ACCURACY_UNKNOWN);
-                tz_location->dist = geocode_location_get_distance_from (loc, location);
-                g_object_unref (loc);
+                tzloc->dist = geocode_location_get_distance_from (loc, location);
         }
 
-        return g_list_sort (locations, (GCompareFunc) compare_locations);
-}
-
-static GList *
-ptr_array_to_list (GPtrArray *array)
-{
-        GList *l = NULL;
-        gint i;
-
-        for (i = 0; i < array->len; i++)
-                l = g_list_prepend (l, g_ptr_array_index (array, i));
-
-        return l;
-}
-
-static GList *
-find_by_country (GList       *locations,
-                 const gchar *country_code)
-{
-        GList *l, *found = NULL;
-        gchar *c1;
-        gchar *c2;
-
-        c1 = g_ascii_strdown (country_code, -1);
-
-        for (l = locations; l; l = l->next) {
-                TzLocation *loc = l->data;
-
-                c2 = g_ascii_strdown (loc->country, -1);
-                if (g_strcmp0 (c1, c2) == 0)
-                        found = g_list_prepend (found, loc);
-                g_free (c2);
-        }
-        g_free (c1);
-
-        return found;
+        g_array_sort (locations, (GCompareFunc) compare_locations);
 }
 
 static const gchar *
@@ -176,35 +138,29 @@ find_timezone (GsdTimezoneMonitor *self,
                GeocodeLocation    *location,
                const gchar        *country_code)
 {
-        GList *filtered;
-        GList *locations;
         GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
-        TzLocation *closest_tz_location;
+        g_autoptr(GArray) locations = g_array_new (FALSE, FALSE, sizeof (TzLocation));
+        TzLocation closest_tz_location;
 
         /* First load locations from Olson DB */
-        locations = ptr_array_to_list (tz_get_locations (priv->tzdb));
-        g_return_val_if_fail (locations != NULL, NULL);
+        tz_populate_locations (priv->tzdb, locations, country_code);
 
         /* ... and then add libgweather's locations as well */
-        locations = g_list_concat (locations,
-                                   weather_tz_db_get_locations (priv->weather_tzdb));
+        weather_tz_db_populate_locations (priv->weather_tzdb, locations, country_code);
 
-        /* Filter tz locations by country */
-        filtered = find_by_country (locations, country_code);
-        if (filtered != NULL) {
-                g_list_free (locations);
-                locations = filtered;
-        } else {
+        if (locations->len == 0) {
                 g_debug ("No match for country code '%s' in tzdb", country_code);
+
+		/* Populate with all of the items instead of by country */
+		tz_populate_locations (priv->tzdb, locations, NULL);
+		weather_tz_db_populate_locations (priv->weather_tzdb, locations, NULL);
         }
 
         /* Find the closest tz location */
-        locations = sort_by_closest_to (locations, location);
-        closest_tz_location = (TzLocation *) locations->data;
+        sort_by_closest_to (locations, location);
+        closest_tz_location = g_array_index (locations, TzLocation, 0);
 
-        g_list_free (locations);
-
-        return closest_tz_location->zone;
+        return closest_tz_location.zone;
 }
 
 static void

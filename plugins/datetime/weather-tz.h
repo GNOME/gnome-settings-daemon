@@ -24,8 +24,10 @@
 
 typedef struct _WeatherTzDB WeatherTzDB;
 
-WeatherTzDB     *weather_tz_db_new              (void);
-GList           *weather_tz_db_get_locations    (WeatherTzDB *db);
-void             weather_tz_db_free             (WeatherTzDB *db);
+WeatherTzDB *weather_tz_db_new                (void);
+void         weather_tz_db_populate_locations (WeatherTzDB *tzdb,
+                                               GArray      *ar,
+                                               const char  *country_code);
+void         weather_tz_db_free               (WeatherTzDB *db);
 
 #endif /* __WEATHER_TZ_H */
