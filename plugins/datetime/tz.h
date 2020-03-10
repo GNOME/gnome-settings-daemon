@@ -37,22 +37,19 @@ typedef struct _TzDB TzDB;
 typedef struct _TzLocation TzLocation;
 typedef struct _TzInfo TzInfo;
 
-
 struct _TzDB
 {
-	GPtrArray  *locations;
+	GArray     *locations;
 	GHashTable *backward;
 };
 
 struct _TzLocation
 {
-	gchar *country;
-	gdouble latitude;
-	gdouble longitude;
-	gchar *zone;
-	gchar *comment;
-
-	gdouble dist; /* distance to clicked point for comparison */
+	gfloat      latitude;
+	gfloat      longitude;
+	gdouble     dist;      /* distance to clicked point for comparison */
+	const char *country;   /* string is interned */
+	const char *zone;      /* string is interned */
 };
 
 /* see the glibc info page information on time zone information */
@@ -63,27 +60,24 @@ struct _TzLocation
 
 struct _TzInfo
 {
-	gchar *tzname_normal;
-	gchar *tzname_daylight;
+	const char *tzname_normal;
+	const char *tzname_daylight;
 	glong utc_offset;
 	gint daylight;
 };
 
-
-TzDB      *tz_load_db                 (void);
-void       tz_db_free                 (TzDB *db);
-char *     tz_info_get_clean_name     (TzDB *tz_db,
-				       const char *tz);
-GPtrArray *tz_get_locations           (TzDB *db);
-void       tz_location_get_position   (TzLocation *loc,
-				       double *longitude, double *latitude);
-void       tz_location_free           (TzLocation *loc);
-char      *tz_location_get_country    (TzLocation *loc);
-gchar     *tz_location_get_zone       (TzLocation *loc);
-gchar     *tz_location_get_comment    (TzLocation *loc);
-glong      tz_location_get_utc_offset (TzLocation *loc);
-gint       tz_location_set_locally    (TzLocation *loc);
-TzInfo    *tz_info_from_location      (TzLocation *loc);
-void       tz_info_free               (TzInfo *tz_info);
+TzDB       *tz_load_db                  (void);
+void        tz_db_free                  (TzDB             *db);
+const char *tz_info_get_clean_name      (TzDB             *tz_db,
+                                         const char       *tz);
+void        tz_populate_locations       (TzDB             *db,
+                                         GArray           *locations,
+                                         const char       *country_code);
+glong       tz_location_get_utc_offset  (TzLocation       *loc);
+gboolean    tz_location_is_country_code (const TzLocation *loc,
+                                         const char       *country_code);
+TzInfo     *tz_info_from_location       (TzLocation       *loc);
+void        tz_info_free                (TzInfo           *tz_info);
+const char *tz_intern                   (const char       *str);
 
 #endif
