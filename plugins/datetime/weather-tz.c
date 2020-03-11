@@ -19,6 +19,12 @@
 
 #include "config.h"
 
+#ifndef _GNU_SOURCE
+# define _GNU_SOURCE
+#endif
+
+#include <dlfcn.h>
+
 #include "weather-tz.h"
 #include "tz.h"
 
@@ -88,6 +94,30 @@ weather_tz_db_populate_locations (WeatherTzDB *tzdb,
         }
 }
 
+static void
+release_world (void)
+{
+	void (*release_world_func) (void) = NULL;
+
+	/* libgweather holds on to a great deal of memory in the default
+	 * world instance. We do not need this after parsing, so we can release
+	 * it all by finding the exported _gweather_location_reset_world() symbol
+	 * and calling it.
+	 *
+	 * This should really be fixed in libgweather, but to prove it's an issue,
+	 * we can test things here first.
+	 */
+
+	release_world_func = dlsym (RTLD_NEXT, "_gweather_location_reset_world");
+	if (release_world_func != NULL) {
+		g_debug ("Releasing Locations.xml data");
+		release_world_func ();
+	}
+	else {
+		g_debug ("Cannot locate symbol _gweather_location_reset_world()");
+	}
+}
+
 WeatherTzDB *
 weather_tz_db_new (void)
 {
@@ -96,6 +126,8 @@ weather_tz_db_new (void)
         tzdb = g_new0 (WeatherTzDB, 1);
         tzdb->tz_locations = g_array_new (FALSE, FALSE, sizeof (TzLocation));
         load_timezones (tzdb->tz_locations, gweather_location_get_world ());
+
+	release_world ();
 
         return tzdb;
 }
