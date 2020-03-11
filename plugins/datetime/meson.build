@@ -23,7 +23,8 @@ deps = plugins_deps + [
   libgeoclue_dep,
   libnotify_dep,
   m_dep,
-  polkit_gobject_dep
+  polkit_gobject_dep,
+  cc.find_library('dl', required: false),
 ]
 
 cflags += ['-DGNOMECC_DATA_DIR="@0@"'.format(gsd_pkgdatadir)]
