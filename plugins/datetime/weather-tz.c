@@ -24,6 +24,9 @@
 #endif
 
 #include <dlfcn.h>
+#ifdef HAVE_MALLOC_TRIM
+# include <malloc.h>
+#endif
 
 #include "weather-tz.h"
 #include "tz.h"
@@ -112,6 +115,15 @@ release_world (void)
 	if (release_world_func != NULL) {
 		g_debug ("Releasing Locations.xml data");
 		release_world_func ();
+
+#ifdef HAVE_MALLOC_TRIM
+		/* A lot of the memory we just allocated won't be released back
+		 * to the operating system unless malloc is told to release it.
+		 * This also pretty much relies on G_SLICE=always-malloc so
+		 * that libgweather does not allocate everything with gslice.
+		 */
+		malloc_trim (0);
+#endif
 	}
 	else {
 		g_debug ("Cannot locate symbol _gweather_location_reset_world()");
