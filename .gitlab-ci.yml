@@ -2,9 +2,8 @@ include:
  - remote: 'https://gitlab.freedesktop.org/wayland/ci-templates/raw/master/templates/fedora.yml'
 
 variables:
-  # Use F31 for now as the base image needs updating for the new keys
   FEDORA_TAG: latest
-  FEDORA_VERSION: 31
+  FEDORA_VERSION: rawhide
   # NOTE: We hardcode /gnome/ so that forks pick up the correct registry
   FEDORA_IMAGE: "$CI_REGISTRY/gnome/$CI_PROJECT_NAME/fedora/$FEDORA_VERSION:$FEDORA_TAG"
   FEDORA_DEPENDENCIES: >
@@ -238,13 +237,13 @@ msan:
 #          Create CI Docker Images          #
 #############################################
 
-container_fedora_build:
-  extends: .fedora@container-build
+.fedora.rawhide@default-build:
+  extends: .fdo.distribution_image@fedora
   # The templates reference the local registry, but we need the fdo one
   image: registry.freedesktop.org/wayland/ci-templates/buildah:latest
   only:
     variables:
-      - $CI_PIPELINE_SOURCE == "schedule" && $CRON_TASK == "BUILD_CI_IMAGES"
+      - $CRON_TASK == "BUILD_CI_IMAGES"
   variables:
     GIT_STRATEGY: none # no need to pull the whole tree for rebuilding the image
     FEDORA_RPMS: $FEDORA_DEPENDENCIES
