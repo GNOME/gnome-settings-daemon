@@ -2,9 +2,8 @@ include:
  - remote: 'https://gitlab.freedesktop.org/wayland/ci-templates/raw/master/templates/fedora.yml'
 
 variables:
-  # Use F31 for now as the base image needs updating for the new keys
   FEDORA_TAG: latest
-  FEDORA_VERSION: 31
+  FEDORA_VERSION: rawhide
   # NOTE: We hardcode /gnome/ so that forks pick up the correct registry
   FEDORA_IMAGE: "$CI_REGISTRY/gnome/$CI_PROJECT_NAME/fedora/$FEDORA_VERSION:$FEDORA_TAG"
   FEDORA_DEPENDENCIES: >
@@ -239,7 +238,7 @@ msan:
 #############################################
 
 container_fedora_build:
-  extends: .fedora@container-build
+  extends: .fdo.container-build@fedora
   # The templates reference the local registry, but we need the fdo one
   image: registry.freedesktop.org/wayland/ci-templates/buildah:latest
   only:
