@@ -222,6 +222,7 @@ static void      engine_device_warning_changed_cb (UpDevice *device, GParamSpec 
 static void      do_power_action_type (GsdPowerManager *manager, GsdPowerActionType action_type);
 static void      uninhibit_lid_switch (GsdPowerManager *manager);
 static void      stop_inhibit_lid_switch_timer (GsdPowerManager *manager);
+static void      sync_lid_inhibitor (GsdPowerManager *manager);
 static void      main_battery_or_ups_low_changed (GsdPowerManager *manager, gboolean is_low);
 static gboolean  idle_is_session_inhibited (GsdPowerManager *manager, guint mask, gboolean *is_inhibited);
 static void      idle_triggered_idle_cb (GnomeIdleMonitor *monitor, guint watch_id, gpointer user_data);
@@ -1268,7 +1269,7 @@ upower_kbd_toggle (GsdPowerManager *manager,
 static gboolean
 suspend_on_lid_close (GsdPowerManager *manager)
 {
-        return !external_monitor_is_connected (manager->rr_screen);
+        return !external_monitor_is_connected (manager->rr_screen) || !manager->session_is_active;
 }
 
 static gboolean
@@ -1277,7 +1278,7 @@ inhibit_lid_switch_timer_cb (GsdPowerManager *manager)
         stop_inhibit_lid_switch_timer (manager);
 
         if (suspend_on_lid_close (manager)) {
-                g_debug ("no external monitors for a while; uninhibiting lid close");
+                g_debug ("no external monitors or session inactive for a while; uninhibiting lid close");
                 uninhibit_lid_switch (manager);
         }
 
@@ -2264,6 +2265,7 @@ engine_session_properties_changed_cb (GDBusProxy      *session,
                 }
                 g_variant_unref (v);
 
+                sync_lid_inhibitor (manager);
         }
 
         v = g_variant_lookup_value (changed, "InhibitedActions", G_VARIANT_TYPE_UINT32);
@@ -2415,11 +2417,9 @@ uninhibit_suspend (GsdPowerManager *manager)
 }
 
 static void
-on_randr_event (GnomeRRScreen *screen, gpointer user_data)
+sync_lid_inhibitor (GsdPowerManager *manager)
 {
-        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
-
-        g_debug ("Screen configuration changed");
+        g_debug ("Syncing lid inhibitor and grabbing it temporarily");
 
         /* Uninhibiting is done in inhibit_lid_switch_timer_cb,
          * since we want to give users a few seconds when unplugging
@@ -2427,6 +2427,16 @@ on_randr_event (GnomeRRScreen *screen, gpointer user_data)
          */
         inhibit_lid_switch (manager);
         restart_inhibit_lid_switch_timer (manager);
+}
+
+static void
+on_randr_event (GnomeRRScreen *screen, gpointer user_data)
+{
+        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
+
+        g_debug ("Screen configuration changed");
+
+        sync_lid_inhibitor (manager);
 }
 
 static void
@@ -2486,13 +2496,6 @@ on_rr_screen_acquired (GObject      *object,
                 return;
         }
 
-        /* set up the screens */
-        if (manager->lid_is_present) {
-                g_signal_connect (manager->rr_screen, "changed", G_CALLBACK (on_randr_event), manager);
-                watch_external_monitor (manager->rr_screen);
-                on_randr_event (manager->rr_screen, manager);
-        }
-
         /* Resolve screen backlight */
         manager->backlight = gsd_backlight_new (manager->rr_screen, NULL);
 
@@ -2514,6 +2517,13 @@ on_rr_screen_acquired (GObject      *object,
                                  G_CALLBACK (engine_session_properties_changed_cb),
                                  manager, 0);
         manager->session_is_active = is_session_active (manager);
+
+        /* set up the screens */
+        if (manager->lid_is_present) {
+                g_signal_connect (manager->rr_screen, "changed", G_CALLBACK (on_randr_event), manager);
+                watch_external_monitor (manager->rr_screen);
+                on_randr_event (manager->rr_screen, manager);
+        }
 
         manager->screensaver_proxy = gnome_settings_bus_get_screen_saver_proxy ();
 
