@@ -224,7 +224,7 @@ main (int argc, char **argv)
 #ifdef GDK_BACKEND
 	{
 		const gchar *setup_display = getenv ("GNOME_SETUP_DISPLAY");
-		if (setup_display)
+		if (setup_display && *setup_display != '\0')
 			g_setenv ("DISPLAY", setup_display, TRUE);
 	}
 
