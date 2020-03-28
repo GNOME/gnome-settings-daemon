@@ -1425,6 +1425,9 @@ show_volume_osd (GsdMediaKeysManager *manager,
                 show_osd_with_max_level (manager, icon, NULL, new_vol, max_volume, NULL);
         }
 
+        if (priv->ca)
+                ca_context_cancel (priv->ca, 1);
+
         playing = gvc_mixer_stream_get_state (stream) == GVC_STREAM_STATE_RUNNING;
 
         if (quiet == FALSE && sound_changed != FALSE && muted == FALSE && playing == FALSE)
