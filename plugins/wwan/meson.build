@@ -1,11 +1,10 @@
 sources = files(
-  'gsd-wwan-device.c',
+  'cc-wwan-device.c',
   'gsd-wwan-manager.c',
-  'gsd-wwan-pinentry.c',
   'main.c'
 )
 
-deps = plugins_deps + [gio_dep, gcr_base_dep, mm_glib_dep]
+deps = plugins_deps + [gio_dep, gcr_base_dep, mm_glib_dep, polkit_gobject_dep]
 
 cflags += ['-DGNOMECC_DATA_DIR="@0@"'.format(gsd_pkgdatadir)]
 
