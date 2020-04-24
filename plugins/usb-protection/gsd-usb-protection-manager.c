@@ -429,7 +429,7 @@ is_only_hid (GVariant *device)
         guint i;
         gboolean only_hid = TRUE;
 
-        g_variant_get_child (device, POLICY_ATTRIBUTES, "a{ss}", &iter);
+        g_variant_get_child (device, PRESENCE_ATTRIBUTES, "a{ss}", &iter);
         while (g_variant_iter_loop (iter, "{ss}", &name, &value)) {
                 if (g_strcmp0 (name, WITH_INTERFACE) == 0) {
                         g_auto(GStrv) interfaces_splitted = NULL;
@@ -497,16 +497,14 @@ on_screen_locked (GsdScreenSaver          *screen_saver,
                   GAsyncResult            *result,
                   GsdUsbProtectionManager *manager)
 {
-        gboolean is_locked;
         g_autoptr(GError) error = NULL;
 
-        is_locked = gsd_screen_saver_call_lock_finish (screen_saver, result, &error);
+        gsd_screen_saver_call_lock_finish (screen_saver, result, &error);
 
         if (error) {
-            g_warning ("Couldn't lock screen: %s", error->message);
-            if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
-                return;
-            }
+                if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        return;
+                g_warning ("Couldn't lock screen: %s", error->message);
         }
 
         show_notification (manager,
