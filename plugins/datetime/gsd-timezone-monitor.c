@@ -49,7 +49,6 @@ typedef struct
         GClueSimple *geoclue_simple;
         GCancellable *geoclue_cancellable;
 
-        TzDB *tzdb;
         gchar *current_timezone;
 
         GSettings *location_settings;
@@ -175,15 +174,17 @@ find_timezone (GsdTimezoneMonitor *self,
                GeocodeLocation    *location,
                const gchar        *country_code)
 {
+        TzDB *tzdb;
         gchar *res;
         GList *filtered;
         GList *weather_locations;
         GList *locations;
-        GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
         TzLocation *closest_tz_location;
 
+        tzdb = tz_load_db ();
+
         /* First load locations from Olson DB */
-        locations = ptr_array_to_list (tz_get_locations (priv->tzdb));
+        locations = ptr_array_to_list (tz_get_locations (tzdb));
         g_return_val_if_fail (locations != NULL, NULL);
 
         /* ... and then add libgweather's locations as well */
@@ -208,6 +209,7 @@ find_timezone (GsdTimezoneMonitor *self,
 
         g_list_free (locations);
         g_list_free_full (weather_locations, (GDestroyNotify) tz_location_free);
+        tz_db_free (tzdb);
 
         return res;
 }
@@ -391,7 +393,6 @@ gsd_timezone_monitor_finalize (GObject *obj)
         g_clear_object (&priv->dtm);
         g_clear_object (&priv->permission);
         g_clear_pointer (&priv->current_timezone, g_free);
-        g_clear_pointer (&priv->tzdb, tz_db_free);
 
         g_clear_object (&priv->location_settings);
 
@@ -463,7 +464,6 @@ gsd_timezone_monitor_init (GsdTimezoneMonitor *self)
         }
 
         priv->current_timezone = timedate1_dup_timezone (priv->dtm);
-        priv->tzdb = tz_load_db ();
 
         priv->location_settings = g_settings_new ("org.gnome.system.location");
         g_signal_connect_swapped (priv->location_settings, "changed::enabled",
