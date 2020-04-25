@@ -25,11 +25,6 @@
 #define GWEATHER_I_KNOW_THIS_IS_UNSTABLE
 #include <libgweather/gweather.h>
 
-struct _WeatherTzDB
-{
-        GList *tz_locations;
-};
-
 static GList *
 location_get_cities (GWeatherLocation *parent_location)
 {
@@ -104,33 +99,24 @@ load_timezones (GList *cities)
 }
 
 GList *
-weather_tz_db_get_locations (WeatherTzDB *tzdb)
-{
-        return g_list_copy (tzdb->tz_locations);
-}
-
-WeatherTzDB *
-weather_tz_db_new (void)
+weather_tz_db_get_locations (const gchar *country_code)
 {
         GList *cities;
+        GList *tz_locations;
         GWeatherLocation *world;
-        WeatherTzDB *tzdb;
+        GWeatherLocation *country;
 
         world = gweather_location_get_world ();
-        cities = location_get_cities (world);
 
-        tzdb = g_new0 (WeatherTzDB, 1);
-        tzdb->tz_locations = load_timezones (cities);
+        country = gweather_location_find_by_country_code (world, country_code);
+
+        if (!country)
+                return NULL;
+
+        cities = location_get_cities (country);
+        tz_locations = load_timezones (cities);
 
         g_list_free (cities);
 
-        return tzdb;
-}
-
-void
-weather_tz_db_free (WeatherTzDB *tzdb)
-{
-        g_list_free_full (tzdb->tz_locations, (GDestroyNotify) tz_location_free);
-
-        g_free (tzdb);
+        return tz_locations;
 }

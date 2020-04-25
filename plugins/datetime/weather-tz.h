@@ -22,10 +22,6 @@
 
 #include <glib.h>
 
-typedef struct _WeatherTzDB WeatherTzDB;
-
-WeatherTzDB     *weather_tz_db_new              (void);
-GList           *weather_tz_db_get_locations    (WeatherTzDB *db);
-void             weather_tz_db_free             (WeatherTzDB *db);
+GList           *weather_tz_db_get_locations    (const char *country);
 
 #endif /* __WEATHER_TZ_H */
