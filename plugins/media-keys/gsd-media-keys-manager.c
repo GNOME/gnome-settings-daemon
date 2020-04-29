@@ -2175,34 +2175,6 @@ power_action (GsdMediaKeysManager *manager,
                            NULL, NULL);
 }
 
-static void
-do_config_power_action (GsdMediaKeysManager *manager,
-                        GsdPowerActionType   action_type,
-                        gboolean             in_lock_screen)
-{
-        switch (action_type) {
-        case GSD_POWER_ACTION_SUSPEND:
-                power_action (manager, "Suspend", !in_lock_screen);
-                break;
-        case GSD_POWER_ACTION_INTERACTIVE:
-                if (!in_lock_screen)
-                        gnome_session_shutdown (manager);
-                break;
-        case GSD_POWER_ACTION_SHUTDOWN:
-                power_action (manager, "PowerOff", !in_lock_screen);
-                break;
-        case GSD_POWER_ACTION_HIBERNATE:
-                power_action (manager, "Hibernate", !in_lock_screen);
-                break;
-        case GSD_POWER_ACTION_BLANK:
-        case GSD_POWER_ACTION_LOGOUT:
-        case GSD_POWER_ACTION_NOTHING:
-                /* these actions cannot be handled by media-keys and
-                 * are not used in this context */
-                break;
-        }
-}
-
 static gboolean
 supports_power_action (GsdMediaKeysManager *manager,
                        GsdPowerActionType   action_type)
@@ -2252,23 +2224,14 @@ supports_power_action (GsdMediaKeysManager *manager,
 }
 
 static void
-do_config_power_button_action (GsdMediaKeysManager *manager,
-                               gboolean             in_lock_screen)
+do_config_power_action (GsdMediaKeysManager *manager,
+                        char const          *action_settings_key,
+                        gboolean             in_lock_screen)
 {
 	GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
-        GsdPowerButtonActionType action_type;
+        GsdPowerButtonActionType action_type = g_settings_get_enum (priv->power_settings, action_settings_key);
         GsdPowerActionType action;
 
-        if (priv->power_button_disabled)
-                return;
-
-        /* Always power off VMs when power off is pressed in the menus */
-        if (g_strcmp0 (priv->chassis_type, "vm") == 0) {
-                power_action (manager, "PowerOff", !in_lock_screen);
-                return;
-        }
-
-        action_type = g_settings_get_enum (priv->power_settings, "power-button-action");
         switch (action_type) {
         case GSD_POWER_BUTTON_ACTION_SUSPEND:
                 action = GSD_POWER_ACTION_SUSPEND;
@@ -2287,7 +2250,45 @@ do_config_power_button_action (GsdMediaKeysManager *manager,
         if (action != GSD_POWER_ACTION_INTERACTIVE && !supports_power_action (manager, action))
                 action = GSD_POWER_ACTION_INTERACTIVE;
 
-        do_config_power_action (manager, action, in_lock_screen);
+        switch (action) {
+        case GSD_POWER_ACTION_SUSPEND:
+                power_action (manager, "Suspend", !in_lock_screen);
+                break;
+        case GSD_POWER_ACTION_INTERACTIVE:
+                if (!in_lock_screen)
+                        gnome_session_shutdown (manager);
+                break;
+        case GSD_POWER_ACTION_SHUTDOWN:
+                power_action (manager, "PowerOff", !in_lock_screen);
+                break;
+        case GSD_POWER_ACTION_HIBERNATE:
+                power_action (manager, "Hibernate", !in_lock_screen);
+                break;
+        case GSD_POWER_ACTION_BLANK:
+        case GSD_POWER_ACTION_LOGOUT:
+        case GSD_POWER_ACTION_NOTHING:
+                /* these actions cannot be handled by media-keys and
+                 * are not used in this context */
+                break;
+        }
+}
+
+static void
+do_config_power_button_action (GsdMediaKeysManager *manager,
+                               gboolean             in_lock_screen)
+{
+	GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
+
+        if (priv->power_button_disabled)
+                return;
+
+        /* Always power off VMs when power off is pressed in the menus */
+        if (g_strcmp0 (priv->chassis_type, "vm") == 0) {
+                power_action (manager, "PowerOff", !in_lock_screen);
+                return;
+        }
+
+        do_config_power_action (manager, "power-button-action", in_lock_screen);
 }
 
 static void
@@ -2746,10 +2747,10 @@ do_action (GsdMediaKeysManager *manager,
                 do_config_power_button_action (manager, power_action_noninteractive);
                 break;
         case SUSPEND_KEY:
-                do_config_power_action (manager, GSD_POWER_ACTION_SUSPEND, power_action_noninteractive);
+                do_config_power_action (manager, "suspend-button-action", power_action_noninteractive);
                 break;
         case HIBERNATE_KEY:
-                do_config_power_action (manager, GSD_POWER_ACTION_HIBERNATE, power_action_noninteractive);
+                do_config_power_action (manager, "hibernate-button-action", power_action_noninteractive);
                 break;
         case SCREEN_BRIGHTNESS_UP_KEY:
         case SCREEN_BRIGHTNESS_DOWN_KEY:

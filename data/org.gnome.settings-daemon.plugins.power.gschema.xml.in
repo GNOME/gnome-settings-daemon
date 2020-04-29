@@ -36,6 +36,16 @@
       <summary>Enable the ALS sensor</summary>
       <description>If the ambient light sensor functionality is enabled.</description>
     </key>
+    <key name="hibernate-button-action" enum="org.gnome.settings-daemon.GsdPowerButtonActionType">
+      <default>'hibernate'</default>
+      <summary>Hibernate button action</summary>
+      <description>The action to take when the system hibernate button is pressed.</description>
+    </key>
+    <key name="suspend-button-action" enum="org.gnome.settings-daemon.GsdPowerButtonActionType">
+      <default>'suspend'</default>
+      <summary>Suspend button action</summary>
+      <description>The action to take when the system suspend button is pressed.</description>
+    </key>
     <key name="power-button-action" enum="org.gnome.settings-daemon.GsdPowerButtonActionType">
       <default>'suspend'</default>
       <summary>Power button action</summary>
