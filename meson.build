@@ -30,8 +30,6 @@ gsd_schemadir = join_paths(gsd_datadir, 'glib-2.0', 'schemas')
 
 gsd_xdg_autostart = join_paths(gsd_sysconfdir, 'xdg', 'autostart')
 
-gsd_buildtype = get_option('buildtype')
-
 host_is_darwin = host_machine.system().contains('darwin')
 host_is_linux = host_machine.system().contains('linux')
 host_is_linux_not_s390 = host_is_linux and not host_machine.cpu().contains('s390')
@@ -56,7 +54,7 @@ endforeach
 common_flags = ['-DHAVE_CONFIG_H']
 compiler_flags = []
 
-if gsd_buildtype.contains('debug')
+if get_option('debug')
   common_flags += ['-DG_ENABLE_DEBUG']
 
   test_cflags = [
@@ -70,7 +68,7 @@ if gsd_buildtype.contains('debug')
   ]
 
   compiler_flags = cc.get_supported_arguments(test_cflags)
-elif gsd_buildtype.contains('release')
+elif get_option('optimization') in ['2', '3', 's']
   common_flags += ['-DG_DISABLE_CAST_CHECKS']
 endif
 
