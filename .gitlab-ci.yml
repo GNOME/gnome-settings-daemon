@@ -1,11 +1,12 @@
 include:
- - remote: 'https://gitlab.freedesktop.org/wayland/ci-templates/raw/master/templates/fedora.yml'
+ - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/59de540b620c45739871d1a073d76d5521989d11/templates/fedora.yml'
 
 variables:
   FDO_DISTRIBUTION_TAG: latest
   FDO_DISTRIBUTION_VERSION: rawhide
-  # NOTE: We hardcode /gnome/ so that forks pick up the correct registry
-  FEDORA_IMAGE: "$CI_REGISTRY/gnome/$CI_PROJECT_NAME/fedora/$FDO_DISTRIBUTION_VERSION:$FDO_DISTRIBUTION_TAG"
+  FDO_UPSTREAM_REPO: gnome/gnome-settings-daemon
+  # Expiry sets fdo.expires on the image
+  FDO_EXPIRES_AFTER: 8w
   FEDORA_DEPENDENCIES: >
     @c-development
     alsa-lib-devel
@@ -54,8 +55,6 @@ variables:
     xorg-x11-server-Xvfb
     xorg-x11-utils mutter
 
-image: "$FEDORA_IMAGE"
-
 stages:
   - build
   - test
@@ -99,6 +98,7 @@ stages:
 # any of them.
 ##
 build:
+  extends: .fdo.distribution-image@fedora
   <<: *save_untracked_files
   stage: build
 
@@ -125,6 +125,7 @@ build:
 # Runs the unit tests.
 ##
 test:
+  extends: .fdo.distribution-image@fedora
   <<: *save_build_logs
   stage: test
 
@@ -152,6 +153,7 @@ test:
 
 # Runs the coverage test.
 coverage:
+  extends: .fdo.distribution-image@fedora
   <<: *save_build_logs
   stage: test
   # Appears to be broken on Fedora Rawhide as of 2018-02-05
@@ -180,6 +182,7 @@ coverage:
 # Publishes the Coverage Report generated above
 ##
 pages:
+  extends: .fdo.distribution-image@fedora
   stage: delivery
   # Don't error in case coverage failed
   allow_failure: true
@@ -199,6 +202,7 @@ pages:
 # Runs the sanitizers [address, thread, undefined, and memory].
 ##
 .sanitizer: &sanitizer
+  extends: .fdo.distribution-image@fedora
   <<: *save_build_logs
   stage: manual
   when: manual
@@ -237,10 +241,11 @@ msan:
 #          Create CI Docker Images          #
 #############################################
 
+# See also https://gitlab.freedesktop.org/freedesktop/ci-templates
 container_fedora_build:
   extends: .fdo.container-build@fedora
   # The templates reference the local registry, but we need the fdo one
-  image: registry.freedesktop.org/wayland/ci-templates/buildah:latest
+  image: registry.freedesktop.org/freedesktop/ci-templates/buildah:latest
   only:
     variables:
       - $CI_PIPELINE_SOURCE == "schedule" && $CRON_TASK == "BUILD_CI_IMAGES"
