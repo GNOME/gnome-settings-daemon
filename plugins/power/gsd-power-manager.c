@@ -2776,6 +2776,7 @@ backlight_brightness_step_cb (GObject *object,
         GDBusMethodInvocation *invocation = G_DBUS_METHOD_INVOCATION (user_data);
         GsdPowerManager *manager;
         GError *error = NULL;
+        const char *connector;
         gint brightness;
 
         manager = g_object_get_data (G_OBJECT (invocation), "gsd-power-manager");
@@ -2789,10 +2790,12 @@ backlight_brightness_step_cb (GObject *object,
                 g_dbus_method_invocation_take_error (invocation,
                                                      error);
         } else {
+                connector = gsd_backlight_get_connector (backlight);
+
                 g_dbus_method_invocation_return_value (invocation,
                                                        g_variant_new ("(is)",
                                                                       brightness,
-                                                                      gsd_backlight_get_connector (backlight)));
+                                                                      connector ? connector : ""));
         }
 }
 
