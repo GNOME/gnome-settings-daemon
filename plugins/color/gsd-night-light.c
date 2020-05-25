@@ -423,7 +423,9 @@ poll_timeout_create (GsdNightLight *self)
         if (self->source != NULL)
                 return;
 
-        dt_now = gsd_night_light_get_date_time_now (self);
+        /* It is not a good idea to make this overridable, it just creates
+         * an infinite loop as a fixed date for testing just doesn't work. */
+        dt_now = g_date_time_new_now_local ();
         dt_expiry = g_date_time_add_seconds (dt_now, GSD_NIGHT_LIGHT_POLL_TIMEOUT);
         self->source = _gnome_datetime_source_new (dt_now,
                                                    dt_expiry,
