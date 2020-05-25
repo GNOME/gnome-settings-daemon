@@ -219,6 +219,15 @@ if enable_network_manager
 endif
 config_h.set10('HAVE_NETWORK_MANAGER', enable_network_manager)
 
+# check for malloc_trim(0)
+malloc_trim_code = '''
+#include <malloc.h>
+void func() { malloc_trim(0); }
+'''
+if cc.compiles(malloc_trim_code, name: 'malloc_trim')
+  config_h.set10('HAVE_MALLOC_TRIM', 1)
+endif
+
 gnome = import('gnome')
 i18n = import('i18n')
 pkg = import('pkgconfig')

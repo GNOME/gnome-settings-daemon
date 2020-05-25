@@ -19,6 +19,15 @@
 
 #include "config.h"
 
+#ifndef _GNU_SOURCE
+# define _GNU_SOURCE
+#endif
+
+#include <dlfcn.h>
+#ifdef HAVE_MALLOC_TRIM
+# include <malloc.h>
+#endif
+
 #include "weather-tz.h"
 #include "tz.h"
 
@@ -27,102 +36,110 @@
 
 struct _WeatherTzDB
 {
-        GList *tz_locations;
+        GArray *tz_locations;
 };
 
-static GList *
-location_get_cities (GWeatherLocation *parent_location)
+static void
+load_timezones (GArray           *tz_locations,
+                GWeatherLocation *location)
 {
-        GList *cities = NULL;
-        GWeatherLocation **children;
-        gint i;
+        if (location == NULL)
+                return;
 
-        children = gweather_location_get_children (parent_location);
-        for (i = 0; children[i]; i++) {
-                if (gweather_location_get_level (children[i]) == GWEATHER_LOCATION_CITY) {
-                        cities = g_list_prepend (cities,
-                                                 children[i]);
-                } else {
-                        cities = g_list_concat (cities,
-                                                location_get_cities (children[i]));
-                }
-        }
-
-        return cities;
-}
-
-static gboolean
-weather_location_has_timezone (GWeatherLocation *loc)
-{
-        return gweather_location_get_timezone (loc) != NULL;
-}
-
-/**
- * load_timezones:
- * @cities: a list of #GWeatherLocation
- *
- * Returns: a list of #TzLocation
- */
-static GList *
-load_timezones (GList *cities)
-{
-        GList *l;
-        GList *tz_locations = NULL;
-
-        for (l = cities; l; l = l->next) {
-                TzLocation *loc;
+        if (gweather_location_get_level (location) == GWEATHER_LOCATION_CITY &&
+            gweather_location_has_coords (location) &&
+            gweather_location_get_timezone (location) != NULL)
+        {
                 const gchar *country;
                 const gchar *timezone_id;
                 gdouble latitude;
                 gdouble longitude;
+                TzLocation loc;
 
-                if (!gweather_location_has_coords (l->data) ||
-                    !weather_location_has_timezone (l->data)) {
-                        g_debug ("Incomplete GWeather location entry: (%s) %s",
-                                 gweather_location_get_country (l->data),
-                                 gweather_location_get_city_name (l->data));
-                        continue;
-                }
+                country = gweather_location_get_country (location);
+                timezone_id = gweather_timezone_get_tzid (gweather_location_get_timezone (location));
+                gweather_location_get_coords (location, &latitude, &longitude);
 
-                country = gweather_location_get_country (l->data);
-                timezone_id = gweather_timezone_get_tzid (gweather_location_get_timezone (l->data));
-                gweather_location_get_coords (l->data,
-                                              &latitude,
-                                              &longitude);
+                loc.latitude = latitude;
+                loc.longitude = longitude;
+                loc.dist = 0;
+                loc.zone = tz_intern (timezone_id);
+                loc.country = tz_intern (country);
 
-                loc = g_new0 (TzLocation, 1);
-                loc->country = g_strdup (country);
-                loc->latitude = latitude;
-                loc->longitude = longitude;
-                loc->zone = g_strdup (timezone_id);
-                loc->comment = NULL;
-
-                tz_locations = g_list_prepend (tz_locations, loc);
+                g_array_append_val (tz_locations, loc);
         }
-
-        return tz_locations;
+        else
+        {
+                GWeatherLocation **children = gweather_location_get_children (location);
+                for (guint i = 0; children[i] != NULL; i++)
+                        load_timezones (tz_locations, children[i]);
+        }
 }
 
-GList *
-weather_tz_db_get_locations (WeatherTzDB *tzdb)
+void
+weather_tz_db_populate_locations (WeatherTzDB *tzdb,
+                                  GArray      *ar,
+                                  const char  *country_code)
 {
-        return g_list_copy (tzdb->tz_locations);
+	if (country_code == NULL) {
+		if (tzdb->tz_locations->len > 0)
+			g_array_append_vals (ar,
+			                     &g_array_index (tzdb->tz_locations, TzLocation, 0),
+			                     tzdb->tz_locations->len);
+		return;
+	}
+
+        for (guint i = 0; i < tzdb->tz_locations->len; i++) {
+                const TzLocation *loc = &g_array_index (tzdb->tz_locations, TzLocation, i);
+
+                if (tz_location_is_country_code (loc, country_code))
+                        g_array_append_vals (ar, loc, 1);
+        }
+}
+
+static void
+release_world (void)
+{
+	void (*release_world_func) (void) = NULL;
+
+	/* libgweather holds on to a great deal of memory in the default
+	 * world instance. We do not need this after parsing, so we can release
+	 * it all by finding the exported _gweather_location_reset_world() symbol
+	 * and calling it.
+	 *
+	 * This should really be fixed in libgweather, but to prove it's an issue,
+	 * we can test things here first.
+	 */
+
+	release_world_func = dlsym (RTLD_NEXT, "_gweather_location_reset_world");
+	if (release_world_func != NULL) {
+		g_debug ("Releasing Locations.xml data");
+		release_world_func ();
+
+#ifdef HAVE_MALLOC_TRIM
+		/* A lot of the memory we just allocated won't be released back
+		 * to the operating system unless malloc is told to release it.
+		 * This also pretty much relies on G_SLICE=always-malloc so
+		 * that libgweather does not allocate everything with gslice.
+		 */
+		malloc_trim (0);
+#endif
+	}
+	else {
+		g_debug ("Cannot locate symbol _gweather_location_reset_world()");
+	}
 }
 
 WeatherTzDB *
 weather_tz_db_new (void)
 {
-        GList *cities;
-        GWeatherLocation *world;
         WeatherTzDB *tzdb;
 
-        world = gweather_location_get_world ();
-        cities = location_get_cities (world);
-
         tzdb = g_new0 (WeatherTzDB, 1);
-        tzdb->tz_locations = load_timezones (cities);
+        tzdb->tz_locations = g_array_new (FALSE, FALSE, sizeof (TzLocation));
+        load_timezones (tzdb->tz_locations, gweather_location_get_world ());
 
-        g_list_free (cities);
+	release_world ();
 
         return tzdb;
 }
@@ -130,7 +147,6 @@ weather_tz_db_new (void)
 void
 weather_tz_db_free (WeatherTzDB *tzdb)
 {
-        g_list_free_full (tzdb->tz_locations, (GDestroyNotify) tz_location_free);
-
+        g_array_unref (tzdb->tz_locations);
         g_free (tzdb);
 }

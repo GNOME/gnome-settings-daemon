@@ -17,3 +17,5 @@ ExecStart=@libexecdir@/gsd-datetime
 Restart=on-failure
 BusName=@plugin_dbus_name@
 TimeoutStopSec=5
+# gsd-datetime will use malloc_trim()
+Environment=G_SLICE=always-malloc
