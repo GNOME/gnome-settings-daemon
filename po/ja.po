@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
 "POT-Creation-Date: 2020-06-09 15:33+0000\n"
-"PO-Revision-Date: 2020-04-03 18:00+0900\n"
+"PO-Revision-Date: 2020-06-10 18:45+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -1760,10 +1760,9 @@ msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "ワイヤレスマウスのバッテリーが低下しています (%.0f%%)"
 
 #: plugins/power/gsd-power-manager.c:510
-#, fuzzy, c-format
-#| msgid "Wireless mouse is low in power (%.0f%%)"
+#, c-format
 msgid "Wireless mouse is low in power"
-msgstr "ワイヤレスマウスのバッテリーが低下しています (%.0f%%)"
+msgstr "ワイヤレスマウスのバッテリーが低下しています"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
@@ -1777,10 +1776,9 @@ msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "ワイヤレスキーボードのバッテリーが低下しています (%.0f%%)"
 
 #: plugins/power/gsd-power-manager.c:520
-#, fuzzy, c-format
-#| msgid "Wireless keyboard is low in power (%.0f%%)"
+#, c-format
 msgid "Wireless keyboard is low in power"
-msgstr "ワイヤレスキーボードのバッテリーが低下しています (%.0f%%)"
+msgstr "ワイヤレスキーボードのバッテリーが低下しています"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
@@ -1794,10 +1792,9 @@ msgid "PDA is low in power (%.0f%%)"
 msgstr "PDA のバッテリーが低下しています (%.0f%%)"
 
 #: plugins/power/gsd-power-manager.c:530
-#, fuzzy, c-format
-#| msgid "PDA is low in power (%.0f%%)"
+#, c-format
 msgid "PDA is low in power"
-msgstr "PDA のバッテリーが低下しています (%.0f%%)"
+msgstr "PDA のバッテリーが低下しています"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
@@ -1812,10 +1809,9 @@ msgid "Cell phone is low in power (%.0f%%)"
 msgstr "携帯電話のバッテリーが低下しています (%.0f%%)"
 
 #: plugins/power/gsd-power-manager.c:540
-#, fuzzy, c-format
-#| msgid "Cell phone is low in power (%.0f%%)"
+#, c-format
 msgid "Cell phone is low in power"
-msgstr "携帯電話のバッテリーが低下しています (%.0f%%)"
+msgstr "携帯電話のバッテリーが低下しています"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
 #: plugins/power/gsd-power-manager.c:544
@@ -1828,10 +1824,9 @@ msgid "Media player is low in power (%.0f%%)"
 msgstr "メディアプレーヤーのバッテリーが低下しています (%.0f%%)"
 
 #: plugins/power/gsd-power-manager.c:550
-#, fuzzy, c-format
-#| msgid "Media player is low in power (%.0f%%)"
+#, c-format
 msgid "Media player is low in power"
-msgstr "メディアプレーヤーのバッテリーが低下しています (%.0f%%)"
+msgstr "メディアプレーヤーのバッテリーが低下しています"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
@@ -1845,10 +1840,9 @@ msgid "Tablet is low in power (%.0f%%)"
 msgstr "タブレットの電力が低下しています (%.0f%%)"
 
 #: plugins/power/gsd-power-manager.c:560
-#, fuzzy, c-format
-#| msgid "Tablet is low in power (%.0f%%)"
+#, c-format
 msgid "Tablet is low in power"
-msgstr "タブレットの電力が低下しています (%.0f%%)"
+msgstr "タブレットの電力が低下しています"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
@@ -1862,10 +1856,9 @@ msgid "Attached computer is low in power (%.0f%%)"
 msgstr "接続されたコンピューターのバッテリーが低下しています (%.0f%%)"
 
 #: plugins/power/gsd-power-manager.c:570
-#, fuzzy, c-format
-#| msgid "Attached computer is low in power (%.0f%%)"
+#, c-format
 msgid "Attached computer is low in power"
-msgstr "接続されたコンピューターのバッテリーが低下しています (%.0f%%)"
+msgstr "接続されたコンピューターのバッテリーが低下しています"
 
 #. TRANSLATORS: this is the sound description
 #: plugins/power/gsd-power-manager.c:591
@@ -1910,7 +1903,7 @@ msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
 "computer to avoid losing data."
 msgstr ""
-"UPS 電源の残り時間は約 %s です(%.0f%%)。データを失わないように、コンピュー"
+"UPS 電源の残り時間は約 %s です (%.0f%%)。データを失わないように、コンピュー"
 "ターの AC 電源を復帰してください。"
 
 #: plugins/power/gsd-power-manager.c:668
@@ -1919,20 +1912,17 @@ msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
-"ワイヤレスマウスの電源が非常に低くなっています(%.0f%%)。このデバイスは、充電"
-"されないとまもなく機能を停止します。"
+"ワイヤレスマウスの電源が非常に低くなっています (%.0f%%)。このデバイスは、充"
+"電されないとまもなく機能を停止します。"
 
 #: plugins/power/gsd-power-manager.c:672
-#, fuzzy, c-format
-#| msgid ""
-#| "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
-#| "functioning if not charged."
+#, c-format
 msgid ""
 "Wireless mouse is very low in power. This device will soon stop functioning "
 "if not charged."
 msgstr ""
-"ワイヤレスマウスの電源が非常に低くなっています(%.0f%%)。このデバイスは、充電"
-"されないとまもなく機能を停止します。"
+"ワイヤレスマウスの電源が非常に低くなっています。このデバイスは、充電されない"
+"とまもなく機能を停止します。"
 
 #: plugins/power/gsd-power-manager.c:681
 #, c-format
@@ -1940,20 +1930,17 @@ msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
-"ワイヤレスキーボードの電源が非常に低くなっています(%.0f%%)。このデバイスは、"
-"充電されないとまもなく機能を停止します。"
+"ワイヤレスキーボードの電源が非常に低くなっています (%.0f%%)。このデバイスは"
+"、充電されないとまもなく機能を停止します。"
 
 #: plugins/power/gsd-power-manager.c:685
-#, fuzzy, c-format
-#| msgid ""
-#| "Wireless keyboard is very low in power (%.0f%%). This device will soon "
-#| "stop functioning if not charged."
+#, c-format
 msgid ""
 "Wireless keyboard is very low in power. This device will soon stop "
 "functioning if not charged."
 msgstr ""
-"ワイヤレスキーボードの電源が非常に低くなっています(%.0f%%)。このデバイスは、"
-"充電されないとまもなく機能を停止します。"
+"ワイヤレスキーボードの電源が非常に低くなっています。このデバイスは、充電され"
+"ないとまもなく機能を停止します。"
 
 #: plugins/power/gsd-power-manager.c:695
 #, c-format
@@ -1961,20 +1948,17 @@ msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
 "not charged."
 msgstr ""
-"PDA の電源が非常に低くなっています(%.0f%%)。このデバイスは、充電されないとま"
+"PDA の電源が非常に低くなっています (%.0f%%)。このデバイスは、充電されないとま"
 "もなく機能を停止します。"
 
 #: plugins/power/gsd-power-manager.c:699
-#, fuzzy, c-format
-#| msgid ""
-#| "PDA is very low in power (%.0f%%). This device will soon stop functioning "
-#| "if not charged."
+#, c-format
 msgid ""
 "PDA is very low in power. This device will soon stop functioning if not "
 "charged."
 msgstr ""
-"PDA の電源が非常に低くなっています(%.0f%%)。このデバイスは、充電されないとま"
-"もなく機能を停止します。"
+"PDA の電源が非常に低くなっています。このデバイスは、充電されないとまもなく機"
+"能を停止します。"
 
 #: plugins/power/gsd-power-manager.c:709
 #, c-format
@@ -1982,20 +1966,17 @@ msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
-"携帯電話の電源が非常に低くなっています(%.0f%%)。このデバイスは、充電されない"
-"とまもなく機能を停止します。"
+"携帯電話の電源が非常に低くなっています (%.0f%%)。このデバイスは、充電されな"
+"いとまもなく機能を停止します。"
 
 #: plugins/power/gsd-power-manager.c:713
-#, fuzzy, c-format
-#| msgid ""
-#| "Cell phone is very low in power (%.0f%%). This device will soon stop "
-#| "functioning if not charged."
+#, c-format
 msgid ""
 "Cell phone is very low in power. This device will soon stop functioning if "
 "not charged."
 msgstr ""
-"携帯電話の電源が非常に低くなっています(%.0f%%)。このデバイスは、充電されない"
-"とまもなく機能を停止します。"
+"携帯電話の電源が非常に低くなっています。このデバイスは、充電されないとまもな"
+"く機能を停止します。"
 
 #: plugins/power/gsd-power-manager.c:723
 #, c-format
@@ -2003,20 +1984,17 @@ msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
-"メディアプレーヤーの電源が非常に低下しています(%.0f%%)。このデバイスは、充電"
-"されないとまもなく機能を停止します。"
+"メディアプレーヤーの電源が非常に低下しています (%.0f%%)。このデバイスは、充"
+"電されないとまもなく機能を停止します。"
 
 #: plugins/power/gsd-power-manager.c:727
-#, fuzzy, c-format
-#| msgid ""
-#| "Media player is very low in power (%.0f%%). This device will soon stop "
-#| "functioning if not charged."
+#, c-format
 msgid ""
 "Media player is very low in power. This device will soon stop functioning if "
 "not charged."
 msgstr ""
-"メディアプレーヤーの電源が非常に低下しています(%.0f%%)。このデバイスは、充電"
-"されないとまもなく機能を停止します。"
+"メディアプレーヤーの電源が非常に低下しています。このデバイスは、充電されない"
+"とまもなく機能を停止します。"
 
 #: plugins/power/gsd-power-manager.c:737
 #, c-format
@@ -2024,20 +2002,17 @@ msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
 "if not charged."
 msgstr ""
-"タブレットの電源が非常に低くなっています(%.0f%%)。このデバイスは、充電されな"
+"タブレットの電源が非常に低くなっています (%.0f%%)。このデバイスは、充電されな"
 "いとまもなく機能を停止します。"
 
 #: plugins/power/gsd-power-manager.c:741
-#, fuzzy, c-format
-#| msgid ""
-#| "Tablet is very low in power (%.0f%%). This device will soon stop "
-#| "functioning if not charged."
+#, c-format
 msgid ""
 "Tablet is very low in power. This device will soon stop functioning if not "
 "charged."
 msgstr ""
-"タブレットの電源が非常に低くなっています(%.0f%%)。このデバイスは、充電されな"
-"いとまもなく機能を停止します。"
+"タブレットの電源が非常に低くなっています。このデバイスは、充電されないとまも"
+"なく機能を停止します。"
 
 #: plugins/power/gsd-power-manager.c:751
 #, c-format
@@ -2045,20 +2020,17 @@ msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
 "shutdown if not charged."
 msgstr ""
-"接続されたコンピューターの電源が非常に低くなっています(%.0f%%)。このデバイス"
-"は、充電されないとまもなく機能を停止します。"
+"接続されたコンピューターの電源が非常に低くなっています (%.0f%%)。このデバイ"
+"スは、充電されないとまもなく機能を停止します。"
 
 #: plugins/power/gsd-power-manager.c:755
-#, fuzzy, c-format
-#| msgid ""
-#| "Attached computer is very low in power (%.0f%%). The device will soon "
-#| "shutdown if not charged."
+#, c-format
 msgid ""
 "Attached computer is very low in power. The device will soon shutdown if not "
 "charged."
 msgstr ""
-"接続されたコンピューターの電源が非常に低くなっています(%.0f%%)。このデバイス"
-"は、充電されないとまもなく機能を停止します。"
+"接続されたコンピューターの電源が非常に低くなっています。このデバイスは、充電"
+"されないとまもなく機能を停止します。"
 
 #. TRANSLATORS: computer will hibernate
 #: plugins/power/gsd-power-manager.c:820
@@ -2066,8 +2038,8 @@ msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
 msgstr ""
-"バッテリーがクリティカルなレベルを下回っています。このコンピューターはまもな"
-"くハイバネートします。"
+"バッテリーがクリティカルなレベルを下回っています。このコンピューターは、まも"
+"なくハイバネートします。"
 
 #. TRANSLATORS: computer will just shutdown
 #: plugins/power/gsd-power-manager.c:825
@@ -2075,22 +2047,22 @@ msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
 msgstr ""
-"バッテリーがクリティカルなレベルを下回っています。このコンピューターはまもな"
-"くシャットダウンします。"
+"バッテリーがクリティカルなレベルを下回っています。このコンピューターは、まも"
+"なくシャットダウンします。"
 
 #. TRANSLATORS: computer will hibernate
 #: plugins/power/gsd-power-manager.c:845
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
-"UPS がクリティカルなレベルを下回っています。このコンピューターはまもなくハイ"
-"バネートします。"
+"UPS がクリティカルなレベルを下回っています。このコンピューターは、まもなくハ"
+"イバネートします。"
 
 #. TRANSLATORS: computer will just shutdown
 #: plugins/power/gsd-power-manager.c:850
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
-"UPS がクリティカルなレベルを下回っています。このコンピューターはまもなく"
+"UPS がクリティカルなレベルを下回っています。このコンピューターは、まもなく"
 "シャットダウンします。"
 
 #. TRANSLATORS: this is the sound description
