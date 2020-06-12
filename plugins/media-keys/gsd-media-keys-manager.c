@@ -93,6 +93,7 @@
 /* How long to suppress power-button presses after resume,
  * 3 seconds is the minimum necessary to make resume reliable */
 #define GSD_REENABLE_POWER_BUTTON_DELAY                 3000 /* ms */
+#define GSD_REEANBLE_POWER_BUTTON_DEBOUNCE_DELAY        1000 /* ms */
 
 static const gchar introspection_xml[] =
 "<node name='/org/gnome/SettingsDaemon/MediaKeys'>"
@@ -260,7 +261,8 @@ static void     keys_sync_queue                    (GsdMediaKeysManager *manager
                                                     gboolean             immediate,
                                                     gboolean             retry);
 static void     keys_sync_continue                 (GsdMediaKeysManager *manager);
-
+static void     setup_reenable_power_button_timer  (GsdMediaKeysManager *manager,
+                                                    guint               interval);
 
 G_DEFINE_TYPE_WITH_PRIVATE (GsdMediaKeysManager, gsd_media_keys_manager, G_TYPE_OBJECT)
 
@@ -2287,6 +2289,10 @@ do_config_power_button_action (GsdMediaKeysManager *manager,
         if (action != GSD_POWER_ACTION_INTERACTIVE && !supports_power_action (manager, action))
                 action = GSD_POWER_ACTION_INTERACTIVE;
 
+        /* Add power button debounce before the action */
+        priv->power_button_disabled = TRUE;
+        setup_reenable_power_button_timer (manager, GSD_REEANBLE_POWER_BUTTON_DEBOUNCE_DELAY);
+
         do_config_power_action (manager, action, in_lock_screen);
 }
 
@@ -3565,7 +3571,7 @@ reenable_power_button_timer_cb (GsdMediaKeysManager *manager)
 }
 
 static void
-setup_reenable_power_button_timer (GsdMediaKeysManager *manager)
+setup_reenable_power_button_timer (GsdMediaKeysManager *manager, guint interval)
 {
         GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
 
@@ -3573,7 +3579,7 @@ setup_reenable_power_button_timer (GsdMediaKeysManager *manager)
                 return;
 
         priv->reenable_power_button_timer_id =
-                g_timeout_add (GSD_REENABLE_POWER_BUTTON_DELAY,
+                g_timeout_add (interval,
                                (GSourceFunc) reenable_power_button_timer_cb,
                                manager);
         g_source_set_name_by_id (priv->reenable_power_button_timer_id,
@@ -3616,7 +3622,7 @@ logind_proxy_signal_cb (GDBusProxy  *proxy,
         } else {
                 inhibit_suspend (manager);
                 /* Re-enable power-button handling (after a small delay) */
-                setup_reenable_power_button_timer (manager);
+                setup_reenable_power_button_timer (manager, GSD_REENABLE_POWER_BUTTON_DELAY);
         }
 }
 
