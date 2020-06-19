@@ -153,17 +153,17 @@ is_cupsbrowsed_dest (const char *name)
         gboolean     is_cupsbrowsed = FALSE;
         cups_dest_t *found_dest = NULL;
 
-        found_dest = cupsGetNamedDest(CUPS_HTTP_DEFAULT, name, NULL);
-        if (!found_dest) {
+        found_dest = cupsGetNamedDest (CUPS_HTTP_DEFAULT, name, NULL);
+        if (found_dest == NULL) {
                 goto out;
         }
 
-        val = cupsGetOption("cups-browsed", found_dest->num_options, found_dest->options);
-        if (!val) {
+        val = cupsGetOption ("cups-browsed", found_dest->num_options, found_dest->options);
+        if (val == NULL) {
                 goto out;
         }
 
-        if (g_str_equal(val, "yes") || g_str_equal(val, "on") || g_str_equal(val, "true")) {
+        if (g_str_equal (val, "yes") || g_str_equal (val, "on") || g_str_equal (val, "true")) {
                 is_cupsbrowsed = TRUE;
         }
 out:
@@ -690,7 +690,7 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                 if (is_local_dest (printer_name,
                                    manager->dests,
                                    manager->num_dests) &&
-                    !is_cupsbrowsed_dest(printer_name)) {
+                    !is_cupsbrowsed_dest (printer_name)) {
                         /* Translators: New printer has been added */
                         primary_text = g_strdup (_("Printer added"));
                         secondary_text = g_strdup (printer_name);
