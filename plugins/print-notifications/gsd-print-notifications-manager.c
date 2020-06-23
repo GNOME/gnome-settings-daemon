@@ -167,6 +167,10 @@ is_cupsbrowsed_dest (const char *name)
                 is_cupsbrowsed = TRUE;
         }
 out:
+        if (found_dest != NULL) {
+                cupsFreeDests (1, found_dest);
+        }
+
         return is_cupsbrowsed;
 }
 
