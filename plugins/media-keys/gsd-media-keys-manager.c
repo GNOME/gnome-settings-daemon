@@ -1273,14 +1273,23 @@ do_execute_desktop_or_desktop (GsdMediaKeysManager *manager,
 }
 
 static void
-do_touchpad_osd_action (GsdMediaKeysManager *manager, gboolean state)
+do_touchpad_action (GsdMediaKeysManager *manager, gboolean state)
 {
+        GSettings *settings;
+
         show_osd (manager, state ? "input-touchpad-symbolic"
                                  : "touchpad-disabled-symbolic", NULL, -1, NULL);
+
+        settings = g_settings_new (SETTINGS_TOUCHPAD_DIR);
+        g_settings_set_enum (settings, TOUCHPAD_ENABLED_KEY,
+                             state ?
+                             G_DESKTOP_DEVICE_SEND_EVENTS_ENABLED :
+                             G_DESKTOP_DEVICE_SEND_EVENTS_DISABLED);
+        g_object_unref (settings);
 }
 
 static void
-do_touchpad_action (GsdMediaKeysManager *manager)
+do_toggle_touchpad_action (GsdMediaKeysManager *manager)
 {
         GSettings *settings;
         gboolean state;
@@ -1289,12 +1298,8 @@ do_touchpad_action (GsdMediaKeysManager *manager)
         state = (g_settings_get_enum (settings, TOUCHPAD_ENABLED_KEY) ==
                  G_DESKTOP_DEVICE_SEND_EVENTS_ENABLED);
 
-        do_touchpad_osd_action (manager, !state);
+        do_touchpad_action (manager, !state);
 
-        g_settings_set_enum (settings, TOUCHPAD_ENABLED_KEY,
-                             !state ?
-                             G_DESKTOP_DEVICE_SEND_EVENTS_ENABLED :
-                             G_DESKTOP_DEVICE_SEND_EVENTS_DISABLED);
         g_object_unref (settings);
 }
 
@@ -2621,13 +2626,13 @@ do_action (GsdMediaKeysManager *manager,
 
         switch (type) {
         case TOUCHPAD_KEY:
-                do_touchpad_action (manager);
+                do_toggle_touchpad_action (manager);
                 break;
         case TOUCHPAD_ON_KEY:
-                do_touchpad_osd_action (manager, TRUE);
+                do_touchpad_action (manager, TRUE);
                 break;
         case TOUCHPAD_OFF_KEY:
-                do_touchpad_osd_action (manager, FALSE);
+                do_touchpad_action (manager, FALSE);
                 break;
         case MUTE_KEY:
         case VOLUME_DOWN_KEY:
