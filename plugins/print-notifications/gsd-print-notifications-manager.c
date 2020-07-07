@@ -44,6 +44,14 @@
 #define CUPS_DBUS_PATH      "/org/cups/cupsd/Notifier"
 #define CUPS_DBUS_INTERFACE "org.cups.cupsd.Notifier"
 
+#define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
+#define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
+#define GSD_DBUS_BASE_INTERFACE "org.gnome.SettingsDaemon"
+
+#define GSD_PRINT_NOTIFICATIONS_DBUS_NAME         GSD_DBUS_NAME ".PrintNotifications"
+#define GSD_PRINT_NOTIFICATIONS_DBUS_PATH         GSD_DBUS_PATH "/PrintNotifications"
+#define GSD_PRINT_NOTIFICATIONS_DBUS_INTERFACE    GSD_DBUS_BASE_INTERFACE ".PrintNotifications"
+
 #define RENEW_INTERVAL                   3500
 #define SUBSCRIPTION_DURATION            3600
 #define CONNECTING_TIMEOUT               60
@@ -73,11 +81,26 @@ ippNextAttribute (ipp_t *ipp)
 }
 #endif
 
+/*
+ * Ignored events for print jobs are stored as "1 << value"
+ * where the value is from ipp_jstate_t enum which ranges from 3 to 9.
+ */
+static const gchar introspection_xml[] =
+"<node>"
+"  <interface name='org.gnome.SettingsDaemon.PrintNotifications'>"
+"    <method name='DoNotNotifyJob'>"
+"      <arg name='job-id'         direction='in' type='i'/>"
+"      <arg name='ignored-events' direction='in' type='t'/>"
+"    </method>"
+"  </interface>"
+"</node>";
+
 struct _GsdPrintNotificationsManager
 {
         GObject                       parent;
 
         GDBusConnection              *cups_bus_connection;
+        GDBusConnection              *session_bus_connection;
         gint                          subscription_id;
         cups_dest_t                  *dests;
         gint                          num_dests;
@@ -93,6 +116,10 @@ struct _GsdPrintNotificationsManager
         gint                          last_notify_sequence_number;
         guint                         start_idle_id;
         GList                        *held_jobs;
+
+        guint                         name_id;
+        GDBusNodeInfo                *introspection_data;
+        GList                        *ignored_jobs;
 };
 
 static void     gsd_print_notifications_manager_class_init  (GsdPrintNotificationsManagerClass *klass);
@@ -585,6 +612,38 @@ check_job_for_authentication (gpointer userdata)
         return G_SOURCE_REMOVE;
 }
 
+struct
+{
+        gint    job_id;
+        guint64 ignored_events;
+} typedef TIgnoredJob;
+
+static TIgnoredJob *
+find_ignored_job (GsdPrintNotificationsManager *manager,
+                  gint                          job_id)
+{
+        TIgnoredJob *ignored_job = NULL;
+        GList       *iter;
+
+        for (iter = manager->ignored_jobs; iter != NULL; iter = iter->next) {
+                if (((TIgnoredJob *) iter->data)->job_id == job_id) {
+                        ignored_job = (TIgnoredJob *) iter->data;
+                }
+        }
+
+        return ignored_job;
+}
+
+static void
+remove_ignored_job (GsdPrintNotificationsManager *manager,
+                    TIgnoredJob                  *ignored_job)
+{
+        if (ignored_job != NULL) {
+                manager->ignored_jobs = g_list_remove (manager->ignored_jobs, ignored_job);
+                g_free (ignored_job);
+        }
+}
+
 static void
 process_cups_notification (GsdPrintNotificationsManager *manager,
                            const char                   *notify_subscribed_event,
@@ -601,6 +660,7 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                            gint                          job_impressions_completed)
 {
         ipp_attribute_t *attr;
+        TIgnoredJob     *ignored_job = NULL;
         gboolean         my_job = FALSE;
         gboolean         known_reason;
         HeldJob         *held_job;
@@ -685,6 +745,8 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                         g_free (job_uri);
                         httpClose (http);
                 }
+
+                ignored_job = find_ignored_job (manager, notify_job_id);
         }
 
         if (g_strcmp0 (notify_subscribed_event, "printer-added") == 0) {
@@ -712,72 +774,102 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                         case IPP_JOB_PROCESSING:
                                 break;
                         case IPP_JOB_STOPPED:
-                                /* Translators: A print job has been stopped */
-                                primary_text = g_strdup (C_("print job state", "Printing stopped"));
-                                /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                if (ignored_job == NULL || !(ignored_job->ignored_events & (1 << IPP_JOB_STOPPED))) {
+                                        /* Translators: A print job has been stopped */
+                                        primary_text = g_strdup (C_("print job state", "Printing stopped"));
+                                        /* Translators: "print-job xy" on a printer */
+                                        secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                }
                                 break;
                         case IPP_JOB_CANCELED:
-                                /* Translators: A print job has been canceled */
-                                primary_text = g_strdup (C_("print job state", "Printing canceled"));
-                                /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                if (ignored_job == NULL || !(ignored_job->ignored_events & (1 << IPP_JOB_CANCELED))) {
+                                        /* Translators: A print job has been canceled */
+                                        primary_text = g_strdup (C_("print job state", "Printing canceled"));
+                                        /* Translators: "print-job xy" on a printer */
+                                        secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                } else {
+                                        remove_ignored_job (manager, ignored_job);
+                                }
                                 break;
                         case IPP_JOB_ABORTED:
-                                /* Translators: A print job has been aborted */
-                                primary_text = g_strdup (C_("print job state", "Printing aborted"));
-                                /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                if (ignored_job == NULL || !(ignored_job->ignored_events & (1 << IPP_JOB_ABORTED))) {
+                                        /* Translators: A print job has been aborted */
+                                        primary_text = g_strdup (C_("print job state", "Printing aborted"));
+                                        /* Translators: "print-job xy" on a printer */
+                                        secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                } else {
+                                        remove_ignored_job (manager, ignored_job);
+                                }
                                 break;
                         case IPP_JOB_COMPLETED:
-                                /* Translators: A print job has been completed */
-                                primary_text = g_strdup (C_("print job state", "Printing completed"));
-                                /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                if (ignored_job == NULL || !(ignored_job->ignored_events & (1 << IPP_JOB_COMPLETED))) {
+                                        /* Translators: A print job has been completed */
+                                        primary_text = g_strdup (C_("print job state", "Printing completed"));
+                                        /* Translators: "print-job xy" on a printer */
+                                        secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                } else {
+                                        remove_ignored_job (manager, ignored_job);
+                                }
                                 break;
                 }
         } else if (g_strcmp0 (notify_subscribed_event, "job-state-changed") == 0 && my_job) {
                 switch (job_state) {
                         case IPP_JOB_PROCESSING:
-                                g_hash_table_insert (manager->printing_printers,
-                                                     g_strdup (printer_name), NULL);
+                                if (ignored_job == NULL || !(ignored_job->ignored_events & (1 << IPP_JOB_PROCESSING))) {
+                                        g_hash_table_insert (manager->printing_printers,
+                                                             g_strdup (printer_name), NULL);
 
-                                /* Translators: A job is printing */
-                                primary_text = g_strdup (C_("print job state", "Printing"));
-                                /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                        /* Translators: A job is printing */
+                                        primary_text = g_strdup (C_("print job state", "Printing"));
+                                        /* Translators: "print-job xy" on a printer */
+                                        secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                }
                                 break;
                         case IPP_JOB_STOPPED:
-                                g_hash_table_remove (manager->printing_printers,
-                                                     printer_name);
-                                /* Translators: A print job has been stopped */
-                                primary_text = g_strdup (C_("print job state", "Printing stopped"));
-                                /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                if (ignored_job == NULL || !(ignored_job->ignored_events & (1 << IPP_JOB_STOPPED))) {
+                                        g_hash_table_remove (manager->printing_printers,
+                                                             printer_name);
+                                        /* Translators: A print job has been stopped */
+                                        primary_text = g_strdup (C_("print job state", "Printing stopped"));
+                                        /* Translators: "print-job xy" on a printer */
+                                        secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                }
                                 break;
                         case IPP_JOB_CANCELED:
-                                g_hash_table_remove (manager->printing_printers,
-                                                     printer_name);
-                                /* Translators: A print job has been canceled */
-                                primary_text = g_strdup (C_("print job state", "Printing canceled"));
-                                /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                if (ignored_job == NULL || !(ignored_job->ignored_events & (1 << IPP_JOB_CANCELED))) {
+                                        g_hash_table_remove (manager->printing_printers,
+                                                             printer_name);
+                                        /* Translators: A print job has been canceled */
+                                        primary_text = g_strdup (C_("print job state", "Printing canceled"));
+                                        /* Translators: "print-job xy" on a printer */
+                                        secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                } else {
+                                        remove_ignored_job (manager, ignored_job);
+                                }
                                 break;
                         case IPP_JOB_ABORTED:
-                                g_hash_table_remove (manager->printing_printers,
-                                                     printer_name);
-                                /* Translators: A print job has been aborted */
-                                primary_text = g_strdup (C_("print job state", "Printing aborted"));
-                                /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                if (ignored_job == NULL || !(ignored_job->ignored_events & (1 << IPP_JOB_ABORTED))) {
+                                        g_hash_table_remove (manager->printing_printers,
+                                                             printer_name);
+                                        /* Translators: A print job has been aborted */
+                                        primary_text = g_strdup (C_("print job state", "Printing aborted"));
+                                        /* Translators: "print-job xy" on a printer */
+                                        secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                } else {
+                                        remove_ignored_job (manager, ignored_job);
+                                }
                                 break;
                         case IPP_JOB_COMPLETED:
-                                g_hash_table_remove (manager->printing_printers,
-                                                     printer_name);
-                                /* Translators: A print job has been completed */
-                                primary_text = g_strdup (C_("print job state", "Printing completed"));
-                                /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                if (ignored_job == NULL || !(ignored_job->ignored_events & (1 << IPP_JOB_COMPLETED))) {
+                                        g_hash_table_remove (manager->printing_printers,
+                                                             printer_name);
+                                        /* Translators: A print job has been completed */
+                                        primary_text = g_strdup (C_("print job state", "Printing completed"));
+                                        /* Translators: "print-job xy" on a printer */
+                                        secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                } else {
+                                        remove_ignored_job (manager, ignored_job);
+                                }
                                 break;
                         case IPP_JOB_HELD:
                                 held_job = g_new (HeldJob, 1);
@@ -795,13 +887,15 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                 }
         } else if (g_strcmp0 (notify_subscribed_event, "job-created") == 0 && my_job) {
                 if (job_state == IPP_JOB_PROCESSING) {
-                        g_hash_table_insert (manager->printing_printers,
-                                             g_strdup (printer_name), NULL);
+                        if (ignored_job == NULL || !(ignored_job->ignored_events & (1 << IPP_JOB_PROCESSING))) {
+                                g_hash_table_insert (manager->printing_printers,
+                                                     g_strdup (printer_name), NULL);
 
-                        /* Translators: A job is printing */
-                        primary_text = g_strdup (C_("print job state", "Printing"));
-                        /* Translators: "print-job xy" on a printer */
-                        secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                /* Translators: A job is printing */
+                                primary_text = g_strdup (C_("print job state", "Printing"));
+                                /* Translators: "print-job xy" on a printer */
+                                secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                        }
                 }
         } else if (g_strcmp0 (notify_subscribed_event, "printer-state-changed") == 0) {
                 cups_dest_t  *dest = NULL;
@@ -1543,6 +1637,73 @@ gsd_print_notifications_manager_got_dbus_connection (GObject      *source_object
         }
 }
 
+static void
+handle_method_call (GDBusConnection       *connection,
+                    const gchar           *sender,
+                    const gchar           *object_path,
+                    const gchar           *interface_name,
+                    const gchar           *method_name,
+                    GVariant              *parameters,
+                    GDBusMethodInvocation *invocation,
+                    gpointer               user_data)
+{
+        GsdPrintNotificationsManager *manager = GSD_PRINT_NOTIFICATIONS_MANAGER (user_data);
+
+        if (g_strcmp0 (method_name, "DoNotNotifyJob") == 0) {
+                TIgnoredJob *ignored_job;
+                guint64      events = 0;
+                gint         job_id = 0;
+
+                g_variant_get (parameters, "(it)", &job_id, &events);
+
+                if (job_id > 0 && events > 0) {
+                        ignored_job = g_new (TIgnoredJob, 1);
+                        ignored_job->job_id = job_id;
+                        ignored_job->ignored_events = events;
+                        manager->ignored_jobs = g_list_prepend (manager->ignored_jobs, ignored_job);
+                }
+
+                g_dbus_method_invocation_return_value (invocation, NULL);
+        } else {
+                g_assert_not_reached ();
+        }
+}
+
+static const GDBusInterfaceVTable interface_vtable =
+{
+        handle_method_call,
+        NULL,
+        NULL
+};
+
+static void
+gsd_print_notifications_manager_got_session_dbus_connection (GObject      *source_object,
+                                                             GAsyncResult *res,
+                                                             gpointer      user_data)
+{
+        GsdPrintNotificationsManager *manager = (GsdPrintNotificationsManager *) user_data;
+        GError                       *error = NULL;
+
+        manager->session_bus_connection = g_bus_get_finish (res, &error);
+        if (manager->session_bus_connection != NULL) {
+                g_dbus_connection_register_object (manager->session_bus_connection,
+                                                   GSD_PRINT_NOTIFICATIONS_DBUS_PATH,
+                                                   manager->introspection_data->interfaces[0],
+                                                   &interface_vtable,
+                                                   manager,
+                                                   NULL,
+                                                   NULL);
+
+                manager->name_id = g_bus_own_name_on_connection (manager->session_bus_connection,
+                                                                 GSD_PRINT_NOTIFICATIONS_DBUS_NAME,
+                                                                 G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                                 NULL, NULL, NULL, NULL);
+        } else {
+                g_warning ("Connection to message bus failed: %s", error->message);
+                g_error_free (error);
+        }
+}
+
 static gboolean
 gsd_print_notifications_manager_start_idle (gpointer data)
 {
@@ -1551,6 +1712,11 @@ gsd_print_notifications_manager_start_idle (gpointer data)
         gnome_settings_profile_start (NULL);
 
         manager->printing_printers = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+
+        g_bus_get (G_BUS_TYPE_SESSION,
+                   NULL,
+                   gsd_print_notifications_manager_got_session_dbus_connection,
+                   data);
 
         /*
          * Set a password callback which cancels authentication
@@ -1599,6 +1765,10 @@ gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
         manager->cups_connection_timeout_id = 0;
         manager->last_notify_sequence_number = -1;
         manager->held_jobs = NULL;
+        manager->ignored_jobs = NULL;
+        manager->session_bus_connection = NULL;
+        manager->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        g_assert (manager->introspection_data != NULL);
 
         manager->start_idle_id = g_idle_add (gsd_print_notifications_manager_start_idle, manager);
         g_source_set_name_by_id (manager->start_idle_id, "[gnome-settings-daemon] gsd_print_notifications_manager_start_idle");
@@ -1617,6 +1787,17 @@ gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
         GList       *tmp;
 
         g_debug ("Stopping print-notifications manager");
+
+        if (manager->name_id != 0) {
+                g_bus_unown_name (manager->name_id);
+                manager->name_id = 0;
+        }
+
+        g_clear_object (&manager->session_bus_connection);
+
+        g_clear_pointer (&manager->introspection_data, g_dbus_node_info_unref);
+
+        g_list_free_full (manager->ignored_jobs, g_free);
 
         cupsFreeDests (manager->num_dests, manager->dests);
         manager->num_dests = 0;
