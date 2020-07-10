@@ -158,7 +158,8 @@ mpris_client_properties_changed_cb (GDBusProxy *proxy,
   MprisController *self = MPRIS_CONTROLLER (user_data);
   GDBusProxy *current_proxy;
 
-  if ((current_proxy = self->mpris_client_proxy) == proxy)
+  current_proxy = self->mpris_client_proxy;
+  if (current_proxy == proxy)
     return;
 
   if (current_proxy && mpris_client_is_playing (current_proxy))
