@@ -79,10 +79,13 @@
 /* And the time before we stop the warning sound */
 #define GSD_STOP_SOUND_DELAY GSD_ACTION_DELAY - 2
 
-/* the amount of smoothing done to the the ambient light readings; a lower
- * number means the backlight changes slower in response to changing ambient
- * conditions, a hugher number may lead to noticable jitteryness */
-#define GSD_AMBIENT_SMOOTH          0.3f
+/* The bandwidth of the low-pass filter used to smooth ambient light readings,
+ * measured in MHz.  Smaller numbers result in smoother backlight changes.
+ * Larger numbers are more responsive to abrupt changes in ambient light. */
+#define GSD_AMBIENT_BANDWIDTH_MHZ       100000.0f
+
+/* Convert bandwidth to time constant.  Units of constant are microseconds. */
+#define GSD_AMBIENT_TIME_CONSTANT       (1.0f / (2.0f * G_PI * GSD_AMBIENT_BANDWIDTH_MHZ))
 
 static const gchar introspection_xml[] =
 "<node>"
@@ -179,6 +182,7 @@ struct _GsdPowerManager
         gdouble                  ambient_norm_value;
         gdouble                  ambient_percentage_old;
         gdouble                  ambient_last_absolute;
+        gint64                   ambient_last_time;
 
         /* Sound */
         guint32                  critical_alert_timeout_id;
@@ -2570,6 +2574,8 @@ iio_proxy_changed (GsdPowerManager *manager)
         GVariant *val_has = NULL;
         GVariant *val_als = NULL;
         gdouble brightness;
+        gdouble alpha;
+        gint64 current_time;
         gint pc;
 
         /* no display hardware */
@@ -2598,12 +2604,18 @@ iio_proxy_changed (GsdPowerManager *manager)
                 ch_backlight_renormalize (manager);
         }
 
-        /* calculate exponential moving average */
+        /* time-weighted constant for moving average */
+        current_time = g_get_monotonic_time();
+        alpha = 1.0f / (1.0f + (GSD_AMBIENT_TIME_CONSTANT / (current_time - manager->ambient_last_time)));
+        manager->ambient_last_time = current_time;
+
+        /* calculate exponential weighted moving average */
         brightness = manager->ambient_last_absolute * 100.f / manager->ambient_norm_value;
         brightness = MIN (brightness, 100.f);
         brightness = MAX (brightness, 0.f);
-        manager->ambient_accumulator = (GSD_AMBIENT_SMOOTH * brightness) +
-                (1.0 - GSD_AMBIENT_SMOOTH) * manager->ambient_accumulator;
+
+        manager->ambient_accumulator = (alpha * brightness) +
+                (1.0 - alpha) * manager->ambient_accumulator;
 
         /* no valid readings yet */
         if (manager->ambient_accumulator < 0.f)
@@ -2710,6 +2722,7 @@ gsd_power_manager_start (GsdPowerManager *manager,
         manager->ambient_norm_value = -1.f;
         manager->ambient_percentage_old = -1.f;
         manager->ambient_last_absolute = -1.f;
+        manager->ambient_last_time = 0;
 
         gnome_settings_profile_end (NULL);
         return TRUE;
