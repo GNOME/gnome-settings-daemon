@@ -174,6 +174,7 @@ struct _GsdPowerManager
         /* Ambient */
         GDBusProxy              *iio_proxy;
         guint                    iio_proxy_watch_id;
+        gboolean                 iio_proxy_cb_enabled;
         gboolean                 ambient_norm_required;
         gdouble                  ambient_accumulator;
         gdouble                  ambient_norm_value;
@@ -1058,6 +1059,7 @@ static void
 iio_proxy_claim_light (GsdPowerManager *manager, gboolean active)
 {
         GError *error = NULL;
+
         if (manager->iio_proxy == NULL)
                 return;
         if (!manager->backlight)
@@ -1069,13 +1071,21 @@ iio_proxy_claim_light (GsdPowerManager *manager, gboolean active)
          * Remove when iio-sensor-proxy sends events only to clients instead
          * of all listeners:
          * https://github.com/hadess/iio-sensor-proxy/issues/210 */
-        if (active)
-                g_signal_connect (manager->iio_proxy, "g-properties-changed",
-                                  G_CALLBACK (iio_proxy_changed_cb), manager);
-        else
-                g_signal_handlers_disconnect_by_func (manager->iio_proxy,
-                                                      G_CALLBACK (iio_proxy_changed_cb),
-                                                      manager);
+        if (active) {
+                /* don't re-add callback for mode change from dim to normal */
+                if (!manager->iio_proxy_cb_enabled) {
+                        g_signal_connect (manager->iio_proxy, "g-properties-changed",
+                                          G_CALLBACK (iio_proxy_changed_cb), manager);
+                        manager->iio_proxy_cb_enabled = TRUE;
+                }
+        } else {        /* active */
+                if (manager->iio_proxy_cb_enabled) {
+                        g_signal_handlers_disconnect_by_func (manager->iio_proxy,
+                                                              G_CALLBACK (iio_proxy_changed_cb),
+                                                              manager);
+                        manager->iio_proxy_cb_enabled = FALSE;
+                }
+        }
 
         if (!g_dbus_proxy_call_sync (manager->iio_proxy,
                                      active ? "ClaimLight" : "ReleaseLight",
