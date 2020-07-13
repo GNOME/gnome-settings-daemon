@@ -13,6 +13,11 @@ gsd_api_version_minor = 0
 gsd_api_version = '@0@.@1@'.format(gsd_major_version, gsd_api_version_minor)
 gsd_api_name = '@0@-@1@'.format(meson.project_name(), gsd_api_version)
 
+glib_min_version = '2.56'
+
+glib_version_def = 'GLIB_VERSION_@0@_@1@'.format(
+    glib_min_version.split('.')[0], glib_min_version.split('.')[1])
+
 gsd_prefix = get_option('prefix')
 gsd_bindir = join_paths(gsd_prefix, get_option('bindir'))
 gsd_datadir = join_paths(gsd_prefix, get_option('datadir'))
@@ -66,7 +71,9 @@ if gsd_buildtype.contains('debug')
     '-Wnested-externs',
     '-Wno-strict-aliasing',
     '-Wno-sign-compare',
-    '-Wpointer-arith'
+    '-Wpointer-arith',
+    '-DGLIB_VERSION_MIN_REQUIRED=' + glib_version_def,
+    '-DGLIB_VERSION_MAX_ALLOWED=' + glib_version_def,
   ]
 
   compiler_flags = cc.get_supported_arguments(test_cflags)
@@ -82,7 +89,7 @@ endif
 
 add_project_arguments(common_flags + compiler_flags, language: 'c')
 
-glib_dep = dependency('glib-2.0', version: '>= 2.56')
+glib_dep = dependency('glib-2.0', version: '>=' + glib_min_version)
 colord_dep = dependency('colord', version: '>= 1.3.5')
 geocode_glib_dep = dependency('geocode-glib-1.0', version: '>= 3.10.0')
 gio_dep = dependency('gio-2.0', version: '>= 2.53.0')
