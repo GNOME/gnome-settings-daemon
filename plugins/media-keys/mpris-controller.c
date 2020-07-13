@@ -51,7 +51,7 @@ mpris_controller_dispose (GObject *object)
       self->namespace_watcher_id = 0;
     }
 
-  g_clear_slist (&self->other_proxies, g_object_unref);
+  g_slist_free_full (g_steal_pointer (&self->other_proxies), g_object_unref);
 
   G_OBJECT_CLASS (mpris_controller_parent_class)->dispose (object);
 }
