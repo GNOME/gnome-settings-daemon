@@ -39,6 +39,9 @@ struct _GsdBacklight
         gint brightness_target;
         gint brightness_step;
 
+        gint brightness_real;
+        gint brightness_map[101];
+
 #ifdef __linux__
         GDBusProxy *logind_proxy;
 
@@ -243,11 +246,20 @@ gsd_backlight_udev_idle_update_cb (GsdBacklight *backlight)
         brightness = CLAMP (brightness, backlight->brightness_min, backlight->brightness_max);
 
         /* Only notify if brightness has changed. */
-        if (brightness == backlight->brightness_val)
+        if (brightness == backlight->brightness_real)
                 return FALSE;
 
-        backlight->brightness_val = brightness;
-        backlight->brightness_target = brightness;
+        int i = 0;
+        while (backlight->brightness_map[i] != brightness && i <= 100) {
+            i++;
+        }
+
+        g_print ("UEVENT: real sysfs value: %d/100, ui-value: %d/100\n",
+                 brightness, i);
+
+        backlight->brightness_real = brightness;
+        backlight->brightness_val = i;
+        backlight->brightness_target = i;
         g_object_notify_by_pspec (G_OBJECT (backlight), props[PROP_BRIGHTNESS]);
 
         return FALSE;
@@ -542,7 +554,15 @@ gsd_backlight_set_brightness_val_async (GsdBacklight *backlight,
         value = MIN(backlight->brightness_max, value);
         value = MAX(backlight->brightness_min, value);
 
+        g_print("UI/API requested value: %d/100 (step: %d/%d) real sysfs value: %d/%d;\n",
+                value,
+                (value / backlight->brightness_step),
+                (backlight->brightness_max / backlight->brightness_step),
+                backlight->brightness_map[value],
+                backlight->brightness_max);
+
         backlight->brightness_target = value;
+        backlight->brightness_real = backlight->brightness_map[value];
 
         task = g_task_new (backlight, cancellable, callback, user_data);
 
@@ -556,7 +576,7 @@ gsd_backlight_set_brightness_val_async (GsdBacklight *backlight,
                                            g_variant_new ("(ssu)",
                                                           "backlight",
                                                           g_udev_device_get_name (backlight->udev_device),
-                                                          backlight->brightness_target),
+                                                          backlight->brightness_real),
                                            G_DBUS_CALL_FLAGS_NONE,
                                            -1, NULL,
                                            NULL, NULL);
@@ -968,6 +988,24 @@ found:
 
         g_debug ("Step size for backlight is %i.", backlight->brightness_step);
 
+        /* Fill our lookup table to keep a relation between 0-100%
+         * values, and our bezier scaled *real* values.
+         *
+         * The array index is the UI/API percent, from 0 to 100%.
+         * The value is the bezier scaled value.
+         *
+         * FIXME: There's probably a smarter way to do this.
+         */
+        int i;
+        for (i = 0; i <= 100; i++) {
+            backlight->brightness_map[i] =
+              clutter_ease_cubic_bezier(i,
+                                        backlight->brightness_max,
+                                        0.84, 0.16, 0.90, 0.8) * 100;
+        }
+
+        backlight->brightness_real = backlight->brightness_val;
+
         return TRUE;
 }
 
@@ -1028,6 +1066,8 @@ gsd_backlight_init (GsdBacklight *backlight)
         backlight->brightness_max = -1;
         backlight->brightness_val = -1;
         backlight->brightness_step = 1;
+
+        backlight->brightness_real = -1;
 
 #ifdef __linux__
         backlight->active_task = NULL;
