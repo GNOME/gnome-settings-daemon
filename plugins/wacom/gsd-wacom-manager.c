@@ -66,11 +66,6 @@
 static const gchar introspection_xml[] =
 "<node name='/org/gnome/SettingsDaemon/Wacom'>"
 "  <interface name='org.gnome.SettingsDaemon.Wacom'>"
-"    <method name='SetGroupModeLED'>"
-"      <arg name='device_path' direction='in' type='s'/>"
-"      <arg name='group' direction='in' type='u'/>"
-"      <arg name='mode' direction='in' type='u'/>"
-"    </method>"
 "    <method name='SetOLEDLabels'>"
 "      <arg name='device_path' direction='in' type='s'/>"
 "      <arg name='labels' direction='in' type='as'/>"
@@ -106,10 +101,6 @@ static void     gsd_wacom_manager_class_init  (GsdWacomManagerClass *klass);
 static void     gsd_wacom_manager_init        (GsdWacomManager      *wacom_manager);
 static void     gsd_wacom_manager_finalize    (GObject              *object);
 
-static gboolean set_led (const gchar  *device_path,
-                         guint         group,
-                         guint         index,
-                         GError      **error);
 static gboolean is_opaque_tablet (GsdWacomManager *manager,
                                   GdkDevice       *device);
 
@@ -279,22 +270,7 @@ handle_method_call (GDBusConnection       *connection,
         GError *error = NULL;
         GdkDevice *device;
 
-        if (g_strcmp0 (method_name, "SetGroupModeLED") == 0) {
-                gchar *device_path;
-                guint group, mode;
-
-		g_variant_get (parameters, "(suu)", &device_path, &group, &mode);
-                device = lookup_device_by_path (self, device_path);
-                if (!device) {
-                        g_dbus_method_invocation_return_value (invocation, NULL);
-                        return;
-                }
-
-                if (set_led (device_path, group, mode, &error))
-                        g_dbus_method_invocation_return_value (invocation, NULL);
-                else
-                        g_dbus_method_invocation_return_gerror (invocation, error);
-        } else if (g_strcmp0 (method_name, "SetOLEDLabels") == 0) {
+        if (g_strcmp0 (method_name, "SetOLEDLabels") == 0) {
                 gchar *device_path, *label;
                 gboolean left_handed;
                 GSettings *settings;
@@ -335,34 +311,6 @@ static const GDBusInterfaceVTable interface_vtable =
 	NULL, /* Get Property */
 	NULL, /* Set Property */
 };
-
-static gboolean
-set_led (const gchar  *device_path,
-         guint         group,
-	 guint         index,
-         GError      **error)
-{
-	char *command;
-	gboolean ret;
-
-#ifndef HAVE_GUDEV
-	/* Not implemented on non-Linux systems */
-	return TRUE;
-#endif
-
-	g_debug ("Switching group ID %d to index %d for device %s", group, index, device_path);
-
-	command = g_strdup_printf ("pkexec " LIBEXECDIR "/gsd-wacom-led-helper --path %s --group %d --led %d",
-				   device_path, group, index);
-	ret = g_spawn_command_line_sync (command,
-					 NULL,
-					 NULL,
-					 NULL,
-					 error);
-	g_free (command);
-
-        return ret;
-}
 
 static void
 device_added_cb (GdkSeat         *seat,
