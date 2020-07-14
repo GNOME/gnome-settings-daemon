@@ -1069,13 +1069,15 @@ iio_proxy_claim_light (GsdPowerManager *manager, gboolean active)
          * Remove when iio-sensor-proxy sends events only to clients instead
          * of all listeners:
          * https://github.com/hadess/iio-sensor-proxy/issues/210 */
+
+        /* disconnect, otherwise callback can be added multiple times */
+        g_signal_handlers_disconnect_by_func (manager->iio_proxy,
+                                              G_CALLBACK (iio_proxy_changed_cb),
+                                              manager);
+
         if (active)
                 g_signal_connect (manager->iio_proxy, "g-properties-changed",
                                   G_CALLBACK (iio_proxy_changed_cb), manager);
-        else
-                g_signal_handlers_disconnect_by_func (manager->iio_proxy,
-                                                      G_CALLBACK (iio_proxy_changed_cb),
-                                                      manager);
 
         if (!g_dbus_proxy_call_sync (manager->iio_proxy,
                                      active ? "ClaimLight" : "ReleaseLight",
