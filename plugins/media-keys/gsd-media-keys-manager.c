@@ -182,6 +182,7 @@ typedef struct
         GDBusConnection *audio_selection_conn;
         gboolean         audio_selection_requested;
         guint            audio_selection_device_id;
+        gboolean         audio_is_headphone;
 
         GSettings       *settings;
         GHashTable      *custom_settings;
@@ -1621,6 +1622,40 @@ do_sound_action (GsdMediaKeysManager *manager,
                          flags & SOUND_ACTION_FLAG_IS_QUIET);
 }
 
+static gboolean
+is_headphone(GvcMixerStream *stream)
+{
+        // detect external mics (e.g. bluetooth)
+        const char *ff = gvc_mixer_stream_get_form_factor(stream);
+        if (g_strcmp0(ff, "headset") == 0 || g_strcmp0(ff, "headphone") == 0) {
+                return TRUE;
+        }
+        // a bit hackish but volume.js in gnome-shell is doing
+        // the same
+        GvcMixerStreamPort *p = gvc_mixer_stream_get_port(stream);
+        if (p  && p->port && strstr(p->port, "headphones") > 0) {
+                return TRUE;
+        }
+        return FALSE;
+}
+
+// XXX: slightly ugly that this is needed here - mostly to keep the diff small
+static gboolean gsd_media_player_key_pressed (GsdMediaKeysManager *manager, const char          *key);
+
+static void on_sink_notify_port_cb(GvcMixerStream *stream,
+                                   GParamSpec *pspec,
+                                   gpointer user_data)
+{
+        GsdMediaKeysManager *manager = user_data;
+        GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
+
+        gboolean now_is_headphone = is_headphone(priv->sink);
+        if (!now_is_headphone && priv->audio_is_headphone) {
+                gsd_media_player_key_pressed (manager, "Pause");
+        }
+        priv->audio_is_headphone = now_is_headphone;
+}
+
 static void
 update_default_sink (GsdMediaKeysManager *manager)
 {
@@ -1631,10 +1666,15 @@ update_default_sink (GsdMediaKeysManager *manager)
         if (stream == priv->sink)
                 return;
 
+         g_signal_handlers_disconnect_by_func(G_OBJECT (stream),
+                                              G_CALLBACK (on_sink_notify_port_cb),
+                                              manager);
         g_clear_object (&priv->sink);
 
         if (stream != NULL) {
                 priv->sink = g_object_ref (stream);
+                g_signal_connect (G_OBJECT (priv->sink), "notify::port",
+                                  G_CALLBACK (on_sink_notify_port_cb), manager);
         } else {
                 g_warning ("Unable to get default sink");
         }
