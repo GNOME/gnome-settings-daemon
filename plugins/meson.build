@@ -46,7 +46,11 @@ endif
 
 # Specify futher required units, 'before' or 'after' may be specified if ordering is needed
 plugin_gate_units = {
-    'xsettings': [['gnome-session-x11-services.target', 'before']],
+    'xsettings': [
+      # Both after/before. after for stopping reliably, before for synchronisation
+      ['gnome-session-x11-services.target', 'after'],
+      ['gnome-session-x11-services-ready.target', 'before'],
+    ],
 #    'wacom': [['wacom.target']],
 #    'smartcard': [['smartcard.target']],
 }
