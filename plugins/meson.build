@@ -1,127 +1,183 @@
-enabled_plugins = [
-  ['a11y-settings', 'A11ySettings', ''],
-  ['color', 'Color', ''],
-  ['datetime', 'Datetime'],
-  ['dummy', ''],
-  ['power', 'Power'],
-  ['housekeeping', 'Housekeeping'],
-  ['keyboard', 'Keyboard'],
-  ['media-keys', 'MediaKeys'],
-  ['screensaver-proxy', 'ScreensaverProxy'],
-  ['sharing', 'Sharing'],
-  ['sound', 'Sound'],
-  ['usb-protection', 'UsbProtection'],
-  ['xsettings', 'XSettings']
+all_plugins = [
+    ['a11y-settings', 'A11ySettings', 'GNOME accessibility'],
+    ['color', 'Color', 'GNOME color management'],
+    ['datetime', 'Datetime', 'GNOME date & time'],
+    ['power', 'Power', 'GNOME power management'],
+    ['housekeeping', 'Housekeeping', 'GNOME maintenance of expirable data'],
+    ['keyboard', 'Keyboard', 'GNOME keyboard configuration'],
+    ['media-keys', 'MediaKeys', 'GNOME keyboard shortcuts'],
+    ['screensaver-proxy', 'ScreensaverProxy', 'GNOME FreeDesktop screensaver'],
+    ['sharing', 'Sharing', 'GNOME file sharing'],
+    ['sound', 'Sound', 'GNOME sound sample caching'],
+    ['usb-protection', 'UsbProtection', 'GNOME USB protection'],
+    ['xsettings', 'XSettings', 'GNOME XSettings'],
+    ['smartcard', 'Smartcard', 'GNOME smartcard'],
+    ['wacom', 'Wacom', 'GNOME Wacom tablet support'],
+    ['print-notifications', 'PrintNotifications', 'GNOME printer notifications'],
+    ['rfkill', 'Rfkill', 'GNOME RFKill support'],
+    ['wwan', 'Wwan', 'GNOME WWan support'],
 ]
 
-if enable_smartcard
-  enabled_plugins += [['smartcard', 'Smartcard']]
+disabled_plugins = []
+
+if not enable_smartcard
+    disabled_plugins += ['smartcard']
 endif
 
-if enable_wacom
-  enabled_plugins += [['wacom', 'Wacom', 'wacom.target.wants/']]
+if not enable_usb_protection
+    disabled_plugins += ['usb-protection']
 endif
 
-if enable_cups
-  enabled_plugins += [['print-notifications', 'PrintNotifications']]
+if not enable_wacom
+    disabled_plugins += ['wacom']
 endif
 
-if enable_rfkill
-  enabled_plugins += [['rfkill', 'Rfkill']]
+if not enable_cups
+    disabled_plugins += ['cups']
 endif
 
-if enable_wwan
-  enabled_plugins += [['wwan', 'Wwan']]
+if not enable_rfkill
+    disabled_plugins += ['rfkill']
 endif
 
-plugin_install_extra_wants = {
-  'xsettings': ['gnome-session-x11-services.target.wants/'],
-#  'dummy': ['required-started.target.wants/'],
-#  'wacom': ['wacom.target.wants/'],
-#  'smartcard': ['smartcard.target.wants/'],
+if not enable_wwan
+    disabled_plugins += ['wwan']
+endif
+
+# Specify futher required units, 'before' or 'after' may be specified if ordering is needed
+plugin_gate_units = {
+    'xsettings': [
+      # Both after/before. after for stopping reliably, before for synchronisation
+      ['gnome-session-x11-services.target', 'after'],
+      ['gnome-session-x11-services-ready.target', 'before'],
+    ],
+#    'wacom': [['wacom.target']],
+#    'smartcard': [['smartcard.target']],
+}
+
+# Restart=on-failure is the default
+plugin_restart_rule = {
+    'xsettings' : 'on-abnormal',
 }
 
 plugins_conf = configuration_data()
 plugins_conf.set('libexecdir', gsd_libexecdir)
-plugins_conf.set('systemd_hidden', enable_systemd ? 'true' : 'false')
 
 plugins_deps = [libgsd_dep]
 
 plugins_cflags = ['-DGNOME_SETTINGS_LOCALEDIR="@0@"'.format(gsd_localedir)]
 
-enabled_plugins_file = []
+all_plugins_file = []
 
-foreach plugin: [['common', '']] + enabled_plugins
-  plugin_name = plugin[0]
-  desktop = 'org.gnome.SettingsDaemon.@0@.desktop'.format(plugin[1])
+cflags = [
+    '-DG_LOG_DOMAIN="common"'
+] + plugins_cflags
+plugin_name = 'common'
+subdir('common')
 
-  if plugin[1] == '' # common or dummy
-    desktop_in_file = ''
-  else
-    desktop_in_file = files(join_paths(plugin_name, desktop + '.in'))
-  endif
+foreach plugin: all_plugins
+    plugin_name = plugin[0]
+    plugin_name_case = plugin[1]
+    plugin_description = plugin[2]
+    plugin_dbus_name='org.gnome.SettingsDaemon.@0@'.format(plugin_name_case)
 
-  enabled_plugins_file += [[plugin_name, plugin[1], desktop_in_file]]
-endforeach
-
-foreach plugin: enabled_plugins_file
-  plugin_name = plugin[0]
-  plugin_name_case = plugin[1]
-  plugin_dbus_name='org.gnome.SettingsDaemon.@0@'.format(plugin_name_case)
-
-  cflags = [
-    '-DG_LOG_DOMAIN="@0@-plugin"'.format(plugin_name),
-    '-DPLUGIN_NAME="@0@"'.format(plugin_name),
-    '-DPLUGIN_DBUS_NAME="@0@"'.format(plugin_dbus_name),
-  ] + plugins_cflags
-
-  if not ['common', 'dummy'].contains(plugin_name)
     desktop = 'org.gnome.SettingsDaemon.@0@.desktop'.format(plugin[1])
-    desktop_in_file = plugin[2]
-    user_target = 'gsd-@0@.target'.format(plugin_name)
-    user_service = 'gsd-@0@.service'.format(plugin_name)
 
-    unit_conf = configuration_data()
-    unit_conf.set('libexecdir', gsd_libexecdir)
-    unit_conf.set('plugin_dbus_name', plugin_dbus_name)
+    if disabled_plugins.contains(plugin_name)
+        desktop_in_file = files('org.gnome.SettingsDaemon.Dummy.desktop.in')
+    else
+        desktop_in_file = files('org.gnome.SettingsDaemon.Real.desktop.in')
+    endif
 
+    cflags = [
+        '-DG_LOG_DOMAIN="@0@-plugin"'.format(plugin_name),
+        '-DPLUGIN_NAME="@0@"'.format(plugin_name),
+        '-DPLUGIN_DBUS_NAME="@0@"'.format(plugin_dbus_name),
+    ] + plugins_cflags
+
+    desktop = 'org.gnome.SettingsDaemon.@0@.desktop'.format(plugin[1])
+    desktop_conf = configuration_data()
+    desktop_conf.set('libexecdir', gsd_libexecdir)
+    desktop_conf.set('systemd_hidden', enable_systemd ? 'true' : 'false')
+    desktop_conf.set('pluginname', plugin_name)
+    desktop_conf.set('description', plugin_description)
     configure_file(
-      input: desktop_in_file,
-      output: desktop,
-      configuration: plugins_conf,
-      install: true,
-      install_dir: gsd_xdg_autostart
+        input: desktop_in_file,
+        output: desktop,
+        configuration: desktop_conf,
+        install: true,
+        install_dir: gsd_xdg_autostart
     )
-    if enable_systemd
-      configure_file(
-        input: join_paths(plugin_name, user_service + '.in'),
-        output: user_service,
-        configuration: unit_conf,
-        install: true,
-        install_dir: systemd_userunitdir
-     )
-      configure_file(
-        input: join_paths(plugin_name, user_target + '.in'),
-        output: user_target,
-        configuration: unit_conf,
-        install: true,
-        install_dir: systemd_userunitdir
-     )
 
-     wants = []
-     if plugin_name != 'xsettings'
-       wants += ['gnome-session-initialized.target.wants/']
-     endif
+    if not disabled_plugins.contains(plugin_name)
+        user_target = 'org.gnome.SettingsDaemon.@0@.target'.format(plugin[1])
+        user_service = 'org.gnome.SettingsDaemon.@0@.service'.format(plugin[1])
 
-     if plugin_name in plugin_install_extra_wants
-       wants += [plugin_install_extra_wants[plugin_name]]
-     endif
+        unit_conf = configuration_data()
+        unit_conf.set('plugin_name', plugin_name)
+        unit_conf.set('description', plugin_description)
+        unit_conf.set('libexecdir', gsd_libexecdir)
+        unit_conf.set('plugin_dbus_name', plugin_dbus_name)
+        unit_conf.set('plugin_restart', plugin_restart_rule.get(plugin_name, 'on-failure'))
 
-     foreach target: wants
-       meson.add_install_script('meson-add-wants.sh', systemd_userunitdir, target, user_target)
-     endforeach
-   endif
-  endif
+        gates_all = []
+        gates_after = []
+        gates_before = []
+        foreach gate: plugin_gate_units.get(plugin_name, [])
+            gates_all += [gate[0]]
+            if gate.length() > 1
+                if gate[1] == 'before'
+                    gates_before += [gate[0]]
+                elif gate[1] == 'after'
+                    gates_after += [gate[0]]
+                else
+                    error('Ordering key must be either "before" or "after"')
+                endif
+            endif
+        endforeach
+        gate_unit_section = []
+        if gates_all.length() > 0
+            gate_unit_section += ['Requisite=' + ' '.join(gates_all)]
+            gate_unit_section += ['PartOf=' + ' '.join(gates_all)]
 
-  subdir(plugin_name)
+            if gates_after.length() > 0
+                gate_unit_section += ['After=' + ' '.join(gates_after)]
+            endif
+            if gates_before.length() > 0
+                gate_unit_section += ['Before=' + ' '.join(gates_before)]
+            endif
+        endif
+        unit_conf.set('plugin_gate_units_section', '\n'.join(gate_unit_section))
+
+        if enable_systemd
+            configure_file(
+                input: 'gsd.service.in',
+                output: user_service,
+                configuration: unit_conf,
+                install: true,
+                install_dir: systemd_userunitdir
+            )
+            configure_file(
+                input: 'gsd.target.in',
+                output: user_target,
+                configuration: unit_conf,
+                install: true,
+                install_dir: systemd_userunitdir
+            )
+
+            # Wipe out old target names in non-release builds; this saves a lot
+            # of pain when running a new g-s-d inside jhbuild on an old host
+            # TODO: Should be deleted once we can assume developers have 3.38
+            #       installed on their machines.
+            if get_option('buildtype') != 'release'
+                meson.add_install_script('ln', '-vfs', '/dev/null', systemd_userunitdir / 'gsd-@0@.target'.format(plugin_name))
+            endif
+
+            foreach target: gates_all
+                meson.add_install_script('meson-add-wants.sh', systemd_userunitdir, target + '.wants/', user_service)
+            endforeach
+        endif
+
+        subdir(plugin_name)
+    endif
 endforeach

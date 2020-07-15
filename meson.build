@@ -2,7 +2,7 @@ project(
   'gnome-settings-daemon', 'c',
   version: '3.36.1',
   license: [ 'GPL2+', 'LGPLv2+' ],
-  meson_version: '>= 0.44.0'
+  meson_version: '>= 0.47.0'
 )
 
 gsd_version = meson.project_version()
@@ -111,14 +111,11 @@ x11_dep = dependency('x11')
 
 enable_systemd = get_option('systemd')
 if enable_systemd
-  systemd_dep = dependency('systemd', required: false)
+  systemd_dep = dependency('systemd', version: '>= 243', required: false)
   assert(systemd_dep.found(), 'Systemd support explicitly required, but systemd not found')
 
-  # XXX: Once https://github.com/systemd/systemd/issues/9595 is fixed and we can
-  # depend on this version, replace with something like:
-  #  systemduserunitdir = systemd_dep.get_pkgconfig_variable('systemduserunitdir')
-  # and uncomment systemd_dep below
-  systemd_userunitdir = join_paths(gsd_prefix, 'lib', 'systemd', 'user')
+   systemd_userunitdir = systemd_dep.get_pkgconfig_variable('systemduserunitdir',
+                                                            define_variable: ['prefix', gsd_prefix])
 endif
 
 m_dep = cc.find_library('m')
@@ -176,6 +173,8 @@ if enable_smartcard
     system_nssdb_dir = join_paths(gsd_sysconfdir, 'pki', 'nssdb')
   endif
 endif
+
+enable_usb_protection = get_option('usb-protection')
 
 # CUPS
 enable_cups = get_option('cups')
@@ -264,6 +263,7 @@ output += '        cflags:                   ' + ' '.join(compiler_flags) + '\n\
 output += '        ALSA support:             ' + enable_alsa.to_string() + '\n'
 output += '        NetworkManager support:   ' + enable_network_manager.to_string() + '\n'
 output += '        Smartcard support:        ' + enable_smartcard.to_string() + '\n'
+output += '        USB Protection support:   ' + enable_usb_protection.to_string() + '\n'
 output += '        Cups support:             ' + enable_cups.to_string() + '\n'
 output += '        Wayland support:          ' + enable_wayland.to_string() + '\n'
 output += '        Wacom support:            ' + enable_wacom.to_string() + '\n'
