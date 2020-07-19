@@ -202,6 +202,7 @@ struct _GsdPowerManager
         guint                    idle_blank_id;
         guint                    idle_sleep_warning_id;
         guint                    idle_sleep_id;
+        guint                    user_active_id;
         GsdPowerIdleMode         current_idle_mode;
 
         guint                    temporary_unidle_on_ac_id;
@@ -1597,10 +1598,14 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
         /* if we're moving to an idle mode, make sure
          * we add a watch to take us back to normal */
         if (mode != GSD_POWER_IDLE_MODE_NORMAL) {
-                gnome_idle_monitor_add_user_active_watch (manager->idle_monitor,
-                                                          idle_became_active_cb,
-                                                          manager,
-                                                          NULL);
+                if (manager->user_active_id < 1) {
+                    manager->user_active_id = gnome_idle_monitor_add_user_active_watch (manager->idle_monitor,
+                                                                                        idle_became_active_cb,
+                                                                                        manager,
+                                                                                        NULL);
+                    g_debug ("installing idle_became_active_cb to clear sleep warning when transitioning away from normal (%i)",
+                             manager->user_active_id);
+                }
         }
 
         /* save current brightness, and set dim level */
@@ -2178,6 +2183,15 @@ idle_triggered_idle_cb (GnomeIdleMonitor *monitor,
                 idle_set_mode_no_temp (manager, GSD_POWER_IDLE_MODE_SLEEP);
         } else if (watch_id == manager->idle_sleep_warning_id) {
                 show_sleep_warning (manager);
+
+                if (manager->user_active_id < 1) {
+                    manager->user_active_id = gnome_idle_monitor_add_user_active_watch (manager->idle_monitor,
+                                                                                        idle_became_active_cb,
+                                                                                        manager,
+                                                                                        NULL);
+                    g_debug ("installing idle_became_active_cb to clear sleep warning on activity (%i)",
+                             manager->user_active_id);
+                }
         }
 }
 
@@ -2188,7 +2202,7 @@ idle_became_active_cb (GnomeIdleMonitor *monitor,
 {
         GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
 
-        g_debug ("idletime reset");
+        g_debug ("idletime reset (%i)", watch_id);
 
         set_temporary_unidle_on_ac (manager, FALSE);
 
@@ -2196,6 +2210,7 @@ idle_became_active_cb (GnomeIdleMonitor *monitor,
         notify_close_if_showing (&manager->notification_sleep_warning);
 
         idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
+        manager->user_active_id = 0;
 }
 
 static void
