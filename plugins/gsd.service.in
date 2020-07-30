@@ -15,6 +15,7 @@ Before=@plugin_dbus_name@.target
 @plugin_gate_units_section@
 
 [Service]
+Slice=session.slice
 Type=dbus
 ExecStart=@libexecdir@/gsd-@plugin_name@
 Restart=@plugin_restart@
