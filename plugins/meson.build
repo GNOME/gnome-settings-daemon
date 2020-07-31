@@ -169,7 +169,8 @@ foreach plugin: all_plugins
             # of pain when running a new g-s-d inside jhbuild on an old host
             # TODO: Should be deleted once we can assume developers have 3.38
             #       installed on their machines.
-            if get_option('buildtype') != 'release'
+            # FIXME: find a better way to detect jhbuild
+            if get_option('buildtype') in ['debug', 'debugoptimized']
                 meson.add_install_script('ln', '-vfs', '/dev/null', systemd_userunitdir / 'gsd-@0@.target'.format(plugin_name))
             endif
 
