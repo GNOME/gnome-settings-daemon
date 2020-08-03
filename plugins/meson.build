@@ -165,13 +165,15 @@ foreach plugin: all_plugins
                 install_dir: systemd_userunitdir
             )
 
-            # Wipe out old target names in non-release builds; this saves a lot
-            # of pain when running a new g-s-d inside jhbuild on an old host
+            # Wipe out old target names if our prefix differes from the
+            # systemd one, i.e. we are probably in a virtual environment and
+            # may be picking up old units from a system installation.
+            # This saves a lot of pain when running a new g-s-d inside
+            # jhbuild on an old host.
             # TODO: Should be deleted once we can assume developers have 3.38
             #       installed on their machines.
-            # FIXME: find a better way to detect jhbuild
-            if get_option('buildtype') in ['debug', 'debugoptimized']
-                meson.add_install_script('ln', '-vfs', '/dev/null', systemd_userunitdir / 'gsd-@0@.target'.format(plugin_name))
+            if gsd_prefix != systemd_dep.get_pkgconfig_variable('prefix')
+                meson.add_install_script('sh', '-c', 'ln -vfs /dev/null "${DESTDIR:-}$1"', 'sh', systemd_userunitdir / 'gsd-@0@.target'.format(plugin_name))
             endif
 
             foreach target: gates_all
