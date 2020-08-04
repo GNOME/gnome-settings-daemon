@@ -421,25 +421,36 @@ static void authorize_device (GDBusProxy              *proxy,
 }
 
 static gboolean
-is_only_hid (GVariant *device)
+is_hid_or_hub (GVariant *device,
+               gboolean *has_other_classes)
 {
         g_autoptr(GVariantIter) iter = NULL;
         g_autofree gchar *name = NULL;
         g_autofree gchar *value = NULL;
         guint i;
-        gboolean only_hid = TRUE;
+        gboolean is_hid_or_hub = FALSE;
+
+        if (has_other_classes != NULL) {
+                *has_other_classes = FALSE;
+        }
 
         g_variant_get_child (device, PRESENCE_ATTRIBUTES, "a{ss}", &iter);
         while (g_variant_iter_loop (iter, "{ss}", &name, &value)) {
                 if (g_strcmp0 (name, WITH_INTERFACE) == 0) {
                         g_auto(GStrv) interfaces_splitted = NULL;
                         interfaces_splitted = g_strsplit (value, " ", -1);
-                        for (i = 0; i < g_strv_length (interfaces_splitted); i++)
-                                if (!g_str_has_prefix (interfaces_splitted[i], "03:"))
-                                        only_hid = FALSE;
+                        for (i = 0; i < g_strv_length (interfaces_splitted); i++) {
+                                if (g_str_has_prefix (interfaces_splitted[i], "03:")
+                                    || g_str_has_prefix (interfaces_splitted[i], "09:")) {
+                                        is_hid_or_hub = TRUE;
+                                    }
+                                else if (has_other_classes != NULL) {
+                                        *has_other_classes = TRUE;
+                                }
+                        }
                 }
         }
-        return only_hid;
+        return is_hid_or_hub;
 }
 
 static gboolean
@@ -453,23 +464,6 @@ is_hardwired (GVariant *device)
         while (g_variant_iter_loop (iter, "{ss}", &name, &value)) {
                 if (g_strcmp0 (name, WITH_CONNECT_TYPE) == 0) {
                         return g_strcmp0 (value, "hardwired") == 0;
-                }
-        }
-        return FALSE;
-}
-
-static gboolean
-is_keyboard (GVariant *device)
-{
-        g_autoptr(GVariantIter) iter = NULL;
-        g_autofree gchar *name = NULL;
-        g_autofree gchar *value = NULL;
-
-        g_variant_get_child (device, PRESENCE_ATTRIBUTES, "a{ss}", &iter);
-        while (g_variant_iter_loop (iter, "{ss}", &name, &value)) {
-                if (g_strcmp0 (name, WITH_INTERFACE) == 0) {
-                        return g_strrstr (value, "03:00:01") != NULL ||
-                               g_strrstr (value, "03:01:01") != NULL;
                 }
         }
         return FALSE;
@@ -528,6 +522,8 @@ on_usbguard_signal (GDBusProxy *proxy,
         g_autoptr(GVariantIter) iter = NULL;
         g_autofree gchar *name = NULL;
         g_autofree gchar *device_name = NULL;
+        gboolean hid_or_hub = FALSE;
+        gboolean has_other_classes = FALSE;
 
         g_debug ("USBGuard signal: %s", signal_name);
 
@@ -578,18 +574,20 @@ on_usbguard_signal (GDBusProxy *proxy,
         protection_level = g_settings_get_enum (manager->settings, USB_PROTECTION_LEVEL);
 
         g_debug ("Screensaver active: %d", manager->screensaver_active);
+        hid_or_hub = is_hid_or_hub (parameters, &has_other_classes);
         if (manager->screensaver_active) {
-                /* If the session is locked we check if the inserted device is a keyboard.
-                 * If that is the case we authorize the newly inserted keyboard as an
+                /* If the session is locked we check if the inserted device is a HID,
+                 * e.g. a keyboard or a mouse, or an HUB.
+                 * If that is the case we authorize the newly inserted device as an
                  * antilockout policy.
                  *
-                 * If this keyboard advertises also interfaces outside the HID class it is suspect.
-                 * It could be a false positive because this could be a "smart" keyboard, but at
-                 * this stage is better be safe. */
-                if (is_keyboard (parameters) && is_only_hid (parameters)) {
+                 * If this device advertises also interfaces outside the HID class, or the
+                 * HUB class, it is suspect. It could be a false positive because this could
+                 * be a "smart" keyboard for example, but at this stage is better be safe. */
+                if (hid_or_hub && !has_other_classes) {
                         show_notification (manager,
-                                           _("New keyboard detected"),
-                                           _("Either your keyboard has been reconnected or a new one has been plugged in. "
+                                           _("New device detected"),
+                                           _("Either one of your existing devices has been reconnected or a new one has been plugged in. "
                                              "If you did not do it, check your system for any suspicious device."));
                         auth_device (manager, parameters);
                 } else {
@@ -611,14 +609,15 @@ on_usbguard_signal (GDBusProxy *proxy,
                 /* If the protection level is "lockscreen" the device will be automatically
                  * authorized by usbguard. */
                 if (protection_level == G_DESKTOP_USB_PROTECTION_ALWAYS) {
-                        /* We authorize the device if this is a keyboard.
+                        /* We authorize the device if this is a HID,
+                         * e.g. a keyboard or a mouse, or an HUB.
                          * We also lock the screen to prevent an attacker to plug malicious
                          * devices if the legitimate user forgot to lock his session.
                          *
-                         * If this keyboard advertises also interfaces outside the HID class it is suspect.
-                         * It could be a false positive because this could be a "smart" keyboard, but at
-                         * this stage is better be safe. */
-                        if (is_keyboard (parameters) && is_only_hid (parameters)) {
+                         * If this device advertises also interfaces outside the HID class, or the
+                         * HUB class, it is suspect. It could be a false positive because this could
+                         * be a "smart" keyboard for example, but at this stage is better be safe. */
+                        if (hid_or_hub && !has_other_classes) {
                                 gsd_screen_saver_call_lock (manager->screensaver_proxy,
                                                             manager->cancellable,
                                                             (GAsyncReadyCallback) on_screen_locked,
