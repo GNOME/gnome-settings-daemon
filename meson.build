@@ -90,7 +90,6 @@ endif
 add_project_arguments(common_flags + compiler_flags, language: 'c')
 
 glib_dep = dependency('glib-2.0', version: '>=' + glib_min_version)
-colord_dep = dependency('colord', version: '>= 1.3.5')
 geocode_glib_dep = dependency('geocode-glib-1.0', version: '>= 3.10.0')
 gio_dep = dependency('gio-2.0', version: '>= 2.53.0')
 gio_unix_dep = dependency('gio-unix-2.0')
@@ -224,6 +223,12 @@ if enable_network_manager
   libnm_dep = dependency('libnm', version: '>= 1.0')
 endif
 config_h.set10('HAVE_NETWORK_MANAGER', enable_network_manager)
+
+# colord
+enable_colord = get_option('colord')
+if enable_colord
+  colord_dep = dependency('colord', version: '>= 1.3.5')
+endif
 
 gnome = import('gnome')
 i18n = import('i18n')

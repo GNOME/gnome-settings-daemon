@@ -44,6 +44,10 @@ if not enable_wwan
     disabled_plugins += ['wwan']
 endif
 
+if not enable_colord
+  disabled_plugins += ['color']
+endif
+
 # Specify futher required units, 'before' or 'after' may be specified if ordering is needed
 plugin_gate_units = {
     'xsettings': [
