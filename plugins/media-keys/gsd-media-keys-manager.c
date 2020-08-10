@@ -3107,14 +3107,6 @@ shell_presence_changed (GsdMediaKeysManager *manager)
                                                      SHELL_DBUS_PATH,
                                                      priv->grab_cancellable,
                                                      on_key_grabber_ready, manager);
-
-                g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
-                                          0, NULL,
-                                          name_owner,
-                                          SHELL_DBUS_PATH "/Screencast",
-                                          SHELL_DBUS_NAME ".Screencast",
-                                          priv->screencast_cancellable,
-                                          on_screencast_proxy_ready, manager);
                 g_free (name_owner);
         }
 }
@@ -3204,6 +3196,14 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
         g_signal_connect_swapped (priv->shell_proxy, "notify::g-name-owner",
                                   G_CALLBACK (shell_presence_changed), manager);
         shell_presence_changed (manager);
+
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
+                                  0, NULL,
+                                  SHELL_DBUS_NAME ".Screencast",
+                                  SHELL_DBUS_PATH "/Screencast",
+                                  SHELL_DBUS_NAME ".Screencast",
+                                  priv->screencast_cancellable,
+                                  on_screencast_proxy_ready, manager);
 
         priv->rfkill_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
                                                   "org.gnome.SettingsDaemon.Rfkill",
