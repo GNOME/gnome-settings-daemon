@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-control-center\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/iss"
 "ues\n"
-"POT-Creation-Date: 2020-06-09 15:33+0000\n"
-"PO-Revision-Date: 2020-06-09 18:39+0300\n"
+"POT-Creation-Date: 2020-08-14 10:10+0000\n"
+"PO-Revision-Date: 2020-08-14 13:28+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 20.07.70\n"
+"X-Generator: Lokalize 20.11.70\n"
 "X-Project-Style: gnome\n"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
@@ -1764,195 +1764,188 @@ msgstr[2] "хвилини"
 msgstr[3] "хвилина"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:785
-#: plugins/power/gsd-power-manager.c:882
+#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:790
+#: plugins/power/gsd-power-manager.c:887
 msgid "Battery is critically low"
 msgstr "Заряд батареї критично низький"
 
 #. TRANSLATORS: this is the notification application name
-#: plugins/power/gsd-power-manager.c:350
+#: plugins/power/gsd-power-manager.c:355
 msgid "Power"
 msgstr "Живлення"
 
 #. TRANSLATORS: UPS is now discharging
-#: plugins/power/gsd-power-manager.c:390
+#: plugins/power/gsd-power-manager.c:395
 msgid "UPS Discharging"
 msgstr "Розряджання UPS"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:395
+#: plugins/power/gsd-power-manager.c:400
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "Залишилось %s з резервного живлення UPS"
 
-#: plugins/power/gsd-power-manager.c:398
+#: plugins/power/gsd-power-manager.c:403
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "Залишилось невідома кількість заряду у резервному живленні UPS"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: plugins/power/gsd-power-manager.c:478
+#: plugins/power/gsd-power-manager.c:483
 msgid "Battery low"
 msgstr "Заряд батареї низький"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: plugins/power/gsd-power-manager.c:481
+#: plugins/power/gsd-power-manager.c:486
 msgid "Laptop battery low"
 msgstr "Низький заряд батареї ноутбука"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:488
+#: plugins/power/gsd-power-manager.c:493
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "Залишилось приблизно %s (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: plugins/power/gsd-power-manager.c:493
+#: plugins/power/gsd-power-manager.c:498
 msgid "UPS low"
 msgstr "Низький заряд UPS"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:499
+#: plugins/power/gsd-power-manager.c:504
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "Приблизно залишилось %s від живлення з UPS (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: plugins/power/gsd-power-manager.c:504 plugins/power/gsd-power-manager.c:664
+#: plugins/power/gsd-power-manager.c:509 plugins/power/gsd-power-manager.c:669
 msgid "Mouse battery low"
 msgstr "Низький заряд батареї миші"
 
-#: plugins/power/gsd-power-manager.c:508
+#: plugins/power/gsd-power-manager.c:513
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "Бездротова миша має обмаль заряду (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:510
+#: plugins/power/gsd-power-manager.c:515
 #, c-format
-#| msgid "Wireless mouse is low in power (%.0f%%)"
 msgid "Wireless mouse is low in power"
 msgstr "Бездротова миша має обмаль заряду"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: plugins/power/gsd-power-manager.c:514 plugins/power/gsd-power-manager.c:677
+#: plugins/power/gsd-power-manager.c:519 plugins/power/gsd-power-manager.c:682
 msgid "Keyboard battery low"
 msgstr "Низький заряд батареї клавіатури"
 
-#: plugins/power/gsd-power-manager.c:518
+#: plugins/power/gsd-power-manager.c:523
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "Бездротова клавіатура має обмаль заряду (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:520
+#: plugins/power/gsd-power-manager.c:525
 #, c-format
-#| msgid "Wireless keyboard is low in power (%.0f%%)"
 msgid "Wireless keyboard is low in power"
 msgstr "Бездротова клавіатура має обмаль заряду"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: plugins/power/gsd-power-manager.c:524 plugins/power/gsd-power-manager.c:691
+#: plugins/power/gsd-power-manager.c:529 plugins/power/gsd-power-manager.c:696
 msgid "PDA battery low"
 msgstr "Низький заряд батареї КПК"
 
-#: plugins/power/gsd-power-manager.c:528
+#: plugins/power/gsd-power-manager.c:533
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "КПК має обмаль заряду (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:530
+#: plugins/power/gsd-power-manager.c:535
 #, c-format
-#| msgid "PDA is low in power (%.0f%%)"
 msgid "PDA is low in power"
 msgstr "КПК має обмаль заряду"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:534 plugins/power/gsd-power-manager.c:705
-#: plugins/power/gsd-power-manager.c:719
+#: plugins/power/gsd-power-manager.c:539 plugins/power/gsd-power-manager.c:710
+#: plugins/power/gsd-power-manager.c:724
 msgid "Cell phone battery low"
 msgstr "Низький заряд батареї мобільного телефону"
 
-#: plugins/power/gsd-power-manager.c:538
+#: plugins/power/gsd-power-manager.c:543
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "Телефон має обмаль заряду (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:540
+#: plugins/power/gsd-power-manager.c:545
 #, c-format
-#| msgid "Cell phone is low in power (%.0f%%)"
 msgid "Cell phone is low in power"
 msgstr "Телефон має обмаль заряду"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: plugins/power/gsd-power-manager.c:544
+#: plugins/power/gsd-power-manager.c:549
 msgid "Media player battery low"
 msgstr "Низький заряд програвача"
 
-#: plugins/power/gsd-power-manager.c:548
+#: plugins/power/gsd-power-manager.c:553
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "Програвач має обмаль заряду (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:550
+#: plugins/power/gsd-power-manager.c:555
 #, c-format
-#| msgid "Media player is low in power (%.0f%%)"
 msgid "Media player is low in power"
 msgstr "Програвач має обмаль заряду"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:554 plugins/power/gsd-power-manager.c:733
+#: plugins/power/gsd-power-manager.c:559 plugins/power/gsd-power-manager.c:738
 msgid "Tablet battery low"
 msgstr "Планшет має обмаль заряду"
 
-#: plugins/power/gsd-power-manager.c:558
+#: plugins/power/gsd-power-manager.c:563
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "Планшет має обмаль заряду (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:560
+#: plugins/power/gsd-power-manager.c:565
 #, c-format
-#| msgid "Tablet is low in power (%.0f%%)"
 msgid "Tablet is low in power"
 msgstr "Планшет має обмаль заряду"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:564 plugins/power/gsd-power-manager.c:747
+#: plugins/power/gsd-power-manager.c:569 plugins/power/gsd-power-manager.c:752
 msgid "Attached computer battery low"
 msgstr "Приєднаний комп'ютер має обмаль заряду"
 
-#: plugins/power/gsd-power-manager.c:568
+#: plugins/power/gsd-power-manager.c:573
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "Приєднаний комп'ютер має обмаль заряду (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:570
+#: plugins/power/gsd-power-manager.c:575
 #, c-format
-#| msgid "Attached computer is low in power (%.0f%%)"
 msgid "Attached computer is low in power"
 msgstr "Приєднаний комп'ютер має обмаль заряду"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:591
+#: plugins/power/gsd-power-manager.c:596
 msgid "Battery is low"
 msgstr "Заряд батареї низький"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: plugins/power/gsd-power-manager.c:628
+#: plugins/power/gsd-power-manager.c:633
 msgid "Battery critically low"
 msgstr "Заряд батареї критично низький"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: plugins/power/gsd-power-manager.c:631 plugins/power/gsd-power-manager.c:812
+#: plugins/power/gsd-power-manager.c:636 plugins/power/gsd-power-manager.c:817
 msgid "Laptop battery critically low"
 msgstr "Заряд батареї ноутбука критично низький"
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:640
+#: plugins/power/gsd-power-manager.c:645
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr ""
@@ -1960,7 +1953,7 @@ msgstr ""
 "електромережі."
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:644
+#: plugins/power/gsd-power-manager.c:649
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr ""
@@ -1968,12 +1961,12 @@ msgstr ""
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: plugins/power/gsd-power-manager.c:652 plugins/power/gsd-power-manager.c:837
+#: plugins/power/gsd-power-manager.c:657 plugins/power/gsd-power-manager.c:842
 msgid "UPS critically low"
 msgstr "Заряд UPS критично низький"
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:658
+#: plugins/power/gsd-power-manager.c:663
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1982,7 +1975,7 @@ msgstr ""
 "Приблизно залишилось %s від живлення з UPS (%.0f%%). Відновіть зовнішнє "
 "живлення, щоб уникнути втраті даних."
 
-#: plugins/power/gsd-power-manager.c:668
+#: plugins/power/gsd-power-manager.c:673
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1991,19 +1984,16 @@ msgstr ""
 "Заряд радіомишки надто низький (%.0f%%). Цей пристрій скоро перестане "
 "працювати, якщо його не зарядити."
 
-#: plugins/power/gsd-power-manager.c:672
+#: plugins/power/gsd-power-manager.c:677
 #, c-format
-#| msgid ""
-#| "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
-#| "functioning if not charged."
 msgid ""
 "Wireless mouse is very low in power. This device will soon stop functioning "
 "if not charged."
 msgstr ""
-"Заряд радіомишки надто низький. Цей пристрій скоро перестане "
-"працювати, якщо його не зарядити."
+"Заряд радіомишки надто низький. Цей пристрій скоро перестане працювати, якщо "
+"його не зарядити."
 
-#: plugins/power/gsd-power-manager.c:681
+#: plugins/power/gsd-power-manager.c:686
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -2012,19 +2002,16 @@ msgstr ""
 "Заряд радіоклавіатури надто низький (%.0f%%). Цей пристрій скоро перестане "
 "працювати, якщо його не зарядити."
 
-#: plugins/power/gsd-power-manager.c:685
+#: plugins/power/gsd-power-manager.c:690
 #, c-format
-#| msgid ""
-#| "Wireless keyboard is very low in power (%.0f%%). This device will soon "
-#| "stop functioning if not charged."
 msgid ""
 "Wireless keyboard is very low in power. This device will soon stop "
 "functioning if not charged."
 msgstr ""
-"Заряд радіоклавіатури надто низький. Цей пристрій скоро перестане "
-"працювати, якщо його не зарядити."
+"Заряд радіоклавіатури надто низький. Цей пристрій скоро перестане працювати, "
+"якщо його не зарядити."
 
-#: plugins/power/gsd-power-manager.c:695
+#: plugins/power/gsd-power-manager.c:700
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -2033,19 +2020,16 @@ msgstr ""
 "Заряд КПК надто низький (%.0f%%). Цей пристрій скоро перестане працювати, "
 "якщо його не зарядити."
 
-#: plugins/power/gsd-power-manager.c:699
+#: plugins/power/gsd-power-manager.c:704
 #, c-format
-#| msgid ""
-#| "PDA is very low in power (%.0f%%). This device will soon stop functioning "
-#| "if not charged."
 msgid ""
 "PDA is very low in power. This device will soon stop functioning if not "
 "charged."
 msgstr ""
-"Заряд КПК надто низький. Цей пристрій скоро перестане працювати, "
-"якщо його не зарядити."
+"Заряд КПК надто низький. Цей пристрій скоро перестане працювати, якщо його "
+"не зарядити."
 
-#: plugins/power/gsd-power-manager.c:709
+#: plugins/power/gsd-power-manager.c:714
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -2054,19 +2038,16 @@ msgstr ""
 "Заряд телефону надто низький (%.0f%%). Цей пристрій скоро перестане "
 "працювати, якщо його не зарядити."
 
-#: plugins/power/gsd-power-manager.c:713
+#: plugins/power/gsd-power-manager.c:718
 #, c-format
-#| msgid ""
-#| "Cell phone is very low in power (%.0f%%). This device will soon stop "
-#| "functioning if not charged."
 msgid ""
 "Cell phone is very low in power. This device will soon stop functioning if "
 "not charged."
 msgstr ""
-"Заряд телефону надто низький. Цей пристрій скоро перестане "
-"працювати, якщо його не зарядити."
+"Заряд телефону надто низький. Цей пристрій скоро перестане працювати, якщо "
+"його не зарядити."
 
-#: plugins/power/gsd-power-manager.c:723
+#: plugins/power/gsd-power-manager.c:728
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -2075,19 +2056,16 @@ msgstr ""
 "Заряд програвача надто низький (%.0f%%). Цей пристрій скоро перестане "
 "працювати, якщо його не зарядити."
 
-#: plugins/power/gsd-power-manager.c:727
+#: plugins/power/gsd-power-manager.c:732
 #, c-format
-#| msgid ""
-#| "Media player is very low in power (%.0f%%). This device will soon stop "
-#| "functioning if not charged."
 msgid ""
 "Media player is very low in power. This device will soon stop functioning if "
 "not charged."
 msgstr ""
-"Заряд програвача надто низький. Цей пристрій скоро перестане "
-"працювати, якщо його не зарядити."
+"Заряд програвача надто низький. Цей пристрій скоро перестане працювати, якщо "
+"його не зарядити."
 
-#: plugins/power/gsd-power-manager.c:737
+#: plugins/power/gsd-power-manager.c:742
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -2096,19 +2074,16 @@ msgstr ""
 "Заряд планшета надто низький (%.0f%%). Цей пристрій скоро перестане "
 "працювати, якщо його не зарядити."
 
-#: plugins/power/gsd-power-manager.c:741
+#: plugins/power/gsd-power-manager.c:746
 #, c-format
-#| msgid ""
-#| "Tablet is very low in power (%.0f%%). This device will soon stop "
-#| "functioning if not charged."
 msgid ""
 "Tablet is very low in power. This device will soon stop functioning if not "
 "charged."
 msgstr ""
-"Заряд планшета надто низький. Цей пристрій скоро перестане "
-"працювати, якщо його не зарядити."
+"Заряд планшета надто низький. Цей пристрій скоро перестане працювати, якщо "
+"його не зарядити."
 
-#: plugins/power/gsd-power-manager.c:751
+#: plugins/power/gsd-power-manager.c:756
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -2117,20 +2092,17 @@ msgstr ""
 "Заряд приєднаного комп'ютера надто низький (%.0f%%). Пристрій скоро "
 "перестане працювати, якщо його не зарядити."
 
-#: plugins/power/gsd-power-manager.c:755
+#: plugins/power/gsd-power-manager.c:760
 #, c-format
-#| msgid ""
-#| "Attached computer is very low in power (%.0f%%). The device will soon "
-#| "shutdown if not charged."
 msgid ""
 "Attached computer is very low in power. The device will soon shutdown if not "
 "charged."
 msgstr ""
-"Заряд приєднаного комп'ютера надто низький. Пристрій скоро "
-"перестане працювати, якщо його не зарядити."
+"Заряд приєднаного комп'ютера надто низький. Пристрій скоро перестане "
+"працювати, якщо його не зарядити."
 
 #. TRANSLATORS: computer will hibernate
-#: plugins/power/gsd-power-manager.c:820
+#: plugins/power/gsd-power-manager.c:825
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -2139,62 +2111,62 @@ msgstr ""
 "сну."
 
 #. TRANSLATORS: computer will just shutdown
-#: plugins/power/gsd-power-manager.c:825
+#: plugins/power/gsd-power-manager.c:830
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
 msgstr "Рівень заряду батареї нижче за критичний і комп'ютер буде вимкнено."
 
 #. TRANSLATORS: computer will hibernate
-#: plugins/power/gsd-power-manager.c:845
+#: plugins/power/gsd-power-manager.c:850
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
 "Заряд UPS нижче за критичний рівень і комп'ютер буде переведено у стан сну."
 
 #. TRANSLATORS: computer will just shutdown
-#: plugins/power/gsd-power-manager.c:850
+#: plugins/power/gsd-power-manager.c:855
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr "Заряд UPS нижче за критичний рівень і комп'ютер буде вимкнено."
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1325
+#: plugins/power/gsd-power-manager.c:1332
 msgid "Lid has been opened"
 msgstr "Панель відкрито"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1359
+#: plugins/power/gsd-power-manager.c:1366
 msgid "Lid has been closed"
 msgstr "Панель закрито"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1922
+#: plugins/power/gsd-power-manager.c:1933
 msgid "On battery power"
 msgstr "Живлення від батареї"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1927
+#: plugins/power/gsd-power-manager.c:1938
 msgid "On AC power"
 msgstr "Зовнішнє живлення"
 
-#: plugins/power/gsd-power-manager.c:2115
+#: plugins/power/gsd-power-manager.c:2126
 msgid "Automatic logout"
 msgstr "Автоматично виходити"
 
-#: plugins/power/gsd-power-manager.c:2115
+#: plugins/power/gsd-power-manager.c:2126
 msgid "You will soon log out because of inactivity."
 msgstr "Скоро сеанс буде покинуто через тривалу бездіяльність."
 
-#: plugins/power/gsd-power-manager.c:2120
+#: plugins/power/gsd-power-manager.c:2131
 msgid "Automatic suspend"
 msgstr "Автоматично призупиняти"
 
-#: plugins/power/gsd-power-manager.c:2120
-#: plugins/power/gsd-power-manager.c:2125
+#: plugins/power/gsd-power-manager.c:2131
+#: plugins/power/gsd-power-manager.c:2136
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "Комп'ютер буде призупинено дуже скоро через тривалу бездіяльність."
 
-#: plugins/power/gsd-power-manager.c:2125
+#: plugins/power/gsd-power-manager.c:2136
 msgid "Automatic hibernation"
 msgstr "Автоматично присипати"
 
@@ -2236,228 +2208,228 @@ msgid "No driver for this printer."
 msgstr "Немає драйверів для цього принтера."
 
 #: plugins/print-notifications/gsd-printer.c:1031
-#: plugins/print-notifications/gsd-print-notifications-manager.c:290
-#: plugins/print-notifications/gsd-print-notifications-manager.c:538
-#: plugins/print-notifications/gsd-print-notifications-manager.c:920
-#: plugins/print-notifications/gsd-print-notifications-manager.c:1011
-#: plugins/print-notifications/gsd-print-notifications-manager.c:1055
+#: plugins/print-notifications/gsd-print-notifications-manager.c:318
+#: plugins/print-notifications/gsd-print-notifications-manager.c:566
+#: plugins/print-notifications/gsd-print-notifications-manager.c:949
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1040
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1084
 msgid "Printers"
 msgstr "Принтери"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:374
+#: plugins/print-notifications/gsd-print-notifications-manager.c:402
 #, c-format
 msgid "Printer “%s” is low on toner."
 msgstr "У принтері «%s» закінчується тонер."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:378
+#: plugins/print-notifications/gsd-print-notifications-manager.c:406
 #, c-format
 msgid "Printer “%s” has no toner left."
 msgstr "У принтері «%s» закінчився тонер."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:382
+#: plugins/print-notifications/gsd-print-notifications-manager.c:410
 #, c-format
 msgid "Printer “%s” may not be connected."
 msgstr "Можливо, принтер «%s» не підключений."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:386
+#: plugins/print-notifications/gsd-print-notifications-manager.c:414
 #, c-format
 msgid "The cover is open on printer “%s”."
 msgstr "У принтері «%s» відкрито кришку."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:390
+#: plugins/print-notifications/gsd-print-notifications-manager.c:418
 #, c-format
 msgid "There is a missing print filter for printer “%s”."
 msgstr "Не вистачає фільтра друку для принтера «%s»."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:395
+#: plugins/print-notifications/gsd-print-notifications-manager.c:423
 #, c-format
 msgid "The door is open on printer “%s”."
 msgstr "У принтері «%s» відкрито дверці."
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:399
+#: plugins/print-notifications/gsd-print-notifications-manager.c:427
 #, c-format
 msgid "Printer “%s” is low on a marker supply."
 msgstr "У принтері «%s» закінчується фарба."
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:403
+#: plugins/print-notifications/gsd-print-notifications-manager.c:431
 #, c-format
 msgid "Printer “%s” is out of a marker supply."
 msgstr "У принтері «%s» закінчилась фарба."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:407
+#: plugins/print-notifications/gsd-print-notifications-manager.c:435
 #, c-format
 msgid "Printer “%s” is low on paper."
 msgstr "У принтері «%s» закінчується папір."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:411
+#: plugins/print-notifications/gsd-print-notifications-manager.c:439
 #, c-format
 msgid "Printer “%s” is out of paper."
 msgstr "У принтері «%s» закінчився папір."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:415
+#: plugins/print-notifications/gsd-print-notifications-manager.c:443
 #, c-format
 msgid "Printer “%s” is currently off-line."
 msgstr "Принтер «%s» вимкнено чи від'єднано."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:419
+#: plugins/print-notifications/gsd-print-notifications-manager.c:447
 #, c-format
 msgid "There is a problem on printer “%s”."
 msgstr "Проблема з принтером «%s»."
 
 #. Translators: The printer has a job to print but the printer needs authentication to continue with the print
-#: plugins/print-notifications/gsd-print-notifications-manager.c:531
+#: plugins/print-notifications/gsd-print-notifications-manager.c:559
 #, c-format
 msgid "%s Requires Authentication"
 msgstr "%s вимагає засвідчення"
 
 #. Translators: A printer needs credentials to continue printing a job
-#: plugins/print-notifications/gsd-print-notifications-manager.c:533
+#: plugins/print-notifications/gsd-print-notifications-manager.c:561
 #, c-format
 msgid "Credentials required in order to print"
 msgstr "Реєстраційні дані, які потрібні для друку"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:600
+#: plugins/print-notifications/gsd-print-notifications-manager.c:628
 msgid "Toner low"
 msgstr "Мало тонера"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:602
+#: plugins/print-notifications/gsd-print-notifications-manager.c:630
 msgid "Toner empty"
 msgstr "Тонера немає"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:604
+#: plugins/print-notifications/gsd-print-notifications-manager.c:632
 msgid "Not connected?"
 msgstr "Не з’єднано?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:606
+#: plugins/print-notifications/gsd-print-notifications-manager.c:634
 msgid "Cover open"
 msgstr "Кришку відчинено"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:608
+#: plugins/print-notifications/gsd-print-notifications-manager.c:636
 msgid "Printer configuration error"
 msgstr "Помилка налаштування принтера"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:610
+#: plugins/print-notifications/gsd-print-notifications-manager.c:638
 msgid "Door open"
 msgstr "Дверці відкрито"
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:612
+#: plugins/print-notifications/gsd-print-notifications-manager.c:640
 msgid "Marker supply low"
 msgstr "Мало фарби"
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:614
+#: plugins/print-notifications/gsd-print-notifications-manager.c:642
 msgid "Out of a marker supply"
 msgstr "Вичерпано фарбу"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:616
+#: plugins/print-notifications/gsd-print-notifications-manager.c:644
 msgid "Paper low"
 msgstr "Мало паперу"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:618
+#: plugins/print-notifications/gsd-print-notifications-manager.c:646
 msgid "Out of paper"
 msgstr "Немає паперу"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:620
+#: plugins/print-notifications/gsd-print-notifications-manager.c:648
 msgid "Printer off-line"
 msgstr "Принтер недоступний"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:622
-#: plugins/print-notifications/gsd-print-notifications-manager.c:997
+#: plugins/print-notifications/gsd-print-notifications-manager.c:650
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1026
 msgid "Printer error"
 msgstr "Помилка принтера"
 
 #. Translators: New printer has been added
-#: plugins/print-notifications/gsd-print-notifications-manager.c:670
+#: plugins/print-notifications/gsd-print-notifications-manager.c:699
 msgid "Printer added"
 msgstr "Принтер додано"
 
 #. Translators: A print job has been stopped
-#: plugins/print-notifications/gsd-print-notifications-manager.c:687
-#: plugins/print-notifications/gsd-print-notifications-manager.c:725
+#: plugins/print-notifications/gsd-print-notifications-manager.c:716
+#: plugins/print-notifications/gsd-print-notifications-manager.c:754
 msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "Принтер зупинено"
 
 #. Translators: "print-job xy" on a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:689
-#: plugins/print-notifications/gsd-print-notifications-manager.c:695
-#: plugins/print-notifications/gsd-print-notifications-manager.c:701
-#: plugins/print-notifications/gsd-print-notifications-manager.c:707
-#: plugins/print-notifications/gsd-print-notifications-manager.c:719
-#: plugins/print-notifications/gsd-print-notifications-manager.c:727
-#: plugins/print-notifications/gsd-print-notifications-manager.c:735
-#: plugins/print-notifications/gsd-print-notifications-manager.c:743
-#: plugins/print-notifications/gsd-print-notifications-manager.c:751
-#: plugins/print-notifications/gsd-print-notifications-manager.c:775
+#: plugins/print-notifications/gsd-print-notifications-manager.c:718
+#: plugins/print-notifications/gsd-print-notifications-manager.c:724
+#: plugins/print-notifications/gsd-print-notifications-manager.c:730
+#: plugins/print-notifications/gsd-print-notifications-manager.c:736
+#: plugins/print-notifications/gsd-print-notifications-manager.c:748
+#: plugins/print-notifications/gsd-print-notifications-manager.c:756
+#: plugins/print-notifications/gsd-print-notifications-manager.c:764
+#: plugins/print-notifications/gsd-print-notifications-manager.c:772
+#: plugins/print-notifications/gsd-print-notifications-manager.c:780
+#: plugins/print-notifications/gsd-print-notifications-manager.c:804
 #, c-format
 msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "«%1$s» на %2$s"
 
 #. Translators: A print job has been canceled
-#: plugins/print-notifications/gsd-print-notifications-manager.c:693
-#: plugins/print-notifications/gsd-print-notifications-manager.c:733
+#: plugins/print-notifications/gsd-print-notifications-manager.c:722
+#: plugins/print-notifications/gsd-print-notifications-manager.c:762
 msgctxt "print job state"
 msgid "Printing canceled"
 msgstr "Друкування скасовано"
 
 #. Translators: A print job has been aborted
-#: plugins/print-notifications/gsd-print-notifications-manager.c:699
-#: plugins/print-notifications/gsd-print-notifications-manager.c:741
+#: plugins/print-notifications/gsd-print-notifications-manager.c:728
+#: plugins/print-notifications/gsd-print-notifications-manager.c:770
 msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "Друкування перервано"
 
 #. Translators: A print job has been completed
-#: plugins/print-notifications/gsd-print-notifications-manager.c:705
-#: plugins/print-notifications/gsd-print-notifications-manager.c:749
+#: plugins/print-notifications/gsd-print-notifications-manager.c:734
+#: plugins/print-notifications/gsd-print-notifications-manager.c:778
 msgctxt "print job state"
 msgid "Printing completed"
 msgstr "Друкування завершено"
 
 #. Translators: A job is printing
-#: plugins/print-notifications/gsd-print-notifications-manager.c:717
-#: plugins/print-notifications/gsd-print-notifications-manager.c:773
+#: plugins/print-notifications/gsd-print-notifications-manager.c:746
+#: plugins/print-notifications/gsd-print-notifications-manager.c:802
 msgctxt "print job state"
 msgid "Printing"
 msgstr "Друкування"
 
 #. Translators: This is a title of a report notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:991
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1020
 msgid "Printer report"
 msgstr "Звіт принтера"
 
 #. Translators: This is a title of a warning notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:994
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1023
 msgid "Printer warning"
 msgstr "Попередження принтера"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: plugins/print-notifications/gsd-print-notifications-manager.c:1004
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1033
 #, c-format
 msgid "Printer “%s”: “%s”."
 msgstr "Принтер «%s»: «%s»."
@@ -2551,39 +2523,280 @@ msgstr "Змінити зображення OLED для планшета Wacom"
 msgid "Authentication is required to modify the OLED image for a Wacom tablet"
 msgstr "Потрібна засвідчення, щоб змінити зображення OLED для планшету Wacom"
 
-#. Set up the dialog
-#: plugins/wwan/gsd-wwan-pinentry.c:89
+#: plugins/wwan/cc-wwan-device.c:965
+msgid " (Preferred)"
+msgstr " (Бажаний)"
+
+#: plugins/wwan/cc-wwan-device.c:990
+msgid " Only"
+msgstr " Лише"
+
+#: plugins/wwan/cc-wwan-errors-private.h:40
+msgid "Phone failure"
+msgstr "Помилка телефону"
+
+#: plugins/wwan/cc-wwan-errors-private.h:41
+#| msgid "Not connected?"
+msgid "No connection to phone"
+msgstr "Немає з'єднання з телефоном"
+
+#: plugins/wwan/cc-wwan-errors-private.h:42
+msgid "Phone-adaptor link reserved"
+msgstr "Зв'язок телефон-адаптер зарезервовано"
+
+#: plugins/wwan/cc-wwan-errors-private.h:43
+msgid "Operation not allowed"
+msgstr "Дію заборонено"
+
+#: plugins/wwan/cc-wwan-errors-private.h:44
+msgid "Operation not supported"
+msgstr "Підтримки дії не передбачено"
+
+#: plugins/wwan/cc-wwan-errors-private.h:45
+msgid "PH-SIM PIN required"
+msgstr "Потрібен пін-код PH-SIM"
+
+#: plugins/wwan/cc-wwan-errors-private.h:46
+msgid "PH-FSIM PIN required"
+msgstr "Потрібен пін-код PH-FSIM"
+
+#: plugins/wwan/cc-wwan-errors-private.h:47
+msgid "PH-FSIM PUK required"
+msgstr "Потрібен PUK-код PH-FSIM"
+
+#: plugins/wwan/cc-wwan-errors-private.h:48
+msgid "SIM not inserted"
+msgstr "SIM не вставлено"
+
+#: plugins/wwan/cc-wwan-errors-private.h:49
+msgid "SIM PIN required"
+msgstr "Потрібен пін-код SIM"
+
+#: plugins/wwan/cc-wwan-errors-private.h:50
+msgid "SIM PUK required"
+msgstr "Потрібен PUK-код SIM"
+
+#: plugins/wwan/cc-wwan-errors-private.h:51
+msgid "SIM failure"
+msgstr "Помилка SIM"
+
+#: plugins/wwan/cc-wwan-errors-private.h:52
+msgid "SIM busy"
+msgstr "SIM зайнято"
+
+#: plugins/wwan/cc-wwan-errors-private.h:53
+msgid "SIM wrong"
+msgstr "Неправильний SIM"
+
+#: plugins/wwan/cc-wwan-errors-private.h:54
+msgid "Incorrect password"
+msgstr "Помилковий пароль"
+
+#: plugins/wwan/cc-wwan-errors-private.h:55
+msgid "SIM PIN2 required"
+msgstr "Потрібен PIN2-код SIM"
+
+#: plugins/wwan/cc-wwan-errors-private.h:56
+msgid "SIM PUK2 required"
+msgstr "Потрібен PUK2-код SIM"
+
+#: plugins/wwan/cc-wwan-errors-private.h:57
+msgid "Memory full"
+msgstr "Пам'ять переповнено"
+
+#: plugins/wwan/cc-wwan-errors-private.h:58
+msgid "Invalid index"
+msgstr "Некоректний індекс"
+
+#: plugins/wwan/cc-wwan-errors-private.h:59
+#| msgid "Not connected?"
+msgid "Not found"
+msgstr "Не знайдено"
+
+#: plugins/wwan/cc-wwan-errors-private.h:60
+msgid "Memory failure"
+msgstr "Помилка пам'яті"
+
+#: plugins/wwan/cc-wwan-errors-private.h:61
+msgid "No network service"
+msgstr "Немає мережевої служби"
+
+#: plugins/wwan/cc-wwan-errors-private.h:62
+msgid "Network timeout"
+msgstr "Час очікування на мережу"
+
+#: plugins/wwan/cc-wwan-errors-private.h:63
+msgid "Network not allowed - emergency calls only"
+msgstr "З'єднання з мережею заборонено — лише термінові виклики"
+
+#: plugins/wwan/cc-wwan-errors-private.h:64
+#| msgid "Recalibration required"
+msgid "Network personalization PIN required"
+msgstr "Потрібен мережевий пін-код персоналізації"
+
+#: plugins/wwan/cc-wwan-errors-private.h:65
+#| msgid "Recalibration required"
+msgid "Network personalization PUK required"
+msgstr "Потрібен мережевий PUK-код персоналізації"
+
+#: plugins/wwan/cc-wwan-errors-private.h:66
+msgid "Network subset personalization PIN required"
+msgstr "Потрібен пін-код персоналізації підмережі"
+
+#: plugins/wwan/cc-wwan-errors-private.h:67
+msgid "Network subset personalization PUK required"
+msgstr "Потрібен PUK-код персоналізації підмережі"
+
+#: plugins/wwan/cc-wwan-errors-private.h:68
+msgid "Service provider personalization PIN required"
+msgstr "Потрібен пін-код персоналізації надавача послуг"
+
+#: plugins/wwan/cc-wwan-errors-private.h:69
+msgid "Service provider personalization PUK required"
+msgstr "Потрібен PUK-код персоналізації надавача послуг"
+
+#: plugins/wwan/cc-wwan-errors-private.h:70
+#| msgid "Recalibration required"
+msgid "Corporate personalization PIN required"
+msgstr "Потрібен корпоративний пін-код персоналізації"
+
+#: plugins/wwan/cc-wwan-errors-private.h:71
+#| msgid "Recalibration required"
+msgid "Corporate personalization PUK required"
+msgstr "Потрібен корпоративний PUK-код персоналізації"
+
+#: plugins/wwan/cc-wwan-errors-private.h:72
+#| msgid "Unknown time"
+msgid "Unknown error"
+msgstr "Невідома помилка"
+
+#: plugins/wwan/cc-wwan-errors-private.h:73
+msgid "Illegal MS"
+msgstr "Заборонений MS"
+
+#: plugins/wwan/cc-wwan-errors-private.h:74
+msgid "Illegal ME"
+msgstr "Заборонений ME"
+
+#: plugins/wwan/cc-wwan-errors-private.h:75
+msgid "GPRS services not allowed"
+msgstr "Служби GPRS заборонено"
+
+#: plugins/wwan/cc-wwan-errors-private.h:76
+msgid "PLMN not allowed"
+msgstr "PLMN заборонено"
+
+#: plugins/wwan/cc-wwan-errors-private.h:77
+msgid "Location area not allowed"
+msgstr "Обслуговування у цій місцевості заборонено"
+
+#: plugins/wwan/cc-wwan-errors-private.h:78
+msgid "Roaming not allowed in this location area"
+msgstr "Роумінґ у цій місцевості заборонено"
+
+#: plugins/wwan/cc-wwan-errors-private.h:79
+msgid "Service option not supported"
+msgstr "Підтримки варіанта служби не передбачено"
+
+#: plugins/wwan/cc-wwan-errors-private.h:80
+msgid "Requested service option not subscribed"
+msgstr "Немає передплати на запитану службу"
+
+#: plugins/wwan/cc-wwan-errors-private.h:81
+msgid "Service option temporarily out of order"
+msgstr "Варіант служби тимчасово не працює"
+
+#: plugins/wwan/cc-wwan-errors-private.h:82
+msgid "Unspecified GPRS error"
+msgstr "Невказана помилка GPRS"
+
+#: plugins/wwan/cc-wwan-errors-private.h:83
+msgid "PDP authentication failure"
+msgstr "Помилка розпізнавання у PDP"
+
+#: plugins/wwan/cc-wwan-errors-private.h:84
+msgid "Invalid mobile class"
+msgstr "Некоректний клас мобільного"
+
+#: plugins/wwan/cc-wwan-errors-private.h:91
+#| msgctxt "print job state"
+#| msgid "Printing canceled"
+msgid "Action Cancelled"
+msgstr "Дію скасовано"
+
+#: plugins/wwan/cc-wwan-errors-private.h:94
+msgid "Access denied"
+msgstr "Доступ заборонено"
+
+#: plugins/wwan/cc-wwan-errors-private.h:103
+#| msgid "Unknown time"
+msgid "Unknown Error"
+msgstr "Невідома помилка"
+
+#: plugins/wwan/gsd-wwan-manager.c:117
+msgid "New PIN for SIM"
+msgstr "Новий пін-код для SIM"
+
+#: plugins/wwan/gsd-wwan-manager.c:118
+msgid "Set"
+msgstr "Встановити"
+
+#: plugins/wwan/gsd-wwan-manager.c:120
 msgid "Unlock SIM card"
 msgstr "Розблокувати SIM-картку"
 
-#: plugins/wwan/gsd-wwan-pinentry.c:90
+#: plugins/wwan/gsd-wwan-manager.c:121
 msgid "Unlock"
 msgstr "Розблокувати"
 
-#: plugins/wwan/gsd-wwan-pinentry.c:91
+#: plugins/wwan/gsd-wwan-manager.c:124
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: plugins/wwan/gsd-wwan-pinentry.c:95
+#: plugins/wwan/gsd-wwan-manager.c:129
+#, c-format
+#| msgid "Please provide the PIN for SIM card %s"
+msgid "Please provide a new PIN for SIM card %s"
+msgstr "Будь ласка, надайте новий пін-код для SIM-картки %s"
+
+#: plugins/wwan/gsd-wwan-manager.c:131
+#| msgid "Enter PIN to unlock your SIM card"
+msgid "Enter a New PIN to unlock your SIM card"
+msgstr "Введіть новий пін-код для розблокування вашої SIM-картки"
+
+#: plugins/wwan/gsd-wwan-manager.c:133
 #, c-format
 msgid "Please provide the PIN for SIM card %s"
 msgstr "Будь ласка, надайте пін-код для SIM-картки %s"
 
-#: plugins/wwan/gsd-wwan-pinentry.c:97
+#: plugins/wwan/gsd-wwan-manager.c:135
 msgid "Enter PIN to unlock your SIM card"
 msgstr "Введіть пін-код для розблокування вашої SIM-картки"
 
-#. msg is already localised
-#: plugins/wwan/gsd-wwan-pinentry.c:123
+#: plugins/wwan/gsd-wwan-manager.c:138
 #, c-format
-msgid "%2$s You have %1$u try left"
-msgid_plural "%2$s You have %1$u tries left"
-msgstr[0] "%2$s У вас лишилася %1$u спроба"
-msgstr[1] "%2$s У вас лишилося %1$u спроби"
-msgstr[2] "%2$s У вас лишилося %1$u спроб"
-msgstr[3] "%2$s У вас лишилася %1$u спроба"
+#| msgid "Please provide the PIN for SIM card %s"
+msgid "Please provide the PUK for SIM card %s"
+msgstr "Будь ласка, надайте PUK-код для SIM-картки %s"
 
-#: plugins/wwan/gsd-wwan-pinentry.c:127
+#: plugins/wwan/gsd-wwan-manager.c:140
+#| msgid "Enter PIN to unlock your SIM card"
+msgid "Enter PUK to unlock your SIM card"
+msgstr "Введіть PUK-код для розблокування вашої SIM-картки"
+
+#. msg is already localised
+#: plugins/wwan/gsd-wwan-manager.c:156
+#, c-format
+#| msgid "%2$s You have %1$u try left"
+#| msgid_plural "%2$s You have %1$u tries left"
+msgid "%2$s. You have %1$u try left"
+msgid_plural "%2$s. You have %1$u tries left"
+msgstr[0] "%2$s. У вас лишилася %1$u спроба"
+msgstr[1] "%2$s. У вас лишилося %1$u спроби"
+msgstr[2] "%2$s. У вас лишилося %1$u спроб"
+msgstr[3] "%2$s. У вас лишилася %1$u спроба"
+
+#: plugins/wwan/gsd-wwan-manager.c:160
 #, c-format
 msgid "You have %u try left"
 msgid_plural "You have %u tries left"
@@ -2592,20 +2805,14 @@ msgstr[1] "У вас лишилося %u спроби"
 msgstr[2] "У вас лишилося %u спроб"
 msgstr[3] "У вас лишилася одна спроба"
 
-#. Set up the dialog
-#: plugins/wwan/gsd-wwan-pinentry.c:173 plugins/wwan/gsd-wwan-pinentry.c:175
-msgid "SIM card unlock error"
-msgstr "Помилка розблоковування SIM-картки"
+#~ msgid "SIM card unlock error"
+#~ msgstr "Помилка розблоковування SIM-картки"
 
-#: plugins/wwan/gsd-wwan-pinentry.c:174
-msgid "OK"
-msgstr "Гаразд"
+#~ msgid "OK"
+#~ msgstr "Гаразд"
 
-#. TODO: handle PUK as well
-#: plugins/wwan/gsd-wwan-pinentry.c:194
-msgid "Too many incorrect PINs."
-msgstr "Занадто багато помилкових пін-кодів."
+#~ msgid "Too many incorrect PINs."
+#~ msgstr "Занадто багато помилкових пін-кодів."
 
-#: plugins/wwan/gsd-wwan-pinentry.c:200
-msgid "Wrong PIN code"
-msgstr "Помилковий пін-код"
+#~ msgid "Wrong PIN code"
+#~ msgstr "Помилковий пін-код"
