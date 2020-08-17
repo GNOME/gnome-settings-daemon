@@ -975,6 +975,13 @@ cc_wwan_device_get_string_from_mode (CcWwanDevice *self,
   g_return_val_if_fail (CC_IS_WWAN_DEVICE (self), NULL);
   g_return_val_if_fail (allowed != 0, NULL);
 
+  if (allowed == MM_MODEM_MODE_2G)
+    return g_strdup (_("2G Only"));
+  if (allowed == MM_MODEM_MODE_3G)
+    return g_strdup (_("3G Only"));
+  if (allowed == MM_MODEM_MODE_4G)
+    return g_strdup (_("4G Only"));
+
   str = g_string_sized_new (10);
 
   if (allowed & MM_MODEM_MODE_2G)
@@ -983,11 +990,6 @@ cc_wwan_device_get_string_from_mode (CcWwanDevice *self,
     APPEND_MODE_TO_STRING (str, MM_MODEM_MODE_3G, preferred, "3G");
   if (allowed & MM_MODEM_MODE_4G)
     APPEND_MODE_TO_STRING (str, MM_MODEM_MODE_4G, preferred, "4G");
-
-  if (allowed == MM_MODEM_MODE_2G ||
-      allowed == MM_MODEM_MODE_3G ||
-      allowed == MM_MODEM_MODE_4G)
-    g_string_append (str, _(" Only"));
 
   if (str->len == 0)
     return g_string_free (str, TRUE);
