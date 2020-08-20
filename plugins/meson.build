@@ -3,6 +3,7 @@ enabled_plugins = [
   ['account', 'Account'],
   ['clipboard', 'Clipboard'],
   ['color', 'Color'],
+  ['subman', 'Subscription'],
   ['datetime', 'Datetime'],
   ['dummy', ''],
   ['power', 'Power'],
