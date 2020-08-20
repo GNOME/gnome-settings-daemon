@@ -72,7 +72,6 @@ struct GsdSubscriptionManagerPrivate
 	GCancellable	*bus_cancellable;
 
 	GDBusProxy	*proxies[_RHSM_INTERFACE_LAST];
-	const gchar	*userlang;	/* owned by GLib internally */
 	GHashTable	*config; 	/* str:str */
 	GPtrArray	*installed_products;
 	gchar		*address;
@@ -224,7 +223,7 @@ _client_installed_products_update (GsdSubscriptionManager *manager, GError **err
 				      g_variant_new ("(sa{sv}s)",
 						     ""   /* filter_string */,
 						     NULL /* proxy_options */,
-						     priv->userlang),
+						     "C.UTF-8"),
 				      G_DBUS_CALL_FLAGS_NONE,
 				      -1, NULL, error);
 	if (val == NULL)
@@ -290,7 +289,7 @@ _client_subscription_status_update (GsdSubscriptionManager *manager, GError **er
 				      "GetStatus",
 				      g_variant_new ("(ss)",
 						     "", /* assumed as 'now' */
-						     priv->userlang),
+						     "C.UTF-8"),
 				      G_DBUS_CALL_FLAGS_NONE,
 				      -1, NULL, error);
 	if (val == NULL)
@@ -332,7 +331,7 @@ _client_syspurpose_update (GsdSubscriptionManager *manager, GError **error)
 
 	val = g_dbus_proxy_call_sync (priv->proxies[_RHSM_INTERFACE_SYSPURPOSE],
 				      "GetSyspurpose",
-				      g_variant_new ("(s)", priv->userlang),
+				      g_variant_new ("(s)", "C.UTF-8"),
 				      G_DBUS_CALL_FLAGS_NONE,
 				      -1, NULL, error);
 	if (val == NULL)
@@ -375,7 +374,7 @@ _client_register_start (GsdSubscriptionManager *manager, GError **error)
 	if (proxy == NULL)
 		return FALSE;
 	val = g_dbus_proxy_call_sync (proxy, "Start",
-				      g_variant_new ("(s)", priv->userlang),
+				      g_variant_new ("(s)", "C.UTF-8"),
 				      G_DBUS_CALL_FLAGS_NONE,
 				      -1, NULL, error);
 	if (val == NULL)
@@ -408,7 +407,7 @@ _client_register_stop (GsdSubscriptionManager *manager, GError **error)
 	if (proxy == NULL)
 		return FALSE;
 	val = g_dbus_proxy_call_sync (proxy, "Stop",
-				      g_variant_new ("(s)", priv->userlang),
+				      g_variant_new ("(s)", "C.UTF-8"),
 				      G_DBUS_CALL_FLAGS_NONE,
 				      -1, NULL, error);
 	if (val == NULL)
@@ -664,7 +663,7 @@ _client_update_config (GsdSubscriptionManager *manager, GError **error)
 
 	val = g_dbus_proxy_call_sync (priv->proxies[_RHSM_INTERFACE_CONFIG],
 				      "GetAll",
-				      g_variant_new ("(s)", priv->userlang),
+				      g_variant_new ("(s)", "C.UTF-8"),
 				      G_DBUS_CALL_FLAGS_NONE,
 				      -1, NULL, error);
 	if (val == NULL)
@@ -763,7 +762,6 @@ _client_load (GsdSubscriptionManager *manager, GError **error)
 	}
 
 	/* get initial status */
-	priv->userlang = "";
 	if (!_client_update_config (manager, error))
 		return FALSE;
 	if (!_client_subscription_status_update (manager, error))
