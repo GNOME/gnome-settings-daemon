@@ -131,23 +131,6 @@ gsd_subscription_manager_error_quark (void)
 	return quark;
 }
 
-static GsdSubmanSubscriptionStatus
-_client_subscription_status_from_text (const gchar *status_txt)
-{
-	if (g_strcmp0 (status_txt, "Unknown") == 0)
-		return GSD_SUBMAN_SUBSCRIPTION_STATUS_UNKNOWN;
-	if (g_strcmp0 (status_txt, "Current") == 0)
-		return GSD_SUBMAN_SUBSCRIPTION_STATUS_VALID;
-	if (g_strcmp0 (status_txt, "Invalid") == 0)
-		return GSD_SUBMAN_SUBSCRIPTION_STATUS_INVALID;
-	if (g_strcmp0 (status_txt, "Disabled") == 0)
-		return GSD_SUBMAN_SUBSCRIPTION_STATUS_DISABLED;
-	if (g_strcmp0 (status_txt, "Insufficient") == 0)
-		return GSD_SUBMAN_SUBSCRIPTION_STATUS_PARTIALLY_VALID;
-	g_warning ("Unknown subscription status: %s", status_txt); // 'Current'?
-	return GSD_SUBMAN_SUBSCRIPTION_STATUS_UNKNOWN;
-}
-
 static GVariant *
 _make_installed_products_variant (GPtrArray *installed_products)
 {
@@ -275,40 +258,60 @@ static gboolean
 _client_subscription_status_update (GsdSubscriptionManager *manager, GError **error)
 {
 	GsdSubscriptionManagerPrivate *priv = manager->priv;
+	g_autoptr(GVariant) uuid = NULL;
+	const gchar *uuid_txt = NULL;
 	JsonNode *json_root;
 	JsonObject *json_obj;
 	const gchar *json_txt = NULL;
-	const gchar *status_txt = NULL;
-	g_autoptr(GVariant) val = NULL;
+	g_autoptr(GVariant) status = NULL;
 	g_autoptr(JsonParser) json_parser = json_parser_new ();
 
 	/* save old value */
 	priv->subscription_status_last = priv->subscription_status;
 
-	val = g_dbus_proxy_call_sync (priv->proxies[_RHSM_INTERFACE_ENTITLEMENT],
-				      "GetStatus",
-				      g_variant_new ("(ss)",
-						     "", /* assumed as 'now' */
-						     "C.UTF-8"),
-				      G_DBUS_CALL_FLAGS_NONE,
-				      -1, NULL, error);
-	if (val == NULL)
+	uuid = g_dbus_proxy_call_sync (priv->proxies[_RHSM_INTERFACE_CONSUMER],
+				       "GetUuid",
+				       g_variant_new ("(s)",
+				                      "C.UTF-8"),
+				       G_DBUS_CALL_FLAGS_NONE,
+				       -1, NULL, error);
+	if (uuid == NULL)
 		return FALSE;
-	g_variant_get (val, "(&s)", &json_txt);
+
+	g_variant_get (uuid, "(&s)", &uuid_txt);
+
+	status = g_dbus_proxy_call_sync (priv->proxies[_RHSM_INTERFACE_ENTITLEMENT],
+				         "GetStatus",
+				         g_variant_new ("(ss)",
+						        "", /* assumed as 'now' */
+						        "C.UTF-8"),
+				         G_DBUS_CALL_FLAGS_NONE,
+				         -1, NULL, error);
+	if (status == NULL)
+		return FALSE;
+	g_variant_get (status, "(&s)", &json_txt);
 	g_debug ("Entitlement.GetStatus JSON: %s", json_txt);
 	if (!json_parser_load_from_data (json_parser, json_txt, -1, error))
 		return FALSE;
 	json_root = json_parser_get_root (json_parser);
 	json_obj = json_node_get_object (json_root);
-	if (!json_object_has_member (json_obj, "status")) {
+	if (!json_object_has_member (json_obj, "valid")) {
 		g_set_error (error, G_IO_ERROR, G_IO_ERROR_INVALID_DATA,
-			     "no Entitlement.GetStatus status in %s", json_txt);
+			     "no Entitlement.GetStatus valid in %s", json_txt);
 		return FALSE;
 	}
 
-	status_txt = json_object_get_string_member (json_obj, "status");
-	g_debug ("Entitlement.GetStatus: %s", status_txt);
-	priv->subscription_status = _client_subscription_status_from_text (status_txt);
+	gboolean is_valid = json_object_get_boolean_member (json_obj, "valid");
+
+	if (uuid_txt[0] != '\0') {
+		if (is_valid) {
+			priv->subscription_status = GSD_SUBMAN_SUBSCRIPTION_STATUS_VALID;
+		} else {
+			priv->subscription_status = GSD_SUBMAN_SUBSCRIPTION_STATUS_INVALID;
+		}
+	} else {
+		priv->subscription_status = GSD_SUBMAN_SUBSCRIPTION_STATUS_UNKNOWN;
+	}
 
 	/* emit notification for g-c-c */
 	if (priv->subscription_status != priv->subscription_status_last) {
