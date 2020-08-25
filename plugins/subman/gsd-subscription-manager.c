@@ -21,6 +21,7 @@
 #include "config.h"
 
 #include <glib/gi18n.h>
+#include <gio/gunixinputstream.h>
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
 #include <json-glib/json-glib.h>
@@ -544,26 +545,45 @@ _client_register_with_keys (GsdSubscriptionManager *manager,
 {
 	GsdSubscriptionManagerPrivate *priv = manager->priv;
 	g_autoptr(GSubprocess) subprocess = NULL;
+	g_autoptr(GBytes) stdin_buf = g_bytes_new (activation_key, strlen (activation_key) + 1);
+	g_autoptr(GBytes) stderr_buf = NULL;
+	gint rc;
 
 	/* apparently: "we can't send registration credentials over the regular
 	 * system or session bus since those aren't really locked down..." */
 	if (!_client_register_start (manager, error))
 		return FALSE;
 	g_debug ("spawning %s", LIBEXECDIR "/gsd-subman-helper");
-	subprocess = g_subprocess_new (G_SUBPROCESS_FLAGS_STDERR_PIPE, error,
+	subprocess = g_subprocess_new (G_SUBPROCESS_FLAGS_STDIN_PIPE | G_SUBPROCESS_FLAGS_STDERR_PIPE, error,
 				       "pkexec", LIBEXECDIR "/gsd-subman-helper",
 				       "--kind", "register-with-key",
 				       "--address", priv->address,
 				       "--hostname", hostname,
 				       "--organisation", organisation,
-				       "--activation-key", activation_key,
 				       NULL);
 	if (subprocess == NULL) {
 		g_prefix_error (error, "failed to find pkexec: ");
 		return FALSE;
 	}
-	if (!_client_subprocess_wait_check (subprocess, error))
+
+	if (!g_subprocess_communicate (subprocess, stdin_buf, NULL, NULL, &stderr_buf, error)) {
+		g_prefix_error (error, "failed to run pkexec: ");
 		return FALSE;
+	}
+
+	rc = g_subprocess_get_exit_status (subprocess);
+	if (rc != 0) {
+		if (g_bytes_get_size (stderr_buf) == 0) {
+			g_set_error_literal (error, G_IO_ERROR, rc,
+			                     "Failed to run helper without stderr");
+			return FALSE;
+		}
+
+		g_set_error (error, G_IO_ERROR, rc,
+			     "%.*s",
+			     g_bytes_get_size (stderr_buf),
+			     g_bytes_get_data (stderr_buf, NULL));
+	}
 
 	/* FIXME: also do on error? */
 	if (!_client_register_stop (manager, error))
@@ -588,6 +608,9 @@ _client_register (GsdSubscriptionManager *manager,
 {
 	GsdSubscriptionManagerPrivate *priv = manager->priv;
 	g_autoptr(GSubprocess) subprocess = NULL;
+	g_autoptr(GBytes) stdin_buf = g_bytes_new (password, strlen (password) + 1);
+	g_autoptr(GBytes) stderr_buf = NULL;
+	gint rc;
 
 	/* fallback */
 	if (organisation == NULL)
@@ -598,21 +621,38 @@ _client_register (GsdSubscriptionManager *manager,
 	if (!_client_register_start (manager, error))
 		return FALSE;
 	g_debug ("spawning %s", LIBEXECDIR "/gsd-subman-helper");
-	subprocess = g_subprocess_new (G_SUBPROCESS_FLAGS_STDERR_PIPE, error,
+	subprocess = g_subprocess_new (G_SUBPROCESS_FLAGS_STDIN_PIPE | G_SUBPROCESS_FLAGS_STDERR_PIPE,
+				       error,
 				       "pkexec", LIBEXECDIR "/gsd-subman-helper",
 				       "--kind", "register-with-username",
 				       "--address", priv->address,
 				       "--hostname", hostname,
 				       "--organisation", organisation,
 				       "--username", username,
-				       "--password", password,
 				       NULL);
 	if (subprocess == NULL) {
 		g_prefix_error (error, "failed to find pkexec: ");
 		return FALSE;
 	}
-	if (!_client_subprocess_wait_check (subprocess, error))
+
+	if (!g_subprocess_communicate (subprocess, stdin_buf, NULL, NULL, &stderr_buf, error)) {
+		g_prefix_error (error, "failed to run pkexec: ");
 		return FALSE;
+	}
+
+	rc = g_subprocess_get_exit_status (subprocess);
+	if (rc != 0) {
+		if (g_bytes_get_size (stderr_buf) == 0) {
+			g_set_error_literal (error, G_IO_ERROR, rc,
+			                     "Failed to run helper without stderr");
+			return FALSE;
+		}
+
+		g_set_error (error, G_IO_ERROR, rc,
+			     "%.*s",
+			     g_bytes_get_size (stderr_buf),
+			     g_bytes_get_data (stderr_buf, NULL));
+	}
 
 	/* FIXME: also do on error? */
 	if (!_client_register_stop (manager, error))

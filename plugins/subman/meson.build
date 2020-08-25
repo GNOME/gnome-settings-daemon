@@ -49,7 +49,7 @@ executable(
   'gsd-subman-helper',
   'gsd-subman-helper.c',
   include_directories: top_inc,
-  dependencies: [gio_dep, jsonglib_dep],
+  dependencies: [gio_dep, gio_unix_dep, jsonglib_dep],
   install: true,
   install_rpath: gsd_pkglibdir,
   install_dir: gsd_libexecdir

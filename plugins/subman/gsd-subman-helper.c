@@ -21,12 +21,14 @@
 
 #include "config.h"
 
+
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <locale.h>
 
 #include <gio/gio.h>
+#include <gio/gunixinputstream.h>
 #include <json-glib/json-glib.h>
 
 #define DBUS_TIMEOUT 300000 /* 5 minutes */
@@ -176,7 +178,6 @@ main (int argc, char *argv[])
 	g_autofree gchar *hostname = NULL;
 	g_autofree gchar *kind = NULL;
 	g_autofree gchar *organisation = NULL;
-	g_autofree gchar *password = NULL;
 	g_autofree gchar *port = NULL;
 	g_autofree gchar *prefix = NULL;
 	g_autofree gchar *proxy_server = NULL;
@@ -188,6 +189,7 @@ main (int argc, char *argv[])
 	g_autoptr(GVariantBuilder) proxy_options = NULL;
 	g_autoptr(GVariantBuilder) subman_conopts = NULL;
 	g_autoptr(GVariantBuilder) subman_options = NULL;
+	g_autoptr(GInputStream) standard_input_stream = g_unix_input_stream_new (STDIN_FILENO, FALSE);
 
 	const GOptionEntry options[] = {
 		{ "kind", '\0', G_OPTION_FLAG_NONE, G_OPTION_ARG_STRING,
@@ -196,12 +198,8 @@ main (int argc, char *argv[])
 			&address, "UNIX address", NULL },
 		{ "username", '\0', G_OPTION_FLAG_NONE, G_OPTION_ARG_STRING,
 			&username, "Username", NULL },
-		{ "password", '\0', G_OPTION_FLAG_NONE, G_OPTION_ARG_STRING,
-			&password, "Password", NULL },
 		{ "organisation", '\0', G_OPTION_FLAG_NONE, G_OPTION_ARG_STRING,
 			&organisation, "Organisation", NULL },
-		{ "activation-key", '\0', G_OPTION_FLAG_NONE, G_OPTION_ARG_STRING,
-			&activation_key, "Activation keys", NULL },
 		{ "hostname", '\0', G_OPTION_FLAG_HIDDEN, G_OPTION_ARG_STRING,
 			&hostname, "Registration server hostname", NULL },
 		{ "prefix", '\0', G_OPTION_FLAG_HIDDEN, G_OPTION_ARG_STRING,
@@ -294,13 +292,17 @@ main (int argc, char *argv[])
 		g_auto(GStrv) activation_keys = NULL;
 		g_autoptr(GError) error_local = NULL;
 		g_autoptr(GVariant) res = NULL;
+		gchar activation_key[PIPE_BUF + 1] = "";
 
-		if (activation_key == NULL) {
-			g_printerr ("Required --activation-key\n");
-			return G_IO_ERROR_INVALID_DATA;
-		}
 		if (organisation == NULL) {
 			g_printerr ("Required --organisation\n");
+			return G_IO_ERROR_INVALID_DATA;
+		}
+
+		g_input_stream_read (standard_input_stream, activation_key, sizeof (activation_key) - 1, NULL, &error_local);
+
+		if (error_local != NULL) {
+			g_printerr ("Could not read activation key: %s\n", error_local->message);
 			return G_IO_ERROR_INVALID_DATA;
 		}
 
@@ -329,17 +331,21 @@ main (int argc, char *argv[])
 	} else if (g_strcmp0 (kind, "register-with-username") == 0) {
 		g_autoptr(GError) error_local = NULL;
 		g_autoptr(GVariant) res = NULL;
+		gchar password[PIPE_BUF + 1] = "";
 
 		if (username == NULL) {
 			g_printerr ("Required --username\n");
 			return G_IO_ERROR_INVALID_DATA;
 		}
-		if (password == NULL) {
-			g_printerr ("Required --password\n");
-			return G_IO_ERROR_INVALID_DATA;
-		}
 		if (organisation == NULL) {
 			g_printerr ("Required --organisation\n");
+			return G_IO_ERROR_INVALID_DATA;
+		}
+
+		g_input_stream_read (standard_input_stream, password, sizeof (password) - 1, NULL, &error_local);
+
+		if (error_local != NULL) {
+			g_printerr ("Could not read password: %s\n", error_local->message);
 			return G_IO_ERROR_INVALID_DATA;
 		}
 
