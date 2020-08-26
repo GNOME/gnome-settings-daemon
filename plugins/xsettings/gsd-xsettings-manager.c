@@ -33,6 +33,7 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
+#include <gdesktop-enums.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
@@ -42,6 +43,7 @@
 #include "gsd-xsettings-manager.h"
 #include "gsd-xsettings-gtk.h"
 #include "gnome-settings-bus.h"
+#include "gsd-settings-migrate.h"
 #include "xsettings-manager.h"
 #include "fc-monitor.h"
 #include "gsd-remote-display-manager.h"
@@ -66,9 +68,9 @@
 #define CURSOR_SIZE_KEY "cursor-size"
 #define CURSOR_THEME_KEY "cursor-theme"
 
-#define FONT_ANTIALIASING_KEY "antialiasing"
-#define FONT_HINTING_KEY      "hinting"
-#define FONT_RGBA_ORDER_KEY   "rgba-order"
+#define FONT_ANTIALIASING_KEY "font-antialiasing"
+#define FONT_HINTING_KEY      "font-hinting"
+#define FONT_RGBA_ORDER_KEY   "font-rgba-order"
 
 #define GTK_SETTINGS_DBUS_PATH "/org/gtk/Settings"
 #define GTK_SETTINGS_DBUS_NAME "org.gtk.Settings"
@@ -670,21 +672,21 @@ xft_settings_get (GsdXSettingsManager *manager,
                   GsdXftSettings    *settings)
 {
 	GSettings  *interface_settings;
-        GsdFontAntialiasingMode antialiasing;
-        GsdFontHinting hinting;
-        GsdFontRgbaOrder order;
+        GDesktopFontAntialiasingMode antialiasing;
+        GDesktopFontHinting hinting;
+        GDesktopFontRgbaOrder order;
         gboolean use_rgba = FALSE;
         double dpi;
         int cursor_size;
 
 	interface_settings = g_hash_table_lookup (manager->settings, INTERFACE_SETTINGS_SCHEMA);
 
-        antialiasing = g_settings_get_enum (manager->plugin_settings, FONT_ANTIALIASING_KEY);
-        hinting = g_settings_get_enum (manager->plugin_settings, FONT_HINTING_KEY);
-        order = g_settings_get_enum (manager->plugin_settings, FONT_RGBA_ORDER_KEY);
+        antialiasing = g_settings_get_enum (interface_settings, FONT_ANTIALIASING_KEY);
+        hinting = g_settings_get_enum (interface_settings, FONT_HINTING_KEY);
+        order = g_settings_get_enum (interface_settings, FONT_RGBA_ORDER_KEY);
 
-        settings->antialias = (antialiasing != GSD_FONT_ANTIALIASING_MODE_NONE);
-        settings->hinting = (hinting != GSD_FONT_HINTING_NONE);
+        settings->antialias = (antialiasing != G_DESKTOP_FONT_ANTIALIASING_MODE_NONE);
+        settings->hinting = (hinting != G_DESKTOP_FONT_HINTING_NONE);
         settings->window_scale = get_window_scale (manager);
         dpi = get_dpi_from_gsettings (manager);
         settings->dpi = dpi * 1024; /* Xft wants 1/1024ths of an inch */
@@ -696,46 +698,46 @@ xft_settings_get (GsdXSettingsManager *manager,
         settings->hintstyle = "hintfull";
 
         switch (hinting) {
-        case GSD_FONT_HINTING_NONE:
+        case G_DESKTOP_FONT_HINTING_NONE:
                 settings->hintstyle = "hintnone";
                 break;
-        case GSD_FONT_HINTING_SLIGHT:
+        case G_DESKTOP_FONT_HINTING_SLIGHT:
                 settings->hintstyle = "hintslight";
                 break;
-        case GSD_FONT_HINTING_MEDIUM:
+        case G_DESKTOP_FONT_HINTING_MEDIUM:
                 settings->hintstyle = "hintmedium";
                 break;
-        case GSD_FONT_HINTING_FULL:
+        case G_DESKTOP_FONT_HINTING_FULL:
                 settings->hintstyle = "hintfull";
                 break;
         }
 
         switch (order) {
-        case GSD_FONT_RGBA_ORDER_RGBA:
+        case G_DESKTOP_FONT_RGBA_ORDER_RGBA:
                 settings->rgba = "rgba";
                 break;
-        case GSD_FONT_RGBA_ORDER_RGB:
+        case G_DESKTOP_FONT_RGBA_ORDER_RGB:
                 settings->rgba = "rgb";
                 break;
-        case GSD_FONT_RGBA_ORDER_BGR:
+        case G_DESKTOP_FONT_RGBA_ORDER_BGR:
                 settings->rgba = "bgr";
                 break;
-        case GSD_FONT_RGBA_ORDER_VRGB:
+        case G_DESKTOP_FONT_RGBA_ORDER_VRGB:
                 settings->rgba = "vrgb";
                 break;
-        case GSD_FONT_RGBA_ORDER_VBGR:
+        case G_DESKTOP_FONT_RGBA_ORDER_VBGR:
                 settings->rgba = "vbgr";
                 break;
         }
 
         switch (antialiasing) {
-        case GSD_FONT_ANTIALIASING_MODE_NONE:
+        case G_DESKTOP_FONT_ANTIALIASING_MODE_NONE:
                 settings->antialias = 0;
                 break;
-        case GSD_FONT_ANTIALIASING_MODE_GRAYSCALE:
+        case G_DESKTOP_FONT_ANTIALIASING_MODE_GRAYSCALE:
                 settings->antialias = 1;
                 break;
-        case GSD_FONT_ANTIALIASING_MODE_RGBA:
+        case G_DESKTOP_FONT_ANTIALIASING_MODE_RGBA:
                 settings->antialias = 1;
                 use_rgba = TRUE;
         }
@@ -1262,6 +1264,22 @@ launch_xwayland_services (void)
         }
 }
 
+static void
+migrate_settings (void)
+{
+        GsdSettingsMigrateEntry xsettings_entries[] = {
+                { "antialiasing", "font-antialiasing", NULL },
+                { "hinting", "font-hinting", NULL },
+                { "rgba-order", "font-rgba-order", NULL },
+        };
+
+        gsd_settings_migrate_check ("org.gnome.settings-daemon.plugins.xsettings.deprecated",
+                                    "/org/gnome/settings-daemon/plugins/xsettings/",
+                                    "org.gnome.desktop.interface",
+                                    "/org/gnome/desktop/interface/",
+                                    xsettings_entries, G_N_ELEMENTS (xsettings_entries));
+}
+
 gboolean
 gsd_xsettings_manager_start (GsdXSettingsManager *manager,
                              GError             **error)
@@ -1273,6 +1291,8 @@ gsd_xsettings_manager_start (GsdXSettingsManager *manager,
 
         g_debug ("Starting xsettings manager");
         gnome_settings_profile_start (NULL);
+
+        migrate_settings ();
 
         if (!setup_xsettings_managers (manager)) {
                 g_set_error (error, GSD_XSETTINGS_ERROR,
