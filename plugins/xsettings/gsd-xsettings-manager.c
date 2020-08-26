@@ -467,8 +467,8 @@ static FixedEntry fixed_entries [] = {
 };
 
 static TranslationEntry translations [] = {
-        { "org.gnome.settings-daemon.peripherals.mouse", "double-click",   "Net/DoubleClickTime",  translate_int_int },
-        { "org.gnome.settings-daemon.peripherals.mouse", "drag-threshold", "Net/DndDragThreshold", translate_int_int },
+        { "org.gnome.desktop.peripherals.mouse", "double-click",   "Net/DoubleClickTime",  translate_int_int },
+        { "org.gnome.desktop.peripherals.mouse", "drag-threshold", "Net/DndDragThreshold", translate_int_int },
 
         { "org.gnome.desktop.background", "show-desktop-icons",    "Gtk/ShellShowsDesktop",   translate_bool_int },
 
@@ -1272,12 +1272,22 @@ migrate_settings (void)
                 { "hinting", "font-hinting", NULL },
                 { "rgba-order", "font-rgba-order", NULL },
         };
+        GsdSettingsMigrateEntry mouse_entries[] = {
+                { "double-click", "double-click", NULL },
+                { "drag-threshold", "drag-threshold", NULL },
+        };
 
         gsd_settings_migrate_check ("org.gnome.settings-daemon.plugins.xsettings.deprecated",
                                     "/org/gnome/settings-daemon/plugins/xsettings/",
                                     "org.gnome.desktop.interface",
                                     "/org/gnome/desktop/interface/",
                                     xsettings_entries, G_N_ELEMENTS (xsettings_entries));
+
+        gsd_settings_migrate_check ("org.gnome.settings-daemon.peripherals.mouse.deprecated",
+                                    "/org/gnome/settings-daemon/peripherals/mouse/",
+                                    "org.gnome.desktop.peripherals.mouse",
+                                    "/org/gnome/desktop/peripherals/mouse/",
+                                    mouse_entries, G_N_ELEMENTS (mouse_entries));
 }
 
 gboolean

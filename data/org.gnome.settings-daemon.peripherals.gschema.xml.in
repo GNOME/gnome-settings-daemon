@@ -36,18 +36,6 @@
       <description>File name of the bell sound to be played.</description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.mouse" path="/org/gnome/settings-daemon/peripherals/mouse/">
-    <key name="double-click" type="i">
-      <default>400</default>
-      <summary>Double click time</summary>
-      <description> Length of a double click in milliseconds.</description>
-    </key>
-    <key name="drag-threshold" type="i">
-      <default>8</default>
-      <summary>Drag threshold</summary>
-      <description>Distance before a drag is started.</description>
-    </key>
-  </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.touchscreen" path="/org/gnome/settings-daemon/peripherals/touchscreen/">
     <key name="orientation-lock" type="b">
       <default>false</default>
@@ -76,6 +64,16 @@
       <default>false</default>
       <summary>Middle button emulation</summary>
       <description>Enables middle mouse button emulation through simultaneous left and right button click.</description>
+    </key>
+    <key name="double-click" type="i">
+      <default>400</default>
+      <summary>Double click time</summary>
+      <description> Length of a double click in milliseconds.</description>
+    </key>
+    <key name="drag-threshold" type="i">
+      <default>8</default>
+      <summary>Drag threshold</summary>
+      <description>Distance before a drag is started.</description>
     </key>
   </schema>
   <schema id="org.gnome.settings-daemon.peripherals.keyboard.deprecated">
