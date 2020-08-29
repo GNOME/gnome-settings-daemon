@@ -28,8 +28,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2020-08-21 16:41+0000\n"
-"PO-Revision-Date: 2020-08-22 16:49-0400\n"
+"POT-Creation-Date: 2020-08-22 20:50+0000\n"
+"PO-Revision-Date: 2020-08-28 20:56-0400\n"
 "Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -37,7 +37,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.4\n"
+"X-Generator: Poedit 2.4.1\n"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
 msgid "Smartcard removal action"
@@ -2394,11 +2394,11 @@ msgstr "移动电话错误"
 
 #: plugins/wwan/cc-wwan-errors-private.h:41
 msgid "No connection to phone"
-msgstr "没有到电话的链接"
+msgstr "没有到电话的连接"
 
 #: plugins/wwan/cc-wwan-errors-private.h:42
 msgid "Phone-adaptor link reserved"
-msgstr ""
+msgstr "电话-适配器链接预留"
 
 #: plugins/wwan/cc-wwan-errors-private.h:43
 msgid "Operation not allowed"
@@ -2434,15 +2434,15 @@ msgstr "需要 SIM PUK"
 
 #: plugins/wwan/cc-wwan-errors-private.h:51
 msgid "SIM failure"
-msgstr ""
+msgstr "SIM 卡失败"
 
 #: plugins/wwan/cc-wwan-errors-private.h:52
 msgid "SIM busy"
-msgstr "SIM 忙"
+msgstr "SIM 卡忙"
 
 #: plugins/wwan/cc-wwan-errors-private.h:53
 msgid "SIM wrong"
-msgstr "SIM 错误"
+msgstr "SIM 卡错误"
 
 #: plugins/wwan/cc-wwan-errors-private.h:54
 msgid "Incorrect password"
@@ -2462,7 +2462,7 @@ msgstr "内存已满"
 
 #: plugins/wwan/cc-wwan-errors-private.h:58
 msgid "Invalid index"
-msgstr ""
+msgstr "无效的索引"
 
 #: plugins/wwan/cc-wwan-errors-private.h:59
 msgid "Not found"
@@ -2485,44 +2485,36 @@ msgid "Network not allowed - emergency calls only"
 msgstr "网络不允许 - 仅限紧急呼叫"
 
 #: plugins/wwan/cc-wwan-errors-private.h:64
-#, fuzzy
-#| msgid "Recalibration required"
 msgid "Network personalization PIN required"
-msgstr "需要重新校准"
+msgstr "需要网络个性化 PIN"
 
 #: plugins/wwan/cc-wwan-errors-private.h:65
-#, fuzzy
-#| msgid "Recalibration required"
 msgid "Network personalization PUK required"
-msgstr "需要重新校准"
+msgstr "需要网络个性化 PUK"
 
 #: plugins/wwan/cc-wwan-errors-private.h:66
 msgid "Network subset personalization PIN required"
-msgstr ""
+msgstr "需要网络子集个性化 PIN"
 
 #: plugins/wwan/cc-wwan-errors-private.h:67
 msgid "Network subset personalization PUK required"
-msgstr ""
+msgstr "需要网络子集个性化 PUIK"
 
 #: plugins/wwan/cc-wwan-errors-private.h:68
 msgid "Service provider personalization PIN required"
-msgstr ""
+msgstr "需要服务提供方个性化 PIN"
 
 #: plugins/wwan/cc-wwan-errors-private.h:69
 msgid "Service provider personalization PUK required"
-msgstr ""
+msgstr "需要服务提供方个性化 PUK"
 
 #: plugins/wwan/cc-wwan-errors-private.h:70
-#, fuzzy
-#| msgid "Recalibration required"
 msgid "Corporate personalization PIN required"
-msgstr "需要重新校准"
+msgstr "需要公司个性化 PIN"
 
 #: plugins/wwan/cc-wwan-errors-private.h:71
-#, fuzzy
-#| msgid "Recalibration required"
 msgid "Corporate personalization PUK required"
-msgstr "需要重新校准"
+msgstr "需要公司个性化 PUK"
 
 #: plugins/wwan/cc-wwan-errors-private.h:72
 msgid "Unknown error"
@@ -2538,19 +2530,19 @@ msgstr "非法的 ME"
 
 #: plugins/wwan/cc-wwan-errors-private.h:75
 msgid "GPRS services not allowed"
-msgstr ""
+msgstr "不允许 GPRS 服务"
 
 #: plugins/wwan/cc-wwan-errors-private.h:76
 msgid "PLMN not allowed"
-msgstr ""
+msgstr "不允许 PLMN"
 
 #: plugins/wwan/cc-wwan-errors-private.h:77
 msgid "Location area not allowed"
-msgstr ""
+msgstr "位置地区不允许"
 
 #: plugins/wwan/cc-wwan-errors-private.h:78
 msgid "Roaming not allowed in this location area"
-msgstr ""
+msgstr "本位置地区内不允许漫游"
 
 #: plugins/wwan/cc-wwan-errors-private.h:79
 msgid "Service option not supported"
@@ -2558,11 +2550,11 @@ msgstr "不支持的服务选项"
 
 #: plugins/wwan/cc-wwan-errors-private.h:80
 msgid "Requested service option not subscribed"
-msgstr ""
+msgstr "所请求的服务选项未订阅"
 
 #: plugins/wwan/cc-wwan-errors-private.h:81
 msgid "Service option temporarily out of order"
-msgstr ""
+msgstr "服务选项暂时不可用"
 
 #: plugins/wwan/cc-wwan-errors-private.h:82
 msgid "Unspecified GPRS error"
@@ -2574,14 +2566,11 @@ msgstr "PDP 认证错误"
 
 #: plugins/wwan/cc-wwan-errors-private.h:84
 msgid "Invalid mobile class"
-msgstr ""
+msgstr "无效的移动类别（mobile class）"
 
 #: plugins/wwan/cc-wwan-errors-private.h:91
-#, fuzzy
-#| msgctxt "print job state"
-#| msgid "Printing canceled"
 msgid "Action Cancelled"
-msgstr "打印已取消"
+msgstr "操作已取消"
 
 #: plugins/wwan/cc-wwan-errors-private.h:94
 msgid "Access denied"
@@ -2597,7 +2586,7 @@ msgstr "SIM 卡的新 PIN"
 
 #: plugins/wwan/gsd-wwan-manager.c:118
 msgid "Set"
-msgstr ""
+msgstr "设置"
 
 #: plugins/wwan/gsd-wwan-manager.c:120
 msgid "Unlock SIM card"
