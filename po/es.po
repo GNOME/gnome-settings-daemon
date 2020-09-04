@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2020-08-21 16:41+0000\n"
-"PO-Revision-Date: 2020-08-24 11:32+0200\n"
+"POT-Creation-Date: 2020-09-03 20:47+0000\n"
+"PO-Revision-Date: 2020-09-04 12:49+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -2448,11 +2448,11 @@ msgstr "El usuario no había iniciado sesión con una tarjeta inteligente."
 msgid "USB Protection"
 msgstr "Protección de USB"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:511
+#: plugins/usb-protection/gsd-usb-protection-manager.c:505
 msgid "New USB device"
 msgstr "Nuevo dispositivo USB"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:512
+#: plugins/usb-protection/gsd-usb-protection-manager.c:506
 msgid ""
 "New device has been detected while the session was not locked. If you did "
 "not plug anything, check your system for any suspicious device."
@@ -2461,23 +2461,29 @@ msgstr ""
 "Si no ha conectado nada revise su sistema en busca de algún dispositivo "
 "sospechoso."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:591
-msgid "New keyboard detected"
-msgstr "Nuevo teclado detectado"
+#: plugins/usb-protection/gsd-usb-protection-manager.c:589
+#| msgid "New keyboard detected"
+msgid "New device detected"
+msgstr "Nuevo dispositivo detectado"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:592
+#: plugins/usb-protection/gsd-usb-protection-manager.c:590
+#| msgid ""
+#| "Either your keyboard has been reconnected or a new one has been plugged "
+#| "in. If you did not do it, check your system for any suspicious device."
 msgid ""
-"Either your keyboard has been reconnected or a new one has been plugged in. "
-"If you did not do it, check your system for any suspicious device."
+"Either one of your existing devices has been reconnected or a new one has "
+"been plugged in. If you did not do it, check your system for any suspicious "
+"device."
 msgstr ""
-"Su teclado se vuelto a conectar o se ha enchufado uno nuevo. Si no ha hecho "
-"esto revise su sistema en busca de algún dispositivo sospechoso."
+"Al menos uno de sus dispositivos se vuelto a conectar o se ha enchufado uno "
+"nuevo. Si no ha hecho esto revise su sistema en busca de algún dispositivo "
+"sospechoso."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:598
+#: plugins/usb-protection/gsd-usb-protection-manager.c:596
 msgid "Reconnect USB device"
 msgstr "Conectar de nuevo el dispositivo USB"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:599
+#: plugins/usb-protection/gsd-usb-protection-manager.c:597
 msgid ""
 "New device has been detected while you were away. Please disconnect and "
 "reconnect the device to start using it."
@@ -2485,12 +2491,12 @@ msgstr ""
 "Se ha detectado un dispositivo nuevo mientras estaba fuera. Desconéctelo y "
 "vuélvalo a conectar para empezar a usarlo."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:605
-#: plugins/usb-protection/gsd-usb-protection-manager.c:629
+#: plugins/usb-protection/gsd-usb-protection-manager.c:603
+#: plugins/usb-protection/gsd-usb-protection-manager.c:628
 msgid "USB device blocked"
 msgstr "Dispositivo USB bloqueado"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:606
+#: plugins/usb-protection/gsd-usb-protection-manager.c:604
 msgid ""
 "New device has been detected while you were away. It has been blocked "
 "because the USB protection is active."
@@ -2498,7 +2504,7 @@ msgstr ""
 "Se ha detectado un dispositivo nuevo mientras estaba fuera. Se ha bloqueado "
 "porque la protección de USB está activada."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:630
+#: plugins/usb-protection/gsd-usb-protection-manager.c:629
 msgid ""
 "The new inserted device has been blocked because the USB protection is "
 "active."
@@ -2536,35 +2542,16 @@ msgid "Phone failure"
 msgstr "Fallo del teléfono"
 
 #: plugins/wwan/cc-wwan-errors-private.h:41
-#| msgid "Not connected?"
 msgid "No connection to phone"
 msgstr "No hay conexión con el teléfono"
 
-#: plugins/wwan/cc-wwan-errors-private.h:42
-msgid "Phone-adaptor link reserved"
-msgstr "Enlace al adaptador de teléfono reservado"
-
 #: plugins/wwan/cc-wwan-errors-private.h:43
-#| msgid "Updates not installed"
 msgid "Operation not allowed"
 msgstr "Operación no permitida"
 
 #: plugins/wwan/cc-wwan-errors-private.h:44
-#| msgid "Rotation not supported"
 msgid "Operation not supported"
 msgstr "Operación no soportada"
-
-#: plugins/wwan/cc-wwan-errors-private.h:45
-msgid "PH-SIM PIN required"
-msgstr "PIN de la PH-SIM requerido"
-
-#: plugins/wwan/cc-wwan-errors-private.h:46
-msgid "PH-FSIM PIN required"
-msgstr "PIN de la PH-FSIM requerido"
-
-#: plugins/wwan/cc-wwan-errors-private.h:47
-msgid "PH-FSIM PUK required"
-msgstr "PUK de la PH-FSIM requerido"
 
 #: plugins/wwan/cc-wwan-errors-private.h:48
 msgid "SIM not inserted"
@@ -2602,128 +2589,11 @@ msgstr "PIN2 de la SIM requerido"
 msgid "SIM PUK2 required"
 msgstr "PUK2 de la SIM requerido"
 
-#: plugins/wwan/cc-wwan-errors-private.h:57
-msgid "Memory full"
-msgstr "Memoria llena"
-
-#: plugins/wwan/cc-wwan-errors-private.h:58
-msgid "Invalid index"
-msgstr "Índice no válido"
-
-#: plugins/wwan/cc-wwan-errors-private.h:59
-#| msgid "No sound"
-msgid "Not found"
-msgstr "No encontrado"
-
-#: plugins/wwan/cc-wwan-errors-private.h:60
-msgid "Memory failure"
-msgstr "Fallo de la memoria"
-
-#: plugins/wwan/cc-wwan-errors-private.h:61
-msgid "No network service"
-msgstr "No hay servicio de red"
-
-#: plugins/wwan/cc-wwan-errors-private.h:62
-msgid "Network timeout"
-msgstr "Tiempo de expiración de la red"
-
-#: plugins/wwan/cc-wwan-errors-private.h:63
-msgid "Network not allowed - emergency calls only"
-msgstr "Red no permitida. Sólo llamadas de emergencia"
-
-#: plugins/wwan/cc-wwan-errors-private.h:64
-#| msgid "Recalibration required"
-msgid "Network personalization PIN required"
-msgstr "PIN de personalización de la red requerido"
-
-#: plugins/wwan/cc-wwan-errors-private.h:65
-#| msgid "Recalibration required"
-msgid "Network personalization PUK required"
-msgstr "PUK de personalización de la red requerido"
-
-#: plugins/wwan/cc-wwan-errors-private.h:66
-msgid "Network subset personalization PIN required"
-msgstr "PIN de personalización del subconjunto de la red requerido"
-
-#: plugins/wwan/cc-wwan-errors-private.h:67
-msgid "Network subset personalization PUK required"
-msgstr "PUK de personalización del subconjunto de la red requerido"
-
-#: plugins/wwan/cc-wwan-errors-private.h:68
-msgid "Service provider personalization PIN required"
-msgstr "PIN de personalización del proveedor del servicio requerido"
-
-#: plugins/wwan/cc-wwan-errors-private.h:69
-msgid "Service provider personalization PUK required"
-msgstr "PUK de personalización del proveedor del servicio requerido"
-
-#: plugins/wwan/cc-wwan-errors-private.h:70
-#| msgid "Recalibration required"
-msgid "Corporate personalization PIN required"
-msgstr "PIN de personalización corporativa requerido"
-
-#: plugins/wwan/cc-wwan-errors-private.h:71
-#| msgid "Recalibration required"
-msgid "Corporate personalization PUK required"
-msgstr "PUK de personalización corporativa requerido"
-
 #: plugins/wwan/cc-wwan-errors-private.h:72
-#| msgid "Unknown time"
 msgid "Unknown error"
 msgstr "Error desconocido"
 
-#: plugins/wwan/cc-wwan-errors-private.h:73
-msgid "Illegal MS"
-msgstr "MS ilegal"
-
-#: plugins/wwan/cc-wwan-errors-private.h:74
-msgid "Illegal ME"
-msgstr "ME ilegal"
-
-#: plugins/wwan/cc-wwan-errors-private.h:75
-msgid "GPRS services not allowed"
-msgstr "Servicios GPRS no permitidos"
-
-#: plugins/wwan/cc-wwan-errors-private.h:76
-msgid "PLMN not allowed"
-msgstr "PLMN no permitido"
-
-#: plugins/wwan/cc-wwan-errors-private.h:77
-msgid "Location area not allowed"
-msgstr "Área de ubicación no permitida"
-
-#: plugins/wwan/cc-wwan-errors-private.h:78
-msgid "Roaming not allowed in this location area"
-msgstr "«Roaming» no permitido en ésta ubicación"
-
-#: plugins/wwan/cc-wwan-errors-private.h:79
-#| msgid "Rotation not supported"
-msgid "Service option not supported"
-msgstr "Opción del servicio no permitida"
-
-#: plugins/wwan/cc-wwan-errors-private.h:80
-msgid "Requested service option not subscribed"
-msgstr "Opción solicitada del servicio no suscrita"
-
-#: plugins/wwan/cc-wwan-errors-private.h:81
-msgid "Service option temporarily out of order"
-msgstr "Opción del servicio temporalmente fuera de servicio"
-
-#: plugins/wwan/cc-wwan-errors-private.h:82
-msgid "Unspecified GPRS error"
-msgstr "Error de GPRS no específicado"
-
-#: plugins/wwan/cc-wwan-errors-private.h:83
-msgid "PDP authentication failure"
-msgstr "Fallo de autenticación PDP"
-
-#: plugins/wwan/cc-wwan-errors-private.h:84
-msgid "Invalid mobile class"
-msgstr "Clase móvil no válida"
-
 #: plugins/wwan/cc-wwan-errors-private.h:91
-#| msgctxt "print job state"
-#| msgid "Printing canceled"
 msgid "Action Cancelled"
 msgstr "Acción cancelada"
 
@@ -2732,7 +2602,6 @@ msgid "Access denied"
 msgstr "Acceso denegado"
 
 #: plugins/wwan/cc-wwan-errors-private.h:103
-#| msgid "Unknown time"
 msgid "Unknown Error"
 msgstr "Error desconocido"
 
@@ -2758,12 +2627,10 @@ msgstr "Cancelar"
 
 #: plugins/wwan/gsd-wwan-manager.c:129
 #, c-format
-#| msgid "Please provide the PIN for SIM card %s"
 msgid "Please provide a new PIN for SIM card %s"
 msgstr "Proporcione su PIN nuevo para la tarjeta SIM %s"
 
 #: plugins/wwan/gsd-wwan-manager.c:131
-#| msgid "Enter PIN to unlock your SIM card"
 msgid "Enter a New PIN to unlock your SIM card"
 msgstr "Introduzca el PIN nuevo para desbloquear su tarjeta SIM"
 
@@ -2778,20 +2645,16 @@ msgstr "Introduzca el PIN para desbloquear su tarjeta SIM"
 
 #: plugins/wwan/gsd-wwan-manager.c:138
 #, c-format
-#| msgid "Please provide the PIN for SIM card %s"
 msgid "Please provide the PUK for SIM card %s"
 msgstr "Proporcione el PUK para la tarjeta SIM %s"
 
 #: plugins/wwan/gsd-wwan-manager.c:140
-#| msgid "Enter PIN to unlock your SIM card"
 msgid "Enter PUK to unlock your SIM card"
 msgstr "Introduzca el PUK para desbloquear su tarjeta SIM"
 
 #. msg is already localised
 #: plugins/wwan/gsd-wwan-manager.c:156
 #, c-format
-#| msgid "%2$s You have %1$u try left"
-#| msgid_plural "%2$s You have %1$u tries left"
 msgid "%2$s. You have %1$u try left"
 msgid_plural "%2$s. You have %1$u tries left"
 msgstr[0] "%2$s Le queda %1$u intento"
@@ -2803,6 +2666,105 @@ msgid "You have %u try left"
 msgid_plural "You have %u tries left"
 msgstr[0] "Le queda %u intento"
 msgstr[1] "Le quedan %u intentos"
+
+#~ msgid "Phone-adaptor link reserved"
+#~ msgstr "Enlace al adaptador de teléfono reservado"
+
+#~ msgid "PH-SIM PIN required"
+#~ msgstr "PIN de la PH-SIM requerido"
+
+#~ msgid "PH-FSIM PIN required"
+#~ msgstr "PIN de la PH-FSIM requerido"
+
+#~ msgid "PH-FSIM PUK required"
+#~ msgstr "PUK de la PH-FSIM requerido"
+
+#~ msgid "Memory full"
+#~ msgstr "Memoria llena"
+
+#~ msgid "Invalid index"
+#~ msgstr "Índice no válido"
+
+#~| msgid "No sound"
+#~ msgid "Not found"
+#~ msgstr "No encontrado"
+
+#~ msgid "Memory failure"
+#~ msgstr "Fallo de la memoria"
+
+#~ msgid "No network service"
+#~ msgstr "No hay servicio de red"
+
+#~ msgid "Network timeout"
+#~ msgstr "Tiempo de expiración de la red"
+
+#~ msgid "Network not allowed - emergency calls only"
+#~ msgstr "Red no permitida. Sólo llamadas de emergencia"
+
+#~| msgid "Recalibration required"
+#~ msgid "Network personalization PIN required"
+#~ msgstr "PIN de personalización de la red requerido"
+
+#~| msgid "Recalibration required"
+#~ msgid "Network personalization PUK required"
+#~ msgstr "PUK de personalización de la red requerido"
+
+#~ msgid "Network subset personalization PIN required"
+#~ msgstr "PIN de personalización del subconjunto de la red requerido"
+
+#~ msgid "Network subset personalization PUK required"
+#~ msgstr "PUK de personalización del subconjunto de la red requerido"
+
+#~ msgid "Service provider personalization PIN required"
+#~ msgstr "PIN de personalización del proveedor del servicio requerido"
+
+#~ msgid "Service provider personalization PUK required"
+#~ msgstr "PUK de personalización del proveedor del servicio requerido"
+
+#~| msgid "Recalibration required"
+#~ msgid "Corporate personalization PIN required"
+#~ msgstr "PIN de personalización corporativa requerido"
+
+#~| msgid "Recalibration required"
+#~ msgid "Corporate personalization PUK required"
+#~ msgstr "PUK de personalización corporativa requerido"
+
+#~ msgid "Illegal MS"
+#~ msgstr "MS ilegal"
+
+#~ msgid "Illegal ME"
+#~ msgstr "ME ilegal"
+
+#~ msgid "GPRS services not allowed"
+#~ msgstr "Servicios GPRS no permitidos"
+
+#~ msgid "PLMN not allowed"
+#~ msgstr "PLMN no permitido"
+
+#~ msgid "Location area not allowed"
+#~ msgstr "Área de ubicación no permitida"
+
+#~ msgid "Roaming not allowed in this location area"
+#~ msgstr "«Roaming» no permitido en ésta ubicación"
+
+#~| msgid "Rotation not supported"
+#~ msgid "Service option not supported"
+#~ msgstr "Opción del servicio no permitida"
+
+#~ msgid "Requested service option not subscribed"
+#~ msgstr "Opción solicitada del servicio no suscrita"
+
+#~ msgid "Service option temporarily out of order"
+#~ msgstr "Opción del servicio temporalmente fuera de servicio"
+
+#~ msgid "Unspecified GPRS error"
+#~ msgstr "Error de GPRS no específicado"
+
+#~ msgid "PDP authentication failure"
+#~ msgstr "Fallo de autenticación PDP"
+
+#~ msgid "Invalid mobile class"
+#~ msgstr "Clase móvil no válida"
 
 #~ msgid "SIM card unlock error"
 #~ msgstr "Error la desbloquear la tarjeta SIM"
