@@ -11,8 +11,8 @@
 msgid ""
 msgstr "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/issues\n"
-"POT-Creation-Date: 2020-08-21 16:41+0000\n"
-"PO-Revision-Date: 2020-08-23 10:00+0100\n"
+"POT-Creation-Date: 2020-09-03 20:47+0000\n"
+"PO-Revision-Date: 2020-09-05 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -2263,48 +2263,49 @@ msgstr "Erabiltzaileak ez du saioa smartcard-areklin hasi."
 msgid "USB Protection"
 msgstr "USB babesa"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:511
+#: plugins/usb-protection/gsd-usb-protection-manager.c:505
 msgid "New USB device"
 msgstr "USB gailu berria"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:512
+#: plugins/usb-protection/gsd-usb-protection-manager.c:506
 msgid ""
 "New device has been detected while the session was not locked. If you did "
 "not plug anything, check your system for any suspicious device."
 msgstr "Gailu berria detektatu da saioa blokeatu gabe zegoen bitartean. Ez baduzu ezer konektatu, begiratu zure sistemak ez daukala gailu susmagarririk konektatuta."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:591
-msgid "New keyboard detected"
-msgstr "Teklatu berria detektatu da"
+#: plugins/usb-protection/gsd-usb-protection-manager.c:589
+msgid "New device detected"
+msgstr "Gailu berria detektatu da"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:592
+#: plugins/usb-protection/gsd-usb-protection-manager.c:590
 msgid ""
-"Either your keyboard has been reconnected or a new one has been plugged in. "
-"If you did not do it, check your system for any suspicious device."
-msgstr "Zure teklatua berriro konektatu da edo berria entxufatu da. Ez baduzu egin, begiratu zure sistemak ez daukala gailu susmagarririk konektatuta."
+"Either one of your existing devices has been reconnected or a new one has "
+"been plugged in. If you did not do it, check your system for any suspicious "
+"device."
+msgstr "Zure gailuetako bat berriro konektatu da edo berria entxufatu da. Ez baduzu ezer konektatu, begiratu zure sistemak ez daukala gailu susmagarririk konektatuta."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:598
+#: plugins/usb-protection/gsd-usb-protection-manager.c:596
 msgid "Reconnect USB device"
 msgstr "Konektatu berriro USB gailua"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:599
+#: plugins/usb-protection/gsd-usb-protection-manager.c:597
 msgid ""
 "New device has been detected while you were away. Please disconnect and "
 "reconnect the device to start using it."
 msgstr "Gailu berria detektatu da ez zeunden bitartean. Deskonektatu eta berriro konektatu gailua hura erabiltzen hasi ahal izateko."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:605
-#: plugins/usb-protection/gsd-usb-protection-manager.c:629
+#: plugins/usb-protection/gsd-usb-protection-manager.c:603
+#: plugins/usb-protection/gsd-usb-protection-manager.c:628
 msgid "USB device blocked"
 msgstr "USB gailua blokeatu da"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:606
+#: plugins/usb-protection/gsd-usb-protection-manager.c:604
 msgid ""
 "New device has been detected while you were away. It has been blocked "
 "because the USB protection is active."
 msgstr "Gailu berria detektatu da ez zeunden bitartean. Blokeatu egin da USB babesa aktibatuta dagoelako."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:630
+#: plugins/usb-protection/gsd-usb-protection-manager.c:629
 msgid ""
 "The new inserted device has been blocked because the USB protection is "
 "active."
@@ -2340,10 +2341,6 @@ msgstr "Akatsa telefonoan"
 msgid "No connection to phone"
 msgstr "Ez dago konexiorik telefonoarekin"
 
-#: plugins/wwan/cc-wwan-errors-private.h:42
-msgid "Phone-adaptor link reserved"
-msgstr "Telefono-moldagailuaren esteka erreserbatuta dago"
-
 #: plugins/wwan/cc-wwan-errors-private.h:43
 msgid "Operation not allowed"
 msgstr "Eragiketa ez dago baimenduta"
@@ -2351,18 +2348,6 @@ msgstr "Eragiketa ez dago baimenduta"
 #: plugins/wwan/cc-wwan-errors-private.h:44
 msgid "Operation not supported"
 msgstr "Eragiketa ez dago onartuta"
-
-#: plugins/wwan/cc-wwan-errors-private.h:45
-msgid "PH-SIM PIN required"
-msgstr "PH-SIM PINa behar da"
-
-#: plugins/wwan/cc-wwan-errors-private.h:46
-msgid "PH-FSIM PIN required"
-msgstr "PH-FSIM PINa behar da"
-
-#: plugins/wwan/cc-wwan-errors-private.h:47
-msgid "PH-FSIM PUK required"
-msgstr "PH-FSIM PUKa behar da"
 
 #: plugins/wwan/cc-wwan-errors-private.h:48
 msgid "SIM not inserted"
@@ -2400,117 +2385,9 @@ msgstr "SIM PIN2a behar da"
 msgid "SIM PUK2 required"
 msgstr "SIM PUK2a behar da"
 
-#: plugins/wwan/cc-wwan-errors-private.h:57
-msgid "Memory full"
-msgstr "Memoria beteta"
-
-#: plugins/wwan/cc-wwan-errors-private.h:58
-msgid "Invalid index"
-msgstr "Baliogabeko indizea"
-
-#: plugins/wwan/cc-wwan-errors-private.h:59
-msgid "Not found"
-msgstr "Ez da aurkitu"
-
-#: plugins/wwan/cc-wwan-errors-private.h:60
-msgid "Memory failure"
-msgstr "Memoriaren hutsegitea"
-
-#: plugins/wwan/cc-wwan-errors-private.h:61
-msgid "No network service"
-msgstr "Ez dago sareko zerbitzurik"
-
-#: plugins/wwan/cc-wwan-errors-private.h:62
-msgid "Network timeout"
-msgstr "Sarearen denbora-muga"
-
-#: plugins/wwan/cc-wwan-errors-private.h:63
-msgid "Network not allowed - emergency calls only"
-msgstr "Sarea ez dago onartuta - larrialdiko deiak soilik"
-
-#: plugins/wwan/cc-wwan-errors-private.h:64
-msgid "Network personalization PIN required"
-msgstr "Sarea pertsonalizatzeko PINa behar da"
-
-#: plugins/wwan/cc-wwan-errors-private.h:65
-msgid "Network personalization PUK required"
-msgstr "Sarea pertsonalizatzeko PUKa behar da"
-
-#: plugins/wwan/cc-wwan-errors-private.h:66
-msgid "Network subset personalization PIN required"
-msgstr "Sarearen azpimultzoa pertsonalizatzeko PINa behar da"
-
-#: plugins/wwan/cc-wwan-errors-private.h:67
-msgid "Network subset personalization PUK required"
-msgstr "Sarearen azpimultzoa pertsonalizatzeko PUKa behar da"
-
-#: plugins/wwan/cc-wwan-errors-private.h:68
-msgid "Service provider personalization PIN required"
-msgstr "Zerbitzu-hornitzailea pertsonalizatzeko PINa behar da"
-
-#: plugins/wwan/cc-wwan-errors-private.h:69
-msgid "Service provider personalization PUK required"
-msgstr "Zerbitzu-hornitzailea pertsonalizatzeko PUKa behar da"
-
-#: plugins/wwan/cc-wwan-errors-private.h:70
-msgid "Corporate personalization PIN required"
-msgstr "Enpresako pertsonalizaziorako PINa behar da"
-
-#: plugins/wwan/cc-wwan-errors-private.h:71
-msgid "Corporate personalization PUK required"
-msgstr "Enpresako pertsonalizaziorako PUKa behar da"
-
 #: plugins/wwan/cc-wwan-errors-private.h:72
 msgid "Unknown error"
 msgstr "Errore ezezaguna"
-
-#: plugins/wwan/cc-wwan-errors-private.h:73
-msgid "Illegal MS"
-msgstr "MS ilegala"
-
-#: plugins/wwan/cc-wwan-errors-private.h:74
-msgid "Illegal ME"
-msgstr "ME ilegala"
-
-#: plugins/wwan/cc-wwan-errors-private.h:75
-msgid "GPRS services not allowed"
-msgstr "GPRS zerbizuak ez dira onartzen"
-
-#: plugins/wwan/cc-wwan-errors-private.h:76
-msgid "PLMN not allowed"
-msgstr "PLMNa ez da onartzen"
-
-#: plugins/wwan/cc-wwan-errors-private.h:77
-msgid "Location area not allowed"
-msgstr "Kokaleku-area ez da onartzen"
-
-#: plugins/wwan/cc-wwan-errors-private.h:78
-msgid "Roaming not allowed in this location area"
-msgstr "Ibiltaritza ez dago onartuta kokaleku-area honetan"
-
-#: plugins/wwan/cc-wwan-errors-private.h:79
-msgid "Service option not supported"
-msgstr "Zerbitzu-aukera ez da onartzen"
-
-#: plugins/wwan/cc-wwan-errors-private.h:80
-msgid "Requested service option not subscribed"
-msgstr "Eskatutako zerbitzu-aukera ez dago harpidetuta"
-
-#: plugins/wwan/cc-wwan-errors-private.h:81
-msgid "Service option temporarily out of order"
-msgstr "Zerbitzu-aukerak ez du funtzionatzen momentu honetan"
-
-#: plugins/wwan/cc-wwan-errors-private.h:82
-msgid "Unspecified GPRS error"
-msgstr "GPRS errore zehaztu gabea"
-
-#: plugins/wwan/cc-wwan-errors-private.h:83
-msgid "PDP authentication failure"
-msgstr "Hutsegitea PDP autentifikazioan"
-
-#: plugins/wwan/cc-wwan-errors-private.h:84
-msgid "Invalid mobile class"
-msgstr "Mugikor-klase baliogabea"
 
 #: plugins/wwan/cc-wwan-errors-private.h:91
 msgid "Action Cancelled"
@@ -2586,3 +2463,95 @@ msgid_plural "You have %u tries left"
 msgstr[0] "Saialdi %u geratzen zaizu"
 msgstr[1] "%u saialdi geratzen zaizkizu"
 
+#~ msgid "Phone-adaptor link reserved"
+#~ msgstr "Telefono-moldagailuaren esteka erreserbatuta dago"
+
+#~ msgid "PH-SIM PIN required"
+#~ msgstr "PH-SIM PINa behar da"
+
+#~ msgid "PH-FSIM PIN required"
+#~ msgstr "PH-FSIM PINa behar da"
+
+#~ msgid "PH-FSIM PUK required"
+#~ msgstr "PH-FSIM PUKa behar da"
+
+#~ msgid "Memory full"
+#~ msgstr "Memoria beteta"
+
+#~ msgid "Invalid index"
+#~ msgstr "Baliogabeko indizea"
+
+#~ msgid "Not found"
+#~ msgstr "Ez da aurkitu"
+
+#~ msgid "Memory failure"
+#~ msgstr "Memoriaren hutsegitea"
+
+#~ msgid "No network service"
+#~ msgstr "Ez dago sareko zerbitzurik"
+
+#~ msgid "Network timeout"
+#~ msgstr "Sarearen denbora-muga"
+
+#~ msgid "Network not allowed - emergency calls only"
+#~ msgstr "Sarea ez dago onartuta - larrialdiko deiak soilik"
+
+#~ msgid "Network personalization PIN required"
+#~ msgstr "Sarea pertsonalizatzeko PINa behar da"
+
+#~ msgid "Network personalization PUK required"
+#~ msgstr "Sarea pertsonalizatzeko PUKa behar da"
+
+#~ msgid "Network subset personalization PIN required"
+#~ msgstr "Sarearen azpimultzoa pertsonalizatzeko PINa behar da"
+
+#~ msgid "Network subset personalization PUK required"
+#~ msgstr "Sarearen azpimultzoa pertsonalizatzeko PUKa behar da"
+
+#~ msgid "Service provider personalization PIN required"
+#~ msgstr "Zerbitzu-hornitzailea pertsonalizatzeko PINa behar da"
+
+#~ msgid "Service provider personalization PUK required"
+#~ msgstr "Zerbitzu-hornitzailea pertsonalizatzeko PUKa behar da"
+
+#~ msgid "Corporate personalization PIN required"
+#~ msgstr "Enpresako pertsonalizaziorako PINa behar da"
+
+#~ msgid "Corporate personalization PUK required"
+#~ msgstr "Enpresako pertsonalizaziorako PUKa behar da"
+
+#~ msgid "Illegal MS"
+#~ msgstr "MS ilegala"
+
+#~ msgid "Illegal ME"
+#~ msgstr "ME ilegala"
+
+#~ msgid "GPRS services not allowed"
+#~ msgstr "GPRS zerbizuak ez dira onartzen"
+
+#~ msgid "PLMN not allowed"
+#~ msgstr "PLMNa ez da onartzen"
+
+#~ msgid "Location area not allowed"
+#~ msgstr "Kokaleku-area ez da onartzen"
+
+#~ msgid "Roaming not allowed in this location area"
+#~ msgstr "Ibiltaritza ez dago onartuta kokaleku-area honetan"
+
+#~ msgid "Service option not supported"
+#~ msgstr "Zerbitzu-aukera ez da onartzen"
+
+#~ msgid "Requested service option not subscribed"
+#~ msgstr "Eskatutako zerbitzu-aukera ez dago harpidetuta"
+
+#~ msgid "Service option temporarily out of order"
+#~ msgstr "Zerbitzu-aukerak ez du funtzionatzen momentu honetan"
+
+#~ msgid "Unspecified GPRS error"
+#~ msgstr "GPRS errore zehaztu gabea"
+
+#~ msgid "PDP authentication failure"
+#~ msgstr "Hutsegitea PDP autentifikazioan"
+
+#~ msgid "Invalid mobile class"
+#~ msgstr "Mugikor-klase baliogabea"
