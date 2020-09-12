@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/iss"
 "ues\n"
-"POT-Creation-Date: 2020-01-18 13:37+0000\n"
-"PO-Revision-Date: 2020-02-25 07:20+0100\n"
+"POT-Creation-Date: 2020-09-03 20:47+0000\n"
+"PO-Revision-Date: 2020-09-13 01:04+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 19.04.3\n"
+"X-Generator: Lokalize 19.12.3\n"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
 msgid "Smartcard removal action"
@@ -1625,28 +1625,28 @@ msgstr "Beállítások"
 msgid "Date & Time Settings"
 msgstr "Dátum- és időbeállítások"
 
-#: plugins/housekeeping/gsd-disk-space.c:575
+#: plugins/housekeeping/gsd-disk-space.c:629
 msgid "Disk Space"
 msgstr "Lemezterület"
 
-#: plugins/housekeeping/gsd-disk-space.c:588
+#: plugins/housekeeping/gsd-disk-space.c:642
 msgid "Examine"
 msgstr "Vizsgálat"
 
-#: plugins/housekeeping/gsd-disk-space.c:599
+#: plugins/housekeeping/gsd-disk-space.c:653
 msgid "Empty Trash"
 msgstr "Kuka ürítése"
 
-#: plugins/housekeeping/gsd-disk-space.c:607
+#: plugins/housekeeping/gsd-disk-space.c:661
 msgid "Ignore"
 msgstr "Mellőzés"
 
-#: plugins/housekeeping/gsd-disk-space.c:638
+#: plugins/housekeeping/gsd-disk-space.c:692
 #, c-format
 msgid "Low Disk Space on “%s”"
 msgstr "Kevés a lemezterület ezen: „%s”"
 
-#: plugins/housekeeping/gsd-disk-space.c:640
+#: plugins/housekeeping/gsd-disk-space.c:694
 #, c-format
 msgid ""
 "The volume “%s” has only %s disk space remaining.  You may free up some "
@@ -1655,16 +1655,16 @@ msgstr ""
 "A(z) „%s” köteten már csak %s lemezhely maradt. A Kuka kiürítésével "
 "felszabadíthat némi helyet."
 
-#: plugins/housekeeping/gsd-disk-space.c:644
+#: plugins/housekeeping/gsd-disk-space.c:698
 #, c-format
 msgid "The volume “%s” has only %s disk space remaining."
 msgstr "A(z) „%s” köteten már csak %s lemezhely maradt."
 
-#: plugins/housekeeping/gsd-disk-space.c:649
+#: plugins/housekeeping/gsd-disk-space.c:703
 msgid "Low Disk Space"
 msgstr "Kevés a lemezterület"
 
-#: plugins/housekeeping/gsd-disk-space.c:651
+#: plugins/housekeeping/gsd-disk-space.c:705
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1673,35 +1673,35 @@ msgstr ""
 "A számítógépen már csak %s lemezhely maradt. A Kuka kiürítésével "
 "felszabadíthat némi helyet."
 
-#: plugins/housekeeping/gsd-disk-space.c:654
+#: plugins/housekeeping/gsd-disk-space.c:708
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "A számítógépen már csak %s lemezhely maradt."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2466
+#: plugins/media-keys/gsd-media-keys-manager.c:2468
 msgid "Bluetooth disabled"
 msgstr "Bluetooth letiltva"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2469
+#: plugins/media-keys/gsd-media-keys-manager.c:2471
 msgid "Bluetooth enabled"
 msgstr "Bluetooth engedélyezve"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2473
+#: plugins/media-keys/gsd-media-keys-manager.c:2475
 msgid "Airplane mode enabled"
 msgstr "Repülőgép-üzemmód engedélyezve"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2476
+#: plugins/media-keys/gsd-media-keys-manager.c:2478
 msgid "Airplane mode disabled"
 msgstr "Repülőgép-üzemmód letiltva"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2505
+#: plugins/media-keys/gsd-media-keys-manager.c:2507
 msgid "Hardware Airplane Mode"
 msgstr "Hardveres repülőgép-üzemmód"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2568
+#: plugins/media-keys/gsd-media-keys-manager.c:2570
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Képernyővideó ekkor: %d %t.webm"
@@ -1759,54 +1759,54 @@ msgstr[0] "perc"
 msgstr[1] "perc"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:720
-#: plugins/power/gsd-power-manager.c:817
+#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:791
+#: plugins/power/gsd-power-manager.c:888
 msgid "Battery is critically low"
 msgstr "Az akkumulátor kritikusan gyenge"
 
 #. TRANSLATORS: this is the notification application name
-#: plugins/power/gsd-power-manager.c:350
+#: plugins/power/gsd-power-manager.c:356
 msgid "Power"
 msgstr "Energiagazdálkodás"
 
 #. TRANSLATORS: UPS is now discharging
-#: plugins/power/gsd-power-manager.c:390
+#: plugins/power/gsd-power-manager.c:396
 msgid "UPS Discharging"
 msgstr "A szünetmentes táp kisül"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:395
+#: plugins/power/gsd-power-manager.c:401
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "%s szünetmentes tápellátás van hátra"
 
-#: plugins/power/gsd-power-manager.c:398
+#: plugins/power/gsd-power-manager.c:404
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "Ismeretlen a szünetmentes tápellátás hátralévő mennyisége"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: plugins/power/gsd-power-manager.c:473
+#: plugins/power/gsd-power-manager.c:484
 msgid "Battery low"
 msgstr "Az akkumulátor gyenge"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: plugins/power/gsd-power-manager.c:476
+#: plugins/power/gsd-power-manager.c:487
 msgid "Laptop battery low"
 msgstr "A noteszgép-akkumulátor gyenge"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:483
+#: plugins/power/gsd-power-manager.c:494
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "Megközelítőleg %s van hátra (%.0lf%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: plugins/power/gsd-power-manager.c:488
+#: plugins/power/gsd-power-manager.c:499
 msgid "UPS low"
 msgstr "A szünetmentes táp gyenge"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:494
+#: plugins/power/gsd-power-manager.c:505
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr ""
@@ -1815,124 +1815,159 @@ msgstr ""
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: plugins/power/gsd-power-manager.c:499 plugins/power/gsd-power-manager.c:633
+#: plugins/power/gsd-power-manager.c:510 plugins/power/gsd-power-manager.c:670
 msgid "Mouse battery low"
 msgstr "Az egér akkumulátora gyenge"
 
-#. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:502
+#: plugins/power/gsd-power-manager.c:514
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "A vezeték nélküli egér akkumulátora gyenge (%.0f%%)"
 
+#: plugins/power/gsd-power-manager.c:516
+#, c-format
+#| msgid "Wireless mouse is low in power (%.0f%%)"
+msgid "Wireless mouse is low in power"
+msgstr "A vezeték nélküli egér akkumulátora gyenge"
+
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: plugins/power/gsd-power-manager.c:506 plugins/power/gsd-power-manager.c:641
+#: plugins/power/gsd-power-manager.c:520 plugins/power/gsd-power-manager.c:683
 msgid "Keyboard battery low"
 msgstr "A billentyűzet akkumulátora gyenge"
 
-#. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:509
+#: plugins/power/gsd-power-manager.c:524
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "A vezeték nélküli billentyűzet akkumulátora gyenge (%.0f%%)"
 
+#: plugins/power/gsd-power-manager.c:526
+#, c-format
+#| msgid "Wireless keyboard is low in power (%.0f%%)"
+msgid "Wireless keyboard is low in power"
+msgstr "A vezeték nélküli billentyűzet akkumulátora gyenge"
+
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: plugins/power/gsd-power-manager.c:513 plugins/power/gsd-power-manager.c:650
+#: plugins/power/gsd-power-manager.c:530 plugins/power/gsd-power-manager.c:697
 msgid "PDA battery low"
 msgstr "A PDA akkumulátora gyenge"
 
-#. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:516
+#: plugins/power/gsd-power-manager.c:534
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "A PDA akkumulátora gyenge (%.0f%%)"
 
+#: plugins/power/gsd-power-manager.c:536
+#, c-format
+#| msgid "PDA is low in power (%.0f%%)"
+msgid "PDA is low in power"
+msgstr "A PDA akkumulátora gyenge"
+
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:520 plugins/power/gsd-power-manager.c:660
-#: plugins/power/gsd-power-manager.c:669
+#: plugins/power/gsd-power-manager.c:540 plugins/power/gsd-power-manager.c:711
+#: plugins/power/gsd-power-manager.c:725
 msgid "Cell phone battery low"
 msgstr "A mobiltelefon akkumulátora gyenge"
 
-#. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:523
+#: plugins/power/gsd-power-manager.c:544
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "A mobiltelefon akkumulátora gyenge (%.0f%%)"
 
+#: plugins/power/gsd-power-manager.c:546
+#, c-format
+#| msgid "Cell phone is low in power (%.0f%%)"
+msgid "Cell phone is low in power"
+msgstr "A mobiltelefon akkumulátora gyenge"
+
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: plugins/power/gsd-power-manager.c:527
+#: plugins/power/gsd-power-manager.c:550
 msgid "Media player battery low"
 msgstr "A médialejátszó akkumulátora gyenge"
 
-#. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:530
+#: plugins/power/gsd-power-manager.c:554
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "A médialejátszó akkumulátora gyenge (%.0f%%)"
 
+#: plugins/power/gsd-power-manager.c:556
+#, c-format
+#| msgid "Media player is low in power (%.0f%%)"
+msgid "Media player is low in power"
+msgstr "A médialejátszó akkumulátora gyenge"
+
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:534 plugins/power/gsd-power-manager.c:678
+#: plugins/power/gsd-power-manager.c:560 plugins/power/gsd-power-manager.c:739
 msgid "Tablet battery low"
 msgstr "A táblagép akkumulátora gyenge"
 
-#. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:537
+#: plugins/power/gsd-power-manager.c:564
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "A táblagép akkumulátora gyenge (%.0f%%)"
 
+#: plugins/power/gsd-power-manager.c:566
+#, c-format
+#| msgid "Tablet is low in power (%.0f%%)"
+msgid "Tablet is low in power"
+msgstr "A táblagép akkumulátora gyenge"
+
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:541 plugins/power/gsd-power-manager.c:687
+#: plugins/power/gsd-power-manager.c:570 plugins/power/gsd-power-manager.c:753
 msgid "Attached computer battery low"
 msgstr "A csatlakozó számítógép akkumulátora gyenge"
 
-#. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:544
+#: plugins/power/gsd-power-manager.c:574
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "A csatlakozó számítógép akkumulátora gyenge (%.0f%%)"
 
+#: plugins/power/gsd-power-manager.c:576
+#, c-format
+#| msgid "Attached computer is low in power (%.0f%%)"
+msgid "Attached computer is low in power"
+msgstr "A csatlakozó számítógép akkumulátora gyenge"
+
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:565
+#: plugins/power/gsd-power-manager.c:597
 msgid "Battery is low"
 msgstr "Az akkumulátor gyenge"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: plugins/power/gsd-power-manager.c:597
+#: plugins/power/gsd-power-manager.c:634
 msgid "Battery critically low"
 msgstr "Az akkumulátor kritikusan gyenge"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: plugins/power/gsd-power-manager.c:600 plugins/power/gsd-power-manager.c:747
+#: plugins/power/gsd-power-manager.c:637 plugins/power/gsd-power-manager.c:818
 msgid "Laptop battery critically low"
 msgstr "A noteszgép akkumulátora kritikusan gyenge"
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:609
+#: plugins/power/gsd-power-manager.c:646
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr "A számítógép hamarosan hibernálva lesz, ha nem csatlakoztatja."
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:613
+#: plugins/power/gsd-power-manager.c:650
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "A számítógép hamarosan leáll, ha nem csatlakoztatja."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: plugins/power/gsd-power-manager.c:621 plugins/power/gsd-power-manager.c:772
+#: plugins/power/gsd-power-manager.c:658 plugins/power/gsd-power-manager.c:843
 msgid "UPS critically low"
 msgstr "A szünetmentes táp kritikusan gyenge"
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:627
+#: plugins/power/gsd-power-manager.c:664
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1942,8 +1977,7 @@ msgstr ""
 "%%). Az adatvesztés elkerülése érdekében állítsa vissza a hálózati "
 "tápellátást."
 
-#. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:636
+#: plugins/power/gsd-power-manager.c:674
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1952,8 +1986,19 @@ msgstr ""
 "A vezeték nélküli egér akkumulátora nagyon gyenge (%.0f%%). Ha nem tölti "
 "fel, az eszköz le fog állni."
 
-#. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:644
+#: plugins/power/gsd-power-manager.c:678
+#, c-format
+#| msgid ""
+#| "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
+#| "functioning if not charged."
+msgid ""
+"Wireless mouse is very low in power. This device will soon stop functioning "
+"if not charged."
+msgstr ""
+"A vezeték nélküli egér akkumulátora nagyon gyenge. Ha nem tölti fel, az "
+"eszköz le fog állni."
+
+#: plugins/power/gsd-power-manager.c:687
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1962,8 +2007,19 @@ msgstr ""
 "A vezeték nélküli billentyűzet akkumulátora nagyon gyenge (%.0f%%). Ha nem "
 "tölti fel, az eszköz le fog állni."
 
-#. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:653
+#: plugins/power/gsd-power-manager.c:691
+#, c-format
+#| msgid ""
+#| "Wireless keyboard is very low in power (%.0f%%). This device will soon "
+#| "stop functioning if not charged."
+msgid ""
+"Wireless keyboard is very low in power. This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"A vezeték nélküli billentyűzet akkumulátora nagyon gyenge. Ha nem tölti fel, "
+"az eszköz le fog állni."
+
+#: plugins/power/gsd-power-manager.c:701
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1972,8 +2028,18 @@ msgstr ""
 "A PDA akkumulátora nagyon gyenge (%.0f%%). Ha nem tölti fel, az eszköz le "
 "fog állni."
 
-#. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:663
+#: plugins/power/gsd-power-manager.c:705
+#, c-format
+#| msgid ""
+#| "PDA is very low in power (%.0f%%). This device will soon stop functioning "
+#| "if not charged."
+msgid ""
+"PDA is very low in power. This device will soon stop functioning if not "
+"charged."
+msgstr ""
+"A PDA akkumulátora nagyon gyenge. Ha nem tölti fel, az eszköz le fog állni."
+
+#: plugins/power/gsd-power-manager.c:715
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -1982,8 +2048,19 @@ msgstr ""
 "A mobiltelefon akkumulátora nagyon gyenge (%.0f%%). Ha nem tölti fel, az "
 "eszköz le fog állni."
 
-#. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:672
+#: plugins/power/gsd-power-manager.c:719
+#, c-format
+#| msgid ""
+#| "Cell phone is very low in power (%.0f%%). This device will soon stop "
+#| "functioning if not charged."
+msgid ""
+"Cell phone is very low in power. This device will soon stop functioning if "
+"not charged."
+msgstr ""
+"A mobiltelefon akkumulátora nagyon gyenge. Ha nem tölti fel, az eszköz le "
+"fog állni."
+
+#: plugins/power/gsd-power-manager.c:729
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -1992,8 +2069,19 @@ msgstr ""
 "A médialejátszó akkumulátora nagyon gyenge (%.0f%%). Ha nem tölti fel, az "
 "eszköz le fog állni."
 
-#. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:681
+#: plugins/power/gsd-power-manager.c:733
+#, c-format
+#| msgid ""
+#| "Media player is very low in power (%.0f%%). This device will soon stop "
+#| "functioning if not charged."
+msgid ""
+"Media player is very low in power. This device will soon stop functioning if "
+"not charged."
+msgstr ""
+"A médialejátszó akkumulátora nagyon gyenge. Ha nem tölti fel, az eszköz le "
+"fog állni."
+
+#: plugins/power/gsd-power-manager.c:743
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -2002,8 +2090,19 @@ msgstr ""
 "A táblagép akkumulátora nagyon gyenge (%.0f%%). Ha nem tölti fel, az eszköz "
 "le fog állni."
 
-#. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:690
+#: plugins/power/gsd-power-manager.c:747
+#, c-format
+#| msgid ""
+#| "Tablet is very low in power (%.0f%%). This device will soon stop "
+#| "functioning if not charged."
+msgid ""
+"Tablet is very low in power. This device will soon stop functioning if not "
+"charged."
+msgstr ""
+"A táblagép akkumulátora nagyon gyenge. Ha nem tölti fel, az eszköz le fog "
+"állni."
+
+#: plugins/power/gsd-power-manager.c:757
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -2012,8 +2111,20 @@ msgstr ""
 "A csatlakozó számítógép akkumulátora nagyon gyenge (%.0f%%). Ha nem tölti "
 "fel, az eszköz le fog állni."
 
+#: plugins/power/gsd-power-manager.c:761
+#, c-format
+#| msgid ""
+#| "Attached computer is very low in power (%.0f%%). The device will soon "
+#| "shutdown if not charged."
+msgid ""
+"Attached computer is very low in power. The device will soon shutdown if not "
+"charged."
+msgstr ""
+"A csatlakozó számítógép akkumulátora nagyon gyenge. Ha nem tölti fel, az "
+"eszköz le fog állni."
+
 #. TRANSLATORS: computer will hibernate
-#: plugins/power/gsd-power-manager.c:755
+#: plugins/power/gsd-power-manager.c:826
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -2022,7 +2133,7 @@ msgstr ""
 "készül."
 
 #. TRANSLATORS: computer will just shutdown
-#: plugins/power/gsd-power-manager.c:760
+#: plugins/power/gsd-power-manager.c:831
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -2031,7 +2142,7 @@ msgstr ""
 "készül."
 
 #. TRANSLATORS: computer will hibernate
-#: plugins/power/gsd-power-manager.c:780
+#: plugins/power/gsd-power-manager.c:851
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
@@ -2039,50 +2150,50 @@ msgstr ""
 "hibernálásra készül."
 
 #. TRANSLATORS: computer will just shutdown
-#: plugins/power/gsd-power-manager.c:785
+#: plugins/power/gsd-power-manager.c:856
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "A szünetmentes táp kapacitása a kritikus szint alá esett, és a gép leállni "
 "készül."
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1260
+#: plugins/power/gsd-power-manager.c:1333
 msgid "Lid has been opened"
 msgstr "Fedél kinyitva"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1294
+#: plugins/power/gsd-power-manager.c:1367
 msgid "Lid has been closed"
 msgstr "Fedél lezárva"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1857
+#: plugins/power/gsd-power-manager.c:1934
 msgid "On battery power"
 msgstr "Akkumulátoron"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1862
+#: plugins/power/gsd-power-manager.c:1939
 msgid "On AC power"
 msgstr "Hálózaton"
 
-#: plugins/power/gsd-power-manager.c:2050
+#: plugins/power/gsd-power-manager.c:2127
 msgid "Automatic logout"
 msgstr "Automatikus kijelentkezés"
 
-#: plugins/power/gsd-power-manager.c:2050
+#: plugins/power/gsd-power-manager.c:2127
 msgid "You will soon log out because of inactivity."
 msgstr "Hamarosan kijelentkezik inaktivitás miatt."
 
-#: plugins/power/gsd-power-manager.c:2055
+#: plugins/power/gsd-power-manager.c:2132
 msgid "Automatic suspend"
 msgstr "Automatikus felfüggesztés"
 
-#: plugins/power/gsd-power-manager.c:2055
-#: plugins/power/gsd-power-manager.c:2060
+#: plugins/power/gsd-power-manager.c:2132
+#: plugins/power/gsd-power-manager.c:2137
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "A számítógép inaktivitás miatt hamarosan fel lesz függesztve."
 
-#: plugins/power/gsd-power-manager.c:2060
+#: plugins/power/gsd-power-manager.c:2137
 msgid "Automatic hibernation"
 msgstr "Automatikus hibernálás"
 
@@ -2124,228 +2235,228 @@ msgid "No driver for this printer."
 msgstr "Nincs nyomtató-illesztőprogram ehhez nyomtatóhoz."
 
 #: plugins/print-notifications/gsd-printer.c:1031
-#: plugins/print-notifications/gsd-print-notifications-manager.c:290
-#: plugins/print-notifications/gsd-print-notifications-manager.c:538
-#: plugins/print-notifications/gsd-print-notifications-manager.c:920
-#: plugins/print-notifications/gsd-print-notifications-manager.c:1011
-#: plugins/print-notifications/gsd-print-notifications-manager.c:1055
+#: plugins/print-notifications/gsd-print-notifications-manager.c:318
+#: plugins/print-notifications/gsd-print-notifications-manager.c:566
+#: plugins/print-notifications/gsd-print-notifications-manager.c:949
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1040
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1084
 msgid "Printers"
 msgstr "Nyomtatók"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:374
+#: plugins/print-notifications/gsd-print-notifications-manager.c:402
 #, c-format
 msgid "Printer “%s” is low on toner."
 msgstr "A(z) „%s” nyomtatóban kevés a festék."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:378
+#: plugins/print-notifications/gsd-print-notifications-manager.c:406
 #, c-format
 msgid "Printer “%s” has no toner left."
 msgstr "A(z) „%s” nyomtatóból kifogyott a festék."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:382
+#: plugins/print-notifications/gsd-print-notifications-manager.c:410
 #, c-format
 msgid "Printer “%s” may not be connected."
 msgstr "Lehet, hogy a(z) „%s” nyomtató nincs csatlakoztatva."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:386
+#: plugins/print-notifications/gsd-print-notifications-manager.c:414
 #, c-format
 msgid "The cover is open on printer “%s”."
 msgstr "A(z) „%s” nyomtató fedele nyitva van."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:390
+#: plugins/print-notifications/gsd-print-notifications-manager.c:418
 #, c-format
 msgid "There is a missing print filter for printer “%s”."
 msgstr "Hiányzik a nyomtatószűrő a(z) „%s” nyomtatóhoz."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:395
+#: plugins/print-notifications/gsd-print-notifications-manager.c:423
 #, c-format
 msgid "The door is open on printer “%s”."
 msgstr "A(z) „%s” nyomtató ajtaja nyitva van."
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:399
+#: plugins/print-notifications/gsd-print-notifications-manager.c:427
 #, c-format
 msgid "Printer “%s” is low on a marker supply."
 msgstr "A(z) „%s” nyomtató tintapatronja kifogyóban van."
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:403
+#: plugins/print-notifications/gsd-print-notifications-manager.c:431
 #, c-format
 msgid "Printer “%s” is out of a marker supply."
 msgstr "A(z) „%s” nyomtató tintapatronja kifogyott."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:407
+#: plugins/print-notifications/gsd-print-notifications-manager.c:435
 #, c-format
 msgid "Printer “%s” is low on paper."
 msgstr "A(z) „%s” nyomtatóban kevés a papír."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:411
+#: plugins/print-notifications/gsd-print-notifications-manager.c:439
 #, c-format
 msgid "Printer “%s” is out of paper."
 msgstr "A(z) „%s” nyomtatóból kifogyott a papír."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:415
+#: plugins/print-notifications/gsd-print-notifications-manager.c:443
 #, c-format
 msgid "Printer “%s” is currently off-line."
 msgstr "A(z) „%s” nyomtató jelenleg nem érhető el."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:419
+#: plugins/print-notifications/gsd-print-notifications-manager.c:447
 #, c-format
 msgid "There is a problem on printer “%s”."
 msgstr "A(z) „%s” nyomtató problémát észlelt."
 
 #. Translators: The printer has a job to print but the printer needs authentication to continue with the print
-#: plugins/print-notifications/gsd-print-notifications-manager.c:531
+#: plugins/print-notifications/gsd-print-notifications-manager.c:559
 #, c-format
 msgid "%s Requires Authentication"
 msgstr "%s hitelesítést igényel"
 
 #. Translators: A printer needs credentials to continue printing a job
-#: plugins/print-notifications/gsd-print-notifications-manager.c:533
+#: plugins/print-notifications/gsd-print-notifications-manager.c:561
 #, c-format
 msgid "Credentials required in order to print"
 msgstr "Hitelesítési adatok szükségesek a nyomtatáshoz"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:600
+#: plugins/print-notifications/gsd-print-notifications-manager.c:628
 msgid "Toner low"
 msgstr "A festékkazetta kimerülőben"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:602
+#: plugins/print-notifications/gsd-print-notifications-manager.c:630
 msgid "Toner empty"
 msgstr "A festékkazetta üres"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:604
+#: plugins/print-notifications/gsd-print-notifications-manager.c:632
 msgid "Not connected?"
 msgstr "Nincs csatlakoztatva?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:606
+#: plugins/print-notifications/gsd-print-notifications-manager.c:634
 msgid "Cover open"
 msgstr "Nyitva a nyomtatófedél"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:608
+#: plugins/print-notifications/gsd-print-notifications-manager.c:636
 msgid "Printer configuration error"
 msgstr "Nyomtatóbeállítási hiba"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:610
+#: plugins/print-notifications/gsd-print-notifications-manager.c:638
 msgid "Door open"
 msgstr "Az ajtó nyitva van"
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:612
+#: plugins/print-notifications/gsd-print-notifications-manager.c:640
 msgid "Marker supply low"
 msgstr "A tintapatron kifogyóban"
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:614
+#: plugins/print-notifications/gsd-print-notifications-manager.c:642
 msgid "Out of a marker supply"
 msgstr "A tintapatron kifogyott"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:616
+#: plugins/print-notifications/gsd-print-notifications-manager.c:644
 msgid "Paper low"
 msgstr "Kevés a papír"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:618
+#: plugins/print-notifications/gsd-print-notifications-manager.c:646
 msgid "Out of paper"
 msgstr "Kifogyott a papír"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:620
+#: plugins/print-notifications/gsd-print-notifications-manager.c:648
 msgid "Printer off-line"
 msgstr "A nyomtató nem érhető el"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:622
-#: plugins/print-notifications/gsd-print-notifications-manager.c:997
+#: plugins/print-notifications/gsd-print-notifications-manager.c:650
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1026
 msgid "Printer error"
 msgstr "Nyomtatóhiba"
 
 #. Translators: New printer has been added
-#: plugins/print-notifications/gsd-print-notifications-manager.c:670
+#: plugins/print-notifications/gsd-print-notifications-manager.c:699
 msgid "Printer added"
 msgstr "Nyomtató felvéve"
 
 #. Translators: A print job has been stopped
-#: plugins/print-notifications/gsd-print-notifications-manager.c:687
-#: plugins/print-notifications/gsd-print-notifications-manager.c:725
+#: plugins/print-notifications/gsd-print-notifications-manager.c:716
+#: plugins/print-notifications/gsd-print-notifications-manager.c:754
 msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "Nyomtatás leállítva"
 
 #. Translators: "print-job xy" on a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:689
-#: plugins/print-notifications/gsd-print-notifications-manager.c:695
-#: plugins/print-notifications/gsd-print-notifications-manager.c:701
-#: plugins/print-notifications/gsd-print-notifications-manager.c:707
-#: plugins/print-notifications/gsd-print-notifications-manager.c:719
-#: plugins/print-notifications/gsd-print-notifications-manager.c:727
-#: plugins/print-notifications/gsd-print-notifications-manager.c:735
-#: plugins/print-notifications/gsd-print-notifications-manager.c:743
-#: plugins/print-notifications/gsd-print-notifications-manager.c:751
-#: plugins/print-notifications/gsd-print-notifications-manager.c:775
+#: plugins/print-notifications/gsd-print-notifications-manager.c:718
+#: plugins/print-notifications/gsd-print-notifications-manager.c:724
+#: plugins/print-notifications/gsd-print-notifications-manager.c:730
+#: plugins/print-notifications/gsd-print-notifications-manager.c:736
+#: plugins/print-notifications/gsd-print-notifications-manager.c:748
+#: plugins/print-notifications/gsd-print-notifications-manager.c:756
+#: plugins/print-notifications/gsd-print-notifications-manager.c:764
+#: plugins/print-notifications/gsd-print-notifications-manager.c:772
+#: plugins/print-notifications/gsd-print-notifications-manager.c:780
+#: plugins/print-notifications/gsd-print-notifications-manager.c:804
 #, c-format
 msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "„%s” ezen: %s"
 
 #. Translators: A print job has been canceled
-#: plugins/print-notifications/gsd-print-notifications-manager.c:693
-#: plugins/print-notifications/gsd-print-notifications-manager.c:733
+#: plugins/print-notifications/gsd-print-notifications-manager.c:722
+#: plugins/print-notifications/gsd-print-notifications-manager.c:762
 msgctxt "print job state"
 msgid "Printing canceled"
 msgstr "Nyomtatás megszakítva"
 
 #. Translators: A print job has been aborted
-#: plugins/print-notifications/gsd-print-notifications-manager.c:699
-#: plugins/print-notifications/gsd-print-notifications-manager.c:741
+#: plugins/print-notifications/gsd-print-notifications-manager.c:728
+#: plugins/print-notifications/gsd-print-notifications-manager.c:770
 msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "Nyomtatás félbeszakítva"
 
 #. Translators: A print job has been completed
-#: plugins/print-notifications/gsd-print-notifications-manager.c:705
-#: plugins/print-notifications/gsd-print-notifications-manager.c:749
+#: plugins/print-notifications/gsd-print-notifications-manager.c:734
+#: plugins/print-notifications/gsd-print-notifications-manager.c:778
 msgctxt "print job state"
 msgid "Printing completed"
 msgstr "Nyomtatás kész"
 
 #. Translators: A job is printing
-#: plugins/print-notifications/gsd-print-notifications-manager.c:717
-#: plugins/print-notifications/gsd-print-notifications-manager.c:773
+#: plugins/print-notifications/gsd-print-notifications-manager.c:746
+#: plugins/print-notifications/gsd-print-notifications-manager.c:802
 msgctxt "print job state"
 msgid "Printing"
 msgstr "Nyomtatás"
 
 #. Translators: This is a title of a report notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:991
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1020
 msgid "Printer report"
 msgstr "Nyomtatójelentés"
 
 #. Translators: This is a title of a warning notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:994
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1023
 msgid "Printer warning"
 msgstr "Nyomtatófigyelmeztetés"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: plugins/print-notifications/gsd-print-notifications-manager.c:1004
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1033
 #, c-format
 msgid "Printer “%s”: “%s”."
 msgstr "„%s” nyomtató: „%s”."
@@ -2358,11 +2469,11 @@ msgstr "A felhasználó nem intelligens kártyával jelentkezett be."
 msgid "USB Protection"
 msgstr "USB-védelem"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:513
+#: plugins/usb-protection/gsd-usb-protection-manager.c:505
 msgid "New USB device"
 msgstr "Új USB-s eszköz"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:514
+#: plugins/usb-protection/gsd-usb-protection-manager.c:506
 msgid ""
 "New device has been detected while the session was not locked. If you did "
 "not plug anything, check your system for any suspicious device."
@@ -2370,24 +2481,29 @@ msgstr ""
 "Új eszköz lett észlelve, miközben a munkamenet nem volt zárolva. Ha nem "
 "csatlakoztatott semmit, akkor ellenőrizze, hogy nincsenek-e gyanús eszközei."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:593
-msgid "New keyboard detected"
-msgstr "Új billentyűzet észlelve"
+#: plugins/usb-protection/gsd-usb-protection-manager.c:589
+#| msgid "New keyboard detected"
+msgid "New device detected"
+msgstr "Új eszköz észlelve"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:594
+#: plugins/usb-protection/gsd-usb-protection-manager.c:590
+#| msgid ""
+#| "Either your keyboard has been reconnected or a new one has been plugged "
+#| "in. If you did not do it, check your system for any suspicious device."
 msgid ""
-"Either your keyboard has been reconnected or a new one has been plugged in. "
-"If you did not do it, check your system for any suspicious device."
+"Either one of your existing devices has been reconnected or a new one has "
+"been plugged in. If you did not do it, check your system for any suspicious "
+"device."
 msgstr ""
-"Vagy újracsatlakoztatta a billentyűzetet, vagy egy újat csatlakoztatott. Ha "
-"nem Ön tette, akkor ellenőrizze a rendszerét, hogy nincsenek-e gyanús "
-"eszközei."
+"Vagy újracsatlakoztatta a meglévő eszközök egyikét, vagy egy újat"
+" csatlakoztatott. Ha nem Ön tette, akkor ellenőrizze a rendszerét, hogy"
+" nincsenek-e gyanús eszközei."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:600
+#: plugins/usb-protection/gsd-usb-protection-manager.c:596
 msgid "Reconnect USB device"
 msgstr "USB-s eszköz újracsatlakoztatása"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:601
+#: plugins/usb-protection/gsd-usb-protection-manager.c:597
 msgid ""
 "New device has been detected while you were away. Please disconnect and "
 "reconnect the device to start using it."
@@ -2395,12 +2511,12 @@ msgstr ""
 "Új eszköz lett észlelve, amíg távol volt. Válassza le, és csatlakoztassa "
 "újra az eszközt, hogy megkezdhesse a használatát."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:607
-#: plugins/usb-protection/gsd-usb-protection-manager.c:631
+#: plugins/usb-protection/gsd-usb-protection-manager.c:603
+#: plugins/usb-protection/gsd-usb-protection-manager.c:628
 msgid "USB device blocked"
 msgstr "USB-s eszköz blokkolva"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:608
+#: plugins/usb-protection/gsd-usb-protection-manager.c:604
 msgid ""
 "New device has been detected while you were away. It has been blocked "
 "because the USB protection is active."
@@ -2408,7 +2524,7 @@ msgstr ""
 "Új eszköz lett észlelve, amíg távol volt. Blokkolva lett, mert az USB-"
 "védelem aktív."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:632
+#: plugins/usb-protection/gsd-usb-protection-manager.c:629
 msgid ""
 "The new inserted device has been blocked because the USB protection is "
 "active."
@@ -2438,57 +2554,155 @@ msgstr "Wacom táblagép OLED képének módosítása"
 msgid "Authentication is required to modify the OLED image for a Wacom tablet"
 msgstr "Hitelesítés szükséges a Wacom táblagép OLED képének módosításához"
 
-#. Set up the dialog
-#: plugins/wwan/gsd-wwan-pinentry.c:89
+#: plugins/wwan/cc-wwan-errors-private.h:40
+msgid "Phone failure"
+msgstr "Telefon hiba"
+
+#: plugins/wwan/cc-wwan-errors-private.h:41
+#| msgid "Not connected?"
+msgid "No connection to phone"
+msgstr "Nincs kapcsolat a telefonnal"
+
+#: plugins/wwan/cc-wwan-errors-private.h:43
+msgid "Operation not allowed"
+msgstr "A művelet nem engedélyezett"
+
+#: plugins/wwan/cc-wwan-errors-private.h:44
+msgid "Operation not supported"
+msgstr "A művelet nem támogatott"
+
+#: plugins/wwan/cc-wwan-errors-private.h:48
+msgid "SIM not inserted"
+msgstr "Nincs SIM-kártya behelyezve"
+
+#: plugins/wwan/cc-wwan-errors-private.h:49
+msgid "SIM PIN required"
+msgstr "SIM-kártya PIN-kód szükséges"
+
+#: plugins/wwan/cc-wwan-errors-private.h:50
+msgid "SIM PUK required"
+msgstr "SIM-kártya PUK-kód szükséges"
+
+#: plugins/wwan/cc-wwan-errors-private.h:51
+msgid "SIM failure"
+msgstr "SIM-kártya hiba"
+
+#: plugins/wwan/cc-wwan-errors-private.h:52
+msgid "SIM busy"
+msgstr "A SIM-kártya foglalt"
+
+#: plugins/wwan/cc-wwan-errors-private.h:53
+msgid "SIM wrong"
+msgstr "A SIM-kártya hibás"
+
+#: plugins/wwan/cc-wwan-errors-private.h:54
+msgid "Incorrect password"
+msgstr "Hibás jelszó"
+
+#: plugins/wwan/cc-wwan-errors-private.h:55
+msgid "SIM PIN2 required"
+msgstr "SIM-kártya PIN2-kód szükséges"
+
+#: plugins/wwan/cc-wwan-errors-private.h:56
+msgid "SIM PUK2 required"
+msgstr "SIM-kártya PUK2-kód szükséges"
+
+#: plugins/wwan/cc-wwan-errors-private.h:72
+#| msgid "Unknown time"
+msgid "Unknown error"
+msgstr "Ismeretlen hiba"
+
+#: plugins/wwan/cc-wwan-errors-private.h:91
+#| msgctxt "print job state"
+#| msgid "Printing canceled"
+msgid "Action Cancelled"
+msgstr "Művelet megszakítva"
+
+#: plugins/wwan/cc-wwan-errors-private.h:94
+msgid "Access denied"
+msgstr "Hozzáférés megtagadva"
+
+#: plugins/wwan/cc-wwan-errors-private.h:103
+#| msgid "Unknown time"
+msgid "Unknown Error"
+msgstr "Ismeretlen hiba"
+
+#: plugins/wwan/gsd-wwan-manager.c:117
+msgid "New PIN for SIM"
+msgstr "Új PIN-kód a SIM-kártyához"
+
+#: plugins/wwan/gsd-wwan-manager.c:118
+msgid "Set"
+msgstr "Beállítás"
+
+#: plugins/wwan/gsd-wwan-manager.c:120
 msgid "Unlock SIM card"
 msgstr "SIM-kártya feloldása"
 
-#: plugins/wwan/gsd-wwan-pinentry.c:90
+#: plugins/wwan/gsd-wwan-manager.c:121
 msgid "Unlock"
 msgstr "Feloldás"
 
-#: plugins/wwan/gsd-wwan-pinentry.c:91
+#: plugins/wwan/gsd-wwan-manager.c:124
 msgid "Cancel"
 msgstr "Mégse"
 
-#: plugins/wwan/gsd-wwan-pinentry.c:95
+#: plugins/wwan/gsd-wwan-manager.c:129
+#, c-format
+#| msgid "Please provide the PIN for SIM card %s"
+msgid "Please provide a new PIN for SIM card %s"
+msgstr "Adjon meg egy új PIN-kódot a(z) %s SIM-kártyához"
+
+#: plugins/wwan/gsd-wwan-manager.c:131
+#| msgid "Enter PIN to unlock your SIM card"
+msgid "Enter a New PIN to unlock your SIM card"
+msgstr "Írjon be egy új PIN-kódot a SIM-kártya feloldásához"
+
+#: plugins/wwan/gsd-wwan-manager.c:133
 #, c-format
 msgid "Please provide the PIN for SIM card %s"
 msgstr "Adja meg a(z) %s SIM-kártya PIN-kódját"
 
-#: plugins/wwan/gsd-wwan-pinentry.c:97
+#: plugins/wwan/gsd-wwan-manager.c:135
 msgid "Enter PIN to unlock your SIM card"
 msgstr "Adja meg a PIN-kódot a SIM-kártya feloldásához"
 
-#. msg is already localised
-#: plugins/wwan/gsd-wwan-pinentry.c:123
+#: plugins/wwan/gsd-wwan-manager.c:138
 #, c-format
-msgid "%2$s You have %1$u try left"
-msgid_plural "%2$s You have %1$u tries left"
-msgstr[0] "%2$s Még %1$u kísérlete van hátra"
-msgstr[1] "%2$s Még %1$u kísérlete van hátra"
+#| msgid "Please provide the PIN for SIM card %s"
+msgid "Please provide the PUK for SIM card %s"
+msgstr "Adja meg a PUK-kódot a(z) %s SIM-kártyához"
 
-#: plugins/wwan/gsd-wwan-pinentry.c:127
+#: plugins/wwan/gsd-wwan-manager.c:140
+#| msgid "Enter PIN to unlock your SIM card"
+msgid "Enter PUK to unlock your SIM card"
+msgstr "Írja be a PUK-kódot a SIM-kártya feloldásához"
+
+#. msg is already localised
+#: plugins/wwan/gsd-wwan-manager.c:156
+#, c-format
+#| msgid "%2$s You have %1$u try left"
+#| msgid_plural "%2$s You have %1$u tries left"
+msgid "%2$s. You have %1$u try left"
+msgid_plural "%2$s. You have %1$u tries left"
+msgstr[0] "%2$s. Még %1$u kísérlete van hátra"
+msgstr[1] "%2$s. Még %1$u kísérlete van hátra"
+
+#: plugins/wwan/gsd-wwan-manager.c:160
 #, c-format
 msgid "You have %u try left"
 msgid_plural "You have %u tries left"
 msgstr[0] "Még %u kísérlete van hátra"
 msgstr[1] "Még %u kísérlete van hátra"
 
-#. Set up the dialog
-#: plugins/wwan/gsd-wwan-pinentry.c:173 plugins/wwan/gsd-wwan-pinentry.c:175
-msgid "SIM card unlock error"
-msgstr "SIM-kártya feloldási hiba"
+#~ msgid "SIM card unlock error"
+#~ msgstr "SIM-kártya feloldási hiba"
 
-#: plugins/wwan/gsd-wwan-pinentry.c:174
-msgid "OK"
-msgstr "OK"
+#~ msgid "OK"
+#~ msgstr "OK"
 
-#. TODO: handle PUK as well
-#: plugins/wwan/gsd-wwan-pinentry.c:194
-msgid "Too many incorrect PINs."
-msgstr "Túl sok helytelen PIN-kód."
+#~ msgid "Too many incorrect PINs."
+#~ msgstr "Túl sok helytelen PIN-kód."
 
-#: plugins/wwan/gsd-wwan-pinentry.c:200
-msgid "Wrong PIN code"
-msgstr "Rossz PIN-kód"
+#~ msgid "Wrong PIN code"
+#~ msgstr "Rossz PIN-kód"
