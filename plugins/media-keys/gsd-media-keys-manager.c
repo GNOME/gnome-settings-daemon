@@ -1622,7 +1622,8 @@ do_sound_action (GsdMediaKeysManager *manager,
 }
 
 static void
-update_default_sink (GsdMediaKeysManager *manager)
+update_default_sink (GsdMediaKeysManager *manager,
+                     gboolean             warn)
 {
         GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
         GvcMixerStream *stream;
@@ -1636,12 +1637,16 @@ update_default_sink (GsdMediaKeysManager *manager)
         if (stream != NULL) {
                 priv->sink = g_object_ref (stream);
         } else {
-                g_warning ("Unable to get default sink");
+                if (warn)
+                        g_warning ("Unable to get default sink");
+                else
+                        g_debug ("Unable to get default sink");
         }
 }
 
 static void
-update_default_source (GsdMediaKeysManager *manager)
+update_default_source (GsdMediaKeysManager *manager,
+                       gboolean             warn)
 {
         GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
         GvcMixerStream *stream;
@@ -1655,7 +1660,10 @@ update_default_source (GsdMediaKeysManager *manager)
         if (stream != NULL) {
                 priv->source = g_object_ref (stream);
         } else {
-                g_warning ("Unable to get default source");
+                if (warn)
+                        g_warning ("Unable to get default source");
+                else
+                        g_debug ("Unable to get default source");
         }
 }
 
@@ -1664,8 +1672,8 @@ on_control_state_changed (GvcMixerControl     *control,
                           GvcMixerControlState new_state,
                           GsdMediaKeysManager *manager)
 {
-        update_default_sink (manager);
-        update_default_source (manager);
+        update_default_sink (manager, new_state == GVC_STATE_READY);
+        update_default_source (manager, new_state == GVC_STATE_READY);
 }
 
 static void
@@ -1673,7 +1681,7 @@ on_control_default_sink_changed (GvcMixerControl     *control,
                                  guint                id,
                                  GsdMediaKeysManager *manager)
 {
-        update_default_sink (manager);
+        update_default_sink (manager, TRUE);
 }
 
 static void
@@ -1681,7 +1689,7 @@ on_control_default_source_changed (GvcMixerControl     *control,
                                    guint                id,
                                    GsdMediaKeysManager *manager)
 {
-        update_default_source (manager);
+        update_default_source (manager, TRUE);
 }
 
 #if HAVE_GUDEV
