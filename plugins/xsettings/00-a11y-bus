@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Forward the a11y bus through the AT_SPI_BUS root window property
+a11y_bus=$(gdbus call --session --dest org.a11y.Bus --object-path /org/a11y/bus --method org.a11y.Bus.GetAddress | cut -f 2 -d \' -)
+xprop -root -format AT_SPI_BUS 8s -set AT_SPI_BUS "$a11y_bus"

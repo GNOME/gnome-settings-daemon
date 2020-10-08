@@ -47,7 +47,10 @@ foreach program: programs
 endforeach
 
 install_data(
-  files('00-xrdb'),
+  files(
+    '00-xrdb',
+    '00-a11y-bus',
+  ),
   install_dir: join_paths(gsd_sysconfdir, 'xdg/Xwayland-session.d')
 )
 
