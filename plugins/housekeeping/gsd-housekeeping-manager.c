@@ -78,7 +78,7 @@ typedef struct {
 
 
 typedef struct {
-        gint64  atime;
+        gint64  time;
         char   *path;
         glong   size;
 } ThumbData;
@@ -100,11 +100,13 @@ read_dir_for_purge (const char *path, GList *files)
 {
         GFile           *read_path;
         GFileEnumerator *enum_dir;
+        int              cannot_get_time = 0;
 
         read_path = g_file_new_for_path (path);
         enum_dir = g_file_enumerate_children (read_path,
                                               G_FILE_ATTRIBUTE_STANDARD_NAME ","
                                               G_FILE_ATTRIBUTE_TIME_ACCESS ","
+                                              G_FILE_ATTRIBUTE_TIME_MODIFIED ","
                                               G_FILE_ATTRIBUTE_STANDARD_SIZE,
                                               G_FILE_QUERY_INFO_NONE,
                                               NULL,
@@ -120,28 +122,31 @@ read_dir_for_purge (const char *path, GList *files)
                                 ThumbData *td;
                                 GFile     *entry;
                                 char      *entry_path;
-                                gint64     atime;
+                                gint64     time;
 
                                 entry = g_file_get_child (read_path, name);
                                 entry_path = g_file_get_path (entry);
                                 g_object_unref (entry);
 
-                                // Note that using atime here is no worse than using mtime.
+                                // If atime is available, it should be no worse than mtime.
                                 // - Even if the file system is mounted with noatime, the atime and
                                 //   mtime will be set to the same value on file creation.
                                 // - Since the thumbnailer never edits thumbnails, and instead swaps
                                 //   in newly created temp files, atime will always be >= mtime.
-                                // - atime should never be absent, which would cause
-                                //   g_file_info_get_attribute_int64 to return 0. The presence of
-                                //   atime is determined by the filters we pass to
-                                //   g_file_enumerate_children, not the file system atime settings.
 
-                                g_assert (g_file_info_has_attribute (info, G_FILE_ATTRIBUTE_TIME_ACCESS));
-                                atime = g_file_info_get_attribute_uint64 (info, G_FILE_ATTRIBUTE_TIME_ACCESS);
+                                if (g_file_info_has_attribute (info, G_FILE_ATTRIBUTE_TIME_ACCESS)) {
+                                    time = g_file_info_get_attribute_uint64 (info, G_FILE_ATTRIBUTE_TIME_ACCESS);
+                                } else if (g_file_info_has_attribute (info, G_FILE_ATTRIBUTE_TIME_MODIFIED)) {
+                                    time = g_file_info_get_attribute_uint64 (info, G_FILE_ATTRIBUTE_TIME_MODIFIED);
+                                } else {
+                                    // Unlikely to get here, but be defensive
+                                    cannot_get_time += 1;
+                                    time = G_MAXINT64;
+                                }
 
                                 td = g_new0 (ThumbData, 1);
                                 td->path = entry_path;
-                                td->atime = atime;
+                                td->time = time;
                                 td->size = g_file_info_get_size (info);
 
                                 files = g_list_prepend (files, td);
@@ -149,6 +154,10 @@ read_dir_for_purge (const char *path, GList *files)
                         g_object_unref (info);
                 }
                 g_object_unref (enum_dir);
+
+                if (cannot_get_time > 0) {
+                    g_warning ("Could not read atime or mtime on %d files in %s", cannot_get_time, path);
+                }
         }
         g_object_unref (read_path);
 
@@ -158,7 +167,7 @@ read_dir_for_purge (const char *path, GList *files)
 static void
 purge_old_thumbnails (ThumbData *info, PurgeData *purge_data)
 {
-        if ((purge_data->now - info->atime) > purge_data->max_age) {
+        if ((purge_data->now - info->time) > purge_data->max_age) {
                 g_unlink (info->path);
                 info->size = 0;
         } else {
@@ -167,9 +176,9 @@ purge_old_thumbnails (ThumbData *info, PurgeData *purge_data)
 }
 
 static int
-sort_file_atime (ThumbData *file1, ThumbData *file2)
+sort_file_time (ThumbData *file1, ThumbData *file2)
 {
-        return file1->atime - file2->atime;
+        return file1->time - file2->time;
 }
 
 static char **
@@ -260,7 +269,7 @@ purge_thumbnail_cache (GsdHousekeepingManager *manager)
 
         if ((purge_data.total_size > purge_data.max_size) && (purge_data.max_size >= 0)) {
                 GList *scan;
-                files = g_list_sort (files, (GCompareFunc) sort_file_atime);
+                files = g_list_sort (files, (GCompareFunc) sort_file_time);
                 for (scan = files; scan && (purge_data.total_size > purge_data.max_size); scan = scan->next) {
                         ThumbData *info = scan->data;
                         g_unlink (info->path);
