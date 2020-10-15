@@ -985,6 +985,9 @@ static void
 gnome_session_logout (GsdPowerManager *manager,
                       guint            logout_mode)
 {
+        if (g_getenv("RUNNING_UNDER_GDM"))
+                return;
+
         g_dbus_proxy_call (G_DBUS_PROXY (manager->session),
                            "Logout",
                            g_variant_new ("(u)", logout_mode),
