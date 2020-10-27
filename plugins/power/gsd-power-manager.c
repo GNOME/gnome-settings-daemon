@@ -985,8 +985,10 @@ static void
 gnome_session_logout (GsdPowerManager *manager,
                       guint            logout_mode)
 {
-        if (g_getenv("RUNNING_UNDER_GDM"))
+        if (g_getenv ("RUNNING_UNDER_GDM")) {
+                g_warning ("Prevented logout from GDM session! This indicates an issue in gsd-power.");
                 return;
+        }
 
         g_dbus_proxy_call (G_DBUS_PROXY (manager->session),
                            "Logout",
@@ -1805,6 +1807,13 @@ idle_configure (GsdPowerManager *manager)
             (action_type == GSD_POWER_ACTION_SUSPEND ||
              action_type == GSD_POWER_ACTION_HIBERNATE)) {
                 g_debug ("Ignoring sleep timeout with suspend action inside VM");
+                timeout_sleep = 0;
+        }
+
+        /* don't do any automatic logout if we are in GDM */
+        if (g_getenv ("RUNNING_UNDER_GDM") &&
+            (action_type == GSD_POWER_ACTION_LOGOUT)) {
+                g_debug ("Ignoring sleep timeout with logout action inside GDM");
                 timeout_sleep = 0;
         }
 
