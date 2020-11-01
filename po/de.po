@@ -30,9 +30,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/iss"
-"ues\n"
-"POT-Creation-Date: 2020-09-03 20:47+0000\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
+"issues\n"
+"POT-Creation-Date: 2020-10-28 13:36+0000\n"
 "PO-Revision-Date: 2020-09-05 22:06+0200\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
@@ -1450,7 +1450,7 @@ msgid ""
 "before it goes to sleep. A value of 0 means never."
 msgstr ""
 "Zeit in Sekunden, die der Rechner bei Netzanschluss inaktiv sein muss, bevor "
-"er in den Energiesparmodus versetzt wird. Ein Wert von O bedeutet nie."
+"er in den Energiesparmodus versetzt wird. Ein Wert von 0 bedeutet nie."
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:21
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:31
@@ -1475,7 +1475,7 @@ msgid ""
 "inactive before it goes to sleep. A value of 0 means never."
 msgstr ""
 "Zeit in Sekunden, die der Rechner im Akkubetrieb inaktiv sein muss, bevor er "
-"in den Energiesparmodus versetzt wird. Ein Wert von O bedeutet nie."
+"in den Energiesparmodus versetzt wird. Ein Wert von 0 bedeutet nie."
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:36
 msgid "Enable the ALS sensor"
@@ -1725,30 +1725,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Auf diesem Rechner ist nur noch %s Speicherplatz verfügbar."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2468
+#: plugins/media-keys/gsd-media-keys-manager.c:2476
 msgid "Bluetooth disabled"
 msgstr "Bluetooth ist deaktiviert"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2471
+#: plugins/media-keys/gsd-media-keys-manager.c:2479
 msgid "Bluetooth enabled"
 msgstr "Bluetooth ist aktiviert"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2475
+#: plugins/media-keys/gsd-media-keys-manager.c:2483
 msgid "Airplane mode enabled"
 msgstr "Flugzeugmodus ist aktiviert"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2478
+#: plugins/media-keys/gsd-media-keys-manager.c:2486
 msgid "Airplane mode disabled"
 msgstr "Flugzeugmodus ist deaktiviert"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2507
+#: plugins/media-keys/gsd-media-keys-manager.c:2515
 msgid "Hardware Airplane Mode"
 msgstr "Hardware-Flugzeugmodus"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2570
+#: plugins/media-keys/gsd-media-keys-manager.c:2578
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Bildschirmvideo von %d %t.webm"
@@ -2178,46 +2178,46 @@ msgstr ""
 "Rechner wird deshalb nun heruntergefahren."
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1333
+#: plugins/power/gsd-power-manager.c:1338
 msgid "Lid has been opened"
 msgstr "Klappe wurde geöffnet"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1367
+#: plugins/power/gsd-power-manager.c:1372
 msgid "Lid has been closed"
 msgstr "Klappe wurde geschlossen"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1934
+#: plugins/power/gsd-power-manager.c:1946
 msgid "On battery power"
 msgstr "Batteriebetrieb"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1939
+#: plugins/power/gsd-power-manager.c:1951
 msgid "On AC power"
 msgstr "Netzbetrieb"
 
-#: plugins/power/gsd-power-manager.c:2127
+#: plugins/power/gsd-power-manager.c:2139
 msgid "Automatic logout"
 msgstr "Automatisch abmelden"
 
-#: plugins/power/gsd-power-manager.c:2127
+#: plugins/power/gsd-power-manager.c:2139
 msgid "You will soon log out because of inactivity."
 msgstr "Aufgrund von Inaktivität werden Sie bald abgemeldet."
 
 # oder Automatischer Bereitschaftsmodus
-#: plugins/power/gsd-power-manager.c:2132
+#: plugins/power/gsd-power-manager.c:2144
 msgid "Automatic suspend"
 msgstr "Automatisch in den Bereitschaftsmodus wechseln"
 
-#: plugins/power/gsd-power-manager.c:2132
-#: plugins/power/gsd-power-manager.c:2137
+#: plugins/power/gsd-power-manager.c:2144
+#: plugins/power/gsd-power-manager.c:2149
 msgid "Computer will suspend very soon because of inactivity."
 msgstr ""
 "Aufgrund von Inaktivität wird der Rechner bald in Bereitschaft versetzt."
 
 # oder Automatischer Ruhezustand
-#: plugins/power/gsd-power-manager.c:2137
+#: plugins/power/gsd-power-manager.c:2149
 msgid "Automatic hibernation"
 msgstr "Automatisch in den Ruhezustand wechseln"
 
@@ -2509,23 +2509,18 @@ msgstr ""
 "Geräte prüfen."
 
 #: plugins/usb-protection/gsd-usb-protection-manager.c:589
-#| msgid "New keyboard detected"
 msgid "New device detected"
 msgstr "Neues Gerät erkannt"
 
 #: plugins/usb-protection/gsd-usb-protection-manager.c:590
-#| msgid ""
-#| "Either your keyboard has been reconnected or a new one has been plugged "
-#| "in. If you did not do it, check your system for any suspicious device."
 msgid ""
 "Either one of your existing devices has been reconnected or a new one has "
 "been plugged in. If you did not do it, check your system for any suspicious "
 "device."
 msgstr ""
-"Entweder wurde eines Ihrer vorhandenen Geräte neu verbunden oder ein neues"
-" Gerät wurde "
-"angeschlossen. Falls Sie nichts dergleichen getan haben, sollten Sie Ihr "
-"System auf verdächtige Geräte prüfen."
+"Entweder wurde eines Ihrer vorhandenen Geräte neu verbunden oder ein neues "
+"Gerät wurde angeschlossen. Falls Sie nichts dergleichen getan haben, sollten "
+"Sie Ihr System auf verdächtige Geräte prüfen."
 
 #: plugins/usb-protection/gsd-usb-protection-manager.c:596
 msgid "Reconnect USB device"
