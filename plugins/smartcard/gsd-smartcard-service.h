@@ -28,13 +28,6 @@
 
 #include "org.gnome.SettingsDaemon.Smartcard.h"
 
-#include <prerror.h>
-#include <prinit.h>
-#include <nss.h>
-#include <pk11func.h>
-#include <secmod.h>
-#include <secerr.h>
-
 G_BEGIN_DECLS
 
 #define GSD_TYPE_SMARTCARD_SERVICE (gsd_smartcard_service_get_type ())
@@ -48,10 +41,10 @@ void  gsd_smartcard_service_new_async (GsdSmartcardManager  *manager,
 GsdSmartcardService *gsd_smartcard_service_new_finish (GAsyncResult         *result,
                                                        GError              **error);
 
-void  gsd_smartcard_service_register_driver (GsdSmartcardService  *service,
-                                             SECMODModule         *driver);
+void  gsd_smartcard_service_register_driver (GsdSmartcardService *service,
+                                             GckModule           *module);
 void  gsd_smartcard_service_sync_token (GsdSmartcardService  *service,
-                                        PK11SlotInfo         *slot_info,
+                                        GckSlot              *card_slot,
                                         GCancellable         *cancellable);
 
 

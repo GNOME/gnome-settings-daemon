@@ -22,13 +22,7 @@
 #define __GSD_SMARTCARD_MANAGER_H
 
 #include <glib-object.h>
-
-#include <prerror.h>
-#include <prinit.h>
-#include <nss.h>
-#include <pk11func.h>
-#include <secmod.h>
-#include <secerr.h>
+#include <gck/gck.h>
 
 G_BEGIN_DECLS
 
@@ -40,7 +34,7 @@ G_DECLARE_FINAL_TYPE (GsdSmartcardManager, gsd_smartcard_manager, GSD, SMARTCARD
 typedef enum
 {
          GSD_SMARTCARD_MANAGER_ERROR_GENERIC = 0,
-         GSD_SMARTCARD_MANAGER_ERROR_WITH_NSS,
+         GSD_SMARTCARD_MANAGER_ERROR_WITH_P11KIT,
          GSD_SMARTCARD_MANAGER_ERROR_LOADING_DRIVER,
          GSD_SMARTCARD_MANAGER_ERROR_WATCHING_FOR_EVENTS,
          GSD_SMARTCARD_MANAGER_ERROR_REPORTING_EVENTS,
@@ -56,7 +50,7 @@ gboolean                gsd_smartcard_manager_start       (GsdSmartcardManager  
                                                            GError              **error);
 void                    gsd_smartcard_manager_stop        (GsdSmartcardManager  *manager);
 
-PK11SlotInfo *          gsd_smartcard_manager_get_login_token (GsdSmartcardManager *manager);
+GckSlot *               gsd_smartcard_manager_get_login_token (GsdSmartcardManager *manager);
 GList *                 gsd_smartcard_manager_get_inserted_tokens (GsdSmartcardManager *manager,
                                                                    gsize               *num_tokens);
 void                    gsd_smartcard_manager_do_remove_action (GsdSmartcardManager *manager);

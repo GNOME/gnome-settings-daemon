@@ -2,6 +2,7 @@
  *
  * Copyright (C) 2007 William Jon McCann <mccann@jhu.edu>
  * Copyright (C) 2010,2011 Red Hat, Inc.
+ * Copyright (C) 2020 Canonical Ltd.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +23,7 @@
 
 #include <glib.h>
 #include <gio/gio.h>
+#include <p11-kit/p11-kit.h>
 
 #include "gnome-settings-profile.h"
 #include "gnome-settings-bus.h"
@@ -29,13 +31,6 @@
 #include "gsd-smartcard-service.h"
 #include "gsd-smartcard-enum-types.h"
 #include "gsd-smartcard-utils.h"
-
-#include <prerror.h>
-#include <prinit.h>
-#include <nss.h>
-#include <pk11func.h>
-#include <secmod.h>
-#include <secerr.h>
 
 #define GSD_SESSION_MANAGER_LOGOUT_MODE_FORCE 2
 
@@ -45,6 +40,7 @@ struct _GsdSmartcardManager
 
         guint start_idle_id;
         GsdSmartcardService *service;
+        GList *smartcard_modules;
         GList *smartcards_watch_tasks;
         GCancellable *cancellable;
 
@@ -52,8 +48,6 @@ struct _GsdSmartcardManager
         GsdScreenSaver *screen_saver;
 
         GSettings *settings;
-
-        NSSInitContext *nss_context;
 };
 
 #define CONF_SCHEMA "org.gnome.settings-daemon.peripherals.smartcard"
@@ -64,18 +58,12 @@ static void     gsd_smartcard_manager_init        (GsdSmartcardManager      *sel
 static void     gsd_smartcard_manager_finalize    (GObject                  *object);
 static void     lock_screen                       (GsdSmartcardManager *self);
 static void     log_out                           (GsdSmartcardManager *self);
-static void     on_smartcards_from_driver_watched (GsdSmartcardManager *self,
+static void     on_smartcards_from_module_watched (GsdSmartcardManager *self,
                                                    GAsyncResult        *result,
-                                                   GTask               *task);
+                                                   gpointer             user_data);
 G_DEFINE_TYPE (GsdSmartcardManager, gsd_smartcard_manager, G_TYPE_OBJECT)
 G_DEFINE_QUARK (gsd-smartcard-manager-error, gsd_smartcard_manager_error)
 G_LOCK_DEFINE_STATIC (gsd_smartcards_watch_tasks);
-
-typedef struct {
-        SECMODModule *driver;
-        guint         idle_id;
-        GError       *error;
-} DriverRegistrationOperation;
 
 static gpointer manager_object = NULL;
 
@@ -95,75 +83,9 @@ gsd_smartcard_manager_init (GsdSmartcardManager *self)
 {
 }
 
-static void
-load_nss (GsdSmartcardManager *self)
-{
-        NSSInitContext *context = NULL;
-
-        /* The first field in the NSSInitParameters structure
-         * is the size of the structure. NSS requires this, so
-         * that it can change the size of the structure in future
-         * versions of NSS in a detectable way
-         */
-        NSSInitParameters parameters = { sizeof (parameters), };
-        static const guint32 flags = NSS_INIT_READONLY
-                                   | NSS_INIT_FORCEOPEN
-                                   | NSS_INIT_NOROOTINIT
-                                   | NSS_INIT_OPTIMIZESPACE
-                                   | NSS_INIT_PK11RELOAD;
-
-        g_debug ("attempting to load NSS database '%s'",
-                 GSD_SMARTCARD_MANAGER_NSS_DB);
-
-        PR_Init (PR_USER_THREAD, PR_PRIORITY_NORMAL, 0);
-
-        context = NSS_InitContext (GSD_SMARTCARD_MANAGER_NSS_DB,
-                                   "", "", SECMOD_DB, &parameters, flags);
-
-        if (context == NULL) {
-                gsize error_message_size;
-
-                error_message_size = PR_GetErrorTextLength ();
-
-                if (error_message_size == 0) {
-                        g_debug ("NSS security system could not be initialized");
-                } else {
-                        char *error_message;
-
-                        error_message = g_alloca (error_message_size);
-                        PR_GetErrorText (error_message);
-
-                        g_debug ("NSS security system could not be initialized - %s",
-                                 error_message);
-                }
-
-                self->nss_context = NULL;
-                return;
-
-        }
-
-        g_debug ("NSS database '%s' loaded", GSD_SMARTCARD_MANAGER_NSS_DB);
-        self->nss_context = context;
-}
-
-static void
-unload_nss (GsdSmartcardManager *self)
-{
-        g_debug ("attempting to unload NSS security system with database '%s'",
-                 GSD_SMARTCARD_MANAGER_NSS_DB);
-
-        if (self->nss_context != NULL) {
-                g_clear_pointer (&self->nss_context,
-                                 NSS_ShutdownContext);
-                g_debug ("NSS database '%s' unloaded", GSD_SMARTCARD_MANAGER_NSS_DB);
-        } else {
-                g_debug ("NSS database '%s' already not loaded", GSD_SMARTCARD_MANAGER_NSS_DB);
-        }
-}
-
 typedef struct
 {
-        SECMODModule *driver;
+        GckModule *module;
         GHashTable *smartcards;
         int number_of_consecutive_errors;
 } WatchSmartcardsOperation;
@@ -172,19 +94,170 @@ static void
 on_watch_cancelled (GCancellable             *cancellable,
                     WatchSmartcardsOperation *operation)
 {
-        SECMOD_CancelWait (operation->driver);
+        CK_FUNCTION_LIST_PTR p11_module;
+
+        p11_module = gck_module_get_functions (operation->module);
+
+        /* This will make C_WaitForSlotEvent return CKR_CRYPTOKI_NOT_INITIALIZED */
+        p11_module->C_Finalize (NULL);
+
+        /* And we initialize it again, even though it could not be really needed */
+        p11_module->C_Initialize (NULL);
+}
+
+static GckSlot *
+get_module_slot_by_handle (GckModule *module,
+                           gulong     handle,
+                           gboolean   with_token)
+{
+        g_autolist(GckSlot) slots = gck_module_get_slots (module, with_token);
+        GList *l;
+
+        for (l = slots; l; l = l->next) {
+                GckSlot *slot = l->data;
+
+                if (gck_slot_get_handle (slot) == handle)
+                        return g_object_ref (slot);
+        }
+
+        return NULL;
+}
+
+static GckSlot *
+wait_for_any_slot_event (GckModule  *module,
+                         GError    **error)
+{
+        GckSlot *slot;
+        CK_FUNCTION_LIST_PTR p11_module;
+        CK_SLOT_ID slot_id;
+        CK_RV ret;
+
+        /* Use the non-blocking version of the call as p11-kit, which
+         * is used on both Fedora and Ubuntu, doesn't support the
+         * blocking version of the call.
+         */
+        p11_module = gck_module_get_functions (module);
+        ret = p11_module->C_WaitForSlotEvent (CKF_DONT_BLOCK, &slot_id, NULL);
+
+        switch (ret) {
+        case CKR_NO_EVENT:
+                g_set_error (error, G_IO_ERROR, G_IO_ERROR_AGAIN,
+                             "Got no event, ignoring...");
+                return NULL;
+        case CKR_FUNCTION_NOT_SUPPORTED:
+                g_set_error (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
+                             "Device does not support waiting for slot events");
+                return NULL;
+        case CKR_CRYPTOKI_NOT_INITIALIZED:
+                g_set_error (error, G_IO_ERROR, G_IO_ERROR_CANCELLED,
+                             "Slot wait event cancelled");
+                return NULL;
+        default:
+                if (ret != CKR_OK) {
+                        g_set_error (error, GSD_SMARTCARD_MANAGER_ERROR,
+                                GSD_SMARTCARD_MANAGER_ERROR_WITH_P11KIT,
+                                "Failed to wait for slot event, error: %lx.",
+                                ret);
+                        return NULL;
+                }
+                break;
+        }
+
+        slot = get_module_slot_by_handle (module, slot_id, FALSE);
+
+        if (!slot) {
+                g_autofree char *module_name = NULL;
+
+                module_name = p11_kit_module_get_name (gck_module_get_functions (module));
+                g_set_error (error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
+                             "Slot with ID %lu not found in module %s",
+                             slot_id, module_name);
+        }
+
+        return slot;
 }
 
 static gboolean
-watch_one_event_from_driver (GsdSmartcardManager       *self,
+token_info_equals (GckTokenInfo *a, GckTokenInfo *b)
+{
+        if ((a && !b) || (!a && b))
+                return FALSE;
+        if (a->total_private_memory != b->total_private_memory)
+                return FALSE;
+        if (a->total_public_memory != b->total_public_memory)
+                return FALSE;
+        if (a->hardware_version_major != b->hardware_version_major)
+                return FALSE;
+        if (a->hardware_version_minor != b->hardware_version_minor)
+                return FALSE;
+        if (a->firmware_version_major != b->firmware_version_major)
+                return FALSE;
+        if (a->firmware_version_minor != b->firmware_version_minor)
+                return FALSE;
+        if (g_strcmp0 (a->serial_number, b->serial_number) != 0)
+                return FALSE;
+        if (g_strcmp0 (a->manufacturer_id, b->manufacturer_id) != 0)
+                return FALSE;
+        if (g_strcmp0 (a->model, b->model) != 0)
+                return FALSE;
+        if (g_strcmp0 (a->label, b->label) != 0)
+                return FALSE;
+
+        return TRUE;
+}
+
+static GckSlot *
+get_changed_slot (WatchSmartcardsOperation *operation)
+{
+        g_autolist(GckSlot) slots_with_token = NULL;
+        GHashTableIter iter;
+        gpointer key, value;
+        GList *l;
+
+        slots_with_token = gck_module_get_slots (operation->module, TRUE);
+
+        g_hash_table_iter_init (&iter, operation->smartcards);
+        while (g_hash_table_iter_next (&iter, &key, &value)) {
+                GckSlot *slot = key;
+                GckTokenInfo *old_token = value;
+                g_autoptr(GckTokenInfo) current_token = NULL;
+
+                if (!g_list_find_custom (slots_with_token, slot, (GCompareFunc) gck_slot_equal)) {
+                        /* Saved slot has not a token anymore */
+                        return g_object_ref (slot);
+                }
+
+                current_token = gck_slot_get_token_info (slot);
+                if (!token_info_equals (current_token, old_token)) {
+                        return g_object_ref (slot);
+                }
+        }
+
+        /* At this point all the saved tokens match the ones in device.
+         * Now we need to check if there's a token that is not saved */
+        for (l = slots_with_token; l; l = l->next) {
+                GckSlot *slot = l->data;
+
+                if (!g_hash_table_contains (operation->smartcards, slot))
+                        return g_object_ref (slot);
+        }
+
+        return NULL;
+}
+
+static gboolean
+watch_one_event_from_module (GsdSmartcardManager       *self,
                              WatchSmartcardsOperation  *operation,
                              GCancellable              *cancellable,
                              GError                   **error)
 {
-        PK11SlotInfo *card = NULL, *old_card;
-        CK_SLOT_ID slot_id;
+        g_autoptr(GError) wait_error = NULL;
+        g_autoptr(GckSlot) slot = NULL;
+        GckTokenInfo *old_token;
+        gulong return_sleep = 0;
         gulong handler_id;
-        int old_slot_series = -1, slot_series;
+        gboolean token_is_present;
+        gboolean token_changed;
 
         handler_id = g_cancellable_connect (cancellable,
                                             G_CALLBACK (on_watch_cancelled),
@@ -192,11 +265,7 @@ watch_one_event_from_driver (GsdSmartcardManager       *self,
                                             NULL);
 
         if (handler_id != 0) {
-                /* Use the non-blocking version of the call as p11-kit, which
-                 * is used on both Fedora and Ubuntu, doesn't support the
-                 * blocking version of the call.
-                 */
-                card = SECMOD_WaitForAnyTokenEvent (operation->driver, CKF_DONT_BLOCK, PR_SecondsToInterval (1));
+                slot = wait_for_any_slot_event (operation->module, &wait_error);
         }
 
         g_cancellable_disconnect (cancellable, handler_id);
@@ -206,99 +275,106 @@ watch_one_event_from_driver (GsdSmartcardManager       *self,
                 return FALSE;
         }
 
-        if (card == NULL) {
-                int error_code;
-
-                error_code = PORT_GetError ();
-
-                if (error_code == SEC_ERROR_NO_EVENT) {
-                    int old_slot_count = operation->driver->slotCount;
-                    SECMOD_UpdateSlotList (operation->driver);
-                    if (operation->driver->slotCount != old_slot_count)
-                        g_debug ("Slot count change %i -> %i", old_slot_count, operation->driver->slotCount);
-                    else
+        if (g_error_matches (wait_error, G_IO_ERROR, G_IO_ERROR_AGAIN)) {
+                g_usleep (1 * G_USEC_PER_SEC);
+                return TRUE;
+        } else if (g_error_matches (wait_error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED)) {
+                slot = get_changed_slot (operation);
+                if (slot) {
+                        return_sleep = 1 * G_USEC_PER_SEC;
+                        g_clear_error (&wait_error);
+                } else {
                         g_usleep (1 * G_USEC_PER_SEC);
-
-                    return TRUE;
+                        return TRUE;
                 }
+        }
 
+        if (wait_error) {
                 operation->number_of_consecutive_errors++;
                 if (operation->number_of_consecutive_errors > 10) {
                      g_warning ("Got %d consecutive smartcard errors, so giving up.",
                                 operation->number_of_consecutive_errors);
 
-                     g_set_error (error,
-                                  GSD_SMARTCARD_MANAGER_ERROR,
-                                  GSD_SMARTCARD_MANAGER_ERROR_WITH_NSS,
+                     g_set_error (error, wait_error->domain, wait_error->code,
                                   "encountered unexpected error while "
-                                  "waiting for smartcard events (error %x)",
-                                  error_code);
+                                  "waiting for smartcard event: %s",
+                                  wait_error->message);
                      return FALSE;
                 }
 
-                g_warning ("Got potentially spurious smartcard event error: %x.", error_code);
+                g_warning ("Got potentially spurious smartcard event error: %s",
+                           wait_error->message);
 
                 g_usleep (1 * G_USEC_PER_SEC);
                 return TRUE;
         }
         operation->number_of_consecutive_errors = 0;
 
-        slot_id = PK11_GetSlotID (card);
-        slot_series = PK11_GetSlotSeries (card);
+        g_assert (slot);
+        token_is_present = gck_slot_has_flags (slot, CKF_TOKEN_PRESENT);
+        old_token = g_hash_table_lookup (operation->smartcards, slot);
+        token_changed = TRUE;
 
-        old_card = g_hash_table_lookup (operation->smartcards, GINT_TO_POINTER ((int) slot_id));
 
         /* If there is a different card in the slot now than
          * there was before, then we need to emit a removed signal
          * for the old card
          */
-        if (old_card != NULL) {
-                old_slot_series = PK11_GetSlotSeries (old_card);
+        if (old_token != NULL) {
+                if (token_is_present) {
+                        g_autoptr(GckTokenInfo) token = NULL;
 
-                if (old_slot_series != slot_series) {
+                        token = gck_slot_get_token_info (slot);
+                        token_changed = !token_info_equals (token, old_token);
+                }
+
+                if (token_changed) {
                         /* Card registered with slot previously is
                          * different than this card, so update its
                          * exported state to track the implicit missed
                          * removal
                          */
-                        gsd_smartcard_service_sync_token (self->service, old_card, cancellable);
+                        gsd_smartcard_service_sync_token (self->service, slot, cancellable);
                 }
 
-                g_hash_table_remove (operation->smartcards, GINT_TO_POINTER ((int) slot_id));
+                g_hash_table_remove (operation->smartcards, slot);
         }
 
-        if (PK11_IsPresent (card)) {
-                g_debug ("Detected smartcard insertion event in slot %d", (int) slot_id);
+        if (token_is_present) {
+                g_debug ("Detected smartcard insertion event in slot %lu",
+                         gck_slot_get_handle (slot));
 
                 g_hash_table_replace (operation->smartcards,
-                                      GINT_TO_POINTER ((int) slot_id),
-                                      PK11_ReferenceSlot (card));
+                                      g_object_ref (slot),
+                                      gck_slot_get_token_info (slot));
 
-                gsd_smartcard_service_sync_token (self->service, card, cancellable);
-        } else if (old_card == NULL) {
+                gsd_smartcard_service_sync_token (self->service, slot, cancellable);
+        } else if (old_token == NULL) {
                 /* If the just removed smartcard is not known to us then
                  * ignore the removal event. NSS sends a synthentic removal
                  * event for slots that are empty at startup
                  */
-                g_debug ("Detected slot %d is empty in reader", (int) slot_id);
+                g_debug ("Detected slot %lu is empty in reader",
+                          gck_slot_get_handle (slot));
         } else {
-                g_debug ("Detected smartcard removal event in slot %d", (int) slot_id);
+                g_debug ("Detected smartcard removal event in slot %lu",
+                         gck_slot_get_handle (slot));
 
                 /* If the just removed smartcard is known to us then
                  * we need to update its exported state to reflect the
                  * removal
                  */
-                if (old_slot_series == slot_series)
-                        gsd_smartcard_service_sync_token (self->service, card, cancellable);
+                if (!token_changed)
+                        gsd_smartcard_service_sync_token (self->service, slot, cancellable);
         }
 
-        PK11_FreeSlot (card);
+        g_usleep (return_sleep);
 
         return TRUE;
 }
 
 static void
-watch_smartcards_from_driver (GTask                    *task,
+watch_smartcards_from_module (GTask                    *task,
                               GsdSmartcardManager      *self,
                               WatchSmartcardsOperation *operation,
                               GCancellable             *cancellable)
@@ -308,7 +384,7 @@ watch_smartcards_from_driver (GTask                    *task,
                 gboolean watch_succeeded;
                 GError *error = NULL;
 
-                watch_succeeded = watch_one_event_from_driver (self, operation, cancellable, &error);
+                watch_succeeded = watch_one_event_from_module (self, operation, cancellable, &error);
 
                 if (g_task_return_error_if_cancelled (task)) {
                         break;
@@ -324,7 +400,7 @@ watch_smartcards_from_driver (GTask                    *task,
 static void
 destroy_watch_smartcards_operation (WatchSmartcardsOperation *operation)
 {
-        SECMOD_DestroyModule (operation->driver);
+        g_clear_object (&operation->module);
         g_hash_table_unref (operation->smartcards);
         g_free (operation);
 }
@@ -341,34 +417,31 @@ on_smartcards_watch_task_destroyed (GsdSmartcardManager *self,
 
 static void
 sync_initial_tokens_from_driver (GsdSmartcardManager *self,
-                                 SECMODModule        *driver,
+                                 GckModule           *module,
                                  GHashTable          *smartcards,
                                  GCancellable        *cancellable)
 {
-        int i;
+        GList *l;
+        g_autolist(GckSlot) full_slots = NULL;
 
-        for (i = 0; i < driver->slotCount; i++) {
-                PK11SlotInfo *card;
+        full_slots = gck_module_get_slots (module, TRUE);
 
-                card = driver->slots[i];
+        for (l = full_slots; l; l = l->next) {
+                GckSlot *slot = l->data;
+                GckTokenInfo *token_info = gck_slot_get_token_info (slot);
 
-                if (PK11_IsPresent (card)) {
-                        CK_SLOT_ID slot_id;
-                        slot_id = PK11_GetSlotID (card);
+                g_debug ("Detected smartcard '%s' in slot %lu at start up",
+                         token_info->label, gck_slot_get_handle (slot));
 
-                        g_debug ("Detected smartcard in slot %d at start up", (int) slot_id);
+                g_hash_table_replace (smartcards, g_object_ref (slot), token_info);
 
-                        g_hash_table_replace (smartcards,
-                                              GINT_TO_POINTER ((int) slot_id),
-                                              PK11_ReferenceSlot (card));
-                        gsd_smartcard_service_sync_token (self->service, card, cancellable);
-                }
+                gsd_smartcard_service_sync_token (self->service, slot, cancellable);
         }
 }
 
 static void
-watch_smartcards_from_driver_async (GsdSmartcardManager *self,
-                                    SECMODModule        *driver,
+watch_smartcards_from_module_async (GsdSmartcardManager *self,
+                                    GckModule           *module,
                                     GCancellable        *cancellable,
                                     GAsyncReadyCallback  callback,
                                     gpointer             user_data)
@@ -377,11 +450,11 @@ watch_smartcards_from_driver_async (GsdSmartcardManager *self,
         WatchSmartcardsOperation *operation;
 
         operation = g_new0 (WatchSmartcardsOperation, 1);
-        operation->driver = SECMOD_ReferenceModule (driver);
-        operation->smartcards = g_hash_table_new_full (g_direct_hash,
-                                                       g_direct_equal,
-                                                       NULL,
-                                                       (GDestroyNotify) PK11_FreeSlot);
+        operation->module = g_object_ref (module);
+        operation->smartcards = g_hash_table_new_full ((GHashFunc) gck_slot_hash,
+                                                       (GEqualFunc) gck_slot_equal,
+                                                       g_object_unref,
+                                                       (GDestroyNotify) gck_token_info_free);
 
         task = g_task_new (self, cancellable, callback, user_data);
 
@@ -397,300 +470,104 @@ watch_smartcards_from_driver_async (GsdSmartcardManager *self,
                            self);
         G_UNLOCK (gsd_smartcards_watch_tasks);
 
-        sync_initial_tokens_from_driver (self, driver, operation->smartcards, cancellable);
+        sync_initial_tokens_from_driver (self, module, operation->smartcards, cancellable);
 
-        g_task_run_in_thread (task, (GTaskThreadFunc) watch_smartcards_from_driver);
-}
-
-static gboolean
-register_driver_finish (GsdSmartcardManager  *self,
-                        GAsyncResult         *result,
-                        GError              **error)
-{
-        return g_task_propagate_boolean (G_TASK (result), error);
+        g_task_run_in_thread (task, (GTaskThreadFunc) watch_smartcards_from_module);
 }
 
 static void
-on_driver_registered (GsdSmartcardManager *self,
-                      GAsyncResult        *result,
-                      GTask               *task)
+on_smartcards_from_module_watched (GsdSmartcardManager *self,
+                                   GAsyncResult        *result,
+                                   gpointer             user_data)
 {
-        GError *error = NULL;
-        DriverRegistrationOperation *operation;
+        g_autoptr(GError) error = NULL;
 
-        operation = g_task_get_task_data (G_TASK (result));
+        if (!g_task_propagate_boolean (G_TASK (result), &error)) {
+                g_debug ("Done watching smartcards from module: %s", error->message);
+                return;
+        }
+        g_debug ("Done watching smartcards from module");
+}
 
-        if (!register_driver_finish (self, result, &error)) {
+static gboolean
+module_has_removable_slot (GckModule *module)
+{
+        g_autolist(GckSlot) slots = NULL;
+        GList *l;
+
+        slots = gck_module_get_slots (module, FALSE);
+
+        for (l = slots; l; l = l->next) {
+                GckSlot *slot = l->data;
+
+                if (gck_slot_has_flags (slot, CKF_REMOVABLE_DEVICE))
+                        return TRUE;
+        }
+
+        return FALSE;
+}
+
+static void
+on_modules_initialized (GObject      *source_object,
+                        GAsyncResult *result,
+                        gpointer      user_data)
+{
+        g_autoptr(GTask) task = NULL;
+        g_autoptr(GError) error = NULL;
+        g_autolist(GckModule) modules = NULL;
+        g_autoptr(GckSlot) login_token = NULL;
+        GsdSmartcardManager *self;
+        GList *l;
+
+        task = g_steal_pointer (&user_data);
+        self = g_task_get_source_object (task);
+        modules = gck_modules_initialize_registered_finish (result, &error);
+
+        if (error) {
                 g_task_return_error (task, error);
-                g_object_unref (task);
                 return;
         }
 
-        watch_smartcards_from_driver_async (self,
-                                            operation->driver,
-                                            self->cancellable,
-                                            (GAsyncReadyCallback) on_smartcards_from_driver_watched,
-                                            task);
+        for (l = modules; l; l = l->next) {
+                GckModule *module = l->data;
+                CK_FUNCTION_LIST_PTR p11_module;
+                g_autofree char *module_name = NULL;
 
-        g_task_return_boolean (task, TRUE);
-        g_object_unref (task);
-}
+                p11_module = gck_module_get_functions (module);
+                module_name = p11_kit_module_get_name (p11_module);
 
-static void
-on_smartcards_from_driver_watched (GsdSmartcardManager *self,
-                                   GAsyncResult        *result,
-                                   GTask               *task)
-{
-        g_debug ("Done watching smartcards from driver");
-}
+                g_debug ("Found p11-kit module %s", module_name);
 
-static void
-destroy_driver_registration_operation (DriverRegistrationOperation *operation)
-{
-        SECMOD_DestroyModule (operation->driver);
-        g_free (operation);
-}
+                if (!module_has_removable_slot (module))
+                        continue;
 
-static gboolean
-on_task_thread_to_complete_driver_registration (GTask *task)
-{
-        DriverRegistrationOperation *operation;
-        operation = g_task_get_task_data (task);
+                self->smartcard_modules = g_list_prepend (self->smartcard_modules,
+                                                          g_object_ref (module));
 
-        if (operation->error != NULL)
-                g_task_return_error (task, operation->error);
-        else
-                g_task_return_boolean (task, TRUE);
+                gsd_smartcard_service_register_driver (self->service, module);
+                watch_smartcards_from_module_async (self,
+                                                    module,
+                                                    self->cancellable,
+                                                    (GAsyncReadyCallback) on_smartcards_from_module_watched,
+                                                    NULL);
+        }
 
-        return G_SOURCE_REMOVE;
-}
-
-static gboolean
-on_main_thread_to_register_driver (GTask *task)
-{
-        GsdSmartcardManager *self;
-        DriverRegistrationOperation *operation;
-        GSource *source;
-
-        self = g_task_get_source_object (task);
-        operation = g_task_get_task_data (task);
-
-        gsd_smartcard_service_register_driver (self->service,
-                                               operation->driver);
-
-        source = g_idle_source_new ();
-        g_task_attach_source (task,
-                              source,
-                              (GSourceFunc) on_task_thread_to_complete_driver_registration);
-        g_source_unref (source);
-
-        return G_SOURCE_REMOVE;
-}
-
-static void
-register_driver (GsdSmartcardManager *self,
-                 SECMODModule         *driver,
-                 GCancellable         *cancellable,
-                 GAsyncReadyCallback   callback,
-                 gpointer              user_data)
-{
-        GTask *task;
-        DriverRegistrationOperation *operation;
-
-        task = g_task_new (self, cancellable, callback, user_data);
-        operation = g_new0 (DriverRegistrationOperation, 1);
-        operation->driver = SECMOD_ReferenceModule (driver);
-        g_task_set_task_data (task,
-                              operation,
-                              (GDestroyNotify) destroy_driver_registration_operation);
-
-        operation->idle_id = g_idle_add ((GSourceFunc) on_main_thread_to_register_driver, task);
-        g_source_set_name_by_id (operation->idle_id, "[gnome-settings-daemon] on_main_thread_to_register_driver");
-}
-
-static void
-activate_driver (GsdSmartcardManager *self,
-                 SECMODModule        *driver,
-                 GCancellable        *cancellable,
-                 GAsyncReadyCallback  callback,
-                 gpointer             user_data)
-{
-        GTask *task;
-
-        g_debug ("Activating driver '%s'", driver->commonName);
-
-        task = g_task_new (self, cancellable, callback, user_data);
-
-        register_driver (self,
-                         driver,
-                         cancellable,
-                         (GAsyncReadyCallback) on_driver_registered,
-                         task);
-}
-
-typedef struct
-{
-  int pending_drivers_count;
-  int activated_drivers_count;
-} ActivateAllDriversOperation;
-
-static gboolean
-activate_driver_async_finish (GsdSmartcardManager  *self,
-                              GAsyncResult         *result,
-                              GError              **error)
-{
-        return g_task_propagate_boolean (G_TASK (result), error);
-}
-
-static void
-try_to_complete_all_drivers_activation (GTask *task)
-{
-        ActivateAllDriversOperation *operation;
-
-        operation = g_task_get_task_data (task);
-
-        if (operation->pending_drivers_count > 0)
-                return;
-
-        if (operation->activated_drivers_count > 0)
-                g_task_return_boolean (task, TRUE);
-        else
+        if (!self->smartcard_modules) {
                 g_task_return_new_error (task, GSD_SMARTCARD_MANAGER_ERROR,
                                          GSD_SMARTCARD_MANAGER_ERROR_NO_DRIVERS,
-                                         "No smartcards exist to be activated.");
-
-        g_object_unref (task);
-}
-
-static void
-on_driver_activated (GsdSmartcardManager *self,
-                     GAsyncResult        *result,
-                     GTask               *task)
-{
-        GError *error = NULL;
-        gboolean driver_activated;
-        ActivateAllDriversOperation *operation;
-
-        driver_activated = activate_driver_async_finish (self, result, &error);
-
-        operation = g_task_get_task_data (task);
-
-        if (driver_activated)
-                operation->activated_drivers_count++;
-
-        operation->pending_drivers_count--;
-
-        try_to_complete_all_drivers_activation (task);
-}
-
-static void
-activate_all_drivers_async (GsdSmartcardManager *self,
-                            GCancellable        *cancellable,
-                            GAsyncReadyCallback  callback,
-                            gpointer             user_data)
-{
-        GTask *task;
-        SECMODListLock *lock;
-        SECMODModuleList *driver_list, *node;
-        ActivateAllDriversOperation *operation;
-
-        task = g_task_new (self, cancellable, callback, user_data);
-        operation = g_new0 (ActivateAllDriversOperation, 1);
-        g_task_set_task_data (task, operation, (GDestroyNotify) g_free);
-
-        lock = SECMOD_GetDefaultModuleListLock ();
-
-        g_assert (lock != NULL);
-
-        SECMOD_GetReadLock (lock);
-        driver_list = SECMOD_GetDefaultModuleList ();
-        for (node = driver_list; node != NULL; node = node->next) {
-                if (!node->module->loaded)
-                        continue;
-
-                if (!SECMOD_HasRemovableSlots (node->module))
-                        continue;
-
-                if (node->module->dllName == NULL)
-                        continue;
-
-                operation->pending_drivers_count++;
-
-                activate_driver (self, node->module,
-                                 cancellable,
-                                 (GAsyncReadyCallback) on_driver_activated,
-                                 task);
-
-        }
-        SECMOD_ReleaseReadLock (lock);
-
-        try_to_complete_all_drivers_activation (task);
-}
-
-/* Will error with %GSD_SMARTCARD_MANAGER_ERROR_NO_DRIVERS if there were no
- * drivers to activate.. */
-static gboolean
-activate_all_drivers_async_finish (GsdSmartcardManager  *self,
-                                   GAsyncResult         *result,
-                                   GError              **error)
-{
-        return g_task_propagate_boolean (G_TASK (result), error);
-}
-
-static void
-on_all_drivers_activated (GsdSmartcardManager *self,
-                          GAsyncResult        *result,
-                          GTask               *task)
-{
-        GError *error = NULL;
-        gboolean driver_activated;
-        PK11SlotInfo *login_token;
-
-        driver_activated = activate_all_drivers_async_finish (self, result, &error);
-
-        if (!driver_activated) {
-                g_task_return_error (task, error);
+                                         "No smartcard exist to be activated.");
                 return;
         }
 
         login_token = gsd_smartcard_manager_get_login_token (self);
 
         if (login_token || g_getenv ("PKCS11_LOGIN_TOKEN_NAME") != NULL) {
-                /* The card used to log in was removed before login completed.
-                 * Do removal action immediately
-                 */
-                if (!login_token || !PK11_IsPresent (login_token))
+                if (!login_token ||
+                    !gck_slot_has_flags (login_token, CKF_TOKEN_PRESENT))
                         gsd_smartcard_manager_do_remove_action (self);
         }
 
         g_task_return_boolean (task, TRUE);
-        g_object_unref (task);
-}
-
-static void
-watch_smartcards (GTask               *task,
-                  GsdSmartcardManager *self,
-                  gpointer             data,
-                  GCancellable        *cancellable)
-{
-        GMainContext *context;
-        GMainLoop *loop;
-
-        g_debug ("Getting list of suitable drivers");
-        context = g_main_context_new ();
-        g_main_context_push_thread_default (context);
-
-        activate_all_drivers_async (self,
-                                    cancellable,
-                                    (GAsyncReadyCallback) on_all_drivers_activated,
-                                    task);
-
-        loop = g_main_loop_new (context, FALSE);
-        g_main_loop_run (loop);
-        g_main_loop_unref (loop);
-
-        g_main_context_pop_thread_default (context);
-        g_main_context_unref (context);
 }
 
 static void
@@ -703,7 +580,9 @@ watch_smartcards_async (GsdSmartcardManager *self,
 
         task = g_task_new (self, cancellable, callback, user_data);
 
-        g_task_run_in_thread (task, (GTaskThreadFunc) watch_smartcards);
+        gck_modules_initialize_registered_async (self->cancellable,
+                                                 (GAsyncReadyCallback) on_modules_initialized,
+                                                 task);
 }
 
 static gboolean
@@ -744,11 +623,12 @@ on_service_created (GObject             *source_object,
 
         self->service = service;
 
+        g_debug("Service created, getting modules...");
+
         watch_smartcards_async (self,
                                 self->cancellable,
                                 (GAsyncReadyCallback) on_smartcards_watched,
                                 NULL);
-
 }
 
 static gboolean
@@ -758,8 +638,6 @@ gsd_smartcard_manager_idle_cb (GsdSmartcardManager *self)
 
         self->cancellable = g_cancellable_new();
         self->settings = g_settings_new (CONF_SCHEMA);
-
-        load_nss (self);
 
         gsd_smartcard_service_new_async (self,
                                          self->cancellable,
@@ -794,8 +672,7 @@ gsd_smartcard_manager_stop (GsdSmartcardManager *self)
 
         g_cancellable_cancel (self->cancellable);
 
-        unload_nss (self);
-
+        g_list_free_full (g_steal_pointer (&self->smartcard_modules), g_object_unref);
         g_clear_object (&self->settings);
         g_clear_object (&self->cancellable);
         g_clear_object (&self->session_manager);
@@ -867,6 +744,7 @@ gsd_smartcard_manager_do_remove_action (GsdSmartcardManager *self)
         char *remove_action;
 
         remove_action = g_settings_get_string (self->settings, KEY_REMOVE_ACTION);
+        g_debug("Do remove action %s", remove_action);
 
         if (strcmp (remove_action, "lock-screen") == 0)
                 lock_screen (self);
@@ -874,7 +752,7 @@ gsd_smartcard_manager_do_remove_action (GsdSmartcardManager *self)
                 log_out (self);
 }
 
-static PK11SlotInfo *
+static GckSlot *
 get_login_token_for_operation (GsdSmartcardManager      *self,
                                WatchSmartcardsOperation *operation)
 {
@@ -883,23 +761,21 @@ get_login_token_for_operation (GsdSmartcardManager      *self,
 
         g_hash_table_iter_init (&iter, operation->smartcards);
         while (g_hash_table_iter_next (&iter, &key, &value)) {
-                PK11SlotInfo *card_slot;
-                const char *token_name;
-
-                card_slot = (PK11SlotInfo *) value;
-                token_name = PK11_GetTokenName (card_slot);
+                GckSlot *card_slot = key;
+                GckTokenInfo *token_info = value;
+                const char *token_name = token_info->label;
 
                 if (g_strcmp0 (g_getenv ("PKCS11_LOGIN_TOKEN_NAME"), token_name) == 0)
-                        return card_slot;
+                        return g_object_ref (card_slot);
         }
 
         return NULL;
 }
 
-PK11SlotInfo *
+GckSlot *
 gsd_smartcard_manager_get_login_token (GsdSmartcardManager *self)
 {
-        PK11SlotInfo *card_slot = NULL;
+        GckSlot *card_slot = NULL;
         GList *node;
 
         G_LOCK (gsd_smartcards_watch_tasks);
@@ -930,12 +806,10 @@ get_inserted_tokens_for_operation (GsdSmartcardManager      *self,
 
         g_hash_table_iter_init (&iter, operation->smartcards);
         while (g_hash_table_iter_next (&iter, &key, &value)) {
-                PK11SlotInfo *card_slot;
+                GckSlot *card_slot = key;
 
-                card_slot = (PK11SlotInfo *) value;
-
-                if (PK11_IsPresent (card_slot))
-                        inserted_tokens = g_list_prepend (inserted_tokens, card_slot);
+                if (gck_slot_has_flags (card_slot, CKF_TOKEN_PRESENT))
+                        inserted_tokens = g_list_prepend (inserted_tokens, g_object_ref (card_slot));
         }
 
         return inserted_tokens;

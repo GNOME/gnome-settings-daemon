@@ -32,10 +32,10 @@ sources += gnome.gdbus_codegen(
 deps = plugins_deps + [
   gio_unix_dep,
   libnotify_dep,
-  nss_dep
+  smartcard_deps
 ]
 
-cflags += ['-DGSD_SMARTCARD_MANAGER_NSS_DB="@0@"'.format(system_nssdb_dir)]
+cflags += ['-DGCK_API_SUBJECT_TO_CHANGE=1']
 
 executable(
   'gsd-' + plugin_name,

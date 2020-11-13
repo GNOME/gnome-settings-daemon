@@ -21,6 +21,7 @@
 #define __GSD_SMARTCARD_UTILS_H
 
 #include <glib-object.h>
+#include <gck/gck.h>
 #include <gio/gio.h>
 
 G_BEGIN_DECLS
