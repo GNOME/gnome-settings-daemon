@@ -351,20 +351,23 @@ watch_one_event_from_module (GsdSmartcardManager       *self,
                          * removal
                          */
                         gsd_smartcard_service_sync_token (self->service, slot, cancellable);
-                }
 
-                g_hash_table_remove (operation->smartcards, slot);
+                        g_hash_table_remove (operation->smartcards, slot);
+                }
         }
 
         if (token_is_present) {
-                g_debug ("Detected smartcard insertion event in slot %lu",
-                         gck_slot_get_handle (slot));
+                if (token_changed) {
+                        g_debug ("Detected smartcard insertion event in slot %lu",
+                                 gck_slot_get_handle (slot));
 
-                g_hash_table_replace (operation->smartcards,
-                                      g_object_ref (slot),
-                                      gck_slot_get_token_info (slot));
+                        g_hash_table_replace (operation->smartcards,
+                                        g_object_ref (slot),
+                                        gck_slot_get_token_info (slot));
 
-                gsd_smartcard_service_sync_token (self->service, slot, cancellable);
+                        gsd_smartcard_service_sync_token (self->service, slot,
+                                                          cancellable);
+                }
         } else if (old_token == NULL) {
                 /* If the just removed smartcard is not known to us then
                  * ignore the removal event. NSS sends a synthentic removal
