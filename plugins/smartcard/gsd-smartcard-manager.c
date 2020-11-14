@@ -428,10 +428,11 @@ static void
 on_smartcards_watch_task_destroyed (GsdSmartcardManager *self,
                                     GTask               *freed_task)
 {
-        G_LOCK (gsd_smartcards_watch_tasks);
+        g_autoptr(GMutexLocker) locked = NULL;
+
+        locked = g_mutex_locker_new (&G_LOCK_NAME (gsd_smartcards_watch_tasks));
         self->smartcards_watch_tasks = g_list_remove (self->smartcards_watch_tasks,
                                                       freed_task);
-        G_UNLOCK (gsd_smartcards_watch_tasks);
 }
 
 static void
@@ -790,10 +791,11 @@ get_login_token_for_operation (GsdSmartcardManager      *self,
 GckSlot *
 gsd_smartcard_manager_get_login_token (GsdSmartcardManager *self)
 {
+        g_autoptr(GMutexLocker) locked = NULL;
         GckSlot *card_slot = NULL;
         GList *node;
 
-        G_LOCK (gsd_smartcards_watch_tasks);
+        locked = g_mutex_locker_new (&G_LOCK_NAME (gsd_smartcards_watch_tasks));
         node = self->smartcards_watch_tasks;
         while (node != NULL) {
                 GTask *task = node->data;
@@ -806,7 +808,6 @@ gsd_smartcard_manager_get_login_token (GsdSmartcardManager *self)
 
                 node = node->next;
         }
-        G_UNLOCK (gsd_smartcards_watch_tasks);
 
         return card_slot;
 }
@@ -834,9 +835,10 @@ GList *
 gsd_smartcard_manager_get_inserted_tokens (GsdSmartcardManager *self,
                                            gsize               *num_tokens)
 {
+        g_autoptr(GMutexLocker) locked = NULL;
         GList *inserted_tokens = NULL, *node;
 
-        G_LOCK (gsd_smartcards_watch_tasks);
+        locked = g_mutex_locker_new (&G_LOCK_NAME (gsd_smartcards_watch_tasks));
         for (node = self->smartcards_watch_tasks; node != NULL; node = node->next) {
                 GTask *task = node->data;
                 WatchSmartcardsOperation *operation = g_task_get_task_data (task);
@@ -846,7 +848,6 @@ gsd_smartcard_manager_get_inserted_tokens (GsdSmartcardManager *self,
 
                 inserted_tokens = g_list_concat (inserted_tokens, operation_inserted_tokens);
         }
-        G_UNLOCK (gsd_smartcards_watch_tasks);
 
         if (num_tokens != NULL)
                 *num_tokens = g_list_length (inserted_tokens);
