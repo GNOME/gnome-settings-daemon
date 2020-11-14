@@ -401,7 +401,7 @@ watch_smartcards_from_module (GTask                    *task,
         g_debug ("watching for smartcard events");
         while (!g_cancellable_is_cancelled (cancellable)) {
                 gboolean watch_succeeded;
-                GError *error = NULL;
+                g_autoptr(GError) error = NULL;
 
                 watch_succeeded = watch_one_event_from_module (self, operation, cancellable, &error);
 
@@ -410,7 +410,7 @@ watch_smartcards_from_module (GTask                    *task,
                 }
 
                 if (!watch_succeeded) {
-                        g_task_return_error (task, error);
+                        g_task_return_error (task, g_steal_pointer (&error));
                         break;
                 }
         }
@@ -616,11 +616,10 @@ static void
 on_smartcards_watched (GsdSmartcardManager *self,
                        GAsyncResult        *result)
 {
-        GError *error = NULL;
+        g_autoptr(GError) error = NULL;
 
         if (!watch_smartcards_async_finish (self, result, &error)) {
                 g_debug ("Error watching smartcards: %s", error->message);
-                g_error_free (error);
         }
 }
 
@@ -630,13 +629,12 @@ on_service_created (GObject             *source_object,
                     GsdSmartcardManager *self)
 {
         GsdSmartcardService *service;
-        GError *error = NULL;
+        g_autoptr(GError) error = NULL;
 
         service = gsd_smartcard_service_new_finish (result, &error);
 
         if (service == NULL) {
                 g_warning("Couldn't create session bus service: %s", error->message);
-                g_error_free (error);
                 return;
         }
 
@@ -703,14 +701,13 @@ on_screen_locked (GsdScreenSaver      *screen_saver,
                   GAsyncResult        *result,
                   GsdSmartcardManager *self)
 {
+        g_autoptr(GError) error = NULL;
         gboolean is_locked;
-        GError *error = NULL;
 
         is_locked = gsd_screen_saver_call_lock_finish (screen_saver, result, &error);
 
         if (!is_locked) {
                 g_warning ("Couldn't lock screen: %s", error->message);
-                g_error_free (error);
                 return;
         }
 }
@@ -732,14 +729,13 @@ on_logged_out (GsdSessionManager   *session_manager,
                GAsyncResult        *result,
                GsdSmartcardManager *self)
 {
+        g_autoptr(GError) error = NULL;
         gboolean is_logged_out;
-        GError *error = NULL;
 
         is_logged_out = gsd_session_manager_call_logout_finish (session_manager, result, &error);
 
         if (!is_logged_out) {
                 g_warning ("Couldn't log out: %s", error->message);
-                g_error_free (error);
                 return;
         }
 }

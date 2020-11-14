@@ -63,7 +63,7 @@ dashed_string_to_dbus_error_string (const char *dashed_string,
                                     const char *new_prefix,
                                     const char *suffix)
 {
-        char *studly_suffix;
+        g_autofree char *studly_suffix = NULL;
         char *dbus_error_string;
         size_t dbus_error_string_length;
         size_t i;
@@ -78,7 +78,6 @@ dashed_string_to_dbus_error_string (const char *dashed_string,
 
         studly_suffix = dashed_string_to_studly_caps (suffix);
         dbus_error_string = g_strdup_printf ("%s.%s.%s", new_prefix, dashed_string, studly_suffix);
-        g_free (studly_suffix);
         i += strlen (new_prefix) + 1;
 
         dbus_error_string_length = strlen (dbus_error_string);
@@ -105,10 +104,10 @@ void
 gsd_smartcard_utils_register_error_domain (GQuark error_domain,
                                            GType  error_enum)
 {
+        g_autoptr(GTypeClass) type_class = NULL;
         g_autofree char *type_name = NULL;
         const char *error_domain_string;
         GType type;
-        GTypeClass *type_class;
         GEnumClass *enum_class;
         guint i;
 
@@ -119,7 +118,7 @@ gsd_smartcard_utils_register_error_domain (GQuark error_domain,
         enum_class = G_ENUM_CLASS (type_class);
 
         for (i = 0; i < enum_class->n_values; i++) {
-                char *dbus_error_string;
+                g_autofree char *dbus_error_string = NULL;
 
                 dbus_error_string = dashed_string_to_dbus_error_string (error_domain_string,
                                                                         "gsd",
@@ -130,10 +129,7 @@ gsd_smartcard_utils_register_error_domain (GQuark error_domain,
                 g_dbus_error_register_error (error_domain,
                                              enum_class->values[i].value,
                                              dbus_error_string);
-                g_free (dbus_error_string);
         }
-
-        g_type_class_unref (type_class);
 }
 
 char *
