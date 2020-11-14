@@ -352,6 +352,8 @@ gsd_smartcard_service_dispose (GObject *object)
 {
         GsdSmartcardService *self = GSD_SMARTCARD_SERVICE (object);
 
+        g_clear_handle_id (&self->name_id, g_bus_unown_name);
+
         g_clear_object (&self->bus_connection);
         g_clear_object (&self->object_manager_server);
         g_clear_object (&self->smartcard_manager);
