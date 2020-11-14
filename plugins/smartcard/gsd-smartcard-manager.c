@@ -132,12 +132,16 @@ wait_for_any_slot_event (GckModule  *module,
         CK_SLOT_ID slot_id;
         CK_RV ret;
 
-        /* Use the non-blocking version of the call as p11-kit, which
-         * is used on both Fedora and Ubuntu, doesn't support the
-         * blocking version of the call.
-         */
         p11_module = gck_module_get_functions (module);
-        ret = p11_module->C_WaitForSlotEvent (CKF_DONT_BLOCK, &slot_id, NULL);
+
+        /* We first trt to use the blocking version of the call, in case it
+         * is not supported, we fallback in the non-blocking version as
+         * historically not all the p11-kit modules used supported it.
+         */
+        ret = p11_module->C_WaitForSlotEvent (0, &slot_id, NULL);
+        if (ret == CKR_FUNCTION_NOT_SUPPORTED) {
+                ret = p11_module->C_WaitForSlotEvent (CKF_DONT_BLOCK, &slot_id, NULL);
+        }
 
         switch (ret) {
         case CKR_NO_EVENT:
