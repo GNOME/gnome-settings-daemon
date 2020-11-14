@@ -105,8 +105,8 @@ void
 gsd_smartcard_utils_register_error_domain (GQuark error_domain,
                                            GType  error_enum)
 {
+        g_autofree char *type_name = NULL;
         const char *error_domain_string;
-        char *type_name;
         GType type;
         GTypeClass *type_class;
         GEnumClass *enum_class;
