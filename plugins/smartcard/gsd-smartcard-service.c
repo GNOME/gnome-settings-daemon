@@ -125,7 +125,7 @@ register_login_token_alias (GsdSmartcardService *self)
         const char *object_path;
         const char *token_name;
 
-        token_name = g_getenv ("PKCS11_LOGIN_TOKEN_NAME");
+        token_name = gsd_smartcard_utils_get_login_token_name ();
 
         if (token_name == NULL)
                 return;
@@ -559,7 +559,7 @@ synchronize_token_now (GsdSmartcardService *self,
                         token_name = token_info->label;
         }
 
-        if (g_strcmp0 (g_getenv ("PKCS11_LOGIN_TOKEN_NAME"), token_name) == 0)
+        if (g_strcmp0 (gsd_smartcard_utils_get_login_token_name (), token_name) == 0)
                 is_login_card = is_present;
         else
                 is_login_card = FALSE;

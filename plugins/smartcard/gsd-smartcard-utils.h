@@ -29,6 +29,8 @@ void             gsd_smartcard_utils_register_error_domain             (GQuark e
                                                                         GType error_enum);
 char *           gsd_smartcard_utils_escape_object_path                (const char *unescaped_string);
 
+const char *     gsd_smartcard_utils_get_login_token_name              (void);
+
 G_END_DECLS
 
 #endif /* __GSD_SMARTCARD_MANAGER_H */

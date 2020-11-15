@@ -581,7 +581,7 @@ on_modules_initialized (GObject      *source_object,
 
         login_token = gsd_smartcard_manager_get_login_token (self);
 
-        if (login_token || g_getenv ("PKCS11_LOGIN_TOKEN_NAME") != NULL) {
+        if (login_token || gsd_smartcard_utils_get_login_token_name () != NULL) {
                 if (!login_token ||
                     !gck_slot_has_flags (login_token, CKF_TOKEN_PRESENT))
                         gsd_smartcard_manager_do_remove_action (self);
@@ -781,7 +781,7 @@ get_login_token_for_operation (GsdSmartcardManager      *self,
                 GckTokenInfo *token_info = value;
                 const char *token_name = token_info->label;
 
-                if (g_strcmp0 (g_getenv ("PKCS11_LOGIN_TOKEN_NAME"), token_name) == 0)
+                if (g_strcmp0 (gsd_smartcard_utils_get_login_token_name (), token_name) == 0)
                         return g_object_ref (card_slot);
         }
 

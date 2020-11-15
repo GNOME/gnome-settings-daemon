@@ -168,3 +168,9 @@ gsd_smartcard_utils_escape_object_path (const char *unescaped_string)
 
   return object_path;
 }
+
+const char *
+gsd_smartcard_utils_get_login_token_name (void)
+{
+        return g_getenv ("PKCS11_LOGIN_TOKEN_NAME");
+}
