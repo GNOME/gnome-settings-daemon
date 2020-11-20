@@ -942,6 +942,101 @@ class PowerPluginTest6(PowerPluginBase):
         # verify notification
         self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" .* ".*" ".*Wireless mouse .*low.* power.*\([0-9.]+%\).*"')
 
+    def test_notify_device_spam(self):
+        '''no repeat notifications for device batteries'''
+
+        # Set internal battery to discharging
+        self.set_composite_battery_discharging()
+
+        # Add a device battery
+        bat2_path = '/org/freedesktop/UPower/devices/' + 'mock_MOUSE_BAT1'
+        self.obj_upower.AddObject(bat2_path,
+                                  'org.freedesktop.UPower.Device',
+                                  {
+                                      'PowerSupply': dbus.Boolean(False, variant_level=1),
+                                      'IsPresent': dbus.Boolean(True, variant_level=1),
+                                      'Model': dbus.String('Bat1', variant_level=1),
+                                      'Serial': dbus.String('12345678', variant_level=1),
+                                      'Percentage': dbus.Double(10.0, variant_level=1),
+                                      'State': dbus.UInt32(UPowerGlib.DeviceState.DISCHARGING, variant_level=1),
+                                      'Type': dbus.UInt32(UPowerGlib.DeviceKind.MOUSE, variant_level=1),
+                                      'WarningLevel': dbus.UInt32(UPowerGlib.DeviceLevel.LOW, variant_level=1),
+                                   }, dbus.Array([], signature='(ssss)'))
+
+        obj_bat2 = self.system_bus_con.get_object('org.freedesktop.UPower', bat2_path)
+        self.obj_upower.EmitSignal('', 'DeviceAdded', 'o', [bat2_path],
+                                   dbus_interface='org.freedesktop.DBus.Mock')
+        time.sleep(1)
+
+        self.check_plugin_log('EMIT: charge-low', 2)
+        time.sleep(0.5)
+
+        # we should have gotten a notification by now
+        notify_log = self.p_notify.stdout.read()
+
+        # verify notification
+        self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" .* ".*" ".*Wireless mouse .*low.* power.*\([0-9.]+%\).*"')
+
+        # Disconnect mouse
+        self.obj_upower.RemoveObject(bat2_path)
+        time.sleep(0.5)
+
+        # Reconnect mouse
+        self.obj_upower.AddObject(bat2_path,
+                                  'org.freedesktop.UPower.Device',
+                                  {
+                                      'PowerSupply': dbus.Boolean(False, variant_level=1),
+                                      'IsPresent': dbus.Boolean(True, variant_level=1),
+                                      'Model': dbus.String('Bat1', variant_level=1),
+                                      'Serial': dbus.String('12345678', variant_level=1),
+                                      'Percentage': dbus.Double(10.0, variant_level=1),
+                                      'State': dbus.UInt32(UPowerGlib.DeviceState.DISCHARGING, variant_level=1),
+                                      'Type': dbus.UInt32(UPowerGlib.DeviceKind.MOUSE, variant_level=1),
+                                      'WarningLevel': dbus.UInt32(UPowerGlib.DeviceLevel.LOW, variant_level=1),
+                                   }, dbus.Array([], signature='(ssss)'))
+
+        obj_bat2 = self.system_bus_con.get_object('org.freedesktop.UPower', bat2_path)
+        self.obj_upower.EmitSignal('', 'DeviceAdded', 'o', [bat2_path],
+                                   dbus_interface='org.freedesktop.DBus.Mock')
+        time.sleep(1)
+
+        # we shouldn't have gotten a notification by now
+        notify_log = self.p_notify.stdout.read()
+        self.assertIsNone(notify_log)
+
+        # Disconnect mouse
+        self.obj_upower.RemoveObject(bat2_path)
+        time.sleep(0.5)
+
+        # Reconnect mouse with critical battery level
+        self.obj_upower.AddObject(bat2_path,
+                                  'org.freedesktop.UPower.Device',
+                                  {
+                                      'PowerSupply': dbus.Boolean(False, variant_level=1),
+                                      'IsPresent': dbus.Boolean(True, variant_level=1),
+                                      'Model': dbus.String('Bat1', variant_level=1),
+                                      'Serial': dbus.String('12345678', variant_level=1),
+                                      'Percentage': dbus.Double(5.0, variant_level=1),
+                                      'State': dbus.UInt32(UPowerGlib.DeviceState.DISCHARGING, variant_level=1),
+                                      'Type': dbus.UInt32(UPowerGlib.DeviceKind.MOUSE, variant_level=1),
+                                      'WarningLevel': dbus.UInt32(UPowerGlib.DeviceLevel.CRITICAL, variant_level=1),
+                                   }, dbus.Array([], signature='(ssss)'))
+
+        obj_bat2 = self.system_bus_con.get_object('org.freedesktop.UPower', bat2_path)
+        self.obj_upower.EmitSignal('', 'DeviceAdded', 'o', [bat2_path],
+                                   dbus_interface='org.freedesktop.DBus.Mock')
+        time.sleep(1)
+
+        # Verify new warning
+        self.check_plugin_log('EMIT: charge-critical', 2)
+        time.sleep(0.5)
+
+        # we should have gotten a notification by now
+        notify_log = self.p_notify.stdout.read()
+
+        # verify notification
+        self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" .* ".*" ".*Wireless mouse .*very low.* power.*\([0-9.]+%\).*"')
+
     def test_notify_device_battery_coarse_level(self):
         '''critical power level notification for device batteries with coarse level'''
 

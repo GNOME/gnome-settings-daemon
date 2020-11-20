@@ -161,6 +161,7 @@ struct _GsdPowerManager
         NotifyNotification      *notification_low;
         NotifyNotification      *notification_sleep_warning;
         GsdPowerActionType       sleep_action_type;
+        GHashTable              *devices_notified_ht; /* key = serial str, value = UpDeviceLevel */
         gboolean                 battery_is_low; /* laptop battery low, or UPS discharging */
 
         /* Brightness */
@@ -447,6 +448,39 @@ manager_critical_action_stop_sound_cb (GsdPowerManager *manager)
         play_loop_stop (&manager->critical_alert_timeout_id);
 
         return FALSE;
+}
+
+static gboolean
+engine_device_debounce_warn (GsdPowerManager *manager,
+                             UpDeviceKind kind,
+                             UpDeviceLevel warning,
+                             const char *serial)
+{
+        gpointer last_warning_ptr;
+        UpDeviceLevel last_warning;
+        gboolean ret = TRUE;
+
+        if (!serial)
+                return TRUE;
+
+        if (kind == UP_DEVICE_KIND_BATTERY ||
+            kind == UP_DEVICE_KIND_UPS)
+                return TRUE;
+
+        if (g_hash_table_lookup_extended (manager->devices_notified_ht, serial,
+                                          NULL, &last_warning_ptr)) {
+                last_warning = GPOINTER_TO_INT (last_warning_ptr);
+
+                if (last_warning >= warning)
+                        ret = FALSE;
+        }
+
+        if (warning != UP_DEVICE_LEVEL_UNKNOWN)
+                g_hash_table_insert (manager->devices_notified_ht,
+                                     g_strdup (serial),
+                                     GINT_TO_POINTER (warning));
+
+        return ret;
 }
 
 static void
@@ -894,13 +928,18 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
 static void
 engine_device_warning_changed_cb (UpDevice *device, GParamSpec *pspec, GsdPowerManager *manager)
 {
+        g_autofree char *serial = NULL;
         UpDeviceLevel warning;
         UpDeviceKind kind;
 
         g_object_get (device,
+                      "serial", &serial,
                       "warning-level", &warning,
                       "kind", &kind,
                       NULL);
+
+        if (!engine_device_debounce_warn (manager, kind, warning, serial))
+                return;
 
         if (warning == UP_DEVICE_LEVEL_DISCHARGING) {
                 g_debug ("** EMIT: discharging");
@@ -2571,6 +2610,8 @@ on_rr_screen_acquired (GObject      *object,
                                   manager);
 
         manager->devices_array = g_ptr_array_new_with_free_func (g_object_unref);
+        manager->devices_notified_ht = g_hash_table_new_full (g_str_hash, g_str_equal,
+                                                              g_free, NULL);
 
         /* create a fake virtual composite battery */
         manager->device_composite = up_client_get_display_device (manager->up_client);
@@ -2815,6 +2856,7 @@ gsd_power_manager_stop (GsdPowerManager *manager)
 
         g_clear_pointer (&manager->devices_array, g_ptr_array_unref);
         g_clear_object (&manager->device_composite);
+        g_clear_pointer (&manager->devices_notified_ht, g_hash_table_destroy);
 
         g_clear_object (&manager->screensaver_proxy);
 
