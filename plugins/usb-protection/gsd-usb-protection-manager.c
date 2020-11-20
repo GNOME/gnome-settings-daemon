@@ -154,7 +154,8 @@ dbus_call_log_error (GObject      *source_object,
         result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
                                            res,
                                            &error);
-        if (result == NULL)
+        if (result == NULL &&
+            !g_error_matches (error, G_DBUS_ERROR, G_DBUS_ERROR_SERVICE_UNKNOWN))
                 g_warning ("%s: %s", msg, error->message);
 }
 
