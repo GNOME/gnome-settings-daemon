@@ -322,11 +322,6 @@ night_light_recheck (GsdNightLight *self)
                         self->disabled_until_tmw = FALSE;
                         g_clear_pointer(&self->disabled_until_tmw_dt, g_date_time_unref);
                         g_object_notify (G_OBJECT (self), "disabled-until-tmw");
-                } else {
-                        g_debug ("night light still day-disabled, resetting");
-                        gsd_night_light_set_temperature (self,
-                                                         GSD_COLOR_TEMPERATURE_DEFAULT);
-                        return;
                 }
         }
 
@@ -340,6 +335,14 @@ night_light_recheck (GsdNightLight *self)
                                                   schedule_to)) {
                 g_debug ("not time for night-light");
                 gsd_night_light_set_active (self, FALSE);
+                return;
+        }
+
+        gsd_night_light_set_active (self, TRUE);
+
+        if (self->disabled_until_tmw) {
+                g_debug ("night light still day-disabled");
+                gsd_night_light_set_temperature (self, GSD_COLOR_TEMPERATURE_DEFAULT);
                 return;
         }
 
@@ -372,9 +375,9 @@ night_light_recheck (GsdNightLight *self)
         } else {
                 temp_smeared = temperature;
         }
+
         g_debug ("night light mode on, using temperature of %uK (aiming for %uK)",
                  temp_smeared, temperature);
-        gsd_night_light_set_active (self, TRUE);
         gsd_night_light_set_temperature (self, temp_smeared);
 }
 
