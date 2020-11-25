@@ -12,3 +12,5 @@ option('usb-protection', type: 'boolean', value: true, description: 'build with 
 option('wayland', type: 'boolean', value: true, description: 'build with Wayland support')
 option('wwan', type: 'boolean', value: true, description: 'build with WWAN support')
 option('colord', type: 'boolean', value: true, description: 'build with colord support')
+
+option('uml', type: 'string', value: '', description: 'Absolute path to UML binary that supports time-travel, speeds up testing')

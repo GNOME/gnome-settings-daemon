@@ -1,0 +1,53 @@
+#!/bin/sh
+
+UML_BIN="$1"
+shift
+
+wrapper=$( mktemp time-travel-setup-XXXXXX.sh )
+wrapper_full_path="$( pwd )/$wrapper"
+
+result="$wrapper_full_path.res"
+cat >"$wrapper" <<%EOF
+#! /bin/sh
+
+# Serialized environment
+$( export )
+
+mount -o remount,rw /
+mount tmp -t tmpfs /tmp
+mount tmp -t tmpfs /root
+mount tmp -t tmpfs /var
+mount proc -t proc /proc
+mount sys -t sysfs /sys
+
+if which haveged >/dev/null 2>&1 ; then
+    haveged
+elif which rngd >/dev/null 2>&1 ; then
+    # for some strange reason, this doesn't work so well
+    # when we don't start it into foreground with -f ...
+    rngd -f -r /dev/hw_random &
+else
+    echo "No entropy gathering daemon available - aborting!"
+    exit 1
+fi
+
+# Execute the test
+$@
+res=\$?
+echo \$res >"$result"
+
+poweroff -f
+%EOF
+chmod +x "$wrapper"
+
+$UML_BIN mem=512M root=none hostfs=/ rootfstype=hostfs rootflags=/ init="$wrapper_full_path" no_console_suspend con=null con0=null,fd:1 time-travel=inf-cpu
+reset -I
+rm -f $wrapper
+
+if [ -f $result ]; then
+  res=$( cat "$result" )
+  rm -f "$result"
+  exit $res
+else
+  exit -1
+fi

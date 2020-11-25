@@ -253,6 +253,16 @@ meson.add_install_script(
   gsd_datadir
 )
 
+
+# Add a time-travel test setup which optimizes away all the sleeps
+if get_option('uml') != ''
+    time_travel = find_program('tests/time-travel')
+    add_test_setup(
+      'timetravel',
+      exe_wrapper : [ time_travel, get_option('uml')],
+    )
+endif
+
 output = '\n        ' + meson.project_name() + ' ' + meson.project_version() +'\n'
 output += '        =============================\n\n'
 output += '        prefix:                   ' + gsd_prefix + '\n'
