@@ -14,6 +14,8 @@ import shutil
 import sys
 from glob import glob
 
+from output_checker import OutputChecker
+
 from gi.repository import GLib
 
 try:
@@ -166,9 +168,11 @@ class GSDTestCase(X11SessionTestCase):
 
         if parameters is None:
             parameters = {}
+        self.logind_log = OutputChecker()
         self.logind, self.logind_obj = self.spawn_server_template('logind',
                                                                   parameters,
-                                                                  stdout=subprocess.PIPE)
+                                                                  stdout=self.logind_log.fd)
+        self.logind_log.writer_attached()
 
         # Monkey patch SuspendThenHibernate functions in for dbusmock <= 0.17.2
         # This should be removed once we can depend on dbusmock 0.17.3
@@ -177,24 +181,21 @@ class GSDTestCase(X11SessionTestCase):
 
         self.logind_obj.AddMethod('org.freedesktop.login1.Session', 'SetBrightness', 'ssu', '', '')
 
-        # set log to nonblocking
-        set_nonblock(self.logind.stdout)
-
     def stop_logind(self):
         '''stop mock logind'''
 
         self.logind.terminate()
         self.logind.wait()
+        self.logind_log.assert_closed()
 
     def start_mutter(klass):
         ''' start mutter '''
 
         os.environ['MUTTER_DEBUG_RESET_IDLETIME']='1'
-        klass.mutter_log = open(os.path.join(klass.workdir, 'mutter.log'), 'wb', buffering=0)
         # See https://gitlab.gnome.org/GNOME/mutter/merge_requests/15
-        klass.mutter = subprocess.Popen(['mutter', '--x11'],
-                                         stdout=klass.mutter_log,
-                                         stderr=subprocess.STDOUT)
+        klass.mutter = subprocess.Popen(['mutter', '--x11'])
+        klass.wait_for_bus_object('org.gnome.Mutter.IdleMonitor',
+                                 '/org/gnome/Mutter/IdleMonitor/Core')
 
     def stop_mutter(klass):
         '''stop mutter'''
@@ -202,9 +203,6 @@ class GSDTestCase(X11SessionTestCase):
         assert klass.monitor
         klass.mutter.terminate()
         klass.mutter.wait()
-
-        klass.mutter_log.flush()
-        klass.mutter_log.close()
 
     @classmethod
     def reset_idle_timer(klass):
