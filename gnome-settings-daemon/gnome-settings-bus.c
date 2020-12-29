@@ -78,8 +78,7 @@ gnome_settings_bus_get_screen_saver_proxy (void)
                 g_object_ref (screen_saver_proxy);
         } else {
                 screen_saver_proxy = gsd_screen_saver_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
-                                                                              G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES |
-                                                                              G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START,
+                                                                              G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
                                                                               GNOME_SCREENSAVER_DBUS_NAME,
                                                                               GNOME_SCREENSAVER_DBUS_OBJECT,
                                                                               NULL,
