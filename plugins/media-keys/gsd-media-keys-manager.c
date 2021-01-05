@@ -211,6 +211,7 @@ struct GsdMediaKeysManagerPrivate
         guint            screencast_timeout_id;
         gboolean         screencast_recording;
         GCancellable    *screencast_cancellable;
+        guint            screencast_stopped_signal_id;
 
         /* Rotation */
         guint            iio_sensor_watch_id;
@@ -2347,20 +2348,26 @@ do_rfkill_action (GsdMediaKeysManager *manager,
 }
 
 static void
-screencast_stop (GsdMediaKeysManager *manager)
+screencast_stopped (GsdMediaKeysManager *manager)
 {
         if (manager->priv->screencast_timeout_id > 0) {
                 g_source_remove (manager->priv->screencast_timeout_id);
                 manager->priv->screencast_timeout_id = 0;
         }
 
+        manager->priv->screencast_recording = FALSE;
+}
+
+static void
+screencast_stop (GsdMediaKeysManager *manager)
+{
+        screencast_stopped (manager);
+
         g_dbus_proxy_call (manager->priv->screencast_proxy,
                            "StopScreencast", NULL,
                            G_DBUS_CALL_FLAGS_NONE, -1,
                            manager->priv->screencast_cancellable,
                            NULL, NULL);
-
-        manager->priv->screencast_recording = FALSE;
 }
 
 static gboolean
@@ -2836,6 +2843,21 @@ initialize_volume_handler (GsdMediaKeysManager *manager)
         gnome_settings_profile_end ("gvc_mixer_control_new");
 }
 
+
+static void
+on_screencast_stopped (GDBusConnection *connection,
+                       const gchar     *sender_name,
+                       const gchar     *object_path,
+                       const gchar     *interface_name,
+                       const gchar     *signal_name,
+                       GVariant        *parameters,
+                       gpointer         data)
+{
+        GsdMediaKeysManager *manager = data;
+
+        screencast_stopped (manager);
+}
+
 static void
 on_screencast_proxy_ready (GObject      *source,
                            GAsyncResult *result,
@@ -2851,7 +2873,20 @@ on_screencast_proxy_ready (GObject      *source,
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         g_warning ("Failed to create proxy for screencast: %s", error->message);
                 g_error_free (error);
+                return;
         }
+
+        manager->priv->screencast_stopped_signal_id =
+                g_dbus_connection_signal_subscribe (manager->priv->connection,
+                                                    SHELL_DBUS_NAME ".Screencast",
+                                                    SHELL_DBUS_NAME ".Screencast",
+                                                    "Stopped",
+                                                    SHELL_DBUS_PATH "/Screencast",
+                                                    NULL,
+                                                    G_DBUS_SIGNAL_FLAGS_NONE,
+                                                    on_screencast_stopped,
+                                                    manager,
+                                                    NULL);
 }
 
 static void
@@ -2902,6 +2937,11 @@ shell_presence_changed (GsdMediaKeysManager *manager)
                                           on_screencast_proxy_ready, manager);
                 g_free (name_owner);
         } else {
+                if (manager->priv->screencast_stopped_signal_id)
+                        g_dbus_connection_signal_unsubscribe (manager->priv->connection,
+                                                              manager->priv->screencast_stopped_signal_id);
+                manager->priv->screencast_stopped_signal_id = 0;
+
                 g_ptr_array_set_size (manager->priv->keys, 0);
                 g_clear_object (&manager->priv->key_grabber);
                 g_clear_object (&manager->priv->screencast_proxy);
@@ -3090,6 +3130,12 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         if (priv->reenable_power_button_timer_id) {
                 g_source_remove (priv->reenable_power_button_timer_id);
                 priv->reenable_power_button_timer_id = 0;
+        }
+
+        if (priv->screencast_stopped_signal_id) {
+                g_dbus_connection_signal_unsubscribe (priv->connection,
+                                                      priv->screencast_stopped_signal_id);
+                priv->screencast_stopped_signal_id = 0;
         }
 
         g_clear_pointer (&manager->priv->ca, ca_context_destroy);
