@@ -82,6 +82,7 @@ struct _GsdUsbProtectionManager
         GCancellable       *cancellable;
         GsdScreenSaver     *screensaver_proxy;
         gboolean            screensaver_active;
+        guint               last_device_id;
         NotifyNotification *notification;
 };
 
@@ -478,21 +479,21 @@ is_hardwired (GVariant *device)
         return FALSE;
 }
 
+/* auth_last_device: authorizes the device that has been stored in
+ * the manager's last_device_id. So you are supposed to set the
+ * ID there, rather than as an argument here. The reason is the
+ * callback from locking the screen. We cannot easily call this function
+ * with the device id, so we need to transport that information somehow.
+ */
 static void
-auth_device (GsdUsbProtectionManager *manager,
-               GVariant                *device)
+auth_last_device (GsdUsbProtectionManager *manager)
 {
-        guint device_id;
+        g_return_if_fail (manager->usb_protection_devices != NULL);
 
-        if (manager->usb_protection_devices == NULL)
-                return;
-
-        g_return_if_fail (g_variant_n_children (device) >= POLICY_DEVICE_ID);
-        g_variant_get_child (device, POLICY_DEVICE_ID, "u", &device_id);
-        g_debug ("Authorizing device %u", device_id);
+        g_debug ("Authorizing device %u", manager->last_device_id);
         authorize_device(manager->usb_protection_devices,
                          manager,
-                         device_id,
+                         manager->last_device_id,
                          TARGET_ALLOW,
                          FALSE);
 }
@@ -512,6 +513,7 @@ on_screen_locked (GsdScreenSaver          *screen_saver,
                 g_warning ("Couldn't lock screen: %s", error->message);
         }
 
+        auth_last_device (manager);
         show_notification (manager,
                            _("New USB device"),
                            _("New device has been detected while the session was not locked. "
@@ -580,7 +582,8 @@ on_usbguard_signal (GDBusProxy *proxy,
 
         if (is_hardwired (parameters)) {
             g_debug ("Device is hardwired, allowing it to be connected");
-            auth_device (manager, parameters);
+            g_variant_get_child (parameters, POLICY_DEVICE_ID, "u", &(manager->last_device_id));
+            auth_last_device (manager);
             return;
         }
 
@@ -602,7 +605,8 @@ on_usbguard_signal (GDBusProxy *proxy,
                                            _("New device detected"),
                                            _("Either one of your existing devices has been reconnected or a new one has been plugged in. "
                                              "If you did not do it, check your system for any suspicious device."));
-                        auth_device (manager, parameters);
+                        g_variant_get_child (parameters, POLICY_DEVICE_ID, "u", &(manager->last_device_id));
+                        auth_last_device (manager);
                 } else {
                     if (protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN) {
                             show_notification (manager,
@@ -631,11 +635,11 @@ on_usbguard_signal (GDBusProxy *proxy,
                          * HUB class, it is suspect. It could be a false positive because this could
                          * be a "smart" keyboard for example, but at this stage is better be safe. */
                         if (hid_or_hub && !has_other_classes) {
+                                g_variant_get_child (parameters, POLICY_DEVICE_ID, "u", &(manager->last_device_id));
                                 gsd_screen_saver_call_lock (manager->screensaver_proxy,
                                                             manager->cancellable,
                                                             (GAsyncReadyCallback) on_screen_locked,
                                                             manager);
-                                auth_device (manager, parameters);
                         } else {
                                 show_notification (manager,
                                                    _("USB device blocked"),
