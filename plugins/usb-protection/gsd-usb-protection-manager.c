@@ -371,6 +371,7 @@ static void
 on_notification_closed (NotifyNotification      *n,
                         GsdUsbProtectionManager *manager)
 {
+        g_debug ("Clearing notification");
         g_clear_object (&manager->notification);
 }
 
@@ -380,8 +381,10 @@ show_notification (GsdUsbProtectionManager *manager,
                    const char              *body)
 {
         /* Don't show a notice if one is already displayed */
-        if (manager->notification != NULL)
+        if (manager->notification != NULL) {
+                g_debug ("A notification already exists, we do not show a new one");
                 return;
+        }
 
         manager->notification = notify_notification_new (summary, body, "drive-removable-media-symbolic");
         notify_notification_set_app_name (manager->notification, _("USB Protection"));
@@ -394,6 +397,7 @@ show_notification (GsdUsbProtectionManager *manager,
                                  G_CALLBACK (on_notification_closed),
                                  manager,
                                  0);
+        g_debug ("Showing notification for %s: %s", summary, body);
         if (!notify_notification_show (manager->notification, NULL)) {
                 g_warning ("Failed to send USB protection notification");
                 g_clear_object (&manager->notification);
@@ -480,6 +484,7 @@ auth_device (GsdUsbProtectionManager *manager,
                 return;
 
         g_variant_get_child (device, POLICY_DEVICE_ID, "u", &device_id);
+        g_debug ("Authorizing device %u", device_id);
         authorize_device(manager->usb_protection_devices,
                          manager,
                          device_id,
@@ -1167,6 +1172,7 @@ gsd_usb_protection_manager_finalize (GObject *object)
 GsdUsbProtectionManager *
 gsd_usb_protection_manager_new (void)
 {
+        g_debug ("Starting USB Protection");
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
