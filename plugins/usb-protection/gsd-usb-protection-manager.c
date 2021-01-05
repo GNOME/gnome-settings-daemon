@@ -407,14 +407,14 @@ show_notification (GsdUsbProtectionManager *manager,
         }
 }
 
-static void authorize_device (GDBusProxy              *proxy,
-                              GsdUsbProtectionManager *manager,
-                              guint                    device_id,
-                              guint                    target,
-                              gboolean                 permanent)
+static void call_usbguard_dbus (GDBusProxy              *proxy,
+                                GsdUsbProtectionManager *manager,
+                                guint                    device_id,
+                                guint                    target,
+                                gboolean                 permanent)
 {
         if (manager->usb_protection_devices == NULL) {
-            g_warning("Could not authorize device, because DBus is missing");
+            g_warning("Could not call USBGuard, because DBus is missing");
         } else {
             GVariant *params = g_variant_new ("(uub)", device_id, target, permanent);
             g_dbus_proxy_call (manager->usb_protection_devices,
@@ -479,21 +479,16 @@ is_hardwired (GVariant *device)
         return FALSE;
 }
 
-/* auth_last_device: authorizes the device that has been stored in
- * the manager's last_device_id. So you are supposed to set the
- * ID there, rather than as an argument here. The reason is the
- * callback from locking the screen. We cannot easily call this function
- * with the device id, so we need to transport that information somehow.
- */
 static void
-auth_last_device (GsdUsbProtectionManager *manager)
+authorize_device (GsdUsbProtectionManager *manager,
+                  guint device_id)
 {
         g_return_if_fail (manager->usb_protection_devices != NULL);
 
-        g_debug ("Authorizing device %u", manager->last_device_id);
-        authorize_device(manager->usb_protection_devices,
+        g_debug ("Authorizing device %u", device_id);
+        call_usbguard_dbus(manager->usb_protection_devices,
                          manager,
-                         manager->last_device_id,
+                         device_id,
                          TARGET_ALLOW,
                          FALSE);
 }
@@ -503,6 +498,7 @@ on_screen_locked (GsdScreenSaver          *screen_saver,
                   GAsyncResult            *result,
                   GsdUsbProtectionManager *manager)
 {
+        guint device_id;
         g_autoptr(GError) error = NULL;
 
         gsd_screen_saver_call_lock_finish (screen_saver, result, &error);
@@ -513,7 +509,9 @@ on_screen_locked (GsdScreenSaver          *screen_saver,
                 g_warning ("Couldn't lock screen: %s", error->message);
         }
 
-        auth_last_device (manager);
+        device_id = manager->last_device_id;
+        authorize_device (manager, device_id);
+        manager->last_device_id = G_MAXUINT;
         show_notification (manager,
                            _("New USB device"),
                            _("New device has been detected while the session was not locked. "
@@ -581,9 +579,10 @@ on_usbguard_signal (GDBusProxy *proxy,
         }
 
         if (is_hardwired (parameters)) {
+            guint device_id;
             g_debug ("Device is hardwired, allowing it to be connected");
-            g_variant_get_child (parameters, POLICY_DEVICE_ID, "u", &(manager->last_device_id));
-            auth_last_device (manager);
+            g_variant_get_child (parameters, POLICY_DEVICE_ID, "u", &device_id);
+            authorize_device (manager, device_id);
             return;
         }
 
@@ -601,12 +600,13 @@ on_usbguard_signal (GDBusProxy *proxy,
                  * HUB class, it is suspect. It could be a false positive because this could
                  * be a "smart" keyboard for example, but at this stage is better be safe. */
                 if (hid_or_hub && !has_other_classes) {
+                        guint device_id;
                         show_notification (manager,
                                            _("New device detected"),
                                            _("Either one of your existing devices has been reconnected or a new one has been plugged in. "
                                              "If you did not do it, check your system for any suspicious device."));
-                        g_variant_get_child (parameters, POLICY_DEVICE_ID, "u", &(manager->last_device_id));
-                        auth_last_device (manager);
+                        g_variant_get_child (parameters, POLICY_DEVICE_ID, "u", &device_id);
+                        authorize_device (manager, device_id);
                 } else {
                     if (protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN) {
                             show_notification (manager,
