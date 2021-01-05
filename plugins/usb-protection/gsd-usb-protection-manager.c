@@ -207,6 +207,7 @@ is_usbguard_allow_rule_present (GVariant *rules)
         g_debug ("Detecting rule...");
 
         g_variant_get (rules, "a(us)", &iter);
+        g_return_val_if_fail (iter != NULL, FALSE);
         while (g_variant_iter_loop (iter, "(us)", &number, &value)) {
                 if (g_strcmp0 (value, ALLOW_ALL) == 0) {
                         g_debug ("Detected rule!");
@@ -237,6 +238,7 @@ usbguard_listrules_cb (GObject      *source_object,
 
         rules = g_variant_get_child_value (result, 0);
         g_variant_unref (result);
+        g_return_if_fail (rules != NULL);
         if (!is_usbguard_allow_rule_present (rules))
                 add_usbguard_allow_rule (user_data);
 
@@ -440,6 +442,7 @@ is_hid_or_hub (GVariant *device,
         }
 
         g_variant_get_child (device, PRESENCE_ATTRIBUTES, "a{ss}", &iter);
+        g_return_val_if_fail (iter != NULL, FALSE);
         while (g_variant_iter_loop (iter, "{ss}", &name, &value)) {
                 if (g_strcmp0 (name, WITH_INTERFACE) == 0) {
                         g_auto(GStrv) interfaces_splitted = NULL;
@@ -466,6 +469,7 @@ is_hardwired (GVariant *device)
         g_autofree gchar *value = NULL;
 
         g_variant_get_child (device, PRESENCE_ATTRIBUTES, "a{ss}", &iter);
+        g_return_val_if_fail (iter != NULL, FALSE);
         while (g_variant_iter_loop (iter, "{ss}", &name, &value)) {
                 if (g_strcmp0 (name, WITH_CONNECT_TYPE) == 0) {
                         return g_strcmp0 (value, "hardwired") == 0;
@@ -483,6 +487,7 @@ auth_device (GsdUsbProtectionManager *manager,
         if (manager->usb_protection_devices == NULL)
                 return;
 
+        g_return_if_fail (g_variant_n_children (device) >= POLICY_DEVICE_ID);
         g_variant_get_child (device, POLICY_DEVICE_ID, "u", &device_id);
         g_debug ("Authorizing device %u", device_id);
         authorize_device(manager->usb_protection_devices,
@@ -538,6 +543,7 @@ on_usbguard_signal (GDBusProxy *proxy,
                 return;
         }
 
+        g_return_if_fail (g_variant_n_children (parameters) >= PRESENCE_EVENT);
         g_variant_get_child (parameters, PRESENCE_EVENT, "u", &device_event);
         if (device_event != EVENT_INSERT) {
             g_debug ("Device hat not been inserted (%d); ignoring", device_event);
@@ -566,6 +572,7 @@ on_usbguard_signal (GDBusProxy *proxy,
         }
 
         g_variant_get_child (parameters, PRESENCE_ATTRIBUTES, "a{ss}", &iter);
+        g_return_if_fail (iter != NULL);
         while (g_variant_iter_loop (iter, "{ss}", &name, &device_name)) {
                 if (g_strcmp0 (name, NAME) == 0)
                         g_debug ("A new USB device has been connected: %s", device_name);
@@ -658,6 +665,7 @@ on_usb_protection_signal (GDBusProxy *proxy,
                 return;
 
         parameter = g_variant_get_child_value (parameters, 2);
+        g_return_if_fail (parameter != NULL);
         update_usb_protection_store (user_data, parameter);
 
 }
