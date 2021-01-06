@@ -209,6 +209,7 @@ is_usbguard_allow_rule_present (GVariant *rules)
                         return TRUE;
                     }
         }
+        g_debug ("Rule not present");
         return FALSE;
 }
 
@@ -410,6 +411,7 @@ static void call_usbguard_dbus (GDBusProxy              *proxy,
         if (manager->usb_protection_devices == NULL) {
             g_warning("Could not call USBGuard, because DBus is missing");
         } else {
+            g_debug ("Calling applyDevicePolicy with device_id %u, target %u and permanent: %i", device_id, target, permanent);
             GVariant *params = g_variant_new ("(uub)", device_id, target, permanent);
             g_dbus_proxy_call (manager->usb_protection_devices,
                                APPLY_DEVICE_POLICY,
