@@ -1,3 +1,30 @@
+================
+Version 40.alpha
+================
+- Translation updates
+- CI/test fixes
+
+Housekeeping:
+- Fix crash when atime is not present
+
+Power:
+- Avoid automatic logout in GDM/greeter
+- Do not warn more than once per warning level for devices
+
+USB-protection:
+- Do not warn about ServiceUnknown errors for USBGuard
+
+Datetime:
+- Query GWeather DB on the fly instead of caching
+
+Color:
+- Use the windowing system color transform matrix if available
+- Consider night-light active when disabled until tomorrow
+
+Xsettings:
+- Use font aa/hinting/rgba-order from gsettings-desktop-schemas
+- Use mouse drag-threshold/double-click from gsettings-desktop-schemas
+
 ==============
 Version 3.38.1
 ==============
