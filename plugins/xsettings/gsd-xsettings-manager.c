@@ -898,8 +898,6 @@ plugin_callback (GSettings           *settings,
                 /* Do nothing, as GsdXsettingsGtk will handle it */
         } else if (g_str_equal (key, XSETTINGS_OVERRIDE_KEY)) {
                 override_callback (settings, key, manager);
-        } else {
-                xft_callback (settings, key, manager);
         }
 }
 
@@ -1012,6 +1010,9 @@ xsettings_callback (GSettings           *settings,
         GVariant         *value;
 
         if (g_str_equal (key, TEXT_SCALING_FACTOR_KEY) ||
+            g_str_equal (key, FONT_ANTIALIASING_KEY) ||
+            g_str_equal (key, FONT_HINTING_KEY) ||
+            g_str_equal (key, FONT_RGBA_ORDER_KEY) ||
             g_str_equal (key, CURSOR_SIZE_KEY) ||
             g_str_equal (key, CURSOR_THEME_KEY)) {
         	xft_callback (NULL, key, manager);
