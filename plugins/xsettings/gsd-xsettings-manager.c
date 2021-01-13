@@ -49,7 +49,7 @@
 #include "gsd-remote-display-manager.h"
 #include "wm-button-layout-translation.h"
 
-#define MOUSE_SETTINGS_SCHEMA     "org.gnome.settings-daemon.peripherals.mouse"
+#define MOUSE_SETTINGS_SCHEMA     "org.gnome.desktop.peripherals.mouse"
 #define BACKGROUND_SETTINGS_SCHEMA "org.gnome.desktop.background"
 #define INTERFACE_SETTINGS_SCHEMA "org.gnome.desktop.interface"
 #define SOUND_SETTINGS_SCHEMA     "org.gnome.desktop.sound"
