@@ -18,7 +18,7 @@ Before=@plugin_dbus_name@.target
 Slice=session.slice
 Type=dbus
 ExecStart=@libexecdir@/gsd-@plugin_name@
-Restart=@plugin_restart@
+Restart=on-failure
 BusName=@plugin_dbus_name@
 TimeoutStopSec=5
 # We cannot use OnFailure as e.g. dependency failures are normal

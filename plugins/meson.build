@@ -63,11 +63,6 @@ plugin_gate_units = {
 #    'smartcard': [['smartcard.target']],
 }
 
-# Restart=on-failure is the default
-plugin_restart_rule = {
-    'xsettings' : 'on-abnormal',
-}
-
 plugins_conf = configuration_data()
 plugins_conf.set('libexecdir', gsd_libexecdir)
 
@@ -126,7 +121,6 @@ foreach plugin: all_plugins
         unit_conf.set('description', plugin_description)
         unit_conf.set('libexecdir', gsd_libexecdir)
         unit_conf.set('plugin_dbus_name', plugin_dbus_name)
-        unit_conf.set('plugin_restart', plugin_restart_rule.get(plugin_name, 'on-failure'))
 
         gates_all = []
         gates_after = []
