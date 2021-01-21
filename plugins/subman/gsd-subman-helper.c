@@ -52,6 +52,17 @@ _helper_convert_error (const gchar *json_txt, GError **error)
 	}
 	json_root = json_parser_get_root (json_parser);
 	json_obj = json_node_get_object (json_root);
+	if (json_object_has_member (json_obj, "severity")) {
+		const gchar *severity;
+
+		/* warnings are non-fatal so we ignore them
+		 */
+		severity = json_object_get_string_member (json_obj, "severity");
+		if (g_strstr_len (severity, -1, "warning") != NULL) {
+			return;
+		}
+	}
+
 	if (!json_object_has_member (json_obj, "message")) {
 		g_set_error (error,
 			     G_IO_ERROR,
@@ -108,6 +119,7 @@ static gboolean
 _helper_auto_attach (GError **error)
 {
 	const gchar *str = NULL;
+	g_autoptr(GError) error_local = NULL;
 	g_autoptr(GDBusProxy) proxy = NULL;
 	g_autoptr(GVariantBuilder) proxy_options = NULL;
 	g_autoptr(GVariant) res = NULL;
@@ -120,9 +132,12 @@ _helper_auto_attach (GError **error)
 					       "com.redhat.RHSM1",
 					       "/com/redhat/RHSM1/Attach",
 					       "com.redhat.RHSM1.Attach",
-					       NULL, error);
+					       NULL, &error_local);
 	if (proxy == NULL) {
-		g_prefix_error (error, "Failed to get proxy: ");
+		g_dbus_error_strip_remote_error (error_local);
+		g_propagate_prefixed_error (error,
+					    g_steal_pointer (&error_local),
+					    "Failed to get proxy: ");
 		return FALSE;
 	}
 	proxy_options = g_variant_builder_new (G_VARIANT_TYPE_VARDICT);
@@ -134,9 +149,18 @@ _helper_auto_attach (GError **error)
 						     locale),
 				      G_DBUS_CALL_FLAGS_NONE,
 				      DBUS_TIMEOUT,
-				      NULL, error);
-	if (res == NULL)
-		return FALSE;
+				      NULL, &error_local);
+	if (res == NULL) {
+		g_dbus_error_strip_remote_error (error_local);
+		_helper_convert_error (error_local->message, error);
+
+		if (*error != NULL) {
+			g_prefix_error (error, "Failed to get proxy: ");
+			return FALSE;
+		}
+
+		return TRUE;
+	}
 	g_variant_get (res, "(&s)", &str);
 	g_debug ("Attach.AutoAttach: %s", str);
 	return TRUE;
@@ -325,8 +349,10 @@ main (int argc, char *argv[])
 		if (res == NULL) {
 			g_dbus_error_strip_remote_error (error_local);
 			_helper_convert_error (error_local->message, &error);
-			g_printerr ("Failed to RegisterWithActivationKeys: %s\n", error->message);
-			return error->code;
+			if (error != NULL) {
+				g_printerr ("Failed to RegisterWithActivationKeys: %s\n", error->message);
+				return error->code;
+			}
 		}
 	} else if (g_strcmp0 (kind, "register-with-username") == 0) {
 		g_autoptr(GError) error_local = NULL;
@@ -368,8 +394,10 @@ main (int argc, char *argv[])
 		if (res == NULL) {
 			g_dbus_error_strip_remote_error (error_local);
 			_helper_convert_error (error_local->message, &error);
-			g_printerr ("Failed to Register: %s\n", error->message);
-			return error->code;
+			if (error != NULL) {
+				g_printerr ("Failed to Register: %s\n", error->message);
+				return error->code;
+			}
 		}
 	} else {
 		g_printerr ("Invalid --kind specified: %s\n", kind);
