@@ -46,6 +46,7 @@ static const gchar introspection_xml[] =
 "      <arg type='a{sv}' name='options' direction='in'/>"
 "    </method>"
 "    <method name='Unregister'/>"
+"    <method name='Attach'/>"
 "    <property name='InstalledProducts' type='aa{sv}' access='read'/>"
 "    <property name='SubscriptionStatus' type='u' access='read'/>"
 "  </interface>"
@@ -697,6 +698,50 @@ _client_unregister (GsdSubscriptionManager *manager, GError **error)
 }
 
 static gboolean
+_client_attach (GsdSubscriptionManager *manager,
+		GError **error)
+{
+	g_autoptr(GSubprocess) subprocess = NULL;
+	g_autoptr(GBytes) stderr_buf = NULL;
+	gint rc;
+
+	g_debug ("spawning %s", LIBEXECDIR "/gsd-subman-helper");
+	subprocess = g_subprocess_new (G_SUBPROCESS_FLAGS_STDERR_PIPE,
+				       error,
+				       "pkexec", LIBEXECDIR "/gsd-subman-helper",
+				       "--kind", "auto-attach",
+				       NULL);
+	if (subprocess == NULL) {
+		g_prefix_error (error, "failed to find pkexec: ");
+		return FALSE;
+	}
+
+	if (!g_subprocess_communicate (subprocess, NULL, NULL, NULL, &stderr_buf, error)) {
+		g_prefix_error (error, "failed to run pkexec: ");
+		return FALSE;
+	}
+
+	rc = g_subprocess_get_exit_status (subprocess);
+	if (rc != 0) {
+		if (g_bytes_get_size (stderr_buf) == 0) {
+			g_set_error_literal (error, G_IO_ERROR, rc,
+			                     "Failed to run helper without stderr");
+			return FALSE;
+		}
+
+		g_set_error (error, G_IO_ERROR, rc,
+			     "%.*s",
+			     (int) g_bytes_get_size (stderr_buf),
+			     (char *) g_bytes_get_data (stderr_buf, NULL));
+	}
+
+	if (!_client_subscription_status_update (manager, error))
+		return FALSE;
+	_client_maybe__show_notification (manager);
+	return TRUE;
+}
+
+static gboolean
 _client_update_config (GsdSubscriptionManager *manager, GError **error)
 {
 	GsdSubscriptionManagerPrivate *priv = manager->priv;
@@ -1025,6 +1070,12 @@ handle_method_call (GDBusConnection       *connection,
 		g_dbus_method_invocation_return_value (invocation, NULL);
 	} else if (g_strcmp0 (method_name, "Unregister") == 0) {
 		if (!_client_unregister (manager, &error)) {
+			g_dbus_method_invocation_return_gerror (invocation, error);
+			return;
+		}
+		g_dbus_method_invocation_return_value (invocation, NULL);
+	} else if (g_strcmp0 (method_name, "Attach") == 0) {
+		if (!_client_attach (manager, &error)) {
 			g_dbus_method_invocation_return_gerror (invocation, error);
 			return;
 		}
