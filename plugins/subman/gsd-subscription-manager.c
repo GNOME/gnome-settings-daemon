@@ -289,6 +289,11 @@ _client_subscription_status_update (GsdSubscriptionManager *manager, GError **er
 
 	g_variant_get (uuid, "(&s)", &uuid_txt);
 
+	if (uuid_txt[0] == '\0') {
+		priv->subscription_status = GSD_SUBMAN_SUBSCRIPTION_STATUS_UNKNOWN;
+		goto out;
+	}
+
 	status = g_dbus_proxy_call_sync (priv->proxies[_RHSM_INTERFACE_ENTITLEMENT],
 				         "GetStatus",
 				         g_variant_new ("(ss)",
@@ -304,6 +309,13 @@ _client_subscription_status_update (GsdSubscriptionManager *manager, GError **er
 		return FALSE;
 	json_root = json_parser_get_root (json_parser);
 	json_obj = json_node_get_object (json_root);
+
+	const gchar *status_id = NULL;
+
+	if (json_object_has_member (json_obj, "status_id")) {
+		status_id = json_object_get_string_member (json_obj, "status_id");
+	}
+
 	if (!json_object_has_member (json_obj, "valid")) {
 		g_set_error (error, G_IO_ERROR, G_IO_ERROR_INVALID_DATA,
 			     "no Entitlement.GetStatus valid in %s", json_txt);
@@ -312,16 +324,27 @@ _client_subscription_status_update (GsdSubscriptionManager *manager, GError **er
 
 	gboolean is_valid = json_object_get_boolean_member (json_obj, "valid");
 
-	if (uuid_txt[0] != '\0') {
-		if (is_valid) {
+	if (is_valid) {
+		if (g_strcmp0 (status_id, "disabled") != 0) {
 			priv->subscription_status = GSD_SUBMAN_SUBSCRIPTION_STATUS_VALID;
 		} else {
-			priv->subscription_status = GSD_SUBMAN_SUBSCRIPTION_STATUS_INVALID;
+			priv->subscription_status = GSD_SUBMAN_SUBSCRIPTION_STATUS_DISABLED;
 		}
-	} else {
-		priv->subscription_status = GSD_SUBMAN_SUBSCRIPTION_STATUS_UNKNOWN;
+		goto out;
 	}
 
+	for (guint i = 0; i < priv->installed_products->len; i++) {
+		ProductData *product = g_ptr_array_index (priv->installed_products, i);
+
+		if (g_strcmp0 (product->status, "subscribed") == 0) {
+			priv->subscription_status = GSD_SUBMAN_SUBSCRIPTION_STATUS_PARTIALLY_VALID;
+			goto out;
+		}
+	}
+
+	priv->subscription_status = GSD_SUBMAN_SUBSCRIPTION_STATUS_INVALID;
+
+out:
 	/* emit notification for g-c-c */
 	if (priv->subscription_status != priv->subscription_status_last) {
 		_emit_property_changed (manager, "SubscriptionStatus",
