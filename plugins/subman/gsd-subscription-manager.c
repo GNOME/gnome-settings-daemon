@@ -588,8 +588,8 @@ _client_register_with_keys (GsdSubscriptionManager *manager,
 
 		g_set_error (error, G_IO_ERROR, rc,
 			     "%.*s",
-			     g_bytes_get_size (stderr_buf),
-			     g_bytes_get_data (stderr_buf, NULL));
+			     (int) g_bytes_get_size (stderr_buf),
+			     (char *) g_bytes_get_data (stderr_buf, NULL));
 	}
 
 	/* FIXME: also do on error? */
@@ -655,8 +655,8 @@ _client_register (GsdSubscriptionManager *manager,
 
 		g_set_error (error, G_IO_ERROR, rc,
 			     "%.*s",
-			     g_bytes_get_size (stderr_buf),
-			     g_bytes_get_data (stderr_buf, NULL));
+			     (int) g_bytes_get_size (stderr_buf),
+			     (char *) g_bytes_get_data (stderr_buf, NULL));
 	}
 
 	/* FIXME: also do on error? */
