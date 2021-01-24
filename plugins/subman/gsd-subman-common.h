@@ -31,7 +31,6 @@ typedef enum {
 	GSD_SUBMAN_SUBSCRIPTION_STATUS_DISABLED,
 	GSD_SUBMAN_SUBSCRIPTION_STATUS_PARTIALLY_VALID,
 	GSD_SUBMAN_SUBSCRIPTION_STATUS_NO_INSTALLED_PRODUCTS,
-	GSD_SUBMAN_SUBSCRIPTION_STATUS_LAST
 } GsdSubmanSubscriptionStatus;
 
 const gchar	*gsd_subman_subscription_status_to_string	(GsdSubmanSubscriptionStatus	 status);
