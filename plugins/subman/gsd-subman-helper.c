@@ -24,11 +24,13 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <locale.h>
 
 #include <gio/gio.h>
 #include <json-glib/json-glib.h>
 
 #define DBUS_TIMEOUT 300000 /* 5 minutes */
+static const char *locale;
 
 static void
 _helper_convert_error (const gchar *json_txt, GError **error)
@@ -94,7 +96,7 @@ _helper_unregister (GError **error)
 				      "Unregister",
 				      g_variant_new ("(a{sv}s)",
 						     proxy_options,
-						     ""), /* lang */
+						     locale),
 				      G_DBUS_CALL_FLAGS_NONE,
 				      DBUS_TIMEOUT,
 				      NULL, error);
@@ -128,7 +130,7 @@ _helper_auto_attach (GError **error)
 				      g_variant_new ("(sa{sv}s)",
 						     "", /* now? */
 						     proxy_options,
-						     ""), /* lang */
+						     locale),
 				      G_DBUS_CALL_FLAGS_NONE,
 				      DBUS_TIMEOUT,
 				      NULL, error);
@@ -160,7 +162,7 @@ _helper_save_config (const gchar *key, const gchar *value, GError **error)
 				      g_variant_new ("(svs)",
 						     key,
 						     g_variant_new_string (value),
-						     ""), /* lang */
+						     locale),
 				      G_DBUS_CALL_FLAGS_NONE,
 				      DBUS_TIMEOUT,
 				      NULL, error);
@@ -170,7 +172,6 @@ _helper_save_config (const gchar *key, const gchar *value, GError **error)
 int
 main (int argc, char *argv[])
 {
-	const gchar *userlang = ""; /* as root, so no translations */
 	g_autofree gchar *activation_key = NULL;
 	g_autofree gchar *address = NULL;
 	g_autofree gchar *hostname = NULL;
@@ -218,6 +219,10 @@ main (int argc, char *argv[])
 		g_printerr ("This program can only be used by the root user\n");
 		return G_IO_ERROR_NOT_SUPPORTED;
 	}
+
+	setlocale (LC_ALL, "");
+	locale = setlocale (LC_MESSAGES, NULL);
+
 	g_option_context_add_main_entries (context, options, NULL);
 	if (!g_option_context_parse (context, &argc, &argv, &error)) {
 		g_printerr ("Failed to parse arguments: %s\n", error->message);
@@ -308,7 +313,7 @@ main (int argc, char *argv[])
 							     activation_keys,
 							     subman_options,
 							     subman_conopts,
-							     userlang),
+							     locale),
 					      G_DBUS_CALL_FLAGS_NO_AUTO_START,
 					      DBUS_TIMEOUT,
 					      NULL, &error_local);
@@ -343,7 +348,7 @@ main (int argc, char *argv[])
 							     password,
 							     subman_options,
 							     subman_conopts,
-							     userlang),
+							     locale),
 					      G_DBUS_CALL_FLAGS_NO_AUTO_START,
 					      DBUS_TIMEOUT,
 					      NULL, &error_local);
