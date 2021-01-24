@@ -270,6 +270,7 @@ _client_subscription_status_update (GsdSubscriptionManager *manager, GError **er
 
 	/* save old value */
 	priv->subscription_status_last = priv->subscription_status;
+
 	if (!_client_installed_products_update (manager, error))
 		goto out;
 
@@ -512,55 +513,149 @@ static void
 _client_maybe__show_notification (GsdSubscriptionManager *manager)
 {
 	GsdSubscriptionManagerPrivate *priv = manager->priv;
+	gboolean was_read, was_registered, had_subscriptions, needed_subscriptions;
+	gboolean is_read, is_registered, has_subscriptions, needs_subscriptions;
+
+	switch (priv->subscription_status_last) {
+		case GSD_SUBMAN_SUBSCRIPTION_STATUS_NOT_READ:
+			was_read = FALSE;
+			was_registered = FALSE;
+			needed_subscriptions = TRUE;
+			had_subscriptions = FALSE;
+			break;
+		case GSD_SUBMAN_SUBSCRIPTION_STATUS_UNKNOWN:
+			was_read = TRUE;
+			was_registered = FALSE;
+			needed_subscriptions = TRUE;
+			had_subscriptions = FALSE;
+			break;
+		case GSD_SUBMAN_SUBSCRIPTION_STATUS_VALID:
+			was_read = TRUE;
+			was_registered = TRUE;
+			needed_subscriptions = TRUE;
+			had_subscriptions = TRUE;
+			break;
+		case GSD_SUBMAN_SUBSCRIPTION_STATUS_INVALID:
+			was_read = TRUE;
+			was_registered = TRUE;
+			needed_subscriptions = TRUE;
+			had_subscriptions = FALSE;
+			break;
+		case GSD_SUBMAN_SUBSCRIPTION_STATUS_DISABLED:
+			was_read = TRUE;
+			was_registered = TRUE;
+			needed_subscriptions = FALSE;
+			had_subscriptions = FALSE;
+			break;
+		case GSD_SUBMAN_SUBSCRIPTION_STATUS_PARTIALLY_VALID:
+			was_read = TRUE;
+			was_registered = TRUE;
+			needed_subscriptions = TRUE;
+			had_subscriptions = FALSE;
+		case GSD_SUBMAN_SUBSCRIPTION_STATUS_NO_INSTALLED_PRODUCTS:
+			was_read = TRUE;
+			was_registered = FALSE;
+			needed_subscriptions = FALSE;
+			had_subscriptions = FALSE;
+			break;
+	}
+
+	switch (priv->subscription_status) {
+		case GSD_SUBMAN_SUBSCRIPTION_STATUS_NOT_READ:
+			is_read = FALSE;
+			is_registered = FALSE;
+			needs_subscriptions = TRUE;
+			has_subscriptions = FALSE;
+			break;
+		case GSD_SUBMAN_SUBSCRIPTION_STATUS_UNKNOWN:
+			is_read = TRUE;
+			is_registered = FALSE;
+			needs_subscriptions = TRUE;
+			has_subscriptions = FALSE;
+			break;
+		case GSD_SUBMAN_SUBSCRIPTION_STATUS_VALID:
+			is_read = TRUE;
+			is_registered = TRUE;
+			needs_subscriptions = TRUE;
+			has_subscriptions = TRUE;
+			break;
+		case GSD_SUBMAN_SUBSCRIPTION_STATUS_PARTIALLY_VALID:
+		case GSD_SUBMAN_SUBSCRIPTION_STATUS_INVALID:
+			is_read = TRUE;
+			is_registered = TRUE;
+			needs_subscriptions = TRUE;
+			has_subscriptions = FALSE;
+			break;
+		case GSD_SUBMAN_SUBSCRIPTION_STATUS_DISABLED:
+			is_read = TRUE;
+			is_registered = TRUE;
+			needs_subscriptions = FALSE;
+			has_subscriptions = FALSE;
+			break;
+		case GSD_SUBMAN_SUBSCRIPTION_STATUS_NO_INSTALLED_PRODUCTS:
+			is_read = TRUE;
+			is_registered = FALSE;
+			needs_subscriptions = FALSE;
+			has_subscriptions = FALSE;
+			break;
+	}
 
 	/* startup */
-	if (priv->subscription_status_last == GSD_SUBMAN_SUBSCRIPTION_STATUS_UNKNOWN &&
-	    priv->subscription_status == GSD_SUBMAN_SUBSCRIPTION_STATUS_UNKNOWN) {
+	if (!was_read && is_read && priv->subscription_status == GSD_SUBMAN_SUBSCRIPTION_STATUS_UNKNOWN) {
 		_show_notification (manager, _NOTIFY_REGISTRATION_REQUIRED);
 		return;
 	}
 
 	/* something changed */
-	if (priv->subscription_status_last != priv->subscription_status) {
+	if (was_read && is_read && priv->subscription_status_last != priv->subscription_status) {
 		g_debug ("transisition from subscription status '%s' to '%s'",
 			 gsd_subman_subscription_status_to_string (priv->subscription_status_last),
 			 gsd_subman_subscription_status_to_string (priv->subscription_status));
 
-		/* needs registration */
-		if (priv->subscription_status_last == GSD_SUBMAN_SUBSCRIPTION_STATUS_VALID &&
-		    priv->subscription_status == GSD_SUBMAN_SUBSCRIPTION_STATUS_INVALID) {
-			_show_notification (manager, _NOTIFY_REGISTRATION_REQUIRED);
+		/* needs subscription */
+		if (is_registered && needs_subscriptions && !has_subscriptions) {
+			_show_notification (manager, _NOTIFY_EXPIRED);
 			return;
 		}
 
 		/* was unregistered */
-		if (priv->subscription_status_last == GSD_SUBMAN_SUBSCRIPTION_STATUS_VALID &&
-		    priv->subscription_status == GSD_SUBMAN_SUBSCRIPTION_STATUS_UNKNOWN) {
+		if (was_registered && !is_registered) {
 			_show_notification (manager, _NOTIFY_REGISTRATION_REQUIRED);
 			return;
 		}
 
-		/* registered */
-		if (priv->subscription_status_last == GSD_SUBMAN_SUBSCRIPTION_STATUS_UNKNOWN &&
-		    priv->subscription_status == GSD_SUBMAN_SUBSCRIPTION_STATUS_VALID &&
-		    g_timer_elapsed (priv->timer_last_notified, NULL) > 60) {
-			_show_notification (manager, _NOTIFY_REGISTERED);
-			return;
+		/* just registered */
+		if (!was_registered && is_registered) {
+			if (!needs_subscriptions || has_subscriptions) {
+				_show_notification (manager, _NOTIFY_REGISTERED);
+				return;
+			}
+		}
+
+		/* subscriptions changed */
+		if (was_registered && is_registered) {
+			/* subscribed */
+			if (!had_subscriptions &&
+			    needs_subscriptions && has_subscriptions) {
+				_show_notification (manager, _NOTIFY_REGISTERED);
+				return;
+			}
+
+			/* simple content access enabled */
+			if (needed_subscriptions && !had_subscriptions && !needs_subscriptions) {
+				_show_notification (manager, _NOTIFY_REGISTERED);
+				return;
+			}
 		}
 	}
 
 	/* nag again */
-	if (priv->subscription_status == GSD_SUBMAN_SUBSCRIPTION_STATUS_UNKNOWN &&
+	if (!is_registered &&
 	    g_timer_elapsed (priv->timer_last_notified, NULL) > 60 * 60 * 24) {
 		_show_notification (manager, _NOTIFY_REGISTRATION_REQUIRED);
 		return;
 	}
-	if (priv->subscription_status == GSD_SUBMAN_SUBSCRIPTION_STATUS_INVALID &&
-	    g_timer_elapsed (priv->timer_last_notified, NULL) > 60 * 60 * 24) {
-		_show_notification (manager, _NOTIFY_EXPIRED);
-		return;
-	}
-	if (priv->subscription_status == GSD_SUBMAN_SUBSCRIPTION_STATUS_PARTIALLY_VALID &&
+	if (is_registered && !has_subscriptions && needs_subscriptions &&
 	    g_timer_elapsed (priv->timer_last_notified, NULL) > 60 * 60 * 24) {
 		_show_notification (manager, _NOTIFY_EXPIRED);
 		return;
@@ -941,6 +1036,8 @@ gsd_subscription_manager_init (GsdSubscriptionManager *manager)
 
 	priv->installed_products = g_ptr_array_new_with_free_func ((GDestroyNotify) product_data_free);
 	priv->timer_last_notified = g_timer_new ();
+	priv->subscription_status = GSD_SUBMAN_SUBSCRIPTION_STATUS_NOT_READ;
+	priv->subscription_status_last = GSD_SUBMAN_SUBSCRIPTION_STATUS_NOT_READ;
 
 	/* expired */
 	priv->notification_expired =
