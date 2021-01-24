@@ -32,5 +32,7 @@ gsd_subman_subscription_status_to_string (GsdSubmanSubscriptionStatus status)
 		return "disabled";
 	if (status == GSD_SUBMAN_SUBSCRIPTION_STATUS_PARTIALLY_VALID)
 		return "partially-valid";
+	if (status == GSD_SUBMAN_SUBSCRIPTION_STATUS_NO_INSTALLED_PRODUCTS)
+		return "no-installed-products";
 	return "unknown";
 }

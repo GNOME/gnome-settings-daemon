@@ -269,6 +269,13 @@ _client_subscription_status_update (GsdSubscriptionManager *manager, GError **er
 
 	/* save old value */
 	priv->subscription_status_last = priv->subscription_status;
+	if (!_client_installed_products_update (manager, error))
+		goto out;
+
+	if (priv->installed_products->len == 0) {
+		priv->subscription_status = GSD_SUBMAN_SUBSCRIPTION_STATUS_NO_INSTALLED_PRODUCTS;
+		goto out;
+	}
 
 	uuid = g_dbus_proxy_call_sync (priv->proxies[_RHSM_INTERFACE_CONSUMER],
 				       "GetUuid",
@@ -590,8 +597,6 @@ _client_register_with_keys (GsdSubscriptionManager *manager,
 		return FALSE;
 	if (!_client_subscription_status_update (manager, error))
 		return FALSE;
-	if (!_client_installed_products_update (manager, error))
-		return FALSE;
 	_client_maybe__show_notification (manager);
 
 	/* success */
@@ -658,8 +663,6 @@ _client_register (GsdSubscriptionManager *manager,
 	if (!_client_register_stop (manager, error))
 		return FALSE;
 	if (!_client_subscription_status_update (manager, error))
-		return FALSE;
-	if (!_client_installed_products_update (manager, error))
 		return FALSE;
 	_client_maybe__show_notification (manager);
 	return TRUE;
@@ -741,10 +744,6 @@ _subman_proxy_signal_cb (GDBusProxy *proxy,
 		g_warning ("failed to update subscription status: %s", error->message);
 		g_clear_error (&error);
 	}
-	if (!_client_installed_products_update (manager, &error)) {
-		g_warning ("failed to update installed products: %s", error->message);
-		g_clear_error (&error);
-	}
 	_client_maybe__show_notification (manager);
 }
 
@@ -808,8 +807,6 @@ _client_load (GsdSubscriptionManager *manager, GError **error)
 	if (!_client_update_config (manager, error))
 		return FALSE;
 	if (!_client_subscription_status_update (manager, error))
-		return FALSE;
-	if (!_client_installed_products_update (manager, error))
 		return FALSE;
 	if (!_client_syspurpose_update (manager, error))
 		return FALSE;
