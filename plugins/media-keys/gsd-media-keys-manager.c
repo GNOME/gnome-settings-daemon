@@ -2287,6 +2287,9 @@ do_config_power_button_action (GsdMediaKeysManager *manager,
         case GSD_POWER_BUTTON_ACTION_INTERACTIVE:
                 action = GSD_POWER_ACTION_INTERACTIVE;
                 break;
+        default:
+                g_warn_if_reached ();
+                G_GNUC_FALLTHROUGH;
         case GSD_POWER_BUTTON_ACTION_NOTHING:
                 /* do nothing */
                 return;
