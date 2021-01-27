@@ -77,12 +77,6 @@ screenshot_context_free (ScreenshotContext *ctx)
 }
 
 static void
-screenshot_play_error_sound_effect (void)
-{
-  screenshot_play_sound_effect ("dialog-error", _("Unable to capture a screenshot"));
-}
-
-static void
 screenshot_save_to_recent (ScreenshotContext *ctx)
 {
   GFile *file = g_file_new_for_path (ctx->used_filename);
@@ -108,7 +102,6 @@ bus_call_ready_cb (GObject *source,
 
   if (error != NULL)
     {
-      screenshot_play_error_sound_effect ();
       g_warning ("Failed to save a screenshot: %s\n", error->message);
       g_error_free (error);
       screenshot_context_free (ctx);
@@ -218,7 +211,6 @@ bus_connection_ready_cb (GObject *source,
 
   if (error != NULL)
     {
-      screenshot_play_error_sound_effect ();
       g_warning ("Failed to save a screenshot: %s\n", error->message);
       g_error_free (error);
       screenshot_context_free (ctx);
