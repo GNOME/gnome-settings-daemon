@@ -2493,6 +2493,8 @@ on_randr_event (GnomeRRScreen *screen, gpointer user_data)
 static void
 handle_suspend_actions (GsdPowerManager *manager)
 {
+        /* close any existing notification about idleness */
+        notify_close_if_showing (&manager->notification_sleep_warning);
         backlight_disable (manager);
         uninhibit_suspend (manager);
 }
