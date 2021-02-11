@@ -2326,12 +2326,12 @@ show_sleep_warning (GsdPowerManager *manager)
                                      &manager->notification_sleep_warning);
                 break;
         case GSD_POWER_ACTION_SUSPEND:
-                create_notification (_("Automatic suspend"), _("Computer will suspend very soon because of inactivity."),
+                create_notification (_("Automatic suspend"), _("Suspending soon because of inactivity."),
                                      NULL, NOTIFICATION_PRIVACY_SYSTEM,
                                      &manager->notification_sleep_warning);
                 break;
         case GSD_POWER_ACTION_HIBERNATE:
-                create_notification (_("Automatic hibernation"), _("Computer will suspend very soon because of inactivity."),
+                create_notification (_("Automatic hibernation"), _("Suspending soon because of inactivity."),
                                      NULL, NOTIFICATION_PRIVACY_SYSTEM,
                                      &manager->notification_sleep_warning);
                 break;
