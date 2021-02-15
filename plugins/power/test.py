@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python3 -u
 '''GNOME settings daemon tests for power plugin.'''
 
 __author__ = 'Martin Pitt <martin.pitt@ubuntu.com>'
