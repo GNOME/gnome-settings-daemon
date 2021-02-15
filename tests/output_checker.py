@@ -149,12 +149,15 @@ class OutputChecker(object):
             raise AssertionError("OutputCheck: Write side has not been closed yet!")
 
     def force_close(self):
+        print("force closing pipe %d" % self._pipe_fd_r);
 
         fd = self._pipe_fd_r
         self._pipe_fd_r = -1
         os.close(fd)
 
+        print("pipe closed, waiting\n");
         self._thread.join()
+        print("reader thread joined\n");
 
     @property
     def fd(self):

@@ -44,22 +44,30 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
     COMMON_SUSPEND_METHODS=['Suspend', 'Hibernate', 'SuspendThenHibernate']
 
     def setUp(self):
+        print("setup 0\n")
         self.mock_external_monitor_file = os.path.join(self.workdir, 'GSD_MOCK_EXTERNAL_MONITOR')
         os.environ['GSD_MOCK_EXTERNAL_MONITOR_FILE'] = self.mock_external_monitor_file
 
+        print("setup 0.1\n")
+
         self.check_logind_gnome_session()
+        print("setup 0.2\n")
         self.start_logind()
+        print("setup 0.3\n")
         self.daemon_death_expected = False
+        print("setup 1\n")
 
 
         # Setup umockdev testbed
         self.testbed = UMockdev.Testbed.new()
         os.environ['UMOCKDEV_DIR'] = self.testbed.get_root_dir()
+        print("setup 2\n")
 
         # Create a mock backlight device
         # Note that this function creates a different or even no backlight
         # device based on the name of the test.
         self.add_backlight()
+        print("setup 3\n")
 
         if 'HAVE_SYSFS_BACKLIGHT' in os.environ and os.environ['HAVE_SYSFS_BACKLIGHT'] == '1':
             self.skip_sysfs_backlight = False
@@ -71,10 +79,14 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
             'upower', {'DaemonVersion': '0.99', 'OnBattery': True, 'LidIsClosed': False}, stdout=subprocess.PIPE)
         gsdtestcase.set_nonblock(self.upowerd.stdout)
 
+        print("setup 4\n")
+
         # start mock gnome-shell screensaver
         (self.screensaver, self.obj_screensaver) = self.spawn_server_template(
             'gnome_screensaver', stdout=subprocess.PIPE)
         gsdtestcase.set_nonblock(self.screensaver.stdout)
+
+        print("setup 5\n")
 
         self.session_log = OutputChecker()
         self.session = subprocess.Popen(['gnome-session', '-f',
@@ -83,6 +95,8 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
                                         stdout=self.session_log.fd,
                                         stderr=subprocess.STDOUT)
         self.session_log.writer_attached()
+
+        print("setup 6\n")
 
         # wait until the daemon is on the bus
         self.wait_for_bus_object('org.gnome.SessionManager',
@@ -93,20 +107,28 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
 
         self.start_mutter()
 
+        print("setup 7\n")
+
         # Set up the gnome-session presence
         obj_session_presence = self.session_bus_con.get_object(
             'org.gnome.SessionManager', '/org/gnome/SessionManager/Presence')
         self.obj_session_presence_props = dbus.Interface(obj_session_presence, dbus.PROPERTIES_IFACE)
+
+        print("setup 8\n")
 
         # ensure that our tests don't lock the screen when the screensaver
         # gets active
         self.settings_screensaver = Gio.Settings(schema_id='org.gnome.desktop.screensaver')
         self.settings_screensaver['lock-enabled'] = False
 
+        print("setup 9\n")
+
         # Ensure we set up the external monitor state
         self.set_has_external_monitor(False)
 
         self.settings_gsd_power = Gio.Settings(schema_id='org.gnome.settings-daemon.plugins.power')
+
+        print("setup 10\n")
 
         Gio.Settings.sync()
         # avoid painfully long delays of actions for tests
@@ -122,6 +144,8 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
             else:
                 env['LD_PRELOAD'] = env['POWER_LD_PRELOAD']
 
+        print("setup 11\n")
+
         # We need to redirect stdout to grab the debug messages.
         # stderr is not needed by the testing infrastructure but is useful to
         # see warnings and errors.
@@ -133,30 +157,52 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
             env=env)
         self.plugin_log.writer_attached()
 
+        print("setup 12\n")
+
         # Store the early-init messages, some tests need them.
         self.plugin_startup_msgs = self.plugin_log.check_line(b'System inhibitor fd is', timeout=10)
+
+        print("setup 13\n")
 
         # always start with zero idle time
         self.reset_idle_timer()
 
+        print("setup 14\n")
+
         # flush notification log
         self.p_notify.stdout.read()
 
+        print("setup 15 and done!\n")
+
     def tearDown(self):
 
+        print("tear down\n")
         daemon_running = self.daemon.poll() == None
         if daemon_running:
+            print("terminating daemon\n")
             self.daemon.terminate()
+            print("waiting daemon\n")
             self.daemon.wait()
+            print("daemon done\n")
+        print("checking log is closed\n")
         self.plugin_log.assert_closed()
+        print("log closed\n")
 
+        print("terminating upowerd\n")
         self.upowerd.terminate()
+        print("terminating upowerd done\n")
         self.upowerd.wait()
+        print("waiting upowerd done\n")
         self.screensaver.terminate()
+        print("terminating screensaver done\n")
         self.screensaver.wait()
+        print("waiting screensaver done\n")
         self.stop_session()
+        print("session stopped\n")
         self.stop_mutter()
+        print("mutter stopped\n")
         self.stop_logind()
+        print("logind stopped\n")
 
         # reset all changed gsettings, so that tests are independent from each
         # other
@@ -177,10 +223,15 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
 
     def stop_session(self):
         '''Stop GNOME session'''
+        print("stop GNOME session\n")
 
         assert self.session
+        print("terminating session\n")
+
         self.session.terminate()
+        print("waiting for process to finish\n")
         self.session.wait()
+        print("force closing log next\n")
         # dummyapp.desktop survives the session. This keeps the FD open in the
         # CI environment when gnome-session fails to redirect the child output
         # to journald.
@@ -530,6 +581,7 @@ class PowerPluginTest2(PowerPluginBase):
 
     def test_idle_time_reset_on_resume(self):
         '''Check that the IDLETIME is reset when resuming'''
+        print("test_idle_time_reset_on_resume\n")
 
         self.settings_screensaver['lock-enabled'] = False
 
@@ -1047,7 +1099,7 @@ class PowerPluginTest7(PowerPluginBase):
             kbd_brightness = obj_gsd_power_kbd_props.Get('org.gnome.SettingsDaemon.Power.Keyboard', 'Brightness')
 
             # We should not have arrived here, if we did then the test failed, let's print this to help debugging
-            print('Got keyboard brightness: {}'.format(kbd_brightness))
+            os.write(1, 'Got keyboard brightness: {}'.format(kbd_brightness))
 
         self.assertEqual(exc.exception.get_dbus_message(), 'Failed to get property Brightness on interface org.gnome.SettingsDaemon.Power.Keyboard')
 
@@ -1303,4 +1355,4 @@ class PowerPluginTest8(PowerPluginBase):
         self.assertEqual(exc.exception.get_dbus_message(), 'No usable backlight could be found!')
 
 # avoid writing to stderr
-unittest.main(testRunner=unittest.TextTestRunner(stream=sys.stdout, verbosity=2))
+unittest.main(testRunner=unittest.TextTestRunner(stream=sys.stdout, verbosity=2), buffer=False)

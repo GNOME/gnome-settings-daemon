@@ -60,9 +60,9 @@ envs = [
   'TOP_BUILDDIR=' + meson.build_root()
 ]
 
-test(
-  'test-xsettings',
-  test_py,
-  env: envs,
-  timeout: 300
-)
+#test(
+#  'test-xsettings',
+#  test_py,
+#  env: envs,
+#  timeout: 300
+#)

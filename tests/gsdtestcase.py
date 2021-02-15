@@ -57,6 +57,7 @@ class GSDTestCase(X11SessionTestCase):
     '''
     @classmethod
     def setUpClass(klass):
+        print("class setup 1")
         os.environ['GIO_USE_VFS'] = 'local'
         os.environ['GVFS_DISABLE_FUSE'] = '1'
         # we do some string checks, disable translations
@@ -74,6 +75,7 @@ class GSDTestCase(X11SessionTestCase):
         os.environ['XDG_DATA_HOME'] = os.path.join(klass.workdir, 'data')
         os.environ['XDG_RUNTIME_DIR'] = os.path.join(klass.workdir, 'runtime')
 
+        print("class setup 2")
         # Copy gschema file into XDG_DATA_HOME
         gschema_dir = os.path.join(os.environ['XDG_DATA_HOME'], 'glib-2.0', 'schemas')
         os.makedirs(gschema_dir)
@@ -83,21 +85,32 @@ class GSDTestCase(X11SessionTestCase):
         os.makedirs(os.path.join(os.environ['XDG_CONFIG_HOME'], 'dconf'))
         os.makedirs(os.environ['XDG_RUNTIME_DIR'], mode=0o700)
 
+        print("class setup 3")
+
         # Starts Xvfb and dbus busses
         X11SessionTestCase.setUpClass()
 
+        print("class setup 4")
+
         klass.system_bus_con = klass.get_dbus(True)
         klass.session_bus_con = klass.get_dbus(False)
+
+        print("class setup 5")
 
         # we never want to cause notifications on the actual GUI
         klass.p_notify = klass.spawn_server_template(
             'notification_daemon', {}, stdout=subprocess.PIPE)[0]
         set_nonblock(klass.p_notify.stdout)
 
+        print("class setup 6")
+
         klass.start_session()
+        print("class setup 7")
         klass.start_monitor()
+        print("class setup 8")
 
         klass.settings_session = Gio.Settings(schema_id='org.gnome.desktop.session')
+        print("class setup 9")
 
     @classmethod
     def tearDownClass(klass):
@@ -116,7 +129,9 @@ class GSDTestCase(X11SessionTestCase):
         '''
         if result:
             orig_err_fail = len(result.errors) + len(result.failures)
+        print("running test")
         super(GSDTestCase, self).run(result)
+        print("test run completed")
         if result and len(result.errors) + len(result.failures) > orig_err_fail:
             if 'SHELL_ON_FAIL' in os.environ:
                 subprocess.call(['bash', '-i'], cwd=self.workdir)
