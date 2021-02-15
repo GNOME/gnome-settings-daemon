@@ -35,6 +35,9 @@ gsd_schemadir = join_paths(gsd_datadir, 'glib-2.0', 'schemas')
 
 gsd_xdg_autostart = join_paths(gsd_sysconfdir, 'xdg', 'autostart')
 
+gsd_3_0_api_name = '@0@-@1@'.format(meson.project_name(), '3.0')
+gsd_gtk_modules_directory = join_paths(gsd_libdir, gsd_3_0_api_name, 'gtk-modules')
+
 gsd_buildtype = get_option('buildtype')
 
 host_is_darwin = host_machine.system().contains('darwin')
@@ -262,6 +265,7 @@ output += '        libexecdir:               ' + gsd_libexecdir + '\n'
 output += '        bindir:                   ' + gsd_bindir + '\n'
 output += '        sysconfdir:               ' + gsd_sysconfdir + '\n'
 output += '        datadir:                  ' + gsd_datadir + '\n\n'
+output += '        gtk modules dir:          ' + gsd_gtk_modules_directory + '\n\n'
 output += '        source code location:     ' + meson.source_root() + '\n'
 output += '        compiler:                 ' + cc.get_id() + '\n'
 output += '        cflags:                   ' + ' '.join(compiler_flags) + '\n\n'

@@ -19,7 +19,7 @@ deps = plugins_deps + [
   dependency('fontconfig')
 ]
 
-cflags += ['-DGTK_MODULES_DIRECTORY="@0@"'.format(join_paths(gsd_pkglibdir, 'gtk-modules'))]
+cflags += ['-DGTK_MODULES_DIRECTORY="@0@"'.format(gsd_gtk_modules_directory)]
 
 executable(
   'gsd-' + plugin_name,
