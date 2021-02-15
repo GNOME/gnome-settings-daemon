@@ -9,9 +9,7 @@ gsd_version = meson.project_version()
 version_array = gsd_version.split('.')
 gsd_major_version = version_array[0].to_int()
 
-gsd_api_version_minor = 0
-gsd_api_version = '@0@.@1@'.format(gsd_major_version, gsd_api_version_minor)
-gsd_api_name = '@0@-@1@'.format(meson.project_name(), gsd_api_version)
+gsd_api_name = '@0@-@1@'.format(meson.project_name(), gsd_major_version)
 
 glib_min_version = '2.56'
 
