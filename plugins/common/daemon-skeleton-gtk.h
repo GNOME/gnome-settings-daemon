@@ -231,6 +231,10 @@ main (int argc, char **argv)
         gdk_set_allowed_backends (GDK_BACKEND);
 #endif
 
+#ifdef MAIN_HOOK
+	MAIN_HOOK ();
+#endif
+
         error = NULL;
         if (! gtk_init_with_args (&argc, &argv, PLUGIN_NAME, entries, NULL, &error)) {
                 if (error != NULL) {
