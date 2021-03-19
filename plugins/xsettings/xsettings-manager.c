@@ -131,6 +131,9 @@ xsettings_manager_new (Display                *display,
 
   char buffer[256];
 
+
+  XFixesSetClientDisconnectMode (display, XFixesClientDisconnectFlagTerminate);
+
   manager = g_slice_new (XSettingsManager);
 
   manager->display = display;

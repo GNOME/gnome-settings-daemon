@@ -24,6 +24,7 @@
 #define XSETTINGS_MANAGER_H
 
 #include <X11/Xlib.h>
+#include <X11/extensions/Xfixes.h>
 #include "xsettings-common.h"
 
 typedef struct _XSettingsManager XSettingsManager;

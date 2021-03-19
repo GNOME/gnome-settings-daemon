@@ -106,6 +106,7 @@ pango_dep = dependency('pango', version: '>= 1.20.0')
 polkit_gobject_dep = dependency('polkit-gobject-1', version: '>= 0.114')
 upower_glib_dep = dependency('upower-glib', version: '>= 0.99.8')
 x11_dep = dependency('x11')
+xfixes_dep = dependency('xfixes', version: '>= 6.0')
 
 enable_systemd = get_option('systemd')
 if enable_systemd

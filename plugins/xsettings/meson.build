@@ -14,6 +14,7 @@ sources = gsd_xsettings_gtk + fc_monitor + wm_button_layout_translation + files(
 deps = plugins_deps + [
   gtk_dep,
   x11_dep,
+  xfixes_dep,
   libcommon_dep,
   gsettings_desktop_dep,
   dependency('fontconfig')
