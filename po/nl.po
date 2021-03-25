@@ -13,33 +13,33 @@
 # Rob van den Berg <linuxned@gmail.com>, 2010.
 # Wouter Bolsterlee <wbolster@gnome.org>, 2006–2011.
 # Redmar <redmar@ubuntu-nl.org>, 2011.
-# Hannie Dumoleyn <hannie@ubuntu-nl.org>, 2010–2012, 2013, 2017.
+# Hannie Dumoleyn <hannie@ubuntu-nl.org>, 2010–2012, 2013, 2017, 2021.
 # Nathan Follens <nthn@unseen.is>, 2015-2016, 2019-2020.
 # Justin van Steijn <jvs@fsfe.org>, 2016, 2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
-"issues\n"
-"POT-Creation-Date: 2020-01-18 13:37+0000\n"
-"PO-Revision-Date: 2020-02-24 18:43+0100\n"
-"Last-Translator: Nathan Follens <nthn@unseen.is>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/iss"
+"ues\n"
+"POT-Creation-Date: 2021-02-14 19:04+0000\n"
+"PO-Revision-Date: 2021-03-25 17:16+0100\n"
+"Last-Translator: Hannie Dumoleyn <hannie@ubuntu-nl.org>\n"
 "Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Lokalize 19.12.3\n"
 "X-Launchpad-Export-Date: 2011-09-24 06:48+0000\n"
 "X-DamnedLies-Scope: partial\n"
 "X-Project-Style: gnome\n"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid "Smartcard removal action"
 msgstr "Actie bij verwijderen smartcard"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:13
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
 msgid ""
 "Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
 "get performed when the smartcard used for log in is removed."
@@ -48,67 +48,51 @@ msgstr ""
 "uitgevoerd worden wanneer de smartcard die voor het aanmelden gebruikt is "
 "verwijderd wordt."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:25
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:24
 msgid "Possible values are “on”, “off”, and “custom”."
 msgstr "Mogelijke waarden zijn ‘aan’, ‘uit’ en ‘aangepast’."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:35
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:34
 msgid "Keyboard Bell Custom Filename"
 msgstr "Aangepaste bestandsnaam toetsenbordbelgeluid"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:36
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:35
 msgid "File name of the bell sound to be played."
 msgstr "Bestandsnaam van het belgeluid dat wordt afgespeeld."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:42
-msgid "Double click time"
-msgstr "Dubbelklik-tijd"
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:43
-msgid "Length of a double click in milliseconds."
-msgstr "Duur van dubbel klikken in milliseconden."
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:47
-msgid "Drag threshold"
-msgstr "Sleepdrempel"
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:48
-msgid "Distance before a drag is started."
-msgstr "Afstand voordat slepen wordt gestart."
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:54
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:41
 msgid "Whether the tablet’s orientation is locked, or rotated automatically."
 msgstr "Of de oriëntatie van de tablet vast staat of automatisch roteert."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:62
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:49
 msgid "Mouse button orientation"
 msgstr "Oriëntatie muisknop"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:63
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:50
 msgid "Swap left and right mouse buttons for left-handed mice."
 msgstr ""
 "Linker- en rechtermuisknoppen verwisselen voor muis voor linkshandigen."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:67
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:134
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:54
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:131
 msgid "Single Click"
 msgstr "Enkele muisklik"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:68
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:135
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:55
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:132
 msgid ""
 "Acceleration multiplier for mouse motion. A value of -1 is the system "
 "default."
 msgstr ""
 "Versnellingsvermenigvuldiger voor muisbeweging. De waarde -1 is de standaard."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:72
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:139
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:59
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:136
 msgid "Motion Threshold"
 msgstr "Sleepdrempel"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:73
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:140
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:60
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:137
 msgid ""
 "Distance in pixels the pointer must move before accelerated mouse motion is "
 "activated. A value of -1 is the system default."
@@ -116,11 +100,11 @@ msgstr ""
 "Afstand in beeldpunten die de aanwijzer moet bewegen voordat de versnelde "
 "muisbeweging geactiveerd wordt. De waarde -1 is de standaard."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:77
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:64
 msgid "Middle button emulation"
 msgstr "Emulatie middelste knop"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:78
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:65
 msgid ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
@@ -128,27 +112,43 @@ msgstr ""
 "Schakelt emulatie van middelste muisknop in door gelijktijdig met de linker- "
 "en rechtermuisknop te klikken."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:87
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:69
+msgid "Double click time"
+msgstr "Dubbelklik-tijd"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:70
+msgid "Length of a double click in milliseconds."
+msgstr "Duur van dubbel klikken in milliseconden."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:74
+msgid "Drag threshold"
+msgstr "Sleepdrempel"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:75
+msgid "Distance before a drag is started."
+msgstr "Afstand voordat slepen wordt gestart."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:84
 msgid "Key Repeat Interval"
 msgstr "Interval toetsherhaling"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:88
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:85
 msgid "Delay between repeats in milliseconds."
 msgstr "Vertraging toetsherhaling in milliseconden."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:92
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:89
 msgid "Initial Key Repeat Delay"
 msgstr "Vertraging toetsherhaling in milliseconden"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:93
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:90
 msgid "Initial key repeat delay in milliseconds."
 msgstr "Vertraging toetsherhaling in milliseconden."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:97
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:94
 msgid "Remember NumLock state"
 msgstr "Status NumLock onthouden"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:98
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:95
 msgid ""
 "When set to true, GNOME will remember the state of the NumLock LED between "
 "sessions."
@@ -156,11 +156,11 @@ msgstr ""
 "Indien ingesteld op ‘true’, zal Gnome de status van het NumLock-led tussen "
 "sessies onthouden."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:104
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:101
 msgid "Disable touchpad while typing"
 msgstr "Touchpad uitschakelen tijdens het typen"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:105
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:102
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
@@ -168,11 +168,11 @@ msgstr ""
 "Stel dit in op ‘true’ als u problemen heeft met het per ongeluk aanraken van "
 "het touchpad tijdens het typen."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:109
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:106
 msgid "Enable horizontal scrolling"
 msgstr "Horizontaal scrollen inschakelen"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:110
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:107
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
@@ -180,11 +180,11 @@ msgstr ""
 "Stel dit in op ‘true’ om horizontaal scrollen mogelijk te maken via dezelfde "
 "methode die is geselecteerd met de scroll_method-toets."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:114
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:111
 msgid "Select the touchpad scroll method"
 msgstr "Wijze van scrollen via touchpad selecteren"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:115
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:112
 msgid ""
 "Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
 "scrolling”, “two-finger-scrolling”."
@@ -192,30 +192,30 @@ msgstr ""
 "Kies de wijze van scrollen via het touchpad. Ondersteunde methoden zijn: "
 "‘uitgeschakeld’, ‘rand-scrollen’, ‘twee-vinger-scrollen’."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:119
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:116
 msgid "Enable mouse clicks with touchpad"
 msgstr "Muisklikken via touchpad inschakelen"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:120
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:117
 msgid ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr ""
 "Stel dit in op ‘true’ om te kunnen muisklikken door op het touchpad te "
 "tikken."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:124
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:121
 msgid "Enable touchpad"
 msgstr "Touchpad inschakelen"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:125
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:122
 msgid "Set this to TRUE to enable all touchpads."
 msgstr "Stel dit in op ‘true’ om alle touchpads in te schakelen."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:129
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:126
 msgid "Touchpad button orientation"
 msgstr "Oriëntatie touchpadknop"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:130
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:127
 msgid ""
 "Swap left and right mouse buttons for left-handed mice with “left”, “right” "
 "for right-handed, “mouse” to follow the mouse setting."
@@ -224,17 +224,17 @@ msgstr ""
 "‘links’, ‘rechts’ voor rechtshandigen, ‘muis’ om de muisinstellingen te "
 "volgen."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:144
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:141
 msgid "Natural scrolling"
 msgstr "Natuurlijk scrollen"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:145
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:142
 msgid "Set this to TRUE to enable natural (reverse) scrolling for touchpads."
 msgstr ""
 "Stel dit in op ‘true’ om natuurlijk (omgekeerd) scrollen via touchpads in te "
 "schakelen."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:152
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:149
 msgid "Mouse wheel emulation button. 0 to disable the feature."
 msgstr "Knop voor emulatie van muiswiel. 0 om de functie uit te schakelen."
 
@@ -1477,12 +1477,51 @@ msgstr ""
 "De lijst van NetworkManager-verbindingen (elk voorgesteld door zijn UUID) "
 "waarop deze dienst is ingeschakeld en gestart."
 
-# gladmaken/wazig maken/afronden/rond maken/bijvijlen
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:6
+msgid "List of explicitly disabled GTK+ modules"
+msgstr "Lijst van expliciet uitgeschakelde GTK+-modules"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:7
+msgid ""
+"A list of strings representing the GTK+ modules that will not be loaded, "
+"even if enabled by default in their configuration."
+msgstr ""
+"Een lijst van strings die weergeeft welke GTK+-modules niet geladen zullen "
+"worden, zelfs als dit standaard wel ingesteld is."
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:11
+msgid "List of explicitly enabled GTK+ modules"
+msgstr "Lijst van expliciet ingeschakelde GTK+-modules"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:12
+msgid ""
+"A list of strings representing the GTK+ modules that will be loaded, usually "
+"in addition to conditional and forcibly disabled ones."
+msgstr ""
+"Een lijst van strings die weergeeft welke GTK+-modules geladen zullen "
+"worden, naast voorwaardelijke en expliciet uitgeschakelde modules."
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:16
+msgid "A dictionary of XSETTINGS to override"
+msgstr "Een lijst met bepaalde XSETTINGS"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:17
+msgid ""
+"This dictionary maps XSETTINGS names to overrides values. The values must be "
+"either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
+"(red, green, blue, alpha; 65535 is fully opaque)."
+msgstr ""
+"Deze lijst brengt de namen van bepaalde XSETTINGS in kaart. De waarden "
+"moeten bestaan uit tekenreeksen, getekende int32's of (in het geval van "
+"kleuren), 4-tuples of uint16 (rood, groen, blauw, alpha; 65535 is volledig "
+"ondoorzichtig)."
+
+# gladmaken/wazig maken/afronden/rond maken/bijvijlen
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:23
 msgid "Antialiasing"
 msgstr "Gladmaken"
 
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:7
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:24
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
@@ -1493,12 +1532,12 @@ msgstr ""
 "‘grayscale’ voor standaard gladmaken met grijswaarden, en ‘rgba’ voor "
 "subpixel gladmaken (alleen bij LCD-schermen)."
 
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:11
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:28
 msgid "Hinting"
 msgstr "Hinten"
 
 # Het is me niet duidelijk wat hier met ‘hinting’ bedoeld wordt. Hannie
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:12
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:29
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: “none” "
 "for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
@@ -1524,11 +1563,11 @@ msgstr ""
 "kwaliteit van het lettertype, het lettertypeformaat en de status van de "
 "lettertype-engines van FreeType."
 
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:16
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:33
 msgid "RGBA order"
 msgstr "RGBA-volgorde"
 
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:17
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:34
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to “rgba”. Possible values are: “rgb” for red on left (most common), "
@@ -1538,45 +1577,6 @@ msgstr ""
 "wanneer gladmaken (antialiasing) ingesteld is op ‘rgba’. Mogelijke waarden "
 "zijn: ‘rgb’ voor rood op links (meest voorkomend), ‘bgr’ voor blauw op "
 "links, ‘vrgb’ voor rood bovenop, ‘vbgr’ voor rood onderop."
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:21
-msgid "List of explicitly disabled GTK+ modules"
-msgstr "Lijst van expliciet uitgeschakelde GTK+-modules"
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:22
-msgid ""
-"A list of strings representing the GTK+ modules that will not be loaded, "
-"even if enabled by default in their configuration."
-msgstr ""
-"Een lijst van strings die weergeeft welke GTK+-modules niet geladen zullen "
-"worden, zelfs als dit standaard wel ingesteld is."
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:26
-msgid "List of explicitly enabled GTK+ modules"
-msgstr "Lijst van expliciet ingeschakelde GTK+-modules"
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:27
-msgid ""
-"A list of strings representing the GTK+ modules that will be loaded, usually "
-"in addition to conditional and forcibly disabled ones."
-msgstr ""
-"Een lijst van strings die weergeeft welke GTK+-modules geladen zullen "
-"worden, naast voorwaardelijke en expliciet uitgeschakelde modules."
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:31
-msgid "A dictionary of XSETTINGS to override"
-msgstr "Een lijst met bepaalde XSETTINGS"
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:32
-msgid ""
-"This dictionary maps XSETTINGS names to overrides values. The values must be "
-"either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
-"(red, green, blue, alpha; 65535 is fully opaque)."
-msgstr ""
-"Deze lijst brengt de namen van bepaalde XSETTINGS in kaart. De waarden "
-"moeten bestaan uit tekenreeksen, getekende int32's of (in het geval van "
-"kleuren), 4-tuples of uint16 (rood, groen, blauw, alpha; 65535 is volledig "
-"ondoorzichtig)."
 
 #: plugins/color/gsd-color-calibrate.c:138
 msgid "Color"
@@ -1640,28 +1640,28 @@ msgstr "Instellingen"
 msgid "Date & Time Settings"
 msgstr "Datum- en tijdsinstellingen"
 
-#: plugins/housekeeping/gsd-disk-space.c:575
+#: plugins/housekeeping/gsd-disk-space.c:629
 msgid "Disk Space"
 msgstr "Schijfruimte"
 
-#: plugins/housekeeping/gsd-disk-space.c:588
+#: plugins/housekeeping/gsd-disk-space.c:642
 msgid "Examine"
 msgstr "Onderzoeken"
 
-#: plugins/housekeeping/gsd-disk-space.c:599
+#: plugins/housekeeping/gsd-disk-space.c:653
 msgid "Empty Trash"
 msgstr "Prullenbak legen"
 
-#: plugins/housekeeping/gsd-disk-space.c:607
+#: plugins/housekeeping/gsd-disk-space.c:661
 msgid "Ignore"
 msgstr "Negeren"
 
-#: plugins/housekeeping/gsd-disk-space.c:638
+#: plugins/housekeeping/gsd-disk-space.c:692
 #, c-format
 msgid "Low Disk Space on “%s”"
 msgstr "Weinig schijfruimte op “%s”"
 
-#: plugins/housekeeping/gsd-disk-space.c:640
+#: plugins/housekeeping/gsd-disk-space.c:694
 #, c-format
 msgid ""
 "The volume “%s” has only %s disk space remaining.  You may free up some "
@@ -1670,16 +1670,16 @@ msgstr ""
 "Het volume “%s” heeft nog maar %s schijfruimte over. U zou wat schijfruimte "
 "kunnen vrijmaken door de prullenbak te legen."
 
-#: plugins/housekeeping/gsd-disk-space.c:644
+#: plugins/housekeeping/gsd-disk-space.c:698
 #, c-format
 msgid "The volume “%s” has only %s disk space remaining."
 msgstr "Het volume “%s” heeft nog maar %s schijfruimte over."
 
-#: plugins/housekeeping/gsd-disk-space.c:649
+#: plugins/housekeeping/gsd-disk-space.c:703
 msgid "Low Disk Space"
 msgstr "Weinig schijfruimte"
 
-#: plugins/housekeeping/gsd-disk-space.c:651
+#: plugins/housekeeping/gsd-disk-space.c:705
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1688,50 +1688,42 @@ msgstr ""
 "Deze computer heeft nog maar %s schijfruimte over. U zou wat schijfruimte "
 "kunnen vrijmaken door de prullenbak te legen."
 
-#: plugins/housekeeping/gsd-disk-space.c:654
+#: plugins/housekeeping/gsd-disk-space.c:708
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "Deze computer heeft nog maar %s schijfruimte over."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2466
+#: plugins/media-keys/gsd-media-keys-manager.c:2479
 msgid "Bluetooth disabled"
 msgstr "Bluetooth uitgeschakeld"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2469
+#: plugins/media-keys/gsd-media-keys-manager.c:2482
 msgid "Bluetooth enabled"
 msgstr "Bluetooth ingeschakeld"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2473
+#: plugins/media-keys/gsd-media-keys-manager.c:2486
 msgid "Airplane mode enabled"
 msgstr "Vliegtuigstand ingeschakeld"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2476
+#: plugins/media-keys/gsd-media-keys-manager.c:2489
 msgid "Airplane mode disabled"
 msgstr "Vliegtuigstand uitgeschakeld"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2505
+#: plugins/media-keys/gsd-media-keys-manager.c:2518
 msgid "Hardware Airplane Mode"
 msgstr "Hardware-vliegtuigstand"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2568
+#: plugins/media-keys/gsd-media-keys-manager.c:2581
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Schermfilm van %d %t.webm"
 
-#: plugins/media-keys/gsd-screenshot-utils.c:82
-msgid "Unable to capture a screenshot"
-msgstr "Niet in staat om een schermafdruk te maken"
-
-#: plugins/media-keys/gsd-screenshot-utils.c:125
-msgid "Screenshot taken"
-msgstr "Schermafdruk gemaakt"
-
 #. translators: this is the name of the file that gets made up
 #. * with the screenshot
-#: plugins/media-keys/gsd-screenshot-utils.c:264
+#: plugins/media-keys/gsd-screenshot-utils.c:240
 #, c-format
 msgid "Screenshot from %s"
 msgstr "Schermafdruk van %s"
@@ -1774,160 +1766,188 @@ msgstr[0] "minuut"
 msgstr[1] "minuten"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:720
-#: plugins/power/gsd-power-manager.c:817
+#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:825
+#: plugins/power/gsd-power-manager.c:922
 msgid "Battery is critically low"
 msgstr "Acculading kritiek laag"
 
 #. TRANSLATORS: this is the notification application name
-#: plugins/power/gsd-power-manager.c:350
+#: plugins/power/gsd-power-manager.c:357
 msgid "Power"
 msgstr "Energie"
 
 #. TRANSLATORS: UPS is now discharging
-#: plugins/power/gsd-power-manager.c:390
+#: plugins/power/gsd-power-manager.c:397
 msgid "UPS Discharging"
 msgstr "UPS is nu in gebruik"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:395
+#: plugins/power/gsd-power-manager.c:402
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "%s backup-stroom beschikbaar"
 
-#: plugins/power/gsd-power-manager.c:398
+#: plugins/power/gsd-power-manager.c:405
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "Onbekende hoeveelheid UPS backup-stroom resterend"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: plugins/power/gsd-power-manager.c:473
+#: plugins/power/gsd-power-manager.c:518
 msgid "Battery low"
 msgstr "Accu bijna leeg"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: plugins/power/gsd-power-manager.c:476
+#: plugins/power/gsd-power-manager.c:521
 msgid "Laptop battery low"
 msgstr "Laptopaccu bijna leeg"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:483
+#: plugins/power/gsd-power-manager.c:528
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "Ongeveer %s resterend (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: plugins/power/gsd-power-manager.c:488
+#: plugins/power/gsd-power-manager.c:533
 msgid "UPS low"
 msgstr "UPS bijna leeg"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:494
+#: plugins/power/gsd-power-manager.c:539
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "Ongeveer %s van de UPS backup-stroom resterend (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: plugins/power/gsd-power-manager.c:499 plugins/power/gsd-power-manager.c:633
+#: plugins/power/gsd-power-manager.c:544 plugins/power/gsd-power-manager.c:704
 msgid "Mouse battery low"
 msgstr "Accu muis bijna leeg"
 
-#. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:502
+#: plugins/power/gsd-power-manager.c:548
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "De accu van de draadloze muis is bijna leeg (%.0f%%)"
 
+#: plugins/power/gsd-power-manager.c:550
+#, c-format
+msgid "Wireless mouse is low in power"
+msgstr "De batterij van de draadloze muis is bijna leeg"
+
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: plugins/power/gsd-power-manager.c:506 plugins/power/gsd-power-manager.c:641
+#: plugins/power/gsd-power-manager.c:554 plugins/power/gsd-power-manager.c:717
 msgid "Keyboard battery low"
 msgstr "Accu van toetsenbord bijna leeg"
 
-#. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:509
+#: plugins/power/gsd-power-manager.c:558
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "De accu van het draadloze toetsenbord is bijna leeg (%.0f%%)"
 
+#: plugins/power/gsd-power-manager.c:560
+#, c-format
+msgid "Wireless keyboard is low in power"
+msgstr "De batterij van het draadloze toetsenbord is bijna leeg"
+
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: plugins/power/gsd-power-manager.c:513 plugins/power/gsd-power-manager.c:650
+#: plugins/power/gsd-power-manager.c:564 plugins/power/gsd-power-manager.c:731
 msgid "PDA battery low"
 msgstr "Accu pda bijna leeg"
 
-#. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:516
+#: plugins/power/gsd-power-manager.c:568
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "De accu van de pda is bijna leeg (%.0f%%)"
 
+#: plugins/power/gsd-power-manager.c:570
+#, c-format
+msgid "PDA is low in power"
+msgstr "De batterij van de pda is bijna leeg"
+
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:520 plugins/power/gsd-power-manager.c:660
-#: plugins/power/gsd-power-manager.c:669
+#: plugins/power/gsd-power-manager.c:574 plugins/power/gsd-power-manager.c:745
+#: plugins/power/gsd-power-manager.c:759
 msgid "Cell phone battery low"
 msgstr "Accu mobiele telefoon bijna leeg"
 
-#. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:523
+#: plugins/power/gsd-power-manager.c:578
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "De accu van de mobiele telefoon is bijna leeg (%.0f%%)"
 
+#: plugins/power/gsd-power-manager.c:580
+#, c-format
+msgid "Cell phone is low in power"
+msgstr "De batterij van de mobiele telefoon is bijna leeg"
+
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: plugins/power/gsd-power-manager.c:527
+#: plugins/power/gsd-power-manager.c:584
 msgid "Media player battery low"
 msgstr "Accu mp3-speler bijna leeg"
 
-#. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:530
+#: plugins/power/gsd-power-manager.c:588
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "De accu van de mp3-speler is bijna leeg (%.0f%%)"
 
+#: plugins/power/gsd-power-manager.c:590
+#, c-format
+msgid "Media player is low in power"
+msgstr "De batterij van de mediaspeler is bijna leeg"
+
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:534 plugins/power/gsd-power-manager.c:678
+#: plugins/power/gsd-power-manager.c:594 plugins/power/gsd-power-manager.c:773
 msgid "Tablet battery low"
 msgstr "Accu tablet bijna leeg"
 
-#. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:537
+#: plugins/power/gsd-power-manager.c:598
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "De accu van de tablet is bijna leeg (%.0f%%)"
 
+#: plugins/power/gsd-power-manager.c:600
+#, c-format
+msgid "Tablet is low in power"
+msgstr "De batterij van de tablet is bijna leeg"
+
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:541 plugins/power/gsd-power-manager.c:687
+#: plugins/power/gsd-power-manager.c:604 plugins/power/gsd-power-manager.c:787
 msgid "Attached computer battery low"
 msgstr "Accu aangekoppelde computer bijna leeg"
 
-#. TRANSLATORS: tell user more details
-#: plugins/power/gsd-power-manager.c:544
+#: plugins/power/gsd-power-manager.c:608
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "De accu van de aangekoppelde computer is bijna leeg (%.0f%%)"
 
+#: plugins/power/gsd-power-manager.c:610
+#, c-format
+msgid "Attached computer is low in power"
+msgstr "De batterij van de aangekoppelde computer is bijna leeg"
+
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:565
+#: plugins/power/gsd-power-manager.c:631
 msgid "Battery is low"
 msgstr "Accu bijna leeg"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: plugins/power/gsd-power-manager.c:597
+#: plugins/power/gsd-power-manager.c:668
 msgid "Battery critically low"
 msgstr "Acculading kritiek laag"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: plugins/power/gsd-power-manager.c:600 plugins/power/gsd-power-manager.c:747
+#: plugins/power/gsd-power-manager.c:671 plugins/power/gsd-power-manager.c:852
 msgid "Laptop battery critically low"
 msgstr "Laptopaccu kritiek laag"
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:609
+#: plugins/power/gsd-power-manager.c:680
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr ""
@@ -1935,7 +1955,7 @@ msgstr ""
 "aangesloten wordt."
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:613
+#: plugins/power/gsd-power-manager.c:684
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr ""
@@ -1944,12 +1964,12 @@ msgstr ""
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: plugins/power/gsd-power-manager.c:621 plugins/power/gsd-power-manager.c:772
+#: plugins/power/gsd-power-manager.c:692 plugins/power/gsd-power-manager.c:877
 msgid "UPS critically low"
 msgstr "UPS-lading kritiek laag"
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:627
+#: plugins/power/gsd-power-manager.c:698
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1958,8 +1978,7 @@ msgstr ""
 "Ongeveer %s UPS-stroom resterend (%.0f%%). Herstel de netstroom-aansluiting "
 "van uw computer om dataverlies te voorkomen."
 
-#. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:636
+#: plugins/power/gsd-power-manager.c:708
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1968,8 +1987,16 @@ msgstr ""
 "Draadloze muis zit bijna zonder stroom (%.0f%%). Dit apparaat stopt "
 "binnenkort met functioneren als het niet opgeladen wordt."
 
-#. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:644
+#: plugins/power/gsd-power-manager.c:712
+#, c-format
+msgid ""
+"Wireless mouse is very low in power. This device will soon stop functioning "
+"if not charged."
+msgstr ""
+"Draadloze muis zit bijna zonder stroom. Dit apparaat stopt binnenkort met "
+"functioneren als het niet opgeladen wordt."
+
+#: plugins/power/gsd-power-manager.c:721
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1978,8 +2005,16 @@ msgstr ""
 "Draadloos toetsenbord zit bijna zonder stroom (%.0f%%). Dit apparaat stopt "
 "binnenkort met functioneren als het niet opgeladen wordt."
 
-#. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:653
+#: plugins/power/gsd-power-manager.c:725
+#, c-format
+msgid ""
+"Wireless keyboard is very low in power. This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"Draadloos toetsenbord zit bijna zonder stroom. Dit apparaat stopt binnenkort "
+"met functioneren als het niet opgeladen wordt."
+
+#: plugins/power/gsd-power-manager.c:735
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1988,8 +2023,16 @@ msgstr ""
 "Pda zit bijna zonder stroom (%.0f%%). Dit apparaat stopt binnenkort met "
 "functioneren als het niet opgeladen wordt."
 
-#. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:663
+#: plugins/power/gsd-power-manager.c:739
+#, c-format
+msgid ""
+"PDA is very low in power. This device will soon stop functioning if not "
+"charged."
+msgstr ""
+"Pda zit bijna zonder stroom. Dit apparaat stopt binnenkort met functioneren "
+"als het niet opgeladen wordt."
+
+#: plugins/power/gsd-power-manager.c:749
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -1998,8 +2041,16 @@ msgstr ""
 "Mobiele telefoon zit bijna zonder stroom (%.0f%%). Dit apparaat stopt "
 "binnenkort met functioneren als het niet opgeladen wordt."
 
-#. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:672
+#: plugins/power/gsd-power-manager.c:753
+#, c-format
+msgid ""
+"Cell phone is very low in power. This device will soon stop functioning if "
+"not charged."
+msgstr ""
+"Mobiele telefoon zit bijna zonder stroom. Dit apparaat stopt binnenkort met "
+"functioneren als het niet opgeladen wordt."
+
+#: plugins/power/gsd-power-manager.c:763
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -2008,8 +2059,16 @@ msgstr ""
 "Mp3-speler zit bijna zonder stroom (%.0f%%). Dit apparaat stopt binnenkort "
 "met functioneren als het niet opgeladen wordt."
 
-#. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:681
+#: plugins/power/gsd-power-manager.c:767
+#, c-format
+msgid ""
+"Media player is very low in power. This device will soon stop functioning if "
+"not charged."
+msgstr ""
+"Mediaspeler zit bijna zonder stroom. Dit apparaat stopt binnenkort met "
+"functioneren als het niet opgeladen wordt."
+
+#: plugins/power/gsd-power-manager.c:777
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -2018,8 +2077,16 @@ msgstr ""
 "Tablet zit bijna zonder stroom (%.0f%%). Dit apparaat stopt binnenkort met "
 "functioneren als het niet opgeladen wordt."
 
-#. TRANSLATORS: the device is just going to stop working
-#: plugins/power/gsd-power-manager.c:690
+#: plugins/power/gsd-power-manager.c:781
+#, c-format
+msgid ""
+"Tablet is very low in power. This device will soon stop functioning if not "
+"charged."
+msgstr ""
+"Tablet zit bijna zonder stroom. Dit apparaat stopt binnenkort met "
+"functioneren als het niet opgeladen wordt."
+
+#: plugins/power/gsd-power-manager.c:791
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -2028,8 +2095,17 @@ msgstr ""
 "De aangesloten computer zit bijna zonder stroom (%.0f%%). Dit apparaat stopt "
 "binnenkort met functioneren als het niet opgeladen wordt."
 
+#: plugins/power/gsd-power-manager.c:795
+#, c-format
+msgid ""
+"Attached computer is very low in power. The device will soon shutdown if not "
+"charged."
+msgstr ""
+"De aangesloten computer zit bijna zonder stroom. Dit apparaat stopt "
+"binnenkort met functioneren als het niet opgeladen wordt."
+
 #. TRANSLATORS: computer will hibernate
-#: plugins/power/gsd-power-manager.c:755
+#: plugins/power/gsd-power-manager.c:860
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -2038,7 +2114,7 @@ msgstr ""
 "gaan."
 
 #. TRANSLATORS: computer will just shutdown
-#: plugins/power/gsd-power-manager.c:760
+#: plugins/power/gsd-power-manager.c:865
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -2046,7 +2122,7 @@ msgstr ""
 "De acculading is onder het kritieke niveau. De computer zal uitschakelen."
 
 #. TRANSLATORS: computer will hibernate
-#: plugins/power/gsd-power-manager.c:780
+#: plugins/power/gsd-power-manager.c:885
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
@@ -2054,50 +2130,50 @@ msgstr ""
 "slaapstand gaan."
 
 #. TRANSLATORS: computer will just shutdown
-#: plugins/power/gsd-power-manager.c:785
+#: plugins/power/gsd-power-manager.c:890
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "De lading van de UPS is onder het kritieke niveau. De computer zal "
 "uitschakelen."
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1260
+#: plugins/power/gsd-power-manager.c:1377
 msgid "Lid has been opened"
 msgstr "Laptop is geopend"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1294
+#: plugins/power/gsd-power-manager.c:1411
 msgid "Lid has been closed"
 msgstr "Laptop is gesloten"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1857
+#: plugins/power/gsd-power-manager.c:1985
 msgid "On battery power"
 msgstr "Op batterij"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1862
+#: plugins/power/gsd-power-manager.c:1990
 msgid "On AC power"
 msgstr "Op netstroom"
 
-#: plugins/power/gsd-power-manager.c:2050
+#: plugins/power/gsd-power-manager.c:2178
 msgid "Automatic logout"
 msgstr "Automatisch afmelden"
 
-#: plugins/power/gsd-power-manager.c:2050
+#: plugins/power/gsd-power-manager.c:2178
 msgid "You will soon log out because of inactivity."
 msgstr "U wordt binnenkort afgemeld wegens inactiviteit."
 
-#: plugins/power/gsd-power-manager.c:2055
+#: plugins/power/gsd-power-manager.c:2183
 msgid "Automatic suspend"
 msgstr "Automatische pauzestand"
 
-#: plugins/power/gsd-power-manager.c:2055
-#: plugins/power/gsd-power-manager.c:2060
+#: plugins/power/gsd-power-manager.c:2183
+#: plugins/power/gsd-power-manager.c:2188
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "De computer zal binnenkort in pauzestand gaan wegens inactiviteit."
 
-#: plugins/power/gsd-power-manager.c:2060
+#: plugins/power/gsd-power-manager.c:2188
 msgid "Automatic hibernation"
 msgstr "Automatische slaapstand"
 
@@ -2139,228 +2215,228 @@ msgid "No driver for this printer."
 msgstr "Geen driver voor deze printer."
 
 #: plugins/print-notifications/gsd-printer.c:1031
-#: plugins/print-notifications/gsd-print-notifications-manager.c:290
-#: plugins/print-notifications/gsd-print-notifications-manager.c:538
-#: plugins/print-notifications/gsd-print-notifications-manager.c:920
-#: plugins/print-notifications/gsd-print-notifications-manager.c:1011
-#: plugins/print-notifications/gsd-print-notifications-manager.c:1055
+#: plugins/print-notifications/gsd-print-notifications-manager.c:318
+#: plugins/print-notifications/gsd-print-notifications-manager.c:566
+#: plugins/print-notifications/gsd-print-notifications-manager.c:949
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1040
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1084
 msgid "Printers"
 msgstr "Printers"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:374
+#: plugins/print-notifications/gsd-print-notifications-manager.c:402
 #, c-format
 msgid "Printer “%s” is low on toner."
 msgstr "De printer ‘%s’ heeft nog maar weinig toner."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:378
+#: plugins/print-notifications/gsd-print-notifications-manager.c:406
 #, c-format
 msgid "Printer “%s” has no toner left."
 msgstr "De printer ‘%s’ heeft geen toner meer."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:382
+#: plugins/print-notifications/gsd-print-notifications-manager.c:410
 #, c-format
 msgid "Printer “%s” may not be connected."
 msgstr "De printer ‘%s’ is mogelijk niet aangesloten."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:386
+#: plugins/print-notifications/gsd-print-notifications-manager.c:414
 #, c-format
 msgid "The cover is open on printer “%s”."
 msgstr "De klep van de printer ‘%s’ is open."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:390
+#: plugins/print-notifications/gsd-print-notifications-manager.c:418
 #, c-format
 msgid "There is a missing print filter for printer “%s”."
 msgstr "Er ontbreekt een printfilter voor de printer ‘%s’."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:395
+#: plugins/print-notifications/gsd-print-notifications-manager.c:423
 #, c-format
 msgid "The door is open on printer “%s”."
 msgstr "De deur van de printer ‘%s’ staat open."
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:399
+#: plugins/print-notifications/gsd-print-notifications-manager.c:427
 #, c-format
 msgid "Printer “%s” is low on a marker supply."
 msgstr "De inktvoorraad van printer ‘%s’ is laag."
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:403
+#: plugins/print-notifications/gsd-print-notifications-manager.c:431
 #, c-format
 msgid "Printer “%s” is out of a marker supply."
 msgstr "Een inktpatroon van printer ‘%s’ is leeg."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:407
+#: plugins/print-notifications/gsd-print-notifications-manager.c:435
 #, c-format
 msgid "Printer “%s” is low on paper."
 msgstr "De printer ‘%s’ heeft weinig papier."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:411
+#: plugins/print-notifications/gsd-print-notifications-manager.c:439
 #, c-format
 msgid "Printer “%s” is out of paper."
 msgstr "De printer ‘%s’ heeft geen papier meer."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:415
+#: plugins/print-notifications/gsd-print-notifications-manager.c:443
 #, c-format
 msgid "Printer “%s” is currently off-line."
 msgstr "De printer ‘%s’ is momenteel off-line."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:419
+#: plugins/print-notifications/gsd-print-notifications-manager.c:447
 #, c-format
 msgid "There is a problem on printer “%s”."
 msgstr "Er is een probleem met de printer ‘%s’."
 
 #. Translators: The printer has a job to print but the printer needs authentication to continue with the print
-#: plugins/print-notifications/gsd-print-notifications-manager.c:531
+#: plugins/print-notifications/gsd-print-notifications-manager.c:559
 #, c-format
 msgid "%s Requires Authentication"
 msgstr "%s vereist authenticatie"
 
 #. Translators: A printer needs credentials to continue printing a job
-#: plugins/print-notifications/gsd-print-notifications-manager.c:533
+#: plugins/print-notifications/gsd-print-notifications-manager.c:561
 #, c-format
 msgid "Credentials required in order to print"
 msgstr "Voer uw aanmeldgegevens in om af te drukken"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:600
+#: plugins/print-notifications/gsd-print-notifications-manager.c:628
 msgid "Toner low"
 msgstr "Toner bijna leeg"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:602
+#: plugins/print-notifications/gsd-print-notifications-manager.c:630
 msgid "Toner empty"
 msgstr "Toner leeg"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:604
+#: plugins/print-notifications/gsd-print-notifications-manager.c:632
 msgid "Not connected?"
 msgstr "Niet verbonden?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:606
+#: plugins/print-notifications/gsd-print-notifications-manager.c:634
 msgid "Cover open"
 msgstr "Klep open"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:608
+#: plugins/print-notifications/gsd-print-notifications-manager.c:636
 msgid "Printer configuration error"
 msgstr "Fout in printerconfiguratie"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:610
+#: plugins/print-notifications/gsd-print-notifications-manager.c:638
 msgid "Door open"
 msgstr "Deur open"
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:612
+#: plugins/print-notifications/gsd-print-notifications-manager.c:640
 msgid "Marker supply low"
 msgstr "Inktvoorraad laag"
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:614
+#: plugins/print-notifications/gsd-print-notifications-manager.c:642
 msgid "Out of a marker supply"
 msgstr "Een inktpatroon is leeg"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:616
+#: plugins/print-notifications/gsd-print-notifications-manager.c:644
 msgid "Paper low"
 msgstr "Weinig papier"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:618
+#: plugins/print-notifications/gsd-print-notifications-manager.c:646
 msgid "Out of paper"
 msgstr "Geen papier meer"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:620
+#: plugins/print-notifications/gsd-print-notifications-manager.c:648
 msgid "Printer off-line"
 msgstr "Printer off-line"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:622
-#: plugins/print-notifications/gsd-print-notifications-manager.c:997
+#: plugins/print-notifications/gsd-print-notifications-manager.c:650
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1026
 msgid "Printer error"
 msgstr "Printerfout"
 
 #. Translators: New printer has been added
-#: plugins/print-notifications/gsd-print-notifications-manager.c:670
+#: plugins/print-notifications/gsd-print-notifications-manager.c:699
 msgid "Printer added"
 msgstr "Printer toegevoegd"
 
 #. Translators: A print job has been stopped
-#: plugins/print-notifications/gsd-print-notifications-manager.c:687
-#: plugins/print-notifications/gsd-print-notifications-manager.c:725
+#: plugins/print-notifications/gsd-print-notifications-manager.c:716
+#: plugins/print-notifications/gsd-print-notifications-manager.c:754
 msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "Afdrukken gestopt"
 
 #. Translators: "print-job xy" on a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:689
-#: plugins/print-notifications/gsd-print-notifications-manager.c:695
-#: plugins/print-notifications/gsd-print-notifications-manager.c:701
-#: plugins/print-notifications/gsd-print-notifications-manager.c:707
-#: plugins/print-notifications/gsd-print-notifications-manager.c:719
-#: plugins/print-notifications/gsd-print-notifications-manager.c:727
-#: plugins/print-notifications/gsd-print-notifications-manager.c:735
-#: plugins/print-notifications/gsd-print-notifications-manager.c:743
-#: plugins/print-notifications/gsd-print-notifications-manager.c:751
-#: plugins/print-notifications/gsd-print-notifications-manager.c:775
+#: plugins/print-notifications/gsd-print-notifications-manager.c:718
+#: plugins/print-notifications/gsd-print-notifications-manager.c:724
+#: plugins/print-notifications/gsd-print-notifications-manager.c:730
+#: plugins/print-notifications/gsd-print-notifications-manager.c:736
+#: plugins/print-notifications/gsd-print-notifications-manager.c:748
+#: plugins/print-notifications/gsd-print-notifications-manager.c:756
+#: plugins/print-notifications/gsd-print-notifications-manager.c:764
+#: plugins/print-notifications/gsd-print-notifications-manager.c:772
+#: plugins/print-notifications/gsd-print-notifications-manager.c:780
+#: plugins/print-notifications/gsd-print-notifications-manager.c:804
 #, c-format
 msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "‘%s’ op %s"
 
 #. Translators: A print job has been canceled
-#: plugins/print-notifications/gsd-print-notifications-manager.c:693
-#: plugins/print-notifications/gsd-print-notifications-manager.c:733
+#: plugins/print-notifications/gsd-print-notifications-manager.c:722
+#: plugins/print-notifications/gsd-print-notifications-manager.c:762
 msgctxt "print job state"
 msgid "Printing canceled"
 msgstr "Afdrukken geannuleerd"
 
 #. Translators: A print job has been aborted
-#: plugins/print-notifications/gsd-print-notifications-manager.c:699
-#: plugins/print-notifications/gsd-print-notifications-manager.c:741
+#: plugins/print-notifications/gsd-print-notifications-manager.c:728
+#: plugins/print-notifications/gsd-print-notifications-manager.c:770
 msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "Afdrukken afgebroken"
 
 #. Translators: A print job has been completed
-#: plugins/print-notifications/gsd-print-notifications-manager.c:705
-#: plugins/print-notifications/gsd-print-notifications-manager.c:749
+#: plugins/print-notifications/gsd-print-notifications-manager.c:734
+#: plugins/print-notifications/gsd-print-notifications-manager.c:778
 msgctxt "print job state"
 msgid "Printing completed"
 msgstr "Afdrukken voltooid"
 
 #. Translators: A job is printing
-#: plugins/print-notifications/gsd-print-notifications-manager.c:717
-#: plugins/print-notifications/gsd-print-notifications-manager.c:773
+#: plugins/print-notifications/gsd-print-notifications-manager.c:746
+#: plugins/print-notifications/gsd-print-notifications-manager.c:802
 msgctxt "print job state"
 msgid "Printing"
 msgstr "Afdrukken"
 
 #. Translators: This is a title of a report notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:991
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1020
 msgid "Printer report"
 msgstr "Printerrapport"
 
 #. Translators: This is a title of a warning notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:994
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1023
 msgid "Printer warning"
 msgstr "Printerwaarschuwing"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: plugins/print-notifications/gsd-print-notifications-manager.c:1004
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1033
 #, c-format
 msgid "Printer “%s”: “%s”."
 msgstr "Printer ‘%s’: ‘%s’."
@@ -2369,15 +2445,15 @@ msgstr "Printer ‘%s’: ‘%s’."
 msgid "User was not logged in with smartcard."
 msgstr "Gebruiker is niet aangemeld met smartcard."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:386
+#: plugins/usb-protection/gsd-usb-protection-manager.c:387
 msgid "USB Protection"
 msgstr "USB-beveiliging"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:513
+#: plugins/usb-protection/gsd-usb-protection-manager.c:506
 msgid "New USB device"
 msgstr "Nieuw USB-apparaat"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:514
+#: plugins/usb-protection/gsd-usb-protection-manager.c:507
 msgid ""
 "New device has been detected while the session was not locked. If you did "
 "not plug anything, check your system for any suspicious device."
@@ -2386,24 +2462,29 @@ msgstr ""
 "was. Als u niets heeft aangekoppeld, controleer dan zeker of er geen "
 "verdacht apparaat aan uw systeem hangt."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:593
-msgid "New keyboard detected"
-msgstr "Nieuw toetsenbord gedetecteerd"
+#: plugins/usb-protection/gsd-usb-protection-manager.c:590
+#| msgid "New keyboard detected"
+msgid "New device detected"
+msgstr "Nieuw apparaat gedetecteerd"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:594
+#: plugins/usb-protection/gsd-usb-protection-manager.c:591
+#| msgid ""
+#| "Either your keyboard has been reconnected or a new one has been plugged "
+#| "in. If you did not do it, check your system for any suspicious device."
 msgid ""
-"Either your keyboard has been reconnected or a new one has been plugged in. "
-"If you did not do it, check your system for any suspicious device."
+"Either one of your existing devices has been reconnected or a new one has "
+"been plugged in. If you did not do it, check your system for any suspicious "
+"device."
 msgstr ""
-"De verbinding met uw toetsenbord is vernieuwd, of er is een nieuw "
-"toetsenbord aangekoppeld. Indien u die niet heeft gedaan, controleer dan "
-"zeker of er geen verdacht apparaat aan uw systeem hangt."
+"Een van uw bestaande apparaten is opnieuw aangesloten, of er is een nieuw "
+"apparaat aangekoppeld. Indien u dat niet heeft gedaan, ga dan na"
+"of er mogelijk een verdacht apparaat op uw systeem is aangesloten."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:600
+#: plugins/usb-protection/gsd-usb-protection-manager.c:597
 msgid "Reconnect USB device"
 msgstr "USB-apparaat opnieuw verbinden"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:601
+#: plugins/usb-protection/gsd-usb-protection-manager.c:598
 msgid ""
 "New device has been detected while you were away. Please disconnect and "
 "reconnect the device to start using it."
@@ -2411,12 +2492,12 @@ msgstr ""
 "Terwijl u weg was is er een nieuw apparaat gedetecteerd. Koppel het apparaat "
 "los en verbind het opnieuw om het te gebruiken."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:607
-#: plugins/usb-protection/gsd-usb-protection-manager.c:631
+#: plugins/usb-protection/gsd-usb-protection-manager.c:604
+#: plugins/usb-protection/gsd-usb-protection-manager.c:629
 msgid "USB device blocked"
 msgstr "USB-apparaat geblokkeerd"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:608
+#: plugins/usb-protection/gsd-usb-protection-manager.c:605
 msgid ""
 "New device has been detected while you were away. It has been blocked "
 "because the USB protection is active."
@@ -2424,7 +2505,7 @@ msgstr ""
 "Terwijl u weg was is er een nieuw apparaat gedetecteerd. Omdat de USB-"
 "beveiliging actief is, is het apparaat geblokkeerd."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:632
+#: plugins/usb-protection/gsd-usb-protection-manager.c:630
 msgid ""
 "The new inserted device has been blocked because the USB protection is "
 "active."
@@ -2458,60 +2539,246 @@ msgstr ""
 "Authenticatie is vereist om de OLED-afbeelding voor een Wacom tablet te "
 "wijzigen"
 
-#. Set up the dialog
-#: plugins/wwan/gsd-wwan-pinentry.c:89
+#: plugins/wwan/cc-wwan-errors-private.h:40
+msgid "Phone failure"
+msgstr "Telefoonfout"
+
+#: plugins/wwan/cc-wwan-errors-private.h:41
+msgid "No connection to phone"
+msgstr "Geen verbinding met telefoon"
+
+#: plugins/wwan/cc-wwan-errors-private.h:43
+msgid "Operation not allowed"
+msgstr "Bewerking niet toegestaan"
+
+#: plugins/wwan/cc-wwan-errors-private.h:44
+msgid "Operation not supported"
+msgstr "Bewerking niet ondersteund"
+
+#: plugins/wwan/cc-wwan-errors-private.h:48
+msgid "SIM not inserted"
+msgstr "Simkaart niet ingevoerd"
+
+#: plugins/wwan/cc-wwan-errors-private.h:49
+msgid "SIM PIN required"
+msgstr "SIM-pincode vereist"
+
+#: plugins/wwan/cc-wwan-errors-private.h:50
+msgid "SIM PUK required"
+msgstr "SIM-pukcode vereist"
+
+#: plugins/wwan/cc-wwan-errors-private.h:51
+msgid "SIM failure"
+msgstr "Simkaartfout"
+
+#: plugins/wwan/cc-wwan-errors-private.h:52
+msgid "SIM busy"
+msgstr "Simkaart bezig"
+
+#: plugins/wwan/cc-wwan-errors-private.h:53
+msgid "SIM wrong"
+msgstr "Verkeerde simkaart"
+
+#: plugins/wwan/cc-wwan-errors-private.h:54
+msgid "Incorrect password"
+msgstr "Ongeldig wachtwoord"
+
+#: plugins/wwan/cc-wwan-errors-private.h:55
+msgid "SIM PIN2 required"
+msgstr "Pin2-code voor simkaart vereist"
+
+#: plugins/wwan/cc-wwan-errors-private.h:56
+msgid "SIM PUK2 required"
+msgstr "Puk2-code voor simkaart vereist"
+
+#: plugins/wwan/cc-wwan-errors-private.h:72
+msgid "Unknown error"
+msgstr "Onbekende fout"
+
+#: plugins/wwan/cc-wwan-errors-private.h:91
+msgid "Action Cancelled"
+msgstr "Actie geannuleerd"
+
+#: plugins/wwan/cc-wwan-errors-private.h:94
+msgid "Access denied"
+msgstr "Toegang geweigerd"
+
+#: plugins/wwan/cc-wwan-errors-private.h:103
+msgid "Unknown Error"
+msgstr "Onbekende fout"
+
+#: plugins/wwan/gsd-wwan-manager.c:117
+msgid "New PIN for SIM"
+msgstr "Nieuwe pincode voor simkaart"
+
+#: plugins/wwan/gsd-wwan-manager.c:118
+msgid "Set"
+msgstr "Instellen"
+
+#: plugins/wwan/gsd-wwan-manager.c:120
 msgid "Unlock SIM card"
 msgstr "Simkaart ontgrendelen"
 
-#: plugins/wwan/gsd-wwan-pinentry.c:90
+#: plugins/wwan/gsd-wwan-manager.c:121
 msgid "Unlock"
 msgstr "Ontgrendelen"
 
-#: plugins/wwan/gsd-wwan-pinentry.c:91
+#: plugins/wwan/gsd-wwan-manager.c:124
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: plugins/wwan/gsd-wwan-pinentry.c:95
+#: plugins/wwan/gsd-wwan-manager.c:129
+#, c-format
+msgid "Please provide a new PIN for SIM card %s"
+msgstr "Voer een nieuwe pincode voor simkaart %s in"
+
+#: plugins/wwan/gsd-wwan-manager.c:131
+msgid "Enter a New PIN to unlock your SIM card"
+msgstr "Voer een nieuwe pincode in om uw simkaart te ontgrendelen"
+
+#: plugins/wwan/gsd-wwan-manager.c:133
 #, c-format
 msgid "Please provide the PIN for SIM card %s"
 msgstr "Voer de pincode voor de simkaart %s in"
 
-#: plugins/wwan/gsd-wwan-pinentry.c:97
+#: plugins/wwan/gsd-wwan-manager.c:135
 msgid "Enter PIN to unlock your SIM card"
 msgstr "Voer de pincode in om uw simkaart te ontgrendelen"
 
-#. msg is already localised
-#: plugins/wwan/gsd-wwan-pinentry.c:123
+#: plugins/wwan/gsd-wwan-manager.c:138
 #, c-format
-msgid "%2$s You have %1$u try left"
-msgid_plural "%2$s You have %1$u tries left"
-msgstr[0] "%2$s U heeft nog %1$u resterende poging"
-msgstr[1] "%2$s U heeft nog %1$u resterende pogingen"
+msgid "Please provide the PUK for SIM card %s"
+msgstr "Voer de pukcode voor simkaart %s in"
 
-#: plugins/wwan/gsd-wwan-pinentry.c:127
+#: plugins/wwan/gsd-wwan-manager.c:140
+msgid "Enter PUK to unlock your SIM card"
+msgstr "Voer de pukcode in om uw simkaart te ontgrendelen"
+
+#. msg is already localised
+#: plugins/wwan/gsd-wwan-manager.c:156
+#, c-format
+msgid "%2$s. You have %1$u try left"
+msgid_plural "%2$s. You have %1$u tries left"
+msgstr[0] "%2$s. U heeft nog %1$u resterende poging"
+msgstr[1] "%2$s. U heeft nog %1$u resterende pogingen"
+
+#: plugins/wwan/gsd-wwan-manager.c:160
 #, c-format
 msgid "You have %u try left"
 msgid_plural "You have %u tries left"
 msgstr[0] "U heeft nog %u resterende poging"
 msgstr[1] "U heeft nog %u resterende pogingen"
 
-#. Set up the dialog
-#: plugins/wwan/gsd-wwan-pinentry.c:173 plugins/wwan/gsd-wwan-pinentry.c:175
-msgid "SIM card unlock error"
-msgstr "Simkaartontgrendelingsfout"
+#~ msgid "Unable to capture a screenshot"
+#~ msgstr "Niet in staat om een schermafdruk te maken"
 
-#: plugins/wwan/gsd-wwan-pinentry.c:174
-msgid "OK"
-msgstr "Oké"
+#~ msgid "Screenshot taken"
+#~ msgstr "Schermafdruk gemaakt"
 
-#. TODO: handle PUK as well
-#: plugins/wwan/gsd-wwan-pinentry.c:194
-msgid "Too many incorrect PINs."
-msgstr "Te veel ongeldige pincodes."
+#~ msgid "Phone-adaptor link reserved"
+#~ msgstr "Telefoonadapterlink gereserveerd"
 
-#: plugins/wwan/gsd-wwan-pinentry.c:200
-msgid "Wrong PIN code"
-msgstr "Verkeerde pincode"
+#~ msgid "PH-SIM PIN required"
+#~ msgstr "PH-SIM-pincode vereist"
+
+#~ msgid "PH-FSIM PIN required"
+#~ msgstr "PH-FSIM-pincode vereist"
+
+#~ msgid "PH-FSIM PUK required"
+#~ msgstr "PH-FSIM-pukcode vereist"
+
+#~ msgid "Memory full"
+#~ msgstr "Geheugen vol"
+
+#~ msgid "Invalid index"
+#~ msgstr "Ongeldige index"
+
+#~ msgid "Not found"
+#~ msgstr "Niet gevonden"
+
+#~ msgid "Memory failure"
+#~ msgstr "Geheugenfout"
+
+#~ msgid "No network service"
+#~ msgstr "Geen netwerkdienst"
+
+#~ msgid "Network timeout"
+#~ msgstr "Netwerktime-out"
+
+#~ msgid "Network not allowed - emergency calls only"
+#~ msgstr "Netwerk niet toegestaan - enkel noodoproepen"
+
+#~ msgid "Network personalization PIN required"
+#~ msgstr "Pincode voor netwerkpersonalisatie vereist"
+
+#~ msgid "Network personalization PUK required"
+#~ msgstr "Pukcode voor netwerkpersonalisatie vereist"
+
+#~ msgid "Network subset personalization PIN required"
+#~ msgstr "Pincode voor netwerksubsetpersonalisatie vereist"
+
+#~ msgid "Network subset personalization PUK required"
+#~ msgstr "Pukcode voor netwerksubsetpersonalisatie vereist"
+
+#~ msgid "Service provider personalization PIN required"
+#~ msgstr "Pincode voor dienstleverancierpersonalisatie vereist"
+
+#~ msgid "Service provider personalization PUK required"
+#~ msgstr "Pukcode voor dienstleverancierpersonalisatie vereist"
+
+#~ msgid "Corporate personalization PIN required"
+#~ msgstr "Pincode voor bedrijfspersonalisatie vereist"
+
+#~ msgid "Corporate personalization PUK required"
+#~ msgstr "Pukcode voor bedrijfspersonalisatie vereist"
+
+#~ msgid "Illegal MS"
+#~ msgstr "Verboden MS"
+
+#~ msgid "Illegal ME"
+#~ msgstr "Verboden ME"
+
+#~ msgid "GPRS services not allowed"
+#~ msgstr "GPRS-diensten niet toegestaan"
+
+#~ msgid "PLMN not allowed"
+#~ msgstr "PLMN niet toegestaan"
+
+#~ msgid "Location area not allowed"
+#~ msgstr "Locatiegebied niet toegestaan"
+
+#~ msgid "Roaming not allowed in this location area"
+#~ msgstr "Roaming niet toegestaan in dit locatiegebied"
+
+#~ msgid "Service option not supported"
+#~ msgstr "Dienstoptie niet ondersteund"
+
+#~ msgid "Requested service option not subscribed"
+#~ msgstr "Niet geabonneerd op gevraagde dienstoptie"
+
+#~ msgid "Service option temporarily out of order"
+#~ msgstr "Dienstoptie tijdelijk buiten gebruik"
+
+#~ msgid "Unspecified GPRS error"
+#~ msgstr "Ongespecificeerde GPRS-fout"
+
+#~ msgid "PDP authentication failure"
+#~ msgstr "PDP-aanmeldingsfout"
+
+#~ msgid "Invalid mobile class"
+#~ msgstr "Ongeldige mobiele klasse"
+
+#~ msgid "SIM card unlock error"
+#~ msgstr "Simkaartontgrendelingsfout"
+
+#~ msgid "OK"
+#~ msgstr "Oké"
+
+#~ msgid "Too many incorrect PINs."
+#~ msgstr "Te veel ongeldige pincodes."
+
+#~ msgid "Wrong PIN code"
+#~ msgstr "Verkeerde pincode"
 
 #~ msgid "NumLock state"
 #~ msgstr "Status NumLock"
