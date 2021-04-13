@@ -445,6 +445,7 @@ _cc_rfkill_glib_open (CcRfkillGlib  *rfkill,
 	/* Setup monitoring */
 	rfkill->channel = g_io_channel_unix_new (fd);
 	g_io_channel_set_encoding (rfkill->channel, NULL, NULL);
+	g_io_channel_set_buffered (rfkill->channel, FALSE);
 	rfkill->watch_id = g_io_add_watch (rfkill->channel,
 					   G_IO_IN | G_IO_HUP | G_IO_ERR,
 					   (GIOFunc) event_cb,
