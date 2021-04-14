@@ -1,4 +1,24 @@
 ==============
+Version 3.38.2
+==============
+
+rfkill:
+- Fix reading /dev/rfkill on newer kernels
+
+housekeeping:
+- Fix crash when atime is not present #556
+
+power:
+- Avoid automatic logout when inappropriate (greeter session)
+- Only one warn once when the battery of external devices runs low #108
+
+usb-protection:
+- Do not warn if usbguard is not installed #567
+
+datetime:
+- Optimizations of the required DB lookups
+
+==============
 Version 3.38.1
 ==============
 Sound:
