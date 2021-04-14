@@ -704,10 +704,10 @@ gsd_night_light_get_property (GObject    *object,
                 g_value_set_double (value, self->cached_sunrise);
                 break;
         case PROP_SUNSET:
-                g_value_set_double (value, self->cached_sunrise);
+                g_value_set_double (value, self->cached_sunset);
                 break;
         case PROP_TEMPERATURE:
-                g_value_set_double (value, self->cached_sunrise);
+                g_value_set_double (value, self->cached_temperature);
                 break;
         case PROP_DISABLED_UNTIL_TMW:
                 g_value_set_boolean (value, gsd_night_light_get_disabled_until_tmw (self));
