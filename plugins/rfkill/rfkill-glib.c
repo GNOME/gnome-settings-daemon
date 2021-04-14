@@ -342,7 +342,7 @@ event_cb (GIOChannel   *source,
 
 	if (condition & G_IO_IN) {
 		GIOStatus status;
-		struct rfkill_event event;
+		struct rfkill_event event = { 0 };
 		gsize read;
 
 		status = g_io_channel_read_chars (source,
@@ -351,7 +351,7 @@ event_cb (GIOChannel   *source,
 						  &read,
 						  NULL);
 
-		while (status == G_IO_STATUS_NORMAL && read == sizeof(event)) {
+		while (status == G_IO_STATUS_NORMAL && read >= RFKILL_EVENT_SIZE_V1) {
 			struct rfkill_event *event_ptr;
 
 			print_event (&event);
