@@ -155,7 +155,6 @@ struct _GsdPowerManager
         gboolean                 screensaver_active;
 
         /* State */
-        gboolean                 lid_is_present;
         gboolean                 lid_is_closed;
         gboolean                 session_is_active;
         UpClient                *up_client;
@@ -1545,18 +1544,34 @@ do_lid_closed_action (GsdPowerManager *manager)
         }
 }
 
-static void
-lid_state_changed_cb (UpClient *client, GParamSpec *pspec, GsdPowerManager *manager)
+static gboolean
+is_lid_closed (GsdPowerManager *manager)
 {
+        g_autoptr(GVariant) variant = NULL;
+
+        variant = g_dbus_proxy_get_cached_property (manager->logind_proxy,
+                                                    "LidClosed");
+
+        return variant ? g_variant_get_boolean (variant) : FALSE;
+}
+
+static void
+logind_proxy_changed_cb (GDBusProxy *proxy,
+                         GVariant   *changed_properties,
+                         GStrv       invalidated_properties,
+                         gpointer    user_data)
+{
+        GsdPowerManager *manager = user_data;
+        g_autoptr(GVariant) lid_closed = NULL;
         gboolean tmp;
 
-        if (!manager->lid_is_present)
+        lid_closed = g_dbus_proxy_get_cached_property (proxy, "LidClosed");
+        if (lid_closed == NULL)
+                return;
+        tmp = g_variant_get_boolean (lid_closed);
+        if (tmp == manager->lid_is_closed)
                 return;
 
-        /* same lid state */
-        tmp = up_client_get_lid_is_closed (manager->up_client);
-        if (manager->lid_is_closed == tmp)
-                return;
         manager->lid_is_closed = tmp;
         g_debug ("up changed: lid is now %s", tmp ? "closed" : "open");
 
@@ -2854,11 +2869,9 @@ on_rr_screen_acquired (GObject      *object,
         manager->session_is_active = is_session_active (manager);
 
         /* set up the screens */
-        if (manager->lid_is_present) {
-                g_signal_connect (manager->rr_screen, "changed", G_CALLBACK (on_randr_event), manager);
-                watch_external_monitor (manager->rr_screen);
-                on_randr_event (manager->rr_screen, manager);
-        }
+        g_signal_connect (manager->rr_screen, "changed", G_CALLBACK (on_randr_event), manager);
+        watch_external_monitor (manager->rr_screen);
+        on_randr_event (manager->rr_screen, manager);
 
         manager->screensaver_proxy = gnome_settings_bus_get_screen_saver_proxy ();
 
@@ -2876,8 +2889,6 @@ on_rr_screen_acquired (GObject      *object,
                           G_CALLBACK (engine_device_added_cb), manager);
         g_signal_connect (manager->up_client, "device-removed",
                           G_CALLBACK (engine_device_removed_cb), manager);
-        g_signal_connect_after (manager->up_client, "notify::lid-is-closed",
-                                G_CALLBACK (lid_state_changed_cb), manager);
         g_signal_connect (manager->up_client, "notify::on-battery",
                           G_CALLBACK (up_client_on_battery_cb), manager);
 
@@ -3058,11 +3069,7 @@ gsd_power_manager_start (GsdPowerManager *manager,
         /* Check whether we are running in a VM */
         manager->is_virtual_machine = gsd_power_is_hardware_a_vm ();
 
-        /* Check whether we have a lid first */
         manager->up_client = up_client_new ();
-        manager->lid_is_present = up_client_get_lid_is_present (manager->up_client);
-        if (manager->lid_is_present)
-                manager->lid_is_closed = up_client_get_lid_is_closed (manager->up_client);
 
         /* Set up the logind proxy */
         manager->logind_proxy =
@@ -3078,6 +3085,11 @@ gsd_power_manager_start (GsdPowerManager *manager,
                 g_debug ("No systemd (logind) support, disabling plugin");
                 return FALSE;
         }
+
+        /* Check whether the lid is closed */
+        manager->lid_is_closed = is_lid_closed (manager);
+        g_signal_connect (manager->logind_proxy, "g-properties-changed",
+                          G_CALLBACK (logind_proxy_changed_cb), manager);
 
         /* coldplug the list of screens */
         gnome_rr_screen_new_async (gdk_screen_get_default (),
