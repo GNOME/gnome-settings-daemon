@@ -146,6 +146,7 @@ schema_is_installed (const char *schema)
 static void
 apply_bell (GsdKeyboardManager *manager)
 {
+        GdkDisplay      *gdisplay;
 	GSettings       *settings;
         XKeyboardControl kbdcontrol;
         gboolean         click;
@@ -157,6 +158,8 @@ apply_bell (GsdKeyboardManager *manager)
 
         if (gnome_settings_is_wayland ())
                 return;
+
+        gdisplay = gdk_display_get_default ();
 
         g_debug ("Applying the bell settings");
         settings      = manager->settings;
@@ -180,13 +183,13 @@ apply_bell (GsdKeyboardManager *manager)
         kbdcontrol.bell_pitch = bell_pitch;
         kbdcontrol.bell_duration = bell_duration;
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdisplay);
         XChangeKeyboardControl (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                                 KBKeyClickPercent | KBBellPercent | KBBellPitch | KBBellDuration,
                                 &kbdcontrol);
 
         XSync (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), FALSE);
-        gdk_error_trap_pop_ignored ();
+        gdk_x11_display_error_trap_pop_ignored (gdisplay);
 }
 
 static void
