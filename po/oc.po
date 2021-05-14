@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2021-02-11 18:56+0000\n"
-"PO-Revision-Date: 2021-05-10 21:11+0200\n"
+"POT-Creation-Date: 2021-05-10 19:13+0000\n"
+"PO-Revision-Date: 2021-05-14 08:49+0200\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot en òc (totenoc.eu)\n"
 "Language: oc\n"
@@ -144,7 +144,7 @@ msgstr "Relambi de repeticion de las tòcas inicial"
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:90
 msgid "Initial key repeat delay in milliseconds."
 msgstr ""
-"Relambi inicial, abans lo començament de la repeticion, en millisegondas"
+"Relambi inicial, abans lo començament de la repeticion, en millisegondas."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:94
 msgid "Remember NumLock state"
@@ -956,7 +956,7 @@ msgstr "Talha de l’interval del volum"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:283
 msgid "Size of the volume step for each volume change"
-msgstr ""
+msgstr "Interval dels cambiaments de volum"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:289
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:600
@@ -1113,10 +1113,8 @@ msgid "Hibernate button"
 msgstr "Boton d’ivernacion"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:450
-#, fuzzy
-#| msgid "Binding to launch the email client."
 msgid "Binding to hibernate the machine."
-msgstr "Acorchi per aviar lo logicial de messatjariá."
+msgstr "Acorchi per passar la maquina en ivernacion."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:454
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:691
@@ -1124,10 +1122,8 @@ msgid "Suspend button"
 msgstr "Boton d’interrupcion"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:455
-#, fuzzy
-#| msgid "Binding to launch the email client."
 msgid "Binding to suspend the machine."
-msgstr "Acorchi per aviar lo logicial de messatjariá."
+msgstr "Acorchi per suspendre la maquina."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:460
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:697
@@ -1219,14 +1215,10 @@ msgid "Static binding to launch the calculator."
 msgstr "Acorchi per aviar la calculadoira."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:522
-#, fuzzy
-#| msgid "Binding to launch GNOME settings."
 msgid "Static binding to launch GNOME Settings."
-msgstr "Acorchi per aviar los paramètres GNOME."
+msgstr "Acorchi fixe per aviar los paramètres GNOME."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:527
-#, fuzzy
-#| msgid "Binding to launch the email client."
 msgid "Static binding to launch the email client."
 msgstr "Acorchi per aviar lo logicial de messatjariá."
 
@@ -1279,10 +1271,8 @@ msgid "Static binding to stop playback."
 msgstr "Acorchi per interrompre la lectura."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:584
-#, fuzzy
-#| msgid "Binding to lower the system volume."
 msgid "Static binding to lower the volume."
-msgstr "Acorchi per baissar lo volum general del son."
+msgstr "Acorchi fixe per baissar lo volum general del son."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:589
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:606
@@ -1292,8 +1282,6 @@ msgid "Static binding to mute/unmute the volume."
 msgstr "Acorchi per metre lo son general en sordina."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:594
-#, fuzzy
-#| msgid "Binding to raise the system volume."
 msgid "Static binding to raise the volume."
 msgstr "Acorchi per aumentar lo volum general del son."
 
@@ -1318,10 +1306,8 @@ msgid "Static binding to mute/unmute the microphone."
 msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:634
-#, fuzzy
-#| msgid "Binding to launch the web browser."
 msgid "Static binding to launch the web browser."
-msgstr "Acorchi per aviar lo navigador Web."
+msgstr "Acorchi fixe per aviar lo navigador Web."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:640
 #, fuzzy
@@ -1373,10 +1359,8 @@ msgid "Static binding to hibernate the machine."
 msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:692
-#, fuzzy
-#| msgid "Binding to launch the email client."
 msgid "Static binding to suspend the machine."
-msgstr "Acorchi per aviar lo logicial de messatjariá."
+msgstr "Acorchi fixe per suspendre la maquina."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:698
 msgid "Static binding to increase the screen brightness."
@@ -1755,30 +1739,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Aqueste ordenador a pas mai que %s d'espaci de disc disponible."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2476
+#: plugins/media-keys/gsd-media-keys-manager.c:2479
 msgid "Bluetooth disabled"
 msgstr "Bluetooth desactivat"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2479
+#: plugins/media-keys/gsd-media-keys-manager.c:2482
 msgid "Bluetooth enabled"
 msgstr "Bluetooth activat"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2483
+#: plugins/media-keys/gsd-media-keys-manager.c:2486
 msgid "Airplane mode enabled"
 msgstr "Mòde avion activat"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2486
+#: plugins/media-keys/gsd-media-keys-manager.c:2489
 msgid "Airplane mode disabled"
 msgstr "Mòde avion desactivat"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2515
+#: plugins/media-keys/gsd-media-keys-manager.c:2518
 msgid "Hardware Airplane Mode"
 msgstr "Mòde avion material"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2578
+#: plugins/media-keys/gsd-media-keys-manager.c:2581
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Captura d'ecran vidèo de %d %t.webm"
