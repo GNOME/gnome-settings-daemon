@@ -257,7 +257,7 @@ delete_data_new (GFile        *file,
         DeleteData *data;
 
         data = g_new (DeleteData, 1);
-        data->ref_count = 1;
+        g_ref_count_init (&data->ref_count);
         data->file = g_object_ref (file);
         data->filesystem = g_strdup (filesystem);
         data->cancellable = cancellable ? g_object_ref (cancellable) : NULL;
@@ -288,24 +288,23 @@ get_filesystem (GFile *file)
 static DeleteData *
 delete_data_ref (DeleteData *data)
 {
-  data->ref_count += 1;
-  return data;
+        g_ref_count_inc (&data->ref_count);
+
+        return data;
 }
 
 void
 delete_data_unref (DeleteData *data)
 {
-        data->ref_count -= 1;
-        if (data->ref_count > 0)
-                return;
-
-        g_object_unref (data->file);
-        if (data->cancellable)
-                g_object_unref (data->cancellable);
-        g_date_time_unref (data->old);
-        g_free (data->name);
-        g_free (data->filesystem);
-        g_free (data);
+        if (g_ref_count_dec (&data->ref_count)) {
+                g_object_unref (data->file);
+                if (data->cancellable)
+                        g_object_unref (data->cancellable);
+                g_date_time_unref (data->old);
+                g_free (data->name);
+                g_free (data->filesystem);
+                g_free (data);
+        }
 }
 
 static void

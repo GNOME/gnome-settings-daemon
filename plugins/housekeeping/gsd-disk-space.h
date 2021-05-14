@@ -28,7 +28,7 @@
 G_BEGIN_DECLS
 
 typedef struct {
-        gint ref_count;
+        grefcount  ref_count;
         GFile           *file;
         GCancellable    *cancellable;
         GDateTime       *old;
