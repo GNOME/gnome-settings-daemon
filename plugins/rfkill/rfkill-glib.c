@@ -70,6 +70,7 @@ struct _CcRfkillGlib {
 	 * does not necessarily hold. */
 	guint change_all_timeout_id;
 	GTask *task;
+	gboolean write_all_again;
 };
 
 G_DEFINE_TYPE (CcRfkillGlib, cc_rfkill_glib, G_TYPE_OBJECT)
@@ -77,19 +78,24 @@ G_DEFINE_TYPE (CcRfkillGlib, cc_rfkill_glib, G_TYPE_OBJECT)
 #define CHANGE_ALL_TIMEOUT 500
 
 static const char *type_to_string (unsigned int type);
+static void queue_write_change_all (CcRfkillGlib *rfkill);
+
+static void
+clear_current_task (CcRfkillGlib *rfkill)
+{
+	g_clear_object (&rfkill->task);
+	g_clear_handle_id (&rfkill->change_all_timeout_id, g_source_remove);
+	rfkill->write_all_again = FALSE;
+}
 
 static void
 cancel_current_task (CcRfkillGlib *rfkill)
 {
 	if (rfkill->task != NULL) {
 		g_cancellable_cancel (g_task_get_cancellable (rfkill->task));
-		g_clear_object (&rfkill->task);
 	}
 
-	if (rfkill->change_all_timeout_id != 0) {
-		g_source_remove (rfkill->change_all_timeout_id);
-		rfkill->change_all_timeout_id = 0;
-	}
+	clear_current_task (rfkill);
 }
 
 /* Note that this can return %FALSE without setting @error. */
@@ -105,46 +111,22 @@ cc_rfkill_glib_send_change_all_event_finish (CcRfkillGlib        *rfkill,
 	return g_task_propagate_boolean (G_TASK (res), error);
 }
 
-static void
-write_change_all_again_done_cb (GObject      *source_object,
-				GAsyncResult *res,
-				gpointer      user_data)
-{
-	g_autoptr(GTask) task = G_TASK (user_data);
-	CcRfkillGlib *rfkill = g_task_get_source_object (task);
-	g_autoptr(GError) error = NULL;
-	gssize ret;
-
-	g_debug ("Finished writing second RFKILL_OP_CHANGE_ALL event");
-
-	ret = g_output_stream_write_finish (G_OUTPUT_STREAM (source_object), res, &error);
-	if (ret < 0)
-		g_task_return_error (task, g_steal_pointer (&error));
-	else
-		g_task_return_boolean (task, ret >= 0);
-
-	/* If this @task has been cancelled, it may have been superceded. */
-	if (rfkill->task == task)
-		g_clear_object (&rfkill->task);
-}
-
 static gboolean
-write_change_all_timeout_cb (CcRfkillGlib *rfkill)
+write_change_all_timeout_cb (GTask *task)
 {
-	struct rfkill_event *event;
+	CcRfkillGlib *rfkill = g_task_get_source_object (task);
 
-	g_assert (rfkill->task != NULL);
+	g_assert (rfkill->task == task);
 
-	g_debug ("Sending second RFKILL_OP_CHANGE_ALL timed out");
+	g_debug ("Stopping to wait for more change events");
 
-	event = g_task_get_task_data (rfkill->task);
-	g_task_return_new_error (rfkill->task,
-				 G_IO_ERROR, G_IO_ERROR_TIMED_OUT,
-				 "Enabling rfkill for %s timed out",
-				 type_to_string (event->type));
-
-	g_clear_object (&rfkill->task);
 	rfkill->change_all_timeout_id = 0;
+
+	/* Will be returned from write_change_all_done_cb */
+	if (!g_output_stream_has_pending (rfkill->stream)) {
+		g_task_return_boolean (rfkill->task, TRUE);
+		g_clear_object (&rfkill->task);
+	}
 
 	return G_SOURCE_REMOVE;
 }
@@ -157,33 +139,49 @@ write_change_all_done_cb (GObject      *source_object,
 	g_autoptr(GTask) task = G_TASK (user_data);
 	CcRfkillGlib *rfkill = g_task_get_source_object (task);
 	g_autoptr(GError) error = NULL;
+	gboolean returned = FALSE;
 	gssize ret;
-	struct rfkill_event *event;
 
-	g_debug ("Sending original RFKILL_OP_CHANGE_ALL event done");
+	g_debug ("Sending RFKILL_OP_CHANGE_ALL event done");
 
-	event = g_task_get_task_data (task);
 	ret = g_output_stream_write_finish (G_OUTPUT_STREAM (source_object), res, &error);
 	if (ret < 0) {
 		g_task_return_error (task, g_steal_pointer (&error));
-		goto bail;
-	} else if (event->soft == 1 ||
-		   event->type != RFKILL_TYPE_BLUETOOTH) {
-		g_task_return_boolean (task, ret >= 0);
-		goto bail;
+		returned = TRUE;
+	} else if (task != rfkill->task ||
+	           !rfkill->change_all_timeout_id) {
+		g_task_return_boolean (task, TRUE);
+		returned = TRUE;
 	}
 
-	g_assert (rfkill->change_all_timeout_id == 0);
-	rfkill->change_all_timeout_id = g_timeout_add (CHANGE_ALL_TIMEOUT,
-						       (GSourceFunc) write_change_all_timeout_cb,
-						       rfkill);
+	/* Clear current task if it was returned, otherwise, continue */
+	if (returned && (task == rfkill->task))
+		clear_current_task (rfkill);
+	else if (rfkill->write_all_again)
+		queue_write_change_all (rfkill);
+}
 
-	return;
+static void
+queue_write_change_all (CcRfkillGlib *rfkill)
+{
+	struct rfkill_event *event;
+	g_assert (rfkill->task);
 
-bail:
-	/* If this @task has been cancelled, it may have been superceded. */
-	if (rfkill->task == task)
-		g_clear_object (&rfkill->task);
+	/* Operations are pending, we'll get a call to write_change_all_done_cb */
+	if (g_output_stream_has_pending (rfkill->stream)) {
+		rfkill->write_all_again = TRUE;
+		return;
+	}
+
+	/* Start write immediately. */
+	event = g_task_get_task_data (rfkill->task);
+	g_output_stream_write_async (rfkill->stream,
+				     event, sizeof(struct rfkill_event),
+				     G_PRIORITY_DEFAULT,
+				     g_task_get_cancellable (rfkill->task),
+				     write_change_all_done_cb,
+				     g_object_ref (rfkill->task));
+	rfkill->write_all_again = FALSE;
 }
 
 void
@@ -217,7 +215,7 @@ cc_rfkill_glib_send_change_all_event (CcRfkillGlib        *rfkill,
 	cancel_current_task (rfkill);
 	g_assert (rfkill->task == NULL);
 
-	/* Start writing out a new event. */
+	/* Create event to write. */
 	event = g_new0 (struct rfkill_event, 1);
 	event->op = RFKILL_OP_CHANGE_ALL;
 	event->type = rfkill_type;
@@ -227,11 +225,19 @@ cc_rfkill_glib_send_change_all_event (CcRfkillGlib        *rfkill,
 	rfkill->task = g_object_ref (task);
 	rfkill->change_all_timeout_id = 0;
 
-	g_output_stream_write_async (rfkill->stream,
-				     event, sizeof(struct rfkill_event),
-				     G_PRIORITY_DEFAULT,
-				     task_cancellable, write_change_all_done_cb,
-				     g_object_ref (task));
+	queue_write_change_all (rfkill);
+
+	/* During this timeframe we'll send another change request if an event
+	 * occurs.
+	 * This works around cases wh */
+	if (event->type == RFKILL_TYPE_BLUETOOTH &&
+	    event->soft == 0 &&
+	    rfkill->change_all_timeout_id == 0) {
+		g_assert (rfkill->task == task);
+		rfkill->change_all_timeout_id = g_timeout_add (CHANGE_ALL_TIMEOUT,
+							       (GSourceFunc) write_change_all_timeout_cb,
+							       task);
+	}
 }
 
 static const char *
@@ -283,7 +289,7 @@ print_event (struct rfkill_event *event)
 }
 
 static gboolean
-got_change_event (GList *events)
+got_bt_off_change_event (GList *events)
 {
 	GList *l;
 
@@ -292,8 +298,16 @@ got_change_event (GList *events)
 	for (l = events ; l != NULL; l = l->next) {
 		struct rfkill_event *event = l->data;
 
-		if (event->op == RFKILL_OP_CHANGE)
-			return TRUE;
+		if (event->op != RFKILL_OP_CHANGE)
+			continue;
+
+		if (event->type == RFKILL_TYPE_BLUETOOTH)
+			continue;
+
+		if (event->soft == 0)
+			continue;
+
+		return TRUE;
 	}
 
 	return FALSE;
@@ -311,21 +325,33 @@ emit_changed_signal_and_free (CcRfkillGlib *rfkill,
 		       0, events);
 
 	if (rfkill->change_all_timeout_id > 0 &&
-	    got_change_event (events)) {
-		struct rfkill_event *event;
-
+	    got_bt_off_change_event (events)) {
+		/*
+		 * Question:
+		 *  Why does this code exist?
+		 *
+		 * Answer:
+		 *  1. Because we have slaved bluetooth rfkill devices, where
+		 *     the first rfkill makes the second one disappear.
+		 *  2. Because systemd is too stupid for its own good (it
+		 *     has no way to tell appart a dynamic plug like this from
+		 *     others).
+		 *
+		 * The combination means, that enabling causes an ADD event.
+		 * systemd-rfkill sees this and may soft-block the newly added
+		 * device.
+		 * This code undoes this effect again when we are in the
+		 * process of turning on blueooth.
+		 *
+		 * Note that systemd *tries* to be smart here and will not save
+		 * the state if the device immediately disappears later. But
+		 * that does not seem to fully prevent this situation from
+		 * occuring. It can be easily manually triggered by only
+		 * blocking hci0 using the rfkill command.
+		 */
 		g_debug ("Received a change event after a RFKILL_OP_CHANGE_ALL event, re-sending RFKILL_OP_CHANGE_ALL");
 
-		event = g_task_get_task_data (rfkill->task);
-		g_output_stream_write_async (rfkill->stream,
-					     event, sizeof(struct rfkill_event),
-					     G_PRIORITY_DEFAULT,
-					     g_task_get_cancellable (rfkill->task),
-					     write_change_all_again_done_cb,
-					     g_object_ref (rfkill->task));
-
-		g_source_remove (rfkill->change_all_timeout_id);
-		rfkill->change_all_timeout_id = 0;
+		queue_write_change_all (rfkill);
 	}
 
 	g_list_free_full (events, g_free);
