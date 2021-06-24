@@ -227,6 +227,7 @@ typedef struct
 
         /* RFKill stuff */
         guint            rfkill_watch_id;
+        guint64          rfkill_last_time;
         GDBusProxy      *rfkill_proxy;
         GCancellable    *rfkill_cancellable;
 
@@ -2501,6 +2502,7 @@ do_rfkill_action (GsdMediaKeysManager *manager,
         GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
         const char *has_mode, *hw_mode, *mode;
         gboolean new_state;
+        guint64 current_time;
         RfkillData *data;
 
         has_mode = bluetooth ? "BluetoothHasAirplaneMode" : "HasAirplaneMode";
@@ -2509,6 +2511,15 @@ do_rfkill_action (GsdMediaKeysManager *manager,
 
         if (priv->rfkill_proxy == NULL)
                 return;
+
+        /* Some hardwares can generate multiple rfkill events from different
+         * drivers, on a single hotkey press. Only process the first event and
+         * debounce the others */
+        current_time = g_get_monotonic_time ();
+        if (current_time - priv->rfkill_last_time < G_USEC_PER_SEC)
+                return;
+
+        priv->rfkill_last_time = current_time;
 
         if (get_rfkill_property (manager, has_mode) == FALSE)
                 return;
