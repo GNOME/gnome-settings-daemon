@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2021-05-10 19:13+0000\n"
-"PO-Revision-Date: 2021-05-14 08:49+0200\n"
+"POT-Creation-Date: 2021-05-14 06:50+0000\n"
+"PO-Revision-Date: 2021-07-08 22:14+0200\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot en òc (totenoc.eu)\n"
 "Language: oc\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 2.4.3\n"
+"X-Generator: Poedit 3.0\n"
 "X-Launchpad-Export-Date: 2015-05-20 16:48+0000\n"
 "X-Project-Style: gnome\n"
 
@@ -29,10 +29,6 @@ msgid "Smartcard removal action"
 msgstr "Accion quand la carta de piuse es levada"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
-#, fuzzy
-#| msgid ""
-#| "Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
-#| "action will get performed when the smartcard used for log in is removed."
 msgid ""
 "Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
 "get performed when the smartcard used for log in is removed."
@@ -55,12 +51,9 @@ msgid "File name of the bell sound to be played."
 msgstr "Nom del fichièr del son de campana de jogar."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:41
-#, fuzzy
-#| msgid ""
-#| "Whether the tablet's orientation is locked, or rotated automatically."
 msgid "Whether the tablet’s orientation is locked, or rotated automatically."
 msgstr ""
-"Indica se l'orientacion de la tauleta es verrolhada o se la rotacion es "
+"Indica se l’orientacion de la tauleta es verrolhada o se la rotacion es "
 "automatica."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:49
@@ -87,10 +80,8 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:59
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:136
-#, fuzzy
-#| msgid "Drag threshold"
 msgid "Motion Threshold"
-msgstr "Sulhet de lisament"
+msgstr "Sulhet del movement"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:60
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:137
@@ -187,15 +178,11 @@ msgid "Select the touchpad scroll method"
 msgstr "Metòde de desfilament del pavat tactil"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:112
-#, fuzzy
-#| msgid ""
-#| "Select the touchpad scroll method. Supported values are: \"disabled\", "
-#| "\"edge-scrolling\", \"two-finger-scrolling\"."
 msgid ""
 "Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
 "scrolling”, “two-finger-scrolling”."
 msgstr ""
-"Selecciona lo metòde de desfilament amb lo pavat tactil. Las valors admesas "
+"Seleccion del metòde de desfilament amb lo pavat tactil. Las valors admesas "
 "son : « disabled » (desactivat), « edge-scrolling » (desfilament suls "
 "bòrds), « two-finger-scrolling » (desfilament amb dos dets)."
 
@@ -282,10 +269,6 @@ msgid "Wacom tablet rotation"
 msgstr "Rotacion de la tauleta Wacom"
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:26
-#, fuzzy
-#| msgid ""
-#| "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, "
-#| "and 'ccw' for 90 degree counterclockwise."
 msgid ""
 "Set this to “none”, “cw” for 90 degree clockwise, “half” for 180 degree, and "
 "“ccw” for 90 degree counterclockwise."
@@ -437,6 +420,8 @@ msgid ""
 "Night light mode changes the color temperature of your display when the sun "
 "has gone down or at preset times."
 msgstr ""
+"Lo mòde nuèch modifica la temperatura de las colors de l’ecran quand la lutz "
+"baissa o a d’oras definidas."
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:21
 msgid "Temperature of the display when enabled"
@@ -450,13 +435,15 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:26
 msgid "Use the sunrise and sunset"
-msgstr ""
+msgstr "Utilizar la sortida del solelh e la colcada del solelh"
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:27
 msgid ""
 "Calculate the sunrise and sunset times automatically, from the current "
 "location."
 msgstr ""
+"Calcul automatic de l'ora de sortida e de colcada del solelh a partir de la "
+"posicion actuala."
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:31
 msgid "The start time"
@@ -492,24 +479,21 @@ msgid ""
 "location. The default value is an invalid value to ensure it is always "
 "updated at startup."
 msgstr ""
+"Quand lo servici de localizacion es disponible aquò representa la darrièra "
+"posicion detectada. La valor per defaut es una valor invalida per "
+"s'assegurar qu'es totjorn actualizada a l'aviada."
 
 #: data/org.gnome.settings-daemon.plugins.gschema.xml.in:6
 msgid "List of plugins that are allowed to be loaded"
 msgstr "Lista dels empeutons autorizats al cargament"
 
 #: data/org.gnome.settings-daemon.plugins.gschema.xml.in:7
-#, fuzzy
-#| msgid ""
-#| "A list of strings representing the plugins that are allowed to be loaded "
-#| "(default: 'all'). The plugins still need to be marked as active to get "
-#| "loaded. This is only evaluated on startup."
 msgid ""
 "A list of strings representing the plugins that are allowed to be loaded "
 "(default: “all”). This is only evaluated on startup."
 msgstr ""
 "Una lista de cadenas que descrivon los empeutons que son autorizats al "
-"cargament (la valor per defaut es « all », totes). Los empeutons devon "
-"encara èsser marcats coma actius per èsser cargats. Aquò es pas evaluat qu'a "
+"cargament (la valor per defaut es « all », totes). Aquò es pas evaluat qu'a "
 "l'aviada."
 
 #: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:6
@@ -1087,16 +1071,12 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:439
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:676
-#, fuzzy
-#| msgid "Toggle screen reader"
 msgid "Toggle automatic screen orientation"
-msgstr "Activar o pas lo lector d'ecran"
+msgstr "Bascular automaticament l’orientacion de l’ecran"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:440
-#, fuzzy
-#| msgid "Binding to take a screenshot."
 msgid "Binding to toggle automatic screen orientation."
-msgstr "Acorchi per prene una captura d'ecran."
+msgstr "Acorchi per activar o desactivar l’orientacion automatica de l’ecran."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:444
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:681
@@ -1156,8 +1136,6 @@ msgstr "Acorchi per verrolhar l'ecran."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:476
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:713
-#, fuzzy
-#| msgid "Keyboard Brightness Up"
 msgid "Keyboard brightness up"
 msgstr "Aumentar la luminositat del clavièr"
 
@@ -1255,18 +1233,14 @@ msgid "Static binding to skip to previous track."
 msgstr "Acorchi fixe per per passar a la pista precedenta."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:567
-#, fuzzy
-#| msgid "Binding to lock the screen."
 msgid "Static binding to lock the screen."
-msgstr "Acorchi per verrolhar l'ecran."
+msgstr "Acorchi fixe per verrolhar l’ecran."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:572
 msgid "Static binding to launch the search tool."
 msgstr "Acorchi per aviar l'aisina de recèrca."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:577
-#, fuzzy
-#| msgid "Binding to stop playback."
 msgid "Static binding to stop playback."
 msgstr "Acorchi per interrompre la lectura."
 
@@ -1303,7 +1277,7 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:629
 msgid "Static binding to mute/unmute the microphone."
-msgstr ""
+msgstr "Acorchi per amudir o restablir lo microfòn."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:634
 msgid "Static binding to launch the web browser."
@@ -1348,7 +1322,7 @@ msgstr "Acorchi per aviar lo lector multimèdia."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:677
 msgid "Static binding to toggle automatic screen orientation."
-msgstr ""
+msgstr "Acorchi fixe per bascular automaticament l’orientacion de l’ecran."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:682
 msgid "Static binding for power button."
@@ -1356,7 +1330,7 @@ msgstr "Acorchi fixe pel boton d’alimentacion."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:687
 msgid "Static binding to hibernate the machine."
-msgstr ""
+msgstr "Acorchi fixe per far ivernar la maquina."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:692
 msgid "Static binding to suspend the machine."
@@ -1453,7 +1427,7 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:16
 msgid "Sleep timeout computer when on AC"
-msgstr ""
+msgstr "Relambi abans velha de l'ordenador sus batariá"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:17
 msgid ""
@@ -1471,7 +1445,7 @@ msgstr ""
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:32
 msgid ""
 "The type of sleeping that should be performed when the computer is inactive."
-msgstr ""
+msgstr "Tipe de mesa en sòm que l’ordenador deu aplicar quand es inactiu."
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:26
 msgid "Sleep timeout computer when on battery"
@@ -1554,11 +1528,6 @@ msgid "Antialiasing"
 msgstr "Anticrenelatge"
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:24
-#, fuzzy
-#| msgid ""
-#| "The type of antialiasing to use when rendering fonts. Possible values "
-#| "are: \"none\" for no antialiasing, \"grayscale\" for standard grayscale "
-#| "antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
@@ -2438,7 +2407,7 @@ msgstr "L'impression es estada arrestada"
 #, c-format
 msgctxt "print job"
 msgid "“%s” on %s"
-msgstr "« %s » sus %s"
+msgstr "« %s » de %s"
 
 #. Translators: A print job has been canceled
 #: plugins/print-notifications/gsd-print-notifications-manager.c:722
