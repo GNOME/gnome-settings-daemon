@@ -686,11 +686,11 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
                 /* use different text for different actions */
                 if (policy == GSD_POWER_ACTION_HIBERNATE) {
                         /* TRANSLATORS: give the user a ultimatum */
-                        message = g_strdup_printf (_("Computer will hibernate very soon unless it is plugged in."));
+                        message = g_strdup_printf (_("Hibernating soon unless plugged in."));
 
                 } else if (policy == GSD_POWER_ACTION_SHUTDOWN) {
                         /* TRANSLATORS: give the user a ultimatum */
-                        message = g_strdup_printf (_("Computer will shutdown very soon unless it is plugged in."));
+                        message = g_strdup_printf (_("Shutting down soon unless plugged in."));
                 }
 
         } else if (kind == UP_DEVICE_KIND_UPS) {
