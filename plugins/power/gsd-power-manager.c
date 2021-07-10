@@ -166,7 +166,7 @@ struct _GsdPowerManager
         NotifyNotification      *notification_sleep_warning;
         GsdPowerActionType       sleep_action_type;
         GHashTable              *devices_notified_ht; /* key = serial str, value = UpDeviceLevel */
-        gboolean                 battery_is_low; /* laptop battery low, or UPS discharging */
+        gboolean                 battery_is_low; /* battery low, or UPS discharging */
 
         /* Brightness */
         GsdBacklight            *backlight;
@@ -520,15 +520,8 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
 
         if (kind == UP_DEVICE_KIND_BATTERY) {
 
-                /* if the user has no other batteries, drop the "Laptop" wording */
-                ret = (manager->devices_array->len > 0);
-                if (ret) {
-                        /* TRANSLATORS: laptop battery low, and we only have one battery */
-                        title = _("Battery low");
-                } else {
-                        /* TRANSLATORS: laptop battery low, and we have more than one kind of battery */
-                        title = _("Laptop battery low");
-                }
+                /* TRANSLATORS: device battery low */
+                title = _("Battery low");
                 tmp = gpm_get_timestring (time_to_empty);
                 remaining_text = g_strconcat ("<b>", tmp, "</b>", NULL);
                 g_free (tmp);
@@ -670,15 +663,8 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
 
         if (kind == UP_DEVICE_KIND_BATTERY) {
 
-                /* if the user has no other batteries, drop the "Laptop" wording */
-                ret = (manager->devices_array->len > 0);
-                if (ret) {
-                        /* TRANSLATORS: laptop battery critically low, and only have one kind of battery */
-                        title = _("Battery critically low");
-                } else {
-                        /* TRANSLATORS: laptop battery critically low, and we have more than one type of battery */
-                        title = _("Laptop battery critically low");
-                }
+                /* TRANSLATORS: Device battery critically low */
+                title = _("Battery critically low");
 
                 /* we have to do different warnings depending on the policy */
                 policy = manager_critical_action_get (manager);
@@ -857,8 +843,8 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
 
         if (kind == UP_DEVICE_KIND_BATTERY) {
 
-                /* TRANSLATORS: laptop battery is really, really, low */
-                title = _("Laptop battery critically low");
+                /* TRANSLATORS: device battery is really, really, low */
+                title = _("Battery critically low");
 
                 /* we have to do different warnings depending on the policy */
                 policy = manager_critical_action_get (manager);
