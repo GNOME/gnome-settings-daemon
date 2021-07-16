@@ -130,7 +130,7 @@ class OutputChecker(object):
                 if failmsg:
                     raise AssertionError(failmsg)
                 else:
-                    raise AssertionError('Found needle %s but shouldn\'t have been there (timeout: %0.2f)' % (str(needle_re), timeout))
+                    raise AssertionError('Found needle %s but shouldn\'t have been there (timeout: %0.2f)' % (str(needle_re), wait))
 
         return ret
 
