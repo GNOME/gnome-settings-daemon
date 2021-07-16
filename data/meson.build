@@ -25,7 +25,6 @@ foreach schema: schemas
     input: schema + '.in',
     output: schema,
     configuration: schema_conf,
-    install: true,
     install_dir: gsd_schemadir
   )]
 endforeach
