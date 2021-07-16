@@ -41,5 +41,10 @@
       <summary>Power button action</summary>
       <description>The action to take when the system power button is pressed. This action is hard-coded (and the setting ignored) on virtual machines (power off) and tablets (suspend).</description>
     </key>
+    <key name="power-saver-profile-on-low-battery" type="b">
+      <default>true</default>
+      <summary>Enable power-saver profile when battery is low</summary>
+      <description>Automatically enable the "power-saver" profile using power-profiles-daemon if the battery is low.</description>
+    </key>
   </schema>
 </schemalist>
