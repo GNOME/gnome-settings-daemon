@@ -59,6 +59,10 @@
 #define UPOWER_DBUS_INTERFACE                   "org.freedesktop.UPower"
 #define UPOWER_DBUS_INTERFACE_KBDBACKLIGHT      "org.freedesktop.UPower.KbdBacklight"
 
+#define PPD_DBUS_NAME                           "net.hadess.PowerProfiles"
+#define PPD_DBUS_PATH                           "/net/hadess/PowerProfiles"
+#define PPD_DBUS_INTERFACE                      "net.hadess.PowerProfiles"
+
 #define GSD_POWER_SETTINGS_SCHEMA               "org.gnome.settings-daemon.plugins.power"
 
 #define GSD_POWER_DBUS_NAME                     GSD_DBUS_NAME ".Power"
@@ -184,6 +188,10 @@ struct _GsdPowerManager
         gdouble                  ambient_percentage_old;
         gdouble                  ambient_last_absolute;
         gint64                   ambient_last_time;
+
+        /* Power Profiles */
+        GDBusProxy              *power_profiles_proxy;
+        guint32                  power_saver_cookie;
 
         /* Sound */
         guint32                  critical_alert_timeout_id;
@@ -1928,6 +1936,67 @@ idle_configure (GsdPowerManager *manager)
 }
 
 static void
+hold_profile_cb (GObject      *source_object,
+                 GAsyncResult *res,
+                 gpointer      user_data)
+{
+        GsdPowerManager *manager = user_data;
+        g_autoptr(GError) error = NULL;
+        g_autoptr(GVariant) result = NULL;
+
+        result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
+                                           res,
+                                           &error);
+        if (result == NULL) {
+                g_warning ("Couldn't hold power-saver profile: %s", error->message);
+                return;
+        }
+
+        if (g_variant_is_of_type (result, G_VARIANT_TYPE ("(u)"))) {
+                g_variant_get (result, "(u)", &manager->power_saver_cookie);
+                g_debug ("Holding power-saver profile with cookie %u", manager->power_saver_cookie);
+        } else {
+                g_warning ("Calling HoldProfile() did not return a uint32");
+        }
+}
+
+static void
+enable_power_saver (GsdPowerManager *manager)
+{
+        if (!manager->power_profiles_proxy)
+                return;
+        if (!g_settings_get_boolean (manager->settings, "power-saver-profile-on-low-battery"))
+                return;
+
+        g_debug ("Starting hold of power-saver profile");
+
+        g_dbus_proxy_call (manager->power_profiles_proxy,
+                           "HoldProfile",
+                           g_variant_new("(sss)",
+                                         "power-saver",
+                                         "Power saver profile when low on battery",
+                                         GSD_POWER_DBUS_NAME),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1, manager->cancellable, hold_profile_cb, manager);
+}
+
+static void
+disable_power_saver (GsdPowerManager *manager)
+{
+        if (!manager->power_profiles_proxy || manager->power_saver_cookie == 0)
+                return;
+
+        g_debug ("Releasing power-saver profile");
+
+        g_dbus_proxy_call (manager->power_profiles_proxy,
+                           "ReleaseProfile",
+                           g_variant_new ("(u)", manager->power_saver_cookie),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1, NULL, dbus_call_log_error, "ReleaseProfile failed");
+        manager->power_saver_cookie = 0;
+}
+
+static void
 main_battery_or_ups_low_changed (GsdPowerManager *manager,
                                  gboolean         is_low)
 {
@@ -1935,6 +2004,10 @@ main_battery_or_ups_low_changed (GsdPowerManager *manager,
                 return;
         manager->battery_is_low = is_low;
         idle_configure (manager);
+        if (is_low)
+                enable_power_saver (manager);
+        else
+                disable_power_saver (manager);
 }
 
 static gboolean
@@ -2076,6 +2149,39 @@ screensaver_signal_cb (GDBusProxy *proxy,
                 handle_screensaver_active (GSD_POWER_MANAGER (user_data), parameters);
         else if (g_strcmp0 (signal_name, "WakeUpScreen") == 0)
                 handle_wake_up_screen (GSD_POWER_MANAGER (user_data));
+}
+
+static void
+power_profiles_proxy_signal_cb (GDBusProxy  *proxy,
+                               const gchar *sender_name,
+                               const gchar *signal_name,
+                               GVariant    *parameters,
+                               gpointer     user_data)
+{
+        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
+
+        if (g_strcmp0 (signal_name, "ProfileReleased") != 0)
+                return;
+        manager->power_saver_cookie = 0;
+}
+
+static void
+power_profiles_proxy_ready_cb (GObject             *source_object,
+                              GAsyncResult        *res,
+                              gpointer             user_data)
+{
+        g_autoptr(GError) error = NULL;
+        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
+
+        manager->power_profiles_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
+        if (manager->power_profiles_proxy == NULL) {
+                g_debug ("Could not connect to power-profiles-daemon: %s", error->message);
+                return;
+        }
+
+        g_signal_connect (manager->power_profiles_proxy, "g-signal",
+                          G_CALLBACK (power_profiles_proxy_signal_cb),
+                          manager);
 }
 
 static void
@@ -2287,6 +2393,14 @@ engine_settings_key_changed_cb (GSettings *settings,
             g_str_equal (key, "idle-delay") ||
             g_str_equal (key, "idle-dim")) {
                 idle_configure (manager);
+                return;
+        }
+        if (g_str_equal (key, "power-saver-profile-on-low-battery")) {
+                if (manager->battery_is_low &&
+                    g_settings_get_boolean (settings, key))
+                        enable_power_saver (manager);
+                else
+                        disable_power_saver (manager);
                 return;
         }
 }
@@ -2599,6 +2713,17 @@ on_rr_screen_acquired (GObject      *object,
         g_signal_connect (manager->up_client, "notify::on-battery",
                           G_CALLBACK (up_client_on_battery_cb), manager);
 
+        /* connect to power-profiles-daemon */
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+                                  G_DBUS_PROXY_FLAGS_NONE,
+                                  NULL,
+                                  PPD_DBUS_NAME,
+                                  PPD_DBUS_PATH,
+                                  PPD_DBUS_INTERFACE,
+                                  manager->cancellable,
+                                  power_profiles_proxy_ready_cb,
+                                  manager);
+
         /* connect to UPower for keyboard backlight control */
         manager->kbd_brightness_now = -1;
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
@@ -2861,6 +2986,9 @@ gsd_power_manager_stop (GsdPowerManager *manager)
         g_clear_pointer (&manager->devices_notified_ht, g_hash_table_destroy);
 
         g_clear_object (&manager->screensaver_proxy);
+
+        disable_power_saver (manager);
+        g_clear_object (&manager->power_profiles_proxy);
 
         play_loop_stop (&manager->critical_alert_timeout_id);
 

@@ -80,6 +80,13 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
             'gnome_screensaver')
         self.addCleanup(self.stop_process, self.screensaver)
 
+        # start mock power-profiles-daemon
+        try:
+            (self.ppd, self.obj_ppd) = self.spawn_server_template('power_profiles_daemon')
+            self.addCleanup(self.stop_process, self.ppd)
+        except ModuleNotFoundError:
+            self.ppd = None
+
         self.start_session()
         self.addCleanup(self.stop_session)
 
@@ -1234,6 +1241,31 @@ class PowerPluginTest8(PowerPluginBase):
             obj_gsd_power_screen.StepDown()
 
         self.assertEqual(exc.exception.get_dbus_message(), 'No usable backlight could be found!')
+
+    def test_power_saver_on_low_battery(self):
+        '''Check that the power-saver profile gets held when low on battery'''
+
+        if not self.ppd:
+            self.skipTest("power-profiles-daemon dbusmock support is not available")
+
+        obj_props = dbus.Interface(self.obj_ppd, dbus.PROPERTIES_IFACE)
+
+        self.set_composite_battery_discharging()
+        time.sleep(0.5)
+        holds = obj_props.Get('net.hadess.PowerProfiles', 'ActiveProfileHolds')
+        self.assertEqual(len(holds), 0)
+
+        self.set_composite_battery_critical()
+        time.sleep(0.5)
+        holds = obj_props.Get('net.hadess.PowerProfiles', 'ActiveProfileHolds')
+        self.assertEqual(len(holds), 1)
+        self.assertEqual(holds[0]['Profile'], 'power-saver')
+        self.assertEqual(holds[0]['ApplicationId'], 'org.gnome.SettingsDaemon.Power')
+
+        self.set_composite_battery_discharging()
+        time.sleep(0.5)
+        holds = obj_props.Get('net.hadess.PowerProfiles', 'ActiveProfileHolds')
+        self.assertEqual(len(holds), 0)
 
 # avoid writing to stderr
 unittest.main(testRunner=unittest.TextTestRunner(stream=sys.stdout, verbosity=2))
