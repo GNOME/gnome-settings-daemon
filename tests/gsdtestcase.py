@@ -22,7 +22,7 @@ try:
     import dbusmock
 except ImportError:
     sys.stderr.write('You need python-dbusmock (http://pypi.python.org/pypi/python-dbusmock) for this test suite.\n')
-    sys.exit(1)
+    sys.exit(77)
 
 from x11session import X11SessionTestCase
 
@@ -30,11 +30,11 @@ try:
     from gi.repository import Gio
 except ImportError:
     sys.stderr.write('You need pygobject and the Gio GIR for this test suite.\n')
-    sys.exit(0)
+    sys.exit(77)
 
 if subprocess.call(['which', 'gnome-session'], stdout=subprocess.PIPE) != 0:
     sys.stderr.write('You need gnome-session for this test suite.\n')
-    sys.exit(0)
+    sys.exit(77)
 
 
 top_builddir = os.environ.get('TOP_BUILDDIR',
