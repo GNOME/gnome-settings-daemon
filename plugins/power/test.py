@@ -46,14 +46,17 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
     def setUp(self):
         self.mock_external_monitor_file = os.path.join(self.workdir, 'GSD_MOCK_EXTERNAL_MONITOR')
         os.environ['GSD_MOCK_EXTERNAL_MONITOR_FILE'] = self.mock_external_monitor_file
+        self.addCleanup(self.delete_external_monitor_file)
 
         self.check_logind_gnome_session()
         self.start_logind()
+        self.addCleanup(self.stop_logind)
         self.daemon_death_expected = False
 
 
         # Setup umockdev testbed
         self.testbed = UMockdev.Testbed.new()
+        self.addCleanup(self.cleanup_testbed)
         os.environ['UMOCKDEV_DIR'] = self.testbed.get_root_dir()
 
         # Create a mock backlight device
@@ -70,11 +73,13 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
         (self.upowerd, self.obj_upower) = self.spawn_server_template(
             'upower', {'DaemonVersion': '0.99', 'OnBattery': True, 'LidIsClosed': False}, stdout=subprocess.PIPE)
         gsdtestcase.set_nonblock(self.upowerd.stdout)
+        self.addCleanup(lambda : (self.upowerd.terminate(), self.upowerd.wait()))
 
         # start mock gnome-shell screensaver
         (self.screensaver, self.obj_screensaver) = self.spawn_server_template(
             'gnome_screensaver', stdout=subprocess.PIPE)
         gsdtestcase.set_nonblock(self.screensaver.stdout)
+        self.addCleanup(lambda : (self.screensaver.terminate(), self.screensaver.wait()))
 
         self.session_log = OutputChecker()
         self.session = subprocess.Popen(['gnome-session', '-f',
@@ -83,6 +88,7 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
                                         stdout=self.session_log.fd,
                                         stderr=subprocess.STDOUT)
         self.session_log.writer_attached()
+        self.addCleanup(lambda : (self.session.terminate(), self.session.wait()))
 
         # wait until the daemon is on the bus
         self.wait_for_bus_object('org.gnome.SessionManager',
@@ -93,6 +99,7 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
             'org.gnome.SessionManager', '/org/gnome/SessionManager')
 
         self.start_mutter()
+        self.addCleanup(self.stop_mutter)
 
         # Set up the gnome-session presence
         obj_session_presence = self.session_bus_con.get_object(
@@ -108,6 +115,7 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
         self.set_has_external_monitor(False)
 
         self.settings_gsd_power = Gio.Settings(schema_id='org.gnome.settings-daemon.plugins.power')
+        self.addCleanup(self.reset_settings)
 
         Gio.Settings.sync()
         # avoid painfully long delays of actions for tests
@@ -133,6 +141,7 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
             stderr=subprocess.STDOUT,
             env=env)
         self.plugin_log.writer_attached()
+        self.addCleanup(self.stop_daemon)
 
         # Store the early-init messages, some tests need them.
         self.plugin_startup_msgs = self.plugin_log.check_line(b'System inhibitor fd is', timeout=10)
@@ -143,7 +152,7 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
         # flush notification log
         self.p_notify.stdout.read()
 
-    def tearDown(self):
+    def stop_daemon(self):
 
         daemon_running = self.daemon.poll() == None
         if daemon_running:
@@ -151,14 +160,10 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
             self.daemon.wait()
         self.plugin_log.assert_closed()
 
-        self.upowerd.terminate()
-        self.upowerd.wait()
-        self.screensaver.terminate()
-        self.screensaver.wait()
-        self.stop_session()
-        self.stop_mutter()
-        self.stop_logind()
+    def cleanup_testbed(self):
+        del self.testbed
 
+    def reset_settings(self):
         # reset all changed gsettings, so that tests are independent from each
         # other
         for schema in [self.settings_gsd_power, self.settings_session, self.settings_screensaver]:
@@ -166,14 +171,15 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
                 schema.reset(k)
         Gio.Settings.sync()
 
+    def delete_external_monitor_file(self):
         try:
             os.unlink(self.mock_external_monitor_file)
         except OSError:
             pass
 
-        del self.testbed
-
+    def tearDown(self):
         # we check this at the end so that the other cleanup always happens
+        daemon_running = self.daemon.poll() == None
         self.assertTrue(daemon_running or self.daemon_death_expected, 'daemon died during the test')
 
     def stop_session(self):
