@@ -56,6 +56,8 @@ class X11SessionTestCase(DBusTestCase):
     @classmethod
     def setUpClass(klass):
         klass.start_xorg()
+        klass.addClassCleanup(klass.stop_xorg)
+
         klass.start_system_bus()
         klass.start_session_bus()
 
@@ -112,8 +114,3 @@ class X11SessionTestCase(DBusTestCase):
             klass.xorg.wait()
             del klass.xorg
 
-    @classmethod
-    def tearDownClass(klass):
-        DBusTestCase.tearDownClass()
-
-        klass.stop_xorg()
