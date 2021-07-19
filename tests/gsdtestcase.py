@@ -195,7 +195,8 @@ class GSDTestCase(X11SessionTestCase):
         # See https://gitlab.gnome.org/GNOME/mutter/merge_requests/15
         klass.mutter = subprocess.Popen(['mutter', '--x11'])
         klass.wait_for_bus_object('org.gnome.Mutter.IdleMonitor',
-                                 '/org/gnome/Mutter/IdleMonitor/Core')
+                                 '/org/gnome/Mutter/IdleMonitor/Core',
+                                 timeout=100)
 
     def stop_mutter(klass):
         '''stop mutter'''
