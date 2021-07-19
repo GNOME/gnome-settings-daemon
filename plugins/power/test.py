@@ -86,7 +86,8 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
 
         # wait until the daemon is on the bus
         self.wait_for_bus_object('org.gnome.SessionManager',
-                                 '/org/gnome/SessionManager')
+                                 '/org/gnome/SessionManager',
+                                 timeout=100)
 
         self.obj_session_mgr = self.session_bus_con.get_object(
             'org.gnome.SessionManager', '/org/gnome/SessionManager')

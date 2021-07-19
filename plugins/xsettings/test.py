@@ -43,7 +43,8 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
         # wait until the daemon is on the bus
         try:
             self.wait_for_bus_object('org.gnome.SessionManager',
-                                     '/org/gnome/SessionManager')
+                                     '/org/gnome/SessionManager',
+                                     timeout=100)
         except:
             # on failure, print log
             with open(self.session_log_write.name) as f:
