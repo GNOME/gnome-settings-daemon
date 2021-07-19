@@ -62,6 +62,7 @@ class GSDTestCase(X11SessionTestCase):
         # we do some string checks, disable translations
         os.environ['LC_MESSAGES'] = 'C'
         klass.workdir = tempfile.mkdtemp(prefix='gsd-plugin-test')
+        klass.addClassCleanup(shutil.rmtree, klass.workdir)
 
         # Prevent applications from accessing an outside session manager
         os.environ['SESSION_MANAGER'] = ''
@@ -93,19 +94,13 @@ class GSDTestCase(X11SessionTestCase):
         klass.p_notify = klass.spawn_server_template(
             'notification_daemon', {}, stdout=subprocess.PIPE)[0]
         set_nonblock(klass.p_notify.stdout)
+        klass.addClassCleanup(lambda : (klass.p_notify.terminate(), klass.p_notify.wait()))
 
         klass.start_session()
         klass.start_monitor()
+        klass.addClassCleanup(klass.stop_monitor)
 
         klass.settings_session = Gio.Settings(schema_id='org.gnome.desktop.session')
-
-    @classmethod
-    def tearDownClass(klass):
-        klass.p_notify.terminate()
-        klass.p_notify.wait()
-        klass.stop_monitor()
-        X11SessionTestCase.tearDownClass()
-        shutil.rmtree(klass.workdir)
 
     def run(self, result=None):
         '''Show log files on failed tests
