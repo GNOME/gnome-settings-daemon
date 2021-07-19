@@ -43,7 +43,7 @@ class OutputChecker(object):
                     fcntl.fcntl(self._pipe_fd_w, fcntl.F_GETFL) | os.O_CLOEXEC)
 
         # Start copier thread
-        self._thread = threading.Thread(target=self._copy)
+        self._thread = threading.Thread(target=self._copy, daemon=True)
         self._thread.start()
 
     def _copy(self):
