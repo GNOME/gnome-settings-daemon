@@ -47,12 +47,14 @@ class OutputChecker(object):
         self._thread.start()
 
     def _copy(self):
+        p = select.poll()
+        p.register(self._pipe_fd_r)
         while True:
             try:
                 # Be lazy and wake up occasionally in case _pipe_fd_r became invalid
                 # The reason to do this is because os.read() will *not* return if the
                 # FD is forcefully closed.
-                select.select([self._pipe_fd_r], [], [], 0.1)
+                p.poll(0.1)
 
                 r = os.read(self._pipe_fd_r, 1024)
                 if not r:
