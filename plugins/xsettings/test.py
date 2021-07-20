@@ -98,10 +98,7 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
         self.plugin_log = open(self.plugin_log_write.name, 'rb', buffering=0)
 
         # flush notification log
-        try:
-            self.p_notify.stdout.read()
-        except IOError:
-            pass
+        self.p_notify_log.clear()
 
         time.sleep(3)
         obj_xsettings = self.session_bus_con.get_object(

@@ -94,10 +94,11 @@ class GSDTestCase(X11SessionTestCase):
         klass.addClassCleanup(klass.session_bus_con.close)
 
         # we never want to cause notifications on the actual GUI
+        klass.p_notify_log = OutputChecker()
         klass.p_notify = klass.spawn_server_template(
-            'notification_daemon', {}, stdout=subprocess.PIPE)[0]
-        set_nonblock(klass.p_notify.stdout)
-        klass.addClassCleanup(lambda : (klass.p_notify.terminate(), klass.p_notify.wait()))
+            'notification_daemon', {}, stdout=klass.p_notify_log.fd)[0]
+        klass.p_notify_log.writer_attached()
+        klass.addClassCleanup(klass.stop_process, klass.p_notify)
 
         klass.start_session()
         klass.start_monitor()

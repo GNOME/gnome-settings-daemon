@@ -149,8 +149,7 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
         # always start with zero idle time
         self.reset_idle_timer()
 
-        # flush notification log
-        self.p_notify.stdout.read()
+        self.p_notify_log.clear()
 
     def stop_daemon(self):
 
@@ -779,13 +778,7 @@ class PowerPluginTest6(PowerPluginBase):
         # Check that it was picked up
         self.check_plugin_log('EMIT: charge-critical', 2)
 
-        # Wait a bit longer to ensure event has been fired
-        time.sleep(0.5)
-        # we should have gotten a notification now
-        notify_log = self.p_notify.stdout.read()
-
-        # verify notification
-        self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" .* "battery-caution-symbolic" ".*battery critical.*"')
+        self.p_notify_log.check_line_re(b'[0-9.]+ Notify "Power" .* "battery-caution-symbolic" ".*battery critical.*"', timeout=0.5)
 
     def test_notify_critical_battery_on_start(self):
         '''action on critical battery on startup'''
@@ -795,13 +788,7 @@ class PowerPluginTest6(PowerPluginBase):
         # Check that it was picked up
         self.check_plugin_log('EMIT: charge-critical', 2)
 
-        time.sleep(0.5)
-
-        # we should have gotten a notification by now
-        notify_log = self.p_notify.stdout.read()
-
-        # verify notification
-        self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" .* "battery-caution-symbolic" ".*battery critical.*"')
+        self.p_notify_log.check_line_re(b'[0-9.]+ Notify "Power" .* "battery-caution-symbolic" ".*battery critical.*"', timeout=0.5)
 
     def test_notify_device_battery(self):
         '''critical power level notification for device batteries'''
@@ -846,13 +833,8 @@ class PowerPluginTest6(PowerPluginBase):
                                    dbus_interface='org.freedesktop.DBus.Mock')
 
         self.check_plugin_log('EMIT: charge-critical', 2)
-        time.sleep(0.5)
 
-        # we should have gotten a notification by now
-        notify_log = self.p_notify.stdout.read()
-
-        # verify notification
-        self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" .* ".*" ".*Wireless mouse .*low.* power.*\([0-9.]+%\).*"')
+        self.p_notify_log.check_line_re(b'[0-9.]+ Notify "Power" .* ".*" ".*Wireless mouse .*low.* power.*\([0-9.]+%\).*"', timeout=0.5)
 
     def test_notify_device_spam(self):
         '''no repeat notifications for device batteries'''
@@ -881,13 +863,8 @@ class PowerPluginTest6(PowerPluginBase):
         time.sleep(1)
 
         self.check_plugin_log('EMIT: charge-low', 2)
-        time.sleep(0.5)
 
-        # we should have gotten a notification by now
-        notify_log = self.p_notify.stdout.read()
-
-        # verify notification
-        self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" .* ".*" ".*Wireless mouse .*low.* power.*\([0-9.]+%\).*"')
+        self.p_notify_log.check_line_re(b'[0-9.]+ Notify "Power" .* ".*" ".*Wireless mouse .*low.* power.*\([0-9.]+%\).*"', timeout=0.5)
 
         # Disconnect mouse
         self.obj_upower.RemoveObject(bat2_path)
@@ -910,11 +887,8 @@ class PowerPluginTest6(PowerPluginBase):
         obj_bat2 = self.system_bus_con.get_object('org.freedesktop.UPower', bat2_path)
         self.obj_upower.EmitSignal('', 'DeviceAdded', 'o', [bat2_path],
                                    dbus_interface='org.freedesktop.DBus.Mock')
-        time.sleep(1)
 
-        # we shouldn't have gotten a notification by now
-        notify_log = self.p_notify.stdout.read()
-        self.assertIsNone(notify_log)
+        self.p_notify_log.check_no_line(b'', wait=1)
 
         # Disconnect mouse
         self.obj_upower.RemoveObject(bat2_path)
@@ -941,13 +915,8 @@ class PowerPluginTest6(PowerPluginBase):
 
         # Verify new warning
         self.check_plugin_log('EMIT: charge-critical', 2)
-        time.sleep(0.5)
 
-        # we should have gotten a notification by now
-        notify_log = self.p_notify.stdout.read()
-
-        # verify notification
-        self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" .* ".*" ".*Wireless mouse .*very low.* power.*\([0-9.]+%\).*"')
+        self.p_notify_log.check_line_re(b'[0-9.]+ Notify "Power" .* ".*" ".*Wireless mouse .*very low.* power.*\([0-9.]+%\).*"', timeout=0.5)
 
     def test_notify_device_battery_coarse_level(self):
         '''critical power level notification for device batteries with coarse level'''
@@ -993,14 +962,12 @@ class PowerPluginTest6(PowerPluginBase):
                                    dbus_interface='org.freedesktop.DBus.Mock')
 
         self.check_plugin_log('EMIT: charge-critical', 2)
+
         time.sleep(0.5)
-
-        # we should have gotten a notification by now
-        notify_log = self.p_notify.stdout.read()
-
-        # verify notification
-        self.assertRegex(notify_log, b'[0-9.]+ Notify "Power" .* ".*" ".*Wireless mouse .*low.* power.*"')
-        self.assertNotRegex(notify_log, b'[0-9.]+ Notify "Power" .* ".*" ".*\([0-9.]+%\).*"')
+        lines = self.p_notify_log.check_line_re(b'[0-9.]+ Notify "Power" .* ".*" ".*Wireless mouse .*low.* power.*"')
+        lines += self.p_notify_log.clear()
+        for l in lines:
+            self.assertNotRegex(l, b'[0-9.]+ Notify "Power" .* ".*" ".*\([0-9.]+%\).*"')
 
     def test_forced_logout(self):
         '''Test forced logout'''
@@ -1014,9 +981,7 @@ class PowerPluginTest6(PowerPluginBase):
 
         self.check_for_logout(idle_delay + 2)
 
-        # The notification should have been received before the logout, but it's saved anyway
-        notify_log = self.p_notify.stdout.read()
-        self.assertTrue(b'You will soon log out because of inactivity.' in notify_log)
+        self.p_notify_log.check_line(b'You will soon log out because of inactivity.')
 
     def test_forced_logout_inhibition(self):
         '''Test we don't force logout when inhibited'''
