@@ -13,6 +13,7 @@ import fcntl
 import shutil
 import sys
 from glob import glob
+import signal
 
 from output_checker import OutputChecker
 
@@ -101,6 +102,11 @@ class GSDTestCase(X11SessionTestCase):
         klass.addClassCleanup(klass.stop_monitor)
 
         klass.settings_session = Gio.Settings(schema_id='org.gnome.desktop.session')
+
+        # Make sure we get a backtrace when meson kills after a timeout
+        def r(*args):
+            raise KeyboardInterrupt()
+        signal.signal(signal.SIGTERM, r)
 
     def run(self, result=None):
         '''Show log files on failed tests
