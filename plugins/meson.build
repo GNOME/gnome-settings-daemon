@@ -108,7 +108,6 @@ foreach plugin: all_plugins
         input: desktop_in_file,
         output: desktop,
         configuration: desktop_conf,
-        install: true,
         install_dir: gsd_xdg_autostart
     )
 
@@ -156,14 +155,12 @@ foreach plugin: all_plugins
                 input: 'gsd.service.in',
                 output: user_service,
                 configuration: unit_conf,
-                install: true,
                 install_dir: systemd_userunitdir
             )
             configure_file(
                 input: 'gsd.target.in',
                 output: user_target,
                 configuration: unit_conf,
-                install: true,
                 install_dir: systemd_userunitdir
             )
 
