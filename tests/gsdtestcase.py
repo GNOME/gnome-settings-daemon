@@ -90,6 +90,8 @@ class GSDTestCase(X11SessionTestCase):
 
         klass.system_bus_con = klass.get_dbus(True)
         klass.session_bus_con = klass.get_dbus(False)
+        klass.addClassCleanup(klass.system_bus_con.close)
+        klass.addClassCleanup(klass.session_bus_con.close)
 
         # we never want to cause notifications on the actual GUI
         klass.p_notify = klass.spawn_server_template(
