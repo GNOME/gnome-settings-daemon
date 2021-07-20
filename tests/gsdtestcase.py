@@ -33,7 +33,7 @@ except ImportError:
     sys.stderr.write('You need pygobject and the Gio GIR for this test suite.\n')
     sys.exit(77)
 
-if subprocess.call(['which', 'gnome-session'], stdout=subprocess.PIPE) != 0:
+if subprocess.call(['which', 'gnome-session'], stdout=subprocess.DEVNULL) != 0:
     sys.stderr.write('You need gnome-session for this test suite.\n')
     sys.exit(77)
 
