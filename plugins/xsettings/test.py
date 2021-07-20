@@ -22,6 +22,7 @@ sys.path.insert(0, builddir)
 import gsdtestcase
 import dbus
 import dbusmock
+from output_checker import OutputChecker
 
 from gi.repository import Gio
 from gi.repository import GLib
@@ -59,7 +60,6 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
         self.start_mutter()
 
         Gio.Settings.sync()
-        self.plugin_log_write = open(os.path.join(self.workdir, 'plugin_xsettings.log'), 'wb', buffering=0)
         os.environ['GSD_ignore_llvmpipe'] = '1'
 
         # Setup fontconfig config path before starting the daemon
@@ -87,20 +87,20 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
         self.settings_sound = Gio.Settings.new('org.gnome.desktop.sound')
 
         env = os.environ.copy()
+        self.plugin_log = OutputChecker()
         self.daemon = subprocess.Popen(
             [os.path.join(builddir, 'gsd-xsettings'), '--verbose'],
             # comment out this line if you want to see the logs in real time
-            stdout=self.plugin_log_write,
+            stdout=self.plugin_log.fd,
             stderr=subprocess.STDOUT,
             env=env)
-
-        # you can use this for reading the current daemon log in tests
-        self.plugin_log = open(self.plugin_log_write.name, 'rb', buffering=0)
+        self.plugin_log.writer_attached()
 
         # flush notification log
         self.p_notify_log.clear()
 
-        time.sleep(3)
+        self.plugin_log.check_line(b'GsdXSettingsGtk initializing', timeout=10)
+
         obj_xsettings = self.session_bus_con.get_object(
             'org.gtk.Settings', '/org/gtk/Settings')
         self.obj_xsettings_props = dbus.Interface(obj_xsettings, dbus.PROPERTIES_IFACE)
@@ -110,9 +110,7 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
         daemon_running = self.daemon.poll() == None
         if daemon_running:
             self.stop_process(self.daemon)
-        self.plugin_log.close()
-        self.plugin_log_write.flush()
-        self.plugin_log_write.close()
+        self.plugin_log.assert_closed()
 
         self.stop_session()
         self.stop_mutter()
@@ -144,26 +142,7 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
 
         Fail after the given timeout.
         '''
-        if type(needle) == str:
-            needle = needle.encode('ascii')
-        # Fast path if the message was already logged
-        log = self.plugin_log.read()
-        if needle in log:
-            return
-
-        while timeout > 0:
-            time.sleep(0.5)
-            timeout -= 0.5
-
-            # read new data (lines) from the log
-            log = self.plugin_log.read()
-            if needle in log:
-                break
-        else:
-            if failmsg is not None:
-                self.fail(failmsg)
-            else:
-                self.fail('timed out waiting for needle "%s"' % needle)
+        self.plugin_log.check_line(needle, timeout=timeout, failmsg=failmsg)
 
     def test_gtk_modules(self):
         # Turn off event sounds
