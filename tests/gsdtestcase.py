@@ -160,8 +160,7 @@ class GSDTestCase(X11SessionTestCase):
         '''Stop dbus-monitor'''
 
         assert klass.monitor
-        klass.monitor.terminate()
-        klass.monitor.wait()
+        klass.stop_process(klass.monitor)
 
         klass.monitor_log.flush()
         klass.monitor_log.close()
@@ -187,8 +186,7 @@ class GSDTestCase(X11SessionTestCase):
     def stop_logind(self):
         '''stop mock logind'''
 
-        self.logind.terminate()
-        self.logind.wait()
+        self.stop_process(self.logind)
         self.logind_log.assert_closed()
 
     def start_mutter(klass):
@@ -205,8 +203,17 @@ class GSDTestCase(X11SessionTestCase):
         '''stop mutter'''
 
         assert klass.monitor
-        klass.mutter.terminate()
-        klass.mutter.wait()
+        klass.stop_process(klass.mutter, timeout=2)
+
+    @classmethod
+    def stop_process(cls, proc, timeout=1):
+        proc.terminate()
+        try:
+            proc.wait(timeout)
+        except:
+            print("Killing %d (%s) after timeout of %f seconds" % (proc.pid, proc.args[0], timeout))
+            proc.kill()
+            proc.wait()
 
     @classmethod
     def reset_idle_timer(klass):

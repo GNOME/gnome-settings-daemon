@@ -73,13 +73,13 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
         (self.upowerd, self.obj_upower) = self.spawn_server_template(
             'upower', {'DaemonVersion': '0.99', 'OnBattery': True, 'LidIsClosed': False}, stdout=subprocess.PIPE)
         gsdtestcase.set_nonblock(self.upowerd.stdout)
-        self.addCleanup(lambda : (self.upowerd.terminate(), self.upowerd.wait()))
+        self.addCleanup(self.stop_process, self.upowerd)
 
         # start mock gnome-shell screensaver
         (self.screensaver, self.obj_screensaver) = self.spawn_server_template(
             'gnome_screensaver', stdout=subprocess.PIPE)
         gsdtestcase.set_nonblock(self.screensaver.stdout)
-        self.addCleanup(lambda : (self.screensaver.terminate(), self.screensaver.wait()))
+        self.addCleanup(self.stop_process, self.screensaver)
 
         self.session_log = OutputChecker()
         self.session = subprocess.Popen(['gnome-session', '-f',
@@ -88,7 +88,7 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
                                         stdout=self.session_log.fd,
                                         stderr=subprocess.STDOUT)
         self.session_log.writer_attached()
-        self.addCleanup(lambda : (self.session.terminate(), self.session.wait()))
+        self.addCleanup(self.stop_process, self.screensaver)
 
         # wait until the daemon is on the bus
         self.wait_for_bus_object('org.gnome.SessionManager',
@@ -156,8 +156,7 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
 
         daemon_running = self.daemon.poll() == None
         if daemon_running:
-            self.daemon.terminate()
-            self.daemon.wait()
+            self.stop_process(self.daemon)
         self.plugin_log.assert_closed()
 
     def cleanup_testbed(self):
@@ -186,8 +185,7 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
         '''Stop GNOME session'''
 
         assert self.session
-        self.session.terminate()
-        self.session.wait()
+        self.stop_process(self.session)
         # dummyapp.desktop survives the session. This keeps the FD open in the
         # CI environment when gnome-session fails to redirect the child output
         # to journald.

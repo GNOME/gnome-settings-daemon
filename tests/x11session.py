@@ -111,6 +111,10 @@ class X11SessionTestCase(DBusTestCase):
         if hasattr(klass, 'xorg'):
             klass.X_display = -1
             klass.xorg.terminate()
-            klass.xorg.wait()
+            try:
+                klass.xorg.wait(1)
+            except:
+                klass.xorg.kill()
+                klass.xorg.wait()
             del klass.xorg
 

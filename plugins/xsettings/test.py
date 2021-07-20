@@ -112,8 +112,7 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
 
         daemon_running = self.daemon.poll() == None
         if daemon_running:
-            self.daemon.terminate()
-            self.daemon.wait()
+            self.stop_process(self.daemon)
         self.plugin_log.close()
         self.plugin_log_write.flush()
         self.plugin_log_write.close()
@@ -136,8 +135,7 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
         '''Stop GNOME session'''
 
         assert self.session
-        self.session.terminate()
-        self.session.wait()
+        self.stop_process(self.session)
 
         self.session_log_write.flush()
         self.session_log_write.close()
