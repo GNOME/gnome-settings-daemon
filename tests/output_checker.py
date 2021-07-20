@@ -58,12 +58,18 @@ class OutputChecker(object):
 
                 r = os.read(self._pipe_fd_r, 1024)
                 if not r:
+                    os.close(self._pipe_fd_r)
+                    self._pipe_fd_r = -1
+                    self._lines_sem.release()
                     return
             except OSError as e:
                 if e.errno == errno.EWOULDBLOCK:
                     continue
 
                 # We get a bad file descriptor error when the outside closes the FD
+                os.close(self._pipe_fd_r)
+                self._pipe_fd_r = -1
+                self._lines_sem.release()
                 return
 
             l = r.split(b'\n')
@@ -88,6 +94,13 @@ class OutputChecker(object):
             try:
                 l = self._lines.pop(0)
             except IndexError:
+                # EOF, throw error
+                if self._pipe_fd_r == -1:
+                    if failmsg:
+                        raise AssertionError("No further messages: " % failmsg)
+                    else:
+                        raise AssertionError('No client waiting for needle %s' % (str(needle_re)))
+
                 # Check if should wake up
                 if not self._lines_sem.acquire(timeout = deadline - time.time()):
                     if failmsg:
@@ -121,6 +134,10 @@ class OutputChecker(object):
             try:
                 l = self._lines.pop(0)
             except IndexError:
+                # EOF, so everything good
+                if self._pipe_fd_r == -1:
+                    break
+
                 # Check if should wake up
                 if not self._lines_sem.acquire(timeout = deadline - time.time()):
                     # Timed out, so everything is good
