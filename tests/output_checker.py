@@ -172,9 +172,9 @@ class OutputChecker(object):
         self._pipe_fd_w = -1
 
     def __del__(self):
-        if self._pipe_fd_r > 0:
+        if self._pipe_fd_r >= 0:
             os.close(self._pipe_fd_r)
-        if self._pipe_fd_w > 0:
+            self._pipe_fd_r = -1
+        if self._pipe_fd_w >= 0:
             os.close(self._pipe_fd_w)
-
-        assert not self._thread.is_alive()
+            self._pipe_fd_w = -1
