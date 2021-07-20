@@ -144,7 +144,7 @@ foreach i : [ 1, 2, 3, 4, 5, 6, 7, 8 ]
     args: [ 'PowerPluginTest@0@'.format(i) ],
     env: envs,
     # The first set of tests takes very long because of SCREENSAVER_TIMEOUT_BLANK
-    timeout: i == 1 ? 180 : 120
+    timeout: i == 1 ? 200 : 160
   )
 endforeach
 
