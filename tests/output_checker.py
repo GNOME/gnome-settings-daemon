@@ -67,7 +67,8 @@ class OutputChecker(object):
                     continue
 
                 # We get a bad file descriptor error when the outside closes the FD
-                os.close(self._pipe_fd_r)
+                if self._pipe_fd_r >= 0:
+                    os.close(self._pipe_fd_r)
                 self._pipe_fd_r = -1
                 self._lines_sem.release()
                 return
