@@ -743,7 +743,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
 
         } else if (kind == UP_DEVICE_KIND_PHONE) {
 
-                /* TRANSLATORS: the cell battery is very low */
+                /* TRANSLATORS: the cell phone battery is very low */
                 title = _("Cell phone battery low");
 
                 /* TRANSLATORS: the device is just going to stop working */
@@ -771,7 +771,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
 
         } else if (kind == UP_DEVICE_KIND_TABLET) {
 
-                /* TRANSLATORS: the cell battery is very low */
+                /* TRANSLATORS: the tablet battery is very low */
                 title = _("Tablet battery low");
 
                 /* TRANSLATORS: the device is just going to stop working */
@@ -785,7 +785,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
 
         } else if (kind == UP_DEVICE_KIND_COMPUTER) {
 
-                /* TRANSLATORS: the cell battery is very low */
+                /* TRANSLATORS: the attached computer, eg. an iPad, battery is very low */
                 title = _("Attached computer battery low");
 
                 /* TRANSLATORS: the device is just going to stop working */
