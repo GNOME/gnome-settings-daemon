@@ -757,8 +757,8 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
 
         } else if (kind == UP_DEVICE_KIND_MEDIA_PLAYER) {
 
-                /* TRANSLATORS: the cell battery is very low */
-                title = _("Cell phone battery low");
+                /* TRANSLATORS: the media player battery is very low */
+                title = _("Media player battery low");
 
                 /* TRANSLATORS: the device is just going to stop working */
                 if (battery_level == UP_DEVICE_LEVEL_NONE)
