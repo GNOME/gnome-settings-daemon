@@ -85,6 +85,7 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
                 os.path.join(modules_dir, 'pk-gtk-module.desktop'))
 
         self.settings_sound = Gio.Settings.new('org.gnome.desktop.sound')
+        Gio.Settings.sync()
 
         env = os.environ.copy()
         self.plugin_log = OutputChecker()
@@ -147,6 +148,7 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
     def test_gtk_modules(self):
         # Turn off event sounds
         self.settings_sound['event-sounds'] = False
+        Gio.Settings.sync()
         time.sleep(2)
 
         # Verify that only the PackageKit plugin is enabled
@@ -155,6 +157,7 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
 
         # Turn on sounds
         self.settings_sound['event-sounds'] = True
+        Gio.Settings.sync()
         time.sleep(2)
 
         # Check that both PK and canberra plugin are enabled

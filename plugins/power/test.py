@@ -478,6 +478,7 @@ class PowerPluginTest2(PowerPluginBase):
 
         # Lower idle delay a lot
         self.settings_session['idle-delay'] = 1
+        Gio.Settings.sync()
 
         # Bring down the screensaver
         self.obj_screensaver.SetActive(True)
@@ -505,6 +506,7 @@ class PowerPluginTest2(PowerPluginBase):
 
         # Verify that idle is set after 5 seconds
         self.settings_session['idle-delay'] = 5
+        Gio.Settings.sync()
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
         time.sleep(7)
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_IDLE)
@@ -512,6 +514,7 @@ class PowerPluginTest2(PowerPluginBase):
         # Raise the idle delay, and see that we stop being idle
         # and get idle again after the timeout
         self.settings_session['idle-delay'] = 10
+        Gio.Settings.sync()
         # Resolve possible race condition, see also https://gitlab.gnome.org/GNOME/mutter/issues/113
         time.sleep(0.2)
         self.reset_idle_timer()
@@ -522,6 +525,7 @@ class PowerPluginTest2(PowerPluginBase):
 
         # Lower the delay again, and see that we get idle as we should
         self.settings_session['idle-delay'] = 5
+        Gio.Settings.sync()
         # Resolve possible race condition, see also https://gitlab.gnome.org/GNOME/mutter/issues/113
         time.sleep(0.2)
         self.reset_idle_timer()
@@ -537,6 +541,7 @@ class PowerPluginTest2(PowerPluginBase):
 
         # Go idle
         self.settings_session['idle-delay'] = 5
+        Gio.Settings.sync()
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
         time.sleep(7)
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_IDLE)
@@ -559,6 +564,7 @@ class PowerPluginTest3(PowerPluginBase):
         self.settings_session['idle-delay'] = 2
         self.settings_gsd_power['sleep-inactive-battery-timeout'] = 5
         self.settings_gsd_power['sleep-inactive-battery-type'] = 'suspend'
+        Gio.Settings.sync()
 
         # wait for idle delay; should not yet suspend
         self.check_no_suspend(2)
@@ -575,6 +581,7 @@ class PowerPluginTest3(PowerPluginBase):
         # Hibernate isn't possible, so it should end up suspending
         # FIXME
         self.settings_gsd_power['critical-battery-action'] = 'hibernate'
+        Gio.Settings.sync()
 
         # wait for idle delay; should not yet hibernate
         self.check_no_suspend(2)
@@ -591,6 +598,7 @@ class PowerPluginTest3(PowerPluginBase):
         self.settings_session['idle-delay'] = idle_delay
         self.settings_gsd_power['sleep-inactive-battery-timeout'] = 5
         self.settings_gsd_power['sleep-inactive-battery-type'] = 'suspend'
+        Gio.Settings.sync()
 
         # create inhibitor
         inhibit_id = self.obj_session_mgr.Inhibit(
@@ -611,6 +619,7 @@ class PowerPluginTest4(PowerPluginBase):
         '''Check that we do lock on lid closing, if the machine will not suspend'''
 
         self.settings_screensaver['lock-enabled'] = True
+        Gio.Settings.sync()
 
         # create inhibitor
         inhibit_id = self.obj_session_mgr.Inhibit(
@@ -634,6 +643,7 @@ class PowerPluginTest4(PowerPluginBase):
                 dbus_interface='org.gnome.SessionManager')
         # At this point logind should suspend for us
         self.settings_screensaver['lock-enabled'] = False
+        Gio.Settings.sync()
 
     def test_blank_on_lid_close(self):
         '''Check that we do blank on lid closing, if the machine will not suspend'''
@@ -701,6 +711,7 @@ class PowerPluginTest5(PowerPluginBase):
         self.settings_session['idle-delay'] = idle_delay
         self.settings_gsd_power['sleep-inactive-battery-timeout'] = idle_delay + 1
         self.settings_gsd_power['sleep-inactive-battery-type'] = 'suspend'
+        Gio.Settings.sync()
         # This is an absolute percentage, and our brightness is 0..100
         dim_level = self.settings_gsd_power['idle-brightness'];
 
@@ -976,6 +987,7 @@ class PowerPluginTest6(PowerPluginBase):
         self.settings_session['idle-delay'] = idle_delay
         self.settings_gsd_power['sleep-inactive-battery-timeout'] = idle_delay + 1
         self.settings_gsd_power['sleep-inactive-battery-type'] = 'logout'
+        Gio.Settings.sync()
 
         self.check_for_logout(idle_delay + 2)
 
@@ -989,6 +1001,7 @@ class PowerPluginTest6(PowerPluginBase):
         self.settings_session['idle-delay'] = idle_delay
         self.settings_gsd_power['sleep-inactive-battery-timeout'] = idle_delay + 1
         self.settings_gsd_power['sleep-inactive-battery-type'] = 'logout'
+        Gio.Settings.sync()
 
         # create suspend inhibitor which should stop us logging out
         inhibit_id = self.obj_session_mgr.Inhibit(
@@ -1027,6 +1040,7 @@ class PowerPluginTest7(PowerPluginBase):
         self.settings_session['idle-delay'] = idle_delay
         self.settings_gsd_power['sleep-inactive-battery-timeout'] = 5
         self.settings_gsd_power['sleep-inactive-battery-type'] = 'suspend'
+        Gio.Settings.sync()
 
         # create inhibitor
         inhibit_id = self.obj_session_mgr.Inhibit(
@@ -1052,6 +1066,7 @@ class PowerPluginTest7(PowerPluginBase):
     def disabled_test_unindle_on_ac_plug(self):
         idle_delay = round(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY / gsdpowerconstants.IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER)
         self.settings_session['idle-delay'] = idle_delay
+        Gio.Settings.sync()
 
         # Wait for idle
         self.check_dim(idle_delay + 2)
