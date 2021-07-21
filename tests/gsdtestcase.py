@@ -100,7 +100,7 @@ class GSDTestCase(X11SessionTestCase):
         klass.p_notify_log.writer_attached()
         klass.addClassCleanup(klass.stop_process, klass.p_notify)
 
-        klass.start_session()
+        klass.configure_session()
         klass.start_monitor()
         klass.addClassCleanup(klass.stop_monitor)
 
@@ -110,6 +110,11 @@ class GSDTestCase(X11SessionTestCase):
         def r(*args):
             raise KeyboardInterrupt()
         signal.signal(signal.SIGTERM, r)
+
+    def tearDown(self):
+        # we check this at the end so that the other cleanup always happens
+        daemon_running = self.daemon.poll() == None
+        self.assertTrue(daemon_running or self.daemon_death_expected, 'daemon died during the test')
 
     def run(self, result=None):
         '''Show log files on failed tests
@@ -131,8 +136,8 @@ class GSDTestCase(X11SessionTestCase):
                               % (log_file, f.read()))
 
     @classmethod
-    def start_session(klass):
-        '''Start minimal GNOME session'''
+    def configure_session(klass):
+        '''Configure minimal GNOME session'''
 
         # create dummy session type and component
         d = os.path.join(klass.workdir, 'config', 'gnome-session', 'sessions')
@@ -144,6 +149,34 @@ class GSDTestCase(X11SessionTestCase):
         if not os.path.isdir(d):
             os.makedirs(d)
         shutil.copy(os.path.join(os.path.dirname(__file__), 'dummyapp.desktop'), d)
+
+    def start_session(self):
+        self.session_log = OutputChecker()
+        self.session = subprocess.Popen(['gnome-session', '-f',
+                                         '-a', os.path.join(self.workdir, 'autostart'),
+                                         '--session=dummy', '--debug'],
+                                        stdout=self.session_log.fd,
+                                        stderr=subprocess.STDOUT)
+        self.session_log.writer_attached()
+
+        # wait until the daemon is on the bus
+        self.wait_for_bus_object('org.gnome.SessionManager',
+                                 '/org/gnome/SessionManager',
+                                 timeout=100)
+
+        self.session_log.check_line(b'fill: *** Done adding required components')
+
+    def stop_session(self):
+        '''Stop GNOME session'''
+
+        assert self.session
+        self.stop_process(self.session)
+        # dummyapp.desktop survives the session. This keeps the FD open in the
+        # CI environment when gnome-session fails to redirect the child output
+        # to journald.
+        # Though, gnome-session should probably kill the child anyway.
+        #self.session_log.assert_closed()
+        self.session_log.force_close()
 
     @classmethod
     def start_monitor(klass):
@@ -190,6 +223,7 @@ class GSDTestCase(X11SessionTestCase):
         self.stop_process(self.logind)
         self.logind_log.assert_closed()
 
+    @classmethod
     def start_mutter(klass):
         ''' start mutter '''
 
@@ -200,11 +234,52 @@ class GSDTestCase(X11SessionTestCase):
                                  '/org/gnome/Mutter/IdleMonitor/Core',
                                  timeout=100)
 
+    @classmethod
     def stop_mutter(klass):
         '''stop mutter'''
 
         assert klass.monitor
         klass.stop_process(klass.mutter, timeout=2)
+
+    def start_plugin(self, env):
+        self.plugin_death_expected = False
+
+        # We need to redirect stdout to grab the debug messages.
+        # stderr is not needed by the testing infrastructure but is useful to
+        # see warnings and errors.
+        self.plugin_log = OutputChecker()
+        self.daemon = subprocess.Popen(
+            [os.path.join(top_builddir, 'plugins', self.gsd_plugin, 'gsd-' + self.gsd_plugin), '--verbose'],
+            stdout=self.plugin_log.fd,
+            stderr=subprocess.STDOUT,
+            env=env)
+        self.plugin_log.writer_attached()
+
+
+        bus = self.get_dbus(False)
+
+        timeout = 100
+        while timeout > 0:
+            if bus.name_has_owner('org.gnome.SettingsDaemon.' + self.gsd_plugin_case):
+                break
+
+            timeout -= 1
+            time.sleep(0.1)
+        if timeout <= 0:
+            assert timeout > 0, 'timed out waiting for plugin startup: %s' % (self.gsd_plugin_case)
+
+    def stop_plugin(self):
+        daemon_running = self.daemon.poll() == None
+        if daemon_running:
+            self.stop_process(self.daemon)
+        self.plugin_log.assert_closed()
+
+    def reset_settings(self, schema):
+        # reset all changed gsettings, so that tests are independent from each
+        # other
+        for k in schema.list_keys():
+            schema.reset(k)
+        Gio.Settings.sync()
 
     @classmethod
     def stop_process(cls, proc, timeout=1):

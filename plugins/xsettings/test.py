@@ -30,34 +30,21 @@ from gi.repository import GLib
 class XsettingsPluginTest(gsdtestcase.GSDTestCase):
     '''Test the xsettings plugin'''
 
+    gsd_plugin = 'xsettings'
+    gsd_plugin_case = 'XSettings'
+
     def setUp(self):
         self.start_logind()
+        self.addCleanup(self.stop_logind)
 
-        self.daemon_death_expected = False
-        self.session_log_write = open(os.path.join(self.workdir, 'gnome-session.log'), 'wb')
-        self.session = subprocess.Popen(['gnome-session', '-f',
-                                         '-a', os.path.join(self.workdir, 'autostart'),
-                                         '--session=dummy', '--debug'],
-                                        stdout=self.session_log_write,
-                                        stderr=subprocess.STDOUT)
-
-        # wait until the daemon is on the bus
-        try:
-            self.wait_for_bus_object('org.gnome.SessionManager',
-                                     '/org/gnome/SessionManager',
-                                     timeout=100)
-        except:
-            # on failure, print log
-            with open(self.session_log_write.name) as f:
-                print('----- session log -----\n%s\n------' % f.read())
-            raise
-
-        self.session_log = open(self.session_log_write.name)
+        self.start_session()
+        self.addCleanup(self.stop_session)
 
         self.obj_session_mgr = self.session_bus_con.get_object(
             'org.gnome.SessionManager', '/org/gnome/SessionManager')
 
         self.start_mutter()
+        self.addCleanup(self.stop_mutter)
 
         Gio.Settings.sync()
         os.environ['GSD_ignore_llvmpipe'] = '1'
@@ -85,17 +72,11 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
                 os.path.join(modules_dir, 'pk-gtk-module.desktop'))
 
         self.settings_sound = Gio.Settings.new('org.gnome.desktop.sound')
+        self.addCleanup(self.reset_settings, self.settings_sound)
         Gio.Settings.sync()
 
         env = os.environ.copy()
-        self.plugin_log = OutputChecker()
-        self.daemon = subprocess.Popen(
-            [os.path.join(builddir, 'gsd-xsettings'), '--verbose'],
-            # comment out this line if you want to see the logs in real time
-            stdout=self.plugin_log.fd,
-            stderr=subprocess.STDOUT,
-            env=env)
-        self.plugin_log.writer_attached()
+        self.start_plugin(os.environ.copy())
 
         # flush notification log
         self.p_notify_log.clear()
@@ -105,37 +86,6 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
         obj_xsettings = self.session_bus_con.get_object(
             'org.gtk.Settings', '/org/gtk/Settings')
         self.obj_xsettings_props = dbus.Interface(obj_xsettings, dbus.PROPERTIES_IFACE)
-
-    def tearDown(self):
-
-        daemon_running = self.daemon.poll() == None
-        if daemon_running:
-            self.stop_process(self.daemon)
-        self.plugin_log.assert_closed()
-
-        self.stop_session()
-        self.stop_mutter()
-        self.stop_logind()
-
-        # reset all changed gsettings, so that tests are independent from each
-        # other
-        for schema in [self.settings_sound]:
-            for k in schema.list_keys():
-                schema.reset(k)
-        Gio.Settings.sync()
-
-        # we check this at the end so that the other cleanup always happens
-        self.assertTrue(daemon_running or self.daemon_death_expected, 'daemon died during the test')
-
-    def stop_session(self):
-        '''Stop GNOME session'''
-
-        assert self.session
-        self.stop_process(self.session)
-
-        self.session_log_write.flush()
-        self.session_log_write.close()
-        self.session_log.close()
 
     def check_plugin_log(self, needle, timeout=0, failmsg=None):
         '''Check that needle is found in the log within the given timeout.
