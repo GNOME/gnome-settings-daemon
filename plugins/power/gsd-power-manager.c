@@ -609,6 +609,15 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
                         message = g_strdup_printf (_("Attached computer is low in power (%.0f%%)"), percentage);
                 else
                         message = g_strdup_printf (_("Attached computer is low in power"));
+        } else {
+                /* TRANSLATORS: a generic device is getting a little low */
+                title = _("Connected device battery low");
+
+                /* TRANSLATORS: tell user more details */
+                if (battery_level == UP_DEVICE_LEVEL_NONE)
+                        message = g_strdup_printf (_("A connected device is low in power (%.0f%%)"), percentage);
+                else
+                        message = g_strdup_printf (_("A connected device is low in power"));
         }
 
         /* close any existing notification of this class */
@@ -786,6 +795,20 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
                                                    percentage);
                 else
                         message = g_strdup_printf (_("Attached computer is very low in power. "
+                                                     "The device will soon shutdown if not charged."));
+
+        } else {
+
+                /* TRANSLATORS: generic device battery is very low */
+                title = _("Connected device battery low");
+
+                /* TRANSLATORS: the device is just going to stop working */
+                if (battery_level == UP_DEVICE_LEVEL_NONE)
+                        message = g_strdup_printf (_("A connected device is very low in power (%.0f%%). "
+                                                     "The device will soon shutdown if not charged."),
+                                                   percentage);
+                else
+                        message = g_strdup_printf (_("A connected device is very low in power. "
                                                      "The device will soon shutdown if not charged."));
 
         }
