@@ -120,6 +120,9 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
         before = self.obj_xsettings_props.Get('org.gtk.Settings', 'FontconfigTimestamp')
         self.assertEqual(before, 0)
 
+        # Make sure the seconds changed
+        time.sleep(1)
+
         # Copy the fonts.conf again
         shutil.copy(os.path.join(os.path.dirname(__file__), 'fontconfig-test/fonts.conf'),
                 os.path.join(self.fc_dir, 'fonts.conf'))
