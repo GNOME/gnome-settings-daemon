@@ -177,7 +177,8 @@ class OutputChecker(object):
 
         fd = self._pipe_fd_r
         self._pipe_fd_r = -1
-        os.close(fd)
+        if fd >= 0:
+            os.close(fd)
 
         self._thread.join()
 
