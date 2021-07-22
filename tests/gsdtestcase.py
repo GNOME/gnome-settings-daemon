@@ -104,6 +104,7 @@ class GSDTestCase(X11SessionTestCase):
         klass.start_monitor()
         klass.addClassCleanup(klass.stop_monitor)
 
+        # Reset between tests in tearDown
         klass.settings_session = Gio.Settings(schema_id='org.gnome.desktop.session')
 
         # Make sure we get a backtrace when meson kills after a timeout
@@ -115,6 +116,8 @@ class GSDTestCase(X11SessionTestCase):
         # we check this at the end so that the other cleanup always happens
         daemon_running = self.daemon.poll() == None
         self.assertTrue(daemon_running or self.daemon_death_expected, 'daemon died during the test')
+
+        self.reset_settings(self.settings_session)
 
     def run(self, result=None):
         '''Show log files on failed tests
