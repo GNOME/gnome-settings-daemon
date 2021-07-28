@@ -192,6 +192,7 @@ struct _GsdPowerManager
         /* Power Profiles */
         GDBusProxy              *power_profiles_proxy;
         guint32                  power_saver_cookie;
+        gboolean                 power_saver_enabled;
 
         /* Sound */
         guint32                  critical_alert_timeout_id;
@@ -1780,6 +1781,20 @@ clear_idle_watch (GnomeIdleMonitor *monitor,
         *id = 0;
 }
 
+static gboolean
+is_power_save_active (GsdPowerManager *manager)
+{
+        /*
+         * If we have power-profiles-daemon, then we follow its setting,
+         * otherwise we go into power-save mode when the battery is low.
+         */
+        if (manager->power_profiles_proxy &&
+            g_dbus_proxy_get_name_owner (manager->power_profiles_proxy))
+                return manager->power_saver_enabled;
+        else
+                return manager->battery_is_low;
+}
+
 static void
 idle_configure (GsdPowerManager *manager)
 {
@@ -1903,8 +1918,8 @@ idle_configure (GsdPowerManager *manager)
                 /* Don't dim when the screen lock is active */
         } else if (!on_battery) {
                 /* Don't dim when charging */
-        } else if (manager->battery_is_low) {
-                /* Aggressively blank when battery is low */
+        } else if (is_power_save_active (manager)) {
+                /* Try to save power by dimming agressively */
                 timeout_dim = SCREENSAVER_TIMEOUT_BLANK;
         } else {
                 if (g_settings_get_boolean (manager->settings, "idle-dim")) {
@@ -2166,6 +2181,27 @@ power_profiles_proxy_signal_cb (GDBusProxy  *proxy,
 }
 
 static void
+update_active_power_profile (GsdPowerManager *manager)
+{
+        g_autoptr(GVariant) v = NULL;
+        const char *active_profile;
+        gboolean power_saver_enabled;
+
+        v = g_dbus_proxy_get_cached_property (manager->power_profiles_proxy, "ActiveProfile");
+        if (v) {
+                active_profile = g_variant_get_string (v, NULL);
+                power_saver_enabled = g_strcmp0 (active_profile, "power-saver") == 0;
+                if (power_saver_enabled != manager->power_saver_enabled) {
+                        manager->power_saver_enabled = power_saver_enabled;
+                        idle_configure (manager);
+                }
+        } else {
+                /* p-p-d might have disappeared from the bus */
+                idle_configure (manager);
+        }
+}
+
+static void
 power_profiles_proxy_ready_cb (GObject             *source_object,
                               GAsyncResult        *res,
                               gpointer             user_data)
@@ -2179,9 +2215,15 @@ power_profiles_proxy_ready_cb (GObject             *source_object,
                 return;
         }
 
+        g_signal_connect_swapped (manager->power_profiles_proxy,
+                                  "g-properties-changed",
+                                  G_CALLBACK (update_active_power_profile),
+                                  manager);
         g_signal_connect (manager->power_profiles_proxy, "g-signal",
                           G_CALLBACK (power_profiles_proxy_signal_cb),
                           manager);
+
+        update_active_power_profile (manager);
 }
 
 static void
