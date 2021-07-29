@@ -1916,8 +1916,6 @@ idle_configure (GsdPowerManager *manager)
         timeout_dim = 0;
         if (manager->screensaver_active) {
                 /* Don't dim when the screen lock is active */
-        } else if (!on_battery) {
-                /* Don't dim when charging */
         } else if (is_power_save_active (manager)) {
                 /* Try to save power by dimming agressively */
                 timeout_dim = SCREENSAVER_TIMEOUT_BLANK;
