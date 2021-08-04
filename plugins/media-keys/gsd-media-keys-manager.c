@@ -1185,6 +1185,22 @@ gnome_session_shutdown_cb (GObject *source_object,
 }
 
 static void
+do_terminal_action (GsdMediaKeysManager *manager)
+{
+        GSettings *settings;
+        char *term;
+
+        settings = g_settings_new ("org.gnome.desktop.default-applications.terminal");
+        term = g_settings_get_string (settings, "exec");
+
+        if (term)
+                execute (manager, term, FALSE);
+
+        g_free (term);
+        g_object_unref (settings);
+}
+
+static void
 gnome_session_shutdown (GsdMediaKeysManager *manager)
 {
 	GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
@@ -2493,6 +2509,9 @@ do_action (GsdMediaKeysManager *manager,
         case HELP_KEY:
                 do_url_action (manager, "ghelp", timestamp);
                 break;
+        case TERMINAL_KEY:
+                do_terminal_action (manager);
+                break;
         case WWW_KEY:
                 do_url_action (manager, "http", timestamp);
                 break;
@@ -3061,6 +3080,7 @@ migrate_keybinding_settings (void)
                 { "volume-mute",                "volume-mute",                  map_keybinding },
                 { "volume-up",                  "volume-up",                    map_keybinding },
                 { "mic-mute",                   "mic-mute",                     map_keybinding },
+                { "terminal",                   "terminal",                     map_keybinding },
                 { "www",                        "www",                          map_keybinding },
                 { "magnifier",                  "magnifier",                    map_keybinding },
                 { "screenreader",               "screenreader",                 map_keybinding },
