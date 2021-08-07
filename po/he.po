@@ -12,22 +12,23 @@ msgstr ""
 "Project-Id-Version: gnome-control-center.HEAD.he\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2020-09-03 20:47+0000\n"
-"PO-Revision-Date: 2020-09-28 21:23+0300\n"
-"Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
+"POT-Creation-Date: 2021-07-23 15:35+0000\n"
+"PO-Revision-Date: 2021-08-07 19:04+0300\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <yoseforb@gmail.com>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n>2||n==0) ? 1 : 2\n"
-"X-Generator: Gtranslator 3.36.0\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? "
+"2 : 3);\n"
+"X-Generator: Poedit 3.0\n"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid "Smartcard removal action"
 msgstr "Smartcard removal action"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:13
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
 msgid ""
 "Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
 "get performed when the smartcard used for log in is removed."
@@ -35,53 +36,37 @@ msgstr ""
 "Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
 "get performed when the smartcard used for log in is removed."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:25
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:24
 msgid "Possible values are “on”, “off”, and “custom”."
 msgstr "Possible values are “on”, “off”, and “custom”."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:35
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:34
 msgid "Keyboard Bell Custom Filename"
 msgstr "Keyboard Bell Custom Filename"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:36
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:35
 msgid "File name of the bell sound to be played."
 msgstr "File name of the bell sound to be played."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:42
-msgid "Double click time"
-msgstr "Double click time"
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:43
-msgid "Length of a double click in milliseconds."
-msgstr "Length of a double click in milliseconds."
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:47
-msgid "Drag threshold"
-msgstr "Drag threshold"
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:48
-msgid "Distance before a drag is started."
-msgstr "Distance before a drag is started."
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:54
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:41
 msgid "Whether the tablet’s orientation is locked, or rotated automatically."
 msgstr "Whether the tablet’s orientation is locked, or rotated automatically."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:62
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:49
 msgid "Mouse button orientation"
 msgstr "Mouse button orientation"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:63
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:50
 msgid "Swap left and right mouse buttons for left-handed mice."
 msgstr "Swap left and right mouse buttons for left-handed mice."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:67
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:134
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:54
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:131
 msgid "Single Click"
 msgstr "Single Click"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:68
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:135
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:55
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:132
 msgid ""
 "Acceleration multiplier for mouse motion. A value of -1 is the system "
 "default."
@@ -89,13 +74,13 @@ msgstr ""
 "Acceleration multiplier for mouse motion. A value of -1 is the system "
 "default."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:72
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:139
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:59
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:136
 msgid "Motion Threshold"
 msgstr "Motion Threshold"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:73
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:140
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:60
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:137
 msgid ""
 "Distance in pixels the pointer must move before accelerated mouse motion is "
 "activated. A value of -1 is the system default."
@@ -103,11 +88,11 @@ msgstr ""
 "Distance in pixels the pointer must move before accelerated mouse motion is "
 "activated. A value of -1 is the system default."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:77
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:64
 msgid "Middle button emulation"
 msgstr "Middle button emulation"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:78
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:65
 msgid ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
@@ -115,27 +100,43 @@ msgstr ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:87
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:69
+msgid "Double click time"
+msgstr "Double click time"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:70
+msgid "Length of a double click in milliseconds."
+msgstr "Length of a double click in milliseconds."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:74
+msgid "Drag threshold"
+msgstr "Drag threshold"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:75
+msgid "Distance before a drag is started."
+msgstr "Distance before a drag is started."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:84
 msgid "Key Repeat Interval"
 msgstr "Key Repeat Interval"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:88
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:85
 msgid "Delay between repeats in milliseconds."
 msgstr "Delay between repeats in milliseconds."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:92
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:89
 msgid "Initial Key Repeat Delay"
 msgstr "Initial Key Repeat Delay"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:93
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:90
 msgid "Initial key repeat delay in milliseconds."
 msgstr "Initial key repeat delay in milliseconds."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:97
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:94
 msgid "Remember NumLock state"
 msgstr "Remember NumLock state"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:98
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:95
 msgid ""
 "When set to true, GNOME will remember the state of the NumLock LED between "
 "sessions."
@@ -143,11 +144,11 @@ msgstr ""
 "When set to true, GNOME will remember the state of the NumLock LED between "
 "sessions."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:104
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:101
 msgid "Disable touchpad while typing"
 msgstr "Disable touchpad while typing"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:105
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:102
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
@@ -155,11 +156,11 @@ msgstr ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:109
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:106
 msgid "Enable horizontal scrolling"
 msgstr "Enable horizontal scrolling"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:110
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:107
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
@@ -167,11 +168,11 @@ msgstr ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:114
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:111
 msgid "Select the touchpad scroll method"
 msgstr "Select the touchpad scroll method"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:115
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:112
 msgid ""
 "Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
 "scrolling”, “two-finger-scrolling”."
@@ -179,29 +180,29 @@ msgstr ""
 "Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
 "scrolling”, “two-finger-scrolling”."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:119
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:116
 msgid "Enable mouse clicks with touchpad"
 msgstr "Enable mouse clicks with touchpad"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:120
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:117
 msgid ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:124
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:121
 msgid "Enable touchpad"
 msgstr "Enable touchpad"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:125
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:122
 msgid "Set this to TRUE to enable all touchpads."
 msgstr "Set this to TRUE to enable all touchpads."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:129
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:126
 msgid "Touchpad button orientation"
 msgstr "Touchpad button orientation"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:130
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:127
 msgid ""
 "Swap left and right mouse buttons for left-handed mice with “left”, “right” "
 "for right-handed, “mouse” to follow the mouse setting."
@@ -209,15 +210,15 @@ msgstr ""
 "Swap left and right mouse buttons for left-handed mice with “left”, “right” "
 "for right-handed, “mouse” to follow the mouse setting."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:144
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:141
 msgid "Natural scrolling"
 msgstr "Natural scrolling"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:145
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:142
 msgid "Set this to TRUE to enable natural (reverse) scrolling for touchpads."
 msgstr "Set this to TRUE to enable natural (reverse) scrolling for touchpads."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:152
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:149
 msgid "Mouse wheel emulation button. 0 to disable the feature."
 msgstr "Mouse wheel emulation button. 0 to disable the feature."
 
@@ -1218,7 +1219,7 @@ msgstr "Static binding to lower the volume with higher precision."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:623
 msgid "Static binding to raise the volume with higher precision."
-msgstr " "
+msgstr "Static binding to raise the volume with higher precision."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:629
 msgid "Static binding to mute/unmute the microphone."
@@ -1421,6 +1422,18 @@ msgstr ""
 "hard-coded (and the setting ignored) on virtual machines (power off) and "
 "tablets (suspend)."
 
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:46
+msgid "Enable power-saver profile when battery is low"
+msgstr "Enable power-saver profile when battery is low"
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:47
+msgid ""
+"Automatically enable the \"power-saver\" profile using power-profiles-daemon "
+"if the battery is low."
+msgstr ""
+"Automatically enable the \"power-saver\" profile using power-profiles-daemon "
+"if the battery is low."
+
 #: data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in:6
 msgid "On which connections the service is enabled"
 msgstr "On which connections the service is enabled"
@@ -1434,66 +1447,10 @@ msgstr ""
 "on which this service is enabled and started."
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:6
-msgid "Antialiasing"
-msgstr "Antialiasing"
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:7
-msgid ""
-"The type of antialiasing to use when rendering fonts. Possible values are: "
-"“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
-"and “rgba” for subpixel antialiasing (LCD screens only)."
-msgstr ""
-"The type of antialiasing to use when rendering fonts. Possible values are: "
-"“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
-"and “rgba” for subpixel antialiasing (LCD screens only)."
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:11
-msgid "Hinting"
-msgstr "Hinting"
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:12
-msgid ""
-"The type of hinting to use when rendering fonts. Possible values are: “none” "
-"for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
-"ClearType, DirectWrite and Adobe’s proprietary font rendering engine. "
-"Ignores native hinting within the font, generates hints algorithmically. "
-"Used on Ubuntu by default. Recommended. The meaning of “medium” and “full” "
-"depends on the font format (.ttf, .otf, .pfa/.pfb) and the installed version "
-"of FreeType. They usually try to fit glyphs to both the X and the Y axis "
-"(except for .otf: Y-only). This can lead to distortion and/or inconsistent "
-"rendering depending on the quality of the font, the font format and the "
-"state of FreeType’s font engines."
-msgstr ""
-"The type of hinting to use when rendering fonts. Possible values are: “none” "
-"for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
-"ClearType, DirectWrite and Adobe’s proprietary font rendering engine. "
-"Ignores native hinting within the font, generates hints algorithmically. "
-"Used on Ubuntu by default. Recommended. The meaning of “medium” and “full” "
-"depends on the font format (.ttf, .otf, .pfa/.pfb) and the installed version "
-"of FreeType. They usually try to fit glyphs to both the X and the Y axis "
-"(except for .otf: Y-only). This can lead to distortion and/or inconsistent "
-"rendering depending on the quality of the font, the font format and the "
-"state of FreeType’s font engines."
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:16
-msgid "RGBA order"
-msgstr "RGBA order"
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:17
-msgid ""
-"The order of subpixel elements on an LCD screen; only used when antialiasing "
-"is set to “rgba”. Possible values are: “rgb” for red on left (most common), "
-"“bgr” for blue on left, “vrgb” for red on top, “vbgr” for red on bottom."
-msgstr ""
-"The order of subpixel elements on an LCD screen; only used when antialiasing "
-"is set to “rgba”. Possible values are: “rgb” for red on left (most common), "
-"“bgr” for blue on left, “vrgb” for red on top, “vbgr” for red on bottom."
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:21
 msgid "List of explicitly disabled GTK+ modules"
 msgstr "List of explicitly disabled GTK+ modules"
 
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:22
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:7
 msgid ""
 "A list of strings representing the GTK+ modules that will not be loaded, "
 "even if enabled by default in their configuration."
@@ -1501,11 +1458,11 @@ msgstr ""
 "A list of strings representing the GTK+ modules that will not be loaded, "
 "even if enabled by default in their configuration."
 
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:26
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:11
 msgid "List of explicitly enabled GTK+ modules"
 msgstr "List of explicitly enabled GTK+ modules"
 
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:27
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:12
 msgid ""
 "A list of strings representing the GTK+ modules that will be loaded, usually "
 "in addition to conditional and forcibly disabled ones."
@@ -1513,11 +1470,11 @@ msgstr ""
 "A list of strings representing the GTK+ modules that will be loaded, usually "
 "in addition to conditional and forcibly disabled ones."
 
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:31
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:16
 msgid "A dictionary of XSETTINGS to override"
 msgstr "A dictionary of XSETTINGS to override"
 
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:32
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:17
 msgid ""
 "This dictionary maps XSETTINGS names to overrides values. The values must be "
 "either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
@@ -1526,6 +1483,62 @@ msgstr ""
 "This dictionary maps XSETTINGS names to overrides values. The values must be "
 "either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
 "(red, green, blue, alpha; 65535 is fully opaque)."
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:23
+msgid "Antialiasing"
+msgstr "Antialiasing"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:24
+msgid ""
+"The type of antialiasing to use when rendering fonts. Possible values are: "
+"“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
+"and “rgba” for subpixel antialiasing (LCD screens only)."
+msgstr ""
+"The type of antialiasing to use when rendering fonts. Possible values are: "
+"“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
+"and “rgba” for subpixel antialiasing (LCD screens only)."
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:28
+msgid "Hinting"
+msgstr "Hinting"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:29
+msgid ""
+"The type of hinting to use when rendering fonts. Possible values are: “none” "
+"for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
+"ClearType, DirectWrite and Adobe’s proprietary font rendering engine. "
+"Ignores native hinting within the font, generates hints algorithmically. "
+"Used on Ubuntu by default. Recommended. The meaning of “medium” and “full” "
+"depends on the font format (.ttf, .otf, .pfa/.pfb) and the installed version "
+"of FreeType. They usually try to fit glyphs to both the X and the Y axis "
+"(except for .otf: Y-only). This can lead to distortion and/or inconsistent "
+"rendering depending on the quality of the font, the font format and the "
+"state of FreeType’s font engines."
+msgstr ""
+"The type of hinting to use when rendering fonts. Possible values are: “none” "
+"for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
+"ClearType, DirectWrite and Adobe’s proprietary font rendering engine. "
+"Ignores native hinting within the font, generates hints algorithmically. "
+"Used on Ubuntu by default. Recommended. The meaning of “medium” and “full” "
+"depends on the font format (.ttf, .otf, .pfa/.pfb) and the installed version "
+"of FreeType. They usually try to fit glyphs to both the X and the Y axis "
+"(except for .otf: Y-only). This can lead to distortion and/or inconsistent "
+"rendering depending on the quality of the font, the font format and the "
+"state of FreeType’s font engines."
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:33
+msgid "RGBA order"
+msgstr "RGBA order"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:34
+msgid ""
+"The order of subpixel elements on an LCD screen; only used when antialiasing "
+"is set to “rgba”. Possible values are: “rgb” for red on left (most common), "
+"“bgr” for blue on left, “vrgb” for red on top, “vbgr” for red on bottom."
+msgstr ""
+"The order of subpixel elements on an LCD screen; only used when antialiasing "
+"is set to “rgba”. Possible values are: “rgb” for red on left (most common), "
+"“bgr” for blue on left, “vrgb” for red on top, “vbgr” for red on bottom."
 
 #: plugins/color/gsd-color-calibrate.c:138
 msgid "Color"
@@ -1588,28 +1601,28 @@ msgstr "הגדרות"
 msgid "Date & Time Settings"
 msgstr "הגדרות תאריך ושעה"
 
-#: plugins/housekeeping/gsd-disk-space.c:629
+#: plugins/housekeeping/gsd-disk-space.c:628
 msgid "Disk Space"
 msgstr "קיבולת כונן"
 
-#: plugins/housekeeping/gsd-disk-space.c:642
+#: plugins/housekeeping/gsd-disk-space.c:641
 msgid "Examine"
 msgstr "בחינה"
 
-#: plugins/housekeeping/gsd-disk-space.c:653
+#: plugins/housekeeping/gsd-disk-space.c:652
 msgid "Empty Trash"
 msgstr "פינוי האשפה"
 
-#: plugins/housekeeping/gsd-disk-space.c:661
+#: plugins/housekeeping/gsd-disk-space.c:660
 msgid "Ignore"
 msgstr "התעלמות"
 
-#: plugins/housekeeping/gsd-disk-space.c:692
+#: plugins/housekeeping/gsd-disk-space.c:691
 #, c-format
 msgid "Low Disk Space on “%s”"
 msgstr "השטח הפנוי בכונן „%s“ נמוך"
 
-#: plugins/housekeeping/gsd-disk-space.c:694
+#: plugins/housekeeping/gsd-disk-space.c:693
 #, c-format
 msgid ""
 "The volume “%s” has only %s disk space remaining.  You may free up some "
@@ -1618,16 +1631,16 @@ msgstr ""
 "בכרך „%s” נותרו %s של מקום פנוי בכונן בלבד. ניתן לפנות מעט מקום פנוי על ידי "
 "פינוי האשפה."
 
-#: plugins/housekeeping/gsd-disk-space.c:698
+#: plugins/housekeeping/gsd-disk-space.c:697
 #, c-format
 msgid "The volume “%s” has only %s disk space remaining."
 msgstr "בכרך „%s” נותרו %s של מקום פנוי בכונן בלבד."
 
-#: plugins/housekeeping/gsd-disk-space.c:703
+#: plugins/housekeeping/gsd-disk-space.c:702
 msgid "Low Disk Space"
 msgstr "השטח הפנוי מועט"
 
-#: plugins/housekeeping/gsd-disk-space.c:705
+#: plugins/housekeeping/gsd-disk-space.c:704
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1636,50 +1649,42 @@ msgstr ""
 "במחשב זה ישנם %s פנויים בכונן הקשיח. ניתן לפנות מעט מקום פנוי על ידי פינוי "
 "האשפה."
 
-#: plugins/housekeeping/gsd-disk-space.c:708
+#: plugins/housekeeping/gsd-disk-space.c:707
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "במחשב זה ישנם %s פנויים בכונן הקשיח."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2468
+#: plugins/media-keys/gsd-media-keys-manager.c:2480
 msgid "Bluetooth disabled"
 msgstr "‏בלוטות׳ מושבת"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2471
+#: plugins/media-keys/gsd-media-keys-manager.c:2483
 msgid "Bluetooth enabled"
 msgstr "‏בלוטות׳ פועל"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2475
+#: plugins/media-keys/gsd-media-keys-manager.c:2487
 msgid "Airplane mode enabled"
 msgstr "מצב טיסה פועל"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2478
+#: plugins/media-keys/gsd-media-keys-manager.c:2490
 msgid "Airplane mode disabled"
 msgstr "מצב טיסה מושבת"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2507
+#: plugins/media-keys/gsd-media-keys-manager.c:2529
 msgid "Hardware Airplane Mode"
 msgstr "מצב טיסה בחומרה"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2570
+#: plugins/media-keys/gsd-media-keys-manager.c:2592
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "צילום מסך מ־%d ‏%t.webm"
 
-#: plugins/media-keys/gsd-screenshot-utils.c:82
-msgid "Unable to capture a screenshot"
-msgstr "לא ניתן לצלם את המסך"
-
-#: plugins/media-keys/gsd-screenshot-utils.c:125
-msgid "Screenshot taken"
-msgstr "המסך צולם"
-
 #. translators: this is the name of the file that gets made up
 #. * with the screenshot
-#: plugins/media-keys/gsd-screenshot-utils.c:264
+#: plugins/media-keys/gsd-screenshot-utils.c:240
 #, c-format
 msgid "Screenshot from %s"
 msgstr "צילום מסך מ־%s"
@@ -1692,17 +1697,19 @@ msgstr "זמן בלתי ידוע"
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
-msgstr[0] "דקה אחת"
-msgstr[1] "%i דקות"
-msgstr[2] "שתי דקות"
+msgstr[0] "דקה"
+msgstr[1] "שתי דקות"
+msgstr[2] "‫%i דקות"
+msgstr[3] "‫%i דקות"
 
 #: plugins/power/gpm-common.c:106
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
-msgstr[0] "שעה אחת"
-msgstr[1] "%i שעות"
-msgstr[2] "שעתיים"
+msgstr[0] "שעה"
+msgstr[1] "שעתיים"
+msgstr[2] "‫%i שעות"
+msgstr[3] "‫%i שעות"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
@@ -1717,6 +1724,7 @@ msgid_plural "hours"
 msgstr[0] "שעה"
 msgstr[1] "שעות"
 msgstr[2] "שעות"
+msgstr[3] ""
 
 #: plugins/power/gpm-common.c:114
 msgid "minute"
@@ -1724,215 +1732,209 @@ msgid_plural "minutes"
 msgstr[0] "דקה"
 msgstr[1] "דקות"
 msgstr[2] "דקות"
+msgstr[3] ""
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:791
-#: plugins/power/gsd-power-manager.c:888
+#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:833
+#: plugins/power/gsd-power-manager.c:930
 msgid "Battery is critically low"
 msgstr "הסוללה חלשה באופן מהותי"
 
 #. TRANSLATORS: this is the notification application name
-#: plugins/power/gsd-power-manager.c:356
+#: plugins/power/gsd-power-manager.c:365
 msgid "Power"
 msgstr "צריכת חשמל"
 
 #. TRANSLATORS: UPS is now discharging
-#: plugins/power/gsd-power-manager.c:396
+#: plugins/power/gsd-power-manager.c:405
 msgid "UPS Discharging"
 msgstr "האל־פסק נפרק"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:401
+#: plugins/power/gsd-power-manager.c:410
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "נותרו %s מעצמת הגיבוי של האל־פסק"
 
-#: plugins/power/gsd-power-manager.c:404
+#: plugins/power/gsd-power-manager.c:413
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "נותרה כמות לא ידועה מעצמת הגיבוי של האל־פסק"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: plugins/power/gsd-power-manager.c:484
+#: plugins/power/gsd-power-manager.c:526
 msgid "Battery low"
 msgstr "הסוללה חלשה"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: plugins/power/gsd-power-manager.c:487
+#: plugins/power/gsd-power-manager.c:529
 msgid "Laptop battery low"
 msgstr "סוללת המחשב הנייד חלשה"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:494
+#: plugins/power/gsd-power-manager.c:536
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "נותרו בערך %s‏ (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: plugins/power/gsd-power-manager.c:499
+#: plugins/power/gsd-power-manager.c:541
 msgid "UPS low"
 msgstr "האל־פסק חלש"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:505
+#: plugins/power/gsd-power-manager.c:547
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "נותרו בערך %s של עצמת גיבוי באל־פסק (%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: plugins/power/gsd-power-manager.c:510 plugins/power/gsd-power-manager.c:670
+#: plugins/power/gsd-power-manager.c:552 plugins/power/gsd-power-manager.c:712
 msgid "Mouse battery low"
 msgstr "סוללת העכבר חלשה מאוד"
 
-#: plugins/power/gsd-power-manager.c:514
+#: plugins/power/gsd-power-manager.c:556
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "סוללת העכבר האלחוטי חלשה (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:516
+#: plugins/power/gsd-power-manager.c:558
 #, c-format
-#| msgid "Wireless mouse is low in power (%.0f%%)"
 msgid "Wireless mouse is low in power"
 msgstr "סוללת העכבר האלחוטי חלשה"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: plugins/power/gsd-power-manager.c:520 plugins/power/gsd-power-manager.c:683
+#: plugins/power/gsd-power-manager.c:562 plugins/power/gsd-power-manager.c:725
 msgid "Keyboard battery low"
 msgstr "סוללת המקלדת חלשה"
 
-#: plugins/power/gsd-power-manager.c:524
+#: plugins/power/gsd-power-manager.c:566
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "סוללת המקלדת האלחוטית חלשה (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:526
+#: plugins/power/gsd-power-manager.c:568
 #, c-format
-#| msgid "Wireless keyboard is low in power (%.0f%%)"
 msgid "Wireless keyboard is low in power"
 msgstr "סוללת המקלדת האלחוטית חלשה"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: plugins/power/gsd-power-manager.c:530 plugins/power/gsd-power-manager.c:697
+#: plugins/power/gsd-power-manager.c:572 plugins/power/gsd-power-manager.c:739
 msgid "PDA battery low"
 msgstr "סוללת מחשב כף היד חלשה"
 
-#: plugins/power/gsd-power-manager.c:534
+#: plugins/power/gsd-power-manager.c:576
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "סוללת מחשב כף היד חלשה (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:536
+#: plugins/power/gsd-power-manager.c:578
 #, c-format
-#| msgid "PDA is low in power (%.0f%%)"
 msgid "PDA is low in power"
 msgstr "סוללת מחשב כף היד חלשה"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:540 plugins/power/gsd-power-manager.c:711
-#: plugins/power/gsd-power-manager.c:725
+#: plugins/power/gsd-power-manager.c:582 plugins/power/gsd-power-manager.c:753
+#: plugins/power/gsd-power-manager.c:767
 msgid "Cell phone battery low"
 msgstr "סוללת המכשיר הסלולרי חלשה"
 
-#: plugins/power/gsd-power-manager.c:544
+#: plugins/power/gsd-power-manager.c:586
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "סוללת המכשיר הסלולרי חלשה (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:546
+#: plugins/power/gsd-power-manager.c:588
 #, c-format
-#| msgid "Cell phone is low in power (%.0f%%)"
 msgid "Cell phone is low in power"
 msgstr "סוללת המכשיר הסלולרי חלשה"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: plugins/power/gsd-power-manager.c:550
+#: plugins/power/gsd-power-manager.c:592
 msgid "Media player battery low"
 msgstr "סוללת נגן המדיה חלשה"
 
-#: plugins/power/gsd-power-manager.c:554
+#: plugins/power/gsd-power-manager.c:596
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "סוללת נגן המדיה חלשה (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:556
+#: plugins/power/gsd-power-manager.c:598
 #, c-format
-#| msgid "Media player is low in power (%.0f%%)"
 msgid "Media player is low in power"
 msgstr "סוללת נגן המדיה חלשה"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:560 plugins/power/gsd-power-manager.c:739
+#: plugins/power/gsd-power-manager.c:602 plugins/power/gsd-power-manager.c:781
 msgid "Tablet battery low"
 msgstr "סוללת מחשב הלוח חלשה"
 
-#: plugins/power/gsd-power-manager.c:564
+#: plugins/power/gsd-power-manager.c:606
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "סוללת מחשב הלוח חלשה (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:566
+#: plugins/power/gsd-power-manager.c:608
 #, c-format
-#| msgid "Tablet is low in power (%.0f%%)"
 msgid "Tablet is low in power"
 msgstr "סוללת מחשב הלוח חלשה"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:570 plugins/power/gsd-power-manager.c:753
+#: plugins/power/gsd-power-manager.c:612 plugins/power/gsd-power-manager.c:795
 msgid "Attached computer battery low"
 msgstr "עצמת סוללת המחשב המחובר חלשה"
 
-#: plugins/power/gsd-power-manager.c:574
+#: plugins/power/gsd-power-manager.c:616
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "עצמת סוללת המחשב המחובר חלשה (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:576
+#: plugins/power/gsd-power-manager.c:618
 #, c-format
-#| msgid "Attached computer is low in power (%.0f%%)"
 msgid "Attached computer is low in power"
 msgstr "עצמת סוללת המחשב המחובר חלשה"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:597
+#: plugins/power/gsd-power-manager.c:639
 msgid "Battery is low"
 msgstr "הסוללה חלשה"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: plugins/power/gsd-power-manager.c:634
+#: plugins/power/gsd-power-manager.c:676
 msgid "Battery critically low"
 msgstr "הסוללה חלשה באופן מהותי"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: plugins/power/gsd-power-manager.c:637 plugins/power/gsd-power-manager.c:818
+#: plugins/power/gsd-power-manager.c:679 plugins/power/gsd-power-manager.c:860
 msgid "Laptop battery critically low"
 msgstr "סוללת המחשב הנייד חלשה באופן מהותי"
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:646
+#: plugins/power/gsd-power-manager.c:688
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr "המחשב ייכנס לתרדמת ממש בקרוב אם לא יחובר לחשמל."
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:650
+#: plugins/power/gsd-power-manager.c:692
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "המחשב ייכבה ממש בקרוב אם לא יחובר לחשמל."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: plugins/power/gsd-power-manager.c:658 plugins/power/gsd-power-manager.c:843
+#: plugins/power/gsd-power-manager.c:700 plugins/power/gsd-power-manager.c:885
 msgid "UPS critically low"
 msgstr "האל־פסק חלש באופן מהותי"
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:664
+#: plugins/power/gsd-power-manager.c:706
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1941,7 +1943,7 @@ msgstr ""
 "נותרו בערך%s של עצמת גיבוי באל־פסק (%.0f%%). יש להתחבר שוב לחשמל כדי להימנע "
 "מאבדן נתונים."
 
-#: plugins/power/gsd-power-manager.c:674
+#: plugins/power/gsd-power-manager.c:716
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1949,17 +1951,14 @@ msgid ""
 msgstr ""
 "עצמת העכבר האלחוטי חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
-#: plugins/power/gsd-power-manager.c:678
+#: plugins/power/gsd-power-manager.c:720
 #, c-format
-#| msgid ""
-#| "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
-#| "functioning if not charged."
 msgid ""
 "Wireless mouse is very low in power. This device will soon stop functioning "
 "if not charged."
 msgstr "עצמת העכבר האלחוטי חלשה מאוד. ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
-#: plugins/power/gsd-power-manager.c:687
+#: plugins/power/gsd-power-manager.c:729
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -1967,17 +1966,14 @@ msgid ""
 msgstr ""
 "עצמת המקלדת האלחוטית חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
-#: plugins/power/gsd-power-manager.c:691
+#: plugins/power/gsd-power-manager.c:733
 #, c-format
-#| msgid ""
-#| "Wireless keyboard is very low in power (%.0f%%). This device will soon "
-#| "stop functioning if not charged."
 msgid ""
 "Wireless keyboard is very low in power. This device will soon stop "
 "functioning if not charged."
 msgstr "עצמת המקלדת האלחוטית חלשה מאוד. ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
-#: plugins/power/gsd-power-manager.c:701
+#: plugins/power/gsd-power-manager.c:743
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -1985,17 +1981,14 @@ msgid ""
 msgstr ""
 "עצמת מחשב כף היד חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
-#: plugins/power/gsd-power-manager.c:705
+#: plugins/power/gsd-power-manager.c:747
 #, c-format
-#| msgid ""
-#| "PDA is very low in power (%.0f%%). This device will soon stop functioning "
-#| "if not charged."
 msgid ""
 "PDA is very low in power. This device will soon stop functioning if not "
 "charged."
 msgstr "עצמת מחשב כף היד חלשה מאוד. ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
-#: plugins/power/gsd-power-manager.c:715
+#: plugins/power/gsd-power-manager.c:757
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -2003,17 +1996,14 @@ msgid ""
 msgstr ""
 "עצמת הטלפון הנייד חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
-#: plugins/power/gsd-power-manager.c:719
+#: plugins/power/gsd-power-manager.c:761
 #, c-format
-#| msgid ""
-#| "Cell phone is very low in power (%.0f%%). This device will soon stop "
-#| "functioning if not charged."
 msgid ""
 "Cell phone is very low in power. This device will soon stop functioning if "
 "not charged."
 msgstr "עצמת הטלפון הנייד חלשה מאוד. ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
-#: plugins/power/gsd-power-manager.c:729
+#: plugins/power/gsd-power-manager.c:771
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -2021,17 +2011,14 @@ msgid ""
 msgstr ""
 "עצמת נגן המדיה חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
-#: plugins/power/gsd-power-manager.c:733
+#: plugins/power/gsd-power-manager.c:775
 #, c-format
-#| msgid ""
-#| "Media player is very low in power (%.0f%%). This device will soon stop "
-#| "functioning if not charged."
 msgid ""
 "Media player is very low in power. This device will soon stop functioning if "
 "not charged."
 msgstr "עצמת נגן המדיה חלשה מאוד. ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
-#: plugins/power/gsd-power-manager.c:743
+#: plugins/power/gsd-power-manager.c:785
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -2039,96 +2026,90 @@ msgid ""
 msgstr ""
 "עצמת מחשב הלוח חלשה מאוד (%.0f%%). ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
-#: plugins/power/gsd-power-manager.c:747
+#: plugins/power/gsd-power-manager.c:789
 #, c-format
-#| msgid ""
-#| "Tablet is very low in power (%.0f%%). This device will soon stop "
-#| "functioning if not charged."
 msgid ""
 "Tablet is very low in power. This device will soon stop functioning if not "
 "charged."
 msgstr "עצמת מחשב הלוח חלשה מאוד. ההתקן יפסיק לתפקד בקרוב אם לא יוטען."
 
-#: plugins/power/gsd-power-manager.c:757
+#: plugins/power/gsd-power-manager.c:799
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
 "shutdown if not charged."
 msgstr "עצמת המחשב המחובר חלשה (%.0f%%). ההתקן יכבה בקרוב אם לא יוטען."
 
-#: plugins/power/gsd-power-manager.c:761
+#: plugins/power/gsd-power-manager.c:803
 #, c-format
-#| msgid ""
-#| "Attached computer is very low in power (%.0f%%). The device will soon "
-#| "shutdown if not charged."
 msgid ""
 "Attached computer is very low in power. The device will soon shutdown if not "
 "charged."
 msgstr "עצמת המחשב המחובר חלשה. ההתקן יכבה בקרוב אם לא יוטען."
 
 #. TRANSLATORS: computer will hibernate
-#: plugins/power/gsd-power-manager.c:826
+#: plugins/power/gsd-power-manager.c:868
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
 msgstr "עצמת הסוללה נמצאת מתחת לרמה הקריטית ומחשב זה עומד להיכנס למצב תרדמת."
 
 #. TRANSLATORS: computer will just shutdown
-#: plugins/power/gsd-power-manager.c:831
+#: plugins/power/gsd-power-manager.c:873
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
 msgstr "עצמת הסוללה נמצאת מתחת לרמה הקריטית ומחשב זה עומד לכבות."
 
 #. TRANSLATORS: computer will hibernate
-#: plugins/power/gsd-power-manager.c:851
+#: plugins/power/gsd-power-manager.c:893
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr "עצמת האל־פסק היא מתחת לרמה המהותית ומחשב זה עומד לעבור למצב תרדמת."
 
 #. TRANSLATORS: computer will just shutdown
-#: plugins/power/gsd-power-manager.c:856
+#: plugins/power/gsd-power-manager.c:898
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr "עצמת האל־פסק היא מתחת לרמה המהותית ומחשב זה עומד לכבות."
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1333
+#: plugins/power/gsd-power-manager.c:1385
 msgid "Lid has been opened"
 msgstr "מכסה המחשב נפתח"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1367
+#: plugins/power/gsd-power-manager.c:1419
 msgid "Lid has been closed"
 msgstr "מכסה המחשב נסגר"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1934
+#: plugins/power/gsd-power-manager.c:2058
 msgid "On battery power"
 msgstr "על סוללה"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1939
+#: plugins/power/gsd-power-manager.c:2063
 msgid "On AC power"
 msgstr "על מתח AC"
 
-#: plugins/power/gsd-power-manager.c:2127
+#: plugins/power/gsd-power-manager.c:2284
 msgid "Automatic logout"
 msgstr "יציאה אוטומטית"
 
-#: plugins/power/gsd-power-manager.c:2127
+#: plugins/power/gsd-power-manager.c:2284
 msgid "You will soon log out because of inactivity."
 msgstr "בקרוב ההפעלה שלך תיסגר עקב חוסר פעילות."
 
-#: plugins/power/gsd-power-manager.c:2132
+#: plugins/power/gsd-power-manager.c:2289
 msgid "Automatic suspend"
 msgstr "השהיה אוטומטית"
 
-#: plugins/power/gsd-power-manager.c:2132
-#: plugins/power/gsd-power-manager.c:2137
+#: plugins/power/gsd-power-manager.c:2289
+#: plugins/power/gsd-power-manager.c:2294
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "המחשב יושהה אוטומטית בקרוב מאוד עקב חוסר פעילות."
 
-#: plugins/power/gsd-power-manager.c:2137
+#: plugins/power/gsd-power-manager.c:2294
 msgid "Automatic hibernation"
 msgstr "תרדמת אוטומטית"
 
@@ -2350,7 +2331,7 @@ msgstr "ההדפסה נעצרה"
 #, c-format
 msgctxt "print job"
 msgid "“%s” on %s"
-msgstr "“%s„ במדפסת %s"
+msgstr "„‏%s“ במדפסת %s"
 
 #. Translators: A print job has been canceled
 #: plugins/print-notifications/gsd-print-notifications-manager.c:722
@@ -2400,15 +2381,15 @@ msgstr "מדפסת „%s”:‏ „%s”."
 msgid "User was not logged in with smartcard."
 msgstr "המשתמש לא נכנס עם כרטיס חכם."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:386
+#: plugins/usb-protection/gsd-usb-protection-manager.c:387
 msgid "USB Protection"
 msgstr "הגנת USB"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:505
+#: plugins/usb-protection/gsd-usb-protection-manager.c:506
 msgid "New USB device"
 msgstr "התקן USB חדש"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:506
+#: plugins/usb-protection/gsd-usb-protection-manager.c:507
 msgid ""
 "New device has been detected while the session was not locked. If you did "
 "not plug anything, check your system for any suspicious device."
@@ -2416,15 +2397,11 @@ msgstr ""
 "זוהה התקן חדש בזמן הנעילה. אם לא חיברת שום דבר, יש לבדוק במערכת שלך כל התקן "
 "חשוד."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:589
-#| msgid "New keyboard detected"
+#: plugins/usb-protection/gsd-usb-protection-manager.c:590
 msgid "New device detected"
 msgstr "זוהה התקן חדש"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:590
-#| msgid ""
-#| "Either your keyboard has been reconnected or a new one has been plugged "
-#| "in. If you did not do it, check your system for any suspicious device."
+#: plugins/usb-protection/gsd-usb-protection-manager.c:591
 msgid ""
 "Either one of your existing devices has been reconnected or a new one has "
 "been plugged in. If you did not do it, check your system for any suspicious "
@@ -2433,11 +2410,11 @@ msgstr ""
 "או שאחד מההתקנים שלך חובר מחדש או שהתקן חדש חובר. אם לא עשית זאת, יש לבדוק "
 "במערכת שלך כל התקן חשוד."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:596
+#: plugins/usb-protection/gsd-usb-protection-manager.c:597
 msgid "Reconnect USB device"
 msgstr "מחדש של התקן USB"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:597
+#: plugins/usb-protection/gsd-usb-protection-manager.c:598
 msgid ""
 "New device has been detected while you were away. Please disconnect and "
 "reconnect the device to start using it."
@@ -2445,18 +2422,18 @@ msgstr ""
 "התקן חדש זוהה כאשר לא היית בנמצא. נא לנתק ולחבר מחדש את ההתקן על מנת להתחיל "
 "להשתמש בו."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:603
-#: plugins/usb-protection/gsd-usb-protection-manager.c:628
+#: plugins/usb-protection/gsd-usb-protection-manager.c:604
+#: plugins/usb-protection/gsd-usb-protection-manager.c:629
 msgid "USB device blocked"
 msgstr "התקן USB חסום"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:604
+#: plugins/usb-protection/gsd-usb-protection-manager.c:605
 msgid ""
 "New device has been detected while you were away. It has been blocked "
 "because the USB protection is active."
 msgstr "התקן חדש זוהה כאשר לא היית בנמצא. הוא נחסם בגלל שהגנת USB פועלת."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:629
+#: plugins/usb-protection/gsd-usb-protection-manager.c:630
 msgid ""
 "The new inserted device has been blocked because the USB protection is "
 "active."
@@ -2489,17 +2466,14 @@ msgid "Phone failure"
 msgstr "כשל בטלפון"
 
 #: plugins/wwan/cc-wwan-errors-private.h:41
-#| msgid "Not connected?"
 msgid "No connection to phone"
 msgstr "אין חיבור לטלפון"
 
 #: plugins/wwan/cc-wwan-errors-private.h:43
-#| msgid "Updates not installed"
 msgid "Operation not allowed"
 msgstr "הפעולה לא מתאפשרת"
 
 #: plugins/wwan/cc-wwan-errors-private.h:44
-#| msgid "Rotation not supported"
 msgid "Operation not supported"
 msgstr "הפעולה לא נתמכת"
 
@@ -2540,13 +2514,10 @@ msgid "SIM PUK2 required"
 msgstr "דרוש PUK2 לכרטיס SIM"
 
 #: plugins/wwan/cc-wwan-errors-private.h:72
-#| msgid "Unknown time"
 msgid "Unknown error"
 msgstr "שגיאה לא ידועה"
 
 #: plugins/wwan/cc-wwan-errors-private.h:91
-#| msgctxt "print job state"
-#| msgid "Printing canceled"
 msgid "Action Cancelled"
 msgstr "פעולה בוטלה"
 
@@ -2555,7 +2526,6 @@ msgid "Access denied"
 msgstr "גישה נדחתה"
 
 #: plugins/wwan/cc-wwan-errors-private.h:103
-#| msgid "Unknown time"
 msgid "Unknown Error"
 msgstr "שגיאה לא ידועה"
 
@@ -2581,12 +2551,10 @@ msgstr "ביטול"
 
 #: plugins/wwan/gsd-wwan-manager.c:129
 #, c-format
-#| msgid "Please provide the PIN for SIM card %s"
 msgid "Please provide a new PIN for SIM card %s"
 msgstr "נא לספק PIN חדש עבור כרטיס ה־SIM ‏‏‎%s"
 
 #: plugins/wwan/gsd-wwan-manager.c:131
-#| msgid "Enter PIN to unlock your SIM card"
 msgid "Enter a New PIN to unlock your SIM card"
 msgstr "יש להזין PIN חדש לשחרור כרטיס ה־SIM שלך"
 
@@ -2601,33 +2569,37 @@ msgstr "יש להזין PIN לשחרור כרטיס ה־SIM שלך"
 
 #: plugins/wwan/gsd-wwan-manager.c:138
 #, c-format
-#| msgid "Please provide the PIN for SIM card %s"
 msgid "Please provide the PUK for SIM card %s"
 msgstr "נא לספק את ה־PUK עבור כרטיס ה־SIM ‏‏‎%s"
 
 #: plugins/wwan/gsd-wwan-manager.c:140
-#| msgid "Enter PIN to unlock your SIM card"
 msgid "Enter PUK to unlock your SIM card"
 msgstr "יש להזין PUK לשחרור כרטיס ה־SIM שלך"
 
 #. msg is already localised
 #: plugins/wwan/gsd-wwan-manager.c:156
 #, c-format
-#| msgid "%2$s You have %1$u try left"
-#| msgid_plural "%2$s You have %1$u tries left"
 msgid "%2$s. You have %1$u try left"
 msgid_plural "%2$s. You have %1$u tries left"
 msgstr[0] "‏%2$s. נותר לך ניסיון אחד (%1$u)"
 msgstr[1] "‏%2$s. נותרו לך %1$u נסיונות"
 msgstr[2] "‏%2$s. נותרו לך %1$u נסיונות"
+msgstr[3] "‏%2$s. נותרו לך %1$u נסיונות"
 
 #: plugins/wwan/gsd-wwan-manager.c:160
 #, c-format
 msgid "You have %u try left"
 msgid_plural "You have %u tries left"
 msgstr[0] "נותר לך ניסיון אחד"
-msgstr[1] "נותרו לך %u ניסיונות"
+msgstr[1] "נותרו לך שני ניסיונות"
 msgstr[2] "נותרו לך %u ניסיונות"
+msgstr[3] "נותרו לך %u ניסיונות"
+
+#~ msgid "Unable to capture a screenshot"
+#~ msgstr "לא ניתן לצלם את המסך"
+
+#~ msgid "Screenshot taken"
+#~ msgstr "המסך צולם"
 
 #~ msgid "SIM card unlock error"
 #~ msgstr "שגיאה בשחרור כרטיס ה־SIM"
