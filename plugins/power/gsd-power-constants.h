@@ -25,7 +25,7 @@
 #define IDLE_DIM_BLANK_DISABLED_MIN                     60 /* seconds */
 
 /* Which fraction of the idle-delay is the idle-dim delay */
-#define IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER                4.0/5.0
+#define IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER                1.0/2.0
 
 /* The dim delay under which we do not bother dimming */
 #define MINIMUM_IDLE_DIM_DELAY                          10 /* seconds */
