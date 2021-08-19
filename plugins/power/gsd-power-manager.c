@@ -501,7 +501,6 @@ static const struct {
         const char *crit_body;
         const char *crit_body_unk;
 } peripheral_battery_notifications[] = {
-        /* NOTE: Oddly all low/critical titles are identical here as of 2021-08-19 */
         {
                 .kind = UP_DEVICE_KIND_MOUSE,
                 /* TRANSLATORS: notification title, a wireless mouse is low or very low on power */
