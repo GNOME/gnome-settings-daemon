@@ -593,6 +593,162 @@ static const struct {
                 .crit_body_unk = N_("Attached computer is very low on power. "
                                     "The device will soon shutdown if not charged."),
         }, {
+                .kind = UP_DEVICE_KIND_GAMING_INPUT,
+                /* TRANSLATORS: notification title, a game controller (e.g. joystick or joypad) is low or very low on power */
+                .title         = N_("Game controller battery low"),
+
+                /* TRANSLATORS: notification body, a game controller (e.g. joystick or joypad) is low on power */
+                .low_body      = N_("Game controller is low in power (%.0f%%)"),
+                .low_body_unk  = N_("Game controller is low in power"),
+                /* TRANSLATORS: notification body, an attached game controller (e.g. joystick or joypad) is very low on power */
+                .crit_body     = N_("Game controller is very low in power (%.0f%%). "
+                                    "The device will soon shutdown if not charged."),
+                .crit_body_unk = N_("Game controller is very low in power. "
+                                    "The device will soon shutdown if not charged."),
+        }, {
+                .kind = UP_DEVICE_KIND_PEN,
+                /* TRANSLATORS: notification title, a pen is low or very low on power */
+                .title         = N_("Pen battery low"),
+
+                /* TRANSLATORS: notification body, a pen is low on power */
+                .low_body      = N_("Pen is low in power (%.0f%%)"),
+                .low_body_unk  = N_("Pen is low in power"),
+                /* TRANSLATORS: notification body, a pen is very low on power */
+                .crit_body     = N_("Pen is very low in power (%.0f%%). "
+                                    "The device will soon shutdown if not charged."),
+                .crit_body_unk = N_("Pen is very low in power. "
+                                    "The device will soon shutdown if not charged."),
+        }, {
+                .kind = UP_DEVICE_KIND_TOUCHPAD,
+                /* TRANSLATORS: notification title, an external touchpad is low or very low on power */
+                .title         = N_("Touchpad battery low"),
+
+                /* TRANSLATORS: notification body, an external touchpad is low on power */
+                .low_body      = N_("Touchpad is low in power (%.0f%%)"),
+                .low_body_unk  = N_("Touchpad is low in power"),
+                /* TRANSLATORS: notification body, an external touchpad is very low on power */
+                .crit_body     = N_("Touchpad is very low in power (%.0f%%). "
+                                    "The device will soon shutdown if not charged."),
+                .crit_body_unk = N_("Touchpad is very low in power. "
+                                    "The device will soon shutdown if not charged."),
+        }, {
+                .kind = UP_DEVICE_KIND_HEADSET,
+                /* TRANSLATORS: notification title, a headset (headphones + microphone) is low or very low on power */
+                .title         = N_("Headset battery low"),
+
+                /* TRANSLATORS: notification body, a headset (headphones + microphone) is low on power */
+                .low_body      = N_("Headset is low in power (%.0f%%)"),
+                .low_body_unk  = N_("Headset is low in power"),
+                /* TRANSLATORS: notification body, a headset (headphones + microphone) is very low on power */
+                .crit_body     = N_("Headset is very low in power (%.0f%%). "
+                                    "The device will soon shutdown if not charged."),
+                .crit_body_unk = N_("Headset is very low in power. "
+                                    "The device will soon shutdown if not charged."),
+        }, {
+                .kind = UP_DEVICE_KIND_SPEAKERS,
+                /* TRANSLATORS: notification title, speaker is low or very low on power */
+                .title         = N_("Speaker battery low"),
+
+                /* TRANSLATORS: notification body, a speaker is low on power */
+                .low_body      = N_("Speaker is low in power (%.0f%%)"),
+                .low_body_unk  = N_("Speaker is low in power"),
+                /* TRANSLATORS: notification body, a speaker is very low on power */
+                .crit_body     = N_("Speaker is very low in power (%.0f%%). "
+                                    "The device will soon shutdown if not charged."),
+                .crit_body_unk = N_("Speaker is very low in power. "
+                                    "The device will soon shutdown if not charged."),
+        }, {
+                .kind = UP_DEVICE_KIND_HEADPHONES,
+                /* TRANSLATORS: notification title, headphones (no microphone) are low or very low on power */
+                .title         = N_("Headphones battery low"),
+
+                /* TRANSLATORS: notification body, headphones (no microphone) are low on power */
+                .low_body      = N_("Headphones are low in power (%.0f%%)"),
+                .low_body_unk  = N_("Headphones are low in power"),
+                /* TRANSLATORS: notification body, headphones (no microphone) are very low on power */
+                .crit_body     = N_("Headphones are very low in power (%.0f%%). "
+                                    "The device will soon shutdown if not charged."),
+                .crit_body_unk = N_("Headphones are very low in power. "
+                                    "The device will soon shutdown if not charged."),
+        }, {
+                .kind = UP_DEVICE_KIND_OTHER_AUDIO,
+                /* TRANSLATORS: notification title, an audio device is low or very low on power */
+                .title         = N_("Audio device battery low"),
+
+                /* TRANSLATORS: notification body, an audio device is low on power */
+                .low_body      = N_("Audio device is low in power (%.0f%%)"),
+                .low_body_unk  = N_("Audio device is low in power"),
+                /* TRANSLATORS: notification body, an audio device is very low on power */
+                .crit_body     = N_("Audio device is very low in power (%.0f%%). "
+                                    "The device will soon shutdown if not charged."),
+                .crit_body_unk = N_("Audio device is very low in power. "
+                                    "The device will soon shutdown if not charged."),
+        }, {
+                .kind = UP_DEVICE_KIND_REMOTE_CONTROL,
+                /* TRANSLATORS: notification title, a remote control is low or very low on power */
+                .title         = N_("Remote battery low"),
+
+                /* TRANSLATORS: notification body, an remote control is low on power */
+                .low_body      = N_("Remote is low in power (%.0f%%)"),
+                .low_body_unk  = N_("Remote is low in power"),
+                /* TRANSLATORS: notification body, a remote control is very low on power */
+                .crit_body     = N_("Remote is very low in power (%.0f%%). "
+                                    "The device will soon shutdown if not charged."),
+                .crit_body_unk = N_("Remote is very low in power. "
+                                    "The device will soon shutdown if not charged."),
+        }, {
+                .kind = UP_DEVICE_KIND_PRINTER,
+                /* TRANSLATORS: notification title, a printer is low or very low on power */
+                .title         = N_("Printer battery low"),
+
+                /* TRANSLATORS: notification body, a printer is low on power */
+                .low_body      = N_("Printer is low in power (%.0f%%)"),
+                .low_body_unk  = N_("Printer is low in power"),
+                /* TRANSLATORS: notification body, a printer is very low on power */
+                .crit_body     = N_("Printer is very low in power (%.0f%%). "
+                                    "The device will soon shutdown if not charged."),
+                .crit_body_unk = N_("Printer is very low in power. "
+                                    "The device will soon shutdown if not charged."),
+        }, {
+                .kind = UP_DEVICE_KIND_SCANNER,
+                /* TRANSLATORS: notification title, a scanner is low or very low on power */
+                .title         = N_("Scanner battery low"),
+
+                /* TRANSLATORS: notification body, a scanner is low on power */
+                .low_body      = N_("Scanner is low in power (%.0f%%)"),
+                .low_body_unk  = N_("Scanner is low in power"),
+                /* TRANSLATORS: notification body, a scanner is very low on power */
+                .crit_body     = N_("Scanner is very low in power (%.0f%%). "
+                                    "The device will soon shutdown if not charged."),
+                .crit_body_unk = N_("Scanner is very low in power. "
+                                    "The device will soon shutdown if not charged."),
+        }, {
+                .kind = UP_DEVICE_KIND_CAMERA,
+                /* TRANSLATORS: notification title, a camera is low or very low on power */
+                .title         = N_("Camera battery low"),
+
+                /* TRANSLATORS: notification body, a camera is low on power */
+                .low_body      = N_("Camera is low in power (%.0f%%)"),
+                .low_body_unk  = N_("Camera is low in power"),
+                /* TRANSLATORS: notification body, a camera is very low on power */
+                .crit_body     = N_("Camera is very low in power (%.0f%%). "
+                                    "The device will soon shutdown if not charged."),
+                .crit_body_unk = N_("Camera is very low in power. "
+                                    "The device will soon shutdown if not charged."),
+        }, {
+                .kind = UP_DEVICE_KIND_BLUETOOTH_GENERIC,
+                /* TRANSLATORS: notification title, a Bluetooth device is low or very low on power */
+                .title         = N_("Bluetooth device battery low"),
+
+                /* TRANSLATORS: notification body, a Bluetooth device is low on power */
+                .low_body      = N_("Bluetooth device is low in power (%.0f%%)"),
+                .low_body_unk  = N_("Bluetooth device is low in power"),
+                /* TRANSLATORS: notification body, a Bluetooth device is very low on power */
+                .crit_body     = N_("Bluetooth device is very low in power (%.0f%%). "
+                                    "The device will soon shutdown if not charged."),
+                .crit_body_unk = N_("Bluetooth device is very low in power. "
+                                    "The device will soon shutdown if not charged."),
+        }, {
                 /* Last entry is the fallback (kind is actually unused)! */
                 .kind = UP_DEVICE_KIND_UNKNOWN,
                 /* TRANSLATORS: notification title, a connected (wireless) device or peripheral of unhandled type is low or very on power */
