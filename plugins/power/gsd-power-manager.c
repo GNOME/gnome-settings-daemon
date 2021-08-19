@@ -605,12 +605,12 @@ static const struct {
                 .title         = N_("Game controller battery low"),
 
                 /* TRANSLATORS: notification body, a game controller (e.g. joystick or joypad) is low on power */
-                .low_body      = N_("Game controller is low in power (%.0f%%)"),
-                .low_body_unk  = N_("Game controller is low in power"),
+                .low_body      = N_("Game controller is low on power (%.0f%%)"),
+                .low_body_unk  = N_("Game controller is low on power"),
                 /* TRANSLATORS: notification body, an attached game controller (e.g. joystick or joypad) is very low on power */
-                .crit_body     = N_("Game controller is very low in power (%.0f%%). "
+                .crit_body     = N_("Game controller is very low on power (%.0f%%). "
                                     "The device will soon shutdown if not charged."),
-                .crit_body_unk = N_("Game controller is very low in power. "
+                .crit_body_unk = N_("Game controller is very low on power. "
                                     "The device will soon shutdown if not charged."),
         }, {
                 .kind = UP_DEVICE_KIND_PEN,
@@ -618,12 +618,12 @@ static const struct {
                 .title         = N_("Pen battery low"),
 
                 /* TRANSLATORS: notification body, a pen is low on power */
-                .low_body      = N_("Pen is low in power (%.0f%%)"),
-                .low_body_unk  = N_("Pen is low in power"),
+                .low_body      = N_("Pen is low on power (%.0f%%)"),
+                .low_body_unk  = N_("Pen is low on power"),
                 /* TRANSLATORS: notification body, a pen is very low on power */
-                .crit_body     = N_("Pen is very low in power (%.0f%%). "
+                .crit_body     = N_("Pen is very low on power (%.0f%%). "
                                     "The device will soon shutdown if not charged."),
-                .crit_body_unk = N_("Pen is very low in power. "
+                .crit_body_unk = N_("Pen is very low on power. "
                                     "The device will soon shutdown if not charged."),
         }, {
                 .kind = UP_DEVICE_KIND_TOUCHPAD,
@@ -631,12 +631,12 @@ static const struct {
                 .title         = N_("Touchpad battery low"),
 
                 /* TRANSLATORS: notification body, an external touchpad is low on power */
-                .low_body      = N_("Touchpad is low in power (%.0f%%)"),
-                .low_body_unk  = N_("Touchpad is low in power"),
+                .low_body      = N_("Touchpad is low on power (%.0f%%)"),
+                .low_body_unk  = N_("Touchpad is low on power"),
                 /* TRANSLATORS: notification body, an external touchpad is very low on power */
-                .crit_body     = N_("Touchpad is very low in power (%.0f%%). "
+                .crit_body     = N_("Touchpad is very low on power (%.0f%%). "
                                     "The device will soon shutdown if not charged."),
-                .crit_body_unk = N_("Touchpad is very low in power. "
+                .crit_body_unk = N_("Touchpad is very low on power. "
                                     "The device will soon shutdown if not charged."),
         }, {
                 .kind = UP_DEVICE_KIND_HEADSET,
@@ -644,12 +644,12 @@ static const struct {
                 .title         = N_("Headset battery low"),
 
                 /* TRANSLATORS: notification body, a headset (headphones + microphone) is low on power */
-                .low_body      = N_("Headset is low in power (%.0f%%)"),
-                .low_body_unk  = N_("Headset is low in power"),
+                .low_body      = N_("Headset is low on power (%.0f%%)"),
+                .low_body_unk  = N_("Headset is low on power"),
                 /* TRANSLATORS: notification body, a headset (headphones + microphone) is very low on power */
-                .crit_body     = N_("Headset is very low in power (%.0f%%). "
+                .crit_body     = N_("Headset is very low on power (%.0f%%). "
                                     "The device will soon shutdown if not charged."),
-                .crit_body_unk = N_("Headset is very low in power. "
+                .crit_body_unk = N_("Headset is very low on power. "
                                     "The device will soon shutdown if not charged."),
         }, {
                 .kind = UP_DEVICE_KIND_SPEAKERS,
@@ -657,12 +657,12 @@ static const struct {
                 .title         = N_("Speaker battery low"),
 
                 /* TRANSLATORS: notification body, a speaker is low on power */
-                .low_body      = N_("Speaker is low in power (%.0f%%)"),
-                .low_body_unk  = N_("Speaker is low in power"),
+                .low_body      = N_("Speaker is low on power (%.0f%%)"),
+                .low_body_unk  = N_("Speaker is low on power"),
                 /* TRANSLATORS: notification body, a speaker is very low on power */
-                .crit_body     = N_("Speaker is very low in power (%.0f%%). "
+                .crit_body     = N_("Speaker is very low on power (%.0f%%). "
                                     "The device will soon shutdown if not charged."),
-                .crit_body_unk = N_("Speaker is very low in power. "
+                .crit_body_unk = N_("Speaker is very low on power. "
                                     "The device will soon shutdown if not charged."),
         }, {
                 .kind = UP_DEVICE_KIND_HEADPHONES,
@@ -670,12 +670,12 @@ static const struct {
                 .title         = N_("Headphones battery low"),
 
                 /* TRANSLATORS: notification body, headphones (no microphone) are low on power */
-                .low_body      = N_("Headphones are low in power (%.0f%%)"),
-                .low_body_unk  = N_("Headphones are low in power"),
+                .low_body      = N_("Headphones are low on power (%.0f%%)"),
+                .low_body_unk  = N_("Headphones are low on power"),
                 /* TRANSLATORS: notification body, headphones (no microphone) are very low on power */
-                .crit_body     = N_("Headphones are very low in power (%.0f%%). "
+                .crit_body     = N_("Headphones are very low on power (%.0f%%). "
                                     "The device will soon shutdown if not charged."),
-                .crit_body_unk = N_("Headphones are very low in power. "
+                .crit_body_unk = N_("Headphones are very low on power. "
                                     "The device will soon shutdown if not charged."),
         }, {
                 .kind = UP_DEVICE_KIND_OTHER_AUDIO,
@@ -683,12 +683,12 @@ static const struct {
                 .title         = N_("Audio device battery low"),
 
                 /* TRANSLATORS: notification body, an audio device is low on power */
-                .low_body      = N_("Audio device is low in power (%.0f%%)"),
-                .low_body_unk  = N_("Audio device is low in power"),
+                .low_body      = N_("Audio device is low on power (%.0f%%)"),
+                .low_body_unk  = N_("Audio device is low on power"),
                 /* TRANSLATORS: notification body, an audio device is very low on power */
-                .crit_body     = N_("Audio device is very low in power (%.0f%%). "
+                .crit_body     = N_("Audio device is very low on power (%.0f%%). "
                                     "The device will soon shutdown if not charged."),
-                .crit_body_unk = N_("Audio device is very low in power. "
+                .crit_body_unk = N_("Audio device is very low on power. "
                                     "The device will soon shutdown if not charged."),
         }, {
                 .kind = UP_DEVICE_KIND_REMOTE_CONTROL,
@@ -696,12 +696,12 @@ static const struct {
                 .title         = N_("Remote battery low"),
 
                 /* TRANSLATORS: notification body, an remote control is low on power */
-                .low_body      = N_("Remote is low in power (%.0f%%)"),
-                .low_body_unk  = N_("Remote is low in power"),
+                .low_body      = N_("Remote is low on power (%.0f%%)"),
+                .low_body_unk  = N_("Remote is low on power"),
                 /* TRANSLATORS: notification body, a remote control is very low on power */
-                .crit_body     = N_("Remote is very low in power (%.0f%%). "
+                .crit_body     = N_("Remote is very low on power (%.0f%%). "
                                     "The device will soon shutdown if not charged."),
-                .crit_body_unk = N_("Remote is very low in power. "
+                .crit_body_unk = N_("Remote is very low on power. "
                                     "The device will soon shutdown if not charged."),
         }, {
                 .kind = UP_DEVICE_KIND_PRINTER,
@@ -709,12 +709,12 @@ static const struct {
                 .title         = N_("Printer battery low"),
 
                 /* TRANSLATORS: notification body, a printer is low on power */
-                .low_body      = N_("Printer is low in power (%.0f%%)"),
-                .low_body_unk  = N_("Printer is low in power"),
+                .low_body      = N_("Printer is low on power (%.0f%%)"),
+                .low_body_unk  = N_("Printer is low on power"),
                 /* TRANSLATORS: notification body, a printer is very low on power */
-                .crit_body     = N_("Printer is very low in power (%.0f%%). "
+                .crit_body     = N_("Printer is very low on power (%.0f%%). "
                                     "The device will soon shutdown if not charged."),
-                .crit_body_unk = N_("Printer is very low in power. "
+                .crit_body_unk = N_("Printer is very low on power. "
                                     "The device will soon shutdown if not charged."),
         }, {
                 .kind = UP_DEVICE_KIND_SCANNER,
@@ -722,12 +722,12 @@ static const struct {
                 .title         = N_("Scanner battery low"),
 
                 /* TRANSLATORS: notification body, a scanner is low on power */
-                .low_body      = N_("Scanner is low in power (%.0f%%)"),
-                .low_body_unk  = N_("Scanner is low in power"),
+                .low_body      = N_("Scanner is low on power (%.0f%%)"),
+                .low_body_unk  = N_("Scanner is low on power"),
                 /* TRANSLATORS: notification body, a scanner is very low on power */
-                .crit_body     = N_("Scanner is very low in power (%.0f%%). "
+                .crit_body     = N_("Scanner is very low on power (%.0f%%). "
                                     "The device will soon shutdown if not charged."),
-                .crit_body_unk = N_("Scanner is very low in power. "
+                .crit_body_unk = N_("Scanner is very low on power. "
                                     "The device will soon shutdown if not charged."),
         }, {
                 .kind = UP_DEVICE_KIND_CAMERA,
@@ -735,12 +735,12 @@ static const struct {
                 .title         = N_("Camera battery low"),
 
                 /* TRANSLATORS: notification body, a camera is low on power */
-                .low_body      = N_("Camera is low in power (%.0f%%)"),
-                .low_body_unk  = N_("Camera is low in power"),
+                .low_body      = N_("Camera is low on power (%.0f%%)"),
+                .low_body_unk  = N_("Camera is low on power"),
                 /* TRANSLATORS: notification body, a camera is very low on power */
-                .crit_body     = N_("Camera is very low in power (%.0f%%). "
+                .crit_body     = N_("Camera is very low on power (%.0f%%). "
                                     "The device will soon shutdown if not charged."),
-                .crit_body_unk = N_("Camera is very low in power. "
+                .crit_body_unk = N_("Camera is very low on power. "
                                     "The device will soon shutdown if not charged."),
         }, {
                 .kind = UP_DEVICE_KIND_BLUETOOTH_GENERIC,
@@ -748,12 +748,12 @@ static const struct {
                 .title         = N_("Bluetooth device battery low"),
 
                 /* TRANSLATORS: notification body, a Bluetooth device is low on power */
-                .low_body      = N_("Bluetooth device is low in power (%.0f%%)"),
-                .low_body_unk  = N_("Bluetooth device is low in power"),
+                .low_body      = N_("Bluetooth device is low on power (%.0f%%)"),
+                .low_body_unk  = N_("Bluetooth device is low on power"),
                 /* TRANSLATORS: notification body, a Bluetooth device is very low on power */
-                .crit_body     = N_("Bluetooth device is very low in power (%.0f%%). "
+                .crit_body     = N_("Bluetooth device is very low on power (%.0f%%). "
                                     "The device will soon shutdown if not charged."),
-                .crit_body_unk = N_("Bluetooth device is very low in power. "
+                .crit_body_unk = N_("Bluetooth device is very low on power. "
                                     "The device will soon shutdown if not charged."),
         }, {
                 /* Last entry is the fallback (kind is actually unused)! */
