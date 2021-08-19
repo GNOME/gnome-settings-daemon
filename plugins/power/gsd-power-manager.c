@@ -496,7 +496,6 @@ static void
 engine_charge_low (GsdPowerManager *manager, UpDevice *device)
 {
         const gchar *title = NULL;
-        gboolean ret;
         gchar *message = NULL;
         gchar *tmp;
         gchar *remaining_text;
@@ -640,7 +639,6 @@ static void
 engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
 {
         const gchar *title = NULL;
-        gboolean ret;
         gchar *message = NULL;
         gdouble percentage;
         guint battery_level;
