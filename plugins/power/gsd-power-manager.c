@@ -501,6 +501,13 @@ static const struct {
         const char *crit_body;
         const char *crit_body_unk;
 } peripheral_battery_notifications[] = {
+        /* Intentionally skipped types (too uncommon, and name too imprecise):
+         * UP_DEVICE_KIND_MODEM
+         * UP_DEVICE_KIND_NETWORK
+         * UP_DEVICE_KIND_VIDEO
+         * UP_DEVICE_KIND_WEARABLE
+         * UP_DEVICE_KIND_TOY
+         */
         {
                 .kind = UP_DEVICE_KIND_MOUSE,
                 /* TRANSLATORS: notification title, a wireless mouse is low or very low on power */
