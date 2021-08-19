@@ -759,7 +759,7 @@ static const struct {
                 /* Last entry is the fallback (kind is actually unused)! */
                 .kind = UP_DEVICE_KIND_UNKNOWN,
                 /* TRANSLATORS: notification title, a connected (wireless) device or peripheral of unhandled type is low or very on power */
-                .title         = N_("Conected device battery is low"),
+                .title         = N_("Connected device battery is low"),
 
                 /* TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is low on power */
                 .low_body      = N_("A connected device is low on power (%.0f%%)"),
