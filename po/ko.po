@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the gnome-settings-daemon package.
 #
 # Young-Ho Cha <ganadist@chollian.net>, 2002, 2006
-# Changwoo Ryu <cwryu@debian.org>, 2002-2006, 2007-2020.
+# Changwoo Ryu <cwryu@debian.org>, 2002-2006, 2007-2021.
 #
 # - 용어
 #   - calibration (주로 색) => 보정
@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2020-09-03 20:47+0000\n"
-"PO-Revision-Date: 2020-09-05 21:01+0900\n"
+"POT-Creation-Date: 2021-09-04 08:49+0000\n"
+"PO-Revision-Date: 2021-09-04 21:48+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
@@ -26,11 +26,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid "Smartcard removal action"
 msgstr "스마트카트 제거 동작"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:13
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
 msgid ""
 "Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
 "get performed when the smartcard used for log in is removed."
@@ -38,66 +38,50 @@ msgstr ""
 "“none”, “lock-screen”, “force-logout” 중의 하나로 설정합니다. 로그인할 때 사"
 "용한 스마트카드를 제거했을 때 해당 동작을 수행합니다."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:25
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:24
 msgid "Possible values are “on”, “off”, and “custom”."
 msgstr "가능한 값은  “on”, “off”, “custom”."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:35
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:34
 msgid "Keyboard Bell Custom Filename"
 msgstr "사용자 지정 키보드 삑소리 파일 이름"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:36
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:35
 msgid "File name of the bell sound to be played."
 msgstr "삑소리를 재생할 때 사용할 파일의 이름."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:42
-msgid "Double click time"
-msgstr "두 번 누르기 시간"
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:43
-msgid "Length of a double click in milliseconds."
-msgstr "두 번 누르기 간격, 밀리초 단위."
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:47
-msgid "Drag threshold"
-msgstr "끌어놓기 임계값"
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:48
-msgid "Distance before a drag is started."
-msgstr "끌어놓기가 시작할 거리."
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:54
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:41
 msgid "Whether the tablet’s orientation is locked, or rotated automatically."
 msgstr "디지타이저의 방향을 고정할지, 아니면 자동으로 회전할지 여부."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:62
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:49
 msgid "Mouse button orientation"
 msgstr "마우스 단추 방향"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:63
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:50
 msgid "Swap left and right mouse buttons for left-handed mice."
 msgstr "왼손잡이 마우스에 맞춰 왼쪽과 오른쪽 마우스 단추를 뒤바꿉니다."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:67
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:134
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:54
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:131
 msgid "Single Click"
 msgstr "단일 단추 누르기"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:68
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:135
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:55
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:132
 msgid ""
 "Acceleration multiplier for mouse motion. A value of -1 is the system "
 "default."
 msgstr ""
 "마우스 동작의 가속 가중치 계수. 값이 -1이면 시스템 기본값을 사용합니다."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:72
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:139
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:59
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:136
 msgid "Motion Threshold"
 msgstr "동작 임계값"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:73
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:140
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:60
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:137
 msgid ""
 "Distance in pixels the pointer must move before accelerated mouse motion is "
 "activated. A value of -1 is the system default."
@@ -105,47 +89,63 @@ msgstr ""
 "가속된 마우스 동작이 발견되었을 때 포인터가 움직일 거리, 픽셀 수 단위. 값이 "
 "-1이면 시스템 기본값을 사용합니다."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:77
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:64
 msgid "Middle button emulation"
 msgstr "마우스 가운데 단추 흉내내기"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:78
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:65
 msgid ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
 msgstr "마우스 왼쪽과 오른쪽 단추를 동시에 눌러 가운데 단추를 흉내냅니다."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:87
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:69
+msgid "Double click time"
+msgstr "두 번 누르기 시간"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:70
+msgid "Length of a double click in milliseconds."
+msgstr "두 번 누르기 간격, 밀리초 단위."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:74
+msgid "Drag threshold"
+msgstr "끌어놓기 임계값"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:75
+msgid "Distance before a drag is started."
+msgstr "끌어놓기가 시작할 거리."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:84
 msgid "Key Repeat Interval"
 msgstr "키 반복 간격"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:88
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:85
 msgid "Delay between repeats in milliseconds."
 msgstr "키 반복 사이의 지연 시간, 밀리초 단위."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:92
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:89
 msgid "Initial Key Repeat Delay"
 msgstr "최초의 키 반복 지연 시간"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:93
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:90
 msgid "Initial key repeat delay in milliseconds."
 msgstr "최초의 키 반복 지연 시간, 밀리초 단위."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:97
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:94
 msgid "Remember NumLock state"
 msgstr "NumLock 상태 저장"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:98
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:95
 msgid ""
 "When set to true, GNOME will remember the state of the NumLock LED between "
 "sessions."
 msgstr "참이면, 그놈 세션 사이에 NumLock LED의 상태를 저장합니다."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:104
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:101
 msgid "Disable touchpad while typing"
 msgstr "키 입력하는 동안 터치패드 중지"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:105
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:102
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
@@ -153,11 +153,11 @@ msgstr ""
 "키 입력하는 동안 실수로 터치패드를 건드리는 문제가 있으면 이 값을 참으로 하십"
 "시오."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:109
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:106
 msgid "Enable horizontal scrolling"
 msgstr "가로 스크롤 사용"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:110
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:107
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
@@ -165,11 +165,11 @@ msgstr ""
 "참이면 scroll_method 키에서 선택한 방법과 같은 방식으로 가로 스크롤을 허용합"
 "니다."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:114
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:111
 msgid "Select the touchpad scroll method"
 msgstr "터치패드 스크롤 방식 선택"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:115
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:112
 msgid ""
 "Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
 "scrolling”, “two-finger-scrolling”."
@@ -177,29 +177,29 @@ msgstr ""
 "터치패드 스크롤 방식을 선택합니다. 지원하는 값은: “disabled”, “edge-"
 "scrolling”, “two-finger-scrolling”."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:119
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:116
 msgid "Enable mouse clicks with touchpad"
 msgstr "터치패드로 마우스 단추 누르기를 사용합니다"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:120
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:117
 msgid ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr ""
 "터치패드를 두드려서 마우스 단추를 누르는 신호를 보내려면 참으로 하십시오."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:124
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:121
 msgid "Enable touchpad"
 msgstr "터치패드 사용"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:125
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:122
 msgid "Set this to TRUE to enable all touchpads."
 msgstr "모든 터치패드를 사용하려면 이 값을 참으로 하십시오."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:129
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:126
 msgid "Touchpad button orientation"
 msgstr "터치패드 단추 방향"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:130
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:127
 msgid ""
 "Swap left and right mouse buttons for left-handed mice with “left”, “right” "
 "for right-handed, “mouse” to follow the mouse setting."
@@ -207,17 +207,17 @@ msgstr ""
 "“left”로 설정하면 왼손잡이용으로 왼쪽과 오른쪽 마우스 단추를 뒤바꿉니다. "
 "“right”는 오른손잡이용이고, “mouse”는 마우스 설정을 따릅니다."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:144
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:141
 msgid "Natural scrolling"
 msgstr "자연스러운 스크롤"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:145
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:142
 msgid "Set this to TRUE to enable natural (reverse) scrolling for touchpads."
 msgstr ""
 "터치패드 스크롤 방향을 자연스러운 (뒤집은) 방향으로 하려면 이 값을 참으로 하"
 "십시오."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:152
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:149
 msgid "Mouse wheel emulation button. 0 to disable the feature."
 msgstr "마우스 휠 흉내내기 단추. 0이면 이 기능을 사용하지 않습니다."
 
@@ -1401,6 +1401,18 @@ msgstr ""
 "시스템 전원 단추를 눌렀을 때 할 동작. 이 동작은 가상 머신 (전원 끄기) 및 태블"
 "릿 (절전) 환경에서는 하드 코딩되어 있으므로 무시됩니다."
 
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:46
+msgid "Enable power-saver profile when battery is low"
+msgstr "배터리가 부족할 때 전기 절약 프로파일을 사용합니다"
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:47
+msgid ""
+"Automatically enable the \"power-saver\" profile using power-profiles-daemon "
+"if the battery is low."
+msgstr ""
+"배터리가 부족할 때 자동으로 power-profiles-daemon을 이용해 \"power-saver\" 프"
+"로파일을 사용합니다."
+
 #: data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in:6
 msgid "On which connections the service is enabled"
 msgstr "서비스를 사용할 연결"
@@ -1414,10 +1426,48 @@ msgstr ""
 "UUID로 지정."
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:6
+msgid "List of explicitly disabled GTK+ modules"
+msgstr "명시적으로 사용 금지한 GTK+ 모듈 목록"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:7
+msgid ""
+"A list of strings representing the GTK+ modules that will not be loaded, "
+"even if enabled by default in their configuration."
+msgstr ""
+"읽어들이지 않을 GTK+ 모듈을 나타내는 문자열의 목록. 설정에 기본값으로 사용했"
+"다고 표시했더라도 사용하지 않음."
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:11
+msgid "List of explicitly enabled GTK+ modules"
+msgstr "명시적으로 사용 지정한 GTK+ 모듈 목록"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:12
+msgid ""
+"A list of strings representing the GTK+ modules that will be loaded, usually "
+"in addition to conditional and forcibly disabled ones."
+msgstr ""
+"읽어들일 GTK+ 모듈을 나타내는 문자열의 목록. 보통 조건에 따라 읽어들이거나 강"
+"제로 사용 금지할 모듈과 별개로 추가로 읽어들일 모듈."
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:16
+msgid "A dictionary of XSETTINGS to override"
+msgstr "설정할 XSETTINGS 딕셔너리."
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:17
+msgid ""
+"This dictionary maps XSETTINGS names to overrides values. The values must be "
+"either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
+"(red, green, blue, alpha; 65535 is fully opaque)."
+msgstr ""
+"설정할 XSETTINGS 이름의 딕셔너리. 이 값은 문자열, 부호 있는 32비트 정수, (색"
+"의 경우) 부호 없는 16비트 정수의 4개 튜플 (빨강, 녹색, 파랑, 알파: 알파값 "
+"65535는 완전히 불투명한 값입니다) 중의 하나입니다."
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:23
 msgid "Antialiasing"
 msgstr "안티알리아싱"
 
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:7
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:24
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
@@ -1427,11 +1477,11 @@ msgstr ""
 "티알리아싱 없음, “grayscale”이면 표준 그레이스케일 안티알리아싱, “rgba”이면 "
 "서브픽셀 안티알리아싱(LCD 화면 전용)."
 
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:11
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:28
 msgid "Hinting"
 msgstr "힌팅"
 
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:12
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:29
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: “none” "
 "for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
@@ -1454,11 +1504,11 @@ msgstr ""
 "글꼴의 품질, 글꼴의 형식, FreeType 글꼴 엔진의 상태에 따라서 글자 모양이 일그"
 "러지거나 일관성이 없게 렌더링될 수도 있습니다."
 
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:16
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:33
 msgid "RGBA order"
 msgstr "RGBA 순서"
 
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:17
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:34
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to “rgba”. Possible values are: “rgb” for red on left (most common), "
@@ -1467,44 +1517,6 @@ msgstr ""
 "LCD 화면에서 서브픽셀의 순서. 안티알리아싱이 “rgba”일 경우에만 사용합니다. 사"
 "용 가능한 값은: “rgb”이면 빨강이 왼쪽(대부분 사용하는 값), “bgr”이면 파랑이 "
 "왼쪽, “vrgb”이면 빨강이 맨 위, “vbgr”이면 빨강이 맨 아래."
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:21
-msgid "List of explicitly disabled GTK+ modules"
-msgstr "명시적으로 사용 금지한 GTK+ 모듈 목록"
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:22
-msgid ""
-"A list of strings representing the GTK+ modules that will not be loaded, "
-"even if enabled by default in their configuration."
-msgstr ""
-"읽어들이지 않을 GTK+ 모듈을 나타내는 문자열의 목록. 설정에 기본값으로 사용했"
-"다고 표시했더라도 사용하지 않음."
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:26
-msgid "List of explicitly enabled GTK+ modules"
-msgstr "명시적으로 사용 지정한 GTK+ 모듈 목록"
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:27
-msgid ""
-"A list of strings representing the GTK+ modules that will be loaded, usually "
-"in addition to conditional and forcibly disabled ones."
-msgstr ""
-"읽어들일 GTK+ 모듈을 나타내는 문자열의 목록. 보통 조건에 따라 읽어들이거나 강"
-"제로 사용 금지할 모듈과 별개로 추가로 읽어들일 모듈."
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:31
-msgid "A dictionary of XSETTINGS to override"
-msgstr "설정할 XSETTINGS 딕셔너리."
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:32
-msgid ""
-"This dictionary maps XSETTINGS names to overrides values. The values must be "
-"either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
-"(red, green, blue, alpha; 65535 is fully opaque)."
-msgstr ""
-"설정할 XSETTINGS 이름의 딕셔너리. 이 값은 문자열, 부호 있는 32비트 정수, (색"
-"의 경우) 부호 없는 16비트 정수의 4개 튜플 (빨강, 녹색, 파랑, 알파: 알파값 "
-"65535는 완전히 불투명한 값입니다) 중의 하나입니다."
 
 #: plugins/color/gsd-color-calibrate.c:138
 msgid "Color"
@@ -1567,28 +1579,28 @@ msgstr "설정"
 msgid "Date & Time Settings"
 msgstr "날짜 및 시간 설정"
 
-#: plugins/housekeeping/gsd-disk-space.c:629
+#: plugins/housekeeping/gsd-disk-space.c:628
 msgid "Disk Space"
 msgstr "디스크 공간"
 
-#: plugins/housekeeping/gsd-disk-space.c:642
+#: plugins/housekeeping/gsd-disk-space.c:641
 msgid "Examine"
 msgstr "검사"
 
-#: plugins/housekeeping/gsd-disk-space.c:653
+#: plugins/housekeeping/gsd-disk-space.c:652
 msgid "Empty Trash"
 msgstr "휴지통 비우기"
 
-#: plugins/housekeeping/gsd-disk-space.c:661
+#: plugins/housekeeping/gsd-disk-space.c:660
 msgid "Ignore"
 msgstr "무시"
 
-#: plugins/housekeeping/gsd-disk-space.c:692
+#: plugins/housekeeping/gsd-disk-space.c:691
 #, c-format
 msgid "Low Disk Space on “%s”"
 msgstr "디스크 공간 부족(“%s”)"
 
-#: plugins/housekeeping/gsd-disk-space.c:694
+#: plugins/housekeeping/gsd-disk-space.c:693
 #, c-format
 msgid ""
 "The volume “%s” has only %s disk space remaining.  You may free up some "
@@ -1597,16 +1609,16 @@ msgstr ""
 "“%s” 볼륨에 디스크 공간이 %s 밖에 남지 않았습니다. 휴지통을 비우면 공간을 확"
 "보할 수 있습니다."
 
-#: plugins/housekeeping/gsd-disk-space.c:698
+#: plugins/housekeeping/gsd-disk-space.c:697
 #, c-format
 msgid "The volume “%s” has only %s disk space remaining."
 msgstr "“%s” 볼륨에 디스크 공간이 %s 밖에 남지 않았습니다."
 
-#: plugins/housekeeping/gsd-disk-space.c:703
+#: plugins/housekeeping/gsd-disk-space.c:702
 msgid "Low Disk Space"
 msgstr "디스크 공간 부족"
 
-#: plugins/housekeeping/gsd-disk-space.c:705
+#: plugins/housekeeping/gsd-disk-space.c:704
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1615,28 +1627,28 @@ msgstr ""
 "이 컴퓨터에 디스크 공간이 %s 밖에 남지 않았습니다. 휴지통을 비우면 공간을 확"
 "보할 수 있습니다."
 
-#: plugins/housekeeping/gsd-disk-space.c:708
+#: plugins/housekeeping/gsd-disk-space.c:707
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "이 컴퓨터에 디스크 공간이 %s 밖에 남지 않았습니다."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2468
+#: plugins/media-keys/gsd-media-keys-manager.c:2480
 msgid "Bluetooth disabled"
 msgstr "블루투스 사용 중지"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2471
+#: plugins/media-keys/gsd-media-keys-manager.c:2483
 msgid "Bluetooth enabled"
 msgstr "블루투스 사용 중"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2475
+#: plugins/media-keys/gsd-media-keys-manager.c:2487
 msgid "Airplane mode enabled"
 msgstr "비행기 모드 사용 중"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2478
+#: plugins/media-keys/gsd-media-keys-manager.c:2490
 msgid "Airplane mode disabled"
 msgstr "비행기 모드 사용 중지"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2507
+#: plugins/media-keys/gsd-media-keys-manager.c:2529
 msgid "Hardware Airplane Mode"
 msgstr "하드웨어 비행기 모드"
 
@@ -1644,22 +1656,14 @@ msgstr "하드웨어 비행기 모드"
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2570
+#: plugins/media-keys/gsd-media-keys-manager.c:2592
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "스크린샷, %d %t.webm"
 
-#: plugins/media-keys/gsd-screenshot-utils.c:82
-msgid "Unable to capture a screenshot"
-msgstr "스크린샷을 찍을 수 없습니다"
-
-#: plugins/media-keys/gsd-screenshot-utils.c:125
-msgid "Screenshot taken"
-msgstr "스크린샷을 찍었습니다"
-
 #. translators: this is the name of the file that gets made up
 #. * with the screenshot
-#: plugins/media-keys/gsd-screenshot-utils.c:264
+#: plugins/media-keys/gsd-screenshot-utils.c:240
 #, c-format
 msgid "Screenshot from %s"
 msgstr "스크린샷, %s"
@@ -1698,206 +1702,731 @@ msgid_plural "minutes"
 msgstr[0] "분"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:791
-#: plugins/power/gsd-power-manager.c:888
+#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:960
+#: plugins/power/gsd-power-manager.c:1052
 msgid "Battery is critically low"
 msgstr "배터리가 전력이 위험 수준으로 부족합니다"
 
 #. TRANSLATORS: this is the notification application name
-#: plugins/power/gsd-power-manager.c:356
+#: plugins/power/gsd-power-manager.c:366
 msgid "Power"
 msgstr "전원"
 
 #. TRANSLATORS: UPS is now discharging
-#: plugins/power/gsd-power-manager.c:396
+#: plugins/power/gsd-power-manager.c:406
 msgid "UPS Discharging"
 msgstr "UPS 방전 중"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:401
+#: plugins/power/gsd-power-manager.c:411
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "UPS 비상 전원 %s 남음"
 
-#: plugins/power/gsd-power-manager.c:404
+#: plugins/power/gsd-power-manager.c:414
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "UPS 비상 전원 남은 양 알 수 없음"
 
-#. TRANSLATORS: laptop battery low, and we only have one battery
-#: plugins/power/gsd-power-manager.c:484
+#. TRANSLATORS: notification title, a wireless mouse is low or very low on power
+#: plugins/power/gsd-power-manager.c:514
+msgid "Mouse battery low"
+msgstr "마우스 배터리 전원 부족"
+
+#. TRANSLATORS: notification body, a wireless mouse is low on power
+#: plugins/power/gsd-power-manager.c:517
+#, c-format
+msgid "Wireless mouse is low on power (%.0f%%)"
+msgstr "무선 마우스 배터리가 부족합니다 (%.0f%%)"
+
+#: plugins/power/gsd-power-manager.c:518
+msgid "Wireless mouse is low on power"
+msgstr "무선 마우스 배터리가 부족합니다"
+
+#. TRANSLATORS: notification body, a wireless mouse is very low on power
+#: plugins/power/gsd-power-manager.c:520
+#, c-format
+msgid ""
+"Wireless mouse is very low on power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"무선 마우스의 배터리가 매우 부족합니다 (%.0f%%). 충전하지 않으면 이 장치는 "
+"곧 기능을 멈춥니다."
+
+#: plugins/power/gsd-power-manager.c:522
+msgid ""
+"Wireless mouse is very low on power. This device will soon stop functioning "
+"if not charged."
+msgstr ""
+"무선 마우스의 배터리가 매우 부족합니다. 충전하지 않으면 이 장치는 곧 기능을 "
+"멈춥니다."
+
+#. TRANSLATORS: notification title, a wireless keyboard is low or very low on power
+#: plugins/power/gsd-power-manager.c:527
+msgid "Keyboard battery low"
+msgstr "키보드 배터리 부족"
+
+#. TRANSLATORS: notification body, a wireless keyboard is low on power
+#: plugins/power/gsd-power-manager.c:530
+#, c-format
+msgid "Wireless keyboard is low on power (%.0f%%)"
+msgstr "무선 키보드 배터리가 부족합니다 (%.0f%%)"
+
+#: plugins/power/gsd-power-manager.c:531
+msgid "Wireless keyboard is low on power"
+msgstr "무선 키보드 배터리가 부족합니다"
+
+#. TRANSLATORS: notification body, a wireless keyboard is very low on power
+#: plugins/power/gsd-power-manager.c:533
+#, c-format
+msgid ""
+"Wireless keyboard is very low on power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"무선 키보드의 배터리가 매우 부족합니다 (%.0f%%). 충전하지 않으면 이 장치는 "
+"곧 기능을 멈춥니다."
+
+#: plugins/power/gsd-power-manager.c:535
+msgid ""
+"Wireless keyboard is very low on power. This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"무선 키보드의 배터리가 매우 부족합니다. 충전하지 않으면 이 장치는 곧 기능을 "
+"멈춥니다."
+
+#. TRANSLATORS: notification title, a PDA (Personal Digital Assistance device) is low or very on power
+#: plugins/power/gsd-power-manager.c:540
+msgid "PDA battery low"
+msgstr "PDA 배터리 부족"
+
+#. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is low on power
+#: plugins/power/gsd-power-manager.c:543
+#, c-format
+msgid "PDA is low on power (%.0f%%)"
+msgstr "PDA 배터리가 부족합니다 (%.0f%%)"
+
+#: plugins/power/gsd-power-manager.c:544
+msgid "PDA is low on power"
+msgstr "PDA 배터리가 부족합니다"
+
+#. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is very low on power
+#: plugins/power/gsd-power-manager.c:546
+#, c-format
+msgid ""
+"PDA is very low on power (%.0f%%). This device will soon stop functioning if "
+"not charged."
+msgstr ""
+"PDA의 배터리가 매우 부족합니다 (%.0f%%). 충전하지 않으면 이 장치는 곧 기능을 "
+"멈춥니다."
+
+#: plugins/power/gsd-power-manager.c:548
+msgid ""
+"PDA is very low on power. This device will soon stop functioning if not "
+"charged."
+msgstr ""
+"PDA의 배터리가 매우 부족합니다. 충전하지 않으면 이 장치는 곧 기능을 멈춥니다."
+
+#. TRANSLATORS: notification title, a cell phone (mobile phone) is low or very low on power
+#: plugins/power/gsd-power-manager.c:553
+msgid "Cell phone battery low"
+msgstr "휴대전화 배터리 부족"
+
+#. TRANSLATORS: notification body, a cell phone (mobile phone) is low on power
+#: plugins/power/gsd-power-manager.c:556
+#, c-format
+msgid "Cell phone is low on power (%.0f%%)"
+msgstr "휴대전화 배터리가 부족합니다 (%.0f%%)"
+
+#: plugins/power/gsd-power-manager.c:557
+msgid "Cell phone is low on power"
+msgstr "휴대전화 배터리가 부족합니다"
+
+#. TRANSLATORS: notification body, a cell phone (mobile phone) is very low on power
+#: plugins/power/gsd-power-manager.c:559
+#, c-format
+msgid ""
+"Cell phone is very low on power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"휴대전화의 배터리가 매우 부족합니다 (%.0f%%). 충전하지 않으면 이 장치는 곧 기"
+"능을 멈춥니다."
+
+#: plugins/power/gsd-power-manager.c:561
+msgid ""
+"Cell phone is very low on power. This device will soon stop functioning if "
+"not charged."
+msgstr ""
+"휴대전화의 배터리가 매우 부족합니다. 충전하지 않으면 이 장치는 곧 기능을 멈춥"
+"니다."
+
+#. TRANSLATORS: notification title, a media player (e.g. mp3 player) is low or very low on power
+#: plugins/power/gsd-power-manager.c:566
+msgid "Media player battery low"
+msgstr "미디어 플레이어 배터리 부족"
+
+#. TRANSLATORS: notification body, a media player (e.g. mp3 player) is low on power
+#: plugins/power/gsd-power-manager.c:569
+#, c-format
+msgid "Media player is low on power (%.0f%%)"
+msgstr "미디어 플레이어 배터리가 부족합니다 (%.0f%%)"
+
+#: plugins/power/gsd-power-manager.c:570
+msgid "Media player is low on power"
+msgstr "미디어 플레이어 배터리가 부족합니다"
+
+#. TRANSLATORS: notification body, a media player (e.g. mp3 player) is very low on power
+#: plugins/power/gsd-power-manager.c:572
+#, c-format
+msgid ""
+"Media player is very low on power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"미디어 플레이어의 배터리가 매우 부족합니다 (%.0f%%). 충전하지 않으면 이 장치"
+"는 곧 기능을 멈춥니다."
+
+#: plugins/power/gsd-power-manager.c:574
+msgid ""
+"Media player is very low on power. This device will soon stop functioning if "
+"not charged."
+msgstr ""
+"미디어 플레이어의 배터리가 매우 부족합니다. 충전하지 않으면 이 장치는 곧 기능"
+"을 멈춥니다."
+
+#. TRANSLATORS: notification title, a graphics tablet (e.g. wacom) is low or very low on power
+#: plugins/power/gsd-power-manager.c:579
+msgid "Tablet battery low"
+msgstr "디지타이저 배터리 부족"
+
+#. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is low on power
+#: plugins/power/gsd-power-manager.c:582
+#, c-format
+msgid "Tablet is low on power (%.0f%%)"
+msgstr "디지타이저 배터리가 부족합니다 (%.0f%%)"
+
+#: plugins/power/gsd-power-manager.c:583
+msgid "Tablet is low on power"
+msgstr "디지타이저 배터리가 부족합니다"
+
+#. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is very low on power
+#: plugins/power/gsd-power-manager.c:585
+#, c-format
+msgid ""
+"Tablet is very low on power (%.0f%%). This device will soon stop functioning "
+"if not charged."
+msgstr ""
+"디지타이저의 배터리가 매우 부족합니다 (%.0f%%). 충전하지 않으면 이 장치는 곧 "
+"기능을 멈춥니다."
+
+#: plugins/power/gsd-power-manager.c:587
+msgid ""
+"Tablet is very low on power. This device will soon stop functioning if not "
+"charged."
+msgstr ""
+"디지타이저의 배터리가 매우 부족합니다. 충전하지 않으면 이 장치는 곧 기능을 멈"
+"춥니다."
+
+#. TRANSLATORS: notification title, an attached computer (e.g. ipad) is low or very low on power
+#: plugins/power/gsd-power-manager.c:592
+msgid "Attached computer battery low"
+msgstr "연결된 컴퓨터 배터리 부족"
+
+#. TRANSLATORS: notification body, an attached computer (e.g. ipad) is low on power
+#: plugins/power/gsd-power-manager.c:595
+#, c-format
+msgid "Attached computer is low on power (%.0f%%)"
+msgstr "연결된 컴퓨터의 배터리가 부족합니다 (%.0f%%)"
+
+#: plugins/power/gsd-power-manager.c:596
+msgid "Attached computer is low on power"
+msgstr "연결된 컴퓨터의 배터리가 부족합니다"
+
+#. TRANSLATORS: notification body, an attached computer (e.g. ipad) is very low on power
+#: plugins/power/gsd-power-manager.c:598
+#, c-format
+msgid ""
+"Attached computer is very low on power (%.0f%%). The device will soon "
+"shutdown if not charged."
+msgstr ""
+"연결한 컴퓨터의 배터리가 매우 부족합니다 (%.0f%%). 충전하지 않으면 이 장치는 "
+"곧 기능을 멈춥니다."
+
+#: plugins/power/gsd-power-manager.c:600
+msgid ""
+"Attached computer is very low on power. The device will soon shutdown if not "
+"charged."
+msgstr ""
+"연결한 컴퓨터의 배터리가 매우 부족합니다. 충전하지 않으면 이 장치는 곧 기능"
+"을 멈춥니다."
+
+#. TRANSLATORS: notification title, a game controller (e.g. joystick or joypad) is low or very low on power
+#: plugins/power/gsd-power-manager.c:605
+msgid "Game controller battery low"
+msgstr "게임 컨트롤러 배터리 부족"
+
+#. TRANSLATORS: notification body, a game controller (e.g. joystick or joypad) is low on power
+#: plugins/power/gsd-power-manager.c:608
+#, c-format
+msgid "Game controller is low on power (%.0f%%)"
+msgstr "게임 컨트롤러의 배터리가 부족합니다 (%.0f%%)"
+
+#: plugins/power/gsd-power-manager.c:609
+msgid "Game controller is low on power"
+msgstr "게임 컨트롤러의 배터리가 부족합니다"
+
+#. TRANSLATORS: notification body, an attached game controller (e.g. joystick or joypad) is very low on power
+#: plugins/power/gsd-power-manager.c:611
+#, c-format
+msgid ""
+"Game controller is very low on power (%.0f%%). The device will soon shutdown "
+"if not charged."
+msgstr ""
+"게임 컨트롤러의 배터리가 매우 부족합니다 (%.0f%%). 충전하지 않으면 이 장치는 "
+"곧 기능을 멈춥니다."
+
+#: plugins/power/gsd-power-manager.c:613
+msgid ""
+"Game controller is very low on power. The device will soon shutdown if not "
+"charged."
+msgstr ""
+"게임 컨트롤러의 배터리가 매우 부족합니다. 충전하지 않으면 이 장치는 곧 기능"
+"을 멈춥니다."
+
+#. TRANSLATORS: notification title, a pen is low or very low on power
+#: plugins/power/gsd-power-manager.c:618
+msgid "Pen battery low"
+msgstr "펜 배터리 부족"
+
+#. TRANSLATORS: notification body, a pen is low on power
+#: plugins/power/gsd-power-manager.c:621
+#, c-format
+msgid "Pen is low on power (%.0f%%)"
+msgstr "펜의 배터리가 부족합니다 (%.0f%%)"
+
+#: plugins/power/gsd-power-manager.c:622
+msgid "Pen is low on power"
+msgstr "펜의 배터리가 부족합니다"
+
+#. TRANSLATORS: notification body, a pen is very low on power
+#: plugins/power/gsd-power-manager.c:624
+#, c-format
+msgid ""
+"Pen is very low on power (%.0f%%). The device will soon shutdown if not "
+"charged."
+msgstr ""
+"펜의 배터리가 매우 부족합니다 (%.0f%%). 충전하지 않으면 이 장치는 곧 기능을 "
+"멈춥니다."
+
+#: plugins/power/gsd-power-manager.c:626
+msgid "Pen is very low on power. The device will soon shutdown if not charged."
+msgstr ""
+"펜의 배터리가 매우 부족합니다. 충전하지 않으면 이 장치는 곧 기능을 멈춥니다."
+
+#. TRANSLATORS: notification title, an external touchpad is low or very low on power
+#: plugins/power/gsd-power-manager.c:631
+msgid "Touchpad battery low"
+msgstr "터치패드 배터리 부족"
+
+#. TRANSLATORS: notification body, an external touchpad is low on power
+#: plugins/power/gsd-power-manager.c:634
+#, c-format
+msgid "Touchpad is low on power (%.0f%%)"
+msgstr "터치패드 배터리가 부족합니다 (%.0f%%)"
+
+#: plugins/power/gsd-power-manager.c:635
+msgid "Touchpad is low on power"
+msgstr "터치패드 배터리가 부족합니다"
+
+#. TRANSLATORS: notification body, an external touchpad is very low on power
+#: plugins/power/gsd-power-manager.c:637
+#, c-format
+msgid ""
+"Touchpad is very low on power (%.0f%%). The device will soon shutdown if not "
+"charged."
+msgstr ""
+"터치패드의 배터리가 매우 부족합니다 (%.0f%%). 충전하지 않으면 이 장치는 곧 기"
+"능을 멈춥니다."
+
+#: plugins/power/gsd-power-manager.c:639
+msgid ""
+"Touchpad is very low on power. The device will soon shutdown if not charged."
+msgstr ""
+"터치패드의 배터리가 매우 부족합니다. 충전하지 않으면 이 장치는 곧 기능을 멈춥"
+"니다."
+
+#. TRANSLATORS: notification title, a headset (headphones + microphone) is low or very low on power
+#: plugins/power/gsd-power-manager.c:644
+msgid "Headset battery low"
+msgstr "헤드셋 배터리 부족"
+
+#. TRANSLATORS: notification body, a headset (headphones + microphone) is low on power
+#: plugins/power/gsd-power-manager.c:647
+#, c-format
+msgid "Headset is low on power (%.0f%%)"
+msgstr "헤드셋 배터리가 부족합니다 (%.0f%%)"
+
+#: plugins/power/gsd-power-manager.c:648
+msgid "Headset is low on power"
+msgstr "헤드셋 배터리가 부족합니다"
+
+#. TRANSLATORS: notification body, a headset (headphones + microphone) is very low on power
+#: plugins/power/gsd-power-manager.c:650
+#, c-format
+msgid ""
+"Headset is very low on power (%.0f%%). The device will soon shutdown if not "
+"charged."
+msgstr ""
+"헤드셋의 배터리가 매우 부족합니다 (%.0f%%). 충전하지 않으면 이 장치는 곧 기능"
+"을 멈춥니다."
+
+#: plugins/power/gsd-power-manager.c:652
+msgid ""
+"Headset is very low on power. The device will soon shutdown if not charged."
+msgstr ""
+"헤드셋의 배터리가 매우 부족합니다. 충전하지 않으면 이 장치는 곧 기능을 멈춥니"
+"다."
+
+#. TRANSLATORS: notification title, speaker is low or very low on power
+#: plugins/power/gsd-power-manager.c:657
+msgid "Speaker battery low"
+msgstr "스피커 배터리 부족"
+
+#. TRANSLATORS: notification body, a speaker is low on power
+#: plugins/power/gsd-power-manager.c:660
+#, c-format
+msgid "Speaker is low on power (%.0f%%)"
+msgstr "스피커 배터리가 부족합니다 (%.0f%%)"
+
+#: plugins/power/gsd-power-manager.c:661
+msgid "Speaker is low on power"
+msgstr "스피커 배터리가 부족합니다"
+
+#. TRANSLATORS: notification body, a speaker is very low on power
+#: plugins/power/gsd-power-manager.c:663
+#, c-format
+msgid ""
+"Speaker is very low on power (%.0f%%). The device will soon shutdown if not "
+"charged."
+msgstr ""
+"스피커의 배터리가 매우 부족합니다 (%.0f%%). 충전하지 않으면 이 장치는 곧 기능"
+"을 멈춥니다."
+
+#: plugins/power/gsd-power-manager.c:665
+msgid ""
+"Speaker is very low on power. The device will soon shutdown if not charged."
+msgstr ""
+"스피커의 배터리가 매우 부족합니다. 충전하지 않으면 이 장치는 곧 기능을 멈춥니"
+"다."
+
+#. TRANSLATORS: notification title, headphones (no microphone) are low or very low on power
+#: plugins/power/gsd-power-manager.c:670
+msgid "Headphones battery low"
+msgstr "헤드폰 배터리 부족"
+
+#. TRANSLATORS: notification body, headphones (no microphone) are low on power
+#: plugins/power/gsd-power-manager.c:673
+#, c-format
+msgid "Headphones are low on power (%.0f%%)"
+msgstr "헤드폰 배터리가 부족합니다 (%.0f%%)"
+
+#: plugins/power/gsd-power-manager.c:674
+msgid "Headphones are low on power"
+msgstr "헤드폰 배터리가 부족합니다"
+
+#. TRANSLATORS: notification body, headphones (no microphone) are very low on power
+#: plugins/power/gsd-power-manager.c:676
+#, c-format
+msgid ""
+"Headphones are very low on power (%.0f%%). The device will soon shutdown if "
+"not charged."
+msgstr ""
+"헤드폰 배터리가 매우 부족합니다 (%.0f%%). 충전하지 않으면 이 장치는 곧 기능"
+"을 멈춥니다."
+
+#: plugins/power/gsd-power-manager.c:678
+msgid ""
+"Headphones are very low on power. The device will soon shutdown if not "
+"charged."
+msgstr ""
+"헤드폰의 배터리가 매우 부족합니다. 충전하지 않으면 이 장치는 곧 기능을 멈춥니"
+"다."
+
+#. TRANSLATORS: notification title, an audio device is low or very low on power
+#: plugins/power/gsd-power-manager.c:683
+msgid "Audio device battery low"
+msgstr "오디오 장치 배터리 부족"
+
+#. TRANSLATORS: notification body, an audio device is low on power
+#: plugins/power/gsd-power-manager.c:686
+#, c-format
+msgid "Audio device is low on power (%.0f%%)"
+msgstr "오디오 장치의 배터리가 부족합니다 (%.0f%%)"
+
+#: plugins/power/gsd-power-manager.c:687
+msgid "Audio device is low on power"
+msgstr "오디오 장치의 배터리가 부족합니다"
+
+#. TRANSLATORS: notification body, an audio device is very low on power
+#: plugins/power/gsd-power-manager.c:689
+#, c-format
+msgid ""
+"Audio device is very low on power (%.0f%%). The device will soon shutdown if "
+"not charged."
+msgstr ""
+"오디오 장치의 배터리가 매우 부족합니다 (%.0f%%). 충전하지 않으면 이 장치는 "
+"곧 기능을 멈춥니다."
+
+#: plugins/power/gsd-power-manager.c:691
+msgid ""
+"Audio device is very low on power. The device will soon shutdown if not "
+"charged."
+msgstr ""
+"오디오 장치의 배터리가 매우 부족합니다. 충전하지 않으면 이 장치는 곧 기능을 "
+"멈춥니다."
+
+#. TRANSLATORS: notification title, a remote control is low or very low on power
+#: plugins/power/gsd-power-manager.c:696
+msgid "Remote battery low"
+msgstr "리모콘 배터리 부족"
+
+#. TRANSLATORS: notification body, an remote control is low on power
+#: plugins/power/gsd-power-manager.c:699
+#, c-format
+msgid "Remote is low on power (%.0f%%)"
+msgstr "리모콘의 배터리가 부족합니다 (%.0f%%)"
+
+#: plugins/power/gsd-power-manager.c:700
+msgid "Remote is low on power"
+msgstr "리모콘의 배터리가 부족합니다"
+
+#. TRANSLATORS: notification body, a remote control is very low on power
+#: plugins/power/gsd-power-manager.c:702
+#, c-format
+msgid ""
+"Remote is very low on power (%.0f%%). The device will soon shutdown if not "
+"charged."
+msgstr ""
+"리모콘의 배터리가 매우 부족합니다 (%.0f%%). 충전하지 않으면 이 장치는 곧 기능"
+"을 멈춥니다."
+
+#: plugins/power/gsd-power-manager.c:704
+msgid ""
+"Remote is very low on power. The device will soon shutdown if not charged."
+msgstr ""
+"리모콘의 배터리가 매우 부족합니다. 충전하지 않으면 이 장치는 곧 기능을 멈춥니"
+"다."
+
+#. TRANSLATORS: notification title, a printer is low or very low on power
+#: plugins/power/gsd-power-manager.c:709
+msgid "Printer battery low"
+msgstr "프린터 배터리 부족"
+
+#. TRANSLATORS: notification body, a printer is low on power
+#: plugins/power/gsd-power-manager.c:712
+#, c-format
+msgid "Printer is low on power (%.0f%%)"
+msgstr "프린터 배터리가 부족합니다 (%.0f%%)"
+
+#: plugins/power/gsd-power-manager.c:713
+msgid "Printer is low on power"
+msgstr "프린터 배터리가 부족합니다"
+
+#. TRANSLATORS: notification body, a printer is very low on power
+#: plugins/power/gsd-power-manager.c:715
+#, c-format
+msgid ""
+"Printer is very low on power (%.0f%%). The device will soon shutdown if not "
+"charged."
+msgstr ""
+"프린터 배터리가 매우 부족합니다 (%.0f%%). 충전하지 않으면 이 장치는 곧 기능"
+"을 멈춥니다."
+
+#: plugins/power/gsd-power-manager.c:717
+msgid ""
+"Printer is very low on power. The device will soon shutdown if not charged."
+msgstr ""
+"프린터 배터리가 매우 부족합니다. 충전하지 않으면 이 장치는 곧 기능을 멈춥니"
+"다."
+
+#. TRANSLATORS: notification title, a scanner is low or very low on power
+#: plugins/power/gsd-power-manager.c:722
+msgid "Scanner battery low"
+msgstr "스캐너 배터리 부족"
+
+#. TRANSLATORS: notification body, a scanner is low on power
+#: plugins/power/gsd-power-manager.c:725
+#, c-format
+msgid "Scanner is low on power (%.0f%%)"
+msgstr "스캐너 배터리가 부족합니다 (%.0f%%)"
+
+#: plugins/power/gsd-power-manager.c:726
+msgid "Scanner is low on power"
+msgstr "스캐너 배터리가 부족합니다"
+
+#. TRANSLATORS: notification body, a scanner is very low on power
+#: plugins/power/gsd-power-manager.c:728
+#, c-format
+msgid ""
+"Scanner is very low on power (%.0f%%). The device will soon shutdown if not "
+"charged."
+msgstr ""
+"스캐너 배터리가 매우 부족합니다 (%.0f%%). 충전하지 않으면 이 장치는 곧 기능"
+"을 멈춥니다."
+
+#: plugins/power/gsd-power-manager.c:730
+msgid ""
+"Scanner is very low on power. The device will soon shutdown if not charged."
+msgstr ""
+"스캐너 배터리가 매우 부족합니다. 충전하지 않으면 이 장치는 곧 기능을 멈춥니"
+"다."
+
+#. TRANSLATORS: notification title, a camera is low or very low on power
+#: plugins/power/gsd-power-manager.c:735
+msgid "Camera battery low"
+msgstr "카메라 배터리 부족"
+
+#. TRANSLATORS: notification body, a camera is low on power
+#: plugins/power/gsd-power-manager.c:738
+#, c-format
+msgid "Camera is low on power (%.0f%%)"
+msgstr "카메라 배터리가 부족합니다 (%.0f%%)"
+
+#: plugins/power/gsd-power-manager.c:739
+msgid "Camera is low on power"
+msgstr "카메라 배터리가 부족합니다"
+
+#. TRANSLATORS: notification body, a camera is very low on power
+#: plugins/power/gsd-power-manager.c:741
+#, c-format
+msgid ""
+"Camera is very low on power (%.0f%%). The device will soon shutdown if not "
+"charged."
+msgstr ""
+"카메라 배터리가 매우 부족합니다 (%.0f%%). 충전하지 않으면 이 장치는 곧 기능"
+"을 멈춥니다."
+
+#: plugins/power/gsd-power-manager.c:743
+msgid ""
+"Camera is very low on power. The device will soon shutdown if not charged."
+msgstr ""
+"카메라 배터리가 매우 부족합니다. 충전하지 않으면 이 장치는 곧 기능을 멈춥니"
+"다."
+
+#. TRANSLATORS: notification title, a Bluetooth device is low or very low on power
+#: plugins/power/gsd-power-manager.c:748
+msgid "Bluetooth device battery low"
+msgstr "블루투스 장치 배터리 부족"
+
+#. TRANSLATORS: notification body, a Bluetooth device is low on power
+#: plugins/power/gsd-power-manager.c:751
+#, c-format
+msgid "Bluetooth device is low on power (%.0f%%)"
+msgstr "블루투스 장치의 배터리가 부족합니다 (%.0f%%)"
+
+#: plugins/power/gsd-power-manager.c:752
+msgid "Bluetooth device is low on power"
+msgstr "블루투스 장치의 배터리가 부족합니다"
+
+#. TRANSLATORS: notification body, a Bluetooth device is very low on power
+#: plugins/power/gsd-power-manager.c:754
+#, c-format
+msgid ""
+"Bluetooth device is very low on power (%.0f%%). The device will soon "
+"shutdown if not charged."
+msgstr ""
+"블루투스 장치의 배터리가 매우 부족합니다 (%.0f%%). 충전하지 않으면 이 장치는 "
+"곧 기능을 멈춥니다."
+
+#: plugins/power/gsd-power-manager.c:756
+msgid ""
+"Bluetooth device is very low on power. The device will soon shutdown if not "
+"charged."
+msgstr ""
+"블루투스 배터리의 배터리가 매우 부족합니다. 충전하지 않으면 이 장치는 곧 기능"
+"을 멈춥니다."
+
+#. TRANSLATORS: notification title, a connected (wireless) device or peripheral of unhandled type is low or very on power
+#: plugins/power/gsd-power-manager.c:762
+msgid "Connected device battery is low"
+msgstr "연결된 장치 배터리 부족"
+
+#. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is low on power
+#: plugins/power/gsd-power-manager.c:765
+#, c-format
+msgid "A connected device is low on power (%.0f%%)"
+msgstr "연결된 장치의 배터리가 부족합니다 (%.0f%%)"
+
+#: plugins/power/gsd-power-manager.c:766
+msgid "A connected device is low on power"
+msgstr "연결된 장치의 배터리가 부족합니다"
+
+#. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is very low on power
+#: plugins/power/gsd-power-manager.c:768
+#, c-format
+msgid ""
+"A connected device is very low on power (%.0f%%). The device will soon "
+"shutdown if not charged."
+msgstr ""
+"연결된 장치의 배터리가 매우 부족합니다 (%.0f%%). 충전하지 않으면 이 장치는 "
+"곧 기능을 멈춥니다."
+
+#: plugins/power/gsd-power-manager.c:770
+msgid ""
+"A connected device is very low on power. The device will soon shutdown if "
+"not charged."
+msgstr ""
+"연결된 장치의 배터리가 매우 부족합니다. 충전하지 않으면 이 장치는 곧 기능을 "
+"멈춥니다."
+
+#. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is running low, shows time remaining
+#: plugins/power/gsd-power-manager.c:802
 msgid "Battery low"
 msgstr "배터리 전원 부족"
 
-#. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: plugins/power/gsd-power-manager.c:487
-msgid "Laptop battery low"
-msgstr "노트북 배터리 부족"
-
-#. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:494
+#. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is running low, shows time remaining
+#: plugins/power/gsd-power-manager.c:808
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr "약 %s 남음(%.0f%%)"
 
-#. TRANSLATORS: UPS is starting to get a little low
-#: plugins/power/gsd-power-manager.c:499
+#. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, shows time remaining
+#: plugins/power/gsd-power-manager.c:813
 msgid "UPS low"
 msgstr "UPS 전원 부족"
 
-#. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:505
+#. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, shows time remaining
+#: plugins/power/gsd-power-manager.c:819
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr "무정전 전원장치 비상 전원 약 %s 남음(%.0f%%)"
 
-#. TRANSLATORS: mouse is getting a little low
-#. TRANSLATORS: the mouse battery is very low
-#: plugins/power/gsd-power-manager.c:510 plugins/power/gsd-power-manager.c:670
-msgid "Mouse battery low"
-msgstr "마우스 배터리 전원 부족"
-
-#: plugins/power/gsd-power-manager.c:514
-#, c-format
-msgid "Wireless mouse is low in power (%.0f%%)"
-msgstr "무선 마우스 전원이 부족합니다 (%.0f%%)"
-
-#: plugins/power/gsd-power-manager.c:516
-#, c-format
-msgid "Wireless mouse is low in power"
-msgstr "무선 마우스 전원이 부족합니다"
-
-#. TRANSLATORS: keyboard is getting a little low
-#. TRANSLATORS: the keyboard battery is very low
-#: plugins/power/gsd-power-manager.c:520 plugins/power/gsd-power-manager.c:683
-msgid "Keyboard battery low"
-msgstr "키보드 배터리 전원 부족"
-
-#: plugins/power/gsd-power-manager.c:524
-#, c-format
-msgid "Wireless keyboard is low in power (%.0f%%)"
-msgstr "무선 키보드 전원이 부족합니다 (%.0f%%)"
-
-#: plugins/power/gsd-power-manager.c:526
-#, c-format
-msgid "Wireless keyboard is low in power"
-msgstr "무선 키보드 전원이 부족합니다"
-
-#. TRANSLATORS: PDA is getting a little low
-#. TRANSLATORS: the PDA battery is very low
-#: plugins/power/gsd-power-manager.c:530 plugins/power/gsd-power-manager.c:697
-msgid "PDA battery low"
-msgstr "PDA 배터리 전원 부족"
-
-#: plugins/power/gsd-power-manager.c:534
-#, c-format
-msgid "PDA is low in power (%.0f%%)"
-msgstr "PDA 전원이 부족합니다 (%.0f%%)"
-
-#: plugins/power/gsd-power-manager.c:536
-#, c-format
-msgid "PDA is low in power"
-msgstr "PDA 전원이 부족합니다"
-
-#. TRANSLATORS: cell phone (mobile) is getting a little low
-#. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:540 plugins/power/gsd-power-manager.c:711
-#: plugins/power/gsd-power-manager.c:725
-msgid "Cell phone battery low"
-msgstr "휴대전화 배터리 전원 부족"
-
-#: plugins/power/gsd-power-manager.c:544
-#, c-format
-msgid "Cell phone is low in power (%.0f%%)"
-msgstr "휴대전화 전원이 부족합니다 (%.0f%%)"
-
-#: plugins/power/gsd-power-manager.c:546
-#, c-format
-msgid "Cell phone is low in power"
-msgstr "휴대전화 전원이 부족합니다"
-
-#. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: plugins/power/gsd-power-manager.c:550
-msgid "Media player battery low"
-msgstr "미디어 플레이어 배터리 전원 부족"
-
-#: plugins/power/gsd-power-manager.c:554
-#, c-format
-msgid "Media player is low in power (%.0f%%)"
-msgstr "미디어 플레이어 전원이 부족합니다 (%.0f%%)"
-
-#: plugins/power/gsd-power-manager.c:556
-#, c-format
-msgid "Media player is low in power"
-msgstr "미디어 플레이어 전원이 부족합니다"
-
-#. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
-#. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:560 plugins/power/gsd-power-manager.c:739
-msgid "Tablet battery low"
-msgstr "디지타이저 배터리 전원 부족"
-
-#: plugins/power/gsd-power-manager.c:564
-#, c-format
-msgid "Tablet is low in power (%.0f%%)"
-msgstr "디지타이저 전원이 부족합니다 (%.0f%%)"
-
-#: plugins/power/gsd-power-manager.c:566
-#, c-format
-msgid "Tablet is low in power"
-msgstr "디지타이저 전원이 부족합니다"
-
-#. TRANSLATORS: computer, e.g. ipad is getting a little low
-#. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:570 plugins/power/gsd-power-manager.c:753
-msgid "Attached computer battery low"
-msgstr "연결된 컴퓨터 배터리 전원 부족"
-
-#: plugins/power/gsd-power-manager.c:574
-#, c-format
-msgid "Attached computer is low in power (%.0f%%)"
-msgstr "연결된 컴퓨터의 전원이 부족합니다 (%.0f%%)"
-
-#: plugins/power/gsd-power-manager.c:576
-#, c-format
-msgid "Attached computer is low in power"
-msgstr "연결된 컴퓨터의 전원이 부족합니다"
-
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:597
+#: plugins/power/gsd-power-manager.c:858
 msgid "Battery is low"
 msgstr "배터리 부족"
 
-#. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: plugins/power/gsd-power-manager.c:634
+#. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, warning about action happening soon
+#. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, warning about action happening now
+#: plugins/power/gsd-power-manager.c:890 plugins/power/gsd-power-manager.c:986
 msgid "Battery critically low"
 msgstr "배터리 위험 수준으로 부족"
 
-#. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
-#. TRANSLATORS: laptop battery is really, really, low
-#: plugins/power/gsd-power-manager.c:637 plugins/power/gsd-power-manager.c:818
-msgid "Laptop battery critically low"
-msgstr "노트북 배터리 위험 수준으로 부족"
-
-#. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:646
+#: plugins/power/gsd-power-manager.c:897
 #, c-format
-msgid "Computer will hibernate very soon unless it is plugged in."
-msgstr "전원을 연결하지 않으면 곧 최대 절전 상태가 됩니다."
+msgid "Hibernating soon unless plugged in."
+msgstr "전원 연결하지 않으면 곧 최대 절전 상태가 됩니다."
 
-#. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:650
+#: plugins/power/gsd-power-manager.c:899
 #, c-format
-msgid "Computer will shutdown very soon unless it is plugged in."
-msgstr "전원을 연결하지 않으면 곧 컴퓨터가 꺼집니다."
+msgid "Shutting down soon unless plugged in."
+msgstr "전원을 연결하지 않으면 곧 꺼집니다."
 
-#. TRANSLATORS: the UPS is very low
-#. TRANSLATORS: UPS is really, really, low
-#: plugins/power/gsd-power-manager.c:658 plugins/power/gsd-power-manager.c:843
+#. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
+#. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, warning about action happening now
+#: plugins/power/gsd-power-manager.c:907 plugins/power/gsd-power-manager.c:1009
 msgid "UPS critically low"
 msgstr "UPS 전원 위험 수준으로 낮음"
 
-#. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:664
+#. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
+#: plugins/power/gsd-power-manager.c:913
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
@@ -1906,194 +2435,65 @@ msgstr ""
 "무정전 전원장치의 전원이 약 %s만큼 남았습니다 (%.1f%%). 데이터를 잃지 않으려"
 "면 AC 전원을 다시 연결하십시오."
 
-#: plugins/power/gsd-power-manager.c:674
-#, c-format
-msgid ""
-"Wireless mouse is very low in power (%.0f%%). This device will soon stop "
-"functioning if not charged."
-msgstr ""
-"무선 마우스의 전력이 매우 낮습니다 (%.0f%%). 충전하지 않으면 이 장치는 곧 기"
-"능을 멈춥니다."
-
-#: plugins/power/gsd-power-manager.c:678
-#, c-format
-msgid ""
-"Wireless mouse is very low in power. This device will soon stop functioning "
-"if not charged."
-msgstr ""
-"무선 마우스의 전력이 매우 낮습니다. 충전하지 않으면 이 장치는 곧 기능을 멈춥"
-"니다."
-
-#: plugins/power/gsd-power-manager.c:687
-#, c-format
-msgid ""
-"Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
-"functioning if not charged."
-msgstr ""
-"무선 키보드의 전력이 매우 낮습니다 (%.0f%%). 충전하지 않으면 이 장치는 곧 기"
-"능을 멈춥니다."
-
-#: plugins/power/gsd-power-manager.c:691
-#, c-format
-msgid ""
-"Wireless keyboard is very low in power. This device will soon stop "
-"functioning if not charged."
-msgstr ""
-"무선 키보드의 전력이 매우 낮습니다. 충전하지 않으면 이 장치는 곧 기능을 멈춥"
-"니다."
-
-#: plugins/power/gsd-power-manager.c:701
-#, c-format
-msgid ""
-"PDA is very low in power (%.0f%%). This device will soon stop functioning if "
-"not charged."
-msgstr ""
-"PDA의 전력이 매우 낮습니다 (%.0f%%). 충전하지 않으면 이 장치는 곧 기능을 멈춥"
-"니다."
-
-#: plugins/power/gsd-power-manager.c:705
-#, c-format
-msgid ""
-"PDA is very low in power. This device will soon stop functioning if not "
-"charged."
-msgstr ""
-"PDA의 전력이 매우 낮습니다. 충전하지 않으면 이 장치는 곧 기능을 멈춥니다."
-
-#: plugins/power/gsd-power-manager.c:715
-#, c-format
-msgid ""
-"Cell phone is very low in power (%.0f%%). This device will soon stop "
-"functioning if not charged."
-msgstr ""
-"휴대전화의 전력이 매우 낮습니다 (%.0f%%). 충전하지 않으면 이 장치는 곧 기능"
-"을 멈춥니다."
-
-#: plugins/power/gsd-power-manager.c:719
-#, c-format
-msgid ""
-"Cell phone is very low in power. This device will soon stop functioning if "
-"not charged."
-msgstr ""
-"휴대전화의 전력이 매우 낮습니다. 충전하지 않으면 이 장치는 곧 기능을 멈춥니"
-"다."
-
-#: plugins/power/gsd-power-manager.c:729
-#, c-format
-msgid ""
-"Media player is very low in power (%.0f%%). This device will soon stop "
-"functioning if not charged."
-msgstr ""
-"미디어 플레이어의 전력이 매우 낮습니다 (%.0f%%). 충전하지 않으면 이 장치는 "
-"곧 기능을 멈춥니다."
-
-#: plugins/power/gsd-power-manager.c:733
-#, c-format
-msgid ""
-"Media player is very low in power. This device will soon stop functioning if "
-"not charged."
-msgstr ""
-"미디어 플레이어의 전력이 매우 낮습니다. 충전하지 않으면 이 장치는 곧 기능을 "
-"멈춥니다."
-
-#: plugins/power/gsd-power-manager.c:743
-#, c-format
-msgid ""
-"Tablet is very low in power (%.0f%%). This device will soon stop functioning "
-"if not charged."
-msgstr ""
-"디지타이저의 전력이 매우 낮습니다 (%.0f%%). 충전하지 않으면 이 장치는 곧 기능"
-"을 멈춥니다."
-
-#: plugins/power/gsd-power-manager.c:747
-#, c-format
-msgid ""
-"Tablet is very low in power. This device will soon stop functioning if not "
-"charged."
-msgstr ""
-"디지타이저의 전력이 매우 낮습니다. 충전하지 않으면 이 장치는 곧 기능을 멈춥니"
-"다."
-
-#: plugins/power/gsd-power-manager.c:757
-#, c-format
-msgid ""
-"Attached computer is very low in power (%.0f%%). The device will soon "
-"shutdown if not charged."
-msgstr ""
-"연결한 컴퓨터의 전력이 매우 낮습니다 (%.0f%%). 충전하지 않으면 이 장치는 곧 "
-"기능을 멈춥니다."
-
-#: plugins/power/gsd-power-manager.c:761
-#, c-format
-msgid ""
-"Attached computer is very low in power. The device will soon shutdown if not "
-"charged."
-msgstr ""
-"연결한 컴퓨터의 전력이 매우 낮습니다. 충전하지 않으면 이 장치는 곧 기능을 멈"
-"춥니다."
-
-#. TRANSLATORS: computer will hibernate
-#: plugins/power/gsd-power-manager.c:826
+#: plugins/power/gsd-power-manager.c:993
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
 msgstr "배터리 전력이 위험 수준보다 낮고 이 컴퓨터는 최대절전이 됩니다."
 
-#. TRANSLATORS: computer will just shutdown
-#: plugins/power/gsd-power-manager.c:831
+#: plugins/power/gsd-power-manager.c:997
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
 msgstr "배터리 전력이 위험 수준보다 낮아 이 컴퓨터가 꺼질 예정입니다."
 
-#. TRANSLATORS: computer will hibernate
-#: plugins/power/gsd-power-manager.c:851
+#: plugins/power/gsd-power-manager.c:1016
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr "UPS 전원이 위험 수준보다 낮아 이 컴퓨터는 꺼질 예정입니다."
 
-#. TRANSLATORS: computer will just shutdown
-#: plugins/power/gsd-power-manager.c:856
+#: plugins/power/gsd-power-manager.c:1020
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr "UPS 전원이 위험 수준보다 낮아 이 컴퓨터는 꺼질 예정입니다."
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1333
+#: plugins/power/gsd-power-manager.c:1507
 msgid "Lid has been opened"
 msgstr "덮개를 열었습니다"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1367
+#: plugins/power/gsd-power-manager.c:1541
 msgid "Lid has been closed"
 msgstr "덮개를 닫았습니다"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1934
+#: plugins/power/gsd-power-manager.c:2192
 msgid "On battery power"
 msgstr "배터리 전원 사용"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1939
+#: plugins/power/gsd-power-manager.c:2197
 msgid "On AC power"
 msgstr "AC 전원 사용"
 
-#: plugins/power/gsd-power-manager.c:2127
+#: plugins/power/gsd-power-manager.c:2445
 msgid "Automatic logout"
 msgstr "자동 로그아웃"
 
-#: plugins/power/gsd-power-manager.c:2127
+#: plugins/power/gsd-power-manager.c:2445
 msgid "You will soon log out because of inactivity."
 msgstr "활동이 없어서 곧 로그아웃합니다."
 
-#: plugins/power/gsd-power-manager.c:2132
+#: plugins/power/gsd-power-manager.c:2450
 msgid "Automatic suspend"
 msgstr "자동 대기 모드"
 
-#: plugins/power/gsd-power-manager.c:2132
-#: plugins/power/gsd-power-manager.c:2137
-msgid "Computer will suspend very soon because of inactivity."
+#: plugins/power/gsd-power-manager.c:2450
+#: plugins/power/gsd-power-manager.c:2455
+msgid "Suspending soon because of inactivity."
 msgstr "활동이 없어서 곧 대기 모드로 들어갑니다."
 
-#: plugins/power/gsd-power-manager.c:2137
+#: plugins/power/gsd-power-manager.c:2455
 msgid "Automatic hibernation"
 msgstr "자동 최대 절전 모드"
 
@@ -2365,15 +2765,15 @@ msgstr "프린터 “%s”: “%s”."
 msgid "User was not logged in with smartcard."
 msgstr "이 스마트카드로 사용자가 로그인하지 않았습니다."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:386
+#: plugins/usb-protection/gsd-usb-protection-manager.c:388
 msgid "USB Protection"
 msgstr "USB 보호"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:505
+#: plugins/usb-protection/gsd-usb-protection-manager.c:512
 msgid "New USB device"
 msgstr "새 USB 장치"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:506
+#: plugins/usb-protection/gsd-usb-protection-manager.c:513
 msgid ""
 "New device has been detected while the session was not locked. If you did "
 "not plug anything, check your system for any suspicious device."
@@ -2381,22 +2781,24 @@ msgstr ""
 "세션을 잠그지 않은 동안 새 장치가 발견되었습니다. 아무 장치도 연결하지 않았다"
 "면, 의심스러운 장치가 있는지 시스템을 확인하십시오."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:589
+#: plugins/usb-protection/gsd-usb-protection-manager.c:601
 msgid "New device detected"
 msgstr "새 장치가 발견되었습니다"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:590
+#: plugins/usb-protection/gsd-usb-protection-manager.c:602
 msgid ""
 "Either one of your existing devices has been reconnected or a new one has "
 "been plugged in. If you did not do it, check your system for any suspicious "
 "device."
-msgstr "기존 장치 중 하나를 다시 연결했거나 새로운 장치를 연결했습니다. 장치를 직접 연결하지 않았다면, 의심스러운 장치가 있는지 시스템을 확인하십시오."
+msgstr ""
+"기존 장치 중 하나를 다시 연결했거나 새로운 장치를 연결했습니다. 장치를 직접 "
+"연결하지 않았다면, 의심스러운 장치가 있는지 시스템을 확인하십시오."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:596
+#: plugins/usb-protection/gsd-usb-protection-manager.c:609
 msgid "Reconnect USB device"
 msgstr "USB 장치를 다시 연결하십시오"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:597
+#: plugins/usb-protection/gsd-usb-protection-manager.c:610
 msgid ""
 "New device has been detected while you were away. Please disconnect and "
 "reconnect the device to start using it."
@@ -2404,12 +2806,12 @@ msgstr ""
 "자리를 비운 동안 새 장치가 발견되었습니다. 이 장치를 사용하려면 연결을 끊은 "
 "다음 다시 연결하십시오."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:603
-#: plugins/usb-protection/gsd-usb-protection-manager.c:628
+#: plugins/usb-protection/gsd-usb-protection-manager.c:616
+#: plugins/usb-protection/gsd-usb-protection-manager.c:641
 msgid "USB device blocked"
 msgstr "USB 장치가 막혔습니다"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:604
+#: plugins/usb-protection/gsd-usb-protection-manager.c:617
 msgid ""
 "New device has been detected while you were away. It has been blocked "
 "because the USB protection is active."
@@ -2417,7 +2819,7 @@ msgstr ""
 "자리를 비운 동안 새 장치가 발견되었습니다. USB 보호 기능을 사용 중이었므로 "
 "이 장치가 막혔습니다."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:629
+#: plugins/usb-protection/gsd-usb-protection-manager.c:642
 msgid ""
 "The new inserted device has been blocked because the USB protection is "
 "active."
@@ -2572,6 +2974,18 @@ msgstr[0] "%2$s. %1$u번 더 시도할 수 있습니다"
 msgid "You have %u try left"
 msgid_plural "You have %u tries left"
 msgstr[0] "%u번 더 시도할 수 있습니다"
+
+#~ msgid "Unable to capture a screenshot"
+#~ msgstr "스크린샷을 찍을 수 없습니다"
+
+#~ msgid "Screenshot taken"
+#~ msgstr "스크린샷을 찍었습니다"
+
+#~ msgid "Laptop battery low"
+#~ msgstr "노트북 배터리 부족"
+
+#~ msgid "Laptop battery critically low"
+#~ msgstr "노트북 배터리 위험 수준으로 부족"
 
 #~ msgid "Phone-adaptor link reserved"
 #~ msgstr "전화 어댑터 연결 예약됨"
