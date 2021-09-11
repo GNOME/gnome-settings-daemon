@@ -85,7 +85,7 @@ struct _GsdKeyboardManager
         GDBusProxy *localed;
         GCancellable *cancellable;
 
-        GdkDeviceManager *device_manager;
+        GdkSeat *user_seat;
         guint device_added_id;
         guint device_removed_id;
 };
@@ -219,7 +219,7 @@ settings_changed (GSettings          *settings,
 }
 
 static void
-device_added_cb (GdkDeviceManager   *device_manager,
+device_added_cb (GdkSeat            *user_seat,
                  GdkDevice          *device,
                  GsdKeyboardManager *manager)
 {
@@ -232,7 +232,7 @@ device_added_cb (GdkDeviceManager   *device_manager,
 }
 
 static void
-device_removed_cb (GdkDeviceManager   *device_manager,
+device_removed_cb (GdkSeat            *user_seat,
                    GdkDevice          *device,
                    GsdKeyboardManager *manager)
 {
@@ -246,18 +246,18 @@ device_removed_cb (GdkDeviceManager   *device_manager,
 static void
 set_devicepresence_handler (GsdKeyboardManager *manager)
 {
-        GdkDeviceManager *device_manager;
+        GdkSeat *user_seat;
 
         if (gnome_settings_is_wayland ())
                 return;
 
-        device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
+        user_seat = gdk_display_get_default_seat (gdk_display_get_default ());
 
-        manager->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
-                                                           G_CALLBACK (device_added_cb), manager);
-        manager->device_removed_id = g_signal_connect (G_OBJECT (device_manager), "device-removed",
-                                                             G_CALLBACK (device_removed_cb), manager);
-        manager->device_manager = device_manager;
+        manager->device_added_id = g_signal_connect (G_OBJECT (user_seat), "device-added",
+                                                     G_CALLBACK (device_added_cb), manager);
+        manager->device_removed_id = g_signal_connect (G_OBJECT (user_seat), "device-removed",
+                                                       G_CALLBACK (device_removed_cb), manager);
+        manager->user_seat = user_seat;
 }
 
 static gboolean
@@ -648,10 +648,10 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
         g_clear_object (&manager->a11y_settings);
         g_clear_object (&manager->localed);
 
-        if (manager->device_manager != NULL) {
-                g_signal_handler_disconnect (manager->device_manager, manager->device_added_id);
-                g_signal_handler_disconnect (manager->device_manager, manager->device_removed_id);
-                manager->device_manager = NULL;
+        if (manager->user_seat != NULL) {
+                g_signal_handler_disconnect (manager->user_seat, manager->device_added_id);
+                g_signal_handler_disconnect (manager->user_seat, manager->device_removed_id);
+                manager->user_seat = NULL;
         }
 }
 
