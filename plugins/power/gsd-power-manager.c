@@ -892,8 +892,8 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
                 /* we have to do different warnings depending on the policy */
                 policy = manager_critical_action_get (manager);
 
-                /* TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action happening soon */
                 if (policy == GSD_POWER_ACTION_HIBERNATE) {
+                        /* TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action happening soon */
                         message = g_strdup_printf (_("Hibernating soon unless plugged in."));
                 } else if (policy == GSD_POWER_ACTION_SHUTDOWN) {
                         message = g_strdup_printf (_("Shutting down soon unless plugged in."));
@@ -988,8 +988,8 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
                 /* we have to do different warnings depending on the policy */
                 policy = manager_critical_action_get (manager);
 
-                /* TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action happening now */
                 if (policy == GSD_POWER_ACTION_HIBERNATE) {
+                        /* TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action happening now */
                         message = g_strdup (_("The battery is below the critical level and "
                                               "this computer is about to hibernate."));
 
@@ -1011,8 +1011,8 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
                 /* we have to do different warnings depending on the policy */
                 policy = manager_critical_action_get (manager);
 
-                /* TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, warning about action happening now */
                 if (policy == GSD_POWER_ACTION_HIBERNATE) {
+                        /* TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, warning about action happening now */
                         message = g_strdup (_("UPS is below the critical level and "
                                               "this computer is about to hibernate."));
 
