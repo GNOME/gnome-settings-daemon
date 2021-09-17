@@ -964,6 +964,12 @@ usb_protection_proxy_ready (GObject      *source_object,
                           G_CALLBACK (settings_changed_callback), manager);
 
         manager->screensaver_proxy = gnome_settings_bus_get_screen_saver_proxy ();
+        if (!manager->screensaver_proxy) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to connect to screensaver service: %s", error->message);
+                g_clear_object (&manager->usb_protection);
+                return;
+        }
 
         get_current_screen_saver_status (manager);
 
