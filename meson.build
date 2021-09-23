@@ -104,7 +104,7 @@ libnotify_dep = dependency('libnotify', version: '>= 0.7.3')
 libpulse_mainloop_glib_dep = dependency('libpulse-mainloop-glib', version: '>= 2.0')
 pango_dep = dependency('pango', version: '>= 1.20.0')
 polkit_gobject_dep = dependency('polkit-gobject-1', version: '>= 0.114')
-upower_glib_dep = dependency('upower-glib', version: '>= 0.99.8')
+upower_glib_dep = dependency('upower-glib', version: '>= 0.99.12')
 x11_dep = dependency('x11')
 xfixes_dep = dependency('xfixes', version: '>= 6.0')
 
