@@ -1397,6 +1397,8 @@ show_volume_osd (GsdMediaKeysManager *manager,
         port = gvc_mixer_stream_get_port (stream);
         if (g_strcmp0 (gvc_mixer_stream_get_form_factor (stream), "internal") != 0 ||
             (port != NULL &&
+             g_strcmp0 (port->port, "[OUT] Speaker") != 0 &&
+             g_strcmp0 (port->port, "[OUT] Handset") != 0 &&
              g_strcmp0 (port->port, "analog-output-speaker") != 0 &&
              g_strcmp0 (port->port, "analog-output") != 0)) {
                 device = gvc_mixer_control_lookup_device_from_stream (priv->volume, stream);
