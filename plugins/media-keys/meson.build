@@ -1,7 +1,6 @@
 sources = files(
   'bus-watch-namespace.c',
   'gsd-media-keys-manager.c',
-  'gsd-screenshot-utils.c',
   'main.c',
   'mpris-controller.c'
 )

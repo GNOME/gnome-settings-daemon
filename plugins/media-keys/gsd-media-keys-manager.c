@@ -58,7 +58,6 @@
 
 #include "shortcuts-list.h"
 #include "shell-key-grabber.h"
-#include "gsd-screenshot-utils.h"
 #include "gsd-input-helper.h"
 #include "gsd-enums.h"
 #include "gsd-shell-helper.h"
@@ -2481,14 +2480,6 @@ do_action (GsdMediaKeysManager *manager,
         case HELP_KEY:
                 do_url_action (manager, "ghelp", timestamp);
                 break;
-        case SCREENSHOT_KEY:
-        case SCREENSHOT_CLIP_KEY:
-        case WINDOW_SCREENSHOT_KEY:
-        case WINDOW_SCREENSHOT_CLIP_KEY:
-        case AREA_SCREENSHOT_KEY:
-        case AREA_SCREENSHOT_CLIP_KEY:
-                gsd_screenshot_take (type);
-                break;
         case SCREENCAST_KEY:
                 do_screencast_action (manager);
                 break;
@@ -3095,12 +3086,6 @@ migrate_keybinding_settings (void)
                 { "volume-mute",                "volume-mute",                  map_keybinding },
                 { "volume-up",                  "volume-up",                    map_keybinding },
                 { "mic-mute",                   "mic-mute",                     map_keybinding },
-                { "screenshot",                 "screenshot",                   map_keybinding },
-                { "window-screenshot",          "window-screenshot",            map_keybinding },
-                { "area-screenshot",            "area-screenshot",              map_keybinding },
-                { "screenshot-clip",            "screenshot-clip",              map_keybinding },
-                { "window-screenshot-clip",     "window-screenshot-clip",       map_keybinding },
-                { "area-screenshot-clip",       "area-screenshot-clip",         map_keybinding },
                 { "screencast",                 "screencast",                   map_keybinding },
                 { "www",                        "www",                          map_keybinding },
                 { "magnifier",                  "magnifier",                    map_keybinding },
