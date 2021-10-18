@@ -95,6 +95,117 @@ mpris_controller_key (MprisController *self, const gchar *key)
   return TRUE;
 }
 
+gboolean
+mpris_controller_seek (MprisController *self, gint64 offset)
+{
+  g_return_val_if_fail (MPRIS_IS_CONTROLLER (self), FALSE);
+
+  if (!self->mpris_client_proxy)
+    return FALSE;
+
+  g_debug ("calling Seek over dbus to mpris client %s",
+           g_dbus_proxy_get_name (self->mpris_client_proxy));
+  g_dbus_proxy_call (self->mpris_client_proxy,
+                     "Seek", g_variant_new ("(x)", offset, NULL),
+                     G_DBUS_CALL_FLAGS_NONE, -1, self->cancellable,
+                     mpris_proxy_call_done,
+                     NULL);
+  return TRUE;
+}
+
+static GDBusProxy *
+get_props_proxy (GDBusProxy   *proxy,
+                 GCancellable *cancellable)
+{
+  GDBusProxy *props = NULL;
+  g_autoptr(GError) error = NULL;
+
+  g_return_val_if_fail (proxy != NULL, NULL);
+
+  props = g_dbus_proxy_new_sync (g_dbus_proxy_get_connection (proxy),
+                                 G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START | G_DBUS_PROXY_FLAGS_DO_NOT_CONNECT_SIGNALS | G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+                                 NULL,
+                                 g_dbus_proxy_get_name (proxy),
+                                 g_dbus_proxy_get_object_path (proxy),
+                                 "org.freedesktop.DBus.Properties",
+                                 cancellable,
+                                 &error);
+  if (!props) {
+    g_debug ("Could not get properties proxy for %s: %s",
+             g_dbus_proxy_get_interface_name (proxy),
+             error->message);
+    return NULL;
+  }
+
+  return props;
+}
+
+gboolean
+mpris_controller_toggle (MprisController *self, const gchar *property)
+{
+  g_return_val_if_fail (MPRIS_IS_CONTROLLER (self), FALSE);
+  g_return_val_if_fail (property != NULL, FALSE);
+
+  if (!self->mpris_client_proxy)
+    return FALSE;
+
+  if (g_str_equal (property, "Repeat")) {
+    g_autoptr(GDBusProxy) props = NULL;
+    g_autoptr(GVariant) loop_status;
+    const gchar *status_str, *new_status;
+
+    loop_status = g_dbus_proxy_get_cached_property (self->mpris_client_proxy, "LoopStatus");
+    if (!loop_status)
+      return FALSE;
+    if (!g_variant_is_of_type (loop_status, G_VARIANT_TYPE_STRING))
+      return FALSE;
+    status_str = g_variant_get_string (loop_status, NULL);
+    if (g_str_equal (status_str, "Playlist"))
+      new_status = "None";
+    else
+      new_status = "Playlist";
+
+    props = get_props_proxy (self->mpris_client_proxy, self->cancellable);
+    if (!props)
+      return FALSE;
+    g_dbus_proxy_call (props,
+                       "Set",
+                       g_variant_new_parsed ("('org.mpris.MediaPlayer2.Player', 'LoopStatus', %v)",
+                                             g_variant_new_string (new_status)),
+                       G_DBUS_CALL_FLAGS_NONE,
+                       -1,
+                       self->cancellable,
+                       mpris_proxy_call_done, NULL);
+  } else if (g_str_equal (property, "Shuffle")) {
+    g_autoptr(GDBusProxy) props = NULL;
+    g_autoptr(GVariant) shuffle_status;
+    gboolean status;
+
+    shuffle_status = g_dbus_proxy_get_cached_property (self->mpris_client_proxy, "Shuffle");
+    if (!shuffle_status)
+      return FALSE;
+    if (!g_variant_is_of_type (shuffle_status, G_VARIANT_TYPE_BOOLEAN))
+      return FALSE;
+    status = g_variant_get_boolean (shuffle_status);
+
+    props = get_props_proxy (self->mpris_client_proxy, self->cancellable);
+    if (!props)
+      return FALSE;
+    g_dbus_proxy_call (props,
+                       "Set",
+                       g_variant_new_parsed ("('org.mpris.MediaPlayer2.Player', 'Shuffle', %v)",
+                                             g_variant_new_boolean (!status)),
+                       G_DBUS_CALL_FLAGS_NONE,
+                       -1,
+                       self->cancellable,
+                       mpris_proxy_call_done, NULL);
+  }
+
+  g_debug ("Unhandled toggle property '%s'", property);
+
+  return TRUE;
+}
+
 static gboolean
 mpris_client_is_playing (GDBusProxy *proxy)
 {
