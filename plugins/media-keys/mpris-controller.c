@@ -77,6 +77,9 @@ mpris_proxy_call_done (GObject      *object,
 gboolean
 mpris_controller_key (MprisController *self, const gchar *key)
 {
+  g_return_val_if_fail (MPRIS_IS_CONTROLLER (self), FALSE);
+  g_return_val_if_fail (key != NULL, FALSE);
+
   if (!self->mpris_client_proxy)
     return FALSE;
 
