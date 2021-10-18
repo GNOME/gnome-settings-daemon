@@ -29,6 +29,8 @@ G_DECLARE_FINAL_TYPE (MprisController, mpris_controller, MPRIS, CONTROLLER, GObj
 
 MprisController *mpris_controller_new (void);
 gboolean         mpris_controller_key (MprisController *self, const gchar *key);
+gboolean         mpris_controller_seek (MprisController *self, gint64 offset);
+gboolean         mpris_controller_toggle (MprisController *self, const gchar *property);
 gboolean         mpris_controller_get_has_active_player (MprisController *controller);
 
 G_END_DECLS
