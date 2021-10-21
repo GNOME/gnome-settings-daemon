@@ -484,7 +484,7 @@ engine_device_debounce_warn (GsdPowerManager *manager,
                         ret = FALSE;
         }
 
-        if (warning != UP_DEVICE_LEVEL_UNKNOWN)
+        if (warning != UP_DEVICE_LEVEL_UNKNOWN && warning != UP_DEVICE_LEVEL_NONE)
                 g_hash_table_insert (manager->devices_notified_ht,
                                      g_strdup (serial),
                                      GINT_TO_POINTER (warning));
