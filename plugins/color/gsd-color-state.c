@@ -28,6 +28,7 @@
 #include <lcms2.h>
 #include <canberra-gtk.h>
 #include <math.h>
+#include <libgnome-desktop/gnome-pnp-ids.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
@@ -241,58 +242,6 @@ gsd_color_state_get_temperature (GsdColorState *state)
 {
         g_return_val_if_fail (GSD_IS_COLOR_STATE (state), 0);
         return state->color_temperature;
-}
-
-static gchar *
-gcm_session_get_output_id (GsdColorState *state, GnomeRROutput *output)
-{
-        const gchar *name;
-        const gchar *serial;
-        const gchar *vendor;
-        GcmEdid *edid = NULL;
-        GString *device_id;
-        GError *error = NULL;
-
-        /* all output devices are prefixed with this */
-        device_id = g_string_new ("xrandr");
-
-        /* get the output EDID if possible */
-        edid = gcm_session_get_output_edid (state, output, &error);
-        if (edid == NULL) {
-                g_debug ("no edid for %s [%s], falling back to connection name",
-                         gnome_rr_output_get_name (output),
-                         error->message);
-                g_error_free (error);
-                g_string_append_printf (device_id,
-                                        "-%s",
-                                        gnome_rr_output_get_name (output));
-                goto out;
-        }
-
-        /* check EDID data is okay to use */
-        vendor = gcm_edid_get_vendor_name (edid);
-        name = gcm_edid_get_monitor_name (edid);
-        serial = gcm_edid_get_serial_number (edid);
-        if (vendor == NULL && name == NULL && serial == NULL) {
-                g_debug ("edid invalid for %s, falling back to connection name",
-                         gnome_rr_output_get_name (output));
-                g_string_append_printf (device_id,
-                                        "-%s",
-                                        gnome_rr_output_get_name (output));
-                goto out;
-        }
-
-        /* use EDID data */
-        if (vendor != NULL)
-                g_string_append_printf (device_id, "-%s", vendor);
-        if (name != NULL)
-                g_string_append_printf (device_id, "-%s", name);
-        if (serial != NULL)
-                g_string_append_printf (device_id, "-%s", serial);
-out:
-        if (edid != NULL)
-                g_object_unref (edid);
-        return g_string_free (device_id, FALSE);
 }
 
 typedef struct {
@@ -762,14 +711,16 @@ out:
 }
 
 static GnomeRROutput *
-gcm_session_get_state_output_by_id (GsdColorState *state,
-                                    const gchar *device_id,
-                                    GError **error)
+gcm_session_get_state_output_by_device (GsdColorState *state,
+                                        CdDevice *device,
+                                        GError **error)
 {
-        gchar *output_id;
         GnomeRROutput *output = NULL;
         GnomeRROutput **outputs = NULL;
+        GnomePnpIds *pnp_ids;
         guint i;
+
+        pnp_ids = gnome_pnp_ids_new ();
 
         /* search all STATE outputs for the device id */
         outputs = gnome_rr_screen_list_outputs (state->state_screen);
@@ -781,19 +732,35 @@ gcm_session_get_state_output_by_id (GsdColorState *state,
                 goto out;
         }
         for (i = 0; outputs[i] != NULL && output == NULL; i++) {
-                output_id = gcm_session_get_output_id (state, outputs[i]);
-                if (g_strcmp0 (output_id, device_id) == 0)
+                g_autofree char *vendor = NULL;
+                g_autofree char *vendor_name = NULL;
+                g_autofree char *vendor_name_quirked = NULL;
+                g_autofree char *product = NULL;
+                g_autofree char *serial = NULL;
+
+                gnome_rr_output_get_ids_from_edid (outputs[i],
+                                                   &vendor,
+                                                   &product,
+                                                   &serial);
+                vendor_name = gnome_pnp_ids_get_pnp_id (pnp_ids, vendor);
+                if (vendor_name)
+                        vendor_name_quirked = cd_quirk_vendor_name (vendor_name);
+                else
+                        vendor_name_quirked = g_strdup (vendor);
+
+                if (g_strcmp0 (vendor_name_quirked, cd_device_get_vendor (device)) == 0 &&
+                    g_strcmp0 (product, cd_device_get_model (device)) == 0 &&
+                    g_strcmp0 (serial, cd_device_get_serial (device)) == 0)
                         output = outputs[i];
-                g_free (output_id);
         }
         if (output == NULL) {
                 g_set_error (error,
                              GSD_COLOR_MANAGER_ERROR,
                              GSD_COLOR_MANAGER_ERROR_FAILED,
-                             "Failed to find output %s",
-                             device_id);
+                             "Failed to find output");
         }
 out:
+        g_object_unref (pnp_ids);
         return output;
 }
 
@@ -1017,7 +984,6 @@ gcm_session_device_assign_connect_cb (GObject *object,
         GnomeRROutput *output = NULL;
         GError *error = NULL;
         GFile *file = NULL;
-        const gchar *xrandr_id;
         GcmSessionAsyncHelper *helper;
         CdDevice *device = CD_DEVICE (object);
         GsdColorState *state = GSD_COLOR_STATE (user_data);
@@ -1043,11 +1009,10 @@ gcm_session_device_assign_connect_cb (GObject *object,
         g_debug ("need to assign display device %s",
                  cd_device_get_id (device));
 
-        /* get the GnomeRROutput for the device id */
-        xrandr_id = cd_device_get_id (device);
-        output = gcm_session_get_state_output_by_id (state,
-                                                   xrandr_id,
-                                                   &error);
+        /* get the GnomeRROutput for the device */
+        output = gcm_session_get_state_output_by_device (state,
+                                                         device,
+                                                         &error);
         if (output == NULL) {
                 g_warning ("no %s device found: %s",
                            cd_device_get_id (device),
@@ -1185,207 +1150,6 @@ gcm_session_device_changed_assign_cb (CdClient *client,
 {
         g_debug ("%s changed", cd_device_get_object_path (device));
         gcm_session_device_assign (state, device);
-}
-
-static void
-gcm_session_create_device_cb (GObject *object,
-                              GAsyncResult *res,
-                              gpointer user_data)
-{
-        CdDevice *device;
-        GError *error = NULL;
-
-        device = cd_client_create_device_finish (CD_CLIENT (object),
-                                                 res,
-                                                 &error);
-        if (device == NULL) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED) &&
-                    !g_error_matches (error, CD_CLIENT_ERROR, CD_CLIENT_ERROR_ALREADY_EXISTS))
-                        g_warning ("failed to create device: %s", error->message);
-                g_error_free (error);
-                return;
-        }
-        g_object_unref (device);
-}
-
-static void
-gcm_session_add_state_output (GsdColorState *state, GnomeRROutput *output)
-{
-        const gchar *edid_checksum = NULL;
-        const gchar *model = NULL;
-        const gchar *output_name = NULL;
-        const gchar *serial = NULL;
-        const gchar *vendor = NULL;
-        gboolean ret;
-        gchar *device_id = NULL;
-        GcmEdid *edid;
-        GError *error = NULL;
-        GHashTable *device_props = NULL;
-
-        /* VNC creates a fake device that cannot be color managed */
-        output_name = gnome_rr_output_get_name (output);
-        if (output_name != NULL && g_str_has_prefix (output_name, "VNC-")) {
-                g_debug ("ignoring %s as fake VNC device detected", output_name);
-                return;
-        }
-
-        /* try to get edid */
-        edid = gcm_session_get_output_edid (state, output, &error);
-        if (edid == NULL) {
-                g_warning ("failed to get edid: %s",
-                           error->message);
-                g_clear_error (&error);
-        }
-
-        /* prefer DMI data for the internal output */
-        ret = gnome_rr_output_is_builtin_display (output);
-        if (ret) {
-                model = cd_client_get_system_model (state->client);
-                vendor = cd_client_get_system_vendor (state->client);
-        }
-
-        /* use EDID data if we have it */
-        if (edid != NULL) {
-                edid_checksum = gcm_edid_get_checksum (edid);
-                if (model == NULL)
-                        model = gcm_edid_get_monitor_name (edid);
-                if (vendor == NULL)
-                        vendor = gcm_edid_get_vendor_name (edid);
-                if (serial == NULL)
-                        serial = gcm_edid_get_serial_number (edid);
-        }
-
-        /* ensure mandatory fields are set */
-        if (model == NULL)
-                model = gnome_rr_output_get_name (output);
-        if (vendor == NULL)
-                vendor = "unknown";
-        if (serial == NULL)
-                serial = "unknown";
-
-        device_id = gcm_session_get_output_id (state, output);
-        g_debug ("output %s added", device_id);
-        device_props = g_hash_table_new_full (g_str_hash, g_str_equal,
-                                              NULL, NULL);
-        g_hash_table_insert (device_props,
-                             (gpointer) CD_DEVICE_PROPERTY_KIND,
-                             (gpointer) cd_device_kind_to_string (CD_DEVICE_KIND_DISPLAY));
-        g_hash_table_insert (device_props,
-                             (gpointer) CD_DEVICE_PROPERTY_MODE,
-                             (gpointer) cd_device_mode_to_string (CD_DEVICE_MODE_PHYSICAL));
-        g_hash_table_insert (device_props,
-                             (gpointer) CD_DEVICE_PROPERTY_COLORSPACE,
-                             (gpointer) cd_colorspace_to_string (CD_COLORSPACE_RGB));
-        g_hash_table_insert (device_props,
-                             (gpointer) CD_DEVICE_PROPERTY_VENDOR,
-                             (gpointer) vendor);
-        g_hash_table_insert (device_props,
-                             (gpointer) CD_DEVICE_PROPERTY_MODEL,
-                             (gpointer) model);
-        g_hash_table_insert (device_props,
-                             (gpointer) CD_DEVICE_PROPERTY_SERIAL,
-                             (gpointer) serial);
-        g_hash_table_insert (device_props,
-                             (gpointer) CD_DEVICE_METADATA_XRANDR_NAME,
-                             (gpointer) gnome_rr_output_get_name (output));
-        g_hash_table_insert (device_props,
-                             (gpointer) CD_DEVICE_METADATA_OUTPUT_PRIORITY,
-                             gnome_rr_output_get_is_primary (output) ?
-                             (gpointer) CD_DEVICE_METADATA_OUTPUT_PRIORITY_PRIMARY :
-                             (gpointer) CD_DEVICE_METADATA_OUTPUT_PRIORITY_SECONDARY);
-        if (edid_checksum != NULL) {
-                g_hash_table_insert (device_props,
-                                     (gpointer) CD_DEVICE_METADATA_OUTPUT_EDID_MD5,
-                                     (gpointer) edid_checksum);
-        }
-        /* set this so we can call the device a 'Laptop Screen' in the
-         * control center main panel */
-        if (gnome_rr_output_is_builtin_display (output)) {
-                g_hash_table_insert (device_props,
-                                     (gpointer) CD_DEVICE_PROPERTY_EMBEDDED,
-                                     NULL);
-        }
-        cd_client_create_device (state->client,
-                                 device_id,
-                                 CD_OBJECT_SCOPE_TEMP,
-                                 device_props,
-                                 state->cancellable,
-                                 gcm_session_create_device_cb,
-                                 state);
-        g_free (device_id);
-        if (device_props != NULL)
-                g_hash_table_unref (device_props);
-        if (edid != NULL)
-                g_object_unref (edid);
-}
-
-
-static void
-gnome_rr_screen_output_added_cb (GnomeRRScreen *screen,
-                                GnomeRROutput *output,
-                                GsdColorState *state)
-{
-        gcm_session_add_state_output (state, output);
-}
-
-static void
-gcm_session_screen_removed_delete_device_cb (GObject *object, GAsyncResult *res, gpointer user_data)
-{
-        gboolean ret;
-        GError *error = NULL;
-
-        /* deleted device */
-        ret = cd_client_delete_device_finish (CD_CLIENT (object),
-                                              res,
-                                              &error);
-        if (!ret) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-                        g_warning ("failed to delete device: %s", error->message);
-                g_error_free (error);
-        }
-}
-
-static void
-gcm_session_screen_removed_find_device_cb (GObject *object, GAsyncResult *res, gpointer user_data)
-{
-        GError *error = NULL;
-        CdDevice *device;
-        GsdColorState *state = GSD_COLOR_STATE (user_data);
-
-        device = cd_client_find_device_finish (state->client,
-                                               res,
-                                               &error);
-        if (device == NULL) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-                        g_warning ("failed to find device: %s", error->message);
-                g_error_free (error);
-                return;
-        }
-        g_debug ("output %s found, and will be removed",
-                 cd_device_get_object_path (device));
-        cd_client_delete_device (state->client,
-                                 device,
-                                 state->cancellable,
-                                 gcm_session_screen_removed_delete_device_cb,
-                                 state);
-        g_object_unref (device);
-}
-
-static void
-gnome_rr_screen_output_removed_cb (GnomeRRScreen *screen,
-                                   GnomeRROutput *output,
-                                   GsdColorState *state)
-{
-        g_debug ("output %s removed",
-                 gnome_rr_output_get_name (output));
-        g_hash_table_remove (state->edid_cache,
-                             gnome_rr_output_get_name (output));
-        cd_client_find_device_by_property (state->client,
-                                           CD_DEVICE_METADATA_XRANDR_NAME,
-                                           gnome_rr_output_get_name (output),
-                                           state->cancellable,
-                                           gcm_session_screen_removed_find_device_cb,
-                                           state);
 }
 
 static void
@@ -1538,8 +1302,6 @@ gcm_session_client_connect_cb (GObject *source_object,
 {
         gboolean ret;
         GError *error = NULL;
-        GnomeRROutput **outputs;
-        guint i;
         GsdColorState *state = GSD_COLOR_STATE (user_data);
 
         /* connected */
@@ -1563,31 +1325,6 @@ gcm_session_client_connect_cb (GObject *source_object,
                                  G_CALLBACK (gcm_session_active_changed_cb),
                                  state, 0);
 
-        /* add screens */
-        gnome_rr_screen_refresh (state->state_screen, &error);
-        if (error != NULL) {
-                g_warning ("failed to refresh: %s", error->message);
-                g_error_free (error);
-                return;
-        }
-
-        /* get STATE outputs */
-        outputs = gnome_rr_screen_list_outputs (state->state_screen);
-        if (outputs == NULL) {
-                g_warning ("failed to get outputs");
-                return;
-        }
-        for (i = 0; outputs[i] != NULL; i++) {
-                gcm_session_add_state_output (state, outputs[i]);
-        }
-
-        /* only connect when colord is awake */
-        g_signal_connect (state->state_screen, "output-connected",
-                          G_CALLBACK (gnome_rr_screen_output_added_cb),
-                          state);
-        g_signal_connect (state->state_screen, "output-disconnected",
-                          G_CALLBACK (gnome_rr_screen_output_removed_cb),
-                          state);
         g_signal_connect (state->state_screen, "changed",
                           G_CALLBACK (gnome_rr_screen_output_changed_cb),
                           state);
