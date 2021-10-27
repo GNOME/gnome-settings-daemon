@@ -1724,7 +1724,7 @@ do_multimedia_player_action (GsdMediaKeysManager *manager,
                 } else if (g_str_equal (key, "FastForward")) {
                         if (mpris_controller_seek (priv->mpris_controller, FASTFORWARD_MSEC))
                                 return TRUE;
-                } else if (g_str_equal (key, "LoopStatus")) {
+                } else if (g_str_equal (key, "Repeat")) {
                         if (mpris_controller_toggle (priv->mpris_controller, "LoopStatus"))
                                 return TRUE;
                 } else if (g_str_equal (key, "Shuffle")) {
