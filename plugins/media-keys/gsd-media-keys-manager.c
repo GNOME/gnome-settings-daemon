@@ -119,8 +119,8 @@ static const gchar introspection_xml[] =
 #define TOUCHPAD_ENABLED_KEY "send-events"
 #define HIGH_CONTRAST "HighContrast"
 
-#define REWIND_MSEC (-10 * 1000)
-#define FASTFORWARD_MSEC (45 * 1000)
+#define REWIND_USEC (-10 * G_USEC_PER_SEC)
+#define FASTFORWARD_USEC (45 * G_USEC_PER_SEC)
 
 #define VOLUME_STEP "volume-step"
 #define VOLUME_STEP_PRECISE 2
@@ -1892,10 +1892,10 @@ gsd_media_player_key_pressed (GsdMediaKeysManager *manager,
         /* Prefer MPRIS players to those using the native API */
         if (mpris_controller_get_has_active_player (priv->mpris_controller)) {
                 if (g_str_equal (key, "Rewind")) {
-                        if (mpris_controller_seek (priv->mpris_controller, REWIND_MSEC))
+                        if (mpris_controller_seek (priv->mpris_controller, REWIND_USEC))
                                 return TRUE;
                 } else if (g_str_equal (key, "FastForward")) {
-                        if (mpris_controller_seek (priv->mpris_controller, FASTFORWARD_MSEC))
+                        if (mpris_controller_seek (priv->mpris_controller, FASTFORWARD_USEC))
                                 return TRUE;
                 } else if (g_str_equal (key, "Repeat")) {
                         if (mpris_controller_toggle (priv->mpris_controller, "LoopStatus"))
