@@ -149,7 +149,7 @@ mpris_controller_toggle (MprisController *self, const gchar *property)
   if (!self->mpris_client_proxy)
     return FALSE;
 
-  if (g_str_equal (property, "Repeat")) {
+  if (g_str_equal (property, "LoopStatus")) {
     g_autoptr(GDBusProxy) props = NULL;
     g_autoptr(GVariant) loop_status;
     const gchar *status_str, *new_status;
