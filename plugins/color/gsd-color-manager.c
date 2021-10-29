@@ -23,6 +23,7 @@
 #include <glib/gi18n.h>
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
+#include <math.h>
 
 #include "gnome-settings-profile.h"
 #include "gsd-color-calibrate.h"
@@ -211,7 +212,7 @@ on_temperature_notify (GsdNightLight *nlight,
         gdouble temperature = gsd_night_light_get_temperature (manager->nlight);
         gsd_color_state_set_temperature (manager->state, temperature);
         emit_property_changed (manager, "Temperature",
-                               g_variant_new_double (temperature));
+                               g_variant_new_uint32 (roundf (temperature)));
 }
 
 static void
