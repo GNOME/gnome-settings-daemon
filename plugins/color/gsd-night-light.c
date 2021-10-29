@@ -168,9 +168,11 @@ update_cached_sunrise_sunset (GsdNightLight *self)
 }
 
 static void
-gsd_night_light_set_temperature_internal (GsdNightLight *self, gdouble temperature)
+gsd_night_light_set_temperature_internal (GsdNightLight *self, gdouble temperature, gboolean force)
 {
-        if (ABS (self->cached_temperature - temperature) <= GSD_TEMPERATURE_MAX_DELTA)
+        if (!force && ABS (self->cached_temperature - temperature) <= GSD_TEMPERATURE_MAX_DELTA)
+                return;
+        if (self->cached_temperature == temperature)
                 return;
         self->cached_temperature = temperature;
         g_object_notify (G_OBJECT (self), "temperature");
@@ -187,7 +189,8 @@ gsd_night_light_smooth_cb (gpointer user_data)
         frac = g_timer_elapsed (self->smooth_timer, NULL) / GSD_NIGHT_LIGHT_SMOOTH_SMEAR;
         if (frac >= 1.f) {
                 gsd_night_light_set_temperature_internal (self,
-                                                          self->smooth_target_temperature);
+                                                          self->smooth_target_temperature,
+                                                          TRUE);
                 self->smooth_id = 0;
                 return G_SOURCE_REMOVE;
         }
@@ -196,7 +199,7 @@ gsd_night_light_smooth_cb (gpointer user_data)
         tmp = self->smooth_target_temperature - self->cached_temperature;
         tmp *= frac;
         tmp += self->cached_temperature;
-        gsd_night_light_set_temperature_internal (self, tmp);
+        gsd_night_light_set_temperature_internal (self, tmp, FALSE);
 
         return G_SOURCE_CONTINUE;
 }
@@ -215,7 +218,7 @@ gsd_night_light_set_temperature (GsdNightLight *self, gdouble temperature)
 {
         /* immediate */
         if (!self->smooth_enabled) {
-                gsd_night_light_set_temperature_internal (self, temperature);
+                gsd_night_light_set_temperature_internal (self, temperature, TRUE);
                 return;
         }
 
@@ -224,7 +227,7 @@ gsd_night_light_set_temperature (GsdNightLight *self, gdouble temperature)
 
         /* small jump */
         if (ABS (temperature - self->cached_temperature) < GSD_TEMPERATURE_MAX_DELTA) {
-                gsd_night_light_set_temperature_internal (self, temperature);
+                gsd_night_light_set_temperature_internal (self, temperature, TRUE);
                 return;
         }
 
