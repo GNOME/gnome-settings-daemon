@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2021-09-12 11:26+0000\n"
-"PO-Revision-Date: 2021-10-03 15:59+0200\n"
+"POT-Creation-Date: 2021-10-20 15:08+0000\n"
+"PO-Revision-Date: 2021-11-20 21:25+0100\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot en òc (totenoc.eu)\n"
 "Language: oc\n"
@@ -1205,10 +1205,8 @@ msgid "Static binding to pause playback."
 msgstr "Acorchi fixe per metre en pausa la lectura."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:557
-#, fuzzy
-#| msgid "Binding to start playback (or toggle play/pause)."
 msgid "Static binding to start playback (or toggle play/pause)."
-msgstr "Acorchi per aviar (o suspendre) la lectura."
+msgstr "Acorchi fixe per lançar la lectura (o alternar lectura/pausa)."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:562
 msgid "Static binding to skip to previous track."
@@ -1264,10 +1262,8 @@ msgid "Static binding to launch the web browser."
 msgstr "Acorchi fixe per aviar lo navigador Web."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:640
-#, fuzzy
-#| msgid "Binding to toggle the interface contrast"
 msgid "Static binding to toggle the touchpad on/off."
-msgstr "Acorchi per modificar lo contraste de l'interfàcia."
+msgstr "Acorchi fixe per activar/desactivar lo pavat tactil."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:645
 msgid "Static binding to switch the touchpad on."
@@ -1291,10 +1287,8 @@ msgstr ""
 "Acorchi per activar o desactivar lo mòde repeticion del lector multimèdia."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:671
-#, fuzzy
-#| msgid "Binding to launch the media player."
 msgid "Static binding to toggle random playback mode in media player."
-msgstr "Acorchi per aviar lo lector multimèdia."
+msgstr "Acorchi per activar/desactivar lo mòde aleatòri del lector multimèdia."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:677
 msgid "Static binding to toggle automatic screen orientation."
@@ -1413,6 +1407,8 @@ msgid ""
 "The amount of time in seconds the computer on AC power needs to be inactive "
 "before it goes to sleep. A value of 0 means never."
 msgstr ""
+"Lo nombre de segondas que l'ordenador sus sector deu èsser inactiu abans de "
+"passar en velha. Una valor de 0 significa jamai."
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:21
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:31
@@ -1435,6 +1431,8 @@ msgid ""
 "The amount of time in seconds the computer on battery power needs to be "
 "inactive before it goes to sleep. A value of 0 means never."
 msgstr ""
+"Lo nombre de segondas que l'ordenador sus batariá deu èsser inactiu abans de "
+"passar en velha. Una valor de 0 significa jamai."
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:36
 msgid "Enable the ALS sensor"
@@ -1532,18 +1530,6 @@ msgid "Hinting"
 msgstr "Optimizacion"
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:29
-#, fuzzy
-#| msgid ""
-#| "The type of hinting to use when rendering fonts. Possible values are: "
-#| "\"none\" for no hinting and \"slight\" for fitting only to the Y-axis "
-#| "like Microsoft's ClearType, DirectWrite and Adobe's proprietary font "
-#| "rendering engine. Ignores native hinting within the font, generates hints "
-#| "algorithmically. Used on Ubuntu by default. Recommended. The meaning of "
-#| "\"medium\" and \"full\" depends on the font format (.ttf, .otf, .pfa/."
-#| "pfb) and the installed version of FreeType. They usually try to fit "
-#| "glyphs to both the X and the Y axis (except for .otf: Y-only). This can "
-#| "lead to distortion and/or inconsistent rendering depending on the quality "
-#| "of the font, the font format and the state of FreeType's font engines."
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: “none” "
 "for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
@@ -1563,10 +1549,10 @@ msgstr ""
 "nativa dins la poliça, genèra l'optimizacion de faiçon algoritmica. Utilizat "
 "per defaut en çò d'Ubuntu. Recomandat. La significacion de las valors « "
 "medium » e « full » depend del format de poliça (.ttf, .otf, .pfa/.pfb) e de "
-"la version de FreeType. Ensajan generalament d'adaptar los caractèrs en "
-"foncion dels axes X e Y (levat per .otf : axe Y solament). Aquò pòt causar "
-"de distorsions o un rendut incoerent en foncion de la qualitat de la poliça, "
-"de son format e de l'estat dels motors de police FreeType."
+"la version installada de FreeType. Ensajan generalament d'adaptar los "
+"caractèrs en foncion dels axes X e Y (levat per .otf : axe Y solament). Aquò "
+"pòt causar de distorsions o un rendut incoerent en foncion de la qualitat de "
+"la poliça, de son format e de l'estat dels motors de police FreeType."
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:33
 msgid "RGBA order"
@@ -1812,28 +1798,21 @@ msgstr "La poténcia de la mirga sens fial es febla"
 
 #. TRANSLATORS: notification body, a wireless mouse is very low on power
 #: plugins/power/gsd-power-manager.c:520
-#, fuzzy, c-format
-#| msgid ""
-#| "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
-#| "functioning if not charged."
+#, c-format
 msgid ""
 "Wireless mouse is very low on power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
 "Demòra fòrça pauc d'autonomia a la mirga sens fial (%.0f %%). S'arrestarà "
-"lèu de foncionar se es pas recargada."
+"lèu de foncionar s'es pas recargada."
 
 #: plugins/power/gsd-power-manager.c:522
-#, fuzzy
-#| msgid ""
-#| "Wireless mouse is very low in power. This device will soon stop "
-#| "functioning if not charged."
 msgid ""
 "Wireless mouse is very low on power. This device will soon stop functioning "
 "if not charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a la mirga sens fial. S'arrestarà lèu de "
-"foncionar se es pas recargada."
+"Demòra fòrça pauc d'autonomia a l’imprimenta. S'arrestarà lèu de foncionar "
+"s'es pas recargada."
 
 #. TRANSLATORS: notification title, a wireless keyboard is low or very low on power
 #: plugins/power/gsd-power-manager.c:527
@@ -1852,28 +1831,21 @@ msgstr "La poténcia del clavièr sens fial es febla"
 
 #. TRANSLATORS: notification body, a wireless keyboard is very low on power
 #: plugins/power/gsd-power-manager.c:533
-#, fuzzy, c-format
-#| msgid ""
-#| "Wireless keyboard is very low in power (%.0f%%). This device will soon "
-#| "stop functioning if not charged."
+#, c-format
 msgid ""
 "Wireless keyboard is very low on power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
 "Demòra fòrça pauc d'autonomia al clavièr sens fial (%.0f %%). S'arrestarà "
-"lèu de foncionar se es pas recargat."
+"lèu de foncionar s'es pas recargat."
 
 #: plugins/power/gsd-power-manager.c:535
-#, fuzzy
-#| msgid ""
-#| "Wireless keyboard is very low in power. This device will soon stop "
-#| "functioning if not charged."
 msgid ""
 "Wireless keyboard is very low on power. This device will soon stop "
 "functioning if not charged."
 msgstr ""
 "Demòra fòrça pauc d'autonomia al clavièr sens fial. S'arrestarà lèu de "
-"foncionar se es pas recargat."
+"foncionar s'es pas recargat."
 
 #. TRANSLATORS: notification title, a PDA (Personal Digital Assistance device) is low or very on power
 #: plugins/power/gsd-power-manager.c:540
@@ -1892,10 +1864,7 @@ msgstr "La poténcia de l'assistent personal es febla"
 
 #. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is very low on power
 #: plugins/power/gsd-power-manager.c:546
-#, fuzzy, c-format
-#| msgid ""
-#| "PDA is very low in power (%.0f%%). This device will soon stop functioning "
-#| "if not charged."
+#, c-format
 msgid ""
 "PDA is very low on power (%.0f%%). This device will soon stop functioning if "
 "not charged."
@@ -1904,10 +1873,6 @@ msgstr ""
 "lèu de foncionar se es pas recargat."
 
 #: plugins/power/gsd-power-manager.c:548
-#, fuzzy
-#| msgid ""
-#| "PDA is very low in power. This device will soon stop functioning if not "
-#| "charged."
 msgid ""
 "PDA is very low on power. This device will soon stop functioning if not "
 "charged."
@@ -1932,28 +1897,21 @@ msgstr "La poténcia del mobil es febla"
 
 #. TRANSLATORS: notification body, a cell phone (mobile phone) is very low on power
 #: plugins/power/gsd-power-manager.c:559
-#, fuzzy, c-format
-#| msgid ""
-#| "Cell phone is very low in power (%.0f%%). This device will soon stop "
-#| "functioning if not charged."
+#, c-format
 msgid ""
 "Cell phone is very low on power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia al telefòn portable (%.0f %%). S'arrestarà lèu "
-"de foncionar se es pas recargat."
+"Demòra fòrça pauc d'autonomia al telefòn mobil (%.0f %%). S'arrestarà lèu de "
+"foncionar s'es pas recargat."
 
 #: plugins/power/gsd-power-manager.c:561
-#, fuzzy
-#| msgid ""
-#| "Cell phone is very low in power. This device will soon stop functioning "
-#| "if not charged."
 msgid ""
 "Cell phone is very low on power. This device will soon stop functioning if "
 "not charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia al telefòn portable. S'arrestarà lèu de "
-"foncionar se es pas recargat."
+"Demòra fòrça pauc d'autonomia al telefòn mobil. S'arrestarà lèu de foncionar "
+"s'es pas recargat."
 
 #. TRANSLATORS: notification title, a media player (e.g. mp3 player) is low or very low on power
 #: plugins/power/gsd-power-manager.c:566
@@ -1972,28 +1930,21 @@ msgstr "La poténcia del lector multimèdia es febla"
 
 #. TRANSLATORS: notification body, a media player (e.g. mp3 player) is very low on power
 #: plugins/power/gsd-power-manager.c:572
-#, fuzzy, c-format
-#| msgid ""
-#| "Media player is very low in power (%.0f%%). This device will soon stop "
-#| "functioning if not charged."
+#, c-format
 msgid ""
 "Media player is very low on power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
 "Demòra fòrça pauc d'autonomia al lector multimèdia (%.0f %%). S'arrestarà "
-"lèu de foncionar se es pas recargat."
+"lèu de foncionar s'es pas recargat."
 
 #: plugins/power/gsd-power-manager.c:574
-#, fuzzy
-#| msgid ""
-#| "Media player is very low in power. This device will soon stop functioning "
-#| "if not charged."
 msgid ""
 "Media player is very low on power. This device will soon stop functioning if "
 "not charged."
 msgstr ""
 "Demòra fòrça pauc d'autonomia al lector multimèdia. S'arrestarà lèu de "
-"foncionar se es pas recargat."
+"foncionar s'es pas recargat."
 
 #. TRANSLATORS: notification title, a graphics tablet (e.g. wacom) is low or very low on power
 #: plugins/power/gsd-power-manager.c:579
@@ -2007,35 +1958,26 @@ msgid "Tablet is low on power (%.0f%%)"
 msgstr "La poténcia de la tauleta es febla (%.0f%%)"
 
 #: plugins/power/gsd-power-manager.c:583
-#, fuzzy
-#| msgid "Tablet is low in power"
 msgid "Tablet is low on power"
-msgstr "La batariá de la tauleta es febla"
+msgstr "Batariá tauleta febla"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is very low on power
 #: plugins/power/gsd-power-manager.c:585
-#, fuzzy, c-format
-#| msgid ""
-#| "Tablet is very low in power (%.0f%%). This device will soon stop "
-#| "functioning if not charged."
+#, c-format
 msgid ""
 "Tablet is very low on power (%.0f%%). This device will soon stop functioning "
 "if not charged."
 msgstr ""
 "Demòra fòrça pauc d'autonomia a la tauleta (%.0f %%). S'arrestarà lèu de "
-"foncionar se es pas recargada."
+"foncionar s'es pas recargada."
 
 #: plugins/power/gsd-power-manager.c:587
-#, fuzzy
-#| msgid ""
-#| "Tablet is very low in power. This device will soon stop functioning if "
-#| "not charged."
 msgid ""
 "Tablet is very low on power. This device will soon stop functioning if not "
 "charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a la tauleta. S'arrestarà lèu de foncionar se "
-"es pas recargada."
+"Demòra fòrça pauc d'autonomia a la tauleta. S'arrestarà lèu de foncionar "
+"s'es pas recargada."
 
 #. TRANSLATORS: notification title, an attached computer (e.g. ipad) is low or very low on power
 #: plugins/power/gsd-power-manager.c:592
@@ -2044,136 +1986,100 @@ msgstr "La batariá de l'ordenador es febla"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is low on power
 #: plugins/power/gsd-power-manager.c:595
-#, fuzzy, c-format
-#| msgid "Attached computer is low in power (%.0f%%)"
+#, c-format
 msgid "Attached computer is low on power (%.0f%%)"
-msgstr "La poténcia de l'ordenador es febla (%.0f %%)"
+msgstr "La poténcia de l'ordenador estacat es febla (%.0f %%)"
 
 #: plugins/power/gsd-power-manager.c:596
-#, fuzzy
-#| msgid "Attached computer is low in power"
 msgid "Attached computer is low on power"
-msgstr "La poténcia de l'ordenador es febla"
+msgstr "La poténcia de l'ordenador estacat es febla"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is very low on power
 #: plugins/power/gsd-power-manager.c:598
-#, fuzzy, c-format
-#| msgid ""
-#| "Attached computer is very low in power (%.0f%%). The device will soon "
-#| "shutdown if not charged."
+#, c-format
 msgid ""
 "Attached computer is very low on power (%.0f%%). The device will soon "
 "shutdown if not charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat (%.0f %%). S'arrestarà "
+"Demòra fòrça pauc d'autonomia a l’ordenador estacat (%.0f %%). S'arrestarà "
 "lèu de foncionar s'es pas recargat."
 
 #: plugins/power/gsd-power-manager.c:600
-#, fuzzy
-#| msgid ""
-#| "Attached computer is very low in power. The device will soon shutdown if "
-#| "not charged."
 msgid ""
 "Attached computer is very low on power. The device will soon shutdown if not "
 "charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat. S'arrestarà lèu de "
+"Demòra fòrça pauc d'autonomia a l’ordenador estacat. S'arrestarà lèu de "
 "foncionar s'es pas recargat."
 
 #. TRANSLATORS: notification title, a game controller (e.g. joystick or joypad) is low or very low on power
 #: plugins/power/gsd-power-manager.c:605
-#, fuzzy
-#| msgid "Attached computer battery low"
 msgid "Game controller battery low"
-msgstr "La batariá de l'ordenador es febla"
+msgstr "Batariá maneta febla"
 
 #. TRANSLATORS: notification body, a game controller (e.g. joystick or joypad) is low on power
 #: plugins/power/gsd-power-manager.c:608
-#, fuzzy, c-format
-#| msgid "Attached computer is low in power (%.0f%%)"
+#, c-format
 msgid "Game controller is low on power (%.0f%%)"
-msgstr "La poténcia de l'ordenador es febla (%.0f %%)"
+msgstr "La poténcia de la maneta es febla (%.0f %%)"
 
 #: plugins/power/gsd-power-manager.c:609
-#, fuzzy
-#| msgid "Attached computer is low in power"
 msgid "Game controller is low on power"
-msgstr "La poténcia de l'ordenador es febla"
+msgstr "La poténcia de la maneta es febla"
 
 #. TRANSLATORS: notification body, an attached game controller (e.g. joystick or joypad) is very low on power
 #: plugins/power/gsd-power-manager.c:611
-#, fuzzy, c-format
-#| msgid ""
-#| "Attached computer is very low in power (%.0f%%). The device will soon "
-#| "shutdown if not charged."
+#, c-format
 msgid ""
 "Game controller is very low on power (%.0f%%). The device will soon shutdown "
 "if not charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat (%.0f %%). S'arrestarà "
-"lèu de foncionar s'es pas recargat."
+"Demòra fòrça pauc d'autonomia a la maneta (%.0f %%). S'arrestarà lèu de "
+"foncionar s'es pas recargada."
 
 #: plugins/power/gsd-power-manager.c:613
-#, fuzzy
-#| msgid ""
-#| "Attached computer is very low in power. The device will soon shutdown if "
-#| "not charged."
 msgid ""
 "Game controller is very low on power. The device will soon shutdown if not "
 "charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat. S'arrestarà lèu de "
-"foncionar s'es pas recargat."
+"Demòra fòrça pauc d'autonomia a la maneta. S'arrestarà lèu de foncionar s'es "
+"pas recargada."
 
 #. TRANSLATORS: notification title, a pen is low or very low on power
 #: plugins/power/gsd-power-manager.c:618
-#, fuzzy
-#| msgid "PDA battery low"
 msgid "Pen battery low"
-msgstr "La batariá de l'assistent personal es febla"
+msgstr "Batariá estilò febla"
 
 #. TRANSLATORS: notification body, a pen is low on power
 #: plugins/power/gsd-power-manager.c:621
-#, fuzzy, c-format
-#| msgid "PDA is low in power (%.0f%%)"
+#, c-format
 msgid "Pen is low on power (%.0f%%)"
-msgstr "La poténcia de l'assistent personal es febla (%.0f %%)"
+msgstr "La poténcia de l’estilò es febla (%.0f %%)"
 
 #: plugins/power/gsd-power-manager.c:622
-#, fuzzy
-#| msgid "PDA is low in power"
 msgid "Pen is low on power"
-msgstr "La poténcia de l'assistent personal es febla"
+msgstr "La poténcia de l’estilò es febla"
 
 #. TRANSLATORS: notification body, a pen is very low on power
 #: plugins/power/gsd-power-manager.c:624
-#, fuzzy, c-format
-#| msgid ""
-#| "Attached computer is very low in power (%.0f%%). The device will soon "
-#| "shutdown if not charged."
+#, c-format
 msgid ""
 "Pen is very low on power (%.0f%%). The device will soon shutdown if not "
 "charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat (%.0f %%). S'arrestarà "
-"lèu de foncionar s'es pas recargat."
+"Demòra fòrça pauc d'autonomia a l’estilò (%.0f %%). S'arrestarà lèu de "
+"foncionar s'es pas recargat."
 
 #: plugins/power/gsd-power-manager.c:626
-#, fuzzy
-#| msgid ""
-#| "Attached computer is very low in power. The device will soon shutdown if "
-#| "not charged."
 msgid "Pen is very low on power. The device will soon shutdown if not charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat. S'arrestarà lèu de "
-"foncionar s'es pas recargat."
+"Demòra fòrça pauc d'autonomia a l’estilò. S'arrestarà lèu de foncionar s'es "
+"pas recargat."
 
 #. TRANSLATORS: notification title, an external touchpad is low or very low on power
 #: plugins/power/gsd-power-manager.c:631
-#, fuzzy
-#| msgid "Mouse battery low"
 msgid "Touchpad battery low"
-msgstr "La batariá de la mirga es febla"
+msgstr "Batariá pavat tactil febla"
 
 #. TRANSLATORS: notification body, an external touchpad is low on power
 #: plugins/power/gsd-power-manager.c:634
@@ -2182,85 +2088,62 @@ msgid "Touchpad is low on power (%.0f%%)"
 msgstr "La poténcia del pavat tactil es febla (%.0f%%)"
 
 #: plugins/power/gsd-power-manager.c:635
-#, fuzzy
-#| msgid "Tablet is low in power"
 msgid "Touchpad is low on power"
-msgstr "La batariá de la tauleta es febla"
+msgstr "La poténcia del pavat tactil es febla"
 
 #. TRANSLATORS: notification body, an external touchpad is very low on power
 #: plugins/power/gsd-power-manager.c:637
-#, fuzzy, c-format
-#| msgid ""
-#| "Attached computer is very low in power (%.0f%%). The device will soon "
-#| "shutdown if not charged."
+#, c-format
 msgid ""
 "Touchpad is very low on power (%.0f%%). The device will soon shutdown if not "
 "charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat (%.0f %%). S'arrestarà "
-"lèu de foncionar s'es pas recargat."
+"Demòra fòrça pauc d'autonomia al pavat tactil (%.0f %%). S'arrestarà lèu de "
+"foncionar s'es pas recargat."
 
 #: plugins/power/gsd-power-manager.c:639
-#, fuzzy
-#| msgid ""
-#| "Attached computer is very low in power. The device will soon shutdown if "
-#| "not charged."
 msgid ""
 "Touchpad is very low on power. The device will soon shutdown if not charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat. S'arrestarà lèu de "
-"foncionar s'es pas recargat."
+"Demòra fòrça pauc d'autonomia al pavat tactil. S'arrestarà lèu de foncionar "
+"s'es pas recargat."
 
 #. TRANSLATORS: notification title, a headset (headphones + microphone) is low or very low on power
 #: plugins/power/gsd-power-manager.c:644
-#, fuzzy
-#| msgid "Tablet battery low"
 msgid "Headset battery low"
-msgstr "La batariá de la tauleta es febla"
+msgstr "Batariá casc àudio febla"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is low on power
 #: plugins/power/gsd-power-manager.c:647
-#, fuzzy, c-format
-#| msgid "Tablet is low in power (%.0f%%)"
+#, c-format
 msgid "Headset is low on power (%.0f%%)"
-msgstr "La poténcia de la tauleta es febla (%.0f %%)"
+msgstr "La poténcia del casc àudio es febla (%.0f %%)"
 
 #: plugins/power/gsd-power-manager.c:648
-#, fuzzy
-#| msgid "Tablet is low in power"
 msgid "Headset is low on power"
-msgstr "La batariá de la tauleta es febla"
+msgstr "La poténcia del casc àudio es febla"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is very low on power
 #: plugins/power/gsd-power-manager.c:650
-#, fuzzy, c-format
-#| msgid ""
-#| "Attached computer is very low in power (%.0f%%). The device will soon "
-#| "shutdown if not charged."
+#, c-format
 msgid ""
 "Headset is very low on power (%.0f%%). The device will soon shutdown if not "
 "charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat (%.0f %%). S'arrestarà "
-"lèu de foncionar s'es pas recargat."
+"Demòra fòrça pauc d'autonomia al casc àudio (%.0f %%). S'arrestarà lèu de "
+"foncionar s'es pas recargat."
 
 #: plugins/power/gsd-power-manager.c:652
-#, fuzzy
-#| msgid ""
-#| "Attached computer is very low in power. The device will soon shutdown if "
-#| "not charged."
 msgid ""
 "Headset is very low on power. The device will soon shutdown if not charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat. S'arrestarà lèu de "
-"foncionar s'es pas recargat."
+"Demòra fòrça pauc d'autonomia al casc àudio. S'arrestarà lèu de foncionar "
+"s'es pas recargat."
 
 #. TRANSLATORS: notification title, speaker is low or very low on power
 #: plugins/power/gsd-power-manager.c:657
-#, fuzzy
-#| msgid "Keyboard battery low"
 msgid "Speaker battery low"
-msgstr "La batariá del clavièr es febla"
+msgstr "Batariá nautparlaire febla"
 
 #. TRANSLATORS: notification body, a speaker is low on power
 #: plugins/power/gsd-power-manager.c:660
@@ -2274,41 +2157,31 @@ msgstr "La poténcia del nautparlaire es febla"
 
 #. TRANSLATORS: notification body, a speaker is very low on power
 #: plugins/power/gsd-power-manager.c:663
-#, fuzzy, c-format
-#| msgid ""
-#| "Attached computer is very low in power (%.0f%%). The device will soon "
-#| "shutdown if not charged."
+#, c-format
 msgid ""
 "Speaker is very low on power (%.0f%%). The device will soon shutdown if not "
 "charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat (%.0f %%). S'arrestarà "
-"lèu de foncionar s'es pas recargat."
+"Demòra fòrça pauc d'autonomia al nautparlaire (%.0f %%). S'arrestarà lèu de "
+"foncionar s'es pas recargat."
 
 #: plugins/power/gsd-power-manager.c:665
-#, fuzzy
-#| msgid ""
-#| "Attached computer is very low in power. The device will soon shutdown if "
-#| "not charged."
 msgid ""
 "Speaker is very low on power. The device will soon shutdown if not charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat. S'arrestarà lèu de "
-"foncionar s'es pas recargat."
+"Demòra fòrça pauc d'autonomia al nautparlaire. S'arrestarà lèu de foncionar "
+"s'es pas recargat."
 
 #. TRANSLATORS: notification title, headphones (no microphone) are low or very low on power
 #: plugins/power/gsd-power-manager.c:670
-#, fuzzy
-#| msgid "Cell phone battery low"
 msgid "Headphones battery low"
-msgstr "La batariá del telefonet es febla"
+msgstr "Batariá escotadors febla"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are low on power
 #: plugins/power/gsd-power-manager.c:673
-#, fuzzy, c-format
-#| msgid "Cell phone is low in power (%.0f%%)"
+#, c-format
 msgid "Headphones are low on power (%.0f%%)"
-msgstr "La poténcia del telefonet es febla (%.0f %%)"
+msgstr "La poténcia dels escotadors es febla (%.0f%%)"
 
 #: plugins/power/gsd-power-manager.c:674
 msgid "Headphones are low on power"
@@ -2316,80 +2189,59 @@ msgstr "La poténcia dels escotadors es febla"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are very low on power
 #: plugins/power/gsd-power-manager.c:676
-#, fuzzy, c-format
-#| msgid ""
-#| "Attached computer is very low in power (%.0f%%). The device will soon "
-#| "shutdown if not charged."
+#, c-format
 msgid ""
 "Headphones are very low on power (%.0f%%). The device will soon shutdown if "
 "not charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat (%.0f %%). S'arrestarà "
-"lèu de foncionar s'es pas recargat."
+"Demòra fòrça pauc d'autonomia als escotadors (%.0f %%). S'arrestaràn lèu de "
+"foncionar s'es pas recargats."
 
 #: plugins/power/gsd-power-manager.c:678
-#, fuzzy
-#| msgid ""
-#| "Attached computer is very low in power. The device will soon shutdown if "
-#| "not charged."
 msgid ""
 "Headphones are very low on power. The device will soon shutdown if not "
 "charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat. S'arrestarà lèu de "
-"foncionar s'es pas recargat."
+"Demòra fòrça pauc d'autonomia als escotadors. S'arrestaràn lèu de foncionar "
+"s'es pas recargats."
 
 #. TRANSLATORS: notification title, an audio device is low or very low on power
 #: plugins/power/gsd-power-manager.c:683
-#, fuzzy
-#| msgid "Mouse battery low"
 msgid "Audio device battery low"
-msgstr "La batariá de la mirga es febla"
+msgstr "Batariá periferic àudio febla"
 
 #. TRANSLATORS: notification body, an audio device is low on power
 #: plugins/power/gsd-power-manager.c:686
-#, fuzzy, c-format
-#| msgid "PDA is low in power (%.0f%%)"
+#, c-format
 msgid "Audio device is low on power (%.0f%%)"
-msgstr "La poténcia de l'assistent personal es febla (%.0f %%)"
+msgstr "La poténcia del periferic àudio es febla (%.0f%%)"
 
 #: plugins/power/gsd-power-manager.c:687
-#, fuzzy
-#| msgid "PDA is low in power"
 msgid "Audio device is low on power"
-msgstr "La poténcia de l'assistent personal es febla"
+msgstr "La poténcia del periferic àudio es febla"
 
 #. TRANSLATORS: notification body, an audio device is very low on power
 #: plugins/power/gsd-power-manager.c:689
-#, fuzzy, c-format
-#| msgid ""
-#| "Attached computer is very low in power (%.0f%%). The device will soon "
-#| "shutdown if not charged."
+#, c-format
 msgid ""
 "Audio device is very low on power (%.0f%%). The device will soon shutdown if "
 "not charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat (%.0f %%). S'arrestarà "
-"lèu de foncionar s'es pas recargat."
+"Demòra fòrça pauc d'autonomia a l’aparelh àudio (%.0f %%). S'arrestarà lèu "
+"de foncionar s'es pas recargat."
 
 #: plugins/power/gsd-power-manager.c:691
-#, fuzzy
-#| msgid ""
-#| "Attached computer is very low in power. The device will soon shutdown if "
-#| "not charged."
 msgid ""
 "Audio device is very low on power. The device will soon shutdown if not "
 "charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat. S'arrestarà lèu de "
+"Demòra fòrça pauc d'autonomia a l’aparelh àudio. S'arrestarà lèu de "
 "foncionar s'es pas recargat."
 
 #. TRANSLATORS: notification title, a remote control is low or very low on power
 #: plugins/power/gsd-power-manager.c:696
-#, fuzzy
-#| msgid "Mouse battery low"
 msgid "Remote battery low"
-msgstr "La batariá de la mirga es febla"
+msgstr "Batariá telecomanda febla"
 
 #. TRANSLATORS: notification body, an remote control is low on power
 #: plugins/power/gsd-power-manager.c:699
@@ -2403,27 +2255,20 @@ msgstr "La poténcia de la telecomanda es febla"
 
 #. TRANSLATORS: notification body, a remote control is very low on power
 #: plugins/power/gsd-power-manager.c:702
-#, fuzzy, c-format
-#| msgid ""
-#| "Attached computer is very low in power (%.0f%%). The device will soon "
-#| "shutdown if not charged."
+#, c-format
 msgid ""
 "Remote is very low on power (%.0f%%). The device will soon shutdown if not "
 "charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat (%.0f %%). S'arrestarà "
-"lèu de foncionar s'es pas recargat."
+"Demòra fòrça pauc d'autonomia a la telecomanda (%.0f %%). S'arrestarà lèu de "
+"foncionar s'es pas recargada."
 
 #: plugins/power/gsd-power-manager.c:704
-#, fuzzy
-#| msgid ""
-#| "Attached computer is very low in power. The device will soon shutdown if "
-#| "not charged."
 msgid ""
 "Remote is very low on power. The device will soon shutdown if not charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat. S'arrestarà lèu de "
-"foncionar s'es pas recargat."
+"Demòra fòrça pauc d'autonomia a la telecomanda. S'arrestarà lèu de foncionar "
+"s'es pas recargada."
 
 #. TRANSLATORS: notification title, a printer is low or very low on power
 #: plugins/power/gsd-power-manager.c:709
@@ -2442,27 +2287,20 @@ msgstr "La poténcia de l'imprimenta es febla"
 
 #. TRANSLATORS: notification body, a printer is very low on power
 #: plugins/power/gsd-power-manager.c:715
-#, fuzzy, c-format
-#| msgid ""
-#| "Attached computer is very low in power (%.0f%%). The device will soon "
-#| "shutdown if not charged."
+#, c-format
 msgid ""
 "Printer is very low on power (%.0f%%). The device will soon shutdown if not "
 "charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat (%.0f %%). S'arrestarà "
-"lèu de foncionar s'es pas recargat."
+"Demòra fòrça pauc d'autonomia a l’imprimenta (%.0f %%). S'arrestarà lèu de "
+"foncionar s'es pas recargada."
 
 #: plugins/power/gsd-power-manager.c:717
-#, fuzzy
-#| msgid ""
-#| "Attached computer is very low in power. The device will soon shutdown if "
-#| "not charged."
 msgid ""
 "Printer is very low on power. The device will soon shutdown if not charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat. S'arrestarà lèu de "
-"foncionar s'es pas recargat."
+"Demòra fòrça pauc d'autonomia a l’imprimenta (%.0f %%). S'arrestarà lèu de "
+"foncionar s'es pas recargada."
 
 #. TRANSLATORS: notification title, a scanner is low or very low on power
 #: plugins/power/gsd-power-manager.c:722
@@ -2481,27 +2319,20 @@ msgstr "La poténcia del numerizador es febla"
 
 #. TRANSLATORS: notification body, a scanner is very low on power
 #: plugins/power/gsd-power-manager.c:728
-#, fuzzy, c-format
-#| msgid ""
-#| "Attached computer is very low in power (%.0f%%). The device will soon "
-#| "shutdown if not charged."
+#, c-format
 msgid ""
 "Scanner is very low on power (%.0f%%). The device will soon shutdown if not "
 "charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat (%.0f %%). S'arrestarà "
-"lèu de foncionar s'es pas recargat."
+"Demòra fòrça pauc d'autonomia a numerizador (%.0f %%). S'arrestarà lèu de "
+"foncionar s'es pas recargat."
 
 #: plugins/power/gsd-power-manager.c:730
-#, fuzzy
-#| msgid ""
-#| "Attached computer is very low in power. The device will soon shutdown if "
-#| "not charged."
 msgid ""
 "Scanner is very low on power. The device will soon shutdown if not charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat. S'arrestarà lèu de "
-"foncionar s'es pas recargat."
+"Demòra fòrça pauc d'autonomia a l’imprimenta. S'arrestarà lèu de foncionar "
+"s'es pas recargada."
 
 #. TRANSLATORS: notification title, a camera is low or very low on power
 #: plugins/power/gsd-power-manager.c:735
@@ -2520,27 +2351,20 @@ msgstr "La poténcia de la camèra es febla"
 
 #. TRANSLATORS: notification body, a camera is very low on power
 #: plugins/power/gsd-power-manager.c:741
-#, fuzzy, c-format
-#| msgid ""
-#| "Attached computer is very low in power (%.0f%%). The device will soon "
-#| "shutdown if not charged."
+#, c-format
 msgid ""
 "Camera is very low on power (%.0f%%). The device will soon shutdown if not "
 "charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat (%.0f %%). S'arrestarà "
-"lèu de foncionar s'es pas recargat."
+"Demòra fòrça pauc d'autonomia a la camèra (%.0f %%). S'arrestarà lèu de "
+"foncionar s'es pas recargada."
 
 #: plugins/power/gsd-power-manager.c:743
-#, fuzzy
-#| msgid ""
-#| "Attached computer is very low in power. The device will soon shutdown if "
-#| "not charged."
 msgid ""
 "Camera is very low on power. The device will soon shutdown if not charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat. S'arrestarà lèu de "
-"foncionar s'es pas recargat."
+"Demòra fòrça pauc d'autonomia a la camèra. S'arrestarà lèu de foncionar s'es "
+"pas recargada."
 
 #. TRANSLATORS: notification title, a Bluetooth device is low or very low on power
 #: plugins/power/gsd-power-manager.c:748
@@ -2559,35 +2383,26 @@ msgstr "La poténcia del periferic Bluetooth es febla"
 
 #. TRANSLATORS: notification body, a Bluetooth device is very low on power
 #: plugins/power/gsd-power-manager.c:754
-#, fuzzy, c-format
-#| msgid ""
-#| "Attached computer is very low in power (%.0f%%). The device will soon "
-#| "shutdown if not charged."
+#, c-format
 msgid ""
 "Bluetooth device is very low on power (%.0f%%). The device will soon "
 "shutdown if not charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat (%.0f %%). S'arrestarà "
+"Demòra fòrça pauc d'autonomia al periferic Bluetooth (%.0f %%). S'arrestarà "
 "lèu de foncionar s'es pas recargat."
 
 #: plugins/power/gsd-power-manager.c:756
-#, fuzzy
-#| msgid ""
-#| "Attached computer is very low in power. The device will soon shutdown if "
-#| "not charged."
 msgid ""
 "Bluetooth device is very low on power. The device will soon shutdown if not "
 "charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat. S'arrestarà lèu de "
+"Demòra fòrça pauc d'autonomia al periferic Bluetooth. S'arrestarà lèu de "
 "foncionar s'es pas recargat."
 
 #. TRANSLATORS: notification title, a connected (wireless) device or peripheral of unhandled type is low or very on power
 #: plugins/power/gsd-power-manager.c:762
-#, fuzzy
-#| msgid "Cell phone battery low"
 msgid "Connected device battery is low"
-msgstr "La batariá del telefonet es febla"
+msgstr "La batariá periferic estacat es febla"
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is low on power
 #: plugins/power/gsd-power-manager.c:765
@@ -2601,27 +2416,20 @@ msgstr "La poténcia d’un aparelh connectat es febla"
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is very low on power
 #: plugins/power/gsd-power-manager.c:768
-#, fuzzy, c-format
-#| msgid ""
-#| "Attached computer is very low in power (%.0f%%). The device will soon "
-#| "shutdown if not charged."
+#, c-format
 msgid ""
 "A connected device is very low on power (%.0f%%). The device will soon "
 "shutdown if not charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat (%.0f %%). S'arrestarà "
+"Demòra fòrça pauc d'autonomia al periferic connectat (%.0f %%). S'arrestarà "
 "lèu de foncionar s'es pas recargat."
 
 #: plugins/power/gsd-power-manager.c:770
-#, fuzzy
-#| msgid ""
-#| "Attached computer is very low in power. The device will soon shutdown if "
-#| "not charged."
 msgid ""
 "A connected device is very low on power. The device will soon shutdown if "
 "not charged."
 msgstr ""
-"Demòra fòrça pauc d'autonomia a l'ordenador connectat. S'arrestarà lèu de "
+"Demòra fòrça pauc d'autonomia al periferic connectat. S'arrestarà lèu de "
 "foncionar s'es pas recargat."
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is running low, shows time remaining
