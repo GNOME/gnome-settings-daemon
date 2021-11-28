@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2021-10-20 15:08+0000\n"
-"PO-Revision-Date: 2021-11-20 21:25+0100\n"
+"POT-Creation-Date: 2021-11-20 20:27+0000\n"
+"PO-Revision-Date: 2021-11-28 14:16+0100\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot en òc (totenoc.eu)\n"
 "Language: oc\n"
@@ -1452,6 +1452,9 @@ msgid ""
 "hard-coded (and the setting ignored) on virtual machines (power off) and "
 "tablets (suspend)."
 msgstr ""
+"L’accion a menar quand lo boton d’alimentacion del sistèma es quichat. "
+"L’accion es codada en dur (e lo paramètre ignorat) sus las maquinas "
+"virtualas (atudar) e las tauletas (mesa en velha)."
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:46
 msgid "Enable power-saver profile when battery is low"
@@ -1462,6 +1465,8 @@ msgid ""
 "Automatically enable the \"power-saver\" profile using power-profiles-daemon "
 "if the battery is low."
 msgstr ""
+"Activar automaticament lo perfil d’estalvi d’energia en utilizant lo paquet "
+"gnome-settings-daemon quand la batariá es febla."
 
 #: data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in:6
 msgid "On which connections the service is enabled"
@@ -1509,6 +1514,10 @@ msgid ""
 "either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
 "(red, green, blue, alpha; 65535 is fully opaque)."
 msgstr ""
+"Aqueste diccionari junta los noms XSETTINGS amb amb las valors de "
+"remplaçament. Las valors devon èsser siá de cadenas de tèxt, int32s signats "
+"o (dins lo cas de color), 4 grops de uint16 (roge, blau, verd, alpha ; 65535 "
+"es l’opacitat complèta)."
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:23
 msgid "Antialiasing"
@@ -1683,30 +1692,30 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Aqueste ordenador a pas mai que %s d'espaci de disc disponible."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2480
+#: plugins/media-keys/gsd-media-keys-manager.c:2496
 msgid "Bluetooth disabled"
 msgstr "Bluetooth desactivat"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2483
+#: plugins/media-keys/gsd-media-keys-manager.c:2499
 msgid "Bluetooth enabled"
 msgstr "Bluetooth activat"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2487
+#: plugins/media-keys/gsd-media-keys-manager.c:2503
 msgid "Airplane mode enabled"
 msgstr "Mòde avion activat"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2490
+#: plugins/media-keys/gsd-media-keys-manager.c:2506
 msgid "Airplane mode disabled"
 msgstr "Mòde avion desactivat"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2529
+#: plugins/media-keys/gsd-media-keys-manager.c:2545
 msgid "Hardware Airplane Mode"
 msgstr "Mòde avion material"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2592
+#: plugins/media-keys/gsd-media-keys-manager.c:2608
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Captura d'ecran vidèo de %d %t.webm"
