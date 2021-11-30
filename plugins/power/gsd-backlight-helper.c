@@ -85,19 +85,15 @@ main (int argc, char *argv[])
 		goto done;
 	}
 
-	device = realpath (argv[1], NULL);
-	if (device == NULL) {
-		fprintf (stderr, "Error: Could not canonicalize given path (%d: %s)\n", errno, strerror (errno));
-		result = GSD_BACKLIGHT_HELPER_EXIT_CODE_FAILED;
-		goto done;
-	}
-
 	dp = opendir ("/sys/class/backlight");
 	if (dp == NULL) {
 		fprintf (stderr, "Error: Could not open /sys/class/backlight (%d: %s)\n", errno, strerror (errno));
 		result = GSD_BACKLIGHT_HELPER_EXIT_CODE_FAILED;
 		goto done;
 	}
+
+	/* May be NULL if the path cannot be resolved */
+	device = realpath (argv[1], NULL);
 
 	while ((ep = readdir (dp))) {
 		char *path;
@@ -108,7 +104,7 @@ main (int argc, char *argv[])
 		/* Leave room for "/brightness" */
 		snprintf (tmp, sizeof(tmp) - 11, "/sys/class/backlight/%s", ep->d_name);
 		path = realpath (tmp, NULL);
-		if (strcmp (path, device) == 0) {
+		if (path && device && strcmp (path, device) == 0) {
 			free (path);
 			strcat (tmp, "/brightness");
 
