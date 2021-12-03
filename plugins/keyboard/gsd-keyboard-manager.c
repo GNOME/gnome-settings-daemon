@@ -57,10 +57,6 @@
 
 #define GNOME_DESKTOP_INTERFACE_DIR "org.gnome.desktop.interface"
 
-#define KEY_GTK_IM_MODULE    "gtk-im-module"
-#define GTK_IM_MODULE_SIMPLE "gtk-im-context-simple"
-#define GTK_IM_MODULE_IBUS   "ibus"
-
 #define GNOME_DESKTOP_INPUT_SOURCES_DIR "org.gnome.desktop.input-sources"
 
 #define KEY_INPUT_SOURCES        "sources"
@@ -71,9 +67,6 @@
 
 #define DEFAULT_LAYOUT "us"
 
-#define GNOME_A11Y_APPLICATIONS_INTERFACE_DIR "org.gnome.desktop.a11y.applications"
-#define KEY_OSK_ENABLED "screen-keyboard-enabled"
-
 struct _GsdKeyboardManager
 {
         GObject    parent;
@@ -81,20 +74,13 @@ struct _GsdKeyboardManager
         guint      start_idle_id;
         GSettings *settings;
         GSettings *input_sources_settings;
-        GSettings *a11y_settings;
         GDBusProxy *localed;
         GCancellable *cancellable;
-
-        GdkSeat *user_seat;
-        guint device_added_id;
-        guint device_removed_id;
 };
 
 static void     gsd_keyboard_manager_class_init  (GsdKeyboardManagerClass *klass);
 static void     gsd_keyboard_manager_init        (GsdKeyboardManager      *keyboard_manager);
 static void     gsd_keyboard_manager_finalize    (GObject                 *object);
-
-static void     update_gtk_im_module (GsdKeyboardManager *manager);
 
 G_DEFINE_TYPE (GsdKeyboardManager, gsd_keyboard_manager, G_TYPE_OBJECT)
 
@@ -216,121 +202,6 @@ settings_changed (GSettings          *settings,
 		g_warning ("Unhandled settings change, key '%s'", key);
 	}
 
-}
-
-static void
-device_added_cb (GdkSeat            *user_seat,
-                 GdkDevice          *device,
-                 GsdKeyboardManager *manager)
-{
-        GdkInputSource source;
-
-        source = gdk_device_get_source (device);
-        if (source == GDK_SOURCE_TOUCHSCREEN) {
-                update_gtk_im_module (manager);
-        }
-}
-
-static void
-device_removed_cb (GdkSeat            *user_seat,
-                   GdkDevice          *device,
-                   GsdKeyboardManager *manager)
-{
-        GdkInputSource source;
-
-        source = gdk_device_get_source (device);
-        if (source == GDK_SOURCE_TOUCHSCREEN)
-                update_gtk_im_module (manager);
-}
-
-static void
-set_devicepresence_handler (GsdKeyboardManager *manager)
-{
-        GdkSeat *user_seat;
-
-        if (gnome_settings_is_wayland ())
-                return;
-
-        user_seat = gdk_display_get_default_seat (gdk_display_get_default ());
-
-        manager->device_added_id = g_signal_connect (G_OBJECT (user_seat), "device-added",
-                                                     G_CALLBACK (device_added_cb), manager);
-        manager->device_removed_id = g_signal_connect (G_OBJECT (user_seat), "device-removed",
-                                                       G_CALLBACK (device_removed_cb), manager);
-        manager->user_seat = user_seat;
-}
-
-static gboolean
-need_ibus (GVariant *sources)
-{
-        GVariantIter iter;
-        const gchar *type;
-
-        g_variant_iter_init (&iter, sources);
-        while (g_variant_iter_next (&iter, "(&s&s)", &type, NULL))
-                if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS))
-                        return TRUE;
-
-        return FALSE;
-}
-
-static gboolean
-need_osk (GsdKeyboardManager *manager)
-{
-        gboolean has_touchscreen = FALSE;
-        GList *devices;
-        GdkSeat *seat;
-
-        if (g_settings_get_boolean (manager->a11y_settings,
-                                    KEY_OSK_ENABLED))
-                return TRUE;
-
-        seat = gdk_display_get_default_seat (gdk_display_get_default ());
-        devices = gdk_seat_get_slaves (seat, GDK_SEAT_CAPABILITY_TOUCH);
-
-        has_touchscreen = devices != NULL;
-
-        g_list_free (devices);
-
-        return has_touchscreen;
-}
-
-static void
-set_gtk_im_module (GsdKeyboardManager *manager,
-                   GSettings          *settings,
-                   GVariant           *sources)
-{
-        const gchar *new_module;
-        gchar *current_module;
-
-        if (need_ibus (sources) || need_osk (manager))
-                new_module = GTK_IM_MODULE_IBUS;
-        else
-                new_module = GTK_IM_MODULE_SIMPLE;
-
-        current_module = g_settings_get_string (settings, KEY_GTK_IM_MODULE);
-        if (!g_str_equal (current_module, new_module))
-                g_settings_set_string (settings, KEY_GTK_IM_MODULE, new_module);
-        g_free (current_module);
-}
-
-static void
-update_gtk_im_module (GsdKeyboardManager *manager)
-{
-        GSettings *interface_settings;
-        GVariant *sources;
-
-        /* Gtk+ uses the IM module advertised in XSETTINGS so, if we
-         * have IBus input sources, we want it to load that
-         * module. Otherwise we can use the default "simple" module
-         * which is builtin gtk+
-         */
-        interface_settings = g_settings_new (GNOME_DESKTOP_INTERFACE_DIR);
-        sources = g_settings_get_value (manager->input_sources_settings,
-                                        KEY_INPUT_SOURCES);
-        set_gtk_im_module (manager, interface_settings, sources);
-        g_object_unref (interface_settings);
-        g_variant_unref (sources);
 }
 
 static void
@@ -580,18 +451,7 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
 
         manager->settings = g_settings_new (GSD_KEYBOARD_DIR);
 
-	set_devicepresence_handler (manager);
-
         manager->input_sources_settings = g_settings_new (GNOME_DESKTOP_INPUT_SOURCES_DIR);
-        g_signal_connect_swapped (manager->input_sources_settings,
-                                  "changed::" KEY_INPUT_SOURCES,
-                                  G_CALLBACK (update_gtk_im_module), manager);
-
-        manager->a11y_settings = g_settings_new (GNOME_A11Y_APPLICATIONS_INTERFACE_DIR);
-        g_signal_connect_swapped (manager->a11y_settings,
-                                  "changed::" KEY_OSK_ENABLED,
-                                  G_CALLBACK (update_gtk_im_module), manager);
-        update_gtk_im_module (manager);
 
         manager->cancellable = g_cancellable_new ();
 
@@ -645,14 +505,7 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
 
         g_clear_object (&manager->settings);
         g_clear_object (&manager->input_sources_settings);
-        g_clear_object (&manager->a11y_settings);
         g_clear_object (&manager->localed);
-
-        if (manager->user_seat != NULL) {
-                g_signal_handler_disconnect (manager->user_seat, manager->device_added_id);
-                g_signal_handler_disconnect (manager->user_seat, manager->device_removed_id);
-                manager->user_seat = NULL;
-        }
 }
 
 static void
