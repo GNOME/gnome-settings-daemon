@@ -33,10 +33,6 @@
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
 
-#ifdef GDK_WINDOWING_X11
-#include <gdk/gdkx.h>
-#endif
-
 #include "gnome-settings-bus.h"
 
 #include "gsd-color-manager.h"
@@ -53,7 +49,6 @@ struct _GsdColorState
         GsdSessionManager *session;
         CdClient        *client;
         GnomeRRScreen   *state_screen;
-        GdkWindow       *gdk_window;
         gboolean         session_is_active;
         GHashTable      *device_assign_hash;
         guint            color_temperature;
@@ -64,10 +59,6 @@ static void     gsd_color_state_init        (GsdColorState      *color_state);
 static void     gsd_color_state_finalize    (GObject            *object);
 
 G_DEFINE_TYPE (GsdColorState, gsd_color_state, G_TYPE_OBJECT)
-
-/* see http://www.oyranos.org/wiki/index.php?title=ICC_Profiles_in_X_Specification_0.3 */
-#define GCM_ICC_PROFILE_IN_X_VERSION_MAJOR      0
-#define GCM_ICC_PROFILE_IN_X_VERSION_MINOR      3
 
 GQuark
 gsd_color_state_error_quark (void)
@@ -94,84 +85,6 @@ gcm_get_srgb_icc (GError **error)
         }
 
         return srgb_icc;
-}
-
-static char *
-gcm_get_srgb_bytes (gsize *length,
-                    GError **error)
-{
-        g_autoptr(CdIcc) srgb_icc = NULL;
-        GBytes *bytes;
-
-        srgb_icc = gcm_get_srgb_icc (error);
-        if (srgb_icc == NULL)
-                return NULL;
-
-        bytes = cd_icc_save_data (srgb_icc,
-                                  CD_ICC_SAVE_FLAGS_NONE,
-                                  error);
-        if (bytes == NULL)
-                return NULL;
-
-        return g_bytes_unref_to_data (bytes, length);
-}
-
-static gboolean
-gcm_session_screen_set_icc_profile (GsdColorState *state,
-                                    GnomeRROutput *output,
-                                    const gchar *filename,
-                                    GError **error)
-{
-        gchar *data = NULL;
-        gsize length;
-        guint version_data;
-
-        g_return_val_if_fail (filename != NULL, FALSE);
-
-        /* wayland */
-        if (state->gdk_window == NULL) {
-                g_debug ("not setting atom as running under wayland");
-                return TRUE;
-        }
-
-        g_debug ("setting root window ICC profile atom from %s", filename);
-
-        if (gnome_rr_output_supports_color_transform (output)) {
-                /*
-                 * If the window system supports color transforms, then
-                 * applications should use the standard sRGB color profile and
-                 * the window system will take care of converting colors to
-                 * match the output device's measured color profile.
-                 */
-                data = gcm_get_srgb_bytes (&length, error);
-                if (data == NULL)
-                        return FALSE;
-        } else {
-                /* get contents of file */
-                if (!g_file_get_contents (filename, &data, &length, error))
-                        return FALSE;
-        }
-
-        /* set profile property */
-        gdk_property_change (state->gdk_window,
-                             gdk_atom_intern_static_string ("_ICC_PROFILE"),
-                             gdk_atom_intern_static_string ("CARDINAL"),
-                             8,
-                             GDK_PROP_MODE_REPLACE,
-                             (const guchar *) data, length);
-
-        /* set version property */
-        version_data = GCM_ICC_PROFILE_IN_X_VERSION_MAJOR * 100 +
-                        GCM_ICC_PROFILE_IN_X_VERSION_MINOR * 1;
-        gdk_property_change (state->gdk_window,
-                             gdk_atom_intern_static_string ("_ICC_PROFILE_IN_X_VERSION"),
-                             gdk_atom_intern_static_string ("CARDINAL"),
-                             8,
-                             GDK_PROP_MODE_REPLACE,
-                             (const guchar *) &version_data, 1);
-
-        g_free (data);
-        return TRUE;
 }
 
 void
@@ -331,49 +244,6 @@ out:
         return output;
 }
 
-/* this function is more complicated than it should be, due to the
- * fact that XOrg sometimes assigns no primary devices when using
- * "xrandr --auto" or when the version of RANDR is < 1.3 */
-static gboolean
-gcm_session_use_output_profile_for_screen (GsdColorState *state,
-                                           GnomeRROutput *output)
-{
-        gboolean has_laptop = FALSE;
-        gboolean has_primary = FALSE;
-        GnomeRROutput **outputs;
-        GnomeRROutput *connected = NULL;
-        guint i;
-
-        /* do we have any screens marked as primary */
-        outputs = gnome_rr_screen_list_outputs (state->state_screen);
-        if (outputs == NULL || outputs[0] == NULL) {
-                g_warning ("failed to get outputs");
-                return FALSE;
-        }
-        for (i = 0; outputs[i] != NULL; i++) {
-                if (connected == NULL)
-                        connected = outputs[i];
-                if (gnome_rr_output_get_is_primary (outputs[i]))
-                        has_primary = TRUE;
-                if (gnome_rr_output_is_builtin_display (outputs[i]))
-                        has_laptop = TRUE;
-        }
-
-        /* we have an assigned primary device, are we that? */
-        if (has_primary)
-                return gnome_rr_output_get_is_primary (output);
-
-        /* choosing the internal panel is probably sane */
-        if (has_laptop)
-                return gnome_rr_output_is_builtin_display (output);
-
-        /* we have to choose one, so go for the first connected device */
-        if (connected != NULL)
-                return gnome_rr_output_get_id (connected) == gnome_rr_output_get_id (output);
-
-        return FALSE;
-}
-
 static void
 gcm_session_device_assign_profile_connect_cb (GObject *object,
                                               GAsyncResult *res,
@@ -406,20 +276,6 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
                                                    helper->output_id);
         if (output == NULL)
                 goto out;
-
-        /* set the _ICC_PROFILE atom */
-        ret = gcm_session_use_output_profile_for_screen (state, output);
-        if (ret) {
-                ret = gcm_session_screen_set_icc_profile (state,
-                                                          output,
-                                                          filename,
-                                                          &error);
-                if (!ret) {
-                        g_warning ("failed to set screen _ICC_PROFILE: %s",
-                                   error->message);
-                        g_clear_error (&error);
-                }
-        }
 
         if (gnome_rr_output_supports_color_transform (output)) {
                 ret = gcm_set_csc_matrix (output,
@@ -487,20 +343,8 @@ gcm_session_device_assign_connect_cb (GObject *object,
 
         /* get the default profile for the device */
         profile = cd_device_get_default_profile (device);
-        if (profile == NULL) {
-                g_debug ("%s has no default profile to set",
-                         cd_device_get_id (device));
-
-                /* the default output? */
-                if (gnome_rr_output_get_is_primary (output) &&
-                    state->gdk_window != NULL) {
-                        gdk_property_delete (state->gdk_window,
-                                             gdk_atom_intern_static_string ("_ICC_PROFILE"));
-                        gdk_property_delete (state->gdk_window,
-                                             gdk_atom_intern_static_string ("_ICC_PROFILE_IN_X_VERSION"));
-                }
+        if (profile == NULL)
                 goto out;
-        }
 
         /* get properties */
         helper = g_new0 (GcmSessionAsyncHelper, 1);
@@ -810,12 +654,6 @@ gsd_color_state_init (GsdColorState *state)
 {
         /* track the active session */
         state->session = gnome_settings_bus_get_session_proxy ();
-
-#ifdef GDK_WINDOWING_X11
-        /* set the _ICC_PROFILE atoms on the root screen */
-        if (GDK_IS_X11_DISPLAY (gdk_display_get_default ()))
-                state->gdk_window = gdk_screen_get_root_window (gdk_screen_get_default ());
-#endif
 
         /* we don't want to assign devices multiple times at startup */
         state->device_assign_hash = g_hash_table_new_full (g_str_hash,
