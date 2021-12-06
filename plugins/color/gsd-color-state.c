@@ -57,7 +57,6 @@ struct _GsdColorState
         GsdSessionManager *session;
         CdClient        *client;
         GnomeRRScreen   *state_screen;
-        GHashTable      *edid_cache;
         GdkWindow       *gdk_window;
         gboolean         session_is_active;
         GHashTable      *device_assign_hash;
@@ -87,46 +86,6 @@ gsd_color_state_error_quark (void)
         if (!quark)
                 quark = g_quark_from_static_string ("gsd_color_state_error");
         return quark;
-}
-
-static GcmEdid *
-gcm_session_get_output_edid (GsdColorState *state, GnomeRROutput *output, GError **error)
-{
-        const guint8 *data;
-        gsize size;
-        GcmEdid *edid = NULL;
-        gboolean ret;
-
-        /* can we find it in the cache */
-        edid = g_hash_table_lookup (state->edid_cache,
-                                    gnome_rr_output_get_name (output));
-        if (edid != NULL) {
-                g_object_ref (edid);
-                return edid;
-        }
-
-        /* parse edid */
-        data = gnome_rr_output_get_edid_data (output, &size);
-        if (data == NULL || size == 0) {
-                g_set_error_literal (error,
-                                     GNOME_RR_ERROR,
-                                     GNOME_RR_ERROR_UNKNOWN,
-                                     "unable to get EDID for output");
-                return NULL;
-        }
-        edid = gcm_edid_new ();
-        ret = gcm_edid_parse (edid, data, size, error);
-        if (!ret) {
-                g_object_unref (edid);
-                return NULL;
-        }
-
-        /* add to cache */
-        g_hash_table_insert (state->edid_cache,
-                             g_strdup (gnome_rr_output_get_name (output)),
-                             g_object_ref (edid));
-
-        return edid;
 }
 
 static CdIcc *
@@ -261,177 +220,6 @@ gcm_session_async_helper_free (GcmSessionAsyncHelper *helper)
         if (helper->device != NULL)
                 g_object_unref (helper->device);
         g_free (helper);
-}
-
-static gboolean
-gcm_utils_mkdir_for_filename (GFile *file, GError **error)
-{
-        gboolean ret = FALSE;
-        GFile *parent_dir = NULL;
-
-        /* get parent directory */
-        parent_dir = g_file_get_parent (file);
-        if (parent_dir == NULL) {
-                g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
-                                     "could not get parent dir");
-                goto out;
-        }
-
-        /* ensure desination does not already exist */
-        ret = g_file_query_exists (parent_dir, NULL);
-        if (ret)
-                goto out;
-        ret = g_file_make_directory_with_parents (parent_dir, NULL, error);
-        if (!ret)
-                goto out;
-out:
-        if (parent_dir != NULL)
-                g_object_unref (parent_dir);
-        return ret;
-}
-
-static gboolean
-gcm_get_system_icc_profile (GsdColorState *state,
-                            GFile *file)
-{
-        const char efi_path[] = "/sys/firmware/efi/efivars/INTERNAL_PANEL_COLOR_INFO-01e1ada1-79f2-46b3-8d3e-71fc0996ca6b";
-        /* efi variables have a 4-byte header */
-        const int efi_var_header_length = 4;
-        g_autoptr(GFile) efi_file = g_file_new_for_path (efi_path);
-        gboolean ret;
-        g_autofree char *data = NULL;
-        gsize length;
-        g_autoptr(GError) error = NULL;
-
-        ret = g_file_query_exists (efi_file, NULL);
-        if (!ret)
-                return FALSE;
-
-        ret = g_file_load_contents (efi_file,
-                                    NULL /* cancellable */,
-                                    &data,
-                                    &length,
-                                    NULL /* etag_out */,
-                                    &error);
-
-        if (!ret) {
-                g_warning ("failed to read EFI system color profile: %s",
-                           error->message);
-                return FALSE;
-        }
-
-        if (length <= efi_var_header_length) {
-                g_warning ("EFI system color profile was too short");
-                return FALSE;
-        }
-
-        ret = g_file_replace_contents (file,
-                                       data + efi_var_header_length,
-                                       length - efi_var_header_length,
-                                       NULL /* etag */,
-                                       FALSE /* make_backup */,
-                                       G_FILE_CREATE_NONE,
-                                       NULL /* new_etag */,
-                                       NULL /* cancellable */,
-                                       &error);
-        if (!ret) {
-                g_warning ("failed to write system color profile: %s",
-                           error->message);
-                return FALSE;
-        }
-
-        return TRUE;
-}
-
-static gboolean
-gcm_apply_create_icc_profile_for_edid (GsdColorState *state,
-                                       CdDevice *device,
-                                       GcmEdid *edid,
-                                       GFile *file,
-                                       GError **error)
-{
-        CdIcc *icc = NULL;
-        const gchar *data;
-        gboolean ret = FALSE;
-
-        /* ensure the per-user directory exists */
-        ret = gcm_utils_mkdir_for_filename (file, error);
-        if (!ret)
-                goto out;
-
-        /* create our generated profile */
-        icc = cd_icc_new ();
-        ret = cd_icc_create_from_edid (icc,
-                                       gcm_edid_get_gamma (edid),
-                                       gcm_edid_get_red (edid),
-                                       gcm_edid_get_green (edid),
-                                       gcm_edid_get_blue (edid),
-                                       gcm_edid_get_white (edid),
-                                       error);
-        if (!ret)
-                goto out;
-
-        /* set copyright */
-        cd_icc_set_copyright (icc, NULL,
-                              /* deliberately not translated */
-                              "This profile is free of known copyright restrictions.");
-
-        /* set model and title */
-        data = gcm_edid_get_monitor_name (edid);
-        if (data == NULL)
-                data = cd_client_get_system_model (state->client);
-        if (data == NULL)
-                data = "Unknown monitor";
-        cd_icc_set_model (icc, NULL, data);
-        cd_icc_set_description (icc, NULL, data);
-
-        /* get manufacturer */
-        data = gcm_edid_get_vendor_name (edid);
-        if (data == NULL)
-                data = cd_client_get_system_vendor (state->client);
-        if (data == NULL)
-                data = "Unknown vendor";
-        cd_icc_set_manufacturer (icc, NULL, data);
-
-        /* set the framework creator metadata */
-        cd_icc_add_metadata (icc,
-                             CD_PROFILE_METADATA_CMF_PRODUCT,
-                             PACKAGE_NAME);
-        cd_icc_add_metadata (icc,
-                             CD_PROFILE_METADATA_CMF_BINARY,
-                             PACKAGE_NAME);
-        cd_icc_add_metadata (icc,
-                             CD_PROFILE_METADATA_CMF_VERSION,
-                             PACKAGE_VERSION);
-        cd_icc_add_metadata (icc,
-                             CD_PROFILE_METADATA_MAPPING_DEVICE_ID,
-                             cd_device_get_id (device));
-
-        /* set 'ICC meta Tag for Monitor Profiles' data */
-        cd_icc_add_metadata (icc, CD_PROFILE_METADATA_EDID_MD5, gcm_edid_get_checksum (edid));
-        data = gcm_edid_get_monitor_name (edid);
-        if (data != NULL)
-                cd_icc_add_metadata (icc, CD_PROFILE_METADATA_EDID_MODEL, data);
-        data = gcm_edid_get_serial_number (edid);
-        if (data != NULL)
-                cd_icc_add_metadata (icc, CD_PROFILE_METADATA_EDID_SERIAL, data);
-        data = gcm_edid_get_pnp_id (edid);
-        if (data != NULL)
-                cd_icc_add_metadata (icc, CD_PROFILE_METADATA_EDID_MNFT, data);
-        data = gcm_edid_get_vendor_name (edid);
-        if (data != NULL)
-                cd_icc_add_metadata (icc, CD_PROFILE_METADATA_EDID_VENDOR, data);
-
-        /* save */
-        ret = cd_icc_save_file (icc, file, CD_ICC_SAVE_FLAGS_NONE, NULL, error);
-        if (!ret)
-                goto out;
-out:
-        if (icc != NULL)
-                g_object_unref (icc);
-        return ret;
 }
 
 static uint64_t
@@ -944,32 +732,6 @@ out:
         gcm_session_async_helper_free (helper);
 }
 
-/*
- * Check to see if the on-disk profile has the MAPPING_device_id
- * metadata, and if not, we should delete the profile and re-create it
- * so that it gets mapped by the daemon.
- */
-static gboolean
-gcm_session_check_profile_device_md (GFile *file)
-{
-        const gchar *key_we_need = CD_PROFILE_METADATA_MAPPING_DEVICE_ID;
-        CdIcc *icc;
-        gboolean ret;
-
-        icc = cd_icc_new ();
-        ret = cd_icc_load_file (icc, file, CD_ICC_LOAD_FLAGS_METADATA, NULL, NULL);
-        if (!ret)
-                goto out;
-        ret = cd_icc_get_metadata_item (icc, key_we_need) != NULL;
-        if (!ret) {
-                g_debug ("auto-edid profile is old, and contains no %s data",
-                         key_we_need);
-        }
-out:
-        g_object_unref (icc);
-        return ret;
-}
-
 static void
 gcm_session_device_assign_connect_cb (GObject *object,
                                       GAsyncResult *res,
@@ -978,12 +740,8 @@ gcm_session_device_assign_connect_cb (GObject *object,
         CdDeviceKind kind;
         CdProfile *profile = NULL;
         gboolean ret;
-        gchar *autogen_filename = NULL;
-        gchar *autogen_path = NULL;
-        GcmEdid *edid = NULL;
         GnomeRROutput *output = NULL;
         GError *error = NULL;
-        GFile *file = NULL;
         GcmSessionAsyncHelper *helper;
         CdDevice *device = CD_DEVICE (object);
         GsdColorState *state = GSD_COLOR_STATE (user_data);
@@ -1019,49 +777,6 @@ gcm_session_device_assign_connect_cb (GObject *object,
                            error->message);
                 g_error_free (error);
                 goto out;
-        }
-
-        /* create profile from device edid if it exists */
-        edid = gcm_session_get_output_edid (state, output, &error);
-        if (edid == NULL) {
-                g_warning ("unable to get EDID for %s: %s",
-                           cd_device_get_id (device),
-                           error->message);
-                g_clear_error (&error);
-
-        } else {
-                autogen_filename = g_strdup_printf ("edid-%s.icc",
-                                                    gcm_edid_get_checksum (edid));
-                autogen_path = g_build_filename (g_get_user_data_dir (),
-                                                 "icc", autogen_filename, NULL);
-
-                /* check if auto-profile has up-to-date metadata */
-                file = g_file_new_for_path (autogen_path);
-                if (gcm_session_check_profile_device_md (file)) {
-                        g_debug ("auto-profile edid %s exists with md", autogen_path);
-                } else {
-                        g_debug ("auto-profile edid does not exist, creating as %s",
-                                 autogen_path);
-
-                        /* check if the system has a built-in profile */
-                        ret = gnome_rr_output_is_builtin_display (output) &&
-                              gcm_get_system_icc_profile (state, file);
-
-                        /* try creating one from the EDID */
-                        if (!ret) {
-                                ret = gcm_apply_create_icc_profile_for_edid (state,
-                                                                             device,
-                                                                             edid,
-                                                                             file,
-                                                                             &error);
-                        }
-
-                        if (!ret) {
-                                g_warning ("failed to create profile from EDID data: %s",
-                                             error->message);
-                                g_clear_error (&error);
-                        }
-                }
         }
 
         /* get the default profile for the device */
@@ -1103,12 +818,6 @@ gcm_session_device_assign_connect_cb (GObject *object,
                             gcm_session_device_assign_profile_connect_cb,
                             helper);
 out:
-        g_free (autogen_filename);
-        g_free (autogen_path);
-        if (file != NULL)
-                g_object_unref (file);
-        if (edid != NULL)
-                g_object_unref (edid);
         if (profile != NULL)
                 g_object_unref (profile);
 }
@@ -1414,12 +1123,6 @@ gsd_color_state_init (GsdColorState *state)
                 state->gdk_window = gdk_screen_get_root_window (gdk_screen_get_default ());
 #endif
 
-        /* parsing the EDID is expensive */
-        state->edid_cache = g_hash_table_new_full (g_str_hash,
-                                                  g_str_equal,
-                                                  g_free,
-                                                  g_object_unref);
-
         /* we don't want to assign devices multiple times at startup */
         state->device_assign_hash = g_hash_table_new_full (g_str_hash,
                                                           g_str_equal,
@@ -1446,7 +1149,6 @@ gsd_color_state_finalize (GObject *object)
         g_clear_object (&state->cancellable);
         g_clear_object (&state->client);
         g_clear_object (&state->session);
-        g_clear_pointer (&state->edid_cache, g_hash_table_destroy);
         g_clear_pointer (&state->device_assign_hash, g_hash_table_destroy);
         g_clear_object (&state->state_screen);
 

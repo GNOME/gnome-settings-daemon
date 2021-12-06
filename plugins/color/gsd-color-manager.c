@@ -28,7 +28,6 @@
 #include "gnome-settings-profile.h"
 #include "gsd-color-calibrate.h"
 #include "gsd-color-manager.h"
-#include "gsd-color-profiles.h"
 #include "gsd-color-state.h"
 #include "gsd-night-light.h"
 
@@ -65,7 +64,6 @@ struct _GsdColorManager
         GCancellable      *bus_cancellable;
 
         GsdColorCalibrate *calibrate;
-        GsdColorProfiles  *profiles;
         GsdColorState     *state;
         GsdNightLight   *nlight;
 
@@ -97,21 +95,14 @@ gboolean
 gsd_color_manager_start (GsdColorManager *manager,
                          GError          **error)
 {
-        gboolean ret;
-
         g_debug ("Starting color manager");
         gnome_settings_profile_start (NULL);
 
         /* start the device probing */
         gsd_color_state_start (manager->state);
 
-        /* start the profiles collection */
-        ret = gsd_color_profiles_start (manager->profiles, error);
-        if (!ret)
-                goto out;
-out:
         gnome_settings_profile_end (NULL);
-        return ret;
+        return TRUE;
 }
 
 void
@@ -119,7 +110,6 @@ gsd_color_manager_stop (GsdColorManager *manager)
 {
         g_debug ("Stopping color manager");
         gsd_color_state_stop (manager->state);
-        gsd_color_profiles_stop (manager->profiles);
 }
 
 static void
@@ -220,7 +210,6 @@ gsd_color_manager_init (GsdColorManager *manager)
 {
         /* setup calibration features */
         manager->calibrate = gsd_color_calibrate_new ();
-        manager->profiles = gsd_color_profiles_new ();
         manager->state = gsd_color_state_new ();
 
         /* night light features */
@@ -266,7 +255,6 @@ gsd_color_manager_finalize (GObject *object)
                 g_source_remove (manager->nlight_forced_timeout_id);
 
         g_clear_object (&manager->calibrate);
-        g_clear_object (&manager->profiles);
         g_clear_object (&manager->state);
         g_clear_object (&manager->nlight);
 

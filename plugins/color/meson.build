@@ -3,7 +3,6 @@ sources = files(
   'gnome-datetime-source.c',
   'gsd-color-calibrate.c',
   'gsd-color-manager.c',
-  'gsd-color-profiles.c',
   'gsd-color-state.c',
   'gsd-night-light.c',
   'gsd-night-light-common.c',
