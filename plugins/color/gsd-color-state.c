@@ -43,10 +43,6 @@
 #include "gsd-color-state.h"
 #include "gcm-edid.h"
 
-#define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
-#define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
-#define GSD_DBUS_BASE_INTERFACE "org.gnome.SettingsDaemon"
-
 static void gcm_session_set_gamma_for_all_devices (GsdColorState *state);
 
 struct _GsdColorState
@@ -378,50 +374,16 @@ gcm_session_use_output_profile_for_screen (GsdColorState *state,
         return FALSE;
 }
 
-/* TODO: remove when we can dep on a released version of colord */
-#ifndef CD_PROFILE_METADATA_SCREEN_BRIGHTNESS
-#define CD_PROFILE_METADATA_SCREEN_BRIGHTNESS		"SCREEN_brightness"
-#endif
-
-#define GSD_DBUS_NAME_POWER		GSD_DBUS_NAME ".Power"
-#define GSD_DBUS_INTERFACE_POWER_SCREEN	GSD_DBUS_BASE_INTERFACE ".Power.Screen"
-#define GSD_DBUS_PATH_POWER		GSD_DBUS_PATH "/Power"
-
-static void
-gcm_session_set_output_percentage (guint percentage)
-{
-        GDBusConnection *connection;
-
-        /* get a ref to the existing bus connection */
-        connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
-        if (connection == NULL)
-                return;
-        g_dbus_connection_call (connection,
-                                GSD_DBUS_NAME_POWER,
-                                GSD_DBUS_PATH_POWER,
-                                "org.freedesktop.DBus.Properties",
-                                "Set",
-                                g_variant_new_parsed ("('" GSD_DBUS_INTERFACE_POWER_SCREEN "',"
-                                                      "'Brightness', %v)",
-                                                      g_variant_new_int32 (percentage)),
-                                NULL,
-                                G_DBUS_CALL_FLAGS_NONE,
-                                -1, NULL, NULL, NULL);
-        g_object_unref (connection);
-}
-
 static void
 gcm_session_device_assign_profile_connect_cb (GObject *object,
                                               GAsyncResult *res,
                                               gpointer user_data)
 {
         CdProfile *profile = CD_PROFILE (object);
-        const gchar *brightness_profile;
         const gchar *filename;
         gboolean ret;
         GError *error = NULL;
         GnomeRROutput *output;
-        guint brightness_percentage;
         GcmSessionAsyncHelper *helper = (GcmSessionAsyncHelper *) user_data;
         GsdColorState *state = GSD_COLOR_STATE (helper->state);
 
@@ -444,18 +406,6 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
                                                    helper->output_id);
         if (output == NULL)
                 goto out;
-
-        /* if output is a laptop screen and the profile has a
-         * calibration brightness then set this new brightness */
-        brightness_profile = cd_profile_get_metadata_item (profile,
-                                                           CD_PROFILE_METADATA_SCREEN_BRIGHTNESS);
-        if (gnome_rr_output_is_builtin_display (output) &&
-            brightness_profile != NULL) {
-                /* the percentage is stored in the profile metadata as
-                 * a string, not ideal, but it's all we have... */
-                brightness_percentage = atoi (brightness_profile);
-                gcm_session_set_output_percentage (brightness_percentage);
-        }
 
         /* set the _ICC_PROFILE atom */
         ret = gcm_session_use_output_profile_for_screen (state, output);
