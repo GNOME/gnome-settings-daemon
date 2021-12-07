@@ -10,8 +10,6 @@ sources = files(
 
 deps = plugins_deps + [
   colord_dep,
-  gnome_desktop_dep,
-  lcms_dep,
   libcanberra_gtk_dep,
   libgeoclue_dep,
   libnotify_dep,
