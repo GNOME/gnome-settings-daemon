@@ -1,5 +1,4 @@
 sources = files(
-  'gcm-edid.c',
   'gnome-datetime-source.c',
   'gsd-color-calibrate.c',
   'gsd-color-manager.c',
@@ -33,7 +32,6 @@ executable(
 )
 
 sources = files(
-  'gcm-edid.c',
   'gcm-self-test.c',
   'gnome-datetime-source.c',
   'gsd-night-light.c',
