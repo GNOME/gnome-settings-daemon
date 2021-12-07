@@ -33,8 +33,6 @@ G_DECLARE_FINAL_TYPE (GsdColorState, gsd_color_state, GSD, COLOR_STATE, GObject)
 #define GSD_COLOR_TEMPERATURE_DEFAULT           6500    /* Kelvin, is RGB [1.0,1.0,1.0] */
 #define GSD_COLOR_TEMPERATURE_MAX               10000   /* Kelvin */
 
-GQuark                  gsd_color_state_error_quark     (void);
-
 GsdColorState *         gsd_color_state_new             (void);
 void                    gsd_color_state_start           (GsdColorState *state);
 void                    gsd_color_state_stop            (GsdColorState *state);
