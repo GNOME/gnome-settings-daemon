@@ -56,6 +56,7 @@
 #define PRIVACY_SETTINGS_SCHEMA     "org.gnome.desktop.privacy"
 #define WM_SETTINGS_SCHEMA        "org.gnome.desktop.wm.preferences"
 #define A11Y_SCHEMA               "org.gnome.desktop.a11y"
+#define A11Y_INTERFACE_SCHEMA     "org.gnome.desktop.a11y.interface"
 #define CLASSIC_WM_SETTINGS_SCHEMA "org.gnome.shell.extensions.classic-overrides"
 
 #define XSETTINGS_PLUGIN_SCHEMA "org.gnome.settings-daemon.plugins.xsettings"
@@ -71,6 +72,8 @@
 #define FONT_ANTIALIASING_KEY "font-antialiasing"
 #define FONT_HINTING_KEY      "font-hinting"
 #define FONT_RGBA_ORDER_KEY   "font-rgba-order"
+
+#define HIGH_CONTRAST_KEY "high-contrast"
 
 #define GTK_SETTINGS_DBUS_PATH "/org/gtk/Settings"
 #define GTK_SETTINGS_DBUS_NAME "org.gtk.Settings"
@@ -380,6 +383,25 @@ translate_button_layout (GsdXSettingsManager *manager,
 }
 
 static void
+translate_theme_name (GsdXSettingsManager *manager,
+                      TranslationEntry    *trans,
+                      GVariant            *value)
+{
+        GSettings *settings;
+        gboolean hc = FALSE;
+
+        settings = g_hash_table_lookup (manager->settings, A11Y_INTERFACE_SCHEMA);
+
+        if (settings)
+                hc = g_settings_get_boolean (settings, HIGH_CONTRAST_KEY);
+
+        xsettings_manager_set_string (manager->manager,
+                                      trans->xsetting_name,
+                                      hc ? "HighContrast"
+                                         : g_variant_get_string (value, NULL));
+}
+
+static void
 fixed_false_int (GsdXSettingsManager *manager,
                  FixedEntry          *fixed)
 {
@@ -477,9 +499,9 @@ static TranslationEntry translations [] = {
         { "org.gnome.desktop.interface", "cursor-blink",           "Net/CursorBlink",         translate_bool_int },
         { "org.gnome.desktop.interface", "cursor-blink-time",      "Net/CursorBlinkTime",     translate_int_int },
         { "org.gnome.desktop.interface", "cursor-blink-timeout",   "Gtk/CursorBlinkTimeout",  translate_int_int },
-        { "org.gnome.desktop.interface", "gtk-theme",              "Net/ThemeName",           translate_string_string },
+        { "org.gnome.desktop.interface", "gtk-theme",              "Net/ThemeName",           translate_theme_name },
         { "org.gnome.desktop.interface", "gtk-im-module",          "Gtk/IMModule",            translate_string_string },
-        { "org.gnome.desktop.interface", "icon-theme",             "Net/IconThemeName",       translate_string_string },
+        { "org.gnome.desktop.interface", "icon-theme",             "Net/IconThemeName",       translate_theme_name },
         { "org.gnome.desktop.interface", "cursor-theme",           "Gtk/CursorThemeName",     translate_string_string },
         { "org.gnome.desktop.interface", "gtk-enable-primary-paste", "Gtk/EnablePrimaryPaste", translate_bool_int },
         { "org.gnome.desktop.interface", "overlay-scrolling",      "Gtk/OverlayScrolling",    translate_bool_int },
@@ -1019,6 +1041,16 @@ xsettings_callback (GSettings           *settings,
         	return;
 	}
 
+        if (g_str_equal (key, HIGH_CONTRAST_KEY)) {
+                GSettings *iface_settings;
+
+                iface_settings = g_hash_table_lookup (manager->settings,
+                                                      INTERFACE_SETTINGS_SCHEMA);
+                xsettings_callback (iface_settings, "gtk-theme", manager);
+                xsettings_callback (iface_settings, "icon-theme", manager);
+                return;
+        }
+
         trans = find_translation_entry (settings, key);
         if (trans == NULL) {
                 return;
@@ -1369,6 +1401,8 @@ gsd_xsettings_manager_start (GsdXSettingsManager *manager,
                              WM_SETTINGS_SCHEMA, g_settings_new (WM_SETTINGS_SCHEMA));
         g_hash_table_insert (manager->settings,
                              A11Y_SCHEMA, g_settings_new (A11Y_SCHEMA));
+        g_hash_table_insert (manager->settings,
+                             A11Y_INTERFACE_SCHEMA, g_settings_new (A11Y_INTERFACE_SCHEMA));
 
         session = g_getenv ("XDG_CURRENT_DESKTOP");
         if (session && strstr (session, "GNOME-Classic")) {
