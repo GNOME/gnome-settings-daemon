@@ -13,16 +13,16 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2021-08-19 17:31+0000\n"
-"PO-Revision-Date: 2021-08-30 17:32+0700\n"
-"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"POT-Creation-Date: 2021-09-22 13:29+0000\n"
+"PO-Revision-Date: 2021-12-23 11:05+0700\n"
+"Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= n!=1;\n"
-"X-Generator: Poedit 2.4.3\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.0\n"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid "Smartcard removal action"
@@ -1706,14 +1706,12 @@ msgstr "Waktu tak diketahui"
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i menit"
-msgstr[1] "%i menit"
 
 #: plugins/power/gpm-common.c:106
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
 msgstr[0] "%i jam"
-msgstr[1] "%i jam"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
@@ -1726,13 +1724,11 @@ msgstr "%i %s %i %s"
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "jam"
-msgstr[1] "jam"
 
 #: plugins/power/gpm-common.c:114
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "menit"
-msgstr[1] "menit"
 
 #. TRANSLATORS: this is the sound description
 #: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:960
@@ -2444,6 +2440,7 @@ msgstr "Baterai lemah"
 msgid "Battery critically low"
 msgstr "Baterai nyaris habis"
 
+#. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action happening soon
 #: plugins/power/gsd-power-manager.c:897
 #, c-format
 msgid "Hibernating soon unless plugged in."
@@ -2470,6 +2467,7 @@ msgstr ""
 "Sekitar %s sisa daya UPS (%.0f%%). Kembalikan daya listrik AC ke komputer "
 "Anda untuk menghindari kehilangan data."
 
+#. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action happening now
 #: plugins/power/gsd-power-manager.c:993
 msgid ""
 "The battery is below the critical level and this computer is about to "
@@ -2482,6 +2480,7 @@ msgid ""
 "shutdown."
 msgstr "Baterai di bawah tingkat kritis dan komputer ini akan mati."
 
+#. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, warning about action happening now
 #: plugins/power/gsd-power-manager.c:1016
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
@@ -3008,11 +3007,9 @@ msgstr "Masukkan PUK untuk membuka kunci kartu SIM Anda"
 msgid "%2$s. You have %1$u try left"
 msgid_plural "%2$s. You have %1$u tries left"
 msgstr[0] "%2$s. Anda memiliki %1$u sisa percobaan"
-msgstr[1] "%2$s. Anda memiliki %1$u sisa percobaan"
 
 #: plugins/wwan/gsd-wwan-manager.c:160
 #, c-format
 msgid "You have %u try left"
 msgid_plural "You have %u tries left"
 msgstr[0] "Anda memiliki %u percobaan lagi"
-msgstr[1] "Anda memiliki %u percobaan lagi"
