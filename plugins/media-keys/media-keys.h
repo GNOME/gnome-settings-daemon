@@ -42,7 +42,6 @@ typedef enum {
         CONTROL_CENTER_KEY,
         SCREENSAVER_KEY,
         HELP_KEY,
-        SCREENCAST_KEY,
         WWW_KEY,
         PLAY_KEY,
         PAUSE_KEY,

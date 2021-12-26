@@ -198,12 +198,6 @@ typedef struct
         /* ScreenSaver stuff */
         GsdScreenSaver  *screen_saver_proxy;
 
-        /* Screencast stuff */
-        GDBusProxy      *screencast_proxy;
-        guint            screencast_timeout_id;
-        gboolean         screencast_recording;
-        GCancellable    *screencast_cancellable;
-
         /* Rotation */
         guint            iio_sensor_watch_id;
         gboolean         has_accel;
@@ -744,10 +738,6 @@ gsettings_changed_cb (GSettings           *settings,
 
 	/* handled in gsettings_custom_changed_cb() */
         if (g_str_equal (settings_key, "custom-keybindings"))
-		return;
-
-	/* not needed here */
-        if (g_str_equal (settings_key, "max-screencast-length"))
 		return;
 
         /* Find the key that was modified */
@@ -2331,75 +2321,6 @@ do_rfkill_action (GsdMediaKeysManager *manager,
 }
 
 static void
-screencast_stop (GsdMediaKeysManager *manager)
-{
-        GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
-
-        if (priv->screencast_timeout_id > 0) {
-                g_source_remove (priv->screencast_timeout_id);
-                priv->screencast_timeout_id = 0;
-        }
-
-        g_dbus_proxy_call (priv->screencast_proxy,
-                           "StopScreencast", NULL,
-                           G_DBUS_CALL_FLAGS_NONE, -1,
-                           priv->screencast_cancellable,
-                           NULL, NULL);
-
-        priv->screencast_recording = FALSE;
-}
-
-static gboolean
-screencast_timeout (gpointer user_data)
-{
-        GsdMediaKeysManager *manager = user_data;
-        screencast_stop (manager);
-        return G_SOURCE_REMOVE;
-}
-
-static void
-screencast_start (GsdMediaKeysManager *manager)
-{
-        GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
-        guint max_length;
-        g_dbus_proxy_call (priv->screencast_proxy,
-                           "Screencast",
-                           g_variant_new_parsed ("(%s, @a{sv} {})",
-                                                 /* Translators: this is a filename used for screencast
-                                                  * recording, where "%d" and "%t" date and time, e.g.
-                                                  * "Screencast from 07-17-2013 10:00:46 PM.webm" */
-                                                 /* xgettext:no-c-format */
-                                                 _("Screencast from %d %t.webm")),
-                           G_DBUS_CALL_FLAGS_NONE, -1,
-                           priv->screencast_cancellable,
-                           NULL, NULL);
-
-        max_length = g_settings_get_uint (priv->settings, "max-screencast-length");
-
-        if (max_length > 0) {
-                priv->screencast_timeout_id = g_timeout_add_seconds (max_length,
-                                                                     screencast_timeout,
-                                                                     manager);
-                g_source_set_name_by_id (priv->screencast_timeout_id, "[gnome-settings-daemon] screencast_timeout");
-        }
-        priv->screencast_recording = TRUE;
-}
-
-static void
-do_screencast_action (GsdMediaKeysManager *manager)
-{
-        GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
-
-        if (priv->screencast_proxy == NULL)
-                return;
-
-        if (!priv->screencast_recording)
-                screencast_start (manager);
-        else
-                screencast_stop (manager);
-}
-
-static void
 do_custom_action (GsdMediaKeysManager *manager,
                   const gchar         *device_node,
                   MediaKey            *key,
@@ -2479,9 +2400,6 @@ do_action (GsdMediaKeysManager *manager,
                 break;
         case HELP_KEY:
                 do_url_action (manager, "ghelp", timestamp);
-                break;
-        case SCREENCAST_KEY:
-                do_screencast_action (manager);
                 break;
         case WWW_KEY:
                 do_url_action (manager, "http", timestamp);
@@ -2837,25 +2755,6 @@ initialize_volume_handler (GsdMediaKeysManager *manager)
 }
 
 static void
-on_screencast_proxy_ready (GObject      *source,
-                           GAsyncResult *result,
-                           gpointer      data)
-{
-        GsdMediaKeysManager *manager = data;
-        GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
-        GError *error = NULL;
-
-        priv->screencast_proxy =
-                g_dbus_proxy_new_for_bus_finish (result, &error);
-
-        if (!priv->screencast_proxy) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-                        g_warning ("Failed to create proxy for screencast: %s", error->message);
-                g_error_free (error);
-        }
-}
-
-static void
 on_key_grabber_ready (GObject      *source,
                       GAsyncResult *result,
                       gpointer      data)
@@ -2892,7 +2791,6 @@ shell_presence_changed (GsdMediaKeysManager *manager)
 
         g_ptr_array_set_size (priv->keys, 0);
         g_clear_object (&priv->key_grabber);
-        g_clear_object (&priv->screencast_proxy);
 
         if (name_owner) {
                 shell_key_grabber_proxy_new_for_bus (G_BUS_TYPE_SESSION,
@@ -2983,21 +2881,12 @@ start_media_keys_idle_cb (GsdMediaKeysManager *manager)
 	priv->icon_theme = g_settings_get_string (priv->interface_settings, "icon-theme");
 
         priv->grab_cancellable = g_cancellable_new ();
-        priv->screencast_cancellable = g_cancellable_new ();
         priv->rfkill_cancellable = g_cancellable_new ();
 
         priv->shell_proxy = gnome_settings_bus_get_shell_proxy ();
         g_signal_connect_swapped (priv->shell_proxy, "notify::g-name-owner",
                                   G_CALLBACK (shell_presence_changed), manager);
         shell_presence_changed (manager);
-
-        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
-                                  0, NULL,
-                                  SHELL_DBUS_NAME ".Screencast",
-                                  SHELL_DBUS_PATH "/Screencast",
-                                  SHELL_DBUS_NAME ".Screencast",
-                                  priv->screencast_cancellable,
-                                  on_screencast_proxy_ready, manager);
 
         priv->rfkill_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
                                                   "org.gnome.SettingsDaemon.Rfkill",
@@ -3086,7 +2975,6 @@ migrate_keybinding_settings (void)
                 { "volume-mute",                "volume-mute",                  map_keybinding },
                 { "volume-up",                  "volume-up",                    map_keybinding },
                 { "mic-mute",                   "mic-mute",                     map_keybinding },
-                { "screencast",                 "screencast",                   map_keybinding },
                 { "www",                        "www",                          map_keybinding },
                 { "magnifier",                  "magnifier",                    map_keybinding },
                 { "screenreader",               "screenreader",                 map_keybinding },
@@ -3191,7 +3079,6 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         g_clear_object (&priv->power_keyboard_proxy);
         g_clear_object (&priv->composite_device);
         g_clear_object (&priv->mpris_controller);
-        g_clear_object (&priv->screencast_proxy);
         g_clear_object (&priv->iio_sensor_proxy);
         g_clear_pointer (&priv->chassis_type, g_free);
         g_clear_object (&priv->connection);
@@ -3230,11 +3117,6 @@ gsd_media_keys_manager_stop (GsdMediaKeysManager *manager)
         if (priv->grab_cancellable != NULL) {
                 g_cancellable_cancel (priv->grab_cancellable);
                 g_clear_object (&priv->grab_cancellable);
-        }
-
-        if (priv->screencast_cancellable != NULL) {
-                g_cancellable_cancel (priv->screencast_cancellable);
-                g_clear_object (&priv->screencast_cancellable);
         }
 
         if (priv->rfkill_cancellable != NULL) {
