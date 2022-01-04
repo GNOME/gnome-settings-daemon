@@ -32,7 +32,7 @@ location_get_cities (GWeatherLocation *parent_location)
 
         while ((child = gweather_location_next_child (parent_location, child))) {
                 if (gweather_location_get_level (child) == GWEATHER_LOCATION_CITY) {
-                        cities = g_list_prepend (cities, gweather_location_ref (child));
+                        cities = g_list_prepend (cities, g_object_ref (child));
                 } else {
                         cities = g_list_concat (cities,
                                                 location_get_cities (child));
