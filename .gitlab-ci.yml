@@ -1,9 +1,9 @@
 include:
- - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/5888c7388134cbe4661600222fe9befb10441f6e/templates/fedora.yml'
+ - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/80f87b3058efb75a1faae11826211375fba77e7f/templates/fedora.yml'
 
 variables:
   FDO_DISTRIBUTION_TAG: latest
-  FDO_DISTRIBUTION_VERSION: rawhide
+  FDO_DISTRIBUTION_VERSION: 35
   FDO_UPSTREAM_REPO: gnome/gnome-settings-daemon
   # Expiry sets fdo.expires on the image
   FEDORA_IMAGE: "$CI_REGISTRY/$FDO_UPSTREAM_REPO/fedora/$FDO_DISTRIBUTION_VERSION:$FDO_DISTRIBUTION_TAG"
