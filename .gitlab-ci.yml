@@ -1,5 +1,5 @@
 include:
- - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/5888c7388134cbe4661600222fe9befb10441f6e/templates/fedora.yml'
+ - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/80f87b3058efb75a1faae11826211375fba77e7f/templates/fedora.yml'
 
 variables:
   FDO_DISTRIBUTION_TAG: latest
@@ -244,7 +244,7 @@ msan:
 
 # See also https://gitlab.freedesktop.org/freedesktop/ci-templates
 container_fedora_build:
-  extends: .fdo.container-build@fedora
+  extends: .fdo.container-build@fedora@x86_64
   only:
     variables:
       - $CI_PIPELINE_SOURCE == "schedule" && $CRON_TASK == "BUILD_CI_IMAGES"
