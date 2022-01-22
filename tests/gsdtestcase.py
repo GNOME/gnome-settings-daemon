@@ -235,7 +235,7 @@ class GSDTestCase(X11SessionTestCase):
         klass.mutter = subprocess.Popen(['mutter', '--x11'])
         klass.wait_for_bus_object('org.gnome.Mutter.IdleMonitor',
                                  '/org/gnome/Mutter/IdleMonitor/Core',
-                                 timeout=100)
+                                 timeout=500)
 
     @classmethod
     def stop_mutter(klass):
