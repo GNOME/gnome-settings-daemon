@@ -131,7 +131,7 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
         self.addCleanup(self.stop_plugin)
 
         # Store the early-init messages, some tests need them.
-        self.plugin_startup_msgs = self.plugin_log.check_line(b'System inhibitor fd is', timeout=10)
+        self.plugin_startup_msgs = self.plugin_log.check_line(b'System inhibitor fd is', timeout=100)
 
         # always start with zero idle time
         self.reset_idle_timer()
