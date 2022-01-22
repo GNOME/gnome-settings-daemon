@@ -165,7 +165,7 @@ class GSDTestCase(X11SessionTestCase):
         # wait until the daemon is on the bus
         self.wait_for_bus_object('org.gnome.SessionManager',
                                  '/org/gnome/SessionManager',
-                                 timeout=100)
+                                 timeout=500)
 
         self.session_log.check_line(b'fill: *** Done adding required components')
 
