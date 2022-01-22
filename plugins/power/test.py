@@ -442,7 +442,7 @@ class PowerPluginTest2(PowerPluginBase):
         self.assertTrue(self.obj_screensaver.GetActive(), 'screensaver not turned on')
 
         # Check that we blank
-        self.check_blank(2)
+        self.check_blank(10)
 
         # Create the different possible inhibitors
         inhibit_id = self.obj_session_mgr.Inhibit(
