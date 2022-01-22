@@ -261,7 +261,7 @@ class GSDTestCase(X11SessionTestCase):
 
         bus = self.get_dbus(False)
 
-        timeout = 100
+        timeout = 500
         while timeout > 0:
             if bus.name_has_owner('org.gnome.SettingsDaemon.' + self.gsd_plugin_case):
                 break
