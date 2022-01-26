@@ -76,7 +76,6 @@ if host_is_linux
   )
 
   i18n.merge_file(
-    policy,
     input: policy_in,
     output: policy,
     po_dir: po_dir,
