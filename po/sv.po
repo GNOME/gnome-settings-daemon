@@ -1,20 +1,20 @@
 # Swedish messages for gnome-settings-daemon
-# Copyright © 1998-2021 Free Software Foundation, Inc.
+# Copyright © 1998-2022 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-settings-daemon package.
 #
 # Martin Wahlen <mva@sbbs.se>, 1998, 1999.
 # Christian Rose <menthos@menthos.com>, 2000, 2001, 2002, 2003, 2004, 2005.
 # Daniel Nylander <po@danielnylander.se>, 2006, 2007, 2008, 2009, 2010, 2011, 2012.
 # Josef Andersson <josef.andersson@fripost.org>, 2014.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2015, 2016, 2017, 2018, 2019, 2020, 2021.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2021-08-19 17:31+0000\n"
-"PO-Revision-Date: 2021-08-19 19:54+0200\n"
+"POT-Creation-Date: 2021-09-22 13:29+0000\n"
+"PO-Revision-Date: 2022-02-08 23:00+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid "Smartcard removal action"
@@ -266,8 +266,8 @@ msgid ""
 "Set this to “none”, “cw” for 90 degree clockwise, “half” for 180 degree, and "
 "“ccw” for 90 degree counterclockwise."
 msgstr ""
-"Ställ in denna till ”none”, ”cw” för 90 grader medsols, ”half” för 180 "
-"grader, samt ”ccw” för 90 grader motsols."
+"Ställ in denna till ”none”, ”cw” för 90 grader medurs, ”half” för 180 "
+"grader, samt ”ccw” för 90 grader moturs."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:30
 msgid "Wacom touch feature"
@@ -2459,6 +2459,7 @@ msgstr "Batterikapaciteten är låg"
 msgid "Battery critically low"
 msgstr "Batterispänningen är kritiskt lågt"
 
+#. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action happening soon
 #: plugins/power/gsd-power-manager.c:897
 #, c-format
 msgid "Hibernating soon unless plugged in."
@@ -2485,6 +2486,7 @@ msgstr ""
 "Ungefär %s av återstående avbrottsfri kraftförsörjning (UPS)-kraft (%.0f%%). "
 "Anslut din dator till en strömkälla för att undvika att förlora data."
 
+#. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action happening now
 #: plugins/power/gsd-power-manager.c:993
 msgid ""
 "The battery is below the critical level and this computer is about to "
@@ -2501,6 +2503,7 @@ msgstr ""
 "Batteriet är under den kritiska nivån och den här datorn kommer att stängas "
 "av."
 
+#. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, warning about action happening now
 #: plugins/power/gsd-power-manager.c:1016
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
