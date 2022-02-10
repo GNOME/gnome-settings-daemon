@@ -31,6 +31,7 @@ class OutputChecker(object):
     def __init__(self, out=sys.stdout):
         self._output = out
         self._pipe_fd_r, self._pipe_fd_w = os.pipe()
+        self._eof = False
         self._partial_buf = b''
         self._lines_sem = threading.Semaphore()
         self._lines = []
@@ -58,8 +59,7 @@ class OutputChecker(object):
 
                 r = os.read(self._pipe_fd_r, 1024)
                 if not r:
-                    os.close(self._pipe_fd_r)
-                    self._pipe_fd_r = -1
+                    self._eof = True
                     self._lines_sem.release()
                     return
             except OSError as e:
@@ -67,9 +67,6 @@ class OutputChecker(object):
                     continue
 
                 # We get a bad file descriptor error when the outside closes the FD
-                if self._pipe_fd_r >= 0:
-                    os.close(self._pipe_fd_r)
-                self._pipe_fd_r = -1
                 self._lines_sem.release()
                 return
 
@@ -96,7 +93,7 @@ class OutputChecker(object):
                 l = self._lines.pop(0)
             except IndexError:
                 # EOF, throw error
-                if self._pipe_fd_r == -1:
+                if self._eof:
                     if failmsg:
                         raise AssertionError("No further messages: " % failmsg)
                     else:
