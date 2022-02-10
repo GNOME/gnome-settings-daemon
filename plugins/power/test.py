@@ -594,7 +594,8 @@ class PowerPluginTest4(PowerPluginBase):
             dbus.UInt32(gsdpowerenums.GSM_INHIBITOR_FLAG_SUSPEND),
             dbus_interface='org.gnome.SessionManager')
 
-        time.sleep (gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT)
+        # Wait for startup inhibition to be gone
+        self.check_for_lid_uninhibited(gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 2)
 
         # Close the lid
         self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', True)
@@ -621,7 +622,8 @@ class PowerPluginTest4(PowerPluginBase):
             dbus.UInt32(gsdpowerenums.GSM_INHIBITOR_FLAG_SUSPEND),
             dbus_interface='org.gnome.SessionManager')
 
-        time.sleep (gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT)
+        # Wait for startup inhibition to be gone
+        self.check_for_lid_uninhibited(gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 2)
 
         # Close the lid
         self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', True)
@@ -645,7 +647,8 @@ class PowerPluginTest4(PowerPluginBase):
             dbus.UInt32(gsdpowerenums.GSM_INHIBITOR_FLAG_SUSPEND),
             dbus_interface='org.gnome.SessionManager')
 
-        time.sleep (gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT)
+        # Wait for startup inhibition to be gone
+        self.check_for_lid_uninhibited(gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 2)
 
         # Close the lid
         self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', True)
@@ -669,9 +672,8 @@ class PowerPluginTest5(PowerPluginBase):
     def test_dim(self):
         '''Check that we do go to dim'''
 
-        # Wait and flush log
-        time.sleep (gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 1)
-        self.plugin_log.clear()
+        # Wait for startup inhibition to be gone
+        self.check_for_lid_uninhibited(gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 2)
 
         idle_delay = math.ceil(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY / gsdpowerconstants.IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER)
         self.reset_idle_timer()
@@ -718,9 +720,8 @@ class PowerPluginTest5(PowerPluginBase):
     def test_lid_close_inhibition(self):
         '''Check that we correctly inhibit suspend with an external monitor'''
 
-        # Wait and flush log
-        time.sleep (gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 1)
-        self.plugin_log.clear()
+        # Wait for startup inhibition to be gone
+        self.check_for_lid_uninhibited(gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 2)
 
         # Add an external monitor
         self.set_has_external_monitor(True)
