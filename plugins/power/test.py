@@ -38,6 +38,16 @@ from gi.repository import GLib
 from gi.repository import UPowerGlib
 from gi.repository import UMockdev
 
+def tryint(s):
+    try:
+        return int(s)
+    except:
+        return s
+
+mutter_version = subprocess.run(['mutter', '--version'], stdout=subprocess.PIPE).stdout.decode().strip()
+assert mutter_version.startswith('mutter ')
+mutter_version = tuple(tryint(d) for d in mutter_version[7:].split('.'))
+
 class PowerPluginBase(gsdtestcase.GSDTestCase):
     '''Test the power plugin'''
 
@@ -625,6 +635,7 @@ class PowerPluginTest4(PowerPluginBase):
                 dbus_interface='org.gnome.SessionManager')
         # At this point logind should suspend for us
 
+    @unittest.skipIf(mutter_version <= (42, 'alpha'), reason="mutter is too old and may be buggy")
     def test_unblank_on_lid_open(self):
         '''Check that we do unblank on lid opening, if the machine will not suspend'''
 
