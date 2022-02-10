@@ -112,6 +112,9 @@ class GSDTestCase(X11SessionTestCase):
             raise KeyboardInterrupt()
         signal.signal(signal.SIGTERM, r)
 
+    def setUp(self):
+        self.daemon_death_expected = False
+
     def tearDown(self):
         # we check this at the end so that the other cleanup always happens
         daemon_running = self.daemon.poll() == None
