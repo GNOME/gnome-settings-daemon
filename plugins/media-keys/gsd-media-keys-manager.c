@@ -2500,7 +2500,7 @@ do_action (GsdMediaKeysManager *manager,
                 do_execute_desktop_or_desktop (manager, "org.gnome.Calculator.desktop", "gnome-calculator.desktop", timestamp);
                 break;
         case CONTROL_CENTER_KEY:
-                do_execute_desktop_or_desktop (manager, "gnome-control-center.desktop", NULL, timestamp);
+                do_execute_desktop_or_desktop (manager, "org.gnome.Settings.desktop", NULL, timestamp);
                 break;
         case PLAY_KEY:
                 return do_multimedia_player_action (manager, "Play");
