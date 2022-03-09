@@ -227,6 +227,9 @@ class GSDTestCase(X11SessionTestCase):
 
         self.logind_obj.AddMethod('org.freedesktop.login1.Session', 'SetBrightness', 'ssu', '', '')
 
+        # Make sure we have the LidClosed property
+        self.logind_obj.AddProperty('org.freedesktop.login1.Manager', 'LidClosed', False)
+
     def stop_logind(self):
         '''stop mock logind'''
 

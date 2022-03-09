@@ -236,6 +236,13 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
                                                   'brightness', str(brightness)],
                                                  [])
 
+    def set_lid_closed(self, state):
+        # We also set the upower object as mutter still uses it
+        self.logind_obj.Set('org.freedesktop.login1.Manager', 'LidClosed', state)
+        self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', state)
+        self.logind_obj.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+
     def get_brightness(self):
         max_brightness = int(open(os.path.join(self.testbed.get_root_dir() + self.backlight, 'max_brightness')).read())
 
@@ -625,8 +632,7 @@ class PowerPluginTest4(PowerPluginBase):
         self.check_for_lid_uninhibited(gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 2)
 
         # Close the lid
-        self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', True)
-        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+        self.set_lid_closed(True)
 
         # Check that we've blanked
         time.sleep(2)
@@ -652,9 +658,7 @@ class PowerPluginTest4(PowerPluginBase):
         # Wait for startup inhibition to be gone
         self.check_for_lid_uninhibited(gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 2)
 
-        # Close the lid
-        self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', True)
-        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+        self.set_lid_closed(True)
 
         # Check that we've blanked
         self.check_blank(4)
@@ -677,16 +681,12 @@ class PowerPluginTest4(PowerPluginBase):
         # Wait for startup inhibition to be gone
         self.check_for_lid_uninhibited(gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 2)
 
-        # Close the lid
-        self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', True)
-        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+        self.set_lid_closed(True)
 
         # Check that we've blanked
         self.check_blank(2)
 
-        # Reopen the lid
-        self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', False)
-        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+        self.set_lid_closed(False)
 
         # Check for unblanking
         self.check_unblank(2)
@@ -757,9 +757,7 @@ class PowerPluginTest5(PowerPluginBase):
         # Check that we do not uninhibit with the external monitor attached
         self.check_no_lid_uninhibited(gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 1)
 
-        # Close the lid
-        self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', True)
-        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+        self.set_lid_closed(True)
         time.sleep(0.5)
 
         # Unplug the external monitor
