@@ -67,6 +67,8 @@
 
 #define DEFAULT_LAYOUT "us"
 
+#define SETTINGS_PORTED_FILE ".gsd-keyboard.settings-ported"
+
 struct _GsdKeyboardManager
 {
         GObject    parent;
@@ -541,6 +543,14 @@ gsd_keyboard_manager_finalize (GObject *object)
         G_OBJECT_CLASS (gsd_keyboard_manager_parent_class)->finalize (object);
 }
 
+static GVariant *
+reset_gtk_im_module (GVariant *variant,
+                     GVariant *old_default,
+                     GVariant *new_default)
+{
+        return NULL;
+}
+
 static void
 migrate_keyboard_settings (void)
 {
@@ -550,12 +560,37 @@ migrate_keyboard_settings (void)
                 { "delay",                  "delay",                  NULL },
                 { "remember-numlock-state", "remember-numlock-state", NULL },
         };
+        g_autofree char *filename = NULL;
 
         gsd_settings_migrate_check ("org.gnome.settings-daemon.peripherals.keyboard.deprecated",
                                     "/org/gnome/settings-daemon/peripherals/keyboard/",
                                     "org.gnome.desktop.peripherals.keyboard",
                                     "/org/gnome/desktop/peripherals/keyboard/",
                                     entries, G_N_ELEMENTS (entries));
+
+        /* In prior versions to GNOME 42, the gtk-im-module setting was
+         * owned by gsd-keyboard. Reset it once before giving it back
+         * to the user.
+         */
+        filename = g_build_filename (g_get_user_config_dir (),
+                                     SETTINGS_PORTED_FILE,
+                                     NULL);
+
+        if (!g_file_test (filename, G_FILE_TEST_EXISTS)) {
+                GsdSettingsMigrateEntry im_entry[] = {
+                        { "gtk-im-module", "gtk-im-module", reset_gtk_im_module },
+                };
+                g_autoptr(GError) error = NULL;
+
+                gsd_settings_migrate_check ("org.gnome.desktop.interface",
+                                            "/org/gnome/desktop/interface/",
+                                            "org.gnome.desktop.interface",
+                                            "/org/gnome/desktop/interface/",
+                                            im_entry, G_N_ELEMENTS (im_entry));
+
+                if (!g_file_set_contents (filename, "", -1, &error))
+                        g_warning ("Error migrating gtk-im-module: %s", error->message);
+        }
 }
 
 GsdKeyboardManager *
