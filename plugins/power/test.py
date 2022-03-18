@@ -38,15 +38,42 @@ from gi.repository import GLib
 from gi.repository import UPowerGlib
 from gi.repository import UMockdev
 
-def tryint(s):
-    try:
-        return int(s)
-    except:
-        return s
-
+# There must be a better way to do a version comparison ... but this works
 mutter_version = subprocess.run(['mutter', '--version'], stdout=subprocess.PIPE).stdout.decode().strip()
 assert mutter_version.startswith('mutter ')
-mutter_version = tuple(tryint(d) for d in mutter_version[7:].split('.'))
+mutter_version = mutter_version[7:].split('.')
+
+def mutter_at_least(version):
+    global mutter_version
+    version = version.split('.')
+
+    for i in range(max(len(mutter_version), len(version))):
+        m = mutter_version[i]
+        try:
+            m = int(m)
+        except:
+            pass
+
+        v = version[i]
+        try:
+            v = int(v)
+        except:
+            pass
+
+        try:
+            if m > v:
+                return True
+            elif m < v:
+                return False
+        except TypeError:
+            # String is smaller than integer
+            if isinstance(m, str):
+                return False
+            else:
+                return True
+
+    # assume equal
+    return True
 
 class PowerPluginBase(gsdtestcase.GSDTestCase):
     '''Test the power plugin'''
@@ -637,7 +664,7 @@ class PowerPluginTest4(PowerPluginBase):
                 dbus_interface='org.gnome.SessionManager')
         # At this point logind should suspend for us
 
-    @unittest.skipIf(mutter_version <= (42, 0), reason="mutter is too old and may be buggy")
+    @unittest.skipIf(not mutter_at_least('42.0'), reason="mutter is too old and may be buggy")
     def test_unblank_on_lid_open(self):
         '''Check that we do unblank on lid opening, if the machine will not suspend'''
 
