@@ -637,7 +637,7 @@ class PowerPluginTest4(PowerPluginBase):
                 dbus_interface='org.gnome.SessionManager')
         # At this point logind should suspend for us
 
-    @unittest.skipIf(mutter_version <= (42, 'alpha'), reason="mutter is too old and may be buggy")
+    @unittest.skipIf(mutter_version <= (42, 0), reason="mutter is too old and may be buggy")
     def test_unblank_on_lid_open(self):
         '''Check that we do unblank on lid opening, if the machine will not suspend'''
 
