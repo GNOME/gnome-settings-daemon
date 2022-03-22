@@ -348,7 +348,6 @@ gsd_backlight_run_set_helper (GsdBacklight *backlight, GTask *task)
 {
         GSubprocess *proc = NULL;
         BacklightHelperData *data = g_task_get_task_data (task);
-        const gchar *gsd_backlight_helper = NULL;
         GError *error = NULL;
 
         g_assert (backlight->active_task == NULL);
@@ -359,21 +358,12 @@ gsd_backlight_run_set_helper (GsdBacklight *backlight, GTask *task)
 
         /* This is solely for use by the test environment. If given, execute
          * this helper instead of the internal helper using pkexec */
-        gsd_backlight_helper = g_getenv ("GSD_BACKLIGHT_HELPER");
-        if (!gsd_backlight_helper) {
-                proc = g_subprocess_new (G_SUBPROCESS_FLAGS_STDOUT_SILENCE,
-                                         &error,
-                                         "pkexec",
-                                         LIBEXECDIR "/gsd-backlight-helper",
-                                         g_udev_device_get_sysfs_path (backlight->udev_device),
-                                         data->value_str, NULL);
-        } else {
-                proc = g_subprocess_new (G_SUBPROCESS_FLAGS_STDOUT_SILENCE,
-                                         &error,
-                                         gsd_backlight_helper,
-                                         g_udev_device_get_sysfs_path (backlight->udev_device),
-                                         data->value_str, NULL);
-        }
+        proc = g_subprocess_new (G_SUBPROCESS_FLAGS_STDOUT_SILENCE,
+                                 &error,
+                                 "pkexec",
+                                 LIBEXECDIR "/gsd-backlight-helper",
+                                 g_udev_device_get_sysfs_path (backlight->udev_device),
+                                 data->value_str, NULL);
 
         if (proc == NULL) {
                 gsd_backlight_set_helper_return (backlight, task, -1, error);
@@ -884,8 +874,18 @@ gsd_backlight_initable_init (GInitable       *initable,
                         g_clear_error (&logind_error);
                         g_clear_object (&backlight->logind_proxy);
                 } else {
-                        /* Fail on anything else */
-                        g_clear_object (&backlight->logind_proxy);
+                        /* python-dbusmock throws a TypeError here as of 0.27.3
+                         *   https://github.com/martinpitt/python-dbusmock/pull/117
+                         */
+                        g_autofree char *dbus_error = NULL;
+
+                        dbus_error = g_dbus_error_get_remote_error (logind_error);
+                        if (g_strcmp0 (dbus_error, "org.freedesktop.DBus.Python.TypeError") == 0) {
+                                g_clear_error (&logind_error);
+                        } else {
+                                /* Fail on anything else */
+                                g_clear_object (&backlight->logind_proxy);
+                        }
                 }
         }
 

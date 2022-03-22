@@ -225,7 +225,14 @@ class GSDTestCase(X11SessionTestCase):
         self.logind_obj.AddMethod('org.freedesktop.login1.Manager', 'SuspendThenHibernate', 'b', '', '')
         self.logind_obj.AddMethod('org.freedesktop.login1.Manager', 'CanSuspendThenHibernate', '', 's', 'ret = "%s"' % parameters.get('CanSuspendThenHibernate', 'yes'))
 
-        self.logind_obj.AddMethod('org.freedesktop.login1.Session', 'SetBrightness', 'ssu', '', '')
+        # add "auto" session, it is all we really need
+        self.logind_obj.AddSession('session_test', 'seat_test', 1234, 'testuser', True)
+        obj = self.logind_obj.AddSession('auto', 'seat_test', 1234, 'testuser', True)
+        bus = self.get_dbus(True)
+        obj = bus.get_object("org.freedesktop.login1", obj)
+
+        # Monkey patch in our SetBrightness method; and make it take a little bit of time to open a window for race conditions
+        obj.AddMethod('org.freedesktop.login1.Session', 'SetBrightness', 'ssu', '', 'import time; time.sleep(0.1); open(os.path.join("/sys/class/" + args[0] + "/" + args[1] + "/brightness"), "w", encoding="ascii").write(str(args[2]))')
 
     def stop_logind(self):
         '''stop mock logind'''
