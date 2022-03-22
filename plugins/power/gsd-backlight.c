@@ -459,6 +459,30 @@ gsd_backlight_get_brightness (GsdBacklight *backlight, gint *target)
         return ABS_TO_PERCENTAGE (backlight->brightness_min, backlight->brightness_max, backlight->brightness_val);
 }
 
+#ifdef __linux__
+static void
+logind_set_brightness_cb (GObject *obj, GAsyncResult *res, gpointer user_data)
+{
+  GsdBacklight *backlight;
+  g_autoptr(GTask) task = user_data;
+  g_autoptr(GVariant) r = NULL;
+  g_autoptr(GError) error = NULL;
+  gint percent;
+
+  r = g_dbus_proxy_call_finish (G_DBUS_PROXY (obj), res, &error);
+
+  backlight = g_task_get_source_object (task);
+  percent = ABS_TO_PERCENTAGE (backlight->brightness_min,
+                               backlight->brightness_max,
+                               backlight->brightness_target);
+
+  if (error)
+    g_task_return_error (task, error);
+  else
+    g_task_return_int (task, percent);
+}
+#endif
+
 static void
 gsd_backlight_set_brightness_val_async (GsdBacklight *backlight,
                                         int value,
@@ -491,7 +515,7 @@ gsd_backlight_set_brightness_val_async (GsdBacklight *backlight,
                                                           backlight->brightness_target),
                                            G_DBUS_CALL_FLAGS_NONE,
                                            -1, NULL,
-                                           NULL, NULL);
+                                           logind_set_brightness_cb, g_steal_pointer (&task));
 
                         percent = ABS_TO_PERCENTAGE (backlight->brightness_min,
                                                      backlight->brightness_max,
