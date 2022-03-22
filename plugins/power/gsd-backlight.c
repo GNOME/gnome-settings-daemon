@@ -45,9 +45,6 @@ struct _GsdBacklight
         GUdevClient *udev;
         GUdevDevice *udev_device;
 
-        GTask *active_task;
-        GQueue tasks;
-
         gint idle_update;
 #endif /* __linux__ */
 
@@ -160,10 +157,6 @@ gsd_backlight_udev_idle_update_cb (GsdBacklight *backlight)
         g_autofree gchar *contents = NULL;
         backlight->idle_update = 0;
 
-        /* If we are active again now, just stop. */
-        if (backlight->active_task)
-                return FALSE;
-
         path = g_build_filename (g_udev_device_get_sysfs_path (backlight->udev_device), "brightness", NULL);
         if (!g_file_get_contents (path, &contents, NULL, &error)) {
                 g_warning ("Could not get brightness from sysfs: %s", error->message);
@@ -201,10 +194,6 @@ gsd_backlight_udev_uevent (GUdevClient *client, const gchar *action, GUdevDevice
         GsdBacklight *backlight = GSD_BACKLIGHT (user_data);
 
         if (g_strcmp0 (action, "change") != 0)
-                return;
-
-        /* We are going to update our state after processing the tasks anyway. */
-        if (!g_queue_is_empty (&backlight->tasks))
                 return;
 
         if (g_strcmp0 (g_udev_device_get_sysfs_path (device),
@@ -258,139 +247,6 @@ gsd_backlight_udev_init (GsdBacklight *backlight)
                                  backlight, 0);
 
         return TRUE;
-}
-
-
-typedef struct {
-        int value;
-        char *value_str;
-} BacklightHelperData;
-
-static void gsd_backlight_process_taskqueue (GsdBacklight *backlight);
-
-static void
-backlight_task_data_destroy (gpointer data)
-{
-        BacklightHelperData *task_data = (BacklightHelperData*) data;
-
-        g_free (task_data->value_str);
-        g_free (task_data);
-}
-
-static void
-gsd_backlight_set_helper_return (GsdBacklight *backlight, GTask *task, gint result, const GError *error)
-{
-        GTask *finished_task;
-        gint percent = ABS_TO_PERCENTAGE (backlight->brightness_min, backlight->brightness_max, result);
-
-        if (error)
-                g_warning ("Error executing backlight helper: %s", error->message);
-
-        /* If the queue will be empty then update the current value. */
-        if (task == g_queue_peek_tail (&backlight->tasks)) {
-                if (error == NULL) {
-                        g_assert (backlight->brightness_target == result);
-
-                        backlight->brightness_val = backlight->brightness_target;
-                        g_debug ("New brightness value is in effect %i (%i..%i)",
-                                 backlight->brightness_val, backlight->brightness_min, backlight->brightness_max);
-                        g_object_notify_by_pspec (G_OBJECT (backlight), props[PROP_BRIGHTNESS]);
-                }
-
-                /* The udev handler won't read while a write is pending, so queue an
-                 * update in case we have missed some events. */
-                gsd_backlight_udev_idle_update (backlight);
-        }
-
-        /* Return all the pending tasks up and including the one we actually
-         * processed. */
-        do {
-                finished_task = g_queue_pop_head (&backlight->tasks);
-
-                if (error)
-                        g_task_return_error (finished_task, g_error_copy (error));
-                else
-                        g_task_return_int (finished_task, percent);
-
-                g_object_unref (finished_task);
-        } while (finished_task != task);
-}
-
-static void
-gsd_backlight_set_helper_finish (GObject *obj, GAsyncResult *res, gpointer user_data)
-{
-        g_autoptr(GSubprocess) proc = G_SUBPROCESS (obj);
-        GTask *task = G_TASK (user_data);
-        BacklightHelperData *data = g_task_get_task_data (task);
-        GsdBacklight *backlight = g_task_get_source_object (task);
-        g_autoptr(GError) error = NULL;
-
-        g_assert (task == backlight->active_task);
-        backlight->active_task = NULL;
-
-        g_subprocess_wait_finish (proc, res, &error);
-
-        if (error)
-                goto done;
-
-        g_spawn_check_exit_status (g_subprocess_get_exit_status (proc), &error);
-        if (error)
-                goto done;
-
-done:
-        gsd_backlight_set_helper_return (backlight, task, data->value, error);
-        /* Start processing any tasks that were added in the meantime. */
-        gsd_backlight_process_taskqueue (backlight);
-}
-
-static void
-gsd_backlight_run_set_helper (GsdBacklight *backlight, GTask *task)
-{
-        GSubprocess *proc = NULL;
-        BacklightHelperData *data = g_task_get_task_data (task);
-        GError *error = NULL;
-
-        g_assert (backlight->active_task == NULL);
-        backlight->active_task = task;
-
-        if (data->value_str == NULL)
-                data->value_str = g_strdup_printf ("%d", data->value);
-
-        /* This is solely for use by the test environment. If given, execute
-         * this helper instead of the internal helper using pkexec */
-        proc = g_subprocess_new (G_SUBPROCESS_FLAGS_STDOUT_SILENCE,
-                                 &error,
-                                 "pkexec",
-                                 LIBEXECDIR "/gsd-backlight-helper",
-                                 g_udev_device_get_sysfs_path (backlight->udev_device),
-                                 data->value_str, NULL);
-
-        if (proc == NULL) {
-                gsd_backlight_set_helper_return (backlight, task, -1, error);
-                return;
-        }
-
-        g_subprocess_wait_async (proc, g_task_get_cancellable (task),
-                                 gsd_backlight_set_helper_finish,
-                                 task);
-}
-
-static void
-gsd_backlight_process_taskqueue (GsdBacklight *backlight)
-{
-        GTask *to_run;
-
-        /* There is already a task active, nothing to do. */
-        if (backlight->active_task)
-                return;
-
-        /* Get the last added task, thereby compressing the updates into one. */
-        to_run = G_TASK (g_queue_peek_tail (&backlight->tasks));
-        if (to_run == NULL)
-                return;
-
-        /* And run it! */
-        gsd_backlight_run_set_helper (backlight, to_run);
 }
 #endif /* __linux__ */
 
@@ -494,8 +350,6 @@ gsd_backlight_set_brightness_val_async (GsdBacklight *backlight,
 
 #ifdef __linux__
         if (backlight->udev_device != NULL) {
-                BacklightHelperData *task_data;
-
                 if (backlight->logind_proxy) {
                         g_dbus_proxy_call (backlight->logind_proxy,
                                            "SetBrightness",
@@ -512,15 +366,10 @@ gsd_backlight_set_brightness_val_async (GsdBacklight *backlight,
                                                      backlight->brightness_target);
                         g_task_return_int (task, percent);
                 } else {
-                        task_data = g_new0 (BacklightHelperData, 1);
-                        task_data->value = backlight->brightness_target;
-                        g_task_set_task_data (task, task_data, backlight_task_data_destroy);
-
-                        /* Task is set up now. Queue it and ensure we are working something. */
-                        g_queue_push_tail (&backlight->tasks, task);
-                        gsd_backlight_process_taskqueue (backlight);
+                        g_error_new_literal (G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED, "logind unavailable");
                 }
 
+                g_object_unref (task);
                 return;
         }
 #endif /* __linux__ */
@@ -890,7 +739,7 @@ gsd_backlight_initable_init (GInitable       *initable,
         }
 
         if (logind_error) {
-                g_warning ("No logind found: %s", logind_error->message);
+                g_warning ("No logind found, backlight will not work: %s", logind_error->message);
                 g_error_free (logind_error);
         }
 
@@ -933,8 +782,6 @@ gsd_backlight_finalize (GObject *object)
         GsdBacklight *backlight = GSD_BACKLIGHT (object);
 
 #ifdef __linux__
-        g_assert (backlight->active_task == NULL);
-        g_assert (g_queue_is_empty (&backlight->tasks));
         g_clear_object (&backlight->logind_proxy);
         g_clear_object (&backlight->udev);
         g_clear_object (&backlight->udev_device);
@@ -984,11 +831,6 @@ gsd_backlight_init (GsdBacklight *backlight)
         backlight->brightness_max = -1;
         backlight->brightness_val = -1;
         backlight->brightness_step = 1;
-
-#ifdef __linux__
-        backlight->active_task = NULL;
-        g_queue_init (&backlight->tasks);
-#endif /* __linux__ */
 }
 
 GsdBacklight *

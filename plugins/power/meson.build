@@ -66,41 +66,6 @@ gsd_power_enums_update = executable(
   native: true
 )
 
-if host_is_linux
-  policy = 'org.gnome.settings-daemon.plugins.power.policy'
-
-  policy_in = configure_file(
-    input: policy + '.in.in',
-    output: policy + '.in',
-    configuration: plugins_conf
-  )
-
-  i18n.merge_file(
-    input: policy_in,
-    output: policy,
-    po_dir: po_dir,
-    install: true,
-    install_dir: join_paths(gsd_datadir, 'polkit-1', 'actions')
-  )
-
-  sources = files(
-    'gsd-backlight-helper.c',
-  )
-
-  deps = [
-  ]
-
-  executable(
-    'gsd-backlight-helper',
-    sources,
-    include_directories: top_inc,
-    dependencies: deps,
-    install: true,
-    install_rpath: gsd_pkglibdir,
-    install_dir: gsd_libexecdir
-  )
-endif
-
 output = 'gsdpowerconstants.py'
 
 gsdpowerconstants_py = custom_target(
