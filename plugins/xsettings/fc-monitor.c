@@ -187,17 +187,6 @@ monitor_files (FcMonitor *self,
         FcStrListDone (list);
 }
 
-static const gchar *
-get_name (GType enum_type,
-          gint enum_value)
-{
-        GEnumClass *klass = g_type_class_ref (enum_type);
-        GEnumValue *value = g_enum_get_value (klass, enum_value);
-        const gchar *name = value ? value->value_name : "(unknown)";
-        g_type_class_unref (klass);
-        return name;
-}
-
 static void
 stuff_changed (GFileMonitor *monitor G_GNUC_UNUSED,
                GFile *file G_GNUC_UNUSED,
@@ -206,7 +195,7 @@ stuff_changed (GFileMonitor *monitor G_GNUC_UNUSED,
                gpointer data)
 {
         FcMonitor *self = FC_MONITOR (data);
-        const gchar *event_name = get_name (G_TYPE_FILE_MONITOR_EVENT, event_type);
+        const gchar *event_name = g_enum_to_string (G_TYPE_FILE_MONITOR_EVENT, event_type);
 
         switch (self->state) {
         case UPDATE_IDLE:
