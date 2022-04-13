@@ -58,8 +58,6 @@
 #define LIST_DEVICES "listDevices"
 #define LIST_RULES "listRules"
 #define ALLOW "allow"
-#define DEVICE_POLICY_CHANGED "DevicePolicyChanged"
-#define DEVICE_PRESENCE_CHANGED "DevicePresenceChanged"
 #define INSERTED_DEVICE_POLICY "InsertedDevicePolicy"
 #define APPEND_RULE "appendRule"
 #define ALLOW_ALL "allow id *:* label \"GNOME_SETTINGS_DAEMON_RULE\""
@@ -100,28 +98,16 @@ typedef enum {
         TARGET_REJECT
 } UsbGuardTarget;
 
-typedef enum {
-        POLICY_DEVICE_ID,
-        POLICY_TARGET_OLD,
-        /* This is the rule that has been applied */
-        POLICY_TARGET_NEW,
-        POLICY_DEV_RULE,
-        /* The ID of the rule that has been applied.
-         * uint32 - 1 is one of the implicit rules,
-         * e.g. ImplicitPolicyTarget or InsertedDevicePolicy.
-         */
-        POLICY_RULE_ID,
-        POLICY_ATTRIBUTES
-} UsbGuardPolicyChanged;
 
+/** Elements of the DevicePolicyApplied signal */
 typedef enum {
-        PRESENCE_DEVICE_ID,
-        PRESENCE_EVENT,
-        /* That does not reflect what USBGuard intends to do with the device :( */
-        PRESENCE_TARGET,
-        PRESENCE_DEV_RULE,
-        PRESENCE_ATTRIBUTES
-} UsbGuardPresenceChanged;
+        POLICY_APPLIED_DEVICE_ID,
+        POLICY_APPLIED_TARGET,
+        POLICY_APPLIED_DEV_RULE,
+        POLICY_APPLIED_RULE_ID,
+        POLICY_APPLIED_ATTRIBUTES
+} UsbGuardPolicyApplied;
+
 
 static void gsd_usb_protection_manager_finalize (GObject *object);
 
@@ -446,7 +432,7 @@ is_hid_or_hub (GVariant *device,
                 *has_other_classes = FALSE;
         }
 
-        g_variant_get_child (device, PRESENCE_ATTRIBUTES, "a{ss}", &iter);
+        g_variant_get_child (device, POLICY_APPLIED_ATTRIBUTES, "a{ss}", &iter);
         g_return_val_if_fail (iter != NULL, FALSE);
         while (g_variant_iter_loop (iter, "{ss}", &name, &value)) {
                 if (g_strcmp0 (name, WITH_INTERFACE) == 0) {
@@ -473,7 +459,7 @@ is_hardwired (GVariant *device)
         g_autofree gchar *name = NULL;
         g_autofree gchar *value = NULL;
 
-        g_variant_get_child (device, PRESENCE_ATTRIBUTES, "a{ss}", &iter);
+        g_variant_get_child (device, POLICY_APPLIED_ATTRIBUTES, "a{ss}", &iter);
         g_return_val_if_fail (iter != NULL, FALSE);
         while (g_variant_iter_loop (iter, "{ss}", &name, &value)) {
                 if (g_strcmp0 (name, WITH_CONNECT_TYPE) == 0) {
@@ -531,7 +517,6 @@ on_usbguard_signal (GDBusProxy *proxy,
                            gpointer    user_data)
 {
         UsbGuardTarget target = TARGET_BLOCK;
-        UsbGuardEvent device_event;
         GDesktopUsbProtection protection_level;
         GsdUsbProtectionManager *manager = user_data;
         g_autoptr(GVariantIter) iter = NULL;
@@ -542,26 +527,13 @@ on_usbguard_signal (GDBusProxy *proxy,
 
         g_debug ("USBGuard signal: %s", signal_name);
 
-        /* We act only if we receive a signal indicating that a device has been inserted */
-        if (g_strcmp0 (signal_name, DEVICE_PRESENCE_CHANGED) != 0) {
+        /* We act only if we receive a signal indicating that a device has been inserted and a rule has been applied */
+        if (g_strcmp0 (signal_name, "DevicePolicyApplied") != 0) {
                 return;
         }
 
-        g_return_if_fail (g_variant_n_children (parameters) >= PRESENCE_EVENT);
-        g_variant_get_child (parameters, PRESENCE_EVENT, "u", &device_event);
-        if (device_event != EVENT_INSERT) {
-            g_debug ("Device hat not been inserted (%d); ignoring", device_event);
-            return;
-        }
-
-        /* We would like to show a notification for an inserted device that
-         * *has not been blocked*.  But USBGuard is not providing that information.
-         * So we have to work around that limitation and assume that any device plugged in
-         * during screensaver shall be blocked.
-         * https://github.com/USBGuard/usbguard/issues/353
-         
-           g_variant_get_child (parameters, POLICY_TARGET_NEW, "u", &target);
-        */
+        g_variant_get_child (parameters, POLICY_APPLIED_TARGET, "u", &target);
+        g_debug ("Device target: %d", target);
 
         /* If the device is already authorized we do nothing */
         if (target == TARGET_ALLOW) {
@@ -579,7 +551,7 @@ on_usbguard_signal (GDBusProxy *proxy,
                 return;
         }
 
-        g_variant_get_child (parameters, PRESENCE_ATTRIBUTES, "a{ss}", &iter);
+        g_variant_get_child (parameters, POLICY_APPLIED_ATTRIBUTES, "a{ss}", &iter);
         g_return_if_fail (iter != NULL);
         while (g_variant_iter_loop (iter, "{ss}", &name, &device_name)) {
                 if (g_strcmp0 (name, NAME) == 0)
@@ -589,7 +561,7 @@ on_usbguard_signal (GDBusProxy *proxy,
         if (is_hardwired (parameters)) {
             guint device_id;
             g_debug ("Device is hardwired, allowing it to be connected");
-            g_variant_get_child (parameters, POLICY_DEVICE_ID, "u", &device_id);
+            g_variant_get_child (parameters, POLICY_APPLIED_DEVICE_ID, "u", &device_id);
             authorize_device (manager, device_id);
             return;
         }
@@ -614,7 +586,7 @@ on_usbguard_signal (GDBusProxy *proxy,
                                            _("New device detected"),
                                            _("Either one of your existing devices has been reconnected or a new one has been plugged in. "
                                              "If you did not do it, check your system for any suspicious device."));
-                        g_variant_get_child (parameters, POLICY_DEVICE_ID, "u", &device_id);
+                        g_variant_get_child (parameters, POLICY_APPLIED_DEVICE_ID, "u", &device_id);
                         authorize_device (manager, device_id);
                 } else {
                     if (protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN) {
@@ -644,7 +616,7 @@ on_usbguard_signal (GDBusProxy *proxy,
                          * HUB class, it is suspect. It could be a false positive because this could
                          * be a "smart" keyboard for example, but at this stage is better be safe. */
                         if (hid_or_hub && !has_other_classes) {
-                                g_variant_get_child (parameters, POLICY_DEVICE_ID, "u", &(manager->last_device_id));
+                                g_variant_get_child (parameters, POLICY_APPLIED_DEVICE_ID, "u", &(manager->last_device_id));
                                 gsd_screen_saver_call_lock (manager->screensaver_proxy,
                                                             manager->cancellable,
                                                             (GAsyncReadyCallback) on_screen_locked,
