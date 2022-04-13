@@ -333,6 +333,14 @@ settings_changed_callback (GSettings               *settings,
         }
 }
 
+/**
+ * update_usb_protection_store:
+ *
+ * compares the state contained in the signal with the internal state.
+ *
+ * If they don't match, the GNOME USB Protection is disabled.
+ * More precisely, it checks whether Inserted Device policy was changed from block to apply-policy.
+ */
 static void update_usb_protection_store (GsdUsbProtectionManager *manager,
                                          GVariant                *parameter)
 {
@@ -557,6 +565,10 @@ on_usbguard_signal (GDBusProxy *proxy,
 
         /* If the device is already authorized we do nothing */
         if (target == TARGET_ALLOW) {
+                /* We would need to interject here if the allow was caused by one of our rules.
+                   We're not yet putting any allow-rules into USBGuard, but we might consider
+                   doing so in the future.
+                 */
                 g_debug ("Device will be allowed, we return");
                 return;
         }
@@ -585,6 +597,7 @@ on_usbguard_signal (GDBusProxy *proxy,
         protection_level = g_settings_get_enum (manager->settings, USB_PROTECTION_LEVEL);
 
         g_debug ("Screensaver active: %d", manager->screensaver_active);
+        /* Can we ask USBGuard to allow HIDs and hubs for us? We would know which rule allowed a device so we could still show a message to the user when a HID has been attached */
         hid_or_hub = is_hid_or_hub (parameters, &has_other_classes);
         if (manager->screensaver_active) {
                 /* If the session is locked we check if the inserted device is a HID,
@@ -645,6 +658,14 @@ on_usbguard_signal (GDBusProxy *proxy,
             }
 }
 
+
+/**
+ * on_usb_protection_signal:
+ *
+ * checks the incoming signal and eventually causes the
+ * GNOME USB protection to be disabled, when the USBGuard configuration changed
+ * but doesn't match the internal state.
+ */
 static void
 on_usb_protection_signal (GDBusProxy *proxy,
                           gchar      *sender_name,
