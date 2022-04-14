@@ -509,6 +509,13 @@ on_screen_locked (GsdScreenSaver          *screen_saver,
 
 }
 
+
+static bool
+is_session_locked (GsdUsbProtectionManager *manager)
+{
+    return manager->screensaver_active;
+}
+
 static void
 on_usbguard_signal (GDBusProxy *proxy,
                            gchar      *sender_name,
@@ -568,10 +575,12 @@ on_usbguard_signal (GDBusProxy *proxy,
 
         protection_level = g_settings_get_enum (manager->settings, USB_PROTECTION_LEVEL);
 
-        g_debug ("Screensaver active: %d", manager->screensaver_active);
+        bool session_is_locked = is_session_locked(manager);
+        g_debug ("Screensaver active: %d", session_is_locked);
         /* Can we ask USBGuard to allow HIDs and hubs for us? We would know which rule allowed a device so we could still show a message to the user when a HID has been attached */
         hid_or_hub = is_hid_or_hub (parameters, &has_other_classes);
-        if (manager->screensaver_active) {
+        
+        if (session_is_locked) {
                 /* If the session is locked we check if the inserted device is a HID,
                  * e.g. a keyboard or a mouse, or an HUB.
                  * If that is the case we authorize the newly inserted device as an
