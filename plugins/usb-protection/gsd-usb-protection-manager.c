@@ -77,6 +77,7 @@ struct _GsdUsbProtectionManager
         GDBusProxy         *usb_protection;
         GDBusProxy         *usb_protection_devices;
         GDBusProxy         *usb_protection_policy;
+        GDBusProxy         *logind;
         GCancellable       *cancellable;
         GsdScreenSaver     *screensaver_proxy;
         gboolean            screensaver_active;
@@ -510,10 +511,59 @@ on_screen_locked (GsdScreenSaver          *screen_saver,
 }
 
 
-static bool
+static gboolean
 is_session_locked (GsdUsbProtectionManager *manager)
 {
-    return manager->screensaver_active;
+    g_autoptr(GError) error = NULL;
+    GDBusProxy *logind_proxy = manager->logind;
+    gboolean result;
+
+    g_debug ("Calling dbus to get locked reply");
+    g_autoptr(GVariant) reply = g_dbus_proxy_call_sync(logind_proxy,
+                                           "org.freedesktop.DBus.Properties.Get",
+                                           g_variant_new ("(ss)",
+                                                          "org.freedesktop.login1.Session",
+                                                          "LockedHint"),
+                                           G_DBUS_CALL_FLAGS_NONE,
+                                           /* timeout */ 500,
+                                           NULL,
+                                           &error);
+    if (!reply) {
+        if (error) {
+            g_warning ("Couldn't determined locked session state: %s", error->message);
+        } else {
+            g_error ("Got neither reply nor error when asking for LockedHint. (logind_proxy: %p)", logind_proxy);
+        }
+        result = FALSE;
+    } else {
+        if (g_variant_n_children (reply) != 1) {
+            g_warning ("logind replied with more than 1 item: %ld. "
+            "It's a '%s': %s.",
+                g_variant_n_children (reply),
+                g_variant_get_type_string(reply), g_variant_print (reply, TRUE));
+            result = FALSE;
+        } else {
+            g_autoptr(GVariant) inside_variant = g_variant_get_child_value (reply, 0);
+
+            if (!g_variant_is_of_type (inside_variant, G_VARIANT_TYPE_VARIANT)) {
+                g_warning ("logind replied with a non-Variant '%s': %s",
+                    g_variant_get_type_string(inside_variant), g_variant_print (inside_variant, TRUE));
+                result = FALSE;
+            } else {
+                g_autoptr(GVariant) inside_bool = g_variant_get_variant (inside_variant);
+
+                if (!g_variant_is_of_type (inside_bool, G_VARIANT_TYPE_BOOLEAN)) {
+                    g_warning ("logind replied with a non-Boolean '%s': %s",
+                        g_variant_get_type_string(inside_bool), g_variant_print (inside_bool, TRUE));
+                    result = FALSE;
+                } else {
+                    result = g_variant_get_boolean (inside_bool);
+                }
+            }
+        }
+    }
+    g_debug ("logind thinks our session is locked: %d", result);
+    return result;
 }
 
 static void
@@ -575,7 +625,7 @@ on_usbguard_signal (GDBusProxy *proxy,
 
         protection_level = g_settings_get_enum (manager->settings, USB_PROTECTION_LEVEL);
 
-        bool session_is_locked = is_session_locked(manager);
+        gboolean session_is_locked = is_session_locked(manager);
         g_debug ("Screensaver active: %d", session_is_locked);
         /* Can we ask USBGuard to allow HIDs and hubs for us? We would know which rule allowed a device so we could still show a message to the user when a HID has been attached */
         hid_or_hub = is_hid_or_hub (parameters, &has_other_classes);
@@ -943,6 +993,27 @@ get_current_screen_saver_status (GsdUsbProtectionManager *manager)
         handle_screensaver_active (manager, ret);
 }
 
+
+static void
+logind_session_ready (GObject      *source_object,
+                      GAsyncResult *res,
+                      gpointer      user_data)
+{
+        GDBusProxy *proxy;
+        g_autoptr(GError) error = NULL;
+        GsdUsbProtectionManager *manager = user_data;
+
+        proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
+        if (!proxy) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to get logind session: %s", error->message);
+                return;
+        }
+
+        manager->logind = proxy;
+}
+
+
 static void
 usb_protection_proxy_ready (GObject      *source_object,
                             GAsyncResult *res,
@@ -1017,6 +1088,16 @@ usb_protection_proxy_ready (GObject      *source_object,
                                   USBGUARD_DBUS_INTERFACE_POLICY,
                                   manager->cancellable,
                                   usb_protection_policy_proxy_ready,
+                                  manager);
+
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+                                  G_DBUS_PROXY_FLAGS_NONE,
+                                  NULL,
+                                  "org.freedesktop.login1",
+                                  "/org/freedesktop/login1/session/auto",
+                                  "org.freedesktop.login1.Session",
+                                  manager->cancellable,
+                                  logind_session_ready,
                                   manager);
 }
 
