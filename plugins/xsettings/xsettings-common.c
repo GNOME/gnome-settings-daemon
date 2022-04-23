@@ -36,7 +36,7 @@ xsettings_setting_new (const gchar *name)
 {
   XSettingsSetting *result;
 
-  result = g_slice_new0 (XSettingsSetting);
+  result = g_new0 (XSettingsSetting, 1);
   result->name = g_strdup (name);
 
   return result;
@@ -100,8 +100,7 @@ xsettings_setting_free (XSettingsSetting *setting)
       g_variant_unref (setting->value[i]);
 
   g_free (setting->name);
-
-  g_slice_free (XSettingsSetting, setting);
+  g_free (setting);
 }
 
 char

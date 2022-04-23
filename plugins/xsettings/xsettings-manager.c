@@ -134,7 +134,7 @@ xsettings_manager_new (Display                *display,
 
   XFixesSetClientDisconnectMode (display, XFixesClientDisconnectFlagTerminate);
 
-  manager = g_slice_new (XSettingsManager);
+  manager = g_new (XSettingsManager, 1);
 
   manager->display = display;
   manager->screen = screen;
@@ -198,7 +198,7 @@ xsettings_manager_destroy (XSettingsManager *manager)
 
   g_hash_table_unref (manager->settings);
 
-  g_slice_free (XSettingsManager, manager);
+  g_free (manager);
 }
 
 static void

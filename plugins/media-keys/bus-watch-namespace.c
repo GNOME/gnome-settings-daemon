@@ -188,7 +188,7 @@ got_name_owner (GObject      *object,
 
 out:
   g_free (data->name);
-  g_slice_free (GetNameOwnerData, data);
+  g_free (data);
 }
 
 static void
@@ -224,7 +224,7 @@ names_listed (GObject      *object,
     {
       if (dbus_name_has_namespace (name, watcher->name_space))
         {
-          GetNameOwnerData *data = g_slice_new (GetNameOwnerData);
+          GetNameOwnerData *data = g_new (GetNameOwnerData, 1);
           data->watcher = watcher;
           data->name = g_strdup (name);
           g_dbus_connection_call (watcher->connection, "org.freedesktop.DBus", "/",
