@@ -26,6 +26,7 @@
 #include "gnome-settings-profile.h"
 #include "gsd-housekeeping-manager.h"
 #include "gsd-disk-space.h"
+#include "gsd-systemd-notify.h"
 
 
 /* General */
@@ -59,6 +60,8 @@ struct _GsdHousekeepingManager {
         GDBusConnection *connection;
         GCancellable    *bus_cancellable;
         guint            name_id;
+
+        GsdSystemdNotify *systemd_notify;
 };
 
 static void     gsd_housekeeping_manager_class_init  (GsdHousekeepingManagerClass *klass);
@@ -431,6 +434,8 @@ gsd_housekeeping_manager_start (GsdHousekeepingManager *manager,
                                       manager);
         g_source_set_name_by_id (manager->long_term_cb, "[gnome-settings-daemon] do_cleanup");
 
+        manager->systemd_notify = g_object_new (GSD_TYPE_SYSTEMD_NOTIFY, NULL);
+
         gnome_settings_profile_end (NULL);
 
         return TRUE;
@@ -449,6 +454,8 @@ gsd_housekeeping_manager_stop (GsdHousekeepingManager *manager)
         g_clear_object (&manager->bus_cancellable);
         g_clear_pointer (&manager->introspection_data, g_dbus_node_info_unref);
         g_clear_object (&manager->connection);
+
+        g_clear_object (&manager->systemd_notify);
 
         if (manager->short_term_cb) {
                 g_source_remove (manager->short_term_cb);
