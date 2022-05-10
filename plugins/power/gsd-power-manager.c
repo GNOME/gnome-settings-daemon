@@ -32,6 +32,10 @@
 #include <glib-unix.h>
 #include <gio/gunixfdlist.h>
 
+#if HAVE_GUDEV
+#include <gudev/gudev.h>
+#endif
+
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
 #include <libgnome-desktop/gnome-idle-monitor.h>
@@ -199,6 +203,7 @@ struct _GsdPowerManager
 
         /* systemd stuff */
         GDBusProxy              *logind_proxy;
+        char                    *logind_seat;
         gint                     inhibit_lid_switch_fd;
         gboolean                 inhibit_lid_switch_taken;
         gint                     inhibit_suspend_fd;
@@ -262,6 +267,84 @@ notify_close_if_showing (NotifyNotification **notification)
         g_clear_object (notification);
 }
 
+#if HAVE_GUDEV
+static char *
+get_seat_from_device (GUdevDevice *device)
+{
+	const char *const *tags;
+	GUdevDevice *parent;
+
+	tags = g_udev_device_get_tags (device);
+
+	if (g_strv_contains (tags, "seat")) {
+		int i;
+
+		for (i = 0; tags[i] != NULL; i++) {
+			if (g_str_has_prefix (tags[i], "seat") && strlen (tags[i]) > 4)
+				return g_strdup (tags[i]);
+		}
+
+		return g_strdup ("seat0");
+	}
+
+	parent = g_udev_device_get_parent (device);
+
+	if (parent != NULL) {
+		char *seat;
+
+		seat = get_seat_from_device (parent);
+		g_object_unref (parent);
+
+		return seat;
+	}
+
+	return NULL;
+}
+
+static gboolean
+is_device_available_to_seat (GsdPowerManager *manager, UpDevice *device)
+{
+        gboolean available;
+        char *native_path;
+        GUdevClient *client;
+        GUdevDevice *udev_device;
+
+        available = TRUE;
+        native_path = NULL;
+
+        if (manager->logind_seat == NULL || *manager->logind_seat == '\0')
+                return TRUE;
+
+        g_object_get (device, "native-path", &native_path, NULL);
+
+        client = g_udev_client_new (NULL);
+        udev_device = g_udev_client_query_by_sysfs_path (client, native_path);
+
+        /* Native path for power_supply devices is name not sysfs path. */
+        if (udev_device == NULL)
+                udev_device = g_udev_client_query_by_subsystem_and_name (client, "power_supply", native_path);
+
+        g_free (native_path);
+
+        if (udev_device != NULL) {
+                char *seat;
+
+	        seat = get_seat_from_device (udev_device);
+                g_object_unref (udev_device);
+
+                /* NULL/empty seat means that device is available to all seats */
+                if (seat != NULL && *seat != '\0' && g_strcmp0 (seat, manager->logind_seat) != 0)
+                        available = FALSE;
+
+	        g_free (seat);
+        }
+
+        g_object_unref (client);
+
+        return available;
+}
+#endif
+
 static void
 engine_device_add (GsdPowerManager *manager, UpDevice *device)
 {
@@ -274,6 +357,12 @@ engine_device_add (GsdPowerManager *manager, UpDevice *device)
             kind == UP_DEVICE_KIND_UPS ||
             kind == UP_DEVICE_KIND_LINE_POWER)
                 return;
+
+#if HAVE_GUDEV
+        if (!is_device_available_to_seat (manager, device))
+                return;
+#endif
+
         g_ptr_array_add (manager->devices_array, g_object_ref (device));
 
         g_signal_connect (device, "notify::warning-level",
@@ -3044,6 +3133,41 @@ iio_proxy_vanished_cb (GDBusConnection *connection,
         g_clear_object (&manager->iio_proxy);
 }
 
+static char *
+get_logind_seat (GsdPowerManager *manager)
+{
+        GDBusConnection *connection;
+        GVariant *variant;
+        GVariant *inner;
+        char *seat;
+
+        connection = g_dbus_proxy_get_connection (manager->logind_proxy);
+        variant = g_dbus_connection_call_sync (connection,
+                                               "org.freedesktop.login1",
+                                               "/org/freedesktop/login1/seat/auto",
+                                               "org.freedesktop.DBus.Properties",
+                                               "Get",
+                                               g_variant_new ("(ss)",
+                                                              "org.freedesktop.login1.Seat",
+                                                              "Id"),
+                                               NULL,
+                                               G_DBUS_CALL_FLAGS_NONE,
+                                               -1,
+                                               NULL,
+                                               NULL);
+
+        if (variant == NULL)
+                return NULL;
+
+        g_variant_get (variant, "(v)", &inner);
+        g_variant_unref (variant);
+
+        seat = g_variant_dup_string (inner, NULL);
+        g_variant_unref (inner);
+
+        return seat;
+}
+
 gboolean
 gsd_power_manager_start (GsdPowerManager *manager,
                          GError **error)
@@ -3071,6 +3195,8 @@ gsd_power_manager_start (GsdPowerManager *manager,
                 g_debug ("No systemd (logind) support, disabling plugin");
                 return FALSE;
         }
+
+        manager->logind_seat = get_logind_seat (manager);
 
         /* coldplug the list of screens */
         gnome_rr_screen_new_async (gdk_screen_get_default (),
@@ -3140,6 +3266,7 @@ gsd_power_manager_stop (GsdPowerManager *manager)
         }
 
         g_clear_object (&manager->logind_proxy);
+        g_clear_pointer (&manager->logind_seat, g_free);
         g_clear_object (&manager->rr_screen);
 
         g_clear_pointer (&manager->devices_array, g_ptr_array_unref);
