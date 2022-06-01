@@ -1,6 +1,6 @@
 project(
   'gnome-settings-daemon', 'c',
-  version: '42.1',
+  version: '42.2',
   license: [ 'GPL2+', 'LGPLv2+' ],
   meson_version: '>= 0.49.0'
 )
