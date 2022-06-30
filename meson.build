@@ -89,7 +89,10 @@ endif
 add_project_arguments(common_flags + compiler_flags, language: 'c')
 
 glib_dep = dependency('glib-2.0', version: '>=' + glib_min_version)
-geocode_glib_dep = dependency('geocode-glib-1.0', version: '>= 3.10.0')
+geocode_glib_dep = dependency('geocode-glib-2.0', version: '>= 3.26.3', required: false)
+if not geocode_glib_dep.found()
+  geocode_glib_dep = dependency('geocode-glib-1.0', version: '>= 3.10.0')
+endif
 gio_dep = dependency('gio-2.0', version: '>= 2.53.0')
 gio_unix_dep = dependency('gio-unix-2.0')
 gnome_desktop_dep = dependency('gnome-desktop-3.0', version: '>= 3.37.1')
