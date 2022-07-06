@@ -229,6 +229,9 @@ main (int argc, char **argv)
 	}
 
         gdk_set_allowed_backends (GDK_BACKEND);
+
+        /* GDK would fail to initialize with e.g. GDK_BACKEND=wayland */
+        g_unsetenv ("GDK_BACKEND");
 #endif
 
         error = NULL;
