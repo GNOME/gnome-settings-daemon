@@ -214,7 +214,12 @@ endif
 # wwan
 enable_wwan = get_option('wwan')
 if enable_wwan
-  gcr_base_dep = dependency('gcr-base-3', version: '>= 3.7.5')
+  if get_option('gcr3')
+     gcr_dep = dependency('gcr-base-3', version: '>= 3.7.5')
+     config_h.set10('HAVE_GCR3', 1)
+  else
+     gcr_dep = dependency('gcr-4', version: '>= 3.90.0')
+  endif
   mm_glib_dep = dependency('mm-glib', version: '>= 1.0')
 endif
 
