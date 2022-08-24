@@ -2,7 +2,7 @@ project(
   'gnome-settings-daemon', 'c',
   version: '43.beta',
   license: [ 'GPL2+', 'LGPLv2+' ],
-  meson_version: '>= 0.49.0'
+  meson_version: '>= 0.57.0'
 )
 
 gsd_version = meson.project_version()
@@ -256,9 +256,8 @@ configure_file(
   configuration: config_h
 )
 
-meson.add_install_script(
-  'meson_post_install.py',
-  gsd_datadir
+gnome.post_install(
+  glib_compile_schemas: true,
 )
 
 output = '\n        ' + meson.project_name() + ' ' + meson.project_version() +'\n'
