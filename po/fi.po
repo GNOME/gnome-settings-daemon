@@ -23,8 +23,8 @@ msgstr ""
 "Project-Id-Version: gnome-control-center\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2021-08-19 17:31+0000\n"
-"PO-Revision-Date: 2021-09-04 19:00+0300\n"
+"POT-Creation-Date: 2022-09-06 16:42+0000\n"
+"PO-Revision-Date: 2022-09-07 11:48+0300\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
@@ -33,7 +33,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-POT-Import-Date: 2012-03-05 15:06:08+0000\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid "Smartcard removal action"
@@ -138,7 +138,7 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:85
 msgid "Delay between repeats in milliseconds."
-msgstr ""
+msgstr "Viive millisekunneissa toistojen välillä."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:89
 msgid "Initial Key Repeat Delay"
@@ -197,9 +197,9 @@ msgid ""
 "Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
 "scrolling”, “two-finger-scrolling”."
 msgstr ""
-"Valitse kosketusalustan vieritystila. Tuetut arvot ovat: \"disabled"
-"\" (poissa käytöstä), \"edge-scrolling\" (reunavieritys), \"two-finger-"
-"scrolling\" (kahden sormen vieritys)."
+"Valitse kosketusalustan vieritystila. Tuetut arvot ovat: "
+"\"disabled\" (poissa käytöstä), \"edge-scrolling\" (reunavieritys), \"two-"
+"finger-scrolling\" (kahden sormen vieritys)."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:116
 msgid "Enable mouse clicks with touchpad"
@@ -244,7 +244,7 @@ msgstr "Aseta tämä todeksi jos haluat ottaa kaikki kosketuslevyt käyttöön."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:149
 msgid "Mouse wheel emulation button. 0 to disable the feature."
-msgstr ""
+msgstr "Hiiren rullan emulointipainike. 0 poistaa tämän ominaisuuden käytöstä."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:10
 msgid "Wacom stylus absolute mode"
@@ -527,981 +527,893 @@ msgstr ""
 "kuin tämän aikavälin kuluttua."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:6
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:189
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:516
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:154
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:446
 msgid "Launch calculator"
 msgstr "Käynnistä laskin"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:7
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:190
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:155
 msgid "Binding to launch the calculator."
 msgstr "Sidos laskimen käynnistämiseksi."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:11
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:194
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:521
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:159
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:451
 msgid "Launch settings"
 msgstr "Käynnistä asetukset"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:12
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:195
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:160
 #, fuzzy
 #| msgid "Binding to launch GNOME settings."
 msgid "Binding to launch GNOME Settings."
 msgstr "Sidos Gnomen asetusten käynnistämiseksi."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:16
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:199
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:526
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:164
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:456
 msgid "Launch email client"
 msgstr "Käynnistä sähköpostiohjelma"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:17
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:200
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:165
 msgid "Binding to launch the email client."
 msgstr "Sidos sähköpostiohjelman käynnistämiseksi."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:21
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:204
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:531
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:169
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:461
 msgid "Eject"
 msgstr "Poista asemasta"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:22
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:205
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:170
 msgid "Binding to eject an optical disc."
 msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:26
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:209
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:174
 msgid "Launch help browser"
 msgstr "Käynnistä ohjeselain"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:27
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:210
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:175
 msgid "Binding to launch the help browser."
 msgstr "Sidos ohjeselaimen käynnistämiseksi."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:31
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:214
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:536
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:179
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:466
 msgid "Home folder"
 msgstr "Kotikansio"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:32
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:215
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:180
 msgid "Binding to open the Home folder."
 msgstr "Sidos kotikansion avaamiseksi."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:36
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:219
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:541
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:184
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:471
 msgid "Launch media player"
 msgstr "Käynnistä mediasoitin"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:37
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:220
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:185
 msgid "Binding to launch the media player."
 msgstr "Sidos mediasoittimen käynnistämiseksi."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:41
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:224
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:546
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:189
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:476
 msgid "Next track"
 msgstr "Seuraava kappale"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:42
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:225
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:190
 msgid "Binding to skip to next track."
 msgstr "Sidos seuraavaan kappaleeseen siirtymiseksi."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:46
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:229
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:551
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:194
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:481
 msgid "Pause playback"
 msgstr "Pysäytä toisto"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:47
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:230
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:195
 msgid "Binding to pause playback."
 msgstr "Sidos toiston pysäyttämiseksi."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:51
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:234
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:556
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:199
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:486
 msgid "Play (or play/pause)"
 msgstr "Soita (tai tauko)"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:52
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:235
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:200
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "Sidos toiston aloittamiseksi (tai toisto/tauko)."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:56
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:239
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:204
 msgid "Log out"
 msgstr "Kirjaudu ulos"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:57
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:240
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:205
 msgid "Binding to log out."
 msgstr "Sidos uloskirjautumiseksi."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:61
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:244
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:561
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:209
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:491
 msgid "Previous track"
 msgstr "Edellinen kappale"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:62
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:245
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:210
 msgid "Binding to skip to previous track."
 msgstr "Sidos edelliseen kappaleeseen siirtymiseksi."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:66
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:249
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:566
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:214
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:496
 msgid "Lock screen"
 msgstr "Lukitse näyttö"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:67
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:250
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:215
 msgid "Binding to lock the screen."
 msgstr "Sidos näytön lukitsemiseksi."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:71
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:254
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:571
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:219
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:501
 msgid "Search"
 msgstr "Etsi"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:72
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:255
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:220
 msgid "Binding to launch the search tool."
 msgstr "Sidos hakutyökalun käynnistämiseksi."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:76
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:259
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:576
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:224
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:506
 msgid "Stop playback"
 msgstr "Lopeta soitto"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:77
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:260
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:225
 msgid "Binding to stop playback."
 msgstr "Sidos toiston pysäyttämiseksi."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:81
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:266
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:583
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:231
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:513
 msgid "Volume down"
 msgstr "Vähennä äänenvoimakkuutta"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:82
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:267
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:232
 #, fuzzy
 #| msgid "Binding to lower the system volume."
 msgid "Binding to lower the volume."
 msgstr "Sidos äänenvoimakkuuden vähentämiseksi."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:86
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:271
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:588
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:236
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:518
 msgid "Volume mute/unmute"
 msgstr "Ääni päällä/pois"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:87
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:272
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:237
 #, fuzzy
 #| msgid "Binding to mute the system volume."
 msgid "Binding to mute/unmute the volume."
 msgstr "Sidos äänen vaimentamiseksi."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:91
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:276
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:593
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:241
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:523
 msgid "Volume up"
 msgstr "Kasvata äänenvoimakkuutta"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:92
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:277
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:242
 #, fuzzy
 #| msgid "Binding to raise the system volume."
 msgid "Binding to raise the volume."
 msgstr "Sidos äänenvoimakkuuden kasvattamiseksi."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:96
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:317
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:628
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:282
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:558
 msgid "Microphone mute/unmute"
 msgstr "Mikrofonin mykistys päällä/pois"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:97
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:318
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:283
 #, fuzzy
 #| msgid "Binding to mute the system volume."
 msgid "Binding to mute/unmute the microphone."
 msgstr "Sidos äänen vaimentamiseksi."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:101
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:322
-msgid "Take a screenshot"
-msgstr "Ota kuvakaappaus"
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:102
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:323
-msgid "Binding to take a screenshot."
-msgstr "Pikanäppäin kuvankaappauksen ottamiseen."
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:106
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:327
-msgid "Take a screenshot of a window"
-msgstr "Ota kuvakaappaus ikkunasta"
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:107
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:328
-msgid "Binding to take a screenshot of a window."
-msgstr "Pikanäppäin kuvankaappauksen ottamiseen ikkunasta."
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:111
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:332
-msgid "Take a screenshot of an area"
-msgstr "Ota kuvankaappaus alueesta"
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:112
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:333
-msgid "Binding to take a screenshot of an area."
-msgstr "Pikanäppäin kuvankaappauksen ottamiseen alueesta."
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:116
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:337
-msgid "Copy a screenshot to clipboard"
-msgstr "Kopioi kuvankaappaus leikepöydälle"
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:117
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:338
-msgid "Binding to copy a screenshot to clipboard."
-msgstr "Pikanäppäin kuvankaappauksen kopioimiseen leikepöydälle."
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:121
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:342
-msgid "Copy a screenshot of a window to clipboard"
-msgstr "Kopioi ikkunasta otettu kuvankaappaus leikepöydälle"
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:122
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:343
-msgid "Binding to copy a screenshot of a window to clipboard."
-msgstr ""
-"Pikanäppäin ikkunasta otetun kuvankaappauksen kopioimiseen leikepöydälle."
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:126
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:347
-msgid "Copy a screenshot of an area to clipboard"
-msgstr "Kopioi alueesta otettu kuvankaappaus leikepöydälle"
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:127
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:348
-msgid "Binding to copy a screenshot of an area to clipboard."
-msgstr ""
-"Pikanäppäin alueesta otetun kuvankaappauksen kopioimiseen leikepöydälle."
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:131
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:352
-msgid "Record a short video of the screen"
-msgstr "Nauhoita lyhyt video näytön tapahtumista"
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:132
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:353
-#, fuzzy
-#| msgid "Record a short video of the screen"
-msgid "Binding to record a short video of the screen"
-msgstr "Nauhoita lyhyt video näytön tapahtumista"
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:136
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:357
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:633
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:287
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:563
 msgid "Launch web browser"
 msgstr "Käynnistä WWW-selain"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:137
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:358
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:102
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:288
 msgid "Binding to launch the web browser."
 msgstr "Sidos WWW-selaimen käynnistämiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:141
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:387
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:106
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:317
 msgid "Toggle magnifier"
 msgstr "Näytetäänkö näytönsuurentaja"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:142
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:388
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:107
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:318
 msgid "Binding to show the screen magnifier"
 msgstr "Pikanäppäin suurennuslasin näyttämiseen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:146
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:362
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:111
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:292
 msgid "Toggle screen reader"
 msgstr "Näytetäänkö näytönlukija"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:147
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:363
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:112
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:293
 msgid "Binding to start the screen reader"
 msgstr "Pikanäppäin näytönlukijan avaamiseen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:151
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:367
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:116
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:297
 msgid "Toggle on-screen keyboard"
 msgstr "Näytetäänkö näyttönäppäimistö"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:152
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:368
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:117
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:298
 msgid "Binding to show the on-screen keyboard"
 msgstr "Pikanäppäin virtuaalinäppäimistön avaamiseen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:156
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:372
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:121
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:302
 msgid "Increase text size"
 msgstr "Suurenna tekstin kokoa"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:157
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:373
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:122
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:303
 msgid "Binding to increase the text size"
 msgstr "Pikanäppäin tekstin koon suurentamiseen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:161
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:377
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:126
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:307
 msgid "Decrease text size"
 msgstr "Pienennä tekstin kokoa"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:162
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:378
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:127
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:308
 msgid "Binding to decrease the text size"
 msgstr "Pikanäppäin tekstin koon pienentämiseen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:166
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:382
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:131
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:312
 msgid "Toggle contrast"
 msgstr "Näytetäänkö kontrastitila"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:167
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:383
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:132
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:313
 msgid "Binding to toggle the interface contrast"
 msgstr "Pikanäppäin käyttöliittymän kontrastin muuttamiseen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:171
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:392
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:136
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:322
 msgid "Magnifier zoom in"
 msgstr "Näytönsuurentajan lähennys"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:172
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:393
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:137
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:323
 msgid "Binding for the magnifier to zoom in"
 msgstr "Pikanäppäin suurennuslasin suurennustoiminnolle"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:176
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:397
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:639
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:141
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:327
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:569
 msgid "Magnifier zoom out"
 msgstr "Näytönsuurentajan loitonnus"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:177
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:398
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:142
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:328
 msgid "Binding for the magnifier to zoom out"
 msgstr "Pikanäppäin suurennuslasin pienennystoiminnolle"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:184
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:149
 msgid "Custom keybindings"
 msgstr "Omat näppäinsidokset"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:185
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:150
 msgid "List of custom keybindings"
 msgstr ""
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:282
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:247
 #, fuzzy
 #| msgid "Volume up"
 msgid "Size of volume step"
 msgstr "Kasvata äänenvoimakkuutta"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:283
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:248
 msgid "Size of the volume step for each volume change"
 msgstr ""
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:289
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:600
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:254
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:530
 #, fuzzy
 #| msgid "Volume down"
 msgid "Quiet volume down"
 msgstr "Vähennä äänenvoimakkuutta"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:290
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:255
 #, fuzzy
 #| msgid "Binding to lower the system volume."
 msgid "Binding to lower the volume without emitting a sound effect."
 msgstr "Sidos äänenvoimakkuuden vähentämiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:294
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:605
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:259
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:535
 #, fuzzy
 #| msgid "Volume mute"
 msgid "Quiet volume mute/unmute"
 msgstr "Hiljennä ääni"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:295
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:260
 #, fuzzy
 #| msgid "Binding to mute the system volume."
 msgid "Binding to mute/unmute the volume without emitting a sound effect."
 msgstr "Sidos äänen vaimentamiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:299
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:610
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:264
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:540
 #, fuzzy
 #| msgid "Volume up"
 msgid "Quiet volume up"
 msgstr "Kasvata äänenvoimakkuutta"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:300
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:265
 #, fuzzy
 #| msgid "Binding to raise the system volume."
 msgid "Binding to raise the volume without emitting a sound effect."
 msgstr "Sidos äänenvoimakkuuden kasvattamiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:306
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:617
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:271
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:547
 #, fuzzy
 #| msgid "Volume down"
 msgid "Precise volume down"
 msgstr "Vähennä äänenvoimakkuutta"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:307
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:272
 #, fuzzy
 #| msgid "Binding to lower the system volume."
 msgid "Binding to lower the volume with higher precision."
 msgstr "Sidos äänenvoimakkuuden vähentämiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:311
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:622
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:276
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:552
 #, fuzzy
 #| msgid "Volume up"
 msgid "Precise volume up"
 msgstr "Kasvata äänenvoimakkuutta"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:312
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:277
 #, fuzzy
 #| msgid "Binding to raise the system volume."
 msgid "Binding to raise the volume with higher precision."
 msgstr "Sidos äänenvoimakkuuden kasvattamiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:402
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:332
 #, fuzzy
 #| msgid "Touchpad Off"
 msgid "Toggle touchpad on/off"
 msgstr "Kosketuslevy pois"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:403
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:333
 #, fuzzy
 #| msgid "Binding to toggle the interface contrast"
 msgid "Binding to toggle the touchpad on/off."
 msgstr "Pikanäppäin käyttöliittymän kontrastin muuttamiseen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:407
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:644
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:337
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:574
 #, fuzzy
 #| msgid "Touchpad On"
 msgid "Switch touchpad on"
 msgstr "Kosketuslevy päälle"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:408
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:338
 #, fuzzy
 #| msgid "Binding to launch the search tool."
 msgid "Binding to switch the touchpad on."
 msgstr "Sidos hakutyökalun käynnistämiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:412
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:649
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:342
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:579
 #, fuzzy
 #| msgid "Touchpad Off"
 msgid "Switch touchpad off"
 msgstr "Kosketuslevy pois"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:413
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:343
 #, fuzzy
 #| msgid "Binding to launch the search tool."
 msgid "Binding to switch the touchpad off."
 msgstr "Sidos hakutyökalun käynnistämiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:418
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:655
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:348
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:585
 msgid "Skip backward in current track"
 msgstr ""
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:419
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:349
 #, fuzzy
 #| msgid "Binding to skip to next track."
 msgid "Binding to skip backward in current track."
 msgstr "Sidos seuraavaan kappaleeseen siirtymiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:423
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:660
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:353
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:590
 msgid "Skip forward in current track"
 msgstr ""
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:424
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:354
 #, fuzzy
 #| msgid "Binding to skip to next track."
 msgid "Binding to skip forward in current track."
 msgstr "Sidos seuraavaan kappaleeseen siirtymiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:428
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:665
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:358
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:595
 #, fuzzy
 #| msgid "Toggle Airplane Mode"
 msgid "Toggle repeat playback mode"
 msgstr "Lentokonetila päälle/pois päältä"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:429
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:359
 #, fuzzy
 #| msgid "Binding to launch the media player."
 msgid "Binding to toggle repeat mode in media player."
 msgstr "Sidos mediasoittimen käynnistämiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:433
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:670
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:363
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:600
 #, fuzzy
 #| msgid "Toggle Airplane Mode"
 msgid "Toggle random playback mode"
 msgstr "Lentokonetila päälle/pois päältä"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:434
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:364
 #, fuzzy
 #| msgid "Binding to launch the media player."
 msgid "Binding to toggle random playback mode in media player."
 msgstr "Sidos mediasoittimen käynnistämiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:439
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:676
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:369
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:606
 #, fuzzy
 #| msgid "Middle button emulation"
 msgid "Toggle automatic screen orientation"
 msgstr "Rullan painalluksen simulointi"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:440
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:370
 #, fuzzy
 #| msgid "Binding to take a screenshot."
 msgid "Binding to toggle automatic screen orientation."
 msgstr "Pikanäppäin kuvankaappauksen ottamiseen."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:444
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:681
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:374
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:611
 msgid "Power button"
 msgstr "Virtapainike"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:445
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:375
 #, fuzzy
 #| msgid "Binding to log out."
 msgid "Binding for power button."
 msgstr "Sidos uloskirjautumiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:449
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:686
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:379
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:616
 #, fuzzy
 #| msgid "Hibernate"
 msgid "Hibernate button"
 msgstr "Lepotila"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:450
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:380
 #, fuzzy
 #| msgid "Binding to mute the system volume."
 msgid "Binding to hibernate the machine."
 msgstr "Sidos äänen vaimentamiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:454
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:691
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:384
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:621
 #, fuzzy
 #| msgid "Suspend"
 msgid "Suspend button"
 msgstr "Valmiustila"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:455
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:385
 #, fuzzy
 #| msgid "Binding to launch the email client."
 msgid "Binding to suspend the machine."
 msgstr "Sidos sähköpostiohjelman käynnistämiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:460
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:697
-#, fuzzy
-#| msgid "Brightness Up"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:390
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:627
 msgid "Screen brightness up"
-msgstr "Lisää kirkkautta"
+msgstr "Lisää näytön kirkkautta"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:461
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:391
 #, fuzzy
 #| msgid "Binding to increase the text size"
 msgid "Binding to increase the screen brightness."
 msgstr "Pikanäppäin tekstin koon suurentamiseen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:465
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:702
-#, fuzzy
-#| msgid "Brightness Down"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:395
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:632
 msgid "Screen brightness down"
-msgstr "Vähennä kirkkauta"
+msgstr "Vähennä näytön kirkkautta"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:466
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:396
 #, fuzzy
 #| msgid "Binding to decrease the text size"
 msgid "Binding to decrease the screen brightness."
 msgstr "Pikanäppäin tekstin koon pienentämiseen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:470
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:707
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:400
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:637
 msgid "Screen brightness cycle"
 msgstr ""
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:471
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:401
 #, fuzzy
 #| msgid "Binding to lock the screen."
 msgid "Binding to cycle the screen brightness."
 msgstr "Sidos näytön lukitsemiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:476
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:713
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:406
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:643
 #, fuzzy
 #| msgid "Keyboard is empty"
 msgid "Keyboard brightness up"
 msgstr "Näppäimistön akku on tyhjä"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:477
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:407
 #, fuzzy
 #| msgid "Binding to increase the text size"
 msgid "Binding to increase the keyboard brightness."
 msgstr "Pikanäppäin tekstin koon suurentamiseen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:481
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:718
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:411
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:648
 #, fuzzy
 #| msgid "Keyboard battery low"
 msgid "Keyboard brightness down"
 msgstr "Näppäimistön akku lähes tyhjä"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:482
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:412
 #, fuzzy
 #| msgid "Binding to decrease the text size"
 msgid "Binding to decrease the keyboard brightness."
 msgstr "Pikanäppäin tekstin koon pienentämiseen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:486
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:723
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:416
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:653
 #, fuzzy
 #| msgid "Keyboard is charged"
 msgid "Keyboard brightness toggle"
 msgstr "Näppäimistö on ladattu"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:487
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:417
 #, fuzzy
 #| msgid "Binding to toggle the interface contrast"
 msgid "Binding to toggle the keyboard brightness."
 msgstr "Pikanäppäin käyttöliittymän kontrastin muuttamiseen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:492
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:729
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:422
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:659
 msgid "Show battery status"
 msgstr "Näytä akun tila"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:493
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:423
 #, fuzzy
 #| msgid "Binding to show the screen magnifier"
 msgid "Binding to show current battery status."
 msgstr "Pikanäppäin suurennuslasin näyttämiseen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:498
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:735
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:428
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:665
 msgid "RF kill"
 msgstr ""
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:499
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:429
 #, fuzzy
 #| msgid "Binding to toggle the interface contrast"
 msgid "Binding to toggle airplane mode."
 msgstr "Pikanäppäin käyttöliittymän kontrastin muuttamiseen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:503
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:740
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:433
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:670
 #, fuzzy
 #| msgid "Bluetooth disabled"
 msgid "Bluetooth RF kill"
 msgstr "Bluetooth pois käytöstä"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:504
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:434
 #, fuzzy
 #| msgid "Binding to toggle the interface contrast"
 msgid "Binding to toggle bluetooth airplane mode."
 msgstr "Pikanäppäin käyttöliittymän kontrastin muuttamiseen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:517
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:447
 #, fuzzy
 #| msgid "Binding to launch the calculator."
 msgid "Static binding to launch the calculator."
 msgstr "Sidos laskimen käynnistämiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:522
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:452
 #, fuzzy
 #| msgid "Binding to launch GNOME settings."
 msgid "Static binding to launch GNOME Settings."
 msgstr "Sidos Gnomen asetusten käynnistämiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:527
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:457
 #, fuzzy
 #| msgid "Binding to launch the email client."
 msgid "Static binding to launch the email client."
 msgstr "Sidos sähköpostiohjelman käynnistämiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:532
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:462
 msgid "Static binding to eject an optical disc."
 msgstr ""
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:537
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:467
 #, fuzzy
 #| msgid "Binding to open the Home folder."
 msgid "Static binding to open the Home folder."
 msgstr "Sidos kotikansion avaamiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:542
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:472
 #, fuzzy
 #| msgid "Binding to launch the media player."
 msgid "Static binding to launch the media player."
 msgstr "Sidos mediasoittimen käynnistämiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:547
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:477
 #, fuzzy
 #| msgid "Binding to skip to next track."
 msgid "Static binding to skip to next track."
 msgstr "Sidos seuraavaan kappaleeseen siirtymiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:552
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:482
 #, fuzzy
 #| msgid "Binding to pause playback."
 msgid "Static binding to pause playback."
 msgstr "Sidos toiston pysäyttämiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:557
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:487
 #, fuzzy
 #| msgid "Binding to start playback (or toggle play/pause)."
 msgid "Static binding to start playback (or toggle play/pause)."
 msgstr "Sidos toiston aloittamiseksi (tai toisto/tauko)."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:562
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:492
 #, fuzzy
 #| msgid "Binding to skip to previous track."
 msgid "Static binding to skip to previous track."
 msgstr "Sidos edelliseen kappaleeseen siirtymiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:567
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:497
 #, fuzzy
 #| msgid "Binding to lock the screen."
 msgid "Static binding to lock the screen."
 msgstr "Sidos näytön lukitsemiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:572
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:502
 #, fuzzy
 #| msgid "Binding to launch the search tool."
 msgid "Static binding to launch the search tool."
 msgstr "Sidos hakutyökalun käynnistämiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:577
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:507
 #, fuzzy
 #| msgid "Binding to stop playback."
 msgid "Static binding to stop playback."
 msgstr "Sidos toiston pysäyttämiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:584
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:514
 #, fuzzy
 #| msgid "Binding to lower the system volume."
 msgid "Static binding to lower the volume."
 msgstr "Sidos äänenvoimakkuuden vähentämiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:589
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:606
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:519
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:536
 #, fuzzy
 #| msgid "Binding to mute the system volume."
 msgid "Static binding to mute/unmute the volume."
 msgstr "Sidos äänen vaimentamiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:594
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:524
 #, fuzzy
 #| msgid "Binding to raise the system volume."
 msgid "Static binding to raise the volume."
 msgstr "Sidos äänenvoimakkuuden kasvattamiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:601
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:531
 msgid "Static binding to lower the volume without emitting a sound effect."
 msgstr ""
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:611
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:541
 msgid "Static binding to raise the volume without emitting a sound effect."
 msgstr ""
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:618
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:548
 #, fuzzy
 #| msgid "Binding to lower the system volume."
 msgid "Static binding to lower the volume with higher precision."
 msgstr "Sidos äänenvoimakkuuden vähentämiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:623
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:553
 #, fuzzy
 #| msgid "Binding to raise the system volume."
 msgid "Static binding to raise the volume with higher precision."
 msgstr "Sidos äänenvoimakkuuden kasvattamiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:629
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:559
 #, fuzzy
 #| msgid "Binding to mute the system volume."
 msgid "Static binding to mute/unmute the microphone."
 msgstr "Sidos äänen vaimentamiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:634
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:564
 #, fuzzy
 #| msgid "Binding to launch the web browser."
 msgid "Static binding to launch the web browser."
 msgstr "Sidos WWW-selaimen käynnistämiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:640
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:570
 #, fuzzy
 #| msgid "Binding to toggle the interface contrast"
 msgid "Static binding to toggle the touchpad on/off."
 msgstr "Pikanäppäin käyttöliittymän kontrastin muuttamiseen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:645
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:575
 msgid "Static binding to switch the touchpad on."
 msgstr ""
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:650
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:580
 msgid "Static binding to switch the touchpad off."
 msgstr ""
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:656
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:586
 #, fuzzy
 #| msgid "Binding to skip to next track."
 msgid "Static binding to skip backward in current track."
 msgstr "Sidos seuraavaan kappaleeseen siirtymiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:661
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:591
 #, fuzzy
 #| msgid "Binding to skip to next track."
 msgid "Static binding to skip forward in current track."
 msgstr "Sidos seuraavaan kappaleeseen siirtymiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:666
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:596
 #, fuzzy
 #| msgid "Binding to launch the media player."
 msgid "Static binding to toggle repeat mode in media player."
 msgstr "Sidos mediasoittimen käynnistämiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:671
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:601
 #, fuzzy
 #| msgid "Binding to launch the media player."
 msgid "Static binding to toggle random playback mode in media player."
 msgstr "Sidos mediasoittimen käynnistämiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:677
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:607
 msgid "Static binding to toggle automatic screen orientation."
 msgstr ""
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:682
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:612
 msgid "Static binding for power button."
 msgstr ""
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:687
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:617
 #, fuzzy
 #| msgid "Binding to mute the system volume."
 msgid "Static binding to hibernate the machine."
 msgstr "Sidos äänen vaimentamiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:692
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:622
 #, fuzzy
 #| msgid "Binding to mute the system volume."
 msgid "Static binding to suspend the machine."
 msgstr "Sidos äänen vaimentamiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:698
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:628
 #, fuzzy
 #| msgid "Binding to increase the text size"
 msgid "Static binding to increase the screen brightness."
 msgstr "Pikanäppäin tekstin koon suurentamiseen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:703
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:633
 #, fuzzy
 #| msgid "Binding to decrease the text size"
 msgid "Static binding to decrease the screen brightness."
 msgstr "Pikanäppäin tekstin koon pienentämiseen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:708
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:638
 #, fuzzy
 #| msgid "Binding to lock the screen."
 msgid "Static binding to cycle the screen brightness."
 msgstr "Sidos näytön lukitsemiseksi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:714
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:644
 #, fuzzy
 #| msgid "Binding to increase the text size"
 msgid "Static binding to increase the keyboard brightness."
 msgstr "Pikanäppäin tekstin koon suurentamiseen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:719
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:649
 #, fuzzy
 #| msgid "Binding to decrease the text size"
 msgid "Static binding to decrease the keyboard brightness."
 msgstr "Pikanäppäin tekstin koon pienentämiseen"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:724
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:654
 msgid "Static binding to toggle the keyboard brightness."
 msgstr ""
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:730
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:660
 msgid "Static binding to show current battery status."
 msgstr ""
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:736
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:666
 msgid "Static binding to toggle airplane mode."
 msgstr ""
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:741
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:671
 msgid "Static binding to toggle bluetooth airplane mode."
 msgstr ""
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:746
-msgid "Maximum length of screen recordings"
-msgstr "Näyttötallenteiden enimmäiskesto"
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:747
-msgid ""
-"The maximum length of single screen cast recordings in seconds or 0 for "
-"unlimited"
-msgstr ""
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:754
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:678
 msgid "Name"
 msgstr "Nimi"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:755
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:679
 msgid "Name of the custom binding"
 msgstr "Omavalintaisen näppäinsidoksen nimi"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:759
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:683
 msgid "Binding"
 msgstr "Näppäinsidos"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:760
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:684
 #, fuzzy
 msgid "Binding for the custom binding"
 msgstr "Pikanäppäin suurennuslasin suurennustoiminnolle"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:764
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:688
 msgid "Command"
 msgstr "Komento"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:765
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:689
 msgid "Command to run when the binding is invoked"
 msgstr "Suoritettava komento, kun laite lisätään tai poistetaan"
 
@@ -1516,7 +1428,7 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:11
 msgid "Dim the screen after a period of inactivity"
-msgstr ""
+msgstr "Himmennä näyttö toimettoman ajanjakson jälkeen"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:12
 msgid "If the screen should be dimmed to save power when the computer is idle."
@@ -1628,19 +1540,14 @@ msgid "Antialiasing"
 msgstr "Antialiasointi"
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:24
-#, fuzzy
-#| msgid ""
-#| "The type of antialiasing to use when rendering fonts. Possible values "
-#| "are: \"none\" for no antialiasing, \"grayscale\" for standard grayscale "
-#| "antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
 "and “rgba” for subpixel antialiasing (LCD screens only)."
 msgstr ""
 "Fonttien piirtoon käytetyn antialiasoinnin tyyppi. Mahdolliset arvot ovat: "
-"\"none\" (ei antialiasointia), \"grayscale (tavallinen harmaasävyihin "
-"perustuva) ja \"rgba\" (alipisteiden antialiasointi, vain LCD-näytöt)."
+"“none” (ei antialiasointia), “grayscale” (tavallinen harmaasävyihin "
+"perustuva) ja “rgba” (alipisteiden antialiasointi, vain LCD-näytöt)."
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:28
 msgid "Hinting"
@@ -1795,40 +1702,73 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Tällä tietokoneella on vain %s levytilaa jäljellä."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2480
+#. TRANSLATORS: %s is the application name.
+#: plugins/housekeeping/gsd-systemd-notify.c:82
+#, c-format
+msgid "%s Stopped"
+msgstr "%s lopetettu"
+
+#. TRANSLATORS: %s is the application name.
+#: plugins/housekeeping/gsd-systemd-notify.c:85
+#, c-format
+msgid ""
+"Device memory is nearly full. %s was using a lot of memory and was forced to "
+"stop."
+msgstr ""
+"Laitteen muisti on melkein täynnä. %s käytti paljon muistia, jonka vuoksi se "
+"pakotettiin lopettamaan."
+
+#. TRANSLATORS: A terminal tab/window was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:89
+#, c-format
+msgid "Virtual Terminal Stopped"
+msgstr "Virtuaalipääte lopetettu"
+
+#. TRANSLATORS: A terminal tab/window was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:91
+#, c-format
+msgid ""
+"Device memory is nearly full. Virtual Terminal processes were using a lot of "
+"memory and were forced to stop."
+msgstr ""
+"Laitteen muisti on melkein täynnä. Virtuaalipääteprosessit käyttivät paljon "
+"muistia, jonka vuoksi ne pakotettiin lopettamaan."
+
+#. TRANSLATORS: We don't have a good description of what was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:94
+#, c-format
+msgid "Application Stopped"
+msgstr "Sovellus lopetettu"
+
+#. TRANSLATORS: We don't have a good description of what was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:96
+#, c-format
+msgid ""
+"Device memory is nearly full. An Application that was using a lot of memory "
+"and was forced to stop."
+msgstr ""
+"Laitteen muisti on melkein täynnä. Sovellus käytti paljon muistia, jonka "
+"vuoksi se pakotettiin lopettamaan."
+
+#: plugins/media-keys/gsd-media-keys-manager.c:2250
 msgid "Bluetooth disabled"
 msgstr "Bluetooth pois käytöstä"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2483
+#: plugins/media-keys/gsd-media-keys-manager.c:2253
 msgid "Bluetooth enabled"
 msgstr "Bluetooth käytössä"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2487
+#: plugins/media-keys/gsd-media-keys-manager.c:2257
 msgid "Airplane mode enabled"
 msgstr "Lentokonetila käytössä"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2490
+#: plugins/media-keys/gsd-media-keys-manager.c:2260
 msgid "Airplane mode disabled"
 msgstr "Lentokonetila pois käytöstä"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2529
+#: plugins/media-keys/gsd-media-keys-manager.c:2299
 msgid "Hardware Airplane Mode"
 msgstr "Rautapohjainen lentokonetila"
-
-#. Translators: this is a filename used for screencast
-#. * recording, where "%d" and "%t" date and time, e.g.
-#. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2592
-#, no-c-format
-msgid "Screencast from %d %t.webm"
-msgstr "Ruutunauhoite - %d %t.webm"
-
-#. translators: this is the name of the file that gets made up
-#. * with the screenshot
-#: plugins/media-keys/gsd-screenshot-utils.c:240
-#, c-format
-msgid "Screenshot from %s"
-msgstr "Kuvakaappaus - %s"
 
 #: plugins/power/gpm-common.c:91
 msgid "Unknown time"
@@ -2196,7 +2136,6 @@ msgstr "Kosketuslevyn virta on vähissä"
 #. TRANSLATORS: notification body, an external touchpad is low on power
 #: plugins/power/gsd-power-manager.c:634
 #, c-format
-#| msgid "Tablet is low in power (%.0f%%)"
 msgid "Touchpad is low on power (%.0f%%)"
 msgstr "Kosketuslevyn virta on vähissä (%.0f%%)"
 
@@ -2229,7 +2168,6 @@ msgstr "Kuulokemikrofoniyhdistelmän virta on vähissä"
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is low on power
 #: plugins/power/gsd-power-manager.c:647
 #, c-format
-#| msgid "Tablet is low in power (%.0f%%)"
 msgid "Headset is low on power (%.0f%%)"
 msgstr "Kuulokemikrofoniyhdistelmän virta on vähissä (%.0f%%)"
 
@@ -2262,7 +2200,6 @@ msgstr "Kaiuttimen virta on vähissä"
 #. TRANSLATORS: notification body, a speaker is low on power
 #: plugins/power/gsd-power-manager.c:660
 #, c-format
-#| msgid "Tablet is low in power (%.0f%%)"
 msgid "Speaker is low on power (%.0f%%)"
 msgstr "Kaiuttimen virta on vähissä (%.0f%%)"
 
@@ -2295,7 +2232,6 @@ msgstr "Kuulokkeiden virta on vähissä"
 #. TRANSLATORS: notification body, headphones (no microphone) are low on power
 #: plugins/power/gsd-power-manager.c:673
 #, c-format
-#| msgid "Cell phone is low in power (%.0f%%)"
 msgid "Headphones are low on power (%.0f%%)"
 msgstr "Kuulokkeiden virta on vähissä (%.0f%%)"
 
@@ -2329,7 +2265,6 @@ msgstr "Äänilaitteen virta on vähissä"
 #. TRANSLATORS: notification body, an audio device is low on power
 #: plugins/power/gsd-power-manager.c:686
 #, c-format
-#| msgid "PDA is low in power (%.0f%%)"
 msgid "Audio device is low on power (%.0f%%)"
 msgstr "Äänilaitteen virta on vähissä (%.0f%%)"
 
@@ -2363,7 +2298,6 @@ msgstr "Kaukosäätimen virta on vähissä"
 #. TRANSLATORS: notification body, an remote control is low on power
 #: plugins/power/gsd-power-manager.c:699
 #, c-format
-#| msgid "Tablet is low in power (%.0f%%)"
 msgid "Remote is low on power (%.0f%%)"
 msgstr "Kaukosäätimen virta on vähissä (%.0f%%)"
 
@@ -2396,7 +2330,6 @@ msgstr "Tulostimen virta on vähissä"
 #. TRANSLATORS: notification body, a printer is low on power
 #: plugins/power/gsd-power-manager.c:712
 #, c-format
-#| msgid "PDA is low in power (%.0f%%)"
 msgid "Printer is low on power (%.0f%%)"
 msgstr "Tulostimen virta on vähissä (%.0f%%)"
 
@@ -2429,7 +2362,6 @@ msgstr "Kuvanlukijan virta on vähissä"
 #. TRANSLATORS: notification body, a scanner is low on power
 #: plugins/power/gsd-power-manager.c:725
 #, c-format
-#| msgid "Tablet is low in power (%.0f%%)"
 msgid "Scanner is low on power (%.0f%%)"
 msgstr "Kuvanlukijan virta on vähissä (%.0f%%)"
 
@@ -2462,7 +2394,6 @@ msgstr "Kameran virta on vähissä"
 #. TRANSLATORS: notification body, a camera is low on power
 #: plugins/power/gsd-power-manager.c:738
 #, c-format
-#| msgid "Tablet is low in power (%.0f%%)"
 msgid "Camera is low on power (%.0f%%)"
 msgstr "Kameran virta on vähissä (%.0f%%)"
 
@@ -2495,7 +2426,6 @@ msgstr "Bluetooth-laitteen virta on vähissä"
 #. TRANSLATORS: notification body, a Bluetooth device is low on power
 #: plugins/power/gsd-power-manager.c:751
 #, c-format
-#| msgid "Tablet is low in power (%.0f%%)"
 msgid "Bluetooth device is low on power (%.0f%%)"
 msgstr "Bluetooth-laitteen virta on vähissä (%.0f%%)"
 
@@ -2529,7 +2459,6 @@ msgstr "Liitetyn laitteen akun virta on vähissä"
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is low on power
 #: plugins/power/gsd-power-manager.c:765
 #, c-format
-#| msgid "Attached computer is low in power (%.0f%%)"
 msgid "A connected device is low on power (%.0f%%)"
 msgstr "Liitetyn laitteen virta on vähissä (%.0f%%)"
 
@@ -2588,6 +2517,7 @@ msgstr "Akku on lähes tyhjä"
 msgid "Battery critically low"
 msgstr "Akku kriittisen tyhjä"
 
+#. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action happening soon
 #: plugins/power/gsd-power-manager.c:897
 #, c-format
 msgid "Hibernating soon unless plugged in."
@@ -2614,6 +2544,7 @@ msgstr ""
 "Noin %s jäljellä UPS-virtaa (%.0f%%). Liitä tietokone virtalähteeseen "
 "välttääksesi tietojen menetyksen."
 
+#. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action happening now
 #: plugins/power/gsd-power-manager.c:993
 msgid ""
 "The battery is below the critical level and this computer is about to "
@@ -2627,6 +2558,7 @@ msgid ""
 "shutdown."
 msgstr "Akun lataus on alle kriittisen arvon ja siksi tietokone sammutetaan."
 
+#. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, warning about action happening now
 #: plugins/power/gsd-power-manager.c:1016
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
@@ -3097,67 +3029,124 @@ msgstr "Käyttö estetty"
 msgid "Unknown Error"
 msgstr "Tuntematon virhe"
 
-#: plugins/wwan/gsd-wwan-manager.c:117
+#: plugins/wwan/gsd-wwan-manager.c:121
 msgid "New PIN for SIM"
 msgstr "Uusi PIN-koodi SIM-kortille"
 
-#: plugins/wwan/gsd-wwan-manager.c:118
+#: plugins/wwan/gsd-wwan-manager.c:122
 msgid "Set"
 msgstr "Aseta"
 
-#: plugins/wwan/gsd-wwan-manager.c:120
+#: plugins/wwan/gsd-wwan-manager.c:124
 msgid "Unlock SIM card"
 msgstr "Avaa SIM-kortin lukitus"
 
-#: plugins/wwan/gsd-wwan-manager.c:121
+#: plugins/wwan/gsd-wwan-manager.c:125
 msgid "Unlock"
 msgstr "Avaa lukitus"
 
-#: plugins/wwan/gsd-wwan-manager.c:124
+#: plugins/wwan/gsd-wwan-manager.c:128
 msgid "Cancel"
 msgstr "Peru"
 
-#: plugins/wwan/gsd-wwan-manager.c:129
+#: plugins/wwan/gsd-wwan-manager.c:133
 #, c-format
 msgid "Please provide a new PIN for SIM card %s"
 msgstr "Anna uusi PIN-koodi SIM-kortille %s"
 
-#: plugins/wwan/gsd-wwan-manager.c:131
+#: plugins/wwan/gsd-wwan-manager.c:135
 msgid "Enter a New PIN to unlock your SIM card"
 msgstr "Anna uusi PIN-koodi avataksesi SIM-kortin lukituksen"
 
-#: plugins/wwan/gsd-wwan-manager.c:133
+#: plugins/wwan/gsd-wwan-manager.c:137
 #, c-format
 msgid "Please provide the PIN for SIM card %s"
 msgstr "Anna PIN-koodi SIM-kortille %s"
 
-#: plugins/wwan/gsd-wwan-manager.c:135
+#: plugins/wwan/gsd-wwan-manager.c:139
 msgid "Enter PIN to unlock your SIM card"
 msgstr "Anna PIN-koodi avataksesi SIM-kortin lukituksen"
 
-#: plugins/wwan/gsd-wwan-manager.c:138
+#: plugins/wwan/gsd-wwan-manager.c:142
 #, c-format
 msgid "Please provide the PUK for SIM card %s"
 msgstr "Anna PUK-koodi SIM-kortille %s"
 
-#: plugins/wwan/gsd-wwan-manager.c:140
+#: plugins/wwan/gsd-wwan-manager.c:144
 msgid "Enter PUK to unlock your SIM card"
 msgstr "Anna PUK-koodi avataksesi SIM-kortin lukituksen"
 
 #. msg is already localised
-#: plugins/wwan/gsd-wwan-manager.c:156
+#: plugins/wwan/gsd-wwan-manager.c:160
 #, c-format
 msgid "%2$s. You have %1$u try left"
 msgid_plural "%2$s. You have %1$u tries left"
 msgstr[0] "%2$s. %1$u yritys jäljellä"
 msgstr[1] "%2$s. %1$u yritystä jäljellä"
 
-#: plugins/wwan/gsd-wwan-manager.c:160
+#: plugins/wwan/gsd-wwan-manager.c:164
 #, c-format
 msgid "You have %u try left"
 msgid_plural "You have %u tries left"
 msgstr[0] "%u yritys jäljellä"
 msgstr[1] "%u yritystä jäljellä"
+
+#~ msgid "Take a screenshot"
+#~ msgstr "Ota kuvakaappaus"
+
+#~ msgid "Binding to take a screenshot."
+#~ msgstr "Pikanäppäin kuvankaappauksen ottamiseen."
+
+#~ msgid "Take a screenshot of a window"
+#~ msgstr "Ota kuvakaappaus ikkunasta"
+
+#~ msgid "Binding to take a screenshot of a window."
+#~ msgstr "Pikanäppäin kuvankaappauksen ottamiseen ikkunasta."
+
+#~ msgid "Take a screenshot of an area"
+#~ msgstr "Ota kuvankaappaus alueesta"
+
+#~ msgid "Binding to take a screenshot of an area."
+#~ msgstr "Pikanäppäin kuvankaappauksen ottamiseen alueesta."
+
+#~ msgid "Copy a screenshot to clipboard"
+#~ msgstr "Kopioi kuvankaappaus leikepöydälle"
+
+#~ msgid "Binding to copy a screenshot to clipboard."
+#~ msgstr "Pikanäppäin kuvankaappauksen kopioimiseen leikepöydälle."
+
+#~ msgid "Copy a screenshot of a window to clipboard"
+#~ msgstr "Kopioi ikkunasta otettu kuvankaappaus leikepöydälle"
+
+#~ msgid "Binding to copy a screenshot of a window to clipboard."
+#~ msgstr ""
+#~ "Pikanäppäin ikkunasta otetun kuvankaappauksen kopioimiseen leikepöydälle."
+
+#~ msgid "Copy a screenshot of an area to clipboard"
+#~ msgstr "Kopioi alueesta otettu kuvankaappaus leikepöydälle"
+
+#~ msgid "Binding to copy a screenshot of an area to clipboard."
+#~ msgstr ""
+#~ "Pikanäppäin alueesta otetun kuvankaappauksen kopioimiseen leikepöydälle."
+
+#~ msgid "Record a short video of the screen"
+#~ msgstr "Nauhoita lyhyt video näytön tapahtumista"
+
+#, fuzzy
+#~| msgid "Record a short video of the screen"
+#~ msgid "Binding to record a short video of the screen"
+#~ msgstr "Nauhoita lyhyt video näytön tapahtumista"
+
+#~ msgid "Maximum length of screen recordings"
+#~ msgstr "Näyttötallenteiden enimmäiskesto"
+
+#, no-c-format
+#~ msgid "Screencast from %d %t.webm"
+#~ msgstr "Ruutunauhoite - %d %t.webm"
+
+#, c-format
+#~ msgid "Screenshot from %s"
+#~ msgstr "Kuvakaappaus - %s"
 
 #~ msgid "Unable to capture a screenshot"
 #~ msgstr "Kuvakaappauksen ottaminen ei onnistunut"
@@ -3554,8 +3543,8 @@ msgstr[1] "%u yritystä jäljellä"
 #~ "and \"full\" for maximum hinting (may cause distortion of letter forms)."
 #~ msgstr ""
 #~ "Fontteja piirrettäessä käytettävä vihjeistystapa. Mahdolliset arvot ovat: "
-#~ "\"none\" (ei vihjeistystä), \"slight\" (kevyt vihjeistys), \"medium"
-#~ "\" (tavallinen vihjeistys) \"full\" (suurin mahdollinen, saattaa "
+#~ "\"none\" (ei vihjeistystä), \"slight\" (kevyt vihjeistys), "
+#~ "\"medium\" (tavallinen vihjeistys) \"full\" (suurin mahdollinen, saattaa "
 #~ "aiheuttaa kirjainmuotojen säröytymistä)"
 
 #~ msgid "Cursor"
