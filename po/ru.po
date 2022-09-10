@@ -24,8 +24,8 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2022-06-25 18:34+0000\n"
-"PO-Revision-Date: 2022-06-30 11:09+0300\n"
+"POT-Creation-Date: 2022-09-06 16:42+0000\n"
+"PO-Revision-Date: 2022-09-06 20:05+0300\n"
 "Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -34,7 +34,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1\n"
 "X-DL-Team: ru\n"
 "X-DL-Module: gnome-settings-daemon\n"
 "X-DL-Branch: master\n"
@@ -1636,6 +1636,54 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "На компьютере осталось всего %s свободного места."
 
+#. TRANSLATORS: %s is the application name.
+#: plugins/housekeeping/gsd-systemd-notify.c:82
+#, c-format
+msgid "%s Stopped"
+msgstr "Приложение %s остановлено"
+
+#. TRANSLATORS: %s is the application name.
+#: plugins/housekeeping/gsd-systemd-notify.c:85
+#, c-format
+msgid ""
+"Device memory is nearly full. %s was using a lot of memory and was forced to "
+"stop."
+msgstr ""
+"Память устройства почти заполнена. Приложение %s использовало много памяти и "
+"было вынуждено остановиться."
+
+#. TRANSLATORS: A terminal tab/window was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:89
+#, c-format
+msgid "Virtual Terminal Stopped"
+msgstr "Виртуальный терминал остановлен"
+
+#. TRANSLATORS: A terminal tab/window was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:91
+#, c-format
+msgid ""
+"Device memory is nearly full. Virtual Terminal processes were using a lot of "
+"memory and were forced to stop."
+msgstr ""
+"Память устройства почти заполнена. Процессы виртуального терминала "
+"использовали много памяти и были вынуждены остановиться."
+
+#. TRANSLATORS: We don't have a good description of what was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:94
+#, c-format
+msgid "Application Stopped"
+msgstr "Приложение остановлено"
+
+#. TRANSLATORS: We don't have a good description of what was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:96
+#, c-format
+msgid ""
+"Device memory is nearly full. An Application that was using a lot of memory "
+"and was forced to stop."
+msgstr ""
+"Память устройства почти заполнена. Приложение, которое использовало много "
+"памяти, было вынуждено остановиться."
+
 #: plugins/media-keys/gsd-media-keys-manager.c:2250
 msgid "Bluetooth disabled"
 msgstr "Bluetooth выключен"
@@ -2930,55 +2978,55 @@ msgstr "Доступ запрещен"
 msgid "Unknown Error"
 msgstr "Неизвестная ошибка"
 
-#: plugins/wwan/gsd-wwan-manager.c:117
+#: plugins/wwan/gsd-wwan-manager.c:121
 msgid "New PIN for SIM"
 msgstr "Новый PIN-код для SIM-карты"
 
-#: plugins/wwan/gsd-wwan-manager.c:118
+#: plugins/wwan/gsd-wwan-manager.c:122
 msgid "Set"
 msgstr "Установить"
 
-#: plugins/wwan/gsd-wwan-manager.c:120
+#: plugins/wwan/gsd-wwan-manager.c:124
 msgid "Unlock SIM card"
 msgstr "Разблокировать СИМ-карту"
 
-#: plugins/wwan/gsd-wwan-manager.c:121
+#: plugins/wwan/gsd-wwan-manager.c:125
 msgid "Unlock"
 msgstr "Разблокировать"
 
-#: plugins/wwan/gsd-wwan-manager.c:124
+#: plugins/wwan/gsd-wwan-manager.c:128
 msgid "Cancel"
 msgstr "Отмена"
 
-#: plugins/wwan/gsd-wwan-manager.c:129
+#: plugins/wwan/gsd-wwan-manager.c:133
 #, c-format
 msgid "Please provide a new PIN for SIM card %s"
 msgstr "Пожалуйста, введите новый PIN-код для SIM-карты %s"
 
-#: plugins/wwan/gsd-wwan-manager.c:131
+#: plugins/wwan/gsd-wwan-manager.c:135
 msgid "Enter a New PIN to unlock your SIM card"
 msgstr "Введите новый PIN-код для разблокировки SIM-карты"
 
-#: plugins/wwan/gsd-wwan-manager.c:133
+#: plugins/wwan/gsd-wwan-manager.c:137
 #, c-format
 msgid "Please provide the PIN for SIM card %s"
 msgstr "Пожалуйста, введите ПИН-код для СИМ-карты %s"
 
-#: plugins/wwan/gsd-wwan-manager.c:135
+#: plugins/wwan/gsd-wwan-manager.c:139
 msgid "Enter PIN to unlock your SIM card"
 msgstr "Введите ПИН-код для разблокировки СИМ-карты"
 
-#: plugins/wwan/gsd-wwan-manager.c:138
+#: plugins/wwan/gsd-wwan-manager.c:142
 #, c-format
 msgid "Please provide the PUK for SIM card %s"
 msgstr "Пожалуйста, предоставьте PUK для SIM-карты %s"
 
-#: plugins/wwan/gsd-wwan-manager.c:140
+#: plugins/wwan/gsd-wwan-manager.c:144
 msgid "Enter PUK to unlock your SIM card"
 msgstr "Введите PUK для разблокировки SIM-карты"
 
 #. msg is already localised
-#: plugins/wwan/gsd-wwan-manager.c:156
+#: plugins/wwan/gsd-wwan-manager.c:160
 #, c-format
 msgid "%2$s. You have %1$u try left"
 msgid_plural "%2$s. You have %1$u tries left"
@@ -2986,7 +3034,7 @@ msgstr[0] "%2$s. У вас осталась %1$u попытка"
 msgstr[1] "%2$s. У вас осталось %1$u попытки"
 msgstr[2] "%2$s. У вас осталось %1$u попыток"
 
-#: plugins/wwan/gsd-wwan-manager.c:160
+#: plugins/wwan/gsd-wwan-manager.c:164
 #, c-format
 msgid "You have %u try left"
 msgid_plural "You have %u tries left"
