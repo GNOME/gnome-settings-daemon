@@ -11,8 +11,8 @@
 msgid ""
 msgstr "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/issues\n"
-"POT-Creation-Date: 2022-02-13 13:32+0000\n"
-"PO-Revision-Date: 2022-03-09 10:00+0100\n"
+"POT-Creation-Date: 2022-09-06 16:42+0000\n"
+"PO-Revision-Date: 2022-09-10 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -1470,6 +1470,48 @@ msgstr "Ordenagailu honen leku librea: %s. Hustu zakarrontzia lekua egiteko."
 msgid "This computer has only %s disk space remaining."
 msgstr "Ordenagailu honen leku librea: %s."
 
+#. TRANSLATORS: %s is the application name.
+#: plugins/housekeeping/gsd-systemd-notify.c:82
+#, c-format
+msgid "%s Stopped"
+msgstr "%s gelditu da"
+
+#. TRANSLATORS: %s is the application name.
+#: plugins/housekeeping/gsd-systemd-notify.c:85
+#, c-format
+msgid ""
+"Device memory is nearly full. %s was using a lot of memory and was forced to "
+"stop."
+msgstr "Gailuaren memoria ia beteta dago. %s memoria asko ari zen erabiltzen eta gelditu egin da."
+
+#. TRANSLATORS: A terminal tab/window was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:89
+#, c-format
+msgid "Virtual Terminal Stopped"
+msgstr "Terminal birtuala gelditu da"
+
+#. TRANSLATORS: A terminal tab/window was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:91
+#, c-format
+msgid ""
+"Device memory is nearly full. Virtual Terminal processes were using a lot of "
+"memory and were forced to stop."
+msgstr "Gailuaren memoria ia beteta dago. Terminal birtualaren prozesuak memoria asko erabiltzen ari zirenez, gelditu egin dira."
+
+#. TRANSLATORS: We don't have a good description of what was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:94
+#, c-format
+msgid "Application Stopped"
+msgstr "Aplikazioa gelditu da"
+
+#. TRANSLATORS: We don't have a good description of what was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:96
+#, c-format
+msgid ""
+"Device memory is nearly full. An Application that was using a lot of memory "
+"and was forced to stop."
+msgstr "Gailuaren memoria ia beteta dago. Aplikazioa memoria asko erabiltzen ari zenez, gelditu egin da."
+
 #: plugins/media-keys/gsd-media-keys-manager.c:2250
 msgid "Bluetooth disabled"
 msgstr "Bluetooth-a desgaituta"
@@ -2656,62 +2698,62 @@ msgstr "Atzitzea ukatu da"
 msgid "Unknown Error"
 msgstr "Errore ezezaguna"
 
-#: plugins/wwan/gsd-wwan-manager.c:117
+#: plugins/wwan/gsd-wwan-manager.c:121
 msgid "New PIN for SIM"
 msgstr "PIN berria SIM txartelerako"
 
-#: plugins/wwan/gsd-wwan-manager.c:118
+#: plugins/wwan/gsd-wwan-manager.c:122
 msgid "Set"
 msgstr "Ezarri"
 
-#: plugins/wwan/gsd-wwan-manager.c:120
+#: plugins/wwan/gsd-wwan-manager.c:124
 msgid "Unlock SIM card"
 msgstr "Desblokeatu SIM txartela"
 
-#: plugins/wwan/gsd-wwan-manager.c:121
+#: plugins/wwan/gsd-wwan-manager.c:125
 msgid "Unlock"
 msgstr "Desblokeatu"
 
-#: plugins/wwan/gsd-wwan-manager.c:124
+#: plugins/wwan/gsd-wwan-manager.c:128
 msgid "Cancel"
 msgstr "Utzi"
 
-#: plugins/wwan/gsd-wwan-manager.c:129
+#: plugins/wwan/gsd-wwan-manager.c:133
 #, c-format
 msgid "Please provide a new PIN for SIM card %s"
 msgstr "Idatzi PIN berria %s SIM txartelerako"
 
-#: plugins/wwan/gsd-wwan-manager.c:131
+#: plugins/wwan/gsd-wwan-manager.c:135
 msgid "Enter a New PIN to unlock your SIM card"
 msgstr "Sartu PIN berria zure SIM txartela desblokeatzeko"
 
-#: plugins/wwan/gsd-wwan-manager.c:133
+#: plugins/wwan/gsd-wwan-manager.c:137
 #, c-format
 msgid "Please provide the PIN for SIM card %s"
 msgstr "Sartu %s SIM txartelaren PINa"
 
-#: plugins/wwan/gsd-wwan-manager.c:135
+#: plugins/wwan/gsd-wwan-manager.c:139
 msgid "Enter PIN to unlock your SIM card"
 msgstr "Sartu PINa zure SIM txartela desblokeatzeko"
 
-#: plugins/wwan/gsd-wwan-manager.c:138
+#: plugins/wwan/gsd-wwan-manager.c:142
 #, c-format
 msgid "Please provide the PUK for SIM card %s"
 msgstr "Idatzi %s SIM txartelaren PUKa"
 
-#: plugins/wwan/gsd-wwan-manager.c:140
+#: plugins/wwan/gsd-wwan-manager.c:144
 msgid "Enter PUK to unlock your SIM card"
 msgstr "Sartu PUKa zure SIM txartela desblokeatzeko"
 
 #. msg is already localised
-#: plugins/wwan/gsd-wwan-manager.c:156
+#: plugins/wwan/gsd-wwan-manager.c:160
 #, c-format
 msgid "%2$s. You have %1$u try left"
 msgid_plural "%2$s. You have %1$u tries left"
 msgstr[0] "%2$s. Saialdi %1$u geratzen zaizu"
 msgstr[1] "%2$s %1$u saialdi geratzen zaizkizu"
 
-#: plugins/wwan/gsd-wwan-manager.c:160
+#: plugins/wwan/gsd-wwan-manager.c:164
 #, c-format
 msgid "You have %u try left"
 msgid_plural "You have %u tries left"
