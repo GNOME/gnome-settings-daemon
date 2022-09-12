@@ -20,8 +20,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2022-02-13 13:32+0000\n"
-"PO-Revision-Date: 2022-04-08 11:02+0200\n"
+"POT-Creation-Date: 2022-09-06 16:42+0000\n"
+"PO-Revision-Date: 2022-09-11 19:19+0200\n"
 "Last-Translator: Charles Monzat <charles.monzat@free.fr>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "Language: fr\n"
@@ -1631,6 +1631,56 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "Cet ordinateur n’a plus que %s d’espace disque disponible."
 
+#. TRANSLATORS: %s is the application name.
+#: plugins/housekeeping/gsd-systemd-notify.c:82
+#, c-format
+msgid "%s Stopped"
+msgstr "%s a été arrêtée"
+
+#. TRANSLATORS: %s is the application name.
+#: plugins/housekeeping/gsd-systemd-notify.c:85
+#, c-format
+msgid ""
+"Device memory is nearly full. %s was using a lot of memory and was forced to "
+"stop."
+msgstr ""
+"La mémoire du périphérique est presque pleine. %s utilisait beaucoup de "
+"mémoire et a été forcée de s’arrêter."
+
+#. TRANSLATORS: A terminal tab/window was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:89
+#, c-format
+msgid "Virtual Terminal Stopped"
+msgstr "Le terminal virtuel a été arrêté"
+
+#. TRANSLATORS: A terminal tab/window was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:91
+#, c-format
+msgid ""
+"Device memory is nearly full. Virtual Terminal processes were using a lot of "
+"memory and were forced to stop."
+msgstr ""
+"La mémoire du périphérique est presque pleine. Les processus du terminal "
+"virtuel utilisaient beaucoup de mémoire et ont été forcés de s’arrêter."
+
+#. TRANSLATORS: We don't have a good description of what was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:94
+#, c-format
+#| msgctxt "print job state"
+#| msgid "Printing stopped"
+msgid "Application Stopped"
+msgstr "L’application a été arrêtée"
+
+#. TRANSLATORS: We don't have a good description of what was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:96
+#, c-format
+msgid ""
+"Device memory is nearly full. An Application that was using a lot of memory "
+"and was forced to stop."
+msgstr ""
+"La mémoire du périphérique est presque pleine. Une application qui utilisait "
+"beaucoup de mémoire a été forcée de s’arrêter."
+
 #: plugins/media-keys/gsd-media-keys-manager.c:2250
 msgid "Bluetooth disabled"
 msgstr "Bluetooth désactivé"
@@ -2925,62 +2975,62 @@ msgstr "Accès interdit"
 msgid "Unknown Error"
 msgstr "Erreur inconnue"
 
-#: plugins/wwan/gsd-wwan-manager.c:117
+#: plugins/wwan/gsd-wwan-manager.c:121
 msgid "New PIN for SIM"
 msgstr "Nouveau PIN pour la SIM"
 
-#: plugins/wwan/gsd-wwan-manager.c:118
+#: plugins/wwan/gsd-wwan-manager.c:122
 msgid "Set"
 msgstr "Définir"
 
-#: plugins/wwan/gsd-wwan-manager.c:120
+#: plugins/wwan/gsd-wwan-manager.c:124
 msgid "Unlock SIM card"
 msgstr "Déverrouiller la carte SIM"
 
-#: plugins/wwan/gsd-wwan-manager.c:121
+#: plugins/wwan/gsd-wwan-manager.c:125
 msgid "Unlock"
 msgstr "Déverrouiller"
 
-#: plugins/wwan/gsd-wwan-manager.c:124
+#: plugins/wwan/gsd-wwan-manager.c:128
 msgid "Cancel"
 msgstr "Annuler"
 
-#: plugins/wwan/gsd-wwan-manager.c:129
+#: plugins/wwan/gsd-wwan-manager.c:133
 #, c-format
 msgid "Please provide a new PIN for SIM card %s"
 msgstr "Définissez un nouveau code PIN pour la carte SIM %s"
 
-#: plugins/wwan/gsd-wwan-manager.c:131
+#: plugins/wwan/gsd-wwan-manager.c:135
 msgid "Enter a New PIN to unlock your SIM card"
 msgstr "Entrez un nouveau code PIN pour déverrouiller la carte SIM"
 
-#: plugins/wwan/gsd-wwan-manager.c:133
+#: plugins/wwan/gsd-wwan-manager.c:137
 #, c-format
 msgid "Please provide the PIN for SIM card %s"
 msgstr "Entrez le code PIN pour la carte SIM %s"
 
-#: plugins/wwan/gsd-wwan-manager.c:135
+#: plugins/wwan/gsd-wwan-manager.c:139
 msgid "Enter PIN to unlock your SIM card"
 msgstr "Entrez le code PIN pour déverrouiller la carte SIM"
 
-#: plugins/wwan/gsd-wwan-manager.c:138
+#: plugins/wwan/gsd-wwan-manager.c:142
 #, c-format
 msgid "Please provide the PUK for SIM card %s"
 msgstr "Entrez le code PUK pour la carte SIM %s"
 
-#: plugins/wwan/gsd-wwan-manager.c:140
+#: plugins/wwan/gsd-wwan-manager.c:144
 msgid "Enter PUK to unlock your SIM card"
 msgstr "Entrez le code PUK pour déverrouiller la carte SIM"
 
 #. msg is already localised
-#: plugins/wwan/gsd-wwan-manager.c:156
+#: plugins/wwan/gsd-wwan-manager.c:160
 #, c-format
 msgid "%2$s. You have %1$u try left"
 msgid_plural "%2$s. You have %1$u tries left"
 msgstr[0] "%2$s. Il vous reste %1$u essai"
 msgstr[1] "%2$s. Il vous reste %1$u essais"
 
-#: plugins/wwan/gsd-wwan-manager.c:160
+#: plugins/wwan/gsd-wwan-manager.c:164
 #, c-format
 msgid "You have %u try left"
 msgid_plural "You have %u tries left"
