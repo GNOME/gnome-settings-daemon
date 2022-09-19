@@ -4,15 +4,15 @@
 # Gareth Owen <gowen72@yahoo.com>, David Lodge <dave@cirt.net>, 2004.
 # Philip Withnall <philip@tecnocode.co.uk>, 2010.
 # Zander Brown <zbrown@gnome.org>, 2019-2021.
-# Bruce Cowan <bruce@bcowan.me.uk>, 2009-2021.
+# Bruce Cowan <bruce@bcowan.me.uk>, 2009-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2022-02-13 13:32+0000\n"
-"PO-Revision-Date: 2021-08-28 10:55+0100\n"
+"POT-Creation-Date: 2022-09-06 16:42+0000\n"
+"PO-Revision-Date: 2022-09-19 16:07+0100\n"
 "Last-Translator: Bruce Cowan <bruce@bcowan.me.uk>\n"
 "Language-Team: English - United Kingdom <en@li.org>\n"
 "Language: en_GB\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 40.0\n"
+"X-Generator: Gtranslator 42.0\n"
 "X-Project-Style: gnome\n"
 "X-DL-Team: en_GB\n"
 "X-DL-Module: gnome-settings-daemon\n"
@@ -1237,11 +1237,11 @@ msgstr "Static binding to show current battery status."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:666
 msgid "Static binding to toggle airplane mode."
-msgstr "Static binding to toggle airplane mode."
+msgstr "Static binding to toggle aeroplane mode."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:671
 msgid "Static binding to toggle bluetooth airplane mode."
-msgstr "Static binding to toggle bluetooth airplane mode."
+msgstr "Static binding to toggle bluetooth aeroplane mode."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:678
 msgid "Name"
@@ -1576,6 +1576,54 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "This computer has only %s disk space remaining."
 
+#. TRANSLATORS: %s is the application name.
+#: plugins/housekeeping/gsd-systemd-notify.c:82
+#, c-format
+msgid "%s Stopped"
+msgstr "%s Stopped"
+
+#. TRANSLATORS: %s is the application name.
+#: plugins/housekeeping/gsd-systemd-notify.c:85
+#, c-format
+msgid ""
+"Device memory is nearly full. %s was using a lot of memory and was forced to "
+"stop."
+msgstr ""
+"Device memory is nearly full. %s was using a lot of memory and was forced to "
+"stop."
+
+#. TRANSLATORS: A terminal tab/window was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:89
+#, c-format
+msgid "Virtual Terminal Stopped"
+msgstr "Virtual Terminal Stopped"
+
+#. TRANSLATORS: A terminal tab/window was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:91
+#, c-format
+msgid ""
+"Device memory is nearly full. Virtual Terminal processes were using a lot of "
+"memory and were forced to stop."
+msgstr ""
+"Device memory is nearly full. Virtual Terminal processes were using a lot of "
+"memory and were forced to stop."
+
+#. TRANSLATORS: We don't have a good description of what was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:94
+#, c-format
+msgid "Application Stopped"
+msgstr "Application Stopped"
+
+#. TRANSLATORS: We don't have a good description of what was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:96
+#, c-format
+msgid ""
+"Device memory is nearly full. An Application that was using a lot of memory "
+"and was forced to stop."
+msgstr ""
+"Device memory is nearly full. An Application that was using a lot of memory "
+"and was forced to stop."
+
 #: plugins/media-keys/gsd-media-keys-manager.c:2250
 msgid "Bluetooth disabled"
 msgstr "Bluetooth disabled"
@@ -1586,15 +1634,15 @@ msgstr "Bluetooth enabled"
 
 #: plugins/media-keys/gsd-media-keys-manager.c:2257
 msgid "Airplane mode enabled"
-msgstr "Airplane mode enabled"
+msgstr "Aeroplane mode enabled"
 
 #: plugins/media-keys/gsd-media-keys-manager.c:2260
 msgid "Airplane mode disabled"
-msgstr "Airplane mode disabled"
+msgstr "Aeroplane mode disabled"
 
 #: plugins/media-keys/gsd-media-keys-manager.c:2299
 msgid "Hardware Airplane Mode"
-msgstr "Hardware Airplane Mode"
+msgstr "Hardware Aeroplane Mode"
 
 #: plugins/power/gpm-common.c:91
 msgid "Unknown time"
@@ -2853,62 +2901,62 @@ msgstr "Access denied"
 msgid "Unknown Error"
 msgstr "Unknown Error"
 
-#: plugins/wwan/gsd-wwan-manager.c:117
+#: plugins/wwan/gsd-wwan-manager.c:121
 msgid "New PIN for SIM"
 msgstr "New PIN for SIM"
 
-#: plugins/wwan/gsd-wwan-manager.c:118
+#: plugins/wwan/gsd-wwan-manager.c:122
 msgid "Set"
 msgstr "Set"
 
-#: plugins/wwan/gsd-wwan-manager.c:120
+#: plugins/wwan/gsd-wwan-manager.c:124
 msgid "Unlock SIM card"
 msgstr "Unlock SIM card"
 
-#: plugins/wwan/gsd-wwan-manager.c:121
+#: plugins/wwan/gsd-wwan-manager.c:125
 msgid "Unlock"
 msgstr "Unlock"
 
-#: plugins/wwan/gsd-wwan-manager.c:124
+#: plugins/wwan/gsd-wwan-manager.c:128
 msgid "Cancel"
 msgstr "Cancel"
 
-#: plugins/wwan/gsd-wwan-manager.c:129
+#: plugins/wwan/gsd-wwan-manager.c:133
 #, c-format
 msgid "Please provide a new PIN for SIM card %s"
 msgstr "Please provide a new PIN for SIM card %s"
 
-#: plugins/wwan/gsd-wwan-manager.c:131
+#: plugins/wwan/gsd-wwan-manager.c:135
 msgid "Enter a New PIN to unlock your SIM card"
 msgstr "Enter a New PIN to unlock your SIM card"
 
-#: plugins/wwan/gsd-wwan-manager.c:133
+#: plugins/wwan/gsd-wwan-manager.c:137
 #, c-format
 msgid "Please provide the PIN for SIM card %s"
 msgstr "Please provide the PIN for SIM card %s"
 
-#: plugins/wwan/gsd-wwan-manager.c:135
+#: plugins/wwan/gsd-wwan-manager.c:139
 msgid "Enter PIN to unlock your SIM card"
 msgstr "Enter PIN to unlock your SIM card"
 
-#: plugins/wwan/gsd-wwan-manager.c:138
+#: plugins/wwan/gsd-wwan-manager.c:142
 #, c-format
 msgid "Please provide the PUK for SIM card %s"
 msgstr "Please provide the PUK for SIM card %s"
 
-#: plugins/wwan/gsd-wwan-manager.c:140
+#: plugins/wwan/gsd-wwan-manager.c:144
 msgid "Enter PUK to unlock your SIM card"
 msgstr "Enter PUK to unlock your SIM card"
 
 #. msg is already localised
-#: plugins/wwan/gsd-wwan-manager.c:156
+#: plugins/wwan/gsd-wwan-manager.c:160
 #, c-format
 msgid "%2$s. You have %1$u try left"
 msgid_plural "%2$s. You have %1$u tries left"
 msgstr[0] "%2$s. You have %1$u try left"
 msgstr[1] "%2$s. You have %1$u tries left"
 
-#: plugins/wwan/gsd-wwan-manager.c:160
+#: plugins/wwan/gsd-wwan-manager.c:164
 #, c-format
 msgid "You have %u try left"
 msgid_plural "You have %u tries left"
@@ -6024,9 +6072,6 @@ msgstr[1] "You have %u tries left"
 
 #~ msgid "_Add..."
 #~ msgstr "_Add…"
-
-#~ msgid "_Application font:"
-#~ msgstr "_Application font:"
 
 #~ msgid "_BGR"
 #~ msgstr "_BGR"
