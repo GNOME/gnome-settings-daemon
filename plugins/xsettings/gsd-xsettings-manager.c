@@ -57,8 +57,6 @@
 #define WM_SETTINGS_SCHEMA        "org.gnome.desktop.wm.preferences"
 #define A11Y_SCHEMA               "org.gnome.desktop.a11y"
 #define A11Y_INTERFACE_SCHEMA     "org.gnome.desktop.a11y.interface"
-#define A11Y_APPLICATIONS_SCHEMA   "org.gnome.desktop.a11y.applications"
-#define INPUT_SOURCES_SCHEMA       "org.gnome.desktop.input-sources"
 #define CLASSIC_WM_SETTINGS_SCHEMA "org.gnome.shell.extensions.classic-overrides"
 
 #define XSETTINGS_PLUGIN_SCHEMA "org.gnome.settings-daemon.plugins.xsettings"
@@ -77,16 +75,11 @@
 
 #define HIGH_CONTRAST_KEY "high-contrast"
 
-#define INPUT_SOURCES_KEY      "sources"
-#define OSK_ENABLED_KEY        "screen-keyboard-enabled"
 #define GTK_IM_MODULE_KEY      "gtk-im-module"
 
 #define GTK_SETTINGS_DBUS_PATH "/org/gtk/Settings"
 #define GTK_SETTINGS_DBUS_NAME "org.gtk.Settings"
 
-#define INPUT_SOURCE_TYPE_IBUS "ibus"
-
-#define GTK_IM_MODULE_SIMPLE "gtk-im-context-simple"
 #define GTK_IM_MODULE_IBUS   "ibus"
 
 static const gchar introspection_xml[] =
@@ -292,8 +285,6 @@ struct _GsdXSettingsManager
         gint64             fontconfig_timestamp;
 
         GSettings         *interface_settings;
-        GSettings         *input_sources_settings;
-        GSettings         *a11y_settings;
         GdkSeat           *user_seat;
 
         GsdXSettingsGtk   *gtk;
@@ -1341,51 +1332,6 @@ migrate_settings (void)
                                     mouse_entries, G_N_ELEMENTS (mouse_entries));
 }
 
-static gboolean
-need_ibus (GsdXSettingsManager *manager)
-{
-        GVariant *sources;
-        GVariantIter iter;
-        const gchar *type;
-        gboolean needs_ibus = FALSE;
-
-        sources = g_settings_get_value (manager->input_sources_settings,
-                                        INPUT_SOURCES_KEY);
-
-        g_variant_iter_init (&iter, sources);
-        while (g_variant_iter_next (&iter, "(&s&s)", &type, NULL)) {
-                if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS)) {
-                        needs_ibus = TRUE;
-                        break;
-                }
-        }
-
-        g_variant_unref (sources);
-
-        return needs_ibus;
-}
-
-static gboolean
-need_osk (GsdXSettingsManager *manager)
-{
-        gboolean has_touchscreen = FALSE;
-        GList *devices;
-        GdkSeat *seat;
-
-        if (g_settings_get_boolean (manager->a11y_settings,
-                                    OSK_ENABLED_KEY))
-                return TRUE;
-
-        seat = gdk_display_get_default_seat (gdk_display_get_default ());
-        devices = gdk_seat_get_slaves (seat, GDK_SEAT_CAPABILITY_TOUCH);
-
-        has_touchscreen = devices != NULL;
-
-        g_list_free (devices);
-
-        return has_touchscreen;
-}
-
 static void
 update_gtk_im_module (GsdXSettingsManager *manager)
 {
@@ -1396,10 +1342,8 @@ update_gtk_im_module (GsdXSettingsManager *manager)
                                          GTK_IM_MODULE_KEY);
         if (setting && *setting)
                 module = setting;
-        else if (need_ibus (manager) || need_osk (manager))
-                module = GTK_IM_MODULE_IBUS;
         else
-                module = GTK_IM_MODULE_SIMPLE;
+                module = GTK_IM_MODULE_IBUS;
 
         xsettings_manager_set_string (manager->manager, "Gtk/IMModule", module);
         g_free (setting);
@@ -1472,16 +1416,6 @@ gsd_xsettings_manager_start (GsdXSettingsManager *manager,
         manager->interface_settings = g_settings_new (INTERFACE_SETTINGS_SCHEMA);
         g_signal_connect_swapped (manager->interface_settings,
                                   "changed::" GTK_IM_MODULE_KEY,
-                                  G_CALLBACK (update_gtk_im_module), manager);
-
-        manager->input_sources_settings = g_settings_new (INPUT_SOURCES_SCHEMA);
-        g_signal_connect_swapped (manager->input_sources_settings,
-                                  "changed::" INPUT_SOURCES_KEY,
-                                  G_CALLBACK (update_gtk_im_module), manager);
-
-        manager->a11y_settings = g_settings_new (A11Y_APPLICATIONS_SCHEMA);
-        g_signal_connect_swapped (manager->a11y_settings,
-                                  "changed::" OSK_ENABLED_KEY,
                                   G_CALLBACK (update_gtk_im_module), manager);
         update_gtk_im_module (manager);
 
@@ -1689,8 +1623,6 @@ gsd_xsettings_manager_stop (GsdXSettingsManager *manager)
                 manager->user_seat = NULL;
         }
 
-        g_clear_object (&manager->a11y_settings);
-        g_clear_object (&manager->input_sources_settings);
         g_clear_object (&manager->interface_settings);
 }
 
