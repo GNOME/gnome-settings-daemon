@@ -147,6 +147,28 @@ dbus_call_log_error (GObject      *source_object,
                 g_warning ("%s: %s", msg, error->message);
 }
 
+
+static const char*
+target_to_str (UsbGuardTarget target)
+{
+    switch (target)
+    {
+        case TARGET_ALLOW:
+            return "Allow";
+            break;
+        case TARGET_BLOCK:
+            return "Block";
+            break;
+        case TARGET_REJECT:
+            return "Reject";
+            break;
+        default:
+            g_warning ("Unknown Target: %d", target);
+            return "Unknown!";
+    }
+}
+
+
 static void
 add_usbguard_allow_rule (GsdUsbProtectionManager *manager)
 {
@@ -590,7 +612,7 @@ on_usbguard_signal (GDBusProxy *proxy,
         }
 
         g_variant_get_child (parameters, POLICY_APPLIED_TARGET, "u", &target);
-        g_debug ("Device target: %d", target);
+        g_debug ("Device target: %s", target_to_str(target));
 
         /* If the device is already authorized we do nothing */
         if (target == TARGET_ALLOW) {
