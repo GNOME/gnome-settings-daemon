@@ -698,6 +698,13 @@ on_usbguard_signal (GDBusProxy *proxy,
                          * HUB class, it is suspect. It could be a false positive because this could
                          * be a "smart" keyboard for example, but at this stage is better be safe. */
                         if (hid_or_hub && !has_other_classes) {
+                                if (manager->last_device_id != G_MAXUINT) {
+                                    /* We're about to overwrite an existing device id to the effect that
+                                     * we're authorizing this new id rather than the old ID that we probably
+                                     * intended to have authorized. */
+                                    g_warning ("We expected the last_device_id to be clean, i.e. %u, but it is %u",
+                                        G_MAXUINT, manager->last_device_id);
+                                }
                                 g_variant_get_child (parameters, POLICY_APPLIED_DEVICE_ID, "u", &(manager->last_device_id));
                                 gsd_screen_saver_call_lock (manager->screensaver_proxy,
                                                             manager->cancellable,
@@ -1276,6 +1283,7 @@ gsd_usb_protection_manager_class_init (GsdUsbProtectionManagerClass *klass)
 static void
 gsd_usb_protection_manager_init (GsdUsbProtectionManager *manager)
 {
+    manager->last_device_id = G_MAXUINT;
 }
 
 static void
