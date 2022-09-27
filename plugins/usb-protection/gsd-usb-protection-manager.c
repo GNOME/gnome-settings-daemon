@@ -1,5 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
  *
+ * Copyright (C) 2022 Tobias Mueller <tobiasmue@gnome.org>
  * Copyright (C) 2018 Ludovico de Nittis <denittis@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
