@@ -169,6 +169,22 @@ target_to_str (UsbGuardTarget target)
     }
 }
 
+static const char*
+protection_level_to_str (GDesktopUsbProtection level) {
+    switch (level)
+    {
+        case G_DESKTOP_USB_PROTECTION_ALWAYS:
+            return "Always";
+            break;
+        case G_DESKTOP_USB_PROTECTION_LOCKSCREEN:
+            return "Lockscreen";
+            break;
+        default:
+            g_warning ("Unknown Protection Level: %d", level);
+            return "Unknown!";
+    }
+}
+
 
 static void
 add_usbguard_allow_rule (GsdUsbProtectionManager *manager)
@@ -647,6 +663,7 @@ on_usbguard_signal (GDBusProxy *proxy,
         }
 
         protection_level = g_settings_get_enum (manager->settings, USB_PROTECTION_LEVEL);
+        g_debug ("Current protection level is %s", protection_level_to_str (protection_level));
 
         gboolean session_is_locked = is_session_locked(manager);
         g_debug ("Screensaver active: %d", session_is_locked);
