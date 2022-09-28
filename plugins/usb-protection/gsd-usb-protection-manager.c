@@ -343,6 +343,7 @@ settings_changed_callback (GSettings               *settings,
                                         INSERTED_DEVICE_POLICY,
                                         value_usbguard);
 
+                g_debug ("Setting InsertedDevicePolicy to %s", value_usbguard);
                 g_dbus_proxy_call (manager->usb_protection,
                                    "setParameter",
                                    params,
