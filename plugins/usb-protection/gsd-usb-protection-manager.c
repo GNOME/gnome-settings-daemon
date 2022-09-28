@@ -670,6 +670,7 @@ on_usbguard_signal (GDBusProxy *proxy,
         g_debug ("Screensaver active: %d", session_is_locked);
         /* Can we ask USBGuard to allow HIDs and hubs for us? We would know which rule allowed a device so we could still show a message to the user when a HID has been attached */
         hid_or_hub = is_hid_or_hub (parameters, &has_other_classes);
+        g_debug ("Device is HID or HUB: %d, has other classes: %d", hid_or_hub, has_other_classes);
         
         if (session_is_locked) {
                 /* If the session is locked we check if the inserted device is a HID,
