@@ -308,8 +308,8 @@ settings_changed_callback (GSettings               *settings,
 
         usbguard_controlled = g_settings_get_boolean (settings, USB_PROTECTION);
         protection_level = g_settings_get_enum (settings, USB_PROTECTION_LEVEL);
-        g_debug ("USBGuard control is currently %i with a protection level of %i",
-                 usbguard_controlled, protection_level);
+        g_debug ("USBGuard control is currently %i with a protection level of %s",
+                 usbguard_controlled, protection_level_to_str (protection_level));
 
         /* If previously we were controlling USBGuard and now we are not,
          * we leave the USBGuard configuration in a clean state. I.e. we set
