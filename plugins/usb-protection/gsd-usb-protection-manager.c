@@ -732,6 +732,14 @@ on_usbguard_signal (GDBusProxy *proxy,
                                                    _("USB device blocked"),
                                                    _("The new inserted device has been blocked because the USB protection is active."));
                         }
+                } else {
+                    /* This is protection level == Lockscreen, so we allow everything when the session is unlocked.
+                       There should be a USBGuard rule that automatically allows all devices,
+                       so we don't have anything to do here.
+                     */
+                     g_debug ("The session is not locked (%d) and we're in Lockscreen-only mode (%s). "
+                        "The device should get authorized by an existing USBGuard rule",
+                        session_is_locked == FALSE, protection_level_to_str (protection_level));
                 }
             }
 }
