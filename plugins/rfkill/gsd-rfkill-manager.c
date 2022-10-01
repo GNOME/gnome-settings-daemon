@@ -679,27 +679,20 @@ sync_wwan_enabled (GsdRfkillManager *manager)
 }
 
 static void
-nm_signal (GDBusProxy *proxy,
-           char       *sender_name,
-           char       *signal_name,
-           GVariant   *parameters,
-           gpointer    user_data)
+nm_properties_changed (GDBusProxy *proxy,
+                       GVariant   *changed,
+                       gchar     **invalidated,
+                       gpointer    user_data)
 {
         GsdRfkillManager *manager = user_data;
-        GVariant *changed;
         GVariant *property;
 
-        if (g_strcmp0 (signal_name, "PropertiesChanged") == 0) {
-                changed = g_variant_get_child_value (parameters, 0);
-                property = g_variant_lookup_value (changed, "WwanEnabled", G_VARIANT_TYPE ("b"));
-                g_dbus_proxy_set_cached_property (proxy, "WwanEnabled", property);
+        property = g_variant_lookup_value (changed, "WwanEnabled", G_VARIANT_TYPE ("b"));
+        g_dbus_proxy_set_cached_property (proxy, "WwanEnabled", property);
 
-                if (property != NULL) {
-                        sync_wwan_enabled (manager);
-                        g_variant_unref (property);
-                }
-
-                g_variant_unref (changed);
+        if (property != NULL) {
+                sync_wwan_enabled (manager);
+                g_variant_unref (property);
         }
 }
 
@@ -726,8 +719,8 @@ on_nm_proxy_gotten (GObject      *source,
 
         manager->nm_client = proxy;
 
-        g_signal_connect (manager->nm_client, "g-signal",
-                          G_CALLBACK (nm_signal), manager);
+        g_signal_connect (manager->nm_client, "g-properties-changed",
+                          G_CALLBACK (nm_properties_changed), manager);
         sync_wwan_enabled (manager);
 
  out:
