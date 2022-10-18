@@ -764,7 +764,8 @@ gsd_smartcard_manager_idle_cb (GsdSmartcardManager *self)
         gnome_settings_profile_end (NULL);
 
         self->start_idle_id = 0;
-        return FALSE;
+
+        return G_SOURCE_REMOVE;
 }
 
 gboolean
@@ -971,8 +972,7 @@ gsd_smartcard_manager_finalize (GObject *object)
 
         g_return_if_fail (self != NULL);
 
-        if (self->start_idle_id != 0)
-                g_source_remove (self->start_idle_id);
+        g_clear_handle_id (&self->start_idle_id, g_source_remove);
 
         gsd_smartcard_manager_stop (self);
 
