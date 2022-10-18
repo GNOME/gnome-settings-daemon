@@ -122,13 +122,14 @@ load_nss (GsdSmartcardManager *self)
 
         if (context == NULL) {
                 gsize error_message_size;
-                char *error_message;
 
                 error_message_size = PR_GetErrorTextLength ();
 
                 if (error_message_size == 0) {
                         g_debug ("NSS security system could not be initialized");
                 } else {
+                        char *error_message;
+
                         error_message = g_alloca (error_message_size);
                         PR_GetErrorText (error_message);
 
