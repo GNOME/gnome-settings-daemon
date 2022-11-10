@@ -634,11 +634,14 @@ on_usbguard_signal (GDBusProxy *proxy,
 
         /* If the device is already authorized we do nothing */
         if (target == TARGET_ALLOW) {
+                guint32 rule_id;
+                g_variant_get_child (parameters, POLICY_APPLIED_RULE_ID, "u", &rule_id);
+
                 /* We would need to interject here if the allow was caused by one of our rules.
                    We're not yet putting any allow-rules into USBGuard, but we might consider
                    doing so in the future.
                  */
-                g_debug ("Device will be allowed, we return");
+                g_debug ("Device will be allowed by rule %u, we return", rule_id);
                 return;
         }
 
