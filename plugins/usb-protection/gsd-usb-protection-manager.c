@@ -82,7 +82,6 @@ struct _GsdUsbProtectionManager
         GCancellable       *cancellable;
         GsdScreenSaver     *screensaver_proxy;
         gboolean            screensaver_active;
-        guint               last_device_id;
         NotifyNotification *notification;
 };
 
@@ -517,13 +516,20 @@ authorize_device (GsdUsbProtectionManager *manager,
                          FALSE);
 }
 
+typedef struct {
+    GsdUsbProtectionManager *manager;
+    guint device_id;
+} ManagerDeviceId;
+
 static void
 on_screen_locked (GsdScreenSaver          *screen_saver,
                   GAsyncResult            *result,
-                  GsdUsbProtectionManager *manager)
+                  ManagerDeviceId *manager_devid)
 {
-        guint device_id;
         g_autoptr(GError) error = NULL;
+        GsdUsbProtectionManager *manager = manager_devid->manager;
+        guint device_id = manager_devid->device_id;
+        g_free (manager_devid);
 
         gsd_screen_saver_call_lock_finish (screen_saver, result, &error);
 
@@ -533,9 +539,7 @@ on_screen_locked (GsdScreenSaver          *screen_saver,
                 g_warning ("Couldn't lock screen: %s", error->message);
         }
 
-        device_id = manager->last_device_id;
         authorize_device (manager, device_id);
-        manager->last_device_id = G_MAXUINT;
         show_notification (manager,
                            _("New USB device"),
                            _("New device has been detected while the session was not locked. "
@@ -713,18 +717,13 @@ on_usbguard_signal (GDBusProxy *proxy,
                          * HUB class, it is suspect. It could be a false positive because this could
                          * be a "smart" keyboard for example, but at this stage is better be safe. */
                         if (hid_or_hub && !has_other_classes) {
-                                if (manager->last_device_id != G_MAXUINT) {
-                                    /* We're about to overwrite an existing device id to the effect that
-                                     * we're authorizing this new id rather than the old ID that we probably
-                                     * intended to have authorized. */
-                                    g_warning ("We expected the last_device_id to be clean, i.e. %u, but it is %u",
-                                        G_MAXUINT, manager->last_device_id);
-                                }
-                                g_variant_get_child (parameters, POLICY_APPLIED_DEVICE_ID, "u", &(manager->last_device_id));
+                                ManagerDeviceId* manager_devid = g_malloc ( sizeof (ManagerDeviceId) );
+                                manager_devid->manager = manager;
+                                g_variant_get_child (parameters, POLICY_APPLIED_DEVICE_ID, "u", &(manager_devid->device_id));
                                 gsd_screen_saver_call_lock (manager->screensaver_proxy,
                                                             manager->cancellable,
                                                             (GAsyncReadyCallback) on_screen_locked,
-                                                            manager);
+                                                            manager_devid);
                         } else {
                                 show_notification (manager,
                                                    _("USB device blocked"),
@@ -1308,7 +1307,6 @@ gsd_usb_protection_manager_class_init (GsdUsbProtectionManagerClass *klass)
 static void
 gsd_usb_protection_manager_init (GsdUsbProtectionManager *manager)
 {
-    manager->last_device_id = G_MAXUINT;
 }
 
 static void
