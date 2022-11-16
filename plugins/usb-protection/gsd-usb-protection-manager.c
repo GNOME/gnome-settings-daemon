@@ -86,13 +86,6 @@ struct _GsdUsbProtectionManager
         NotifyNotification *notification;
 };
 
-typedef enum {
-        EVENT_PRESENT,
-        EVENT_INSERT,
-        EVENT_UPDATE,
-        EVENT_REMOVE
-} UsbGuardEvent;
-
 
 typedef enum {
         TARGET_ALLOW,
