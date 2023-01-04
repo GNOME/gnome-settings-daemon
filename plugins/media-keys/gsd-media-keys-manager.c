@@ -2041,13 +2041,17 @@ do_config_power_button_action (GsdMediaKeysManager *manager,
         if (priv->power_button_disabled)
                 return;
 
-        /* Always power off VMs when power off is pressed in the menus */
+        action_type = g_settings_get_enum (priv->power_settings, "power-button-action");
+        /* Always power off VMs, except when power-button-action is "nothing" */
         if (g_strcmp0 (priv->chassis_type, "vm") == 0) {
-                power_action (manager, "PowerOff", !in_lock_screen);
+                g_warning_once ("Virtual machines only honor the 'nothing' power-button-action, and will shutdown otherwise");
+
+                if (action_type != GSD_POWER_BUTTON_ACTION_NOTHING)
+                        power_action (manager, "PowerOff", FALSE);
+
                 return;
         }
 
-        action_type = g_settings_get_enum (priv->power_settings, "power-button-action");
         switch (action_type) {
         case GSD_POWER_BUTTON_ACTION_SUSPEND:
                 action = GSD_POWER_ACTION_SUSPEND;

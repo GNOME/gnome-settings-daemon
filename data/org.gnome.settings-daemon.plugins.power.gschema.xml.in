@@ -39,7 +39,7 @@
     <key name="power-button-action" enum="org.gnome.settings-daemon.GsdPowerButtonActionType">
       <default>'suspend'</default>
       <summary>Power button action</summary>
-      <description>The action to take when the system power button is pressed. This action is hard-coded (and the setting ignored) on virtual machines (power off) and tablets (suspend).</description>
+      <description>The action to take when the system power button is pressed. Virtual machines only honor the 'nothing' action, and will shutdown otherwise. Tablets always suspend, ignoring all the other action options.</description>
     </key>
     <key name="power-saver-profile-on-low-battery" type="b">
       <default>true</default>
