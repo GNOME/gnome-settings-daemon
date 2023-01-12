@@ -284,7 +284,7 @@ handle_method_call (GDBusConnection       *connection,
 unimplemented:
         g_dbus_method_invocation_return_dbus_error (invocation,
                                                     "org.freedesktop.DBus.Error.NotSupported",
-                                                    "This method is not implemented");
+                                                    "This method is not part of the idle inhibition specification: https://specifications.freedesktop.org/idle-inhibit-spec/latest/");
         return;
 error:
         g_dbus_method_invocation_return_gerror (invocation, error);
