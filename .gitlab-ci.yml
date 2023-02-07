@@ -77,7 +77,8 @@ stages:
   artifacts:
     name: untracked
     when: always
-    paths: [$(pwd)]
+    paths:
+      - ./*
     expire_in: 3h30min
 
 .Show Info: &environment_information
