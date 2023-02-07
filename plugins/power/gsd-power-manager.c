@@ -382,7 +382,6 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
         const gchar *title;
         gchar *remaining_text = NULL;
         gdouble percentage;
-        char *icon_name;
         gint64 time_to_empty;
         GString *message;
         UpDeviceKind kind;
@@ -392,7 +391,6 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
                       "kind", &kind,
                       "percentage", &percentage,
                       "time-to-empty", &time_to_empty,
-                      "icon-name", &icon_name,
                       NULL);
 
         if (kind != UP_DEVICE_KIND_UPS)
@@ -420,7 +418,8 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
 
         /* create a new notification */
         create_notification (title, message->str,
-                             icon_name, NOTIFICATION_PRIVACY_SYSTEM,
+                             "battery-low-symbolic",
+                             NOTIFICATION_PRIVACY_SYSTEM,
                              &manager->notification_ups_discharging);
         notify_notification_set_timeout (manager->notification_ups_discharging,
                                          GSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG);
@@ -430,7 +429,6 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
         notify_notification_show (manager->notification_ups_discharging, NULL);
 
         g_string_free (message, TRUE);
-        g_free (icon_name);
         g_free (remaining_text);
 }
 
@@ -779,7 +777,6 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
         gchar *message = NULL;
         gdouble percentage;
         guint battery_level;
-        char *icon_name;
         UpDeviceKind kind;
 
         /* get device properties */
@@ -787,7 +784,6 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
                       "kind", &kind,
                       "percentage", &percentage,
                       "battery-level", &battery_level,
-                      "icon-name", &icon_name,
                       NULL);
 
         if (battery_level == UP_DEVICE_LEVEL_UNKNOWN)
@@ -828,7 +824,8 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
 
         /* create a new notification */
         create_notification (title, message,
-                             icon_name, NOTIFICATION_PRIVACY_SYSTEM,
+                             "battery-low-symbolic",
+                             NOTIFICATION_PRIVACY_SYSTEM,
                              &manager->notification_low);
         notify_notification_set_timeout (manager->notification_low,
                                          GSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG);
@@ -843,7 +840,6 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
                          /* TRANSLATORS: this is the sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Battery is low"), NULL);
 
-        g_free (icon_name);
         g_free (message);
 }
 
@@ -854,7 +850,6 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
         gchar *message = NULL;
         gdouble percentage;
         guint battery_level;
-        char *icon_name;
         GsdPowerActionType policy;
         UpDeviceKind kind;
 
@@ -863,7 +858,6 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
                       "kind", &kind,
                       "percentage", &percentage,
                       "battery-level", &battery_level,
-                      "icon-name", &icon_name,
                       NULL);
 
         if (battery_level == UP_DEVICE_LEVEL_UNKNOWN)
@@ -907,7 +901,8 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
 
         /* create a new notification */
         create_notification (title, message,
-                             icon_name, NOTIFICATION_PRIVACY_SYSTEM,
+                             "battery-caution-symbolic",
+                             NOTIFICATION_PRIVACY_SYSTEM,
                              &manager->notification_low);
         notify_notification_set_timeout (manager->notification_low,
                                          NOTIFY_EXPIRES_NEVER);
@@ -931,7 +926,6 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
                 break;
         }
 
-        g_free (icon_name);
         g_free (message);
 }
 
@@ -940,7 +934,6 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
 {
         const gchar *title = NULL;
         gchar *message = NULL;
-        char *icon_name;
         GsdPowerActionType policy;
         guint timer_id;
         UpDeviceKind kind;
@@ -948,7 +941,6 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
         /* get device properties */
         g_object_get (device,
                       "kind", &kind,
-                      "icon-name", &icon_name,
                       NULL);
 
         if (kind == UP_DEVICE_KIND_BATTERY) {
@@ -1001,7 +993,8 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
 
         /* create a new notification */
         create_notification (title, message,
-                             icon_name, NOTIFICATION_PRIVACY_SYSTEM,
+                             "battery-action-symbolic",
+                             NOTIFICATION_PRIVACY_SYSTEM,
                              &manager->notification_low);
         notify_notification_set_timeout (manager->notification_low,
                                          NOTIFY_EXPIRES_NEVER);
@@ -1015,7 +1008,6 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
                          /* TRANSLATORS: this is the sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Battery is critically low"), NULL);
 
-        g_free (icon_name);
         g_free (message);
 }
 
