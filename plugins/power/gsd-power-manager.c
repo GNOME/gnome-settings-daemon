@@ -850,7 +850,6 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
         gchar *message = NULL;
         gdouble percentage;
         guint battery_level;
-        GsdPowerActionType policy;
         UpDeviceKind kind;
 
         /* get device properties */
@@ -866,9 +865,6 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
         if (kind == UP_DEVICE_KIND_BATTERY) {
                 /* TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, advice on what the user should do */
                 title = _("Battery Almost Empty");
-
-                /* we have to do different warnings depending on the policy */
-                policy = manager_critical_action_get (manager);
 
                 /* TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically running low, advice on what the user should do */
                 message = g_strdup_printf (_("Connect power now"));
