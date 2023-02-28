@@ -1,5 +1,5 @@
 # Hungarian translation for gnome-settings-daemon.
-# Copyright (C) 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022 Free Software Foundation, Inc.
+# Copyright (C) 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-settings-daemon package.
 #
 # Szabolcs Ban <shooby at gnome dot hu>, 1998, 1999, 2000.
@@ -10,15 +10,15 @@
 # Laszlo Dvornik <dvornik at gnome dot hu>, 2004.
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2016, 2017.
 # Mate ORY <orymate at gmail d0t com>, 2006.
-# Balázs Úr <ur.balazs at fsf dot hu>, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Balázs Úr <ur.balazs at fsf dot hu>, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # Balázs Meskó <mesko.balazs at fsf dot hu>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/iss"
 "ues\n"
-"POT-Creation-Date: 2022-09-06 16:42+0000\n"
-"PO-Revision-Date: 2022-09-07 00:51+0200\n"
+"POT-Creation-Date: 2023-02-15 12:21+0000\n"
+"PO-Revision-Date: 2023-02-28 01:39+0100\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 19.12.3\n"
+"X-Generator: Lokalize 22.08.2\n"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid "Smartcard removal action"
@@ -1621,8 +1621,8 @@ msgid ""
 "Device memory is nearly full. %s was using a lot of memory and was forced to "
 "stop."
 msgstr ""
-"Az eszköz memóriája majdnem megtelt. A(z) %s sok memóriát használt, és"
-" kénytelen volt leállni."
+"Az eszköz memóriája majdnem megtelt. A(z) %s sok memóriát használt, és "
+"kénytelen volt leállni."
 
 #. TRANSLATORS: A terminal tab/window was killed.
 #: plugins/housekeeping/gsd-systemd-notify.c:89
@@ -1633,30 +1633,34 @@ msgstr "Virtuális terminál leállítva"
 #. TRANSLATORS: A terminal tab/window was killed.
 #: plugins/housekeeping/gsd-systemd-notify.c:91
 #, c-format
+#| msgid ""
+#| "Device memory is nearly full. Virtual Terminal processes were using a lot "
+#| "of memory and were forced to stop."
 msgid ""
-"Device memory is nearly full. Virtual Terminal processes were using a lot of "
+"Device memory is nearly full. Virtual terminal processes were using a lot of "
 "memory and were forced to stop."
 msgstr ""
-"Az eszköz memóriája majdnem megtelt. A virtuális terminál folyamatai sok"
-" memóriát használtak, és kénytelenek voltak leállni."
+"Az eszköz memóriája majdnem megtelt. A virtuális terminál folyamatai sok "
+"memóriát használtak, és kénytelenek voltak leállni."
 
 #. TRANSLATORS: We don't have a good description of what was killed.
 #: plugins/housekeeping/gsd-systemd-notify.c:94
 #, c-format
-#| msgctxt "print job state"
-#| msgid "Printing stopped"
 msgid "Application Stopped"
 msgstr "Alkalmazás leállítva"
 
 #. TRANSLATORS: We don't have a good description of what was killed.
 #: plugins/housekeeping/gsd-systemd-notify.c:96
 #, c-format
+#| msgid ""
+#| "Device memory is nearly full. An Application that was using a lot of "
+#| "memory and was forced to stop."
 msgid ""
-"Device memory is nearly full. An Application that was using a lot of memory "
+"Device memory is nearly full. An application that was using a lot of memory "
 "and was forced to stop."
 msgstr ""
-"Az eszköz memóriája majdnem megtelt. Egy alkalmazás sok memóriát használt, és"
-" kénytelen volt leállni."
+"Az eszköz memóriája majdnem megtelt. Egy alkalmazás sok memóriát használt, "
+"és kénytelen volt leállni."
 
 #: plugins/media-keys/gsd-media-keys-manager.c:2250
 msgid "Bluetooth disabled"
@@ -2413,8 +2417,8 @@ msgstr "A szünetmentes táp gyenge"
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr ""
-"A szünetmentes táp áthidalási idejéből még megközelítőleg %s van hátra (%.0f"
-"%%)"
+"A szünetmentes táp áthidalási idejéből még megközelítőleg %s van hátra "
+"(%.0f%%)"
 
 #. TRANSLATORS: this is the sound description
 #: plugins/power/gsd-power-manager.c:858
@@ -2451,8 +2455,8 @@ msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
 "computer to avoid losing data."
 msgstr ""
-"A szünetmentes táp áthidalási idejéből még megközelítőleg %s van hátra (%.0f"
-"%%). Az adatvesztés elkerülése érdekében állítsa vissza a hálózati "
+"A szünetmentes táp áthidalási idejéből még megközelítőleg %s van hátra "
+"(%.0f%%). Az adatvesztés elkerülése érdekében állítsa vissza a hálózati "
 "tápellátást."
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action happening now
