@@ -2904,9 +2904,6 @@ on_rr_screen_acquired (GObject      *object,
         if (!gnome_settings_is_wayland ())
                 manager->xscreensaver_watchdog_timer_id = gsd_power_enable_screensaver_watchdog ();
 
-        /* don't blank inside a VM */
-        manager->is_virtual_machine = gsd_power_is_hardware_a_vm ();
-
         /* queue a signal in case the proxy from gnome-shell was created before we got here
            (likely, considering that to get here we need a reply from gnome-shell)
         */
@@ -3035,6 +3032,9 @@ gsd_power_manager_start (GsdPowerManager *manager,
 {
         g_debug ("Starting power manager");
         gnome_settings_profile_start (NULL);
+
+        /* Check whether we are running in a VM */
+        manager->is_virtual_machine = gsd_power_is_hardware_a_vm ();
 
         /* Check whether we have a lid first */
         manager->up_client = up_client_new ();
