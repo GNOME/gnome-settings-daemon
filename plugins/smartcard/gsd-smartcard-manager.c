@@ -212,7 +212,12 @@ watch_one_event_from_driver (GsdSmartcardManager       *self,
                 error_code = PORT_GetError ();
 
                 if (error_code == SEC_ERROR_NO_EVENT) {
-                    g_usleep (1 * G_USEC_PER_SEC);
+                    int old_slot_count = operation->driver->slotCount;
+                    SECMOD_UpdateSlotList (operation->driver);
+                    if (operation->driver->slotCount != old_slot_count)
+                        g_debug ("Slot count change %i -> %i", old_slot_count, operation->driver->slotCount);
+                    else
+                        g_usleep (1 * G_USEC_PER_SEC);
 
                     return TRUE;
                 }
