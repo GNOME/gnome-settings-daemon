@@ -125,6 +125,7 @@ get_module_slot_by_handle (GckModule *module,
 
 static GckSlot *
 wait_for_any_slot_event (GckModule  *module,
+                         gboolean   *wait_blocks,
                          GError    **error)
 {
         GckSlot *slot;
@@ -138,8 +139,10 @@ wait_for_any_slot_event (GckModule  *module,
          * is not supported, we fallback in the non-blocking version as
          * historically not all the p11-kit modules used supported it.
          */
+        *wait_blocks = TRUE;
         ret = p11_module->C_WaitForSlotEvent (0, &slot_id, NULL);
         if (ret == CKR_FUNCTION_NOT_SUPPORTED) {
+                *wait_blocks = FALSE;
                 ret = p11_module->C_WaitForSlotEvent (CKF_DONT_BLOCK, &slot_id, NULL);
         }
 
@@ -262,14 +265,17 @@ watch_one_event_from_module (GsdSmartcardManager       *self,
         gulong handler_id;
         gboolean token_is_present;
         gboolean token_changed;
+        gboolean wait_blocks;
 
+        wait_blocks = FALSE;
         handler_id = g_cancellable_connect (cancellable,
                                             G_CALLBACK (on_watch_cancelled),
                                             operation,
                                             NULL);
 
         if (handler_id != 0) {
-                slot = wait_for_any_slot_event (operation->module, &wait_error);
+                slot = wait_for_any_slot_event (operation->module, &wait_blocks,
+                                                &wait_error);
         }
 
         g_cancellable_disconnect (cancellable, handler_id);
@@ -280,15 +286,19 @@ watch_one_event_from_module (GsdSmartcardManager       *self,
         }
 
         if (g_error_matches (wait_error, G_IO_ERROR, G_IO_ERROR_AGAIN)) {
-                g_usleep (1 * G_USEC_PER_SEC);
+                if (!wait_blocks) {
+                        g_usleep (1 * G_USEC_PER_SEC);
+                }
                 return TRUE;
         } else if (g_error_matches (wait_error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED)) {
                 slot = get_changed_slot (operation);
                 if (slot) {
-                        return_sleep = 1 * G_USEC_PER_SEC;
+                        return_sleep = wait_blocks ? 0 : 1 * G_USEC_PER_SEC;
                         g_clear_error (&wait_error);
                 } else {
-                        g_usleep (1 * G_USEC_PER_SEC);
+                        if (!wait_blocks) {
+                                g_usleep (1 * G_USEC_PER_SEC);
+                        }
                         return TRUE;
                 }
         }
@@ -309,7 +319,9 @@ watch_one_event_from_module (GsdSmartcardManager       *self,
                 g_warning ("Got potentially spurious smartcard event error: %s",
                            wait_error->message);
 
-                g_usleep (1 * G_USEC_PER_SEC);
+                if (!wait_blocks) {
+                        g_usleep (1 * G_USEC_PER_SEC);
+                }
                 return TRUE;
         }
         operation->number_of_consecutive_errors = 0;
