@@ -207,6 +207,18 @@ get_thumbnail_dirs (void)
 
         path = g_build_filename (g_get_user_cache_dir (),
                                  "thumbnails",
+                                 "x-large",
+                                 NULL);
+        g_ptr_array_add (array, path);
+
+        path = g_build_filename (g_get_user_cache_dir (),
+                                 "thumbnails",
+                                 "xx-large",
+                                 NULL);
+        g_ptr_array_add (array, path);
+
+        path = g_build_filename (g_get_user_cache_dir (),
+                                 "thumbnails",
                                  "fail",
                                  "gnome-thumbnail-factory",
                                  NULL);
