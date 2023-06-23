@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: 3.10\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2023-02-16 18:05+0000\n"
-"PO-Revision-Date: 2023-02-16 18:29+0000\n"
+"POT-Creation-Date: 2023-06-23 13:12+0000\n"
+"PO-Revision-Date: 2023-06-23 15:58+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <>\n"
 "Language: pt\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.1\n"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid "Smartcard removal action"
@@ -2431,43 +2431,43 @@ msgid "UPS is Empty"
 msgstr "A UPS está descarregada"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1459
+#: plugins/power/gsd-power-manager.c:1492
 msgid "Lid has been opened"
 msgstr "A tampa foi aberta"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1493
+#: plugins/power/gsd-power-manager.c:1526
 msgid "Lid has been closed"
 msgstr "A tampa foi fechada"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2144
+#: plugins/power/gsd-power-manager.c:2177
 msgid "On battery power"
 msgstr "A funcionar da bateria"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2149
+#: plugins/power/gsd-power-manager.c:2182
 msgid "On AC power"
 msgstr "A funcionar da tomada"
 
-#: plugins/power/gsd-power-manager.c:2397
+#: plugins/power/gsd-power-manager.c:2430
 msgid "Automatic logout"
 msgstr "Terminar sessão automaticamente"
 
-#: plugins/power/gsd-power-manager.c:2397
+#: plugins/power/gsd-power-manager.c:2430
 msgid "You will soon log out because of inactivity."
 msgstr "A sua sessão irá terminar em breve devido a inatividade."
 
-#: plugins/power/gsd-power-manager.c:2402
+#: plugins/power/gsd-power-manager.c:2435
 msgid "Automatic suspend"
 msgstr "Suspensão automática"
 
-#: plugins/power/gsd-power-manager.c:2402
-#: plugins/power/gsd-power-manager.c:2407
+#: plugins/power/gsd-power-manager.c:2435
+#: plugins/power/gsd-power-manager.c:2440
 msgid "Suspending soon because of inactivity."
 msgstr "A suspender em breve devido a inatividade."
 
-#: plugins/power/gsd-power-manager.c:2407
+#: plugins/power/gsd-power-manager.c:2440
 msgid "Automatic hibernation"
 msgstr "Hibernação automática"
 
@@ -2739,15 +2739,15 @@ msgstr "Impressora “%s”: “%s”."
 msgid "User was not logged in with smartcard."
 msgstr "O utilizador não iniciou sessão com um smartcard."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:388
+#: plugins/usb-protection/gsd-usb-protection-manager.c:415
 msgid "USB Protection"
 msgstr "Proteção USB"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:512
+#: plugins/usb-protection/gsd-usb-protection-manager.c:544
 msgid "New USB device"
 msgstr "Novo dispositivo USB"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:513
+#: plugins/usb-protection/gsd-usb-protection-manager.c:545
 msgid ""
 "New device has been detected while the session was not locked. If you did "
 "not plug anything, check your system for any suspicious device."
@@ -2756,37 +2756,37 @@ msgstr ""
 "não tenha ligado coisa alguma, verifique o seu sistema por dispositivos "
 "suspeitos."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:601
+#: plugins/usb-protection/gsd-usb-protection-manager.c:687
 msgid "New device detected"
 msgstr "Novo dispositivo detetado"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:602
+#: plugins/usb-protection/gsd-usb-protection-manager.c:688
 msgid ""
 "Either one of your existing devices has been reconnected or a new one has "
 "been plugged in. If you did not do it, check your system for any suspicious "
 "device."
 msgstr ""
-"Um novo dispositivo foi ligado ou um dos registados foi religado. Caso não o "
-"tenha feito, verifique seu sistema por dispositivos suspeitos."
+"Um novo dispositivo foi inserido ou um dos existentes foi reinserido. Caso "
+"não o tenha feito, verifique o seu sistema por dispositivos suspeitos."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:609
+#: plugins/usb-protection/gsd-usb-protection-manager.c:695
 msgid "Reconnect USB device"
-msgstr "Religar o dispositivo USB"
+msgstr "Reinserir o dispositivo USB"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:610
+#: plugins/usb-protection/gsd-usb-protection-manager.c:696
 msgid ""
 "New device has been detected while you were away. Please disconnect and "
 "reconnect the device to start using it."
 msgstr ""
-"Um novo dispositivo foi detetado enquanto estava ausente. Por favor, "
-"desligue-o e o religue para começar a usá-lo."
+"Foi detetado um novo dispositivo durante a sua ausência. Desligue e volte a "
+"ligar o dispositivo para começar a utilizá-lo."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:616
-#: plugins/usb-protection/gsd-usb-protection-manager.c:641
+#: plugins/usb-protection/gsd-usb-protection-manager.c:702
+#: plugins/usb-protection/gsd-usb-protection-manager.c:729
 msgid "USB device blocked"
 msgstr "Dispositivo USB bloqueado"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:617
+#: plugins/usb-protection/gsd-usb-protection-manager.c:703
 msgid ""
 "New device has been detected while you were away. It has been blocked "
 "because the USB protection is active."
@@ -2794,12 +2794,15 @@ msgstr ""
 "Um novo dispositivo foi detetado enquanto estava ausente. Este foi bloqueado "
 "pois a proteção USB está ativa."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:642
+#: plugins/usb-protection/gsd-usb-protection-manager.c:730
 msgid ""
 "The new inserted device has been blocked because the USB protection is "
-"active."
+"active. If you want to activate the device, disable the USB protection and "
+"re-plug the deivce."
 msgstr ""
-"O novo dispositivo ligado foi bloqueado pois a proteção USB está ativa."
+"O novo dispositivo inserido foi bloqueado pois a proteção USB está ativa. Se "
+"quer ativar o dispositivo, desative a proteção USB e volte a inserir o "
+"dispositivo."
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
