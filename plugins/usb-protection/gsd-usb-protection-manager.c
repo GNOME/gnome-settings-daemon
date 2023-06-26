@@ -727,9 +727,7 @@ on_usbguard_signal (GDBusProxy *proxy,
                         } else {
                                 show_notification (manager,
                                                    _("USB device blocked"),
-                                                   _("The new inserted device has been blocked because the USB protection is active. "
-                                                     "If you want to activate the device, disable the USB protection and re-plug "
-                                                     "the deivce."));
+                                                   _("The new inserted device has been blocked because the USB protection is active."));
                         }
                 } else {
                     /* This is protection level == Lockscreen, so we allow everything when the session is unlocked.
