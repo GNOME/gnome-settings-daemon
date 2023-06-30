@@ -24,9 +24,9 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2023-02-15 12:10+0000\n"
-"PO-Revision-Date: 2023-02-15 15:49+0300\n"
-"Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
+"POT-Creation-Date: 2023-06-29 17:34+0000\n"
+"PO-Revision-Date: 2023-06-30 07:05+1000\n"
+"Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-DL-Team: ru\n"
 "X-DL-Module: gnome-settings-daemon\n"
 "X-DL-Branch: master\n"
@@ -55,7 +55,7 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:24
 msgid "Possible values are “on”, “off”, and “custom”."
-msgstr "Возможные значения: \"on\", \"off\" и \"custom\"."
+msgstr "Возможные значения: «on», «off» и «custom»."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:34
 msgid "Keyboard Bell Custom Filename"
@@ -2487,43 +2487,43 @@ msgid "UPS is Empty"
 msgstr "ИБП разряжен"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1459
+#: plugins/power/gsd-power-manager.c:1492
 msgid "Lid has been opened"
 msgstr "Крышка открыта"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1493
+#: plugins/power/gsd-power-manager.c:1526
 msgid "Lid has been closed"
 msgstr "Крышка закрыта"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2144
+#: plugins/power/gsd-power-manager.c:2177
 msgid "On battery power"
 msgstr "При работе от батареи"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2149
+#: plugins/power/gsd-power-manager.c:2182
 msgid "On AC power"
 msgstr "При работе от сети"
 
-#: plugins/power/gsd-power-manager.c:2397
+#: plugins/power/gsd-power-manager.c:2430
 msgid "Automatic logout"
 msgstr "Автоматический выход из системы"
 
-#: plugins/power/gsd-power-manager.c:2397
+#: plugins/power/gsd-power-manager.c:2430
 msgid "You will soon log out because of inactivity."
 msgstr "Скоро вы выйдете из системы из-за неактивности."
 
-#: plugins/power/gsd-power-manager.c:2402
+#: plugins/power/gsd-power-manager.c:2435
 msgid "Automatic suspend"
 msgstr "Автоматический режим ожидания"
 
-#: plugins/power/gsd-power-manager.c:2402
-#: plugins/power/gsd-power-manager.c:2407
+#: plugins/power/gsd-power-manager.c:2435
+#: plugins/power/gsd-power-manager.c:2440
 msgid "Suspending soon because of inactivity."
 msgstr "Компьютер скоро перейдёт в режим ожидания из-за отсутствия активности."
 
-#: plugins/power/gsd-power-manager.c:2407
+#: plugins/power/gsd-power-manager.c:2440
 msgid "Automatic hibernation"
 msgstr "Автоматический спящий режим"
 
@@ -2795,15 +2795,15 @@ msgstr "Принтер «%s»: «%s»."
 msgid "User was not logged in with smartcard."
 msgstr "Пользователь не авторизован с помощью смарт-карты."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:388
+#: plugins/usb-protection/gsd-usb-protection-manager.c:415
 msgid "USB Protection"
 msgstr "Защита USB"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:512
+#: plugins/usb-protection/gsd-usb-protection-manager.c:544
 msgid "New USB device"
 msgstr "Новое USB устройство"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:513
+#: plugins/usb-protection/gsd-usb-protection-manager.c:545
 msgid ""
 "New device has been detected while the session was not locked. If you did "
 "not plug anything, check your system for any suspicious device."
@@ -2812,11 +2812,11 @@ msgstr ""
 "ничего не подключили, проверьте вашу систему на наличие подозрительных "
 "устройств."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:601
+#: plugins/usb-protection/gsd-usb-protection-manager.c:687
 msgid "New device detected"
 msgstr "Обнаружено новое устройство"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:602
+#: plugins/usb-protection/gsd-usb-protection-manager.c:688
 msgid ""
 "Either one of your existing devices has been reconnected or a new one has "
 "been plugged in. If you did not do it, check your system for any suspicious "
@@ -2826,11 +2826,11 @@ msgstr ""
 "Если вы этого не сделали, проверьте систему на наличие подозрительных "
 "устройств."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:609
+#: plugins/usb-protection/gsd-usb-protection-manager.c:695
 msgid "Reconnect USB device"
 msgstr "Переподключить USB устройство"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:610
+#: plugins/usb-protection/gsd-usb-protection-manager.c:696
 msgid ""
 "New device has been detected while you were away. Please disconnect and "
 "reconnect the device to start using it."
@@ -2838,12 +2838,12 @@ msgstr ""
 "Новое устройство было обнаружено во время вашего отсутствия. Пожалуйста, "
 "отсоедините и снова подключите устройство, чтобы начать его использовать."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:616
-#: plugins/usb-protection/gsd-usb-protection-manager.c:641
+#: plugins/usb-protection/gsd-usb-protection-manager.c:702
+#: plugins/usb-protection/gsd-usb-protection-manager.c:729
 msgid "USB device blocked"
 msgstr "USB устройство заблокировано"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:617
+#: plugins/usb-protection/gsd-usb-protection-manager.c:703
 msgid ""
 "New device has been detected while you were away. It has been blocked "
 "because the USB protection is active."
@@ -2851,13 +2851,12 @@ msgstr ""
 "Новое устройство было обнаружено во время вашего отсутствия. Он был "
 "заблокирован, потому что защита USB активна."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:642
+#: plugins/usb-protection/gsd-usb-protection-manager.c:730
 msgid ""
 "The new inserted device has been blocked because the USB protection is "
 "active."
 msgstr ""
-"Новое вставленное устройство было заблокировано, потому что защита USB "
-"активна."
+"Новое подключенное устройство было заблокировано из-за активной защиты USB."
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
@@ -3013,6 +3012,15 @@ msgid_plural "You have %u tries left"
 msgstr[0] "У вас осталась %u попытка"
 msgstr[1] "У вас осталось %u попытки"
 msgstr[2] "У вас осталось %u попыток"
+
+#~ msgid ""
+#~ "The new inserted device has been blocked because the USB protection is "
+#~ "active. If you want to activate the device, disable the USB protection "
+#~ "and re-plug the deivce."
+#~ msgstr ""
+#~ "Новое вставленное устройство было заблокировано, потому что защита USB "
+#~ "активна. Если вы хотите активировать устройство, отключите защиту USB и "
+#~ "снова подключите устройство."
 
 #, c-format
 #~ msgid "Approximately %s remaining (%.0f%%)"
