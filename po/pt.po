@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: 3.10\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2023-06-23 13:12+0000\n"
-"PO-Revision-Date: 2023-06-23 15:58+0100\n"
+"POT-Creation-Date: 2023-06-29 14:49+0000\n"
+"PO-Revision-Date: 2023-07-02 16:26+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <>\n"
 "Language: pt\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid "Smartcard removal action"
@@ -51,7 +51,7 @@ msgstr "Nome do ficheiro do som de alarme a ser tocado."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:41
 msgid "Whether the tablet’s orientation is locked, or rotated automatically."
-msgstr "Se a orientação do táblete está trancada ou roda automaticamente."
+msgstr "Se a orientação do tablet está bloqueada ou roda automaticamente."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:49
 msgid "Mouse button orientation"
@@ -232,11 +232,11 @@ msgstr "Modo absoluto da caneta Wacom"
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:11
 msgid "Enable this to set the tablet to absolute mode."
-msgstr "Ative para definir o táblete para modo absoluto."
+msgstr "Ative para definir o tablet para modo absoluto."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:15
 msgid "Wacom tablet area"
-msgstr "Área do táblete Wacom"
+msgstr "Área do tablet Wacom"
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:16
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
@@ -244,19 +244,19 @@ msgstr "Defina com o x1, y1 e x2, y2 da área utilizável pelas ferramentas."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:20
 msgid "Wacom tablet aspect ratio"
-msgstr "Proporção do táblete Wacom"
+msgstr "Proporção do tablet Wacom"
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:21
 msgid ""
 "Enable this to restrict the Wacom tablet area to match the aspect ratio of "
 "the output."
 msgstr ""
-"Ative para restringir a área do táblete Wacom para coincidir com a proporção "
+"Ative para restringir a área do tablet Wacom para coincidir com a proporção "
 "da saída."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:25
 msgid "Wacom tablet rotation"
-msgstr "Rotação do táblete Wacom"
+msgstr "Rotação do tablet Wacom"
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:26
 msgid ""
@@ -272,7 +272,7 @@ msgstr "Funcionalidade de toque Wacom"
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:31
 msgid "Enable this to move the cursor when the user touches the tablet."
-msgstr "Ative para mover o cursor quando o utilizador toca no táblete."
+msgstr "Ative para mover o cursor quando o utilizador toca no tablet."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:37
 msgid "Wacom stylus pressure curve"
@@ -1348,7 +1348,7 @@ msgid ""
 "tablets (suspend)."
 msgstr ""
 "A ação a ser executada quando o botão de energia é premido. Esta ação é fixa "
-"-e a definição ignorada- em máquinas virtuais (desligar) e em tábletes "
+"-e a definição ignorada- em máquinas virtuais (desligar) e em tablets "
 "(suspender)."
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:46
@@ -1883,7 +1883,7 @@ msgstr ""
 #. TRANSLATORS: notification title, a graphics tablet (e.g. wacom) is low or very low on power
 #: plugins/power/gsd-power-manager.c:577
 msgid "Tablet battery low"
-msgstr "Bateria do táblete fraca"
+msgstr "Bateria do tablet fraca"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is low on power
 #: plugins/power/gsd-power-manager.c:580
@@ -2797,34 +2797,31 @@ msgstr ""
 #: plugins/usb-protection/gsd-usb-protection-manager.c:730
 msgid ""
 "The new inserted device has been blocked because the USB protection is "
-"active. If you want to activate the device, disable the USB protection and "
-"re-plug the deivce."
+"active."
 msgstr ""
-"O novo dispositivo inserido foi bloqueado pois a proteção USB está ativa. Se "
-"quer ativar o dispositivo, desative a proteção USB e volte a inserir o "
-"dispositivo."
+"O novo dispositivo inserido foi bloqueado porque a proteção USB está ativa."
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
 #. to change the LED setting for a Wacom tablet
 #: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:20
 msgid "Modify the lit LED for a Wacom tablet"
-msgstr "Modificar o LED aceso de um táblete Wacom"
+msgstr "Modificar o LED aceso para um tablet Wacom"
 
 #: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:21
 msgid "Authentication is required to modify the lit LED for a Wacom tablet"
-msgstr "É necessária autenticação para alterar o LED aceso num táblete Wacom"
+msgstr "É necessária autenticação para alterar o LED aceso num tablet Wacom"
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
 #. to change the OLED images for a Wacom tablet
 #: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:35
 msgid "Modify the OLED image for a Wacom tablet"
-msgstr "Alterar a imagem OLED para um táblete Wacom"
+msgstr "Alterar a imagem OLED para um tablet Wacom"
 
 #: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:36
 msgid "Authentication is required to modify the OLED image for a Wacom tablet"
-msgstr "É necessária autenticação para alterar a imagem OLED num táblete Wacom"
+msgstr "É necessária autenticação para alterar a imagem OLED num tablet Wacom"
 
 #: plugins/wwan/cc-wwan-errors-private.h:40
 msgid "Phone failure"
@@ -2955,6 +2952,15 @@ msgid "You have %u try left"
 msgid_plural "You have %u tries left"
 msgstr[0] "Tem %u tentativa restante"
 msgstr[1] "Tem %u tentativas restantes"
+
+#~ msgid ""
+#~ "The new inserted device has been blocked because the USB protection is "
+#~ "active. If you want to activate the device, disable the USB protection "
+#~ "and re-plug the deivce."
+#~ msgstr ""
+#~ "O novo dispositivo inserido foi bloqueado pois a proteção USB está ativa. "
+#~ "Se quer ativar o dispositivo, desative a proteção USB e volte a inserir o "
+#~ "dispositivo."
 
 #, c-format
 #~ msgid "Approximately %s remaining (%.0f%%)"
