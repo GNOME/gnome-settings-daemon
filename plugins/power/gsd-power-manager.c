@@ -110,6 +110,7 @@ static const gchar introspection_xml[] =
 "  </interface>"
 "  <interface name='org.gnome.SettingsDaemon.Power.Keyboard'>"
 "    <property name='Brightness' type='i' access='readwrite'/>"
+"    <property name='Steps' type='i' access='read'/>"
 "    <method name='StepUp'>"
 "      <arg type='i' name='new_percentage' direction='out'/>"
 "    </method>"
@@ -2330,6 +2331,16 @@ power_profiles_proxy_ready_cb (GObject             *source_object,
         update_active_power_profile (manager);
 }
 
+static int
+backlight_get_n_steps (GsdPowerManager *manager)
+{
+        int step;
+
+        step = BRIGHTNESS_STEP_AMOUNT (manager->kbd_brightness_max);
+
+        return (manager->kbd_brightness_max / step) + 1;
+}
+
 static void
 power_keyboard_proxy_ready_cb (GObject             *source_object,
                                GAsyncResult        *res,
@@ -2337,6 +2348,7 @@ power_keyboard_proxy_ready_cb (GObject             *source_object,
 {
         GVariant *k_now = NULL;
         GVariant *k_max = NULL;
+        GVariant *params = NULL;
         GError *error = NULL;
         GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
         gint percentage;
@@ -2410,6 +2422,16 @@ power_keyboard_proxy_ready_cb (GObject             *source_object,
                                         manager->kbd_brightness_max,
                                         manager->kbd_brightness_now);
         backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_KEYBOARD, percentage, "initial value");
+
+        /* Same for "Steps" */
+        params = g_variant_new_parsed ("(%s, [{'Steps', <%i>}], @as [])",
+                                       GSD_POWER_DBUS_INTERFACE_KEYBOARD, backlight_get_n_steps (manager));
+        g_dbus_connection_emit_signal (manager->connection,
+                                       NULL,
+                                       GSD_POWER_DBUS_PATH,
+                                       "org.freedesktop.DBus.Properties",
+                                       "PropertiesChanged",
+                                       params, NULL);
 
 out:
         if (k_now != NULL)
@@ -3335,13 +3357,14 @@ handle_get_property_other (GsdPowerManager *manager,
         GVariant *retval = NULL;
         gint32 value;
 
-        if (g_strcmp0 (property_name, "Brightness") != 0) {
-                g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
-                             "No such property: %s", property_name);
-                return NULL;
-        }
 
         if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
+                if (g_strcmp0 (property_name, "Brightness") != 0) {
+                        g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
+                                     "No such property: %s", property_name);
+                        return NULL;
+                }
+
                 if (manager->backlight)
                         value = gsd_backlight_get_brightness (manager->backlight, NULL);
                 else
@@ -3350,10 +3373,15 @@ handle_get_property_other (GsdPowerManager *manager,
                 retval = g_variant_new_int32 (value);
         } else if (manager->upower_kbd_proxy &&
                    g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
-                value = ABS_TO_PERCENTAGE (0,
-                                           manager->kbd_brightness_max,
-                                           manager->kbd_brightness_now);
-                retval =  g_variant_new_int32 (value);
+                if (g_strcmp0 (property_name, "Brightness") == 0) {
+                        value = ABS_TO_PERCENTAGE (0,
+                                                   manager->kbd_brightness_max,
+                                                   manager->kbd_brightness_now);
+                        retval =  g_variant_new_int32 (value);
+                } else if (g_strcmp0 (property_name, "Steps") == 0) {
+                        value = backlight_get_n_steps (manager);
+                        retval =  g_variant_new_int32 (value);
+                }
         }
 
         if (retval == NULL) {
