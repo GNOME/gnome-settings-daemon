@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-control-center\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/is"
 "sues\n"
-"POT-Creation-Date: 2023-06-29 14:49+0000\n"
-"PO-Revision-Date: 2023-06-29 20:33+0300\n"
+"POT-Creation-Date: 2023-07-04 21:27+0000\n"
+"PO-Revision-Date: 2023-07-05 21:28+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1364,14 +1364,19 @@ msgid "Power button action"
 msgstr "Дія кнопки «Живлення»"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:42
+#| msgid ""
+#| "The action to take when the system power button is pressed. This action "
+#| "is hard-coded (and the setting ignored) on virtual machines (power off) "
+#| "and tablets (suspend)."
 msgid ""
-"The action to take when the system power button is pressed. This action is "
-"hard-coded (and the setting ignored) on virtual machines (power off) and "
-"tablets (suspend)."
+"The action to take when the system power button is pressed. Virtual machines "
+"only honor the 'nothing' action, and will shutdown otherwise. Tablets always "
+"suspend, ignoring all the other action options."
 msgstr ""
-"Дія, яку слід виконати, якщо натиснуто кнопку «Живлення». Цю дію жорстко "
-"визначено (і значення параметра буде проігноровано) для віртуальних машин "
-"(вимикання) і планшетів (призупинення роботи)."
+"Дія, яку слід виконати, якщо натиснуто кнопку «Живлення». Для віртуальних"
+" машин можна використовувати лише варіант «нічого». Якщо його не буде"
+" використано, буде виконано просте завершення роботи. Роботу планшетів"
+" завжди буде призупинено без врахування будь-яких інших варіантів дій."
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:46
 msgid "Enable power-saver profile when battery is low"
@@ -1657,23 +1662,23 @@ msgstr ""
 "Пам'ять пристрою майже заповнено. Програма використала надто багато пам'яті. "
 "Її роботу примусово припинено."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2250
+#: plugins/media-keys/gsd-media-keys-manager.c:2254
 msgid "Bluetooth disabled"
 msgstr "Bluetooth вимкнено"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2253
+#: plugins/media-keys/gsd-media-keys-manager.c:2257
 msgid "Bluetooth enabled"
 msgstr "Bluetooth увімкнено"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2257
+#: plugins/media-keys/gsd-media-keys-manager.c:2261
 msgid "Airplane mode enabled"
 msgstr "Режим польоту увімкнено"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2260
+#: plugins/media-keys/gsd-media-keys-manager.c:2264
 msgid "Airplane mode disabled"
 msgstr "Режим польоту вимкнено"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2299
+#: plugins/media-keys/gsd-media-keys-manager.c:2303
 msgid "Hardware Airplane Mode"
 msgstr "Апаратний режим польоту"
 
@@ -2831,9 +2836,6 @@ msgstr ""
 "оскільки задіяно захист USB."
 
 #: plugins/usb-protection/gsd-usb-protection-manager.c:730
-#| msgid ""
-#| "New device has been detected while you were away. It has been blocked "
-#| "because the USB protection is active."
 msgid ""
 "The new inserted device has been blocked because the USB protection is "
 "active."
