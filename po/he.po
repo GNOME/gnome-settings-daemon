@@ -12,10 +12,10 @@ msgstr ""
 "Project-Id-Version: gnome-control-center.HEAD.he\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2023-02-15 12:10+0000\n"
-"PO-Revision-Date: 2023-02-15 22:03+0200\n"
+"POT-Creation-Date: 2023-07-04 21:27+0000\n"
+"PO-Revision-Date: 2023-07-06 12:33+0300\n"
 "Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
-"Language-Team: Hebrew <>\n"
+"Language-Team: Hebrew <yoseforb@gmail.com>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1332,13 +1332,13 @@ msgstr "Power button action"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:42
 msgid ""
-"The action to take when the system power button is pressed. This action is "
-"hard-coded (and the setting ignored) on virtual machines (power off) and "
-"tablets (suspend)."
+"The action to take when the system power button is pressed. Virtual machines "
+"only honor the 'nothing' action, and will shutdown otherwise. Tablets always "
+"suspend, ignoring all the other action options."
 msgstr ""
-"The action to take when the system power button is pressed. This action is "
-"hard-coded (and the setting ignored) on virtual machines (power off) and "
-"tablets (suspend)."
+"The action to take when the system power button is pressed. Virtual machines "
+"only honor the 'nothing' action, and will shutdown otherwise. Tablets always "
+"suspend, ignoring all the other action options."
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:46
 msgid "Enable power-saver profile when battery is low"
@@ -1615,23 +1615,23 @@ msgid ""
 "and was forced to stop."
 msgstr "זיכרון ההתקן כמעט מלא. יישום השתמש בהמון זיכרון ואולץ לעצור."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2250
+#: plugins/media-keys/gsd-media-keys-manager.c:2254
 msgid "Bluetooth disabled"
 msgstr "‏בלוטות׳ מושבת"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2253
+#: plugins/media-keys/gsd-media-keys-manager.c:2257
 msgid "Bluetooth enabled"
 msgstr "‏בלוטות׳ פועל"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2257
+#: plugins/media-keys/gsd-media-keys-manager.c:2261
 msgid "Airplane mode enabled"
 msgstr "מצב טיסה פועל"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2260
+#: plugins/media-keys/gsd-media-keys-manager.c:2264
 msgid "Airplane mode disabled"
 msgstr "מצב טיסה מושבת"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2299
+#: plugins/media-keys/gsd-media-keys-manager.c:2303
 msgid "Hardware Airplane Mode"
 msgstr "מצב טיסה בחומרה"
 
@@ -2284,9 +2284,9 @@ msgid ""
 "not charged."
 msgstr "סוללת ההתקן המחובר חלשה מאוד. ההתקן יכבה בקרוב אם לא יוטען."
 
+# msgid_plural "Laptop batteries"
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is running low, shows percentage remaining
 #: plugins/power/gsd-power-manager.c:794
-# msgid_plural "Laptop batteries"
 msgid "Low Battery"
 msgstr "סוללה חלשה"
 
@@ -2350,43 +2350,43 @@ msgid "UPS is Empty"
 msgstr "האל־פסק ריק"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1459
+#: plugins/power/gsd-power-manager.c:1492
 msgid "Lid has been opened"
 msgstr "מכסה המחשב נפתח"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1493
+#: plugins/power/gsd-power-manager.c:1526
 msgid "Lid has been closed"
 msgstr "מכסה המחשב נסגר"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2144
+#: plugins/power/gsd-power-manager.c:2177
 msgid "On battery power"
 msgstr "על סוללה"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2149
+#: plugins/power/gsd-power-manager.c:2182
 msgid "On AC power"
 msgstr "על מתח AC"
 
-#: plugins/power/gsd-power-manager.c:2397
+#: plugins/power/gsd-power-manager.c:2430
 msgid "Automatic logout"
 msgstr "יציאה אוטומטית"
 
-#: plugins/power/gsd-power-manager.c:2397
+#: plugins/power/gsd-power-manager.c:2430
 msgid "You will soon log out because of inactivity."
 msgstr "בקרוב ההפעלה שלך תיסגר עקב חוסר פעילות."
 
-#: plugins/power/gsd-power-manager.c:2402
+#: plugins/power/gsd-power-manager.c:2435
 msgid "Automatic suspend"
 msgstr "השהיה אוטומטית"
 
-#: plugins/power/gsd-power-manager.c:2402
-#: plugins/power/gsd-power-manager.c:2407
+#: plugins/power/gsd-power-manager.c:2435
+#: plugins/power/gsd-power-manager.c:2440
 msgid "Suspending soon because of inactivity."
 msgstr "המחשב יושהה אוטומטית בקרוב עקב חוסר פעילות."
 
-#: plugins/power/gsd-power-manager.c:2407
+#: plugins/power/gsd-power-manager.c:2440
 msgid "Automatic hibernation"
 msgstr "תרדמת אוטומטית"
 
@@ -2658,15 +2658,15 @@ msgstr "מדפסת „%s”:‏ „%s”."
 msgid "User was not logged in with smartcard."
 msgstr "המשתמש לא נכנס עם כרטיס חכם."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:388
+#: plugins/usb-protection/gsd-usb-protection-manager.c:415
 msgid "USB Protection"
 msgstr "הגנת USB"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:512
+#: plugins/usb-protection/gsd-usb-protection-manager.c:544
 msgid "New USB device"
 msgstr "התקן USB חדש"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:513
+#: plugins/usb-protection/gsd-usb-protection-manager.c:545
 msgid ""
 "New device has been detected while the session was not locked. If you did "
 "not plug anything, check your system for any suspicious device."
@@ -2674,11 +2674,11 @@ msgstr ""
 "זוהה התקן חדש בזמן הנעילה. אם לא חיברת שום דבר, יש לבדוק במערכת שלך כל התקן "
 "חשוד."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:601
+#: plugins/usb-protection/gsd-usb-protection-manager.c:687
 msgid "New device detected"
 msgstr "זוהה התקן חדש"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:602
+#: plugins/usb-protection/gsd-usb-protection-manager.c:688
 msgid ""
 "Either one of your existing devices has been reconnected or a new one has "
 "been plugged in. If you did not do it, check your system for any suspicious "
@@ -2687,11 +2687,11 @@ msgstr ""
 "או שאחד מההתקנים שלך חובר מחדש או שהתקן חדש חובר. אם לא עשית זאת, יש לבדוק "
 "במערכת שלך כל התקן חשוד."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:609
+#: plugins/usb-protection/gsd-usb-protection-manager.c:695
 msgid "Reconnect USB device"
 msgstr "מחדש של התקן USB"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:610
+#: plugins/usb-protection/gsd-usb-protection-manager.c:696
 msgid ""
 "New device has been detected while you were away. Please disconnect and "
 "reconnect the device to start using it."
@@ -2699,18 +2699,18 @@ msgstr ""
 "התקן חדש זוהה כאשר לא היית בנמצא. נא לנתק ולחבר מחדש את ההתקן על מנת להתחיל "
 "להשתמש בו."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:616
-#: plugins/usb-protection/gsd-usb-protection-manager.c:641
+#: plugins/usb-protection/gsd-usb-protection-manager.c:702
+#: plugins/usb-protection/gsd-usb-protection-manager.c:729
 msgid "USB device blocked"
 msgstr "התקן USB חסום"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:617
+#: plugins/usb-protection/gsd-usb-protection-manager.c:703
 msgid ""
 "New device has been detected while you were away. It has been blocked "
 "because the USB protection is active."
 msgstr "התקן חדש זוהה כאשר לא היית בנמצא. הוא נחסם בגלל שהגנת USB פועלת."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:642
+#: plugins/usb-protection/gsd-usb-protection-manager.c:730
 msgid ""
 "The new inserted device has been blocked because the USB protection is "
 "active."
@@ -5088,8 +5088,8 @@ msgstr[3] "נותרו לך %u ניסיונות"
 #~ msgstr ""
 #~ "הנך עושה שימוש ב־ XFree‏ 4.3.0.\n"
 #~ "ישנן תקלות ידועות בשימוש עם תצורות XKB מורכבות.\n"
-#~ "יש לנסות ולהשתמש בתצורה פשוטה יותר או להשתמש בגרסה עדכנית יותר של תכנת "
-#~ "ה־XFree.."
+#~ "יש לנסות ולהשתמש בתצורה פשוטה יותר או להשתמש בגרסה עדכנית יותר של תכנת ה־"
+#~ "XFree.."
 
 #~ msgid "A_vailable files:"
 #~ msgstr "_קבצים זמינים:"
