@@ -729,7 +729,7 @@ on_usbguard_signal (GDBusProxy *proxy,
                                                    _("USB device blocked"),
                                                    _("The new inserted device has been blocked because the USB protection is active. "
                                                      "If you want to activate the device, disable the USB protection and re-plug "
-                                                     "the deivce."));
+                                                     "the device."));
                         }
                 } else {
                     /* This is protection level == Lockscreen, so we allow everything when the session is unlocked.
