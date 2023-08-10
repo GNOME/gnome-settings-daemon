@@ -21,6 +21,8 @@
 
 #include "gnome-settings-bus.h"
 
+#include "gsd-resources.h"
+
 #ifndef PLUGIN_NAME
 #error Include PLUGIN_CFLAGS in the daemon s CFLAGS
 #endif /* !PLUGIN_NAME */
@@ -218,6 +220,9 @@ main (int argc, char **argv)
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
         textdomain (GETTEXT_PACKAGE);
         setlocale (LC_ALL, "");
+
+	/* Ensure we don't lose resources during linkage */
+	g_resources_register (gsd_get_resource ());
 
         set_empty_gtk_theme (TRUE);
 

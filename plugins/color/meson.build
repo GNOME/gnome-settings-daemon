@@ -13,6 +13,7 @@ deps = plugins_deps + [
   libcanberra_gtk_dep,
   libgeoclue_dep,
   libnotify_dep,
+  libcommon_dep,
   m_dep,
 ]
 
