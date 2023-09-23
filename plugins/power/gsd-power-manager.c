@@ -220,6 +220,9 @@ struct _GsdPowerManager
         GsdPowerIdleMode         previous_idle_mode;
 
         guint                    xscreensaver_watchdog_timer_id;
+
+        /* Device Properties */
+        gboolean                 show_sleep_warnings;
 };
 
 enum {
@@ -2510,15 +2513,17 @@ idle_triggered_idle_cb (GnomeIdleMonitor *monitor,
         } else if (watch_id == manager->idle_sleep_id) {
                 idle_set_mode_no_temp (manager, GSD_POWER_IDLE_MODE_SLEEP);
         } else if (watch_id == manager->idle_sleep_warning_id) {
-                show_sleep_warning (manager);
-
+                if (manager->show_sleep_warnings) {
+                        show_sleep_warning (manager);
+                }
                 if (manager->user_active_id < 1) {
-                    manager->user_active_id = gnome_idle_monitor_add_user_active_watch (manager->idle_monitor,
-                                                                                        idle_became_active_cb,
-                                                                                        manager,
-                                                                                        NULL);
-                    g_debug ("installing idle_became_active_cb to clear sleep warning on activity (%i)",
-                             manager->user_active_id);
+                        manager->user_active_id = 
+                                gnome_idle_monitor_add_user_active_watch (manager->idle_monitor,
+                                                                          idle_became_active_cb,
+                                                                          manager,
+                                                                          NULL);
+                        g_debug ("installing idle_became_active_cb to clear sleep warning on activity (%i)",
+                                 manager->user_active_id);
                 }
         }
 }
@@ -3054,6 +3059,7 @@ gboolean
 gsd_power_manager_start (GsdPowerManager *manager,
                          GError **error)
 {
+        g_autofree char *chassis_type = NULL;
         g_debug ("Starting power manager");
         gnome_settings_profile_start (NULL);
 
@@ -3079,6 +3085,13 @@ gsd_power_manager_start (GsdPowerManager *manager,
         if (manager->logind_proxy == NULL) {
                 g_debug ("No systemd (logind) support, disabling plugin");
                 return FALSE;
+        }
+
+        chassis_type = gnome_settings_get_chassis_type ();
+        if (g_strcmp0 (chassis_type, "tablet") == 0 || g_strcmp0 (chassis_type, "handset") == 0) {
+                manager->show_sleep_warnings = FALSE;
+        } else {
+                manager->show_sleep_warnings = TRUE;
         }
 
         /* coldplug the list of screens */
