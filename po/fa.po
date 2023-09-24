@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: gnome-control-center HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2023-07-21 10:16+0000\n"
-"PO-Revision-Date: 2023-07-31 03:46+0330\n"
+"POT-Creation-Date: 2023-07-31 00:17+0000\n"
+"PO-Revision-Date: 2023-09-24 15:28+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <translate@ifsug.org>\n"
 "Language: fa\n"
@@ -32,6 +32,26 @@ msgstr ""
 msgid "Smartcard removal action"
 msgstr "کنش برداشتن کارت هوشمند"
 
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
+msgid ""
+"Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
+"get performed when the smartcard used for log in is removed."
+msgstr ""
+"به یکی از مقدارهای «none»، «lock-screen»‌ یا «force-logout» تنظیم کنید. کنش "
+"هنگام برداشتن کارت هوشمند استفاده شده برای ورود اجرا خواهد شد."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:24
+msgid "Possible values are “on”, “off”, and “custom”."
+msgstr "مقدارهای ممکن: «on» «off» و «custom»."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:34
+msgid "Keyboard Bell Custom Filename"
+msgstr "نام پروندهٔ سفارشی زنگ صفحه‌کلید"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:35
+msgid "File name of the bell sound to be played."
+msgstr "نام پروندهٔ صدای زنگ برای پخش."
+
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:41
 msgid "Whether the tablet’s orientation is locked, or rotated automatically."
 msgstr "این که جهت رایانک قفل شده باشد، یا به طور خودکار بچرخد."
@@ -40,14 +60,44 @@ msgstr "این که جهت رایانک قفل شده باشد، یا به طو�
 msgid "Mouse button orientation"
 msgstr "جهت دکمهٔ موشی"
 
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:50
+msgid "Swap left and right mouse buttons for left-handed mice."
+msgstr "جابه‌جایی دکمه‌های چپ و راست برای موشی‌های چپ‌دست."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:54
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:131
+msgid "Single Click"
+msgstr "تک کلیک"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:55
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:132
+msgid ""
+"Acceleration multiplier for mouse motion. A value of -1 is the system default."
+msgstr "ضریب شتاب برای حرکت موشی. پیش‌گزیدهٔ سامانه مقدار ‪-1‬ است."
+
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:59
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:136
 msgid "Motion Threshold"
 msgstr "آستانهٔ حرکت"
 
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:60
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:137
+msgid ""
+"Distance in pixels the pointer must move before accelerated mouse motion is "
+"activated. A value of -1 is the system default."
+msgstr ""
+"فاصله‌ای که اشاره‌گر باید پیش از فعّال شدن حرکت شتابان موشی حرکت کند به پیکسل. "
+"پیش‌گزیدهٔ سامانه مقدار ‪-1‬ است."
+
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:64
 msgid "Middle button emulation"
 msgstr "شبیه‌سازی کلیک وسط"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:65
+msgid ""
+"Enables middle mouse button emulation through simultaneous left and right "
+"button click."
+msgstr "به کار انداختن شبیه‌ئازی دکمهٔ وسط موشی با زدن هم‌زمان دکمه‌های راست و چپ."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:69
 msgid "Double click time"
@@ -81,6 +131,17 @@ msgstr "تأخیر نخستین تکرار کلید"
 msgid "Initial key repeat delay in milliseconds."
 msgstr "تأخیر نخستین تکرار کلید به میلی‌ثانیه."
 
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:94
+msgid "Remember NumLock state"
+msgstr "به‌خاطر سپردن وضعیت قفل عدد"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:95
+msgid ""
+"When set to true, GNOME will remember the state of the NumLock LED between "
+"sessions."
+msgstr ""
+"هنگام درست بودن، گنوم وضعیت ال‌ای‌دی قفل عدد را بین نشست‌ها به خاطر خواهد سپرد."
+
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:101
 msgid "Disable touchpad while typing"
 msgstr "غیرفعال کردن صفحه‌لمسی در هنگام تایپ"
@@ -96,9 +157,25 @@ msgstr ""
 msgid "Enable horizontal scrolling"
 msgstr "فعال کردن لغزش افقی"
 
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:107
+msgid ""
+"Set this to TRUE to allow horizontal scrolling by the same method selected with "
+"the scroll_method key."
+msgstr ""
+"برای اجازه به لغزش افقی با همان روش گزیده برای کلید scroll_method این گزینه را "
+"به درست تنظیم کنید."
+
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:111
 msgid "Select the touchpad scroll method"
 msgstr "انتخاب روش لغزش صفحه‌لمسی"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:112
+msgid ""
+"Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
+"scrolling”, “two-finger-scrolling”."
+msgstr ""
+"گزینش روش لفزش صفحه‌لمسی. مقدارهای پشتیبانی شده: :«disabled» «»edge-scrolling "
+"«two-finger-scrolling»."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:116
 msgid "Enable mouse clicks with touchpad"
@@ -121,6 +198,14 @@ msgstr "روی TRUE تنظیم کنید تا تمام صفحه‌های لمسی
 msgid "Touchpad button orientation"
 msgstr "جهت دکمهٔ صفحه‌لمسی"
 
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:127
+msgid ""
+"Swap left and right mouse buttons for left-handed mice with “left”, “right” for "
+"right-handed, “mouse” to follow the mouse setting."
+msgstr ""
+"جابه‌جایی دکمه‌های چپ و راست برای موشی‌های چپ‌دست با «left». برای راست‌دست با "
+"«right» و «mouse» برای پیروی از تنظیمات موشی."
+
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:141
 msgid "Natural scrolling"
 msgstr "لغرش طبیعی"
@@ -130,41 +215,90 @@ msgid "Set this to TRUE to enable natural (reverse) scrolling for touchpads."
 msgstr ""
 "برای به کار انداختن لغزش طبیعی (معکوس) برای صفحه‌لمسی‌ها، روی درست تنظیم کنید."
 
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:149
+msgid "Mouse wheel emulation button. 0 to disable the feature."
+msgstr "دکمهٔ شبیه‌سازی چرخ موشی. 0 برای از کار انداختن ویژگی."
+
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:10
 msgid "Wacom stylus absolute mode"
 msgstr "حالت مطلق قلم وکوم"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:11
+msgid "Enable this to set the tablet to absolute mode."
+msgstr "برای تنظیم رایانک به حالت خالص به کار بیندازید."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:15
 msgid "Wacom tablet area"
 msgstr "ناحیهٔ رایانک وکوم"
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:16
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
+msgstr "به x1, y1 و x2, y2 ناحیهٔ قابل استفاده به دست ابزارها تنظیم کنید."
+
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:20
 msgid "Wacom tablet aspect ratio"
 msgstr "نسبت تصویر رایانک وکوم"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:21
+msgid ""
+"Enable this to restrict the Wacom tablet area to match the aspect ratio of the "
+"output."
+msgstr ""
+"برای محدود کردن ناحیهٔ رایانک وکوم برای مطابقت با نسبت تصویر خروجی به کار "
+"بیندازید."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:25
 msgid "Wacom tablet rotation"
 msgstr "شرخش رایانک وکوم"
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:26
+msgid ""
+"Set this to “none”, “cw” for 90 degree clockwise, “half” for 180 degree, and "
+"“ccw” for 90 degree counterclockwise."
+msgstr ""
+"به «none» تنظیم کنید. «cw» برای ۹۰ درجه ساعتگرد. «half» برای ۱۸۰ درجه و «ccw» "
+"برای ۹۰ درجه پادساعتگرد."
+
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:30
 msgid "Wacom touch feature"
 msgstr "امکانات لمسی وکوم"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:31
+msgid "Enable this to move the cursor when the user touches the tablet."
+msgstr "برای جابه‌جایی نشانگر هنگام لمس رایانک به دست کاربر به کار بیندازید."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:37
 msgid "Wacom stylus pressure curve"
 msgstr "منحنی فشار قلم وکوم"
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:38
+msgid "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
+msgstr "به x1, y1 و x2, y2 خم فشار اعمالی به قلم تنظیم کنید."
+
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:42
 msgid "Wacom stylus button mapping"
 msgstr "نگاشت دکمهٔ قلم وکوم"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:43
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:60
+msgid "Set this to the logical button mapping."
+msgstr ""
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:47
 msgid "Wacom stylus pressure threshold"
 msgstr "آستانهٔ فشار قلم وکوم"
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:48
+msgid "Set this to the pressure value at which a stylus click event is generated."
+msgstr ""
+
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:54
 msgid "Wacom eraser pressure curve"
 msgstr "منحنی فشار پاک‌کن وکوم"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:55
+msgid "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
+msgstr ""
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:59
 msgid "Wacom eraser button mapping"
@@ -174,17 +308,47 @@ msgstr "نگاشت دکمهٔ پاک‌کن وکوم"
 msgid "Wacom eraser pressure threshold"
 msgstr "آستانهٔ فشار پاک‌کن وکوم"
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:65
+msgid ""
+"Set this to the pressure value at which an eraser click event is generated."
+msgstr ""
+
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:71
 msgid "Wacom button action type"
 msgstr "گونهٔ کنش دکمهٔ وکوم"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:72
+msgid "The type of action triggered by the button being pressed."
+msgstr ""
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:76
 msgid "Key combination for the custom action"
 msgstr "ترکیب کلید برای کنش شخصی"
 
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:77
+msgid ""
+"The keyboard shortcut generated when the button is pressed for custom actions."
+msgstr ""
+
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:81
 msgid "Key combinations for a touchring or touchstrip custom action"
 msgstr "ترکیب کلید برای کنش شخصی حلقه یا نوار لمسی"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:82
+msgid ""
+"The keyboard shortcuts generated when a touchring or touchstrip is used for "
+"custom actions (up followed by down)."
+msgstr ""
+
+#. Translators: This is the OLED display on an Intuos4 tablet:
+#. http://eu.shop.wacom.eu/images/articles/d9abd9f2d4d88aa0649cda97a8077e2b_8.jpg
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:88
+msgid "Button label for OLED display."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:89
+msgid "Label will be rendered to OLED display belonging to the button"
+msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:6
 msgid "The duration a display profile is valid"
@@ -209,43 +373,125 @@ msgid ""
 msgstr ""
 "این تعداد روزهایی است که پس از آن، نمایهٔ رنگ چاپگر نامعتبر درنظر گرفته می‌شود."
 
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:16
+msgid "If the night light mode is enabled"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:17
+msgid ""
+"Night light mode changes the color temperature of your display when the sun has "
+"gone down or at preset times."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:21
+msgid "Temperature of the display when enabled"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:22
+msgid ""
+"This temperature in Kelvin is used to modify the screen tones when night light "
+"mode is enabled. Higher values are bluer, lower redder."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:26
+msgid "Use the sunrise and sunset"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:27
+msgid ""
+"Calculate the sunrise and sunset times automatically, from the current location."
+msgstr ""
+
 # ../capplets/common/gconf-property-editor.:c:183
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:31
 msgid "The start time"
 msgstr "زمان آغاز"
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:32
+msgid ""
+"When “night-light-schedule-automatic” is disabled, use this start time in hours "
+"from midnight."
+msgstr ""
 
 # ../capplets/common/gconf-property-editor.:c:183
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:36
 msgid "The end time"
 msgstr "زمان پایان"
 
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:37
+msgid ""
+"When “night-light-schedule-automatic” is disabled, use this end time in hours "
+"from midnight."
+msgstr ""
+
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:41
 msgid "The last detected position"
 msgstr "آخرین موقعیت تشخیصی"
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:42
+msgid ""
+"When location services are available this represents the last detected "
+"location. The default value is an invalid value to ensure it is always updated "
+"at startup."
+msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.gschema.xml.in:6
 msgid "List of plugins that are allowed to be loaded"
 msgstr "سیاههٔ افزایه‌هایی که اجازهٔ بار شدن دارند"
 
+#: data/org.gnome.settings-daemon.plugins.gschema.xml.in:7
+msgid ""
+"A list of strings representing the plugins that are allowed to be loaded "
+"(default: “all”). This is only evaluated on startup."
+msgstr ""
+
 #: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:6
 msgid "Mount paths to ignore"
 msgstr "مسیر‌های سوار کردن جهت نادیده گرفتن"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:7
+msgid "Specify a list of mount paths to ignore when they run low on space."
+msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:12
 msgid "Free percentage notify threshold"
 msgstr "آستانهٔ آگاهی درصد آزاد"
 
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:13
+msgid ""
+"Percentage free space threshold for initial warning of low disk space. If the "
+"percentage free space drops below this, a warning will be shown."
+msgstr ""
+
 #: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:18
 msgid "Subsequent free space percentage notify threshold"
 msgstr "آستانهٔ آگاهی درصد فضای آزاد"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:19
+msgid ""
+"Specify the percentage that the free disk space should reduce by before issuing "
+"a subsequent warning."
+msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:23
 msgid "Free space notify threshold"
 msgstr "آستانهٔ آگاهی فضای آزاد"
 
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:24
+msgid ""
+"Specify an amount in GB. If the amount of free space is more than this, no "
+"warning will be shown."
+msgstr ""
+
 #: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:28
 msgid "Minimum notify period for repeated warnings"
 msgstr "حداقل دوره اعلان برای اخطارهای تکرار شده"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:29
+msgid ""
+"Specify a time in minutes. Subsequent warnings for a volume will not appear "
+"more often than this period."
+msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:6
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:154
@@ -558,6 +804,10 @@ msgstr "کلیدهای مقیدفهرست کلیدهای میان‌بر شخص�
 msgid "Size of volume step"
 msgstr "اندازهٔ گام حجم صدا"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:248
+msgid "Size of the volume step for each volume change"
+msgstr ""
+
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:254
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:530
 msgid "Quiet volume down"
@@ -763,6 +1013,11 @@ msgstr "نمایش وضعیت باتری"
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:423
 msgid "Binding to show current battery status."
 msgstr "مربوط به نمایش وضعیت کنونی باتری."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:428
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:665
+msgid "RF kill"
+msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:429
 msgid "Binding to toggle airplane mode."
@@ -970,25 +1225,162 @@ msgstr "فرمان"
 msgid "Command to run when the binding is invoked"
 msgstr "فرمان اجرایی هنگام زدن میان‌بر"
 
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:6
+msgid "The brightness of the screen when idle"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:7
+msgid "This is the laptop panel screen brightness used when the session is idle."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:11
+msgid "Dim the screen after a period of inactivity"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:12
+msgid "If the screen should be dimmed to save power when the computer is idle."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:16
+msgid "Sleep timeout computer when on AC"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:17
+msgid ""
+"The amount of time in seconds the computer on AC power needs to be inactive "
+"before it goes to sleep. A value of 0 means never."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:21
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:31
+msgid "Whether to hibernate, suspend or do nothing when inactive"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:22
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:32
+msgid ""
+"The type of sleeping that should be performed when the computer is inactive."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:26
+msgid "Sleep timeout computer when on battery"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:27
+msgid ""
+"The amount of time in seconds the computer on battery power needs to be "
+"inactive before it goes to sleep. A value of 0 means never."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:36
+msgid "Enable the ALS sensor"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:37
+msgid "If the ambient light sensor functionality is enabled."
+msgstr ""
+
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:41
 msgid "Power button action"
 msgstr "کنش دکمهٔ روشن"
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:42
+msgid ""
+"The action to take when the system power button is pressed. Virtual machines "
+"only honor the 'nothing' action, and will shutdown otherwise. Tablets always "
+"suspend, ignoring all the other action options."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:46
+msgid "Enable power-saver profile when battery is low"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:47
+msgid ""
+"Automatically enable the \"power-saver\" profile using power-profiles-daemon if "
+"the battery is low."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in:6
+msgid "On which connections the service is enabled"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in:7
+msgid ""
+"The list of NetworkManager connections (each one represented with its UUID) on "
+"which this service is enabled and started."
+msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:6
 msgid "List of explicitly disabled GTK+ modules"
 msgstr "فهرست ماژول‌های غیرفعال شده GTK+"
 
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:7
+msgid ""
+"A list of strings representing the GTK+ modules that will not be loaded, even "
+"if enabled by default in their configuration."
+msgstr ""
+
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:11
 msgid "List of explicitly enabled GTK+ modules"
 msgstr "فهرست ماژول‌های فعال شده GTK+"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:12
+msgid ""
+"A list of strings representing the GTK+ modules that will be loaded, usually in "
+"addition to conditional and forcibly disabled ones."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:16
+msgid "A dictionary of XSETTINGS to override"
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:17
+msgid ""
+"This dictionary maps XSETTINGS names to overrides values. The values must be "
+"either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
+"(red, green, blue, alpha; 65535 is fully opaque)."
+msgstr ""
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:23
+msgid "Antialiasing"
+msgstr "حذف لبه‌های ناصاف"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:24
+msgid ""
+"The type of antialiasing to use when rendering fonts. Possible values are: "
+"“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
+"and “rgba” for subpixel antialiasing (LCD screens only)."
+msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:28
 msgid "Hinting"
 msgstr "راهنمایی"
 
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:29
+msgid ""
+"The type of hinting to use when rendering fonts. Possible values are: “none” "
+"for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
+"ClearType, DirectWrite and Adobe’s proprietary font rendering engine. Ignores "
+"native hinting within the font, generates hints algorithmically. Used on Ubuntu "
+"by default. Recommended. The meaning of “medium” and “full” depends on the font "
+"format (.ttf, .otf, .pfa/.pfb) and the installed version of FreeType. They "
+"usually try to fit glyphs to both the X and the Y axis (except for .otf: Y-"
+"only). This can lead to distortion and/or inconsistent rendering depending on "
+"the quality of the font, the font format and the state of FreeType’s font "
+"engines."
+msgstr ""
+
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:33
 msgid "RGBA order"
 msgstr "ترتیب RGBA"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:34
+msgid ""
+"The order of subpixel elements on an LCD screen; only used when antialiasing is "
+"set to “rgba”. Possible values are: “rgb” for red on left (most common), “bgr” "
+"for blue on left, “vrgb” for red on top, “vbgr” for red on bottom."
+msgstr ""
 
 #: plugins/color/gsd-color-calibrate.c:138
 msgid "Color"
