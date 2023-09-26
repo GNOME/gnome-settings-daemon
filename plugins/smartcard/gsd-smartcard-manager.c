@@ -554,7 +554,7 @@ on_modules_initialized (GObject      *source_object,
         modules = gck_modules_initialize_registered_finish (result, &error);
 
         if (error) {
-                g_task_return_error (task, error);
+                g_task_return_error (task, g_steal_pointer (&error));
                 return;
         }
 
