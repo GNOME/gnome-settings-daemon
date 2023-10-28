@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues\n"
-"POT-Creation-Date: 2023-09-21 05:08+0000\n"
-"PO-Revision-Date: 2023-10-11 15:56+0200\n"
+"POT-Creation-Date: 2023-10-11 13:58+0000\n"
+"PO-Revision-Date: 2023-10-28 15:29+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.4.1\n"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid "Smartcard removal action"
@@ -28,6 +28,9 @@ msgid ""
 "Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
 "get performed when the smartcard used for log in is removed."
 msgstr ""
+"დააყენეთ ეს ერთ-ერთზე მნიშვნელობებიდან \"none\" (არაფერი), \"lock-"
+"screen\" (ეკრანის დაბლოკვა ან \"force-logout\" (ნაძალადევი გასვლა). ეს "
+"ქმედება შესრულდება, როცა სმარტ-ბარათს გამოაერთებთ."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:24
 msgid "Possible values are “on”, “off”, and “custom”."
@@ -44,7 +47,7 @@ msgstr "დასაკრავი ზარის ფაილის სახ
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:41
 msgid "Whether the tablet’s orientation is locked, or rotated automatically."
-msgstr ""
+msgstr "როცა ტაბლეტის ორიენტაცია დაბლოკილია, ან ის ავტომატურად ტრიალდება."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:49
 msgid "Mouse button orientation"
@@ -52,7 +55,7 @@ msgstr "თაგუნას ღილაკის ორიენტაცი�
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:50
 msgid "Swap left and right mouse buttons for left-handed mice."
-msgstr ""
+msgstr "თაგუნას მარცხენა და მარჯვენა ღილაკების მიმოცვლა ცაციებისთვის."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:54
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:131
@@ -65,6 +68,8 @@ msgid ""
 "Acceleration multiplier for mouse motion. A value of -1 is the system "
 "default."
 msgstr ""
+"აჩქარების მამრავლი თაგუნას მოძრაობისთვის. მნიშვნელობა -1 სისტემური "
+"ნაგულისხმევია."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:59
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:136
@@ -77,6 +82,8 @@ msgid ""
 "Distance in pixels the pointer must move before accelerated mouse motion is "
 "activated. A value of -1 is the system default."
 msgstr ""
+"დაშორება პიქსელებში, რომელის კურსორმა უნდა გაიაროს, სანამ თაგუნას ჟესტი "
+"გააქტიურდება. მნიშვნელობა -1 სისტემის ნაგულისხმევია."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:64
 msgid "Middle button emulation"
@@ -87,6 +94,8 @@ msgid ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
 msgstr ""
+"თაგუნას შუა ღილაკის ემულაცია მისი მარჯვენა და მარცხენა ღილაკებზე ერთდროული "
+"დაწკაპუნებით."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:69
 msgid "Double click time"
@@ -129,6 +138,8 @@ msgid ""
 "When set to true, GNOME will remember the state of the NumLock LED between "
 "sessions."
 msgstr ""
+"როცა დაყენებულია ჭეშმარიტზე, GNOME სესიებს შორის დაიმახსოვრებს NumLock LED-"
+"ის მდგომარეობას."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:101
 msgid "Disable touchpad while typing"
@@ -139,6 +150,7 @@ msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
 msgstr ""
+"დააყენეთ ეს ჭეშმარიტზე, თუ გაქვთ პრობლემა, რომ ეხებით თაჩპედს, როცა კრეფთ."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:106
 msgid "Enable horizontal scrolling"
@@ -149,6 +161,8 @@ msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
 msgstr ""
+"დააყენეთ ეს ჭეშმარიტზე, რომ დაუშვათ ჰორიზონტალური გადახვევა იგივე მეთოდით, "
+"რომელსაც scroll_method პარამეტრი შეიცავს."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:111
 msgid "Select the touchpad scroll method"
@@ -159,6 +173,9 @@ msgid ""
 "Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
 "scrolling”, “two-finger-scrolling”."
 msgstr ""
+"აირჩიეთ თაჩპედით გადახვევის მეთოდი. მხარდაჭერილი მნიშვნელობებია: "
+"\"disabled\" (გათიშულია), \"edge-scrolling\" (კიდეზე ჩამოსრიალებით) და \"two-"
+"finger-scrolling\" (ორი თითით გადახვევა.)."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:116
 msgid "Enable mouse clicks with touchpad"
@@ -168,6 +185,8 @@ msgstr "თაჩპედით თაგუნას დაწკაპუნ�
 msgid ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr ""
+"დააყენეთ ეს ჭეშმარიტზე, რომ გქონდეთ საშუალება, მაუსის წკაპები თაჩპედზე "
+"დატყაპუნებით მოახდინოთ."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:121
 msgid "Enable touchpad"
@@ -185,7 +204,7 @@ msgstr "თაჩპედის ღილაკის ორიენტაც�
 msgid ""
 "Swap left and right mouse buttons for left-handed mice with “left”, “right” "
 "for right-handed, “mouse” to follow the mouse setting."
-msgstr ""
+msgstr "თაგუნას მარცხენა და მარჯვენა ღილაკების მიმოცვლა."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:141
 msgid "Natural scrolling"
@@ -194,10 +213,12 @@ msgstr "ჩვეულებრივი გადახვევა"
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:142
 msgid "Set this to TRUE to enable natural (reverse) scrolling for touchpads."
 msgstr ""
+"დააყენეთ ეს ჭეშმარიტზე, თაჩპედისთვის რათა ნატურალური (უკუღმა) გადახვევა "
+"ჩართოთ."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:149
 msgid "Mouse wheel emulation button. 0 to disable the feature."
-msgstr ""
+msgstr "თაგუნას ბორბლის ემულაცის ღილაკი. 0 ამ ფუნქციის გასათიშად."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:10
 msgid "Wacom stylus absolute mode"
@@ -205,7 +226,7 @@ msgstr "Wacom-ის სტილუსის აბსოლუტური რ
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:11
 msgid "Enable this to set the tablet to absolute mode."
-msgstr ""
+msgstr "ჩართეთ, თუ გნებავთ, ტაბლეტი აბსოლუტურ რეჟიმში დააყენოთ."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:15
 msgid "Wacom tablet area"
@@ -214,6 +235,8 @@ msgstr "Wacom -ის ტაბლეტის არეალი"
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:16
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
 msgstr ""
+"დააყენეთ ეს x1, y2 და x2, y2 კოორდინატებზე ადგილებისთვის, სადაც ხელსაწყოები "
+"მუშაობს."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:20
 msgid "Wacom tablet aspect ratio"
@@ -241,7 +264,7 @@ msgstr "Wacom-ის შეხების თვისება"
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:31
 msgid "Enable this to move the cursor when the user touches the tablet."
-msgstr ""
+msgstr "ჩართეთ, რომ გავამოძორაო კურსორი, როცა მომხმარებელი ტაბლეტს შეეხება."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:37
 msgid "Wacom stylus pressure curve"
@@ -298,7 +321,7 @@ msgstr "Wacom-ის ღილაკის ქმედების ტიპი
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:72
 msgid "The type of action triggered by the button being pressed."
-msgstr ""
+msgstr "იმ ქმედების ტიპი, რომელიც ამ ღილაკის დაწოლით დატრიგერდა."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:76
 msgid "Key combination for the custom action"
@@ -328,7 +351,7 @@ msgstr "ღილაკის ჭდე OLED ეკრანისთვის."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:89
 msgid "Label will be rendered to OLED display belonging to the button"
-msgstr ""
+msgstr "ჭდე დარენდერდება OLED ეკრანზე, რომელიც ღილაკს ეკუთვნის"
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:6
 msgid "The duration a display profile is valid"
@@ -339,6 +362,8 @@ msgid ""
 "This is the number of days after which the display color profile is "
 "considered invalid."
 msgstr ""
+"ეს არის დღეების რაოდენობა, რომლის გასვლის შემდეგაც ეკრანის ფერის პროფილი "
+"არასწორად გამოცხადდება."
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:11
 msgid "The duration a printer profile is valid"
@@ -349,6 +374,8 @@ msgid ""
 "This is the number of days after which the printer color profile is "
 "considered invalid."
 msgstr ""
+"ეს არის დღეების რაოდენობა, რომლის გასვლის შემდეგაც პრინტერის ფერის პროფილი "
+"არასწორად გამოცხადდება."
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:16
 msgid "If the night light mode is enabled"
@@ -431,7 +458,7 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:12
 msgid "Free percentage notify threshold"
-msgstr ""
+msgstr "თავისუფალი პროცენტულობის გაფრთხილების ზღვარი"
 
 #: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:13
 msgid ""
@@ -1196,7 +1223,7 @@ msgstr "სახელი"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:679
 msgid "Name of the custom binding"
-msgstr ""
+msgstr "ხელით მიმაგრების სახელი"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:683
 msgid "Binding"
@@ -1204,7 +1231,7 @@ msgstr "აკინძვა"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:684
 msgid "Binding for the custom binding"
-msgstr ""
+msgstr "მიმაგრება ხელით მიმაგრებისთვის"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:688
 msgid "Command"
@@ -1212,11 +1239,11 @@ msgstr "ბრძანება"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:689
 msgid "Command to run when the binding is invoked"
-msgstr ""
+msgstr "ბრძანება, რომელიც მიმაგრების ჩაწოდებისას გაეშვება"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:6
 msgid "The brightness of the screen when idle"
-msgstr ""
+msgstr "ეკრანის სიკაშკაშე, როცა კომპიუტერი უქმედეაა"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:7
 msgid ""
@@ -1225,7 +1252,7 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:11
 msgid "Dim the screen after a period of inactivity"
-msgstr ""
+msgstr "ეკრანის მინავლება უქმე პერიოდის შემდეგ"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:12
 msgid "If the screen should be dimmed to save power when the computer is idle."
@@ -1233,7 +1260,7 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:16
 msgid "Sleep timeout computer when on AC"
-msgstr ""
+msgstr "ძილის უქმეობის დრო, როცა კვება დამტენიდანაა"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:17
 msgid ""
@@ -1244,17 +1271,17 @@ msgstr ""
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:21
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:31
 msgid "Whether to hibernate, suspend or do nothing when inactive"
-msgstr ""
+msgstr "პროგრამული ძილი, აპარატურული თუ არაფერი ვქნა, როცა კომპიუტერი უქმადაა"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:22
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:32
 msgid ""
 "The type of sleeping that should be performed when the computer is inactive."
-msgstr ""
+msgstr "ძილის ტიპი, რომელშიც კომპიუტერი გადავა, როცა ის უქმედაა."
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:26
 msgid "Sleep timeout computer when on battery"
-msgstr ""
+msgstr "ძილის დრო უქმეობის შემდეგ, როცა კვება ელემენტიდანაა"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:27
 msgid ""
@@ -1268,7 +1295,7 @@ msgstr "ALS სენსორის ჩართვა"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:37
 msgid "If the ambient light sensor functionality is enabled."
-msgstr ""
+msgstr "ჩართულია თუ არა გარემო სინათლის სენსორი."
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:41
 msgid "Power button action"
@@ -1283,7 +1310,7 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:46
 msgid "Enable power-saver profile when battery is low"
-msgstr ""
+msgstr "ენერგიის-დაზოგვის პროფილის გამოყენება, როცა ელემენტის მუხტი ცოტაღაა"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:47
 msgid ""
@@ -1293,7 +1320,7 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in:6
 msgid "On which connections the service is enabled"
-msgstr ""
+msgstr "რომელი მიერთებებისთვის ჩაირთვება სერვისი"
 
 #: data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in:7
 msgid ""
@@ -1303,7 +1330,7 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:6
 msgid "List of explicitly disabled GTK+ modules"
-msgstr ""
+msgstr "ა"
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:7
 msgid ""
@@ -1342,6 +1369,10 @@ msgid ""
 "“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
 "and “rgba” for subpixel antialiasing (LCD screens only)."
 msgstr ""
+"მომრგვალების ტიპი ფონტების რენდერისთვის. შესაძლო მნიშვნელობებია: \"none\" "
+"მომრგვალების გამოსართავად. \"ნაცრისფერი\" სტანდარტული ნაცრისფერი "
+"მომრგვალებისთვის და \"rgba\" ქვეპიქსელის მომრგვალებისთვის (მხოლოდ LCD "
+"ეკრანებზე)."
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:28
 msgid "Hinting"
@@ -1390,13 +1421,13 @@ msgstr "საჭიროა თავიდან კალიბრაცი�
 #: plugins/color/gsd-color-calibrate.c:198
 #, c-format
 msgid "The display “%s” should be recalibrated soon."
-msgstr ""
+msgstr "მალე საჭირო იქნება ეკრანის \"%s\" რეკალიბრაცია."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
 #: plugins/color/gsd-color-calibrate.c:207
 #, c-format
 msgid "The printer “%s” should be recalibrated soon."
-msgstr ""
+msgstr "მალე საჭირო იქნება პრინერის \"%s\" რეკალიბრაცია."
 
 #. TRANSLATORS: this is the application name
 #: plugins/color/gsd-color-calibrate.c:345
@@ -1464,7 +1495,7 @@ msgstr ""
 #: plugins/housekeeping/gsd-disk-space.c:697
 #, c-format
 msgid "The volume “%s” has only %s disk space remaining."
-msgstr ""
+msgstr "ტომზე \"%s\" დარჩენილია მხოლოდ %s ადგილი."
 
 #: plugins/housekeeping/gsd-disk-space.c:702
 msgid "Low Disk Space"
@@ -1597,7 +1628,7 @@ msgstr "USP იცლება"
 #: plugins/power/gsd-power-manager.c:410
 #, c-format
 msgid "%s of UPS backup power remaining"
-msgstr ""
+msgstr "დარჩენილია UPS-ის ელემენტის %s"
 
 #: plugins/power/gsd-power-manager.c:413
 msgid "Unknown amount of UPS backup power remaining"
@@ -2433,7 +2464,7 @@ msgstr "პრინტერ %s-ზე თავსახურია ახდ
 #: plugins/print-notifications/gsd-print-notifications-manager.c:418
 #, c-format
 msgid "There is a missing print filter for printer “%s”."
-msgstr ""
+msgstr "პრინტერისთვის \"%s\" პრინტერის ფილტრი ვერ ვიპოვე."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
 #: plugins/print-notifications/gsd-print-notifications-manager.c:423
@@ -2445,13 +2476,13 @@ msgstr "პრინტერზე %s კარი ღიაა."
 #: plugins/print-notifications/gsd-print-notifications-manager.c:427
 #, c-format
 msgid "Printer “%s” is low on a marker supply."
-msgstr ""
+msgstr "პრინტერში \"%s კარტრიჯი ცოტაღაა."
 
 #. Translators: "marker" is one color bin of the printer
 #: plugins/print-notifications/gsd-print-notifications-manager.c:431
 #, c-format
 msgid "Printer “%s” is out of a marker supply."
-msgstr ""
+msgstr "პრინტერი '%s' კარტრიჯის გარეშეა."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
 #: plugins/print-notifications/gsd-print-notifications-manager.c:435
@@ -2469,7 +2500,7 @@ msgstr "პრინტერში %s ქაღალდი გათავდ�
 #: plugins/print-notifications/gsd-print-notifications-manager.c:443
 #, c-format
 msgid "Printer “%s” is currently off-line."
-msgstr ""
+msgstr "პრინტერი '%s' ამჟამად გათიშულია."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #: plugins/print-notifications/gsd-print-notifications-manager.c:447
@@ -2487,7 +2518,7 @@ msgstr "%s-ს სჭირდება ავთენტიკაცია"
 #: plugins/print-notifications/gsd-print-notifications-manager.c:561
 #, c-format
 msgid "Credentials required in order to print"
-msgstr ""
+msgstr "დასაბეჭდად საჭიროა ავტორიზაციის დეტალები"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
 #: plugins/print-notifications/gsd-print-notifications-manager.c:628
@@ -2625,7 +2656,7 @@ msgstr "პრინტერი “%s”: “%s”."
 
 #: plugins/smartcard/gsd-smartcard-service.c:279
 msgid "User was not logged in with smartcard."
-msgstr ""
+msgstr "მომხმარებელი სმარტ-ბარათით არ შემოსულა."
 
 #: plugins/usb-protection/gsd-usb-protection-manager.c:415
 msgid "USB Protection"
@@ -2654,7 +2685,7 @@ msgstr ""
 
 #: plugins/usb-protection/gsd-usb-protection-manager.c:695
 msgid "Reconnect USB device"
-msgstr ""
+msgstr "თავიდან შეაერთეთ USB მოწყობილობა"
 
 #: plugins/usb-protection/gsd-usb-protection-manager.c:696
 msgid ""
@@ -2799,12 +2830,12 @@ msgstr "შეიყვანეთ ახალი PIN-კოდი SIM ბა�
 
 #: plugins/wwan/gsd-wwan-manager.c:135
 msgid "Enter a New PIN to unlock your SIM card"
-msgstr ""
+msgstr "შეიყვანეთ ახალი PIN-კოდი თქვენი SIM ბარათის განბლოკვისთვის"
 
 #: plugins/wwan/gsd-wwan-manager.c:137
 #, c-format
 msgid "Please provide the PIN for SIM card %s"
-msgstr ""
+msgstr "შეიყვანეთ PIN-კოდი SIM-ბარათისთვის %s"
 
 #: plugins/wwan/gsd-wwan-manager.c:139
 msgid "Enter PIN to unlock your SIM card"
@@ -2813,7 +2844,7 @@ msgstr "გთხოვთ, შეიყვანეთ PIN-კოდი SIM-ბ
 #: plugins/wwan/gsd-wwan-manager.c:142
 #, c-format
 msgid "Please provide the PUK for SIM card %s"
-msgstr ""
+msgstr "შეიყვანეთ PUK-კოდი SIM-ბარათისთვის %s"
 
 #: plugins/wwan/gsd-wwan-manager.c:144
 msgid "Enter PUK to unlock your SIM card"
@@ -2824,7 +2855,7 @@ msgstr "გთხოვთ, შეიყვანეთ PUK-კოდი SIM-ბ
 #, c-format
 msgid "%2$s. You have %1$u try left"
 msgid_plural "%2$s. You have %1$u tries left"
-msgstr[0] ""
+msgstr[0] "%2$s. გაქვთ დარჩენილი %1$u ცდა"
 
 #: plugins/wwan/gsd-wwan-manager.c:164
 #, c-format
