@@ -92,6 +92,11 @@ static void     gsd_sharing_manager_class_init  (GsdSharingManagerClass *klass);
 static void     gsd_sharing_manager_init        (GsdSharingManager      *manager);
 static void     gsd_sharing_manager_finalize    (GObject                *object);
 
+static void     gsd_sharing_manager_start_service (GsdSharingManager *manager,
+                                                   const char        *service_name);
+static void     gsd_sharing_manager_stop_service (GsdSharingManager *manager,
+                                                  const char        *service_name);
+
 G_DEFINE_TYPE (GsdSharingManager, gsd_sharing_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
@@ -129,11 +134,11 @@ handle_unit_cb (GObject      *source_object,
 static void
 gsd_sharing_manager_handle_service (GsdSharingManager   *manager,
                                     const char          *method,
-                                    ServiceInfo         *service)
+                                    const char          *service_name)
 {
         char *service_file;
 
-        service_file = g_strdup_printf ("%s.service", service->name);
+        service_file = g_strdup_printf ("%s.service", service_name);
         g_dbus_connection_call (manager->connection,
                                 "org.freedesktop.systemd1",
                                 "/org/freedesktop/systemd1",
@@ -151,23 +156,23 @@ gsd_sharing_manager_handle_service (GsdSharingManager   *manager,
 
 static void
 gsd_sharing_manager_start_service (GsdSharingManager *manager,
-                                   ServiceInfo       *service)
+                                   const char        *service_name)
 {
-        g_debug ("About to start %s", service->name);
+        g_debug ("About to start %s", service_name);
 
         /* We use StartUnit, not StartUnitReplace, since the latter would
          * cancel any pending start we already have going from an
          * earlier _start_service() call */
-        gsd_sharing_manager_handle_service (manager, "StartUnit", service);
+        gsd_sharing_manager_handle_service (manager, "StartUnit", service_name);
 }
 
 static void
 gsd_sharing_manager_stop_service (GsdSharingManager *manager,
-                                  ServiceInfo       *service)
+                                  const char        *service_name)
 {
-        g_debug ("About to stop %s", service->name);
+        g_debug ("About to stop %s", service_name);
 
-        gsd_sharing_manager_handle_service (manager, "StopUnit", service);
+        gsd_sharing_manager_handle_service (manager, "StopUnit", service_name);
 }
 
 #if HAVE_NETWORK_MANAGER
@@ -215,9 +220,9 @@ gsd_sharing_manager_sync_services (GsdSharingManager *manager)
                         should_be_started = TRUE;
 
                 if (should_be_started)
-                        gsd_sharing_manager_start_service (manager, service);
+                        gsd_sharing_manager_start_service (manager, service->name);
                 else
-                        gsd_sharing_manager_stop_service (manager, service);
+                        gsd_sharing_manager_stop_service (manager, service->name);
         }
         g_list_free (services);
 }
@@ -322,7 +327,7 @@ gsd_sharing_manager_enable_service (GsdSharingManager  *manager,
 
 bail:
 
-        gsd_sharing_manager_start_service (manager, service);
+        gsd_sharing_manager_start_service (manager, service->name);
 
         g_ptr_array_unref (array);
         g_strfreev (connections);
@@ -358,7 +363,7 @@ gsd_sharing_manager_disable_service (GsdSharingManager  *manager,
         g_strfreev (connections);
 
         if (g_str_equal (network_name, manager->current_network))
-                gsd_sharing_manager_stop_service (manager, service);
+                gsd_sharing_manager_stop_service (manager, service->name);
 
         return TRUE;
 }
