@@ -773,17 +773,9 @@ service_free (gpointer pointer)
 }
 
 static void
-gsd_sharing_manager_init (GsdSharingManager *manager)
+manage_services (GsdSharingManager *manager)
 {
-        guint i;
-
-        manager->services = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, service_free);
-
-        /* Default state */
-        manager->current_network = g_strdup ("");
-        manager->current_network_name = g_strdup ("");
-        manager->carrier_type = g_strdup ("");
-        manager->sharing_status = GSD_SHARING_STATUS_OFFLINE;
+        size_t i;
 
         for (i = 0; i < G_N_ELEMENTS (services); i++) {
                 ServiceInfo *service;
@@ -797,6 +789,20 @@ gsd_sharing_manager_init (GsdSharingManager *manager)
 
                 g_hash_table_insert (manager->services, (gpointer) services[i], service);
         }
+}
+
+static void
+gsd_sharing_manager_init (GsdSharingManager *manager)
+{
+        manager->services = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, service_free);
+
+        /* Default state */
+        manager->current_network = g_strdup ("");
+        manager->current_network_name = g_strdup ("");
+        manager->carrier_type = g_strdup ("");
+        manager->sharing_status = GSD_SHARING_STATUS_OFFLINE;
+
+        manage_services (manager);
 }
 
 static void
