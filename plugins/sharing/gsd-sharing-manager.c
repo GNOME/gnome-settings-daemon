@@ -34,6 +34,8 @@
 #include "gsd-sharing-manager.h"
 #include "gsd-sharing-enums.h"
 
+#define SYSTEM_SERVICE_RESTART_TIMEOUT 10 /* seconds */
+
 typedef struct {
         const char  *name;
         GSettings   *settings;
@@ -53,6 +55,7 @@ typedef struct {
         gboolean system_service_running;
         GPid pid;
         guint child_watch_id;
+        GCancellable *cancellable;
 } AssignedServiceInfo;
 
 struct _GsdSharingManager
@@ -300,6 +303,9 @@ start_assigned_service (GsdSharingManager   *manager,
         if (!info->system_service_running)
                 return;
 
+        g_cancellable_cancel (info->cancellable);
+        g_clear_object (&info->cancellable);
+
         service = info->service;
 
         if (manager->is_systemd_managed) {
@@ -349,6 +355,53 @@ stop_assigned_service (GsdSharingManager   *manager,
 
                 kill (info->pid, SIGTERM);
         }
+}
+
+static void
+on_done_waiting_to_stop (GsdSharingManager   *manager,
+                         GTask               *task,
+                         AssignedServiceInfo *info)
+{
+        gboolean completed;
+
+        completed = g_task_propagate_boolean (task, NULL);
+
+        if (!completed)
+                return;
+
+        stop_assigned_service (manager, info);
+}
+
+static gboolean
+on_timeout_reached (GTask *task)
+{
+        if (!g_task_return_error_if_cancelled (task))
+                g_task_return_boolean (task, TRUE);
+
+        return G_SOURCE_REMOVE;
+}
+
+static void
+stop_assigned_service_after_timeout (GsdSharingManager   *manager,
+                                     AssignedServiceInfo *info)
+{
+        g_autoptr (GTask) wait_task = NULL;
+        g_autoptr (GSource) timeout_source = NULL;
+
+        g_cancellable_cancel (info->cancellable);
+        g_set_object (&info->cancellable, g_cancellable_new ());
+
+        wait_task = g_task_new (manager,
+                                info->cancellable,
+                                (GAsyncReadyCallback)
+                                on_done_waiting_to_stop,
+                                info);
+        timeout_source = g_timeout_source_new (SYSTEM_SERVICE_RESTART_TIMEOUT * 1000);
+        g_source_set_name (timeout_source, "[gnome-settings-daemon] on_done_waiting_to_stop");
+
+        g_task_attach_source (g_steal_pointer (&wait_task),
+                              timeout_source,
+                              G_SOURCE_FUNC (on_timeout_reached));
 }
 
 static void
@@ -871,10 +924,25 @@ gsd_sharing_manager_start (GsdSharingManager *manager,
         return TRUE;
 }
 
+static void
+cancel_pending_wait_tasks (GsdSharingManager *manager)
+{
+        GHashTableIter iter;
+        gpointer key, value;
+
+        g_hash_table_iter_init (&iter, manager->assigned_services);
+        while (g_hash_table_iter_next (&iter, &key, &value)) {
+                AssignedServiceInfo *info = value;
+                g_cancellable_cancel (info->cancellable);
+        }
+}
+
 void
 gsd_sharing_manager_stop (GsdSharingManager *manager)
 {
         g_debug ("Stopping sharing manager");
+
+        cancel_pending_wait_tasks (manager);
 
         if (manager->sharing_status == GSD_SHARING_STATUS_AVAILABLE &&
             manager->connection != NULL) {
@@ -926,6 +994,9 @@ assigned_service_free (gpointer pointer)
 {
         AssignedServiceInfo *info = pointer;
 
+        g_cancellable_cancel (info->cancellable);
+        g_clear_object (&info->cancellable);
+
         g_bus_unwatch_name (info->system_bus_name_watch);
         g_free (info);
 }
@@ -970,7 +1041,7 @@ on_system_bus_name_vanished (GDBusConnection   *connection,
 
         info->system_service_running = FALSE;
 
-        stop_assigned_service (manager, info);
+        stop_assigned_service_after_timeout (manager, info);
 }
 
 static void
