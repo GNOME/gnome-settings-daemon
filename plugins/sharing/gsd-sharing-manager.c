@@ -36,7 +36,7 @@
 typedef struct {
         const char  *name;
         GSettings   *settings;
-} ServiceInfo;
+} ConfigurableServiceInfo;
 
 struct _GsdSharingManager
 {
@@ -51,7 +51,7 @@ struct _GsdSharingManager
         NMClient                *client;
 #endif /* HAVE_NETWORK_MANAGER */
 
-        GHashTable              *services;
+        GHashTable              *configurable_services;
 
         char                    *current_network;
         char                    *current_network_name;
@@ -101,7 +101,7 @@ G_DEFINE_TYPE (GsdSharingManager, gsd_sharing_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
-static const char * const services[] = {
+static const char * const configurable_services[] = {
         "rygel",
         "gnome-user-share-webdav"
 };
@@ -177,8 +177,8 @@ gsd_sharing_manager_stop_service (GsdSharingManager *manager,
 
 #if HAVE_NETWORK_MANAGER
 static gboolean
-service_is_enabled_on_current_connection (GsdSharingManager *manager,
-                                          ServiceInfo       *service)
+service_is_enabled_on_current_connection (GsdSharingManager       *manager,
+                                          ConfigurableServiceInfo *service)
 {
         char **connections;
         int j;
@@ -197,8 +197,8 @@ service_is_enabled_on_current_connection (GsdSharingManager *manager,
 }
 #else
 static gboolean
-service_is_enabled_on_current_connection (GsdSharingManager *manager,
-                                          ServiceInfo       *service)
+service_is_enabled_on_current_connection (GsdSharingManager       *manager,
+                                          ConfigurableServiceInfo *service)
 {
         return FALSE;
 }
@@ -209,10 +209,10 @@ gsd_sharing_manager_sync_services (GsdSharingManager *manager)
 {
         GList *services, *l;
 
-        services = g_hash_table_get_values (manager->services);
+        services = g_hash_table_get_values (manager->configurable_services);
 
         for (l = services; l != NULL; l = l->next) {
-                ServiceInfo *service = l->data;
+                ConfigurableServiceInfo *service = l->data;
                 gboolean should_be_started = FALSE;
 
                 if (manager->sharing_status == GSD_SHARING_STATUS_AVAILABLE &&
@@ -265,9 +265,9 @@ static char **
 get_connections_for_service (GsdSharingManager *manager,
                              const char        *service_name)
 {
-        ServiceInfo *service;
+        ConfigurableServiceInfo *service;
 
-        service = g_hash_table_lookup (manager->services, service_name);
+        service = g_hash_table_lookup (manager->configurable_services, service_name);
         return g_settings_get_strv (service->settings, "enabled-connections");
 }
 #else
@@ -285,7 +285,7 @@ check_service (GsdSharingManager  *manager,
                const char         *service_name,
                GError            **error)
 {
-        if (g_hash_table_lookup (manager->services, service_name))
+        if (g_hash_table_lookup (manager->configurable_services, service_name))
                 return TRUE;
 
         g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_INVALID_ARGS,
@@ -298,7 +298,7 @@ gsd_sharing_manager_enable_service (GsdSharingManager  *manager,
                                     const char         *service_name,
                                     GError            **error)
 {
-        ServiceInfo *service;
+        ConfigurableServiceInfo *service;
         char **connections;
         GPtrArray *array;
         guint i;
@@ -312,7 +312,7 @@ gsd_sharing_manager_enable_service (GsdSharingManager  *manager,
                 return FALSE;
         }
 
-        service = g_hash_table_lookup (manager->services, service_name);
+        service = g_hash_table_lookup (manager->configurable_services, service_name);
         connections = g_settings_get_strv (service->settings, "enabled-connections");
         array = g_ptr_array_new ();
         for (i = 0; connections[i] != NULL; i++) {
@@ -341,7 +341,7 @@ gsd_sharing_manager_disable_service (GsdSharingManager  *manager,
                                      const char         *network_name,
                                      GError            **error)
 {
-        ServiceInfo *service;
+        ConfigurableServiceInfo *service;
         char **connections;
         GPtrArray *array;
         guint i;
@@ -349,7 +349,7 @@ gsd_sharing_manager_disable_service (GsdSharingManager  *manager,
         if (!check_service (manager, service_name, error))
                 return FALSE;
 
-        service = g_hash_table_lookup (manager->services, service_name);
+        service = g_hash_table_lookup (manager->configurable_services, service_name);
         connections = g_settings_get_strv (service->settings, "enabled-connections");
         array = g_ptr_array_new ();
         for (i = 0; connections[i] != NULL; i++) {
@@ -764,37 +764,37 @@ gsd_sharing_manager_class_init (GsdSharingManagerClass *klass)
 }
 
 static void
-service_free (gpointer pointer)
+configurable_service_free (gpointer pointer)
 {
-        ServiceInfo *service = pointer;
+        ConfigurableServiceInfo *service = pointer;
 
         g_clear_object (&service->settings);
         g_free (service);
 }
 
 static void
-manage_services (GsdSharingManager *manager)
+manage_configurable_services (GsdSharingManager *manager)
 {
         size_t i;
 
-        for (i = 0; i < G_N_ELEMENTS (services); i++) {
-                ServiceInfo *service;
+        for (i = 0; i < G_N_ELEMENTS (configurable_services); i++) {
+                ConfigurableServiceInfo *service;
                 char *path;
 
-                service = g_new0 (ServiceInfo, 1);
-                service->name = services[i];
-                path = g_strdup_printf ("/org/gnome/settings-daemon/plugins/sharing/%s/", services[i]);
+                service = g_new0 (ConfigurableServiceInfo, 1);
+                service->name = configurable_services[i];
+                path = g_strdup_printf ("/org/gnome/settings-daemon/plugins/sharing/%s/", configurable_services[i]);
                 service->settings = g_settings_new_with_path ("org.gnome.settings-daemon.plugins.sharing.service", path);
                 g_free (path);
 
-                g_hash_table_insert (manager->services, (gpointer) services[i], service);
+                g_hash_table_insert (manager->configurable_services, (gpointer) configurable_services[i], service);
         }
 }
 
 static void
 gsd_sharing_manager_init (GsdSharingManager *manager)
 {
-        manager->services = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, service_free);
+        manager->configurable_services = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, configurable_service_free);
 
         /* Default state */
         manager->current_network = g_strdup ("");
@@ -802,7 +802,7 @@ gsd_sharing_manager_init (GsdSharingManager *manager)
         manager->carrier_type = g_strdup ("");
         manager->sharing_status = GSD_SHARING_STATUS_OFFLINE;
 
-        manage_services (manager);
+        manage_configurable_services (manager);
 }
 
 static void
@@ -819,7 +819,7 @@ gsd_sharing_manager_finalize (GObject *object)
 
         gsd_sharing_manager_stop (manager);
 
-        g_hash_table_unref (manager->services);
+        g_hash_table_unref (manager->configurable_services);
 
         G_OBJECT_CLASS (gsd_sharing_manager_parent_class)->finalize (object);
 }
