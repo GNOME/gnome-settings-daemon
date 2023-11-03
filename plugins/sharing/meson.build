@@ -5,7 +5,8 @@ sources = files(
 
 deps = plugins_deps + [
   gio_unix_dep,
-  libnotify_dep
+  libnotify_dep,
+  libsystemd_dep
 ]
 
 if enable_network_manager
