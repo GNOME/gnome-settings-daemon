@@ -235,7 +235,7 @@ static void      uninhibit_lid_switch (GsdPowerManager *manager);
 static void      stop_inhibit_lid_switch_timer (GsdPowerManager *manager);
 static void      sync_lid_inhibitor (GsdPowerManager *manager);
 static void      main_battery_or_ups_low_changed (GsdPowerManager *manager, gboolean is_low);
-static gboolean  idle_is_session_inhibited (GsdPowerManager *manager, guint mask, gboolean *is_inhibited);
+static gboolean  idle_is_session_inhibited (GsdPowerManager *manager, GsmInhibitorFlag mask, gboolean *is_inhibited);
 static void      idle_triggered_idle_cb (GnomeIdleMonitor *monitor, guint watch_id, gpointer user_data);
 static void      idle_became_active_cb (GnomeIdleMonitor *monitor, guint watch_id, gpointer user_data);
 static void      iio_proxy_changed (GsdPowerManager *manager);
