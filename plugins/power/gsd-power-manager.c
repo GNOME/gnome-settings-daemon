@@ -1861,6 +1861,8 @@ idle_is_session_inhibited (GsdPowerManager  *manager,
         GVariant *variant;
         GsmInhibitorFlag inhibited_actions;
 
+        *is_inhibited = FALSE;
+
         /* not yet connected to gnome-session */
         if (manager->session == NULL)
                 return FALSE;
