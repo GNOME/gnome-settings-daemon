@@ -609,81 +609,38 @@ get_dpi_from_gsettings (GsdXSettingsManager *manager)
         return dpi * factor;
 }
 
-static gboolean
-get_legacy_ui_scale (GVariantIter *properties,
-                     int          *scale)
-{
-        const char *key;
-        GVariant *value;
-
-        *scale = 0;
-
-        while (g_variant_iter_loop (properties, "{&sv}", &key, &value)) {
-                if (!g_str_equal (key, "legacy-ui-scaling-factor"))
-                        continue;
-
-                *scale = g_variant_get_int32 (value);
-                break;
-        }
-
-        if (*scale < 1) {
-                g_warning ("Failed to get current UI legacy scaling factor");
-                *scale = 1;
-                return FALSE;
-        }
-
-        return TRUE;
-}
-
-#define MODE_FORMAT "(siiddada{sv})"
-#define MODES_FORMAT "a" MODE_FORMAT
-
-#define MONITOR_SPEC_FORMAT "(ssss)"
-#define MONITOR_FORMAT "(" MONITOR_SPEC_FORMAT MODES_FORMAT "a{sv})"
-#define MONITORS_FORMAT "a" MONITOR_FORMAT
-
-#define LOGICAL_MONITOR_FORMAT "(iiduba" MONITOR_SPEC_FORMAT "a{sv})"
-#define LOGICAL_MONITORS_FORMAT "a" LOGICAL_MONITOR_FORMAT
-
-#define CURRENT_STATE_FORMAT "(u" MONITORS_FORMAT LOGICAL_MONITORS_FORMAT "a{sv})"
-
 static int
 get_window_scale (GsdXSettingsManager *manager)
 {
         g_autoptr(GError) error = NULL;
-        g_autoptr(GVariant) current_state = NULL;
+        g_autoptr(GVariant) res = NULL;
+        g_autoptr(GVariant) ui_scaling_factor_variant = NULL;
         g_autoptr(GVariantIter) properties = NULL;
-        int scale = 1;
+        int ui_scaling_factor = 1;
 
-        current_state =
-                g_dbus_connection_call_sync (manager->dbus_connection,
-                                             "org.gnome.Mutter.DisplayConfig",
-                                             "/org/gnome/Mutter/DisplayConfig",
-                                             "org.gnome.Mutter.DisplayConfig",
-                                             "GetCurrentState",
-                                             NULL,
-                                             NULL,
-                                             G_DBUS_CALL_FLAGS_NO_AUTO_START,
-                                             -1,
-                                             NULL,
-                                             &error);
-        if (!current_state) {
-                g_warning ("Failed to get current display configuration state: %s",
+        res = g_dbus_connection_call_sync (manager->dbus_connection,
+                                           "org.gnome.Mutter.X11",
+                                           "/org/gnome/Mutter/X11",
+                                           "org.freedesktop.DBus.Properties",
+                                           "Get",
+                                           g_variant_new ("(ss)",
+                                                          "org.gnome.Mutter.X11",
+                                                          "UiScalingFactor"),
+                                           NULL,
+                                           G_DBUS_CALL_FLAGS_NO_AUTO_START,
+                                           -1,
+                                           NULL,
+                                           &error);
+        if (!res) {
+                g_warning ("Failed to get current UI scaling factor: %s",
                            error->message);
                 return 1;
         }
 
-        g_variant_get (current_state,
-                       CURRENT_STATE_FORMAT,
-                       NULL,
-                       NULL,
-                       NULL,
-                       &properties);
+        g_variant_get (res, "(v)", &ui_scaling_factor_variant);
+        g_variant_get (ui_scaling_factor_variant, "i", &ui_scaling_factor);
 
-        if (!get_legacy_ui_scale (properties, &scale))
-                g_warning ("Failed to get current UI legacy scaling factor");
-
-        return scale;
+        return ui_scaling_factor;
 }
 
 typedef struct {
@@ -1120,33 +1077,35 @@ setup_xsettings_managers (GsdXSettingsManager *manager)
 }
 
 static void
-monitors_changed (GsdXSettingsManager *manager)
+ui_scaling_factor_changed (GsdXSettingsManager *manager)
 {
         update_xft_settings (manager);
         queue_notify (manager);
 }
 
 static void
-on_monitors_changed (GDBusConnection *connection,
-                     const gchar     *sender_name,
-                     const gchar     *object_path,
-                     const gchar     *interface_name,
-                     const gchar     *signal_name,
-                     GVariant        *parameters,
-                     gpointer         data)
+on_mutter_x11_properties_changed (GDBusConnection *connection,
+                                  const gchar     *sender_name,
+                                  const gchar     *object_path,
+                                  const gchar     *interface_name,
+                                  const gchar     *signal_name,
+                                  GVariant        *parameters,
+                                  gpointer         data)
 {
         GsdXSettingsManager *manager = data;
-        monitors_changed (manager);
+
+        ui_scaling_factor_changed (manager);
 }
 
 static void
-on_display_config_name_appeared_handler (GDBusConnection *connection,
-                                         const gchar     *name,
-                                         const gchar     *name_owner,
-                                         gpointer         data)
+on_mutter_x11_name_appeared_handler (GDBusConnection *connection,
+                                     const gchar     *name,
+                                     const gchar     *name_owner,
+                                     gpointer         data)
 {
         GsdXSettingsManager *manager = data;
-        monitors_changed (manager);
+
+        ui_scaling_factor_changed (manager);
 }
 
 static void
@@ -1422,20 +1381,20 @@ gsd_xsettings_manager_start (GsdXSettingsManager *manager,
 
         manager->monitors_changed_id =
                 g_dbus_connection_signal_subscribe (manager->dbus_connection,
-                                                    "org.gnome.Mutter.DisplayConfig",
-                                                    "org.gnome.Mutter.DisplayConfig",
-                                                    "MonitorsChanged",
-                                                    "/org/gnome/Mutter/DisplayConfig",
+                                                    "org.gnome.Mutter.X11",
+                                                    "org.gnome.Mutter.X11",
+                                                    "PropertiesChanged",
+                                                    "/org/gnome/Mutter/X11",
                                                     NULL,
                                                     G_DBUS_SIGNAL_FLAGS_NONE,
-                                                    on_monitors_changed,
+                                                    on_mutter_x11_properties_changed,
                                                     manager,
                                                     NULL);
         manager->display_config_watch_id =
                 g_bus_watch_name_on_connection (manager->dbus_connection,
-                                                "org.gnome.Mutter.DisplayConfig",
+                                                "org.gnome.Mutter.X11",
                                                 G_BUS_NAME_WATCHER_FLAGS_NONE,
-                                                on_display_config_name_appeared_handler,
+                                                on_mutter_x11_name_appeared_handler,
                                                 NULL,
                                                 manager,
                                                 NULL);
