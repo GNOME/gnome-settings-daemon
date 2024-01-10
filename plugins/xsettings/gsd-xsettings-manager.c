@@ -1014,7 +1014,6 @@ xsettings_callback (GSettings           *settings,
                 iface_settings = g_hash_table_lookup (manager->settings,
                                                       INTERFACE_SETTINGS_SCHEMA);
                 xsettings_callback (iface_settings, "gtk-theme", manager);
-                xsettings_callback (iface_settings, "icon-theme", manager);
                 return;
         }
 
