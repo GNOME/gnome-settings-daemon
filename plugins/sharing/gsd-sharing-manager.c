@@ -20,11 +20,14 @@
 #include "config.h"
 
 #include <locale.h>
-#include <systemd/sd-login.h>
 #include <glib.h>
 #include <gio/gio.h>
 #include <gio/gdesktopappinfo.h>
 #include <glib/gstdio.h>
+
+#if HAVE_SYSTEMD_LIB
+#include <systemd/sd-login.h>
+#endif
 
 #if HAVE_NETWORK_MANAGER
 #include <NetworkManager.h>

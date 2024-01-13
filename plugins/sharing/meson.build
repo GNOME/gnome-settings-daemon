@@ -6,8 +6,13 @@ sources = files(
 deps = plugins_deps + [
   gio_unix_dep,
   libnotify_dep,
-  libsystemd_dep
 ]
+
+if enable_systemd
+  deps += libsystemd_dep
+elif enable_elogind
+  deps += elogind_dep
+endif
 
 if enable_network_manager
   deps += libnm_dep
