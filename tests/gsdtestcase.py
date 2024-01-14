@@ -76,10 +76,6 @@ class GSDTestCase(X11SessionTestCase):
         os.environ['XDG_DATA_HOME'] = os.path.join(klass.workdir, 'data')
         os.environ['XDG_RUNTIME_DIR'] = os.path.join(klass.workdir, 'runtime')
 
-        # Make dconf discoverable (requires newer dbusmock API, is not needed otherwise)
-        if hasattr(klass, 'enable_service'):
-            klass.enable_service('ca.desrt.dconf')
-
         # Copy gschema file into XDG_DATA_HOME
         gschema_dir = os.path.join(os.environ['XDG_DATA_HOME'], 'glib-2.0', 'schemas')
         os.makedirs(gschema_dir)
@@ -91,6 +87,10 @@ class GSDTestCase(X11SessionTestCase):
 
         # Starts Xvfb and dbus busses
         X11SessionTestCase.setUpClass()
+
+        # Make dconf discoverable (requires newer dbusmock API, is not needed otherwise)
+        if hasattr(klass, 'enable_service'):
+            klass.enable_service('ca.desrt.dconf')
 
         klass.system_bus_con = klass.get_dbus(True)
         klass.session_bus_con = klass.get_dbus(False)
@@ -115,6 +115,15 @@ class GSDTestCase(X11SessionTestCase):
         def r(*args):
             raise KeyboardInterrupt()
         signal.signal(signal.SIGTERM, r)
+
+    @classmethod
+    def tearDownClass(klass):
+        #if hasattr(klass, 'disable_service'):
+        #    klass.disable_service('ca.desrt.dconf')
+
+        signal.signal(signal.SIGTERM, signal.SIG_IGN)
+        X11SessionTestCase.tearDownClass()
+        signal.signal(signal.SIGTERM, signal.SIG_DFL)
 
     def setUp(self):
         self.daemon_death_expected = False
