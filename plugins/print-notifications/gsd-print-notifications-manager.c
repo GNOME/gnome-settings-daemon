@@ -1268,6 +1268,7 @@ scp_handler (GsdPrintNotificationsManager *manager,
                 kill (manager->scp_handler_pid, SIGHUP);
                 g_spawn_close_pid (manager->scp_handler_pid);
                 manager->scp_handler_spawned = FALSE;
+                manager->scp_handler_pid = -1;
         }
 }
 
@@ -1636,8 +1637,10 @@ gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
                 manager->check_source_id = 0;
         }
 
-        if (manager->subscription_id >= 0)
+        if (manager->subscription_id >= 0) {
                 cancel_subscription (manager->subscription_id);
+                manager->subscription_id = -1;
+        }
 
         g_clear_pointer (&manager->printing_printers, g_hash_table_destroy);
 
@@ -1649,6 +1652,7 @@ gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
                         g_source_remove (data->timeout_id);
         }
         g_list_free_full (manager->timeouts, free_timeout_data);
+        manager->timeouts = NULL;
 
         for (tmp = manager->active_notifications; tmp; tmp = g_list_next (tmp)) {
                 reason_data = (ReasonData *) tmp->data;
@@ -1665,12 +1669,14 @@ gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
                 }
         }
         g_list_free_full (manager->active_notifications, free_reason_data);
+        manager->active_notifications = NULL;
 
         for (tmp = manager->held_jobs; tmp; tmp = g_list_next (tmp)) {
                 job = (HeldJob *) tmp->data;
                 g_source_remove (job->timeout_id);
         }
         g_list_free_full (manager->held_jobs, free_held_job);
+        manager->held_jobs = NULL;
 
         scp_handler (manager, FALSE);
 }
