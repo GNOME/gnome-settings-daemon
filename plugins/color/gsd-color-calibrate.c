@@ -132,7 +132,7 @@ gcm_session_notify_recalibrate (GsdColorCalibrate *calibrate,
         NotifyNotification *notification;
 
         /* show a bubble */
-        notification = notify_notification_new (title, message, "preferences-color");
+        notification = notify_notification_new (title, message, NULL);
         notify_notification_set_timeout (notification, GCM_SESSION_NOTIFY_TIMEOUT);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_LOW);
         notify_notification_set_app_name (notification, _("Color"));

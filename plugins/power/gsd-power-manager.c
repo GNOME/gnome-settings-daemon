@@ -368,12 +368,13 @@ create_notification (const char *summary,
 {
         NotifyNotification *notification;
 
-        notification = notify_notification_new (summary, body, icon_name);
+        notification = notify_notification_new (summary, body, NULL);
         /* TRANSLATORS: this is the notification application name */
         notify_notification_set_app_name (notification, _("Power"));
         notify_notification_set_hint_string (notification, "desktop-entry", "gnome-power-panel");
         notify_notification_set_hint_string (notification, "x-gnome-privacy-scope",
                                              notification_privacy_scope_to_string (privacy_scope));
+        notify_notification_set_hint (notification, "image-path", g_variant_new_string (icon_name));
         notify_notification_set_urgency (notification,
                                          NOTIFY_URGENCY_CRITICAL);
         *weak_pointer_location = notification;

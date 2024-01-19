@@ -619,7 +619,7 @@ ldsm_notify (const char *summary,
         if (notification != NULL)
                 return;
 
-        notification = notify_notification_new (summary, body, "drive-harddisk-symbolic");
+        notification = notify_notification_new (summary, body, NULL);
         g_signal_connect (notification,
                           "closed",
                           G_CALLBACK (on_notification_closed),
@@ -630,6 +630,8 @@ ldsm_notify (const char *summary,
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_CRITICAL);
         notify_notification_set_timeout (notification, NOTIFY_EXPIRES_DEFAULT);
         notify_notification_set_hint_string (notification, "desktop-entry", "org.gnome.baobab");
+        notify_notification_set_hint (notification, "image-path", g_variant_new_string ("drive-harddisk-symbolic"));
+
 
         program = g_find_program_in_path (DISK_SPACE_ANALYZER);
         has_disk_analyzer = (program != NULL);

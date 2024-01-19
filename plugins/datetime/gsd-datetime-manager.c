@@ -101,8 +101,7 @@ timezone_changed_cb (GsdTimezoneMonitor *timezone_monitor,
         g_free (utc_offset);
 
         if (self->notification == NULL) {
-                self->notification = notify_notification_new (notification_summary, NULL,
-                                                                    "preferences-system-time-symbolic");
+                self->notification = notify_notification_new (notification_summary, NULL, NULL);
                 g_signal_connect (self->notification,
                                   "closed",
                                   G_CALLBACK (notification_closed_cb),
@@ -115,8 +114,7 @@ timezone_changed_cb (GsdTimezoneMonitor *timezone_monitor,
                                                 NULL, NULL);
         } else {
                 notify_notification_update (self->notification,
-                                            notification_summary, NULL,
-                                            "preferences-system-time-symbolic");
+                                            notification_summary, NULL, NULL);
         }
         g_free (notification_summary);
 

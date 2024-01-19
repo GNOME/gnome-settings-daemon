@@ -96,12 +96,13 @@ notify_oom_kill (char *unit)
                 message = g_strdup_printf (_("Device memory is nearly full. An application was using a lot of memory and was forced to stop."));
         }
 
-        notification = notify_notification_new (summary, message, "dialog-warning-symbolic");
+        notification = notify_notification_new (summary, message, NULL);
 
         if (app) {
                 notify_notification_set_hint_string (notification, "desktop-entry", desktop_id);
                 notify_notification_set_app_name (notification, g_app_info_get_name (G_APP_INFO (app)));
         }
+        notify_notification_set_hint (notification, "image-path", g_variant_new_string ("dialog-warning-symbolic"));
         notify_notification_set_hint (notification, "transient", g_variant_new_boolean (TRUE));
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_CRITICAL);
         notify_notification_set_timeout (notification, NOTIFY_EXPIRES_DEFAULT);

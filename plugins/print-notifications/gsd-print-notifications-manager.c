@@ -313,7 +313,7 @@ show_notification (gpointer user_data)
 
         notification = notify_notification_new (data->primary_text,
                                                 data->secondary_text,
-                                                "printer-symbolic");
+                                                NULL);
 
         notify_notification_set_app_name (notification, _("Printers"));
         notify_notification_set_hint (notification,
@@ -562,7 +562,7 @@ check_job_for_authentication (gpointer userdata)
 
                         notification = notify_notification_new (primary_text,
                                                                 secondary_text,
-                                                                "printer-symbolic");
+                                                                NULL);
                         notify_notification_set_app_name (notification, _("Printers"));
                         notify_notification_set_hint_string (notification, "desktop-entry", "gnome-printers-panel");
                         notify_notification_add_action (notification,
@@ -945,7 +945,7 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
 
                                                         notification = notify_notification_new ( _(statuses_first[j]),
                                                                                                 second_row,
-                                                                                                "printer-symbolic");
+                                                                                                NULL);
                                                         notify_notification_set_app_name (notification, _("Printers"));
                                                         notify_notification_set_hint_string (notification, "desktop-entry", "gnome-printers-panel");
                                                         notify_notification_set_hint (notification,
@@ -1036,7 +1036,7 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
 
                                         notification = notify_notification_new (first_row,
                                                                                 second_row,
-                                                                                "printer-symbolic");
+                                                                                NULL);
                                         notify_notification_set_app_name (notification, _("Printers"));
                                         notify_notification_set_hint_string (notification, "desktop-entry", "gnome-printers-panel");
                                         notify_notification_set_hint (notification,
@@ -1080,7 +1080,7 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                 NotifyNotification *notification;
                 notification = notify_notification_new (primary_text,
                                                         secondary_text,
-                                                        "printer-symbolic");
+                                                        NULL);
                 notify_notification_set_app_name (notification, _("Printers"));
                 notify_notification_set_hint_string (notification, "desktop-entry", "gnome-printers-panel");
                 notify_notification_set_hint (notification, "transient", g_variant_new_boolean (TRUE));
