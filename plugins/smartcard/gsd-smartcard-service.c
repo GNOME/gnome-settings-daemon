@@ -539,8 +539,8 @@ synchronize_token_now (GsdSmartcardService *self,
         g_autoptr(GckTokenInfo) token_info = NULL;
         g_autoptr(GMutexLocker) locked = NULL;
         g_autofree char *object_path = NULL;
-        const char *token_name = NULL;
-        gboolean is_present, is_login_card;
+        g_autofree char *token_name = NULL;
+        gboolean was_present, is_present, is_login_card;
 
         object_path = get_object_path_for_token (self, card_slot);
 
@@ -550,17 +550,25 @@ synchronize_token_now (GsdSmartcardService *self,
         if (interface == NULL)
                 return;
 
+        g_object_get (G_OBJECT (interface),
+                      "is-inserted", &was_present,
+                      NULL);
+
         is_present = gck_slot_has_flags (card_slot, CKF_TOKEN_PRESENT);
 
-        if (is_present) {
+        if (was_present) {
+                g_object_get (G_OBJECT (interface),
+                              "name", &token_name,
+                              NULL);
+        } else if (is_present) {
                 token_info = gck_slot_get_token_info (card_slot);
 
                 if (token_info)
-                        token_name = token_info->label;
+                        token_name = g_strdup (token_info->label);
         }
 
         if (g_strcmp0 (gsd_smartcard_utils_get_login_token_name (), token_name) == 0)
-                is_login_card = is_present;
+                is_login_card = TRUE;
         else
                 is_login_card = FALSE;
 
@@ -571,12 +579,6 @@ synchronize_token_now (GsdSmartcardService *self,
         g_debug ("===============================\n");
 
         if (!is_present && is_login_card) {
-                gboolean was_present;
-
-                g_object_get (G_OBJECT (interface),
-                              "is-inserted", &was_present,
-                              NULL);
-
                 if (was_present)
                         gsd_smartcard_manager_do_remove_action (self->smartcard_manager);
         }
