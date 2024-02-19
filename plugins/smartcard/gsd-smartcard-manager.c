@@ -551,7 +551,7 @@ on_modules_initialized (GObject      *source_object,
 
         task = g_steal_pointer (&user_data);
         self = g_task_get_source_object (task);
-        modules = gck_modules_initialize_registered_finish (result, &error);
+        modules = g_task_propagate_pointer (task, &error);
 
         if (error) {
                 g_task_return_error (task, g_steal_pointer (&error));
@@ -601,18 +601,48 @@ on_modules_initialized (GObject      *source_object,
 }
 
 static void
+initialize_modules (GTask               *task,
+                    GsdSmartcardManager *self)
+{
+        g_autofree CK_FUNCTION_LIST **pkcs11_function_lists = NULL;
+        size_t i;
+        g_autolist(GckModule) modules = NULL;
+
+        pkcs11_function_lists = p11_kit_modules_load_and_initialize (P11_KIT_MODULE_UNMANAGED);
+
+        if (pkcs11_function_lists == NULL) {
+                g_task_return_new_error (task,
+                                         GSD_SMARTCARD_MANAGER_ERROR,
+                                         GSD_SMARTCARD_MANAGER_ERROR_NO_DRIVERS,
+                                         "Couldn't load PKCS11 modules from p11-kit: %s",
+                                         p11_kit_message ());
+                return;
+        }
+
+        for (i = 0; pkcs11_function_lists[i] != NULL; i++) {
+                CK_FUNCTION_LIST *pkcs11_function_list = pkcs11_function_lists[i];
+                g_autoptr(GckModule) module = NULL;
+
+                module = gck_module_new (pkcs11_function_list);
+                modules = g_list_prepend (modules, g_steal_pointer (&module));
+        }
+
+        g_task_return_pointer (task, g_steal_pointer (&modules), (GDestroyNotify) glib_listautoptr_cleanup_GckModule);
+}
+
+static void
 watch_smartcards_async (GsdSmartcardManager *self,
                         GCancellable        *cancellable,
                         GAsyncReadyCallback  callback,
                         gpointer             user_data)
 {
+        GTask *module_initialization_task;
         GTask *task;
 
         task = g_task_new (self, cancellable, callback, user_data);
 
-        gck_modules_initialize_registered_async (self->cancellable,
-                                                 (GAsyncReadyCallback) on_modules_initialized,
-                                                 task);
+        module_initialization_task = g_task_new (self, cancellable, on_modules_initialized, task);
+        g_task_run_in_thread (module_initialization_task, (GTaskThreadFunc) initialize_modules);
 }
 
 static gboolean
