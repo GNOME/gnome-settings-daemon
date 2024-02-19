@@ -47,11 +47,15 @@ struct _GsdSmartcardManager
         GsdSessionManager *session_manager;
         GsdScreenSaver *screen_saver;
 
-        GSettings *settings;
+        GSettings *smartcard_settings;
+        GSettings *authentication_settings;
 };
 
 #define CONF_SCHEMA "org.gnome.settings-daemon.peripherals.smartcard"
 #define KEY_REMOVE_ACTION "removal-action"
+
+#define AUTH_SCHEMA "org.gnome.login-screen"
+#define KEY_SMARTCARD_AUTHENTICATION "enable-smartcard-authentication"
 
 static void     gsd_smartcard_manager_class_init  (GsdSmartcardManagerClass *klass);
 static void     gsd_smartcard_manager_init        (GsdSmartcardManager      *self);
@@ -689,18 +693,57 @@ on_service_created (GObject             *source_object,
                                 NULL);
 }
 
+static void
+resume_smartcard_service (GsdSmartcardManager *self)
+{
+        if (!g_settings_get_boolean (self->authentication_settings, KEY_SMARTCARD_AUTHENTICATION))
+                return;
+
+        if (self->service != NULL)
+                return;
+
+        gsd_smartcard_service_new_async (self,
+                                         self->cancellable,
+                                         (GAsyncReadyCallback) on_service_created,
+                                         self);
+}
+
+static void
+pause_smartcard_service (GsdSmartcardManager *self)
+{
+       if (self->service == NULL)
+                return;
+
+        if (g_settings_get_boolean (self->authentication_settings, KEY_SMARTCARD_AUTHENTICATION))
+                return;
+
+        gsd_smartcard_manager_stop (self);
+
+        self->cancellable = g_cancellable_new();
+        self->smartcard_settings = g_settings_new (CONF_SCHEMA);
+        self->authentication_settings = g_settings_new (AUTH_SCHEMA);
+}
+
 static gboolean
 gsd_smartcard_manager_idle_cb (GsdSmartcardManager *self)
 {
         gnome_settings_profile_start (NULL);
 
         self->cancellable = g_cancellable_new();
-        self->settings = g_settings_new (CONF_SCHEMA);
+        self->smartcard_settings = g_settings_new (CONF_SCHEMA);
+        self->authentication_settings = g_settings_new (AUTH_SCHEMA);
 
-        gsd_smartcard_service_new_async (self,
-                                         self->cancellable,
-                                         (GAsyncReadyCallback) on_service_created,
-                                         self);
+        g_signal_connect_object (self->authentication_settings,
+                                 "notify::" KEY_SMARTCARD_AUTHENTICATION,
+                                 G_CALLBACK (resume_smartcard_service),
+                                 self,
+                                 G_CONNECT_SWAPPED);
+        g_signal_connect_object (self->authentication_settings,
+                                 "notify::" KEY_SMARTCARD_AUTHENTICATION,
+                                 G_CALLBACK (pause_smartcard_service),
+                                 self,
+                                 G_CONNECT_SWAPPED);
+        resume_smartcard_service (self);
 
         gnome_settings_profile_end (NULL);
 
@@ -731,10 +774,12 @@ gsd_smartcard_manager_stop (GsdSmartcardManager *self)
         g_cancellable_cancel (self->cancellable);
 
         g_list_free_full (g_steal_pointer (&self->smartcard_modules), g_object_unref);
-        g_clear_object (&self->settings);
+        g_clear_object (&self->smartcard_settings);
+        g_clear_object (&self->authentication_settings);
         g_clear_object (&self->cancellable);
         g_clear_object (&self->session_manager);
         g_clear_object (&self->screen_saver);
+        g_clear_object (&self->service);
 }
 
 static void
@@ -799,7 +844,7 @@ gsd_smartcard_manager_do_remove_action (GsdSmartcardManager *self)
 {
         char *remove_action;
 
-        remove_action = g_settings_get_string (self->settings, KEY_REMOVE_ACTION);
+        remove_action = g_settings_get_string (self->smartcard_settings, KEY_REMOVE_ACTION);
         g_debug("Do remove action %s", remove_action);
 
         if (strcmp (remove_action, "lock-screen") == 0)
