@@ -96,7 +96,7 @@ endif
 gio_dep = dependency('gio-2.0', version: '>= 2.53.0')
 gio_unix_dep = dependency('gio-unix-2.0')
 gnome_desktop_dep = dependency('gnome-desktop-3.0', version: '>= 3.37.1')
-gsettings_desktop_dep = dependency('gsettings-desktop-schemas', version: '>= 42')
+gsettings_desktop_dep = dependency('gsettings-desktop-schemas', version: '>= 46.beta')
 gtk_dep = dependency('gtk+-3.0', version: '>= 3.15.3')
 gtk_x11_dep = dependency('gtk+-x11-3.0')
 gweather_dep = dependency('gweather4')
