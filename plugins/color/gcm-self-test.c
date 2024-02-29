@@ -299,7 +299,8 @@ gcm_test_sunset_sunrise_fractional_timezone (void)
         g_autoptr(GTimeZone) tz = NULL;
         g_autoptr(GDateTime) dt = NULL;
 
-        tz = g_time_zone_new ("+01:30");
+        tz = g_time_zone_new_identifier ("+01:30");
+        g_assert_nonnull (tz);
         dt = g_date_time_new (tz, 2007, 2, 1, 0, 0, 0);
 
         /* get for our made up timezone, today */

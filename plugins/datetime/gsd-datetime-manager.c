@@ -79,7 +79,12 @@ timezone_changed_cb (GsdTimezoneMonitor *timezone_monitor,
         gchar *timezone_name;
         gchar *utc_offset;
 
-        tz = g_time_zone_new (timezone_id);
+        tz = g_time_zone_new_identifier (timezone_id);
+        if (tz == NULL) {
+                g_warning ("Failed to parse new timezone identifier ‘%s’. Ignoring.", timezone_id);
+                return;
+        }
+
         datetime = g_date_time_new_now (tz);
         g_time_zone_unref (tz);
 
