@@ -171,7 +171,7 @@ foreach plugin: all_plugins
             # jhbuild on an old host.
             # TODO: Should be deleted once we can assume developers have 3.38
             #       installed on their machines.
-            if gsd_prefix != systemd_dep.get_pkgconfig_variable('prefix')
+            if gsd_prefix != systemd_dep.get_variable(pkgconfig: 'prefix')
                 meson.add_install_script('sh', '-c', 'ln -vfs /dev/null "${DESTDIR:-}$1"', 'sh', systemd_userunitdir / 'gsd-@0@.target'.format(plugin_name))
             endif
 

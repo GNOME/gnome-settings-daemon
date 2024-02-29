@@ -113,8 +113,8 @@ xfixes_dep = dependency('xfixes', version: '>= 6.0')
 enable_systemd = get_option('systemd')
 systemd_dep = dependency('systemd', version: '>= 243', required: enable_systemd)
 if systemd_dep.found()
-  systemd_userunitdir = systemd_dep.get_pkgconfig_variable('systemduserunitdir',
-                                                           define_variable: ['prefix', gsd_prefix])
+  systemd_userunitdir = systemd_dep.get_variable(pkgconfig: 'systemduserunitdir',
+                                                 pkgconfig_define: ['prefix', gsd_prefix])
 endif
 libsystemd_dep = dependency('libsystemd', version: '>= 243', required: enable_systemd)
 
@@ -205,7 +205,7 @@ if enable_rfkill
 
   udev_dir = get_option('udev_dir')
   if udev_dir == ''
-    udev_dir = dependency('udev').get_pkgconfig_variable('udevdir')
+    udev_dir = dependency('udev').get_variable(pkgconfig: 'udevdir')
   endif
 endif
 
