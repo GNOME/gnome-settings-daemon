@@ -328,12 +328,8 @@ gsd_backlight_set_helper_finish (GObject *obj, GAsyncResult *res, gpointer user_
         g_assert (task == backlight->active_task);
         backlight->active_task = NULL;
 
-        g_subprocess_wait_finish (proc, res, &error);
+        g_subprocess_wait_check_finish (proc, res, &error);
 
-        if (error)
-                goto done;
-
-        g_spawn_check_exit_status (g_subprocess_get_exit_status (proc), &error);
         if (error)
                 goto done;
 
@@ -380,9 +376,9 @@ gsd_backlight_run_set_helper (GsdBacklight *backlight, GTask *task)
                 return;
         }
 
-        g_subprocess_wait_async (proc, g_task_get_cancellable (task),
-                                 gsd_backlight_set_helper_finish,
-                                 task);
+        g_subprocess_wait_check_async (proc, g_task_get_cancellable (task),
+                                       gsd_backlight_set_helper_finish,
+                                       task);
 }
 
 static void
