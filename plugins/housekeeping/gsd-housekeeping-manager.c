@@ -73,15 +73,15 @@ static gpointer manager_object = NULL;
 
 
 typedef struct {
-        glong now;
-        glong max_age;
+        GDateTime *now;  /* (owned) */
+        GTimeSpan max_age_us;
         goffset total_size;
         goffset max_size;
 } PurgeData;
 
 
 typedef struct {
-        gint64  time;
+        GDateTime *time;  /* (owned) (nullable) */
         char   *path;
         glong   size;
 } ThumbData;
@@ -93,6 +93,7 @@ thumb_data_free (gpointer data)
         ThumbData *info = data;
 
         if (info) {
+                g_clear_pointer (&info->time, g_date_time_unref);
                 g_free (info->path);
                 g_free (info);
         }
@@ -125,7 +126,7 @@ read_dir_for_purge (const char *path, GList *files)
                                 ThumbData *td;
                                 GFile     *entry;
                                 char      *entry_path;
-                                gint64     time;
+                                GDateTime *time = NULL;
 
                                 entry = g_file_get_child (read_path, name);
                                 entry_path = g_file_get_path (entry);
@@ -138,18 +139,18 @@ read_dir_for_purge (const char *path, GList *files)
                                 //   in newly created temp files, atime will always be >= mtime.
 
                                 if (g_file_info_has_attribute (info, G_FILE_ATTRIBUTE_TIME_ACCESS)) {
-                                    time = g_file_info_get_attribute_uint64 (info, G_FILE_ATTRIBUTE_TIME_ACCESS);
+                                    time = g_file_info_get_access_date_time (info);
                                 } else if (g_file_info_has_attribute (info, G_FILE_ATTRIBUTE_TIME_MODIFIED)) {
-                                    time = g_file_info_get_attribute_uint64 (info, G_FILE_ATTRIBUTE_TIME_MODIFIED);
+                                    time = g_file_info_get_modification_date_time (info);
                                 } else {
                                     // Unlikely to get here, but be defensive
                                     cannot_get_time += 1;
-                                    time = G_MAXINT64;
+                                    time = NULL;
                                 }
 
                                 td = g_new0 (ThumbData, 1);
                                 td->path = entry_path;
-                                td->time = time;
+                                td->time = g_steal_pointer (&time);
                                 td->size = g_file_info_get_size (info);
 
                                 files = g_list_prepend (files, td);
@@ -170,7 +171,8 @@ read_dir_for_purge (const char *path, GList *files)
 static void
 purge_old_thumbnails (ThumbData *info, PurgeData *purge_data)
 {
-        if ((purge_data->now - info->time) > purge_data->max_age) {
+        if (info->time != NULL &&
+            g_date_time_difference (purge_data->now, info->time) > purge_data->max_age_us) {
                 g_unlink (info->path);
                 info->size = 0;
         } else {
@@ -181,7 +183,14 @@ purge_old_thumbnails (ThumbData *info, PurgeData *purge_data)
 static int
 sort_file_time (ThumbData *file1, ThumbData *file2)
 {
-        return file1->time - file2->time;
+        if (file1->time == NULL && file2->time == NULL)
+                return 0;
+        else if (file1->time == NULL)
+                return 1;
+        else if (file2->time == NULL)
+                return -1;
+        else
+                return g_date_time_difference (file1->time, file2->time);
 }
 
 static char **
@@ -256,16 +265,15 @@ purge_thumbnail_cache (GsdHousekeepingManager *manager)
         char     **paths;
         GList     *files;
         PurgeData  purge_data;
-        GTimeVal   current_time;
         guint      i;
 
         g_debug ("housekeeping: checking thumbnail cache size and freshness");
 
-        purge_data.max_age = (glong) g_settings_get_int (manager->settings, THUMB_AGE_KEY) * 24 * 60 * 60;
+        purge_data.max_age_us = (GTimeSpan) g_settings_get_int (manager->settings, THUMB_AGE_KEY) * 24 * 60 * 60 * G_USEC_PER_SEC;
         purge_data.max_size = (goffset) g_settings_get_int (manager->settings, THUMB_SIZE_KEY) * 1024 * 1024;
 
         /* if both are set to -1, we don't need to read anything */
-        if ((purge_data.max_age < 0) && (purge_data.max_size < 0))
+        if ((purge_data.max_age_us < 0) && (purge_data.max_size < 0))
                 return;
 
         paths = get_thumbnail_dirs ();
@@ -274,12 +282,10 @@ purge_thumbnail_cache (GsdHousekeepingManager *manager)
                 files = read_dir_for_purge (paths[i], files);
         g_strfreev (paths);
 
-        g_get_current_time (&current_time);
-
-        purge_data.now = current_time.tv_sec;
+        purge_data.now = g_date_time_new_now_utc ();
         purge_data.total_size = 0;
 
-        if (purge_data.max_age >= 0)
+        if (purge_data.max_age_us >= 0)
                 g_list_foreach (files, (GFunc) purge_old_thumbnails, &purge_data);
 
         if ((purge_data.total_size > purge_data.max_size) && (purge_data.max_size >= 0)) {
@@ -294,6 +300,7 @@ purge_thumbnail_cache (GsdHousekeepingManager *manager)
 
         g_list_foreach (files, (GFunc) thumb_data_free, NULL);
         g_list_free (files);
+        g_date_time_unref (purge_data.now);
 }
 
 static gboolean
