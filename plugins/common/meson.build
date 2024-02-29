@@ -25,7 +25,7 @@ deps = plugins_deps + [
 
 ldflags = []
 if host_is_darwin
-  ldflags += ['-Wl,-bundle_loader,@0@'.format(join_paths(), meson.build_root(), meson.project_name(), meson.project_name())]
+  ldflags += ['-Wl,-bundle_loader,@0@'.format(join_paths(), meson.project_build_root(), meson.project_name(), meson.project_name())]
 endif
 
 libcommon = static_library(

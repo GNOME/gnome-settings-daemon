@@ -58,7 +58,7 @@ test_py = find_program('test.py')
 
 envs = [
   'BUILDDIR=' + meson.current_build_dir(),
-  'TOP_BUILDDIR=' + meson.build_root()
+  'TOP_BUILDDIR=' + meson.project_build_root()
 ]
 
 test(

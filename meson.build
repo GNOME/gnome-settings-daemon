@@ -240,7 +240,7 @@ gnome = import('gnome')
 i18n = import('i18n')
 pkg = import('pkgconfig')
 
-po_dir = join_paths(meson.source_root(), 'po')
+po_dir = join_paths(meson.project_source_root(), 'po')
 
 top_inc = include_directories('.')
 
@@ -268,7 +268,7 @@ output += '        bindir:                   ' + gsd_bindir + '\n'
 output += '        sysconfdir:               ' + gsd_sysconfdir + '\n'
 output += '        datadir:                  ' + gsd_datadir + '\n\n'
 output += '        gtk modules dir:          ' + gsd_gtk_modules_directory + '\n\n'
-output += '        source code location:     ' + meson.source_root() + '\n'
+output += '        source code location:     ' + meson.project_source_root() + '\n'
 output += '        compiler:                 ' + cc.get_id() + '\n'
 output += '        cflags:                   ' + ' '.join(compiler_flags) + '\n\n'
 output += '        ALSA support:             ' + enable_alsa.to_string() + '\n'
