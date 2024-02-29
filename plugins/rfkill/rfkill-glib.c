@@ -356,7 +356,7 @@ event_cb (GIOChannel   *source,
 
 			print_event (&event);
 
-			event_ptr = g_memdup (&event, sizeof(event));
+			event_ptr = g_memdup2 (&event, sizeof (event));
 			events = g_list_prepend (events, event_ptr);
 
 			status = g_io_channel_read_chars (source,
