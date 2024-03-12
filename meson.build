@@ -111,16 +111,13 @@ x11_dep = dependency('x11')
 xfixes_dep = dependency('xfixes', version: '>= 6.0')
 
 enable_systemd = get_option('systemd')
-if enable_systemd
-  systemd_dep = dependency('systemd', version: '>= 243', required: false)
-  assert(systemd_dep.found(), 'Systemd support explicitly required, but systemd not found')
-
-  libsystemd_dep = dependency('libsystemd', version: '>= 243', required: false)
-  assert(libsystemd_dep.found(), 'Systemd support explicitly required, but libsystemd not found')
-
-   systemd_userunitdir = systemd_dep.get_pkgconfig_variable('systemduserunitdir',
-                                                            define_variable: ['prefix', gsd_prefix])
+systemd_dep = dependency('systemd', version: '>= 243', required: enable_systemd)
+if systemd_dep.found()
+  systemd_userunitdir = systemd_dep.get_pkgconfig_variable('systemduserunitdir',
+                                                           define_variable: ['prefix', gsd_prefix])
 endif
+libsystemd_dep = dependency('libsystemd', version: '>= 243', required: enable_systemd)
+
 
 m_dep = cc.find_library('m')
 
