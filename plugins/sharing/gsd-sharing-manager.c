@@ -266,6 +266,7 @@ gsd_sharing_manager_sync_configurable_services (GsdSharingManager *manager)
 }
 
 
+#if HAVE_SYSTEMD_LIB
 static void
 on_assigned_service_finished (GPid     pid,
                               int      exit_status,
@@ -406,10 +407,12 @@ stop_assigned_service_after_timeout (GsdSharingManager   *manager,
                               timeout_source,
                               G_SOURCE_FUNC (on_timeout_reached));
 }
+#endif
 
 static void
 gsd_sharing_manager_sync_assigned_services (GsdSharingManager *manager)
 {
+#if HAVE_SYSTEMD_LIB
         GList *services, *l;
 
         services = g_hash_table_get_values (manager->assigned_services);
@@ -423,6 +426,7 @@ gsd_sharing_manager_sync_assigned_services (GsdSharingManager *manager)
                         start_assigned_service (manager, info);
         }
         g_list_free (services);
+#endif
 }
 
 static void
@@ -1004,6 +1008,7 @@ assigned_service_free (gpointer pointer)
         g_free (info);
 }
 
+#if HAVE_SYSTEMD_LIB
 static void
 on_system_bus_name_appeared (GDBusConnection   *connection,
                              const char        *system_bus_name,
@@ -1046,6 +1051,7 @@ on_system_bus_name_vanished (GDBusConnection   *connection,
 
         stop_assigned_service_after_timeout (manager, info);
 }
+#endif
 
 static void
 manage_configurable_services (GsdSharingManager *manager)
@@ -1069,6 +1075,7 @@ manage_configurable_services (GsdSharingManager *manager)
 static void
 manage_assigned_services (GsdSharingManager *manager)
 {
+#if HAVE_SYSTEMD_LIB
         size_t i;
         int ret;
         g_autofree char *session_id = NULL;
@@ -1129,12 +1136,13 @@ manage_assigned_services (GsdSharingManager *manager)
 
                 g_hash_table_insert (manager->assigned_services, (gpointer) service->system_bus_name, info);
         }
+#endif
 }
 
 static void
 gsd_sharing_manager_init (GsdSharingManager *manager)
 {
-        int ret;
+        int ret = -1;
         g_autofree char *systemd_unit = NULL;
 
         manager->configurable_services = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, configurable_service_free);
@@ -1146,7 +1154,9 @@ gsd_sharing_manager_init (GsdSharingManager *manager)
         manager->carrier_type = g_strdup ("");
         manager->sharing_status = GSD_SHARING_STATUS_OFFLINE;
 
+#if HAVE_SYSTEMD_LIB
         ret = sd_pid_get_user_unit (getpid (), &systemd_unit);
+#endif
 
         if (ret < 0)
                 manager->is_systemd_managed = FALSE;
