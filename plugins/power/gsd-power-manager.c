@@ -31,6 +31,7 @@
 #include <canberra-gtk.h>
 #include <glib-unix.h>
 #include <gio/gunixfdlist.h>
+#include <systemd/sd-login.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
@@ -206,6 +207,7 @@ struct _GsdPowerManager
         gboolean                 inhibit_suspend_taken;
         guint                    inhibit_lid_switch_timer_id;
         gboolean                 is_virtual_machine;
+        gboolean                 is_remote;
 
         /* Idles */
         GnomeIdleMonitor        *idle_monitor;
@@ -2715,13 +2717,46 @@ inhibit_suspend_done (GObject      *source,
         }
 }
 
+gboolean
+gsd_power_is_session_remote (void)
+{
+        int ret;
+        g_autofree char *session_id = NULL;
+        gboolean is_remote;
+
+        ret = sd_pid_get_user_unit (getpid (), &systemd_unit);
+
+        if (ret < 0)
+                ret = sd_pid_get_session (getpid (), &session_id);
+        else
+                ret = sd_uid_get_display (getuid (), &session_id);
+
+        if (ret != 0) {
+                g_warning ("Failed to find systemd session id: %s", g_strerror (-ret));
+                return FALSE;
+        }
+
+        ret = sd_session_is_remote (session_id);
+
+        if (ret < 0) {
+                g_warning ("Failed to find out if systemd session %s is remote: %s", session_id, g_strerror (-ret));
+                return FALSE;
+        }
+
+        return ret;
+}
+
 /* We take a delay inhibitor here, which causes logind to send a
  * PrepareForSleep signal, which gives us a chance to lock the screen
- * and do some other preparations.
+ * and do some other preparations, unless it's a remote session then
+ * we just block suspend entirely
  */
 static void
 inhibit_suspend (GsdPowerManager *manager)
 {
+        const char *message = manager->is_remote? "Session would die on suspend" : "GNOME needs to lock the screen";
+        const char *type = manager->is_remote? "block" : "delay";
+
         if (manager->inhibit_suspend_taken) {
                 g_debug ("already inhibited lid-switch");
                 return;
@@ -2733,8 +2768,8 @@ inhibit_suspend (GsdPowerManager *manager)
                                              g_variant_new ("(ssss)",
                                                             "sleep",
                                                             g_get_user_name (),
-                                                            "GNOME needs to lock the screen",
-                                                            "delay"),
+                                                            message,
+                                                            type),
                                              0,
                                              G_MAXINT,
                                              NULL,
@@ -2785,7 +2820,8 @@ handle_suspend_actions (GsdPowerManager *manager)
         /* close any existing notification about idleness */
         notify_close_if_showing (&manager->notification_sleep_warning);
         backlight_disable (manager);
-        uninhibit_suspend (manager);
+        if (!manager->is_remote)
+                 uninhibit_suspend (manager);
 }
 
 static void
@@ -3065,6 +3101,9 @@ gsd_power_manager_start (GsdPowerManager *manager,
 
         /* Check whether we are running in a VM */
         manager->is_virtual_machine = gsd_power_is_hardware_a_vm ();
+
+        /* Check whether we are being sent over the network */
+        manager->is_remote = gsd_power_is_session_remote ();
 
         /* Check whether we have a lid first */
         manager->up_client = up_client_new ();
