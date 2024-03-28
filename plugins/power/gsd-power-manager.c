@@ -2453,17 +2453,17 @@ show_sleep_warning (GsdPowerManager *manager)
         /* create a new notification */
         switch (manager->sleep_action_type) {
         case GSD_POWER_ACTION_LOGOUT:
-                create_notification (_("Automatic logout"), _("You will soon log out because of inactivity."),
+                create_notification (_("Automatic Logout"), _("You will soon log out because of inactivity"),
                                      NULL, NOTIFICATION_PRIVACY_USER,
                                      &manager->notification_sleep_warning);
                 break;
         case GSD_POWER_ACTION_SUSPEND:
-                create_notification (_("Automatic suspend"), _("Suspending soon because of inactivity."),
+                create_notification (_("Automatic Suspend"), _("Suspending soon because of inactivity"),
                                      NULL, NOTIFICATION_PRIVACY_SYSTEM,
                                      &manager->notification_sleep_warning);
                 break;
         case GSD_POWER_ACTION_HIBERNATE:
-                create_notification (_("Automatic hibernation"), _("Suspending soon because of inactivity."),
+                create_notification (_("Automatic Hibernation"), _("Suspending soon because of inactivity"),
                                      NULL, NOTIFICATION_PRIVACY_SYSTEM,
                                      &manager->notification_sleep_warning);
                 break;
