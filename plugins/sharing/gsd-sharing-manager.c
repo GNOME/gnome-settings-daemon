@@ -297,7 +297,7 @@ start_assigned_service (GsdSharingManager   *manager,
 {
         AssignedService *service;
 
-        if (manager->sharing_status != GSD_SHARING_STATUS_AVAILABLE)
+        if (manager->sharing_status == GSD_SHARING_STATUS_OFFLINE)
                 return;
 
         if (!info->system_service_running)
@@ -414,10 +414,10 @@ gsd_sharing_manager_sync_assigned_services (GsdSharingManager *manager)
         for (l = services; l != NULL; l = l->next) {
                 AssignedServiceInfo *info = l->data;
 
-                if (manager->sharing_status == GSD_SHARING_STATUS_AVAILABLE)
-                        start_assigned_service (manager, info);
-                else
+                if (manager->sharing_status == GSD_SHARING_STATUS_OFFLINE)
                         stop_assigned_service (manager, info);
+                else
+                        start_assigned_service (manager, info);
         }
         g_list_free (services);
 }
