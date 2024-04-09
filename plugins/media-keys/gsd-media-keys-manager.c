@@ -1083,6 +1083,89 @@ do_media_action (GsdMediaKeysManager *manager,
 }
 
 static void
+gnome_session_logout_cb (GObject      *source_object,
+                         GAsyncResult *res,
+                         gpointer      user_data)
+{
+        GVariant *result;
+        GError *error = NULL;
+
+        result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
+                                           res,
+                                           &error);
+        if (result == NULL) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to call Logout on session manager: %s",
+                                   error->message);
+                g_error_free (error);
+        } else {
+                g_variant_unref (result);
+        }
+}
+
+static void
+gnome_session_logout (GsdMediaKeysManager *manager,
+                      guint                logout_mode)
+{
+	GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
+        GDBusProxy *proxy;
+
+        proxy = G_DBUS_PROXY (gnome_settings_bus_get_session_proxy ());
+
+        g_dbus_proxy_call (proxy,
+                           "Logout",
+                           g_variant_new ("(u)", logout_mode),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1,
+                           priv->bus_cancellable,
+                           gnome_session_logout_cb,
+                           NULL);
+
+        g_object_unref (proxy);
+}
+
+static void
+gnome_session_reboot_cb (GObject      *source_object,
+                         GAsyncResult *res,
+                         gpointer      user_data)
+{
+        GVariant *result;
+        GError *error = NULL;
+
+        result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
+                                           res,
+                                           &error);
+        if (result == NULL) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to call Reboot on session manager: %s",
+                                   error->message);
+                g_error_free (error);
+        } else {
+                g_variant_unref (result);
+        }
+}
+
+static void
+gnome_session_reboot (GsdMediaKeysManager *manager)
+{
+	GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
+        GDBusProxy *proxy;
+
+        proxy = G_DBUS_PROXY (gnome_settings_bus_get_session_proxy ());
+
+        g_dbus_proxy_call (proxy,
+                           "Reboot",
+                           NULL,
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1,
+                           priv->bus_cancellable,
+                           gnome_session_reboot_cb,
+                           NULL);
+
+        g_object_unref (proxy);
+}
+
+static void
 gnome_session_shutdown_cb (GObject *source_object,
                            GAsyncResult *res,
                            gpointer user_data)
@@ -2385,6 +2468,12 @@ do_action (GsdMediaKeysManager *manager,
                                  SOUND_ACTION_FLAG_IS_OUTPUT | SOUND_ACTION_FLAG_IS_PRECISE);
                 break;
         case LOGOUT_KEY:
+                gnome_session_logout (manager, 0);
+                break;
+        case REBOOT_KEY:
+                gnome_session_reboot (manager);
+                break;
+        case SHUTDOWN_KEY:
                 gnome_session_shutdown (manager);
                 break;
         case EJECT_KEY:
@@ -2971,6 +3060,8 @@ migrate_keybinding_settings (void)
                 { "pause",                      "pause",                        map_keybinding },
                 { "play",                       "play",                         map_keybinding },
                 { "logout",                     "logout",                       map_keybinding },
+                { "reboot",                     "reboot",                       map_keybinding },
+                { "shutdown",                   "shutdown",                     map_keybinding },
                 { "previous",                   "previous",                     map_keybinding },
                 { "screensaver",                "screensaver",                  map_keybinding },
                 { "search",                     "search",                       map_keybinding },
