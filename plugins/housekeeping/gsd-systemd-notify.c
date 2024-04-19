@@ -205,6 +205,23 @@ on_bus_gotten (GDBusConnection  *obj,
         }
 
         self->session = con;
+
+        /* Subscribe to systemd events by calling Subscribe on
+	 * org.freedesktop.systemd1.Manager.
+	 */
+        g_dbus_connection_call (self->session,
+                                "org.freedesktop.systemd1",
+                                "/org/freedesktop/systemd1",
+                                "org.freedesktop.systemd1.Manager",
+                                "Subscribe",
+                                NULL,
+                                G_VARIANT_TYPE ("()"),
+                                G_DBUS_CALL_FLAGS_NONE,
+                                -1,
+                                NULL,
+                                NULL,
+                                NULL);
+
         self->sub_service = g_dbus_connection_signal_subscribe (self->session,
                                                                 "org.freedesktop.systemd1",
                                                                 "org.freedesktop.DBus.Properties",
