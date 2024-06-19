@@ -27,7 +27,7 @@
 
 #include "gsd-color-state.h"
 #include "gsd-night-light.h"
-#include "gsd-night-light-common.h"
+#include "gsd-datetime-helper.h"
 
 GMainLoop *mainloop;
 
@@ -272,75 +272,6 @@ gcm_test_night_light (void)
         g_assert_cmpint (gsd_night_light_get_temperature (nlight), >=, (GSD_COLOR_TEMPERATURE_DEFAULT + 4000) / 2 - 20);
 }
 
-static void
-gcm_test_sunset_sunrise (void)
-{
-        gdouble sunrise;
-        gdouble sunrise_actual = 7.6;
-        gdouble sunset;
-        gdouble sunset_actual = 16.8;
-        g_autoptr(GDateTime) dt = g_date_time_new_utc (2007, 2, 1, 0, 0, 0);
-
-        /* get for London, today */
-        gsd_night_light_get_sunrise_sunset (dt, 51.5, -0.1278, &sunrise, &sunset);
-        g_assert_cmpfloat (sunrise, <, sunrise_actual + 0.1);
-        g_assert_cmpfloat (sunrise, >, sunrise_actual - 0.1);
-        g_assert_cmpfloat (sunset, <, sunset_actual + 0.1);
-        g_assert_cmpfloat (sunset, >, sunset_actual - 0.1);
-}
-
-static void
-gcm_test_sunset_sunrise_fractional_timezone (void)
-{
-        gdouble sunrise;
-        gdouble sunrise_actual = 7.6 + 1.5;
-        gdouble sunset;
-        gdouble sunset_actual = 16.8 + 1.5;
-        g_autoptr(GTimeZone) tz = NULL;
-        g_autoptr(GDateTime) dt = NULL;
-
-        tz = g_time_zone_new_identifier ("+01:30");
-        g_assert_nonnull (tz);
-        dt = g_date_time_new (tz, 2007, 2, 1, 0, 0, 0);
-
-        /* get for our made up timezone, today */
-        gsd_night_light_get_sunrise_sunset (dt, 51.5, -0.1278, &sunrise, &sunset);
-        g_assert_cmpfloat (sunrise, <, sunrise_actual + 0.1);
-        g_assert_cmpfloat (sunrise, >, sunrise_actual - 0.1);
-        g_assert_cmpfloat (sunset, <, sunset_actual + 0.1);
-        g_assert_cmpfloat (sunset, >, sunset_actual - 0.1);
-}
-
-static void
-gcm_test_frac_day (void)
-{
-        g_autoptr(GDateTime) dt = g_date_time_new_utc (2007, 2, 1, 12, 59, 59);
-        gdouble fd;
-        gdouble fd_actual = 12.99;
-
-        /* test for 12:59:59 */
-        fd = gsd_night_light_frac_day_from_dt (dt);
-        g_assert_cmpfloat (fd, >, fd_actual - 0.01);
-        g_assert_cmpfloat (fd, <, fd_actual + 0.01);
-
-        /* test same day */
-        g_assert_true (gsd_night_light_frac_day_is_between (12, 6, 20));
-        g_assert_false (gsd_night_light_frac_day_is_between (5, 6, 20));
-        g_assert_true (gsd_night_light_frac_day_is_between (12, 0, 24));
-        g_assert_true (gsd_night_light_frac_day_is_between (12, -1, 25));
-
-        /* test rollover to next day */
-        g_assert_true (gsd_night_light_frac_day_is_between (23, 20, 6));
-        g_assert_false (gsd_night_light_frac_day_is_between (12, 20, 6));
-
-        /* test rollover to the previous day */
-        g_assert_true (gsd_night_light_frac_day_is_between (5, 16, 8));
-
-        /* test equality */
-        g_assert_true (gsd_night_light_frac_day_is_between (12, 0.5, 24.5));
-        g_assert_true (gsd_night_light_frac_day_is_between (0.5, 0.5, 0.5));
-}
-
 int
 main (int argc, char **argv)
 {
@@ -350,9 +281,6 @@ main (int argc, char **argv)
 
         mainloop = g_main_loop_new (g_main_context_default (), FALSE);
 
-        g_test_add_func ("/color/sunset-sunrise", gcm_test_sunset_sunrise);
-        g_test_add_func ("/color/sunset-sunrise/fractional-timezone", gcm_test_sunset_sunrise_fractional_timezone);
-        g_test_add_func ("/color/fractional-day", gcm_test_frac_day);
         g_test_add_func ("/color/night-light", gcm_test_night_light);
 
         return g_test_run ();
