@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.color-scheme" path="/org/gnome/settings-daemon/plugins/color-scheme/">
+    <key name="enabled" type="b">
+      <default>false</default>
+      <summary>If the theme scheduling is enabled</summary>
+      <description>Theme scheduling mode changes the system theme to dark when the sun has gone down or at preset times.</description>
+    </key>
+    <key name="schedule-automatic" type="b">
+      <default>true</default>
+      <summary>Use the sunrise and sunset</summary>
+      <description>Calculate the sunrise and sunset times automatically, from the current location.</description>
+    </key>
+    <key name="schedule-from" type="d">
+      <default>20.00</default>
+      <summary>The start time</summary>
+      <description>When “schedule-automatic” is disabled, use this start time in hours from midnight.</description>
+    </key>
+    <key name="schedule-to" type="d">
+      <default>6.00</default>
+      <summary>The end time</summary>
+      <description>When “schedule-automatic” is disabled, use this end time in hours from midnight.</description>
+    </key>
+    <key name="last-coordinates" type="(dd)">
+      <default>(91,181)</default>
+      <summary>The last detected position</summary>
+      <description>When location services are available this represents the last detected location. The default value is an invalid value to ensure it is always updated at startup.</description>
+    </key>
+  </schema>
+</schemalist>
