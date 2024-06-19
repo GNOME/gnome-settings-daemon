@@ -14,7 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
- *
  */
 
 #include "config.h"
@@ -22,7 +21,7 @@
 #include <glib.h>
 #include <math.h>
 
-#include "gsd-night-light-common.h"
+#include "gsd-datetime-helper.h"
 
 static gdouble
 deg2rad (gdouble degrees)
@@ -47,9 +46,9 @@ rad2deg (gdouble radians)
  * a sunrise at all.
  */
 gboolean
-gsd_night_light_get_sunrise_sunset (GDateTime *dt,
-                                    gdouble pos_lat, gdouble pos_long,
-                                    gdouble *sunrise, gdouble *sunset)
+gsd_datetime_get_sunrise_sunset (GDateTime *dt,
+                                 gdouble pos_lat, gdouble pos_long,
+                                 gdouble *sunrise, gdouble *sunset)
 {
         g_autoptr(GDateTime) dt_zero = g_date_time_new_utc (1900, 1, 1, 0, 0, 0);
         GTimeSpan ts = g_date_time_difference (dt, dt_zero);
@@ -107,17 +106,17 @@ gsd_night_light_get_sunrise_sunset (GDateTime *dt,
 }
 
 gdouble
-gsd_night_light_frac_day_from_dt (GDateTime *dt)
+gsd_datetime_frac_day_from_dt (GDateTime *dt)
 {
-        return g_date_time_get_hour (dt) +
-                (gdouble) g_date_time_get_minute (dt) / 60.f +
-                (gdouble) g_date_time_get_second (dt) / 3600.f;
+    return g_date_time_get_hour (dt) +
+        (gdouble) g_date_time_get_minute (dt) / 60.f +
+        (gdouble) g_date_time_get_second (dt) / 3600.f;
 }
 
 gboolean
-gsd_night_light_frac_day_is_between (gdouble  value,
-                                     gdouble  start,
-                                     gdouble  end)
+gsd_datetime_frac_day_is_between (gdouble  value,
+                                  gdouble  start,
+                                  gdouble  end)
 {
         /* wrap end to the next day if it is before start,
          * considering equal values as a full 24h period

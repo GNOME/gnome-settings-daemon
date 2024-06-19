@@ -1,6 +1,8 @@
 common_inc = include_directories('.')
 
 sources = files(
+  'gnome-datetime-source.c',
+  'gsd-datetime-helper.c',
   'gsd-input-helper.c',
   'gsd-settings-migrate.c',
   'gsd-shell-helper.c'
@@ -24,6 +26,7 @@ deps = plugins_deps + [
   gnome_desktop_dep,
   gtk_x11_dep,
   x11_dep,
+  m_dep,
   dependency('kbproto'),
   dependency('xi')
 ]
@@ -46,3 +49,19 @@ libcommon_dep = declare_dependency(
   include_directories: common_inc,
   link_with: libcommon
 )
+
+sources = files(
+  'gsd-common-test.c',
+  'gsd-datetime-helper.c',
+)
+
+test_unit = 'gsd-common-test'
+
+exe = executable(
+  test_unit,
+  sources,
+  include_directories: top_inc,
+  dependencies: deps,
+)
+
+test(test_unit, exe)
