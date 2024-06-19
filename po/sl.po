@@ -11,19 +11,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-deamon master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
-"issues\n"
-"POT-Creation-Date: 2023-07-29 06:32+0000\n"
-"PO-Revision-Date: 2023-07-29 15:39+0200\n"
-"Last-Translator: Matej Urbančič <mateju@src.gnome.org>\n"
+"issues/\n"
+"POT-Creation-Date: 2024-06-19 17:54+0000\n"
+"PO-Revision-Date: 2024-06-20 00:04+0200\n"
+"Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
-"n%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid "Smartcard removal action"
@@ -1529,20 +1529,20 @@ msgstr "Naprava za umerjanje barve je bila odstranjena"
 
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
-#: plugins/datetime/gsd-datetime-manager.c:88
+#: plugins/datetime/gsd-datetime-manager.c:93
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
-#: plugins/datetime/gsd-datetime-manager.c:92
+#: plugins/datetime/gsd-datetime-manager.c:97
 #, c-format
 msgid "Time Zone Updated to %s (%s)"
 msgstr "Časovni pas je posodobljen na %s (%s)"
 
-#: plugins/datetime/gsd-datetime-manager.c:108
+#: plugins/datetime/gsd-datetime-manager.c:113
 msgid "Settings"
 msgstr "Nastavitve"
 
-#: plugins/datetime/gsd-datetime-manager.c:118
+#: plugins/datetime/gsd-datetime-manager.c:123
 msgid "Date & Time Settings"
 msgstr "Nastavitve časa in datuma"
 
@@ -1713,48 +1713,48 @@ msgstr[2] "minuti"
 msgstr[3] "minute"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:922
-#: plugins/power/gsd-power-manager.c:1006
+#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:925
+#: plugins/power/gsd-power-manager.c:1009
 msgid "Battery is critically low"
 msgstr "Napetost baterije je kritično nizka"
 
 #. TRANSLATORS: this is the notification application name
-#: plugins/power/gsd-power-manager.c:367
+#: plugins/power/gsd-power-manager.c:370
 msgid "Power"
 msgstr "Poraba"
 
 #. TRANSLATORS: UPS is now discharging
-#: plugins/power/gsd-power-manager.c:405
+#: plugins/power/gsd-power-manager.c:408
 msgid "UPS Discharging"
 msgstr "Praznjenje UPS"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:410
+#: plugins/power/gsd-power-manager.c:413
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "%s preostale napetosti varovala UPS"
 
-#: plugins/power/gsd-power-manager.c:413
+#: plugins/power/gsd-power-manager.c:416
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "Na voljo je še neznana vrednost varovala UPS"
 
 #. TRANSLATORS: notification title, a wireless mouse is low or very low on power
-#: plugins/power/gsd-power-manager.c:513
+#: plugins/power/gsd-power-manager.c:516
 msgid "Mouse battery low"
 msgstr "Napetost baterije miške je nizka"
 
 #. TRANSLATORS: notification body, a wireless mouse is low on power
-#: plugins/power/gsd-power-manager.c:516
+#: plugins/power/gsd-power-manager.c:519
 #, c-format
 msgid "Wireless mouse is low on power (%.0f%%)"
 msgstr "Brezžična miška ima nizko napetost baterije (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:517
+#: plugins/power/gsd-power-manager.c:520
 msgid "Wireless mouse is low on power"
 msgstr "Brezžična miška ima nizko napetost baterije"
 
 #. TRANSLATORS: notification body, a wireless mouse is very low on power
-#: plugins/power/gsd-power-manager.c:519
+#: plugins/power/gsd-power-manager.c:522
 #, c-format
 msgid ""
 "Wireless mouse is very low on power (%.0f%%). This device will soon stop "
@@ -1763,7 +1763,7 @@ msgstr ""
 "Brezžična miška ima zelo nizko napetost baterije (%.0f%%). V kolikor je ne "
 "napolnite, bo prenehala delovati."
 
-#: plugins/power/gsd-power-manager.c:521
+#: plugins/power/gsd-power-manager.c:524
 msgid ""
 "Wireless mouse is very low on power. This device will soon stop functioning "
 "if not charged."
@@ -1772,22 +1772,22 @@ msgstr ""
 "bo prenehala delovati."
 
 #. TRANSLATORS: notification title, a wireless keyboard is low or very low on power
-#: plugins/power/gsd-power-manager.c:526
+#: plugins/power/gsd-power-manager.c:529
 msgid "Keyboard battery low"
 msgstr "Napetost baterije tipkovnice je nizka"
 
 #. TRANSLATORS: notification body, a wireless keyboard is low on power
-#: plugins/power/gsd-power-manager.c:529
+#: plugins/power/gsd-power-manager.c:532
 #, c-format
 msgid "Wireless keyboard is low on power (%.0f%%)"
 msgstr "Brezžična tipkovnica ima nizko napetost baterije (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:530
+#: plugins/power/gsd-power-manager.c:533
 msgid "Wireless keyboard is low on power"
 msgstr "Brezžična tipkovnica ima nizko napetost baterije"
 
 #. TRANSLATORS: notification body, a wireless keyboard is very low on power
-#: plugins/power/gsd-power-manager.c:532
+#: plugins/power/gsd-power-manager.c:535
 #, c-format
 msgid ""
 "Wireless keyboard is very low on power (%.0f%%). This device will soon stop "
@@ -1796,7 +1796,7 @@ msgstr ""
 "Brezžična tipkovnica ima zelo nizko napetost baterije (%.0f%%). V kolikor je "
 "ne napolnite, bo prenehala delovati."
 
-#: plugins/power/gsd-power-manager.c:534
+#: plugins/power/gsd-power-manager.c:537
 msgid ""
 "Wireless keyboard is very low on power. This device will soon stop "
 "functioning if not charged."
@@ -1805,22 +1805,22 @@ msgstr ""
 "napolnite, bo prenehala delovati."
 
 #. TRANSLATORS: notification title, a PDA (Personal Digital Assistance device) is low or very on power
-#: plugins/power/gsd-power-manager.c:539
+#: plugins/power/gsd-power-manager.c:542
 msgid "PDA battery low"
 msgstr "Napetost baterije dlančnika je nizka"
 
 #. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is low on power
-#: plugins/power/gsd-power-manager.c:542
+#: plugins/power/gsd-power-manager.c:545
 #, c-format
 msgid "PDA is low on power (%.0f%%)"
 msgstr "Dlančnik ima nizko napetost baterije (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:543
+#: plugins/power/gsd-power-manager.c:546
 msgid "PDA is low on power"
 msgstr "Dlančnik ima nizko napetost baterije"
 
 #. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is very low on power
-#: plugins/power/gsd-power-manager.c:545
+#: plugins/power/gsd-power-manager.c:548
 #, c-format
 msgid ""
 "PDA is very low on power (%.0f%%). This device will soon stop functioning if "
@@ -1829,7 +1829,7 @@ msgstr ""
 "Dlančnik ima zelo nizko napetost baterije (%.0f%%). V kolikor ga ne "
 "napolnite, bo prenehal delovati."
 
-#: plugins/power/gsd-power-manager.c:547
+#: plugins/power/gsd-power-manager.c:550
 msgid ""
 "PDA is very low on power. This device will soon stop functioning if not "
 "charged."
@@ -1838,22 +1838,22 @@ msgstr ""
 "prenehal delovati."
 
 #. TRANSLATORS: notification title, a cell phone (mobile phone) is low or very low on power
-#: plugins/power/gsd-power-manager.c:552
+#: plugins/power/gsd-power-manager.c:555
 msgid "Cell phone battery low"
 msgstr "Napetost baterije mobilnega telefona je nizka"
 
 #. TRANSLATORS: notification body, a cell phone (mobile phone) is low on power
-#: plugins/power/gsd-power-manager.c:555
+#: plugins/power/gsd-power-manager.c:558
 #, c-format
 msgid "Cell phone is low on power (%.0f%%)"
 msgstr "Prenosni telefon ima nizko napetost baterije (%.0f%%)."
 
-#: plugins/power/gsd-power-manager.c:556
+#: plugins/power/gsd-power-manager.c:559
 msgid "Cell phone is low on power"
 msgstr "Prenosni telefon ima nizko napetost baterije"
 
 #. TRANSLATORS: notification body, a cell phone (mobile phone) is very low on power
-#: plugins/power/gsd-power-manager.c:558
+#: plugins/power/gsd-power-manager.c:561
 #, c-format
 msgid ""
 "Cell phone is very low on power (%.0f%%). This device will soon stop "
@@ -1862,7 +1862,7 @@ msgstr ""
 "Prenosni telefon ima zelo nizko napetost baterije (%.0f%%). V kolikor ga ne "
 "napolnite, bo prenehal delovati."
 
-#: plugins/power/gsd-power-manager.c:560
+#: plugins/power/gsd-power-manager.c:563
 msgid ""
 "Cell phone is very low on power. This device will soon stop functioning if "
 "not charged."
@@ -1871,22 +1871,22 @@ msgstr ""
 "napolnite, bo prenehal delovati."
 
 #. TRANSLATORS: notification title, a media player (e.g. mp3 player) is low or very low on power
-#: plugins/power/gsd-power-manager.c:565
+#: plugins/power/gsd-power-manager.c:568
 msgid "Media player battery low"
 msgstr "Predstavni predvajalnik ima nizko napetost baterije"
 
 #. TRANSLATORS: notification body, a media player (e.g. mp3 player) is low on power
-#: plugins/power/gsd-power-manager.c:568
+#: plugins/power/gsd-power-manager.c:571
 #, c-format
 msgid "Media player is low on power (%.0f%%)"
 msgstr "Predstavni predvajalnik ima nizko napetost baterije (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:569
+#: plugins/power/gsd-power-manager.c:572
 msgid "Media player is low on power"
 msgstr "Predstavni predvajalnik ima nizko napetost baterije"
 
 #. TRANSLATORS: notification body, a media player (e.g. mp3 player) is very low on power
-#: plugins/power/gsd-power-manager.c:571
+#: plugins/power/gsd-power-manager.c:574
 #, c-format
 msgid ""
 "Media player is very low on power (%.0f%%). This device will soon stop "
@@ -1895,7 +1895,7 @@ msgstr ""
 "Predstavni predvajalnik ima zelo nizko napetost baterije (%.0f %%). V "
 "kolikor ga ne napolnite, bo prenehal delovati."
 
-#: plugins/power/gsd-power-manager.c:573
+#: plugins/power/gsd-power-manager.c:576
 msgid ""
 "Media player is very low on power. This device will soon stop functioning if "
 "not charged."
@@ -1904,22 +1904,22 @@ msgstr ""
 "napolnite, bo prenehal delovati."
 
 #. TRANSLATORS: notification title, a graphics tablet (e.g. wacom) is low or very low on power
-#: plugins/power/gsd-power-manager.c:578
+#: plugins/power/gsd-power-manager.c:581
 msgid "Tablet battery low"
 msgstr "Napetost baterije tabličnega računalnika je nizka"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is low on power
-#: plugins/power/gsd-power-manager.c:581
+#: plugins/power/gsd-power-manager.c:584
 #, c-format
 msgid "Tablet is low on power (%.0f%%)"
 msgstr "Tablični računalnik ima nizko napetost baterije (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:582
+#: plugins/power/gsd-power-manager.c:585
 msgid "Tablet is low on power"
 msgstr "Tablični računalnik ima nizko napetost baterije"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is very low on power
-#: plugins/power/gsd-power-manager.c:584
+#: plugins/power/gsd-power-manager.c:587
 #, c-format
 msgid ""
 "Tablet is very low on power (%.0f%%). This device will soon stop functioning "
@@ -1928,7 +1928,7 @@ msgstr ""
 "Tablični računalnik ima zelo nizko napetost baterije (%.0f%%). V kolikor ga "
 "ne napolnite, bo prenehal delovati."
 
-#: plugins/power/gsd-power-manager.c:586
+#: plugins/power/gsd-power-manager.c:589
 msgid ""
 "Tablet is very low on power. This device will soon stop functioning if not "
 "charged."
@@ -1937,22 +1937,22 @@ msgstr ""
 "napolnite, bo prenehal delovati."
 
 #. TRANSLATORS: notification title, an attached computer (e.g. ipad) is low or very low on power
-#: plugins/power/gsd-power-manager.c:591
+#: plugins/power/gsd-power-manager.c:594
 msgid "Attached computer battery low"
 msgstr "Priključen računalnik ima nizko napetost baterije"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is low on power
-#: plugins/power/gsd-power-manager.c:594
+#: plugins/power/gsd-power-manager.c:597
 #, c-format
 msgid "Attached computer is low on power (%.0f%%)"
 msgstr "Priključen računalnik ima nizko napetost baterije (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:595
+#: plugins/power/gsd-power-manager.c:598
 msgid "Attached computer is low on power"
 msgstr "Priključen računalnik ima nizko napetost baterije"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is very low on power
-#: plugins/power/gsd-power-manager.c:597
+#: plugins/power/gsd-power-manager.c:600
 #, c-format
 msgid ""
 "Attached computer is very low on power (%.0f%%). The device will soon "
@@ -1961,7 +1961,7 @@ msgstr ""
 "Priključen računalnik ima zelo nizko napetost baterije (%.0f%%). V kolikor "
 "ga ne napolnite, bo prenehal delovati."
 
-#: plugins/power/gsd-power-manager.c:599
+#: plugins/power/gsd-power-manager.c:602
 msgid ""
 "Attached computer is very low on power. The device will soon shutdown if not "
 "charged."
@@ -1970,22 +1970,22 @@ msgstr ""
 "napolnite, bo prenehal delovati."
 
 #. TRANSLATORS: notification title, a game controller (e.g. joystick or joypad) is low or very low on power
-#: plugins/power/gsd-power-manager.c:604
+#: plugins/power/gsd-power-manager.c:607
 msgid "Game controller battery low"
 msgstr "Napetost baterije igralne konzole je nizka"
 
 #. TRANSLATORS: notification body, a game controller (e.g. joystick or joypad) is low on power
-#: plugins/power/gsd-power-manager.c:607
+#: plugins/power/gsd-power-manager.c:610
 #, c-format
 msgid "Game controller is low on power (%.0f%%)"
 msgstr "Igralna konzola ima nizko napetost baterije (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:608
+#: plugins/power/gsd-power-manager.c:611
 msgid "Game controller is low on power"
 msgstr "Igralna konzola ima nizko napetost baterije"
 
 #. TRANSLATORS: notification body, an attached game controller (e.g. joystick or joypad) is very low on power
-#: plugins/power/gsd-power-manager.c:610
+#: plugins/power/gsd-power-manager.c:613
 #, c-format
 msgid ""
 "Game controller is very low on power (%.0f%%). The device will soon shutdown "
@@ -1994,7 +1994,7 @@ msgstr ""
 "Igralna konzola ima zelo nizko napetost baterije (%.0f%%). V kolikor je ne "
 "napolnite, se bo samodejno izklopila."
 
-#: plugins/power/gsd-power-manager.c:612
+#: plugins/power/gsd-power-manager.c:615
 msgid ""
 "Game controller is very low on power. The device will soon shutdown if not "
 "charged."
@@ -2003,22 +2003,22 @@ msgstr ""
 "se bo samodejno izklopila."
 
 #. TRANSLATORS: notification title, a pen is low or very low on power
-#: plugins/power/gsd-power-manager.c:617
+#: plugins/power/gsd-power-manager.c:620
 msgid "Pen battery low"
 msgstr "Napetost baterije pisala je nizka"
 
 #. TRANSLATORS: notification body, a pen is low on power
-#: plugins/power/gsd-power-manager.c:620
+#: plugins/power/gsd-power-manager.c:623
 #, c-format
 msgid "Pen is low on power (%.0f%%)"
 msgstr "Pisalo ima nizko napetost baterije (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:621
+#: plugins/power/gsd-power-manager.c:624
 msgid "Pen is low on power"
 msgstr "Pisalo ima nizko napetost baterije"
 
 #. TRANSLATORS: notification body, a pen is very low on power
-#: plugins/power/gsd-power-manager.c:623
+#: plugins/power/gsd-power-manager.c:626
 #, c-format
 msgid ""
 "Pen is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2027,29 +2027,29 @@ msgstr ""
 "Pisalo ima zelo nizko napetost baterije (%.0f%%). V kolikor ga ne napolnite, "
 "se bo samodejno izklopil."
 
-#: plugins/power/gsd-power-manager.c:625
+#: plugins/power/gsd-power-manager.c:628
 msgid "Pen is very low on power. The device will soon shutdown if not charged."
 msgstr ""
 "Pisalo ima zelo nizko napetost baterije. V kolikor ga ne napolnite, se bo "
 "samodejno izklopil."
 
 #. TRANSLATORS: notification title, an external touchpad is low or very low on power
-#: plugins/power/gsd-power-manager.c:630
+#: plugins/power/gsd-power-manager.c:633
 msgid "Touchpad battery low"
 msgstr "Napetost baterije sledilne ploščice je nizka"
 
 #. TRANSLATORS: notification body, an external touchpad is low on power
-#: plugins/power/gsd-power-manager.c:633
+#: plugins/power/gsd-power-manager.c:636
 #, c-format
 msgid "Touchpad is low on power (%.0f%%)"
 msgstr "Sledilna ploščica ima nizko napetost baterije (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:634
+#: plugins/power/gsd-power-manager.c:637
 msgid "Touchpad is low on power"
 msgstr "Sledilna ploščica ima nizko napetost baterije"
 
 #. TRANSLATORS: notification body, an external touchpad is very low on power
-#: plugins/power/gsd-power-manager.c:636
+#: plugins/power/gsd-power-manager.c:639
 #, c-format
 msgid ""
 "Touchpad is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2058,7 +2058,7 @@ msgstr ""
 "Sledilna ploščica ima zelo nizko napetost baterije (%.0f%%). V kolikor je ne "
 "napolnite, se bo samodejno izklopila."
 
-#: plugins/power/gsd-power-manager.c:638
+#: plugins/power/gsd-power-manager.c:641
 msgid ""
 "Touchpad is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2066,22 +2066,22 @@ msgstr ""
 "napolnite, se bo samodejno izklopila."
 
 #. TRANSLATORS: notification title, a headset (headphones + microphone) is low or very low on power
-#: plugins/power/gsd-power-manager.c:643
+#: plugins/power/gsd-power-manager.c:646
 msgid "Headset battery low"
 msgstr "Napetost baterije naglavnih slušalk je nizka"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is low on power
-#: plugins/power/gsd-power-manager.c:646
+#: plugins/power/gsd-power-manager.c:649
 #, c-format
 msgid "Headset is low on power (%.0f%%)"
 msgstr "Naglavne slušalke imajo nizko napetost baterije (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:647
+#: plugins/power/gsd-power-manager.c:650
 msgid "Headset is low on power"
 msgstr "Naglavne slušalke imajo nizko napetost baterije"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is very low on power
-#: plugins/power/gsd-power-manager.c:649
+#: plugins/power/gsd-power-manager.c:652
 #, c-format
 msgid ""
 "Headset is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2090,7 +2090,7 @@ msgstr ""
 "Naglavne slušalke imajo nizko napetost baterije (%.0f%%). V kolikor jih ne "
 "napolnite, se bodo samodejno izklopile."
 
-#: plugins/power/gsd-power-manager.c:651
+#: plugins/power/gsd-power-manager.c:654
 msgid ""
 "Headset is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2098,22 +2098,22 @@ msgstr ""
 "se bodo samodejno izklopile."
 
 #. TRANSLATORS: notification title, speaker is low or very low on power
-#: plugins/power/gsd-power-manager.c:656
+#: plugins/power/gsd-power-manager.c:659
 msgid "Speaker battery low"
 msgstr "Napetost baterije zvočnika je nizka"
 
 #. TRANSLATORS: notification body, a speaker is low on power
-#: plugins/power/gsd-power-manager.c:659
+#: plugins/power/gsd-power-manager.c:662
 #, c-format
 msgid "Speaker is low on power (%.0f%%)"
 msgstr "Zvočnik ima nizko napetost baterije (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:660
+#: plugins/power/gsd-power-manager.c:663
 msgid "Speaker is low on power"
 msgstr "Zvočnik ima nizko napetost baterije"
 
 #. TRANSLATORS: notification body, a speaker is very low on power
-#: plugins/power/gsd-power-manager.c:662
+#: plugins/power/gsd-power-manager.c:665
 #, c-format
 msgid ""
 "Speaker is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2122,7 +2122,7 @@ msgstr ""
 "Zvočnik ima zelo nizko napetost baterije (%.0f%%). V kolikor ga ne "
 "napolnite, se bo samodejno izklopil."
 
-#: plugins/power/gsd-power-manager.c:664
+#: plugins/power/gsd-power-manager.c:667
 msgid ""
 "Speaker is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2130,22 +2130,22 @@ msgstr ""
 "samodejno izklopil."
 
 #. TRANSLATORS: notification title, headphones (no microphone) are low or very low on power
-#: plugins/power/gsd-power-manager.c:669
+#: plugins/power/gsd-power-manager.c:672
 msgid "Headphones battery low"
 msgstr "Napetost baterije slušalk je nizka"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are low on power
-#: plugins/power/gsd-power-manager.c:672
+#: plugins/power/gsd-power-manager.c:675
 #, c-format
 msgid "Headphones are low on power (%.0f%%)"
 msgstr "Slušalke imajo nizko napetost baterije (%.0f%%)."
 
-#: plugins/power/gsd-power-manager.c:673
+#: plugins/power/gsd-power-manager.c:676
 msgid "Headphones are low on power"
 msgstr "Skušalke imajo nizko napetost baterije"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are very low on power
-#: plugins/power/gsd-power-manager.c:675
+#: plugins/power/gsd-power-manager.c:678
 #, c-format
 msgid ""
 "Headphones are very low on power (%.0f%%). The device will soon shutdown if "
@@ -2154,7 +2154,7 @@ msgstr ""
 "Skušalke imajo zelo nizko napetost baterije (%.0f%%). V kolikor jih ne "
 "napolnite, se bodo samodejno izklopile."
 
-#: plugins/power/gsd-power-manager.c:677
+#: plugins/power/gsd-power-manager.c:680
 msgid ""
 "Headphones are very low on power. The device will soon shutdown if not "
 "charged."
@@ -2163,22 +2163,22 @@ msgstr ""
 "bodo samodejno izklopile."
 
 #. TRANSLATORS: notification title, an audio device is low or very low on power
-#: plugins/power/gsd-power-manager.c:682
+#: plugins/power/gsd-power-manager.c:685
 msgid "Audio device battery low"
 msgstr "Napetost baterije zvočne naprave je nizka"
 
 #. TRANSLATORS: notification body, an audio device is low on power
-#: plugins/power/gsd-power-manager.c:685
+#: plugins/power/gsd-power-manager.c:688
 #, c-format
 msgid "Audio device is low on power (%.0f%%)"
 msgstr "Zvočna naprava ima nizko napetost baterije (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:686
+#: plugins/power/gsd-power-manager.c:689
 msgid "Audio device is low on power"
 msgstr "Zvočna naprava ima nizko napetost baterije"
 
 #. TRANSLATORS: notification body, an audio device is very low on power
-#: plugins/power/gsd-power-manager.c:688
+#: plugins/power/gsd-power-manager.c:691
 #, c-format
 msgid ""
 "Audio device is very low on power (%.0f%%). The device will soon shutdown if "
@@ -2187,7 +2187,7 @@ msgstr ""
 "Zvočna naprava ima zelo nizko napetost baterije (%.0f%%). V kolikor je ne "
 "napolnite, se bo samodejno izklopila."
 
-#: plugins/power/gsd-power-manager.c:690
+#: plugins/power/gsd-power-manager.c:693
 msgid ""
 "Audio device is very low on power. The device will soon shutdown if not "
 "charged."
@@ -2196,22 +2196,22 @@ msgstr ""
 "se bo samodejno izklopila."
 
 #. TRANSLATORS: notification title, a remote control is low or very low on power
-#: plugins/power/gsd-power-manager.c:695
+#: plugins/power/gsd-power-manager.c:698
 msgid "Remote battery low"
 msgstr "Napetost baterije oddaljene naprave miške je nizka"
 
 #. TRANSLATORS: notification body, an remote control is low on power
-#: plugins/power/gsd-power-manager.c:698
+#: plugins/power/gsd-power-manager.c:701
 #, c-format
 msgid "Remote is low on power (%.0f%%)"
 msgstr "Oddaljena naprava ima nizko napetost baterije (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:699
+#: plugins/power/gsd-power-manager.c:702
 msgid "Remote is low on power"
 msgstr "Oddaljena naprava ima nizko napetost baterije"
 
 #. TRANSLATORS: notification body, a remote control is very low on power
-#: plugins/power/gsd-power-manager.c:701
+#: plugins/power/gsd-power-manager.c:704
 #, c-format
 msgid ""
 "Remote is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2220,7 +2220,7 @@ msgstr ""
 "Oddaljena naprava ima zelo nizko napetost baterije (%.0f%%). V kolikor je ne "
 "napolnite, se bo samodejno izklopila."
 
-#: plugins/power/gsd-power-manager.c:703
+#: plugins/power/gsd-power-manager.c:706
 msgid ""
 "Remote is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2228,22 +2228,22 @@ msgstr ""
 "napolnite, se bo samodejno izklopila."
 
 #. TRANSLATORS: notification title, a printer is low or very low on power
-#: plugins/power/gsd-power-manager.c:708
+#: plugins/power/gsd-power-manager.c:711
 msgid "Printer battery low"
 msgstr "Napetost baterije tiskalnika je nizka"
 
 #. TRANSLATORS: notification body, a printer is low on power
-#: plugins/power/gsd-power-manager.c:711
+#: plugins/power/gsd-power-manager.c:714
 #, c-format
 msgid "Printer is low on power (%.0f%%)"
 msgstr "Tiskalnik ima nizko napetost baterije (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:712
+#: plugins/power/gsd-power-manager.c:715
 msgid "Printer is low on power"
 msgstr "Tiskalnik ima nizko napetost baterije"
 
 #. TRANSLATORS: notification body, a printer is very low on power
-#: plugins/power/gsd-power-manager.c:714
+#: plugins/power/gsd-power-manager.c:717
 #, c-format
 msgid ""
 "Printer is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2252,7 +2252,7 @@ msgstr ""
 "Tiskalnik ima zelo nizko napetost baterije (%.0f%%). V kolikor ga ne "
 "napolnite, se bo samodejno izklopil."
 
-#: plugins/power/gsd-power-manager.c:716
+#: plugins/power/gsd-power-manager.c:719
 msgid ""
 "Printer is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2260,22 +2260,22 @@ msgstr ""
 "samodejno izklopil."
 
 #. TRANSLATORS: notification title, a scanner is low or very low on power
-#: plugins/power/gsd-power-manager.c:721
+#: plugins/power/gsd-power-manager.c:724
 msgid "Scanner battery low"
 msgstr "Napetost baterije optičnega bralnika je nizka"
 
 #. TRANSLATORS: notification body, a scanner is low on power
-#: plugins/power/gsd-power-manager.c:724
+#: plugins/power/gsd-power-manager.c:727
 #, c-format
 msgid "Scanner is low on power (%.0f%%)"
 msgstr "Optični bralnik ima nizko napetost baterije (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:725
+#: plugins/power/gsd-power-manager.c:728
 msgid "Scanner is low on power"
 msgstr "Optični bralnik ima nizko napetost baterije"
 
 #. TRANSLATORS: notification body, a scanner is very low on power
-#: plugins/power/gsd-power-manager.c:727
+#: plugins/power/gsd-power-manager.c:730
 #, c-format
 msgid ""
 "Scanner is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2284,7 +2284,7 @@ msgstr ""
 "Optični bralnik ima zelo nizko napetost baterije (%.0f%%). V kolikor ga ne "
 "napolnite, se bo samodejno izklopil."
 
-#: plugins/power/gsd-power-manager.c:729
+#: plugins/power/gsd-power-manager.c:732
 msgid ""
 "Scanner is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2292,22 +2292,22 @@ msgstr ""
 "se bo samodejno izklopil."
 
 #. TRANSLATORS: notification title, a camera is low or very low on power
-#: plugins/power/gsd-power-manager.c:734
+#: plugins/power/gsd-power-manager.c:737
 msgid "Camera battery low"
 msgstr "Napetost baterije kamere je nizka"
 
 #. TRANSLATORS: notification body, a camera is low on power
-#: plugins/power/gsd-power-manager.c:737
+#: plugins/power/gsd-power-manager.c:740
 #, c-format
 msgid "Camera is low on power (%.0f%%)"
 msgstr "Kamera ima nizko napetost baterije (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:738
+#: plugins/power/gsd-power-manager.c:741
 msgid "Camera is low on power"
 msgstr "Kamera ima nizko napetost baterije"
 
 #. TRANSLATORS: notification body, a camera is very low on power
-#: plugins/power/gsd-power-manager.c:740
+#: plugins/power/gsd-power-manager.c:743
 #, c-format
 msgid ""
 "Camera is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2316,7 +2316,7 @@ msgstr ""
 "Kamera ima zelo nizko napetost baterije (%.0f%%). V kolikor je ne napolnite, "
 "se bo samodejno izklopila."
 
-#: plugins/power/gsd-power-manager.c:742
+#: plugins/power/gsd-power-manager.c:745
 msgid ""
 "Camera is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2324,22 +2324,22 @@ msgstr ""
 "samodejno izklopila."
 
 #. TRANSLATORS: notification title, a Bluetooth device is low or very low on power
-#: plugins/power/gsd-power-manager.c:747
+#: plugins/power/gsd-power-manager.c:750
 msgid "Bluetooth device battery low"
 msgstr "Napetost baterije naprave Bluetooth je nizka"
 
 #. TRANSLATORS: notification body, a Bluetooth device is low on power
-#: plugins/power/gsd-power-manager.c:750
+#: plugins/power/gsd-power-manager.c:753
 #, c-format
 msgid "Bluetooth device is low on power (%.0f%%)"
 msgstr "Naprava Bluetooth ima nizko napetost baterije (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:751
+#: plugins/power/gsd-power-manager.c:754
 msgid "Bluetooth device is low on power"
 msgstr "Naprava Bluetooth ima nizko napetost baterije"
 
 #. TRANSLATORS: notification body, a Bluetooth device is very low on power
-#: plugins/power/gsd-power-manager.c:753
+#: plugins/power/gsd-power-manager.c:756
 #, c-format
 msgid ""
 "Bluetooth device is very low on power (%.0f%%). The device will soon "
@@ -2348,7 +2348,7 @@ msgstr ""
 "Naprava Bluetooth ima zelo nizko napetost baterije (%.0f%%). V kolikor je ne "
 "napolnite, se bo samodejno izklopila."
 
-#: plugins/power/gsd-power-manager.c:755
+#: plugins/power/gsd-power-manager.c:758
 msgid ""
 "Bluetooth device is very low on power. The device will soon shutdown if not "
 "charged."
@@ -2357,22 +2357,22 @@ msgstr ""
 "napolnite, se bo samodejno izklopila."
 
 #. TRANSLATORS: notification title, a connected (wireless) device or peripheral of unhandled type is low or very on power
-#: plugins/power/gsd-power-manager.c:761
+#: plugins/power/gsd-power-manager.c:764
 msgid "Connected device battery is low"
 msgstr "Napetost baterije priklopljene naprave je nizka"
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is low on power
-#: plugins/power/gsd-power-manager.c:764
+#: plugins/power/gsd-power-manager.c:767
 #, c-format
 msgid "A connected device is low on power (%.0f%%)"
 msgstr "Priključena naprava ima nizko napetost baterije (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:765
+#: plugins/power/gsd-power-manager.c:768
 msgid "A connected device is low on power"
 msgstr "Priključena naprava ima nizko napetost baterije"
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is very low on power
-#: plugins/power/gsd-power-manager.c:767
+#: plugins/power/gsd-power-manager.c:770
 #, c-format
 msgid ""
 "A connected device is very low on power (%.0f%%). The device will soon "
@@ -2381,7 +2381,7 @@ msgstr ""
 "Priključena naprava ima zelo nizko napetost baterije (%.0f%%). V kolikor je "
 "ne napolnite, se bo samodejno izklopila."
 
-#: plugins/power/gsd-power-manager.c:769
+#: plugins/power/gsd-power-manager.c:772
 msgid ""
 "A connected device is very low on power. The device will soon shutdown if "
 "not charged."
@@ -2390,107 +2390,107 @@ msgstr ""
 "napolnite, se bo samodejno izklopila."
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:795
+#: plugins/power/gsd-power-manager.c:798
 msgid "Low Battery"
 msgstr "Nizka napetost baterije"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:798
+#: plugins/power/gsd-power-manager.c:801
 #, c-format
 msgid "%.0f%% battery remaining"
 msgstr "%.0f%% do konca"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:801
+#: plugins/power/gsd-power-manager.c:804
 msgid "UPS Low"
 msgstr "Napetost UPS je nizka"
 
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
-#: plugins/power/gsd-power-manager.c:804 plugins/power/gsd-power-manager.c:877
+#: plugins/power/gsd-power-manager.c:807 plugins/power/gsd-power-manager.c:880
 #, c-format
 msgid "%.0f%% UPS power remaining"
 msgstr "%.0f%% preostale napetosti varovala UPS"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:842
+#: plugins/power/gsd-power-manager.c:845
 msgid "Battery is low"
 msgstr "Napetost baterije je nizka"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, advice on what the user should do
-#: plugins/power/gsd-power-manager.c:868
+#: plugins/power/gsd-power-manager.c:871
 msgid "Battery Almost Empty"
 msgstr "Baterija je skoraj prazna"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically running low, advice on what the user should do
-#: plugins/power/gsd-power-manager.c:871
+#: plugins/power/gsd-power-manager.c:874
 #, c-format
 msgid "Connect power now"
 msgstr "Takoj priklopite napajanje"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
-#: plugins/power/gsd-power-manager.c:874
+#: plugins/power/gsd-power-manager.c:877
 msgid "UPS Almost Empty"
 msgstr "Baterija naprave UPS je skoraj prazna"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, warning about action happening now
-#: plugins/power/gsd-power-manager.c:945
+#: plugins/power/gsd-power-manager.c:948
 msgid "Battery is Empty"
 msgstr "Baterija je izpraznjena"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action about to happen
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
-#: plugins/power/gsd-power-manager.c:952 plugins/power/gsd-power-manager.c:972
+#: plugins/power/gsd-power-manager.c:955 plugins/power/gsd-power-manager.c:975
 msgid "This device is about to hibernate"
 msgstr "Naprava bo postavljena v mirovanje"
 
-#: plugins/power/gsd-power-manager.c:954 plugins/power/gsd-power-manager.c:974
+#: plugins/power/gsd-power-manager.c:957 plugins/power/gsd-power-manager.c:977
 msgid "This device is about to shutdown"
 msgstr "Naprava se bo v kratkem izklopila"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
-#: plugins/power/gsd-power-manager.c:965
+#: plugins/power/gsd-power-manager.c:968
 msgid "UPS is Empty"
 msgstr "Baterija naprave UPS je prazna"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1493
+#: plugins/power/gsd-power-manager.c:1496
 msgid "Lid has been opened"
 msgstr "Pokrov računalnika je odprt"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1527
+#: plugins/power/gsd-power-manager.c:1530
 msgid "Lid has been closed"
 msgstr "Pokrov računalnika je zaprt"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2178
+#: plugins/power/gsd-power-manager.c:2183
 msgid "On battery power"
 msgstr "Napajanje iz baterije"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2183
+#: plugins/power/gsd-power-manager.c:2188
 msgid "On AC power"
 msgstr "Napajanje iz omrežja"
 
-#: plugins/power/gsd-power-manager.c:2452
+#: plugins/power/gsd-power-manager.c:2457
 msgid "Automatic logout"
 msgstr "Samodejna odjava"
 
-#: plugins/power/gsd-power-manager.c:2452
+#: plugins/power/gsd-power-manager.c:2457
 msgid "You will soon log out because of inactivity."
 msgstr "Zaradi nedejavnosti bo seja kmalu odjavljena."
 
-#: plugins/power/gsd-power-manager.c:2457
+#: plugins/power/gsd-power-manager.c:2462
 msgid "Automatic suspend"
 msgstr "Samodejna postavitev v pripravljenost"
 
-#: plugins/power/gsd-power-manager.c:2457
 #: plugins/power/gsd-power-manager.c:2462
+#: plugins/power/gsd-power-manager.c:2467
 msgid "Suspending soon because of inactivity."
 msgstr "Zaradi nedejavnosti bo računalnik kmalu postavljen v pripravljenost."
 
-#: plugins/power/gsd-power-manager.c:2462
+#: plugins/power/gsd-power-manager.c:2467
 msgid "Automatic hibernation"
 msgstr "Samodejno pošiljanje v mirovanje"
 
@@ -2715,12 +2715,12 @@ msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "»%s« na %s"
 
-#. Translators: A print job has been canceled
+#. Translators: A print job has been cancelled
 #: plugins/print-notifications/gsd-print-notifications-manager.c:722
 #: plugins/print-notifications/gsd-print-notifications-manager.c:762
 msgctxt "print job state"
-msgid "Printing canceled"
-msgstr "Tiskanje je preklicano."
+msgid "Printing cancelled"
+msgstr "Tiskanje je preklicano"
 
 #. Translators: A print job has been aborted
 #: plugins/print-notifications/gsd-print-notifications-manager.c:728
@@ -2759,19 +2759,19 @@ msgstr "Opozorilo tiskalnika"
 msgid "Printer “%s”: “%s”."
 msgstr "Tiskalnik »%s«: »%s«."
 
-#: plugins/smartcard/gsd-smartcard-service.c:282
+#: plugins/smartcard/gsd-smartcard-service.c:279
 msgid "User was not logged in with smartcard."
 msgstr "Uporabnik v sistem ni prijavljen s pametno kartico."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:415
+#: plugins/usb-protection/gsd-usb-protection-manager.c:412
 msgid "USB Protection"
 msgstr "Zaščita USB"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:544
+#: plugins/usb-protection/gsd-usb-protection-manager.c:541
 msgid "New USB device"
 msgstr "Nova naprava USB"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:545
+#: plugins/usb-protection/gsd-usb-protection-manager.c:542
 msgid ""
 "New device has been detected while the session was not locked. If you did "
 "not plug anything, check your system for any suspicious device."
@@ -2779,11 +2779,11 @@ msgstr ""
 "V času, ko seja ni bila zaklenjena, je bila zaznana nova naprava. Če niste "
 "priklopili nobene naprave, preverite sistem za morebitne sumljive priključke."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:687
+#: plugins/usb-protection/gsd-usb-protection-manager.c:684
 msgid "New device detected"
 msgstr "Zaznana je nova naprava"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:688
+#: plugins/usb-protection/gsd-usb-protection-manager.c:685
 msgid ""
 "Either one of your existing devices has been reconnected or a new one has "
 "been plugged in. If you did not do it, check your system for any suspicious "
@@ -2793,11 +2793,11 @@ msgstr ""
 "niste ponovno priklopili nobene naprave, preverite za morebitne sumljive "
 "priključke."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:695
+#: plugins/usb-protection/gsd-usb-protection-manager.c:692
 msgid "Reconnect USB device"
 msgstr "Ponovno poveži napravo USB"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:696
+#: plugins/usb-protection/gsd-usb-protection-manager.c:693
 msgid ""
 "New device has been detected while you were away. Please disconnect and "
 "reconnect the device to start using it."
@@ -2805,12 +2805,12 @@ msgstr ""
 "V času vaše odsotnosti je bila zaznana nova naprava. Odklopite jo in ponovno "
 "priklopite za uporabo."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:702
-#: plugins/usb-protection/gsd-usb-protection-manager.c:729
+#: plugins/usb-protection/gsd-usb-protection-manager.c:699
+#: plugins/usb-protection/gsd-usb-protection-manager.c:726
 msgid "USB device blocked"
 msgstr "Naprava USB je blokirana"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:703
+#: plugins/usb-protection/gsd-usb-protection-manager.c:700
 msgid ""
 "New device has been detected while you were away. It has been blocked "
 "because the USB protection is active."
@@ -2818,7 +2818,7 @@ msgstr ""
 "V času vaše odsotnosti je bila zaznana nova naprava. Naprava je bila "
 "blokirana zaradi dejavne zaščite USB."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:730
+#: plugins/usb-protection/gsd-usb-protection-manager.c:727
 msgid ""
 "The new inserted device has been blocked because the USB protection is "
 "active. If you want to activate the device, disable the USB protection and "
@@ -2983,1551 +2983,3 @@ msgstr[0] "Na voljo imate še %u poskusov."
 msgstr[1] "Na voljo imate še %u poskus."
 msgstr[2] "Na voljo imate še %u poskusa."
 msgstr[3] "Na voljo imate še %u poskuse."
-
-#, c-format
-#~ msgid "Approximately %s remaining (%.0f%%)"
-#~ msgstr "Na voljo je še približno %s delovanja (%.0f%%)"
-
-#, c-format
-#~ msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
-#~ msgstr "Na voljo je še približno %s delovanja varovala UPS (%.0f%%)"
-
-#~ msgid "Battery critically low"
-#~ msgstr "Napetost baterije je kritično nizka"
-
-#, c-format
-#~ msgid "Hibernating soon unless plugged in."
-#~ msgstr ""
-#~ "V kolikor računalnika ne priklopite na omrežno napetost, bo ta kmalu "
-#~ "postavljen v mirovanje."
-
-#, c-format
-#~ msgid "Shutting down soon unless plugged in."
-#~ msgstr ""
-#~ "V kolikor računalnika ne priklopite na omrežno napetost, se bo ta kmalu "
-#~ "izklopil."
-
-#~ msgid "UPS critically low"
-#~ msgstr "Napetost UPS je kritično nizka"
-
-#, c-format
-#~ msgid ""
-#~ "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to "
-#~ "your computer to avoid losing data."
-#~ msgstr ""
-#~ "Na voljo je še približno %s zmogljivosti varovala UPS (%.0f%%). "
-#~ "Računalnik je treba priklopiti na električno omrežje, da preprečite "
-#~ "izgubo podatkov."
-
-#~ msgid ""
-#~ "The battery is below the critical level and this computer is about to "
-#~ "hibernate."
-#~ msgstr ""
-#~ "Napetost baterije je kritično nizka, zato bo računalnik postavljen v "
-#~ "mirovanje."
-
-#~ msgid ""
-#~ "The battery is below the critical level and this computer is about to "
-#~ "shutdown."
-#~ msgstr ""
-#~ "Napetost baterije je kritično nizka, zato se bo računalnik izklopil."
-
-#~ msgid ""
-#~ "UPS is below the critical level and this computer is about to hibernate."
-#~ msgstr ""
-#~ "Napetost UPS je pod kritično ravnjo, zato bo računalnik postavljen v "
-#~ "mirovanje."
-
-#~ msgid ""
-#~ "UPS is below the critical level and this computer is about to shutdown."
-#~ msgstr ""
-#~ "Napetost UPS je pod kritično ravnjo, zato se bo računalnik izklopil."
-
-#~ msgid "Take a screenshot"
-#~ msgstr "Zajemi zaslonsko sliko"
-
-#~ msgid "Binding to take a screenshot."
-#~ msgstr "Tipkovna bližnjica za zajem zaslonske slike."
-
-#~ msgid "Take a screenshot of a window"
-#~ msgstr "Zajemi zaslonsko sliko okna"
-
-#~ msgid "Binding to take a screenshot of a window."
-#~ msgstr "Tipkovna bližnjica za zajem zaslonske slike okna."
-
-#~ msgid "Take a screenshot of an area"
-#~ msgstr "Zajemi zaslonske slike področja"
-
-#~ msgid "Binding to take a screenshot of an area."
-#~ msgstr "Tipkovna bližnjica za zajem zaslonske slike področja."
-
-#~ msgid "Copy a screenshot to clipboard"
-#~ msgstr "Kopiraj zaslonsko sliko v odložišče"
-
-#~ msgid "Binding to copy a screenshot to clipboard."
-#~ msgstr "Tipkovna bližnjica za kopiranje zaslonske slike v odložišče."
-
-#~ msgid "Copy a screenshot of a window to clipboard"
-#~ msgstr "Kopiraj zaslonsko sliko okna v odložišče"
-
-#~ msgid "Binding to copy a screenshot of a window to clipboard."
-#~ msgstr "Tipkovna bližnjica za kopiranje zaslonske slike okna v odložišče."
-
-#~ msgid "Copy a screenshot of an area to clipboard"
-#~ msgstr "Kopiraj zaslonsko sliko področja v odložišče"
-
-#~ msgid "Binding to copy a screenshot of an area to clipboard."
-#~ msgstr ""
-#~ "Tipkovna bližnjica za kopiranje zaslonske slike področja v odložišče."
-
-#~ msgid "Record a short video of the screen"
-#~ msgstr "Snemanje posnetka zaslona namizne seje"
-
-#~ msgid "Binding to record a short video of the screen"
-#~ msgstr "Snemanje posnetka zaslona namizne seje"
-
-#~ msgid "Maximum length of screen recordings"
-#~ msgstr "Najdaljši čas trajanja posnetka zaslona"
-
-#~ msgid ""
-#~ "The maximum length of single screen cast recordings in seconds or 0 for "
-#~ "unlimited"
-#~ msgstr ""
-#~ "Največja dolžina posnetka zaslona v sekundah. Vrednost 0 določa neomejen "
-#~ "čas."
-
-#, no-c-format
-#~ msgid "Screencast from %d %t.webm"
-#~ msgstr "Zaslonski posnetek %d %t.webm"
-
-#, c-format
-#~ msgid "Screenshot from %s"
-#~ msgstr "Zaslonska slika %s"
-
-#~ msgid "Laptop battery low"
-#~ msgstr "Napetost baterije prenosnika je nizka"
-
-#~ msgid "Laptop battery critically low"
-#~ msgstr "Napetost baterije prenosnika je kritično nizka"
-
-#~ msgid "Unable to capture a screenshot"
-#~ msgstr "Zajem zaslonske slike ni mogoč."
-
-#~ msgid "Screenshot taken"
-#~ msgstr "Zaslonska slika je zajeta"
-
-#~ msgid "Phone-adaptor link reserved"
-#~ msgstr "Povezava adapterja telefona je zadržana"
-
-#~ msgid "PH-SIM PIN required"
-#~ msgstr "Zahtevana je šifra PIN PH-SIM"
-
-#~ msgid "PH-FSIM PIN required"
-#~ msgstr "Zahtevana je šifra PIN PH-FSIM"
-
-#~ msgid "PH-FSIM PUK required"
-#~ msgstr "Zahtevana je šifra PUK PH-FSIM"
-
-#~ msgid "Memory full"
-#~ msgstr "Pomnilnik je zapolnjen"
-
-#~ msgid "Invalid index"
-#~ msgstr "Neveljavno kazalo"
-
-#~ msgid "Not found"
-#~ msgstr "Predmeta ni mogoče najti"
-
-#~ msgid "Memory failure"
-#~ msgstr "Dostop do pomnilnika je spodletel"
-
-#~ msgid "No network service"
-#~ msgstr "Ni dostopnih omrežnih storitev"
-
-#~ msgid "Network timeout"
-#~ msgstr "Zakasnitev omrežja"
-
-#~ msgid "Network not allowed - emergency calls only"
-#~ msgstr "Uporaba omrežja ni dovoljena, na voljo so le nujni klici"
-
-#~ msgid "Network personalization PIN required"
-#~ msgstr "Zahtevana je osebna koda PIN omrežja"
-
-#~ msgid "Network personalization PUK required"
-#~ msgstr "Zahtevana je osebna koda PUK omrežja"
-
-#~ msgid "Network subset personalization PIN required"
-#~ msgstr "Zahtevana je personalizacijska koda PIN za omrežje"
-
-#~ msgid "Network subset personalization PUK required"
-#~ msgstr "Zahtevana je personalizacijska koda PUK za omrežje"
-
-#~ msgid "Service provider personalization PIN required"
-#~ msgstr "Zahtevana je personalizacijska koda PIN ponudnika storitev"
-
-#~ msgid "Service provider personalization PUK required"
-#~ msgstr "Zahtevana je personalizacijska koda PUK ponudnika storitev"
-
-#~ msgid "Corporate personalization PIN required"
-#~ msgstr "Zahtevana je poslovna koda PIN"
-
-#~ msgid "Corporate personalization PUK required"
-#~ msgstr "Zahtevana je poslovna koda PUK"
-
-#~ msgid "Illegal MS"
-#~ msgstr "Neveljavna vrednost MS"
-
-#~ msgid "Illegal ME"
-#~ msgstr "Neveljavna vrednost ME"
-
-#~ msgid "GPRS services not allowed"
-#~ msgstr "Dostop do storitev GPRS ni dovoljen"
-
-#~ msgid "PLMN not allowed"
-#~ msgstr "Protokol PLMN ni dovoljen"
-
-#~ msgid "Location area not allowed"
-#~ msgstr "Lokacijsko območje ni dovoljeno"
-
-#~ msgid "Roaming not allowed in this location area"
-#~ msgstr "Roaming na tem lokacijskem območju ni dovoljen"
-
-#~ msgid "Service option not supported"
-#~ msgstr "Možnost storitve ni podprta"
-
-#~ msgid "Requested service option not subscribed"
-#~ msgstr "Zahtevana možnost storitve ni naročena"
-
-#~ msgid "Service option temporarily out of order"
-#~ msgstr "Možnost storitve začasno ni na voljo"
-
-#~ msgid "Unspecified GPRS error"
-#~ msgstr "Nedoločena napaka GPRS"
-
-#~ msgid "PDP authentication failure"
-#~ msgstr "Overitev PDP je spodletela."
-
-#~ msgid "Invalid mobile class"
-#~ msgstr "Neveljaven mobilni razred"
-
-#~ msgid "SIM card unlock error"
-#~ msgstr "Napaka odklepanja kartice SIM"
-
-#~ msgid "OK"
-#~ msgstr "V redu"
-
-#~ msgid "Too many incorrect PINs."
-#~ msgstr "Vpisanih je bilo preveč napačnih kod PIN."
-
-#~ msgid "Wrong PIN code"
-#~ msgstr "Napačna koda PIN"
-
-#~ msgid "NumLock state"
-#~ msgstr "Stanje številčnice na tipkovnici"
-
-#~ msgid "The remembered state of the NumLock LED."
-#~ msgstr "Pomnjeno stanje številčnice na tipkovnici."
-
-#~ msgid ""
-#~ "Highlights the current location of the pointer when the Control key is "
-#~ "pressed and released."
-#~ msgstr ""
-#~ "Poudari trenutno mesto kazalnika, kadar je pritisnjena in spuščena tipka "
-#~ "Ctrl."
-
-#~ msgid "Touchpad toggle"
-#~ msgstr "Preklop sledilne ploščice"
-
-#~ msgid "Quiet Volume Mute"
-#~ msgstr "Utišaj tiho glasnost"
-
-#~ msgid "Lock Screen"
-#~ msgstr "Zakleni zaslon"
-
-#~ msgid "Help"
-#~ msgstr "Pomoč"
-
-#~ msgid "Rewind"
-#~ msgstr "Previj nazaj"
-
-#~ msgid "Forward"
-#~ msgstr "Previj naprej"
-
-#~ msgid "Repeat"
-#~ msgstr "Ponovi"
-
-#~ msgid "Random Play"
-#~ msgstr "Naključno predvajanje"
-
-#~ msgid "Orientation Lock"
-#~ msgstr "Zaklep usmerjenosti"
-
-#~ msgid "Power Off"
-#~ msgstr "Izklop"
-
-#~ msgid "Sleep"
-#~ msgstr "V pripravljenost"
-
-#~ msgid "Toggle Bluetooth"
-#~ msgstr "Preklopi bluetooth"
-
-#~ msgid "Slow Keys Turned On"
-#~ msgstr "Počasne tipke so omogočene"
-
-#~ msgid "Slow Keys Turned Off"
-#~ msgstr "Počasne tipke so onemogočene"
-
-#~ msgid ""
-#~ "You just held down the Shift key for 8 seconds.  This is the shortcut for "
-#~ "the Slow Keys feature, which affects the way your keyboard works."
-#~ msgstr ""
-#~ "Držite tipko SHIFT pritisnjeno 8 sekund. To je bližnjica za možnost "
-#~ "počasnih tipk, ki se nanaša na delovanje vaše tipkovnice."
-
-#~ msgid "Universal Access"
-#~ msgstr "Splošni dostop"
-
-#~ msgid "Turn Off"
-#~ msgstr "Izklopi"
-
-#~ msgid "Turn On"
-#~ msgstr "Vklopi"
-
-#~ msgid "Leave On"
-#~ msgstr "Pusti vklopljeno"
-
-#~ msgid "Leave Off"
-#~ msgstr "Pusti izklopljeno"
-
-#~ msgid "Sticky Keys Turned On"
-#~ msgstr "Lepljive tipke so omogočene"
-
-#~ msgid "Sticky Keys Turned Off"
-#~ msgstr "Lepljive tipke so onemogočene"
-
-#~ msgid ""
-#~ "You just pressed the Shift key 5 times in a row.  This is the shortcut "
-#~ "for the Sticky Keys feature, which affects the way your keyboard works."
-#~ msgstr ""
-#~ "Pravkar ste pritisnili tipko SHIFT 5-krat zapovrstjo. To je bližnjica za "
-#~ "možnost lepljivih tipk, ki se nanaša na delovanje vaše tipkovnice."
-
-#~ msgid ""
-#~ "You just pressed two keys at once, or pressed the Shift key 5 times in a "
-#~ "row.  This turns off the Sticky Keys feature, which affects the way your "
-#~ "keyboard works."
-#~ msgstr ""
-#~ "Pravkar ste pritisnili dve tipki hkrati ali tipko SHIFT 5-krat "
-#~ "zapovrstjo. S tem ste onemogočiti možnost lepljivih tipk, ki se nanaša na "
-#~ "delovanje vaše tipkovnice."
-
-#~ msgid "Disabled"
-#~ msgstr "Onemogočeno"
-
-#~ msgid "%u Output"
-#~ msgid_plural "%u Outputs"
-#~ msgstr[0] "%u odvodov"
-#~ msgstr[1] "%u odvod"
-#~ msgstr[2] "%u odvoda"
-#~ msgstr[3] "%u odvodi"
-
-#~ msgid "%u Input"
-#~ msgid_plural "%u Inputs"
-#~ msgstr[0] "%u dovodov"
-#~ msgstr[1] "%u dovod"
-#~ msgstr[2] "%u dovoda"
-#~ msgstr[3] "%u dovodi"
-
-#~ msgid "System Sounds"
-#~ msgstr "Sistemski zvoki"
-
-#~ msgid "File for default configuration for RandR"
-#~ msgstr "Nastavitvena datoteka za privzeto nastavitev XRandR"
-
-#~ msgid ""
-#~ "The XRandR plugin will look for a default configuration in the file "
-#~ "specified by this key. This is similar to the ~/.config/monitors.xml that "
-#~ "normally gets stored in users’ home directories. If a user does not have "
-#~ "such a file, or has one that does not match the user’s setup of monitors, "
-#~ "then the file specified by this key will be used instead."
-#~ msgstr ""
-#~ "Vstavek XRandR preišče privzete nastavitve v datoteki, ki je določena na "
-#~ "tem mestu. To je podobna datoteka kot je datoteka ~/.config/monitors.xml, "
-#~ "ki je običajno shranjena v uporabnikovi mapi. V kolikor uporabnik v "
-#~ "osebni mapi te datoteke nima, ali pa jo ima, vendar ni skladna z "
-#~ "nastavitvami zaslonov, bo uporabljena datoteka določena na tem mestu."
-
-#~ msgid "Whether to turn off specific monitors after boot"
-#~ msgstr "Ali naj se po zagonu določeni zasloni zklopijo"
-
-#~ msgid ""
-#~ "“clone” will display the same thing on all monitors, “dock” will switch "
-#~ "off the internal monitor, “do-nothing” will use the default Xorg "
-#~ "behaviour (extend the desktop in recent versions). The default, “follow-"
-#~ "lid”, will choose between “do-nothing” and “dock” depending on whether "
-#~ "the lid is (respectively) open or closed."
-#~ msgstr ""
-#~ "Možnost »kloniraj« prikaže enako vsebino na vseh zaslonih, možnost "
-#~ "»zasidraj« izklopi notranji zaslon, možnost »ne stori ničesar« pa uporabi "
-#~ "privzeto delovanje Xorg (v nedavnih različicah razširi namizje). Možnost "
-#~ "»sledi pokrovu« omogoča izbiro med »ne stori ničesar« in »zasidraj«, "
-#~ "odvisno od položaja pokrova (odprt ali zaprt)."
-
-#~ msgid "Video Out"
-#~ msgstr "Izhod videa"
-
-#~ msgid "Rotate Screen"
-#~ msgstr "Zavrti zaslon"
-
-#~ msgid "Could not refresh the screen information: %s"
-#~ msgstr "Ni mogoče posodobiti podrobnosti zaslona: %s"
-
-#~ msgctxt "Wacom action-type"
-#~ msgid "None"
-#~ msgstr "Brez"
-
-#~ msgctxt "Wacom action-type"
-#~ msgid "Send Keystroke"
-#~ msgstr "Pošlji kodo tipke"
-
-#~ msgctxt "Wacom action-type"
-#~ msgid "Switch Monitor"
-#~ msgstr "Preklopi zaslon"
-
-#~ msgctxt "Wacom action-type"
-#~ msgid "Show On-Screen Help"
-#~ msgstr "Pokaži zaslonsko pomoč"
-
-#~ msgctxt "Action type"
-#~ msgid "Show On-Screen Help"
-#~ msgstr "Pokaži zaslonsko pomoč"
-
-#~ msgctxt "Action type"
-#~ msgid "Switch Monitor"
-#~ msgstr "Preklopi zaslon"
-
-#~ msgctxt "keyboard shortcut"
-#~ msgid "None"
-#~ msgstr "Brez"
-
-#~ msgid "Done"
-#~ msgstr "Končano"
-
-#~ msgid "Left Ring"
-#~ msgstr "Levi drsni obroč"
-
-#~ msgid "Left Ring Mode #%d"
-#~ msgstr "Levi način drsnega obroča #%d"
-
-#~ msgid "Right Ring"
-#~ msgstr "Desni drsni obroč"
-
-#~ msgid "Right Ring Mode #%d"
-#~ msgstr "Desni način drsnega obroča #%d"
-
-#~ msgid "Left Touchstrip"
-#~ msgstr "Levi način drsne ploščice"
-
-#~ msgid "Left Touchstrip Mode #%d"
-#~ msgstr "Levi način drsne ploščice #%d"
-
-#~ msgid "Right Touchstrip"
-#~ msgstr "Desni način drsne ploščice"
-
-#~ msgid "Right Touchstrip Mode #%d"
-#~ msgstr "Desni način drsne ploščice #%d"
-
-#~ msgid "Left Touchring Mode Switch"
-#~ msgstr "Levi gumb preklopa drsnega obroča"
-
-#~ msgid "Right Touchring Mode Switch"
-#~ msgstr "Desni gumb preklopa drsnega obroča"
-
-#~ msgid "Left Touchstrip Mode Switch"
-#~ msgstr "Levi gumb preklopa drsne ploščice"
-
-#~ msgid "Right Touchstrip Mode Switch"
-#~ msgstr "Desni gumb preklopa drsne ploščice"
-
-#~ msgid "Mode Switch #%d"
-#~ msgstr "Gumb preklopa #%d"
-
-#~ msgid "Left Button #%d"
-#~ msgstr "Levi gumb #%d"
-
-#~ msgid "Right Button #%d"
-#~ msgstr "Desni gumb #%d"
-
-#~ msgid "Top Button #%d"
-#~ msgstr "Zgornji gumb #%d"
-
-#~ msgid "Bottom Button #%d"
-#~ msgstr "Spodnji gumb #%d"
-
-#~ msgid "New shortcut…"
-#~ msgstr "_Nova tipkovna bližnjica ..."
-
-#~ msgid "The \"%s\" tablet may not work as expected."
-#~ msgstr "Tablica »%s« morda ne bo delovala po pričakovanjih."
-
-#~ msgid "Unknown Tablet Connected"
-#~ msgstr "Povezana je neznana vrsta tablice"
-
-#~ msgid "Wacom Settings"
-#~ msgstr "Nastavitve Wacom"
-
-#~ msgctxt "Action type"
-#~ msgid "None"
-#~ msgstr "Brez"
-
-#~ msgctxt "Action type"
-#~ msgid "Send Keystroke %s"
-#~ msgstr "Pošlji pritisk tipk %s"
-
-#~ msgid "Mode %d: %s"
-#~ msgstr "Način %d: %s"
-
-#~ msgid "(press any key to exit)"
-#~ msgstr "(katerakoli tipka za izkod)"
-
-#~ msgid "Push a button to configure"
-#~ msgstr "Pritisnite gumb za nastavitev"
-
-#~ msgid "(Esc to cancel)"
-#~ msgstr "(Ubežna tipka za preklic)"
-
-#~ msgid "Edit"
-#~ msgstr "Uredi"
-
-#~ msgid "GNOME Settings Daemon"
-#~ msgstr "Ozadnji program nastavitev GNOME"
-
-#~ msgid "Activation of this plugin"
-#~ msgstr "Omogočitev tega vstavka"
-
-#~ msgid ""
-#~ "Whether this plugin would be activated by gnome-settings-daemon or not"
-#~ msgstr "Ali naj ta vstavek gnome-settings-deamon omogoči ali ne"
-
-#~ msgid "Priority to use for this plugin"
-#~ msgstr "Prednost, ki jo uporablja ta vstavek"
-
-#~ msgid ""
-#~ "Priority to use for this plugin in gnome-settings-daemon startup queue"
-#~ msgstr ""
-#~ "Prednost za uporabo tega vstavka v čakalni vrsti zagona gnome-settings-"
-#~ "daemon"
-
-#~ msgid ""
-#~ "A list of strings representing the plugins that are allowed to be loaded "
-#~ "(default: 'all'). The plugins still need to be marked as active to get "
-#~ "loaded. This is only evaluated on startup."
-#~ msgstr ""
-#~ "Seznam vstavkov, ki naj bodo naloženi (privzeto je izbrana možnost: "
-#~ "'vsi'). Vstavki morajo biti označeni kot dejavni. Možnost se izvaja ob "
-#~ "zagonu."
-
-#~ msgid "Enable debugging code"
-#~ msgstr "Omogoči razhroščevanje kode"
-
-#~ msgid "Replace existing daemon"
-#~ msgstr "Zamenjaj obstoječi ozadnji program"
-
-#~ msgid "Exit after a time (for debugging)"
-#~ msgstr "Končaj po določenem času (za razhroščevanje)"
-
-#~ msgid "Accessibility Keyboard"
-#~ msgstr "Dostopnost tipkovnice"
-
-#~ msgid "Accessibility keyboard plugin"
-#~ msgstr "Vstavek dostopnosti tipkovnice"
-
-#~ msgid "Accessibility settings"
-#~ msgstr "Nastavitve dostopnosti"
-
-#~ msgid "Accessibility settings plugin"
-#~ msgstr "Vstavek nastavitev dostopnosti"
-
-#~ msgid "Clipboard"
-#~ msgstr "Odložišče"
-
-#~ msgid "Clipboard plugin"
-#~ msgstr "Vstavek odložišča"
-
-#~ msgid "Color plugin"
-#~ msgstr "Vstavek barv"
-
-#~ msgid "Date and Time"
-#~ msgstr "Datum in čas"
-
-#~ msgid "Automatically update timezone"
-#~ msgstr "Samodejno posodobi časovni pas"
-
-#~ msgid "Dummy"
-#~ msgstr "Poskusno"
-
-#~ msgid "Dummy plugin"
-#~ msgstr "Poskusni vstavek"
-
-#~ msgid "Housekeeping"
-#~ msgstr "Čiščenje"
-
-#~ msgid ""
-#~ "Automatically prunes thumbnail caches and other transient files, and "
-#~ "warns about low disk space"
-#~ msgstr ""
-#~ "Samodejno očisti predpomnilnik sličic in drugih začasnih datotek ter "
-#~ "opozori na pomanjkanje prostora na disku"
-
-#~ msgid "Keyboard"
-#~ msgstr "Tipkovnica"
-
-#~ msgid "Keyboard plugin"
-#~ msgstr "Vstavek tipkovnice"
-
-#~ msgid "Media keys"
-#~ msgstr "Predstavne tipke"
-
-#~ msgid "Media keys plugin"
-#~ msgstr "Vstavek predstavnih tipk"
-
-#~ msgid "Mouse"
-#~ msgstr "Miška"
-
-#~ msgid "Mouse plugin"
-#~ msgstr "Vstavek miške"
-
-#~ msgid "Orientation"
-#~ msgstr "Usmerjenost"
-
-#~ msgid "Orientation plugin"
-#~ msgstr "Vstavek usmerjenosti"
-
-#~ msgid "Power plugin"
-#~ msgstr "Vsavek porabe"
-
-#~ msgid "Print-notifications"
-#~ msgstr "Obvestila tiskanja"
-
-#~ msgid "Print-notifications plugin"
-#~ msgstr "Vstavek obvestil tiskanja"
-
-#~ msgid "Rfkill plugin"
-#~ msgstr "Vstavek Rfkill"
-
-#~ msgid "Screensaver Proxy"
-#~ msgstr "Posredniški strežnik ohranjevalnika zaslona"
-
-#~ msgid "Proxy FreeDesktop screensaver inhibition to gnome-session"
-#~ msgstr ""
-#~ "Zaviranje ohranjevalnika zaslona preko posredniškega strežnika med "
-#~ "delovanjem seje"
-
-#~ msgid "Smartcard"
-#~ msgstr "Pametna kartica"
-
-#~ msgid "Smartcard plugin"
-#~ msgstr "Vstavek pametne kartice"
-
-#~ msgid "Sound"
-#~ msgstr "Zvok"
-
-#~ msgid "Sound Sample Cache plugin"
-#~ msgstr "Vtičnik predpomnilnika zvočnih vzorcev"
-
-#~ msgid "Wacom"
-#~ msgstr "Wacom"
-
-#~ msgid "Wacom plugin"
-#~ msgstr "Vstavek Wacom"
-
-#~ msgid "XRandR"
-#~ msgstr "XRandR"
-
-#~ msgid "Set up screen size and rotation settings"
-#~ msgstr "Nastavitev velikosti in obračanja zaslona"
-
-#~ msgid "X Settings"
-#~ msgstr "Nastavitve X"
-
-#~ msgid "Manage X Settings"
-#~ msgstr "Upravljanje nastavitev strežnika X"
-
-#~ msgid "Device hotplug custom command"
-#~ msgstr "Ukaz po meri za hitro priklapljanje naprave"
-
-#~ msgid ""
-#~ "Command to be run when a device is added or removed. An exit value of 1 "
-#~ "means that the device will not be handled further by gnome-settings-"
-#~ "daemon."
-#~ msgstr ""
-#~ "Ukaz, ki naj se izvede, kadar je naprava dodana ali odstranjena. Izhodna "
-#~ "vrednost 1 pomeni, da naprava ne bo več upravljana preko programa gnome-"
-#~ "settings-deamon."
-
-#~ msgid ""
-#~ "The type of hinting to use when rendering fonts. Possible values are: "
-#~ "\"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, "
-#~ "and \"full\" for maximum hinting (may cause distortion of letter forms)."
-#~ msgstr ""
-#~ "Vrsta prilagoditve pisave uporabljena med izrisovanjem pisav. Mogoče "
-#~ "vrednosti so  \"brez\" za prezrto prilagoditev, \"delno\" za osnovno, "
-#~ "\"srednje\" za srednje in \"polno\" za napredno prilagajanje (lahko "
-#~ "zamegli videz črk)."
-
-#~ msgid "Wacom last calibrated resolution"
-#~ msgstr "Zadnja umerjena ločljivost tablice Wacom"
-
-#~ msgid ""
-#~ "Holds the last calibrated resolution to help check if calibration is "
-#~ "needed."
-#~ msgstr ""
-#~ "Vsebuje zadnjo umerjeno ločljivost za pomoč pri preverjanju potrebe po "
-#~ "ponovnem pregledu."
-
-#~ msgid "Cursor"
-#~ msgstr "Kazalec"
-
-#~ msgid "Show/hide cursor on tablet devices"
-#~ msgstr "Pokaži/skrij kazalec na tabličnih napravah"
-
-#~ msgid "Automatically update timezone and display notifications"
-#~ msgstr "Samodejno posodobi časovni pas in prikaži obvestila"
-
-#~ msgid "Don't show any warnings again for this file system"
-#~ msgstr "Ne pokaži več opozoril za ta datotečni sistem"
-
-#~ msgid "Don't show any warnings again"
-#~ msgstr "Ne pokaži več opozoril."
-
-#~ msgid "The volume \"%s\" has only %s disk space remaining."
-#~ msgstr "Na razdelku \"%s\" je le še %s razpoložljivega prostora."
-
-#~ msgid ""
-#~ "You can free up disk space by emptying the Trash, removing unused "
-#~ "programs or files, or moving files to another disk or partition."
-#~ msgstr ""
-#~ "Prostor na disku lahko povečate, če izpraznite smeti, odstranite redko "
-#~ "uporabljene programe in datoteke ali pa tako, da datoteke prestavite na "
-#~ "drug razdelek."
-
-#~ msgid ""
-#~ "You can free up disk space by removing unused programs or files, or by "
-#~ "moving files to another disk or partition."
-#~ msgstr ""
-#~ "Prostor na disku lahko povečate, če odstranite redko uporabljene programe "
-#~ "in datoteke ali pa tako, da datoteke prestavite na drug razdelek."
-
-#~ msgid ""
-#~ "You can free up disk space by emptying the Trash, removing unused "
-#~ "programs or files, or moving files to an external disk."
-#~ msgstr ""
-#~ "Prostor na disku lahko povečate, če izpraznite smeti, odstranite redko "
-#~ "uporabljene programe in datoteke ali pa tako, da datoteke prestavite na "
-#~ "zunanji disk."
-
-#~ msgid ""
-#~ "You can free up disk space by removing unused programs or files, or by "
-#~ "moving files to an external disk."
-#~ msgstr ""
-#~ "Prostor na disku lahko povečate, če odstranite redko uporabljene programe "
-#~ "in datoteke ali pa tako, da datoteke prestavite na zunanji disk."
-
-#~ msgid "Examine…"
-#~ msgstr "Preišči ..."
-
-#~ msgid "Printer removed"
-#~ msgstr "Tiskalnik je odstranjen."
-
-#~ msgid "Tablet %s needs to be calibrated."
-#~ msgstr "Tablica %s zahteva umeritev."
-
-#~ msgid "Calibration needed"
-#~ msgstr "Zahtevana je umeritev"
-
-#~ msgid "Calibrate"
-#~ msgstr "Umeri"
-
-#~ msgid "Wacom display mapping"
-#~ msgstr "Preslikava gumbov Wacom"
-
-#~ msgid ""
-#~ "EDID information of monitor to map tablet to. Must be in the format "
-#~ "[vendor, product, serial]. [\"\",\"\",\"\"] disables mapping."
-#~ msgstr ""
-#~ "Podrobnosti EDID za nadzor preslikave tipk tablice. Nastavitev mora biti "
-#~ "v zapisu [ponudnik, izdelek, zaporedna številka]. Zapis v obliki [\"\","
-#~ "\"\",\"\"] onemogoča preslikave."
-
-#~ msgid "Use mobile broadband connections"
-#~ msgstr "Uporabi širokopasovne mobilne povezave"
-
-#~ msgid ""
-#~ "Use mobile broadband connections such as GSM and CDMA to check for "
-#~ "updates."
-#~ msgstr ""
-#~ "Uporabi širokopasovne povezave kot sta GSM in CDMA za preverjanje za "
-#~ "posodobitve."
-
-#~ msgid ""
-#~ "Automatically download updates in the background without confirmation"
-#~ msgstr "Samodejno prejme posodobitve v ozadju brez potrdila"
-
-#~ msgid ""
-#~ "Automatically download updates in the background without confirmation. "
-#~ "Updates will be auto-downloaded when using wired network connnections, "
-#~ "and mobile broadband if 'connection-use-mobile' is enabled."
-#~ msgstr ""
-#~ "Samodejno prejme posodobitve v ozadju brez potrdila. Posodobitve bodo "
-#~ "prejete samodejno pri uporabi žičnih omrežnih povezav, pa tudi pri "
-#~ "uporabi WiFi, če je omogočen 'connection-use-wifi', in pri uporabi "
-#~ "mobilnega širokopasovnega omrežja, če je omogočen if 'connection-use-"
-#~ "mobile'."
-
-#~ msgid "How often to check for updates"
-#~ msgstr "Kako pogosto naj se preveri za posodobitve"
-
-#~ msgid ""
-#~ "How often to check for updates. Value is in seconds. This is a maximum "
-#~ "amount of time that can pass between a security update being published, "
-#~ "and the update being automatically installed or the user notified."
-#~ msgstr ""
-#~ "Kako pogosto naj program preveri za posodobitve. Vrednost je v sekundah. "
-#~ "To je največja količina časa, ki lahko mine med objavo varnostne "
-#~ "posodobitve in samodejno namestitev posodobitve ali obvestilom uporabniku."
-
-#~ msgid "How often to notify the user that non-critical updates are available"
-#~ msgstr ""
-#~ "Kako pogosto naj bo uporabnik obveščen, da so na voljo ne kritične "
-#~ "posodobitve"
-
-#~ msgid ""
-#~ "How often to tell the user there are non-critical updates. Value is in "
-#~ "seconds. Security update notifications are always shown after the check "
-#~ "for updates, but non-critical notifications should be shown a lot less "
-#~ "frequently."
-#~ msgstr ""
-#~ "Kako pogosto naj bo uporabnik obveščen, da so na voljo ne kritične "
-#~ "posodobitve. Vrednost je v sekundah. Obvestila o varnostnih posodobitvah "
-#~ "so po preverjanju za posodobitve vedno prikazana, ne kritična obvestila "
-#~ "pa so lahko prikazana manj pogosto."
-
-#~ msgid "The last time we told the user about non-critical notifications"
-#~ msgstr "Čas zadnjega obvestila uporabnika o ne kritičnih posodobitvah"
-
-#~ msgid ""
-#~ "The last time we notified the user about non-critical updates. Value is "
-#~ "in seconds since the epoch, or zero for never."
-#~ msgstr ""
-#~ "Čas zadnjega obvestila uporabnika o ne kritičnih posodobitvah. Vrednost "
-#~ "je v sekundah od epoha ali nič za nikoli."
-
-#~ msgid "How often to check for distribution upgrades"
-#~ msgstr "Kako pogosto naj se preveri za posodobitve celotne distribucije"
-
-#~ msgid "How often to check for distribution upgrades. Value is in seconds."
-#~ msgstr "Pogostost preverjanja posodobitev distribucije izraženo v sekundah."
-
-#~ msgid "How often to refresh the package cache"
-#~ msgstr "Pogostost osveževanja pomnilnika paketov izraženo v sekundah."
-
-#~ msgid "How often to refresh the package cache. Value is in seconds."
-#~ msgstr "Pogostost osveževanja pomnilnika paketov izražena v sekundah."
-
-#~ msgid "Check for updates when running on battery power"
-#~ msgstr "Samodejno preveri obstoj posodobitev ob napajnju preko baterije"
-
-#~ msgid "Check for updates when running on battery power."
-#~ msgstr ""
-#~ "Samodejno preveri obstoj posodobitev, ko se sistem napaja preko baterije."
-
-#~ msgid "Notify the user when distribution upgrades are available"
-#~ msgstr ""
-#~ "Obvesti uporabnika, da je na voljo nova nadgradnja celotne distribucije"
-
-#~ msgid "Notify the user when distribution upgrades are available."
-#~ msgstr "Obvesti uporabnika, da je na voljo nadgradnja celotne distribucije."
-
-#~ msgid "Ask the user if additional firmware should be installed"
-#~ msgstr ""
-#~ "Vprašaj uporabnika ali naj bo nameščena dodatna strojna programska oprema"
-
-#~ msgid ""
-#~ "Ask the user if additional firmware should be installed if it is "
-#~ "available."
-#~ msgstr ""
-#~ "Vpraša uporabnika, ali naj se namesti dodatna strojna programska oprema, "
-#~ "če je na voljo."
-
-#~ msgid "Firmware files that should not be searched for"
-#~ msgstr "Datoteke strojne programske opreme, ki jih ni mogoče iskati"
-
-#~ msgid ""
-#~ "Firmware files that should not be searched for, separated by commas. "
-#~ "These can include '*' and '?' characters."
-#~ msgstr ""
-#~ "Z vejicami ločen seznam datotek strojne programske opreme, ki bodo "
-#~ "izpuščene med iskanjem. Imena lahko vključujejo tudi znaka '*' in '?'."
-
-#~ msgid "Devices that should be ignored"
-#~ msgstr "Naprave, ki bodo prezrte"
-
-#~ msgid ""
-#~ "Devices that should be ignored, separated by commas. These can include "
-#~ "'*' and '?' characters."
-#~ msgstr ""
-#~ "Naprave, ki bodo prezrte, zapisane ločeno z vejicami. Vključena sta lahko "
-#~ "znaka '*' in '?'"
-
-#~ msgid ""
-#~ "The filenames on removable media that designate it a software source."
-#~ msgstr "Imena datotek odstranljivih nosilcev, ki določajo programski vir."
-
-#~ msgid ""
-#~ "When removable media is inserted, it is checked to see if it contains any "
-#~ "important filenames in the root directory. If the filename matches, then "
-#~ "an updates check is performed. This allows post-install disks to be used "
-#~ "to update running systems."
-#~ msgstr ""
-#~ "Ko je vstavljen odstranljiv nosilec, je preverjen za morebitna pomembna "
-#~ "imena datotek v korenski mapi. V primeru, da ime datoteke ustreza, je "
-#~ "izvedeno preverjanje posodobitev.  To omogoča uporabo diskov po "
-#~ "namestitvi za posodabljanje delujočih sistemov."
-
-#~ msgid ""
-#~ "You will need to restart this computer before the hardware will work "
-#~ "correctly."
-#~ msgstr ""
-#~ "Za pravilno delovanje strojne opreme je treba sistem ponovno zagnati."
-
-#~ msgid "Additional software was installed"
-#~ msgstr "Nameščena je bila dodatna programska oprema"
-
-#~ msgid "Software Updates"
-#~ msgstr "Programske posodobitve"
-
-#~ msgid ""
-#~ "You will need to remove and then reinsert the hardware before it will "
-#~ "work correctly."
-#~ msgstr "Za pravilno delovanje je treba strojno opremo ponovno vstaviti."
-
-#~ msgid "Your hardware has been set up and is now ready to use."
-#~ msgstr "Vaša strojna oprema je nameščena in pripravljena za uporabo."
-
-#~ msgid ""
-#~ "Additional firmware is required to make hardware in this computer "
-#~ "function correctly."
-#~ msgstr ""
-#~ "Za pravilno delovanje sistema je zahtevana dodatna strojna programska "
-#~ "oprema."
-
-#~ msgid "Additional firmware required"
-#~ msgstr "Zahtevana je dodatna strojna programska oprema"
-
-#~ msgid "Install firmware"
-#~ msgstr "Namesti strojno programsko opremo"
-
-#~ msgid "Ignore devices"
-#~ msgstr "Prezri naprave"
-
-#~ msgid "Failed To Update"
-#~ msgstr "Posodobitev ni uspela"
-
-#~ msgid "A previous update was unfinished."
-#~ msgstr "Prejšnja posodobitev še ni zaključena."
-
-#~ msgid "Network access was required but not available."
-#~ msgstr "Potreben je omrežni dostop, ki pa ni na voljo."
-
-#~ msgid "An update was not signed in the correct way."
-#~ msgstr "Posodobitev ni podpisana na ustrezen način."
-
-#~ msgid "The update could not be completed."
-#~ msgstr "Posodobitve sistema ni mogoče dokončati."
-
-#~ msgid "The update was cancelled."
-#~ msgstr "Posodobitev je preklicana."
-
-#~ msgid "An offline update was requested but no packages required updating."
-#~ msgstr ""
-#~ "Prejeta zahteva za posodobitev brez povezave, vendar noben paket ne "
-#~ "zahteva posodabljanja."
-
-#~ msgid "No space was left on the drive."
-#~ msgstr "Na pogonu ni več prostora."
-
-#~ msgid "An update failed to install correctly."
-#~ msgstr "Posodobitve ni mogoče pravilno namestiti."
-
-#~ msgid "The offline update failed in an unexpected way."
-#~ msgstr "Posodobitev brez povezave je spodletela na nepričakovan način."
-
-#~ msgid "Detailed errors from the package manager follow:"
-#~ msgstr "Sledijo podrobne napake iz upravitelja paketov:"
-
-#~ msgid "Distribution upgrades available"
-#~ msgstr "Na voljo je posodobitev distribucije"
-
-#~ msgid "More information"
-#~ msgstr "Več podrobnosti"
-
-#~ msgid "Update"
-#~ msgid_plural "Updates"
-#~ msgstr[0] "Posodobitve"
-#~ msgstr[1] "Posodobitev"
-#~ msgstr[2] "Posodobitvi"
-#~ msgstr[3] "Posodobitve"
-
-#~ msgid "An important software update is available"
-#~ msgid_plural "Important software updates are available"
-#~ msgstr[0] "Na voljo so pomembne programske posodobitve."
-#~ msgstr[1] "Na voljo je pomembna programska posodobitev."
-#~ msgstr[2] "Na voljo sta pomembni programski posodobitvi."
-#~ msgstr[3] "Na voljo so pomembne programske posodobitve."
-
-#~ msgid "View"
-#~ msgstr "Pogled"
-
-#~ msgid "Restart & Install"
-#~ msgstr "Ponovno zaženi in namesti"
-
-#~ msgid "Install updates"
-#~ msgstr "Namesti posodobitve"
-
-#~ msgid "A software update is available."
-#~ msgid_plural "Software updates are available."
-#~ msgstr[0] "Na voljo so programske posodobitve"
-#~ msgstr[1] "Na voljo je programska posodobitev"
-#~ msgstr[2] "Na voljo sta programski posodobitvi"
-#~ msgstr[3] "Na voljo so programske posodobitve"
-
-#~ msgid "Updates"
-#~ msgstr "Posodobitve"
-
-#~ msgid "Unable to access software updates"
-#~ msgstr "Ni mogoč dostop do posodobitev programske opreme"
-
-#~ msgid "Try again"
-#~ msgstr "Poskusite znova"
-
-#~ msgid "A transaction that cannot be interrupted is running"
-#~ msgstr "Zagnan je prenos, ki ga ni mogoče prekiniti"
-
-#~ msgid "Software Update Installed"
-#~ msgid_plural "Software Updates Installed"
-#~ msgstr[0] "Programske posodobitve so nameščene"
-#~ msgstr[1] "Programska posodobitev je nameščena"
-#~ msgstr[2] "Programski posodobitvi sta nameščeni"
-#~ msgstr[3] "Programske posodobitve so nameščene"
-
-#~ msgid "An important OS update has been installed."
-#~ msgid_plural "Important OS updates have been installed."
-#~ msgstr[0] "Pomembne programske posodobitve so nameščene."
-#~ msgstr[1] "Pomembna programska posodobitev je nameščena."
-#~ msgstr[2] "Pomembni programski posodobitvi sta nameščeni."
-#~ msgstr[3] "Pomembne programske posodobitve so nameščene."
-
-#~ msgid "Software Updates Failed"
-#~ msgstr "Programske posodobitve spodletele"
-
-#~ msgid "An important OS update failed to be installed."
-#~ msgstr "Pomembne programske posodobitve ni mogoče namestiti."
-
-#~ msgid "Review"
-#~ msgstr "Preglej"
-
-#~ msgid "Show details"
-#~ msgstr "Pokaži podrobnosti"
-
-#~ msgid "Updates plugin"
-#~ msgstr "Vstavek posodobitev"
-
-#~ msgid "Wacom tablet PC feature"
-#~ msgstr "PC zmožnost tablice Wacom"
-
-#~ msgid "Enable this to only report stylus events when the tip is pressed."
-#~ msgstr ""
-#~ "Omogočite to za poročanje dogodkov  palčke, ko je pritisnjena tipka."
-
-#~ msgid "Percentage considered low"
-#~ msgstr "Odstotek obravnavan kot nizek"
-
-#~ msgid ""
-#~ "The percentage of the battery when it is considered low. Only valid when "
-#~ "use-time-for-policy is false."
-#~ msgstr ""
-#~ "Odstotek baterije, ki naj bo obravnavan kot nizek. Veljavno le, ko "
-#~ "možnost uporabi čas kot varovalo ni izbrana."
-
-#~ msgid "Percentage considered critical"
-#~ msgstr "Odstotek obravnavan kot kritično nizek"
-
-#~ msgid ""
-#~ "The percentage of the battery when it is considered critical. Only valid "
-#~ "when use-time-for-policy is false."
-#~ msgstr ""
-#~ "Odstotek baterije, ki naj se obravnava kot kritičen. Možnost je omogočena "
-#~ "le, kadar je onemogočena možnost uporabi čas kot varovalo."
-
-#~ msgid "Percentage action is taken"
-#~ msgstr "Odstotek, ko se izvede dejanje"
-
-#~ msgid ""
-#~ "The percentage of the battery when the critical action is performed. Only "
-#~ "valid when use-time-for-policy is false."
-#~ msgstr ""
-#~ "Odstotek baterije, ki naj bo obravnavan kot kritičen. Veljavno le, ko "
-#~ "možnost uporabi čas kot varovalo ni izbrana."
-
-#~ msgid "The time remaining when low"
-#~ msgstr "Preostali čas, ko je stanje nizko"
-
-#~ msgid ""
-#~ "The time remaining in seconds of the battery when it is considered low. "
-#~ "Only valid when use-time-for-policy is true."
-#~ msgstr ""
-#~ "Preostali čas baterije v sekundah, ko je njeno stanje nizko. Veljavno le, "
-#~ "ko je izbrana možnost uporabi čas kot varovalo."
-
-#~ msgid "The time remaining when critical"
-#~ msgstr "Preostali čas, ko je stanje kritično"
-
-#~ msgid ""
-#~ "The time remaining in seconds of the battery when it is considered "
-#~ "critical. Only valid when use-time-for-policy is true."
-#~ msgstr ""
-#~ "Preostali čas baterije v sekundah, ko je njeno stanje kritično. Veljavno "
-#~ "le, ko je izbrana možnost uporabi čas kot varovalo."
-
-#~ msgid "The time remaining when action is taken"
-#~ msgstr "Preostali čas, ko je dejanje izvedeno"
-
-#~ msgid ""
-#~ "The time remaining in seconds of the battery when critical action is "
-#~ "taken. Only valid when use-time-for-policy is true."
-#~ msgstr ""
-#~ "Preostali čas baterije v sekundah, ko je izvedeno kritično dejanje. "
-#~ "Veljavno le, ko je izbrana možnostuporabi čas kot varovalo."
-
-#~ msgid "Whether to use time-based notifications"
-#~ msgstr "Ali naj se uporabijo časovna obvestila"
-
-#~ msgid ""
-#~ "If time based notifications should be used. If set to false, then the "
-#~ "percentage change is used instead, which may fix a broken ACPI BIOS."
-#~ msgstr ""
-#~ "Ali naj bodo uporabljena časovna obvestila. Neizbrana možnost omogoča, da "
-#~ "se uporabi sprememba v odstotkih, kar lahko popravi pokvarjen ACPI BIOS."
-
-#~ msgid "If we should show the recalled battery warning for a broken battery"
-#~ msgstr "Ali naj bo prikazano opozorilo o preklicu pokvarjene baterije"
-
-#~ msgid ""
-#~ "If we should show the recalled battery warning for a broken battery. Set "
-#~ "this to false only if you know your battery is okay."
-#~ msgstr ""
-#~ "Ali naj bo prikazano opozorilo o preklicu pokvarjene baterije. Vrednost "
-#~ "spremenite le, če ste prepričani, da baterija deluje pravilno."
-
-#~ msgid "provides %s laptop runtime"
-#~ msgstr "omogoča %s delovanja prenosnika"
-
-#~ msgid "%s %s until charged"
-#~ msgstr "%s %s do napolnjenosti"
-
-#~ msgid "provides %s battery runtime"
-#~ msgstr "omogoča %s delovanja baterije"
-
-#~ msgid "Product:"
-#~ msgstr "Izdelek:"
-
-#~ msgid "Status:"
-#~ msgstr "Stanje:"
-
-#~ msgid "Missing"
-#~ msgstr "Manjkajoče"
-
-#~ msgid "Charged"
-#~ msgstr "Napolnjeno"
-
-#~ msgid "Charging"
-#~ msgstr "Polnjenje"
-
-#~ msgid "Discharging"
-#~ msgstr "Praznjenje"
-
-#~ msgid "Percentage charge:"
-#~ msgstr "Odstotek polnjenja:"
-
-#~ msgid "Vendor:"
-#~ msgstr "Ponudnik:"
-
-#~ msgid "Technology:"
-#~ msgstr "Tehnologija:"
-
-#~ msgid "Serial number:"
-#~ msgstr "Zaporedna številka:"
-
-#~ msgid "Model:"
-#~ msgstr "Model:"
-
-#~ msgid "Discharge time:"
-#~ msgstr "Čas praznjenja:"
-
-#~ msgid "Excellent"
-#~ msgstr "Odlično"
-
-#~ msgid "Good"
-#~ msgstr "Dobro"
-
-#~ msgid "Fair"
-#~ msgstr "Zadovoljivo"
-
-#~ msgid "Poor"
-#~ msgstr "Slabo"
-
-#~ msgid "Capacity:"
-#~ msgstr "Zmogljivost:"
-
-#~ msgid "Current charge:"
-#~ msgstr "Trenutno polnjenje:"
-
-#~ msgid "Last full charge:"
-#~ msgstr "Zadnje popolno polnjenje:"
-
-#~ msgid "Design charge:"
-#~ msgstr "Prvotno polnjenje:"
-
-#~ msgid "Charge rate:"
-#~ msgstr "Hitrost polnjenja:"
-
-#~ msgid "AC adapter"
-#~ msgid_plural "AC adapters"
-#~ msgstr[0] "Napajalniki"
-#~ msgstr[1] "Napajalnik"
-#~ msgstr[2] "Napajalnika"
-#~ msgstr[3] "Napajalniki"
-
-#~ msgid "UPS"
-#~ msgid_plural "UPSs"
-#~ msgstr[0] "UPS"
-#~ msgstr[1] "UPS"
-#~ msgstr[2] "UPS"
-#~ msgstr[3] "UPS"
-
-#~ msgid "Monitor"
-#~ msgid_plural "Monitors"
-#~ msgstr[0] "Zasloni"
-#~ msgstr[1] "Zaslon"
-#~ msgstr[2] "Zaslona"
-#~ msgstr[3] "Zasloni"
-
-#~ msgid "PDA"
-#~ msgid_plural "PDAs"
-#~ msgstr[0] "Dlančniki"
-#~ msgstr[1] "Dlančnik"
-#~ msgstr[2] "Dlančnika"
-#~ msgstr[3] "Dlančniki"
-
-#~ msgid "Cell phone"
-#~ msgid_plural "Cell phones"
-#~ msgstr[0] "Mobilni telefoni"
-#~ msgstr[1] "Mobilni telefon"
-#~ msgstr[2] "Mobilna telefona"
-#~ msgstr[3] "Mobilni telefoni"
-
-#~ msgid "Media player"
-#~ msgid_plural "Media players"
-#~ msgstr[0] "Predstavni predvajalniki"
-#~ msgstr[1] "Predstavni predvajalnik"
-#~ msgstr[2] "Predstavna predvajalnika"
-#~ msgstr[3] "Predstavni predvajalniki"
-
-#~ msgid "Tablet"
-#~ msgid_plural "Tablets"
-#~ msgstr[0] "Tablični računalniki"
-#~ msgstr[1] "Tablični računalnik"
-#~ msgstr[2] "Tablična računalnika"
-#~ msgstr[3] "Tablični računalniki"
-
-#~ msgid "Computer"
-#~ msgid_plural "Computers"
-#~ msgstr[0] "Računalniki"
-#~ msgstr[1] "Računalnik"
-#~ msgstr[2] "Računalnika"
-#~ msgstr[3] "Računalniki"
-
-#~ msgid "Lithium Ion"
-#~ msgstr "litij-ionska"
-
-#~ msgid "Lithium Polymer"
-#~ msgstr "litijev polimer"
-
-#~ msgid "Lithium Iron Phosphate"
-#~ msgstr "litij-železov fosfat"
-
-#~ msgid "Lead acid"
-#~ msgstr "svinčeva baterija"
-
-#~ msgid "Nickel Cadmium"
-#~ msgstr "nikelj-kadmij"
-
-#~ msgid "Nickel metal hydride"
-#~ msgstr "nikelj metal hidrid"
-
-#~ msgid "Unknown technology"
-#~ msgstr "Neznana tehnologija"
-
-#~ msgid "Empty"
-#~ msgstr "Prazno"
-
-#~ msgid "Waiting to charge"
-#~ msgstr "Čakanje na polnjenje"
-
-#~ msgid "Waiting to discharge"
-#~ msgstr "Čakanje na praznjenje"
-
-#~ msgid "Laptop battery not present"
-#~ msgstr "Prenosnik nima vstavljene baterije"
-
-#~ msgid "Laptop battery is charging"
-#~ msgstr "Baterija prenosnika se polni"
-
-#~ msgid "Laptop battery is discharging"
-#~ msgstr "Baterija prenosnika se prazni"
-
-#~ msgid "Laptop battery is empty"
-#~ msgstr "Baterija prenosnika je prazna"
-
-#~ msgid "Laptop battery is charged"
-#~ msgstr "Baterija prenosnika je napolnjena"
-
-#~ msgid "Laptop battery is waiting to charge"
-#~ msgstr "Baterija prenosnika čaka na polnjenje"
-
-#~ msgid "Laptop battery is waiting to discharge"
-#~ msgstr "Baterija prenosnika čaka na praznjenje"
-
-#~ msgid "UPS is charging"
-#~ msgstr "Baterija naprave UPS se polni"
-
-#~ msgid "UPS is discharging"
-#~ msgstr "Baterija naprave UPS se prazni"
-
-#~ msgid "UPS is charged"
-#~ msgstr "Baterija naprave UPS je napolnjena"
-
-#~ msgid "Mouse is charging"
-#~ msgstr "Baterija miške se polni"
-
-#~ msgid "Mouse is discharging"
-#~ msgstr "Baterija miške se prazni"
-
-#~ msgid "Mouse is empty"
-#~ msgstr "Baterija miške je prazna"
-
-#~ msgid "Mouse is charged"
-#~ msgstr "Baterija miške je napolnjena"
-
-#~ msgid "Keyboard is charging"
-#~ msgstr "Baterija tipkovnice se polni"
-
-#~ msgid "Keyboard is discharging"
-#~ msgstr "Baterija tipkovnice se prazni"
-
-#~ msgid "Keyboard is empty"
-#~ msgstr "Baterija tipkovnice je prazna"
-
-#~ msgid "Keyboard is charged"
-#~ msgstr "Baterija tipkovnice je napolnjena"
-
-#~ msgid "PDA is charging"
-#~ msgstr "Baterija dlančnika se polni"
-
-#~ msgid "PDA is discharging"
-#~ msgstr "Baterija dlančnika se prazni"
-
-#~ msgid "PDA is empty"
-#~ msgstr "Baterija dlančnika je prazna"
-
-#~ msgid "PDA is charged"
-#~ msgstr "Baterija dlančnika je napolnjena"
-
-#~ msgid "Cell phone is charging"
-#~ msgstr "Baterija mobilnega telefona se polni"
-
-#~ msgid "Cell phone is discharging"
-#~ msgstr "Baterija mobilnega telefona se prazni"
-
-#~ msgid "Cell phone is empty"
-#~ msgstr "Baterija mobilnega telefona je prazna"
-
-#~ msgid "Cell phone is charged"
-#~ msgstr "Baterija mobilnega telefona je napolnjena"
-
-#~ msgid "Media player is charging"
-#~ msgstr "Baterija predvajalnika se polni"
-
-#~ msgid "Media player is discharging"
-#~ msgstr "Baterija predvajalnika se prazni"
-
-#~ msgid "Media player is empty"
-#~ msgstr "Baterija predvajalnika je prazna"
-
-#~ msgid "Media player is charged"
-#~ msgstr "Baterija predvajalnika je napolnjena"
-
-#~ msgid "Tablet is charging"
-#~ msgstr "Baterija tabličnega računalnika se polni"
-
-#~ msgid "Tablet is discharging"
-#~ msgstr "Baterija tabličnega računalnika se prazni"
-
-#~ msgid "Tablet is empty"
-#~ msgstr "Baterija tabličnega računalnika je prazna"
-
-#~ msgid "Tablet is charged"
-#~ msgstr "Baterija tabličnega računalnika je napolnjena"
-
-#~ msgid "Computer is charging"
-#~ msgstr "Baterija računalnika se polni"
-
-#~ msgid "Computer is discharging"
-#~ msgstr "Baterija računalnika se prazni"
-
-#~ msgid "Computer is empty"
-#~ msgstr "Baterija računalnika je prazna"
-
-#~ msgid "Computer is charged"
-#~ msgstr "Baterija računalnika napolnjena"
-
-#~ msgid "Battery may be recalled"
-#~ msgstr "Baterija je bila morda preklicana"
-
-#~ msgid ""
-#~ "A battery in your computer may have been recalled by %s and you may be at "
-#~ "risk."
-#~ msgstr ""
-#~ "Baterija računalnika je bila morda preklicana s strani %s zato uporaba "
-#~ "naprave ni priporočljiva."
-
-#~ msgid "For more information visit the battery recall website."
-#~ msgstr ""
-#~ "Za več podrobnosti o preklicu, obiščite spletne strani proizvajalca."
-
-#~ msgid "Visit recall website"
-#~ msgstr "Obišči spletno stran preklicev"
-
-#~ msgid "Do not show me this again"
-#~ msgstr "Ne prikaži več tega sporočila"
-
-#~ msgid "Plug in your AC adapter to avoid losing data."
-#~ msgstr "Vtaknite omrežni električni kabel, preden izgubite podatke."
-
-#~ msgid "Computer will suspend very soon unless it is plugged in."
-#~ msgstr ""
-#~ "V kolikor računalnika ne priklopite v omrežje, se bo kmalu postavil v "
-#~ "pripravljenost."
-
-#~ msgid ""
-#~ "The battery is below the critical level and this computer will <b>power-"
-#~ "off</b> when the battery becomes completely empty."
-#~ msgstr ""
-#~ "Napetost baterije je kritično nizka, zato se bo računalnik <b>ugasnil</"
-#~ "b>, ko se baterija do konca izprazni."
-
-#~ msgid ""
-#~ "The battery is below the critical level and this computer is about to "
-#~ "suspend.\n"
-#~ "<b>NOTE:</b> A small amount of power is required to keep your computer in "
-#~ "a suspended state."
-#~ msgstr ""
-#~ "Napetost baterije je kritično nizka, zato bo računalnik postavljen v "
-#~ "pripravljenost.\n"
-#~ " <b>OPOMBA:</b> računalnik v pripravljenosti porabi manj energije."
-
-#~ msgid ""
-#~ "UPS is below the critical level and this computer will <b>power-off</b> "
-#~ "when the UPS becomes completely empty."
-#~ msgstr ""
-#~ "Napetost UPS je pod kritično ravnjo, zato se bo računalnik <b>ugasnil</"
-#~ "b>, ko se UPS do konca izprazni."
-
-#~ msgid "Remote Display"
-#~ msgstr "Oddaljeno namizje"
-
-#~ msgid "Disable animations on remote displays"
-#~ msgstr "Onemogoči animacijo na oddaljenih namizjih"
-
-#~ msgid "Software Updates available"
-#~ msgstr "Na voljo je posodobitev programske opreme"
-
-#~ msgid "Important OS and application updates are ready to be installed"
-#~ msgstr "Pomembne programske posodobitve so pripravljene za namestitev."
-
-#~ msgid "GNOME Software"
-#~ msgstr "Programska oprema ..."
-
-#~ msgid "Could not restore the display's configuration"
-#~ msgstr "Ni mogoče obnoviti nastavitev zaslona"
-
-#~ msgid "Could not restore the display's configuration from a backup"
-#~ msgstr "Ni mogoče obnoviti nastavitve zaslona iz varnostne kopije"
-
-#~ msgid "The display will be reset to its previous configuration in %d second"
-#~ msgid_plural ""
-#~ "The display will be reset to its previous configuration in %d seconds"
-#~ msgstr[0] "Zaslon se bo povrnil na predhodne nastavitve v %d sekundah"
-#~ msgstr[1] "Zaslon se bo povrnil na predhodne nastavitve v %d sekundi"
-#~ msgstr[2] "Zaslon se bo povrnil na predhodne nastavitve v %d sekundah"
-#~ msgstr[3] "Zaslon se bo povrnil na predhodne nastavitve v %d sekundah"
-
-#~ msgid "Does the display look OK?"
-#~ msgstr "Ali je slika na zaslonu videti v redu?"
-
-#, fuzzy
-#~ msgid "Confirm New Configuration"
-#~ msgstr "Potrdi novo šifrirno geslo"
-
-#~ msgid "_Restore Previous Configuration"
-#~ msgstr "_Obnovi predhodne nastavitve"
-
-#~ msgid "_Keep This Configuration"
-#~ msgstr "_Ohrani nastavitve"
-
-#~ msgid "The selected configuration for displays could not be applied"
-#~ msgstr "Izbranih nastavitev zaslona ni mogoče uporabiti"
-
-#~ msgid "Could not apply the stored configuration for monitors"
-#~ msgstr "Ni mogoče uporabiti shranjenih nastavitev za zaslone."
-
-#~ msgid "Could not enable mouse accessibility features"
-#~ msgstr "Ni mogoče zagnati možnosti dostopnosti miške"
-
-#~ msgid ""
-#~ "Mouse accessibility requires Mousetweaks to be installed on your system."
-#~ msgstr "Dostopnost miške zahteva namestitev programa Mousetweaks v sistem."
-
-#~ msgid "received error or hang up from event source"
-#~ msgstr "prejeta je bila napaka ali pa je vir dogodka nepričakovano končan"
-
-#~ msgid "NSS security system could not be initialized"
-#~ msgstr "Varnostnega sistema NSS ni mogoče začeti"
-
-#~ msgid "no suitable smartcard driver could be found"
-#~ msgstr "ni mogoče najti primernega gonilnika pametnih kartic"
-
-#~ msgid "smartcard driver '%s' could not be loaded"
-#~ msgstr "gonilnika pametnih kartic '%s' ni mogoče naložiti"
-
-#~ msgid "could not watch for incoming card events - %s"
-#~ msgstr "ni mogoče nadzorovati prihajajočih dogodkov kartice - %s"
-
-#~ msgid "encountered unexpected error while waiting for smartcard events"
-#~ msgstr ""
-#~ "prišlo je do nepričakovane napake med čakanjem na dejanja pametne kartice"
-
-#~ msgid "Could not switch the monitor configuration"
-#~ msgstr "Ni mogoče preklopiti nastavitve zaslona"
-
-#~ msgid "Trying to switch the monitor configuration anyway."
-#~ msgstr "Poskus preklopa nastavitev zaslona."
