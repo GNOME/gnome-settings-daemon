@@ -12,6 +12,7 @@ all_plugins = [
     ['usb-protection', 'UsbProtection', 'GNOME USB protection'],
     ['xsettings', 'XSettings', 'GNOME XSettings'],
     ['smartcard', 'Smartcard', 'GNOME smartcard'],
+    ['color-scheme', 'ColorScheme', 'GNOME Color Scheme management'],
     ['wacom', 'Wacom', 'GNOME Wacom tablet support'],
     ['print-notifications', 'PrintNotifications', 'GNOME printer notifications'],
     ['rfkill', 'Rfkill', 'GNOME RFKill support'],
