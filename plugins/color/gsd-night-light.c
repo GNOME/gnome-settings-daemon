@@ -28,7 +28,7 @@
 #include "gsd-color-state.h"
 
 #include "gsd-night-light.h"
-#include "gsd-night-light-common.h"
+#include "gsd-datetime-helper.h"
 
 struct _GsdNightLight {
         GObject            parent;
@@ -146,8 +146,8 @@ update_cached_sunrise_sunset (GsdNightLight *self)
                 return FALSE;
         if (longitude > 180.f || longitude < -180.f)
                 return FALSE;
-        if (!gsd_night_light_get_sunrise_sunset (dt_now, latitude, longitude,
-                                                   &sunrise, &sunset)) {
+        if (!gsd_datetime_get_sunrise_sunset (dt_now, latitude, longitude,
+                                              &sunrise, &sunset)) {
                 g_warning ("failed to get sunset/sunrise for %.3f,%.3f",
                            longitude, longitude);
                 return FALSE;
@@ -293,7 +293,7 @@ night_light_recheck (GsdNightLight *self)
         }
 
         /* get the current hour of a day as a fraction */
-        frac_day = gsd_night_light_frac_day_from_dt (dt_now);
+        frac_day = gsd_datetime_frac_day_from_dt (dt_now);
         g_debug ("fractional day = %.3f, limits = %.3f->%.3f",
                  frac_day, schedule_from, schedule_to);
 
@@ -311,11 +311,11 @@ night_light_recheck (GsdNightLight *self)
                 } else if (time_span > 0) {
                         /* Or if a sunrise lies between the time it was disabled and now. */
                         gdouble frac_disabled;
-                        frac_disabled = gsd_night_light_frac_day_from_dt (self->disabled_until_tmw_dt);
+                        frac_disabled = gsd_datetime_frac_day_from_dt (self->disabled_until_tmw_dt);
                         if (frac_disabled != frac_day &&
-                            gsd_night_light_frac_day_is_between (schedule_to,
-                                                                 frac_disabled,
-                                                                 frac_day)) {
+                            gsd_datetime_frac_day_is_between (schedule_to,
+                                                              frac_disabled,
+                                                              frac_day)) {
                                 g_debug ("night light sun rise happened, resetting disabled until tomorrow");
                                 reset = TRUE;
                         }
@@ -333,9 +333,9 @@ night_light_recheck (GsdNightLight *self)
                      MIN (     ABS (schedule_to - schedule_from),
                           24 - ABS (schedule_to - schedule_from)));
 
-        if (!gsd_night_light_frac_day_is_between (frac_day,
-                                                  schedule_from - smear,
-                                                  schedule_to)) {
+        if (!gsd_datetime_frac_day_is_between (frac_day,
+                                               schedule_from - smear,
+                                               schedule_to)) {
                 g_debug ("not time for night-light");
                 gsd_night_light_set_active (self, FALSE);
                 return;
@@ -363,15 +363,15 @@ night_light_recheck (GsdNightLight *self)
         if (smear < 0.01) {
                 /* Don't try to smear for extremely short or zero periods */
                 temp_smeared = temperature;
-        } else if (gsd_night_light_frac_day_is_between (frac_day,
-                                                        schedule_from - smear,
-                                                        schedule_from)) {
+        } else if (gsd_datetime_frac_day_is_between (frac_day,
+                                                     schedule_from - smear,
+                                                     schedule_from)) {
                 gdouble factor = 1.f - ((frac_day - (schedule_from - smear)) / smear);
                 temp_smeared = linear_interpolate (GSD_COLOR_TEMPERATURE_DEFAULT,
                                                    temperature, factor);
-        } else if (gsd_night_light_frac_day_is_between (frac_day,
-                                                        schedule_to - smear,
-                                                        schedule_to)) {
+        } else if (gsd_datetime_frac_day_is_between (frac_day,
+                                                     schedule_to - smear,
+                                                     schedule_to)) {
                 gdouble factor = (frac_day - (schedule_to - smear)) / smear;
                 temp_smeared = linear_interpolate (GSD_COLOR_TEMPERATURE_DEFAULT,
                                                    temperature, factor);
