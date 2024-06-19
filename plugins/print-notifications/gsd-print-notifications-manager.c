@@ -718,8 +718,8 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                                 secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
                                 break;
                         case IPP_JOB_CANCELED:
-                                /* Translators: A print job has been canceled */
-                                primary_text = g_strdup (C_("print job state", "Printing canceled"));
+                                /* Translators: A print job has been cancelled */
+                                primary_text = g_strdup (C_("print job state", "Printing cancelled"));
                                 /* Translators: "print-job xy" on a printer */
                                 secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
                                 break;
@@ -758,8 +758,8 @@ process_cups_notification (GsdPrintNotificationsManager *manager,
                         case IPP_JOB_CANCELED:
                                 g_hash_table_remove (manager->printing_printers,
                                                      printer_name);
-                                /* Translators: A print job has been canceled */
-                                primary_text = g_strdup (C_("print job state", "Printing canceled"));
+                                /* Translators: A print job has been cancelled */
+                                primary_text = g_strdup (C_("print job state", "Printing cancelled"));
                                 /* Translators: "print-job xy" on a printer */
                                 secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
                                 break;
