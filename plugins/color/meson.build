@@ -1,10 +1,8 @@
 sources = files(
-  'gnome-datetime-source.c',
   'gsd-color-calibrate.c',
   'gsd-color-manager.c',
   'gsd-color-state.c',
   'gsd-night-light.c',
-  'gsd-night-light-common.c',
   'main.c'
 )
 sources += main_helper_sources
@@ -33,9 +31,7 @@ executable(
 
 sources = files(
   'gcm-self-test.c',
-  'gnome-datetime-source.c',
-  'gsd-night-light.c',
-  'gsd-night-light-common.c'
+  'gsd-night-light.c'
 )
 
 test_unit = 'gcm-self-test'

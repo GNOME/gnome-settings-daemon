@@ -14,26 +14,25 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
- *
  */
 
-#ifndef __GSD_NIGHT_LIGHT_COMMON_H
-#define __GSD_NIGHT_LIGHT_COMMON_H
+#ifndef __GSD_DATETIME_HELPER_H
+#define __GSD_DATETIME_HELPER_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-gboolean gsd_night_light_get_sunrise_sunset     (GDateTime      *dt,
-                                                 gdouble         pos_lat,
-                                                 gdouble         pos_long,
-                                                 gdouble        *sunrise,
-                                                 gdouble        *sunset);
-gdouble  gsd_night_light_frac_day_from_dt       (GDateTime      *dt);
-gboolean gsd_night_light_frac_day_is_between    (gdouble         value,
-                                                 gdouble         start,
-                                                 gdouble         end);
+gboolean gsd_datetime_get_sunrise_sunset     (GDateTime      *dt,
+                                              gdouble         pos_lat,
+                                              gdouble         pos_long,
+                                              gdouble        *sunrise,
+                                              gdouble        *sunset);
+gdouble  gsd_datetime_frac_day_from_dt       (GDateTime      *dt);
+gboolean gsd_datetime_frac_day_is_between    (gdouble         value,
+                                              gdouble         start,
+                                              gdouble         end);
 
 G_END_DECLS
 
-#endif /* __GSD_NIGHT_LIGHT_COMMON_H */
+#endif /* __GSD_DATETIME_HELPER_H */
