@@ -4,28 +4,27 @@ sources = files(
 )
 
 dbus_ifaces = [
-  ['SessionManager', 'gsd-session-manager-glue'],
-  ['ScreenSaver', 'gsd-screen-saver-glue'],
-  ['Shell', 'gsd-shell-glue']
+  ['SessionManager', 'gsd-session-manager-glue', 'SessionManager'],
+  ['ScreenSaver', 'gsd-screen-saver-glue', 'ScreenSaver'],
+  ['Shell', 'gsd-shell-glue', 'Shell'],
 ]
 
 dbus_headers = []
 
-dbus_sources = []
-
 foreach iface: dbus_ifaces
   name = 'org.gnome.' + iface[0]
+  c_name = iface[2]
 
-  dbus_sources += gnome.gdbus_codegen(
+  dbus_sources = gnome.gdbus_codegen(
     iface[1],
     name + '.xml',
     interface_prefix: name + '.',
     namespace: 'Gsd',
-    annotations: [name, 'org.gtk.GDBus.C.Name', iface[0]]
+    annotations: [name, 'org.gtk.GDBus.C.Name', iface[2]]
   )
 
-  dbus_headers += dbus_sources[0]
-  sources += dbus_sources[1]
+  sources += dbus_sources[0]
+  dbus_headers += dbus_sources[1]
 endforeach
 
 deps = [gio_unix_dep]
