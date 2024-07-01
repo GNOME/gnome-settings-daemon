@@ -42,6 +42,9 @@
 #define GNOME_SHELL_DBUS_NAME      "org.gnome.Shell"
 #define GNOME_SHELL_DBUS_OBJECT    "/org/gnome/Shell"
 
+#define MUTTER_DISPLAY_CONFIG_DBUS_NAME      "org.gnome.Mutter.DisplayConfig"
+#define MUTTER_DISPLAY_CONFIG_DBUS_OBJECT    "/org/gnome/Mutter/DisplayConfig"
+
 GsdSessionManager *
 gnome_settings_bus_get_session_proxy (void)
 {
@@ -119,6 +122,33 @@ gnome_settings_bus_get_shell_proxy (void)
         }
 
         return shell_proxy;
+}
+
+GsdDisplayConfig *
+gnome_settings_bus_get_display_config_proxy (void)
+{
+        static GsdDisplayConfig *display_config_proxy = NULL;
+        g_autoptr(GError) error =  NULL;
+
+        if (display_config_proxy != NULL) {
+                g_object_ref (display_config_proxy);
+        } else {
+                display_config_proxy =
+                        gsd_display_config_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
+                                                                   G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START,
+                                                                   MUTTER_DISPLAY_CONFIG_DBUS_NAME,
+                                                                   MUTTER_DISPLAY_CONFIG_DBUS_OBJECT,
+                                                                   NULL,
+                                                                   &error);
+                if (error) {
+                        g_warning ("Failed to connect to display config: %s", error->message);
+                } else {
+                        g_object_add_weak_pointer (G_OBJECT (display_config_proxy),
+                                                   (gpointer*)&display_config_proxy);
+                }
+        }
+
+        return display_config_proxy;
 }
 
 char *

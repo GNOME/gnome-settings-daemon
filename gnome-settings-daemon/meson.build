@@ -7,6 +7,7 @@ dbus_ifaces = [
   ['SessionManager', 'gsd-session-manager-glue', 'SessionManager'],
   ['ScreenSaver', 'gsd-screen-saver-glue', 'ScreenSaver'],
   ['Shell', 'gsd-shell-glue', 'Shell'],
+  ['Mutter.DisplayConfig', 'gsd-display-config-glue', 'DisplayConfig'],
 ]
 
 dbus_headers = []
