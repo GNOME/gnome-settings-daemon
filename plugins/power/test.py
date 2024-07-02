@@ -394,7 +394,7 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
 
         self.plugin_log.check_no_line(b'TESTSUITE: Unblanked screen', wait=seconds)
 
-class PowerPluginTest1(PowerPluginBase):
+class PowerPluginTestScreensaver(PowerPluginBase):
     def test_screensaver(self):
         # Note that the screensaver mock object
         # doesn't know how to get out of being active,
@@ -466,7 +466,7 @@ class PowerPluginTest1(PowerPluginBase):
         self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id),
                 dbus_interface='org.gnome.SessionManager')
 
-class PowerPluginTest2(PowerPluginBase):
+class PowerPluginTestScreensaverNoblank(PowerPluginBase):
     def test_screensaver_no_unblank(self):
         '''Ensure the screensaver is not unblanked for new inhibitors.'''
 
@@ -551,7 +551,7 @@ class PowerPluginTest2(PowerPluginBase):
         # And check we're not idle
         self.assertEqual(self.get_status(), gsdpowerenums.GSM_PRESENCE_STATUS_AVAILABLE)
 
-class PowerPluginTest3(PowerPluginBase):
+class PowerPluginTestBattery(PowerPluginBase):
     def test_sleep_inactive_battery(self):
         '''sleep-inactive-battery-timeout'''
 
@@ -608,7 +608,7 @@ class PowerPluginTest3(PowerPluginBase):
         self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id),
                 dbus_interface='org.gnome.SessionManager')
 
-class PowerPluginTest4(PowerPluginBase):
+class PowerPluginTestLid(PowerPluginBase):
     def test_lock_on_lid_close(self):
         '''Check that we do lock on lid closing, if the machine will not suspend'''
 
@@ -695,7 +695,7 @@ class PowerPluginTest4(PowerPluginBase):
         self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id),
                 dbus_interface='org.gnome.SessionManager')
 
-class PowerPluginTest5(PowerPluginBase):
+class PowerPluginTestDim(PowerPluginBase):
     def test_dim(self):
         '''Check that we do go to dim'''
 
@@ -770,7 +770,7 @@ class PowerPluginTest5(PowerPluginBase):
         # Check that we're uninhibited after the safety time
         self.check_for_lid_uninhibited(4)
 
-class PowerPluginTest6(PowerPluginBase):
+class PowerPluginTestBatteryLevels(PowerPluginBase):
     def test_notify_critical_battery(self):
         '''action on critical battery'''
 
@@ -1011,7 +1011,7 @@ class PowerPluginTest6(PowerPluginBase):
         self.obj_session_mgr.Uninhibit(dbus.UInt32(inhibit_id),
                 dbus_interface='org.gnome.SessionManager')
 
-class PowerPluginTest7(PowerPluginBase):
+class PowerPluginTestBrightness(PowerPluginBase):
     def test_check_missing_kbd_brightness(self):
         ''' https://bugzilla.gnome.org/show_bug.cgi?id=793512 '''
 
@@ -1087,7 +1087,7 @@ class PowerPluginTest7(PowerPluginBase):
         # And wait a little more to see us dim again
         self.check_dim(idle_delay + 2)
 
-class PowerPluginTest8(PowerPluginBase):
+class PowerPluginTestBrightnessStep(PowerPluginBase):
     def test_brightness_stepping(self):
         '''Check that stepping the backlight works as expected'''
 

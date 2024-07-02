@@ -136,14 +136,25 @@ if get_option('b_sanitize').split(',').contains('address')
   envs.set('POWER_LD_PRELOAD', 'libasan.so.5')
 endif
 
-foreach i : [ 1, 2, 3, 4, 5, 6, 7, 8 ]
+tests = [
+  'Screensaver',
+  'ScreensaverNoblank',
+  'Battery',
+  'Lid',
+  'Dim',
+  'BatteryLevels',
+  'Brightness',
+  'BrightnessStep',
+]
+
+foreach test : tests
   test(
-    'test-power @0@/8'.format(i),
+    'test-power @0@'.format(test),
     test_py,
-    args: [ 'PowerPluginTest@0@'.format(i) ],
+    args: [ 'PowerPluginTest@0@'.format(test) ],
     env: envs,
     # The first set of tests takes very long because of SCREENSAVER_TIMEOUT_BLANK
-    timeout: i == 1 ? 180 : 120
+    timeout: test == 'Screensaver' ? 180 : 120
   )
 endforeach
 
