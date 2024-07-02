@@ -24,10 +24,6 @@
 #include <glib.h>
 #include <gio/gio.h>
 
-#define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-rr.h>
-
-
 G_BEGIN_DECLS
 
 #define GSD_TYPE_BACKLIGHT gsd_backlight_get_type ()
@@ -72,8 +68,7 @@ gint gsd_backlight_cycle_up_finish       (GsdBacklight         *backlight,
 
 const char*  gsd_backlight_get_connector (GsdBacklight         *backlight);
 
-GsdBacklight* gsd_backlight_new          (GnomeRRScreen        *screen,
-                                          GError              **error);
+GsdBacklight* gsd_backlight_new          (GError              **error);
 
 
 G_END_DECLS

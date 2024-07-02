@@ -31,9 +31,6 @@
 #include <X11/extensions/dpms.h>
 #include <canberra-gtk.h>
 
-#define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-rr.h>
-
 #include "gnome-settings-bus.h"
 #include "gpm-common.h"
 #include "gsd-power-constants.h"
@@ -317,39 +314,21 @@ get_mock_external_monitor_file (void)
 	  return mocked_once.retval;
 }
 
-static gboolean
-randr_output_is_on (GnomeRROutput *output)
-{
-        GnomeRRCrtc *crtc;
-
-        crtc = gnome_rr_output_get_crtc (output);
-        if (!crtc)
-                return FALSE;
-        return gnome_rr_crtc_get_current_mode (crtc) != NULL;
-}
-
 static void
 mock_monitor_changed (GFileMonitor     *monitor,
 		      GFile            *file,
 		      GFile            *other_file,
-		      GFileMonitorEvent event_type,
-		      gpointer          user_data)
+		      GFileMonitorEvent event_type)
 {
-	GnomeRRScreen *screen = (GnomeRRScreen *) user_data;
+        GsdDisplayConfig *display_config =
+                gnome_settings_bus_get_display_config_proxy ();
 
-	g_debug ("Mock screen configuration changed");
-	g_signal_emit_by_name (G_OBJECT (screen), "changed");
-}
-
-static void
-screen_destroyed (gpointer  user_data,
-		  GObject  *where_the_object_was)
-{
-	g_object_unref (G_OBJECT (user_data));
+	g_debug ("Emitting mocked has-external-monitor property changed signal on %p", display_config);
+	g_object_notify (G_OBJECT (display_config), "has-external-monitor");
 }
 
 void
-watch_external_monitor (GnomeRRScreen *screen)
+watch_external_monitor (void)
 {
 	const gchar *filename;
 	GFile *file;
@@ -363,12 +342,11 @@ watch_external_monitor (GnomeRRScreen *screen)
 	monitor = g_file_monitor (file, G_FILE_MONITOR_NONE, NULL, NULL);
 	g_object_unref (file);
 	g_signal_connect (monitor, "changed",
-			  G_CALLBACK (mock_monitor_changed), screen);
-	g_object_weak_ref (G_OBJECT (screen), screen_destroyed, monitor);
+			  G_CALLBACK (mock_monitor_changed), NULL);
 }
 
 static gboolean
-mock_external_monitor_is_connected (GnomeRRScreen *screen)
+mock_external_monitor_is_connected (void)
 {
 	char *mock_external_monitor_contents;
 	const gchar *filename;
@@ -395,25 +373,42 @@ mock_external_monitor_is_connected (GnomeRRScreen *screen)
 }
 
 gboolean
-external_monitor_is_connected (GnomeRRScreen *screen)
+external_monitor_is_connected (void)
 {
-        GnomeRROutput **outputs;
-        guint i;
+        GsdDisplayConfig *display_config =
+                gnome_settings_bus_get_display_config_proxy ();
+        GDBusConnection *connection;
+        g_autoptr (GError) error = NULL;
+        g_autoptr (GVariant) variant = NULL;
+        g_autoptr (GVariant) inner = NULL;
 
         if (get_mock_external_monitor_file ())
-                return mock_external_monitor_is_connected (screen);
+                return mock_external_monitor_is_connected ();
 
-	g_assert (screen != NULL);
+        /* This needs to be a synchronous call, an up to date state is needed
+         * in response to lid changes. */
 
-        /* see if we have more than one screen plugged in */
-        outputs = gnome_rr_screen_list_outputs (screen);
-        for (i = 0; outputs[i] != NULL; i++) {
-                if (randr_output_is_on (outputs[i]) &&
-                    !gnome_rr_output_is_builtin_display (outputs[i]))
-                        return TRUE;
+        connection = g_dbus_proxy_get_connection (G_DBUS_PROXY (display_config));
+        variant = g_dbus_connection_call_sync (connection,
+                                               "org.gnome.Mutter.DisplayConfig",
+                                               "/org/gnome/Mutter/DisplayConfig",
+                                               "org.freedesktop.DBus.Properties",
+                                               "Get",
+                                               g_variant_new ("(ss)",
+                                                              "org.gnome.Mutter.DisplayConfig",
+                                                              "HasExternalMonitor"),
+                                               NULL,
+                                               G_DBUS_CALL_FLAGS_NONE,
+                                               -1,
+                                               NULL,
+                                               &error);
+        if (!variant) {
+                g_debug ("Failed to get property 'HasExternalMonitor': %s", error->message);
+                return FALSE;
         }
 
-        return FALSE;
+        g_variant_get (variant, "(v)", &inner);
+        return g_variant_get_boolean (inner);
 }
 
 static void

@@ -33,7 +33,6 @@
 #include <gio/gunixfdlist.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-rr.h>
 #include <libgnome-desktop/gnome-idle-monitor.h>
 
 #include <gsd-input-helper.h>
@@ -48,6 +47,8 @@
 #include "gnome-settings-bus.h"
 #include "gsd-enums.h"
 #include "gsd-power-manager.h"
+
+#include "gsd-display-config-glue.h"
 
 #define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
 #define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
@@ -161,7 +162,6 @@ struct _GsdPowerManager
         UpClient                *up_client;
         GPtrArray               *devices_array;
         UpDevice                *device_composite;
-        GnomeRRScreen           *rr_screen;
         NotifyNotification      *notification_ups_discharging;
         NotifyNotification      *notification_low;
         NotifyNotification      *notification_sleep_warning;
@@ -1263,21 +1263,29 @@ iio_proxy_claim_light (GsdPowerManager *manager, gboolean active)
                            manager);
 }
 
+typedef enum {
+        GSD_POWER_SAVE_MODE_ON = 0,
+        GSD_POWER_SAVE_MODE_STANDBY = 1,
+        GSD_POWER_SAVE_MODE_SUSPEND = 2,
+        GSD_POWER_SAVE_MODE_OFF = 3,
+        GSD_POWER_SAVE_MODE_UNKNOWN = -1,
+} GsdPowerSaveMode;
+
+static void
+set_power_saving_mode (GsdPowerManager  *manager,
+                       GsdPowerSaveMode  mode)
+{
+        GsdDisplayConfig *display_config =
+                gnome_settings_bus_get_display_config_proxy ();
+
+        gsd_display_config_set_power_save_mode (display_config, mode);
+}
+
 static void
 backlight_enable (GsdPowerManager *manager)
 {
-        gboolean ret;
-        GError *error = NULL;
-
         iio_proxy_claim_light (manager, TRUE);
-        ret = gnome_rr_screen_set_dpms_mode (manager->rr_screen,
-                                             GNOME_RR_DPMS_ON,
-                                             &error);
-        if (!ret) {
-                g_warning ("failed to turn the panel on: %s",
-                           error->message);
-                g_error_free (error);
-        }
+        set_power_saving_mode (manager, GSD_POWER_SAVE_MODE_ON);
 
         g_debug ("TESTSUITE: Unblanked screen");
 }
@@ -1285,18 +1293,8 @@ backlight_enable (GsdPowerManager *manager)
 static void
 backlight_disable (GsdPowerManager *manager)
 {
-        gboolean ret;
-        GError *error = NULL;
-
         iio_proxy_claim_light (manager, FALSE);
-        ret = gnome_rr_screen_set_dpms_mode (manager->rr_screen,
-                                             GNOME_RR_DPMS_OFF,
-                                             &error);
-        if (!ret) {
-                g_warning ("failed to turn the panel off: %s",
-                           error->message);
-                g_error_free (error);
-        }
+        set_power_saving_mode (manager, GSD_POWER_SAVE_MODE_OFF);
 
         g_debug ("TESTSUITE: Blanked screen");
 }
@@ -1432,7 +1430,7 @@ upower_kbd_toggle (GsdPowerManager *manager,
 static gboolean
 suspend_on_lid_close (GsdPowerManager *manager)
 {
-        return !external_monitor_is_connected (manager->rr_screen) || !manager->session_is_active;
+        return !external_monitor_is_connected () || !manager->session_is_active;
 }
 
 static gboolean
@@ -1529,9 +1527,6 @@ do_lid_closed_action (GsdPowerManager *manager)
                          /* TRANSLATORS: this is the sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Lid has been closed"),
                          NULL);
-
-        /* refresh RANDR so we get an accurate view of what monitors are plugged in when the lid is closed */
-        gnome_rr_screen_refresh (manager->rr_screen, NULL); /* NULL-GError */
 
         if (suspend_on_lid_close (manager)) {
                 gboolean is_inhibited;
@@ -2770,9 +2765,8 @@ sync_lid_inhibitor (GsdPowerManager *manager)
 }
 
 static void
-on_randr_event (GnomeRRScreen *screen, gpointer user_data)
+has_external_monitor_changed (GsdPowerManager *manager)
 {
-        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
 
         g_debug ("Screen configuration changed");
 
@@ -2816,135 +2810,6 @@ logind_proxy_signal_cb (GDBusProxy  *proxy,
         } else {
                 handle_resume_actions (manager);
         }
-}
-
-static void
-on_rr_screen_acquired (GObject      *object,
-                       GAsyncResult *result,
-                       gpointer      user_data)
-{
-        GsdPowerManager *manager = user_data;
-        GError *error = NULL;
-
-        gnome_settings_profile_start (NULL);
-
-        manager->rr_screen = gnome_rr_screen_new_finish (result, &error);
-
-        if (error) {
-                g_warning ("Could not create GnomeRRScreen: %s\n", error->message);
-                g_error_free (error);
-                gnome_settings_profile_end (NULL);
-
-                return;
-        }
-
-        /* Resolve screen backlight */
-        manager->backlight = gsd_backlight_new (manager->rr_screen, NULL);
-
-        if (manager->backlight)
-                g_signal_connect_object (manager->backlight,
-                                         "notify::brightness",
-                                         G_CALLBACK (backlight_notify_brightness_cb),
-                                         manager, G_CONNECT_SWAPPED);
-
-        /* Set up a delay inhibitor to be informed about suspend attempts */
-        g_signal_connect (manager->logind_proxy, "g-signal",
-                          G_CALLBACK (logind_proxy_signal_cb),
-                          manager);
-        inhibit_suspend (manager);
-
-        /* track the active session */
-        manager->session = gnome_settings_bus_get_session_proxy ();
-        g_signal_connect_object (manager->session, "g-properties-changed",
-                                 G_CALLBACK (engine_session_properties_changed_cb),
-                                 manager, 0);
-        manager->session_is_active = is_session_active (manager);
-
-        /* set up the screens */
-        if (manager->lid_is_present) {
-                g_signal_connect (manager->rr_screen, "changed", G_CALLBACK (on_randr_event), manager);
-                watch_external_monitor (manager->rr_screen);
-                on_randr_event (manager->rr_screen, manager);
-        }
-
-        manager->screensaver_proxy = gnome_settings_bus_get_screen_saver_proxy ();
-
-        g_signal_connect (manager->screensaver_proxy, "g-signal",
-                          G_CALLBACK (screensaver_signal_cb), manager);
-
-        manager->kbd_brightness_old = -1;
-        manager->kbd_brightness_pre_dim = -1;
-        manager->pre_dim_brightness = -1;
-        g_signal_connect (manager->settings, "changed",
-                          G_CALLBACK (engine_settings_key_changed_cb), manager);
-        g_signal_connect (manager->settings_bus, "changed",
-                          G_CALLBACK (engine_settings_key_changed_cb), manager);
-        g_signal_connect (manager->up_client, "device-added",
-                          G_CALLBACK (engine_device_added_cb), manager);
-        g_signal_connect (manager->up_client, "device-removed",
-                          G_CALLBACK (engine_device_removed_cb), manager);
-        g_signal_connect_after (manager->up_client, "notify::lid-is-closed",
-                                G_CALLBACK (lid_state_changed_cb), manager);
-        g_signal_connect (manager->up_client, "notify::on-battery",
-                          G_CALLBACK (up_client_on_battery_cb), manager);
-
-        /* connect to power-profiles-daemon */
-        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
-                                  G_DBUS_PROXY_FLAGS_NONE,
-                                  NULL,
-                                  PPD_DBUS_NAME,
-                                  PPD_DBUS_PATH,
-                                  PPD_DBUS_INTERFACE,
-                                  manager->cancellable,
-                                  power_profiles_proxy_ready_cb,
-                                  manager);
-
-        /* connect to UPower for keyboard backlight control */
-        manager->kbd_brightness_now = -1;
-        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
-                                  G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
-                                  NULL,
-                                  UPOWER_DBUS_NAME,
-                                  UPOWER_DBUS_PATH_KBDBACKLIGHT,
-                                  UPOWER_DBUS_INTERFACE_KBDBACKLIGHT,
-                                  NULL,
-                                  power_keyboard_proxy_ready_cb,
-                                  manager);
-
-        manager->devices_array = g_ptr_array_new_with_free_func (g_object_unref);
-        manager->devices_notified_ht = g_hash_table_new_full (g_str_hash, g_str_equal,
-                                                              g_free, NULL);
-
-        /* create a fake virtual composite battery */
-        manager->device_composite = up_client_get_display_device (manager->up_client);
-        g_signal_connect (manager->device_composite, "notify::warning-level",
-                          G_CALLBACK (engine_device_warning_changed_cb), manager);
-
-        /* create IDLETIME watcher */
-        manager->idle_monitor = gnome_idle_monitor_new ();
-
-        /* coldplug the engine */
-        engine_coldplug (manager);
-        idle_configure (manager);
-
-        /* ensure the default dpms timeouts are cleared */
-        backlight_enable (manager);
-
-        if (!gnome_settings_is_wayland ())
-                manager->xscreensaver_watchdog_timer_id = gsd_power_enable_screensaver_watchdog ();
-
-        /* queue a signal in case the proxy from gnome-shell was created before we got here
-           (likely, considering that to get here we need a reply from gnome-shell)
-        */
-        if (manager->backlight) {
-                manager->ambient_percentage_old = gsd_backlight_get_brightness (manager->backlight, NULL);
-                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN,
-                                              manager->ambient_percentage_old, NULL);
-        } else {
-                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN, -1, NULL);
-        }
-
-        gnome_settings_profile_end (NULL);
 }
 
 static void
@@ -3094,10 +2959,6 @@ gsd_power_manager_start (GsdPowerManager *manager,
                 manager->show_sleep_warnings = TRUE;
         }
 
-        /* coldplug the list of screens */
-        gnome_rr_screen_new_async (gdk_screen_get_default (),
-                                   on_rr_screen_acquired, manager);
-
         manager->settings = g_settings_new (GSD_POWER_SETTINGS_SCHEMA);
         manager->settings_screensaver = g_settings_new ("org.gnome.desktop.screensaver");
         manager->settings_bus = g_settings_new ("org.gnome.desktop.session");
@@ -3116,6 +2977,117 @@ gsd_power_manager_start (GsdPowerManager *manager,
         manager->ambient_percentage_old = -1.f;
         manager->ambient_last_absolute = -1.f;
         manager->ambient_last_time = 0;
+
+        manager->backlight = gsd_backlight_new (NULL);
+
+        if (manager->backlight)
+                g_signal_connect_object (manager->backlight,
+                                         "notify::brightness",
+                                         G_CALLBACK (backlight_notify_brightness_cb),
+                                         manager, G_CONNECT_SWAPPED);
+
+        /* Set up a delay inhibitor to be informed about suspend attempts */
+        g_signal_connect (manager->logind_proxy, "g-signal",
+                          G_CALLBACK (logind_proxy_signal_cb),
+                          manager);
+        inhibit_suspend (manager);
+
+        /* track the active session */
+        manager->session = gnome_settings_bus_get_session_proxy ();
+        g_signal_connect_object (manager->session, "g-properties-changed",
+                                 G_CALLBACK (engine_session_properties_changed_cb),
+                                 manager, 0);
+        manager->session_is_active = is_session_active (manager);
+
+        /* set up the screens */
+        if (manager->lid_is_present) {
+                GsdDisplayConfig *display_config =
+                        gnome_settings_bus_get_display_config_proxy ();
+
+                g_signal_connect_swapped (display_config, "notify::has-external-monitor",
+                                          G_CALLBACK (has_external_monitor_changed), manager);
+                watch_external_monitor ();
+                sync_lid_inhibitor (manager);
+        }
+
+        manager->screensaver_proxy = gnome_settings_bus_get_screen_saver_proxy ();
+
+        g_signal_connect (manager->screensaver_proxy, "g-signal",
+                          G_CALLBACK (screensaver_signal_cb), manager);
+
+        manager->kbd_brightness_old = -1;
+        manager->kbd_brightness_pre_dim = -1;
+        manager->pre_dim_brightness = -1;
+        g_signal_connect (manager->settings, "changed",
+                          G_CALLBACK (engine_settings_key_changed_cb), manager);
+        g_signal_connect (manager->settings_bus, "changed",
+                          G_CALLBACK (engine_settings_key_changed_cb), manager);
+        g_signal_connect (manager->up_client, "device-added",
+                          G_CALLBACK (engine_device_added_cb), manager);
+        g_signal_connect (manager->up_client, "device-removed",
+                          G_CALLBACK (engine_device_removed_cb), manager);
+        g_signal_connect_after (manager->up_client, "notify::lid-is-closed",
+                                G_CALLBACK (lid_state_changed_cb), manager);
+        g_signal_connect (manager->up_client, "notify::on-battery",
+                          G_CALLBACK (up_client_on_battery_cb), manager);
+
+        /* connect to power-profiles-daemon */
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+                                  G_DBUS_PROXY_FLAGS_NONE,
+                                  NULL,
+                                  PPD_DBUS_NAME,
+                                  PPD_DBUS_PATH,
+                                  PPD_DBUS_INTERFACE,
+                                  manager->cancellable,
+                                  power_profiles_proxy_ready_cb,
+                                  manager);
+
+        /* connect to UPower for keyboard backlight control */
+        manager->kbd_brightness_now = -1;
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+                                  G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+                                  NULL,
+                                  UPOWER_DBUS_NAME,
+                                  UPOWER_DBUS_PATH_KBDBACKLIGHT,
+                                  UPOWER_DBUS_INTERFACE_KBDBACKLIGHT,
+                                  NULL,
+                                  power_keyboard_proxy_ready_cb,
+                                  manager);
+
+        manager->devices_array = g_ptr_array_new_with_free_func (g_object_unref);
+        manager->devices_notified_ht = g_hash_table_new_full (g_str_hash, g_str_equal,
+                                                              g_free, NULL);
+
+        /* create a fake virtual composite battery */
+        manager->device_composite = up_client_get_display_device (manager->up_client);
+        g_signal_connect (manager->device_composite, "notify::warning-level",
+                          G_CALLBACK (engine_device_warning_changed_cb), manager);
+
+        /* create IDLETIME watcher */
+        manager->idle_monitor = gnome_idle_monitor_new ();
+
+        /* coldplug the engine */
+        engine_coldplug (manager);
+        idle_configure (manager);
+
+        /* ensure the default dpms timeouts are cleared */
+        backlight_enable (manager);
+
+        if (!gnome_settings_is_wayland ())
+                manager->xscreensaver_watchdog_timer_id = gsd_power_enable_screensaver_watchdog ();
+
+        /* queue a signal in case the proxy from gnome-shell was created before we got here
+           (likely, considering that to get here we need a reply from gnome-shell)
+        */
+        if (manager->backlight) {
+                manager->ambient_percentage_old = gsd_backlight_get_brightness (manager->backlight, NULL);
+                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN,
+                                              manager->ambient_percentage_old, NULL);
+        } else {
+                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN, -1, NULL);
+        }
+
+        gnome_settings_profile_end (NULL);
 
         gnome_settings_profile_end (NULL);
         return TRUE;
@@ -3162,7 +3134,6 @@ gsd_power_manager_stop (GsdPowerManager *manager)
         }
 
         g_clear_object (&manager->logind_proxy);
-        g_clear_object (&manager->rr_screen);
 
         g_clear_pointer (&manager->devices_array, g_ptr_array_unref);
         g_clear_object (&manager->device_composite);

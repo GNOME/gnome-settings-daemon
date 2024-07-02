@@ -19,7 +19,9 @@
 
 #include "config.h"
 #include <stdlib.h>
+#include <stdint.h>
 
+#include "gnome-settings-bus.h"
 #include "gsd-backlight.h"
 #include "gpm-common.h"
 #include "gsd-power-constants.h"
@@ -39,6 +41,9 @@ struct _GsdBacklight
         gint brightness_target;
         gint brightness_step;
 
+        uint32_t backlight_serial;
+        char *backlight_connector;
+
 #ifdef __linux__
         GDBusProxy *logind_proxy;
 
@@ -51,19 +56,21 @@ struct _GsdBacklight
         gint idle_update;
 #endif /* __linux__ */
 
-        GnomeRRScreen *rr_screen;
         gboolean builtin_display_disabled;
 };
 
 enum {
-        PROP_RR_SCREEN = 1,
-        PROP_BRIGHTNESS,
+        PROP_BRIGHTNESS = 1,
         PROP_LAST,
 };
 
 #define SYSTEMD_DBUS_NAME                       "org.freedesktop.login1"
 #define SYSTEMD_DBUS_PATH                       "/org/freedesktop/login1/session/auto"
 #define SYSTEMD_DBUS_INTERFACE                  "org.freedesktop.login1.Session"
+
+#define MUTTER_DBUS_NAME                       "org.gnome.Mutter.DisplayConfig"
+#define MUTTER_DBUS_PATH                       "/org/gnome/Mutter/DisplayConfig"
+#define MUTTER_DBUS_INTERFACE                  "org.gnome.Mutter.DisplayConfig"
 
 static GParamSpec *props[PROP_LAST];
 
@@ -400,30 +407,11 @@ gsd_backlight_process_taskqueue (GsdBacklight *backlight)
 }
 #endif /* __linux__ */
 
-static GnomeRROutput*
-gsd_backlight_rr_find_output (GsdBacklight *backlight, gboolean controllable)
+static const char *
+gsd_backlight_mutter_find_monitor (GsdBacklight *backlight,
+                                   gboolean      controllable)
 {
-        GnomeRROutput *output = NULL;
-        GnomeRROutput **outputs;
-        guint i;
-
-        /* search all X11 outputs for the device id */
-        outputs = gnome_rr_screen_list_outputs (backlight->rr_screen);
-        if (outputs == NULL)
-                goto out;
-
-        for (i = 0; outputs[i] != NULL; i++) {
-                gboolean builtin = gnome_rr_output_is_builtin_display (outputs[i]);
-                gint backlight = gnome_rr_output_get_backlight (outputs[i]);
-
-                g_debug("Output %d: %s, backlight %d", i, builtin ? "builtin" : "external", backlight);
-                if (builtin && (!controllable || backlight >= 0)) {
-                        output = outputs[i];
-                        break;
-                }
-        }
-out:
-        return output;
+        return backlight->backlight_connector;
 }
 
 /**
@@ -464,7 +452,7 @@ gsd_backlight_set_brightness_val_async (GsdBacklight *backlight,
 {
         GError *error = NULL;
         GTask *task = NULL;
-        GnomeRROutput *output;
+        const char *monitor;
         gint percent;
 
         value = MIN(backlight->brightness_max, value);
@@ -507,15 +495,24 @@ gsd_backlight_set_brightness_val_async (GsdBacklight *backlight,
         }
 #endif /* __linux__ */
 
-        /* Fallback to setting via GNOME RR/X11 */
-        output = gsd_backlight_rr_find_output (backlight, TRUE);
-        if (output) {
-                if (!gnome_rr_output_set_backlight (output, value, &error)) {
+        /* Fallback to setting via DisplayConfig (mutter) */
+        monitor = gsd_backlight_mutter_find_monitor (backlight, TRUE);
+        if (monitor) {
+                GsdDisplayConfig *display_config =
+                        gnome_settings_bus_get_display_config_proxy ();
+
+                if (!gsd_display_config_call_set_backlight_sync (display_config,
+                                                                 backlight->backlight_serial,
+                                                                 monitor,
+                                                                 value,
+                                                                 NULL,
+                                                                 &error)) {
                         g_task_return_error (task, error);
                         g_object_unref (task);
                         return;
                 }
-                backlight->brightness_val = gnome_rr_output_get_backlight (output);
+
+                backlight->brightness_val = value;
                 g_object_notify_by_pspec (G_OBJECT (backlight), props[PROP_BRIGHTNESS]);
                 g_task_return_int (task, gsd_backlight_get_brightness (backlight, NULL));
                 g_object_unref (task);
@@ -732,36 +729,7 @@ gsd_backlight_cycle_up_finish (GsdBacklight *backlight,
 const char*
 gsd_backlight_get_connector (GsdBacklight *backlight)
 {
-        GnomeRROutput *output;
-
-        output = gsd_backlight_rr_find_output (backlight, FALSE);
-        if (output == NULL)
-                return NULL;
-
-        return gnome_rr_output_get_name (output);
-}
-
-static void
-gsd_backlight_rr_screen_changed_cb (GnomeRRScreen *screen,
-                                    gpointer data)
-{
-        GsdBacklight *backlight = GSD_BACKLIGHT (data);
-        GnomeRROutput *output;
-        gboolean builtin_display_disabled = FALSE;
-
-        /* NOTE: Err on the side of assuming the backlight controlls something
-         *       even if we cannot find the output that belongs to it.
-         *       This might backfire on us obviously if the hardware claims it
-         *       can control a non-existing screen.
-         */
-        output = gsd_backlight_rr_find_output (backlight, FALSE);
-        if (output)
-                builtin_display_disabled = !gnome_rr_output_get_crtc (output);
-
-        if (builtin_display_disabled != backlight->builtin_display_disabled) {
-                backlight->builtin_display_disabled = builtin_display_disabled;
-                g_object_notify_by_pspec (G_OBJECT (backlight), props[PROP_BRIGHTNESS]);
-        }
+        return backlight->backlight_connector;
 }
 
 static void
@@ -773,10 +741,6 @@ gsd_backlight_get_property (GObject    *object,
         GsdBacklight *backlight = GSD_BACKLIGHT (object);
 
         switch (prop_id) {
-        case PROP_RR_SCREEN:
-                g_value_set_object (value, backlight->rr_screen);
-                break;
-
         case PROP_BRIGHTNESS:
                 g_value_set_int (value, gsd_backlight_get_brightness (backlight, NULL));
                 break;
@@ -788,28 +752,59 @@ gsd_backlight_get_property (GObject    *object,
 }
 
 static void
-gsd_backlight_set_property (GObject      *object,
-                            guint         prop_id,
-                            const GValue *value,
-                            GParamSpec   *pspec)
+update_mutter_backlight (GsdBacklight *backlight)
 {
-        GsdBacklight *backlight = GSD_BACKLIGHT (object);
+        GsdDisplayConfig *display_config =
+                gnome_settings_bus_get_display_config_proxy ();
+        GVariant *backlights = NULL;
+        g_autoptr(GVariant) monitors = NULL;
+        g_autoptr(GVariant) monitor = NULL;
+        gboolean monitor_active = FALSE;
+        gboolean have_backlight = FALSE;
 
-        switch (prop_id) {
-        case PROP_RR_SCREEN:
-                backlight->rr_screen = g_value_dup_object (value);
-
-                g_signal_connect_object (backlight->rr_screen, "changed",
-                                         G_CALLBACK (gsd_backlight_rr_screen_changed_cb),
-                                         object, 0);
-                gsd_backlight_rr_screen_changed_cb (backlight->rr_screen, object);
-
-                break;
-
-        default:
-                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-                break;
+        backlights = gsd_display_config_get_backlight (display_config);
+        g_variant_get (backlights, "(u@aa{sv})",
+                       &backlight->backlight_serial,
+                       &monitors);
+        if (g_variant_n_children (monitors) > 1) {
+                g_warning ("Only handling the first out of %lu backlight monitors",
+                           g_variant_n_children (monitors));
         }
+
+        if (g_variant_n_children (monitors) > 0) {
+                g_variant_get_child (monitors, 0, "a{sv}", &monitor);
+
+                g_clear_pointer (&backlight->backlight_connector, g_free);
+                g_variant_lookup (monitor, "connector", "s",
+                                  &backlight->backlight_connector);
+                g_variant_lookup (monitor, "active", "b", &monitor_active);
+                backlight->builtin_display_disabled = !monitor_active;
+
+                if (g_variant_lookup (monitor, "value", "i", &backlight->brightness_val)) {
+                        g_variant_lookup (monitor, "min", "i", &backlight->brightness_min);
+                        g_variant_lookup (monitor, "max", "i", &backlight->brightness_max);
+                        have_backlight = TRUE;
+                }
+        }
+
+        if (!have_backlight) {
+                backlight->brightness_val = -1;
+                backlight->brightness_min = -1;
+                backlight->brightness_max = -1;
+        }
+}
+
+static void
+on_backlight_changed (GsdDisplayConfig *display_config,
+                      GsdBacklight     *backlight)
+{
+        gboolean builtin_display_disabled;
+
+        builtin_display_disabled = backlight->builtin_display_disabled;
+        update_mutter_backlight (backlight);
+
+        if (builtin_display_disabled != backlight->builtin_display_disabled)
+                g_object_notify_by_pspec (G_OBJECT (backlight), props[PROP_BRIGHTNESS]);
 }
 
 static gboolean
@@ -818,7 +813,8 @@ gsd_backlight_initable_init (GInitable       *initable,
                              GError         **error)
 {
         GsdBacklight *backlight = GSD_BACKLIGHT (initable);
-        GnomeRROutput* output = NULL;
+        GsdDisplayConfig *display_config =
+                gnome_settings_bus_get_display_config_proxy ();
         GError *logind_error = NULL;
 
         if (cancellable != NULL) {
@@ -826,6 +822,18 @@ gsd_backlight_initable_init (GInitable       *initable,
                                      "GsdBacklight does not support cancelling initialization.");
                 return FALSE;
         }
+
+        if (!display_config) {
+                g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
+                                     "GsdBacklight needs org.gnome.Mutter.DisplayConfig to function");
+                return FALSE;
+        }
+
+        g_signal_connect (display_config,
+                          "notify::backlight",
+                          G_CALLBACK (on_backlight_changed),
+                          backlight);
+        update_mutter_backlight (backlight);
 
 #ifdef __linux__
         backlight->logind_proxy =
@@ -871,15 +879,8 @@ gsd_backlight_initable_init (GInitable       *initable,
                 goto found;
 #endif /* __linux__ */
 
-        /* Try GNOME RR as a fallback. */
-        output = gsd_backlight_rr_find_output (backlight, TRUE);
-        if (output) {
-                g_debug ("Using GNOME RR (mutter) for backlight.");
-                backlight->brightness_min = 1;
-                backlight->brightness_max = 100;
-                backlight->brightness_val = gnome_rr_output_get_backlight (output);
-                backlight->brightness_step = gnome_rr_output_get_min_backlight_step (output);
-
+        if (backlight->backlight_connector) {
+                g_debug ("Using DisplayConfig (mutter) for backlight.");
                 goto found;
         }
 
@@ -908,6 +909,7 @@ gsd_backlight_finalize (GObject *object)
         g_assert (backlight->active_task == NULL);
         g_assert (g_queue_is_empty (&backlight->tasks));
         g_clear_object (&backlight->logind_proxy);
+        g_clear_pointer (&backlight->backlight_connector, g_free);
         g_clear_object (&backlight->udev);
         g_clear_object (&backlight->udev_device);
         if (backlight->idle_update) {
@@ -915,8 +917,6 @@ gsd_backlight_finalize (GObject *object)
                 backlight->idle_update = 0;
         }
 #endif /* __linux__ */
-
-        g_clear_object (&backlight->rr_screen);
 }
 
 static void
@@ -932,12 +932,6 @@ gsd_backlight_class_init (GsdBacklightClass *klass)
 
         object_class->finalize = gsd_backlight_finalize;
         object_class->get_property = gsd_backlight_get_property;
-        object_class->set_property = gsd_backlight_set_property;
-
-        props[PROP_RR_SCREEN] = g_param_spec_object ("rr-screen", "GnomeRRScreen",
-                                                     "GnomeRRScreen usable for backlight control.",
-                                                     GNOME_TYPE_RR_SCREEN,
-                                                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
         props[PROP_BRIGHTNESS] = g_param_spec_int ("brightness", "The display brightness",
                                                    "The brightness of the internal display in percent.",
@@ -964,11 +958,9 @@ gsd_backlight_init (GsdBacklight *backlight)
 }
 
 GsdBacklight *
-gsd_backlight_new (GnomeRRScreen  *rr_screen,
-                   GError        **error)
+gsd_backlight_new (GError **error)
 {
         return GSD_BACKLIGHT (g_initable_new (GSD_TYPE_BACKLIGHT, NULL, error,
-                                              "rr-screen", rr_screen,
                                               NULL));
 }
 
