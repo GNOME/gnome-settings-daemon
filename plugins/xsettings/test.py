@@ -43,7 +43,7 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
         self.obj_session_mgr = self.session_bus_con.get_object(
             'org.gnome.SessionManager', '/org/gnome/SessionManager')
 
-        self.start_mutter()
+        self.start_mutter(needs_x11=True)
         self.addCleanup(self.stop_mutter)
 
         Gio.Settings.sync()

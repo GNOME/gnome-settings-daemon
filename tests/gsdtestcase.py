@@ -25,7 +25,7 @@ except ImportError:
     sys.stderr.write('You need python-dbusmock (http://pypi.python.org/pypi/python-dbusmock) for this test suite.\n')
     sys.exit(77)
 
-from x11session import X11SessionTestCase
+from dbusmock import DBusTestCase
 
 try:
     from gi.repository import Gio
@@ -40,6 +40,7 @@ if subprocess.call(['which', 'gnome-session'], stdout=subprocess.DEVNULL) != 0:
 
 top_builddir = os.environ.get('TOP_BUILDDIR',
                               os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def set_nonblock(fd):
     '''Set a file object to non-blocking'''
@@ -48,7 +49,7 @@ def set_nonblock(fd):
     fcntl.fcntl(fd, fcntl.F_SETFL, flags | os.O_NONBLOCK)
 
 
-class GSDTestCase(X11SessionTestCase):
+class GSDTestCase(DBusTestCase):
     '''Base class for settings daemon tests
 
     This redirects the XDG directories to temporary directories, and runs local
@@ -65,11 +66,15 @@ class GSDTestCase(X11SessionTestCase):
         klass.workdir = tempfile.mkdtemp(prefix='gsd-plugin-test')
         klass.addClassCleanup(shutil.rmtree, klass.workdir)
 
+        # X11 display tracking
+        klass.display_name_fifo = None
+        klass.x11_display = None
+
         # Prevent applications from accessing an outside session manager
         os.environ['SESSION_MANAGER'] = ''
 
-        # Signal to mutter and gnome-session that we are using X11
-        os.environ['XDG_SESSION_TYPE'] = 'x11'
+        os.environ['XDG_SESSION_TYPE'] = 'wayland'
+        os.environ['G_MESSAGES_DEBUG'] = 'all'
 
         # tell dconf and friends to use our config/runtime directories
         os.environ['XDG_CONFIG_HOME'] = os.path.join(klass.workdir, 'config')
@@ -85,8 +90,10 @@ class GSDTestCase(X11SessionTestCase):
         os.makedirs(os.path.join(os.environ['XDG_CONFIG_HOME'], 'dconf'))
         os.makedirs(os.environ['XDG_RUNTIME_DIR'], mode=0o700)
 
-        # Starts Xvfb and dbus busses
-        X11SessionTestCase.setUpClass()
+        # Starts dbus busses
+        DBusTestCase.setUpClass()
+        klass.start_system_bus()
+        klass.start_session_bus()
 
         # Make dconf discoverable (requires newer dbusmock API, is not needed otherwise)
         if hasattr(klass, 'enable_service'):
@@ -122,7 +129,7 @@ class GSDTestCase(X11SessionTestCase):
         #    klass.disable_service('ca.desrt.dconf')
 
         signal.signal(signal.SIGTERM, signal.SIG_IGN)
-        X11SessionTestCase.tearDownClass()
+        DBusTestCase.tearDownClass()
         signal.signal(signal.SIGTERM, signal.SIG_DFL)
 
     def setUp(self):
@@ -243,12 +250,34 @@ class GSDTestCase(X11SessionTestCase):
         self.logind_log.assert_closed()
 
     @classmethod
-    def start_mutter(klass):
+    def start_mutter(klass, needs_x11=False):
         ''' start mutter '''
 
+        if needs_x11:
+            tempdir = tempfile.mkdtemp()
+            display_name_fifo = os.path.join(tempdir, 'display-name')
+            os.mkfifo(display_name_fifo)
+
+            extra_mutter_args = [
+                '--',
+                os.path.join(project_root, 'tests', 'get-display-name.sh'),
+                display_name_fifo,
+            ]
+        else:
+            extra_mutter_args = []
+
         os.environ['MUTTER_DEBUG_RESET_IDLETIME']='1'
-        # See https://gitlab.gnome.org/GNOME/mutter/merge_requests/15
-        klass.mutter = subprocess.Popen(['mutter', '--x11'])
+        klass.mutter = subprocess.Popen(['mutter', '--headless',
+                                         '--virtual-monitor', '800x600'] +
+                                        extra_mutter_args)
+
+        if needs_x11:
+            with open(display_name_fifo) as f:
+                klass.display_name_fifo = display_name_fifo
+                klass.x11_display = f.readline().strip()
+                klass.xauth = f.readline().strip()
+                print("Using X11 display %s" % (klass.x11_display))
+
         klass.wait_for_bus_object('org.gnome.Mutter.IdleMonitor',
                                  '/org/gnome/Mutter/IdleMonitor/Core',
                                  timeout=100)
@@ -258,6 +287,11 @@ class GSDTestCase(X11SessionTestCase):
         '''stop mutter'''
 
         assert klass.monitor
+        if klass.display_name_fifo:
+            with open(klass.display_name_fifo, 'w') as f:
+                f.write('\n')
+            os.remove(klass.display_name_fifo)
+            os.rmdir(os.path.dirname(klass.display_name_fifo))
         klass.stop_process(klass.mutter, timeout=2)
 
     def start_plugin(self, env):
@@ -267,11 +301,21 @@ class GSDTestCase(X11SessionTestCase):
         # stderr is not needed by the testing infrastructure but is useful to
         # see warnings and errors.
         self.plugin_log = OutputChecker()
+        if self.__class__.x11_display:
+            klass = self.__class__
+
+            extra_env = {
+                'GNOME_SETUP_DISPLAY': klass.x11_display,
+                'XAUTHORITY': klass.xauth,
+            }
+        else:
+            extra_env = {}
+
         self.daemon = subprocess.Popen(
             [os.path.join(top_builddir, 'plugins', self.gsd_plugin, 'gsd-' + self.gsd_plugin), '--verbose'],
             stdout=self.plugin_log.fd,
             stderr=subprocess.STDOUT,
-            env=env)
+            env=env | extra_env)
         self.plugin_log.writer_attached()
 
 

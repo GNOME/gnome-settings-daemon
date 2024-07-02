@@ -94,6 +94,7 @@ stages:
 
 .Run Tests: &run_tests
   echo "== Testing ==" &&
+  mkdir -m 1777 /tmp/.X11-unix
   meson test -C _build --verbose --no-stdsplit
 
 ##
@@ -144,9 +145,11 @@ test:
         *run_tests
 
         echo "== Distro Test =="
+        mkdir -m 1777 /tmp/.X11-unix
         ninja dist -C _build
       else
         echo "== Testing =="
+        mkdir -m 1777 /tmp/.X11-unix
         meson test -C _build --verbose --no-stdsplit
       fi
 
