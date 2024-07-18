@@ -400,7 +400,7 @@ maybe_create_initial_settings (GsdKeyboardManager *manager)
 {
         GSettings *settings;
         GVariant *sources;
-        gchar **options;
+        GVariant *options;
 
         settings = manager->input_sources_settings;
 
@@ -415,10 +415,10 @@ maybe_create_initial_settings (GsdKeyboardManager *manager)
                 get_sources_from_xkb_config (manager);
         g_variant_unref (sources);
 
-        options = g_settings_get_strv (settings, KEY_KEYBOARD_OPTIONS);
-        if (g_strv_length (options) < 1)
+        options = g_settings_get_user_value (settings, KEY_KEYBOARD_OPTIONS);
+        if (options == NULL)
                 get_options_from_xkb_config (manager);
-        g_strfreev (options);
+        g_variant_unref (options);
 }
 
 static void
