@@ -93,7 +93,7 @@ notify_oom_kill (char *unit)
                 /* TRANSLATORS: We don't have a good description of what was killed. */
                 summary = g_strdup_printf (_("Application Stopped"));
                 /* TRANSLATORS: We don't have a good description of what was killed. */
-                message = g_strdup_printf (_("Device memory is nearly full. An application that was using a lot of memory and was forced to stop."));
+                message = g_strdup_printf (_("Device memory is nearly full. An application was using a lot of memory and was forced to stop."));
         }
 
         notification = notify_notification_new (summary, message, "dialog-warning-symbolic");
