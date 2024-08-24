@@ -240,7 +240,9 @@ wwan_manager_password_sent_cb (GObject      *object,
             (g_error_matches (error, MM_MOBILE_EQUIPMENT_ERROR, MM_MOBILE_EQUIPMENT_ERROR_INCORRECT_PASSWORD) ||
              g_error_matches (error, MM_MOBILE_EQUIPMENT_ERROR, MM_MOBILE_EQUIPMENT_ERROR_SIM_PUK) ||
              g_error_matches (error, MM_MOBILE_EQUIPMENT_ERROR, MM_MOBILE_EQUIPMENT_ERROR_UNKNOWN))) {
-                g_object_set_data (G_OBJECT (task), "error", (gpointer)cc_wwan_error_get_message (error));
+                g_object_set_data_full (G_OBJECT (task), "error",
+                                        (gpointer)g_strdup (cc_wwan_error_get_message (error)),
+                                        g_free);
                 /* ModemManager updates the lock status after some delay.  Wait around 250 milliseconds
                  * so that the values are updated.
                  */
@@ -252,7 +254,7 @@ wwan_manager_password_sent_cb (GObject      *object,
         if (ret)
                 g_task_return_boolean (task, TRUE);
         else
-                g_task_return_error (task, error);
+                g_task_return_error (task, g_steal_pointer (&error));
 
 }
 
