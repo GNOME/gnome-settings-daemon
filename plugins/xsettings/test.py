@@ -77,6 +77,7 @@ class XsettingsPluginTest(gsdtestcase.GSDTestCase):
 
         env = os.environ.copy()
         self.start_plugin(os.environ.copy())
+        self.addCleanup(self.stop_plugin)
 
         # flush notification log
         self.p_notify_log.clear()
