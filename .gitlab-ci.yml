@@ -3,7 +3,7 @@ include:
 
 variables:
   FDO_DISTRIBUTION_VERSION: latest
-  FDO_DISTRIBUTION_TAG: "x86_64-2024-08-30.0"
+  FDO_DISTRIBUTION_TAG: "x86_64-2024-08-30.1"
   FDO_UPSTREAM_REPO: GNOME/gnome-settings-daemon
   # Expiry sets fdo.expires on the image
   FEDORA_IMAGE: "$CI_REGISTRY/$FDO_UPSTREAM_REPO/fedora/$FDO_DISTRIBUTION_VERSION:$FDO_DISTRIBUTION_TAG"
@@ -56,7 +56,6 @@ variables:
     xorg-x11-drv-wacom-devel
     xorg-x11-server-Xvfb
     xorg-x11-server-Xwayland
-    mutter
 
 stages:
   - prepare
@@ -110,6 +109,22 @@ build-fedora-container@x86_64:
       ./.gitlab-ci/install-meson-project.sh \
         https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas.git \
         master
+
+      dnf install -y 'dnf-command(builddep)'
+      dnf builddep -y pipewire
+      dnf builddep -y mutter
+
+      ./.gitlab-ci/install-meson-project.sh \
+        https://gitlab.gnome.org/GNOME/glib.git \
+        2.81.1
+
+      ./.gitlab-ci/install-meson-project.sh \
+        https://gitlab.freedesktop.org/pipewire/pipewire.git \
+        1.2.3
+
+      ./.gitlab-ci/install-meson-project.sh \
+        https://gitlab.gnome.org/GNOME/mutter.git \
+        main
 
 ##
 # Stage: Build
