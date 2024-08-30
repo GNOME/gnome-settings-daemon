@@ -1,10 +1,10 @@
 include:
- - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/80f87b3058efb75a1faae11826211375fba77e7f/templates/fedora.yml'
+  - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/145b1bc7ef1702d2bd71584010d7113c6786a506/templates/fedora.yml'
 
 variables:
-  FDO_DISTRIBUTION_TAG: latest
-  FDO_DISTRIBUTION_VERSION: 39
-  FDO_UPSTREAM_REPO: gnome/gnome-settings-daemon
+  FDO_DISTRIBUTION_VERSION: latest
+  FDO_DISTRIBUTION_TAG: "x86_64-2024-08-30.0"
+  FDO_UPSTREAM_REPO: GNOME/gnome-settings-daemon
   # Expiry sets fdo.expires on the image
   FEDORA_IMAGE: "$CI_REGISTRY/$FDO_UPSTREAM_REPO/fedora/$FDO_DISTRIBUTION_VERSION:$FDO_DISTRIBUTION_TAG"
   FDO_EXPIRES_AFTER: 8w
@@ -58,9 +58,8 @@ variables:
     xorg-x11-server-Xwayland
     mutter
 
-image: "$FEDORA_IMAGE"
-
 stages:
+  - prepare
   - build
   - test
   - manual
@@ -98,6 +97,24 @@ stages:
   meson test -C _build --verbose --no-stdsplit
 
 ##
+# Stage: Prepare
+##
+build-fedora-container@x86_64:
+  extends:
+    - .fdo.container-build@fedora@x86_64
+  stage: prepare
+  variables:
+    GIT_STRATEGY: none # no need to pull the whole tree for rebuilding the image
+    FDO_DISTRIBUTION_PACKAGES: $FEDORA_DEPENDENCIES
+    FDO_DISTRIBUTION_EXEC: |
+      git clone https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas.git && \
+        cd gsettings-desktop-schemas && \
+        meson . _build --prefix=/usr && \
+        ninja -C _build && \
+        ninja -C _build install && \
+        cd ..
+
+##
 # Stage: Build
 #
 # Checks if GNOME Settings Daemon is properly building and installing. This is the
@@ -107,6 +124,14 @@ stages:
 build:
   <<: *save_untracked_files
   stage: build
+
+  extends:
+    - .fdo.distribution-image@fedora
+  image:
+    name: ${FDO_DISTRIBUTION_IMAGE}
+  needs:
+    - job: build-fedora-container@x86_64
+      artifacts: false
 
   script:
     - *environment_information
@@ -134,7 +159,11 @@ test:
   <<: *save_build_logs
   stage: test
 
-  dependencies:
+  extends:
+    - .fdo.distribution-image@fedora
+  image:
+    name: ${FDO_DISTRIBUTION_IMAGE}
+  needs:
     - build
 
   script:
@@ -170,6 +199,14 @@ coverage:
   only:
     - master@GNOME/gnome-settings-daemon
 
+  extends:
+    - .fdo.distribution-image@fedora
+  image:
+    name: ${FDO_DISTRIBUTION_IMAGE}
+  needs:
+    - job: build-fedora-container@x86_64
+      artifacts: false
+
   script:
     - *environment_information
     - *build_procedure
@@ -191,7 +228,11 @@ pages:
   stage: delivery
   # Don't error in case coverage failed
   allow_failure: true
-  dependencies:
+  extends:
+    - .fdo.distribution-image@fedora
+  image:
+    name: ${FDO_DISTRIBUTION_IMAGE}
+  needs:
     - coverage
   script:
     - mv _build/meson-logs/coveragereport/ public/
@@ -214,6 +255,10 @@ pages:
     - *environment_information
     - *build_procedure
     - *run_tests
+  extends:
+    - .fdo.distribution-image@fedora
+  image:
+    name: ${FDO_DISTRIBUTION_IMAGE}
 
   except:
     variables:
@@ -242,26 +287,3 @@ msan:
   variables:
     BUILD_OPTS: "-Db_sanitize=memory -Db_lundef=false"
     CC: "clang"
-
-#############################################
-#          Create CI Docker Images          #
-#############################################
-
-# See also https://gitlab.freedesktop.org/freedesktop/ci-templates
-container_fedora_build:
-  extends: .fdo.container-build@fedora
-  only:
-    variables:
-      - $CI_PIPELINE_SOURCE == "schedule" && $CRON_TASK == "BUILD_CI_IMAGES"
-  variables:
-    GIT_STRATEGY: none # no need to pull the whole tree for rebuilding the image
-    FDO_FORCE_REBUILD: 1 # Force rebuilding the image
-    FDO_DISTRIBUTION_PACKAGES: $FEDORA_DEPENDENCIES
-    FDO_DISTRIBUTION_EXEC: |
-      git clone https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas.git && \
-        cd gsettings-desktop-schemas && \
-        meson . _build --prefix=/usr && \
-        ninja -C _build && \
-        ninja -C _build install && \
-        cd ..
-
