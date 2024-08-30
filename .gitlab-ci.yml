@@ -107,12 +107,9 @@ build-fedora-container@x86_64:
     GIT_STRATEGY: none # no need to pull the whole tree for rebuilding the image
     FDO_DISTRIBUTION_PACKAGES: $FEDORA_DEPENDENCIES
     FDO_DISTRIBUTION_EXEC: |
-      git clone https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas.git && \
-        cd gsettings-desktop-schemas && \
-        meson . _build --prefix=/usr && \
-        ninja -C _build && \
-        ninja -C _build install && \
-        cd ..
+      ./.gitlab-ci/install-meson-project.sh \
+        https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas.git \
+        master
 
 ##
 # Stage: Build
