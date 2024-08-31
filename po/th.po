@@ -11,9 +11,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/issues\n"
-"POT-Creation-Date: 2023-07-21 10:16+0000\n"
-"PO-Revision-Date: 2024-01-06 21:35+0700\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/issues/\n"
+"POT-Creation-Date: 2024-08-09 17:55+0000\n"
+"PO-Revision-Date: 2024-08-31 18:17+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "Language: th\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.4.1\n"
+"X-Generator: Poedit 3.5\n"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid "Smartcard removal action"
@@ -646,8 +646,6 @@ msgstr "หรี่เสียง"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:82
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:232
-#, fuzzy
-#| msgid "Binding to lower the system volume."
 msgid "Binding to lower the volume."
 msgstr "ปุ่มลัดสำหรับหรี่เสียง"
 
@@ -659,10 +657,8 @@ msgstr "ปิด/เปิดเสียง"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:87
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:237
-#, fuzzy
-#| msgid "Binding to mute the system volume."
 msgid "Binding to mute/unmute the volume."
-msgstr "ปุ่มลัดสำหรับปิดเสียง"
+msgstr "ปุ่มลัดสำหรับปิด/เปิดเสียง"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:91
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:241
@@ -672,8 +668,6 @@ msgstr "เร่งเสียง"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:92
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:242
-#, fuzzy
-#| msgid "Binding to raise the system volume."
 msgid "Binding to raise the volume."
 msgstr "ปุ่มลัดสำหรับเร่งเสียง"
 
@@ -685,10 +679,8 @@ msgstr "ปิด/เปิดเสียงไมโครโฟน"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:97
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:283
-#, fuzzy
-#| msgid "Binding to suspend the computer."
 msgid "Binding to mute/unmute the microphone."
-msgstr "ปุ่มลัดสำหรับพักเครื่องคอมพิวเตอร์"
+msgstr "ปุ่มลัดสำหรับปิด/เปิดเสียงไมโครโฟน"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:101
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:287
@@ -791,85 +783,63 @@ msgid "List of custom keybindings"
 msgstr "รายชื่อของปุ่มลัดที่กำหนดเอง"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:247
-#, fuzzy
-#| msgid "Volume step"
 msgid "Size of volume step"
-msgstr "ขั้นเสียง"
+msgstr "ขนาดของขั้นเสียง"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:248
 msgid "Size of the volume step for each volume change"
-msgstr ""
+msgstr "ขนาดของขั้นเสียงสำหรับการเปลี่ยนความดังเสียงแต่ละครั้ง"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:254
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:530
-#, fuzzy
-#| msgid "Volume down"
 msgid "Quiet volume down"
-msgstr "หรี่เสียง"
+msgstr "หรี่เสียงแบบเงียบ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:255
-#, fuzzy
-#| msgid "Binding to lower the system volume."
 msgid "Binding to lower the volume without emitting a sound effect."
-msgstr "ปุ่มลัดสำหรับหรี่เสียง"
+msgstr "ปุ่มลัดสำหรับหรี่เสียงโดยไม่เล่นเสียงประกอบ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:259
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:535
 msgid "Quiet volume mute/unmute"
-msgstr ""
+msgstr "ปิด/เปิดเสียงแบบเงียบ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:260
 msgid "Binding to mute/unmute the volume without emitting a sound effect."
-msgstr ""
+msgstr "ปุ่มลัดสำหรับปิด/เปิดเสียงโดยไม่เล่นเสียงประกอบ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:264
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:540
-#, fuzzy
-#| msgid "Volume up"
 msgid "Quiet volume up"
-msgstr "เร่งเสียง"
+msgstr "เร่งเสียงแบบเงียบ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:265
-#, fuzzy
-#| msgid "Binding to raise the system volume."
 msgid "Binding to raise the volume without emitting a sound effect."
-msgstr "ปุ่มลัดสำหรับเร่งเสียง"
+msgstr "ปุ่มลัดสำหรับเร่งเสียงโดยไม่เล่นเสียงประกอบ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:271
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:547
-#, fuzzy
-#| msgid "Volume down"
 msgid "Precise volume down"
-msgstr "หรี่เสียง"
+msgstr "หรี่เสียงแบบเที่ยงตรง"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:272
-#, fuzzy
-#| msgid "Binding to lower the system volume."
 msgid "Binding to lower the volume with higher precision."
-msgstr "ปุ่มลัดสำหรับหรี่เสียง"
+msgstr "ปุ่มลัดสำหรับหรี่เสียงด้วยความเที่ยงตรงที่สูงขึ้น"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:276
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:552
-#, fuzzy
-#| msgid "Volume up"
 msgid "Precise volume up"
-msgstr "เร่งเสียง"
+msgstr "เร่งเสียงแบบเที่ยงตรง"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:277
-#, fuzzy
-#| msgid "Binding to raise the system volume."
 msgid "Binding to raise the volume with higher precision."
-msgstr "ปุ่มลัดสำหรับเร่งเสียง"
+msgstr "ปุ่มลัดสำหรับเร่งเสียงด้วยความเที่ยงตรงที่สูงขึ้น"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:332
-#, fuzzy
-#| msgid "Toggle touchpad"
 msgid "Toggle touchpad on/off"
-msgstr "สลับการใช้ทัชแพด"
+msgstr "สลับการเปิด/ปิดใช้ทัชแพด"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:333
-#, fuzzy
-#| msgid "Binding to enable or disable the touchpad."
 msgid "Binding to toggle the touchpad on/off."
 msgstr "ปุ่มลัดสำหรับเปิดหรือปิดการใช้ทัชแพด"
 
@@ -879,10 +849,8 @@ msgid "Switch touchpad on"
 msgstr "เปิดทัชแพด"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:338
-#, fuzzy
-#| msgid "Binding to enable or disable the touchpad."
 msgid "Binding to switch the touchpad on."
-msgstr "ปุ่มลัดสำหรับเปิดหรือปิดการใช้ทัชแพด"
+msgstr "ปุ่มลัดสำหรับเปิดการใช้ทัชแพด"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:342
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:579
@@ -890,78 +858,62 @@ msgid "Switch touchpad off"
 msgstr "ปิดทัชแพด"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:343
-#, fuzzy
-#| msgid "Binding to enable or disable the touchpad."
 msgid "Binding to switch the touchpad off."
-msgstr "ปุ่มลัดสำหรับเปิดหรือปิดการใช้ทัชแพด"
+msgstr "ปุ่มลัดสำหรับปิดการใช้ทัชแพด"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:348
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:585
 msgid "Skip backward in current track"
-msgstr ""
+msgstr "ข้ามย้อนกลับในร่องเสียงปัจจุบัน"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:349
-#, fuzzy
-#| msgid "Binding to skip to next track."
 msgid "Binding to skip backward in current track."
-msgstr "ปุ่มลัดสำหรับข้ามไปร่องเสียงถัดไป"
+msgstr "ปุ่มลัดสำหรับข้ามย้อนกลับในร่องเสียงปัจจุบัน"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:353
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:590
 msgid "Skip forward in current track"
-msgstr ""
+msgstr "ข้ามไปข้างหน้าในร่องเสียงปัจจุบัน"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:354
-#, fuzzy
-#| msgid "Binding to skip to next track."
 msgid "Binding to skip forward in current track."
-msgstr "ปุ่มลัดสำหรับข้ามไปร่องเสียงถัดไป"
+msgstr "ปุ่มลัดสำหรับข้ามไปข้างหน้าในร่องเสียงปัจจุบัน"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:358
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:595
 msgid "Toggle repeat playback mode"
-msgstr ""
+msgstr "เปิด/ปิดโหมดเล่นซ้ำ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:359
-#, fuzzy
-#| msgid "Binding to launch the media player."
 msgid "Binding to toggle repeat mode in media player."
-msgstr "ปุ่มลัดสำหรับเรียกโปรแกรมเล่นสื่อ"
+msgstr "ปุ่มลัดสำหรับเปิด/ปิดโหมดเล่นซ้ำในโปรแกรมเล่นสื่อ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:363
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:600
 msgid "Toggle random playback mode"
-msgstr ""
+msgstr "เปิด/ปิดโหมดเล่นสุ่ม"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:364
-#, fuzzy
-#| msgid "Binding to launch the media player."
 msgid "Binding to toggle random playback mode in media player."
-msgstr "ปุ่มลัดสำหรับเรียกโปรแกรมเล่นสื่อ"
+msgstr "ปุ่มลัดสำหรับเปิด/ปิดโหมดเล่นสุ่มในโปรแกรมเล่นสื่อ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:369
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:606
-#, fuzzy
-#| msgid "Toggle screen reader"
 msgid "Toggle automatic screen orientation"
-msgstr "เปิด/ปิดโปรแกรมอ่านหน้าจอ"
+msgstr "เปิด/ปิดการหมุนหน้าจออัตโนมัติ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:370
-#, fuzzy
-#| msgid "Binding to take a screenshot."
 msgid "Binding to toggle automatic screen orientation."
-msgstr "ปุ่มลัดสำหรับจับภาพหน้าจอ"
+msgstr "ปุ่มลัดสำหรับเปิด/ปิดการหมุนหน้าจออัตโนมัติ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:374
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:611
 msgid "Power button"
-msgstr "ปุ่มเปิด-ปิดเครื่อง"
+msgstr "ปุ่มเปิด/ปิดเครื่อง"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:375
-#, fuzzy
-#| msgid "Binding to log out."
 msgid "Binding for power button."
-msgstr "ปุ่มลัดสำหรับออกจากระบบ"
+msgstr "ปุ่มลัดสำหรับเปิด/ปิดเครื่องคอมพิวเตอร์"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:379
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:616
@@ -969,10 +921,8 @@ msgid "Hibernate button"
 msgstr "ปุ่มจำศีลเครื่อง"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:380
-#, fuzzy
-#| msgid "Binding to launch the email client."
 msgid "Binding to hibernate the machine."
-msgstr "ปุ่มลัดสำหรับเรียกโปรแกรมรับส่งเมล"
+msgstr "ปุ่มลัดสำหรับจำศีลเครื่องคอมพิวเตอร์"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:384
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:621
@@ -980,8 +930,6 @@ msgid "Suspend button"
 msgstr "ปุ่มพักเครื่อง"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:385
-#, fuzzy
-#| msgid "Binding to suspend the computer."
 msgid "Binding to suspend the machine."
 msgstr "ปุ่มลัดสำหรับพักเครื่องคอมพิวเตอร์"
 
@@ -991,10 +939,8 @@ msgid "Screen brightness up"
 msgstr "เพิ่มความสว่างหน้าจอ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:391
-#, fuzzy
-#| msgid "Binding to increase the text size"
 msgid "Binding to increase the screen brightness."
-msgstr "ปุ่มลัดสำหรับเพิ่มขนาดตัวอักษร"
+msgstr "ปุ่มลัดสำหรับเพิ่มความสว่างหน้าจอ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:395
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:632
@@ -1002,60 +948,44 @@ msgid "Screen brightness down"
 msgstr "ลดความสว่างหน้าจอ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:396
-#, fuzzy
-#| msgid "Binding to decrease the text size"
 msgid "Binding to decrease the screen brightness."
-msgstr "ปุ่มลัดสำหรับลดขนาดตัวอักษร"
+msgstr "ปุ่มลัดสำหรับลดความสว่างหน้าจอ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:400
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:637
 msgid "Screen brightness cycle"
-msgstr ""
+msgstr "ปรับความสว่างหน้าจอเป็นรอบ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:401
-#, fuzzy
-#| msgid "Binding to lock the screen."
 msgid "Binding to cycle the screen brightness."
-msgstr "ปุ่มลัดสำหรับล็อคหน้าจอ"
+msgstr "ปุ่มลัดสำหรับปรับความสว่างหน้าจอเป็นรอบ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:406
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:643
-#, fuzzy
-#| msgid "Keyboard is empty"
 msgid "Keyboard brightness up"
-msgstr "แป้นพิมพ์ไม่มีประจุเหลืออยู่"
+msgstr "เพิ่มความสว่างแป้นพิมพ์"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:407
-#, fuzzy
-#| msgid "Binding to increase the text size"
 msgid "Binding to increase the keyboard brightness."
-msgstr "ปุ่มลัดสำหรับเพิ่มขนาดตัวอักษร"
+msgstr "ปุ่มลัดสำหรับเพิ่มความสว่างแป้นพิมพ์"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:411
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:648
-#, fuzzy
-#| msgid "Keyboard battery low"
 msgid "Keyboard brightness down"
-msgstr "แป้นพิมพ์เหลือไฟต่ำ"
+msgstr "ลดความสว่างแป้นพิมพ์"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:412
-#, fuzzy
-#| msgid "Binding to decrease the text size"
 msgid "Binding to decrease the keyboard brightness."
-msgstr "ปุ่มลัดสำหรับลดขนาดตัวอักษร"
+msgstr "ปุ่มลัดสำหรับลดความสว่างแป้นพิมพ์"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:416
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:653
-#, fuzzy
-#| msgid "Keyboard is charged"
 msgid "Keyboard brightness toggle"
-msgstr "แป้นพิมพ์ประจุไฟเต็มแล้ว"
+msgstr "เปิด/ปิดความสว่างแป้นพิมพ์"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:417
-#, fuzzy
-#| msgid "Binding to toggle the interface contrast"
 msgid "Binding to toggle the keyboard brightness."
-msgstr "ปุ่มลัดสำหรับเปิด/ปิดความตัดกันของสีส่วนติดต่อผู้ใช้"
+msgstr "ปุ่มลัดสำหรับเปิด/ปิดความสว่างแป้นพิมพ์"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:422
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:659
@@ -1063,257 +993,195 @@ msgid "Show battery status"
 msgstr "แสดงสถานะแบตเตอรี่"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:423
-#, fuzzy
-#| msgid "Binding to show the screen magnifier"
 msgid "Binding to show current battery status."
-msgstr "ปุ่มลัดสำหรับแสดงแว่นขยายหน้าจอ"
+msgstr "ปุ่มลัดสำหรับแสดงสถานะปัจจุบันของแบตเตอรี่"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:428
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:665
 msgid "RF kill"
-msgstr ""
+msgstr "ปิดใช้คลื่นวิทยุ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:429
-#, fuzzy
-#| msgid "Binding to toggle the interface contrast"
 msgid "Binding to toggle airplane mode."
-msgstr "ปุ่มลัดสำหรับเปิด/ปิดความตัดกันของสีส่วนติดต่อผู้ใช้"
+msgstr "ปุ่มลัดสำหรับเปิด/ปิดโหมดเครื่องบิน"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:433
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:670
 msgid "Bluetooth RF kill"
-msgstr ""
+msgstr "ปิดใช้คลื่นวิทยุสำหรับบลูทูธ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:434
-#, fuzzy
-#| msgid "Binding to toggle the interface contrast"
 msgid "Binding to toggle bluetooth airplane mode."
-msgstr "ปุ่มลัดสำหรับเปิด/ปิดความตัดกันของสีส่วนติดต่อผู้ใช้"
+msgstr "ปุ่มลัดสำหรับเปิด/ปิดโหมดเครื่องบินแบบใช้บลูทูธ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:447
-#, fuzzy
-#| msgid "Binding to launch the calculator."
 msgid "Static binding to launch the calculator."
-msgstr "ปุ่มลัดสำหรับเรียกเครื่องคิดเลข"
+msgstr "ปุ่มลัดแบบคงที่สำหรับเรียกเครื่องคิดเลข"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:452
 msgid "Static binding to launch GNOME Settings."
-msgstr ""
+msgstr "ปุ่มลัดแบบคงที่สำหรับเรียกการตั้งค่าของ GNOME"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:457
-#, fuzzy
-#| msgid "Binding to launch the email client."
 msgid "Static binding to launch the email client."
-msgstr "ปุ่มลัดสำหรับเรียกโปรแกรมรับส่งเมล"
+msgstr "ปุ่มลัดแบบคงที่สำหรับเรียกโปรแกรมรับส่งเมล"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:462
-#, fuzzy
-#| msgid "Binding to eject an optical disc."
 msgid "Static binding to eject an optical disc."
-msgstr "ปุ่มลัดสำหรับดันแผ่นซีดี/ดีวีดีออก"
+msgstr "ปุ่มลัดแบบคงที่สำหรับดันแผ่นซีดี/ดีวีดีออก"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:467
-#, fuzzy
-#| msgid "Binding to open the Home folder."
 msgid "Static binding to open the Home folder."
-msgstr "ปุ่มลัดสำหรับเปิดโฟลเดอร์บ้าน"
+msgstr "ปุ่มลัดแบบคงที่สำหรับเปิดโฟลเดอร์บ้าน"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:472
-#, fuzzy
-#| msgid "Binding to launch the media player."
 msgid "Static binding to launch the media player."
-msgstr "ปุ่มลัดสำหรับเรียกโปรแกรมเล่นสื่อ"
+msgstr "ปุ่มลัดแบบคงที่สำหรับเรียกโปรแกรมเล่นสื่อ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:477
-#, fuzzy
-#| msgid "Binding to skip to next track."
 msgid "Static binding to skip to next track."
-msgstr "ปุ่มลัดสำหรับข้ามไปร่องเสียงถัดไป"
+msgstr "ปุ่มลัดแบบคงที่สำหรับข้ามไปร่องเสียงถัดไป"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:482
-#, fuzzy
-#| msgid "Binding to pause playback."
 msgid "Static binding to pause playback."
-msgstr "ปุ่มลัดสำหรับพักการเล่นสื่อ"
+msgstr "ปุ่มลัดแบบคงที่สำหรับพักการเล่นสื่อ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:487
-#, fuzzy
-#| msgid "Binding to start playback (or toggle play/pause)."
 msgid "Static binding to start playback (or toggle play/pause)."
-msgstr "ปุ่มลัดสำหรับเริ่มเล่นสื่อ (หรือสลับการเล่น/พัก)"
+msgstr "ปุ่มลัดแบบคงที่สำหรับเริ่มเล่นสื่อ (หรือสลับการเล่น/พัก)"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:492
-#, fuzzy
-#| msgid "Binding to skip to previous track."
 msgid "Static binding to skip to previous track."
-msgstr "ปุ่มลัดสำหรับข้ามไปร่องเสียงที่แล้ว"
+msgstr "ปุ่มลัดแบบคงที่สำหรับข้ามไปร่องเสียงที่แล้ว"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:497
-#, fuzzy
-#| msgid "Binding to lock the screen."
 msgid "Static binding to lock the screen."
-msgstr "ปุ่มลัดสำหรับล็อคหน้าจอ"
+msgstr "ปุ่มลัดแบบคงที่สำหรับล็อคหน้าจอ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:502
-#, fuzzy
-#| msgid "Binding to launch the search tool."
 msgid "Static binding to launch the search tool."
-msgstr "ปุ่มลัดสำหรับเรียกเครื่องมือค้นหา"
+msgstr "ปุ่มลัดแบบคงที่สำหรับเรียกเครื่องมือค้นหา"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:507
-#, fuzzy
-#| msgid "Binding to stop playback."
 msgid "Static binding to stop playback."
-msgstr "ปุ่มลัดสำหรับหยุดเล่นสื่อ"
+msgstr "ปุ่มลัดแบบคงที่สำหรับหยุดเล่นสื่อ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:514
-#, fuzzy
-#| msgid "Binding to lower the system volume."
 msgid "Static binding to lower the volume."
-msgstr "ปุ่มลัดสำหรับหรี่เสียง"
+msgstr "ปุ่มลัดแบบคงที่สำหรับหรี่เสียง"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:519
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:536
-#, fuzzy
-#| msgid "Binding to mute the system volume."
 msgid "Static binding to mute/unmute the volume."
-msgstr "ปุ่มลัดสำหรับปิดเสียง"
+msgstr "ปุ่มลัดแบบคงที่สำหรับปิด/เปิดเสียง"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:524
-#, fuzzy
-#| msgid "Binding to raise the system volume."
 msgid "Static binding to raise the volume."
-msgstr "ปุ่มลัดสำหรับเร่งเสียง"
+msgstr "ปุ่มลัดแบบคงที่สำหรับเร่งเสียง"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:531
 msgid "Static binding to lower the volume without emitting a sound effect."
-msgstr ""
+msgstr "ปุ่มลัดแบบคงที่สำหรับหรี่เสียงโดยไม่เล่นเสียงประกอบ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:541
 msgid "Static binding to raise the volume without emitting a sound effect."
-msgstr ""
+msgstr "ปุ่มลัดแบบคงที่สำหรับเร่งเสียงโดยไม่เล่นเสียงประกอบ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:548
 msgid "Static binding to lower the volume with higher precision."
-msgstr ""
+msgstr "ปุ่มลัดแบบคงที่สำหรับหรี่เสียงด้วยความเที่ยงตรงที่สูงขึ้น"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:553
 msgid "Static binding to raise the volume with higher precision."
-msgstr ""
+msgstr "ปุ่มลัดแบบคงที่สำหรับเร่งเสียงด้วยความเที่ยงตรงที่สูงขึ้น"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:559
 msgid "Static binding to mute/unmute the microphone."
-msgstr ""
+msgstr "ปุ่มลัดแบบคงที่สำหรับปิด/เปิดเสียงไมโครโฟน"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:564
-#, fuzzy
-#| msgid "Binding to launch the web browser."
 msgid "Static binding to launch the web browser."
-msgstr "ปุ่มลัดสำหรับเรียกเว็บเบราว์เซอร์"
+msgstr "ปุ่มลัดแบบคงที่สำหรับเรียกเว็บเบราว์เซอร์"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:570
-#, fuzzy
-#| msgid "Binding to enable or disable the touchpad."
 msgid "Static binding to toggle the touchpad on/off."
-msgstr "ปุ่มลัดสำหรับเปิดหรือปิดการใช้ทัชแพด"
+msgstr "ปุ่มลัดแบบคงที่สำหรับเปิดหรือปิดการใช้ทัชแพด"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:575
-#, fuzzy
-#| msgid "Binding to enable or disable the touchpad."
 msgid "Static binding to switch the touchpad on."
-msgstr "ปุ่มลัดสำหรับเปิดหรือปิดการใช้ทัชแพด"
+msgstr "ปุ่มลัดแบบคงที่สำหรับเปิดการใช้ทัชแพด"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:580
 msgid "Static binding to switch the touchpad off."
-msgstr ""
+msgstr "ปุ่มลัดแบบคงที่สำหรับปิดการใช้ทัชแพด"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:586
-#, fuzzy
-#| msgid "Binding to skip to next track."
 msgid "Static binding to skip backward in current track."
-msgstr "ปุ่มลัดสำหรับข้ามไปร่องเสียงถัดไป"
+msgstr "ปุ่มลัดแบบคงที่สำหรับข้ามย้อนกลับในร่องเสียงปัจจุบัน"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:591
-#, fuzzy
-#| msgid "Binding to skip to next track."
 msgid "Static binding to skip forward in current track."
-msgstr "ปุ่มลัดสำหรับข้ามไปร่องเสียงถัดไป"
+msgstr "ปุ่มลัดแบบคงที่สำหรับข้ามไปข้างหน้าในร่องเสียงปัจจุบัน"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:596
-#, fuzzy
-#| msgid "Binding to launch the media player."
 msgid "Static binding to toggle repeat mode in media player."
-msgstr "ปุ่มลัดสำหรับเรียกโปรแกรมเล่นสื่อ"
+msgstr "ปุ่มลัดแบบคงที่สำหรับเปิด/ปิดโหมดเล่นซ้ำในโปรแกรมเล่นสื่อ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:601
-#, fuzzy
-#| msgid "Binding to launch the media player."
 msgid "Static binding to toggle random playback mode in media player."
-msgstr "ปุ่มลัดสำหรับเรียกโปรแกรมเล่นสื่อ"
+msgstr "ปุ่มลัดแบบคงที่สำหรับเปิด/ปิดโหมดเล่นสุ่มในโปรแกรมเล่นสื่อ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:607
 msgid "Static binding to toggle automatic screen orientation."
-msgstr ""
+msgstr "ปุ่มลัดแบบคงที่สำหรับเปิด/ปิดการหมุนหน้าจออัตโนมัติ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:612
 msgid "Static binding for power button."
-msgstr ""
+msgstr "ปุ่มลัดแบบคงที่สำหรับเปิด/ปิดเครื่องคอมพิวเตอร์"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:617
 msgid "Static binding to hibernate the machine."
-msgstr ""
+msgstr "ปุ่มลัดแบบคงที่สำหรับจำศีลเครื่องคอมพิวเตอร์"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:622
-#, fuzzy
-#| msgid "Binding to suspend the computer."
 msgid "Static binding to suspend the machine."
-msgstr "ปุ่มลัดสำหรับพักเครื่องคอมพิวเตอร์"
+msgstr "ปุ่มลัดแบบคงที่สำหรับพักเครื่องคอมพิวเตอร์"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:628
-#, fuzzy
-#| msgid "Binding to increase the text size"
 msgid "Static binding to increase the screen brightness."
-msgstr "ปุ่มลัดสำหรับเพิ่มขนาดตัวอักษร"
+msgstr "ปุ่มลัดแบบคงที่สำหรับเพิ่มความสว่างหน้าจอ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:633
-#, fuzzy
-#| msgid "Binding to decrease the text size"
 msgid "Static binding to decrease the screen brightness."
-msgstr "ปุ่มลัดสำหรับลดขนาดตัวอักษร"
+msgstr "ปุ่มลัดแบบคงที่สำหรับลดความสว่างหน้าจอ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:638
-#, fuzzy
-#| msgid "Binding to lock the screen."
 msgid "Static binding to cycle the screen brightness."
-msgstr "ปุ่มลัดสำหรับล็อคหน้าจอ"
+msgstr "ปุ่มลัดแบบคงที่สำหรับปรับความสว่างหน้าจอเป็นรอบ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:644
-#, fuzzy
-#| msgid "Binding to increase the text size"
 msgid "Static binding to increase the keyboard brightness."
-msgstr "ปุ่มลัดสำหรับเพิ่มขนาดตัวอักษร"
+msgstr "ปุ่มลัดแบบคงที่สำหรับเพิ่มความสว่างแป้นพิมพ์"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:649
-#, fuzzy
-#| msgid "Binding to decrease the text size"
 msgid "Static binding to decrease the keyboard brightness."
-msgstr "ปุ่มลัดสำหรับลดขนาดตัวอักษร"
+msgstr "ปุ่มลัดแบบคงที่สำหรับลดความสว่างแป้นพิมพ์"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:654
 msgid "Static binding to toggle the keyboard brightness."
-msgstr ""
+msgstr "ปุ่มลัดแบบคงที่สำหรับเปิด/ปิดความสว่างแป้นพิมพ์"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:660
 msgid "Static binding to show current battery status."
-msgstr ""
+msgstr "ปุ่มลัดแบบคงที่สำหรับแสดงสถานะปัจจุบันของแบตเตอรี่"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:666
 msgid "Static binding to toggle airplane mode."
-msgstr ""
+msgstr "ปุ่มลัดแบบคงที่สำหรับเปิด/ปิดโหมดเครื่องบิน"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:671
 msgid "Static binding to toggle bluetooth airplane mode."
-msgstr ""
+msgstr "ปุ่มลัดแบบคงที่สำหรับเปิด/ปิดโหมดเครื่องบินแบบใช้บลูทูธ"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:678
 msgid "Name"
@@ -1539,20 +1407,20 @@ msgstr "เอาอุปกรณ์เทียบมาตรฐานสี
 
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
-#: plugins/datetime/gsd-datetime-manager.c:88
+#: plugins/datetime/gsd-datetime-manager.c:93
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
-#: plugins/datetime/gsd-datetime-manager.c:92
+#: plugins/datetime/gsd-datetime-manager.c:97
 #, c-format
 msgid "Time Zone Updated to %s (%s)"
 msgstr "ปรับเขตเวลาเป็น %s (%s) แล้ว"
 
-#: plugins/datetime/gsd-datetime-manager.c:108
+#: plugins/datetime/gsd-datetime-manager.c:113
 msgid "Settings"
 msgstr "ตั้งค่า"
 
-#: plugins/datetime/gsd-datetime-manager.c:118
+#: plugins/datetime/gsd-datetime-manager.c:123
 msgid "Date & Time Settings"
 msgstr "ตั้งค่าวันที่ & เวลา"
 
@@ -1638,7 +1506,7 @@ msgstr "หยุดงานพิมพ์แล้ว"
 #. TRANSLATORS: We don't have a good description of what was killed.
 #: plugins/housekeeping/gsd-systemd-notify.c:96
 #, c-format
-msgid "Device memory is nearly full. An application that was using a lot of memory and was forced to stop."
+msgid "Device memory is nearly full. An application was using a lot of memory and was forced to stop."
 msgstr ""
 
 #: plugins/media-keys/gsd-media-keys-manager.c:2254
@@ -1695,58 +1563,58 @@ msgid_plural "minutes"
 msgstr[0] "นาที"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:922
-#: plugins/power/gsd-power-manager.c:1006
+#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:925
+#: plugins/power/gsd-power-manager.c:1009
 msgid "Battery is critically low"
 msgstr "แบตเตอรี่เหลือพลังงานต่ำถึงขั้นวิกฤติ"
 
 #. TRANSLATORS: this is the notification application name
-#: plugins/power/gsd-power-manager.c:367
+#: plugins/power/gsd-power-manager.c:370
 msgid "Power"
 msgstr "พลังงาน"
 
 #. TRANSLATORS: UPS is now discharging
-#: plugins/power/gsd-power-manager.c:405
+#: plugins/power/gsd-power-manager.c:408
 msgid "UPS Discharging"
 msgstr "UPS กำลังจ่ายไฟ"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:410
+#: plugins/power/gsd-power-manager.c:413
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "UPS มีพลังงานสำรองเหลือ %s"
 
-#: plugins/power/gsd-power-manager.c:413
+#: plugins/power/gsd-power-manager.c:416
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "ไม่ทราบปริมาณพลังงานสำรองที่เหลือของ UPS"
 
 #. TRANSLATORS: notification title, a wireless mouse is low or very low on power
-#: plugins/power/gsd-power-manager.c:513
+#: plugins/power/gsd-power-manager.c:516
 msgid "Mouse battery low"
 msgstr "เมาส์เหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, a wireless mouse is low on power
-#: plugins/power/gsd-power-manager.c:516
+#: plugins/power/gsd-power-manager.c:519
 #, fuzzy, c-format
 #| msgid "Wireless mouse is low in power (%.0f%%)"
 msgid "Wireless mouse is low on power (%.0f%%)"
 msgstr "เมาส์ไร้สายเหลือพลังงานต่ำ (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:517
+#: plugins/power/gsd-power-manager.c:520
 #, fuzzy
 #| msgid "Wireless mouse is low in power (%.0f%%)"
 msgid "Wireless mouse is low on power"
 msgstr "เมาส์ไร้สายเหลือพลังงานต่ำ (%.0f%%)"
 
 #. TRANSLATORS: notification body, a wireless mouse is very low on power
-#: plugins/power/gsd-power-manager.c:519
+#: plugins/power/gsd-power-manager.c:522
 #, fuzzy, c-format
 #| msgid ""
 #| "Wireless mouse is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgid "Wireless mouse is very low on power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "เมาส์ไร้สายเหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะหยุดทำงานเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
-#: plugins/power/gsd-power-manager.c:521
+#: plugins/power/gsd-power-manager.c:524
 #, fuzzy
 #| msgid ""
 #| "Wireless mouse is very low in power (%.0f%%). This device will soon stop functioning if not charged."
@@ -1754,25 +1622,25 @@ msgid "Wireless mouse is very low on power. This device will soon stop functioni
 msgstr "เมาส์ไร้สายเหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะหยุดทำงานเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
 #. TRANSLATORS: notification title, a wireless keyboard is low or very low on power
-#: plugins/power/gsd-power-manager.c:526
+#: plugins/power/gsd-power-manager.c:529
 msgid "Keyboard battery low"
 msgstr "แป้นพิมพ์เหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, a wireless keyboard is low on power
-#: plugins/power/gsd-power-manager.c:529
+#: plugins/power/gsd-power-manager.c:532
 #, fuzzy, c-format
 #| msgid "Wireless keyboard is low in power (%.0f%%)"
 msgid "Wireless keyboard is low on power (%.0f%%)"
 msgstr "แป้นพิมพ์ไร้สายเหลือพลังงานต่ำ (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:530
+#: plugins/power/gsd-power-manager.c:533
 #, fuzzy
 #| msgid "Wireless keyboard is low in power (%.0f%%)"
 msgid "Wireless keyboard is low on power"
 msgstr "แป้นพิมพ์ไร้สายเหลือพลังงานต่ำ (%.0f%%)"
 
 #. TRANSLATORS: notification body, a wireless keyboard is very low on power
-#: plugins/power/gsd-power-manager.c:532
+#: plugins/power/gsd-power-manager.c:535
 #, fuzzy, c-format
 #| msgid ""
 #| "Wireless keyboard is very low in power (%.0f%%). This device will soon stop functioning if not charged."
@@ -1780,7 +1648,7 @@ msgid ""
 "Wireless keyboard is very low on power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "แป้นพิมพ์ไร้สายเหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะหยุดทำงานเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
-#: plugins/power/gsd-power-manager.c:534
+#: plugins/power/gsd-power-manager.c:537
 #, fuzzy
 #| msgid ""
 #| "Wireless keyboard is very low in power (%.0f%%). This device will soon stop functioning if not charged."
@@ -1788,94 +1656,94 @@ msgid "Wireless keyboard is very low on power. This device will soon stop functi
 msgstr "แป้นพิมพ์ไร้สายเหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะหยุดทำงานเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
 #. TRANSLATORS: notification title, a PDA (Personal Digital Assistance device) is low or very on power
-#: plugins/power/gsd-power-manager.c:539
+#: plugins/power/gsd-power-manager.c:542
 msgid "PDA battery low"
 msgstr "แบตเตอรี่ PDA เหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is low on power
-#: plugins/power/gsd-power-manager.c:542
+#: plugins/power/gsd-power-manager.c:545
 #, fuzzy, c-format
 #| msgid "PDA is low in power (%.0f%%)"
 msgid "PDA is low on power (%.0f%%)"
 msgstr "แบตเตอรี่ PDA เหลือพลังงานต่ำ (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:543
+#: plugins/power/gsd-power-manager.c:546
 #, fuzzy
 #| msgid "PDA is low in power (%.0f%%)"
 msgid "PDA is low on power"
 msgstr "แบตเตอรี่ PDA เหลือพลังงานต่ำ (%.0f%%)"
 
 #. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is very low on power
-#: plugins/power/gsd-power-manager.c:545
+#: plugins/power/gsd-power-manager.c:548
 #, fuzzy, c-format
 #| msgid "PDA is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgid "PDA is very low on power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "PDA เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะหยุดทำงานเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
-#: plugins/power/gsd-power-manager.c:547
+#: plugins/power/gsd-power-manager.c:550
 #, fuzzy
 #| msgid "PDA is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgid "PDA is very low on power. This device will soon stop functioning if not charged."
 msgstr "PDA เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะหยุดทำงานเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
 #. TRANSLATORS: notification title, a cell phone (mobile phone) is low or very low on power
-#: plugins/power/gsd-power-manager.c:552
+#: plugins/power/gsd-power-manager.c:555
 msgid "Cell phone battery low"
 msgstr "โทรศัพท์มือถือเหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, a cell phone (mobile phone) is low on power
-#: plugins/power/gsd-power-manager.c:555
+#: plugins/power/gsd-power-manager.c:558
 #, fuzzy, c-format
 #| msgid "Cell phone is low in power (%.0f%%)"
 msgid "Cell phone is low on power (%.0f%%)"
 msgstr "โทรศัพท์มือถือเหลือพลังงานต่ำ (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:556
+#: plugins/power/gsd-power-manager.c:559
 #, fuzzy
 #| msgid "Cell phone is low in power (%.0f%%)"
 msgid "Cell phone is low on power"
 msgstr "โทรศัพท์มือถือเหลือพลังงานต่ำ (%.0f%%)"
 
 #. TRANSLATORS: notification body, a cell phone (mobile phone) is very low on power
-#: plugins/power/gsd-power-manager.c:558
+#: plugins/power/gsd-power-manager.c:561
 #, fuzzy, c-format
 #| msgid "Cell phone is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgid "Cell phone is very low on power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "โทรศัพท์มือถือเหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะหยุดทำงานเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
-#: plugins/power/gsd-power-manager.c:560
+#: plugins/power/gsd-power-manager.c:563
 #, fuzzy
 #| msgid "Cell phone is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgid "Cell phone is very low on power. This device will soon stop functioning if not charged."
 msgstr "โทรศัพท์มือถือเหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะหยุดทำงานเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
 #. TRANSLATORS: notification title, a media player (e.g. mp3 player) is low or very low on power
-#: plugins/power/gsd-power-manager.c:565
+#: plugins/power/gsd-power-manager.c:568
 msgid "Media player battery low"
 msgstr "เครื่องเล่นสื่อเหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, a media player (e.g. mp3 player) is low on power
-#: plugins/power/gsd-power-manager.c:568
+#: plugins/power/gsd-power-manager.c:571
 #, fuzzy, c-format
 #| msgid "Media player is low in power (%.0f%%)"
 msgid "Media player is low on power (%.0f%%)"
 msgstr "เครื่องเล่นสื่อเหลือพลังงานต่ำ (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:569
+#: plugins/power/gsd-power-manager.c:572
 #, fuzzy
 #| msgid "Media player is low in power (%.0f%%)"
 msgid "Media player is low on power"
 msgstr "เครื่องเล่นสื่อเหลือพลังงานต่ำ (%.0f%%)"
 
 #. TRANSLATORS: notification body, a media player (e.g. mp3 player) is very low on power
-#: plugins/power/gsd-power-manager.c:571
+#: plugins/power/gsd-power-manager.c:574
 #, fuzzy, c-format
 #| msgid ""
 #| "Media player is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgid "Media player is very low on power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "เครื่องเล่นสื่อเหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะหยุดทำงานเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
-#: plugins/power/gsd-power-manager.c:573
+#: plugins/power/gsd-power-manager.c:576
 #, fuzzy
 #| msgid ""
 #| "Media player is very low in power (%.0f%%). This device will soon stop functioning if not charged."
@@ -1883,492 +1751,492 @@ msgid "Media player is very low on power. This device will soon stop functioning
 msgstr "เครื่องเล่นสื่อเหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะหยุดทำงานเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
 #. TRANSLATORS: notification title, a graphics tablet (e.g. wacom) is low or very low on power
-#: plugins/power/gsd-power-manager.c:578
+#: plugins/power/gsd-power-manager.c:581
 msgid "Tablet battery low"
 msgstr "แท็บเล็ตเหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is low on power
-#: plugins/power/gsd-power-manager.c:581
+#: plugins/power/gsd-power-manager.c:584
 #, fuzzy, c-format
 #| msgid "Tablet is low in power (%.0f%%)"
 msgid "Tablet is low on power (%.0f%%)"
 msgstr "แท็บเล็ตเหลือพลังงานต่ำ (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:582
+#: plugins/power/gsd-power-manager.c:585
 #, fuzzy
 #| msgid "Tablet is low in power (%.0f%%)"
 msgid "Tablet is low on power"
 msgstr "แท็บเล็ตเหลือพลังงานต่ำ (%.0f%%)"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is very low on power
-#: plugins/power/gsd-power-manager.c:584
+#: plugins/power/gsd-power-manager.c:587
 #, fuzzy, c-format
 #| msgid "Tablet is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgid "Tablet is very low on power (%.0f%%). This device will soon stop functioning if not charged."
 msgstr "แท็บเล็ตเหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะหยุดทำงานเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
-#: plugins/power/gsd-power-manager.c:586
+#: plugins/power/gsd-power-manager.c:589
 #, fuzzy
 #| msgid "Tablet is very low in power (%.0f%%). This device will soon stop functioning if not charged."
 msgid "Tablet is very low on power. This device will soon stop functioning if not charged."
 msgstr "แท็บเล็ตเหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะหยุดทำงานเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
 #. TRANSLATORS: notification title, an attached computer (e.g. ipad) is low or very low on power
-#: plugins/power/gsd-power-manager.c:591
+#: plugins/power/gsd-power-manager.c:594
 msgid "Attached computer battery low"
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is low on power
-#: plugins/power/gsd-power-manager.c:594
+#: plugins/power/gsd-power-manager.c:597
 #, fuzzy, c-format
 #| msgid "Attached computer is low in power (%.0f%%)"
 msgid "Attached computer is low on power (%.0f%%)"
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำ (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:595
+#: plugins/power/gsd-power-manager.c:598
 #, fuzzy
 #| msgid "Attached computer is low in power (%.0f%%)"
 msgid "Attached computer is low on power"
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำ (%.0f%%)"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is very low on power
-#: plugins/power/gsd-power-manager.c:597
+#: plugins/power/gsd-power-manager.c:600
 #, fuzzy, c-format
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Attached computer is very low on power (%.0f%%). The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
-#: plugins/power/gsd-power-manager.c:599
+#: plugins/power/gsd-power-manager.c:602
 #, fuzzy
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Attached computer is very low on power. The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
 #. TRANSLATORS: notification title, a game controller (e.g. joystick or joypad) is low or very low on power
-#: plugins/power/gsd-power-manager.c:604
+#: plugins/power/gsd-power-manager.c:607
 #, fuzzy
 #| msgid "Attached computer battery low"
 msgid "Game controller battery low"
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, a game controller (e.g. joystick or joypad) is low on power
-#: plugins/power/gsd-power-manager.c:607
+#: plugins/power/gsd-power-manager.c:610
 #, fuzzy, c-format
 #| msgid "Attached computer is low in power (%.0f%%)"
 msgid "Game controller is low on power (%.0f%%)"
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำ (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:608
+#: plugins/power/gsd-power-manager.c:611
 #, fuzzy
 #| msgid "Attached computer is low in power (%.0f%%)"
 msgid "Game controller is low on power"
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำ (%.0f%%)"
 
 #. TRANSLATORS: notification body, an attached game controller (e.g. joystick or joypad) is very low on power
-#: plugins/power/gsd-power-manager.c:610
+#: plugins/power/gsd-power-manager.c:613
 #, fuzzy, c-format
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Game controller is very low on power (%.0f%%). The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
-#: plugins/power/gsd-power-manager.c:612
+#: plugins/power/gsd-power-manager.c:615
 #, fuzzy
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Game controller is very low on power. The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
 #. TRANSLATORS: notification title, a pen is low or very low on power
-#: plugins/power/gsd-power-manager.c:617
+#: plugins/power/gsd-power-manager.c:620
 #, fuzzy
 #| msgid "PDA battery low"
 msgid "Pen battery low"
 msgstr "แบตเตอรี่ PDA เหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, a pen is low on power
-#: plugins/power/gsd-power-manager.c:620
+#: plugins/power/gsd-power-manager.c:623
 #, fuzzy, c-format
 #| msgid "PDA is low in power (%.0f%%)"
 msgid "Pen is low on power (%.0f%%)"
 msgstr "แบตเตอรี่ PDA เหลือพลังงานต่ำ (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:621
+#: plugins/power/gsd-power-manager.c:624
 #, fuzzy
 #| msgid "PDA is low in power (%.0f%%)"
 msgid "Pen is low on power"
 msgstr "แบตเตอรี่ PDA เหลือพลังงานต่ำ (%.0f%%)"
 
 #. TRANSLATORS: notification body, a pen is very low on power
-#: plugins/power/gsd-power-manager.c:623
+#: plugins/power/gsd-power-manager.c:626
 #, fuzzy, c-format
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Pen is very low on power (%.0f%%). The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
-#: plugins/power/gsd-power-manager.c:625
+#: plugins/power/gsd-power-manager.c:628
 #, fuzzy
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Pen is very low on power. The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
 #. TRANSLATORS: notification title, an external touchpad is low or very low on power
-#: plugins/power/gsd-power-manager.c:630
+#: plugins/power/gsd-power-manager.c:633
 #, fuzzy
 #| msgid "Mouse battery low"
 msgid "Touchpad battery low"
 msgstr "เมาส์เหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, an external touchpad is low on power
-#: plugins/power/gsd-power-manager.c:633
+#: plugins/power/gsd-power-manager.c:636
 #, fuzzy, c-format
 #| msgid "Tablet is low in power (%.0f%%)"
 msgid "Touchpad is low on power (%.0f%%)"
 msgstr "แท็บเล็ตเหลือพลังงานต่ำ (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:634
+#: plugins/power/gsd-power-manager.c:637
 #, fuzzy
 #| msgid "Tablet is low in power (%.0f%%)"
 msgid "Touchpad is low on power"
 msgstr "แท็บเล็ตเหลือพลังงานต่ำ (%.0f%%)"
 
 #. TRANSLATORS: notification body, an external touchpad is very low on power
-#: plugins/power/gsd-power-manager.c:636
+#: plugins/power/gsd-power-manager.c:639
 #, fuzzy, c-format
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Touchpad is very low on power (%.0f%%). The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
-#: plugins/power/gsd-power-manager.c:638
+#: plugins/power/gsd-power-manager.c:641
 #, fuzzy
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Touchpad is very low on power. The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
 #. TRANSLATORS: notification title, a headset (headphones + microphone) is low or very low on power
-#: plugins/power/gsd-power-manager.c:643
+#: plugins/power/gsd-power-manager.c:646
 #, fuzzy
 #| msgid "Tablet battery low"
 msgid "Headset battery low"
 msgstr "แท็บเล็ตเหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is low on power
-#: plugins/power/gsd-power-manager.c:646
+#: plugins/power/gsd-power-manager.c:649
 #, fuzzy, c-format
 #| msgid "Tablet is low in power (%.0f%%)"
 msgid "Headset is low on power (%.0f%%)"
 msgstr "แท็บเล็ตเหลือพลังงานต่ำ (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:647
+#: plugins/power/gsd-power-manager.c:650
 #, fuzzy
 #| msgid "Tablet is low in power (%.0f%%)"
 msgid "Headset is low on power"
 msgstr "แท็บเล็ตเหลือพลังงานต่ำ (%.0f%%)"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is very low on power
-#: plugins/power/gsd-power-manager.c:649
+#: plugins/power/gsd-power-manager.c:652
 #, fuzzy, c-format
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Headset is very low on power (%.0f%%). The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
-#: plugins/power/gsd-power-manager.c:651
+#: plugins/power/gsd-power-manager.c:654
 #, fuzzy
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Headset is very low on power. The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
 #. TRANSLATORS: notification title, speaker is low or very low on power
-#: plugins/power/gsd-power-manager.c:656
+#: plugins/power/gsd-power-manager.c:659
 #, fuzzy
 #| msgid "Keyboard battery low"
 msgid "Speaker battery low"
 msgstr "แป้นพิมพ์เหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, a speaker is low on power
-#: plugins/power/gsd-power-manager.c:659
+#: plugins/power/gsd-power-manager.c:662
 #, fuzzy, c-format
 #| msgid "Tablet is low in power (%.0f%%)"
 msgid "Speaker is low on power (%.0f%%)"
 msgstr "แท็บเล็ตเหลือพลังงานต่ำ (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:660
+#: plugins/power/gsd-power-manager.c:663
 #, fuzzy
 #| msgid "Media player is low in power (%.0f%%)"
 msgid "Speaker is low on power"
 msgstr "เครื่องเล่นสื่อเหลือพลังงานต่ำ (%.0f%%)"
 
 #. TRANSLATORS: notification body, a speaker is very low on power
-#: plugins/power/gsd-power-manager.c:662
+#: plugins/power/gsd-power-manager.c:665
 #, fuzzy, c-format
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Speaker is very low on power (%.0f%%). The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
-#: plugins/power/gsd-power-manager.c:664
+#: plugins/power/gsd-power-manager.c:667
 #, fuzzy
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Speaker is very low on power. The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
 #. TRANSLATORS: notification title, headphones (no microphone) are low or very low on power
-#: plugins/power/gsd-power-manager.c:669
+#: plugins/power/gsd-power-manager.c:672
 #, fuzzy
 #| msgid "Cell phone battery low"
 msgid "Headphones battery low"
 msgstr "โทรศัพท์มือถือเหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are low on power
-#: plugins/power/gsd-power-manager.c:672
+#: plugins/power/gsd-power-manager.c:675
 #, fuzzy, c-format
 #| msgid "Cell phone is low in power (%.0f%%)"
 msgid "Headphones are low on power (%.0f%%)"
 msgstr "โทรศัพท์มือถือเหลือพลังงานต่ำ (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:673
+#: plugins/power/gsd-power-manager.c:676
 #, fuzzy
 #| msgid "Cell phone is low in power (%.0f%%)"
 msgid "Headphones are low on power"
 msgstr "โทรศัพท์มือถือเหลือพลังงานต่ำ (%.0f%%)"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are very low on power
-#: plugins/power/gsd-power-manager.c:675
+#: plugins/power/gsd-power-manager.c:678
 #, fuzzy, c-format
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Headphones are very low on power (%.0f%%). The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
-#: plugins/power/gsd-power-manager.c:677
+#: plugins/power/gsd-power-manager.c:680
 #, fuzzy
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Headphones are very low on power. The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
 #. TRANSLATORS: notification title, an audio device is low or very low on power
-#: plugins/power/gsd-power-manager.c:682
+#: plugins/power/gsd-power-manager.c:685
 #, fuzzy
 #| msgid "Mouse battery low"
 msgid "Audio device battery low"
 msgstr "เมาส์เหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, an audio device is low on power
-#: plugins/power/gsd-power-manager.c:685
+#: plugins/power/gsd-power-manager.c:688
 #, fuzzy, c-format
 #| msgid "PDA is low in power (%.0f%%)"
 msgid "Audio device is low on power (%.0f%%)"
 msgstr "แบตเตอรี่ PDA เหลือพลังงานต่ำ (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:686
+#: plugins/power/gsd-power-manager.c:689
 msgid "Audio device is low on power"
 msgstr ""
 
 #. TRANSLATORS: notification body, an audio device is very low on power
-#: plugins/power/gsd-power-manager.c:688
+#: plugins/power/gsd-power-manager.c:691
 #, fuzzy, c-format
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Audio device is very low on power (%.0f%%). The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
-#: plugins/power/gsd-power-manager.c:690
+#: plugins/power/gsd-power-manager.c:693
 #, fuzzy
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Audio device is very low on power. The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
 #. TRANSLATORS: notification title, a remote control is low or very low on power
-#: plugins/power/gsd-power-manager.c:695
+#: plugins/power/gsd-power-manager.c:698
 #, fuzzy
 #| msgid "Mouse battery low"
 msgid "Remote battery low"
 msgstr "เมาส์เหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, an remote control is low on power
-#: plugins/power/gsd-power-manager.c:698
+#: plugins/power/gsd-power-manager.c:701
 #, fuzzy, c-format
 #| msgid "Tablet is low in power (%.0f%%)"
 msgid "Remote is low on power (%.0f%%)"
 msgstr "แท็บเล็ตเหลือพลังงานต่ำ (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:699
+#: plugins/power/gsd-power-manager.c:702
 #, fuzzy
 #| msgid "Tablet is low in power (%.0f%%)"
 msgid "Remote is low on power"
 msgstr "แท็บเล็ตเหลือพลังงานต่ำ (%.0f%%)"
 
 #. TRANSLATORS: notification body, a remote control is very low on power
-#: plugins/power/gsd-power-manager.c:701
+#: plugins/power/gsd-power-manager.c:704
 #, fuzzy, c-format
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Remote is very low on power (%.0f%%). The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
-#: plugins/power/gsd-power-manager.c:703
+#: plugins/power/gsd-power-manager.c:706
 #, fuzzy
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Remote is very low on power. The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
 #. TRANSLATORS: notification title, a printer is low or very low on power
-#: plugins/power/gsd-power-manager.c:708
+#: plugins/power/gsd-power-manager.c:711
 #, fuzzy
 #| msgid "PDA battery low"
 msgid "Printer battery low"
 msgstr "แบตเตอรี่ PDA เหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, a printer is low on power
-#: plugins/power/gsd-power-manager.c:711
+#: plugins/power/gsd-power-manager.c:714
 #, fuzzy, c-format
 #| msgid "PDA is low in power (%.0f%%)"
 msgid "Printer is low on power (%.0f%%)"
 msgstr "แบตเตอรี่ PDA เหลือพลังงานต่ำ (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:712
+#: plugins/power/gsd-power-manager.c:715
 #, fuzzy
 #| msgid "Printer '%s' is low on paper."
 msgid "Printer is low on power"
 msgstr "เครื่องพิมพ์ '%s' เหลือกระดาษน้อย"
 
 #. TRANSLATORS: notification body, a printer is very low on power
-#: plugins/power/gsd-power-manager.c:714
+#: plugins/power/gsd-power-manager.c:717
 #, fuzzy, c-format
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Printer is very low on power (%.0f%%). The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
-#: plugins/power/gsd-power-manager.c:716
+#: plugins/power/gsd-power-manager.c:719
 #, fuzzy
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Printer is very low on power. The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
 #. TRANSLATORS: notification title, a scanner is low or very low on power
-#: plugins/power/gsd-power-manager.c:721
+#: plugins/power/gsd-power-manager.c:724
 #, fuzzy
 #| msgid "Tablet battery low"
 msgid "Scanner battery low"
 msgstr "แท็บเล็ตเหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, a scanner is low on power
-#: plugins/power/gsd-power-manager.c:724
+#: plugins/power/gsd-power-manager.c:727
 #, fuzzy, c-format
 #| msgid "Tablet is low in power (%.0f%%)"
 msgid "Scanner is low on power (%.0f%%)"
 msgstr "แท็บเล็ตเหลือพลังงานต่ำ (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:725
+#: plugins/power/gsd-power-manager.c:728
 #, fuzzy
 #| msgid "Printer '%s' is low on paper."
 msgid "Scanner is low on power"
 msgstr "เครื่องพิมพ์ '%s' เหลือกระดาษน้อย"
 
 #. TRANSLATORS: notification body, a scanner is very low on power
-#: plugins/power/gsd-power-manager.c:727
+#: plugins/power/gsd-power-manager.c:730
 #, fuzzy, c-format
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Scanner is very low on power (%.0f%%). The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
-#: plugins/power/gsd-power-manager.c:729
+#: plugins/power/gsd-power-manager.c:732
 #, fuzzy
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Scanner is very low on power. The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
 #. TRANSLATORS: notification title, a camera is low or very low on power
-#: plugins/power/gsd-power-manager.c:734
+#: plugins/power/gsd-power-manager.c:737
 #, fuzzy
 #| msgid "Tablet battery low"
 msgid "Camera battery low"
 msgstr "แท็บเล็ตเหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, a camera is low on power
-#: plugins/power/gsd-power-manager.c:737
+#: plugins/power/gsd-power-manager.c:740
 #, fuzzy, c-format
 #| msgid "Tablet is low in power (%.0f%%)"
 msgid "Camera is low on power (%.0f%%)"
 msgstr "แท็บเล็ตเหลือพลังงานต่ำ (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:738
+#: plugins/power/gsd-power-manager.c:741
 #, fuzzy
 #| msgid "Tablet is low in power (%.0f%%)"
 msgid "Camera is low on power"
 msgstr "แท็บเล็ตเหลือพลังงานต่ำ (%.0f%%)"
 
 #. TRANSLATORS: notification body, a camera is very low on power
-#: plugins/power/gsd-power-manager.c:740
+#: plugins/power/gsd-power-manager.c:743
 #, fuzzy, c-format
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Camera is very low on power (%.0f%%). The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
-#: plugins/power/gsd-power-manager.c:742
+#: plugins/power/gsd-power-manager.c:745
 #, fuzzy
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Camera is very low on power. The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
 #. TRANSLATORS: notification title, a Bluetooth device is low or very low on power
-#: plugins/power/gsd-power-manager.c:747
+#: plugins/power/gsd-power-manager.c:750
 #, fuzzy
 #| msgid "Tablet battery low"
 msgid "Bluetooth device battery low"
 msgstr "แท็บเล็ตเหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, a Bluetooth device is low on power
-#: plugins/power/gsd-power-manager.c:750
+#: plugins/power/gsd-power-manager.c:753
 #, fuzzy, c-format
 #| msgid "Tablet is low in power (%.0f%%)"
 msgid "Bluetooth device is low on power (%.0f%%)"
 msgstr "แท็บเล็ตเหลือพลังงานต่ำ (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:751
+#: plugins/power/gsd-power-manager.c:754
 msgid "Bluetooth device is low on power"
 msgstr ""
 
 #. TRANSLATORS: notification body, a Bluetooth device is very low on power
-#: plugins/power/gsd-power-manager.c:753
+#: plugins/power/gsd-power-manager.c:756
 #, fuzzy, c-format
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Bluetooth device is very low on power (%.0f%%). The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
-#: plugins/power/gsd-power-manager.c:755
+#: plugins/power/gsd-power-manager.c:758
 #, fuzzy
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "Bluetooth device is very low on power. The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
 #. TRANSLATORS: notification title, a connected (wireless) device or peripheral of unhandled type is low or very on power
-#: plugins/power/gsd-power-manager.c:761
+#: plugins/power/gsd-power-manager.c:764
 #, fuzzy
 #| msgid "Cell phone battery low"
 msgid "Connected device battery is low"
 msgstr "โทรศัพท์มือถือเหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is low on power
-#: plugins/power/gsd-power-manager.c:764
+#: plugins/power/gsd-power-manager.c:767
 #, fuzzy, c-format
 #| msgid "Attached computer is low in power (%.0f%%)"
 msgid "A connected device is low on power (%.0f%%)"
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำ (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:765
+#: plugins/power/gsd-power-manager.c:768
 msgid "A connected device is low on power"
 msgstr ""
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is very low on power
-#: plugins/power/gsd-power-manager.c:767
+#: plugins/power/gsd-power-manager.c:770
 #, fuzzy, c-format
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "A connected device is very low on power (%.0f%%). The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
-#: plugins/power/gsd-power-manager.c:769
+#: plugins/power/gsd-power-manager.c:772
 #, fuzzy
 #| msgid "Attached computer is very low in power (%.0f%%). The device will soon shutdown if not charged."
 msgid "A connected device is very low on power. The device will soon shutdown if not charged."
 msgstr "คอมพิวเตอร์ที่เชื่อมต่ออยู่เหลือพลังงานต่ำมาก (%.0f%%) อุปกรณ์นี้จะปิดตัวเร็วๆ นี้ ถ้าไม่ประจุไฟ"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:795
+#: plugins/power/gsd-power-manager.c:798
 #, fuzzy
 #| msgid "Laptop battery"
 #| msgid_plural "Laptop batteries"
@@ -2376,14 +2244,14 @@ msgid "Low Battery"
 msgstr "แบตเตอรี่แล็ปท็อป"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:798
+#: plugins/power/gsd-power-manager.c:801
 #, fuzzy, c-format
 #| msgid "%s %s remaining"
 msgid "%.0f%% battery remaining"
 msgstr "%s อีก %sจะหมด"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:801
+#: plugins/power/gsd-power-manager.c:804
 #, fuzzy
 #| msgid "UPS low"
 msgid "UPS Low"
@@ -2391,39 +2259,39 @@ msgstr "UPS เหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
-#: plugins/power/gsd-power-manager.c:804 plugins/power/gsd-power-manager.c:877
+#: plugins/power/gsd-power-manager.c:807 plugins/power/gsd-power-manager.c:880
 #, fuzzy, c-format
 #| msgid "%s of UPS backup power remaining"
 msgid "%.0f%% UPS power remaining"
 msgstr "UPS มีพลังงานสำรองเหลือ %s"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:842
+#: plugins/power/gsd-power-manager.c:845
 msgid "Battery is low"
 msgstr "แบตเตอรี่เหลือไฟต่ำ"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, advice on what the user should do
-#: plugins/power/gsd-power-manager.c:868
+#: plugins/power/gsd-power-manager.c:871
 #, fuzzy
 #| msgid "Battery low"
 msgid "Battery Almost Empty"
 msgstr "แบตเตอรี่เหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically running low, advice on what the user should do
-#: plugins/power/gsd-power-manager.c:871
+#: plugins/power/gsd-power-manager.c:874
 #, c-format
 msgid "Connect power now"
 msgstr ""
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
-#: plugins/power/gsd-power-manager.c:874
+#: plugins/power/gsd-power-manager.c:877
 #, fuzzy
 #| msgid "UPS is empty"
 msgid "UPS Almost Empty"
 msgstr "UPS ไม่มีประจุเหลืออยู่"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, warning about action happening now
-#: plugins/power/gsd-power-manager.c:945
+#: plugins/power/gsd-power-manager.c:948
 #, fuzzy
 #| msgid "Battery is low"
 msgid "Battery is Empty"
@@ -2431,58 +2299,58 @@ msgstr "แบตเตอรี่เหลือไฟต่ำ"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action about to happen
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
-#: plugins/power/gsd-power-manager.c:952 plugins/power/gsd-power-manager.c:972
+#: plugins/power/gsd-power-manager.c:955 plugins/power/gsd-power-manager.c:975
 msgid "This device is about to hibernate"
 msgstr ""
 
-#: plugins/power/gsd-power-manager.c:954 plugins/power/gsd-power-manager.c:974
+#: plugins/power/gsd-power-manager.c:957 plugins/power/gsd-power-manager.c:977
 msgid "This device is about to shutdown"
 msgstr ""
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
-#: plugins/power/gsd-power-manager.c:965
+#: plugins/power/gsd-power-manager.c:968
 #, fuzzy
 #| msgid "UPS is empty"
 msgid "UPS is Empty"
 msgstr "UPS ไม่มีประจุเหลืออยู่"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1493
+#: plugins/power/gsd-power-manager.c:1496
 msgid "Lid has been opened"
 msgstr "ฝาเครื่องเปิด"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1527
+#: plugins/power/gsd-power-manager.c:1530
 msgid "Lid has been closed"
 msgstr "ฝาเครื่องปิด"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2178
+#: plugins/power/gsd-power-manager.c:2183
 msgid "On battery power"
 msgstr "ใช้ไฟจากแบตเตอรี่"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2183
+#: plugins/power/gsd-power-manager.c:2188
 msgid "On AC power"
 msgstr "ใช้ไฟ AC"
 
-#: plugins/power/gsd-power-manager.c:2452
+#: plugins/power/gsd-power-manager.c:2457
 msgid "Automatic logout"
 msgstr "ออกจากระบบอัตโนมัติ"
 
-#: plugins/power/gsd-power-manager.c:2452
+#: plugins/power/gsd-power-manager.c:2457
 msgid "You will soon log out because of inactivity."
 msgstr "คุณจะออกจากระบบในอีกไม่นานเพราะไม่มีการใช้งาน"
 
-#: plugins/power/gsd-power-manager.c:2457
+#: plugins/power/gsd-power-manager.c:2462
 msgid "Automatic suspend"
 msgstr "พักเครื่องอัตโนมัติ"
 
-#: plugins/power/gsd-power-manager.c:2457 plugins/power/gsd-power-manager.c:2462
+#: plugins/power/gsd-power-manager.c:2462 plugins/power/gsd-power-manager.c:2467
 msgid "Suspending soon because of inactivity."
 msgstr ""
 
-#: plugins/power/gsd-power-manager.c:2462
+#: plugins/power/gsd-power-manager.c:2467
 msgid "Automatic hibernation"
 msgstr "จำศีลเครื่องอัตโนมัติ"
 
@@ -2706,11 +2574,14 @@ msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "“%s” ที่ %s"
 
-#. Translators: A print job has been canceled
+#. Translators: A print job has been cancelled
 #: plugins/print-notifications/gsd-print-notifications-manager.c:722
 #: plugins/print-notifications/gsd-print-notifications-manager.c:762
+#, fuzzy
+#| msgctxt "print job state"
+#| msgid "Printing canceled"
 msgctxt "print job state"
-msgid "Printing canceled"
+msgid "Printing cancelled"
 msgstr "ยกเลิกงานพิมพ์แล้ว"
 
 #. Translators: A print job has been aborted
@@ -2750,29 +2621,29 @@ msgstr "คำเตือนจากเครื่องพิมพ์"
 msgid "Printer “%s”: “%s”."
 msgstr "เครื่องพิมพ์ “%s”: “%s”"
 
-#: plugins/smartcard/gsd-smartcard-service.c:282
+#: plugins/smartcard/gsd-smartcard-service.c:279
 msgid "User was not logged in with smartcard."
 msgstr "ผู้ใช้ไม่ได้เข้าระบบด้วยสมาร์ทการ์ด"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:415
+#: plugins/usb-protection/gsd-usb-protection-manager.c:412
 msgid "USB Protection"
 msgstr "การป้องกัน USB"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:544
+#: plugins/usb-protection/gsd-usb-protection-manager.c:541
 msgid "New USB device"
 msgstr "อุปกรณ์ USB ใหม่"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:545
+#: plugins/usb-protection/gsd-usb-protection-manager.c:542
 msgid ""
 "New device has been detected while the session was not locked. If you did not plug anything, check your "
 "system for any suspicious device."
 msgstr "ตรวจพบอุปกรณ์ใหม่ขณะที่ไม่ได้ล็อกวาระไว้ หากคุณไม่ได้เสียบอุปกรณ์ใด ให้ตรวจดูระบบของคุณว่ามีอุปกรณ์ใดที่ต้องสงสัยหรือเปล่า"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:687
+#: plugins/usb-protection/gsd-usb-protection-manager.c:684
 msgid "New device detected"
 msgstr "ตรวจพบอุปกรณ์ใหม่"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:688
+#: plugins/usb-protection/gsd-usb-protection-manager.c:685
 msgid ""
 "Either one of your existing devices has been reconnected or a new one has been plugged in. If you did not "
 "do it, check your system for any suspicious device."
@@ -2780,28 +2651,28 @@ msgstr ""
 "มีอุปกรณ์เครื่องใดเครื่องหนึ่งของคุณถูกเชื่อมต่อใหม่แล้ว หรือมีอุปกรณ์ใหม่เสียบเข้าไปแล้ว ถ้าคุณไม่ได้ทำ "
 "ให้ตรวจดูระบบของคุณว่ามีอุปกรณ์ใดที่ต้องสงสัยหรือเปล่า"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:695
+#: plugins/usb-protection/gsd-usb-protection-manager.c:692
 msgid "Reconnect USB device"
 msgstr "เชื่อมต่ออุปกรณ์ USB ใหม่"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:696
+#: plugins/usb-protection/gsd-usb-protection-manager.c:693
 msgid ""
 "New device has been detected while you were away. Please disconnect and reconnect the device to start "
 "using it."
 msgstr "ตรวจพบอุปกรณ์ใหม่ขณะที่คุณไม่อยู่ โปรดตัดการเชื่อมต่ออุปกรณ์แล้วเชื่อมต่อใหม่เพื่อเริ่มใช้งาน"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:702
-#: plugins/usb-protection/gsd-usb-protection-manager.c:729
+#: plugins/usb-protection/gsd-usb-protection-manager.c:699
+#: plugins/usb-protection/gsd-usb-protection-manager.c:726
 msgid "USB device blocked"
 msgstr "อุปกรณ์ USB ถูกบล็อก"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:703
+#: plugins/usb-protection/gsd-usb-protection-manager.c:700
 msgid ""
 "New device has been detected while you were away. It has been blocked because the USB protection is "
 "active."
 msgstr "ตรวจพบอุปกรณ์ใหม่ขณะที่คุณไม่อยู่ อุปกรณ์ดังกล่าวถูกบล็อกเนื่องจากการป้องกัน USB ทำงานอยู่"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:730
+#: plugins/usb-protection/gsd-usb-protection-manager.c:727
 msgid ""
 "The new inserted device has been blocked because the USB protection is active. If you want to activate "
 "the device, disable the USB protection and re-plug the device."
