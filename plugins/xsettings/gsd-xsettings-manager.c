@@ -1382,7 +1382,7 @@ gsd_xsettings_manager_start (GsdXSettingsManager *manager,
         manager->monitors_changed_id =
                 g_dbus_connection_signal_subscribe (manager->dbus_connection,
                                                     "org.gnome.Mutter.X11",
-                                                    "org.gnome.Mutter.X11",
+                                                    "org.freedesktop.DBus.Properties",
                                                     "PropertiesChanged",
                                                     "/org/gnome/Mutter/X11",
                                                     NULL,
