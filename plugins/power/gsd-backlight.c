@@ -772,7 +772,7 @@ update_mutter_backlight (GsdBacklight *backlight)
         }
 
         if (g_variant_n_children (monitors) > 0) {
-                g_variant_get_child (monitors, 0, "a{sv}", &monitor);
+                g_variant_get_child (monitors, 0, "@a{sv}", &monitor);
 
                 g_clear_pointer (&backlight->backlight_connector, g_free);
                 g_variant_lookup (monitor, "connector", "s",
