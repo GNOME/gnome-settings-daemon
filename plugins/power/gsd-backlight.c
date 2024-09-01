@@ -796,6 +796,7 @@ update_mutter_backlight (GsdBacklight *backlight)
 
 static void
 on_backlight_changed (GsdDisplayConfig *display_config,
+                      GParamSpec       *pspec,
                       GsdBacklight     *backlight)
 {
         gboolean builtin_display_disabled;
