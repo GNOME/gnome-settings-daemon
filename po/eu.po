@@ -6,13 +6,13 @@
 # Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>, 2004, 2005.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2004, 2005, 2006, 2007, 2008, 2009, 2010.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2011, 2012, 2013, 2014, 2015, 2016, 2017.
-# Asier Sarasua Garmendia  <asiersarasua@ni.eus>, 2019, 2020, 2021, 2023.
+# Asier Sarasua Garmendia  <asiersarasua@ni.eus>, 2019, 2020, 2021, 2023, 2024.
 #
 msgid ""
 msgstr "Project-Id-Version: gnome-settings-daemon master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/issues\n"
-"POT-Creation-Date: 2023-08-14 06:47+0000\n"
-"PO-Revision-Date: 2023-08-14 10:00+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/issues/\n"
+"POT-Creation-Date: 2024-08-31 13:24+0000\n"
+"PO-Revision-Date: 2024-09-02 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -1404,20 +1404,20 @@ msgstr "Koloreak kalibratzeko gailua kenduta"
 
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
-#: plugins/datetime/gsd-datetime-manager.c:88
+#: plugins/datetime/gsd-datetime-manager.c:93
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
-#: plugins/datetime/gsd-datetime-manager.c:92
+#: plugins/datetime/gsd-datetime-manager.c:97
 #, c-format
 msgid "Time Zone Updated to %s (%s)"
 msgstr "Ordu-zona eguneratuta: %s (%s)"
 
-#: plugins/datetime/gsd-datetime-manager.c:108
+#: plugins/datetime/gsd-datetime-manager.c:113
 msgid "Settings"
 msgstr "Ezarpenak"
 
-#: plugins/datetime/gsd-datetime-manager.c:118
+#: plugins/datetime/gsd-datetime-manager.c:123
 msgid "Date & Time Settings"
 msgstr "Data eta orduaren ezarpenak"
 
@@ -1508,8 +1508,8 @@ msgstr "Aplikazioa gelditu da"
 #: plugins/housekeeping/gsd-systemd-notify.c:96
 #, c-format
 msgid ""
-"Device memory is nearly full. An application that was using a lot of memory "
-"and was forced to stop."
+"Device memory is nearly full. An application was using a lot of memory and "
+"was forced to stop."
 msgstr "Gailuaren memoria ia beteta dago. Aplikazio bat memoria asko erabiltzen ari zenez, gelditu egin da."
 
 #: plugins/media-keys/gsd-media-keys-manager.c:2254
@@ -1532,18 +1532,18 @@ msgstr "Hegazkin modua desgaituta"
 msgid "Hardware Airplane Mode"
 msgstr "Hardwarearen hegazkin modua"
 
-#: plugins/power/gpm-common.c:91
+#: plugins/power/gpm-common.c:88
 msgid "Unknown time"
 msgstr "Denbora ezezaguna"
 
-#: plugins/power/gpm-common.c:96
+#: plugins/power/gpm-common.c:93
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "minutu %i"
 msgstr[1] "%i minutu"
 
-#: plugins/power/gpm-common.c:106
+#: plugins/power/gpm-common.c:103
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1552,691 +1552,691 @@ msgstr[1] "%i ordu"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: plugins/power/gpm-common.c:112
+#: plugins/power/gpm-common.c:109
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: plugins/power/gpm-common.c:113
+#: plugins/power/gpm-common.c:110
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "ordu"
 msgstr[1] "ordu"
 
-#: plugins/power/gpm-common.c:114
+#: plugins/power/gpm-common.c:111
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minutu"
 msgstr[1] "minutu"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:922
-#: plugins/power/gsd-power-manager.c:1006
+#: plugins/power/gpm-common.c:419 plugins/power/gsd-power-manager.c:925
+#: plugins/power/gsd-power-manager.c:1009
 msgid "Battery is critically low"
 msgstr "Bateria-maila larriki baxua"
 
 #. TRANSLATORS: this is the notification application name
-#: plugins/power/gsd-power-manager.c:367
+#: plugins/power/gsd-power-manager.c:370
 msgid "Power"
 msgstr "Energia"
 
 #. TRANSLATORS: UPS is now discharging
-#: plugins/power/gsd-power-manager.c:405
+#: plugins/power/gsd-power-manager.c:408
 msgid "UPS Discharging"
 msgstr "UPS deskargatzen"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:410
+#: plugins/power/gsd-power-manager.c:413
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "UPS babeseko energiari %s geratzen zaio"
 
-#: plugins/power/gsd-power-manager.c:413
+#: plugins/power/gsd-power-manager.c:416
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "UPS babeseko energiari kopuru ezezaguna geratzen zaio"
 
 #. TRANSLATORS: notification title, a wireless mouse is low or very low on power
-#: plugins/power/gsd-power-manager.c:513
+#: plugins/power/gsd-power-manager.c:516
 msgid "Mouse battery low"
 msgstr "Saguaren bateria-maila baxua"
 
 #. TRANSLATORS: notification body, a wireless mouse is low on power
-#: plugins/power/gsd-power-manager.c:516
+#: plugins/power/gsd-power-manager.c:519
 #, c-format
 msgid "Wireless mouse is low on power (%.0f%%)"
 msgstr "Haririk gabeko saguak energia gutxi du (%% %.0f)"
 
-#: plugins/power/gsd-power-manager.c:517
+#: plugins/power/gsd-power-manager.c:520
 msgid "Wireless mouse is low on power"
 msgstr "Haririk gabeko saguak energia gutxi du"
 
 #. TRANSLATORS: notification body, a wireless mouse is very low on power
-#: plugins/power/gsd-power-manager.c:519
+#: plugins/power/gsd-power-manager.c:522
 #, c-format
 msgid ""
 "Wireless mouse is very low on power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr "Haririk gabeko saguak oso energia gutxi du (%% %.0f). Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
-#: plugins/power/gsd-power-manager.c:521
+#: plugins/power/gsd-power-manager.c:524
 msgid ""
 "Wireless mouse is very low on power. This device will soon stop functioning "
 "if not charged."
 msgstr "Haririk gabeko saguak oso energia gutxi du. Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
 #. TRANSLATORS: notification title, a wireless keyboard is low or very low on power
-#: plugins/power/gsd-power-manager.c:526
+#: plugins/power/gsd-power-manager.c:529
 msgid "Keyboard battery low"
 msgstr "Teklatuaren bateria-maila baxua"
 
 #. TRANSLATORS: notification body, a wireless keyboard is low on power
-#: plugins/power/gsd-power-manager.c:529
+#: plugins/power/gsd-power-manager.c:532
 #, c-format
 msgid "Wireless keyboard is low on power (%.0f%%)"
 msgstr "Haririk gabeko teklatuak energia gutxi du (%% %.1f)"
 
-#: plugins/power/gsd-power-manager.c:530
+#: plugins/power/gsd-power-manager.c:533
 msgid "Wireless keyboard is low on power"
 msgstr "Haririk gabeko teklatuak energia gutxi du"
 
 #. TRANSLATORS: notification body, a wireless keyboard is very low on power
-#: plugins/power/gsd-power-manager.c:532
+#: plugins/power/gsd-power-manager.c:535
 #, c-format
 msgid ""
 "Wireless keyboard is very low on power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr "Haririk gabeko teklatuak oso energia gutxi du (%% %.0f). Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
-#: plugins/power/gsd-power-manager.c:534
+#: plugins/power/gsd-power-manager.c:537
 msgid ""
 "Wireless keyboard is very low on power. This device will soon stop "
 "functioning if not charged."
 msgstr "Haririk gabeko teklatuak oso energia gutxi du. Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
 #. TRANSLATORS: notification title, a PDA (Personal Digital Assistance device) is low or very on power
-#: plugins/power/gsd-power-manager.c:539
+#: plugins/power/gsd-power-manager.c:542
 msgid "PDA battery low"
 msgstr "PDAren bateria-maila baxua"
 
 #. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is low on power
-#: plugins/power/gsd-power-manager.c:542
+#: plugins/power/gsd-power-manager.c:545
 #, c-format
 msgid "PDA is low on power (%.0f%%)"
 msgstr "PDAk energia gutxi du (%% %.0f)"
 
-#: plugins/power/gsd-power-manager.c:543
+#: plugins/power/gsd-power-manager.c:546
 msgid "PDA is low on power"
 msgstr "PDAk energia gutxi du"
 
 #. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is very low on power
-#: plugins/power/gsd-power-manager.c:545
+#: plugins/power/gsd-power-manager.c:548
 #, c-format
 msgid ""
 "PDA is very low on power (%.0f%%). This device will soon stop functioning if "
 "not charged."
 msgstr "PDAk oso energia gutxi du (%% %.0f). Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
-#: plugins/power/gsd-power-manager.c:547
+#: plugins/power/gsd-power-manager.c:550
 msgid ""
 "PDA is very low on power. This device will soon stop functioning if not "
 "charged."
 msgstr "PDAk oso energia gutxi du. Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
 #. TRANSLATORS: notification title, a cell phone (mobile phone) is low or very low on power
-#: plugins/power/gsd-power-manager.c:552
+#: plugins/power/gsd-power-manager.c:555
 msgid "Cell phone battery low"
 msgstr "Telefono mugikorraren bateria-maila baxua"
 
 #. TRANSLATORS: notification body, a cell phone (mobile phone) is low on power
-#: plugins/power/gsd-power-manager.c:555
+#: plugins/power/gsd-power-manager.c:558
 #, c-format
 msgid "Cell phone is low on power (%.0f%%)"
 msgstr "Telefono mugikorrak energia gutxi du (%% %.0f)"
 
-#: plugins/power/gsd-power-manager.c:556
+#: plugins/power/gsd-power-manager.c:559
 msgid "Cell phone is low on power"
 msgstr "Telefono mugikorrak energia gutxi du"
 
 #. TRANSLATORS: notification body, a cell phone (mobile phone) is very low on power
-#: plugins/power/gsd-power-manager.c:558
+#: plugins/power/gsd-power-manager.c:561
 #, c-format
 msgid ""
 "Cell phone is very low on power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr "Telefono mugikorrak oso energia gutxi du (%% %.0f). Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
-#: plugins/power/gsd-power-manager.c:560
+#: plugins/power/gsd-power-manager.c:563
 msgid ""
 "Cell phone is very low on power. This device will soon stop functioning if "
 "not charged."
 msgstr "Telefono mugikorrak oso energia gutxi du. Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
 #. TRANSLATORS: notification title, a media player (e.g. mp3 player) is low or very low on power
-#: plugins/power/gsd-power-manager.c:565
+#: plugins/power/gsd-power-manager.c:568
 msgid "Media player battery low"
 msgstr "Multimedia-erreproduzigailuaren bateria-maila baxua"
 
 #. TRANSLATORS: notification body, a media player (e.g. mp3 player) is low on power
-#: plugins/power/gsd-power-manager.c:568
+#: plugins/power/gsd-power-manager.c:571
 #, c-format
 msgid "Media player is low on power (%.0f%%)"
 msgstr "Multimedia-erreproduzigailuak energia gutxi du (%% %.0f)"
 
-#: plugins/power/gsd-power-manager.c:569
+#: plugins/power/gsd-power-manager.c:572
 msgid "Media player is low on power"
 msgstr "Multimedia-erreproduzigailuak energia gutxi du"
 
 #. TRANSLATORS: notification body, a media player (e.g. mp3 player) is very low on power
-#: plugins/power/gsd-power-manager.c:571
+#: plugins/power/gsd-power-manager.c:574
 #, c-format
 msgid ""
 "Media player is very low on power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr "Multimedia-erreproduzigailuak oso energia gutxi du (%% %.0f). Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
-#: plugins/power/gsd-power-manager.c:573
+#: plugins/power/gsd-power-manager.c:576
 msgid ""
 "Media player is very low on power. This device will soon stop functioning if "
 "not charged."
 msgstr "Multimedia-erreproduzigailuak oso energia gutxi du. Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
 #. TRANSLATORS: notification title, a graphics tablet (e.g. wacom) is low or very low on power
-#: plugins/power/gsd-power-manager.c:578
+#: plugins/power/gsd-power-manager.c:581
 msgid "Tablet battery low"
 msgstr "Tabletaren bateria-maila baxua"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is low on power
-#: plugins/power/gsd-power-manager.c:581
+#: plugins/power/gsd-power-manager.c:584
 #, c-format
 msgid "Tablet is low on power (%.0f%%)"
 msgstr "Tabletak energia gutxi du (%% %.0f)"
 
-#: plugins/power/gsd-power-manager.c:582
+#: plugins/power/gsd-power-manager.c:585
 msgid "Tablet is low on power"
 msgstr "Tabletak energia gutxi du"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is very low on power
-#: plugins/power/gsd-power-manager.c:584
+#: plugins/power/gsd-power-manager.c:587
 #, c-format
 msgid ""
 "Tablet is very low on power (%.0f%%). This device will soon stop functioning "
 "if not charged."
 msgstr "Tabletak oso energia gutxi du (%% %.0f). Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
-#: plugins/power/gsd-power-manager.c:586
+#: plugins/power/gsd-power-manager.c:589
 msgid ""
 "Tablet is very low on power. This device will soon stop functioning if not "
 "charged."
 msgstr "Tabletak oso energia gutxi du. Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
 #. TRANSLATORS: notification title, an attached computer (e.g. ipad) is low or very low on power
-#: plugins/power/gsd-power-manager.c:591
+#: plugins/power/gsd-power-manager.c:594
 msgid "Attached computer battery low"
 msgstr "Konektatutako ordenagailuaren bateria-maila baxua"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is low on power
-#: plugins/power/gsd-power-manager.c:594
+#: plugins/power/gsd-power-manager.c:597
 #, c-format
 msgid "Attached computer is low on power (%.0f%%)"
 msgstr "Konektatutako ordenagailuak energia gutxi du (%% %.0f)"
 
-#: plugins/power/gsd-power-manager.c:595
+#: plugins/power/gsd-power-manager.c:598
 msgid "Attached computer is low on power"
 msgstr "Konektatutako ordenagailuak energia gutxi du"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is very low on power
-#: plugins/power/gsd-power-manager.c:597
+#: plugins/power/gsd-power-manager.c:600
 #, c-format
 msgid ""
 "Attached computer is very low on power (%.0f%%). The device will soon "
 "shutdown if not charged."
 msgstr "Konektatutako ordenagailuak energia gutxi du (%% %.0f). Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
-#: plugins/power/gsd-power-manager.c:599
+#: plugins/power/gsd-power-manager.c:602
 msgid ""
 "Attached computer is very low on power. The device will soon shutdown if not "
 "charged."
 msgstr "Konektatutako ordenagailuak energia gutxi du. Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
 #. TRANSLATORS: notification title, a game controller (e.g. joystick or joypad) is low or very low on power
-#: plugins/power/gsd-power-manager.c:604
+#: plugins/power/gsd-power-manager.c:607
 msgid "Game controller battery low"
 msgstr "Joko-kontrolaren bateria-maila baxua"
 
 #. TRANSLATORS: notification body, a game controller (e.g. joystick or joypad) is low on power
-#: plugins/power/gsd-power-manager.c:607
+#: plugins/power/gsd-power-manager.c:610
 #, c-format
 msgid "Game controller is low on power (%.0f%%)"
 msgstr "Joko-kontrolak energia gutxi du (%% %.0f)"
 
-#: plugins/power/gsd-power-manager.c:608
+#: plugins/power/gsd-power-manager.c:611
 msgid "Game controller is low on power"
 msgstr "Joko-kontrolak energia gutxi du"
 
 #. TRANSLATORS: notification body, an attached game controller (e.g. joystick or joypad) is very low on power
-#: plugins/power/gsd-power-manager.c:610
+#: plugins/power/gsd-power-manager.c:613
 #, c-format
 msgid ""
 "Game controller is very low on power (%.0f%%). The device will soon shutdown "
 "if not charged."
 msgstr "Joko-kontrolak energia gutxi du (%% %.0f). Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
-#: plugins/power/gsd-power-manager.c:612
+#: plugins/power/gsd-power-manager.c:615
 msgid ""
 "Game controller is very low on power. The device will soon shutdown if not "
 "charged."
 msgstr "Joko-kontrolak energia gutxi du. Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
 #. TRANSLATORS: notification title, a pen is low or very low on power
-#: plugins/power/gsd-power-manager.c:617
+#: plugins/power/gsd-power-manager.c:620
 msgid "Pen battery low"
 msgstr "Arkatzaren bateria-maila baxua"
 
 #. TRANSLATORS: notification body, a pen is low on power
-#: plugins/power/gsd-power-manager.c:620
+#: plugins/power/gsd-power-manager.c:623
 #, c-format
 msgid "Pen is low on power (%.0f%%)"
 msgstr "Arkatzak energia gutxi du (%% %.0f)"
 
-#: plugins/power/gsd-power-manager.c:621
+#: plugins/power/gsd-power-manager.c:624
 msgid "Pen is low on power"
 msgstr "Arkatzak energia gutxi du"
 
 #. TRANSLATORS: notification body, a pen is very low on power
-#: plugins/power/gsd-power-manager.c:623
+#: plugins/power/gsd-power-manager.c:626
 #, c-format
 msgid ""
 "Pen is very low on power (%.0f%%). The device will soon shutdown if not "
 "charged."
 msgstr "Arkatzak energia gutxi du (%% %.0f). Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
-#: plugins/power/gsd-power-manager.c:625
+#: plugins/power/gsd-power-manager.c:628
 msgid "Pen is very low on power. The device will soon shutdown if not charged."
 msgstr "Arkatzak energia gutxi du. Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
 #. TRANSLATORS: notification title, an external touchpad is low or very low on power
-#: plugins/power/gsd-power-manager.c:630
+#: plugins/power/gsd-power-manager.c:633
 msgid "Touchpad battery low"
 msgstr "Ukipen-panelaren bateria-maila baxua"
 
 #. TRANSLATORS: notification body, an external touchpad is low on power
-#: plugins/power/gsd-power-manager.c:633
+#: plugins/power/gsd-power-manager.c:636
 #, c-format
 msgid "Touchpad is low on power (%.0f%%)"
 msgstr "Ukipen-panelak energia gutxi du (%% %.0f)"
 
-#: plugins/power/gsd-power-manager.c:634
+#: plugins/power/gsd-power-manager.c:637
 msgid "Touchpad is low on power"
 msgstr "Ukipen-panelak energia gutxi du"
 
 #. TRANSLATORS: notification body, an external touchpad is very low on power
-#: plugins/power/gsd-power-manager.c:636
+#: plugins/power/gsd-power-manager.c:639
 #, c-format
 msgid ""
 "Touchpad is very low on power (%.0f%%). The device will soon shutdown if not "
 "charged."
 msgstr "Ukipen-panelak energia gutxi du (%% %.0f). Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
-#: plugins/power/gsd-power-manager.c:638
+#: plugins/power/gsd-power-manager.c:641
 msgid ""
 "Touchpad is very low on power. The device will soon shutdown if not charged."
 msgstr "Ukipen-panelak energia gutxi du. Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
 #. TRANSLATORS: notification title, a headset (headphones + microphone) is low or very low on power
-#: plugins/power/gsd-power-manager.c:643
+#: plugins/power/gsd-power-manager.c:646
 msgid "Headset battery low"
 msgstr "Entzungailu mikrofonodunaren bateria-maila baxua"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is low on power
-#: plugins/power/gsd-power-manager.c:646
+#: plugins/power/gsd-power-manager.c:649
 #, c-format
 msgid "Headset is low on power (%.0f%%)"
 msgstr "Entzungailu mikrofonodunak energia gutxi du (%% %.0f)"
 
-#: plugins/power/gsd-power-manager.c:647
+#: plugins/power/gsd-power-manager.c:650
 msgid "Headset is low on power"
 msgstr "Entzungailu mikrofonodunak energia gutxi du"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is very low on power
-#: plugins/power/gsd-power-manager.c:649
+#: plugins/power/gsd-power-manager.c:652
 #, c-format
 msgid ""
 "Headset is very low on power (%.0f%%). The device will soon shutdown if not "
 "charged."
 msgstr "Entzungailu mikrofonodunak energia gutxi du (%% %.0f). Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
-#: plugins/power/gsd-power-manager.c:651
+#: plugins/power/gsd-power-manager.c:654
 msgid ""
 "Headset is very low on power. The device will soon shutdown if not charged."
 msgstr "Entzungailu mikrofonodunak energia gutxi du. Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
 #. TRANSLATORS: notification title, speaker is low or very low on power
-#: plugins/power/gsd-power-manager.c:656
+#: plugins/power/gsd-power-manager.c:659
 msgid "Speaker battery low"
 msgstr "Bozgorailuaren bateria-maila baxua"
 
 #. TRANSLATORS: notification body, a speaker is low on power
-#: plugins/power/gsd-power-manager.c:659
+#: plugins/power/gsd-power-manager.c:662
 #, c-format
 msgid "Speaker is low on power (%.0f%%)"
 msgstr "Bozgorailuak energia gutxi du (%% %.0f)"
 
-#: plugins/power/gsd-power-manager.c:660
+#: plugins/power/gsd-power-manager.c:663
 msgid "Speaker is low on power"
 msgstr "Bozgorailuak energia gutxi du"
 
 #. TRANSLATORS: notification body, a speaker is very low on power
-#: plugins/power/gsd-power-manager.c:662
+#: plugins/power/gsd-power-manager.c:665
 #, c-format
 msgid ""
 "Speaker is very low on power (%.0f%%). The device will soon shutdown if not "
 "charged."
 msgstr "Bozgorailuak energia gutxi du (%% %.0f). Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
-#: plugins/power/gsd-power-manager.c:664
+#: plugins/power/gsd-power-manager.c:667
 msgid ""
 "Speaker is very low on power. The device will soon shutdown if not charged."
 msgstr "Bozgorailuak energia gutxi du. Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
 #. TRANSLATORS: notification title, headphones (no microphone) are low or very low on power
-#: plugins/power/gsd-power-manager.c:669
+#: plugins/power/gsd-power-manager.c:672
 msgid "Headphones battery low"
 msgstr "Entzungailuaren bateria-maila baxua"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are low on power
-#: plugins/power/gsd-power-manager.c:672
+#: plugins/power/gsd-power-manager.c:675
 #, c-format
 msgid "Headphones are low on power (%.0f%%)"
 msgstr "Entzungailuak energia gutxi du (%% %.0f)"
 
-#: plugins/power/gsd-power-manager.c:673
+#: plugins/power/gsd-power-manager.c:676
 msgid "Headphones are low on power"
 msgstr "Entzungailuak energia gutxi du"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are very low on power
-#: plugins/power/gsd-power-manager.c:675
+#: plugins/power/gsd-power-manager.c:678
 #, c-format
 msgid ""
 "Headphones are very low on power (%.0f%%). The device will soon shutdown if "
 "not charged."
 msgstr "Entzungailuak energia gutxi du (%% %.0f). Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
-#: plugins/power/gsd-power-manager.c:677
+#: plugins/power/gsd-power-manager.c:680
 msgid ""
 "Headphones are very low on power. The device will soon shutdown if not "
 "charged."
 msgstr "Entzungailuak energia gutxi du. Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
 #. TRANSLATORS: notification title, an audio device is low or very low on power
-#: plugins/power/gsd-power-manager.c:682
+#: plugins/power/gsd-power-manager.c:685
 msgid "Audio device battery low"
 msgstr "Audio-gailuaren bateria-maila baxua"
 
 #. TRANSLATORS: notification body, an audio device is low on power
-#: plugins/power/gsd-power-manager.c:685
+#: plugins/power/gsd-power-manager.c:688
 #, c-format
 msgid "Audio device is low on power (%.0f%%)"
 msgstr "Audio-gailuak energia gutxi du (%% %.0f)"
 
-#: plugins/power/gsd-power-manager.c:686
+#: plugins/power/gsd-power-manager.c:689
 msgid "Audio device is low on power"
 msgstr "Audio-gailuak energia gutxi du"
 
 #. TRANSLATORS: notification body, an audio device is very low on power
-#: plugins/power/gsd-power-manager.c:688
+#: plugins/power/gsd-power-manager.c:691
 #, c-format
 msgid ""
 "Audio device is very low on power (%.0f%%). The device will soon shutdown if "
 "not charged."
 msgstr "Audio-gailuak energia gutxi du (%% %.0f). Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
-#: plugins/power/gsd-power-manager.c:690
+#: plugins/power/gsd-power-manager.c:693
 msgid ""
 "Audio device is very low on power. The device will soon shutdown if not "
 "charged."
 msgstr "Audio-gailuak energia gutxi du. Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
 #. TRANSLATORS: notification title, a remote control is low or very low on power
-#: plugins/power/gsd-power-manager.c:695
+#: plugins/power/gsd-power-manager.c:698
 msgid "Remote battery low"
 msgstr "Urrunekoaren bateria-maila baxua"
 
 #. TRANSLATORS: notification body, an remote control is low on power
-#: plugins/power/gsd-power-manager.c:698
+#: plugins/power/gsd-power-manager.c:701
 #, c-format
 msgid "Remote is low on power (%.0f%%)"
 msgstr "Urrunekoak energia gutxi du (%% %.0f)"
 
-#: plugins/power/gsd-power-manager.c:699
+#: plugins/power/gsd-power-manager.c:702
 msgid "Remote is low on power"
 msgstr "Urrunekoak energia gutxi du"
 
 #. TRANSLATORS: notification body, a remote control is very low on power
-#: plugins/power/gsd-power-manager.c:701
+#: plugins/power/gsd-power-manager.c:704
 #, c-format
 msgid ""
 "Remote is very low on power (%.0f%%). The device will soon shutdown if not "
 "charged."
 msgstr "Urrunekoak energia gutxi du (%% %.0f). Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
-#: plugins/power/gsd-power-manager.c:703
+#: plugins/power/gsd-power-manager.c:706
 msgid ""
 "Remote is very low on power. The device will soon shutdown if not charged."
 msgstr "Urrunekoak energia gutxi du (%% %.0f). Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
 #. TRANSLATORS: notification title, a printer is low or very low on power
-#: plugins/power/gsd-power-manager.c:708
+#: plugins/power/gsd-power-manager.c:711
 msgid "Printer battery low"
 msgstr "Inprimagailuaren bateria-maila baxua"
 
 #. TRANSLATORS: notification body, a printer is low on power
-#: plugins/power/gsd-power-manager.c:711
+#: plugins/power/gsd-power-manager.c:714
 #, c-format
 msgid "Printer is low on power (%.0f%%)"
 msgstr "Inprimagailuak energia gutxi du (%% %.0f)"
 
-#: plugins/power/gsd-power-manager.c:712
+#: plugins/power/gsd-power-manager.c:715
 msgid "Printer is low on power"
 msgstr "Inprimagailuak energia gutxi du"
 
 #. TRANSLATORS: notification body, a printer is very low on power
-#: plugins/power/gsd-power-manager.c:714
+#: plugins/power/gsd-power-manager.c:717
 #, c-format
 msgid ""
 "Printer is very low on power (%.0f%%). The device will soon shutdown if not "
 "charged."
 msgstr "Inprimagailuak energia gutxi du (%% %.0f). Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
-#: plugins/power/gsd-power-manager.c:716
+#: plugins/power/gsd-power-manager.c:719
 msgid ""
 "Printer is very low on power. The device will soon shutdown if not charged."
 msgstr "Inprimagailuak energia gutxi du. Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
 #. TRANSLATORS: notification title, a scanner is low or very low on power
-#: plugins/power/gsd-power-manager.c:721
+#: plugins/power/gsd-power-manager.c:724
 msgid "Scanner battery low"
 msgstr "Eskanerraren bateria-maila baxua"
 
 #. TRANSLATORS: notification body, a scanner is low on power
-#: plugins/power/gsd-power-manager.c:724
+#: plugins/power/gsd-power-manager.c:727
 #, c-format
 msgid "Scanner is low on power (%.0f%%)"
 msgstr "Eskanerrak energia gutxi du (%% %.0f)"
 
-#: plugins/power/gsd-power-manager.c:725
+#: plugins/power/gsd-power-manager.c:728
 msgid "Scanner is low on power"
 msgstr "Eskanerrak energia gutxi du"
 
 #. TRANSLATORS: notification body, a scanner is very low on power
-#: plugins/power/gsd-power-manager.c:727
+#: plugins/power/gsd-power-manager.c:730
 #, c-format
 msgid ""
 "Scanner is very low on power (%.0f%%). The device will soon shutdown if not "
 "charged."
 msgstr "Eskanerrak energia gutxi du (%% %.0f). Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
-#: plugins/power/gsd-power-manager.c:729
+#: plugins/power/gsd-power-manager.c:732
 msgid ""
 "Scanner is very low on power. The device will soon shutdown if not charged."
 msgstr "Eskanerrak energia gutxi du. Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
 #. TRANSLATORS: notification title, a camera is low or very low on power
-#: plugins/power/gsd-power-manager.c:734
+#: plugins/power/gsd-power-manager.c:737
 msgid "Camera battery low"
 msgstr "Kameraren bateria-maila baxua"
 
 #. TRANSLATORS: notification body, a camera is low on power
-#: plugins/power/gsd-power-manager.c:737
+#: plugins/power/gsd-power-manager.c:740
 #, c-format
 msgid "Camera is low on power (%.0f%%)"
 msgstr "Kamerak energia gutxi du (%% %.0f)"
 
-#: plugins/power/gsd-power-manager.c:738
+#: plugins/power/gsd-power-manager.c:741
 msgid "Camera is low on power"
 msgstr "Kamerak energia gutxi du"
 
 #. TRANSLATORS: notification body, a camera is very low on power
-#: plugins/power/gsd-power-manager.c:740
+#: plugins/power/gsd-power-manager.c:743
 #, c-format
 msgid ""
 "Camera is very low on power (%.0f%%). The device will soon shutdown if not "
 "charged."
 msgstr "Kamerak energia gutxi du (%% %.0f). Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
-#: plugins/power/gsd-power-manager.c:742
+#: plugins/power/gsd-power-manager.c:745
 msgid ""
 "Camera is very low on power. The device will soon shutdown if not charged."
 msgstr "Kamerak energia gutxi du. Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
 #. TRANSLATORS: notification title, a Bluetooth device is low or very low on power
-#: plugins/power/gsd-power-manager.c:747
+#: plugins/power/gsd-power-manager.c:750
 msgid "Bluetooth device battery low"
 msgstr "Bluetooth gailuaren bateria-maila baxua"
 
 #. TRANSLATORS: notification body, a Bluetooth device is low on power
-#: plugins/power/gsd-power-manager.c:750
+#: plugins/power/gsd-power-manager.c:753
 #, c-format
 msgid "Bluetooth device is low on power (%.0f%%)"
 msgstr "Bluetooth gailuak energia gutxi du (%% %.0f)"
 
-#: plugins/power/gsd-power-manager.c:751
+#: plugins/power/gsd-power-manager.c:754
 msgid "Bluetooth device is low on power"
 msgstr "Bluetooth gailuak energia gutxi du"
 
 #. TRANSLATORS: notification body, a Bluetooth device is very low on power
-#: plugins/power/gsd-power-manager.c:753
+#: plugins/power/gsd-power-manager.c:756
 #, c-format
 msgid ""
 "Bluetooth device is very low on power (%.0f%%). The device will soon "
 "shutdown if not charged."
 msgstr "Bluetooth gailuak energia gutxi du (%% %.0f). Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
-#: plugins/power/gsd-power-manager.c:755
+#: plugins/power/gsd-power-manager.c:758
 msgid ""
 "Bluetooth device is very low on power. The device will soon shutdown if not "
 "charged."
 msgstr "Bluetooth gailuak energia gutxi du. Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
 #. TRANSLATORS: notification title, a connected (wireless) device or peripheral of unhandled type is low or very on power
-#: plugins/power/gsd-power-manager.c:761
+#: plugins/power/gsd-power-manager.c:764
 msgid "Connected device battery is low"
 msgstr "Konektatutako gailuaren bateria-maila baxua"
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is low on power
-#: plugins/power/gsd-power-manager.c:764
+#: plugins/power/gsd-power-manager.c:767
 #, c-format
 msgid "A connected device is low on power (%.0f%%)"
 msgstr "Konektatutako gailuak energia gutxi du (%% %.0f)"
 
-#: plugins/power/gsd-power-manager.c:765
+#: plugins/power/gsd-power-manager.c:768
 msgid "A connected device is low on power"
 msgstr "Konektatutako gailuak energia gutxi du"
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is very low on power
-#: plugins/power/gsd-power-manager.c:767
+#: plugins/power/gsd-power-manager.c:770
 #, c-format
 msgid ""
 "A connected device is very low on power (%.0f%%). The device will soon "
 "shutdown if not charged."
 msgstr "Konektatutako gailuak energia gutxi du (%% %.0f). Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
-#: plugins/power/gsd-power-manager.c:769
+#: plugins/power/gsd-power-manager.c:772
 msgid ""
 "A connected device is very low on power. The device will soon shutdown if "
 "not charged."
 msgstr "Konektatutako gailuak energia gutxi du. Gailuak funtzionatzeari utziko dio ez bada kargatzen."
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:795
+#: plugins/power/gsd-power-manager.c:798
 msgid "Low Battery"
 msgstr "Bateria gutxi"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:798
+#: plugins/power/gsd-power-manager.c:801
 #, c-format
 msgid "%.0f%% battery remaining"
 msgstr "Bateriaren %% %.0f geratzen da"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:801
+#: plugins/power/gsd-power-manager.c:804
 msgid "UPS Low"
 msgstr "UPS gutxi"
 
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
-#: plugins/power/gsd-power-manager.c:804 plugins/power/gsd-power-manager.c:877
+#: plugins/power/gsd-power-manager.c:807 plugins/power/gsd-power-manager.c:880
 #, c-format
 msgid "%.0f%% UPS power remaining"
 msgstr "UPS energiaren %% %.0f geratzen da"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:842
+#: plugins/power/gsd-power-manager.c:845
 msgid "Battery is low"
 msgstr "Bateria-maila baxua"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, advice on what the user should do
-#: plugins/power/gsd-power-manager.c:868
+#: plugins/power/gsd-power-manager.c:871
 msgid "Battery Almost Empty"
 msgstr "Bateria ia hutsik dago"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically running low, advice on what the user should do
-#: plugins/power/gsd-power-manager.c:871
+#: plugins/power/gsd-power-manager.c:874
 #, c-format
 msgid "Connect power now"
 msgstr "Konektatu argindarrarekin orain"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
-#: plugins/power/gsd-power-manager.c:874
+#: plugins/power/gsd-power-manager.c:877
 msgid "UPS Almost Empty"
 msgstr "UPSa ia hutsik dago"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, warning about action happening now
-#: plugins/power/gsd-power-manager.c:945
+#: plugins/power/gsd-power-manager.c:948
 msgid "Battery is Empty"
 msgstr "Bateria hutsik dago"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action about to happen
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
-#: plugins/power/gsd-power-manager.c:952 plugins/power/gsd-power-manager.c:972
+#: plugins/power/gsd-power-manager.c:955 plugins/power/gsd-power-manager.c:975
 msgid "This device is about to hibernate"
 msgstr "Gailu hau hibernatzera doa"
 
-#: plugins/power/gsd-power-manager.c:954 plugins/power/gsd-power-manager.c:974
+#: plugins/power/gsd-power-manager.c:957 plugins/power/gsd-power-manager.c:977
 msgid "This device is about to shutdown"
 msgstr "Gailu hau ixtera doa"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
-#: plugins/power/gsd-power-manager.c:965
+#: plugins/power/gsd-power-manager.c:968
 msgid "UPS is Empty"
 msgstr "UPSa hutsik dago"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1493
+#: plugins/power/gsd-power-manager.c:1494
 msgid "Lid has been opened"
 msgstr "Tapa ireki da"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1527
+#: plugins/power/gsd-power-manager.c:1528
 msgid "Lid has been closed"
 msgstr "Tapa itxi da"
 
@@ -2491,12 +2491,12 @@ msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "“%s” -- %s"
 
-#. Translators: A print job has been canceled
+#. Translators: A print job has been cancelled
 #: plugins/print-notifications/gsd-print-notifications-manager.c:722
 #: plugins/print-notifications/gsd-print-notifications-manager.c:762
 msgctxt "print job state"
-msgid "Printing canceled"
-msgstr "Inprimatzea bertan behera utzita"
+msgid "Printing cancelled"
+msgstr "Inprimatzea bertan behera utzi da"
 
 #. Translators: A print job has been aborted
 #: plugins/print-notifications/gsd-print-notifications-manager.c:728
@@ -2517,7 +2517,7 @@ msgstr "Inprimatzea osatuta"
 #: plugins/print-notifications/gsd-print-notifications-manager.c:802
 msgctxt "print job state"
 msgid "Printing"
-msgstr "Inprimatzen"
+msgstr "Inprimatzea"
 
 #. Translators: This is a title of a report notification for a printer
 #: plugins/print-notifications/gsd-print-notifications-manager.c:1020
@@ -2535,57 +2535,57 @@ msgstr "Inprimagailuaren abisua"
 msgid "Printer “%s”: “%s”."
 msgstr "“%s” inprimagailua: “%s”."
 
-#: plugins/smartcard/gsd-smartcard-service.c:282
+#: plugins/smartcard/gsd-smartcard-service.c:279
 msgid "User was not logged in with smartcard."
 msgstr "Erabiltzaileak ez du saioa txartel adimendunarekin hasi."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:415
+#: plugins/usb-protection/gsd-usb-protection-manager.c:412
 msgid "USB Protection"
 msgstr "USB babesa"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:544
+#: plugins/usb-protection/gsd-usb-protection-manager.c:541
 msgid "New USB device"
 msgstr "USB gailu berria"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:545
+#: plugins/usb-protection/gsd-usb-protection-manager.c:542
 msgid ""
 "New device has been detected while the session was not locked. If you did "
 "not plug anything, check your system for any suspicious device."
 msgstr "Gailu berria detektatu da saioa blokeatu gabe zegoen bitartean. Ez baduzu ezer konektatu, begiratu zure sistemak ez daukala gailu susmagarririk konektatuta."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:687
+#: plugins/usb-protection/gsd-usb-protection-manager.c:684
 msgid "New device detected"
 msgstr "Gailu berria detektatu da"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:688
+#: plugins/usb-protection/gsd-usb-protection-manager.c:685
 msgid ""
 "Either one of your existing devices has been reconnected or a new one has "
 "been plugged in. If you did not do it, check your system for any suspicious "
 "device."
 msgstr "Zure gailuetako bat berriro konektatu da edo berria entxufatu da. Ez baduzu ezer konektatu, begiratu zure sistemak ez daukala gailu susmagarririk konektatuta."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:695
+#: plugins/usb-protection/gsd-usb-protection-manager.c:692
 msgid "Reconnect USB device"
 msgstr "Konektatu berriro USB gailua"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:696
+#: plugins/usb-protection/gsd-usb-protection-manager.c:693
 msgid ""
 "New device has been detected while you were away. Please disconnect and "
 "reconnect the device to start using it."
 msgstr "Gailu berria detektatu da ez zeunden bitartean. Deskonektatu eta berriro konektatu gailua hura erabiltzen hasi ahal izateko."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:702
-#: plugins/usb-protection/gsd-usb-protection-manager.c:729
+#: plugins/usb-protection/gsd-usb-protection-manager.c:699
+#: plugins/usb-protection/gsd-usb-protection-manager.c:726
 msgid "USB device blocked"
 msgstr "USB gailua blokeatu da"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:703
+#: plugins/usb-protection/gsd-usb-protection-manager.c:700
 msgid ""
 "New device has been detected while you were away. It has been blocked "
 "because the USB protection is active."
 msgstr "Gailu berria detektatu da ez zeunden bitartean. Blokeatu egin da USB babesa aktibatuta dagoelako."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:730
+#: plugins/usb-protection/gsd-usb-protection-manager.c:727
 msgid ""
 "The new inserted device has been blocked because the USB protection is "
 "active. If you want to activate the device, disable the USB protection and "
@@ -2636,23 +2636,23 @@ msgstr "SIMa ez dago txertatuta"
 
 #: plugins/wwan/cc-wwan-errors-private.h:49
 msgid "SIM PIN required"
-msgstr "SIM PINa behar da"
+msgstr "SIMaren PINa behar da"
 
 #: plugins/wwan/cc-wwan-errors-private.h:50
 msgid "SIM PUK required"
-msgstr "SIM PUKa behar da"
+msgstr "SIMaren PUKa behar da"
 
 #: plugins/wwan/cc-wwan-errors-private.h:51
 msgid "SIM failure"
-msgstr "SIM hutsegitea"
+msgstr "SIMak huts egin du"
 
 #: plugins/wwan/cc-wwan-errors-private.h:52
 msgid "SIM busy"
-msgstr "SIMa lanpetuta"
+msgstr "SIMa lanpetuta dago"
 
 #: plugins/wwan/cc-wwan-errors-private.h:53
 msgid "SIM wrong"
-msgstr "SIM okerra"
+msgstr "SIM arazoa"
 
 #: plugins/wwan/cc-wwan-errors-private.h:54
 msgid "Incorrect password"
@@ -2660,11 +2660,11 @@ msgstr "Pasahitz okerra"
 
 #: plugins/wwan/cc-wwan-errors-private.h:55
 msgid "SIM PIN2 required"
-msgstr "SIM PIN2a behar da"
+msgstr "SIMaren PIN2a behar da"
 
 #: plugins/wwan/cc-wwan-errors-private.h:56
 msgid "SIM PUK2 required"
-msgstr "SIM PUK2a behar da"
+msgstr "SIMaren PUK2a behar da"
 
 #: plugins/wwan/cc-wwan-errors-private.h:72
 msgid "Unknown error"
@@ -2672,11 +2672,11 @@ msgstr "Errore ezezaguna"
 
 #: plugins/wwan/cc-wwan-errors-private.h:91
 msgid "Action Cancelled"
-msgstr "Ekintza bertan behera utzi da"
+msgstr "Ekintza bertan behera geratu da"
 
 #: plugins/wwan/cc-wwan-errors-private.h:94
 msgid "Access denied"
-msgstr "Atzitzea ukatu da"
+msgstr "Sarbidea ukatu da"
 
 #: plugins/wwan/cc-wwan-errors-private.h:103
 msgid "Unknown Error"
@@ -2718,7 +2718,7 @@ msgstr "Sartu %s SIM txartelaren PINa"
 
 #: plugins/wwan/gsd-wwan-manager.c:139
 msgid "Enter PIN to unlock your SIM card"
-msgstr "Sartu PINa zure SIM txartela desblokeatzeko"
+msgstr "Sartu PIN kodea zure SIM txartela desblokeatzeko"
 
 #: plugins/wwan/gsd-wwan-manager.c:142
 #, c-format
@@ -2727,7 +2727,7 @@ msgstr "Idatzi %s SIM txartelaren PUKa"
 
 #: plugins/wwan/gsd-wwan-manager.c:144
 msgid "Enter PUK to unlock your SIM card"
-msgstr "Sartu PUKa zure SIM txartela desblokeatzeko"
+msgstr "Sartu PUK kodea zure SIM txartela desblokeatzeko"
 
 #. msg is already localised
 #: plugins/wwan/gsd-wwan-manager.c:160
