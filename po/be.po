@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon master rev1\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
-"issues\n"
-"POT-Creation-Date: 2023-03-01 14:23+0000\n"
-"PO-Revision-Date: 2023-03-03 15:49+0300\n"
+"issues/\n"
+"POT-Creation-Date: 2024-08-31 13:24+0000\n"
+"PO-Revision-Date: 2024-09-05 18:35+0300\n"
 "Last-Translator: Yuras Shumovich <shumovichy@gmail.com>\n"
 "Language-Team: Belarusian <i18n-bel-gnome@googlegroups.com>\n"
 "Language: be\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.5\n"
 "10<=4 && (n%100<10 || n%100>=20) ? 1: 2);\n"
 "X-Project-Style: gnome\n"
 
@@ -179,9 +179,9 @@ msgid ""
 "Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
 "scrolling”, “two-finger-scrolling”."
 msgstr ""
-"Выбар спосабу прагорткі для сэнсарнай панэлі. Магчымыя значэнні: "
-"«disabled» (адключана), «edge-scrolling» (прагортка з краю), «two-finger-"
-"scrolling» (прагортка двума пальцамі)."
+"Выбар спосабу прагорткі для сэнсарнай панэлі. Магчымыя значэнні: «disabled» "
+"(адключана), «edge-scrolling» (прагортка з краю), «two-finger-scrolling» "
+"(прагортка двума пальцамі)."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:116
 msgid "Enable mouse clicks with touchpad"
@@ -469,9 +469,9 @@ msgid ""
 "location. The default value is an invalid value to ensure it is always "
 "updated at startup."
 msgstr ""
-"Апошняе вядомае месцазнаходжанне, калі адпаведныя службы даступныя. "
-"Прадвызначанае значэнне настаўлена хібным, каб яно было абноўлена адразу "
-"пасля запуску."
+"Паказвае апошняе выяўленае месцазнаходжанне, калі даступны адпаведныя "
+"службы. Прадвызначана зададзена памылковае значэнне, каб яно было абноўлена "
+"адразу пасля запуску."
 
 #: data/org.gnome.settings-daemon.plugins.gschema.xml.in:6
 msgid "List of plugins that are allowed to be loaded"
@@ -1370,13 +1370,14 @@ msgstr "Дзеянне кнопкі сілкавання"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:42
 msgid ""
-"The action to take when the system power button is pressed. This action is "
-"hard-coded (and the setting ignored) on virtual machines (power off) and "
-"tablets (suspend)."
+"The action to take when the system power button is pressed. Virtual machines "
+"only honor the 'nothing' action, and will shutdown otherwise. Tablets always "
+"suspend, ignoring all the other action options."
 msgstr ""
-"Дзеянне, якое трэба выканаць пры націсканні кнопкі сілкавання. Дзеянне "
-"цвёрда зададзена (і налада ігнаруецца) на віртуальных машынах (выключыць) і "
-"планшэтах (прыпыніць працу)."
+"Дзеянне, якое трэба выканаць пры націсканні кнопкі сілкавання. На "
+"віртуальных машынах дзейнічае толькі значэнне nothing (нічога), а пры іншых "
+"выконваецца выключэнне. На планшэтах заўсёды выконваецца прыпыненне працы, а "
+"ўсе іншыя налады ігнаруюцца."
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:46
 msgid "Enable power-saver profile when battery is low"
@@ -1541,20 +1542,20 @@ msgstr "Выдалена прылада калібравання колеру"
 
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
-#: plugins/datetime/gsd-datetime-manager.c:88
+#: plugins/datetime/gsd-datetime-manager.c:93
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
-#: plugins/datetime/gsd-datetime-manager.c:92
+#: plugins/datetime/gsd-datetime-manager.c:97
 #, c-format
 msgid "Time Zone Updated to %s (%s)"
 msgstr "Часавы пояс пераключаны на %s (%s)"
 
-#: plugins/datetime/gsd-datetime-manager.c:108
+#: plugins/datetime/gsd-datetime-manager.c:113
 msgid "Settings"
 msgstr "Налады"
 
-#: plugins/datetime/gsd-datetime-manager.c:118
+#: plugins/datetime/gsd-datetime-manager.c:123
 msgid "Date & Time Settings"
 msgstr "Налады даты і часу"
 
@@ -1653,37 +1654,37 @@ msgstr "Праграма спынена"
 #: plugins/housekeeping/gsd-systemd-notify.c:96
 #, c-format
 msgid ""
-"Device memory is nearly full. An application that was using a lot of memory "
-"and was forced to stop."
+"Device memory is nearly full. An application was using a lot of memory and "
+"was forced to stop."
 msgstr ""
 "Памяць прылады амаль запоўнена. Праграма, якая выкарыстоўвала шмат памяці, "
 "была прымусова спынена."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2250
+#: plugins/media-keys/gsd-media-keys-manager.c:2254
 msgid "Bluetooth disabled"
 msgstr "Bluetooth адключаны"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2253
+#: plugins/media-keys/gsd-media-keys-manager.c:2257
 msgid "Bluetooth enabled"
 msgstr "Bluetooth уключаны"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2257
+#: plugins/media-keys/gsd-media-keys-manager.c:2261
 msgid "Airplane mode enabled"
 msgstr "Рэжым палёту ўключаны"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2260
+#: plugins/media-keys/gsd-media-keys-manager.c:2264
 msgid "Airplane mode disabled"
 msgstr "Рэжым палёту адключаны"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2299
+#: plugins/media-keys/gsd-media-keys-manager.c:2303
 msgid "Hardware Airplane Mode"
 msgstr "Апаратны рэжым палёту"
 
-#: plugins/power/gpm-common.c:91
+#: plugins/power/gpm-common.c:88
 msgid "Unknown time"
 msgstr "Час невядомы"
 
-#: plugins/power/gpm-common.c:96
+#: plugins/power/gpm-common.c:93
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
@@ -1691,7 +1692,7 @@ msgstr[0] "%i хвіліна"
 msgstr[1] "%i хвіліны"
 msgstr[2] "%i хвілін"
 
-#: plugins/power/gpm-common.c:106
+#: plugins/power/gpm-common.c:103
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1701,19 +1702,19 @@ msgstr[2] "%i гадзін"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: plugins/power/gpm-common.c:112
+#: plugins/power/gpm-common.c:109
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: plugins/power/gpm-common.c:113
+#: plugins/power/gpm-common.c:110
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "гадзіна"
 msgstr[1] "гадзіны"
 msgstr[2] "гадзін"
 
-#: plugins/power/gpm-common.c:114
+#: plugins/power/gpm-common.c:111
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "хвіліна"
@@ -1721,48 +1722,48 @@ msgstr[1] "хвіліны"
 msgstr[2] "хвілін"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:921
-#: plugins/power/gsd-power-manager.c:1005
+#: plugins/power/gpm-common.c:419 plugins/power/gsd-power-manager.c:925
+#: plugins/power/gsd-power-manager.c:1009
 msgid "Battery is critically low"
 msgstr "Крытычна нізкі зарад батарэі"
 
 #. TRANSLATORS: this is the notification application name
-#: plugins/power/gsd-power-manager.c:366
+#: plugins/power/gsd-power-manager.c:370
 msgid "Power"
 msgstr "Сілкаванне"
 
 #. TRANSLATORS: UPS is now discharging
-#: plugins/power/gsd-power-manager.c:404
+#: plugins/power/gsd-power-manager.c:408
 msgid "UPS Discharging"
 msgstr "UPS разраджаецца"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:409
+#: plugins/power/gsd-power-manager.c:413
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "засталося %s рэзервовага зараду UPS"
 
-#: plugins/power/gsd-power-manager.c:412
+#: plugins/power/gsd-power-manager.c:416
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "Засталася невядомая колькасць рэзервовага зараду UPS"
 
 #. TRANSLATORS: notification title, a wireless mouse is low or very low on power
-#: plugins/power/gsd-power-manager.c:512
+#: plugins/power/gsd-power-manager.c:516
 msgid "Mouse battery low"
 msgstr "Нізкі зарад батарэі мышы"
 
 #. TRANSLATORS: notification body, a wireless mouse is low on power
-#: plugins/power/gsd-power-manager.c:515
+#: plugins/power/gsd-power-manager.c:519
 #, c-format
 msgid "Wireless mouse is low on power (%.0f%%)"
 msgstr "Нізкі ўзровень зараду бесправадной мышы (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:516
+#: plugins/power/gsd-power-manager.c:520
 msgid "Wireless mouse is low on power"
 msgstr "Нізкі ўзровень зараду бесправадной мышы"
 
 #. TRANSLATORS: notification body, a wireless mouse is very low on power
-#: plugins/power/gsd-power-manager.c:518
+#: plugins/power/gsd-power-manager.c:522
 #, c-format
 msgid ""
 "Wireless mouse is very low on power (%.0f%%). This device will soon stop "
@@ -1771,7 +1772,7 @@ msgstr ""
 "Вельмі нізкі ўзровень зараду бесправадной мышы (%.0f%%). Калі не "
 "падзарадзіць, гэтая прылада неўзабаве перастане працаваць."
 
-#: plugins/power/gsd-power-manager.c:520
+#: plugins/power/gsd-power-manager.c:524
 msgid ""
 "Wireless mouse is very low on power. This device will soon stop functioning "
 "if not charged."
@@ -1780,22 +1781,22 @@ msgstr ""
 "прылада неўзабаве перастане працаваць."
 
 #. TRANSLATORS: notification title, a wireless keyboard is low or very low on power
-#: plugins/power/gsd-power-manager.c:525
+#: plugins/power/gsd-power-manager.c:529
 msgid "Keyboard battery low"
 msgstr "Нізкі зарад батарэі клавіятуры"
 
 #. TRANSLATORS: notification body, a wireless keyboard is low on power
-#: plugins/power/gsd-power-manager.c:528
+#: plugins/power/gsd-power-manager.c:532
 #, c-format
 msgid "Wireless keyboard is low on power (%.0f%%)"
 msgstr "Нізкі ўзровень зараду бесправадной клавіятуры (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:529
+#: plugins/power/gsd-power-manager.c:533
 msgid "Wireless keyboard is low on power"
 msgstr "Нізкі ўзровень зараду бесправадной клавіятуры"
 
 #. TRANSLATORS: notification body, a wireless keyboard is very low on power
-#: plugins/power/gsd-power-manager.c:531
+#: plugins/power/gsd-power-manager.c:535
 #, c-format
 msgid ""
 "Wireless keyboard is very low on power (%.0f%%). This device will soon stop "
@@ -1804,7 +1805,7 @@ msgstr ""
 "Вельмі нізкі ўзровень зараду бесправадной клавіятуры (%.0f%%). Калі не "
 "падзарадзіць, гэтая прылада неўзабаве перастане працаваць."
 
-#: plugins/power/gsd-power-manager.c:533
+#: plugins/power/gsd-power-manager.c:537
 msgid ""
 "Wireless keyboard is very low on power. This device will soon stop "
 "functioning if not charged."
@@ -1813,22 +1814,22 @@ msgstr ""
 "гэтая прылада неўзабаве перастане працаваць."
 
 #. TRANSLATORS: notification title, a PDA (Personal Digital Assistance device) is low or very on power
-#: plugins/power/gsd-power-manager.c:538
+#: plugins/power/gsd-power-manager.c:542
 msgid "PDA battery low"
 msgstr "Нізкі зарад батарэі PDA"
 
 #. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is low on power
-#: plugins/power/gsd-power-manager.c:541
+#: plugins/power/gsd-power-manager.c:545
 #, c-format
 msgid "PDA is low on power (%.0f%%)"
 msgstr "Нізкі ўзровень зараду PDA (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:542
+#: plugins/power/gsd-power-manager.c:546
 msgid "PDA is low on power"
 msgstr "Нізкі ўзровень зараду PDA"
 
 #. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is very low on power
-#: plugins/power/gsd-power-manager.c:544
+#: plugins/power/gsd-power-manager.c:548
 #, c-format
 msgid ""
 "PDA is very low on power (%.0f%%). This device will soon stop functioning if "
@@ -1837,7 +1838,7 @@ msgstr ""
 "Вельмі нізкі ўзровень зараду PDA (%.0f%%). Калі не падзарадзіць, гэтая "
 "прылада неўзабаве перастане працаваць."
 
-#: plugins/power/gsd-power-manager.c:546
+#: plugins/power/gsd-power-manager.c:550
 msgid ""
 "PDA is very low on power. This device will soon stop functioning if not "
 "charged."
@@ -1846,22 +1847,22 @@ msgstr ""
 "неўзабаве перастане працаваць."
 
 #. TRANSLATORS: notification title, a cell phone (mobile phone) is low or very low on power
-#: plugins/power/gsd-power-manager.c:551
+#: plugins/power/gsd-power-manager.c:555
 msgid "Cell phone battery low"
 msgstr "Нізкі зарад батарэі мабільнага тэлефона"
 
 #. TRANSLATORS: notification body, a cell phone (mobile phone) is low on power
-#: plugins/power/gsd-power-manager.c:554
+#: plugins/power/gsd-power-manager.c:558
 #, c-format
 msgid "Cell phone is low on power (%.0f%%)"
 msgstr "Нізкі ўзровень зараду мабільнага тэлефона (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:555
+#: plugins/power/gsd-power-manager.c:559
 msgid "Cell phone is low on power"
 msgstr "Нізкі ўзровень зараду мабільнага тэлефона"
 
 #. TRANSLATORS: notification body, a cell phone (mobile phone) is very low on power
-#: plugins/power/gsd-power-manager.c:557
+#: plugins/power/gsd-power-manager.c:561
 #, c-format
 msgid ""
 "Cell phone is very low on power (%.0f%%). This device will soon stop "
@@ -1870,7 +1871,7 @@ msgstr ""
 "Вельмі нізкі ўзровень зараду мабільнага тэлефона (%.0f%%). Калі не "
 "падзарадзіць, гэтая прылада неўзабаве перастане працаваць."
 
-#: plugins/power/gsd-power-manager.c:559
+#: plugins/power/gsd-power-manager.c:563
 msgid ""
 "Cell phone is very low on power. This device will soon stop functioning if "
 "not charged."
@@ -1879,22 +1880,22 @@ msgstr ""
 "гэтая прылада неўзабаве перастане працаваць."
 
 #. TRANSLATORS: notification title, a media player (e.g. mp3 player) is low or very low on power
-#: plugins/power/gsd-power-manager.c:564
+#: plugins/power/gsd-power-manager.c:568
 msgid "Media player battery low"
 msgstr "Нізкі зарад батарэі медыяплэера"
 
 #. TRANSLATORS: notification body, a media player (e.g. mp3 player) is low on power
-#: plugins/power/gsd-power-manager.c:567
+#: plugins/power/gsd-power-manager.c:571
 #, c-format
 msgid "Media player is low on power (%.0f%%)"
 msgstr "Вельмі нізкі ўзровень зараду медыяплэера (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:568
+#: plugins/power/gsd-power-manager.c:572
 msgid "Media player is low on power"
 msgstr "Нізкі ўзровень зараду медыяплэера"
 
 #. TRANSLATORS: notification body, a media player (e.g. mp3 player) is very low on power
-#: plugins/power/gsd-power-manager.c:570
+#: plugins/power/gsd-power-manager.c:574
 #, c-format
 msgid ""
 "Media player is very low on power (%.0f%%). This device will soon stop "
@@ -1903,7 +1904,7 @@ msgstr ""
 "Вельмі нізкі ўзровень зараду медыяплэера (%.0f%%). Калі не падзарадзіць, "
 "гэтая прылада неўзабаве перастане працаваць."
 
-#: plugins/power/gsd-power-manager.c:572
+#: plugins/power/gsd-power-manager.c:576
 msgid ""
 "Media player is very low on power. This device will soon stop functioning if "
 "not charged."
@@ -1912,22 +1913,22 @@ msgstr ""
 "прылада неўзабаве перастане працаваць."
 
 #. TRANSLATORS: notification title, a graphics tablet (e.g. wacom) is low or very low on power
-#: plugins/power/gsd-power-manager.c:577
+#: plugins/power/gsd-power-manager.c:581
 msgid "Tablet battery low"
 msgstr "Нізкі зарад батарэі планшэта"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is low on power
-#: plugins/power/gsd-power-manager.c:580
+#: plugins/power/gsd-power-manager.c:584
 #, c-format
 msgid "Tablet is low on power (%.0f%%)"
 msgstr "Нізкі ўзровень зараду планшэта (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:581
+#: plugins/power/gsd-power-manager.c:585
 msgid "Tablet is low on power"
 msgstr "Нізкі ўзровень зараду планшэта"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is very low on power
-#: plugins/power/gsd-power-manager.c:583
+#: plugins/power/gsd-power-manager.c:587
 #, c-format
 msgid ""
 "Tablet is very low on power (%.0f%%). This device will soon stop functioning "
@@ -1936,7 +1937,7 @@ msgstr ""
 "Вельмі нізкі ўзровень зараду планшэта (%.0f%%). Калі не падзарадзіць, гэтая "
 "прылада неўзабаве перастане працаваць."
 
-#: plugins/power/gsd-power-manager.c:585
+#: plugins/power/gsd-power-manager.c:589
 msgid ""
 "Tablet is very low on power. This device will soon stop functioning if not "
 "charged."
@@ -1945,22 +1946,22 @@ msgstr ""
 "неўзабаве перастане працаваць."
 
 #. TRANSLATORS: notification title, an attached computer (e.g. ipad) is low or very low on power
-#: plugins/power/gsd-power-manager.c:590
+#: plugins/power/gsd-power-manager.c:594
 msgid "Attached computer battery low"
 msgstr "Нізкі зарад батарэі далучанага камп'ютара"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is low on power
-#: plugins/power/gsd-power-manager.c:593
+#: plugins/power/gsd-power-manager.c:597
 #, c-format
 msgid "Attached computer is low on power (%.0f%%)"
 msgstr "Нізкі ўзровень зараду далучанага камп'ютара (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:594
+#: plugins/power/gsd-power-manager.c:598
 msgid "Attached computer is low on power"
 msgstr "Нізкі ўзровень зараду далучанага камп'ютара"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is very low on power
-#: plugins/power/gsd-power-manager.c:596
+#: plugins/power/gsd-power-manager.c:600
 #, c-format
 msgid ""
 "Attached computer is very low on power (%.0f%%). The device will soon "
@@ -1969,7 +1970,7 @@ msgstr ""
 "Вельмі нізкі ўзровень зараду падлучанага камп'ютара (%.0f%%). Калі не "
 "падзарадзіць, гэтая прылада неўзабаве выключыцца."
 
-#: plugins/power/gsd-power-manager.c:598
+#: plugins/power/gsd-power-manager.c:602
 msgid ""
 "Attached computer is very low on power. The device will soon shutdown if not "
 "charged."
@@ -1978,22 +1979,22 @@ msgstr ""
 "гэтая прылада неўзабаве выключыцца."
 
 #. TRANSLATORS: notification title, a game controller (e.g. joystick or joypad) is low or very low on power
-#: plugins/power/gsd-power-manager.c:603
+#: plugins/power/gsd-power-manager.c:607
 msgid "Game controller battery low"
 msgstr "Нізкі зарад батарэі гульнявога кантролера"
 
 #. TRANSLATORS: notification body, a game controller (e.g. joystick or joypad) is low on power
-#: plugins/power/gsd-power-manager.c:606
+#: plugins/power/gsd-power-manager.c:610
 #, c-format
 msgid "Game controller is low on power (%.0f%%)"
 msgstr "Нізкі ўзровень зараду гульнявога кантролера (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:607
+#: plugins/power/gsd-power-manager.c:611
 msgid "Game controller is low on power"
 msgstr "Нізкі ўзровень зараду гульнявога кантролера"
 
 #. TRANSLATORS: notification body, an attached game controller (e.g. joystick or joypad) is very low on power
-#: plugins/power/gsd-power-manager.c:609
+#: plugins/power/gsd-power-manager.c:613
 #, c-format
 msgid ""
 "Game controller is very low on power (%.0f%%). The device will soon shutdown "
@@ -2002,7 +2003,7 @@ msgstr ""
 "Вельмі нізкі ўзровень зараду гульнявога кантролера (%.0f%%). Калі не "
 "падзарадзіць, гэтая прылада неўзабаве выключыцца."
 
-#: plugins/power/gsd-power-manager.c:611
+#: plugins/power/gsd-power-manager.c:615
 msgid ""
 "Game controller is very low on power. The device will soon shutdown if not "
 "charged."
@@ -2011,22 +2012,22 @@ msgstr ""
 "гэтая прылада неўзабаве выключыцца."
 
 #. TRANSLATORS: notification title, a pen is low or very low on power
-#: plugins/power/gsd-power-manager.c:616
+#: plugins/power/gsd-power-manager.c:620
 msgid "Pen battery low"
 msgstr "Нізкі зарад батарэі пяра"
 
 #. TRANSLATORS: notification body, a pen is low on power
-#: plugins/power/gsd-power-manager.c:619
+#: plugins/power/gsd-power-manager.c:623
 #, c-format
 msgid "Pen is low on power (%.0f%%)"
 msgstr "Нізкі ўзровень зараду пяра (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:620
+#: plugins/power/gsd-power-manager.c:624
 msgid "Pen is low on power"
 msgstr "Нізкі ўзровень зараду пяра"
 
 #. TRANSLATORS: notification body, a pen is very low on power
-#: plugins/power/gsd-power-manager.c:622
+#: plugins/power/gsd-power-manager.c:626
 #, c-format
 msgid ""
 "Pen is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2035,29 +2036,29 @@ msgstr ""
 "Вельмі нізкі ўзровень зараду пяра (%.0f%%). Калі не падзарадзіць, гэтая "
 "прылада неўзабаве выключыцца."
 
-#: plugins/power/gsd-power-manager.c:624
+#: plugins/power/gsd-power-manager.c:628
 msgid "Pen is very low on power. The device will soon shutdown if not charged."
 msgstr ""
 "Вельмі нізкі ўзровень зараду пяра. Калі не падзарадзіць, гэтая прылада "
 "неўзабаве выключыцца."
 
 #. TRANSLATORS: notification title, an external touchpad is low or very low on power
-#: plugins/power/gsd-power-manager.c:629
+#: plugins/power/gsd-power-manager.c:633
 msgid "Touchpad battery low"
 msgstr "Нізкі зарад батарэі сэнсарнай панэлі"
 
 #. TRANSLATORS: notification body, an external touchpad is low on power
-#: plugins/power/gsd-power-manager.c:632
+#: plugins/power/gsd-power-manager.c:636
 #, c-format
 msgid "Touchpad is low on power (%.0f%%)"
 msgstr "Нізкі ўзровень зараду сэнсарнай панэлі (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:633
+#: plugins/power/gsd-power-manager.c:637
 msgid "Touchpad is low on power"
 msgstr "Нізкі ўзровень зараду сэнсарнай панэлі"
 
 #. TRANSLATORS: notification body, an external touchpad is very low on power
-#: plugins/power/gsd-power-manager.c:635
+#: plugins/power/gsd-power-manager.c:639
 #, c-format
 msgid ""
 "Touchpad is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2066,7 +2067,7 @@ msgstr ""
 "Вельмі нізкі ўзровень зараду сэнсарнай панэлі (%.0f%%). Калі не "
 "падзарадзіць, гэтая прылада неўзабаве выключыцца."
 
-#: plugins/power/gsd-power-manager.c:637
+#: plugins/power/gsd-power-manager.c:641
 msgid ""
 "Touchpad is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2074,22 +2075,22 @@ msgstr ""
 "прылада неўзабаве выключыцца."
 
 #. TRANSLATORS: notification title, a headset (headphones + microphone) is low or very low on power
-#: plugins/power/gsd-power-manager.c:642
+#: plugins/power/gsd-power-manager.c:646
 msgid "Headset battery low"
 msgstr "Нізкі зарад батарэі гарнітуры"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is low on power
-#: plugins/power/gsd-power-manager.c:645
+#: plugins/power/gsd-power-manager.c:649
 #, c-format
 msgid "Headset is low on power (%.0f%%)"
 msgstr "Нізкі ўзровень зараду гарнітуры (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:646
+#: plugins/power/gsd-power-manager.c:650
 msgid "Headset is low on power"
 msgstr "Нізкі ўзровень зараду гарнітуры"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is very low on power
-#: plugins/power/gsd-power-manager.c:648
+#: plugins/power/gsd-power-manager.c:652
 #, c-format
 msgid ""
 "Headset is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2098,7 +2099,7 @@ msgstr ""
 "Вельмі нізкі ўзровень зараду гарнітуры (%.0f%%). Калі не падзарадзіць, гэтая "
 "прылада неўзабаве выключыцца."
 
-#: plugins/power/gsd-power-manager.c:650
+#: plugins/power/gsd-power-manager.c:654
 msgid ""
 "Headset is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2106,22 +2107,22 @@ msgstr ""
 "неўзабаве выключыцца."
 
 #. TRANSLATORS: notification title, speaker is low or very low on power
-#: plugins/power/gsd-power-manager.c:655
+#: plugins/power/gsd-power-manager.c:659
 msgid "Speaker battery low"
 msgstr "Нізкі зарад батарэі калонкі"
 
 #. TRANSLATORS: notification body, a speaker is low on power
-#: plugins/power/gsd-power-manager.c:658
+#: plugins/power/gsd-power-manager.c:662
 #, c-format
 msgid "Speaker is low on power (%.0f%%)"
 msgstr "Нізкі ўзровень зараду калонкі (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:659
+#: plugins/power/gsd-power-manager.c:663
 msgid "Speaker is low on power"
 msgstr "Нізкі ўзровень зараду калонкі"
 
 #. TRANSLATORS: notification body, a speaker is very low on power
-#: plugins/power/gsd-power-manager.c:661
+#: plugins/power/gsd-power-manager.c:665
 #, c-format
 msgid ""
 "Speaker is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2130,7 +2131,7 @@ msgstr ""
 "Вельмі нізкі ўзровень зараду калонкі (%.0f%%). Калі не падзарадзіць, гэтая "
 "прылада неўзабаве выключыцца."
 
-#: plugins/power/gsd-power-manager.c:663
+#: plugins/power/gsd-power-manager.c:667
 msgid ""
 "Speaker is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2138,22 +2139,22 @@ msgstr ""
 "неўзабаве выключыцца."
 
 #. TRANSLATORS: notification title, headphones (no microphone) are low or very low on power
-#: plugins/power/gsd-power-manager.c:668
+#: plugins/power/gsd-power-manager.c:672
 msgid "Headphones battery low"
 msgstr "Нізкі зарад батарэі навушнікаў"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are low on power
-#: plugins/power/gsd-power-manager.c:671
+#: plugins/power/gsd-power-manager.c:675
 #, c-format
 msgid "Headphones are low on power (%.0f%%)"
 msgstr "Нізкі ўзровень зараду навушнікаў (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:672
+#: plugins/power/gsd-power-manager.c:676
 msgid "Headphones are low on power"
 msgstr "Нізкі ўзровень зараду навушнікаў"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are very low on power
-#: plugins/power/gsd-power-manager.c:674
+#: plugins/power/gsd-power-manager.c:678
 #, c-format
 msgid ""
 "Headphones are very low on power (%.0f%%). The device will soon shutdown if "
@@ -2162,7 +2163,7 @@ msgstr ""
 "Вельмі нізкі ўзровень зараду навушнікаў (%.0f%%). Калі не падзарадзіць, "
 "гэтая прылада неўзабаве выключыцца."
 
-#: plugins/power/gsd-power-manager.c:676
+#: plugins/power/gsd-power-manager.c:680
 msgid ""
 "Headphones are very low on power. The device will soon shutdown if not "
 "charged."
@@ -2171,22 +2172,22 @@ msgstr ""
 "неўзабаве выключыцца."
 
 #. TRANSLATORS: notification title, an audio device is low or very low on power
-#: plugins/power/gsd-power-manager.c:681
+#: plugins/power/gsd-power-manager.c:685
 msgid "Audio device battery low"
 msgstr "Нізкі зарад батарэі аўдыяпрылады"
 
 #. TRANSLATORS: notification body, an audio device is low on power
-#: plugins/power/gsd-power-manager.c:684
+#: plugins/power/gsd-power-manager.c:688
 #, c-format
 msgid "Audio device is low on power (%.0f%%)"
 msgstr "Нізкі ўзровень зараду аўдыяпрылады (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:685
+#: plugins/power/gsd-power-manager.c:689
 msgid "Audio device is low on power"
 msgstr "Нізкі ўзровень зараду аўдыяпрылады"
 
 #. TRANSLATORS: notification body, an audio device is very low on power
-#: plugins/power/gsd-power-manager.c:687
+#: plugins/power/gsd-power-manager.c:691
 #, c-format
 msgid ""
 "Audio device is very low on power (%.0f%%). The device will soon shutdown if "
@@ -2195,7 +2196,7 @@ msgstr ""
 "Вельмі нізкі ўзровень зараду аўдыяпрылады (%.0f%%). Калі не падзарадзіць, "
 "гэтая прылада неўзабаве выключыцца."
 
-#: plugins/power/gsd-power-manager.c:689
+#: plugins/power/gsd-power-manager.c:693
 msgid ""
 "Audio device is very low on power. The device will soon shutdown if not "
 "charged."
@@ -2204,22 +2205,22 @@ msgstr ""
 "неўзабаве выключыцца."
 
 #. TRANSLATORS: notification title, a remote control is low or very low on power
-#: plugins/power/gsd-power-manager.c:694
+#: plugins/power/gsd-power-manager.c:698
 msgid "Remote battery low"
 msgstr "Нізкі зарад батарэі пульта"
 
 #. TRANSLATORS: notification body, an remote control is low on power
-#: plugins/power/gsd-power-manager.c:697
+#: plugins/power/gsd-power-manager.c:701
 #, c-format
 msgid "Remote is low on power (%.0f%%)"
 msgstr "Нізкі ўзровень зараду пульта (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:698
+#: plugins/power/gsd-power-manager.c:702
 msgid "Remote is low on power"
 msgstr "Нізкі ўзровень зараду пульта"
 
 #. TRANSLATORS: notification body, a remote control is very low on power
-#: plugins/power/gsd-power-manager.c:700
+#: plugins/power/gsd-power-manager.c:704
 #, c-format
 msgid ""
 "Remote is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2228,7 +2229,7 @@ msgstr ""
 "Вельмі нізкі ўзровень зараду пульта (%.0f%%). Калі не падзарадзіць, гэтая "
 "прылада неўзабаве выключыцца."
 
-#: plugins/power/gsd-power-manager.c:702
+#: plugins/power/gsd-power-manager.c:706
 msgid ""
 "Remote is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2236,22 +2237,22 @@ msgstr ""
 "неўзабаве выключыцца."
 
 #. TRANSLATORS: notification title, a printer is low or very low on power
-#: plugins/power/gsd-power-manager.c:707
+#: plugins/power/gsd-power-manager.c:711
 msgid "Printer battery low"
 msgstr "Нізкі зарад батарэі прынтара"
 
 #. TRANSLATORS: notification body, a printer is low on power
-#: plugins/power/gsd-power-manager.c:710
+#: plugins/power/gsd-power-manager.c:714
 #, c-format
 msgid "Printer is low on power (%.0f%%)"
 msgstr "Нізкі ўзровень зараду прынтара (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:711
+#: plugins/power/gsd-power-manager.c:715
 msgid "Printer is low on power"
 msgstr "Нізкі ўзровень зараду прынтара"
 
 #. TRANSLATORS: notification body, a printer is very low on power
-#: plugins/power/gsd-power-manager.c:713
+#: plugins/power/gsd-power-manager.c:717
 #, c-format
 msgid ""
 "Printer is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2260,7 +2261,7 @@ msgstr ""
 "Вельмі нізкі ўзровень зараду прынтара (%.0f%%). Калі не падзарадзіць, гэтая "
 "прылада неўзабаве выключыцца."
 
-#: plugins/power/gsd-power-manager.c:715
+#: plugins/power/gsd-power-manager.c:719
 msgid ""
 "Printer is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2268,22 +2269,22 @@ msgstr ""
 "неўзабаве выключыцца."
 
 #. TRANSLATORS: notification title, a scanner is low or very low on power
-#: plugins/power/gsd-power-manager.c:720
+#: plugins/power/gsd-power-manager.c:724
 msgid "Scanner battery low"
 msgstr "Нізкі зарад батарэі сканера"
 
 #. TRANSLATORS: notification body, a scanner is low on power
-#: plugins/power/gsd-power-manager.c:723
+#: plugins/power/gsd-power-manager.c:727
 #, c-format
 msgid "Scanner is low on power (%.0f%%)"
 msgstr "Нізкі ўзровень зараду сканера (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:724
+#: plugins/power/gsd-power-manager.c:728
 msgid "Scanner is low on power"
 msgstr "Нізкі ўзровень зараду сканера"
 
 #. TRANSLATORS: notification body, a scanner is very low on power
-#: plugins/power/gsd-power-manager.c:726
+#: plugins/power/gsd-power-manager.c:730
 #, c-format
 msgid ""
 "Scanner is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2292,7 +2293,7 @@ msgstr ""
 "Вельмі нізкі ўзровень зараду сканера (%.0f%%). Калі не падзарадзіць, гэтая "
 "прылада неўзабаве выключыцца."
 
-#: plugins/power/gsd-power-manager.c:728
+#: plugins/power/gsd-power-manager.c:732
 msgid ""
 "Scanner is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2300,22 +2301,22 @@ msgstr ""
 "неўзабаве выключыцца."
 
 #. TRANSLATORS: notification title, a camera is low or very low on power
-#: plugins/power/gsd-power-manager.c:733
+#: plugins/power/gsd-power-manager.c:737
 msgid "Camera battery low"
 msgstr "Нізкі зарад батарэі камеры"
 
 #. TRANSLATORS: notification body, a camera is low on power
-#: plugins/power/gsd-power-manager.c:736
+#: plugins/power/gsd-power-manager.c:740
 #, c-format
 msgid "Camera is low on power (%.0f%%)"
 msgstr "Нізкі ўзровень зараду камеры (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:737
+#: plugins/power/gsd-power-manager.c:741
 msgid "Camera is low on power"
 msgstr "Нізкі ўзровень зараду камеры"
 
 #. TRANSLATORS: notification body, a camera is very low on power
-#: plugins/power/gsd-power-manager.c:739
+#: plugins/power/gsd-power-manager.c:743
 #, c-format
 msgid ""
 "Camera is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2324,7 +2325,7 @@ msgstr ""
 "Вельмі нізкі ўзровень зараду камеры (%.0f%%). Калі не падзарадзіць, гэтая "
 "прылада неўзабаве выключыцца."
 
-#: plugins/power/gsd-power-manager.c:741
+#: plugins/power/gsd-power-manager.c:745
 msgid ""
 "Camera is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2332,22 +2333,22 @@ msgstr ""
 "неўзабаве выключыцца."
 
 #. TRANSLATORS: notification title, a Bluetooth device is low or very low on power
-#: plugins/power/gsd-power-manager.c:746
+#: plugins/power/gsd-power-manager.c:750
 msgid "Bluetooth device battery low"
 msgstr "Нізкі зарад батарэі bluetooth-прылады"
 
 #. TRANSLATORS: notification body, a Bluetooth device is low on power
-#: plugins/power/gsd-power-manager.c:749
+#: plugins/power/gsd-power-manager.c:753
 #, c-format
 msgid "Bluetooth device is low on power (%.0f%%)"
 msgstr "Нізкі ўзровень зараду Bluetooth-прылады (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:750
+#: plugins/power/gsd-power-manager.c:754
 msgid "Bluetooth device is low on power"
 msgstr "Нізкі ўзровень зараду Bluetooth-прылады"
 
 #. TRANSLATORS: notification body, a Bluetooth device is very low on power
-#: plugins/power/gsd-power-manager.c:752
+#: plugins/power/gsd-power-manager.c:756
 #, c-format
 msgid ""
 "Bluetooth device is very low on power (%.0f%%). The device will soon "
@@ -2356,7 +2357,7 @@ msgstr ""
 "Вельмі нізкі ўзровень зараду bluetooth-прылады (%.0f%%). Калі не "
 "падзарадзіць, гэтая прылада неўзабаве выключыцца."
 
-#: plugins/power/gsd-power-manager.c:754
+#: plugins/power/gsd-power-manager.c:758
 msgid ""
 "Bluetooth device is very low on power. The device will soon shutdown if not "
 "charged."
@@ -2365,22 +2366,22 @@ msgstr ""
 "прылада неўзабаве выключыцца."
 
 #. TRANSLATORS: notification title, a connected (wireless) device or peripheral of unhandled type is low or very on power
-#: plugins/power/gsd-power-manager.c:760
+#: plugins/power/gsd-power-manager.c:764
 msgid "Connected device battery is low"
 msgstr "Нізкі зарад батарэі падлучанай прылады"
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is low on power
-#: plugins/power/gsd-power-manager.c:763
+#: plugins/power/gsd-power-manager.c:767
 #, c-format
 msgid "A connected device is low on power (%.0f%%)"
 msgstr "Нізкі ўзровень зараду падлучанай прылады (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:764
+#: plugins/power/gsd-power-manager.c:768
 msgid "A connected device is low on power"
 msgstr "Нізкі ўзровень зараду падлучанай прылады"
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is very low on power
-#: plugins/power/gsd-power-manager.c:766
+#: plugins/power/gsd-power-manager.c:770
 #, c-format
 msgid ""
 "A connected device is very low on power (%.0f%%). The device will soon "
@@ -2389,7 +2390,7 @@ msgstr ""
 "Вельмі нізкі ўзровень зараду падлучанай прылады (%.0f%%). Калі не "
 "падзарадзіць, гэтая прылада неўзабаве выключыцца."
 
-#: plugins/power/gsd-power-manager.c:768
+#: plugins/power/gsd-power-manager.c:772
 msgid ""
 "A connected device is very low on power. The device will soon shutdown if "
 "not charged."
@@ -2398,107 +2399,107 @@ msgstr ""
 "прылада неўзабаве выключыцца."
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:794
+#: plugins/power/gsd-power-manager.c:798
 msgid "Low Battery"
 msgstr "Нізкі зарад батарэі"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:797
+#: plugins/power/gsd-power-manager.c:801
 #, c-format
 msgid "%.0f%% battery remaining"
 msgstr "Засталося %.0f%% зараду батарэі"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:800
+#: plugins/power/gsd-power-manager.c:804
 msgid "UPS Low"
 msgstr "Нізкі зарад батарэі UPS"
 
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
-#: plugins/power/gsd-power-manager.c:803 plugins/power/gsd-power-manager.c:876
+#: plugins/power/gsd-power-manager.c:807 plugins/power/gsd-power-manager.c:880
 #, c-format
 msgid "%.0f%% UPS power remaining"
 msgstr "Засталося %.0f%% зараду батарэі UPS"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:841
+#: plugins/power/gsd-power-manager.c:845
 msgid "Battery is low"
 msgstr "Нізкі зарад батарэі"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, advice on what the user should do
-#: plugins/power/gsd-power-manager.c:867
+#: plugins/power/gsd-power-manager.c:871
 msgid "Battery Almost Empty"
 msgstr "Батарэя амаль разраджана"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically running low, advice on what the user should do
-#: plugins/power/gsd-power-manager.c:870
+#: plugins/power/gsd-power-manager.c:874
 #, c-format
 msgid "Connect power now"
 msgstr "Падлучыце электрасілкаванне"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
-#: plugins/power/gsd-power-manager.c:873
+#: plugins/power/gsd-power-manager.c:877
 msgid "UPS Almost Empty"
 msgstr "Батарэя UPS амаль разраджана"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, warning about action happening now
-#: plugins/power/gsd-power-manager.c:944
+#: plugins/power/gsd-power-manager.c:948
 msgid "Battery is Empty"
 msgstr "Батарэя разраджана"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action about to happen
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
-#: plugins/power/gsd-power-manager.c:951 plugins/power/gsd-power-manager.c:971
+#: plugins/power/gsd-power-manager.c:955 plugins/power/gsd-power-manager.c:975
 msgid "This device is about to hibernate"
 msgstr "Прылада неўзабаве пяройдзе ў гібернацыю"
 
-#: plugins/power/gsd-power-manager.c:953 plugins/power/gsd-power-manager.c:973
+#: plugins/power/gsd-power-manager.c:957 plugins/power/gsd-power-manager.c:977
 msgid "This device is about to shutdown"
 msgstr "Прылада неўзабаве выключыцца"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
-#: plugins/power/gsd-power-manager.c:964
+#: plugins/power/gsd-power-manager.c:968
 msgid "UPS is Empty"
 msgstr "Батарэя UPS разраджана"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1459
+#: plugins/power/gsd-power-manager.c:1494
 msgid "Lid has been opened"
 msgstr "Вечка ноўтбука адкрыта"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1493
+#: plugins/power/gsd-power-manager.c:1528
 msgid "Lid has been closed"
 msgstr "Вечка ноўтбука закрыта"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2144
+#: plugins/power/gsd-power-manager.c:2178
 msgid "On battery power"
 msgstr "Ад батарэі"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2149
+#: plugins/power/gsd-power-manager.c:2183
 msgid "On AC power"
 msgstr "Ад электрасеткі"
 
-#: plugins/power/gsd-power-manager.c:2397
+#: plugins/power/gsd-power-manager.c:2452
 msgid "Automatic logout"
 msgstr "Аўтаматычны выхад з сеанса"
 
-#: plugins/power/gsd-power-manager.c:2397
+#: plugins/power/gsd-power-manager.c:2452
 msgid "You will soon log out because of inactivity."
 msgstr "Неўзабаве ваш сеанс будзе завершаны з-за бяздзейнасці."
 
-#: plugins/power/gsd-power-manager.c:2402
+#: plugins/power/gsd-power-manager.c:2457
 msgid "Automatic suspend"
 msgstr "Аўтаматычнае прыпыненне працы"
 
-#: plugins/power/gsd-power-manager.c:2402
-#: plugins/power/gsd-power-manager.c:2407
+#: plugins/power/gsd-power-manager.c:2457
+#: plugins/power/gsd-power-manager.c:2462
 msgid "Suspending soon because of inactivity."
 msgstr "Неўзабаве праца прыпыніцца з-за бяздзейнасці."
 
-#: plugins/power/gsd-power-manager.c:2407
+#: plugins/power/gsd-power-manager.c:2462
 msgid "Automatic hibernation"
 msgstr "Аўтаматычная гібернацыя"
 
@@ -2722,11 +2723,11 @@ msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "«%s» на %s"
 
-#. Translators: A print job has been canceled
+#. Translators: A print job has been cancelled
 #: plugins/print-notifications/gsd-print-notifications-manager.c:722
 #: plugins/print-notifications/gsd-print-notifications-manager.c:762
 msgctxt "print job state"
-msgid "Printing canceled"
+msgid "Printing cancelled"
 msgstr "Друк скасаваны"
 
 #. Translators: A print job has been aborted
@@ -2766,19 +2767,19 @@ msgstr "Папярэджанне прынтара"
 msgid "Printer “%s”: “%s”."
 msgstr "Прынтар «%s»: «%s»."
 
-#: plugins/smartcard/gsd-smartcard-service.c:282
+#: plugins/smartcard/gsd-smartcard-service.c:279
 msgid "User was not logged in with smartcard."
 msgstr "Карыстальнік не ўвайшоў праз смарт-карту."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:388
+#: plugins/usb-protection/gsd-usb-protection-manager.c:412
 msgid "USB Protection"
 msgstr "Абарона USB"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:512
+#: plugins/usb-protection/gsd-usb-protection-manager.c:541
 msgid "New USB device"
 msgstr "Новая USB-прылада"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:513
+#: plugins/usb-protection/gsd-usb-protection-manager.c:542
 msgid ""
 "New device has been detected while the session was not locked. If you did "
 "not plug anything, check your system for any suspicious device."
@@ -2786,11 +2787,11 @@ msgstr ""
 "Новая прылада была выяўлена, калі сеанс не быў заблакіраваны. Калі вы нічога "
 "не падключалі, праверце вашу сістэму на наяўнасць падазронай прылады."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:601
+#: plugins/usb-protection/gsd-usb-protection-manager.c:684
 msgid "New device detected"
 msgstr "Выяўлена новая прылада"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:602
+#: plugins/usb-protection/gsd-usb-protection-manager.c:685
 msgid ""
 "Either one of your existing devices has been reconnected or a new one has "
 "been plugged in. If you did not do it, check your system for any suspicious "
@@ -2799,11 +2800,11 @@ msgstr ""
 "Або перападлучана адна з вашых існуючых прылад, або падключана новая. Калі "
 "вы не рабілі гэтага, праверце сваю сістэму на наяўнасць падазронай прылады."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:609
+#: plugins/usb-protection/gsd-usb-protection-manager.c:692
 msgid "Reconnect USB device"
 msgstr "Перападлучыць USB-прыладу"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:610
+#: plugins/usb-protection/gsd-usb-protection-manager.c:693
 msgid ""
 "New device has been detected while you were away. Please disconnect and "
 "reconnect the device to start using it."
@@ -2811,12 +2812,12 @@ msgstr ""
 "Падчас вашай адсутнасці была выяўлена новая прылада. Каб пачаць ёю "
 "карыстацца, адключыце і зноў падключыце прыладу."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:616
-#: plugins/usb-protection/gsd-usb-protection-manager.c:641
+#: plugins/usb-protection/gsd-usb-protection-manager.c:699
+#: plugins/usb-protection/gsd-usb-protection-manager.c:726
 msgid "USB device blocked"
 msgstr "USB-прылада заблакіравана"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:617
+#: plugins/usb-protection/gsd-usb-protection-manager.c:700
 msgid ""
 "New device has been detected while you were away. It has been blocked "
 "because the USB protection is active."
@@ -2824,11 +2825,14 @@ msgstr ""
 "Падчас вашай адсутнасці была выяўлена новая прылада. Яна была заблакіравана, "
 "бо дзейнічае абарона USB."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:642
+#: plugins/usb-protection/gsd-usb-protection-manager.c:727
 msgid ""
 "The new inserted device has been blocked because the USB protection is "
-"active."
-msgstr "Новая ўстаўленая прылада была заблакіравана, бо дзейнічае абарона USB."
+"active. If you want to activate the device, disable the USB protection and "
+"re-plug the device."
+msgstr ""
+"Новая ўстаўленая прылада была заблакіравана, бо дзейнічае абарона USB. Калі "
+"хочаце задзейнічаць прыладу, адключыце абарону USB і перападлучыце прыладу."
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
