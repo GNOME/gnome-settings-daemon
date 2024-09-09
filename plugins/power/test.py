@@ -783,7 +783,7 @@ class PowerPluginTestBatteryLevels(PowerPluginBase):
         # Check that it was picked up
         self.check_plugin_log('EMIT: charge-critical', 2)
 
-        self.p_notify_log.check_line_re(b'[0-9.]+ Notify "Power" .* "battery-caution-symbolic" ".*[Bb]attery [Aa]lmost [Ee]mpty.*"', timeout=0.5)
+        self.p_notify_log.check_line_re(rb'[0-9.]+ Notify "Power" .* "battery-caution-symbolic" ".*[Bb]attery [Aa]lmost [Ee]mpty.*"', timeout=0.5)
 
     def test_notify_critical_battery_on_start(self):
         '''action on critical battery on startup'''
@@ -793,7 +793,7 @@ class PowerPluginTestBatteryLevels(PowerPluginBase):
         # Check that it was picked up
         self.check_plugin_log('EMIT: charge-critical', 2)
 
-        self.p_notify_log.check_line_re(b'[0-9.]+ Notify "Power" .* "battery-caution-symbolic" ".*[Bb]attery [Aa]lmost [Ee]mpty.*"', timeout=0.5)
+        self.p_notify_log.check_line_re(rb'[0-9.]+ Notify "Power" .* "battery-caution-symbolic" ".*[Bb]attery [Aa]lmost [Ee]mpty.*"', timeout=0.5)
 
     def test_notify_device_battery(self):
         '''critical power level notification for device batteries'''
@@ -839,7 +839,7 @@ class PowerPluginTestBatteryLevels(PowerPluginBase):
 
         self.check_plugin_log('EMIT: charge-critical', 2)
 
-        self.p_notify_log.check_line_re(b'[0-9.]+ Notify "Power" .* ".*" ".*Wireless mouse .*low.* power.*\([0-9.]+%\).*"', timeout=0.5)
+        self.p_notify_log.check_line_re(rb'[0-9.]+ Notify "Power" .* ".*" ".*Wireless mouse .*low.* power.*\([0-9.]+%\).*"', timeout=0.5)
 
     def test_notify_device_spam(self):
         '''no repeat notifications for device batteries'''
@@ -869,7 +869,7 @@ class PowerPluginTestBatteryLevels(PowerPluginBase):
 
         self.check_plugin_log('EMIT: charge-low', 2)
 
-        self.p_notify_log.check_line_re(b'[0-9.]+ Notify "Power" .* ".*" ".*Wireless mouse .*low.* power.*\([0-9.]+%\).*"', timeout=0.5)
+        self.p_notify_log.check_line_re(rb'[0-9.]+ Notify "Power" .* ".*" ".*Wireless mouse .*low.* power.*\([0-9.]+%\).*"', timeout=0.5)
 
         # Disconnect mouse
         self.obj_upower.RemoveObject(bat2_path)
@@ -921,7 +921,7 @@ class PowerPluginTestBatteryLevels(PowerPluginBase):
         # Verify new warning
         self.check_plugin_log('EMIT: charge-critical', 2)
 
-        self.p_notify_log.check_line_re(b'[0-9.]+ Notify "Power" .* ".*" ".*Wireless mouse .*very low.* power.*\([0-9.]+%\).*"', timeout=0.5)
+        self.p_notify_log.check_line_re(rb'[0-9.]+ Notify "Power" .* ".*" ".*Wireless mouse .*very low.* power.*\([0-9.]+%\).*"', timeout=0.5)
 
     def test_notify_device_battery_coarse_level(self):
         '''critical power level notification for device batteries with coarse level'''
@@ -969,10 +969,10 @@ class PowerPluginTestBatteryLevels(PowerPluginBase):
         self.check_plugin_log('EMIT: charge-critical', 2)
 
         time.sleep(0.5)
-        lines = self.p_notify_log.check_line_re(b'[0-9.]+ Notify "Power" .* ".*" ".*Wireless mouse .*low.* power.*"')
+        lines = self.p_notify_log.check_line_re(rb'[0-9.]+ Notify "Power" .* ".*" ".*Wireless mouse .*low.* power.*"')
         lines += self.p_notify_log.clear()
         for l in lines:
-            self.assertNotRegex(l, b'[0-9.]+ Notify "Power" .* ".*" ".*\([0-9.]+%\).*"')
+            self.assertNotRegex(l, rb'[0-9.]+ Notify "Power" .* ".*" ".*\([0-9.]+%\).*"')
 
     def test_forced_logout(self):
         '''Test forced logout'''
