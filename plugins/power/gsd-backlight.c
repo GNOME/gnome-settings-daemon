@@ -783,6 +783,8 @@ update_mutter_backlight (GsdBacklight *backlight)
         gboolean have_backlight = FALSE;
 
         backlights = gsd_display_config_get_backlight (display_config);
+        g_return_if_fail (backlights != NULL);
+
         g_variant_get (backlights, "(u@aa{sv})",
                        &backlight->backlight_serial,
                        &monitors);
@@ -820,6 +822,17 @@ update_mutter_backlight (GsdBacklight *backlight)
                 backlight->brightness_min = -1;
                 backlight->brightness_max = -1;
         }
+}
+
+static void
+maybe_update_mutter_backlight (GsdBacklight *backlight)
+{
+        GsdDisplayConfig *display_config =
+                gnome_settings_bus_get_display_config_proxy ();
+        g_autofree char *name_owner = NULL;
+
+        if ((name_owner = g_dbus_proxy_get_name_owner (G_DBUS_PROXY (display_config))))
+                update_mutter_backlight (backlight);
 }
 
 static void
@@ -862,7 +875,13 @@ gsd_backlight_initable_init (GInitable       *initable,
                           "notify::backlight",
                           G_CALLBACK (on_backlight_changed),
                           backlight);
-        update_mutter_backlight (backlight);
+
+        g_signal_connect_object (display_config,
+                                 "notify::g-name-owner",
+                                 G_CALLBACK (maybe_update_mutter_backlight),
+                                 backlight,
+                                 G_CONNECT_SWAPPED);
+        maybe_update_mutter_backlight (backlight);
 
 #ifdef __linux__
         backlight->logind_proxy =
