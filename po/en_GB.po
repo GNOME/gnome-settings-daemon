@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues/\n"
-"POT-Creation-Date: 2024-02-20 13:45+0000\n"
-"PO-Revision-Date: 2024-02-28 12:15+0000\n"
+"POT-Creation-Date: 2024-08-21 10:17+0000\n"
+"PO-Revision-Date: 2024-08-22 19:47+0100\n"
 "Last-Translator: Bruce Cowan <bruce@bcowan.me.uk>\n"
 "Language-Team: English - United Kingdom <en@li.org>\n"
 "Language: en_GB\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid "Smartcard removal action"
@@ -556,12 +556,12 @@ msgstr "Binding to launch GNOME Settings."
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:164
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:456
 msgid "Launch email client"
-msgstr "Launch e-mail client"
+msgstr "Launch email client"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:17
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:165
 msgid "Binding to launch the email client."
-msgstr "Binding to launch the e-mail client."
+msgstr "Binding to launch the email client."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:21
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:169
@@ -1079,7 +1079,7 @@ msgstr "Static binding to launch GNOME Settings."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:457
 msgid "Static binding to launch the email client."
-msgstr "Static binding to launch the e-mail client."
+msgstr "Static binding to launch the email client."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:462
 msgid "Static binding to eject an optical disc."
@@ -1330,10 +1330,6 @@ msgid "Power button action"
 msgstr "Power button action"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:42
-#| msgid ""
-#| "The action to take when the system power button is pressed. This action "
-#| "is hard-coded (and the setting ignored) on virtual machines (power off) "
-#| "and tablets (suspend)."
 msgid ""
 "The action to take when the system power button is pressed. Virtual machines "
 "only honor the 'nothing' action, and will shutdown otherwise. Tablets always "
@@ -1505,20 +1501,20 @@ msgstr "Colour calibration device removed"
 
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
-#: plugins/datetime/gsd-datetime-manager.c:88
+#: plugins/datetime/gsd-datetime-manager.c:93
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
-#: plugins/datetime/gsd-datetime-manager.c:92
+#: plugins/datetime/gsd-datetime-manager.c:97
 #, c-format
 msgid "Time Zone Updated to %s (%s)"
 msgstr "Time Zone Updated to %s (%s)"
 
-#: plugins/datetime/gsd-datetime-manager.c:108
+#: plugins/datetime/gsd-datetime-manager.c:113
 msgid "Settings"
 msgstr "Settings"
 
-#: plugins/datetime/gsd-datetime-manager.c:118
+#: plugins/datetime/gsd-datetime-manager.c:123
 msgid "Date & Time Settings"
 msgstr "Date & Time Settings"
 
@@ -1617,11 +1613,11 @@ msgstr "Application Stopped"
 #: plugins/housekeeping/gsd-systemd-notify.c:96
 #, c-format
 msgid ""
-"Device memory is nearly full. An application that was using a lot of memory "
-"and was forced to stop."
+"Device memory is nearly full. An application was using a lot of memory and "
+"was forced to stop."
 msgstr ""
-"Device memory is nearly full. An application that was using a lot of memory "
-"and was forced to stop."
+"Device memory is nearly full. An application was using a lot of memory and "
+"was forced to stop."
 
 #: plugins/media-keys/gsd-media-keys-manager.c:2254
 msgid "Bluetooth disabled"
@@ -2674,11 +2670,11 @@ msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "“%s” on %s"
 
-#. Translators: A print job has been canceled
+#. Translators: A print job has been cancelled
 #: plugins/print-notifications/gsd-print-notifications-manager.c:722
 #: plugins/print-notifications/gsd-print-notifications-manager.c:762
 msgctxt "print job state"
-msgid "Printing canceled"
+msgid "Printing cancelled"
 msgstr "Printing cancelled"
 
 #. Translators: A print job has been aborted
