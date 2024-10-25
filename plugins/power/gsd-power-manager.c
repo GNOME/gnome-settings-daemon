@@ -2935,7 +2935,12 @@ gsd_power_manager_start (GsdPowerManager *manager,
         manager->is_virtual_machine = gsd_power_is_hardware_a_vm ();
 
         /* Check whether we have a lid first */
-        manager->up_client = up_client_new ();
+        manager->up_client = up_client_new_full (manager->cancellable, error);
+        if (manager->up_client == NULL) {
+                g_debug ("No upower support, disabling plugin");
+                return FALSE;
+        }
+
         manager->lid_is_present = up_client_get_lid_is_present (manager->up_client);
         if (manager->lid_is_present)
                 manager->lid_is_closed = up_client_get_lid_is_closed (manager->up_client);
