@@ -2251,17 +2251,17 @@ set_rfkill_complete (GObject      *object,
         if (data->bluetooth) {
                 if (data->target_state)
                         show_osd (data->manager, "bluetooth-disabled-symbolic",
-                                  _("Bluetooth disabled"), -1, NULL);
+                                  _("Bluetooth Disabled"), -1, NULL);
                 else
                         show_osd (data->manager, "bluetooth-active-symbolic",
-                                  _("Bluetooth enabled"), -1, NULL);
+                                  _("Bluetooth Enabled"), -1, NULL);
         } else {
                 if (data->target_state)
                         show_osd (data->manager, "airplane-mode-symbolic",
-                                  _("Airplane mode enabled"), -1, NULL);
+                                  _("Airplane Mode Enabled"), -1, NULL);
                 else
-                        show_osd (data->manager, "network-wireless-signal-excellent-symbolic",
-                                  _("Airplane mode disabled"), -1, NULL);
+                        show_osd (data->manager, "airplane-mode-disabled-symbolic",
+                                  _("Airplane Mode Disabled"), -1, NULL);
         }
 
 out:
