@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/issues/\n"
-"POT-Creation-Date: 2024-08-09 17:55+0000\n"
-"PO-Revision-Date: 2024-08-26 17:18+0330\n"
+"POT-Creation-Date: 2024-09-15 07:51+0000\n"
+"PO-Revision-Date: 2024-11-04 12:45+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <translate@ifsug.org>\n"
 "Language: fa\n"
@@ -84,7 +84,7 @@ msgid ""
 "Distance in pixels the pointer must move before accelerated mouse motion is "
 "activated. A value of -1 is the system default."
 msgstr ""
-"فاصله‌ای که اشاره‌گر باید پیش از فعّال شدن حرکت شتابان موشی حرکت کند به پیکسل. "
+"فاصله‌ای که اشاره‌گر باید پیش از فعّال شدن حرکت شتابان موشی حرکت کند به تصدانه. "
 "پیش‌گزیدهٔ سامانه مقدار ‪-1‬ است."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:64
@@ -1378,8 +1378,8 @@ msgid ""
 "for subpixel antialiasing (LCD screens only)."
 msgstr ""
 "گونهٔ خوش‌نما سازی استفاده شده هنگام پرداخت قلم‌ها. مقدارهای ممکن: none برای بدون "
-"خوش‌نما سازی، grayscale برای خوش‌نماسازی استاندارد و rgba برای خوش‌نما سازی زیرپیکسلی "
-"(فقط صفحه‌های ال‌سی‌دی)."
+"خوش‌نما سازی، grayscale برای خوش‌نماسازی استاندارد و rgba برای خوش‌نما سازی "
+"زیرتصدانه‌ای (فقط صفحه‌های ال‌سی‌دی)."
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:28
 msgid "Hinting"
@@ -1416,9 +1416,9 @@ msgid ""
 "to “rgba”. Possible values are: “rgb” for red on left (most common), “bgr” for blue "
 "on left, “vrgb” for red on top, “vbgr” for red on bottom."
 msgstr ""
-"ترتیب عناصر زیرپیکسلی روی صفحهٔ ال‌سی‌دی. تنها هنگام تنظیم خوش‌نما سازی به rgba استفاده "
-"می‌شود. مقدارهای ممکن: rgb برای سرخ در چپ (معمول‌ترین)، bgr برای آبی در چپ، vrgb برای "
-"سرخ در بالا و vbgr برای سرخ در پایین."
+"ترتیب عناصر زیرتصدانه‌ای روی صفحهٔ ال‌سی‌دی. تنها هنگام تنظیم خوش‌نما سازی به rgba "
+"استفاده می‌شود. مقدارهای ممکن: rgb برای سرخ در چپ (معمول‌ترین)، bgr برای آبی در چپ، "
+"vrgb برای سرخ در بالا و vbgr برای سرخ در پایین."
 
 #: plugins/color/gsd-color-calibrate.c:138
 msgid "Color"
@@ -1599,18 +1599,18 @@ msgstr "حالت هواپیما از کار افتاد"
 msgid "Hardware Airplane Mode"
 msgstr "حالت هواپیمای سخت‌افزاری"
 
-#: plugins/power/gpm-common.c:91
+#: plugins/power/gpm-common.c:88
 msgid "Unknown time"
 msgstr "زمان نامعلوم"
 
-#: plugins/power/gpm-common.c:96
+#: plugins/power/gpm-common.c:93
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%Ii دقیقه"
 msgstr[1] "%Ii دقیقه"
 
-#: plugins/power/gpm-common.c:106
+#: plugins/power/gpm-common.c:103
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1619,25 +1619,25 @@ msgstr[1] "%Ii ساعت"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: plugins/power/gpm-common.c:112
+#: plugins/power/gpm-common.c:109
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%Ii %s %Ii %s"
 
-#: plugins/power/gpm-common.c:113
+#: plugins/power/gpm-common.c:110
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "ساعت"
 msgstr[1] "ساعت"
 
-#: plugins/power/gpm-common.c:114
+#: plugins/power/gpm-common.c:111
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "دقیقه"
 msgstr[1] "دقیقه"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:925
+#: plugins/power/gpm-common.c:419 plugins/power/gsd-power-manager.c:925
 #: plugins/power/gsd-power-manager.c:1009
 msgid "Battery is critically low"
 msgstr "باتری رایانه کیفی به طرز بحرانی کم است"
@@ -2342,42 +2342,42 @@ msgid "UPS is Empty"
 msgstr "برق اضطراری خالی است"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1496
+#: plugins/power/gsd-power-manager.c:1494
 msgid "Lid has been opened"
 msgstr "در باز شده است"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1530
+#: plugins/power/gsd-power-manager.c:1528
 msgid "Lid has been closed"
 msgstr "در بسته شده است"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2183
+#: plugins/power/gsd-power-manager.c:2178
 msgid "On battery power"
 msgstr "در حال استفاده از باتری"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2188
+#: plugins/power/gsd-power-manager.c:2183
 msgid "On AC power"
 msgstr "روی برق متناوب"
 
-#: plugins/power/gsd-power-manager.c:2457
+#: plugins/power/gsd-power-manager.c:2452
 msgid "Automatic logout"
 msgstr "خروج خودکار"
 
-#: plugins/power/gsd-power-manager.c:2457
+#: plugins/power/gsd-power-manager.c:2452
 msgid "You will soon log out because of inactivity."
 msgstr "به زودی به دلیل غیرفعّال بودن، خارج خواهید شد."
 
-#: plugins/power/gsd-power-manager.c:2462
+#: plugins/power/gsd-power-manager.c:2457
 msgid "Automatic suspend"
 msgstr "تعلیق خودکار"
 
-#: plugins/power/gsd-power-manager.c:2462 plugins/power/gsd-power-manager.c:2467
+#: plugins/power/gsd-power-manager.c:2457 plugins/power/gsd-power-manager.c:2462
 msgid "Suspending soon because of inactivity."
 msgstr "به زودی به خاطر فعّال نبودن، معلّق خواهد شد."
 
-#: plugins/power/gsd-power-manager.c:2467
+#: plugins/power/gsd-power-manager.c:2462
 msgid "Automatic hibernation"
 msgstr "خواب زمستانی خودکار"
 
