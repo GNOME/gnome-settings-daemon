@@ -871,10 +871,11 @@ gsd_backlight_initable_init (GInitable       *initable,
                 return FALSE;
         }
 
-        g_signal_connect (display_config,
-                          "notify::backlight",
-                          G_CALLBACK (on_backlight_changed),
-                          backlight);
+        g_signal_connect_object (display_config,
+                                 "notify::backlight",
+                                 G_CALLBACK (on_backlight_changed),
+                                 backlight,
+                                 0);
 
         g_signal_connect_object (display_config,
                                  "notify::g-name-owner",
