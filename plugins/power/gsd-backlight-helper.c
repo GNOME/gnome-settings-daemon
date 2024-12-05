@@ -53,7 +53,7 @@ int
 main (int argc, char *argv[])
 {
 	char tmp[512];
-	char *device = NULL;
+	const char *device = NULL;
 	int fd, len, res;
 	int uid, euid;
 	int brightness;
@@ -92,8 +92,7 @@ main (int argc, char *argv[])
 		goto done;
 	}
 
-	/* May be NULL if the path cannot be resolved */
-	device = realpath (argv[1], NULL);
+	device = argv[1];
 
 	while ((ep = readdir (dp))) {
 		char *path;
@@ -139,8 +138,6 @@ main (int argc, char *argv[])
 	fprintf (stderr, "Error: Could not find the specified backlight \"%s\"\n", argv[1]);
 
 done:
-	if (device)
-		free (device);
 	if (dp)
 		closedir (dp);
 

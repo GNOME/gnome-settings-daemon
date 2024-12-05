@@ -364,9 +364,22 @@ gsd_backlight_run_set_helper (GsdBacklight *backlight, GTask *task)
         BacklightHelperData *data = g_task_get_task_data (task);
         const gchar *gsd_backlight_helper = NULL;
         GError *error = NULL;
+        g_autofree char *device = NULL;
 
         g_assert (backlight->active_task == NULL);
         backlight->active_task = task;
+
+        device = realpath (g_udev_device_get_sysfs_path (backlight->udev_device),
+                           NULL);
+        if (!device) {
+                g_set_error (&error,
+                             G_IO_ERROR,
+                             G_IO_ERROR_FAILED,
+                             "Could not get real path for device %s",
+                             g_udev_device_get_sysfs_path (backlight->udev_device));
+                gsd_backlight_set_helper_return (backlight, task, -1, error);
+                return;
+        }
 
         if (data->value_str == NULL)
                 data->value_str = g_strdup_printf ("%d", data->value);
@@ -379,13 +392,13 @@ gsd_backlight_run_set_helper (GsdBacklight *backlight, GTask *task)
                                          &error,
                                          "pkexec",
                                          LIBEXECDIR "/gsd-backlight-helper",
-                                         g_udev_device_get_sysfs_path (backlight->udev_device),
+                                         device,
                                          data->value_str, NULL);
         } else {
                 proc = g_subprocess_new (G_SUBPROCESS_FLAGS_STDOUT_SILENCE,
                                          &error,
                                          gsd_backlight_helper,
-                                         g_udev_device_get_sysfs_path (backlight->udev_device),
+                                         device,
                                          data->value_str, NULL);
         }
 
