@@ -1,7 +1,13 @@
 include:
   - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/145b1bc7ef1702d2bd71584010d7113c6786a506/templates/fedora.yml'
+  - component: gitlab.gnome.org/GNOME/citemplates/release-service@master
+    inputs:
+      job-stage: "deploy"
+      dist-job-name: "dist"
+      tarball-artifact-path: "build/meson-dist/$CI_PROJECT_NAME-$CI_COMMIT_TAG.tar.xz"
 
 variables:
+  GIT_SUBMODULE_STRATEGY: recursive
   FDO_DISTRIBUTION_VERSION: latest
   FDO_DISTRIBUTION_TAG: "x86_64-2024-08-30.1"
   FDO_UPSTREAM_REPO: GNOME/gnome-settings-daemon
@@ -62,7 +68,7 @@ stages:
   - build
   - test
   - manual
-  - delivery
+  - deploy
 
 .Log files: &log_files  [./*.log, _build/meson-logs/]
 
@@ -199,6 +205,22 @@ test:
       - $CI_PIPELINE_SOURCE == "schedule"
       - $CI_COMMIT_TITLE =~ /^Update.*translation$/
 
+dist:
+  stage: test
+  extends:
+    - .fdo.distribution-image@fedora
+  needs:
+    - build-fedora-container@x86_64
+  script:
+    - mkdir -m 1777 /tmp/.X11-unix
+    - meson setup build
+    - meson compile -C build
+    - meson dist -C build
+  artifacts:
+    expose_as: 'Tarball'
+    paths:
+      - build/meson-dist/
+
 # Runs the coverage test.
 coverage:
   <<: *save_build_logs
@@ -232,12 +254,12 @@ coverage:
       sed -e 's/<[^>]*>//g' _build/meson-logs/coveragereport/index.html | tr -d ' \t' | grep -A3 -P '^Lines:$'  | tr '\n' ' '; echo
 
 ##
-# Stage: Delivery
+# Stage: deploy
 #
-# Publishes the Coverage Report generated above
+# Deploys and publishes artifacts
 ##
 pages:
-  stage: delivery
+  stage: deploy
   # Don't error in case coverage failed
   allow_failure: true
   extends:
