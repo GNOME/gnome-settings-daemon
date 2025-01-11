@@ -1,23 +1,23 @@
 # Georgian translation for gnome-settings-daemon.
-# Copyright (C) 2023, gnome-settings-daemon authors
+# Copyright (C) 2025, gnome-settings-daemon authors
 # This file is distributed under the same license as the gnome-settings-daemon.
-# Ekaterine Papava <papava.e@gtu.ge>, 2023-2024.
+# Ekaterine Papava <papava.e@gtu.ge>, 2023-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues/\n"
-"POT-Creation-Date: 2024-08-09 17:55+0000\n"
-"PO-Revision-Date: 2024-08-23 11:52+0200\n"
+"POT-Creation-Date: 2025-01-11 12:47+0000\n"
+"PO-Revision-Date: 2025-01-11 14:29+0100\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.3.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.5\n"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid "Smartcard removal action"
@@ -28,9 +28,9 @@ msgid ""
 "Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
 "get performed when the smartcard used for log in is removed."
 msgstr ""
-"დააყენეთ ეს ერთ-ერთზე მნიშვნელობებიდან \"none\" (არაფერი), \"lock-"
-"screen\" (ეკრანის დაბლოკვა ან \"force-logout\" (ნაძალადევი გასვლა). ეს "
-"ქმედება შესრულდება, როცა სმარტ-ბარათს გამოაერთებთ."
+"დააყენეთ ეს ერთ-ერთზე მნიშვნელობებიდან \"none\" (არაფერი), \"lock-screen\" "
+"(ეკრანის დაბლოკვა ან \"force-logout\" (ნაძალადევი გასვლა). ეს ქმედება "
+"შესრულდება, როცა სმარტ-ბარათს გამოაერთებთ."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:24
 msgid "Possible values are “on”, “off”, and “custom”."
@@ -1667,82 +1667,86 @@ msgstr "თვითმფრინავის რეჟიმი გამო�
 msgid "Hardware Airplane Mode"
 msgstr "აპარატურული თვითმფრინავის რეჟიმი"
 
-#: plugins/power/gpm-common.c:91
+#: plugins/power/gpm-common.c:88
 msgid "Unknown time"
 msgstr "უცნობი დრო"
 
-#: plugins/power/gpm-common.c:96
+#: plugins/power/gpm-common.c:93
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i წუთი"
+msgstr[1] "%i წუთი"
 
-#: plugins/power/gpm-common.c:106
+#: plugins/power/gpm-common.c:103
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
 msgstr[0] "%i საათი"
+msgstr[1] "%i საათი"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: plugins/power/gpm-common.c:112
+#: plugins/power/gpm-common.c:109
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: plugins/power/gpm-common.c:113
+#: plugins/power/gpm-common.c:110
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "საათი"
+msgstr[1] ""
 
-#: plugins/power/gpm-common.c:114
+#: plugins/power/gpm-common.c:111
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "წუთი"
+msgstr[1] ""
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:925
-#: plugins/power/gsd-power-manager.c:1009
+#: plugins/power/gpm-common.c:419 plugins/power/gsd-power-manager.c:928
+#: plugins/power/gsd-power-manager.c:1012
 msgid "Battery is critically low"
 msgstr "ელემენტის მუხტი კრიტიკულად დაბალია"
 
 #. TRANSLATORS: this is the notification application name
-#: plugins/power/gsd-power-manager.c:370
+#: plugins/power/gsd-power-manager.c:373
 msgid "Power"
 msgstr "კვება"
 
 #. TRANSLATORS: UPS is now discharging
-#: plugins/power/gsd-power-manager.c:408
+#: plugins/power/gsd-power-manager.c:411
 msgid "UPS Discharging"
 msgstr "USP იცლება"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:413
+#: plugins/power/gsd-power-manager.c:416
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "დარჩენილია UPS-ის ელემენტის %s"
 
-#: plugins/power/gsd-power-manager.c:416
+#: plugins/power/gsd-power-manager.c:419
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "UPS-ის ელემენტის მუხტის უცნობი რაოდენობა"
 
 #. TRANSLATORS: notification title, a wireless mouse is low or very low on power
-#: plugins/power/gsd-power-manager.c:516
+#: plugins/power/gsd-power-manager.c:519
 msgid "Mouse battery low"
 msgstr "თაგუნას ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a wireless mouse is low on power
-#: plugins/power/gsd-power-manager.c:519
+#: plugins/power/gsd-power-manager.c:522
 #, c-format
 msgid "Wireless mouse is low on power (%.0f%%)"
 msgstr "უსადენო თაგუნას ელემენტი დასატენია (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:520
+#: plugins/power/gsd-power-manager.c:523
 msgid "Wireless mouse is low on power"
 msgstr "უსადენო თაგუნას ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a wireless mouse is very low on power
-#: plugins/power/gsd-power-manager.c:522
+#: plugins/power/gsd-power-manager.c:525
 #, c-format
 msgid ""
 "Wireless mouse is very low on power (%.0f%%). This device will soon stop "
@@ -1751,7 +1755,7 @@ msgstr ""
 "უსადენო თაგუნას ელემენტი ძალიან დასატენია (%.0f%%). თუ არ დატენით, "
 "მოწყობილობა მუშაობას შეწყვეტს."
 
-#: plugins/power/gsd-power-manager.c:524
+#: plugins/power/gsd-power-manager.c:527
 msgid ""
 "Wireless mouse is very low on power. This device will soon stop functioning "
 "if not charged."
@@ -1760,22 +1764,22 @@ msgstr ""
 "მუშაობას შეწყვეტს."
 
 #. TRANSLATORS: notification title, a wireless keyboard is low or very low on power
-#: plugins/power/gsd-power-manager.c:529
+#: plugins/power/gsd-power-manager.c:532
 msgid "Keyboard battery low"
 msgstr "კლავიატურის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a wireless keyboard is low on power
-#: plugins/power/gsd-power-manager.c:532
+#: plugins/power/gsd-power-manager.c:535
 #, c-format
 msgid "Wireless keyboard is low on power (%.0f%%)"
 msgstr "უსადენო კლავიატურის ელემენტი დასატენია (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:533
+#: plugins/power/gsd-power-manager.c:536
 msgid "Wireless keyboard is low on power"
 msgstr "უსადენო კლავიატურის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a wireless keyboard is very low on power
-#: plugins/power/gsd-power-manager.c:535
+#: plugins/power/gsd-power-manager.c:538
 #, c-format
 msgid ""
 "Wireless keyboard is very low on power (%.0f%%). This device will soon stop "
@@ -1784,7 +1788,7 @@ msgstr ""
 "უსადენო კლავიატურის ელემენტი ძალიან დასატენია (%.0f%%). თუ არ დატენით, "
 "მოწყობილობა მუშაობას შეწყვეტს."
 
-#: plugins/power/gsd-power-manager.c:537
+#: plugins/power/gsd-power-manager.c:540
 msgid ""
 "Wireless keyboard is very low on power. This device will soon stop "
 "functioning if not charged."
@@ -1793,22 +1797,22 @@ msgstr ""
 "მუშაობას შეწყვეტს."
 
 #. TRANSLATORS: notification title, a PDA (Personal Digital Assistance device) is low or very on power
-#: plugins/power/gsd-power-manager.c:542
+#: plugins/power/gsd-power-manager.c:545
 msgid "PDA battery low"
 msgstr "PDA-ის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is low on power
-#: plugins/power/gsd-power-manager.c:545
+#: plugins/power/gsd-power-manager.c:548
 #, c-format
 msgid "PDA is low on power (%.0f%%)"
 msgstr "PDA-ის ელემენტი დასატენია (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:546
+#: plugins/power/gsd-power-manager.c:549
 msgid "PDA is low on power"
 msgstr "PDA-ის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is very low on power
-#: plugins/power/gsd-power-manager.c:548
+#: plugins/power/gsd-power-manager.c:551
 #, c-format
 msgid ""
 "PDA is very low on power (%.0f%%). This device will soon stop functioning if "
@@ -1817,7 +1821,7 @@ msgstr ""
 "PDA-ის ელემენტი ძალიან დასატენია (%.0f%%). თუ არ დატენით, მოწყობილობა "
 "მუშაობას შეწყვეტს."
 
-#: plugins/power/gsd-power-manager.c:550
+#: plugins/power/gsd-power-manager.c:553
 msgid ""
 "PDA is very low on power. This device will soon stop functioning if not "
 "charged."
@@ -1826,22 +1830,22 @@ msgstr ""
 "შეწყვეტს."
 
 #. TRANSLATORS: notification title, a cell phone (mobile phone) is low or very low on power
-#: plugins/power/gsd-power-manager.c:555
+#: plugins/power/gsd-power-manager.c:558
 msgid "Cell phone battery low"
 msgstr "ტელეფონის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a cell phone (mobile phone) is low on power
-#: plugins/power/gsd-power-manager.c:558
+#: plugins/power/gsd-power-manager.c:561
 #, c-format
 msgid "Cell phone is low on power (%.0f%%)"
 msgstr "მობილური ტელეფონის ელემენტი დასატენია (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:559
+#: plugins/power/gsd-power-manager.c:562
 msgid "Cell phone is low on power"
 msgstr "მობილური ტელეფონის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a cell phone (mobile phone) is very low on power
-#: plugins/power/gsd-power-manager.c:561
+#: plugins/power/gsd-power-manager.c:564
 #, c-format
 msgid ""
 "Cell phone is very low on power (%.0f%%). This device will soon stop "
@@ -1850,7 +1854,7 @@ msgstr ""
 "მობილური ტელეფონის ელემენტი ძალიან დასატენია (%.0f%%). თუ არ დატენით, "
 "მოწყობილობა მუშაობას შეწყვეტს."
 
-#: plugins/power/gsd-power-manager.c:563
+#: plugins/power/gsd-power-manager.c:566
 msgid ""
 "Cell phone is very low on power. This device will soon stop functioning if "
 "not charged."
@@ -1859,22 +1863,22 @@ msgstr ""
 "მუშაობას შეწყვეტს."
 
 #. TRANSLATORS: notification title, a media player (e.g. mp3 player) is low or very low on power
-#: plugins/power/gsd-power-manager.c:568
+#: plugins/power/gsd-power-manager.c:571
 msgid "Media player battery low"
 msgstr "მედიის დამკვრელის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a media player (e.g. mp3 player) is low on power
-#: plugins/power/gsd-power-manager.c:571
+#: plugins/power/gsd-power-manager.c:574
 #, c-format
 msgid "Media player is low on power (%.0f%%)"
 msgstr "მედიის დამკვრელის ელემენტი დასატენია (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:572
+#: plugins/power/gsd-power-manager.c:575
 msgid "Media player is low on power"
 msgstr "მედიის დამკვრელის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a media player (e.g. mp3 player) is very low on power
-#: plugins/power/gsd-power-manager.c:574
+#: plugins/power/gsd-power-manager.c:577
 #, c-format
 msgid ""
 "Media player is very low on power (%.0f%%). This device will soon stop "
@@ -1883,7 +1887,7 @@ msgstr ""
 "მედიის დამკვრელის ელემენტი ძალიან დასატენია (%.0f%%). თუ არ დატენით, "
 "მოწყობილობა მუშაობას შეწყვეტს."
 
-#: plugins/power/gsd-power-manager.c:576
+#: plugins/power/gsd-power-manager.c:579
 msgid ""
 "Media player is very low on power. This device will soon stop functioning if "
 "not charged."
@@ -1892,22 +1896,22 @@ msgstr ""
 "მუშაობას შეწყვეტს."
 
 #. TRANSLATORS: notification title, a graphics tablet (e.g. wacom) is low or very low on power
-#: plugins/power/gsd-power-manager.c:581
+#: plugins/power/gsd-power-manager.c:584
 msgid "Tablet battery low"
 msgstr "ტაბლეტის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is low on power
-#: plugins/power/gsd-power-manager.c:584
+#: plugins/power/gsd-power-manager.c:587
 #, c-format
 msgid "Tablet is low on power (%.0f%%)"
 msgstr "ტაბლეტის ელემენტი დასატენია (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:585
+#: plugins/power/gsd-power-manager.c:588
 msgid "Tablet is low on power"
 msgstr "ტაბლეტს კვება აღარ ჰყოფნის"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is very low on power
-#: plugins/power/gsd-power-manager.c:587
+#: plugins/power/gsd-power-manager.c:590
 #, c-format
 msgid ""
 "Tablet is very low on power (%.0f%%). This device will soon stop functioning "
@@ -1916,7 +1920,7 @@ msgstr ""
 "ტაბლეტის ელემენტი ძალიან დასატენია (%.0f%%). თუ არ დატენით, მოწყობილობა "
 "მუშაობას შეწყვეტს."
 
-#: plugins/power/gsd-power-manager.c:589
+#: plugins/power/gsd-power-manager.c:592
 msgid ""
 "Tablet is very low on power. This device will soon stop functioning if not "
 "charged."
@@ -1925,22 +1929,22 @@ msgstr ""
 "შეწყვეტს."
 
 #. TRANSLATORS: notification title, an attached computer (e.g. ipad) is low or very low on power
-#: plugins/power/gsd-power-manager.c:594
+#: plugins/power/gsd-power-manager.c:597
 msgid "Attached computer battery low"
 msgstr "მიმაგრებული კომპიუტერის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is low on power
-#: plugins/power/gsd-power-manager.c:597
+#: plugins/power/gsd-power-manager.c:600
 #, c-format
 msgid "Attached computer is low on power (%.0f%%)"
 msgstr "მიმაგრებული კომპიუტერის ელემენტი დასატენია (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:598
+#: plugins/power/gsd-power-manager.c:601
 msgid "Attached computer is low on power"
 msgstr "მიმაგრებული კომპიუტერის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is very low on power
-#: plugins/power/gsd-power-manager.c:600
+#: plugins/power/gsd-power-manager.c:603
 #, c-format
 msgid ""
 "Attached computer is very low on power (%.0f%%). The device will soon "
@@ -1949,7 +1953,7 @@ msgstr ""
 "მიმაგრებული კომპიუტერის ელემენტი ძალიან დასატენია (%.0f%%). თუ არ დატენით, "
 "მოწყობილობა მუშაობას შეწყვეტს."
 
-#: plugins/power/gsd-power-manager.c:602
+#: plugins/power/gsd-power-manager.c:605
 msgid ""
 "Attached computer is very low on power. The device will soon shutdown if not "
 "charged."
@@ -1958,22 +1962,22 @@ msgstr ""
 "მოწყობილობა მუშაობას შეწყვეტს."
 
 #. TRANSLATORS: notification title, a game controller (e.g. joystick or joypad) is low or very low on power
-#: plugins/power/gsd-power-manager.c:607
+#: plugins/power/gsd-power-manager.c:610
 msgid "Game controller battery low"
 msgstr "სათამაშო კონტროლერის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a game controller (e.g. joystick or joypad) is low on power
-#: plugins/power/gsd-power-manager.c:610
+#: plugins/power/gsd-power-manager.c:613
 #, c-format
 msgid "Game controller is low on power (%.0f%%)"
 msgstr "სათამაშო კონტროლერის ელემენტი დასატენია (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:611
+#: plugins/power/gsd-power-manager.c:614
 msgid "Game controller is low on power"
 msgstr "სათამაშო კონტროლერის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, an attached game controller (e.g. joystick or joypad) is very low on power
-#: plugins/power/gsd-power-manager.c:613
+#: plugins/power/gsd-power-manager.c:616
 #, c-format
 msgid ""
 "Game controller is very low on power (%.0f%%). The device will soon shutdown "
@@ -1982,7 +1986,7 @@ msgstr ""
 "სათამაშო კონტროლერის ელემენტი ძალიან დასატენია (%.0f%%). თუ არ დატენით, "
 "მოწყობილობა მუშაობას შეწყვეტს."
 
-#: plugins/power/gsd-power-manager.c:615
+#: plugins/power/gsd-power-manager.c:618
 msgid ""
 "Game controller is very low on power. The device will soon shutdown if not "
 "charged."
@@ -1991,22 +1995,22 @@ msgstr ""
 "მუშაობას შეწყვეტს."
 
 #. TRANSLATORS: notification title, a pen is low or very low on power
-#: plugins/power/gsd-power-manager.c:620
+#: plugins/power/gsd-power-manager.c:623
 msgid "Pen battery low"
 msgstr "ფანქრის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a pen is low on power
-#: plugins/power/gsd-power-manager.c:623
+#: plugins/power/gsd-power-manager.c:626
 #, c-format
 msgid "Pen is low on power (%.0f%%)"
 msgstr "სტილუსის ელემენტი დასატენია (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:624
+#: plugins/power/gsd-power-manager.c:627
 msgid "Pen is low on power"
 msgstr "ფანქარს კვება აღარ ჰყოფნის"
 
 #. TRANSLATORS: notification body, a pen is very low on power
-#: plugins/power/gsd-power-manager.c:626
+#: plugins/power/gsd-power-manager.c:629
 #, c-format
 msgid ""
 "Pen is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2015,29 +2019,29 @@ msgstr ""
 "სტილუსის ელემენტი ძალიან დასატენია (%.0f%%). თუ არ დატენით, მოწყობილობა "
 "მუშაობას შეწყვეტს."
 
-#: plugins/power/gsd-power-manager.c:628
+#: plugins/power/gsd-power-manager.c:631
 msgid "Pen is very low on power. The device will soon shutdown if not charged."
 msgstr ""
 "სტილუსის ელემენტი ძალიან დასატენია. თუ არ დატენით, მოწყობილობა მუშაობას "
 "შეწყვეტს."
 
 #. TRANSLATORS: notification title, an external touchpad is low or very low on power
-#: plugins/power/gsd-power-manager.c:633
+#: plugins/power/gsd-power-manager.c:636
 msgid "Touchpad battery low"
 msgstr "თაჩპედის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, an external touchpad is low on power
-#: plugins/power/gsd-power-manager.c:636
+#: plugins/power/gsd-power-manager.c:639
 #, c-format
 msgid "Touchpad is low on power (%.0f%%)"
 msgstr "თაჩპედის ელემენტი დასატენია (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:637
+#: plugins/power/gsd-power-manager.c:640
 msgid "Touchpad is low on power"
 msgstr "თაჩპედის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, an external touchpad is very low on power
-#: plugins/power/gsd-power-manager.c:639
+#: plugins/power/gsd-power-manager.c:642
 #, c-format
 msgid ""
 "Touchpad is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2046,7 +2050,7 @@ msgstr ""
 "თაჩპედის ელემენტი ძალიან დასატენია (%.0f%%). თუ არ დატენით, მოწყობილობა "
 "მუშაობას შეწყვეტს."
 
-#: plugins/power/gsd-power-manager.c:641
+#: plugins/power/gsd-power-manager.c:644
 msgid ""
 "Touchpad is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2054,22 +2058,22 @@ msgstr ""
 "შეწყვეტს."
 
 #. TRANSLATORS: notification title, a headset (headphones + microphone) is low or very low on power
-#: plugins/power/gsd-power-manager.c:646
+#: plugins/power/gsd-power-manager.c:649
 msgid "Headset battery low"
 msgstr "ყურსაცვამის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is low on power
-#: plugins/power/gsd-power-manager.c:649
+#: plugins/power/gsd-power-manager.c:652
 #, c-format
 msgid "Headset is low on power (%.0f%%)"
 msgstr "ყურსაცვამის ელემენტი დასატენია (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:650
+#: plugins/power/gsd-power-manager.c:653
 msgid "Headset is low on power"
 msgstr "ყურსაცვამის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is very low on power
-#: plugins/power/gsd-power-manager.c:652
+#: plugins/power/gsd-power-manager.c:655
 #, c-format
 msgid ""
 "Headset is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2078,7 +2082,7 @@ msgstr ""
 "ყურსაცვამის ელემენტი ძალიან დასატენია (%.0f%%). თუ არ დატენით, მოწყობილობა "
 "მუშაობას შეწყვეტს."
 
-#: plugins/power/gsd-power-manager.c:654
+#: plugins/power/gsd-power-manager.c:657
 msgid ""
 "Headset is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2086,22 +2090,22 @@ msgstr ""
 "შეწყვეტს."
 
 #. TRANSLATORS: notification title, speaker is low or very low on power
-#: plugins/power/gsd-power-manager.c:659
+#: plugins/power/gsd-power-manager.c:662
 msgid "Speaker battery low"
 msgstr "დინამიკის ელემენტი ჯდება"
 
 #. TRANSLATORS: notification body, a speaker is low on power
-#: plugins/power/gsd-power-manager.c:662
+#: plugins/power/gsd-power-manager.c:665
 #, c-format
 msgid "Speaker is low on power (%.0f%%)"
 msgstr "დინამიკის ელემენტი ჯდება (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:663
+#: plugins/power/gsd-power-manager.c:666
 msgid "Speaker is low on power"
 msgstr "დინამიკის ელემენტი ჯდება"
 
 #. TRANSLATORS: notification body, a speaker is very low on power
-#: plugins/power/gsd-power-manager.c:665
+#: plugins/power/gsd-power-manager.c:668
 #, c-format
 msgid ""
 "Speaker is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2110,7 +2114,7 @@ msgstr ""
 "დინამიკის ელემენტი ძალიან დასატენია (%.0f%%). თუ არ დატენით, მოწყობილობა "
 "მუშაობას შეწყვეტს."
 
-#: plugins/power/gsd-power-manager.c:667
+#: plugins/power/gsd-power-manager.c:670
 msgid ""
 "Speaker is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2118,22 +2122,22 @@ msgstr ""
 "შეწყვეტს."
 
 #. TRANSLATORS: notification title, headphones (no microphone) are low or very low on power
-#: plugins/power/gsd-power-manager.c:672
+#: plugins/power/gsd-power-manager.c:675
 msgid "Headphones battery low"
 msgstr "ყურსაცვამის ელემენტი ჯდება"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are low on power
-#: plugins/power/gsd-power-manager.c:675
+#: plugins/power/gsd-power-manager.c:678
 #, c-format
 msgid "Headphones are low on power (%.0f%%)"
 msgstr "ყურსაცვამის ელემენტი ჯდება (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:676
+#: plugins/power/gsd-power-manager.c:679
 msgid "Headphones are low on power"
 msgstr "ყურსაცვამის ელემენტი ჯდება"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are very low on power
-#: plugins/power/gsd-power-manager.c:678
+#: plugins/power/gsd-power-manager.c:681
 #, c-format
 msgid ""
 "Headphones are very low on power (%.0f%%). The device will soon shutdown if "
@@ -2142,7 +2146,7 @@ msgstr ""
 "ყურსაცვამის ელემენტი ძალიან დასატენია (%.0f%%). თუ არ დატენით, მოწყობილობა "
 "მუშაობას შეწყვეტს."
 
-#: plugins/power/gsd-power-manager.c:680
+#: plugins/power/gsd-power-manager.c:683
 msgid ""
 "Headphones are very low on power. The device will soon shutdown if not "
 "charged."
@@ -2151,22 +2155,22 @@ msgstr ""
 "მუშაობას შეწყვეტს."
 
 #. TRANSLATORS: notification title, an audio device is low or very low on power
-#: plugins/power/gsd-power-manager.c:685
+#: plugins/power/gsd-power-manager.c:688
 msgid "Audio device battery low"
 msgstr "აუდიო მოწყობილობის ელემენტი ჯდება"
 
 #. TRANSLATORS: notification body, an audio device is low on power
-#: plugins/power/gsd-power-manager.c:688
+#: plugins/power/gsd-power-manager.c:691
 #, c-format
 msgid "Audio device is low on power (%.0f%%)"
 msgstr "აუდიო მოწყობილობის ელემენტი ჯდება (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:689
+#: plugins/power/gsd-power-manager.c:692
 msgid "Audio device is low on power"
 msgstr "აუდიო მოწყობილობის ელემენტი ჯდება"
 
 #. TRANSLATORS: notification body, an audio device is very low on power
-#: plugins/power/gsd-power-manager.c:691
+#: plugins/power/gsd-power-manager.c:694
 #, c-format
 msgid ""
 "Audio device is very low on power (%.0f%%). The device will soon shutdown if "
@@ -2175,7 +2179,7 @@ msgstr ""
 "აუდიო მოწყობილობის ელემენტი ძალიან დასატენია (%.0f%%). თუ არ დატენით, "
 "მოწყობილობა მუშაობას შეწყვეტს."
 
-#: plugins/power/gsd-power-manager.c:693
+#: plugins/power/gsd-power-manager.c:696
 msgid ""
 "Audio device is very low on power. The device will soon shutdown if not "
 "charged."
@@ -2184,22 +2188,22 @@ msgstr ""
 "მუშაობას შეწყვეტს."
 
 #. TRANSLATORS: notification title, a remote control is low or very low on power
-#: plugins/power/gsd-power-manager.c:698
+#: plugins/power/gsd-power-manager.c:701
 msgid "Remote battery low"
 msgstr "დაშორებული ელემენტი ჯდება"
 
 #. TRANSLATORS: notification body, an remote control is low on power
-#: plugins/power/gsd-power-manager.c:701
+#: plugins/power/gsd-power-manager.c:704
 #, c-format
 msgid "Remote is low on power (%.0f%%)"
 msgstr "პულტის ელემენტი დასატენია (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:702
+#: plugins/power/gsd-power-manager.c:705
 msgid "Remote is low on power"
 msgstr "პულტის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a remote control is very low on power
-#: plugins/power/gsd-power-manager.c:704
+#: plugins/power/gsd-power-manager.c:707
 #, c-format
 msgid ""
 "Remote is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2208,7 +2212,7 @@ msgstr ""
 "პულტის ელემენტი ძალიან დასატენია (%.0f%%). თუ არ დატენით, მოწყობილობა "
 "მუშაობას შეწყვეტს."
 
-#: plugins/power/gsd-power-manager.c:706
+#: plugins/power/gsd-power-manager.c:709
 msgid ""
 "Remote is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2216,22 +2220,22 @@ msgstr ""
 "შეწყვეტს."
 
 #. TRANSLATORS: notification title, a printer is low or very low on power
-#: plugins/power/gsd-power-manager.c:711
+#: plugins/power/gsd-power-manager.c:714
 msgid "Printer battery low"
 msgstr "პრინტერის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a printer is low on power
-#: plugins/power/gsd-power-manager.c:714
+#: plugins/power/gsd-power-manager.c:717
 #, c-format
 msgid "Printer is low on power (%.0f%%)"
 msgstr "პრინტერის ელემენტი ჯდება (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:715
+#: plugins/power/gsd-power-manager.c:718
 msgid "Printer is low on power"
 msgstr "პრინტერის ელემენტი ჯდება"
 
 #. TRANSLATORS: notification body, a printer is very low on power
-#: plugins/power/gsd-power-manager.c:717
+#: plugins/power/gsd-power-manager.c:720
 #, c-format
 msgid ""
 "Printer is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2240,7 +2244,7 @@ msgstr ""
 "პრინტერის ელემენტი ძალიან დასატენია (%.0f%%). თუ არ დატენით, მოწყობილობა "
 "მუშაობას შეწყვეტს."
 
-#: plugins/power/gsd-power-manager.c:719
+#: plugins/power/gsd-power-manager.c:722
 msgid ""
 "Printer is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2248,22 +2252,22 @@ msgstr ""
 "შეწყვეტს."
 
 #. TRANSLATORS: notification title, a scanner is low or very low on power
-#: plugins/power/gsd-power-manager.c:724
+#: plugins/power/gsd-power-manager.c:727
 msgid "Scanner battery low"
 msgstr "სკანერის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a scanner is low on power
-#: plugins/power/gsd-power-manager.c:727
+#: plugins/power/gsd-power-manager.c:730
 #, c-format
 msgid "Scanner is low on power (%.0f%%)"
 msgstr "სკანერის ელემენტი დასატენია (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:728
+#: plugins/power/gsd-power-manager.c:731
 msgid "Scanner is low on power"
 msgstr "სკანერის ელემენტი ჯდება"
 
 #. TRANSLATORS: notification body, a scanner is very low on power
-#: plugins/power/gsd-power-manager.c:730
+#: plugins/power/gsd-power-manager.c:733
 #, c-format
 msgid ""
 "Scanner is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2272,7 +2276,7 @@ msgstr ""
 "სკანერის ელემენტი ძალიან დასატენია (%.0f%%). თუ არ დატენით, მოწყობილობა "
 "მუშაობას შეწყვეტს."
 
-#: plugins/power/gsd-power-manager.c:732
+#: plugins/power/gsd-power-manager.c:735
 msgid ""
 "Scanner is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2280,22 +2284,22 @@ msgstr ""
 "შეწყვეტს."
 
 #. TRANSLATORS: notification title, a camera is low or very low on power
-#: plugins/power/gsd-power-manager.c:737
+#: plugins/power/gsd-power-manager.c:740
 msgid "Camera battery low"
 msgstr "კამერის ლემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a camera is low on power
-#: plugins/power/gsd-power-manager.c:740
+#: plugins/power/gsd-power-manager.c:743
 #, c-format
 msgid "Camera is low on power (%.0f%%)"
 msgstr "კამერის ელემენტი დასატენია (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:741
+#: plugins/power/gsd-power-manager.c:744
 msgid "Camera is low on power"
 msgstr "კამერის ელემენტი ჯდება"
 
 #. TRANSLATORS: notification body, a camera is very low on power
-#: plugins/power/gsd-power-manager.c:743
+#: plugins/power/gsd-power-manager.c:746
 #, c-format
 msgid ""
 "Camera is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2304,7 +2308,7 @@ msgstr ""
 "კამერის ელემენტი ძალიან დასატენია (%.0f%%). თუ არ დატენით, მოწყობილობა "
 "მუშაობას შეწყვეტს."
 
-#: plugins/power/gsd-power-manager.c:745
+#: plugins/power/gsd-power-manager.c:748
 msgid ""
 "Camera is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2312,22 +2316,22 @@ msgstr ""
 "შეწყვეტს."
 
 #. TRANSLATORS: notification title, a Bluetooth device is low or very low on power
-#: plugins/power/gsd-power-manager.c:750
+#: plugins/power/gsd-power-manager.c:753
 msgid "Bluetooth device battery low"
 msgstr "ბლუთუზის მოწყობილობის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a Bluetooth device is low on power
-#: plugins/power/gsd-power-manager.c:753
+#: plugins/power/gsd-power-manager.c:756
 #, c-format
 msgid "Bluetooth device is low on power (%.0f%%)"
 msgstr "ბლუთუზის მოწყობილობის ელემენტი დასატენია (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:754
+#: plugins/power/gsd-power-manager.c:757
 msgid "Bluetooth device is low on power"
 msgstr "ბლუთუზის მოწყობილობის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a Bluetooth device is very low on power
-#: plugins/power/gsd-power-manager.c:756
+#: plugins/power/gsd-power-manager.c:759
 #, c-format
 msgid ""
 "Bluetooth device is very low on power (%.0f%%). The device will soon "
@@ -2336,7 +2340,7 @@ msgstr ""
 "ბლუთუზის მოწყობილობის ელემენტი ძალიან დასატენია (%.0f%%). თუ არ დატენით, "
 "მოწყობილობა მუშაობას შეწყვეტს."
 
-#: plugins/power/gsd-power-manager.c:758
+#: plugins/power/gsd-power-manager.c:761
 msgid ""
 "Bluetooth device is very low on power. The device will soon shutdown if not "
 "charged."
@@ -2345,22 +2349,22 @@ msgstr ""
 "მუშაობას შეწყვეტს."
 
 #. TRANSLATORS: notification title, a connected (wireless) device or peripheral of unhandled type is low or very on power
-#: plugins/power/gsd-power-manager.c:764
+#: plugins/power/gsd-power-manager.c:767
 msgid "Connected device battery is low"
 msgstr "მიერთბული მოწყობილობის ელემენტი დასატენია"
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is low on power
-#: plugins/power/gsd-power-manager.c:767
+#: plugins/power/gsd-power-manager.c:770
 #, c-format
 msgid "A connected device is low on power (%.0f%%)"
 msgstr "მიერთბული მოწყობილობა დასატენია (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:768
+#: plugins/power/gsd-power-manager.c:771
 msgid "A connected device is low on power"
 msgstr "მიერთბული მოწყობილობა დასატენია"
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is very low on power
-#: plugins/power/gsd-power-manager.c:770
+#: plugins/power/gsd-power-manager.c:773
 #, c-format
 msgid ""
 "A connected device is very low on power (%.0f%%). The device will soon "
@@ -2369,7 +2373,7 @@ msgstr ""
 "მიერთებული მოწყობილობის ელემენტი ძალიან დასატენია (%.0f%%). თუ არ დატენით, "
 "მოწყობილობა მუშაობას შეწყვეტს."
 
-#: plugins/power/gsd-power-manager.c:772
+#: plugins/power/gsd-power-manager.c:775
 msgid ""
 "A connected device is very low on power. The device will soon shutdown if "
 "not charged."
@@ -2378,107 +2382,107 @@ msgstr ""
 "მოწყობილობა მუშაობას შეწყვეტს."
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:798
+#: plugins/power/gsd-power-manager.c:801
 msgid "Low Battery"
 msgstr "ელემენტი ჯდება"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:801
+#: plugins/power/gsd-power-manager.c:804
 #, c-format
 msgid "%.0f%% battery remaining"
 msgstr "დარჩენილია ელემენტი %.0f%%"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:804
+#: plugins/power/gsd-power-manager.c:807
 msgid "UPS Low"
 msgstr "UPS იცლება"
 
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
-#: plugins/power/gsd-power-manager.c:807 plugins/power/gsd-power-manager.c:880
+#: plugins/power/gsd-power-manager.c:810 plugins/power/gsd-power-manager.c:883
 #, c-format
 msgid "%.0f%% UPS power remaining"
 msgstr "დარჩენილია UPS-ის მუხტი %.0f%%"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:845
+#: plugins/power/gsd-power-manager.c:848
 msgid "Battery is low"
 msgstr "ელემენტი ჯდება"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, advice on what the user should do
-#: plugins/power/gsd-power-manager.c:871
+#: plugins/power/gsd-power-manager.c:874
 msgid "Battery Almost Empty"
 msgstr "ელემენტი თითქმის ცარიელია"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically running low, advice on what the user should do
-#: plugins/power/gsd-power-manager.c:874
+#: plugins/power/gsd-power-manager.c:877
 #, c-format
 msgid "Connect power now"
 msgstr "შეაერთეთ კვების კაბელი ახლავე"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
-#: plugins/power/gsd-power-manager.c:877
+#: plugins/power/gsd-power-manager.c:880
 msgid "UPS Almost Empty"
 msgstr "UPS თითქმის ცარიელია"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, warning about action happening now
-#: plugins/power/gsd-power-manager.c:948
+#: plugins/power/gsd-power-manager.c:951
 msgid "Battery is Empty"
 msgstr "ელემენტი ცარიელია"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action about to happen
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
-#: plugins/power/gsd-power-manager.c:955 plugins/power/gsd-power-manager.c:975
+#: plugins/power/gsd-power-manager.c:958 plugins/power/gsd-power-manager.c:978
 msgid "This device is about to hibernate"
 msgstr "მოწყობილობა პროგრამულ ძილს აპირებს"
 
-#: plugins/power/gsd-power-manager.c:957 plugins/power/gsd-power-manager.c:977
+#: plugins/power/gsd-power-manager.c:960 plugins/power/gsd-power-manager.c:980
 msgid "This device is about to shutdown"
 msgstr "მოწყობილობა აპირებს, გამოირთოს"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
-#: plugins/power/gsd-power-manager.c:968
+#: plugins/power/gsd-power-manager.c:971
 msgid "UPS is Empty"
 msgstr "UPS დაჯდა"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1496
+#: plugins/power/gsd-power-manager.c:1497
 msgid "Lid has been opened"
 msgstr "თავსახური ახდილია"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1530
+#: plugins/power/gsd-power-manager.c:1531
 msgid "Lid has been closed"
 msgstr "ლეპტოპი დახურულია"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2183
+#: plugins/power/gsd-power-manager.c:2181
 msgid "On battery power"
 msgstr "იკვებება ელემენტიდან"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2188
+#: plugins/power/gsd-power-manager.c:2186
 msgid "On AC power"
 msgstr "შეერთებულია დენის წყაროში"
 
-#: plugins/power/gsd-power-manager.c:2457
+#: plugins/power/gsd-power-manager.c:2455
 msgid "Automatic logout"
 msgstr "ავტომატური გასვლა"
 
-#: plugins/power/gsd-power-manager.c:2457
+#: plugins/power/gsd-power-manager.c:2455
 msgid "You will soon log out because of inactivity."
 msgstr "მალე ძალით გაგიყვანთ, არააქტიურობის გამო."
 
-#: plugins/power/gsd-power-manager.c:2462
+#: plugins/power/gsd-power-manager.c:2460
 msgid "Automatic suspend"
 msgstr "ავტომატურად შეჩერება"
 
-#: plugins/power/gsd-power-manager.c:2462
-#: plugins/power/gsd-power-manager.c:2467
+#: plugins/power/gsd-power-manager.c:2460
+#: plugins/power/gsd-power-manager.c:2465
 msgid "Suspending soon because of inactivity."
 msgstr "კომპიუტერი მალე დაიძინებს, არააქტიურობის გამო."
 
-#: plugins/power/gsd-power-manager.c:2467
+#: plugins/power/gsd-power-manager.c:2465
 msgid "Automatic hibernation"
 msgstr "ავტომატური პროგრამული ძილი"
 
@@ -2760,11 +2764,12 @@ msgstr "ახალი USB მოწყობილობა"
 
 #: plugins/usb-protection/gsd-usb-protection-manager.c:542
 msgid ""
-"New device has been detected while the session was not locked. If you did "
-"not plug anything, check your system for any suspicious device."
+"New USB device has been activated while the session was not locked. If you "
+"did not intend to insert any device, check your system for any suspicious "
+"gadgets and remove them."
 msgstr ""
-"აღმოჩენილია ახალი მოწყობილობე, სანამ სესა დაბლოკილი არ იყო. თუ თქვენ არაფერი "
-"შეგიერთებიათ, შეამოწმეთ სისტემა საეჭვო მოწყობილობების არსებობაზე."
+"აღმოჩენილია ახალი USB მოწყობილობე, სანამ სესია დაბლოკილი არ იყო. თუ თქვენ "
+"არაფერი შეგიერთებიათ, შეამოწმეთ სისტემა საეჭვო მოწყობილობების არსებობაზე."
 
 #: plugins/usb-protection/gsd-usb-protection-manager.c:684
 msgid "New device detected"
@@ -2773,7 +2778,7 @@ msgstr "აღმოჩენილია ახალი მოწყობი�
 #: plugins/usb-protection/gsd-usb-protection-manager.c:685
 msgid ""
 "Either one of your existing devices has been reconnected or a new one has "
-"been plugged in. If you did not do it, check your system for any suspicious "
+"been inserted. If you did not do it, check your system for any suspicious "
 "device."
 msgstr ""
 "ან თქვენი ერთ-ერთი მოწყობილობა შეაერთეთ თავიდან, ან ახალი. თუ ეს არ გიქნიათ, "
@@ -2808,7 +2813,7 @@ msgstr ""
 msgid ""
 "The new inserted device has been blocked because the USB protection is "
 "active. If you want to activate the device, disable the USB protection and "
-"re-plug the device."
+"re-insert the device."
 msgstr ""
 "ახლა შეერთებული მოწყობილობა დაიბლოკა, რადგან USB უსაფრთხოება ჩართულია. თუ "
 "გნებავთ, გაააქტიუროთ ეს მოწყობილობა, გამორთეთ USB უსაფრთხოება და მოწყობილობა "
@@ -2957,9 +2962,11 @@ msgstr "გთხოვთ, შეიყვანეთ PUK-კოდი SIM-ბ
 msgid "%2$s. You have %1$u try left"
 msgid_plural "%2$s. You have %1$u tries left"
 msgstr[0] "%2$s. გაქვთ დარჩენილი %1$u ცდა"
+msgstr[1] "%2$s. გაქვთ დარჩენილი %1$u ცდა"
 
 #: plugins/wwan/gsd-wwan-manager.c:164
 #, c-format
 msgid "You have %u try left"
 msgid_plural "You have %u tries left"
 msgstr[0] "დაგრჩათ %u ცდა"
+msgstr[1] "დაგრჩათ %u ცდა"
