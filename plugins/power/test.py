@@ -987,7 +987,7 @@ class PowerPluginTestBatteryLevels(PowerPluginBase):
 
         self.check_for_logout(idle_delay + 2)
 
-        self.p_notify_log.check_line(b'You will soon log out because of inactivity.')
+        self.p_notify_log.check_line(b'You will soon log out because of inactivity')
 
     def test_forced_logout_inhibition(self):
         '''Test we don't force logout when inhibited'''
