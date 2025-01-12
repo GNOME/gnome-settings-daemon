@@ -3060,8 +3060,6 @@ migrate_keybinding_settings (void)
                 { "pause",                      "pause",                        map_keybinding },
                 { "play",                       "play",                         map_keybinding },
                 { "logout",                     "logout",                       map_keybinding },
-                { "reboot",                     "reboot",                       map_keybinding },
-                { "shutdown",                   "shutdown",                     map_keybinding },
                 { "previous",                   "previous",                     map_keybinding },
                 { "screensaver",                "screensaver",                  map_keybinding },
                 { "search",                     "search",                       map_keybinding },
