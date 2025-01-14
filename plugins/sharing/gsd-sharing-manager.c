@@ -125,8 +125,6 @@ static void     gsd_sharing_manager_stop_service (GsdSharingManager *manager,
 
 G_DEFINE_TYPE (GsdSharingManager, gsd_sharing_manager, G_TYPE_APPLICATION)
 
-static gpointer manager_object = NULL;
-
 static const char * const configurable_services[] = {
         "rygel",
         "gnome-user-share-webdav"
@@ -1193,18 +1191,4 @@ gsd_sharing_manager_finalize (GObject *object)
         g_hash_table_unref (manager->assigned_services);
 
         G_OBJECT_CLASS (gsd_sharing_manager_parent_class)->finalize (object);
-}
-
-GsdSharingManager *
-gsd_sharing_manager_new (void)
-{
-        if (manager_object != NULL) {
-                g_object_ref (manager_object);
-        } else {
-                manager_object = g_object_new (GSD_TYPE_SHARING_MANAGER, NULL);
-                g_object_add_weak_pointer (manager_object,
-                                           (gpointer *) &manager_object);
-        }
-
-        return GSD_SHARING_MANAGER (manager_object);
 }

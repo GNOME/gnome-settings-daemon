@@ -34,8 +34,6 @@ typedef struct
 
 GType                       gsd_usb_protection_manager_get_type        (void);
 
-GsdUsbProtectionManager *   gsd_usb_protection_manager_new             (void);
-
 G_END_DECLS
 
 #endif /* __GSD_USB_PROTECTION_MANAGER_H */

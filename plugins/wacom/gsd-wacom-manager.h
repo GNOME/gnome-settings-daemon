@@ -29,8 +29,6 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (GsdWacomManager, gsd_wacom_manager, GSD, WACOM_MANAGER, GApplication)
 
-GsdWacomManager *       gsd_wacom_manager_new                 (void);
-
 G_END_DECLS
 
 #endif /* __GSD_WACOM_MANAGER_H */

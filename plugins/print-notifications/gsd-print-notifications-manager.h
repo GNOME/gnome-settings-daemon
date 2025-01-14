@@ -28,8 +28,6 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (GsdPrintNotificationsManager, gsd_print_notifications_manager, GSD, PRINT_NOTIFICATIONS_MANAGER, GApplication)
 
-GsdPrintNotificationsManager *gsd_print_notifications_manager_new      (void);
-
 G_END_DECLS
 
 #endif /* __GSD_PRINT_NOTIFICATIONS_MANAGER_H */

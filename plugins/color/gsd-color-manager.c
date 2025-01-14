@@ -82,8 +82,6 @@ static void     register_manager_dbus (GsdColorManager *manager);
 
 G_DEFINE_TYPE (GsdColorManager, gsd_color_manager, G_TYPE_APPLICATION)
 
-static gpointer manager_object = NULL;
-
 GQuark
 gsd_color_manager_error_quark (void)
 {
@@ -480,18 +478,4 @@ register_manager_dbus (GsdColorManager *manager)
                    manager->bus_cancellable,
                    (GAsyncReadyCallback) on_bus_gotten,
                    manager);
-}
-
-GsdColorManager *
-gsd_color_manager_new (void)
-{
-        if (manager_object != NULL) {
-                g_object_ref (manager_object);
-        } else {
-                manager_object = g_object_new (GSD_TYPE_COLOR_MANAGER, NULL);
-                g_object_add_weak_pointer (manager_object,
-                                           (gpointer *) &manager_object);
-        }
-
-        return GSD_COLOR_MANAGER (manager_object);
 }

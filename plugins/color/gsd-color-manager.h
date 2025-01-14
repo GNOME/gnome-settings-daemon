@@ -36,8 +36,6 @@ enum
 
 GQuark                  gsd_color_manager_error_quark         (void);
 
-GsdColorManager *       gsd_color_manager_new                 (void);
-
 G_END_DECLS
 
 #endif /* __GSD_COLOR_MANAGER_H */

@@ -145,11 +145,8 @@ struct _GsdScreensaverProxyManager
 
 static void     gsd_screensaver_proxy_manager_class_init  (GsdScreensaverProxyManagerClass *klass);
 static void     gsd_screensaver_proxy_manager_init        (GsdScreensaverProxyManager      *screensaver_proxy_manager);
-static void     gsd_screensaver_proxy_manager_finalize    (GObject             *object);
 
 G_DEFINE_TYPE (GsdScreensaverProxyManager, gsd_screensaver_proxy_manager, G_TYPE_APPLICATION)
-
-static gpointer manager_object = NULL;
 
 static void
 name_vanished_cb (GDBusConnection            *connection,
@@ -414,10 +411,7 @@ gsd_screensaver_proxy_manager_shutdown (GApplication *app)
 static void
 gsd_screensaver_proxy_manager_class_init (GsdScreensaverProxyManagerClass *klass)
 {
-        GObjectClass   *object_class = G_OBJECT_CLASS (klass);
         GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
-
-        object_class->finalize = gsd_screensaver_proxy_manager_finalize;
 
         application_class->startup = gsd_screensaver_proxy_manager_startup;
         application_class->shutdown = gsd_screensaver_proxy_manager_shutdown;
@@ -426,33 +420,4 @@ gsd_screensaver_proxy_manager_class_init (GsdScreensaverProxyManagerClass *klass
 static void
 gsd_screensaver_proxy_manager_init (GsdScreensaverProxyManager *manager)
 {
-}
-
-static void
-gsd_screensaver_proxy_manager_finalize (GObject *object)
-{
-        GsdScreensaverProxyManager *manager;
-
-        g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_SCREENSAVER_PROXY_MANAGER (object));
-
-        manager = GSD_SCREENSAVER_PROXY_MANAGER (object);
-
-        g_return_if_fail (manager != NULL);
-
-        G_OBJECT_CLASS (gsd_screensaver_proxy_manager_parent_class)->finalize (object);
-}
-
-GsdScreensaverProxyManager *
-gsd_screensaver_proxy_manager_new (void)
-{
-        if (manager_object != NULL) {
-                g_object_ref (manager_object);
-        } else {
-                manager_object = g_object_new (GSD_TYPE_SCREENSAVER_PROXY_MANAGER, NULL);
-                g_object_add_weak_pointer (manager_object,
-                                           (gpointer *) &manager_object);
-        }
-
-        return GSD_SCREENSAVER_PROXY_MANAGER (manager_object);
 }

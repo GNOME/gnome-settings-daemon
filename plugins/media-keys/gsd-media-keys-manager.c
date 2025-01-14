@@ -239,8 +239,6 @@ static void     keys_sync_continue                 (GsdMediaKeysManager *manager
 
 G_DEFINE_TYPE_WITH_PRIVATE (GsdMediaKeysManager, gsd_media_keys_manager, G_TYPE_APPLICATION)
 
-static gpointer manager_object = NULL;
-
 static void
 media_key_unref (MediaKey *key)
 {
@@ -3637,18 +3635,4 @@ register_manager (GsdMediaKeysManager *manager)
                    priv->bus_cancellable,
                    (GAsyncReadyCallback) on_bus_gotten,
                    manager);
-}
-
-GsdMediaKeysManager *
-gsd_media_keys_manager_new (void)
-{
-        if (manager_object != NULL) {
-                g_object_ref (manager_object);
-        } else {
-                manager_object = g_object_new (GSD_TYPE_MEDIA_KEYS_MANAGER, NULL);
-                g_object_add_weak_pointer (manager_object,
-                                           (gpointer *) &manager_object);
-        }
-
-        return GSD_MEDIA_KEYS_MANAGER (manager_object);
 }

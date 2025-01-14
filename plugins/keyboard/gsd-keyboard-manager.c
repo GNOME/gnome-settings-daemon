@@ -82,13 +82,10 @@ struct _GsdKeyboardManager
 
 static void     gsd_keyboard_manager_class_init  (GsdKeyboardManagerClass *klass);
 static void     gsd_keyboard_manager_init        (GsdKeyboardManager      *keyboard_manager);
-static void     gsd_keyboard_manager_finalize    (GObject                 *object);
 
 static void     migrate_keyboard_settings (void);
 
 G_DEFINE_TYPE (GsdKeyboardManager, gsd_keyboard_manager, G_TYPE_APPLICATION)
-
-static gpointer manager_object = NULL;
 
 static void
 init_builder_with_sources (GVariantBuilder *builder,
@@ -522,10 +519,7 @@ gsd_keyboard_manager_shutdown (GApplication *app)
 static void
 gsd_keyboard_manager_class_init (GsdKeyboardManagerClass *klass)
 {
-        GObjectClass   *object_class = G_OBJECT_CLASS (klass);
         GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
-
-        object_class->finalize = gsd_keyboard_manager_finalize;
 
         application_class->startup = gsd_keyboard_manager_startup;
         application_class->shutdown = gsd_keyboard_manager_shutdown;
@@ -535,21 +529,6 @@ static void
 gsd_keyboard_manager_init (GsdKeyboardManager *manager)
 {
         migrate_keyboard_settings ();
-}
-
-static void
-gsd_keyboard_manager_finalize (GObject *object)
-{
-        GsdKeyboardManager *keyboard_manager;
-
-        g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_KEYBOARD_MANAGER (object));
-
-        keyboard_manager = GSD_KEYBOARD_MANAGER (object);
-
-        g_return_if_fail (keyboard_manager != NULL);
-
-        G_OBJECT_CLASS (gsd_keyboard_manager_parent_class)->finalize (object);
 }
 
 static GVariant *
@@ -600,18 +579,4 @@ migrate_keyboard_settings (void)
                 if (!g_file_set_contents (filename, "", -1, &error))
                         g_warning ("Error migrating gtk-im-module: %s", error->message);
         }
-}
-
-GsdKeyboardManager *
-gsd_keyboard_manager_new (void)
-{
-        if (manager_object != NULL) {
-                g_object_ref (manager_object);
-        } else {
-                manager_object = g_object_new (GSD_TYPE_KEYBOARD_MANAGER, NULL);
-                g_object_add_weak_pointer (manager_object,
-                                           (gpointer *) &manager_object);
-        }
-
-        return GSD_KEYBOARD_MANAGER (manager_object);
 }

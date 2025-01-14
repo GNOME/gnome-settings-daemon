@@ -27,8 +27,6 @@ G_BEGIN_DECLS
 #define GSD_TYPE_DATETIME_MANAGER         (gsd_datetime_manager_get_type ())
 G_DECLARE_FINAL_TYPE (GsdDatetimeManager, gsd_datetime_manager, GSD, DATETIME_MANAGER, GApplication)
 
-GsdDatetimeManager *gsd_datetime_manager_new (void);
-
 G_END_DECLS
 
 #endif /* __GSD_DATETIME_MANAGER_H */

@@ -119,21 +119,15 @@ static const gchar introspection_xml[] =
 
 static void     gsd_rfkill_manager_class_init  (GsdRfkillManagerClass *klass);
 static void     gsd_rfkill_manager_init        (GsdRfkillManager      *rfkill_manager);
-static void     gsd_rfkill_manager_finalize    (GObject                    *object);
 static void     gsd_rfkill_manager_startup     (GApplication          *app);
 static void     gsd_rfkill_manager_shutdown    (GApplication          *app);
 
 G_DEFINE_TYPE (GsdRfkillManager, gsd_rfkill_manager, G_TYPE_APPLICATION)
 
-static gpointer manager_object = NULL;
-
 static void
 gsd_rfkill_manager_class_init (GsdRfkillManagerClass *klass)
 {
-        GObjectClass   *object_class = G_OBJECT_CLASS (klass);
         GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
-
-        object_class->finalize = gsd_rfkill_manager_finalize;
 
         application_class->startup = gsd_rfkill_manager_startup;
         application_class->shutdown = gsd_rfkill_manager_shutdown;
@@ -871,33 +865,4 @@ gsd_rfkill_manager_shutdown (GApplication *application)
         g_clear_pointer (&manager->chassis_type, g_free);
 
         G_APPLICATION_CLASS (gsd_rfkill_manager_parent_class)->shutdown (application);
-}
-
-static void
-gsd_rfkill_manager_finalize (GObject *object)
-{
-        GsdRfkillManager *manager;
-
-        g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_RFKILL_MANAGER (object));
-
-        manager = GSD_RFKILL_MANAGER (object);
-
-        g_return_if_fail (manager != NULL);
-
-        G_OBJECT_CLASS (gsd_rfkill_manager_parent_class)->finalize (object);
-}
-
-GsdRfkillManager *
-gsd_rfkill_manager_new (void)
-{
-        if (manager_object != NULL) {
-                g_object_ref (manager_object);
-        } else {
-                manager_object = g_object_new (GSD_TYPE_RFKILL_MANAGER, NULL);
-                g_object_add_weak_pointer (manager_object,
-                                           (gpointer *) &manager_object);
-        }
-
-        return GSD_RFKILL_MANAGER (manager_object);
 }

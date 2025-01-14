@@ -109,8 +109,6 @@ static gboolean is_opaque_tablet (GsdWacomManager *manager,
 
 G_DEFINE_TYPE (GsdWacomManager, gsd_wacom_manager, G_TYPE_APPLICATION)
 
-static gpointer manager_object = NULL;
-
 static GVariant *
 map_tablet_mapping (GVariant *value, GVariant *old_default, GVariant *new_default)
 {
@@ -529,18 +527,4 @@ gsd_wacom_manager_finalize (GObject *object)
 #endif
 
         G_OBJECT_CLASS (gsd_wacom_manager_parent_class)->finalize (object);
-}
-
-GsdWacomManager *
-gsd_wacom_manager_new (void)
-{
-        if (manager_object != NULL) {
-                g_object_ref (manager_object);
-        } else {
-                manager_object = g_object_new (GSD_TYPE_WACOM_MANAGER, NULL);
-                g_object_add_weak_pointer (manager_object,
-                                           (gpointer *) &manager_object);
-        }
-
-        return GSD_WACOM_MANAGER (manager_object);
 }

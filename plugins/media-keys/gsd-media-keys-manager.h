@@ -36,8 +36,6 @@ struct _GsdMediaKeysManagerClass
                                                     const char          *key);
 };
 
-GsdMediaKeysManager * gsd_media_keys_manager_new                       (void);
-
 G_END_DECLS
 
 #endif /* __GSD_MEDIA_KEYS_MANAGER_H */

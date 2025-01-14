@@ -28,8 +28,6 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (GsdSoundManager, gsd_sound_manager, GSD, SOUND_MANAGER, GApplication)
 
-GsdSoundManager *gsd_sound_manager_new (void);
-
 G_END_DECLS
 
 #endif /* __GSD_SOUND_MANAGER_H */

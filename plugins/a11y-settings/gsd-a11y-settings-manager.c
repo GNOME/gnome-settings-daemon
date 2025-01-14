@@ -49,11 +49,8 @@ enum {
 
 static void     gsd_a11y_settings_manager_class_init  (GsdA11ySettingsManagerClass *klass);
 static void     gsd_a11y_settings_manager_init        (GsdA11ySettingsManager      *a11y_settings_manager);
-static void     gsd_a11y_settings_manager_finalize    (GObject                     *object);
 
 G_DEFINE_TYPE (GsdA11ySettingsManager, gsd_a11y_settings_manager, G_TYPE_APPLICATION)
-
-static gpointer manager_object = NULL;
 
 static void
 apps_settings_changed (GSettings              *settings,
@@ -132,10 +129,7 @@ gsd_a11y_settings_manager_shutdown (GApplication *app)
 static void
 gsd_a11y_settings_manager_class_init (GsdA11ySettingsManagerClass *klass)
 {
-        GObjectClass   *object_class = G_OBJECT_CLASS (klass);
         GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
-
-        object_class->finalize = gsd_a11y_settings_manager_finalize;
 
         application_class->startup = gsd_a11y_settings_manager_startup;
         application_class->shutdown = gsd_a11y_settings_manager_shutdown;
@@ -144,31 +138,4 @@ gsd_a11y_settings_manager_class_init (GsdA11ySettingsManagerClass *klass)
 static void
 gsd_a11y_settings_manager_init (GsdA11ySettingsManager *manager)
 {
-}
-
-static void
-gsd_a11y_settings_manager_finalize (GObject *object)
-{
-        GsdA11ySettingsManager *a11y_settings_manager;
-
-        g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_A11Y_SETTINGS_MANAGER (object));
-
-        a11y_settings_manager = GSD_A11Y_SETTINGS_MANAGER (object);
-
-        G_OBJECT_CLASS (gsd_a11y_settings_manager_parent_class)->finalize (object);
-}
-
-GsdA11ySettingsManager *
-gsd_a11y_settings_manager_new (void)
-{
-        if (manager_object != NULL) {
-                g_object_ref (manager_object);
-        } else {
-                manager_object = g_object_new (GSD_TYPE_A11Y_SETTINGS_MANAGER, NULL);
-                g_object_add_weak_pointer (manager_object,
-                                           (gpointer *) &manager_object);
-        }
-
-        return GSD_A11Y_SETTINGS_MANAGER (manager_object);
 }

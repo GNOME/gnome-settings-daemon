@@ -324,8 +324,6 @@ static void     register_manager_dbus             (GsdXSettingsManager *manager)
 
 G_DEFINE_TYPE (GsdXSettingsManager, gsd_xsettings_manager, G_TYPE_APPLICATION)
 
-static gpointer manager_object = NULL;
-
 static GQuark
 gsd_xsettings_error_quark (void)
 {
@@ -1681,18 +1679,4 @@ register_manager_dbus (GsdXSettingsManager *manager)
                                                                       GTK_SETTINGS_DBUS_NAME,
                                                                       G_BUS_NAME_OWNER_FLAGS_NONE,
                                                                       NULL, NULL, NULL, NULL);
-}
-
-GsdXSettingsManager *
-gsd_xsettings_manager_new (void)
-{
-        if (manager_object != NULL) {
-                g_object_ref (manager_object);
-        } else {
-                manager_object = g_object_new (GSD_TYPE_XSETTINGS_MANAGER, NULL);
-                g_object_add_weak_pointer (manager_object,
-                                           (gpointer *) &manager_object);
-        }
-
-        return GSD_XSETTINGS_MANAGER (manager_object);
 }

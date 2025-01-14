@@ -29,8 +29,6 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (GsdRfkillManager, gsd_rfkill_manager, GSD, RFKILL_MANAGER, GApplication)
 
-GsdRfkillManager *       gsd_rfkill_manager_new                 (void);
-
 G_END_DECLS
 
 #endif /* __GSD_RFKILL_MANAGER_H */

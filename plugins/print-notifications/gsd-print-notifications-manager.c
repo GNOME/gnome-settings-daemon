@@ -100,13 +100,10 @@ struct _GsdPrintNotificationsManager
 
 static void     gsd_print_notifications_manager_class_init  (GsdPrintNotificationsManagerClass *klass);
 static void     gsd_print_notifications_manager_init        (GsdPrintNotificationsManager      *print_notifications_manager);
-static void     gsd_print_notifications_manager_finalize    (GObject                           *object);
 static gboolean cups_connection_test                        (gpointer                           user_data);
 static gboolean process_new_notifications                   (gpointer                           user_data);
 
 G_DEFINE_TYPE (GsdPrintNotificationsManager, gsd_print_notifications_manager, G_TYPE_APPLICATION)
-
-static gpointer manager_object = NULL;
 
 static const char *
 password_cb (const char *prompt,
@@ -1693,10 +1690,7 @@ gsd_print_notifications_manager_shutdown (GApplication *application)
 static void
 gsd_print_notifications_manager_class_init (GsdPrintNotificationsManagerClass *klass)
 {
-        GObjectClass   *object_class = G_OBJECT_CLASS (klass);
         GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
-
-        object_class->finalize = gsd_print_notifications_manager_finalize;
 
         application_class->startup = gsd_print_notifications_manager_startup;
         application_class->shutdown = gsd_print_notifications_manager_shutdown;
@@ -1707,35 +1701,6 @@ gsd_print_notifications_manager_class_init (GsdPrintNotificationsManagerClass *k
 static void
 gsd_print_notifications_manager_init (GsdPrintNotificationsManager *manager)
 {
-}
-
-static void
-gsd_print_notifications_manager_finalize (GObject *object)
-{
-        GsdPrintNotificationsManager *manager;
-
-        g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_PRINT_NOTIFICATIONS_MANAGER (object));
-
-        manager = GSD_PRINT_NOTIFICATIONS_MANAGER (object);
-
-        g_return_if_fail (manager != NULL);
-
-        G_OBJECT_CLASS (gsd_print_notifications_manager_parent_class)->finalize (object);
-}
-
-GsdPrintNotificationsManager *
-gsd_print_notifications_manager_new (void)
-{
-        if (manager_object != NULL) {
-                g_object_ref (manager_object);
-        } else {
-                manager_object = g_object_new (GSD_TYPE_PRINT_NOTIFICATIONS_MANAGER, NULL);
-                g_object_add_weak_pointer (manager_object,
-                                           (gpointer *) &manager_object);
-        }
-
-        return GSD_PRINT_NOTIFICATIONS_MANAGER (manager_object);
 }
 
 G_GNUC_END_IGNORE_DEPRECATIONS

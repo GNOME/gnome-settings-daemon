@@ -55,7 +55,6 @@ struct _GsdSmartcardManager
 
 static void     gsd_smartcard_manager_class_init  (GsdSmartcardManagerClass *klass);
 static void     gsd_smartcard_manager_init        (GsdSmartcardManager      *self);
-static void     gsd_smartcard_manager_finalize    (GObject                  *object);
 static void     gsd_smartcard_manager_startup     (GApplication             *app);
 static void     gsd_smartcard_manager_shutdown     (GApplication             *app);
 static void     lock_screen                       (GsdSmartcardManager *self);
@@ -67,15 +66,10 @@ G_DEFINE_TYPE (GsdSmartcardManager, gsd_smartcard_manager, G_TYPE_APPLICATION)
 G_DEFINE_QUARK (gsd-smartcard-manager-error, gsd_smartcard_manager_error)
 G_LOCK_DEFINE_STATIC (gsd_smartcards_watch_tasks);
 
-static gpointer manager_object = NULL;
-
 static void
 gsd_smartcard_manager_class_init (GsdSmartcardManagerClass *klass)
 {
-        GObjectClass   *object_class = G_OBJECT_CLASS (klass);
         GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
-
-        object_class->finalize = gsd_smartcard_manager_finalize;
 
         application_class->startup = gsd_smartcard_manager_startup;
         application_class->shutdown = gsd_smartcard_manager_shutdown;
@@ -911,33 +905,4 @@ gsd_smartcard_manager_get_inserted_tokens (GsdSmartcardManager *self,
                 *num_tokens = g_list_length (inserted_tokens);
 
         return inserted_tokens;
-}
-
-static void
-gsd_smartcard_manager_finalize (GObject *object)
-{
-        GsdSmartcardManager *self;
-
-        g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_SMARTCARD_MANAGER (object));
-
-        self = GSD_SMARTCARD_MANAGER (object);
-
-        g_return_if_fail (self != NULL);
-
-        G_OBJECT_CLASS (gsd_smartcard_manager_parent_class)->finalize (object);
-}
-
-GsdSmartcardManager *
-gsd_smartcard_manager_new (void)
-{
-        if (manager_object != NULL) {
-                g_object_ref (manager_object);
-        } else {
-                manager_object = g_object_new (GSD_TYPE_SMARTCARD_MANAGER, NULL);
-                g_object_add_weak_pointer (manager_object,
-                                           (gpointer *) &manager_object);
-        }
-
-        return GSD_SMARTCARD_MANAGER (manager_object);
 }

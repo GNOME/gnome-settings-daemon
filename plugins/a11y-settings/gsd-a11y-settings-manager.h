@@ -27,8 +27,6 @@ G_BEGIN_DECLS
 #define GSD_TYPE_A11Y_SETTINGS_MANAGER gsd_a11y_settings_manager_get_type ()
 G_DECLARE_FINAL_TYPE (GsdA11ySettingsManager, gsd_a11y_settings_manager, GSD, A11Y_SETTINGS_MANAGER, GApplication)
 
-GsdA11ySettingsManager *gsd_a11y_settings_manager_new                 (void);
-
 G_END_DECLS
 
 #endif /* __GSD_A11Y_SETTINGS_MANAGER_H */

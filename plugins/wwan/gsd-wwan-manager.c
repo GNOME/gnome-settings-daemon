@@ -78,9 +78,6 @@ static GParamSpec *props[PROP_LAST_PROP];
 
 G_DEFINE_TYPE (GsdWwanManager, gsd_wwan_manager, G_TYPE_APPLICATION)
 
-/* The plugin's manager object */
-static gpointer manager_object = NULL;
-
 static void wwan_manager_ensure_unlocking   (GsdWwanManager *self);
 static void wwan_manager_unlock_device      (CcWwanDevice   *device,
                                              gpointer        user_data);
@@ -826,19 +823,4 @@ gsd_wwan_manager_init (GsdWwanManager *self)
 {
         self->devices = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
         self->devices_to_unlock = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
-}
-
-
-GsdWwanManager *
-gsd_wwan_manager_new (void)
-{
-        if (manager_object != NULL) {
-                g_object_ref (manager_object);
-        } else {
-                manager_object = g_object_new (GSD_TYPE_WWAN_MANAGER, NULL);
-                g_object_add_weak_pointer (manager_object,
-                                           (gpointer *) &manager_object);
-        }
-
-        return GSD_WWAN_MANAGER (manager_object);
 }

@@ -28,5 +28,4 @@ G_BEGIN_DECLS
 #define GSD_TYPE_WWAN_MANAGER (gsd_wwan_manager_get_type())
 G_DECLARE_FINAL_TYPE (GsdWwanManager, gsd_wwan_manager, GSD, WWAN_MANAGER, GApplication)
 
-GsdWwanManager *        gsd_wwan_manager_new                 (void);
 G_END_DECLS

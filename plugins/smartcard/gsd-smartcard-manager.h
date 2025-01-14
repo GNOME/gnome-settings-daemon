@@ -45,8 +45,6 @@ typedef enum
 GQuark                  gsd_smartcard_manager_error_quark (void);
 
 
-GsdSmartcardManager *   gsd_smartcard_manager_new         (void);
-
 GckSlot *               gsd_smartcard_manager_get_login_token (GsdSmartcardManager *manager);
 GList *                 gsd_smartcard_manager_get_inserted_tokens (GsdSmartcardManager *manager,
                                                                    gsize               *num_tokens);

@@ -37,8 +37,6 @@ enum
 
 GQuark                  gsd_power_manager_error_quark         (void);
 
-GsdPowerManager *       gsd_power_manager_new                 (void);
-
 G_END_DECLS
 
 #endif /* __GSD_POWER_MANAGER_H */

@@ -41,11 +41,8 @@ struct _GsdDatetimeManager
 
 static void gsd_datetime_manager_class_init (GsdDatetimeManagerClass *klass);
 static void gsd_datetime_manager_init (GsdDatetimeManager *manager);
-static void gsd_datetime_manager_finalize (GObject *object);
 
 G_DEFINE_TYPE (GsdDatetimeManager, gsd_datetime_manager, G_TYPE_APPLICATION)
-
-static gpointer manager_object = NULL;
 
 static void
 notification_closed_cb (NotifyNotification *n,
@@ -190,10 +187,7 @@ gsd_datetime_manager_shutdown (GApplication *app)
 static void
 gsd_datetime_manager_class_init (GsdDatetimeManagerClass *klass)
 {
-        GObjectClass *object_class = G_OBJECT_CLASS (klass);
         GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
-
-        object_class->finalize = gsd_datetime_manager_finalize;
 
         application_class->startup = gsd_datetime_manager_startup;
         application_class->shutdown = gsd_datetime_manager_shutdown;
@@ -204,33 +198,4 @@ gsd_datetime_manager_class_init (GsdDatetimeManagerClass *klass)
 static void
 gsd_datetime_manager_init (GsdDatetimeManager *manager)
 {
-}
-
-static void
-gsd_datetime_manager_finalize (GObject *object)
-{
-        GsdDatetimeManager *manager;
-
-        g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_DATETIME_MANAGER (object));
-
-        manager = GSD_DATETIME_MANAGER (object);
-
-        g_return_if_fail (manager != NULL);
-
-        G_OBJECT_CLASS (gsd_datetime_manager_parent_class)->finalize (object);
-}
-
-GsdDatetimeManager *
-gsd_datetime_manager_new (void)
-{
-        if (manager_object != NULL) {
-                g_object_ref (manager_object);
-        } else {
-                manager_object = g_object_new (GSD_TYPE_DATETIME_MANAGER, NULL);
-                g_object_add_weak_pointer (manager_object,
-                                           (gpointer *) &manager_object);
-        }
-
-        return GSD_DATETIME_MANAGER (manager_object);
 }

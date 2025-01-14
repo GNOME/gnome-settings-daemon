@@ -28,8 +28,6 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (GsdHousekeepingManager, gsd_housekeeping_manager, GSD, HOUSEKEEPING_MANAGER, GApplication)
 
-GsdHousekeepingManager * gsd_housekeeping_manager_new           (void);
-
 G_END_DECLS
 
 #endif /* __GSD_HOUSEKEEPING_MANAGER_H */

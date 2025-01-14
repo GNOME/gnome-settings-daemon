@@ -102,12 +102,7 @@ typedef enum {
         POLICY_APPLIED_ATTRIBUTES
 } UsbGuardPolicyApplied;
 
-
-static void gsd_usb_protection_manager_finalize (GObject *object);
-
 G_DEFINE_TYPE (GsdUsbProtectionManager, gsd_usb_protection_manager, G_TYPE_APPLICATION)
-
-static gpointer manager_object = NULL;
 
 #define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
 #define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
@@ -1303,10 +1298,7 @@ gsd_usb_protection_manager_shutdown (GApplication *app)
 static void
 gsd_usb_protection_manager_class_init (GsdUsbProtectionManagerClass *klass)
 {
-        GObjectClass *object_class = G_OBJECT_CLASS (klass);
         GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
-
-        object_class->finalize = gsd_usb_protection_manager_finalize;
 
         application_class->startup = gsd_usb_protection_manager_startup;
         application_class->shutdown = gsd_usb_protection_manager_shutdown;
@@ -1315,29 +1307,4 @@ gsd_usb_protection_manager_class_init (GsdUsbProtectionManagerClass *klass)
 static void
 gsd_usb_protection_manager_init (GsdUsbProtectionManager *manager)
 {
-}
-
-static void
-gsd_usb_protection_manager_finalize (GObject *object)
-{
-        GsdUsbProtectionManager *usb_protection_manager;
-
-        usb_protection_manager = GSD_USB_PROTECTION_MANAGER (object);
-
-        G_OBJECT_CLASS (gsd_usb_protection_manager_parent_class)->finalize (object);
-}
-
-GsdUsbProtectionManager *
-gsd_usb_protection_manager_new (void)
-{
-        g_debug ("Starting USB Protection");
-        if (manager_object != NULL) {
-                g_object_ref (manager_object);
-        } else {
-                manager_object = g_object_new (GSD_TYPE_USB_PROTECTION_MANAGER, NULL);
-                g_object_add_weak_pointer (manager_object,
-                                           (gpointer *) &manager_object);
-        }
-
-        return GSD_USB_PROTECTION_MANAGER (manager_object);
 }

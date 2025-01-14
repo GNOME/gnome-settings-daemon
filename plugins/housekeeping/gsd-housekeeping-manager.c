@@ -69,9 +69,6 @@ static void     gsd_housekeeping_manager_init        (GsdHousekeepingManager    
 
 G_DEFINE_TYPE (GsdHousekeepingManager, gsd_housekeeping_manager, G_TYPE_APPLICATION)
 
-static gpointer manager_object = NULL;
-
-
 typedef struct {
         GDateTime *now;  /* (owned) */
         GTimeSpan max_age_us;
@@ -505,18 +502,9 @@ gsd_housekeeping_manager_shutdown (GApplication *app)
 }
 
 static void
-gsd_housekeeping_manager_finalize (GObject *object)
-{
-        G_OBJECT_CLASS (gsd_housekeeping_manager_parent_class)->finalize (object);
-}
-
-static void
 gsd_housekeeping_manager_class_init (GsdHousekeepingManagerClass *klass)
 {
-        GObjectClass *object_class = G_OBJECT_CLASS (klass);
         GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
-
-        object_class->finalize = gsd_housekeeping_manager_finalize;
 
         application_class->startup = gsd_housekeeping_manager_startup;
         application_class->shutdown = gsd_housekeeping_manager_shutdown;
@@ -527,18 +515,4 @@ gsd_housekeeping_manager_class_init (GsdHousekeepingManagerClass *klass)
 static void
 gsd_housekeeping_manager_init (GsdHousekeepingManager *manager)
 {
-}
-
-GsdHousekeepingManager *
-gsd_housekeeping_manager_new (void)
-{
-        if (manager_object != NULL) {
-                g_object_ref (manager_object);
-        } else {
-                manager_object = g_object_new (GSD_TYPE_HOUSEKEEPING_MANAGER, NULL);
-                g_object_add_weak_pointer (manager_object,
-                                           (gpointer *) &manager_object);
-        }
-
-        return GSD_HOUSEKEEPING_MANAGER (manager_object);
 }

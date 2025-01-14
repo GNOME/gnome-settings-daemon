@@ -255,8 +255,6 @@ static void      initable_iface_init (GInitableIface *initable_iface);
 G_DEFINE_TYPE_WITH_CODE (GsdPowerManager, gsd_power_manager, G_TYPE_APPLICATION,
                          G_IMPLEMENT_INTERFACE (G_TYPE_INITABLE, initable_iface_init))
 
-static gpointer manager_object = NULL;
-
 GQuark
 gsd_power_manager_error_quark (void)
 {
@@ -3597,17 +3595,4 @@ register_manager_dbus (GsdPowerManager *manager)
                    manager->cancellable,
                    (GAsyncReadyCallback) on_bus_gotten,
                    manager);
-}
-
-GsdPowerManager *
-gsd_power_manager_new (void)
-{
-        if (manager_object != NULL) {
-                g_object_ref (manager_object);
-        } else {
-                manager_object = g_object_new (GSD_TYPE_POWER_MANAGER, NULL);
-                g_object_add_weak_pointer (manager_object,
-                                           (gpointer *) &manager_object);
-        }
-        return GSD_POWER_MANAGER (manager_object);
 }

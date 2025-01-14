@@ -28,8 +28,6 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (GsdSharingManager, gsd_sharing_manager, GSD, SHARING_MANAGER, GApplication)
 
-GsdSharingManager *     gsd_sharing_manager_new                 (void);
-
 G_END_DECLS
 
 #endif /* __GSD_SHARING_MANAGER_H */

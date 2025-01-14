@@ -48,11 +48,8 @@ struct _GsdSoundManager
 
 static void gsd_sound_manager_class_init (GsdSoundManagerClass *klass);
 static void gsd_sound_manager_init (GsdSoundManager *sound_manager);
-static void gsd_sound_manager_finalize (GObject *object);
 
 G_DEFINE_TYPE (GsdSoundManager, gsd_sound_manager, G_TYPE_APPLICATION)
-
-static gpointer manager_object = NULL;
 
 static void
 sample_info_cb (pa_context *c, const pa_sample_info *i, int eol, void *userdata)
@@ -312,23 +309,9 @@ gsd_sound_manager_shutdown (GApplication *app)
 }
 
 static void
-gsd_sound_manager_dispose (GObject *object)
-{
-        GsdSoundManager *manager;
-
-        manager = GSD_SOUND_MANAGER (object);
-
-        G_OBJECT_CLASS (gsd_sound_manager_parent_class)->dispose (object);
-}
-
-static void
 gsd_sound_manager_class_init (GsdSoundManagerClass *klass)
 {
-        GObjectClass *object_class = G_OBJECT_CLASS (klass);
         GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
-
-        object_class->dispose = gsd_sound_manager_dispose;
-        object_class->finalize = gsd_sound_manager_finalize;
 
         application_class->startup = gsd_sound_manager_startup;
         application_class->shutdown = gsd_sound_manager_shutdown;
@@ -337,32 +320,4 @@ gsd_sound_manager_class_init (GsdSoundManagerClass *klass)
 static void
 gsd_sound_manager_init (GsdSoundManager *manager)
 {
-}
-
-static void
-gsd_sound_manager_finalize (GObject *object)
-{
-        GsdSoundManager *sound_manager;
-
-        g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_SOUND_MANAGER (object));
-
-        sound_manager = GSD_SOUND_MANAGER (object);
-
-        g_return_if_fail (sound_manager);
-
-        G_OBJECT_CLASS (gsd_sound_manager_parent_class)->finalize (object);
-}
-
-GsdSoundManager *
-gsd_sound_manager_new (void)
-{
-        if (manager_object) {
-                g_object_ref (manager_object);
-        } else {
-                manager_object = g_object_new (GSD_TYPE_SOUND_MANAGER, NULL);
-                g_object_add_weak_pointer (manager_object, (gpointer *) &manager_object);
-        }
-
-        return GSD_SOUND_MANAGER (manager_object);
 }
