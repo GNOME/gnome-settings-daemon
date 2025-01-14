@@ -1,7 +1,8 @@
-#define NEW gsd_smartcard_manager_new
-#define START gsd_smartcard_manager_start
-#define STOP gsd_smartcard_manager_stop
-#define MANAGER GsdSmartcardManager
+#include "gsd-main-helper.h"
 #include "gsd-smartcard-manager.h"
 
-#include "daemon-skeleton.h"
+int
+main (int argc, char **argv)
+{
+        return gsd_main_helper (GSD_TYPE_SMARTCARD_MANAGER, argc, argv);
+}

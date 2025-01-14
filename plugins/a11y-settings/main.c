@@ -1,7 +1,9 @@
-#define NEW gsd_a11y_settings_manager_new
-#define START gsd_a11y_settings_manager_start
-#define STOP gsd_a11y_settings_manager_stop
-#define MANAGER GsdA11ySettingsManager
+#include "gsd-main-helper.h"
 #include "gsd-a11y-settings-manager.h"
 
-#include "daemon-skeleton.h"
+int
+main (int argc, char **argv)
+{
+        return gsd_main_helper (GSD_TYPE_A11Y_SETTINGS_MANAGER, argc, argv);
+}
+

@@ -17,6 +17,8 @@ sources += gnome.gdbus_codegen(
   interface_prefix: 'org.freedesktop.'
 )
 
+sources += main_helper_sources
+
 deps = plugins_deps + [
   geocode_glib_dep,
   gweather_dep,

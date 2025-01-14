@@ -130,7 +130,7 @@ static const gchar introspection_xml2[] =
 
 struct _GsdScreensaverProxyManager
 {
-        GObject                  parent;
+        GApplication             parent;
 
         GsdSessionManager       *session;
         GDBusConnection         *connection;
@@ -147,7 +147,7 @@ static void     gsd_screensaver_proxy_manager_class_init  (GsdScreensaverProxyMa
 static void     gsd_screensaver_proxy_manager_init        (GsdScreensaverProxyManager      *screensaver_proxy_manager);
 static void     gsd_screensaver_proxy_manager_finalize    (GObject             *object);
 
-G_DEFINE_TYPE (GsdScreensaverProxyManager, gsd_screensaver_proxy_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (GsdScreensaverProxyManager, gsd_screensaver_proxy_manager, G_TYPE_APPLICATION)
 
 static gpointer manager_object = NULL;
 
@@ -360,12 +360,14 @@ register_manager_dbus (GsdScreensaverProxyManager *manager)
                    manager);
 }
 
-gboolean
-gsd_screensaver_proxy_manager_start (GsdScreensaverProxyManager *manager,
-                                     GError               **error)
+static void
+gsd_screensaver_proxy_manager_startup (GApplication *app)
 {
+        GsdScreensaverProxyManager *manager = GSD_SCREENSAVER_PROXY_MANAGER (app);
+
         g_debug ("Starting screensaver-proxy manager");
         gnome_settings_profile_start (NULL);
+
         manager->session =
                 gnome_settings_bus_get_session_proxy ();
         manager->watch_ht = g_hash_table_new_full (g_str_hash,
@@ -376,25 +378,35 @@ gsd_screensaver_proxy_manager_start (GsdScreensaverProxyManager *manager,
                                                           g_direct_equal,
                                                           NULL,
                                                           (GDestroyNotify) g_free);
+
+        G_APPLICATION_CLASS (gsd_screensaver_proxy_manager_parent_class)->startup (app);
+
         gnome_settings_profile_end (NULL);
-        return TRUE;
 }
 
-void
-gsd_screensaver_proxy_manager_stop (GsdScreensaverProxyManager *manager)
+static void
+gsd_screensaver_proxy_manager_shutdown (GApplication *app)
 {
+        GsdScreensaverProxyManager *manager = GSD_SCREENSAVER_PROXY_MANAGER (app);
+
         g_debug ("Stopping screensaver_proxy manager");
         g_clear_object (&manager->session);
         g_clear_pointer (&manager->watch_ht, g_hash_table_destroy);
         g_clear_pointer (&manager->cookie_ht, g_hash_table_destroy);
+
+        G_APPLICATION_CLASS (gsd_screensaver_proxy_manager_parent_class)->shutdown (app);
 }
 
 static void
 gsd_screensaver_proxy_manager_class_init (GsdScreensaverProxyManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+        GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
 
         object_class->finalize = gsd_screensaver_proxy_manager_finalize;
+
+        application_class->startup = gsd_screensaver_proxy_manager_startup;
+        application_class->shutdown = gsd_screensaver_proxy_manager_shutdown;
 }
 
 static void
@@ -413,8 +425,6 @@ gsd_screensaver_proxy_manager_finalize (GObject *object)
         manager = GSD_SCREENSAVER_PROXY_MANAGER (object);
 
         g_return_if_fail (manager != NULL);
-
-        gsd_screensaver_proxy_manager_stop (manager);
 
         if (manager->name_id != 0) {
                 g_bus_unown_name (manager->name_id);

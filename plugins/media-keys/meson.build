@@ -5,6 +5,8 @@ sources = files(
   'mpris-controller.c'
 )
 
+sources += main_helper_sources
+
 marshal = 'gsd-marshal'
 
 sources += gnome.genmarshal(
@@ -37,6 +39,8 @@ deps = plugins_deps + [
 if enable_gudev
   deps += gudev_dep
 endif
+
+cflags += ['-DUSE_GTK=1']
 
 executable(
   'gsd-' + plugin_name,

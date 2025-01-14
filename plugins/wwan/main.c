@@ -1,7 +1,8 @@
-#define NEW gsd_wwan_manager_new
-#define START gsd_wwan_manager_start
-#define STOP gsd_wwan_manager_stop
-#define MANAGER GsdWwanManager
+#include "gsd-main-helper.h"
 #include "gsd-wwan-manager.h"
 
-#include "daemon-skeleton.h"
+int
+main (int argc, char **argv)
+{
+        return gsd_main_helper (GSD_TYPE_WWAN_MANAGER, argc, argv);
+}

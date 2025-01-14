@@ -68,7 +68,7 @@
 
 struct _GsdUsbProtectionManager
 {
-        GObject             parent;
+        GApplication        parent;
         guint               start_idle_id;
         GDBusNodeInfo      *introspection_data;
         GSettings          *settings;
@@ -105,7 +105,7 @@ typedef enum {
 
 static void gsd_usb_protection_manager_finalize (GObject *object);
 
-G_DEFINE_TYPE (GsdUsbProtectionManager, gsd_usb_protection_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (GsdUsbProtectionManager, gsd_usb_protection_manager, G_TYPE_APPLICATION)
 
 static gpointer manager_object = NULL;
 
@@ -1241,10 +1241,11 @@ start_usb_protection_idle_cb (GsdUsbProtectionManager *manager)
         return FALSE;
 }
 
-gboolean
-gsd_usb_protection_manager_start (GsdUsbProtectionManager *manager,
-                                  GError                 **error)
+static void
+gsd_usb_protection_manager_startup (GApplication *app)
 {
+        GsdUsbProtectionManager *manager = GSD_USB_PROTECTION_MANAGER (app);
+
         gnome_settings_profile_start (NULL);
 
         manager->start_idle_id = g_idle_add ((GSourceFunc) start_usb_protection_idle_cb, manager);
@@ -1259,13 +1260,16 @@ gsd_usb_protection_manager_start (GsdUsbProtectionManager *manager,
                    (GAsyncReadyCallback) on_bus_gotten,
                    manager);
 
+        G_APPLICATION_CLASS (gsd_usb_protection_manager_parent_class)->startup (app);
+
         gnome_settings_profile_end (NULL);
-        return TRUE;
 }
 
-void
-gsd_usb_protection_manager_stop (GsdUsbProtectionManager *manager)
+static void
+gsd_usb_protection_manager_shutdown (GApplication *app)
 {
+        GsdUsbProtectionManager *manager = GSD_USB_PROTECTION_MANAGER (app);
+
         g_debug ("Stopping USB protection manager");
 
         if (manager->cancellable != NULL) {
@@ -1292,14 +1296,20 @@ gsd_usb_protection_manager_stop (GsdUsbProtectionManager *manager)
         g_clear_object (&manager->usb_protection_devices);
         g_clear_object (&manager->usb_protection_policy);
         g_clear_object (&manager->screensaver_proxy);
+
+        G_APPLICATION_CLASS (gsd_usb_protection_manager_parent_class)->shutdown (app);
 }
 
 static void
 gsd_usb_protection_manager_class_init (GsdUsbProtectionManagerClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
+        GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
 
         object_class->finalize = gsd_usb_protection_manager_finalize;
+
+        application_class->startup = gsd_usb_protection_manager_startup;
+        application_class->shutdown = gsd_usb_protection_manager_shutdown;
 }
 
 static void
@@ -1313,7 +1323,6 @@ gsd_usb_protection_manager_finalize (GObject *object)
         GsdUsbProtectionManager *usb_protection_manager;
 
         usb_protection_manager = GSD_USB_PROTECTION_MANAGER (object);
-        gsd_usb_protection_manager_stop (usb_protection_manager);
 
         G_OBJECT_CLASS (gsd_usb_protection_manager_parent_class)->finalize (object);
 }

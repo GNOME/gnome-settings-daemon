@@ -50,7 +50,7 @@ static const gchar introspection_xml[] =
 "</node>";
 
 struct _GsdHousekeepingManager {
-        GObject          parent;
+        GApplication parent;
 
         GSettings *settings;
         guint long_term_cb;
@@ -67,7 +67,7 @@ struct _GsdHousekeepingManager {
 static void     gsd_housekeeping_manager_class_init  (GsdHousekeepingManagerClass *klass);
 static void     gsd_housekeeping_manager_init        (GsdHousekeepingManager      *housekeeping_manager);
 
-G_DEFINE_TYPE (GsdHousekeepingManager, gsd_housekeeping_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (GsdHousekeepingManager, gsd_housekeeping_manager, G_TYPE_APPLICATION)
 
 static gpointer manager_object = NULL;
 
@@ -420,10 +420,10 @@ register_manager_dbus (GsdHousekeepingManager *manager)
                    manager);
 }
 
-gboolean
-gsd_housekeeping_manager_start (GsdHousekeepingManager *manager,
-                                GError                **error)
+static void
+gsd_housekeeping_manager_startup (GApplication *app)
 {
+        GsdHousekeepingManager *manager = GSD_HOUSEKEEPING_MANAGER (app);
         gchar *dir;
 
         g_debug ("Starting housekeeping manager");
@@ -455,14 +455,16 @@ gsd_housekeeping_manager_start (GsdHousekeepingManager *manager,
 
         manager->systemd_notify = g_object_new (GSD_TYPE_SYSTEMD_NOTIFY, NULL);
 
-        gnome_settings_profile_end (NULL);
+        G_APPLICATION_CLASS (gsd_housekeeping_manager_parent_class)->startup (app);
 
-        return TRUE;
+        gnome_settings_profile_end (NULL);
 }
 
-void
-gsd_housekeeping_manager_stop (GsdHousekeepingManager *manager)
+static void
+gsd_housekeeping_manager_shutdown (GApplication *app)
 {
+        GsdHousekeepingManager *manager = GSD_HOUSEKEEPING_MANAGER (app);
+
         g_debug ("Stopping housekeeping manager");
 
         if (manager->name_id != 0) {
@@ -496,13 +498,13 @@ gsd_housekeeping_manager_stop (GsdHousekeepingManager *manager)
 
         g_clear_object (&manager->settings);
         gsd_ldsm_clean ();
+
+        G_APPLICATION_CLASS (gsd_housekeeping_manager_parent_class)->shutdown (app);
 }
 
 static void
 gsd_housekeeping_manager_finalize (GObject *object)
 {
-        gsd_housekeeping_manager_stop (GSD_HOUSEKEEPING_MANAGER (object));
-
         G_OBJECT_CLASS (gsd_housekeeping_manager_parent_class)->finalize (object);
 }
 
@@ -510,8 +512,12 @@ static void
 gsd_housekeeping_manager_class_init (GsdHousekeepingManagerClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
+        GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
 
         object_class->finalize = gsd_housekeeping_manager_finalize;
+
+        application_class->startup = gsd_housekeeping_manager_startup;
+        application_class->shutdown = gsd_housekeeping_manager_shutdown;
 
         notify_init ("gnome-settings-daemon");
 }

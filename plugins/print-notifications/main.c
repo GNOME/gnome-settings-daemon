@@ -1,7 +1,8 @@
-#define NEW gsd_print_notifications_manager_new
-#define START gsd_print_notifications_manager_start
-#define STOP gsd_print_notifications_manager_stop
-#define MANAGER GsdPrintNotificationsManager
+#include "gsd-main-helper.h"
 #include "gsd-print-notifications-manager.h"
 
-#include "daemon-skeleton.h"
+int
+main (int argc, char **argv)
+{
+        return gsd_main_helper (GSD_TYPE_PRINT_NOTIFICATIONS_MANAGER, argc, argv);
+}

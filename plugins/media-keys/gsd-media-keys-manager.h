@@ -20,27 +20,23 @@
 #ifndef __GSD_MEDIA_KEYS_MANAGER_H
 #define __GSD_MEDIA_KEYS_MANAGER_H
 
-#include <glib-object.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
 #define GSD_TYPE_MEDIA_KEYS_MANAGER         (gsd_media_keys_manager_get_type ())
 
-G_DECLARE_DERIVABLE_TYPE (GsdMediaKeysManager, gsd_media_keys_manager, GSD, MEDIA_KEYS_MANAGER, GObject)
+G_DECLARE_DERIVABLE_TYPE (GsdMediaKeysManager, gsd_media_keys_manager, GSD, MEDIA_KEYS_MANAGER, GApplication)
 
 struct _GsdMediaKeysManagerClass
 {
-        GObjectClass   parent_class;
+        GApplicationClass  parent_class;
         void          (* media_player_key_pressed) (GsdMediaKeysManager *manager,
                                                     const char          *application,
                                                     const char          *key);
 };
 
 GsdMediaKeysManager * gsd_media_keys_manager_new                       (void);
-gboolean              gsd_media_keys_manager_start                     (GsdMediaKeysManager *manager,
-                                                                        GError             **error);
-void                  gsd_media_keys_manager_stop                      (GsdMediaKeysManager *manager);
-
 
 G_END_DECLS
 

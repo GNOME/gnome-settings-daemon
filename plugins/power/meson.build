@@ -4,6 +4,7 @@ sources = files(
   'gsd-power-manager.c',
   'main.c'
 )
+sources += main_helper_sources
 
 deps = plugins_deps + [
   libcanberra_gtk_dep,
@@ -30,6 +31,7 @@ if host_is_linux
 endif
 
 cflags += ['-DLIBEXECDIR="@0@"'.format(gsd_libexecdir)]
+cflags += ['-DUSE_GTK=1']
 
 gsd_power = executable(
   'gsd-' + plugin_name,

@@ -2,6 +2,7 @@ sources = files(
   'gsd-screensaver-proxy-manager.c',
   'main.c'
 )
+sources += main_helper_sources
 
 deps = plugins_deps + [gio_dep]
 

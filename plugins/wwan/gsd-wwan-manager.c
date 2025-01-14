@@ -45,7 +45,7 @@
 
 struct _GsdWwanManager
 {
-        GObject parent;
+        GApplication  parent;
 
         guint      start_idle_id;
         gboolean   unlock;
@@ -76,7 +76,7 @@ static GParamSpec *props[PROP_LAST_PROP];
 #define GSD_WWAN_SCHEMA_DIR "org.gnome.settings-daemon.plugins.wwan"
 #define GSD_WWAN_SCHEMA_UNLOCK_SIM "unlock-sim"
 
-G_DEFINE_TYPE (GsdWwanManager, gsd_wwan_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (GsdWwanManager, gsd_wwan_manager, G_TYPE_APPLICATION)
 
 /* The plugin's manager object */
 static gpointer manager_object = NULL;
@@ -682,25 +682,29 @@ start_wwan_idle_cb (GsdWwanManager *self)
         return FALSE;
 }
 
-gboolean
-gsd_wwan_manager_start (GsdWwanManager *self,
-                        GError        **error)
+static void
+gsd_wwan_manager_startup (GApplication *app)
 {
+        GsdWwanManager *self = GSD_WWAN_MANAGER (app);
+
         g_debug ("Starting wwan manager");
-        g_return_val_if_fail(GSD_IS_WWAN_MANAGER (self), FALSE);
+        g_return_if_fail (GSD_IS_WWAN_MANAGER (self));
 
         gnome_settings_profile_start (NULL);
         self->start_idle_id = g_idle_add ((GSourceFunc) start_wwan_idle_cb, self);
         g_source_set_name_by_id (self->start_idle_id, "[gnome-settings-daemon] start_wwan_idle_cb");
 
+        G_APPLICATION_CLASS (gsd_wwan_manager_parent_class)->startup (app);
+
         gnome_settings_profile_end (NULL);
-        return TRUE;
 }
 
-void
-gsd_wwan_manager_stop (GsdWwanManager *self)
+static void
+gsd_wwan_manager_shutdown (GApplication *app)
 {
         g_debug ("Stopping wwan manager");
+
+        G_APPLICATION_CLASS (gsd_wwan_manager_parent_class)->shutdown (app);
 }
 
 
@@ -793,10 +797,14 @@ static void
 gsd_wwan_manager_class_init (GsdWwanManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+        GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
 
         object_class->get_property = gsd_wwan_manager_get_property;
         object_class->set_property = gsd_wwan_manager_set_property;
         object_class->dispose = gsd_wwan_manager_dispose;
+
+        application_class->startup = gsd_wwan_manager_startup;
+        application_class->shutdown = gsd_wwan_manager_shutdown;
 
         props[PROP_UNLOCK_SIM] =
                 g_param_spec_boolean ("unlock-sim",

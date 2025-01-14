@@ -1,7 +1,9 @@
-#define NEW gsd_media_keys_manager_new
-#define START gsd_media_keys_manager_start
-#define STOP gsd_media_keys_manager_stop
-#define MANAGER GsdMediaKeysManager
+#include "gsd-main-helper.h"
 #include "gsd-media-keys-manager.h"
 
-#include "daemon-skeleton-gtk.h"
+int
+main (int argc, char **argv)
+{
+        return gsd_main_helper (GSD_TYPE_MEDIA_KEYS_MANAGER, argc, argv);
+}
+

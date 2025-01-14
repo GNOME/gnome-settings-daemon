@@ -6,6 +6,10 @@ sources = files(
   'gsd-shell-helper.c'
 )
 
+main_helper_sources = files(
+  'gsd-main-helper.c',
+)
+
 resource_data = files('gtk.css')
 
 sources += gnome.compile_resources(

@@ -20,18 +20,15 @@
 #ifndef __GSD_SOUND_MANAGER_H
 #define __GSD_SOUND_MANAGER_H
 
-#include <glib.h>
-#include <glib-object.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
 #define GSD_TYPE_SOUND_MANAGER         (gsd_sound_manager_get_type ())
 
-G_DECLARE_FINAL_TYPE (GsdSoundManager, gsd_sound_manager, GSD, SOUND_MANAGER, GObject)
+G_DECLARE_FINAL_TYPE (GsdSoundManager, gsd_sound_manager, GSD, SOUND_MANAGER, GApplication)
 
 GsdSoundManager *gsd_sound_manager_new (void);
-gboolean gsd_sound_manager_start (GsdSoundManager *manager, GError **error);
-void gsd_sound_manager_stop (GsdSoundManager *manager);
 
 G_END_DECLS
 

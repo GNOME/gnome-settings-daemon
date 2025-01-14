@@ -5,6 +5,8 @@ sources = files(
   'main.c'
 )
 
+sources += main_helper_sources
+
 enum_headers = files(
   'gsd-smartcard-manager.h',
   'gsd-smartcard-utils.h'

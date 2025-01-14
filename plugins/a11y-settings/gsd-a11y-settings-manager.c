@@ -37,7 +37,7 @@
 
 struct _GsdA11ySettingsManager
 {
-        GObject    parent;
+        GApplication parent;
 
         GSettings *interface_settings;
         GSettings *a11y_apps_settings;
@@ -51,7 +51,7 @@ static void     gsd_a11y_settings_manager_class_init  (GsdA11ySettingsManagerCla
 static void     gsd_a11y_settings_manager_init        (GsdA11ySettingsManager      *a11y_settings_manager);
 static void     gsd_a11y_settings_manager_finalize    (GObject                     *object);
 
-G_DEFINE_TYPE (GsdA11ySettingsManager, gsd_a11y_settings_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (GsdA11ySettingsManager, gsd_a11y_settings_manager, G_TYPE_APPLICATION)
 
 static gpointer manager_object = NULL;
 
@@ -82,10 +82,11 @@ apps_settings_changed (GSettings              *settings,
 	}
 }
 
-gboolean
-gsd_a11y_settings_manager_start (GsdA11ySettingsManager *manager,
-                                 GError                **error)
+static void
+gsd_a11y_settings_manager_startup (GApplication *app)
 {
+        GsdA11ySettingsManager *manager = GSD_A11Y_SETTINGS_MANAGER (app);
+
         g_debug ("Starting a11y_settings manager");
         gnome_settings_profile_start (NULL);
 
@@ -104,13 +105,16 @@ gsd_a11y_settings_manager_start (GsdA11ySettingsManager *manager,
 	    g_settings_get_boolean (manager->a11y_apps_settings, "screen-magnifier-enabled"))
 		g_settings_set_boolean (manager->interface_settings, "toolkit-accessibility", TRUE);
 
+        G_APPLICATION_CLASS (gsd_a11y_settings_manager_parent_class)->startup (app);
+
         gnome_settings_profile_end (NULL);
-        return TRUE;
 }
 
-void
-gsd_a11y_settings_manager_stop (GsdA11ySettingsManager *manager)
+static void
+gsd_a11y_settings_manager_shutdown (GApplication *app)
 {
+	GsdA11ySettingsManager *manager = GSD_A11Y_SETTINGS_MANAGER (app);
+
 	if (manager->interface_settings) {
 		g_object_unref (manager->interface_settings);
 		manager->interface_settings = NULL;
@@ -119,6 +123,9 @@ gsd_a11y_settings_manager_stop (GsdA11ySettingsManager *manager)
 		g_object_unref (manager->a11y_apps_settings);
 		manager->a11y_apps_settings = NULL;
 	}
+
+	G_APPLICATION_CLASS (gsd_a11y_settings_manager_parent_class)->shutdown (app);
+
         g_debug ("Stopping a11y_settings manager");
 }
 
@@ -126,8 +133,12 @@ static void
 gsd_a11y_settings_manager_class_init (GsdA11ySettingsManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+        GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
 
         object_class->finalize = gsd_a11y_settings_manager_finalize;
+
+        application_class->startup = gsd_a11y_settings_manager_startup;
+        application_class->shutdown = gsd_a11y_settings_manager_shutdown;
 }
 
 static void
@@ -144,8 +155,6 @@ gsd_a11y_settings_manager_finalize (GObject *object)
         g_return_if_fail (GSD_IS_A11Y_SETTINGS_MANAGER (object));
 
         a11y_settings_manager = GSD_A11Y_SETTINGS_MANAGER (object);
-
-        gsd_a11y_settings_manager_stop (a11y_settings_manager);
 
         G_OBJECT_CLASS (gsd_a11y_settings_manager_parent_class)->finalize (object);
 }

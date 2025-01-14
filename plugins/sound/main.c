@@ -1,7 +1,8 @@
-#define NEW gsd_sound_manager_new
-#define START gsd_sound_manager_start
-#define STOP gsd_sound_manager_stop
-#define MANAGER GsdSoundManager
+#include "gsd-main-helper.h"
 #include "gsd-sound-manager.h"
 
-#include "daemon-skeleton.h"
+int
+main (int argc, char **argv)
+{
+        return gsd_main_helper (GSD_TYPE_SOUND_MANAGER, argc, argv);
+}

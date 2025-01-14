@@ -1,7 +1,8 @@
-#define NEW gsd_screensaver_proxy_manager_new
-#define START gsd_screensaver_proxy_manager_start
-#define STOP gsd_screensaver_proxy_manager_stop
-#define MANAGER GsdScreensaverProxyManager
+#include "gsd-main-helper.h"
 #include "gsd-screensaver-proxy-manager.h"
 
-#include "daemon-skeleton.h"
+int
+main (int argc, char **argv)
+{
+        return gsd_main_helper (GSD_TYPE_SCREENSAVER_PROXY_MANAGER, argc, argv);
+}

@@ -1,7 +1,9 @@
-#define NEW gsd_color_manager_new
-#define START gsd_color_manager_start
-#define STOP gsd_color_manager_stop
-#define MANAGER GsdColorManager
+#include "gsd-main-helper.h"
 #include "gsd-color-manager.h"
 
-#include "daemon-skeleton-gtk.h"
+int
+main (int argc, char **argv)
+{
+        return gsd_main_helper (GSD_TYPE_COLOR_MANAGER, argc, argv);
+}
+

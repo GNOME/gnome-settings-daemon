@@ -63,7 +63,7 @@ typedef struct {
 
 struct _GsdSharingManager
 {
-        GObject                  parent;
+        GApplication             parent;
 
         GDBusNodeInfo           *introspection_data;
         guint                    name_id;
@@ -123,7 +123,7 @@ static void     gsd_sharing_manager_start_service (GsdSharingManager *manager,
 static void     gsd_sharing_manager_stop_service (GsdSharingManager *manager,
                                                   const char        *service_name);
 
-G_DEFINE_TYPE (GsdSharingManager, gsd_sharing_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (GsdSharingManager, gsd_sharing_manager, G_TYPE_APPLICATION)
 
 static gpointer manager_object = NULL;
 
@@ -904,10 +904,11 @@ gsd_sharing_manager_disable_rygel (void)
         g_free (path);
 }
 
-gboolean
-gsd_sharing_manager_start (GsdSharingManager *manager,
-                           GError           **error)
+static void
+gsd_sharing_manager_startup (GApplication *app)
 {
+        GsdSharingManager *manager = GSD_SHARING_MANAGER (app);
+
         g_debug ("Starting sharing manager");
         gnome_settings_profile_start (NULL);
 
@@ -927,8 +928,9 @@ gsd_sharing_manager_start (GsdSharingManager *manager,
                    (GAsyncReadyCallback) on_bus_gotten,
                    manager);
 
+        G_APPLICATION_CLASS (gsd_sharing_manager_parent_class)->startup (app);
+
         gnome_settings_profile_end (NULL);
-        return TRUE;
 }
 
 static void
@@ -944,9 +946,11 @@ cancel_pending_wait_tasks (GsdSharingManager *manager)
         }
 }
 
-void
-gsd_sharing_manager_stop (GsdSharingManager *manager)
+static void
+gsd_sharing_manager_shutdown (GApplication *app)
 {
+        GsdSharingManager *manager = GSD_SHARING_MANAGER (app);
+
         g_debug ("Stopping sharing manager");
 
         cancel_pending_wait_tasks (manager);
@@ -977,14 +981,20 @@ gsd_sharing_manager_stop (GsdSharingManager *manager)
         g_clear_pointer (&manager->current_network, g_free);
         g_clear_pointer (&manager->current_network_name, g_free);
         g_clear_pointer (&manager->carrier_type, g_free);
+
+        G_APPLICATION_CLASS (gsd_sharing_manager_parent_class)->shutdown (app);
 }
 
 static void
 gsd_sharing_manager_class_init (GsdSharingManagerClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
+        GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
 
         object_class->finalize = gsd_sharing_manager_finalize;
+
+        application_class->startup = gsd_sharing_manager_startup;
+        application_class->shutdown = gsd_sharing_manager_shutdown;
 }
 
 static void
@@ -1178,8 +1188,6 @@ gsd_sharing_manager_finalize (GObject *object)
         manager = GSD_SHARING_MANAGER (object);
 
         g_return_if_fail (manager != NULL);
-
-        gsd_sharing_manager_stop (manager);
 
         g_hash_table_unref (manager->configurable_services);
         g_hash_table_unref (manager->assigned_services);

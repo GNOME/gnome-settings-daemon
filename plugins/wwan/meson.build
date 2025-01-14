@@ -3,6 +3,7 @@ sources = files(
   'gsd-wwan-manager.c',
   'main.c'
 )
+sources += main_helper_sources
 
 deps = plugins_deps + [gio_dep, gcr_dep, mm_glib_dep, polkit_gobject_dep]
 

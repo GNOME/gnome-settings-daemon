@@ -36,7 +36,7 @@
 
 struct _GsdSmartcardManager
 {
-        GObject parent;
+        GApplication parent;
 
         guint start_idle_id;
         GsdSmartcardService *service;
@@ -56,12 +56,14 @@ struct _GsdSmartcardManager
 static void     gsd_smartcard_manager_class_init  (GsdSmartcardManagerClass *klass);
 static void     gsd_smartcard_manager_init        (GsdSmartcardManager      *self);
 static void     gsd_smartcard_manager_finalize    (GObject                  *object);
+static void     gsd_smartcard_manager_startup     (GApplication             *app);
+static void     gsd_smartcard_manager_shutdown     (GApplication             *app);
 static void     lock_screen                       (GsdSmartcardManager *self);
 static void     log_out                           (GsdSmartcardManager *self);
 static void     on_smartcards_from_module_watched (GsdSmartcardManager *self,
                                                    GAsyncResult        *result,
                                                    gpointer             user_data);
-G_DEFINE_TYPE (GsdSmartcardManager, gsd_smartcard_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (GsdSmartcardManager, gsd_smartcard_manager, G_TYPE_APPLICATION)
 G_DEFINE_QUARK (gsd-smartcard-manager-error, gsd_smartcard_manager_error)
 G_LOCK_DEFINE_STATIC (gsd_smartcards_watch_tasks);
 
@@ -71,8 +73,12 @@ static void
 gsd_smartcard_manager_class_init (GsdSmartcardManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+        GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
 
         object_class->finalize = gsd_smartcard_manager_finalize;
+
+        application_class->startup = gsd_smartcard_manager_startup;
+        application_class->shutdown = gsd_smartcard_manager_shutdown;
 
         gsd_smartcard_utils_register_error_domain (GSD_SMARTCARD_MANAGER_ERROR,
                                                    GSD_TYPE_SMARTCARD_MANAGER_ERROR);
@@ -715,23 +721,26 @@ gsd_smartcard_manager_idle_cb (GsdSmartcardManager *self)
         return G_SOURCE_REMOVE;
 }
 
-gboolean
-gsd_smartcard_manager_start (GsdSmartcardManager  *self,
-                             GError              **error)
+static void
+gsd_smartcard_manager_startup (GApplication *app)
 {
+        GsdSmartcardManager *self = GSD_SMARTCARD_MANAGER (app);
+
         gnome_settings_profile_start (NULL);
 
         self->start_idle_id = g_idle_add ((GSourceFunc) gsd_smartcard_manager_idle_cb, self);
         g_source_set_name_by_id (self->start_idle_id, "[gnome-settings-daemon] gsd_smartcard_manager_idle_cb");
 
-        gnome_settings_profile_end (NULL);
+        G_APPLICATION_CLASS (gsd_smartcard_manager_parent_class)->startup (app);
 
-        return TRUE;
+        gnome_settings_profile_end (NULL);
 }
 
-void
-gsd_smartcard_manager_stop (GsdSmartcardManager *self)
+static void
+gsd_smartcard_manager_shutdown (GApplication *app)
 {
+        GsdSmartcardManager *self = GSD_SMARTCARD_MANAGER (app);
+
         g_debug ("Stopping smartcard manager");
 
         g_cancellable_cancel (self->cancellable);
@@ -741,6 +750,8 @@ gsd_smartcard_manager_stop (GsdSmartcardManager *self)
         g_clear_object (&self->cancellable);
         g_clear_object (&self->session_manager);
         g_clear_object (&self->screen_saver);
+
+        G_APPLICATION_CLASS (gsd_smartcard_manager_parent_class)->shutdown (app);
 }
 
 static void
@@ -914,8 +925,6 @@ gsd_smartcard_manager_finalize (GObject *object)
         g_return_if_fail (self != NULL);
 
         g_clear_handle_id (&self->start_idle_id, g_source_remove);
-
-        gsd_smartcard_manager_stop (self);
 
         G_OBJECT_CLASS (gsd_smartcard_manager_parent_class)->finalize (object);
 }

@@ -21,16 +21,12 @@
 
 # pragma once
 
-#include <glib-object.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
 #define GSD_TYPE_WWAN_MANAGER (gsd_wwan_manager_get_type())
-G_DECLARE_FINAL_TYPE (GsdWwanManager, gsd_wwan_manager, GSD, WWAN_MANAGER, GObject)
+G_DECLARE_FINAL_TYPE (GsdWwanManager, gsd_wwan_manager, GSD, WWAN_MANAGER, GApplication)
 
 GsdWwanManager *        gsd_wwan_manager_new                 (void);
-gboolean                gsd_wwan_manager_start               (GsdWwanManager *manager,
-                                                              GError        **error);
-void                    gsd_wwan_manager_stop                (GsdWwanManager *manager);
-
 G_END_DECLS

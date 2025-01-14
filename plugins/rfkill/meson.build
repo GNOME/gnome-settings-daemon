@@ -8,6 +8,7 @@ sources = files(
   'rfkill-glib.c',
   'main.c'
 )
+sources += main_helper_sources
 
 deps = plugins_deps
 deps += [

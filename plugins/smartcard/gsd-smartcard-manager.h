@@ -21,15 +21,15 @@
 #ifndef __GSD_SMARTCARD_MANAGER_H
 #define __GSD_SMARTCARD_MANAGER_H
 
-#include <glib-object.h>
 #include <gck/gck.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
 #define GSD_TYPE_SMARTCARD_MANAGER         (gsd_smartcard_manager_get_type ())
 #define GSD_SMARTCARD_MANAGER_ERROR        (gsd_smartcard_manager_error_quark ())
 
-G_DECLARE_FINAL_TYPE (GsdSmartcardManager, gsd_smartcard_manager, GSD, SMARTCARD_MANAGER, GObject)
+G_DECLARE_FINAL_TYPE (GsdSmartcardManager, gsd_smartcard_manager, GSD, SMARTCARD_MANAGER, GApplication)
 
 typedef enum
 {
@@ -46,9 +46,6 @@ GQuark                  gsd_smartcard_manager_error_quark (void);
 
 
 GsdSmartcardManager *   gsd_smartcard_manager_new         (void);
-gboolean                gsd_smartcard_manager_start       (GsdSmartcardManager  *manager,
-                                                           GError              **error);
-void                    gsd_smartcard_manager_stop        (GsdSmartcardManager  *manager);
 
 GckSlot *               gsd_smartcard_manager_get_login_token (GsdSmartcardManager *manager);
 GList *                 gsd_smartcard_manager_get_inserted_tokens (GsdSmartcardManager *manager,

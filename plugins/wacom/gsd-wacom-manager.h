@@ -21,18 +21,15 @@
 #ifndef __GSD_WACOM_MANAGER_H
 #define __GSD_WACOM_MANAGER_H
 
-#include <glib-object.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
 #define GSD_TYPE_WACOM_MANAGER         (gsd_wacom_manager_get_type ())
 
-G_DECLARE_FINAL_TYPE (GsdWacomManager, gsd_wacom_manager, GSD, WACOM_MANAGER, GObject)
+G_DECLARE_FINAL_TYPE (GsdWacomManager, gsd_wacom_manager, GSD, WACOM_MANAGER, GApplication)
 
 GsdWacomManager *       gsd_wacom_manager_new                 (void);
-gboolean                gsd_wacom_manager_start               (GsdWacomManager *manager,
-                                                               GError         **error);
-void                    gsd_wacom_manager_stop                (GsdWacomManager *manager);
 
 G_END_DECLS
 

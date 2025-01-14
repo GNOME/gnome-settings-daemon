@@ -2,6 +2,7 @@ sources = files(
   'gsd-keyboard-manager.c',
   'main.c'
 )
+sources += main_helper_sources
 
 deps = plugins_deps + [
   gsd_enums_dep,
@@ -9,6 +10,8 @@ deps = plugins_deps + [
   libcommon_dep,
   x11_dep
 ]
+
+cflags += ['-DUSE_GTK=1']
 
 executable(
   'gsd-' + plugin_name,

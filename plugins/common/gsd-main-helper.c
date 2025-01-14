@@ -1,15 +1,19 @@
 /**
  * Create a gnome-settings-daemon helper easily
  *
- * #define NEW gsd_media_keys_manager_new
- * #define START gsd_media_keys_manager_start
- * #define MANAGER GsdMediaKeysManager
+ * #include "gsd-main-helper.h"
  * #include "gsd-media-keys-manager.h"
  *
- * #include "daemon-skeleton-gtk.h"
+ * int
+ * main (int argc, char **argv)
+ * {
+ *         return gsd_main_helper (GSD_TYPE_MEDIA_KEYS_MANAGER, argc, argv);
+ * }
  */
 
 #include "config.h"
+
+#include "gsd-main-helper.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -17,20 +21,27 @@
 
 #include <glib-unix.h>
 #include <glib/gi18n.h>
+#ifdef USE_GTK
 #include <gtk/gtk.h>
+#endif
 
 #include "gnome-settings-bus.h"
 
+#ifdef USE_GTK
 #include "gsd-resources.h"
+#endif
 
 #ifndef PLUGIN_NAME
 #error Include PLUGIN_CFLAGS in the daemon s CFLAGS
 #endif /* !PLUGIN_NAME */
 
+#ifndef PLUGIN_DBUS_NAME
+#error Include PLUGIN_DBUS_NAME in the daemon s CFLAGS
+#endif /* !PLUGIN_DBUS_NAME */
+
 #define GNOME_SESSION_DBUS_NAME                     "org.gnome.SessionManager"
 #define GNOME_SESSION_CLIENT_PRIVATE_DBUS_INTERFACE "org.gnome.SessionManager.ClientPrivate"
 
-static MANAGER *manager = NULL;
 static int timeout = -1;
 static char *dummy_name = NULL;
 static gboolean verbose = FALSE;
@@ -43,6 +54,51 @@ static GOptionEntry entries[] = {
 };
 
 static void
+on_activate (GApplication *manager)
+{
+        g_debug ("Daemon activated");
+}
+
+static void
+register_activate (GApplication *manager)
+{
+        g_signal_connect (manager, "activate", G_CALLBACK (on_activate), NULL);
+}
+
+static void
+register_timeout (GApplication *manager)
+{
+        if (timeout > 0) {
+                guint id;
+                id = g_timeout_add_seconds (timeout, (GSourceFunc) g_application_release, manager);
+                g_source_set_name_by_id (id, "[gnome-settings-daemon] g_application_release");
+        }
+}
+
+static gboolean
+handle_sigterm (gpointer user_data)
+{
+  GApplication *manager = user_data;
+
+  g_debug ("Got SIGTERM; shutting down ...");
+
+  g_application_release (manager);
+
+  return G_SOURCE_REMOVE;
+}
+
+static void
+install_signal_handler (GApplication *manager)
+{
+  g_autoptr (GSource) source = NULL;
+
+  source = g_unix_signal_source_new (SIGTERM);
+
+  g_source_set_callback (source, handle_sigterm, manager, NULL);
+  g_source_attach (source, NULL);
+}
+
+static void
 respond_to_end_session (GDBusProxy *proxy)
 {
         /* we must answer with "EndSessionResponse" */
@@ -53,18 +109,14 @@ respond_to_end_session (GDBusProxy *proxy)
 }
 
 static void
-do_stop (void)
-{
-        gtk_main_quit ();
-}
-
-static void
 client_proxy_signal_cb (GDBusProxy *proxy,
                         gchar *sender_name,
                         gchar *signal_name,
                         GVariant *parameters,
                         gpointer user_data)
 {
+        GApplication *manager = user_data;
+
         if (g_strcmp0 (signal_name, "QueryEndSession") == 0) {
                 g_debug ("Got QueryEndSession signal");
                 respond_to_end_session (proxy);
@@ -73,7 +125,7 @@ client_proxy_signal_cb (GDBusProxy *proxy,
                 respond_to_end_session (proxy);
         } else if (g_strcmp0 (signal_name, "Stop") == 0) {
                 g_debug ("Got Stop signal");
-                do_stop ();
+                g_application_release (manager);
         }
 }
 
@@ -111,14 +163,14 @@ on_client_registered (GObject             *source_object,
         }
 
         g_signal_connect (client_proxy, "g-signal",
-                          G_CALLBACK (client_proxy_signal_cb), NULL);
+                          G_CALLBACK (client_proxy_signal_cb), user_data);
 
         g_free (object_path);
         g_variant_unref (variant);
 }
 
 static void
-register_with_gnome_session (void)
+register_with_gnome_session (GApplication *manager)
 {
 	GDBusProxy *proxy;
 	const char *startup_id;
@@ -132,7 +184,7 @@ register_with_gnome_session (void)
 			   -1,
 			   NULL,
 			   (GAsyncReadyCallback) on_client_registered,
-			   NULL);
+			   manager);
 
 	/* DESKTOP_AUTOSTART_ID must not leak into child processes, because
 	 * it can't be reused. Child processes will not know whether this is
@@ -140,115 +192,86 @@ register_with_gnome_session (void)
 	g_unsetenv ("DESKTOP_AUTOSTART_ID");
 }
 
+#ifdef USE_GTK
 static void
 set_empty_gtk_theme (gboolean set)
 {
-	static char *old_gtk_theme = NULL;
+        static char *old_gtk_theme = NULL;
 
-	if (set) {
-		/* Override GTK_THEME to reduce overhead of CSS engine. By using
-		 * GTK_THEME environment variable, GtkSettings is not allowed to
-		 * initially parse the Adwaita theme.
-		 *
-		 * https://bugzilla.gnome.org/show_bug.cgi?id=780555 */
-		old_gtk_theme = g_strdup (g_getenv ("GTK_THEME"));
-		g_setenv ("GTK_THEME", "Disabled", TRUE);
-	} else {
-		/* GtkSettings has loaded, so we can drop GTK_THEME used to initialize
-		 * our internal theme. Only the main thread accesses the GTK_THEME
-		 * environment variable, so this is safe to release. */
-		if (old_gtk_theme != NULL)
-			g_setenv ("GTK_THEME", old_gtk_theme, TRUE);
-		else
-			g_unsetenv ("GTK_THEME");
-	}
+        if (set) {
+                /* Override GTK_THEME to reduce overhead of CSS engine. By using
+                 * GTK_THEME environment variable, GtkSettings is not allowed to
+                 * initially parse the Adwaita theme.
+                 *
+                 * https://bugzilla.gnome.org/show_bug.cgi?id=780555 */
+                old_gtk_theme = g_strdup (g_getenv ("GTK_THEME"));
+                g_setenv ("GTK_THEME", "Disabled", TRUE);
+        } else {
+                /* GtkSettings has loaded, so we can drop GTK_THEME used to initialize
+                 * our internal theme. Only the main thread accesses the GTK_THEME
+                 * environment variable, so this is safe to release. */
+                if (old_gtk_theme != NULL)
+                        g_setenv ("GTK_THEME", old_gtk_theme, TRUE);
+                else
+                        g_unsetenv ("GTK_THEME");
+        }
 }
+#endif
 
-static gboolean
-handle_sigterm (gpointer user_data)
+static int
+start (GApplication  *manager,
+       int            argc,
+       char         **argv)
 {
-  g_debug ("Got SIGTERM; shutting down ...");
+        g_autoptr (GError) error = NULL;
 
-  if (gtk_main_level () > 0)
-    gtk_main_quit ();
+        if (G_IS_INITABLE (manager) &&
+            !g_initable_init (G_INITABLE (manager), NULL, &error)) {
+                g_printerr ("Failed to start: %s\n", error->message);
+                exit (1);
+        }
 
-  return G_SOURCE_REMOVE;
-}
+        g_application_hold (manager);
 
-static void
-install_signal_handler (void)
-{
-  g_autoptr(GSource) source = NULL;
-
-  source = g_unix_signal_source_new (SIGTERM);
-
-  g_source_set_callback (source, handle_sigterm, NULL, NULL);
-  g_source_attach (source, NULL);
-}
-
-static void
-bus_acquired_cb (GDBusConnection *connection,
-                 const gchar *name,
-                 gpointer user_data G_GNUC_UNUSED)
-{
-        g_debug ("%s: acquired bus %p for name %s", G_STRFUNC, connection, name);
-}
-
-static void
-name_acquired_cb (GDBusConnection *connection,
-                  const gchar *name,
-                  gpointer user_data G_GNUC_UNUSED)
-{
-        g_debug ("%s: acquired name %s on bus %p", G_STRFUNC, name, connection);
-}
-
-static void
-name_lost_cb (GDBusConnection *connection,
-              const gchar *name,
-              gpointer user_data G_GNUC_UNUSED)
-{
-        g_debug ("%s: lost name %s on bus %p", G_STRFUNC, name, connection);
+        return g_application_run (manager, argc, argv);
 }
 
 int
-main (int argc, char **argv)
+gsd_main_helper (GType        manager_type,
+                 int          argc,
+                 char       **argv)
 {
-        GError  *error = NULL;
-        guint name_own_id;
+        g_autoptr (GError) error = NULL;
+        g_autoptr (GOptionContext) context = NULL;
+        g_autoptr (GApplication) manager = NULL;
 
         bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
         textdomain (GETTEXT_PACKAGE);
         setlocale (LC_ALL, "");
 
-	/* Ensure we don't lose resources during linkage */
-	g_resources_register (gsd_get_resource ());
+#ifdef USE_GTK
+        /* Ensure we don't lose resources during linkage */
+        g_resources_register (gsd_get_resource ());
 
         set_empty_gtk_theme (TRUE);
 
-#ifdef GDK_BACKEND
-	{
-		const gchar *setup_display = getenv ("GNOME_SETUP_DISPLAY");
-		if (setup_display && *setup_display != '\0')
-			g_setenv ("DISPLAY", setup_display, TRUE);
-	}
-
-        gdk_set_allowed_backends (GDK_BACKEND);
-
-        /* GDK would fail to initialize with e.g. GDK_BACKEND=wayland */
-        g_unsetenv ("GDK_BACKEND");
-#endif
-
-        error = NULL;
         if (! gtk_init_with_args (&argc, &argv, PLUGIN_NAME, entries, NULL, &error)) {
                 if (error != NULL) {
-                        fprintf (stderr, "%s\n", error->message);
-                        g_error_free (error);
+                        g_printerr ("%s\n", error->message);
                 }
                 exit (1);
         }
 
         set_empty_gtk_theme (FALSE);
+#else
+        context = g_option_context_new (NULL);
+        g_option_context_add_main_entries (context, entries, GETTEXT_PACKAGE);
+        if (!g_option_context_parse (context, &argc, &argv, &error)) {
+                g_printerr ("%s\n", error->message);
+                exit (1);
+        }
+#endif
 
         if (verbose) {
                 g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
@@ -263,38 +286,14 @@ main (int argc, char **argv)
                 setlinebuf (stdout);
         }
 
-	if (timeout > 0) {
-		guint id;
-		id = g_timeout_add_seconds (timeout, (GSourceFunc) gtk_main_quit, NULL);
-		g_source_set_name_by_id (id, "[gnome-settings-daemon] gtk_main_quit");
-	}
+        manager = g_object_new (manager_type,
+                                "application-id", PLUGIN_DBUS_NAME,
+                                NULL);
 
-        install_signal_handler ();
+        register_activate (manager);
+        register_timeout (manager);
+        install_signal_handler (manager);
+        register_with_gnome_session (manager);
 
-        manager = NEW ();
-	register_with_gnome_session ();
-
-        if (!START (manager, &error)) {
-                fprintf (stderr, "Failed to start: %s\n", error->message);
-                g_error_free (error);
-                exit (1);
-        }
-
-	name_own_id = g_bus_own_name (G_BUS_TYPE_SESSION,
-				      PLUGIN_DBUS_NAME,
-				      G_BUS_NAME_OWNER_FLAGS_DO_NOT_QUEUE,
-				      bus_acquired_cb,
-				      name_acquired_cb,
-				      name_lost_cb,
-				      NULL, /* user_data */
-				      NULL /* user_data_free_func */);
-
-        gtk_main ();
-
-        STOP (manager);
-
-        g_object_unref (manager);
-        g_bus_unown_name (name_own_id);
-
-        return 0;
+        return start (manager, argc, argv);
 }

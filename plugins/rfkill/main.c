@@ -1,7 +1,8 @@
-#define NEW gsd_rfkill_manager_new
-#define START gsd_rfkill_manager_start
-#define STOP gsd_rfkill_manager_stop
-#define MANAGER GsdRfkillManager
+#include "gsd-main-helper.h"
 #include "gsd-rfkill-manager.h"
 
-#include "daemon-skeleton.h"
+int
+main (int argc, char **argv)
+{
+        return gsd_main_helper (GSD_TYPE_RFKILL_MANAGER, argc, argv);
+}

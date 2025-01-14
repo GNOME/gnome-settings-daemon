@@ -1,7 +1,8 @@
-#define NEW gsd_power_manager_new
-#define START gsd_power_manager_start
-#define STOP gsd_power_manager_stop
-#define MANAGER GsdPowerManager
+#include "gsd-main-helper.h"
 #include "gsd-power-manager.h"
 
-#include "daemon-skeleton-gtk.h"
+int
+main (int argc, char **argv)
+{
+        return gsd_main_helper (GSD_TYPE_POWER_MANAGER, argc, argv);
+}

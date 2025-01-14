@@ -20,18 +20,15 @@
 #ifndef __GSD_SHARING_MANAGER_H
 #define __GSD_SHARING_MANAGER_H
 
-#include <glib-object.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
 #define GSD_TYPE_SHARING_MANAGER         (gsd_sharing_manager_get_type ())
 
-G_DECLARE_FINAL_TYPE (GsdSharingManager, gsd_sharing_manager, GSD, SHARING_MANAGER, GObject)
+G_DECLARE_FINAL_TYPE (GsdSharingManager, gsd_sharing_manager, GSD, SHARING_MANAGER, GApplication)
 
 GsdSharingManager *     gsd_sharing_manager_new                 (void);
-gboolean                gsd_sharing_manager_start               (GsdSharingManager *manager,
-                                                               GError         **error);
-void                    gsd_sharing_manager_stop                (GsdSharingManager *manager);
 
 G_END_DECLS
 

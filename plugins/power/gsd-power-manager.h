@@ -20,14 +20,14 @@
 #ifndef __GSD_POWER_MANAGER_H
 #define __GSD_POWER_MANAGER_H
 
-#include <glib-object.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
 #define GSD_TYPE_POWER_MANAGER         (gsd_power_manager_get_type ())
 #define GSD_POWER_MANAGER_ERROR        (gsd_power_manager_error_quark ())
 
-G_DECLARE_FINAL_TYPE (GsdPowerManager, gsd_power_manager, GSD, POWER_MANAGER, GObject)
+G_DECLARE_FINAL_TYPE (GsdPowerManager, gsd_power_manager, GSD, POWER_MANAGER, GApplication)
 
 enum
 {
@@ -38,9 +38,6 @@ enum
 GQuark                  gsd_power_manager_error_quark         (void);
 
 GsdPowerManager *       gsd_power_manager_new                 (void);
-gboolean                gsd_power_manager_start               (GsdPowerManager *manager,
-                                                               GError         **error);
-void                    gsd_power_manager_stop                (GsdPowerManager *manager);
 
 G_END_DECLS
 

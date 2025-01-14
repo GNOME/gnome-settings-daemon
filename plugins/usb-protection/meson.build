@@ -2,6 +2,7 @@ sources = files(
   'gsd-usb-protection-manager.c',
   'main.c'
 )
+sources += main_helper_sources
 
 deps = plugins_deps + [
   gsd_enums_dep,

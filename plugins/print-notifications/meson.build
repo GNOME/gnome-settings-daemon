@@ -2,6 +2,7 @@ sources = files(
   'gsd-print-notifications-manager.c',
   'main.c'
 )
+sources += main_helper_sources
 
 deps = plugins_deps + [
   cups_dep,

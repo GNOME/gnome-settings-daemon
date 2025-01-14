@@ -11,6 +11,8 @@ sources = gsd_xsettings_gtk + fc_monitor + wm_button_layout_translation + files(
   'main.c'
 )
 
+sources += main_helper_sources
+
 deps = plugins_deps + [
   gsd_enums_dep,
   gtk_dep,
@@ -22,6 +24,7 @@ deps = plugins_deps + [
 ]
 
 cflags += ['-DGTK_MODULES_DIRECTORY="@0@"'.format(gsd_gtk_modules_directory)]
+cflags += ['-DUSE_GTK=1']
 
 executable(
   'gsd-' + plugin_name,

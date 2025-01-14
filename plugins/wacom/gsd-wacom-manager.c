@@ -19,6 +19,7 @@
  */
 
 #include "config.h"
+#include "gio/gio.h"
 
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -75,7 +76,7 @@ static const gchar introspection_xml[] =
 
 struct _GsdWacomManager
 {
-        GObject parent;
+        GApplication parent;
 
         guint start_idle_id;
         GdkSeat *seat;
@@ -100,11 +101,13 @@ struct _GsdWacomManager
 static void     gsd_wacom_manager_class_init  (GsdWacomManagerClass *klass);
 static void     gsd_wacom_manager_init        (GsdWacomManager      *wacom_manager);
 static void     gsd_wacom_manager_finalize    (GObject              *object);
+static void     gsd_wacom_manager_startup     (GApplication         *app);
+static void     gsd_wacom_manager_shutdown    (GApplication         *app);
 
 static gboolean is_opaque_tablet (GsdWacomManager *manager,
                                   GdkDevice       *device);
 
-G_DEFINE_TYPE (GsdWacomManager, gsd_wacom_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (GsdWacomManager, gsd_wacom_manager, G_TYPE_APPLICATION)
 
 static gpointer manager_object = NULL;
 
@@ -174,8 +177,12 @@ static void
 gsd_wacom_manager_class_init (GsdWacomManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+        GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
 
         object_class->finalize = gsd_wacom_manager_finalize;
+
+        application_class->startup = gsd_wacom_manager_startup;
+        application_class->shutdown = gsd_wacom_manager_shutdown;
 }
 
 static gchar *
@@ -445,10 +452,11 @@ get_machine_id (void)
         return machine_id;
 }
 
-gboolean
-gsd_wacom_manager_start (GsdWacomManager *manager,
-                         GError         **error)
+static void
+gsd_wacom_manager_startup (GApplication *app)
 {
+        GsdWacomManager *manager = GSD_WACOM_MANAGER (app);
+
         gnome_settings_profile_start (NULL);
 
         register_manager (manager_object);
@@ -458,14 +466,16 @@ gsd_wacom_manager_start (GsdWacomManager *manager,
         manager->start_idle_id = g_idle_add ((GSourceFunc) gsd_wacom_manager_idle_cb, manager);
         g_source_set_name_by_id (manager->start_idle_id, "[gnome-settings-daemon] gsd_wacom_manager_idle_cb");
 
-        gnome_settings_profile_end (NULL);
+        G_APPLICATION_CLASS (gsd_wacom_manager_parent_class)->startup (app);
 
-        return TRUE;
+        gnome_settings_profile_end (NULL);
 }
 
-void
-gsd_wacom_manager_stop (GsdWacomManager *manager)
+static void
+gsd_wacom_manager_shutdown (GApplication *app)
 {
+        GsdWacomManager *manager = GSD_WACOM_MANAGER (app);
+
         g_debug ("Stopping wacom manager");
 
         g_clear_pointer (&manager->machine_id, g_free);
@@ -485,6 +495,8 @@ gsd_wacom_manager_stop (GsdWacomManager *manager)
                 g_signal_handler_disconnect (manager->seat, manager->device_added_id);
                 manager->seat = NULL;
         }
+
+        G_APPLICATION_CLASS (gsd_wacom_manager_parent_class)->shutdown (app);
 }
 
 static void
@@ -498,8 +510,6 @@ gsd_wacom_manager_finalize (GObject *object)
         wacom_manager = GSD_WACOM_MANAGER (object);
 
         g_return_if_fail (wacom_manager != NULL);
-
-        gsd_wacom_manager_stop (wacom_manager);
 
         if (wacom_manager->start_idle_id != 0)
                 g_source_remove (wacom_manager->start_idle_id);

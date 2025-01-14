@@ -21,18 +21,15 @@
 #ifndef __GSD_RFKILL_MANAGER_H
 #define __GSD_RFKILL_MANAGER_H
 
-#include <glib-object.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
 #define GSD_TYPE_RFKILL_MANAGER         (gsd_rfkill_manager_get_type ())
 
-G_DECLARE_FINAL_TYPE (GsdRfkillManager, gsd_rfkill_manager, GSD, RFKILL_MANAGER, GObject)
+G_DECLARE_FINAL_TYPE (GsdRfkillManager, gsd_rfkill_manager, GSD, RFKILL_MANAGER, GApplication)
 
 GsdRfkillManager *       gsd_rfkill_manager_new                 (void);
-gboolean                gsd_rfkill_manager_start               (GsdRfkillManager *manager,
-                                                               GError         **error);
-void                    gsd_rfkill_manager_stop                (GsdRfkillManager *manager);
 
 G_END_DECLS
 

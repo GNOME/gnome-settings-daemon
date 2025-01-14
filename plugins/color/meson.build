@@ -7,6 +7,7 @@ sources = files(
   'gsd-night-light-common.c',
   'main.c'
 )
+sources += main_helper_sources
 
 deps = plugins_deps + [
   colord_dep,
@@ -18,6 +19,7 @@ deps = plugins_deps + [
 ]
 
 cflags += ['-DBINDIR="@0@"'.format(gsd_bindir)]
+cflags += ['-DUSE_GTK=1']
 
 executable(
   'gsd-' + plugin_name,

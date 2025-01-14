@@ -1,7 +1,8 @@
-#define NEW gsd_keyboard_manager_new
-#define START gsd_keyboard_manager_start
-#define STOP gsd_keyboard_manager_stop
-#define MANAGER GsdKeyboardManager
+#include "gsd-main-helper.h"
 #include "gsd-keyboard-manager.h"
 
-#include "daemon-skeleton-gtk.h"
+int
+main (int argc, char **argv)
+{
+        return gsd_main_helper (GSD_TYPE_KEYBOARD_MANAGER, argc, argv);
+}

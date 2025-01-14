@@ -20,17 +20,14 @@
 #ifndef __GSD_A11Y_SETTINGS_MANAGER_H
 #define __GSD_A11Y_SETTINGS_MANAGER_H
 
-#include <glib-object.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
 #define GSD_TYPE_A11Y_SETTINGS_MANAGER gsd_a11y_settings_manager_get_type ()
-G_DECLARE_FINAL_TYPE (GsdA11ySettingsManager, gsd_a11y_settings_manager, GSD, A11Y_SETTINGS_MANAGER, GObject)
+G_DECLARE_FINAL_TYPE (GsdA11ySettingsManager, gsd_a11y_settings_manager, GSD, A11Y_SETTINGS_MANAGER, GApplication)
 
 GsdA11ySettingsManager *gsd_a11y_settings_manager_new                 (void);
-gboolean                gsd_a11y_settings_manager_start               (GsdA11ySettingsManager *manager,
-                                                                       GError         **error);
-void                    gsd_a11y_settings_manager_stop                (GsdA11ySettingsManager *manager);
 
 G_END_DECLS
 

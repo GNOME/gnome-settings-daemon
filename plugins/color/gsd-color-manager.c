@@ -55,7 +55,7 @@ static const gchar introspection_xml[] =
 
 struct _GsdColorManager
 {
-        GObject            parent;
+        GApplication       parent;
 
         /* D-Bus */
         guint              name_id;
@@ -78,7 +78,7 @@ static void     gsd_color_manager_class_init  (GsdColorManagerClass *klass);
 static void     gsd_color_manager_init        (GsdColorManager      *color_manager);
 static void     gsd_color_manager_finalize    (GObject             *object);
 
-G_DEFINE_TYPE (GsdColorManager, gsd_color_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (GsdColorManager, gsd_color_manager, G_TYPE_APPLICATION)
 
 static gpointer manager_object = NULL;
 
@@ -91,33 +91,43 @@ gsd_color_manager_error_quark (void)
         return quark;
 }
 
-gboolean
-gsd_color_manager_start (GsdColorManager *manager,
-                         GError          **error)
+static void
+gsd_color_manager_startup (GApplication *app)
 {
+        GsdColorManager *manager = GSD_COLOR_MANAGER (app);
+
         g_debug ("Starting color manager");
         gnome_settings_profile_start (NULL);
 
         /* start the device probing */
         gsd_color_state_start (manager->state);
 
+        G_APPLICATION_CLASS (gsd_color_manager_parent_class)->startup (app);
+
         gnome_settings_profile_end (NULL);
-        return TRUE;
 }
 
-void
-gsd_color_manager_stop (GsdColorManager *manager)
+static void
+gsd_color_manager_shutdown (GApplication *app)
 {
+        GsdColorManager *manager = GSD_COLOR_MANAGER (app);
+
         g_debug ("Stopping color manager");
         gsd_color_state_stop (manager->state);
+
+        G_APPLICATION_CLASS (gsd_color_manager_parent_class)->shutdown (app);
 }
 
 static void
 gsd_color_manager_class_init (GsdColorManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+        GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
 
         object_class->finalize = gsd_color_manager_finalize;
+
+        application_class->startup = gsd_color_manager_startup;
+        application_class->shutdown = gsd_color_manager_shutdown;
 }
 
 static void
@@ -235,8 +245,6 @@ gsd_color_manager_finalize (GObject *object)
         g_return_if_fail (GSD_IS_COLOR_MANAGER (object));
 
         manager = GSD_COLOR_MANAGER (object);
-
-        gsd_color_manager_stop (manager);
 
         if (manager->bus_cancellable != NULL) {
                 g_cancellable_cancel (manager->bus_cancellable);
