@@ -78,6 +78,8 @@ static void     gsd_color_manager_class_init  (GsdColorManagerClass *klass);
 static void     gsd_color_manager_init        (GsdColorManager      *color_manager);
 static void     gsd_color_manager_finalize    (GObject             *object);
 
+static void     register_manager_dbus (GsdColorManager *manager);
+
 G_DEFINE_TYPE (GsdColorManager, gsd_color_manager, G_TYPE_APPLICATION)
 
 static gpointer manager_object = NULL;
@@ -99,6 +101,8 @@ gsd_color_manager_startup (GApplication *app)
         g_debug ("Starting color manager");
         gnome_settings_profile_start (NULL);
 
+        register_manager_dbus (manager);
+
         /* start the device probing */
         gsd_color_state_start (manager->state);
 
@@ -114,6 +118,17 @@ gsd_color_manager_shutdown (GApplication *app)
 
         g_debug ("Stopping color manager");
         gsd_color_state_stop (manager->state);
+
+        if (manager->bus_cancellable != NULL) {
+                g_cancellable_cancel (manager->bus_cancellable);
+                g_clear_object (&manager->bus_cancellable);
+        }
+
+        g_clear_pointer (&manager->introspection_data, g_dbus_node_info_unref);
+        g_clear_object (&manager->connection);
+
+        g_clear_handle_id (&manager->name_id, g_bus_unown_name);
+        g_clear_handle_id (&manager->nlight_forced_timeout_id, g_source_remove);
 
         G_APPLICATION_CLASS (gsd_color_manager_parent_class)->shutdown (app);
 }
@@ -245,22 +260,6 @@ gsd_color_manager_finalize (GObject *object)
         g_return_if_fail (GSD_IS_COLOR_MANAGER (object));
 
         manager = GSD_COLOR_MANAGER (object);
-
-        if (manager->bus_cancellable != NULL) {
-                g_cancellable_cancel (manager->bus_cancellable);
-                g_clear_object (&manager->bus_cancellable);
-        }
-
-        g_clear_pointer (&manager->introspection_data, g_dbus_node_info_unref);
-        g_clear_object (&manager->connection);
-
-        if (manager->name_id != 0) {
-                g_bus_unown_name (manager->name_id);
-                manager->name_id = 0;
-        }
-
-        if (manager->nlight_forced_timeout_id)
-                g_source_remove (manager->nlight_forced_timeout_id);
 
         g_clear_object (&manager->calibrate);
         g_clear_object (&manager->state);
@@ -492,7 +491,6 @@ gsd_color_manager_new (void)
                 manager_object = g_object_new (GSD_TYPE_COLOR_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
-                register_manager_dbus (manager_object);
         }
 
         return GSD_COLOR_MANAGER (manager_object);

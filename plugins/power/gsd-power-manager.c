@@ -248,6 +248,7 @@ static void      idle_triggered_idle_cb (GnomeIdleMonitor *monitor, guint watch_
 static void      idle_became_active_cb (GnomeIdleMonitor *monitor, guint watch_id, gpointer user_data);
 static void      iio_proxy_changed (GsdPowerManager *manager);
 static void      iio_proxy_changed_cb (GDBusProxy *proxy, GVariant *changed_properties, GStrv invalidated_properties, gpointer user_data);
+static void      register_manager_dbus (GsdPowerManager *manager);
 
 static void      initable_iface_init (GInitableIface *initable_iface);
 
@@ -2219,14 +2220,10 @@ gsd_power_manager_finalize (GObject *object)
 
         g_return_if_fail (manager != NULL);
 
-        g_clear_object (&manager->connection);
-
-        if (manager->name_id != 0)
-                g_bus_unown_name (manager->name_id);
-
-        if (manager->iio_proxy_watch_id != 0)
-                g_bus_unwatch_name (manager->iio_proxy_watch_id);
-        manager->iio_proxy_watch_id = 0;
+        if (manager->cancellable != NULL) {
+                g_cancellable_cancel (manager->cancellable);
+                g_clear_object (&manager->cancellable);
+        }
 
         G_OBJECT_CLASS (gsd_power_manager_parent_class)->finalize (object);
 }
@@ -2985,6 +2982,8 @@ gsd_power_manager_startup (GApplication *app)
         g_debug ("Starting power manager");
         gnome_settings_profile_start (NULL);
 
+        register_manager_dbus (manager);
+
         /* Check whether we are running in a VM */
         manager->is_virtual_machine = gsd_power_is_hardware_a_vm ();
 
@@ -3147,11 +3146,6 @@ gsd_power_manager_shutdown (GApplication *app)
                 manager->inhibit_lid_switch_timer_id = 0;
         }
 
-        if (manager->cancellable != NULL) {
-                g_cancellable_cancel (manager->cancellable);
-                g_clear_object (&manager->cancellable);
-        }
-
         g_clear_pointer (&manager->introspection_data, g_dbus_node_info_unref);
 
         if (manager->up_client)
@@ -3206,6 +3200,11 @@ gsd_power_manager_shutdown (GApplication *app)
                 g_source_remove (manager->xscreensaver_watchdog_timer_id);
                 manager->xscreensaver_watchdog_timer_id = 0;
         }
+
+        g_clear_object (&manager->connection);
+
+        g_clear_handle_id (&manager->name_id, g_bus_unown_name);
+        g_clear_handle_id (&manager->iio_proxy_watch_id, g_bus_unwatch_name);
 
         G_APPLICATION_CLASS (gsd_power_manager_parent_class)->shutdown (app);
 }
@@ -3609,7 +3608,6 @@ gsd_power_manager_new (void)
                 manager_object = g_object_new (GSD_TYPE_POWER_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
-                register_manager_dbus (manager_object);
         }
         return GSD_POWER_MANAGER (manager_object);
 }

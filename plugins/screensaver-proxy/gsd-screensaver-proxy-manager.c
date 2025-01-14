@@ -368,6 +368,8 @@ gsd_screensaver_proxy_manager_startup (GApplication *app)
         g_debug ("Starting screensaver-proxy manager");
         gnome_settings_profile_start (NULL);
 
+        register_manager_dbus (manager);
+
         manager->session =
                 gnome_settings_bus_get_session_proxy ();
         manager->watch_ht = g_hash_table_new_full (g_str_hash,
@@ -393,6 +395,18 @@ gsd_screensaver_proxy_manager_shutdown (GApplication *app)
         g_clear_object (&manager->session);
         g_clear_pointer (&manager->watch_ht, g_hash_table_destroy);
         g_clear_pointer (&manager->cookie_ht, g_hash_table_destroy);
+
+        g_clear_handle_id (&manager->name_id, g_bus_unown_name);
+
+        g_clear_object (&manager->connection);
+
+        if (manager->bus_cancellable != NULL) {
+                g_cancellable_cancel (manager->bus_cancellable);
+                g_clear_object (&manager->bus_cancellable);
+        }
+
+        g_clear_pointer (&manager->introspection_data, g_dbus_node_info_unref);
+        g_clear_pointer (&manager->introspection_data2, g_dbus_node_info_unref);
 
         G_APPLICATION_CLASS (gsd_screensaver_proxy_manager_parent_class)->shutdown (app);
 }
@@ -426,15 +440,6 @@ gsd_screensaver_proxy_manager_finalize (GObject *object)
 
         g_return_if_fail (manager != NULL);
 
-        if (manager->name_id != 0) {
-                g_bus_unown_name (manager->name_id);
-                manager->name_id = 0;
-        }
-        g_clear_object (&manager->connection);
-        g_clear_object (&manager->bus_cancellable);
-        g_clear_pointer (&manager->introspection_data, g_dbus_node_info_unref);
-        g_clear_pointer (&manager->introspection_data2, g_dbus_node_info_unref);
-
         G_OBJECT_CLASS (gsd_screensaver_proxy_manager_parent_class)->finalize (object);
 }
 
@@ -447,7 +452,6 @@ gsd_screensaver_proxy_manager_new (void)
                 manager_object = g_object_new (GSD_TYPE_SCREENSAVER_PROXY_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
-                register_manager_dbus (manager_object);
         }
 
         return GSD_SCREENSAVER_PROXY_MANAGER (manager_object);

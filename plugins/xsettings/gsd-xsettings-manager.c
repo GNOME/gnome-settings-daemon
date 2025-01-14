@@ -1585,6 +1585,8 @@ gsd_xsettings_manager_shutdown (GApplication *app)
 
         g_clear_object (&manager->interface_settings);
 
+        g_clear_handle_id (&manager->start_idle_id, g_source_remove);
+
         G_APPLICATION_CLASS (gsd_xsettings_manager_parent_class)->shutdown (app);
 }
 
@@ -1621,9 +1623,6 @@ gsd_xsettings_manager_finalize (GObject *object)
         xsettings_manager = GSD_XSETTINGS_MANAGER (object);
 
         g_return_if_fail (xsettings_manager != NULL);
-
-        if (xsettings_manager->start_idle_id != 0)
-                g_source_remove (xsettings_manager->start_idle_id);
 
         g_clear_object (&xsettings_manager->dbus_connection);
 

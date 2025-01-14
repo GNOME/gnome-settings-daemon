@@ -1685,6 +1685,8 @@ gsd_print_notifications_manager_shutdown (GApplication *application)
 
         scp_handler (manager, FALSE);
 
+        g_clear_handle_id (&manager->start_idle_id, g_source_remove);
+
         G_APPLICATION_CLASS (gsd_print_notifications_manager_parent_class)->shutdown (application);
 }
 
@@ -1718,9 +1720,6 @@ gsd_print_notifications_manager_finalize (GObject *object)
         manager = GSD_PRINT_NOTIFICATIONS_MANAGER (object);
 
         g_return_if_fail (manager != NULL);
-
-        if (manager->start_idle_id != 0)
-                g_source_remove (manager->start_idle_id);
 
         G_OBJECT_CLASS (gsd_print_notifications_manager_parent_class)->finalize (object);
 }

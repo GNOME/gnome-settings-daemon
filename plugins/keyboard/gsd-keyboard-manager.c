@@ -84,6 +84,8 @@ static void     gsd_keyboard_manager_class_init  (GsdKeyboardManagerClass *klass
 static void     gsd_keyboard_manager_init        (GsdKeyboardManager      *keyboard_manager);
 static void     gsd_keyboard_manager_finalize    (GObject                 *object);
 
+static void     migrate_keyboard_settings (void);
+
 G_DEFINE_TYPE (GsdKeyboardManager, gsd_keyboard_manager, G_TYPE_APPLICATION)
 
 static gpointer manager_object = NULL;
@@ -512,6 +514,8 @@ gsd_keyboard_manager_shutdown (GApplication *app)
         g_clear_object (&manager->input_sources_settings);
         g_clear_object (&manager->localed);
 
+        g_clear_handle_id (&manager->start_idle_id, g_source_remove);
+
         G_APPLICATION_CLASS (gsd_keyboard_manager_parent_class)->shutdown (app);
 }
 
@@ -530,6 +534,7 @@ gsd_keyboard_manager_class_init (GsdKeyboardManagerClass *klass)
 static void
 gsd_keyboard_manager_init (GsdKeyboardManager *manager)
 {
+        migrate_keyboard_settings ();
 }
 
 static void
@@ -543,9 +548,6 @@ gsd_keyboard_manager_finalize (GObject *object)
         keyboard_manager = GSD_KEYBOARD_MANAGER (object);
 
         g_return_if_fail (keyboard_manager != NULL);
-
-        if (keyboard_manager->start_idle_id != 0)
-                g_source_remove (keyboard_manager->start_idle_id);
 
         G_OBJECT_CLASS (gsd_keyboard_manager_parent_class)->finalize (object);
 }
@@ -606,7 +608,6 @@ gsd_keyboard_manager_new (void)
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
-                migrate_keyboard_settings ();
                 manager_object = g_object_new (GSD_TYPE_KEYBOARD_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);

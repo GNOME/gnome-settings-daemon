@@ -750,6 +750,7 @@ gsd_smartcard_manager_shutdown (GApplication *app)
         g_clear_object (&self->cancellable);
         g_clear_object (&self->session_manager);
         g_clear_object (&self->screen_saver);
+        g_clear_handle_id (&self->start_idle_id, g_source_remove);
 
         G_APPLICATION_CLASS (gsd_smartcard_manager_parent_class)->shutdown (app);
 }
@@ -923,8 +924,6 @@ gsd_smartcard_manager_finalize (GObject *object)
         self = GSD_SMARTCARD_MANAGER (object);
 
         g_return_if_fail (self != NULL);
-
-        g_clear_handle_id (&self->start_idle_id, g_source_remove);
 
         G_OBJECT_CLASS (gsd_smartcard_manager_parent_class)->finalize (object);
 }

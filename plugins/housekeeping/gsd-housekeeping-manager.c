@@ -429,6 +429,8 @@ gsd_housekeeping_manager_startup (GApplication *app)
         g_debug ("Starting housekeeping manager");
         gnome_settings_profile_start (NULL);
 
+        register_manager_dbus (manager);
+
         /* Create ~/.local/ as early as possible */
         (void) g_mkdir_with_parents(g_get_user_data_dir (), 0700);
 
@@ -536,8 +538,6 @@ gsd_housekeeping_manager_new (void)
                 manager_object = g_object_new (GSD_TYPE_HOUSEKEEPING_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
-
-                register_manager_dbus (manager_object);
         }
 
         return GSD_HOUSEKEEPING_MANAGER (manager_object);

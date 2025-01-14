@@ -459,7 +459,7 @@ gsd_wacom_manager_startup (GApplication *app)
 
         gnome_settings_profile_start (NULL);
 
-        register_manager (manager_object);
+        register_manager (manager);
 
         manager->machine_id = get_machine_id ();
 
@@ -496,6 +496,17 @@ gsd_wacom_manager_shutdown (GApplication *app)
                 manager->seat = NULL;
         }
 
+        g_clear_handle_id (&manager->start_idle_id, g_source_remove);
+
+        g_clear_pointer (&manager->introspection_data, g_dbus_node_info_unref);
+
+        if (manager->dbus_cancellable != NULL) {
+                g_cancellable_cancel (manager->dbus_cancellable);
+                g_clear_object (&manager->dbus_cancellable);
+        }
+
+        g_clear_object (&manager->dbus_connection);
+
         G_APPLICATION_CLASS (gsd_wacom_manager_parent_class)->shutdown (app);
 }
 
@@ -510,9 +521,6 @@ gsd_wacom_manager_finalize (GObject *object)
         wacom_manager = GSD_WACOM_MANAGER (object);
 
         g_return_if_fail (wacom_manager != NULL);
-
-        if (wacom_manager->start_idle_id != 0)
-                g_source_remove (wacom_manager->start_idle_id);
 
         g_clear_object (&wacom_manager->shell_proxy);
 

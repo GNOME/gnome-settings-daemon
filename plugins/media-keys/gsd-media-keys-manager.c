@@ -3108,7 +3108,7 @@ gsd_media_keys_manager_startup (GApplication *app)
         priv->start_idle_id = g_idle_add ((GSourceFunc) start_media_keys_idle_cb, manager);
         g_source_set_name_by_id (priv->start_idle_id, "[gnome-settings-daemon] start_media_keys_idle_cb");
 
-        register_manager (manager_object);
+        register_manager (manager);
 
         G_APPLICATION_CLASS (gsd_media_keys_manager_parent_class)->startup (app);
 

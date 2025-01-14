@@ -702,7 +702,11 @@ gsd_wwan_manager_startup (GApplication *app)
 static void
 gsd_wwan_manager_shutdown (GApplication *app)
 {
+        GsdWwanManager *manager = GSD_WWAN_MANAGER (app);
+
         g_debug ("Stopping wwan manager");
+
+        g_clear_handle_id (&manager->start_idle_id, g_source_remove);
 
         G_APPLICATION_CLASS (gsd_wwan_manager_parent_class)->shutdown (app);
 }
