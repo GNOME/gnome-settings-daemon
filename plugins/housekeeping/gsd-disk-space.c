@@ -670,7 +670,8 @@ ldsm_notify (const char *summary,
 
 static void
 ldsm_notify_for_mount (LdsmMountInfo *mount,
-                       gboolean       multiple_volumes)
+                       gboolean       multiple_volumes,
+                       gboolean       is_ambiguous_name)
 {
         gboolean has_trash;
         gchar  *name;
@@ -688,7 +689,7 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
         free_space_str = g_format_size (free_space);
 
         if (multiple_volumes) {
-                summary = g_strdup_printf (_("Low Disk Space on “%s”"), name);
+                summary = g_strdup_printf (_("Low Disk Space on “%s”"), is_ambiguous_name ? path : name);
                 if (has_trash) {
                         body = g_strdup_printf (_("The volume “%s” has only %s disk space remaining.  You may free up some space by emptying the trash."),
                                                 name,
@@ -778,8 +779,10 @@ ldsm_maybe_warn_mounts (GList *mounts,
                         gboolean multiple_volumes)
 {
         GList *l;
+        GHashTable *mount_names;
         gboolean done = FALSE;
 
+        mount_names = g_hash_table_new (g_str_hash, g_str_equal);
         for (l = mounts; l != NULL; l = l->next) {
                 LdsmMountInfo *mount_info = l->data;
                 LdsmMountInfo *previous_mount_info;
@@ -832,10 +835,19 @@ ldsm_maybe_warn_mounts (GList *mounts,
                 }
 
                 if (show_notify) {
-                        ldsm_notify_for_mount (mount_info, multiple_volumes);
+                        g_autofree gchar *mount_name = NULL;
+                        gboolean is_ambiguous_name = FALSE;
+
+                        mount_name = g_unix_mount_guess_name (mount_info->mount);
+                        is_ambiguous_name = g_hash_table_contains (mount_names, mount_name);
+                        g_hash_table_add (mount_names, mount_name);
+
+                        ldsm_notify_for_mount (mount_info, multiple_volumes, is_ambiguous_name);
                         done = TRUE;
                 }
         }
+
+        g_hash_table_destroy (mount_names);
 }
 
 static gboolean
