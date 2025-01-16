@@ -21,6 +21,11 @@
       <summary>Whether to hibernate, suspend or do nothing when inactive</summary>
       <description>The type of sleeping that should be performed when the computer is inactive.</description>
     </key>
+    <key name="sleep-inactive-ac-type-server" enum="org.gnome.settings-daemon.GsdPowerActionType">
+      <default>'nothing'</default>
+      <summary>Whether to hibernate, suspend or do nothing when inactive</summary>
+      <description>The type of sleeping that should be performed when a server is inactive. A server is defined by hostnamed chassis-type.</description>
+    </key>
     <key name="sleep-inactive-battery-timeout" type="i">
       <default>900</default>
       <summary>Sleep timeout computer when on battery</summary>

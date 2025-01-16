@@ -226,6 +226,9 @@ struct _GsdPowerManager
 
         /* Screens */
         GsdDisplayConfig        *display_config;
+
+        /* hostnamed chassis-type */
+        gchar                   *chassis_type;
 };
 
 enum {
@@ -1913,6 +1916,7 @@ idle_configure (GsdPowerManager *manager)
         guint timeout_sleep;
         guint timeout_dim;
         gboolean on_battery;
+        gboolean on_server = FALSE;
 
         if (!idle_is_session_inhibited (manager,
                                         GSM_INHIBITOR_FLAG_IDLE,
@@ -1959,8 +1963,11 @@ idle_configure (GsdPowerManager *manager)
         /* only do the sleep timeout when the session is idle
          * and we aren't inhibited from sleeping (or logging out, etc.) */
         on_battery = up_client_get_on_battery (manager->up_client);
-        action_type = g_settings_get_enum (manager->settings, on_battery ?
-                                           "sleep-inactive-battery-type" : "sleep-inactive-ac-type");
+        on_server = g_strcmp0 (manager->chassis_type, "server") == 0;
+        action_type = g_settings_get_enum (manager->settings,
+                                           /* Read from "sleep-inactive-ac-type-server when hostnamed chassis-type = "server" */
+                                           on_server ? "sleep-inactive-ac-type-server" :
+                                           on_battery ? "sleep-inactive-battery-type" : "sleep-inactive-ac-type");
         timeout_sleep = 0;
         if (!is_action_inhibited (manager, action_type)) {
                 gint timeout_sleep_;
@@ -2927,7 +2934,6 @@ gboolean
 gsd_power_manager_start (GsdPowerManager *manager,
                          GError **error)
 {
-        g_autofree char *chassis_type = NULL;
         g_debug ("Starting power manager");
         gnome_settings_profile_start (NULL);
 
@@ -2960,8 +2966,7 @@ gsd_power_manager_start (GsdPowerManager *manager,
                 return FALSE;
         }
 
-        chassis_type = gnome_settings_get_chassis_type ();
-        if (g_strcmp0 (chassis_type, "tablet") == 0 || g_strcmp0 (chassis_type, "handset") == 0) {
+        if (g_strcmp0 (manager->chassis_type, "tablet") == 0 || g_strcmp0 (manager->chassis_type, "handset") == 0) {
                 manager->show_sleep_warnings = FALSE;
         } else {
                 manager->show_sleep_warnings = TRUE;
@@ -3170,6 +3175,8 @@ gsd_power_manager_stop (GsdPowerManager *manager)
                 g_source_remove (manager->xscreensaver_watchdog_timer_id);
                 manager->xscreensaver_watchdog_timer_id = 0;
         }
+
+        g_clear_pointer (&manager->chassis_type, g_free);
 }
 
 static void
@@ -3178,6 +3185,8 @@ gsd_power_manager_init (GsdPowerManager *manager)
         manager->inhibit_lid_switch_fd = -1;
         manager->inhibit_suspend_fd = -1;
         manager->cancellable = g_cancellable_new ();
+
+        manager->chassis_type = gnome_settings_get_chassis_type ();
 }
 
 /* returns new level */
