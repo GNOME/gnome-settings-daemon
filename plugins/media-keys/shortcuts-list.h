@@ -34,6 +34,8 @@
 			 SHELL_ACTION_MODE_OVERVIEW | \
 			 SHELL_ACTION_MODE_LOGIN_SCREEN |\
                          POWER_KEYS_MODE_NO_DIALOG)
+#define GSD_ACTION_MODE_SCRIPT (SHELL_ACTION_MODE_ALL & \
+				~SHELL_ACTION_MODE_LOGIN_SCREEN)
 
 static struct {
         MediaKeyType key_type;

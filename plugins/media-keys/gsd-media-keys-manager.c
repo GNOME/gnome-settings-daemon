@@ -794,7 +794,10 @@ media_key_new_for_path (GsdMediaKeysManager *manager,
 
         key = media_key_new ();
         key->key_type = CUSTOM_KEY;
-        key->modes = GSD_ACTION_MODE_LAUNCHER;
+	if (g_settings_get_boolean (settings, "enable-in-lockscreen"))
+		key->modes = GSD_ACTION_MODE_SCRIPT;
+	else
+		key->modes = GSD_ACTION_MODE_LAUNCHER;
         key->custom_path = g_strdup (path);
         key->custom_command = command;
         key->grab_flags = META_KEY_BINDING_NONE;
