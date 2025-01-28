@@ -231,7 +231,7 @@ if enable_wwan
   else
      gcr_dep = dependency('gcr-4', version: '>= 3.90.0')
   endif
-  mm_glib_dep = dependency('mm-glib', version: '>= 1.0')
+  mm_glib_dep = dependency('mm-glib', version: '>= 1.18')
 endif
 
 # Sharing plugin
