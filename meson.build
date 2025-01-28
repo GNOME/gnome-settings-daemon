@@ -124,8 +124,8 @@ if enable_systemd and enable_elogind
 elif enable_systemd
   systemd_dep = dependency('systemd', version: '>= 243', required: true)
   libsystemd_dep = dependency('libsystemd', version: '>= 243', required: true)
-  systemd_userunitdir = systemd_dep.get_pkgconfig_variable('systemduserunitdir',
-                                                           define_variable: ['prefix', gsd_prefix])
+  systemd_userunitdir = systemd_dep.get_variable(pkgconfig: 'systemduserunitdir',
+                                                 pkgconfig_define: ['prefix', gsd_prefix])
 elif enable_elogind
   elogind_dep = dependency('libelogind', version: '>= 209', required: true)
 endif
