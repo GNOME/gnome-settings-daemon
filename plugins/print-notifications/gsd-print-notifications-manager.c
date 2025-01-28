@@ -56,6 +56,9 @@
 #define HAVE_CUPS_1_6 1
 #endif
 
+/* FIXME: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/issues/860 */
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 #ifndef HAVE_CUPS_1_6
 #define ippGetStatusCode(ipp) ipp->request.status.status_code
 #define ippGetInteger(attr, element) attr->values[element].integer
@@ -1729,3 +1732,5 @@ gsd_print_notifications_manager_new (void)
 
         return GSD_PRINT_NOTIFICATIONS_MANAGER (manager_object);
 }
+
+G_GNUC_END_IGNORE_DEPRECATIONS

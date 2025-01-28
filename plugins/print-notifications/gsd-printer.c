@@ -27,6 +27,9 @@
 #include <cups/cups.h>
 #include <cups/ppd.h>
 
+/* FIXME: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/issues/860 */
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 static GDBusNodeInfo *npn_introspection_data = NULL;
 static GDBusNodeInfo *pdi_introspection_data = NULL;
 
@@ -1401,3 +1404,5 @@ error:
 
   return 1;
 }
+
+G_GNUC_END_IGNORE_DEPRECATIONS
