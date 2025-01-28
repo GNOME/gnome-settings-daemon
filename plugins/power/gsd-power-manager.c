@@ -1556,7 +1556,10 @@ lid_state_changed_cb (UpClient *client, GParamSpec *pspec, GsdPowerManager *mana
                 return;
 
         /* same lid state */
+        /* FIXME: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/issues/859 */
+        G_GNUC_BEGIN_IGNORE_DEPRECATIONS
         tmp = up_client_get_lid_is_closed (manager->up_client);
+        G_GNUC_END_IGNORE_DEPRECATIONS
         if (manager->lid_is_closed == tmp)
                 return;
         manager->lid_is_closed = tmp;
@@ -2942,9 +2945,12 @@ gsd_power_manager_start (GsdPowerManager *manager,
                 return FALSE;
         }
 
+        /* FIXME: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/issues/859 */
+        G_GNUC_BEGIN_IGNORE_DEPRECATIONS
         manager->lid_is_present = up_client_get_lid_is_present (manager->up_client);
         if (manager->lid_is_present)
                 manager->lid_is_closed = up_client_get_lid_is_closed (manager->up_client);
+        G_GNUC_END_IGNORE_DEPRECATIONS
 
         /* Set up the logind proxy */
         manager->logind_proxy =
