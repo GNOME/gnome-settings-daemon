@@ -93,7 +93,7 @@ stages:
 .Build procedure: &build_procedure
   echo "== Building ==" &&
   rm -rf _build/ &&
-  meson . _build ${BUILD_OPTS} &&
+  meson setup --werror . _build ${BUILD_OPTS} &&
   ninja -C _build 2>&1 | tee compilation.log
 
 .Run Tests: &run_tests
