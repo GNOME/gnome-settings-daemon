@@ -59,7 +59,7 @@
 #include "shortcuts-list.h"
 #include "shell-key-grabber.h"
 #include "gsd-input-helper.h"
-#include "gsd-enums.h"
+#include "gnome-settings-daemon/gsd-enums.h"
 #include "gsd-shell-helper.h"
 
 #include <canberra.h>

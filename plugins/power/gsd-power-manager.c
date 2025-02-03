@@ -45,7 +45,7 @@
 #include "gsd-backlight.h"
 #include "gnome-settings-profile.h"
 #include "gnome-settings-bus.h"
-#include "gsd-enums.h"
+#include "gnome-settings-daemon/gsd-enums.h"
 #include "gsd-power-manager.h"
 
 #include "gsd-display-config-glue.h"

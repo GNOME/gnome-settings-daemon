@@ -23,6 +23,7 @@ sources += gnome.gdbus_codegen(
 
 deps = plugins_deps + [
   gio_unix_dep,
+  gsd_enums_dep,
   gsettings_desktop_dep,
   libcanberra_gtk_dep,
   libcommon_dep,
@@ -40,7 +41,7 @@ endif
 executable(
   'gsd-' + plugin_name,
   sources,
-  include_directories: [top_inc, data_inc],
+  include_directories: top_inc,
   dependencies: deps,
   c_args: cflags,
   install: true,

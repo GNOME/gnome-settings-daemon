@@ -39,7 +39,7 @@
 #include <gtk/gtk.h>
 
 #include "gnome-settings-profile.h"
-#include "gsd-enums.h"
+#include "gnome-settings-daemon/gsd-enums.h"
 #include "gsd-xsettings-manager.h"
 #include "gsd-xsettings-gtk.h"
 #include "gnome-settings-bus.h"

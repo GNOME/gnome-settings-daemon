@@ -4,6 +4,7 @@ sources = files(
 )
 
 deps = plugins_deps + [
+  gsd_enums_dep,
   gtk_dep,
   libcommon_dep,
   x11_dep
@@ -12,7 +13,7 @@ deps = plugins_deps + [
 executable(
   'gsd-' + plugin_name,
   sources,
-  include_directories: [top_inc, data_inc],
+  include_directories: top_inc,
   dependencies: deps,
   c_args: cflags,
   install: true,
