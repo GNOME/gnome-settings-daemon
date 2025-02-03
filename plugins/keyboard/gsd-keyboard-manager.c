@@ -41,7 +41,7 @@
 #include "gnome-settings-profile.h"
 #include "gsd-keyboard-manager.h"
 #include "gsd-input-helper.h"
-#include "gsd-enums.h"
+#include "gnome-settings-daemon/gsd-enums.h"
 #include "gsd-settings-migrate.h"
 
 #define GSD_KEYBOARD_DIR "org.gnome.settings-daemon.peripherals.keyboard"

@@ -43,7 +43,7 @@
 #include <libwacom/libwacom.h>
 #endif
 
-#include "gsd-enums.h"
+#include "gnome-settings-daemon/gsd-enums.h"
 #include "gnome-settings-profile.h"
 #include "gnome-settings-bus.h"
 #include "gsd-wacom-manager.h"

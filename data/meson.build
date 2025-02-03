@@ -1,5 +1,3 @@
-data_inc = include_directories('.')
-
 schemas = [
   'org.gnome.settings-daemon.peripherals.gschema.xml',
   'org.gnome.settings-daemon.peripherals.wacom.gschema.xml',
@@ -29,7 +27,7 @@ foreach schema: schemas
   )]
 endforeach
 
-enums_header = files('gsd-enums.h')
+enums_header = files('gnome-settings-daemon' / 'gsd-enums.h')
 
 mkenums = gnome.mkenums(
   'org.gnome.settings-daemon.enums.xml',
@@ -62,6 +60,11 @@ pkg.generate(
   subdirs: gsd_api_name
 )
 
+gsd_enums_dep = declare_dependency(
+  include_directories: include_directories('.')
+)
+
+meson.override_dependency(meson.project_name(), gsd_enums_dep)
 
 # for unit tests - gnome.compile_schemas() only looks in srcdir
 custom_target('compile-schemas',

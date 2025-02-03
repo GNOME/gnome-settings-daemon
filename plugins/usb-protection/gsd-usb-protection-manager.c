@@ -31,7 +31,7 @@
 
 #include "gnome-settings-bus.h"
 #include "gnome-settings-profile.h"
-#include "gsd-enums.h"
+#include "gnome-settings-daemon/gsd-enums.h"
 #include "gsd-usb-protection-manager.h"
 
 #define PRIVACY_SETTINGS "org.gnome.desktop.privacy"

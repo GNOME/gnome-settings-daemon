@@ -31,7 +31,7 @@ endif
 libcommon = static_library(
   plugin_name,
   sources: sources,
-  include_directories: [top_inc, data_inc],
+  include_directories: top_inc,
   dependencies: deps,
   c_args: cflags,
   link_args: ldflags

@@ -11,6 +11,7 @@ deps = plugins_deps + [
   libnotify_dep,
   gio_unix_dep,
   gnome_desktop_dep,
+  gsd_enums_dep,
   m_dep,
   upower_glib_dep,
   x11_dep,
@@ -33,7 +34,7 @@ cflags += ['-DLIBEXECDIR="@0@"'.format(gsd_libexecdir)]
 gsd_power = executable(
   'gsd-' + plugin_name,
   sources,
-  include_directories: [top_inc, data_inc],
+  include_directories: top_inc,
   dependencies: deps,
   c_args: cflags,
   install: true,
