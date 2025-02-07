@@ -520,12 +520,30 @@ on_smartcards_from_module_watched (GsdSmartcardManager *self,
 }
 
 static gboolean
-module_has_removable_slot (GckModule *module)
+module_should_be_watched (GckModule *module)
 {
         g_autolist(GckSlot) slots = NULL;
         GList *l;
 
         slots = gck_module_get_slots (module, FALSE);
+
+        if (slots == NULL) {
+                CK_FUNCTION_LIST_PTR p11_module;
+                g_autofree char *module_name = NULL;
+
+                p11_module = gck_module_get_functions (module);
+                module_name = p11_kit_module_get_name (p11_module);
+
+                /* No slot is currently available, so we can't make assumptions
+                 * whether the module supports or not removable devices.
+                 * So let's be conservative here and let's just assume that the
+                 * module does support removable devices, so that we will monitor
+                 * it for changes.
+                 */
+                g_debug ("No slot found for module %s, let's assume it supports "
+                         "removable devices", module_name);
+                return TRUE;
+        }
 
         for (l = slots; l; l = l->next) {
                 GckSlot *slot = l->data;
@@ -562,13 +580,16 @@ on_modules_initialized (GObject      *source_object,
                 GckModule *module = l->data;
                 CK_FUNCTION_LIST_PTR p11_module;
                 g_autofree char *module_name = NULL;
+                gboolean should_watch;
 
                 p11_module = gck_module_get_functions (module);
                 module_name = p11_kit_module_get_name (p11_module);
+                should_watch = module_should_be_watched (module);
 
-                g_debug ("Found p11-kit module %s", module_name);
+                g_debug ("Found p11-kit module %s (watched: %d)", module_name,
+                         should_watch);
 
-                if (!module_has_removable_slot (module))
+                if (!should_watch)
                         continue;
 
                 self->smartcard_modules = g_list_prepend (self->smartcard_modules,
