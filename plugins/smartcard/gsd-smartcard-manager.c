@@ -451,9 +451,10 @@ sync_initial_tokens_from_driver (GsdSmartcardManager *self,
 
                 if (!gck_slot_has_flags (slot, CKF_TOKEN_PRESENT)) {
                         CK_FUNCTION_LIST_PTR p11k_module = gck_module_get_functions (module);
+                        g_autofree char *module_name = p11_kit_module_get_name (p11k_module);
 
                         g_warning ("Module %s returned slot with no tokens",
-                                   p11_kit_module_get_name (p11k_module));
+                                   module_name);
                         continue;
                 }
 
