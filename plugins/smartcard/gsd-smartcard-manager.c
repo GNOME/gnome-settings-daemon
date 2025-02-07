@@ -260,10 +260,10 @@ watch_one_event_from_module (GsdSmartcardManager       *self,
 {
         g_autoptr(GError) wait_error = NULL;
         g_autoptr(GckSlot) slot = NULL;
+        g_autoptr(GckTokenInfo) token = NULL;
         GckTokenInfo *old_token;
         gulong return_sleep = 0;
         gulong handler_id;
-        gboolean token_is_present;
         gboolean token_changed;
         gboolean wait_blocks;
 
@@ -327,7 +327,9 @@ watch_one_event_from_module (GsdSmartcardManager       *self,
         operation->number_of_consecutive_errors = 0;
 
         g_assert (slot);
-        token_is_present = gck_slot_has_flags (slot, CKF_TOKEN_PRESENT);
+        if (gck_slot_has_flags (slot, CKF_TOKEN_PRESENT)) {
+                token = gck_slot_get_token_info (slot);
+        }
         old_token = g_hash_table_lookup (operation->smartcards, slot);
         token_changed = TRUE;
 
@@ -337,10 +339,7 @@ watch_one_event_from_module (GsdSmartcardManager       *self,
          * for the old card
          */
         if (old_token != NULL) {
-                if (token_is_present) {
-                        g_autoptr(GckTokenInfo) token = NULL;
-
-                        token = gck_slot_get_token_info (slot);
+                if (token) {
                         token_changed = !token_info_equals (token, old_token);
                 }
 
@@ -356,14 +355,14 @@ watch_one_event_from_module (GsdSmartcardManager       *self,
                 }
         }
 
-        if (token_is_present) {
+        if (token) {
                 if (token_changed) {
                         g_debug ("Detected smartcard insertion event in slot %lu",
                                  gck_slot_get_handle (slot));
 
                         g_hash_table_replace (operation->smartcards,
-                                        g_object_ref (slot),
-                                        gck_slot_get_token_info (slot));
+                                              g_object_ref (slot),
+                                              g_steal_pointer (&token));
 
                         gsd_smartcard_service_sync_token (self->service, slot,
                                                           cancellable);
@@ -458,7 +457,22 @@ sync_initial_tokens_from_driver (GsdSmartcardManager *self,
                         continue;
                 }
 
+                /* gck_slot_get_token_info() may return an error in case the
+                 * underlying p11k module call to C_GetTokenInfo() fails.
+                 * The gck API doesn't expose that (if not with a warning), but
+                 * it may still return a NULL token info (for example when an
+                 * inserted token is not recognized).
+                 * So handle this case gracefully to prevent us to crash.
+                 */
                 token_info = gck_slot_get_token_info (slot);
+                if (!token_info) {
+                        CK_FUNCTION_LIST_PTR p11k_module = gck_module_get_functions (module);
+                        g_autofree char *module_name = p11_kit_module_get_name (p11k_module);
+
+                        g_warning ("Module %s returned slot %lu has no valid token",
+                                   module_name, gck_slot_get_handle (slot));
+                        continue;
+                }
 
                 g_debug ("Detected smartcard '%s' in slot %lu at start up",
                          token_info->label, gck_slot_get_handle (slot));
