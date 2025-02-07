@@ -135,7 +135,7 @@ wait_for_any_slot_event (GckModule  *module,
 
         p11_module = gck_module_get_functions (module);
 
-        /* We first trt to use the blocking version of the call, in case it
+        /* We first try to use the blocking version of the call, in case it
          * is not supported, we fallback in the non-blocking version as
          * historically not all the p11-kit modules used supported it.
          */
