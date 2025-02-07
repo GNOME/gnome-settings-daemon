@@ -60,9 +60,9 @@
 #define UPOWER_DBUS_INTERFACE                   "org.freedesktop.UPower"
 #define UPOWER_DBUS_INTERFACE_KBDBACKLIGHT      "org.freedesktop.UPower.KbdBacklight"
 
-#define PPD_DBUS_NAME                           "net.hadess.PowerProfiles"
-#define PPD_DBUS_PATH                           "/net/hadess/PowerProfiles"
-#define PPD_DBUS_INTERFACE                      "net.hadess.PowerProfiles"
+#define PPD_DBUS_NAME                           "org.freedesktop.UPower.PowerProfiles"
+#define PPD_DBUS_PATH                           "/org/freedesktop/UPower/PowerProfiles"
+#define PPD_DBUS_INTERFACE                      "org.freedesktop.UPower.PowerProfiles"
 
 #define GSD_POWER_SETTINGS_SCHEMA               "org.gnome.settings-daemon.plugins.power"
 

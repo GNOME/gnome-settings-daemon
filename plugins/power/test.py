@@ -119,7 +119,7 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
 
         # start mock power-profiles-daemon
         try:
-            (self.ppd, self.obj_ppd) = self.spawn_server_template('power_profiles_daemon')
+            (self.ppd, self.obj_ppd) = self.spawn_server_template('upower_power_profiles_daemon')
             self.addCleanup(self.stop_process, self.ppd)
         except ModuleNotFoundError:
             self.ppd = None
@@ -1291,19 +1291,19 @@ class PowerPluginTestBrightnessStep(PowerPluginBase):
 
         self.set_composite_battery_discharging()
         time.sleep(0.5)
-        holds = obj_props.Get('net.hadess.PowerProfiles', 'ActiveProfileHolds')
+        holds = obj_props.Get('org.freedesktop.UPower.PowerProfiles', 'ActiveProfileHolds')
         self.assertEqual(len(holds), 0)
 
         self.set_composite_battery_critical()
         time.sleep(0.5)
-        holds = obj_props.Get('net.hadess.PowerProfiles', 'ActiveProfileHolds')
+        holds = obj_props.Get('org.freedesktop.UPower.PowerProfiles', 'ActiveProfileHolds')
         self.assertEqual(len(holds), 1)
         self.assertEqual(holds[0]['Profile'], 'power-saver')
         self.assertEqual(holds[0]['ApplicationId'], 'org.gnome.SettingsDaemon.Power')
 
         self.set_composite_battery_discharging()
         time.sleep(0.5)
-        holds = obj_props.Get('net.hadess.PowerProfiles', 'ActiveProfileHolds')
+        holds = obj_props.Get('org.freedesktop.UPower.PowerProfiles', 'ActiveProfileHolds')
         self.assertEqual(len(holds), 0)
 
 # avoid writing to stderr
