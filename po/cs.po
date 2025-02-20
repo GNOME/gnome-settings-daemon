@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues/\n"
-"POT-Creation-Date: 2024-08-09 17:55+0000\n"
-"PO-Revision-Date: 2024-08-30 11:52+0200\n"
+"POT-Creation-Date: 2025-02-12 23:49+0000\n"
+"PO-Revision-Date: 2025-02-20 23:10+0100\n"
 "Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -30,7 +30,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.5\n"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid "Smartcard removal action"
@@ -868,7 +868,7 @@ msgstr "Seznam vlastních klávesových zkratek."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:247
 msgid "Size of volume step"
-msgstr "Velikos kroku hlasitosti"
+msgstr "Velikost kroku hlasitosti"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:248
 msgid "Size of the volume step for each volume change"
@@ -1693,11 +1693,11 @@ msgstr "Režim „letadlo“ je vypnutý"
 msgid "Hardware Airplane Mode"
 msgstr "Hardwarový režim „letadlo“"
 
-#: plugins/power/gpm-common.c:91
+#: plugins/power/gpm-common.c:88
 msgid "Unknown time"
 msgstr "Neznámý čas"
 
-#: plugins/power/gpm-common.c:96
+#: plugins/power/gpm-common.c:93
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
@@ -1705,7 +1705,7 @@ msgstr[0] "%i minuta"
 msgstr[1] "%i minuty"
 msgstr[2] "%i minut"
 
-#: plugins/power/gpm-common.c:106
+#: plugins/power/gpm-common.c:103
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1715,19 +1715,19 @@ msgstr[2] "%i hodin"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: plugins/power/gpm-common.c:112
+#: plugins/power/gpm-common.c:109
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: plugins/power/gpm-common.c:113
+#: plugins/power/gpm-common.c:110
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "hodina"
 msgstr[1] "hodiny"
 msgstr[2] "hodin"
 
-#: plugins/power/gpm-common.c:114
+#: plugins/power/gpm-common.c:111
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minuta"
@@ -1735,49 +1735,49 @@ msgstr[1] "minuty"
 msgstr[2] "minut"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:925
-#: plugins/power/gsd-power-manager.c:1009
+#: plugins/power/gpm-common.c:419 plugins/power/gsd-power-manager.c:928
+#: plugins/power/gsd-power-manager.c:1012
 msgid "Battery is critically low"
 msgstr "Úroveň nabití baterie je kritická"
 
 #. TRANSLATORS: this is the notification application name
-#: plugins/power/gsd-power-manager.c:370
+#: plugins/power/gsd-power-manager.c:373
 msgid "Power"
 msgstr "Napájení"
 
 #. TRANSLATORS: UPS is now discharging
-#: plugins/power/gsd-power-manager.c:408
+#: plugins/power/gsd-power-manager.c:411
 msgid "UPS Discharging"
 msgstr "Záložní zdroj se vybíjí"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:413
+#: plugins/power/gsd-power-manager.c:416
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "Zbývá %s napájení ze záložního zdroje"
 
-#: plugins/power/gsd-power-manager.c:416
+#: plugins/power/gsd-power-manager.c:419
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "Zbývající doba napájení ze záložního zdroje není známa"
 
 #. TRANSLATORS: notification title, a wireless mouse is low or very low on power
-#: plugins/power/gsd-power-manager.c:516
+#: plugins/power/gsd-power-manager.c:519
 msgid "Mouse battery low"
 msgstr "Baterie myši je téměř vybitá"
 
 #. TRANSLATORS: notification body, a wireless mouse is low on power
-#: plugins/power/gsd-power-manager.c:519
+#: plugins/power/gsd-power-manager.c:522
 #, c-format
 msgid "Wireless mouse is low on power (%.0f%%)"
 msgstr "Bezdrátová myš je téměř vybitá (%.0f %%)"
 
 # c-format
-#: plugins/power/gsd-power-manager.c:520
+#: plugins/power/gsd-power-manager.c:523
 msgid "Wireless mouse is low on power"
 msgstr "Bezdrátová myš je téměř vybitá"
 
 #. TRANSLATORS: notification body, a wireless mouse is very low on power
-#: plugins/power/gsd-power-manager.c:522
+#: plugins/power/gsd-power-manager.c:525
 #, c-format
 msgid ""
 "Wireless mouse is very low on power (%.0f%%). This device will soon stop "
@@ -1786,7 +1786,7 @@ msgstr ""
 "Bezdrátová myš je téměř vybitá (%.0f %%). Jestli ji nenabijete, přestane "
 "brzy pracovat."
 
-#: plugins/power/gsd-power-manager.c:524
+#: plugins/power/gsd-power-manager.c:527
 msgid ""
 "Wireless mouse is very low on power. This device will soon stop functioning "
 "if not charged."
@@ -1794,22 +1794,22 @@ msgstr ""
 "Bezdrátová myš je téměř vybitá. Jestli ji nenabijete, přestane brzy pracovat."
 
 #. TRANSLATORS: notification title, a wireless keyboard is low or very low on power
-#: plugins/power/gsd-power-manager.c:529
+#: plugins/power/gsd-power-manager.c:532
 msgid "Keyboard battery low"
 msgstr "Baterie klávesnice je téměř vybitá"
 
 #. TRANSLATORS: notification body, a wireless keyboard is low on power
-#: plugins/power/gsd-power-manager.c:532
+#: plugins/power/gsd-power-manager.c:535
 #, c-format
 msgid "Wireless keyboard is low on power (%.0f%%)"
 msgstr "Bezdrátová klávesnice je téměř vybitá (%.0f %%)"
 
-#: plugins/power/gsd-power-manager.c:533
+#: plugins/power/gsd-power-manager.c:536
 msgid "Wireless keyboard is low on power"
 msgstr "Bezdrátová klávesnice je téměř vybitá"
 
 #. TRANSLATORS: notification body, a wireless keyboard is very low on power
-#: plugins/power/gsd-power-manager.c:535
+#: plugins/power/gsd-power-manager.c:538
 #, c-format
 msgid ""
 "Wireless keyboard is very low on power (%.0f%%). This device will soon stop "
@@ -1818,7 +1818,7 @@ msgstr ""
 "Bezdrátová klávesnice je téměř vybitá (%.0f %%). Jestli ji nenabijete, "
 "přestane brzy pracovat."
 
-#: plugins/power/gsd-power-manager.c:537
+#: plugins/power/gsd-power-manager.c:540
 msgid ""
 "Wireless keyboard is very low on power. This device will soon stop "
 "functioning if not charged."
@@ -1827,22 +1827,22 @@ msgstr ""
 "pracovat."
 
 #. TRANSLATORS: notification title, a PDA (Personal Digital Assistance device) is low or very on power
-#: plugins/power/gsd-power-manager.c:542
+#: plugins/power/gsd-power-manager.c:545
 msgid "PDA battery low"
 msgstr "Baterie PDA je téměř vybitá"
 
 #. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is low on power
-#: plugins/power/gsd-power-manager.c:545
+#: plugins/power/gsd-power-manager.c:548
 #, c-format
 msgid "PDA is low on power (%.0f%%)"
 msgstr "PDA je téměř vybité (%.0f %%)"
 
-#: plugins/power/gsd-power-manager.c:546
+#: plugins/power/gsd-power-manager.c:549
 msgid "PDA is low on power"
 msgstr "PDA je téměř vybité"
 
 #. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is very low on power
-#: plugins/power/gsd-power-manager.c:548
+#: plugins/power/gsd-power-manager.c:551
 #, c-format
 msgid ""
 "PDA is very low on power (%.0f%%). This device will soon stop functioning if "
@@ -1850,29 +1850,29 @@ msgid ""
 msgstr ""
 "PDA je téměř vybité (%.0f %%). Jestli jej nenabijete, přestane brzy pracovat."
 
-#: plugins/power/gsd-power-manager.c:550
+#: plugins/power/gsd-power-manager.c:553
 msgid ""
 "PDA is very low on power. This device will soon stop functioning if not "
 "charged."
 msgstr "PDA je téměř vybité. Jestli jej nenabijete, přestane brzy pracovat."
 
 #. TRANSLATORS: notification title, a cell phone (mobile phone) is low or very low on power
-#: plugins/power/gsd-power-manager.c:555
+#: plugins/power/gsd-power-manager.c:558
 msgid "Cell phone battery low"
 msgstr "Baterie mobilního telefonu je téměř vybitá"
 
 #. TRANSLATORS: notification body, a cell phone (mobile phone) is low on power
-#: plugins/power/gsd-power-manager.c:558
+#: plugins/power/gsd-power-manager.c:561
 #, c-format
 msgid "Cell phone is low on power (%.0f%%)"
 msgstr "Mobilní telefon je téměř vybitý (%.0f %%)"
 
-#: plugins/power/gsd-power-manager.c:559
+#: plugins/power/gsd-power-manager.c:562
 msgid "Cell phone is low on power"
 msgstr "Mobilní telefon je téměř vybitý"
 
 #. TRANSLATORS: notification body, a cell phone (mobile phone) is very low on power
-#: plugins/power/gsd-power-manager.c:561
+#: plugins/power/gsd-power-manager.c:564
 #, c-format
 msgid ""
 "Cell phone is very low on power (%.0f%%). This device will soon stop "
@@ -1881,7 +1881,7 @@ msgstr ""
 "Mobilní telefon je téměř vybitý (%.0f %%). Jestli jej nenabijete, přestane "
 "brzy pracovat."
 
-#: plugins/power/gsd-power-manager.c:563
+#: plugins/power/gsd-power-manager.c:566
 msgid ""
 "Cell phone is very low on power. This device will soon stop functioning if "
 "not charged."
@@ -1890,22 +1890,22 @@ msgstr ""
 "pracovat."
 
 #. TRANSLATORS: notification title, a media player (e.g. mp3 player) is low or very low on power
-#: plugins/power/gsd-power-manager.c:568
+#: plugins/power/gsd-power-manager.c:571
 msgid "Media player battery low"
 msgstr "Baterie přenosného přehrávače je téměř vybitá"
 
 #. TRANSLATORS: notification body, a media player (e.g. mp3 player) is low on power
-#: plugins/power/gsd-power-manager.c:571
+#: plugins/power/gsd-power-manager.c:574
 #, c-format
 msgid "Media player is low on power (%.0f%%)"
 msgstr "Přenosný přehrávač je téměř vybitý (%.0f %%)"
 
-#: plugins/power/gsd-power-manager.c:572
+#: plugins/power/gsd-power-manager.c:575
 msgid "Media player is low on power"
 msgstr "Přenosný přehrávač je téměř vybitý"
 
 #. TRANSLATORS: notification body, a media player (e.g. mp3 player) is very low on power
-#: plugins/power/gsd-power-manager.c:574
+#: plugins/power/gsd-power-manager.c:577
 #, c-format
 msgid ""
 "Media player is very low on power (%.0f%%). This device will soon stop "
@@ -1914,7 +1914,7 @@ msgstr ""
 "Přenosný přehrávač je téměř vybitý (%.0f %%). Jestli jej nenabijete, "
 "přestane brzy pracovat."
 
-#: plugins/power/gsd-power-manager.c:576
+#: plugins/power/gsd-power-manager.c:579
 msgid ""
 "Media player is very low on power. This device will soon stop functioning if "
 "not charged."
@@ -1923,22 +1923,22 @@ msgstr ""
 "pracovat."
 
 #. TRANSLATORS: notification title, a graphics tablet (e.g. wacom) is low or very low on power
-#: plugins/power/gsd-power-manager.c:581
+#: plugins/power/gsd-power-manager.c:584
 msgid "Tablet battery low"
 msgstr "Baterie tabletu je téměř vybitá"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is low on power
-#: plugins/power/gsd-power-manager.c:584
+#: plugins/power/gsd-power-manager.c:587
 #, c-format
 msgid "Tablet is low on power (%.0f%%)"
 msgstr "Tablet je téměř vybitý (%.0f %%)"
 
-#: plugins/power/gsd-power-manager.c:585
+#: plugins/power/gsd-power-manager.c:588
 msgid "Tablet is low on power"
 msgstr "Tablet je téměř vybitý"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is very low on power
-#: plugins/power/gsd-power-manager.c:587
+#: plugins/power/gsd-power-manager.c:590
 #, c-format
 msgid ""
 "Tablet is very low on power (%.0f%%). This device will soon stop functioning "
@@ -1947,29 +1947,29 @@ msgstr ""
 "Tablet je téměř vybitý (%.0f %%). Jestli jej nenabijete, přestane brzy "
 "pracovat."
 
-#: plugins/power/gsd-power-manager.c:589
+#: plugins/power/gsd-power-manager.c:592
 msgid ""
 "Tablet is very low on power. This device will soon stop functioning if not "
 "charged."
 msgstr "Tablet je téměř vybitý. Jestli jej nenabijete, přestane brzy pracovat."
 
 #. TRANSLATORS: notification title, an attached computer (e.g. ipad) is low or very low on power
-#: plugins/power/gsd-power-manager.c:594
+#: plugins/power/gsd-power-manager.c:597
 msgid "Attached computer battery low"
 msgstr "Baterie připojeného počítače je téměř vybitá"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is low on power
-#: plugins/power/gsd-power-manager.c:597
+#: plugins/power/gsd-power-manager.c:600
 #, c-format
 msgid "Attached computer is low on power (%.0f%%)"
 msgstr "Připojený počítač je téměř vybitý (%.0f %%)"
 
-#: plugins/power/gsd-power-manager.c:598
+#: plugins/power/gsd-power-manager.c:601
 msgid "Attached computer is low on power"
 msgstr "Připojený počítač je téměř vybitý"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is very low on power
-#: plugins/power/gsd-power-manager.c:600
+#: plugins/power/gsd-power-manager.c:603
 #, c-format
 msgid ""
 "Attached computer is very low on power (%.0f%%). The device will soon "
@@ -1978,7 +1978,7 @@ msgstr ""
 "Připojený počítač je téměř vybitý (%.0f %%). Jestli jej nenabijete, přestane "
 "brzy pracovat."
 
-#: plugins/power/gsd-power-manager.c:602
+#: plugins/power/gsd-power-manager.c:605
 msgid ""
 "Attached computer is very low on power. The device will soon shutdown if not "
 "charged."
@@ -1987,22 +1987,22 @@ msgstr ""
 "pracovat."
 
 #. TRANSLATORS: notification title, a game controller (e.g. joystick or joypad) is low or very low on power
-#: plugins/power/gsd-power-manager.c:607
+#: plugins/power/gsd-power-manager.c:610
 msgid "Game controller battery low"
 msgstr "Baterie herního ovladače je téměř vybitá"
 
 #. TRANSLATORS: notification body, a game controller (e.g. joystick or joypad) is low on power
-#: plugins/power/gsd-power-manager.c:610
+#: plugins/power/gsd-power-manager.c:613
 #, c-format
 msgid "Game controller is low on power (%.0f%%)"
 msgstr "Herní ovladač je téměř vybitý (%.0f %%)"
 
-#: plugins/power/gsd-power-manager.c:611
+#: plugins/power/gsd-power-manager.c:614
 msgid "Game controller is low on power"
 msgstr "Herní ovladač je téměř vybitý"
 
 #. TRANSLATORS: notification body, an attached game controller (e.g. joystick or joypad) is very low on power
-#: plugins/power/gsd-power-manager.c:613
+#: plugins/power/gsd-power-manager.c:616
 #, c-format
 msgid ""
 "Game controller is very low on power (%.0f%%). The device will soon shutdown "
@@ -2011,7 +2011,7 @@ msgstr ""
 "Herní ovladač je téměř vybitý (%.0f %%). Jestli jej nenabijete, přestane "
 "brzy pracovat."
 
-#: plugins/power/gsd-power-manager.c:615
+#: plugins/power/gsd-power-manager.c:618
 msgid ""
 "Game controller is very low on power. The device will soon shutdown if not "
 "charged."
@@ -2019,22 +2019,22 @@ msgstr ""
 "Herní ovladač je téměř vybitý. Jestli jej nenabijete, přestane brzy pracovat."
 
 #. TRANSLATORS: notification title, a pen is low or very low on power
-#: plugins/power/gsd-power-manager.c:620
+#: plugins/power/gsd-power-manager.c:623
 msgid "Pen battery low"
 msgstr "Baterie pera je téměř vybitá"
 
 #. TRANSLATORS: notification body, a pen is low on power
-#: plugins/power/gsd-power-manager.c:623
+#: plugins/power/gsd-power-manager.c:626
 #, c-format
 msgid "Pen is low on power (%.0f%%)"
 msgstr "Pero je téměř vybité (%.0f %%)"
 
-#: plugins/power/gsd-power-manager.c:624
+#: plugins/power/gsd-power-manager.c:627
 msgid "Pen is low on power"
 msgstr "Pero je téměř vybité"
 
 #. TRANSLATORS: notification body, a pen is very low on power
-#: plugins/power/gsd-power-manager.c:626
+#: plugins/power/gsd-power-manager.c:629
 #, c-format
 msgid ""
 "Pen is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2043,27 +2043,27 @@ msgstr ""
 "Pero je téměř vybité (%.0f %%). Jestli jej nenabijete, přestane brzy "
 "pracovat."
 
-#: plugins/power/gsd-power-manager.c:628
+#: plugins/power/gsd-power-manager.c:631
 msgid "Pen is very low on power. The device will soon shutdown if not charged."
 msgstr "Pero je téměř vybité. Jestli jej nenabijete, přestane brzy pracovat."
 
 #. TRANSLATORS: notification title, an external touchpad is low or very low on power
-#: plugins/power/gsd-power-manager.c:633
+#: plugins/power/gsd-power-manager.c:636
 msgid "Touchpad battery low"
 msgstr "Baterie touchpadu je téměř vybitá"
 
 #. TRANSLATORS: notification body, an external touchpad is low on power
-#: plugins/power/gsd-power-manager.c:636
+#: plugins/power/gsd-power-manager.c:639
 #, c-format
 msgid "Touchpad is low on power (%.0f%%)"
 msgstr "Touchpad je téměř vybitý (%.0f %%)"
 
-#: plugins/power/gsd-power-manager.c:637
+#: plugins/power/gsd-power-manager.c:640
 msgid "Touchpad is low on power"
 msgstr "Touchpad je téměř vybitý"
 
 #. TRANSLATORS: notification body, an external touchpad is very low on power
-#: plugins/power/gsd-power-manager.c:639
+#: plugins/power/gsd-power-manager.c:642
 #, c-format
 msgid ""
 "Touchpad is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2072,29 +2072,29 @@ msgstr ""
 "Touchpad je téměř vybitý (%.0f %%). Jestli jej nenabijete, přestane brzy "
 "pracovat."
 
-#: plugins/power/gsd-power-manager.c:641
+#: plugins/power/gsd-power-manager.c:644
 msgid ""
 "Touchpad is very low on power. The device will soon shutdown if not charged."
 msgstr ""
 "Touchpad je téměř vybitý. Jestli jej nenabijete, přestane brzy pracovat."
 
 #. TRANSLATORS: notification title, a headset (headphones + microphone) is low or very low on power
-#: plugins/power/gsd-power-manager.c:646
+#: plugins/power/gsd-power-manager.c:649
 msgid "Headset battery low"
 msgstr "Baterie náhlavní soupravy je téměř vybitá"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is low on power
-#: plugins/power/gsd-power-manager.c:649
+#: plugins/power/gsd-power-manager.c:652
 #, c-format
 msgid "Headset is low on power (%.0f%%)"
 msgstr "Náhlavní souprava je téměř vybitá (%.0f %%)"
 
-#: plugins/power/gsd-power-manager.c:650
+#: plugins/power/gsd-power-manager.c:653
 msgid "Headset is low on power"
 msgstr "Náhlavní souprava je téměř vybitá"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is very low on power
-#: plugins/power/gsd-power-manager.c:652
+#: plugins/power/gsd-power-manager.c:655
 #, c-format
 msgid ""
 "Headset is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2103,7 +2103,7 @@ msgstr ""
 "Náhlavní souprava je téměř vybitá (%.0f %%). Jestli ji nenabijete, přestane "
 "brzy pracovat."
 
-#: plugins/power/gsd-power-manager.c:654
+#: plugins/power/gsd-power-manager.c:657
 msgid ""
 "Headset is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2111,22 +2111,22 @@ msgstr ""
 "pracovat."
 
 #. TRANSLATORS: notification title, speaker is low or very low on power
-#: plugins/power/gsd-power-manager.c:659
+#: plugins/power/gsd-power-manager.c:662
 msgid "Speaker battery low"
 msgstr "Baterie reproduktoru je téměř vybitá"
 
 #. TRANSLATORS: notification body, a speaker is low on power
-#: plugins/power/gsd-power-manager.c:662
+#: plugins/power/gsd-power-manager.c:665
 #, c-format
 msgid "Speaker is low on power (%.0f%%)"
 msgstr "Reproduktor je téměř vybitý (%.0f %%)"
 
-#: plugins/power/gsd-power-manager.c:663
+#: plugins/power/gsd-power-manager.c:666
 msgid "Speaker is low on power"
 msgstr "Reproduktor je téměř vybitý"
 
 #. TRANSLATORS: notification body, a speaker is very low on power
-#: plugins/power/gsd-power-manager.c:665
+#: plugins/power/gsd-power-manager.c:668
 #, c-format
 msgid ""
 "Speaker is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2135,29 +2135,29 @@ msgstr ""
 "Reproduktor je téměř vybitý (%.0f %%). Jestli jej nenabijete, přestane brzy "
 "pracovat."
 
-#: plugins/power/gsd-power-manager.c:667
+#: plugins/power/gsd-power-manager.c:670
 msgid ""
 "Speaker is very low on power. The device will soon shutdown if not charged."
 msgstr ""
 "Reproduktor je téměř vybitý. Jestli jej nenabijete, přestane brzy pracovat."
 
 #. TRANSLATORS: notification title, headphones (no microphone) are low or very low on power
-#: plugins/power/gsd-power-manager.c:672
+#: plugins/power/gsd-power-manager.c:675
 msgid "Headphones battery low"
 msgstr "Baterie sluchátek je téměř vybitá"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are low on power
-#: plugins/power/gsd-power-manager.c:675
+#: plugins/power/gsd-power-manager.c:678
 #, c-format
 msgid "Headphones are low on power (%.0f%%)"
 msgstr "Sluchátka jsou téměř vybitá (%.0f %%)"
 
-#: plugins/power/gsd-power-manager.c:676
+#: plugins/power/gsd-power-manager.c:679
 msgid "Headphones are low on power"
 msgstr "Sluchátka jsou téměř vybitá"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are very low on power
-#: plugins/power/gsd-power-manager.c:678
+#: plugins/power/gsd-power-manager.c:681
 #, c-format
 msgid ""
 "Headphones are very low on power (%.0f%%). The device will soon shutdown if "
@@ -2166,7 +2166,7 @@ msgstr ""
 "Sluchátka jsou téměř vybitá (%.0f %%). Jestli je nenabijete, přestanou brzy "
 "pracovat."
 
-#: plugins/power/gsd-power-manager.c:680
+#: plugins/power/gsd-power-manager.c:683
 msgid ""
 "Headphones are very low on power. The device will soon shutdown if not "
 "charged."
@@ -2174,22 +2174,22 @@ msgstr ""
 "Sluchátka jsou téměř vybitá. Jestli je nenabijete, přestanou brzy pracovat."
 
 #. TRANSLATORS: notification title, an audio device is low or very low on power
-#: plugins/power/gsd-power-manager.c:685
+#: plugins/power/gsd-power-manager.c:688
 msgid "Audio device battery low"
 msgstr "Baterie zvukového zařízení je téměř vybitá"
 
 #. TRANSLATORS: notification body, an audio device is low on power
-#: plugins/power/gsd-power-manager.c:688
+#: plugins/power/gsd-power-manager.c:691
 #, c-format
 msgid "Audio device is low on power (%.0f%%)"
 msgstr "Zvukové zařízení je téměř vybité (%.0f %%)"
 
-#: plugins/power/gsd-power-manager.c:689
+#: plugins/power/gsd-power-manager.c:692
 msgid "Audio device is low on power"
 msgstr "Zvukové zařízení je téměř vybité"
 
 #. TRANSLATORS: notification body, an audio device is very low on power
-#: plugins/power/gsd-power-manager.c:691
+#: plugins/power/gsd-power-manager.c:694
 #, c-format
 msgid ""
 "Audio device is very low on power (%.0f%%). The device will soon shutdown if "
@@ -2198,7 +2198,7 @@ msgstr ""
 "Zvukové zařízení je téměř vybité (%.0f %%). Jestli jej nenabijete, přestane "
 "brzy pracovat."
 
-#: plugins/power/gsd-power-manager.c:693
+#: plugins/power/gsd-power-manager.c:696
 msgid ""
 "Audio device is very low on power. The device will soon shutdown if not "
 "charged."
@@ -2207,22 +2207,22 @@ msgstr ""
 "pracovat."
 
 #. TRANSLATORS: notification title, a remote control is low or very low on power
-#: plugins/power/gsd-power-manager.c:698
+#: plugins/power/gsd-power-manager.c:701
 msgid "Remote battery low"
 msgstr "Baterie dálkového ovladače je téměř vybitá"
 
 #. TRANSLATORS: notification body, an remote control is low on power
-#: plugins/power/gsd-power-manager.c:701
+#: plugins/power/gsd-power-manager.c:704
 #, c-format
 msgid "Remote is low on power (%.0f%%)"
 msgstr "Dálkový ovladač je téměř vybitý (%.0f %%)"
 
-#: plugins/power/gsd-power-manager.c:702
+#: plugins/power/gsd-power-manager.c:705
 msgid "Remote is low on power"
 msgstr "Dálkový ovladač je téměř vybitý"
 
 #. TRANSLATORS: notification body, a remote control is very low on power
-#: plugins/power/gsd-power-manager.c:704
+#: plugins/power/gsd-power-manager.c:707
 #, c-format
 msgid ""
 "Remote is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2231,7 +2231,7 @@ msgstr ""
 "Dálkový ovladač je téměř vybitý (%.0f %%). Jestli jej nenabijete, přestane "
 "brzy pracovat."
 
-#: plugins/power/gsd-power-manager.c:706
+#: plugins/power/gsd-power-manager.c:709
 msgid ""
 "Remote is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2239,22 +2239,22 @@ msgstr ""
 "pracovat."
 
 #. TRANSLATORS: notification title, a printer is low or very low on power
-#: plugins/power/gsd-power-manager.c:711
+#: plugins/power/gsd-power-manager.c:714
 msgid "Printer battery low"
 msgstr "Baterie tiskárny je téměř vybitá"
 
 #. TRANSLATORS: notification body, a printer is low on power
-#: plugins/power/gsd-power-manager.c:714
+#: plugins/power/gsd-power-manager.c:717
 #, c-format
 msgid "Printer is low on power (%.0f%%)"
 msgstr "Tiskárna je téměř vybitá (%.0f %%)"
 
-#: plugins/power/gsd-power-manager.c:715
+#: plugins/power/gsd-power-manager.c:718
 msgid "Printer is low on power"
 msgstr "Tiskárna je téměř vybitá"
 
 #. TRANSLATORS: notification body, a printer is very low on power
-#: plugins/power/gsd-power-manager.c:717
+#: plugins/power/gsd-power-manager.c:720
 #, c-format
 msgid ""
 "Printer is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2263,29 +2263,29 @@ msgstr ""
 "Tiskárna je téměř vybitá (%.0f %%). Jestli ji nenabijete, přestane brzy "
 "pracovat."
 
-#: plugins/power/gsd-power-manager.c:719
+#: plugins/power/gsd-power-manager.c:722
 msgid ""
 "Printer is very low on power. The device will soon shutdown if not charged."
 msgstr ""
 "Tiskárna je téměř vybitá. Jestli ji nenabijete, přestane brzy pracovat."
 
 #. TRANSLATORS: notification title, a scanner is low or very low on power
-#: plugins/power/gsd-power-manager.c:724
+#: plugins/power/gsd-power-manager.c:727
 msgid "Scanner battery low"
 msgstr "Baterie skeneru je téměř vybitá"
 
 #. TRANSLATORS: notification body, a scanner is low on power
-#: plugins/power/gsd-power-manager.c:727
+#: plugins/power/gsd-power-manager.c:730
 #, c-format
 msgid "Scanner is low on power (%.0f%%)"
 msgstr "Skener je téměř vybitý (%.0f %%)"
 
-#: plugins/power/gsd-power-manager.c:728
+#: plugins/power/gsd-power-manager.c:731
 msgid "Scanner is low on power"
 msgstr "Skener je téměř vybitý"
 
 #. TRANSLATORS: notification body, a scanner is very low on power
-#: plugins/power/gsd-power-manager.c:730
+#: plugins/power/gsd-power-manager.c:733
 #, c-format
 msgid ""
 "Scanner is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2294,28 +2294,28 @@ msgstr ""
 "Skener je téměř vybitý (%.0f %%). Jestli jej nenabijete, přestane brzy "
 "pracovat."
 
-#: plugins/power/gsd-power-manager.c:732
+#: plugins/power/gsd-power-manager.c:735
 msgid ""
 "Scanner is very low on power. The device will soon shutdown if not charged."
 msgstr "Skener je téměř vybitý. Jestli jej nenabijete, přestane brzy pracovat."
 
 #. TRANSLATORS: notification title, a camera is low or very low on power
-#: plugins/power/gsd-power-manager.c:737
+#: plugins/power/gsd-power-manager.c:740
 msgid "Camera battery low"
 msgstr "Kamera je téměř vybitá"
 
 #. TRANSLATORS: notification body, a camera is low on power
-#: plugins/power/gsd-power-manager.c:740
+#: plugins/power/gsd-power-manager.c:743
 #, c-format
 msgid "Camera is low on power (%.0f%%)"
 msgstr "Kamera je téměř vybitá (%.0f %%)"
 
-#: plugins/power/gsd-power-manager.c:741
+#: plugins/power/gsd-power-manager.c:744
 msgid "Camera is low on power"
 msgstr "Kamera je téměř vybitá"
 
 #. TRANSLATORS: notification body, a camera is very low on power
-#: plugins/power/gsd-power-manager.c:743
+#: plugins/power/gsd-power-manager.c:746
 #, c-format
 msgid ""
 "Camera is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2324,28 +2324,28 @@ msgstr ""
 "kamera je téměř vybitá (%.0f %%). Jestli ji nenabijete, přestane brzy "
 "pracovat."
 
-#: plugins/power/gsd-power-manager.c:745
+#: plugins/power/gsd-power-manager.c:748
 msgid ""
 "Camera is very low on power. The device will soon shutdown if not charged."
 msgstr "Kamera je téměř vybitá. Jestli ji nenabijete, přestane brzy pracovat."
 
 #. TRANSLATORS: notification title, a Bluetooth device is low or very low on power
-#: plugins/power/gsd-power-manager.c:750
+#: plugins/power/gsd-power-manager.c:753
 msgid "Bluetooth device battery low"
 msgstr "Baterie zařízení Bluetooth je téměř vybitá"
 
 #. TRANSLATORS: notification body, a Bluetooth device is low on power
-#: plugins/power/gsd-power-manager.c:753
+#: plugins/power/gsd-power-manager.c:756
 #, c-format
 msgid "Bluetooth device is low on power (%.0f%%)"
 msgstr "Zařízení Bluetooth je téměř vybité (%.0f %%)"
 
-#: plugins/power/gsd-power-manager.c:754
+#: plugins/power/gsd-power-manager.c:757
 msgid "Bluetooth device is low on power"
 msgstr "Zařízení Bluetooth je téměř vybité"
 
 #. TRANSLATORS: notification body, a Bluetooth device is very low on power
-#: plugins/power/gsd-power-manager.c:756
+#: plugins/power/gsd-power-manager.c:759
 #, c-format
 msgid ""
 "Bluetooth device is very low on power (%.0f%%). The device will soon "
@@ -2354,7 +2354,7 @@ msgstr ""
 "Zařízení Bluetooth je téměř vybité (%.0f %%). Jestli jej nenabijete, "
 "přestane brzy pracovat."
 
-#: plugins/power/gsd-power-manager.c:758
+#: plugins/power/gsd-power-manager.c:761
 msgid ""
 "Bluetooth device is very low on power. The device will soon shutdown if not "
 "charged."
@@ -2363,22 +2363,22 @@ msgstr ""
 "pracovat."
 
 #. TRANSLATORS: notification title, a connected (wireless) device or peripheral of unhandled type is low or very on power
-#: plugins/power/gsd-power-manager.c:764
+#: plugins/power/gsd-power-manager.c:767
 msgid "Connected device battery is low"
 msgstr "Baterie připojeného zařízení je téměř vybitá"
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is low on power
-#: plugins/power/gsd-power-manager.c:767
+#: plugins/power/gsd-power-manager.c:770
 #, c-format
 msgid "A connected device is low on power (%.0f%%)"
 msgstr "Připojené zařízení je téměř vybité (%.0f %%)"
 
-#: plugins/power/gsd-power-manager.c:768
+#: plugins/power/gsd-power-manager.c:771
 msgid "A connected device is low on power"
 msgstr "Připojené zařízení je téměř vybité"
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is very low on power
-#: plugins/power/gsd-power-manager.c:770
+#: plugins/power/gsd-power-manager.c:773
 #, c-format
 msgid ""
 "A connected device is very low on power (%.0f%%). The device will soon "
@@ -2387,7 +2387,7 @@ msgstr ""
 "Připojené zařízení je téměř vybité (%.0f %%). Jestli jej nenabijete, "
 "přestane brzy pracovat."
 
-#: plugins/power/gsd-power-manager.c:772
+#: plugins/power/gsd-power-manager.c:775
 msgid ""
 "A connected device is very low on power. The device will soon shutdown if "
 "not charged."
@@ -2396,107 +2396,107 @@ msgstr ""
 "pracovat."
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:798
+#: plugins/power/gsd-power-manager.c:801
 msgid "Low Battery"
 msgstr "Nízký stav baterie"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:801
+#: plugins/power/gsd-power-manager.c:804
 #, c-format
 msgid "%.0f%% battery remaining"
 msgstr "Zbývá %.0f %% kapacity baterie"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:804
+#: plugins/power/gsd-power-manager.c:807
 msgid "UPS Low"
 msgstr "Nízký stav záložního zdroje"
 
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
-#: plugins/power/gsd-power-manager.c:807 plugins/power/gsd-power-manager.c:880
+#: plugins/power/gsd-power-manager.c:810 plugins/power/gsd-power-manager.c:883
 #, c-format
 msgid "%.0f%% UPS power remaining"
 msgstr "Zbývá %.0f %% kapacity záložního zdroje"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:845
+#: plugins/power/gsd-power-manager.c:848
 msgid "Battery is low"
 msgstr "Nízký stav baterie"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, advice on what the user should do
-#: plugins/power/gsd-power-manager.c:871
+#: plugins/power/gsd-power-manager.c:874
 msgid "Battery Almost Empty"
 msgstr "Baterie je téměř vybitá"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically running low, advice on what the user should do
-#: plugins/power/gsd-power-manager.c:874
+#: plugins/power/gsd-power-manager.c:877
 #, c-format
 msgid "Connect power now"
 msgstr "Připojte ihned napájení"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
-#: plugins/power/gsd-power-manager.c:877
+#: plugins/power/gsd-power-manager.c:880
 msgid "UPS Almost Empty"
 msgstr "Záložní zdroj je téměř vybitý"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, warning about action happening now
-#: plugins/power/gsd-power-manager.c:948
+#: plugins/power/gsd-power-manager.c:951
 msgid "Battery is Empty"
 msgstr "Baterie je vybitá"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action about to happen
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
-#: plugins/power/gsd-power-manager.c:955 plugins/power/gsd-power-manager.c:975
+#: plugins/power/gsd-power-manager.c:958 plugins/power/gsd-power-manager.c:978
 msgid "This device is about to hibernate"
 msgstr "Zařízení se uspí na disk"
 
-#: plugins/power/gsd-power-manager.c:957 plugins/power/gsd-power-manager.c:977
+#: plugins/power/gsd-power-manager.c:960 plugins/power/gsd-power-manager.c:980
 msgid "This device is about to shutdown"
 msgstr "Zařízení se vypne"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
-#: plugins/power/gsd-power-manager.c:968
+#: plugins/power/gsd-power-manager.c:971
 msgid "UPS is Empty"
 msgstr "Záložní zdroj je vybitý"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1496
+#: plugins/power/gsd-power-manager.c:1497
 msgid "Lid has been opened"
 msgstr "Víko bylo otevřeno"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1530
+#: plugins/power/gsd-power-manager.c:1531
 msgid "Lid has been closed"
 msgstr "Víko bylo zavřeno"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2183
+#: plugins/power/gsd-power-manager.c:2181
 msgid "On battery power"
 msgstr "Napájení bylo přepnuto na baterii"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2188
+#: plugins/power/gsd-power-manager.c:2186
 msgid "On AC power"
 msgstr "Napájení bylo přepnuto na síť"
 
-#: plugins/power/gsd-power-manager.c:2457
+#: plugins/power/gsd-power-manager.c:2455
 msgid "Automatic logout"
 msgstr "Automatické odhlášení"
 
-#: plugins/power/gsd-power-manager.c:2457
+#: plugins/power/gsd-power-manager.c:2455
 msgid "You will soon log out because of inactivity."
 msgstr "Z důvodu nečinnosti budete brzy odhlášeni."
 
-#: plugins/power/gsd-power-manager.c:2462
+#: plugins/power/gsd-power-manager.c:2460
 msgid "Automatic suspend"
 msgstr "Automatické uspání do paměti"
 
-#: plugins/power/gsd-power-manager.c:2462
-#: plugins/power/gsd-power-manager.c:2467
+#: plugins/power/gsd-power-manager.c:2460
+#: plugins/power/gsd-power-manager.c:2465
 msgid "Suspending soon because of inactivity."
 msgstr "Z důvodu nečinnosti dojde brzy k uspání do paměti."
 
-#: plugins/power/gsd-power-manager.c:2467
+#: plugins/power/gsd-power-manager.c:2465
 msgid "Automatic hibernation"
 msgstr "Automatické uspání na disk"
 
