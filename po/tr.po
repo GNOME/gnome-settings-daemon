@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues/\n"
-"POT-Creation-Date: 2025-02-05 18:39+0000\n"
-"PO-Revision-Date: 2025-02-09 17:10+0300\n"
+"POT-Creation-Date: 2025-02-22 17:39+0000\n"
+"PO-Revision-Date: 2025-02-23 00:08+0300\n"
 "Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Turkish <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -34,6 +34,22 @@ msgstr ""
 "X-DamnedLies-Scope: partial\n"
 "X-POOTLE-MTIME: 1417554148.000000\n"
 
+#: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:6
+msgid "Applications"
+msgstr "Uygulamalar"
+
+#: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:7
+msgid "Applications that have defined global shortcuts"
+msgstr "Tanımlı küresel kısayolları olan uygulamalar"
+
+#: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:13
+msgid "Shortcuts"
+msgstr "Kısayollar"
+
+#: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:14
+msgid "Keyboard shortcut definitions"
+msgstr "Klavye kısayolu tanımları"
+
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid "Smartcard removal action"
 msgstr "Akıllı kart çıkartıldığında uygulanacak eylem"
@@ -43,10 +59,9 @@ msgid ""
 "Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
 "get performed when the smartcard used for log in is removed."
 msgstr ""
-"Bunu “none” (hiçbiri), “lock-screen” (ekranı kilitle) veya “force-"
-"logout” (oturumu kapatmaya zorla) seçeneklerinden birine ayarlayın. Giriş "
-"için kullanılan akıllı kart çıkartıldığında seçtiğiniz eylem "
-"gerçekleşecektir."
+"Bunu “none” (hiçbiri), “lock-screen” (ekranı kilitle) veya “force-logout” "
+"(oturumu kapatmaya zorla) seçeneklerinden birine ayarlayın. Giriş için "
+"kullanılan akıllı kart çıkartıldığında seçtiğiniz eylem gerçekleşecektir."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:24
 msgid "Possible values are “on”, “off”, and “custom”."
@@ -186,9 +201,9 @@ msgid ""
 "Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
 "scrolling”, “two-finger-scrolling”."
 msgstr ""
-"Dokunmatik yüzey kaydırma yöntemini seç. Desteklenen değerler: "
-"“disabled” (kapalı), “edge-scrolling” (kenar kaydırması), “two-finger-"
-"scrolling” (iki parmak kaydırması)."
+"Dokunmatik yüzey kaydırma yöntemini seç. Desteklenen değerler: “disabled” "
+"(kapalı), “edge-scrolling” (kenar kaydırması), “two-finger-scrolling” (iki "
+"parmak kaydırması)."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:116
 msgid "Enable mouse clicks with touchpad"
@@ -861,6 +876,10 @@ msgstr "Özel kısayol tuşları"
 msgid "List of custom keybindings"
 msgstr "Özel kısayol tuşları listesi"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:209
+msgid "Reboot"
+msgstr "Yeniden Başlat"
+
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:210
 msgid "Binding to reboot."
 msgstr "Yeniden başlatma için kısayol."
@@ -1307,6 +1326,10 @@ msgstr "Kısayol çağrıldığında çalıştırılacak komut"
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:703
 msgid "Enable in Lockscreen"
 msgstr "Kilit Ekranında Etkin"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:704
+msgid "Whether the command can be invoked while the lockscreen is shown"
+msgstr "Kilit ekranı gösterilirken komutun çağrılma durumu"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:6
 msgid "The brightness of the screen when idle"
