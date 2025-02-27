@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gnome-control-center.HEAD.he\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues/\n"
-"POT-Creation-Date: 2025-02-22 00:29+0000\n"
-"PO-Revision-Date: 2025-02-24 17:40+0200\n"
+"POT-Creation-Date: 2025-02-24 15:42+0000\n"
+"PO-Revision-Date: 2025-02-27 08:36+0200\n"
 "Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
 "Language-Team: Hebrew <yoseforb@gmail.com>\n"
 "Language: he\n"
@@ -21,13 +21,24 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? "
-"2 : 3)\n"
-" 3)\n"
-"X-Generator: Gtranslator 47.1\n"
+"2 : 3);\n"
+"X-Generator: Poedit 3.5\n"
 
 #: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:6
 msgid "Applications"
 msgstr "יישומים"
+
+#: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:7
+msgid "Applications that have defined global shortcuts"
+msgstr "יישומים שמוגדרים להם קיצורי מקלדת כלליים"
+
+#: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:13
+msgid "Shortcuts"
+msgstr "קיצורי מקלדת"
+
+#: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:14
+msgid "Keyboard shortcut definitions"
+msgstr "הגדרות קיצורי מקלדת"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid "Smartcard removal action"
@@ -843,6 +854,10 @@ msgstr "Custom keybindings"
 msgid "List of custom keybindings"
 msgstr "List of custom keybindings"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:209
+msgid "Reboot"
+msgstr "הפעלה מחדש"
+
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:210
 msgid "Binding to reboot."
 msgstr "Binding to reboot."
@@ -1284,6 +1299,10 @@ msgstr "Command to run when the binding is invoked"
 msgid "Enable in Lockscreen"
 msgstr "Enable in Lockscreen"
 
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:704
+msgid "Whether the command can be invoked while the lockscreen is shown"
+msgstr "האם אפשר להפעיל את הפקודה כל עוד מסך הנעילה מופיע"
+
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:6
 msgid "The brightness of the screen when idle"
 msgstr "The brightness of the screen when idle"
@@ -1467,7 +1486,7 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:33
 msgid "RGBA order"
-msgstr "RGBA order"
+msgstr "סדר RGBA"
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:34
 msgid ""
@@ -2688,35 +2707,26 @@ msgid "New USB device"
 msgstr "התקן USB חדש"
 
 #: plugins/usb-protection/gsd-usb-protection-manager.c:543
-#, fuzzy
-#| msgid ""
-#| "New device has been detected while the session was not locked. If you did "
-#| "not plug anything, check your system for any suspicious device."
 msgid ""
 "New USB device has been activated while the session was not locked. If you "
 "did not intend to insert any device, check your system for any suspicious "
 "gadgets and remove them."
 msgstr ""
-"זוהה התקן חדש בזמן הנעילה. אם לא חיברת שום דבר, יש לבדוק במערכת שלך כל התקן "
-"חשוד."
+"זוהה התקן USB חדש בזמן הנעילה. אם לא התכוונת לחבר שום דבר, יש לבדוק אם "
+"התחברו למערכת שלך התקנים חשודים כלשהם ולנתק אותם."
 
 #: plugins/usb-protection/gsd-usb-protection-manager.c:685
 msgid "New device detected"
 msgstr "זוהה התקן חדש"
 
 #: plugins/usb-protection/gsd-usb-protection-manager.c:686
-#, fuzzy
-#| msgid ""
-#| "Either one of your existing devices has been reconnected or a new one has "
-#| "been plugged in. If you did not do it, check your system for any "
-#| "suspicious device."
 msgid ""
 "Either one of your existing devices has been reconnected or a new one has "
 "been inserted. If you did not do it, check your system for any suspicious "
 "device."
 msgstr ""
 "או שאחד מההתקנים שלך חובר מחדש או שהתקן חדש חובר. אם לא עשית זאת, יש לבדוק "
-"במערכת שלך כל התקן חשוד."
+"אם יש התקנים חשודים במערכת שלך."
 
 #: plugins/usb-protection/gsd-usb-protection-manager.c:693
 msgid "Reconnect USB device"
@@ -2742,18 +2752,13 @@ msgid ""
 msgstr "התקן חדש זוהה כאשר לא היית בנמצא. הוא נחסם בגלל שהגנת USB פועלת."
 
 #: plugins/usb-protection/gsd-usb-protection-manager.c:728
-#, fuzzy
-#| msgid ""
-#| "The new inserted device has been blocked because the USB protection is "
-#| "active. If you want to activate the device, disable the USB protection "
-#| "and re-plug the device."
 msgid ""
 "The new inserted device has been blocked because the USB protection is "
 "active. If you want to activate the device, disable the USB protection and "
 "re-insert the device."
 msgstr ""
-"ההתקן החדש שהוכנס נחסם עקב הפעלת הגנת USB. אם ברצונך להפעיל את ההתקן, עליך "
-"להשבית את הגנת ה־USB ולאחר מכן להכניס מחדש את ההתקן."
+"ההתקן החדש שהוכנס נחסם עקב הפעלת הגנת USB. כדי להפעיל את ההתקן, יש להשבית את "
+"הגנת ה־USB ולאחר מכן להכניס את ההתקן מחדש."
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
