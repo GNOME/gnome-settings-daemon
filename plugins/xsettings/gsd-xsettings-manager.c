@@ -310,12 +310,6 @@ struct _GsdXSettingsManager
         guint              gtk_settings_name_id;
 };
 
-#define GSD_XSETTINGS_ERROR gsd_xsettings_error_quark ()
-
-enum {
-        GSD_XSETTINGS_ERROR_INIT
-};
-
 static void     gsd_xsettings_manager_class_init  (GsdXSettingsManagerClass *klass);
 static void     gsd_xsettings_manager_init        (GsdXSettingsManager      *xsettings_manager);
 static void     gsd_xsettings_manager_finalize    (GObject                  *object);
@@ -323,12 +317,6 @@ static void     gsd_xsettings_manager_finalize    (GObject                  *obj
 static void     register_manager_dbus             (GsdXSettingsManager *manager);
 
 G_DEFINE_TYPE (GsdXSettingsManager, gsd_xsettings_manager, G_TYPE_APPLICATION)
-
-static GQuark
-gsd_xsettings_error_quark (void)
-{
-        return g_quark_from_static_string ("gsd-xsettings-error-quark");
-}
 
 static void
 translate_bool_int (GsdXSettingsManager *manager,

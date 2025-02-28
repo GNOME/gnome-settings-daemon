@@ -82,15 +82,6 @@ static void     register_manager_dbus (GsdColorManager *manager);
 
 G_DEFINE_TYPE (GsdColorManager, gsd_color_manager, G_TYPE_APPLICATION)
 
-GQuark
-gsd_color_manager_error_quark (void)
-{
-        static GQuark quark = 0;
-        if (!quark)
-                quark = g_quark_from_static_string ("gsd_color_manager_error");
-        return quark;
-}
-
 static void
 gsd_color_manager_startup (GApplication *app)
 {

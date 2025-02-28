@@ -26,15 +26,7 @@
 G_BEGIN_DECLS
 
 #define GSD_TYPE_COLOR_MANAGER         (gsd_color_manager_get_type ())
-#define GSD_COLOR_MANAGER_ERROR        (gsd_color_manager_error_quark ())
 G_DECLARE_FINAL_TYPE (GsdColorManager, gsd_color_manager, GSD, COLOR_MANAGER, GApplication)
-
-enum
-{
-        GSD_COLOR_MANAGER_ERROR_FAILED
-};
-
-GQuark                  gsd_color_manager_error_quark         (void);
 
 G_END_DECLS
 
