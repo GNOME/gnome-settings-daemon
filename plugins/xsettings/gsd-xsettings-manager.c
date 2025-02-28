@@ -1503,6 +1503,11 @@ gsd_xsettings_manager_shutdown (GApplication *app)
 
         g_debug ("Stopping xsettings manager");
 
+        if (manager->notify_idle_id) {
+                g_source_remove (manager->notify_idle_id);
+                manager->notify_idle_id = 0;
+        }
+
         if (manager->introspect_properties_changed_id) {
                 g_dbus_connection_signal_unsubscribe (manager->dbus_connection,
                                                       manager->introspect_properties_changed_id);
