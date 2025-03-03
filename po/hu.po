@@ -15,9 +15,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/iss"
-"ues\n"
-"POT-Creation-Date: 2020-09-03 20:47+0000\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
+"issues/\n"
+"POT-Creation-Date: 2025-02-12 23:46+0000\n"
 "PO-Revision-Date: 2020-09-13 01:04+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
@@ -28,11 +28,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 19.12.3\n"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid "Smartcard removal action"
 msgstr "Intelligenskártya-eltávolítási művelet"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:13
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
 msgid ""
 "Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
 "get performed when the smartcard used for log in is removed."
@@ -41,53 +41,37 @@ msgstr ""
 "logout” (kijelentkeztetés) egyikére. A művelet a bejelentkezéshez használt "
 "intelligens kártya eltávolításakor kerül végrehajtásra."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:25
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:24
 msgid "Possible values are “on”, “off”, and “custom”."
 msgstr "Lehetséges értékek: „on” (be), „off” (ki), és „custom” (egyéni)."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:35
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:34
 msgid "Keyboard Bell Custom Filename"
 msgstr "Billentyűzetcsengő egyéni fájlneve"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:36
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:35
 msgid "File name of the bell sound to be played."
 msgstr "A lejátszandó hangjelzés fájlneve."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:42
-msgid "Double click time"
-msgstr "Dupla kattintás ideje"
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:43
-msgid "Length of a double click in milliseconds."
-msgstr "Dupla kattintás hossza ezredmásodpercben."
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:47
-msgid "Drag threshold"
-msgstr "Húzási küszöb"
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:48
-msgid "Distance before a drag is started."
-msgstr "Húzás indítása előtti távolság."
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:54
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:41
 msgid "Whether the tablet’s orientation is locked, or rotated automatically."
 msgstr "A táblagép tájolása zárolt-e, vagy automatikusan elforgatott."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:62
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:49
 msgid "Mouse button orientation"
 msgstr "Egérgomb elhelyezkedése"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:63
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:50
 msgid "Swap left and right mouse buttons for left-handed mice."
 msgstr "A bal és jobb egérgombok felcserélése balkezes egerekhez."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:67
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:134
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:54
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:131
 msgid "Single Click"
 msgstr "Egyszeres kattintás"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:68
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:135
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:55
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:132
 msgid ""
 "Acceleration multiplier for mouse motion. A value of -1 is the system "
 "default."
@@ -95,13 +79,13 @@ msgstr ""
 "Gyorsítási szorzó az egér mozgatásához. A -1 érték a rendszer "
 "alapértelmezése."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:72
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:139
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:59
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:136
 msgid "Motion Threshold"
 msgstr "Mozgási küszöbérték"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:73
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:140
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:60
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:137
 msgid ""
 "Distance in pixels the pointer must move before accelerated mouse motion is "
 "activated. A value of -1 is the system default."
@@ -109,11 +93,11 @@ msgstr ""
 "Az a távolság képpontokban, amit az egérnek meg kell tennie, mielőtt a "
 "gyorsított egérmozgatás aktivizálódik. A -1 érték a rendszer alapértelmezése."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:77
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:64
 msgid "Middle button emulation"
 msgstr "Középső gomb emulációja"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:78
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:65
 msgid ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
@@ -121,27 +105,43 @@ msgstr ""
 "Középső egérgomb emulációjának engedélyezése a bal és jobb gomb együttes "
 "megnyomásával."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:87
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:69
+msgid "Double click time"
+msgstr "Dupla kattintás ideje"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:70
+msgid "Length of a double click in milliseconds."
+msgstr "Dupla kattintás hossza ezredmásodpercben."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:74
+msgid "Drag threshold"
+msgstr "Húzási küszöb"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:75
+msgid "Distance before a drag is started."
+msgstr "Húzás indítása előtti távolság."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:84
 msgid "Key Repeat Interval"
 msgstr "Billentyűismétlés időköze"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:88
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:85
 msgid "Delay between repeats in milliseconds."
 msgstr "Az ismétlések közti késleltetés ezredmásodpercben."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:92
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:89
 msgid "Initial Key Repeat Delay"
 msgstr "Kezdeti billentyűismétlés késleltetése"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:93
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:90
 msgid "Initial key repeat delay in milliseconds."
 msgstr "Kezdeti billentyűismétlés késleltetése ezredmásodpercben."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:97
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:94
 msgid "Remember NumLock state"
 msgstr "A NumLock állapotának megjegyzése"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:98
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:95
 msgid ""
 "When set to true, GNOME will remember the state of the NumLock LED between "
 "sessions."
@@ -149,11 +149,11 @@ msgstr ""
 "Ha be van állítva, a GNOME megjegyzi a NumLock LED állapotát a munkamenetek "
 "között."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:104
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:101
 msgid "Disable touchpad while typing"
 msgstr "Érintőtábla letiltása gépelés közben"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:105
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:102
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
@@ -161,11 +161,11 @@ msgstr ""
 "Állítsa igazra, ha problémát okoz az érintőtábla véletlen megérintése "
 "gépelés közben."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:109
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:106
 msgid "Enable horizontal scrolling"
 msgstr "Vízszintes görgetés engedélyezése"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:110
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:107
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
@@ -173,43 +173,43 @@ msgstr ""
 "Állítsa igazra a vízszintes görgetés engedélyezéséhez a scroll_method "
 "kulcsban kiválasztott módon."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:114
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:111
 msgid "Select the touchpad scroll method"
 msgstr "Válassza ki az érintőtábla görgetési módját"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:115
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:112
 msgid ""
 "Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
 "scrolling”, “two-finger-scrolling”."
 msgstr ""
-"Válassza ki az érintőtábla görgetési módját. Lehetséges értékek: "
-"„disabled” (letiltva), „edge-scrolling” (görgetés a szélen), „two-finger-"
-"scrolling” (kétujjas görgetés)."
+"Válassza ki az érintőtábla görgetési módját. Lehetséges értékek: „disabled” "
+"(letiltva), „edge-scrolling” (görgetés a szélen), „two-finger-scrolling” "
+"(kétujjas görgetés)."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:119
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:116
 msgid "Enable mouse clicks with touchpad"
 msgstr "Egérkattintások engedélyezése az érintőtáblán"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:120
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:117
 msgid ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr ""
 "Állítsa igazra egérkattintások küldéséhez az érintőtáblára koppintással."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:124
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:121
 msgid "Enable touchpad"
 msgstr "Érintőtábla engedélyezése"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:125
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:122
 msgid "Set this to TRUE to enable all touchpads."
 msgstr ""
 "Állítsa igazra egérkattintások küldéséhez az érintőtáblára koppintással."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:129
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:126
 msgid "Touchpad button orientation"
 msgstr "Érintőtábla gombjának elhelyezkedése"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:130
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:127
 msgid ""
 "Swap left and right mouse buttons for left-handed mice with “left”, “right” "
 "for right-handed, “mouse” to follow the mouse setting."
@@ -217,17 +217,17 @@ msgstr ""
 "A bal és jobb egérgombok felcserélése balkezes egerekhez; „left” (balkezes), "
 "„right” (jobbkezes), „mouse” (az egér beállításainak követése)."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:144
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:141
 msgid "Natural scrolling"
 msgstr "Természetes görgetés"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:145
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:142
 msgid "Set this to TRUE to enable natural (reverse) scrolling for touchpads."
 msgstr ""
 "Állítsa IGAZRA a természetes (fordított) görgetés engedélyezéséhez az "
 "érintőtábláknál."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:152
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:149
 msgid "Mouse wheel emulation button. 0 to disable the feature."
 msgstr "Egérgörgő emulációs gomb. 0 értékkel letiltható a funkció."
 
@@ -268,8 +268,8 @@ msgid ""
 "Set this to “none”, “cw” for 90 degree clockwise, “half” for 180 degree, and "
 "“ccw” for 90 degree counterclockwise."
 msgstr ""
-"Lehetséges értékek: „none” (semmi), „cw” (90 fok órajárás irányában), "
-"„half” (180 fok), és „ccw” (90 fok órajárással ellentétes irányban)."
+"Lehetséges értékek: „none” (semmi), „cw” (90 fok órajárás irányában), „half” "
+"(180 fok), és „ccw” (90 fok órajárással ellentétes irányban)."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:30
 msgid "Wacom touch feature"
@@ -1469,10 +1469,48 @@ msgstr ""
 "ábrázolva), amelyen ez a szolgáltatás engedélyezett és el van indítva."
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:6
+msgid "List of explicitly disabled GTK+ modules"
+msgstr "Kifejezetten letiltott GTK+ modulok listája"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:7
+msgid ""
+"A list of strings representing the GTK+ modules that will not be loaded, "
+"even if enabled by default in their configuration."
+msgstr ""
+"A be nem töltendő GTK+ modulokat képviselő karakterláncok listája, még ha a "
+"beállításaikban alapértelmezetten engedélyezve is vannak."
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:11
+msgid "List of explicitly enabled GTK+ modules"
+msgstr "Kifejezetten engedélyezett GTK+ modulok listája"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:12
+msgid ""
+"A list of strings representing the GTK+ modules that will be loaded, usually "
+"in addition to conditional and forcibly disabled ones."
+msgstr ""
+"A betöltendő GTK+ modulokat képviselő karakterláncok listája, általában a "
+"feltételeseken és a kifejezetten letiltottakon túl."
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:16
+msgid "A dictionary of XSETTINGS to override"
+msgstr "Felülbírálandó XSETTINGS beállítások szótára"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:17
+msgid ""
+"This dictionary maps XSETTINGS names to overrides values. The values must be "
+"either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
+"(red, green, blue, alpha; 65535 is fully opaque)."
+msgstr ""
+"Ez a szótár XSETTINGS neveket képez le felülbírálási értékekre. Az értékek "
+"karakterláncok, előjeles int32-k vagy (színek esetén) uin16-ok négyes tuple-"
+"jai (vörös, zöld, kék, alfa - a 65535 = teljesen átlátszatlan)."
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:23
 msgid "Antialiasing"
 msgstr "Élsimítás"
 
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:7
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:24
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
@@ -1482,11 +1520,11 @@ msgstr ""
 "értékek: „none” (élsimítás kikapcsolása), „grayscale” (szürkeárnyalatos "
 "élsimítás) és „rgba” (képponton belüli élsimítás, csak LCD képernyőkhöz)."
 
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:11
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:28
 msgid "Hinting"
 msgstr "Hinting"
 
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:12
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:29
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: “none” "
 "for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
@@ -1511,58 +1549,20 @@ msgstr ""
 "rendereléshez vezethet a betűkészlet minőségétől, a betűkészlet "
 "formátumától, és a FreeType betűkészlet-motorjaitól függően."
 
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:16
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:33
 msgid "RGBA order"
 msgstr "RGBA sorrend"
 
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:17
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:34
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to “rgba”. Possible values are: “rgb” for red on left (most common), "
 "“bgr” for blue on left, “vrgb” for red on top, “vbgr” for red on bottom."
 msgstr ""
 "Az LCD képernyő alképpont-elemeinek sorrendje; csak akkor kerül "
-"felhasználásra, ha az élsimítás típusa „rgba”. A lehetséges értékek: "
-"„rgb” (vörös a bal oldalon - a leggyakoribb), „bgr” (kék a bal oldalon), "
-"„vrgb” (vörös fent), „vbgr” (vörös lent)."
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:21
-msgid "List of explicitly disabled GTK+ modules"
-msgstr "Kifejezetten letiltott GTK+ modulok listája"
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:22
-msgid ""
-"A list of strings representing the GTK+ modules that will not be loaded, "
-"even if enabled by default in their configuration."
-msgstr ""
-"A be nem töltendő GTK+ modulokat képviselő karakterláncok listája, még ha a "
-"beállításaikban alapértelmezetten engedélyezve is vannak."
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:26
-msgid "List of explicitly enabled GTK+ modules"
-msgstr "Kifejezetten engedélyezett GTK+ modulok listája"
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:27
-msgid ""
-"A list of strings representing the GTK+ modules that will be loaded, usually "
-"in addition to conditional and forcibly disabled ones."
-msgstr ""
-"A betöltendő GTK+ modulokat képviselő karakterláncok listája, általában a "
-"feltételeseken és a kifejezetten letiltottakon túl."
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:31
-msgid "A dictionary of XSETTINGS to override"
-msgstr "Felülbírálandó XSETTINGS beállítások szótára"
-
-#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:32
-msgid ""
-"This dictionary maps XSETTINGS names to overrides values. The values must be "
-"either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
-"(red, green, blue, alpha; 65535 is fully opaque)."
-msgstr ""
-"Ez a szótár XSETTINGS neveket képez le felülbírálási értékekre. Az értékek "
-"karakterláncok, előjeles int32-k vagy (színek esetén) uin16-ok négyes tuple-"
-"jai (vörös, zöld, kék, alfa - a 65535 = teljesen átlátszatlan)."
+"felhasználásra, ha az élsimítás típusa „rgba”. A lehetséges értékek: „rgb” "
+"(vörös a bal oldalon - a leggyakoribb), „bgr” (kék a bal oldalon), „vrgb” "
+"(vörös fent), „vbgr” (vörös lent)."
 
 #: plugins/color/gsd-color-calibrate.c:138
 msgid "Color"
@@ -1625,28 +1625,28 @@ msgstr "Beállítások"
 msgid "Date & Time Settings"
 msgstr "Dátum- és időbeállítások"
 
-#: plugins/housekeeping/gsd-disk-space.c:629
+#: plugins/housekeeping/gsd-disk-space.c:628
 msgid "Disk Space"
 msgstr "Lemezterület"
 
-#: plugins/housekeeping/gsd-disk-space.c:642
+#: plugins/housekeeping/gsd-disk-space.c:641
 msgid "Examine"
 msgstr "Vizsgálat"
 
-#: plugins/housekeeping/gsd-disk-space.c:653
+#: plugins/housekeeping/gsd-disk-space.c:652
 msgid "Empty Trash"
 msgstr "Kuka ürítése"
 
-#: plugins/housekeeping/gsd-disk-space.c:661
+#: plugins/housekeeping/gsd-disk-space.c:660
 msgid "Ignore"
 msgstr "Mellőzés"
 
-#: plugins/housekeeping/gsd-disk-space.c:692
+#: plugins/housekeeping/gsd-disk-space.c:691
 #, c-format
 msgid "Low Disk Space on “%s”"
 msgstr "Kevés a lemezterület ezen: „%s”"
 
-#: plugins/housekeeping/gsd-disk-space.c:694
+#: plugins/housekeeping/gsd-disk-space.c:693
 #, c-format
 msgid ""
 "The volume “%s” has only %s disk space remaining.  You may free up some "
@@ -1655,16 +1655,16 @@ msgstr ""
 "A(z) „%s” köteten már csak %s lemezhely maradt. A Kuka kiürítésével "
 "felszabadíthat némi helyet."
 
-#: plugins/housekeeping/gsd-disk-space.c:698
+#: plugins/housekeeping/gsd-disk-space.c:697
 #, c-format
 msgid "The volume “%s” has only %s disk space remaining."
 msgstr "A(z) „%s” köteten már csak %s lemezhely maradt."
 
-#: plugins/housekeeping/gsd-disk-space.c:703
+#: plugins/housekeeping/gsd-disk-space.c:702
 msgid "Low Disk Space"
 msgstr "Kevés a lemezterület"
 
-#: plugins/housekeeping/gsd-disk-space.c:705
+#: plugins/housekeeping/gsd-disk-space.c:704
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1673,50 +1673,42 @@ msgstr ""
 "A számítógépen már csak %s lemezhely maradt. A Kuka kiürítésével "
 "felszabadíthat némi helyet."
 
-#: plugins/housekeeping/gsd-disk-space.c:708
+#: plugins/housekeeping/gsd-disk-space.c:707
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "A számítógépen már csak %s lemezhely maradt."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2468
+#: plugins/media-keys/gsd-media-keys-manager.c:2480
 msgid "Bluetooth disabled"
 msgstr "Bluetooth letiltva"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2471
+#: plugins/media-keys/gsd-media-keys-manager.c:2483
 msgid "Bluetooth enabled"
 msgstr "Bluetooth engedélyezve"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2475
+#: plugins/media-keys/gsd-media-keys-manager.c:2487
 msgid "Airplane mode enabled"
 msgstr "Repülőgép-üzemmód engedélyezve"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2478
+#: plugins/media-keys/gsd-media-keys-manager.c:2490
 msgid "Airplane mode disabled"
 msgstr "Repülőgép-üzemmód letiltva"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2507
+#: plugins/media-keys/gsd-media-keys-manager.c:2529
 msgid "Hardware Airplane Mode"
 msgstr "Hardveres repülőgép-üzemmód"
 
 #. Translators: this is a filename used for screencast
 #. * recording, where "%d" and "%t" date and time, e.g.
 #. * "Screencast from 07-17-2013 10:00:46 PM.webm"
-#: plugins/media-keys/gsd-media-keys-manager.c:2570
+#: plugins/media-keys/gsd-media-keys-manager.c:2592
 #, no-c-format
 msgid "Screencast from %d %t.webm"
 msgstr "Képernyővideó ekkor: %d %t.webm"
 
-#: plugins/media-keys/gsd-screenshot-utils.c:82
-msgid "Unable to capture a screenshot"
-msgstr "Nem készíthető képernyőkép"
-
-#: plugins/media-keys/gsd-screenshot-utils.c:125
-msgid "Screenshot taken"
-msgstr "A képernyőkép elkészült"
-
 #. translators: this is the name of the file that gets made up
 #. * with the screenshot
-#: plugins/media-keys/gsd-screenshot-utils.c:264
+#: plugins/media-keys/gsd-screenshot-utils.c:240
 #, c-format
 msgid "Screenshot from %s"
 msgstr "Képernyőkép erről: %s"
@@ -1759,225 +1751,218 @@ msgstr[0] "perc"
 msgstr[1] "perc"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:791
-#: plugins/power/gsd-power-manager.c:888
+#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:825
+#: plugins/power/gsd-power-manager.c:922
 msgid "Battery is critically low"
 msgstr "Az akkumulátor kritikusan gyenge"
 
 #. TRANSLATORS: this is the notification application name
-#: plugins/power/gsd-power-manager.c:356
+#: plugins/power/gsd-power-manager.c:357
 msgid "Power"
 msgstr "Energiagazdálkodás"
 
 #. TRANSLATORS: UPS is now discharging
-#: plugins/power/gsd-power-manager.c:396
+#: plugins/power/gsd-power-manager.c:397
 msgid "UPS Discharging"
 msgstr "A szünetmentes táp kisül"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:401
+#: plugins/power/gsd-power-manager.c:402
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "%s szünetmentes tápellátás van hátra"
 
-#: plugins/power/gsd-power-manager.c:404
+#: plugins/power/gsd-power-manager.c:405
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "Ismeretlen a szünetmentes tápellátás hátralévő mennyisége"
 
 #. TRANSLATORS: laptop battery low, and we only have one battery
-#: plugins/power/gsd-power-manager.c:484
+#: plugins/power/gsd-power-manager.c:518
 msgid "Battery low"
 msgstr "Az akkumulátor gyenge"
 
 #. TRANSLATORS: laptop battery low, and we have more than one kind of battery
-#: plugins/power/gsd-power-manager.c:487
+#: plugins/power/gsd-power-manager.c:521
 msgid "Laptop battery low"
 msgstr "A noteszgép-akkumulátor gyenge"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:494
+#: plugins/power/gsd-power-manager.c:528
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
-msgstr "Megközelítőleg %s van hátra (%.0lf%%)"
+msgstr "Megközelítőleg %s van hátra (%.0f%%)"
 
 #. TRANSLATORS: UPS is starting to get a little low
-#: plugins/power/gsd-power-manager.c:499
+#: plugins/power/gsd-power-manager.c:533
 msgid "UPS low"
 msgstr "A szünetmentes táp gyenge"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:505
+#: plugins/power/gsd-power-manager.c:539
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr ""
-"A szünetmentes táp áthidalási idejéből még megközelítőleg %s van hátra (%.0f"
-"%%)"
+"A szünetmentes táp áthidalási idejéből még megközelítőleg %s van hátra "
+"(%.0f%%)"
 
 #. TRANSLATORS: mouse is getting a little low
 #. TRANSLATORS: the mouse battery is very low
-#: plugins/power/gsd-power-manager.c:510 plugins/power/gsd-power-manager.c:670
+#: plugins/power/gsd-power-manager.c:544 plugins/power/gsd-power-manager.c:704
 msgid "Mouse battery low"
 msgstr "Az egér akkumulátora gyenge"
 
-#: plugins/power/gsd-power-manager.c:514
+#: plugins/power/gsd-power-manager.c:548
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr "A vezeték nélküli egér akkumulátora gyenge (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:516
+#: plugins/power/gsd-power-manager.c:550
 #, c-format
-#| msgid "Wireless mouse is low in power (%.0f%%)"
 msgid "Wireless mouse is low in power"
 msgstr "A vezeték nélküli egér akkumulátora gyenge"
 
 #. TRANSLATORS: keyboard is getting a little low
 #. TRANSLATORS: the keyboard battery is very low
-#: plugins/power/gsd-power-manager.c:520 plugins/power/gsd-power-manager.c:683
+#: plugins/power/gsd-power-manager.c:554 plugins/power/gsd-power-manager.c:717
 msgid "Keyboard battery low"
 msgstr "A billentyűzet akkumulátora gyenge"
 
-#: plugins/power/gsd-power-manager.c:524
+#: plugins/power/gsd-power-manager.c:558
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr "A vezeték nélküli billentyűzet akkumulátora gyenge (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:526
+#: plugins/power/gsd-power-manager.c:560
 #, c-format
-#| msgid "Wireless keyboard is low in power (%.0f%%)"
 msgid "Wireless keyboard is low in power"
 msgstr "A vezeték nélküli billentyűzet akkumulátora gyenge"
 
 #. TRANSLATORS: PDA is getting a little low
 #. TRANSLATORS: the PDA battery is very low
-#: plugins/power/gsd-power-manager.c:530 plugins/power/gsd-power-manager.c:697
+#: plugins/power/gsd-power-manager.c:564 plugins/power/gsd-power-manager.c:731
 msgid "PDA battery low"
 msgstr "A PDA akkumulátora gyenge"
 
-#: plugins/power/gsd-power-manager.c:534
+#: plugins/power/gsd-power-manager.c:568
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr "A PDA akkumulátora gyenge (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:536
+#: plugins/power/gsd-power-manager.c:570
 #, c-format
-#| msgid "PDA is low in power (%.0f%%)"
 msgid "PDA is low in power"
 msgstr "A PDA akkumulátora gyenge"
 
 #. TRANSLATORS: cell phone (mobile) is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:540 plugins/power/gsd-power-manager.c:711
-#: plugins/power/gsd-power-manager.c:725
+#: plugins/power/gsd-power-manager.c:574 plugins/power/gsd-power-manager.c:745
+#: plugins/power/gsd-power-manager.c:759
 msgid "Cell phone battery low"
 msgstr "A mobiltelefon akkumulátora gyenge"
 
-#: plugins/power/gsd-power-manager.c:544
+#: plugins/power/gsd-power-manager.c:578
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr "A mobiltelefon akkumulátora gyenge (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:546
+#: plugins/power/gsd-power-manager.c:580
 #, c-format
-#| msgid "Cell phone is low in power (%.0f%%)"
 msgid "Cell phone is low in power"
 msgstr "A mobiltelefon akkumulátora gyenge"
 
 #. TRANSLATORS: media player, e.g. mp3 is getting a little low
-#: plugins/power/gsd-power-manager.c:550
+#: plugins/power/gsd-power-manager.c:584
 msgid "Media player battery low"
 msgstr "A médialejátszó akkumulátora gyenge"
 
-#: plugins/power/gsd-power-manager.c:554
+#: plugins/power/gsd-power-manager.c:588
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr "A médialejátszó akkumulátora gyenge (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:556
+#: plugins/power/gsd-power-manager.c:590
 #, c-format
-#| msgid "Media player is low in power (%.0f%%)"
 msgid "Media player is low in power"
 msgstr "A médialejátszó akkumulátora gyenge"
 
 #. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:560 plugins/power/gsd-power-manager.c:739
+#: plugins/power/gsd-power-manager.c:594 plugins/power/gsd-power-manager.c:773
 msgid "Tablet battery low"
 msgstr "A táblagép akkumulátora gyenge"
 
-#: plugins/power/gsd-power-manager.c:564
+#: plugins/power/gsd-power-manager.c:598
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr "A táblagép akkumulátora gyenge (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:566
+#: plugins/power/gsd-power-manager.c:600
 #, c-format
-#| msgid "Tablet is low in power (%.0f%%)"
 msgid "Tablet is low in power"
 msgstr "A táblagép akkumulátora gyenge"
 
 #. TRANSLATORS: computer, e.g. ipad is getting a little low
 #. TRANSLATORS: the cell battery is very low
-#: plugins/power/gsd-power-manager.c:570 plugins/power/gsd-power-manager.c:753
+#: plugins/power/gsd-power-manager.c:604 plugins/power/gsd-power-manager.c:787
 msgid "Attached computer battery low"
 msgstr "A csatlakozó számítógép akkumulátora gyenge"
 
-#: plugins/power/gsd-power-manager.c:574
+#: plugins/power/gsd-power-manager.c:608
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr "A csatlakozó számítógép akkumulátora gyenge (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:576
+#: plugins/power/gsd-power-manager.c:610
 #, c-format
-#| msgid "Attached computer is low in power (%.0f%%)"
 msgid "Attached computer is low in power"
 msgstr "A csatlakozó számítógép akkumulátora gyenge"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:597
+#: plugins/power/gsd-power-manager.c:631
 msgid "Battery is low"
 msgstr "Az akkumulátor gyenge"
 
 #. TRANSLATORS: laptop battery critically low, and only have one kind of battery
-#: plugins/power/gsd-power-manager.c:634
+#: plugins/power/gsd-power-manager.c:668
 msgid "Battery critically low"
 msgstr "Az akkumulátor kritikusan gyenge"
 
 #. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
 #. TRANSLATORS: laptop battery is really, really, low
-#: plugins/power/gsd-power-manager.c:637 plugins/power/gsd-power-manager.c:818
+#: plugins/power/gsd-power-manager.c:671 plugins/power/gsd-power-manager.c:852
 msgid "Laptop battery critically low"
 msgstr "A noteszgép akkumulátora kritikusan gyenge"
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:646
+#: plugins/power/gsd-power-manager.c:680
 #, c-format
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr "A számítógép hamarosan hibernálva lesz, ha nem csatlakoztatja."
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:650
+#: plugins/power/gsd-power-manager.c:684
 #, c-format
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr "A számítógép hamarosan leáll, ha nem csatlakoztatja."
 
 #. TRANSLATORS: the UPS is very low
 #. TRANSLATORS: UPS is really, really, low
-#: plugins/power/gsd-power-manager.c:658 plugins/power/gsd-power-manager.c:843
+#: plugins/power/gsd-power-manager.c:692 plugins/power/gsd-power-manager.c:877
 msgid "UPS critically low"
 msgstr "A szünetmentes táp kritikusan gyenge"
 
 #. TRANSLATORS: give the user a ultimatum
-#: plugins/power/gsd-power-manager.c:664
+#: plugins/power/gsd-power-manager.c:698
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
 "computer to avoid losing data."
 msgstr ""
-"A szünetmentes táp áthidalási idejéből még megközelítőleg %s van hátra (%.0f"
-"%%). Az adatvesztés elkerülése érdekében állítsa vissza a hálózati "
+"A szünetmentes táp áthidalási idejéből még megközelítőleg %s van hátra "
+"(%.0f%%). Az adatvesztés elkerülése érdekében állítsa vissza a hálózati "
 "tápellátást."
 
-#: plugins/power/gsd-power-manager.c:674
+#: plugins/power/gsd-power-manager.c:708
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
@@ -1986,11 +1971,8 @@ msgstr ""
 "A vezeték nélküli egér akkumulátora nagyon gyenge (%.0f%%). Ha nem tölti "
 "fel, az eszköz le fog állni."
 
-#: plugins/power/gsd-power-manager.c:678
+#: plugins/power/gsd-power-manager.c:712
 #, c-format
-#| msgid ""
-#| "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
-#| "functioning if not charged."
 msgid ""
 "Wireless mouse is very low in power. This device will soon stop functioning "
 "if not charged."
@@ -1998,7 +1980,7 @@ msgstr ""
 "A vezeték nélküli egér akkumulátora nagyon gyenge. Ha nem tölti fel, az "
 "eszköz le fog állni."
 
-#: plugins/power/gsd-power-manager.c:687
+#: plugins/power/gsd-power-manager.c:721
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
@@ -2007,11 +1989,8 @@ msgstr ""
 "A vezeték nélküli billentyűzet akkumulátora nagyon gyenge (%.0f%%). Ha nem "
 "tölti fel, az eszköz le fog állni."
 
-#: plugins/power/gsd-power-manager.c:691
+#: plugins/power/gsd-power-manager.c:725
 #, c-format
-#| msgid ""
-#| "Wireless keyboard is very low in power (%.0f%%). This device will soon "
-#| "stop functioning if not charged."
 msgid ""
 "Wireless keyboard is very low in power. This device will soon stop "
 "functioning if not charged."
@@ -2019,7 +1998,7 @@ msgstr ""
 "A vezeték nélküli billentyűzet akkumulátora nagyon gyenge. Ha nem tölti fel, "
 "az eszköz le fog állni."
 
-#: plugins/power/gsd-power-manager.c:701
+#: plugins/power/gsd-power-manager.c:735
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
@@ -2028,18 +2007,15 @@ msgstr ""
 "A PDA akkumulátora nagyon gyenge (%.0f%%). Ha nem tölti fel, az eszköz le "
 "fog állni."
 
-#: plugins/power/gsd-power-manager.c:705
+#: plugins/power/gsd-power-manager.c:739
 #, c-format
-#| msgid ""
-#| "PDA is very low in power (%.0f%%). This device will soon stop functioning "
-#| "if not charged."
 msgid ""
 "PDA is very low in power. This device will soon stop functioning if not "
 "charged."
 msgstr ""
 "A PDA akkumulátora nagyon gyenge. Ha nem tölti fel, az eszköz le fog állni."
 
-#: plugins/power/gsd-power-manager.c:715
+#: plugins/power/gsd-power-manager.c:749
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
@@ -2048,11 +2024,8 @@ msgstr ""
 "A mobiltelefon akkumulátora nagyon gyenge (%.0f%%). Ha nem tölti fel, az "
 "eszköz le fog állni."
 
-#: plugins/power/gsd-power-manager.c:719
+#: plugins/power/gsd-power-manager.c:753
 #, c-format
-#| msgid ""
-#| "Cell phone is very low in power (%.0f%%). This device will soon stop "
-#| "functioning if not charged."
 msgid ""
 "Cell phone is very low in power. This device will soon stop functioning if "
 "not charged."
@@ -2060,7 +2033,7 @@ msgstr ""
 "A mobiltelefon akkumulátora nagyon gyenge. Ha nem tölti fel, az eszköz le "
 "fog állni."
 
-#: plugins/power/gsd-power-manager.c:729
+#: plugins/power/gsd-power-manager.c:763
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
@@ -2069,11 +2042,8 @@ msgstr ""
 "A médialejátszó akkumulátora nagyon gyenge (%.0f%%). Ha nem tölti fel, az "
 "eszköz le fog állni."
 
-#: plugins/power/gsd-power-manager.c:733
+#: plugins/power/gsd-power-manager.c:767
 #, c-format
-#| msgid ""
-#| "Media player is very low in power (%.0f%%). This device will soon stop "
-#| "functioning if not charged."
 msgid ""
 "Media player is very low in power. This device will soon stop functioning if "
 "not charged."
@@ -2081,7 +2051,7 @@ msgstr ""
 "A médialejátszó akkumulátora nagyon gyenge. Ha nem tölti fel, az eszköz le "
 "fog állni."
 
-#: plugins/power/gsd-power-manager.c:743
+#: plugins/power/gsd-power-manager.c:777
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
@@ -2090,11 +2060,8 @@ msgstr ""
 "A táblagép akkumulátora nagyon gyenge (%.0f%%). Ha nem tölti fel, az eszköz "
 "le fog állni."
 
-#: plugins/power/gsd-power-manager.c:747
+#: plugins/power/gsd-power-manager.c:781
 #, c-format
-#| msgid ""
-#| "Tablet is very low in power (%.0f%%). This device will soon stop "
-#| "functioning if not charged."
 msgid ""
 "Tablet is very low in power. This device will soon stop functioning if not "
 "charged."
@@ -2102,7 +2069,7 @@ msgstr ""
 "A táblagép akkumulátora nagyon gyenge. Ha nem tölti fel, az eszköz le fog "
 "állni."
 
-#: plugins/power/gsd-power-manager.c:757
+#: plugins/power/gsd-power-manager.c:791
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
@@ -2111,11 +2078,8 @@ msgstr ""
 "A csatlakozó számítógép akkumulátora nagyon gyenge (%.0f%%). Ha nem tölti "
 "fel, az eszköz le fog állni."
 
-#: plugins/power/gsd-power-manager.c:761
+#: plugins/power/gsd-power-manager.c:795
 #, c-format
-#| msgid ""
-#| "Attached computer is very low in power (%.0f%%). The device will soon "
-#| "shutdown if not charged."
 msgid ""
 "Attached computer is very low in power. The device will soon shutdown if not "
 "charged."
@@ -2124,7 +2088,7 @@ msgstr ""
 "eszköz le fog állni."
 
 #. TRANSLATORS: computer will hibernate
-#: plugins/power/gsd-power-manager.c:826
+#: plugins/power/gsd-power-manager.c:860
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
@@ -2133,7 +2097,7 @@ msgstr ""
 "készül."
 
 #. TRANSLATORS: computer will just shutdown
-#: plugins/power/gsd-power-manager.c:831
+#: plugins/power/gsd-power-manager.c:865
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
@@ -2142,7 +2106,7 @@ msgstr ""
 "készül."
 
 #. TRANSLATORS: computer will hibernate
-#: plugins/power/gsd-power-manager.c:851
+#: plugins/power/gsd-power-manager.c:885
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
@@ -2150,50 +2114,50 @@ msgstr ""
 "hibernálásra készül."
 
 #. TRANSLATORS: computer will just shutdown
-#: plugins/power/gsd-power-manager.c:856
+#: plugins/power/gsd-power-manager.c:890
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 "A szünetmentes táp kapacitása a kritikus szint alá esett, és a gép leállni "
 "készül."
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1333
+#: plugins/power/gsd-power-manager.c:1377
 msgid "Lid has been opened"
 msgstr "Fedél kinyitva"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1367
+#: plugins/power/gsd-power-manager.c:1411
 msgid "Lid has been closed"
 msgstr "Fedél lezárva"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1934
+#: plugins/power/gsd-power-manager.c:1985
 msgid "On battery power"
 msgstr "Akkumulátoron"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1939
+#: plugins/power/gsd-power-manager.c:1990
 msgid "On AC power"
 msgstr "Hálózaton"
 
-#: plugins/power/gsd-power-manager.c:2127
+#: plugins/power/gsd-power-manager.c:2178
 msgid "Automatic logout"
 msgstr "Automatikus kijelentkezés"
 
-#: plugins/power/gsd-power-manager.c:2127
+#: plugins/power/gsd-power-manager.c:2178
 msgid "You will soon log out because of inactivity."
 msgstr "Hamarosan kijelentkezik inaktivitás miatt."
 
-#: plugins/power/gsd-power-manager.c:2132
+#: plugins/power/gsd-power-manager.c:2183
 msgid "Automatic suspend"
 msgstr "Automatikus felfüggesztés"
 
-#: plugins/power/gsd-power-manager.c:2132
-#: plugins/power/gsd-power-manager.c:2137
+#: plugins/power/gsd-power-manager.c:2183
+#: plugins/power/gsd-power-manager.c:2188
 msgid "Computer will suspend very soon because of inactivity."
 msgstr "A számítógép inaktivitás miatt hamarosan fel lesz függesztve."
 
-#: plugins/power/gsd-power-manager.c:2137
+#: plugins/power/gsd-power-manager.c:2188
 msgid "Automatic hibernation"
 msgstr "Automatikus hibernálás"
 
@@ -2465,15 +2429,15 @@ msgstr "„%s” nyomtató: „%s”."
 msgid "User was not logged in with smartcard."
 msgstr "A felhasználó nem intelligens kártyával jelentkezett be."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:386
+#: plugins/usb-protection/gsd-usb-protection-manager.c:387
 msgid "USB Protection"
 msgstr "USB-védelem"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:505
+#: plugins/usb-protection/gsd-usb-protection-manager.c:506
 msgid "New USB device"
 msgstr "Új USB-s eszköz"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:506
+#: plugins/usb-protection/gsd-usb-protection-manager.c:507
 msgid ""
 "New device has been detected while the session was not locked. If you did "
 "not plug anything, check your system for any suspicious device."
@@ -2481,29 +2445,25 @@ msgstr ""
 "Új eszköz lett észlelve, miközben a munkamenet nem volt zárolva. Ha nem "
 "csatlakoztatott semmit, akkor ellenőrizze, hogy nincsenek-e gyanús eszközei."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:589
-#| msgid "New keyboard detected"
+#: plugins/usb-protection/gsd-usb-protection-manager.c:590
 msgid "New device detected"
 msgstr "Új eszköz észlelve"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:590
-#| msgid ""
-#| "Either your keyboard has been reconnected or a new one has been plugged "
-#| "in. If you did not do it, check your system for any suspicious device."
+#: plugins/usb-protection/gsd-usb-protection-manager.c:591
 msgid ""
 "Either one of your existing devices has been reconnected or a new one has "
 "been plugged in. If you did not do it, check your system for any suspicious "
 "device."
 msgstr ""
-"Vagy újracsatlakoztatta a meglévő eszközök egyikét, vagy egy újat"
-" csatlakoztatott. Ha nem Ön tette, akkor ellenőrizze a rendszerét, hogy"
-" nincsenek-e gyanús eszközei."
+"Vagy újracsatlakoztatta a meglévő eszközök egyikét, vagy egy újat "
+"csatlakoztatott. Ha nem Ön tette, akkor ellenőrizze a rendszerét, hogy "
+"nincsenek-e gyanús eszközei."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:596
+#: plugins/usb-protection/gsd-usb-protection-manager.c:597
 msgid "Reconnect USB device"
 msgstr "USB-s eszköz újracsatlakoztatása"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:597
+#: plugins/usb-protection/gsd-usb-protection-manager.c:598
 msgid ""
 "New device has been detected while you were away. Please disconnect and "
 "reconnect the device to start using it."
@@ -2511,12 +2471,12 @@ msgstr ""
 "Új eszköz lett észlelve, amíg távol volt. Válassza le, és csatlakoztassa "
 "újra az eszközt, hogy megkezdhesse a használatát."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:603
-#: plugins/usb-protection/gsd-usb-protection-manager.c:628
+#: plugins/usb-protection/gsd-usb-protection-manager.c:604
+#: plugins/usb-protection/gsd-usb-protection-manager.c:629
 msgid "USB device blocked"
 msgstr "USB-s eszköz blokkolva"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:604
+#: plugins/usb-protection/gsd-usb-protection-manager.c:605
 msgid ""
 "New device has been detected while you were away. It has been blocked "
 "because the USB protection is active."
@@ -2524,7 +2484,7 @@ msgstr ""
 "Új eszköz lett észlelve, amíg távol volt. Blokkolva lett, mert az USB-"
 "védelem aktív."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:629
+#: plugins/usb-protection/gsd-usb-protection-manager.c:630
 msgid ""
 "The new inserted device has been blocked because the USB protection is "
 "active."
@@ -2559,7 +2519,6 @@ msgid "Phone failure"
 msgstr "Telefon hiba"
 
 #: plugins/wwan/cc-wwan-errors-private.h:41
-#| msgid "Not connected?"
 msgid "No connection to phone"
 msgstr "Nincs kapcsolat a telefonnal"
 
@@ -2608,13 +2567,10 @@ msgid "SIM PUK2 required"
 msgstr "SIM-kártya PUK2-kód szükséges"
 
 #: plugins/wwan/cc-wwan-errors-private.h:72
-#| msgid "Unknown time"
 msgid "Unknown error"
 msgstr "Ismeretlen hiba"
 
 #: plugins/wwan/cc-wwan-errors-private.h:91
-#| msgctxt "print job state"
-#| msgid "Printing canceled"
 msgid "Action Cancelled"
 msgstr "Művelet megszakítva"
 
@@ -2623,7 +2579,6 @@ msgid "Access denied"
 msgstr "Hozzáférés megtagadva"
 
 #: plugins/wwan/cc-wwan-errors-private.h:103
-#| msgid "Unknown time"
 msgid "Unknown Error"
 msgstr "Ismeretlen hiba"
 
@@ -2649,12 +2604,10 @@ msgstr "Mégse"
 
 #: plugins/wwan/gsd-wwan-manager.c:129
 #, c-format
-#| msgid "Please provide the PIN for SIM card %s"
 msgid "Please provide a new PIN for SIM card %s"
 msgstr "Adjon meg egy új PIN-kódot a(z) %s SIM-kártyához"
 
 #: plugins/wwan/gsd-wwan-manager.c:131
-#| msgid "Enter PIN to unlock your SIM card"
 msgid "Enter a New PIN to unlock your SIM card"
 msgstr "Írjon be egy új PIN-kódot a SIM-kártya feloldásához"
 
@@ -2669,20 +2622,16 @@ msgstr "Adja meg a PIN-kódot a SIM-kártya feloldásához"
 
 #: plugins/wwan/gsd-wwan-manager.c:138
 #, c-format
-#| msgid "Please provide the PIN for SIM card %s"
 msgid "Please provide the PUK for SIM card %s"
 msgstr "Adja meg a PUK-kódot a(z) %s SIM-kártyához"
 
 #: plugins/wwan/gsd-wwan-manager.c:140
-#| msgid "Enter PIN to unlock your SIM card"
 msgid "Enter PUK to unlock your SIM card"
 msgstr "Írja be a PUK-kódot a SIM-kártya feloldásához"
 
 #. msg is already localised
 #: plugins/wwan/gsd-wwan-manager.c:156
 #, c-format
-#| msgid "%2$s You have %1$u try left"
-#| msgid_plural "%2$s You have %1$u tries left"
 msgid "%2$s. You have %1$u try left"
 msgid_plural "%2$s. You have %1$u tries left"
 msgstr[0] "%2$s. Még %1$u kísérlete van hátra"
@@ -2694,15 +2643,3 @@ msgid "You have %u try left"
 msgid_plural "You have %u tries left"
 msgstr[0] "Még %u kísérlete van hátra"
 msgstr[1] "Még %u kísérlete van hátra"
-
-#~ msgid "SIM card unlock error"
-#~ msgstr "SIM-kártya feloldási hiba"
-
-#~ msgid "OK"
-#~ msgstr "OK"
-
-#~ msgid "Too many incorrect PINs."
-#~ msgstr "Túl sok helytelen PIN-kód."
-
-#~ msgid "Wrong PIN code"
-#~ msgstr "Rossz PIN-kód"
