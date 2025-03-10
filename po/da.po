@@ -11,7 +11,7 @@
 # Kenneth Nielsen, 2012.
 # Ask Hjorth Larsen <asklarsen@gmail.com>, 2007, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18.
 # scootergrisen, 2016, 2019.
-# Alan Mortensen <alanmortensen.am@gmail.com>, 2020-23.
+# Alan Mortensen <alanmortensen.am@gmail.com>, 2020-25.
 #
 # Konventioner:
 #   detach -> frigøre
@@ -34,8 +34,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues/\n"
-"POT-Creation-Date: 2024-08-31 13:24+0000\n"
-"PO-Revision-Date: 2024-09-10 20:01+0200\n"
+"POT-Creation-Date: 2025-03-04 12:21+0000\n"
+"PO-Revision-Date: 2025-03-10 19:14+0100\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -44,6 +44,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.4.2\n"
+
+#: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:6
+msgid "Applications"
+msgstr "Programmer"
+
+#: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:7
+msgid "Applications that have defined global shortcuts"
+msgstr "Programmer hvor globale genveje er defineret"
+
+#: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:13
+msgid "Shortcuts"
+msgstr "Genveje"
+
+#: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:14
+msgid "Keyboard shortcut definitions"
+msgstr "Definitioner for tastaturgenveje"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid "Smartcard removal action"
@@ -54,8 +70,8 @@ msgid ""
 "Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
 "get performed when the smartcard used for log in is removed."
 msgstr ""
-"Sæt denne til en af “none”, “lock-screen” eller “force-logout”. Handlingen "
-"vil blive udført, når det smartcard, der bruges ved login, fjernes."
+"Sæt denne til en af “none”, “lock-screen” eller “force-logout”. Handlingen vil "
+"blive udført, når det smartcard, der bruges ved login, fjernes."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:24
 msgid "Possible values are “on”, “off”, and “custom”."
@@ -182,8 +198,8 @@ msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
 msgstr ""
-"Sæt denne til sand for at tillade vandret rulning ved samme metode, som "
-"vælges med nøglen scroll_method."
+"Sæt denne til sand for at tillade vandret rulning ved samme metode, som vælges "
+"med nøglen scroll_method."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:111
 msgid "Select the touchpad scroll method"
@@ -224,8 +240,8 @@ msgid ""
 "Swap left and right mouse buttons for left-handed mice with “left”, “right” "
 "for right-handed, “mouse” to follow the mouse setting."
 msgstr ""
-"Ombyt venstre og højre museknap til venstrehåndede mus med “left”, “right” "
-"for højrehåndet, eller “mouse” for at følge musens indstilling."
+"Ombyt venstre og højre museknap til venstrehåndede mus med “left”, “right” for "
+"højrehåndet, eller “mouse” for at følge musens indstilling."
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:141
 msgid "Natural scrolling"
@@ -254,8 +270,7 @@ msgstr "Wacom-tegnepladens område"
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:16
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
-msgstr ""
-"Sæt denne til x1, y1 og x2, y2 for det område, værktøjerne kan bruges i."
+msgstr "Sæt denne til x1, y1 og x2, y2 for det område, værktøjerne kan bruges i."
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:20
 msgid "Wacom tablet aspect ratio"
@@ -263,8 +278,8 @@ msgstr "Højde-/breddeforhold for Wacom-tegnepladen"
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:21
 msgid ""
-"Enable this to restrict the Wacom tablet area to match the aspect ratio of "
-"the output."
+"Enable this to restrict the Wacom tablet area to match the aspect ratio of the "
+"output."
 msgstr ""
 "Slå dette til for at begrænse Wacom-tegnepladens område, så det passer til "
 "outputtets højde-/breddeforhold."
@@ -390,8 +405,8 @@ msgstr "Varigheden af en display-konfigurations gyldighed"
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:7
 msgid ""
-"This is the number of days after which the display color profile is "
-"considered invalid."
+"This is the number of days after which the display color profile is considered "
+"invalid."
 msgstr ""
 "Dette er antallet af dage inden konfiguration af skærmfarve betragtes som "
 "ugyldig."
@@ -402,8 +417,8 @@ msgstr "Varigheden af en printerkonfigurations gyldighed"
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:12
 msgid ""
-"This is the number of days after which the printer color profile is "
-"considered invalid."
+"This is the number of days after which the printer color profile is considered "
+"invalid."
 msgstr ""
 "Dette er antallet af dage inden printerens farvekonfiguration betragtes som "
 "ugyldig."
@@ -426,8 +441,8 @@ msgstr "Skærmtemperatur i aktiveret tilstand"
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:22
 msgid ""
-"This temperature in Kelvin is used to modify the screen tones when night "
-"light mode is enabled. Higher values are bluer, lower redder."
+"This temperature in Kelvin is used to modify the screen tones when night light "
+"mode is enabled. Higher values are bluer, lower redder."
 msgstr ""
 "Denne temperatur i Kelvin bruges til at ændre skærmfarvetoner, når "
 "nattelystilstand er slået til. Højere værdier er mere blålige, mens lavere "
@@ -453,8 +468,8 @@ msgid ""
 "When “night-light-schedule-automatic” is disabled, use this start time in "
 "hours from midnight."
 msgstr ""
-"Når “night-light-schedule-automatic” er slået fra, bruges dette "
-"starttidspunkt i timer fra midnat."
+"Når “night-light-schedule-automatic” er slået fra, bruges dette starttidspunkt "
+"i timer fra midnat."
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:36
 msgid "The end time"
@@ -475,8 +490,8 @@ msgstr "Sidst bestemte position"
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:42
 msgid ""
 "When location services are available this represents the last detected "
-"location. The default value is an invalid value to ensure it is always "
-"updated at startup."
+"location. The default value is an invalid value to ensure it is always updated "
+"at startup."
 msgstr ""
 "Når placeringstjenesterne er tilgængelige, repræsenterer dette den sidst "
 "bestemte position. Standardværdien er en ugyldig værdi for at sikre, at denne "
@@ -501,8 +516,8 @@ msgstr "Monteringsstier, der skal ignoreres"
 #: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:7
 msgid "Specify a list of mount paths to ignore when they run low on space."
 msgstr ""
-"Angiv en liste af monteringsstier, der ignoreres når de er ved at løbe tør "
-"for diskplads."
+"Angiv en liste af monteringsstier, der ignoreres når de er ved at løbe tør for "
+"diskplads."
 
 #: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:12
 msgid "Free percentage notify threshold"
@@ -513,8 +528,8 @@ msgid ""
 "Percentage free space threshold for initial warning of low disk space. If the "
 "percentage free space drops below this, a warning will be shown."
 msgstr ""
-"Mængden af fri plads i procent, der giver anledning til første advarsel om "
-"lav diskplads. Hvis procentdelen af fri plads kommer under dette, vises en "
+"Mængden af fri plads i procent, der giver anledning til første advarsel om lav "
+"diskplads. Hvis procentdelen af fri plads kommer under dette, vises en "
 "advarsel."
 
 #: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:18
@@ -526,8 +541,8 @@ msgid ""
 "Specify the percentage that the free disk space should reduce by before "
 "issuing a subsequent warning."
 msgstr ""
-"Angiv procentdelen hvormed mængden af fri plads skal reduceres yderligere, "
-"før der bliver givet endnu en advarsel."
+"Angiv procentdelen hvormed mængden af fri plads skal reduceres yderligere, før "
+"der bliver givet endnu en advarsel."
 
 #: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:23
 msgid "Free space notify threshold"
@@ -555,7 +570,7 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:6
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:154
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:446
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:456
 msgid "Launch calculator"
 msgstr "Start lommeregner"
 
@@ -566,7 +581,7 @@ msgstr "Genvej til at starte lommeregneren."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:11
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:159
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:451
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:461
 msgid "Launch settings"
 msgstr "Start indstillinger"
 
@@ -577,7 +592,7 @@ msgstr "Genvej til at starte GNOME Indstillinger."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:16
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:164
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:456
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:466
 msgid "Launch email client"
 msgstr "Start e-mailklient"
 
@@ -588,7 +603,7 @@ msgstr "Genvej til at starte e-mailklienten."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:21
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:169
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:461
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:471
 msgid "Eject"
 msgstr "Skub ud"
 
@@ -609,7 +624,7 @@ msgstr "Genvej til at starte hjælpefremviseren."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:31
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:179
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:466
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:476
 msgid "Home folder"
 msgstr "Hjemmemappe"
 
@@ -620,7 +635,7 @@ msgstr "Genvej til at åbne hjemmemappen."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:36
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:184
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:471
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:481
 msgid "Launch media player"
 msgstr "Start medieafspiller"
 
@@ -631,7 +646,7 @@ msgstr "Genvej til at starte medieafspilleren."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:41
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:189
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:476
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:486
 msgid "Next track"
 msgstr "Næste spor"
 
@@ -642,7 +657,7 @@ msgstr "Genvej til at gå til næste spor."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:46
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:194
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:481
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:491
 msgid "Pause playback"
 msgstr "Afspilning på pause"
 
@@ -653,7 +668,7 @@ msgstr "Genvej til at sætte afspilning på pause."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:51
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:199
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:486
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:496
 msgid "Play (or play/pause)"
 msgstr "Afspil (eller afspil/pause)"
 
@@ -673,182 +688,182 @@ msgid "Binding to log out."
 msgstr "Genvej til at logge ud."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:61
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:209
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:491
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:219
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:501
 msgid "Previous track"
 msgstr "Forrige spor"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:62
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:210
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:220
 msgid "Binding to skip to previous track."
 msgstr "Genvej til at gå til forrige spor."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:66
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:214
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:496
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:224
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:506
 msgid "Lock screen"
 msgstr "Lås skærm"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:67
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:215
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:225
 msgid "Binding to lock the screen."
 msgstr "Genvej til at låse skærmen."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:71
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:219
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:501
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:229
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:511
 msgid "Search"
 msgstr "Søg"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:72
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:220
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:230
 msgid "Binding to launch the search tool."
 msgstr "Genvej til at starte søgeværktøjet."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:76
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:224
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:506
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:234
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:516
 msgid "Stop playback"
 msgstr "Stop afspilning"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:77
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:225
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:235
 msgid "Binding to stop playback."
 msgstr "Genvej til at stoppe afspilning."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:81
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:231
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:513
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:241
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:523
 msgid "Volume down"
 msgstr "Skru ned for lydstyrken"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:82
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:232
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:242
 msgid "Binding to lower the volume."
 msgstr "Genvej til at skrue ned for lydstyrken."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:86
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:236
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:518
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:246
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:528
 msgid "Volume mute/unmute"
 msgstr "Slå lyden til/fra"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:87
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:237
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:247
 msgid "Binding to mute/unmute the volume."
 msgstr "Genvej til at slå lyden til/fra."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:91
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:241
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:523
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:251
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:533
 msgid "Volume up"
 msgstr "Skru op for lydstyrken"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:92
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:242
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:252
 msgid "Binding to raise the volume."
 msgstr "Genvej til at skrue op for lydstyrken."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:96
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:282
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:558
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:292
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:568
 msgid "Microphone mute/unmute"
 msgstr "Slå mikrofon til/fra"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:97
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:283
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:293
 msgid "Binding to mute/unmute the microphone."
 msgstr "Genvej til at slå mikrofonen til/fra."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:101
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:287
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:563
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:297
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:573
 msgid "Launch web browser"
 msgstr "Start webbrowser"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:102
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:288
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:298
 msgid "Binding to launch the web browser."
 msgstr "Genvej til at starte webbrowseren."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:106
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:317
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:327
 msgid "Toggle magnifier"
 msgstr "Slå skærmforstørrelse til/fra"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:107
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:318
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:328
 msgid "Binding to show the screen magnifier"
 msgstr "Genvej til at vise skærmforstørrelsesglasset"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:111
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:292
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:302
 msgid "Toggle screen reader"
 msgstr "Slå skærmoplæser til/fra"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:112
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:293
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:303
 msgid "Binding to start the screen reader"
 msgstr "Genvej til at starte skærmoplæseren"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:116
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:297
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:307
 msgid "Toggle on-screen keyboard"
 msgstr "Slå skærmtastatur til/fra"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:117
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:298
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:308
 msgid "Binding to show the on-screen keyboard"
 msgstr "Genvej til at vise skærmtastaturet"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:121
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:302
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:312
 msgid "Increase text size"
 msgstr "Forstør tekst"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:122
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:303
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:313
 msgid "Binding to increase the text size"
 msgstr "Genvej til at forstørre teksten"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:126
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:307
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:317
 msgid "Decrease text size"
 msgstr "Formindsk teksten"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:127
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:308
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:318
 msgid "Binding to decrease the text size"
 msgstr "Genvej til at formindske teksten"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:131
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:312
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:322
 msgid "Toggle contrast"
 msgstr "Slå kontrast til/fra"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:132
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:313
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:323
 msgid "Binding to toggle the interface contrast"
 msgstr "Genvej til at slå kontrast for brugerfladen til/fra"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:136
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:322
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:332
 msgid "Magnifier zoom in"
 msgstr "Zoom ind med forstørrelsesglas"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:137
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:323
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:333
 msgid "Binding for the magnifier to zoom in"
 msgstr "Genvej til at zoome ind med skærmforstørrelse"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:141
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:327
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:569
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:337
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:579
 msgid "Magnifier zoom out"
 msgstr "Zoom ud med forstørrelsesglas"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:142
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:328
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:338
 msgid "Binding for the magnifier to zoom out"
 msgstr "Genvej til at zoome ud med skærmforstørrelse"
 
@@ -860,441 +875,464 @@ msgstr "Tilpassede tastegenveje"
 msgid "List of custom keybindings"
 msgstr "Liste af tilpassede tastegenveje"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:247
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:209
+msgid "Reboot"
+msgstr "Genstart"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:210
+msgid "Binding to reboot."
+msgstr "Genvej til at genstarte."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:214
+msgid "Shut down"
+msgstr "Sluk"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:215
+msgid "Binding to shut down."
+msgstr "Genvej til at slukke."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:257
 msgid "Size of volume step"
 msgstr "Størrelse af lydstyrkeskridt"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:248
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:258
 msgid "Size of the volume step for each volume change"
 msgstr "Størrelsen på hver ændring af lydstyrke"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:254
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:530
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:264
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:540
 msgid "Quiet volume down"
 msgstr "Skru ned for lydstyrken (på stille vis)"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:255
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:265
 msgid "Binding to lower the volume without emitting a sound effect."
 msgstr "Genvej til at skrue ned for lydstyrken uden at udsende en lydeffekt."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:259
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:535
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:269
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:545
 msgid "Quiet volume mute/unmute"
 msgstr "Slå lyden til/fra (på stille vis)"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:260
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:270
 msgid "Binding to mute/unmute the volume without emitting a sound effect."
 msgstr "Genvej til at slå lyden til/fra uden at udsende en lydeffekt."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:264
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:540
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:274
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:550
 msgid "Quiet volume up"
 msgstr "Skru op for lydstyrken (på stille vis)"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:265
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:275
 msgid "Binding to raise the volume without emitting a sound effect."
 msgstr "Genvej til at skrue op for lydstyrken uden at udsende en lydeffekt."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:271
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:547
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:281
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:557
 msgid "Precise volume down"
 msgstr "Skru ned for lydstyrken (præcis)"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:272
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:282
 msgid "Binding to lower the volume with higher precision."
 msgstr "Genvej til at skrue ned for lydstyrken, med større præcision."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:276
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:552
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:286
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:562
 msgid "Precise volume up"
 msgstr "Skru op for lydstyrken (præcis)"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:277
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:287
 msgid "Binding to raise the volume with higher precision."
 msgstr "Genvej til at skrue op for lydstyrken, med større præcision."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:332
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:342
 msgid "Toggle touchpad on/off"
 msgstr "Slå pegeplade til/fra"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:333
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:343
 msgid "Binding to toggle the touchpad on/off."
 msgstr "Genvej til at slå pegepladen til/fra."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:337
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:574
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:347
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:584
 msgid "Switch touchpad on"
 msgstr "Slå pegepladen til"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:338
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:348
 msgid "Binding to switch the touchpad on."
 msgstr "Genvej til at slå pegepladen til."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:342
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:579
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:352
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:589
 msgid "Switch touchpad off"
 msgstr "Slå pegepladen fra"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:343
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:353
 msgid "Binding to switch the touchpad off."
 msgstr "Genvej til at slå pegepladen fra."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:348
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:585
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:358
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:595
 msgid "Skip backward in current track"
 msgstr "Gå baglæns i nuværende spor"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:349
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:359
 msgid "Binding to skip backward in current track."
 msgstr "Genvej til at gå baglæns i nuværende spor."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:353
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:590
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:363
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:600
 msgid "Skip forward in current track"
 msgstr "Gå fremad i nuværende spor"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:354
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:364
 msgid "Binding to skip forward in current track."
 msgstr "Genvej til at gå fremad i nuværende spor."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:358
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:595
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:368
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:605
 msgid "Toggle repeat playback mode"
 msgstr "Slå gentag afspilning til/fra"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:359
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:369
 msgid "Binding to toggle repeat mode in media player."
 msgstr "Genvej til at slå gentag afspilning til/fra i medieafspilleren."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:363
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:600
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:373
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:610
 msgid "Toggle random playback mode"
 msgstr "Slå tilfældig afspilning til/fra"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:364
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:374
 msgid "Binding to toggle random playback mode in media player."
 msgstr "Genvej til at slå tilfældig afspilning til/fra i medieafspilleren."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:369
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:606
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:379
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:616
 msgid "Toggle automatic screen orientation"
 msgstr "Slå automatisk skærmorientering til/fra"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:370
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:380
 msgid "Binding to toggle automatic screen orientation."
 msgstr "Genvej til at slå automatisk skærmorientering til/fra."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:374
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:611
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:384
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:621
 msgid "Power button"
 msgstr "Strømknap"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:375
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:385
 msgid "Binding for power button."
 msgstr "Genvej til strømknappen."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:379
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:616
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:389
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:626
 msgid "Hibernate button"
 msgstr "Dvaleknap"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:380
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:390
 msgid "Binding to hibernate the machine."
 msgstr "Genvej til at sætte maskinen i dvale."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:384
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:621
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:394
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:631
 msgid "Suspend button"
 msgstr "Hvileknap"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:385
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:395
 msgid "Binding to suspend the machine."
 msgstr "Genvej til at sætte maskinen i hvile."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:390
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:627
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:400
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:637
 msgid "Screen brightness up"
 msgstr "Skru op for skærmens lysstyrke"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:391
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:401
 msgid "Binding to increase the screen brightness."
 msgstr "Genvej til at skrue op for skærmens lysstyrke."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:395
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:632
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:405
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:642
 msgid "Screen brightness down"
 msgstr "Skru ned for skærmens lysstyrke"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:396
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:406
 msgid "Binding to decrease the screen brightness."
 msgstr "Genvej til at skrue ned for skærmens lysstyrke."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:400
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:637
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:410
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:647
 msgid "Screen brightness cycle"
 msgstr "Gennemløb af skærmens lysstyrke"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:401
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:411
 msgid "Binding to cycle the screen brightness."
 msgstr "Genvej til at gennemløbe skærmens lysstyrke."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:406
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:643
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:416
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:653
 msgid "Keyboard brightness up"
 msgstr "Skru op for tastaturets lysstyrke"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:407
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:417
 msgid "Binding to increase the keyboard brightness."
 msgstr "Genvej til at skrue op for tastaturets lysstyrke."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:411
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:648
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:421
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:658
 msgid "Keyboard brightness down"
 msgstr "Skru ned for tastaturets lysstyrke"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:412
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:422
 msgid "Binding to decrease the keyboard brightness."
 msgstr "Genvej til at skrue ned for tastaturets lysstyrke."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:416
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:653
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:426
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:663
 msgid "Keyboard brightness toggle"
 msgstr "Slå tastaturets lysstyrke til/fra"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:417
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:427
 msgid "Binding to toggle the keyboard brightness."
 msgstr "Genvej til at slå tastaturets lysstyrke til/fra."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:422
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:659
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:432
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:669
 msgid "Show battery status"
 msgstr "Vis batteristatus"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:423
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:433
 msgid "Binding to show current battery status."
 msgstr "Genvej til at vise nuværende batteristatus."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:428
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:665
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:438
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:675
 msgid "RF kill"
 msgstr "RF-stop"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:429
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:439
 msgid "Binding to toggle airplane mode."
 msgstr "Genvej til at slå flytilstand til/fra."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:433
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:670
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:443
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:680
 msgid "Bluetooth RF kill"
 msgstr "Bluetooth RF-stop"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:434
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:444
 msgid "Binding to toggle bluetooth airplane mode."
 msgstr "Genvej til at slå bluetoothflytilstand til/fra."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:447
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:457
 msgid "Static binding to launch the calculator."
 msgstr "Statisk genvej til at starte lommeregneren."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:452
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:462
 msgid "Static binding to launch GNOME Settings."
 msgstr "Statisk genvej til at starte GNOME Indstillinger."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:457
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:467
 msgid "Static binding to launch the email client."
 msgstr "Statisk genvej til at starte e-mailklienten."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:462
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:472
 msgid "Static binding to eject an optical disc."
 msgstr "Statisk genvej til at skubbe en optisk disk ud."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:467
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:477
 msgid "Static binding to open the Home folder."
 msgstr "Statisk genvej til at åbne hjemmemappen."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:472
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:482
 msgid "Static binding to launch the media player."
 msgstr "Statisk genvej til at starte medieafspilleren."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:477
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:487
 msgid "Static binding to skip to next track."
 msgstr "Statisk genvej til at gå til næste spor."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:482
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:492
 msgid "Static binding to pause playback."
 msgstr "Statisk genvej til at sætte afspilning på pause."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:487
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:497
 msgid "Static binding to start playback (or toggle play/pause)."
 msgstr "Statisk genvej til at starte afspilning (eller slå pause til/fra)."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:492
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:502
 msgid "Static binding to skip to previous track."
 msgstr "Statisk genvej til at gå til forrige spor."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:497
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:507
 msgid "Static binding to lock the screen."
 msgstr "Statisk genvej til at låse skærmen."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:502
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:512
 msgid "Static binding to launch the search tool."
 msgstr "Statisk genvej til at starte søgeværktøjet."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:507
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:517
 msgid "Static binding to stop playback."
 msgstr "Statisk genvej til at stoppe afspilning."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:514
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:524
 msgid "Static binding to lower the volume."
 msgstr "Statisk genvej til at skrue ned for lydstyrken."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:519
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:536
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:529
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:546
 msgid "Static binding to mute/unmute the volume."
 msgstr "Statisk genvej til at slå lyden til/fra."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:524
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:534
 msgid "Static binding to raise the volume."
 msgstr "Statisk genvej til at skrue op for lydstyrken."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:531
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:541
 msgid "Static binding to lower the volume without emitting a sound effect."
 msgstr ""
 "Statisk genvej til at skrue ned for lydstyrken uden at udsende en lydeffekt."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:541
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:551
 msgid "Static binding to raise the volume without emitting a sound effect."
 msgstr ""
 "Statisk genvej til at skrue op for lydstyrken uden at udsende en lydeffekt."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:548
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:558
 msgid "Static binding to lower the volume with higher precision."
 msgstr "Statisk genvej til at skrue ned for lydstyrken, med større præcision."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:553
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:563
 msgid "Static binding to raise the volume with higher precision."
 msgstr "Statisk genvej til at skrue op for lydstyrken, med større præcision."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:559
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:569
 msgid "Static binding to mute/unmute the microphone."
 msgstr "Statisk genvej til at slå mikrofonen til/fra."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:564
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:574
 msgid "Static binding to launch the web browser."
 msgstr "Statisk genvej til at starte webbrowseren."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:570
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:580
 msgid "Static binding to toggle the touchpad on/off."
 msgstr "Statisk genvej til at slå pegepladen til/fra."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:575
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:585
 msgid "Static binding to switch the touchpad on."
 msgstr "Statisk genvej til at slå pegepladen til."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:580
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:590
 msgid "Static binding to switch the touchpad off."
 msgstr "Statisk genvej til at slå pegepladen fra."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:586
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:596
 msgid "Static binding to skip backward in current track."
 msgstr "Statisk genvej til at gå baglæns i nuværende spor."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:591
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:601
 msgid "Static binding to skip forward in current track."
 msgstr "Statisk genvej til at gå fremad i nuværende spor."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:596
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:606
 msgid "Static binding to toggle repeat mode in media player."
 msgstr "Statisk genvej til at slå gentag afspilning til/fra i medieafspilleren."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:601
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:611
 msgid "Static binding to toggle random playback mode in media player."
 msgstr ""
 "Statisk genvej til at slå tilfældig afspilning til/fra i medieafspilleren."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:607
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:617
 msgid "Static binding to toggle automatic screen orientation."
 msgstr "Statisk genvej til at slå automatisk skærmorientering til/fra."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:612
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:622
 msgid "Static binding for power button."
 msgstr "Statisk genvej til strømknappen."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:617
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:627
 msgid "Static binding to hibernate the machine."
 msgstr "Statisk genvej til at sætte maskinen i dvale."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:622
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:632
 msgid "Static binding to suspend the machine."
 msgstr "Statisk genvej til at sætte maskinen i hvile."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:628
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:638
 msgid "Static binding to increase the screen brightness."
 msgstr "Statisk genvej til at skrue op for skærmens lysstyrke."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:633
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:643
 msgid "Static binding to decrease the screen brightness."
 msgstr "Statisk genvej til at skrue ned for skærmens lysstyrke."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:638
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:648
 msgid "Static binding to cycle the screen brightness."
 msgstr "Statisk genvej til at gennemløbe skærmens lysstyrke."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:644
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:654
 msgid "Static binding to increase the keyboard brightness."
 msgstr "Statisk genvej til at skrue op for tastaturets lysstyrke."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:649
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:659
 msgid "Static binding to decrease the keyboard brightness."
 msgstr "Statisk genvej til at skrue ned for tastaturets lysstyrke."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:654
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:664
 msgid "Static binding to toggle the keyboard brightness."
 msgstr "Statisk genvej til at slå tastaturets lysstyrke til/fra."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:660
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:670
 msgid "Static binding to show current battery status."
 msgstr "Statisk genvej til at vise nuværende batteristatus."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:666
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:676
 msgid "Static binding to toggle airplane mode."
 msgstr "Statisk genvej til at slå flytilstand til/fra."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:671
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:681
 msgid "Static binding to toggle bluetooth airplane mode."
 msgstr "Statisk genvej til at slå bluetoothflytilstand til/fra."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:678
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:688
 msgid "Name"
 msgstr "Navn"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:679
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:689
 msgid "Name of the custom binding"
 msgstr "Navn på den tilpassede genvej"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:683
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:693
 msgid "Binding"
 msgstr "Genvej"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:684
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:694
 msgid "Binding for the custom binding"
 msgstr "Genvej til den tilpassede genvej"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:688
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:698
 msgid "Command"
 msgstr "Kommando"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:689
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:699
 msgid "Command to run when the binding is invoked"
 msgstr "Kommando der skal køres, når genvejen aktiveres"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:703
+msgid "Enable in Lockscreen"
+msgstr "Aktivér i låseskærm"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:704
+msgid "Whether the command can be invoked while the lockscreen is shown"
+msgstr "Om kommandoen kan kaldes, når låseskærmen vises"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:6
 msgid "The brightness of the screen when idle"
 msgstr "Skærmens lysstyrke i inaktiv tilstand"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:7
-msgid ""
-"This is the laptop panel screen brightness used when the session is idle."
+msgid "This is the laptop panel screen brightness used when the session is idle."
 msgstr "Dette er lysstyrken for bærbar computerskærm, når sessionen er inaktiv."
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:11
@@ -1307,8 +1345,7 @@ msgstr "Om skærmen skal dæmpes for at spare strøm, når computeren er inaktiv
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:16
 msgid "Sleep timeout computer when on AC"
-msgstr ""
-"Ventetid for hviletilstand for computeren hvis tilsluttet strømforsyning"
+msgstr "Ventetid for hviletilstand for computeren hvis tilsluttet strømforsyning"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:17
 msgid ""
@@ -1383,8 +1420,8 @@ msgstr "De forbindelser som tjenesten er aktiveret for"
 
 #: data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in:7
 msgid ""
-"The list of NetworkManager connections (each one represented with its UUID) "
-"on which this service is enabled and started."
+"The list of NetworkManager connections (each one represented with its UUID) on "
+"which this service is enabled and started."
 msgstr ""
 "Listen af NetworkManager-forbindelser (repræsenteret ved deres UUID) som "
 "tjenesten er aktiveret og startet for."
@@ -1453,23 +1490,22 @@ msgid ""
 "ClearType, DirectWrite and Adobe’s proprietary font rendering engine. Ignores "
 "native hinting within the font, generates hints algorithmically. Used on "
 "Ubuntu by default. Recommended. The meaning of “medium” and “full” depends on "
-"the font format (.ttf, .otf, .pfa/.pfb) and the installed version of "
-"FreeType. They usually try to fit glyphs to both the X and the Y axis (except "
-"for .otf: Y-only). This can lead to distortion and/or inconsistent rendering "
-"depending on the quality of the font, the font format and the state of "
-"FreeType’s font engines."
+"the font format (.ttf, .otf, .pfa/.pfb) and the installed version of FreeType. "
+"They usually try to fit glyphs to both the X and the Y axis (except for .otf: "
+"Y-only). This can lead to distortion and/or inconsistent rendering depending "
+"on the quality of the font, the font format and the state of FreeType’s font "
+"engines."
 msgstr ""
-"Den type af hinting som skal bruges til at gengive skrifttyper. Mulige "
-"værdier er: “none” for ingen hinting og “slight” for kun Y-aksen, ligesom "
-"Microsofts ClearType, DirectWrite og Adobes proprietære "
-"skrifttypegengivelsesmotor. Ignorerer integreret hinting inden i skrifttypen, "
-"og genererer hints-algoritmer. Bruges som standard af Ubuntu. Anbefales. "
-"Betydningen af “medium” og “full” afhænger af skrifttypeformatet (.ttf, ."
-"otf, .pfa/.pdb) og den installerede version af FreeType. De forsøger typisk "
-"at tilpasse glyffer på både X- og Y-akserne (undtagen for .otf: kun Y) Dette "
-"kan føre til forvrængning og/eller inkonsistent gengivelse afhængig af "
-"skifttypens kvalitet, skrifttypens format og tilstanden af FreeTypes "
-"skrifttypemotorer."
+"Den type af hinting som skal bruges til at gengive skrifttyper. Mulige værdier "
+"er: “none” for ingen hinting og “slight” for kun Y-aksen, ligesom Microsofts "
+"ClearType, DirectWrite og Adobes proprietære skrifttypegengivelsesmotor. "
+"Ignorerer integreret hinting inden i skrifttypen, og genererer hints-"
+"algoritmer. Bruges som standard af Ubuntu. Anbefales. Betydningen af “medium” "
+"og “full” afhænger af skrifttypeformatet (.ttf, .otf, .pfa/.pdb) og den "
+"installerede version af FreeType. De forsøger typisk at tilpasse glyffer på "
+"både X- og Y-akserne (undtagen for .otf: kun Y) Dette kan føre til "
+"forvrængning og/eller inkonsistent gengivelse afhængig af skifttypens "
+"kvalitet, skrifttypens format og tilstanden af FreeTypes skrifttypemotorer."
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:33
 msgid "RGBA order"
@@ -1483,8 +1519,8 @@ msgid ""
 msgstr ""
 "Rækkefølgen af underpixelelementer på en LCD-skærm; bruges kun når udjævning "
 "er sat til “rgba”. Mulige værdier er: “rgb” for rød til venstre (den mest "
-"almindelige), “bgr” for blå til venstre, “vrgb” for rød øverst, “vbgr” for "
-"rød nederst."
+"almindelige), “bgr” for blå til venstre, “vrgb” for rød øverst, “vbgr” for rød "
+"nederst."
 
 #: plugins/color/gsd-color-calibrate.c:138
 msgid "Color"
@@ -1539,11 +1575,11 @@ msgstr "UTC%:::z"
 msgid "Time Zone Updated to %s (%s)"
 msgstr "Tidszone opdateret til %s (%s)"
 
-#: plugins/datetime/gsd-datetime-manager.c:113
+#: plugins/datetime/gsd-datetime-manager.c:112
 msgid "Settings"
 msgstr "Indstillinger"
 
-#: plugins/datetime/gsd-datetime-manager.c:123
+#: plugins/datetime/gsd-datetime-manager.c:121
 msgid "Date & Time Settings"
 msgstr "Indstillinger for dato & klokkeslæt"
 
@@ -1551,24 +1587,24 @@ msgstr "Indstillinger for dato & klokkeslæt"
 msgid "Disk Space"
 msgstr "Diskplads"
 
-#: plugins/housekeeping/gsd-disk-space.c:641
+#: plugins/housekeeping/gsd-disk-space.c:643
 msgid "Examine"
 msgstr "Undersøg"
 
-#: plugins/housekeeping/gsd-disk-space.c:652
+#: plugins/housekeeping/gsd-disk-space.c:654
 msgid "Empty Trash"
 msgstr "Tom papirkurv"
 
-#: plugins/housekeeping/gsd-disk-space.c:660
+#: plugins/housekeeping/gsd-disk-space.c:662
 msgid "Ignore"
 msgstr "Ignorér"
 
-#: plugins/housekeeping/gsd-disk-space.c:691
+#: plugins/housekeeping/gsd-disk-space.c:693
 #, c-format
 msgid "Low Disk Space on “%s”"
 msgstr "Lav resterende diskplads på “%s”"
 
-#: plugins/housekeeping/gsd-disk-space.c:693
+#: plugins/housekeeping/gsd-disk-space.c:695
 #, c-format
 msgid ""
 "The volume “%s” has only %s disk space remaining.  You may free up some space "
@@ -1577,25 +1613,25 @@ msgstr ""
 "Diskenheden “%s” har kun %s resterende diskplads.  Du kan muligvis frigøre "
 "noget plads ved at tømme papirkurven."
 
-#: plugins/housekeeping/gsd-disk-space.c:697
+#: plugins/housekeeping/gsd-disk-space.c:699
 #, c-format
 msgid "The volume “%s” has only %s disk space remaining."
 msgstr "Diskenheden “%s” har kun %s resterende diskplads."
 
-#: plugins/housekeeping/gsd-disk-space.c:702
+#: plugins/housekeeping/gsd-disk-space.c:704
 msgid "Low Disk Space"
 msgstr "Lav resterende diskplads"
 
-#: plugins/housekeeping/gsd-disk-space.c:704
+#: plugins/housekeeping/gsd-disk-space.c:706
 #, c-format
 msgid ""
-"This computer has only %s disk space remaining.  You may free up some space "
-"by emptying the trash."
+"This computer has only %s disk space remaining.  You may free up some space by "
+"emptying the trash."
 msgstr ""
 "Denne computer har kun %s resterende diskplads.  Du kan frigøre noget plads "
 "ved at tømme papirkurven."
 
-#: plugins/housekeeping/gsd-disk-space.c:707
+#: plugins/housekeeping/gsd-disk-space.c:709
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "Denne computer har kun %s resterende diskplads."
@@ -1629,8 +1665,8 @@ msgid ""
 "Device memory is nearly full. Virtual terminal processes were using a lot of "
 "memory and were forced to stop."
 msgstr ""
-"Enhedens hukommelse er næsten fuld. Virtuel terminal-processer brugte en "
-"masse hukommelse og blev tvunget til at stoppe."
+"Enhedens hukommelse er næsten fuld. Virtuel terminal-processer brugte en masse "
+"hukommelse og blev tvunget til at stoppe."
 
 #. TRANSLATORS: We don't have a good description of what was killed.
 #: plugins/housekeeping/gsd-systemd-notify.c:94
@@ -1642,29 +1678,29 @@ msgstr "Program blev stoppet"
 #: plugins/housekeeping/gsd-systemd-notify.c:96
 #, c-format
 msgid ""
-"Device memory is nearly full. An application was using a lot of memory and "
-"was forced to stop."
+"Device memory is nearly full. An application was using a lot of memory and was "
+"forced to stop."
 msgstr ""
 "Enhedens hukommelse er næsten fuld. Et program brugte en masse hukommelse og "
 "blev tvunget til at stoppe."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2254
-msgid "Bluetooth disabled"
+#: plugins/media-keys/gsd-media-keys-manager.c:2340
+msgid "Bluetooth Disabled"
 msgstr "Bluetooth deaktiveret"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2257
-msgid "Bluetooth enabled"
+#: plugins/media-keys/gsd-media-keys-manager.c:2343
+msgid "Bluetooth Enabled"
 msgstr "Bluetooth aktiveret"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2261
-msgid "Airplane mode enabled"
+#: plugins/media-keys/gsd-media-keys-manager.c:2347
+msgid "Airplane Mode Enabled"
 msgstr "Flytilstand aktiveret"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2264
-msgid "Airplane mode disabled"
+#: plugins/media-keys/gsd-media-keys-manager.c:2350
+msgid "Airplane Mode Disabled"
 msgstr "Flytilstand deaktiveret"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2303
+#: plugins/media-keys/gsd-media-keys-manager.c:2389
 msgid "Hardware Airplane Mode"
 msgstr "Hardwareflytilstand"
 
@@ -1706,48 +1742,48 @@ msgstr[0] "minut"
 msgstr[1] "minutter"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:419 plugins/power/gsd-power-manager.c:925
-#: plugins/power/gsd-power-manager.c:1009
+#: plugins/power/gpm-common.c:419 plugins/power/gsd-power-manager.c:929
+#: plugins/power/gsd-power-manager.c:1013
 msgid "Battery is critically low"
 msgstr "Batteristanden er kritisk lav"
 
 #. TRANSLATORS: this is the notification application name
-#: plugins/power/gsd-power-manager.c:370
+#: plugins/power/gsd-power-manager.c:373
 msgid "Power"
 msgstr "Strøm"
 
 #. TRANSLATORS: UPS is now discharging
-#: plugins/power/gsd-power-manager.c:408
+#: plugins/power/gsd-power-manager.c:412
 msgid "UPS Discharging"
 msgstr "Nødstrømsforsyning aflades"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:413
+#: plugins/power/gsd-power-manager.c:417
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "%s af nødstrømsforsyningen tilbage"
 
-#: plugins/power/gsd-power-manager.c:416
+#: plugins/power/gsd-power-manager.c:420
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "Ukendt resterende tid på nødstrøm"
 
 #. TRANSLATORS: notification title, a wireless mouse is low or very low on power
-#: plugins/power/gsd-power-manager.c:516
+#: plugins/power/gsd-power-manager.c:520
 msgid "Mouse battery low"
 msgstr "Lavt batteriniveau i musen"
 
 #. TRANSLATORS: notification body, a wireless mouse is low on power
-#: plugins/power/gsd-power-manager.c:519
+#: plugins/power/gsd-power-manager.c:523
 #, c-format
 msgid "Wireless mouse is low on power (%.0f%%)"
 msgstr "Trådløs mus har lavt batteriniveau (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:520
+#: plugins/power/gsd-power-manager.c:524
 msgid "Wireless mouse is low on power"
 msgstr "Trådløs mus har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a wireless mouse is very low on power
-#: plugins/power/gsd-power-manager.c:522
+#: plugins/power/gsd-power-manager.c:526
 #, c-format
 msgid ""
 "Wireless mouse is very low on power (%.0f%%). This device will soon stop "
@@ -1756,31 +1792,31 @@ msgstr ""
 "Trådløs mus har meget lavt batteriniveau (%.0f%%). Den vil snart holde op med "
 "at virke, hvis den ikke bliver opladet."
 
-#: plugins/power/gsd-power-manager.c:524
+#: plugins/power/gsd-power-manager.c:528
 msgid ""
-"Wireless mouse is very low on power. This device will soon stop functioning "
-"if not charged."
+"Wireless mouse is very low on power. This device will soon stop functioning if "
+"not charged."
 msgstr ""
-"Trådløs mus har meget lavt batteriniveau. Den vil snart holde op med at "
-"virke, hvis den ikke bliver opladet."
+"Trådløs mus har meget lavt batteriniveau. Den vil snart holde op med at virke, "
+"hvis den ikke bliver opladet."
 
 #. TRANSLATORS: notification title, a wireless keyboard is low or very low on power
-#: plugins/power/gsd-power-manager.c:529
+#: plugins/power/gsd-power-manager.c:533
 msgid "Keyboard battery low"
 msgstr "Tastaturet har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a wireless keyboard is low on power
-#: plugins/power/gsd-power-manager.c:532
+#: plugins/power/gsd-power-manager.c:536
 #, c-format
 msgid "Wireless keyboard is low on power (%.0f%%)"
 msgstr "Trådløst tastatur har lavt batteriniveau (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:533
+#: plugins/power/gsd-power-manager.c:537
 msgid "Wireless keyboard is low on power"
 msgstr "Trådløst tastatur har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a wireless keyboard is very low on power
-#: plugins/power/gsd-power-manager.c:535
+#: plugins/power/gsd-power-manager.c:539
 #, c-format
 msgid ""
 "Wireless keyboard is very low on power (%.0f%%). This device will soon stop "
@@ -1789,31 +1825,31 @@ msgstr ""
 "Trådløst tastatur har meget lavt batteriniveau (%.0f%%). Det vil snart holde "
 "op med at virke, hvis det ikke bliver opladet."
 
-#: plugins/power/gsd-power-manager.c:537
+#: plugins/power/gsd-power-manager.c:541
 msgid ""
-"Wireless keyboard is very low on power. This device will soon stop "
-"functioning if not charged."
+"Wireless keyboard is very low on power. This device will soon stop functioning "
+"if not charged."
 msgstr ""
 "Trådløst tastatur har meget lavt batteriniveau. Det vil snart holde op med at "
 "virke, hvis det ikke bliver opladet."
 
 #. TRANSLATORS: notification title, a PDA (Personal Digital Assistance device) is low or very on power
-#: plugins/power/gsd-power-manager.c:542
+#: plugins/power/gsd-power-manager.c:546
 msgid "PDA battery low"
 msgstr "Håndholdt enhed har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is low on power
-#: plugins/power/gsd-power-manager.c:545
+#: plugins/power/gsd-power-manager.c:549
 #, c-format
 msgid "PDA is low on power (%.0f%%)"
 msgstr "Håndholdt enhed har lavt batteriniveau (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:546
+#: plugins/power/gsd-power-manager.c:550
 msgid "PDA is low on power"
 msgstr "Håndholdt enhed har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is very low on power
-#: plugins/power/gsd-power-manager.c:548
+#: plugins/power/gsd-power-manager.c:552
 #, c-format
 msgid ""
 "PDA is very low on power (%.0f%%). This device will soon stop functioning if "
@@ -1822,7 +1858,7 @@ msgstr ""
 "Håndholdt enhed har meget lavt batteriniveau (%.0f%%). Den vil snart holde op "
 "med at virke, hvis den ikke bliver opladet."
 
-#: plugins/power/gsd-power-manager.c:550
+#: plugins/power/gsd-power-manager.c:554
 msgid ""
 "PDA is very low on power. This device will soon stop functioning if not "
 "charged."
@@ -1831,55 +1867,55 @@ msgstr ""
 "virke, hvis den ikke bliver opladet."
 
 #. TRANSLATORS: notification title, a cell phone (mobile phone) is low or very low on power
-#: plugins/power/gsd-power-manager.c:555
+#: plugins/power/gsd-power-manager.c:559
 msgid "Cell phone battery low"
 msgstr "Mobiltelefon har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a cell phone (mobile phone) is low on power
-#: plugins/power/gsd-power-manager.c:558
+#: plugins/power/gsd-power-manager.c:562
 #, c-format
 msgid "Cell phone is low on power (%.0f%%)"
 msgstr "Mobiltelefon har lavt batteriniveau (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:559
+#: plugins/power/gsd-power-manager.c:563
 msgid "Cell phone is low on power"
 msgstr "Mobiltelefon har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a cell phone (mobile phone) is very low on power
-#: plugins/power/gsd-power-manager.c:561
+#: plugins/power/gsd-power-manager.c:565
 #, c-format
 msgid ""
 "Cell phone is very low on power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
-"Mobiltelefon har meget lavt batteriniveau (%.0f%%). Den vil snart holde op "
-"med at virke, hvis den ikke bliver opladet."
+"Mobiltelefon har meget lavt batteriniveau (%.0f%%). Den vil snart holde op med "
+"at virke, hvis den ikke bliver opladet."
 
-#: plugins/power/gsd-power-manager.c:563
+#: plugins/power/gsd-power-manager.c:567
 msgid ""
-"Cell phone is very low on power. This device will soon stop functioning if "
-"not charged."
+"Cell phone is very low on power. This device will soon stop functioning if not "
+"charged."
 msgstr ""
 "Mobiltelefon har meget lavt batteriniveau. Den vil snart holde op med at "
 "virke, hvis den ikke bliver opladet."
 
 #. TRANSLATORS: notification title, a media player (e.g. mp3 player) is low or very low on power
-#: plugins/power/gsd-power-manager.c:568
+#: plugins/power/gsd-power-manager.c:572
 msgid "Media player battery low"
 msgstr "Medieafspiller har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a media player (e.g. mp3 player) is low on power
-#: plugins/power/gsd-power-manager.c:571
+#: plugins/power/gsd-power-manager.c:575
 #, c-format
 msgid "Media player is low on power (%.0f%%)"
 msgstr "Medieafspiller har lavt batteriniveau (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:572
+#: plugins/power/gsd-power-manager.c:576
 msgid "Media player is low on power"
 msgstr "Medieafspiller har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a media player (e.g. mp3 player) is very low on power
-#: plugins/power/gsd-power-manager.c:574
+#: plugins/power/gsd-power-manager.c:578
 #, c-format
 msgid ""
 "Media player is very low on power (%.0f%%). This device will soon stop "
@@ -1888,7 +1924,7 @@ msgstr ""
 "Medieafspiller har meget lavt batteriniveau (%.0f%%). Den vil snart holde op "
 "med at virke, hvis den ikke bliver opladet."
 
-#: plugins/power/gsd-power-manager.c:576
+#: plugins/power/gsd-power-manager.c:580
 msgid ""
 "Media player is very low on power. This device will soon stop functioning if "
 "not charged."
@@ -1897,22 +1933,22 @@ msgstr ""
 "virke, hvis den ikke bliver opladet."
 
 #. TRANSLATORS: notification title, a graphics tablet (e.g. wacom) is low or very low on power
-#: plugins/power/gsd-power-manager.c:581
+#: plugins/power/gsd-power-manager.c:585
 msgid "Tablet battery low"
 msgstr "Tegnepladen har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is low on power
-#: plugins/power/gsd-power-manager.c:584
+#: plugins/power/gsd-power-manager.c:588
 #, c-format
 msgid "Tablet is low on power (%.0f%%)"
 msgstr "Tegnepladen har lavt batteriniveau (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:585
+#: plugins/power/gsd-power-manager.c:589
 msgid "Tablet is low on power"
 msgstr "Tegnepladen har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is very low on power
-#: plugins/power/gsd-power-manager.c:587
+#: plugins/power/gsd-power-manager.c:591
 #, c-format
 msgid ""
 "Tablet is very low on power (%.0f%%). This device will soon stop functioning "
@@ -1921,40 +1957,40 @@ msgstr ""
 "Tegnepladen har meget lavt batteriniveau (%.0f%%). Den vil snart holde op med "
 "at virke, hvis den ikke bliver opladet."
 
-#: plugins/power/gsd-power-manager.c:589
+#: plugins/power/gsd-power-manager.c:593
 msgid ""
 "Tablet is very low on power. This device will soon stop functioning if not "
 "charged."
 msgstr ""
-"Tegnepladen har meget lavt batteriniveau. Den vil snart holde op med at "
-"virke, hvis den ikke bliver opladet."
+"Tegnepladen har meget lavt batteriniveau. Den vil snart holde op med at virke, "
+"hvis den ikke bliver opladet."
 
 #. TRANSLATORS: notification title, an attached computer (e.g. ipad) is low or very low on power
-#: plugins/power/gsd-power-manager.c:594
+#: plugins/power/gsd-power-manager.c:598
 msgid "Attached computer battery low"
 msgstr "Den tilsluttede computer har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is low on power
-#: plugins/power/gsd-power-manager.c:597
+#: plugins/power/gsd-power-manager.c:601
 #, c-format
 msgid "Attached computer is low on power (%.0f%%)"
 msgstr "Den tilsluttede computer har lavt batteriniveau (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:598
+#: plugins/power/gsd-power-manager.c:602
 msgid "Attached computer is low on power"
 msgstr "Den tilsluttede computer har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is very low on power
-#: plugins/power/gsd-power-manager.c:600
+#: plugins/power/gsd-power-manager.c:604
 #, c-format
 msgid ""
-"Attached computer is very low on power (%.0f%%). The device will soon "
-"shutdown if not charged."
+"Attached computer is very low on power (%.0f%%). The device will soon shutdown "
+"if not charged."
 msgstr ""
-"Tilsluttet computer har meget lavt batteriniveau (%.0f%%). Den vil snart "
-"lukke ned, hvis den ikke bliver opladet."
+"Tilsluttet computer har meget lavt batteriniveau (%.0f%%). Den vil snart lukke "
+"ned, hvis den ikke bliver opladet."
 
-#: plugins/power/gsd-power-manager.c:602
+#: plugins/power/gsd-power-manager.c:606
 msgid ""
 "Attached computer is very low on power. The device will soon shutdown if not "
 "charged."
@@ -1965,22 +2001,22 @@ msgstr ""
 # MS har spilleenhed
 # Iflg. Ordbogen er en controller noget, der styrer dataoverførsel
 #. TRANSLATORS: notification title, a game controller (e.g. joystick or joypad) is low or very low on power
-#: plugins/power/gsd-power-manager.c:607
+#: plugins/power/gsd-power-manager.c:611
 msgid "Game controller battery low"
 msgstr "Spilleenheden har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a game controller (e.g. joystick or joypad) is low on power
-#: plugins/power/gsd-power-manager.c:610
+#: plugins/power/gsd-power-manager.c:614
 #, c-format
 msgid "Game controller is low on power (%.0f%%)"
 msgstr "Spilleenheden har lavt batteriniveau (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:611
+#: plugins/power/gsd-power-manager.c:615
 msgid "Game controller is low on power"
 msgstr "Spilleenheden har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, an attached game controller (e.g. joystick or joypad) is very low on power
-#: plugins/power/gsd-power-manager.c:613
+#: plugins/power/gsd-power-manager.c:617
 #, c-format
 msgid ""
 "Game controller is very low on power (%.0f%%). The device will soon shutdown "
@@ -1989,7 +2025,7 @@ msgstr ""
 "Spilleenheden har meget lavt batteriniveau (%.0f%%). Den vil snart lukke ned, "
 "hvis den ikke bliver opladet."
 
-#: plugins/power/gsd-power-manager.c:615
+#: plugins/power/gsd-power-manager.c:619
 msgid ""
 "Game controller is very low on power. The device will soon shutdown if not "
 "charged."
@@ -1998,22 +2034,22 @@ msgstr ""
 "ikke bliver opladet."
 
 #. TRANSLATORS: notification title, a pen is low or very low on power
-#: plugins/power/gsd-power-manager.c:620
+#: plugins/power/gsd-power-manager.c:624
 msgid "Pen battery low"
 msgstr "Pennen har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a pen is low on power
-#: plugins/power/gsd-power-manager.c:623
+#: plugins/power/gsd-power-manager.c:627
 #, c-format
 msgid "Pen is low on power (%.0f%%)"
 msgstr "Pennen har lavt batteriniveau (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:624
+#: plugins/power/gsd-power-manager.c:628
 msgid "Pen is low on power"
 msgstr "Pennen har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a pen is very low on power
-#: plugins/power/gsd-power-manager.c:626
+#: plugins/power/gsd-power-manager.c:630
 #, c-format
 msgid ""
 "Pen is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2022,29 +2058,29 @@ msgstr ""
 "Pennen har meget lavt batteriniveau (%.0f%%). Den vil snart lukke ned, hvis "
 "den ikke bliver opladet."
 
-#: plugins/power/gsd-power-manager.c:628
+#: plugins/power/gsd-power-manager.c:632
 msgid "Pen is very low on power. The device will soon shutdown if not charged."
 msgstr ""
 "Pennen har meget lavt batteriniveau. Den vil snart lukke ned, hvis den ikke "
 "bliver opladet."
 
 #. TRANSLATORS: notification title, an external touchpad is low or very low on power
-#: plugins/power/gsd-power-manager.c:633
+#: plugins/power/gsd-power-manager.c:637
 msgid "Touchpad battery low"
 msgstr "Pegepladen har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, an external touchpad is low on power
-#: plugins/power/gsd-power-manager.c:636
+#: plugins/power/gsd-power-manager.c:640
 #, c-format
 msgid "Touchpad is low on power (%.0f%%)"
 msgstr "Pegepladen har lavt batteriniveau (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:637
+#: plugins/power/gsd-power-manager.c:641
 msgid "Touchpad is low on power"
 msgstr "Pegepladen har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, an external touchpad is very low on power
-#: plugins/power/gsd-power-manager.c:639
+#: plugins/power/gsd-power-manager.c:643
 #, c-format
 msgid ""
 "Touchpad is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2053,7 +2089,7 @@ msgstr ""
 "Pegepladen har meget lavt batteriniveau (%.0f%%). Den vil snart lukke ned, "
 "hvis den ikke bliver opladet."
 
-#: plugins/power/gsd-power-manager.c:641
+#: plugins/power/gsd-power-manager.c:645
 msgid ""
 "Touchpad is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2061,22 +2097,22 @@ msgstr ""
 "ikke bliver opladet."
 
 #. TRANSLATORS: notification title, a headset (headphones + microphone) is low or very low on power
-#: plugins/power/gsd-power-manager.c:646
+#: plugins/power/gsd-power-manager.c:650
 msgid "Headset battery low"
 msgstr "Headsettet har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is low on power
-#: plugins/power/gsd-power-manager.c:649
+#: plugins/power/gsd-power-manager.c:653
 #, c-format
 msgid "Headset is low on power (%.0f%%)"
 msgstr "Headsettet har lavt batteriniveau (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:650
+#: plugins/power/gsd-power-manager.c:654
 msgid "Headset is low on power"
 msgstr "Headsettet har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is very low on power
-#: plugins/power/gsd-power-manager.c:652
+#: plugins/power/gsd-power-manager.c:656
 #, c-format
 msgid ""
 "Headset is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2085,7 +2121,7 @@ msgstr ""
 "Headsettet har meget lavt batteriniveau (%.0f%%). Det vil snart lukke ned, "
 "hvis det ikke bliver opladet."
 
-#: plugins/power/gsd-power-manager.c:654
+#: plugins/power/gsd-power-manager.c:658
 msgid ""
 "Headset is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2093,22 +2129,22 @@ msgstr ""
 "ikke bliver opladet."
 
 #. TRANSLATORS: notification title, speaker is low or very low on power
-#: plugins/power/gsd-power-manager.c:659
+#: plugins/power/gsd-power-manager.c:663
 msgid "Speaker battery low"
 msgstr "Højttaleren har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a speaker is low on power
-#: plugins/power/gsd-power-manager.c:662
+#: plugins/power/gsd-power-manager.c:666
 #, c-format
 msgid "Speaker is low on power (%.0f%%)"
 msgstr "Højttaleren har lavt batteriniveau (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:663
+#: plugins/power/gsd-power-manager.c:667
 msgid "Speaker is low on power"
 msgstr "Højttaleren har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a speaker is very low on power
-#: plugins/power/gsd-power-manager.c:665
+#: plugins/power/gsd-power-manager.c:669
 #, c-format
 msgid ""
 "Speaker is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2117,7 +2153,7 @@ msgstr ""
 "Højttaleren har meget lavt batteriniveau (%.0f%%). Den vil snart lukke ned, "
 "hvis den ikke bliver opladet."
 
-#: plugins/power/gsd-power-manager.c:667
+#: plugins/power/gsd-power-manager.c:671
 msgid ""
 "Speaker is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2125,55 +2161,54 @@ msgstr ""
 "ikke bliver opladet."
 
 #. TRANSLATORS: notification title, headphones (no microphone) are low or very low on power
-#: plugins/power/gsd-power-manager.c:672
+#: plugins/power/gsd-power-manager.c:676
 msgid "Headphones battery low"
 msgstr "Hovedtelefonen har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are low on power
-#: plugins/power/gsd-power-manager.c:675
+#: plugins/power/gsd-power-manager.c:679
 #, c-format
 msgid "Headphones are low on power (%.0f%%)"
 msgstr "Hovedtelefonen har lavt batteriniveau (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:676
+#: plugins/power/gsd-power-manager.c:680
 msgid "Headphones are low on power"
 msgstr "Hovedtelefonen har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are very low on power
-#: plugins/power/gsd-power-manager.c:678
+#: plugins/power/gsd-power-manager.c:682
 #, c-format
 msgid ""
 "Headphones are very low on power (%.0f%%). The device will soon shutdown if "
 "not charged."
 msgstr ""
-"Hovedtelefonen har meget lavt batteriniveau (%.0f%%). Den vil snart lukke "
-"ned, hvis den ikke bliver opladet."
+"Hovedtelefonen har meget lavt batteriniveau (%.0f%%). Den vil snart lukke ned, "
+"hvis den ikke bliver opladet."
 
-#: plugins/power/gsd-power-manager.c:680
+#: plugins/power/gsd-power-manager.c:684
 msgid ""
-"Headphones are very low on power. The device will soon shutdown if not "
-"charged."
+"Headphones are very low on power. The device will soon shutdown if not charged."
 msgstr ""
-"Hovedtelefonen har meget lavt batteriniveau. Den vil snart lukke ned, hvis "
-"den ikke bliver opladet."
+"Hovedtelefonen har meget lavt batteriniveau. Den vil snart lukke ned, hvis den "
+"ikke bliver opladet."
 
 #. TRANSLATORS: notification title, an audio device is low or very low on power
-#: plugins/power/gsd-power-manager.c:685
+#: plugins/power/gsd-power-manager.c:689
 msgid "Audio device battery low"
 msgstr "Lydenheden har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, an audio device is low on power
-#: plugins/power/gsd-power-manager.c:688
+#: plugins/power/gsd-power-manager.c:692
 #, c-format
 msgid "Audio device is low on power (%.0f%%)"
 msgstr "Lydenheden har lavt batteriniveau (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:689
+#: plugins/power/gsd-power-manager.c:693
 msgid "Audio device is low on power"
 msgstr "Lydenheden har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, an audio device is very low on power
-#: plugins/power/gsd-power-manager.c:691
+#: plugins/power/gsd-power-manager.c:695
 #, c-format
 msgid ""
 "Audio device is very low on power (%.0f%%). The device will soon shutdown if "
@@ -2182,7 +2217,7 @@ msgstr ""
 "Lydenheden har meget lavt batteriniveau (%.0f%%). Den vil snart lukke ned, "
 "hvis den ikke bliver opladet."
 
-#: plugins/power/gsd-power-manager.c:693
+#: plugins/power/gsd-power-manager.c:697
 msgid ""
 "Audio device is very low on power. The device will soon shutdown if not "
 "charged."
@@ -2191,22 +2226,22 @@ msgstr ""
 "ikke bliver opladet."
 
 #. TRANSLATORS: notification title, a remote control is low or very low on power
-#: plugins/power/gsd-power-manager.c:698
+#: plugins/power/gsd-power-manager.c:702
 msgid "Remote battery low"
 msgstr "Fjernbetjeningen har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, an remote control is low on power
-#: plugins/power/gsd-power-manager.c:701
+#: plugins/power/gsd-power-manager.c:705
 #, c-format
 msgid "Remote is low on power (%.0f%%)"
 msgstr "Fjernbetjeningen har lavt batteriniveau (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:702
+#: plugins/power/gsd-power-manager.c:706
 msgid "Remote is low on power"
 msgstr "Fjernbetjeningen har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a remote control is very low on power
-#: plugins/power/gsd-power-manager.c:704
+#: plugins/power/gsd-power-manager.c:708
 #, c-format
 msgid ""
 "Remote is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2215,7 +2250,7 @@ msgstr ""
 "Fjernbetjeningen har meget lavt batteriniveau (%.0f%%). Den vil snart lukke "
 "ned, hvis den ikke bliver opladet."
 
-#: plugins/power/gsd-power-manager.c:706
+#: plugins/power/gsd-power-manager.c:710
 msgid ""
 "Remote is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2223,86 +2258,86 @@ msgstr ""
 "den ikke bliver opladet."
 
 #. TRANSLATORS: notification title, a printer is low or very low on power
-#: plugins/power/gsd-power-manager.c:711
+#: plugins/power/gsd-power-manager.c:715
 msgid "Printer battery low"
 msgstr "Printeren har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a printer is low on power
-#: plugins/power/gsd-power-manager.c:714
+#: plugins/power/gsd-power-manager.c:718
 #, c-format
 msgid "Printer is low on power (%.0f%%)"
 msgstr "Printeren har lavt batteriniveau (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:715
+#: plugins/power/gsd-power-manager.c:719
 msgid "Printer is low on power"
 msgstr "Printeren har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a printer is very low on power
-#: plugins/power/gsd-power-manager.c:717
+#: plugins/power/gsd-power-manager.c:721
 #, c-format
 msgid ""
 "Printer is very low on power (%.0f%%). The device will soon shutdown if not "
 "charged."
 msgstr ""
-"Printeren har meget lavt batteriniveau (%.0f%%). Den vil snart lukke ned, "
-"hvis den ikke bliver opladet."
+"Printeren har meget lavt batteriniveau (%.0f%%). Den vil snart lukke ned, hvis "
+"den ikke bliver opladet."
 
-#: plugins/power/gsd-power-manager.c:719
+#: plugins/power/gsd-power-manager.c:723
 msgid ""
 "Printer is very low on power. The device will soon shutdown if not charged."
 msgstr ""
-"Printeren har meget lavt batteriniveau. Den vil snart lukke ned, hvis den "
-"ikke bliver opladet."
+"Printeren har meget lavt batteriniveau. Den vil snart lukke ned, hvis den ikke "
+"bliver opladet."
 
 #. TRANSLATORS: notification title, a scanner is low or very low on power
-#: plugins/power/gsd-power-manager.c:724
+#: plugins/power/gsd-power-manager.c:728
 msgid "Scanner battery low"
 msgstr "Scanneren har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a scanner is low on power
-#: plugins/power/gsd-power-manager.c:727
+#: plugins/power/gsd-power-manager.c:731
 #, c-format
 msgid "Scanner is low on power (%.0f%%)"
 msgstr "Scanneren har lavt batteriniveau (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:728
+#: plugins/power/gsd-power-manager.c:732
 msgid "Scanner is low on power"
 msgstr "Scanneren har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a scanner is very low on power
-#: plugins/power/gsd-power-manager.c:730
+#: plugins/power/gsd-power-manager.c:734
 #, c-format
 msgid ""
 "Scanner is very low on power (%.0f%%). The device will soon shutdown if not "
 "charged."
 msgstr ""
-"Scanneren har meget lavt batteriniveau (%.0f%%). Den vil snart lukke ned, "
-"hvis den ikke bliver opladet."
+"Scanneren har meget lavt batteriniveau (%.0f%%). Den vil snart lukke ned, hvis "
+"den ikke bliver opladet."
 
-#: plugins/power/gsd-power-manager.c:732
+#: plugins/power/gsd-power-manager.c:736
 msgid ""
 "Scanner is very low on power. The device will soon shutdown if not charged."
 msgstr ""
-"Scanneren har meget lavt batteriniveau. Den vil snart lukke ned, hvis den "
-"ikke bliver opladet."
+"Scanneren har meget lavt batteriniveau. Den vil snart lukke ned, hvis den ikke "
+"bliver opladet."
 
 #. TRANSLATORS: notification title, a camera is low or very low on power
-#: plugins/power/gsd-power-manager.c:737
+#: plugins/power/gsd-power-manager.c:741
 msgid "Camera battery low"
 msgstr "Kameraet har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a camera is low on power
-#: plugins/power/gsd-power-manager.c:740
+#: plugins/power/gsd-power-manager.c:744
 #, c-format
 msgid "Camera is low on power (%.0f%%)"
 msgstr "Kameraet har lavt batteriniveau (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:741
+#: plugins/power/gsd-power-manager.c:745
 msgid "Camera is low on power"
 msgstr "Kameraet har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a camera is very low on power
-#: plugins/power/gsd-power-manager.c:743
+#: plugins/power/gsd-power-manager.c:747
 #, c-format
 msgid ""
 "Camera is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2311,7 +2346,7 @@ msgstr ""
 "Kameraet har meget lavt batteriniveau (%.0f%%). Det vil snart lukke ned, hvis "
 "det ikke bliver opladet."
 
-#: plugins/power/gsd-power-manager.c:745
+#: plugins/power/gsd-power-manager.c:749
 msgid ""
 "Camera is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2319,22 +2354,22 @@ msgstr ""
 "bliver opladet."
 
 #. TRANSLATORS: notification title, a Bluetooth device is low or very low on power
-#: plugins/power/gsd-power-manager.c:750
+#: plugins/power/gsd-power-manager.c:754
 msgid "Bluetooth device battery low"
 msgstr "Bluetoothenheden har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a Bluetooth device is low on power
-#: plugins/power/gsd-power-manager.c:753
+#: plugins/power/gsd-power-manager.c:757
 #, c-format
 msgid "Bluetooth device is low on power (%.0f%%)"
 msgstr "Bluetoothenheden har lavt batteriniveau (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:754
+#: plugins/power/gsd-power-manager.c:758
 msgid "Bluetooth device is low on power"
 msgstr "Bluetoothenheden har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a Bluetooth device is very low on power
-#: plugins/power/gsd-power-manager.c:756
+#: plugins/power/gsd-power-manager.c:760
 #, c-format
 msgid ""
 "Bluetooth device is very low on power (%.0f%%). The device will soon shutdown "
@@ -2343,7 +2378,7 @@ msgstr ""
 "Bluetoothenheden har meget lavt batteriniveau (%.0f%%). Den vil snart lukke "
 "ned, hvis den ikke bliver opladet."
 
-#: plugins/power/gsd-power-manager.c:758
+#: plugins/power/gsd-power-manager.c:762
 msgid ""
 "Bluetooth device is very low on power. The device will soon shutdown if not "
 "charged."
@@ -2352,22 +2387,22 @@ msgstr ""
 "den ikke bliver opladet."
 
 #. TRANSLATORS: notification title, a connected (wireless) device or peripheral of unhandled type is low or very on power
-#: plugins/power/gsd-power-manager.c:764
+#: plugins/power/gsd-power-manager.c:768
 msgid "Connected device battery is low"
 msgstr "Forbunden enhed har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is low on power
-#: plugins/power/gsd-power-manager.c:767
+#: plugins/power/gsd-power-manager.c:771
 #, c-format
 msgid "A connected device is low on power (%.0f%%)"
 msgstr "En forbunden enhed har lavt batteriniveau (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:768
+#: plugins/power/gsd-power-manager.c:772
 msgid "A connected device is low on power"
 msgstr "En forbunden enhed har lavt batteriniveau"
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is very low on power
-#: plugins/power/gsd-power-manager.c:770
+#: plugins/power/gsd-power-manager.c:774
 #, c-format
 msgid ""
 "A connected device is very low on power (%.0f%%). The device will soon "
@@ -2376,116 +2411,116 @@ msgstr ""
 "En forbunden enhed har meget lavt batteriniveau (%.0f%%). Den vil snart lukke "
 "ned, hvis den ikke bliver opladet."
 
-#: plugins/power/gsd-power-manager.c:772
+#: plugins/power/gsd-power-manager.c:776
 msgid ""
 "A connected device is very low on power. The device will soon shutdown if not "
 "charged."
 msgstr ""
-"En forbunden enhed har meget lavt batteriniveau. Den vil snart lukke ned, "
-"hvis den ikke bliver opladet."
+"En forbunden enhed har meget lavt batteriniveau. Den vil snart lukke ned, hvis "
+"den ikke bliver opladet."
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:798
+#: plugins/power/gsd-power-manager.c:802
 msgid "Low Battery"
 msgstr "Lavt batteriniveau"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:801
+#: plugins/power/gsd-power-manager.c:805
 #, c-format
 msgid "%.0f%% battery remaining"
 msgstr "%.0f%% batteri tilbage"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:804
+#: plugins/power/gsd-power-manager.c:808
 msgid "UPS Low"
 msgstr "Lavt nødstrømsniveau"
 
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
-#: plugins/power/gsd-power-manager.c:807 plugins/power/gsd-power-manager.c:880
+#: plugins/power/gsd-power-manager.c:811 plugins/power/gsd-power-manager.c:884
 #, c-format
 msgid "%.0f%% UPS power remaining"
 msgstr "%.0f%% af nødstrømsforsyningen tilbage"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:845
+#: plugins/power/gsd-power-manager.c:849
 msgid "Battery is low"
 msgstr "Batteristanden er lav"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, advice on what the user should do
-#: plugins/power/gsd-power-manager.c:871
+#: plugins/power/gsd-power-manager.c:875
 msgid "Battery Almost Empty"
 msgstr "Batteri næsten helt fladt"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically running low, advice on what the user should do
-#: plugins/power/gsd-power-manager.c:874
+#: plugins/power/gsd-power-manager.c:878
 #, c-format
 msgid "Connect power now"
 msgstr "Tilslut strøm nu"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
-#: plugins/power/gsd-power-manager.c:877
+#: plugins/power/gsd-power-manager.c:881
 msgid "UPS Almost Empty"
 msgstr "Nødstrømsforsyning er næsten tom"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, warning about action happening now
-#: plugins/power/gsd-power-manager.c:948
+#: plugins/power/gsd-power-manager.c:952
 msgid "Battery is Empty"
 msgstr "Batteri er fladt"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action about to happen
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
-#: plugins/power/gsd-power-manager.c:955 plugins/power/gsd-power-manager.c:975
+#: plugins/power/gsd-power-manager.c:959 plugins/power/gsd-power-manager.c:979
 msgid "This device is about to hibernate"
 msgstr "Enheden er ved at gå i dvaletilstand"
 
-#: plugins/power/gsd-power-manager.c:957 plugins/power/gsd-power-manager.c:977
+#: plugins/power/gsd-power-manager.c:961 plugins/power/gsd-power-manager.c:981
 msgid "This device is about to shutdown"
 msgstr "Enheden er ved at lukke ned"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
-#: plugins/power/gsd-power-manager.c:968
+#: plugins/power/gsd-power-manager.c:972
 msgid "UPS is Empty"
 msgstr "Nødstrømsforsyning er tom"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1494
+#: plugins/power/gsd-power-manager.c:1498
 msgid "Lid has been opened"
 msgstr "Låget er blevet åbnet"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1528
+#: plugins/power/gsd-power-manager.c:1532
 msgid "Lid has been closed"
 msgstr "Låget er blevet lukket"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2178
+#: plugins/power/gsd-power-manager.c:2185
 msgid "On battery power"
 msgstr "På batteristrøm"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2183
+#: plugins/power/gsd-power-manager.c:2190
 msgid "On AC power"
 msgstr "På strømforsyning"
 
-#: plugins/power/gsd-power-manager.c:2452
-msgid "Automatic logout"
+#: plugins/power/gsd-power-manager.c:2459
+msgid "Automatic Logout"
 msgstr "Automatisk udlogning"
 
-#: plugins/power/gsd-power-manager.c:2452
-msgid "You will soon log out because of inactivity."
-msgstr "Du vil snart blive logget ud på grund af inaktivitet."
+#: plugins/power/gsd-power-manager.c:2459
+msgid "You will soon log out because of inactivity"
+msgstr "Du vil snart blive logget ud på grund af inaktivitet"
 
-#: plugins/power/gsd-power-manager.c:2457
-msgid "Automatic suspend"
+#: plugins/power/gsd-power-manager.c:2464
+msgid "Automatic Suspend"
 msgstr "Automatisk hvile"
 
-#: plugins/power/gsd-power-manager.c:2457 plugins/power/gsd-power-manager.c:2462
-msgid "Suspending soon because of inactivity."
-msgstr "Går snart i hviletilstand på grund af inaktivitet."
+#: plugins/power/gsd-power-manager.c:2464 plugins/power/gsd-power-manager.c:2469
+msgid "Suspending soon because of inactivity"
+msgstr "Går snart i hviletilstand på grund af inaktivitet"
 
-#: plugins/power/gsd-power-manager.c:2462
-msgid "Automatic hibernation"
+#: plugins/power/gsd-power-manager.c:2469
+msgid "Automatic Hibernation"
 msgstr "Automatisk dvale"
 
 #. SECURITY:
@@ -2500,254 +2535,254 @@ msgid "Authentication is required to modify the laptop brightness"
 msgstr "Ændring af den bærbares lysstyrke kræver godkendelse"
 
 #. Translators: We are configuring new printer
-#: plugins/print-notifications/gsd-printer.c:890
+#: plugins/print-notifications/gsd-printer.c:893
 msgid "Configuring new printer"
 msgstr "Konfigurerer ny printer"
 
 #. Translators: Just wait
-#: plugins/print-notifications/gsd-printer.c:892
+#: plugins/print-notifications/gsd-printer.c:895
 msgid "Please wait…"
 msgstr "Vent venligst …"
 
 #. Translators: We have no driver installed for this printer
-#: plugins/print-notifications/gsd-printer.c:919
+#: plugins/print-notifications/gsd-printer.c:922
 msgid "Missing printer driver"
 msgstr "Mangler printerdriver"
 
 #. Translators: We have no driver installed for the device
-#: plugins/print-notifications/gsd-printer.c:928
+#: plugins/print-notifications/gsd-printer.c:931
 #, c-format
 msgid "No printer driver for %s."
 msgstr "Ingen printerdriver til %s."
 
 #. Translators: We have no driver installed for this printer
-#: plugins/print-notifications/gsd-printer.c:933
+#: plugins/print-notifications/gsd-printer.c:936
 msgid "No driver for this printer."
 msgstr "Der er ingen driver til denne printer."
 
-#: plugins/print-notifications/gsd-printer.c:1031
-#: plugins/print-notifications/gsd-print-notifications-manager.c:318
-#: plugins/print-notifications/gsd-print-notifications-manager.c:566
-#: plugins/print-notifications/gsd-print-notifications-manager.c:949
-#: plugins/print-notifications/gsd-print-notifications-manager.c:1040
-#: plugins/print-notifications/gsd-print-notifications-manager.c:1084
+#: plugins/print-notifications/gsd-printer.c:1034
+#: plugins/print-notifications/gsd-print-notifications-manager.c:321
+#: plugins/print-notifications/gsd-print-notifications-manager.c:569
+#: plugins/print-notifications/gsd-print-notifications-manager.c:952
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1043
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1087
 msgid "Printers"
 msgstr "Printere"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:402
+#: plugins/print-notifications/gsd-print-notifications-manager.c:405
 #, c-format
 msgid "Printer “%s” is low on toner."
 msgstr "Printeren “%s” har et lavt tonerniveau."
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:406
+#: plugins/print-notifications/gsd-print-notifications-manager.c:409
 #, c-format
 msgid "Printer “%s” has no toner left."
 msgstr "Printeren “%s” er løbet tør for toner."
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:410
+#: plugins/print-notifications/gsd-print-notifications-manager.c:413
 #, c-format
 msgid "Printer “%s” may not be connected."
 msgstr "Printeren “%s” er måske ikke tilsluttet."
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:414
+#: plugins/print-notifications/gsd-print-notifications-manager.c:417
 #, c-format
 msgid "The cover is open on printer “%s”."
 msgstr "Kabinettet er åbent på printeren “%s”."
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:418
+#: plugins/print-notifications/gsd-print-notifications-manager.c:421
 #, c-format
 msgid "There is a missing print filter for printer “%s”."
 msgstr "Printeren “%s” mangler et printfilter."
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:423
+#: plugins/print-notifications/gsd-print-notifications-manager.c:426
 #, c-format
 msgid "The door is open on printer “%s”."
 msgstr "Lågen står åben på printeren “%s”."
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:427
+#: plugins/print-notifications/gsd-print-notifications-manager.c:430
 #, c-format
 msgid "Printer “%s” is low on a marker supply."
 msgstr "Printeren “%s” har lav forsyning af en type farve."
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:431
+#: plugins/print-notifications/gsd-print-notifications-manager.c:434
 #, c-format
 msgid "Printer “%s” is out of a marker supply."
 msgstr "Printeren “%s” er løbet tør for en type farve."
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:435
+#: plugins/print-notifications/gsd-print-notifications-manager.c:438
 #, c-format
 msgid "Printer “%s” is low on paper."
 msgstr "Printeren “%s” har kun lidt papir tilbage."
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:439
+#: plugins/print-notifications/gsd-print-notifications-manager.c:442
 #, c-format
 msgid "Printer “%s” is out of paper."
 msgstr "Printeren “%s” er løbet tør for papir."
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:443
+#: plugins/print-notifications/gsd-print-notifications-manager.c:446
 #, c-format
 msgid "Printer “%s” is currently off-line."
 msgstr "Printeren “%s” er offline."
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:447
+#: plugins/print-notifications/gsd-print-notifications-manager.c:450
 #, c-format
 msgid "There is a problem on printer “%s”."
 msgstr "Der er et problem med printeren “%s”."
 
 #. Translators: The printer has a job to print but the printer needs authentication to continue with the print
-#: plugins/print-notifications/gsd-print-notifications-manager.c:559
+#: plugins/print-notifications/gsd-print-notifications-manager.c:562
 #, c-format
 msgid "%s Requires Authentication"
 msgstr "%s kræver godkendelse"
 
 #. Translators: A printer needs credentials to continue printing a job
-#: plugins/print-notifications/gsd-print-notifications-manager.c:561
+#: plugins/print-notifications/gsd-print-notifications-manager.c:564
 #, c-format
 msgid "Credentials required in order to print"
 msgstr "Legitimation som kræves for at udskrive"
 
 #. Translators: The printer is low on toner (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:628
+#: plugins/print-notifications/gsd-print-notifications-manager.c:631
 msgid "Toner low"
 msgstr "Lavt tonerniveau"
 
 #. Translators: The printer has no toner left (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:630
+#: plugins/print-notifications/gsd-print-notifications-manager.c:633
 msgid "Toner empty"
 msgstr "Løbet tør for toner"
 
 #. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:632
+#: plugins/print-notifications/gsd-print-notifications-manager.c:635
 msgid "Not connected?"
 msgstr "Ikke tilsluttet?"
 
 #. Translators: One or more covers on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:634
+#: plugins/print-notifications/gsd-print-notifications-manager.c:637
 msgid "Cover open"
 msgstr "Kabinet åbent"
 
 #. Translators: A filter or backend is not installed (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:636
+#: plugins/print-notifications/gsd-print-notifications-manager.c:639
 msgid "Printer configuration error"
 msgstr "Fejl i printeropsætning"
 
 #. Translators: One or more doors on the printer are open (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:638
+#: plugins/print-notifications/gsd-print-notifications-manager.c:641
 msgid "Door open"
 msgstr "Låge åben"
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:640
+#: plugins/print-notifications/gsd-print-notifications-manager.c:643
 msgid "Marker supply low"
 msgstr "Farveniveau for marker er lavt"
 
 #. Translators: "marker" is one color bin of the printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:642
+#: plugins/print-notifications/gsd-print-notifications-manager.c:645
 msgid "Out of a marker supply"
 msgstr "Løbet tør for markerfarve"
 
 #. Translators: At least one input tray is low on media (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:644
+#: plugins/print-notifications/gsd-print-notifications-manager.c:647
 msgid "Paper low"
 msgstr "Lav papirforsyning"
 
 #. Translators: At least one input tray is empty (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:646
+#: plugins/print-notifications/gsd-print-notifications-manager.c:649
 msgid "Out of paper"
 msgstr "Løbet tør for papir"
 
 #. Translators: The printer is offline (same as in system-config-printer)
-#: plugins/print-notifications/gsd-print-notifications-manager.c:648
+#: plugins/print-notifications/gsd-print-notifications-manager.c:651
 msgid "Printer off-line"
 msgstr "Printer er afkoblet"
 
 #. Translators: The printer has detected an error (same as in system-config-printer)
 #. Translators: This is a title of an error notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:650
-#: plugins/print-notifications/gsd-print-notifications-manager.c:1026
+#: plugins/print-notifications/gsd-print-notifications-manager.c:653
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1029
 msgid "Printer error"
 msgstr "Printerfejl"
 
 #. Translators: New printer has been added
-#: plugins/print-notifications/gsd-print-notifications-manager.c:699
+#: plugins/print-notifications/gsd-print-notifications-manager.c:702
 msgid "Printer added"
 msgstr "Printer tilføjet"
 
 #. Translators: A print job has been stopped
-#: plugins/print-notifications/gsd-print-notifications-manager.c:716
-#: plugins/print-notifications/gsd-print-notifications-manager.c:754
+#: plugins/print-notifications/gsd-print-notifications-manager.c:719
+#: plugins/print-notifications/gsd-print-notifications-manager.c:757
 msgctxt "print job state"
 msgid "Printing stopped"
 msgstr "Udskrift standset"
 
 #. Translators: "print-job xy" on a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:718
-#: plugins/print-notifications/gsd-print-notifications-manager.c:724
-#: plugins/print-notifications/gsd-print-notifications-manager.c:730
-#: plugins/print-notifications/gsd-print-notifications-manager.c:736
-#: plugins/print-notifications/gsd-print-notifications-manager.c:748
-#: plugins/print-notifications/gsd-print-notifications-manager.c:756
-#: plugins/print-notifications/gsd-print-notifications-manager.c:764
-#: plugins/print-notifications/gsd-print-notifications-manager.c:772
-#: plugins/print-notifications/gsd-print-notifications-manager.c:780
-#: plugins/print-notifications/gsd-print-notifications-manager.c:804
+#: plugins/print-notifications/gsd-print-notifications-manager.c:721
+#: plugins/print-notifications/gsd-print-notifications-manager.c:727
+#: plugins/print-notifications/gsd-print-notifications-manager.c:733
+#: plugins/print-notifications/gsd-print-notifications-manager.c:739
+#: plugins/print-notifications/gsd-print-notifications-manager.c:751
+#: plugins/print-notifications/gsd-print-notifications-manager.c:759
+#: plugins/print-notifications/gsd-print-notifications-manager.c:767
+#: plugins/print-notifications/gsd-print-notifications-manager.c:775
+#: plugins/print-notifications/gsd-print-notifications-manager.c:783
+#: plugins/print-notifications/gsd-print-notifications-manager.c:807
 #, c-format
 msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "“%s” på %s"
 
 #. Translators: A print job has been cancelled
-#: plugins/print-notifications/gsd-print-notifications-manager.c:722
-#: plugins/print-notifications/gsd-print-notifications-manager.c:762
+#: plugins/print-notifications/gsd-print-notifications-manager.c:725
+#: plugins/print-notifications/gsd-print-notifications-manager.c:765
 msgctxt "print job state"
 msgid "Printing cancelled"
 msgstr "Udskrift annulleret"
 
 #. Translators: A print job has been aborted
-#: plugins/print-notifications/gsd-print-notifications-manager.c:728
-#: plugins/print-notifications/gsd-print-notifications-manager.c:770
+#: plugins/print-notifications/gsd-print-notifications-manager.c:731
+#: plugins/print-notifications/gsd-print-notifications-manager.c:773
 msgctxt "print job state"
 msgid "Printing aborted"
 msgstr "Udskrift afbrudt"
 
 #. Translators: A print job has been completed
-#: plugins/print-notifications/gsd-print-notifications-manager.c:734
-#: plugins/print-notifications/gsd-print-notifications-manager.c:778
+#: plugins/print-notifications/gsd-print-notifications-manager.c:737
+#: plugins/print-notifications/gsd-print-notifications-manager.c:781
 msgctxt "print job state"
 msgid "Printing completed"
 msgstr "Udskrift fuldført"
 
 #. Translators: A job is printing
-#: plugins/print-notifications/gsd-print-notifications-manager.c:746
-#: plugins/print-notifications/gsd-print-notifications-manager.c:802
+#: plugins/print-notifications/gsd-print-notifications-manager.c:749
+#: plugins/print-notifications/gsd-print-notifications-manager.c:805
 msgctxt "print job state"
 msgid "Printing"
 msgstr "Udskriver"
 
 #. Translators: This is a title of a report notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:1020
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1023
 msgid "Printer report"
 msgstr "Printerrapport"
 
 #. Translators: This is a title of a warning notification for a printer
-#: plugins/print-notifications/gsd-print-notifications-manager.c:1023
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1026
 msgid "Printer warning"
 msgstr "Printeradvarsel"
 
 #. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
-#: plugins/print-notifications/gsd-print-notifications-manager.c:1033
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1036
 #, c-format
 msgid "Printer “%s”: “%s”."
 msgstr "Printer “%s”: “%s”."
@@ -2760,50 +2795,49 @@ msgstr "Brugeren loggede ikke ind med smartcard."
 msgid "USB Protection"
 msgstr "USB-beskyttelse"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:541
+#: plugins/usb-protection/gsd-usb-protection-manager.c:542
 msgid "New USB device"
 msgstr "Ny USB-enhed"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:542
+#: plugins/usb-protection/gsd-usb-protection-manager.c:543
 msgid ""
-"New device has been detected while the session was not locked. If you did not "
-"plug anything, check your system for any suspicious device."
+"New USB device has been activated while the session was not locked. If you did "
+"not intend to insert any device, check your system for any suspicious gadgets "
+"and remove them."
 msgstr ""
-"Ny enhed blev fundet, mens sessionen ikke var låst. Indsatte du ikke noget, "
-"så undersøg dit system for mistænkelige enheder."
+"Ny USB-enhed blev aktiveret, mens sessionen ikke var låst. Indsatte du ikke "
+"noget, så undersøg dit system for mistænkelige enheder og fjern dem."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:684
+#: plugins/usb-protection/gsd-usb-protection-manager.c:685
 msgid "New device detected"
 msgstr "Ny enhed fundet"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:685
+#: plugins/usb-protection/gsd-usb-protection-manager.c:686
 msgid ""
-"Either one of your existing devices has been reconnected or a new one has "
-"been plugged in. If you did not do it, check your system for any suspicious "
-"device."
+"Either one of your existing devices has been reconnected or a new one has been "
+"inserted. If you did not do it, check your system for any suspicious device."
 msgstr ""
 "Enten blev en af dine eksisterende enheder tilsluttet igen eller en ny blev "
-"tilsluttet. Har du ikke gjort det, så undersøg dit system for mistænkelige "
-"enheder."
+"isat. Har du ikke gjort det, så undersøg dit system for mistænkelige enheder."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:692
+#: plugins/usb-protection/gsd-usb-protection-manager.c:693
 msgid "Reconnect USB device"
 msgstr "Tilslut USB-enhed igen"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:693
+#: plugins/usb-protection/gsd-usb-protection-manager.c:694
 msgid ""
 "New device has been detected while you were away. Please disconnect and "
 "reconnect the device to start using it."
 msgstr ""
-"En ny enhed blev fundet, mens du var væk. Fjern og tilslut enheden igen for "
-"at kunne bruge den."
+"En ny enhed blev fundet, mens du var væk. Fjern og tilslut enheden igen for at "
+"kunne bruge den."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:699
-#: plugins/usb-protection/gsd-usb-protection-manager.c:726
+#: plugins/usb-protection/gsd-usb-protection-manager.c:700
+#: plugins/usb-protection/gsd-usb-protection-manager.c:727
 msgid "USB device blocked"
 msgstr "USB-enhed blokeret"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:700
+#: plugins/usb-protection/gsd-usb-protection-manager.c:701
 msgid ""
 "New device has been detected while you were away. It has been blocked because "
 "the USB protection is active."
@@ -2811,11 +2845,11 @@ msgstr ""
 "En ny enhed blev fundet, mens du var væk. Det blev blokeret, fordi USB-"
 "beskyttelse er aktiv."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:727
+#: plugins/usb-protection/gsd-usb-protection-manager.c:728
 msgid ""
-"The new inserted device has been blocked because the USB protection is "
-"active. If you want to activate the device, disable the USB protection and re-"
-"plug the device."
+"The new inserted device has been blocked because the USB protection is active. "
+"If you want to activate the device, disable the USB protection and re-insert "
+"the device."
 msgstr ""
 "Den nyligt tilsluttede enhed blev blokeret, fordi USB-beskyttelse er aktiv. "
 "Vil du aktivere denne enhed, skal du deaktivere USB-beskyttelsen og isætte "
@@ -3001,15 +3035,15 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
 #~ "computer to avoid losing data."
 #~ msgstr ""
-#~ "Omkring %s af resterende nødstrøm (%.0f%%). Genopret strømforsyning til "
-#~ "din computer igen for at undgå at miste data."
+#~ "Omkring %s af resterende nødstrøm (%.0f%%). Genopret strømforsyning til din "
+#~ "computer igen for at undgå at miste data."
 
 #~ msgid ""
 #~ "The battery is below the critical level and this computer is about to "
 #~ "hibernate."
 #~ msgstr ""
-#~ "Batteristanden er under det kritiske niveau, og denne computer vil snart "
-#~ "gå i dvale."
+#~ "Batteristanden er under det kritiske niveau, og denne computer vil snart gå "
+#~ "i dvale."
 
 #~ msgid ""
 #~ "The battery is below the critical level and this computer is about to "
@@ -3349,17 +3383,17 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ msgstr "Om specifikke skærme skal slukkes efter opstart"
 
 #~ msgid ""
-#~ "“clone” will display the same thing on all monitors, “dock” will switch "
-#~ "off the internal monitor, “do-nothing” will use the default Xorg behaviour "
+#~ "“clone” will display the same thing on all monitors, “dock” will switch off "
+#~ "the internal monitor, “do-nothing” will use the default Xorg behaviour "
 #~ "(extend the desktop in recent versions). The default, “follow-lid”, will "
 #~ "choose between “do-nothing” and “dock” depending on whether the lid is "
 #~ "(respectively) open or closed."
 #~ msgstr ""
 #~ "“clone” vil vise det samme på alle skærme, “dock” vil slukke for den "
-#~ "interne skærm, “do-nothing” vil bruge standardopførslen for Xorg (at "
-#~ "udvide skrivebordet i de seneste versioner). Standardværdien, “follow-"
-#~ "lid”, vil vælge mellem “do-nothing” og “dock”, når låget er henholdsvis "
-#~ "åbent og lukket."
+#~ "interne skærm, “do-nothing” vil bruge standardopførslen for Xorg (at udvide "
+#~ "skrivebordet i de seneste versioner). Standardværdien, “follow-lid”, vil "
+#~ "vælge mellem “do-nothing” og “dock”, når låget er henholdsvis åbent og "
+#~ "lukket."
 
 #~ msgid "Video Out"
 #~ msgstr "Video ud"
@@ -3495,15 +3529,13 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ msgid "Activation of this plugin"
 #~ msgstr "Aktivering af dette udvidelsesmodul"
 
-#~ msgid ""
-#~ "Whether this plugin would be activated by gnome-settings-daemon or not"
+#~ msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
 #~ msgstr "Om dette udvidelsesmodul skal aktiveres af gnome-settings-daemon"
 
 #~ msgid "Priority to use for this plugin"
 #~ msgstr "Prioriteten for dette udvidelsesmodul"
 
-#~ msgid ""
-#~ "Priority to use for this plugin in gnome-settings-daemon startup queue"
+#~ msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
 #~ msgstr ""
 #~ "Prioriteten for dette udvidelsesmodul i gnome-settings-daemons opstartskø"
 
@@ -3556,8 +3588,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "Automatically prunes thumbnail caches and other transient files, and warns "
 #~ "about low disk space"
 #~ msgstr ""
-#~ "Rydder automatisk miniaturer og andre midlertidige filer, og advarer om "
-#~ "lav diskplads"
+#~ "Rydder automatisk miniaturer og andre midlertidige filer, og advarer om lav "
+#~ "diskplads"
 
 #~ msgid "Keyboard"
 #~ msgstr "Tastatur"
@@ -3645,8 +3677,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 
 #~ msgid ""
 #~ "The type of hinting to use when rendering fonts. Possible values are: "
-#~ "\"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, "
-#~ "and \"full\" for maximum hinting (may cause distortion of letter forms)."
+#~ "\"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and "
+#~ "\"full\" for maximum hinting (may cause distortion of letter forms)."
 #~ msgstr ""
 #~ "Hinting-metode der bruges til skrifttyper. Mulige værdier er: “none” for "
 #~ "ingen hinting, “slight” for basal, “medium” for moderat og “full” for "
@@ -3656,8 +3688,7 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ msgstr "Sidst kalibrerede opløsning for Wacom"
 
 #~ msgid ""
-#~ "Holds the last calibrated resolution to help check if calibration is "
-#~ "needed."
+#~ "Holds the last calibrated resolution to help check if calibration is needed."
 #~ msgstr ""
 #~ "Indeholder den sidst kalibrerede opløsning for at hjælpe med at se, om det "
 #~ "er nødvendigt at kalibrere."
@@ -3675,23 +3706,23 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "You can free up disk space by emptying the Trash, removing unused programs "
 #~ "or files, or moving files to another disk or partition."
 #~ msgstr ""
-#~ "Du kan frigøre diskplads ved at tømme papirkurven, ved at fjerne "
-#~ "ubenyttede programmer eller filer, eller ved at flytte filer til en anden "
-#~ "disk eller partition."
+#~ "Du kan frigøre diskplads ved at tømme papirkurven, ved at fjerne ubenyttede "
+#~ "programmer eller filer, eller ved at flytte filer til en anden disk eller "
+#~ "partition."
 
 #~ msgid ""
 #~ "You can free up disk space by removing unused programs or files, or by "
 #~ "moving files to another disk or partition."
 #~ msgstr ""
-#~ "Du kan frigøre plads ved at fjerne ubenyttede programmer eller filer, "
-#~ "eller ved at flytte filer til en anden disk eller partition."
+#~ "Du kan frigøre plads ved at fjerne ubenyttede programmer eller filer, eller "
+#~ "ved at flytte filer til en anden disk eller partition."
 
 #~ msgid ""
 #~ "You can free up disk space by emptying the Trash, removing unused programs "
 #~ "or files, or moving files to an external disk."
 #~ msgstr ""
-#~ "Du kan frigøre plads ved at tømme papirkurven, fjerne ubenyttede "
-#~ "programmer eller filer, eller ved at flytte filer til en ekstern disk."
+#~ "Du kan frigøre plads ved at tømme papirkurven, fjerne ubenyttede programmer "
+#~ "eller filer, eller ved at flytte filer til en ekstern disk."
 
 #~ msgid ""
 #~ "You can free up disk space by removing unused programs or files, or by "
@@ -3750,17 +3781,17 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "mobile broadband if 'connection-use-mobile' is enabled."
 #~ msgstr ""
 #~ "Hent automatisk opdateringer i baggrunden uden bekræftelse. Opdateringer "
-#~ "hentes automatisk, når der bruges trådet netværksforbindelse, eller når "
-#~ "der bruges mobilt bredbånd og indstillingen “connection-use-mobile” er "
-#~ "slået til."
+#~ "hentes automatisk, når der bruges trådet netværksforbindelse, eller når der "
+#~ "bruges mobilt bredbånd og indstillingen “connection-use-mobile” er slået "
+#~ "til."
 
 #~ msgid "How often to check for updates"
 #~ msgstr "Hvor ofte der skal kigges efter opdateringer"
 
 #~ msgid ""
 #~ "How often to check for updates. Value is in seconds. This is a maximum "
-#~ "amount of time that can pass between a security update being published, "
-#~ "and the update being automatically installed or the user notified."
+#~ "amount of time that can pass between a security update being published, and "
+#~ "the update being automatically installed or the user notified."
 #~ msgstr ""
 #~ "Hvor ofte der skal kigges efter opdateringer. Værdien er i sekunder. Dette "
 #~ "er det maksimale tidsrum, der kan gå mellem at en sikkerhedsopdatering "
@@ -3774,14 +3805,14 @@ msgstr[1] "Du har %u forsøg tilbage"
 
 #~ msgid ""
 #~ "How often to tell the user there are non-critical updates. Value is in "
-#~ "seconds. Security update notifications are always shown after the check "
-#~ "for updates, but non-critical notifications should be shown a lot less "
+#~ "seconds. Security update notifications are always shown after the check for "
+#~ "updates, but non-critical notifications should be shown a lot less "
 #~ "frequently."
 #~ msgstr ""
 #~ "Hvor ofte brugeren skal informeres om tilgængeligheden af ukritiske "
-#~ "opdateringer. Værdien er i sekunder. Sikkerhedspåmindelser vises altid "
-#~ "lige efter der tjekkes efter opdateringer, men ukritiske påmindelser bør "
-#~ "vises langt sjældnere."
+#~ "opdateringer. Værdien er i sekunder. Sikkerhedspåmindelser vises altid lige "
+#~ "efter der tjekkes efter opdateringer, men ukritiske påmindelser bør vises "
+#~ "langt sjældnere."
 
 #~ msgid "The last time we told the user about non-critical notifications"
 #~ msgstr ""
@@ -3791,8 +3822,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "The last time we notified the user about non-critical updates. Value is in "
 #~ "seconds since the epoch, or zero for never."
 #~ msgstr ""
-#~ "Sidste gang vi informerede brugeren om ukritiske opdateringer. Værdien er "
-#~ "i sekunder siden epoken, eller nul for aldrig."
+#~ "Sidste gang vi informerede brugeren om ukritiske opdateringer. Værdien er i "
+#~ "sekunder siden epoken, eller nul for aldrig."
 
 #~ msgid "How often to check for distribution upgrades"
 #~ msgstr "Hvor ofte, der skal kigges efter distributionsopgraderinger"
@@ -3818,8 +3849,7 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ msgstr "Informér brugeren når der er tilgængelige distributionsopgraderinger"
 
 #~ msgid "Notify the user when distribution upgrades are available."
-#~ msgstr ""
-#~ "Informér brugeren når der er tilgængelige distributionsopgraderinger."
+#~ msgstr "Informér brugeren når der er tilgængelige distributionsopgraderinger."
 
 #~ msgid "Ask the user if additional firmware should be installed"
 #~ msgstr "Spørg brugeren om der skal installeres yderligere firmware"
@@ -3847,22 +3877,22 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "Devices that should be ignored, separated by commas. These can include '*' "
 #~ "and '?' characters."
 #~ msgstr ""
-#~ "Enheder der skal ignoreres, adskilt af kommaer. Disse kan indeholde "
-#~ "tegnene “*” og “?”."
+#~ "Enheder der skal ignoreres, adskilt af kommaer. Disse kan indeholde tegnene "
+#~ "“*” og “?”."
 
 #~ msgid "The filenames on removable media that designate it a software source."
 #~ msgstr "Filnavnene på flytbare medier, der angiver disse som softwarekilder."
 
 #~ msgid ""
 #~ "When removable media is inserted, it is checked to see if it contains any "
-#~ "important filenames in the root directory. If the filename matches, then "
-#~ "an updates check is performed. This allows post-install disks to be used "
-#~ "to update running systems."
+#~ "important filenames in the root directory. If the filename matches, then an "
+#~ "updates check is performed. This allows post-install disks to be used to "
+#~ "update running systems."
 #~ msgstr ""
 #~ "Når der indsættes flytbare medier, kontrolleres det om disse indeholder "
-#~ "vigtige filnavne i rodkataloget. Hvis filnavnet stemmer, kontrolleres "
-#~ "efter opdateringer. Dette tillader post-installationsdiske at blive brugt "
-#~ "til at opdatere kørende systemer."
+#~ "vigtige filnavne i rodkataloget. Hvis filnavnet stemmer, kontrolleres efter "
+#~ "opdateringer. Dette tillader post-installationsdiske at blive brugt til at "
+#~ "opdatere kørende systemer."
 
 #~ msgid ""
 #~ "You will need to restart this computer before the hardware will work "
@@ -3881,8 +3911,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "You will need to remove and then reinsert the hardware before it will work "
 #~ "correctly."
 #~ msgstr ""
-#~ "Det vil være nødvendigt at fjerne og dernæst genindsætte hardwaren, før "
-#~ "den vil fungere korrekt."
+#~ "Det vil være nødvendigt at fjerne og dernæst genindsætte hardwaren, før den "
+#~ "vil fungere korrekt."
 
 #~ msgid "Your hardware has been set up and is now ready to use."
 #~ msgstr "Din hardware er blevet indstillet, og er nu klar til brug."
@@ -3891,8 +3921,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "Additional firmware is required to make hardware in this computer function "
 #~ "correctly."
 #~ msgstr ""
-#~ "Der kræves yderligere firmware for at få hardwaren i denne computere til "
-#~ "at fungere korrekt."
+#~ "Der kræves yderligere firmware for at få hardwaren i denne computere til at "
+#~ "fungere korrekt."
 
 #~ msgid "Additional firmware required"
 #~ msgstr "Der kræves yderligere firmware"
@@ -4070,8 +4100,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ msgstr "Resterende tid, når handlingen udløses"
 
 #~ msgid ""
-#~ "The time remaining in seconds of the battery when critical action is "
-#~ "taken. Only valid when use-time-for-policy is true."
+#~ "The time remaining in seconds of the battery when critical action is taken. "
+#~ "Only valid when use-time-for-policy is true."
 #~ msgstr ""
 #~ "Resterende batteritid i sekunder, når handlingen kritisk udløses. Gælder "
 #~ "kun, når brug-tid-i-politiken er “sand”."
@@ -4383,24 +4413,23 @@ msgstr[1] "Du har %u forsøg tilbage"
 
 #~ msgid "Computer will suspend very soon unless it is plugged in."
 #~ msgstr ""
-#~ "Computeren vil gå i hviletilstand, hvis du ikke meget snart slutter den "
-#~ "til."
+#~ "Computeren vil gå i hviletilstand, hvis du ikke meget snart slutter den til."
 
 #~ msgid ""
 #~ "The battery is below the critical level and this computer will <b>power-"
 #~ "off</b> when the battery becomes completely empty."
 #~ msgstr ""
-#~ "Batteristanden er under det kritiske niveau, og denne computer vil "
-#~ "<b>lukke ned</b>, når batteriet er helt tomt."
+#~ "Batteristanden er under det kritiske niveau, og denne computer vil <b>lukke "
+#~ "ned</b>, når batteriet er helt tomt."
 
 #~ msgid ""
 #~ "The battery is below the critical level and this computer is about to "
 #~ "suspend.\n"
-#~ "<b>NOTE:</b> A small amount of power is required to keep your computer in "
-#~ "a suspended state."
+#~ "<b>NOTE:</b> A small amount of power is required to keep your computer in a "
+#~ "suspended state."
 #~ msgstr ""
-#~ "Batteristanden er under det kritiske niveau, og denne computer vil snart "
-#~ "gå i hviletilstand.\n"
+#~ "Batteristanden er under det kritiske niveau, og denne computer vil snart gå "
+#~ "i hviletilstand.\n"
 #~ "<b>BEMÆRK:</b> Der er brug for en smule strøm for at holde computeren i "
 #~ "hviletilstanden."
 
@@ -4608,8 +4637,7 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ msgid ""
 #~ "You have just inserted a medium with software intended to be automatically "
 #~ "started."
-#~ msgstr ""
-#~ "Du har netop indsat et medie med software tiltænkt automatisk kørsel."
+#~ msgstr "Du har netop indsat et medie med software tiltænkt automatisk kørsel."
 
 #~ msgid "You have just inserted a medium."
 #~ msgstr "Du har netop indsat et medie."
@@ -4621,8 +4649,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "Select how to open \"%s\" and whether to perform this action in the future "
 #~ "for other media of type \"%s\"."
 #~ msgstr ""
-#~ "Vælg hvorden “%s” skal åbnes, og om denne handling i fremtiden skal "
-#~ "udføres for medier af typen “%s”."
+#~ "Vælg hvorden “%s” skal åbnes, og om denne handling i fremtiden skal udføres "
+#~ "for medier af typen “%s”."
 
 #~ msgid "_Always perform this action"
 #~ msgstr "Udfør _altid denne handling"
@@ -4648,8 +4676,7 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ msgid "Get the update list when the session starts"
 #~ msgstr "Hent listen af opdateringer, når sessionen starter"
 
-#~ msgid ""
-#~ "Get the update list when the session starts, even if not scheduled to."
+#~ msgid "Get the update list when the session starts, even if not scheduled to."
 #~ msgstr ""
 #~ "Hent listen af opdateringer når sessionen starter, selv hvis dette ikke "
 #~ "behøves ifølge tidsplanen."
@@ -4659,14 +4686,13 @@ msgstr[1] "Du har %u forsøg tilbage"
 
 #~ msgid "Notify the user for completed updates where the user needs to restart"
 #~ msgstr ""
-#~ "Informér brugeren om fuldførte opdateringer, når det vil være nødvendigt "
-#~ "at genstarte"
+#~ "Informér brugeren om fuldførte opdateringer, når det vil være nødvendigt at "
+#~ "genstarte"
 
-#~ msgid ""
-#~ "Notify the user for completed updates where the user needs to restart."
+#~ msgid "Notify the user for completed updates where the user needs to restart."
 #~ msgstr ""
-#~ "Informér brugeren om fuldførte opdateringer, når det vil være nødvendigt "
-#~ "at genstarte."
+#~ "Informér brugeren om fuldførte opdateringer, når det vil være nødvendigt at "
+#~ "genstarte."
 
 #~ msgid ""
 #~ "Notify the user for completed updates. This may be a useful notification "
@@ -4702,12 +4728,11 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "The install root to use when processing packages, which is changed when "
 #~ "using LTSP or when testing."
 #~ msgstr ""
-#~ "Installationsroden, der skal bruges ved behandling af pakker, og som "
-#~ "ændres når der bruges LTSP eller ved test."
+#~ "Installationsroden, der skal bruges ved behandling af pakker, og som ændres "
+#~ "når der bruges LTSP eller ved test."
 
 #~ msgid ""
-#~ "The number of seconds at session startup to wait before checking for "
-#~ "updates"
+#~ "The number of seconds at session startup to wait before checking for updates"
 #~ msgstr ""
 #~ "Antallet af sekunder ved sessionsstart, som der ventes før der tjekkes for "
 #~ "opdateringer"
@@ -4803,8 +4828,7 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "is in the list. This is useful for lockdown."
 #~ msgstr ""
 #~ "Hvis udfyldt, vil tastegenveje blive ignoreret, med mindre deres "
-#~ "indstillingskatalog er i listen. Dette er nyttigt i forbindelse med "
-#~ "låsning."
+#~ "indstillingskatalog er i listen. Dette er nyttigt i forbindelse med låsning."
 
 #~ msgid "Enable this to set the cursor to absolute mode."
 #~ msgstr "Slå denne til for at sætte markøren til absolut tilstand."
@@ -4813,8 +4837,7 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ msgstr "Slå denne til for at sætte pegepennen til absolut tilstand."
 
 #~ msgid "Set this to x1, y1 and x2, y2 of the area usable by the cursor."
-#~ msgstr ""
-#~ "Sæt denne til x1, y1 og x2, y2 for det område, markøren kan bruges i."
+#~ msgstr "Sæt denne til x1, y1 og x2, y2 for det område, markøren kan bruges i."
 
 #~ msgid "Set this to x1, y1 and x2, y2 of the area usable by the eraser."
 #~ msgstr ""
@@ -4972,8 +4995,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "Turn on external monitor after system boot if user plugs in external "
 #~ "monitor on system boot."
 #~ msgstr ""
-#~ "Slå ekstern skærm til efter systemopstart, hvis brugeren tilslutter "
-#~ "ekstern skærm ved systemopstart."
+#~ "Slå ekstern skærm til efter systemopstart, hvis brugeren tilslutter ekstern "
+#~ "skærm ved systemopstart."
 
 #~ msgid "Turn on laptop monitor after system boot"
 #~ msgstr "Slå skærm til bærbar computer til efter systemopstart"
@@ -5073,8 +5096,7 @@ msgstr[1] "Du har %u forsøg tilbage"
 
 #~ msgid "Set to True to enable the plugin to manage XRandR settings."
 #~ msgstr ""
-#~ "Sæt til “True” for at aktivere modulet til at håndtere XRandR-"
-#~ "indstillinger."
+#~ "Sæt til “True” for at aktivere modulet til at håndtere XRandR-indstillinger."
 
 #~ msgid "Set to True to enable the plugin to manage clipboard settings."
 #~ msgstr ""
@@ -5101,8 +5123,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "Set to True to enable the plugin to manage locking the screen on smartcard "
 #~ "removal."
 #~ msgstr ""
-#~ "Sæt til “True” for at aktivere modulet til at håndtere låsning af skærm "
-#~ "ved fjernelse af smartcard."
+#~ "Sæt til “True” for at aktivere modulet til at håndtere låsning af skærm ved "
+#~ "fjernelse af smartcard."
 
 #~ msgid "Set to True to enable the plugin to manage mouse settings."
 #~ msgstr ""
@@ -5161,17 +5183,16 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "tastaturgenveje."
 
 #~ msgid ""
-#~ "This is the name of the keyboard shortcut to toggle the on-screen "
-#~ "keyboard. This name will be shown in the keyboard shortcut preferences "
-#~ "dialog."
+#~ "This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
+#~ "This name will be shown in the keyboard shortcut preferences dialog."
 #~ msgstr ""
 #~ "Dette er navnet på tastaturgenvejen, der aktiverer/deaktiverer "
 #~ "skærmtastaturet. Dette navn vil blive vist i indstillingsvinduet for "
 #~ "tastaturgenveje."
 
 #~ msgid ""
-#~ "This is the name of the keyboard shortcut to toggle the screen reader. "
-#~ "This name will be shown in the keyboard shortcut preferences dialog."
+#~ "This is the name of the keyboard shortcut to toggle the screen reader. This "
+#~ "name will be shown in the keyboard shortcut preferences dialog."
 #~ msgstr ""
 #~ "Dette er navnet på tastaturgenvejen, der aktiverer/deaktiverer "
 #~ "skærmoplæseren. Dette navn vil blive vist i indstillingsvinduet for "
@@ -5226,8 +5247,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ msgstr "Slet alle elementerne fra papirkurven?"
 
 #~ msgid ""
-#~ "If you choose to empty the trash, all items in it will be permanently "
-#~ "lost. Please note that you can also delete them separately."
+#~ "If you choose to empty the trash, all items in it will be permanently lost. "
+#~ "Please note that you can also delete them separately."
 #~ msgstr ""
 #~ "Hvis du vælger at tømme papirkurven, vil alle elementer i den gå permanent "
 #~ "tabt. Bemærk venligst, at du også kan slette dem enkeltvis."
@@ -5442,8 +5463,7 @@ msgstr[1] "Du har %u forsøg tilbage"
 
 #~ msgid ""
 #~ "The sound file for this event does not exist.\n"
-#~ "You may want to install the gnome-audio package for a set of default "
-#~ "sounds."
+#~ "You may want to install the gnome-audio package for a set of default sounds."
 #~ msgstr ""
 #~ "Lydfilen for denne hændelse eksisterer ikke.\n"
 #~ "Du kan installere programpakken gnome-audio for et sæt standardlyde."
@@ -5625,8 +5645,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ msgid ""
 #~ "Please type your password again in the <b>Retype new password</b> field."
 #~ msgstr ""
-#~ "Indtast venligst adgangskoden igen i feltet <b>Indtast ny adgangskode "
-#~ "igen</b>."
+#~ "Indtast venligst adgangskoden igen i feltet <b>Indtast ny adgangskode igen</"
+#~ "b>."
 
 #~ msgid "Select your photo"
 #~ msgstr "Vælg dit billede"
@@ -5635,8 +5655,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ msgstr "Stat/pro_vins:"
 
 #~ msgid ""
-#~ "To change your password, enter your current password in the field below "
-#~ "and click <b>Authenticate</b>.\n"
+#~ "To change your password, enter your current password in the field below and "
+#~ "click <b>Authenticate</b>.\n"
 #~ "After you have authenticated, enter your new password, retype it for "
 #~ "verification and click <b>Change password</b>."
 #~ msgstr ""
@@ -5724,8 +5744,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ msgstr "Autentificeret!"
 
 #~ msgid ""
-#~ "Your password has been changed since you initially authenticated! Please "
-#~ "re-authenticate."
+#~ "Your password has been changed since you initially authenticated! Please re-"
+#~ "authenticate."
 #~ msgstr ""
 #~ "Din adgangskode er ændret siden du først autentificerede! Genautentificér "
 #~ "venligst."
@@ -5869,8 +5889,7 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ msgstr "Bip når der trykkes på _modifikationstast"
 
 #~ msgid "Beep when an LED is turned on and two beeps when one is turned off."
-#~ msgstr ""
-#~ "Bip når en tastaturlampe tændes og bip to gange når en lampe slukkes."
+#~ msgstr "Bip når en tastaturlampe tændes og bip to gange når en lampe slukkes."
 
 #~ msgid "Beep when key is:"
 #~ msgstr "Bip når tast er:"
@@ -5891,8 +5910,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "Ignore all subsequent presses of the SAME key if they happen within a user "
 #~ "selectable period of time."
 #~ msgstr ""
-#~ "Ignorér alle efterfølgende tryk på den SAMME tast hvis de sker inden for "
-#~ "et givet tidsrum."
+#~ "Ignorér alle efterfølgende tryk på den SAMME tast hvis de sker inden for et "
+#~ "givet tidsrum."
 
 #~ msgid "Keyboard Accessibility Preferences (AccessX)"
 #~ msgstr "Indstillinger for tastaturtilgængelighed (AccessX)"
@@ -6366,8 +6385,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "%s is the path where the theme files will be installed. This can not be "
 #~ "selected as the source location"
 #~ msgstr ""
-#~ "%s er den sti hvor temafilerne vil blive installeret. Dette kan ikke "
-#~ "vælges som kildeplaceringen"
+#~ "%s er den sti hvor temafilerne vil blive installeret. Dette kan ikke vælges "
+#~ "som kildeplaceringen"
 
 #~ msgid "The file format is invalid."
 #~ msgstr "Filformatet er ugyldigt."
@@ -6482,8 +6501,7 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ msgstr "Konvertering til kontrol-tilbagekald"
 
 #~ msgid ""
-#~ "Callback to be issued when data are to be converted from GConf to the "
-#~ "widget"
+#~ "Callback to be issued when data are to be converted from GConf to the widget"
 #~ msgstr ""
 #~ "Tilbagekald som bliver udført når data skal konverteres fra GConf til "
 #~ "kontrollen"
@@ -6492,8 +6510,7 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ msgstr "Konvertering fra kontrol-tilbagekald"
 
 #~ msgid ""
-#~ "Callback to be issued when data are to be converted to GConf from the "
-#~ "widget"
+#~ "Callback to be issued when data are to be converted to GConf from the widget"
 #~ msgstr ""
 #~ "Tilbagekald som bliver udført når data skal konverteres til GConf fra "
 #~ "kontrollen"
@@ -6516,8 +6533,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 
 #~ msgid "Callback to be issued when property editor object data is to be freed"
 #~ msgstr ""
-#~ "Tilbagekald som bliver udført når objektdata for egenskabsredigeringen "
-#~ "skal frigøres"
+#~ "Tilbagekald som bliver udført når objektdata for egenskabsredigeringen skal "
+#~ "frigøres"
 
 #~ msgid ""
 #~ "Couldn't find the file '%s'.\n"
@@ -6838,8 +6855,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "Tester de nye indstillinger. Hvis du ikke svarer inden for %d sekund, vil "
 #~ "de foregående indstillinger blive gendannet."
 #~ msgstr[1] ""
-#~ "Tester de nye indstillinger. Hvis du ikke svarer inden for %d sekunder, "
-#~ "vil de foregående indstillinger blive gendannet."
+#~ "Tester de nye indstillinger. Hvis du ikke svarer inden for %d sekunder, vil "
+#~ "de foregående indstillinger blive gendannet."
 
 #~ msgid "Do you want to keep this resolution?"
 #~ msgstr "Vil du beholde denne opløsning?"
@@ -6907,18 +6924,12 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ msgid "Action"
 #~ msgstr "Handling"
 
-#~ msgid "Shortcut"
-#~ msgstr "Genvej"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Tastaturgenveje"
-
 #~ msgid ""
 #~ "To edit a shortcut key, click on the corresponding row and type a new "
 #~ "accelerator, or press backspace to clear."
 #~ msgstr ""
-#~ "En genvejstast ændres ved at klikke på den tilsvarende række og indtaste "
-#~ "en ny genvej, eller frigøres ved at trykke på tilbagetasten."
+#~ "En genvejstast ændres ved at klikke på den tilsvarende række og indtaste en "
+#~ "ny genvej, eller frigøres ved at trykke på tilbagetasten."
 
 #~ msgid "Assign shortcut keys to commands"
 #~ msgstr "Tildel genvejstaster til kommandoer"
@@ -6929,8 +6940,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ msgid ""
 #~ "Just apply settings and quit (compatibility only; now handled by daemon)"
 #~ msgstr ""
-#~ "Anvend blot indstillingerne og afslut (for kompatibilitet kun; nu "
-#~ "håndteret af dæmon)"
+#~ "Anvend blot indstillingerne og afslut (for kompatibilitet kun; nu håndteret "
+#~ "af dæmon)"
 
 #~ msgid "Start the page with the typing break settings showing"
 #~ msgstr "Start siden med tastepauseindstillingerne"
@@ -7337,8 +7348,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "Type of bg_applier: BG_APPLIER_ROOT for root window or BG_APPLIER_PREVIEW "
 #~ "for preview"
 #~ msgstr ""
-#~ "Type af bg_applier: BG_APPLIER_ROOT for rodvinduet eller "
-#~ "BG_APPLIER_PREVIEW for eksempel"
+#~ "Type af bg_applier: BG_APPLIER_ROOT for rodvinduet eller BG_APPLIER_PREVIEW "
+#~ "for eksempel"
 
 #~ msgid "Preview Width"
 #~ msgstr "Eksempelbredde"
@@ -7562,8 +7573,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "fjernelseshandling udføres"
 
 #~ msgid ""
-#~ "Indicates whether to close the shell when an upgrade or uninstall action "
-#~ "is performed"
+#~ "Indicates whether to close the shell when an upgrade or uninstall action is "
+#~ "performed"
 #~ msgstr ""
 #~ "Angiver om kommandofortolkeren lukkes når en opgraderings- eller "
 #~ "afinstalleringshandling udføres"
@@ -7586,15 +7597,15 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "selector.desktop,Set Preferred Applications;default-applications.desktop,"
 #~ "Add Printer;gnome-cups-manager.desktop]"
 #~ msgstr ""
-#~ "[Skift skrivebordsbaggrund;background.desktop,Skift tema;gtk-theme-"
-#~ "selector.desktop,Vælg foretrukne programmer;default-applications.desktop,"
-#~ "Tilføj printer;gnome-cups-manager.desktop]"
+#~ "[Skift skrivebordsbaggrund;background.desktop,Skift tema;gtk-theme-selector."
+#~ "desktop,Vælg foretrukne programmer;default-applications.desktop,Tilføj "
+#~ "printer;gnome-cups-manager.desktop]"
 
 #~ msgid ""
 #~ "if true, the control-center will close when a \"Common Task\" is activated"
 #~ msgstr ""
-#~ "hvis sat til “true”, vil kontrolcentret afslutte når en “Almindelig "
-#~ "opgave” aktiveres"
+#~ "hvis sat til “true”, vil kontrolcentret afslutte når en “Almindelig opgave” "
+#~ "aktiveres"
 
 #~ msgid "The GNOME configuration tool"
 #~ msgstr "Et centralt opsætningsværktøj til Gnome"
@@ -7699,8 +7710,7 @@ msgstr[1] "Du har %u forsøg tilbage"
 
 #~ msgid "Set this key to the command used to create thumbnails for PCF fonts."
 #~ msgstr ""
-#~ "Sæt denne nøgle til kommandoen til at oprette miniature til PCF-"
-#~ "skrifttyper."
+#~ "Sæt denne nøgle til kommandoen til at oprette miniature til PCF-skrifttyper."
 
 #~ msgid ""
 #~ "Set this key to the command used to create thumbnails for TrueType fonts."
@@ -7708,8 +7718,7 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "Sæt denne nøgle til kommandoen til at oprette miniature til TrueType-"
 #~ "skrifttyper."
 
-#~ msgid ""
-#~ "Set this key to the command used to create thumbnails for Type1 fonts."
+#~ msgid "Set this key to the command used to create thumbnails for Type1 fonts."
 #~ msgstr ""
 #~ "Sæt denne nøgle til kommandoen til at oprette miniature til Type1-"
 #~ "skrifttyper."
@@ -7741,8 +7750,7 @@ msgstr[1] "Du har %u forsøg tilbage"
 # Qatarsk står i retstrivningsordbogen. 19 bogstaver kortere end "Quizdeltagerne spiste jordbær med fløde..."
 #~ msgid "The quick brown fox jumps over the lazy dog. 0123456789"
 #~ msgstr ""
-#~ "Cølibatisk havfrue på brynjeklædt wc med plexiglas i qatarsk zoo. "
-#~ "0123456789"
+#~ "Cølibatisk havfrue på brynjeklædt wc med plexiglas i qatarsk zoo. 0123456789"
 
 #~ msgid "Style:"
 #~ msgstr "Stil:"
@@ -8004,9 +8012,6 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ msgid "_Detachable toolbars"
 #~ msgstr "Værktøjslinjer der kan _frigøres"
 
-#~ msgid "<b>Applications</b>"
-#~ msgstr "<b>Programmer</b>"
-
 #~ msgid "<b>Support</b>"
 #~ msgstr "<b>Understøttelse</b>"
 
@@ -8024,16 +8029,15 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "“orca” skal installeres for at få skærmoplæsning og forstørrelse."
 
 #~ msgid ""
-#~ "Not all available assistive technologies are installed on your system.  "
-#~ "The 'gok' package must be installed in order to get on-screen keyboard "
-#~ "support."
+#~ "Not all available assistive technologies are installed on your system.  The "
+#~ "'gok' package must be installed in order to get on-screen keyboard support."
 #~ msgstr ""
 #~ "Ikke alle assisterende teknologier er tilgængelige på dit system. Pakken "
 #~ "“gok” skal installeres for at få understøttelse af skærmtastatur."
 
 #~ msgid ""
-#~ "Not all available assistive technologies are installed on your system.  "
-#~ "The 'orca' package must be installed for screenreading and magnifying "
+#~ "Not all available assistive technologies are installed on your system.  The "
+#~ "'orca' package must be installed for screenreading and magnifying "
 #~ "capabilities."
 #~ msgstr ""
 #~ "Ikke alle assisterende teknologier er tilgængelige på dit system. Pakken "
@@ -8153,8 +8157,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "A collection of scripts to run whenever the keyboard state is reloaded. "
 #~ "Useful for re-applying xmodmap based adjustments"
 #~ msgstr ""
-#~ "En samling skripter som afvikles når tastaturtilstanden genindlæses. "
-#~ "Nyttig for at anvende xmodmap-baserede justeringer igen"
+#~ "En samling skripter som afvikles når tastaturtilstanden genindlæses. Nyttig "
+#~ "for at anvende xmodmap-baserede justeringer igen"
 
 #~ msgid "A list of modmap files available in the $HOME directory."
 #~ msgstr "En liste over modmap-filer som findes i kataloget $HOME."
@@ -8172,8 +8176,8 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ "Keyboard settings in gconf will be overridden from the system ASAP "
 #~ "(deprecated)"
 #~ msgstr ""
-#~ "Indstillingerne for tastaturet i GConf vil blive overskrevet af systemet "
-#~ "så snart som muligt (forældet)"
+#~ "Indstillingerne for tastaturet i GConf vil blive overskrevet af systemet så "
+#~ "snart som muligt (forældet)"
 
 #~ msgid "Save/restore indicators together with layout groups"
 #~ msgstr "Gem/genopret indikatorer sammen med layoutgrupper"
@@ -8194,13 +8198,12 @@ msgstr[1] "Du har %u forsøg tilbage"
 #~ msgid ""
 #~ "Very soon, keyboard settings in gconf will be overridden (from the system "
 #~ "configuration) This key has been deprecated since GNOME 2.12, please unset "
-#~ "the model, layouts and options keys to get the default system "
-#~ "configuration."
+#~ "the model, layouts and options keys to get the default system configuration."
 #~ msgstr ""
 #~ "Tastatur-indstillinger i GConf vil meget snart blive overskrevet (fra "
 #~ "system-konfigurationenen). Denne nøgle er forældet siden GNOME 2.12, fjern "
-#~ "venligst værdierne for model, layout og opsætning for at få standard "
-#~ "system-konfigurationen."
+#~ "venligst værdierne for model, layout og opsætning for at få standard system-"
+#~ "konfigurationen."
 
 #~ msgid "keyboard layout"
 #~ msgstr "tastaturlayout"
