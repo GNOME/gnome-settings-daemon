@@ -365,6 +365,7 @@ static void
 create_notification (const char *summary,
                      const char *body,
                      const char *icon_name,
+                     NotifyUrgency urgency,
                      NotificationPrivacyScope privacy_scope,
                      NotifyNotification **weak_pointer_location)
 {
@@ -377,8 +378,7 @@ create_notification (const char *summary,
         notify_notification_set_hint_string (notification, "x-gnome-privacy-scope",
                                              notification_privacy_scope_to_string (privacy_scope));
         notify_notification_set_hint (notification, "image-path", g_variant_new_string (icon_name));
-        notify_notification_set_urgency (notification,
-                                         NOTIFY_URGENCY_CRITICAL);
+        notify_notification_set_urgency (notification, urgency);
         *weak_pointer_location = notification;
         g_object_add_weak_pointer (G_OBJECT (notification),
                                    (gpointer *) weak_pointer_location);
@@ -429,6 +429,7 @@ engine_ups_discharging (GsdPowerManager *manager, UpDevice *device)
         /* create a new notification */
         create_notification (title, message->str,
                              "battery-low-symbolic",
+                             NOTIFY_URGENCY_NORMAL,
                              NOTIFICATION_PRIVACY_SYSTEM,
                              &manager->notification_ups_discharging);
         notify_notification_set_timeout (manager->notification_ups_discharging,
@@ -839,6 +840,7 @@ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
         /* create a new notification */
         create_notification (title, message,
                              "battery-low-symbolic",
+                             NOTIFY_URGENCY_NORMAL,
                              NOTIFICATION_PRIVACY_SYSTEM,
                              &manager->notification_low);
         notify_notification_set_timeout (manager->notification_low,
@@ -915,6 +917,7 @@ engine_charge_critical (GsdPowerManager *manager, UpDevice *device)
         /* create a new notification */
         create_notification (title, message,
                              "battery-caution-symbolic",
+                             NOTIFY_URGENCY_CRITICAL,
                              NOTIFICATION_PRIVACY_SYSTEM,
                              &manager->notification_low);
         notify_notification_set_timeout (manager->notification_low,
@@ -1010,6 +1013,7 @@ engine_charge_action (GsdPowerManager *manager, UpDevice *device)
         /* create a new notification */
         create_notification (title, message,
                              "battery-action-symbolic",
+                             NOTIFY_URGENCY_CRITICAL,
                              NOTIFICATION_PRIVACY_SYSTEM,
                              &manager->notification_low);
         notify_notification_set_timeout (manager->notification_low,
@@ -2487,17 +2491,17 @@ show_sleep_warning (GsdPowerManager *manager)
         switch (manager->sleep_action_type) {
         case GSD_POWER_ACTION_LOGOUT:
                 create_notification (_("Automatic Logout"), _("You will soon log out because of inactivity"),
-                                     NULL, NOTIFICATION_PRIVACY_USER,
+                                     NULL, NOTIFY_URGENCY_CRITICAL, NOTIFICATION_PRIVACY_USER,
                                      &manager->notification_sleep_warning);
                 break;
         case GSD_POWER_ACTION_SUSPEND:
                 create_notification (_("Automatic Suspend"), _("Suspending soon because of inactivity"),
-                                     NULL, NOTIFICATION_PRIVACY_SYSTEM,
+                                     NULL, NOTIFY_URGENCY_CRITICAL, NOTIFICATION_PRIVACY_SYSTEM,
                                      &manager->notification_sleep_warning);
                 break;
         case GSD_POWER_ACTION_HIBERNATE:
                 create_notification (_("Automatic Hibernation"), _("Suspending soon because of inactivity"),
-                                     NULL, NOTIFICATION_PRIVACY_SYSTEM,
+                                     NULL, NOTIFY_URGENCY_CRITICAL, NOTIFICATION_PRIVACY_SYSTEM,
                                      &manager->notification_sleep_warning);
                 break;
         default:
