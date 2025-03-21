@@ -76,7 +76,7 @@ static const gchar introspection_xml[] =
 
 struct _GsdWacomManager
 {
-        GApplication parent;
+        GsdApplication parent;
 
         guint start_idle_id;
         GdkSeat *seat;
@@ -107,7 +107,7 @@ static void     gsd_wacom_manager_shutdown    (GApplication         *app);
 static gboolean is_opaque_tablet (GsdWacomManager *manager,
                                   GdkDevice       *device);
 
-G_DEFINE_TYPE (GsdWacomManager, gsd_wacom_manager, G_TYPE_APPLICATION)
+G_DEFINE_TYPE (GsdWacomManager, gsd_wacom_manager, GSD_TYPE_APPLICATION)
 
 static GVariant *
 map_tablet_mapping (GVariant *value, GVariant *old_default, GVariant *new_default)

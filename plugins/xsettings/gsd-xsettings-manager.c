@@ -275,7 +275,7 @@ struct _FixedEntry {
 
 struct _GsdXSettingsManager
 {
-        GApplication       parent;
+        GsdApplication     parent;
 
         guint              start_idle_id;
         XSettingsManager  *manager;
@@ -316,7 +316,7 @@ static void     gsd_xsettings_manager_finalize    (GObject                  *obj
 
 static void     register_manager_dbus             (GsdXSettingsManager *manager);
 
-G_DEFINE_TYPE (GsdXSettingsManager, gsd_xsettings_manager, G_TYPE_APPLICATION)
+G_DEFINE_TYPE (GsdXSettingsManager, gsd_xsettings_manager, GSD_TYPE_APPLICATION)
 
 static void
 translate_bool_int (GsdXSettingsManager *manager,

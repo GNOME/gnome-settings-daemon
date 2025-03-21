@@ -20,13 +20,13 @@
 #ifndef __GSD_SHARING_MANAGER_H
 #define __GSD_SHARING_MANAGER_H
 
-#include <gio/gio.h>
+#include "gsd-application.h"
 
 G_BEGIN_DECLS
 
 #define GSD_TYPE_SHARING_MANAGER         (gsd_sharing_manager_get_type ())
 
-G_DECLARE_FINAL_TYPE (GsdSharingManager, gsd_sharing_manager, GSD, SHARING_MANAGER, GApplication)
+G_DECLARE_FINAL_TYPE (GsdSharingManager, gsd_sharing_manager, GSD, SHARING_MANAGER, GsdApplication)
 
 G_END_DECLS
 

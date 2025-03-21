@@ -62,7 +62,7 @@
 
 struct _GsdRfkillManager
 {
-        GApplication             parent;
+        GsdApplication           parent;
 
         GDBusNodeInfo           *introspection_data;
         guint                    name_id;
@@ -122,7 +122,7 @@ static void     gsd_rfkill_manager_init        (GsdRfkillManager      *rfkill_ma
 static void     gsd_rfkill_manager_startup     (GApplication          *app);
 static void     gsd_rfkill_manager_shutdown    (GApplication          *app);
 
-G_DEFINE_TYPE (GsdRfkillManager, gsd_rfkill_manager, G_TYPE_APPLICATION)
+G_DEFINE_TYPE (GsdRfkillManager, gsd_rfkill_manager, GSD_TYPE_APPLICATION)
 
 static void
 gsd_rfkill_manager_class_init (GsdRfkillManagerClass *klass)

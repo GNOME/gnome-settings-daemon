@@ -37,7 +37,7 @@
 
 struct _GsdA11ySettingsManager
 {
-        GApplication parent;
+        GsdApplication parent;
 
         GSettings *interface_settings;
         GSettings *a11y_apps_settings;
@@ -50,7 +50,7 @@ enum {
 static void     gsd_a11y_settings_manager_class_init  (GsdA11ySettingsManagerClass *klass);
 static void     gsd_a11y_settings_manager_init        (GsdA11ySettingsManager      *a11y_settings_manager);
 
-G_DEFINE_TYPE (GsdA11ySettingsManager, gsd_a11y_settings_manager, G_TYPE_APPLICATION)
+G_DEFINE_TYPE (GsdA11ySettingsManager, gsd_a11y_settings_manager, GSD_TYPE_APPLICATION)
 
 static void
 apps_settings_changed (GSettings              *settings,

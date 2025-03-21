@@ -39,7 +39,7 @@
 
 struct _GsdSoundManager
 {
-        GApplication parent;
+        GsdApplication parent;
 
         GSettings *settings;
         GList     *monitors;
@@ -49,7 +49,7 @@ struct _GsdSoundManager
 static void gsd_sound_manager_class_init (GsdSoundManagerClass *klass);
 static void gsd_sound_manager_init (GsdSoundManager *sound_manager);
 
-G_DEFINE_TYPE (GsdSoundManager, gsd_sound_manager, G_TYPE_APPLICATION)
+G_DEFINE_TYPE (GsdSoundManager, gsd_sound_manager, GSD_TYPE_APPLICATION)
 
 static void
 sample_info_cb (pa_context *c, const pa_sample_info *i, int eol, void *userdata)

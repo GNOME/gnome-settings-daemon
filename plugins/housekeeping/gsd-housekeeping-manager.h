@@ -20,13 +20,13 @@
 #ifndef __GSD_HOUSEKEEPING_MANAGER_H
 #define __GSD_HOUSEKEEPING_MANAGER_H
 
-#include <gio/gio.h>
+#include "gsd-application.h"
 
 G_BEGIN_DECLS
 
 #define GSD_TYPE_HOUSEKEEPING_MANAGER         (gsd_housekeeping_manager_get_type ())
 
-G_DECLARE_FINAL_TYPE (GsdHousekeepingManager, gsd_housekeeping_manager, GSD, HOUSEKEEPING_MANAGER, GApplication)
+G_DECLARE_FINAL_TYPE (GsdHousekeepingManager, gsd_housekeeping_manager, GSD, HOUSEKEEPING_MANAGER, GsdApplication)
 
 G_END_DECLS
 

@@ -78,7 +78,7 @@ ippNextAttribute (ipp_t *ipp)
 
 struct _GsdPrintNotificationsManager
 {
-        GApplication                  parent;
+        GsdApplication                parent;
 
         GDBusConnection              *cups_bus_connection;
         gint                          subscription_id;
@@ -103,7 +103,7 @@ static void     gsd_print_notifications_manager_init        (GsdPrintNotificatio
 static gboolean cups_connection_test                        (gpointer                           user_data);
 static gboolean process_new_notifications                   (gpointer                           user_data);
 
-G_DEFINE_TYPE (GsdPrintNotificationsManager, gsd_print_notifications_manager, G_TYPE_APPLICATION)
+G_DEFINE_TYPE (GsdPrintNotificationsManager, gsd_print_notifications_manager, GSD_TYPE_APPLICATION)
 
 static const char *
 password_cb (const char *prompt,

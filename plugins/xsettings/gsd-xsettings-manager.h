@@ -20,13 +20,13 @@
 #ifndef __GSD_XSETTINGS_MANAGER_H
 #define __GSD_XSETTINGS_MANAGER_H
 
-#include <gio/gio.h>
+#include "gsd-application.h"
 
 G_BEGIN_DECLS
 
 #define GSD_TYPE_XSETTINGS_MANAGER         (gsd_xsettings_manager_get_type ())
 
-G_DECLARE_FINAL_TYPE (GsdXSettingsManager, gsd_xsettings_manager, GSD, XSETTINGS_MANAGER, GApplication)
+G_DECLARE_FINAL_TYPE (GsdXSettingsManager, gsd_xsettings_manager, GSD, XSETTINGS_MANAGER, GsdApplication)
 
 G_END_DECLS
 

@@ -32,7 +32,7 @@
 
 struct _GsdDatetimeManager
 {
-        GApplication parent;
+        GsdApplication parent;
 
         GSettings *settings;
         GsdTimezoneMonitor *timezone_monitor;
@@ -42,7 +42,7 @@ struct _GsdDatetimeManager
 static void gsd_datetime_manager_class_init (GsdDatetimeManagerClass *klass);
 static void gsd_datetime_manager_init (GsdDatetimeManager *manager);
 
-G_DEFINE_TYPE (GsdDatetimeManager, gsd_datetime_manager, G_TYPE_APPLICATION)
+G_DEFINE_TYPE (GsdDatetimeManager, gsd_datetime_manager, GSD_TYPE_APPLICATION)
 
 static void
 notification_closed_cb (NotifyNotification *n,

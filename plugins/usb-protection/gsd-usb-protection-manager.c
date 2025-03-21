@@ -68,7 +68,7 @@
 
 struct _GsdUsbProtectionManager
 {
-        GApplication        parent;
+        GsdApplication      parent;
         guint               start_idle_id;
         GDBusNodeInfo      *introspection_data;
         GSettings          *settings;
@@ -102,7 +102,7 @@ typedef enum {
         POLICY_APPLIED_ATTRIBUTES
 } UsbGuardPolicyApplied;
 
-G_DEFINE_TYPE (GsdUsbProtectionManager, gsd_usb_protection_manager, G_TYPE_APPLICATION)
+G_DEFINE_TYPE (GsdUsbProtectionManager, gsd_usb_protection_manager, GSD_TYPE_APPLICATION)
 
 #define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
 #define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"

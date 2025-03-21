@@ -20,13 +20,13 @@
 #ifndef __GSD_PRINT_NOTIFICATIONS_MANAGER_H
 #define __GSD_PRINT_NOTIFICATIONS_MANAGER_H
 
-#include <gio/gio.h>
+#include "gsd-application.h"
 
 G_BEGIN_DECLS
 
 #define GSD_TYPE_PRINT_NOTIFICATIONS_MANAGER         (gsd_print_notifications_manager_get_type ())
 
-G_DECLARE_FINAL_TYPE (GsdPrintNotificationsManager, gsd_print_notifications_manager, GSD, PRINT_NOTIFICATIONS_MANAGER, GApplication)
+G_DECLARE_FINAL_TYPE (GsdPrintNotificationsManager, gsd_print_notifications_manager, GSD, PRINT_NOTIFICATIONS_MANAGER, GsdApplication)
 
 G_END_DECLS
 

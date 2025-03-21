@@ -137,7 +137,7 @@ typedef enum {
 
 struct _GsdPowerManager
 {
-        GApplication             parent;
+        GsdApplication           parent;
 
         /* D-Bus */
         GsdSessionManager       *session;
@@ -252,7 +252,7 @@ static void      register_manager_dbus (GsdPowerManager *manager);
 
 static void      initable_iface_init (GInitableIface *initable_iface);
 
-G_DEFINE_TYPE_WITH_CODE (GsdPowerManager, gsd_power_manager, G_TYPE_APPLICATION,
+G_DEFINE_TYPE_WITH_CODE (GsdPowerManager, gsd_power_manager, GSD_TYPE_APPLICATION,
                          G_IMPLEMENT_INTERFACE (G_TYPE_INITABLE, initable_iface_init))
 
 GQuark

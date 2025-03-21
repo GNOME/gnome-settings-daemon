@@ -63,7 +63,7 @@ typedef struct {
 
 struct _GsdSharingManager
 {
-        GApplication             parent;
+        GsdApplication           parent;
 
         GDBusNodeInfo           *introspection_data;
         guint                    name_id;
@@ -123,7 +123,7 @@ static void     gsd_sharing_manager_start_service (GsdSharingManager *manager,
 static void     gsd_sharing_manager_stop_service (GsdSharingManager *manager,
                                                   const char        *service_name);
 
-G_DEFINE_TYPE (GsdSharingManager, gsd_sharing_manager, G_TYPE_APPLICATION)
+G_DEFINE_TYPE (GsdSharingManager, gsd_sharing_manager, GSD_TYPE_APPLICATION)
 
 static const char * const configurable_services[] = {
         "rygel",

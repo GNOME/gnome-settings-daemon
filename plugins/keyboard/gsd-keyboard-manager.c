@@ -71,7 +71,7 @@
 
 struct _GsdKeyboardManager
 {
-        GApplication parent;
+        GsdApplication parent;
 
         guint      start_idle_id;
         GSettings *settings;
@@ -85,7 +85,7 @@ static void     gsd_keyboard_manager_init        (GsdKeyboardManager      *keybo
 
 static void     migrate_keyboard_settings (void);
 
-G_DEFINE_TYPE (GsdKeyboardManager, gsd_keyboard_manager, G_TYPE_APPLICATION)
+G_DEFINE_TYPE (GsdKeyboardManager, gsd_keyboard_manager, GSD_TYPE_APPLICATION)
 
 static void
 init_builder_with_sources (GVariantBuilder *builder,

@@ -22,14 +22,15 @@
 #define __GSD_SMARTCARD_MANAGER_H
 
 #include <gck/gck.h>
-#include <gio/gio.h>
+
+#include "gsd-application.h"
 
 G_BEGIN_DECLS
 
 #define GSD_TYPE_SMARTCARD_MANAGER         (gsd_smartcard_manager_get_type ())
 #define GSD_SMARTCARD_MANAGER_ERROR        (gsd_smartcard_manager_error_quark ())
 
-G_DECLARE_FINAL_TYPE (GsdSmartcardManager, gsd_smartcard_manager, GSD, SMARTCARD_MANAGER, GApplication)
+G_DECLARE_FINAL_TYPE (GsdSmartcardManager, gsd_smartcard_manager, GSD, SMARTCARD_MANAGER, GsdApplication)
 
 typedef enum
 {

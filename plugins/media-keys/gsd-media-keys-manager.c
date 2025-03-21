@@ -237,7 +237,7 @@ static void     keys_sync_queue                    (GsdMediaKeysManager *manager
 static void     keys_sync_continue                 (GsdMediaKeysManager *manager);
 
 
-G_DEFINE_TYPE_WITH_PRIVATE (GsdMediaKeysManager, gsd_media_keys_manager, G_TYPE_APPLICATION)
+G_DEFINE_TYPE_WITH_PRIVATE (GsdMediaKeysManager, gsd_media_keys_manager, GSD_TYPE_APPLICATION)
 
 static void
 media_key_unref (MediaKey *key)

@@ -20,14 +20,14 @@
 #ifndef __GSD_POWER_MANAGER_H
 #define __GSD_POWER_MANAGER_H
 
-#include <gio/gio.h>
+#include "gsd-application.h"
 
 G_BEGIN_DECLS
 
 #define GSD_TYPE_POWER_MANAGER         (gsd_power_manager_get_type ())
 #define GSD_POWER_MANAGER_ERROR        (gsd_power_manager_error_quark ())
 
-G_DECLARE_FINAL_TYPE (GsdPowerManager, gsd_power_manager, GSD, POWER_MANAGER, GApplication)
+G_DECLARE_FINAL_TYPE (GsdPowerManager, gsd_power_manager, GSD, POWER_MANAGER, GsdApplication)
 
 enum
 {

@@ -130,7 +130,7 @@ static const gchar introspection_xml2[] =
 
 struct _GsdScreensaverProxyManager
 {
-        GApplication             parent;
+        GsdApplication           parent;
 
         GsdSessionManager       *session;
         GDBusConnection         *connection;
@@ -146,7 +146,7 @@ struct _GsdScreensaverProxyManager
 static void     gsd_screensaver_proxy_manager_class_init  (GsdScreensaverProxyManagerClass *klass);
 static void     gsd_screensaver_proxy_manager_init        (GsdScreensaverProxyManager      *screensaver_proxy_manager);
 
-G_DEFINE_TYPE (GsdScreensaverProxyManager, gsd_screensaver_proxy_manager, G_TYPE_APPLICATION)
+G_DEFINE_TYPE (GsdScreensaverProxyManager, gsd_screensaver_proxy_manager, GSD_TYPE_APPLICATION)
 
 static void
 name_vanished_cb (GDBusConnection            *connection,

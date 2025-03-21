@@ -21,12 +21,12 @@
 #ifndef __GSD_COLOR_MANAGER_H
 #define __GSD_COLOR_MANAGER_H
 
-#include <gio/gio.h>
+#include "gsd-application.h"
 
 G_BEGIN_DECLS
 
 #define GSD_TYPE_COLOR_MANAGER         (gsd_color_manager_get_type ())
-G_DECLARE_FINAL_TYPE (GsdColorManager, gsd_color_manager, GSD, COLOR_MANAGER, GApplication)
+G_DECLARE_FINAL_TYPE (GsdColorManager, gsd_color_manager, GSD, COLOR_MANAGER, GsdApplication)
 
 G_END_DECLS
 

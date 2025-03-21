@@ -45,7 +45,7 @@
 
 struct _GsdWwanManager
 {
-        GApplication  parent;
+        GsdApplication parent;
 
         guint      start_idle_id;
         gboolean   unlock;
@@ -76,7 +76,7 @@ static GParamSpec *props[PROP_LAST_PROP];
 #define GSD_WWAN_SCHEMA_DIR "org.gnome.settings-daemon.plugins.wwan"
 #define GSD_WWAN_SCHEMA_UNLOCK_SIM "unlock-sim"
 
-G_DEFINE_TYPE (GsdWwanManager, gsd_wwan_manager, G_TYPE_APPLICATION)
+G_DEFINE_TYPE (GsdWwanManager, gsd_wwan_manager, GSD_TYPE_APPLICATION)
 
 static void wwan_manager_ensure_unlocking   (GsdWwanManager *self);
 static void wwan_manager_unlock_device      (CcWwanDevice   *device,

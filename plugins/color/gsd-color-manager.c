@@ -55,7 +55,7 @@ static const gchar introspection_xml[] =
 
 struct _GsdColorManager
 {
-        GApplication       parent;
+        GsdApplication     parent;
 
         /* D-Bus */
         guint              name_id;
@@ -80,7 +80,7 @@ static void     gsd_color_manager_finalize    (GObject             *object);
 
 static void     register_manager_dbus (GsdColorManager *manager);
 
-G_DEFINE_TYPE (GsdColorManager, gsd_color_manager, G_TYPE_APPLICATION)
+G_DEFINE_TYPE (GsdColorManager, gsd_color_manager, GSD_TYPE_APPLICATION)
 
 static void
 gsd_color_manager_startup (GApplication *app)

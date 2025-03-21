@@ -36,7 +36,7 @@
 
 struct _GsdSmartcardManager
 {
-        GApplication parent;
+        GsdApplication parent;
 
         guint start_idle_id;
         GsdSmartcardService *service;
@@ -62,7 +62,7 @@ static void     log_out                           (GsdSmartcardManager *self);
 static void     on_smartcards_from_module_watched (GsdSmartcardManager *self,
                                                    GAsyncResult        *result,
                                                    gpointer             user_data);
-G_DEFINE_TYPE (GsdSmartcardManager, gsd_smartcard_manager, G_TYPE_APPLICATION)
+G_DEFINE_TYPE (GsdSmartcardManager, gsd_smartcard_manager, GSD_TYPE_APPLICATION)
 G_DEFINE_QUARK (gsd-smartcard-manager-error, gsd_smartcard_manager_error)
 G_LOCK_DEFINE_STATIC (gsd_smartcards_watch_tasks);
 

@@ -50,7 +50,7 @@ static const gchar introspection_xml[] =
 "</node>";
 
 struct _GsdHousekeepingManager {
-        GApplication parent;
+        GsdApplication parent;
 
         GSettings *settings;
         guint long_term_cb;
@@ -67,7 +67,7 @@ struct _GsdHousekeepingManager {
 static void     gsd_housekeeping_manager_class_init  (GsdHousekeepingManagerClass *klass);
 static void     gsd_housekeeping_manager_init        (GsdHousekeepingManager      *housekeeping_manager);
 
-G_DEFINE_TYPE (GsdHousekeepingManager, gsd_housekeeping_manager, G_TYPE_APPLICATION)
+G_DEFINE_TYPE (GsdHousekeepingManager, gsd_housekeeping_manager, GSD_TYPE_APPLICATION)
 
 typedef struct {
         GDateTime *now;  /* (owned) */

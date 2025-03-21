@@ -20,12 +20,12 @@
 #ifndef __GSD_DATETIME_MANAGER_H
 #define __GSD_DATETIME_MANAGER_H
 
-#include <gio/gio.h>
+#include "gsd-application.h"
 
 G_BEGIN_DECLS
 
 #define GSD_TYPE_DATETIME_MANAGER         (gsd_datetime_manager_get_type ())
-G_DECLARE_FINAL_TYPE (GsdDatetimeManager, gsd_datetime_manager, GSD, DATETIME_MANAGER, GApplication)
+G_DECLARE_FINAL_TYPE (GsdDatetimeManager, gsd_datetime_manager, GSD, DATETIME_MANAGER, GsdApplication)
 
 G_END_DECLS
 
