@@ -945,19 +945,29 @@ cancel_pending_wait_tasks (GsdSharingManager *manager)
 }
 
 static void
+gsd_sharing_manager_pre_shutdown (GsdApplication *app)
+{
+        GsdSharingManager *manager = GSD_SHARING_MANAGER (app);
+
+        g_debug ("Pre-shutdown on sharing manager");
+
+        cancel_pending_wait_tasks (manager);
+
+        if (manager->sharing_status != GSD_SHARING_STATUS_OFFLINE &&
+            manager->connection != NULL) {
+                manager->sharing_status = GSD_SHARING_STATUS_OFFLINE;
+                gsd_sharing_manager_sync_services (manager);
+        }
+
+        GSD_APPLICATION_CLASS (gsd_sharing_manager_parent_class)->pre_shutdown (app);
+}
+
+static void
 gsd_sharing_manager_shutdown (GApplication *app)
 {
         GsdSharingManager *manager = GSD_SHARING_MANAGER (app);
 
         g_debug ("Stopping sharing manager");
-
-        cancel_pending_wait_tasks (manager);
-
-        if (manager->sharing_status == GSD_SHARING_STATUS_AVAILABLE &&
-            manager->connection != NULL) {
-                manager->sharing_status = GSD_SHARING_STATUS_OFFLINE;
-                gsd_sharing_manager_sync_services (manager);
-        }
 
         if (manager->cancellable) {
                 g_cancellable_cancel (manager->cancellable);
@@ -987,12 +997,15 @@ static void
 gsd_sharing_manager_class_init (GsdSharingManagerClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
+        GsdApplicationClass *gsd_application_class = GSD_APPLICATION_CLASS (klass);
         GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
 
         object_class->finalize = gsd_sharing_manager_finalize;
 
         application_class->startup = gsd_sharing_manager_startup;
         application_class->shutdown = gsd_sharing_manager_shutdown;
+
+        gsd_application_class->pre_shutdown = gsd_sharing_manager_pre_shutdown;
 }
 
 static void
