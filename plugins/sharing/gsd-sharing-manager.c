@@ -147,9 +147,9 @@ handle_unit_cb (GObject      *source_object,
                 GAsyncResult *res,
                 gpointer      user_data)
 {
-        GError *error = NULL;
-        GVariant *ret;
-        const char *operation = user_data;
+        g_autoptr (GError) error = NULL;
+        g_autoptr (GVariant) ret = NULL;
+        GsdSharingManager *manager = user_data;
 
         ret = g_dbus_connection_call_finish (G_DBUS_CONNECTION (source_object),
                                              res, &error);
@@ -158,13 +158,10 @@ handle_unit_cb (GObject      *source_object,
 
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED) &&
                     g_strcmp0 (remote_error, "org.freedesktop.systemd1.NoSuchUnit") != 0)
-                        g_warning ("Failed to %s service: %s", operation, error->message);
-                g_error_free (error);
-                return;
+                        g_warning ("Failed to handle service change: %s", error->message);
         }
 
-        g_variant_unref (ret);
-
+        g_application_release (G_APPLICATION (manager));
 }
 
 static void
@@ -173,6 +170,8 @@ gsd_sharing_manager_handle_service (GsdSharingManager   *manager,
                                     const char          *service_name)
 {
         char *service_file;
+
+        g_application_hold (G_APPLICATION (manager));
 
         service_file = g_strdup_printf ("%s.service", service_name);
         g_dbus_connection_call (manager->connection,
@@ -186,7 +185,7 @@ gsd_sharing_manager_handle_service (GsdSharingManager   *manager,
                                 -1,
                                 manager->cancellable,
                                 handle_unit_cb,
-                                (gpointer) method);
+                                (gpointer) manager);
         g_free (service_file);
 }
 
