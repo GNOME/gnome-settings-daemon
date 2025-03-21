@@ -13,6 +13,7 @@
 
 #include "config.h"
 
+#include "gsd-application.h"
 #include "gsd-main-helper.h"
 
 #include <stdlib.h>
@@ -70,19 +71,19 @@ register_timeout (GApplication *manager)
 {
         if (timeout > 0) {
                 guint id;
-                id = g_timeout_add_seconds (timeout, (GSourceFunc) g_application_release, manager);
-                g_source_set_name_by_id (id, "[gnome-settings-daemon] g_application_release");
+                id = g_timeout_add_seconds (timeout, (GSourceFunc) gsd_application_pre_shutdown, manager);
+                g_source_set_name_by_id (id, "[gnome-settings-daemon] gsd_application_pre_shutdown");
         }
 }
 
 static gboolean
 handle_sigterm (gpointer user_data)
 {
-  GApplication *manager = user_data;
+  GsdApplication *manager = user_data;
 
   g_debug ("Got SIGTERM; shutting down ...");
 
-  g_application_release (manager);
+  gsd_application_pre_shutdown (manager);
 
   return G_SOURCE_REMOVE;
 }
@@ -115,7 +116,7 @@ client_proxy_signal_cb (GDBusProxy *proxy,
                         GVariant *parameters,
                         gpointer user_data)
 {
-        GApplication *manager = user_data;
+        GsdApplication *manager = user_data;
 
         if (g_strcmp0 (signal_name, "QueryEndSession") == 0) {
                 g_debug ("Got QueryEndSession signal");
@@ -125,7 +126,7 @@ client_proxy_signal_cb (GDBusProxy *proxy,
                 respond_to_end_session (proxy);
         } else if (g_strcmp0 (signal_name, "Stop") == 0) {
                 g_debug ("Got Stop signal");
-                g_application_release (manager);
+                gsd_application_pre_shutdown (manager);
         }
 }
 
