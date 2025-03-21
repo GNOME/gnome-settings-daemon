@@ -7,6 +7,7 @@ sources = files(
 )
 
 main_helper_sources = files(
+  'gsd-application.c',
   'gsd-main-helper.c',
 )
 
