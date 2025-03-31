@@ -441,7 +441,6 @@ gsd_backlight_mutter_find_monitor (GsdBacklight *backlight,
 /**
  * gsd_backlight_get_brightness
  * @backlight: a #GsdBacklight
- * @target: Output parameter for the value the target value of pending set operations.
  *
  * The backlight value returns the last known stable value. This value will
  * only update once all pending operations to set a new value have finished.
@@ -456,15 +455,34 @@ gsd_backlight_mutter_find_monitor (GsdBacklight *backlight,
  * Returns: The last stable backlight value or -1 if the internal display is disabled.
  **/
 gint
-gsd_backlight_get_brightness (GsdBacklight *backlight, gint *target)
+gsd_backlight_get_brightness (GsdBacklight *backlight)
 {
         if (backlight->builtin_display_disabled)
                 return -1;
 
-        if (target)
-                *target = ABS_TO_PERCENTAGE (backlight->brightness_min, backlight->brightness_max, backlight->brightness_target);
-
         return ABS_TO_PERCENTAGE (backlight->brightness_min, backlight->brightness_max, backlight->brightness_val);
+}
+
+/**
+ * gsd_backlight_get_target_brightness
+ * @backlight: a #GsdBacklight
+ *
+ * This returns the target value of the pending operations, which might differ
+ * from the last known stable value, but is identical to the last value set in
+ * the async setter.
+ *
+ * If the internal display is detected as disabled, then the function will
+ * instead return -1.
+ *
+ * Returns: The current target backlight value or -1 if the internal display is disabled.
+ **/
+gint
+gsd_backlight_get_target_brightness (GsdBacklight *backlight)
+{
+        if (backlight->builtin_display_disabled)
+                return -1;
+
+        return ABS_TO_PERCENTAGE (backlight->brightness_min, backlight->brightness_max, backlight->brightness_target);
 }
 
 static void
@@ -547,7 +565,7 @@ gsd_backlight_set_brightness_val_async (GsdBacklight *backlight,
 
                 backlight->brightness_val = value;
                 g_object_notify_by_pspec (G_OBJECT (backlight), props[PROP_BRIGHTNESS]);
-                g_task_return_int (task, gsd_backlight_get_brightness (backlight, NULL));
+                g_task_return_int (task, gsd_backlight_get_brightness (backlight));
                 g_object_unref (task);
 
                 return;
@@ -775,7 +793,7 @@ gsd_backlight_get_property (GObject    *object,
 
         switch (prop_id) {
         case PROP_BRIGHTNESS:
-                g_value_set_int (value, gsd_backlight_get_brightness (backlight, NULL));
+                g_value_set_int (value, gsd_backlight_get_brightness (backlight));
                 break;
 
         default:

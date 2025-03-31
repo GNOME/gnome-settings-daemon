@@ -29,8 +29,9 @@ G_BEGIN_DECLS
 #define GSD_TYPE_BACKLIGHT gsd_backlight_get_type ()
 G_DECLARE_FINAL_TYPE (GsdBacklight, gsd_backlight, GSD, BACKLIGHT, GObject);
 
-gint gsd_backlight_get_brightness        (GsdBacklight         *backlight,
-                                          gint                 *target);
+gint gsd_backlight_get_brightness        (GsdBacklight         *backlight);
+
+gint gsd_backlight_get_target_brightness (GsdBacklight         *backlight);
 
 void gsd_backlight_set_brightness_async  (GsdBacklight         *backlight,
                                           gint                  percentage,

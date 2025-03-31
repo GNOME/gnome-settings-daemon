@@ -1640,7 +1640,7 @@ static void
 backlight_notify_brightness_cb (GsdPowerManager *manager, GParamSpec *pspec, GsdBacklight *backlight)
 {
         backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN,
-                                      gsd_backlight_get_brightness (backlight, NULL), NULL);
+                                      gsd_backlight_get_brightness (backlight), NULL);
 }
 
 static void
@@ -1654,7 +1654,7 @@ display_backlight_dim (GsdPowerManager *manager,
 
         /* Fetch the current target brightness (not the actual display brightness)
          * and return if it is already lower than the idle percentage. */
-        gsd_backlight_get_brightness (manager->backlight, &brightness);
+        brightness = gsd_backlight_get_target_brightness (manager->backlight);
         if (brightness < idle_percentage)
                 return;
 
@@ -3120,7 +3120,7 @@ gsd_power_manager_startup (GApplication *app)
            (likely, considering that to get here we need a reply from gnome-shell)
         */
         if (manager->backlight) {
-                manager->ambient_percentage_old = gsd_backlight_get_brightness (manager->backlight, NULL);
+                manager->ambient_percentage_old = gsd_backlight_get_brightness (manager->backlight);
                 backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN,
                                               manager->ambient_percentage_old, NULL);
         } else {
@@ -3404,7 +3404,7 @@ handle_get_property_other (GsdPowerManager *manager,
                 }
 
                 if (manager->backlight)
-                        value = gsd_backlight_get_brightness (manager->backlight, NULL);
+                        value = gsd_backlight_get_brightness (manager->backlight);
                 else
                         value = -1;
 
