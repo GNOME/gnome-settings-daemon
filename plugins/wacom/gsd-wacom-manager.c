@@ -82,8 +82,6 @@ struct _GsdWacomManager
         GdkSeat *seat;
         guint device_added_id;
 
-        GsdShell *shell_proxy;
-
         gchar *machine_id;
 
 #if HAVE_WACOM
@@ -502,8 +500,6 @@ gsd_wacom_manager_finalize (GObject *object)
         wacom_manager = GSD_WACOM_MANAGER (object);
 
         g_return_if_fail (wacom_manager != NULL);
-
-        g_clear_object (&wacom_manager->shell_proxy);
 
 #if HAVE_WACOM
         libwacom_database_destroy (wacom_manager->wacom_db);
