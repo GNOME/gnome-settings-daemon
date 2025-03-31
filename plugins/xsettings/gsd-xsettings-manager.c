@@ -310,7 +310,6 @@ struct _GsdXSettingsManager
 
 static void     gsd_xsettings_manager_class_init  (GsdXSettingsManagerClass *klass);
 static void     gsd_xsettings_manager_init        (GsdXSettingsManager      *xsettings_manager);
-static void     gsd_xsettings_manager_finalize    (GObject                  *object);
 static gboolean gsd_xsettings_manager_dbus_register (GApplication    *app,
                                                      GDBusConnection *connection,
                                                      const char     *object_path,
@@ -1585,10 +1584,8 @@ gsd_xsettings_manager_shutdown (GApplication *app)
 static void
 gsd_xsettings_manager_class_init (GsdXSettingsManagerClass *klass)
 {
-        GObjectClass *object_class = G_OBJECT_CLASS (klass);
         GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
 
-        object_class->finalize = gsd_xsettings_manager_finalize;
         application_class->startup = gsd_xsettings_manager_startup;
         application_class->shutdown = gsd_xsettings_manager_shutdown;
         application_class->dbus_register = gsd_xsettings_manager_dbus_register;
@@ -1598,21 +1595,6 @@ gsd_xsettings_manager_class_init (GsdXSettingsManagerClass *klass)
 static void
 gsd_xsettings_manager_init (GsdXSettingsManager *manager)
 {
-}
-
-static void
-gsd_xsettings_manager_finalize (GObject *object)
-{
-        GsdXSettingsManager *xsettings_manager;
-
-        g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_XSETTINGS_MANAGER (object));
-
-        xsettings_manager = GSD_XSETTINGS_MANAGER (object);
-
-        g_return_if_fail (xsettings_manager != NULL);
-
-        G_OBJECT_CLASS (gsd_xsettings_manager_parent_class)->finalize (object);
 }
 
 static GVariant *
