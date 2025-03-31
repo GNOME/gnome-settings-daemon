@@ -57,9 +57,6 @@ struct _GsdHousekeepingManager {
         guint short_term_cb;
 
         GDBusNodeInfo   *introspection_data;
-        GDBusConnection *connection;
-        GCancellable    *bus_cancellable;
-        guint            name_id;
 
         GsdSystemdNotify *systemd_notify;
 };
@@ -366,58 +363,6 @@ static const GDBusInterfaceVTable interface_vtable =
 };
 
 static void
-on_bus_gotten (GObject                *source_object,
-               GAsyncResult           *res,
-               GsdHousekeepingManager *manager)
-{
-        GDBusConnection *connection;
-        GError *error = NULL;
-        GDBusInterfaceInfo **infos;
-        int i;
-
-        connection = g_bus_get_finish (res, &error);
-        if (connection == NULL) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-                        g_warning ("Could not get session bus: %s", error->message);
-                g_error_free (error);
-                return;
-        }
-        manager->connection = connection;
-
-        infos = manager->introspection_data->interfaces;
-        for (i = 0; infos[i] != NULL; i++) {
-                g_dbus_connection_register_object (connection,
-                                                   GSD_HOUSEKEEPING_DBUS_PATH,
-                                                   infos[i],
-                                                   &interface_vtable,
-                                                   manager,
-                                                   NULL,
-                                                   NULL);
-        }
-
-        manager->name_id = g_bus_own_name_on_connection (connection,
-                                                               "org.gnome.SettingsDaemon.Housekeeping",
-                                                               G_BUS_NAME_OWNER_FLAGS_NONE,
-                                                               NULL,
-                                                               NULL,
-                                                               NULL,
-                                                               NULL);
-}
-
-static void
-register_manager_dbus (GsdHousekeepingManager *manager)
-{
-        manager->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
-        g_assert (manager->introspection_data != NULL);
-        manager->bus_cancellable = g_cancellable_new ();
-
-        g_bus_get (G_BUS_TYPE_SESSION,
-                   manager->bus_cancellable,
-                   (GAsyncReadyCallback) on_bus_gotten,
-                   manager);
-}
-
-static void
 gsd_housekeeping_manager_startup (GApplication *app)
 {
         GsdHousekeepingManager *manager = GSD_HOUSEKEEPING_MANAGER (app);
@@ -425,8 +370,6 @@ gsd_housekeeping_manager_startup (GApplication *app)
 
         g_debug ("Starting housekeeping manager");
         gnome_settings_profile_start (NULL);
-
-        register_manager_dbus (manager);
 
         /* Create ~/.local/ as early as possible */
         (void) g_mkdir_with_parents(g_get_user_data_dir (), 0700);
@@ -466,15 +409,6 @@ gsd_housekeeping_manager_shutdown (GApplication *app)
 
         g_debug ("Stopping housekeeping manager");
 
-        if (manager->name_id != 0) {
-                g_bus_unown_name (manager->name_id);
-                manager->name_id = 0;
-        }
-
-        g_clear_object (&manager->bus_cancellable);
-        g_clear_pointer (&manager->introspection_data, g_dbus_node_info_unref);
-        g_clear_object (&manager->connection);
-
         g_clear_object (&manager->systemd_notify);
 
         if (manager->short_term_cb) {
@@ -501,6 +435,53 @@ gsd_housekeeping_manager_shutdown (GApplication *app)
         G_APPLICATION_CLASS (gsd_housekeeping_manager_parent_class)->shutdown (app);
 }
 
+static gboolean
+gsd_housekeeping_manager_dbus_register (GApplication    *app,
+                                        GDBusConnection *connection,
+                                        const char     *object_path,
+                                        GError         **error)
+{
+        GsdHousekeepingManager *manager = GSD_HOUSEKEEPING_MANAGER (app);
+        GDBusInterfaceInfo **infos;
+        int i;
+
+        if (!G_APPLICATION_CLASS (gsd_housekeeping_manager_parent_class)->dbus_register (app,
+                                                                                         connection,
+                                                                                         object_path,
+                                                                                         error))
+                return FALSE;
+
+        manager->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        g_assert (manager->introspection_data != NULL);
+
+        infos = manager->introspection_data->interfaces;
+        for (i = 0; infos[i] != NULL; i++) {
+                g_dbus_connection_register_object (connection,
+                                                   GSD_HOUSEKEEPING_DBUS_PATH,
+                                                   infos[i],
+                                                   &interface_vtable,
+                                                   manager,
+                                                   NULL,
+                                                   NULL);
+        }
+
+        return TRUE;
+}
+
+static void
+gsd_housekeeping_manager_dbus_unregister (GApplication    *app,
+                                   GDBusConnection *connection,
+                                   const char      *object_path)
+{
+        GsdHousekeepingManager *manager = GSD_HOUSEKEEPING_MANAGER (app);
+
+        g_clear_pointer (&manager->introspection_data, g_dbus_node_info_unref);
+
+        G_APPLICATION_CLASS (gsd_housekeeping_manager_parent_class)->dbus_unregister (app,
+                                                                                      connection,
+                                                                                      object_path);
+}
+
 static void
 gsd_housekeeping_manager_class_init (GsdHousekeepingManagerClass *klass)
 {
@@ -508,6 +489,8 @@ gsd_housekeeping_manager_class_init (GsdHousekeepingManagerClass *klass)
 
         application_class->startup = gsd_housekeeping_manager_startup;
         application_class->shutdown = gsd_housekeeping_manager_shutdown;
+        application_class->dbus_register = gsd_housekeeping_manager_dbus_register;
+        application_class->dbus_unregister = gsd_housekeeping_manager_dbus_unregister;
 
         notify_init ("gnome-settings-daemon");
 }

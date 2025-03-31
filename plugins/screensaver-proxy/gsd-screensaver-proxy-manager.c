@@ -133,8 +133,6 @@ struct _GsdScreensaverProxyManager
         GsdApplication           parent;
 
         GsdSessionManager       *session;
-        GDBusConnection         *connection;
-        GCancellable            *bus_cancellable;
         GDBusNodeInfo           *introspection_data;
         GDBusNodeInfo           *introspection_data2;
         guint                    name_id;
@@ -229,7 +227,7 @@ handle_method_call (GDBusConnection       *connection,
                 if (g_hash_table_lookup (manager->watch_ht, sender) == NULL) {
                         guint watch_id;
 
-                        watch_id = g_bus_watch_name_on_connection (manager->connection,
+                        watch_id = g_bus_watch_name_on_connection (connection,
                                                                    sender,
                                                                    G_BUS_NAME_WATCHER_FLAGS_NONE,
                                                                    NULL,
@@ -295,77 +293,12 @@ static const GDBusInterfaceVTable interface_vtable =
 };
 
 static void
-on_bus_gotten (GObject                    *source_object,
-               GAsyncResult               *res,
-               GsdScreensaverProxyManager *manager)
-{
-        GDBusConnection *connection;
-        GDBusInterfaceInfo **infos;
-        GError *error = NULL;
-
-        if (manager->bus_cancellable == NULL ||
-            g_cancellable_is_cancelled (manager->bus_cancellable)) {
-                g_warning ("Operation has been cancelled, so not retrieving session bus");
-                return;
-        }
-
-        connection = g_bus_get_finish (res, &error);
-        if (connection == NULL) {
-                g_warning ("Could not get session bus: %s", error->message);
-                g_error_free (error);
-                return;
-        }
-        manager->connection = connection;
-        infos = manager->introspection_data->interfaces;
-        g_dbus_connection_register_object (connection,
-                                           GSD_SCREENSAVER_PROXY_DBUS_PATH,
-                                           infos[0],
-                                           &interface_vtable,
-                                           manager,
-                                           NULL,
-                                           NULL);
-        infos = manager->introspection_data2->interfaces;
-        g_dbus_connection_register_object (connection,
-                                           GSD_SCREENSAVER_PROXY_DBUS_PATH2,
-                                           infos[0],
-                                           &interface_vtable,
-                                           manager,
-                                           NULL,
-                                           NULL);
-
-        manager->name_id = g_bus_own_name_on_connection (manager->connection,
-                                                               GSD_SCREENSAVER_PROXY_DBUS_SERVICE,
-                                                               G_BUS_NAME_OWNER_FLAGS_NONE,
-                                                               NULL,
-                                                               NULL,
-                                                               NULL,
-                                                               NULL);
-}
-
-static void
-register_manager_dbus (GsdScreensaverProxyManager *manager)
-{
-        manager->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
-        manager->introspection_data2 = g_dbus_node_info_new_for_xml (introspection_xml2, NULL);
-        manager->bus_cancellable = g_cancellable_new ();
-        g_assert (manager->introspection_data != NULL);
-        g_assert (manager->introspection_data2 != NULL);
-
-        g_bus_get (G_BUS_TYPE_SESSION,
-                   manager->bus_cancellable,
-                   (GAsyncReadyCallback) on_bus_gotten,
-                   manager);
-}
-
-static void
 gsd_screensaver_proxy_manager_startup (GApplication *app)
 {
         GsdScreensaverProxyManager *manager = GSD_SCREENSAVER_PROXY_MANAGER (app);
 
         g_debug ("Starting screensaver-proxy manager");
         gnome_settings_profile_start (NULL);
-
-        register_manager_dbus (manager);
 
         manager->session =
                 gnome_settings_bus_get_session_proxy ();
@@ -393,20 +326,74 @@ gsd_screensaver_proxy_manager_shutdown (GApplication *app)
         g_clear_pointer (&manager->watch_ht, g_hash_table_destroy);
         g_clear_pointer (&manager->cookie_ht, g_hash_table_destroy);
 
-        g_clear_handle_id (&manager->name_id, g_bus_unown_name);
+        G_APPLICATION_CLASS (gsd_screensaver_proxy_manager_parent_class)->shutdown (app);
+}
 
-        g_clear_object (&manager->connection);
+static gboolean
+gsd_screensaver_proxy_manager_dbus_register (GApplication    *app,
+                                             GDBusConnection *connection,
+                                             const char     *object_path,
+                                             GError         **error)
+{
+        GsdScreensaverProxyManager *manager = GSD_SCREENSAVER_PROXY_MANAGER (app);
+        GDBusInterfaceInfo **infos;
 
-        if (manager->bus_cancellable != NULL) {
-                g_cancellable_cancel (manager->bus_cancellable);
-                g_clear_object (&manager->bus_cancellable);
-        }
+        if (!G_APPLICATION_CLASS (gsd_screensaver_proxy_manager_parent_class)->dbus_register (app,
+                                                                                              connection,
+                                                                                              object_path,
+                                                                                              error))
+                return FALSE;
+
+        manager->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        manager->introspection_data2 = g_dbus_node_info_new_for_xml (introspection_xml2, NULL);
+        g_assert (manager->introspection_data != NULL);
+        g_assert (manager->introspection_data2 != NULL);
+
+        infos = manager->introspection_data->interfaces;
+        g_dbus_connection_register_object (connection,
+                                           GSD_SCREENSAVER_PROXY_DBUS_PATH,
+                                           infos[0],
+                                           &interface_vtable,
+                                           manager,
+                                           NULL,
+                                           NULL);
+        infos = manager->introspection_data2->interfaces;
+        g_dbus_connection_register_object (connection,
+                                           GSD_SCREENSAVER_PROXY_DBUS_PATH2,
+                                           infos[0],
+                                           &interface_vtable,
+                                           manager,
+                                           NULL,
+                                           NULL);
+
+        manager->name_id = g_bus_own_name_on_connection (connection,
+                                                         GSD_SCREENSAVER_PROXY_DBUS_SERVICE,
+                                                         G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                         NULL,
+                                                         NULL,
+                                                         NULL,
+                                                         NULL);
+
+        return TRUE;
+}
+
+static void
+gsd_screensaver_proxy_manager_dbus_unregister (GApplication    *app,
+                                               GDBusConnection *connection,
+                                               const char      *object_path)
+{
+        GsdScreensaverProxyManager *manager = GSD_SCREENSAVER_PROXY_MANAGER (app);
 
         g_clear_pointer (&manager->introspection_data, g_dbus_node_info_unref);
         g_clear_pointer (&manager->introspection_data2, g_dbus_node_info_unref);
 
-        G_APPLICATION_CLASS (gsd_screensaver_proxy_manager_parent_class)->shutdown (app);
+        g_clear_handle_id (&manager->name_id, g_bus_unown_name);
+
+        G_APPLICATION_CLASS (gsd_screensaver_proxy_manager_parent_class)->dbus_unregister (app,
+                                                                                           connection,
+                                                                                           object_path);
 }
+
 
 static void
 gsd_screensaver_proxy_manager_class_init (GsdScreensaverProxyManagerClass *klass)
@@ -415,6 +402,8 @@ gsd_screensaver_proxy_manager_class_init (GsdScreensaverProxyManagerClass *klass
 
         application_class->startup = gsd_screensaver_proxy_manager_startup;
         application_class->shutdown = gsd_screensaver_proxy_manager_shutdown;
+        application_class->dbus_register = gsd_screensaver_proxy_manager_dbus_register;
+        application_class->dbus_unregister = gsd_screensaver_proxy_manager_dbus_unregister;
 }
 
 static void

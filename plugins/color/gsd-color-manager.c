@@ -58,10 +58,7 @@ struct _GsdColorManager
         GsdApplication     parent;
 
         /* D-Bus */
-        guint              name_id;
         GDBusNodeInfo     *introspection_data;
-        GDBusConnection   *connection;
-        GCancellable      *bus_cancellable;
 
         GsdColorCalibrate *calibrate;
         GsdColorState     *state;
@@ -77,8 +74,13 @@ enum {
 static void     gsd_color_manager_class_init  (GsdColorManagerClass *klass);
 static void     gsd_color_manager_init        (GsdColorManager      *color_manager);
 static void     gsd_color_manager_finalize    (GObject             *object);
-
-static void     register_manager_dbus (GsdColorManager *manager);
+static gboolean gsd_color_manager_dbus_register (GApplication    *app,
+                                                 GDBusConnection *connection,
+                                                 const char      *object_path,
+                                                 GError         **error);
+static void     gsd_color_manager_dbus_unregister (GApplication    *app,
+                                                   GDBusConnection *connection,
+                                                   const char      *object_path);
 
 G_DEFINE_TYPE (GsdColorManager, gsd_color_manager, GSD_TYPE_APPLICATION)
 
@@ -86,14 +88,17 @@ static void
 gsd_color_manager_startup (GApplication *app)
 {
         GsdColorManager *manager = GSD_COLOR_MANAGER (app);
+        g_autoptr (GError) error = NULL;
 
         g_debug ("Starting color manager");
         gnome_settings_profile_start (NULL);
 
-        register_manager_dbus (manager);
-
         /* start the device probing */
         gsd_color_state_start (manager->state);
+
+        /* setup night light module */
+        if (!gsd_night_light_start (manager->nlight, &error))
+                g_warning ("Could not start night light module: %s", error->message);
 
         G_APPLICATION_CLASS (gsd_color_manager_parent_class)->startup (app);
 
@@ -108,15 +113,8 @@ gsd_color_manager_shutdown (GApplication *app)
         g_debug ("Stopping color manager");
         gsd_color_state_stop (manager->state);
 
-        if (manager->bus_cancellable != NULL) {
-                g_cancellable_cancel (manager->bus_cancellable);
-                g_clear_object (&manager->bus_cancellable);
-        }
-
         g_clear_pointer (&manager->introspection_data, g_dbus_node_info_unref);
-        g_clear_object (&manager->connection);
 
-        g_clear_handle_id (&manager->name_id, g_bus_unown_name);
         g_clear_handle_id (&manager->nlight_forced_timeout_id, g_source_remove);
 
         G_APPLICATION_CLASS (gsd_color_manager_parent_class)->shutdown (app);
@@ -132,6 +130,8 @@ gsd_color_manager_class_init (GsdColorManagerClass *klass)
 
         application_class->startup = gsd_color_manager_startup;
         application_class->shutdown = gsd_color_manager_shutdown;
+        application_class->dbus_register = gsd_color_manager_dbus_register;
+        application_class->dbus_unregister = gsd_color_manager_dbus_unregister;
 }
 
 static void
@@ -141,9 +141,10 @@ emit_property_changed (GsdColorManager *manager,
 {
         GVariantBuilder builder;
         GVariantBuilder invalidated_builder;
+        GDBusConnection *connection = g_application_get_dbus_connection (G_APPLICATION (manager));
 
         /* not yet connected */
-        if (manager->connection == NULL)
+        if (connection == NULL)
                 return;
 
         /* build the dict */
@@ -153,7 +154,7 @@ emit_property_changed (GsdColorManager *manager,
                                "{sv}",
                                property_name,
                                property_value);
-        g_dbus_connection_emit_signal (manager->connection,
+        g_dbus_connection_emit_signal (connection,
                                        NULL,
                                        GSD_COLOR_DBUS_PATH,
                                        "org.freedesktop.DBus.Properties",
@@ -410,30 +411,22 @@ static const GDBusInterfaceVTable interface_vtable =
         handle_set_property
 };
 
-static void
-name_lost_handler_cb (GDBusConnection *connection, const gchar *name, gpointer user_data)
+static gboolean
+gsd_color_manager_dbus_register (GApplication    *app,
+                                 GDBusConnection *connection,
+                                 const char     *object_path,
+                                 GError         **error)
 {
-        g_debug ("lost name, so exiting");
-        gtk_main_quit ();
-}
+        GsdColorManager *manager = GSD_COLOR_MANAGER (app);
 
-static void
-on_bus_gotten (GObject             *source_object,
-               GAsyncResult        *res,
-               GsdColorManager     *manager)
-{
-        GDBusConnection *connection;
-        GError *error = NULL;
+        if (!G_APPLICATION_CLASS (gsd_color_manager_parent_class)->dbus_register (app,
+                                                                                  connection,
+                                                                                  object_path,
+                                                                                  error))
+                return FALSE;
 
-        connection = g_bus_get_finish (res, &error);
-        if (connection == NULL) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-                        g_warning ("Could not get session bus: %s", error->message);
-                g_error_free (error);
-                return;
-        }
-
-        manager->connection = connection;
+        manager->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        g_assert (manager->introspection_data != NULL);
 
         g_dbus_connection_register_object (connection,
                                            GSD_COLOR_DBUS_PATH,
@@ -443,30 +436,19 @@ on_bus_gotten (GObject             *source_object,
                                            NULL,
                                            NULL);
 
-        manager->name_id = g_bus_own_name_on_connection (connection,
-                                                      GSD_COLOR_DBUS_NAME,
-                                                      G_BUS_NAME_OWNER_FLAGS_NONE,
-                                                      NULL,
-                                                      name_lost_handler_cb,
-                                                      manager,
-                                                      NULL);
-
-        /* setup night light module */
-        if (!gsd_night_light_start (manager->nlight, &error)) {
-                g_warning ("Could not start night light module: %s", error->message);
-                g_error_free (error);
-        }
+        return TRUE;
 }
 
 static void
-register_manager_dbus (GsdColorManager *manager)
+gsd_color_manager_dbus_unregister (GApplication    *app,
+                                   GDBusConnection *connection,
+                                   const char      *object_path)
 {
-        manager->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
-        g_assert (manager->introspection_data != NULL);
-        manager->bus_cancellable = g_cancellable_new ();
+        GsdColorManager *manager = GSD_COLOR_MANAGER (app);
 
-        g_bus_get (G_BUS_TYPE_SESSION,
-                   manager->bus_cancellable,
-                   (GAsyncReadyCallback) on_bus_gotten,
-                   manager);
+        g_clear_pointer (&manager->introspection_data, g_dbus_node_info_unref);
+
+        G_APPLICATION_CLASS (gsd_color_manager_parent_class)->dbus_unregister (app,
+                                                                               connection,
+                                                                               object_path);
 }
