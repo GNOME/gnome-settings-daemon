@@ -169,14 +169,6 @@ if enable_wayland
 endif
 config_h.set10('HAVE_WAYLAND', enable_wayland)
 
-# wacom (disabled for s390/s390x and non Linux platforms)
-enable_wacom = host_is_linux_not_s390
-if enable_wacom
-  assert(enable_gudev, 'GUDev support is required for wacom support.')
-  libwacom_dep = dependency('libwacom', version: '>= 0.7')
-endif
-config_h.set10('HAVE_WACOM', enable_wacom)
-
 # smartcard section
 enable_smartcard = get_option('smartcard')
 if enable_smartcard
@@ -291,7 +283,6 @@ output += '        Smartcard support:        ' + enable_smartcard.to_string() + 
 output += '        USB Protection support:   ' + enable_usb_protection.to_string() + '\n'
 output += '        Cups support:             ' + enable_cups.to_string() + '\n'
 output += '        Wayland support:          ' + enable_wayland.to_string() + '\n'
-output += '        Wacom support:            ' + enable_wacom.to_string() + '\n'
 output += '        RFKill support:           ' + enable_rfkill.to_string() + '\n'
 if enable_systemd
   output += '        Systemd user unit dir:    ' + systemd_userunitdir + '\n'

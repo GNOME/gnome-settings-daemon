@@ -12,7 +12,6 @@ all_plugins = [
     ['usb-protection', 'UsbProtection', 'GNOME USB protection'],
     ['xsettings', 'XSettings', 'GNOME XSettings'],
     ['smartcard', 'Smartcard', 'GNOME smartcard'],
-    ['wacom', 'Wacom', 'GNOME Wacom tablet support'],
     ['print-notifications', 'PrintNotifications', 'GNOME printer notifications'],
     ['rfkill', 'Rfkill', 'GNOME RFKill support'],
     ['wwan', 'Wwan', 'GNOME WWan support'],
@@ -26,10 +25,6 @@ endif
 
 if not enable_usb_protection
     disabled_plugins += ['usb-protection']
-endif
-
-if not enable_wacom
-    disabled_plugins += ['wacom']
 endif
 
 if not enable_cups
@@ -59,7 +54,6 @@ plugin_gate_units = {
       ['gnome-session-x11-services.target', 'after'],
       ['gnome-session-x11-services-ready.target', 'before'],
     ],
-#    'wacom': [['wacom.target']],
 #    'smartcard': [['smartcard.target']],
 }
 
