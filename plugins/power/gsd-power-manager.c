@@ -146,7 +146,6 @@ struct _GsdPowerManager
         gboolean                 screensaver_active;
 
         /* State */
-        gboolean                 lid_is_present;
         gboolean                 lid_is_closed;
         gboolean                 session_is_active;
         gboolean                 screen_blanked;
@@ -1682,20 +1681,23 @@ do_lid_closed_action (GsdPowerManager *manager)
 }
 
 static void
-lid_state_changed_cb (UpClient *client, GParamSpec *pspec, GsdPowerManager *manager)
+logind_proxy_changed_cb (GDBusProxy *proxy,
+                         GVariant   *changed_properties,
+                         GStrv       invalidated_properties,
+                         gpointer    user_data)
 {
+        GsdPowerManager *manager = user_data;
+        g_autoptr(GVariant) lid_closed = NULL;
         gboolean tmp;
 
-        if (!manager->lid_is_present)
-                return;
+        lid_closed = g_dbus_proxy_get_cached_property (proxy, "LidClosed");
+        if (lid_closed == NULL)
+            return;
 
-        /* same lid state */
-        /* FIXME: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/issues/859 */
-        G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-        tmp = up_client_get_lid_is_closed (manager->up_client);
-        G_GNUC_END_IGNORE_DEPRECATIONS
+        tmp = g_variant_get_boolean (lid_closed);
         if (manager->lid_is_closed == tmp)
                 return;
+
         manager->lid_is_closed = tmp;
         g_debug ("up changed: lid is now %s", tmp ? "closed" : "open");
 
@@ -2626,7 +2628,7 @@ idle_triggered_idle_cb (GnomeIdleMonitor *monitor,
                         show_sleep_warning (manager);
                 }
                 if (manager->user_active_id < 1) {
-                        manager->user_active_id = 
+                        manager->user_active_id =
                                 gnome_idle_monitor_add_user_active_watch (manager->idle_monitor,
                                                                           idle_became_active_cb,
                                                                           manager,
@@ -3066,6 +3068,7 @@ static void
 gsd_power_manager_startup (GApplication *app)
 {
         GsdPowerManager *manager = GSD_POWER_MANAGER (app);
+        g_autoptr(GVariant) variant = NULL;
         g_autoptr (GError) error = NULL;
         g_autofree char *chassis_type = NULL;
         g_debug ("Starting power manager");
@@ -3074,12 +3077,11 @@ gsd_power_manager_startup (GApplication *app)
         /* Check whether we are running in a VM */
         manager->is_virtual_machine = gsd_power_is_hardware_a_vm ();
 
-        /* FIXME: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/issues/859 */
-        G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-        manager->lid_is_present = up_client_get_lid_is_present (manager->up_client);
-        if (manager->lid_is_present)
-                manager->lid_is_closed = up_client_get_lid_is_closed (manager->up_client);
-        G_GNUC_END_IGNORE_DEPRECATIONS
+        variant = g_dbus_proxy_get_cached_property (manager->logind_proxy,
+                                                    "LidClosed");
+        manager->lid_is_closed = variant ? g_variant_get_boolean (variant) : FALSE;
+        g_signal_connect (manager->logind_proxy, "g-properties-changed",
+                          G_CALLBACK (logind_proxy_changed_cb), manager);
 
         chassis_type = gnome_settings_get_chassis_type ();
         if (g_strcmp0 (chassis_type, "tablet") == 0 || g_strcmp0 (chassis_type, "handset") == 0) {
@@ -3120,15 +3122,12 @@ gsd_power_manager_startup (GApplication *app)
         manager->session_is_active = is_session_active (manager);
 
         /* set up the screens */
-        if (manager->lid_is_present) {
-                manager->display_config =
-                        gnome_settings_bus_get_display_config_proxy ();
+        manager->display_config = gnome_settings_bus_get_display_config_proxy ();
 
-                g_signal_connect_swapped (manager->display_config, "notify::has-external-monitor",
-                                          G_CALLBACK (has_external_monitor_changed), manager);
-                watch_external_monitor ();
-                sync_lid_inhibitor (manager);
-        }
+        g_signal_connect_swapped (manager->display_config, "notify::has-external-monitor",
+                                  G_CALLBACK (has_external_monitor_changed), manager);
+        watch_external_monitor ();
+        sync_lid_inhibitor (manager);
 
         manager->screensaver_proxy = gnome_settings_bus_get_screen_saver_proxy ();
 
@@ -3145,8 +3144,6 @@ gsd_power_manager_startup (GApplication *app)
                           G_CALLBACK (engine_device_added_cb), manager);
         g_signal_connect (manager->up_client, "device-removed",
                           G_CALLBACK (engine_device_removed_cb), manager);
-        g_signal_connect_after (manager->up_client, "notify::lid-is-closed",
-                                G_CALLBACK (lid_state_changed_cb), manager);
         g_signal_connect (manager->up_client, "notify::on-battery",
                           G_CALLBACK (up_client_on_battery_cb), manager);
 

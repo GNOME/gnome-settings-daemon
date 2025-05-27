@@ -270,6 +270,9 @@ class GSDTestCase(DBusTestCase):
         self.logind_obj.AddProperty(
             'org.freedesktop.login1.Manager', 'LidClosed', False
         )
+        self.logind_obj.AddProperty(
+            'org.freedesktop.login1.Manager', 'OnExternalPower', False
+        )
 
     def stop_logind(self):
         '''stop mock logind'''

@@ -77,7 +77,7 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
 
         # start mock upowerd
         (self.upowerd, self.obj_upower) = self.spawn_server_template(
-            'upower', {'DaemonVersion': '0.99', 'OnBattery': True, 'LidIsClosed': False})
+            'upower', {'DaemonVersion': '0.99', 'OnBattery': True})
         self.addCleanup(self.stop_process, self.upowerd)
 
         # start mock gnome-shell screensaver
@@ -144,15 +144,16 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
     def get_status(self):
         return self.obj_session_presence_props.Get('org.gnome.SessionManager.Presence', 'status')
 
-    def set_lid_closed(self, state):
-        # FIXME: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/issues/859
-        # gsd-power uses upower, but mutter uses logind
-        self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', state)
-        self.obj_upower.EmitSignal(
-            '', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock'
-        )
+    def set_on_external_power(self, state):
+        self.logind_obj.Set('org.freedesktop.login1.Manager', 'OnExternalPower', state)
+        self.logind_obj.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
 
+        self.obj_upower.Set('org.freedesktop.UPower', 'OnBattery', not state)
+        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+
+    def set_lid_closed(self, state):
         self.logind_obj.Set('org.freedesktop.login1.Manager', 'LidClosed', state)
+        self.logind_obj.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
 
     def set_has_external_monitor(self, external):
         if external:
@@ -601,9 +602,6 @@ class PowerPluginTestLid(PowerPluginBase):
         # Reopen the lid
         self.set_lid_closed(False)
 
-        # At this point mutter should receive notification from logind
-        # that the Lid is open, reset the idle timer and gsd-power will unblank.
-
         # Check for unblanking
         self.check_unblank(2)
 
@@ -987,8 +985,7 @@ class PowerPluginTestBrightness(PowerPluginBase):
         self.check_dim(idle_delay + 2)
 
         # Plug in the AC
-        self.obj_upower.Set('org.freedesktop.UPower', 'OnBattery', False)
-        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+        self.set_on_external_power(True)
 
         # Check that we undim
         self.check_undim(gsdpowerconstants.POWER_UP_TIME_ON_AC / 2)
@@ -997,8 +994,7 @@ class PowerPluginTestBrightness(PowerPluginBase):
         self.check_dim(idle_delay + 2)
 
         # Unplug the AC
-        self.obj_upower.Set('org.freedesktop.UPower', 'OnBattery', True)
-        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+        self.set_on_external_power(False)
 
         # Check that we undim
         self.check_undim(gsdpowerconstants.POWER_UP_TIME_ON_AC / 2)
