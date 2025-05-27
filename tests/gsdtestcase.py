@@ -236,6 +236,8 @@ class GSDTestCase(DBusTestCase):
                                                                   stdout=self.logind_log.fd)
         self.logind_log.writer_attached()
 
+        self.logind_obj.AddProperty('org.freedesktop.login1.Manager', 'LidClosed', False)
+        self.logind_obj.AddProperty('org.freedesktop.login1.Manager', 'OnExternalPower', False)
         # Monkey patch SuspendThenHibernate functions in for dbusmock <= 0.17.2
         # This should be removed once we can depend on dbusmock 0.17.3
         self.logind_obj.AddMethod('org.freedesktop.login1.Manager', 'SuspendThenHibernate', 'b', '', '')
