@@ -69,41 +69,6 @@ gsd_power_enums_update = executable(
   native: true
 )
 
-if host_is_linux
-  policy = 'org.gnome.settings-daemon.plugins.power.policy'
-
-  policy_in = configure_file(
-    input: policy + '.in.in',
-    output: policy + '.in',
-    configuration: plugins_conf
-  )
-
-  i18n.merge_file(
-    input: policy_in,
-    output: policy,
-    po_dir: po_dir,
-    install: true,
-    install_dir: join_paths(gsd_datadir, 'polkit-1', 'actions')
-  )
-
-  sources = files(
-    'gsd-backlight-helper.c',
-  )
-
-  deps = [
-  ]
-
-  executable(
-    'gsd-backlight-helper',
-    sources,
-    include_directories: top_inc,
-    dependencies: deps,
-    install: true,
-    install_rpath: gsd_pkglibdir,
-    install_dir: gsd_libexecdir
-  )
-endif
-
 output = 'gsdpowerconstants.py'
 
 gsdpowerconstants_py = custom_target(
@@ -131,14 +96,7 @@ envs = environment()
 #envs.prepend('G_DEBUG', 'fatal-warnings')
 envs.set('BUILDDIR', meson.current_build_dir())
 envs.set('TOP_BUILDDIR', meson.project_build_root())
-envs.set('LD_PRELOAD', 'libumockdev-preload.so.0')
 envs.set('NO_AT_BRIDGE', '1')
-envs.set('HAVE_SYSFS_BACKLIGHT', host_is_linux ? '1' : '0')
-
-if get_option('b_sanitize').split(',').contains('address')
-  # libasan needs to be loaded first; so we need to explicitly preload it
-  envs.set('POWER_LD_PRELOAD', 'libasan.so.5')
-endif
 
 tests = [
   'Screensaver',
