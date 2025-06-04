@@ -2,7 +2,7 @@ project(
   'gnome-settings-daemon', 'c',
   version: '48.1',
   license: [ 'GPL2+', 'LGPLv2+' ],
-  meson_version: '>= 0.57.0'
+  meson_version: '>= 0.64.0'
 )
 
 # Make sure the version always has a trailing N.0 so that
@@ -252,6 +252,7 @@ endif
 gnome = import('gnome')
 i18n = import('i18n')
 pkg = import('pkgconfig')
+fs = import('fs')
 
 po_dir = join_paths(meson.project_source_root(), 'po')
 

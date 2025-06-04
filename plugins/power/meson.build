@@ -125,6 +125,7 @@ gsdpowerenums_py = custom_target(
 )
 
 test_py = find_program('test.py')
+fs.copyfile('dbusmock-templates/mutter.py')
 
 envs = environment()
 #envs.prepend('G_DEBUG', 'fatal-warnings')

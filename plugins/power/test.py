@@ -13,6 +13,7 @@ import math
 import os
 import os.path
 import signal
+from pathlib import Path
 
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 builddir = os.environ.get('BUILDDIR', os.path.dirname(__file__))
@@ -96,6 +97,17 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
         self.testbed = UMockdev.Testbed.new()
         self.addCleanup(self.cleanup_testbed)
         os.environ['UMOCKDEV_DIR'] = self.testbed.get_root_dir()
+
+        # start mock mutter
+        template = (
+            Path(os.path.realpath(__file__)).parent
+            / "dbusmock-templates"
+            / "mutter.py"
+        )
+        assert template.exists()
+        assert template.suffix == ".py"
+        (self.mockmutter, self.obj_mockmutter) = self.spawn_server_template(template.absolute().as_posix())
+        self.addCleanup(self.stop_process, self.mockmutter)
 
         # Create a mock backlight device
         # Note that this function creates a different or even no backlight
