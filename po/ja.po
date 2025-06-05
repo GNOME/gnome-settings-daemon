@@ -1,8 +1,8 @@
 # gnome-settings-daemon ja.po.
-# Copyright (C) 1998-2013, 2020, 2022 gnome-settings-daemon's COPRYRIGHT HOLDER
+# Copyright (C) 1998-2013, 2020, 2022, 2025 gnome-settings-daemon's COPRYRIGHT HOLDER
 # Yukihiro Nakai <Nakai@abricot.co.jp>, 1998.
 # Eiichiro ITANI <emu@ceres.dti.ne.jp>, 1999.
-# Takayuki KUSANO <https://bsky.app/profile/tkusano.jp>, 2000, 2009-2010, 2025.
+# Kusano Takayuki <https://bsky.app/profile/tkusano.jp>, 2000, 2009-2010, 2011, 2025.
 # Akira TAGOH <tagoh@gnome.gr.jp>, 2001.
 # Takeshi AIHANA <takeshi.aihana@gmail.com>, 2003-2009.
 # KAMAGASAKO Masatoshi <emerald@gnome.gr.jp>, 2003.
@@ -11,7 +11,6 @@
 # Noritada Kobayashi <noritadak@gmail.com>, 2010.
 # Jiro Matsuzawa <jmatsuzawa@src.gnome.org>, 2010, 2013.
 # Takayoshi OKANO <kano@na.rim.or.jp>, 2011.
-# Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2011.
 # Nishio Futoshi <fut_nis@d3.dion.ne.jp>, 2012.
 # Ryo Nakano <ryonakaknock3@gmail.com>, 2020.
 # sicklylife <translation@sicklylife.jp>, 2020, 2022.
@@ -19,11 +18,12 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-17 17:13+0900\n"
-"PO-Revision-Date: 2025-04-17 17:30+0900\n"
-"Last-Translator: Takayuki KUSANO <https://bsky.app/profile/tkusano.jp>\n"
+"Project-Id-Version: gnome-settings-daemon main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
+"issues/\n"
+"POT-Creation-Date: 2025-05-27 12:23+0000\n"
+"PO-Revision-Date: 2025-06-03 15:28+0900\n"
+"Last-Translator: Kusano Takayuki <https://bsky.app/profile/tkusano.jp>\n"
 "Language-Team: Japanese <https://l10n.gnome.org/teams/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -33,19 +33,19 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:6
 msgid "Applications"
-msgstr ""
+msgstr "アプリケーション"
 
 #: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:7
 msgid "Applications that have defined global shortcuts"
-msgstr ""
+msgstr "グローバルなショートカットを定義しているアプリケーション"
 
 #: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:13
 msgid "Shortcuts"
-msgstr ""
+msgstr "ショートカット"
 
 #: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:14
 msgid "Keyboard shortcut definitions"
-msgstr ""
+msgstr "キーボードショートカットの定義"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid "Smartcard removal action"
@@ -61,19 +61,19 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:24
 msgid "Possible values are “on”, “off”, and “custom”."
-msgstr ""
+msgstr "設定可能な値は “on”、“off”、および “custom” です。"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:34
 msgid "Keyboard Bell Custom Filename"
-msgstr ""
+msgstr "キーボードベル音のカスタムファイル名"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:35
 msgid "File name of the bell sound to be played."
-msgstr ""
+msgstr "再生するベル音のファイル名です。"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:41
 msgid "Whether the tablet’s orientation is locked, or rotated automatically."
-msgstr "タブレットの方向を固定するか自動的に回転するかです。"
+msgstr "タブレットの方向を固定するか自動的に回転するか、です。"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:49
 msgid "Mouse button orientation"
@@ -93,12 +93,12 @@ msgstr "シングルクリック"
 msgid ""
 "Acceleration multiplier for mouse motion. A value of -1 is the system "
 "default."
-msgstr ""
+msgstr "マウスの動作の加速倍率。-1 でシステムのデフォルトです。"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:59
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:136
 msgid "Motion Threshold"
-msgstr ""
+msgstr "モーションのしきい値"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:60
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:137
@@ -106,6 +106,8 @@ msgid ""
 "Distance in pixels the pointer must move before accelerated mouse motion is "
 "activated. A value of -1 is the system default."
 msgstr ""
+"マウスの加速動作が有効になるまでのポインターの移動距離 (ピクセル単位) で"
+"す。-1 でシステムのデフォルトです。"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:64
 msgid "Middle button emulation"
@@ -141,7 +143,7 @@ msgstr "キーリピートの間隔"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:85
 msgid "Delay between repeats in milliseconds."
-msgstr ""
+msgstr "ミリ秒単位のリピートの間隔です。"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:89
 msgid "Initial Key Repeat Delay"
@@ -149,7 +151,7 @@ msgstr "最初のキーリピートまでの遅延"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:90
 msgid "Initial key repeat delay in milliseconds."
-msgstr ""
+msgstr "最初のキーリピートまでのミリ秒単位の遅延です。"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:94
 msgid "Remember NumLock state"
@@ -160,6 +162,7 @@ msgid ""
 "When set to true, GNOME will remember the state of the NumLock LED between "
 "sessions."
 msgstr ""
+"true に設定すると、GNOME はセッション間で NumLock LED の状態を記憶します。"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:101
 msgid "Disable touchpad while typing"
@@ -225,6 +228,8 @@ msgid ""
 "Swap left and right mouse buttons for left-handed mice with “left”, “right” "
 "for right-handed, “mouse” to follow the mouse setting."
 msgstr ""
+"左右のボタンを入れ替えます。“left” は左利き用、“right” は右利き用、そし"
+"て、“mouse” はマウスの設定に従います。"
 
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:141
 msgid "Natural scrolling"
@@ -239,6 +244,7 @@ msgstr ""
 #: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:149
 msgid "Mouse wheel emulation button. 0 to disable the feature."
 msgstr ""
+"マウスホイールエミュレーションボタン。機能を無効にするには 0 を指定します。"
 
 # stylus はそのままスタイラスとした。http://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%A9%E3%82%B9
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:10
@@ -404,7 +410,7 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:16
 msgid "If the night light mode is enabled"
-msgstr ""
+msgstr "夜間モードが有効かどうか"
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:17
 msgid ""
@@ -423,10 +429,12 @@ msgid ""
 "This temperature in Kelvin is used to modify the screen tones when night "
 "light mode is enabled. Higher values are bluer, lower redder."
 msgstr ""
+"この色温度 (ケルビン単位) は、夜間モードが有効なときに画面の色調を変更するた"
+"めに使用されます。値が大きいほど青く、小さいほど赤くなります。"
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:26
 msgid "Use the sunrise and sunset"
-msgstr ""
+msgstr "日の出と日没を使用"
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:27
 msgid ""
@@ -443,6 +451,8 @@ msgid ""
 "When “night-light-schedule-automatic” is disabled, use this start time in "
 "hours from midnight."
 msgstr ""
+"“night-light-schedule-automatic” が無効な場合、この開始時刻（深夜0時から何時"
+"間か）を使用します。"
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:36
 msgid "The end time"
@@ -453,10 +463,12 @@ msgid ""
 "When “night-light-schedule-automatic” is disabled, use this end time in "
 "hours from midnight."
 msgstr ""
+"“night-light-schedule-automatic” が無効な場合、この終了時刻（深夜0時から何時"
+"間か）を使用します。"
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:41
 msgid "The last detected position"
-msgstr ""
+msgstr "最後に検出された位置"
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:42
 msgid ""
@@ -464,6 +476,8 @@ msgid ""
 "location. The default value is an invalid value to ensure it is always "
 "updated at startup."
 msgstr ""
+"位置情報サービスが利用可能な場合、これは最後に検出された位置を表します。デ"
+"フォルトでは無効な値になっており、起動時に常に更新されることを保証します。"
 
 #: data/org.gnome.settings-daemon.plugins.gschema.xml.in:6
 msgid "List of plugins that are allowed to be loaded"
@@ -844,22 +858,19 @@ msgstr "独自のキーバインディングのリスト"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:209
 msgid "Reboot"
-msgstr ""
+msgstr "再起動"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:210
-#, fuzzy
 msgid "Binding to reboot."
-msgstr "ログアウトするキーバインディングです。"
+msgstr "再起動するキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:214
-#, fuzzy
 msgid "Shut down"
-msgstr "音量を下げる"
+msgstr "シャットダウン"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:215
-#, fuzzy
 msgid "Binding to shut down."
-msgstr "ログアウトするキーバインディングです。"
+msgstr "シャットダウンするキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:257
 msgid "Size of volume step"
@@ -981,11 +992,11 @@ msgstr ""
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:379
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:616
 msgid "Toggle automatic screen orientation"
-msgstr ""
+msgstr "画面の自動回転を切り替え"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:380
 msgid "Binding to toggle automatic screen orientation."
-msgstr ""
+msgstr "画面の自動回転を切り替えるキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:384
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:621
@@ -1035,11 +1046,11 @@ msgstr "画面を暗くするキーバインディングです。"
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:410
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:647
 msgid "Screen brightness cycle"
-msgstr ""
+msgstr "画面の明るさを切り替え"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:411
 msgid "Binding to cycle the screen brightness."
-msgstr ""
+msgstr "画面の明るさを切り替えるキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:416
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:653
@@ -1220,7 +1231,7 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:617
 msgid "Static binding to toggle automatic screen orientation."
-msgstr ""
+msgstr "自動的に画面の向きを切り替える静的キーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:622
 msgid "Static binding for power button."
@@ -1244,7 +1255,7 @@ msgstr "画面を暗くする静的キーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:648
 msgid "Static binding to cycle the screen brightness."
-msgstr ""
+msgstr "画面の明るさを切り替える静的キーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:654
 msgid "Static binding to increase the keyboard brightness."
@@ -1296,13 +1307,12 @@ msgid "Command to run when the binding is invoked"
 msgstr "キーバインディングの呼び出し時に実行するコマンドです"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:703
-#, fuzzy
 msgid "Enable in Lockscreen"
-msgstr "画面をロックする"
+msgstr "ロックスクリーンで有効"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:704
 msgid "Whether the command can be invoked while the lockscreen is shown"
-msgstr ""
+msgstr "ロックスクリーンが表示されているときにコマンドを呼び出せるかどうか"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:6
 msgid "The brightness of the screen when idle"
@@ -1322,45 +1332,51 @@ msgstr "一定時間操作しないと画面が暗くなります"
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:12
 msgid "If the screen should be dimmed to save power when the computer is idle."
 msgstr ""
+"コンピューターがアイドル状態のときに、電力を節約するために画面を暗くするかど"
+"うかです。"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:16
 msgid "Sleep timeout computer when on AC"
-msgstr ""
+msgstr "AC 電源接続時のスリープするまでのタイムアウト"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:17
 msgid ""
 "The amount of time in seconds the computer on AC power needs to be inactive "
 "before it goes to sleep. A value of 0 means never."
 msgstr ""
+"AC 電源接続時にアイドル状態になってからスリープするまでの時間 (秒) です。0 の"
+"場合はスリープしません。"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:21
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:31
 msgid "Whether to hibernate, suspend or do nothing when inactive"
-msgstr ""
+msgstr "アイドル状態のときにハイバネート、サスペンド、または何もしないかどうか"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:22
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:32
 msgid ""
 "The type of sleeping that should be performed when the computer is inactive."
-msgstr ""
+msgstr "コンピューターがアイドル状態のときに実行するスリープの種類です。"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:26
 msgid "Sleep timeout computer when on battery"
-msgstr ""
+msgstr "コンピューターがバッテリー駆動時のスリープするまでのタイムアウト"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:27
 msgid ""
 "The amount of time in seconds the computer on battery power needs to be "
 "inactive before it goes to sleep. A value of 0 means never."
 msgstr ""
+"コンピューターがバッテリー駆動時にアイドル状態になってからスリープするまでの"
+"時間 (秒) です。0 の場合はスリープしません。"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:36
 msgid "Enable the ALS sensor"
-msgstr ""
+msgstr "周辺光センサー(ALS)を有効にする"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:37
 msgid "If the ambient light sensor functionality is enabled."
-msgstr ""
+msgstr "周辺光センサーの機能を有効にするかどうかです。"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:41
 msgid "Power button action"
@@ -1372,26 +1388,33 @@ msgid ""
 "only honor the 'nothing' action, and will shutdown otherwise. Tablets always "
 "suspend, ignoring all the other action options."
 msgstr ""
+"システムの電源ボタンを押したときの動作です。仮想マシンでは 'nothing' （何もし"
+"ない）のみが有効で、他の場合はシャットダウンします。タブレットでは他の動作は"
+"無視して常にサスペンドします。"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:46
 msgid "Enable power-saver profile when battery is low"
-msgstr ""
+msgstr "power-saver プロファイルをバッテリー低下時に有効に"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:47
 msgid ""
 "Automatically enable the \"power-saver\" profile using power-profiles-daemon "
 "if the battery is low."
 msgstr ""
+"バッテリーが低下したときに、power-profiles-daemon を使用して \"power-"
+"saver\"プロファイルを自動的に有効にします。"
 
 #: data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in:6
 msgid "On which connections the service is enabled"
-msgstr ""
+msgstr "どの接続時にサービスを有効にするか"
 
 #: data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in:7
 msgid ""
 "The list of NetworkManager connections (each one represented with its UUID) "
 "on which this service is enabled and started."
 msgstr ""
+"このサービスが有効になり、開始される NetworkManager の接続のリスト (各接続は "
+"UUID で表されます)。"
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:6
 msgid "List of explicitly disabled GTK+ modules"
@@ -1419,7 +1442,7 @@ msgstr ""
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:16
 msgid "A dictionary of XSETTINGS to override"
-msgstr ""
+msgstr "上書きする XSETTINGS の辞書"
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:17
 msgid ""
@@ -1427,6 +1450,9 @@ msgid ""
 "either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
 "(red, green, blue, alpha; 65535 is fully opaque)."
 msgstr ""
+"この辞書は XSETTINGS の名前を上書き値にマップします。値は文字列、符号付き "
+"int32、または (色の場合) 4 つ組の uint16 (赤、緑、青、アルファ; 65535 は完全"
+"に不透明) のいずれかでなければなりません。"
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:23
 msgid "Antialiasing"
@@ -1460,6 +1486,17 @@ msgid ""
 "rendering depending on the quality of the font, the font format and the "
 "state of FreeType’s font engines."
 msgstr ""
+"フォントを描画するときに使用するヒンティングの種類。利用可能な値: “none”はヒ"
+"ンティングを無効にする、“slight”は Microsoft の ClearType、DirectWrite や "
+"Adobe のプロプライエタリなフォントレンダリングエンジンのように Y 軸にのみ適合"
+"させるヒンティングを行う。フォント内のネイティブヒンティングは無視され、アル"
+"ゴリズムでヒンティングを生成します。Ubuntu ではデフォルトで使用され、推奨され"
+"ます。“medium” と “full” の意味はフォント形式 (.ttf, .otf, .pfa/.pfb) とイン"
+"ストールされている FreeType のバージョンによって異なります。通常、これらはグ"
+"リフを X 軸と Y 軸の両方に適合させようとします (例外は .otf で、Y 軸のみ)。こ"
+"れにより、フォントの品質、フォント形式、FreeType のフォントエンジンの状態に"
+"よって、歪みおよび（あるいは または）一貫性のないレンダリングが発生することが"
+"あります。"
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:33
 msgid "RGBA order"
@@ -1593,7 +1630,7 @@ msgstr "このコンピューターにはディスクの残りが %s しかあ�
 #: plugins/housekeeping/gsd-systemd-notify.c:82
 #, c-format
 msgid "%s Stopped"
-msgstr ""
+msgstr "%s が停止しました"
 
 #. TRANSLATORS: %s is the application name.
 #: plugins/housekeeping/gsd-systemd-notify.c:85
@@ -1602,12 +1639,14 @@ msgid ""
 "Device memory is nearly full. %s was using a lot of memory and was forced to "
 "stop."
 msgstr ""
+"デバイスのメモリーがほとんどいっぱいです。%s は多くのメモリーを使用していたた"
+"め、強制的に停止されました。"
 
 #. TRANSLATORS: A terminal tab/window was killed.
 #: plugins/housekeeping/gsd-systemd-notify.c:89
 #, c-format
 msgid "Virtual Terminal Stopped"
-msgstr ""
+msgstr "仮想端末が停止しました"
 
 #. TRANSLATORS: A terminal tab/window was killed.
 #: plugins/housekeeping/gsd-systemd-notify.c:91
@@ -1616,12 +1655,14 @@ msgid ""
 "Device memory is nearly full. Virtual terminal processes were using a lot of "
 "memory and were forced to stop."
 msgstr ""
+"デバイスのメモリーがほとんどいっぱいです。仮想端末プロセスは多くのメモリーを"
+"使用していたため、強制的に停止されました。"
 
 #. TRANSLATORS: We don't have a good description of what was killed.
 #: plugins/housekeeping/gsd-systemd-notify.c:94
-#, fuzzy, c-format
+#, c-format
 msgid "Application Stopped"
-msgstr "印刷が停止されました"
+msgstr "アプリケーションが停止しました"
 
 #. TRANSLATORS: We don't have a good description of what was killed.
 #: plugins/housekeeping/gsd-systemd-notify.c:96
@@ -1630,28 +1671,26 @@ msgid ""
 "Device memory is nearly full. An application was using a lot of memory and "
 "was forced to stop."
 msgstr ""
+"デバイスのメモリーがほとんどいっぱいです。アプリケーションは多くのメモリーを"
+"使用していたため、強制的に停止されました。"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2338
-#, fuzzy
+#: plugins/media-keys/gsd-media-keys-manager.c:2344
 msgid "Bluetooth Disabled"
 msgstr "Bluetooth が無効になりました"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2341
-#, fuzzy
+#: plugins/media-keys/gsd-media-keys-manager.c:2347
 msgid "Bluetooth Enabled"
 msgstr "Bluetooth が有効になりました"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2345
-#, fuzzy
+#: plugins/media-keys/gsd-media-keys-manager.c:2351
 msgid "Airplane Mode Enabled"
 msgstr "機内モードが有効になりました"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2348
-#, fuzzy
+#: plugins/media-keys/gsd-media-keys-manager.c:2354
 msgid "Airplane Mode Disabled"
 msgstr "機内モードが無効になりました"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2387
+#: plugins/media-keys/gsd-media-keys-manager.c:2393
 msgid "Hardware Airplane Mode"
 msgstr "ハードウェア機内モード"
 
@@ -1689,48 +1728,48 @@ msgid_plural "minutes"
 msgstr[0] "分"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:419 plugins/power/gsd-power-manager.c:933
-#: plugins/power/gsd-power-manager.c:1017
+#: plugins/power/gpm-common.c:419 plugins/power/gsd-power-manager.c:937
+#: plugins/power/gsd-power-manager.c:1021
 msgid "Battery is critically low"
 msgstr "バッテリーがひどく低下しています"
 
 #. TRANSLATORS: this is the notification application name
-#: plugins/power/gsd-power-manager.c:377
+#: plugins/power/gsd-power-manager.c:381
 msgid "Power"
 msgstr "電力"
 
 #. TRANSLATORS: UPS is now discharging
-#: plugins/power/gsd-power-manager.c:416
+#: plugins/power/gsd-power-manager.c:420
 msgid "UPS Discharging"
 msgstr "UPS 放電中"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:421
+#: plugins/power/gsd-power-manager.c:425
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "UPS のバックアップ電力の残り時間は %s です"
 
-#: plugins/power/gsd-power-manager.c:424
+#: plugins/power/gsd-power-manager.c:428
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "UPS のバックアップ電力の残り時間は不明です"
 
 #. TRANSLATORS: notification title, a wireless mouse is low or very low on power
-#: plugins/power/gsd-power-manager.c:524
+#: plugins/power/gsd-power-manager.c:528
 msgid "Mouse battery low"
 msgstr "マウスのバッテリー低下"
 
 #. TRANSLATORS: notification body, a wireless mouse is low on power
-#: plugins/power/gsd-power-manager.c:527
+#: plugins/power/gsd-power-manager.c:531
 #, c-format
 msgid "Wireless mouse is low on power (%.0f%%)"
 msgstr "ワイヤレスマウスのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:528
+#: plugins/power/gsd-power-manager.c:532
 msgid "Wireless mouse is low on power"
 msgstr "ワイヤレスマウスのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a wireless mouse is very low on power
-#: plugins/power/gsd-power-manager.c:530
+#: plugins/power/gsd-power-manager.c:534
 #, c-format
 msgid ""
 "Wireless mouse is very low on power (%.0f%%). This device will soon stop "
@@ -1739,7 +1778,7 @@ msgstr ""
 "ワイヤレスマウスの電源が非常に低くなっています (%.0f%%)。このデバイスは、充電"
 "されないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:532
+#: plugins/power/gsd-power-manager.c:536
 msgid ""
 "Wireless mouse is very low on power. This device will soon stop functioning "
 "if not charged."
@@ -1748,22 +1787,22 @@ msgstr ""
 "とまもなく機能を停止します。"
 
 #. TRANSLATORS: notification title, a wireless keyboard is low or very low on power
-#: plugins/power/gsd-power-manager.c:537
+#: plugins/power/gsd-power-manager.c:541
 msgid "Keyboard battery low"
 msgstr "キーボードのバッテリー低下"
 
 #. TRANSLATORS: notification body, a wireless keyboard is low on power
-#: plugins/power/gsd-power-manager.c:540
+#: plugins/power/gsd-power-manager.c:544
 #, c-format
 msgid "Wireless keyboard is low on power (%.0f%%)"
 msgstr "ワイヤレスキーボードのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:541
+#: plugins/power/gsd-power-manager.c:545
 msgid "Wireless keyboard is low on power"
 msgstr "ワイヤレスキーボードのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a wireless keyboard is very low on power
-#: plugins/power/gsd-power-manager.c:543
+#: plugins/power/gsd-power-manager.c:547
 #, c-format
 msgid ""
 "Wireless keyboard is very low on power (%.0f%%). This device will soon stop "
@@ -1772,7 +1811,7 @@ msgstr ""
 "ワイヤレスキーボードの電源が非常に低くなっています (%.0f%%)。このデバイスは、"
 "充電されないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:545
+#: plugins/power/gsd-power-manager.c:549
 msgid ""
 "Wireless keyboard is very low on power. This device will soon stop "
 "functioning if not charged."
@@ -1781,22 +1820,22 @@ msgstr ""
 "ないとまもなく機能を停止します。"
 
 #. TRANSLATORS: notification title, a PDA (Personal Digital Assistance device) is low or very on power
-#: plugins/power/gsd-power-manager.c:550
+#: plugins/power/gsd-power-manager.c:554
 msgid "PDA battery low"
 msgstr "PDA のバッテリー低下"
 
 #. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is low on power
-#: plugins/power/gsd-power-manager.c:553
+#: plugins/power/gsd-power-manager.c:557
 #, c-format
 msgid "PDA is low on power (%.0f%%)"
 msgstr "PDA のバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:554
+#: plugins/power/gsd-power-manager.c:558
 msgid "PDA is low on power"
 msgstr "PDA のバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is very low on power
-#: plugins/power/gsd-power-manager.c:556
+#: plugins/power/gsd-power-manager.c:560
 #, c-format
 msgid ""
 "PDA is very low on power (%.0f%%). This device will soon stop functioning if "
@@ -1805,7 +1844,7 @@ msgstr ""
 "PDA の電源が非常に低くなっています (%.0f%%)。このデバイスは、充電されないとま"
 "もなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:558
+#: plugins/power/gsd-power-manager.c:562
 msgid ""
 "PDA is very low on power. This device will soon stop functioning if not "
 "charged."
@@ -1814,22 +1853,22 @@ msgstr ""
 "能を停止します。"
 
 #. TRANSLATORS: notification title, a cell phone (mobile phone) is low or very low on power
-#: plugins/power/gsd-power-manager.c:563
+#: plugins/power/gsd-power-manager.c:567
 msgid "Cell phone battery low"
 msgstr "携帯電話のバッテリー低下"
 
 #. TRANSLATORS: notification body, a cell phone (mobile phone) is low on power
-#: plugins/power/gsd-power-manager.c:566
+#: plugins/power/gsd-power-manager.c:570
 #, c-format
 msgid "Cell phone is low on power (%.0f%%)"
 msgstr "携帯電話のバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:567
+#: plugins/power/gsd-power-manager.c:571
 msgid "Cell phone is low on power"
 msgstr "携帯電話のバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a cell phone (mobile phone) is very low on power
-#: plugins/power/gsd-power-manager.c:569
+#: plugins/power/gsd-power-manager.c:573
 #, c-format
 msgid ""
 "Cell phone is very low on power (%.0f%%). This device will soon stop "
@@ -1838,7 +1877,7 @@ msgstr ""
 "携帯電話の電源が非常に低くなっています (%.0f%%)。このデバイスは、充電されない"
 "とまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:571
+#: plugins/power/gsd-power-manager.c:575
 msgid ""
 "Cell phone is very low on power. This device will soon stop functioning if "
 "not charged."
@@ -1847,22 +1886,22 @@ msgstr ""
 "く機能を停止します。"
 
 #. TRANSLATORS: notification title, a media player (e.g. mp3 player) is low or very low on power
-#: plugins/power/gsd-power-manager.c:576
+#: plugins/power/gsd-power-manager.c:580
 msgid "Media player battery low"
 msgstr "メディアプレーヤーのバッテリー低下"
 
 #. TRANSLATORS: notification body, a media player (e.g. mp3 player) is low on power
-#: plugins/power/gsd-power-manager.c:579
+#: plugins/power/gsd-power-manager.c:583
 #, c-format
 msgid "Media player is low on power (%.0f%%)"
 msgstr "メディアプレーヤーのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:580
+#: plugins/power/gsd-power-manager.c:584
 msgid "Media player is low on power"
 msgstr "メディアプレーヤーのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a media player (e.g. mp3 player) is very low on power
-#: plugins/power/gsd-power-manager.c:582
+#: plugins/power/gsd-power-manager.c:586
 #, c-format
 msgid ""
 "Media player is very low on power (%.0f%%). This device will soon stop "
@@ -1871,7 +1910,7 @@ msgstr ""
 "メディアプレーヤーの電源が非常に低くなっています (%.0f%%)。このデバイスは、充"
 "電されないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:584
+#: plugins/power/gsd-power-manager.c:588
 msgid ""
 "Media player is very low on power. This device will soon stop functioning if "
 "not charged."
@@ -1880,22 +1919,22 @@ msgstr ""
 "いとまもなく機能を停止します。"
 
 #. TRANSLATORS: notification title, a graphics tablet (e.g. wacom) is low or very low on power
-#: plugins/power/gsd-power-manager.c:589
+#: plugins/power/gsd-power-manager.c:593
 msgid "Tablet battery low"
 msgstr "タブレットのバッテリー低下"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is low on power
-#: plugins/power/gsd-power-manager.c:592
+#: plugins/power/gsd-power-manager.c:596
 #, c-format
 msgid "Tablet is low on power (%.0f%%)"
 msgstr "タブレットのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:593
+#: plugins/power/gsd-power-manager.c:597
 msgid "Tablet is low on power"
 msgstr "タブレットのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is very low on power
-#: plugins/power/gsd-power-manager.c:595
+#: plugins/power/gsd-power-manager.c:599
 #, c-format
 msgid ""
 "Tablet is very low on power (%.0f%%). This device will soon stop functioning "
@@ -1904,7 +1943,7 @@ msgstr ""
 "タブレットの電源が非常に低くなっています (%.0f%%)。このデバイスは、充電されな"
 "いとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:597
+#: plugins/power/gsd-power-manager.c:601
 msgid ""
 "Tablet is very low on power. This device will soon stop functioning if not "
 "charged."
@@ -1913,22 +1952,22 @@ msgstr ""
 "なく機能を停止します。"
 
 #. TRANSLATORS: notification title, an attached computer (e.g. ipad) is low or very low on power
-#: plugins/power/gsd-power-manager.c:602
+#: plugins/power/gsd-power-manager.c:606
 msgid "Attached computer battery low"
 msgstr "接続されたコンピューターのバッテリー低下"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is low on power
-#: plugins/power/gsd-power-manager.c:605
+#: plugins/power/gsd-power-manager.c:609
 #, c-format
 msgid "Attached computer is low on power (%.0f%%)"
 msgstr "接続されたコンピューターのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:606
+#: plugins/power/gsd-power-manager.c:610
 msgid "Attached computer is low on power"
 msgstr "接続されたコンピューターのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is very low on power
-#: plugins/power/gsd-power-manager.c:608
+#: plugins/power/gsd-power-manager.c:612
 #, c-format
 msgid ""
 "Attached computer is very low on power (%.0f%%). The device will soon "
@@ -1937,7 +1976,7 @@ msgstr ""
 "接続されたコンピューターの電源が非常に低くなっています (%.0f%%)。このデバイス"
 "は、充電されないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:610
+#: plugins/power/gsd-power-manager.c:614
 msgid ""
 "Attached computer is very low on power. The device will soon shutdown if not "
 "charged."
@@ -1946,22 +1985,22 @@ msgstr ""
 "されないとまもなく機能を停止します。"
 
 #. TRANSLATORS: notification title, a game controller (e.g. joystick or joypad) is low or very low on power
-#: plugins/power/gsd-power-manager.c:615
+#: plugins/power/gsd-power-manager.c:619
 msgid "Game controller battery low"
 msgstr "ゲーム用コントローラーのバッテリー低下"
 
 #. TRANSLATORS: notification body, a game controller (e.g. joystick or joypad) is low on power
-#: plugins/power/gsd-power-manager.c:618
+#: plugins/power/gsd-power-manager.c:622
 #, c-format
 msgid "Game controller is low on power (%.0f%%)"
 msgstr "ゲーム用コントローラーのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:619
+#: plugins/power/gsd-power-manager.c:623
 msgid "Game controller is low on power"
 msgstr "ゲーム用コントローラーのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, an attached game controller (e.g. joystick or joypad) is very low on power
-#: plugins/power/gsd-power-manager.c:621
+#: plugins/power/gsd-power-manager.c:625
 #, c-format
 msgid ""
 "Game controller is very low on power (%.0f%%). The device will soon shutdown "
@@ -1970,7 +2009,7 @@ msgstr ""
 "ゲーム用コントローラーの電源が非常に低くなっています (%.0f%%)。このデバイス"
 "は、充電されないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:623
+#: plugins/power/gsd-power-manager.c:627
 msgid ""
 "Game controller is very low on power. The device will soon shutdown if not "
 "charged."
@@ -1979,22 +2018,22 @@ msgstr ""
 "れないとまもなく機能を停止します。"
 
 #. TRANSLATORS: notification title, a pen is low or very low on power
-#: plugins/power/gsd-power-manager.c:628
+#: plugins/power/gsd-power-manager.c:632
 msgid "Pen battery low"
 msgstr "ペンのバッテリー低下"
 
 #. TRANSLATORS: notification body, a pen is low on power
-#: plugins/power/gsd-power-manager.c:631
+#: plugins/power/gsd-power-manager.c:635
 #, c-format
 msgid "Pen is low on power (%.0f%%)"
 msgstr "ペンのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:632
+#: plugins/power/gsd-power-manager.c:636
 msgid "Pen is low on power"
 msgstr "ペンのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a pen is very low on power
-#: plugins/power/gsd-power-manager.c:634
+#: plugins/power/gsd-power-manager.c:638
 #, c-format
 msgid ""
 "Pen is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2003,29 +2042,29 @@ msgstr ""
 "ペンの電源が非常に低くなっています (%.0f%%)。このデバイスは、充電されないとま"
 "もなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:636
+#: plugins/power/gsd-power-manager.c:640
 msgid "Pen is very low on power. The device will soon shutdown if not charged."
 msgstr ""
 "ペンの電源が非常に低くなっています。このデバイスは、充電されないとまもなく機"
 "能を停止します。"
 
 #. TRANSLATORS: notification title, an external touchpad is low or very low on power
-#: plugins/power/gsd-power-manager.c:641
+#: plugins/power/gsd-power-manager.c:645
 msgid "Touchpad battery low"
 msgstr "タッチパッドのバッテリー低下"
 
 #. TRANSLATORS: notification body, an external touchpad is low on power
-#: plugins/power/gsd-power-manager.c:644
+#: plugins/power/gsd-power-manager.c:648
 #, c-format
 msgid "Touchpad is low on power (%.0f%%)"
 msgstr "タッチパッドのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:645
+#: plugins/power/gsd-power-manager.c:649
 msgid "Touchpad is low on power"
 msgstr "タッチパッドのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, an external touchpad is very low on power
-#: plugins/power/gsd-power-manager.c:647
+#: plugins/power/gsd-power-manager.c:651
 #, c-format
 msgid ""
 "Touchpad is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2034,7 +2073,7 @@ msgstr ""
 "タッチパッドの電源が非常に低くなっています (%.0f%%)。このデバイスは、充電され"
 "ないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:649
+#: plugins/power/gsd-power-manager.c:653
 msgid ""
 "Touchpad is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2042,22 +2081,22 @@ msgstr ""
 "もなく機能を停止します。"
 
 #. TRANSLATORS: notification title, a headset (headphones + microphone) is low or very low on power
-#: plugins/power/gsd-power-manager.c:654
+#: plugins/power/gsd-power-manager.c:658
 msgid "Headset battery low"
 msgstr "ヘッドセットのバッテリー低下"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is low on power
-#: plugins/power/gsd-power-manager.c:657
+#: plugins/power/gsd-power-manager.c:661
 #, c-format
 msgid "Headset is low on power (%.0f%%)"
 msgstr "ヘッドセットのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:658
+#: plugins/power/gsd-power-manager.c:662
 msgid "Headset is low on power"
 msgstr "ヘッドセットのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is very low on power
-#: plugins/power/gsd-power-manager.c:660
+#: plugins/power/gsd-power-manager.c:664
 #, c-format
 msgid ""
 "Headset is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2066,7 +2105,7 @@ msgstr ""
 "ヘッドセットの電源が非常に低くなっています (%.0f%%)。このデバイスは、充電され"
 "ないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:662
+#: plugins/power/gsd-power-manager.c:666
 msgid ""
 "Headset is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2074,22 +2113,22 @@ msgstr ""
 "もなく機能を停止します。"
 
 #. TRANSLATORS: notification title, speaker is low or very low on power
-#: plugins/power/gsd-power-manager.c:667
+#: plugins/power/gsd-power-manager.c:671
 msgid "Speaker battery low"
 msgstr "スピーカーのバッテリー低下"
 
 #. TRANSLATORS: notification body, a speaker is low on power
-#: plugins/power/gsd-power-manager.c:670
+#: plugins/power/gsd-power-manager.c:674
 #, c-format
 msgid "Speaker is low on power (%.0f%%)"
 msgstr "スピーカーのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:671
+#: plugins/power/gsd-power-manager.c:675
 msgid "Speaker is low on power"
 msgstr "スピーカーのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a speaker is very low on power
-#: plugins/power/gsd-power-manager.c:673
+#: plugins/power/gsd-power-manager.c:677
 #, c-format
 msgid ""
 "Speaker is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2098,7 +2137,7 @@ msgstr ""
 "スピーカーの電源が非常に低くなっています (%.0f%%)。このデバイスは、充電されな"
 "いとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:675
+#: plugins/power/gsd-power-manager.c:679
 msgid ""
 "Speaker is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2106,22 +2145,22 @@ msgstr ""
 "なく機能を停止します。"
 
 #. TRANSLATORS: notification title, headphones (no microphone) are low or very low on power
-#: plugins/power/gsd-power-manager.c:680
+#: plugins/power/gsd-power-manager.c:684
 msgid "Headphones battery low"
 msgstr "ヘッドホンのバッテリー低下"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are low on power
-#: plugins/power/gsd-power-manager.c:683
+#: plugins/power/gsd-power-manager.c:687
 #, c-format
 msgid "Headphones are low on power (%.0f%%)"
 msgstr "ヘッドホンのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:684
+#: plugins/power/gsd-power-manager.c:688
 msgid "Headphones are low on power"
 msgstr "ヘッドホンのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are very low on power
-#: plugins/power/gsd-power-manager.c:686
+#: plugins/power/gsd-power-manager.c:690
 #, c-format
 msgid ""
 "Headphones are very low on power (%.0f%%). The device will soon shutdown if "
@@ -2130,7 +2169,7 @@ msgstr ""
 "ヘッドホンの電源が非常に低くなっています (%.0f%%)。このデバイスは、充電されな"
 "いとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:688
+#: plugins/power/gsd-power-manager.c:692
 msgid ""
 "Headphones are very low on power. The device will soon shutdown if not "
 "charged."
@@ -2139,22 +2178,22 @@ msgstr ""
 "なく機能を停止します。"
 
 #. TRANSLATORS: notification title, an audio device is low or very low on power
-#: plugins/power/gsd-power-manager.c:693
+#: plugins/power/gsd-power-manager.c:697
 msgid "Audio device battery low"
 msgstr "オーディオデバイスのバッテリー低下"
 
 #. TRANSLATORS: notification body, an audio device is low on power
-#: plugins/power/gsd-power-manager.c:696
+#: plugins/power/gsd-power-manager.c:700
 #, c-format
 msgid "Audio device is low on power (%.0f%%)"
 msgstr "オーディオデバイスのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:697
+#: plugins/power/gsd-power-manager.c:701
 msgid "Audio device is low on power"
 msgstr "オーディオデバイスのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, an audio device is very low on power
-#: plugins/power/gsd-power-manager.c:699
+#: plugins/power/gsd-power-manager.c:703
 #, c-format
 msgid ""
 "Audio device is very low on power (%.0f%%). The device will soon shutdown if "
@@ -2163,7 +2202,7 @@ msgstr ""
 "オーディオデバイスの電源が非常に低くなっています (%.0f%%)。このデバイスは、充"
 "電されないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:701
+#: plugins/power/gsd-power-manager.c:705
 msgid ""
 "Audio device is very low on power. The device will soon shutdown if not "
 "charged."
@@ -2172,50 +2211,54 @@ msgstr ""
 "いとまもなく機能を停止します。"
 
 #. TRANSLATORS: notification title, a remote control is low or very low on power
-#: plugins/power/gsd-power-manager.c:706
+#: plugins/power/gsd-power-manager.c:710
 msgid "Remote battery low"
-msgstr ""
+msgstr "リモコンのバッテリー低下"
 
 #. TRANSLATORS: notification body, an remote control is low on power
-#: plugins/power/gsd-power-manager.c:709
+#: plugins/power/gsd-power-manager.c:713
 #, c-format
 msgid "Remote is low on power (%.0f%%)"
-msgstr ""
+msgstr "リモコンのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:710
+#: plugins/power/gsd-power-manager.c:714
 msgid "Remote is low on power"
-msgstr ""
+msgstr "リモコンのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a remote control is very low on power
-#: plugins/power/gsd-power-manager.c:712
+#: plugins/power/gsd-power-manager.c:716
 #, c-format
 msgid ""
 "Remote is very low on power (%.0f%%). The device will soon shutdown if not "
 "charged."
 msgstr ""
+"リモコンの電池容量が非常に少なくなっています (%.0f%%)。このデバイスは、充電さ"
+"れないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:714
+#: plugins/power/gsd-power-manager.c:718
 msgid ""
 "Remote is very low on power. The device will soon shutdown if not charged."
 msgstr ""
+"リモコンの電力が非常に低下しています。このデバイスは、充電されないとまもなく"
+"機能を停止します。"
 
 #. TRANSLATORS: notification title, a printer is low or very low on power
-#: plugins/power/gsd-power-manager.c:719
+#: plugins/power/gsd-power-manager.c:723
 msgid "Printer battery low"
 msgstr "プリンターのバッテリー低下"
 
 #. TRANSLATORS: notification body, a printer is low on power
-#: plugins/power/gsd-power-manager.c:722
+#: plugins/power/gsd-power-manager.c:726
 #, c-format
 msgid "Printer is low on power (%.0f%%)"
 msgstr "プリンターのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:723
+#: plugins/power/gsd-power-manager.c:727
 msgid "Printer is low on power"
 msgstr "プリンターのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a printer is very low on power
-#: plugins/power/gsd-power-manager.c:725
+#: plugins/power/gsd-power-manager.c:729
 #, c-format
 msgid ""
 "Printer is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2224,7 +2267,7 @@ msgstr ""
 "プリンターの電源が非常に低くなっています (%.0f%%)。このデバイスは、充電されな"
 "いとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:727
+#: plugins/power/gsd-power-manager.c:731
 msgid ""
 "Printer is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2232,22 +2275,22 @@ msgstr ""
 "なく機能を停止します。"
 
 #. TRANSLATORS: notification title, a scanner is low or very low on power
-#: plugins/power/gsd-power-manager.c:732
+#: plugins/power/gsd-power-manager.c:736
 msgid "Scanner battery low"
 msgstr "スキャナーのバッテリー低下"
 
 #. TRANSLATORS: notification body, a scanner is low on power
-#: plugins/power/gsd-power-manager.c:735
+#: plugins/power/gsd-power-manager.c:739
 #, c-format
 msgid "Scanner is low on power (%.0f%%)"
 msgstr "スキャナーの電力が低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:736
+#: plugins/power/gsd-power-manager.c:740
 msgid "Scanner is low on power"
 msgstr "スキャナーの電力が低下しています"
 
 #. TRANSLATORS: notification body, a scanner is very low on power
-#: plugins/power/gsd-power-manager.c:738
+#: plugins/power/gsd-power-manager.c:742
 #, c-format
 msgid ""
 "Scanner is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2256,7 +2299,7 @@ msgstr ""
 "スキャナーの電源が非常に低くなっています (%.0f%%)。このデバイスは、充電されな"
 "いとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:740
+#: plugins/power/gsd-power-manager.c:744
 msgid ""
 "Scanner is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2264,22 +2307,22 @@ msgstr ""
 "なく機能を停止します。"
 
 #. TRANSLATORS: notification title, a camera is low or very low on power
-#: plugins/power/gsd-power-manager.c:745
+#: plugins/power/gsd-power-manager.c:749
 msgid "Camera battery low"
 msgstr "カメラのバッテリー低下"
 
 #. TRANSLATORS: notification body, a camera is low on power
-#: plugins/power/gsd-power-manager.c:748
+#: plugins/power/gsd-power-manager.c:752
 #, c-format
 msgid "Camera is low on power (%.0f%%)"
 msgstr "カメラのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:749
+#: plugins/power/gsd-power-manager.c:753
 msgid "Camera is low on power"
 msgstr "カメラのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a camera is very low on power
-#: plugins/power/gsd-power-manager.c:751
+#: plugins/power/gsd-power-manager.c:755
 #, c-format
 msgid ""
 "Camera is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2288,7 +2331,7 @@ msgstr ""
 "カメラの電源が非常に低くなっています (%.0f%%)。このデバイスは、充電されないと"
 "まもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:753
+#: plugins/power/gsd-power-manager.c:757
 msgid ""
 "Camera is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2296,22 +2339,22 @@ msgstr ""
 "機能を停止します。"
 
 #. TRANSLATORS: notification title, a Bluetooth device is low or very low on power
-#: plugins/power/gsd-power-manager.c:758
+#: plugins/power/gsd-power-manager.c:762
 msgid "Bluetooth device battery low"
 msgstr "Bluetooth デバイスのバッテリー低下"
 
 #. TRANSLATORS: notification body, a Bluetooth device is low on power
-#: plugins/power/gsd-power-manager.c:761
+#: plugins/power/gsd-power-manager.c:765
 #, c-format
 msgid "Bluetooth device is low on power (%.0f%%)"
 msgstr "Bluetooth デバイスのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:762
+#: plugins/power/gsd-power-manager.c:766
 msgid "Bluetooth device is low on power"
 msgstr "Bluetooth デバイスのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a Bluetooth device is very low on power
-#: plugins/power/gsd-power-manager.c:764
+#: plugins/power/gsd-power-manager.c:768
 #, c-format
 msgid ""
 "Bluetooth device is very low on power (%.0f%%). The device will soon "
@@ -2320,7 +2363,7 @@ msgstr ""
 "Bluetooth デバイスの電源が非常に低くなっています (%.0f%%)。このデバイスは、充"
 "電されないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:766
+#: plugins/power/gsd-power-manager.c:770
 msgid ""
 "Bluetooth device is very low on power. The device will soon shutdown if not "
 "charged."
@@ -2329,22 +2372,22 @@ msgstr ""
 "いとまもなく機能を停止します。"
 
 #. TRANSLATORS: notification title, a connected (wireless) device or peripheral of unhandled type is low or very on power
-#: plugins/power/gsd-power-manager.c:772
+#: plugins/power/gsd-power-manager.c:776
 msgid "Connected device battery is low"
 msgstr "接続されたデバイスのバッテリー低下"
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is low on power
-#: plugins/power/gsd-power-manager.c:775
+#: plugins/power/gsd-power-manager.c:779
 #, c-format
 msgid "A connected device is low on power (%.0f%%)"
 msgstr "接続されたデバイスのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:776
+#: plugins/power/gsd-power-manager.c:780
 msgid "A connected device is low on power"
 msgstr "接続されたデバイスのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is very low on power
-#: plugins/power/gsd-power-manager.c:778
+#: plugins/power/gsd-power-manager.c:782
 #, c-format
 msgid ""
 "A connected device is very low on power (%.0f%%). The device will soon "
@@ -2353,7 +2396,7 @@ msgstr ""
 "接続されたデバイスの電源が非常に低くなっています (%.0f%%)。このデバイスは、充"
 "電されないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:780
+#: plugins/power/gsd-power-manager.c:784
 msgid ""
 "A connected device is very low on power. The device will soon shutdown if "
 "not charged."
@@ -2362,119 +2405,107 @@ msgstr ""
 "いとまもなく機能を停止します。"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:806
-#, fuzzy
+#: plugins/power/gsd-power-manager.c:810
 msgid "Low Battery"
-msgstr "ノート PC のバッテリー"
+msgstr "バッテリー低下"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:809
-#, fuzzy, c-format
+#: plugins/power/gsd-power-manager.c:813
+#, c-format
 msgid "%.0f%% battery remaining"
-msgstr "残り %s %s"
+msgstr "バッテリーの残り %.0f%%"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:812
-#, fuzzy
+#: plugins/power/gsd-power-manager.c:816
 msgid "UPS Low"
 msgstr "UPS のバッテリー低下"
 
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
-#: plugins/power/gsd-power-manager.c:815 plugins/power/gsd-power-manager.c:888
-#, fuzzy, c-format
+#: plugins/power/gsd-power-manager.c:819 plugins/power/gsd-power-manager.c:892
+#, c-format
 msgid "%.0f%% UPS power remaining"
-msgstr "UPS のバックアップ電力の残り時間は %s です"
+msgstr "UPS のバッテリーの残りは %.0f%% です"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:853
+#: plugins/power/gsd-power-manager.c:857
 msgid "Battery is low"
 msgstr "バッテリー低下"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, advice on what the user should do
-#: plugins/power/gsd-power-manager.c:879
-#, fuzzy
+#: plugins/power/gsd-power-manager.c:883
 msgid "Battery Almost Empty"
-msgstr "バッテリー低下"
+msgstr "バッテリーがほぼ空"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically running low, advice on what the user should do
-#: plugins/power/gsd-power-manager.c:882
+#: plugins/power/gsd-power-manager.c:886
 #, c-format
 msgid "Connect power now"
-msgstr ""
+msgstr "すぐに電源を接続してください"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
-#: plugins/power/gsd-power-manager.c:885
-#, fuzzy
+#: plugins/power/gsd-power-manager.c:889
 msgid "UPS Almost Empty"
-msgstr "UPS のバッテリーが空です"
+msgstr "UPS のバッテリーがほぼ空"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, warning about action happening now
-#: plugins/power/gsd-power-manager.c:956
-#, fuzzy
+#: plugins/power/gsd-power-manager.c:960
 msgid "Battery is Empty"
-msgstr "バッテリー低下"
+msgstr "バッテリーが空"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action about to happen
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
-#: plugins/power/gsd-power-manager.c:963 plugins/power/gsd-power-manager.c:983
+#: plugins/power/gsd-power-manager.c:967 plugins/power/gsd-power-manager.c:987
 msgid "This device is about to hibernate"
-msgstr ""
+msgstr "このデバイスはまもなくハイバーネートされます"
 
-#: plugins/power/gsd-power-manager.c:965 plugins/power/gsd-power-manager.c:985
-#, fuzzy
+#: plugins/power/gsd-power-manager.c:969 plugins/power/gsd-power-manager.c:989
 msgid "This device is about to shutdown"
-msgstr "オーディオデバイスのバッテリーが低下しています"
+msgstr "このデバイスはまもなくシャットダウンされます"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
-#: plugins/power/gsd-power-manager.c:976
-#, fuzzy
+#: plugins/power/gsd-power-manager.c:980
 msgid "UPS is Empty"
-msgstr "UPS のバッテリーが空です"
+msgstr "UPS のバッテリーが空"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1502
+#: plugins/power/gsd-power-manager.c:1506
 msgid "Lid has been opened"
 msgstr "ふたが開けられました"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1536
+#: plugins/power/gsd-power-manager.c:1540
 msgid "Lid has been closed"
 msgstr "ふたが閉じられました"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2189
+#: plugins/power/gsd-power-manager.c:2194
 msgid "On battery power"
 msgstr "バッテリー電源駆動時"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2194
+#: plugins/power/gsd-power-manager.c:2199
 msgid "On AC power"
 msgstr "AC 電源駆動時"
 
-#: plugins/power/gsd-power-manager.c:2461
-#, fuzzy
+#: plugins/power/gsd-power-manager.c:2469
 msgid "Automatic Logout"
 msgstr "自動ログアウト"
 
-#: plugins/power/gsd-power-manager.c:2461
-#, fuzzy
+#: plugins/power/gsd-power-manager.c:2469
 msgid "You will soon log out because of inactivity"
-msgstr "作業が行われていないため、まもなくログアウトします。"
+msgstr "作業が行われていないため、まもなくログアウトします"
 
-#: plugins/power/gsd-power-manager.c:2466
-#, fuzzy
+#: plugins/power/gsd-power-manager.c:2474
 msgid "Automatic Suspend"
 msgstr "自動サスペンド"
 
-#: plugins/power/gsd-power-manager.c:2466
-#: plugins/power/gsd-power-manager.c:2471
-#, fuzzy
+#: plugins/power/gsd-power-manager.c:2474
+#: plugins/power/gsd-power-manager.c:2479
 msgid "Suspending soon because of inactivity"
-msgstr "作業が行われていないため、まもなくサスペンドします。"
+msgstr "作業が行われていないため、まもなくサスペンドします"
 
-#: plugins/power/gsd-power-manager.c:2471
-#, fuzzy
+#: plugins/power/gsd-power-manager.c:2479
 msgid "Automatic Hibernation"
 msgstr "自動ハイバーネート"
 
@@ -2701,7 +2732,6 @@ msgstr "“%2$s”のジョブ“%1$s”"
 #. Translators: A print job has been cancelled
 #: plugins/print-notifications/gsd-print-notifications-manager.c:722
 #: plugins/print-notifications/gsd-print-notifications-manager.c:762
-#, fuzzy
 msgctxt "print job state"
 msgid "Printing cancelled"
 msgstr "印刷がキャンセルされました"
@@ -2756,28 +2786,27 @@ msgid "New USB device"
 msgstr "新しい USB デバイス"
 
 #: plugins/usb-protection/gsd-usb-protection-manager.c:538
-#, fuzzy
 msgid ""
 "New USB device has been activated while the session was not locked. If you "
 "did not intend to insert any device, check your system for any suspicious "
 "gadgets and remove them."
 msgstr ""
-"セッションがロックされていなかった間に新しいデバイスを検出しました。何も接続"
-"しなかった場合は、怪しいデバイスがないか確認してください。"
+"セッションがロックされていなかった間に新しい USB デバイスがアクティベイトされ"
+"ました。デバイスを挿入するつもりがなかった場合は、怪しいガジェットがないかシ"
+"ステムを確認し、取り外してください。"
 
 #: plugins/usb-protection/gsd-usb-protection-manager.c:680
 msgid "New device detected"
 msgstr "新しいデバイスを検出しました"
 
 #: plugins/usb-protection/gsd-usb-protection-manager.c:681
-#, fuzzy
 msgid ""
 "Either one of your existing devices has been reconnected or a new one has "
 "been inserted. If you did not do it, check your system for any suspicious "
 "device."
 msgstr ""
 "既存のデバイスが再接続されたか、新しいデバイスが接続されました。何もしていな"
-"い場合は、怪しいデバイスがないか確認してください。"
+"い場合は、怪しいデバイスがないかシステムを確認してください。"
 
 #: plugins/usb-protection/gsd-usb-protection-manager.c:688
 msgid "Reconnect USB device"
@@ -2805,14 +2834,14 @@ msgstr ""
 "め、そのデバイスはブロックされています。"
 
 #: plugins/usb-protection/gsd-usb-protection-manager.c:723
-#, fuzzy
 msgid ""
 "The new inserted device has been blocked because the USB protection is "
 "active. If you want to activate the device, disable the USB protection and "
 "re-insert the device."
 msgstr ""
 "USB プロテクションが有効になっているため、新しく挿し込まれたデバイスはブロッ"
-"クされています。"
+"クされています。デバイスを有効にする場合は、USB プロテクションを無効にし、デ"
+"バイスを再挿入してください。"
 
 #. SECURITY:
 #. - A normal active user on the local machine does not need permission
@@ -2838,11 +2867,11 @@ msgstr "Wacom タブレットの OLED イメージの変更には認証が必要
 
 #: plugins/wwan/cc-wwan-errors-private.h:40
 msgid "Phone failure"
-msgstr ""
+msgstr "電話でエラーが発生しました"
 
 #: plugins/wwan/cc-wwan-errors-private.h:41
 msgid "No connection to phone"
-msgstr ""
+msgstr "電話への接続がありません"
 
 #: plugins/wwan/cc-wwan-errors-private.h:43
 msgid "Operation not allowed"
@@ -2854,7 +2883,7 @@ msgstr "操作がサポートされていません"
 
 #: plugins/wwan/cc-wwan-errors-private.h:48
 msgid "SIM not inserted"
-msgstr ""
+msgstr "SIM が挿入されていません"
 
 #: plugins/wwan/cc-wwan-errors-private.h:49
 msgid "SIM PIN required"
@@ -2866,27 +2895,27 @@ msgstr "SIMロック解除PINが必要です"
 
 #: plugins/wwan/cc-wwan-errors-private.h:51
 msgid "SIM failure"
-msgstr ""
+msgstr "SIMでエラー"
 
 #: plugins/wwan/cc-wwan-errors-private.h:52
 msgid "SIM busy"
-msgstr ""
+msgstr "SIM がビジー"
 
 #: plugins/wwan/cc-wwan-errors-private.h:53
 msgid "SIM wrong"
-msgstr ""
+msgstr "SIM に問題"
 
 #: plugins/wwan/cc-wwan-errors-private.h:54
 msgid "Incorrect password"
-msgstr ""
+msgstr "パスワードが間違い"
 
 #: plugins/wwan/cc-wwan-errors-private.h:55
 msgid "SIM PIN2 required"
-msgstr ""
+msgstr "SIM PIN2 が必要"
 
 #: plugins/wwan/cc-wwan-errors-private.h:56
 msgid "SIM PUK2 required"
-msgstr ""
+msgstr "SIM PUK2 が必要"
 
 #: plugins/wwan/cc-wwan-errors-private.h:72
 msgid "Unknown error"
@@ -2894,7 +2923,7 @@ msgstr "不明なエラー"
 
 #: plugins/wwan/cc-wwan-errors-private.h:91
 msgid "Action Cancelled"
-msgstr ""
+msgstr "アクションがキャンセルされました"
 
 #: plugins/wwan/cc-wwan-errors-private.h:94
 msgid "Access denied"
