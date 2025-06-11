@@ -23,35 +23,34 @@
 
 #include <gio/gio.h>
 
+#include "gsd-location-monitor.h"
+
 G_BEGIN_DECLS
 
 #define GSD_TYPE_NIGHT_LIGHT (gsd_night_light_get_type ())
 G_DECLARE_FINAL_TYPE (GsdNightLight, gsd_night_light, GSD, NIGHT_LIGHT, GObject)
 
-GsdNightLight   *gsd_night_light_new                    (void);
-gboolean         gsd_night_light_start                  (GsdNightLight *self,
-                                                         GError       **error);
+GsdNightLight   *gsd_night_light_new                    (GsdLocationMonitor *monitor);
+gboolean         gsd_night_light_start                  (GsdNightLight      *self,
+                                                         GError            **error);
 
-gboolean         gsd_night_light_get_active             (GsdNightLight *self);
-gdouble          gsd_night_light_get_sunrise            (GsdNightLight *self);
-gdouble          gsd_night_light_get_sunset             (GsdNightLight *self);
-gdouble          gsd_night_light_get_temperature        (GsdNightLight *self);
+gboolean         gsd_night_light_get_active             (GsdNightLight      *self);
+gdouble          gsd_night_light_get_temperature        (GsdNightLight      *self);
 
-gboolean         gsd_night_light_get_disabled_until_tmw (GsdNightLight *self);
-void             gsd_night_light_set_disabled_until_tmw (GsdNightLight *self,
-                                                         gboolean       value);
+gboolean         gsd_night_light_get_disabled_until_tmw (GsdNightLight      *self);
+void             gsd_night_light_set_disabled_until_tmw (GsdNightLight      *self,
+                                                         gboolean            value);
 
-gboolean         gsd_night_light_get_forced             (GsdNightLight *self);
-void             gsd_night_light_set_forced             (GsdNightLight *self,
-                                                         gboolean       value);
+gboolean         gsd_night_light_get_forced             (GsdNightLight      *self);
+void             gsd_night_light_set_forced             (GsdNightLight      *self,
+                                                         gboolean            value);
+
+void             gsd_night_light_recheck_schedule       (GsdNightLight      *self);
 
 /* only for the self test program */
-void             gsd_night_light_set_geoclue_enabled    (GsdNightLight *self,
-                                                         gboolean       enabled);
-void             gsd_night_light_set_date_time_now      (GsdNightLight *self,
-                                                         GDateTime     *datetime);
-void             gsd_night_light_set_smooth_enabled     (GsdNightLight *self,
-                                                         gboolean       smooth_enabled);
+void             gsd_night_light_set_smooth_enabled     (GsdNightLight      *self,
+                                                         gboolean            smooth_enabled);
+void             gsd_night_light_recheck_immediate      (GsdNightLight      *self);
 
 G_END_DECLS
 

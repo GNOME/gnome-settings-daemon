@@ -60,15 +60,18 @@ gcm_test_night_light (void)
         g_autoptr(GDateTime) datetime_override = NULL;
         g_autoptr(GError) error = NULL;
         g_autoptr(GsdNightLight) nlight = NULL;
+        g_autoptr(GsdLocationMonitor) monitor = NULL;
         g_autoptr(GSettings) settings = NULL;
 
-        nlight = gsd_night_light_new ();
+        monitor = gsd_location_monitor_new ();
+
+        nlight = gsd_night_light_new (monitor);
         g_assert (GSD_IS_NIGHT_LIGHT (nlight));
         g_signal_connect (nlight, "notify::active",
                           G_CALLBACK (on_notify), &active_cnt);
-        g_signal_connect (nlight, "notify::sunset",
+        g_signal_connect (monitor, "notify::sunset",
                           G_CALLBACK (on_notify), &sunset_cnt);
-        g_signal_connect (nlight, "notify::sunrise",
+        g_signal_connect (monitor, "notify::sunrise",
                           G_CALLBACK (on_notify), &sunrise_cnt);
         g_signal_connect (nlight, "notify::temperature",
                           G_CALLBACK (on_notify), &temperature_cnt);
@@ -77,10 +80,11 @@ gcm_test_night_light (void)
 
         /* hardcode a specific date and time */
         datetime_override = g_date_time_new_utc (2017, 2, 8, 20, 0, 0);
-        gsd_night_light_set_date_time_now (nlight, datetime_override);
+        gsd_location_monitor_set_date_time_now (monitor, datetime_override);
+        gsd_night_light_recheck_immediate (nlight);
 
         /* do not start geoclue */
-        gsd_night_light_set_geoclue_enabled (nlight, FALSE);
+        gsd_location_monitor_set_geoclue_enabled (monitor, FALSE);
 
         /* do not smooth the transition */
         gsd_night_light_set_smooth_enabled (nlight, FALSE);
@@ -92,13 +96,14 @@ gcm_test_night_light (void)
 
         /* check default values */
         g_assert (!gsd_night_light_get_active (nlight));
-        g_assert_cmpint ((gint) gsd_night_light_get_sunrise (nlight), ==, -1);
-        g_assert_cmpint ((gint) gsd_night_light_get_sunset (nlight), ==, -1);
+        g_assert_cmpint ((gint) gsd_location_monitor_get_sunrise (monitor), ==, -1);
+        g_assert_cmpint ((gint) gsd_location_monitor_get_sunset (monitor), ==, -1);
         g_assert_cmpint (gsd_night_light_get_temperature (nlight), ==, GSD_COLOR_TEMPERATURE_DEFAULT);
         g_assert (!gsd_night_light_get_disabled_until_tmw (nlight));
 
         /* start module, disabled */
         ret = gsd_night_light_start (nlight, &error);
+        ret = gsd_location_monitor_start (monitor, &error); // FIXCME
         g_assert_no_error (error);
         g_assert (ret);
         g_assert (!gsd_night_light_get_active (nlight));
@@ -119,8 +124,8 @@ gcm_test_night_light (void)
         g_assert_cmpint (sunrise_cnt, ==, 1);
         g_assert_cmpint (temperature_cnt, ==, 1);
         g_assert_cmpint (disabled_until_tmw_cnt, ==, 0);
-        g_assert_cmpint ((gint) gsd_night_light_get_sunrise (nlight), ==, 7);
-        g_assert_cmpint ((gint) gsd_night_light_get_sunset (nlight), ==, 17);
+        g_assert_cmpint ((gint) gsd_location_monitor_get_sunrise (monitor), ==, 7);
+        g_assert_cmpint ((gint) gsd_location_monitor_get_sunset (monitor), ==, 17);
         g_assert_cmpint (gsd_night_light_get_temperature (nlight), ==, 4000);
         g_assert (!gsd_night_light_get_disabled_until_tmw (nlight));
 
@@ -152,8 +157,8 @@ gcm_test_night_light (void)
         g_assert_cmpint (temperature_cnt, ==, 4);
         g_assert_cmpint (disabled_until_tmw_cnt, ==, 2);
         g_assert (!gsd_night_light_get_active (nlight));
-        g_assert_cmpint ((gint) gsd_night_light_get_sunrise (nlight), ==, 7);
-        g_assert_cmpint ((gint) gsd_night_light_get_sunset (nlight), ==, 17);
+        g_assert_cmpint ((gint) gsd_location_monitor_get_sunrise (monitor), ==, 7);
+        g_assert_cmpint ((gint) gsd_location_monitor_get_sunset (monitor), ==, 17);
         g_assert_cmpint (gsd_night_light_get_temperature (nlight), ==, GSD_COLOR_TEMPERATURE_DEFAULT);
         g_assert (!gsd_night_light_get_disabled_until_tmw (nlight));
 
@@ -199,13 +204,15 @@ gcm_test_night_light (void)
         /* Move time past midnight */
         g_clear_pointer (&datetime_override, g_date_time_unref);
         datetime_override = g_date_time_new_utc (2017, 2, 9, 1, 0, 0);
-        gsd_night_light_set_date_time_now (nlight, datetime_override);
+        gsd_location_monitor_set_date_time_now (monitor, datetime_override);
+        gsd_night_light_recheck_immediate (nlight);
         g_assert_true (gsd_night_light_get_disabled_until_tmw (nlight));
 
         /* Move past sunrise */
         g_clear_pointer (&datetime_override, g_date_time_unref);
         datetime_override = g_date_time_new_utc (2017, 2, 9, 8, 0, 0);
-        gsd_night_light_set_date_time_now (nlight, datetime_override);
+        gsd_location_monitor_set_date_time_now (monitor, datetime_override);
+        gsd_night_light_recheck_immediate (nlight);
         g_assert_false (gsd_night_light_get_disabled_until_tmw (nlight));
 
         gsd_night_light_set_disabled_until_tmw (nlight, TRUE);
@@ -213,7 +220,8 @@ gcm_test_night_light (void)
         /* Move into night more than 24h in the future */
         g_clear_pointer (&datetime_override, g_date_time_unref);
         datetime_override = g_date_time_new_utc (2017, 2, 10, 20, 0, 0);
-        gsd_night_light_set_date_time_now (nlight, datetime_override);
+        gsd_location_monitor_set_date_time_now (monitor, datetime_override);
+        gsd_night_light_recheck_immediate (nlight);
         g_assert_false (gsd_night_light_get_disabled_until_tmw (nlight));
 
 
@@ -224,17 +232,20 @@ gcm_test_night_light (void)
         g_settings_set_boolean (settings, "night-light-enabled", TRUE);
 
         datetime_override = g_date_time_new_utc (2017, 2, 10, 5, 50, 0);
-        gsd_night_light_set_date_time_now (nlight, datetime_override);
+        gsd_location_monitor_set_date_time_now (monitor, datetime_override);
+        gsd_night_light_recheck_immediate (nlight);
         g_assert (gsd_night_light_get_active (nlight));
         g_assert_cmpint (gsd_night_light_get_temperature (nlight), ==, 4000);
 
         datetime_override = g_date_time_new_utc (2017, 2, 10, 6, 0, 0);
-        gsd_night_light_set_date_time_now (nlight, datetime_override);
+        gsd_location_monitor_set_date_time_now (monitor, datetime_override);
+        gsd_night_light_recheck_immediate (nlight);
         g_assert (gsd_night_light_get_active (nlight));
         g_assert_cmpint (gsd_night_light_get_temperature (nlight), ==, 4000);
 
         datetime_override = g_date_time_new_utc (2017, 2, 10, 6, 10, 0);
-        gsd_night_light_set_date_time_now (nlight, datetime_override);
+        gsd_location_monitor_set_date_time_now (monitor, datetime_override);
+        gsd_night_light_recheck_immediate (nlight);
         g_assert (gsd_night_light_get_active (nlight));
         g_assert_cmpint (gsd_night_light_get_temperature (nlight), ==, 4000);
 
@@ -245,19 +256,22 @@ gcm_test_night_light (void)
 
         /* Not enabled 10 minutes before sunset */
         datetime_override = g_date_time_new_utc (2017, 2, 10, 5, 50, 0);
-        gsd_night_light_set_date_time_now (nlight, datetime_override);
+        gsd_location_monitor_set_date_time_now (monitor, datetime_override);
+        gsd_night_light_recheck_immediate (nlight);
         g_assert_false (gsd_night_light_get_active (nlight));
         g_assert_cmpint (gsd_night_light_get_temperature (nlight), ==, GSD_COLOR_TEMPERATURE_DEFAULT);
 
         /* Not enabled >10 minutes after sunrise */
         datetime_override = g_date_time_new_utc (2017, 2, 10, 6, 20, 0);
-        gsd_night_light_set_date_time_now (nlight, datetime_override);
+        gsd_location_monitor_set_date_time_now (monitor, datetime_override);
+        gsd_night_light_recheck_immediate (nlight);
         g_assert_false (gsd_night_light_get_active (nlight));
         g_assert_cmpint (gsd_night_light_get_temperature (nlight), ==, GSD_COLOR_TEMPERATURE_DEFAULT);
 
         /* ~50% smeared 3 min before sunrise (sunrise at 6 past) */
         datetime_override = g_date_time_new_utc (2017, 2, 10, 6, 3, 0);
-        gsd_night_light_set_date_time_now (nlight, datetime_override);
+        gsd_location_monitor_set_date_time_now (monitor, datetime_override);
+        gsd_night_light_recheck_immediate (nlight);
         g_assert_true (gsd_night_light_get_active (nlight));
         g_assert_cmpint (gsd_night_light_get_temperature (nlight), <=, (GSD_COLOR_TEMPERATURE_DEFAULT + 4000) / 2 + 20);
         g_assert_cmpint (gsd_night_light_get_temperature (nlight), >=, (GSD_COLOR_TEMPERATURE_DEFAULT + 4000) / 2 - 20);
@@ -266,7 +280,8 @@ gcm_test_night_light (void)
         g_settings_set_double (settings, "night-light-schedule-from", 6.1);
         g_settings_set_double (settings, "night-light-schedule-to", 6.0);
         datetime_override = g_date_time_new_utc (2017, 2, 10, 6, 3, 0);
-        gsd_night_light_set_date_time_now (nlight, datetime_override);
+        gsd_location_monitor_set_date_time_now (monitor, datetime_override);
+        gsd_night_light_recheck_immediate (nlight);
         g_assert_true (gsd_night_light_get_active (nlight));
         g_assert_cmpint (gsd_night_light_get_temperature (nlight), <=, (GSD_COLOR_TEMPERATURE_DEFAULT + 4000) / 2 + 20);
         g_assert_cmpint (gsd_night_light_get_temperature (nlight), >=, (GSD_COLOR_TEMPERATURE_DEFAULT + 4000) / 2 - 20);
