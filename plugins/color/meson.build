@@ -1,6 +1,7 @@
 sources = files(
   'gsd-color-calibrate.c',
   'gsd-color-manager.c',
+  'gsd-color-scheme.c',
   'gsd-color-state.c',
   'gsd-location-monitor.c',
   'gsd-night-light.c',
@@ -10,6 +11,7 @@ sources += main_helper_sources
 
 deps = plugins_deps + [
   colord_dep,
+  gnome_desktop_dep,
   libcanberra_gtk_dep,
   libgeoclue_dep,
   libnotify_dep,
@@ -33,6 +35,7 @@ executable(
 
 sources = files(
   'gcm-self-test.c',
+  'gsd-color-scheme.c',
   'gsd-location-monitor.c',
   'gsd-night-light.c'
 )

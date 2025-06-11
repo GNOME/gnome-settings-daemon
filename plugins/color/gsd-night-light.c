@@ -20,9 +20,6 @@
 
 #include "config.h"
 
-#define GNOME_DESKTOP_USE_UNSTABLE_API
-#include "gnome-datetime-source.h"
-
 #include "gsd-color-state.h"
 
 #include "gsd-night-light.h"
@@ -34,7 +31,6 @@ struct _GsdNightLight {
         gboolean            forced;
         gboolean            disabled_until_tmw;
         GDateTime          *disabled_until_tmw_dt;
-        GSource            *source;
         guint               validate_id;
         gdouble             cached_temperature;
         gboolean            cached_active;
@@ -60,13 +56,10 @@ enum {
 #define GSD_NIGHT_LIGHT_POLL_SMEAR            1       /* hours */
 #define GSD_NIGHT_LIGHT_SMOOTH_SMEAR          5.f     /* seconds */
 
-#define GSD_FRAC_DAY_MAX_DELTA                  (1.f/60.f)     /* 1 minute */
 #define GSD_TEMPERATURE_MAX_DELTA               (10.f)          /* Kelvin */
 
 #define DESKTOP_ID "gnome-color-panel"
 
-static void poll_timeout_destroy (GsdNightLight *self);
-static void poll_timeout_create (GsdNightLight *self);
 static void night_light_recheck (GsdNightLight *self);
 
 G_DEFINE_TYPE (GsdNightLight, gsd_night_light, G_TYPE_OBJECT);
@@ -338,62 +331,12 @@ night_light_recheck_schedule_cb (gpointer user_data)
 void
 gsd_night_light_recheck_schedule (GsdNightLight *self)
 {
-        night_light_recheck (self);
         if (self->validate_id != 0)
                 g_source_remove (self->validate_id);
         self->validate_id =
                 g_timeout_add_seconds (GSD_NIGHT_LIGHT_SCHEDULE_TIMEOUT,
                                        night_light_recheck_schedule_cb,
                                        self);
-}
-
-/* called when the time may have changed */
-static gboolean
-night_light_recheck_cb (gpointer user_data)
-{
-        GsdNightLight *self = GSD_NIGHT_LIGHT (user_data);
-
-        /* recheck parameters, then reschedule a new timeout */
-        night_light_recheck (self);
-        poll_timeout_destroy (self);
-        poll_timeout_create (self);
-
-        /* return value ignored for a one-time watch */
-        return G_SOURCE_REMOVE;
-}
-
-static void
-poll_timeout_create (GsdNightLight *self)
-{
-        g_autoptr(GDateTime) dt_now = NULL;
-        g_autoptr(GDateTime) dt_expiry = NULL;
-
-        if (self->source != NULL)
-                return;
-
-        /* It is not a good idea to make this overridable, it just creates
-         * an infinite loop as a fixed date for testing just doesn't work. */
-        dt_now = g_date_time_new_now_local ();
-        dt_expiry = g_date_time_add_seconds (dt_now, GSD_NIGHT_LIGHT_POLL_TIMEOUT);
-        self->source = _gnome_datetime_source_new (dt_now,
-                                                   dt_expiry,
-                                                   TRUE);
-        g_source_set_callback (self->source,
-                               night_light_recheck_cb,
-                               self, NULL);
-        g_source_attach (self->source, NULL);
-}
-
-static void
-poll_timeout_destroy (GsdNightLight *self)
-{
-
-        if (self->source == NULL)
-                return;
-
-        g_source_destroy (self->source);
-        g_source_unref (self->source);
-        self->source = NULL;
 }
 
 static void
@@ -465,7 +408,6 @@ gboolean
 gsd_night_light_start (GsdNightLight *self, GError **error)
 {
         night_light_recheck (self);
-        poll_timeout_create (self);
 
         /* care about changes */
         g_signal_connect (self->settings, "changed",
@@ -479,7 +421,6 @@ gsd_night_light_finalize (GObject *object)
 {
         GsdNightLight *self = GSD_NIGHT_LIGHT (object);
 
-        poll_timeout_destroy (self);
         poll_smooth_destroy (self);
 
         g_clear_object (&self->settings);

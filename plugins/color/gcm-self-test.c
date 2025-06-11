@@ -21,20 +21,23 @@
 
 #include "config.h"
 
+#include <gdesktop-enums.h>
 #include <glib.h>
 #include <glib-object.h>
 #include <stdlib.h>
 
 #include "gsd-color-state.h"
+#include "gsd-color-scheme.h"
+#include "gsd-location-monitor.h"
 #include "gsd-night-light.h"
 #include "gsd-datetime-helper.h"
 
 GMainLoop *mainloop;
 
 static void
-on_notify (GsdNightLight *nlight,
-           GParamSpec      *pspec,
-           gpointer         user_data)
+on_notify (gpointer    calling_function, // FIXME: REview this
+           GParamSpec *pspec,
+           gpointer    user_data)
 {
         guint *cnt = (guint *) user_data;
         (*cnt)++;
@@ -46,6 +49,176 @@ quit_mainloop (gpointer user_data)
     g_main_loop_quit (mainloop);
 
     return FALSE;
+}
+
+static void
+gcm_test_location_monitor (void)
+{
+        gboolean ret;
+        guint sunrise_cnt = 0;
+        guint sunset_cnt = 0;
+        g_autoptr(GDateTime) datetime_override = NULL;
+        g_autoptr(GError) error = NULL;
+        g_autoptr(GsdLocationMonitor) monitor = NULL;
+        g_autoptr(GSettings) settings = NULL;
+
+        monitor = gsd_location_monitor_new ();
+        g_assert (GSD_IS_LOCATION_MONITOR (monitor));
+        g_signal_connect (monitor, "notify::sunset",
+                          G_CALLBACK (on_notify), &sunset_cnt);
+        g_signal_connect (monitor, "notify::sunrise",
+                          G_CALLBACK (on_notify), &sunrise_cnt);
+
+        /* hardcode a specific date and time */
+        datetime_override = g_date_time_new_utc (2017, 2, 8, 20, 0, 0);
+        gsd_location_monitor_set_date_time_now (monitor, datetime_override);
+
+        /* do not start geoclue */
+        gsd_location_monitor_set_geoclue_enabled (monitor, FALSE);
+
+        settings = g_settings_new ("org.gnome.settings-daemon.plugins.color");
+
+        /* check default values */
+        g_assert_cmpint ((gint) gsd_location_monitor_get_sunrise (monitor), ==, -1);
+        g_assert_cmpint ((gint) gsd_location_monitor_get_sunset (monitor), ==, -1);
+
+        /* start module, disabled */
+        ret = gsd_location_monitor_start (monitor, &error);
+        g_assert_no_error (error);
+        g_assert (ret);
+        g_assert_cmpint (sunset_cnt, ==, 0);
+        g_assert_cmpint (sunrise_cnt, ==, 0);
+
+        g_settings_set_value (settings, "night-light-last-coordinates",
+                              g_variant_new ("(dd)", 51.5, -0.1278));
+        g_assert_cmpint (sunset_cnt, ==, 1);
+        g_assert_cmpint (sunrise_cnt, ==, 1);
+        g_assert_cmpint ((gint) gsd_location_monitor_get_sunrise (monitor), ==, 7);
+        g_assert_cmpint ((gint) gsd_location_monitor_get_sunset (monitor), ==, 17);
+
+        /* reset coordinates */
+        g_settings_reset (settings, "night-light-last-coordinates");
+}
+
+static void
+gcm_test_color_scheme (void)
+{
+        gboolean ret;
+        guint sunrise_cnt = 0;
+        guint sunset_cnt = 0;
+        g_autoptr(GDateTime) datetime_override = NULL;
+        g_autoptr(GError) error = NULL;
+        g_autoptr(GsdColorScheme) color_scheme = NULL;
+        g_autoptr(GsdLocationMonitor) monitor = NULL;
+        g_autoptr(GSettings) settings = NULL;
+        g_autoptr(GSettings) scheme_settings = NULL;
+
+        monitor = gsd_location_monitor_new ();
+        g_assert (GSD_IS_LOCATION_MONITOR (monitor));
+        g_signal_connect (monitor, "notify::sunset",
+                          G_CALLBACK (on_notify), &sunset_cnt);
+        g_signal_connect (monitor, "notify::sunrise",
+                          G_CALLBACK (on_notify), &sunrise_cnt);
+        
+        color_scheme = gsd_color_scheme_new (monitor);
+        g_assert (GSD_IS_COLOR_SCHEME (color_scheme));
+
+        /* hardcode a specific date and time */
+        datetime_override = g_date_time_new_utc (2017, 2, 8, 20, 0, 0);
+        gsd_location_monitor_set_date_time_now (monitor, datetime_override);
+        gsd_color_scheme_recheck_immediate (color_scheme);
+
+        /* do not start geoclue */
+        gsd_location_monitor_set_geoclue_enabled (monitor, FALSE);
+
+        /* switch off */
+        settings = g_settings_new ("org.gnome.settings-daemon.plugins.color");
+        scheme_settings = g_settings_new ("org.gnome.desktop.interface");
+        g_settings_set_boolean (settings, "color-scheme-enabled", FALSE);
+        g_settings_set_enum (scheme_settings, "color-scheme", G_DESKTOP_COLOR_SCHEME_PREFER_DARK);
+
+        /* start module, disabled */
+        ret = gsd_location_monitor_start (monitor, &error);
+        g_assert_no_error (error);
+        g_assert (ret);
+        ret = gsd_color_scheme_start (color_scheme, &error);
+        g_assert_no_error (error);
+        g_assert (ret);
+        g_assert_cmpint (sunset_cnt, ==, 0);
+        g_assert_cmpint (sunrise_cnt, ==, 0);
+
+        /* enable automatic mode */
+        g_settings_set_value (settings, "night-light-last-coordinates",
+                              g_variant_new ("(dd)", 51.5, -0.1278));
+        g_settings_set_boolean (settings, "color-scheme-schedule-automatic", TRUE);
+        g_settings_set_boolean (settings, "color-scheme-enabled", TRUE);
+        g_assert_cmpint (sunset_cnt, ==, 1);
+        g_assert_cmpint (sunrise_cnt, ==, 1);
+        g_assert_cmpint ((gint) gsd_location_monitor_get_sunrise (monitor), ==, 7);
+        g_assert_cmpint ((gint) gsd_location_monitor_get_sunset (monitor), ==, 17);
+        g_assert_cmpint ((gint) g_settings_get_enum (scheme_settings, "color-scheme"), ==, 1); // Dark
+
+        /* enabled manual mode */
+        g_settings_set_double (settings, "color-scheme-schedule-from", 4.0);
+        g_settings_set_double (settings, "color-scheme-schedule-to", 16.f);
+        g_settings_set_boolean (settings, "color-scheme-schedule-automatic", FALSE);
+        g_assert_cmpint (sunset_cnt, ==, 1);
+        g_assert_cmpint (sunrise_cnt, ==, 1);
+        g_assert_cmpint ((gint) gsd_location_monitor_get_sunrise (monitor), ==, 7);
+        g_assert_cmpint ((gint) gsd_location_monitor_get_sunset (monitor), ==, 17);
+        g_assert_cmpint ((gint) g_settings_get_enum (scheme_settings, "color-scheme"), ==, 0); // Light
+
+        /* disable, with no changes */
+        g_settings_set_boolean (settings, "color-scheme-enabled", FALSE);
+        g_assert_cmpint (sunset_cnt, ==, 1);
+        g_assert_cmpint (sunrise_cnt, ==, 1);
+        g_assert_cmpint ((gint) g_settings_get_enum (scheme_settings, "color-scheme"), ==, 0); // Light
+
+        g_clear_pointer (&datetime_override, g_date_time_unref);
+        datetime_override = g_date_time_new_utc (2017, 2, 9, 5, 0, 0);
+        gsd_location_monitor_set_date_time_now (monitor, datetime_override);
+        gsd_color_scheme_recheck_immediate (color_scheme);
+        g_assert_cmpint ((gint) g_settings_get_enum (scheme_settings, "color-scheme"), ==, 0); // Light
+
+        /* enable and adjust schedule */
+        g_settings_set_boolean (settings, "color-scheme-enabled", TRUE);
+
+        /* Now, sleep for a bit (we need some time to actually update) */
+        g_timeout_add (1000, quit_mainloop, NULL);
+        g_main_loop_run (mainloop);
+
+        g_assert_cmpint ((gint) g_settings_get_enum (scheme_settings, "color-scheme"), ==, 1); // Dark
+
+        /* adjust schedule again */
+        g_clear_pointer (&datetime_override, g_date_time_unref);
+        datetime_override = g_date_time_new_utc (2017, 2, 8, 10, 00, 00);
+        gsd_location_monitor_set_date_time_now (monitor, datetime_override);
+        gsd_color_scheme_recheck_immediate (color_scheme);
+        g_timeout_add (1000, quit_mainloop, NULL);
+        g_main_loop_run (mainloop);
+        g_assert_cmpint ((gint) g_settings_get_enum (scheme_settings, "color-scheme"), ==, 1); // Dark
+
+        /* Check that we are always dark if from/to are equal */
+        g_settings_set_double (settings, "color-scheme-schedule-from", 6.0);
+        g_settings_set_double (settings, "color-scheme-schedule-to", 6.0);
+
+        datetime_override = g_date_time_new_utc (2017, 2, 8, 5, 50, 0);
+        gsd_location_monitor_set_date_time_now (monitor, datetime_override);
+        gsd_color_scheme_recheck_immediate (color_scheme);
+        g_assert_cmpint ((gint) g_settings_get_enum (scheme_settings, "color-scheme"), ==, 1); // Dark
+
+        datetime_override = g_date_time_new_utc (2017, 2, 8, 6, 0, 0);
+        gsd_location_monitor_set_date_time_now (monitor, datetime_override);
+        gsd_color_scheme_recheck_immediate (color_scheme);
+        g_assert_cmpint ((gint) g_settings_get_enum (scheme_settings, "color-scheme"), ==, 1); // Dark
+
+        datetime_override = g_date_time_new_utc (2017, 2, 8, 6, 10, 0);
+        gsd_location_monitor_set_date_time_now (monitor, datetime_override);
+        gsd_color_scheme_recheck_immediate (color_scheme);
+        g_assert_cmpint ((gint) g_settings_get_enum (scheme_settings, "color-scheme"), ==, 1); // Dark
+
+        /* reset coordinates */
+        g_settings_reset (settings, "night-light-last-coordinates");
 }
 
 static void
@@ -64,15 +237,16 @@ gcm_test_night_light (void)
         g_autoptr(GSettings) settings = NULL;
 
         monitor = gsd_location_monitor_new ();
+        g_assert (GSD_IS_LOCATION_MONITOR (monitor));
+        g_signal_connect (monitor, "notify::sunset",
+                          G_CALLBACK (on_notify), &sunset_cnt);
+        g_signal_connect (monitor, "notify::sunrise",
+                          G_CALLBACK (on_notify), &sunrise_cnt);
 
         nlight = gsd_night_light_new (monitor);
         g_assert (GSD_IS_NIGHT_LIGHT (nlight));
         g_signal_connect (nlight, "notify::active",
                           G_CALLBACK (on_notify), &active_cnt);
-        g_signal_connect (monitor, "notify::sunset",
-                          G_CALLBACK (on_notify), &sunset_cnt);
-        g_signal_connect (monitor, "notify::sunrise",
-                          G_CALLBACK (on_notify), &sunrise_cnt);
         g_signal_connect (nlight, "notify::temperature",
                           G_CALLBACK (on_notify), &temperature_cnt);
         g_signal_connect (nlight, "notify::disabled-until-tmw",
@@ -98,12 +272,15 @@ gcm_test_night_light (void)
         g_assert (!gsd_night_light_get_active (nlight));
         g_assert_cmpint ((gint) gsd_location_monitor_get_sunrise (monitor), ==, -1);
         g_assert_cmpint ((gint) gsd_location_monitor_get_sunset (monitor), ==, -1);
+
         g_assert_cmpint (gsd_night_light_get_temperature (nlight), ==, GSD_COLOR_TEMPERATURE_DEFAULT);
         g_assert (!gsd_night_light_get_disabled_until_tmw (nlight));
 
         /* start module, disabled */
+        ret = gsd_location_monitor_start (monitor, &error);
+        g_assert_no_error (error);
+        g_assert (ret);
         ret = gsd_night_light_start (nlight, &error);
-        ret = gsd_location_monitor_start (monitor, &error); // FIXCME
         g_assert_no_error (error);
         g_assert (ret);
         g_assert (!gsd_night_light_get_active (nlight));
@@ -116,6 +293,7 @@ gcm_test_night_light (void)
         /* enable automatic mode */
         g_settings_set_value (settings, "night-light-last-coordinates",
                               g_variant_new ("(dd)", 51.5, -0.1278));
+                              
         g_settings_set_boolean (settings, "night-light-schedule-automatic", TRUE);
         g_settings_set_boolean (settings, "night-light-enabled", TRUE);
         g_assert (gsd_night_light_get_active (nlight));
@@ -285,6 +463,9 @@ gcm_test_night_light (void)
         g_assert_true (gsd_night_light_get_active (nlight));
         g_assert_cmpint (gsd_night_light_get_temperature (nlight), <=, (GSD_COLOR_TEMPERATURE_DEFAULT + 4000) / 2 + 20);
         g_assert_cmpint (gsd_night_light_get_temperature (nlight), >=, (GSD_COLOR_TEMPERATURE_DEFAULT + 4000) / 2 - 20);
+
+        /* reset coordinates */
+        g_settings_reset (settings, "night-light-last-coordinates");
 }
 
 int
@@ -296,7 +477,9 @@ main (int argc, char **argv)
 
         mainloop = g_main_loop_new (g_main_context_default (), FALSE);
 
+        g_test_add_func ("/color/location-monitor", gcm_test_location_monitor);
         g_test_add_func ("/color/night-light", gcm_test_night_light);
+        g_test_add_func ("/color/color-scheme", gcm_test_color_scheme);
 
         return g_test_run ();
 }
