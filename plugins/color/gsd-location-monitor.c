@@ -32,8 +32,6 @@ struct _GsdLocationMonitor {
     GSettings         *settings;
     GSettings         *location_settings;
 
-    GSource           *source;
-
     gdouble            cached_sunrise;
     gdouble            cached_sunset;
     GDateTime         *datetime_override;
@@ -51,13 +49,10 @@ enum {
     PROP_LAST
 };
 
-#define GSD_POLL_TIMEOUT                60              /* seconds */
 #define GSD_FRAC_DAY_MAX_DELTA          (1.f/60.f)      /* 1 minute */
 
 #define DESKTOP_ID "gnome-color-panel"
 
-static void poll_timeout_destroy (GsdLocationMonitor *self);
-static void poll_timeout_create (GsdLocationMonitor *self);
 static void update_cached_sunrise_sunset (GsdLocationMonitor *self);
 
 G_DEFINE_TYPE (GsdLocationMonitor, gsd_location_monitor, G_TYPE_OBJECT);
@@ -116,60 +111,12 @@ update_cached_sunrise_sunset (GsdLocationMonitor *self)
     }
 }
 
-static void
-recheck_on_change (GsdLocationMonitor *self)
+void
+gsd_location_monitor_recheck (GsdLocationMonitor *self)
 {
-    if (g_settings_get_boolean (self->settings, "night-light-schedule-automatic"))
+    if (g_settings_get_boolean (self->settings, "night-light-schedule-automatic") ||
+        g_settings_get_boolean (self->settings, "color-scheme-schedule-automatic"))
         update_cached_sunrise_sunset (self);
-}
-
-/* called when the time may have changed */
-static gboolean
-location_recheck_cb (gpointer user_data)
-{
-    GsdLocationMonitor *self = GSD_LOCATION_MONITOR (user_data);
-    
-    /* recheck parameters, then reschedule a new timeout */
-    recheck_on_change (self);
-    poll_timeout_destroy (self);
-    poll_timeout_create (self);
-
-    /* return value ignored for a one-time watch */
-    return G_SOURCE_REMOVE;
-}
-
-static void
-poll_timeout_create (GsdLocationMonitor *self)
-{
-    g_autoptr(GDateTime) dt_now = NULL;
-    g_autoptr(GDateTime) dt_expiry = NULL;
-
-    if (self->source != NULL)
-        return;
-
-    /* It is not a good idea to make this overridable, it just creates
-     * an infinite loop as a fixed date for testing just doesn't work. */
-    dt_now = g_date_time_new_now_local ();
-    dt_expiry = g_date_time_add_seconds (dt_now, GSD_POLL_TIMEOUT);
-    self->source = _gnome_datetime_source_new (dt_now,
-                                               dt_expiry,
-                                               TRUE);
-    g_source_set_callback (self->source,
-                           location_recheck_cb,
-                           self, NULL);
-    g_source_attach (self->source, NULL);
-}
-
-static void
-poll_timeout_destroy (GsdLocationMonitor *self)
-{
-
-    if (self->source == NULL)
-        return;
-
-    g_source_destroy (self->source);
-    g_source_unref (self->source);
-    self->source = NULL;
 }
 
 static void
@@ -177,7 +124,7 @@ settings_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
     GsdLocationMonitor *self = GSD_LOCATION_MONITOR (user_data);
     g_debug ("settings changed");
-    recheck_on_change (self);
+    gsd_location_monitor_recheck (self);
 }
 
 static void
@@ -287,8 +234,6 @@ gboolean
 gsd_location_monitor_start (GsdLocationMonitor  *self,
                             GError             **error)
 {
-    poll_timeout_create (self);
-
     g_signal_connect (self->settings, "changed",
                       G_CALLBACK (settings_changed_cb), self);
     g_signal_connect_swapped (self->location_settings, "changed::enabled",

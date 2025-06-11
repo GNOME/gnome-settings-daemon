@@ -46,11 +46,12 @@ void             gsd_night_light_set_forced             (GsdNightLight      *sel
                                                          gboolean            value);
 
 void             gsd_night_light_recheck_schedule       (GsdNightLight      *self);
+void             gsd_night_light_recheck_immediate      (GsdNightLight      *self);
 
 /* only for the self test program */
 void             gsd_night_light_set_smooth_enabled     (GsdNightLight      *self,
                                                          gboolean            smooth_enabled);
-void             gsd_night_light_recheck_immediate      (GsdNightLight      *self);
+
 
 G_END_DECLS
 
