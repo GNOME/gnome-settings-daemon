@@ -16,6 +16,11 @@
       <summary>If the night light mode is enabled</summary>
       <description>Night light mode changes the color temperature of your display when the sun has gone down or at preset times.</description>
     </key>
+    <key name="color-scheme-enabled" type="b">
+      <default>false</default>
+      <summary>If the color scheme scheduling is enabled</summary>
+      <description>Color scheme scheduling mode changes the system theme to dark when the sun has gone down or at preset times.</description>
+    </key>
     <key name="night-light-temperature" type="u">
       <default>2700</default>
       <summary>Temperature of the display when enabled</summary>
@@ -26,15 +31,30 @@
       <summary>Use the sunrise and sunset</summary>
       <description>Calculate the sunrise and sunset times automatically, from the current location.</description>
     </key>
+    <key name="color-scheme-schedule-automatic" type="b">
+      <default>true</default>
+      <summary>Use the sunrise and sunset</summary>
+      <description>Calculate the sunrise and sunset times automatically, from the current location.</description>
+    </key>
     <key name="night-light-schedule-from" type="d">
       <default>20.00</default>
       <summary>The start time</summary>
       <description>When “night-light-schedule-automatic” is disabled, use this start time in hours from midnight.</description>
     </key>
+    <key name="color-scheme-schedule-from" type="d">
+      <default>20.00</default>
+      <summary>The start time</summary>
+      <description>When “color-scheme-schedule-automatic” is disabled, use this start time in hours from midnight.</description>
+    </key>
     <key name="night-light-schedule-to" type="d">
       <default>6.00</default>
       <summary>The end time</summary>
       <description>When “night-light-schedule-automatic” is disabled, use this end time in hours from midnight.</description>
+    </key>
+    <key name="color-scheme-schedule-to" type="d">
+      <default>6.00</default>
+      <summary>The end time</summary>
+      <description>When “color-scheme-schedule-automatic” is disabled, use this end time in hours from midnight.</description>
     </key>
     <key name="night-light-last-coordinates" type="(dd)">
       <default>(91,181)</default>

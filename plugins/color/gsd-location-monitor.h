@@ -29,17 +29,18 @@ G_DECLARE_FINAL_TYPE (GsdLocationMonitor, gsd_location_monitor, GSD, LOCATION_MO
 GsdLocationMonitor  *gsd_location_monitor_new                   (void);
 gboolean             gsd_location_monitor_start                 (GsdLocationMonitor  *self,
                                                                  GError             **error);
+void                 gsd_location_monitor_recheck               (GsdLocationMonitor  *self);
 
-GDateTime           *gsd_location_monitor_get_date_time_now     (GsdLocationMonitor *self);
+GDateTime           *gsd_location_monitor_get_date_time_now     (GsdLocationMonitor  *self);
 
-gdouble              gsd_location_monitor_get_sunrise           (GsdLocationMonitor *self);
-gdouble              gsd_location_monitor_get_sunset            (GsdLocationMonitor *self);
-
+gdouble              gsd_location_monitor_get_sunrise           (GsdLocationMonitor  *self);
+gdouble              gsd_location_monitor_get_sunset            (GsdLocationMonitor  *self);
+ 
 /* only for the self test program */
-void                 gsd_location_monitor_set_geoclue_enabled   (GsdLocationMonitor *self,
-                                                                 gboolean       enabled);
-void                 gsd_location_monitor_set_date_time_now     (GsdLocationMonitor *self,
-                                                                 GDateTime     *datetime);
+void                 gsd_location_monitor_set_geoclue_enabled   (GsdLocationMonitor  *self,
+                                                                 gboolean             enabled);
+void                 gsd_location_monitor_set_date_time_now     (GsdLocationMonitor  *self,
+                                                                 GDateTime           *datetime);
 
 G_END_DECLS
 
