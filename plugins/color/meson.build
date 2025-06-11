@@ -2,6 +2,7 @@ sources = files(
   'gsd-color-calibrate.c',
   'gsd-color-manager.c',
   'gsd-color-state.c',
+  'gsd-location-monitor.c',
   'gsd-night-light.c',
   'main.c'
 )
@@ -31,6 +32,7 @@ executable(
 
 sources = files(
   'gcm-self-test.c',
+  'gsd-location-monitor.c',
   'gsd-night-light.c'
 )
 
