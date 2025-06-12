@@ -13,6 +13,7 @@ import math
 import os
 import os.path
 import signal
+import dbusmock
 from pathlib import Path
 
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -74,6 +75,16 @@ def mutter_at_least(version):
     # assume equal
     return True
 
+def dbusmock_template(name):
+    template = (
+        Path(os.path.realpath(__file__)).parent
+        / "dbusmock-templates"
+        / f"{name}.py"
+    )
+    assert template.exists()
+    assert template.suffix == ".py"
+    return template.absolute().as_posix()
+
 class PowerPluginBase(gsdtestcase.GSDTestCase):
     '''Test the power plugin'''
 
@@ -92,20 +103,17 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
         self.addCleanup(self.stop_logind)
 
         # start mock mutter
-        template = (
-            Path(os.path.realpath(__file__)).parent
-            / "dbusmock-templates"
-            / "mutter.py"
-        )
-        assert template.exists()
-        assert template.suffix == ".py"
-        (self.mockmutter, self.obj_mockmutter) = self.spawn_server_template(template.absolute().as_posix())
+        (self.mockmutter, self.obj_mockmutter) = self.spawn_server_template(dbusmock_template('mutter'))
         self.addCleanup(self.stop_process, self.mockmutter)
 
         if 'legacy_brightness' in self.id():
             self.obj_mockmutter.MockSetBacklight('dp-1', True, 0, 15, 15)
         else:
             self.obj_mockmutter.MockSetBacklight('dp-1', True, 0, 100, 50)
+
+        # start mock gnome-shell
+        (self.gnomeshell, self.obj_gnomeshell) = self.spawn_server_template(dbusmock_template('gnome-shell'))
+        self.addCleanup(self.stop_process, self.gnomeshell)
 
         # start mock upowerd
         (self.upowerd, self.obj_upower) = self.spawn_server_template(
