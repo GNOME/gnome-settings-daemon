@@ -91,9 +91,6 @@ static struct {
         /* the kernel / Xorg names really are like this... */
         { SUSPEND_KEY, "suspend", TRUE, POWER_KEYS_MODE, META_KEY_BINDING_IGNORE_AUTOREPEAT },
         { HIBERNATE_KEY, "hibernate", TRUE, POWER_KEYS_MODE, META_KEY_BINDING_IGNORE_AUTOREPEAT },
-        { SCREEN_BRIGHTNESS_UP_KEY, "screen-brightness-up", TRUE, SHELL_ACTION_MODE_ALL },
-        { SCREEN_BRIGHTNESS_DOWN_KEY, "screen-brightness-down", TRUE, SHELL_ACTION_MODE_ALL },
-        { SCREEN_BRIGHTNESS_CYCLE_KEY, "screen-brightness-cycle", TRUE, SHELL_ACTION_MODE_ALL },
         { KEYBOARD_BRIGHTNESS_UP_KEY, "keyboard-brightness-up", TRUE, SHELL_ACTION_MODE_ALL },
         { KEYBOARD_BRIGHTNESS_DOWN_KEY, "keyboard-brightness-down", TRUE, SHELL_ACTION_MODE_ALL },
         { KEYBOARD_BRIGHTNESS_TOGGLE_KEY, "keyboard-brightness-toggle", TRUE, SHELL_ACTION_MODE_ALL, META_KEY_BINDING_IGNORE_AUTOREPEAT },
