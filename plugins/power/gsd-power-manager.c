@@ -38,7 +38,6 @@
 #include "gsm-presence-flag.h"
 #include "gsm-manager-logout-mode.h"
 #include "gpm-common.h"
-#include "gsd-backlight.h"
 #include "gnome-settings-profile.h"
 #include "gnome-settings-bus.h"
 #include "gnome-settings-daemon/gsd-enums.h"
@@ -65,7 +64,6 @@
 #define GSD_POWER_DBUS_NAME                     GSD_DBUS_NAME ".Power"
 #define GSD_POWER_DBUS_PATH                     GSD_DBUS_PATH "/Power"
 #define GSD_POWER_DBUS_INTERFACE                GSD_DBUS_BASE_INTERFACE ".Power"
-#define GSD_POWER_DBUS_INTERFACE_SCREEN         GSD_POWER_DBUS_INTERFACE ".Screen"
 #define GSD_POWER_DBUS_INTERFACE_KEYBOARD       GSD_POWER_DBUS_INTERFACE ".Keyboard"
 
 #define GSD_POWER_MANAGER_NOTIFY_TIMEOUT_SHORT          10 * 1000 /* ms */
@@ -94,21 +92,6 @@
 
 static const gchar introspection_xml[] =
 "<node>"
-"  <interface name='org.gnome.SettingsDaemon.Power.Screen'>"
-"    <property name='Brightness' type='i' access='readwrite'/>"
-"    <method name='StepUp'>"
-"      <arg type='i' name='new_percentage' direction='out'/>"
-"      <arg type='s' name='connector' direction='out'/>"
-"    </method>"
-"    <method name='StepDown'>"
-"      <arg type='i' name='new_percentage' direction='out'/>"
-"      <arg type='s' name='connector' direction='out'/>"
-"    </method>"
-"    <method name='Cycle'>"
-"      <arg type='i' name='new_percentage' direction='out'/>"
-"      <arg type='i' name='output_id' direction='out'/>"
-"    </method>"
-"  </interface>"
 "  <interface name='org.gnome.SettingsDaemon.Power.Keyboard'>"
 "    <property name='Brightness' type='i' access='readwrite'/>"
 "    <property name='Steps' type='i' access='read'/>"
@@ -168,8 +151,6 @@ struct _GsdPowerManager
         gboolean                 battery_is_low; /* battery low, or UPS discharging */
 
         /* Brightness */
-        GsdBacklight            *backlight;
-        gint                     pre_dim_brightness; /* level, not percentage */
         GDBusProxy              *shell_brightness_proxy;
 
         /* Keyboard */
@@ -1351,7 +1332,7 @@ iio_proxy_claim_light (GsdPowerManager *manager, gboolean active)
 {
         if (manager->iio_proxy == NULL)
                 return;
-        if (!manager->backlight)
+        if (!shell_brightness_has_control (manager))
                 return;
 	if (active && !manager->session_is_active)
 		return;
@@ -1754,32 +1735,6 @@ backlight_iface_emit_changed (GsdPowerManager *manager,
                                        NULL);
 }
 
-static void
-backlight_notify_brightness_cb (GsdPowerManager *manager, GParamSpec *pspec, GsdBacklight *backlight)
-{
-        backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN,
-                                      gsd_backlight_get_brightness (backlight), NULL);
-}
-
-static void
-display_backlight_dim (GsdPowerManager *manager,
-                       gint idle_percentage)
-{
-        gint brightness;
-
-        if (!manager->backlight)
-                return;
-
-        /* Fetch the current target brightness (not the actual display brightness)
-         * and return if it is already lower than the idle percentage. */
-        brightness = gsd_backlight_get_target_brightness (manager->backlight);
-        if (brightness < idle_percentage)
-                return;
-
-        manager->pre_dim_brightness = brightness;
-        gsd_backlight_set_brightness_async (manager->backlight, idle_percentage, NULL, NULL, NULL);
-}
-
 static gboolean
 kbd_backlight_dim (GsdPowerManager *manager,
                    gint idle_percentage,
@@ -1901,7 +1856,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                 /* display backlight */
                 idle_percentage = g_settings_get_int (manager->settings,
                                                       "idle-brightness");
-                display_backlight_dim (manager, idle_percentage);
+                shell_brightness_set_dimming (manager, TRUE);
 
                 /* keyboard backlight */
                 ret = kbd_backlight_dim (manager, idle_percentage, &error);
@@ -1944,14 +1899,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
 
                 enable_monitors (manager);
 
-                /* reset brightness if we dimmed */
-                if (manager->backlight && manager->pre_dim_brightness >= 0) {
-                        gsd_backlight_set_brightness_async (manager->backlight,
-                                                            manager->pre_dim_brightness,
-                                                            NULL, NULL, NULL);
-                        /* XXX: Ideally we would do this from the async callback. */
-                        manager->pre_dim_brightness = -1;
-                }
+                shell_brightness_set_dimming (manager, FALSE);
 
                 /* only toggle keyboard if present and already toggled off */
                 if (manager->upower_kbd_proxy &&
@@ -2957,7 +2905,7 @@ iio_proxy_changed (GsdPowerManager *manager)
         gint pc;
 
         /* no display hardware */
-        if (!manager->backlight)
+        if (!shell_brightness_has_control (manager))
                 return;
 
         /* disabled */
@@ -3007,8 +2955,7 @@ iio_proxy_changed (GsdPowerManager *manager)
                  manager->ambient_accumulator);
         pc = manager->ambient_accumulator;
 
-        if (manager->backlight)
-                gsd_backlight_set_brightness_async (manager->backlight, pc, NULL, NULL, NULL);
+        shell_brightness_set_auto_target (manager, pc / 100);
 
         /* Assume setting worked. */
         manager->ambient_percentage_old = pc;
@@ -3141,14 +3088,6 @@ gsd_power_manager_startup (GApplication *app)
         manager->ambient_last_absolute = -1.f;
         manager->ambient_last_time = 0;
 
-        manager->backlight = gsd_backlight_new (NULL);
-
-        if (manager->backlight)
-                g_signal_connect_object (manager->backlight,
-                                         "notify::brightness",
-                                         G_CALLBACK (backlight_notify_brightness_cb),
-                                         manager, G_CONNECT_SWAPPED);
-
         /* Set up a delay inhibitor to be informed about suspend attempts */
         g_signal_connect (manager->logind_proxy, "g-signal",
                           G_CALLBACK (logind_proxy_signal_cb),
@@ -3180,7 +3119,6 @@ gsd_power_manager_startup (GApplication *app)
 
         manager->kbd_brightness_old = -1;
         manager->kbd_brightness_pre_dim = -1;
-        manager->pre_dim_brightness = -1;
         g_signal_connect (manager->settings, "changed",
                           G_CALLBACK (engine_settings_key_changed_cb), manager);
         g_signal_connect (manager->settings_bus, "changed",
@@ -3250,17 +3188,6 @@ gsd_power_manager_startup (GApplication *app)
 
         /* ensure the default dpms timeouts are cleared */
         enable_monitors (manager);
-
-        /* queue a signal in case the proxy from gnome-shell was created before we got here
-           (likely, considering that to get here we need a reply from gnome-shell)
-        */
-        if (manager->backlight) {
-                manager->ambient_percentage_old = gsd_backlight_get_brightness (manager->backlight);
-                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN,
-                                              manager->ambient_percentage_old, NULL);
-        } else {
-                backlight_iface_emit_changed (manager, GSD_POWER_DBUS_INTERFACE_SCREEN, -1, NULL);
-        }
 
         G_APPLICATION_CLASS (gsd_power_manager_parent_class)->startup (app);
 
@@ -3394,91 +3321,6 @@ handle_method_call_keyboard (GsdPowerManager *manager,
 }
 
 static void
-backlight_brightness_step_cb (GObject *object,
-                              GAsyncResult *res,
-                              gpointer user_data)
-{
-        GsdBacklight *backlight = GSD_BACKLIGHT (object);
-        GDBusMethodInvocation *invocation = G_DBUS_METHOD_INVOCATION (user_data);
-        GsdPowerManager *manager;
-        GError *error = NULL;
-        const char *connector;
-        gint brightness;
-
-        manager = g_object_get_data (G_OBJECT (invocation), "gsd-power-manager");
-        brightness = gsd_backlight_set_brightness_finish (backlight, res, &error);
-
-        /* ambient brightness no longer valid */
-        manager->ambient_percentage_old = brightness;
-        manager->ambient_norm_required = TRUE;
-
-        if (error) {
-                g_dbus_method_invocation_take_error (invocation,
-                                                     error);
-        } else {
-                connector = gsd_backlight_get_connector (backlight);
-
-                g_dbus_method_invocation_return_value (invocation,
-                                                       g_variant_new ("(is)",
-                                                                      brightness,
-                                                                      connector ? connector : ""));
-        }
-}
-
-/* Callback */
-static void
-backlight_brightness_set_cb (GObject *object,
-                             GAsyncResult *res,
-                             gpointer user_data)
-{
-        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
-        GsdBacklight *backlight = GSD_BACKLIGHT (object);
-        gint brightness;
-
-        /* Return the invocation. */
-        brightness = gsd_backlight_set_brightness_finish (backlight, res, NULL);
-
-        if (brightness >= 0) {
-                manager->ambient_percentage_old = brightness;
-                manager->ambient_norm_required = TRUE;
-        }
-
-        g_object_unref (manager);
-}
-
-static void
-handle_method_call_screen (GsdPowerManager *manager,
-                           const gchar *method_name,
-                           GVariant *parameters,
-                           GDBusMethodInvocation *invocation)
-{
-        if (!manager->backlight) {
-                g_dbus_method_invocation_return_error_literal (invocation,
-                                                               GSD_POWER_MANAGER_ERROR, GSD_POWER_MANAGER_ERROR_NO_BACKLIGHT,
-                                                               "No usable backlight could be found!");
-                return;
-        }
-
-        g_object_set_data_full (G_OBJECT (invocation), "gsd-power-manager", g_object_ref (manager), g_object_unref);
-
-        if (g_strcmp0 (method_name, "StepUp") == 0) {
-                g_debug ("screen step up");
-                gsd_backlight_step_up_async (manager->backlight, NULL, backlight_brightness_step_cb, invocation);
-
-        } else if (g_strcmp0 (method_name, "StepDown") == 0) {
-                g_debug ("screen step down");
-                gsd_backlight_step_down_async (manager->backlight, NULL, backlight_brightness_step_cb, invocation);
-
-        } else if (g_strcmp0 (method_name, "Cycle") == 0) {
-                g_debug ("screen cycle up");
-                gsd_backlight_cycle_up_async (manager->backlight, NULL, backlight_brightness_step_cb, invocation);
-
-        } else {
-                g_assert_not_reached ();
-        }
-}
-
-static void
 handle_method_call (GDBusConnection       *connection,
                     const gchar           *sender,
                     const gchar           *object_path,
@@ -3499,12 +3341,7 @@ handle_method_call (GDBusConnection       *connection,
         g_debug ("Calling method '%s.%s' for Power",
                  interface_name, method_name);
 
-        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
-                handle_method_call_screen (manager,
-                                           method_name,
-                                           parameters,
-                                           invocation);
-        } else if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
+        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
                 handle_method_call_keyboard (manager,
                                              method_name,
                                              parameters,
@@ -3524,20 +3361,7 @@ handle_get_property_other (GsdPowerManager *manager,
         gint32 value;
 
 
-        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
-                if (g_strcmp0 (property_name, "Brightness") != 0) {
-                        g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
-                                     "No such property: %s", property_name);
-                        return NULL;
-                }
-
-                if (manager->backlight)
-                        value = gsd_backlight_get_brightness (manager->backlight);
-                else
-                        value = -1;
-
-                retval = g_variant_new_int32 (value);
-        } else if (manager->upower_kbd_proxy &&
+        if (manager->upower_kbd_proxy &&
                    g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
                 if (g_strcmp0 (property_name, "Brightness") == 0) {
                         value = ABS_TO_PERCENTAGE (0,
@@ -3576,8 +3400,7 @@ handle_get_property (GDBusConnection *connection,
                 return NULL;
         }
 
-        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0 ||
-                   g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
+        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
                 return handle_get_property_other (manager, interface_name, property_name, error);
         } else {
                 g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
@@ -3601,23 +3424,7 @@ handle_set_property_other (GsdPowerManager *manager,
                 return FALSE;
         }
 
-        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
-                /* To do error reporting we would need to handle the Set call
-                 * instead of doing it through set_property.
-                 * But none of our DBus API users actually read the result. */
-                g_variant_get (value, "i", &brightness_value);
-                if (manager->backlight) {
-                        gsd_backlight_set_brightness_async (manager->backlight, brightness_value,
-                                                            NULL,
-                                                            backlight_brightness_set_cb, g_object_ref (manager));
-                        return TRUE;
-                } else {
-                        g_set_error_literal (error, GSD_POWER_MANAGER_ERROR, GSD_POWER_MANAGER_ERROR_NO_BACKLIGHT,
-                                             "No usable backlight could be found!");
-                        return FALSE;
-                }
-
-        } else if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
+        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
                 g_variant_get (value, "i", &brightness_value);
                 brightness_value = PERCENTAGE_TO_ABS (0, manager->kbd_brightness_max,
                                                       brightness_value);
@@ -3656,8 +3463,7 @@ handle_set_property (GDBusConnection *connection,
                 return FALSE;
         }
 
-        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_SCREEN) == 0 ||
-            g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
+        if (g_strcmp0 (interface_name, GSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
                 return handle_set_property_other (manager, interface_name, property_name, value, error);
         } else {
                 g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
