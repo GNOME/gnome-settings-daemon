@@ -1306,7 +1306,7 @@ set_power_saving_mode (GsdPowerManager  *manager,
 }
 
 static void
-backlight_enable (GsdPowerManager *manager)
+enable_monitors (GsdPowerManager *manager)
 {
         iio_proxy_claim_light (manager, TRUE);
         set_power_saving_mode (manager, GSD_POWER_SAVE_MODE_ON);
@@ -1315,7 +1315,7 @@ backlight_enable (GsdPowerManager *manager)
 }
 
 static void
-backlight_disable (GsdPowerManager *manager)
+disable_monitors (GsdPowerManager *manager)
 {
         iio_proxy_claim_light (manager, FALSE);
         set_power_saving_mode (manager, GSD_POWER_SAVE_MODE_OFF);
@@ -1344,7 +1344,7 @@ do_power_action_type (GsdPowerManager *manager,
                 action_poweroff (manager);
                 break;
         case GSD_POWER_ACTION_BLANK:
-                backlight_disable (manager);
+                disable_monitors (manager);
                 break;
         case GSD_POWER_ACTION_NOTHING:
                 break;
@@ -1822,7 +1822,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
         /* turn off screen and kbd */
         } else if (mode == GSD_POWER_IDLE_MODE_BLANK) {
 
-                backlight_disable (manager);
+                disable_monitors (manager);
 
                 /* only toggle keyboard if present and not already toggled */
                 if (manager->upower_kbd_proxy &&
@@ -1849,7 +1849,7 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
         /* turn on screen and restore user-selected brightness level */
         } else if (mode == GSD_POWER_IDLE_MODE_NORMAL) {
 
-                backlight_enable (manager);
+                enable_monitors (manager);
 
                 /* reset brightness if we dimmed */
                 if (manager->backlight && manager->pre_dim_brightness >= 0) {
@@ -2819,7 +2819,7 @@ handle_suspend_actions (GsdPowerManager *manager)
 {
         /* close any existing notification about idleness */
         notify_close_if_showing (&manager->notification_sleep_warning);
-        backlight_disable (manager);
+        disable_monitors (manager);
         uninhibit_suspend (manager);
 }
 
@@ -2827,7 +2827,7 @@ static void
 handle_resume_actions (GsdPowerManager *manager)
 {
         /* ensure we turn the panel back on after resume */
-        backlight_enable (manager);
+        enable_monitors (manager);
 
         /* set up the delay again */
         inhibit_suspend (manager);
@@ -3141,7 +3141,7 @@ gsd_power_manager_startup (GApplication *app)
         idle_configure (manager);
 
         /* ensure the default dpms timeouts are cleared */
-        backlight_enable (manager);
+        enable_monitors (manager);
 
         /* queue a signal in case the proxy from gnome-shell was created before we got here
            (likely, considering that to get here we need a reply from gnome-shell)
