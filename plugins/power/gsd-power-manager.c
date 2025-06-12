@@ -75,6 +75,10 @@
 #define SYSTEMD_DBUS_PATH                       "/org/freedesktop/login1"
 #define SYSTEMD_DBUS_INTERFACE                  "org.freedesktop.login1.Manager"
 
+#define SHELL_BRIGHTNESS_DBUS_NAME              "org.gnome.Shell.Brightness"
+#define SHELL_BRIGHTNESS_DBUS_PATH              "/org/gnome/Shell/Brightness"
+#define SHELL_BRIGHTNESS_DBUS_INTERFACE         "org.gnome.Shell.Brightness"
+
 /* Time between notifying the user about a critical action and the action itself in UPower. */
 #define GSD_ACTION_DELAY 20
 /* And the time before we stop the warning sound */
@@ -166,6 +170,7 @@ struct _GsdPowerManager
         /* Brightness */
         GsdBacklight            *backlight;
         gint                     pre_dim_brightness; /* level, not percentage */
+        GDBusProxy              *shell_brightness_proxy;
 
         /* Keyboard */
         GDBusProxy              *upower_kbd_proxy;
@@ -1214,6 +1219,94 @@ action_hibernate (GsdPowerManager *manager)
                            "Error calling Hibernate");
 }
 
+static gboolean
+shell_brightness_has_control (GsdPowerManager *manager)
+{
+        g_autoptr (GVariant) has_control_variant = NULL;
+        gboolean has_control;
+
+        if (!manager->shell_brightness_proxy)
+                return FALSE;
+
+        has_control_variant =
+                g_dbus_proxy_get_cached_property (manager->shell_brightness_proxy,
+                                                  "HasBrightnessControl");
+
+        if (!has_control_variant)
+                return FALSE;
+
+        g_variant_get (has_control_variant, "(b)", &has_control);
+        return has_control;
+}
+
+static void
+shell_brightness_set_auto_target_cb (GObject      *source_object,
+                                     GAsyncResult *res,
+                                     gpointer      user_data)
+{
+        g_autoptr (GVariant) result = NULL;
+        g_autoptr (GError) error = NULL;
+
+        result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
+                                           res,
+                                           &error);
+        if (result)
+                return;
+
+        g_warning ("couldn't set the auto brightness target: %s",
+                   error->message);
+}
+
+static void
+shell_brightness_set_auto_target (GsdPowerManager *manager,
+                                  float            target)
+{
+        if (!manager->shell_brightness_proxy)
+                return;
+
+        g_dbus_proxy_call (G_DBUS_PROXY (manager->shell_brightness_proxy),
+                           "SetAutoBrightnessTarget",
+                           g_variant_new ("(d)", target),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1, NULL,
+                           shell_brightness_set_auto_target_cb, NULL);
+}
+
+static void
+shell_brightness_set_dimming_cb (GObject      *source_object,
+                                 GAsyncResult *res,
+                                 gpointer      user_data)
+{
+        g_autoptr (GVariant) result = NULL;
+        g_autoptr (GError) error = NULL;
+        gboolean enable = !!GPOINTER_TO_UINT (user_data);
+
+        result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
+                                           res,
+                                           &error);
+        if (result)
+                return;
+
+        g_warning ("couldn't %s dimming: %s",
+                   enable ? "enable" : "disable",
+                   error->message);
+}
+
+static void
+shell_brightness_set_dimming (GsdPowerManager *manager,
+                              gboolean         enable)
+{
+        if (!manager->shell_brightness_proxy)
+                return;
+
+        g_dbus_proxy_call (G_DBUS_PROXY (manager->shell_brightness_proxy),
+                           "SetDimming",
+                           g_variant_new ("(b)", enable),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1, NULL,
+                           shell_brightness_set_dimming_cb,
+                           GUINT_TO_POINTER (enable));
+}
 
 static void
 light_claimed_cb (GObject      *source_object,
@@ -3124,6 +3217,21 @@ gsd_power_manager_startup (GApplication *app)
                                   power_keyboard_proxy_ready_cb,
                                   manager);
 
+        manager->shell_brightness_proxy =
+                g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
+                                               G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START,
+                                               NULL,
+                                               SHELL_BRIGHTNESS_DBUS_NAME,
+                                               SHELL_BRIGHTNESS_DBUS_PATH,
+                                               SHELL_BRIGHTNESS_DBUS_INTERFACE,
+                                               NULL,
+                                               &error);
+        if (manager->shell_brightness_proxy == NULL) {
+                g_debug ("No org.gnome.Shell.Brightness support, "
+                         "dimming and auto brightness is disabled");
+                g_clear_error (&error);
+        }
+
         manager->devices_array = g_ptr_array_new_with_free_func (g_object_unref);
         manager->devices_notified_ht = g_hash_table_new_full (g_str_hash, g_str_equal,
                                                               g_free, NULL);
@@ -3220,6 +3328,7 @@ gsd_power_manager_shutdown (GApplication *app)
 
         g_clear_object (&manager->idle_monitor);
         g_clear_object (&manager->upower_kbd_proxy);
+        g_clear_object (&manager->shell_brightness_proxy);
 
         g_clear_handle_id (&manager->iio_proxy_watch_id, g_bus_unwatch_name);
 
