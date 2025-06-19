@@ -9,7 +9,7 @@ include:
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
   FDO_DISTRIBUTION_VERSION: latest
-  FDO_DISTRIBUTION_TAG: "x86_64-2024-08-30.1"
+  FDO_DISTRIBUTION_TAG: "x86_64-2025-06-19.0"
   FDO_UPSTREAM_REPO: GNOME/gnome-settings-daemon
   # Expiry sets fdo.expires on the image
   FEDORA_IMAGE: "$CI_REGISTRY/$FDO_UPSTREAM_REPO/fedora/$FDO_DISTRIBUTION_VERSION:$FDO_DISTRIBUTION_TAG"
@@ -26,6 +26,7 @@ variables:
     gettext
     git
     glib2-devel
+    glibc-langpack-en
     gnome-desktop3-devel
     gnome-session
     gobject-introspection
@@ -173,6 +174,18 @@ build:
 #
 # Runs the unit tests.
 ##
+check-potfiles:
+  extends:
+  - '.fdo.suffixed-image@fedora'
+  needs:
+  - build-fedora-container@x86_64
+  stage: test
+  when: always
+  variables:
+    GIT_SUBMODULE_STRATEGY: normal
+  script:
+    - .gitlab-ci/check-potfiles.sh
+
 test:
   <<: *save_build_logs
   stage: test
