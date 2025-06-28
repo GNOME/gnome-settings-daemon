@@ -351,6 +351,7 @@ xsettings_manager_notify (XSettingsManager *manager)
   XChangeProperty (manager->display, manager->window,
                    manager->xsettings_atom, manager->xsettings_atom,
                    8, PropModeReplace, (guchar *) buffer->str, buffer->len);
+  XFlush (manager->display);
 
   g_string_free (buffer, TRUE);
   manager->serial++;

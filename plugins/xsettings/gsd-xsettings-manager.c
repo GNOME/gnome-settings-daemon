@@ -34,9 +34,6 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gdesktop-enums.h>
-#include <gdk/gdk.h>
-#include <gdk/gdkx.h>
-#include <gtk/gtk.h>
 
 #include "gnome-settings-profile.h"
 #include "gnome-settings-daemon/gsd-enums.h"
@@ -275,6 +272,8 @@ struct _FixedEntry {
 struct _GsdXSettingsManager
 {
         GsdApplication     parent;
+
+        Display           *xdisplay;
 
         guint              start_idle_id;
         XSettingsManager  *manager;
@@ -1021,39 +1020,29 @@ xsettings_callback (GSettings           *settings,
 static void
 terminate_cb (void *data)
 {
-        gboolean *terminated = data;
+        GsdXSettingsManager *manager = data;
 
-        if (*terminated) {
-                return;
-        }
-
-        *terminated = TRUE;
         g_warning ("X Settings Manager is terminating");
-        gtk_main_quit ();
+        g_application_quit (G_APPLICATION (manager));
 }
 
 static gboolean
 setup_xsettings_managers (GsdXSettingsManager *manager)
 {
-        GdkDisplay *display;
-        gboolean    res;
-        gboolean    terminated;
+        manager->xdisplay = XOpenDisplay (NULL);
+        if (!manager->xdisplay)
+                return FALSE;
 
-        display = gdk_display_get_default ();
-
-        res = xsettings_manager_check_running (gdk_x11_display_get_xdisplay (display),
-                                               gdk_x11_screen_get_screen_number (gdk_screen_get_default ()));
-
-        if (res) {
+        if (xsettings_manager_check_running (manager->xdisplay,
+                                              DefaultScreen (manager->xdisplay))) {
                 g_warning ("You can only run one xsettings manager at a time; exiting");
                 return FALSE;
         }
 
-        terminated = FALSE;
-        manager->manager = xsettings_manager_new (gdk_x11_display_get_xdisplay (display),
-                                                  gdk_x11_screen_get_screen_number (gdk_screen_get_default ()),
+        manager->manager = xsettings_manager_new (manager->xdisplay,
+                                                  DefaultScreen (manager->xdisplay),
                                                   terminate_cb,
-                                                  &terminated);
+                                                  manager);
         if (! manager->manager) {
                 g_warning ("Could not create xsettings manager!");
                 return FALSE;
@@ -1524,6 +1513,9 @@ gsd_xsettings_manager_shutdown (GApplication *app)
         g_clear_object (&manager->interface_settings);
 
         g_clear_handle_id (&manager->start_idle_id, g_source_remove);
+
+        if (manager->xdisplay)
+                XCloseDisplay (manager->xdisplay);
 
         G_APPLICATION_CLASS (gsd_xsettings_manager_parent_class)->shutdown (app);
 }
