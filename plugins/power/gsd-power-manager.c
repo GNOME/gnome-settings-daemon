@@ -25,7 +25,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <glib/gi18n.h>
-#include <gtk/gtk.h>
 #include <libupower-glib/upower.h>
 #include <libnotify/notify.h>
 #include <glib-unix.h>
@@ -213,8 +212,6 @@ struct _GsdPowerManager
 
         guint                    temporary_unidle_on_ac_id;
         GsdPowerIdleMode         previous_idle_mode;
-
-        guint                    xscreensaver_watchdog_timer_id;
 
         /* Device Properties */
         gboolean                 show_sleep_warnings;
@@ -3142,9 +3139,6 @@ gsd_power_manager_startup (GApplication *app)
         /* ensure the default dpms timeouts are cleared */
         backlight_enable (manager);
 
-        if (!gnome_settings_is_wayland ())
-                manager->xscreensaver_watchdog_timer_id = gsd_power_enable_screensaver_watchdog ();
-
         /* queue a signal in case the proxy from gnome-shell was created before we got here
            (likely, considering that to get here we need a reply from gnome-shell)
         */
@@ -3222,11 +3216,6 @@ gsd_power_manager_shutdown (GApplication *app)
 
         g_clear_object (&manager->idle_monitor);
         g_clear_object (&manager->upower_kbd_proxy);
-
-        if (manager->xscreensaver_watchdog_timer_id > 0) {
-                g_source_remove (manager->xscreensaver_watchdog_timer_id);
-                manager->xscreensaver_watchdog_timer_id = 0;
-        }
 
         g_clear_handle_id (&manager->iio_proxy_watch_id, g_bus_unwatch_name);
 

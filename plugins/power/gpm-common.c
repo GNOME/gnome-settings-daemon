@@ -27,15 +27,12 @@
 #include <math.h>
 #include <glib.h>
 #include <glib/gi18n.h>
-#include <gdk/gdkx.h>
-#include <X11/extensions/dpms.h>
 
 #include "gnome-settings-bus.h"
 #include "gpm-common.h"
 #include "gsd-power-constants.h"
 #include "gsd-power-manager.h"
 
-#define XSCREENSAVER_WATCHDOG_TIMEOUT           120 /* seconds */
 #define UPS_SOUND_LOOP_ID                        99
 #define GSD_POWER_MANAGER_CRITICAL_ALERT_TIMEOUT  5 /* seconds */
 
@@ -203,97 +200,6 @@ out:
         if (variant != NULL)
                 g_variant_unref (variant);
         return ret;
-}
-
-/* This timer goes off every few minutes, whether the user is idle or not,
-   to try and clean up anything that has gone wrong.
-
-   It calls disable_builtin_screensaver() so that if xset has been used,
-   or some other program (like xlock) has messed with the XSetScreenSaver()
-   settings, they will be set back to sensible values (if a server extension
-   is in use, messing with xlock can cause the screensaver to never get a wakeup
-   event, and could cause monitor power-saving to occur, and all manner of
-   heinousness.)
-
-   This code was originally part of gnome-screensaver, see
-   http://git.gnome.org/browse/gnome-screensaver/tree/src/gs-watcher-x11.c?id=fec00b12ec46c86334cfd36b37771cc4632f0d4d#n530
- */
-static gboolean
-disable_builtin_screensaver (gpointer unused)
-{
-        int current_server_timeout, current_server_interval;
-        int current_prefer_blank,   current_allow_exp;
-        int desired_server_timeout, desired_server_interval;
-        int desired_prefer_blank,   desired_allow_exp;
-
-        XGetScreenSaver (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                         &current_server_timeout,
-                         &current_server_interval,
-                         &current_prefer_blank,
-                         &current_allow_exp);
-
-        desired_server_timeout  = current_server_timeout;
-        desired_server_interval = current_server_interval;
-        desired_prefer_blank    = current_prefer_blank;
-        desired_allow_exp       = current_allow_exp;
-
-        desired_server_interval = 0;
-
-        /* I suspect (but am not sure) that DontAllowExposures might have
-           something to do with powering off the monitor as well, at least
-           on some systems that don't support XDPMS?  Who know... */
-        desired_allow_exp = AllowExposures;
-
-        /* When we're not using an extension, set the server-side timeout to 0,
-           so that the server never gets involved with screen blanking, and we
-           do it all ourselves.  (However, when we *are* using an extension,
-           we tell the server when to notify us, and rather than blanking the
-           screen, the server will send us an X event telling us to blank.)
-        */
-        desired_server_timeout = 0;
-
-        if (desired_server_timeout     != current_server_timeout
-            || desired_server_interval != current_server_interval
-            || desired_prefer_blank    != current_prefer_blank
-            || desired_allow_exp       != current_allow_exp) {
-
-                g_debug ("disabling server builtin screensaver:"
-                         " (xset s %d %d; xset s %s; xset s %s)",
-                         desired_server_timeout,
-                         desired_server_interval,
-                         (desired_prefer_blank ? "blank" : "noblank"),
-                         (desired_allow_exp ? "expose" : "noexpose"));
-
-                XSetScreenSaver (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                                 desired_server_timeout,
-                                 desired_server_interval,
-                                 desired_prefer_blank,
-                                 desired_allow_exp);
-
-                XSync (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), FALSE);
-        }
-
-        return TRUE;
-}
-
-guint
-gsd_power_enable_screensaver_watchdog (void)
-{
-        int dummy;
-        guint id;
-
-        /* Make sure that Xorg's DPMS extension never gets in our
-         * way. The defaults are now applied in Fedora 20 from
-         * being "0" by default to being "600" by default */
-        gdk_x11_display_error_trap_push (gdk_display_get_default ());
-        if (DPMSQueryExtension(GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &dummy, &dummy))
-                DPMSSetTimeouts (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), 0, 0, 0);
-        gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
-        id = g_timeout_add_seconds (XSCREENSAVER_WATCHDOG_TIMEOUT,
-                                    disable_builtin_screensaver,
-                                    NULL);
-        g_source_set_name_by_id (id, "[gnome-settings-daemon] disable_builtin_screensaver");
-        return id;
 }
 
 static gpointer

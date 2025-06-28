@@ -14,7 +14,6 @@ deps = plugins_deps + [
   gsd_enums_dep,
   m_dep,
   upower_glib_dep,
-  x11_dep,
   dependency('xext')
 ]
 
@@ -30,7 +29,6 @@ if host_is_linux
 endif
 
 cflags += ['-DLIBEXECDIR="@0@"'.format(gsd_libexecdir)]
-cflags += ['-DUSE_GTK=1']
 
 gsd_power = executable(
   'gsd-' + plugin_name,
