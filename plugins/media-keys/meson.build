@@ -39,8 +39,6 @@ if enable_gudev
   deps += gudev_dep
 endif
 
-cflags += ['-DUSE_GTK=1']
-
 executable(
   'gsd-' + plugin_name,
   sources,

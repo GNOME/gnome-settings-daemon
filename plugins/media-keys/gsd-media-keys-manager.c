@@ -35,7 +35,6 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 #include <gdk/gdk.h>
-#include <gtk/gtk.h>
 #include <gio/gdesktopappinfo.h>
 #include <gio/gunixfdlist.h>
 
@@ -1280,19 +1279,19 @@ static void
 do_home_key_action (GsdMediaKeysManager *manager,
 		    gint64               timestamp)
 {
-	GFile *file;
-	GError *error = NULL;
-	char *uri;
+	GdkAppLaunchContext *launch_context;
+	g_autoptr (GFile) file = NULL;
+	g_autoptr (GError) error = NULL;
+	g_autofree char *uri;
 
 	file = g_file_new_for_path (g_get_home_dir ());
 	uri = g_file_get_uri (file);
-	g_object_unref (file);
 
-	if (gtk_show_uri_on_window (NULL, uri, timestamp, &error) == FALSE) {
+	launch_context = gdk_display_get_app_launch_context (gdk_display_get_default ());
+	gdk_app_launch_context_set_timestamp (launch_context, timestamp);
+
+	if (!g_app_info_launch_default_for_uri (uri, G_APP_LAUNCH_CONTEXT (launch_context), &error))
 		g_warning ("Failed to launch '%s': %s", uri, error->message);
-		g_error_free (error);
-	}
-	g_free (uri);
 }
 
 static void
