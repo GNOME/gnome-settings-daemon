@@ -1,7 +1,6 @@
 common_inc = include_directories('.')
 
 sources = files(
-  'gsd-input-helper.c',
   'gsd-settings-migrate.c',
   'gsd-shell-helper.c'
 )

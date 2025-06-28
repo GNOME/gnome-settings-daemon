@@ -34,8 +34,6 @@
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-idle-monitor.h>
 
-#include <gsd-input-helper.h>
-
 #include "gsd-power-constants.h"
 #include "gsm-inhibitor-flag.h"
 #include "gsm-presence-flag.h"
