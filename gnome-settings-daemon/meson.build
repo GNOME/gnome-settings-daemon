@@ -30,10 +30,6 @@ endforeach
 
 deps = [gio_unix_dep]
 
-if enable_wayland
-  deps += wayland_client_dep
-endif
-
 libgsd = shared_library(
   'gsd',
   sources: sources + dbus_headers,

@@ -27,10 +27,6 @@
 #include <glib.h>
 #include <gio/gio.h>
 
-#if HAVE_WAYLAND
-#include <wayland-client.h>
-#endif
-
 #include "gnome-settings-bus.h"
 
 #define GNOME_SESSION_DBUS_NAME      "org.gnome.SessionManager"
@@ -195,30 +191,4 @@ out:
         g_clear_object (&connection);
         g_clear_pointer (&variant, g_variant_unref);
         return ret;
-}
-
-static gpointer
-is_wayland_session (gpointer user_data)
-{
-#if HAVE_WAYLAND
-        struct wl_display *display;
-
-        display = wl_display_connect (NULL);
-        if (!display)
-                return GUINT_TO_POINTER(FALSE);
-        wl_display_disconnect (display);
-        return GUINT_TO_POINTER(TRUE);
-#else
-        return GUINT_TO_POINTER(FALSE);
-#endif
-}
-
-gboolean
-gnome_settings_is_wayland (void)
-{
-        static GOnce wayland_once = G_ONCE_INIT;
-
-        g_once (&wayland_once, is_wayland_session, NULL);
-
-        return GPOINTER_TO_UINT(wayland_once.retval);
 }

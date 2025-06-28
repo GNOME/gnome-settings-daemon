@@ -159,14 +159,6 @@ endif
 has_timerfd_create = cc.has_function('timerfd_create')
 config_h.set10('HAVE_TIMERFD', has_timerfd_create)
 
-# Check for wayland dependencies
-enable_wayland = get_option('wayland')
-if enable_wayland
-  assert(enable_gudev, 'GUDev support is required for wayland support.')
-  wayland_client_dep = dependency('wayland-client')
-endif
-config_h.set10('HAVE_WAYLAND', enable_wayland)
-
 # smartcard section
 enable_smartcard = get_option('smartcard')
 if enable_smartcard
@@ -280,7 +272,6 @@ output += '        NetworkManager support:   ' + enable_network_manager.to_strin
 output += '        Smartcard support:        ' + enable_smartcard.to_string() + '\n'
 output += '        USB Protection support:   ' + enable_usb_protection.to_string() + '\n'
 output += '        Cups support:             ' + enable_cups.to_string() + '\n'
-output += '        Wayland support:          ' + enable_wayland.to_string() + '\n'
 output += '        RFKill support:           ' + enable_rfkill.to_string() + '\n'
 if enable_systemd
   output += '        Systemd user unit dir:    ' + systemd_userunitdir + '\n'
