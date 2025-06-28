@@ -50,12 +50,3 @@ executable(
   install_rpath: gsd_pkglibdir,
   install_dir: gsd_libexecdir
 )
-
-program = 'audio-selection-test'
-
-executable(
-  program,
-  program + '.c',
-  include_directories: top_inc,
-  dependencies: deps
-)
