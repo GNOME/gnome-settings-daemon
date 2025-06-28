@@ -23,7 +23,7 @@
 #include <glib/gi18n.h>
 #include <colord.h>
 #include <libnotify/notify.h>
-#include <canberra-gtk.h>
+#include <gdk/gdk.h>
 
 #include "gsd-color-calibrate.h"
 
@@ -35,9 +35,18 @@ struct _GsdColorCalibrate
 {
         GObject          parent;
 
+        GsdColorManager *manager;
         CdClient        *client;
         GSettings       *settings;
 };
+
+enum {
+        PROP_0,
+        PROP_MANAGER,
+        N_PROPS,
+};
+
+static GParamSpec *props[N_PROPS] = { 0, };
 
 static void     gsd_color_calibrate_class_init  (GsdColorCalibrateClass *klass);
 static void     gsd_color_calibrate_init        (GsdColorCalibrate      *color_calibrate);
@@ -339,7 +348,10 @@ gcm_session_sensor_added_cb (CdClient *client,
                              CdSensor *sensor,
                              GsdColorCalibrate *calibrate)
 {
-        ca_context_play (ca_gtk_context_get (), 0,
+        GsdApplication *gsd_app = GSD_APPLICATION (calibrate->manager);
+        ca_context *ca_context = gsd_application_get_ca_context (gsd_app);
+
+        ca_context_play (ca_context, 0,
                          CA_PROP_EVENT_ID, "device-added",
                          /* TRANSLATORS: this is the application name */
                          CA_PROP_APPLICATION_NAME, _("GNOME Settings Daemon Color Plugin"),
@@ -355,7 +367,10 @@ gcm_session_sensor_removed_cb (CdClient *client,
                                CdSensor *sensor,
                                GsdColorCalibrate *calibrate)
 {
-        ca_context_play (ca_gtk_context_get (), 0,
+        GsdApplication *gsd_app = GSD_APPLICATION (calibrate->manager);
+        ca_context *ca_context = gsd_application_get_ca_context (gsd_app);
+
+        ca_context_play (ca_context, 0,
                          CA_PROP_EVENT_ID, "device-removed",
                          /* TRANSLATORS: this is the application name */
                          CA_PROP_APPLICATION_NAME, _("GNOME Settings Daemon Color Plugin"),
@@ -364,11 +379,39 @@ gcm_session_sensor_removed_cb (CdClient *client,
 }
 
 static void
+gsd_color_calibrate_set_property (GObject      *object,
+                                  guint         prop_id,
+                                  const GValue *value,
+                                  GParamSpec   *pspec)
+{
+        GsdColorCalibrate *calibrate = GSD_COLOR_CALIBRATE (object);
+
+        switch (prop_id) {
+        case PROP_MANAGER:
+                calibrate->manager = g_value_get_object (value);
+                break;
+        default:
+                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+                break;
+        }
+}
+
+static void
 gsd_color_calibrate_class_init (GsdColorCalibrateClass *klass)
 {
-        GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+        GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+        object_class->set_property = gsd_color_calibrate_set_property;
         object_class->finalize = gsd_color_calibrate_finalize;
+
+        props[PROP_MANAGER] =
+                g_param_spec_object ("manager", NULL, NULL,
+                                     GSD_TYPE_COLOR_MANAGER,
+                                     G_PARAM_WRITABLE |
+                                     G_PARAM_CONSTRUCT_ONLY |
+                                     G_PARAM_STATIC_STRINGS);
+
+        g_object_class_install_properties (object_class, N_PROPS, props);
 }
 
 static void
@@ -404,9 +447,9 @@ gsd_color_calibrate_finalize (GObject *object)
 }
 
 GsdColorCalibrate *
-gsd_color_calibrate_new (void)
+gsd_color_calibrate_new (GsdColorManager *color_manager)
 {
-        GsdColorCalibrate *calibrate;
-        calibrate = g_object_new (GSD_TYPE_COLOR_CALIBRATE, NULL);
-        return GSD_COLOR_CALIBRATE (calibrate);
+        return g_object_new (GSD_TYPE_COLOR_CALIBRATE,
+                             "manager", color_manager,
+                             NULL);
 }

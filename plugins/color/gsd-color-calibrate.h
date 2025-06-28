@@ -23,6 +23,8 @@
 
 #include <glib-object.h>
 
+#include "gsd-color-manager.h"
+
 G_BEGIN_DECLS
 
 #define GSD_TYPE_COLOR_CALIBRATE         (gsd_color_calibrate_get_type ())
@@ -31,7 +33,7 @@ G_DECLARE_FINAL_TYPE (GsdColorCalibrate, gsd_color_calibrate, GSD, COLOR_CALIBRA
 GType                   gsd_color_calibrate_get_type            (void);
 GQuark                  gsd_color_calibrate_error_quark         (void);
 
-GsdColorCalibrate *     gsd_color_calibrate_new                 (void);
+GsdColorCalibrate *     gsd_color_calibrate_new                 (GsdColorManager *manager);
 
 G_END_DECLS
 

@@ -21,8 +21,6 @@
 #include "config.h"
 
 #include <glib/gi18n.h>
-#include <gdk/gdk.h>
-#include <gtk/gtk.h>
 #include <math.h>
 
 #include "gnome-settings-profile.h"
@@ -224,7 +222,7 @@ static void
 gsd_color_manager_init (GsdColorManager *manager)
 {
         /* setup calibration features */
-        manager->calibrate = gsd_color_calibrate_new ();
+        manager->calibrate = gsd_color_calibrate_new (manager);
         manager->state = gsd_color_state_new ();
 
         /* night light features */
