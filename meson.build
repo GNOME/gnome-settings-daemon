@@ -106,7 +106,7 @@ gsettings_desktop_dep = dependency('gsettings-desktop-schemas', version: '>= 46.
 gtk_dep = dependency('gtk+-3.0', version: '>= 3.15.3')
 gtk_x11_dep = dependency('gtk+-x11-3.0')
 gweather_dep = dependency('gweather4')
-libcanberra_gtk_dep = dependency('libcanberra-gtk3')
+libcanberra_dep = dependency('libcanberra')
 libgeoclue_dep = dependency('libgeoclue-2.0', version: '>= 2.3.1')
 libnotify_dep = dependency('libnotify', version: '>= 0.7.3')
 libpulse_mainloop_glib_dep = dependency('libpulse-mainloop-glib', version: '>= 2.0')

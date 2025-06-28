@@ -60,7 +60,7 @@ plugin_gate_units = {
 plugins_conf = configuration_data()
 plugins_conf.set('libexecdir', gsd_libexecdir)
 
-plugins_deps = [libgsd_dep, libcanberra_gtk_dep]
+plugins_deps = [libgsd_dep, libcanberra_dep]
 
 plugins_cflags = ['-DGNOME_SETTINGS_LOCALEDIR="@0@"'.format(gsd_localedir)]
 
