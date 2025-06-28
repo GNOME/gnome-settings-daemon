@@ -20,7 +20,27 @@
 
 #include "gsd-application.h"
 
-G_DEFINE_TYPE (GsdApplication, gsd_application, G_TYPE_APPLICATION)
+typedef struct _GsdApplicationPrivate GsdApplicationPrivate;
+struct _GsdApplicationPrivate
+{
+        GSettings *sound_settings;
+        ca_context *ca;
+};
+
+G_DEFINE_TYPE_WITH_PRIVATE (GsdApplication, gsd_application, G_TYPE_APPLICATION)
+
+static void
+gsd_application_finalize (GObject *object)
+{
+        GsdApplication *app = GSD_APPLICATION (object);
+        GsdApplicationPrivate *priv =
+                gsd_application_get_instance_private (app);
+
+        g_clear_object (&priv->sound_settings);
+        g_clear_pointer (&priv->ca, ca_context_destroy);
+
+        G_OBJECT_CLASS (gsd_application_parent_class)->finalize (object);
+}
 
 static void
 gsd_application_real_pre_shutdown (GsdApplication *app)
@@ -31,6 +51,10 @@ gsd_application_real_pre_shutdown (GsdApplication *app)
 static void
 gsd_application_class_init (GsdApplicationClass *klass)
 {
+        GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+        object_class->finalize = gsd_application_finalize;
+
 	klass->pre_shutdown = gsd_application_real_pre_shutdown;
 }
 
@@ -43,4 +67,47 @@ void
 gsd_application_pre_shutdown (GsdApplication *app)
 {
 	GSD_APPLICATION_GET_CLASS (app)->pre_shutdown (app);
+}
+
+static void
+sound_theme_changed (GsdApplication *app)
+{
+        GsdApplicationPrivate *priv =
+                gsd_application_get_instance_private (app);
+        g_autofree char *sound_theme;
+
+        sound_theme = g_settings_get_string (priv->sound_settings, "theme-name");
+
+        if (priv->ca) {
+                ca_context_change_props (priv->ca,
+                                         CA_PROP_CANBERRA_XDG_THEME_NAME, sound_theme,
+                                         NULL);
+        }
+}
+
+ca_context *
+gsd_application_get_ca_context (GsdApplication *app)
+{
+        GsdApplicationPrivate *priv =
+                gsd_application_get_instance_private (app);
+
+        if (!priv->sound_settings) {
+                priv->sound_settings = g_settings_new ("org.gnome.desktop.sound");
+                g_signal_connect_swapped (priv->sound_settings,
+                                          "changed::theme-name",
+                                          G_CALLBACK (sound_theme_changed),
+                                          app);
+        }
+
+        if (!priv->ca) {
+                ca_context_create (&priv->ca);
+                ca_context_set_driver (priv->ca, "pulse");
+                ca_context_change_props (priv->ca, 0,
+                                         CA_PROP_APPLICATION_ID,
+                                         "org.gnome.VolumeControl",
+                                         NULL);
+                sound_theme_changed (app);
+        }
+
+        return priv->ca;
 }

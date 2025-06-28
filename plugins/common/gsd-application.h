@@ -22,6 +22,7 @@
 #define __GSD_APPLICATION_H__
 
 #include <gio/gio.h>
+#include <canberra.h>
 
 #define GSD_TYPE_APPLICATION gsd_application_get_type ()
 G_DECLARE_DERIVABLE_TYPE (GsdApplication,
@@ -37,5 +38,7 @@ struct _GsdApplicationClass
 };
 
 void gsd_application_pre_shutdown (GsdApplication *app);
+
+ca_context * gsd_application_get_ca_context (GsdApplication *app);
 
 #endif /* __GSD_APPLICATION_H__ */
