@@ -24,6 +24,8 @@
 
 #include <glib.h>
 #include <libupower-glib/upower.h>
+#include <canberra.h>
+
 
 G_BEGIN_DECLS
 
@@ -51,8 +53,10 @@ void             watch_external_monitor                 (void);
 gboolean         external_monitor_is_connected          (void);
 
 /* Sound helpers */
-void             play_loop_start                        (guint *id);
-void             play_loop_stop                         (guint *id);
+void             play_loop_start                        (ca_context *ca_context,
+                                                         guint      *id);
+void             play_loop_stop                         (ca_context *ca_context,
+                                                         guint      *id);
 
 G_END_DECLS
 

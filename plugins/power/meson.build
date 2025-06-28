@@ -7,7 +7,6 @@ sources = files(
 sources += main_helper_sources
 
 deps = plugins_deps + [
-  libcanberra_gtk_dep,
   libcommon_dep,
   libnotify_dep,
   gio_unix_dep,
