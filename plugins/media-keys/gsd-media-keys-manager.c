@@ -153,10 +153,8 @@ typedef struct
         GvcMixerControl *volume;
         GvcMixerStream  *sink;
         GvcMixerStream  *source;
-        ca_context      *ca;
         GSettings       *sound_settings;
         pa_volume_t      max_volume;
-        GtkSettings     *gtksettings;
 #if HAVE_GUDEV
         GHashTable      *streams; /* key = X device ID, value = stream id */
         GUdevClient     *udev_client;
@@ -1390,18 +1388,6 @@ do_lock_screensaver (GsdMediaKeysManager *manager)
 }
 
 static void
-sound_theme_changed (GsdMediaKeysManager *manager)
-{
-        GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
-        char *theme_name;
-
-        g_object_get (G_OBJECT (priv->gtksettings), "gtk-sound-theme-name", &theme_name, NULL);
-        if (theme_name)
-                ca_context_change_props (priv->ca, CA_PROP_CANBERRA_XDG_THEME_NAME, theme_name, NULL);
-        g_free (theme_name);
-}
-
-static void
 allow_volume_above_100_percent_changed_cb (GSettings           *settings,
                                            const char          *settings_key,
                                            GsdMediaKeysManager *manager)
@@ -1419,29 +1405,13 @@ static void
 play_volume_changed_audio (GsdMediaKeysManager *manager,
                            GvcMixerStream      *stream)
 {
-	GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
+        ca_context *ca_context;
 
-	if (priv->ca == NULL) {
-                ca_context_create (&priv->ca);
-                ca_context_set_driver (priv->ca, "pulse");
-                ca_context_change_props (priv->ca, 0,
-                                         CA_PROP_APPLICATION_ID,
-                                         "org.gnome.VolumeControl",
-                                         NULL);
+        ca_context = gsd_application_get_ca_context (GSD_APPLICATION (manager));
 
-                priv->gtksettings =
-                        gtk_settings_get_for_screen (gdk_screen_get_default ());
-
-                g_signal_connect_swapped (priv->gtksettings,
-                                          "notify::gtk-sound-theme-name",
-                                          G_CALLBACK (sound_theme_changed),
-                                          manager);
-                sound_theme_changed (manager);
-        }
-
-        ca_context_change_device (priv->ca,
+        ca_context_change_device (ca_context,
                                   gvc_mixer_stream_get_name (stream));
-        ca_context_play (priv->ca, 1,
+        ca_context_play (ca_context, 1,
                          CA_PROP_EVENT_ID, "audio-volume-change",
                          CA_PROP_EVENT_DESCRIPTION, "volume changed through key press",
                          CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -1463,6 +1433,7 @@ show_volume_osd (GsdMediaKeysManager *manager,
         gboolean playing = FALSE;
         double new_vol;
         double max_volume;
+        ca_context *ca_context;
 
         max_volume = (double) priv->max_volume / PA_VOLUME_NORM;
         if (!muted) {
@@ -1487,8 +1458,8 @@ show_volume_osd (GsdMediaKeysManager *manager,
                 show_osd_with_max_level (manager, icon, NULL, new_vol, max_volume, NULL);
         }
 
-        if (priv->ca)
-                ca_context_playing (priv->ca, 1, &playing);
+        ca_context = gsd_application_get_ca_context (GSD_APPLICATION (manager));
+        ca_context_playing (ca_context, 1, &playing);
         playing = !playing && gvc_mixer_stream_get_state (stream) == GVC_STREAM_STATE_RUNNING;
 
         if (quiet == FALSE && sound_changed != FALSE && muted == FALSE && playing == FALSE)
@@ -3130,11 +3101,6 @@ gsd_media_keys_manager_shutdown (GApplication *app)
                 priv->start_idle_id = 0;
         }
 
-        if (priv->gtksettings != NULL) {
-                g_signal_handlers_disconnect_by_func (priv->gtksettings, sound_theme_changed, manager);
-                priv->gtksettings = NULL;
-        }
-
         if (priv->rfkill_watch_id > 0) {
                 g_bus_unwatch_name (priv->rfkill_watch_id);
                 priv->rfkill_watch_id = 0;
@@ -3155,8 +3121,6 @@ gsd_media_keys_manager_shutdown (GApplication *app)
                 g_source_remove (priv->reenable_power_button_timer_id);
                 priv->reenable_power_button_timer_id = 0;
         }
-
-        g_clear_pointer (&priv->ca, ca_context_destroy);
 
 #if HAVE_GUDEV
         g_clear_pointer (&priv->streams, g_hash_table_destroy);

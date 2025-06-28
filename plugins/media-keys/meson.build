@@ -27,7 +27,6 @@ deps = plugins_deps + [
   gio_unix_dep,
   gsd_enums_dep,
   gsettings_desktop_dep,
-  libcanberra_gtk_dep,
   libcommon_dep,
   gnome_desktop_dep,
   libgvc_dep,
