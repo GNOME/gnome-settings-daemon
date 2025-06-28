@@ -29,6 +29,7 @@ deps = plugins_deps + [
   gsettings_desktop_dep,
   libcommon_dep,
   gnome_desktop_dep,
+  gtk_dep,
   libgvc_dep,
   libpulse_mainloop_glib_dep,
   m_dep,

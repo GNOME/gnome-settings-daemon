@@ -104,7 +104,6 @@ gio_unix_dep = dependency('gio-unix-2.0')
 gnome_desktop_dep = dependency('gnome-desktop-3.0', version: '>= 3.37.1')
 gsettings_desktop_dep = dependency('gsettings-desktop-schemas', version: '>= 46.beta')
 gtk_dep = dependency('gtk+-3.0', version: '>= 3.15.3')
-gtk_x11_dep = dependency('gtk+-x11-3.0')
 gweather_dep = dependency('gweather4')
 libcanberra_dep = dependency('libcanberra')
 libgeoclue_dep = dependency('libgeoclue-2.0', version: '>= 2.3.1')
@@ -165,7 +164,6 @@ enable_wayland = get_option('wayland')
 if enable_wayland
   assert(enable_gudev, 'GUDev support is required for wayland support.')
   wayland_client_dep = dependency('wayland-client')
-  wayland_gdk_dep = dependency('gdk-wayland-3.0')
 endif
 config_h.set10('HAVE_WAYLAND', enable_wayland)
 

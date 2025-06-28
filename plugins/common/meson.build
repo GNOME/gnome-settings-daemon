@@ -21,10 +21,6 @@ sources += gnome.compile_resources(
 
 deps = plugins_deps + [
   gnome_desktop_dep,
-  gtk_x11_dep,
-  x11_dep,
-  dependency('kbproto'),
-  dependency('xi')
 ]
 
 ldflags = []
