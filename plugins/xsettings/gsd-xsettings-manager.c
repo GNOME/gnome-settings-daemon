@@ -285,7 +285,6 @@ struct _GsdXSettingsManager
         gint64             fontconfig_timestamp;
 
         GSettings         *interface_settings;
-        GdkSeat           *user_seat;
 
         GsdXSettingsGtk   *gtk;
 
@@ -295,9 +294,6 @@ struct _GsdXSettingsManager
 
         guint              display_config_watch_id;
         guint              monitors_changed_id;
-
-        guint              device_added_id;
-        guint              device_removed_id;
 
         guint              shell_name_watch_id;
         gboolean           have_shell;
@@ -1301,48 +1297,6 @@ update_gtk_im_module (GsdXSettingsManager *manager)
 }
 
 static void
-device_added_cb (GdkSeat             *user_seat,
-                 GdkDevice           *device,
-                 GsdXSettingsManager *manager)
-{
-        GdkInputSource source;
-
-        source = gdk_device_get_source (device);
-        if (source == GDK_SOURCE_TOUCHSCREEN) {
-                update_gtk_im_module (manager);
-        }
-}
-
-static void
-device_removed_cb (GdkSeat             *user_seat,
-                   GdkDevice           *device,
-                   GsdXSettingsManager *manager)
-{
-        GdkInputSource source;
-
-        source = gdk_device_get_source (device);
-        if (source == GDK_SOURCE_TOUCHSCREEN)
-                update_gtk_im_module (manager);
-}
-
-static void
-set_devicepresence_handler (GsdXSettingsManager *manager)
-{
-        GdkSeat *user_seat;
-
-        if (gnome_settings_is_wayland ())
-                return;
-
-        user_seat = gdk_display_get_default_seat (gdk_display_get_default ());
-
-        manager->device_added_id = g_signal_connect (G_OBJECT (user_seat), "device-added",
-                                                     G_CALLBACK (device_added_cb), manager);
-        manager->device_removed_id = g_signal_connect (G_OBJECT (user_seat), "device-removed",
-                                                       G_CALLBACK (device_removed_cb), manager);
-        manager->user_seat = user_seat;
-}
-
-static void
 gsd_xsettings_manager_startup (GApplication *app)
 {
         GsdXSettingsManager *manager = GSD_XSETTINGS_MANAGER (app);
@@ -1363,7 +1317,6 @@ gsd_xsettings_manager_startup (GApplication *app)
                 return;
         }
 
-	set_devicepresence_handler (manager);
         manager->interface_settings = g_settings_new (INTERFACE_SETTINGS_SCHEMA);
         g_signal_connect_swapped (manager->interface_settings,
                                   "changed::" GTK_IM_MODULE_KEY,
@@ -1566,12 +1519,6 @@ gsd_xsettings_manager_shutdown (GApplication *app)
         if (manager->gtk != NULL) {
                 g_object_unref (manager->gtk);
                 manager->gtk = NULL;
-        }
-
-        if (manager->user_seat != NULL) {
-                g_signal_handler_disconnect (manager->user_seat, manager->device_added_id);
-                g_signal_handler_disconnect (manager->user_seat, manager->device_removed_id);
-                manager->user_seat = NULL;
         }
 
         g_clear_object (&manager->interface_settings);
