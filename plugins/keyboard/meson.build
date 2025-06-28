@@ -6,12 +6,9 @@ sources += main_helper_sources
 
 deps = plugins_deps + [
   gsd_enums_dep,
-  gtk_dep,
   libcommon_dep,
-  x11_dep
+  gio_dep,
 ]
-
-cflags += ['-DUSE_GTK=1']
 
 executable(
   'gsd-' + plugin_name,

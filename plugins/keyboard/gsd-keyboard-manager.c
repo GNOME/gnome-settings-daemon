@@ -33,9 +33,6 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
-#include <gdk/gdk.h>
-#include <gdk/gdkx.h>
-#include <gtk/gtk.h>
 
 #include "gnome-settings-bus.h"
 #include "gnome-settings-profile.h"
@@ -44,15 +41,6 @@
 #include "gsd-settings-migrate.h"
 
 #define GSD_KEYBOARD_DIR "org.gnome.settings-daemon.peripherals.keyboard"
-
-#define KEY_CLICK          "click"
-#define KEY_CLICK_VOLUME   "click-volume"
-
-#define KEY_BELL_VOLUME    "bell-volume"
-#define KEY_BELL_PITCH     "bell-pitch"
-#define KEY_BELL_DURATION  "bell-duration"
-#define KEY_BELL_MODE      "bell-mode"
-#define KEY_BELL_CUSTOM_FILE "bell-custom-file"
 
 #define GNOME_DESKTOP_INTERFACE_DIR "org.gnome.desktop.interface"
 
@@ -127,81 +115,6 @@ schema_is_installed (const char *schema)
         g_strfreev (non_relocatable);
         g_strfreev (relocatable);
         return installed;
-}
-
-static void
-apply_bell (GsdKeyboardManager *manager)
-{
-        GdkDisplay      *gdisplay;
-	GSettings       *settings;
-        XKeyboardControl kbdcontrol;
-        gboolean         click;
-        int              bell_volume;
-        int              bell_pitch;
-        int              bell_duration;
-        GsdBellMode      bell_mode;
-        int              click_volume;
-
-        if (gnome_settings_is_wayland ())
-                return;
-
-        gdisplay = gdk_display_get_default ();
-
-        g_debug ("Applying the bell settings");
-        settings      = manager->settings;
-        click         = g_settings_get_boolean  (settings, KEY_CLICK);
-        click_volume  = g_settings_get_int   (settings, KEY_CLICK_VOLUME);
-
-        bell_pitch    = g_settings_get_int   (settings, KEY_BELL_PITCH);
-        bell_duration = g_settings_get_int   (settings, KEY_BELL_DURATION);
-
-        bell_mode = g_settings_get_enum (settings, KEY_BELL_MODE);
-        bell_volume   = (bell_mode == GSD_BELL_MODE_ON) ? 50 : 0;
-
-        /* as percentage from 0..100 inclusive */
-        if (click_volume < 0) {
-                click_volume = 0;
-        } else if (click_volume > 100) {
-                click_volume = 100;
-        }
-        kbdcontrol.key_click_percent = click ? click_volume : 0;
-        kbdcontrol.bell_percent = bell_volume;
-        kbdcontrol.bell_pitch = bell_pitch;
-        kbdcontrol.bell_duration = bell_duration;
-
-        gdk_x11_display_error_trap_push (gdisplay);
-        XChangeKeyboardControl (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                                KBKeyClickPercent | KBBellPercent | KBBellPitch | KBBellDuration,
-                                &kbdcontrol);
-
-        XSync (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), FALSE);
-        gdk_x11_display_error_trap_pop_ignored (gdisplay);
-}
-
-static void
-apply_all_settings (GsdKeyboardManager *manager)
-{
-	apply_bell (manager);
-}
-
-static void
-settings_changed (GSettings          *settings,
-                  const char         *key,
-                  GsdKeyboardManager *manager)
-{
-	if (g_strcmp0 (key, KEY_CLICK) == 0||
-	    g_strcmp0 (key, KEY_CLICK_VOLUME) == 0 ||
-	    g_strcmp0 (key, KEY_BELL_PITCH) == 0 ||
-	    g_strcmp0 (key, KEY_BELL_DURATION) == 0 ||
-	    g_strcmp0 (key, KEY_BELL_MODE) == 0) {
-		g_debug ("Bell setting '%s' changed, applying bell settings", key);
-		apply_bell (manager);
-	} else if (g_strcmp0 (key, KEY_BELL_CUSTOM_FILE) == 0){
-		g_debug ("Ignoring '%s' setting change", KEY_BELL_CUSTOM_FILE);
-	} else {
-		g_warning ("Unhandled settings change, key '%s'", key);
-	}
-
 }
 
 static void
@@ -464,15 +377,6 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
                                   manager->cancellable,
                                   localed_proxy_ready,
                                   manager);
-
-        if (!gnome_settings_is_wayland ()) {
-                /* apply current settings before we install the callback */
-                g_debug ("Started the keyboard plugin, applying all settings");
-                apply_all_settings (manager);
-
-                g_signal_connect (G_OBJECT (manager->settings), "changed",
-                                  G_CALLBACK (settings_changed), manager);
-        }
 
         gnome_settings_profile_end (NULL);
 
