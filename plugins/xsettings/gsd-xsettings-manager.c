@@ -1285,6 +1285,17 @@ update_gtk_im_module (GsdXSettingsManager *manager)
         g_free (setting);
 }
 
+static gboolean
+is_xwayland (GsdXSettingsManager *manager)
+{
+        int opcode_ignored, event_ignored, error_ignored;
+
+        return XQueryExtension (manager->xdisplay, "XWAYLAND",
+                                &opcode_ignored,
+                                &event_ignored,
+                                &error_ignored) == True;
+}
+
 static void
 gsd_xsettings_manager_startup (GApplication *app)
 {
@@ -1427,7 +1438,7 @@ gsd_xsettings_manager_startup (GApplication *app)
         update_xft_settings (manager);
 
         /* Launch Xwayland services */
-        if (gnome_settings_is_wayland ())
+        if (is_xwayland (manager))
                 launch_xwayland_services ();
 
         start_fontconfig_monitor (manager);
