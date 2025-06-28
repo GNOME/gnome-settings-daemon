@@ -15,6 +15,7 @@ sources += main_helper_sources
 
 deps = plugins_deps + [
   gsd_enums_dep,
+  gio_dep,
   x11_dep,
   xfixes_dep,
   libcommon_dep,

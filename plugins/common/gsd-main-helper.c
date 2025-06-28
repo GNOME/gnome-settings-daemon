@@ -22,15 +22,8 @@
 
 #include <glib-unix.h>
 #include <glib/gi18n.h>
-#ifdef USE_GTK
-#include <gtk/gtk.h>
-#endif
 
 #include "gnome-settings-bus.h"
-
-#ifdef USE_GTK
-#include "gsd-resources.h"
-#endif
 
 #ifndef PLUGIN_NAME
 #error Include PLUGIN_CFLAGS in the daemon s CFLAGS
@@ -193,32 +186,6 @@ register_with_gnome_session (GApplication *manager)
 	g_unsetenv ("DESKTOP_AUTOSTART_ID");
 }
 
-#ifdef USE_GTK
-static void
-set_empty_gtk_theme (gboolean set)
-{
-        static char *old_gtk_theme = NULL;
-
-        if (set) {
-                /* Override GTK_THEME to reduce overhead of CSS engine. By using
-                 * GTK_THEME environment variable, GtkSettings is not allowed to
-                 * initially parse the Adwaita theme.
-                 *
-                 * https://bugzilla.gnome.org/show_bug.cgi?id=780555 */
-                old_gtk_theme = g_strdup (g_getenv ("GTK_THEME"));
-                g_setenv ("GTK_THEME", "Disabled", TRUE);
-        } else {
-                /* GtkSettings has loaded, so we can drop GTK_THEME used to initialize
-                 * our internal theme. Only the main thread accesses the GTK_THEME
-                 * environment variable, so this is safe to release. */
-                if (old_gtk_theme != NULL)
-                        g_setenv ("GTK_THEME", old_gtk_theme, TRUE);
-                else
-                        g_unsetenv ("GTK_THEME");
-        }
-}
-#endif
-
 static int
 start (GApplication  *manager,
        int            argc,
@@ -251,28 +218,12 @@ gsd_main_helper (GType        manager_type,
         textdomain (GETTEXT_PACKAGE);
         setlocale (LC_ALL, "");
 
-#ifdef USE_GTK
-        /* Ensure we don't lose resources during linkage */
-        g_resources_register (gsd_get_resource ());
-
-        set_empty_gtk_theme (TRUE);
-
-        if (! gtk_init_with_args (&argc, &argv, PLUGIN_NAME, entries, NULL, &error)) {
-                if (error != NULL) {
-                        g_printerr ("%s\n", error->message);
-                }
-                exit (1);
-        }
-
-        set_empty_gtk_theme (FALSE);
-#else
         context = g_option_context_new (NULL);
         g_option_context_add_main_entries (context, entries, GETTEXT_PACKAGE);
         if (!g_option_context_parse (context, &argc, &argv, &error)) {
                 g_printerr ("%s\n", error->message);
                 exit (1);
         }
-#endif
 
         if (verbose) {
                 g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
