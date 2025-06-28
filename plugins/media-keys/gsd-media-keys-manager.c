@@ -58,7 +58,6 @@
 
 #include "shortcuts-list.h"
 #include "shell-key-grabber.h"
-#include "gsd-input-helper.h"
 #include "gnome-settings-daemon/gsd-enums.h"
 #include "gsd-shell-helper.h"
 
@@ -2583,9 +2582,6 @@ on_accelerator_activated (ShellKeyGrabber     *grabber,
               timestamp = GDK_CURRENT_TIME;
         if (!g_variant_dict_lookup (&dict, "action-mode", "u", &mode))
               mode = 0;
-
-	if (!device_node && !gnome_settings_is_wayland ())
-              device_node = xdevice_get_device_node (deviceid);
 
         g_debug ("Received accel id %u (device-id: %u, timestamp: %u, mode: 0x%X)",
                  accel_id, deviceid, timestamp, mode);
