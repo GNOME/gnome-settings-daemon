@@ -21,7 +21,6 @@
  */
 
 #include "config.h"
-#include <gtk/gtk.h>
 #include "gsd-disk-space.h"
 
 int
@@ -29,8 +28,6 @@ main (int    argc,
       char **argv)
 {
         GMainLoop *loop;
-
-        gtk_init (&argc, &argv);
 
         loop = g_main_loop_new (NULL, FALSE);
 

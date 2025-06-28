@@ -31,7 +31,6 @@
 #include <glib-object.h>
 #include <gio/gunixmounts.h>
 #include <gio/gio.h>
-#include <gtk/gtk.h>
 #include <libnotify/notify.h>
 
 #include "gsd-disk-space.h"

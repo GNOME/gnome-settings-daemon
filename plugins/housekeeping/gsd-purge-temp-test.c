@@ -21,7 +21,6 @@
  */
 
 #include "config.h"
-#include <gtk/gtk.h>
 #include <libnotify/notify.h>
 #include "gsd-disk-space.h"
 
@@ -37,7 +36,6 @@ main (int    argc,
 
         g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 
-        gtk_init (&argc, &argv);
         notify_init ("gsd-purge-temp-test");
         loop = g_main_loop_new (NULL, FALSE);
 

@@ -12,7 +12,6 @@ sources += main_helper_sources
 
 deps = plugins_deps + [
   gio_unix_dep,
-  gtk_dep,
   libnotify_dep
 ]
 

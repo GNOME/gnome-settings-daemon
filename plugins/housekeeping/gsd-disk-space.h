@@ -23,6 +23,7 @@
 #ifndef __GSD_DISK_SPACE_H
 #define __GSD_DISK_SPACE_H
 
+#include <gio/gio.h>
 #include <glib.h>
 
 G_BEGIN_DECLS
