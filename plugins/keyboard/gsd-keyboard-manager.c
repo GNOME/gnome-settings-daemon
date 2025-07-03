@@ -40,8 +40,6 @@
 #include "gnome-settings-daemon/gsd-enums.h"
 #include "gsd-settings-migrate.h"
 
-#define GSD_KEYBOARD_DIR "org.gnome.settings-daemon.peripherals.keyboard"
-
 #define GNOME_DESKTOP_INTERFACE_DIR "org.gnome.desktop.interface"
 
 #define GNOME_DESKTOP_INPUT_SOURCES_DIR "org.gnome.desktop.input-sources"
@@ -61,7 +59,6 @@ struct _GsdKeyboardManager
         GsdApplication parent;
 
         guint      start_idle_id;
-        GSettings *settings;
         GSettings *input_sources_settings;
         GDBusProxy *localed;
         GCancellable *cancellable;
@@ -362,8 +359,6 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
 
         g_debug ("Starting keyboard manager");
 
-        manager->settings = g_settings_new (GSD_KEYBOARD_DIR);
-
         manager->input_sources_settings = g_settings_new (GNOME_DESKTOP_INPUT_SOURCES_DIR);
 
         manager->cancellable = g_cancellable_new ();
@@ -410,7 +405,6 @@ gsd_keyboard_manager_shutdown (GApplication *app)
         g_cancellable_cancel (manager->cancellable);
         g_clear_object (&manager->cancellable);
 
-        g_clear_object (&manager->settings);
         g_clear_object (&manager->input_sources_settings);
         g_clear_object (&manager->localed);
 
