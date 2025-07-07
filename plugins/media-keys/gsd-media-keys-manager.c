@@ -34,7 +34,6 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gio/gio.h>
-#include <gdk/gdk.h>
 #include <gio/gdesktopappinfo.h>
 #include <gio/gunixfdlist.h>
 
@@ -1001,13 +1000,12 @@ launch_app (GsdMediaKeysManager *manager,
 	    GAppInfo            *app_info,
 	    gint64               timestamp)
 {
-	GError *error = NULL;
-        GdkAppLaunchContext *launch_context;
+        g_autoptr (GError) error = NULL;
+        g_autoptr (GAppLaunchContext) launch_context = NULL;
 
         /* setup the launch context so the startup notification is correct */
-        launch_context = gdk_display_get_app_launch_context (gdk_display_get_default ());
-        gdk_app_launch_context_set_timestamp (launch_context, timestamp);
-        set_launch_context_env (manager, G_APP_LAUNCH_CONTEXT (launch_context));
+        launch_context = g_app_launch_context_new ();
+        set_launch_context_env (manager, launch_context);
 
         g_signal_connect_object (launch_context,
                                  "launched",
@@ -1019,9 +1017,7 @@ launch_app (GsdMediaKeysManager *manager,
 		g_warning ("Could not launch '%s': %s",
 			   g_app_info_get_commandline (app_info),
 			   error->message);
-		g_error_free (error);
 	}
-        g_object_unref (launch_context);
 }
 
 static void
@@ -1279,7 +1275,7 @@ static void
 do_home_key_action (GsdMediaKeysManager *manager,
 		    gint64               timestamp)
 {
-	GdkAppLaunchContext *launch_context;
+	g_autoptr (GAppLaunchContext) launch_context = NULL;
 	g_autoptr (GFile) file = NULL;
 	g_autoptr (GError) error = NULL;
 	g_autofree char *uri;
@@ -1287,10 +1283,9 @@ do_home_key_action (GsdMediaKeysManager *manager,
 	file = g_file_new_for_path (g_get_home_dir ());
 	uri = g_file_get_uri (file);
 
-	launch_context = gdk_display_get_app_launch_context (gdk_display_get_default ());
-	gdk_app_launch_context_set_timestamp (launch_context, timestamp);
+	launch_context = g_app_launch_context_new ();
 
-	if (!g_app_info_launch_default_for_uri (uri, G_APP_LAUNCH_CONTEXT (launch_context), &error))
+	if (!g_app_info_launch_default_for_uri (uri, launch_context, &error))
 		g_warning ("Failed to launch '%s': %s", uri, error->message);
 }
 
@@ -2578,7 +2573,7 @@ on_accelerator_activated (ShellKeyGrabber     *grabber,
         if (!g_variant_dict_lookup (&dict, "device-node", "s", &device_node))
               device_node = NULL;
         if (!g_variant_dict_lookup (&dict, "timestamp", "u", &timestamp))
-              timestamp = GDK_CURRENT_TIME;
+              timestamp = 0L;
         if (!g_variant_dict_lookup (&dict, "action-mode", "u", &mode))
               mode = 0;
 
