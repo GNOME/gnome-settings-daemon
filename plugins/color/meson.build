@@ -14,7 +14,6 @@ deps = plugins_deps + [
   libgeoclue_dep,
   libnotify_dep,
   libcommon_dep,
-  gtk_dep,
   m_dep,
 ]
 

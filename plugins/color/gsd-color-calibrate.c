@@ -23,7 +23,6 @@
 #include <glib/gi18n.h>
 #include <colord.h>
 #include <libnotify/notify.h>
-#include <gdk/gdk.h>
 
 #include "gsd-color-calibrate.h"
 
@@ -76,39 +75,30 @@ gcm_session_async_helper_free (GcmSessionAsyncHelper *helper)
 static void
 gcm_session_exec_control_center (GsdColorCalibrate *calibrate)
 {
-        gboolean ret;
-        GError *error = NULL;
-        GAppInfo *app_info;
-        GdkAppLaunchContext *launch_context;
+        g_autoptr (GError) error = NULL;
+        g_autoptr (GAppInfo) app_info = NULL;
+        g_autoptr (GAppLaunchContext) launch_context = NULL;
 
         /* setup the launch context so the startup notification is correct */
-        launch_context = gdk_display_get_app_launch_context (gdk_display_get_default ());
+        launch_context = g_app_launch_context_new ();
         app_info = g_app_info_create_from_commandline (BINDIR "/gnome-control-center color",
                                                        "gnome-control-center",
                                                        G_APP_INFO_CREATE_SUPPORTS_STARTUP_NOTIFICATION,
                                                        &error);
         if (app_info == NULL) {
                 g_warning ("failed to create application info: %s",
-                           error->message);
-                g_error_free (error);
-                goto out;
+                           error->message);\
+                return;
         }
 
         /* launch gnome-control-center */
-        ret = g_app_info_launch (app_info,
-                                 NULL,
-                                 G_APP_LAUNCH_CONTEXT (launch_context),
-                                 &error);
-        if (!ret) {
+        if (!g_app_info_launch (app_info,
+                                NULL,
+                                G_APP_LAUNCH_CONTEXT (launch_context),
+                                &error)) {
                 g_warning ("failed to launch gnome-control-center: %s",
                            error->message);
-                g_error_free (error);
-                goto out;
         }
-out:
-        g_object_unref (launch_context);
-        if (app_info != NULL)
-                g_object_unref (app_info);
 }
 
 static void
