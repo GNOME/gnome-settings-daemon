@@ -6,7 +6,6 @@ sources += main_helper_sources
 
 deps = plugins_deps + [
   cups_dep,
-  gtk_dep,
   libnotify_dep
 ]
 

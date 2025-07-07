@@ -189,6 +189,13 @@ if enable_cups
     compile_args: cups_cflags
   )
   '''
+
+  if cc.has_header('langinfo.h')
+    foreach nl_enum: [ '_NL_PAPER_HEIGHT',
+                       '_NL_PAPER_WIDTH' ]
+      config_h.set('HAVE_' + nl_enum, cc.has_header_symbol('langinfo.h', nl_enum))
+    endforeach
+  endif
 endif
 
 # Rfkill

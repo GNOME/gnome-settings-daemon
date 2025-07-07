@@ -23,9 +23,12 @@
 #include <libnotify/notify.h>
 #include <glib/gi18n.h>
 #include <glib/gstdio.h>
-#include <gtk/gtk.h>
 #include <cups/cups.h>
 #include <cups/ppd.h>
+
+#if defined(HAVE__NL_PAPER_HEIGHT) && defined(HAVE__NL_PAPER_WIDTH)
+#include <langinfo.h>
+#endif
 
 /* FIXME: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/issues/860 */
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
@@ -744,14 +747,42 @@ printer_autoconfigure (gchar *printer_name)
         g_free (commands_lowercase);
 }
 
+#define NL_PAPER_GET(x)         \
+        ((union { char *string; unsigned int word; }) nl_langinfo(x)).word
+
 /* Returns default page size for current locale */
 static const gchar *
 get_page_size_from_locale (void)
 {
-  if (g_str_equal (gtk_paper_size_get_default (), GTK_PAPER_NAME_LETTER))
-    return "Letter";
-  else
-    return "A4";
+        char *locale;
+#if defined(HAVE__NL_PAPER_HEIGHT) && defined(HAVE__NL_PAPER_WIDTH)
+        int width = NL_PAPER_GET (_NL_PAPER_WIDTH);
+        int height = NL_PAPER_GET (_NL_PAPER_HEIGHT);
+
+        if (width == 210 && height == 297)
+                return "A4";
+
+        if (width == 216 && height == 279)
+                return "Letter";
+#endif
+
+#if defined(LC_PAPER)
+        locale = setlocale (LC_PAPER, NULL);
+#else
+        locale = setlocale (LC_MESSAGES, NULL);
+#endif
+
+        if (!locale)
+                return "A4";
+
+        /* CLDR 1.8.1
+         * http://unicode.org/repos/cldr-tmp/trunk/diff/supplemental/territory_language_information.html
+         */
+        if (g_regex_match_simple ("[^_.@]{2,3}_(BZ|CA|CL|CO|CR|GT|MX|NI|PA|PH|PR|SV|US|VE)",
+                                  locale, G_REGEX_ANCHORED, G_REGEX_MATCH_ANCHORED))
+                return "Letter";
+        else
+                return "A4";
 }
 
 static void
