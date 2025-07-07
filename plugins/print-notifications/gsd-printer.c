@@ -750,7 +750,7 @@ printer_autoconfigure (gchar *printer_name)
 #define NL_PAPER_GET(x)         \
         ((union { char *string; unsigned int word; }) nl_langinfo(x)).word
 
-/* Returns default page size for current locale */
+/* Returns default page size for current locale. Copied from GTK */
 static const gchar *
 get_page_size_from_locale (void)
 {
