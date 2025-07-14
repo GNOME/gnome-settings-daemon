@@ -237,6 +237,9 @@ if enable_colord
   colord_dep = dependency('colord', version: '>= 1.4.5')
 endif
 
+enable_xwayland = get_option('xwayland')
+enable_x11 = get_option('x11')
+
 gnome = import('gnome')
 i18n = import('i18n')
 pkg = import('pkgconfig')

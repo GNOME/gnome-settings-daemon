@@ -19,6 +19,10 @@ all_plugins = [
 
 disabled_plugins = []
 
+if not enable_xwayland and not enable_x11
+    disabled_plugins += ['xsettings']
+endif
+
 if not enable_smartcard
     disabled_plugins += ['smartcard']
 endif
