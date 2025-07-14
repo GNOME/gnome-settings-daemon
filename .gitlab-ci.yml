@@ -139,7 +139,7 @@ build-fedora-container@x86_64:
 # most important stage of the CI, and no MR should ever be merged if it breaks
 # any of them.
 ##
-build:
+build: &build
   <<: *save_untracked_files
   stage: build
 
@@ -168,12 +168,17 @@ build:
     variables:
       - $CI_PIPELINE_SOURCE == "schedule"
 
+build-no-xwayland:
+  <<: *build
+  variables:
+    BUILD_OPTS: "-Dxwayland=false"
+
 ##
 # Stage: Test
 #
 # Runs the unit tests.
 ##
-test:
+test: &test
   <<: *save_build_logs
   stage: test
 
@@ -204,6 +209,11 @@ test:
     variables:
       - $CI_PIPELINE_SOURCE == "schedule"
       - $CI_COMMIT_TITLE =~ /^Update.*translation$/
+
+test-no-xwayland:
+  <<: *test
+  needs:
+    - build-no-xwayland
 
 dist:
   stage: test
