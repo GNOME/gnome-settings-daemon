@@ -28,5 +28,15 @@
       <summary>Minimum notify period for repeated warnings</summary>
       <description>Specify a time in minutes. Subsequent warnings for a volume will not appear more often than this period.</description>
     </key>
+    <key name="donation-reminder-enabled" type="b">
+      <default>true</default>
+      <summary>Whether donation reminders are enabled</summary>
+      <description>Enables or disables the low-frequency donation reminder notification.</description>
+    </key>
+    <key name="donation-reminder-last-shown" type="x">
+      <default>0</default>
+      <summary>Last time the donation reminder was shown</summary>
+      <description>Timestamp for the last time a donation reminder was shown.</description>
+    </key>
   </schema>
 </schemalist>

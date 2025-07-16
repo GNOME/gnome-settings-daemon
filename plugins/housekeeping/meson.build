@@ -4,6 +4,7 @@ common_files = files(
 )
 
 sources = common_files + files(
+  'gsd-donation-reminder.c',
   'gsd-housekeeping-manager.c',
   'gsd-systemd-notify.c',
   'main.c'
