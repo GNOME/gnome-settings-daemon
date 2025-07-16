@@ -26,6 +26,7 @@
 #include "gnome-settings-profile.h"
 #include "gsd-housekeeping-manager.h"
 #include "gsd-disk-space.h"
+#include "gsd-donation-reminder.h"
 #include "gsd-systemd-notify.h"
 
 
@@ -399,6 +400,8 @@ gsd_housekeeping_manager_startup (GApplication *app)
 
         G_APPLICATION_CLASS (gsd_housekeeping_manager_parent_class)->startup (app);
 
+        gsd_donation_reminder_init ();
+
         gnome_settings_profile_end (NULL);
 }
 
@@ -408,6 +411,8 @@ gsd_housekeeping_manager_shutdown (GApplication *app)
         GsdHousekeepingManager *manager = GSD_HOUSEKEEPING_MANAGER (app);
 
         g_debug ("Stopping housekeeping manager");
+
+        gsd_donation_reminder_end ();
 
         g_clear_object (&manager->systemd_notify);
 
