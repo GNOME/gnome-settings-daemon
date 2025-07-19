@@ -54,29 +54,32 @@ G_DEFINE_TYPE (GsdA11ySettingsManager, gsd_a11y_settings_manager, GSD_TYPE_APPLI
 
 static void
 apps_settings_changed (GSettings              *settings,
-		       const char             *key,
-		       GsdA11ySettingsManager *manager)
+                       const char             *key,
+                       GsdA11ySettingsManager *manager)
 {
-	gboolean screen_reader, keyboard, magnifier;
+        gboolean screen_reader_changed, keyboard_changed, magnifier_changed;
+        gboolean screen_reader_enabled, keyboard_enabled, magnifier_enabled;
 
-	if (g_str_equal (key, "screen-reader-enabled") == FALSE &&
-	    g_str_equal (key, "screen-keyboard-enabled") == FALSE &&
-	    g_str_equal (key, "screen-magnifier-enabled") == FALSE)
-		return;
+        screen_reader_changed = g_str_equal (key, "screen-reader-enabled");
+        keyboard_changed = g_str_equal (key, "screen-keyboard-enabled");
+        magnifier_changed = g_str_equal (key, "screen-magnifier-enabled");
 
-	g_debug ("screen reader, OSK or magnifier enablement changed");
+        if (!screen_reader_changed && !keyboard_changed && !magnifier_changed)
+                return;
 
-	screen_reader = g_settings_get_boolean (manager->a11y_apps_settings, "screen-reader-enabled");
-	keyboard = g_settings_get_boolean (manager->a11y_apps_settings, "screen-keyboard-enabled");
-	magnifier = g_settings_get_boolean (manager->a11y_apps_settings, "screen-magnifier-enabled");
+        g_debug ("screen reader, OSK or magnifier enablement changed");
 
-	if (screen_reader || keyboard || magnifier) {
-		g_debug ("Enabling toolkit-accessibility, screen reader, OSK or magnifier enabled");
-		g_settings_set_boolean (manager->interface_settings, "toolkit-accessibility", TRUE);
-	} else if (screen_reader == FALSE && keyboard == FALSE && magnifier == FALSE) {
-		g_debug ("Disabling toolkit-accessibility, screen reader, OSK and magnifier disabled");
-		g_settings_set_boolean (manager->interface_settings, "toolkit-accessibility", FALSE);
-	}
+        screen_reader_enabled = g_settings_get_boolean (settings, "screen-reader-enabled");
+        keyboard_enabled = g_settings_get_boolean (settings, "screen-keyboard-enabled");
+        magnifier_enabled = g_settings_get_boolean (settings, "screen-magnifier-enabled");
+
+        if (screen_reader_enabled || keyboard_enabled || magnifier_enabled) {
+                g_debug ("Enabling toolkit-accessibility, screen reader, OSK or magnifier enabled");
+                g_settings_set_boolean (manager->interface_settings, "toolkit-accessibility", TRUE);
+        } else {
+                g_debug ("Disabling toolkit-accessibility, screen reader, OSK and magnifier disabled");
+                g_settings_set_boolean (manager->interface_settings, "toolkit-accessibility", FALSE);
+        }
 }
 
 static void
@@ -87,20 +90,20 @@ gsd_a11y_settings_manager_startup (GApplication *app)
         g_debug ("Starting a11y_settings manager");
         gnome_settings_profile_start (NULL);
 
-	manager->interface_settings = g_settings_new ("org.gnome.desktop.interface");
-	manager->a11y_apps_settings = g_settings_new ("org.gnome.desktop.a11y.applications");
+        manager->interface_settings = g_settings_new ("org.gnome.desktop.interface");
+        manager->a11y_apps_settings = g_settings_new ("org.gnome.desktop.a11y.applications");
 
-	g_signal_connect (G_OBJECT (manager->a11y_apps_settings), "changed",
-			  G_CALLBACK (apps_settings_changed), manager);
+        g_signal_connect (G_OBJECT (manager->a11y_apps_settings), "changed",
+                          G_CALLBACK (apps_settings_changed), manager);
 
-	/* If any of the screen reader, on-screen keyboard or magnifier are
-	 * enabled, make sure a11y is enabled for the toolkits.
-	 * We don't do the same thing for the reverse so it's possible to
-	 * enable AT-SPI for the toolkits without using an a11y app */
-	if (g_settings_get_boolean (manager->a11y_apps_settings, "screen-keyboard-enabled") ||
-	    g_settings_get_boolean (manager->a11y_apps_settings, "screen-reader-enabled") ||
-	    g_settings_get_boolean (manager->a11y_apps_settings, "screen-magnifier-enabled"))
-		g_settings_set_boolean (manager->interface_settings, "toolkit-accessibility", TRUE);
+        /* If any of the screen reader, on-screen keyboard or magnifier are
+         * enabled, make sure a11y is enabled for the toolkits.
+         * We don't do the same thing for the reverse so it's possible to
+         * enable AT-SPI for the toolkits without using an a11y app */
+        if (g_settings_get_boolean (manager->a11y_apps_settings, "screen-keyboard-enabled") ||
+            g_settings_get_boolean (manager->a11y_apps_settings, "screen-reader-enabled") ||
+            g_settings_get_boolean (manager->a11y_apps_settings, "screen-magnifier-enabled"))
+                g_settings_set_boolean (manager->interface_settings, "toolkit-accessibility", TRUE);
 
         G_APPLICATION_CLASS (gsd_a11y_settings_manager_parent_class)->startup (app);
 
@@ -110,18 +113,12 @@ gsd_a11y_settings_manager_startup (GApplication *app)
 static void
 gsd_a11y_settings_manager_shutdown (GApplication *app)
 {
-	GsdA11ySettingsManager *manager = GSD_A11Y_SETTINGS_MANAGER (app);
+        GsdA11ySettingsManager *manager = GSD_A11Y_SETTINGS_MANAGER (app);
 
-	if (manager->interface_settings) {
-		g_object_unref (manager->interface_settings);
-		manager->interface_settings = NULL;
-	}
-	if (manager->a11y_apps_settings) {
-		g_object_unref (manager->a11y_apps_settings);
-		manager->a11y_apps_settings = NULL;
-	}
+        g_clear_object (&manager->interface_settings);
+        g_clear_object (&manager->a11y_apps_settings);
 
-	G_APPLICATION_CLASS (gsd_a11y_settings_manager_parent_class)->shutdown (app);
+        G_APPLICATION_CLASS (gsd_a11y_settings_manager_parent_class)->shutdown (app);
 
         g_debug ("Stopping a11y_settings manager");
 }
