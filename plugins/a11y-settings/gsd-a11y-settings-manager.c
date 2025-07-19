@@ -57,23 +57,26 @@ apps_settings_changed (GSettings              *settings,
 		       const char             *key,
 		       GsdA11ySettingsManager *manager)
 {
-	gboolean screen_reader, keyboard, magnifier;
+	gboolean screen_reader_changed, keyboard_changed, magnifier_changed;
+	gboolean screen_reader_enabled, keyboard_enabled, magnifier_enabled;
 
-	if (g_str_equal (key, "screen-reader-enabled") == FALSE &&
-	    g_str_equal (key, "screen-keyboard-enabled") == FALSE &&
-	    g_str_equal (key, "screen-magnifier-enabled") == FALSE)
+	screen_reader_changed = g_str_equal (key, "screen-reader-enabled");
+	keyboard_changed = g_str_equal (key, "screen-keyboard-enabled");
+	magnifier_changed = g_str_equal (key, "screen-magnifier-enabled");
+
+	if (!screen_reader_changed && !keyboard_changed && !magnifier_changed)
 		return;
 
 	g_debug ("screen reader, OSK or magnifier enablement changed");
 
-	screen_reader = g_settings_get_boolean (manager->a11y_apps_settings, "screen-reader-enabled");
-	keyboard = g_settings_get_boolean (manager->a11y_apps_settings, "screen-keyboard-enabled");
-	magnifier = g_settings_get_boolean (manager->a11y_apps_settings, "screen-magnifier-enabled");
+	screen_reader_enabled = g_settings_get_boolean (settings, "screen-reader-enabled");
+	keyboard_enabled = g_settings_get_boolean (settings, "screen-keyboard-enabled");
+	magnifier_enabled = g_settings_get_boolean (settings, "screen-magnifier-enabled");
 
-	if (screen_reader || keyboard || magnifier) {
+	if (screen_reader_enabled || keyboard_enabled || magnifier_enabled) {
 		g_debug ("Enabling toolkit-accessibility, screen reader, OSK or magnifier enabled");
 		g_settings_set_boolean (manager->interface_settings, "toolkit-accessibility", TRUE);
-	} else if (screen_reader == FALSE && keyboard == FALSE && magnifier == FALSE) {
+	} else {
 		g_debug ("Disabling toolkit-accessibility, screen reader, OSK and magnifier disabled");
 		g_settings_set_boolean (manager->interface_settings, "toolkit-accessibility", FALSE);
 	}
