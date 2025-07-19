@@ -6,6 +6,7 @@ sources += main_helper_sources
 
 deps = plugins_deps + [
   gio_dep,
+  gnome_desktop_dep,
   gsettings_desktop_dep
 ]
 
