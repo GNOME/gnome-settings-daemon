@@ -37,8 +37,6 @@ gsd_pkglibdir = join_paths(gsd_libdir, gsd_api_name)
 
 gsd_schemadir = join_paths(gsd_datadir, 'glib-2.0', 'schemas')
 
-gsd_xdg_autostart = join_paths(gsd_sysconfdir, 'xdg', 'autostart')
-
 gsd_3_0_api_name = '@0@-@1@'.format(meson.project_name(), '3.0')
 gsd_gtk_modules_directory = join_paths(gsd_libdir, gsd_3_0_api_name, 'gtk-modules')
 

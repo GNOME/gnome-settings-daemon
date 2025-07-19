@@ -82,36 +82,15 @@ foreach plugin: all_plugins
     plugin_description = plugin[2]
     plugin_dbus_name='org.gnome.SettingsDaemon.@0@'.format(plugin_name_case)
 
-    desktop = 'org.gnome.SettingsDaemon.@0@.desktop'.format(plugin[1])
-
-    if disabled_plugins.contains(plugin_name)
-        desktop_in_file = files('org.gnome.SettingsDaemon.Dummy.desktop.in')
-    else
-        desktop_in_file = files('org.gnome.SettingsDaemon.Real.desktop.in')
-    endif
-
     cflags = [
         '-DG_LOG_DOMAIN="@0@-plugin"'.format(plugin_name),
         '-DPLUGIN_NAME="@0@"'.format(plugin_name),
         '-DPLUGIN_DBUS_NAME="@0@"'.format(plugin_dbus_name),
     ] + plugins_cflags
 
-    desktop = 'org.gnome.SettingsDaemon.@0@.desktop'.format(plugin[1])
-    desktop_conf = configuration_data()
-    desktop_conf.set('libexecdir', gsd_libexecdir)
-    desktop_conf.set('systemd_hidden', enable_systemd ? 'true' : 'false')
-    desktop_conf.set('pluginname', plugin_name)
-    desktop_conf.set('description', plugin_description)
-    configure_file(
-        input: desktop_in_file,
-        output: desktop,
-        configuration: desktop_conf,
-        install_dir: gsd_xdg_autostart
-    )
-
     if not disabled_plugins.contains(plugin_name)
-        user_target = 'org.gnome.SettingsDaemon.@0@.target'.format(plugin[1])
-        user_service = 'org.gnome.SettingsDaemon.@0@.service'.format(plugin[1])
+        user_target = 'org.gnome.SettingsDaemon.@0@.target'.format(plugin_name_case)
+        user_service = 'org.gnome.SettingsDaemon.@0@.service'.format(plugin_name_case)
 
         unit_conf = configuration_data()
         unit_conf.set('plugin_name', plugin_name)
