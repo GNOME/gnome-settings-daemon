@@ -35,11 +35,15 @@
 #include <libgnome-desktop/gnome-systemd.h>
 
 #include "gnome-settings-profile.h"
+#include "gnome-settings-systemd.h"
 #include "gsd-a11y-settings-manager.h"
 
 struct _GsdA11ySettingsManager
 {
         GsdApplication parent;
+
+        GDBusConnection *connection;
+        GCancellable *orca_cancellable;
 
         GSettings *interface_settings;
         GSettings *a11y_apps_settings;
@@ -80,7 +84,7 @@ spawn_fallback_orca (GsdA11ySettingsManager *manager)
         GPid pid;
         gboolean success;
 
-        kill_fallback_orca (manager);
+        g_warning ("Spawning fallback Orca");
 
         workdir = g_get_home_dir ();
         success = g_spawn_async (workdir, argv, NULL, G_SPAWN_SEARCH_PATH, NULL,
@@ -97,13 +101,44 @@ spawn_fallback_orca (GsdA11ySettingsManager *manager)
 }
 
 static void
+unit_start_stop_cb (GObject      *source_object,
+                    GAsyncResult *res,
+                    gpointer      user_data)
+{
+        g_autoptr (GError) error = NULL;
+        GsdA11ySettingsManager *manager = user_data;
+
+        gnome_settings_systemd_manage_unit_finish (G_DBUS_CONNECTION (source_object),
+                                                   res, &error);
+
+        if (error && !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED))
+                        g_warning ("%s", error->message);
+                else
+                        g_debug ("%s", error->message);
+
+                if (manager)
+                        spawn_fallback_orca (manager);
+        }
+}
+
+static void
 manage_orca (GsdA11ySettingsManager *manager,
              gboolean                enabled)
 {
-        if (enabled)
-                spawn_fallback_orca (manager);
-        else
-                kill_fallback_orca (manager);
+        kill_fallback_orca (manager);
+
+        g_cancellable_cancel (manager->orca_cancellable);
+        g_clear_object (&manager->orca_cancellable);
+        manager->orca_cancellable = g_cancellable_new ();
+
+        gnome_settings_systemd_manage_unit (manager->connection,
+                                            "orca.service",
+                                            enabled,
+                                            TRUE,
+                                            manager->orca_cancellable,
+                                            unit_start_stop_cb,
+                                            enabled ? manager : NULL);
 }
 
 static void
@@ -142,11 +177,18 @@ apps_settings_changed (GSettings              *settings,
 static void
 gsd_a11y_settings_manager_startup (GApplication *app)
 {
+        g_autoptr (GError) error = NULL;
         GsdA11ySettingsManager *manager = GSD_A11Y_SETTINGS_MANAGER (app);
         gboolean screen_reader_enabled;
 
         g_debug ("Starting a11y_settings manager");
         gnome_settings_profile_start (NULL);
+
+        manager->connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
+        if (!manager->connection) {
+                    g_warning ("Failed to obtain session bus: %s", error->message);
+                    g_clear_error (&error);
+        }
 
         manager->interface_settings = g_settings_new ("org.gnome.desktop.interface");
         manager->a11y_apps_settings = g_settings_new ("org.gnome.desktop.a11y.applications");
@@ -177,6 +219,7 @@ gsd_a11y_settings_manager_shutdown (GApplication *app)
 
         kill_fallback_orca (manager);
 
+        g_clear_object (&manager->connection);
         g_clear_object (&manager->interface_settings);
         g_clear_object (&manager->a11y_apps_settings);
 
