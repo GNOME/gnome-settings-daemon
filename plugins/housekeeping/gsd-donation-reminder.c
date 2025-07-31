@@ -28,6 +28,7 @@
 
 #define DONATE_URL "https://donate.gnome.org"
 #define DONATE_SCHEMA "org.gnome.settings-daemon.plugins.housekeeping"
+#define DONATION_REMINDER_ENABLED "enable-donation-campaign-network-check"
 #define DONATE_LAST_SHOWN_KEY "donation-reminder-last-shown"
 #define DAY_IN_SEC (24 * 60 * 60)
 #define HALF_A_YEAR_IN_USEC ((int64_t) 365 * DAY_IN_SEC * G_USEC_PER_SEC)
@@ -99,9 +100,15 @@ static gboolean
 check_show_notification (void)
 {
 	g_autoptr (GSettings) settings = NULL;
+	gboolean donation_reminder_enabled;
 	int64_t timestamp, now;
 
 	settings = g_settings_new (DONATE_SCHEMA);
+	donation_reminder_enabled = g_settings_get_boolean (settings, DONATION_REMINDER_ENABLED);
+
+	if (!donation_reminder_enabled)
+		return G_SOURCE_REMOVE;
+
 	timestamp = g_settings_get_int64 (settings, DONATE_LAST_SHOWN_KEY);
 
 	now = g_get_real_time ();
