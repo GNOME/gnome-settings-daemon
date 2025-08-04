@@ -35,6 +35,7 @@
 
 #include "gsd-disk-space.h"
 #include "gsd-disk-space-helper.h"
+#include "gnome-settings-systemd.h"
 
 #define GIGABYTE                   1024 * 1024 * 1024
 
@@ -507,10 +508,8 @@ gsd_ldsm_purge_temp_files (GDateTime *old)
          * added in the first place though, it does not really seem like a
          * privacy feature (also, it was late in the release cycle).
          *   https://en.wikipedia.org/wiki/Wikipedia:Chesterton%27s_fence
-         *
-         * This does the same as sd_booted without needing libsystemd.
          */
-        if (g_file_test ("/run/systemd/system/", G_FILE_TEST_IS_DIR))
+        if (gnome_settings_have_systemd ())
                 return;
 
         file = g_file_new_for_path (g_get_tmp_dir ());

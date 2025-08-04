@@ -34,6 +34,7 @@
 #endif /* HAVE_NETWORK_MANAGER */
 
 #include "gnome-settings-profile.h"
+#include "gnome-settings-systemd.h"
 #include "gsd-sharing-manager.h"
 #include "gsd-sharing-enums.h"
 
@@ -148,45 +149,34 @@ handle_unit_cb (GObject      *source_object,
                 gpointer      user_data)
 {
         g_autoptr (GError) error = NULL;
-        g_autoptr (GVariant) ret = NULL;
-        GsdSharingManager *manager = user_data;
 
-        ret = g_dbus_connection_call_finish (G_DBUS_CONNECTION (source_object),
-                                             res, &error);
-        if (!ret) {
+        gnome_settings_systemd_manage_unit_finish (G_DBUS_CONNECTION (source_object),
+                                                   res, &error);
+
+        if (error) {
                 g_autofree gchar *remote_error = g_dbus_error_get_remote_error (error);
 
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED) &&
                     g_strcmp0 (remote_error, "org.freedesktop.systemd1.NoSuchUnit") != 0)
-                        g_warning ("Failed to handle service change: %s", error->message);
+                        g_warning ("%s", error->message);
         }
-
-        g_application_release (G_APPLICATION (manager));
 }
 
 static void
-gsd_sharing_manager_handle_service (GsdSharingManager   *manager,
-                                    const char          *method,
-                                    const char          *service_name)
+gsd_sharing_manager_handle_service (GsdSharingManager *manager,
+                                    const char        *service_name,
+                                    gboolean           running)
 {
-        char *service_file;
+        g_autofree char *unit = NULL;
+        unit = g_strdup_printf ("%s.service", service_name);
 
-        g_application_hold (G_APPLICATION (manager));
-
-        service_file = g_strdup_printf ("%s.service", service_name);
-        g_dbus_connection_call (manager->connection,
-                                "org.freedesktop.systemd1",
-                                "/org/freedesktop/systemd1",
-                                "org.freedesktop.systemd1.Manager",
-                                method,
-                                g_variant_new ("(ss)", service_file, "replace"),
-                                NULL,
-                                G_DBUS_CALL_FLAGS_NONE,
-                                -1,
-                                manager->cancellable,
-                                handle_unit_cb,
-                                (gpointer) manager);
-        g_free (service_file);
+        gnome_settings_systemd_manage_unit (manager->connection,
+                                            unit,
+                                            running,
+                                            FALSE, /* don't enable/disable the unit */
+                                            manager->cancellable,
+                                            handle_unit_cb,
+                                            NULL);
 }
 
 static void
@@ -194,11 +184,7 @@ gsd_sharing_manager_start_service (GsdSharingManager *manager,
                                    const char        *service_name)
 {
         g_debug ("About to start %s", service_name);
-
-        /* We use StartUnit, not StartUnitReplace, since the latter would
-         * cancel any pending start we already have going from an
-         * earlier _start_service() call */
-        gsd_sharing_manager_handle_service (manager, "StartUnit", service_name);
+        gsd_sharing_manager_handle_service (manager, service_name, TRUE);
 }
 
 static void
@@ -206,8 +192,7 @@ gsd_sharing_manager_stop_service (GsdSharingManager *manager,
                                   const char        *service_name)
 {
         g_debug ("About to stop %s", service_name);
-
-        gsd_sharing_manager_handle_service (manager, "StopUnit", service_name);
+        gsd_sharing_manager_handle_service (manager, service_name, FALSE);
 }
 
 #if HAVE_NETWORK_MANAGER
