@@ -1,6 +1,7 @@
 sources = files(
   'gnome-settings-bus.c',
-  'gnome-settings-profile.c'
+  'gnome-settings-profile.c',
+  'gnome-settings-systemd.c',
 )
 
 dbus_ifaces = [
