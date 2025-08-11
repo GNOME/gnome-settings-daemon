@@ -1204,7 +1204,6 @@ static gboolean
 shell_brightness_has_control (GsdPowerManager *manager)
 {
         g_autoptr (GVariant) has_control_variant = NULL;
-        gboolean has_control;
 
         if (!manager->shell_brightness_proxy)
                 return FALSE;
@@ -1216,8 +1215,7 @@ shell_brightness_has_control (GsdPowerManager *manager)
         if (!has_control_variant)
                 return FALSE;
 
-        g_variant_get (has_control_variant, "(b)", &has_control);
-        return has_control;
+        return g_variant_get_boolean (has_control_variant);
 }
 
 static void
