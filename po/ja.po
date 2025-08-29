@@ -15,21 +15,23 @@
 # Ryo Nakano <ryonakaknock3@gmail.com>, 2020.
 # sicklylife <translation@sicklylife.jp>, 2020, 2022.
 # Jun Oyamada <oyamadajun@outlook.jp>, 2022.
+# Makoto Sakaguchi <ycco34vx@gmail.com>, 2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues/\n"
-"POT-Creation-Date: 2025-05-27 12:23+0000\n"
-"PO-Revision-Date: 2025-06-03 15:28+0900\n"
-"Last-Translator: Kusano Takayuki <https://bsky.app/profile/tkusano.jp>\n"
+"POT-Creation-Date: 2025-08-04 14:13+0000\n"
+"PO-Revision-Date: 2025-08-05 06:27+0900\n"
+"Last-Translator: Makoto Sakaguchi <ycco34vx@gmail.com>\n"
 "Language-Team: Japanese <https://l10n.gnome.org/teams/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.6\n"
 
 #: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:6
 msgid "Applications"
@@ -47,11 +49,11 @@ msgstr "ショートカット"
 msgid "Keyboard shortcut definitions"
 msgstr "キーボードショートカットの定義"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:10
 msgid "Smartcard removal action"
 msgstr "スマートカードを抜いた時のアクション"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid ""
 "Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
 "get performed when the smartcard used for log in is removed."
@@ -59,49 +61,37 @@ msgstr ""
 "“none”、“lock-screen”、“force-logout”のうちの一つを指定します。スマートカード"
 "がログインに使用されたり、取り出された場合にそのアクションが実行されます。"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:24
-msgid "Possible values are “on”, “off”, and “custom”."
-msgstr "設定可能な値は “on”、“off”、および “custom” です。"
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:34
-msgid "Keyboard Bell Custom Filename"
-msgstr "キーボードベル音のカスタムファイル名"
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:35
-msgid "File name of the bell sound to be played."
-msgstr "再生するベル音のファイル名です。"
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:41
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:17
 msgid "Whether the tablet’s orientation is locked, or rotated automatically."
 msgstr "タブレットの方向を固定するか自動的に回転するか、です。"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:49
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:25
 msgid "Mouse button orientation"
 msgstr "マウスボタンの位置"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:50
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:26
 msgid "Swap left and right mouse buttons for left-handed mice."
 msgstr "左利き用マウス向けに左右のボタンを入れ替えます。"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:54
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:131
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:30
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:107
 msgid "Single Click"
 msgstr "シングルクリック"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:55
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:132
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:31
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:108
 msgid ""
 "Acceleration multiplier for mouse motion. A value of -1 is the system "
 "default."
 msgstr "マウスの動作の加速倍率。-1 でシステムのデフォルトです。"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:59
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:136
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:35
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:112
 msgid "Motion Threshold"
 msgstr "モーションのしきい値"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:60
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:137
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:36
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:113
 msgid ""
 "Distance in pixels the pointer must move before accelerated mouse motion is "
 "activated. A value of -1 is the system default."
@@ -109,11 +99,11 @@ msgstr ""
 "マウスの加速動作が有効になるまでのポインターの移動距離 (ピクセル単位) で"
 "す。-1 でシステムのデフォルトです。"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:64
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:40
 msgid "Middle button emulation"
 msgstr "中ボタンのエミュレーション"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:65
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:41
 msgid ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
@@ -121,54 +111,54 @@ msgstr ""
 "マウスの中ボタンの左右ボタンの同時クリックによるエミュレーションを利用可能に"
 "します。"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:69
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:45
 msgid "Double click time"
 msgstr "ダブルクリックの時間"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:70
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:46
 msgid "Length of a double click in milliseconds."
 msgstr "ダブルクリックの長さ (ミリ秒単位) です。"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:74
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:50
 msgid "Drag threshold"
 msgstr "ドラッグのしきい値"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:75
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:51
 msgid "Distance before a drag is started."
 msgstr "ドラッグが開始されるまでの距離です。"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:84
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:60
 msgid "Key Repeat Interval"
 msgstr "キーリピートの間隔"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:85
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:61
 msgid "Delay between repeats in milliseconds."
 msgstr "ミリ秒単位のリピートの間隔です。"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:89
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:65
 msgid "Initial Key Repeat Delay"
 msgstr "最初のキーリピートまでの遅延"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:90
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:66
 msgid "Initial key repeat delay in milliseconds."
 msgstr "最初のキーリピートまでのミリ秒単位の遅延です。"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:94
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:70
 msgid "Remember NumLock state"
 msgstr "NumLock の状態を記憶する"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:95
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:71
 msgid ""
 "When set to true, GNOME will remember the state of the NumLock LED between "
 "sessions."
 msgstr ""
 "true に設定すると、GNOME はセッション間で NumLock LED の状態を記憶します。"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:101
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:77
 msgid "Disable touchpad while typing"
 msgstr "タイピング中にタッチパッドを無効にする"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:102
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:78
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
@@ -176,11 +166,11 @@ msgstr ""
 "タイプ中に誤ってタッチパッドに触れてしまう問題があるのであれば、TRUE に設定し"
 "てください。"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:106
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:82
 msgid "Enable horizontal scrolling"
 msgstr "水平スクロールを有効にする"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:107
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:83
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
@@ -188,42 +178,42 @@ msgstr ""
 "この値を TRUE にすると、scroll_method キーで選択したのと同じ方法で、水平スク"
 "ロールを許可します。"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:111
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:87
 msgid "Select the touchpad scroll method"
 msgstr "タッチパッドでのスクロールの方法の選択"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:112
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:88
 msgid ""
 "Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
 "scrolling”, “two-finger-scrolling”."
 msgstr ""
 "タッチパッドでのスクロール方法を選択します。指定できる値: “disabled”、“edge-"
-"scrolling”、“two-finger-scrolling”"
+"scrolling”、“two-finger-scrolling”。"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:116
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:92
 msgid "Enable mouse clicks with touchpad"
 msgstr "タッチパッドでのマウスクリックを有効にする"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:117
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:93
 msgid ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr ""
 "この値を TRUE にすると、タッチパッドをタップすることで、マウスクリックと同じ"
 "動作になるようにします。"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:121
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:97
 msgid "Enable touchpad"
 msgstr "タッチパッドを有効にする"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:122
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:98
 msgid "Set this to TRUE to enable all touchpads."
 msgstr "この値を TRUE にすると、すべてのタッチパッドを有効にします。"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:126
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:102
 msgid "Touchpad button orientation"
 msgstr "タッチパッドのボタンの位置"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:127
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:103
 msgid ""
 "Swap left and right mouse buttons for left-handed mice with “left”, “right” "
 "for right-handed, “mouse” to follow the mouse setting."
@@ -231,17 +221,17 @@ msgstr ""
 "左右のボタンを入れ替えます。“left” は左利き用、“right” は右利き用、そし"
 "て、“mouse” はマウスの設定に従います。"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:141
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:117
 msgid "Natural scrolling"
 msgstr "ナチュラルスクロール"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:142
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:118
 msgid "Set this to TRUE to enable natural (reverse) scrolling for touchpads."
 msgstr ""
 "この値を TRUE にすると、タッチパッドのナチュラル (逆) スクロールを有効にしま"
 "す。"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:149
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:125
 msgid "Mouse wheel emulation button. 0 to disable the feature."
 msgstr ""
 "マウスホイールエミュレーションボタン。機能を無効にするには 0 を指定します。"
@@ -379,11 +369,11 @@ msgstr ""
 #. http://eu.shop.wacom.eu/images/articles/d9abd9f2d4d88aa0649cda97a8077e2b_8.jpg
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:88
 msgid "Button label for OLED display."
-msgstr "OLED ディスプレイのボタンラベル"
+msgstr "OLED ディスプレイのボタンラベル。"
 
 #: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:89
 msgid "Label will be rendered to OLED display belonging to the button"
-msgstr "ボタンに対応する OLED ディスプレイに表示されるラベルです。"
+msgstr "ボタンに対応する OLED ディスプレイに表示されるラベルです"
 
 #: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:6
 msgid "The duration a display profile is valid"
@@ -548,9 +538,25 @@ msgstr ""
 "時間を分単位で指定します。この時間より短い間隔で容量の警告を表示することはあ"
 "りません。"
 
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:33
+msgid "Whether donation reminders are enabled"
+msgstr "寄付のお知らせを有効にするかどうか"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:34
+msgid "Enables or disables the low-frequency donation reminder notification."
+msgstr "低頻度の寄付のお知らせ通知を有効または無効にします。"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:38
+msgid "Last time the donation reminder was shown"
+msgstr "寄付のお知らせを最後に表示した時刻"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:39
+msgid "Timestamp for the last time a donation reminder was shown."
+msgstr "寄付のお知らせを最後に表示した時刻のタイムスタンプです。"
+
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:6
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:154
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:456
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:440
 msgid "Launch calculator"
 msgstr "電卓を起動する"
 
@@ -561,7 +567,7 @@ msgstr "電卓を起動するキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:11
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:159
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:461
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:445
 msgid "Launch settings"
 msgstr "設定ウィンドウを開く"
 
@@ -572,7 +578,7 @@ msgstr "GNOME Settings を起動するキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:16
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:164
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:466
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:450
 msgid "Launch email client"
 msgstr "メールクライアントを起動する"
 
@@ -583,7 +589,7 @@ msgstr "メールクライアントを起動するキーバインディングで
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:21
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:169
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:471
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:455
 msgid "Eject"
 msgstr "メディアを取り出す"
 
@@ -604,7 +610,7 @@ msgstr "ヘルプブラウザーを起動するキーバインディングです
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:31
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:179
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:476
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:460
 msgid "Home folder"
 msgstr "ホームフォルダーを開く"
 
@@ -615,7 +621,7 @@ msgstr "ホームフォルダーを開くキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:36
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:184
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:481
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:465
 msgid "Launch media player"
 msgstr "メディアプレーヤーを起動する"
 
@@ -626,7 +632,7 @@ msgstr "メディアプレーヤーを起動するキーバインディングで
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:41
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:189
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:486
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:470
 msgid "Next track"
 msgstr "次のトラックに進む"
 
@@ -637,7 +643,7 @@ msgstr "次のトラックにスキップするキーバインディングです
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:46
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:194
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:491
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:475
 msgid "Pause playback"
 msgstr "再生を一時停止する"
 
@@ -648,7 +654,7 @@ msgstr "再生を一時停止するキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:51
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:199
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:496
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:480
 msgid "Play (or play/pause)"
 msgstr "再生する (または再生/一時停止する)"
 
@@ -670,7 +676,7 @@ msgstr "ログアウトするキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:61
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:219
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:501
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:485
 msgid "Previous track"
 msgstr "前のトラックに戻る"
 
@@ -681,7 +687,7 @@ msgstr "前のトラックにスキップするキーバインディングです
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:66
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:224
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:506
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:490
 msgid "Lock screen"
 msgstr "画面をロックする"
 
@@ -692,7 +698,7 @@ msgstr "画面をロックするキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:71
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:229
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:511
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:495
 msgid "Search"
 msgstr "検索する"
 
@@ -703,7 +709,7 @@ msgstr "検索ツールを起動するキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:76
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:234
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:516
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:500
 msgid "Stop playback"
 msgstr "再生を停止する"
 
@@ -714,7 +720,7 @@ msgstr "再生を停止するキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:81
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:241
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:523
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:507
 msgid "Volume down"
 msgstr "音量を下げる"
 
@@ -725,7 +731,7 @@ msgstr "音量を小さくするキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:86
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:246
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:528
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:512
 msgid "Volume mute/unmute"
 msgstr "音量のミュート切り替え"
 
@@ -736,7 +742,7 @@ msgstr "音量のミュート (無音) を有効/無効にするキーバイン�
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:91
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:251
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:533
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:517
 msgid "Volume up"
 msgstr "音量を上げる"
 
@@ -747,7 +753,7 @@ msgstr "音量を大きくするキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:96
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:292
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:568
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:552
 msgid "Microphone mute/unmute"
 msgstr "マイクのミュート切り替え"
 
@@ -758,7 +764,7 @@ msgstr "マイク音量のミュート (無音) を有効/無効にするキー�
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:101
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:297
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:573
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:557
 msgid "Launch web browser"
 msgstr "ウェブブラウザーを起動する"
 
@@ -839,7 +845,7 @@ msgstr "拡大鏡をズームインするキーバインディングです"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:141
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:337
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:579
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:563
 msgid "Magnifier zoom out"
 msgstr "拡大鏡ズームアウト"
 
@@ -881,7 +887,7 @@ msgid "Size of the volume step for each volume change"
 msgstr "音量の上げ幅/下げ幅の大きさです"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:264
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:540
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:524
 msgid "Quiet volume down"
 msgstr "静かに音量を下げる"
 
@@ -890,7 +896,7 @@ msgid "Binding to lower the volume without emitting a sound effect."
 msgstr "効果音なしで音量を小さくするキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:269
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:545
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:529
 msgid "Quiet volume mute/unmute"
 msgstr "静かに音量のミュート切り替え"
 
@@ -900,7 +906,7 @@ msgstr ""
 "効果音なしで音量のミュート (無音) を有効/無効にするキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:274
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:550
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:534
 msgid "Quiet volume up"
 msgstr "静かに音量を上げる"
 
@@ -909,7 +915,7 @@ msgid "Binding to raise the volume without emitting a sound effect."
 msgstr "効果音なしで音量を大きくするキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:281
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:557
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:541
 msgid "Precise volume down"
 msgstr "精確に音量を下げる"
 
@@ -918,7 +924,7 @@ msgid "Binding to lower the volume with higher precision."
 msgstr "高い精度で音量を小さくするキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:286
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:562
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:546
 msgid "Precise volume up"
 msgstr "精確に音量を上げる"
 
@@ -935,7 +941,7 @@ msgid "Binding to toggle the touchpad on/off."
 msgstr "タッチパッドのオン/オフを切り替えるキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:347
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:584
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:568
 msgid "Switch touchpad on"
 msgstr "タッチパッドをオン"
 
@@ -944,7 +950,7 @@ msgid "Binding to switch the touchpad on."
 msgstr "タッチパッドをオンにするキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:352
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:589
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:573
 msgid "Switch touchpad off"
 msgstr "タッチパッドをオフ"
 
@@ -953,7 +959,7 @@ msgid "Binding to switch the touchpad off."
 msgstr "タッチパッドをオフにするキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:358
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:595
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:579
 msgid "Skip backward in current track"
 msgstr "現在のトラックで後にスキップ"
 
@@ -962,7 +968,7 @@ msgid "Binding to skip backward in current track."
 msgstr "現在のトラックの後方にスキップするキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:363
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:600
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:584
 msgid "Skip forward in current track"
 msgstr "現在のトラックで前にスキップ"
 
@@ -971,7 +977,7 @@ msgid "Binding to skip forward in current track."
 msgstr "現在のトラックの前方にスキップするキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:368
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:605
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:589
 msgid "Toggle repeat playback mode"
 msgstr "リピート再生モード切り替え"
 
@@ -980,7 +986,7 @@ msgid "Binding to toggle repeat mode in media player."
 msgstr "メディアプレーヤーのリピートモードを切り替えるキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:373
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:610
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:594
 msgid "Toggle random playback mode"
 msgstr "ランダム再生モード切り替え"
 
@@ -990,7 +996,7 @@ msgstr ""
 "メディアプレーヤーのランダム再生モードを切り替えるキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:379
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:616
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:600
 msgid "Toggle automatic screen orientation"
 msgstr "画面の自動回転を切り替え"
 
@@ -999,7 +1005,7 @@ msgid "Binding to toggle automatic screen orientation."
 msgstr "画面の自動回転を切り替えるキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:384
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:621
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:605
 msgid "Power button"
 msgstr "電源ボタン"
 
@@ -1008,7 +1014,7 @@ msgid "Binding for power button."
 msgstr "電源ボタンのキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:389
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:626
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:610
 msgid "Hibernate button"
 msgstr "ハイバーネートボタン"
 
@@ -1017,7 +1023,7 @@ msgid "Binding to hibernate the machine."
 msgstr "マシンをハイバネートするキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:394
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:631
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:615
 msgid "Suspend button"
 msgstr "サスペンドボタン"
 
@@ -1026,291 +1032,252 @@ msgid "Binding to suspend the machine."
 msgstr "マシンをサスペンドするキーバインディングです。"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:400
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:637
-msgid "Screen brightness up"
-msgstr "画面の明るさを上げる"
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:401
-msgid "Binding to increase the screen brightness."
-msgstr "画面を明るくするキーバインディングです。"
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:405
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:642
-msgid "Screen brightness down"
-msgstr "画面の明るさを下げる"
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:406
-msgid "Binding to decrease the screen brightness."
-msgstr "画面を暗くするキーバインディングです。"
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:410
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:647
-msgid "Screen brightness cycle"
-msgstr "画面の明るさを切り替え"
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:411
-msgid "Binding to cycle the screen brightness."
-msgstr "画面の明るさを切り替えるキーバインディングです。"
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:416
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:653
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:621
 msgid "Keyboard brightness up"
 msgstr "キーボードの明るさを上げる"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:417
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:401
 msgid "Binding to increase the keyboard brightness."
 msgstr "キーボードを明るくするキーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:421
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:658
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:405
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:626
 msgid "Keyboard brightness down"
 msgstr "キーボードの明るさを下げる"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:422
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:406
 msgid "Binding to decrease the keyboard brightness."
 msgstr "キーボードを暗くするキーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:426
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:663
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:410
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:631
 msgid "Keyboard brightness toggle"
 msgstr "キーボードの明るさ切り替え"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:427
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:411
 msgid "Binding to toggle the keyboard brightness."
 msgstr "キーボードの明るさを切り替えるキーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:432
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:669
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:416
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:637
 msgid "Show battery status"
 msgstr "バッテリー状態を表示する"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:433
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:417
 msgid "Binding to show current battery status."
 msgstr "現在のバッテリー状態を表示するキーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:438
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:675
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:422
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:643
 msgid "RF kill"
 msgstr "RF kill"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:439
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:423
 msgid "Binding to toggle airplane mode."
 msgstr "機内モードを切り替えるキーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:443
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:680
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:427
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:648
 msgid "Bluetooth RF kill"
 msgstr "Bluetooth RF kill"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:444
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:428
 msgid "Binding to toggle bluetooth airplane mode."
 msgstr "Bluetooth の機内モードを切り替えるキーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:457
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:441
 msgid "Static binding to launch the calculator."
 msgstr "電卓を起動する静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:462
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:446
 msgid "Static binding to launch GNOME Settings."
 msgstr "GNOME Settings を起動する静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:467
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:451
 msgid "Static binding to launch the email client."
 msgstr "メールクライアントを起動する静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:472
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:456
 msgid "Static binding to eject an optical disc."
 msgstr "光学ディスクを取り出す静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:477
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:461
 msgid "Static binding to open the Home folder."
 msgstr "ホームフォルダーを開く静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:482
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:466
 msgid "Static binding to launch the media player."
 msgstr "メディアプレーヤーを起動する静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:487
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:471
 msgid "Static binding to skip to next track."
 msgstr "次のトラックにスキップする静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:492
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:476
 msgid "Static binding to pause playback."
 msgstr "再生を一時停止する静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:497
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:481
 msgid "Static binding to start playback (or toggle play/pause)."
 msgstr ""
 "再生を開始する (または再生と一時停止を切り替える) 静的キーバインディングで"
 "す。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:502
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:486
 msgid "Static binding to skip to previous track."
 msgstr "前のトラックにスキップする静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:507
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:491
 msgid "Static binding to lock the screen."
 msgstr "画面をロックする静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:512
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:496
 msgid "Static binding to launch the search tool."
 msgstr "検索ツールを起動する静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:517
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:501
 msgid "Static binding to stop playback."
 msgstr "再生を停止する静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:524
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:508
 msgid "Static binding to lower the volume."
 msgstr "音量を小さくする静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:529
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:546
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:513
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:530
 msgid "Static binding to mute/unmute the volume."
 msgstr "音量のミュート (無音) を有効/無効にする静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:534
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:518
 msgid "Static binding to raise the volume."
 msgstr "音量を大きくする静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:541
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:525
 msgid "Static binding to lower the volume without emitting a sound effect."
 msgstr "効果音なしで音量を小さくする静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:551
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:535
 msgid "Static binding to raise the volume without emitting a sound effect."
 msgstr "効果音なしで音量を大きくする静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:558
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:542
 msgid "Static binding to lower the volume with higher precision."
 msgstr "高い精度で音量を小さくする静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:563
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:547
 msgid "Static binding to raise the volume with higher precision."
 msgstr "高い精度で音量を大きくする静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:569
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:553
 msgid "Static binding to mute/unmute the microphone."
 msgstr ""
 "マイク音量のミュート (無音) を有効/無効にする静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:574
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:558
 msgid "Static binding to launch the web browser."
 msgstr "ウェブブラウザーを起動する静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:580
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:564
 msgid "Static binding to toggle the touchpad on/off."
 msgstr "タッチパッドのオン/オフを切り替える静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:585
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:569
 msgid "Static binding to switch the touchpad on."
 msgstr "タッチパッドをオンにする静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:590
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:574
 msgid "Static binding to switch the touchpad off."
 msgstr "タッチパッドをオフにする静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:596
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:580
 msgid "Static binding to skip backward in current track."
 msgstr "現在のトラックの後方にスキップする静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:601
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:585
 msgid "Static binding to skip forward in current track."
 msgstr "現在のトラックの前方にスキップする静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:606
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:590
 msgid "Static binding to toggle repeat mode in media player."
 msgstr ""
 "メディアプレーヤーのリピートモードを切り替える静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:611
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:595
 msgid "Static binding to toggle random playback mode in media player."
 msgstr ""
 "メディアプレーヤーのランダム再生モードを切り替える静的キーバインディングで"
 "す。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:617
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:601
 msgid "Static binding to toggle automatic screen orientation."
 msgstr "自動的に画面の向きを切り替える静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:622
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:606
 msgid "Static binding for power button."
 msgstr "電源ボタンの静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:627
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:611
 msgid "Static binding to hibernate the machine."
 msgstr "マシンをハイバネートする静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:632
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:616
 msgid "Static binding to suspend the machine."
 msgstr "マシンをサスペンドする静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:638
-msgid "Static binding to increase the screen brightness."
-msgstr "画面を明るくする静的キーバインディングです。"
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:643
-msgid "Static binding to decrease the screen brightness."
-msgstr "画面を暗くする静的キーバインディングです。"
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:648
-msgid "Static binding to cycle the screen brightness."
-msgstr "画面の明るさを切り替える静的キーバインディングです。"
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:654
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:622
 msgid "Static binding to increase the keyboard brightness."
 msgstr "キーボードを明るくする静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:659
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:627
 msgid "Static binding to decrease the keyboard brightness."
 msgstr "キーボードを暗くする静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:664
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:632
 msgid "Static binding to toggle the keyboard brightness."
 msgstr "キーボードの明るさを切り替える静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:670
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:638
 msgid "Static binding to show current battery status."
 msgstr "現在のバッテリー状態を表示する静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:676
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:644
 msgid "Static binding to toggle airplane mode."
 msgstr "機内モードを切り替える静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:681
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:649
 msgid "Static binding to toggle bluetooth airplane mode."
 msgstr "Bluetooth の機内モードを切り替える静的キーバインディングです。"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:688
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:656
 msgid "Name"
 msgstr "名前"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:689
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:657
 msgid "Name of the custom binding"
 msgstr "独自のキーバインディングの名前です"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:693
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:661
 msgid "Binding"
 msgstr "キーバインディング"
 
 # カスタムキーバインディングをバインドすること？
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:694
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:662
 msgid "Binding for the custom binding"
 msgstr "独自のキーバインディングのためのキーバインディングです"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:698
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:666
 msgid "Command"
 msgstr "コマンド"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:699
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:667
 msgid "Command to run when the binding is invoked"
 msgstr "キーバインディングの呼び出し時に実行するコマンドです"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:703
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:671
 msgid "Enable in Lockscreen"
 msgstr "ロックスクリーンで有効"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:704
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:672
 msgid "Whether the command can be invoked while the lockscreen is shown"
 msgstr "ロックスクリーンが表示されているときにコマンドを呼び出せるかどうか"
 
@@ -1510,47 +1477,47 @@ msgid ""
 msgstr ""
 "LCD 画面でサブピクセルの各要素の順番を指定します (これはアンチエイリアス"
 "を“rgba”に設定したときにのみ適用されます)。利用可能な値: “rgb”は左端が赤色 "
-"(最も一般的)、“bgr”は左端が青色、“vrgb”は上端が赤色、“vbgr”は下端が赤色"
+"(最も一般的)、“bgr”は左端が青色、“vrgb”は上端が赤色、“vbgr”は下端が赤色。"
 
-#: plugins/color/gsd-color-calibrate.c:138
+#: plugins/color/gsd-color-calibrate.c:137
 msgid "Color"
 msgstr "色"
 
 #. TRANSLATORS: button: this is to open GCM
-#: plugins/color/gsd-color-calibrate.c:144
+#: plugins/color/gsd-color-calibrate.c:143
 msgid "Recalibrate now"
 msgstr "再キャリブレーションを行う"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: plugins/color/gsd-color-calibrate.c:186
+#: plugins/color/gsd-color-calibrate.c:185
 msgid "Recalibration required"
 msgstr "再キャリブレーションが要求されています"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: plugins/color/gsd-color-calibrate.c:198
+#: plugins/color/gsd-color-calibrate.c:197
 #, c-format
 msgid "The display “%s” should be recalibrated soon."
 msgstr "ディスプレイ“%s”は、すぐに再キャリブレーションすべきです。"
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: plugins/color/gsd-color-calibrate.c:207
+#: plugins/color/gsd-color-calibrate.c:206
 #, c-format
 msgid "The printer “%s” should be recalibrated soon."
 msgstr "プリンター“%s”は、すぐに再キャリブレーションすべきです。"
 
 #. TRANSLATORS: this is the application name
-#: plugins/color/gsd-color-calibrate.c:345
-#: plugins/color/gsd-color-calibrate.c:361
+#: plugins/color/gsd-color-calibrate.c:347
+#: plugins/color/gsd-color-calibrate.c:366
 msgid "GNOME Settings Daemon Color Plugin"
 msgstr "GNOME 設定デーモンのカラープラグイン"
 
 #. TRANSLATORS: this is a sound description
-#: plugins/color/gsd-color-calibrate.c:347
+#: plugins/color/gsd-color-calibrate.c:349
 msgid "Color calibration device added"
 msgstr "カラーキャリブレーションデバイスが追加されました"
 
 #. TRANSLATORS: this is a sound description
-#: plugins/color/gsd-color-calibrate.c:363
+#: plugins/color/gsd-color-calibrate.c:368
 msgid "Color calibration device removed"
 msgstr "カラーキャリブレーションデバイスが取り外されました"
 
@@ -1573,28 +1540,28 @@ msgstr "設定"
 msgid "Date & Time Settings"
 msgstr "日付と時刻の設定"
 
-#: plugins/housekeeping/gsd-disk-space.c:628
+#: plugins/housekeeping/gsd-disk-space.c:627
 msgid "Disk Space"
 msgstr "ディスクの空き容量"
 
-#: plugins/housekeeping/gsd-disk-space.c:643
+#: plugins/housekeeping/gsd-disk-space.c:642
 msgid "Examine"
 msgstr "検査"
 
-#: plugins/housekeeping/gsd-disk-space.c:654
+#: plugins/housekeeping/gsd-disk-space.c:653
 msgid "Empty Trash"
 msgstr "ゴミ箱を空にする"
 
-#: plugins/housekeeping/gsd-disk-space.c:662
+#: plugins/housekeeping/gsd-disk-space.c:661
 msgid "Ignore"
 msgstr "無視"
 
-#: plugins/housekeeping/gsd-disk-space.c:693
+#: plugins/housekeeping/gsd-disk-space.c:692
 #, c-format
 msgid "Low Disk Space on “%s”"
 msgstr "“%s”の空き容量が少なくなりました"
 
-#: plugins/housekeeping/gsd-disk-space.c:695
+#: plugins/housekeeping/gsd-disk-space.c:694
 #, c-format
 msgid ""
 "The volume “%s” has only %s disk space remaining.  You may free up some "
@@ -1603,16 +1570,16 @@ msgstr ""
 "ボリューム“%s”には空き容量が %s しかありません。ゴミ箱を空にして容量を増やし"
 "ましょう。"
 
-#: plugins/housekeeping/gsd-disk-space.c:699
+#: plugins/housekeeping/gsd-disk-space.c:698
 #, c-format
 msgid "The volume “%s” has only %s disk space remaining."
 msgstr "ボリューム“%s”には空き容量が %s しかありません。"
 
-#: plugins/housekeeping/gsd-disk-space.c:704
+#: plugins/housekeeping/gsd-disk-space.c:703
 msgid "Low Disk Space"
 msgstr "ディスクの空き容量が少なくなりました"
 
-#: plugins/housekeeping/gsd-disk-space.c:706
+#: plugins/housekeeping/gsd-disk-space.c:705
 #, c-format
 msgid ""
 "This computer has only %s disk space remaining.  You may free up some space "
@@ -1621,10 +1588,30 @@ msgstr ""
 "このコンピューターにはディスクの残りが %s しかありません。ゴミ箱を空にして容"
 "量を増やしましょう。"
 
-#: plugins/housekeeping/gsd-disk-space.c:709
+#: plugins/housekeeping/gsd-disk-space.c:708
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "このコンピューターにはディスクの残りが %s しかありません。"
+
+#: plugins/housekeeping/gsd-donation-reminder.c:70
+msgid "Support GNOME"
+msgstr "GNOME を支援"
+
+#: plugins/housekeeping/gsd-donation-reminder.c:71
+msgid ""
+"GNOME needs your help. Your donation will sustain our open source project "
+"for future generations."
+msgstr ""
+"GNOME にはあなたの助けが必要です。あなたの寄付により、私たちのオープンソース"
+"プロジェクトを将来の世代のために持続させることができます。"
+
+#: plugins/housekeeping/gsd-donation-reminder.c:79
+msgid "GNOME"
+msgstr "GNOME"
+
+#: plugins/housekeeping/gsd-donation-reminder.c:87
+msgid "Donate"
+msgstr "寄付"
 
 #. TRANSLATORS: %s is the application name.
 #: plugins/housekeeping/gsd-systemd-notify.c:82
@@ -1674,37 +1661,37 @@ msgstr ""
 "デバイスのメモリーがほとんどいっぱいです。アプリケーションは多くのメモリーを"
 "使用していたため、強制的に停止されました。"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2344
+#: plugins/media-keys/gsd-media-keys-manager.c:2290
 msgid "Bluetooth Disabled"
 msgstr "Bluetooth が無効になりました"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2347
+#: plugins/media-keys/gsd-media-keys-manager.c:2293
 msgid "Bluetooth Enabled"
 msgstr "Bluetooth が有効になりました"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2351
+#: plugins/media-keys/gsd-media-keys-manager.c:2297
 msgid "Airplane Mode Enabled"
 msgstr "機内モードが有効になりました"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2354
+#: plugins/media-keys/gsd-media-keys-manager.c:2300
 msgid "Airplane Mode Disabled"
 msgstr "機内モードが無効になりました"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2393
+#: plugins/media-keys/gsd-media-keys-manager.c:2339
 msgid "Hardware Airplane Mode"
 msgstr "ハードウェア機内モード"
 
-#: plugins/power/gpm-common.c:88
+#: plugins/power/gpm-common.c:84
 msgid "Unknown time"
 msgstr "残り時間不明"
 
-#: plugins/power/gpm-common.c:93
+#: plugins/power/gpm-common.c:89
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i 分"
 
-#: plugins/power/gpm-common.c:103
+#: plugins/power/gpm-common.c:99
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1712,64 +1699,64 @@ msgstr[0] "%i 時間"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: plugins/power/gpm-common.c:109
+#: plugins/power/gpm-common.c:105
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: plugins/power/gpm-common.c:110
+#: plugins/power/gpm-common.c:106
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "時間"
 
-#: plugins/power/gpm-common.c:111
+#: plugins/power/gpm-common.c:107
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "分"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:419 plugins/power/gsd-power-manager.c:937
-#: plugins/power/gsd-power-manager.c:1021
+#: plugins/power/gpm-common.c:324 plugins/power/gsd-power-manager.c:929
+#: plugins/power/gsd-power-manager.c:1017
 msgid "Battery is critically low"
 msgstr "バッテリーがひどく低下しています"
 
 #. TRANSLATORS: this is the notification application name
-#: plugins/power/gsd-power-manager.c:381
+#: plugins/power/gsd-power-manager.c:362
 msgid "Power"
 msgstr "電力"
 
 #. TRANSLATORS: UPS is now discharging
-#: plugins/power/gsd-power-manager.c:420
+#: plugins/power/gsd-power-manager.c:400
 msgid "UPS Discharging"
 msgstr "UPS 放電中"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:425
+#: plugins/power/gsd-power-manager.c:405
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "UPS のバックアップ電力の残り時間は %s です"
 
-#: plugins/power/gsd-power-manager.c:428
+#: plugins/power/gsd-power-manager.c:408
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "UPS のバックアップ電力の残り時間は不明です"
 
 #. TRANSLATORS: notification title, a wireless mouse is low or very low on power
-#: plugins/power/gsd-power-manager.c:528
+#: plugins/power/gsd-power-manager.c:512
 msgid "Mouse battery low"
 msgstr "マウスのバッテリー低下"
 
 #. TRANSLATORS: notification body, a wireless mouse is low on power
-#: plugins/power/gsd-power-manager.c:531
+#: plugins/power/gsd-power-manager.c:515
 #, c-format
 msgid "Wireless mouse is low on power (%.0f%%)"
 msgstr "ワイヤレスマウスのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:532
+#: plugins/power/gsd-power-manager.c:516
 msgid "Wireless mouse is low on power"
 msgstr "ワイヤレスマウスのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a wireless mouse is very low on power
-#: plugins/power/gsd-power-manager.c:534
+#: plugins/power/gsd-power-manager.c:518
 #, c-format
 msgid ""
 "Wireless mouse is very low on power (%.0f%%). This device will soon stop "
@@ -1778,7 +1765,7 @@ msgstr ""
 "ワイヤレスマウスの電源が非常に低くなっています (%.0f%%)。このデバイスは、充電"
 "されないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:536
+#: plugins/power/gsd-power-manager.c:520
 msgid ""
 "Wireless mouse is very low on power. This device will soon stop functioning "
 "if not charged."
@@ -1787,22 +1774,22 @@ msgstr ""
 "とまもなく機能を停止します。"
 
 #. TRANSLATORS: notification title, a wireless keyboard is low or very low on power
-#: plugins/power/gsd-power-manager.c:541
+#: plugins/power/gsd-power-manager.c:525
 msgid "Keyboard battery low"
 msgstr "キーボードのバッテリー低下"
 
 #. TRANSLATORS: notification body, a wireless keyboard is low on power
-#: plugins/power/gsd-power-manager.c:544
+#: plugins/power/gsd-power-manager.c:528
 #, c-format
 msgid "Wireless keyboard is low on power (%.0f%%)"
 msgstr "ワイヤレスキーボードのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:545
+#: plugins/power/gsd-power-manager.c:529
 msgid "Wireless keyboard is low on power"
 msgstr "ワイヤレスキーボードのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a wireless keyboard is very low on power
-#: plugins/power/gsd-power-manager.c:547
+#: plugins/power/gsd-power-manager.c:531
 #, c-format
 msgid ""
 "Wireless keyboard is very low on power (%.0f%%). This device will soon stop "
@@ -1811,7 +1798,7 @@ msgstr ""
 "ワイヤレスキーボードの電源が非常に低くなっています (%.0f%%)。このデバイスは、"
 "充電されないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:549
+#: plugins/power/gsd-power-manager.c:533
 msgid ""
 "Wireless keyboard is very low on power. This device will soon stop "
 "functioning if not charged."
@@ -1820,22 +1807,22 @@ msgstr ""
 "ないとまもなく機能を停止します。"
 
 #. TRANSLATORS: notification title, a PDA (Personal Digital Assistance device) is low or very on power
-#: plugins/power/gsd-power-manager.c:554
+#: plugins/power/gsd-power-manager.c:538
 msgid "PDA battery low"
 msgstr "PDA のバッテリー低下"
 
 #. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is low on power
-#: plugins/power/gsd-power-manager.c:557
+#: plugins/power/gsd-power-manager.c:541
 #, c-format
 msgid "PDA is low on power (%.0f%%)"
 msgstr "PDA のバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:558
+#: plugins/power/gsd-power-manager.c:542
 msgid "PDA is low on power"
 msgstr "PDA のバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is very low on power
-#: plugins/power/gsd-power-manager.c:560
+#: plugins/power/gsd-power-manager.c:544
 #, c-format
 msgid ""
 "PDA is very low on power (%.0f%%). This device will soon stop functioning if "
@@ -1844,7 +1831,7 @@ msgstr ""
 "PDA の電源が非常に低くなっています (%.0f%%)。このデバイスは、充電されないとま"
 "もなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:562
+#: plugins/power/gsd-power-manager.c:546
 msgid ""
 "PDA is very low on power. This device will soon stop functioning if not "
 "charged."
@@ -1853,22 +1840,22 @@ msgstr ""
 "能を停止します。"
 
 #. TRANSLATORS: notification title, a cell phone (mobile phone) is low or very low on power
-#: plugins/power/gsd-power-manager.c:567
+#: plugins/power/gsd-power-manager.c:551
 msgid "Cell phone battery low"
 msgstr "携帯電話のバッテリー低下"
 
 #. TRANSLATORS: notification body, a cell phone (mobile phone) is low on power
-#: plugins/power/gsd-power-manager.c:570
+#: plugins/power/gsd-power-manager.c:554
 #, c-format
 msgid "Cell phone is low on power (%.0f%%)"
 msgstr "携帯電話のバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:571
+#: plugins/power/gsd-power-manager.c:555
 msgid "Cell phone is low on power"
 msgstr "携帯電話のバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a cell phone (mobile phone) is very low on power
-#: plugins/power/gsd-power-manager.c:573
+#: plugins/power/gsd-power-manager.c:557
 #, c-format
 msgid ""
 "Cell phone is very low on power (%.0f%%). This device will soon stop "
@@ -1877,7 +1864,7 @@ msgstr ""
 "携帯電話の電源が非常に低くなっています (%.0f%%)。このデバイスは、充電されない"
 "とまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:575
+#: plugins/power/gsd-power-manager.c:559
 msgid ""
 "Cell phone is very low on power. This device will soon stop functioning if "
 "not charged."
@@ -1886,22 +1873,22 @@ msgstr ""
 "く機能を停止します。"
 
 #. TRANSLATORS: notification title, a media player (e.g. mp3 player) is low or very low on power
-#: plugins/power/gsd-power-manager.c:580
+#: plugins/power/gsd-power-manager.c:564
 msgid "Media player battery low"
 msgstr "メディアプレーヤーのバッテリー低下"
 
 #. TRANSLATORS: notification body, a media player (e.g. mp3 player) is low on power
-#: plugins/power/gsd-power-manager.c:583
+#: plugins/power/gsd-power-manager.c:567
 #, c-format
 msgid "Media player is low on power (%.0f%%)"
 msgstr "メディアプレーヤーのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:584
+#: plugins/power/gsd-power-manager.c:568
 msgid "Media player is low on power"
 msgstr "メディアプレーヤーのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a media player (e.g. mp3 player) is very low on power
-#: plugins/power/gsd-power-manager.c:586
+#: plugins/power/gsd-power-manager.c:570
 #, c-format
 msgid ""
 "Media player is very low on power (%.0f%%). This device will soon stop "
@@ -1910,7 +1897,7 @@ msgstr ""
 "メディアプレーヤーの電源が非常に低くなっています (%.0f%%)。このデバイスは、充"
 "電されないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:588
+#: plugins/power/gsd-power-manager.c:572
 msgid ""
 "Media player is very low on power. This device will soon stop functioning if "
 "not charged."
@@ -1919,22 +1906,22 @@ msgstr ""
 "いとまもなく機能を停止します。"
 
 #. TRANSLATORS: notification title, a graphics tablet (e.g. wacom) is low or very low on power
-#: plugins/power/gsd-power-manager.c:593
+#: plugins/power/gsd-power-manager.c:577
 msgid "Tablet battery low"
 msgstr "タブレットのバッテリー低下"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is low on power
-#: plugins/power/gsd-power-manager.c:596
+#: plugins/power/gsd-power-manager.c:580
 #, c-format
 msgid "Tablet is low on power (%.0f%%)"
 msgstr "タブレットのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:597
+#: plugins/power/gsd-power-manager.c:581
 msgid "Tablet is low on power"
 msgstr "タブレットのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is very low on power
-#: plugins/power/gsd-power-manager.c:599
+#: plugins/power/gsd-power-manager.c:583
 #, c-format
 msgid ""
 "Tablet is very low on power (%.0f%%). This device will soon stop functioning "
@@ -1943,7 +1930,7 @@ msgstr ""
 "タブレットの電源が非常に低くなっています (%.0f%%)。このデバイスは、充電されな"
 "いとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:601
+#: plugins/power/gsd-power-manager.c:585
 msgid ""
 "Tablet is very low on power. This device will soon stop functioning if not "
 "charged."
@@ -1952,22 +1939,22 @@ msgstr ""
 "なく機能を停止します。"
 
 #. TRANSLATORS: notification title, an attached computer (e.g. ipad) is low or very low on power
-#: plugins/power/gsd-power-manager.c:606
+#: plugins/power/gsd-power-manager.c:590
 msgid "Attached computer battery low"
 msgstr "接続されたコンピューターのバッテリー低下"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is low on power
-#: plugins/power/gsd-power-manager.c:609
+#: plugins/power/gsd-power-manager.c:593
 #, c-format
 msgid "Attached computer is low on power (%.0f%%)"
 msgstr "接続されたコンピューターのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:610
+#: plugins/power/gsd-power-manager.c:594
 msgid "Attached computer is low on power"
 msgstr "接続されたコンピューターのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is very low on power
-#: plugins/power/gsd-power-manager.c:612
+#: plugins/power/gsd-power-manager.c:596
 #, c-format
 msgid ""
 "Attached computer is very low on power (%.0f%%). The device will soon "
@@ -1976,7 +1963,7 @@ msgstr ""
 "接続されたコンピューターの電源が非常に低くなっています (%.0f%%)。このデバイス"
 "は、充電されないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:614
+#: plugins/power/gsd-power-manager.c:598
 msgid ""
 "Attached computer is very low on power. The device will soon shutdown if not "
 "charged."
@@ -1985,22 +1972,22 @@ msgstr ""
 "されないとまもなく機能を停止します。"
 
 #. TRANSLATORS: notification title, a game controller (e.g. joystick or joypad) is low or very low on power
-#: plugins/power/gsd-power-manager.c:619
+#: plugins/power/gsd-power-manager.c:603
 msgid "Game controller battery low"
 msgstr "ゲーム用コントローラーのバッテリー低下"
 
 #. TRANSLATORS: notification body, a game controller (e.g. joystick or joypad) is low on power
-#: plugins/power/gsd-power-manager.c:622
+#: plugins/power/gsd-power-manager.c:606
 #, c-format
 msgid "Game controller is low on power (%.0f%%)"
 msgstr "ゲーム用コントローラーのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:623
+#: plugins/power/gsd-power-manager.c:607
 msgid "Game controller is low on power"
 msgstr "ゲーム用コントローラーのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, an attached game controller (e.g. joystick or joypad) is very low on power
-#: plugins/power/gsd-power-manager.c:625
+#: plugins/power/gsd-power-manager.c:609
 #, c-format
 msgid ""
 "Game controller is very low on power (%.0f%%). The device will soon shutdown "
@@ -2009,7 +1996,7 @@ msgstr ""
 "ゲーム用コントローラーの電源が非常に低くなっています (%.0f%%)。このデバイス"
 "は、充電されないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:627
+#: plugins/power/gsd-power-manager.c:611
 msgid ""
 "Game controller is very low on power. The device will soon shutdown if not "
 "charged."
@@ -2018,22 +2005,22 @@ msgstr ""
 "れないとまもなく機能を停止します。"
 
 #. TRANSLATORS: notification title, a pen is low or very low on power
-#: plugins/power/gsd-power-manager.c:632
+#: plugins/power/gsd-power-manager.c:616
 msgid "Pen battery low"
 msgstr "ペンのバッテリー低下"
 
 #. TRANSLATORS: notification body, a pen is low on power
-#: plugins/power/gsd-power-manager.c:635
+#: plugins/power/gsd-power-manager.c:619
 #, c-format
 msgid "Pen is low on power (%.0f%%)"
 msgstr "ペンのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:636
+#: plugins/power/gsd-power-manager.c:620
 msgid "Pen is low on power"
 msgstr "ペンのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a pen is very low on power
-#: plugins/power/gsd-power-manager.c:638
+#: plugins/power/gsd-power-manager.c:622
 #, c-format
 msgid ""
 "Pen is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2042,29 +2029,29 @@ msgstr ""
 "ペンの電源が非常に低くなっています (%.0f%%)。このデバイスは、充電されないとま"
 "もなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:640
+#: plugins/power/gsd-power-manager.c:624
 msgid "Pen is very low on power. The device will soon shutdown if not charged."
 msgstr ""
 "ペンの電源が非常に低くなっています。このデバイスは、充電されないとまもなく機"
 "能を停止します。"
 
 #. TRANSLATORS: notification title, an external touchpad is low or very low on power
-#: plugins/power/gsd-power-manager.c:645
+#: plugins/power/gsd-power-manager.c:629
 msgid "Touchpad battery low"
 msgstr "タッチパッドのバッテリー低下"
 
 #. TRANSLATORS: notification body, an external touchpad is low on power
-#: plugins/power/gsd-power-manager.c:648
+#: plugins/power/gsd-power-manager.c:632
 #, c-format
 msgid "Touchpad is low on power (%.0f%%)"
 msgstr "タッチパッドのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:649
+#: plugins/power/gsd-power-manager.c:633
 msgid "Touchpad is low on power"
 msgstr "タッチパッドのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, an external touchpad is very low on power
-#: plugins/power/gsd-power-manager.c:651
+#: plugins/power/gsd-power-manager.c:635
 #, c-format
 msgid ""
 "Touchpad is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2073,7 +2060,7 @@ msgstr ""
 "タッチパッドの電源が非常に低くなっています (%.0f%%)。このデバイスは、充電され"
 "ないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:653
+#: plugins/power/gsd-power-manager.c:637
 msgid ""
 "Touchpad is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2081,22 +2068,22 @@ msgstr ""
 "もなく機能を停止します。"
 
 #. TRANSLATORS: notification title, a headset (headphones + microphone) is low or very low on power
-#: plugins/power/gsd-power-manager.c:658
+#: plugins/power/gsd-power-manager.c:642
 msgid "Headset battery low"
 msgstr "ヘッドセットのバッテリー低下"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is low on power
-#: plugins/power/gsd-power-manager.c:661
+#: plugins/power/gsd-power-manager.c:645
 #, c-format
 msgid "Headset is low on power (%.0f%%)"
 msgstr "ヘッドセットのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:662
+#: plugins/power/gsd-power-manager.c:646
 msgid "Headset is low on power"
 msgstr "ヘッドセットのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is very low on power
-#: plugins/power/gsd-power-manager.c:664
+#: plugins/power/gsd-power-manager.c:648
 #, c-format
 msgid ""
 "Headset is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2105,7 +2092,7 @@ msgstr ""
 "ヘッドセットの電源が非常に低くなっています (%.0f%%)。このデバイスは、充電され"
 "ないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:666
+#: plugins/power/gsd-power-manager.c:650
 msgid ""
 "Headset is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2113,22 +2100,22 @@ msgstr ""
 "もなく機能を停止します。"
 
 #. TRANSLATORS: notification title, speaker is low or very low on power
-#: plugins/power/gsd-power-manager.c:671
+#: plugins/power/gsd-power-manager.c:655
 msgid "Speaker battery low"
 msgstr "スピーカーのバッテリー低下"
 
 #. TRANSLATORS: notification body, a speaker is low on power
-#: plugins/power/gsd-power-manager.c:674
+#: plugins/power/gsd-power-manager.c:658
 #, c-format
 msgid "Speaker is low on power (%.0f%%)"
 msgstr "スピーカーのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:675
+#: plugins/power/gsd-power-manager.c:659
 msgid "Speaker is low on power"
 msgstr "スピーカーのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a speaker is very low on power
-#: plugins/power/gsd-power-manager.c:677
+#: plugins/power/gsd-power-manager.c:661
 #, c-format
 msgid ""
 "Speaker is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2137,7 +2124,7 @@ msgstr ""
 "スピーカーの電源が非常に低くなっています (%.0f%%)。このデバイスは、充電されな"
 "いとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:679
+#: plugins/power/gsd-power-manager.c:663
 msgid ""
 "Speaker is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2145,22 +2132,22 @@ msgstr ""
 "なく機能を停止します。"
 
 #. TRANSLATORS: notification title, headphones (no microphone) are low or very low on power
-#: plugins/power/gsd-power-manager.c:684
+#: plugins/power/gsd-power-manager.c:668
 msgid "Headphones battery low"
 msgstr "ヘッドホンのバッテリー低下"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are low on power
-#: plugins/power/gsd-power-manager.c:687
+#: plugins/power/gsd-power-manager.c:671
 #, c-format
 msgid "Headphones are low on power (%.0f%%)"
 msgstr "ヘッドホンのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:688
+#: plugins/power/gsd-power-manager.c:672
 msgid "Headphones are low on power"
 msgstr "ヘッドホンのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are very low on power
-#: plugins/power/gsd-power-manager.c:690
+#: plugins/power/gsd-power-manager.c:674
 #, c-format
 msgid ""
 "Headphones are very low on power (%.0f%%). The device will soon shutdown if "
@@ -2169,7 +2156,7 @@ msgstr ""
 "ヘッドホンの電源が非常に低くなっています (%.0f%%)。このデバイスは、充電されな"
 "いとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:692
+#: plugins/power/gsd-power-manager.c:676
 msgid ""
 "Headphones are very low on power. The device will soon shutdown if not "
 "charged."
@@ -2178,22 +2165,22 @@ msgstr ""
 "なく機能を停止します。"
 
 #. TRANSLATORS: notification title, an audio device is low or very low on power
-#: plugins/power/gsd-power-manager.c:697
+#: plugins/power/gsd-power-manager.c:681
 msgid "Audio device battery low"
 msgstr "オーディオデバイスのバッテリー低下"
 
 #. TRANSLATORS: notification body, an audio device is low on power
-#: plugins/power/gsd-power-manager.c:700
+#: plugins/power/gsd-power-manager.c:684
 #, c-format
 msgid "Audio device is low on power (%.0f%%)"
 msgstr "オーディオデバイスのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:701
+#: plugins/power/gsd-power-manager.c:685
 msgid "Audio device is low on power"
 msgstr "オーディオデバイスのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, an audio device is very low on power
-#: plugins/power/gsd-power-manager.c:703
+#: plugins/power/gsd-power-manager.c:687
 #, c-format
 msgid ""
 "Audio device is very low on power (%.0f%%). The device will soon shutdown if "
@@ -2202,7 +2189,7 @@ msgstr ""
 "オーディオデバイスの電源が非常に低くなっています (%.0f%%)。このデバイスは、充"
 "電されないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:705
+#: plugins/power/gsd-power-manager.c:689
 msgid ""
 "Audio device is very low on power. The device will soon shutdown if not "
 "charged."
@@ -2211,22 +2198,22 @@ msgstr ""
 "いとまもなく機能を停止します。"
 
 #. TRANSLATORS: notification title, a remote control is low or very low on power
-#: plugins/power/gsd-power-manager.c:710
+#: plugins/power/gsd-power-manager.c:694
 msgid "Remote battery low"
 msgstr "リモコンのバッテリー低下"
 
 #. TRANSLATORS: notification body, an remote control is low on power
-#: plugins/power/gsd-power-manager.c:713
+#: plugins/power/gsd-power-manager.c:697
 #, c-format
 msgid "Remote is low on power (%.0f%%)"
 msgstr "リモコンのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:714
+#: plugins/power/gsd-power-manager.c:698
 msgid "Remote is low on power"
 msgstr "リモコンのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a remote control is very low on power
-#: plugins/power/gsd-power-manager.c:716
+#: plugins/power/gsd-power-manager.c:700
 #, c-format
 msgid ""
 "Remote is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2235,7 +2222,7 @@ msgstr ""
 "リモコンの電池容量が非常に少なくなっています (%.0f%%)。このデバイスは、充電さ"
 "れないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:718
+#: plugins/power/gsd-power-manager.c:702
 msgid ""
 "Remote is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2243,22 +2230,22 @@ msgstr ""
 "機能を停止します。"
 
 #. TRANSLATORS: notification title, a printer is low or very low on power
-#: plugins/power/gsd-power-manager.c:723
+#: plugins/power/gsd-power-manager.c:707
 msgid "Printer battery low"
 msgstr "プリンターのバッテリー低下"
 
 #. TRANSLATORS: notification body, a printer is low on power
-#: plugins/power/gsd-power-manager.c:726
+#: plugins/power/gsd-power-manager.c:710
 #, c-format
 msgid "Printer is low on power (%.0f%%)"
 msgstr "プリンターのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:727
+#: plugins/power/gsd-power-manager.c:711
 msgid "Printer is low on power"
 msgstr "プリンターのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a printer is very low on power
-#: plugins/power/gsd-power-manager.c:729
+#: plugins/power/gsd-power-manager.c:713
 #, c-format
 msgid ""
 "Printer is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2267,7 +2254,7 @@ msgstr ""
 "プリンターの電源が非常に低くなっています (%.0f%%)。このデバイスは、充電されな"
 "いとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:731
+#: plugins/power/gsd-power-manager.c:715
 msgid ""
 "Printer is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2275,22 +2262,22 @@ msgstr ""
 "なく機能を停止します。"
 
 #. TRANSLATORS: notification title, a scanner is low or very low on power
-#: plugins/power/gsd-power-manager.c:736
+#: plugins/power/gsd-power-manager.c:720
 msgid "Scanner battery low"
 msgstr "スキャナーのバッテリー低下"
 
 #. TRANSLATORS: notification body, a scanner is low on power
-#: plugins/power/gsd-power-manager.c:739
+#: plugins/power/gsd-power-manager.c:723
 #, c-format
 msgid "Scanner is low on power (%.0f%%)"
 msgstr "スキャナーの電力が低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:740
+#: plugins/power/gsd-power-manager.c:724
 msgid "Scanner is low on power"
 msgstr "スキャナーの電力が低下しています"
 
 #. TRANSLATORS: notification body, a scanner is very low on power
-#: plugins/power/gsd-power-manager.c:742
+#: plugins/power/gsd-power-manager.c:726
 #, c-format
 msgid ""
 "Scanner is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2299,7 +2286,7 @@ msgstr ""
 "スキャナーの電源が非常に低くなっています (%.0f%%)。このデバイスは、充電されな"
 "いとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:744
+#: plugins/power/gsd-power-manager.c:728
 msgid ""
 "Scanner is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2307,22 +2294,22 @@ msgstr ""
 "なく機能を停止します。"
 
 #. TRANSLATORS: notification title, a camera is low or very low on power
-#: plugins/power/gsd-power-manager.c:749
+#: plugins/power/gsd-power-manager.c:733
 msgid "Camera battery low"
 msgstr "カメラのバッテリー低下"
 
 #. TRANSLATORS: notification body, a camera is low on power
-#: plugins/power/gsd-power-manager.c:752
+#: plugins/power/gsd-power-manager.c:736
 #, c-format
 msgid "Camera is low on power (%.0f%%)"
 msgstr "カメラのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:753
+#: plugins/power/gsd-power-manager.c:737
 msgid "Camera is low on power"
 msgstr "カメラのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a camera is very low on power
-#: plugins/power/gsd-power-manager.c:755
+#: plugins/power/gsd-power-manager.c:739
 #, c-format
 msgid ""
 "Camera is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2331,7 +2318,7 @@ msgstr ""
 "カメラの電源が非常に低くなっています (%.0f%%)。このデバイスは、充電されないと"
 "まもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:757
+#: plugins/power/gsd-power-manager.c:741
 msgid ""
 "Camera is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2339,22 +2326,22 @@ msgstr ""
 "機能を停止します。"
 
 #. TRANSLATORS: notification title, a Bluetooth device is low or very low on power
-#: plugins/power/gsd-power-manager.c:762
+#: plugins/power/gsd-power-manager.c:746
 msgid "Bluetooth device battery low"
 msgstr "Bluetooth デバイスのバッテリー低下"
 
 #. TRANSLATORS: notification body, a Bluetooth device is low on power
-#: plugins/power/gsd-power-manager.c:765
+#: plugins/power/gsd-power-manager.c:749
 #, c-format
 msgid "Bluetooth device is low on power (%.0f%%)"
 msgstr "Bluetooth デバイスのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:766
+#: plugins/power/gsd-power-manager.c:750
 msgid "Bluetooth device is low on power"
 msgstr "Bluetooth デバイスのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a Bluetooth device is very low on power
-#: plugins/power/gsd-power-manager.c:768
+#: plugins/power/gsd-power-manager.c:752
 #, c-format
 msgid ""
 "Bluetooth device is very low on power (%.0f%%). The device will soon "
@@ -2363,7 +2350,7 @@ msgstr ""
 "Bluetooth デバイスの電源が非常に低くなっています (%.0f%%)。このデバイスは、充"
 "電されないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:770
+#: plugins/power/gsd-power-manager.c:754
 msgid ""
 "Bluetooth device is very low on power. The device will soon shutdown if not "
 "charged."
@@ -2372,22 +2359,22 @@ msgstr ""
 "いとまもなく機能を停止します。"
 
 #. TRANSLATORS: notification title, a connected (wireless) device or peripheral of unhandled type is low or very on power
-#: plugins/power/gsd-power-manager.c:776
+#: plugins/power/gsd-power-manager.c:760
 msgid "Connected device battery is low"
 msgstr "接続されたデバイスのバッテリー低下"
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is low on power
-#: plugins/power/gsd-power-manager.c:779
+#: plugins/power/gsd-power-manager.c:763
 #, c-format
 msgid "A connected device is low on power (%.0f%%)"
 msgstr "接続されたデバイスのバッテリーが低下しています (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:780
+#: plugins/power/gsd-power-manager.c:764
 msgid "A connected device is low on power"
 msgstr "接続されたデバイスのバッテリーが低下しています"
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is very low on power
-#: plugins/power/gsd-power-manager.c:782
+#: plugins/power/gsd-power-manager.c:766
 #, c-format
 msgid ""
 "A connected device is very low on power (%.0f%%). The device will soon "
@@ -2396,7 +2383,7 @@ msgstr ""
 "接続されたデバイスの電源が非常に低くなっています (%.0f%%)。このデバイスは、充"
 "電されないとまもなく機能を停止します。"
 
-#: plugins/power/gsd-power-manager.c:784
+#: plugins/power/gsd-power-manager.c:768
 msgid ""
 "A connected device is very low on power. The device will soon shutdown if "
 "not charged."
@@ -2405,148 +2392,137 @@ msgstr ""
 "いとまもなく機能を停止します。"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:810
+#: plugins/power/gsd-power-manager.c:795
 msgid "Low Battery"
 msgstr "バッテリー低下"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:813
+#: plugins/power/gsd-power-manager.c:798
 #, c-format
 msgid "%.0f%% battery remaining"
 msgstr "バッテリーの残り %.0f%%"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:816
+#: plugins/power/gsd-power-manager.c:801
 msgid "UPS Low"
 msgstr "UPS のバッテリー低下"
 
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
-#: plugins/power/gsd-power-manager.c:819 plugins/power/gsd-power-manager.c:892
+#: plugins/power/gsd-power-manager.c:804 plugins/power/gsd-power-manager.c:881
 #, c-format
 msgid "%.0f%% UPS power remaining"
 msgstr "UPS のバッテリーの残りは %.0f%% です"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:857
+#: plugins/power/gsd-power-manager.c:845
 msgid "Battery is low"
 msgstr "バッテリー低下"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, advice on what the user should do
-#: plugins/power/gsd-power-manager.c:883
+#: plugins/power/gsd-power-manager.c:872
 msgid "Battery Almost Empty"
 msgstr "バッテリーがほぼ空"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically running low, advice on what the user should do
-#: plugins/power/gsd-power-manager.c:886
+#: plugins/power/gsd-power-manager.c:875
 #, c-format
 msgid "Connect power now"
 msgstr "すぐに電源を接続してください"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
-#: plugins/power/gsd-power-manager.c:889
+#: plugins/power/gsd-power-manager.c:878
 msgid "UPS Almost Empty"
 msgstr "UPS のバッテリーがほぼ空"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, warning about action happening now
-#: plugins/power/gsd-power-manager.c:960
+#: plugins/power/gsd-power-manager.c:953
 msgid "Battery is Empty"
 msgstr "バッテリーが空"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action about to happen
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
-#: plugins/power/gsd-power-manager.c:967 plugins/power/gsd-power-manager.c:987
+#: plugins/power/gsd-power-manager.c:960 plugins/power/gsd-power-manager.c:980
 msgid "This device is about to hibernate"
 msgstr "このデバイスはまもなくハイバーネートされます"
 
-#: plugins/power/gsd-power-manager.c:969 plugins/power/gsd-power-manager.c:989
+#: plugins/power/gsd-power-manager.c:962 plugins/power/gsd-power-manager.c:982
 msgid "This device is about to shutdown"
 msgstr "このデバイスはまもなくシャットダウンされます"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
-#: plugins/power/gsd-power-manager.c:980
+#: plugins/power/gsd-power-manager.c:973
 msgid "UPS is Empty"
 msgstr "UPS のバッテリーが空"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1506
+#: plugins/power/gsd-power-manager.c:1596
 msgid "Lid has been opened"
 msgstr "ふたが開けられました"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1540
+#: plugins/power/gsd-power-manager.c:1634
 msgid "Lid has been closed"
 msgstr "ふたが閉じられました"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2194
+#: plugins/power/gsd-power-manager.c:2259
 msgid "On battery power"
 msgstr "バッテリー電源駆動時"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2199
+#: plugins/power/gsd-power-manager.c:2264
 msgid "On AC power"
 msgstr "AC 電源駆動時"
 
-#: plugins/power/gsd-power-manager.c:2469
+#: plugins/power/gsd-power-manager.c:2534
 msgid "Automatic Logout"
 msgstr "自動ログアウト"
 
-#: plugins/power/gsd-power-manager.c:2469
+#: plugins/power/gsd-power-manager.c:2534
 msgid "You will soon log out because of inactivity"
 msgstr "作業が行われていないため、まもなくログアウトします"
 
-#: plugins/power/gsd-power-manager.c:2474
+#: plugins/power/gsd-power-manager.c:2539
 msgid "Automatic Suspend"
 msgstr "自動サスペンド"
 
-#: plugins/power/gsd-power-manager.c:2474
-#: plugins/power/gsd-power-manager.c:2479
+#: plugins/power/gsd-power-manager.c:2539
+#: plugins/power/gsd-power-manager.c:2544
 msgid "Suspending soon because of inactivity"
 msgstr "作業が行われていないため、まもなくサスペンドします"
 
-#: plugins/power/gsd-power-manager.c:2479
+#: plugins/power/gsd-power-manager.c:2544
 msgid "Automatic Hibernation"
 msgstr "自動ハイバーネート"
 
-#. SECURITY:
-#. - A normal active user on the local machine does not need permission
-#. to change the backlight brightness.
-#: plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in:21
-msgid "Modify the laptop brightness"
-msgstr "ノート PC の輝度を変更します"
-
-#: plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in:22
-msgid "Authentication is required to modify the laptop brightness"
-msgstr "ノート PC の輝度を変更するには認証が必要です"
-
 #. Translators: We are configuring new printer
-#: plugins/print-notifications/gsd-printer.c:893
+#: plugins/print-notifications/gsd-printer.c:924
 msgid "Configuring new printer"
 msgstr "新しいプリンターを設定しています"
 
 #. Translators: Just wait
-#: plugins/print-notifications/gsd-printer.c:895
+#: plugins/print-notifications/gsd-printer.c:926
 msgid "Please wait…"
 msgstr "お待ちください…"
 
 #. Translators: We have no driver installed for this printer
-#: plugins/print-notifications/gsd-printer.c:922
+#: plugins/print-notifications/gsd-printer.c:953
 msgid "Missing printer driver"
 msgstr "プリンタードライバーが見つかりません"
 
 #. Translators: We have no driver installed for the device
-#: plugins/print-notifications/gsd-printer.c:931
+#: plugins/print-notifications/gsd-printer.c:962
 #, c-format
 msgid "No printer driver for %s."
 msgstr "%s のプリンタードライバーがありません。"
 
 #. Translators: We have no driver installed for this printer
-#: plugins/print-notifications/gsd-printer.c:936
+#: plugins/print-notifications/gsd-printer.c:967
 msgid "No driver for this printer."
 msgstr "このプリンターのドライバーがありません。"
 
-#: plugins/print-notifications/gsd-printer.c:1034
+#: plugins/print-notifications/gsd-printer.c:1065
 #: plugins/print-notifications/gsd-print-notifications-manager.c:318
 #: plugins/print-notifications/gsd-print-notifications-manager.c:566
 #: plugins/print-notifications/gsd-print-notifications-manager.c:949
@@ -2771,7 +2747,7 @@ msgstr "プリンターの警告"
 #: plugins/print-notifications/gsd-print-notifications-manager.c:1033
 #, c-format
 msgid "Printer “%s”: “%s”."
-msgstr "プリンター“%s”: “%s”"
+msgstr "プリンター “%s”: “%s”。"
 
 #: plugins/smartcard/gsd-smartcard-service.c:279
 msgid "User was not logged in with smartcard."
@@ -2842,28 +2818,6 @@ msgstr ""
 "USB プロテクションが有効になっているため、新しく挿し込まれたデバイスはブロッ"
 "クされています。デバイスを有効にする場合は、USB プロテクションを無効にし、デ"
 "バイスを再挿入してください。"
-
-#. SECURITY:
-#. - A normal active user on the local machine does not need permission
-#. to change the LED setting for a Wacom tablet
-#: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:20
-msgid "Modify the lit LED for a Wacom tablet"
-msgstr "Wacom タブレットの LED 設定の変更"
-
-#: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:21
-msgid "Authentication is required to modify the lit LED for a Wacom tablet"
-msgstr "Wacom タブレットの LED 設定の変更には認証が必要です"
-
-#. SECURITY:
-#. - A normal active user on the local machine does not need permission
-#. to change the OLED images for a Wacom tablet
-#: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:35
-msgid "Modify the OLED image for a Wacom tablet"
-msgstr "Wacom タブレットの OLED イメージの変更"
-
-#: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:36
-msgid "Authentication is required to modify the OLED image for a Wacom tablet"
-msgstr "Wacom タブレットの OLED イメージの変更には認証が必要です"
 
 #: plugins/wwan/cc-wwan-errors-private.h:40
 msgid "Phone failure"
@@ -2992,6 +2946,61 @@ msgstr[0] "%2$s (あと %1$u 回入力できます)"
 msgid "You have %u try left"
 msgid_plural "You have %u tries left"
 msgstr[0] "あと %u 回入力できます"
+
+#~ msgid "Possible values are “on”, “off”, and “custom”."
+#~ msgstr "設定可能な値は “on”、“off”、および “custom” です。"
+
+#~ msgid "Keyboard Bell Custom Filename"
+#~ msgstr "キーボードベル音のカスタムファイル名"
+
+#~ msgid "File name of the bell sound to be played."
+#~ msgstr "再生するベル音のファイル名です。"
+
+#~ msgid "Screen brightness up"
+#~ msgstr "画面の明るさを上げる"
+
+#~ msgid "Binding to increase the screen brightness."
+#~ msgstr "画面を明るくするキーバインディングです。"
+
+#~ msgid "Screen brightness down"
+#~ msgstr "画面の明るさを下げる"
+
+#~ msgid "Binding to decrease the screen brightness."
+#~ msgstr "画面を暗くするキーバインディングです。"
+
+#~ msgid "Screen brightness cycle"
+#~ msgstr "画面の明るさを切り替え"
+
+#~ msgid "Binding to cycle the screen brightness."
+#~ msgstr "画面の明るさを切り替えるキーバインディングです。"
+
+#~ msgid "Static binding to increase the screen brightness."
+#~ msgstr "画面を明るくする静的キーバインディングです。"
+
+#~ msgid "Static binding to decrease the screen brightness."
+#~ msgstr "画面を暗くする静的キーバインディングです。"
+
+#~ msgid "Static binding to cycle the screen brightness."
+#~ msgstr "画面の明るさを切り替える静的キーバインディングです。"
+
+#~ msgid "Modify the laptop brightness"
+#~ msgstr "ノート PC の輝度を変更します"
+
+#~ msgid "Authentication is required to modify the laptop brightness"
+#~ msgstr "ノート PC の輝度を変更するには認証が必要です"
+
+#~ msgid "Modify the lit LED for a Wacom tablet"
+#~ msgstr "Wacom タブレットの LED 設定の変更"
+
+#~ msgid "Authentication is required to modify the lit LED for a Wacom tablet"
+#~ msgstr "Wacom タブレットの LED 設定の変更には認証が必要です"
+
+#~ msgid "Modify the OLED image for a Wacom tablet"
+#~ msgstr "Wacom タブレットの OLED イメージの変更"
+
+#~ msgid ""
+#~ "Authentication is required to modify the OLED image for a Wacom tablet"
+#~ msgstr "Wacom タブレットの OLED イメージの変更には認証が必要です"
 
 #~ msgid "Take a screenshot"
 #~ msgstr "スクリーンショットを撮る"
