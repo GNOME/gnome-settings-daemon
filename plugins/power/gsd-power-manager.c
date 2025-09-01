@@ -140,6 +140,8 @@ struct _GsdPowerManager
         gboolean                 lid_is_present;
         gboolean                 lid_is_closed;
         gboolean                 session_is_active;
+        gboolean                 screen_blanked;
+        gboolean                 light_claimed;
         UpClient                *up_client;
         GPtrArray               *devices_array;
         UpDevice                *device_composite;
@@ -1324,16 +1326,27 @@ light_released_cb (GObject      *source_object,
         }
 }
 
+static gboolean
+iio_proxy_should_claim_light (GsdPowerManager *manager)
+{
+        if (!shell_brightness_has_control (manager))
+                return FALSE;
+        if (!manager->session_is_active)
+                return FALSE;
+        if (manager->screen_blanked)
+                return FALSE;
+
+        return TRUE;
+}
 
 static void
-iio_proxy_claim_light (GsdPowerManager *manager, gboolean active)
+iio_proxy_claim_light (GsdPowerManager *manager,
+                       gboolean         active)
 {
         if (manager->iio_proxy == NULL)
                 return;
-        if (!shell_brightness_has_control (manager))
+        if (manager->light_claimed == !!active)
                 return;
-	if (active && !manager->session_is_active)
-		return;
 
         /* FIXME:
          * Remove when iio-sensor-proxy sends events only to clients instead
@@ -1357,6 +1370,14 @@ iio_proxy_claim_light (GsdPowerManager *manager, gboolean active)
                            manager->cancellable,
                            active ? light_claimed_cb : light_released_cb,
                            manager);
+
+        manager->light_claimed = !!active;
+}
+
+static void
+iio_proxy_maybe_claim_light (GsdPowerManager *manager)
+{
+        iio_proxy_claim_light (manager, iio_proxy_should_claim_light (manager));
 }
 
 typedef enum {
@@ -1380,8 +1401,9 @@ set_power_saving_mode (GsdPowerManager  *manager,
 static void
 enable_monitors (GsdPowerManager *manager)
 {
-        iio_proxy_claim_light (manager, TRUE);
         set_power_saving_mode (manager, GSD_POWER_SAVE_MODE_ON);
+        manager->screen_blanked = FALSE;
+        iio_proxy_maybe_claim_light (manager);
 
         g_debug ("TESTSUITE: Unblanked screen");
 }
@@ -1389,8 +1411,9 @@ enable_monitors (GsdPowerManager *manager)
 static void
 disable_monitors (GsdPowerManager *manager)
 {
-        iio_proxy_claim_light (manager, FALSE);
         set_power_saving_mode (manager, GSD_POWER_SAVE_MODE_OFF);
+        manager->screen_blanked = TRUE;
+        iio_proxy_maybe_claim_light (manager);
 
         g_debug ("TESTSUITE: Blanked screen");
 }
@@ -2672,12 +2695,9 @@ engine_session_properties_changed_cb (GDBusProxy      *session,
                 manager->session_is_active = active;
                 /* when doing the fast-user-switch into a new account,
                  * ensure the new account is undimmed and with the backlight on */
-                if (active) {
+                if (active)
                         idle_set_mode (manager, GSD_POWER_IDLE_MODE_NORMAL);
-                        iio_proxy_claim_light (manager, TRUE);
-                } else {
-                        iio_proxy_claim_light (manager, FALSE);
-                }
+                iio_proxy_maybe_claim_light (manager);
                 g_variant_unref (v);
 
                 sync_lid_inhibitor (manager);
@@ -2987,7 +3007,7 @@ iio_proxy_appeared_cb (GDBusConnection *connection,
                                                "net.hadess.SensorProxy",
                                                NULL,
                                                NULL);
-        iio_proxy_claim_light (manager, TRUE);
+        iio_proxy_maybe_claim_light (manager);
 }
 
 static void
