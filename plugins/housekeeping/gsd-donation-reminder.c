@@ -30,11 +30,13 @@
 #define DONATE_SCHEMA "org.gnome.settings-daemon.plugins.housekeeping"
 #define DONATE_LAST_SHOWN_KEY "donation-reminder-last-shown"
 #define DONATE_ENABLED_KEY "donation-reminder-enabled"
+#define INITIAL_DELAY (60 * 60)
 #define DAY_IN_SEC (24 * 60 * 60)
 #define HALF_A_YEAR_IN_USEC ((int64_t) 365 * DAY_IN_SEC * G_USEC_PER_SEC)
 
 static NotifyNotification *notification = NULL;
 static guint check_timeout_id = 0;
+static gboolean first_run = TRUE;
 
 static void
 closed_cb (NotifyNotification *n)
@@ -119,6 +121,7 @@ show_notification_timeout_cb (void)
 	settings = g_settings_new (DONATE_SCHEMA);
 
         check_show_notification (settings);
+        first_run = FALSE;
 
         return G_SOURCE_CONTINUE;
 }
@@ -133,11 +136,9 @@ gsd_donation_reminder_init (void)
         if (!g_settings_get_boolean (settings, DONATE_ENABLED_KEY))
                 return;
 
-	check_show_notification (settings);
-
 	if (check_timeout_id == 0) {
 		check_timeout_id =
-			g_timeout_add_seconds (DAY_IN_SEC,
+			g_timeout_add_seconds (first_run ? INITIAL_DELAY : DAY_IN_SEC,
 					       (GSourceFunc) show_notification_timeout_cb,
 					       NULL);
 	}
