@@ -1335,6 +1335,8 @@ iio_proxy_should_claim_light (GsdPowerManager *manager)
                 return FALSE;
         if (manager->screen_blanked)
                 return FALSE;
+	if (!g_settings_get_boolean (manager->settings, "ambient-enabled"))
+		return FALSE;
 
         return TRUE;
 }
@@ -2675,6 +2677,10 @@ engine_settings_key_changed_cb (GSettings *settings,
                 else
                         disable_power_saver (manager);
                 return;
+        }
+        if (g_str_equal (key, "ambient-enabled")) {
+                iio_proxy_maybe_claim_light (manager);
+		return;
         }
 }
 
