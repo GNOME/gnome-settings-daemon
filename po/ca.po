@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
 "issues/\n"
-"POT-Creation-Date: 2025-09-11 08:34+0000\n"
-"PO-Revision-Date: 2025-09-13 17:43+0200\n"
+"POT-Creation-Date: 2025-09-14 15:01+0000\n"
+"PO-Revision-Date: 2025-09-16 21:26+0200\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
@@ -561,6 +561,26 @@ msgid ""
 msgstr ""
 "Especifica un temps en minuts. Els pròxims avisos per a un volum no "
 "apareixeran abans d'aquest període de temps."
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:33
+msgid "Whether donation reminders are enabled"
+msgstr "Si els recordatoris de donació estan habilitats"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:34
+msgid "Enables or disables the low-frequency donation reminder notification."
+msgstr ""
+"Habilita o inhabilita la notificació de recordatori de donació de baixa "
+"freqüència."
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:38
+msgid "Last time the donation reminder was shown"
+msgstr "Última vegada que es va mostrar el recordatori de donació"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:39
+msgid "Timestamp for the last time a donation reminder was shown."
+msgstr ""
+"Marca temporal de l'última vegada que es va mostrar un recordatori de "
+"donació."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:6
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:154
@@ -2482,43 +2502,43 @@ msgid "UPS is Empty"
 msgstr "El SAI està descarregat"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1617
+#: plugins/power/gsd-power-manager.c:1619
 msgid "Lid has been opened"
 msgstr "S'ha obert la tapa"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1655
+#: plugins/power/gsd-power-manager.c:1657
 msgid "Lid has been closed"
 msgstr "S'ha tancat la tapa"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2280
+#: plugins/power/gsd-power-manager.c:2282
 msgid "On battery power"
 msgstr "Quan s'utilitzi la bateria"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2285
+#: plugins/power/gsd-power-manager.c:2287
 msgid "On AC power"
 msgstr "Quan s'utilitzi el corrent"
 
-#: plugins/power/gsd-power-manager.c:2555
+#: plugins/power/gsd-power-manager.c:2557
 msgid "Automatic Logout"
 msgstr "Tanca la sessió automàticament"
 
-#: plugins/power/gsd-power-manager.c:2555
+#: plugins/power/gsd-power-manager.c:2557
 msgid "You will soon log out because of inactivity"
 msgstr "Es tancarà la sessió d'aquí poc per la inactivitat"
 
-#: plugins/power/gsd-power-manager.c:2560
+#: plugins/power/gsd-power-manager.c:2562
 msgid "Automatic Suspend"
 msgstr "Suspensió automàtica"
 
-#: plugins/power/gsd-power-manager.c:2560
-#: plugins/power/gsd-power-manager.c:2565
+#: plugins/power/gsd-power-manager.c:2562
+#: plugins/power/gsd-power-manager.c:2567
 msgid "Suspending soon because of inactivity"
 msgstr "Se suspendrà d'aquí poc per la inactivitat"
 
-#: plugins/power/gsd-power-manager.c:2565
+#: plugins/power/gsd-power-manager.c:2567
 msgid "Automatic Hibernation"
 msgstr "Hibernació automàtica"
 
