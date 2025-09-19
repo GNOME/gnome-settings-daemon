@@ -4,15 +4,15 @@
 # Aisano < >, 2011.
 # Michael MORONI < >, 2011.
 # Carmen Bianca BAKKER <carmen@carmenbianca.eu>, 2018-2021.
-# Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2011-2023.
+# Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2011-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-settings-daemon\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
-"issues\n"
-"POT-Creation-Date: 2023-07-21 10:16+0000\n"
-"PO-Revision-Date: 2023-09-24 03:08+0200\n"
+"issues/\n"
+"POT-Creation-Date: 2025-09-17 04:59+0000\n"
+"PO-Revision-Date: 2025-09-19 22:57+0200\n"
 "Last-Translator: Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>\n"
 "Language-Team: Esperanto <gnome-eo-list@gnome.org>\n"
 "Language: eo\n"
@@ -20,15 +20,31 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 42.0\n"
+"X-Generator: Gtranslator 48.0\n"
 "X-DamnedLies-Scope: partial\n"
 "X-Project-Style: gnome\n"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
+#: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:6
+msgid "Applications"
+msgstr "Aplikaĵoj"
+
+#: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:7
+msgid "Applications that have defined global shortcuts"
+msgstr "Aplikaĵoj kiuj difinis ĉieajn klavkombinojn"
+
+#: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:13
+msgid "Shortcuts"
+msgstr "Klavkombinoj"
+
+#: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:14
+msgid "Keyboard shortcut definitions"
+msgstr "Difinoj de klavkombinoj"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:10
 msgid "Smartcard removal action"
 msgstr "Ago de forigo de inteligenta memorkarto"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:12
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid ""
 "Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
 "get performed when the smartcard used for log in is removed."
@@ -37,54 +53,40 @@ msgstr ""
 "logout” (deviga adiaŭo). La ago plenumiĝos kiam vi detiras la inteligentan "
 "memorkarton, kiu estis uzata por saluti."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:24
-msgid "Possible values are “on”, “off”, and “custom”."
-msgstr ""
-"Eblaj valoroj estas “on” (ŝaltite), “off” (malŝaltite), kaj "
-"“custom” (propra)."
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:34
-msgid "Keyboard Bell Custom Filename"
-msgstr "Propra dosiernomo de klavara sonorilo"
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:35
-msgid "File name of the bell sound to be played."
-msgstr "Dosiernomo de la ludonta sonorila sono."
-
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:41
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:17
 msgid "Whether the tablet’s orientation is locked, or rotated automatically."
 msgstr ""
 "Ĉu la orientiĝo de la tabulkomputilo estas fiksita, aŭ aŭtomate turnita."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:49
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:25
 msgid "Mouse button orientation"
 msgstr "Musbutonorientiĝo"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:50
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:26
 msgid "Swap left and right mouse buttons for left-handed mice."
 msgstr ""
 "Permuti dekstrajn kaj maldekstrajn musbutonojn por maldekstramanaj musoj."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:54
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:131
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:30
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:107
 msgid "Single Click"
 msgstr "Unuobla klako"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:55
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:132
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:31
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:108
 msgid ""
 "Acceleration multiplier for mouse motion. A value of -1 is the system "
 "default."
 msgstr ""
 "Plirapidiga obligilo por musmovo. Valoro de -1 estas la implicita agordo."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:59
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:136
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:35
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:112
 msgid "Motion Threshold"
 msgstr "Movosojlo"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:60
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:137
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:36
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:113
 msgid ""
 "Distance in pixels the pointer must move before accelerated mouse motion is "
 "activated. A value of -1 is the system default."
@@ -92,11 +94,11 @@ msgstr ""
 "Distanco per bilderoj, kiu la musmontrilo devas deloki, antaŭ plirapidigita "
 "musmovo estas ŝaltita. Valoro de -1 estas la implicita agordo."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:64
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:40
 msgid "Middle button emulation"
 msgstr "Imitado de meza musbutono"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:65
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:41
 msgid ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
@@ -104,43 +106,43 @@ msgstr ""
 "Ŝalti imiton de la meza musbutono per samtempa premo de la maldekstra kaj la "
 "dekstra musbutonoj."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:69
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:45
 msgid "Double click time"
 msgstr "Tempo de duobla klako"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:70
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:46
 msgid "Length of a double click in milliseconds."
 msgstr "La longo de duobla klako per milisekundoj."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:74
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:50
 msgid "Drag threshold"
 msgstr "Ŝovsojlo"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:75
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:51
 msgid "Distance before a drag is started."
 msgstr "Distanco antaŭ ŝovo komencas."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:84
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:60
 msgid "Key Repeat Interval"
 msgstr "Intertempo de klavripeto"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:85
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:61
 msgid "Delay between repeats in milliseconds."
 msgstr "Prokrasto inter ripetoj per milisekundoj."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:89
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:65
 msgid "Initial Key Repeat Delay"
 msgstr "Komenca klavripeta prokrasto"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:90
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:66
 msgid "Initial key repeat delay in milliseconds."
 msgstr "Komenca klavripeta prokrasto per milisekundoj."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:94
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:70
 msgid "Remember NumLock state"
 msgstr "Memori NumLock stato"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:95
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:71
 msgid ""
 "When set to true, GNOME will remember the state of the NumLock LED between "
 "sessions."
@@ -148,11 +150,11 @@ msgstr ""
 "Kiam agordite je vera, GNOME memoros la staton de la NumLock-LED inter "
 "seancoj."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:101
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:77
 msgid "Disable touchpad while typing"
 msgstr "Ŝalti la tuŝplaton dum tajpado"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:102
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:78
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
@@ -160,11 +162,11 @@ msgstr ""
 "Agordu tiun je VERA se vi havas problemojn kun hazardaj tuŝoj de la tuŝplato "
 "dum skribado."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:106
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:82
 msgid "Enable horizontal scrolling"
 msgstr "Ŝalti horizontalan rulumadon"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:107
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:83
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
@@ -172,41 +174,41 @@ msgstr ""
 "Agordu tiun je VERA por permesi horizontalan rulumadon per la sama metodo de "
 "la scroll_method ŝlosilo."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:111
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:87
 msgid "Select the touchpad scroll method"
 msgstr "Elekti rulum-metodon de la tuŝplato"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:112
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:88
 msgid ""
 "Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
 "scrolling”, “two-finger-scrolling”."
 msgstr ""
-"Elektu rulum-metodon de la tuŝplato. Eblaj valoroj estas: "
-"“disabled” (malŝaltita), “edge-scrolling” (eĝa rulumado), “two-finger-"
-"scrolling” (dufingra rulumado)."
+"Elektu rulum-metodon de la tuŝplato. Eblaj valoroj estas: “disabled” "
+"(malŝaltita), “edge-scrolling” (eĝa rulumado), “two-finger-scrolling” "
+"(dufingra rulumado)."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:116
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:92
 msgid "Enable mouse clicks with touchpad"
 msgstr "Ŝalti musklakojn per la tuŝplato"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:117
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:93
 msgid ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr "Agordu tiun je VERA por kapabli musklaki per la tuŝplato."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:121
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:97
 msgid "Enable touchpad"
 msgstr "Ŝalti la tuŝplaton"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:122
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:98
 msgid "Set this to TRUE to enable all touchpads."
 msgstr "Agordu tiun je VERA por ŝalti ĉiujn tuŝplatojn."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:126
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:102
 msgid "Touchpad button orientation"
 msgstr "Orientiĝo de tuŝplatbutono"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:127
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:103
 msgid ""
 "Swap left and right mouse buttons for left-handed mice with “left”, “right” "
 "for right-handed, “mouse” to follow the mouse setting."
@@ -215,16 +217,16 @@ msgstr ""
 "por maldekstramanaj musoj, “right” (dekstra) por dekstramanaj musoj, aŭ "
 "“mouse” (muso) por observi la agordon de la muso."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:141
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:117
 msgid "Natural scrolling"
 msgstr "Natura rulumadon"
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:142
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:118
 msgid "Set this to TRUE to enable natural (reverse) scrolling for touchpads."
 msgstr ""
 "Agordu tiun je VERA por ŝalti naturan (inversan) rulumadon por tuŝplatoj."
 
-#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:149
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:125
 msgid "Mouse wheel emulation button. 0 to disable the feature."
 msgstr "Butono de imitado de rulumilo. 0 por malŝalti la funkcion."
 
@@ -535,9 +537,25 @@ msgstr ""
 "Specifu tempon en minutoj. Sekvaj avertoj por portilo ne montriĝos antaŭ ol "
 "tiu periodo finas."
 
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:33
+msgid "Whether donation reminders are enabled"
+msgstr "Ĉu donacrememorigiloj estas ebligitaj"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:34
+msgid "Enables or disables the low-frequency donation reminder notification."
+msgstr "Ebligas aŭ malebligas la maloftan donac-rememorigon."
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:38
+msgid "Last time the donation reminder was shown"
+msgstr "Lasta fojo kiam montriĝis la donac-rememorigilo"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:39
+msgid "Timestamp for the last time a donation reminder was shown."
+msgstr "Tempindiko por la lasta fojo kiam montriĝis donac-rememorigilo."
+
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:6
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:154
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:446
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:440
 msgid "Launch calculator"
 msgstr "Lanĉi kalkulilon"
 
@@ -548,18 +566,18 @@ msgstr "Klavkombino por malfermi kalkulilon."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:11
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:159
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:451
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:445
 msgid "Launch settings"
 msgstr "Lanĉi agordojn"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:12
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:160
 msgid "Binding to launch GNOME Settings."
-msgstr "Klavkombino por lanĉi GNOME Agordojn."
+msgstr "Klavkombino por lanĉi GNOMO Agordojn."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:16
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:164
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:456
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:450
 msgid "Launch email client"
 msgstr "Lanĉi retpoŝtilon"
 
@@ -570,7 +588,7 @@ msgstr "Klavkombino por lanĉi retpoŝtilon."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:21
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:169
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:461
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:455
 msgid "Eject"
 msgstr "Elĵeti"
 
@@ -591,7 +609,7 @@ msgstr "Klavkombino por lanĉi la help-foliumilon."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:31
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:179
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:466
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:460
 msgid "Home folder"
 msgstr "Hejma dosierujo"
 
@@ -602,7 +620,7 @@ msgstr "Klavkombino por malfermi la Hejman dosierujon."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:36
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:184
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:471
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:465
 msgid "Launch media player"
 msgstr "Lanĉi medioludilon"
 
@@ -613,7 +631,7 @@ msgstr "Klavkombino por lanĉi la medioludilon."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:41
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:189
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:476
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:470
 msgid "Next track"
 msgstr "Sekva trako"
 
@@ -624,7 +642,7 @@ msgstr "Klavkombino por salti al la sekva titolo."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:46
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:194
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:481
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:475
 msgid "Pause playback"
 msgstr "Paŭzigi ludadon"
 
@@ -635,7 +653,7 @@ msgstr "Klavkombino por paŭzigi ludadon."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:51
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:199
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:486
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:480
 msgid "Play (or play/pause)"
 msgstr "Ludi (aŭ ludi/paŭzi)"
 
@@ -655,182 +673,182 @@ msgid "Binding to log out."
 msgstr "Klavkombino por adiaŭi."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:61
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:209
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:491
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:219
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:485
 msgid "Previous track"
 msgstr "Antaŭa trako"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:62
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:210
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:220
 msgid "Binding to skip to previous track."
 msgstr "Klavkombino por salti al la antaŭa titolo."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:66
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:214
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:496
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:224
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:490
 msgid "Lock screen"
 msgstr "Ŝlosi la ekranon"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:67
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:215
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:225
 msgid "Binding to lock the screen."
 msgstr "Klavkombino por ŝlosi la ekranon."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:71
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:219
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:501
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:229
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:495
 msgid "Search"
 msgstr "Serĉi"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:72
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:220
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:230
 msgid "Binding to launch the search tool."
 msgstr "Klavkombino por lanĉi la serĉilon."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:76
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:224
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:506
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:234
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:500
 msgid "Stop playback"
 msgstr "Haltigi ludadon"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:77
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:225
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:235
 msgid "Binding to stop playback."
 msgstr "Klavkombino por haltigi ludadon."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:81
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:231
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:513
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:241
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:507
 msgid "Volume down"
 msgstr "Malplilaŭtigi"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:82
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:232
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:242
 msgid "Binding to lower the volume."
 msgstr "Klavkombino por malplilaŭtigi."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:86
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:236
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:518
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:246
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:512
 msgid "Volume mute/unmute"
 msgstr "Silentigi/malsilentigi"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:87
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:237
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:247
 msgid "Binding to mute/unmute the volume."
 msgstr "Klavkombino por silentigi/malsilentigi."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:91
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:241
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:523
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:251
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:517
 msgid "Volume up"
 msgstr "Plilaŭtigi"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:92
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:242
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:252
 msgid "Binding to raise the volume."
 msgstr "Klavkombino por altigi la laŭtecon."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:96
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:282
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:558
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:292
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:552
 msgid "Microphone mute/unmute"
 msgstr "Silentigi/malsilentigi mikrofonon"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:97
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:283
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:293
 msgid "Binding to mute/unmute the microphone."
 msgstr "Klavkombino por silentigi/malsilentigi la mikrofonon."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:101
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:287
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:563
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:297
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:557
 msgid "Launch web browser"
 msgstr "Lanĉi retumilon"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:102
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:288
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:298
 msgid "Binding to launch the web browser."
 msgstr "Klavkombino por lanĉi la retumilon."
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:106
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:317
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:327
 msgid "Toggle magnifier"
 msgstr "Baskuligi ekranlupeon"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:107
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:318
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:328
 msgid "Binding to show the screen magnifier"
 msgstr "Klavkombino por montri la ekran-lupeon"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:111
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:292
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:302
 msgid "Toggle screen reader"
 msgstr "Baskuligi ekranlegilon"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:112
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:293
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:303
 msgid "Binding to start the screen reader"
 msgstr "Klavkombino por montri la ekran-legilon"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:116
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:297
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:307
 msgid "Toggle on-screen keyboard"
 msgstr "Baskuligi ekranklavaron"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:117
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:298
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:308
 msgid "Binding to show the on-screen keyboard"
 msgstr "Klavkombino por montri la ekran-klavaron"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:121
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:302
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:312
 msgid "Increase text size"
 msgstr "Pligrandigi la tekstgrandon"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:122
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:303
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:313
 msgid "Binding to increase the text size"
 msgstr "Klavkombino por pligrandigi la tekstgrandon"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:126
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:307
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:317
 msgid "Decrease text size"
 msgstr "Malpligrandigi la tekstgrandon"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:127
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:308
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:318
 msgid "Binding to decrease the text size"
 msgstr "Klavkombino por malpligrandigi la tekstgrandon"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:131
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:312
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:322
 msgid "Toggle contrast"
 msgstr "Baskuligi kontraston"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:132
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:313
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:323
 msgid "Binding to toggle the interface contrast"
 msgstr "Klavkombino por baskuligi fasadan kontraston"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:136
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:322
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:332
 msgid "Magnifier zoom in"
 msgstr "Pligrandigilo zomi"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:137
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:323
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:333
 msgid "Binding for the magnifier to zoom in"
 msgstr "Klavkombino por la pligrandigilo por zomi"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:141
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:327
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:569
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:337
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:563
 msgid "Magnifier zoom out"
 msgstr "Pligrandigilo malzomi"
 
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:142
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:328
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:338
 msgid "Binding for the magnifier to zoom out"
 msgstr "Klavkombino por la pligrandigilo por malzomi"
 
@@ -842,430 +860,417 @@ msgstr "Propraj klavkombinoj"
 msgid "List of custom keybindings"
 msgstr "Listo de propraj klavkombinoj"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:247
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:209
+msgid "Reboot"
+msgstr "Restartigi"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:210
+#| msgid "Binding to log out."
+msgid "Binding to reboot."
+msgstr "Klavkombino por restartigi."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:214
+msgid "Shut down"
+msgstr "Elŝalti"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:215
+msgid "Binding to shut down."
+msgstr "Klavkombino por elŝalti."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:257
 msgid "Size of volume step"
 msgstr "Amplekso de laŭteca paŝo"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:248
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:258
 msgid "Size of the volume step for each volume change"
 msgstr "La paŝogrando por ŝanĝi la laŭtecon"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:254
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:530
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:264
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:524
 msgid "Quiet volume down"
 msgstr "Malplilaŭtigi kaŝe"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:255
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:265
 msgid "Binding to lower the volume without emitting a sound effect."
 msgstr "Klavkombino por malplilaŭtigi sen sonefekto."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:259
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:535
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:269
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:529
 msgid "Quiet volume mute/unmute"
 msgstr "Silentigi/malsilentigi kaŝe"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:260
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:270
 msgid "Binding to mute/unmute the volume without emitting a sound effect."
 msgstr "Klavkombino por silentigi/malsilentigi sen sonefekto."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:264
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:540
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:274
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:534
 msgid "Quiet volume up"
 msgstr "Plilaŭtigi kaŝe"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:265
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:275
 msgid "Binding to raise the volume without emitting a sound effect."
 msgstr "Klavkombino por plilaŭtigi sen sonefekto."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:271
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:547
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:281
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:541
 msgid "Precise volume down"
 msgstr "Malplilaŭtigi precize"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:272
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:282
 msgid "Binding to lower the volume with higher precision."
 msgstr "Klavkombino por malplilaŭtigi pli precize."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:276
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:552
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:286
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:546
 msgid "Precise volume up"
 msgstr "Plilaŭtigi precize"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:277
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:287
 msgid "Binding to raise the volume with higher precision."
 msgstr "Klavkombino por plilaŭtigi pli precize."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:332
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:342
 msgid "Toggle touchpad on/off"
 msgstr "Baskuligi tuŝplaton"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:333
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:343
 msgid "Binding to toggle the touchpad on/off."
 msgstr "Klavkombino por baskuligi tuŝplaton."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:337
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:574
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:347
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:568
 msgid "Switch touchpad on"
 msgstr "Ŝalti tuŝplaton"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:338
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:348
 msgid "Binding to switch the touchpad on."
 msgstr "Klavkombino por ŝalti tuŝplaton."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:342
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:579
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:352
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:573
 msgid "Switch touchpad off"
 msgstr "Malŝalti tuŝplaton"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:343
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:353
 msgid "Binding to switch the touchpad off."
 msgstr "Klavkombino por malŝalti tuŝplaton."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:348
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:585
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:358
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:579
 msgid "Skip backward in current track"
 msgstr "Salti malantaŭen en aktuala trako"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:349
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:359
 msgid "Binding to skip backward in current track."
 msgstr "Klavkombino por salta malantaŭen en aktuala trako."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:353
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:590
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:363
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:584
 msgid "Skip forward in current track"
 msgstr "Salti antaŭen en aktuala trako"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:354
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:364
 msgid "Binding to skip forward in current track."
 msgstr "Klavkombino por salti antaŭen en aktuala trako."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:358
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:595
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:368
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:589
 msgid "Toggle repeat playback mode"
 msgstr "Baskuligi ripetan ludreĝimon"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:359
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:369
 msgid "Binding to toggle repeat mode in media player."
 msgstr "Klavkombino por baskuligi ripetan reĝimon en aŭdovidludilo."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:363
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:600
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:373
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:594
 msgid "Toggle random playback mode"
 msgstr "Baskuligi hazardan ludreĝimon"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:364
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:374
 msgid "Binding to toggle random playback mode in media player."
 msgstr "Klavkombino por baskuligi hazardan reĝimon en aŭdovidludilo."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:369
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:606
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:379
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:600
 msgid "Toggle automatic screen orientation"
 msgstr "Baskuligi aŭtomatan ekranorientiĝon"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:370
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:380
 msgid "Binding to toggle automatic screen orientation."
 msgstr "Klavkombino por baskuligi aŭtomatan ekranorientiĝon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:374
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:611
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:384
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:605
 msgid "Power button"
 msgstr "Ŝaltbutono"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:375
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:385
 msgid "Binding for power button."
 msgstr "Klavkombino por ŝaltbutono."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:379
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:616
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:389
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:610
 msgid "Hibernate button"
 msgstr "Pasivuma butono"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:380
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:390
 msgid "Binding to hibernate the machine."
 msgstr "Klavkombino por pasivumigi la maŝinon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:384
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:621
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:394
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:615
 msgid "Suspend button"
 msgstr "Halteta butono"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:385
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:395
 msgid "Binding to suspend the machine."
 msgstr "Klavkombino por halteti la maŝinon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:390
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:627
-msgid "Screen brightness up"
-msgstr "Pliheligi ekranon"
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:391
-msgid "Binding to increase the screen brightness."
-msgstr "Klavkombino por pliheligi la ekranon."
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:395
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:632
-msgid "Screen brightness down"
-msgstr "Malpliheligi ekranon"
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:396
-msgid "Binding to decrease the screen brightness."
-msgstr "Klavkombino por malpliheligi la ekranon."
-
 #: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:400
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:637
-msgid "Screen brightness cycle"
-msgstr "Cikligi ekranhelecon"
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:401
-msgid "Binding to cycle the screen brightness."
-msgstr "Klavkombino por cikligi la ekranhelecon."
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:406
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:643
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:621
 msgid "Keyboard brightness up"
 msgstr "Pliheligi klavaron"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:407
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:401
 msgid "Binding to increase the keyboard brightness."
 msgstr "Klavkombino por pliheligi la klavaron."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:411
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:648
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:405
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:626
 msgid "Keyboard brightness down"
 msgstr "Malpliheligi klavaron"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:412
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:406
 msgid "Binding to decrease the keyboard brightness."
 msgstr "Klavkombino por malpliheligi la klavaron."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:416
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:653
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:410
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:631
 msgid "Keyboard brightness toggle"
 msgstr "Baskuligi klavaran helecon"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:417
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:411
 msgid "Binding to toggle the keyboard brightness."
 msgstr "Klavkombino por baskuligi la helecon de la klavaro."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:422
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:659
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:416
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:637
 msgid "Show battery status"
 msgstr "Montri baterian staton"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:423
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:417
 msgid "Binding to show current battery status."
 msgstr "Klavkombino por montri la baterian staton."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:428
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:665
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:422
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:643
 msgid "RF kill"
 msgstr "RF kill"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:429
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:423
 msgid "Binding to toggle airplane mode."
 msgstr "Klavkombino por baskuligi aviadilan reĝimon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:433
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:670
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:427
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:648
 msgid "Bluetooth RF kill"
 msgstr "Bludenta RF kill"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:434
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:428
 msgid "Binding to toggle bluetooth airplane mode."
 msgstr "Klavkombino por baskuligi bludentan aviadilan reĝimon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:447
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:441
 msgid "Static binding to launch the calculator."
 msgstr "Statika klavkombino por malfermi kalkulilon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:452
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:446
 msgid "Static binding to launch GNOME Settings."
-msgstr "Statika klavkombino por lanĉi GNOME Agordojn."
+msgstr "Statika klavkombino por lanĉi GNOMO Agordojn."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:457
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:451
 msgid "Static binding to launch the email client."
 msgstr "Statika klavkombino por lanĉi retpoŝtilon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:462
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:456
 msgid "Static binding to eject an optical disc."
 msgstr "Statika klavkombino por elĵeti lumdiskon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:467
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:461
 msgid "Static binding to open the Home folder."
 msgstr "Statika klavkombino por malfermi la Hejman dosierujon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:472
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:466
 msgid "Static binding to launch the media player."
 msgstr "Statika klavkombino por lanĉi la aŭdovidludilon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:477
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:471
 msgid "Static binding to skip to next track."
 msgstr "Statika klavkombino por salti al la sekva trako."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:482
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:476
 msgid "Static binding to pause playback."
 msgstr "Statika klavkombino por paŭzigi ludadon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:487
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:481
 msgid "Static binding to start playback (or toggle play/pause)."
 msgstr "Statika klavkombino por komenci ludadon (aŭ baskuligi ludadon)."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:492
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:486
 msgid "Static binding to skip to previous track."
 msgstr "Statika klavkombino por salti al la antaŭa trako."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:497
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:491
 msgid "Static binding to lock the screen."
 msgstr "Statika klavkombino por ŝlosi la ekranon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:502
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:496
 msgid "Static binding to launch the search tool."
 msgstr "Statika klavkombino por lanĉi la serĉilon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:507
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:501
 msgid "Static binding to stop playback."
 msgstr "Statika klavkombino por haltigi ludadon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:514
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:508
 msgid "Static binding to lower the volume."
 msgstr "Statika klavkombino por malplilaŭtigi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:519
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:536
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:513
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:530
 msgid "Static binding to mute/unmute the volume."
 msgstr "Statika klavkombino por silentigi/malsilentigi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:524
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:518
 msgid "Static binding to raise the volume."
 msgstr "Statika klavkombino por plilaŭtigi."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:531
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:525
 msgid "Static binding to lower the volume without emitting a sound effect."
 msgstr "Statika klavkombino por malplilaŭtigi sen sonefekto."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:541
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:535
 msgid "Static binding to raise the volume without emitting a sound effect."
 msgstr "Statika klavkombino por plilaŭtigi sen sonefekto."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:548
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:542
 msgid "Static binding to lower the volume with higher precision."
 msgstr "Statika klavkombino por malplilaŭtigi pli precize."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:553
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:547
 msgid "Static binding to raise the volume with higher precision."
 msgstr "Statika klavkombino por plilaŭtigi pli precize."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:559
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:553
 msgid "Static binding to mute/unmute the microphone."
 msgstr "Statika klavkombino por silentigi/malsilentigi la mikrofonon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:564
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:558
 msgid "Static binding to launch the web browser."
 msgstr "Statika klavkombino por lanĉi la retumilon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:570
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:564
 msgid "Static binding to toggle the touchpad on/off."
 msgstr "Statika klavkombino por baskuligi la tuŝplaton."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:575
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:569
 msgid "Static binding to switch the touchpad on."
 msgstr "Statika klavkombino por ŝalti la tuŝplaton."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:580
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:574
 msgid "Static binding to switch the touchpad off."
 msgstr "Statika klavkombino por malŝalti la tuŝplaton."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:586
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:580
 msgid "Static binding to skip backward in current track."
 msgstr "Statika klavkombino por salti malantaŭen en aktuala trako."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:591
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:585
 msgid "Static binding to skip forward in current track."
 msgstr "Statika klavkombino por salti antaŭen en aktuala trako."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:596
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:590
 msgid "Static binding to toggle repeat mode in media player."
 msgstr "Statika klavkombino por baskuligi ripetan reĝimon en aŭdovidludilo."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:601
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:595
 msgid "Static binding to toggle random playback mode in media player."
 msgstr "Statika klavkombino por baskuligi hazardan reĝimon en aŭdovidludilo."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:607
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:601
 msgid "Static binding to toggle automatic screen orientation."
 msgstr "Statika klavkombino por baskuligi aŭtomatan ekranorientiĝon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:612
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:606
 msgid "Static binding for power button."
 msgstr "Statika klavkombino por ŝaltbutono."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:617
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:611
 msgid "Static binding to hibernate the machine."
 msgstr "Statika klavkombino por pasivumigi la maŝinon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:622
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:616
 msgid "Static binding to suspend the machine."
 msgstr "Statika klavkombino por pasivumigi la maŝinon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:628
-msgid "Static binding to increase the screen brightness."
-msgstr "Statika klavkombino por pliheligi la ekranon."
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:633
-msgid "Static binding to decrease the screen brightness."
-msgstr "Statika klavkombino por malpliheligi la ekranon."
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:638
-msgid "Static binding to cycle the screen brightness."
-msgstr "Statika klavkombino por cikligi la ekranhelecon."
-
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:644
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:622
 msgid "Static binding to increase the keyboard brightness."
 msgstr "Statika klavkombino por pliheligi la klavaron."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:649
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:627
 msgid "Static binding to decrease the keyboard brightness."
 msgstr "Statika klavkombino por malpliheligi la klavaron."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:654
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:632
 msgid "Static binding to toggle the keyboard brightness."
 msgstr "Statika klavkombino por baskuligi la helecon de la klavaro."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:660
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:638
 msgid "Static binding to show current battery status."
 msgstr "Statika klavkombino por montri la baterian staton."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:666
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:644
 msgid "Static binding to toggle airplane mode."
 msgstr "Statika klavkombino por baskuligi aviadilan reĝimon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:671
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:649
 msgid "Static binding to toggle bluetooth airplane mode."
 msgstr "Statika klavkombino por baskuligi bludentan aviadilan reĝimon."
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:678
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:656
 msgid "Name"
 msgstr "Nomo"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:679
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:657
 msgid "Name of the custom binding"
 msgstr "Nomo de la propra klavkombino"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:683
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:661
 msgid "Binding"
 msgstr "Klavkombino"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:684
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:662
 msgid "Binding for the custom binding"
 msgstr "Klavkombino por la propra klavkombino"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:688
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:666
 msgid "Command"
 msgstr "Komando"
 
-#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:689
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:667
 msgid "Command to run when the binding is invoked"
 msgstr "Rulenda komando kiam la klavkombino estas uzata"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:671
+#| msgid "Lock screen"
+msgid "Enable in Lockscreen"
+msgstr "Ebligi en la ŝlosekrano"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:672
+msgid "Whether the command can be invoked while the lockscreen is shown"
+msgstr "Ĉu la komando povas esti lanĉita dum la ŝlosekrano estas montrata"
 
 #: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:6
 msgid "The brightness of the screen when idle"
@@ -1419,9 +1424,9 @@ msgid ""
 "“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
 "and “rgba” for subpixel antialiasing (LCD screens only)."
 msgstr ""
-"La speco de glatigo por bildigi tiparojn. Eblaj valoroj estas: "
-"“none” (neniu) por neniu glatigo, “grayscale” (grizoskalo) por norma "
-"grizoskala glatigo, kaj “rgba” por subbildera glatigo (nur LCD ekranoj)."
+"La speco de glatigo por bildigi tiparojn. Eblaj valoroj estas: “none” "
+"(neniu) por neniu glatigo, “grayscale” (grizoskalo) por norma grizoskala "
+"glatigo, kaj “rgba” por subbildera glatigo (nur LCD ekranoj)."
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:28
 msgid "Hinting"
@@ -1440,16 +1445,16 @@ msgid ""
 "rendering depending on the quality of the font, the font format and the "
 "state of FreeType’s font engines."
 msgstr ""
-"La speco de polurado por bildigi tiparojn. Eblaj valoroj estas: "
-"“none” (neniu) por neniu polurado kaj “slight” (iomete) por fiksi nur al Y-"
-"akso kiel Microsoft ClearType, DirectWrite, kaj mallibera bildiga modulo de "
+"La speco de polurado por bildigi tiparojn. Eblaj valoroj estas: “none” "
+"(neniu) por neniu polurado kaj “slight” (iomete) por fiksi nur al Y-akso "
+"kiel Microsoft ClearType, DirectWrite, kaj mallibera bildiga modulo de "
 "Adobe. Malatentas indiĝenan poluradon ene la tiparo, generas polurojn "
-"algortime. Ubuntu implicite uzas tiun. Rekomendita. La signifo de "
-"“medium” (meze) kaj “full” (tute) dependas de la fontara formo (.ttf, .otf, ."
-"pfa/.pfb) kaj la instalita versio de FreeType. Ili kutime provas fiksi "
-"signobildojn al kaj la X- kaj la Y-akso (krom .otf: nur Y). Tiu eble kaŭzas "
-"misformon kaj/aŭ nekoheran poluradon, depende de la kvalito de la fontaro, "
-"la fontara formo kaj la stato de FreeType."
+"algortime. Ubuntu implicite uzas tiun. Rekomendita. La signifo de “medium” "
+"(meze) kaj “full” (tute) dependas de la fontara formo "
+"(.ttf, .otf, .pfa/.pfb) kaj la instalita versio de FreeType. Ili kutime "
+"provas fiksi signobildojn al kaj la X- kaj la Y-akso (krom .otf: nur Y). Tiu "
+"eble kaŭzas misformon kaj/aŭ nekoheran poluradon, depende de la kvalito de "
+"la fontaro, la fontara formo kaj la stato de FreeType."
 
 #: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:33
 msgid "RGBA order"
@@ -1466,60 +1471,60 @@ msgstr ""
 "(plej kutima), “bgr” por blua maldekstraflanke, “vrgb” por ruĝa supre, "
 "“vbgr” por ruĝa sube."
 
-#: plugins/color/gsd-color-calibrate.c:138
+#: plugins/color/gsd-color-calibrate.c:137
 msgid "Color"
 msgstr "Koloro"
 
 #. TRANSLATORS: button: this is to open GCM
-#: plugins/color/gsd-color-calibrate.c:144
+#: plugins/color/gsd-color-calibrate.c:143
 msgid "Recalibrate now"
 msgstr "Laŭnormigi nun"
 
 #. TRANSLATORS: this is when the device has not been recalibrated in a while
-#: plugins/color/gsd-color-calibrate.c:186
+#: plugins/color/gsd-color-calibrate.c:185
 msgid "Recalibration required"
 msgstr "Laŭnormigo necesas"
 
 #. TRANSLATORS: this is when the display has not been recalibrated in a while
-#: plugins/color/gsd-color-calibrate.c:198
+#: plugins/color/gsd-color-calibrate.c:197
 #, c-format
 msgid "The display “%s” should be recalibrated soon."
 msgstr "Oni devus laŭnormigi la ekranon “%s” baldaŭ."
 
 #. TRANSLATORS: this is when the printer has not been recalibrated in a while
-#: plugins/color/gsd-color-calibrate.c:207
+#: plugins/color/gsd-color-calibrate.c:206
 #, c-format
 msgid "The printer “%s” should be recalibrated soon."
 msgstr "Oni devus laŭnormigi la presilon “%s” baldaŭ."
 
 #. TRANSLATORS: this is the application name
-#: plugins/color/gsd-color-calibrate.c:345
-#: plugins/color/gsd-color-calibrate.c:361
+#: plugins/color/gsd-color-calibrate.c:347
+#: plugins/color/gsd-color-calibrate.c:366
 msgid "GNOME Settings Daemon Color Plugin"
-msgstr "GNOME Agorda Demona Kolora Kromprogramo"
+msgstr "GNOMO Agorda Demona Kolora Kromprogramo"
 
 #. TRANSLATORS: this is a sound description
-#: plugins/color/gsd-color-calibrate.c:347
+#: plugins/color/gsd-color-calibrate.c:349
 msgid "Color calibration device added"
 msgstr "Kolorlaŭnormiga aparato estas aldonita"
 
 #. TRANSLATORS: this is a sound description
-#: plugins/color/gsd-color-calibrate.c:363
+#: plugins/color/gsd-color-calibrate.c:368
 msgid "Color calibration device removed"
 msgstr "Kolorlaŭnormiga aparato estas forigita"
 
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
-#: plugins/datetime/gsd-datetime-manager.c:88
+#: plugins/datetime/gsd-datetime-manager.c:90
 msgid "UTC%:::z"
 msgstr "UTK%:::z"
 
-#: plugins/datetime/gsd-datetime-manager.c:92
+#: plugins/datetime/gsd-datetime-manager.c:94
 #, c-format
 msgid "Time Zone Updated to %s (%s)"
 msgstr "Horzono ĝisdatiĝis al %s (%s)"
 
-#: plugins/datetime/gsd-datetime-manager.c:108
+#: plugins/datetime/gsd-datetime-manager.c:109
 msgid "Settings"
 msgstr "Agordoj"
 
@@ -1527,7 +1532,7 @@ msgstr "Agordoj"
 msgid "Date & Time Settings"
 msgstr "Agordoj de dato kaj horo"
 
-#: plugins/housekeeping/gsd-disk-space.c:628
+#: plugins/housekeeping/gsd-disk-space.c:626
 msgid "Disk Space"
 msgstr "Diskospaco"
 
@@ -1580,6 +1585,26 @@ msgstr ""
 msgid "This computer has only %s disk space remaining."
 msgstr "En la komputilo restas nur %s da diska spaco."
 
+#: plugins/housekeeping/gsd-donation-reminder.c:72
+msgid "Support GNOME"
+msgstr "Subteni GNOMOn"
+
+#: plugins/housekeeping/gsd-donation-reminder.c:73
+msgid ""
+"GNOME needs your help. Your donation will sustain our open source project "
+"for future generations."
+msgstr ""
+"GNOMO bezonas vian helpon. Via donaco subtenos nian malfermitkodan "
+"projekton por estontaj generacioj."
+
+#: plugins/housekeeping/gsd-donation-reminder.c:81
+msgid "GNOME"
+msgstr "GNOMO"
+
+#: plugins/housekeeping/gsd-donation-reminder.c:89
+msgid "Donate"
+msgstr "Donaci"
+
 #. TRANSLATORS: %s is the application name.
 #: plugins/housekeeping/gsd-systemd-notify.c:82
 #, c-format
@@ -1620,46 +1645,45 @@ msgstr "Aplikaĵo haltis"
 
 #. TRANSLATORS: We don't have a good description of what was killed.
 #: plugins/housekeeping/gsd-systemd-notify.c:96
-#, c-format
 msgid ""
-"Device memory is nearly full. An application that was using a lot of memory "
-"and was forced to stop."
+"Device memory is nearly full. An application was using a lot of memory and "
+"was forced to stop."
 msgstr ""
 "La memoro de la aparato estas preskaŭ plena. Aplikaĵo kiu uzis multe da "
 "memoro kaj estis devigita ĉesi."
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2254
-msgid "Bluetooth disabled"
+#: plugins/media-keys/gsd-media-keys-manager.c:2290
+msgid "Bluetooth Disabled"
 msgstr "Bludento malŝaltita"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2257
-msgid "Bluetooth enabled"
+#: plugins/media-keys/gsd-media-keys-manager.c:2293
+msgid "Bluetooth Enabled"
 msgstr "Bludento ŝaltita"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2261
-msgid "Airplane mode enabled"
+#: plugins/media-keys/gsd-media-keys-manager.c:2297
+msgid "Airplane Mode Enabled"
 msgstr "Aviadila reĝimo ŝaltita"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2264
-msgid "Airplane mode disabled"
+#: plugins/media-keys/gsd-media-keys-manager.c:2300
+msgid "Airplane Mode Disabled"
 msgstr "Aviadila reĝimo malŝaltita"
 
-#: plugins/media-keys/gsd-media-keys-manager.c:2303
+#: plugins/media-keys/gsd-media-keys-manager.c:2339
 msgid "Hardware Airplane Mode"
 msgstr "Aparata aviadila reĝimo"
 
-#: plugins/power/gpm-common.c:91
+#: plugins/power/gpm-common.c:84
 msgid "Unknown time"
 msgstr "Nekonata tempo"
 
-#: plugins/power/gpm-common.c:96
+#: plugins/power/gpm-common.c:89
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i minuto"
 msgstr[1] "%i minutoj"
 
-#: plugins/power/gpm-common.c:106
+#: plugins/power/gpm-common.c:99
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -1668,66 +1692,66 @@ msgstr[1] "%i horoj"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: plugins/power/gpm-common.c:112
+#: plugins/power/gpm-common.c:105
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s kaj %i %s"
 
-#: plugins/power/gpm-common.c:113
+#: plugins/power/gpm-common.c:106
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "horo"
 msgstr[1] "horoj"
 
-#: plugins/power/gpm-common.c:114
+#: plugins/power/gpm-common.c:107
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minuto"
 msgstr[1] "minutoj"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gpm-common.c:424 plugins/power/gsd-power-manager.c:922
-#: plugins/power/gsd-power-manager.c:1006
+#: plugins/power/gpm-common.c:324 plugins/power/gsd-power-manager.c:931
+#: plugins/power/gsd-power-manager.c:1019
 msgid "Battery is critically low"
 msgstr "Baterio estas danĝere malplena"
 
 #. TRANSLATORS: this is the notification application name
-#: plugins/power/gsd-power-manager.c:367
+#: plugins/power/gsd-power-manager.c:364
 msgid "Power"
 msgstr "Elektro"
 
 #. TRANSLATORS: UPS is now discharging
-#: plugins/power/gsd-power-manager.c:405
+#: plugins/power/gsd-power-manager.c:402
 msgid "UPS Discharging"
 msgstr "Malŝargante la vicnutrilon"
 
 #. TRANSLATORS: tell the user how much time they have got
-#: plugins/power/gsd-power-manager.c:410
+#: plugins/power/gsd-power-manager.c:407
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr "Restas %s da vicnutrila rezerva elektro"
 
-#: plugins/power/gsd-power-manager.c:413
+#: plugins/power/gsd-power-manager.c:410
 msgid "Unknown amount of UPS backup power remaining"
 msgstr "Restas nekonata sumo da vicnutrila rezerva elektro"
 
 #. TRANSLATORS: notification title, a wireless mouse is low or very low on power
-#: plugins/power/gsd-power-manager.c:513
+#: plugins/power/gsd-power-manager.c:514
 msgid "Mouse battery low"
 msgstr "Baterio de la muso estas preskaŭ malplena"
 
 #. TRANSLATORS: notification body, a wireless mouse is low on power
-#: plugins/power/gsd-power-manager.c:516
+#: plugins/power/gsd-power-manager.c:517
 #, c-format
 msgid "Wireless mouse is low on power (%.0f%%)"
 msgstr "Sendrata muso havas malmulte da energio (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:517
+#: plugins/power/gsd-power-manager.c:518
 msgid "Wireless mouse is low on power"
 msgstr "Sendrata muso havas malmulte da energio"
 
 #. TRANSLATORS: notification body, a wireless mouse is very low on power
-#: plugins/power/gsd-power-manager.c:519
+#: plugins/power/gsd-power-manager.c:520
 #, c-format
 msgid ""
 "Wireless mouse is very low on power (%.0f%%). This device will soon stop "
@@ -1736,7 +1760,7 @@ msgstr ""
 "Sendrata muso havas malmulte da energio (%.0f%%). Ĉi tiu aparato baldaŭ "
 "ĉesos funkcii se ne estas ŝargita."
 
-#: plugins/power/gsd-power-manager.c:521
+#: plugins/power/gsd-power-manager.c:522
 msgid ""
 "Wireless mouse is very low on power. This device will soon stop functioning "
 "if not charged."
@@ -1745,22 +1769,22 @@ msgstr ""
 "se ĝi ne estos ŝargita."
 
 #. TRANSLATORS: notification title, a wireless keyboard is low or very low on power
-#: plugins/power/gsd-power-manager.c:526
+#: plugins/power/gsd-power-manager.c:527
 msgid "Keyboard battery low"
 msgstr "Baterio de la klavaro estas preskaŭ malplena"
 
 #. TRANSLATORS: notification body, a wireless keyboard is low on power
-#: plugins/power/gsd-power-manager.c:529
+#: plugins/power/gsd-power-manager.c:530
 #, c-format
 msgid "Wireless keyboard is low on power (%.0f%%)"
 msgstr "Sendrata klavaro havas malmulte da energio (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:530
+#: plugins/power/gsd-power-manager.c:531
 msgid "Wireless keyboard is low on power"
 msgstr "Sendrata klavaro havas malmulte da energio"
 
 #. TRANSLATORS: notification body, a wireless keyboard is very low on power
-#: plugins/power/gsd-power-manager.c:532
+#: plugins/power/gsd-power-manager.c:533
 #, c-format
 msgid ""
 "Wireless keyboard is very low on power (%.0f%%). This device will soon stop "
@@ -1769,7 +1793,7 @@ msgstr ""
 "Sendrata klavaro havas malmulte da energio (%.0f%%). Ĉi tiu aparato baldaŭ "
 "ĉesos funkcii se ĝi ne estos ŝargita."
 
-#: plugins/power/gsd-power-manager.c:534
+#: plugins/power/gsd-power-manager.c:535
 msgid ""
 "Wireless keyboard is very low on power. This device will soon stop "
 "functioning if not charged."
@@ -1778,22 +1802,22 @@ msgstr ""
 "funkcii se ĝi ne estos ŝargita."
 
 #. TRANSLATORS: notification title, a PDA (Personal Digital Assistance device) is low or very on power
-#: plugins/power/gsd-power-manager.c:539
+#: plugins/power/gsd-power-manager.c:540
 msgid "PDA battery low"
 msgstr "Baterio de la poŝkomputilo estas preskaŭ malplena"
 
 #. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is low on power
-#: plugins/power/gsd-power-manager.c:542
+#: plugins/power/gsd-power-manager.c:543
 #, c-format
 msgid "PDA is low on power (%.0f%%)"
 msgstr "Poŝkomputilo havas malmulte da energio (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:543
+#: plugins/power/gsd-power-manager.c:544
 msgid "PDA is low on power"
 msgstr "Poŝkomputilo havas malmulte da energio"
 
 #. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is very low on power
-#: plugins/power/gsd-power-manager.c:545
+#: plugins/power/gsd-power-manager.c:546
 #, c-format
 msgid ""
 "PDA is very low on power (%.0f%%). This device will soon stop functioning if "
@@ -1802,7 +1826,7 @@ msgstr ""
 "Poŝkomputilo havas malmulte da energio (%.0f%%). Ĉi tiu aparato baldaŭ ĉesos "
 "funkcii se ĝi ne estos ŝargita."
 
-#: plugins/power/gsd-power-manager.c:547
+#: plugins/power/gsd-power-manager.c:548
 msgid ""
 "PDA is very low on power. This device will soon stop functioning if not "
 "charged."
@@ -1811,22 +1835,22 @@ msgstr ""
 "se ĝi ne estos ŝargita."
 
 #. TRANSLATORS: notification title, a cell phone (mobile phone) is low or very low on power
-#: plugins/power/gsd-power-manager.c:552
+#: plugins/power/gsd-power-manager.c:553
 msgid "Cell phone battery low"
 msgstr "Baterio de la poŝtelefono estas preskaŭ malplena"
 
 #. TRANSLATORS: notification body, a cell phone (mobile phone) is low on power
-#: plugins/power/gsd-power-manager.c:555
+#: plugins/power/gsd-power-manager.c:556
 #, c-format
 msgid "Cell phone is low on power (%.0f%%)"
 msgstr "Poŝtelefono havas malmulte da energio (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:556
+#: plugins/power/gsd-power-manager.c:557
 msgid "Cell phone is low on power"
 msgstr "Poŝtelefono havas malmulte da energio"
 
 #. TRANSLATORS: notification body, a cell phone (mobile phone) is very low on power
-#: plugins/power/gsd-power-manager.c:558
+#: plugins/power/gsd-power-manager.c:559
 #, c-format
 msgid ""
 "Cell phone is very low on power (%.0f%%). This device will soon stop "
@@ -1835,7 +1859,7 @@ msgstr ""
 "Poŝtelefono havas malmulte da energio (%.0f%%). Ĉi tiu aparato baldaŭ ĉesos "
 "funkcii se ĝi ne estos ŝargita."
 
-#: plugins/power/gsd-power-manager.c:560
+#: plugins/power/gsd-power-manager.c:561
 msgid ""
 "Cell phone is very low on power. This device will soon stop functioning if "
 "not charged."
@@ -1844,22 +1868,22 @@ msgstr ""
 "se ĝi ne estos ŝargita."
 
 #. TRANSLATORS: notification title, a media player (e.g. mp3 player) is low or very low on power
-#: plugins/power/gsd-power-manager.c:565
+#: plugins/power/gsd-power-manager.c:566
 msgid "Media player battery low"
 msgstr "Baterio de la medioludilo estas preskaŭ malplena"
 
 #. TRANSLATORS: notification body, a media player (e.g. mp3 player) is low on power
-#: plugins/power/gsd-power-manager.c:568
+#: plugins/power/gsd-power-manager.c:569
 #, c-format
 msgid "Media player is low on power (%.0f%%)"
 msgstr "Medioludilo havas malmulte da energio (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:569
+#: plugins/power/gsd-power-manager.c:570
 msgid "Media player is low on power"
 msgstr "Medioludilo havas malmulte da energio"
 
 #. TRANSLATORS: notification body, a media player (e.g. mp3 player) is very low on power
-#: plugins/power/gsd-power-manager.c:571
+#: plugins/power/gsd-power-manager.c:572
 #, c-format
 msgid ""
 "Media player is very low on power (%.0f%%). This device will soon stop "
@@ -1868,7 +1892,7 @@ msgstr ""
 "Medioludilo havas malmulte da energio (%.0f%%). Ĉi tiu aparato baldaŭ ĉesos "
 "funkcii se ĝi ne estos ŝargita."
 
-#: plugins/power/gsd-power-manager.c:573
+#: plugins/power/gsd-power-manager.c:574
 msgid ""
 "Media player is very low on power. This device will soon stop functioning if "
 "not charged."
@@ -1877,22 +1901,22 @@ msgstr ""
 "se ĝi ne estos ŝargita."
 
 #. TRANSLATORS: notification title, a graphics tablet (e.g. wacom) is low or very low on power
-#: plugins/power/gsd-power-manager.c:578
+#: plugins/power/gsd-power-manager.c:579
 msgid "Tablet battery low"
 msgstr "Baterio de la tabulkomputilo estas preskaŭ malplena"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is low on power
-#: plugins/power/gsd-power-manager.c:581
+#: plugins/power/gsd-power-manager.c:582
 #, c-format
 msgid "Tablet is low on power (%.0f%%)"
 msgstr "Tabulkomputilo havas malmulte da energio (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:582
+#: plugins/power/gsd-power-manager.c:583
 msgid "Tablet is low on power"
 msgstr "Tabulkomputilo havas malmulte da energio"
 
 #. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is very low on power
-#: plugins/power/gsd-power-manager.c:584
+#: plugins/power/gsd-power-manager.c:585
 #, c-format
 msgid ""
 "Tablet is very low on power (%.0f%%). This device will soon stop functioning "
@@ -1901,7 +1925,7 @@ msgstr ""
 "Tabulkomputilo havas malmulte da energio (%.0f%%). Ĉi tiu aparato baldaŭ "
 "ĉesos funkcii se ĝi ne estos ŝargita."
 
-#: plugins/power/gsd-power-manager.c:586
+#: plugins/power/gsd-power-manager.c:587
 msgid ""
 "Tablet is very low on power. This device will soon stop functioning if not "
 "charged."
@@ -1910,22 +1934,22 @@ msgstr ""
 "funkcii se ĝi ne estos ŝargita."
 
 #. TRANSLATORS: notification title, an attached computer (e.g. ipad) is low or very low on power
-#: plugins/power/gsd-power-manager.c:591
+#: plugins/power/gsd-power-manager.c:592
 msgid "Attached computer battery low"
 msgstr "Baterio de la alfiksita komputilo estas preskaŭ malplena"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is low on power
-#: plugins/power/gsd-power-manager.c:594
+#: plugins/power/gsd-power-manager.c:595
 #, c-format
 msgid "Attached computer is low on power (%.0f%%)"
 msgstr "Alfiksita komputilo havas malmulte da energio (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:595
+#: plugins/power/gsd-power-manager.c:596
 msgid "Attached computer is low on power"
 msgstr "Alfiksita komputilo havas malmulte da energio"
 
 #. TRANSLATORS: notification body, an attached computer (e.g. ipad) is very low on power
-#: plugins/power/gsd-power-manager.c:597
+#: plugins/power/gsd-power-manager.c:598
 #, c-format
 msgid ""
 "Attached computer is very low on power (%.0f%%). The device will soon "
@@ -1934,7 +1958,7 @@ msgstr ""
 "Alfiksita komputilo havas malmulte da energio (%.0f%%). Ĉi tiu aparato "
 "baldaŭ ĉesos funkcii se ĝi ne estos ŝargita."
 
-#: plugins/power/gsd-power-manager.c:599
+#: plugins/power/gsd-power-manager.c:600
 msgid ""
 "Attached computer is very low on power. The device will soon shutdown if not "
 "charged."
@@ -1943,22 +1967,22 @@ msgstr ""
 "funkcii se ĝi ne estos ŝargita."
 
 #. TRANSLATORS: notification title, a game controller (e.g. joystick or joypad) is low or very low on power
-#: plugins/power/gsd-power-manager.c:604
+#: plugins/power/gsd-power-manager.c:605
 msgid "Game controller battery low"
 msgstr "Baterio de la ludstirilo estas preskaŭ malplena"
 
 #. TRANSLATORS: notification body, a game controller (e.g. joystick or joypad) is low on power
-#: plugins/power/gsd-power-manager.c:607
+#: plugins/power/gsd-power-manager.c:608
 #, c-format
 msgid "Game controller is low on power (%.0f%%)"
 msgstr "Ludstirilo havas malmulte da energio (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:608
+#: plugins/power/gsd-power-manager.c:609
 msgid "Game controller is low on power"
 msgstr "Ludstirilo havas malmulte da energio"
 
 #. TRANSLATORS: notification body, an attached game controller (e.g. joystick or joypad) is very low on power
-#: plugins/power/gsd-power-manager.c:610
+#: plugins/power/gsd-power-manager.c:611
 #, c-format
 msgid ""
 "Game controller is very low on power (%.0f%%). The device will soon shutdown "
@@ -1967,7 +1991,7 @@ msgstr ""
 "Ludstirilo havas malmulte da energio (%.0f%%). Ĉi tiu aparato baldaŭ ĉesos "
 "funkcii se ĝi ne estos ŝargita."
 
-#: plugins/power/gsd-power-manager.c:612
+#: plugins/power/gsd-power-manager.c:613
 msgid ""
 "Game controller is very low on power. The device will soon shutdown if not "
 "charged."
@@ -1976,22 +2000,22 @@ msgstr ""
 "ĝi ne estos ŝargita."
 
 #. TRANSLATORS: notification title, a pen is low or very low on power
-#: plugins/power/gsd-power-manager.c:617
+#: plugins/power/gsd-power-manager.c:618
 msgid "Pen battery low"
 msgstr "Baterio de la skribilo estas preskaŭ malplena"
 
 #. TRANSLATORS: notification body, a pen is low on power
-#: plugins/power/gsd-power-manager.c:620
+#: plugins/power/gsd-power-manager.c:621
 #, c-format
 msgid "Pen is low on power (%.0f%%)"
 msgstr "Skribilo havas malmulte da energio (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:621
+#: plugins/power/gsd-power-manager.c:622
 msgid "Pen is low on power"
 msgstr "Skribilo havas malmulte da energio"
 
 #. TRANSLATORS: notification body, a pen is very low on power
-#: plugins/power/gsd-power-manager.c:623
+#: plugins/power/gsd-power-manager.c:624
 #, c-format
 msgid ""
 "Pen is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2000,29 +2024,29 @@ msgstr ""
 "Skribilo havas malmulte da energio (%.0f%%). Ĉi tiu aparato baldaŭ ĉesos "
 "funkcii se ĝi ne estos ŝargita."
 
-#: plugins/power/gsd-power-manager.c:625
+#: plugins/power/gsd-power-manager.c:626
 msgid "Pen is very low on power. The device will soon shutdown if not charged."
 msgstr ""
 "Skribilo havas malmulte da energio. Ĉi tiu aparato baldaŭ ĉesos funkcii se "
 "ĝi ne estos ŝargita."
 
 #. TRANSLATORS: notification title, an external touchpad is low or very low on power
-#: plugins/power/gsd-power-manager.c:630
+#: plugins/power/gsd-power-manager.c:631
 msgid "Touchpad battery low"
 msgstr "Baterio de la tuŝplato estas preskaŭ malplena"
 
 #. TRANSLATORS: notification body, an external touchpad is low on power
-#: plugins/power/gsd-power-manager.c:633
+#: plugins/power/gsd-power-manager.c:634
 #, c-format
 msgid "Touchpad is low on power (%.0f%%)"
 msgstr "Tuŝplato havas malmulte da energio (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:634
+#: plugins/power/gsd-power-manager.c:635
 msgid "Touchpad is low on power"
 msgstr "Tuŝplato havas malmulte da energio"
 
 #. TRANSLATORS: notification body, an external touchpad is very low on power
-#: plugins/power/gsd-power-manager.c:636
+#: plugins/power/gsd-power-manager.c:637
 #, c-format
 msgid ""
 "Touchpad is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2031,7 +2055,7 @@ msgstr ""
 "Tuŝplato havas malmulte da energio (%.0f%%). Ĉi tiu aparato baldaŭ ĉesos "
 "funkcii se ĝi ne estos ŝargita."
 
-#: plugins/power/gsd-power-manager.c:638
+#: plugins/power/gsd-power-manager.c:639
 msgid ""
 "Touchpad is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2039,22 +2063,22 @@ msgstr ""
 "ĝi ne estos ŝargita."
 
 #. TRANSLATORS: notification title, a headset (headphones + microphone) is low or very low on power
-#: plugins/power/gsd-power-manager.c:643
+#: plugins/power/gsd-power-manager.c:644
 msgid "Headset battery low"
 msgstr "Baterio de la kapaŭdilo estas preskaŭ malplena"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is low on power
-#: plugins/power/gsd-power-manager.c:646
+#: plugins/power/gsd-power-manager.c:647
 #, c-format
 msgid "Headset is low on power (%.0f%%)"
 msgstr "Kapaŭdilo havas malmulte da energio (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:647
+#: plugins/power/gsd-power-manager.c:648
 msgid "Headset is low on power"
 msgstr "Kapaŭdilo havas malmulte da energio"
 
 #. TRANSLATORS: notification body, a headset (headphones + microphone) is very low on power
-#: plugins/power/gsd-power-manager.c:649
+#: plugins/power/gsd-power-manager.c:650
 #, c-format
 msgid ""
 "Headset is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2063,7 +2087,7 @@ msgstr ""
 "Kapaŭdilo havas malmulte da energio (%.0f%%). Ĉi tiu aparato baldaŭ ĉesos "
 "funkcii se ĝi ne estos ŝargita."
 
-#: plugins/power/gsd-power-manager.c:651
+#: plugins/power/gsd-power-manager.c:652
 msgid ""
 "Headset is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2071,22 +2095,22 @@ msgstr ""
 "ĝi ne estos ŝargita."
 
 #. TRANSLATORS: notification title, speaker is low or very low on power
-#: plugins/power/gsd-power-manager.c:656
+#: plugins/power/gsd-power-manager.c:657
 msgid "Speaker battery low"
 msgstr "Baterio de la laŭtparolilo estas preskaŭ malplena"
 
 #. TRANSLATORS: notification body, a speaker is low on power
-#: plugins/power/gsd-power-manager.c:659
+#: plugins/power/gsd-power-manager.c:660
 #, c-format
 msgid "Speaker is low on power (%.0f%%)"
 msgstr "Laŭtparolilo havas malmulte da energio (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:660
+#: plugins/power/gsd-power-manager.c:661
 msgid "Speaker is low on power"
 msgstr "Laŭtparolilo havas malmulte da energio"
 
 #. TRANSLATORS: notification body, a speaker is very low on power
-#: plugins/power/gsd-power-manager.c:662
+#: plugins/power/gsd-power-manager.c:663
 #, c-format
 msgid ""
 "Speaker is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2095,7 +2119,7 @@ msgstr ""
 "Laŭtparolilo havas malmulte da energio (%.0f%%). Ĉi tiu aparato baldaŭ ĉesos "
 "funkcii se ĝi ne estos ŝargita."
 
-#: plugins/power/gsd-power-manager.c:664
+#: plugins/power/gsd-power-manager.c:665
 msgid ""
 "Speaker is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2103,22 +2127,22 @@ msgstr ""
 "se ĝi ne estos ŝargita."
 
 #. TRANSLATORS: notification title, headphones (no microphone) are low or very low on power
-#: plugins/power/gsd-power-manager.c:669
+#: plugins/power/gsd-power-manager.c:670
 msgid "Headphones battery low"
 msgstr "Baterio de la kapaŭskultiloj estas preskaŭ malplena"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are low on power
-#: plugins/power/gsd-power-manager.c:672
+#: plugins/power/gsd-power-manager.c:673
 #, c-format
 msgid "Headphones are low on power (%.0f%%)"
 msgstr "Kapaŭskultiloj havas malmulte da energio (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:673
+#: plugins/power/gsd-power-manager.c:674
 msgid "Headphones are low on power"
 msgstr "Kapaŭskultiloj havas malmulte da energio"
 
 #. TRANSLATORS: notification body, headphones (no microphone) are very low on power
-#: plugins/power/gsd-power-manager.c:675
+#: plugins/power/gsd-power-manager.c:676
 #, c-format
 msgid ""
 "Headphones are very low on power (%.0f%%). The device will soon shutdown if "
@@ -2127,7 +2151,7 @@ msgstr ""
 "Kapaŭskultiloj havas malmulte da energio (%.0f%%). Ĉi tiu aparato baldaŭ "
 "ĉesos funkcii se ĝi ne estos ŝargita."
 
-#: plugins/power/gsd-power-manager.c:677
+#: plugins/power/gsd-power-manager.c:678
 msgid ""
 "Headphones are very low on power. The device will soon shutdown if not "
 "charged."
@@ -2136,22 +2160,22 @@ msgstr ""
 "funkcii se ĝi ne estos ŝargita."
 
 #. TRANSLATORS: notification title, an audio device is low or very low on power
-#: plugins/power/gsd-power-manager.c:682
+#: plugins/power/gsd-power-manager.c:683
 msgid "Audio device battery low"
 msgstr "Baterio de la sonaparato estas preskaŭ malplena"
 
 #. TRANSLATORS: notification body, an audio device is low on power
-#: plugins/power/gsd-power-manager.c:685
+#: plugins/power/gsd-power-manager.c:686
 #, c-format
 msgid "Audio device is low on power (%.0f%%)"
 msgstr "Sonaparato havas malmulte da energio (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:686
+#: plugins/power/gsd-power-manager.c:687
 msgid "Audio device is low on power"
 msgstr "Sonaparato havas malmulte da energio"
 
 #. TRANSLATORS: notification body, an audio device is very low on power
-#: plugins/power/gsd-power-manager.c:688
+#: plugins/power/gsd-power-manager.c:689
 #, c-format
 msgid ""
 "Audio device is very low on power (%.0f%%). The device will soon shutdown if "
@@ -2160,7 +2184,7 @@ msgstr ""
 "Sonaparato havas malmulte da energio (%.0f%%). Ĉi tiu aparato baldaŭ ĉesos "
 "funkcii se ĝi ne estos ŝargita."
 
-#: plugins/power/gsd-power-manager.c:690
+#: plugins/power/gsd-power-manager.c:691
 msgid ""
 "Audio device is very low on power. The device will soon shutdown if not "
 "charged."
@@ -2169,22 +2193,22 @@ msgstr ""
 "ĝi ne estos ŝargita."
 
 #. TRANSLATORS: notification title, a remote control is low or very low on power
-#: plugins/power/gsd-power-manager.c:695
+#: plugins/power/gsd-power-manager.c:696
 msgid "Remote battery low"
 msgstr "Baterio de la teleregilo estas preskaŭ malplena"
 
 #. TRANSLATORS: notification body, an remote control is low on power
-#: plugins/power/gsd-power-manager.c:698
+#: plugins/power/gsd-power-manager.c:699
 #, c-format
 msgid "Remote is low on power (%.0f%%)"
 msgstr "Teleregilo havas malmulte da energio (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:699
+#: plugins/power/gsd-power-manager.c:700
 msgid "Remote is low on power"
 msgstr "Teleregilo havas malmulte da energio"
 
 #. TRANSLATORS: notification body, a remote control is very low on power
-#: plugins/power/gsd-power-manager.c:701
+#: plugins/power/gsd-power-manager.c:702
 #, c-format
 msgid ""
 "Remote is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2193,7 +2217,7 @@ msgstr ""
 "Teleregilo havas malmulte da energio (%.0f%%). Ĉi tiu aparato baldaŭ ĉesos "
 "funkcii se ĝi ne estos ŝargita."
 
-#: plugins/power/gsd-power-manager.c:703
+#: plugins/power/gsd-power-manager.c:704
 msgid ""
 "Remote is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2201,22 +2225,22 @@ msgstr ""
 "ĝi ne estos ŝargita."
 
 #. TRANSLATORS: notification title, a printer is low or very low on power
-#: plugins/power/gsd-power-manager.c:708
+#: plugins/power/gsd-power-manager.c:709
 msgid "Printer battery low"
 msgstr "Baterio de la presilo estas preskaŭ malplena"
 
 #. TRANSLATORS: notification body, a printer is low on power
-#: plugins/power/gsd-power-manager.c:711
+#: plugins/power/gsd-power-manager.c:712
 #, c-format
 msgid "Printer is low on power (%.0f%%)"
 msgstr "Presilo havas malmulte da energio (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:712
+#: plugins/power/gsd-power-manager.c:713
 msgid "Printer is low on power"
 msgstr "Presilo havas malmulte da energio"
 
 #. TRANSLATORS: notification body, a printer is very low on power
-#: plugins/power/gsd-power-manager.c:714
+#: plugins/power/gsd-power-manager.c:715
 #, c-format
 msgid ""
 "Printer is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2225,7 +2249,7 @@ msgstr ""
 "Presilo havas malmulte da energio (%.0f%%). Ĉi tiu aparato baldaŭ ĉesos "
 "funkcii se ĝi ne estos ŝargita."
 
-#: plugins/power/gsd-power-manager.c:716
+#: plugins/power/gsd-power-manager.c:717
 msgid ""
 "Printer is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2233,22 +2257,22 @@ msgstr ""
 "ne estos ŝargita."
 
 #. TRANSLATORS: notification title, a scanner is low or very low on power
-#: plugins/power/gsd-power-manager.c:721
+#: plugins/power/gsd-power-manager.c:722
 msgid "Scanner battery low"
 msgstr "Baterio de la skanilo estas preskaŭ malplena"
 
 #. TRANSLATORS: notification body, a scanner is low on power
-#: plugins/power/gsd-power-manager.c:724
+#: plugins/power/gsd-power-manager.c:725
 #, c-format
 msgid "Scanner is low on power (%.0f%%)"
 msgstr "Skanilo havas malmulte da energio (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:725
+#: plugins/power/gsd-power-manager.c:726
 msgid "Scanner is low on power"
 msgstr "Skanilo havas malmulte da energio"
 
 #. TRANSLATORS: notification body, a scanner is very low on power
-#: plugins/power/gsd-power-manager.c:727
+#: plugins/power/gsd-power-manager.c:728
 #, c-format
 msgid ""
 "Scanner is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2257,7 +2281,7 @@ msgstr ""
 "Skanilo havas malmulte da energio (%.0f%%). Ĉi tiu aparato baldaŭ ĉesos "
 "funkcii se ĝi ne estos ŝargita."
 
-#: plugins/power/gsd-power-manager.c:729
+#: plugins/power/gsd-power-manager.c:730
 msgid ""
 "Scanner is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2265,22 +2289,22 @@ msgstr ""
 "ne estos ŝargita."
 
 #. TRANSLATORS: notification title, a camera is low or very low on power
-#: plugins/power/gsd-power-manager.c:734
+#: plugins/power/gsd-power-manager.c:735
 msgid "Camera battery low"
 msgstr "Baterio de la kamerao estas preskaŭ malplena"
 
 #. TRANSLATORS: notification body, a camera is low on power
-#: plugins/power/gsd-power-manager.c:737
+#: plugins/power/gsd-power-manager.c:738
 #, c-format
 msgid "Camera is low on power (%.0f%%)"
 msgstr "Kamerao havas malmulte da energio (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:738
+#: plugins/power/gsd-power-manager.c:739
 msgid "Camera is low on power"
 msgstr "Kamerao havas malmulte da energio"
 
 #. TRANSLATORS: notification body, a camera is very low on power
-#: plugins/power/gsd-power-manager.c:740
+#: plugins/power/gsd-power-manager.c:741
 #, c-format
 msgid ""
 "Camera is very low on power (%.0f%%). The device will soon shutdown if not "
@@ -2289,7 +2313,7 @@ msgstr ""
 "Kamerao havas malmulte da energio (%.0f%%). Ĉi tiu aparato baldaŭ ĉesos "
 "funkcii se ĝi ne estos ŝargita."
 
-#: plugins/power/gsd-power-manager.c:742
+#: plugins/power/gsd-power-manager.c:743
 msgid ""
 "Camera is very low on power. The device will soon shutdown if not charged."
 msgstr ""
@@ -2297,22 +2321,22 @@ msgstr ""
 "ne estos ŝargita."
 
 #. TRANSLATORS: notification title, a Bluetooth device is low or very low on power
-#: plugins/power/gsd-power-manager.c:747
+#: plugins/power/gsd-power-manager.c:748
 msgid "Bluetooth device battery low"
 msgstr "Baterio de la bludenta aparato estas preskaŭ malplena"
 
 #. TRANSLATORS: notification body, a Bluetooth device is low on power
-#: plugins/power/gsd-power-manager.c:750
+#: plugins/power/gsd-power-manager.c:751
 #, c-format
 msgid "Bluetooth device is low on power (%.0f%%)"
 msgstr "Bludenta aparato havas malmulte da energio (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:751
+#: plugins/power/gsd-power-manager.c:752
 msgid "Bluetooth device is low on power"
 msgstr "Bludenta aparato havas malmulte da energio"
 
 #. TRANSLATORS: notification body, a Bluetooth device is very low on power
-#: plugins/power/gsd-power-manager.c:753
+#: plugins/power/gsd-power-manager.c:754
 #, c-format
 msgid ""
 "Bluetooth device is very low on power (%.0f%%). The device will soon "
@@ -2321,7 +2345,7 @@ msgstr ""
 "Bludenta aparato havas malmulte da energio (%.0f%%). Ĉi tiu aparato baldaŭ "
 "ĉesos funkcii se ĝi ne estos ŝargita."
 
-#: plugins/power/gsd-power-manager.c:755
+#: plugins/power/gsd-power-manager.c:756
 msgid ""
 "Bluetooth device is very low on power. The device will soon shutdown if not "
 "charged."
@@ -2330,22 +2354,22 @@ msgstr ""
 "funkcii se ĝi ne estos ŝargita."
 
 #. TRANSLATORS: notification title, a connected (wireless) device or peripheral of unhandled type is low or very on power
-#: plugins/power/gsd-power-manager.c:761
+#: plugins/power/gsd-power-manager.c:762
 msgid "Connected device battery is low"
 msgstr "Baterio de la konektita aparato estas preskaŭ malplena"
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is low on power
-#: plugins/power/gsd-power-manager.c:764
+#: plugins/power/gsd-power-manager.c:765
 #, c-format
 msgid "A connected device is low on power (%.0f%%)"
 msgstr "Konektita aparato havas malmulte da energio (%.0f%%)"
 
-#: plugins/power/gsd-power-manager.c:765
+#: plugins/power/gsd-power-manager.c:766
 msgid "A connected device is low on power"
 msgstr "Konektita aparato havas malmulte da energio"
 
 #. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is very low on power
-#: plugins/power/gsd-power-manager.c:767
+#: plugins/power/gsd-power-manager.c:768
 #, c-format
 msgid ""
 "A connected device is very low on power (%.0f%%). The device will soon "
@@ -2354,7 +2378,7 @@ msgstr ""
 "Konektita aparato havas malmulte da energio (%.0f%%). Ĉi tiu aparato baldaŭ "
 "ĉesos funkcii se ĝi ne estos ŝargita."
 
-#: plugins/power/gsd-power-manager.c:769
+#: plugins/power/gsd-power-manager.c:770
 msgid ""
 "A connected device is very low on power. The device will soon shutdown if "
 "not charged."
@@ -2363,148 +2387,137 @@ msgstr ""
 "funkcii se ĝi ne estos ŝargita."
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:795
+#: plugins/power/gsd-power-manager.c:797
 msgid "Low Battery"
 msgstr "Malalta baterio"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:798
+#: plugins/power/gsd-power-manager.c:800
 #, c-format
 msgid "%.0f%% battery remaining"
 msgstr "%.0f%% baterio restas"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
-#: plugins/power/gsd-power-manager.c:801
+#: plugins/power/gsd-power-manager.c:803
 msgid "UPS Low"
 msgstr "NEP havas malmulte da energio"
 
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
-#: plugins/power/gsd-power-manager.c:804 plugins/power/gsd-power-manager.c:877
+#: plugins/power/gsd-power-manager.c:806 plugins/power/gsd-power-manager.c:883
 #, c-format
 msgid "%.0f%% UPS power remaining"
 msgstr "Restas %.0f%% da NPE-energio"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:842
+#: plugins/power/gsd-power-manager.c:847
 msgid "Battery is low"
 msgstr "Baterio estas preskaŭ malplena"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, advice on what the user should do
-#: plugins/power/gsd-power-manager.c:868
+#: plugins/power/gsd-power-manager.c:874
 msgid "Battery Almost Empty"
 msgstr "Baterio estas preskaŭ malplena"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically running low, advice on what the user should do
-#: plugins/power/gsd-power-manager.c:871
+#: plugins/power/gsd-power-manager.c:877
 #, c-format
 msgid "Connect power now"
 msgstr "Konekti energion nun"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
-#: plugins/power/gsd-power-manager.c:874
+#: plugins/power/gsd-power-manager.c:880
 msgid "UPS Almost Empty"
 msgstr "NEP estas preskaŭ malplena"
 
 #. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, warning about action happening now
-#: plugins/power/gsd-power-manager.c:945
+#: plugins/power/gsd-power-manager.c:955
 msgid "Battery is Empty"
 msgstr "Baterio estas malplena"
 
 #. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action about to happen
 #. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
-#: plugins/power/gsd-power-manager.c:952 plugins/power/gsd-power-manager.c:972
+#: plugins/power/gsd-power-manager.c:962 plugins/power/gsd-power-manager.c:982
 msgid "This device is about to hibernate"
 msgstr "La aparato ekdormas nun"
 
-#: plugins/power/gsd-power-manager.c:954 plugins/power/gsd-power-manager.c:974
+#: plugins/power/gsd-power-manager.c:964 plugins/power/gsd-power-manager.c:984
 msgid "This device is about to shutdown"
 msgstr "Ĉi tiu aparato estas haltonta"
 
 #. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
-#: plugins/power/gsd-power-manager.c:965
+#: plugins/power/gsd-power-manager.c:975
 msgid "UPS is Empty"
 msgstr "NEP estas malplena"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1493
+#: plugins/power/gsd-power-manager.c:1619
 msgid "Lid has been opened"
 msgstr "Kovrilo malfermiĝis"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:1527
+#: plugins/power/gsd-power-manager.c:1657
 msgid "Lid has been closed"
 msgstr "Kovrilo fermiĝis"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2178
+#: plugins/power/gsd-power-manager.c:2282
 msgid "On battery power"
 msgstr "Je bateria elektro"
 
 #. TRANSLATORS: this is the sound description
-#: plugins/power/gsd-power-manager.c:2183
+#: plugins/power/gsd-power-manager.c:2287
 msgid "On AC power"
 msgstr "Je hejmelektra elektro"
 
-#: plugins/power/gsd-power-manager.c:2452
-msgid "Automatic logout"
-msgstr "Aŭtomata adiaŭado"
+#: plugins/power/gsd-power-manager.c:2557
+msgid "Automatic Logout"
+msgstr "Aŭtomata elsaluto"
 
-#: plugins/power/gsd-power-manager.c:2452
-msgid "You will soon log out because of inactivity."
-msgstr "Vi baldaŭ adiaŭos pro senokupo."
+#: plugins/power/gsd-power-manager.c:2557
+msgid "You will soon log out because of inactivity"
+msgstr "Vi baldaŭ elsalutos pro senokupo"
 
-#: plugins/power/gsd-power-manager.c:2457
-msgid "Automatic suspend"
-msgstr "Aŭtomata haltetado"
+#: plugins/power/gsd-power-manager.c:2562
+msgid "Automatic Suspend"
+msgstr "Aŭtomata suspendo"
 
-#: plugins/power/gsd-power-manager.c:2457
-#: plugins/power/gsd-power-manager.c:2462
-msgid "Suspending soon because of inactivity."
-msgstr "Komputilo tre baldaŭ haltetos pro senokupo."
+#: plugins/power/gsd-power-manager.c:2562
+#: plugins/power/gsd-power-manager.c:2567
+msgid "Suspending soon because of inactivity"
+msgstr "Baldaŭ suspendiĝos pro senokupo"
 
-#: plugins/power/gsd-power-manager.c:2462
-msgid "Automatic hibernation"
+#: plugins/power/gsd-power-manager.c:2567
+msgid "Automatic Hibernation"
 msgstr "Aŭtomata pasivumado"
 
-#. SECURITY:
-#. - A normal active user on the local machine does not need permission
-#. to change the backlight brightness.
-#: plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in:21
-msgid "Modify the laptop brightness"
-msgstr "Aliigi la helecon de klapkomputilo"
-
-#: plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in:22
-msgid "Authentication is required to modify the laptop brightness"
-msgstr "Aŭtentigo necesas por aliigi la helecon de la klapkomputilo"
-
 #. Translators: We are configuring new printer
-#: plugins/print-notifications/gsd-printer.c:890
+#: plugins/print-notifications/gsd-printer.c:924
 msgid "Configuring new printer"
 msgstr "Agordante novan presilon"
 
 #. Translators: Just wait
-#: plugins/print-notifications/gsd-printer.c:892
+#: plugins/print-notifications/gsd-printer.c:926
 msgid "Please wait…"
 msgstr "Bonvolu atendi…"
 
 #. Translators: We have no driver installed for this printer
-#: plugins/print-notifications/gsd-printer.c:919
+#: plugins/print-notifications/gsd-printer.c:953
 msgid "Missing printer driver"
 msgstr "Mankante presilpelilo"
 
 #. Translators: We have no driver installed for the device
-#: plugins/print-notifications/gsd-printer.c:928
+#: plugins/print-notifications/gsd-printer.c:962
 #, c-format
 msgid "No printer driver for %s."
 msgstr "Neniu presilpelilo por %s."
 
 #. Translators: We have no driver installed for this printer
-#: plugins/print-notifications/gsd-printer.c:933
+#: plugins/print-notifications/gsd-printer.c:967
 msgid "No driver for this printer."
 msgstr "Neniu presilpelilo por tiu presilo."
 
-#: plugins/print-notifications/gsd-printer.c:1031
+#: plugins/print-notifications/gsd-printer.c:1065
 #: plugins/print-notifications/gsd-print-notifications-manager.c:318
 #: plugins/print-notifications/gsd-print-notifications-manager.c:566
 #: plugins/print-notifications/gsd-print-notifications-manager.c:949
@@ -2687,12 +2700,12 @@ msgctxt "print job"
 msgid "“%s” on %s"
 msgstr "“%s” je %s"
 
-#. Translators: A print job has been canceled
+#. Translators: A print job has been cancelled
 #: plugins/print-notifications/gsd-print-notifications-manager.c:722
 #: plugins/print-notifications/gsd-print-notifications-manager.c:762
 msgctxt "print job state"
-msgid "Printing canceled"
-msgstr "Nuligis presadon"
+msgid "Printing cancelled"
+msgstr "Presado nuligita"
 
 #. Translators: A print job has been aborted
 #: plugins/print-notifications/gsd-print-notifications-manager.c:728
@@ -2731,44 +2744,46 @@ msgstr "Presila averto"
 msgid "Printer “%s”: “%s”."
 msgstr "Presilo “%s”: “%s”."
 
-#: plugins/smartcard/gsd-smartcard-service.c:282
+#: plugins/smartcard/gsd-smartcard-service.c:279
 msgid "User was not logged in with smartcard."
 msgstr "Uzanto ne salutis per inteligenta memorkarto."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:415
+#: plugins/usb-protection/gsd-usb-protection-manager.c:407
 msgid "USB Protection"
 msgstr "USB-protekto"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:544
+#: plugins/usb-protection/gsd-usb-protection-manager.c:537
 msgid "New USB device"
 msgstr "Nova USB-aparato"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:545
+#: plugins/usb-protection/gsd-usb-protection-manager.c:538
 msgid ""
-"New device has been detected while the session was not locked. If you did "
-"not plug anything, check your system for any suspicious device."
+"New USB device has been activated while the session was not locked. If you "
+"did not intend to insert any device, check your system for any suspicious "
+"gadgets and remove them."
 msgstr ""
-"Detektis novan aparaton dum la seanco estis malferma. Se vi ne konektis iun "
-"aparaton, kontrolu vian sistemon por suspekta aparato."
+"Nova USB-aparato estas aktivigita dum la seanco ne estis ŝlosita. Se vi ne "
+"intencis enmeti iun ajn aparaton, kontrolu vian sistemon por ajnaj suspektaj "
+"ilaroj kaj forigu ilin."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:687
+#: plugins/usb-protection/gsd-usb-protection-manager.c:680
 msgid "New device detected"
 msgstr "Detektis novan aparaton"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:688
+#: plugins/usb-protection/gsd-usb-protection-manager.c:681
 msgid ""
 "Either one of your existing devices has been reconnected or a new one has "
-"been plugged in. If you did not do it, check your system for any suspicious "
+"been inserted. If you did not do it, check your system for any suspicious "
 "device."
 msgstr ""
-"Aŭ ekzista aparato rekonektiĝis aŭ nova konektiĝis. Se vi ne faris tion, "
-"kontrolu vian sistemon por suspekta aparato."
+"Aŭ unu el viaj ekzistantaj aparatoj rekonektiĝis aŭ nova estas enmetita. Se "
+"vi ne faris tion, kontrolu vian sistemon por suspektaj aparatoj."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:695
+#: plugins/usb-protection/gsd-usb-protection-manager.c:688
 msgid "Reconnect USB device"
 msgstr "Rekonekti USB-aparaton"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:696
+#: plugins/usb-protection/gsd-usb-protection-manager.c:689
 msgid ""
 "New device has been detected while you were away. Please disconnect and "
 "reconnect the device to start using it."
@@ -2776,12 +2791,12 @@ msgstr ""
 "Detektis novan aparaton dum vi ne ĉeestis. Bonvolu malkonekti kaj rekonekti "
 "la aparaton por komenci ĝian uzadon."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:702
-#: plugins/usb-protection/gsd-usb-protection-manager.c:729
+#: plugins/usb-protection/gsd-usb-protection-manager.c:695
+#: plugins/usb-protection/gsd-usb-protection-manager.c:722
 msgid "USB device blocked"
 msgstr "USB-aparato blokita"
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:703
+#: plugins/usb-protection/gsd-usb-protection-manager.c:696
 msgid ""
 "New device has been detected while you were away. It has been blocked "
 "because the USB protection is active."
@@ -2789,37 +2804,15 @@ msgstr ""
 "Detektis novan aparaton dum vi ne ĉeestis. Ĝi blokiĝis ĉar USB-proteko estas "
 "ŝaltita."
 
-#: plugins/usb-protection/gsd-usb-protection-manager.c:730
+#: plugins/usb-protection/gsd-usb-protection-manager.c:723
 msgid ""
 "The new inserted device has been blocked because the USB protection is "
 "active. If you want to activate the device, disable the USB protection and "
-"re-plug the device."
+"re-insert the device."
 msgstr ""
 "La nova enmetita aparato estas blokita ĉar la USB-protekto estas aktiva. Se "
-"vi volas aktivigi la aparaton, malŝaltu la USB-protekton kaj rekonektu la "
+"vi volas aktivigi la aparaton, malŝaltu la USB-protekton kaj reenmetu la "
 "aparaton."
-
-#. SECURITY:
-#. - A normal active user on the local machine does not need permission
-#. to change the LED setting for a Wacom tablet
-#: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:20
-msgid "Modify the lit LED for a Wacom tablet"
-msgstr "Aliigi la lumanta LED por Wacom tabuleto"
-
-#: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:21
-msgid "Authentication is required to modify the lit LED for a Wacom tablet"
-msgstr "Aŭtentigo necesas por aliigi la lumanta LED por Wacom tabuleto"
-
-#. SECURITY:
-#. - A normal active user on the local machine does not need permission
-#. to change the OLED images for a Wacom tablet
-#: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:35
-msgid "Modify the OLED image for a Wacom tablet"
-msgstr "Aliigi la OLED bildon por Wacom tabuleton"
-
-#: plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in:36
-msgid "Authentication is required to modify the OLED image for a Wacom tablet"
-msgstr "Aŭtentigo necesas por aliigi la OLED bildon de Wacom tabuleton"
 
 #: plugins/wwan/cc-wwan-errors-private.h:40
 msgid "Phone failure"
@@ -2889,67 +2882,124 @@ msgstr "Aliro rifuzita"
 msgid "Unknown Error"
 msgstr "Nekonata eraro"
 
-#: plugins/wwan/gsd-wwan-manager.c:121
+#: plugins/wwan/gsd-wwan-manager.c:118
 msgid "New PIN for SIM"
 msgstr "Nova PIN por SIM"
 
-#: plugins/wwan/gsd-wwan-manager.c:122
+#: plugins/wwan/gsd-wwan-manager.c:119
 msgid "Set"
 msgstr "Agordi"
 
-#: plugins/wwan/gsd-wwan-manager.c:124
+#: plugins/wwan/gsd-wwan-manager.c:121
 msgid "Unlock SIM card"
 msgstr "Malŝlosi SIM-karton"
 
-#: plugins/wwan/gsd-wwan-manager.c:125
+#: plugins/wwan/gsd-wwan-manager.c:122
 msgid "Unlock"
 msgstr "Malŝlosi"
 
-#: plugins/wwan/gsd-wwan-manager.c:128
+#: plugins/wwan/gsd-wwan-manager.c:125
 msgid "Cancel"
 msgstr "Nuligi"
 
-#: plugins/wwan/gsd-wwan-manager.c:133
+#: plugins/wwan/gsd-wwan-manager.c:130
 #, c-format
 msgid "Please provide a new PIN for SIM card %s"
 msgstr "Bonvolu enigi novan PIN-kodon por SIM-karto %s"
 
-#: plugins/wwan/gsd-wwan-manager.c:135
+#: plugins/wwan/gsd-wwan-manager.c:132
 msgid "Enter a New PIN to unlock your SIM card"
 msgstr "Enigu novan PIN-kodon por malŝlosi vian SIM-karton"
 
-#: plugins/wwan/gsd-wwan-manager.c:137
+#: plugins/wwan/gsd-wwan-manager.c:134
 #, c-format
 msgid "Please provide the PIN for SIM card %s"
 msgstr "Bonvolu enigi la PIN-kodon de SIM-karto %s"
 
-#: plugins/wwan/gsd-wwan-manager.c:139
+#: plugins/wwan/gsd-wwan-manager.c:136
 msgid "Enter PIN to unlock your SIM card"
 msgstr "Enigu PIN-kodon por malŝlosi vian SIM-karton"
 
-#: plugins/wwan/gsd-wwan-manager.c:142
+#: plugins/wwan/gsd-wwan-manager.c:139
 #, c-format
 msgid "Please provide the PUK for SIM card %s"
 msgstr "Bonvolu enigi la PUK-kodon de SIM-karto %s"
 
-#: plugins/wwan/gsd-wwan-manager.c:144
+#: plugins/wwan/gsd-wwan-manager.c:141
 msgid "Enter PUK to unlock your SIM card"
 msgstr "Enigu PUK-kodon por malŝlosi vian SIM-karton"
 
 #. msg is already localised
-#: plugins/wwan/gsd-wwan-manager.c:160
+#: plugins/wwan/gsd-wwan-manager.c:157
 #, c-format
 msgid "%2$s. You have %1$u try left"
 msgid_plural "%2$s. You have %1$u tries left"
 msgstr[0] "%2$s. Restas %1$u peno"
 msgstr[1] "%2$s. Restas %1$u penoj"
 
-#: plugins/wwan/gsd-wwan-manager.c:164
+#: plugins/wwan/gsd-wwan-manager.c:161
 #, c-format
 msgid "You have %u try left"
 msgid_plural "You have %u tries left"
 msgstr[0] "Restas %u peno"
 msgstr[1] "Restas %u penoj"
+
+#~ msgid "Possible values are “on”, “off”, and “custom”."
+#~ msgstr ""
+#~ "Eblaj valoroj estas “on” (ŝaltite), “off” (malŝaltite), kaj “custom” "
+#~ "(propra)."
+
+#~ msgid "Keyboard Bell Custom Filename"
+#~ msgstr "Propra dosiernomo de klavara sonorilo"
+
+#~ msgid "File name of the bell sound to be played."
+#~ msgstr "Dosiernomo de la ludonta sonorila sono."
+
+#~ msgid "Screen brightness up"
+#~ msgstr "Pliheligi ekranon"
+
+#~ msgid "Binding to increase the screen brightness."
+#~ msgstr "Klavkombino por pliheligi la ekranon."
+
+#~ msgid "Screen brightness down"
+#~ msgstr "Malpliheligi ekranon"
+
+#~ msgid "Binding to decrease the screen brightness."
+#~ msgstr "Klavkombino por malpliheligi la ekranon."
+
+#~ msgid "Screen brightness cycle"
+#~ msgstr "Cikligi ekranhelecon"
+
+#~ msgid "Binding to cycle the screen brightness."
+#~ msgstr "Klavkombino por cikligi la ekranhelecon."
+
+#~ msgid "Static binding to increase the screen brightness."
+#~ msgstr "Statika klavkombino por pliheligi la ekranon."
+
+#~ msgid "Static binding to decrease the screen brightness."
+#~ msgstr "Statika klavkombino por malpliheligi la ekranon."
+
+#~ msgid "Static binding to cycle the screen brightness."
+#~ msgstr "Statika klavkombino por cikligi la ekranhelecon."
+
+#~ msgid "Modify the laptop brightness"
+#~ msgstr "Aliigi la helecon de klapkomputilo"
+
+#~ msgid "Authentication is required to modify the laptop brightness"
+#~ msgstr "Aŭtentigo necesas por aliigi la helecon de la klapkomputilo"
+
+#~ msgid "Modify the lit LED for a Wacom tablet"
+#~ msgstr "Aliigi la lumanta LED por Wacom tabuleto"
+
+#~ msgid "Authentication is required to modify the lit LED for a Wacom tablet"
+#~ msgstr "Aŭtentigo necesas por aliigi la lumanta LED por Wacom tabuleto"
+
+#~ msgid "Modify the OLED image for a Wacom tablet"
+#~ msgstr "Aliigi la OLED bildon por Wacom tabuleton"
+
+#~ msgid ""
+#~ "Authentication is required to modify the OLED image for a Wacom tablet"
+#~ msgstr "Aŭtentigo necesas por aliigi la OLED bildon de Wacom tabuleton"
 
 #~ msgid "Take a screenshot"
 #~ msgstr "Fari ekrankopion"
