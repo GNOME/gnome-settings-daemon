@@ -23,6 +23,7 @@ sources += main_helper_sources
 deps = plugins_deps + [
   geocode_glib_dep,
   gweather_dep,
+  libcommon_dep,
   libgeoclue_dep,
   libnotify_dep,
   m_dep,

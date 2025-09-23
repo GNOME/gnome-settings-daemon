@@ -66,7 +66,11 @@ open_settings_cb (NotifyNotification *n,
                                                        G_APP_INFO_CREATE_SUPPORTS_STARTUP_NOTIFICATION,
                                                        &error);
         if (app_info) {
-                if (!g_app_info_launch (app_info, NULL, NULL, &error)) {
+                g_autoptr (GAppLaunchContext) launch_context = NULL;
+
+                launch_context = notify_notification_get_activation_app_launch_context (n);
+
+                if (!g_app_info_launch (app_info, NULL, launch_context, &error)) {
                         g_warning ("failed to launch %s: %s",
                                    commandline, error->message);
                 }
