@@ -13,6 +13,7 @@ sources += main_helper_sources
 
 deps = plugins_deps + [
   gio_unix_dep,
+  libcommon_dep,
   libnotify_dep
 ]
 

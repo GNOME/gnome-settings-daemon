@@ -53,7 +53,7 @@ donate_cb (NotifyNotification *n)
 
 	g_assert (n == notification);
 
-	context = g_app_launch_context_new ();
+	context = notify_notification_get_activation_app_launch_context (n);
 
 	if (!g_app_info_launch_default_for_uri (DONATE_URL,
 						context,
