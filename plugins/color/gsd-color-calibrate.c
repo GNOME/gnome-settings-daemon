@@ -85,7 +85,7 @@ gcm_session_exec_control_center (GsdColorCalibrate *calibrate,
                                                        &error);
         if (app_info == NULL) {
                 g_warning ("failed to create application info: %s",
-                           error->message);\
+                           error->message);
                 return;
         }
 
