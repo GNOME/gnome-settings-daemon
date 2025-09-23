@@ -42,7 +42,6 @@
 
 #define CHECK_EVERY_X_SECONDS      60
 
-#define DISK_SPACE_ANALYZER        "baobab"
 #define DISK_SPACE_ANALYZER_DESKTOP_NAME "org.gnome.baobab"
 #define DISK_SPACE_ANALYZER_DESKTOP_ID   DISK_SPACE_ANALYZER_DESKTOP_NAME ".desktop"
 
@@ -166,15 +165,6 @@ ldsm_mount_has_trash (const char *path)
 }
 
 static void
-ldsm_analyze_path (const gchar *path)
-{
-        const gchar *argv[] = { DISK_SPACE_ANALYZER, path, NULL };
-
-        g_spawn_async (NULL, (gchar **) argv, NULL, G_SPAWN_SEARCH_PATH,
-                        NULL, NULL, NULL, NULL);
-}
-
-static void
 ignore_callback (NotifyNotification *n,
                  const char         *action)
 {
@@ -186,15 +176,48 @@ ignore_callback (NotifyNotification *n,
         notify_notification_close (n, NULL);
 }
 
+typedef struct _ExamineData {
+        GDesktopAppInfo *disk_analyzer_app;
+        char *path;
+} ExamineData;
+
+static void
+examine_data_free (ExamineData *data)
+{
+        g_clear_pointer (&data->path, g_free);
+        g_clear_object (&data->disk_analyzer_app);
+        g_free (data);
+}
+
 static void
 examine_callback (NotifyNotification *n,
                   const char         *action,
-                  const char         *path)
+                  ExamineData        *data)
 {
+        g_autoptr (GAppInfo) app_info = NULL;
+        g_autofree char *commandline = NULL;
+        g_autoptr (GError) error = NULL;
+
         g_assert (action != NULL);
         g_assert (strcmp (action, "examine") == 0);
 
-        ldsm_analyze_path (path);
+        commandline = g_strconcat (g_app_info_get_executable (G_APP_INFO (data->disk_analyzer_app)),
+                                   data->path, NULL);
+
+        g_debug ("Running %s", commandline);
+        app_info = g_app_info_create_from_commandline (commandline,
+                                                       g_app_info_get_name (G_APP_INFO (data->disk_analyzer_app)),
+                                                       G_APP_INFO_CREATE_SUPPORTS_STARTUP_NOTIFICATION,
+                                                       &error);
+        if (app_info) {
+                if (!g_app_info_launch (app_info, NULL, NULL, &error)) {
+                        g_warning ("failed to launch %s: %s",
+                                   commandline, error->message);
+                }
+        } else {
+                g_warning ("Failed to create application info for %s: %s",
+                           commandline, error->message);
+        }
 
         notify_notification_close (n, NULL);
 }
@@ -637,12 +660,16 @@ ldsm_notify (const char *summary,
         }
 
         if (disk_analyzer_app) {
+                ExamineData *data = g_new0 (ExamineData, 1);
+
+                data->path = g_strdup (mount_path);
+                data->disk_analyzer_app = g_object_ref (disk_analyzer_app);
                 notify_notification_add_action (notification,
                                                 "examine",
                                                 _("Examine"),
                                                 (NotifyActionCallback) examine_callback,
-                                                g_strdup (mount_path),
-                                                g_free);
+                                                g_steal_pointer (&data),
+                                                (GDestroyNotify) examine_data_free);
         }
 
         if (has_trash) {
