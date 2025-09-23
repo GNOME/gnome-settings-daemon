@@ -465,6 +465,10 @@ authenticate_cb (NotifyNotification *notification,
         gchar    *printer_name = user_data;
 
         if (g_strcmp0 (action, "default") == 0) {
+                g_autoptr (GAppLaunchContext) launch_context = NULL;
+
+                launch_context = notify_notification_get_activation_app_launch_context (notification);
+
                 notify_notification_close (notification, NULL);
 
                 commandline = g_strdup_printf (BINDIR "/gnome-control-center printers show-jobs %s", printer_name);
@@ -477,7 +481,7 @@ authenticate_cb (NotifyNotification *notification,
                 if (app_info != NULL) {
                         ret = g_app_info_launch (app_info,
                                                  NULL,
-                                                 NULL,
+                                                 launch_context,
                                                  &error);
 
                         if (!ret) {

@@ -6,6 +6,7 @@ sources += main_helper_sources
 
 deps = plugins_deps + [
   cups_dep,
+  libcommon_dep,
   libnotify_dep
 ]
 
