@@ -56,11 +56,24 @@ open_settings_cb (NotifyNotification *n,
                   const char         *action,
                   const char         *path)
 {
-        const gchar *argv[] = { "gnome-control-center", "datetime", NULL };
+        g_autoptr (GAppInfo) app_info = NULL;
+        g_autoptr (GError) error = NULL;
+        static const char *commandline = BINDIR "/gnome-control-center datetime";
 
-        g_debug ("Running gnome-control-center datetime");
-        g_spawn_async (NULL, (gchar **) argv, NULL, G_SPAWN_SEARCH_PATH,
-                       NULL, NULL, NULL, NULL);
+        g_debug ("Running %s", commandline);
+        app_info = g_app_info_create_from_commandline (commandline,
+                                                       "gnome-control-center",
+                                                       G_APP_INFO_CREATE_SUPPORTS_STARTUP_NOTIFICATION,
+                                                       &error);
+        if (app_info) {
+                if (!g_app_info_launch (app_info, NULL, NULL, &error)) {
+                        g_warning ("failed to launch %s: %s",
+                                   commandline, error->message);
+                }
+        } else {
+                g_warning ("Failed to create application info for %s: %s",
+                           commandline, error->message);
+        }
 
         notify_notification_close (n, NULL);
 }

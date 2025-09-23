@@ -17,6 +17,7 @@ sources += gnome.gdbus_codegen(
   interface_prefix: 'org.freedesktop.'
 )
 
+cflags += ['-DBINDIR="@0@"'.format(gsd_bindir)]
 sources += main_helper_sources
 
 deps = plugins_deps + [
