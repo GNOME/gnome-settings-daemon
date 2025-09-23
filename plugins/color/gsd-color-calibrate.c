@@ -73,14 +73,12 @@ gcm_session_async_helper_free (GcmSessionAsyncHelper *helper)
 }
 
 static void
-gcm_session_exec_control_center (GsdColorCalibrate *calibrate)
+gcm_session_exec_control_center (GsdColorCalibrate *calibrate,
+                                 GAppLaunchContext *launch_context)
 {
         g_autoptr (GError) error = NULL;
         g_autoptr (GAppInfo) app_info = NULL;
-        g_autoptr (GAppLaunchContext) launch_context = NULL;
 
-        /* setup the launch context so the startup notification is correct */
-        launch_context = g_app_launch_context_new ();
         app_info = g_app_info_create_from_commandline (BINDIR "/gnome-control-center color",
                                                        "gnome-control-center",
                                                        G_APP_INFO_CREATE_SUPPORTS_STARTUP_NOTIFICATION,
@@ -109,8 +107,12 @@ gcm_session_notify_cb (NotifyNotification *notification,
         GsdColorCalibrate *calibrate = GSD_COLOR_CALIBRATE (user_data);
 
         if (g_strcmp0 (action, "recalibrate") == 0) {
+                g_autoptr (GAppLaunchContext) launch_context = NULL;
+
+                launch_context = notify_notification_get_activation_app_launch_context (notification);
+
                 notify_notification_close (notification, NULL);
-                gcm_session_exec_control_center (calibrate);
+                gcm_session_exec_control_center (calibrate, launch_context);
         }
 }
 
@@ -340,6 +342,7 @@ gcm_session_sensor_added_cb (CdClient *client,
 {
         GsdApplication *gsd_app = GSD_APPLICATION (calibrate->manager);
         ca_context *ca_context = gsd_application_get_ca_context (gsd_app);
+        g_autoptr (GAppLaunchContext) launch_context = NULL;
 
         ca_context_play (ca_context, 0,
                          CA_PROP_EVENT_ID, "device-added",
@@ -348,8 +351,11 @@ gcm_session_sensor_added_cb (CdClient *client,
                         /* TRANSLATORS: this is a sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Color calibration device added"), NULL);
 
+        /* setup the launch context so the startup notification is correct */
+        launch_context = g_app_launch_context_new ();
+
         /* open up the color prefs window */
-        gcm_session_exec_control_center (calibrate);
+        gcm_session_exec_control_center (calibrate, launch_context);
 }
 
 static void
