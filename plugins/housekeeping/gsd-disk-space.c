@@ -29,6 +29,7 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
+#include <gio/gdesktopappinfo.h>
 #include <gio/gunixmounts.h>
 #include <gio/gio.h>
 #include <libnotify/notify.h>
@@ -42,6 +43,8 @@
 #define CHECK_EVERY_X_SECONDS      60
 
 #define DISK_SPACE_ANALYZER        "baobab"
+#define DISK_SPACE_ANALYZER_DESKTOP_NAME "org.gnome.baobab"
+#define DISK_SPACE_ANALYZER_DESKTOP_ID   DISK_SPACE_ANALYZER_DESKTOP_NAME ".desktop"
 
 #define SETTINGS_HOUSEKEEPING_DIR     "org.gnome.settings-daemon.plugins.housekeeping"
 #define SETTINGS_FREE_PC_NOTIFY_KEY   "free-percent-notify"
@@ -606,8 +609,7 @@ ldsm_notify (const char *summary,
              const char *mount_path,
              gboolean    has_trash)
 {
-        gchar *program;
-        gboolean has_disk_analyzer;
+        g_autoptr (GDesktopAppInfo) disk_analyzer_app = NULL;
 
         /* Don't show a notice if one is already displayed */
         if (notification != NULL)
@@ -619,19 +621,22 @@ ldsm_notify (const char *summary,
                           G_CALLBACK (on_notification_closed),
                           NULL);
 
+        disk_analyzer_app = g_desktop_app_info_new (DISK_SPACE_ANALYZER_DESKTOP_ID);
+
         notify_notification_set_app_name (notification, _("Disk Space"));
         notify_notification_set_hint (notification, "transient", g_variant_new_boolean (TRUE));
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_CRITICAL);
         notify_notification_set_timeout (notification, NOTIFY_EXPIRES_DEFAULT);
-        notify_notification_set_hint_string (notification, "desktop-entry", "org.gnome.baobab");
         notify_notification_set_hint (notification, "image-path", g_variant_new_string ("drive-harddisk-symbolic"));
 
+        if (disk_analyzer_app) {
+                notify_notification_set_app_name (notification,
+                                                  g_app_info_get_display_name (G_APP_INFO (disk_analyzer_app)));
+                notify_notification_set_hint_string (notification, "desktop-entry",
+                                                     DISK_SPACE_ANALYZER_DESKTOP_NAME);
+        }
 
-        program = g_find_program_in_path (DISK_SPACE_ANALYZER);
-        has_disk_analyzer = (program != NULL);
-        g_free (program);
-
-        if (has_disk_analyzer) {
+        if (disk_analyzer_app) {
                 notify_notification_add_action (notification,
                                                 "examine",
                                                 _("Examine"),
