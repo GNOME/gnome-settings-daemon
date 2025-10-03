@@ -12,8 +12,7 @@ deps = plugins_deps + [
   gnome_desktop_dep,
   gsd_enums_dep,
   m_dep,
-  upower_glib_dep,
-  dependency('xext')
+  upower_glib_dep
 ]
 
 # required for gsd-power-enums-update, which we have
