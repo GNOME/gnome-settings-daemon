@@ -108,8 +108,6 @@ libnotify_dep = dependency('libnotify', version: '>= 0.7.3')
 libpulse_mainloop_glib_dep = dependency('libpulse-mainloop-glib', version: '>= 2.0')
 polkit_gobject_dep = dependency('polkit-gobject-1', version: '>= 0.114')
 upower_glib_dep = dependency('upower-glib', version: '>= 0.99.12')
-x11_dep = dependency('x11')
-xfixes_dep = dependency('xfixes', version: '>= 6.0')
 
 enable_systemd = get_option('systemd')
 enable_elogind = get_option('elogind')
@@ -234,8 +232,14 @@ if enable_colord
   colord_dep = dependency('colord', version: '>= 1.4.5')
 endif
 
+# xsettings
 enable_xwayland = get_option('xwayland')
 enable_x11 = get_option('x11')
+enable_xsettings = enable_xwayland or enable_x11
+if enable_xsettings
+  x11_dep = dependency('x11')
+  xfixes_dep = dependency('xfixes', version: '>= 6.0')
+endif
 
 gnome = import('gnome')
 i18n = import('i18n')

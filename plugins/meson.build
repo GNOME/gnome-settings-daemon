@@ -19,7 +19,7 @@ all_plugins = [
 
 disabled_plugins = []
 
-if not enable_xwayland and not enable_x11
+if not enable_xsettings
     disabled_plugins += ['xsettings']
 endif
 
