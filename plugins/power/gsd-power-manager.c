@@ -1240,7 +1240,7 @@ shell_brightness_set_auto_target_cb (GObject      *source_object,
 
 static void
 shell_brightness_set_auto_target (GsdPowerManager *manager,
-                                  float            target)
+                                  double           target)
 {
         if (!manager->shell_brightness_proxy)
                 return;
