@@ -90,6 +90,11 @@
 /* Convert bandwidth to time constant.  Units of constant are microseconds. */
 #define GSD_AMBIENT_TIME_CONSTANT       (G_USEC_PER_SEC * 1.0f / (2.0f * G_PI * GSD_AMBIENT_BANDWIDTH_HZ))
 
+/* How often to send target brightness updates to the shell.
+ * This is currently 10 times a second; but the shell should handle animating
+ * for us in the future so we can drop this value to ~1 time per second. */
+#define GSD_AMBIENT_SEND_UPDATE_INTERVAL (G_USEC_PER_SEC * 0.1f)
+
 /* Normalize against this factor of the current absolute reading.
  * The value has been chosen arbitrarily but seems to work in practice. */
 #define GSD_AMBIENT_NORMALIZE_CONSTANT (1.5f)
@@ -173,6 +178,7 @@ struct _GsdPowerManager
         gdouble                  ambient_accumulator;
         gdouble                  ambient_norm_value;
         gint64                   ambient_update_last_time;
+        gint64                   ambient_set_last_time;
 
         /* Power Profiles */
         GDBusProxy              *power_profiles_proxy;
@@ -2970,8 +2976,11 @@ iio_proxy_changed (GsdPowerManager *manager)
         g_debug ("Calculated new target brightness from ambient: %.1f%%",
                  manager->ambient_accumulator);
 
-        shell_brightness_set_auto_target (manager,
-                                          manager->ambient_accumulator / 100.0);
+        if (current_time - manager->ambient_set_last_time >= GSD_AMBIENT_SEND_UPDATE_INTERVAL) {
+                shell_brightness_set_auto_target (manager,
+                                                  manager->ambient_accumulator / 100.0);
+                manager->ambient_set_last_time = current_time;
+        }
 }
 
 static void
@@ -3095,6 +3104,7 @@ gsd_power_manager_startup (GApplication *app)
         manager->ambient_accumulator = -1.f;
         manager->ambient_norm_value = -1.f;
         manager->ambient_update_last_time = 0;
+        manager->ambient_set_last_time = 0;
 
         /* Set up a delay inhibitor to be informed about suspend attempts */
         g_signal_connect (manager->logind_proxy, "g-signal",
