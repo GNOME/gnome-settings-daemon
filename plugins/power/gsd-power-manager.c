@@ -170,7 +170,7 @@ struct _GsdPowerManager
         gdouble                  ambient_norm_value;
         gdouble                  ambient_percentage_old;
         gdouble                  ambient_last_absolute;
-        gint64                   ambient_last_time;
+        gint64                   ambient_update_last_time;
 
         /* Power Profiles */
         GDBusProxy              *power_profiles_proxy;
@@ -2957,11 +2957,11 @@ iio_proxy_changed (GsdPowerManager *manager)
 
         /* time-weighted constant for moving average */
         current_time = g_get_monotonic_time();
-        if (manager->ambient_last_time)
-                alpha = 1.0f / (1.0f + (GSD_AMBIENT_TIME_CONSTANT / (current_time - manager->ambient_last_time)));
+        if (manager->ambient_update_last_time)
+                alpha = 1.0f / (1.0f + (GSD_AMBIENT_TIME_CONSTANT / (current_time - manager->ambient_update_last_time)));
         else
                 alpha = 0.0f;
-        manager->ambient_last_time = current_time;
+        manager->ambient_update_last_time = current_time;
 
         /* calculate exponential weighted moving average */
         brightness = manager->ambient_last_absolute * 100.f / manager->ambient_norm_value;
@@ -3108,7 +3108,7 @@ gsd_power_manager_startup (GApplication *app)
         manager->ambient_norm_value = -1.f;
         manager->ambient_percentage_old = -1.f;
         manager->ambient_last_absolute = -1.f;
-        manager->ambient_last_time = 0;
+        manager->ambient_update_last_time = 0;
 
         /* Set up a delay inhibitor to be informed about suspend attempts */
         g_signal_connect (manager->logind_proxy, "g-signal",
