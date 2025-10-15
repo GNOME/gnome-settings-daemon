@@ -1314,16 +1314,17 @@ light_released_cb (GObject      *source_object,
                    GAsyncResult *res,
                    gpointer      user_data)
 {
+        GsdPowerManager *manager = GSD_POWER_MANAGER (user_data);
         g_autoptr(GError) error = NULL;
         g_autoptr(GVariant) result = NULL;
 
         result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
                                            res,
                                            &error);
-        if (result == NULL) {
+        if (result == NULL)
                 g_warning ("Release of light sensors failed: %s", error->message);
-                return;
-        }
+
+        shell_brightness_set_auto_target (manager, -1.0);
 }
 
 static gboolean
