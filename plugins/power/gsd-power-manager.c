@@ -90,6 +90,10 @@
 /* Convert bandwidth to time constant.  Units of constant are microseconds. */
 #define GSD_AMBIENT_TIME_CONSTANT       (G_USEC_PER_SEC * 1.0f / (2.0f * G_PI * GSD_AMBIENT_BANDWIDTH_HZ))
 
+/* Normalize against this factor of the current absolute reading.
+ * The value has been chosen arbitrarily but seems to work in practice. */
+#define GSD_AMBIENT_NORMALIZE_CONSTANT (1.5f)
+
 static const gchar introspection_xml[] =
 "<node>"
 "  <interface name='org.gnome.SettingsDaemon.Power.Keyboard'>"
@@ -168,8 +172,6 @@ struct _GsdPowerManager
         gboolean                 ambient_norm_required;
         gdouble                  ambient_accumulator;
         gdouble                  ambient_norm_value;
-        gdouble                  ambient_percentage_old;
-        gdouble                  ambient_last_absolute;
         gint64                   ambient_update_last_time;
 
         /* Power Profiles */
@@ -2648,19 +2650,6 @@ idle_became_active_cb (GnomeIdleMonitor *monitor,
 }
 
 static void
-ch_backlight_renormalize (GsdPowerManager *manager)
-{
-        if (manager->ambient_percentage_old < 0)
-                return;
-        if (manager->ambient_last_absolute < 0)
-                return;
-        manager->ambient_norm_value = manager->ambient_last_absolute /
-                                        (gdouble) manager->ambient_percentage_old;
-        manager->ambient_norm_value *= 100.f;
-        manager->ambient_norm_required = FALSE;
-}
-
-static void
 engine_settings_key_changed_cb (GSettings *settings,
                                 const gchar *key,
                                 GsdPowerManager *manager)
@@ -2924,10 +2913,10 @@ iio_proxy_changed (GsdPowerManager *manager)
 {
         g_autoptr (GVariant) val_has = NULL;
         g_autoptr (GVariant) val_als = NULL;
+        gdouble ambient_last_absolute;
         gdouble brightness;
         gdouble alpha;
         gint64 current_time;
-        gint pc;
 
         /* no display hardware */
         if (!shell_brightness_has_control (manager))
@@ -2942,17 +2931,20 @@ iio_proxy_changed (GsdPowerManager *manager)
         if (val_has == NULL || !g_variant_get_boolean (val_has))
                 return;
         val_als = g_dbus_proxy_get_cached_property (manager->iio_proxy, "LightLevel");
-        if (val_als == NULL || g_variant_get_double (val_als) == 0.0)
+        if (val_als == NULL || g_variant_get_double (val_als) <= 0.f)
                 return;
-        manager->ambient_last_absolute = g_variant_get_double (val_als);
-        g_debug ("Read last absolute light level: %f", manager->ambient_last_absolute);
+        ambient_last_absolute = g_variant_get_double (val_als);
+        g_debug ("Read absolute light level: %f", ambient_last_absolute);
 
         /* the user has asked to renormalize */
         if (manager->ambient_norm_required) {
-                g_debug ("Renormalizing light level from old light percentage: %.1f%%",
-                         manager->ambient_percentage_old);
-                manager->ambient_accumulator = manager->ambient_percentage_old;
-                ch_backlight_renormalize (manager);
+                g_debug ("Normalizing light level");
+
+                manager->ambient_norm_value = ambient_last_absolute * GSD_AMBIENT_NORMALIZE_CONSTANT;
+                if (manager->ambient_accumulator <= 0.f)
+                        manager->ambient_accumulator = 100.f / GSD_AMBIENT_NORMALIZE_CONSTANT;
+
+                manager->ambient_norm_required = FALSE;
         }
 
         /* time-weighted constant for moving average */
@@ -2964,7 +2956,7 @@ iio_proxy_changed (GsdPowerManager *manager)
         manager->ambient_update_last_time = current_time;
 
         /* calculate exponential weighted moving average */
-        brightness = manager->ambient_last_absolute * 100.f / manager->ambient_norm_value;
+        brightness = ambient_last_absolute * 100.f / manager->ambient_norm_value;
         brightness = MIN (brightness, 100.f);
         brightness = MAX (brightness, 0.f);
 
@@ -2975,15 +2967,11 @@ iio_proxy_changed (GsdPowerManager *manager)
         if (manager->ambient_accumulator < 0.f)
                 return;
 
-        /* set new value */
-        g_debug ("Setting brightness from ambient %.1f%%",
+        g_debug ("Calculated new target brightness from ambient: %.1f%%",
                  manager->ambient_accumulator);
-        pc = manager->ambient_accumulator;
 
-        shell_brightness_set_auto_target (manager, pc / 100);
-
-        /* Assume setting worked. */
-        manager->ambient_percentage_old = pc;
+        shell_brightness_set_auto_target (manager,
+                                          manager->ambient_accumulator / 100.0);
 }
 
 static void
@@ -3106,8 +3094,6 @@ gsd_power_manager_startup (GApplication *app)
         manager->ambient_norm_required = TRUE;
         manager->ambient_accumulator = -1.f;
         manager->ambient_norm_value = -1.f;
-        manager->ambient_percentage_old = -1.f;
-        manager->ambient_last_absolute = -1.f;
         manager->ambient_update_last_time = 0;
 
         /* Set up a delay inhibitor to be informed about suspend attempts */
