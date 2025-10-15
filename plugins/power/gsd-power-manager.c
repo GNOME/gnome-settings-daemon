@@ -2922,8 +2922,8 @@ logind_proxy_signal_cb (GDBusProxy  *proxy,
 static void
 iio_proxy_changed (GsdPowerManager *manager)
 {
-        GVariant *val_has = NULL;
-        GVariant *val_als = NULL;
+        g_autoptr (GVariant) val_has = NULL;
+        g_autoptr (GVariant) val_als = NULL;
         gdouble brightness;
         gdouble alpha;
         gint64 current_time;
@@ -2940,10 +2940,10 @@ iio_proxy_changed (GsdPowerManager *manager)
         /* get latest results, which do not have to be Lux */
         val_has = g_dbus_proxy_get_cached_property (manager->iio_proxy, "HasAmbientLight");
         if (val_has == NULL || !g_variant_get_boolean (val_has))
-                goto out;
+                return;
         val_als = g_dbus_proxy_get_cached_property (manager->iio_proxy, "LightLevel");
         if (val_als == NULL || g_variant_get_double (val_als) == 0.0)
-                goto out;
+                return;
         manager->ambient_last_absolute = g_variant_get_double (val_als);
         g_debug ("Read last absolute light level: %f", manager->ambient_last_absolute);
 
@@ -2973,7 +2973,7 @@ iio_proxy_changed (GsdPowerManager *manager)
 
         /* no valid readings yet */
         if (manager->ambient_accumulator < 0.f)
-                goto out;
+                return;
 
         /* set new value */
         g_debug ("Setting brightness from ambient %.1f%%",
@@ -2984,9 +2984,6 @@ iio_proxy_changed (GsdPowerManager *manager)
 
         /* Assume setting worked. */
         manager->ambient_percentage_old = pc;
-out:
-        g_clear_pointer (&val_has, g_variant_unref);
-        g_clear_pointer (&val_als, g_variant_unref);
 }
 
 static void
