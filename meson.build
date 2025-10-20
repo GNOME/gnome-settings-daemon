@@ -249,6 +249,12 @@ if enable_colord
   colord_dep = dependency('colord', version: '>= 1.4.5')
 endif
 
+# subman
+enable_subman = get_option('subman')
+if enable_subman
+  jsonglib_dep = dependency('json-glib-1.0', version: '>= 1.1.1')
+endif
+
 gnome = import('gnome')
 i18n = import('i18n')
 pkg = import('pkgconfig')

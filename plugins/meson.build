@@ -1,6 +1,7 @@
 all_plugins = [
     ['a11y-settings', 'A11ySettings', 'GNOME accessibility'],
     ['color', 'Color', 'GNOME color management'],
+    ['subman', 'Subscription', 'GNOME subscription management'],
     ['datetime', 'Datetime', 'GNOME date & time'],
     ['power', 'Power', 'GNOME power management'],
     ['housekeeping', 'Housekeeping', 'GNOME maintenance of expirable data'],
@@ -50,6 +51,10 @@ endif
 
 if not enable_cups
   disabled_plugins += ['print-notifications']
+endif
+
+if not enable_subman
+  disabled_plugins += ['subman']
 endif
 
 # Specify futher required units, 'before' or 'after' may be specified if ordering is needed
