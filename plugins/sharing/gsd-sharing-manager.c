@@ -133,6 +133,7 @@ static const char * const configurable_services[] = {
 
 /* Services that are delegated to the user session by a system service
  */
+#if HAVE_SYSTEMD_LIB
 static AssignedService assigned_services[] = {
         {
                 .system_bus_name = "org.gnome.RemoteDesktop",
@@ -142,6 +143,7 @@ static AssignedService assigned_services[] = {
                 .remote_session_classes = { "user", "greeter", NULL }
         }
 };
+#endif
 
 static void
 handle_unit_cb (GObject      *source_object,
@@ -247,8 +249,6 @@ gsd_sharing_manager_sync_configurable_services (GsdSharingManager *manager)
         g_list_free (services);
 }
 
-
-#if HAVE_SYSTEMD_LIB
 static void
 on_assigned_service_finished (GPid     pid,
                               int      exit_status,
@@ -389,12 +389,10 @@ stop_assigned_service_after_timeout (GsdSharingManager   *manager,
                               timeout_source,
                               G_SOURCE_FUNC (on_timeout_reached));
 }
-#endif
 
 static void
 gsd_sharing_manager_sync_assigned_services (GsdSharingManager *manager)
 {
-#if HAVE_SYSTEMD_LIB
         GList *services, *l;
 
         services = g_hash_table_get_values (manager->assigned_services);
@@ -408,7 +406,6 @@ gsd_sharing_manager_sync_assigned_services (GsdSharingManager *manager)
                         start_assigned_service (manager, info);
         }
         g_list_free (services);
-#endif
 }
 
 static void
@@ -1013,7 +1010,6 @@ assigned_service_free (gpointer pointer)
         g_free (info);
 }
 
-#if HAVE_SYSTEMD_LIB
 static void
 on_system_bus_name_appeared (GDBusConnection   *connection,
                              const char        *system_bus_name,
@@ -1056,7 +1052,6 @@ on_system_bus_name_vanished (GDBusConnection   *connection,
 
         stop_assigned_service_after_timeout (manager, info);
 }
-#endif
 
 static void
 manage_configurable_services (GsdSharingManager *manager)
