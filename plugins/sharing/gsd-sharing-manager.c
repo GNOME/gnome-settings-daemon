@@ -283,9 +283,6 @@ start_assigned_service (GsdSharingManager   *manager,
 {
         AssignedService *service;
 
-        if (manager->sharing_status == GSD_SHARING_STATUS_OFFLINE)
-                return;
-
         if (!info->system_service_running)
                 return;
 
@@ -388,31 +385,6 @@ stop_assigned_service_after_timeout (GsdSharingManager   *manager,
         g_task_attach_source (g_steal_pointer (&wait_task),
                               timeout_source,
                               G_SOURCE_FUNC (on_timeout_reached));
-}
-
-static void
-gsd_sharing_manager_sync_assigned_services (GsdSharingManager *manager)
-{
-        GList *services, *l;
-
-        services = g_hash_table_get_values (manager->assigned_services);
-
-        for (l = services; l != NULL; l = l->next) {
-                AssignedServiceInfo *info = l->data;
-
-                if (manager->sharing_status == GSD_SHARING_STATUS_OFFLINE)
-                        stop_assigned_service (manager, info);
-                else
-                        start_assigned_service (manager, info);
-        }
-        g_list_free (services);
-}
-
-static void
-gsd_sharing_manager_sync_services (GsdSharingManager *manager)
-{
-        gsd_sharing_manager_sync_configurable_services (manager);
-        gsd_sharing_manager_sync_assigned_services (manager);
 }
 
 #if HAVE_NETWORK_MANAGER
@@ -741,6 +713,98 @@ static const GDBusInterfaceVTable interface_vtable =
 };
 
 static void
+on_system_bus_name_appeared (GDBusConnection   *connection,
+                             const char        *system_bus_name,
+                             const char        *system_bus_name_owner,
+                             gpointer           user_data)
+{
+        GsdSharingManager *manager = user_data;
+        AssignedServiceInfo *info;
+
+        info = g_hash_table_lookup (manager->assigned_services, system_bus_name);
+
+        if (info == NULL)
+                return;
+
+        if (info->system_service_running)
+                return;
+
+        info->system_service_running = TRUE;
+
+        start_assigned_service (manager, info);
+}
+
+static void
+on_system_bus_name_vanished (GDBusConnection   *connection,
+                             const char        *system_bus_name,
+                             gpointer           user_data)
+{
+        GsdSharingManager *manager = user_data;
+        AssignedServiceInfo *info;
+
+        info = g_hash_table_lookup (manager->assigned_services, system_bus_name);
+
+        if (info == NULL)
+                return;
+
+        if (!info->system_service_running)
+                return;
+
+        info->system_service_running = FALSE;
+
+        stop_assigned_service_after_timeout (manager, info);
+}
+
+static void
+gsd_sharing_manager_start_assigned_services (GsdSharingManager *manager)
+{
+        GHashTableIter iter;
+        gpointer key, value;
+
+        g_hash_table_iter_init (&iter, manager->assigned_services);
+        while (g_hash_table_iter_next (&iter, &key, &value)) {
+                AssignedServiceInfo *info = value;
+                AssignedService *service = info->service;
+
+                info->system_bus_name_watch = g_bus_watch_name (G_BUS_TYPE_SYSTEM,
+                                                                service->system_bus_name,
+                                                                G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                                                on_system_bus_name_appeared,
+                                                                on_system_bus_name_vanished,
+                                                                manager,
+                                                                NULL);
+        }
+}
+
+static void
+cancel_pending_wait_tasks (GsdSharingManager *manager)
+{
+        GHashTableIter iter;
+        gpointer key, value;
+
+        g_hash_table_iter_init (&iter, manager->assigned_services);
+        while (g_hash_table_iter_next (&iter, &key, &value)) {
+                AssignedServiceInfo *info = value;
+                g_cancellable_cancel (info->cancellable);
+        }
+}
+
+static void
+gsd_sharing_manager_stop_assigned_services (GsdSharingManager *manager)
+{
+        GList *services, *l;
+
+        cancel_pending_wait_tasks (manager);
+
+        services = g_hash_table_get_values (manager->assigned_services);
+        for (l = services; l != NULL; l = l->next) {
+                AssignedServiceInfo *info = l->data;
+                stop_assigned_service (manager, info);
+        }
+        g_list_free (services);
+}
+
+static void
 on_bus_gotten (GObject               *source_object,
                GAsyncResult          *res,
                GsdSharingManager     *manager)
@@ -772,6 +836,8 @@ on_bus_gotten (GObject               *source_object,
                                                                NULL,
                                                                NULL,
                                                                NULL);
+
+        gsd_sharing_manager_start_assigned_services (manager);
 }
 
 #if HAVE_NETWORK_MANAGER
@@ -825,7 +891,7 @@ primary_connection_changed (GObject    *gobject,
         g_debug ("status: %d", manager->sharing_status);
 
         properties_changed (manager);
-        gsd_sharing_manager_sync_services (manager);
+        gsd_sharing_manager_sync_configurable_services (manager);
 }
 
 static void
@@ -913,31 +979,19 @@ gsd_sharing_manager_startup (GApplication *app)
 }
 
 static void
-cancel_pending_wait_tasks (GsdSharingManager *manager)
-{
-        GHashTableIter iter;
-        gpointer key, value;
-
-        g_hash_table_iter_init (&iter, manager->assigned_services);
-        while (g_hash_table_iter_next (&iter, &key, &value)) {
-                AssignedServiceInfo *info = value;
-                g_cancellable_cancel (info->cancellable);
-        }
-}
-
-static void
 gsd_sharing_manager_pre_shutdown (GsdApplication *app)
 {
         GsdSharingManager *manager = GSD_SHARING_MANAGER (app);
 
         g_debug ("Pre-shutdown on sharing manager");
 
-        cancel_pending_wait_tasks (manager);
+        if (manager->connection != NULL) {
+                gsd_sharing_manager_stop_assigned_services (manager);
 
-        if (manager->sharing_status != GSD_SHARING_STATUS_OFFLINE &&
-            manager->connection != NULL) {
-                manager->sharing_status = GSD_SHARING_STATUS_OFFLINE;
-                gsd_sharing_manager_sync_services (manager);
+                if (manager->sharing_status != GSD_SHARING_STATUS_OFFLINE) {
+                        manager->sharing_status = GSD_SHARING_STATUS_OFFLINE;
+                        gsd_sharing_manager_sync_configurable_services (manager);
+                }
         }
 
         GSD_APPLICATION_CLASS (gsd_sharing_manager_parent_class)->pre_shutdown (app);
@@ -1008,49 +1062,6 @@ assigned_service_free (gpointer pointer)
 
         g_bus_unwatch_name (info->system_bus_name_watch);
         g_free (info);
-}
-
-static void
-on_system_bus_name_appeared (GDBusConnection   *connection,
-                             const char        *system_bus_name,
-                             const char        *system_bus_name_owner,
-                             gpointer           user_data)
-{
-        GsdSharingManager *manager = user_data;
-        AssignedServiceInfo *info;
-
-        info = g_hash_table_lookup (manager->assigned_services, system_bus_name);
-
-        if (info == NULL)
-                return;
-
-        if (info->system_service_running)
-                return;
-
-        info->system_service_running = TRUE;
-
-        start_assigned_service (manager, info);
-}
-
-static void
-on_system_bus_name_vanished (GDBusConnection   *connection,
-                             const char        *system_bus_name,
-                             gpointer           user_data)
-{
-        GsdSharingManager *manager = user_data;
-        AssignedServiceInfo *info;
-
-        info = g_hash_table_lookup (manager->assigned_services, system_bus_name);
-
-        if (info == NULL)
-                return;
-
-        if (!info->system_service_running)
-                return;
-
-        info->system_service_running = FALSE;
-
-        stop_assigned_service_after_timeout (manager, info);
 }
 
 static void
@@ -1125,14 +1136,6 @@ manage_assigned_services (GsdSharingManager *manager)
 
                 info = g_new0 (AssignedServiceInfo, 1);
                 info->service = service;
-
-                info->system_bus_name_watch = g_bus_watch_name(G_BUS_TYPE_SYSTEM,
-                                                               service->system_bus_name,
-                                                               G_BUS_NAME_WATCHER_FLAGS_NONE,
-                                                               on_system_bus_name_appeared,
-                                                               on_system_bus_name_vanished,
-                                                               manager,
-                                                               NULL);
 
                 g_hash_table_insert (manager->assigned_services, (gpointer) service->system_bus_name, info);
         }
