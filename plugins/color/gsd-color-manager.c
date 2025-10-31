@@ -29,10 +29,13 @@
 #include "gnome-settings-profile.h"
 #include "gsd-color-calibrate.h"
 #include "gsd-color-manager.h"
+#include "gsd-color-scheme.h"
 #include "gsd-color-state.h"
 #include "gsd-night-light-common.h"
 #include "gsd-location-monitor.h"
 #include "gsd-night-light.h"
+#include "gsd-shell-helper.h"
+#include "gnome-settings-bus.h"
 
 #define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
 #define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
@@ -67,6 +70,8 @@ struct _GsdColorManager
         GsdColorState     *state;
         GsdLocationMonitor *monitor;
         GsdNightLight   *nlight;
+        GsdColorScheme  *color_scheme;
+        GsdShell        *shell_proxy;
 
         guint            nlight_forced_timeout_id;
         GSource          *source;
@@ -113,6 +118,10 @@ gsd_color_manager_startup (GApplication *app)
         /* setup night light module */
         if (!gsd_night_light_start (manager->nlight, &error))
                 g_warning ("Could not start night light module: %s", error->message);
+
+        /* setup color scheme module */
+        if (!gsd_color_scheme_start (manager->color_scheme, &error))
+                g_warning ("Could not start color scheme module: %s", error->message);
 
         G_APPLICATION_CLASS (gsd_color_manager_parent_class)->startup (app);
 
@@ -243,12 +252,29 @@ color_recheck_cb (gpointer user_data)
 
         /* recheck individual components */
         gsd_night_light_recheck_immediate (manager->nlight);
+        gsd_color_scheme_recheck_immediate (manager->color_scheme);
 
         poll_timeout_destroy (manager);
         poll_timeout_create (manager);
 
         /* return value ignored for a one-time watch */
         return G_SOURCE_REMOVE;
+}
+
+static void
+on_scheme_switched (GsdColorScheme *color_scheme,
+                    gpointer        user_data)
+{
+        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
+        g_autoptr(GError) error = NULL;
+
+        if (manager->shell_proxy == NULL)
+                return;
+
+        gsd_shell_call_screen_transition_sync (manager->shell_proxy, NULL, &error);
+
+        if (error)
+                g_warning ("Couldn't transition screen: %s", error->message);
 }
 
 static void
@@ -285,6 +311,8 @@ poll_timeout_destroy (GsdColorManager *manager)
 static void
 gsd_color_manager_init (GsdColorManager *manager)
 {
+        manager->shell_proxy = gnome_settings_bus_get_shell_proxy ();
+
         /* setup calibration features */
         manager->calibrate = gsd_color_calibrate_new (manager);
         manager->state = gsd_color_state_new ();
@@ -304,6 +332,13 @@ gsd_color_manager_init (GsdColorManager *manager)
                           G_CALLBACK (on_temperature_notify), manager);
         g_signal_connect (manager->nlight, "notify::disabled-until-tmw",
                           G_CALLBACK (on_disabled_until_tmw_notify), manager);
+        
+        /* color scheme features */
+        manager->color_scheme = gsd_color_scheme_new ();
+        g_signal_connect (manager->color_scheme, "scheme-switched",
+                          G_CALLBACK (on_scheme_switched), manager);
+        
+        poll_timeout_create (manager);
 }
 
 static void
@@ -322,6 +357,8 @@ gsd_color_manager_finalize (GObject *object)
         g_clear_object (&manager->state);
         g_clear_object (&manager->monitor);
         g_clear_object (&manager->nlight);
+        g_clear_object (&manager->color_scheme);
+        g_clear_object (&manager->shell_proxy);
 
         G_OBJECT_CLASS (gsd_color_manager_parent_class)->finalize (object);
 }
