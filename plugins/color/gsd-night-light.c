@@ -20,11 +20,6 @@
 
 #include "config.h"
 
-#include <geoclue.h>
-
-#define GNOME_DESKTOP_USE_UNSTABLE_API
-#include "gnome-datetime-source.h"
-
 #include "gsd-color-state.h"
 
 #include "gsd-night-light.h"
@@ -36,14 +31,7 @@ struct _GsdNightLight {
         gboolean           forced;
         gboolean           disabled_until_tmw;
         GDateTime         *disabled_until_tmw_dt;
-        gboolean           geoclue_enabled;
-        GSource           *source;
         guint              validate_id;
-        GClueClient       *geoclue_client;
-        GClueSimple       *geoclue_simple;
-        GSettings         *location_settings;
-        gdouble            cached_sunrise;
-        gdouble            cached_sunset;
         gdouble            cached_temperature;
         gboolean           cached_active;
         gboolean           smooth_enabled;
@@ -51,14 +39,12 @@ struct _GsdNightLight {
         guint              smooth_id;
         gdouble            smooth_target_temperature;
         GCancellable      *cancellable;
-        GDateTime         *datetime_override;
+        GsdLocationMonitor *monitor;
 };
 
 enum {
         PROP_0,
         PROP_ACTIVE,
-        PROP_SUNRISE,
-        PROP_SUNSET,
         PROP_TEMPERATURE,
         PROP_DISABLED_UNTIL_TMW,
         PROP_FORCED,
@@ -70,32 +56,17 @@ enum {
 #define GSD_NIGHT_LIGHT_POLL_SMEAR            1       /* hours */
 #define GSD_NIGHT_LIGHT_SMOOTH_SMEAR          5.f     /* seconds */
 
-#define GSD_FRAC_DAY_MAX_DELTA                  (1.f/60.f)     /* 1 minute */
 #define GSD_TEMPERATURE_MAX_DELTA               (10.f)          /* Kelvin */
 
 #define DESKTOP_ID "gnome-color-panel"
 
-static void poll_timeout_destroy (GsdNightLight *self);
-static void poll_timeout_create (GsdNightLight *self);
 static void night_light_recheck (GsdNightLight *self);
 
 G_DEFINE_TYPE (GsdNightLight, gsd_night_light, G_TYPE_OBJECT);
 
-static GDateTime *
-gsd_night_light_get_date_time_now (GsdNightLight *self)
-{
-        if (self->datetime_override != NULL)
-                return g_date_time_ref (self->datetime_override);
-        return g_date_time_new_now_local ();
-}
-
 void
-gsd_night_light_set_date_time_now (GsdNightLight *self, GDateTime *datetime)
+gsd_night_light_recheck_immediate (GsdNightLight *self)
 {
-        if (self->datetime_override != NULL)
-                g_date_time_unref (self->datetime_override);
-        self->datetime_override = g_date_time_ref (datetime);
-
         night_light_recheck (self);
 }
 
@@ -126,45 +97,6 @@ linear_interpolate (gdouble val1, gdouble val2, gdouble factor)
         g_return_val_if_fail (factor >= 0.f, -1.f);
         g_return_val_if_fail (factor <= 1.f, -1.f);
         return ((val1 - val2) * factor) + val2;
-}
-
-static gboolean
-update_cached_sunrise_sunset (GsdNightLight *self)
-{
-        gboolean ret = FALSE;
-        gdouble latitude;
-        gdouble longitude;
-        gdouble sunrise;
-        gdouble sunset;
-        g_autoptr(GVariant) tmp = NULL;
-        g_autoptr(GDateTime) dt_now = gsd_night_light_get_date_time_now (self);
-
-        /* calculate the sunrise/sunset for the location */
-        tmp = g_settings_get_value (self->settings, "night-light-last-coordinates");
-        g_variant_get (tmp, "(dd)", &latitude, &longitude);
-        if (latitude > 90.f || latitude < -90.f)
-                return FALSE;
-        if (longitude > 180.f || longitude < -180.f)
-                return FALSE;
-        if (!gsd_night_light_get_sunrise_sunset (dt_now, latitude, longitude,
-                                                   &sunrise, &sunset)) {
-                g_warning ("failed to get sunset/sunrise for %.3f,%.3f",
-                           longitude, longitude);
-                return FALSE;
-        }
-
-        /* anything changed */
-        if (ABS (self->cached_sunrise - sunrise) > GSD_FRAC_DAY_MAX_DELTA) {
-                self->cached_sunrise = sunrise;
-                g_object_notify (G_OBJECT (self), "sunrise");
-                ret = TRUE;
-        }
-        if (ABS (self->cached_sunset - sunset) > GSD_FRAC_DAY_MAX_DELTA) {
-                self->cached_sunset = sunset;
-                g_object_notify (G_OBJECT (self), "sunset");
-                ret = TRUE;
-        }
-        return ret;
 }
 
 static void
@@ -258,7 +190,7 @@ night_light_recheck (GsdNightLight *self)
         gdouble smear = GSD_NIGHT_LIGHT_POLL_SMEAR; /* hours */
         guint temperature;
         guint temp_smeared;
-        g_autoptr(GDateTime) dt_now = gsd_night_light_get_date_time_now (self);
+        g_autoptr(GDateTime) dt_now = gsd_location_monitor_get_date_time_now (self->monitor);
 
         /* Forced mode, just set the temperature to night light.
          * Proper rechecking will happen once forced mode is disabled again */
@@ -277,10 +209,12 @@ night_light_recheck (GsdNightLight *self)
 
         /* calculate the position of the sun */
         if (g_settings_get_boolean (self->settings, "night-light-schedule-automatic")) {
-                update_cached_sunrise_sunset (self);
-                if (self->cached_sunrise > 0.f && self->cached_sunset > 0.f) {
-                        schedule_to = self->cached_sunrise;
-                        schedule_from = self->cached_sunset;
+                gdouble cached_sunrise = gsd_location_monitor_get_sunrise (self->monitor);
+                gdouble cached_sunset = gsd_location_monitor_get_sunset (self->monitor);
+
+                if (cached_sunrise > 0.f && cached_sunset > 0.f) {
+                        schedule_to = cached_sunrise;
+                        schedule_from = cached_sunset;
                 }
         }
 
@@ -393,9 +327,9 @@ night_light_recheck_schedule_cb (gpointer user_data)
         return G_SOURCE_REMOVE;
 }
 
-/* called when something changed */
-static void
-night_light_recheck_schedule (GsdNightLight *self)
+/* called when location monitor updates */
+void
+gsd_night_light_recheck_schedule (GsdNightLight *self)
 {
         if (self->validate_id != 0)
                 g_source_remove (self->validate_id);
@@ -405,152 +339,24 @@ night_light_recheck_schedule (GsdNightLight *self)
                                        self);
 }
 
-/* called when the time may have changed */
-static gboolean
-night_light_recheck_cb (gpointer user_data)
-{
-        GsdNightLight *self = GSD_NIGHT_LIGHT (user_data);
-
-        /* recheck parameters, then reschedule a new timeout */
-        night_light_recheck (self);
-        poll_timeout_destroy (self);
-        poll_timeout_create (self);
-
-        /* return value ignored for a one-time watch */
-        return G_SOURCE_REMOVE;
-}
-
-static void
-poll_timeout_create (GsdNightLight *self)
-{
-        g_autoptr(GDateTime) dt_now = NULL;
-        g_autoptr(GDateTime) dt_expiry = NULL;
-
-        if (self->source != NULL)
-                return;
-
-        /* It is not a good idea to make this overridable, it just creates
-         * an infinite loop as a fixed date for testing just doesn't work. */
-        dt_now = g_date_time_new_now_local ();
-        dt_expiry = g_date_time_add_seconds (dt_now, GSD_NIGHT_LIGHT_POLL_TIMEOUT);
-        self->source = _gnome_datetime_source_new (dt_now,
-                                                   dt_expiry,
-                                                   TRUE);
-        g_source_set_callback (self->source,
-                               night_light_recheck_cb,
-                               self, NULL);
-        g_source_attach (self->source, NULL);
-}
-
-static void
-poll_timeout_destroy (GsdNightLight *self)
-{
-
-        if (self->source == NULL)
-                return;
-
-        g_source_destroy (self->source);
-        g_source_unref (self->source);
-        self->source = NULL;
-}
-
 static void
 settings_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
         GsdNightLight *self = GSD_NIGHT_LIGHT (user_data);
         g_debug ("settings changed");
-        night_light_recheck (self);
-}
 
-static void
-on_location_notify (GClueSimple *simple,
-                    GParamSpec  *pspec,
-                    gpointer     user_data)
-{
-        GsdNightLight *self = GSD_NIGHT_LIGHT (user_data);
-        GClueLocation *location;
-        gdouble latitude, longitude;
-
-        location = gclue_simple_get_location (simple);
-        latitude = gclue_location_get_latitude (location);
-        longitude = gclue_location_get_longitude (location);
-
-        g_settings_set_value (self->settings,
-                              "night-light-last-coordinates",
-                              g_variant_new ("(dd)", latitude, longitude));
-
-        g_debug ("got geoclue latitude %f, longitude %f", latitude, longitude);
-
-        /* recheck the levels if the location changed significantly */
-        if (update_cached_sunrise_sunset (self))
-                night_light_recheck_schedule (self);
-}
-
-static void
-on_geoclue_simple_ready (GObject      *source_object,
-                         GAsyncResult *res,
-                         gpointer      user_data)
-{
-        GsdNightLight *self = GSD_NIGHT_LIGHT (user_data);
-        GClueSimple *geoclue_simple;
-        g_autoptr(GError) error = NULL;
-
-        geoclue_simple = gclue_simple_new_finish (res, &error);
-        if (geoclue_simple == NULL) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-                        g_warning ("Failed to connect to GeoClue2 service: %s", error->message);
-                return;
-        }
-
-        self->geoclue_simple = geoclue_simple;
-        self->geoclue_client = gclue_simple_get_client (self->geoclue_simple);
-        g_object_set (G_OBJECT (self->geoclue_client),
-                      "time-threshold", 60*60, NULL); /* 1 hour */
-
-        g_signal_connect (self->geoclue_simple, "notify::location",
-                          G_CALLBACK (on_location_notify), user_data);
-
-        on_location_notify (self->geoclue_simple, NULL, user_data);
-}
-
-static void
-start_geoclue (GsdNightLight *self)
-{
-        self->cancellable = g_cancellable_new ();
-        gclue_simple_new (DESKTOP_ID,
-                          GCLUE_ACCURACY_LEVEL_CITY,
-                          self->cancellable,
-                          on_geoclue_simple_ready,
-                          self);
-
-}
-
-static void
-stop_geoclue (GsdNightLight *self)
-{
-        g_cancellable_cancel (self->cancellable);
-        g_clear_object (&self->cancellable);
-
-        if (self->geoclue_client != NULL) {
-                gclue_client_call_stop (self->geoclue_client, NULL, NULL, NULL);
-                self->geoclue_client = NULL;
-        }
-        g_clear_object (&self->geoclue_simple);
-}
-
-static void
-check_location_settings (GsdNightLight *self)
-{
-        if (g_settings_get_boolean (self->location_settings, "enabled") && self->geoclue_enabled)
-                start_geoclue (self);
+        if (g_settings_get_boolean (self->settings, "night-light-schedule-automatic"))
+                g_signal_connect (G_OBJECT (self->monitor), "changed", G_CALLBACK (night_light_recheck), self);
         else
-                stop_geoclue (self);
+                g_signal_handlers_disconnect_by_data (self->monitor, self);
+        
+        night_light_recheck (self);
 }
 
 void
 gsd_night_light_set_disabled_until_tmw (GsdNightLight *self, gboolean value)
 {
-        g_autoptr(GDateTime) dt = gsd_night_light_get_date_time_now (self);
+        g_autoptr(GDateTime) dt = gsd_location_monitor_get_date_time_now (self->monitor);
 
         if (self->disabled_until_tmw == value)
                 return;
@@ -599,42 +405,19 @@ gsd_night_light_get_active (GsdNightLight *self)
 }
 
 gdouble
-gsd_night_light_get_sunrise (GsdNightLight *self)
-{
-        return self->cached_sunrise;
-}
-
-gdouble
-gsd_night_light_get_sunset (GsdNightLight *self)
-{
-        return self->cached_sunset;
-}
-
-gdouble
 gsd_night_light_get_temperature (GsdNightLight *self)
 {
         return self->cached_temperature;
-}
-
-void
-gsd_night_light_set_geoclue_enabled (GsdNightLight *self, gboolean enabled)
-{
-        self->geoclue_enabled = enabled;
 }
 
 gboolean
 gsd_night_light_start (GsdNightLight *self, GError **error)
 {
         night_light_recheck (self);
-        poll_timeout_create (self);
 
         /* care about changes */
         g_signal_connect (self->settings, "changed",
                           G_CALLBACK (settings_changed_cb), self);
-
-        g_signal_connect_swapped (self->location_settings, "changed::enabled",
-                                  G_CALLBACK (check_location_settings), self);
-        check_location_settings (self);
 
         return TRUE;
 }
@@ -644,13 +427,10 @@ gsd_night_light_finalize (GObject *object)
 {
         GsdNightLight *self = GSD_NIGHT_LIGHT (object);
 
-        stop_geoclue (self);
-
-        poll_timeout_destroy (self);
         poll_smooth_destroy (self);
 
         g_clear_object (&self->settings);
-        g_clear_pointer (&self->datetime_override, g_date_time_unref);
+        g_clear_object (&self->monitor);
         g_clear_pointer (&self->disabled_until_tmw_dt, g_date_time_unref);
 
         if (self->validate_id > 0) {
@@ -658,7 +438,6 @@ gsd_night_light_finalize (GObject *object)
                 self->validate_id = 0;
         }
 
-        g_clear_object (&self->location_settings);
         G_OBJECT_CLASS (gsd_night_light_parent_class)->finalize (object);
 }
 
@@ -671,12 +450,6 @@ gsd_night_light_set_property (GObject      *object,
         GsdNightLight *self = GSD_NIGHT_LIGHT (object);
 
         switch (prop_id) {
-        case PROP_SUNRISE:
-                self->cached_sunrise = g_value_get_double (value);
-                break;
-        case PROP_SUNSET:
-                self->cached_sunset = g_value_get_double (value);
-                break;
         case PROP_TEMPERATURE:
                 self->cached_temperature = g_value_get_double (value);
                 break;
@@ -702,12 +475,6 @@ gsd_night_light_get_property (GObject    *object,
         switch (prop_id) {
         case PROP_ACTIVE:
                 g_value_set_boolean (value, self->cached_active);
-                break;
-        case PROP_SUNRISE:
-                g_value_set_double (value, self->cached_sunrise);
-                break;
-        case PROP_SUNSET:
-                g_value_set_double (value, self->cached_sunset);
                 break;
         case PROP_TEMPERATURE:
                 g_value_set_double (value, self->cached_temperature);
@@ -741,26 +508,6 @@ gsd_night_light_class_init (GsdNightLightClass *klass)
                                                                G_PARAM_READABLE));
 
         g_object_class_install_property (object_class,
-                                         PROP_SUNRISE,
-                                         g_param_spec_double ("sunrise",
-                                                              "Sunrise",
-                                                              "Sunrise in fractional hours",
-                                                              0,
-                                                              24.f,
-                                                              12,
-                                                              G_PARAM_READWRITE));
-
-        g_object_class_install_property (object_class,
-                                         PROP_SUNSET,
-                                         g_param_spec_double ("sunset",
-                                                              "Sunset",
-                                                              "Sunset in fractional hours",
-                                                              0,
-                                                              24.f,
-                                                              12,
-                                                              G_PARAM_READWRITE));
-
-        g_object_class_install_property (object_class,
                                          PROP_TEMPERATURE,
                                          g_param_spec_double ("temperature",
                                                               "Temperature",
@@ -791,17 +538,18 @@ gsd_night_light_class_init (GsdNightLightClass *klass)
 static void
 gsd_night_light_init (GsdNightLight *self)
 {
-        self->geoclue_enabled = TRUE;
         self->smooth_enabled = TRUE;
-        self->cached_sunrise = -1.f;
-        self->cached_sunset = -1.f;
         self->cached_temperature = GSD_COLOR_TEMPERATURE_DEFAULT;
         self->settings = g_settings_new ("org.gnome.settings-daemon.plugins.color");
-        self->location_settings = g_settings_new ("org.gnome.system.location");
+        self->monitor = gsd_location_monitor_get ();
 }
 
 GsdNightLight *
-gsd_night_light_new (void)
+gsd_night_light_new ()
 {
-        return g_object_new (GSD_TYPE_NIGHT_LIGHT, NULL);
+        GsdNightLight *self;
+
+        self = g_object_new (GSD_TYPE_NIGHT_LIGHT, NULL);
+
+        return self;
 }

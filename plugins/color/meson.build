@@ -3,6 +3,7 @@ sources = files(
   'gsd-color-calibrate.c',
   'gsd-color-manager.c',
   'gsd-color-state.c',
+  'gsd-location-monitor.c',
   'gsd-night-light.c',
   'gsd-night-light-common.c',
   'main.c'
@@ -33,6 +34,7 @@ executable(
 sources = files(
   'gcm-self-test.c',
   'gnome-datetime-source.c',
+  'gsd-location-monitor.c',
   'gsd-night-light.c',
   'gsd-night-light-common.c'
 )

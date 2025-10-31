@@ -20,6 +20,9 @@
 
 #include "config.h"
 
+#define GNOME_DESKTOP_USE_UNSTABLE_API
+#include "gnome-datetime-source.h"
+
 #include <glib/gi18n.h>
 #include <math.h>
 
@@ -27,6 +30,8 @@
 #include "gsd-color-calibrate.h"
 #include "gsd-color-manager.h"
 #include "gsd-color-state.h"
+#include "gsd-night-light-common.h"
+#include "gsd-location-monitor.h"
 #include "gsd-night-light.h"
 
 #define GSD_DBUS_NAME "org.gnome.SettingsDaemon"
@@ -60,14 +65,18 @@ struct _GsdColorManager
 
         GsdColorCalibrate *calibrate;
         GsdColorState     *state;
+        GsdLocationMonitor *monitor;
         GsdNightLight   *nlight;
 
         guint            nlight_forced_timeout_id;
+        GSource          *source;
 };
 
 enum {
         PROP_0,
 };
+
+#define GSD_COLOR_POLL_TIMEOUT          60      /* seconds */
 
 static void     gsd_color_manager_class_init  (GsdColorManagerClass *klass);
 static void     gsd_color_manager_init        (GsdColorManager      *color_manager);
@@ -79,6 +88,9 @@ static gboolean gsd_color_manager_dbus_register (GApplication    *app,
 static void     gsd_color_manager_dbus_unregister (GApplication    *app,
                                                    GDBusConnection *connection,
                                                    const char      *object_path);
+
+static void     poll_timeout_destroy           (GsdColorManager *manager);
+static void     poll_timeout_create            (GsdColorManager *manager);
 
 G_DEFINE_TYPE (GsdColorManager, gsd_color_manager, GSD_TYPE_APPLICATION)
 
@@ -93,6 +105,10 @@ gsd_color_manager_startup (GApplication *app)
 
         /* start the device probing */
         gsd_color_state_start (manager->state);
+
+        /* setup location monitor module */
+        if (!gsd_location_monitor_start (manager->monitor, &error))
+                g_warning ("Could not start location monitor module: %s", error->message);
 
         /* setup night light module */
         if (!gsd_night_light_start (manager->nlight, &error))
@@ -177,23 +193,25 @@ on_active_notify (GsdNightLight *nlight,
 }
 
 static void
-on_sunset_notify (GsdNightLight *nlight,
-                  GParamSpec      *pspec,
-                  gpointer         user_data)
+on_sunset_notify (GsdLocationMonitor *monitor,
+                  GParamSpec         *pspec,
+                  gpointer            user_data)
 {
         GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
+        gsd_night_light_recheck_schedule (manager->nlight);
         emit_property_changed (manager, "Sunset",
-                               g_variant_new_double (gsd_night_light_get_sunset (manager->nlight)));
+                               g_variant_new_double (gsd_location_monitor_get_sunset (manager->monitor)));
 }
 
 static void
-on_sunrise_notify (GsdNightLight *nlight,
-                   GParamSpec      *pspec,
-                   gpointer         user_data)
+on_sunrise_notify (GsdLocationMonitor *monitor,
+                   GParamSpec         *pspec,
+                   gpointer            user_data)
 {
         GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
+        gsd_night_light_recheck_schedule (manager->nlight);
         emit_property_changed (manager, "Sunrise",
-                               g_variant_new_double (gsd_night_light_get_sunrise (manager->nlight)));
+                               g_variant_new_double (gsd_location_monitor_get_sunrise (manager->monitor)));
 }
 
 static void
@@ -218,6 +236,52 @@ on_temperature_notify (GsdNightLight *nlight,
                                g_variant_new_uint32 (roundf (temperature)));
 }
 
+static gboolean
+color_recheck_cb (gpointer user_data)
+{
+        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
+
+        /* recheck individual components */
+        gsd_night_light_recheck_immediate (manager->nlight);
+
+        poll_timeout_destroy (manager);
+        poll_timeout_create (manager);
+
+        /* return value ignored for a one-time watch */
+        return G_SOURCE_REMOVE;
+}
+
+static void
+poll_timeout_create (GsdColorManager *self)
+{
+        g_autoptr(GDateTime) dt_now = NULL;
+        g_autoptr(GDateTime) dt_expiry = NULL;
+
+        if (self->source != NULL)
+                return;
+        
+        dt_now = g_date_time_new_now_local ();
+        dt_expiry = g_date_time_add_seconds (dt_now, GSD_COLOR_POLL_TIMEOUT);
+        self->source = _gnome_datetime_source_new (dt_now,
+                                                   dt_expiry,
+                                                   TRUE);
+        g_source_set_callback (self->source,
+                               color_recheck_cb,
+                               self, NULL);
+        g_source_attach (self->source, NULL);
+}
+
+static void
+poll_timeout_destroy (GsdColorManager *manager)
+{
+        if (manager->source == NULL)
+                return;
+        
+        g_source_destroy (manager->source);
+        g_source_unref (manager->source);
+        manager->source = NULL;
+}
+
 static void
 gsd_color_manager_init (GsdColorManager *manager)
 {
@@ -225,14 +289,17 @@ gsd_color_manager_init (GsdColorManager *manager)
         manager->calibrate = gsd_color_calibrate_new (manager);
         manager->state = gsd_color_state_new ();
 
+        /* location monitor features */
+        manager->monitor = gsd_location_monitor_get ();
+        g_signal_connect (manager->monitor, "notify::sunset",
+                          G_CALLBACK (on_sunset_notify), manager);
+        g_signal_connect (manager->monitor, "notify::sunrise",
+                          G_CALLBACK (on_sunrise_notify), manager);
+
         /* night light features */
         manager->nlight = gsd_night_light_new ();
         g_signal_connect (manager->nlight, "notify::active",
                           G_CALLBACK (on_active_notify), manager);
-        g_signal_connect (manager->nlight, "notify::sunset",
-                          G_CALLBACK (on_sunset_notify), manager);
-        g_signal_connect (manager->nlight, "notify::sunrise",
-                          G_CALLBACK (on_sunrise_notify), manager);
         g_signal_connect (manager->nlight, "notify::temperature",
                           G_CALLBACK (on_temperature_notify), manager);
         g_signal_connect (manager->nlight, "notify::disabled-until-tmw",
@@ -249,8 +316,11 @@ gsd_color_manager_finalize (GObject *object)
 
         manager = GSD_COLOR_MANAGER (object);
 
+        poll_timeout_destroy (manager);
+
         g_clear_object (&manager->calibrate);
         g_clear_object (&manager->state);
+        g_clear_object (&manager->monitor);
         g_clear_object (&manager->nlight);
 
         G_OBJECT_CLASS (gsd_color_manager_parent_class)->finalize (object);
@@ -341,10 +411,10 @@ handle_get_property (GDBusConnection *connection,
                 return g_variant_new_boolean (gsd_night_light_get_disabled_until_tmw (manager->nlight));
 
         if (g_strcmp0 (property_name, "Sunrise") == 0)
-                return g_variant_new_double (gsd_night_light_get_sunrise (manager->nlight));
+                return g_variant_new_double (gsd_location_monitor_get_sunrise (manager->monitor));
 
         if (g_strcmp0 (property_name, "Sunset") == 0)
-                return g_variant_new_double (gsd_night_light_get_sunset (manager->nlight));
+                return g_variant_new_double (gsd_location_monitor_get_sunset (manager->monitor));
 
         g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED,
                      "Failed to get property: %s", property_name);
