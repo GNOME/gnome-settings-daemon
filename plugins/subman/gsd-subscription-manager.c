@@ -39,6 +39,8 @@
 #define GSD_SUBSCRIPTION_DBUS_PATH		GSD_DBUS_PATH "/Subscription"
 #define GSD_SUBSCRIPTION_DBUS_INTERFACE		GSD_DBUS_BASE_INTERFACE ".Subscription"
 
+#define STARTUP_NOTIFICATION_DELAY (30 * 60)
+
 static const gchar introspection_xml[] =
 "<node>"
 "  <interface name='org.gnome.SettingsDaemon.Subscription'>"
@@ -84,6 +86,8 @@ typedef struct
 	NotifyNotification	*notification_registration_required;
 	GsdSubmanSubscriptionStatus	 subscription_status;
 	GsdSubmanSubscriptionStatus	 subscription_status_last;
+
+        guint            startup_registration_required_notification_id;
 } GsdSubscriptionManagerPrivate;
 
 enum {
@@ -510,6 +514,15 @@ _show_notification (GsdSubscriptionManager *manager, _NotifyKind notify_kind)
 	g_timer_reset (priv->timer_last_notified);
 }
 
+static void _client_maybe__show_notification (GsdSubscriptionManager *manager);
+static gboolean
+_startup_registration_required_notification_cb (GsdSubscriptionManager *manager)
+{
+	_client_maybe__show_notification (manager);
+
+	return FALSE;
+}
+
 static void
 _client_maybe__show_notification (GsdSubscriptionManager *manager)
 {
@@ -603,7 +616,14 @@ _client_maybe__show_notification (GsdSubscriptionManager *manager)
 
 	/* startup */
 	if (!was_read && is_read && priv->subscription_status == GSD_SUBMAN_SUBSCRIPTION_STATUS_UNKNOWN) {
-		_show_notification (manager, _NOTIFY_REGISTRATION_REQUIRED);
+		if (priv->startup_registration_required_notification_id == 0) {
+				priv->startup_registration_required_notification_id =
+					g_timeout_add_seconds (STARTUP_NOTIFICATION_DELAY,
+							       (GSourceFunc) _startup_registration_required_notification_cb, manager);
+		} else {
+			_show_notification (manager, _NOTIFY_REGISTRATION_REQUIRED);
+		}
+
 		return;
 	}
 
@@ -1173,6 +1193,11 @@ gsd_subscription_manager_finalize (GObject *object)
 	if (priv->bus_cancellable != NULL) {
 		g_cancellable_cancel (priv->bus_cancellable);
 		g_clear_object (&priv->bus_cancellable);
+	}
+
+        if (priv->startup_registration_required_notification_id) {
+		g_source_remove (priv->startup_registration_required_notification_id);
+		priv->startup_registration_required_notification_id = 0;
 	}
 
 	g_clear_pointer (&priv->installed_products, g_ptr_array_unref);
