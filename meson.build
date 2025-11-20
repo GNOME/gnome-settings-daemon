@@ -234,8 +234,7 @@ endif
 
 # xsettings
 enable_xwayland = get_option('xwayland')
-enable_x11 = get_option('x11')
-enable_xsettings = enable_xwayland or enable_x11
+enable_xsettings = enable_xwayland
 if enable_xsettings
   x11_dep = dependency('x11')
   xfixes_dep = dependency('xfixes', version: '>= 6.0')
