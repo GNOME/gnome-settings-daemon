@@ -607,11 +607,11 @@ on_notification_closed (NotifyNotification *n)
 static void
 ldsm_notify (const char *summary,
              const char *body,
-             const char *mount_path)
+             const char *mount_path,
+             gboolean    has_trash)
 {
         gchar *program;
         gboolean has_disk_analyzer;
-        gboolean has_trash;
 
         /* Don't show a notice if one is already displayed */
         if (notification != NULL)
@@ -643,8 +643,6 @@ ldsm_notify (const char *summary,
                                                 g_strdup (mount_path),
                                                 g_free);
         }
-
-        has_trash = ldsm_mount_has_trash (mount_path);
 
         if (has_trash) {
                 notify_notification_add_action (notification,
@@ -709,7 +707,7 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
                 }
         }
 
-        ldsm_notify (summary, body, path);
+        ldsm_notify (summary, body, path, has_trash);
 
         g_free (free_space_str);
         g_free (summary);
