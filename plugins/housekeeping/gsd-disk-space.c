@@ -73,6 +73,7 @@ static GSList            *ignore_paths = NULL;
 static GSettings         *settings = NULL;
 static GSettings         *privacy_settings = NULL;
 static NotifyNotification *notification = NULL;
+static char              *user_data_attr_id_fs;
 
 static guint64           *time_read;
 
@@ -106,16 +107,11 @@ ldsm_get_fs_id_for_path (const gchar *path)
 static gboolean
 ldsm_mount_has_trash (const char *path)
 {
-        const gchar *user_data_dir;
-        gchar *user_data_attr_id_fs;
         gchar *path_attr_id_fs;
         gboolean mount_uses_user_trash = FALSE;
         gchar *trash_files_dir;
         gboolean has_trash = FALSE;
         GDir *dir;
-
-        user_data_dir = g_get_user_data_dir ();
-        user_data_attr_id_fs = ldsm_get_fs_id_for_path (user_data_dir);
 
         path_attr_id_fs = ldsm_get_fs_id_for_path (path);
 
@@ -1029,6 +1025,8 @@ gsd_ldsm_setup (gboolean check_now)
         ldsm_notified_hash = g_hash_table_new_full (g_str_hash, g_str_equal,
                                                     g_free,
                                                     ldsm_free_mount_info);
+
+        user_data_attr_id_fs = ldsm_get_fs_id_for_path (g_get_user_data_dir ());
 
         settings = g_settings_new (SETTINGS_HOUSEKEEPING_DIR);
         privacy_settings = g_settings_new (PRIVACY_SETTINGS);
