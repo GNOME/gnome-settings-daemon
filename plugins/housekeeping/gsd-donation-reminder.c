@@ -79,7 +79,6 @@ show_notification (void)
                           NULL);
 
         notify_notification_set_app_name (notification, _("GNOME"));
-        notify_notification_set_hint (notification, "transient", g_variant_new_boolean (TRUE));
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
         notify_notification_set_timeout (notification, NOTIFY_EXPIRES_DEFAULT);
         notify_notification_set_hint_string (notification, "desktop-entry", "gnome-about-panel");
