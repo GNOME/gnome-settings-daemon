@@ -1267,19 +1267,19 @@ shell_brightness_set_dimming_cb (GObject      *source_object,
                                  GAsyncResult *res,
                                  gpointer      user_data)
 {
+        GsdPowerManager *manager = user_data;
         g_autoptr (GVariant) result = NULL;
         g_autoptr (GError) error = NULL;
-        gboolean enable = !!GPOINTER_TO_UINT (user_data);
 
         result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
                                            res,
                                            &error);
-        if (result)
+        if (result) {
+                manager->ambient_norm_required = TRUE;
                 return;
+        }
 
-        g_warning ("couldn't %s dimming: %s",
-                   enable ? "enable" : "disable",
-                   error->message);
+        g_warning ("couldn't change dimming: %s", error->message);
 }
 
 static void
@@ -1295,7 +1295,7 @@ shell_brightness_set_dimming (GsdPowerManager *manager,
                            G_DBUS_CALL_FLAGS_NONE,
                            -1, NULL,
                            shell_brightness_set_dimming_cb,
-                           GUINT_TO_POINTER (enable));
+                           manager);
 }
 
 static void
@@ -3047,6 +3047,16 @@ iio_proxy_vanished_cb (GDBusConnection *connection,
         g_clear_object (&manager->iio_proxy);
 }
 
+static void
+on_brightness_changed_by_user (GsdPowerManager *manager)
+{
+        /* Brightness was changed by the user, we need a new baseline
+         * for the normalization being applied.
+         */
+        g_debug ("User brightness change detected, re-normalizing");
+        manager->ambient_norm_required = TRUE;
+}
+
 static gboolean
 gsd_power_manager_initable_init (GInitable     *initable,
                                  GCancellable  *cancellable,
@@ -3209,6 +3219,11 @@ gsd_power_manager_startup (GApplication *app)
                          "dimming and auto brightness is disabled");
                 g_clear_error (&error);
         }
+
+        g_signal_connect_swapped (manager->shell_brightness_proxy,
+                                  "g-signal::BrightnessChanged",
+                                  G_CALLBACK (on_brightness_changed_by_user),
+                                  manager);
 
         manager->devices_array = g_ptr_array_new_with_free_func (g_object_unref);
         manager->devices_notified_ht = g_hash_table_new_full (g_str_hash, g_str_equal,
