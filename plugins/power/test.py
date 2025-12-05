@@ -43,6 +43,9 @@ mutter_version = subprocess.run(['mutter', '--version'], stdout=subprocess.PIPE)
 assert mutter_version.startswith('mutter ')
 mutter_version = mutter_version[7:].split('.')
 
+
+_GNOME_SESSION_SERVICE_PATH = '/usr/libexec/gnome-session-service'
+
 def mutter_at_least(version):
     global mutter_version
     version = version.split('.')
@@ -98,7 +101,6 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
         os.environ['GSD_MOCK_EXTERNAL_MONITOR_FILE'] = self.mock_external_monitor_file
         self.addCleanup(self.delete_external_monitor_file)
 
-        self.check_logind_gnome_session()
         self.start_logind()
         self.addCleanup(self.stop_logind)
 
@@ -175,26 +177,6 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
             os.unlink(self.mock_external_monitor_file)
         except OSError:
             pass
-
-    def check_logind_gnome_session(self):
-        '''Check that gnome-session is built with logind support'''
-
-        path = GLib.find_program_in_path ('gnome-session')
-        assert(path)
-        (success, data) = GLib.file_get_contents (path)
-        lines = data.split(b'\n')
-        new_path = None
-        for line in lines:
-            items = line.split()
-            if items and items[0] == b'exec':
-                new_path = items[1]
-        if not new_path:
-            self.fail("could not get gnome-session's real path from %s" % path)
-        path = new_path
-        ldd = subprocess.Popen(['ldd', path], stdout=subprocess.PIPE)
-        out = ldd.communicate()[0]
-        if not b'libsystemd.so.0' in out:
-            self.fail('gnome-session is not built with logind support')
 
     def get_status(self):
         return self.obj_session_presence_props.Get('org.gnome.SessionManager.Presence', 'status')
