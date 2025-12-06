@@ -213,13 +213,13 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
 
         Fail after the given timeout.
         '''
-        self.session_log.check_line(b'GsmManager: requesting logout', timeout)
+        self.session_log.check_line_re(b'GsmManager: requesting( forced)? logout', timeout)
 
     def check_no_logout(self, seconds):
         '''Check that no logout is requested in the given time'''
 
         # wait for specified time to ensure it didn't do anything
-        self.session_log.check_no_line(b'GsmManager: requesting logout', seconds)
+        self.session_log.check_no_line_re(b'GsmManager: requesting.*logout', seconds)
 
     def check_for_suspend(self, timeout, methods=COMMON_SUSPEND_METHODS):
         '''Check that one of the given suspend methods are requested. Default
