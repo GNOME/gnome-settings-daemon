@@ -1,5 +1,8 @@
 include:
-  - remote: 'https://gitlab.gnome.org/Infrastructure/freedesktop-ci-templates/-/raw/145b1bc7ef1702d2bd71584010d7113c6786a506/templates/fedora.yml'
+  - project: 'Infrastructure/freedesktop-ci-templates'
+    file: 'templates/fedora.yml'
+    ref: 'aec7a6ce7bb38902c70641526f6611e27141784a'
+
   - component: gitlab.gnome.org/GNOME/citemplates/release-service@master
     inputs:
       job-stage: "deploy"
@@ -8,8 +11,8 @@ include:
 
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
-  FDO_DISTRIBUTION_VERSION: latest
-  FDO_DISTRIBUTION_TAG: "x86_64-2024-08-30.1"
+  FDO_DISTRIBUTION_VERSION: 43
+  FDO_DISTRIBUTION_TAG: "x86_64-2025-12-20.0"
   FDO_UPSTREAM_REPO: GNOME/gnome-settings-daemon
   # Expiry sets fdo.expires on the image
   FEDORA_IMAGE: "$CI_REGISTRY/$FDO_UPSTREAM_REPO/fedora/$FDO_DISTRIBUTION_VERSION:$FDO_DISTRIBUTION_TAG"
@@ -20,47 +23,30 @@ variables:
     colord-devel
     compiler-rt
     cups-devel
-    fontconfig-devel
     gcr-devel
-    geoclue2-devel geocode-glib-devel
-    gettext
+    geoclue2-devel geocode-glib2-devel
     git
     glib2-devel
-    gnome-desktop3-devel
+    gnome-desktop4-devel
     gnome-session
     gobject-introspection
     gobject-introspection-devel
-    gsettings-desktop-schemas-devel
-    gtk3-devel
-    lcms2-devel
     lcov gcovr clang libasan libubsan libtsan
     libcanberra-devel
-    libgtop2-devel
     libgudev-devel
     libgweather4-devel
     libnotify-devel
-    librsvg2-devel
-    libwacom-devel
-    libX11-devel
-    libXi-devel
-    libXtst-devel
-    libXfixes-devel
     llvm
-    mesa-dri-drivers
     meson
     ModemManager-glib-devel
+    mutter
     NetworkManager-libnm-devel
-    nss-devel
-    perl-interpreter
     polkit-devel
     pulseaudio-libs-devel
     python3-gobject python3-dbusmock
-    umockdev
     upower-devel
-    wayland-devel
+    util-linux
     which
-    xorg-x11-drv-wacom-devel
-    xorg-x11-server-Xvfb
     xorg-x11-server-Xwayland
 
 stages:
@@ -114,22 +100,6 @@ build-fedora-container@x86_64:
     FDO_DISTRIBUTION_EXEC: |
       ./.gitlab-ci/install-meson-project.sh \
         https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas.git \
-        master
-
-      dnf install -y 'dnf-command(builddep)'
-      dnf builddep -y pipewire
-      dnf builddep -y mutter
-
-      ./.gitlab-ci/install-meson-project.sh \
-        https://gitlab.gnome.org/GNOME/glib.git \
-        2.81.1
-
-      ./.gitlab-ci/install-meson-project.sh \
-        https://gitlab.freedesktop.org/pipewire/pipewire.git \
-        1.2.3
-
-      ./.gitlab-ci/install-meson-project.sh \
-        https://gitlab.gnome.org/GNOME/mutter.git \
         main
 
 ##
