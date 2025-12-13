@@ -98,7 +98,7 @@ stages:
 
 .Run Tests: &run_tests
   echo "== Testing ==" &&
-  mkdir -m 1777 /tmp/.X11-unix
+  mkdir -m 1777 /tmp/.X11-unix &&
   meson test -C _build --verbose --no-stdsplit
 
 ##
