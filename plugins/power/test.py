@@ -360,13 +360,16 @@ class PowerPluginTestScreensaver(PowerPluginBase):
         # fake user activity and check that the screen is unblanked.
         time.sleep(0.5)
         self.reset_idle_timer()
+        # Wait a bit for shell_brightness_set_dimming to run, as our debug message
+        # is printed before that code runs.
+        time.sleep(0.5)
         self.check_unblank(2)
 
         mock_intf = dbus.Interface(self.obj_gnomeshell, dbusmock.MOCK_IFACE)
         method_calls = mock_intf.GetMethodCalls("SetDimming")
         self.assertEqual(len(method_calls), 1, 'did not call dim')
         _, args = method_calls[-1]
-        self.assertTrue(args[0] == False, 'expected disabled dimming')
+        self.assertFalse(args[0], 'expected disabled dimming')
 
         # Check for no blank before the normal blank timeout
         self.check_no_blank(gsdpowerconstants.SCREENSAVER_TIMEOUT_BLANK - 4)
@@ -595,6 +598,9 @@ class PowerPluginTestLid(PowerPluginBase):
 
         # Close the lid
         self.set_lid_closed(True)
+
+        # Give the gsm-presence some time to set up gnome_idle_monitor_add_user_active_watch
+        time.sleep(0.5)
 
         # Check that we've blanked
         self.check_blank(2)
