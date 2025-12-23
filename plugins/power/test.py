@@ -38,45 +38,8 @@ from gi.repository import Gio
 from gi.repository import GLib
 from gi.repository import UPowerGlib
 
-# There must be a better way to do a version comparison ... but this works
-mutter_version = subprocess.run(['mutter', '--version'], stdout=subprocess.PIPE).stdout.decode().strip()
-assert mutter_version.startswith('mutter ')
-mutter_version = mutter_version[7:].split('.')
-
 
 _GNOME_SESSION_SERVICE_PATH = '/usr/libexec/gnome-session-service'
-
-def mutter_at_least(version):
-    global mutter_version
-    version = version.split('.')
-
-    for i in range(max(len(mutter_version), len(version))):
-        m = mutter_version[i]
-        try:
-            m = int(m)
-        except:
-            pass
-
-        v = version[i]
-        try:
-            v = int(v)
-        except:
-            pass
-
-        try:
-            if m > v:
-                return True
-            elif m < v:
-                return False
-        except TypeError:
-            # String is smaller than integer
-            if isinstance(m, str):
-                return False
-            else:
-                return True
-
-    # assume equal
-    return True
 
 def dbusmock_template(name):
     template = (
@@ -180,6 +143,16 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
 
     def get_status(self):
         return self.obj_session_presence_props.Get('org.gnome.SessionManager.Presence', 'status')
+
+    def set_lid_closed(self, state):
+        # FIXME: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/issues/859
+        # gsd-power uses upower, but mutter uses logind
+        self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', state)
+        self.obj_upower.EmitSignal(
+            '', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock'
+        )
+
+        self.logind_obj.Set('org.freedesktop.login1.Manager', 'LidClosed', state)
 
     def set_has_external_monitor(self, external):
         if external:
@@ -555,6 +528,8 @@ class PowerPluginTestLid(PowerPluginBase):
         Gio.Settings.sync()
 
         # create inhibitor
+        # BUG: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/issues/918
+        # closing the lid triggers suspend even when inhibited.
         inhibit_id = self.obj_session_mgr.Inhibit(
             'testsuite', dbus.UInt32(0), 'for testing',
             dbus.UInt32(gsdpowerenums.GSM_INHIBITOR_FLAG_SUSPEND),
@@ -564,8 +539,7 @@ class PowerPluginTestLid(PowerPluginBase):
         self.check_for_lid_uninhibited(gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 2)
 
         # Close the lid
-        self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', True)
-        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+        self.set_lid_closed(True)
 
         # Check that we've blanked
         time.sleep(2)
@@ -583,6 +557,8 @@ class PowerPluginTestLid(PowerPluginBase):
         '''Check that we do blank on lid closing, if the machine will not suspend'''
 
         # create inhibitor
+        # BUG: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/issues/918
+        # closing the lid triggers suspend even when inhibited.
         inhibit_id = self.obj_session_mgr.Inhibit(
             'testsuite', dbus.UInt32(0), 'for testing',
             dbus.UInt32(gsdpowerenums.GSM_INHIBITOR_FLAG_SUSPEND),
@@ -592,8 +568,7 @@ class PowerPluginTestLid(PowerPluginBase):
         self.check_for_lid_uninhibited(gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 2)
 
         # Close the lid
-        self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', True)
-        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+        self.set_lid_closed(True)
 
         # Check that we've blanked
         self.check_blank(4)
@@ -603,11 +578,12 @@ class PowerPluginTestLid(PowerPluginBase):
                 dbus_interface='org.gnome.SessionManager')
         # At this point logind should suspend for us
 
-    @unittest.skipIf(not mutter_at_least('42.0'), reason="mutter is too old and may be buggy")
     def test_unblank_on_lid_open(self):
         '''Check that we do unblank on lid opening, if the machine will not suspend'''
 
         # create inhibitor
+        # BUG: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/issues/918
+        # closing the lid triggers suspend even when inhibited.
         inhibit_id = self.obj_session_mgr.Inhibit(
             'testsuite', dbus.UInt32(0), 'for testing',
             dbus.UInt32(gsdpowerenums.GSM_INHIBITOR_FLAG_SUSPEND),
@@ -617,17 +593,17 @@ class PowerPluginTestLid(PowerPluginBase):
         self.check_for_lid_uninhibited(gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 2)
 
         # Close the lid
-        self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', True)
-        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+        self.set_lid_closed(True)
 
         # Check that we've blanked
         self.check_blank(2)
 
         # Reopen the lid
-        self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', False)
-        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+        self.set_lid_closed(False)
 
-        # FIXME: this check fails
+        # At this point mutter should receive notification from logind
+        # that the Lid is open, reset the idle timer and gsd-power will unblank.
+
         # Check for unblanking
         self.check_unblank(2)
 
@@ -702,8 +678,7 @@ class PowerPluginTestDim(PowerPluginBase):
         self.check_no_lid_uninhibited(gsdpowerconstants.LID_CLOSE_SAFETY_TIMEOUT + 1)
 
         # Close the lid
-        self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', True)
-        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+        self.set_lid_closed(True)
         time.sleep(0.5)
 
         # Unplug the external monitor

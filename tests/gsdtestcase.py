@@ -263,12 +263,13 @@ class GSDTestCase(DBusTestCase):
                                                                   stdout=self.logind_log.fd)
         self.logind_log.writer_attached()
 
-        # Monkey patch SuspendThenHibernate functions in for dbusmock <= 0.17.2
-        # This should be removed once we can depend on dbusmock 0.17.3
-        self.logind_obj.AddMethod('org.freedesktop.login1.Manager', 'SuspendThenHibernate', 'b', '', '')
-        self.logind_obj.AddMethod('org.freedesktop.login1.Manager', 'CanSuspendThenHibernate', '', 's', 'ret = "%s"' % parameters.get('CanSuspendThenHibernate', 'yes'))
-
-        self.logind_obj.AddMethod('org.freedesktop.login1.Session', 'SetBrightness', 'ssu', '', '')
+        # Add logind methods not available in dbusmock
+        self.logind_obj.AddMethod(
+            'org.freedesktop.login1.Session', 'SetBrightness', 'ssu', '', ''
+        )
+        self.logind_obj.AddProperty(
+            'org.freedesktop.login1.Manager', 'LidClosed', False
+        )
 
     def stop_logind(self):
         '''stop mock logind'''
