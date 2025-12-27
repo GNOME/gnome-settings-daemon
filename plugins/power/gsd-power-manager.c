@@ -2279,6 +2279,35 @@ set_temporary_unidle_on_ac (GsdPowerManager *manager,
         }
 }
 
+static gboolean
+should_set_temporary_unidle_on_ac (GsdPowerManager *manager)
+{
+        /* Do not unidle if lid is closed */
+        if (manager->lid_is_closed)
+                return FALSE;
+
+        /* Do not unidle if we are not in an active session */
+        if (! manager->session_is_active)
+                return FALSE;
+
+        /* Unidle is already running, so we will need to reset the timer */
+        if (manager->temporary_unidle_on_ac_id != 0)
+                return TRUE;
+
+        /* Do not unidle if our current state isn't dim or blank */
+        if (manager->current_idle_mode != GSD_POWER_IDLE_MODE_BLANK &&
+            manager->current_idle_mode != GSD_POWER_IDLE_MODE_DIM)
+                return FALSE;
+
+        return TRUE;
+}
+
+static void
+update_temporary_unidle_on_ac (GsdPowerManager *manager)
+{
+        set_temporary_unidle_on_ac(manager, should_set_temporary_unidle_on_ac (manager));
+}
+
 static void
 up_client_on_battery_cb (UpClient *client,
                          GParamSpec *pspec,
@@ -2303,13 +2332,7 @@ up_client_on_battery_cb (UpClient *client,
 
         idle_configure (manager);
 
-        if (manager->lid_is_closed)
-                return;
-
-        if (manager->current_idle_mode == GSD_POWER_IDLE_MODE_BLANK ||
-            manager->current_idle_mode == GSD_POWER_IDLE_MODE_DIM ||
-            manager->temporary_unidle_on_ac_id != 0)
-                set_temporary_unidle_on_ac (manager, TRUE);
+        update_temporary_unidle_on_ac (manager);
 }
 
 static void
@@ -2372,7 +2395,7 @@ handle_screensaver_active (GsdPowerManager *manager,
 static void
 handle_wake_up_screen (GsdPowerManager *manager)
 {
-        set_temporary_unidle_on_ac (manager, TRUE);
+        update_temporary_unidle_on_ac (manager);
 }
 
 static void
