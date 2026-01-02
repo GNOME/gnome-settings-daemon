@@ -102,7 +102,15 @@ tests = [
   'BatteryLevels',
   'Brightness',
   'BrightnessStep',
+  'Unidle',
 ]
+
+timeout_by_test = {
+  # Takes very long because of SCREENSAVER_TIMEOUT_BLANK
+  'Screensaver': 180,
+  # Takes a long time because we wait for idle in multiple tests
+  'Unidle': 150
+}
 
 foreach test : tests
   test(
@@ -110,8 +118,7 @@ foreach test : tests
     test_py,
     args: [ 'PowerPluginTest@0@'.format(test) ],
     env: envs,
-    # The first set of tests takes very long because of SCREENSAVER_TIMEOUT_BLANK
-    timeout: test == 'Screensaver' ? 180 : 120
+    timeout: timeout_by_test.get(test, 120)
   )
 endforeach
 

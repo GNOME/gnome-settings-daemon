@@ -984,8 +984,12 @@ class PowerPluginTestBrightness(PowerPluginBase):
 
         self.check_suspend_no_hibernate(7)
 
-    def disabled_test_unindle_on_ac_plug(self):
-        idle_delay = round(gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY / gsdpowerconstants.IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER)
+class PowerPluginTestUnidle(PowerPluginBase):
+    def test_unidle_on_ac_plug(self):
+        idle_delay = round(
+            gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY
+            / gsdpowerconstants.IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER
+        )
         self.settings_session['idle-delay'] = idle_delay
         Gio.Settings.sync()
 
@@ -1009,6 +1013,88 @@ class PowerPluginTestBrightness(PowerPluginBase):
 
         # And wait a little more to see us dim again
         self.check_dim(idle_delay + 2)
+
+    def test_unidle_timer_reset_on_consecutive_ac_events(self):
+        idle_delay = (
+            round(
+                gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY
+                / gsdpowerconstants.IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER
+            ) + (gsdpowerconstants.POWER_UP_TIME_ON_AC * 2)
+        )
+
+        self.settings_session['idle-delay'] = idle_delay
+        Gio.Settings.sync()
+
+        # Wait for dimming on idle
+        self.check_dim(idle_delay)
+
+        # Plug in the AC
+        self.set_on_external_power(True)
+
+        # Confirm that we undimmed
+        self.check_undim(0.5)
+
+        # Sleep halfway through the timer
+        time.sleep(gsdpowerconstants.POWER_UP_TIME_ON_AC / 2)
+
+        # Unplug the AC
+        self.set_on_external_power(False)
+
+        # Check that we wait for the whole POWER_UP_TIME_ON_AC
+        self.check_no_dim(gsdpowerconstants.POWER_UP_TIME_ON_AC)
+
+        # And wait a little more to see us dim again
+        self.check_dim(gsdpowerconstants.POWER_UP_TIME_ON_AC)
+
+    def test_return_to_idle_canceled_on_activity(self):
+        idle_delay = (
+            round(
+                gsdpowerconstants.MINIMUM_IDLE_DIM_DELAY
+                / gsdpowerconstants.IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER
+            )
+            + gsdpowerconstants.POWER_UP_TIME_ON_AC
+        )
+
+        self.settings_session['idle-delay'] = idle_delay
+        Gio.Settings.sync()
+
+        # Wait for idle
+        self.check_dim(idle_delay + 2)
+
+        # Plug in the AC
+        self.set_on_external_power(True)
+
+        # Check that we unblanked
+        self.check_undim(5)
+
+        # Set active state
+        self.reset_idle_timer()
+
+        # Check that we don't dim after activity
+        self.check_no_dim(gsdpowerconstants.POWER_UP_TIME_ON_AC + 1)
+
+    def test_unidle_on_screensaver_wake_up_signal(self):
+        """https://bugzilla.gnome.org/show_bug.cgi?id=726056"""
+
+        # Lock the screen via screensaver
+        self.obj_screensaver.SetActive(True)
+
+        # Check that we immediately blanked
+        self.check_blank(0.5)
+
+        # Wake up the screen
+        self.obj_screensaver.EmitSignal(
+            '', 'WakeUpScreen', '', [], dbus_interface='org.freedesktop.DBus.Mock'
+        )
+
+        # Check that we unblanked
+        self.check_unblank(5)
+
+        time.sleep(gsdpowerconstants.POWER_UP_TIME_ON_AC)
+
+        # Check that we blanked again
+        self.check_blank(1)
+
 
 class PowerPluginTestBrightnessStep(PowerPluginBase):
     def test_power_saver_on_low_battery(self):
