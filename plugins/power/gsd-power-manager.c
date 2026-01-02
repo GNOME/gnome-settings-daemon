@@ -372,7 +372,9 @@ create_notification (const char *summary,
         notify_notification_set_hint_string (notification, "desktop-entry", "gnome-power-panel");
         notify_notification_set_hint_string (notification, "x-gnome-privacy-scope",
                                              notification_privacy_scope_to_string (privacy_scope));
-        notify_notification_set_hint (notification, "image-path", g_variant_new_string (icon_name));
+        if (icon_name != NULL)
+                notify_notification_set_hint (notification, "image-path",
+                                              g_variant_new_string (icon_name));
         notify_notification_set_urgency (notification, urgency);
         *weak_pointer_location = notification;
         g_object_add_weak_pointer (G_OBJECT (notification),
