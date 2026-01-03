@@ -273,6 +273,16 @@ class GSDTestCase(DBusTestCase):
         self.logind_obj.AddProperty(
             'org.freedesktop.login1.Manager', 'OnExternalPower', False
         )
+        # logind does not send PropertiesChanged signal for OnExternalPower:
+        # https://www.freedesktop.org/software/systemd/man/latest/org.freedesktop.login1.html
+        #     @org.freedesktop.DBus.Property.EmitsChangedSignal("false")
+        #     readonly b OnExternalPower = ...;
+        #
+        # So use a SetOnExternalPower method on the mock interface instead of Set().
+        self.logind_obj.AddMethod(
+            dbusmock.MOCK_IFACE, 'SetOnExternalPower', 'b', '',
+            'self.props["org.freedesktop.login1.Manager"]["OnExternalPower"] = args[0]'
+        )
 
     def stop_logind(self):
         '''stop mock logind'''

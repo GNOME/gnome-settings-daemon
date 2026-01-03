@@ -145,8 +145,10 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
         return self.obj_session_presence_props.Get('org.gnome.SessionManager.Presence', 'status')
 
     def set_on_external_power(self, state):
-        self.logind_obj.Set('org.freedesktop.login1.Manager', 'OnExternalPower', state)
-        self.logind_obj.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+        # logind does not send PropertiesChanged signal for OnExternalPower:
+        # So use a SetOnExternalPower method on the mock interface instead of Set().
+        logind_mock_intf = dbus.Interface(self.logind_obj, dbusmock.MOCK_IFACE)
+        logind_mock_intf.SetOnExternalPower(state)
 
         self.obj_upower.Set('org.freedesktop.UPower', 'OnBattery', not state)
         self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
@@ -1036,3 +1038,4 @@ class PowerPluginTestBrightnessStep(PowerPluginBase):
 
 # avoid writing to stderr
 unittest.main(testRunner=unittest.TextTestRunner(stream=sys.stdout, verbosity=2))
+
