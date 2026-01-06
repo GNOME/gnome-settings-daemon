@@ -161,19 +161,7 @@ test: &test
 
   script:
     - *environment_information
-
-    - |
-      if [[ -n "${CI_COMMIT_TAG}" ]]; then
-        *run_tests
-
-        echo "== Distro Test =="
-        mkdir -m 1777 /tmp/.X11-unix
-        ninja dist -C _build
-      else
-        echo "== Testing =="
-        mkdir -m 1777 /tmp/.X11-unix
-        meson test -C _build --verbose --no-stdsplit
-      fi
+    - *run_tests
 
   except:
     variables:
