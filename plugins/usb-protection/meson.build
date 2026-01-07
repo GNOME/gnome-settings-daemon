@@ -1,8 +1,21 @@
+brltty_metainfo = meson.project_source_root() / 'subprojects' / 'brltty' / 'Autostart' / 'AppStream' / 'org.a11y.brltty.metainfo.xml'
+braille_devices_header = custom_target(
+  'gsd-usb-protection-braille-devices.h',
+  output: 'gsd-usb-protection-braille-devices.h',
+  command: [
+    find_program('gen-braille-usb-devices.py'),
+    brltty_metainfo,
+    '@OUTPUT@'
+  ],
+  depend_files: brltty_metainfo
+)
+
 sources = files(
   'gsd-usb-protection-manager.c',
   'main.c'
 )
 sources += main_helper_sources
+sources += braille_devices_header
 
 deps = plugins_deps + [
   gsd_enums_dep,
