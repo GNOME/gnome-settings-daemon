@@ -195,7 +195,7 @@ dist:
     - mkdir -m 1777 /tmp/.X11-unix
     - meson setup build
     - meson compile -C build
-    - meson dist -C build
+    - meson dist -C build --include-subprojects
   artifacts:
     expose_as: 'Tarball'
     paths:
