@@ -140,6 +140,8 @@ libgvc = subproject(
 )
 libgvc_dep = libgvc.get_variable('libgvc_dep')
 
+brltty = subproject('brltty')
+
 # GUdev integration (default enabled)
 enable_gudev = get_option('gudev')
 if enable_gudev
