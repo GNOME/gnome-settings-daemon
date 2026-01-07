@@ -30,6 +30,7 @@
 
 #include "gnome-settings-bus.h"
 #include "gnome-settings-profile.h"
+#include "gsd-usb-protection-braille-devices.h"
 
 #define PRIVACY_SETTINGS "org.gnome.desktop.privacy"
 #define USB_PROTECTION "usb-protection"
@@ -83,6 +84,7 @@ struct _GsdUsbProtectionManager
         gboolean            screensaver_active;
         gboolean            session_locked;
         NotifyNotification *notification;
+        GHashTable         *braille_devices;
 };
 
 
@@ -425,6 +427,101 @@ is_hid_or_hub (GVariant *device)
         return is_hid_or_hub && !has_other_classes;
 }
 
+static GHashTable *
+create_braille_devices_table (void)
+{
+        GHashTable *table;
+        guint i;
+
+        table = g_hash_table_new (g_direct_hash, g_direct_equal);
+
+        for (i = 0; i < G_N_ELEMENTS (gsd_usb_protection_braille_devices); i++)
+                g_hash_table_add (table, GUINT_TO_POINTER (gsd_usb_protection_braille_devices[i]));
+
+        return table;
+}
+
+static gboolean
+has_braille_id (GsdUsbProtectionManager *manager,
+                GVariant                *device)
+{
+        g_autoptr(GVariant) attrs = NULL;
+        g_autofree gchar *id_value = NULL;
+        g_auto(GStrv) parts = NULL;
+        gchar *endptr = NULL;
+        guint vendor_id = 0;
+        guint product_id = 0;
+        guint32 combined_id;
+
+        g_return_val_if_fail (manager->braille_devices != NULL, FALSE);
+
+        attrs = g_variant_get_child_value (device, POLICY_APPLIED_ATTRIBUTES);
+        g_return_val_if_fail (attrs != NULL, FALSE);
+
+        if (!g_variant_lookup (attrs, "id", "s", &id_value))
+                return FALSE;
+
+        parts = g_strsplit (id_value, ":", 2);
+        if (!parts || g_strv_length (parts) != 2)
+                return FALSE;
+
+        vendor_id = g_ascii_strtoull (parts[0], &endptr, 16);
+        if (*endptr != '\0')
+                return FALSE;
+
+        product_id = g_ascii_strtoull (parts[1], &endptr, 16);
+        if (*endptr != '\0')
+                return FALSE;
+
+        combined_id = (vendor_id << 16) | product_id;
+        return g_hash_table_contains (manager->braille_devices, GUINT_TO_POINTER (combined_id));
+}
+
+static gboolean
+has_braille_classes (GVariant *device)
+{
+        g_autoptr(GVariant) attrs = NULL;
+        g_auto(GStrv) interfaces = NULL;
+        g_autofree gchar *value = NULL;
+        guint i;
+
+        attrs = g_variant_get_child_value (device, POLICY_APPLIED_ATTRIBUTES);
+        g_return_val_if_fail (attrs != NULL, FALSE);
+
+        if (!g_variant_lookup (attrs, WITH_INTERFACE, "s", &value))
+                return FALSE;
+
+        interfaces = g_strsplit (value, " ", -1);
+        for (i = 0; i < g_strv_length (interfaces); i++) {
+                /* HID class (03:*) */
+                if (g_str_has_prefix (interfaces[i], "03:"))
+                        continue;
+                /* Audio class (01:*) */
+                if (g_str_has_prefix (interfaces[i], "01:"))
+                        continue;
+                /* CDC ACM (02:02:*) */
+                if (g_str_has_prefix (interfaces[i], "02:02:"))
+                        continue;
+                /* Vendor specific (ff:*) */
+                if (g_ascii_strncasecmp (interfaces[i], "ff:", 3) == 0)
+                        continue;
+
+                /* Interface doesn't match any allowed braille class */
+                return FALSE;
+        }
+
+        return TRUE;
+}
+
+static gboolean
+check_braille (GsdUsbProtectionManager *manager,
+               GVariant                *device)
+{
+        /* Only consider devices that have a valid ID and only valid classes  */
+        return has_braille_id (manager, device) &&
+               has_braille_classes (device);
+}
+
 static gboolean
 is_hardwired (GVariant *device)
 {
@@ -492,6 +589,7 @@ usbguard_in_lockscreen_level (GsdUsbProtectionManager *manager,
         guint device_id;
         gboolean session_is_locked = manager->session_locked;
         gboolean hid_or_hub_only = is_hid_or_hub (parameters);
+        gboolean valid_braille = check_braille (manager, parameters);
 
         /* Allow everything when the session is unlocked. */
         if (!session_is_locked) {
@@ -500,9 +598,9 @@ usbguard_in_lockscreen_level (GsdUsbProtectionManager *manager,
                 return;
         }
 
-        /* When session is locked, only HIDs and HUBs without any other
-         * class are allowed */
-        if (hid_or_hub_only) {
+        /* When session is locked, only HIDs, HUBs or braille devices without
+         * any other class are allowed */
+        if (hid_or_hub_only || valid_braille) {
                 show_notification (manager,
                                    _("New device detected"),
                                    _("Either one of your existing devices has "
@@ -1157,6 +1255,7 @@ gsd_usb_protection_manager_shutdown (GApplication *app)
         g_clear_object (&manager->usb_protection_policy);
         g_clear_object (&manager->screensaver_proxy);
         g_clear_object (&manager->session_proxy);
+        g_clear_pointer (&manager->braille_devices, g_hash_table_destroy);
 
         G_APPLICATION_CLASS (gsd_usb_protection_manager_parent_class)->shutdown (app);
 }
@@ -1173,4 +1272,5 @@ gsd_usb_protection_manager_class_init (GsdUsbProtectionManagerClass *klass)
 static void
 gsd_usb_protection_manager_init (GsdUsbProtectionManager *manager)
 {
+        manager->braille_devices = create_braille_devices_table ();
 }
