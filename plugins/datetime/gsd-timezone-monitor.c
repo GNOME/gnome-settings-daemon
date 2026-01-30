@@ -39,8 +39,7 @@ enum {
 
 static int signals[LAST_SIGNAL] = { 0 };
 
-typedef struct
-{
+typedef struct {
         GCancellable *cancellable;
         GPermission *permission;
         Timedate1 *dtm;
@@ -49,8 +48,10 @@ typedef struct
         GClueSimple *geoclue_simple;
         GCancellable *geoclue_cancellable;
 
-        gchar *current_timezone;
+        gdouble raw_latitude;
+        gdouble raw_longitude;
 
+        gchar *current_timezone;
         GSettings *location_settings;
 } GsdTimezoneMonitorPrivate;
 
@@ -102,13 +103,16 @@ queue_set_timezone (GsdTimezoneMonitor *self,
 }
 
 static gint
-compare_locations (TzLocation *a,
-                   TzLocation *b)
+compare_locations (gconstpointer a,
+                   gconstpointer b)
 {
-        if (a->dist > b->dist)
+        const TzLocation *loc_a = a;
+        const TzLocation *loc_b = b;
+
+        if (loc_a->dist > loc_b->dist)
                 return 1;
 
-        if (a->dist < b->dist)
+        if (loc_a->dist < loc_b->dist)
                 return -1;
 
         return 0;
@@ -224,9 +228,13 @@ process_location (GsdTimezoneMonitor *self,
         g_autofree gchar *new_timezone = NULL;
 
         country_code = geocode_place_get_country_code (place);
-        location = geocode_place_get_location (place);
+        location = geocode_location_new (priv->raw_latitude,
+                                         priv->raw_longitude,
+                                         GEOCODE_LOCATION_ACCURACY_CITY);
 
         new_timezone = find_timezone (self, location, country_code);
+
+        g_object_unref (location);
 
         if (g_strcmp0 (priv->current_timezone, new_timezone) != 0) {
                 g_debug ("Found updated timezone '%s' for country '%s'",
@@ -291,6 +299,7 @@ on_location_notify (GClueSimple *simple,
                     gpointer     user_data)
 {
         GsdTimezoneMonitor *self = user_data;
+        GsdTimezoneMonitorPrivate *priv = gsd_timezone_monitor_get_instance_private (self);
         GClueLocation *location;
         gdouble latitude, longitude;
 
@@ -298,6 +307,9 @@ on_location_notify (GClueSimple *simple,
 
         latitude = gclue_location_get_latitude (location);
         longitude = gclue_location_get_longitude (location);
+
+        priv->raw_latitude = latitude;
+        priv->raw_longitude = longitude;
 
         g_debug ("Got location %lf,%lf", latitude, longitude);
 

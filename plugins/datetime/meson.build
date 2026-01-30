@@ -42,3 +42,11 @@ executable(
   install_rpath: gsd_pkglibdir,
   install_dir: gsd_libexecdir
 )
+
+test_tz_parsing = executable('test-tz-parsing',
+  'test-tz-parsing.c',
+  include_directories: [top_inc, include_directories('.')],
+  dependencies: [glib_dep, m_dep],
+  c_args: cflags
+)
+test('test-tz-parsing', test_tz_parsing)
