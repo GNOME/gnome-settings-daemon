@@ -369,17 +369,18 @@ tz_data_file_get (void)
 static gdouble
 convert_pos (const gchar *pos, gint digits)
 {
-	gchar whole[11]; // bumped to 11 to be safe if digits=9 + null
+	gchar whole[11]; /* sign + max digits (9) + null */
 	gdouble deg, min, sec = 0.0;
 	gint i;
 	gboolean is_negative = FALSE;
 
-	// 1. Safety: Input must be long enough for Degrees + Minutes.
-	//    (+/-) + digits + (minutes=2) = digits + 3 minimum length.
+	/* Safety: Input must be long enough for Degrees + Minutes.
+	 * (+/-) + digits + (minutes=2) = digits + 3 minimum length.
+	 */
 	if (!pos || digits > 9 || strlen (pos) < digits + 3)
 		return 0.0;
 
-	// 2. Capture sign explicitly to handle -0.0 correctly
+	/* Capture sign explicitly to handle -0.0 correctly */
 	if (pos[0] == '-')
 		is_negative = TRUE;
 
@@ -396,15 +397,26 @@ convert_pos (const gchar *pos, gint digits)
 	whole[i] = '\0';
 	min = g_ascii_strtod (whole, NULL);
 
-	/* seconds */
-	pos += 2;
-	// 3. Robust Check: Ensure we haven't hit the end of string or next coordinate
-	if (*pos != '\0' && *pos != '\n' && *pos != '+' && *pos != '-') {
-		sec = g_ascii_strtod (pos, NULL);
+	/* Range validation warning */
+	if (G_UNLIKELY (min < 0.0 || min >= 60.0)) {
+		g_warning ("convert_pos: Invalid minutes value %f (expected 0-59)", min);
 	}
 
-	// 4. Math: Apply sign to the whole sum, not just using deg
-	//    If deg is -0.0, we still want -(0 + min + sec)
+	/* seconds */
+	pos += 2;
+	/* Robust check: Ensure we haven't hit the end of string or next coordinate */
+	if (*pos != '\0' && *pos != '\n' && *pos != '+' && *pos != '-') {
+		sec = g_ascii_strtod (pos, NULL);
+
+		/* Range validation warning */
+		if (G_UNLIKELY (sec < 0.0 || sec >= 60.0)) {
+			g_warning ("convert_pos: Invalid seconds value %f (expected 0-59)", sec);
+		}
+	}
+
+	/* Apply sign to the whole sum, not just using deg.
+	 * If deg is -0.0, we still want -(0 + min + sec)
+	 */
 	if (is_negative)
 		return deg - min / 60.0 - sec / 3600.0;
 	else
