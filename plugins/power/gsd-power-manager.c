@@ -2108,9 +2108,10 @@ idle_configure (GsdPowerManager *manager)
                                                                                           idle_triggered_idle_cb, manager, NULL);
                 }
 
-                if (action_type == GSD_POWER_ACTION_LOGOUT ||
-                    action_type == GSD_POWER_ACTION_SUSPEND ||
-                    action_type == GSD_POWER_ACTION_HIBERNATE) {
+                if (!manager->screensaver_active &&
+                    (action_type == GSD_POWER_ACTION_LOGOUT ||
+                     action_type == GSD_POWER_ACTION_SUSPEND ||
+                     action_type == GSD_POWER_ACTION_HIBERNATE)) {
                         guint timeout_sleep_warning_msec;
 
                         manager->sleep_action_type = action_type;
