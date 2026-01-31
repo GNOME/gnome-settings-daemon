@@ -135,7 +135,7 @@ sort_by_closest_to (GList           *locations,
                 g_object_unref (loc);
         }
 
-        return g_list_sort (locations, (GCompareFunc) compare_locations);
+        return g_list_sort (locations, compare_locations);
 }
 
 static GList *
