@@ -2905,10 +2905,22 @@ has_external_monitor_changed (GsdPowerManager *manager)
 static void
 handle_suspend_actions (GsdPowerManager *manager)
 {
+        gboolean do_lock;
+
         /* close any existing notification about idleness */
         notify_close_if_showing (&manager->notification_sleep_warning);
-        disable_monitors (manager);
-        uninhibit_suspend (manager);
+
+        do_lock = g_settings_get_boolean (manager->settings_screensaver,
+                                          "lock-enabled");
+
+        if (do_lock && !manager->screensaver_active) {
+                g_debug ("waiting for screensaver to activate");
+                uninhibit_suspend (manager);
+                // Let gnome-shell handle the monitors...
+        } else {
+                disable_monitors (manager);
+                uninhibit_suspend (manager);
+        }
 }
 
 static void
