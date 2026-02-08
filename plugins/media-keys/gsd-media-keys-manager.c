@@ -1391,6 +1391,13 @@ allow_volume_above_100_percent_changed_cb (GSettings           *settings,
 
         allow_volume_above_100_percent = g_settings_get_boolean (settings, settings_key);
         priv->max_volume = allow_volume_above_100_percent ? PA_VOLUME_UI_MAX : PA_VOLUME_NORM;
+        if (priv->sink != NULL) {
+                guint current_vol = gvc_mixer_stream_get_volume (priv->sink);
+                if (current_vol > priv->max_volume) {
+                        gvc_mixer_stream_set_volume (priv->sink, priv->max_volume);
+                        gvc_mixer_stream_push_volume (priv->sink);
+                }
+        }
 }
 
 static void
