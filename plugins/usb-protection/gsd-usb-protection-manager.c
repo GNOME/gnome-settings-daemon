@@ -444,51 +444,49 @@ call_usbguard_dbus (GDBusProxy              *proxy,
 }
 
 static gboolean
-is_hid_or_hub (GVariant *device,
-               gboolean *has_other_classes)
+is_hid_or_hub (GVariant *device)
 {
-        g_autoptr(GVariantIter) iter = NULL;
-        g_autofree gchar *name = NULL;
+        g_autoptr(GVariant) attrs = NULL;
+        g_auto(GStrv) interfaces_splitted = NULL;
         g_autofree gchar *value = NULL;
         guint i;
         gboolean is_hid_or_hub = FALSE;
+        gboolean has_other_classes = FALSE;
 
-        if (has_other_classes != NULL)
-                *has_other_classes = FALSE;
+        attrs = g_variant_get_child_value (device, POLICY_APPLIED_ATTRIBUTES);
+        g_return_val_if_fail (attrs != NULL, FALSE);
 
-        g_variant_get_child (device, POLICY_APPLIED_ATTRIBUTES, "a{ss}", &iter);
-        g_return_val_if_fail (iter != NULL, FALSE);
-        while (g_variant_iter_loop (iter, "{ss}", &name, &value)) {
-                if (g_strcmp0 (name, WITH_INTERFACE) == 0) {
-                        g_auto(GStrv) interfaces_splitted = NULL;
-                        interfaces_splitted = g_strsplit (value, " ", -1);
-                        for (i = 0; i < g_strv_length (interfaces_splitted); i++) {
-                                if (g_str_has_prefix (interfaces_splitted[i], "03:") ||
-                                    g_str_has_prefix (interfaces_splitted[i], "09:")) {
-                                        is_hid_or_hub = TRUE;
-                                } else if (has_other_classes != NULL) {
-                                        *has_other_classes = TRUE;
-                                }
-                        }
+        if (!g_variant_lookup (attrs, WITH_INTERFACE, "s", &value))
+                return FALSE;
+
+        interfaces_splitted = g_strsplit (value, " ", -1);
+        for (i = 0; i < g_strv_length (interfaces_splitted); i++) {
+                if (g_str_has_prefix (interfaces_splitted[i], "03:") ||
+                    g_str_has_prefix (interfaces_splitted[i], "09:")) {
+                        is_hid_or_hub = TRUE;
+                } else {
+                        has_other_classes = TRUE;
                 }
         }
-        return is_hid_or_hub;
+
+        g_debug ("Device is HID or HUB: %d, has other classes: %d", is_hid_or_hub, has_other_classes);
+
+        return is_hid_or_hub && !has_other_classes;
 }
 
 static gboolean
 is_hardwired (GVariant *device)
 {
-        g_autoptr(GVariantIter) iter = NULL;
-        g_autofree gchar *name = NULL;
+        g_autoptr(GVariant) attrs = NULL;
         g_autofree gchar *value = NULL;
 
-        g_variant_get_child (device, POLICY_APPLIED_ATTRIBUTES, "a{ss}", &iter);
-        g_return_val_if_fail (iter != NULL, FALSE);
-        while (g_variant_iter_loop (iter, "{ss}", &name, &value)) {
-                if (g_strcmp0 (name, WITH_CONNECT_TYPE) == 0)
-                        return g_strcmp0 (value, "hardwired") == 0;
-        }
-        return FALSE;
+        attrs = g_variant_get_child_value (device, POLICY_APPLIED_ATTRIBUTES);
+        g_return_val_if_fail (attrs != NULL, FALSE);
+
+        if (!g_variant_lookup (attrs, WITH_CONNECT_TYPE, "s", &value))
+                return FALSE;
+
+        return g_strcmp0 (value, "hardwired") == 0;
 }
 
 static void
@@ -601,11 +599,9 @@ on_usbguard_signal (GDBusProxy *proxy,
         UsbGuardTarget target = TARGET_BLOCK;
         GDesktopUsbProtection protection_level;
         GsdUsbProtectionManager *manager = user_data;
-        g_autoptr(GVariantIter) iter = NULL;
-        g_autofree gchar *name = NULL;
+        g_autoptr(GVariant) attrs = NULL;
         g_autofree gchar *device_name = NULL;
-        gboolean hid_or_hub = FALSE;
-        gboolean has_other_classes = FALSE;
+        gboolean hid_or_hub_only;
 
         g_debug ("USBGuard signal: %s", signal_name);
 
@@ -635,12 +631,11 @@ on_usbguard_signal (GDBusProxy *proxy,
                 return;
         }
 
-        g_variant_get_child (parameters, POLICY_APPLIED_ATTRIBUTES, "a{ss}", &iter);
-        g_return_if_fail (iter != NULL);
-        while (g_variant_iter_loop (iter, "{ss}", &name, &device_name)) {
-                if (g_strcmp0 (name, NAME) == 0)
-                        g_debug ("A new USB device has been connected: %s", device_name);
-        }
+        attrs = g_variant_get_child_value (parameters, POLICY_APPLIED_ATTRIBUTES);
+        g_return_if_fail (attrs != NULL);
+
+        if (g_variant_lookup (attrs, NAME, "s", &device_name))
+                g_debug ("A new USB device has been connected: %s", device_name);
 
         if (is_hardwired (parameters)) {
                 guint device_id;
@@ -656,8 +651,7 @@ on_usbguard_signal (GDBusProxy *proxy,
         gboolean session_is_locked = is_session_locked (manager);
         g_debug ("Screensaver active: %d", session_is_locked);
         /* Can we ask USBGuard to allow HIDs and hubs for us? We would know which rule allowed a device so we could still show a message to the user when a HID has been attached */
-        hid_or_hub = is_hid_or_hub (parameters, &has_other_classes);
-        g_debug ("Device is HID or HUB: %d, has other classes: %d", hid_or_hub, has_other_classes);
+        hid_or_hub_only = is_hid_or_hub (parameters);
 
         if (session_is_locked) {
                 /* If the session is locked we check if the inserted device is a HID,
@@ -668,7 +662,7 @@ on_usbguard_signal (GDBusProxy *proxy,
                  * If this device advertises also interfaces outside the HID class, or the
                  * HUB class, it is suspect. It could be a false positive because this could
                  * be a "smart" keyboard for example, but at this stage is better be safe. */
-                if (hid_or_hub && !has_other_classes) {
+                if (hid_or_hub_only) {
                         guint device_id;
                         show_notification (manager,
                                            _("New device detected"),
@@ -703,7 +697,7 @@ on_usbguard_signal (GDBusProxy *proxy,
                          * If this device advertises also interfaces outside the HID class, or the
                          * HUB class, it is suspect. It could be a false positive because this could
                          * be a "smart" keyboard for example, but at this stage is better be safe. */
-                        if (hid_or_hub && !has_other_classes) {
+                        if (hid_or_hub_only) {
                                 ManagerDeviceId *manager_devid = g_malloc (sizeof (ManagerDeviceId));
                                 manager_devid->manager = manager;
                                 g_variant_get_child (parameters, POLICY_APPLIED_DEVICE_ID, "u", &(manager_devid->device_id));
