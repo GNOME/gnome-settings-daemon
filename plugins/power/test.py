@@ -157,6 +157,9 @@ class PowerPluginBase(gsdtestcase.GSDTestCase):
         self.logind_obj.Set('org.freedesktop.login1.Manager', 'LidClosed', state)
         self.logind_obj.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
 
+        self.obj_upower.Set('org.freedesktop.UPower', 'LidIsClosed', state)
+        self.obj_upower.EmitSignal('', 'Changed', '', [], dbus_interface='org.freedesktop.DBus.Mock')
+
     def set_has_external_monitor(self, external):
         if external:
             val = b'1'
