@@ -2045,11 +2045,24 @@ static gboolean
 supports_power_action (GsdMediaKeysManager *manager,
                        GsdPowerActionType   action_type)
 {
+        static const char *supported_values[] = {
+                "yes", /* Supported, no questions asked */
+                "challenge", /* Supported, but only after Polkit auth */
+                "inhibited", /* "yes", but inhibitor temporarily demands auth */
+                "inhibitor-blocked", /* "yes", but inhibitor blocks */
+                "challenge-inhibitor-blocked", /* "challenge", but inhibitor blocks */
+                NULL
+        };
+        static const char *known_unsupported_values[] = {
+                "no", /* Administrator disabled */
+                "na", /* Entirely unsupported */
+                NULL
+        };
+
         GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
         const char *method_name = NULL;
         g_autoptr(GVariant) variant = NULL;
         const char *reply;
-        gboolean result = FALSE;
 
         switch (action_type) {
         case GSD_POWER_ACTION_SUSPEND:
@@ -2083,10 +2096,14 @@ supports_power_action (GsdMediaKeysManager *manager,
                 return FALSE;
 
         g_variant_get (variant, "(&s)", &reply);
-        if (g_strcmp0 (reply, "yes") == 0)
-                result = TRUE;
 
-        return result;
+        if (g_strv_contains (supported_values, reply))
+                return TRUE;
+
+        if (!g_strv_contains (known_unsupported_values, reply))
+                g_warning ("%s() returned unknown value: %s", method_name, reply);
+
+        return FALSE;
 }
 
 static void
