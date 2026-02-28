@@ -107,6 +107,7 @@
 #define SYSTEMD_DBUS_NAME                       "org.freedesktop.login1"
 #define SYSTEMD_DBUS_PATH                       "/org/freedesktop/login1"
 #define SYSTEMD_DBUS_INTERFACE                  "org.freedesktop.login1.Manager"
+#define SD_LOGIND_SKIP_INHIBITORS               (UINT64_C(1) << 4)
 
 #define AUDIO_SELECTION_DBUS_NAME               "org.gnome.Shell.AudioDeviceSelection"
 #define AUDIO_SELECTION_DBUS_PATH               "/org/gnome/Shell/AudioDeviceSelection"
@@ -1999,15 +2000,24 @@ do_toggle_contrast_action (GsdMediaKeysManager *manager)
 
 static void
 power_action (GsdMediaKeysManager *manager,
-              const char          *action,
+              const char          *method,
+              gboolean             ignore_inhibitors,
               gboolean             allow_interaction)
 {
         GsdMediaKeysManagerPrivate *priv = GSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
+        guint64 logind_flags = 0;
+        GDBusCallFlags dbus_flags = G_DBUS_CALL_FLAGS_NONE;
+
+        if (ignore_inhibitors)
+                logind_flags = SD_LOGIND_SKIP_INHIBITORS;
+
+        if (allow_interaction)
+                dbus_flags = G_DBUS_CALL_FLAGS_ALLOW_INTERACTIVE_AUTHORIZATION;
 
         g_dbus_proxy_call (priv->logind_proxy,
-                           action,
-                           g_variant_new ("(b)", allow_interaction),
-                           G_DBUS_CALL_FLAGS_NONE,
+                           method,
+                           g_variant_new ("(t)", logind_flags),
+                           dbus_flags,
                            G_MAXINT,
                            priv->bus_cancellable,
                            NULL, NULL);
@@ -2020,17 +2030,17 @@ do_config_power_action (GsdMediaKeysManager *manager,
 {
         switch (action_type) {
         case GSD_POWER_ACTION_SUSPEND:
-                power_action (manager, "Suspend", !in_lock_screen);
+                power_action (manager, "SuspendWithFlags", TRUE, !in_lock_screen);
                 break;
         case GSD_POWER_ACTION_INTERACTIVE:
                 if (!in_lock_screen)
                         gnome_session_shutdown (manager);
                 break;
         case GSD_POWER_ACTION_SHUTDOWN:
-                power_action (manager, "PowerOff", !in_lock_screen);
+                power_action (manager, "PowerOffWithFlags", FALSE, !in_lock_screen);
                 break;
         case GSD_POWER_ACTION_HIBERNATE:
-                power_action (manager, "Hibernate", !in_lock_screen);
+                power_action (manager, "HibernateWithFlags", TRUE, !in_lock_screen);
                 break;
         case GSD_POWER_ACTION_BLANK:
         case GSD_POWER_ACTION_LOGOUT:
@@ -2123,7 +2133,7 @@ do_config_power_button_action (GsdMediaKeysManager *manager,
                 g_warning_once ("Virtual machines only honor the 'nothing' power-button-action, and will shutdown otherwise");
 
                 if (action_type != GSD_POWER_BUTTON_ACTION_NOTHING)
-                        power_action (manager, "PowerOff", FALSE);
+                        power_action (manager, "PowerOffWithFlags", FALSE, FALSE);
 
                 return;
         }
