@@ -590,6 +590,98 @@ is_session_locked (GsdUsbProtectionManager *manager)
 }
 
 static void
+usbguard_in_lockscreen_level (GsdUsbProtectionManager *manager,
+                              GVariant                *parameters)
+{
+        guint device_id;
+        gboolean session_is_locked = is_session_locked (manager);
+        gboolean hid_or_hub_only = is_hid_or_hub (parameters);
+
+        /* Allow everything when the session is unlocked. */
+        if (!session_is_locked) {
+                g_debug ("The session is not locked and we're in Lockscreen-only mode. "
+                         "The device should get authorized by an existing USBGuard rule");
+                return;
+        }
+
+        /* When session is locked, only HIDs and HUBs without any other
+         * class are allowed */
+        if (hid_or_hub_only) {
+                show_notification (manager,
+                                   _("New device detected"),
+                                   _("Either one of your existing devices has "
+                                     "been reconnected or a new one has been "
+                                     "inserted. If you did not do it, check "
+                                     "your system for any suspicious device."));
+                g_variant_get_child (parameters, POLICY_APPLIED_DEVICE_ID, "u", &device_id);
+                authorize_device (manager, device_id);
+                return;
+        }
+
+        show_notification (manager,
+                           _("Reconnect USB device"),
+                           _("New device has been detected while you were away. "
+                             "Please disconnect and reconnect the device to "
+                             "start using it."));
+}
+
+static void
+usbguard_in_always_level (GsdUsbProtectionManager *manager,
+                          GVariant                *parameters)
+{
+        guint device_id;
+        gboolean session_is_locked = is_session_locked (manager);
+        gboolean hid_or_hub_only = is_hid_or_hub (parameters);
+
+        g_variant_get_child (parameters, POLICY_APPLIED_DEVICE_ID, "u", &device_id);
+
+        /* Only HIDs and HUBs without any other class are allowed */
+
+        /* Lock the screen to prevent an attacker to plug malicious
+         * devices if the legitimate user forgot to lock his session. */
+        if (hid_or_hub_only && !session_is_locked) {
+                ManagerDeviceId *manager_devid = g_malloc (sizeof (ManagerDeviceId));
+                manager_devid->manager = manager;
+                manager_devid->device_id = device_id;
+                gsd_screen_saver_call_lock (manager->screensaver_proxy,
+                                            manager->cancellable,
+                                            (GAsyncReadyCallback) on_screen_locked,
+                                            manager_devid);
+                return;
+        }
+
+        if (hid_or_hub_only && session_is_locked) {
+                show_notification (manager,
+                                   _("New device detected"),
+                                   _("Either one of your existing devices has "
+                                     "been reconnected or a new one has been "
+                                     "inserted. If you did not do it, check "
+                                     "your system for any suspicious device."));
+                authorize_device (manager, device_id);
+                return;
+        }
+
+        if (!hid_or_hub_only && !session_is_locked) {
+                show_notification (manager,
+                                _("USB device blocked"),
+                                _("The new inserted device has been blocked "
+                                  "because the USB protection is active. "
+                                  "If you want to activate the device, disable "
+                                  "the USB protection and re-insert the device."));
+                return;
+        }
+
+        if (!hid_or_hub_only && session_is_locked) {
+                show_notification (manager,
+                                   _("USB device blocked"),
+                                   _("New device has been detected while you "
+                                     "were away. It has been blocked because "
+                                     "the USB protection is active."));
+                return;
+        }
+}
+
+static void
 on_usbguard_signal (GDBusProxy *proxy,
                     gchar      *sender_name,
                     gchar      *signal_name,
@@ -601,7 +693,6 @@ on_usbguard_signal (GDBusProxy *proxy,
         GsdUsbProtectionManager *manager = user_data;
         g_autoptr(GVariant) attrs = NULL;
         g_autofree gchar *device_name = NULL;
-        gboolean hid_or_hub_only;
 
         g_debug ("USBGuard signal: %s", signal_name);
 
@@ -648,79 +739,10 @@ on_usbguard_signal (GDBusProxy *proxy,
         protection_level = g_settings_get_enum (manager->settings, USB_PROTECTION_LEVEL);
         g_debug ("Current protection level is %s", protection_level_to_str (protection_level));
 
-        gboolean session_is_locked = is_session_locked (manager);
-        g_debug ("Screensaver active: %d", session_is_locked);
-        /* Can we ask USBGuard to allow HIDs and hubs for us? We would know which rule allowed a device so we could still show a message to the user when a HID has been attached */
-        hid_or_hub_only = is_hid_or_hub (parameters);
-
-        if (session_is_locked) {
-                /* If the session is locked we check if the inserted device is a HID,
-                 * e.g. a keyboard or a mouse, or an HUB.
-                 * If that is the case we authorize the newly inserted device as an
-                 * antilockout policy.
-                 *
-                 * If this device advertises also interfaces outside the HID class, or the
-                 * HUB class, it is suspect. It could be a false positive because this could
-                 * be a "smart" keyboard for example, but at this stage is better be safe. */
-                if (hid_or_hub_only) {
-                        guint device_id;
-                        show_notification (manager,
-                                           _("New device detected"),
-                                           _("Either one of your existing devices has been reconnected or a new one has been inserted. "
-                                             "If you did not do it, check your system for any suspicious device."));
-                        g_variant_get_child (parameters, POLICY_APPLIED_DEVICE_ID, "u", &device_id);
-                        authorize_device (manager, device_id);
-                } else {
-                        if (protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN) {
-                                show_notification (manager,
-                                                   _("Reconnect USB device"),
-                                                   _("New device has been detected while you were away. "
-                                                     "Please disconnect and reconnect the device to start using it."));
-                        } else {
-                                const char *name_for_notification = device_name ? device_name : "unknown name";
-                                g_debug ("Showing notification for %s", name_for_notification);
-                                show_notification (manager,
-                                                   _("USB device blocked"),
-                                                   _("New device has been detected while you were away. "
-                                                     "It has been blocked because the USB protection is active."));
-                        }
-                }
-        } else {
-                /* If the protection level is "lockscreen" the device will be automatically
-                 * authorized by usbguard. */
-                if (protection_level == G_DESKTOP_USB_PROTECTION_ALWAYS) {
-                        /* We authorize the device if this is a HID,
-                         * e.g. a keyboard or a mouse, or an HUB.
-                         * We also lock the screen to prevent an attacker to plug malicious
-                         * devices if the legitimate user forgot to lock his session.
-                         *
-                         * If this device advertises also interfaces outside the HID class, or the
-                         * HUB class, it is suspect. It could be a false positive because this could
-                         * be a "smart" keyboard for example, but at this stage is better be safe. */
-                        if (hid_or_hub_only) {
-                                ManagerDeviceId *manager_devid = g_malloc (sizeof (ManagerDeviceId));
-                                manager_devid->manager = manager;
-                                g_variant_get_child (parameters, POLICY_APPLIED_DEVICE_ID, "u", &(manager_devid->device_id));
-                                gsd_screen_saver_call_lock (manager->screensaver_proxy,
-                                                            manager->cancellable,
-                                                            (GAsyncReadyCallback) on_screen_locked,
-                                                            manager_devid);
-                        } else {
-                                show_notification (manager,
-                                                   _("USB device blocked"),
-                                                   _("The new inserted device has been blocked because the USB protection is active. "
-                                                     "If you want to activate the device, disable the USB protection and re-insert "
-                                                     "the device."));
-                        }
-                } else {
-                        /* This is protection level == Lockscreen, so we allow everything when the session is unlocked.
-                         * There should be a USBGuard rule that automatically allows all devices,
-                         * so we don't have anything to do here. */
-                        g_debug ("The session is not locked (%d) and we're in Lockscreen-only mode (%s). "
-                                 "The device should get authorized by an existing USBGuard rule",
-                                 session_is_locked == FALSE, protection_level_to_str (protection_level));
-                }
-        }
+        if (protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN)
+                usbguard_in_lockscreen_level (manager, parameters);
+        else
+                usbguard_in_always_level (manager, parameters);
 }
 
 
