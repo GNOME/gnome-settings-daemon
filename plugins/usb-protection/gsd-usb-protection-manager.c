@@ -1169,13 +1169,12 @@ on_bus_gotten (GObject                 *source_object,
                GsdUsbProtectionManager *manager)
 {
         GDBusConnection *connection;
-        GError *error = NULL;
+        g_autoptr(GError) error = NULL;
 
         connection = g_bus_get_finish (res, &error);
         if (connection == NULL) {
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         g_warning ("Could not get session bus: %s", error->message);
-                g_error_free (error);
                 return;
         }
 
