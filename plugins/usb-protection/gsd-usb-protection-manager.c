@@ -231,7 +231,7 @@ usbguard_listrules_cb (GObject      *source_object,
         result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
                                            res,
                                            &error);
-        if (!result) {
+        if (result == NULL) {
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
                         g_warning ("Failed to fetch USBGuard rules list: %s", error->message);
                 }
@@ -518,7 +518,7 @@ on_screen_locked (GsdScreenSaver  *screen_saver,
         g_free (manager_devid);
 
         gsd_screen_saver_call_lock_finish (screen_saver, result, &error);
-        if (error) {
+        if (error != NULL) {
                 if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         return;
                 g_warning ("Could not lock screen: %s", error->message);
@@ -550,8 +550,8 @@ is_session_locked (GsdUsbProtectionManager *manager)
                                                             /* timeout */ 500,
                                                             NULL,
                                                             &error);
-        if (!reply) {
-                if (error) {
+        if (reply == NULL) {
+                if (error != NULL) {
                         g_warning ("Couldn't determined locked session state: %s", error->message);
                 } else {
                         g_error ("Got neither reply nor error when asking for LockedHint. (logind_proxy: %p)", logind_proxy);
@@ -897,7 +897,7 @@ on_usb_protection_owner_changed_cb (GObject    *object,
         name_owner = g_dbus_proxy_get_name_owner (proxy);
         g_debug ("Got owner change: %s", name_owner);
 
-        if (name_owner) {
+        if (name_owner != NULL) {
                 manager->available = TRUE;
         } else {
                 manager->available = FALSE;
@@ -969,7 +969,7 @@ usb_protection_policy_proxy_ready (GObject      *source_object,
         g_debug ("usb_protection_policy_proxy_ready");
 
         proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
-        if (!proxy) {
+        if (proxy == NULL) {
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         g_warning ("Failed to contact USBGuard: %s", error->message);
                 return;
@@ -991,7 +991,7 @@ usb_protection_devices_proxy_ready (GObject      *source_object,
         g_autoptr(GError) error = NULL;
 
         proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
-        if (!proxy) {
+        if (proxy == NULL) {
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         g_warning ("Failed to contact USBGuard: %s", error->message);
                 return;
@@ -1043,7 +1043,7 @@ logind_session_ready (GObject      *source_object,
         GsdUsbProtectionManager *manager = user_data;
 
         proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
-        if (!proxy) {
+        if (proxy == NULL) {
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         g_warning ("Failed to get logind session: %s", error->message);
                 return;
@@ -1064,7 +1064,7 @@ usb_protection_proxy_ready (GObject      *source_object,
         g_autoptr(GError) error = NULL;
 
         proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
-        if (!proxy) {
+        if (proxy == NULL) {
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         g_warning ("Failed to contact USBGuard: %s", error->message);
                 return;
@@ -1077,7 +1077,7 @@ usb_protection_proxy_ready (GObject      *source_object,
                           G_CALLBACK (settings_changed_callback), manager);
 
         manager->screensaver_proxy = gnome_settings_bus_get_screen_saver_proxy ();
-        if (!manager->screensaver_proxy) {
+        if (manager->screensaver_proxy == NULL) {
                 g_warning ("Failed to connect to screensaver service");
                 g_clear_object (&manager->usb_protection);
                 return;
