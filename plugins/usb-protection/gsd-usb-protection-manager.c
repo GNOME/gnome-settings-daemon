@@ -232,9 +232,8 @@ usbguard_listrules_cb (GObject      *source_object,
                                            res,
                                            &error);
         if (result == NULL) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         g_warning ("Failed to fetch USBGuard rules list: %s", error->message);
-                }
                 return;
         }
 
@@ -448,9 +447,8 @@ is_hid_or_hub (GVariant *device,
         guint i;
         gboolean is_hid_or_hub = FALSE;
 
-        if (has_other_classes != NULL) {
+        if (has_other_classes != NULL)
                 *has_other_classes = FALSE;
-        }
 
         g_variant_get_child (device, POLICY_APPLIED_ATTRIBUTES, "a{ss}", &iter);
         g_return_val_if_fail (iter != NULL, FALSE);
@@ -481,9 +479,8 @@ is_hardwired (GVariant *device)
         g_variant_get_child (device, POLICY_APPLIED_ATTRIBUTES, "a{ss}", &iter);
         g_return_val_if_fail (iter != NULL, FALSE);
         while (g_variant_iter_loop (iter, "{ss}", &name, &value)) {
-                if (g_strcmp0 (name, WITH_CONNECT_TYPE) == 0) {
+                if (g_strcmp0 (name, WITH_CONNECT_TYPE) == 0)
                         return g_strcmp0 (value, "hardwired") == 0;
-                }
         }
         return FALSE;
 }
@@ -551,11 +548,10 @@ is_session_locked (GsdUsbProtectionManager *manager)
                                                             NULL,
                                                             &error);
         if (reply == NULL) {
-                if (error != NULL) {
+                if (error != NULL)
                         g_warning ("Couldn't determined locked session state: %s", error->message);
-                } else {
+                else
                         g_error ("Got neither reply nor error when asking for LockedHint. (logind_proxy: %p)", logind_proxy);
-                }
                 result = FALSE;
         } else {
                 if (g_variant_n_children (reply) != 1) {
@@ -607,9 +603,8 @@ on_usbguard_signal (GDBusProxy *proxy,
         g_debug ("USBGuard signal: %s", signal_name);
 
         /* We act only if we receive a signal indicating that a device has been inserted and a rule has been applied */
-        if (g_strcmp0 (signal_name, "DevicePolicyApplied") != 0) {
+        if (g_strcmp0 (signal_name, "DevicePolicyApplied") != 0)
                 return;
-        }
 
         g_variant_get_child (parameters, POLICY_APPLIED_TARGET, "u", &target);
         g_debug ("Device target: %s", target_to_str (target));
@@ -776,9 +771,8 @@ get_parameter_cb (GObject      *source_object,
                                            res,
                                            &error);
         if (result == NULL) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         g_warning ("Failed to fetch USBGuard parameters: %s", error->message);
-                }
                 return;
         }
 
@@ -897,11 +891,10 @@ on_usb_protection_owner_changed_cb (GObject    *object,
         name_owner = g_dbus_proxy_get_name_owner (proxy);
         g_debug ("Got owner change: %s", name_owner);
 
-        if (name_owner != NULL) {
+        if (name_owner != NULL)
                 manager->available = TRUE;
-        } else {
+        else
                 manager->available = FALSE;
-        }
 
         usb_protection_properties_changed (manager);
 }
