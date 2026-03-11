@@ -51,6 +51,8 @@
 #define USBGUARD_DBUS_PATH_DEVICES USBGUARD_DBUS_PATH "/Devices"
 #define USBGUARD_DBUS_INTERFACE_DEVICES USBGUARD_DBUS_INTERFACE ".Devices" DBUS_VERSION
 
+#define USBGUARD_LAST_RULE_ID G_MAXUINT32 - 2
+
 #define APPLY_POLICY "apply-policy"
 #define BLOCK "block"
 #define REJECT "reject"
@@ -184,10 +186,8 @@ add_usbguard_allow_rule (GsdUsbProtectionManager *manager)
                 g_warning ("Cannot add allow rule, because dbus proxy is missing");
         } else {
                 gboolean temporary = TRUE;
-                /* This is USBGuard's Rule::LastID */
-                const guint32 last_rule_id = G_MAXUINT32 - 2;
-                g_debug ("Adding rule %u", last_rule_id);
-                params = g_variant_new ("(sub)", ALLOW_ALL, last_rule_id, temporary);
+                g_debug ("Adding rule %u", USBGUARD_LAST_RULE_ID);
+                params = g_variant_new ("(sub)", ALLOW_ALL, USBGUARD_LAST_RULE_ID, temporary);
                 g_dbus_proxy_call (policy_proxy,
                                    APPEND_RULE,
                                    params,
