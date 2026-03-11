@@ -509,13 +509,14 @@ on_screen_locked (GsdScreenSaver  *screen_saver,
                   GAsyncResult    *result,
                   ManagerDeviceId *manager_devid)
 {
+        gboolean ret;
         g_autoptr(GError) error = NULL;
         GsdUsbProtectionManager *manager = manager_devid->manager;
         guint device_id = manager_devid->device_id;
         g_free (manager_devid);
 
-        gsd_screen_saver_call_lock_finish (screen_saver, result, &error);
-        if (error != NULL) {
+        ret = gsd_screen_saver_call_lock_finish (screen_saver, result, &error);
+        if (!ret) {
                 if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
                         return;
                 g_warning ("Could not lock screen: %s", error->message);
