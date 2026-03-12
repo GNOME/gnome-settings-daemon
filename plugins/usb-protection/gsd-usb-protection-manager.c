@@ -20,19 +20,16 @@
 
 #include "config.h"
 
+#include <gdesktop-enums.h>
 #include <gio/gio.h>
 #include <glib-object.h>
 #include <glib/gi18n.h>
 #include <libnotify/notify.h>
-#include <locale.h>
-#include <string.h>
 
-#include <gdesktop-enums.h>
+#include "gsd-usb-protection-manager.h"
 
 #include "gnome-settings-bus.h"
 #include "gnome-settings-profile.h"
-#include "gnome-settings-daemon/gsd-enums.h"
-#include "gsd-usb-protection-manager.h"
 
 #define PRIVACY_SETTINGS "org.gnome.desktop.privacy"
 #define USB_PROTECTION "usb-protection"
