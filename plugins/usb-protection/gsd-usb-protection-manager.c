@@ -98,6 +98,7 @@ struct _GsdUsbProtectionManager
         GsdSessionManager  *session_proxy;
         gboolean            screensaver_active;
         gboolean            session_locked;
+        gboolean            is_greeter;
         NotifyNotification *notification;
         GHashTable         *braille_devices;
         GDBusProxy         *systemd_manager;
@@ -657,13 +658,15 @@ usbguard_in_lockscreen_level (GsdUsbProtectionManager *manager,
 {
         guint device_id;
         gboolean session_is_locked = manager->session_locked;
+        gboolean session_is_greeter = manager->is_greeter;
         gboolean hid_or_hub_only = is_hid_or_hub (parameters);
         gboolean valid_braille = check_braille (manager, parameters);
 
-        /* Allow everything when the session is unlocked. */
-        if (!session_is_locked) {
-                g_debug ("The session is not locked and we're in Lockscreen-only mode. "
-                         "The device should get authorized by an existing USBGuard rule");
+        /* Allow everything when the session is unlocked or not a greeter. */
+        if (!session_is_locked && !session_is_greeter) {
+                g_debug ("The session is neither locked nor a greeter and we're "
+                         "in Lockscreen-only mode. The device should get "
+                         "authorized by an existing USBGuard rule");
                 return;
         }
 
@@ -675,8 +678,8 @@ usbguard_in_lockscreen_level (GsdUsbProtectionManager *manager,
                 return;
         }
 
-        /* When session is locked, only HIDs, HUBs or braille devices without
-         * any other class are allowed */
+        /* When session is locked or a greeter, only HIDs, HUBs or braille 
+         * devices without any other class are allowed */
         if (hid_or_hub_only) {
                 show_notification (manager,
                                    _("New device detected"),
@@ -690,7 +693,7 @@ usbguard_in_lockscreen_level (GsdUsbProtectionManager *manager,
 
         show_notification (manager,
                            _("Reconnect USB device"),
-                           _("New device has been detected while you were away. "
+                           _("New device has been detected. "
                              "Please disconnect and reconnect the device to "
                              "start using it."));
 }
@@ -879,18 +882,19 @@ sync_inserted_device_policy (GObject      *source_object,
         protection_level = g_settings_get_enum (settings, USB_PROTECTION_LEVEL);
 
         if (!usbguard_controlled ||
-             protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN) {
-                /* In "Lockscreen" protection level and when we leave USBGuard
-                 * configuration we add an always allow rule to make every
-                 * USB device authorized. */
+             (protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN && !manager->is_greeter)) {
+                /* In user sessions with "Lockscreen" protection level and
+                 * when we leave USBGuard configuration we add an always allow
+                 * rule to make every USB device authorized. */
                 usbguard_ensure_allow_rule (manager);
         }
 
         if (!usbguard_controlled) {
                 new_policy = APPLY_POLICY;
         } else if (protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN) {
-                new_policy = (manager->screensaver_active || manager->session_locked) ?
-                             BLOCK : APPLY_POLICY;
+                new_policy = (manager->screensaver_active ||
+                              manager->session_locked ||
+                              manager->is_greeter) ? BLOCK : APPLY_POLICY;
         } else { /* G_DESKTOP_USB_PROTECTION_ALWAYS */
                 new_policy = BLOCK;
         }
@@ -1214,6 +1218,7 @@ usb_protection_proxy_ready (GObject      *source_object,
 {
         GsdUsbProtectionManager *manager;
         GDBusProxy *proxy;
+        const gchar *session_class;
         g_autofree gchar *name_owner = NULL;
         g_autoptr(GError) error = NULL;
 
@@ -1249,6 +1254,9 @@ usb_protection_proxy_ready (GObject      *source_object,
                 g_signal_connect (manager->session_proxy, "notify::session-is-locked",
                                   G_CALLBACK (on_session_locked), manager);
                 manager->session_locked = gsd_session_manager_get_session_is_locked (manager->session_proxy);
+
+                session_class = gsd_session_manager_get_session_class (manager->session_proxy);
+                manager->is_greeter = g_strcmp0 (session_class, "greeter") == 0;
         }
 
         name_owner = g_dbus_proxy_get_name_owner (G_DBUS_PROXY (proxy));
