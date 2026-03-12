@@ -80,10 +80,11 @@ struct _GsdUsbProtectionManager
         GDBusProxy         *usb_protection;
         GDBusProxy         *usb_protection_devices;
         GDBusProxy         *usb_protection_policy;
-        GDBusProxy         *logind;
         GCancellable       *cancellable;
         GsdScreenSaver     *screensaver_proxy;
+        GsdSessionManager  *session_proxy;
         gboolean            screensaver_active;
+        gboolean            session_locked;
         NotifyNotification *notification;
 };
 
@@ -534,67 +535,12 @@ on_screen_locked (GsdScreenSaver  *screen_saver,
                              "check your system for any suspicious gadgets and remove them."));
 }
 
-
-static gboolean
-is_session_locked (GsdUsbProtectionManager *manager)
-{
-        g_autoptr(GError) error = NULL;
-        GDBusProxy *logind_proxy = manager->logind;
-        gboolean result;
-
-        g_debug ("Calling dbus to get locked reply");
-        g_autoptr(GVariant) reply = g_dbus_proxy_call_sync (logind_proxy,
-                                                            "org.freedesktop.DBus.Properties.Get",
-                                                            g_variant_new ("(ss)",
-                                                                           "org.freedesktop.login1.Session",
-                                                                           "LockedHint"),
-                                                            G_DBUS_CALL_FLAGS_NONE,
-                                                            /* timeout */ 500,
-                                                            NULL,
-                                                            &error);
-        if (reply == NULL) {
-                if (error != NULL)
-                        g_warning ("Couldn't determined locked session state: %s", error->message);
-                else
-                        g_error ("Got neither reply nor error when asking for LockedHint. (logind_proxy: %p)", logind_proxy);
-                result = FALSE;
-        } else {
-                if (g_variant_n_children (reply) != 1) {
-                        g_warning ("logind replied with more than 1 item: %ld. "
-                                   "It's a '%s': %s.",
-                                   g_variant_n_children (reply),
-                                   g_variant_get_type_string (reply), g_variant_print (reply, TRUE));
-                        result = FALSE;
-                } else {
-                        g_autoptr(GVariant) inside_variant = g_variant_get_child_value (reply, 0);
-
-                        if (!g_variant_is_of_type (inside_variant, G_VARIANT_TYPE_VARIANT)) {
-                                g_warning ("logind replied with a non-Variant '%s': %s",
-                                           g_variant_get_type_string (inside_variant), g_variant_print (inside_variant, TRUE));
-                                result = FALSE;
-                        } else {
-                                g_autoptr(GVariant) inside_bool = g_variant_get_variant (inside_variant);
-
-                                if (!g_variant_is_of_type (inside_bool, G_VARIANT_TYPE_BOOLEAN)) {
-                                        g_warning ("logind replied with a non-Boolean '%s': %s",
-                                                   g_variant_get_type_string (inside_bool), g_variant_print (inside_bool, TRUE));
-                                        result = FALSE;
-                                } else {
-                                        result = g_variant_get_boolean (inside_bool);
-                                }
-                        }
-                }
-        }
-        g_debug ("logind thinks our session is locked: %d", result);
-        return result;
-}
-
 static void
 usbguard_in_lockscreen_level (GsdUsbProtectionManager *manager,
                               GVariant                *parameters)
 {
         guint device_id;
-        gboolean session_is_locked = is_session_locked (manager);
+        gboolean session_is_locked = manager->session_locked;
         gboolean hid_or_hub_only = is_hid_or_hub (parameters);
 
         /* Allow everything when the session is unlocked. */
@@ -630,7 +576,7 @@ usbguard_in_always_level (GsdUsbProtectionManager *manager,
                           GVariant                *parameters)
 {
         guint device_id;
-        gboolean session_is_locked = is_session_locked (manager);
+        gboolean session_is_locked = manager->session_locked;
         gboolean hid_or_hub_only = is_hid_or_hub (parameters);
 
         g_variant_get_child (parameters, POLICY_APPLIED_DEVICE_ID, "u", &device_id);
@@ -977,6 +923,20 @@ screensaver_signal_cb (GDBusProxy  *proxy,
 }
 
 static void
+on_session_locked (GObject    *object,
+                  GParamSpec *pspec,
+                  gpointer    user_data)
+{
+        GsdUsbProtectionManager *manager = user_data;
+        gboolean session_locked;
+
+        session_locked = gsd_session_manager_get_session_is_locked (manager->session_proxy);
+
+        if (manager->session_locked != session_locked)
+                manager->session_locked = session_locked;
+}
+
+static void
 usb_protection_policy_proxy_ready (GObject      *source_object,
                                    GAsyncResult *res,
                                    gpointer      user_data)
@@ -1050,27 +1010,6 @@ get_current_screen_saver_status (GsdUsbProtectionManager *manager)
         handle_screensaver_active (manager, ret);
 }
 
-
-static void
-logind_session_ready (GObject      *source_object,
-                      GAsyncResult *res,
-                      gpointer      user_data)
-{
-        GDBusProxy *proxy;
-        g_autoptr(GError) error = NULL;
-        GsdUsbProtectionManager *manager = user_data;
-
-        proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
-        if (proxy == NULL) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-                        g_warning ("Failed to get logind session: %s", error->message);
-                return;
-        }
-
-        manager->logind = proxy;
-}
-
-
 static void
 usb_protection_proxy_ready (GObject      *source_object,
                             GAsyncResult *res,
@@ -1105,6 +1044,15 @@ usb_protection_proxy_ready (GObject      *source_object,
 
         g_signal_connect (manager->screensaver_proxy, "g-signal",
                           G_CALLBACK (screensaver_signal_cb), manager);
+
+        manager->session_proxy = gnome_settings_bus_get_session_proxy ();
+        if (manager->session_proxy == NULL) {
+                g_warning ("Failed to connect to session service");
+        } else {
+                g_signal_connect (manager->session_proxy, "notify::session-is-locked",
+                                  G_CALLBACK (on_session_locked), manager);
+                manager->session_locked = gsd_session_manager_get_session_is_locked (manager->session_proxy);
+        }
 
         name_owner = g_dbus_proxy_get_name_owner (G_DBUS_PROXY (proxy));
 
@@ -1145,16 +1093,6 @@ usb_protection_proxy_ready (GObject      *source_object,
                                   USBGUARD_DBUS_INTERFACE_POLICY,
                                   manager->cancellable,
                                   usb_protection_policy_proxy_ready,
-                                  manager);
-
-        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
-                                  G_DBUS_PROXY_FLAGS_NONE,
-                                  NULL,
-                                  "org.freedesktop.login1",
-                                  "/org/freedesktop/login1/session/auto",
-                                  "org.freedesktop.login1.Session",
-                                  manager->cancellable,
-                                  logind_session_ready,
                                   manager);
 }
 
@@ -1301,6 +1239,7 @@ gsd_usb_protection_manager_shutdown (GApplication *app)
         g_clear_object (&manager->usb_protection_devices);
         g_clear_object (&manager->usb_protection_policy);
         g_clear_object (&manager->screensaver_proxy);
+        g_clear_object (&manager->session_proxy);
 
         G_APPLICATION_CLASS (gsd_usb_protection_manager_parent_class)->shutdown (app);
 }
