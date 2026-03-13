@@ -66,6 +66,21 @@
 #define WITH_INTERFACE "with-interface"
 #define NAME "name"
 
+#define SYSTEMD_DBUS_NAME "org.freedesktop.systemd1"
+#define SYSTEMD_DBUS_PATH "/org/freedesktop/systemd1"
+#define SYSTEMD_MANAGER_INTERFACE "org.freedesktop.systemd1.Manager"
+#define BRLTTY_SERVICE_PATTERN_PREFIX "brltty@"
+#define BRLTTY_SERVICE_PATTERN_SUFFIX ".service"
+#define BRLTTY_SERVICE_PATTERN BRLTTY_SERVICE_PATTERN_PREFIX"*"BRLTTY_SERVICE_PATTERN_SUFFIX
+#define BRLTTY_CHECK_TIMEOUT_S 5
+
+typedef struct _PendingBrlttyCheck
+{
+        GsdUsbProtectionManager *manager;
+        guint                    device_id;
+        guint                    timeout_id;
+} PendingBrlttyCheck;
+
 struct _GsdUsbProtectionManager
 {
         GsdApplication      parent;
@@ -85,6 +100,9 @@ struct _GsdUsbProtectionManager
         gboolean            session_locked;
         NotifyNotification *notification;
         GHashTable         *braille_devices;
+        GDBusProxy         *systemd_manager;
+        gboolean            brltty_active;
+        GPtrArray          *pending_brltty_checks;
 };
 
 
@@ -583,6 +601,57 @@ on_screen_locked (GsdScreenSaver  *screen_saver,
 }
 
 static void
+pending_brltty_check_free (PendingBrlttyCheck *check)
+{
+        g_clear_handle_id (&check->timeout_id, g_source_remove);
+        g_free (check);
+}
+
+static void
+on_brltty_check_timeout (gpointer user_data)
+{
+        PendingBrlttyCheck *check = user_data;
+        GsdUsbProtectionManager *manager = check->manager;
+
+        g_debug ("brltty check timeout expired for device %u", check->device_id);
+
+        check->timeout_id = 0;
+        g_ptr_array_remove (manager->pending_brltty_checks, check);
+
+        show_notification (manager,
+                           _("USB device blocked"),
+                           _("The new inserted device has been blocked "
+                             "because the USB protection is active. "
+                             "If you want to activate the device, disable "
+                             "the USB protection and re-insert the device."));
+}
+
+static void
+check_brltty_and_authorize (GsdUsbProtectionManager *manager,
+                            guint                    device_id)
+{
+        PendingBrlttyCheck *check;
+
+        if (manager->brltty_active) {
+                show_notification (manager,
+                                   _("New braille device detected"),
+                                   _("If you did not do it, check your system "
+                                     "for any suspicious device."));
+                authorize_device (manager, device_id);
+                return;
+        }
+
+        check = g_new0 (PendingBrlttyCheck, 1);
+        check->manager = manager;
+        check->device_id = device_id;
+        check->timeout_id = g_timeout_add_seconds_once (BRLTTY_CHECK_TIMEOUT_S,
+                                                        on_brltty_check_timeout,
+                                                        check);
+
+        g_ptr_array_add (manager->pending_brltty_checks, check);
+}
+
+static void
 usbguard_in_lockscreen_level (GsdUsbProtectionManager *manager,
                               GVariant                *parameters)
 {
@@ -598,16 +667,23 @@ usbguard_in_lockscreen_level (GsdUsbProtectionManager *manager,
                 return;
         }
 
+        g_variant_get_child (parameters, POLICY_APPLIED_DEVICE_ID, "u", &device_id);
+
+        if (valid_braille) {
+                g_debug ("New braille device found, checking if brltty is active");
+                check_brltty_and_authorize (manager, device_id);
+                return;
+        }
+
         /* When session is locked, only HIDs, HUBs or braille devices without
          * any other class are allowed */
-        if (hid_or_hub_only || valid_braille) {
+        if (hid_or_hub_only) {
                 show_notification (manager,
                                    _("New device detected"),
                                    _("Either one of your existing devices has "
                                      "been reconnected or a new one has been "
                                      "inserted. If you did not do it, check "
                                      "your system for any suspicious device."));
-                g_variant_get_child (parameters, POLICY_APPLIED_DEVICE_ID, "u", &device_id);
                 authorize_device (manager, device_id);
                 return;
         }
@@ -974,6 +1050,112 @@ usb_protection_policy_proxy_ready (GObject      *source_object,
         sync_usb_protection (manager);
 }
 
+static gboolean
+is_brltty_active (GDBusProxy *systemd_manager)
+{
+        g_autoptr(GVariant) result = NULL;
+        g_autoptr(GVariant) units = NULL;
+        g_autoptr(GError) error = NULL;
+        gsize n_units;
+        const gchar *states[] = { "active", NULL };
+        const gchar *patterns[] = { BRLTTY_SERVICE_PATTERN, NULL };
+
+        if (systemd_manager == NULL)
+                return FALSE;
+
+        /* Use ListUnitsByPatterns instead of the object path to avoid creating 
+         * an inifinte loop with UnitNew/UnitRemoved signals */
+        result = g_dbus_proxy_call_sync (systemd_manager,
+                                         "ListUnitsByPatterns",
+                                         g_variant_new ("(^as^as)", states, patterns),
+                                         G_DBUS_CALL_FLAGS_NONE,
+                                         -1,
+                                         NULL,
+                                         &error);
+        if (result == NULL) {
+                g_warning ("Failed to list systemd units: %s", error->message);
+                return FALSE;
+        }
+
+        units = g_variant_get_child_value (result, 0);
+        n_units = g_variant_n_children (units);
+
+        return n_units > 0;
+}
+
+static gboolean
+is_brltty_service (const gchar *unit_name)
+{
+        return g_str_has_prefix (unit_name, BRLTTY_SERVICE_PATTERN_PREFIX) &&
+               g_str_has_suffix (unit_name, BRLTTY_SERVICE_PATTERN_SUFFIX);
+}
+
+static void
+on_systemd_manager_signal (GDBusProxy  *systemd_manager,
+                           const gchar *sender_name,
+                           const gchar *signal_name,
+                           GVariant    *parameters,
+                           gpointer     user_data)
+{
+        guint i;
+        const gchar *unit_name;
+        PendingBrlttyCheck *check;
+        GsdUsbProtectionManager *manager = user_data;
+
+        if (g_strcmp0 (signal_name, "UnitNew") != 0 &&
+            g_strcmp0 (signal_name, "UnitRemoved") != 0)
+                return;
+
+        g_variant_get (parameters, "(&s&o)", &unit_name, NULL);
+
+        if (!is_brltty_service (unit_name))
+                return;
+
+        manager->brltty_active = is_brltty_active (systemd_manager);
+
+        if (!manager->brltty_active || manager->pending_brltty_checks->len == 0)
+                return;
+
+        for (i = 0; i < manager->pending_brltty_checks->len; i++) {
+                check = g_ptr_array_index (manager->pending_brltty_checks, i);
+                authorize_device (manager, check->device_id);
+        }
+
+        show_notification (manager,
+                           _("New braille device detected"),
+                           _("If you did not do it, check your system "
+                             "for any suspicious device."));
+
+        g_ptr_array_remove_range (manager->pending_brltty_checks, 0,
+                                  manager->pending_brltty_checks->len);
+}
+
+static void
+systemd_manager_proxy_ready (GObject      *source_object,
+                             GAsyncResult *res,
+                             gpointer      user_data)
+{
+        GsdUsbProtectionManager *manager;
+        GDBusProxy *proxy;
+        g_autoptr(GError) error = NULL;
+
+        proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
+        if (proxy == NULL) {
+                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                        g_warning ("Failed to contact systemd: %s", error->message);
+                return;
+        }
+
+        manager = GSD_USB_PROTECTION_MANAGER (user_data);
+        manager->systemd_manager = proxy;
+        g_debug ("Set systemd manager proxy to %p", proxy);
+
+        g_signal_connect (proxy,
+                          "g-signal",
+                          G_CALLBACK (on_systemd_manager_signal),
+                          manager);
+}
+
 static void
 usb_protection_devices_proxy_ready (GObject      *source_object,
                                     GAsyncResult *res,
@@ -1192,6 +1374,16 @@ start_usb_protection_idle_cb (GsdUsbProtectionManager *manager)
                                   usb_protection_proxy_ready,
                                   manager);
 
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+                                  G_DBUS_PROXY_FLAGS_NONE,
+                                  NULL,
+                                  SYSTEMD_DBUS_NAME,
+                                  SYSTEMD_DBUS_PATH,
+                                  SYSTEMD_MANAGER_INTERFACE,
+                                  manager->cancellable,
+                                  systemd_manager_proxy_ready,
+                                  manager);
+
         notify_init ("gnome-settings-daemon");
 
         manager->start_idle_id = 0;
@@ -1253,6 +1445,8 @@ gsd_usb_protection_manager_shutdown (GApplication *app)
         g_clear_object (&manager->usb_protection);
         g_clear_object (&manager->usb_protection_devices);
         g_clear_object (&manager->usb_protection_policy);
+        g_clear_pointer (&manager->pending_brltty_checks, g_ptr_array_unref);
+        g_clear_object (&manager->systemd_manager);
         g_clear_object (&manager->screensaver_proxy);
         g_clear_object (&manager->session_proxy);
         g_clear_pointer (&manager->braille_devices, g_hash_table_destroy);
@@ -1273,4 +1467,6 @@ static void
 gsd_usb_protection_manager_init (GsdUsbProtectionManager *manager)
 {
         manager->braille_devices = create_braille_devices_table ();
+        manager->pending_brltty_checks = g_ptr_array_new_with_free_func (
+                (GDestroyNotify) pending_brltty_check_free);
 }
