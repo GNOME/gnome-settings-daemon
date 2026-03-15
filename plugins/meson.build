@@ -127,7 +127,7 @@ foreach plugin: all_plugins
         endif
         unit_conf.set('plugin_gate_units_section', '\n'.join(gate_unit_section))
 
-        if enable_systemd
+        if enable_systemd_units or enable_systemd
             configure_file(
                 input: 'gsd.service.in',
                 output: user_service,

@@ -110,17 +110,22 @@ polkit_gobject_dep = dependency('polkit-gobject-1', version: '>= 0.114')
 upower_glib_dep = dependency('upower-glib', version: '>= 0.99.12')
 
 enable_systemd = get_option('systemd')
+enable_systemd_units = get_option('systemd-units')
 enable_elogind = get_option('elogind')
 
 if enable_systemd and enable_elogind
   error('Only systemd or elogind support should be activated')
 elif enable_systemd
-  systemd_dep = dependency('systemd', version: '>= 243', required: true)
   libsystemd_dep = dependency('libsystemd', version: '>= 243', required: true)
-  systemd_userunitdir = systemd_dep.get_variable(pkgconfig: 'systemduserunitdir',
-                                                 pkgconfig_define: ['prefix', gsd_prefix])
 elif enable_elogind
   elogind_dep = dependency('libelogind', version: '>= 209', required: true)
+endif
+
+if enable_systemd_units or enable_systemd
+  systemd_dep = dependency('systemd', version: '>= 243', required: false)
+  systemd_userunitdir = systemd_dep.get_variable(pkgconfig: 'systemduserunitdir',
+                                                 pkgconfig_define: ['prefix', gsd_prefix],
+                                                 default_value: gsd_prefix / gsd_libdir / 'systemd/user')
 endif
 
 config_h.set10('HAVE_SYSTEMD_LIB', enable_systemd or enable_elogind)
@@ -282,7 +287,7 @@ output += '        Smartcard support:        ' + enable_smartcard.to_string() + 
 output += '        USB Protection support:   ' + enable_usb_protection.to_string() + '\n'
 output += '        Cups support:             ' + enable_cups.to_string() + '\n'
 output += '        RFKill support:           ' + enable_rfkill.to_string() + '\n'
-if enable_systemd
+if enable_systemd_units
   output += '        Systemd user unit dir:    ' + systemd_userunitdir + '\n'
 endif
 if enable_rfkill

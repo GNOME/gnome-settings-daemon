@@ -1,5 +1,6 @@
 option('udev_dir', type: 'string', value: '', description: 'Absolute path of the udev base directory')
 option('systemd', type: 'boolean', value: true, description: 'Enable systemd integration')
+option('systemd-units', type: 'boolean', value: true, description: 'Enable systemd unit installation')
 option('elogind', type: 'boolean', value: false, description: 'Use elogind')
 option('alsa', type: 'boolean', value: true, description: 'build with ALSA support (not optional on Linux platforms)')
 option('gudev', type: 'boolean', value: true, description: 'build with gudev device support (not optional on Linux platforms)')
