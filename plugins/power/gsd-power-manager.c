@@ -234,6 +234,7 @@ static void     gsd_power_manager_dbus_unregister (GApplication    *app,
 static void      engine_device_warning_changed_cb (UpDevice *device, GParamSpec *pspec, GsdPowerManager *manager);
 static void      do_power_action_type (GsdPowerManager *manager, GsdPowerActionType action_type);
 static void      uninhibit_lid_switch (GsdPowerManager *manager);
+static void      set_temporary_unidle_on_ac (GsdPowerManager *manager, gboolean enable);
 static void      stop_inhibit_lid_switch_timer (GsdPowerManager *manager);
 static void      sync_lid_inhibitor (GsdPowerManager *manager);
 static void      main_battery_or_ups_low_changed (GsdPowerManager *manager, gboolean is_low);
@@ -1871,7 +1872,6 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                 return;
         }
 
-        manager->current_idle_mode = mode;
         g_debug ("Doing a state transition: %s", idle_mode_to_string (mode));
 
         /* if we're moving to an idle mode, make sure
@@ -1928,6 +1928,14 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                         action_type = g_settings_get_enum (manager->settings,
                                                            "sleep-inactive-ac-type");
                 }
+
+                if (is_action_inhibited (manager, action_type)) {
+                        /* return without changing idle mode, so the timer can
+                         * fire again once uninhibited */
+                        g_debug ("sleep action inhibited, ignoring");
+                        return;
+                }
+
                 do_power_action_type (manager, action_type);
 
         /* turn on screen and restore user-selected brightness level */
@@ -1962,6 +1970,8 @@ idle_set_mode (GsdPowerManager *manager, GsdPowerIdleMode mode)
                 }
 
         }
+
+        manager->current_idle_mode = mode;
 }
 
 static gboolean
@@ -2063,6 +2073,7 @@ idle_configure (GsdPowerManager *manager)
                 clear_idle_watch (manager->idle_monitor,
                                   &manager->idle_sleep_warning_id);
                 notify_close_if_showing (&manager->notification_sleep_warning);
+                set_temporary_unidle_on_ac (manager, FALSE);
                 return;
         }
 
