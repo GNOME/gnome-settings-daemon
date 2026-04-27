@@ -165,9 +165,6 @@ apps_settings_changed (GSettings              *settings,
         if (screen_reader_enabled || keyboard_enabled || magnifier_enabled) {
                 g_debug ("Enabling toolkit-accessibility, screen reader, OSK or magnifier enabled");
                 g_settings_set_boolean (manager->interface_settings, "toolkit-accessibility", TRUE);
-        } else {
-                g_debug ("Disabling toolkit-accessibility, screen reader, OSK and magnifier disabled");
-                g_settings_set_boolean (manager->interface_settings, "toolkit-accessibility", FALSE);
         }
 
         if (screen_reader_changed)
