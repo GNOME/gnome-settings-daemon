@@ -1023,7 +1023,8 @@ launch_app (GsdMediaKeysManager *manager,
 static void
 execute (GsdMediaKeysManager *manager,
          char                *cmd,
-         gint64               timestamp)
+         gint64               timestamp,
+         GAppInfoCreateFlags  flags)
 {
 	GAppInfo *app_info;
 	g_autofree gchar *escaped = NULL;
@@ -1044,9 +1045,11 @@ execute (GsdMediaKeysManager *manager,
 	}
 	*p = '\0';
 
-	app_info = g_app_info_create_from_commandline (escaped, NULL, G_APP_INFO_CREATE_NONE, NULL);
-	launch_app (manager, app_info, timestamp);
-	g_object_unref (app_info);
+	app_info = g_app_info_create_from_commandline (escaped, NULL, flags, NULL);
+	if (app_info != NULL) {
+		launch_app (manager, app_info, timestamp);
+		g_object_unref (app_info);
+	}
 }
 
 static void
@@ -1185,19 +1188,20 @@ gnome_session_shutdown_cb (GObject *source_object,
 }
 
 static void
-do_terminal_action (GsdMediaKeysManager *manager)
+do_terminal_action (GsdMediaKeysManager *manager,
+                    gint64               timestamp)
 {
-        GSettings *settings;
-        char *term;
+        g_autofree gchar *quoted_home = NULL;
+        g_autofree gchar *script = NULL;
+        g_autofree gchar *quoted_script = NULL;
+        g_autofree gchar *full_command = NULL;
 
-        settings = g_settings_new ("org.gnome.desktop.default-applications.terminal");
-        term = g_settings_get_string (settings, "exec");
+        quoted_home = g_shell_quote (g_get_home_dir ());
+        script = g_strconcat ("cd ", quoted_home, " && exec \"${SHELL:-/bin/sh}\"", NULL);
+        quoted_script = g_shell_quote (script);
+        full_command = g_strconcat ("/bin/sh -c ", quoted_script, NULL);
 
-        if (term)
-                execute (manager, term, FALSE);
-
-        g_free (term);
-        g_object_unref (settings);
+        execute (manager, full_command, timestamp, G_APP_INFO_CREATE_NEEDS_TERMINAL);
 }
 
 static void
@@ -2430,7 +2434,7 @@ do_custom_action (GsdMediaKeysManager *manager,
 {
         g_debug ("Launching custom action for key (on device node %s)", device_node);
 
-	execute (manager, key->custom_command, timestamp);
+	execute (manager, key->custom_command, timestamp, G_APP_INFO_CREATE_NONE);
 }
 
 static gboolean
@@ -2510,7 +2514,7 @@ do_action (GsdMediaKeysManager *manager,
                 do_url_action (manager, "ghelp", timestamp);
                 break;
         case TERMINAL_KEY:
-                do_terminal_action (manager);
+                do_terminal_action (manager, timestamp);
                 break;
         case WWW_KEY:
                 do_url_action (manager, "http", timestamp);
