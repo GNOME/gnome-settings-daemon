@@ -2101,38 +2101,6 @@ idle_configure (GsdPowerManager *manager)
                 timeout_sleep = 0;
         }
 
-        if (timeout_sleep != 0) {
-                g_debug ("setting up sleep callback %is", timeout_sleep);
-
-                if (action_type != GSD_POWER_ACTION_NOTHING) {
-                        manager->idle_sleep_id = gnome_idle_monitor_add_idle_watch (manager->idle_monitor,
-                                                                                          timeout_sleep * 1000,
-                                                                                          idle_triggered_idle_cb, manager, NULL);
-                }
-
-                if (action_type == GSD_POWER_ACTION_LOGOUT ||
-                    action_type == GSD_POWER_ACTION_SUSPEND ||
-                    action_type == GSD_POWER_ACTION_HIBERNATE) {
-                        guint timeout_sleep_warning_msec;
-
-                        manager->sleep_action_type = action_type;
-                        timeout_sleep_warning_msec = timeout_sleep * IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER * 1000;
-                        if (timeout_sleep_warning_msec * 1000 < MINIMUM_IDLE_DIM_DELAY) {
-                                /* 0 is not a valid idle timeout */
-                                timeout_sleep_warning_msec = 1;
-                        }
-
-                        g_debug ("setting up sleep warning callback %i msec", timeout_sleep_warning_msec);
-
-                        manager->idle_sleep_warning_id = gnome_idle_monitor_add_idle_watch (manager->idle_monitor,
-                                                                                                  timeout_sleep_warning_msec,
-                                                                                                  idle_triggered_idle_cb, manager, NULL);
-                }
-        }
-
-        if (manager->idle_sleep_warning_id == 0)
-                notify_close_if_showing (&manager->notification_sleep_warning);
-
         /* set up dim callback for when the screen lock is not active,
          * but only if we actually want to dim. */
         timeout_dim = 0;
@@ -2157,6 +2125,42 @@ idle_configure (GsdPowerManager *manager)
                         }
                 }
         }
+
+        if (timeout_sleep != 0) {
+                g_debug ("setting up sleep callback %is", timeout_sleep);
+
+                if (action_type != GSD_POWER_ACTION_NOTHING) {
+                        manager->idle_sleep_id = gnome_idle_monitor_add_idle_watch (manager->idle_monitor,
+                                                                                          timeout_sleep * 1000,
+                                                                                          idle_triggered_idle_cb, manager, NULL);
+                }
+
+                if (action_type == GSD_POWER_ACTION_LOGOUT ||
+                    action_type == GSD_POWER_ACTION_SUSPEND ||
+                    action_type == GSD_POWER_ACTION_HIBERNATE) {
+                        guint timeout_sleep_warning_msec;
+
+                        manager->sleep_action_type = action_type;
+                        timeout_sleep_warning_msec = timeout_sleep * IDLE_DELAY_TO_IDLE_DIM_MULTIPLIER * 1000;
+                        if (timeout_sleep_warning_msec * 1000 < MINIMUM_IDLE_DIM_DELAY) {
+                                /* 0 is not a valid idle timeout */
+                                timeout_sleep_warning_msec = 1;
+                        }
+
+                        if ((timeout_sleep != timeout_dim) && (!manager->screensaver_active || timeout_dim != 0)) {
+                                /* Don't set up a notification for the same time we are going to sleep
+                                 * Also, don't let a short timeout_dim lead us to create a notification when the screensaver becomes active */
+                                g_debug ("setting up sleep warning callback %i msec", timeout_sleep_warning_msec);
+
+                                manager->idle_sleep_warning_id = gnome_idle_monitor_add_idle_watch (manager->idle_monitor,
+                                                                                                          timeout_sleep_warning_msec,
+                                                                                                          idle_triggered_idle_cb, manager, NULL);
+                        }
+                }
+        }
+
+        if (manager->idle_sleep_warning_id == 0)
+                notify_close_if_showing (&manager->notification_sleep_warning);
 
         clear_idle_watch (manager->idle_monitor,
                           &manager->idle_dim_id);
