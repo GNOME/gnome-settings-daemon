@@ -125,7 +125,6 @@ ldsm_mount_has_trash (const char *path)
                 mount_uses_user_trash = TRUE;
         }
 
-        g_free (user_data_attr_id_fs);
         g_free (path_attr_id_fs);
 
         /* I can't think of a better way to find out if a volume has any trash. Any suggestions? */
@@ -1102,6 +1101,7 @@ gsd_ldsm_clean (void)
                 g_source_remove (ldsm_timeout_id);
         ldsm_timeout_id = 0;
 
+        g_free (user_data_attr_id_fs);
         g_clear_pointer (&ldsm_notified_hash, g_hash_table_destroy);
         g_clear_object (&ldsm_monitor);
         g_clear_object (&settings);
