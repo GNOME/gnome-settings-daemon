@@ -201,8 +201,10 @@ examine_callback (NotifyNotification *n,
         g_assert (action != NULL);
         g_assert (strcmp (action, "examine") == 0);
 
-        commandline = g_strconcat (g_app_info_get_executable (G_APP_INFO (data->disk_analyzer_app)),
-                                   data->path, NULL);
+        commandline = g_strjoin (" ",
+                                 g_app_info_get_executable (G_APP_INFO (data->disk_analyzer_app)),
+                                 data->path,
+                                 NULL);
 
         g_debug ("Running %s", commandline);
         app_info = g_app_info_create_from_commandline (commandline,
