@@ -162,9 +162,7 @@ gsd_smartcard_utils_escape_object_path (const char *unescaped_string)
       g_string_append_printf (string, "_%x_", character);
     }
 
-  object_path = string->str;
-
-  g_string_free (string, FALSE);
+  object_path = g_string_free_and_steal (string);
 
   return object_path;
 }
