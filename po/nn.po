@@ -5,16 +5,17 @@
 #
 # Eskild Hustvedt <eskildh@gnome.org> 2008
 # Roy-Magne Mo <rmo@sunnmore.net>, 2001.
+# Roy-Magne Mo <rmo@sunnmore.net>, 2026.
 # Åsmund Skjæveland <aasmunds@fys.uio.no>, 2003, 2004, 2006.
 # Torstein Adolf Winterseth <kvikende@fsfe.org>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: nn\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
-"cgi?product=gnome-settings-daemon&component=general\n"
-"POT-Creation-Date: 2010-03-10 10:23+0000\n"
-"PO-Revision-Date: 2010-03-13 08:10+0100\n"
-"Last-Translator: Torstein Adolf Winterseth <kvikende@fsfe.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/"
+"issues/\n"
+"POT-Creation-Date: 2026-08-31 12:31+0000\n"
+"PO-Revision-Date: 2026-09-18 12:45+0200\n"
+"Last-Translator: Roy-Magne Mo <rmo@sunnmore.net>\n"
 "Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
 "Language: nn\n"
 "MIME-Version: 1.0\n"
@@ -23,385 +24,155 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: ../data/50-accessibility.xml.in.h:1
-#| msgid "_Accessibility..."
-msgid "Accessibility"
-msgstr "Tilgjenge"
+#: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:6
+#| msgid "<b>Applications</b>"
+msgid "Applications"
+msgstr "Appar"
 
-# TNL: Usikker!
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:1
-msgid "Free percentage notify threshold"
-msgstr "Terskelen for ledig plass i prosent før varsling"
+#: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:7
+msgid "Applications that have defined global shortcuts"
+msgstr "Appar som har definert globale snarvegar"
 
-# TNL: Usikker!
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:2
-msgid "Free space no notify threshold"
-msgstr "Terskelen for ledig plass med inga varsling"
+#: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:13
+#| msgid "Shortcut"
+msgid "Shortcuts"
+msgstr "Snarvegar"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:3
-msgid "Minimum notify period for repeated warnings"
-msgstr "Minimal tid mellom åtvaringar"
+#: data/org.gnome.settings-daemon.global-shortcuts.gschema.xml.in:14
+#| msgid "Keyboard Shortcuts"
+msgid "Keyboard shortcut definitions"
+msgstr "Tastatursnarvegdefinisjonar"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:4
-msgid "Mount paths to ignore"
-msgstr "Monteringsstiger å ignorera"
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:10
+msgid "Smartcard removal action"
+msgstr "Fjerning av smartkort"
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:5
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:11
 msgid ""
-"Percentage free space threshold for initial warning of low disk space. If "
-"the percentage free space drops below this, a warning will be shown"
+"Set this to one of “none”, “lock-screen”, or “force-logout”. The action will "
+"get performed when the smartcard used for log in is removed."
 msgstr ""
-"Terskelen for ledig diskplass i prosent før varsel om lite diskplass visast. "
-"Om prosent ledig diskplass kjem under denne terskelen, vil du få eit varsel."
+"Set dette til eitt av «none», «lock-screen» eller «force-logout». Handlinga "
+"vert utført når smartkortet som vert brukt til innlogging vert fjerna."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:6
-msgid "Specify a list of mount paths to ignore when they run low on space."
-msgstr ""
-"Oppgje ei liste med monteringsstiger å oversjå når dei har lite diskplass."
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:17
+msgid "Whether the tablet’s orientation is locked, or rotated automatically."
+msgstr "Om retninga til nettbrettet er låst, eller vert rotert automatisk."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:7
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:25
+#| msgid "<b>Mouse Orientation</b>"
+msgid "Mouse button orientation"
+msgstr "Retning for museknappar"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:26
+msgid "Swap left and right mouse buttons for left-handed mice."
+msgstr "Byt om venstre og høgre museknapp for venstrehendte."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:30
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:107
+msgid "Single Click"
+msgstr "Enkeltklikk"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:31
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:108
 msgid ""
-"Specify a time in minutes. Subsequent warnings for a volume will not appear "
-"more often than this period."
+"Acceleration multiplier for mouse motion. A value of -1 is the system "
+"default."
 msgstr ""
-"Oppgje ei tid i minutt. Etterfølgjande varsel for ei lagringseining vil ikkje "
-"visast oftare "
-"enn den gjevne tida."
+"Akselerasjonsmultiplikator for muserørsle. Ein verdi på -1 er "
+"systemstandard."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:8
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:35
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:112
+#| msgid "_Threshold:"
+msgid "Motion Threshold"
+msgstr "Rørsleterskel"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:36
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:113
 msgid ""
-"Specify an amount in GB. If the amount of free space is more than this, no "
-"warning will be shown"
+"Distance in pixels the pointer must move before accelerated mouse motion is "
+"activated. A value of -1 is the system default."
 msgstr ""
-"Oppgje eit tal i GB. Om ledig diskplass er meir enn dette vil ingen varsel "
-"visast."
+"Avstand i pikslar peikaren må flytta seg før akselerert musebevegelse vert "
+"slått på. Ein verdi på -1 er systemstandard."
 
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:9
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:40
+msgid "Middle button emulation"
+msgstr "Midtknapp-etterlikning"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:41
 msgid ""
-"Specify the percentage that the free disk space should reduce by before "
-"issuing a subsequent warning"
+"Enables middle mouse button emulation through simultaneous left and right "
+"button click."
 msgstr ""
-"Oppgje prosenten som den ledige diskplassen skal reduserast med før "
-"påfølgjande varsel visast."
+"Gjer det mogleg å emulera midtre museknapp ved å klikka venstre og høgre "
+"knapp samtidig."
 
-# TNL: Usikker!
-#: ../data/apps_gnome_settings_daemon_housekeeping.schemas.in.h:10
-msgid "Subsequent free percentage notify threshold"
-msgstr "Terskelen for følgjande ledig plass i prosent før varsling"
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:45
+#| msgid "<b>Double-Click Timeout </b>"
+msgid "Double click time"
+msgstr "Dobbeltklikk tid"
 
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:1
-msgid "Binding to eject an optical disk."
-msgstr "Snøggtast for å løysa ut ei optisk plate."
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:46
+msgid "Length of a double click in milliseconds."
+msgstr "Lengd på eit dobbeltklikk i millisekund."
 
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:2
-#| msgid "Binding to raise the system volume."
-msgid "Binding to enable or disable the touchpad."
-msgstr "Snøggtast for å slå styrebrettet av og på."
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:50
+#| msgid "_Threshold:"
+msgid "Drag threshold"
+msgstr "Terskel for draging"
 
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:3
-msgid "Binding to launch the calculator."
-msgstr "Snøggtast for å starta kalkulator."
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:51
+msgid "Distance before a drag is started."
+msgstr "Avstand før eit dregjepunkt vert starta."
 
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:4
-msgid "Binding to launch the email client."
-msgstr "Snøggtast for å starta e-postklient."
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:60
+msgid "Key Repeat Interval"
+msgstr "Tastgjentaksintervall"
 
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:5
-msgid "Binding to launch the help browser."
-msgstr "Snøggtast for å starta hjelplesar."
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:61
+#| msgid "Delay between keypress and pointer mo_vement:"
+msgid "Delay between repeats in milliseconds."
+msgstr "Tidsseinking mellom gjentakingar i millisekund."
 
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:6
-msgid "Binding to launch the media player."
-msgstr "Snøggtast for å starta mediaspelar."
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:65
+msgid "Initial Key Repeat Delay"
+msgstr "Innleiande nøkkelrepetisjonsforseinking"
 
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:7
-msgid "Binding to launch the search tool."
-msgstr "Snøggtast for å starta søkjeverktøy."
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:66
+msgid "Initial key repeat delay in milliseconds."
+msgstr "Innleiande nøkkelrepetisjonsforseinking i millisekund."
 
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:8
-msgid "Binding to launch the web browser."
-msgstr "Snøggtast for å starta nettlesar."
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:70
+msgid "Remember NumLock state"
+msgstr "Hugs NumLock-tilstanden"
 
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:9
-msgid "Binding to lock the screen."
-msgstr "Snøggtast for å låsa skjermen."
-
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:10
-msgid "Binding to log out."
-msgstr "Snøggtast for å logga ut."
-
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:11
-msgid "Binding to lower the system volume."
-msgstr "Snøggtast for å lægja volumet."
-
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:12
-msgid "Binding to mute the system volume."
-msgstr "Snøggtast for å dempa volumet."
-
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:13
-msgid "Binding to open the Home folder."
-msgstr "Snøggtast for å opna heimemappa."
-
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:14
-msgid "Binding to pause playback."
-msgstr "Snøggtast for å setja avspeling på pause."
-
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:15
-msgid "Binding to raise the system volume."
-msgstr "Snøggtast for å høgja volumet."
-
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:16
-msgid "Binding to skip to next track."
-msgstr "Snøggtast for å hoppa til neste spor."
-
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:17
-msgid "Binding to skip to previous track."
-msgstr "Snøggtast for å hoppa til førre spor."
-
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:18
-msgid "Binding to start playback (or toggle play/pause)."
-msgstr "Snøggtast for å starta avspeling (eller byte mellom avspeling/pause)."
-
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:19
-msgid "Binding to stop playback."
-msgstr "Snøggtast for å stoppa avspeling."
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:20
-msgid "Eject"
-msgstr "Løys ut"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:21
-msgid "Home folder"
-msgstr "Heimemappe"
-
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:22
-msgid "Launch calculator"
-msgstr "Start kalkulator"
-
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:23
-msgid "Launch email client"
-msgstr "Start e-postklient"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:24
-msgid "Launch help browser"
-msgstr "Start hjelplesar"
-
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:25
-msgid "Launch media player"
-msgstr "Start mediaavspelar"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:26
-msgid "Launch web browser"
-msgstr "Start nettlesar"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:27
-msgid "Lock screen"
-msgstr "Lås skjermen"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:28
-msgid "Log out"
-msgstr "Logg ut"
-
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:29
-msgid "Next track"
-msgstr "Neste spor"
-
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:30
-msgid "Pause playback"
-msgstr "Pause avspeling"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:31
-msgid "Play (or play/pause)"
-msgstr "Spel (eller spel/pause)"
-
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:32
-msgid "Previous track"
-msgstr "Førre spor"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:33
-msgid "Search"
-msgstr "Søk"
-
-#
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:34
-msgid "Stop playback"
-msgstr "Stopp avspeling"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:35
-msgid "Toggle touchpad"
-msgstr "Skru av og på styreplate"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:36
-msgid "Volume down"
-msgstr "Lågare lyd"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:37
-msgid "Volume mute"
-msgstr "Lyd av"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:38
-msgid "Volume step"
-msgstr "Lydstyrkesteg"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:39
-msgid "Volume step as percentage of volume."
-msgstr "Lydstyrkesteg som ein prosentdel av lydstyrka"
-
-#: ../data/apps_gnome_settings_daemon_keybindings.schemas.in.h:40
-msgid "Volume up"
-msgstr "Høgare lyd"
-
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:1
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:71
 msgid ""
-"If a notification icon with display related things should be shown in the "
-"panel."
-msgstr "Om eit varslingsikon med skjermrelaterte ting skal verta vist i panelet."
-
-#: ../data/apps_gnome_settings_daemon_xrandr.schemas.in.h:2
-msgid "Show Displays in Notification Area"
-msgstr "Vis skjermar i varslingsområdet"
-
-#
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:1
-msgid "Antialiasing"
-msgstr "Antialiasing"
-
-#
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:2
-msgid "DPI"
-msgstr "DPI"
-
-#
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:3
-msgid "Hinting"
-msgstr "Hinting"
-
-#
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:4
-msgid "RGBA order"
-msgstr "RGBA-rekkjefølgja"
-
-#
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:5
-msgid ""
-"The order of subpixel elements on an LCD screen; only used when antialiasing "
-"is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
-"common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red "
-"on bottom."
+"When set to true, GNOME will remember the state of the NumLock LED between "
+"sessions."
 msgstr ""
-"Rekkjefølgja for underpikselelementer på ein LCD-skjerm; brukast berre når "
-"utjevning er sett til «rgba». Moglege verdiar er «rgb» for raud til venstre "
-"(mest vanleg), «bgr» for blå til venstre, «vrgb» for raud øvst, «vbgr» for raud "
-"nedst."
+"Når det er sett til true, vil GNOME hugse tilstanden til NumLock-leddet "
+"mellom økter."
 
-#
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:6
-msgid ""
-"The resolution used for converting font sizes to pixel sizes, in dots per "
-"inch."
-msgstr ""
-"Oppløysing som brukast for å konvertera skriftstorleikar til "
-"pikselstorleikar i punkt per tomme."
-
-#
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:7
-msgid ""
-"The type of antialiasing to use when rendering fonts. Possible values are: "
-"\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
-"antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
-msgstr ""
-"Type utjamning som skal brukast ved teikning av skrifter. Moglege verdiar "
-"er: «none» for inga utjamning, «grayscale» for vanleg gråtoneutjamning og "
-"«rgba» for underpikselutjamning (berre LCD-skjermer)."
-
-#
-#: ../data/desktop_gnome_font_rendering.schemas.in.h:8
-msgid ""
-"The type of hinting to use when rendering fonts. Possible values are: \"none"
-"\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
-"\" for maximum hinting (may cause distortion of letter forms)."
-msgstr ""
-"Type hinting som skal brukast ved rendring av skrifter. Moglege verdiar er "
-"«none» for inga hinting, «slight» for grunnleggjande, «medium» for moderat, og "
-"«full» for maksimal hinting (kan forårsake forvrenging av bokstavformer)."
-
-#: ../data/desktop_gnome_keybindings.schemas.in.h:1
-#| msgid "Media keys"
-msgid "Allowed keys"
-msgstr "Tillete tastar"
-
-#: ../data/desktop_gnome_keybindings.schemas.in.h:2
-msgid ""
-"If non-empty, keybindings will be ignored unless their GConf directory is in "
-"the list. This is useful for lockdown."
-msgstr ""
-"Om ikkje-tom vil snøggtastar verta ignorert unnteken viss GConf-mappa deira er "
-"i lista. "
-"Dette er høveleg for å låsa ned maskina."
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:1
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:77
 msgid "Disable touchpad while typing"
-msgstr "Slå av styreplata medan du skriv"
+msgstr "Slå av peikeplata medan du skriv"
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:2
-#| msgid "Enable font plugin"
-msgid "Enable horizontal scrolling"
-msgstr "Slå på horisontal rulling"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:3
-msgid "Enable mouse clicks with touchpad"
-msgstr "Slå på museklikk med styreplata"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:4
-#| msgid "Unable to launch backend"
-msgid "Enable touchpad"
-msgstr "Slå på styreplata"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:5
-msgid "Select the touchpad scroll method"
-msgstr "Vel rullingsmetode for styreplata"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:6
-msgid ""
-"Select the touchpad scroll method. Supported values are: 0 - disabled, 1 - "
-"edge scrolling, 2 - two-finger scrolling"
-msgstr ""
-"Vel rullingsmetode for styreplata. Støtta verdiar er: 0 - avslått, 1 - "
-"kantrulling, 2 - to-fingerrulling"
-
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:7
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:78
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
 msgstr ""
-"Set denne til TRUE viss du har problem med at du uheldigvis treff skriveplata "
-"medan du skriv."
+"Set denne til TRUE viss du har problem med at du uheldigvis treff "
+"skriveplata medan du skriv."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:8
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:82
+msgid "Enable horizontal scrolling"
+msgstr "Slå på horisontal rulling"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:83
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
@@ -409,1018 +180,3760 @@ msgstr ""
 "Set denne til TRUE for å tillata horisontal rulling ved bruk av same metode "
 "som vald i scroll_method-nøkkelen."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:9
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:87
+msgid "Select the touchpad scroll method"
+msgstr "Vel rullingsmetode for peikeplata"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:88
+#| msgid ""
+#| "Select the touchpad scroll method. Supported values are: 0 - disabled, 1 "
+#| "- edge scrolling, 2 - two-finger scrolling"
+msgid ""
+"Select the touchpad scroll method. Supported values are: “disabled”, “edge-"
+"scrolling”, “two-finger-scrolling”."
+msgstr ""
+"Vel peikeplate-skrollmetode. Støtta verdiar er: «disabled», «edge-"
+"scrolling», «two-finger-scrolling»."
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:92
+msgid "Enable mouse clicks with touchpad"
+msgstr "Slå på museklikk med peikeplata"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:93
 msgid ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr ""
-"Set denne til TRUE for å kunna klikka med musa ved å trykkja på styreplata."
+"Set denne til TRUE for å kunna klikka med musa ved å trykkja på peikeplata."
 
-#: ../data/desktop_gnome_peripherals_touchpad.schemas.in.h:10
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:97
+msgid "Enable touchpad"
+msgstr "Slå på peikeplata"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:98
 msgid "Set this to TRUE to enable all touchpads."
-msgstr "Set denne til TRUE for å slå på alle styreplater"
+msgstr "Set denne til TRUE for å slå på alle peikeplater"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-#| msgid "Keep GNOME settings"
-msgid "GNOME Settings Daemon"
-msgstr "GNOME innstillingsnisse"
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:102
+msgid "Touchpad button orientation"
+msgstr "Retning for peikeplateknappar"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:1
-#| msgid "Binding to open the Home folder."
-msgid "Binding to toggle the magnifier."
-msgstr "Snøggtast for å slå skjermforstørraren av og på."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:2
-#| msgid "Binding to lock the screen."
-msgid "Binding to toggle the on-screen keyboard."
-msgstr "Snøggtast for å slå tastatur på skjermen av og på."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:3
-#| msgid "Binding to lock the screen."
-msgid "Binding to toggle the screen reader."
-msgstr "Snøggtast for å slå skjermlesar av og på."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:4
-#| msgid "<b>Bounce Keys</b>"
-msgid "Bounce keys"
-msgstr "Sprettetastar"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:5
-msgid "Command used to turn the magnifier on or off."
-msgstr "Kommando brukt for å slå forstørraren av og på."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:6
-msgid "Command used to turn the on-screen keyboard on or off."
-msgstr "Kommando brukt for å slå tastaturet på skjermen av og på."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:7
-#| msgid "Set to True to run the screensaver at login."
-msgid "Command used to turn the screen reader on or off."
-msgstr "Kommando brukt for å slå skjermlesaren av og på."
-
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:8
-msgid "Enable accessibility keyboard plugin"
-msgstr "Aktiver tillegg for tilgjenge for tastatur"
-
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:9
-msgid "Enable background plugin"
-msgstr "Aktiver tillegg for bakgrunn"
-
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:10
-msgid "Enable clipboard plugin"
-msgstr "Aktiver tillegg for utklippstavle"
-
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:11
-msgid "Enable font plugin"
-msgstr "Aktiver tillegg for skrift"
-
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:12
-msgid "Enable housekeeping plugin"
-msgstr "Aktiver tillegg for opprydning"
-
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:13
-msgid "Enable keybindings plugin"
-msgstr "Aktiver tillegg for snøggtastar"
-
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:14
-msgid "Enable keyboard plugin"
-msgstr "Aktiver tillegg for tastatur"
-
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:15
-msgid "Enable media keys plugin"
-msgstr "Aktiver tillegg for mediatastar"
-
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:16
-msgid "Enable mouse plugin"
-msgstr "Aktiver tillegg for mus"
-
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:17
-msgid "Enable sound plugin"
-msgstr "Aktiver tillegg for lyd"
-
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:18
-msgid "Enable typing breaks plugin"
-msgstr "Aktiver tillegg for skrivepause"
-
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:19
-msgid "Enable xrandr plugin"
-msgstr "Aktiver tillegg for xrandr"
-
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:20
-msgid "Enable xrdb plugin"
-msgstr "Aktiver tillegg for xrdb"
-
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:21
-msgid "Enable xsettings plugin"
-msgstr "Aktiver tillegg for xsettings"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:22
-#| msgid "Mouse Keys"
-msgid "Mouse keys"
-msgstr "Mustastar"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:23
-#| msgid "GNOME OnScreen Keyboard"
-msgid "On-screen keyboard"
-msgstr "Tastatur på skjermen"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:24
-#| msgid "Screensaver"
-msgid "Screen magnifier"
-msgstr "Skjermforstørrar"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:25
-#| msgid "Screensaver"
-msgid "Screen reader"
-msgstr "Skjermlesar"
-
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:103
 msgid ""
-"Set to True to enable the housekeeping plugin, to prune transient file "
-"caches."
+"Swap left and right mouse buttons for left-handed mice with “left”, “right” "
+"for right-handed, “mouse” to follow the mouse setting."
 msgstr ""
-"Set til True viss du vil slå på programtillegget for oppryddning, for å "
-"fjerna snøgglager."
+"Byt om venstre og høgre museknapp for venstrehendte med «left», «right» for "
+"høgrehendte, «mouse» for å følgje musinnstillinga."
 
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:27
-msgid "Set to True to enable the plugin to manage clipboard settings."
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:117
+#| msgid "Enable horizontal scrolling"
+msgid "Natural scrolling"
+msgstr "Naturlig rulling"
+
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:118
+#| msgid "Set this to TRUE to enable all touchpads."
+msgid "Set this to TRUE to enable natural (reverse) scrolling for touchpads."
 msgstr ""
-"Set til True for å aktivera tillegg for å handtera innstillingar for "
-"utklippstavle."
+"Set dette til TRUE for å slå på naturleg (omvendt) rulling for peikeplater."
 
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:28
-msgid "Set to True to enable the plugin to manage desktop background settings."
-msgstr ""
-"Set til True for å aktivera tillegg for å handtera innstillingar for "
-"skrivebordsbakgrunn."
+#: data/org.gnome.settings-daemon.peripherals.gschema.xml.in:125
+msgid "Mouse wheel emulation button. 0 to disable the feature."
+msgstr "Musrull-emulering. 0 for å slå av funksjonen."
 
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:29
-msgid "Set to True to enable the plugin to manage font settings."
-msgstr ""
-"Set til True for å aktivera tillegg for å handtera innstillingar for skrift."
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:10
+msgid "Wacom stylus absolute mode"
+msgstr "Wacom-penn absolutt modus"
 
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:30
-msgid "Set to True to enable the plugin to manage keyboard settings."
-msgstr ""
-"Set til True for å aktivera tillegg for å handtera innstillingar for "
-"tastatur."
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:11
+msgid "Enable this to set the tablet to absolute mode."
+msgstr "Slå på dette for å setja nettbrettet i absolutt modus."
 
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:31
-msgid "Set to True to enable the plugin to manage mouse settings."
-msgstr "Set til True for å aktivera tillegg for å handtera innstillingar for mus."
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:15
+msgid "Wacom tablet area"
+msgstr "Wacom-teikneflate"
 
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:32
-msgid "Set to True to enable the plugin to manage multimedia keys settings."
-msgstr ""
-"Set til True for å aktivera tillegg for å handtera innstillingar for "
-"multimediatastar."
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:16
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
+msgstr "Set dette til x1, y1 og x2, y2 for området som verktøya kan bruka."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:33
-#| msgid "Set to True to enable the plugin to manage sound settings."
-msgid "Set to True to enable the plugin to manage sound sample caches."
-msgstr ""
-"Set til True for å slå på tillegget for å handsama mellomlager for lydklipp."
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:20
+msgid "Wacom tablet aspect ratio"
+msgstr "Wacom-brettet sitt sideforhold"
 
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:34
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:21
 msgid ""
-"Set to True to enable the plugin to manage the accessibility keyboard "
-"settings."
+"Enable this to restrict the Wacom tablet area to match the aspect ratio of "
+"the output."
 msgstr ""
-"Set til True for å aktivera tillegg for å handtera innstillingar for "
-"tilgjenge for tastatur."
+"Slå på dette for å avgrensa Wacom-brettet til å passa med utgangsforholdet."
 
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:35
-msgid "Set to True to enable the plugin to manage the keybindings."
-msgstr "Set til True for å aktivera tillegg for å handtera snøggtastar."
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:25
+msgid "Wacom tablet rotation"
+msgstr "Wacom-brettet sin rotasjon"
 
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:36
-msgid "Set to True to enable the plugin to manage typing breaks."
-msgstr "Set til True for å aktivera tillegg for å handtera skrivepauser."
-
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:37
-msgid "Set to True to enable the plugin to manage xrandr settings."
-msgstr ""
-"Set til True for å aktivera tillegg for å handtera innstillingar for xrandr."
-
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:38
-msgid "Set to True to enable the plugin to manage xrdb settings."
-msgstr ""
-"Set til True for å aktivera tillegg for å handtera innstillingar for xrdb."
-
-#
-#: ../data/gnome-settings-daemon.schemas.in.h:39
-msgid "Set to True to enable the plugin to manage xsettings."
-msgstr "Set til True for å aktivera tillegg for å handtera xsettings."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:40
-#| msgid "Slow Keys Alert"
-msgid "Slow keys"
-msgstr "Trege tastar"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:41
-#| msgid "Sticky Keys Alert"
-msgid "Sticky keys"
-msgstr "Seige tastar"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:42
-msgid "The name of the keyboard shortcut to toggle the magnifier"
-msgstr "Namnet på snøggtasten for å slå forstørraren av og på"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:43
-msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
-msgstr "Namnet på snøggtasten for å slå tastaturet på skjermen av og på"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:44
-msgid "The name of the keyboard shortcut to toggle the screen reader"
-msgstr "Namnet på snøggtasten for å slå skjermlesaren av og på"
-
-#: ../data/gnome-settings-daemon.schemas.in.h:45
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:26
 msgid ""
-"This is the name of the keyboard shortcut to toggle the magnifier. This name "
-"will be shown in the keyboard shortcut preferences dialog."
+"Set this to “none”, “cw” for 90 degree clockwise, “half” for 180 degree, and "
+"“ccw” for 90 degree counterclockwise."
 msgstr ""
-"Dette er namnet på snøggtasten for å slå forstørraren av og på. "
-"Dette namnet vil verta vist i dialogvindauge for snøggtastinnstillingar."
+"Set dette til «none», «cw» for 90 gradar med klokka, «half» for 180 gradar, "
+"og «ccw» for 90 gradar mot klokka."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:46
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:30
+msgid "Wacom touch feature"
+msgstr "Wacom-berøringsfunksjon"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:31
+msgid "Enable this to move the cursor when the user touches the tablet."
+msgstr ""
+"Slå på dette for å flytta markøren når brukaren rører ved nettbrettet."
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:37
+msgid "Wacom stylus pressure curve"
+msgstr "Trykkkurve for Wacom-penn"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:38
 msgid ""
-"This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
-"This name will be shown in the keyboard shortcut preferences dialog."
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
 msgstr ""
-"Dette er namnet på snøggtasten for å slå tastatur på skjermen av og på. "
-"Dette namnet vil verta vist i dialogvindauge for snøggtastinnstillingar."
+"Set dette til x1, y1 og x2, y2 for trykkurva som vert nytta for stilen."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:47
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:42
+msgid "Wacom stylus button mapping"
+msgstr "Wacom-stylus-knappekartlegging"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:43
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:60
+msgid "Set this to the logical button mapping."
+msgstr "Set dette til den logiske knappeoppsetjinga."
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:47
+msgid "Wacom stylus pressure threshold"
+msgstr "Trykkterskel for Wacom-penn"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:48
 msgid ""
-"This is the name of the keyboard shortcut to toggle the screen reader. This "
-"name will be shown in the keyboard shortcut preferences dialog."
-msgstr ""
-"Dette er namnet på snøggtasten for å slå skjermlesaren av og på. "
-"Dette namnet vil verta vist i dialogvindauge for snøggtastinnstillingar."
+"Set this to the pressure value at which a stylus click event is generated."
+msgstr "Set dette til trykkverdien der eit klikk med pennen vert utløyst."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:48
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:54
+msgid "Wacom eraser pressure curve"
+msgstr "Trykkkurva for Wacom-viskelæret"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:55
+msgid ""
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
+msgstr "Set dette til x1, y1 og x2, y2 for trykkurva som gjeld viskelæret."
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:59
+msgid "Wacom eraser button mapping"
+msgstr "Wacom-viskeløypeknapp-oppsett"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:64
+msgid "Wacom eraser pressure threshold"
+msgstr "Trykkterskel for Wacom-viskelær"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:65
+msgid ""
+"Set this to the pressure value at which an eraser click event is generated."
+msgstr "Set dette til trykkverdien der eit klikk med viskelæret vert utløyst."
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:71
+msgid "Wacom button action type"
+msgstr "Wacom-knapphandlingstype"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:72
+msgid "The type of action triggered by the button being pressed."
+msgstr "Type handling som vert utløyst når knappen vert trykt."
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:76
+msgid "Key combination for the custom action"
+msgstr "Tastetrykk for den tilpassa handlinga"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:77
+msgid ""
+"The keyboard shortcut generated when the button is pressed for custom "
+"actions."
+msgstr ""
+"Tastatursnarvegen som vert laga når knappen vert trykt for tilpassa "
+"handlingar."
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:81
+msgid "Key combinations for a touchring or touchstrip custom action"
+msgstr ""
+"Tastetrykk for eit tilpassa oppslag på ein berøringsring eller "
+"berøringsstripe"
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:82
+msgid ""
+"The keyboard shortcuts generated when a touchring or touchstrip is used for "
+"custom actions (up followed by down)."
+msgstr ""
+"Tastatursnarvegane som vert laga når ein berøringsring eller berøringsstripe"
+" vert brukt til tilpassa handlingar (opp etterfølgd av ned)."
+
+#. Translators: This is the OLED display on an Intuos4 tablet:
+#. http://eu.shop.wacom.eu/images/articles/d9abd9f2d4d88aa0649cda97a8077e2b_8.jpg
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:88
+msgid "Button label for OLED display."
+msgstr "Knappemerking for OLED-skjerm."
+
+#: data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in:89
+msgid "Label will be rendered to OLED display belonging to the button"
+msgstr "Merkinga vert vist på OLED-skjermen til knappen"
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:6
+#| msgid "The selected configuration for displays could not be applied"
+msgid "The duration a display profile is valid"
+msgstr "Kor lenge ein skjermprofil er gyldig"
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:7
+msgid ""
+"This is the number of days after which the display color profile is "
+"considered invalid."
+msgstr ""
+"Dette er talet på dagar etter at skjermfargeprofilen vert rekna som ugyldig."
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:11
+msgid "The duration a printer profile is valid"
+msgstr "Tida eit skrivaroppsett er gyldig"
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:12
+msgid ""
+"This is the number of days after which the printer color profile is "
+"considered invalid."
+msgstr ""
+"Dette er talet på dagar etter kva skrivarfargen vert rekna som ugyldig."
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:16
+msgid "If the night light mode is enabled"
+msgstr "Viss nattmodus-innstillinga er på"
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:17
+msgid ""
+"Night light mode changes the color temperature of your display when the sun "
+"has gone down or at preset times."
+msgstr ""
+"Nattlysmodus endrar fargetemperaturen på skjermen din når sola har gått ned "
+"eller på førehandsinnstilte tidspunkt."
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:21
+msgid "Temperature of the display when enabled"
+msgstr "Temperatur på skjermen når slått på"
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:22
+msgid ""
+"This temperature in Kelvin is used to modify the screen tones when night "
+"light mode is enabled. Higher values are bluer, lower redder."
+msgstr ""
+"Denne temperaturen i Kelvin vert brukt til å endra skjermtonane når nattlys-"
+"modus er slått på. Høgare verdiar er blåare, lågare raudare."
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:26
+msgid "Use the sunrise and sunset"
+msgstr "Bruk soloppgang og solnedgang"
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:27
+msgid ""
+"Calculate the sunrise and sunset times automatically, from the current "
+"location."
+msgstr ""
+"Rekna ut tidspunkt for soloppgang og solnedgang automatisk, frå noverande "
+"plassering."
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:31
+msgid "The start time"
+msgstr "Starttidspunktet"
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:32
+msgid ""
+"When “night-light-schedule-automatic” is disabled, use this start time in "
+"hours from midnight."
+msgstr ""
+"Når «night-light-schedule-automatic» er slått av, bruk dette "
+"starttidspunktet i timar frå midnatt."
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:36
+msgid "The end time"
+msgstr "Sluttidspunktet"
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:37
+msgid ""
+"When “night-light-schedule-automatic” is disabled, use this end time in "
+"hours from midnight."
+msgstr ""
+"Når «night-light-schedule-automatic» er slått av, vert dette sluttidspunktet"
+" i timar frå midnatt brukt."
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:41
+msgid "The last detected position"
+msgstr "Den siste detekterte plasseringa"
+
+#: data/org.gnome.settings-daemon.plugins.color.gschema.xml.in:42
+msgid ""
+"When location services are available this represents the last detected "
+"location. The default value is an invalid value to ensure it is always "
+"updated at startup."
+msgstr ""
+"Når stadtenestene er tilgjengelege, representerer dette den siste oppdaga "
+"plasseringa. Standardverdien er ein ugyldig verdi for å sikra at den alltid "
+"vert oppdatert ved oppstart."
+
+#: data/org.gnome.settings-daemon.plugins.gschema.xml.in:6
+msgid "List of plugins that are allowed to be loaded"
+msgstr "Liste over pluginar som er tillatne å lasta"
+
+#: data/org.gnome.settings-daemon.plugins.gschema.xml.in:7
+msgid ""
+"A list of strings representing the plugins that are allowed to be loaded "
+"(default: “all”). This is only evaluated on startup."
+msgstr ""
+"Ei liste over strengar som representerer dei plugin-modulane som er tillatne"
+" å lasta (standard: «all»). Dette vert berre evaluert ved oppstart."
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:6
+msgid "Mount paths to ignore"
+msgstr "Monteringsstiger å ignorera"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:7
+msgid "Specify a list of mount paths to ignore when they run low on space."
+msgstr ""
+"Oppgje ei liste med monteringsstiger å oversjå når dei har lite diskplass."
+
+# TNL: Usikker!
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:12
+msgid "Free percentage notify threshold"
+msgstr "Terskelen for ledig plass i prosent før varsling"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:13
+#| msgid ""
+#| "Percentage free space threshold for initial warning of low disk space. If "
+#| "the percentage free space drops below this, a warning will be shown"
+msgid ""
+"Percentage free space threshold for initial warning of low disk space. If "
+"the percentage free space drops below this, a warning will be shown."
+msgstr ""
+"Terskel i prosent ledig plass for det første varselet om lite diskplass. "
+"Søkk delen ledig plass under dette, vert det vist eit varsel."
+
+# TNL: Usikker!
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:18
+#| msgid "Subsequent free percentage notify threshold"
+msgid "Subsequent free space percentage notify threshold"
+msgstr "Terskel i prosent for seinare varsel om ledig plass"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:19
+#| msgid ""
+#| "Specify the percentage that the free disk space should reduce by before "
+#| "issuing a subsequent warning"
+msgid ""
+"Specify the percentage that the free disk space should reduce by before "
+"issuing a subsequent warning."
+msgstr ""
+"Angi prosentdelen som det ledige diskrommet skal reduserast med før det vert"
+" sendt ei ny åtvaring."
+
+# TNL: Usikker!
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:23
+#| msgid "Free space no notify threshold"
+msgid "Free space notify threshold"
+msgstr "Terskel for varsel om ledig plass"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:24
+#| msgid ""
+#| "Specify an amount in GB. If the amount of free space is more than this, "
+#| "no warning will be shown"
+msgid ""
+"Specify an amount in GB. If the amount of free space is more than this, no "
+"warning will be shown."
+msgstr ""
+"Oppgje eit tal i GB. Om mengda ledig plass er meir enn dette, vert det "
+"ikkje vist noko åtvaring."
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:28
+msgid "Minimum notify period for repeated warnings"
+msgstr "Minimal tid mellom åtvaringar"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:29
+msgid ""
+"Specify a time in minutes. Subsequent warnings for a volume will not appear "
+"more often than this period."
+msgstr ""
+"Oppgje ei tid i minutt. Etterfølgjande varsel for ei lagringseining vil "
+"ikkje visast oftare enn den gjevne tida."
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:33
+msgid "Whether donation reminders are enabled"
+msgstr "Om donasjonspåminningar er slått på"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:34
+msgid "Enables or disables the low-frequency donation reminder notification."
+msgstr "Slår på eller av varslinga for lågfrekvent donasjon."
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:38
+msgid "Last time the donation reminder was shown"
+msgstr "Sist gong donasjonspåminninga vart vist"
+
+#: data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in:39
+msgid "Timestamp for the last time a donation reminder was shown."
+msgstr "Tidspunkt for siste gong ei donasjonspåminning vart vist."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:6
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:154
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:440
+msgid "Launch calculator"
+msgstr "Start kalkulator"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:7
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:155
+msgid "Binding to launch the calculator."
+msgstr "Binding for å starta kalkulator."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:11
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:159
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:445
+#| msgid "Default Settings"
+msgid "Launch settings"
+msgstr "Oppsettoppstart"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:12
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:160
+#| msgid "Binding to launch the email client."
+msgid "Binding to launch GNOME Settings."
+msgstr "Binding for å starta GNOME-innstillingar."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:16
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:164
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:450
+msgid "Launch email client"
+msgstr "Start e-postklient"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:17
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:165
+msgid "Binding to launch the email client."
+msgstr "Binding for å starta e-postklient."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:21
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:169
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:455
+msgid "Eject"
+msgstr "Løys ut"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:22
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:170
+#| msgid "Binding to eject an optical disk."
+msgid "Binding to eject an optical disc."
+msgstr "Binding for å løysa ut ei optisk plate."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:26
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:174
+msgid "Launch help browser"
+msgstr "Start hjelplesar"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:27
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:175
+msgid "Binding to launch the help browser."
+msgstr "Binding for å starta hjelplesar."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:31
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:179
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:460
+msgid "Home folder"
+msgstr "Heimemappe"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:32
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:180
+msgid "Binding to open the Home folder."
+msgstr "Binding for å opna heimemappa."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:36
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:184
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:465
+msgid "Launch media player"
+msgstr "Start mediaavspelar"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:37
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:185
+msgid "Binding to launch the media player."
+msgstr "Binding for å starta mediespelaren."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:41
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:189
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:470
+msgid "Next track"
+msgstr "Neste spor"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:42
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:190
+msgid "Binding to skip to next track."
+msgstr "Binding for å hoppa til neste spor."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:46
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:194
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:475
+msgid "Pause playback"
+msgstr "Pause avspeling"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:47
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:195
+msgid "Binding to pause playback."
+msgstr "Binding for å setja avspeling på pause."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:51
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:199
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:480
+msgid "Play (or play/pause)"
+msgstr "Spel (eller spel/pause)"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:52
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:200
+msgid "Binding to start playback (or toggle play/pause)."
+msgstr "Binding for å starta avspeling (eller byte mellom avspeling/pause)."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:56
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:204
+msgid "Log out"
+msgstr "Logg ut"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:57
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:205
+msgid "Binding to log out."
+msgstr "Binding for å logga ut."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:61
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:219
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:485
+msgid "Previous track"
+msgstr "Førre spor"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:62
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:220
+msgid "Binding to skip to previous track."
+msgstr "Binding for å hoppa til førre spor."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:66
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:224
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:490
+msgid "Lock screen"
+msgstr "Lås skjermen"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:67
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:225
+msgid "Binding to lock the screen."
+msgstr "Binding for å låsa skjermen."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:71
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:229
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:495
+msgid "Search"
+msgstr "Søk"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:72
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:230
+msgid "Binding to launch the search tool."
+msgstr "Binding for å starta søkjeverktøy."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:76
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:234
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:500
+msgid "Stop playback"
+msgstr "Stopp avspeling"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:77
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:235
+msgid "Binding to stop playback."
+msgstr "Binding for å stoppa avspeling."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:81
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:241
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:507
+msgid "Volume down"
+msgstr "Lågare lyd"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:82
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:242
+#| msgid "Binding to lower the system volume."
+msgid "Binding to lower the volume."
+msgstr "Binding for å dempa volumet."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:86
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:246
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:512
+#| msgid "Volume mute"
+msgid "Volume mute/unmute"
+msgstr "Demp/opphev demping av lyd"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:87
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:247
+#| msgid "Binding to mute the system volume."
+msgid "Binding to mute/unmute the volume."
+msgstr "Binding for å dempa eller oppheva demping av lyden."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:91
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:251
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:517
+msgid "Volume up"
+msgstr "Høgare lyd"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:92
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:252
+#| msgid "Binding to raise the system volume."
+msgid "Binding to raise the volume."
+msgstr "Binding for å skru opp lyden."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:96
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:292
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:552
+msgid "Microphone mute/unmute"
+msgstr "Demp/opphev demping av mikrofon"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:97
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:293
+#| msgid "Binding to suspend the computer."
+msgid "Binding to mute/unmute the microphone."
+msgstr "Binding for å dempa eller oppheva demping av mikrofonen."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:101
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:297
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:557
+msgid "Launch web browser"
+msgstr "Start nettlesar"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:102
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:298
+msgid "Binding to launch the web browser."
+msgstr "Binding for å starta nettlesar."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:106
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:327
 msgid "Toggle magnifier"
 msgstr "Slå forstørrar av og på"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:49
-#| msgid "GNOME OnScreen Keyboard"
-msgid "Toggle on-screen keyboard"
-msgstr "Slå tastatur på skjermen av og på"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:107
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:328
+#| msgid "Binding to toggle the magnifier."
+msgid "Binding to show the screen magnifier"
+msgstr "Binding for å visa skjermforstørraren"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:50
-#| msgid "Linux Screen Reader"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:111
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:302
 msgid "Toggle screen reader"
 msgstr "Slå skjermlesar av og på"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:51
-#| msgid "Beep when _accessibility features are turned on or off"
-msgid "Whether the bounce keys keyboard accessibility feature is turned on."
-msgstr "Om sprettetastfunksjonen er slått på."
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:112
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:303
+#| msgid "Binding to toggle the screen reader."
+msgid "Binding to start the screen reader"
+msgstr "Binding for å starta skjermlesaren"
 
-# TNL: Kva er «mouse keys keyboard accessibility feature»?
-#: ../data/gnome-settings-daemon.schemas.in.h:52
-#| msgid "Set your keyboard accessibility preferences"
-msgid "Whether the mouse keys keyboard accessibility feature is turned on."
-msgstr ""
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:116
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:307
+msgid "Toggle on-screen keyboard"
+msgstr "Slå tastatur på skjermen av og på"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:53
-msgid "Whether the on-screen keyboard is turned on."
-msgstr "Om tastatur på skjermen er slått på."
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:117
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:308
+#| msgid "Binding to toggle the on-screen keyboard."
+msgid "Binding to show the on-screen keyboard"
+msgstr "Binding for å visa tastatur på skjermen"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:54
-msgid "Whether the screen magnifier is turned on."
-msgstr "Om skjermforstørraren er slått på."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:55
-msgid "Whether the screen reader is turned on."
-msgstr "Om skjermlesaren er slått på."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:56
-#| msgid "Beep when _accessibility features are turned on or off"
-msgid "Whether the slow keys keyboard accessibility feature is turned on."
-msgstr "Om trege tastarfunksjonen er slått på."
-
-#: ../data/gnome-settings-daemon.schemas.in.h:57
-#| msgid "Beep when _accessibility features are turned on or off"
-msgid "Whether the sticky keys keyboard accessibility feature is turned on."
-msgstr "Om seige tastarfunksjonen er slått på."
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:121
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:312
+msgid "Increase text size"
+msgstr "Auk tekststorleik"
 
 #
-#: ../gnome-settings-daemon/main.c:55
-msgid "Enable debugging code"
-msgstr "Aktiver feilsøkingskode"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:122
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:313
+#| msgid "Binding to raise the system volume."
+msgid "Binding to increase the text size"
+msgstr "Binding for å auka tekststorleiken"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:126
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:317
+msgid "Decrease text size"
+msgstr "Minsk tekststorleik"
 
 #
-#: ../gnome-settings-daemon/main.c:56
-msgid "Don't become a daemon"
-msgstr "Ikkje køyr som ein nisse"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:127
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:318
+#| msgid "Binding to raise the system volume."
+msgid "Binding to decrease the text size"
+msgstr "Binding for å minska tekststorleiken"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:131
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:322
+#| msgid "Best co_ntrast"
+msgid "Toggle contrast"
+msgstr "Veksla kontrast"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:132
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:323
+#| msgid "Binding to toggle the magnifier."
+msgid "Binding to toggle the interface contrast"
+msgstr "Binding for å veksla kontrasten i brukargrensesnittet"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:136
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:332
+msgid "Magnifier zoom in"
+msgstr "Forstørrar"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:137
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:333
+#| msgid "Binding to toggle the magnifier."
+msgid "Binding for the magnifier to zoom in"
+msgstr "Binding for å forstørra forstørra"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:141
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:337
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:563
+msgid "Magnifier zoom out"
+msgstr "Forminsk forstørring"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:142
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:338
+#| msgid "Binding to toggle the magnifier."
+msgid "Binding for the magnifier to zoom out"
+msgstr "Binding for å forminska forstørraren"
 
 #
-#: ../gnome-settings-daemon/main.c:57
-msgid "GConf prefix from which to load plugin settings"
-msgstr "GConf-prefiks for lasting av innstillingar for tillegg"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:149
+#| msgid "Keybindings"
+msgid "Custom keybindings"
+msgstr "Eigne tastetrykk"
 
-#: ../gnome-settings-daemon/main.c:58
-msgid "Exit after a time - for debugging"
-msgstr "Avslutt etter ei tid - for feilsøkjing"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:150
+msgid "List of custom keybindings"
+msgstr "Liste over tilpassa hurtigtastar"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:209
+msgid "Reboot"
+msgstr "Start på nytt"
 
 #
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
-msgid "Accessibility Keyboard"
-msgstr "Tastatur for tilgjenge"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:210
+#| msgid "Binding to log out."
+msgid "Binding to reboot."
+msgstr "Binding for å starta maskina på nytt."
 
-#
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
-msgid "Accessibility keyboard plugin"
-msgstr "Tillegg for tastatur for tilgjenge"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:388
-#, c-format
-msgid "There was an error displaying help: %s"
-msgstr "Ein feil oppstod når hjelpeteksten skulle visast: %s"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:519
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:585
-msgid "Do you want to activate Slow Keys?"
-msgstr "Vil du slå på trege tastar?"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:520
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:586
-msgid "Do you want to deactivate Slow Keys?"
-msgstr "Vil du slå av trege tastar?"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:521
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:587
-msgid ""
-"You just held down the Shift key for 8 seconds.  This is the shortcut for "
-"the Slow Keys feature, which affects the way your keyboard works."
-msgstr ""
-"Du heldt nede Shift-tasten i 8 sekund. Dette er snøggtasten for trege tastar-"
-"funksjonen, som påverkar korleis tastaturet ditt virkar."
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
-#| msgid "Do_n't activate"
-msgid "Don't activate"
-msgstr "Ikkje slå på"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:546
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:685
-#| msgid "Do_n't deactivate"
-msgid "Don't deactivate"
-msgstr "Ikkje slå av"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
-#| msgid "_Activate"
-msgid "Activate"
-msgstr "Slå på"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:552
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:691
-#| msgid "_Deactivate"
-msgid "Deactivate"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:214
+#| msgid "Volume down"
+msgid "Shut down"
 msgstr "Slå av"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
-msgid "Do_n't activate"
-msgstr "Ikk_je slå på"
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:215
+#| msgid "Binding to log out."
+msgid "Binding to shut down."
+msgstr "Binding for å slå av."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:608
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:749
-msgid "Do_n't deactivate"
-msgstr "Ikk_je slå av"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:257
+#| msgid "Volume step"
+msgid "Size of volume step"
+msgstr "Storleik på volumsteg"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
-msgid "_Activate"
-msgstr "Slå _på"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:258
+msgid "Size of the volume step for each volume change"
+msgstr "Storleik på volumsteg for kvar volumendring"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:611
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:752
-msgid "_Deactivate"
-msgstr "Slå _av"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:264
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:524
+#| msgid "Volume down"
+msgid "Quiet volume down"
+msgstr "Stillare lydstyrke ned"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:615
-msgid "Slow Keys Alert"
-msgstr "Varsel om trege tastar"
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:265
+#| msgid "Binding to lower the system volume."
+msgid "Binding to lower the volume without emitting a sound effect."
+msgstr "Binding for å senka lyden utan å spela av ein lydeffekt."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:655
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:723
-msgid "Do you want to activate Sticky Keys?"
-msgstr "Vil du slå på seige tastar?"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:269
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:529
+msgid "Quiet volume mute/unmute"
+msgstr "Still lyden på/av"
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:656
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:724
-msgid "Do you want to deactivate Sticky Keys?"
-msgstr "Vil du slå av seige tastar?"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:270
+msgid "Binding to mute/unmute the volume without emitting a sound effect."
+msgstr "Binding for å dempa/dempast volumet utan å gje frå seg ein lydeffekt."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:658
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:726
-msgid ""
-"You just pressed the Shift key 5 times in a row.  This is the shortcut for "
-"the Sticky Keys feature, which affects the way your keyboard works."
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:274
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:534
+#| msgid "Volume up"
+msgid "Quiet volume up"
+msgstr "Lyd opp roleg"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:275
+#| msgid "Binding to raise the system volume."
+msgid "Binding to raise the volume without emitting a sound effect."
+msgstr "Binding for å skru opp lyden utan å spela av ein lydeffekt."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:281
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:541
+#| msgid "Volume down"
+msgid "Precise volume down"
+msgstr "Nøyaktig volum ned"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:282
+#| msgid "Binding to lower the system volume."
+msgid "Binding to lower the volume with higher precision."
+msgstr "Binding for å senka volumet med høgare presisjon."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:286
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:546
+#| msgid "Volume up"
+msgid "Precise volume up"
+msgstr "Nøyaktig volum opp"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:287
+#| msgid "Binding to raise the system volume."
+msgid "Binding to raise the volume with higher precision."
+msgstr "Binding for å skru opp lyden med høgare presisjon."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:342
+#| msgid "Toggle touchpad"
+msgid "Toggle touchpad on/off"
+msgstr "Slå peikeplate på/av"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:343
+#| msgid "Binding to toggle the magnifier."
+msgid "Binding to toggle the touchpad on/off."
+msgstr "Binding for å slå peikeplate av/på."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:347
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:568
+msgid "Switch touchpad on"
+msgstr "Slå på peikeplate"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:348
+#| msgid "Binding to enable or disable the touchpad."
+msgid "Binding to switch the touchpad on."
+msgstr "Binding for å slå på peikeplata."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:352
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:573
+msgid "Switch touchpad off"
+msgstr "Slå av peikeplate"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:353
+#| msgid "Binding to enable or disable the touchpad."
+msgid "Binding to switch the touchpad off."
+msgstr "Binding for å slå av peikeplata."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:358
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:579
+msgid "Skip backward in current track"
+msgstr "Spol bakover i noverande spor"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:359
+#| msgid "Binding to skip to next track."
+msgid "Binding to skip backward in current track."
+msgstr "Binding for å hoppa tilbake i noverande spor."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:363
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:584
+msgid "Skip forward in current track"
+msgstr "Hopp framover i noverande spor"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:364
+#| msgid "Binding to skip to next track."
+msgid "Binding to skip forward in current track."
+msgstr "Binding for å hoppa framover i gjeldande spor."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:368
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:589
+msgid "Toggle repeat playback mode"
+msgstr "Slå av og på gjentakande avspeling"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:369
+#| msgid "Binding to launch the media player."
+msgid "Binding to toggle repeat mode in media player."
+msgstr "Binding for å slå gjentakingsmodus i mediespelaren av eller på."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:373
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:594
+msgid "Toggle random playback mode"
+msgstr "Slå til- og av-knapp for tilfeldig avspeling"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:374
+#| msgid "Binding to launch the media player."
+msgid "Binding to toggle random playback mode in media player."
+msgstr "Binding for å slå tilfeldig avspeling i mediespelaren av eller på."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:379
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:600
+#| msgid "Toggle screen reader"
+msgid "Toggle automatic screen orientation"
+msgstr "Slå automatisk skjermretning av eller på"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:380
+#| msgid "Binding to toggle the screen reader."
+msgid "Binding to toggle automatic screen orientation."
+msgstr "Binding for å slå automatisk skjermretning av eller på."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:384
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:605
+#| msgid "Alert Buttons"
+msgid "Power button"
+msgstr "Av-knapp"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:385
+#| msgid "Binding to log out."
+msgid "Binding for power button."
+msgstr "Binding for av-knappen."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:389
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:610
+#| msgid "Alert Buttons"
+msgid "Hibernate button"
+msgstr "Hibernate-knapp"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:390
+#| msgid "Binding to toggle the magnifier."
+msgid "Binding to hibernate the machine."
+msgstr "Binding for å setja maskina i dvale."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:394
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:615
+#| msgid "Suspend"
+msgid "Suspend button"
+msgstr "Pauseknapp"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:395
+#| msgid "Binding to suspend the computer."
+msgid "Binding to suspend the machine."
+msgstr "Binding for å setja maskina i kvilemodus."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:400
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:621
+#| msgid "Keyboard _Preferences"
+msgid "Keyboard brightness up"
+msgstr "Tastaturlyset opp"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:401
+#| msgid "Binding to launch the web browser."
+msgid "Binding to increase the keyboard brightness."
+msgstr "Binding for å auka tastaturet sitt lysstyrke."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:405
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:626
+msgid "Keyboard brightness down"
+msgstr "Tastaturlyset vert mørkare"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:406
+#| msgid "Binding to launch the web browser."
+msgid "Binding to decrease the keyboard brightness."
+msgstr "Binding for å minka tastaturlyset."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:410
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:631
+msgid "Keyboard brightness toggle"
+msgstr "Tastaturlys-brytar"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:411
+#| msgid "Binding to toggle the on-screen keyboard."
+msgid "Binding to toggle the keyboard brightness."
+msgstr "Binding for å slå tastaturlyset av eller på."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:416
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:637
+msgid "Show battery status"
+msgstr "Vis batteristatus"
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:417
+#| msgid "Binding to skip to next track."
+msgid "Binding to show current battery status."
+msgstr "Binding for å visa noverande batteristatus."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:422
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:643
+msgid "RF kill"
+msgstr "RF-avslå"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:423
+#| msgid "Binding to toggle the magnifier."
+msgid "Binding to toggle airplane mode."
+msgstr "Binding for å slå flymodus av eller på."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:427
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:648
+msgid "Bluetooth RF kill"
+msgstr "Bluetooth RF-drap"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:428
+#| msgid "Binding to toggle the screen reader."
+msgid "Binding to toggle bluetooth airplane mode."
+msgstr "Binding for å slå Bluetooth-flymodus av eller på."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:441
+#| msgid "Binding to launch the calculator."
+msgid "Static binding to launch the calculator."
+msgstr "Statisk binding for å køyra kalkulatoren."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:446
+msgid "Static binding to launch GNOME Settings."
+msgstr "Statisk binding for å starta GNOME-innstillingar."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:451
+#| msgid "Binding to launch the email client."
+msgid "Static binding to launch the email client."
+msgstr "Statisk binding for å starta e-postklienten."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:456
+#| msgid "Binding to eject an optical disk."
+msgid "Static binding to eject an optical disc."
+msgstr "Statisk binding for å løysa ut ei optisk plate."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:461
+#| msgid "Binding to open the Home folder."
+msgid "Static binding to open the Home folder."
+msgstr "Statisk binding for å opna heimemappa."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:466
+#| msgid "Binding to launch the media player."
+msgid "Static binding to launch the media player."
+msgstr "Statisk binding for å starta mediespelaren."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:471
+#| msgid "Binding to skip to next track."
+msgid "Static binding to skip to next track."
+msgstr "Statisk binding for å hoppa til neste spor."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:476
+#| msgid "Binding to pause playback."
+msgid "Static binding to pause playback."
+msgstr "Statisk binding for å setja avspeling på pause."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:481
+#| msgid "Binding to start playback (or toggle play/pause)."
+msgid "Static binding to start playback (or toggle play/pause)."
 msgstr ""
-"Du trykte Shift fem gongar på rad. Det er snøggtasten til seige tastar-"
-"eigenskapen, som påverkar korleis tastaturet ditt fungerer."
+"Statisk binding for å byrja avspeling (eller veksla mellom avspeling/pause)."
 
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:660
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:728
-msgid ""
-"You just pressed two keys at once, or pressed the Shift key 5 times in a "
-"row.  This turns off the Sticky Keys feature, which affects the way your "
-"keyboard works."
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:486
+#| msgid "Binding to skip to previous track."
+msgid "Static binding to skip to previous track."
+msgstr "Statisk binding for å hoppa til førre spor."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:491
+#| msgid "Binding to lock the screen."
+msgid "Static binding to lock the screen."
+msgstr "Statisk binding for å låsa skjermen."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:496
+#| msgid "Binding to launch the search tool."
+msgid "Static binding to launch the search tool."
+msgstr "Statisk binding for å starta søkeverktøyet."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:501
+#| msgid "Binding to stop playback."
+msgid "Static binding to stop playback."
+msgstr "Statisk binding for å stoppa avspeling."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:508
+#| msgid "Binding to lower the system volume."
+msgid "Static binding to lower the volume."
+msgstr "Statisk binding for å senka volumet."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:513
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:530
+#| msgid "Binding to mute the system volume."
+msgid "Static binding to mute/unmute the volume."
+msgstr "Statisk binding for å dempa eller oppheva demping av lyden."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:518
+#| msgid "Binding to raise the system volume."
+msgid "Static binding to raise the volume."
+msgstr "Statisk binding for å skru opp lyden."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:525
+msgid "Static binding to lower the volume without emitting a sound effect."
+msgstr "Statisk binding for å dempa lyden utan å spela eit lydeffekt."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:535
+msgid "Static binding to raise the volume without emitting a sound effect."
+msgstr "Statisk binding for å skru opp lyden utan å spela av ein lydeffekt."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:542
+msgid "Static binding to lower the volume with higher precision."
+msgstr "Statisk binding for å senka lydstyrken med høgare presisjon."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:547
+msgid "Static binding to raise the volume with higher precision."
+msgstr "Statisk binding for å auka lydstyrken med høgare presisjon."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:553
+msgid "Static binding to mute/unmute the microphone."
+msgstr "Statisk binding for å dempa eller oppheva demping av mikrofonen."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:558
+#| msgid "Binding to launch the web browser."
+msgid "Static binding to launch the web browser."
+msgstr "Statisk binding for å starta nettlesaren."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:564
+#| msgid "Binding to toggle the magnifier."
+msgid "Static binding to toggle the touchpad on/off."
+msgstr "Statisk binding for å slå peikeplate av/på."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:569
+#| msgid "Binding to enable or disable the touchpad."
+msgid "Static binding to switch the touchpad on."
+msgstr "Statisk binding for å slå på peikeplata."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:574
+msgid "Static binding to switch the touchpad off."
+msgstr "Statisk binding for å slå av peikeplata."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:580
+#| msgid "Binding to skip to next track."
+msgid "Static binding to skip backward in current track."
+msgstr "Statisk binding for å hoppa tilbake i noverande spor."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:585
+#| msgid "Binding to skip to next track."
+msgid "Static binding to skip forward in current track."
+msgstr "Statisk binding for å hoppa framover i noverande spor."
+
+#
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:590
+#| msgid "Binding to launch the media player."
+msgid "Static binding to toggle repeat mode in media player."
 msgstr ""
-"Du trykte to tastar på ein gong, eller trykte Shift fem gongar på rad. Det "
-"slår av seige tastareigenskapen, som påverkar korleis tastaturet fungerer."
-
-#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:756
-msgid "Sticky Keys Alert"
-msgstr "Varsel om seige tastar"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:920
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
-#| msgid "Appearance Preferences"
-msgid "Universal Access Preferences"
-msgstr "Universale tilgjengeval"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:1
-msgid "Enhance _contrast in colors"
-msgstr "Auk _kontrastar i fargar"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:2
-msgid "Make _text larger and easier to read"
-msgstr "Gjer _tekst større og lettare å lesa"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:3
-msgid "Press and _hold keys to accept them (Slow Keys)"
-msgstr "Trykk og held tasten inne for å godta dei (trege tastar)"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:5
-#| msgid "GNOME OnScreen Keyboard"
-msgid "Use on-screen _keyboard"
-msgstr "Bruk tastatur på skjermen"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:6
-msgid "Use screen _magnifier"
-msgstr "Bruk skjerm_forstørrar"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:7
-#| msgid "Linux Screen Reader"
-msgid "Use screen _reader"
-msgstr "Bruk skjerm_lesar"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:8
-#| msgid "_Ignore fast duplicate keypresses"
-msgid "_Ignore duplicate keypresses (Bounce Keys)"
-msgstr "_Ignorar dupliserte tastaturtrykk (sprettetastar)"
-
-#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:9
-msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
-msgstr "_Trykk inn tastatursnarvegar ein tast om gongen (seige tastar)"
+"Statisk binding for å slå gjentakingsmodus i mediespelaren av eller på."
 
 #
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
-msgid "Background"
-msgstr "Bakgrunn"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:595
+#| msgid "Binding to launch the media player."
+msgid "Static binding to toggle random playback mode in media player."
+msgstr ""
+"Statisk binding for å slå tilfeldig avspeling i mediespelaren av eller på."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:601
+#| msgid "Binding to toggle the screen reader."
+msgid "Static binding to toggle automatic screen orientation."
+msgstr "Statisk binding for å slå automatisk skjermretning av eller på."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:606
+msgid "Static binding for power button."
+msgstr "Statisk binding for av-knappen."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:611
+#| msgid "Binding to toggle the magnifier."
+msgid "Static binding to hibernate the machine."
+msgstr "Statisk binding for å setja maskina i dvale."
 
 #
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
-msgid "Background plugin"
-msgstr "Tillegg for bakgrunn"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:616
+#| msgid "Binding to suspend the computer."
+msgid "Static binding to suspend the machine."
+msgstr "Statisk binding for å setja maskina i kvilemodus."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:622
+msgid "Static binding to increase the keyboard brightness."
+msgstr "Statisk binding for å auka tastaturet sin lysstyrke."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:627
+msgid "Static binding to decrease the keyboard brightness."
+msgstr "Statisk binding for å minka tastaturet sin lysstyrke."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:632
+#| msgid "Binding to toggle the on-screen keyboard."
+msgid "Static binding to toggle the keyboard brightness."
+msgstr "Statisk binding for å slå tastaturlyset av eller på."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:638
+msgid "Static binding to show current battery status."
+msgstr "Statisk binding for å visa noverande batteristatus."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:644
+#| msgid "Binding to toggle the magnifier."
+msgid "Static binding to toggle airplane mode."
+msgstr "Statisk binding for å slå flymodus av eller på."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:649
+#| msgid "Binding to toggle the screen reader."
+msgid "Static binding to toggle bluetooth airplane mode."
+msgstr "Statisk binding for å slå Bluetooth-flymodus av eller på."
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:656
+#| msgid "Name:"
+msgid "Name"
+msgstr "Namn"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:657
+msgid "Name of the custom binding"
+msgstr "Namn på den tilpassa bindinga"
 
 #
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
-msgid "Clipboard"
-msgstr "Utklippstavle"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:661
+#| msgid "Keybindings"
+msgid "Binding"
+msgstr "Binding"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:662
+msgid "Binding for the custom binding"
+msgstr "Binding for den tilpassa bindinga"
 
 #
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
-msgid "Clipboard plugin"
-msgstr "Tillegg for utklippstavle"
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:666
+#| msgid "C_ommand:"
+msgid "Command"
+msgstr "Kommando"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:667
+msgid "Command to run when the binding is invoked"
+msgstr "Kommando som vert køyrt når bindinga vert kalla"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:671
+#| msgid "Lock screen"
+msgid "Enable in Lockscreen"
+msgstr "Slå på i låst skjerm"
+
+#: data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in:672
+msgid "Whether the command can be invoked while the lockscreen is shown"
+msgstr "Om kommandoen kan køyrast medan låseskjermen vert vist"
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:6
+msgid "The brightness of the screen when idle"
+msgstr "Skjermlyset når han ikkje er i bruk"
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:7
+msgid ""
+"This is the laptop panel screen brightness used when the session is idle."
+msgstr ""
+"Dette er skjermlysstyrken på bæraren som vert nytta når økta er ledig."
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:11
+msgid "Dim the screen after a period of inactivity"
+msgstr "Demp skjermen etter ein periode med inaktivitet"
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:12
+msgid "If the screen should be dimmed to save power when the computer is idle."
+msgstr "Om skjermen skal dimmast for å spara straum når datamaskina er ledig."
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:16
+msgid "Sleep timeout computer when on AC"
+msgstr "Søvnmodus datamaskin når tilkopla vekselstraum"
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:17
+msgid ""
+"The amount of time in seconds the computer on AC power needs to be inactive "
+"before it goes to sleep. A value of 0 means never."
+msgstr ""
+"Tida i sekund som datamaskina med vekselstraum må vera inaktiv før han går i"
+" dvale. Ein verdi på 0 tyder aldri."
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:21
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:31
+msgid "Whether to hibernate, suspend or do nothing when inactive"
+msgstr ""
+"Om du vil setja i dvale, setja i ventemodus eller ikkje gjera noko når den "
+"er inaktiv"
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:22
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:32
+msgid ""
+"The type of sleeping that should be performed when the computer is inactive."
+msgstr "Kva type dvale som skal utførast når datamaskina er inaktiv."
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:26
+msgid "Sleep timeout computer when on battery"
+msgstr "Søvn — når datamaskina går på batteri"
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:27
+msgid ""
+"The amount of time in seconds the computer on battery power needs to be "
+"inactive before it goes to sleep. A value of 0 means never."
+msgstr ""
+"Tida i sekund som datamaskina på batteridrift må vera inaktiv før den går i "
+"dvale. Ein verdi på 0 tyder aldri."
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:36
+msgid "Enable the ALS sensor"
+msgstr "Slå på ALS-sensoren"
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:37
+msgid "If the ambient light sensor functionality is enabled."
+msgstr "Viss funksjonen for omgivande lyssensor er slått på."
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:41
+msgid "Power button action"
+msgstr "Handling for straumknapp"
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:42
+msgid ""
+"The action to take when the system power button is pressed. Virtual machines "
+"only honor the 'nothing' action, and will shutdown otherwise. Tablets always "
+"suspend, ignoring all the other action options."
+msgstr ""
+"Handlinga som skal utførast når systemet sin straumknapp vert trykt inn. "
+"Virtuelle maskiner følgjer berre handlinga 'ingenting', og stengjer ned "
+"elles. Nettbrett set alltid i dvale, og overser alle andre "
+"handlingsalternativ."
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:46
+msgid "Enable power-saver profile when battery is low"
+msgstr "Slå på straumsparingsprofil når batteriet er lågt"
+
+#: data/org.gnome.settings-daemon.plugins.power.gschema.xml.in:47
+msgid ""
+"Automatically enable the \"power-saver\" profile using power-profiles-daemon "
+"if the battery is low."
+msgstr ""
+"Slå automatisk på «power-saver»-oppsettet ved hjelp av power-profiles-daemon"
+" dersom batteriet er lågt."
+
+#: data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in:6
+msgid "On which connections the service is enabled"
+msgstr "Kva tilkoplingar tenesta er slått på for"
+
+#: data/org.gnome.settings-daemon.plugins.sharing.gschema.xml.in:7
+msgid ""
+"The list of NetworkManager connections (each one represented with its UUID) "
+"on which this service is enabled and started."
+msgstr ""
+"Lista over NetworkManager-tilkoplingar (kvar representert med sin UUID) der "
+"tenesta er slått på og starta."
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:6
+msgid "List of explicitly disabled GTK+ modules"
+msgstr "Liste over eksplisitt slått av GTK+-modulane"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:7
+msgid ""
+"A list of strings representing the GTK+ modules that will not be loaded, "
+"even if enabled by default in their configuration."
+msgstr ""
+"Ei liste over strengar som representerer GTK+-modulane som ikkje vert lada, "
+"sjølv om dei er slått på som standard i oppsettet."
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:11
+msgid "List of explicitly enabled GTK+ modules"
+msgstr "Liste over eksplisitt slått på GTK+-modular"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:12
+msgid ""
+"A list of strings representing the GTK+ modules that will be loaded, usually "
+"in addition to conditional and forcibly disabled ones."
+msgstr ""
+"Ei liste med strengar som representerer GTK+-modulane som vert lada, "
+"vanlegvis i tillegg til dei som er vilkårleg og tvungent slått av."
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:16
+msgid "A dictionary of XSETTINGS to override"
+msgstr "Eit oppsett av XSETTINGS som overstyrer"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:17
+msgid ""
+"This dictionary maps XSETTINGS names to overrides values. The values must be "
+"either strings, signed int32s or (in the case of colors), 4-tuples of uint16 "
+"(red, green, blue, alpha; 65535 is fully opaque)."
+msgstr ""
+"Denne ordboka knyter XSETTINGS-namn til overstyringsverdiar. Verdiane må "
+"vera strengar, signerte int32-ar eller (i tilfelle fargar), 4-tuplar av "
+"uint16 (raud, grøn, blå, alfa; 65535 er heilt ugjennomsiktig)."
 
 #
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
-msgid "Dummy"
-msgstr "Dummy"
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:23
+msgid "Antialiasing"
+msgstr "Antialiasing"
 
 #
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
-msgid "Dummy plugin"
-msgstr "Dummy-tillegg"
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:24
+#| msgid ""
+#| "The type of antialiasing to use when rendering fonts. Possible values "
+#| "are: \"none\" for no antialiasing, \"grayscale\" for standard grayscale "
+#| "antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
+msgid ""
+"The type of antialiasing to use when rendering fonts. Possible values are: "
+"“none” for no antialiasing, “grayscale” for standard grayscale antialiasing, "
+"and “rgba” for subpixel antialiasing (LCD screens only)."
+msgstr ""
+"Type antialiasing som skal brukast når fontar vert teikna. Moglege verdiar "
+"er: «none» for inga antialiasing, «grayscale» for standard gråskala "
+"antialiasing, og «rgba» for subpixel antialiasing (berre LCD-skjermar)."
 
 #
-#: ../plugins/font/font.gnome-settings-plugin.in.h:1
-msgid "Font"
-msgstr "Skrift"
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:28
+msgid "Hinting"
+msgstr "Hinting"
+
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:29
+msgid ""
+"The type of hinting to use when rendering fonts. Possible values are: “none” "
+"for no hinting and “slight” for fitting only to the Y-axis like Microsoft’s "
+"ClearType, DirectWrite and Adobe’s proprietary font rendering engine. "
+"Ignores native hinting within the font, generates hints algorithmically. "
+"Used on Ubuntu by default. Recommended. The meaning of “medium” and “full” "
+"depends on the font format (.ttf, .otf, .pfa/.pfb) and the installed version "
+"of FreeType. They usually try to fit glyphs to both the X and the Y axis "
+"(except for .otf: Y-only). This can lead to distortion and/or inconsistent "
+"rendering depending on the quality of the font, the font format and the "
+"state of FreeType’s font engines."
+msgstr ""
+"Kva type hinting som skal brukast når fontar vert teikna. Moglege verdiar "
+"er: «none» for inga hinting og «slight» for tilpassing berre til Y-aksen som"
+" Microsofts ClearType, DirectWrite og Adobe sin proprietære fontteiknemotor."
+" Ignorerer fonten si eiga hinting, lagar hint algoritmiske. Vert brukt på "
+"Ubuntu som standard. Tilrådd. Kva «medium» og «full» tyder, avheng av "
+"fontformatet (.ttf, .otf, .pfa/.pfb) og den installerte versjonen av "
+"FreeType. Dei prøver vanlegvis å tilpassa glyfane til både X- og Y-aksen "
+"(med unntak for .otf: berre Y). Dette kan føre til forvrenging og/eller "
+"ujamn teikning avhengig av fontkvaliteten, fontformatet og tilstanden til "
+"FreeType sine fontmotorar."
 
 #
-#: ../plugins/font/font.gnome-settings-plugin.in.h:2
-msgid "Font plugin"
-msgstr "Tillegg for skrift"
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:33
+msgid "RGBA order"
+msgstr "RGBA-rekkjefølgja"
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:64
-#| msgid "Do _not show this warning again"
-msgid "Don't show any warnings again for this filesystem"
-msgstr "_Ikkje vis nokre varsel igjen for dette filsystemet"
+#
+#: data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in:34
+#| msgid ""
+#| "The order of subpixel elements on an LCD screen; only used when "
+#| "antialiasing is set to \"rgba\". Possible values are: \"rgb\" for red on "
+#| "left (most common), \"bgr\" for blue on left, \"vrgb\" for red on top, "
+#| "\"vbgr\" for red on bottom."
+msgid ""
+"The order of subpixel elements on an LCD screen; only used when antialiasing "
+"is set to “rgba”. Possible values are: “rgb” for red on left (most common), "
+"“bgr” for blue on left, “vrgb” for red on top, “vbgr” for red on bottom."
+msgstr ""
+"Rekkefølgja på subpikselelement på ein LCD-skjerm; berre brukt når "
+"antialiasing er sett til «rgba». Moglege verdiar er: «rgb» for raudt til "
+"venstre (mest vanleg), «bgr» for blått til venstre, «vrgb» for raudt øvst, "
+"«vbgr» for raudt nedst."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
-#| msgid "Do _not show this warning again"
-msgid "Don't show any warnings again"
-msgstr "_Ikkje vis nokre varsel igjen"
+#
+#: plugins/color/gsd-color-calibrate.c:139
+#| msgid "Colors"
+msgid "Color"
+msgstr "Farge"
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:79
+#. TRANSLATORS: button: this is to open GCM
+#: plugins/color/gsd-color-calibrate.c:145
+msgid "Recalibrate now"
+msgstr "Rekalibrer no"
+
+#
+#. TRANSLATORS: this is when the device has not been recalibrated in a while
+#: plugins/color/gsd-color-calibrate.c:187
+#| msgid "Localization Preferences"
+msgid "Recalibration required"
+msgstr "Rekalibrering nødvendig"
+
+#. TRANSLATORS: this is when the display has not been recalibrated in a while
+#: plugins/color/gsd-color-calibrate.c:199
 #, c-format
-msgid "The volume \"%s\" has only %s disk space remaining."
-msgstr "Lagringseininga «%s» har berre %s diskplass att."
+msgid "The display “%s” should be recalibrated soon."
+msgstr "Skjermen «%s» bør kalibrerast på nytt snart."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:82
+#. TRANSLATORS: this is when the printer has not been recalibrated in a while
+#: plugins/color/gsd-color-calibrate.c:208
+#, c-format
+msgid "The printer “%s” should be recalibrated soon."
+msgstr "Skrivaren «%s» bør snart kalibrerast på nytt."
+
+#. TRANSLATORS: this is the application name
+#: plugins/color/gsd-color-calibrate.c:350
+#: plugins/color/gsd-color-calibrate.c:372
+#| msgid "GNOME Settings Daemon"
+msgid "GNOME Settings Daemon Color Plugin"
+msgstr "GNOME-innstillingsteneste fargeplugin"
+
+#. TRANSLATORS: this is a sound description
+#: plugins/color/gsd-color-calibrate.c:352
+msgid "Color calibration device added"
+msgstr "Fargestønadseining lagt til"
+
+#. TRANSLATORS: this is a sound description
+#: plugins/color/gsd-color-calibrate.c:374
+msgid "Color calibration device removed"
+msgstr "Fargekalibreringsverktøy fjerna"
+
+#. Translators: UTC here means the Coordinated Universal Time.
+#. * %:::z will be replaced by the offset from UTC e.g. UTC+02
+#: plugins/datetime/gsd-datetime-manager.c:107
+msgid "UTC%:::z"
+msgstr "UTC:::z"
+
+#: plugins/datetime/gsd-datetime-manager.c:111
+#, c-format
+msgid "Time Zone Updated to %s (%s)"
+msgstr "Tidssone oppdatert til %s (%s)"
+
+#
+#: plugins/datetime/gsd-datetime-manager.c:126
+#| msgid "X Settings"
+msgid "Settings"
+msgstr "Innstillingar"
+
+#: plugins/datetime/gsd-datetime-manager.c:135
+#| msgid "Default Settings"
+msgid "Date & Time Settings"
+msgstr "Dato- og klokkeinnstillingar"
+
+#: plugins/housekeeping/gsd-disk-space.c:654
+#| msgid "Low Disk Space"
+msgid "Disk Space"
+msgstr "Diskbruk"
+
+#: plugins/housekeeping/gsd-disk-space.c:674
+#| msgid "Examine..."
+msgid "Examine"
+msgstr "Undersøk"
+
+#: plugins/housekeeping/gsd-disk-space.c:683
+msgid "Empty Trash"
+msgstr "Tøm papirkorga"
+
+#: plugins/housekeeping/gsd-disk-space.c:691
+msgid "Ignore"
+msgstr "Ignorer"
+
+#: plugins/housekeeping/gsd-disk-space.c:722
+#, c-format
+#| msgid "Low Disk Space"
+msgid "Low Disk Space on “%s”"
+msgstr "Lite diskplass på «%s»"
+
+#: plugins/housekeeping/gsd-disk-space.c:724
+#, c-format
+#| msgid "The volume \"%s\" has only %s disk space remaining."
+msgid ""
+"The volume “%s” has only %s disk space remaining.  You may free up some "
+"space by emptying the trash."
+msgstr ""
+"Volumet «%s» har berre %s diskplass att. Du kan frigjera noko plass ved å "
+"tømma papirkorga."
+
+#: plugins/housekeeping/gsd-disk-space.c:728
+#, c-format
+#| msgid "The volume \"%s\" has only %s disk space remaining."
+msgid "The volume “%s” has only %s disk space remaining."
+msgstr "Volumet «%s» har berre %s diskplass att."
+
+#: plugins/housekeeping/gsd-disk-space.c:733
+msgid "Low Disk Space"
+msgstr "Lite diskplass"
+
+#: plugins/housekeeping/gsd-disk-space.c:735
+#, c-format
+#| msgid "This computer has only %s disk space remaining."
+msgid ""
+"This computer has only %s disk space remaining.  You may free up some space "
+"by emptying the trash."
+msgstr ""
+"Denne datamaskina har berre %s ledig diskplass att. Du kan frigjera noko "
+"plass ved å tømma papirkorga."
+
+#: plugins/housekeeping/gsd-disk-space.c:738
 #, c-format
 msgid "This computer has only %s disk space remaining."
 msgstr "Denne datamaskina har berre %s diskplass att."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:98
+#: plugins/housekeeping/gsd-donation-reminder.c:72
+msgid "Support GNOME"
+msgstr "Støtt GNOME"
+
+#: plugins/housekeeping/gsd-donation-reminder.c:73
 msgid ""
-"You can free up disk space by emptying the Trash, removing unused programs "
-"or files, or moving files to another disk or partition."
+"GNOME needs your help. Your donation will sustain our open source project "
+"for future generations."
 msgstr ""
-"Du kan frigjera diskplass ved å tømma papirkorga, fjerna ubrukte program og "
-"filer, "
-"eller flytta filer til ei anna lagringseining eller partisjon."
+"GNOME treng hjelpa di. Donasjonen din vil halda fram med å støtta open "
+"kjeldekode-prosjektet vårt for framtidige generasjonar."
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:101
-msgid ""
-"You can free up disk space by removing unused programs or files, or by "
-"moving files to another disk or partition."
-msgstr ""
-"Du kan frigjera diskplass ved å fjerna ubrukte program og filer, "
-"eller flytta filer til ei anna lagringseining eller partisjon."
+#: plugins/housekeeping/gsd-donation-reminder.c:81
+msgid "GNOME"
+msgstr "GNOME"
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:106
-msgid ""
-"You can free up disk space by emptying the Trash, removing unused programs "
-"or files, or moving files to an external disk."
-msgstr ""
-"Du kan frigjera diskplass ved å tømma papirkorga, fjerna ubrukte program og "
-"filer, "
-"eller flytta filer til ei ekstern lagringseining."
+#: plugins/housekeeping/gsd-donation-reminder.c:88
+msgid "Donate"
+msgstr "Donér"
 
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:109
-msgid ""
-"You can free up disk space by removing unused programs or files, or by "
-"moving files to an external disk."
-msgstr ""
-"Du kan frigjera diskplass ved å fjerna ubrukte program og filer, "
-"eller flytta filer til ei ekstern lagringseining."
-
-#. Set up all the window stuff here
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:204
-msgid "Low Disk Space"
-msgstr "Lite diskplass"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:439
-msgid "Empty Trash"
-msgstr "Tøm papirkorga"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:447
-#| msgid "Rename..."
-msgid "Examine..."
-msgstr "Undersøk …"
-
-#: ../plugins/housekeeping/gsd-ldsm-dialog.c:454
-msgid "Ignore"
-msgstr "Ignorer"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:96
+#. TRANSLATORS: %s is the application name.
+#: plugins/housekeeping/gsd-systemd-notify.c:82
 #, c-format
-#| msgid "Copying file: %u of %u"
-msgid "Removing item %lu of %lu"
-msgstr "Fjernar oppføring %lu av %lu"
+msgid "%s Stopped"
+msgstr "%s Stoppa"
 
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:116
-#, c-format
-#| msgid "<b>Open %s</b>"
-msgid "<i>Removing: %s</i>"
-msgstr "<i>Fjernar: %s</i>"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:244
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:293
-msgid "Emptying the trash"
-msgstr "Tømmar papirkorga"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:269
-msgid "Preparing to empty trash..."
-msgstr "Førebur tømming av papirkorg …"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:295
-#| msgid "From:"
-msgid "From: "
-msgstr "Frå: "
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:356
-msgid "Empty all of the items from the trash?"
-msgstr "Slett alle oppføringane i papirkorga?"
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:359
-msgid ""
-"If you choose to empty the trash, all items in it will be permanently lost. "
-"Please note that you can also delete them separately."
-msgstr ""
-"Dersom du tømmar papirkorga, vert oppføringane sletta for godt. Legg merke til "
-"at "
-"du kan velja kva for filer du vil sletta."
-
-#: ../plugins/housekeeping/gsd-ldsm-trash-empty.c:366
-msgid "_Empty Trash"
-msgstr "_Tøm papirkorg"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:139
-#, c-format
-#| msgid "Key Binding (%s) is invalid\n"
-msgid "Key binding (%s) is invalid"
-msgstr "Snøggtast «%s» er ikkje gyldig"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:197
-#, c-format
-#| msgid "Key Binding (%s) is incomplete\n"
-msgid "Key binding (%s) is incomplete"
-msgstr "Snøggtast «%s» er ufullstendig"
-
-#: ../plugins/keybindings/gsd-keybindings-manager.c:493
+#. TRANSLATORS: %s is the application name.
+#: plugins/housekeeping/gsd-systemd-notify.c:85
 #, c-format
 msgid ""
-"Error while trying to run (%s)\n"
-"which is linked to the key (%s)"
+"Device memory is nearly full. %s was using a lot of memory and was forced to "
+"stop."
 msgstr ""
-"Feil i freistnad på å køyra «%s»\n"
-"som er bunde til tasten «%s»"
+"Eininga sitt minne er nesten fullt. %s brukte mykje minne og vart tvungen "
+"til å stoppa."
 
-#
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:1
-msgid "Keybindings"
-msgstr "Snøggtastar"
+#. TRANSLATORS: A terminal tab/window was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:89
+#, c-format
+msgid "Virtual Terminal Stopped"
+msgstr "Virtuell terminal stoppa"
 
-#
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:2
-msgid "Keybindings plugin"
-msgstr "Tillegg for snøggtastar"
-
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
-msgid "Keyboard"
-msgstr "Tastatur"
-
-#
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
-msgid "Keyboard plugin"
-msgstr "Tillegg for tastatur"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:112
+#. TRANSLATORS: A terminal tab/window was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:91
 #, c-format
 msgid ""
-"Error activating XKB configuration.\n"
-"It can happen under various circumstances:\n"
-"- a bug in libxklavier library\n"
-"- a bug in X server (xkbcomp, xmodmap utilities)\n"
-"- X server with incompatible libxkbfile implementation\n"
-"\n"
-"X server version data:\n"
-"%s\n"
-"%d\n"
-"%s\n"
-"If you report this situation as a bug, please include:\n"
-"- The result of <b>%s</b>\n"
-"- The result of <b>%s</b>"
+"Device memory is nearly full. Virtual terminal processes were using a lot of "
+"memory and were forced to stop."
 msgstr ""
-"Feil under aktivering av XKB-oppsettet.\n"
-"Dette kan skje i visse situasjonar:\n"
-"- ein feil i libxklavier-biblioteket\n"
-"- ein feil i X-tenaren (xkbcomp, xmodmap-verktøy)\n"
-"- X-tenar med inkompatibel libxkbfile-implementasjon\n"
-"\n"
-"Versjonsinformasjon for X-tenaren:\n"
-"%s\n"
-"%d\n"
-"%s\n"
-"Dersom du sender inn ein feilrapport om dette, ta med:\n"
-"- Resultatet av <b>%s</b>\n"
-"- Resultatet av <b>%s</b>"
+"Eininga sitt minne er nesten fullt. Prosessar i virtuell terminal brukte "
+"mykje minne og vart tvungne til å stoppa."
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:126
-msgid ""
-"You are using XFree 4.3.0.\n"
-"There are known problems with complex XKB configurations.\n"
-"Try using a simpler configuration or taking a fresher version of XFree "
-"software."
-msgstr ""
-"Du brukar XFree 4.3.0.\n"
-"Det er kjende problem med innfløkte XKB-oppsett.\n"
-"Prøv å bruka eit enklare oppsett eller ein nyare versjon av XFree."
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:197
-msgid "Unknown"
-msgstr "Ukjend"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:266
+#. TRANSLATORS: We don't have a good description of what was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:94
 #, c-format
-#| msgid "Keyboard Layout Options"
-msgid "Keyboard Layout \"%s\""
-msgstr "Tastaturutforming «%s»"
+#| msgid "_Application font:"
+msgid "Application Stopped"
+msgstr "Appen vart stoppa"
 
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:389
-#| msgid "Groups"
-msgid "_Groups"
-msgstr "_Grupper"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:396
-#| msgid "Keyboard Preferences"
-msgid "Keyboard _Preferences"
-msgstr "_Brukarval for tastatur"
-
-#: ../plugins/keyboard/gsd-keyboard-xkb.c:402
-msgid "Show Current _Layout"
-msgstr "Vis noverande _utforming"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:1
-msgid "A_vailable files:"
-msgstr "_Tilgjengelege filer:"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:2
-msgid "Load modmap files"
-msgstr "Last modmap-filer"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:3
-msgid "Would you like to load the modmap file(s)?"
-msgstr "Vil du lasta modmap-filene?"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:4
-msgid "_Do not show this message again"
-msgstr "_Ikkje vis denne meldinga igjen."
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:5
-msgid "_Load"
-msgstr "_Last"
-
-#: ../plugins/keyboard/modmap-dialog.ui.h:6
-msgid "_Loaded files:"
-msgstr "_Lasta filer:"
-
-#: ../plugins/keyboard/show-layout.ui.h:1
-#| msgid "keyboard layout"
-msgid "Keyboard Layout"
-msgstr "Tastaturutforming"
-
-#
-#: ../plugins/media-keys/gsd-media-keys-manager.c:200
-msgid ""
-"Could not get default terminal. Verify that your default terminal command is "
-"set and points to a valid application."
-msgstr ""
-"Klarte ikkje finna forvald terminal. Sjekk at kommando for forvald terminal "
-"er sett og peikar til eit gyldig program."
-
-#: ../plugins/media-keys/gsd-media-keys-manager.c:240
+#. TRANSLATORS: We don't have a good description of what was killed.
+#: plugins/housekeeping/gsd-systemd-notify.c:96
 #, c-format
 msgid ""
-"Couldn't execute command: %s\n"
-"Verify that this is a valid command."
+"Device memory is nearly full. An application was using a lot of memory and "
+"was forced to stop."
 msgstr ""
-"Klarte ikkje køyra kommandoen: %s\n"
-"Sjekk om dette er ein gyldig kommando."
+"Eininga sitt minne er nesten fullt. Ein app brukte mykje minne og vart "
+"tvungen til å stoppa."
 
-#. translators:
-#. * The device has been disabled
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:991
-msgid "Disabled"
-msgstr "Av"
+#: plugins/media-keys/gsd-media-keys-manager.c:2336
+#| msgid "Disabled"
+msgid "Bluetooth Disabled"
+msgstr "Bluetooth er slått av"
 
-# TNL: Utdataport? Må nesten vere utdata<noko>.
-#. translators:
-#. * The number of sound outputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:998
+#: plugins/media-keys/gsd-media-keys-manager.c:2339
+msgid "Bluetooth Enabled"
+msgstr "Bluetooth slått på"
+
+#: plugins/media-keys/gsd-media-keys-manager.c:2343
+msgid "Airplane Mode Enabled"
+msgstr "Flymodus på"
+
+#: plugins/media-keys/gsd-media-keys-manager.c:2346
+msgid "Airplane Mode Disabled"
+msgstr "Flymodus er slått av"
+
+#: plugins/media-keys/gsd-media-keys-manager.c:2385
+msgid "Hardware Airplane Mode"
+msgstr "Maskinvare-flymodus"
+
+#: plugins/power/gpm-common.c:84
+#| msgid "Unknown"
+msgid "Unknown time"
+msgstr "Ukjend tid"
+
+#: plugins/power/gpm-common.c:89
 #, c-format
-msgid "%u Output"
-msgid_plural "%u Outputs"
-msgstr[0] ""
-msgstr[1] ""
+#| msgid "minutes"
+msgid "%i minute"
+msgid_plural "%i minutes"
+msgstr[0] "%i minutt"
+msgstr[1] "%i minutt"
 
-# TNL: Inndataport? Må nesten vere inndata<noko>.
-#. translators:
-#. * The number of sound inputs on a particular device
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1008
+#: plugins/power/gpm-common.c:99
 #, c-format
-msgid "%u Input"
-msgid_plural "%u Inputs"
-msgstr[0] ""
-msgstr[1] ""
+msgid "%i hour"
+msgid_plural "%i hours"
+msgstr[0] "%i time"
+msgstr[1] "%i timar"
 
-#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1304
-msgid "System Sounds"
-msgstr "Systemlydar"
-
-#
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
-msgid "Media keys"
-msgstr "Mediatastar"
-
-#
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
-msgid "Media keys plugin"
-msgstr "Tillegg for medietastar"
-
-#
-#: ../plugins/mouse/gsd-mouse-manager.c:882
-msgid "Could not enable mouse accessibility features"
-msgstr "Klarte ikkje aktivera tilgjengefunksjonar for mus"
-
-#: ../plugins/mouse/gsd-mouse-manager.c:884
-#| msgid ""
-#| "Mouse accessibility requires the mousetweaks daemon to be installed on "
-#| "your system."
-msgid "Mouse accessibility requires mousetweaks to be installed on your system."
-msgstr "Tilgjenge for mus krev at mousetweaks er installert på systemet."
-
-#: ../plugins/mouse/gsd-mouse-manager.c:887
-msgid "Mouse Preferences"
-msgstr "Eigenskapar for mus"
-
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
-msgid "Mouse"
-msgstr "Mus"
-
-#
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
-msgid "Mouse plugin"
-msgstr "Tillegg for mus"
-
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
-msgid "Typing Break"
-msgstr "Skrivepause"
-
-#
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:2
-msgid "Typing break plugin"
-msgstr "Tillegg for skrivepause"
-
-#
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
-msgid "Set up screen size and rotation settings"
-msgstr "Rediger innstillingar for skjermstørrelse og rotasjon"
-
-#
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
-msgid "XRandR"
-msgstr "XRandR"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:222
-msgid "Could not switch the monitor configuration"
-msgstr "Klarte ikkje byta innstillingane til skjermen"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:246
-msgid "Could not restore the display's configuration"
-msgstr "Klarte ikkje gjenoppretta innstillingane til skjermen"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:271
-msgid "Could not restore the display's configuration from a backup"
-msgstr "Klarte ikkje gjenoppretta skjerminnstillingane frå ein reservekopi"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:292
+#. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
+#. * Swap order with "%2$s %2$i %1$s %1$i if needed
+#: plugins/power/gpm-common.c:105
 #, c-format
-msgid "The display will be reset to its previous configuration in %d second"
-msgid_plural ""
-"The display will be reset to its previous configuration in %d seconds"
-msgstr[0] "Skjermen vil gjenoppretta tidlegare innstillingar om %d sekund"
-msgstr[1] "Skjermen vil gjenoppretta tidlegare innstillingar om %d sekund"
+msgid "%i %s %i %s"
+msgstr "%i %s %i %s"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:341
-msgid "Does the display look OK?"
-msgstr "Ser skjermen grei ut?"
+#: plugins/power/gpm-common.c:106
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "time"
+msgstr[1] "timar"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:347
-#| msgid "Proxy Configuration"
-msgid "_Restore Previous Configuration"
-msgstr "_Gjenopprett tidlegare innstiingar"
+#: plugins/power/gpm-common.c:107
+#| msgid "minutes"
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "minutt"
+msgstr[1] "minutt"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:348
-#| msgid "Advanced Configuration"
-msgid "_Keep This Configuration"
-msgstr "_Held fast ved desse innstillingane"
+#. TRANSLATORS: this is the sound description
+#: plugins/power/gpm-common.c:324 plugins/power/gsd-power-manager.c:945
+#: plugins/power/gsd-power-manager.c:1033
+msgid "Battery is critically low"
+msgstr "Batteriet er kritisk lågt"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:429
-msgid "The selected configuration for displays could not be applied"
-msgstr "Dei valde skjerminnstillingane kunne ikkje brukast"
+#. TRANSLATORS: this is the notification application name
+#: plugins/power/gsd-power-manager.c:376
+msgid "Power"
+msgstr "Straum"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:967
+#. TRANSLATORS: UPS is now discharging
+#: plugins/power/gsd-power-manager.c:416
+msgid "UPS Discharging"
+msgstr "UPS-lading vert avbroten"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: plugins/power/gsd-power-manager.c:421
 #, c-format
-msgid "Could not refresh the screen information: %s"
-msgstr "Klarte ikkje oppfriska skjerminformasjonen: %s"
+msgid "%s of UPS backup power remaining"
+msgstr "%s av UPS-reservekraft att"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:970
-msgid "Trying to switch the monitor configuration anyway."
-msgstr "Prøver å byta skjerminnstillingar likevel."
+#: plugins/power/gsd-power-manager.c:424
+msgid "Unknown amount of UPS backup power remaining"
+msgstr "Ukjent mengde UPS-reservekraft att"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1679
-msgid "<i>Rotation not supported</i>"
-msgstr "<i>Rotering er ikkje støtta</i>"
+#. TRANSLATORS: notification title, a wireless mouse is low or very low on power
+#: plugins/power/gsd-power-manager.c:528
+msgid "Mouse battery low"
+msgstr "Musa sitt batteri er lågt"
 
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1733
-#| msgid "Error saving configuration: %s"
-msgid "Could not save monitor configuration"
-msgstr "Klarte ikkje lagra av skjerminnstillingar"
-
-#
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1751
-msgid "Normal"
-msgstr "Normal"
-
-#
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1752
-msgid "Left"
-msgstr "Venstre"
-
-#
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1753
-msgid "Right"
-msgstr "Høgre:"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1754
-msgid "Upside Down"
-msgstr "Opp-ned"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1874
-msgid "_Configure Display Settings ..."
-msgstr "_Still inn skjermen …"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1915
-msgid "Configure display settings"
-msgstr "Still inn skjermen"
-
-#: ../plugins/xrandr/gsd-xrandr-manager.c:1972
-msgid "Could not apply the stored configuration for monitors"
-msgstr "Klarte ikkje å bruka dei lagra innstillingane for skjermar"
-
-#: ../plugins/xrdb/gsd-xrdb-manager.c:255
-#: ../plugins/xrdb/gsd-xrdb-manager.c:324
-msgid "Cannot determine user's home directory"
-msgstr "Klarte ikkje avgjera heimekatalogen til brukaren"
-
-#
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:1
-msgid "Manage the X resource database"
-msgstr "Handter X-ressursdatabasen"
-
-#
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:2
-msgid "X Resource Database"
-msgstr "X-ressursdatabase"
-
-#: ../plugins/xsettings/gsd-xsettings-manager.c:644
+#. TRANSLATORS: notification body, a wireless mouse is low on power
+#: plugins/power/gsd-power-manager.c:531
 #, c-format
-msgid "GConf key %s set to type %s but its expected type was %s\n"
-msgstr "GConf-nøkkelen «%s» er sett til type «%s», men den venta typen er «%s»\n"
+msgid "Wireless mouse is low on power (%.0f%%)"
+msgstr "Trådlaus mus har lite straum (%.0f %%)"
+
+#: plugins/power/gsd-power-manager.c:532
+msgid "Wireless mouse is low on power"
+msgstr "Trådlaus mus har lite straum"
+
+#. TRANSLATORS: notification body, a wireless mouse is very low on power
+#: plugins/power/gsd-power-manager.c:534
+#, c-format
+msgid ""
+"Wireless mouse is very low on power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"Trådlaus mus har svært lite straum (%.0f %%). Denne eininga vil snart slutta"
+" å fungera om ho ikkje vert lada."
+
+#: plugins/power/gsd-power-manager.c:536
+msgid ""
+"Wireless mouse is very low on power. This device will soon stop functioning "
+"if not charged."
+msgstr ""
+"Trådlaus mus har svært lite straum att. Denne eininga vil snart slutta å "
+"fungera om ho ikkje vert lada."
+
+#. TRANSLATORS: notification title, a wireless keyboard is low or very low on power
+#: plugins/power/gsd-power-manager.c:541
+#| msgid "Keyboard Layout"
+msgid "Keyboard battery low"
+msgstr "Tastaturbatteri har lite straum"
+
+#. TRANSLATORS: notification body, a wireless keyboard is low on power
+#: plugins/power/gsd-power-manager.c:544
+#, c-format
+msgid "Wireless keyboard is low on power (%.0f%%)"
+msgstr "Trådlaust tastatur har lite straum (%.0f %%)"
+
+#: plugins/power/gsd-power-manager.c:545
+msgid "Wireless keyboard is low on power"
+msgstr "Trådlaust tastatur har lite straum"
+
+#. TRANSLATORS: notification body, a wireless keyboard is very low on power
+#: plugins/power/gsd-power-manager.c:547
+#, c-format
+msgid ""
+"Wireless keyboard is very low on power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"Trådlaust tastatur har svært lite straum (%.0f %%). Denne eininga vil snart "
+"slutta å fungera om han ikkje vert lada."
+
+#: plugins/power/gsd-power-manager.c:549
+msgid ""
+"Wireless keyboard is very low on power. This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"Trådlaust tastatur har svært lite straum. Denne eininga vil snart slutta å "
+"fungera om han ikkje vert lada."
+
+#. TRANSLATORS: notification title, a PDA (Personal Digital Assistance device) is low or very on power
+#: plugins/power/gsd-power-manager.c:554
+msgid "PDA battery low"
+msgstr "PDA-batteri lågt"
+
+#. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is low on power
+#: plugins/power/gsd-power-manager.c:557
+#, c-format
+msgid "PDA is low on power (%.0f%%)"
+msgstr "PDA har lite straum (%.0f %%)"
+
+#: plugins/power/gsd-power-manager.c:558
+msgid "PDA is low on power"
+msgstr "PDA-en har lite straum"
+
+#. TRANSLATORS: notification body, a PDA (Personal Digital Assistance device) is very low on power
+#: plugins/power/gsd-power-manager.c:560
+#, c-format
+msgid ""
+"PDA is very low on power (%.0f%%). This device will soon stop functioning if "
+"not charged."
+msgstr ""
+"PDA-en har svært lite straum (%.0f %%). Denne eininga vil snart slutta å "
+"fungera om han ikkje vert lada."
+
+#: plugins/power/gsd-power-manager.c:562
+msgid ""
+"PDA is very low on power. This device will soon stop functioning if not "
+"charged."
+msgstr ""
+"PDA-en har svært lite straum. Denne eininga vil snart slutta å fungera om "
+"han ikkje vert lada."
+
+#. TRANSLATORS: notification title, a cell phone (mobile phone) is low or very low on power
+#: plugins/power/gsd-power-manager.c:567
+msgid "Cell phone battery low"
+msgstr "Lågt batteri på mobiltelefonen"
+
+#. TRANSLATORS: notification body, a cell phone (mobile phone) is low on power
+#: plugins/power/gsd-power-manager.c:570
+#, c-format
+msgid "Cell phone is low on power (%.0f%%)"
+msgstr "Mobilen har lågt straumnivå (%.0f %%)"
+
+#: plugins/power/gsd-power-manager.c:571
+msgid "Cell phone is low on power"
+msgstr "Mobiltelefonen har lite straum"
+
+#. TRANSLATORS: notification body, a cell phone (mobile phone) is very low on power
+#: plugins/power/gsd-power-manager.c:573
+#, c-format
+msgid ""
+"Cell phone is very low on power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"Mobiltelefonen har svært lite straum (%.0f %%). Denne eininga vil snart "
+"slutta å fungera om han ikkje vert lada."
+
+#: plugins/power/gsd-power-manager.c:575
+msgid ""
+"Cell phone is very low on power. This device will soon stop functioning if "
+"not charged."
+msgstr ""
+"Mobiltelefonen har svært lite straum att. Denne eininga vil snart slutta å "
+"fungera om han ikkje vert lada."
 
 #
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
-msgid "Manage X Settings"
-msgstr "Handter innstillingar for X"
+#. TRANSLATORS: notification title, a media player (e.g. mp3 player) is low or very low on power
+#: plugins/power/gsd-power-manager.c:580
+#| msgid "Media player key's shortcut."
+msgid "Media player battery low"
+msgstr "Lågt batteri på mediespelaren"
+
+#. TRANSLATORS: notification body, a media player (e.g. mp3 player) is low on power
+#: plugins/power/gsd-power-manager.c:583
+#, c-format
+msgid "Media player is low on power (%.0f%%)"
+msgstr "Avspelaren har lite straum (%.0f %%)"
 
 #
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
-msgid "X Settings"
-msgstr "Innstillingar for X"
+#: plugins/power/gsd-power-manager.c:584
+#| msgid "Media player key's shortcut."
+msgid "Media player is low on power"
+msgstr "Mediespelaren har låg straum"
+
+#. TRANSLATORS: notification body, a media player (e.g. mp3 player) is very low on power
+#: plugins/power/gsd-power-manager.c:586
+#, c-format
+msgid ""
+"Media player is very low on power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"Mediaspelaren har svært lite straum (%.0f %%). Denne eininga vil snart "
+"slutta å fungera om han ikkje vert lada."
+
+#: plugins/power/gsd-power-manager.c:588
+msgid ""
+"Media player is very low on power. This device will soon stop functioning if "
+"not charged."
+msgstr ""
+"Mediaspelaren har svært lite straum att. Denne eininga vil snart slutta å "
+"fungera om han ikkje vert lada."
+
+#. TRANSLATORS: notification title, a graphics tablet (e.g. wacom) is low or very low on power
+#: plugins/power/gsd-power-manager.c:593
+msgid "Tablet battery low"
+msgstr "Lågt batteri på nettbrettet"
+
+#. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is low on power
+#: plugins/power/gsd-power-manager.c:596
+#, c-format
+msgid "Tablet is low on power (%.0f%%)"
+msgstr "Nettbrettet har lite straum (%.0f %%)"
+
+#: plugins/power/gsd-power-manager.c:597
+msgid "Tablet is low on power"
+msgstr "Nettbrettet har lite straum"
+
+#. TRANSLATORS: notification body, a graphics tablet (e.g. wacom) is very low on power
+#: plugins/power/gsd-power-manager.c:599
+#, c-format
+msgid ""
+"Tablet is very low on power (%.0f%%). This device will soon stop functioning "
+"if not charged."
+msgstr ""
+"Nettbrettet har svært lite straum (%.0f %%). Denne eininga vil snart slutta "
+"å fungera om han ikkje vert lada."
+
+#: plugins/power/gsd-power-manager.c:601
+msgid ""
+"Tablet is very low on power. This device will soon stop functioning if not "
+"charged."
+msgstr ""
+"Nettbrettet har svært lite straum. Dette apparatet vil snart slutta å "
+"fungera om det ikkje vert lada."
+
+#. TRANSLATORS: notification title, an attached computer (e.g. ipad) is low or very low on power
+#: plugins/power/gsd-power-manager.c:606
+msgid "Attached computer battery low"
+msgstr "Batteriet på den tilkopla datamaskina er lågt"
+
+#. TRANSLATORS: notification body, an attached computer (e.g. ipad) is low on power
+#: plugins/power/gsd-power-manager.c:609
+#, c-format
+msgid "Attached computer is low on power (%.0f%%)"
+msgstr "Tilknytt datamaskin har låg straum (%.0f %%)"
+
+#: plugins/power/gsd-power-manager.c:610
+msgid "Attached computer is low on power"
+msgstr "Tilknytt datamaskin har lite straum"
+
+#. TRANSLATORS: notification body, an attached computer (e.g. ipad) is very low on power
+#: plugins/power/gsd-power-manager.c:612
+#, c-format
+msgid ""
+"Attached computer is very low on power (%.0f%%). The device will soon "
+"shutdown if not charged."
+msgstr ""
+"Tilknytt datamaskin har svært lite straum (%.0f %%). Eininga vil snart slå "
+"seg av om ho ikkje vert lada."
+
+#: plugins/power/gsd-power-manager.c:614
+msgid ""
+"Attached computer is very low on power. The device will soon shutdown if not "
+"charged."
+msgstr ""
+"Tilknytt datamaskin har svært lite straum. Eininga vil snart slå seg av om "
+"ho ikkje vert lada."
+
+#. TRANSLATORS: notification title, a game controller (e.g. joystick or joypad) is low or very low on power
+#: plugins/power/gsd-power-manager.c:619
+msgid "Game controller battery low"
+msgstr "Spelkontrollarbatteri har låg straum"
+
+#. TRANSLATORS: notification body, a game controller (e.g. joystick or joypad) is low on power
+#: plugins/power/gsd-power-manager.c:622
+#, c-format
+msgid "Game controller is low on power (%.0f%%)"
+msgstr "Spelekontrollar har låg straum (%.0f %%)"
+
+#: plugins/power/gsd-power-manager.c:623
+msgid "Game controller is low on power"
+msgstr "Spelkontrolleren har lite straum"
+
+#. TRANSLATORS: notification body, an attached game controller (e.g. joystick or joypad) is very low on power
+#: plugins/power/gsd-power-manager.c:625
+#, c-format
+msgid ""
+"Game controller is very low on power (%.0f%%). The device will soon shutdown "
+"if not charged."
+msgstr ""
+"Spelkontrolleren har svært lite straum (%.0f %%). Eininga vil snart slå seg "
+"av om han ikkje vert lada."
+
+#: plugins/power/gsd-power-manager.c:627
+msgid ""
+"Game controller is very low on power. The device will soon shutdown if not "
+"charged."
+msgstr ""
+"Spelkontrollaren har svært lite straum att. Eininga vil snart slå seg av om "
+"ho ikkje vert lada."
+
+#. TRANSLATORS: notification title, a pen is low or very low on power
+#: plugins/power/gsd-power-manager.c:632
+msgid "Pen battery low"
+msgstr "Lågt batteri i penn"
+
+#. TRANSLATORS: notification body, a pen is low on power
+#: plugins/power/gsd-power-manager.c:635
+#, c-format
+msgid "Pen is low on power (%.0f%%)"
+msgstr "Penna har lite straum (%.0f %%)"
+
+#: plugins/power/gsd-power-manager.c:636
+msgid "Pen is low on power"
+msgstr "Penn har lite straum"
+
+#. TRANSLATORS: notification body, a pen is very low on power
+#: plugins/power/gsd-power-manager.c:638
+#, c-format
+msgid ""
+"Pen is very low on power (%.0f%%). The device will soon shutdown if not "
+"charged."
+msgstr ""
+"Penn har svært lite straum (%.0f %%). Appen vil snart slå seg av om han "
+"ikkje vert lada."
+
+#: plugins/power/gsd-power-manager.c:640
+msgid "Pen is very low on power. The device will soon shutdown if not charged."
+msgstr ""
+"Penn har svært lite straum. Appen vert snart slått av om han ikkje vert "
+"lada."
+
+#. TRANSLATORS: notification title, an external touchpad is low or very low on power
+#: plugins/power/gsd-power-manager.c:645
+msgid "Touchpad battery low"
+msgstr "Lågt batteri på peikeplate"
+
+#. TRANSLATORS: notification body, an external touchpad is low on power
+#: plugins/power/gsd-power-manager.c:648
+#, c-format
+msgid "Touchpad is low on power (%.0f%%)"
+msgstr "Peikeplata har lite straum (%.0f %%)"
+
+#: plugins/power/gsd-power-manager.c:649
+msgid "Touchpad is low on power"
+msgstr "Peikeplata har låg straum"
+
+#. TRANSLATORS: notification body, an external touchpad is very low on power
+#: plugins/power/gsd-power-manager.c:651
+#, c-format
+msgid ""
+"Touchpad is very low on power (%.0f%%). The device will soon shutdown if not "
+"charged."
+msgstr ""
+"Peikeplata har svært lite straum (%.0f %%). Appen vert snart slått av om han"
+" ikkje vert lada."
+
+#: plugins/power/gsd-power-manager.c:653
+msgid ""
+"Touchpad is very low on power. The device will soon shutdown if not charged."
+msgstr ""
+"Peikeplata har svært lite straum. Appen vil snart slå seg av om han ikkje "
+"vert lada."
+
+#. TRANSLATORS: notification title, a headset (headphones + microphone) is low or very low on power
+#: plugins/power/gsd-power-manager.c:658
+msgid "Headset battery low"
+msgstr "Lågt batteri i hovudsettet"
+
+#. TRANSLATORS: notification body, a headset (headphones + microphone) is low on power
+#: plugins/power/gsd-power-manager.c:661
+#, c-format
+msgid "Headset is low on power (%.0f%%)"
+msgstr "Høgtalar har lite straum (%.0f %%)"
+
+#: plugins/power/gsd-power-manager.c:662
+msgid "Headset is low on power"
+msgstr "Høgtalar har lite straum"
+
+#. TRANSLATORS: notification body, a headset (headphones + microphone) is very low on power
+#: plugins/power/gsd-power-manager.c:664
+#, c-format
+msgid ""
+"Headset is very low on power (%.0f%%). The device will soon shutdown if not "
+"charged."
+msgstr ""
+"Høgtalar har svært lite straum (%.0f %%). Appen vil snart slå seg av om han "
+"ikkje vert lada."
+
+#: plugins/power/gsd-power-manager.c:666
+msgid ""
+"Headset is very low on power. The device will soon shutdown if not charged."
+msgstr ""
+"Høgtalar vert svært låg på straum. Appen vil snart slå seg av om han ikkje "
+"vert lada."
+
+#. TRANSLATORS: notification title, speaker is low or very low on power
+#: plugins/power/gsd-power-manager.c:671
+msgid "Speaker battery low"
+msgstr "Høgtalarebatteriet er lågt"
+
+#. TRANSLATORS: notification body, a speaker is low on power
+#: plugins/power/gsd-power-manager.c:674
+#, c-format
+msgid "Speaker is low on power (%.0f%%)"
+msgstr "Høgtalaren har lite straum (%.0f %%)"
+
+#: plugins/power/gsd-power-manager.c:675
+msgid "Speaker is low on power"
+msgstr "Høgtalaren har lite straum"
+
+#. TRANSLATORS: notification body, a speaker is very low on power
+#: plugins/power/gsd-power-manager.c:677
+#, c-format
+msgid ""
+"Speaker is very low on power (%.0f%%). The device will soon shutdown if not "
+"charged."
+msgstr ""
+"Høgtalaren har svært lite straum (%.0f %%). Appen vert snart slått av viss "
+"han ikkje vert lada."
+
+#: plugins/power/gsd-power-manager.c:679
+msgid ""
+"Speaker is very low on power. The device will soon shutdown if not charged."
+msgstr ""
+"Høgtalaren har svært lite straum. Appen vert snart slått av om han ikkje "
+"vert lada."
+
+#. TRANSLATORS: notification title, headphones (no microphone) are low or very low on power
+#: plugins/power/gsd-power-manager.c:684
+msgid "Headphones battery low"
+msgstr "Lågt batteri i hovudtelefonar"
+
+#. TRANSLATORS: notification body, headphones (no microphone) are low on power
+#: plugins/power/gsd-power-manager.c:687
+#, c-format
+msgid "Headphones are low on power (%.0f%%)"
+msgstr "Høgtalarane har lite straum (%.0f %%)"
+
+#: plugins/power/gsd-power-manager.c:688
+msgid "Headphones are low on power"
+msgstr "Høgtalarane har lite straum"
+
+#. TRANSLATORS: notification body, headphones (no microphone) are very low on power
+#: plugins/power/gsd-power-manager.c:690
+#, c-format
+msgid ""
+"Headphones are very low on power (%.0f%%). The device will soon shutdown if "
+"not charged."
+msgstr ""
+"Høgtalarane har svært lite straum (%.0f %%). Appen vert snart slått av om "
+"han ikkje vert lada."
+
+#: plugins/power/gsd-power-manager.c:692
+msgid ""
+"Headphones are very low on power. The device will soon shutdown if not "
+"charged."
+msgstr ""
+"Hovudtelefonane har svært lite straum. Appen vil snart slå seg av om han "
+"ikkje vert lada."
+
+#. TRANSLATORS: notification title, an audio device is low or very low on power
+#: plugins/power/gsd-power-manager.c:697
+msgid "Audio device battery low"
+msgstr "Lågt batteri på lydutstyr"
+
+#. TRANSLATORS: notification body, an audio device is low on power
+#: plugins/power/gsd-power-manager.c:700
+#, c-format
+msgid "Audio device is low on power (%.0f%%)"
+msgstr "Lydinnretninga har lite straum (%.0f %%)"
+
+#: plugins/power/gsd-power-manager.c:701
+msgid "Audio device is low on power"
+msgstr "Lydattutstyret har lite straum"
+
+#. TRANSLATORS: notification body, an audio device is very low on power
+#: plugins/power/gsd-power-manager.c:703
+#, c-format
+msgid ""
+"Audio device is very low on power (%.0f%%). The device will soon shutdown if "
+"not charged."
+msgstr ""
+"Lydapparatet har svært lite straum att (%.0f %%). Apparatet vert snart slått"
+" av om det ikkje vert lada."
+
+#: plugins/power/gsd-power-manager.c:705
+msgid ""
+"Audio device is very low on power. The device will soon shutdown if not "
+"charged."
+msgstr ""
+"Lydapparatet har svært lite straum. Apparatet vert snart slått av om det "
+"ikkje vert lada."
+
+#. TRANSLATORS: notification title, a remote control is low or very low on power
+#: plugins/power/gsd-power-manager.c:710
+msgid "Remote battery low"
+msgstr "Fjernkontrollen har lågt batteri"
+
+#. TRANSLATORS: notification body, an remote control is low on power
+#: plugins/power/gsd-power-manager.c:713
+#, c-format
+msgid "Remote is low on power (%.0f%%)"
+msgstr "Fjernstyring har lite straum (%.0f %%)"
+
+#: plugins/power/gsd-power-manager.c:714
+msgid "Remote is low on power"
+msgstr "Fjernkontrollen har for lite straum"
+
+#. TRANSLATORS: notification body, a remote control is very low on power
+#: plugins/power/gsd-power-manager.c:716
+#, c-format
+msgid ""
+"Remote is very low on power (%.0f%%). The device will soon shutdown if not "
+"charged."
+msgstr ""
+"Fjernkontrollen har svært lite straum (%.0f %%). Eininga vert snart slått av"
+" om ho ikkje vert lada."
+
+#: plugins/power/gsd-power-manager.c:718
+msgid ""
+"Remote is very low on power. The device will soon shutdown if not charged."
+msgstr ""
+"Fjernkontrollen har svært lite straum. Appen vert snart slått av om han "
+"ikkje vert lada."
+
+#. TRANSLATORS: notification title, a printer is low or very low on power
+#: plugins/power/gsd-power-manager.c:723
+msgid "Printer battery low"
+msgstr "Skrivaren har lite straum"
+
+#. TRANSLATORS: notification body, a printer is low on power
+#: plugins/power/gsd-power-manager.c:726
+#, c-format
+msgid "Printer is low on power (%.0f%%)"
+msgstr "Skrivaren har lite straum (%.0f %%)"
+
+#: plugins/power/gsd-power-manager.c:727
+msgid "Printer is low on power"
+msgstr "Skrivaren har lite straum"
+
+#. TRANSLATORS: notification body, a printer is very low on power
+#: plugins/power/gsd-power-manager.c:729
+#, c-format
+msgid ""
+"Printer is very low on power (%.0f%%). The device will soon shutdown if not "
+"charged."
+msgstr ""
+"Skrivaren har svært lite straum (%.0f %%). Eininga vert snart slått av om "
+"han ikkje vert lada."
+
+#: plugins/power/gsd-power-manager.c:731
+msgid ""
+"Printer is very low on power. The device will soon shutdown if not charged."
+msgstr ""
+"Skrivaren har svært lite straum. Appen vil snart slå seg av om han ikkje "
+"vert lada."
+
+#. TRANSLATORS: notification title, a scanner is low or very low on power
+#: plugins/power/gsd-power-manager.c:736
+msgid "Scanner battery low"
+msgstr "Skannaren har lågt batteri"
+
+#. TRANSLATORS: notification body, a scanner is low on power
+#: plugins/power/gsd-power-manager.c:739
+#, c-format
+msgid "Scanner is low on power (%.0f%%)"
+msgstr "Skannaren har lite straum (%.0f %%)"
+
+#: plugins/power/gsd-power-manager.c:740
+msgid "Scanner is low on power"
+msgstr "Skannaren har lite straum"
+
+#. TRANSLATORS: notification body, a scanner is very low on power
+#: plugins/power/gsd-power-manager.c:742
+#, c-format
+msgid ""
+"Scanner is very low on power (%.0f%%). The device will soon shutdown if not "
+"charged."
+msgstr ""
+"Skannaren har svært lite straum (%.0f %%). Eininga vert snart slått av om ho"
+" ikkje vert lada."
+
+#: plugins/power/gsd-power-manager.c:744
+msgid ""
+"Scanner is very low on power. The device will soon shutdown if not charged."
+msgstr ""
+"Skannaren har svært lite straum att. Eininga vert snart slått av om ho ikkje"
+" vert lada."
+
+#. TRANSLATORS: notification title, a camera is low or very low on power
+#: plugins/power/gsd-power-manager.c:749
+msgid "Camera battery low"
+msgstr "Kamerabatteriet er lågt"
+
+#. TRANSLATORS: notification body, a camera is low on power
+#: plugins/power/gsd-power-manager.c:752
+#, c-format
+msgid "Camera is low on power (%.0f%%)"
+msgstr "Kameraet har lite straum (%.0f %%)"
+
+#: plugins/power/gsd-power-manager.c:753
+msgid "Camera is low on power"
+msgstr "Kameraet har lite straum"
+
+#. TRANSLATORS: notification body, a camera is very low on power
+#: plugins/power/gsd-power-manager.c:755
+#, c-format
+msgid ""
+"Camera is very low on power (%.0f%%). The device will soon shutdown if not "
+"charged."
+msgstr ""
+"Kameraet har svært lite straum (%.0f %%). Appen vert snart slått av om han "
+"ikkje vert lada."
+
+#: plugins/power/gsd-power-manager.c:757
+msgid ""
+"Camera is very low on power. The device will soon shutdown if not charged."
+msgstr ""
+"Kameraet har svært lite straum. Appen vert snart slått av om han ikkje vert "
+"lada."
+
+#. TRANSLATORS: notification title, a Bluetooth device is low or very low on power
+#: plugins/power/gsd-power-manager.c:762
+msgid "Bluetooth device battery low"
+msgstr "Bluetooth-eininga har lite straum"
+
+#. TRANSLATORS: notification body, a Bluetooth device is low on power
+#: plugins/power/gsd-power-manager.c:765
+#, c-format
+msgid "Bluetooth device is low on power (%.0f%%)"
+msgstr "Bluetooth-eining har lite straum (%.0f %%)"
+
+#: plugins/power/gsd-power-manager.c:766
+msgid "Bluetooth device is low on power"
+msgstr "Bluetooth-eining har lite straum"
+
+#. TRANSLATORS: notification body, a Bluetooth device is very low on power
+#: plugins/power/gsd-power-manager.c:768
+#, c-format
+msgid ""
+"Bluetooth device is very low on power (%.0f%%). The device will soon "
+"shutdown if not charged."
+msgstr ""
+"Bluetooth-eininga har svært lite straum att (%.0f %%). Eininga vert snart "
+"slått av om ho ikkje vert lada."
+
+#: plugins/power/gsd-power-manager.c:770
+msgid ""
+"Bluetooth device is very low on power. The device will soon shutdown if not "
+"charged."
+msgstr ""
+"Bluetooth-eininga har svært lite straum att. Eininga vert snart slått av om "
+"ho ikkje vert lada."
+
+#. TRANSLATORS: notification title, a connected (wireless) device or peripheral of unhandled type is low or very on power
+#: plugins/power/gsd-power-manager.c:776
+msgid "Connected device battery is low"
+msgstr "Batteriet på den tilkopla eininga er lågt"
+
+#. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is low on power
+#: plugins/power/gsd-power-manager.c:779
+#, c-format
+msgid "A connected device is low on power (%.0f%%)"
+msgstr "Eit tilkopla utstyr har lite straum (%.0f %%)"
+
+#: plugins/power/gsd-power-manager.c:780
+msgid "A connected device is low on power"
+msgstr "Ein tilkopla eining har låg straum"
+
+#. TRANSLATORS: notification body, a connected (wireless) device or peripheral of unhandled type is very low on power
+#: plugins/power/gsd-power-manager.c:782
+#, c-format
+msgid ""
+"A connected device is very low on power (%.0f%%). The device will soon "
+"shutdown if not charged."
+msgstr ""
+"Ein tilkopla eining har svært lite straum (%.0f %%). Eininga vert snart "
+"slått av om han ikkje vert lada."
+
+#: plugins/power/gsd-power-manager.c:784
+msgid ""
+"A connected device is very low on power. The device will soon shutdown if "
+"not charged."
+msgstr ""
+"Eit kopla apparat har svært lite straum. Apparatet vert snart slått av om "
+"det ikkje vert lada."
+
+#. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is running low, shows percentage remaining
+#: plugins/power/gsd-power-manager.c:811
+msgid "Low Battery"
+msgstr "Lågt batteri"
+
+#. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is running low, shows percentage remaining
+#: plugins/power/gsd-power-manager.c:814
+#, c-format
+msgid "%.0f%% battery remaining"
+msgstr "%.0f %% batteri att"
+
+#. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
+#: plugins/power/gsd-power-manager.c:817
+msgid "UPS Low"
+msgstr "UPS låg"
+
+#. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, shows percentage remaining
+#. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
+#: plugins/power/gsd-power-manager.c:820 plugins/power/gsd-power-manager.c:897
+#, c-format
+msgid "%.0f%% UPS power remaining"
+msgstr "%.0f %% UPS-straum att"
+
+#. TRANSLATORS: this is the sound description
+#: plugins/power/gsd-power-manager.c:861
+msgid "Battery is low"
+msgstr "Batteriet er lågt"
+
+#. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, advice on what the user should do
+#: plugins/power/gsd-power-manager.c:888
+msgid "Battery Almost Empty"
+msgstr "Batteriet er nesten tomt"
+
+#. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically running low, advice on what the user should do
+#: plugins/power/gsd-power-manager.c:891
+#, c-format
+msgid "Connect power now"
+msgstr "Kople til straum no"
+
+#. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is running low, warning about action happening soon
+#: plugins/power/gsd-power-manager.c:894
+msgid "UPS Almost Empty"
+msgstr "UPS nesten tom"
+
+#. TRANSLATORS: notification title, the battery of this laptop/tablet/phone is critically low, warning about action happening now
+#: plugins/power/gsd-power-manager.c:969
+msgid "Battery is Empty"
+msgstr "Batteriet er tomt"
+
+#. TRANSLATORS: notification body, the battery of this laptop/tablet/phone is critically low, warning about action about to happen
+#. TRANSLATORS: notification body, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
+#: plugins/power/gsd-power-manager.c:976 plugins/power/gsd-power-manager.c:996
+msgid "This device is about to hibernate"
+msgstr "Denne eininga er i ferd med å gå i dvale"
+
+#: plugins/power/gsd-power-manager.c:978 plugins/power/gsd-power-manager.c:998
+msgid "This device is about to shutdown"
+msgstr "Denne eininga skal snart slå seg av"
+
+#. TRANSLATORS: notification title, an Uninterruptible Power Supply (UPS) is critically low, warning about action about to happen
+#: plugins/power/gsd-power-manager.c:989
+msgid "UPS is Empty"
+msgstr "UPS er tom"
+
+#. TRANSLATORS: this is the sound description
+#: plugins/power/gsd-power-manager.c:1634
+msgid "Lid has been opened"
+msgstr "Lid er opna"
+
+#. TRANSLATORS: this is the sound description
+#: plugins/power/gsd-power-manager.c:1672
+msgid "Lid has been closed"
+msgstr "Lid har vorte stengd"
+
+#. TRANSLATORS: this is the sound description
+#: plugins/power/gsd-power-manager.c:2348
+msgid "On battery power"
+msgstr "På batteridrift"
+
+#. TRANSLATORS: this is the sound description
+#: plugins/power/gsd-power-manager.c:2353
+msgid "On AC power"
+msgstr "På vekselstraum"
+
+#: plugins/power/gsd-power-manager.c:2621
+msgid "Automatic Logout"
+msgstr "Automatisk utlogging"
+
+#: plugins/power/gsd-power-manager.c:2621
+msgid "You will soon log out because of inactivity"
+msgstr "Du vert snart logga ut på grunn av inaktivitet"
+
+#: plugins/power/gsd-power-manager.c:2626
+msgid "Automatic Suspend"
+msgstr "Automatisk kvilemodus"
+
+#: plugins/power/gsd-power-manager.c:2626
+#: plugins/power/gsd-power-manager.c:2631
+msgid "Suspending soon because of inactivity"
+msgstr "Vert snart sett på pause på grunn av inaktivitet"
+
+#: plugins/power/gsd-power-manager.c:2631
+msgid "Automatic Hibernation"
+msgstr "Automatisk dvale"
+
+#. Translators: We are configuring new printer
+#: plugins/print-notifications/gsd-printer.c:924
+msgid "Configuring new printer"
+msgstr "Konfigurerer ny skrivar"
+
+#. Translators: Just wait
+#: plugins/print-notifications/gsd-printer.c:926
+msgid "Please wait…"
+msgstr "Vent litt …"
+
+#. Translators: We have no driver installed for this printer
+#: plugins/print-notifications/gsd-printer.c:953
+msgid "Missing printer driver"
+msgstr "Manglar skrivardrivar"
+
+#. Translators: We have no driver installed for the device
+#: plugins/print-notifications/gsd-printer.c:962
+#, c-format
+msgid "No printer driver for %s."
+msgstr "Ingen skrivardrivar for %s."
+
+#. Translators: We have no driver installed for this printer
+#: plugins/print-notifications/gsd-printer.c:967
+msgid "No driver for this printer."
+msgstr "No drivar for denne skrivaren."
 
 #
-#~ msgid "Binding to suspend the computer."
-#~ msgstr "Binding for å gå til kvilemodus."
+#: plugins/print-notifications/gsd-printer.c:1065
+#: plugins/print-notifications/gsd-print-notifications-manager.c:318
+#: plugins/print-notifications/gsd-print-notifications-manager.c:570
+#: plugins/print-notifications/gsd-print-notifications-manager.c:953
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1044
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1088
+#| msgid "Pointer"
+msgid "Printers"
+msgstr "Skrivarar"
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:402
+#, c-format
+msgid "Printer “%s” is low on toner."
+msgstr "Skrivar «%s» har lite toner."
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:406
+#, c-format
+msgid "Printer “%s” has no toner left."
+msgstr "Skrivar «%s» har ingen tonar igjen."
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:410
+#, c-format
+msgid "Printer “%s” may not be connected."
+msgstr "Skrivar «%s» kan ikkje vera kopla til."
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:414
+#, c-format
+msgid "The cover is open on printer “%s”."
+msgstr "Dekselet er ope på skrivaren «%s»."
+
+#. Translators: A filter or backend is not installed (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:418
+#, c-format
+msgid "There is a missing print filter for printer “%s”."
+msgstr "Det manglar eit utskriftsfilter for skrivar «%s»."
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:423
+#, c-format
+msgid "The door is open on printer “%s”."
+msgstr "Døra er open på skrivar «%s»."
+
+#. Translators: "marker" is one color bin of the printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:427
+#, c-format
+msgid "Printer “%s” is low on a marker supply."
+msgstr "Skrivaren «%s» har lite blekk att."
+
+#. Translators: "marker" is one color bin of the printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:431
+#, c-format
+msgid "Printer “%s” is out of a marker supply."
+msgstr "Skrivaren «%s» er tom for blekk."
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:435
+#, c-format
+msgid "Printer “%s” is low on paper."
+msgstr "Skrivar «%s» har lite papir."
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:439
+#, c-format
+msgid "Printer “%s” is out of paper."
+msgstr "Skrivar «%s» er tom for papir."
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:443
+#, c-format
+msgid "Printer “%s” is currently off-line."
+msgstr "Skrivaren «%s» er no ikkje på nett."
 
 #
-#~ msgid "Suspend"
-#~ msgstr "Kvilemodus"
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:447
+#, c-format
+#| msgid "There was a problem while extracting the theme."
+msgid "There is a problem on printer “%s”."
+msgstr "Det er eit problem på skrivar «%s»."
+
+#. Translators: The printer has a job to print but the printer needs authentication to continue with the print
+#: plugins/print-notifications/gsd-print-notifications-manager.c:563
+#, c-format
+#| msgid "<b>_Use authentication</b>"
+msgid "%s Requires Authentication"
+msgstr "%s krev autentisering"
+
+#. Translators: A printer needs credentials to continue printing a job
+#: plugins/print-notifications/gsd-print-notifications-manager.c:565
+#, c-format
+msgid "Credentials required in order to print"
+msgstr "Innloggingsinformasjon krevst for å skriva ut"
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:632
+msgid "Toner low"
+msgstr "Tonar låg"
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:634
+msgid "Toner empty"
+msgstr "Toneren er tom"
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:636
+#| msgid "Not connected"
+msgid "Not connected?"
+msgstr "Ikkje tilkopla?"
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:638
+msgid "Cover open"
+msgstr "Omslag opna"
+
+#. Translators: A filter or backend is not installed (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:640
+#| msgid "The GNOME configuration tool"
+msgid "Printer configuration error"
+msgstr "Skrivarfeil i oppsettet"
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:642
+msgid "Door open"
+msgstr "Døra er open"
+
+#. Translators: "marker" is one color bin of the printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:644
+msgid "Marker supply low"
+msgstr "Marker for få varer"
+
+#. Translators: "marker" is one color bin of the printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:646
+msgid "Out of a marker supply"
+msgstr "Tom for fargekassett"
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:648
+msgid "Paper low"
+msgstr "Lite papir"
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:650
+msgid "Out of paper"
+msgstr "Tom for papir"
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: plugins/print-notifications/gsd-print-notifications-manager.c:652
+#| msgid "Pointer Size:"
+msgid "Printer off-line"
+msgstr "Skrivar fråkopla"
+
+# TRN: Dette er drakta i arbeidsflata, altså GTK-delen av programmet.
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#. Translators: This is a title of an error notification for a printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:654
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1030
+#| msgid "Pointer Theme"
+msgid "Printer error"
+msgstr "Skrivarfeil"
+
+# TRN: Dette er drakta i arbeidsflata, altså GTK-delen av programmet.
+#. Translators: New printer has been added
+#: plugins/print-notifications/gsd-print-notifications-manager.c:703
+#| msgid "Pointer Theme"
+msgid "Printer added"
+msgstr "Skrivar lagt til"
+
+#. Translators: A print job has been stopped
+#: plugins/print-notifications/gsd-print-notifications-manager.c:720
+#: plugins/print-notifications/gsd-print-notifications-manager.c:758
+msgctxt "print job state"
+msgid "Printing stopped"
+msgstr "Utskrifta vart stoppa"
+
+#. Translators: "print-job xy" on a printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:722
+#: plugins/print-notifications/gsd-print-notifications-manager.c:728
+#: plugins/print-notifications/gsd-print-notifications-manager.c:734
+#: plugins/print-notifications/gsd-print-notifications-manager.c:740
+#: plugins/print-notifications/gsd-print-notifications-manager.c:752
+#: plugins/print-notifications/gsd-print-notifications-manager.c:760
+#: plugins/print-notifications/gsd-print-notifications-manager.c:768
+#: plugins/print-notifications/gsd-print-notifications-manager.c:776
+#: plugins/print-notifications/gsd-print-notifications-manager.c:784
+#: plugins/print-notifications/gsd-print-notifications-manager.c:808
+#, c-format
+msgctxt "print job"
+msgid "“%s” on %s"
+msgstr "«%s» på %s"
+
+#. Translators: A print job has been cancelled
+#: plugins/print-notifications/gsd-print-notifications-manager.c:726
+#: plugins/print-notifications/gsd-print-notifications-manager.c:766
+msgctxt "print job state"
+msgid "Printing cancelled"
+msgstr "Utskrifta er avbroten"
+
+#. Translators: A print job has been aborted
+#: plugins/print-notifications/gsd-print-notifications-manager.c:732
+#: plugins/print-notifications/gsd-print-notifications-manager.c:774
+msgctxt "print job state"
+msgid "Printing aborted"
+msgstr "Utskrift avbroten"
+
+#. Translators: A print job has been completed
+#: plugins/print-notifications/gsd-print-notifications-manager.c:738
+#: plugins/print-notifications/gsd-print-notifications-manager.c:782
+#| msgid "Fraction completed"
+msgctxt "print job state"
+msgid "Printing completed"
+msgstr "Utskrift ferdig"
+
+#
+#. Translators: A job is printing
+#: plugins/print-notifications/gsd-print-notifications-manager.c:750
+#: plugins/print-notifications/gsd-print-notifications-manager.c:806
+#| msgid "Hinting"
+msgctxt "print job state"
+msgid "Printing"
+msgstr "Skriv ut"
+
+#. Translators: This is a title of a report notification for a printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1024
+msgid "Printer report"
+msgstr "Skrivarrapport"
+
+#. Translators: This is a title of a warning notification for a printer
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1027
+msgid "Printer warning"
+msgstr "Skrivarvarsel"
+
+#. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
+#: plugins/print-notifications/gsd-print-notifications-manager.c:1037
+#, c-format
+msgid "Printer “%s”: “%s”."
+msgstr "Skrivar «%s»: «%s»."
+
+#: plugins/smartcard/gsd-smartcard-service.c:279
+msgid "User was not logged in with smartcard."
+msgstr "Brukaren var ikkje innlogga med smartkort."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:355
+msgid "USB Protection"
+msgstr "USB-vern"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:482
+msgid "New USB device"
+msgstr "Ny USB-eining"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:483
+msgid ""
+"New USB device has been activated while the session was not locked. If you "
+"did not intend to insert any device, check your system for any suspicious "
+"gadgets and remove them."
+msgstr ""
+"Ny USB-eining har vorte slått på medan økta ikkje var låst. Dersom du ikkje "
+"hadde tenkt å setja inn nokon eining, sjekk systemet ditt for mistenkjelege "
+"dingsar og fjern dei."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:507
+#: plugins/usb-protection/gsd-usb-protection-manager.c:551
+msgid "New device detected"
+msgstr "Ny eining oppdaga"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:508
+#: plugins/usb-protection/gsd-usb-protection-manager.c:552
+msgid ""
+"Either one of your existing devices has been reconnected or a new one has "
+"been inserted. If you did not do it, check your system for any suspicious "
+"device."
+msgstr ""
+"Anten har eit av dei eksisterande einingane dine vorte kopla til på nytt, "
+"eller så er ei ny eining sett inn. Om du ikkje har gjort det, bør du sjekka "
+"systemet ditt for mistenkjelege einingar."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:518
+msgid "Reconnect USB device"
+msgstr "Kopla til USB-eininga på nytt"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:519
+msgid ""
+"New device has been detected while you were away. Please disconnect and "
+"reconnect the device to start using it."
+msgstr ""
+"Ei ny eining vart oppdaga medan du var borte. Kopla frå og til eininga på "
+"nytt for å ta ho i bruk."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:562
+#: plugins/usb-protection/gsd-usb-protection-manager.c:572
+msgid "USB device blocked"
+msgstr "USB-eining blokkert"
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:563
+msgid ""
+"The new inserted device has been blocked because the USB protection is "
+"active. If you want to activate the device, disable the USB protection and "
+"re-insert the device."
+msgstr ""
+"Den nye eininga som vart sett inn har vorte blokkert fordi USB-vernet er "
+"aktivt. Om du vil slå på eininga, slår du av USB-vernet og set eininga inn "
+"på nytt."
+
+#: plugins/usb-protection/gsd-usb-protection-manager.c:573
+msgid ""
+"New device has been detected while you were away. It has been blocked "
+"because the USB protection is active."
+msgstr ""
+"Ny eining er oppdaga medan du var borte. Han er blokkert fordi USB-vernet er"
+" aktivt."
+
+#: plugins/wwan/cc-wwan-errors-private.h:40
+msgid "Phone failure"
+msgstr "Telefonfeil"
+
+#: plugins/wwan/cc-wwan-errors-private.h:41
+#| msgid "Not connected"
+msgid "No connection to phone"
+msgstr "Ingen tilkopling til telefon"
+
+#: plugins/wwan/cc-wwan-errors-private.h:43
+msgid "Operation not allowed"
+msgstr "Operasjonen er ikkje tillaten"
+
+#: plugins/wwan/cc-wwan-errors-private.h:44
+#| msgid "<i>Rotation not supported</i>"
+msgid "Operation not supported"
+msgstr "Operasjonen er ikkje støtta"
+
+#: plugins/wwan/cc-wwan-errors-private.h:48
+msgid "SIM not inserted"
+msgstr "SIM ikkje sett inn"
+
+#: plugins/wwan/cc-wwan-errors-private.h:49
+msgid "SIM PIN required"
+msgstr "SIM-PIN kravd"
+
+#: plugins/wwan/cc-wwan-errors-private.h:50
+msgid "SIM PUK required"
+msgstr "SIM-PUK kravd"
+
+#: plugins/wwan/cc-wwan-errors-private.h:51
+msgid "SIM failure"
+msgstr "SIM-feil"
+
+#: plugins/wwan/cc-wwan-errors-private.h:52
+msgid "SIM busy"
+msgstr "SIM er oppteken"
+
+#: plugins/wwan/cc-wwan-errors-private.h:53
+msgid "SIM wrong"
+msgstr "Feil SIM"
+
+#: plugins/wwan/cc-wwan-errors-private.h:54
+#| msgid "Current _password:"
+msgid "Incorrect password"
+msgstr "Feil passord"
+
+#: plugins/wwan/cc-wwan-errors-private.h:55
+msgid "SIM PIN2 required"
+msgstr "SIM-PIN2 kravd"
+
+#: plugins/wwan/cc-wwan-errors-private.h:56
+msgid "SIM PUK2 required"
+msgstr "SIM-PUK2 kravd"
+
+#: plugins/wwan/cc-wwan-errors-private.h:72
+#| msgid "Unknown"
+msgid "Unknown error"
+msgstr "Ukjend feil"
+
+#: plugins/wwan/cc-wwan-errors-private.h:91
+msgid "Action Cancelled"
+msgstr "Handling avbroten"
+
+#: plugins/wwan/cc-wwan-errors-private.h:94
+#| msgid "Accel Mode"
+msgid "Access denied"
+msgstr "Tilgang nekta"
+
+#: plugins/wwan/cc-wwan-errors-private.h:103
+#| msgid "Unknown"
+msgid "Unknown Error"
+msgstr "Ukjend feil"
+
+#: plugins/wwan/gsd-wwan-manager.c:118
+msgid "New PIN for SIM"
+msgstr "Ny PIN for SIM"
+
+#: plugins/wwan/gsd-wwan-manager.c:119
+#| msgid "_Select"
+msgid "Set"
+msgstr "Set"
+
+#: plugins/wwan/gsd-wwan-manager.c:121
+msgid "Unlock SIM card"
+msgstr "Lås opp SIM-kort"
+
+#: plugins/wwan/gsd-wwan-manager.c:122
+msgid "Unlock"
+msgstr "Lås opp"
+
+#: plugins/wwan/gsd-wwan-manager.c:125
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: plugins/wwan/gsd-wwan-manager.c:130
+#, c-format
+msgid "Please provide a new PIN for SIM card %s"
+msgstr "Oppgje ein ny PIN for SIM-kort %s"
+
+#: plugins/wwan/gsd-wwan-manager.c:132
+msgid "Enter a New PIN to unlock your SIM card"
+msgstr "Skriv inn ein ny PIN for å låsa opp SIM-kortet ditt"
+
+#: plugins/wwan/gsd-wwan-manager.c:134
+#, c-format
+msgid "Please provide the PIN for SIM card %s"
+msgstr "Oppgje PIN for SIM-kort %s"
+
+#: plugins/wwan/gsd-wwan-manager.c:136
+msgid "Enter PIN to unlock your SIM card"
+msgstr "Skriv inn PIN for å låsa opp SIM-kortet ditt"
+
+#: plugins/wwan/gsd-wwan-manager.c:139
+#, c-format
+msgid "Please provide the PUK for SIM card %s"
+msgstr "Oppgje PUK-koden for SIM-kort %s"
+
+#: plugins/wwan/gsd-wwan-manager.c:141
+msgid "Enter PUK to unlock your SIM card"
+msgstr "Skriv inn PUK for å låsa opp SIM-kortet ditt"
+
+#. msg is already localised
+#: plugins/wwan/gsd-wwan-manager.c:157
+#, c-format
+msgid "%2$s. You have %1$u try left"
+msgid_plural "%2$s. You have %1$u tries left"
+msgstr[0] "%2$s. Du har %1$u forsøk att"
+msgstr[1] "%2$s. Du har %1$u forsøk att"
+
+#: plugins/wwan/gsd-wwan-manager.c:161
+#, c-format
+msgid "You have %u try left"
+msgid_plural "You have %u tries left"
+msgstr[0] "Du har %u forsøk att"
+msgstr[1] "Du har %u forsøk att"
+
+#~| msgid "_Accessibility..."
+#~ msgid "Accessibility"
+#~ msgstr "Tilgjenge"
+
+#~ msgid "Volume step as percentage of volume."
+#~ msgstr "Lydstyrkesteg som ein prosentdel av lydstyrka"
+
+#~ msgid ""
+#~ "If a notification icon with display related things should be shown in the "
+#~ "panel."
+#~ msgstr ""
+#~ "Om eit varslingsikon med skjermrelaterte ting skal verta vist i panelet."
+
+#~ msgid "Show Displays in Notification Area"
+#~ msgstr "Vis skjermar i varslingsområdet"
+
+#
+#~ msgid "DPI"
+#~ msgstr "DPI"
+
+#
+#~ msgid ""
+#~ "The resolution used for converting font sizes to pixel sizes, in dots per "
+#~ "inch."
+#~ msgstr ""
+#~ "Oppløysing som brukast for å konvertera skriftstorleikar til "
+#~ "pikselstorleikar i punkt per tomme."
+
+#
+#~ msgid ""
+#~ "The type of hinting to use when rendering fonts. Possible values are: "
+#~ "\"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, "
+#~ "and \"full\" for maximum hinting (may cause distortion of letter forms)."
+#~ msgstr ""
+#~ "Type hinting som skal brukast ved rendring av skrifter. Moglege verdiar "
+#~ "er «none» for inga hinting, «slight» for grunnleggjande, «medium» for "
+#~ "moderat, og «full» for maksimal hinting (kan forårsake forvrenging av "
+#~ "bokstavformer)."
+
+#~| msgid "Media keys"
+#~ msgid "Allowed keys"
+#~ msgstr "Tillete tastar"
+
+#~ msgid ""
+#~ "If non-empty, keybindings will be ignored unless their GConf directory is "
+#~ "in the list. This is useful for lockdown."
+#~ msgstr ""
+#~ "Om ikkje-tom vil snøggtastar verta ignorert unnteken viss GConf-mappa "
+#~ "deira er i lista. Dette er høveleg for å låsa ned maskina."
+
+#~| msgid "<b>Bounce Keys</b>"
+#~ msgid "Bounce keys"
+#~ msgstr "Sprettetastar"
+
+#~ msgid "Command used to turn the magnifier on or off."
+#~ msgstr "Kommando brukt for å slå forstørraren av og på."
+
+#~ msgid "Command used to turn the on-screen keyboard on or off."
+#~ msgstr "Kommando brukt for å slå tastaturet på skjermen av og på."
+
+#~| msgid "Set to True to run the screensaver at login."
+#~ msgid "Command used to turn the screen reader on or off."
+#~ msgstr "Kommando brukt for å slå skjermlesaren av og på."
+
+#
+#~ msgid "Enable accessibility keyboard plugin"
+#~ msgstr "Aktiver tillegg for tilgjenge for tastatur"
+
+#
+#~ msgid "Enable background plugin"
+#~ msgstr "Aktiver tillegg for bakgrunn"
+
+#
+#~ msgid "Enable clipboard plugin"
+#~ msgstr "Aktiver tillegg for utklippstavle"
+
+#
+#~ msgid "Enable font plugin"
+#~ msgstr "Aktiver tillegg for skrift"
+
+#
+#~ msgid "Enable housekeeping plugin"
+#~ msgstr "Aktiver tillegg for opprydning"
+
+#
+#~ msgid "Enable keybindings plugin"
+#~ msgstr "Aktiver tillegg for snøggtastar"
+
+#
+#~ msgid "Enable keyboard plugin"
+#~ msgstr "Aktiver tillegg for tastatur"
+
+#
+#~ msgid "Enable media keys plugin"
+#~ msgstr "Aktiver tillegg for mediatastar"
+
+#
+#~ msgid "Enable mouse plugin"
+#~ msgstr "Aktiver tillegg for mus"
+
+#
+#~ msgid "Enable sound plugin"
+#~ msgstr "Aktiver tillegg for lyd"
+
+#
+#~ msgid "Enable typing breaks plugin"
+#~ msgstr "Aktiver tillegg for skrivepause"
+
+#
+#~ msgid "Enable xrandr plugin"
+#~ msgstr "Aktiver tillegg for xrandr"
+
+#
+#~ msgid "Enable xrdb plugin"
+#~ msgstr "Aktiver tillegg for xrdb"
+
+#
+#~ msgid "Enable xsettings plugin"
+#~ msgstr "Aktiver tillegg for xsettings"
+
+#~| msgid "Mouse Keys"
+#~ msgid "Mouse keys"
+#~ msgstr "Mustastar"
+
+#~| msgid "GNOME OnScreen Keyboard"
+#~ msgid "On-screen keyboard"
+#~ msgstr "Tastatur på skjermen"
+
+#~| msgid "Screensaver"
+#~ msgid "Screen magnifier"
+#~ msgstr "Skjermforstørrar"
+
+#~| msgid "Screensaver"
+#~ msgid "Screen reader"
+#~ msgstr "Skjermlesar"
+
+#
+#~ msgid ""
+#~ "Set to True to enable the housekeeping plugin, to prune transient file "
+#~ "caches."
+#~ msgstr ""
+#~ "Set til True viss du vil slå på programtillegget for oppryddning, for å "
+#~ "fjerna snøgglager."
+
+#
+#~ msgid "Set to True to enable the plugin to manage clipboard settings."
+#~ msgstr ""
+#~ "Set til True for å aktivera tillegg for å handtera innstillingar for "
+#~ "utklippstavle."
+
+#
+#~ msgid ""
+#~ "Set to True to enable the plugin to manage desktop background settings."
+#~ msgstr ""
+#~ "Set til True for å aktivera tillegg for å handtera innstillingar for "
+#~ "skrivebordsbakgrunn."
+
+#
+#~ msgid "Set to True to enable the plugin to manage font settings."
+#~ msgstr ""
+#~ "Set til True for å aktivera tillegg for å handtera innstillingar for "
+#~ "skrift."
+
+#
+#~ msgid "Set to True to enable the plugin to manage keyboard settings."
+#~ msgstr ""
+#~ "Set til True for å aktivera tillegg for å handtera innstillingar for "
+#~ "tastatur."
+
+#
+#~ msgid "Set to True to enable the plugin to manage mouse settings."
+#~ msgstr ""
+#~ "Set til True for å aktivera tillegg for å handtera innstillingar for mus."
+
+#
+#~ msgid "Set to True to enable the plugin to manage multimedia keys settings."
+#~ msgstr ""
+#~ "Set til True for å aktivera tillegg for å handtera innstillingar for "
+#~ "multimediatastar."
+
+#~| msgid "Set to True to enable the plugin to manage sound settings."
+#~ msgid "Set to True to enable the plugin to manage sound sample caches."
+#~ msgstr ""
+#~ "Set til True for å slå på tillegget for å handsama mellomlager for "
+#~ "lydklipp."
+
+#
+#~ msgid ""
+#~ "Set to True to enable the plugin to manage the accessibility keyboard "
+#~ "settings."
+#~ msgstr ""
+#~ "Set til True for å aktivera tillegg for å handtera innstillingar for "
+#~ "tilgjenge for tastatur."
+
+#
+#~ msgid "Set to True to enable the plugin to manage the keybindings."
+#~ msgstr "Set til True for å aktivera tillegg for å handtera snøggtastar."
+
+#
+#~ msgid "Set to True to enable the plugin to manage typing breaks."
+#~ msgstr "Set til True for å aktivera tillegg for å handtera skrivepauser."
+
+#
+#~ msgid "Set to True to enable the plugin to manage xrandr settings."
+#~ msgstr ""
+#~ "Set til True for å aktivera tillegg for å handtera innstillingar for "
+#~ "xrandr."
+
+#
+#~ msgid "Set to True to enable the plugin to manage xrdb settings."
+#~ msgstr ""
+#~ "Set til True for å aktivera tillegg for å handtera innstillingar for xrdb."
+
+#
+#~ msgid "Set to True to enable the plugin to manage xsettings."
+#~ msgstr "Set til True for å aktivera tillegg for å handtera xsettings."
+
+#~| msgid "Slow Keys Alert"
+#~ msgid "Slow keys"
+#~ msgstr "Trege tastar"
+
+#~| msgid "Sticky Keys Alert"
+#~ msgid "Sticky keys"
+#~ msgstr "Seige tastar"
+
+#~ msgid "The name of the keyboard shortcut to toggle the magnifier"
+#~ msgstr "Namnet på snøggtasten for å slå forstørraren av og på"
+
+#~ msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
+#~ msgstr "Namnet på snøggtasten for å slå tastaturet på skjermen av og på"
+
+#~ msgid "The name of the keyboard shortcut to toggle the screen reader"
+#~ msgstr "Namnet på snøggtasten for å slå skjermlesaren av og på"
+
+#~ msgid ""
+#~ "This is the name of the keyboard shortcut to toggle the magnifier. This "
+#~ "name will be shown in the keyboard shortcut preferences dialog."
+#~ msgstr ""
+#~ "Dette er namnet på snøggtasten for å slå forstørraren av og på. Dette "
+#~ "namnet vil verta vist i dialogvindauge for snøggtastinnstillingar."
+
+#~ msgid ""
+#~ "This is the name of the keyboard shortcut to toggle the on-screen "
+#~ "keyboard. This name will be shown in the keyboard shortcut preferences "
+#~ "dialog."
+#~ msgstr ""
+#~ "Dette er namnet på snøggtasten for å slå tastatur på skjermen av og på. "
+#~ "Dette namnet vil verta vist i dialogvindauge for snøggtastinnstillingar."
+
+#~ msgid ""
+#~ "This is the name of the keyboard shortcut to toggle the screen reader. "
+#~ "This name will be shown in the keyboard shortcut preferences dialog."
+#~ msgstr ""
+#~ "Dette er namnet på snøggtasten for å slå skjermlesaren av og på. Dette "
+#~ "namnet vil verta vist i dialogvindauge for snøggtastinnstillingar."
+
+#~| msgid "Beep when _accessibility features are turned on or off"
+#~ msgid "Whether the bounce keys keyboard accessibility feature is turned on."
+#~ msgstr "Om sprettetastfunksjonen er slått på."
+
+#~ msgid "Whether the on-screen keyboard is turned on."
+#~ msgstr "Om tastatur på skjermen er slått på."
+
+#~ msgid "Whether the screen magnifier is turned on."
+#~ msgstr "Om skjermforstørraren er slått på."
+
+#~ msgid "Whether the screen reader is turned on."
+#~ msgstr "Om skjermlesaren er slått på."
+
+#~| msgid "Beep when _accessibility features are turned on or off"
+#~ msgid "Whether the slow keys keyboard accessibility feature is turned on."
+#~ msgstr "Om trege tastarfunksjonen er slått på."
+
+#~| msgid "Beep when _accessibility features are turned on or off"
+#~ msgid "Whether the sticky keys keyboard accessibility feature is turned on."
+#~ msgstr "Om seige tastarfunksjonen er slått på."
+
+#
+#~ msgid "Enable debugging code"
+#~ msgstr "Aktiver feilsøkingskode"
+
+#
+#~ msgid "Don't become a daemon"
+#~ msgstr "Ikkje køyr som ein nisse"
+
+#
+#~ msgid "GConf prefix from which to load plugin settings"
+#~ msgstr "GConf-prefiks for lasting av innstillingar for tillegg"
+
+#~ msgid "Exit after a time - for debugging"
+#~ msgstr "Avslutt etter ei tid - for feilsøkjing"
+
+#
+#~ msgid "Accessibility Keyboard"
+#~ msgstr "Tastatur for tilgjenge"
+
+#
+#~ msgid "Accessibility keyboard plugin"
+#~ msgstr "Tillegg for tastatur for tilgjenge"
+
+#, c-format
+#~ msgid "There was an error displaying help: %s"
+#~ msgstr "Ein feil oppstod når hjelpeteksten skulle visast: %s"
+
+#~ msgid "Do you want to activate Slow Keys?"
+#~ msgstr "Vil du slå på trege tastar?"
+
+#~ msgid "Do you want to deactivate Slow Keys?"
+#~ msgstr "Vil du slå av trege tastar?"
+
+#~ msgid ""
+#~ "You just held down the Shift key for 8 seconds.  This is the shortcut for "
+#~ "the Slow Keys feature, which affects the way your keyboard works."
+#~ msgstr ""
+#~ "Du heldt nede Shift-tasten i 8 sekund. Dette er snøggtasten for trege "
+#~ "tastar-funksjonen, som påverkar korleis tastaturet ditt virkar."
+
+#~| msgid "Do_n't activate"
+#~ msgid "Don't activate"
+#~ msgstr "Ikkje slå på"
+
+#~| msgid "Do_n't deactivate"
+#~ msgid "Don't deactivate"
+#~ msgstr "Ikkje slå av"
+
+#~| msgid "_Activate"
+#~ msgid "Activate"
+#~ msgstr "Slå på"
+
+#~| msgid "_Deactivate"
+#~ msgid "Deactivate"
+#~ msgstr "Slå av"
+
+#~ msgid "Do_n't activate"
+#~ msgstr "Ikk_je slå på"
+
+#~ msgid "Do_n't deactivate"
+#~ msgstr "Ikk_je slå av"
+
+#~ msgid "_Activate"
+#~ msgstr "Slå _på"
+
+#~ msgid "_Deactivate"
+#~ msgstr "Slå _av"
+
+#~ msgid "Slow Keys Alert"
+#~ msgstr "Varsel om trege tastar"
+
+#~ msgid "Do you want to activate Sticky Keys?"
+#~ msgstr "Vil du slå på seige tastar?"
+
+#~ msgid "Do you want to deactivate Sticky Keys?"
+#~ msgstr "Vil du slå av seige tastar?"
+
+#~ msgid ""
+#~ "You just pressed the Shift key 5 times in a row.  This is the shortcut "
+#~ "for the Sticky Keys feature, which affects the way your keyboard works."
+#~ msgstr ""
+#~ "Du trykte Shift fem gongar på rad. Det er snøggtasten til seige tastar-"
+#~ "eigenskapen, som påverkar korleis tastaturet ditt fungerer."
+
+#~ msgid ""
+#~ "You just pressed two keys at once, or pressed the Shift key 5 times in a "
+#~ "row.  This turns off the Sticky Keys feature, which affects the way your "
+#~ "keyboard works."
+#~ msgstr ""
+#~ "Du trykte to tastar på ein gong, eller trykte Shift fem gongar på rad. "
+#~ "Det slår av seige tastareigenskapen, som påverkar korleis tastaturet "
+#~ "fungerer."
+
+#~ msgid "Sticky Keys Alert"
+#~ msgstr "Varsel om seige tastar"
+
+#~| msgid "Appearance Preferences"
+#~ msgid "Universal Access Preferences"
+#~ msgstr "Universale tilgjengeval"
+
+#~ msgid "Enhance _contrast in colors"
+#~ msgstr "Auk _kontrastar i fargar"
+
+#~ msgid "Make _text larger and easier to read"
+#~ msgstr "Gjer _tekst større og lettare å lesa"
+
+#~ msgid "Press and _hold keys to accept them (Slow Keys)"
+#~ msgstr "Trykk og held tasten inne for å godta dei (trege tastar)"
+
+#~| msgid "GNOME OnScreen Keyboard"
+#~ msgid "Use on-screen _keyboard"
+#~ msgstr "Bruk tastatur på skjermen"
+
+#~ msgid "Use screen _magnifier"
+#~ msgstr "Bruk skjerm_forstørrar"
+
+#~| msgid "Linux Screen Reader"
+#~ msgid "Use screen _reader"
+#~ msgstr "Bruk skjerm_lesar"
+
+#~| msgid "_Ignore fast duplicate keypresses"
+#~ msgid "_Ignore duplicate keypresses (Bounce Keys)"
+#~ msgstr "_Ignorar dupliserte tastaturtrykk (sprettetastar)"
+
+#~ msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
+#~ msgstr "_Trykk inn tastatursnarvegar ein tast om gongen (seige tastar)"
+
+#
+#~ msgid "Background"
+#~ msgstr "Bakgrunn"
+
+#
+#~ msgid "Background plugin"
+#~ msgstr "Tillegg for bakgrunn"
+
+#
+#~ msgid "Clipboard"
+#~ msgstr "Utklippstavle"
+
+#
+#~ msgid "Clipboard plugin"
+#~ msgstr "Tillegg for utklippstavle"
+
+#
+#~ msgid "Dummy"
+#~ msgstr "Dummy"
+
+#
+#~ msgid "Dummy plugin"
+#~ msgstr "Dummy-tillegg"
+
+#
+#~ msgid "Font"
+#~ msgstr "Skrift"
+
+#
+#~ msgid "Font plugin"
+#~ msgstr "Tillegg for skrift"
+
+#~| msgid "Do _not show this warning again"
+#~ msgid "Don't show any warnings again for this filesystem"
+#~ msgstr "_Ikkje vis nokre varsel igjen for dette filsystemet"
+
+#~| msgid "Do _not show this warning again"
+#~ msgid "Don't show any warnings again"
+#~ msgstr "_Ikkje vis nokre varsel igjen"
+
+#~ msgid ""
+#~ "You can free up disk space by emptying the Trash, removing unused "
+#~ "programs or files, or moving files to another disk or partition."
+#~ msgstr ""
+#~ "Du kan frigjera diskplass ved å tømma papirkorga, fjerna ubrukte program "
+#~ "og filer, eller flytta filer til ei anna lagringseining eller partisjon."
+
+#~ msgid ""
+#~ "You can free up disk space by removing unused programs or files, or by "
+#~ "moving files to another disk or partition."
+#~ msgstr ""
+#~ "Du kan frigjera diskplass ved å fjerna ubrukte program og filer, eller "
+#~ "flytta filer til ei anna lagringseining eller partisjon."
+
+#~ msgid ""
+#~ "You can free up disk space by emptying the Trash, removing unused "
+#~ "programs or files, or moving files to an external disk."
+#~ msgstr ""
+#~ "Du kan frigjera diskplass ved å tømma papirkorga, fjerna ubrukte program "
+#~ "og filer, eller flytta filer til ei ekstern lagringseining."
+
+#~ msgid ""
+#~ "You can free up disk space by removing unused programs or files, or by "
+#~ "moving files to an external disk."
+#~ msgstr ""
+#~ "Du kan frigjera diskplass ved å fjerna ubrukte program og filer, eller "
+#~ "flytta filer til ei ekstern lagringseining."
+
+#, c-format
+#~| msgid "Copying file: %u of %u"
+#~ msgid "Removing item %lu of %lu"
+#~ msgstr "Fjernar oppføring %lu av %lu"
+
+#, c-format
+#~| msgid "<b>Open %s</b>"
+#~ msgid "<i>Removing: %s</i>"
+#~ msgstr "<i>Fjernar: %s</i>"
+
+#~ msgid "Emptying the trash"
+#~ msgstr "Tømmar papirkorga"
+
+#~ msgid "Preparing to empty trash..."
+#~ msgstr "Førebur tømming av papirkorg …"
+
+#~| msgid "From:"
+#~ msgid "From: "
+#~ msgstr "Frå: "
+
+#~ msgid "Empty all of the items from the trash?"
+#~ msgstr "Slett alle oppføringane i papirkorga?"
+
+#~ msgid ""
+#~ "If you choose to empty the trash, all items in it will be permanently "
+#~ "lost. Please note that you can also delete them separately."
+#~ msgstr ""
+#~ "Dersom du tømmar papirkorga, vert oppføringane sletta for godt. Legg "
+#~ "merke til at du kan velja kva for filer du vil sletta."
+
+#~ msgid "_Empty Trash"
+#~ msgstr "_Tøm papirkorg"
+
+#, c-format
+#~| msgid "Key Binding (%s) is invalid\n"
+#~ msgid "Key binding (%s) is invalid"
+#~ msgstr "Snøggtast «%s» er ikkje gyldig"
+
+#, c-format
+#~| msgid "Key Binding (%s) is incomplete\n"
+#~ msgid "Key binding (%s) is incomplete"
+#~ msgstr "Snøggtast «%s» er ufullstendig"
+
+#, c-format
+#~ msgid ""
+#~ "Error while trying to run (%s)\n"
+#~ "which is linked to the key (%s)"
+#~ msgstr ""
+#~ "Feil i freistnad på å køyra «%s»\n"
+#~ "som er bunde til tasten «%s»"
+
+#
+#~ msgid "Keybindings plugin"
+#~ msgstr "Tillegg for snøggtastar"
+
+#~ msgid "Keyboard"
+#~ msgstr "Tastatur"
+
+#
+#~ msgid "Keyboard plugin"
+#~ msgstr "Tillegg for tastatur"
+
+#, c-format
+#~ msgid ""
+#~ "Error activating XKB configuration.\n"
+#~ "It can happen under various circumstances:\n"
+#~ "- a bug in libxklavier library\n"
+#~ "- a bug in X server (xkbcomp, xmodmap utilities)\n"
+#~ "- X server with incompatible libxkbfile implementation\n"
+#~ "\n"
+#~ "X server version data:\n"
+#~ "%s\n"
+#~ "%d\n"
+#~ "%s\n"
+#~ "If you report this situation as a bug, please include:\n"
+#~ "- The result of <b>%s</b>\n"
+#~ "- The result of <b>%s</b>"
+#~ msgstr ""
+#~ "Feil under aktivering av XKB-oppsettet.\n"
+#~ "Dette kan skje i visse situasjonar:\n"
+#~ "- ein feil i libxklavier-biblioteket\n"
+#~ "- ein feil i X-tenaren (xkbcomp, xmodmap-verktøy)\n"
+#~ "- X-tenar med inkompatibel libxkbfile-implementasjon\n"
+#~ "\n"
+#~ "Versjonsinformasjon for X-tenaren:\n"
+#~ "%s\n"
+#~ "%d\n"
+#~ "%s\n"
+#~ "Dersom du sender inn ein feilrapport om dette, ta med:\n"
+#~ "- Resultatet av <b>%s</b>\n"
+#~ "- Resultatet av <b>%s</b>"
+
+#~ msgid ""
+#~ "You are using XFree 4.3.0.\n"
+#~ "There are known problems with complex XKB configurations.\n"
+#~ "Try using a simpler configuration or taking a fresher version of XFree "
+#~ "software."
+#~ msgstr ""
+#~ "Du brukar XFree 4.3.0.\n"
+#~ "Det er kjende problem med innfløkte XKB-oppsett.\n"
+#~ "Prøv å bruka eit enklare oppsett eller ein nyare versjon av XFree."
+
+#, c-format
+#~| msgid "Keyboard Layout Options"
+#~ msgid "Keyboard Layout \"%s\""
+#~ msgstr "Tastaturutforming «%s»"
+
+#~| msgid "Groups"
+#~ msgid "_Groups"
+#~ msgstr "_Grupper"
+
+#~ msgid "Show Current _Layout"
+#~ msgstr "Vis noverande _utforming"
+
+#~ msgid "A_vailable files:"
+#~ msgstr "_Tilgjengelege filer:"
+
+#~ msgid "Load modmap files"
+#~ msgstr "Last modmap-filer"
+
+#~ msgid "Would you like to load the modmap file(s)?"
+#~ msgstr "Vil du lasta modmap-filene?"
+
+#~ msgid "_Do not show this message again"
+#~ msgstr "_Ikkje vis denne meldinga igjen."
+
+#~ msgid "_Load"
+#~ msgstr "_Last"
+
+#~ msgid "_Loaded files:"
+#~ msgstr "_Lasta filer:"
+
+#
+#~ msgid ""
+#~ "Could not get default terminal. Verify that your default terminal command "
+#~ "is set and points to a valid application."
+#~ msgstr ""
+#~ "Klarte ikkje finna forvald terminal. Sjekk at kommando for forvald "
+#~ "terminal er sett og peikar til eit gyldig program."
+
+#, c-format
+#~ msgid ""
+#~ "Couldn't execute command: %s\n"
+#~ "Verify that this is a valid command."
+#~ msgstr ""
+#~ "Klarte ikkje køyra kommandoen: %s\n"
+#~ "Sjekk om dette er ein gyldig kommando."
+
+#~ msgid "System Sounds"
+#~ msgstr "Systemlydar"
+
+#
+#~ msgid "Media keys"
+#~ msgstr "Mediatastar"
+
+#
+#~ msgid "Media keys plugin"
+#~ msgstr "Tillegg for medietastar"
+
+#
+#~ msgid "Could not enable mouse accessibility features"
+#~ msgstr "Klarte ikkje aktivera tilgjengefunksjonar for mus"
+
+#~| msgid ""
+#~| "Mouse accessibility requires the mousetweaks daemon to be installed on "
+#~| "your system."
+#~ msgid ""
+#~ "Mouse accessibility requires mousetweaks to be installed on your system."
+#~ msgstr "Tilgjenge for mus krev at mousetweaks er installert på systemet."
+
+#~ msgid "Mouse Preferences"
+#~ msgstr "Eigenskapar for mus"
+
+#~ msgid "Mouse"
+#~ msgstr "Mus"
+
+#
+#~ msgid "Mouse plugin"
+#~ msgstr "Tillegg for mus"
+
+#~ msgid "Typing Break"
+#~ msgstr "Skrivepause"
+
+#
+#~ msgid "Typing break plugin"
+#~ msgstr "Tillegg for skrivepause"
+
+#
+#~ msgid "Set up screen size and rotation settings"
+#~ msgstr "Rediger innstillingar for skjermstørrelse og rotasjon"
+
+#
+#~ msgid "XRandR"
+#~ msgstr "XRandR"
+
+#~ msgid "Could not switch the monitor configuration"
+#~ msgstr "Klarte ikkje byta innstillingane til skjermen"
+
+#~ msgid "Could not restore the display's configuration"
+#~ msgstr "Klarte ikkje gjenoppretta innstillingane til skjermen"
+
+#~ msgid "Could not restore the display's configuration from a backup"
+#~ msgstr "Klarte ikkje gjenoppretta skjerminnstillingane frå ein reservekopi"
+
+#, c-format
+#~ msgid "The display will be reset to its previous configuration in %d second"
+#~ msgid_plural ""
+#~ "The display will be reset to its previous configuration in %d seconds"
+#~ msgstr[0] "Skjermen vil gjenoppretta tidlegare innstillingar om %d sekund"
+#~ msgstr[1] "Skjermen vil gjenoppretta tidlegare innstillingar om %d sekund"
+
+#~ msgid "Does the display look OK?"
+#~ msgstr "Ser skjermen grei ut?"
+
+#~| msgid "Proxy Configuration"
+#~ msgid "_Restore Previous Configuration"
+#~ msgstr "_Gjenopprett tidlegare innstiingar"
+
+#~| msgid "Advanced Configuration"
+#~ msgid "_Keep This Configuration"
+#~ msgstr "_Held fast ved desse innstillingane"
+
+#, c-format
+#~ msgid "Could not refresh the screen information: %s"
+#~ msgstr "Klarte ikkje oppfriska skjerminformasjonen: %s"
+
+#~ msgid "Trying to switch the monitor configuration anyway."
+#~ msgstr "Prøver å byta skjerminnstillingar likevel."
+
+#~| msgid "Error saving configuration: %s"
+#~ msgid "Could not save monitor configuration"
+#~ msgstr "Klarte ikkje lagra av skjerminnstillingar"
+
+#
+#~ msgid "Normal"
+#~ msgstr "Normal"
+
+#
+#~ msgid "Left"
+#~ msgstr "Venstre"
+
+#
+#~ msgid "Right"
+#~ msgstr "Høgre:"
+
+#~ msgid "Upside Down"
+#~ msgstr "Opp-ned"
+
+#~ msgid "_Configure Display Settings ..."
+#~ msgstr "_Still inn skjermen …"
+
+#~ msgid "Configure display settings"
+#~ msgstr "Still inn skjermen"
+
+#~ msgid "Could not apply the stored configuration for monitors"
+#~ msgstr "Klarte ikkje å bruka dei lagra innstillingane for skjermar"
+
+#~ msgid "Cannot determine user's home directory"
+#~ msgstr "Klarte ikkje avgjera heimekatalogen til brukaren"
+
+#
+#~ msgid "Manage the X resource database"
+#~ msgstr "Handter X-ressursdatabasen"
+
+#
+#~ msgid "X Resource Database"
+#~ msgstr "X-ressursdatabase"
+
+#, c-format
+#~ msgid "GConf key %s set to type %s but its expected type was %s\n"
+#~ msgstr ""
+#~ "GConf-nøkkelen «%s» er sett til type «%s», men den venta typen er «%s»\n"
+
+#
+#~ msgid "Manage X Settings"
+#~ msgstr "Handter innstillingar for X"
 
 #
 #~ msgid ""
@@ -1583,9 +4096,6 @@ msgstr "Innstillingar for X"
 #~ msgid "The type of alert"
 #~ msgstr "Typen varsel"
 
-#~ msgid "Alert Buttons"
-#~ msgstr "Varselknappar"
-
 #~ msgid "The buttons shown in the alert dialog"
 #~ msgstr "Knappane som visast i varseldialogen"
 
@@ -1691,9 +4201,6 @@ msgstr "Innstillingar for X"
 
 #~ msgid "Cou_ntry:"
 #~ msgstr "La_nd:"
-
-#~ msgid "Current _password:"
-#~ msgstr "Gamalt _passord:"
 
 #~ msgid "Full Name"
 #~ msgstr "Fullt namn"
@@ -1991,9 +4498,6 @@ msgstr "Innstillingar for X"
 #~ msgid "Del_ay:"
 #~ msgstr "_Pause:"
 
-#~ msgid "Delay between keypress and pointer mo_vement:"
-#~ msgstr "Pause mellom tastetrykk og _musrørsle:"
-
 #~ msgid "Disa_ble if two keys pressed together"
 #~ msgstr "Slå av dersom to tastar vert try_kte ned samstundes"
 
@@ -2206,9 +4710,6 @@ msgstr "Innstillingar for X"
 #~ msgid "Best _shapes"
 #~ msgstr "Best _fasong"
 
-#~ msgid "Best co_ntrast"
-#~ msgstr "Best ko_ntrast"
-
 #
 #~ msgid "C_ustomize..."
 #~ msgstr "Til_pass..."
@@ -2233,10 +4734,6 @@ msgstr "Innstillingar for X"
 #
 #~ msgid "Changing your cursor theme takes effect the next time you log in."
 #~ msgstr "Endringar i drakt for markør trer i kraft neste gong du logger inn."
-
-#
-#~ msgid "Colors"
-#~ msgstr "Fargar"
 
 # TRN: Altså, den delen av vindauget som er sjølve programmet.
 #~ msgid "Controls"
@@ -2287,10 +4784,6 @@ msgstr "Innstillingar for X"
 
 #~ msgid "Open a dialog to specify the color"
 #~ msgstr "Opne ein dialog for å oppgje fargen"
-
-#
-#~ msgid "Pointer"
-#~ msgstr "Peikar"
 
 #~ msgid "R_esolution:"
 #~ msgstr "_Oppløysing:"
@@ -2362,9 +4855,6 @@ msgstr "Innstillingar for X"
 
 #~ msgid "_Add..."
 #~ msgstr "_Legg til ..."
-
-#~ msgid "_Application font:"
-#~ msgstr "Skrift som progr_amma skal bruka:"
 
 #~ msgid "_BGR"
 #~ msgstr "_BGR"
@@ -2511,10 +5001,6 @@ msgstr "Innstillingar for X"
 #~ msgstr "Verktøyet %s er ikkje installert."
 
 #
-#~ msgid "There was a problem while extracting the theme."
-#~ msgstr "Det oppsto eit problem under utpakking av drakt."
-
-#
 #~ msgid "There was an error installing the selected file"
 #~ msgstr "Det oppsto ein feil under installering av vald fil"
 
@@ -2525,8 +5011,8 @@ msgstr "Innstillingar for X"
 #~ "\"%s\" does not appear to be a valid theme. It may be a theme engine "
 #~ "which you need to compile."
 #~ msgstr ""
-#~ "«%s» ser ikkje ut til å vera eit gyldig drakt. Det kan vera ein draktmotor "
-#~ "som du må kompilere."
+#~ "«%s» ser ikkje ut til å vera eit gyldig drakt. Det kan vera ein "
+#~ "draktmotor som du må kompilere."
 
 #~ msgid "GNOME Theme %s correctly installed"
 #~ msgstr "GNOME-drakta %s installert"
@@ -2645,9 +5131,6 @@ msgstr "Innstillingar for X"
 #~ msgid "URI currently transferring to"
 #~ msgstr "URI overføringa går til"
 
-#~ msgid "Fraction completed"
-#~ msgstr "Del som er ferdig"
-
 #~ msgid "Fraction of transfer currently completed"
 #~ msgstr "Kor stor del av overføringa som er ferdig"
 
@@ -2755,9 +5238,6 @@ msgstr "Innstillingar for X"
 #~ msgid "Please select an image."
 #~ msgstr "Vel eit bilete."
 
-#~ msgid "_Select"
-#~ msgstr "_Vel"
-
 #~ msgid "Default Pointer - Current"
 #~ msgstr "Forvald peikar – noverande"
 
@@ -2836,10 +5316,6 @@ msgstr "Innstillingar for X"
 
 #~ msgid "All %s occurrences will be replaced with actual link"
 #~ msgstr "Alle tilfella av «%s» vil bytast ut med ei lenkje"
-
-#
-#~ msgid "C_ommand:"
-#~ msgstr "K_ommando:"
 
 #~ msgid "Co_mmand:"
 #~ msgstr "Ko_mmando:"
@@ -3060,9 +5536,6 @@ msgstr "Innstillingar for X"
 #~ msgid "R_otation:"
 #~ msgstr "R_otering:"
 
-#~ msgid "Default Settings"
-#~ msgstr "Standardinnstillingar"
-
 #~ msgid "Screen %d Settings\n"
 #~ msgstr "Innstillingar for skjerm %d\n"
 
@@ -3132,9 +5605,6 @@ msgstr "Innstillingar for X"
 #~ msgid "Accelerator keycode"
 #~ msgstr "Tastekodar for snøggtastar"
 
-#~ msgid "Accel Mode"
-#~ msgstr "Snøggtastmodus"
-
 #~ msgid "The type of accelerator."
 #~ msgstr "Typen snøggtast."
 
@@ -3166,12 +5636,6 @@ msgstr "Innstillingar for X"
 
 #~ msgid "Action"
 #~ msgstr "Handling"
-
-#~ msgid "Shortcut"
-#~ msgstr "Snarveg"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Snøggtastar"
 
 #~ msgid ""
 #~ "To edit a shortcut key, click on the corresponding row and type a new "
@@ -3395,9 +5859,6 @@ msgstr "Innstillingar for X"
 #~ msgid "gtk-help"
 #~ msgstr "gtk-help"
 
-#~ msgid "minutes"
-#~ msgstr "minutt"
-
 #~ msgid "Default"
 #~ msgstr "Forvald"
 
@@ -3429,10 +5890,6 @@ msgstr "Innstillingar for X"
 #~ "<i>Endringar i region og språk trer i kraft neste gong du logger inn.</i>"
 
 #
-#~ msgid "Localization Preferences"
-#~ msgstr "Innstillingar for lokalisering"
-
-#
 #~ msgid "Region:"
 #~ msgstr "Region:"
 
@@ -3445,14 +5902,8 @@ msgstr "Innstillingar for X"
 #~ msgstr[0] "%d millisekund"
 #~ msgstr[1] "%d millisekund"
 
-#~ msgid "<b>Double-Click Timeout </b>"
-#~ msgstr "<b>Tidsgrense for dobbeltklikk</b>"
-
 #~ msgid "<b>Drag and Drop</b>"
 #~ msgstr "<b>Dra og slepp</b>"
-
-#~ msgid "<b>Mouse Orientation</b>"
-#~ msgstr "<b>Orientering av musa</b>"
 
 #~ msgid "<b>Speed</b>"
 #~ msgstr "<b>Fart</b>"
@@ -3491,9 +5942,6 @@ msgstr "Innstillingar for X"
 #~ msgid "_Sensitivity:"
 #~ msgstr "_Varleik:"
 
-#~ msgid "_Threshold:"
-#~ msgstr "_Dørstokk:"
-
 #~ msgid "_Timeout:"
 #~ msgstr "_Tidsgrense:"
 
@@ -3521,9 +5969,6 @@ msgstr "Innstillingar for X"
 
 #~ msgid "<b>_Manual proxy configuration</b>"
 #~ msgstr "<b>_Manuelt oppsett av mellomtenar</b>"
-
-#~ msgid "<b>_Use authentication</b>"
-#~ msgstr "<b>Br_uk autentisering</b>"
 
 #~ msgid "Autoconfiguration _URL:"
 #~ msgstr "_URL med automatisk oppsett:"
@@ -3570,9 +6015,6 @@ msgstr "Innstillingar for X"
 
 #~ msgid "Failed to construct test pipeline for '%s'"
 #~ msgstr "Kunne ikkje laga testrør for «%s»"
-
-#~ msgid "Not connected"
-#~ msgstr "Ikkje tilkopla"
 
 #
 #~ msgid "Autodetect"
@@ -3916,7 +6358,8 @@ msgstr "Innstillingar for X"
 #~ msgstr "Fjern frå systemoppføringar"
 
 #~ msgid "Window manager \"%s\" has not registered a configuration tool\n"
-#~ msgstr "Windaugshandsamaren «%s» har ikkje registrert noko oppsettsverktøy\n"
+#~ msgstr ""
+#~ "Windaugshandsamaren «%s» har ikkje registrert noko oppsettsverktøy\n"
 
 #~ msgid "Maximize"
 #~ msgstr "Maksimer"
@@ -3959,10 +6402,6 @@ msgstr "Innstillingar for X"
 
 #~ msgid "Log out's shortcut."
 #~ msgstr "Snøggtast som loggar ut."
-
-#
-#~ msgid "Media player key's shortcut."
-#~ msgstr "Snarveg for medieavspelertast."
 
 #~ msgid "Next track key's shortcut."
 #~ msgstr "Snøggtast som går til neste spor."
@@ -4083,8 +6522,9 @@ msgstr "Innstillingar for X"
 
 #
 #~ msgid ""
-#~ "[Change Theme;gtk-theme-selector.desktop,Set Preferred Applications;"
-#~ "default-applications.desktop,Add Printer;gnome-cups-manager.desktop]"
+#~ "[Change Theme;gtk-theme-selector.desktop,Set Preferred "
+#~ "Applications;default-applications.desktop,Add Printer;gnome-cups-"
+#~ "manager.desktop]"
 #~ msgstr ""
 #~ "[Endra drakt;gtk-theme-selector.desktop,Vel forvalgte program;default-"
 #~ "applications.desktop,Legg til skrivar;gnome-cups-manager.desktop]"
@@ -4095,9 +6535,6 @@ msgstr "Innstillingar for X"
 #~ msgstr ""
 #~ "viss sann, vil kontrollsenteret avsluttast når ein \"Vanleg oppgave\" er "
 #~ "aktivert"
-
-#~ msgid "The GNOME configuration tool"
-#~ msgstr "Oppsettsverktøy for GNOME"
 
 #
 #~ msgid "_Postpone Break"
@@ -4231,9 +6668,6 @@ msgstr "Innstillingar for X"
 #~ msgid "The quick brown fox jumps over the lazy dog. 0123456789"
 #~ msgstr "abcdefghijklmnopqrstuvwxyzæøå 1234567890"
 
-#~ msgid "Name:"
-#~ msgstr "Namn:"
-
 #~ msgid "Style:"
 #~ msgstr "Stil:"
 
@@ -4365,9 +6799,6 @@ msgstr "Innstillingar for X"
 #~ msgid " "
 #~ msgstr " "
 
-#~ msgid "<b>Applications</b>"
-#~ msgstr "<b>Program</b>"
-
 #~ msgid "Start these assistive technologies every time you log in:"
 #~ msgstr "Start desse hjelpefunksjonane kvar gong du loggar inn"
 
@@ -4377,10 +6808,10 @@ msgstr "Innstillingar for X"
 #~ "'orca' package must be installed for screenreading and magnifying "
 #~ "capabilities."
 #~ msgstr ""
-#~ "Hjelpefunksjonane er ikkje tilgjengelege på systemet ditt. Pakken «gok» må "
-#~ "vera installert for at du skal ha tastatur på skjermen, og pakken «orca» "
-#~ "må vera installert dersom du vil ha skjermlesing og høve til å forstørra "
-#~ "skjermen."
+#~ "Hjelpefunksjonane er ikkje tilgjengelege på systemet ditt. Pakken «gok» "
+#~ "må vera installert for at du skal ha tastatur på skjermen, og pakken "
+#~ "«orca» må vera installert dersom du vil ha skjermlesing og høve til å "
+#~ "forstørra skjermen."
 
 #~ msgid ""
 #~ "Not all available assistive technologies are installed on your system.  "
@@ -4395,8 +6826,8 @@ msgstr "Innstillingar for X"
 #~ "The 'orca' package must be installed for screenreading and magnifying "
 #~ "capabilities."
 #~ msgstr ""
-#~ "Du manglar nokon hjelpefunksjonar. Pakken «orca» må vera installert dersom "
-#~ "du vil ha skjermlesing og forstørring av skjermen."
+#~ "Du manglar nokon hjelpefunksjonar. Pakken «orca» må vera installert "
+#~ "dersom du vil ha skjermlesing og forstørring av skjermen."
 
 #~ msgid "*"
 #~ msgstr "*"
@@ -4506,10 +6937,6 @@ msgstr "Innstillingar for X"
 #~ msgid "Large version of white pointer"
 #~ msgstr "Stor variant av den kvite peikaren"
 
-# TRN: Dette er drakta i arbeidsflata, altså GTK-delen av programmet.
-#~ msgid "Pointer Theme"
-#~ msgstr "Drakta for peikaren"
-
 #~ msgid "<b>Locate Pointer</b>"
 #~ msgstr "<p>Finn peikar</b>"
 
@@ -4518,9 +6945,6 @@ msgstr "Innstillingar for X"
 
 #~ msgid "Medium"
 #~ msgstr "Middels"
-
-#~ msgid "Pointer Size:"
-#~ msgstr "Storleik på peikaren:"
 
 #~ msgid "Sound & Video Preferences"
 #~ msgstr "Eigenskapar for lyd og video"
