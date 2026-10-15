@@ -71,10 +71,6 @@
 #define GSD_MEDIA_KEYS_DBUS_PATH GSD_DBUS_PATH "/MediaKeys"
 #define GSD_MEDIA_KEYS_DBUS_NAME GSD_DBUS_NAME ".MediaKeys"
 
-#define GNOME_KEYRING_DBUS_NAME "org.gnome.keyring"
-#define GNOME_KEYRING_DBUS_PATH "/org/gnome/keyring/daemon"
-#define GNOME_KEYRING_DBUS_INTERFACE "org.gnome.keyring.Daemon"
-
 #define SHELL_DBUS_NAME "org.gnome.Shell"
 #define SHELL_DBUS_PATH "/org/gnome/Shell"
 
@@ -291,54 +287,6 @@ grab_ungrab_data_free (GrabUngrabData *data)
 }
 
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GrabUngrabData, grab_ungrab_data_free)
-
-static void
-set_launch_context_env (GsdMediaKeysManager *manager,
-			GAppLaunchContext   *launch_context)
-{
-        GDBusConnection *connection = g_application_get_dbus_connection (G_APPLICATION (manager));
-	GError *error = NULL;
-	GVariant *variant, *item;
-	GVariantIter *iter;
-
-	variant = g_dbus_connection_call_sync (connection,
-					       GNOME_KEYRING_DBUS_NAME,
-					       GNOME_KEYRING_DBUS_PATH,
-					       GNOME_KEYRING_DBUS_INTERFACE,
-					       "GetEnvironment",
-					       NULL,
-					       NULL,
-					       G_DBUS_CALL_FLAGS_NONE,
-					       -1,
-					       NULL,
-					       &error);
-	if (variant == NULL) {
-		g_warning ("Failed to call GetEnvironment on keyring daemon: %s", error->message);
-		g_error_free (error);
-		return;
-	}
-
-	g_variant_get (variant, "(a{ss})", &iter);
-
-	while ((item = g_variant_iter_next_value (iter))) {
-		char *key;
-		char *value;
-
-		g_variant_get (item,
-			       "{ss}",
-			       &key,
-			       &value);
-
-		g_app_launch_context_setenv (launch_context, key, value);
-
-		g_variant_unref (item);
-		g_free (key);
-		g_free (value);
-	}
-
-	g_variant_iter_free (iter);
-	g_variant_unref (variant);
-}
 
 static char *
 get_key_string (MediaKey *key)
@@ -1005,7 +953,6 @@ launch_app (GsdMediaKeysManager *manager,
 
         /* setup the launch context so the startup notification is correct */
         launch_context = g_app_launch_context_new ();
-        set_launch_context_env (manager, launch_context);
 
         g_signal_connect_object (launch_context,
                                  "launched",
