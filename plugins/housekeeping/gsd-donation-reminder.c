@@ -325,53 +325,21 @@ check_download_cb (GsdDonationReminder *reminders)
 }
 
 static char *
-get_os_release_variable (GBytes     *bytes,
-                         const char *var_name)
-{
-        g_autofree char *initial_match = NULL, *substr_match = NULL;
-        size_t len, start_pos, end_pos;
-        const char *content, *ptr;
-
-        content = g_bytes_get_data (bytes, &len);
-
-        initial_match = g_strconcat (var_name, "=", NULL);
-        substr_match = g_strconcat ("\n", var_name, "=", NULL);
-
-        if (len > strlen (initial_match) &&
-            memcmp (content, initial_match, strlen (initial_match)) == 0) {
-                start_pos = strlen (initial_match) + 1;
-        } else {
-                if ((ptr = memmem (content, len, substr_match, strlen (substr_match))) == NULL)
-                        return NULL;
-
-                start_pos = ptr - content + strlen (initial_match) + 1;
-        }
-
-        g_assert (start_pos <= len);
-        ptr = memmem (&content[start_pos], len - start_pos, "\n", strlen ("\n"));
-        end_pos = ptr ? ptr - content : len;
-        g_assert (end_pos <= len);
-
-        return g_strndup (&content[start_pos], end_pos - start_pos);
-}
-
-static char *
 get_distro_id (void)
 {
-        g_autoptr (GMappedFile) os_release = NULL;
-        g_autoptr (GBytes) bytes = NULL;
-        g_autofree char *id = NULL, *version_id = NULL;
+        g_autofree char *id = NULL, *version = NULL;
 
-        os_release = g_mapped_file_new ("/etc/os-release", FALSE, NULL);
-        if (!os_release)
+        id = g_get_os_info (G_OS_INFO_KEY_ID);
+        if (!id)
                 return NULL;
 
-        bytes = g_mapped_file_get_bytes (os_release);
+        version = g_get_os_info (G_OS_INFO_KEY_VERSION_ID);
+        if (!version)
+                version = g_get_os_info ("IMAGE_VERSION");
+        if (!version)
+                return g_steal_pointer (&id);
 
-        id = get_os_release_variable (bytes, "ID");
-        version_id = get_os_release_variable (bytes, "VERSION_ID");
-
-        return g_strconcat (id, "-", version_id, NULL);
+        return g_strconcat (id, "-", version, NULL);
 }
 
 void
