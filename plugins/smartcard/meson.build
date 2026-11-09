@@ -33,7 +33,6 @@ sources += gnome.gdbus_codegen(
 
 deps = plugins_deps + [
   gio_unix_dep,
-  libnotify_dep,
   smartcard_deps
 ]
 

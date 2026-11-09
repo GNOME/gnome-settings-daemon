@@ -6,7 +6,6 @@ sources += main_helper_sources
 
 deps = plugins_deps + [
   gio_unix_dep,
-  libnotify_dep,
 ]
 
 if enable_systemd
