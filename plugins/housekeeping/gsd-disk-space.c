@@ -654,7 +654,6 @@ ldsm_notify (const char *summary,
         notify_notification_set_app_name (notification, _("Disk Space"));
         notify_notification_set_hint (notification, "transient", g_variant_new_boolean (TRUE));
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_CRITICAL);
-        notify_notification_set_timeout (notification, NOTIFY_EXPIRES_DEFAULT);
         notify_notification_set_hint (notification, "image-path", g_variant_new_string ("drive-harddisk-symbolic"));
 
         if (disk_analyzer_app) {

@@ -105,7 +105,6 @@ notify_oom_kill (char *unit)
         notify_notification_set_hint (notification, "image-path", g_variant_new_string ("dialog-warning-symbolic"));
         notify_notification_set_hint (notification, "transient", g_variant_new_boolean (TRUE));
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_CRITICAL);
-        notify_notification_set_timeout (notification, NOTIFY_EXPIRES_DEFAULT);
 
         notify_notification_show (notification, NULL);
         g_object_unref (notification);

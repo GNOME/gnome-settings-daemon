@@ -132,7 +132,6 @@ show_notification (GsdDonationReminder *reminders)
 
         notify_notification_set_app_name (reminders->notification, _("GNOME"));
         notify_notification_set_urgency (reminders->notification, NOTIFY_URGENCY_NORMAL);
-        notify_notification_set_timeout (reminders->notification, NOTIFY_EXPIRES_DEFAULT);
         notify_notification_set_hint_string (reminders->notification, "desktop-entry", "gnome-about-panel");
 
         notify_notification_add_action (reminders->notification,
